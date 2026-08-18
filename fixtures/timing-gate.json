@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "id": "timing-gate",
+  "command": "node",
+  "args": ["timing-gate.mjs"],
+  "startupTimeoutMs": 1000,
+  "stepTimeoutMs": 30,
+  "exitGraceMs": 20,
+  "episodeTimeoutMs": 1500,
+  "observation": { "volatilePatterns": ["\\d+ms"] },
+  "allowedKeys": ["c", "f", "r"]
+}

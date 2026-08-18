@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "id": "text-quest",
+  "command": "node",
+  "args": ["text-quest.mjs"],
+  "startupTimeoutMs": 1000,
+  "stepTimeoutMs": 30,
+  "exitGraceMs": 20,
+  "episodeTimeoutMs": 1500,
+  "allowedKeys": ["look\r", "take key\r", "inventory\r", "north\r", "open door\r", "dance\r"]
+}

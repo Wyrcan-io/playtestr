@@ -8,6 +8,7 @@ import { ActionCorpus, loadCorpus } from './corpus.js';
 import { exploreTarget } from './explorer.js';
 import { minimizeFindingReplay } from './finding-minimize.js';
 import { loadManifest } from './manifest.js';
+import { autonomousPlaytest } from './orchestrator.js';
 import { parseReplay } from './replay.js';
 import { reproduceFinding } from './reproduce.js';
 import { PlaytestRunner } from './runner.js';
@@ -45,6 +46,9 @@ Usage:
                     [--corpus artifacts/corpus.json] [--artifacts artifacts/explore] --trust-target
   playtestr benchmark --manifest game.json [--episodes 25] [--max-actions 12]
                       [--seed 42] [--artifacts artifacts/benchmark] --trust-target
+  playtestr autonomy --manifest game.json [--episodes 30] [--max-actions 12]
+                     [--total-actions 360] [--stop-on-completion] [--stop-on-hidden]
+                     [--artifacts artifacts/autonomy] --trust-target
 
 --trust-target acknowledges that local targets run with your user permissions and are not sandboxed.
 `);
@@ -53,7 +57,7 @@ Usage:
 async function main(signal: AbortSignal): Promise<number> {
 const args = process.argv.slice(2);
 const command = args[0];
-if (!['run', 'minimize', 'verify', 'explore', 'benchmark'].includes(command ?? '')) {
+if (!['run', 'minimize', 'verify', 'explore', 'benchmark', 'autonomy'].includes(command ?? '')) {
   help();
   return args.length ? 1 : 0;
 } else if (command === 'run') {
@@ -168,7 +172,7 @@ if (!['run', 'minimize', 'verify', 'explore', 'benchmark'].includes(command ?? '
   if (artifactRoot && last) await writeRunArtifacts(last, artifactRoot, { maxBytes: manifest.maxArtifactBytes, report: { exploration: { ...result, corpus: result.corpus.entries }, lastReport: last } });
   console.log(`EXPLORED ${manifest.id}: episodes=${result.episodes} actions=${result.actionCount} states=${result.uniqueStates} stop=${result.stopReason}`);
   return result.stopReason === 'cancelled' ? 130 : 0;
-} else {
+} else if (command === 'benchmark') {
   if (!args.includes('--trust-target')) throw new Error('Local execution requires --trust-target; the PTY backend is not a sandbox');
   const manifestPath = valueAfter(args, '--manifest');
   if (!manifestPath) throw new Error('benchmark requires --manifest <file>');
@@ -187,6 +191,30 @@ if (!['run', 'minimize', 'verify', 'explore', 'benchmark'].includes(command ?? '
     await writeArtifactBundle(artifactRoot, { 'benchmark.json': `${JSON.stringify(result, null, 2)}\n` }, manifest.maxArtifactBytes);
   }
   return signal.aborted ? 130 : 0;
+} else {
+  if (!args.includes('--trust-target')) throw new Error('Local execution requires --trust-target; the PTY backend is not a sandbox');
+  const manifestPath = valueAfter(args, '--manifest');
+  if (!manifestPath) throw new Error('autonomy requires --manifest <file>');
+  const manifest = await loadManifest(manifestPath);
+  const result = await autonomousPlaytest(manifest, {
+    episodes: integerAfter(args, '--episodes'),
+    maxActionsPerEpisode: integerAfter(args, '--max-actions'),
+    maxTotalActions: integerAfter(args, '--total-actions'),
+    maxElapsedMs: integerAfter(args, '--max-ms'),
+    seed: integerAfter(args, '--seed', Number.MIN_SAFE_INTEGER),
+    stopOnCompletion: args.includes('--stop-on-completion'),
+    stopOnHidden: args.includes('--stop-on-hidden'),
+    signal,
+  });
+  const artifactRoot = valueAfter(args, '--artifacts');
+  if (artifactRoot) {
+    await writeArtifactBundle(artifactRoot, { 'autonomy.json': `${JSON.stringify(result, null, 2)}\n` }, manifest.maxArtifactBytes);
+  }
+  console.log(`AUTONOMY ${manifest.id}: episodes=${result.episodes} actions=${result.actionCount} states=${result.world.states.length} mechanics=${result.world.mechanics.length} milestones=${result.world.milestones.length} stop=${result.stopReason}`);
+  for (const contribution of result.contributions.filter(item => item.selectedEpisodes > 0)) {
+    console.log(`${contribution.role}: episodes=${contribution.selectedEpisodes} states=${contribution.newStates} mechanics=${contribution.newMechanics} milestones=${contribution.newMilestones}`);
+  }
+  return result.stopReason === 'cancelled' ? 130 : result.stopReason === 'runner-error' ? 1 : 0;
 }
 }
 

@@ -2,19 +2,23 @@
 
 ## Boundaries
 
-Playtestr core owns target contracts, execution backends, terminal observations, search, oracles, replay, and evidence. Gamr owns games and game-specific semantics. An adapter may depend on both; neither core repository depends on the other.
+Playtestr core owns target contracts, execution backends, terminal observations, deterministic semantics, world modeling, agent orchestration, evaluation, oracles, replay, and evidence. Gamr owns games and game-specific semantics. Gamr exports a structural adapter contract; Playtestr does not import Gamr.
 
 ```text
-gamr <---- @wyrcan/gamr-playtest ----> playtestr
-  ^                                      ^
-  |                                      |
-games and runtime                 generic test engine
+gamr/playtestr-adapter  ----structural protocol---->  playtestr
+          ^                                             ^
+          |                                             |
+ games, milestones, CLI                    generic autonomous engine
 ```
 
 ## Layers
 
 ```text
 CLI / library API
+      |
+multi-agent orchestrator ---- evaluation ---- world model
+      |                                          |
+semantic analyzer ---- target adapter ---- objectives/milestones
       |
 episode runner ---- budgets ---- lifecycle outcome
       |
@@ -53,9 +57,17 @@ An exact fingerprint includes normalized screen, terminal mode, viewport, and cu
 
 Observable novelty is a search signal only. Mechanic coverage requires an adapter-declared mechanic/event or an explicit black-box oracle.
 
+## Intelligent autonomy
+
+The semantic analyzer converts each rendered observation into stable facts: options, action hints, counters, prompts, and tags. The world model retains shortest state prefixes, directed transitions, mechanic hypotheses, adapter milestones, completion evidence, hidden evidence, and objective status.
+
+Agents read an immutable world snapshot and return bounded proposals. They cannot launch processes, write files, call networks, or declare findings. The orchestrator deterministically scores proposals, runs the selected replay through the normal episode runner, and attributes only newly observed evidence to the selected agent.
+
+Provider integrations may implement semantic or proposal interfaces later. Provider text is advisory and cannot replace terminal evidence, adapter detectors, replay verification, or executable oracles.
+
 ## Adapter model
 
-Adapters use a reset/step/close environment contract with separate `terminated` and `truncated` values. They may provide legal actions, semantic observations, events, goals, invariants, checkpoints, and stable hashes. Adapter errors are infrastructure findings, never game findings.
+Adapters may provide legal actions, bootstrap actions, semantic tags, mechanic evidence, milestones, goals, completion, hidden-feature, failure, and recovery signals. The protocol is structurally typed so an adapter package does not require Playtestr at runtime. Adapter errors are infrastructure findings, never game findings.
 
 ## Schema policy
 
