@@ -1,12 +1,12 @@
-export { loadManifest, commandWithSeed } from './manifest.js';
+export { loadManifest, commandWithSeed, createTargetEnvironment } from './manifest.js';
 export { PlaytestRunner } from './runner.js';
 export { PtyTerminalSession, encodeKey } from './terminal.js';
-export { baselinePolicy, explorationPolicy, scriptedPolicy } from './agents.js';
+export { actionDiversityPolicy, baselinePolicy, explorationPolicy, scriptedPolicy } from './agents.js';
 export { ActionCorpus } from './corpus.js';
 export { fingerprintObservation, normalizeScreenText } from './observations.js';
 export { minimizeSequence } from './minimize.js';
 export type { MinimizeOptions, MinimizeResult } from './minimize.js';
-export { replayJson } from './replay.js';
+export { parseReplay, replayJson } from './replay.js';
 export type {
   ActionPolicy,
   ActionPolicyContext,
@@ -17,7 +17,10 @@ export type {
   ReplayV1,
   RunOptions,
   RunReport,
+  RunTermination,
+  RunTerminationKind,
   TargetManifest,
   TerminalObservation,
   TerminalSession,
+  TerminalSessionDiagnostics,
 } from './types.js';

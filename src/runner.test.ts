@@ -3,7 +3,7 @@ import { encodeKey } from './terminal.js';
 import { createReplay } from './replay.js';
 import type { TargetManifest } from './types.js';
 
-const manifest: TargetManifest = { id: 'fixture', command: 'node', args: ['fixture.mjs'] };
+const manifest: TargetManifest = { schemaVersion: 1, id: 'fixture', command: 'node', args: ['fixture.mjs'] };
 
 describe('playtestr primitives', () => {
   it('encodes terminal keys', () => {

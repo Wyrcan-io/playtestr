@@ -11,7 +11,7 @@ npm test
 npm run build
 ```
 
-If the change affects PTY behavior, include a fixture or integration test. If it affects reports or replays, update the schema version or document why compatibility is preserved.
+If the change affects PTY behavior, include a fixture or integration test and run `npm run soak` on the affected platform. If it affects reports or replays, update the schema version or document why compatibility is preserved.
 
 ## Pull requests
 

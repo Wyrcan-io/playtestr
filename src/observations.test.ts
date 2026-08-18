@@ -21,4 +21,12 @@ describe('observation fingerprints', () => {
     expect(first.structural).toBe(second.structural);
     expect(first.exact).not.toBe(second.exact);
   });
+
+  it('masks explicitly declared volatile screen regions', () => {
+    const first = fingerprintObservation(observation('TIME 10\nSCORE 4'), { volatilePatterns: ['TIME \\d+'] });
+    const second = fingerprintObservation(observation('TIME 11\nSCORE 4'), { volatilePatterns: ['TIME \\d+'] });
+    const scoreChange = fingerprintObservation(observation('TIME 11\nSCORE 5'), { volatilePatterns: ['TIME \\d+'] });
+    expect(first.structural).toBe(second.structural);
+    expect(second.structural).not.toBe(scoreChange.structural);
+  });
 });

@@ -1,300 +1,264 @@
 # Playtestr implementation plan
 
-Status: active implementation roadmap
+Status: pre-alpha. This plan is a release contract, not a feature wishlist.
 
-Playtestr is a standalone product for autonomous black-box testing of terminal games. Gamr remains the game runtime and anthology. The repositories share concepts and optional adapters, but Playtestr core must not import Gamr.
+## Decision
 
-## Product promise
+Gamr and Playtestr remain separate repositories and products.
 
-Playtestr will find reproducible failures, unexplored interaction paths, and objective-specific gameplay evidence in terminal programs. It will not claim that a black-box agent has proven a game bug-free, discovered every secret, or measured fun without human calibration.
+- `gamr`: games, game runtime, catalog, and game-specific regression tests.
+- `playtestr`: game-independent execution, exploration, oracles, replay, and evidence.
+- Future `@wyrcan/gamr-playtest`: optional adapters that expose Gamr mechanics to Playtestr.
 
-The product has four evidence levels:
+Playtestr core must never import Gamr. A terminal game must remain testable without an adapter.
 
-1. **Observed** — a screen, process event, or action transition was recorded.
-2. **Reproduced** — the same replay reaches the same observation or failure again.
-3. **Confirmed** — an executable oracle or adapter invariant proves the finding.
-4. **Human-reviewed** — a person judged the behavior, usability, balance, or fun.
+## Product thesis
 
-Reports must distinguish these levels.
+An autonomous bot is not a playtester unless it can say what it tested, why a result is suspicious, and how to reproduce it. Playtestr therefore develops in this order:
 
-## Current baseline
+1. trustworthy execution and evidence;
+2. reproducible failure detection;
+3. coverage-guided black-box exploration;
+4. semantic adapters and executable mechanic checks;
+5. objective agents such as completion, secrets, and speedrunning;
+6. optional LLM supervision;
+7. isolated hosted execution and graphical games.
 
-Already implemented:
+The first sellable wedge is a deterministic terminal-game test runner for local development and CI. The long-term product is an autonomous game-testing platform.
 
-- separate `@wyrcan/playtestr` package and CLI;
-- JSON target manifests;
-- `node-pty` process sessions on Windows/Unix;
-- `@xterm/headless` VT screen parsing;
-- keyboard actions, timing, viewport resize, and replay records;
-- baseline bounded exploration;
-- crash, timeout, stall, and output findings;
-- fixture target and PTY integration test;
-- typecheck, Vitest, tsup build, CI skeleton, security/contributor guidance.
+## Claims and non-claims
 
-Current limitation: Windows `node-pty` can emit an `AttachConsole failed` diagnostic during ConPTY teardown even when the run succeeds. This is a release-blocking lifecycle issue to isolate and resolve, not suppress blindly.
+Playtestr may claim only what its evidence supports.
 
-## Non-goals for the first release
+| Claim | Required evidence |
+| --- | --- |
+| The target launched | process event plus first observation |
+| A failure occurred | executable oracle result plus report |
+| A failure reproduces | matching finding signature over repeated replays |
+| A state or transition was observed | stable fingerprint plus action prefix |
+| A mechanic was checked | adapter event/invariant or explicit black-box oracle |
+| A goal was completed | goal predicate plus replay |
+| A route is faster | same goal predicate, comparable seed/rules, lower measured cost |
+| A behavior resembles a player persona | distribution across runs, labeled as a simulation |
 
-- training a general reinforcement-learning player;
-- graphical game support;
-- hosted execution of untrusted targets;
-- an LLM dependency in core;
-- claiming full game/mechanic coverage from screen novelty;
-- migrating Gamr’s game-specific profiles wholesale.
+Playtestr must not claim complete coverage, absence of bugs, discovery of every secret, or human judgment of fun. Black-box screen novelty is not code or mechanic coverage.
 
-## Architecture target
-
-```text
-manifest -> target launcher -> PTY session -> VT parser
-                                      |
-                         observation + stable fingerprint
-                                      |
-                 policy -> action -> runner budgets -> replay
-                                      |
-                     oracles + corpus + minimizer -> report
-                                      |
-                    optional adapter / optional LLM supervisor
-```
-
-### Package boundaries
+## Runtime architecture
 
 ```text
-@wyrcan/gamr              built-in games and Gamr runtime
-@wyrcan/playtestr         generic runner, agents, oracles, replay, CLI
-@wyrcan/gamr-playtest     future optional adapter/profile package
+target manifest
+      |
+execution backend ---- resource/process policy
+      |
+terminal driver ---- VT parser ---- observation normalizer
+      |                                  |
+episode runner <---- action policy ---- corpus/search scheduler
+      |
+oracles ---- finding signatures ---- replay verifier ---- minimizer
+      |
+versioned report and artifacts
 ```
 
-### Source boundaries
+Execution backends are a hard boundary:
 
-- `src/types.ts` — public versioned contracts.
-- `src/terminal.ts` — PTY process and VT lifecycle.
-- `src/runner.ts` — episode orchestration, budgets, observation recording.
-- `src/agents.ts` — bounded action policies.
-- `src/oracles.ts` — executable failure checks.
-- `src/observations.ts` — normalization and fingerprints.
-- `src/corpus.ts` — interesting action-prefix storage.
-- `src/minimize.ts` — replay reduction.
-- `src/replay.ts` — serialization and replay compatibility.
-- `fixtures/` — deterministic test targets.
+- `local-pty`: trusted targets only; target has the invoking user's filesystem and network permissions.
+- `isolated`: future disposable container/VM backend with network, filesystem, CPU, memory, process, output, and wall-clock limits.
 
-## Milestone 0 — repository and contract hygiene
+Environment filtering reduces accidental secret leakage but is not a sandbox. Hosted or untrusted execution is forbidden until the isolated backend passes its security gates.
 
-Goal: make the project safe to extend and easy for contributors or coding agents to understand.
+Episodes follow a `reset -> observe -> step -> close` contract. Target termination and runner truncation are separate outcomes. This prevents a game ending normally from being confused with a time or action budget ending the test.
 
-Deliverables:
+## Evidence levels
 
-- root `AGENTS.md` and `.agents` guidance;
-- architecture, security, contribution, and CI documentation;
-- package scripts for typecheck, test, build, and fixture smoke;
-- schema/version policy for observations, replays, reports, and findings;
-- Node 22/24 CI on Linux, with Windows PTY validation added as soon as runner stability allows.
+1. `observed`: captured once.
+2. `reproduced`: same finding signature reproduced under the configured retry policy.
+3. `confirmed`: executable invariant, goal predicate, or crash/process oracle confirms it.
+4. `reviewed`: a human evaluated subjective impact.
 
-Acceptance:
+Reports preserve the evidence level and never silently promote one level to another.
 
-- a new contributor can install, test, build, and run a fixture from the README;
-- CI rejects type, test, or build regressions;
-- arbitrary-target safety limitations are visible before execution.
+## Current implementation status
 
-## Milestone 1 — deterministic observation and corpus foundation
+Implemented in the present hardening slice:
 
-Goal: make exploration measurable instead of relying on raw text equality.
+- strict manifest schema version 1 with unknown-field rejection and manifest-relative working directories;
+- environment allowlisting with explicit opt-in inheritance;
+- explicit trusted-target acknowledgement in the local CLI;
+- rendered-screen startup readiness, output overflow enforcement, and bounded actions;
+- separate episode status, outcome, and termination reason;
+- versioned reports, runtime metadata, true observed transition keys, and per-run corpus additions;
+- configurable volatile-screen patterns;
+- validated replay input and controlled CLI errors;
+- crash, no-output, and output-flood fixtures;
+- Windows ConPTY compatibility fix with a zero-handle 100-run soak;
+- Linux, macOS, and Windows CI matrix configuration.
 
-Deliverables:
+Gate A is not complete until the configured CI matrix passes remotely and child-process-tree, resize, Unicode, signal, artifact-quota, and cancellation fixtures are implemented. Gate B finding signatures and reproduction quorum are also intentionally not claimed yet.
 
-- canonical screen normalization with explicit treatment of whitespace, cursor, viewport, and alternate buffer;
-- exact and structural observation fingerprints;
-- dynamic-region policy so clocks/animations do not create infinite false novelty;
-- `ActionCorpus` with action prefixes, first-seen fingerprints, depth, and provenance;
-- runner report metrics: unique states, novel transitions, and corpus size;
-- tests proving equivalent frames hash together and meaningful changes do not.
+## Release ladder
 
-Acceptance:
+### Gate A - trustworthy local runner (`0.1.0-alpha`)
 
-- the same seeded run produces stable structural fingerprints;
-- a changing clock does not cause unbounded structural novelty;
-- the fixture report exposes useful novelty metrics;
-- corpus entries can be serialized without losing action timing.
+Scope: deterministic PTY execution of trusted local terminal programs.
 
-## Milestone 2 — replay minimization and finding quality
+Required:
 
-Goal: turn a long failing run into a small issue-ready reproduction.
+- versioned and strictly validated manifests, reports, replays, and findings;
+- minimal environment inheritance with explicit opt-in names;
+- startup, action, episode, output, and process-exit diagnostics;
+- distinct target termination and runner truncation reasons;
+- complete process-tree cleanup on normal exit, timeout, Ctrl-C, and crash;
+- bounded artifact writing and secret-safe reports;
+- deterministic fixtures for success, crash, no output, hang, flood, Unicode, resize, and child processes;
+- Linux, Windows, and macOS verification where PTY behavior differs;
+- 100-run cleanup soak with zero leaked target processes.
 
-Deliverables:
+Exit criteria:
 
-- async delta-debugging over action sequences;
-- retry policy to distinguish flaky failures from reproducible failures;
-- minimization budgets and cancellation;
-- report fields for original and minimized action counts;
-- CLI command to minimize a report/replay against its manifest;
-- fixture targets for crash, hang, invalid input, and lifecycle failure.
+- every limit produces a distinct tested finding or termination reason;
+- repeated seeded fixture runs produce compatible evidence;
+- the CLI exits without helper-process diagnostics or leaked processes;
+- local execution requires an explicit trusted-target acknowledgement;
+- documentation never describes local execution as isolated.
 
-Acceptance:
+### Gate B - reproducible findings (`0.2.0-alpha`)
 
-- a known failure reduces to the shortest or near-shortest reproducing prefix;
-- minimization never reports success without rerunning the oracle;
-- flaky outcomes are reported as flaky, not confirmed;
-- minimized replays are independently runnable.
+Scope: turn failures into issue-ready evidence.
 
-## Milestone 3 — lifecycle and platform hardening
+Required:
 
-Goal: make external execution trustworthy across platforms.
+- stable finding signatures based on oracle, target outcome, and relevant observation;
+- replay validation and compatibility migrations;
+- configurable reproduction quorum, for example 3 of 3 or 4 of 5;
+- flaky classification rather than false confirmation;
+- minimization with total time/run budgets, cancellation, and final independent verification;
+- raw terminal event capture sufficient to diagnose parser disagreement.
 
-Deliverables:
+Exit criteria:
 
-- complete process-tree cleanup on normal exit, timeout, crash, and Ctrl-C;
-- bounded stdout/PTY output and explicit overflow findings;
-- stderr capture where the platform supports it without corrupting the game screen;
-- startup readiness and graceful-exit detection;
-- resize tests, signal tests, repeated-launch tests, and raw PTY cleanup tests;
-- Windows ConPTY diagnostic investigation and Linux/macOS PTY matrix validation.
+- crash, timeout, stall, and output-flood fixtures reproduce at the declared quorum;
+- minimization preserves the same finding signature, not merely the same broad kind;
+- minimized replay runs independently from its source report.
 
-Acceptance:
+### Gate C - coverage-guided black-box explorer (`0.3.0-alpha`)
 
-- 100 repeated fixture launches leave no target process behind;
-- force-stopped targets do not poison the next run;
-- output floods, hangs, and non-zero exits have distinct reports;
-- the CLI exits with a stable status and no uncaught helper-process diagnostics.
+Scope: systematically reach more observable behavior than a key loop.
 
-## Milestone 4 — generic exploration and edge profiles
+Required:
 
-Goal: find more than the baseline key loop without game-specific code.
+- configurable volatile-screen masking for clocks and animation;
+- real transition fingerprints (`previous state + action + next state`);
+- persistent corpus with provenance, schema version, and target compatibility key;
+- deterministic prefix mutation: insert, delete, replace, repeat, splice, and timing jitter;
+- restart/checkpoint scheduler and per-prefix energy budget;
+- benchmark comparison against random and action-round-robin baselines;
+- separate `smoke`, `explore`, and `edge` profiles.
 
-Deliverables:
+Exit criteria:
 
-- novelty-guided action selection;
-- action-prefix mutation: repeat, delete, splice, replace, and timing jitter;
-- edge profile for invalid keys, rapid input, holds, escape, backspace, resize, restart, pause, and quit;
-- checkpoint/restart scheduling;
-- per-profile budgets and deterministic random seeds;
-- corpus retention and replay deduplication.
+- explorer beats both baselines on held-out deterministic fixtures under equal budgets;
+- dynamic screens cannot create unbounded false novelty;
+- every retained state/transition has a replayable prefix;
+- metrics distinguish per-run discoveries from the persistent corpus total.
 
-Acceptance:
+### Gate D - adapter SDK and mechanic coverage (`0.4.0-alpha`)
 
-- the explorer reaches more structural states than baseline on benchmark fixtures;
-- every discovered crash or stall has a corpus prefix and replay;
-- edge profiles do not escape target or artifact boundaries;
-- time spent on one dynamic screen cannot starve the rest of the run.
+Scope: deep testing for cooperative games without weakening black-box mode.
 
-## Milestone 5 — optional adapter protocol
+Adapter contract:
 
-Goal: give cooperative games much deeper coverage without making black-box mode dependent on instrumentation.
+- `reset(seed, options)`;
+- `observe()` with semantic state and events;
+- `actions()` with currently legal actions;
+- `step(action)` returning observation, reward/score, `terminated`, `truncated`, and diagnostics;
+- goals, invariants, mechanic identifiers, checkpoints, and stable state hash;
+- adapter and game version metadata.
 
-Adapter capabilities:
+Exit criteria:
 
-- reset(seed, options);
-- semantic state snapshot and stable state hash;
-- legal action vocabulary;
-- event stream;
-- goal predicates;
-- invariant checks;
-- checkpoint/restore;
-- fast headless step path where available.
+- one standalone fixture and one Gamr game implement the contract;
+- reports show declared mechanics exercised, goals attempted/completed, and invariants checked;
+- adapter failure cannot be reported as a game failure;
+- PTY replay semantics remain available for user-visible reproduction.
 
-Acceptance:
+### Gate E - objective agents (`0.5.0-alpha`)
 
-- a game can run in black-box mode without an adapter;
-- an adapter can improve coverage and oracle quality without changing replay semantics;
-- Gamr adapters live outside Playtestr core and can evolve independently.
+Scope: completion, secrets, speedrunning, and player-style stress.
 
-## Milestone 6 — objective agents
+Profiles have separate objectives and metrics:
 
-Goal: support speedrunning, hidden-feature, and player-style testing.
+- `complete`: maximize seeded goal completion rate;
+- `speedrun`: minimize actions and wall/game time while preserving goal evidence;
+- `secrets`: maximize optional goal/event discovery after main-path competence;
+- `persona`: sample documented risk, patience, exploration, and skill distributions;
+- `edge`: maximize boundary and invalid-interaction checks.
 
-Profiles:
+Exit criteria:
 
-- `smoke`: startup, input, quit, restart, and basic interaction;
-- `explore`: maximize stable observation/event novelty;
-- `edge`: stress timing, invalid input, resize, and lifecycle boundaries;
-- `complete`: reach declared goals across seeds;
-- `speedrun`: minimize actions/time while preserving goal evidence;
-- `secrets`: investigate optional routes and unusual transitions;
-- `persona`: novice, cautious, curious, reckless, completionist, optimizer.
+- each profile has a budget, stop condition, oracle set, and benchmark;
+- speedrun comparisons pin game version, seed/rules, viewport, and timing mode;
+- secret findings reproduce and identify the evidence source;
+- persona output is statistical and never called a literal human simulation.
 
-Acceptance:
+### Gate F - semantic supervisor (`0.6.0-alpha`)
 
-- speedrun metrics are not mixed with exploration coverage;
-- secret discoveries include evidence and reproduction status;
-- persona results are distributions, not a claim of one human simulator;
-- each profile has a budget, stop condition, and benchmark evaluation.
+Scope: optional model-assisted interpretation and planning.
 
-## Milestone 7 — semantic supervision
+The model may interpret screens, propose actions/goals, rank corpus entries, and summarize evidence. It may not execute shell commands, bypass action schemas, determine security policy, or confirm findings without an oracle.
 
-Goal: use an LLM where language interpretation helps, without giving it control of safety or truth.
+Exit criteria:
 
-The LLM may summarize screens, infer possible controls, propose goals, rank candidate actions, classify findings, and write reports. The runner must validate action schemas, enforce budgets, and rely on executable oracles for confirmation.
+- deterministic agents still work offline;
+- every model action passes the same bounded action contract;
+- prompts and responses are separated from canonical replay evidence;
+- external-provider redaction, consent, cost, latency, and retention controls are tested;
+- benchmark uplift exceeds variance and cost is reported.
 
-Requirements:
+### Gate G - isolated service and graphical targets
 
-- provider interface with local/offline fallback;
-- strict structured output;
-- context compression and cost budgets;
-- model decisions stored separately from canonical replay;
-- hypothesis/evidence/confirmation labels;
-- redaction of secrets and target data before external calls.
-
-Acceptance:
-
-- deterministic agents complete runs when the model is unavailable;
-- model hallucinations cannot issue arbitrary shell commands;
-- model-generated findings link to frames, actions, and reproduction attempts;
-- usefulness is measured against benchmark fixtures and human review.
-
-## Milestone 8 — CI and hosted product
-
-Goal: make Playtestr useful in a development workflow.
-
-Deliverables:
-
-- `playtestr check` for CI-friendly pass/fail policies;
-- artifact upload and retention guidance;
-- baseline report comparison;
-- GitHub Actions integration;
-- package release process and changelog;
-- hosted jobs only after disposable sandboxing, resource limits, network policy, and secret isolation are implemented.
+Hosted execution requires disposable workers, default-deny networking, read-only inputs, writable scratch space, resource quotas, full process-tree control, no ambient credentials, artifact quotas, and abuse monitoring. Graphical games then add frame capture, input devices, OCR/vision, accessibility trees where available, and engine adapters. Neither belongs in the local PTY core.
 
 ## Benchmark suite
 
-Maintain small deterministic fixtures before relying on real games:
+Each fixture declares expected reachable states, transitions, findings, goals, and nondeterminism:
 
-1. menu/navigation game;
-2. text-entry and Unicode game;
+1. menu/navigation;
+2. text entry, Unicode, and paste;
 3. turn-based state machine;
-4. real-time timer game;
-5. hidden-route game;
-6. crash-on-sequence game;
-7. hang/no-progress game;
-8. output-flood game;
-9. resize/lifecycle game;
-10. one Gamr adapter integration.
+4. real-time clock/animation;
+5. hidden route;
+6. crash-on-sequence;
+7. no-output startup and hang;
+8. output flood;
+9. resize and alternate-screen lifecycle;
+10. child-process cleanup;
+11. flaky failure;
+12. one Gamr adapter integration.
 
-Each fixture should declare the bug or objective it represents and provide a human-readable expected result.
+## Scorecard
 
-## Success metrics
+No single number is called coverage. Track:
 
 - reproducible findings per CPU-hour;
-- time to first finding;
-- reproduction rate;
-- false-positive rate;
-- unique stable states and transitions;
-- corpus growth and minimization ratio;
-- seeded goal completion rate;
-- best speedrun time/actions;
+- time to first confirmed finding;
+- reproduction and false-positive rates;
+- unique stable states and true transitions per run;
+- corpus additions and corpus reuse yield;
+- minimization ratio and verification rate;
+- declared mechanics exercised and invariants checked;
+- goal completion distribution by seed;
+- speedrun action/time distribution;
 - cleanup failures per 100 launches;
-- cost and latency per autonomous run.
+- model cost/latency and measured benchmark uplift.
 
-Never use one percentage called “coverage” for all of these.
+## Immediate work order
 
-## Migration from Gamr
+1. Enforce the Gate A manifest, environment, lifecycle, diagnostics, and schema contracts.
+2. Add the missing adversarial fixtures and platform/soak tests.
+3. Implement finding signatures, replay validation, reproduction quorum, and safe minimization.
+4. Build true transition tracking, volatile masking, corpus persistence, and mutation search.
+5. Publish the adapter protocol only after black-box evidence is stable.
+6. Integrate one Gamr game, then benchmark objective agents.
+7. Add an optional semantic supervisor only after deterministic benchmarks exist.
 
-Keep Gamr’s existing `src/playtest` profiles in Gamr. Extract only generic contracts and utilities. Add a separate adapter package when the protocol is stable. Migrate one Gamr game first, compare in-process and PTY reports, then migrate the rest incrementally. This preserves Gamr’s catalog regression value while allowing Playtestr to test unrelated terminal programs.
-
-## Immediate build order
-
-1. Land repository hygiene and CI.
-2. Implement stable observation fingerprints and corpus metrics.
-3. Implement replay minimization and the `minimize` CLI command.
-4. Add crash/hang/output-flood fixtures and lifecycle cleanup tests.
-5. Resolve the Windows ConPTY teardown diagnostic.
-6. Add edge profiles and novelty-guided search.
-7. Define the adapter protocol.
-8. Add objective agents, then optional semantic supervision.
+Features move forward only when the previous gate's automated acceptance tests pass. This is how Playtestr becomes dependable; adding a smarter agent does not waive a lower-level gate.

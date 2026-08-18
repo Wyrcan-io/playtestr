@@ -32,13 +32,23 @@ export interface CorpusEntry {
   firstSeenAtAction: number;
 }
 
+export interface ObservationPolicy {
+  /** Regular expressions replaced before structural hashing. */
+  volatilePatterns?: string[];
+}
+
 export interface TargetManifest {
+  schemaVersion: 1;
   id: string;
   command: string;
   args?: string[];
   cwd?: string;
   env?: Record<string, string>;
+  /** Additional host variable names to inherit. Ambient variables are denied by default. */
+  inheritEnv?: string[];
   terminal?: { cols?: number; rows?: number };
+  observation?: ObservationPolicy;
+  requireInitialOutput?: boolean;
   startupTimeoutMs?: number;
   stepTimeoutMs?: number;
   exitGraceMs?: number;
@@ -53,12 +63,13 @@ export interface ReplayV1 {
   targetId: string;
   command: string;
   args: string[];
+  cwd?: string;
   seed?: number;
   terminal: { cols: number; rows: number };
   actions: InputAction[];
 }
 
-export type OracleKind = 'crash' | 'timeout' | 'stall' | 'output-limit' | 'unexpected-exit' | 'no-progress';
+export type OracleKind = 'crash' | 'timeout' | 'stall' | 'output-limit' | 'startup-failure' | 'runner-error';
 
 export interface OracleResult {
   kind: OracleKind;
@@ -77,9 +88,35 @@ export interface RunOptions {
   onObservation?: (observation: TerminalObservation) => void;
 }
 
+export type RunTerminationKind =
+  | 'target-exit'
+  | 'policy-complete'
+  | 'action-budget'
+  | 'time-budget'
+  | 'stall-budget'
+  | 'startup-failure'
+  | 'output-limit'
+  | 'runner-error';
+
+export interface RunTermination {
+  kind: RunTerminationKind;
+  atAction: number;
+  exitCode?: number;
+  signal?: number;
+}
+
 export interface RunReport {
+  schemaVersion: 1;
   targetId: string;
   status: 'passed' | 'failed' | 'timed-out' | 'stalled' | 'crashed';
+  outcome: 'terminated' | 'truncated' | 'failed';
+  termination: RunTermination;
+  runtime: {
+    backend: 'local-pty';
+    platform: NodeJS.Platform;
+    arch: string;
+    node: string;
+  };
   seed?: number;
   actionCount: number;
   elapsedMs: number;
@@ -88,13 +125,23 @@ export interface RunReport {
   findings: OracleResult[];
   uniqueStates: number;
   novelTransitions: number;
+  newCorpusEntries: number;
   corpusSize: number;
   terminalText: string;
   replay: ReplayV1;
 }
 
+export interface TerminalSessionDiagnostics {
+  outputBytes: number;
+  outputLimitExceeded: boolean;
+  receivedOutput: boolean;
+  startupTimedOut: boolean;
+}
+
 export interface TerminalSession {
   observe(): TerminalObservation;
+  diagnostics(): TerminalSessionDiagnostics;
+  probeProcessAlive(): boolean;
   send(action: InputAction): Promise<void>;
   waitForExit(timeoutMs?: number): Promise<boolean>;
   resize(cols: number, rows: number): Promise<void>;

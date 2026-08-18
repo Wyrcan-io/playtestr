@@ -1,35 +1,62 @@
 # Playtestr architecture
 
+## Boundaries
+
+Playtestr core owns target contracts, execution backends, terminal observations, search, oracles, replay, and evidence. Gamr owns games and game-specific semantics. An adapter may depend on both; neither core repository depends on the other.
+
 ```text
-target manifest
-      |
-launcher + process/PTY lifecycle
-      |
-VT driver -> terminal observation -> stable fingerprint
-      |
-agent policy -> action -> replay corpus
-      |
-oracles -> finding -> minimizer -> evidence artifact
+gamr <---- @wyrcan/gamr-playtest ----> playtestr
+  ^                                      ^
+  |                                      |
+games and runtime                 generic test engine
 ```
 
-## Core layers
+## Layers
 
-The target layer knows how to start a program and apply seed configuration. The terminal layer knows how to send bytes and parse VT output. The runner applies budgets and records an episode. Agents propose actions but do not decide whether a bug is real. Oracles produce executable findings. The corpus stores interesting action prefixes, and the minimizer reduces a reproducing sequence.
+```text
+CLI / library API
+      |
+episode runner ---- budgets ---- lifecycle outcome
+      |
+search scheduler ---- policy ---- corpus
+      |                            |
+execution backend ---- terminal ---- observations
+      |
+oracles ---- signatures ---- verifier ---- minimizer
+      |
+versioned evidence artifacts
+```
 
-## Product boundary
+Dependencies point downward. Policies propose bounded actions; they do not launch commands or declare bugs. Oracles inspect canonical observations/events; they do not steer the game. Reports serialize evidence; they do not invent conclusions.
 
-Gamr owns games, built-in game profiles, and deep adapters for its own mechanics. Playtestr owns generic terminal execution, exploration, replay, evidence, and optional adapter contracts. The core package must not import Gamr.
+## Execution backends
 
-## Evidence model
+`local-pty` launches a trusted local process with the caller's operating-system permissions. It filters ambient environment variables, enforces runner budgets, and attempts process cleanup, but it is not a security sandbox.
 
-Every episode has:
+Windows currently pins `node-pty@1.2.0-beta.14` because it contains the upstream ConPTY helper fix. A guarded compatibility shim closes an input pipe that the public API leaves open. The 100-run natural-exit soak checks that no native handles remain; upgrading node-pty requires rerunning that gate and removing the shim when upstream exposes complete cleanup.
 
-- target command and arguments;
-- viewport and seed;
-- ordered actions with hold/wait timing;
-- observations and stable fingerprints;
-- findings and their action positions;
-- the final screen;
-- tool and schema versions.
+The future `isolated` backend runs untrusted targets in disposable workers with explicit filesystem, network, identity, process, CPU, memory, and artifact policies. Backend capabilities are reported so a result never implies controls that were not active.
 
-Screen novelty is a search signal. It is not a claim that every hidden mechanic was tested.
+## Episode lifecycle
+
+```text
+created -> starting -> running -> target-terminated
+                    \-> runner-truncated
+                    \-> infrastructure-failed
+```
+
+Target termination means the game reached an exit condition. Runner truncation means an external budget or policy stopped an otherwise live episode. Infrastructure failure means Playtestr itself could not execute the contract. These outcomes remain distinct in reports and metrics.
+
+## State and transition model
+
+An exact fingerprint includes normalized screen, terminal mode, viewport, and cursor. A structural fingerprint excludes intentionally volatile details configured by the target. A transition key is `(previous structural state, action, next structural state)`. Corpus entries retain the action prefix and compatibility metadata needed to replay the discovery.
+
+Observable novelty is a search signal only. Mechanic coverage requires an adapter-declared mechanic/event or an explicit black-box oracle.
+
+## Adapter model
+
+Adapters use a reset/step/close environment contract with separate `terminated` and `truncated` values. They may provide legal actions, semantic observations, events, goals, invariants, checkpoints, and stable hashes. Adapter errors are infrastructure findings, never game findings.
+
+## Schema policy
+
+Every persisted manifest, replay, report, corpus, and finding format has an integer schema version. Readers reject unsupported versions with a controlled error. A schema change requires fixtures, tests, and migration notes; adding an optional field alone does not justify silently changing semantics.

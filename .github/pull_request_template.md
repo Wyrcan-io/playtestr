@@ -13,4 +13,5 @@
 - [ ] `npm run typecheck`
 - [ ] `npm test`
 - [ ] `npm run build`
+- [ ] `npm run soak` when PTY lifecycle behavior changed
 - [ ] Fixture or integration evidence included when relevant

@@ -10,7 +10,8 @@ Playtestr is a standalone black-box playtesting toolkit for terminal games. It l
 - Preserve the terminal contract: PTY input, VT output, viewport size, timing, process lifecycle, and replay metadata are public behavior.
 - Prefer deterministic, replayable algorithms in core. LLMs and network providers must be optional integrations.
 - Every finding needs evidence: a replay, seed, target metadata, observation, or executable oracle result.
-- Never let a target inherit secrets or unrestricted host access by default. Treat arbitrary game commands as untrusted.
+- The local PTY backend is for explicitly trusted targets and must never be described as a sandbox. Untrusted targets require the future isolated backend.
+- Never inherit ambient secrets by default or serialize environment values into evidence.
 - Do not claim total coverage from black-box screen exploration. Report observed state/action novelty separately from internal code or mechanic coverage.
 
 ## Commands
@@ -20,7 +21,8 @@ npm ci
 npm run typecheck
 npm test
 npm run build
-node dist/cli.js run --manifest fixtures/turn-counter.json --artifacts artifacts/example
+node dist/cli.js run --manifest fixtures/turn-counter.json --artifacts artifacts/example --trust-target
+npm run soak
 ```
 
 ## Architecture boundaries
