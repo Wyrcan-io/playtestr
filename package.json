@@ -14,7 +14,9 @@
     "build": "tsup",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "start": "node dist/cli.js"
+    "start": "node dist/cli.js",
+    "check": "npm run typecheck && npm test && npm run build",
+    "smoke": "npm run build && node dist/cli.js run --manifest fixtures/turn-counter.json --profile explore --max-actions 10 --artifacts artifacts/smoke"
   },
   "dependencies": {
     "@xterm/headless": "^6.0.0",

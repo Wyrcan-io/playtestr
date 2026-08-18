@@ -1,0 +1,10 @@
+{
+  "id": "crash-sequence",
+  "command": "node",
+  "args": ["fixtures/crash-sequence.mjs"],
+  "terminal": { "cols": 80, "rows": 24 },
+  "startupTimeoutMs": 1000,
+  "stepTimeoutMs": 50,
+  "episodeTimeoutMs": 2000,
+  "allowedKeys": ["a", "b", "x", "q"]
+}

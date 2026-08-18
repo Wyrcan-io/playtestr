@@ -21,6 +21,17 @@ export interface TerminalObservation {
   signal?: number;
 }
 
+export interface ObservationFingerprint {
+  exact: string;
+  structural: string;
+}
+
+export interface CorpusEntry {
+  fingerprint: string;
+  actions: InputAction[];
+  firstSeenAtAction: number;
+}
+
 export interface TargetManifest {
   id: string;
   command: string;
@@ -30,6 +41,7 @@ export interface TargetManifest {
   terminal?: { cols?: number; rows?: number };
   startupTimeoutMs?: number;
   stepTimeoutMs?: number;
+  exitGraceMs?: number;
   episodeTimeoutMs?: number;
   maxOutputBytes?: number;
   seed?: { mode: 'argv' | 'env'; flag?: string; envName?: string };
@@ -74,6 +86,9 @@ export interface RunReport {
   actions: InputAction[];
   observations: TerminalObservation[];
   findings: OracleResult[];
+  uniqueStates: number;
+  novelTransitions: number;
+  corpusSize: number;
   terminalText: string;
   replay: ReplayV1;
 }
@@ -81,6 +96,7 @@ export interface RunReport {
 export interface TerminalSession {
   observe(): TerminalObservation;
   send(action: InputAction): Promise<void>;
+  waitForExit(timeoutMs?: number): Promise<boolean>;
   resize(cols: number, rows: number): Promise<void>;
   stop(): Promise<void>;
 }

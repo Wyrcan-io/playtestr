@@ -26,6 +26,8 @@ export interface PtyTerminalSessionOptions {
 export class PtyTerminalSession implements TerminalSession {
   private readonly terminal: HeadlessTerminal;
   private readonly process: pty.IPty;
+  private readonly dataSubscription: pty.IDisposable;
+  private readonly exitSubscription: pty.IDisposable;
   private readonly startedAt = Date.now();
   private lastText = '';
   private outputBytes = 0;
@@ -35,6 +37,8 @@ export class PtyTerminalSession implements TerminalSession {
   private writeQueue = Promise.resolve();
   private readonly firstOutput: Promise<void>;
   private resolveFirstOutput!: () => void;
+  private readonly exitPromise: Promise<void>;
+  private resolveExit!: () => void;
 
   private constructor(process: pty.IPty, viewport: { cols: number; rows: number }, maxOutputBytes: number) {
     this.process = process;
@@ -43,7 +47,10 @@ export class PtyTerminalSession implements TerminalSession {
     this.firstOutput = new Promise<void>(resolveFirstOutput => {
       this.resolveFirstOutput = resolveFirstOutput;
     });
-    process.onData(data => {
+    this.exitPromise = new Promise<void>(resolveExit => {
+      this.resolveExit = resolveExit;
+    });
+    this.dataSubscription = process.onData(data => {
       this.outputBytes += Buffer.byteLength(data);
       this.resolveFirstOutput();
       if (this.outputBytes <= this.maxOutputBytes) {
@@ -52,9 +59,10 @@ export class PtyTerminalSession implements TerminalSession {
         }));
       }
     });
-    process.onExit(event => {
+    this.exitSubscription = process.onExit(event => {
       this.exitCode = event.exitCode;
       this.signal = event.signal;
+      this.resolveExit();
     });
   }
 
@@ -126,6 +134,12 @@ export class PtyTerminalSession implements TerminalSession {
     await this.flush();
   }
 
+  async waitForExit(timeoutMs = 0): Promise<boolean> {
+    if (this.exitCode !== undefined) return true;
+    if (timeoutMs > 0) await Promise.race([this.exitPromise, sleep(timeoutMs)]);
+    return this.exitCode !== undefined;
+  }
+
   async resize(cols: number, rows: number): Promise<void> {
     if (!this.stopped) this.process.resize(cols, rows);
     this.terminal.resize(cols, rows);
@@ -133,12 +147,18 @@ export class PtyTerminalSession implements TerminalSession {
 
   async stop(): Promise<void> {
     if (this.stopped) return;
-    this.stopped = true;
-    await Promise.race([this.firstOutput.then(() => sleep(50)), sleep(50)]);
+    await this.waitForExit(50);
+    if (this.exitCode === undefined) {
+      try { this.process.write('\x03'); } catch { /* already closing */ }
+      await this.waitForExit(100);
+    }
     if (this.exitCode === undefined) {
       try { this.process.kill(); } catch { /* already exited */ }
     }
-    await this.flush();
+    this.stopped = true;
+    this.dataSubscription.dispose();
+    this.exitSubscription.dispose();
+    await Promise.race([this.flush(), sleep(250)]);
     this.terminal.dispose();
   }
 }

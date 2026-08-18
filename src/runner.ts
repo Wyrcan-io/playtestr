@@ -1,20 +1,23 @@
 import { baselinePolicy } from './agents.js';
+import { ActionCorpus } from './corpus.js';
+import { fingerprintObservation } from './observations.js';
 import { checkObservation } from './oracles.js';
 import { createReplay } from './replay.js';
 import { PtyTerminalSession } from './terminal.js';
 import type { ActionPolicy, InputAction, RunOptions, RunReport, TargetManifest, TerminalObservation } from './types.js';
 
-const stateKey = (observation: TerminalObservation): string => `${observation.cols}x${observation.rows}:${observation.text}`;
-
 export interface RunnerOptions {
   policy?: ActionPolicy;
+  corpus?: ActionCorpus;
 }
 
 export class PlaytestRunner {
   private readonly policy?: ActionPolicy;
+  private readonly corpus?: ActionCorpus;
 
   constructor(options: RunnerOptions = {}) {
     this.policy = options.policy;
+    this.corpus = options.corpus;
   }
 
   async run(manifest: TargetManifest, options: RunOptions = {}): Promise<RunReport> {
@@ -28,7 +31,9 @@ export class PlaytestRunner {
     const actions: InputAction[] = [];
     const observations: TerminalObservation[] = [];
     const findings = [] as RunReport['findings'];
+    const corpus = this.corpus ?? new ActionCorpus();
     const seenStates = new Set<string>();
+    let novelTransitions = 0;
     const startedAt = Date.now();
     let status: RunReport['status'] = 'passed';
     let session: PtyTerminalSession | undefined;
@@ -41,7 +46,10 @@ export class PlaytestRunner {
         const previous = observations.at(-1);
         observations.push(current);
         options.onObservation?.(current);
-        seenStates.add(stateKey(current));
+        const fingerprint = fingerprintObservation(current);
+        const wasNovel = corpus.record(fingerprint.structural, actions, actions.length);
+        seenStates.add(fingerprint.structural);
+        if (wasNovel && previous) novelTransitions += 1;
         stalledSteps = previous && !current.changed ? stalledSteps + 1 : 0;
         findings.push(...checkObservation(current, actions.length));
         return current;
@@ -61,12 +69,19 @@ export class PlaytestRunner {
           break;
         }
         const observation = observations.at(-1)!;
-        const action = scripted?.[actions.length] ?? policy({ observation, history: observations, actions, seenStates });
+        const action = scripted
+          ? scripted[actions.length]
+          : policy({ observation, history: observations, actions, seenStates });
         if (!action) break;
         actions.push(action);
         await session.send({ ...action, waitMs: action.waitMs ?? manifest.stepTimeoutMs ?? 250 });
         record();
+        if (await session.waitForExit(25)) record();
         if (!observations.at(-1)!.processAlive) break;
+      }
+      if (observations.at(-1)?.processAlive) {
+        await session.waitForExit(manifest.exitGraceMs ?? 1100);
+        if (!session.observe().processAlive) record();
       }
       if (findings.some(finding => finding.severity === 'error') && status === 'passed') status = 'failed';
     } catch (error) {
@@ -86,6 +101,9 @@ export class PlaytestRunner {
       actions,
       observations,
       findings,
+      uniqueStates: seenStates.size,
+      novelTransitions,
+      corpusSize: corpus.size,
       terminalText: observations.at(-1)?.text ?? '',
       replay: createReplay(manifest, options.seed, viewport, actions),
     };

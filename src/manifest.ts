@@ -24,6 +24,7 @@ export async function loadManifest(file: string): Promise<TargetManifest> {
     },
     startupTimeoutMs: asPositiveInt(raw.startupTimeoutMs, 3000),
     stepTimeoutMs: asPositiveInt(raw.stepTimeoutMs, 250),
+    exitGraceMs: asPositiveInt(raw.exitGraceMs, 1100),
     episodeTimeoutMs: asPositiveInt(raw.episodeTimeoutMs, 30000),
     maxOutputBytes: asPositiveInt(raw.maxOutputBytes, 2_000_000),
   };

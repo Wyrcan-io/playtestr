@@ -17,6 +17,8 @@ describe('PTY runner', () => {
     expect(report.status).toBe('passed');
     expect(report.actionCount).toBe(3);
     expect(report.terminalText).toContain('TERMINAL QUEST');
+    expect(report.uniqueStates).toBeGreaterThan(0);
+    expect(report.corpusSize).toBe(report.uniqueStates);
     expect(report.replay.version).toBe(1);
   });
 });
