@@ -1,0 +1,11 @@
+{
+  "id": "turn-counter",
+  "command": "node",
+  "args": ["fixtures/turn-counter.mjs"],
+  "terminal": { "cols": 80, "rows": 24 },
+  "startupTimeoutMs": 1000,
+  "stepTimeoutMs": 60,
+  "episodeTimeoutMs": 3000,
+  "maxOutputBytes": 100000,
+  "allowedKeys": ["Enter", "q", "ArrowUp", "ArrowDown"]
+}
