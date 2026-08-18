@@ -29,5 +29,22 @@ export function actionDiversityPolicy(allowedKeys?: readonly string[]): ActionPo
   };
 }
 
+export function seededRandomPolicy(allowedKeys?: readonly string[], seed = 0): ActionPolicy {
+  const keys = allowedKeys === undefined ? commonKeys : [...allowedKeys];
+  let state = seed >>> 0;
+  const random = (): number => {
+    state += 0x6D2B79F5;
+    let value = state;
+    value = Math.imul(value ^ (value >>> 15), value | 1);
+    value ^= value + Math.imul(value ^ (value >>> 7), value | 61);
+    return ((value ^ (value >>> 14)) >>> 0) / 4_294_967_296;
+  };
+  return context => {
+    if (!context.observation.processAlive || keys.length === 0) return undefined;
+    const key = keys[Math.floor(random() * keys.length)];
+    return key ? { key, waitMs: 40, label: 'seeded-random exploration' } : undefined;
+  };
+}
+
 /** @deprecated This policy balances action use; it is not coverage-guided yet. */
 export const explorationPolicy = actionDiversityPolicy;

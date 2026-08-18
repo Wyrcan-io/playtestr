@@ -3,7 +3,8 @@ import type { Terminal as HeadlessTerminal } from '@xterm/headless';
 import * as pty from 'node-pty';
 import { resolve } from 'node:path';
 import { commandWithSeed } from './manifest.js';
-import type { InputAction, TargetManifest, TerminalObservation, TerminalSession, TerminalSessionDiagnostics } from './types.js';
+import { forceTerminateProcessTree, probePid } from './process-tree.js';
+import type { CleanupReason, CleanupResult, InputAction, TargetManifest, TerminalObservation, TerminalSession, TerminalSessionDiagnostics } from './types.js';
 
 const { Terminal } = headless;
 
@@ -36,6 +37,7 @@ export interface PtyTerminalSessionOptions {
   manifest: TargetManifest;
   seed?: number;
   viewport?: { cols: number; rows: number };
+  signal?: AbortSignal;
 }
 
 interface WindowsPtyInternals {
@@ -65,6 +67,7 @@ export class PtyTerminalSession implements TerminalSession {
   private exited = false;
   private stopped = false;
   private writeQueue = Promise.resolve();
+  private readonly pendingDelays = new Map<NodeJS.Timeout, () => void>();
   private readonly firstOutput: Promise<void>;
   private resolveFirstOutput!: () => void;
   private readonly exitPromise: Promise<void>;
@@ -122,14 +125,17 @@ export class PtyTerminalSession implements TerminalSession {
       env: launch.env,
     });
     const session = new PtyTerminalSession(child, viewport, options.manifest.maxOutputBytes ?? 2_000_000);
-    await session.waitForInitialOutput(options.manifest.startupTimeoutMs ?? 3000);
+    await session.waitForInitialOutput(options.manifest.startupTimeoutMs ?? 3000, options.signal);
+    // Rendering the first bytes can precede target-side input handler setup by a
+    // scheduler turn, especially under ConPTY. Give startup one short settle tick.
+    if (!options.signal?.aborted) await sleep(25);
     await session.flush();
     return session;
   }
 
-  private async waitForInitialOutput(timeoutMs: number): Promise<void> {
+  private async waitForInitialOutput(timeoutMs: number, signal?: AbortSignal): Promise<void> {
     const deadline = Date.now() + timeoutMs;
-    while (!this.exited && Date.now() < deadline) {
+    while (!this.exited && !signal?.aborted && Date.now() < deadline) {
       const remaining = deadline - Date.now();
       await Promise.race([this.firstOutput, this.exitPromise, sleep(Math.min(25, remaining))]);
       await this.flush();
@@ -139,11 +145,28 @@ export class PtyTerminalSession implements TerminalSession {
       if (hasRenderedText || this.outputLimitExceeded) return;
       await sleep(Math.min(10, Math.max(0, deadline - Date.now())));
     }
-    this.startupTimedOut = !this.exited;
+    this.startupTimedOut = !signal?.aborted && !this.exited;
   }
 
   private async flush(): Promise<void> {
     await this.writeQueue;
+  }
+
+  private delay(ms: number): Promise<void> {
+    return new Promise(resolveDelay => {
+      let timer: NodeJS.Timeout;
+      const finish = (): void => {
+        clearTimeout(timer);
+        this.pendingDelays.delete(timer);
+        resolveDelay();
+      };
+      timer = setTimeout(finish, ms);
+      this.pendingDelays.set(timer, finish);
+    });
+  }
+
+  private cancelPendingDelays(): void {
+    for (const finish of [...this.pendingDelays.values()]) finish();
   }
 
   observe(): TerminalObservation {
@@ -173,24 +196,20 @@ export class PtyTerminalSession implements TerminalSession {
       outputLimitExceeded: this.outputLimitExceeded,
       receivedOutput: this.receivedOutput,
       startupTimedOut: this.startupTimedOut,
+      pid: this.process.pid,
     };
   }
 
   probeProcessAlive(): boolean {
     if (this.exited || this.stopped) return false;
-    try {
-      process.kill(this.process.pid, 0);
-      return true;
-    } catch {
-      return false;
-    }
+    return probePid(this.process.pid);
   }
 
   async send(action: InputAction): Promise<void> {
     if (this.stopped) return;
     this.process.write(encodeKey(action.key));
-    if ((action.holdMs ?? 0) > 0) await sleep(action.holdMs!);
-    if ((action.waitMs ?? 0) > 0) await sleep(action.waitMs!);
+    if ((action.holdMs ?? 0) > 0) await this.delay(action.holdMs!);
+    if ((action.waitMs ?? 0) > 0) await this.delay(action.waitMs!);
     await this.flush();
   }
 
@@ -205,29 +224,52 @@ export class PtyTerminalSession implements TerminalSession {
     this.terminal.resize(cols, rows);
   }
 
-  async stop(): Promise<void> {
-    if (this.stopped) return;
-    await this.waitForExit(50);
-    if (this.exited && process.platform === 'win32') {
-      // node-pty reports process exit before disposing its ConPTY worker.
-      try { this.process.kill(); } catch { /* native PTY is already closed */ }
+  async stop(_reason: CleanupReason = 'completed'): Promise<CleanupResult> {
+    const cleanupStartedAt = Date.now();
+    if (this.stopped) {
+      return { attempted: false, graceful: this.exited, forced: false, mechanism: 'none', elapsedMs: 0, confirmedExited: !probePid(this.process.pid) };
     }
+    this.cancelPendingDelays();
+    let graceful = this.exited;
+    let forced = false;
+    let mechanism: CleanupResult['mechanism'] = 'none';
+    let cleanupError: string | undefined;
+    await this.waitForExit(50);
+    graceful = this.exited || !probePid(this.process.pid);
     if (!this.exited) {
       try { this.process.write('\x03'); } catch { /* already closing */ }
-      await this.waitForExit(100);
+      await this.waitForExit(150);
+      graceful = this.exited || !probePid(this.process.pid);
     }
-    if (!this.exited) {
-      try { this.process.kill(); } catch { /* already exited */ }
-      // ConPTY drains its output worker before publishing final closure.
-      await this.waitForExit(process.platform === 'win32' ? 2500 : 500);
+    if (!this.exited && probePid(this.process.pid)) {
+      forced = true;
+      const tree = await forceTerminateProcessTree(this.process.pid);
+      mechanism = tree.mechanism;
+      cleanupError = tree.error;
+    }
+    if (process.platform === 'win32' || !this.exited) {
+      try { this.process.kill(); } catch { /* native PTY is already closed */ }
+      // Closing ConPTY's input worker after kill lets its exit callback drain
+      // promptly; the OS pid probe below remains the cleanup authority.
+      closeWindowsInputPipe(this.process);
+      await this.waitForExit(process.platform === 'win32' ? 750 : 500);
     }
     closeWindowsInputPipe(this.process);
-    const cleanupFailed = !this.exited;
+    const confirmedExited = !probePid(this.process.pid);
+    if (!confirmedExited && !cleanupError) cleanupError = 'The target process did not confirm exit after forced tree cleanup';
     this.stopped = true;
     this.dataSubscription.dispose();
     this.exitSubscription.dispose();
     await Promise.race([this.flush(), sleep(250)]);
     this.terminal.dispose();
-    if (cleanupFailed) throw new Error('The target process did not confirm exit after forced PTY cleanup');
+    return {
+      attempted: true,
+      graceful,
+      forced,
+      mechanism: mechanism === 'none' && forced ? 'pty-kill' : mechanism,
+      elapsedMs: Date.now() - cleanupStartedAt,
+      confirmedExited,
+      ...(cleanupError ? { error: cleanupError } : {}),
+    };
   }
 }

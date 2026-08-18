@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "id": "flaky-exit",
+  "command": "node",
+  "args": ["flaky.mjs"],
+  "startupTimeoutMs": 1000,
+  "exitGraceMs": 2500,
+  "episodeTimeoutMs": 4000,
+  "observation": { "volatilePatterns": ["ATTEMPT \\d+"] },
+  "allowedKeys": []
+}

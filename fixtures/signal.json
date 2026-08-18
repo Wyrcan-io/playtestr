@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "id": "signal-exit",
+  "command": "node",
+  "args": ["signal.mjs"],
+  "startupTimeoutMs": 1000,
+  "stepTimeoutMs": 30,
+  "exitGraceMs": 2500,
+  "episodeTimeoutMs": 4000,
+  "allowedKeys": ["a", "b", "x"]
+}

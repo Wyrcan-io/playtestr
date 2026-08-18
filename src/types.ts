@@ -30,6 +30,8 @@ export interface CorpusEntry {
   fingerprint: string;
   actions: InputAction[];
   firstSeenAtAction: number;
+  discoveredAtEpisode?: number;
+  provenance?: string;
 }
 
 export interface ObservationPolicy {
@@ -54,6 +56,7 @@ export interface TargetManifest {
   exitGraceMs?: number;
   episodeTimeoutMs?: number;
   maxOutputBytes?: number;
+  maxArtifactBytes?: number;
   seed?: { mode: 'argv' | 'env'; flag?: string; envName?: string };
   allowedKeys?: string[];
 }
@@ -69,11 +72,16 @@ export interface ReplayV1 {
   actions: InputAction[];
 }
 
+export type EvidenceLevel = 'observed' | 'reproduced' | 'confirmed' | 'reviewed';
+
 export type OracleKind = 'crash' | 'timeout' | 'stall' | 'output-limit' | 'startup-failure' | 'runner-error';
 
 export interface OracleResult {
+  signatureVersion: 1;
+  signature: string;
   kind: OracleKind;
   severity: 'error' | 'warning';
+  evidenceLevel: EvidenceLevel;
   message: string;
   atAction: number;
 }
@@ -85,6 +93,7 @@ export interface RunOptions {
   maxStalledSteps?: number;
   viewport?: { cols: number; rows: number };
   actions?: InputAction[];
+  signal?: AbortSignal;
   onObservation?: (observation: TerminalObservation) => void;
 }
 
@@ -96,6 +105,7 @@ export type RunTerminationKind =
   | 'stall-budget'
   | 'startup-failure'
   | 'output-limit'
+  | 'cancelled'
   | 'runner-error';
 
 export interface RunTermination {
@@ -108,11 +118,12 @@ export interface RunTermination {
 export interface RunReport {
   schemaVersion: 1;
   targetId: string;
-  status: 'passed' | 'failed' | 'timed-out' | 'stalled' | 'crashed';
+  status: 'passed' | 'failed' | 'timed-out' | 'stalled' | 'crashed' | 'cancelled';
   outcome: 'terminated' | 'truncated' | 'failed';
   termination: RunTermination;
   runtime: {
-    backend: 'local-pty';
+    backend: string;
+    capabilities: ExecutionBackendCapabilities;
     platform: NodeJS.Platform;
     arch: string;
     node: string;
@@ -129,6 +140,7 @@ export interface RunReport {
   corpusSize: number;
   terminalText: string;
   replay: ReplayV1;
+  cleanup: CleanupResult;
 }
 
 export interface TerminalSessionDiagnostics {
@@ -136,6 +148,19 @@ export interface TerminalSessionDiagnostics {
   outputLimitExceeded: boolean;
   receivedOutput: boolean;
   startupTimedOut: boolean;
+  pid: number;
+}
+
+export type CleanupReason = 'completed' | 'cancelled' | 'timeout' | 'limit' | 'runner-error';
+
+export interface CleanupResult {
+  attempted: boolean;
+  graceful: boolean;
+  forced: boolean;
+  mechanism: 'none' | 'pty-kill' | 'unix-process-group' | 'windows-taskkill';
+  elapsedMs: number;
+  confirmedExited: boolean;
+  error?: string;
 }
 
 export interface TerminalSession {
@@ -145,7 +170,28 @@ export interface TerminalSession {
   send(action: InputAction): Promise<void>;
   waitForExit(timeoutMs?: number): Promise<boolean>;
   resize(cols: number, rows: number): Promise<void>;
-  stop(): Promise<void>;
+  stop(reason?: CleanupReason): Promise<CleanupResult>;
+}
+
+export interface ExecutionBackendCapabilities {
+  isolation: 'none' | 'process';
+  processTreeCleanup: boolean;
+  resize: boolean;
+  signals: boolean;
+  rawTerminalEvents: boolean;
+}
+
+export interface ExecutionBackendStartOptions {
+  manifest: TargetManifest;
+  seed?: number;
+  viewport?: { cols: number; rows: number };
+  signal?: AbortSignal;
+}
+
+export interface ExecutionBackend {
+  readonly id: string;
+  readonly capabilities: ExecutionBackendCapabilities;
+  start(options: ExecutionBackendStartOptions): Promise<TerminalSession>;
 }
 
 export interface ActionPolicyContext {

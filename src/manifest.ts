@@ -6,6 +6,7 @@ const rootKeys = new Set([
   'schemaVersion', 'id', 'command', 'args', 'cwd', 'env', 'inheritEnv', 'terminal', 'observation',
   'requireInitialOutput', 'startupTimeoutMs', 'stepTimeoutMs', 'exitGraceMs', 'episodeTimeoutMs',
   'maxOutputBytes', 'seed', 'allowedKeys',
+  'maxArtifactBytes',
 ]);
 const environmentName = /^[A-Za-z_][A-Za-z0-9_]*$/u;
 
@@ -115,6 +116,7 @@ export async function loadManifest(file: string): Promise<TargetManifest> {
     exitGraceMs: positiveInt(raw.exitGraceMs, 'Manifest exitGraceMs', 2500),
     episodeTimeoutMs: positiveInt(raw.episodeTimeoutMs, 'Manifest episodeTimeoutMs', 30000),
     maxOutputBytes: positiveInt(raw.maxOutputBytes, 'Manifest maxOutputBytes', 2_000_000),
+    maxArtifactBytes: positiveInt(raw.maxArtifactBytes, 'Manifest maxArtifactBytes', 10_000_000),
     seed: seed ? {
       mode: seed.mode as 'argv' | 'env',
       ...(seed.flag === undefined ? {} : { flag: seed.flag as string }),

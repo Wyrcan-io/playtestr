@@ -1,23 +1,38 @@
 import { baselinePolicy } from './agents.js';
+import { LocalPtyBackend } from './backend.js';
 import { ActionCorpus } from './corpus.js';
+import { createFinding } from './findings.js';
 import { fingerprintObservation } from './observations.js';
 import { checkObservation } from './oracles.js';
 import { createReplay } from './replay.js';
-import { PtyTerminalSession } from './terminal.js';
-import type { ActionPolicy, InputAction, OracleResult, RunOptions, RunReport, RunTermination, TargetManifest, TerminalObservation } from './types.js';
+import type { ActionPolicy, CleanupReason, CleanupResult, ExecutionBackend, InputAction, OracleResult, RunOptions, RunReport, RunTermination, TargetManifest, TerminalObservation, TerminalSession } from './types.js';
 
 export interface RunnerOptions {
   policy?: ActionPolicy;
   corpus?: ActionCorpus;
+  backend?: ExecutionBackend;
 }
+
+type OperationResult = 'completed' | 'timeout' | 'cancelled';
+
+const noCleanup: CleanupResult = {
+  attempted: false,
+  graceful: true,
+  forced: false,
+  mechanism: 'none',
+  elapsedMs: 0,
+  confirmedExited: true,
+};
 
 export class PlaytestRunner {
   private readonly policy?: ActionPolicy;
   private readonly corpus?: ActionCorpus;
+  private readonly backend: ExecutionBackend;
 
   constructor(options: RunnerOptions = {}) {
     this.policy = options.policy;
     this.corpus = options.corpus;
+    this.backend = options.backend ?? new LocalPtyBackend();
   }
 
   async run(manifest: TargetManifest, options: RunOptions = {}): Promise<RunReport> {
@@ -39,28 +54,53 @@ export class PlaytestRunner {
     let status: RunReport['status'] = 'passed';
     let outcome: RunReport['outcome'] = 'truncated';
     let termination: RunTermination = { kind: 'policy-complete', atAction: 0 };
-    let session: PtyTerminalSession | undefined;
+    let session: TerminalSession | undefined;
+    let cleanup = noCleanup;
     let stalledSteps = 0;
     let previousStructural: string | undefined;
 
     const addFinding = (finding: OracleResult): void => {
-      const duplicate = findings.some(existing =>
-        existing.kind === finding.kind && existing.atAction === finding.atAction && existing.message === finding.message);
+      const duplicate = findings.some(existing => existing.signature === finding.signature);
       if (!duplicate) findings.push(finding);
     };
 
+    const addRuntimeFinding = (
+      kind: OracleResult['kind'],
+      severity: OracleResult['severity'],
+      message: string,
+      discriminator: string,
+    ): void => addFinding(createFinding({
+      targetId: manifest.id,
+      kind,
+      severity,
+      message,
+      atAction: actions.length,
+      observation: observations.at(-1),
+      volatilePatterns: manifest.observation?.volatilePatterns,
+      discriminator,
+    }));
+
     const timeRemaining = (): number => Math.max(0, maxElapsedMs - (Date.now() - startedAt));
-    const completesBeforeDeadline = async (operation: Promise<void>, timeoutMs: number): Promise<boolean> => {
+    const completesBeforeDeadline = async (operation: Promise<unknown>, timeoutMs: number): Promise<OperationResult> => {
+      if (options.signal?.aborted) return 'cancelled';
+      if (timeoutMs <= 0) return 'timeout';
       let timer: NodeJS.Timeout | undefined;
+      let onAbort: (() => void) | undefined;
       try {
         return await Promise.race([
-          operation.then(() => true),
-          new Promise<false>(resolveTimeout => {
-            timer = setTimeout(() => resolveTimeout(false), timeoutMs);
+          operation.then(() => 'completed' as const),
+          new Promise<'timeout'>(resolveTimeout => {
+            timer = setTimeout(() => resolveTimeout('timeout'), timeoutMs);
+          }),
+          new Promise<'cancelled'>(resolveCancelled => {
+            if (!options.signal) return;
+            onAbort = () => resolveCancelled('cancelled');
+            options.signal.addEventListener('abort', onAbort, { once: true });
           }),
         ]);
       } finally {
         if (timer) clearTimeout(timer);
+        if (onAbort) options.signal?.removeEventListener('abort', onAbort);
       }
     };
 
@@ -71,7 +111,13 @@ export class PlaytestRunner {
       if (!Number.isSafeInteger(viewport.cols) || viewport.cols <= 0 || !Number.isSafeInteger(viewport.rows) || viewport.rows <= 0) {
         throw new Error('Viewport dimensions must be positive safe integers');
       }
-      session = await PtyTerminalSession.start({ manifest, seed: options.seed, viewport });
+      if (options.signal?.aborted) {
+        status = 'cancelled';
+        outcome = 'truncated';
+        termination = { kind: 'cancelled', atAction: actions.length };
+      } else {
+        session = await this.backend.start({ manifest, seed: options.seed, viewport, signal: options.signal });
+      }
       const record = (): TerminalObservation => {
         const current = session!.observe();
         observations.push(current);
@@ -88,14 +134,24 @@ export class PlaytestRunner {
         previousStructural = fingerprint.structural;
         const diagnostics = session!.diagnostics();
         for (const finding of checkObservation(current, actions.length, {
+          targetId: manifest.id,
           outputLimitExceeded: diagnostics.outputLimitExceeded,
+          volatilePatterns: manifest.observation?.volatilePatterns,
         })) addFinding(finding);
         return current;
       };
 
+      if (!session) throw new Error('Run cancelled before launch');
+      if (options.signal?.aborted) {
+        status = 'cancelled';
+        outcome = 'truncated';
+        termination = { kind: 'cancelled', atAction: actions.length };
+      }
       const initial = record();
       const initialDiagnostics = session.diagnostics();
-      if (initialDiagnostics.outputLimitExceeded) {
+      if (status === 'cancelled') {
+        // Cancellation takes precedence over diagnostics gathered during startup.
+      } else if (initialDiagnostics.outputLimitExceeded) {
         status = 'failed';
         outcome = 'failed';
         termination = { kind: 'output-limit', atAction: 0 };
@@ -103,14 +159,14 @@ export class PlaytestRunner {
         status = 'failed';
         outcome = 'failed';
         termination = { kind: 'startup-failure', atAction: 0, exitCode: initial.exitCode, signal: initial.signal };
-        addFinding({
-          kind: 'startup-failure',
-          severity: 'error',
-          message: initialDiagnostics.startupTimedOut
+        addRuntimeFinding(
+          'startup-failure',
+          'error',
+          initialDiagnostics.startupTimedOut
             ? 'The target produced no terminal output before the startup deadline.'
             : 'The target exited before producing terminal output.',
-          atAction: 0,
-        });
+          initialDiagnostics.startupTimedOut ? 'startup-timeout' : 'early-exit',
+        );
       } else if (!initial.processAlive) {
         outcome = initial.exitCode === 0 && initial.signal === undefined ? 'terminated' : 'failed';
         termination = { kind: 'target-exit', atAction: 0, exitCode: initial.exitCode, signal: initial.signal };
@@ -118,19 +174,25 @@ export class PlaytestRunner {
 
       const policy = this.policy ?? baselinePolicy(manifest.allowedKeys);
       const scripted = options.actions;
-      while (status === 'passed' && actions.length < maxActions && initial.processAlive) {
+      while (status === 'passed' && actions.length < maxActions && observations.at(-1)?.processAlive) {
+        if (options.signal?.aborted) {
+          status = 'cancelled';
+          outcome = 'truncated';
+          termination = { kind: 'cancelled', atAction: actions.length };
+          break;
+        }
         if (timeRemaining() === 0) {
           status = 'timed-out';
           outcome = 'truncated';
           termination = { kind: 'time-budget', atAction: actions.length };
-          addFinding({ kind: 'timeout', severity: 'error', message: 'Episode time limit reached.', atAction: actions.length });
+          addRuntimeFinding('timeout', 'error', 'Episode time limit reached.', 'episode-time-budget');
           break;
         }
         if (stalledSteps >= maxStalledSteps) {
           status = 'stalled';
           outcome = 'truncated';
           termination = { kind: 'stall-budget', atAction: actions.length };
-          addFinding({ kind: 'stall', severity: 'warning', message: 'No stable screen progress was observed for the configured number of steps.', atAction: actions.length });
+          addRuntimeFinding('stall', 'warning', 'No stable screen progress was observed for the configured number of steps.', 'structural-stall');
           break;
         }
         const observation = observations.at(-1)!;
@@ -154,10 +216,16 @@ export class PlaytestRunner {
           session.send({ ...action, waitMs: action.waitMs ?? manifest.stepTimeoutMs ?? 250 }),
           timeRemaining(),
         );
-        if (!sendCompleted) {
+        if (sendCompleted === 'cancelled') {
+          status = 'cancelled';
+          outcome = 'truncated';
+          termination = { kind: 'cancelled', atAction: actions.length };
+          break;
+        }
+        if (sendCompleted === 'timeout') {
           status = 'timed-out';
           termination = { kind: 'time-budget', atAction: actions.length };
-          addFinding({ kind: 'timeout', severity: 'error', message: 'Episode time limit reached during an action.', atAction: actions.length });
+          addRuntimeFinding('timeout', 'error', 'Episode time limit reached during an action.', 'action-time-budget');
           break;
         }
         await session.waitForExit(Math.min(25, timeRemaining()));
@@ -183,14 +251,21 @@ export class PlaytestRunner {
         termination = { kind: 'action-budget', atAction: actions.length };
       }
       if (status === 'passed' && observations.at(-1)?.processAlive && timeRemaining() > 0) {
-        await session.waitForExit(Math.min(manifest.exitGraceMs ?? 1100, timeRemaining()));
-        if (!session.observe().processAlive) {
+        const exitResult = await completesBeforeDeadline(
+          session.waitForExit(Math.min(manifest.exitGraceMs ?? 2500, timeRemaining())),
+          timeRemaining(),
+        );
+        if (exitResult === 'cancelled') {
+          status = 'cancelled';
+          outcome = 'truncated';
+          termination = { kind: 'cancelled', atAction: actions.length };
+        } else if (!session.observe().processAlive) {
           const final = record();
           outcome = final.exitCode === 0 && final.signal === undefined ? 'terminated' : 'failed';
           termination = { kind: 'target-exit', atAction: actions.length, exitCode: final.exitCode, signal: final.signal };
         }
       }
-      if (findings.some(finding => finding.kind === 'crash')) {
+      if (status !== 'cancelled' && findings.some(finding => finding.kind === 'crash')) {
         status = 'crashed';
         outcome = 'failed';
       } else if (findings.some(finding => finding.severity === 'error') && status === 'passed') {
@@ -198,23 +273,48 @@ export class PlaytestRunner {
         outcome = 'failed';
       }
     } catch (error) {
-      status = 'failed';
-      outcome = 'failed';
-      termination = { kind: 'runner-error', atAction: actions.length };
-      addFinding({ kind: 'runner-error', severity: 'error', message: error instanceof Error ? error.message : String(error), atAction: actions.length });
-    } finally {
-      try {
-        await session?.stop();
-      } catch (error) {
+      if (options.signal?.aborted) {
+        status = 'cancelled';
+        outcome = 'truncated';
+        termination = { kind: 'cancelled', atAction: actions.length };
+      } else {
         status = 'failed';
         outcome = 'failed';
         termination = { kind: 'runner-error', atAction: actions.length };
-        addFinding({
-          kind: 'runner-error',
-          severity: 'error',
-          message: `Cleanup failed: ${error instanceof Error ? error.message : String(error)}`,
-          atAction: actions.length,
-        });
+        addRuntimeFinding('runner-error', 'error', error instanceof Error ? error.message : String(error), 'runner-exception');
+      }
+    } finally {
+      if (session) {
+        const reason: CleanupReason = status === 'cancelled'
+          ? 'cancelled'
+          : status === 'timed-out'
+            ? 'timeout'
+            : status === 'failed' || status === 'crashed'
+              ? 'runner-error'
+              : termination.kind === 'action-budget' || termination.kind === 'stall-budget' || termination.kind === 'output-limit'
+                ? 'limit'
+                : 'completed';
+        try {
+          cleanup = await session.stop(reason);
+          if (!cleanup.confirmedExited || cleanup.error) {
+            status = 'failed';
+            outcome = 'failed';
+            termination = { kind: 'runner-error', atAction: actions.length };
+            addRuntimeFinding('runner-error', 'error', `Cleanup failed: ${cleanup.error ?? 'target exit was not confirmed'}`, 'cleanup-failure');
+          }
+        } catch (error) {
+          cleanup = {
+            ...noCleanup,
+            attempted: true,
+            graceful: false,
+            confirmedExited: false,
+            error: error instanceof Error ? error.message : String(error),
+          };
+          status = 'failed';
+          outcome = 'failed';
+          termination = { kind: 'runner-error', atAction: actions.length };
+          addRuntimeFinding('runner-error', 'error', `Cleanup failed: ${cleanup.error}`, 'cleanup-exception');
+        }
       }
     }
 
@@ -226,7 +326,8 @@ export class PlaytestRunner {
       outcome,
       termination,
       runtime: {
-        backend: 'local-pty',
+        backend: this.backend.id,
+        capabilities: this.backend.capabilities,
         platform: process.platform,
         arch: process.arch,
         node: process.version,
@@ -243,6 +344,7 @@ export class PlaytestRunner {
       corpusSize: corpus.size,
       terminalText: observations.at(-1)?.text ?? '',
       replay: createReplay(manifest, options.seed, viewport, actions),
+      cleanup,
     };
   }
 }
