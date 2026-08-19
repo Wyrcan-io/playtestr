@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "id": "playtestr-agent-advantage-held-out-v1",
+  "scenarios": [
+    {"id":"relay-vault","kind":"discovery","manifest":"relay-vault.json","seeds":[11,29],"episodes":12,"maxActionsPerEpisode":4,"minimumEvidenceScore":0.75,"expectations":{"tags":["inventory","resource","locked","error"],"completion":true}},
+    {"id":"echo-ritual","kind":"discovery","manifest":"echo-ritual.json","seeds":[7,31],"episodes":14,"maxActionsPerEpisode":4,"minimumEvidenceScore":1,"expectations":{"tags":["puzzle","secret"],"hidden":true}},
+    {"id":"branching-quest","kind":"discovery","manifest":"branching-quest.json","seeds":[13,37],"episodes":14,"maxActionsPerEpisode":4,"minimumEvidenceScore":0.8,"expectations":{"tags":["inventory","navigation","locked","secret"],"completion":true,"hidden":true}},
+    {"id":"fault-recovery","kind":"discovery","manifest":"fault-recovery.json","seeds":[17,41],"episodes":10,"maxActionsPerEpisode":3,"minimumEvidenceScore":1,"expectations":{"tags":["error","locked","recovery"],"completion":true}},
+    {"id":"route-forge","kind":"discovery","manifest":"route-forge.json","seeds":[19,43],"episodes":12,"maxActionsPerEpisode":4,"minimumEvidenceScore":0.75,"expectations":{"tags":["inventory","resource","locked"],"completion":true}}
+  ]
+}
