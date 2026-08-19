@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { createDockerExecutionPlan } from './docker.js';
+import { createDockerExecutionPlan, DockerPtyBackend } from './docker.js';
 import type { TargetManifest } from './types.js';
 
 const manifest: TargetManifest = { schemaVersion: 1, id: 'game', command: 'node', args: ['game.mjs'], env: { NO_COLOR: '1' } };
@@ -17,5 +17,10 @@ describe('Docker execution planning', () => {
   it('requires separate acknowledgement for network and pulling', () => {
     expect(() => createDockerExecutionPlan(manifest, { version: 1, image: 'example/game', network: 'bridge' })).toThrow('allowNetwork');
     expect(() => createDockerExecutionPlan(manifest, { version: 1, image: 'example/game', pull: 'missing' })).toThrow('allowPull');
+  });
+
+  it('exposes container execution identity for Replay V2', () => {
+    const backend = new DockerPtyBackend({ version: 1, image: 'example/game@sha256:abcdef1234567890abcdef1234567890' });
+    expect(backend.replayIdentity()).toMatchObject({ id: 'docker-pty', runtime: 'docker', image: 'example/game@sha256:abcdef1234567890abcdef1234567890', capabilities: { isolation: 'container' } });
   });
 });

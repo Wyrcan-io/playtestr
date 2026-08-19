@@ -8,7 +8,7 @@ const replay: ReplayV1 = { version: 1, targetId: 'game', command: 'node', args: 
 const finding: OracleResult = { signatureVersion: 1, signature, kind: 'crash', severity: 'error', evidenceLevel: 'observed', message: 'crashed', atAction: 1 };
 
 function report(actions = 1): RunReport {
-  return { targetId: 'game', status: 'crashed', seed: 4, findings: [finding], replay: { ...replay, actions: replay.actions.slice(0, actions) } } as RunReport;
+  return { targetId: 'game', status: 'crashed', seed: 4, findings: [finding], replay: { ...replay, actions: replay.actions.slice(0, actions) } } as unknown as RunReport;
 }
 
 describe('finding registry', () => {

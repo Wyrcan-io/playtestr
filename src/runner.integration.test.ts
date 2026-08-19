@@ -26,7 +26,8 @@ describe('PTY runner', () => {
     expect(report.newCorpusEntries).toBe(report.uniqueStates);
     expect(report.schemaVersion).toBe(1);
     expect(report.termination.kind).toBe('action-budget');
-    expect(report.replay.version).toBe(1);
+    expect(report.replay.version).toBe(2);
+    expect(report.replay.backend.id).toBe('local-pty');
   });
 
   it('reports a startup failure when a target never renders', async () => {

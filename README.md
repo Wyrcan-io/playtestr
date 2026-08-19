@@ -18,6 +18,8 @@ node dist/cli.js benchmark --manifest fixtures/hidden-route.json --episodes 10 -
 node dist/cli.js autonomy --manifest fixtures/resource-market.json --episodes 30 --max-actions 4 --artifacts artifacts/autonomy --trust-target
 node dist/cli.js campaign --manifest fixtures/resource-market.json --state artifacts/resource-market.campaign.json --episodes 12 --total-actions 48 --report artifacts/resource-market-report --trust-target
 node dist/cli.js gauntlet --suite fixtures/gauntlet.v1.json --artifacts artifacts/gauntlet --trust-target
+node dist/cli.js advantage --suite fixtures/held-out/agent-advantage.v1.json --artifacts artifacts/agent-advantage --trust-target
+node dist/cli.js docker-run --manifest fixtures/docker-smoke.json --image busybox@sha256:<digest> --container-workdir /tmp --max-actions 1 --trust-container
 npm run soak
 ```
 
@@ -41,7 +43,9 @@ Use the separate `explore` command for coverage-guided prefix mutation and fresh
 - completionist;
 - recovery/confusion tester.
 
-Each agent proposes bounded action sequences with an objective, score, machine-readable reasons, and expected semantic tags. The scheduler launches every selected proposal in a fresh process, then shares newly observed states, transitions, mechanics, milestones, completion paths, and hidden paths with all agents. The same target, seed, and evidence produce the same proposal order.
+Each agent proposes bounded action sequences with an objective, score, machine-readable reasons, and expected semantic tags. World Model V2 records causal state/action outcomes, evidence reward, unresolved frontiers, and state-dependent prerequisite hypotheses. A return-to-frontier planner follows terminal options and hints through reproducible shortest prefixes. A deterministic UCB scheduler learns each role's evidence yield and persists that learning across campaign sessions.
+
+The frozen Agent Advantage suite compares all strategies at exact action-budget parity and repeats the entire evaluation before unlocking downstream work. The current candidate achieved 10/10 wins over coverage-guided exploration, mean evidence `0.9418` versus `0.4502`, zero cleanup failures, and repeat determinism. This is measured evidence on the committed terminal suite, not a claim that every possible game is solvable.
 
 The deterministic semantic analyzer recognizes prompts, menu options, action hints, counters, and common terminal-game concepts. Target adapters can add authoritative milestone and mechanic evidence without making core depend on a particular game. Optional supervisor providers can now propose bounded actions through a validated, provider-neutral interface; they cannot emit findings, commands, environment changes, or bypass the deterministic agents.
 
@@ -64,13 +68,13 @@ Gamr supplies the adapter structurally; Playtestr has no Gamr package dependency
 
 ## Campaigns, verification, and reports
 
-`campaign` resumes compatible world-model, action-corpus, and finding evidence across fresh-process sessions. Campaign files use atomic replacement, a manifest compatibility digest, and monotonic revisions; stale writers and changed targets are rejected. `--verify-findings` runs exact-signature reproduction quorums for newly observed findings. `--report` writes canonical JSON, escaped standalone HTML, Markdown, and representative replay evidence under the target artifact quota.
+`campaign` resumes compatible world-model, action-corpus, finding, verified-route, and agent-learning evidence across fresh-process sessions. Campaign files use atomic replacement, a manifest compatibility digest, and monotonic revisions; stale writers and changed targets are rejected. `--verify-findings` runs exact-signature reproduction quorums for newly observed findings. The API option `verifyRoutes` replays and minimizes completion/hidden routes in fresh target processes. `--report` writes canonical JSON, escaped standalone HTML, Markdown, and representative replay evidence under the target artifact quota.
 
 The committed terminal gauntlet classifies discovery, robustness, and lifecycle scenarios separately. Discovery benchmarks report semantic evidence recall and budget utilization; crash, output-limit, startup, hang, Unicode, resize, and process-tree scenarios gate oracle and cleanup behavior.
 
 ## Isolation and graphical boundary
 
-`createDockerExecutionPlan` builds a restrictive Docker invocation with no host mounts, no network or pull by default, a read-only root, dropped capabilities, `no-new-privileges`, a non-root user, and CPU/memory/PID/tmpfs limits. `probeDocker` reports daemon availability. Docker execution is intentionally gated until Replay V2 records backend identity, so current Docker plans are not represented as executed evidence.
+`createDockerExecutionPlan` and `DockerPtyBackend` use no host mounts, no network or pull by default, a read-only root, dropped capabilities, `no-new-privileges`, a non-root user, and CPU/memory/PID/tmpfs limits. `docker-run` requires `--trust-container`, executes the target through a PTY, and forcibly removes its uniquely named container during cleanup. Replay V2 records backend capabilities, runtime version, image reference, resolved image digest, target-manifest hash, and local target-artifact hash. Container isolation is not VM-grade isolation and access to the Docker daemon remains security-sensitive.
 
 The graphical API currently provides backend-neutral target, observation, action, session, cleanup, and bounded-episode contracts with deterministic in-memory conformance tests. A Playwright browser runtime is not bundled yet; browser installation and visual baselines remain explicit later gates.
 
@@ -104,7 +108,7 @@ The intelligent-agent contracts, evaluation suite, Gamr bridge, Docker gate, and
 
 The benchmark, campaign, report, isolation, provider, release, and browser execution gates for `0.2` are specified in [docs/plans/PROOF_TO_ALPHA_IMPLEMENTATION_PLAN.md](docs/plans/PROOF_TO_ALPHA_IMPLEMENTATION_PLAN.md).
 
-The latest local release-candidate results and remaining external gates are recorded in [docs/release/0.2.0-alpha.1-readiness.md](docs/release/0.2.0-alpha.1-readiness.md).
+The latest local release-candidate results and remaining external gates are recorded in [docs/release/0.2.0-alpha.2-readiness.md](docs/release/0.2.0-alpha.2-readiness.md).
 
 ## Current safety boundary
 

@@ -343,7 +343,7 @@ export class PlaytestRunner {
       newCorpusEntries: corpus.size - startingCorpusSize,
       corpusSize: corpus.size,
       terminalText: observations.at(-1)?.text ?? '',
-      replay: createReplay(manifest, options.seed, viewport, actions),
+      replay: createReplay(manifest, options.seed, viewport, actions, this.backend.replayIdentity?.() ?? { id: this.backend.id, capabilities: { ...this.backend.capabilities } }),
       cleanup,
     };
   }

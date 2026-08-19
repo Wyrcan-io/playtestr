@@ -1,4 +1,4 @@
-import type { EvidenceLevel, ReplayV1, RunOptions, RunReport, TargetManifest } from './types.js';
+import type { EvidenceLevel, Replay, RunOptions, RunReport, TargetManifest } from './types.js';
 
 export interface ReplayRunner {
   run(manifest: TargetManifest, options?: RunOptions): Promise<RunReport>;
@@ -37,7 +37,7 @@ export interface ReproductionResult {
 export async function reproduceFinding(
   runner: ReplayRunner,
   manifest: TargetManifest,
-  replay: ReplayV1,
+  replay: Replay,
   signature: string,
   options: ReproductionOptions = {},
 ): Promise<ReproductionResult> {

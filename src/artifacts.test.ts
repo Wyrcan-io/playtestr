@@ -31,7 +31,7 @@ function report(): RunReport {
     newCorpusEntries: 1,
     corpusSize: 1,
     terminalText: 'ready',
-    replay: { version: 1, targetId: 'fixture', command: 'node', args: [], terminal: { cols: 80, rows: 24 }, actions: [] },
+    replay: { version: 2, targetId: 'fixture', command: 'node', args: [], terminal: { cols: 80, rows: 24 }, actions: [], backend: { id: 'local-pty', capabilities: { isolation: 'none', processTreeCleanup: true, resize: true, signals: true, rawTerminalEvents: false } }, targetManifestHash: 'a'.repeat(64), targetArtifactHash: 'b'.repeat(64) },
     cleanup: { attempted: true, graceful: true, forced: false, mechanism: 'none', elapsedMs: 1, confirmedExited: true },
   };
 }

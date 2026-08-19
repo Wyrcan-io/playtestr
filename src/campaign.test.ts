@@ -14,6 +14,8 @@ describe('campaign persistence', () => {
       const file = join(root, 'campaign.json');
       const first = await saveCampaign(createCampaign(manifest), manifest, file);
       expect(first.revision).toBe(1);
+      expect(first.world.version).toBe(2);
+      expect(first.agentLearning).toEqual({ version: 1, totalSelections: 0, records: [] });
       expect(await loadCampaign(file, manifest)).toEqual(first);
       const second = await saveCampaign(first, manifest, file);
       expect(second.revision).toBe(2);

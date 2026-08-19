@@ -20,6 +20,30 @@ export interface AutonomyOptions {
   stopOnCompletion?: boolean;
   stopOnHidden?: boolean;
   signal?: AbortSignal;
+  learning?: AgentLearningSnapshot;
+}
+
+export interface AgentLearningRecord {
+  agentId: string;
+  role: AutonomousAgent['role'];
+  selections: number;
+  actions: number;
+  totalReward: number;
+  meanReward: number;
+  stateYield: number;
+  transitionYield: number;
+  mechanicYield: number;
+  milestoneYield: number;
+  completionYield: number;
+  hiddenYield: number;
+  findingYield: number;
+  lastSelectedEpisode: number;
+}
+
+export interface AgentLearningSnapshot {
+  version: 1;
+  totalSelections: number;
+  records: AgentLearningRecord[];
 }
 
 export interface AgentContribution {
@@ -34,6 +58,7 @@ export interface AgentContribution {
   findingSignatures: string[];
   completionDiscoveries: number;
   hiddenDiscoveries: number;
+  reward: number;
 }
 
 export interface AutonomyEpisode {
@@ -59,6 +84,7 @@ export interface AutonomyResult {
   world: WorldModelSnapshot;
   contributions: AgentContribution[];
   episodeRecords: AutonomyEpisode[];
+  learning: AgentLearningSnapshot;
 }
 
 const defaultActions = ['?', 'h', 'Enter', 'Space', 'Escape', 'Tab', 'Backspace', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'r', 'q'];
@@ -66,16 +92,32 @@ const timingClass = (action: InputAction): string => (action.waitMs ?? 0) === 0 
 const sequenceKey = (actions: readonly InputAction[]): string => JSON.stringify(actions.map(action => [action.key, timingClass(action)]));
 
 function emptyContribution(agent: AutonomousAgent): AgentContribution {
-  return { agentId: agent.id, role: agent.role, selectedEpisodes: 0, actions: 0, newStates: 0, newTransitions: 0, newMechanics: 0, newMilestones: 0, findingSignatures: [], completionDiscoveries: 0, hiddenDiscoveries: 0 };
+  return { agentId: agent.id, role: agent.role, selectedEpisodes: 0, actions: 0, newStates: 0, newTransitions: 0, newMechanics: 0, newMilestones: 0, findingSignatures: [], completionDiscoveries: 0, hiddenDiscoveries: 0, reward: 0 };
 }
 
-function proposalScore(candidate: AgentProposal, world: WorldModelSnapshot, selected: ReadonlyMap<string, number>): number {
-  const maximumSelections = Math.max(0, ...selected.values());
-  const fairness = (maximumSelections - (selected.get(candidate.agentId) ?? 0)) * 12;
-  const firstSelection = (selected.get(candidate.agentId) ?? 0) === 0 ? 40 : 0;
+function emptyLearning(agent: AutonomousAgent): AgentLearningRecord {
+  return { agentId: agent.id, role: agent.role, selections: 0, actions: 0, totalReward: 0, meanReward: 0, stateYield: 0, transitionYield: 0, mechanicYield: 0, milestoneYield: 0, completionYield: 0, hiddenYield: 0, findingYield: 0, lastSelectedEpisode: 0 };
+}
+
+function learningState(agents: readonly AutonomousAgent[], snapshot?: AgentLearningSnapshot): Map<string, AgentLearningRecord> {
+  if (snapshot && (snapshot.version !== 1 || !Number.isSafeInteger(snapshot.totalSelections) || snapshot.totalSelections < 0 || !Array.isArray(snapshot.records))) throw new Error('Agent learning snapshot is invalid');
+  const supplied = new Map((snapshot?.records ?? []).map(record => [record.agentId, record]));
+  return new Map(agents.map(agent => {
+    const previous = supplied.get(agent.id);
+    if (!previous) return [agent.id, emptyLearning(agent)];
+    if (previous.role !== agent.role || !Number.isSafeInteger(previous.selections) || previous.selections < 0 || !Number.isFinite(previous.totalReward)) throw new Error(`Agent learning record is invalid: ${agent.id}`);
+    return [agent.id, { ...previous }];
+  }));
+}
+
+function proposalScore(candidate: AgentProposal, world: WorldModelSnapshot, learning: ReadonlyMap<string, AgentLearningRecord>): number {
+  const record = learning.get(candidate.agentId);
+  const totalSelections = [...learning.values()].reduce((total, value) => total + value.selections, 0);
+  const exploration = !record || record.selections === 0 ? 80 : Math.sqrt((2 * Math.log(totalSelections + 1)) / record.selections) * 18;
+  const learnedValue = record?.meanReward ?? 0;
   const unseenTagValue = candidate.expectedTags.filter(tag => !world.states.some(state => state.tags.includes(tag))).length * 5;
   const objectiveValue = world.objectives.some(objective => objective.id === candidate.objectiveId && objective.status !== 'complete') ? 15 : 0;
-  return candidate.score + fairness + firstSelection + unseenTagValue + objectiveValue - candidate.actions.length * 0.25;
+  return candidate.score + exploration + learnedValue + unseenTagValue + objectiveValue - candidate.actions.length * 0.25;
 }
 
 export async function autonomousPlaytest(manifest: TargetManifest, options: AutonomyOptions = {}): Promise<AutonomyResult> {
@@ -104,7 +146,7 @@ export async function autonomousPlaytest(manifest: TargetManifest, options: Auto
   const world = options.world ?? new WorldModel(manifest.id, adapter);
   const corpus = options.corpus ?? new ActionCorpus();
   const contributions = new Map(agents.map(agent => [agent.id, emptyContribution(agent)]));
-  const selections = new Map(agents.map(agent => [agent.id, 0]));
+  const learning = learningState(agents, options.learning);
   const seenSequences = new Set<string>();
   const episodeRecords: AutonomyEpisode[] = [];
   let actionCount = 0;
@@ -146,7 +188,7 @@ export async function autonomousPlaytest(manifest: TargetManifest, options: Auto
       .filter(candidate => candidate.actions.every(action => allowedActions.includes(action.key)))
       .filter(candidate => !seenSequences.has(sequenceKey(candidate.actions)))
       .filter(candidate => candidate.actions.length <= maxTotalActions - actionCount)
-      .map(candidate => ({ candidate, adjustedScore: proposalScore(candidate, snapshot, selections) }))
+      .map(candidate => ({ candidate, adjustedScore: proposalScore(candidate, snapshot, learning) }))
       .sort((left, right) => right.adjustedScore - left.adjustedScore
         || left.candidate.agentId.localeCompare(right.candidate.agentId)
         || left.candidate.objectiveId.localeCompare(right.candidate.objectiveId)
@@ -154,7 +196,6 @@ export async function autonomousPlaytest(manifest: TargetManifest, options: Auto
     const selected = candidates[0];
     if (!selected) { stopReason = 'queue-exhausted'; break; }
     seenSequences.add(sequenceKey(selected.candidate.actions));
-    selections.set(selected.candidate.agentId, (selections.get(selected.candidate.agentId) ?? 0) + 1);
     const record = await runEpisode(
       selected.candidate.agentId,
       selected.candidate.role,
@@ -174,6 +215,20 @@ export async function autonomousPlaytest(manifest: TargetManifest, options: Auto
     contribution.findingSignatures = [...new Set([...contribution.findingSignatures, ...record.report.findings.map(finding => finding.signature)])].sort();
     if (record.delta.completionDiscovered) contribution.completionDiscoveries += 1;
     if (record.delta.hiddenDiscovered) contribution.hiddenDiscoveries += 1;
+    contribution.reward += record.delta.reward;
+    const learned = learning.get(selected.candidate.agentId)!;
+    learned.selections += 1;
+    learned.actions += record.report.actionCount;
+    learned.totalReward += record.delta.reward;
+    learned.meanReward = Number((learned.totalReward / learned.selections).toFixed(3));
+    learned.stateYield += record.delta.newStates.length;
+    learned.transitionYield += record.delta.newTransitions.length;
+    learned.mechanicYield += record.delta.newMechanics.length;
+    learned.milestoneYield += record.delta.newMilestones.length;
+    learned.completionYield += record.delta.completionDiscovered ? 1 : 0;
+    learned.hiddenYield += record.delta.hiddenDiscovered ? 1 : 0;
+    learned.findingYield += record.report.findings.length;
+    learned.lastSelectedEpisode = [...learning.values()].reduce((total, value) => total + value.selections, 0);
     if (record.report.status === 'cancelled') stopReason = 'cancelled';
     if (record.report.termination.kind === 'runner-error') stopReason = 'runner-error';
   }
@@ -191,5 +246,10 @@ export async function autonomousPlaytest(manifest: TargetManifest, options: Auto
     world: finalWorld,
     contributions: [...contributions.values()].sort((left, right) => left.agentId.localeCompare(right.agentId)),
     episodeRecords,
+    learning: {
+      version: 1,
+      totalSelections: [...learning.values()].reduce((total, record) => total + record.selections, 0),
+      records: [...learning.values()].sort((left, right) => left.agentId.localeCompare(right.agentId)).map(record => ({ ...record })),
+    },
   };
 }

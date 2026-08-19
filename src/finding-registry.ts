@@ -1,5 +1,5 @@
 import { reproduceFinding, type ReplayRunner, type ReproductionOptions, type ReproductionResult } from './reproduce.js';
-import type { EvidenceLevel, OracleKind, ReplayV1, RunReport, TargetManifest } from './types.js';
+import type { EvidenceLevel, OracleKind, Replay, RunReport, TargetManifest } from './types.js';
 
 export interface FindingRecordV1 {
   version: 1;
@@ -13,13 +13,13 @@ export interface FindingRecordV1 {
   messages: string[];
   statuses: RunReport['status'][];
   seeds: number[];
-  replay: ReplayV1;
+  replay: Replay;
   reproduction?: ReproductionResult;
 }
 
 const evidenceRank: Record<EvidenceLevel, number> = { observed: 0, reproduced: 1, confirmed: 2, reviewed: 3 };
 
-function cloneReplay(replay: ReplayV1): ReplayV1 {
+function cloneReplay(replay: Replay): Replay {
   return { ...replay, args: [...replay.args], terminal: { ...replay.terminal }, actions: replay.actions.map(action => ({ ...action })) };
 }
 

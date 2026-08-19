@@ -1,5 +1,6 @@
 import type { AgentContext, AgentProposal, AutonomousAgent, AgentRole } from './autonomy-types.js';
 import type { InputAction } from './types.js';
+import { planWorldFrontiers } from './planner.js';
 
 const semanticKey = (actions: readonly InputAction[]): string => JSON.stringify(actions.map(action => action.key));
 const clonePrefix = (actions: readonly InputAction[]): InputAction[] => actions.map(action => ({ ...action }));
@@ -38,7 +39,16 @@ export class MechanicMapperAgent implements AutonomousAgent {
   readonly role: AgentRole = 'mechanic-mapper';
 
   propose(context: AgentContext): AgentProposal[] {
-    const candidates: AgentProposal[] = [];
+    const goalObserved = context.world.completionPrefixes.length > 0 || context.world.hiddenPrefixes.length > 0;
+    const planned = planWorldFrontiers(context).map(plan => proposal(
+      this,
+      plan.id,
+      plan.actions,
+      goalObserved ? 70 + plan.score * 0.25 : 100 + plan.score * 0.45,
+      [...plan.reasons, ...(goalObserved ? ['post-goal-breadth'] : [])],
+      plan.expectedTags,
+    ));
+    const candidates: AgentProposal[] = [...planned];
     const actions = actionsFromContext(context);
     const tried = new Set(context.world.transitions.map(transition => `${transition.from}:${transition.action.key}`));
     for (const state of productiveStates(context)) {

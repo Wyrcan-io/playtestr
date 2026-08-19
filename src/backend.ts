@@ -11,6 +11,10 @@ export class LocalPtyBackend implements ExecutionBackend {
     rawTerminalEvents: false,
   };
 
+  replayIdentity() {
+    return { id: this.id, capabilities: { ...this.capabilities }, runtime: 'node-pty', runtimeVersion: '1.2.0-beta.14' };
+  }
+
   start(options: ExecutionBackendStartOptions): Promise<TerminalSession> {
     return PtyTerminalSession.start(options);
   }

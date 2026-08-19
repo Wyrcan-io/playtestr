@@ -72,6 +72,31 @@ export interface ReplayV1 {
   actions: InputAction[];
 }
 
+export interface ReplayBackendIdentity {
+  id: string;
+  capabilities: ExecutionBackendCapabilities;
+  runtime?: string;
+  runtimeVersion?: string;
+  image?: string;
+  imageDigest?: string;
+}
+
+export interface ReplayV2 {
+  version: 2;
+  targetId: string;
+  command: string;
+  args: string[];
+  cwd?: string;
+  seed?: number;
+  terminal: { cols: number; rows: number };
+  actions: InputAction[];
+  backend: ReplayBackendIdentity;
+  targetManifestHash: string;
+  targetArtifactHash: string;
+}
+
+export type Replay = ReplayV1 | ReplayV2;
+
 export type EvidenceLevel = 'observed' | 'reproduced' | 'confirmed' | 'reviewed';
 
 export type OracleKind = 'crash' | 'timeout' | 'stall' | 'output-limit' | 'startup-failure' | 'runner-error';
@@ -139,7 +164,7 @@ export interface RunReport {
   newCorpusEntries: number;
   corpusSize: number;
   terminalText: string;
-  replay: ReplayV1;
+  replay: ReplayV2;
   cleanup: CleanupResult;
 }
 
@@ -157,7 +182,7 @@ export interface CleanupResult {
   attempted: boolean;
   graceful: boolean;
   forced: boolean;
-  mechanism: 'none' | 'pty-kill' | 'unix-process-group' | 'windows-taskkill';
+  mechanism: 'none' | 'pty-kill' | 'unix-process-group' | 'windows-taskkill' | 'docker-rm';
   elapsedMs: number;
   confirmedExited: boolean;
   error?: string;
@@ -191,6 +216,7 @@ export interface ExecutionBackendStartOptions {
 export interface ExecutionBackend {
   readonly id: string;
   readonly capabilities: ExecutionBackendCapabilities;
+  replayIdentity?(): ReplayBackendIdentity;
   start(options: ExecutionBackendStartOptions): Promise<TerminalSession>;
 }
 

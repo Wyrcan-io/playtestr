@@ -4,9 +4,10 @@ import { access, readFile } from 'node:fs/promises';
 import { actionDiversityPolicy } from './agents.js';
 import { writeArtifactBundle, writeRunArtifacts } from './artifacts.js';
 import { benchmarkStrategies } from './benchmark.js';
+import { runAdvantageGate } from './advantage.js';
 import { createCampaign, loadCampaign, runCampaign, saveCampaign } from './campaign.js';
 import { ActionCorpus, loadCorpus } from './corpus.js';
-import { createDockerExecutionPlan, probeDocker } from './docker.js';
+import { createDockerExecutionPlan, DockerPtyBackend, probeDocker } from './docker.js';
 import { exploreTarget } from './explorer.js';
 import { minimizeFindingReplay } from './finding-minimize.js';
 import { runGauntlet } from './gauntlet.js';
@@ -58,9 +59,13 @@ Usage:
                      [--report artifacts/game-report] [--fresh] --trust-target
   playtestr gauntlet --suite fixtures/gauntlet.v1.json
                      [--artifacts artifacts/gauntlet] --trust-target
+  playtestr advantage --suite fixtures/held-out/agent-advantage.v1.json
+                      [--artifacts artifacts/agent-advantage] --trust-target
   playtestr docker-plan --manifest game.json --image registry/game@sha256:...
                         [--network none|bridge --allow-network]
                         [--pull never|missing --allow-pull] [--artifacts artifacts/docker-plan]
+  playtestr docker-run --manifest game.json --image registry/game@sha256:...
+                       [--max-actions 100] [--artifacts artifacts/docker-run] --trust-container
 
 --trust-target acknowledges that local targets run with your user permissions and are not sandboxed.
 `);
@@ -69,7 +74,7 @@ Usage:
 async function main(signal: AbortSignal): Promise<number> {
 const args = process.argv.slice(2);
 const command = args[0];
-if (!['run', 'minimize', 'verify', 'explore', 'benchmark', 'autonomy', 'campaign', 'gauntlet', 'docker-plan'].includes(command ?? '')) {
+if (!['run', 'minimize', 'verify', 'explore', 'benchmark', 'autonomy', 'campaign', 'gauntlet', 'advantage', 'docker-plan', 'docker-run'].includes(command ?? '')) {
   help();
   return args.length ? 1 : 0;
 } else if (command === 'run') {
@@ -271,6 +276,34 @@ if (!['run', 'minimize', 'verify', 'explore', 'benchmark', 'autonomy', 'campaign
   for (const scenario of result.scenarios) console.log(`${scenario.passed ? 'PASS' : 'FAIL'} ${scenario.kind}/${scenario.id} cleanupFailures=${scenario.cleanupFailures}`);
   console.log(`GAUNTLET ${result.suiteId}: ${result.scenarios.filter(scenario => scenario.passed).length}/${result.scenarioCount} passed`);
   return signal.aborted ? 130 : result.passed ? 0 : 1;
+} else if (command === 'advantage') {
+  if (!args.includes('--trust-target')) throw new Error('Local execution requires --trust-target; the PTY backend is not a sandbox');
+  const suitePath = valueAfter(args, '--suite');
+  if (!suitePath) throw new Error('advantage requires --suite <file>');
+  const result = await runAdvantageGate(suitePath, { signal });
+  const artifactRoot = valueAfter(args, '--artifacts');
+  if (artifactRoot) await writeArtifactBundle(artifactRoot, { 'advantage.json': `${JSON.stringify(result, null, 2)}\n` }, integerAfter(args, '--max-artifact-bytes') ?? 100_000_000);
+  console.log(`AGENT ADVANTAGE ${result.passed ? 'PASS' : 'FAIL'}: trials=${result.trialCount} intelligent=${result.intelligentMeanEvidence} coverage=${result.coverageMeanEvidence} margin=${result.coverageMargin} wins=${result.wins} ties=${result.ties} losses=${result.losses} deterministic=${result.deterministic}`);
+  for (const reason of result.decisionReasons) console.log(`- ${reason}`);
+  return signal.aborted ? 130 : result.passed ? 0 : 1;
+} else if (command === 'docker-run') {
+  if (!args.includes('--trust-container')) throw new Error('Docker execution requires --trust-container; containers are not VM-grade isolation and use your Docker daemon');
+  const manifestPath = valueAfter(args, '--manifest');
+  const image = valueAfter(args, '--image');
+  if (!manifestPath || !image) throw new Error('docker-run requires --manifest <file> and --image <reference>');
+  const manifest = await loadManifest(manifestPath);
+  const network = valueAfter(args, '--network') ?? 'none';
+  const pull = valueAfter(args, '--pull') ?? 'never';
+  if (network !== 'none' && network !== 'bridge') throw new Error('--network must be none or bridge');
+  if (pull !== 'never' && pull !== 'missing') throw new Error('--pull must be never or missing');
+  const backend = new DockerPtyBackend({ version: 1, image, network, pull, allowNetwork: args.includes('--allow-network'), allowPull: args.includes('--allow-pull'), containerWorkdir: valueAfter(args, '--container-workdir'), user: valueAfter(args, '--user') });
+  const report = await new PlaytestRunner({ backend }).run(manifest, {
+    seed: integerAfter(args, '--seed', Number.MIN_SAFE_INTEGER), maxActions: integerAfter(args, '--max-actions'), maxElapsedMs: integerAfter(args, '--max-ms'), signal,
+  });
+  const artifactRoot = valueAfter(args, '--artifacts');
+  if (artifactRoot) await writeRunArtifacts(report, artifactRoot, { maxBytes: manifest.maxArtifactBytes });
+  console.log(`DOCKER ${report.status.toUpperCase()} ${manifest.id}: actions=${report.actionCount} backend=${report.replay.backend.id} image=${report.replay.backend.image ?? image} cleanup=${report.cleanup.confirmedExited}`);
+  return report.status === 'cancelled' ? 130 : report.status === 'passed' ? 0 : 1;
 } else {
   const manifestPath = valueAfter(args, '--manifest');
   const image = valueAfter(args, '--image');

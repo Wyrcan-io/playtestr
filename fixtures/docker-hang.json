@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "id": "docker-hang",
+  "command": "sh",
+  "args": ["-c", "printf '\\033[2J\\033[HDOCKER HANG TARGET\\n'; trap '' INT TERM; while :; do sleep 1; done"],
+  "startupTimeoutMs": 3000,
+  "stepTimeoutMs": 20,
+  "exitGraceMs": 50,
+  "episodeTimeoutMs": 3000,
+  "allowedKeys": ["x"]
+}

@@ -2,7 +2,7 @@ import { writeArtifactBundle, type ArtifactWriteResult } from './artifacts.js';
 import type { BenchmarkResult } from './benchmark.js';
 import type { CampaignFileV1 } from './campaign.js';
 import type { AgentContribution, AutonomyResult } from './orchestrator.js';
-import type { InputAction, ReplayV1, TargetManifest } from './types.js';
+import type { InputAction, Replay, TargetManifest } from './types.js';
 
 export interface ProfessionalReportV1 {
   version: 1;
@@ -159,7 +159,7 @@ export async function writeProfessionalReport(
   artifactRoot: string,
   maxBytes = 10_000_000,
 ): Promise<ArtifactWriteResult> {
-  const replays: Record<string, ReplayV1> = Object.fromEntries(report.findings.map(finding => [finding.signature, finding.replay]));
+  const replays: Record<string, Replay> = Object.fromEntries(report.findings.map(finding => [finding.signature, finding.replay]));
   return writeArtifactBundle(artifactRoot, {
     'report.json': `${JSON.stringify(report, null, 2)}\n`,
     'report.html': renderProfessionalReportHtml(report),

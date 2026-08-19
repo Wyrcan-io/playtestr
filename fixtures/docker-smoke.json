@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "id": "docker-smoke",
+  "command": "sh",
+  "args": ["-c", "printf '\\033[2J\\033[HDOCKER TERMINAL GAME\\n[Enter] Complete trial\\n'; read answer; printf '\\033[2J\\033[HTRAINING COMPLETE\\n'"],
+  "startupTimeoutMs": 3000,
+  "stepTimeoutMs": 50,
+  "exitGraceMs": 100,
+  "episodeTimeoutMs": 5000,
+  "allowedKeys": ["Enter"]
+}

@@ -4,10 +4,11 @@ import type { TargetAdapter } from './adapter.js';
 import { ActionCorpus, serializeCorpus, targetCompatibilityKey, type CorpusFileV1 } from './corpus.js';
 import { autonomyDeterminismSignature } from './evaluation.js';
 import { FindingRegistry, verifyFindingRecords, type FindingRecordV1 } from './finding-registry.js';
-import { autonomousPlaytest, type AutonomyOptions, type AutonomyResult } from './orchestrator.js';
+import { autonomousPlaytest, type AgentLearningSnapshot, type AutonomyOptions, type AutonomyResult } from './orchestrator.js';
 import { PlaytestRunner } from './runner.js';
+import { minimizeVerifiedRoute, type VerifiedRouteRecord } from './route-evidence.js';
 import { WorldModel, type WorldModelSnapshot } from './world-model.js';
-import type { TargetManifest } from './types.js';
+import type { InputAction, TargetManifest } from './types.js';
 
 export interface CampaignTotalsV1 {
   sessions: number;
@@ -42,15 +43,21 @@ export interface CampaignFileV1 {
   corpus: CorpusFileV1;
   findings: FindingRecordV1[];
   sessions: CampaignSessionV1[];
+  agentLearning?: AgentLearningSnapshot;
+  routes?: VerifiedRouteRecord[];
 }
 
-export interface CampaignRunOptions extends Omit<AutonomyOptions, 'adapter' | 'world' | 'corpus'> {
+export interface CampaignRunOptions extends Omit<AutonomyOptions, 'adapter' | 'world' | 'corpus' | 'learning'> {
   adapter?: TargetAdapter;
   verifyFindings?: boolean;
   verificationAttempts?: number;
   verificationRequiredMatches?: number;
   verificationMaxElapsedMs?: number;
   maxSessionHistory?: number;
+  verifyRoutes?: boolean;
+  routeCandidateAttempts?: number;
+  routeFinalAttempts?: number;
+  routeMaxMinimizationAttempts?: number;
 }
 
 export interface CampaignRunResult {
@@ -82,6 +89,8 @@ function validateCampaign(campaign: CampaignFileV1, manifest: TargetManifest): v
   if (!Array.isArray(campaign.sessions) || !Array.isArray(campaign.findings) || !campaign.corpus || campaign.corpus.version !== 1) throw new Error('Campaign evidence collections are invalid');
   if (campaign.corpus.targetId !== manifest.id || campaign.corpus.targetCompatibilityKey !== campaign.targetCompatibilityKey || !Array.isArray(campaign.corpus.entries)) throw new Error('Campaign corpus is incompatible');
   if (campaign.world.targetId !== manifest.id) throw new Error('Campaign world target is incompatible');
+  if (campaign.agentLearning && (campaign.agentLearning.version !== 1 || !Array.isArray(campaign.agentLearning.records))) throw new Error('Campaign agent learning is invalid');
+  if (campaign.routes !== undefined && !Array.isArray(campaign.routes)) throw new Error('Campaign routes are invalid');
   if (campaign.findings.some(finding => finding.replay.targetId !== manifest.id)) throw new Error('Campaign finding replay target is incompatible');
   WorldModel.fromSnapshot(campaign.world);
   new FindingRegistry(campaign.findings);
@@ -105,6 +114,8 @@ export function createCampaign(manifest: TargetManifest, id = `${manifest.id}-ca
     corpus: serializeCorpus(corpus, manifest),
     findings: [],
     sessions: [],
+    agentLearning: { version: 1, totalSelections: 0, records: [] },
+    routes: [],
   };
 }
 
@@ -160,7 +171,7 @@ export async function runCampaign(manifest: TargetManifest, campaign: CampaignFi
   const startedAt = new Date().toISOString();
   const world = WorldModel.fromSnapshot(campaign.world, options.adapter);
   const corpus = new ActionCorpus(campaign.corpus.entries);
-  const autonomy = await autonomousPlaytest(manifest, { ...options, adapter: options.adapter, world, corpus });
+  const autonomy = await autonomousPlaytest(manifest, { ...options, adapter: options.adapter, world, corpus, learning: campaign.agentLearning });
   const registry = new FindingRegistry(campaign.findings);
   const newFindingSignatures = [...new Set(autonomy.episodeRecords.flatMap(record => registry.recordRun(record.report, session)))].sort();
   if (options.verifyFindings && newFindingSignatures.length && !options.signal?.aborted) {
@@ -170,6 +181,28 @@ export async function runCampaign(manifest: TargetManifest, campaign: CampaignFi
       maxElapsedMs: options.verificationMaxElapsedMs ?? 60_000,
       signal: options.signal,
     });
+  }
+  const routes = [...(campaign.routes ?? [])];
+  if (options.verifyRoutes && !options.signal?.aborted) {
+    const runner = new PlaytestRunner();
+    const routeRunner = { run: (target: TargetManifest, runOptions: { actions: readonly InputAction[]; maxActions: number; maxElapsedMs?: number; signal?: AbortSignal }) => runner.run(target, { ...runOptions, actions: [...runOptions.actions] }) };
+    const candidates = [
+      ...autonomy.world.completionPrefixes.map(actions => ({ kind: 'completion' as const, actions })),
+      ...autonomy.world.hiddenPrefixes.map(actions => ({ kind: 'hidden' as const, actions })),
+    ].sort((left, right) => left.actions.length - right.actions.length || left.kind.localeCompare(right.kind));
+    for (const candidate of candidates) {
+      const semanticKey = JSON.stringify([candidate.kind, candidate.actions.map(action => [action.key, action.holdMs ?? 0, action.waitMs ?? 0])]);
+      if (routes.some(route => JSON.stringify([route.kind, route.actions.map(action => [action.key, action.holdMs ?? 0, action.waitMs ?? 0])]) === semanticKey)) continue;
+      const verified = await minimizeVerifiedRoute(routeRunner, manifest, candidate.kind, candidate.actions, {
+        adapter: options.adapter,
+        candidateAttempts: options.routeCandidateAttempts ?? 2,
+        finalAttempts: options.routeFinalAttempts ?? 3,
+        maxMinimizationAttempts: options.routeMaxMinimizationAttempts ?? 50,
+        maxElapsedMs: options.verificationMaxElapsedMs ?? 60_000,
+        signal: options.signal,
+      });
+      routes.push(verified.record);
+    }
   }
   const sessionSummary: CampaignSessionV1 = {
     session,
@@ -195,6 +228,8 @@ export async function runCampaign(manifest: TargetManifest, campaign: CampaignFi
     corpus: serializeCorpus(corpus, manifest),
     findings: [...registry.records],
     sessions: [...campaign.sessions, sessionSummary].slice(-maxSessionHistory),
+    agentLearning: autonomy.learning,
+    routes: routes.sort((left, right) => left.kind.localeCompare(right.kind) || left.actions.length - right.actions.length || left.id.localeCompare(right.id)),
   });
   return { campaign: updated, autonomy, newFindingSignatures };
 }

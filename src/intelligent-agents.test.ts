@@ -5,11 +5,12 @@ import type { AgentContext } from './autonomy-types.js';
 const context: AgentContext = {
   manifest: { schemaVersion: 1, id: 'fixture', command: 'node', allowedKeys: ['a', 'Enter', 'Escape'] },
   world: {
-    version: 1,
+    version: 2,
     targetId: 'fixture',
     episodes: 1,
     states: [{ id: 'state', visits: 1, firstSeenEpisode: 1, shortestPrefix: [], semanticSignature: 'semantic', tags: ['menu'], actionHints: ['a'], milestones: [], terminal: false, completion: false, hidden: false, failure: false, recoverable: false }],
     transitions: [], mechanics: [], milestones: [], objectives: [], completionPrefixes: [], hiddenPrefixes: [],
+    actionVocabulary: ['a', 'Enter', 'Escape'], actionOutcomes: [], frontiers: [], prerequisites: [],
   },
   allowedActions: ['a', 'Enter', 'Escape'],
   maxActionsPerEpisode: 4,

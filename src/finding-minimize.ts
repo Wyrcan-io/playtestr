@@ -1,6 +1,6 @@
 import { minimizeSequence, type MinimizeResult } from './minimize.js';
 import { reproduceFinding, type ReplayRunner, type ReproductionResult } from './reproduce.js';
-import type { InputAction, ReplayV1, TargetManifest } from './types.js';
+import type { InputAction, Replay, TargetManifest } from './types.js';
 
 export interface FindingMinimizeOptions {
   maxAttempts?: number;
@@ -15,7 +15,7 @@ export interface FindingMinimizeOptions {
 export interface FindingMinimizeResult {
   signature: string;
   originalLength: number;
-  replay: ReplayV1;
+  replay: Replay;
   minimization: MinimizeResult<InputAction>;
   initialReproduction: ReproductionResult;
   finalReproduction: ReproductionResult;
@@ -24,7 +24,7 @@ export interface FindingMinimizeResult {
 export async function minimizeFindingReplay(
   runner: ReplayRunner,
   manifest: TargetManifest,
-  replay: ReplayV1,
+  replay: Replay,
   signature: string,
   options: FindingMinimizeOptions = {},
 ): Promise<FindingMinimizeResult> {
@@ -43,7 +43,7 @@ export async function minimizeFindingReplay(
 
   const minimization = await minimizeSequence(replay.actions, async candidate => {
     if (options.signal?.aborted || remaining() <= 1) return false;
-    const candidateReplay: ReplayV1 = { ...replay, actions: [...candidate] };
+    const candidateReplay: Replay = { ...replay, actions: [...candidate] };
     const result = await reproduceFinding(runner, manifest, candidateReplay, signature, {
       attempts: candidateAttempts,
       requiredMatches: candidateRequiredMatches,
@@ -57,7 +57,7 @@ export async function minimizeFindingReplay(
     signal: options.signal,
   });
 
-  const minimizedReplay: ReplayV1 = { ...replay, actions: minimization.items };
+  const minimizedReplay: Replay = { ...replay, actions: minimization.items };
   const finalAttempts = options.finalAttempts ?? 3;
   const finalReproduction = await reproduceFinding(runner, manifest, minimizedReplay, signature, {
     attempts: finalAttempts,
