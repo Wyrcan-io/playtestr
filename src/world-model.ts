@@ -97,6 +97,47 @@ export class WorldModel {
     }
   }
 
+  static fromSnapshot(snapshot: WorldModelSnapshot, adapter?: TargetAdapter): WorldModel {
+    if (snapshot.version !== 1 || typeof snapshot.targetId !== 'string' || !snapshot.targetId) throw new Error('World snapshot must be a valid V1 snapshot');
+    if (!Number.isSafeInteger(snapshot.episodes) || snapshot.episodes < 0) throw new Error('World snapshot episode count is invalid');
+    for (const key of ['states', 'transitions', 'mechanics', 'milestones', 'objectives', 'completionPrefixes', 'hiddenPrefixes'] as const) {
+      if (!Array.isArray(snapshot[key])) throw new Error(`World snapshot ${key} must be an array`);
+    }
+    const world = new WorldModel(snapshot.targetId, adapter);
+    world.episodeCount = snapshot.episodes;
+    world.objectiveById.clear();
+    for (const state of snapshot.states) {
+      if (!state || typeof state.id !== 'string' || world.statesById.has(state.id) || !Number.isSafeInteger(state.visits) || state.visits <= 0 || !Array.isArray(state.shortestPrefix)) throw new Error('World snapshot contains an invalid or duplicate state');
+      world.statesById.set(state.id, { ...state, shortestPrefix: state.shortestPrefix.map(action => ({ ...action })), tags: [...state.tags], actionHints: [...state.actionHints], options: state.options?.map(option => ({ ...option })), milestones: [...state.milestones] });
+    }
+    for (const transition of snapshot.transitions) {
+      if (!transition || typeof transition.id !== 'string' || world.transitionsById.has(transition.id) || !world.statesById.has(transition.from) || !world.statesById.has(transition.to)) throw new Error('World snapshot contains an invalid or duplicate transition');
+      world.transitionsById.set(transition.id, { ...transition, action: { ...transition.action } });
+    }
+    for (const mechanic of snapshot.mechanics) {
+      if (!mechanic || typeof mechanic.id !== 'string' || world.mechanicsById.has(mechanic.id) || !Number.isSafeInteger(mechanic.evidenceCount) || mechanic.evidenceCount <= 0) throw new Error('World snapshot contains an invalid or duplicate mechanic');
+      world.mechanicsById.set(mechanic.id, { ...mechanic, states: [...mechanic.states], actions: [...mechanic.actions], sources: [...mechanic.sources] });
+    }
+    for (const milestone of snapshot.milestones) {
+      if (typeof milestone !== 'string' || !milestone) throw new Error('World snapshot contains an invalid milestone');
+      world.milestoneIds.add(milestone);
+    }
+    for (const objective of snapshot.objectives) {
+      if (!objective || typeof objective.id !== 'string' || world.objectiveById.has(objective.id)) throw new Error('World snapshot contains an invalid or duplicate objective');
+      world.objectiveById.set(objective.id, { ...objective });
+    }
+    const restorePrefixes = (prefixes: readonly InputAction[][], destination: Map<string, InputAction[]>): void => {
+      for (const prefix of prefixes) {
+        if (!Array.isArray(prefix)) throw new Error('World snapshot contains an invalid action prefix');
+        const copy = prefix.map(action => ({ ...action }));
+        destination.set(sequenceKey(copy), copy);
+      }
+    };
+    restorePrefixes(snapshot.completionPrefixes, world.completions);
+    restorePrefixes(snapshot.hiddenPrefixes, world.hidden);
+    return world;
+  }
+
   get episodes(): number { return this.episodeCount; }
   get states(): readonly WorldState[] { return [...this.statesById.values()].sort((left, right) => left.id.localeCompare(right.id)); }
   get transitions(): readonly WorldTransition[] { return [...this.transitionsById.values()].sort((left, right) => left.id.localeCompare(right.id)); }

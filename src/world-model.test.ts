@@ -35,5 +35,7 @@ describe('shared world model', () => {
     expect(snapshot.milestones).toContain('ore-collected');
     expect(snapshot.completionPrefixes[0]).toEqual([{ key: 'm' }]);
     expect(snapshot.objectives.every(objective => objective.status === 'complete')).toBe(true);
+    const restored = WorldModel.fromSnapshot(JSON.parse(JSON.stringify(snapshot)) as typeof snapshot, adapter);
+    expect(restored.snapshot()).toEqual(snapshot);
   });
 });

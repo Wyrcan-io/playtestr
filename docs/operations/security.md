@@ -30,6 +30,8 @@ Untrusted or hosted execution is forbidden until a disposable backend demonstrat
 
 Containers improve isolation and resource control but are not automatically sufficient. Backend choice and active capabilities must be recorded in every report.
 
+The current Docker API creates a non-executing, redacted plan and probes daemon availability. Defaults include `--network none`, `--pull never`, `--read-only`, `--cap-drop ALL`, `no-new-privileges`, a numeric non-root user, and CPU/memory/PID/tmpfs limits. It emits no host mounts and redacts explicit environment values. Network and pulling require separate acknowledgements. Execution remains disabled until replay evidence records backend identity and cleanup tests prove deterministic forced removal.
+
 ## Secrets
 
 Manifests opt into additional inherited variables by name. Reports may record names but never values. Provider credentials for future semantic agents remain in the supervisor process and are never passed to the target. External model calls require explicit redaction and retention policy.

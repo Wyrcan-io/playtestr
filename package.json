@@ -1,8 +1,9 @@
 {
   "name": "@wyrcan/playtestr",
-  "version": "0.1.0-alpha.0",
+  "version": "0.2.0-alpha.1",
   "private": true,
   "description": "Evidence-first autonomous playtesting for terminal games",
+  "license": "AGPL-3.0",
   "type": "module",
   "repository": {
     "type": "git",
@@ -15,6 +16,9 @@
   "engines": {
     "node": ">=22"
   },
+  "overrides": {
+    "esbuild": "^0.28.1"
+  },
   "bin": {
     "playtestr": "dist/cli.js"
   },
@@ -25,7 +29,8 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "CHANGELOG.md"
   ],
   "scripts": {
     "build": "tsup",
@@ -34,7 +39,8 @@
     "start": "node dist/cli.js",
     "check": "npm run typecheck && npm test && npm run build",
     "smoke": "npm run build && node dist/cli.js run --manifest fixtures/turn-counter.json --profile explore --max-actions 10 --artifacts artifacts/smoke --trust-target",
-    "soak": "npm run build && node scripts/lifecycle-soak.mjs 100"
+    "soak": "npm run build && node scripts/lifecycle-soak.mjs 100",
+    "gauntlet": "npm run build && node dist/cli.js gauntlet --suite fixtures/gauntlet.v1.json --artifacts artifacts/gauntlet --trust-target"
   },
   "dependencies": {
     "@xterm/headless": "^6.0.0",

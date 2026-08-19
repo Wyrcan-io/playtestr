@@ -174,7 +174,7 @@ export interface TerminalSession {
 }
 
 export interface ExecutionBackendCapabilities {
-  isolation: 'none' | 'process';
+  isolation: 'none' | 'process' | 'container' | 'browser-context';
   processTreeCleanup: boolean;
   resize: boolean;
   signals: boolean;

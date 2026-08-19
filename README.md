@@ -16,6 +16,8 @@ node dist/cli.js verify --manifest fixtures/crash-sequence.json --replay artifac
 node dist/cli.js explore --manifest fixtures/hidden-route.json --episodes 10 --max-actions 3 --corpus artifacts/hidden-corpus.json --trust-target
 node dist/cli.js benchmark --manifest fixtures/hidden-route.json --episodes 10 --max-actions 3 --seed 1 --artifacts artifacts/benchmark --trust-target
 node dist/cli.js autonomy --manifest fixtures/resource-market.json --episodes 30 --max-actions 4 --artifacts artifacts/autonomy --trust-target
+node dist/cli.js campaign --manifest fixtures/resource-market.json --state artifacts/resource-market.campaign.json --episodes 12 --total-actions 48 --report artifacts/resource-market-report --trust-target
+node dist/cli.js gauntlet --suite fixtures/gauntlet.v1.json --artifacts artifacts/gauntlet --trust-target
 npm run soak
 ```
 
@@ -26,7 +28,7 @@ Single-run profiles include:
 - `baseline`: bounded common-key smoke exploration;
 - `explore`: deterministic action-diversity exploration with stable state metrics.
 
-Use the separate `explore` command for persistent, coverage-guided prefix mutation and fresh-process restart scheduling. Use `benchmark` to compare it with round-robin and seeded-random policies under the same action budget.
+Use the separate `explore` command for coverage-guided prefix mutation and fresh-process restart scheduling. Use `benchmark` to compare intelligent autonomy, coverage guidance, round-robin, and seeded-random policies under the same executable action cap.
 
 ## Intelligent autonomy
 
@@ -41,7 +43,7 @@ Use the separate `explore` command for persistent, coverage-guided prefix mutati
 
 Each agent proposes bounded action sequences with an objective, score, machine-readable reasons, and expected semantic tags. The scheduler launches every selected proposal in a fresh process, then shares newly observed states, transitions, mechanics, milestones, completion paths, and hidden paths with all agents. The same target, seed, and evidence produce the same proposal order.
 
-The deterministic semantic analyzer recognizes prompts, menu options, action hints, counters, and common terminal-game concepts. Target adapters can add authoritative milestone and mechanic evidence without making core depend on a particular game. Hosted model providers are a future optional integration; they will use the same interfaces and will not become executable oracles.
+The deterministic semantic analyzer recognizes prompts, menu options, action hints, counters, and common terminal-game concepts. Target adapters can add authoritative milestone and mechanic evidence without making core depend on a particular game. Optional supervisor providers can now propose bounded actions through a validated, provider-neutral interface; they cannot emit findings, commands, environment changes, or bypass the deterministic agents.
 
 ```ts
 import { autonomousPlaytest, evaluateAutonomy } from '@wyrcan/playtestr';
@@ -59,6 +61,18 @@ const evaluation = evaluateAutonomy(result, {
 ```
 
 Gamr supplies the adapter structurally; Playtestr has no Gamr package dependency.
+
+## Campaigns, verification, and reports
+
+`campaign` resumes compatible world-model, action-corpus, and finding evidence across fresh-process sessions. Campaign files use atomic replacement, a manifest compatibility digest, and monotonic revisions; stale writers and changed targets are rejected. `--verify-findings` runs exact-signature reproduction quorums for newly observed findings. `--report` writes canonical JSON, escaped standalone HTML, Markdown, and representative replay evidence under the target artifact quota.
+
+The committed terminal gauntlet classifies discovery, robustness, and lifecycle scenarios separately. Discovery benchmarks report semantic evidence recall and budget utilization; crash, output-limit, startup, hang, Unicode, resize, and process-tree scenarios gate oracle and cleanup behavior.
+
+## Isolation and graphical boundary
+
+`createDockerExecutionPlan` builds a restrictive Docker invocation with no host mounts, no network or pull by default, a read-only root, dropped capabilities, `no-new-privileges`, a non-root user, and CPU/memory/PID/tmpfs limits. `probeDocker` reports daemon availability. Docker execution is intentionally gated until Replay V2 records backend identity, so current Docker plans are not represented as executed evidence.
+
+The graphical API currently provides backend-neutral target, observation, action, session, cleanup, and bounded-episode contracts with deterministic in-memory conformance tests. A Playwright browser runtime is not bundled yet; browser installation and visual baselines remain explicit later gates.
 
 Every run can atomically emit `report.json`, `replay.json`, and `last-screen.txt` under a manifest-controlled byte quota. Findings carry V1 signatures and evidence levels. `verify` establishes a reproduction quorum; `minimize` preserves that exact signature and independently verifies the result.
 
@@ -87,6 +101,10 @@ Relative `cwd` values resolve from the manifest directory; when omitted, the man
 See [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) for the release-gated roadmap and permanent Gamr boundary. The detailed autonomy execution plan is in [docs/plans/TERMINAL_AUTONOMY_EXECUTION_PLAN.md](docs/plans/TERMINAL_AUTONOMY_EXECUTION_PLAN.md). The concrete product definition is in [docs/PRODUCT_SPEC.md](docs/PRODUCT_SPEC.md), the primary-source rationale is in [docs/RESEARCH.md](docs/RESEARCH.md), and the architecture is documented in [docs/architecture/overview.md](docs/architecture/overview.md).
 
 The intelligent-agent contracts, evaluation suite, Gamr bridge, Docker gate, and graphical-backend roadmap are specified in [docs/plans/INTELLIGENT_AUTONOMY_PLAN.md](docs/plans/INTELLIGENT_AUTONOMY_PLAN.md).
+
+The benchmark, campaign, report, isolation, provider, release, and browser execution gates for `0.2` are specified in [docs/plans/PROOF_TO_ALPHA_IMPLEMENTATION_PLAN.md](docs/plans/PROOF_TO_ALPHA_IMPLEMENTATION_PLAN.md).
+
+The latest local release-candidate results and remaining external gates are recorded in [docs/release/0.2.0-alpha.1-readiness.md](docs/release/0.2.0-alpha.1-readiness.md).
 
 ## Current safety boundary
 

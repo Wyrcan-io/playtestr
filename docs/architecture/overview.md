@@ -16,7 +16,9 @@ gamr/playtestr-adapter  ----structural protocol---->  playtestr
 ```text
 CLI / library API
       |
-multi-agent orchestrator ---- evaluation ---- world model
+campaign ---- benchmark/gauntlet ---- professional report
+      |                |                       |
+multi-agent orchestrator ---- evaluation ---- world model/finding registry
       |                                          |
 semantic analyzer ---- target adapter ---- objectives/milestones
       |
@@ -28,7 +30,7 @@ execution backend ---- terminal ---- observations
       |
 oracles ---- signatures ---- verifier ---- minimizer
       |
-versioned evidence artifacts
+versioned, atomic evidence artifacts
 ```
 
 Dependencies point downward. Policies propose bounded actions; they do not launch commands or declare bugs. Oracles inspect canonical observations/events; they do not steer the game. Reports serialize evidence; they do not invent conclusions.
@@ -39,7 +41,9 @@ Dependencies point downward. Policies propose bounded actions; they do not launc
 
 Windows currently pins `node-pty@1.2.0-beta.14` because it contains the upstream ConPTY helper fix. A guarded compatibility shim closes an input pipe that the public API leaves open. The 100-run natural-exit soak checks that no native handles remain; upgrading node-pty requires rerunning that gate and removing the shim when upstream exposes complete cleanup.
 
-The future `isolated` backend runs untrusted targets in disposable workers with explicit filesystem, network, identity, process, CPU, memory, and artifact policies. Backend capabilities are reported so a result never implies controls that were not active.
+`createDockerExecutionPlan` now produces a capability-reported restricted profile with no mounts, network, or pulls by default; read-only root; non-root identity; dropped capabilities; and explicit CPU, memory, PID, and tmpfs limits. It is planning evidence, not an executable backend, because Replay V1 cannot yet record backend identity. The future executable Docker backend requires Replay V2 and forced container-removal tests before it can run untrusted targets.
+
+Graphical target, action, observation, session, and bounded-episode contracts are backend-neutral and have deterministic in-memory conformance coverage. A browser runtime and browser binaries are not currently shipped.
 
 ## Episode lifecycle
 
@@ -63,7 +67,11 @@ The semantic analyzer converts each rendered observation into stable facts: opti
 
 Agents read an immutable world snapshot and return bounded proposals. They cannot launch processes, write files, call networks, or declare findings. The orchestrator deterministically scores proposals, runs the selected replay through the normal episode runner, and attributes only newly observed evidence to the selected agent.
 
-Provider integrations may implement semantic or proposal interfaces later. Provider text is advisory and cannot replace terminal evidence, adapter detectors, replay verification, or executable oracles.
+Provider integrations may implement the supervisor proposal interface. The wrapper bounds request/response size, timeout, proposal count, action vocabulary, and action budget; malformed or unavailable providers degrade to no proposals. Provider text is advisory and cannot replace terminal evidence, adapter detectors, replay verification, or executable oracles.
+
+## Campaign and report model
+
+Campaign V1 persists a manifest compatibility digest, hydrated world snapshot, serialized corpus, exact-signature finding registry, aggregate counters, and bounded session summaries. Atomic replacement and expected revisions prevent partially written or stale concurrent updates. Reports derive from campaign state and optional current-run evidence; JSON is canonical, while standalone HTML and Markdown are escaped presentations of the same facts.
 
 ## Adapter model
 

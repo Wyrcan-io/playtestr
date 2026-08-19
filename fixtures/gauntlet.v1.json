@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "id": "playtestr-terminal-gauntlet-v1",
+  "scenarios": [
+    { "id": "hidden-route", "kind": "discovery", "manifest": "hidden-route.json", "seeds": [1, 7], "episodes": 10, "maxActionsPerEpisode": 3, "expectations": { "hidden": true, "tags": ["secret"] } },
+    { "id": "resource-market", "kind": "discovery", "manifest": "resource-market.json", "seeds": [0, 3], "episodes": 12, "maxActionsPerEpisode": 4, "expectations": { "tags": ["resource", "inventory", "locked"] } },
+    { "id": "text-quest", "kind": "discovery", "manifest": "text-quest.json", "seeds": [0, 5], "episodes": 14, "maxActionsPerEpisode": 5, "minimumEvidenceScore": 0.5, "expectations": { "tags": ["text-entry", "inventory", "navigation", "locked"], "completion": true } },
+    { "id": "timing-gate", "kind": "discovery", "manifest": "timing-gate.json", "seeds": [0, 9], "episodes": 14, "maxActionsPerEpisode": 3, "minimumEvidenceScore": 0.5, "expectations": { "tags": ["timing"], "completion": true } },
+    { "id": "turn-counter", "kind": "discovery", "manifest": "turn-counter.json", "seeds": [2, 8], "episodes": 8, "maxActionsPerEpisode": 4 },
+    { "id": "no-output", "kind": "robustness", "manifest": "no-output.json", "seeds": [0], "episodes": 1, "maxActionsPerEpisode": 1, "expectedFindingKinds": ["startup-failure"] },
+    { "id": "crash-sequence", "kind": "robustness", "manifest": "crash-sequence.json", "seeds": [0], "episodes": 1, "maxActionsPerEpisode": 3, "actions": [{ "key": "a" }, { "key": "b" }, { "key": "x" }], "expectedFindingKinds": ["crash"] },
+    { "id": "output-flood", "kind": "robustness", "manifest": "output-flood.json", "seeds": [0], "episodes": 1, "maxActionsPerEpisode": 1, "expectedFindingKinds": ["output-limit"] },
+    { "id": "hang-cleanup", "kind": "lifecycle", "manifest": "hang.json", "seeds": [0], "episodes": 1, "maxActionsPerEpisode": 1 },
+    { "id": "unicode", "kind": "lifecycle", "manifest": "unicode.json", "seeds": [0], "episodes": 1, "maxActionsPerEpisode": 2 },
+    { "id": "resize", "kind": "lifecycle", "manifest": "resize.json", "seeds": [0], "episodes": 1, "maxActionsPerEpisode": 2 },
+    { "id": "child-tree-cleanup", "kind": "lifecycle", "manifest": "child-tree.json", "seeds": [0], "episodes": 1, "maxActionsPerEpisode": 1 }
+  ]
+}

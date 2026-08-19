@@ -4,11 +4,15 @@ import { access, readFile } from 'node:fs/promises';
 import { actionDiversityPolicy } from './agents.js';
 import { writeArtifactBundle, writeRunArtifacts } from './artifacts.js';
 import { benchmarkStrategies } from './benchmark.js';
+import { createCampaign, loadCampaign, runCampaign, saveCampaign } from './campaign.js';
 import { ActionCorpus, loadCorpus } from './corpus.js';
+import { createDockerExecutionPlan, probeDocker } from './docker.js';
 import { exploreTarget } from './explorer.js';
 import { minimizeFindingReplay } from './finding-minimize.js';
+import { runGauntlet } from './gauntlet.js';
 import { loadManifest } from './manifest.js';
 import { autonomousPlaytest } from './orchestrator.js';
+import { createProfessionalReport, writeProfessionalReport } from './professional-report.js';
 import { parseReplay } from './replay.js';
 import { reproduceFinding } from './reproduce.js';
 import { PlaytestRunner } from './runner.js';
@@ -49,6 +53,14 @@ Usage:
   playtestr autonomy --manifest game.json [--episodes 30] [--max-actions 12]
                      [--total-actions 360] [--stop-on-completion] [--stop-on-hidden]
                      [--artifacts artifacts/autonomy] --trust-target
+  playtestr campaign --manifest game.json --state artifacts/game.campaign.json
+                     [--episodes 30] [--total-actions 360] [--verify-findings]
+                     [--report artifacts/game-report] [--fresh] --trust-target
+  playtestr gauntlet --suite fixtures/gauntlet.v1.json
+                     [--artifacts artifacts/gauntlet] --trust-target
+  playtestr docker-plan --manifest game.json --image registry/game@sha256:...
+                        [--network none|bridge --allow-network]
+                        [--pull never|missing --allow-pull] [--artifacts artifacts/docker-plan]
 
 --trust-target acknowledges that local targets run with your user permissions and are not sandboxed.
 `);
@@ -57,7 +69,7 @@ Usage:
 async function main(signal: AbortSignal): Promise<number> {
 const args = process.argv.slice(2);
 const command = args[0];
-if (!['run', 'minimize', 'verify', 'explore', 'benchmark', 'autonomy'].includes(command ?? '')) {
+if (!['run', 'minimize', 'verify', 'explore', 'benchmark', 'autonomy', 'campaign', 'gauntlet', 'docker-plan'].includes(command ?? '')) {
   help();
   return args.length ? 1 : 0;
 } else if (command === 'run') {
@@ -184,14 +196,15 @@ if (!['run', 'minimize', 'verify', 'explore', 'benchmark', 'autonomy'].includes(
     signal,
   });
   for (const strategy of result.strategies) {
-    console.log(`${strategy.strategy}: actions=${strategy.actionCount} episodes=${strategy.episodes} states=${strategy.uniqueStates} hidden=${strategy.hiddenFound}`);
+    console.log(`${strategy.strategy}: actions=${strategy.actionCount}/${strategy.actionBudget} episodes=${strategy.episodes} states=${strategy.uniqueStates} evidence=${strategy.evidenceScore} hidden=${strategy.hiddenFound}`);
   }
+  console.log(`comparison=${result.comparison}`);
   const artifactRoot = valueAfter(args, '--artifacts');
   if (artifactRoot) {
     await writeArtifactBundle(artifactRoot, { 'benchmark.json': `${JSON.stringify(result, null, 2)}\n` }, manifest.maxArtifactBytes);
   }
   return signal.aborted ? 130 : 0;
-} else {
+} else if (command === 'autonomy') {
   if (!args.includes('--trust-target')) throw new Error('Local execution requires --trust-target; the PTY backend is not a sandbox');
   const manifestPath = valueAfter(args, '--manifest');
   if (!manifestPath) throw new Error('autonomy requires --manifest <file>');
@@ -215,6 +228,76 @@ if (!['run', 'minimize', 'verify', 'explore', 'benchmark', 'autonomy'].includes(
     console.log(`${contribution.role}: episodes=${contribution.selectedEpisodes} states=${contribution.newStates} mechanics=${contribution.newMechanics} milestones=${contribution.newMilestones}`);
   }
   return result.stopReason === 'cancelled' ? 130 : result.stopReason === 'runner-error' ? 1 : 0;
+} else if (command === 'campaign') {
+  if (!args.includes('--trust-target')) throw new Error('Local execution requires --trust-target; the PTY backend is not a sandbox');
+  const manifestPath = valueAfter(args, '--manifest');
+  const statePath = valueAfter(args, '--state');
+  if (!manifestPath || !statePath) throw new Error('campaign requires --manifest <file> and --state <file>');
+  const manifest = await loadManifest(manifestPath);
+  let campaign;
+  let stateExists = false;
+  try { await access(statePath); stateExists = true; } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error;
+  }
+  if (args.includes('--fresh') && stateExists) throw new Error('--fresh refuses to overwrite an existing campaign state');
+  campaign = stateExists ? await loadCampaign(statePath, manifest) : createCampaign(manifest, valueAfter(args, '--campaign-id'));
+  const expectedRevision = campaign.revision;
+  const result = await runCampaign(manifest, campaign, {
+    episodes: integerAfter(args, '--episodes'),
+    maxActionsPerEpisode: integerAfter(args, '--max-actions'),
+    maxTotalActions: integerAfter(args, '--total-actions'),
+    maxElapsedMs: integerAfter(args, '--max-ms'),
+    seed: integerAfter(args, '--seed', Number.MIN_SAFE_INTEGER),
+    stopOnCompletion: args.includes('--stop-on-completion'),
+    stopOnHidden: args.includes('--stop-on-hidden'),
+    verifyFindings: args.includes('--verify-findings'),
+    verificationAttempts: integerAfter(args, '--verification-attempts'),
+    verificationRequiredMatches: integerAfter(args, '--verification-required'),
+    verificationMaxElapsedMs: integerAfter(args, '--verification-max-ms'),
+    signal,
+  });
+  const persisted = await saveCampaign(result.campaign, manifest, statePath, { expectedRevision });
+  const reportRoot = valueAfter(args, '--report');
+  if (reportRoot) await writeProfessionalReport(createProfessionalReport(manifest, persisted, { autonomy: result.autonomy }), reportRoot, manifest.maxArtifactBytes);
+  console.log(`CAMPAIGN ${manifest.id}: revision=${persisted.revision} sessions=${persisted.totals.sessions} episodes=${persisted.totals.episodes} actions=${persisted.totals.actions} states=${persisted.world.states.length} findings=${persisted.findings.length}`);
+  return result.autonomy.stopReason === 'cancelled' ? 130 : result.autonomy.stopReason === 'runner-error' ? 1 : 0;
+} else if (command === 'gauntlet') {
+  if (!args.includes('--trust-target')) throw new Error('Local execution requires --trust-target; the PTY backend is not a sandbox');
+  const suitePath = valueAfter(args, '--suite');
+  if (!suitePath) throw new Error('gauntlet requires --suite <file>');
+  const result = await runGauntlet(suitePath, { signal });
+  const artifactRoot = valueAfter(args, '--artifacts');
+  if (artifactRoot) await writeArtifactBundle(artifactRoot, { 'gauntlet.json': `${JSON.stringify(result, null, 2)}\n` }, integerAfter(args, '--max-artifact-bytes') ?? 50_000_000);
+  for (const scenario of result.scenarios) console.log(`${scenario.passed ? 'PASS' : 'FAIL'} ${scenario.kind}/${scenario.id} cleanupFailures=${scenario.cleanupFailures}`);
+  console.log(`GAUNTLET ${result.suiteId}: ${result.scenarios.filter(scenario => scenario.passed).length}/${result.scenarioCount} passed`);
+  return signal.aborted ? 130 : result.passed ? 0 : 1;
+} else {
+  const manifestPath = valueAfter(args, '--manifest');
+  const image = valueAfter(args, '--image');
+  if (!manifestPath || !image) throw new Error('docker-plan requires --manifest <file> and --image <reference>');
+  const manifest = await loadManifest(manifestPath);
+  const network = valueAfter(args, '--network') ?? 'none';
+  const pull = valueAfter(args, '--pull') ?? 'never';
+  if (network !== 'none' && network !== 'bridge') throw new Error('--network must be none or bridge');
+  if (pull !== 'never' && pull !== 'missing') throw new Error('--pull must be never or missing');
+  const plan = createDockerExecutionPlan(manifest, {
+    version: 1,
+    image,
+    network,
+    pull,
+    allowNetwork: args.includes('--allow-network'),
+    allowPull: args.includes('--allow-pull'),
+    containerWorkdir: valueAfter(args, '--container-workdir'),
+    user: valueAfter(args, '--user'),
+  });
+  const capability = await probeDocker(valueAfter(args, '--docker-command') ?? 'docker');
+  const output = { capability, plan };
+  const artifactRoot = valueAfter(args, '--artifacts');
+  if (artifactRoot) await writeArtifactBundle(artifactRoot, { 'docker-plan.json': `${JSON.stringify(output, null, 2)}\n` }, 1_000_000);
+  console.log(`DOCKER PLAN ${manifest.id}: daemon=${capability.daemonReachable ? 'reachable' : 'unavailable'} network=${network} pull=${pull} restrictions=${plan.restrictions.length}`);
+  if (!capability.daemonReachable && capability.error) console.log(`probe=${capability.error}`);
+  console.log('Plan created only; Replay V1 does not execute Docker targets yet.');
+  return 0;
 }
 }
 
