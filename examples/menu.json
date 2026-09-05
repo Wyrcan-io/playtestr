@@ -1,0 +1,14 @@
+{
+  "name": "Navigate mission control and run diagnostics",
+  "command": ["./bin/demo"],
+  "width": 64,
+  "height": 16,
+  "steps": [
+    {"expect": "> Deploy preview"},
+    {"key": "ArrowDown"},
+    {"expect": "> Run diagnostics"},
+    {"key": "Enter"},
+    {"expect": "Diagnostics: all systems healthy."},
+    {"snapshot": "diagnostics.txt"}
+  ]
+}
