@@ -1,0 +1,14 @@
+{
+  "name": "Exit mission control cleanly",
+  "command": ["./bin/demo"],
+  "width": 64,
+  "height": 16,
+  "steps": [
+    {"expect": "> Deploy preview"},
+    {"key": "ArrowDown"},
+    {"key": "ArrowDown"},
+    {"expect": "> Exit"},
+    {"key": "Enter"},
+    {"exit": 0}
+  ]
+}

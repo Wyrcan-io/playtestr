@@ -21,6 +21,7 @@ type Step struct {
 	Text     string `json:"text,omitempty"`
 	Expect   string `json:"expect,omitempty"`
 	Snapshot string `json:"snapshot,omitempty"`
+	Exit     *int   `json:"exit,omitempty"`
 }
 type Spec struct {
 	Name      string   `json:"name"`
@@ -74,8 +75,14 @@ func Load(path string) (Spec, error) {
 				n++
 			}
 		}
+		if step.Exit != nil {
+			n++
+		}
 		if n != 1 {
 			return s, fmt.Errorf("step %d must have exactly one action", i+1)
+		}
+		if step.Exit != nil && (*step.Exit < 0 || *step.Exit > 255) {
+			return s, fmt.Errorf("step %d exit code must be between 0 and 255", i+1)
 		}
 		if step.Key != "" {
 			if _, ok := keys[step.Key]; !ok {
@@ -87,6 +94,50 @@ func Load(path string) (Spec, error) {
 		}
 	}
 	return s, nil
+}
+
+type processOutcome struct {
+	done chan struct{}
+	mu   sync.RWMutex
+	code int
+	err  error
+}
+
+func newProcessOutcome(cmd *exec.Cmd) *processOutcome {
+	o := &processOutcome{done: make(chan struct{})}
+	go func() {
+		err := xpty.WaitProcess(context.Background(), cmd)
+		code := -1
+		if cmd.ProcessState != nil {
+			code = cmd.ProcessState.ExitCode()
+		}
+		o.mu.Lock()
+		o.code = code
+		o.err = err
+		o.mu.Unlock()
+		close(o.done)
+	}()
+	return o
+}
+
+func (o *processOutcome) result() (code int, err error, exited bool) {
+	select {
+	case <-o.done:
+		o.mu.RLock()
+		defer o.mu.RUnlock()
+		return o.code, o.err, true
+	default:
+		return 0, nil, false
+	}
+}
+
+func (o *processOutcome) wait(timeout time.Duration) (code int, err error, exited bool) {
+	select {
+	case <-o.done:
+		return o.result()
+	case <-time.After(timeout):
+		return 0, nil, false
+	}
 }
 
 func normalize(s string) string {
@@ -113,14 +164,10 @@ func Run(path string, update bool, out io.Writer) (err error) {
 	if err = p.Start(cmd); err != nil {
 		return err
 	}
-	done := make(chan error, 1)
-	go func() { done <- xpty.WaitProcess(context.Background(), cmd) }()
+	outcome := newProcessOutcome(cmd)
 	defer func() {
 		_ = cmd.Process.Kill()
-		select {
-		case <-done:
-		case <-time.After(2 * time.Second):
-		}
+		_, _, _ = outcome.wait(2 * time.Second)
 	}()
 	terminal := vt10x.New(vt10x.WithSize(s.Width, s.Height))
 	var mu sync.Mutex
@@ -142,6 +189,7 @@ func Run(path string, update bool, out io.Writer) (err error) {
 	}()
 	screen := func() (string, time.Time) { mu.Lock(); defer mu.Unlock(); return normalize(terminal.String()), last }
 	base := filepath.Join(filepath.Dir(path), "snapshots")
+	exitAsserted := false
 	defer func() {
 		if err != nil {
 			view, _ := screen()
@@ -161,6 +209,19 @@ func Run(path string, update bool, out io.Writer) (err error) {
 				_, e := io.WriteString(p, step.Text)
 				return e
 			}
+			if step.Exit != nil {
+				code, waitErr, exited := outcome.wait(time.Duration(s.TimeoutMS) * time.Millisecond)
+				if !exited {
+					return fmt.Errorf("timed out waiting for process to exit with code %d", *step.Exit)
+				}
+				if code != *step.Exit {
+					return fmt.Errorf("expected exit code %d, got %d", *step.Exit, code)
+				}
+				if code < 0 && waitErr != nil {
+					return fmt.Errorf("process wait failed: %w", waitErr)
+				}
+				return nil
+			}
 			deadline := time.Now().Add(time.Duration(s.TimeoutMS) * time.Millisecond)
 			var expected []byte
 			if step.Snapshot != "" && !update {
@@ -172,6 +233,21 @@ func Run(path string, update bool, out io.Writer) (err error) {
 			}
 			for {
 				view, changed := screen()
+				if code, waitErr, exited := outcome.result(); exited {
+					// Give the terminal reader one scheduling turn to consume bytes that
+					// were written immediately before process exit.
+					time.Sleep(10 * time.Millisecond)
+					view, changed = screen()
+					if step.Expect != "" && strings.Contains(view, step.Expect) {
+						return nil
+					}
+					if !exitAsserted {
+						if code < 0 && waitErr != nil {
+							return fmt.Errorf("process wait failed while waiting for assertion: %w", waitErr)
+						}
+						return fmt.Errorf("process exited with code %d before assertion matched", code)
+					}
+				}
 				if step.Expect != "" && strings.Contains(view, step.Expect) {
 					return nil
 				}
@@ -198,7 +274,18 @@ func Run(path string, update bool, out io.Writer) (err error) {
 		if action != nil {
 			return fmt.Errorf("%s: step %d: %w", s.Name, i+1, action)
 		}
+		if step.Exit != nil {
+			exitAsserted = true
+		}
 		fmt.Fprintf(out, "  PASS step %d\n", i+1)
+	}
+	if !exitAsserted {
+		if code, waitErr, exited := outcome.result(); exited {
+			if code < 0 && waitErr != nil {
+				return fmt.Errorf("%s: process wait failed: %w", s.Name, waitErr)
+			}
+			return fmt.Errorf("%s: process exited with code %d without an exit assertion", s.Name, code)
+		}
 	}
 	fmt.Fprintf(out, "PASS %s\n", s.Name)
 	return nil

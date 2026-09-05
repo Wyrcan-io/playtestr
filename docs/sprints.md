@@ -12,7 +12,7 @@ A developer can run a trusted interactive CLI, drive its keyboard flow, assert t
 
 Out of scope: cloud accounts, billing, PR bots, autonomous agents, game mechanics, browser/desktop game testing, styled visual regression, GIF recording, parallel scheduling, and multiple SDKs.
 
-## Sprint 0 — baseline and decisions (current)
+## Sprint 0 — baseline and decisions (implemented locally)
 
 - Connect this folder to the new GitHub repository.
 - Select the implementation language and record the tradeoffs.
@@ -21,11 +21,11 @@ Out of scope: cloud accounts, billing, PR bots, autonomous agents, game mechanic
 
 Acceptance: `go run ./cmd/playtestr test examples/menu.json` passes against the built demo. Windows was previously exercised through ConPTY. Linux/macOS execution and remote CI are still unverified. Current code is a prototype, not the complete MVP.
 
-## Sprint 1 — correct process outcomes (next)
+## Sprint 1 — correct process outcomes (implemented locally)
 
 User-visible result: a CLI that exits unexpectedly cannot be mistaken for a passing test.
 
-Add an explicit expected-exit step, preserve process status while draining output, and distinguish a process failure from a missing-text timeout. Keep the implementation focused on these outcomes.
+An explicit expected-exit step preserves process status and distinguishes a process failure from a missing-text timeout. An intentionally nonzero exit passes only when that exact code is declared. A process already observed to exit without an exit assertion fails; finite commands should end their specs with an exit assertion.
 
 Acceptance: fixtures for exit 0, exit nonzero, text followed by a crash, and waiting for an exit that never happens. Retain the existing menu test. Each failure must return a nonzero runner status with the failing step and reason. Settle how an intentionally nonzero expected exit interacts with assertions before implementation.
 
