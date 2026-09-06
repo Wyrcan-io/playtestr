@@ -1,6 +1,8 @@
 # R1 — Publish the first release candidate
 
-Status: planned. Product outcome: a developer can download a known Playtestr build without installing Go or cloning the runner source.
+Status: completed on 2026-09-07. Product outcome: a developer can download a known Playtestr build without installing Go or cloning the runner source.
+
+Completion evidence: [v0.1.0-rc.1](https://github.com/Wyrcan-io/playtestr/releases/tag/v0.1.0-rc.1) was published from commit `1dde372282a574025957c4bf1b603287cbef93e4` after [native release run 34052977944](https://github.com/Wyrcan-io/playtestr/actions/runs/34052977944) passed on Linux amd64, macOS arm64, and Windows amd64. The six public assets were downloaded and matched against the staged workflow artifacts byte-for-byte.
 
 ## Why this matters
 
@@ -68,10 +70,10 @@ Acceptance: the release is marked prerelease, every public link works, and publi
 
 ## Definition of done
 
-- [ ] Exact commit/version and target manifest recorded.
-- [ ] Extracted archives, required notices, executable modes, and checksums verified natively.
-- [ ] Release notes and separate binary/demo prerequisites reviewed.
-- [ ] Prerelease published under explicit authorization, with matching public downloads.
-- [ ] R2 has the immutable URLs, candidate identity, and walkthrough instructions it needs.
+- [x] Exact commit/version and target manifest recorded.
+- [x] Extracted archives, required notices, executable modes, and checksums verified natively.
+- [x] Release notes and separate binary/demo prerequisites reviewed.
+- [x] Prerelease published under explicit authorization, with matching public downloads.
+- [x] R2 has the immutable URLs, candidate identity, and walkthrough instructions it needs.
 
 Stop after publication and verification. Stable promotion, outreach, package managers, and new runner behavior are outside R1.

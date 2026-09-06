@@ -21,7 +21,7 @@ Playtestr starts a real pseudoterminal, sends keyboard input, and feeds output i
 
 Release archives contain one native `playtestr` binary, this README, the Apache 2.0 license, third-party notices, and an adjacent SHA-256 checksum. Download the archive for your host from [GitHub Releases](https://github.com/Wyrcan-io/playtestr/releases), verify the adjacent `.sha256` file, extract it, and put `playtestr` (or `playtestr.exe`) on your `PATH`.
 
-Release-candidate targets are Linux amd64, macOS arm64, and Windows amd64. A target is published only after its native test and packaged-binary walkthrough pass. Until the first release is published, build from source with Go 1.25 or newer:
+Release-candidate targets are Linux amd64, macOS arm64, and Windows amd64. A target is published only after its native test and extracted-archive walkthrough pass. See the [v0.1.0-rc.1 install and first-test guide](docs/releases/v0.1.0-rc.1.md), or build the current development version from source with Go 1.25 or newer:
 
 ```sh
 git clone https://github.com/Wyrcan-io/playtestr.git
