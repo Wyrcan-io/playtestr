@@ -14,11 +14,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hinshun/vt10x"
+	"golang.org/x/term"
 )
 
 func TestScreenRedraw(t *testing.T) {
-	terminal := vt10x.New(vt10x.WithSize(30, 5))
+	terminal := newScreenEmulator(30, 5)
 	terminal.Write([]byte("old content\x1b[2J\x1b[H\x1b[32mready\x1b[0m"))
 	if got := normalize(terminal.String()); got != "ready\n" {
 		t.Fatalf("got %q", got)
@@ -37,6 +37,11 @@ func TestRejectInvalidSpecs(t *testing.T) {
 		`{"command":["demo"],"run_timeout_ms":-1,"steps":[{"expect":"ok"}]}`,
 		`{"command":["demo"],"max_output_bytes":-1,"steps":[{"expect":"ok"}]}`,
 		`{"command":["demo"],"env":{"BAD-NAME":"value"},"steps":[{"expect":"ok"}]}`,
+		`{"command":["demo"],"steps":[{"snapshot":"screen.txt"}]}`,
+		`{"command":["demo"],"steps":[{"expect":"ready"},{"key":"Enter"},{"snapshot":"screen.txt"}]}`,
+		`{"command":["demo"],"steps":[{"resize":{"width":0,"height":20}}]}`,
+		`{"command":["demo"],"steps":[{"resize":{"width":80,"height":201}}]}`,
+		`{"command":["demo"],"steps":[{"expect":"ready"},{"snapshot":"same.txt"},{"snapshot":"same.txt"}]}`,
 	} {
 		path := filepath.Join(t.TempDir(), "test.json")
 		if e := os.WriteFile(path, []byte(data), 0600); e != nil {
@@ -74,6 +79,14 @@ func TestHelperProcess(t *testing.T) {
 	case "no-output":
 		time.Sleep(10 * time.Second)
 		os.Exit(0)
+	case "delayed-redraw":
+		fmt.Print("\x1b[2J\x1b[Hloading")
+		time.Sleep(100 * time.Millisecond)
+		fmt.Print("\x1b[2J\x1b[Hready")
+		time.Sleep(75 * time.Millisecond)
+		fmt.Print(" complete")
+		time.Sleep(10 * time.Second)
+		os.Exit(0)
 	case "self-hang":
 		_ = os.WriteFile(os.Getenv("PLAYTESTR_PID_FILE"), []byte(strconv.Itoa(os.Getpid())), 0600)
 		fmt.Print("self running\r\n")
@@ -87,6 +100,21 @@ func TestHelperProcess(t *testing.T) {
 	case "cwd-env":
 		cwd, _ := os.Getwd()
 		fmt.Printf("cwd-base=%s\r\nmarker=%s\r\nsecret=%s\r\ninherited=%s\r\n", filepath.Base(cwd), os.Getenv("PLAYTESTR_MARKER"), os.Getenv("PLAYTESTR_SECRET"), os.Getenv("PLAYTESTR_INHERITED"))
+		os.Exit(0)
+	case "resize":
+		old, err := term.MakeRaw(int(os.Stdin.Fd()))
+		if err != nil {
+			os.Exit(9)
+		}
+		defer term.Restore(int(os.Stdin.Fd()), old)
+		fmt.Print("\x1b[2J\x1b[Hresize ready")
+		buffer := make([]byte, 1)
+		_, _ = os.Stdin.Read(buffer)
+		width, height, err := term.GetSize(int(os.Stdout.Fd()))
+		if err != nil {
+			os.Exit(10)
+		}
+		fmt.Printf("\x1b[2J\x1b[Hresized %dx%d\r\n", width, height)
 		os.Exit(0)
 	case "parent-child", "parent-exits-child":
 		// The delay ensures the runner attaches the parent to its process group
@@ -390,6 +418,23 @@ func TestBlockedInputHonorsContext(t *testing.T) {
 	}
 	if cleanup.err != nil {
 		t.Fatal(cleanup.err)
+	}
+}
+
+func TestTargetObservesResize(t *testing.T) {
+	for _, size := range []TerminalSize{{Width: 60, Height: 10}, {Width: 20, Height: 5}} {
+		t.Run(fmt.Sprintf("%dx%d", size.Width, size.Height), func(t *testing.T) {
+			err := runConfiguredHelperSpec(t, "resize", []Step{
+				{Expect: "resize ready"},
+				{Resize: &size},
+				{Key: "Enter"},
+				{Expect: fmt.Sprintf("resized %dx%d", size.Width, size.Height)},
+				{Exit: intPointer(0)},
+			}, func(_ *Spec) {})
+			if err != nil {
+				t.Fatal(err)
+			}
+		})
 	}
 }
 

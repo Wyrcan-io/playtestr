@@ -19,11 +19,24 @@ var errOutputLimit = errors.New("target exceeded max_output_bytes")
 
 // Step contains exactly one terminal action or assertion.
 type Step struct {
-	Key      string `json:"key,omitempty"`
-	Text     string `json:"text,omitempty"`
-	Expect   string `json:"expect,omitempty"`
-	Snapshot string `json:"snapshot,omitempty"`
-	Exit     *int   `json:"exit,omitempty"`
+	Key      string        `json:"key,omitempty"`
+	Text     string        `json:"text,omitempty"`
+	Expect   string        `json:"expect,omitempty"`
+	Snapshot string        `json:"snapshot,omitempty"`
+	Exit     *int          `json:"exit,omitempty"`
+	Resize   *TerminalSize `json:"resize,omitempty"`
+}
+
+// TerminalSize is a terminal viewport measured in columns and rows.
+type TerminalSize struct {
+	Width  int `json:"width"`
+	Height int `json:"height"`
+}
+
+// RunOptions controls deliberate baseline updates for one spec.
+type RunOptions struct {
+	Update   bool
+	Snapshot string
 }
 
 // Spec describes one target process and its ordered terminal interactions.
@@ -124,6 +137,8 @@ func Load(path string) (Spec, error) {
 			return spec, fmt.Errorf("invalid inherited environment name %q", name)
 		}
 	}
+	ready := false
+	seenSnapshots := make(map[string]struct{})
 	for i, step := range spec.Steps {
 		actions := 0
 		for _, value := range []string{step.Key, step.Text, step.Expect, step.Snapshot} {
@@ -132,6 +147,9 @@ func Load(path string) (Spec, error) {
 			}
 		}
 		if step.Exit != nil {
+			actions++
+		}
+		if step.Resize != nil {
 			actions++
 		}
 		if actions != 1 {
@@ -148,8 +166,34 @@ func Load(path string) (Spec, error) {
 		if step.Snapshot != "" && (filepath.Base(step.Snapshot) != step.Snapshot || strings.ContainsAny(step.Snapshot, "/\\:") || step.Snapshot == "..") {
 			return spec, fmt.Errorf("snapshot must be a filename")
 		}
+		if step.Resize != nil {
+			if err := validateTerminalSize(step.Resize.Width, step.Resize.Height); err != nil {
+				return spec, fmt.Errorf("step %d resize: %w", i+1, err)
+			}
+		}
+		switch {
+		case step.Key != "" || step.Text != "" || step.Resize != nil:
+			ready = false
+		case step.Expect != "" || step.Exit != nil:
+			ready = true
+		case step.Snapshot != "":
+			if !ready {
+				return spec, fmt.Errorf("step %d snapshot %q requires a successful expect since the last input or resize, or a successful exit assertion", i+1, step.Snapshot)
+			}
+			if _, exists := seenSnapshots[step.Snapshot]; exists {
+				return spec, fmt.Errorf("step %d snapshot %q is used more than once", i+1, step.Snapshot)
+			}
+			seenSnapshots[step.Snapshot] = struct{}{}
+		}
 	}
 	return spec, nil
+}
+
+func validateTerminalSize(width, height int) error {
+	if width < 1 || width > 500 || height < 1 || height > 200 {
+		return fmt.Errorf("terminal dimensions must be width 1-500 and height 1-200")
+	}
+	return nil
 }
 
 func normalize(value string) string {
@@ -219,17 +263,37 @@ func targetDirectory(specPath, configured string) (string, error) {
 
 // Run executes a spec with a background context.
 func Run(path string, update bool, out io.Writer) error {
-	return RunContext(context.Background(), path, update, out)
+	return RunContextWithOptions(context.Background(), path, RunOptions{Update: update}, out)
 }
 
 // RunContext executes a spec and stops its process tree when the context ends.
 func RunContext(parent context.Context, path string, update bool, out io.Writer) (runErr error) {
+	return RunContextWithOptions(parent, path, RunOptions{Update: update}, out)
+}
+
+// RunContextWithOptions executes a spec with explicit snapshot update options.
+func RunContextWithOptions(parent context.Context, path string, options RunOptions, out io.Writer) (runErr error) {
 	if err := parent.Err(); err != nil {
 		return fmt.Errorf("run cancelled: %w", err)
 	}
 	spec, err := Load(path)
 	if err != nil {
 		return err
+	}
+	if options.Snapshot != "" {
+		if !options.Update {
+			return fmt.Errorf("snapshot selector requires update mode")
+		}
+		found := false
+		for _, step := range spec.Steps {
+			if step.Snapshot == options.Snapshot {
+				found = true
+				break
+			}
+		}
+		if !found {
+			return fmt.Errorf("snapshot %q is not referenced by %s", options.Snapshot, path)
+		}
 	}
 	dir, err := targetDirectory(path, spec.CWD)
 	if err != nil {
@@ -255,10 +319,11 @@ func RunContext(parent context.Context, path string, update bool, out io.Writer)
 	}
 
 	exitAsserted := false
+	updates := make(snapshotUpdates)
 	if runErr == nil {
 		for i, step := range spec.Steps {
 			stepContext, cancelStep := context.WithTimeout(runContext, time.Duration(spec.TimeoutMS)*time.Millisecond)
-			err = executeStep(stepContext, path, step, update, session, exitAsserted)
+			err = executeStep(stepContext, path, step, options, updates, session, exitAsserted)
 			cancelStep()
 			if err != nil {
 				runErr = fmt.Errorf("%s: step %d: %w", spec.Name, i+1, classifyContextError(err, parent, runContext))
@@ -304,6 +369,16 @@ func RunContext(parent context.Context, path string, update bool, out io.Writer)
 			fmt.Fprintf(out, "Cleanup: process tree stopped (%s, %s)\n", mode, cleanup.mechanism)
 		}
 		observation := session.observe()
+		var mismatch *snapshotMismatchError
+		if errors.As(runErr, &mismatch) {
+			observation.screen = mismatch.actual
+			diffArtifact := path + ".diff.txt"
+			if writeErr := os.WriteFile(diffArtifact, []byte(mismatch.diff), 0644); writeErr == nil {
+				fmt.Fprintf(out, "Diff saved: %s\n", diffArtifact)
+			} else {
+				runErr = errors.Join(runErr, fmt.Errorf("write snapshot diff: %w", writeErr))
+			}
+		}
 		artifact := path + ".actual.txt"
 		if writeErr := os.WriteFile(artifact, []byte(observation.screen), 0644); writeErr == nil {
 			fmt.Fprintf(out, "Screen saved: %s\n", artifact)
@@ -311,6 +386,9 @@ func RunContext(parent context.Context, path string, update bool, out io.Writer)
 			runErr = errors.Join(runErr, fmt.Errorf("write failure screen: %w", writeErr))
 		}
 		return runErr
+	}
+	if err := commitSnapshotUpdates(updates, out); err != nil {
+		return fmt.Errorf("commit snapshot updates: %w", err)
 	}
 	fmt.Fprintf(out, "PASS %s\n", spec.Name)
 	return nil
@@ -333,12 +411,15 @@ func waitForStartup(ctx context.Context, session *terminalSession) error {
 	}
 }
 
-func executeStep(ctx context.Context, specPath string, step Step, update bool, session *terminalSession, exitAsserted bool) error {
+func executeStep(ctx context.Context, specPath string, step Step, options RunOptions, updates snapshotUpdates, session *terminalSession, exitAsserted bool) error {
 	if step.Key != "" {
 		return session.send(ctx, keys[step.Key])
 	}
 	if step.Text != "" {
 		return session.send(ctx, step.Text)
+	}
+	if step.Resize != nil {
+		return session.resize(ctx, step.Resize.Width, step.Resize.Height)
 	}
 	if step.Exit != nil {
 		code, waitErr, exited := session.outcome.wait(ctx)
@@ -362,12 +443,17 @@ func executeStep(ctx context.Context, specPath string, step Step, update bool, s
 
 	var expected []byte
 	base := filepath.Join(filepath.Dir(specPath), "snapshots")
-	if step.Snapshot != "" && !update {
+	updateSnapshot := options.Update && (options.Snapshot == "" || options.Snapshot == step.Snapshot)
+	if step.Snapshot != "" && !updateSnapshot {
 		var err error
-		expected, err = os.ReadFile(filepath.Join(base, step.Snapshot))
+		expected, err = readSnapshot(filepath.Join(base, step.Snapshot))
 		if err != nil {
-			return fmt.Errorf("read snapshot (use --update to create): %w", err)
+			if errors.Is(err, os.ErrNotExist) {
+				return fmt.Errorf("snapshot %q is missing (create it with --update): %w", step.Snapshot, err)
+			}
+			return fmt.Errorf("read snapshot %q: %w", step.Snapshot, err)
 		}
+		expected = []byte(normalize(string(expected)))
 	}
 	ticker := time.NewTicker(10 * time.Millisecond)
 	defer ticker.Stop()
@@ -380,15 +466,14 @@ func executeStep(ctx context.Context, specPath string, step Step, update bool, s
 			return nil
 		}
 		if step.Snapshot != "" && time.Since(observation.lastOutput) >= 150*time.Millisecond {
-			if update {
-				if err := os.MkdirAll(base, 0755); err != nil {
-					return err
-				}
-				return os.WriteFile(filepath.Join(base, step.Snapshot), []byte(observation.screen), 0644)
+			if updateSnapshot {
+				updates[filepath.Join(base, step.Snapshot)] = observation.screen
+				return nil
 			}
 			if observation.screen == string(expected) {
 				return nil
 			}
+			return newSnapshotMismatch(step.Snapshot, string(expected), observation.screen)
 		}
 		if code, waitErr, exited := session.outcome.result(); exited && !exitAsserted {
 			drainContext, cancelDrain := context.WithTimeout(ctx, 250*time.Millisecond)

@@ -1,0 +1,13 @@
+{
+  "name": "Rendered screen compatibility",
+  "command": ["./bin/fixture", "screen"],
+  "width": 40,
+  "height": 8,
+  "steps": [
+    {"expect": "alternate screen"},
+    {"key": "Enter"},
+    {"expect": "compat complete"},
+    {"exit": 0},
+    {"snapshot": "screen-compat.txt"}
+  ]
+}

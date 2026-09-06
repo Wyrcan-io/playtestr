@@ -1,0 +1,12 @@
+{
+  "name": "An intentional menu regression shows a diff",
+  "command": ["./bin/demo"],
+  "width": 64,
+  "height": 16,
+  "steps": [
+    {"expect": "> Deploy preview"},
+    {"key": "Enter"},
+    {"expect": "Preview deployed successfully."},
+    {"snapshot": "diagnostics.txt"}
+  ]
+}

@@ -41,13 +41,17 @@ Windows cleanup uses a Job Object and Unix cleanup uses a dedicated process grou
 
 Acceptance evidence: real-PTY tests cover natural exit, forced shutdown, no output, output flood, cancellation, blocked input, parent/child cleanup after a parent hang and natural parent exit, idempotent stop, environment filtering, working-directory resolution, and five bounded repeated sessions. Windows has been exercised locally; remote Linux and macOS execution remains unverified.
 
-## Sprint 3 — useful screen regressions
+## Sprint 3 — useful screen regressions (implemented locally)
 
 User-visible result: an intentional UI regression produces a readable expected/actual text diff.
 
-Add text diffs and focused terminal compatibility fixtures. Cover redraws, escape sequences split across reads, Unicode, alternate screen behavior, then a resize action in its own small increment. Make snapshot readiness explicit; output quietness alone is insufficient. Introduce configurable volatile text only if the fixtures require it.
+Snapshot mismatches now print a bounded unified text diff and save expected/actual diff evidence alongside the captured screen. Baseline reads, diff output, and artifacts are bounded. Snapshot updates are staged until the spec and cleanup succeed; a selector can update one named baseline while all other snapshots continue to compare.
 
-Acceptance: clean baseline passes, changed menu fails with the correct diff, explicit update changes only the selected baseline, and unsupported terminal behavior is documented. Evaluate the emulator against these fixtures before expanding its use.
+Snapshot readiness is explicit: an `expect` must succeed after the latest input or resize, or an exit assertion must succeed, before a snapshot can run. The existing quiet period settles a completed redraw but is not treated as readiness evidence.
+
+Focused fixtures cover delayed redraw settling, carriage-return redraws, cursor movement and erasing, escape sequences split across writes, UTF-8 characters split across reads, basic Unicode text, alternate-screen entry and restoration, and PTY plus emulator resize. Playtestr buffers incomplete UTF-8 at its emulator boundary because vt10x otherwise drops a split code point.
+
+Acceptance evidence: clean baselines pass; changed, added, and removed lines produce a readable diff; mismatch artifacts use the same captured screen; missing and oversized baselines fail distinctly; cancellation and later assertion failure do not commit staged updates; explicit update changes only the selected baseline; targets observe both larger and smaller viewport sizes. The emulator evaluation and unsupported behavior are documented in `docs/terminal-compatibility.md`.
 
 ## Sprint 4 — MVP packaging and external trial
 

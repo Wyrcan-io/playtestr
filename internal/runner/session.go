@@ -10,7 +10,6 @@ import (
 	"time"
 
 	"github.com/charmbracelet/x/xpty"
-	"github.com/hinshun/vt10x"
 )
 
 type sessionConfig struct {
@@ -49,7 +48,7 @@ type terminalSession struct {
 	pty      xpty.Pty
 	cmd      *exec.Cmd
 	tree     *processTree
-	terminal vt10x.Terminal
+	terminal *screenEmulator
 	outcome  *processOutcome
 
 	mu                  sync.Mutex
@@ -91,7 +90,7 @@ func startTerminalSession(config sessionConfig) (*terminalSession, error) {
 		pty:            p,
 		cmd:            cmd,
 		tree:           tree,
-		terminal:       vt10x.New(vt10x.WithSize(config.width, config.height)),
+		terminal:       newScreenEmulator(config.width, config.height),
 		outcome:        newProcessOutcome(cmd),
 		lastOutput:     time.Now(),
 		maxOutputBytes: config.maxOutputBytes,
@@ -153,7 +152,7 @@ func (s *terminalSession) readOutput() {
 				accepted = max(0, int(remaining))
 			}
 			if accepted > 0 {
-				_, _ = s.terminal.Write(buffer[:accepted])
+				s.terminal.Write(buffer[:accepted])
 				s.lastOutput = time.Now()
 				if strings.TrimSpace(normalize(s.terminal.String())) != "" {
 					s.firstOnce.Do(func() { close(s.firstOutput) })
@@ -198,6 +197,19 @@ func (s *terminalSession) send(ctx context.Context, value string) error {
 	case <-s.outputLimit:
 		return errOutputLimit
 	}
+}
+
+func (s *terminalSession) resize(ctx context.Context, width, height int) error {
+	if err := ctx.Err(); err != nil {
+		return err
+	}
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	if err := s.pty.Resize(width, height); err != nil {
+		return fmt.Errorf("resize pseudoterminal to %dx%d: %w", width, height, err)
+	}
+	s.terminal.Resize(width, height)
+	return nil
 }
 
 func (s *terminalSession) drainFinal(ctx context.Context, quiet time.Duration) error {

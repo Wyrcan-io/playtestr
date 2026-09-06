@@ -1,0 +1,14 @@
+{
+  "name": "Resize an interactive terminal",
+  "command": ["./bin/fixture", "resize"],
+  "width": 40,
+  "height": 8,
+  "steps": [
+    {"expect": "resize ready"},
+    {"resize": {"width": 60, "height": 10}},
+    {"key": "Enter"},
+    {"expect": "resized 60x10"},
+    {"exit": 0},
+    {"snapshot": "resize.txt"}
+  ]
+}
