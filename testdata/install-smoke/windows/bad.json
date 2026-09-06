@@ -2,8 +2,8 @@
   "version": 1,
   "name": "intentional Windows greeting failure",
   "command": ["C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "./hello.ps1"],
-  "timeout_ms": 500,
-  "run_timeout_ms": 10000,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 30000,
   "steps": [
     {"expect": "Name:"},
     {"text": "terminal tester"},
