@@ -139,7 +139,7 @@ The tested terminal behavior and known emulator gaps are recorded in [Terminal c
 
 Windows uses a Job Object and Unix uses a dedicated process group to terminate managed descendants. The current xpty API starts a Windows target immediately before Playtestr can attach it to the Job Object, leaving a small launch-to-attachment window in which a very early child could escape management. Unix descendants can deliberately detach into another session. Only test trusted applications; local PTY execution is not a sandbox.
 
-The GitHub Actions matrix runs native tests on Linux, macOS, and Windows and retains machine reports, screens, and diffs from its deliberate-failure check. Platform support is recorded only after those native jobs pass. Release candidates are packaged by a separate workflow; the process is documented in [Releasing](docs/releasing.md).
+The GitHub Actions matrix runs native tests on Linux, macOS, and Windows and retains machine reports, screens, and diffs from its deliberate-failure check. Sprint 4's native results are recorded in [Platform support](docs/platform-support.md). Release candidates are packaged by a separate workflow; the process is documented in [Releasing](docs/releasing.md).
 
 Recording, replay, exact-failure minimization, and styled snapshots remain post-MVP work.
 
