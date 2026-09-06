@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wyrcan-io.github.io/playtestr/schema/playtestr-report-v1.schema.json",
+  "title": "Playtestr machine report version 1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["report_version", "runner_version", "os", "arch", "summary", "results"],
+  "properties": {
+    "report_version": {"const": 1},
+    "runner_version": {"type": "string"},
+    "os": {"type": "string"},
+    "arch": {"type": "string"},
+    "summary": {"$ref": "#/$defs/summary"},
+    "results": {"type": "array", "items": {"$ref": "#/$defs/result"}}
+  },
+  "$defs": {
+    "failure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["category", "message"],
+      "properties": {
+        "category": {
+          "enum": ["invalid_spec", "launch_failure", "assertion_timeout", "run_timeout", "unexpected_exit", "snapshot_mismatch", "output_limit", "cancelled", "cleanup_failure", "artifact_failure", "snapshot_update_failure", "internal_error"]
+        },
+        "message": {"type": "string"}
+      }
+    },
+    "size": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["width", "height"],
+      "properties": {
+        "width": {"type": "integer"},
+        "height": {"type": "integer"}
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["total", "passed", "failed", "cancelled", "not_run"],
+      "properties": {
+        "total": {"type": "integer", "minimum": 0},
+        "passed": {"type": "integer", "minimum": 0},
+        "failed": {"type": "integer", "minimum": 0},
+        "cancelled": {"type": "integer", "minimum": 0},
+        "not_run": {"type": "integer", "minimum": 0}
+      }
+    },
+    "step": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["number", "action", "status", "duration_ms"],
+      "properties": {
+        "number": {"type": "integer", "minimum": 1},
+        "action": {"enum": ["key", "text", "expect", "snapshot", "exit", "resize", "invalid"]},
+        "status": {"enum": ["not_run", "running", "passed", "failed"]},
+        "duration_ms": {"type": "integer", "minimum": 0},
+        "failure": {"$ref": "#/$defs/failure"},
+        "resize": {"$ref": "#/$defs/size"}
+      }
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["exited"],
+      "properties": {
+        "exited": {"type": "boolean"},
+        "exit_code": {"type": "integer", "minimum": 0, "maximum": 255}
+      }
+    },
+    "cleanup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["attempted", "graceful", "forced", "confirmed_exited"],
+      "properties": {
+        "attempted": {"type": "boolean"},
+        "graceful": {"type": "boolean"},
+        "forced": {"type": "boolean"},
+        "confirmed_exited": {"type": "boolean"},
+        "mechanism": {"type": "string"},
+        "failure": {"$ref": "#/$defs/failure"}
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "screen_path": {"type": "string"},
+        "diff_path": {"type": "string"},
+        "failures": {"type": "array", "items": {"$ref": "#/$defs/failure"}}
+      }
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "spec_path", "status", "duration_ms", "viewport", "target", "cleanup", "evidence"],
+      "properties": {
+        "spec_version": {"type": "integer"},
+        "name": {"type": "string"},
+        "spec_path": {"type": "string"},
+        "status": {"enum": ["passed", "failed", "cancelled", "not_run"]},
+        "duration_ms": {"type": "integer", "minimum": 0},
+        "viewport": {"$ref": "#/$defs/size"},
+        "resizes": {"type": "array", "items": {"$ref": "#/$defs/size"}},
+        "steps": {"type": "array", "items": {"$ref": "#/$defs/step"}},
+        "target": {"$ref": "#/$defs/target"},
+        "failure": {"$ref": "#/$defs/failure"},
+        "cleanup": {"$ref": "#/$defs/cleanup"},
+        "evidence": {"$ref": "#/$defs/evidence"}
+      }
+    }
+  }
+}

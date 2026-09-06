@@ -26,7 +26,7 @@ func writeSnapshotSpec(t *testing.T, mode string, names ...string) string {
 	if mode == "hang" {
 		steps = append(steps, Step{Exit: intPointer(0)})
 	}
-	spec := Spec{
+	spec := Spec{Version: SpecVersion,
 		Name: mode, Command: []string{os.Args[0], "-test.run=TestHelperProcess", "--", mode},
 		Env: map[string]string{"PLAYTESTR_HELPER_PROCESS": "1"}, Width: 40, Height: 8,
 		TimeoutMS: 5000, RunTimeoutMS: 5000, MaxOutputBytes: 100000, Steps: steps,
@@ -95,6 +95,27 @@ func TestSnapshotBaselineAndReadableMismatch(t *testing.T) {
 	}
 	if !strings.Contains(output.String(), "Diff saved:") || !strings.Contains(output.String(), "Screen saved:") {
 		t.Fatalf("artifact output = %q", output.String())
+	}
+}
+
+func TestStructuredSnapshotMismatchResult(t *testing.T) {
+	path := writeSnapshotSpec(t, "exit-zero", "result.txt")
+	writeBaseline(t, path, "result.txt", "wrong\n")
+	result := RunDetailedContext(context.Background(), path, RunOptions{}, &bytes.Buffer{})
+	if result.Status != "failed" || result.Failure == nil || result.Failure.Category != FailureSnapshotMismatch {
+		t.Fatalf("result = %+v", result)
+	}
+	if strings.Contains(result.Failure.Message, "finished cleanly") || strings.Contains(result.Failure.Message, "wrong") {
+		t.Fatalf("structured failure embedded terminal content: %q", result.Failure.Message)
+	}
+	if len(result.Steps) != 3 || result.Steps[0].Status != "passed" || result.Steps[1].Status != "passed" || result.Steps[2].Status != "failed" {
+		t.Fatalf("steps = %+v", result.Steps)
+	}
+	if !result.Target.Exited || result.Target.ExitCode == nil || *result.Target.ExitCode != 0 {
+		t.Fatalf("target = %+v", result.Target)
+	}
+	if !result.Cleanup.Attempted || !result.Cleanup.ConfirmedExited || result.Evidence.ScreenPath == "" || result.Evidence.DiffPath == "" {
+		t.Fatalf("cleanup/evidence = %+v %+v", result.Cleanup, result.Evidence)
 	}
 }
 
@@ -191,6 +212,39 @@ func TestSnapshotUpdatesAreNotCommittedAfterCancellation(t *testing.T) {
 	}
 }
 
+func TestCancellationImmediatelyAfterFinalStepPreventsSnapshotCommit(t *testing.T) {
+	spec := Spec{
+		Version: SpecVersion, Name: "cancel-after-final-step",
+		Command: []string{os.Args[0], "-test.run=TestHelperProcess", "--", "hang"},
+		Env:     map[string]string{"PLAYTESTR_HELPER_PROCESS": "1"},
+		Width:   40, Height: 8, TimeoutMS: 5000, RunTimeoutMS: 5000, MaxOutputBytes: 100000,
+		Steps: []Step{{Expect: "still running"}, {Snapshot: "final.txt"}},
+	}
+	data, err := json.Marshal(spec)
+	if err != nil {
+		t.Fatal(err)
+	}
+	path := filepath.Join(t.TempDir(), "spec.json")
+	if err := os.WriteFile(path, data, 0600); err != nil {
+		t.Fatal(err)
+	}
+	baseline := writeBaseline(t, path, "final.txt", "keep this\n")
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+	output := cancelAfterStepWriter{step: "  PASS step 2\n", cancel: cancel}
+	result := RunDetailedContext(ctx, path, RunOptions{Update: true}, &output)
+	if result.Status != "cancelled" || result.Failure == nil || result.Failure.Category != FailureCancellation {
+		t.Fatalf("result = %+v", result)
+	}
+	content, err := os.ReadFile(baseline)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if string(content) != "keep this\n" {
+		t.Fatalf("snapshot was committed after final-step cancellation: %q", content)
+	}
+}
+
 // The runner writes progress synchronously. This needs no timer, polling, or
 // concurrent access to the captured output.
 type cancelAfterStepWriter struct {
@@ -209,7 +263,7 @@ func (w *cancelAfterStepWriter) Write(p []byte) (int, error) {
 
 func TestUnknownSnapshotSelectorFailsBeforeTargetLaunch(t *testing.T) {
 	pidFile := filepath.Join(t.TempDir(), "target.pid")
-	spec := Spec{
+	spec := Spec{Version: SpecVersion,
 		Name: "does-not-launch", Command: []string{os.Args[0], "-test.run=TestHelperProcess", "--", "self-hang"},
 		Env:   map[string]string{"PLAYTESTR_HELPER_PROCESS": "1", "PLAYTESTR_PID_FILE": pidFile},
 		Steps: []Step{{Expect: "self running"}, {Snapshot: "known.txt"}},
@@ -240,5 +294,53 @@ func TestUnifiedTextDiffAddedRemovedAndSeparatedChanges(t *testing.T) {
 		if !strings.Contains(diff, expected) {
 			t.Fatalf("diff did not contain %q:\n%s", expected, diff)
 		}
+	}
+}
+
+func TestUnifiedTextDiffShowsEmptyAndFinalNewlineDifferences(t *testing.T) {
+	newline := unifiedTextDiff("screen.txt", "same", "same\n")
+	if !strings.Contains(newline, "No newline at end of file") {
+		t.Fatalf("newline diff = %q", newline)
+	}
+	empty := unifiedTextDiff("screen.txt", "", "content\n")
+	if !strings.Contains(empty, "+content") {
+		t.Fatalf("empty diff = %q", empty)
+	}
+}
+
+func TestStagedSnapshotMemoryIsBounded(t *testing.T) {
+	updates := newSnapshotUpdates()
+	err := updates.stage("large.txt", strings.Repeat("x", maxStagedSnapshotBytes+1))
+	if err == nil || categoryOf(err) != FailureSnapshotUpdate {
+		t.Fatalf("got %v (%s)", err, categoryOf(err))
+	}
+	if len(updates.values) != 0 || updates.bytes != 0 {
+		t.Fatalf("oversized update was staged: %+v", updates)
+	}
+}
+
+func TestSnapshotRollbackRestoresEveryChangedFile(t *testing.T) {
+	directory := t.TempDir()
+	existing := filepath.Join(directory, "existing.txt")
+	created := filepath.Join(directory, "created.txt")
+	if err := os.WriteFile(existing, []byte("new existing\n"), 0644); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(created, []byte("new created\n"), 0644); err != nil {
+		t.Fatal(err)
+	}
+	originals := map[string]originalSnapshot{
+		existing: {data: []byte("old existing\n"), exists: true},
+		created:  {exists: false},
+	}
+	if changed := rollbackSnapshotUpdates([]string{existing, created}, originals); len(changed) != 0 {
+		t.Fatalf("rollback left changed files: %v", changed)
+	}
+	content, err := os.ReadFile(existing)
+	if err != nil || string(content) != "old existing\n" {
+		t.Fatalf("existing file was not restored: %q, %v", content, err)
+	}
+	if _, err := os.Stat(created); !os.IsNotExist(err) {
+		t.Fatalf("created file survived rollback: %v", err)
 	}
 }

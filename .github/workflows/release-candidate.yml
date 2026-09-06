@@ -1,0 +1,75 @@
+name: Release candidate
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version such as v0.1.0-rc.1
+        required: true
+        default: v0.1.0-rc.1
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-latest
+            target_os: linux
+            target_arch: amd64
+            executable: playtestr
+            demo: demo
+            fixture: fixture
+          - runner: macos-latest
+            target_os: darwin
+            target_arch: arm64
+            executable: playtestr
+            demo: demo
+            fixture: fixture
+          - runner: windows-latest
+            target_os: windows
+            target_arch: amd64
+            executable: playtestr.exe
+            demo: demo.exe
+            fixture: fixture.exe
+    runs-on: ${{ matrix.runner }}
+    env:
+      VERSION: ${{ inputs.version }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v7
+        with:
+          go-version: '1.25.0'
+          cache-dependency-path: go.sum
+      - name: Validate release target
+        shell: bash
+        run: |
+          [[ "$VERSION" =~ ^[A-Za-z0-9._-]+$ ]]
+          test "$(go env GOOS)" = "${{ matrix.target_os }}"
+          test "$(go env GOARCH)" = "${{ matrix.target_arch }}"
+      - name: Test
+        run: go test -count=1 ./...
+      - name: Build native binaries
+        shell: bash
+        run: |
+          mkdir -p bin
+          go build -o "bin/${{ matrix.demo }}" ./cmd/demo
+          go build -o "bin/${{ matrix.fixture }}" ./cmd/fixture
+          go build -trimpath -ldflags "-s -w -X github.com/Wyrcan-io/playtestr/internal/buildinfo.Version=$VERSION" -o "bin/${{ matrix.executable }}" ./cmd/playtestr
+      - name: Walk through packaged binary behavior
+        shell: bash
+        run: |
+          test "$("./bin/${{ matrix.executable }}" --version)" = "playtestr $VERSION"
+          "./bin/${{ matrix.executable }}" test --report artifacts/walkthrough.json examples/menu.json examples/menu-exit.json
+      - name: Package native release candidate
+        shell: bash
+        run: go run ./cmd/package-release -binary "bin/${{ matrix.executable }}" -version "$VERSION" -os "${{ matrix.target_os }}" -arch "${{ matrix.target_arch }}" -out dist
+      - uses: actions/upload-artifact@v6
+        with:
+          name: playtestr-${{ matrix.target_os }}-${{ matrix.target_arch }}
+          path: dist/*
+          if-no-files-found: error

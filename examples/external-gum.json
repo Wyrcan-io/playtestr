@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "name": "Choose an option in Charm Gum",
+  "command": ["./.tools/external/gum", "choose", "Alpha", "Beta", "Gamma", "--header", "Pick deployment"],
+  "width": 60,
+  "height": 12,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 10000,
+  "max_output_bytes": 500000,
+  "steps": [
+    {"expect": "Pick deployment"},
+    {"key": "ArrowDown"},
+    {"key": "Enter"},
+    {"exit": 0},
+    {"snapshot": "external-gum-choice.txt"}
+  ]
+}

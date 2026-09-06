@@ -2,7 +2,7 @@ name: Website
 on:
   push:
     branches: [main]
-    paths: ['site/**', '.github/workflows/pages.yml']
+    paths: ['site/**', 'schema/**', '.github/workflows/pages.yml']
   workflow_dispatch:
 
 permissions:
@@ -25,9 +25,15 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: actions/configure-pages@v5
+      - name: Stage website and public schema
+        shell: bash
+        run: |
+          mkdir -p _site/schema
+          cp -R site/. _site/
+          cp schema/*.json _site/schema/
       - uses: actions/upload-pages-artifact@v4
         with:
-          path: site
+          path: _site
       - name: Deploy website
         id: deployment
         uses: actions/deploy-pages@v4

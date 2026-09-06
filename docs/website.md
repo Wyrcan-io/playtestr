@@ -2,7 +2,7 @@
 
 The landing page is plain HTML and CSS in `site/`. It has no build step, JavaScript runtime, third-party fonts, or tracking. Open `site/index.html` in a browser to preview it locally.
 
-GitHub Pages is configured to deploy through Actions. The `Website` workflow publishes only `site/` when changes to that folder or its workflow reach `main`. It can also be run manually. The first publication requires pushing the website files and `.github/workflows/pages.yml`.
+GitHub Pages is configured to deploy through Actions. The `Website` workflow stages `site/` together with the canonical spec schema and publishes that directory when website, schema, or workflow changes reach `main`. It can also be run manually.
 
 Configured address: https://wyrcan-io.github.io/playtestr/
 

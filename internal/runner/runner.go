@@ -1,6 +1,7 @@
 package runner
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"errors"
@@ -16,6 +17,12 @@ import (
 )
 
 var errOutputLimit = errors.New("target exceeded max_output_bytes")
+
+const (
+	SpecVersion  = 1
+	maxSpecBytes = 1_000_000
+	maxSpecSteps = 1_000
+)
 
 // Step contains exactly one terminal action or assertion.
 type Step struct {
@@ -41,6 +48,7 @@ type RunOptions struct {
 
 // Spec describes one target process and its ordered terminal interactions.
 type Spec struct {
+	Version          int               `json:"version"`
 	Name             string            `json:"name"`
 	Command          []string          `json:"command"`
 	CWD              string            `json:"cwd,omitempty"`
@@ -68,17 +76,31 @@ func Load(path string) (Spec, error) {
 	var spec Spec
 	file, err := os.Open(path)
 	if err != nil {
-		return spec, err
+		return spec, fmt.Errorf("open spec: %w", err)
 	}
 	defer file.Close()
-	decoder := json.NewDecoder(file)
+	data, err := io.ReadAll(io.LimitReader(file, maxSpecBytes+1))
+	if err != nil {
+		return spec, fmt.Errorf("read spec: %w", err)
+	}
+	if len(data) > maxSpecBytes {
+		return spec, fmt.Errorf("spec exceeds %d bytes", maxSpecBytes)
+	}
+	data = bytes.TrimPrefix(data, []byte{0xef, 0xbb, 0xbf})
+	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
 	if err = decoder.Decode(&spec); err != nil {
-		return spec, err
+		return spec, fmt.Errorf("decode spec: %w", err)
 	}
 	var extra any
 	if decoder.Decode(&extra) != io.EOF {
 		return spec, fmt.Errorf("expected one JSON object")
+	}
+	if spec.Version == 0 {
+		return spec, fmt.Errorf("spec version is required; add \"version\": %d", SpecVersion)
+	}
+	if spec.Version != SpecVersion {
+		return spec, fmt.Errorf("unsupported spec version %d; this runner supports version %d", spec.Version, SpecVersion)
 	}
 	if spec.Name == "" {
 		spec.Name = filepath.Base(path)
@@ -117,6 +139,9 @@ func Load(path string) (Spec, error) {
 	}
 	if len(spec.Steps) == 0 {
 		return spec, fmt.Errorf("steps are required")
+	}
+	if len(spec.Steps) > maxSpecSteps {
+		return spec, fmt.Errorf("steps exceeds limit of %d", maxSpecSteps)
 	}
 	seenEnvironment := make(map[string]string)
 	for name, value := range spec.Env {
@@ -184,6 +209,9 @@ func Load(path string) (Spec, error) {
 				return spec, fmt.Errorf("step %d snapshot %q is used more than once", i+1, step.Snapshot)
 			}
 			seenSnapshots[step.Snapshot] = struct{}{}
+			if len(seenSnapshots) > maxStagedSnapshots {
+				return spec, fmt.Errorf("snapshot steps exceed limit of %d", maxStagedSnapshots)
+			}
 		}
 	}
 	return spec, nil
@@ -263,26 +291,54 @@ func targetDirectory(specPath, configured string) (string, error) {
 
 // Run executes a spec with a background context.
 func Run(path string, update bool, out io.Writer) error {
-	return RunContextWithOptions(context.Background(), path, RunOptions{Update: update}, out)
+	return RunDetailedContext(context.Background(), path, RunOptions{Update: update}, out).Err()
 }
 
 // RunContext executes a spec and stops its process tree when the context ends.
 func RunContext(parent context.Context, path string, update bool, out io.Writer) (runErr error) {
-	return RunContextWithOptions(parent, path, RunOptions{Update: update}, out)
+	return RunDetailedContext(parent, path, RunOptions{Update: update}, out).Err()
 }
 
 // RunContextWithOptions executes a spec with explicit snapshot update options.
 func RunContextWithOptions(parent context.Context, path string, options RunOptions, out io.Writer) (runErr error) {
+	return RunDetailedContext(parent, path, options, out).Err()
+}
+
+// RunDetailedContext executes one spec and returns a stable structured result.
+func RunDetailedContext(parent context.Context, path string, options RunOptions, out io.Writer) (result RunResult) {
+	started := time.Now()
+	result = RunResult{Name: filepath.Base(path), SpecPath: filepath.Clean(path), Status: "failed"}
+	defer func() { result.DurationMS = time.Since(started).Milliseconds() }()
+	setFailure := func(category FailureCategory, err error) {
+		result.err = err
+		result.Failure = failure(category, err)
+		if category == FailureCancellation {
+			result.Status = "cancelled"
+		}
+	}
 	if err := parent.Err(); err != nil {
-		return fmt.Errorf("run cancelled: %w", err)
+		runErr := withCategory(FailureCancellation, fmt.Errorf("run cancelled: %w", err))
+		setFailure(FailureCancellation, runErr)
+		return result
 	}
 	spec, err := Load(path)
 	if err != nil {
-		return err
+		runErr := withCategory(FailureInvalidSpec, err)
+		setFailure(FailureInvalidSpec, runErr)
+		return result
+	}
+	result.SpecVersion = spec.Version
+	result.Name = spec.Name
+	result.Viewport = TerminalSize{Width: spec.Width, Height: spec.Height}
+	result.Steps = make([]StepResult, len(spec.Steps))
+	for i, step := range spec.Steps {
+		result.Steps[i] = StepResult{Number: i + 1, Action: stepAction(step), Status: "not_run", Resize: step.Resize}
 	}
 	if options.Snapshot != "" {
 		if !options.Update {
-			return fmt.Errorf("snapshot selector requires update mode")
+			runErr := withCategory(FailureInvalidSpec, fmt.Errorf("snapshot selector requires update mode"))
+			setFailure(FailureInvalidSpec, runErr)
+			return result
 		}
 		found := false
 		for _, step := range spec.Steps {
@@ -292,12 +348,16 @@ func RunContextWithOptions(parent context.Context, path string, options RunOptio
 			}
 		}
 		if !found {
-			return fmt.Errorf("snapshot %q is not referenced by %s", options.Snapshot, path)
+			runErr := withCategory(FailureInvalidSpec, fmt.Errorf("snapshot %q is not referenced by %s", options.Snapshot, path))
+			setFailure(FailureInvalidSpec, runErr)
+			return result
 		}
 	}
 	dir, err := targetDirectory(path, spec.CWD)
 	if err != nil {
-		return err
+		runErr := withCategory(FailureInvalidSpec, err)
+		setFailure(FailureInvalidSpec, runErr)
+		return result
 	}
 	runContext, cancelRun := context.WithTimeout(parent, time.Duration(spec.RunTimeoutMS)*time.Millisecond)
 	defer cancelRun()
@@ -306,8 +366,11 @@ func RunContextWithOptions(parent context.Context, path string, options RunOptio
 		height: spec.Height, maxOutputBytes: spec.MaxOutputBytes,
 	})
 	if err != nil {
-		return err
+		runErr := withCategory(FailureLaunch, err)
+		setFailure(FailureLaunch, runErr)
+		return result
 	}
+	var runErr error
 
 	if spec.StartupTimeoutMS > 0 {
 		startupContext, cancelStartup := context.WithTimeout(runContext, time.Duration(spec.StartupTimeoutMS)*time.Millisecond)
@@ -319,32 +382,44 @@ func RunContextWithOptions(parent context.Context, path string, options RunOptio
 	}
 
 	exitAsserted := false
-	updates := make(snapshotUpdates)
+	updates := newSnapshotUpdates()
 	if runErr == nil {
 		for i, step := range spec.Steps {
+			stepStarted := time.Now()
+			result.Steps[i].Status = "running"
 			stepContext, cancelStep := context.WithTimeout(runContext, time.Duration(spec.TimeoutMS)*time.Millisecond)
 			err = executeStep(stepContext, path, step, options, updates, session, exitAsserted)
 			cancelStep()
+			result.Steps[i].DurationMS = time.Since(stepStarted).Milliseconds()
 			if err != nil {
 				runErr = fmt.Errorf("%s: step %d: %w", spec.Name, i+1, classifyContextError(err, parent, runContext))
+				result.Steps[i].Status = "failed"
+				result.Steps[i].Failure = failure(categoryOf(runErr), runErr)
 				break
 			}
+			result.Steps[i].Status = "passed"
 			if step.Exit != nil {
 				exitAsserted = true
 			}
+			if step.Resize != nil {
+				result.Resizes = append(result.Resizes, *step.Resize)
+			}
 			fmt.Fprintf(out, "  PASS step %d\n", i+1)
 		}
+	}
+	if runErr == nil && parent.Err() != nil {
+		runErr = withCategory(FailureCancellation, fmt.Errorf("%s: run cancelled: %w", spec.Name, parent.Err()))
 	}
 
 	if runErr == nil && !exitAsserted {
 		observation := session.observe()
 		if observation.outputLimitExceeded {
-			runErr = fmt.Errorf("%s: %w (%d bytes observed)", spec.Name, errOutputLimit, observation.outputBytes)
+			runErr = withCategory(FailureOutputLimit, fmt.Errorf("%s: %w (%d bytes observed)", spec.Name, errOutputLimit, observation.outputBytes))
 		} else if code, waitErr, exited := session.outcome.result(); exited {
 			if code < 0 && waitErr != nil {
-				runErr = fmt.Errorf("%s: process wait failed: %w", spec.Name, waitErr)
+				runErr = withCategory(FailureUnexpectedExit, fmt.Errorf("%s: process wait failed: %w", spec.Name, waitErr))
 			} else {
-				runErr = fmt.Errorf("%s: process exited with code %d without an exit assertion", spec.Name, code)
+				runErr = withCategory(FailureUnexpectedExit, fmt.Errorf("%s: %w", spec.Name, unexpectedExit("process exited with code %d without an exit assertion", code)))
 			}
 		}
 	}
@@ -352,12 +427,32 @@ func RunContextWithOptions(parent context.Context, path string, options RunOptio
 	cleanupContext, cancelCleanup := context.WithTimeout(context.Background(), 3*time.Second)
 	cleanup := session.stop(cleanupContext)
 	cancelCleanup()
+	result.Cleanup = CleanupReport{
+		Attempted: cleanup.attempted, Graceful: cleanup.graceful, Forced: cleanup.forced,
+		ConfirmedExited: cleanup.confirmedExited, Mechanism: cleanup.mechanism,
+	}
 	if cleanup.err != nil {
-		cleanupErr := fmt.Errorf("cleanup failed: %w", cleanup.err)
+		cleanupErr := withCategory(FailureCleanup, fmt.Errorf("cleanup failed: %w", cleanup.err))
+		result.Cleanup.Failure = failure(FailureCleanup, cleanupErr)
 		if runErr == nil {
 			runErr = cleanupErr
 		} else {
 			runErr = errors.Join(runErr, cleanupErr)
+		}
+	}
+	if code, _, exited := session.outcome.result(); exited {
+		result.Target.Exited = true
+		if code >= 0 {
+			result.Target.ExitCode = new(int)
+			*result.Target.ExitCode = code
+		}
+	}
+	if runErr == nil && parent.Err() != nil {
+		runErr = withCategory(FailureCancellation, fmt.Errorf("%s: run cancelled: %w", spec.Name, parent.Err()))
+	}
+	if runErr == nil {
+		if err := commitSnapshotUpdates(updates, out); err != nil {
+			runErr = withCategory(FailureSnapshotUpdate, fmt.Errorf("commit snapshot updates: %w", err))
 		}
 	}
 	if runErr != nil {
@@ -373,25 +468,31 @@ func RunContextWithOptions(parent context.Context, path string, options RunOptio
 		if errors.As(runErr, &mismatch) {
 			observation.screen = mismatch.actual
 			diffArtifact := path + ".diff.txt"
-			if writeErr := os.WriteFile(diffArtifact, []byte(mismatch.diff), 0644); writeErr == nil {
+			if writeErr := writeFileAtomic(diffArtifact, []byte(mismatch.diff), 0644); writeErr == nil {
+				result.Evidence.DiffPath = filepath.Clean(diffArtifact)
 				fmt.Fprintf(out, "Diff saved: %s\n", diffArtifact)
 			} else {
-				runErr = errors.Join(runErr, fmt.Errorf("write snapshot diff: %w", writeErr))
+				artifactErr := fmt.Errorf("write snapshot diff: %w", writeErr)
+				result.Evidence.Failures = append(result.Evidence.Failures, *failure(FailureArtifact, artifactErr))
+				runErr = errors.Join(runErr, withCategory(FailureArtifact, artifactErr))
 			}
 		}
 		artifact := path + ".actual.txt"
-		if writeErr := os.WriteFile(artifact, []byte(observation.screen), 0644); writeErr == nil {
+		if writeErr := writeFileAtomic(artifact, []byte(observation.screen), 0644); writeErr == nil {
+			result.Evidence.ScreenPath = filepath.Clean(artifact)
 			fmt.Fprintf(out, "Screen saved: %s\n", artifact)
 		} else {
-			runErr = errors.Join(runErr, fmt.Errorf("write failure screen: %w", writeErr))
+			artifactErr := fmt.Errorf("write failure screen: %w", writeErr)
+			result.Evidence.Failures = append(result.Evidence.Failures, *failure(FailureArtifact, artifactErr))
+			runErr = errors.Join(runErr, withCategory(FailureArtifact, artifactErr))
 		}
-		return runErr
+		category := categoryOf(runErr)
+		setFailure(category, runErr)
+		return result
 	}
-	if err := commitSnapshotUpdates(updates, out); err != nil {
-		return fmt.Errorf("commit snapshot updates: %w", err)
-	}
+	result.Status = "passed"
 	fmt.Fprintf(out, "PASS %s\n", spec.Name)
-	return nil
+	return result
 }
 
 func waitForStartup(ctx context.Context, session *terminalSession) error {
@@ -403,15 +504,15 @@ func waitForStartup(ctx context.Context, session *terminalSession) error {
 	case <-session.outcome.done:
 		code, waitErr, _ := session.outcome.result()
 		if code < 0 && waitErr != nil {
-			return fmt.Errorf("process wait failed: %w", waitErr)
+			return unexpectedExit("process wait failed: %v", waitErr)
 		}
-		return fmt.Errorf("process exited with code %d before producing output", code)
+		return unexpectedExit("process exited with code %d before producing output", code)
 	case <-ctx.Done():
 		return fmt.Errorf("timed out waiting for first output: %w", ctx.Err())
 	}
 }
 
-func executeStep(ctx context.Context, specPath string, step Step, options RunOptions, updates snapshotUpdates, session *terminalSession, exitAsserted bool) error {
+func executeStep(ctx context.Context, specPath string, step Step, options RunOptions, updates *snapshotUpdates, session *terminalSession, exitAsserted bool) error {
 	if step.Key != "" {
 		return session.send(ctx, keys[step.Key])
 	}
@@ -433,7 +534,7 @@ func executeStep(ctx context.Context, specPath string, step Step, options RunOpt
 			return fmt.Errorf("%w (%d bytes observed)", errOutputLimit, observation.outputBytes)
 		}
 		if code != *step.Exit {
-			return fmt.Errorf("expected exit code %d, got %d", *step.Exit, code)
+			return unexpectedExit("expected exit code %d, got %d", *step.Exit, code)
 		}
 		if code < 0 && waitErr != nil {
 			return fmt.Errorf("process wait failed: %w", waitErr)
@@ -449,9 +550,9 @@ func executeStep(ctx context.Context, specPath string, step Step, options RunOpt
 		expected, err = readSnapshot(filepath.Join(base, step.Snapshot))
 		if err != nil {
 			if errors.Is(err, os.ErrNotExist) {
-				return fmt.Errorf("snapshot %q is missing (create it with --update): %w", step.Snapshot, err)
+				return withCategory(FailureArtifact, fmt.Errorf("snapshot %q is missing (create it with --update): %w", step.Snapshot, err))
 			}
-			return fmt.Errorf("read snapshot %q: %w", step.Snapshot, err)
+			return withCategory(FailureArtifact, fmt.Errorf("read snapshot %q: %w", step.Snapshot, err))
 		}
 		expected = []byte(normalize(string(expected)))
 	}
@@ -467,8 +568,7 @@ func executeStep(ctx context.Context, specPath string, step Step, options RunOpt
 		}
 		if step.Snapshot != "" && time.Since(observation.lastOutput) >= 150*time.Millisecond {
 			if updateSnapshot {
-				updates[filepath.Join(base, step.Snapshot)] = observation.screen
-				return nil
+				return updates.stage(filepath.Join(base, step.Snapshot), observation.screen)
 			}
 			if observation.screen == string(expected) {
 				return nil
@@ -484,9 +584,9 @@ func executeStep(ctx context.Context, specPath string, step Step, options RunOpt
 				return nil
 			}
 			if code < 0 && waitErr != nil {
-				return fmt.Errorf("process wait failed while waiting for assertion: %w", waitErr)
+				return unexpectedExit("process wait failed while waiting for assertion: %v", waitErr)
 			}
-			return fmt.Errorf("process exited with code %d before assertion matched", code)
+			return unexpectedExit("process exited with code %d before assertion matched", code)
 		}
 		select {
 		case <-ctx.Done():
@@ -500,13 +600,28 @@ func executeStep(ctx context.Context, specPath string, step Step, options RunOpt
 
 func classifyContextError(err error, parent, runContext context.Context) error {
 	if parent.Err() != nil {
-		return fmt.Errorf("run cancelled: %w", parent.Err())
+		return withCategory(FailureCancellation, fmt.Errorf("run cancelled: %w", parent.Err()))
 	}
 	if runContext.Err() != nil {
-		return fmt.Errorf("run exceeded total timeout: %w", runContext.Err())
+		return withCategory(FailureRunTimeout, fmt.Errorf("run exceeded total timeout: %w", runContext.Err()))
 	}
 	if errors.Is(err, context.DeadlineExceeded) {
-		return fmt.Errorf("step timed out: %w", err)
+		return withCategory(FailureAssertionTimeout, fmt.Errorf("step timed out: %w", err))
 	}
-	return err
+	var alreadyCategorized *categorizedError
+	if errors.As(err, &alreadyCategorized) {
+		return err
+	}
+	if errors.Is(err, errOutputLimit) {
+		return withCategory(FailureOutputLimit, err)
+	}
+	var mismatch *snapshotMismatchError
+	if errors.As(err, &mismatch) {
+		return withCategory(FailureSnapshotMismatch, err)
+	}
+	var exited *unexpectedExitError
+	if errors.As(err, &exited) {
+		return withCategory(FailureUnexpectedExit, err)
+	}
+	return withCategory(FailureInternal, err)
 }

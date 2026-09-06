@@ -31,7 +31,7 @@
         <p class="intro">Press the keys. Check the screen. Catch the regression before your users do.</p>
         <p class="description">Playtestr runs your interactive application in a real terminal, follows a test you write, and shows you what changed.</p>
         <div class="actions"><a class="button" href="#get-started">Run your first test <span aria-hidden="true">↓</span></a><a class="text-link" href="https://github.com/Wyrcan-io/playtestr">View the source <span aria-hidden="true">↗</span></a></div>
-        <p class="small">Written in Go. Early prototype. Built in the open.</p>
+        <p class="small">Written in Go. Versioned tests and reports. Built in the open.</p>
       </div>
       <figure class="terminal">
         <figcaption><span>playtestr / mission control</span><span class="terminal-label">EXAMPLE RUN</span></figcaption>
@@ -66,6 +66,7 @@ Diagnostics: all systems healthy.</code></pre></div>
           <article><span class="number">3</span><div><h3>Compare what users see</h3><p>Assert rendered text and expected exit codes. Save a screen snapshot to catch changes in later runs.</p></div></article>
         </div>
         <figure class="code-paper"><figcaption>examples/menu.json</figcaption><pre><code>{
+  "version": 1,
   "name": "Run diagnostics",
   "command": ["./bin/demo"],
   "width": 64,
@@ -99,7 +100,7 @@ Diagnostics: all systems healthy.</code></pre></div>
     </section>
 
     <section id="get-started" class="wrap section getting-started">
-      <div><p class="eyebrow">03 / TRY IT LOCALLY</p><h2>Your first passing test.</h2><p>Start with the included menu demo. You’ll need Git and Go 1.27. On Windows, build the demo as <code>bin/demo.exe</code>.</p><p class="small">This is an early prototype for trusted applications. Text snapshots exclude styles, and complex Unicode layout has known limits. <a href="https://github.com/Wyrcan-io/playtestr/blob/main/docs/terminal-compatibility.md">Read the compatibility notes.</a></p></div>
+      <div><p class="eyebrow">03 / TRY IT LOCALLY</p><h2>Your first passing test.</h2><p>Start with the included menu demo. You’ll need Git and Go 1.25 or newer. On Windows, build the demo as <code>bin/demo.exe</code>.</p><p class="small">Playtestr runs trusted applications with your permissions. Text snapshots exclude styles, and complex Unicode layout has known limits. <a href="https://github.com/Wyrcan-io/playtestr/blob/main/docs/terminal-compatibility.md">Read the compatibility notes.</a></p></div>
       <div class="quickstart"><pre><code>git clone https://github.com/Wyrcan-io/playtestr.git
 cd playtestr
 go build -o bin/demo ./cmd/demo

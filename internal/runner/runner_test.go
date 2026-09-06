@@ -27,21 +27,21 @@ func TestScreenRedraw(t *testing.T) {
 
 func TestRejectInvalidSpecs(t *testing.T) {
 	for _, data := range []string{
-		`{"command":["demo"],"steps":[{"key":"Wrong"}]}`,
-		`{"command":["demo"],"steps":[{"snapshot":"../escape"}]}`,
-		`{"command":["demo"],"steps":[{"key":"Enter","expect":"ok"}]}`,
-		`{"command":["demo"],"width":-1,"steps":[{"expect":"ok"}]}`,
-		`{"command":["demo"],"steps":[{"expect":"ok"}],"typo":true}`,
-		`{"command":["demo"],"steps":[{"exit":256}]}`,
-		`{"command":["demo"],"steps":[{"exit":-1}]}`,
-		`{"command":["demo"],"run_timeout_ms":-1,"steps":[{"expect":"ok"}]}`,
-		`{"command":["demo"],"max_output_bytes":-1,"steps":[{"expect":"ok"}]}`,
-		`{"command":["demo"],"env":{"BAD-NAME":"value"},"steps":[{"expect":"ok"}]}`,
-		`{"command":["demo"],"steps":[{"snapshot":"screen.txt"}]}`,
-		`{"command":["demo"],"steps":[{"expect":"ready"},{"key":"Enter"},{"snapshot":"screen.txt"}]}`,
-		`{"command":["demo"],"steps":[{"resize":{"width":0,"height":20}}]}`,
-		`{"command":["demo"],"steps":[{"resize":{"width":80,"height":201}}]}`,
-		`{"command":["demo"],"steps":[{"expect":"ready"},{"snapshot":"same.txt"},{"snapshot":"same.txt"}]}`,
+		`{"version":1,"command":["demo"],"steps":[{"key":"Wrong"}]}`,
+		`{"version":1,"command":["demo"],"steps":[{"snapshot":"../escape"}]}`,
+		`{"version":1,"command":["demo"],"steps":[{"key":"Enter","expect":"ok"}]}`,
+		`{"version":1,"command":["demo"],"width":-1,"steps":[{"expect":"ok"}]}`,
+		`{"version":1,"command":["demo"],"steps":[{"expect":"ok"}],"typo":true}`,
+		`{"version":1,"command":["demo"],"steps":[{"exit":256}]}`,
+		`{"version":1,"command":["demo"],"steps":[{"exit":-1}]}`,
+		`{"version":1,"command":["demo"],"run_timeout_ms":-1,"steps":[{"expect":"ok"}]}`,
+		`{"version":1,"command":["demo"],"max_output_bytes":-1,"steps":[{"expect":"ok"}]}`,
+		`{"version":1,"command":["demo"],"env":{"BAD-NAME":"value"},"steps":[{"expect":"ok"}]}`,
+		`{"version":1,"command":["demo"],"steps":[{"snapshot":"screen.txt"}]}`,
+		`{"version":1,"command":["demo"],"steps":[{"expect":"ready"},{"key":"Enter"},{"snapshot":"screen.txt"}]}`,
+		`{"version":1,"command":["demo"],"steps":[{"resize":{"width":0,"height":20}}]}`,
+		`{"version":1,"command":["demo"],"steps":[{"resize":{"width":80,"height":201}}]}`,
+		`{"version":1,"command":["demo"],"steps":[{"expect":"ready"},{"snapshot":"same.txt"},{"snapshot":"same.txt"}]}`,
 	} {
 		path := filepath.Join(t.TempDir(), "test.json")
 		if e := os.WriteFile(path, []byte(data), 0600); e != nil {
@@ -53,7 +53,72 @@ func TestRejectInvalidSpecs(t *testing.T) {
 	}
 }
 
+func TestSpecVersionAndSizeLimits(t *testing.T) {
+	for name, data := range map[string]string{
+		"missing":     `{"command":["demo"],"steps":[{"exit":0}]}`,
+		"unsupported": `{"version":2,"command":["demo"],"steps":[{"exit":0}]}`,
+	} {
+		t.Run(name, func(t *testing.T) {
+			path := filepath.Join(t.TempDir(), "spec.json")
+			if err := os.WriteFile(path, []byte(data), 0600); err != nil {
+				t.Fatal(err)
+			}
+			if _, err := Load(path); err == nil || !strings.Contains(err.Error(), "version") {
+				t.Fatalf("got %v", err)
+			}
+		})
+	}
+	oversized := filepath.Join(t.TempDir(), "large.json")
+	if err := os.WriteFile(oversized, bytes.Repeat([]byte{'x'}, maxSpecBytes+1), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := Load(oversized); err == nil || !strings.Contains(err.Error(), "spec exceeds") {
+		t.Fatalf("got %v", err)
+	}
+}
+
 func intPointer(value int) *int { return &value }
+
+func TestStructuredFailureCategories(t *testing.T) {
+	write := func(t *testing.T, spec Spec) string {
+		t.Helper()
+		data, err := json.Marshal(spec)
+		if err != nil {
+			t.Fatal(err)
+		}
+		path := filepath.Join(t.TempDir(), "spec.json")
+		if err := os.WriteFile(path, data, 0600); err != nil {
+			t.Fatal(err)
+		}
+		return path
+	}
+	helper := func(mode string, steps []Step) Spec {
+		return Spec{
+			Version: SpecVersion, Name: mode,
+			Command: []string{os.Args[0], "-test.run=TestHelperProcess", "--", mode},
+			Env:     map[string]string{"PLAYTESTR_HELPER_PROCESS": "1"},
+			Width:   40, Height: 8, TimeoutMS: 1000, RunTimeoutMS: 2000,
+			MaxOutputBytes: 100000, Steps: steps,
+		}
+	}
+	tests := []struct {
+		name string
+		spec Spec
+		want FailureCategory
+	}{
+		{name: "launch", spec: Spec{Version: SpecVersion, Command: []string{"playtestr-missing-target"}, Steps: []Step{{Exit: intPointer(0)}}}, want: FailureLaunch},
+		{name: "unexpected exit", spec: helper("exit-seven", []Step{{Exit: intPointer(0)}}), want: FailureUnexpectedExit},
+		{name: "assertion timeout", spec: helper("hang", []Step{{Expect: "never"}}), want: FailureAssertionTimeout},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			result := RunDetailedContext(context.Background(), write(t, test.spec), RunOptions{}, &bytes.Buffer{})
+			if result.Failure == nil || result.Failure.Category != test.want {
+				t.Fatalf("result = %+v", result)
+			}
+		})
+	}
+}
 
 func TestHelperProcess(t *testing.T) {
 	if os.Getenv("PLAYTESTR_HELPER_PROCESS") != "1" {
@@ -77,6 +142,16 @@ func TestHelperProcess(t *testing.T) {
 		fmt.Print("input received\r\n")
 		os.Exit(0)
 	case "no-output":
+		time.Sleep(10 * time.Second)
+		os.Exit(0)
+	case "blocked-input":
+		// Disable canonical input and echo so this fixture measures a blocked
+		// PTY write rather than counting echoed input as target output.
+		old, err := term.MakeRaw(int(os.Stdin.Fd()))
+		if err != nil {
+			os.Exit(9)
+		}
+		defer term.Restore(int(os.Stdin.Fd()), old)
 		time.Sleep(10 * time.Second)
 		os.Exit(0)
 	case "delayed-redraw":
@@ -143,7 +218,7 @@ func TestHelperProcess(t *testing.T) {
 
 func runHelperSpec(t *testing.T, mode string, steps []Step, timeoutMS int) error {
 	t.Helper()
-	spec := Spec{
+	spec := Spec{Version: SpecVersion,
 		Name:      mode,
 		Command:   []string{os.Args[0], "-test.run=TestHelperProcess", "--", mode},
 		Env:       map[string]string{"PLAYTESTR_HELPER_PROCESS": "1"},
@@ -165,7 +240,7 @@ func runHelperSpec(t *testing.T, mode string, steps []Step, timeoutMS int) error
 
 func runConfiguredHelperSpec(t *testing.T, mode string, steps []Step, configure func(*Spec)) error {
 	t.Helper()
-	spec := Spec{
+	spec := Spec{Version: SpecVersion,
 		Name:           mode,
 		Command:        []string{os.Args[0], "-test.run=TestHelperProcess", "--", mode},
 		Env:            map[string]string{"PLAYTESTR_HELPER_PROCESS": "1"},
@@ -222,7 +297,7 @@ func TestExitTimeout(t *testing.T) {
 }
 
 func TestLaunchFailure(t *testing.T) {
-	spec := Spec{
+	spec := Spec{Version: SpecVersion,
 		Name: "missing-target", Command: []string{"playtestr-command-that-does-not-exist"},
 		Width: 40, Height: 8, TimeoutMS: 1000, RunTimeoutMS: 1000, MaxOutputBytes: 100000,
 		Steps: []Step{{Exit: intPointer(0)}},
@@ -291,7 +366,7 @@ func TestWorkingDirectoryAndExplicitEnvironment(t *testing.T) {
 	if err := os.Mkdir(work, 0700); err != nil {
 		t.Fatal(err)
 	}
-	spec := Spec{
+	spec := Spec{Version: SpecVersion,
 		Name: "cwd-env", Command: []string{os.Args[0], "-test.run=TestHelperProcess", "--", "cwd-env"},
 		CWD: "work", Env: map[string]string{"PLAYTESTR_HELPER_PROCESS": "1", "PLAYTESTR_MARKER": "declared"},
 		Width: 80, Height: 8, TimeoutMS: 5000, RunTimeoutMS: 5000, MaxOutputBytes: 100000,
@@ -383,7 +458,7 @@ func TestRepeatedSessionCleanup(t *testing.T) {
 func TestSessionStopIsIdempotent(t *testing.T) {
 	session, err := startTerminalSession(sessionConfig{
 		command: []string{os.Args[0], "-test.run=TestHelperProcess", "--", "hang"},
-		env:     targetEnvironment(Spec{Env: map[string]string{"PLAYTESTR_HELPER_PROCESS": "1"}}),
+		env:     targetEnvironment(Spec{Version: SpecVersion, Env: map[string]string{"PLAYTESTR_HELPER_PROCESS": "1"}}),
 		width:   40, height: 8, maxOutputBytes: 100000,
 	})
 	if err != nil {
@@ -403,8 +478,8 @@ func TestSessionStopIsIdempotent(t *testing.T) {
 
 func TestBlockedInputHonorsContext(t *testing.T) {
 	session, err := startTerminalSession(sessionConfig{
-		command: []string{os.Args[0], "-test.run=TestHelperProcess", "--", "no-output"},
-		env:     targetEnvironment(Spec{Env: map[string]string{"PLAYTESTR_HELPER_PROCESS": "1"}}),
+		command: []string{os.Args[0], "-test.run=TestHelperProcess", "--", "blocked-input"},
+		env:     targetEnvironment(Spec{Version: SpecVersion, Env: map[string]string{"PLAYTESTR_HELPER_PROCESS": "1"}}),
 		width:   40, height: 8, maxOutputBytes: 100000,
 	})
 	if err != nil {
@@ -443,7 +518,7 @@ func TestTargetObservesResize(t *testing.T) {
 
 func runConfiguredHelperSpecContext(t *testing.T, ctx context.Context, mode string, steps []Step, configure func(*Spec)) error {
 	t.Helper()
-	spec := Spec{
+	spec := Spec{Version: SpecVersion,
 		Name: mode, Command: []string{os.Args[0], "-test.run=TestHelperProcess", "--", mode},
 		Env: map[string]string{"PLAYTESTR_HELPER_PROCESS": "1"}, Width: 40, Height: 8,
 		TimeoutMS: 5000, RunTimeoutMS: 5000, MaxOutputBytes: 2_000_000, Steps: steps,

@@ -4,36 +4,35 @@
 
 Press the keys. Check the screen. Catch the regression. Playtestr drives interactive CLIs and TUIs through a real pseudoterminal, compares rendered text snapshots, and produces readable diffs when something changes.
 
-[Get started](#try-the-demo) · [Write a test](#write-a-test) · [Examples](examples) · [Roadmap](docs/sprints.md)
+[Get started](#install-and-try-the-demo) · [Write a test](#write-a-test) · [Spec v1](docs/spec-v1.md) · [Report v1](docs/report-v1.md)
 
 - **Keyboard-driven tests:** describe an interaction in a small JSON spec.
 - **Rendered screen assertions:** test text after cursor movement, redraws, and resizing.
 - **Reviewable regressions:** compare snapshots and deliberately update a selected baseline.
 - **Bounded execution:** set deadlines and output limits, with cancellation and process cleanup.
 
-Written in Go. An early prototype for testing trusted applications; the test contract is still evolving.
+Written in Go. The MVP has a versioned test contract and machine-readable reports for trusted local applications.
 
-Development follows [small, testable sprints](docs/sprints.md). The [language decision](docs/language-decision.md) records why the MVP uses Go. The current implementation includes Sprint 3 readable screen regressions and terminal resizing.
+Development follows [small, testable sprints](docs/sprints.md). The [language decision](docs/language-decision.md) records why the MVP uses Go.
 
 Playtestr starts a real pseudoterminal, sends keyboard input, and feeds output into a VT terminal emulator. Assertions inspect the rendered screen, including cursor movement and redraws.
 
-## Try the demo
+## Install and try the demo
 
-Requires Go 1.27 and a supported PTY host (Linux, macOS, or Windows with ConPTY).
+Release archives contain one native `playtestr` binary, this README, the Apache 2.0 license, and an adjacent SHA-256 checksum. Download the archive for your host from [GitHub Releases](https://github.com/Wyrcan-io/playtestr/releases), verify the adjacent `.sha256` file, extract it, and put `playtestr` (or `playtestr.exe`) on your `PATH`.
+
+Release-candidate targets are Linux amd64, macOS arm64, and Windows amd64. A target is published only after its native test and packaged-binary walkthrough pass. Until the first release is published, build from source with Go 1.25 or newer:
 
 ```sh
 git clone https://github.com/Wyrcan-io/playtestr.git
 cd playtestr
 go build -o bin/demo ./cmd/demo
 go build -o bin/fixture ./cmd/fixture
-go run ./cmd/playtestr test examples/menu.json
-go run ./cmd/playtestr test examples/menu-exit.json
-go run ./cmd/playtestr test examples/silent-input.json
-go run ./cmd/playtestr test examples/screen-compat.json
-go run ./cmd/playtestr test examples/resize.json
+go build -o bin/playtestr ./cmd/playtestr
+./bin/playtestr test --report results.json examples/menu.json examples/menu-exit.json
 ```
 
-On Windows, add `.exe` to the two build output names. The same test commands work. Run `./bin/demo` to explore the demo manually: select an option with arrow keys and press Enter.
+On Windows, add `.exe` to all three build output names and invoke `./bin/playtestr.exe`. Run `./bin/demo.exe` to explore the demo manually: select an option with arrow keys and press Enter.
 
 For development on this checkout, a project-local MinGW-w64 compiler can run Go's Windows race detector without changing the system PATH:
 
@@ -47,6 +46,7 @@ Specs are JSON. `command` is an executable followed by arguments and is executed
 
 ```json
 {
+  "version": 1,
   "name": "My CLI",
   "command": ["my-cli", "configure"],
   "width": 80,
@@ -64,6 +64,8 @@ Specs are JSON. `command` is an executable followed by arguments and is executed
   ]
 }
 ```
+
+`version` is required. Playtestr rejects missing or unsupported versions before it launches a target. The complete defaults, limits, normalization rules, and JSON Schema are in [Test specification version 1](docs/spec-v1.md).
 
 Each step has exactly one action. Supported keys: `Enter`, `ArrowDown`, `ArrowUp`, `ArrowLeft`, `ArrowRight`, `Escape`, `Tab`, `Backspace`, `CtrlC`. An `exit` step waits for the process and requires the exact exit code; intentionally nonzero expected codes are supported. Long-running TUIs do not need an exit step.
 
@@ -87,6 +89,8 @@ The next snapshot requires a new successful `expect`, because resizing can trigg
 
 Ctrl+C cancels the active spec, performs bounded cleanup, and prevents later specs from starting. Playtestr exits with status 130 for this interruption.
 
+Write an ordered machine report with `--report results.json`. It includes stable status and failure categories, step metadata, target exit, cleanup evidence, and artifact paths. It deliberately excludes command arguments, environment data, typed text, and terminal-screen contents. See [Machine report version 1](docs/report-v1.md).
+
 ### Working directory and environment
 
 When omitted, `cwd` remains the directory where Playtestr was invoked. A relative `cwd` is resolved from the test file's directory.
@@ -95,6 +99,7 @@ Targets receive a small operational environment including executable lookup, tem
 
 ```json
 {
+  "version": 1,
   "cwd": "../fixture-project",
   "env": {"APP_MODE": "test"},
   "inherit_env": ["CI"]
@@ -114,6 +119,8 @@ go test ./...
 
 A failure returns exit code 1. General failures save the final visible screen to `<spec>.actual.txt`; snapshot mismatches also save `<spec>.diff.txt`. Multiple spec paths can be passed to one invocation when no snapshot selector is used.
 
+Sprint 4 also exercises the independently maintained Charm Gum TUI at a pinned version. See the [external Gum trial](docs/external-gum-trial.md) for its install and test commands.
+
 The repository includes deliberately failing fixtures for manual verification:
 
 ```powershell
@@ -128,12 +135,12 @@ The first three commands fail promptly, report why they stopped, confirm their c
 
 ## Current scope
 
-This is an initial local runner. The tested terminal behavior and known emulator gaps are recorded in [Terminal compatibility](docs/terminal-compatibility.md). It is not certification against every terminal application. Exact process exit-code assertions are supported.
+The tested terminal behavior and known emulator gaps are recorded in [Terminal compatibility](docs/terminal-compatibility.md). Compatibility with one application does not certify every terminal application.
 
 Windows uses a Job Object and Unix uses a dedicated process group to terminate managed descendants. The current xpty API starts a Windows target immediately before Playtestr can attach it to the Job Object, leaving a small launch-to-attachment window in which a very early child could escape management. Unix descendants can deliberately detach into another session. Only test trusted applications; local PTY execution is not a sandbox.
 
-The included GitHub Actions workflow runs the demo on Linux, macOS, and Windows and uploads failure screens. Local Windows validation does not establish that the remote matrix has passed.
+The GitHub Actions matrix runs native tests on Linux, macOS, and Windows and retains machine reports, screens, and diffs from its deliberate-failure check. Platform support is recorded only after those native jobs pass. Release candidates are packaged by a separate workflow; the process is documented in [Releasing](docs/releasing.md).
 
-Next milestone: versioned specs and machine-readable reports, release packaging, verified platform CI, and an external TUI trial. Recording and replay remain post-MVP work.
+Recording, replay, exact-failure minimization, and styled snapshots remain post-MVP work.
 
 Built on [Charm's xpty](https://github.com/charmbracelet/x/tree/main/xpty) and [vt10x](https://github.com/hinshun/vt10x).

@@ -53,13 +53,17 @@ Focused fixtures cover delayed redraw settling, carriage-return redraws, cursor 
 
 Acceptance evidence: clean baselines pass; changed, added, and removed lines produce a readable diff; mismatch artifacts use the same captured screen; missing and oversized baselines fail distinctly; cancellation and later assertion failure do not commit staged updates; explicit update changes only the selected baseline; targets observe both larger and smaller viewport sizes. The emulator evaluation and unsupported behavior are documented in `docs/terminal-compatibility.md`.
 
-## Sprint 4 — MVP packaging and external trial
+## Sprint 4 — MVP packaging and external trial (implemented locally)
 
 User-visible result: another developer can install a release binary and test an actual CLI from its README instructions.
 
 Version the spec and machine-readable report, include target/viewport/step metadata and failure screens, exercise the GitHub Actions matrix, and trial an existing external TUI in addition to our fixtures. Choose the oldest Go version actually supported by the code and pinned dependencies before publishing installation instructions. Choose the project license before the first release.
 
 Acceptance: recorded Linux/macOS/Windows CI results for advertised platforms, a deliberately failing CI example with downloadable evidence, and a successful user walkthrough. Unsupported platforms stay explicitly unsupported rather than being inferred from cross-compilation.
+
+Implemented: required spec version 1 and canonical JSON Schema; structured runner outcomes; atomic machine report version 1 and schema; bounded transactional snapshot updates; an external Charm Gum `v0.17.0` trial; Go 1.25 minimum-version verification; Apache 2.0 licensing; version injection; native ZIP/tar.gz packaging with SHA-256 files; and a release-candidate workflow for Linux amd64, macOS arm64, and Windows amd64. The Windows packaged-binary walkthrough, full test suite, vet, race detector, expected-failure evidence, external trial, and checksum verification pass locally.
+
+Remote status at implementation time: the prior commit passed Windows and macOS, while Ubuntu exposed an echoed-input flaw in `TestBlockedInputHonorsContext`. The fixture now disables terminal echo and passes repeatedly locally. The updated matrix and release-candidate workflow must run on the published Sprint 4 commit before those three release targets are advertised as verified.
 
 ## After the MVP
 

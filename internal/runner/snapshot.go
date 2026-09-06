@@ -13,12 +13,43 @@ import (
 )
 
 const (
-	maxSnapshotBytes = 2_000_000
-	maxSnapshotLines = 10_000
-	maxDiffBytes     = 256 * 1024
+	maxSnapshotBytes       = 2_000_000
+	maxSnapshotLines       = 10_000
+	maxDiffBytes           = 256 * 1024
+	maxStagedSnapshotBytes = 16 * 1024 * 1024
+	maxStagedSnapshots     = 100
 )
 
-type snapshotUpdates map[string]string
+type snapshotUpdates struct {
+	values map[string]string
+	bytes  int
+}
+
+type originalSnapshot struct {
+	data   []byte
+	exists bool
+}
+
+func newSnapshotUpdates() *snapshotUpdates {
+	return &snapshotUpdates{values: make(map[string]string)}
+}
+
+func (u *snapshotUpdates) stage(path, content string) error {
+	previous, exists := u.values[path]
+	nextBytes := u.bytes + len(content)
+	if exists {
+		nextBytes -= len(previous)
+	}
+	if !exists && len(u.values) >= maxStagedSnapshots {
+		return withCategory(FailureSnapshotUpdate, fmt.Errorf("snapshot updates exceed limit of %d files", maxStagedSnapshots))
+	}
+	if nextBytes > maxStagedSnapshotBytes {
+		return withCategory(FailureSnapshotUpdate, fmt.Errorf("staged snapshot updates exceed %d bytes", maxStagedSnapshotBytes))
+	}
+	u.values[path] = content
+	u.bytes = nextBytes
+	return nil
+}
 
 type snapshotMismatchError struct {
 	name   string
@@ -60,41 +91,87 @@ func readSnapshot(path string) ([]byte, error) {
 	return data, nil
 }
 
-func commitSnapshotUpdates(updates snapshotUpdates, out io.Writer) error {
-	paths := make([]string, 0, len(updates))
-	for path := range updates {
+func commitSnapshotUpdates(updates *snapshotUpdates, out io.Writer) error {
+	paths := make([]string, 0, len(updates.values))
+	for path := range updates.values {
 		paths = append(paths, path)
 	}
 	sort.Strings(paths)
+	originals := make(map[string]originalSnapshot, len(paths))
+	statuses := make(map[string]string, len(paths))
 	for _, path := range paths {
-		content := []byte(updates[path])
+		content := []byte(updates.values[path])
 		current, err := readSnapshot(path)
-		status := "updated"
 		switch {
 		case err == nil && bytes.Equal(current, content):
-			fmt.Fprintf(out, "Snapshot unchanged: %s\n", path)
+			statuses[path] = "unchanged"
+			originals[path] = originalSnapshot{data: current, exists: true}
 			continue
 		case err == nil:
+			statuses[path] = "updated"
+			originals[path] = originalSnapshot{data: current, exists: true}
 		case errors.Is(err, os.ErrNotExist):
-			status = "created"
+			statuses[path] = "created"
+			originals[path] = originalSnapshot{}
 		default:
 			return fmt.Errorf("read existing snapshot %s: %w", path, err)
 		}
-		if err := writeFileAtomic(path, content, 0644); err != nil {
-			return err
+	}
+	written := make([]string, 0, len(paths))
+	for _, path := range paths {
+		if statuses[path] == "unchanged" {
+			continue
 		}
-		fmt.Fprintf(out, "Snapshot %s: %s\n", status, path)
+		content := []byte(updates.values[path])
+		if err := writeFileAtomic(path, content, 0644); err != nil {
+			changed := rollbackSnapshotUpdates(written, originals)
+			if len(changed) > 0 {
+				return fmt.Errorf("%w; changed files that could not be restored: %s", err, strings.Join(changed, ", "))
+			}
+			return fmt.Errorf("%w; no snapshot files changed", err)
+		}
+		written = append(written, path)
+	}
+	for _, path := range paths {
+		status := statuses[path]
+		if status == "unchanged" {
+			fmt.Fprintf(out, "Snapshot unchanged: %s\n", path)
+		} else {
+			fmt.Fprintf(out, "Snapshot %s: %s\n", status, path)
+		}
 	}
 	return nil
 }
 
+func rollbackSnapshotUpdates(paths []string, originals map[string]originalSnapshot) []string {
+	var changed []string
+	for index := len(paths) - 1; index >= 0; index-- {
+		path := paths[index]
+		original := originals[path]
+		var err error
+		if original.exists {
+			err = writeFileAtomic(path, original.data, 0644)
+		} else {
+			err = os.Remove(path)
+			if errors.Is(err, os.ErrNotExist) {
+				err = nil
+			}
+		}
+		if err != nil {
+			changed = append(changed, path)
+		}
+	}
+	sort.Strings(changed)
+	return changed
+}
+
 func writeFileAtomic(path string, data []byte, mode os.FileMode) (returnErr error) {
 	if err := os.MkdirAll(filepath.Dir(path), 0755); err != nil {
-		return fmt.Errorf("create snapshot directory: %w", err)
+		return fmt.Errorf("create parent directory: %w", err)
 	}
 	temporary, err := os.CreateTemp(filepath.Dir(path), ".playtestr-snapshot-*")
 	if err != nil {
-		return fmt.Errorf("create temporary snapshot: %w", err)
+		return fmt.Errorf("create temporary file: %w", err)
 	}
 	temporaryPath := temporary.Name()
 	defer func() {
@@ -102,19 +179,19 @@ func writeFileAtomic(path string, data []byte, mode os.FileMode) (returnErr erro
 		_ = os.Remove(temporaryPath)
 	}()
 	if err := temporary.Chmod(mode); err != nil {
-		return fmt.Errorf("set temporary snapshot permissions: %w", err)
+		return fmt.Errorf("set temporary file permissions: %w", err)
 	}
 	if _, err := temporary.Write(data); err != nil {
-		return fmt.Errorf("write temporary snapshot: %w", err)
+		return fmt.Errorf("write temporary file: %w", err)
 	}
 	if err := temporary.Sync(); err != nil {
-		return fmt.Errorf("sync temporary snapshot: %w", err)
+		return fmt.Errorf("sync temporary file: %w", err)
 	}
 	if err := temporary.Close(); err != nil {
-		return fmt.Errorf("close temporary snapshot: %w", err)
+		return fmt.Errorf("close temporary file: %w", err)
 	}
 	if err := os.Rename(temporaryPath, path); err != nil {
-		return fmt.Errorf("replace snapshot %s: %w", path, err)
+		return fmt.Errorf("replace file %s: %w", path, err)
 	}
 	return nil
 }
@@ -145,10 +222,15 @@ func unifiedTextDiff(name, expected, actual string) string {
 }
 
 func snapshotLines(value string) []string {
-	if strings.HasSuffix(value, "\n") {
+	hasFinalNewline := strings.HasSuffix(value, "\n")
+	if hasFinalNewline {
 		value = strings.TrimSuffix(value, "\n")
 	}
-	return strings.Split(value, "\n")
+	lines := strings.Split(value, "\n")
+	if !hasFinalNewline {
+		lines = append(lines, `\ No newline at end of file`)
+	}
+	return lines
 }
 
 func lineDiff(oldLines, newLines []string) []diffLine {
