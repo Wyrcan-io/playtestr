@@ -1,0 +1,14 @@
+{
+  "name": "A silent target can receive input",
+  "command": ["./bin/fixture", "input"],
+  "width": 60,
+  "height": 10,
+  "timeout_ms": 1000,
+  "run_timeout_ms": 3000,
+  "max_output_bytes": 100000,
+  "steps": [
+    {"key": "Enter"},
+    {"expect": "input received"},
+    {"exit": 0}
+  ]
+}

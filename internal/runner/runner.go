@@ -3,19 +3,21 @@ package runner
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"os"
-	"os/exec"
 	"path/filepath"
+	"regexp"
+	"runtime"
+	"sort"
 	"strings"
-	"sync"
 	"time"
-
-	"github.com/charmbracelet/x/xpty"
-	"github.com/hinshun/vt10x"
 )
 
+var errOutputLimit = errors.New("target exceeded max_output_bytes")
+
+// Step contains exactly one terminal action or assertion.
 type Step struct {
 	Key      string `json:"key,omitempty"`
 	Text     string `json:"text,omitempty"`
@@ -23,270 +25,403 @@ type Step struct {
 	Snapshot string `json:"snapshot,omitempty"`
 	Exit     *int   `json:"exit,omitempty"`
 }
+
+// Spec describes one target process and its ordered terminal interactions.
 type Spec struct {
-	Name      string   `json:"name"`
-	Command   []string `json:"command"`
-	Width     int      `json:"width"`
-	Height    int      `json:"height"`
-	TimeoutMS int      `json:"timeout_ms"`
-	Steps     []Step   `json:"steps"`
+	Name             string            `json:"name"`
+	Command          []string          `json:"command"`
+	CWD              string            `json:"cwd,omitempty"`
+	Env              map[string]string `json:"env,omitempty"`
+	InheritEnv       []string          `json:"inherit_env,omitempty"`
+	Width            int               `json:"width"`
+	Height           int               `json:"height"`
+	TimeoutMS        int               `json:"timeout_ms"`
+	RunTimeoutMS     int               `json:"run_timeout_ms"`
+	StartupTimeoutMS int               `json:"startup_timeout_ms,omitempty"`
+	MaxOutputBytes   int64             `json:"max_output_bytes"`
+	Steps            []Step            `json:"steps"`
 }
 
-var keys = map[string]string{"Enter": "\r", "ArrowDown": "\x1b[B", "ArrowUp": "\x1b[A", "ArrowRight": "\x1b[C", "ArrowLeft": "\x1b[D", "Escape": "\x1b", "Tab": "\t", "Backspace": "\x7f", "CtrlC": "\x03"}
+var (
+	keys = map[string]string{
+		"Enter": "\r", "ArrowDown": "\x1b[B", "ArrowUp": "\x1b[A",
+		"ArrowRight": "\x1b[C", "ArrowLeft": "\x1b[D", "Escape": "\x1b",
+		"Tab": "\t", "Backspace": "\x7f", "CtrlC": "\x03",
+	}
+	environmentName = regexp.MustCompile(`^[A-Za-z_][A-Za-z0-9_]*$`)
+)
 
 func Load(path string) (Spec, error) {
-	var s Spec
-	f, e := os.Open(path)
-	if e != nil {
-		return s, e
+	var spec Spec
+	file, err := os.Open(path)
+	if err != nil {
+		return spec, err
 	}
-	defer f.Close()
-	d := json.NewDecoder(f)
-	d.DisallowUnknownFields()
-	if e = d.Decode(&s); e != nil {
-		return s, e
+	defer file.Close()
+	decoder := json.NewDecoder(file)
+	decoder.DisallowUnknownFields()
+	if err = decoder.Decode(&spec); err != nil {
+		return spec, err
 	}
 	var extra any
-	if d.Decode(&extra) != io.EOF {
-		return s, fmt.Errorf("expected one JSON object")
+	if decoder.Decode(&extra) != io.EOF {
+		return spec, fmt.Errorf("expected one JSON object")
 	}
-	if len(s.Command) == 0 || s.Command[0] == "" {
-		return s, fmt.Errorf("command is required")
+	if spec.Name == "" {
+		spec.Name = filepath.Base(path)
 	}
-	if s.Width == 0 {
-		s.Width = 80
+	if len(spec.Command) == 0 || spec.Command[0] == "" {
+		return spec, fmt.Errorf("command is required")
 	}
-	if s.Height == 0 {
-		s.Height = 24
+	for i, value := range spec.Command {
+		if strings.ContainsRune(value, '\x00') {
+			return spec, fmt.Errorf("command value %d contains a NUL byte", i)
+		}
 	}
-	if s.TimeoutMS == 0 {
-		s.TimeoutMS = 3000
+	if spec.Width == 0 {
+		spec.Width = 80
 	}
-	if s.Width < 1 || s.Width > 500 || s.Height < 1 || s.Height > 200 || s.TimeoutMS < 1 || s.TimeoutMS > 120000 {
-		return s, fmt.Errorf("invalid dimensions or timeout")
+	if spec.Height == 0 {
+		spec.Height = 24
 	}
-	if len(s.Steps) == 0 {
-		return s, fmt.Errorf("steps are required")
+	if spec.TimeoutMS == 0 {
+		spec.TimeoutMS = 3000
 	}
-	for i, step := range s.Steps {
-		n := 0
-		for _, v := range []string{step.Key, step.Text, step.Expect, step.Snapshot} {
-			if v != "" {
-				n++
+	if spec.RunTimeoutMS == 0 {
+		spec.RunTimeoutMS = 30000
+	}
+	if spec.MaxOutputBytes == 0 {
+		spec.MaxOutputBytes = 2_000_000
+	}
+	if spec.Width < 1 || spec.Width > 500 || spec.Height < 1 || spec.Height > 200 {
+		return spec, fmt.Errorf("terminal dimensions are invalid")
+	}
+	if spec.TimeoutMS < 1 || spec.TimeoutMS > 120000 || spec.RunTimeoutMS < 1 || spec.RunTimeoutMS > 3_600_000 || spec.StartupTimeoutMS < 0 || spec.StartupTimeoutMS > 120000 {
+		return spec, fmt.Errorf("timeouts are invalid")
+	}
+	if spec.MaxOutputBytes < 1 || spec.MaxOutputBytes > 1_000_000_000 {
+		return spec, fmt.Errorf("max_output_bytes must be between 1 and 1000000000")
+	}
+	if len(spec.Steps) == 0 {
+		return spec, fmt.Errorf("steps are required")
+	}
+	seenEnvironment := make(map[string]string)
+	for name, value := range spec.Env {
+		if !environmentName.MatchString(name) {
+			return spec, fmt.Errorf("invalid environment name %q", name)
+		}
+		if strings.ContainsRune(value, '\x00') {
+			return spec, fmt.Errorf("environment value %q contains a NUL byte", name)
+		}
+		key := environmentKey(name)
+		if previous, exists := seenEnvironment[key]; exists {
+			return spec, fmt.Errorf("environment names %q and %q conflict", previous, name)
+		}
+		seenEnvironment[key] = name
+	}
+	for _, name := range spec.InheritEnv {
+		if !environmentName.MatchString(name) {
+			return spec, fmt.Errorf("invalid inherited environment name %q", name)
+		}
+	}
+	for i, step := range spec.Steps {
+		actions := 0
+		for _, value := range []string{step.Key, step.Text, step.Expect, step.Snapshot} {
+			if value != "" {
+				actions++
 			}
 		}
 		if step.Exit != nil {
-			n++
+			actions++
 		}
-		if n != 1 {
-			return s, fmt.Errorf("step %d must have exactly one action", i+1)
+		if actions != 1 {
+			return spec, fmt.Errorf("step %d must have exactly one action", i+1)
 		}
 		if step.Exit != nil && (*step.Exit < 0 || *step.Exit > 255) {
-			return s, fmt.Errorf("step %d exit code must be between 0 and 255", i+1)
+			return spec, fmt.Errorf("step %d exit code must be between 0 and 255", i+1)
 		}
 		if step.Key != "" {
 			if _, ok := keys[step.Key]; !ok {
-				return s, fmt.Errorf("unknown key %q", step.Key)
+				return spec, fmt.Errorf("unknown key %q", step.Key)
 			}
 		}
 		if step.Snapshot != "" && (filepath.Base(step.Snapshot) != step.Snapshot || strings.ContainsAny(step.Snapshot, "/\\:") || step.Snapshot == "..") {
-			return s, fmt.Errorf("snapshot must be a filename")
+			return spec, fmt.Errorf("snapshot must be a filename")
 		}
 	}
-	return s, nil
+	return spec, nil
 }
 
-type processOutcome struct {
-	done chan struct{}
-	mu   sync.RWMutex
-	code int
-	err  error
-}
-
-func newProcessOutcome(cmd *exec.Cmd) *processOutcome {
-	o := &processOutcome{done: make(chan struct{})}
-	go func() {
-		err := xpty.WaitProcess(context.Background(), cmd)
-		code := -1
-		if cmd.ProcessState != nil {
-			code = cmd.ProcessState.ExitCode()
-		}
-		o.mu.Lock()
-		o.code = code
-		o.err = err
-		o.mu.Unlock()
-		close(o.done)
-	}()
-	return o
-}
-
-func (o *processOutcome) result() (code int, err error, exited bool) {
-	select {
-	case <-o.done:
-		o.mu.RLock()
-		defer o.mu.RUnlock()
-		return o.code, o.err, true
-	default:
-		return 0, nil, false
-	}
-}
-
-func (o *processOutcome) wait(timeout time.Duration) (code int, err error, exited bool) {
-	select {
-	case <-o.done:
-		return o.result()
-	case <-time.After(timeout):
-		return 0, nil, false
-	}
-}
-
-func normalize(s string) string {
-	lines := strings.Split(s, "\n")
+func normalize(value string) string {
+	lines := strings.Split(value, "\n")
 	for i := range lines {
 		lines[i] = strings.TrimRight(lines[i], " \r")
 	}
 	return strings.TrimRight(strings.Join(lines, "\n"), "\n") + "\n"
 }
 
-// Run executes a spec. Relative commands run from the caller's working directory.
-func Run(path string, update bool, out io.Writer) (err error) {
-	s, err := Load(path)
-	if err != nil {
-		return err
+func environmentKey(name string) string {
+	if runtime.GOOS == "windows" {
+		return strings.ToUpper(name)
 	}
-	p, err := xpty.NewPty(s.Width, s.Height)
-	if err != nil {
-		return err
+	return name
+}
+
+func targetEnvironment(spec Spec) []string {
+	allowed := []string{"PATH", "HOME", "TMPDIR", "LANG", "LC_ALL", "LC_CTYPE"}
+	if runtime.GOOS == "windows" {
+		allowed = []string{"PATH", "PATHEXT", "SYSTEMROOT", "WINDIR", "COMSPEC", "TEMP", "TMP", "USERPROFILE"}
 	}
-	defer p.Close()
-	cmd := exec.Command(s.Command[0], s.Command[1:]...)
-	cmd.Env = append(os.Environ(), "TERM=xterm-256color")
-	if err = p.Start(cmd); err != nil {
-		return err
-	}
-	outcome := newProcessOutcome(cmd)
-	defer func() {
-		_ = cmd.Process.Kill()
-		_, _, _ = outcome.wait(2 * time.Second)
-	}()
-	terminal := vt10x.New(vt10x.WithSize(s.Width, s.Height))
-	var mu sync.Mutex
-	last := time.Now()
-	go func() {
-		b := make([]byte, 8192)
-		for {
-			n, e := p.Read(b)
-			if n > 0 {
-				mu.Lock()
-				_, _ = terminal.Write(b[:n])
-				last = time.Now()
-				mu.Unlock()
-			}
-			if e != nil {
-				return
-			}
+	values := make(map[string]string)
+	inherit := func(name string) {
+		if value, ok := os.LookupEnv(name); ok {
+			values[environmentKey(name)] = name + "=" + value
 		}
-	}()
-	screen := func() (string, time.Time) { mu.Lock(); defer mu.Unlock(); return normalize(terminal.String()), last }
-	base := filepath.Join(filepath.Dir(path), "snapshots")
-	exitAsserted := false
-	defer func() {
+	}
+	for _, name := range allowed {
+		inherit(name)
+	}
+	for _, name := range spec.InheritEnv {
+		inherit(name)
+	}
+	for name, value := range spec.Env {
+		values[environmentKey(name)] = name + "=" + value
+	}
+	values[environmentKey("TERM")] = "TERM=xterm-256color"
+	result := make([]string, 0, len(values))
+	for _, value := range values {
+		result = append(result, value)
+	}
+	sort.Strings(result)
+	return result
+}
+
+func targetDirectory(specPath, configured string) (string, error) {
+	if configured == "" {
+		return "", nil
+	}
+	if !filepath.IsAbs(configured) {
+		configured = filepath.Join(filepath.Dir(specPath), configured)
+	}
+	absolute, err := filepath.Abs(configured)
+	if err != nil {
+		return "", fmt.Errorf("resolve cwd: %w", err)
+	}
+	info, err := os.Stat(absolute)
+	if err != nil {
+		return "", fmt.Errorf("open cwd: %w", err)
+	}
+	if !info.IsDir() {
+		return "", fmt.Errorf("cwd is not a directory: %s", absolute)
+	}
+	return absolute, nil
+}
+
+// Run executes a spec with a background context.
+func Run(path string, update bool, out io.Writer) error {
+	return RunContext(context.Background(), path, update, out)
+}
+
+// RunContext executes a spec and stops its process tree when the context ends.
+func RunContext(parent context.Context, path string, update bool, out io.Writer) (runErr error) {
+	if err := parent.Err(); err != nil {
+		return fmt.Errorf("run cancelled: %w", err)
+	}
+	spec, err := Load(path)
+	if err != nil {
+		return err
+	}
+	dir, err := targetDirectory(path, spec.CWD)
+	if err != nil {
+		return err
+	}
+	runContext, cancelRun := context.WithTimeout(parent, time.Duration(spec.RunTimeoutMS)*time.Millisecond)
+	defer cancelRun()
+	session, err := startTerminalSession(sessionConfig{
+		command: spec.Command, dir: dir, env: targetEnvironment(spec), width: spec.Width,
+		height: spec.Height, maxOutputBytes: spec.MaxOutputBytes,
+	})
+	if err != nil {
+		return err
+	}
+
+	if spec.StartupTimeoutMS > 0 {
+		startupContext, cancelStartup := context.WithTimeout(runContext, time.Duration(spec.StartupTimeoutMS)*time.Millisecond)
+		err = waitForStartup(startupContext, session)
+		cancelStartup()
 		if err != nil {
-			view, _ := screen()
-			artifact := path + ".actual.txt"
-			if e := os.WriteFile(artifact, []byte(view), 0644); e == nil {
-				fmt.Fprintf(out, "Screen saved: %s\n", artifact)
-			}
+			runErr = fmt.Errorf("%s: startup: %w", spec.Name, classifyContextError(err, parent, runContext))
 		}
-	}()
-	for i, step := range s.Steps {
-		action := func() error {
-			if step.Key != "" {
-				_, e := io.WriteString(p, keys[step.Key])
-				return e
-			}
-			if step.Text != "" {
-				_, e := io.WriteString(p, step.Text)
-				return e
+	}
+
+	exitAsserted := false
+	if runErr == nil {
+		for i, step := range spec.Steps {
+			stepContext, cancelStep := context.WithTimeout(runContext, time.Duration(spec.TimeoutMS)*time.Millisecond)
+			err = executeStep(stepContext, path, step, update, session, exitAsserted)
+			cancelStep()
+			if err != nil {
+				runErr = fmt.Errorf("%s: step %d: %w", spec.Name, i+1, classifyContextError(err, parent, runContext))
+				break
 			}
 			if step.Exit != nil {
-				code, waitErr, exited := outcome.wait(time.Duration(s.TimeoutMS) * time.Millisecond)
-				if !exited {
-					return fmt.Errorf("timed out waiting for process to exit with code %d", *step.Exit)
+				exitAsserted = true
+			}
+			fmt.Fprintf(out, "  PASS step %d\n", i+1)
+		}
+	}
+
+	if runErr == nil && !exitAsserted {
+		observation := session.observe()
+		if observation.outputLimitExceeded {
+			runErr = fmt.Errorf("%s: %w (%d bytes observed)", spec.Name, errOutputLimit, observation.outputBytes)
+		} else if code, waitErr, exited := session.outcome.result(); exited {
+			if code < 0 && waitErr != nil {
+				runErr = fmt.Errorf("%s: process wait failed: %w", spec.Name, waitErr)
+			} else {
+				runErr = fmt.Errorf("%s: process exited with code %d without an exit assertion", spec.Name, code)
+			}
+		}
+	}
+
+	cleanupContext, cancelCleanup := context.WithTimeout(context.Background(), 3*time.Second)
+	cleanup := session.stop(cleanupContext)
+	cancelCleanup()
+	if cleanup.err != nil {
+		cleanupErr := fmt.Errorf("cleanup failed: %w", cleanup.err)
+		if runErr == nil {
+			runErr = cleanupErr
+		} else {
+			runErr = errors.Join(runErr, cleanupErr)
+		}
+	}
+	if runErr != nil {
+		if cleanup.confirmedExited {
+			mode := "clean"
+			if cleanup.forced {
+				mode = "forced"
+			}
+			fmt.Fprintf(out, "Cleanup: process tree stopped (%s, %s)\n", mode, cleanup.mechanism)
+		}
+		observation := session.observe()
+		artifact := path + ".actual.txt"
+		if writeErr := os.WriteFile(artifact, []byte(observation.screen), 0644); writeErr == nil {
+			fmt.Fprintf(out, "Screen saved: %s\n", artifact)
+		} else {
+			runErr = errors.Join(runErr, fmt.Errorf("write failure screen: %w", writeErr))
+		}
+		return runErr
+	}
+	fmt.Fprintf(out, "PASS %s\n", spec.Name)
+	return nil
+}
+
+func waitForStartup(ctx context.Context, session *terminalSession) error {
+	select {
+	case <-session.firstOutput:
+		return nil
+	case <-session.outputLimit:
+		return errOutputLimit
+	case <-session.outcome.done:
+		code, waitErr, _ := session.outcome.result()
+		if code < 0 && waitErr != nil {
+			return fmt.Errorf("process wait failed: %w", waitErr)
+		}
+		return fmt.Errorf("process exited with code %d before producing output", code)
+	case <-ctx.Done():
+		return fmt.Errorf("timed out waiting for first output: %w", ctx.Err())
+	}
+}
+
+func executeStep(ctx context.Context, specPath string, step Step, update bool, session *terminalSession, exitAsserted bool) error {
+	if step.Key != "" {
+		return session.send(ctx, keys[step.Key])
+	}
+	if step.Text != "" {
+		return session.send(ctx, step.Text)
+	}
+	if step.Exit != nil {
+		code, waitErr, exited := session.outcome.wait(ctx)
+		if !exited {
+			return fmt.Errorf("timed out waiting for process to exit with code %d: %w", *step.Exit, waitErr)
+		}
+		drainContext, cancelDrain := context.WithTimeout(ctx, 250*time.Millisecond)
+		_ = session.drainFinal(drainContext, 25*time.Millisecond)
+		cancelDrain()
+		if observation := session.observe(); observation.outputLimitExceeded {
+			return fmt.Errorf("%w (%d bytes observed)", errOutputLimit, observation.outputBytes)
+		}
+		if code != *step.Exit {
+			return fmt.Errorf("expected exit code %d, got %d", *step.Exit, code)
+		}
+		if code < 0 && waitErr != nil {
+			return fmt.Errorf("process wait failed: %w", waitErr)
+		}
+		return nil
+	}
+
+	var expected []byte
+	base := filepath.Join(filepath.Dir(specPath), "snapshots")
+	if step.Snapshot != "" && !update {
+		var err error
+		expected, err = os.ReadFile(filepath.Join(base, step.Snapshot))
+		if err != nil {
+			return fmt.Errorf("read snapshot (use --update to create): %w", err)
+		}
+	}
+	ticker := time.NewTicker(10 * time.Millisecond)
+	defer ticker.Stop()
+	for {
+		observation := session.observe()
+		if observation.outputLimitExceeded {
+			return fmt.Errorf("%w (%d bytes observed)", errOutputLimit, observation.outputBytes)
+		}
+		if step.Expect != "" && strings.Contains(observation.screen, step.Expect) {
+			return nil
+		}
+		if step.Snapshot != "" && time.Since(observation.lastOutput) >= 150*time.Millisecond {
+			if update {
+				if err := os.MkdirAll(base, 0755); err != nil {
+					return err
 				}
-				if code != *step.Exit {
-					return fmt.Errorf("expected exit code %d, got %d", *step.Exit, code)
-				}
-				if code < 0 && waitErr != nil {
-					return fmt.Errorf("process wait failed: %w", waitErr)
-				}
+				return os.WriteFile(filepath.Join(base, step.Snapshot), []byte(observation.screen), 0644)
+			}
+			if observation.screen == string(expected) {
 				return nil
 			}
-			deadline := time.Now().Add(time.Duration(s.TimeoutMS) * time.Millisecond)
-			var expected []byte
-			if step.Snapshot != "" && !update {
-				var e error
-				expected, e = os.ReadFile(filepath.Join(base, step.Snapshot))
-				if e != nil {
-					return fmt.Errorf("read snapshot (use --update to create): %w", e)
-				}
-			}
-			for {
-				view, changed := screen()
-				if code, waitErr, exited := outcome.result(); exited {
-					// Give the terminal reader one scheduling turn to consume bytes that
-					// were written immediately before process exit.
-					time.Sleep(10 * time.Millisecond)
-					view, changed = screen()
-					if step.Expect != "" && strings.Contains(view, step.Expect) {
-						return nil
-					}
-					if !exitAsserted {
-						if code < 0 && waitErr != nil {
-							return fmt.Errorf("process wait failed while waiting for assertion: %w", waitErr)
-						}
-						return fmt.Errorf("process exited with code %d before assertion matched", code)
-					}
-				}
-				if step.Expect != "" && strings.Contains(view, step.Expect) {
-					return nil
-				}
-				if step.Snapshot != "" && time.Since(changed) >= 150*time.Millisecond {
-					if update {
-						if e := os.MkdirAll(base, 0755); e != nil {
-							return e
-						}
-						return os.WriteFile(filepath.Join(base, step.Snapshot), []byte(view), 0644)
-					}
-					if view == string(expected) {
-						return nil
-					}
-				}
-				if time.Now().After(deadline) {
-					if step.Expect != "" {
-						return fmt.Errorf("timed out waiting for %q", step.Expect)
-					}
-					return fmt.Errorf("snapshot mismatch: %s", step.Snapshot)
-				}
-				time.Sleep(10 * time.Millisecond)
-			}
-		}()
-		if action != nil {
-			return fmt.Errorf("%s: step %d: %w", s.Name, i+1, action)
 		}
-		if step.Exit != nil {
-			exitAsserted = true
-		}
-		fmt.Fprintf(out, "  PASS step %d\n", i+1)
-	}
-	if !exitAsserted {
-		if code, waitErr, exited := outcome.result(); exited {
+		if code, waitErr, exited := session.outcome.result(); exited && !exitAsserted {
+			drainContext, cancelDrain := context.WithTimeout(ctx, 250*time.Millisecond)
+			_ = session.drainFinal(drainContext, 25*time.Millisecond)
+			cancelDrain()
+			observation = session.observe()
+			if step.Expect != "" && strings.Contains(observation.screen, step.Expect) {
+				return nil
+			}
 			if code < 0 && waitErr != nil {
-				return fmt.Errorf("%s: process wait failed: %w", s.Name, waitErr)
+				return fmt.Errorf("process wait failed while waiting for assertion: %w", waitErr)
 			}
-			return fmt.Errorf("%s: process exited with code %d without an exit assertion", s.Name, code)
+			return fmt.Errorf("process exited with code %d before assertion matched", code)
+		}
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		case <-session.outputLimit:
+			continue
+		case <-ticker.C:
 		}
 	}
-	fmt.Fprintf(out, "PASS %s\n", s.Name)
-	return nil
+}
+
+func classifyContextError(err error, parent, runContext context.Context) error {
+	if parent.Err() != nil {
+		return fmt.Errorf("run cancelled: %w", parent.Err())
+	}
+	if runContext.Err() != nil {
+		return fmt.Errorf("run exceeded total timeout: %w", runContext.Err())
+	}
+	if errors.Is(err, context.DeadlineExceeded) {
+		return fmt.Errorf("step timed out: %w", err)
+	}
+	return err
 }

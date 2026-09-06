@@ -1,0 +1,13 @@
+{
+  "name": "Cancellation cleans up the target tree",
+  "command": ["./bin/fixture", "child"],
+  "width": 60,
+  "height": 10,
+  "timeout_ms": 30000,
+  "run_timeout_ms": 30000,
+  "max_output_bytes": 100000,
+  "steps": [
+    {"expect": "started child"},
+    {"exit": 0}
+  ]
+}

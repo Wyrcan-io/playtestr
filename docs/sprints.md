@@ -29,13 +29,17 @@ An explicit expected-exit step preserves process status and distinguishes a proc
 
 Acceptance: fixtures for exit 0, exit nonzero, text followed by a crash, and waiting for an exit that never happens. Retain the existing menu test. Each failure must return a nonzero runner status with the failing step and reason. Settle how an intentionally nonzero expected exit interacts with assertions before implementation.
 
-## Sprint 2 — bounded sessions and cleanup
+## Sprint 2 — bounded sessions and cleanup (implemented locally)
 
 User-visible result: a silent, hung, or output-flooding target ends predictably and leaves no launched target tree behind.
 
-Add startup/run/output limits and cancellation handling. Separate session lifetime from assertion orchestration where needed. Implement platform-specific cleanup and report failure to confirm cleanup. Make working-directory and environment inheritance explicit.
+The terminal session now owns PTY I/O, process outcome, VT state, bounded final-output draining, output accounting, and idempotent cleanup. Specs support per-step, total-run, optional visible-startup, and raw-output limits. Ctrl+C cancellation stops the active spec and prevents later specs from starting.
 
-Acceptance: natural exit, forced shutdown, no output, output flood, interruption, and a child-process fixture. Use bounded repeated sessions to check for lingering processes and handles. Publish platform limitations uncovered by these checks.
+Windows cleanup uses a Job Object and Unix cleanup uses a dedicated process group. Windows attachment happens immediately after xpty starts the target because the dependency does not expose a suspended-start hook; a child created in that narrow interval can escape the job. Unix children that deliberately create a new session can escape the original group. These are documented trusted-target boundaries.
+
+`cwd`, `env`, and `inherit_env` make target launch configuration explicit. Relative working directories resolve from the spec directory. Ambient inheritance is restricted to an operational platform allowlist plus names selected by the spec.
+
+Acceptance evidence: real-PTY tests cover natural exit, forced shutdown, no output, output flood, cancellation, blocked input, parent/child cleanup after a parent hang and natural parent exit, idempotent stop, environment filtering, working-directory resolution, and five bounded repeated sessions. Windows has been exercised locally; remote Linux and macOS execution remains unverified.
 
 ## Sprint 3 — useful screen regressions
 

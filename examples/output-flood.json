@@ -1,0 +1,12 @@
+{
+  "name": "An output flood is bounded",
+  "command": ["./bin/fixture", "flood"],
+  "width": 60,
+  "height": 10,
+  "timeout_ms": 2000,
+  "run_timeout_ms": 3000,
+  "max_output_bytes": 4096,
+  "steps": [
+    {"expect": "this text never appears"}
+  ]
+}

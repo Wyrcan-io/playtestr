@@ -16,5 +16,5 @@ $env:GOCACHE = Join-Path $projectRoot '.cache'
 & $compiler --print-file-name libsynchronization.a
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-& go test -race ./...
+& go test -race -count=1 ./...
 exit $LASTEXITCODE

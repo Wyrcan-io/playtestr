@@ -1,0 +1,13 @@
+{
+  "name": "A hung target is bounded",
+  "command": ["./bin/fixture", "hang"],
+  "width": 60,
+  "height": 10,
+  "timeout_ms": 2000,
+  "run_timeout_ms": 500,
+  "max_output_bytes": 100000,
+  "steps": [
+    {"expect": "fixture ready"},
+    {"exit": 0}
+  ]
+}

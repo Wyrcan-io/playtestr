@@ -13,7 +13,8 @@ jobs:
           go-version-file: go.mod
       - run: go test ./...
       - run: go build -o bin/demo${{ runner.os == 'Windows' && '.exe' || '' }} ./cmd/demo
-      - run: go run ./cmd/playtestr test examples/menu.json
+      - run: go build -o bin/fixture${{ runner.os == 'Windows' && '.exe' || '' }} ./cmd/fixture
+      - run: go run ./cmd/playtestr test examples/menu.json examples/menu-exit.json examples/silent-input.json
       - uses: actions/upload-artifact@v4
         if: failure()
         with:

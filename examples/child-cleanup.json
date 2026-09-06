@@ -1,0 +1,13 @@
+{
+  "name": "A target process tree is bounded",
+  "command": ["./bin/fixture", "child"],
+  "width": 60,
+  "height": 10,
+  "timeout_ms": 2000,
+  "run_timeout_ms": 500,
+  "max_output_bytes": 100000,
+  "steps": [
+    {"expect": "started child"},
+    {"exit": 0}
+  ]
+}
