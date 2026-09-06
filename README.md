@@ -4,7 +4,7 @@
 
 Press the keys. Check the screen. Catch the regression. Playtestr drives interactive CLIs and TUIs through a real pseudoterminal, compares rendered text snapshots, and produces readable diffs when something changes.
 
-[Get started](#install-and-try-the-demo) · [Write a test](#write-a-test) · [Spec v1](docs/spec-v1.md) · [Report v1](docs/report-v1.md)
+[Get started](#install-and-try-the-demo) · [Write a test](#write-a-test) · [Join a project trial](docs/trials/README.md) · [Spec v1](docs/spec-v1.md) · [Report v1](docs/report-v1.md)
 
 - **Keyboard-driven tests:** describe an interaction in a small JSON spec.
 - **Rendered screen assertions:** test text after cursor movement, redraws, and resizing.

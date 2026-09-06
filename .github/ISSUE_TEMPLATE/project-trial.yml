@@ -1,0 +1,96 @@
+name: Project trial
+description: Volunteer one real CLI or TUI workflow for the Playtestr release-candidate trial.
+title: "trial: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for trying Playtestr. GitHub issues are public. Do not include credentials, private source, personal paths, or terminal evidence you have not reviewed. Participation and public attribution are optional; use a project alias if needed.
+  - type: input
+    id: project
+    attributes:
+      label: Project or public repository
+      description: Use a non-identifying alias for a private project.
+      placeholder: project name, URL, or private alias
+    validations:
+      required: true
+  - type: input
+    id: relationship
+    attributes:
+      label: Your relationship to the project
+      placeholder: maintainer, contributor, or developer
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Application version or commit
+    validations:
+      required: true
+  - type: input
+    id: stack
+    attributes:
+      label: Language, runtime, and TUI framework
+      description: Include only what is relevant to running the selected flow.
+    validations:
+      required: true
+  - type: input
+    id: host
+    attributes:
+      label: Operating system and architecture
+      placeholder: Windows 11 amd64, Ubuntu 24.04 amd64, or macOS arm64
+    validations:
+      required: true
+  - type: textarea
+    id: workflow
+    attributes:
+      label: One interaction to protect
+      description: Describe the user goal, keyboard steps, expected screen or exit, and repeatable starting state.
+    validations:
+      required: true
+  - type: textarea
+    id: regression
+    attributes:
+      label: Concrete regression to detect
+      description: Describe a known-bad revision or small reversible change that should make the test fail.
+    validations:
+      required: true
+  - type: dropdown
+    id: current_coverage
+    attributes:
+      label: How is this flow checked today?
+      options:
+        - Manual testing
+        - Existing terminal automation
+        - Other automated coverage
+        - No current coverage
+    validations:
+      required: true
+  - type: textarea
+    id: constraints
+    attributes:
+      label: Setup and data constraints
+      description: State target prerequisites, local state, network use, and what evidence must not be shared. Never paste secret values.
+    validations:
+      required: true
+  - type: checkboxes
+    id: agreement
+    attributes:
+      label: Trial agreement
+      options:
+        - label: I can run this workflow with synthetic or non-sensitive data.
+          required: true
+        - label: I understand Playtestr runs this trusted target with my user permissions and is not a sandbox.
+          required: true
+        - label: I am willing to test a known-good and intended known-bad case and report both outcomes.
+          required: true
+  - type: dropdown
+    id: attribution
+    attributes:
+      label: Public attribution preference
+      description: This choice applies to the project name in this issue; quotes and artifacts require separate review.
+      options:
+        - Public project name is okay
+        - Use the alias in this issue only
+    validations:
+      required: true

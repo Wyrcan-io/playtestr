@@ -1,6 +1,8 @@
 # R3 — Trial Playtestr in three to five real projects
 
-Status: planned. Depends on R2's usable installation path. Product outcome: independent maintainers use Playtestr to protect actual terminal interactions and tell us where it helps or breaks down.
+Status: in progress. The repository-side trial program is ready; the qualifying cohort and participant runs remain open. Depends on R2's usable installation path. Product outcome: independent maintainers use Playtestr to protect actual terminal interactions and tell us where it helps or breaks down.
+
+Trial materials: [participant guide](../../trials/README.md), [project record template](../../trials/project-record-template.md), [cohort record](../../trials/cohort.md), [observations backlog](../../trials/observations.md), and [public intake form](../../../.github/ISSUE_TEMPLATE/project-trial.yml).
 
 ## What counts as a useful trial
 
