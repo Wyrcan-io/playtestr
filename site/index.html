@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Playtestr — End-to-end testing for the terminal</title>
+  <meta name="description" content="Drive interactive CLIs with keyboard input, compare rendered screens, and catch regressions with readable diffs. A local testing tool written in Go.">
+  <meta name="theme-color" content="#fffdf9">
+  <meta property="og:title" content="Playtestr — Test the terminal experience.">
+  <meta property="og:description" content="Keyboard input. Screen assertions. Readable diffs. End-to-end testing for interactive CLIs and TUIs.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="wrap nav">
+    <a class="wordmark" href="./" aria-label="Playtestr home"><span class="mark" aria-hidden="true">&gt;_</span> playtestr</a>
+    <nav aria-label="Main navigation">
+      <a href="#how-it-works">How it works</a>
+      <a href="https://github.com/Wyrcan-io/playtestr#write-a-test">Docs</a>
+      <a href="https://github.com/Wyrcan-io/playtestr">GitHub <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="wrap hero">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> A local tool for CLI &amp; TUI developers</p>
+        <h1>The terminal<br>is an interface.<br><span>Test it.</span></h1>
+        <p class="intro">Press the keys. Check the screen. Catch the regression before your users do.</p>
+        <p class="description">Playtestr runs your interactive application in a real terminal, follows a test you write, and shows you what changed.</p>
+        <div class="actions"><a class="button" href="#get-started">Run your first test <span aria-hidden="true">↓</span></a><a class="text-link" href="https://github.com/Wyrcan-io/playtestr">View the source <span aria-hidden="true">↗</span></a></div>
+        <p class="small">Written in Go. Early prototype. Built in the open.</p>
+      </div>
+      <figure class="terminal">
+        <figcaption><span>playtestr / mission control</span><span class="terminal-label">EXAMPLE RUN</span></figcaption>
+        <div class="terminal-body">
+          <p class="command"><span aria-hidden="true">$ </span>playtestr test examples/menu.json</p>
+          <pre aria-label="Passing test output"><code><span class="pass">PASS</span> step 1
+<span class="pass">PASS</span> step 2
+<span class="pass">PASS</span> step 3
+<span class="pass">PASS</span> step 4
+<span class="pass">PASS</span> step 5
+<span class="pass">PASS</span> step 6
+
+<span class="pass">PASS</span> Navigate mission control
+     and run diagnostics</code></pre>
+          <div class="screen-preview"><p class="terminal-label">CAPTURED SCREEN</p><pre><code>PLAYTESTR / mission control
+
+  Deploy preview
+<span class="selection">&gt; Run diagnostics</span>
+  Exit
+
+Diagnostics: all systems healthy.</code></pre></div>
+        </div>
+      </figure>
+    </section>
+
+    <section id="how-it-works" class="wrap section">
+      <div class="section-heading"><p class="eyebrow">01 / THE WORKFLOW</p><h2>A small test.<br>A repeatable interaction.</h2></div>
+      <div class="workflow-grid">
+        <div class="steps">
+          <article><span class="number">1</span><div><h3>Start your application</h3><p>Give Playtestr a command and a viewport. Your app runs in a real pseudoterminal with its normal keyboard interface.</p></div></article>
+          <article><span class="number">2</span><div><h3>Describe the interaction</h3><p>Wait for visible text, send keys, and check the result. Small JSON specs keep the sequence easy to read and review.</p></div></article>
+          <article><span class="number">3</span><div><h3>Compare what users see</h3><p>Assert rendered text and expected exit codes. Save a screen snapshot to catch changes in later runs.</p></div></article>
+        </div>
+        <figure class="code-paper"><figcaption>examples/menu.json</figcaption><pre><code>{
+  "name": "Run diagnostics",
+  "command": ["./bin/demo"],
+  "width": 64,
+  "height": 16,
+  "steps": [
+    {"expect": "&gt; Deploy preview"},
+    {"key": "ArrowDown"},
+    {"expect": "&gt; Run diagnostics"},
+    {"key": "Enter"},
+    {"expect": "all systems healthy."},
+    {"snapshot": "diagnostics.txt"}
+  ]
+}</code></pre></figure>
+      </div>
+    </section>
+
+    <section class="diff-section">
+      <div class="wrap diff-grid">
+        <div><p class="eyebrow">02 / WHEN SOMETHING CHANGES</p><h2>See the difference.<br>Keep the evidence.</h2><p>A changed screen produces a text diff and a nonzero exit code. The captured screen and diff are saved beside the spec for inspection.</p><a class="text-link" href="https://github.com/Wyrcan-io/playtestr/blob/main/examples/snapshot-mismatch.json">Try the intentional failure <span aria-hidden="true">↗</span></a></div>
+        <figure class="diff"><figcaption>diagnostics.txt <span>ILLUSTRATIVE DIFF</span></figcaption><pre><code>  PLAYTESTR / mission control
+  ...
+<span class="removed">- Diagnostics: all systems healthy.</span>
+<span class="added">+ Diagnostics: database unavailable.</span></code></pre><p class="artifact">spec.json.actual.txt &nbsp;·&nbsp; spec.json.diff.txt</p></figure>
+      </div>
+    </section>
+
+    <section class="wrap section capabilities" aria-label="Current capabilities">
+      <article><h3>Runs with limits</h3><p>Step deadlines, total timeouts, output limits, and process cleanup keep a hung target from holding up your test run.</p></article>
+      <article><h3>Understands redraws</h3><p>Assertions inspect rendered terminal text, including cursor movement, alternate screens, and viewport resizing.</p></article>
+      <article><h3>Updates on purpose</h3><p>Review a snapshot change before accepting it. Update a single named baseline after the test and cleanup succeed.</p></article>
+    </section>
+
+    <section id="get-started" class="wrap section getting-started">
+      <div><p class="eyebrow">03 / TRY IT LOCALLY</p><h2>Your first passing test.</h2><p>Start with the included menu demo. You’ll need Git and Go 1.27. On Windows, build the demo as <code>bin/demo.exe</code>.</p><p class="small">This is an early prototype for trusted applications. Text snapshots exclude styles, and complex Unicode layout has known limits. <a href="https://github.com/Wyrcan-io/playtestr/blob/main/docs/terminal-compatibility.md">Read the compatibility notes.</a></p></div>
+      <div class="quickstart"><pre><code>git clone https://github.com/Wyrcan-io/playtestr.git
+cd playtestr
+go build -o bin/demo ./cmd/demo
+go run ./cmd/playtestr test examples/menu.json</code></pre><a class="text-link" href="https://github.com/Wyrcan-io/playtestr#write-a-test">Write your own test <span aria-hidden="true">↗</span></a></div>
+    </section>
+  </main>
+
+  <footer class="wrap"><a class="wordmark" href="./">playtestr<span class="rust">_</span></a><p>For the interfaces we use every day.</p><div><a href="https://github.com/Wyrcan-io/playtestr/issues">Feedback</a><a href="https://github.com/Wyrcan-io/playtestr/blob/main/docs/sprints.md">Roadmap</a></div></footer>
+</body>
+</html>

@@ -327,12 +327,16 @@ func TestChildProcessCleanup(t *testing.T) {
 			}
 			err := runConfiguredHelperSpec(t, mode, steps, func(spec *Spec) {
 				spec.Env["PLAYTESTR_PID_FILE"] = pidFile
-				if mode == "parent-child" {
-					spec.TimeoutMS = 300
-				}
+				// Allow startup its normal test budget, then let step 2 expire.
+				// A 300 ms first step raced the fixture's own 200 ms delay.
+				spec.RunTimeoutMS = 15000
 			})
-			if mode == "parent-child" && err == nil {
-				t.Fatal("expected assertion timeout")
+			if mode == "parent-child" {
+				if err == nil || !errors.Is(err, context.DeadlineExceeded) || !strings.Contains(err.Error(), "step 2:") || strings.Contains(err.Error(), "cleanup failed") {
+					t.Fatalf("expected step 2 timeout with successful cleanup, got %v", err)
+				}
+			} else if err != nil {
+				t.Fatalf("natural parent exit failed: %v", err)
 			}
 			pidBytes, readErr := os.ReadFile(pidFile)
 			if readErr != nil {
@@ -356,12 +360,11 @@ func TestChildProcessCleanup(t *testing.T) {
 func TestRepeatedSessionCleanup(t *testing.T) {
 	for attempt := 0; attempt < 5; attempt++ {
 		pidFile := filepath.Join(t.TempDir(), "target.pid")
-		err := runConfiguredHelperSpec(t, "self-hang", []Step{{Expect: "never"}}, func(spec *Spec) {
+		err := runConfiguredHelperSpec(t, "self-hang", []Step{{Expect: "self running"}}, func(spec *Spec) {
 			spec.Env["PLAYTESTR_PID_FILE"] = pidFile
-			spec.TimeoutMS = 100
 		})
-		if err == nil {
-			t.Fatal("expected assertion timeout")
+		if err != nil {
+			t.Fatalf("session %d failed: %v", attempt+1, err)
 		}
 		pidBytes, readErr := os.ReadFile(pidFile)
 		if readErr != nil {

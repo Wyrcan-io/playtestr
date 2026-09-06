@@ -1,6 +1,17 @@
-# playtestr
+# Playtestr
 
-Headless, snapshot-based testing for interactive CLIs and terminal interfaces, written in Go.
+**End-to-end testing for the terminal.**
+
+Press the keys. Check the screen. Catch the regression. Playtestr drives interactive CLIs and TUIs through a real pseudoterminal, compares rendered text snapshots, and produces readable diffs when something changes.
+
+[Get started](#try-the-demo) · [Write a test](#write-a-test) · [Examples](examples) · [Roadmap](docs/sprints.md)
+
+- **Keyboard-driven tests:** describe an interaction in a small JSON spec.
+- **Rendered screen assertions:** test text after cursor movement, redraws, and resizing.
+- **Reviewable regressions:** compare snapshots and deliberately update a selected baseline.
+- **Bounded execution:** set deadlines and output limits, with cancellation and process cleanup.
+
+Written in Go. An early prototype for testing trusted applications; the test contract is still evolving.
 
 Development follows [small, testable sprints](docs/sprints.md). The [language decision](docs/language-decision.md) records why the MVP uses Go. The current implementation includes Sprint 3 readable screen regressions and terminal resizing.
 
@@ -11,6 +22,8 @@ Playtestr starts a real pseudoterminal, sends keyboard input, and feeds output i
 Requires Go 1.27 and a supported PTY host (Linux, macOS, or Windows with ConPTY).
 
 ```sh
+git clone https://github.com/Wyrcan-io/playtestr.git
+cd playtestr
 go build -o bin/demo ./cmd/demo
 go build -o bin/fixture ./cmd/fixture
 go run ./cmd/playtestr test examples/menu.json

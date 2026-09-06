@@ -8,7 +8,6 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
-	"time"
 )
 
 func writeSnapshotSpec(t *testing.T, mode string, names ...string) string {
@@ -175,8 +174,10 @@ func TestSnapshotUpdatesAreNotCommittedAfterCancellation(t *testing.T) {
 	path := writeSnapshotSpec(t, "hang", "selected.txt")
 	selectedPath := writeBaseline(t, path, "selected.txt", "keep this\n")
 	ctx, cancel := context.WithCancel(context.Background())
-	time.AfterFunc(350*time.Millisecond, cancel)
-	var output bytes.Buffer
+	defer cancel()
+	// Cancel only after the runner confirms that the snapshot step completed.
+	// Process startup and the settling period can exceed 350 ms on busy hosts.
+	output := cancelAfterStepWriter{step: "  PASS step 2\n", cancel: cancel}
 	err := RunContextWithOptions(ctx, path, RunOptions{Update: true}, &output)
 	if err == nil || !strings.Contains(err.Error(), "run cancelled") {
 		t.Fatalf("got %v", err)
@@ -188,6 +189,22 @@ func TestSnapshotUpdatesAreNotCommittedAfterCancellation(t *testing.T) {
 	if string(selected) != "keep this\n" {
 		t.Fatalf("staged update was committed after cancellation: %q", selected)
 	}
+}
+
+// The runner writes progress synchronously. This needs no timer, polling, or
+// concurrent access to the captured output.
+type cancelAfterStepWriter struct {
+	bytes.Buffer
+	step   string
+	cancel context.CancelFunc
+}
+
+func (w *cancelAfterStepWriter) Write(p []byte) (int, error) {
+	n, err := w.Buffer.Write(p)
+	if strings.Contains(w.String(), w.step) {
+		w.cancel()
+	}
+	return n, err
 }
 
 func TestUnknownSnapshotSelectorFailsBeforeTargetLaunch(t *testing.T) {
