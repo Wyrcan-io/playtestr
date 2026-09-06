@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "name": "intentional Unix greeting failure",
+  "command": ["/bin/sh", "./hello.sh"],
+  "timeout_ms": 500,
+  "run_timeout_ms": 10000,
+  "steps": [
+    {"expect": "Name:"},
+    {"text": "terminal tester"},
+    {"key": "Enter"},
+    {"expect": "Hello, wrong!"}
+  ]
+}

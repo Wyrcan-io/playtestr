@@ -1,0 +1,173 @@
+name: Published install smoke
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Published version to verify
+        required: true
+        default: v0.1.0-rc.1
+
+permissions:
+  contents: read
+
+jobs:
+  install:
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-latest
+            target_os: linux
+            target_arch: amd64
+            extension: tar.gz
+            executable: playtestr
+            fixture: unix
+          - runner: macos-latest
+            target_os: darwin
+            target_arch: arm64
+            extension: tar.gz
+            executable: playtestr
+            fixture: unix
+          - runner: windows-latest
+            target_os: windows
+            target_arch: amd64
+            extension: zip
+            executable: playtestr.exe
+            fixture: windows
+    runs-on: ${{ matrix.runner }}
+    env:
+      VERSION: ${{ inputs.version }}
+    steps:
+      - uses: actions/checkout@v6
+      - name: Download, install, and exercise the published binary
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$VERSION" =~ ^v[0-9]+\.[0-9]+\.[0-9]+-rc\.[0-9]+$ ]]
+
+          base="playtestr_${VERSION#v}_${{ matrix.target_os }}_${{ matrix.target_arch }}"
+          archive="$base.${{ matrix.extension }}"
+          release_url="https://github.com/Wyrcan-io/playtestr/releases/download/$VERSION"
+          install_root="installation smoke"
+          download_dir="$install_root/download"
+          extract_dir="$install_root/extracted"
+          test_dir="$install_root/first test"
+          evidence_dir="install-smoke-evidence"
+
+          rm -rf -- "$install_root" "$evidence_dir"
+          mkdir -p "$download_dir" "$extract_dir" "$test_dir" "$evidence_dir"
+          curl --fail --location --retry 3 --retry-all-errors --connect-timeout 15 --max-time 120 \
+            --output "$download_dir/$archive" "$release_url/$archive"
+          curl --fail --location --retry 3 --retry-all-errors --connect-timeout 15 --max-time 120 \
+            --output "$download_dir/$archive.sha256" "$release_url/$archive.sha256"
+
+          expected_hash="$(awk '{print $1}' "$download_dir/$archive.sha256")"
+          expected_name="$(awk '{print $2}' "$download_dir/$archive.sha256")"
+          test "$expected_name" = "$archive"
+          if [ "${{ matrix.target_os }}" = "darwin" ]; then
+            actual_hash="$(shasum -a 256 "$download_dir/$archive" | awk '{print $1}')"
+          else
+            actual_hash="$(sha256sum "$download_dir/$archive" | awk '{print $1}')"
+          fi
+          test "$actual_hash" = "$expected_hash"
+
+          cp "$download_dir/$archive" "$download_dir/corrupt-$archive"
+          printf 'damaged' >> "$download_dir/corrupt-$archive"
+          if [ "${{ matrix.target_os }}" = "darwin" ]; then
+            corrupt_hash="$(shasum -a 256 "$download_dir/corrupt-$archive" | awk '{print $1}')"
+          else
+            corrupt_hash="$(sha256sum "$download_dir/corrupt-$archive" | awk '{print $1}')"
+          fi
+          test "$corrupt_hash" != "$expected_hash"
+          test ! -e "$extract_dir/$base"
+
+          if [ "${{ matrix.target_os }}" = "windows" ]; then
+            unzip -q "$download_dir/$archive" -d "$extract_dir"
+          else
+            tar -xzf "$download_dir/$archive" -C "$extract_dir"
+            test -x "$extract_dir/$base/${{ matrix.executable }}"
+          fi
+          released_binary="$(pwd)/$extract_dir/$base/${{ matrix.executable }}"
+
+          test "$(env -u GOROOT -u GOPATH PATH= "$released_binary" --version)" = "playtestr $VERSION"
+          env -u GOROOT -u GOPATH PATH= "$released_binary" --help | grep --fixed-strings "Playtestr drives trusted interactive CLIs"
+
+          cp -R "testdata/install-smoke/${{ matrix.fixture }}/." "$test_dir/"
+          cd "$test_dir"
+          if [ "${{ matrix.target_os }}" != "windows" ]; then
+            chmod +x hello.sh sentinel.sh
+          fi
+
+          cp good.json test.json
+          env -u GOROOT -u GOPATH PATH= "$released_binary" test --report first-pass.json test.json
+          grep --fixed-strings "\"runner_version\": \"$VERSION\"" first-pass.json
+          grep --fixed-strings '"passed": 1' first-pass.json
+
+          cp bad.json test.json
+          set +e
+          env -u GOROOT -u GOPATH PATH= "$released_binary" test --report intentional-failure.json test.json > intentional-failure-output.txt 2>&1
+          failure_code=$?
+          set -e
+          test "$failure_code" -eq 1
+          grep --fixed-strings '"category": "assertion_timeout"' intentional-failure.json
+          grep --fixed-strings '"screen_path": "test.json.actual.txt"' intentional-failure.json
+          test -s test.json.actual.txt
+
+          cp good.json test.json
+          env -u GOROOT -u GOPATH PATH= "$released_binary" test --report recovered.json test.json
+          grep --fixed-strings '"passed": 1' recovered.json
+          if grep --quiet '"screen_path"' recovered.json; then
+            exit 1
+          fi
+          test -s test.json.actual.txt
+          rm -- test.json.actual.txt
+          test ! -e test.json.actual.txt
+
+          set +e
+          env -u GOROOT -u GOPATH PATH= "$released_binary" test --report missing-target.json.result.json missing-target.json > missing-target-output.txt 2>&1
+          missing_code=$?
+          set -e
+          test "$missing_code" -eq 1
+          grep --fixed-strings '"category": "launch_failure"' missing-target.json.result.json
+
+          set +e
+          env -u GOROOT -u GOPATH PATH= "$released_binary" test --report unsupported.json.result.json unsupported.json > unsupported-output.txt 2>&1
+          unsupported_code=$?
+          set -e
+          test "$unsupported_code" -eq 1
+          grep --fixed-strings '"category": "invalid_spec"' unsupported.json.result.json
+          test ! -e sentinel.started
+
+          mkdir blocked-report
+          cp good.json test.json
+          set +e
+          env -u GOROOT -u GOPATH PATH= "$released_binary" test --report blocked-report test.json > blocked-report-output.txt 2>&1
+          blocked_code=$?
+          set -e
+          test "$blocked_code" -eq 1
+          grep --fixed-strings 'FAIL write report:' blocked-report-output.txt
+          test -d blocked-report
+
+          cp first-pass.json intentional-failure.json recovered.json \
+            missing-target.json.result.json unsupported.json.result.json \
+            intentional-failure-output.txt missing-target-output.txt \
+            unsupported-output.txt blocked-report-output.txt "../../$evidence_dir/"
+          printf '%s\n' \
+            "version=$VERSION" \
+            "host=${{ matrix.target_os }}/${{ matrix.target_arch }}" \
+            "archive=$archive" \
+            "sha256=$actual_hash" \
+            "go_path_removed=true" \
+            "fresh_path=$test_dir" > "../../$evidence_dir/summary.txt"
+
+          cd ../..
+          rm -rf -- "$install_root"
+          test ! -e "$install_root"
+      - uses: actions/upload-artifact@v6
+        if: always()
+        with:
+          name: install-smoke-${{ matrix.target_os }}-${{ matrix.target_arch }}
+          path: install-smoke-evidence/
+          if-no-files-found: error
