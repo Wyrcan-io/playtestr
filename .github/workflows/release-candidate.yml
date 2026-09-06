@@ -60,14 +60,62 @@ jobs:
           go build -o "bin/${{ matrix.demo }}" ./cmd/demo
           go build -o "bin/${{ matrix.fixture }}" ./cmd/fixture
           go build -trimpath -ldflags "-s -w -X github.com/Wyrcan-io/playtestr/internal/buildinfo.Version=$VERSION" -o "bin/${{ matrix.executable }}" ./cmd/playtestr
-      - name: Walk through packaged binary behavior
-        shell: bash
-        run: |
-          test "$("./bin/${{ matrix.executable }}" --version)" = "playtestr $VERSION"
-          "./bin/${{ matrix.executable }}" test --report artifacts/walkthrough.json examples/menu.json examples/menu-exit.json
       - name: Package native release candidate
         shell: bash
         run: go run ./cmd/package-release -binary "bin/${{ matrix.executable }}" -version "$VERSION" -os "${{ matrix.target_os }}" -arch "${{ matrix.target_arch }}" -out dist
+      - name: Verify and run the extracted release archive
+        shell: bash
+        run: |
+          base="playtestr_${VERSION#v}_${{ matrix.target_os }}_${{ matrix.target_arch }}"
+          extension="tar.gz"
+          if [ "${{ matrix.target_os }}" = "windows" ]; then
+            extension="zip"
+          fi
+          archive="$base.$extension"
+
+          if [ "${{ matrix.target_os }}" = "darwin" ]; then
+            (cd dist && shasum -a 256 -c "$archive.sha256")
+          else
+            (cd dist && sha256sum --check "$archive.sha256")
+          fi
+
+          extract_dir="release verification"
+          rm -rf -- "$extract_dir"
+          mkdir -p "$extract_dir"
+          actual_members="$extract_dir/archive-members.txt"
+          expected_members="$extract_dir/expected-members.txt"
+          if [ "${{ matrix.target_os }}" = "windows" ]; then
+            unzip -Z1 "dist/$archive" | sort > "$actual_members"
+          else
+            tar -tzf "dist/$archive" | sort > "$actual_members"
+          fi
+          printf '%s\n' \
+            "$base/LICENSE" \
+            "$base/README.md" \
+            "$base/THIRD_PARTY_NOTICES.md" \
+            "$base/${{ matrix.executable }}" | sort > "$expected_members"
+          diff --unified "$expected_members" "$actual_members"
+
+          if [ "${{ matrix.target_os }}" = "windows" ]; then
+            unzip -q "dist/$archive" -d "$extract_dir"
+          else
+            tar -xzf "dist/$archive" -C "$extract_dir"
+            test -x "$extract_dir/$base/${{ matrix.executable }}"
+          fi
+
+          released_binary="$extract_dir/$base/${{ matrix.executable }}"
+          test "$("$released_binary" --version)" = "playtestr $VERSION"
+          "$released_binary" --help | grep --fixed-strings "Playtestr drives trusted interactive CLIs"
+          "$released_binary" test --report artifacts/release-walkthrough.json examples/menu.json examples/menu-exit.json
+
+          set +e
+          "$released_binary" test --report artifacts/release-expected-failure.json examples/snapshot-mismatch.json
+          code=$?
+          set -e
+          test "$code" -eq 1
+          grep --fixed-strings '"category": "snapshot_mismatch"' artifacts/release-expected-failure.json
+          test -s examples/snapshot-mismatch.json.actual.txt
+          test -s examples/snapshot-mismatch.json.diff.txt
       - uses: actions/upload-artifact@v6
         with:
           name: playtestr-${{ matrix.target_os }}-${{ matrix.target_arch }}

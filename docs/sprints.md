@@ -1,5 +1,7 @@
 # MVP delivery plan
 
+For the next delivery sequence, see the [four release/adoption plans and detailed Sprint 5–10 plans](plans/README.md). Those documents define proposed work and evidence gates; they do not claim that future features are implemented.
+
 ## Working agreement
 
 Develop one observable behavior at a time. State the intended outcome, implement a small change, run relevant success and failure checks, then provide a manual demo command and result. Stop at the sprint boundary for user testing and feedback unless the user asks to continue. Keep unrelated enhancements in the backlog. A sprint is an acceptance milestone, not a fixed calendar estimate or a large batch of code.
@@ -67,4 +69,6 @@ Remote acceptance: commit `bcd1b6e` passed the complete native terminal-test mat
 
 ## After the MVP
 
-Replay files and reproduction, exact-failure minimization, styled snapshots, recordings, reusable CI integration, optional exploration, and hosted reports. Prioritize these using feedback from real CLI authors.
+First publish and verify a release candidate, trial it with independent projects, and promote a stable version when the release gates pass. The [post-MVP plans](plans/README.md) then propose suites and CI results, failure reproduction, local diagnosis, CI installation, repeatable workspaces, and a narrowly selected terminal compatibility improvement.
+
+Each sprint starts from a demonstrated user problem. Parallel execution, minimization, styled snapshots, recordings, and hosted reports remain deferred until adoption evidence justifies a separate plan. Autonomous game exploration remains outside Playtestr's product boundary.

@@ -64,6 +64,7 @@ func packageRelease(binary, version, targetOS, arch, out string) error {
 		{name: filepath.ToSlash(filepath.Join(base, binaryName)), path: binary, mode: 0755},
 		{name: filepath.ToSlash(filepath.Join(base, "LICENSE")), path: "LICENSE", mode: 0644},
 		{name: filepath.ToSlash(filepath.Join(base, "README.md")), path: "README.md", mode: 0644},
+		{name: filepath.ToSlash(filepath.Join(base, "THIRD_PARTY_NOTICES.md")), path: "THIRD_PARTY_NOTICES.md", mode: 0644},
 	}
 	extension := ".tar.gz"
 	if targetOS == "windows" {
