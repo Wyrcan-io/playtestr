@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "name": "published binary provides a controlling terminal",
+  "command": ["/bin/sh", "./controlling-tty.sh"],
+  "cwd": ".",
+  "timeout_ms": 3000,
+  "run_timeout_ms": 10000,
+  "steps": [
+    {"expect": "controlling terminal ready"},
+    {"text": "verified"},
+    {"key": "Enter"},
+    {"expect": "controlling terminal received: verified"},
+    {"exit": 0}
+  ]
+}

@@ -16,6 +16,8 @@ The [v0.1.0-rc.1 release run](https://github.com/Wyrcan-io/playtestr/actions/run
 
 The published [v0.1.0-rc.1 prerelease](https://github.com/Wyrcan-io/playtestr/releases/tag/v0.1.0-rc.1) contains the three native archives and their checksum files. All six files were downloaded again through their public release URLs and matched the workflow artifacts byte-for-byte. The tag resolves to the commit above.
 
+A later real-application trial found that the published Linux asset does not provide a controlling terminal to targets that open `/dev/tty` directly. Lazygit v0.65.0 therefore exits during launch even though the release fixture suite passed. Current source fixes the Unix PTY setup and adds a real `/dev/tty` regression test, but Linux support for this path remains unpublished until a replacement candidate is built and its downloaded asset passes. See the [September 2026 technical trial](trials/technical-trial-2026-09.md).
+
 Windows amd64 also passes the race detector locally with the project compiler. Race-detector coverage has not been recorded for Linux or macOS.
 
-This evidence supports only the targets in the table and the terminal behavior described in [Terminal compatibility](terminal-compatibility.md). It does not imply support for other architectures, every OS version or distribution, or every CLI/TUI framework.
+This evidence supports only the targets in the table and the terminal behavior described in [Terminal compatibility](terminal-compatibility.md), subject to the Linux release-candidate limitation above. It does not imply support for other architectures, every OS version or distribution, or every CLI/TUI framework.

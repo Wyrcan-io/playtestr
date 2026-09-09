@@ -8,6 +8,8 @@ Stable v0.1.0 means the supported workflows have passed their release gates and 
 
 ## Entry gate
 
+Complete [R3b: trial findings and candidate readiness](03b-trial-findings-and-candidate-readiness.md) before entering this plan. It covers the Linux controlling-terminal fix, unresolved real-app findings, installation CI repair, a new published candidate, and the remaining R3 adoption evidence. Local fixes and the historical primary-run sample alone do not satisfy this entry gate.
+
 Require a named release owner, a frozen candidate commit, passing public-asset installation checks for all advertised targets, completed independent trials, and no unresolved release blockers. Confirm that the evidence applies to the candidate selected for promotion; earlier green runs from a different build are historical context only.
 
 A waiting period alone is not acceptance. One to two weeks of trial use may reveal issues, but R3's concrete tasks and blocker status determine readiness. If the cohort is not available, record that dependency and delay stable promotion rather than claiming internal tests satisfy it.

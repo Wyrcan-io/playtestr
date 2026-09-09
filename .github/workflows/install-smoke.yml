@@ -7,6 +7,11 @@ on:
         description: Published version to verify
         required: true
         default: v0.1.0-rc.1
+      verify_controlling_tty:
+        description: Require the Unix /dev/tty regression (disable only for the known-bad rc.1 baseline)
+        required: true
+        type: boolean
+        default: true
 
 permissions:
   contents: read
@@ -45,7 +50,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          [[ "$VERSION" =~ ^v[0-9]+\.[0-9]+\.[0-9]+-rc\.[0-9]+$ ]]
+          [[ "$VERSION" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-rc\.[0-9]+)?$ ]]
 
           base="playtestr_${VERSION#v}_${{ matrix.target_os }}_${{ matrix.target_arch }}"
           archive="$base.${{ matrix.extension }}"
@@ -91,13 +96,19 @@ jobs:
           fi
           released_binary="$(pwd)/$extract_dir/$base/${{ matrix.executable }}"
 
-          go_binary="$(command -v go)"
-          go_directory="$(dirname "$go_binary")"
-          runtime_path="$(printf '%s' "$PATH" | awk -v RS=: -v ORS=: -v remove="$go_directory" '$0 != remove { print }')"
-          runtime_path="${runtime_path%:}"
-          if env -u GOROOT -u GOPATH PATH="$runtime_path" go version >/dev/null 2>&1; then
-            exit 1
-          fi
+          no_go_dir="$(pwd)/$install_root/no-go-bin"
+          mkdir -p "$no_go_dir"
+          cat > "$no_go_dir/go" <<'EOF'
+          #!/bin/sh
+          exit 97
+          EOF
+          chmod +x "$no_go_dir/go"
+          runtime_path="$no_go_dir:$PATH"
+          set +e
+          env -u GOROOT -u GOPATH PATH="$runtime_path" go version >/dev/null 2>&1
+          go_code=$?
+          set -e
+          test "$go_code" -eq 97
 
           test "$(env -u GOROOT -u GOPATH PATH="$runtime_path" "$released_binary" --version)" = "playtestr $VERSION"
           env -u GOROOT -u GOPATH PATH="$runtime_path" "$released_binary" --help | grep --fixed-strings "Playtestr drives trusted interactive CLIs"
@@ -112,6 +123,11 @@ jobs:
           env -u GOROOT -u GOPATH PATH="$runtime_path" "$released_binary" test --report first-pass.json test.json
           grep --fixed-strings "\"runner_version\": \"$VERSION\"" first-pass.json
           grep --fixed-strings '"passed": 1' first-pass.json
+
+          if [ "${{ matrix.target_os }}" != "windows" ] && [ "${{ inputs.verify_controlling_tty }}" = "true" ]; then
+            env -u GOROOT -u GOPATH PATH="$runtime_path" "$released_binary" test --report controlling-tty.json.result.json controlling-tty.json
+            grep --fixed-strings '"passed": 1' controlling-tty.json.result.json
+          fi
 
           cp bad.json test.json
           set +e
@@ -162,12 +178,16 @@ jobs:
             missing-target.json.result.json unsupported.json.result.json \
             intentional-failure-output.txt missing-target-output.txt \
             unsupported-output.txt blocked-report-output.txt "../../$evidence_dir/"
+          if [ -f controlling-tty.json.result.json ]; then
+            cp controlling-tty.json.result.json "../../$evidence_dir/"
+          fi
           printf '%s\n' \
             "version=$VERSION" \
             "host=${{ matrix.target_os }}/${{ matrix.target_arch }}" \
             "archive=$archive" \
             "sha256=$actual_hash" \
-            "go_path_removed=true" \
+            "go_command_blocked=true" \
+            "controlling_tty_required=${{ inputs.verify_controlling_tty }}" \
             "fresh_path=$test_dir" > "../../$evidence_dir/summary.txt"
 
           cd ../..

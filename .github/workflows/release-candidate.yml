@@ -108,6 +108,11 @@ jobs:
           "$released_binary" --help | grep --fixed-strings "Playtestr drives trusted interactive CLIs"
           "$released_binary" test --report artifacts/release-walkthrough.json examples/menu.json examples/menu-exit.json
 
+          if [ "${{ matrix.target_os }}" != "windows" ]; then
+            chmod +x testdata/install-smoke/unix/controlling-tty.sh
+            "$released_binary" test --report artifacts/release-controlling-tty.json testdata/install-smoke/unix/controlling-tty.json
+          fi
+
           set +e
           "$released_binary" test --report artifacts/release-expected-failure.json examples/snapshot-mismatch.json
           code=$?
