@@ -16,8 +16,12 @@ The [v0.1.0-rc.1 release run](https://github.com/Wyrcan-io/playtestr/actions/run
 
 The published [v0.1.0-rc.1 prerelease](https://github.com/Wyrcan-io/playtestr/releases/tag/v0.1.0-rc.1) contains the three native archives and their checksum files. All six files were downloaded again through their public release URLs and matched the workflow artifacts byte-for-byte. The tag resolves to the commit above.
 
+The repaired [published-install run](https://github.com/Wyrcan-io/playtestr/actions/runs/34332701717) downloaded rc.1 again and passed checksum rejection, spaced-path extraction, version/help, good → bad → recovered behavior, missing-target and invalid-spec handling, report-write failure, and cleanup on Linux amd64, macOS arm64, and Windows amd64. The run used workflow commit `9cf00e89f378703d66b6bc05978777c6dc8e2ec1`. Its Unix `/dev/tty` gate was explicitly disabled because rc.1 is the known-bad baseline; this run validates installation behavior, not the missing controlling terminal.
+
 A later real-application trial found that the published Linux asset does not provide a controlling terminal to targets that open `/dev/tty` directly. Lazygit v0.65.0 therefore exits during launch even though the release fixture suite passed. Current source fixes the Unix PTY setup and adds a real `/dev/tty` regression test, but Linux support for this path remains unpublished until a replacement candidate is built and its downloaded asset passes. See the [September 2026 technical trial](trials/technical-trial-2026-09.md).
 
 Windows amd64 also passes the race detector locally with the project compiler. Race-detector coverage has not been recorded for Linux or macOS.
+
+Current source passed the complete [three-host Terminal tests run](https://github.com/Wyrcan-io/playtestr/actions/runs/34331447263) at commit `6c378a5cc34efb481bc61bd4ce1cad2862a82ef9`. The immediately preceding [failed run](https://github.com/Wyrcan-io/playtestr/actions/runs/34330189067) is retained: it exposed a macOS cleanup exit race and a cold-start budget issue in the external Gum sample. Both causes were corrected before the green run.
 
 This evidence supports only the targets in the table and the terminal behavior described in [Terminal compatibility](terminal-compatibility.md), subject to the Linux release-candidate limitation above. It does not imply support for other architectures, every OS version or distribution, or every CLI/TUI framework.

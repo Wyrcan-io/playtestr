@@ -32,7 +32,7 @@ This ledger separates historical release evidence, exploratory trials, final sam
 
 | Gate | Why pending | Required closure |
 | --- | --- | --- |
-| Hosted rc.1 install smoke | Workflow repair is local until pushed | Dispatch all three hosts with controlling-terminal check disabled only for this known-bad baseline; retain run URL and artifacts. |
+| Hosted rc.1 install smoke | Complete at workflow commit `9cf00e89f378703d66b6bc05978777c6dc8e2ec1` | [Run 34332701717](https://github.com/Wyrcan-io/playtestr/actions/runs/34332701717) passed all three hosts with controlling-terminal verification disabled only for rc.1. Failed Windows fixture attempts [34331624815](https://github.com/Wyrcan-io/playtestr/actions/runs/34331624815), [34331960179](https://github.com/Wyrcan-io/playtestr/actions/runs/34331960179), and [34332334639](https://github.com/Wyrcan-io/playtestr/actions/runs/34332334639) remain retained. |
 | Published next candidate | No immutable asset contains the current patch | Package, publish, download, checksum, and run native assets with `/dev/tty` enabled. |
 | Candidate real-app matrix | Existing Linux evidence is checkout-built | Run supported Lazygit/Lazydocker/K9s paths and fresh repetitions from downloaded bytes. |
 | macOS real-app coverage | Only fixtures and release packaging have run | Keep real-app claims absent unless exact macOS target flows execute. |
@@ -41,7 +41,7 @@ This ledger separates historical release evidence, exploratory trials, final sam
 ## Source provenance before candidate freeze
 
 - Base commit: `a64af217fb4807894ea1392b238ced31eec18bd8`.
-- Working patch identity recorded during implementation: Git blob hash `1c58f1d4eb6f8910dde6712cd7bec0118536298b`; this is provisional and must be recalculated at freeze.
+- Source commits through the successful rc.1 install proof: runner `eedd456`, evidence/harness `7927c7f`, release gates `a1501f6`, cleanup correction `6c378a5`, and hosted fixture corrections through `9cf00e8`.
 - Trial target versions and original release hashes: [`trials/manifest.json`](../../trials/manifest.json).
 - Reproduction requirements: [`trials/recipes.md`](../../trials/recipes.md).
 

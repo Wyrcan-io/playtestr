@@ -4,7 +4,7 @@ Status: held before publication. Updated 9 September 2026. Release owner: Wyrcan
 
 | Requirement | Current evidence | Status |
 | --- | --- | --- |
-| Candidate source | Base and local patch recorded in the [evidence ledger](evidence-ledger-2026-09.md); final commit not frozen | Pending commit |
+| Candidate source | Reviewed commits are pushed on `main`; this documentation update is the intended freeze point | Freeze pending |
 | T01 controlling terminal | Source regression and checkout real-app paths pass | Fixed locally; candidate bytes pending |
 | T02 external state | Reusable combined harness fails on oracle mismatch | Fixed in trial harness |
 | T03 dashboard privacy | Public artifacts sanitized; dedicated-resource rule documented | Accepted process control |
@@ -13,7 +13,7 @@ Status: held before publication. Updated 9 September 2026. Release owner: Wyrcan
 | T06 Docker integration | Explicit endpoint preflight and no fallback documented | Resolved process control |
 | T07 Lazydocker start | Exact-ID status and changed timestamp pass | Fixed recipe for pinned flow |
 | T08 compact help | v0.25.2 Linux 80x24 post-resize help excluded | Accepted narrow limitation |
-| Hosted install matrix | Workflow supports stable versions and optional rc.1 baseline exception; no new hosted run yet | Pending push/dispatch |
+| Hosted install matrix | [rc.1 run 34332701717](https://github.com/Wyrcan-io/playtestr/actions/runs/34332701717) passed all three hosts; `/dev/tty` was disabled only for the known-bad baseline | Complete for rc.1 |
 | Candidate assets | Release notes and native `/dev/tty` gate prepared | Pending publication |
 | Application-regression value | Synthetic Lazygit good/bad/restored experiment passes acceptance boundary | Complete technical evidence |
 | Cross-language flow | IPython 8.27.0 file-writing flow and oracle recovery pass on Windows | Complete technical evidence |

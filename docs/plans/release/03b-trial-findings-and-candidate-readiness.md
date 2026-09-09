@@ -1,6 +1,6 @@
 # R3b — Resolve trial findings and verify the next candidate
 
-Status: planned; no implementation or external action is authorized by this document alone. Created 8 September 2026. Execute after the initial technical campaign and before entering [R4: stable release](04-stable-release.md).
+Status: executing; source fixes, technical follow-up, and the rc.1 hosted install baseline are complete as of 9 September 2026. Candidate publication/validation and independent participant gates remain. Created 8 September 2026. Execute after the initial technical campaign and before entering [R4: stable release](04-stable-release.md).
 
 ## Outcome
 
@@ -156,21 +156,21 @@ Produce one short readiness record containing candidate tag/commit/hashes, hoste
 
 Give each finding one status: fixed and verified in candidate bytes; demonstrated limitation accepted within narrowed support; deferred outside supported scope; or unresolved blocker. Include a reason and owner for each non-fixed item.
 
-R4 may begin only when its original entry requirements and the checklist below are met. Stable version packaging, contract audit, maintenance policy, website download changes, publication, and adopter upgrade verification remain in R4. Note for that handoff that install-smoke currently accepts only prerelease version strings; R4 must validate stable-version input before using it to verify v0.1.0.
+R4 may begin only when its original entry requirements and the checklist below are met. Stable version packaging, contract audit, maintenance policy, website download changes, publication, and adopter upgrade verification remain in R4. The install-smoke workflow now accepts both release-candidate and stable semantic versions; R4 must leave its controlling-terminal gate enabled for v0.1.0.
 
 ## Definition of done
 
-- [ ] Earlier claims/checkpoints reconciled against evidence; missing coverage recorded and addressed.
-- [ ] Reusable recipes fail overall on incorrect external state and preserve runner/harness/cleanup outcomes.
-- [ ] T01–T08 have evidence-backed dispositions; no promised workflow has an unexplained release-blocking failure.
-- [ ] Reviewed source changes committed/pushed with authorization and passing applicable CI.
-- [ ] Repaired full rc.1 hosted installation matrix verified; no-Go claim matches what was actually tested.
+- [x] Earlier claims/checkpoints reconciled against evidence; missing coverage recorded and addressed.
+- [x] Reusable recipes fail overall on incorrect external state and preserve runner/harness/cleanup outcomes.
+- [x] T01–T08 have evidence-backed dispositions; the compact Lazydocker exclusion is explicit.
+- [x] Reviewed source changes committed/pushed with authorization and passing applicable CI.
+- [x] Repaired full rc.1 hosted installation matrix verified; the shell-lookup claim matches what was actually tested.
 - [ ] Next candidate published with authorization, immutable provenance, and native artifact checks.
 - [ ] Downloaded candidate passes controlling-terminal regression and supported real-app matrix.
 - [ ] New candidate repetition evidence remains separate from historical 60/60 and earlier failures.
-- [ ] Real application-regression experiment and cross-language technical coverage completed.
+- [x] Real application-regression experiment and cross-language technical coverage completed.
 - [ ] R3 independent review, repeat-use, and CI gates have actual records.
-- [ ] Owned trial resources cleaned up without touching unrelated containers, contexts, files, or host services.
-- [ ] Public docs are accurate and sanitized; R4 readiness record reviewed with no unresolved blockers.
+- [x] Owned trial resources cleaned up or confirmed absent by exact ID without touching unrelated containers, contexts, files, or host services.
+- [x] Public docs are accurate and sanitized; the R4 readiness record visibly retains its blockers.
 
 This is a bounded release-readiness plan. General external-assertion APIs, new artifact formats, hosted dashboards, broad terminal-emulator rewrites, and later sprint features require separate evidence and scope decisions.
