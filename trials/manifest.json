@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "frozen_on": "2026-09-07",
+  "runner": {
+    "published_version": "v0.1.0-rc.1",
+    "source_commit": "1dde372282a574025957c4bf1b603287cbef93e4",
+    "assets": {
+      "windows_amd64": {
+        "name": "playtestr_0.1.0-rc.1_windows_amd64.zip",
+        "sha256": "b5842d8648c2021eb0a5baef60da0588ab9cd4ce37623ae7b6cbba6169f97d9e"
+      },
+      "linux_amd64": {
+        "name": "playtestr_0.1.0-rc.1_linux_amd64.tar.gz",
+        "sha256": "87bc626c301a650433ccbb0d40346a5e16b1c89d96453061808732f37dc6d274"
+      }
+    },
+    "patched_checkout": {
+      "base_commit": "a64af217fb4807894ea1392b238ced31eec18bd8",
+      "version_output": "playtestr dev",
+      "reason": "Unix targets that open /dev/tty need the PTY slave configured as their controlling terminal."
+    }
+  },
+  "targets": {
+    "lazygit": {
+      "repository": "https://github.com/jesseduffield/lazygit",
+      "version": "v0.65.0",
+      "commit": "c07f4d381b90419583b7ce04f87379654d983ebc",
+      "assets": {
+        "windows_amd64": {"name": "lazygit_0.65.0_windows_x86_64.zip", "sha256": "20a597e8f29d4ed295e28fb4b869b31a41d20dc69dc15829c4744263141be2ee"},
+        "linux_amd64": {"name": "lazygit_0.65.0_linux_x86_64.tar.gz", "sha256": "44d8e7dd1484b4a66e191bd4ab25a71e8b4b3a65ab122f838e65677ef58c5506"}
+      }
+    },
+    "lazydocker": {
+      "repository": "https://github.com/jesseduffield/lazydocker",
+      "version": "v0.25.2",
+      "commit": "7e7aadc2071d58031bf2daafca1fbd4093efc23f",
+      "assets": {
+        "windows_amd64": {"name": "lazydocker_0.25.2_Windows_x86_64.zip", "sha256": "facae8869c1bf144468191c563002162273a2c2761f052659170530cae3fa8a9"},
+        "linux_amd64": {"name": "lazydocker_0.25.2_Linux_x86_64.tar.gz", "sha256": "0d9dbfc26068b218e7ed84b104748cadc6e3cf733c0afd35465306fb39b9523c"}
+      },
+      "fixture_image": "busybox@sha256:9db7b59979c38555a39def84a31fb98b5296952f9e3afd4f6f11f05b07adfab0"
+    },
+    "k9s": {
+      "repository": "https://github.com/derailed/k9s",
+      "version": "v0.51.0",
+      "commit": "558caafe7ba067467de46b320cc22ef11fef9c34",
+      "assets": {
+        "windows_amd64": {"name": "k9s_Windows_amd64.zip", "sha256": "bba299f1877913979831543a008f2e104995d2ea4ac8f23d7f49c0444857d973"},
+        "linux_amd64": {"name": "k9s_Linux_amd64.tar.gz", "sha256": "c3752ad51a5a4015a113819c4eeb6e55a4d0e4b8e652494797532f6fc8161dd7"}
+      },
+      "kind": {
+        "version": "v0.33.0",
+        "windows_amd64_sha256": "4b22adaa135368c5a465d56bbd8e520cbea87272a06ca00b6078e7b81515c9fc",
+        "linux_amd64_sha256": "aee6151561422756b764a4ae28e7f44cda5af5a9eead3cc9985112b1de8d8e0d",
+        "node_image": "kindest/node:v1.35.0@sha256:452d707d4862f52530247495d180205e029056831160e22870e37e3f6c1ac31f"
+      }
+    }
+  }
+}
