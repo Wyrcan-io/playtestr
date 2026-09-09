@@ -3,7 +3,8 @@
   "name": "binary-only Windows greeting",
   "command": ["C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "./hello.ps1"],
   "timeout_ms": 10000,
-  "run_timeout_ms": 30000,
+  "startup_timeout_ms": 30000,
+  "run_timeout_ms": 60000,
   "steps": [
     {"expect": "Name:"},
     {"text": "terminal tester"},
