@@ -110,8 +110,8 @@ jobs:
           set -e
           test "$go_code" -eq 97
 
-          test "$(env -u GOROOT -u GOPATH PATH="$runtime_path" "$released_binary" --version)" = "playtestr $VERSION"
-          env -u GOROOT -u GOPATH PATH="$runtime_path" "$released_binary" --help | grep --fixed-strings "Playtestr drives trusted interactive CLIs"
+          test "$(env -u GOROOT -u GOPATH "$released_binary" --version)" = "playtestr $VERSION"
+          env -u GOROOT -u GOPATH "$released_binary" --help | grep --fixed-strings "Playtestr drives trusted interactive CLIs"
 
           cp -R "testdata/install-smoke/${{ matrix.fixture }}/." "$test_dir/"
           cd "$test_dir"
@@ -120,18 +120,18 @@ jobs:
           fi
 
           cp good.json test.json
-          env -u GOROOT -u GOPATH PATH="$runtime_path" "$released_binary" test --report first-pass.json test.json
+          env -u GOROOT -u GOPATH "$released_binary" test --report first-pass.json test.json
           grep --fixed-strings "\"runner_version\": \"$VERSION\"" first-pass.json
           grep --fixed-strings '"passed": 1' first-pass.json
 
           if [ "${{ matrix.target_os }}" != "windows" ] && [ "${{ inputs.verify_controlling_tty }}" = "true" ]; then
-            env -u GOROOT -u GOPATH PATH="$runtime_path" "$released_binary" test --report controlling-tty.json.result.json controlling-tty.json
+            env -u GOROOT -u GOPATH "$released_binary" test --report controlling-tty.json.result.json controlling-tty.json
             grep --fixed-strings '"passed": 1' controlling-tty.json.result.json
           fi
 
           cp bad.json test.json
           set +e
-          env -u GOROOT -u GOPATH PATH="$runtime_path" "$released_binary" test --report intentional-failure.json test.json > intentional-failure-output.txt 2>&1
+          env -u GOROOT -u GOPATH "$released_binary" test --report intentional-failure.json test.json > intentional-failure-output.txt 2>&1
           failure_code=$?
           set -e
           test "$failure_code" -eq 1
@@ -140,7 +140,7 @@ jobs:
           test -s test.json.actual.txt
 
           cp good.json test.json
-          env -u GOROOT -u GOPATH PATH="$runtime_path" "$released_binary" test --report recovered.json test.json
+          env -u GOROOT -u GOPATH "$released_binary" test --report recovered.json test.json
           grep --fixed-strings '"passed": 1' recovered.json
           if grep --quiet '"screen_path"' recovered.json; then
             exit 1
@@ -150,14 +150,14 @@ jobs:
           test ! -e test.json.actual.txt
 
           set +e
-          env -u GOROOT -u GOPATH PATH="$runtime_path" "$released_binary" test --report missing-target.json.result.json missing-target.json > missing-target-output.txt 2>&1
+          env -u GOROOT -u GOPATH "$released_binary" test --report missing-target.json.result.json missing-target.json > missing-target-output.txt 2>&1
           missing_code=$?
           set -e
           test "$missing_code" -eq 1
           grep --fixed-strings '"category": "launch_failure"' missing-target.json.result.json
 
           set +e
-          env -u GOROOT -u GOPATH PATH="$runtime_path" "$released_binary" test --report unsupported.json.result.json unsupported.json > unsupported-output.txt 2>&1
+          env -u GOROOT -u GOPATH "$released_binary" test --report unsupported.json.result.json unsupported.json > unsupported-output.txt 2>&1
           unsupported_code=$?
           set -e
           test "$unsupported_code" -eq 1
@@ -167,7 +167,7 @@ jobs:
           mkdir blocked-report
           cp good.json test.json
           set +e
-          env -u GOROOT -u GOPATH PATH="$runtime_path" "$released_binary" test --report blocked-report test.json > blocked-report-output.txt 2>&1
+          env -u GOROOT -u GOPATH "$released_binary" test --report blocked-report test.json > blocked-report-output.txt 2>&1
           blocked_code=$?
           set -e
           test "$blocked_code" -eq 1
@@ -186,7 +186,7 @@ jobs:
             "host=${{ matrix.target_os }}/${{ matrix.target_arch }}" \
             "archive=$archive" \
             "sha256=$actual_hash" \
-            "go_command_blocked=true" \
+            "go_shell_lookup_shadowed=true" \
             "controlling_tty_required=${{ inputs.verify_controlling_tty }}" \
             "fresh_path=$test_dir" > "../../$evidence_dir/summary.txt"
 
