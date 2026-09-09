@@ -5,7 +5,7 @@ Playtestr uses Apache License 2.0 and supports Go 1.25 or newer. Release binarie
 Build and package one native target from the repository root:
 
 ```powershell
-$version = 'v0.1.0-rc.1'
+$version = 'v0.1.0-rc.2'
 go test ./...
 go build -trimpath -ldflags "-s -w -X github.com/Wyrcan-io/playtestr/internal/buildinfo.Version=$version" -o bin/playtestr.exe ./cmd/playtestr
 go run ./cmd/package-release -binary bin/playtestr.exe -version $version -os windows -arch amd64 -out dist

@@ -1,6 +1,6 @@
 # R3b — Resolve trial findings and verify the next candidate
 
-Status: executing; source fixes, technical follow-up, and the rc.1 hosted install baseline are complete as of 9 September 2026. Candidate publication/validation and independent participant gates remain. Created 8 September 2026. Execute after the initial technical campaign and before entering [R4: stable release](04-stable-release.md).
+Status: executing; source fixes, rc.1 baseline, rc.2 publication, native package checks, public install checks, release boundaries, and three candidate real-app cells are complete as of 10 September 2026. Docker/Kubernetes-dependent candidate cells and independent participant gates remain. Created 8 September 2026. Execute after the initial technical campaign and before entering [R4: stable release](04-stable-release.md).
 
 ## Outcome
 
@@ -30,6 +30,7 @@ Execution order: evidence audit → harness correctness → focused compatibilit
 | R3-T06: WSL Docker integration interrupted | Retain endpoint preflight and bounded setup failure | Missing integration prevents mutations and produces setup failure; no daemon restart or endpoint fallback |
 | R3-T07: stopped Lazydocker fixture does not start | Confirm selection, documented action, input processing, async completion, and API result | Reproduced cause and correct harness status; never accept retained logs as startup proof |
 | R3-T08: Lazydocker Linux help after 80x24 resize | Minimize resize/help/quit and compare manual behavior | Fix verified, or narrowly documented limitation backed by comparison |
+| R3-T09: persisted Lazygit commit draft creates a screen false pass | Clear the field, prove dialog closure, and check exact commit/tree externally | Failed oracle attempts retained; corrected candidate workflow passes |
 | R2 install-smoke failure | Review PATH/blocker mechanism and execute complete hosted matrix | Passing run tied to workflow commit and downloaded asset hashes |
 | Application-regression proof absent | One controlled source regression or known-bad revision with good control | Same test detects intended application behavior change and recovers; complete each qualifying R3 record separately |
 | Cross-language and independent use absent | Non-Go technical flow plus qualifying participant review/reuse/CI records | R3's existing gates satisfied with private identities kept private |
@@ -162,15 +163,15 @@ R4 may begin only when its original entry requirements and the checklist below a
 
 - [x] Earlier claims/checkpoints reconciled against evidence; missing coverage recorded and addressed.
 - [x] Reusable recipes fail overall on incorrect external state and preserve runner/harness/cleanup outcomes.
-- [x] T01–T08 have evidence-backed dispositions; the compact Lazydocker exclusion is explicit.
+- [x] T01–T09 have evidence-backed dispositions; the compact Lazydocker exclusion and commit-draft synchronization are explicit.
 - [x] Reviewed source changes committed/pushed with authorization and passing applicable CI.
 - [x] Repaired full rc.1 hosted installation matrix verified; the shell-lookup claim matches what was actually tested.
-- [ ] Next candidate published with authorization, immutable provenance, and native artifact checks.
-- [ ] Downloaded candidate passes controlling-terminal regression and supported real-app matrix.
-- [ ] New candidate repetition evidence remains separate from historical 60/60 and earlier failures.
+- [x] Next candidate published with authorization, immutable provenance, and native artifact checks.
+- [ ] Downloaded candidate passes the controlling-terminal regression and the complete Lazygit Linux workflow; Docker/Kubernetes-dependent real-app cells remain pending while Docker is unavailable.
+- [x] Completed candidate repetitions are recorded separately from historical 60/60, setup failures, and earlier failures.
 - [x] Real application-regression experiment and cross-language technical coverage completed.
 - [ ] R3 independent review, repeat-use, and CI gates have actual records.
-- [x] Owned trial resources cleaned up or confirmed absent by exact ID without touching unrelated containers, contexts, files, or host services.
+- [ ] Historical owned resources were cleaned by exact ID; final cleanup of the candidate Lazydocker fixture awaits Docker availability and must use its recorded ID and labels.
 - [x] Public docs are accurate and sanitized; the R4 readiness record visibly retains its blockers.
 
 This is a bounded release-readiness plan. General external-assertion APIs, new artifact formats, hosted dashboards, broad terminal-emulator rewrites, and later sprint features require separate evidence and scope decisions.

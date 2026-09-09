@@ -8,7 +8,7 @@ Use [`scripts/trials/run-trial.ps1`](../scripts/trials/run-trial.ps1) on Windows
 
 1. Create a new repository with a synthetic author, `alpha.txt`, a filename containing spaces, and a Unicode filename. Record `HEAD`, branch, and `git write-tree` before the action.
 2. Launch pinned Lazygit with an isolated `HOME` and config directory. Assert a filename identifying the selected row before sending Space.
-3. For staging, the oracle checks `git diff --cached --name-only` equals exactly `alpha.txt` and checks the cached blob. For commit, check the exact new commit message, parent, and tree. For branch selection, check `git symbolic-ref --short HEAD`.
+3. For staging, the oracle checks `git diff --cached --name-only` equals exactly `alpha.txt` and checks the cached blob. For commit, clear any persisted draft before typing, prove the commit dialog closes after Enter, then check the exact new commit message, parent, and tree. For branch selection, prove the previous branch marker disappears and check `git symbolic-ref --short HEAD`.
 4. Exercise failure by creating `.git/index.lock`. A screen pass with an unchanged index must fail overall. Remove only that lock, restore the starting index, and rerun to green.
 5. Before deleting the fixture, confirm its resolved path is beneath the operator-provided attempt root.
 

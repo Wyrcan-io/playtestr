@@ -21,9 +21,9 @@ Playtestr starts a real pseudoterminal, sends keyboard input, and feeds output i
 
 Release archives contain one native `playtestr` binary, this README, the Apache 2.0 license, third-party notices, and an adjacent SHA-256 checksum. Download the archive for your host from [GitHub Releases](https://github.com/Wyrcan-io/playtestr/releases), verify the adjacent `.sha256` file, extract it, and put `playtestr` (or `playtestr.exe`) on your `PATH`.
 
-Release-candidate targets are Linux amd64, macOS arm64, and Windows amd64. A target is published only after its native test and extracted-archive walkthrough pass. See the [v0.1.0-rc.1 install and first-test guide](docs/releases/v0.1.0-rc.1.md), or build the current development version from source with Go 1.25 or newer:
+Release-candidate targets are Linux amd64, macOS arm64, and Windows amd64. A target is published only after its native test and extracted-archive walkthrough pass. See the [v0.1.0-rc.2 install and first-test guide](docs/releases/v0.1.0-rc.2-installation-walkthrough.md), or build the current development version from source with Go 1.25 or newer.
 
-`v0.1.0-rc.1` has a confirmed Linux limitation: a full-screen target that opens `/dev/tty` directly can fail at launch because that release does not assign the PTY slave as the controlling terminal. Current source contains the fix and a real-PTY regression test. Linux users testing such applications should build current source until a replacement candidate is published.
+`v0.1.0-rc.2` fixes the Unix controlling-terminal defect in rc.1. Its downloaded Linux and macOS archives passed a target that opens and exchanges input through `/dev/tty`; the complete public-install matrix passed on all three advertised hosts.
 
 ```sh
 git clone https://github.com/Wyrcan-io/playtestr.git

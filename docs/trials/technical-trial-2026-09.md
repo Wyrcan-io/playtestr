@@ -1,6 +1,6 @@
 # Lazygit, Lazydocker, and K9s technical trial
 
-Status: technical campaign completed across all six native client cells, with open compatibility findings. Stable promotion remains held for a Linux PTY defect found in the published candidate.
+Status: historical technical campaign completed across all six Windows/Linux client cells. The Linux PTY defect in rc.1 is fixed and verified in published rc.2; stable promotion remains held by incomplete candidate real-app and independent-adoption evidence.
 
 This operator-run technical campaign began on 7 September 2026 and its focused follow-up continued through 9 September. It does not represent maintainer review, endorsement, voluntary repeat use, or willingness to pay. A later IPython check supplies a non-Go technical sample; the parent R3 participant gates remain open.
 
@@ -12,7 +12,7 @@ This operator-run technical campaign began on 7 September 2026 and its focused f
 - Kubernetes: one disposable kind v0.33.0 cluster named `playtestr-r3`, with a digest-pinned Kubernetes v1.35.0 node image and a dedicated kubeconfig. Windows and Linux K9s clients reached the same Linux-node cluster.
 - Target versions, commits, archive hashes, runner assets, container image, and node image are frozen in [`trials/manifest.json`](../../trials/manifest.json).
 
-The published `v0.1.0-rc.1` runner was always tried first. Windows results use that release asset. Linux results after the initial failure use a checkout-built `dev` runner and therefore do not prove the published Linux asset is compatible.
+The published `v0.1.0-rc.1` runner was always tried first. Windows historical results use that release asset. Linux historical results after the initial failure use a checkout-built `dev` runner and therefore do not prove rc.1 is compatible. Published rc.2 later passed the native `/dev/tty` package and public-install checks, then completed the candidate Linux Lazygit cell; its candidate sample is tracked separately in the [evidence ledger](evidence-ledger-2026-09.md).
 
 ## Matrix result
 
@@ -31,7 +31,7 @@ Sixty final primary attempts passed without automatic retry: 20 Lazygit, 20 Lazy
 
 The published Linux runner launched each target in a new session but did not assign the PTY slave as the session's controlling terminal. Lazygit v0.65.0 immediately failed while opening `/dev/tty` with `no such device or address`. This is a release blocker for the advertised Linux full-screen TUI workflow.
 
-The candidate fix sets `Setctty` with child descriptor zero alongside `Setsid`. A Unix-only real-PTY regression test opens `/dev/tty` from the target process. It failed before the fix and passes afterward. The full Windows suite, `go vet`, Windows race detector, and the cross-compiled full runner suite executed in Ubuntu pass with the change. A new release artifact is still required before published Linux compatibility can be claimed.
+The fix sets `Setctty` with child descriptor zero alongside `Setsid`. A Unix-only real-PTY regression test opens `/dev/tty` from the target process. It failed before the fix and passes afterward. The full Windows suite, `go vet`, Windows race detector, and the cross-compiled full runner suite executed in Ubuntu passed with the change. Published rc.2 then passed this gate from extracted and publicly downloaded Linux and macOS archives.
 
 ## Workflow evidence
 
@@ -69,7 +69,7 @@ The candidate fix sets `Setctty` with child descriptor zero alongside `Setsid`. 
 
 | ID | Classification | Severity | Decision |
 | --- | --- | --- | --- |
-| R3-T01 | Runner correctness | Release blocker | Ship the controlling-terminal fix in a new candidate and rerun published Linux assets before stable promotion. |
+| R3-T01 | Runner correctness | Fixed in rc.2 | Published Linux and macOS candidate assets passed the controlling-terminal regression. |
 | R3-T02 | Spec authoring / harness | High | Require independent state checks for mutations; do not accept static headings, retained logs, or annotation text as the only evidence. |
 | R3-T03 | Environment / privacy | High | Use a dedicated Docker endpoint for publishable Lazydocker evidence. Shared global views can disclose unrelated resource names. |
 | R3-T04 | Spec synchronization | Resolved locally | `expect_not` proves each observed modal closes before the next input; the minimized Linux flow exits zero. |
@@ -77,8 +77,9 @@ The candidate fix sets `Setctty` with child descriptor zero alongside `Setsid`. 
 | R3-T06 | Environment/setup | Resolved interruption | Docker Desktop integration returned; the Linux Lazydocker cell and ten-run sample were then executed. |
 | R3-T07 | Spec synchronization / oracle | Resolved for pinned flow | Wait for stale state to disappear and require exact Docker status plus changed `StartedAt`. |
 | R3-T08 | Target/version compact redraw | Accepted limitation | Exclude Lazydocker v0.25.2 Linux help-after-80x24-resize; normal viewport help and resize-only paths remain in scope. |
+| R3-T09 | Spec synchronization / oracle | Resolved in candidate recipe | Clear persisted commit input, prove dialog closure, and require the exact Git commit/tree oracle. |
 
-Focused disposition on 9 September: T04 and T07 are fixed at the spec/harness layer and pass their minimized Linux reruns. T05's runner-side evidence loss is fixed, while target-supplied blank diagnostics remain a limitation. T08 is accepted only as a Lazydocker v0.25.2 compact-layout exclusion; it is not included in the supported candidate matrix.
+Focused disposition through 10 September: T01 is fixed in published candidate bytes. T04 passes the downloaded candidate real-app path. T07 is fixed at the spec/harness layer and passes its minimized checkout-built Linux rerun; the candidate Lazydocker lifecycle rerun remains blocked by Docker. T05's runner-side evidence loss is fixed, while target-supplied blank diagnostics remain a limitation. T08 is accepted only as a Lazydocker v0.25.2 compact-layout exclusion. T09's failed external oracles remain retained, and its corrected candidate commit flow passes.
 
 The follow-up also built an unmodified pinned Lazygit control and a synthetic source mutation that changed the help title. The same spec passed the control, failed the launched mutated application at the intended assertion, and passed after restoring the control. A separate IPython 8.27.0 interaction wrote an exact file through its real prompt; the combined harness failed with an intentionally wrong oracle and passed after the oracle was corrected. These are technical value and stack-diversity results, not participant adoption.
 

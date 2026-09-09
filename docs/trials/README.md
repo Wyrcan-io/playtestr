@@ -1,4 +1,4 @@
-# Playtestr v0.1.0-rc.1 project trials
+# Playtestr v0.1.0-rc.2 project trials
 
 Status: recruiting. These trials test whether Playtestr protects a real terminal interaction well enough that a project maintainer chooses to run the test again.
 
@@ -18,7 +18,7 @@ Choose an offline flow that can use synthetic data. Do not use production creden
 
 Plan for 30–60 minutes for the first integration after the target application is already runnable. Installation alone should take much less; record actual time rather than forcing the work into this estimate.
 
-Use one advertised host: Linux amd64, macOS arm64, or Windows amd64. Start with the [published installation walkthrough](../releases/v0.1.0-rc.1-installation-walkthrough.md). Release binaries do not require Go and do not install the target application's runtime or dependencies.
+Use one advertised host: Linux amd64, macOS arm64, or Windows amd64. Start with the [published installation walkthrough](../releases/v0.1.0-rc.2-installation-walkthrough.md). Release binaries do not require Go and do not install the target application's runtime or dependencies.
 
 ## What the maintainer chooses before the session
 
@@ -41,7 +41,7 @@ Run the chosen application flow once without Playtestr. Record the visible state
 
 ### 2. Install the published runner
 
-Download `v0.1.0-rc.1`, verify its checksum, extract it, and run `playtestr --version`. Record the archive name, observed checksum, host, shell, and version output. Do not use a checkout-built runner for the trial result.
+Download `v0.1.0-rc.2`, verify its checksum, extract it, and run `playtestr --version`. Record the archive name, observed checksum, host, shell, and version output. Do not use a checkout-built runner for the trial result.
 
 ### 3. Write one small spec
 
@@ -88,7 +88,7 @@ Use a known-bad application revision or make one small, reversible local change 
 
 Record the structured failure category and failing step. A missing executable or malformed spec does not prove the intended UI regression is detected.
 
-Restore the known-good application and confirm the same spec passes again. In `v0.1.0-rc.1`, an adjacent `.actual.txt` or `.diff.txt` from an earlier failure can remain after a pass; the latest report has no evidence reference. Treat the old file as historical, review it, then remove it explicitly.
+Restore the known-good application and confirm the same spec passes again. In `v0.1.0-rc.2`, an adjacent `.actual.txt` or `.diff.txt` from an earlier failure can remain after a pass; the latest report has no evidence reference. Treat the old file as historical, review it, then remove it explicitly.
 
 ### 5. Repeat from the same starting state
 
@@ -131,7 +131,7 @@ For a private project, keep the record private until the repository owner provid
 
 This text is prepared for the repository owner to send to specific maintainers. It has not been sent automatically:
 
-> I’m testing Playtestr v0.1.0-rc.1, a small tool for driving and checking interactive terminal applications. I’m looking for maintainers with one real keyboard-driven workflow they want to protect. The trial takes roughly 30–60 minutes, uses a downloaded binary and synthetic data, and includes a known-good/known-bad check. Participation and public attribution are optional. Would you be willing to try it on one flow in your project?
+> I’m testing Playtestr v0.1.0-rc.2, a small tool for driving and checking interactive terminal applications. I’m looking for maintainers with one real keyboard-driven workflow they want to protect. The trial takes roughly 30–60 minutes, uses a downloaded binary and synthetic data, and includes a known-good/known-bad check. Participation and public attribution are optional. Would you be willing to try it on one flow in your project?
 
 Record the recipient and authorization before sending outreach. Do not imply compatibility with their stack before their exact flow passes.
 
