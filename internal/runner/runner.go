@@ -26,12 +26,14 @@ const (
 
 // Step contains exactly one terminal action or assertion.
 type Step struct {
-	Key      string        `json:"key,omitempty"`
-	Text     string        `json:"text,omitempty"`
-	Expect   string        `json:"expect,omitempty"`
-	Snapshot string        `json:"snapshot,omitempty"`
-	Exit     *int          `json:"exit,omitempty"`
-	Resize   *TerminalSize `json:"resize,omitempty"`
+	Key           string        `json:"key,omitempty"`
+	Text          string        `json:"text,omitempty"`
+	Expect        string        `json:"expect,omitempty"`
+	ExpectNot     string        `json:"expect_not,omitempty"`
+	WaitForRedraw bool          `json:"wait_for_redraw,omitempty"`
+	Snapshot      string        `json:"snapshot,omitempty"`
+	Exit          *int          `json:"exit,omitempty"`
+	Resize        *TerminalSize `json:"resize,omitempty"`
 }
 
 // TerminalSize is a terminal viewport measured in columns and rows.
@@ -164,9 +166,11 @@ func Load(path string) (Spec, error) {
 	}
 	ready := false
 	seenSnapshots := make(map[string]struct{})
+	expectedAt := make(map[string]int)
+	lastTransition := -1
 	for i, step := range spec.Steps {
 		actions := 0
-		for _, value := range []string{step.Key, step.Text, step.Expect, step.Snapshot} {
+		for _, value := range []string{step.Key, step.Text, step.Expect, step.ExpectNot, step.Snapshot} {
 			if value != "" {
 				actions++
 			}
@@ -175,6 +179,9 @@ func Load(path string) (Spec, error) {
 			actions++
 		}
 		if step.Resize != nil {
+			actions++
+		}
+		if step.WaitForRedraw {
 			actions++
 		}
 		if actions != 1 {
@@ -196,11 +203,29 @@ func Load(path string) (Spec, error) {
 				return spec, fmt.Errorf("step %d resize: %w", i+1, err)
 			}
 		}
+		if step.ExpectNot != "" {
+			expectIndex, exists := expectedAt[step.ExpectNot]
+			if !exists {
+				return spec, fmt.Errorf("step %d expect_not %q requires an earlier expect for the same text", i+1, step.ExpectNot)
+			}
+			if lastTransition <= expectIndex {
+				return spec, fmt.Errorf("step %d expect_not %q requires input or resize after the earlier expect", i+1, step.ExpectNot)
+			}
+		}
+		if step.WaitForRedraw && (i == 0 || spec.Steps[i-1].Resize == nil) {
+			return spec, fmt.Errorf("step %d wait_for_redraw must immediately follow resize", i+1)
+		}
 		switch {
 		case step.Key != "" || step.Text != "" || step.Resize != nil:
 			ready = false
-		case step.Expect != "" || step.Exit != nil:
+			lastTransition = i
+		case step.Expect != "":
 			ready = true
+			expectedAt[step.Expect] = i
+		case step.ExpectNot != "" || step.Exit != nil:
+			ready = true
+		case step.WaitForRedraw:
+			ready = false
 		case step.Snapshot != "":
 			if !ready {
 				return spec, fmt.Errorf("step %d snapshot %q requires a successful expect since the last input or resize, or a successful exit assertion", i+1, step.Snapshot)
@@ -423,6 +448,11 @@ func RunDetailedContext(parent context.Context, path string, options RunOptions,
 			}
 		}
 	}
+	var failureObservation *sessionObservation
+	if runErr != nil {
+		observation := session.observe()
+		failureObservation = &observation
+	}
 
 	cleanupContext, cancelCleanup := context.WithTimeout(context.Background(), 3*time.Second)
 	cleanup := session.stop(cleanupContext)
@@ -464,6 +494,9 @@ func RunDetailedContext(parent context.Context, path string, options RunOptions,
 			fmt.Fprintf(out, "Cleanup: process tree stopped (%s, %s)\n", mode, cleanup.mechanism)
 		}
 		observation := session.observe()
+		if failureObservation != nil {
+			observation = *failureObservation
+		}
 		var mismatch *snapshotMismatchError
 		if errors.As(runErr, &mismatch) {
 			observation.screen = mismatch.actual
@@ -522,6 +555,9 @@ func executeStep(ctx context.Context, specPath string, step Step, options RunOpt
 	if step.Resize != nil {
 		return session.resize(ctx, step.Resize.Width, step.Resize.Height)
 	}
+	if step.WaitForRedraw {
+		return waitForRedraw(ctx, session, exitAsserted)
+	}
 	if step.Exit != nil {
 		code, waitErr, exited := session.outcome.wait(ctx)
 		if !exited {
@@ -566,6 +602,9 @@ func executeStep(ctx context.Context, specPath string, step Step, options RunOpt
 		if step.Expect != "" && strings.Contains(observation.screen, step.Expect) {
 			return nil
 		}
+		if step.ExpectNot != "" && !strings.Contains(observation.screen, step.ExpectNot) {
+			return nil
+		}
 		if step.Snapshot != "" && time.Since(observation.lastOutput) >= 150*time.Millisecond {
 			if updateSnapshot {
 				return updates.stage(filepath.Join(base, step.Snapshot), observation.screen)
@@ -583,10 +622,44 @@ func executeStep(ctx context.Context, specPath string, step Step, options RunOpt
 			if step.Expect != "" && strings.Contains(observation.screen, step.Expect) {
 				return nil
 			}
+			if step.ExpectNot != "" && !strings.Contains(observation.screen, step.ExpectNot) {
+				return nil
+			}
 			if code < 0 && waitErr != nil {
 				return unexpectedExit("process wait failed while waiting for assertion: %v", waitErr)
 			}
 			return unexpectedExit("process exited with code %d before assertion matched", code)
+		}
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		case <-session.outputLimit:
+			continue
+		case <-ticker.C:
+		}
+	}
+}
+
+func waitForRedraw(ctx context.Context, session *terminalSession, exitAsserted bool) error {
+	baseline, resizedAt, ok := session.redrawBaseline()
+	if !ok {
+		return fmt.Errorf("wait_for_redraw has no preceding resize")
+	}
+	ticker := time.NewTicker(10 * time.Millisecond)
+	defer ticker.Stop()
+	for {
+		observation := session.observe()
+		if observation.outputLimitExceeded {
+			return fmt.Errorf("%w (%d bytes observed)", errOutputLimit, observation.outputBytes)
+		}
+		if observation.outputBytes > baseline && time.Since(resizedAt) >= time.Second {
+			return nil
+		}
+		if code, waitErr, exited := session.outcome.result(); exited && !exitAsserted {
+			if code < 0 && waitErr != nil {
+				return unexpectedExit("process wait failed while waiting for redraw: %v", waitErr)
+			}
+			return unexpectedExit("process exited with code %d before redraw", code)
 		}
 		select {
 		case <-ctx.Done():

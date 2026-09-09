@@ -52,7 +52,7 @@
       "required": ["number", "action", "status", "duration_ms"],
       "properties": {
         "number": {"type": "integer", "minimum": 1},
-        "action": {"enum": ["key", "text", "expect", "snapshot", "exit", "resize", "invalid"]},
+        "action": {"enum": ["key", "text", "expect", "expect_not", "wait_for_redraw", "snapshot", "exit", "resize", "invalid"]},
         "status": {"enum": ["not_run", "running", "passed", "failed"]},
         "duration_ms": {"type": "integer", "minimum": 0},
         "failure": {"$ref": "#/$defs/failure"},

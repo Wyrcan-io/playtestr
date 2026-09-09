@@ -13,7 +13,10 @@ type processTree struct {
 }
 
 func configureProcess(cmd *exec.Cmd) {
-	cmd.SysProcAttr = &syscall.SysProcAttr{Setsid: true}
+	// Start the target in its own session and make the PTY slave attached to
+	// stdin its controlling terminal. Some full-screen applications open
+	// /dev/tty directly instead of relying only on stdin/stdout.
+	cmd.SysProcAttr = &syscall.SysProcAttr{Setsid: true, Setctty: true, Ctty: 0}
 }
 
 func attachProcessTree(pid int) (*processTree, error) {

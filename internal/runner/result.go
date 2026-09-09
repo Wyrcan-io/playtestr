@@ -140,6 +140,10 @@ func stepAction(step Step) string {
 		return "text"
 	case step.Expect != "":
 		return "expect"
+	case step.ExpectNot != "":
+		return "expect_not"
+	case step.WaitForRedraw:
+		return "wait_for_redraw"
 	case step.Snapshot != "":
 		return "snapshot"
 	case step.Exit != nil:

@@ -56,6 +56,9 @@ type terminalSession struct {
 	outputBytes         int64
 	maxOutputBytes      int64
 	outputLimitExceeded bool
+	resizeOutputBytes   int64
+	resizeStartedAt     time.Time
+	hasResizeBaseline   bool
 
 	firstOutput chan struct{}
 	outputLimit chan struct{}
@@ -209,7 +212,16 @@ func (s *terminalSession) resize(ctx context.Context, width, height int) error {
 		return fmt.Errorf("resize pseudoterminal to %dx%d: %w", width, height, err)
 	}
 	s.terminal.Resize(width, height)
+	s.resizeOutputBytes = s.outputBytes
+	s.resizeStartedAt = time.Now()
+	s.hasResizeBaseline = true
 	return nil
+}
+
+func (s *terminalSession) redrawBaseline() (int64, time.Time, bool) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	return s.resizeOutputBytes, s.resizeStartedAt, s.hasResizeBaseline
 }
 
 func (s *terminalSession) drainFinal(ctx context.Context, quiet time.Duration) error {

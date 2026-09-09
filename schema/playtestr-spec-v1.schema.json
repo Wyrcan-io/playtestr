@@ -53,6 +53,8 @@
         {"required": ["key"]},
         {"required": ["text"]},
         {"required": ["expect"]},
+        {"required": ["expect_not"]},
+        {"required": ["wait_for_redraw"]},
         {"required": ["snapshot"]},
         {"required": ["exit"]},
         {"required": ["resize"]}
@@ -61,6 +63,8 @@
         "key": {"enum": ["Enter", "ArrowDown", "ArrowUp", "ArrowRight", "ArrowLeft", "Escape", "Tab", "Backspace", "CtrlC"]},
         "text": {"type": "string", "minLength": 1},
         "expect": {"type": "string", "minLength": 1},
+        "expect_not": {"type": "string", "minLength": 1},
+        "wait_for_redraw": {"const": true},
         "snapshot": {"type": "string", "pattern": "^[^/\\\\:]+$"},
         "exit": {"type": "integer", "minimum": 0, "maximum": 255},
         "resize": {"$ref": "#/$defs/size"}

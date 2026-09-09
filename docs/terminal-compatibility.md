@@ -1,6 +1,6 @@
 # Terminal compatibility
 
-Status: evaluated for the Sprint 3 MVP fixtures on Windows, September 6, 2026.
+Status: evaluated with MVP fixtures and the September 2026 real-application trial.
 
 Playtestr compares normalized text from a fixed terminal viewport. It preserves leading spaces and internal blank lines, trims trailing spaces and unused rows, and deliberately excludes colors and other cell styles from snapshots.
 
@@ -22,3 +22,5 @@ The current vt10x emulator retains control-sequence parser state between writes.
 vt10x models one Go rune as one terminal cell. It does not provide complete `wcwidth`, grapheme-cluster, combining-mark, emoji-sequence, or East Asian wide-character layout. Snapshots containing those characters may have incorrect column alignment even when the text survives. Basic Unicode code points are supported by the exercised contract; precise complex-Unicode layout is not yet supported.
 
 The fixtures do not establish support for every VT control sequence, device query, mouse protocol, hyperlink, image protocol, color, style, or application-specific terminal extension. Snapshot comparison is text-only. Compatibility with a particular TUI requires exercising that application on the claimed operating system; cross-compilation alone is not runtime evidence.
+
+The real-application trial added a Unix requirement that the fixture suite had missed: some TUIs open `/dev/tty` instead of using only inherited standard streams. Current source starts the target in a new session and assigns the PTY slave as its controlling terminal. The published `v0.1.0-rc.1` Linux asset predates that fix.

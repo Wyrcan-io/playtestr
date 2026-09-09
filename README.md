@@ -23,6 +23,8 @@ Release archives contain one native `playtestr` binary, this README, the Apache 
 
 Release-candidate targets are Linux amd64, macOS arm64, and Windows amd64. A target is published only after its native test and extracted-archive walkthrough pass. See the [v0.1.0-rc.1 install and first-test guide](docs/releases/v0.1.0-rc.1.md), or build the current development version from source with Go 1.25 or newer:
 
+`v0.1.0-rc.1` has a confirmed Linux limitation: a full-screen target that opens `/dev/tty` directly can fail at launch because that release does not assign the PTY slave as the controlling terminal. Current source contains the fix and a real-PTY regression test. Linux users testing such applications should build current source until a replacement candidate is published.
+
 ```sh
 git clone https://github.com/Wyrcan-io/playtestr.git
 cd playtestr
@@ -69,9 +71,11 @@ Specs are JSON. `command` is an executable followed by arguments and is executed
 
 Each step has exactly one action. Supported keys: `Enter`, `ArrowDown`, `ArrowUp`, `ArrowLeft`, `ArrowRight`, `Escape`, `Tab`, `Backspace`, `CtrlC`. An `exit` step waits for the process and requires the exact exit code; intentionally nonzero expected codes are supported. Long-running TUIs do not need an exit step.
 
-`expect` polls the current screen until the text appears or the per-step timeout expires. If the process exits first, the assertion reports the exit code instead of waiting for a timeout. Snapshots compare the rendered screen after at least 150 ms without output.
+`expect` polls the current screen until the text appears or the per-step timeout expires. `expect_not` waits for text that an earlier `expect` observed to disappear after input or resize, which is useful for closing modals without arbitrary sleeps. If the process exits first, an unmatched assertion reports the exit code instead of waiting for a timeout. Snapshots compare the rendered screen after at least 150 ms without output.
 
-A snapshot must follow a successful `expect` since the most recent input or resize, or a successful `exit` assertion. This makes application readiness explicit; quiet output alone does not prove that an app has finished rendering. Choose expected text that identifies the new state rather than text left over from the previous screen.
+After a resize, `{"wait_for_redraw": true}` requires target output after the resize and allows a one-second redraw window before Playtestr sends the next input. It works with continuously repainting dashboards, must immediately follow the resize, and does not replace a content assertion.
+
+A snapshot must follow a successful `expect` or `expect_not` since the most recent input or resize, or a successful `exit` assertion. This makes application readiness explicit; quiet output alone does not prove that an app has finished rendering. Choose expected text that identifies the new state rather than text left over from the previous screen.
 
 Screen snapshots preserve leading spaces and internal blank lines while trimming trailing spaces and unused rows. They compare text rather than colors or styles. A mismatch prints a unified expected/actual diff and saves both `<spec>.actual.txt` and `<spec>.diff.txt` from the same captured screen.
 

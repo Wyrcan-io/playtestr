@@ -25,6 +25,76 @@ func TestScreenRedraw(t *testing.T) {
 	}
 }
 
+func TestExpectNotWaitsForObservedTextToDisappear(t *testing.T) {
+	err := runHelperSpec(t, "modal-transition", []Step{
+		{Expect: "Keybindings"},
+		{Key: "Escape"},
+		{ExpectNot: "Keybindings"},
+		{Expect: "Main ready"},
+		{Exit: intPointer(0)},
+	}, 5000)
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestExpectNotTimesOutWhileObservedTextRemains(t *testing.T) {
+	err := runConfiguredHelperSpec(t, "hang", []Step{
+		{Expect: "still running"},
+		{Key: "Enter"},
+		{ExpectNot: "still running"},
+	}, func(spec *Spec) {
+		spec.TimeoutMS = 100
+	})
+	if err == nil || categoryOf(err) != FailureAssertionTimeout {
+		t.Fatalf("got %v", err)
+	}
+}
+
+func TestFailureScreenIsCapturedBeforeCleanup(t *testing.T) {
+	spec := Spec{
+		Version: SpecVersion,
+		Name:    "cleanup clears screen",
+		Command: []string{os.Args[0], "-test.run=TestHelperProcess", "--", "cleanup-clears-screen"},
+		Env:     map[string]string{"PLAYTESTR_HELPER_PROCESS": "1"},
+		Width:   40, Height: 8, TimeoutMS: 100, RunTimeoutMS: 2000,
+		MaxOutputBytes: 100000,
+		Steps:          []Step{{Expect: "useful failure screen"}, {Expect: "never printed"}},
+	}
+	data, err := json.Marshal(spec)
+	if err != nil {
+		t.Fatal(err)
+	}
+	path := filepath.Join(t.TempDir(), "spec.json")
+	if err := os.WriteFile(path, data, 0600); err != nil {
+		t.Fatal(err)
+	}
+	if err := Run(path, false, &bytes.Buffer{}); err == nil {
+		t.Fatal("expected assertion timeout")
+	}
+	actual, err := os.ReadFile(path + ".actual.txt")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(string(actual), "useful failure screen") {
+		t.Fatalf("failure evidence = %q", actual)
+	}
+}
+
+func TestWaitForRedrawSynchronizesAfterResize(t *testing.T) {
+	err := runHelperSpec(t, "resize-redraw", []Step{
+		{Expect: "resize redraw ready"},
+		{Resize: &TerminalSize{Width: 60, Height: 12}},
+		{WaitForRedraw: true},
+		{Expect: "redrawn 60x12"},
+		{Key: "Enter"},
+		{Exit: intPointer(0)},
+	}, 5000)
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
 func TestRejectInvalidSpecs(t *testing.T) {
 	for _, data := range []string{
 		`{"version":1,"command":["demo"],"steps":[{"key":"Wrong"}]}`,
@@ -42,6 +112,11 @@ func TestRejectInvalidSpecs(t *testing.T) {
 		`{"version":1,"command":["demo"],"steps":[{"resize":{"width":0,"height":20}}]}`,
 		`{"version":1,"command":["demo"],"steps":[{"resize":{"width":80,"height":201}}]}`,
 		`{"version":1,"command":["demo"],"steps":[{"expect":"ready"},{"snapshot":"same.txt"},{"snapshot":"same.txt"}]}`,
+		`{"version":1,"command":["demo"],"steps":[{"expect_not":"modal"}]}`,
+		`{"version":1,"command":["demo"],"steps":[{"expect":"modal"},{"expect_not":"modal"}]}`,
+		`{"version":1,"command":["demo"],"steps":[{"expect":"modal"},{"key":"Escape","expect_not":"modal"}]}`,
+		`{"version":1,"command":["demo"],"steps":[{"wait_for_redraw":true}]}`,
+		`{"version":1,"command":["demo"],"steps":[{"resize":{"width":80,"height":24}},{"expect":"ready"},{"wait_for_redraw":true}]}`,
 	} {
 		path := filepath.Join(t.TempDir(), "test.json")
 		if e := os.WriteFile(path, []byte(data), 0600); e != nil {
@@ -141,6 +216,29 @@ func TestHelperProcess(t *testing.T) {
 		_, _ = os.Stdin.Read(buffer)
 		fmt.Print("input received\r\n")
 		os.Exit(0)
+	case "modal-transition":
+		old, err := term.MakeRaw(int(os.Stdin.Fd()))
+		if err != nil {
+			os.Exit(9)
+		}
+		defer term.Restore(int(os.Stdin.Fd()), old)
+		fmt.Print("\x1b[2J\x1b[HKeybindings\r\nBackground")
+		buffer := make([]byte, 1)
+		_, _ = os.Stdin.Read(buffer)
+		time.Sleep(50 * time.Millisecond)
+		fmt.Print("\x1b[2J\x1b[HMain ready")
+		os.Exit(0)
+	case "cleanup-clears-screen":
+		old, err := term.MakeRaw(int(os.Stdin.Fd()))
+		if err != nil {
+			os.Exit(9)
+		}
+		defer term.Restore(int(os.Stdin.Fd()), old)
+		fmt.Print("\x1b[2J\x1b[Huseful failure screen")
+		buffer := make([]byte, 1)
+		_, _ = os.Stdin.Read(buffer)
+		fmt.Print("\x1b[2J\x1b[H")
+		os.Exit(0)
 	case "no-output":
 		time.Sleep(10 * time.Second)
 		os.Exit(0)
@@ -176,6 +274,15 @@ func TestHelperProcess(t *testing.T) {
 		cwd, _ := os.Getwd()
 		fmt.Printf("cwd-base=%s\r\nmarker=%s\r\nsecret=%s\r\ninherited=%s\r\n", filepath.Base(cwd), os.Getenv("PLAYTESTR_MARKER"), os.Getenv("PLAYTESTR_SECRET"), os.Getenv("PLAYTESTR_INHERITED"))
 		os.Exit(0)
+	case "controlling-tty":
+		tty, err := os.OpenFile("/dev/tty", os.O_RDWR, 0)
+		if err != nil {
+			fmt.Printf("open controlling tty failed: %v\r\n", err)
+			os.Exit(11)
+		}
+		_ = tty.Close()
+		fmt.Print("controlling tty ready\r\n")
+		os.Exit(0)
 	case "resize":
 		old, err := term.MakeRaw(int(os.Stdin.Fd()))
 		if err != nil {
@@ -191,6 +298,29 @@ func TestHelperProcess(t *testing.T) {
 		}
 		fmt.Printf("\x1b[2J\x1b[Hresized %dx%d\r\n", width, height)
 		os.Exit(0)
+	case "resize-redraw":
+		old, err := term.MakeRaw(int(os.Stdin.Fd()))
+		if err != nil {
+			os.Exit(9)
+		}
+		defer term.Restore(int(os.Stdin.Fd()), old)
+		initialWidth, initialHeight, err := term.GetSize(int(os.Stdout.Fd()))
+		if err != nil {
+			os.Exit(10)
+		}
+		fmt.Print("\x1b[2J\x1b[Hresize redraw ready")
+		deadline := time.Now().Add(2 * time.Second)
+		for time.Now().Before(deadline) {
+			width, height, sizeErr := term.GetSize(int(os.Stdout.Fd()))
+			if sizeErr == nil && (width != initialWidth || height != initialHeight) {
+				fmt.Printf("\x1b[2J\x1b[Hredrawn %dx%d", width, height)
+				buffer := make([]byte, 1)
+				_, _ = os.Stdin.Read(buffer)
+				os.Exit(0)
+			}
+			time.Sleep(10 * time.Millisecond)
+		}
+		os.Exit(12)
 	case "parent-child", "parent-exits-child":
 		// The delay ensures the runner attaches the parent to its process group
 		// before this deterministic fixture creates a descendant.
