@@ -2,6 +2,7 @@ package runner
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"io"
 	"os/exec"
@@ -250,6 +251,7 @@ func (s *terminalSession) drainFinal(ctx context.Context, quiet time.Duration) e
 func (s *terminalSession) stop(ctx context.Context) cleanupResult {
 	s.stopOnce.Do(func() {
 		result := cleanupResult{attempted: true, mechanism: s.tree.mechanism()}
+		var terminationErr error
 		_, _, exited := s.outcome.result()
 		if !exited {
 			graceCtx, cancel := context.WithTimeout(ctx, 150*time.Millisecond)
@@ -266,9 +268,9 @@ func (s *terminalSession) stop(ctx context.Context) cleanupResult {
 			result.forced = true
 			if err := s.tree.terminate(); err != nil {
 				if activeErr != nil {
-					result.err = fmt.Errorf("terminate process tree after status query failed (%v): %w", activeErr, err)
+					terminationErr = fmt.Errorf("terminate process tree after status query failed (%v): %w", activeErr, err)
 				} else {
-					result.err = fmt.Errorf("terminate process tree: %w", err)
+					terminationErr = fmt.Errorf("terminate process tree: %w", err)
 				}
 			}
 		}
@@ -290,12 +292,20 @@ func (s *terminalSession) stop(ctx context.Context) cleanupResult {
 			}
 		}
 		confirmed, confirmErr := s.waitForTreeExit(ctx)
-		if confirmErr != nil && result.err == nil {
-			result.err = fmt.Errorf("confirm process-tree exit: %w", confirmErr)
-		}
 		result.confirmedExited = confirmed
-		if !result.confirmedExited && result.err == nil {
-			result.err = fmt.Errorf("target process-tree termination was not confirmed")
+		if !result.confirmedExited {
+			cleanupErr := terminationErr
+			if confirmErr != nil {
+				cleanupErr = errors.Join(cleanupErr, fmt.Errorf("confirm process-tree exit: %w", confirmErr))
+			}
+			if cleanupErr == nil {
+				cleanupErr = fmt.Errorf("target process-tree termination was not confirmed")
+			}
+			if result.err == nil {
+				result.err = cleanupErr
+			} else {
+				result.err = errors.Join(result.err, cleanupErr)
+			}
 		}
 		if err := s.tree.close(); err != nil && result.err == nil {
 			result.err = fmt.Errorf("close process-tree handle: %w", err)
