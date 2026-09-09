@@ -1,7 +1,7 @@
 {
   "version": 1,
   "name": "intentional Windows greeting failure",
-  "command": ["C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "./hello.ps1"],
+  "command": ["C:\\Windows\\System32\\cmd.exe", "/d", "/q", "/c", "hello.cmd"],
   "timeout_ms": 10000,
   "startup_timeout_ms": 30000,
   "run_timeout_ms": 45000,
