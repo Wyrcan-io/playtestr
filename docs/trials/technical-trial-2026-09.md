@@ -1,8 +1,8 @@
 # Lazygit, Lazydocker, and K9s technical trial
 
-Status: historical technical campaign completed across all six Windows/Linux client cells. The Linux PTY defect in rc.1 is fixed and verified in published rc.2; stable promotion remains held by incomplete candidate real-app and independent-adoption evidence.
+Status: historical and downloaded-rc.2 technical campaigns completed across all six Windows/Linux client cells. The Linux PTY defect in rc.1 is fixed and verified in published rc.2; stable promotion remains held by independent-adoption evidence.
 
-This operator-run technical campaign began on 7 September 2026 and its focused follow-up continued through 9 September. It does not represent maintainer review, endorsement, voluntary repeat use, or willingness to pay. A later IPython check supplies a non-Go technical sample; the parent R3 participant gates remain open.
+This operator-run technical campaign began on 7 September 2026 and its focused follow-up continued through 10 September. It does not represent maintainer review, endorsement, voluntary repeat use, or willingness to pay. A later IPython check supplies a non-Go technical sample; the parent R3 participant gates remain open.
 
 ## Environment and pinned inputs
 
@@ -12,7 +12,7 @@ This operator-run technical campaign began on 7 September 2026 and its focused f
 - Kubernetes: one disposable kind v0.33.0 cluster named `playtestr-r3`, with a digest-pinned Kubernetes v1.35.0 node image and a dedicated kubeconfig. Windows and Linux K9s clients reached the same Linux-node cluster.
 - Target versions, commits, archive hashes, runner assets, container image, and node image are frozen in [`trials/manifest.json`](../../trials/manifest.json).
 
-The published `v0.1.0-rc.1` runner was always tried first. Windows historical results use that release asset. Linux historical results after the initial failure use a checkout-built `dev` runner and therefore do not prove rc.1 is compatible. Published rc.2 later passed the native `/dev/tty` package and public-install checks, then completed the candidate Linux Lazygit cell; its candidate sample is tracked separately in the [evidence ledger](evidence-ledger-2026-09.md).
+The published `v0.1.0-rc.1` runner was always tried first. Windows historical results use that release asset. Linux historical results after the initial failure use a checkout-built `dev` runner and therefore do not prove rc.1 is compatible. Published rc.2 later passed the native `/dev/tty` package and public-install checks, then completed a separate 60/60 candidate sample across all six Windows/Linux application cells. That sample is tracked separately in the [evidence ledger](evidence-ledger-2026-09.md).
 
 ## Matrix result
 
@@ -79,10 +79,12 @@ The fix sets `Setctty` with child descriptor zero alongside `Setsid`. A Unix-onl
 | R3-T08 | Target/version compact redraw | Accepted limitation | Exclude Lazydocker v0.25.2 Linux help-after-80x24-resize; normal viewport help and resize-only paths remain in scope. |
 | R3-T09 | Spec synchronization / oracle | Resolved in candidate recipe | Clear persisted commit input, prove dialog closure, and require the exact Git commit/tree oracle. |
 
-Focused disposition through 10 September: T01 is fixed in published candidate bytes. T04 passes the downloaded candidate real-app path. T07 is fixed at the spec/harness layer and passes its minimized checkout-built Linux rerun; the candidate Lazydocker lifecycle rerun remains blocked by Docker. T05's runner-side evidence loss is fixed, while target-supplied blank diagnostics remain a limitation. T08 is accepted only as a Lazydocker v0.25.2 compact-layout exclusion. T09's failed external oracles remain retained, and its corrected candidate commit flow passes.
+Focused disposition through 10 September: T01 is fixed in published candidate bytes. T04 passes the downloaded candidate real-app path. T07 is fixed at the spec/harness layer and the downloaded rc.2 lifecycle paths pass on both hosts with exact Docker oracles. T05's runner-side evidence loss is fixed, while target-supplied blank diagnostics remain a limitation. T08 is accepted only as a Lazydocker v0.25.2 compact-layout exclusion. T09's failed external oracles remain retained, and its corrected candidate commit flow passes.
+
+The candidate K9s follow-up exposed two harness details rather than Playtestr defects. Windows PowerShell 5 misdecoded a literal Unicode lambda in an external oracle; the retained false failure was corrected by constructing the expected character from code point `U+03BB`. Pod deletion also produced a normal transient overlap between the terminating old pod and the replacement. The retained immediate-count failure was corrected by polling until the API converged to exactly one new Ready UID with the old UID absent.
 
 The follow-up also built an unmodified pinned Lazygit control and a synthetic source mutation that changed the help title. The same spec passed the control, failed the launched mutated application at the intended assertion, and passed after restoring the control. A separate IPython 8.27.0 interaction wrote an exact file through its real prompt; the combined harness failed with an intentionally wrong oracle and passed after the oracle was corrected. These are technical value and stack-diversity results, not participant adoption.
 
 The original campaign modified only fixtures. The focused follow-up added a separately labeled synthetic Lazygit source mutation and an IPython technical flow, closing the application-regression and cross-language technical checks. Human review, voluntary second use, and project CI adoption remain open.
 
-The disposable cluster and original ownership-checked Docker fixture were removed by exact identity. The focused follow-up's exact fixture ID was already absent when final cleanup verification ran. No broad Docker listing, prune, remove-all, context change, or host-service restart was used.
+The disposable cluster and all ownership-checked Docker fixtures were removed by exact identity. For the candidate follow-up, the Docker fixture's exact ID, name, and two ownership labels were rechecked before removal. The kind node's exact name and cluster/role labels were verified, final fixture state was captured through an explicit kubeconfig and context, and the named cluster was deleted with absence confirmed. No broad Docker listing, prune, remove-all, context change, or host-service restart was used.

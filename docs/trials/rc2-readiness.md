@@ -1,6 +1,6 @@
 # v0.1.0-rc.2 readiness record
 
-Status: candidate published and native install gates complete; R4 entry held by incomplete candidate real-application cells and independent-participant gates. Updated 10 September 2026. Release owner: Wyrcan-io repository owner.
+Status: candidate publication, native install gates, downloaded-binary release boundaries, and the six-cell Windows/Linux real-application matrix are complete. R4 entry remains held by independent-participant gates. Updated 10 September 2026. Release owner: Wyrcan-io repository owner.
 
 ## Candidate identity
 
@@ -26,8 +26,8 @@ Public downloads matched the workflow artifacts byte-for-byte and reported `play
 | T03 dashboard privacy | Public recipes require owned resources and sanitize evidence; private dashboard output remains ignored | Accepted process control |
 | T04 Lazygit help/resize/quit | Downloaded rc.2 Linux asset passed the full synchronized real-app flow | Fixed and verified in candidate bytes |
 | T05 negative evidence | Failure screen is captured before cleanup; deterministic regression passes | Runner fixed; target-supplied blank diagnostics accepted as a target limitation |
-| T06 Docker integration | Endpoint preflight fails without fallback; current daemon outage is recorded as setup failure | Accepted process control; local infrastructure unavailable |
-| T07 Lazydocker stopped/start | Checkout-built Linux exact-ID flow passed with changed `StartedAt` | Recipe fixed; candidate lifecycle rerun interrupted by daemon loss |
+| T06 Docker integration | Endpoint preflight fails without fallback; interrupted attempts stayed classified as setup failures, then candidate trials resumed only after the verified endpoint returned | Accepted process control and verified recovery |
+| T07 Lazydocker stopped/start | Downloaded rc.2 passed exact-ID stop/start/restart flows on Windows and Linux with status, exit-code, and changed-`StartedAt` oracles | Recipe fixed and verified in candidate bytes |
 | T08 compact help | Lazydocker v0.25.2 Linux help after live resize to 80x24 | Demonstrated limitation excluded from supported scope |
 | T09 persisted commit draft | Two candidate screen-pass/oracle-fail attempts retained; clearing input and proving modal closure produced the exact commit and tree | Fixed in candidate recipe; external Git oracle remains mandatory |
 
@@ -39,21 +39,23 @@ Public downloads matched the workflow artifacts byte-for-byte and reported `play
 | Windows and Linux release boundaries | Downloaded rc.2: natural exit, signal cancellation, total timeout, output cap, descendant cleanup | 5/5 passed per host with expected statuses and cleanup evidence |
 | Windows Lazygit primary | Downloaded rc.2, exact staged-file oracle per attempt | 10/10 passed |
 | Windows Lazydocker logs | Downloaded rc.2, exact owned-container oracle per attempt | 10/10 passed |
-| Windows Lazydocker lifecycle | Stop/start/restart attempt | Setup failure: Docker named pipe disappeared before the action; not counted as a product result |
+| Windows Lazydocker lifecycle | Stop/start/restart against one ownership-checked fixture | 3/3 passed; a fresh second session also passed |
 | Linux Lazygit primary | Downloaded rc.2, exact staged-file oracle per attempt | 10/10 passed |
 | Linux Lazygit broader flow | Stage/unstage, commit, branch, and synchronized help/resize with Git oracles | 4/4 passed; earlier oracle failures retained separately |
 | Lazygit second sessions | One reset-and-rerun session on Windows and Linux | 2/2 hosts passed |
-| Candidate Lazydocker Linux and K9s | No safe daemon or cluster access after Docker loss | Unexecuted |
+| Linux Lazydocker | Ten log repetitions, four lifecycle actions, supported help/resize, bounded invalid endpoint, and a fresh session | 10/10 primary and all broader supported paths passed; compact 80x24 post-resize help remains an explicit exclusion |
+| Windows K9s | Ten log repetitions; live YAML, help/resize, empty namespace, delete/cancel, denied/unreachable APIs, and a fresh session | 10/10 primary and all broader paths passed with Kubernetes API oracles |
+| Linux K9s | Same downloaded-candidate paths and independent API checks as Windows | 10/10 primary and all broader paths passed |
 | Application-regression value | Pinned Lazygit good/mutated/restored experiment | Complete technical evidence |
 | Cross-language flow | IPython 8.27.0 file write with failed and recovered oracle | Complete technical evidence |
 
-The candidate sample stays separate from the historical 60/60 technical campaign. It is currently 30/30 across the three completed repeated cells; no denominator includes setup-interrupted or unexecuted cells.
+The candidate sample stays separate from the historical 60/60 technical campaign. It is 60/60 across all six Windows/Linux client cells, with no hidden retries. Setup interruptions, exploratory failures, corrected-oracle reruns, expected negative cases, and broader scenarios remain outside that denominator.
 
 ## R4 blockers
 
-- Complete the downloaded rc.2 Lazydocker Linux and K9s Windows/Linux cells when isolated Docker/Kubernetes infrastructure is available; complete the Windows Lazydocker second session then.
-- Verify and remove the recorded candidate Lazydocker fixture by exact ID and ownership labels when Docker becomes available.
 - Obtain three qualifying independent project reviews across at least two stacks.
 - Record two voluntary second uses and one integration in a participant project's CI.
 
-Stable release work must not start from this record yet. Restarting Docker Desktop was deliberately avoided because it could affect unrelated containers; the outage was not bypassed through an ambient endpoint. WSL access recovered when the read-only run used the required sandbox permission, and its Lazygit and release-fixture cells completed. Human adoption gates cannot be replaced by operator repetitions or inferred from private permission records.
+The candidate Docker fixture was removed only after its exact ID, name, and two ownership labels were verified. The disposable `playtestr-r3` kind node was likewise verified by exact name and cluster/role labels, its final namespace state was recorded, and the named cluster was removed with exact absence confirmed. No unrelated container was enumerated or changed, and no active Kubernetes context was changed.
+
+Stable release work must not start from this record yet. The remaining blockers require actual participant evidence; operator repetitions and private permission records cannot replace review, voluntary reuse, or participant-owned CI adoption. macOS real-application compatibility also remains unclaimed because only native fixtures, packaging, and published installation ran there.

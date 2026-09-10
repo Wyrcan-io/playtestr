@@ -1,6 +1,6 @@
 # R3b — Resolve trial findings and verify the next candidate
 
-Status: executing; source fixes, rc.1 baseline, rc.2 publication, native package checks, public install checks, release boundaries, and three candidate real-app cells are complete as of 10 September 2026. Docker/Kubernetes-dependent candidate cells and independent participant gates remain. Created 8 September 2026. Execute after the initial technical campaign and before entering [R4: stable release](04-stable-release.md).
+Status: technical candidate work complete as of 10 September 2026; source fixes, rc.1 baseline, rc.2 publication, native package and public install checks, release boundaries, all six Windows/Linux real-app cells, second sessions, negative cases, and exact cleanup are complete. Independent participant gates remain before [R4: stable release](04-stable-release.md). Created 8 September 2026.
 
 ## Outcome
 
@@ -167,11 +167,11 @@ R4 may begin only when its original entry requirements and the checklist below a
 - [x] Reviewed source changes committed/pushed with authorization and passing applicable CI.
 - [x] Repaired full rc.1 hosted installation matrix verified; the shell-lookup claim matches what was actually tested.
 - [x] Next candidate published with authorization, immutable provenance, and native artifact checks.
-- [ ] Downloaded candidate passes the controlling-terminal regression and the complete Lazygit Linux workflow; Docker/Kubernetes-dependent real-app cells remain pending while Docker is unavailable.
+- [x] Downloaded candidate passes the controlling-terminal regression and the complete supported Windows/Linux real-app matrix, including Lazygit, Lazydocker, and K9s.
 - [x] Completed candidate repetitions are recorded separately from historical 60/60, setup failures, and earlier failures.
 - [x] Real application-regression experiment and cross-language technical coverage completed.
 - [ ] R3 independent review, repeat-use, and CI gates have actual records.
-- [ ] Historical owned resources were cleaned by exact ID; final cleanup of the candidate Lazydocker fixture awaits Docker availability and must use its recorded ID and labels.
+- [x] Historical and candidate-owned resources were cleaned by verified exact identity; the named kind cluster was also removed with absence confirmed.
 - [x] Public docs are accurate and sanitized; the R4 readiness record visibly retains its blockers.
 
 This is a bounded release-readiness plan. General external-assertion APIs, new artifact formats, hosted dashboards, broad terminal-emulator rewrites, and later sprint features require separate evidence and scope decisions.

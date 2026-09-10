@@ -24,8 +24,10 @@ Use [`scripts/trials/run-trial.ps1`](../scripts/trials/run-trial.ps1) on Windows
 
 1. Use a disposable cluster or an explicitly supplied dedicated context and kubeconfig. Create a namespace plus uniquely labeled Pod and ConfigMap; record UIDs and live fields through the API.
 2. Assert the selected resource identity before mutation. Logs require the unique pod marker. YAML assertions use the live field and remove historical last-applied annotations that could contain stale values.
-3. Delete expects the original pod UID to disappear and a new Ready UID to appear. Cancel expects the original UID to remain without a deletion timestamp. Readiness polling is bounded.
+3. Delete polls through normal rollout overlap until the original pod UID is absent and exactly one replacement UID is Ready without a deletion timestamp. A transient old-terminating/new-running pair is not the final result. Cancel expects the original UID to remain without a deletion timestamp. All polling is bounded.
 4. Exercise failure by changing the live ConfigMap value while retaining the same fixture identity; the overall attempt must fail. Restore the live field and rerun to green.
 5. Cleanup uses the recorded context, namespace, name, and UID. Never change the operator's active context and never issue cluster-wide deletion.
 
 For all targets, keep exploratory, setup, primary, negative, and recovery attempts distinct. Preserve `runner-report.json`, `harness-result.json`, oracle output, target/version hashes, and cleanup outcome. A target assertion can pass while the user task fails; only the combined status is the trial result.
+
+Keep external oracles portable across their declared hosts. With Windows PowerShell 5, construct non-ASCII constants from code points or load verified UTF-8 data instead of assuming a script literal will decode identically. Retain an oracle failure caused by the harness separately from the corrected run; do not relabel it as an application or Playtestr failure.
