@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "scenarios": [
+    {
+      "id": "pass",
+      "specFile": "examples/menu.json",
+      "runnerVersion": "Playtestr source capture",
+      "host": "Windows amd64",
+      "sourceRevision": "26fbda8",
+      "command": "playtestr test examples/menu.json",
+      "specLines": ["{", "  \"version\": 1,", "  \"name\": \"Navigate mission control and run diagnostics\",", "  \"command\": [\"./bin/demo\"],", "  \"steps\": [", "    {\"expect\": \"> Deploy preview\"},", "    {\"key\": \"ArrowDown\"},", "    {\"expect\": \"> Run diagnostics\"},", "    {\"key\": \"Enter\"},", "    {\"expect\": \"Diagnostics: all systems healthy.\"},", "    {\"snapshot\": \"diagnostics.txt\"}", "  ]", "}"],
+      "frames": [
+        {"activeLine": 6, "screen": "PLAYTESTR / mission control\n\n> Deploy preview\n  Run diagnostics\n  Exit\n\nUse arrow keys and Enter. Press q to quit.", "explanation": "The first assertion positively identifies the initial rendered state.", "result": "PASS step 1", "outcome": "pass"},
+        {"activeLine": 7, "screen": "PLAYTESTR / mission control\n\n  Deploy preview\n> Run diagnostics\n  Exit\n\nUse arrow keys and Enter. Press q to quit.", "explanation": "Playtestr sends ArrowDown through the pseudoterminal.", "result": "PASS step 2", "outcome": "pass"},
+        {"activeLine": 8, "screen": "PLAYTESTR / mission control\n\n  Deploy preview\n> Run diagnostics\n  Exit\n\nUse arrow keys and Enter. Press q to quit.", "explanation": "The rendered screen confirms that Run diagnostics is selected.", "result": "PASS step 3", "outcome": "pass"},
+        {"activeLine": 9, "screen": "PLAYTESTR / mission control\n\n  Deploy preview\n> Run diagnostics\n  Exit\n\nUse arrow keys and Enter. Press q to quit.\n\nDiagnostics: all systems healthy.", "explanation": "Enter activates the selected action and the target redraws its screen.", "result": "PASS step 4", "outcome": "pass"},
+        {"activeLine": 10, "screen": "PLAYTESTR / mission control\n\n  Deploy preview\n> Run diagnostics\n  Exit\n\nUse arrow keys and Enter. Press q to quit.\n\nDiagnostics: all systems healthy.", "explanation": "The visible diagnostic result is present on the rendered screen.", "result": "PASS step 5", "outcome": "pass"},
+        {"activeLine": 11, "screen": "PLAYTESTR / mission control\n\n  Deploy preview\n> Run diagnostics\n  Exit\n\nUse arrow keys and Enter. Press q to quit.\n\nDiagnostics: all systems healthy.", "explanation": "The reviewed text snapshot matches. The complete spec passes.", "result": "PASS Navigate mission control and run diagnostics", "outcome": "pass"}
+      ]
+    },
+    {
+      "id": "failure",
+      "specFile": "examples/snapshot-mismatch.json",
+      "runnerVersion": "Playtestr source capture",
+      "host": "Windows amd64",
+      "sourceRevision": "26fbda8",
+      "command": "playtestr test examples/snapshot-mismatch.json",
+      "specLines": ["{", "  \"version\": 1,", "  \"name\": \"An intentional menu regression shows a diff\",", "  \"command\": [\"./bin/demo\"],", "  \"steps\": [", "    {\"expect\": \"> Deploy preview\"},", "    {\"key\": \"Enter\"},", "    {\"expect\": \"Preview deployed successfully.\"},", "    {\"snapshot\": \"diagnostics.txt\"}", "  ]", "}"],
+      "frames": [
+        {"activeLine": 6, "screen": "PLAYTESTR / mission control\n\n> Deploy preview\n  Run diagnostics\n  Exit\n\nUse arrow keys and Enter. Press q to quit.", "explanation": "The initial selection is present, so the first assertion passes.", "result": "PASS step 1", "outcome": "pass"},
+        {"activeLine": 7, "screen": "PLAYTESTR / mission control\n\n> Deploy preview\n  Run diagnostics\n  Exit\n\nUse arrow keys and Enter. Press q to quit.\n\nPreview deployed successfully.", "explanation": "Enter deploys the preview instead of moving to diagnostics.", "result": "PASS step 2", "outcome": "pass"},
+        {"activeLine": 8, "screen": "PLAYTESTR / mission control\n\n> Deploy preview\n  Run diagnostics\n  Exit\n\nUse arrow keys and Enter. Press q to quit.\n\nPreview deployed successfully.", "explanation": "The expected preview confirmation appears, providing positive readiness evidence.", "result": "PASS step 3", "outcome": "pass"},
+        {"activeLine": 9, "screen": "PLAYTESTR / mission control\n\n> Deploy preview\n  Run diagnostics\n  Exit\n\nUse arrow keys and Enter. Press q to quit.\n\nPreview deployed successfully.", "explanation": "The snapshot differs from the reviewed diagnostics baseline. Playtestr fails safely and saves the screen and diff.", "result": "FAIL step 4 · snapshot_mismatch · exit 1", "outcome": "fail"}
+      ],
+      "evidence": {
+        "expected": "PLAYTESTR / mission control\n\n  Deploy preview\n> Run diagnostics\n  Exit\n\nUse arrow keys and Enter. Press q to quit.\n\nDiagnostics: all systems healthy.",
+        "actual": "PLAYTESTR / mission control\n\n> Deploy preview\n  Run diagnostics\n  Exit\n\nUse arrow keys and Enter. Press q to quit.\n\nPreview deployed successfully.",
+        "diff": "--- expected: diagnostics.txt\n+++ actual: diagnostics.txt\n@@ -1,9 +1,9 @@\n PLAYTESTR / mission control\n \n-  Deploy preview\n-> Run diagnostics\n+> Deploy preview\n+  Run diagnostics\n   Exit\n \n Use arrow keys and Enter. Press q to quit.\n \n-Diagnostics: all systems healthy.\n+Preview deployed successfully."
+      }
+    }
+  ]
+}

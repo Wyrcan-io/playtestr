@@ -4,43 +4,34 @@
 
 Press the keys. Check the screen. Catch the regression. Playtestr drives interactive CLIs and TUIs through a real pseudoterminal, compares rendered text snapshots, and produces readable diffs when something changes.
 
-[Get started](#install-and-try-the-demo) · [Write a test](#write-a-test) · [Join a project trial](docs/trials/README.md) · [Spec v1](docs/spec-v1.md) · [Report v1](docs/report-v1.md) · [Support](https://github.com/Wyrcan-io/playtestr/blob/v0.1.0/SUPPORT.md)
+[Download stable v0.1.0](https://wyrcan-io.github.io/playtestr/download/) · [First test](https://wyrcan-io.github.io/playtestr/docs/installation/) · [Documentation](https://wyrcan-io.github.io/playtestr/docs/) · [Examples](https://wyrcan-io.github.io/playtestr/examples/) · [Support](https://wyrcan-io.github.io/playtestr/support/)
 
 - **Keyboard-driven tests:** describe an interaction in a small JSON spec.
 - **Rendered screen assertions:** test text after cursor movement, redraws, and resizing.
 - **Reviewable regressions:** compare snapshots and deliberately update a selected baseline.
 - **Bounded execution:** set deadlines and output limits, with cancellation and process cleanup.
 
-Written in Go. The MVP has a versioned test contract and machine-readable reports for trusted local applications.
+The standalone runner is written in Go but does not require Go to run. The MVP has a versioned test contract and machine-readable reports for trusted local applications.
 
-Development follows [small, testable sprints](docs/sprints.md). The [language decision](docs/language-decision.md) records why the MVP uses Go.
+Stable `v0.1.0` publishes native archives for Linux x86-64 (`amd64`), Apple silicon macOS (`arm64`), and Windows x86-64 (`amd64`). Support is limited to the exact documented targets and evidence; it is not a claim for every terminal application, OS release, distribution, or architecture.
 
 Playtestr starts a real pseudoterminal, sends keyboard input, and feeds output into a VT terminal emulator. Assertions inspect the rendered screen, including cursor movement and redraws.
 
-## Install and try the demo
+## Install and run a first test
 
-Release archives contain one native `playtestr` binary, this README, the Apache 2.0 license, third-party notices, and an adjacent SHA-256 checksum. Download the archive for your host from [GitHub Releases](https://github.com/Wyrcan-io/playtestr/releases), verify the adjacent `.sha256` file, extract it, and put `playtestr` (or `playtestr.exe`) on your `PATH`.
+Choose the archive that matches your host exactly. Each archive has an adjacent SHA-256 integrity file:
 
-Stable `v0.1.0` targets are Linux amd64, macOS arm64, and Windows amd64. Each target is published only after its native test and extracted-archive walkthrough pass. See the [v0.1.0 install and first-test guide](docs/releases/v0.1.0-installation-walkthrough.md), or build the current development version from source with Go 1.25 or newer.
+| Host | Archive | Checksum |
+| --- | --- | --- |
+| Linux x86-64 (`amd64`) | [`playtestr_0.1.0_linux_amd64.tar.gz`](https://github.com/Wyrcan-io/playtestr/releases/download/v0.1.0/playtestr_0.1.0_linux_amd64.tar.gz) | [`.sha256`](https://github.com/Wyrcan-io/playtestr/releases/download/v0.1.0/playtestr_0.1.0_linux_amd64.tar.gz.sha256) |
+| Apple silicon macOS (`arm64`) | [`playtestr_0.1.0_darwin_arm64.tar.gz`](https://github.com/Wyrcan-io/playtestr/releases/download/v0.1.0/playtestr_0.1.0_darwin_arm64.tar.gz) | [`.sha256`](https://github.com/Wyrcan-io/playtestr/releases/download/v0.1.0/playtestr_0.1.0_darwin_arm64.tar.gz.sha256) |
+| Windows x86-64 (`amd64`) | [`playtestr_0.1.0_windows_amd64.zip`](https://github.com/Wyrcan-io/playtestr/releases/download/v0.1.0/playtestr_0.1.0_windows_amd64.zip) | [`.sha256`](https://github.com/Wyrcan-io/playtestr/releases/download/v0.1.0/playtestr_0.1.0_windows_amd64.zip.sha256) |
 
-`v0.1.0` contains the Unix controlling-terminal repair first verified in rc.2. Its Linux and macOS archives are required to pass a target that opens and exchanges input through `/dev/tty`; all three advertised archives must pass the public-install matrix. See [Platform support](docs/platform-support.md) for exact evidence and boundaries.
+Follow the [binary-only installation and first-test walkthrough](https://wyrcan-io.github.io/playtestr/docs/installation/). It verifies the checksum, creates a small host-native greeting target, produces a passing result, proves a deliberate failure with evidence, and restores the passing test. Release archives include one native binary, this README, the Apache 2.0 license, and third-party notices.
 
-```sh
-git clone https://github.com/Wyrcan-io/playtestr.git
-cd playtestr
-go build -o bin/demo ./cmd/demo
-go build -o bin/fixture ./cmd/fixture
-go build -o bin/playtestr ./cmd/playtestr
-./bin/playtestr test --report results.json examples/menu.json examples/menu-exit.json
-```
+The target application and its runtime remain your responsibility. Playtestr runs trusted targets with your user permissions and is not a sandbox. See [Platform support](docs/platform-support.md) for exact release evidence and [Terminal compatibility](docs/terminal-compatibility.md) for rendered-screen limits.
 
-On Windows, add `.exe` to all three build output names and invoke `./bin/playtestr.exe`. Run `./bin/demo.exe` to explore the demo manually: select an option with arrow keys and press Enter.
-
-For development on this checkout, a project-local MinGW-w64 compiler can run Go's Windows race detector without changing the system PATH:
-
-```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\test-race.ps1
-```
+To build the current development version with Go 1.25 or newer, use the [source development guide](docs/development.md).
 
 ## Write a test
 

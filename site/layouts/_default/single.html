@@ -1,0 +1,14 @@
+{{ define "main" }}
+<div class="wrap interior-layout">
+  {{ if eq .Section "docs" }}
+  <details class="docs-nav-mobile"><summary>Documentation navigation</summary>{{ partial "docs-nav.html" . }}</details>
+  <aside class="docs-sidebar">{{ partial "docs-nav.html" . }}</aside>
+  {{ end }}
+  <article class="prose{{ if ne .Section "docs" }} prose-wide{{ end }}">
+    {{ if not .Params.source }}<p class="eyebrow">{{ .Params.eyebrow | default (upper .Section) }}</p><h1>{{ .Title }}</h1>{{ end }}
+    {{ if .Params.source }}{{ .RenderString (readFile .Params.source) }}{{ else }}{{ .Content }}{{ end }}
+    {{ with .Params.source }}<p class="source-link"><a href="https://github.com/Wyrcan-io/playtestr/blob/main/{{ . }}">View source <span aria-hidden="true">↗</span></a> · <a href="https://github.com/Wyrcan-io/playtestr/edit/main/{{ . }}">Suggest an edit <span aria-hidden="true">↗</span></a></p>{{ end }}
+    {{ if or .Params.previous .Params.next }}<nav class="next-page" aria-label="Adjacent documentation pages">{{ with .Params.previous }}<a href="{{ .url | relURL }}">← {{ .label }}</a>{{ else }}<span></span>{{ end }}{{ with .Params.next }}<a href="{{ .url | relURL }}">{{ .label }} →</a>{{ end }}</nav>{{ end }}
+  </article>
+</div>
+{{ end }}

@@ -1,0 +1,7 @@
+{{ define "main" }}
+<article class="wrap prose prose-wide"><p class="eyebrow">EXAMPLES / VERIFIED FIXTURE</p><h1>{{ .Title }}</h1>{{ .Content }}</article>
+<section class="wrap">{{ partial "terminal-demo.html" . }}</section>
+<article class="wrap prose prose-wide"><h2>Run the examples locally</h2><p>The website controls explore prepared, sanitized states. The browser does not run a pseudoterminal. To execute the same repository fixtures, build the current source checkout and run:</p><pre><code>go build -o bin/demo ./cmd/demo
+go run ./cmd/playtestr test examples/menu.json
+go run ./cmd/playtestr test examples/snapshot-mismatch.json</code></pre><p>The first command should pass. The snapshot-mismatch command is deliberately expected to exit 1 and write its actual screen and diff. On Windows, add <code>.exe</code> to the demo output name.</p><p><a href="https://github.com/Wyrcan-io/playtestr/tree/main/examples">View example source on GitHub ↗</a> · <a href="{{ "demos/README.txt" | relURL }}">Read capture provenance</a></p></article>
+{{ end }}

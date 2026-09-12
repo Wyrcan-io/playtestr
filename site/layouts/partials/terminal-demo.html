@@ -1,0 +1,19 @@
+<figure class="terminal-demo" data-terminal-demo data-source="{{ "demos/terminal-demo.json" | relURL }}" tabindex="0" aria-label="Interactive Playtestr example using recorded terminal states">
+  <figcaption class="terminal-chrome"><span class="terminal-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>Interactive example · recorded terminal states</span><span class="terminal-status" data-demo-status>Paused</span></figcaption>
+  <div class="scenario-tabs" role="group" aria-label="Choose demonstration"><button type="button" aria-pressed="true" data-scenario="pass">Passing example</button><button type="button" aria-pressed="false" data-scenario="failure">Intentional failure</button></div>
+  <div class="demo-workspace">
+    <div class="demo-spec"><p data-demo-filename>examples/menu.json</p><ol class="spec-lines" data-spec-lines><li class="active"><span class="line-no">1</span>{</li><li><span class="line-no">2</span>  "steps": [</li><li><span class="line-no">3</span>    {"expect": "&gt; Deploy preview"},</li><li><span class="line-no">4</span>    {"key": "ArrowDown"},</li><li><span class="line-no">5</span>    {"expect": "&gt; Run diagnostics"},</li><li><span class="line-no">6</span>    {"key": "Enter"},</li><li><span class="line-no">7</span>    {"expect": "all systems healthy."}</li><li><span class="line-no">8</span>  ]</li><li><span class="line-no">9</span>}</li></ol></div>
+    <div class="demo-screen"><p>Rendered screen</p><div class="demo-command"><span class="prompt" aria-hidden="true">$ </span><span data-demo-command>playtestr test examples/menu.json</span></div><pre data-demo-screen>PLAYTESTR / mission control
+
+&gt; Deploy preview
+  Run diagnostics
+  Exit
+
+Use arrow keys and Enter. Press q to quit.</pre><p class="demo-explanation" data-demo-explanation>Playtestr waits until the initial selection is visible.</p><p class="demo-result" data-demo-result>Step 1 of 6</p></div>
+  </div>
+  <div class="evidence-panel" data-evidence-panel hidden><div class="evidence-tabs" role="group" aria-label="Failure evidence"><button type="button" aria-pressed="true" data-evidence="expected">Expected</button><button type="button" aria-pressed="false" data-evidence="actual">Actual</button><button type="button" aria-pressed="false" data-evidence="diff">Diff</button></div><pre class="evidence-output" data-evidence-output></pre></div>
+  <div class="demo-footer"><div class="demo-controls"><button type="button" data-demo-action="play">Play</button><button type="button" data-demo-action="next">Next step</button><button type="button" data-demo-action="restart">Restart</button></div><span class="demo-progress" data-demo-progress>1 / 6</span></div>
+  <p class="demo-provenance" data-demo-provenance>Fixture evidence from the repository; interactive data is loading.</p>
+  <p class="visually-hidden" aria-live="polite" data-demo-live></p>
+  <noscript><p class="noscript-note">The first verified example remains above. Enable JavaScript for step controls and failure evidence views.</p></noscript>
+</figure>

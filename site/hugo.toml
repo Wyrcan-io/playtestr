@@ -1,0 +1,32 @@
+baseURL = "https://wyrcan-io.github.io/playtestr/"
+title = "Playtestr"
+locale = "en-US"
+contentDir = "site/content"
+layoutDir = "site/layouts"
+assetDir = "site/assets"
+dataDir = "site/data"
+staticDir = "site/static"
+publishDir = "public"
+disableKinds = ["taxonomy", "term", "RSS"]
+enableRobotsTXT = true
+summaryLength = 24
+
+[params]
+description = "End-to-end testing for interactive CLIs and TUIs. Drive keyboard flows, assert rendered terminal text, and inspect readable failure evidence."
+stableVersion = "v0.1.0"
+github = "https://github.com/Wyrcan-io/playtestr"
+socialImage = "images/social-preview.png"
+
+[outputs]
+home = ["HTML", "JSON"]
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = false
+  [markup.highlight]
+    noClasses = false
+    lineNos = false
+
+[minify]
+minifyOutput = true

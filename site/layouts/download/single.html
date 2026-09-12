@@ -1,0 +1,6 @@
+{{ define "main" }}
+<article class="wrap prose prose-wide"><p class="eyebrow">DOWNLOAD / STABLE</p><h1>Download Playtestr {{ hugo.Data.release.version }}</h1><p>Choose the archive that matches your host and architecture exactly. Download its adjacent checksum file, verify it before extraction, then follow the <a href="{{ "docs/installation/" | relURL }}">binary-only installation walkthrough</a>. The standalone runner does not require Go.</p>
+<div class="download-grid">{{ range hugo.Data.release.targets }}<section class="download-option"><h2>{{ .name }}</h2><p class="arch">{{ .architecture }} · {{ .go_arch }}</p><p class="filename">{{ .archive }}</p><a class="button" href="{{ .archive_url }}">Download {{ .name }} ↓</a><a href="{{ .checksum_url }}">Download SHA-256 checksum</a><p class="checksum">SHA-256 {{ .sha256 }}</p></section>{{ end }}</div>
+{{ .Content }}
+</article>
+{{ end }}

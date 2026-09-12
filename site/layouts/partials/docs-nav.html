@@ -1,0 +1,15 @@
+{{ $current := .RelPermalink }}
+<nav class="docs-nav" aria-label="Documentation">
+  <p class="docs-version">Stable v0.1.0 · Spec v1</p>
+  {{ $url := "docs/" | relURL }}<a href="{{ $url }}"{{ if eq $current $url }} aria-current="page"{{ end }}>Start here</a>
+  {{ $url = "docs/installation/" | relURL }}<a href="{{ $url }}"{{ if eq $current $url }} aria-current="page"{{ end }}>Installation</a>
+  {{ $url = "docs/writing-tests/" | relURL }}<a href="{{ $url }}"{{ if eq $current $url }} aria-current="page"{{ end }}>Writing tests</a>
+  {{ $url = "docs/snapshots/" | relURL }}<a href="{{ $url }}"{{ if eq $current $url }} aria-current="page"{{ end }}>Snapshots</a>
+  {{ $url = "docs/troubleshooting/" | relURL }}<a href="{{ $url }}"{{ if eq $current $url }} aria-current="page"{{ end }}>Troubleshooting</a>
+  <p>Reference</p>
+  {{ $url = "docs/spec-v1/" | relURL }}<a href="{{ $url }}"{{ if eq $current $url }} aria-current="page"{{ end }}>Test spec v1</a>
+  {{ $url = "docs/report-v1/" | relURL }}<a href="{{ $url }}"{{ if eq $current $url }} aria-current="page"{{ end }}>Report v1</a>
+  {{ $url = "docs/compatibility/" | relURL }}<a href="{{ $url }}"{{ if eq $current $url }} aria-current="page"{{ end }}>Compatibility overview</a>
+  {{ $url = "docs/platform-evidence/" | relURL }}<a href="{{ $url }}"{{ if eq $current $url }} aria-current="page"{{ end }}>Platform evidence</a>
+  {{ $url = "docs/terminal-compatibility/" | relURL }}<a href="{{ $url }}"{{ if eq $current $url }} aria-current="page"{{ end }}>Terminal behavior</a>
+</nav>

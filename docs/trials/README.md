@@ -2,6 +2,10 @@
 
 Status: recruiting. These trials test whether Playtestr protects a real terminal interaction well enough that a project maintainer chooses to run the test again.
 
+This is an optional trial for maintainers and contributors with one repeatable, non-sensitive CLI or TUI workflow. Plan for 30–60 minutes after the target is already runnable. Read the eligibility and prerequisites below, then use the [public project-trial form](https://github.com/Wyrcan-io/playtestr/issues/new?template=project-trial.yml) only for information you are comfortable publishing. Attribution is optional and a project alias is allowed.
+
+## Program status and evidence boundaries
+
 Operator technical evidence is recorded separately in the [R3c cross-stack record](cross-stack-validation-2026-09.md), with reusable [sanitized recipes](cross-stack-recipes.md).
 
 R3 is active following stable publication. It needs three completed participant projects across at least two implementation stacks, two maintainers who voluntarily repeat use, and one successful participant-owned CI integration. The demo, Gum fixture, and nine-application R3c campaign are technical coverage; they do not count as independent adoption. Use only the checksum-verified [stable v0.1.0 download](https://github.com/Wyrcan-io/playtestr/releases/tag/v0.1.0) for participant results.

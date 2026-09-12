@@ -1,0 +1,13 @@
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="wordmark" href="{{ "" | relURL }}" aria-label="Playtestr home"><span class="mark" aria-hidden="true">&gt;_</span> playtestr</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" aria-label="Main navigation">
+      <a href="{{ "docs/" | relURL }}"{{ if eq .Section "docs" }} aria-current="page"{{ end }}>Docs</a>
+      <a href="{{ "examples/" | relURL }}"{{ if eq .Section "examples" }} aria-current="page"{{ end }}>Examples</a>
+      <a href="{{ "releases/" | relURL }}"{{ if eq .Section "releases" }} aria-current="page"{{ end }}>Releases</a>
+      <a href="{{ .Site.Params.github }}">GitHub <span aria-hidden="true">↗</span></a>
+      <a class="nav-download" href="{{ "download/" | relURL }}">Download {{ .Site.Params.stableVersion }}</a>
+    </nav>
+  </div>
+</header>

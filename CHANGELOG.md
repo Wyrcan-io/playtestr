@@ -4,6 +4,19 @@ All notable user-visible changes are recorded here. Playtestr is pre-1.0; the
 compatibility rules for released specs, reports, and patches are in
 [`SUPPORT.md`](SUPPORT.md).
 
+## Unreleased documentation
+
+- Build a complete static website with dedicated installation, authoring,
+  snapshots, troubleshooting, compatibility, examples, releases, support, and
+  project-trial pages.
+- Add a recorded interactive terminal example connecting authored steps to a
+  passing rendered screen and an intentional snapshot-mismatch diff.
+- Add direct stable-download choices, documentation search, social-preview
+  metadata, mobile layouts, accessibility behavior, and build/link checks.
+
+These presentation changes do not alter the runner, specification v1, report
+v1, release assets, supported targets, or existing compatibility claims.
+
 ## v0.1.0
 
 First stable release of the standalone Playtestr runner.
@@ -42,4 +55,3 @@ First stable release of the standalone Playtestr runner.
 - A very early Windows descendant can escape before Job Object attachment;
   Unix descendants can deliberately detach into another session.
 - Playtestr runs targets with the user's permissions and is not a sandbox.
-

@@ -1,0 +1,25 @@
+{{- $destination := .Destination -}}
+{{- $routes := dict
+  "../schema/playtestr-spec-v1.schema.json" "/playtestr/schema/playtestr-spec-v1.schema.json"
+  "../schema/playtestr-report-v1.schema.json" "/playtestr/schema/playtestr-report-v1.schema.json"
+  "../../SUPPORT.md" "/playtestr/support/"
+  "../SUPPORT.md" "/playtestr/support/"
+  "SUPPORT.md" "/playtestr/support/"
+  "../../CHANGELOG.md" "/playtestr/releases/"
+  "CHANGELOG.md" "/playtestr/releases/"
+  "v0.1.0-installation-walkthrough.md" "/playtestr/docs/installation/"
+  "releases/v0.1.0-installation-walkthrough.md" "/playtestr/docs/installation/"
+  "spec-v1.md" "/playtestr/docs/spec-v1/"
+  "report-v1.md" "/playtestr/docs/report-v1/"
+  "terminal-compatibility.md" "/playtestr/docs/terminal-compatibility/"
+  "platform-support.md" "/playtestr/docs/platform-evidence/"
+  "releases/v0.1.0.md" "/playtestr/releases/v0.1.0/"
+  "v0.1.0-contract-audit.md" "https://github.com/Wyrcan-io/playtestr/blob/main/docs/releases/v0.1.0-contract-audit.md"
+  "trials/cross-stack-validation-2026-09.md" "https://github.com/Wyrcan-io/playtestr/blob/main/docs/trials/cross-stack-validation-2026-09.md"
+  "external-gum-trial.md" "https://github.com/Wyrcan-io/playtestr/blob/main/docs/external-gum-trial.md"
+  "writing-tests.md" "/playtestr/docs/writing-tests/"
+  "snapshots.md" "/playtestr/docs/snapshots/"
+  "troubleshooting.md" "/playtestr/docs/troubleshooting/"
+-}}
+{{- with index $routes $destination }}{{ $destination = . }}{{ end -}}
+<a href="{{ $destination | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if or (hasPrefix $destination "https://") (hasPrefix $destination "http://") }} rel="noreferrer"{{ end }}>{{ .Text | safeHTML }}</a>

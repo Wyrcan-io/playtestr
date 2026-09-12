@@ -1,0 +1,9 @@
+[
+{{- $pages := where .Site.RegularPages "Params.search" "ne" false -}}
+{{- range $i, $page := $pages -}}
+  {{- if $i }},{{ end }}
+  {{- $body := $page.RawContent -}}
+  {{- with $page.Params.source }}{{ $body = readFile . }}{{ end -}}
+  {"title":{{ $page.Title | jsonify }},"url":{{ $page.RelPermalink | jsonify }},"section":{{ $page.Section | jsonify }},"text":{{ $body | markdownify | plainify | htmlUnescape | jsonify }}}
+{{- end -}}
+]

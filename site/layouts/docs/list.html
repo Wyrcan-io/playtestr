@@ -1,0 +1,10 @@
+{{ define "main" }}
+<div class="wrap interior-layout">
+  <details class="docs-nav-mobile"><summary>Documentation navigation</summary>{{ partial "docs-nav.html" . }}</details>
+  <aside class="docs-sidebar">{{ partial "docs-nav.html" . }}</aside>
+  <article class="prose">
+    <p class="eyebrow">DOCUMENTATION / STABLE v0.1.0</p><h1>{{ .Title }}</h1>{{ .Content }}
+    <section class="search-box" aria-labelledby="search-title"><h2 id="search-title">Search documentation</h2><form class="search-row" data-search-form data-index="{{ "index.json" | relURL }}"><label for="docs-search">Search documentation</label><input id="docs-search" type="search" autocomplete="off" placeholder="Try snapshots, expect_not, cleanup…"><button type="submit">Search</button><button type="button" data-search-clear>Clear</button></form><p class="search-status" data-search-status aria-live="polite">Search page titles and documentation text.</p><ul class="search-results" data-search-results></ul></section>
+  </article>
+</div>
+{{ end }}

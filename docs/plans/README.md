@@ -1,6 +1,6 @@
 # Release and post-MVP delivery plans
 
-Status: R1, the automated R2 boundary, R3b, R3c, and R4 stable publication are complete as recorded in their individual plans; independent walkthrough and adoption gates remain open under R2/R3. These documents do not by themselves authorize outreach. Unimplemented commands and formats remain design targets, not current CLI capabilities.
+Status: R1, the automated R2 boundary, R3b, R3c, and R4 stable publication are complete as recorded in their individual plans; independent walkthrough and adoption gates remain open under R2/R3. R5 public-presentation work is implemented locally and awaits review and live deployment validation. These documents do not by themselves authorize outreach. Unimplemented commands and formats remain design targets, not current CLI capabilities.
 
 The original Sprints 0–4 delivered the MVP. The next four release/adoption milestones make that MVP accessible and test whether independent developers can use it. Sprints 5–10 are proposed development milestones; start each only after reviewing the evidence from the previous milestone. No calendar deadline or future platform claim follows from a sprint number.
 
@@ -14,6 +14,7 @@ The original Sprints 0–4 delivered the MVP. The next four release/adoption mil
 | R3c | [Validate nine applications across three ecosystems](release/03c-cross-stack-validation.md) | Three Python, three Rust, and three Node.js applications pass bounded useful workflows. |
 | R4 | [Publish stable v0.1.0](release/04-stable-release.md) | A documented stable release is backed by technical and installation evidence. |
 | R3, after R4 publication | [Trial three to five independent projects](release/03-real-project-trials.md) | Maintainers review failures, voluntarily reuse tests, and integrate the stable binary into their CI. |
+| R5 | [Prepare the public website and documentation](release/05-public-presentation.md) | A newcomer can understand, download, try, diagnose, and find support through a complete evidence-based website. |
 
 Sequence revised 11 September 2026: R1 → R2 → R3b technical closure → R3c nine-application validation → R4 stable publication → R3 independent adoption → evidence-based Sprint 5 selection. Existing plan identifiers are retained for links. R3 adoption no longer blocks initial stable publication and remains incomplete until observed. R4's post-publication handoff closes after the first participant stable run; full adoption remains owned by R3. Technical correctness and installation blockers still block publication. A feature needed to unblock a trial is either a small release fix or a separately planned sprint, never an unrecorded expansion of release scope.
 

@@ -1,9 +1,14 @@
 # Support and compatibility
 
+Start with the public [documentation](https://wyrcan-io.github.io/playtestr/docs/),
+[troubleshooting guide](https://wyrcan-io.github.io/playtestr/docs/troubleshooting/),
+and [compatibility overview](https://wyrcan-io.github.io/playtestr/docs/compatibility/).
+The reporting routes and detailed policy remain below.
+
 ## Supported v0.1.0 downloads
 
-Playtestr v0.1.0 publishes native archives for Linux amd64, macOS arm64, and
-Windows amd64. Support means the exact archive passed its native package and
+Playtestr v0.1.0 publishes native archives for Linux x86-64 (`amd64`), Apple
+silicon macOS (`arm64`), and Windows x86-64 (`amd64`). Support means the exact archive passed its native package and
 public-install workflows. It is not a claim for other architectures, every OS
 release or Linux distribution, or every terminal application.
 
@@ -53,4 +58,3 @@ For a sensitive security report, use GitHub's
 Do not put a vulnerability, exploit, credential, or unsanitized evidence in a
 public issue. Private reports are reviewed by the repository owner; no response
 time is guaranteed.
-
