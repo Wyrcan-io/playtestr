@@ -1,0 +1,54 @@
+name: Bug report
+description: Report a reproducible Playtestr defect using sanitized evidence.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        GitHub issues are public. Remove credentials, private source, personal paths, command arguments, typed values, and sensitive terminal output. Use private vulnerability reporting for security-sensitive material.
+  - type: input
+    id: runner
+    attributes:
+      label: Playtestr version and archive
+      description: Include `playtestr --version`, archive filename, and observed SHA-256.
+    validations:
+      required: true
+  - type: input
+    id: host
+    attributes:
+      label: Host
+      description: OS name/version, architecture, and shell.
+    validations:
+      required: true
+  - type: input
+    id: target
+    attributes:
+      label: Target application
+      description: Application name and exact version or commit.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Provide reset/setup steps and a minimal sanitized spec. Do not include secrets.
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Expected and actual outcome
+      description: Include runner exit status, failure category, cleanup result, and sanitized evidence paths or excerpts.
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety check
+      options:
+        - label: I removed credentials, private source, personal paths, and sensitive terminal output.
+          required: true
+        - label: I used only a trusted target and understand Playtestr is not a sandbox.
+          required: true
+

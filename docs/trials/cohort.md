@@ -1,6 +1,6 @@
 # R3 cohort record
 
-Status: recruiting. No independent project has been counted yet.
+Status: prepared for recruitment after stable publication, per the 11 September 2026 sequencing decision. No independent project has been counted yet.
 
 This file tracks completion without publishing participant details that lack consent. Store private identity/permission references outside the repository and use a stable trial ID here.
 
@@ -29,7 +29,7 @@ This file tracks completion without publishing participant details that lack con
 - Interaction types represented: none yet
 - Ten-run samples complete: 0/3 minimum
 - Voluntary later-use results: 0/2 minimum
-- CI observations: 0/1 minimum
+- Successful participant-owned CI integrations: 0/1 minimum (failed attempts retained separately)
 - Open release blockers: unknown until trials begin
 - Public-name permissions recorded: 0
 
@@ -41,6 +41,6 @@ Prefer the smallest cohort that covers different risks: one state-writing wizard
 
 Reject or redesign a proposed trial when it needs production credentials, uncontrolled remote state, destructive operations, or confidential output that cannot be sanitized. A withdrawn participant remains recorded by trial ID and reason but does not count as successful adoption.
 
-## R4 handoff
+## Post-publication handoff
 
-Stable promotion receives the completed cohort count, exact candidate tested, blocker status, repeated-use evidence, CI observation, and a list of claims allowed by participant consent. Missing gates remain explicit; they are not converted into internal test evidence.
+R4's post-publication checkpoint receives the first independent stable run. R3 closure and Sprint 5 selection receive the completed cohort count, exact stable version, blocker status, voluntary reuse, successful participant CI, and consent-limited claims. Missing adoption gates remain open without blocking the initial technically qualified publication. Operator trials cannot fill participant counts.

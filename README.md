@@ -4,7 +4,7 @@
 
 Press the keys. Check the screen. Catch the regression. Playtestr drives interactive CLIs and TUIs through a real pseudoterminal, compares rendered text snapshots, and produces readable diffs when something changes.
 
-[Get started](#install-and-try-the-demo) · [Write a test](#write-a-test) · [Join a project trial](docs/trials/README.md) · [Spec v1](docs/spec-v1.md) · [Report v1](docs/report-v1.md)
+[Get started](#install-and-try-the-demo) · [Write a test](#write-a-test) · [Join a project trial](docs/trials/README.md) · [Spec v1](docs/spec-v1.md) · [Report v1](docs/report-v1.md) · [Support](https://github.com/Wyrcan-io/playtestr/blob/v0.1.0/SUPPORT.md)
 
 - **Keyboard-driven tests:** describe an interaction in a small JSON spec.
 - **Rendered screen assertions:** test text after cursor movement, redraws, and resizing.
@@ -21,9 +21,9 @@ Playtestr starts a real pseudoterminal, sends keyboard input, and feeds output i
 
 Release archives contain one native `playtestr` binary, this README, the Apache 2.0 license, third-party notices, and an adjacent SHA-256 checksum. Download the archive for your host from [GitHub Releases](https://github.com/Wyrcan-io/playtestr/releases), verify the adjacent `.sha256` file, extract it, and put `playtestr` (or `playtestr.exe`) on your `PATH`.
 
-Release-candidate targets are Linux amd64, macOS arm64, and Windows amd64. A target is published only after its native test and extracted-archive walkthrough pass. See the [v0.1.0-rc.2 install and first-test guide](docs/releases/v0.1.0-rc.2-installation-walkthrough.md), or build the current development version from source with Go 1.25 or newer.
+Stable `v0.1.0` targets are Linux amd64, macOS arm64, and Windows amd64. Each target is published only after its native test and extracted-archive walkthrough pass. See the [v0.1.0 install and first-test guide](docs/releases/v0.1.0-installation-walkthrough.md), or build the current development version from source with Go 1.25 or newer.
 
-`v0.1.0-rc.2` fixes the Unix controlling-terminal defect in rc.1. Its downloaded Linux and macOS archives passed a target that opens and exchanges input through `/dev/tty`; the complete public-install matrix passed on all three advertised hosts.
+`v0.1.0` contains the Unix controlling-terminal repair first verified in rc.2. Its Linux and macOS archives are required to pass a target that opens and exchanges input through `/dev/tty`; all three advertised archives must pass the public-install matrix. See [Platform support](docs/platform-support.md) for exact evidence and boundaries.
 
 ```sh
 git clone https://github.com/Wyrcan-io/playtestr.git
@@ -143,7 +143,7 @@ The tested terminal behavior and known emulator gaps are recorded in [Terminal c
 
 Windows uses a Job Object and Unix uses a dedicated process group to terminate managed descendants. The current xpty API starts a Windows target immediately before Playtestr can attach it to the Job Object, leaving a small launch-to-attachment window in which a very early child could escape management. Unix descendants can deliberately detach into another session. Only test trusted applications; local PTY execution is not a sandbox.
 
-The GitHub Actions matrix runs native tests on Linux, macOS, and Windows and retains machine reports, screens, and diffs from its deliberate-failure check. Sprint 4's native results are recorded in [Platform support](docs/platform-support.md). Release candidates are packaged by a separate workflow; the process is documented in [Releasing](docs/releasing.md).
+The GitHub Actions matrix runs native tests on Linux, macOS, and Windows and retains machine reports, screens, and diffs from its deliberate-failure check. Native and published-release results are recorded in [Platform support](docs/platform-support.md). Releases are packaged by a separate workflow; the process is documented in [Releasing](docs/releasing.md).
 
 Recording, replay, exact-failure minimization, and styled snapshots remain post-MVP work.
 

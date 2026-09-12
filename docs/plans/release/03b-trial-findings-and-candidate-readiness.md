@@ -1,12 +1,12 @@
 # R3b — Resolve trial findings and verify the next candidate
 
-Status: technical candidate work complete as of 10 September 2026; source fixes, rc.1 baseline, rc.2 publication, native package and public install checks, release boundaries, all six Windows/Linux real-app cells, second sessions, negative cases, and exact cleanup are complete. Independent participant gates remain before [R4: stable release](04-stable-release.md). Created 8 September 2026.
+Status: technical candidate work complete as of 10 September 2026. Sequencing revised 11 September: [R3c nine-application validation](03c-cross-stack-validation.md) precedes [R4 publication](04-stable-release.md); independent R3 adoption follows publication. Source fixes, rc.1 baseline, rc.2 publication, native checks, release boundaries, six Windows/Linux real-app cells, second sessions, negatives, and exact cleanup remain completed evidence. Created 8 September 2026.
 
 ## Outcome
 
 Deliver a candidate whose downloaded binaries can run the supported real-application workflows, whose failures have accurate evidence, and whose remaining limitations have a reviewed disposition. Close the gap between a locally patched runner and a release people can actually install. Carry forward the independent-adoption requirements of [R3](03-real-project-trials.md); this plan does not replace them with internal repetitions.
 
-Execution order: evidence audit → harness correctness → focused compatibility diagnosis → source review and CI → next candidate → downloaded-asset trials → adoption evidence → R4 readiness decision. The deferred rc.1 install workflow can be verified after the first reviewed source push while compatibility work continues. Candidate publication waits for any fixes needed by its declared support boundary.
+Execution order: evidence audit → harness correctness → focused compatibility diagnosis → source review and CI → next candidate → downloaded-asset trials → R3c nine-application validation → R4 publication → R3 adoption. Existing completed technical work is not reopened by this planning change. Candidate publication waits for any fixes needed by its declared support boundary.
 
 ## Starting evidence and limits
 
@@ -149,7 +149,7 @@ Choose one authorized non-Go application with a valuable repeatable flow, ideall
 
 Prepare the participant kit around the tested candidate and narrow recipes. Record three qualifying completed project trials across at least two stacks, participant review/understanding of failure evidence, at least two voluntary second uses, and at least one project CI integration. Record assistance and setup friction. Names and consent references stay private unless publication is explicitly allowed. User-reported permission to test does not itself prove these outcomes. Prepare outreach material without sending messages unless specifically authorized.
 
-Exit: parent R3 gates have actual evidence or remain visibly pending. If participant time or infrastructure is unavailable, finish technical preparation and hold R4 entry rather than declaring adoption complete.
+Exit: technical proof is complete; parent R3 participant gates remain visibly pending until the post-publication program. The 11 September sequencing decision transfers their timing, not their completion. R3c now owns the additional three-per-ecosystem technical requirement before publication.
 
 ## Checkpoint 9 — R4 handoff decision
 
@@ -157,7 +157,7 @@ Produce one short readiness record containing candidate tag/commit/hashes, hoste
 
 Give each finding one status: fixed and verified in candidate bytes; demonstrated limitation accepted within narrowed support; deferred outside supported scope; or unresolved blocker. Include a reason and owner for each non-fixed item.
 
-R4 may begin only when its original entry requirements and the checklist below are met. Stable version packaging, contract audit, maintenance policy, website download changes, publication, and adopter upgrade verification remain in R4. The install-smoke workflow now accepts both release-candidate and stable semantic versions; R4 must leave its controlling-terminal gate enabled for v0.1.0.
+R4 publication requires this plan's technical checklist and R3c closure. Independent participant review/reuse/CI follows publication under R3. Stable packaging, contract audit, maintenance policy, website download changes, publication, and the first independent stable run remain in R4. Its install-smoke controlling-terminal gate must stay enabled for v0.1.0.
 
 ## Definition of done
 
@@ -170,7 +170,7 @@ R4 may begin only when its original entry requirements and the checklist below a
 - [x] Downloaded candidate passes the controlling-terminal regression and the complete supported Windows/Linux real-app matrix, including Lazygit, Lazydocker, and K9s.
 - [x] Completed candidate repetitions are recorded separately from historical 60/60, setup failures, and earlier failures.
 - [x] Real application-regression experiment and cross-language technical coverage completed.
-- [ ] R3 independent review, repeat-use, and CI gates have actual records.
+- [ ] Transferred to post-publication R3: independent review, repeat-use, and participant CI gates have actual records (still uncompleted; no longer an R3b technical exit gate).
 - [x] Historical and candidate-owned resources were cleaned by verified exact identity; the named kind cluster was also removed with absence confirmed.
 - [x] Public docs are accurate and sanitized; the R4 readiness record visibly retains its blockers.
 

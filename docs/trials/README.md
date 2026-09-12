@@ -1,8 +1,10 @@
-# Playtestr v0.1.0-rc.2 project trials
+# Playtestr v0.1.0 project trials
 
 Status: recruiting. These trials test whether Playtestr protects a real terminal interaction well enough that a project maintainer chooses to run the test again.
 
-R3 needs three completed projects, at least two implementation stacks, two maintainers who repeat the test after the initial session, and one CI attempt. The existing Playtestr demo and Charm Gum fixture are technical coverage; they do not count as independent adoption.
+Operator technical evidence is recorded separately in the [R3c cross-stack record](cross-stack-validation-2026-09.md), with reusable [sanitized recipes](cross-stack-recipes.md).
+
+R3 follows stable publication under the 11 September 2026 sequencing decision. It needs three completed participant projects across at least two implementation stacks, two maintainers who voluntarily repeat use, and one successful participant-owned CI integration. The demo, Gum fixture, and nine-application R3c campaign are technical coverage; they do not count as independent adoption. Use only the checksum-verified stable download for participant results.
 
 ## Who should participate
 
@@ -18,7 +20,7 @@ Choose an offline flow that can use synthetic data. Do not use production creden
 
 Plan for 30–60 minutes for the first integration after the target application is already runnable. Installation alone should take much less; record actual time rather than forcing the work into this estimate.
 
-Use one advertised host: Linux amd64, macOS arm64, or Windows amd64. Start with the [published installation walkthrough](../releases/v0.1.0-rc.2-installation-walkthrough.md). Release binaries do not require Go and do not install the target application's runtime or dependencies.
+Use one advertised host: Linux amd64, macOS arm64, or Windows amd64. Start with the [published installation walkthrough](../releases/v0.1.0-installation-walkthrough.md). Release binaries do not require Go and do not install the target application's runtime or dependencies.
 
 ## What the maintainer chooses before the session
 
@@ -41,7 +43,7 @@ Run the chosen application flow once without Playtestr. Record the visible state
 
 ### 2. Install the published runner
 
-Download `v0.1.0-rc.2`, verify its checksum, extract it, and run `playtestr --version`. Record the archive name, observed checksum, host, shell, and version output. Do not use a checkout-built runner for the trial result.
+Download `v0.1.0`, verify its checksum, extract it, and run `playtestr --version`. Record the archive name, observed checksum, host, shell, and version output. Do not use a checkout-built runner for the trial result.
 
 ### 3. Write one small spec
 
@@ -88,7 +90,7 @@ Use a known-bad application revision or make one small, reversible local change 
 
 Record the structured failure category and failing step. A missing executable or malformed spec does not prove the intended UI regression is detected.
 
-Restore the known-good application and confirm the same spec passes again. In `v0.1.0-rc.2`, an adjacent `.actual.txt` or `.diff.txt` from an earlier failure can remain after a pass; the latest report has no evidence reference. Treat the old file as historical, review it, then remove it explicitly.
+Restore the known-good application and confirm the same spec passes again. In `v0.1.0`, an adjacent `.actual.txt` or `.diff.txt` from an earlier failure can remain after a pass; the latest report has no evidence reference. Treat the old file as historical, review it, then remove it explicitly.
 
 ### 5. Repeat from the same starting state
 
@@ -117,7 +119,7 @@ Record the observed layer before proposing a fix:
 | Environment/setup | Target dependencies, state, paths, locale, or CI setup differ. |
 | Documentation | The correct workflow exists but a participant cannot discover or follow it. |
 
-False passes, process leaks, data loss, sensitive-data persistence caused by Playtestr, and broken advertised installation are release blockers. Preserve a sanitized reproduction and hold stable promotion until resolved.
+False passes, process leaks, data loss, sensitive-data persistence caused by Playtestr, and broken advertised installation are release-critical findings. Preserve a sanitized reproduction and hold any pending promotion; after publication, restrict affected guidance and verify a patch release without overwriting existing assets.
 
 Use the [R3 observations backlog](observations.md) for accepted findings. One participant preference is useful context; repeated friction or a severe correctness issue drives roadmap priority.
 
@@ -131,7 +133,7 @@ For a private project, keep the record private until the repository owner provid
 
 This text is prepared for the repository owner to send to specific maintainers. It has not been sent automatically:
 
-> I’m testing Playtestr v0.1.0-rc.2, a small tool for driving and checking interactive terminal applications. I’m looking for maintainers with one real keyboard-driven workflow they want to protect. The trial takes roughly 30–60 minutes, uses a downloaded binary and synthetic data, and includes a known-good/known-bad check. Participation and public attribution are optional. Would you be willing to try it on one flow in your project?
+> I’m testing Playtestr v0.1.0, a small tool for driving and checking interactive terminal applications. I’m looking for maintainers with one real keyboard-driven workflow they want to protect. The trial takes roughly 30–60 minutes, uses a downloaded binary and synthetic data, and includes a known-good/known-bad check. Participation and public attribution are optional. Would you be willing to try it on one flow in your project?
 
 Record the recipient and authorization before sending outreach. Do not imply compatibility with their stack before their exact flow passes.
 
@@ -143,8 +145,8 @@ R3 is complete only when the [cohort record](cohort.md) shows:
 - At least two implementation stacks and a useful mix of interaction styles.
 - A good and intended-bad result for every completed project.
 - Ten-run observations for each pinned initial flow.
-- Two voluntary second-use results and at least one CI observation.
-- Blockers resolved or stable promotion explicitly held.
+- Two voluntary second-use results and at least one successful participant-owned CI integration, with failed attempts retained.
+- Release-critical findings resolved or affected guidance restricted pending a verified patch.
 - Publication permission recorded for every public project name, quote, or artifact.
 
 Additional internal fixtures cannot replace a missing participant result.

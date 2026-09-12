@@ -1,6 +1,6 @@
 # September 2026 evidence ledger
 
-Status: rc.2 publication, native installation, release boundaries, and all six Windows/Linux candidate real-app cells complete; independent-participant gates remain open. Updated 10 September 2026.
+Status: rc.2 publication, native installation, release boundaries, the earlier six-cell campaign, and the [R3c nine-application campaign](cross-stack-validation-2026-09.md) are technically complete. Updated 12 September 2026. Independent-participant gates remain open after publication.
 
 This ledger separates historical release evidence, exploratory trials, final samples, focused diagnoses, candidate-byte evidence, and adoption gates. Private reports and resource identifiers remain under ignored `.trial-private/`; this file records sanitized outcomes.
 
@@ -54,9 +54,10 @@ The public archives matched workflow artifacts byte-for-byte and their extracted
 
 | Gate | Current state | Required closure |
 | --- | --- | --- |
+| R3c cross-stack campaign | Complete: 9/9 applications, 18/18 intended Windows/WSL Linux cells, 54/54 frozen primary attempts; fault/recovery, cancel, cleanup, second session, and three ecosystem mutations recorded | Preserve as rc.2 technical evidence; rerun the nine primary workflows and oracles against actual stable bytes in R4 |
 | Candidate real-app matrix | Complete: 60/60 primary repetitions plus supported broader paths and second sessions | Preserve as candidate-specific evidence; rerun only if published bytes or declared support changes |
 | Candidate infrastructure cleanup | Complete | Exact Docker fixture and named kind cluster removal are confirmed privately |
 | macOS real-app coverage | Only fixtures, packaging, and published install have run | Keep real-app claims absent unless exact macOS target flows execute |
-| Independent R3 adoption | No qualifying review, reuse, or participant-CI records supplied | Three reviews across two stacks, two voluntary second uses, and one project CI integration |
+| Independent R3 adoption, after publication | No qualifying review, reuse, or participant-CI records supplied | Three reviews across two stacks, two voluntary second uses, and one successful participant-owned CI integration |
 
 Do not promote historical or source-built evidence to candidate evidence. Every future published-binary result must name the tag, source commit, archive SHA-256, host, scenario, runner report, external oracle where applicable, and cleanup outcome.

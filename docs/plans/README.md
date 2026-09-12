@@ -10,10 +10,12 @@ The original Sprints 0–4 delivered the MVP. The next four release/adoption mil
 | --- | --- | --- |
 | R1 | [Publish the first release candidate](release/01-release-candidate.md) | A developer can download a versioned, traceable prerelease. |
 | R2 | [Verify installation from the published assets](release/02-installation-walkthrough.md) | A new user reaches a passing test using the downloaded binary and written instructions. |
-| R3 | [Trial three to five independent projects](release/03-real-project-trials.md) | Maintainers use Playtestr for a real regression and provide actionable evidence. |
-| R4 | [Publish stable v0.1.0](release/04-stable-release.md) | A bounded, documented release is backed by installation and adopter evidence. |
+| R3b | [Resolve findings and validate candidate bytes](release/03b-trial-findings-and-candidate-readiness.md) | Original Windows/Linux application evidence applies to the published candidate. |
+| R3c | [Validate nine applications across three ecosystems](release/03c-cross-stack-validation.md) | Three Python, three Rust, and three Node.js applications pass bounded useful workflows. |
+| R4 | [Publish stable v0.1.0](release/04-stable-release.md) | A documented stable release is backed by technical and installation evidence. |
+| R3, after R4 publication | [Trial three to five independent projects](release/03-real-project-trials.md) | Maintainers review failures, voluntarily reuse tests, and integrate the stable binary into their CI. |
 
-R1 includes internal extracted-archive checks before publication. R2 verifies the actual public download path afterward. R3 requires real participants; internal fixture runs cannot substitute for adoption. R4 can ship without waiting for Sprint 5 if its gates pass. A feature needed to unblock a trial is either a small release fix or a separately planned sprint, never an unrecorded expansion of release scope.
+Sequence revised 11 September 2026: R1 → R2 → R3b technical closure → R3c nine-application validation → R4 stable publication → R3 independent adoption → evidence-based Sprint 5 selection. Existing plan identifiers are retained for links. R3 adoption no longer blocks initial stable publication and remains incomplete until observed. R4's post-publication handoff closes after the first participant stable run; full adoption remains owned by R3. Technical correctness and installation blockers still block publication. A feature needed to unblock a trial is either a small release fix or a separately planned sprint, never an unrecorded expansion of release scope.
 
 ## Development sequence
 

@@ -1,12 +1,12 @@
-name: Release candidate
+name: Native release build
 
 on:
   workflow_dispatch:
     inputs:
       version:
-        description: Version such as v0.1.0-rc.1
+        description: Version such as v0.1.0 or v0.1.0-rc.2
         required: true
-        default: v0.1.0-rc.2
+        default: v0.1.0
 
 permissions:
   contents: read
@@ -48,7 +48,7 @@ jobs:
       - name: Validate release target
         shell: bash
         run: |
-          [[ "$VERSION" =~ ^[A-Za-z0-9._-]+$ ]]
+          [[ "$VERSION" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-rc\.[0-9]+)?$ ]]
           test "$(go env GOOS)" = "${{ matrix.target_os }}"
           test "$(go env GOARCH)" = "${{ matrix.target_arch }}"
       - name: Test
@@ -60,7 +60,7 @@ jobs:
           go build -o "bin/${{ matrix.demo }}" ./cmd/demo
           go build -o "bin/${{ matrix.fixture }}" ./cmd/fixture
           go build -trimpath -ldflags "-s -w -X github.com/Wyrcan-io/playtestr/internal/buildinfo.Version=$VERSION" -o "bin/${{ matrix.executable }}" ./cmd/playtestr
-      - name: Package native release candidate
+      - name: Package native release
         shell: bash
         run: go run ./cmd/package-release -binary "bin/${{ matrix.executable }}" -version "$VERSION" -os "${{ matrix.target_os }}" -arch "${{ matrix.target_arch }}" -out dist
       - name: Verify and run the extracted release archive
@@ -119,8 +119,14 @@ jobs:
           set -e
           test "$code" -eq 1
           grep --fixed-strings '"category": "snapshot_mismatch"' artifacts/release-expected-failure.json
+          grep --fixed-strings '"screen_path": "examples/snapshot-mismatch.json.actual.txt"' artifacts/release-expected-failure.json
+          grep --fixed-strings '"diff_path": "examples/snapshot-mismatch.json.diff.txt"' artifacts/release-expected-failure.json
           test -s examples/snapshot-mismatch.json.actual.txt
           test -s examples/snapshot-mismatch.json.diff.txt
+
+          python scripts/release-cancel-smoke.py "$released_binary" "$(pwd)/bin/${{ matrix.fixture }}" "$(pwd)/artifacts/cancellation"
+          grep --fixed-strings '"category": "cancelled"' artifacts/cancellation/release-cancellation.json
+          grep --fixed-strings '"confirmed_exited": true' artifacts/cancellation/release-cancellation.json
       - uses: actions/upload-artifact@v6
         with:
           name: playtestr-${{ matrix.target_os }}-${{ matrix.target_arch }}

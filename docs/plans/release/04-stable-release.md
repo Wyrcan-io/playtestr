@@ -1,6 +1,6 @@
 # R4 — Publish stable v0.1.0
 
-Status: planned. Depends on R1–R3. Product outcome: developers can choose a documented stable version for everyday terminal regression testing, with clear support and migration expectations.
+Status: planned; sequencing revised 11 September 2026. Publication depends on R1/R2, R3b technical closure, and R3c nine-application validation. R3 independent adoption follows publication. Product outcome: developers can choose a documented stable version for everyday terminal regression testing, with clear support and migration expectations.
 
 ## Meaning of stable here
 
@@ -8,11 +8,11 @@ Stable v0.1.0 means the supported workflows have passed their release gates and 
 
 ## Entry gate
 
-Complete [R3b: trial findings and candidate readiness](03b-trial-findings-and-candidate-readiness.md) before entering this plan. It covers the Linux controlling-terminal fix, unresolved real-app findings, installation CI repair, a new published candidate, and the remaining R3 adoption evidence. Local fixes and the historical primary-run sample alone do not satisfy this entry gate.
+Complete the technical portion of [R3b](03b-trial-findings-and-candidate-readiness.md) and [R3c: nine-application validation](03c-cross-stack-validation.md) before the publication gate. R3c requires three Python, three Rust, and three Node.js applications with exact supported-host evidence. Contract review and draft maintenance documentation may proceed independently, but cannot mark the publication gate complete.
 
-Require a named release owner, a frozen candidate commit, passing public-asset installation checks for all advertised targets, completed independent trials, and no unresolved release blockers. Confirm that the evidence applies to the candidate selected for promotion; earlier green runs from a different build are historical context only.
+Require a named release owner, a frozen candidate commit, passing public-asset installation checks for all advertised targets, completed R3c technical trials, and no unresolved release blockers. Confirm evidence applies to the candidate selected for promotion; earlier green runs from different bytes remain historical. Independent reviews, voluntary reuse, and participant CI are post-publication R3 requirements, not prerequisites for building or publishing v0.1.0.
 
-A waiting period alone is not acceptance. One to two weeks of trial use may reveal issues, but R3's concrete tasks and blocker status determine readiness. If the cohort is not available, record that dependency and delay stable promotion rather than claiming internal tests satisfy it.
+A waiting period alone is not acceptance. Technical gates determine initial publication readiness; absence of participant availability keeps adoption unvalidated without blocking an otherwise qualified initial release. Public wording must state the tested boundary and cannot claim independent adoption from operator trials.
 
 ## Checkpoint 1 — Review the contract and release audit
 
@@ -36,7 +36,7 @@ Acceptance: users can identify what changed, what is supported, how to migrate a
 
 Stable binaries must identify themselves as `v0.1.0`. Do not simply rename `rc.1` archive files while leaving the embedded version unchanged. Select the final source commit, inject the stable version, build on every supported native host, package, extract, and execute those stable bytes.
 
-Recompute all checksums, validate dependency notices, and repeat the essential passing, failing, report, cancellation, and archive-extraction paths. Preserve the exact stable commit-to-asset manifest. If there is a code change since the last tested candidate, assess whether another candidate trial is needed; version-label-only rebuilds still need binary smoke tests.
+Recompute all checksums, validate dependency notices, and repeat the essential passing, failing, report, cancellation, and archive-extraction paths. Preserve the exact stable commit-to-asset manifest. Run the nine R3c primary workflows with their external checks against the actual stable bytes on each eligible host. A version-label-only rebuild does not require the entire exploratory campaign again. Behavioral changes require a new candidate and affected acceptance reruns before stable publication; never attach old green results to changed bytes.
 
 Acceptance: a complete stable asset set has evidence from the bytes to be published and prints the stable version on every target.
 
@@ -50,11 +50,11 @@ Acceptance: the website, release page, binary version, examples, and support tab
 
 ## Checkpoint 5 — Verify adoption after publication
 
-Invite existing trial participants, with authorization, to install the stable build and run their agreed flow. Record upgrade friction and regression reports. A release announcement should demonstrate a real short interaction and its failure evidence, state the compatibility boundary, and avoid claiming broad framework certification.
+Start the existing [R3 participant program](03-real-project-trials.md) using the verified stable download. Recruit three to five projects, complete at least three reviews across two stacks, obtain two voluntary second uses, and one successful participant-owned CI integration. Those metrics are owned by R3; this checkpoint requires the first participant stable run and a working triage path. Record installation or upgrade friction and regressions. Announcements must state the tested boundary without implying broad framework certification.
 
 Prepare announcement copy independently of sending it. Public posts, direct messages, and use of participant names require their respective authorization. Release publication does not imply permission to contact third parties through every available channel.
 
-Acceptance: at least one existing trial project verifies the stable build, and the maintainer has a concrete issue triage path.
+Acceptance: at least one independent participant verifies the stable build, and the maintainer has a concrete issue triage path. If no participant is available, mark publication complete and this post-publication checkpoint pending; do not fabricate an upgrade from an earlier candidate.
 
 ## Failure and rollback policy
 
@@ -70,11 +70,11 @@ Never silently overwrite a published tag or replace a published binary under the
 
 ## Definition of done
 
-- [ ] R2 and R3 evidence applies to the promoted candidate; blockers are closed.
+- [ ] R2, R3b technical evidence, and R3c nine-application results apply to the promoted candidate; publication blockers are closed.
 - [ ] Contract audit, changelog, compatibility policy, and support instructions reviewed.
 - [ ] Stable-version binaries pass native and extracted-archive checks.
 - [ ] Stable release published with explicit authorization and verified public links/hashes.
 - [ ] Website and examples lead to the correct stable behavior.
-- [ ] At least one adopter upgrade verified and issues triaged.
+- [ ] Post-publication: at least one independent stable installation or upgrade verified and issues triaged; full adoption tracked in R3.
 
 Handoff: choose Sprint 5 using trial findings. Stable v0.1.0 is a useful stopping point even if later sprint plans are deferred.

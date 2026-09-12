@@ -1,6 +1,6 @@
 # Lazygit, Lazydocker, and K9s technical trial
 
-Status: historical and downloaded-rc.2 technical campaigns completed across all six Windows/Linux client cells. The Linux PTY defect in rc.1 is fixed and verified in published rc.2; stable promotion remains held by independent-adoption evidence.
+Status: historical and downloaded-rc.2 technical campaigns completed across all six Windows/Linux client cells. The Linux PTY defect in rc.1 is fixed and verified in published rc.2. [R3c nine-application validation](cross-stack-validation-2026-09.md) also completed on 12 September; independent adoption follows publication. Historical results below are unchanged.
 
 This operator-run technical campaign began on 7 September 2026 and its focused follow-up continued through 10 September. It does not represent maintainer review, endorsement, voluntary repeat use, or willingness to pay. A later IPython check supplies a non-Go technical sample; the parent R3 participant gates remain open.
 

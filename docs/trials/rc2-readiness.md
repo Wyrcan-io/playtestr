@@ -1,6 +1,6 @@
 # v0.1.0-rc.2 readiness record
 
-Status: candidate publication, native install gates, downloaded-binary release boundaries, and the six-cell Windows/Linux real-application matrix are complete. R4 entry remains held by independent-participant gates. Updated 10 September 2026. Release owner: Wyrcan-io repository owner.
+Status: candidate publication, native install gates, downloaded-binary release boundaries, the earlier six-cell matrix, and [R3c nine-application validation](cross-stack-validation-2026-09.md) are complete. Updated 12 September 2026. Independent adoption follows stable publication. Release owner: Wyrcan-io repository owner.
 
 ## Candidate identity
 
@@ -51,11 +51,11 @@ Public downloads matched the workflow artifacts byte-for-byte and reported `play
 
 The candidate sample stays separate from the historical 60/60 technical campaign. It is 60/60 across all six Windows/Linux client cells, with no hidden retries. Setup interruptions, exploratory failures, corrected-oracle reruns, expected negative cases, and broader scenarios remain outside that denominator.
 
-## R4 blockers
+## Next publication gate and later adoption
 
-- Obtain three qualifying independent project reviews across at least two stacks.
-- Record two voluntary second uses and one integration in a participant project's CI.
+- Before publication: R3c is complete at 9/9 applications, 18/18 intended cells, and 54/54 frozen primary attempts. Complete R4's contract audit, stable-byte build/package/install checks, and nine primary workflow refresh against those stable bytes.
+- After publication: obtain three qualifying independent project reviews across at least two stacks, two voluntary second uses, and one successful participant-owned CI integration. These remain uncompleted adoption requirements.
 
 The candidate Docker fixture was removed only after its exact ID, name, and two ownership labels were verified. The disposable `playtestr-r3` kind node was likewise verified by exact name and cluster/role labels, its final namespace state was recorded, and the named cluster was removed with exact absence confirmed. No unrelated container was enumerated or changed, and no active Kubernetes context was changed.
 
-Stable release work must not start from this record yet. The remaining blockers require actual participant evidence; operator repetitions and private permission records cannot replace review, voluntary reuse, or participant-owned CI adoption. macOS real-application compatibility also remains unclaimed because only native fixtures, packaging, and published installation ran there.
+The R3c record supplies operator-run technical evidence, not adoption evidence. Its Windows and WSL Linux application results do not add a macOS real-application claim. Operator repetitions and private permission records cannot replace independent adoption after publication.
