@@ -53,7 +53,7 @@ The candidate sample stays separate from the historical 60/60 technical campaign
 
 ## Next publication gate and later adoption
 
-- Before publication: R3c is complete at 9/9 applications, 18/18 intended cells, and 54/54 frozen primary attempts. Complete R4's contract audit, stable-byte build/package/install checks, and nine primary workflow refresh against those stable bytes.
+- Stable outcome: R3c completed at 9/9 applications, 18/18 intended cells, and 54/54 frozen primary attempts. R4 then completed its contract audit, stable-byte build/package/install checks, and nine primary workflow refresh before publishing v0.1.0 on 12 September 2026.
 - After publication: obtain three qualifying independent project reviews across at least two stacks, two voluntary second uses, and one successful participant-owned CI integration. These remain uncompleted adoption requirements.
 
 The candidate Docker fixture was removed only after its exact ID, name, and two ownership labels were verified. The disposable `playtestr-r3` kind node was likewise verified by exact name and cluster/role labels, its final namespace state was recorded, and the named cluster was removed with exact absence confirmed. No unrelated container was enumerated or changed, and no active Kubernetes context was changed.

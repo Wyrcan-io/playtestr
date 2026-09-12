@@ -1,6 +1,6 @@
 # Release and post-MVP delivery plans
 
-Status: planning only. These documents do not implement features, publish releases, or authorize outreach. Proposed commands and formats are design targets, not current CLI capabilities.
+Status: R1, the automated R2 boundary, R3b, R3c, and R4 stable publication are complete as recorded in their individual plans; independent walkthrough and adoption gates remain open under R2/R3. These documents do not by themselves authorize outreach. Unimplemented commands and formats remain design targets, not current CLI capabilities.
 
 The original Sprints 0–4 delivered the MVP. The next four release/adoption milestones make that MVP accessible and test whether independent developers can use it. Sprints 5–10 are proposed development milestones; start each only after reviewing the evidence from the previous milestone. No calendar deadline or future platform claim follows from a sprint number.
 

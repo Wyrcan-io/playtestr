@@ -1,6 +1,6 @@
 # R3c — Validate nine real applications before stable
 
-Status: complete, 12 September 2026. Nine applications, 18 intended Windows/WSL Linux cells, and 54/54 frozen primary attempts are recorded in the [cross-stack validation record](../../trials/cross-stack-validation-2026-09.md). Owner: Playtestr maintainer. Depends on the completed technical evidence in [R3b](03b-trial-findings-and-candidate-readiness.md). R4 technical entry is accepted; [R4](04-stable-release.md) still owns its contract and stable-byte gates, and independent [R3 adoption](03-real-project-trials.md) follows stable publication.
+Status: complete, 12 September 2026. Nine applications, 18 intended Windows/WSL Linux cells, and 54/54 frozen primary attempts are recorded in the [cross-stack validation record](../../trials/cross-stack-validation-2026-09.md). Owner: Playtestr maintainer. Depends on the completed technical evidence in [R3b](03b-trial-findings-and-candidate-readiness.md). R4 accepted this technical entry, refreshed the nine workflows against stable bytes, and published v0.1.0; independent [R3 adoption](03-real-project-trials.md) now follows.
 
 ## Outcome and boundary
 

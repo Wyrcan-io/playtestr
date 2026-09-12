@@ -1,6 +1,6 @@
 # September 2026 evidence ledger
 
-Status: rc.2 publication, native installation, release boundaries, the earlier six-cell campaign, and the [R3c nine-application campaign](cross-stack-validation-2026-09.md) are technically complete. Updated 12 September 2026. Independent-participant gates remain open after publication.
+Status: stable v0.1.0 publication, native installation, release boundaries, the earlier six-cell campaign, and the [R3c nine-application campaign](cross-stack-validation-2026-09.md) are technically complete. Updated 12 September 2026. Independent-participant gates remain open after publication.
 
 This ledger separates historical release evidence, exploratory trials, final samples, focused diagnoses, candidate-byte evidence, and adoption gates. Private reports and resource identifiers remain under ignored `.trial-private/`; this file records sanitized outcomes.
 
@@ -37,6 +37,21 @@ This ledger separates historical release evidence, exploratory trials, final sam
 
 The public archives matched workflow artifacts byte-for-byte and their extracted binaries reported the expected version.
 
+## Stable provenance
+
+- Release: [`v0.1.0`](https://github.com/Wyrcan-io/playtestr/releases/tag/v0.1.0)
+- Source/tag commit: `4ed8884e674f6a2625034850073b648d7a7b2aa2`
+- Packaging: [run 34695578919](https://github.com/Wyrcan-io/playtestr/actions/runs/34695578919), all native jobs passed
+- Terminal tests: [run 34695568888](https://github.com/Wyrcan-io/playtestr/actions/runs/34695568888), all native jobs passed at the same commit
+- Public installation: [run 34701451854](https://github.com/Wyrcan-io/playtestr/actions/runs/34701451854), all native jobs passed with controlling-terminal verification enabled on Unix
+- Archive hashes: Linux `254ca88a5257eab9b3522dd19aef2cd213efa6a20585ddefb5e0b81521a1e2e6`; macOS `b10f36c46a3dcd0fd5115a401a5b37ef99f473e9ce1be89d172529c83a928fb7`; Windows `da1d5453d38da4dab3607a01da1e63bf90ce2cba56055cf95602847e2efd44d2`
+
+All six public files were downloaded after publication and matched the packaged
+workflow artifacts byte-for-byte. The exact stable binaries refreshed all 18
+Windows/WSL Linux R3c cells and 54/54 primary attempts. The two Windows Node
+cold-start observations and the corrected native Linux ipm-cli dependency
+setup are recorded in the public cross-stack record and private evidence.
+
 ## Claims reconciled
 
 - LG-01 independently proved staging only `alpha.txt`; a lock experiment proved a screen-only false pass. A distinct unstage scenario was not executed and is not claimed.
@@ -54,7 +69,7 @@ The public archives matched workflow artifacts byte-for-byte and their extracted
 
 | Gate | Current state | Required closure |
 | --- | --- | --- |
-| R3c cross-stack campaign | Complete: 9/9 applications, 18/18 intended Windows/WSL Linux cells, 54/54 frozen primary attempts; fault/recovery, cancel, cleanup, second session, and three ecosystem mutations recorded | Preserve as rc.2 technical evidence; rerun the nine primary workflows and oracles against actual stable bytes in R4 |
+| R3c cross-stack campaign | Complete: 9/9 applications, 18/18 intended Windows/WSL Linux cells, 54/54 frozen primary attempts; fault/recovery, cancel, cleanup, second session, and three ecosystem mutations recorded | Stable-byte refresh complete; preserve both candidate and stable provenance |
 | Candidate real-app matrix | Complete: 60/60 primary repetitions plus supported broader paths and second sessions | Preserve as candidate-specific evidence; rerun only if published bytes or declared support changes |
 | Candidate infrastructure cleanup | Complete | Exact Docker fixture and named kind cluster removal are confirmed privately |
 | macOS real-app coverage | Only fixtures, packaging, and published install have run | Keep real-app claims absent unless exact macOS target flows execute |

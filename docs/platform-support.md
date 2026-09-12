@@ -1,12 +1,41 @@
 # Platform support evidence
 
-Release candidate `v0.1.0-rc.2` is verified on these native GitHub-hosted runners:
+Stable `v0.1.0` is verified on these native GitHub-hosted runners:
 
 | Release target | Native runner | Terminal tests | Release package |
 | --- | --- | --- | --- |
 | Linux amd64 | `ubuntu-latest` | Passed | Passed |
 | macOS arm64 | `macos-latest` | Passed | Passed |
 | Windows amd64 | `windows-latest` | Passed | Passed |
+
+The [stable release](https://github.com/Wyrcan-io/playtestr/releases/tag/v0.1.0)
+was built from commit `4ed8884e674f6a2625034850073b648d7a7b2aa2` by
+[native release run 34695578919](https://github.com/Wyrcan-io/playtestr/actions/runs/34695578919).
+All three jobs built, packaged, checksum-verified, extracted, and exercised the
+stable-version binary. The Linux and macOS jobs also passed a real target that
+opens `/dev/tty`; all three jobs exercised cancellation against the extracted
+binary. [Terminal tests run 34695568888](https://github.com/Wyrcan-io/playtestr/actions/runs/34695568888)
+passed at the same commit on all three hosts.
+
+After publication, [install run 34701451854](https://github.com/Wyrcan-io/playtestr/actions/runs/34701451854)
+downloaded the public archives and checksum files, rejected deliberately
+corrupted copies, extracted into paths containing spaces, and passed
+version/help, pass, intentional failure, recovery, missing-target,
+invalid-spec, report-write failure, artifact, and cleanup checks without a Go
+runtime. Linux and macOS passed the controlling-terminal check. A separate
+download of all six public files matched the pre-publication workflow artifacts
+byte-for-byte. The archive hashes are recorded in the
+[v0.1.0 release record](releases/v0.1.0.md).
+
+The nine-application campaign was refreshed with the exact stable Linux and
+Windows binaries: all 18 intended cells and 54/54 frozen primary attempts
+passed with external oracles, fault/recovery, cancellation, cleanup, and second
+sessions. Two Windows Node applications initially produced an empty screen on
+one cold-start attempt; those attempts failed safely and cleaned up, unchanged
+diagnostics were recorded, and each frozen workflow then passed 3/3. During the
+Linux ipm-cli setup, Windows-installed dependencies were rejected and replaced
+with a native install of the same pinned package. These observations constrain
+the evidence; they are not claims of universal compatibility.
 
 The [terminal-test run](https://github.com/Wyrcan-io/playtestr/actions/runs/34035410517) for commit `bcd1b6e` passed unit and real-PTY integration tests, vet, the demo specs, the pinned Charm Gum trial, the deliberate snapshot mismatch, and evidence upload on all three hosts. Its artifacts are `terminal-evidence-ubuntu-latest`, `terminal-evidence-macos-latest`, and `terminal-evidence-windows-latest`.
 

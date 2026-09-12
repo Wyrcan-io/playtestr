@@ -1,6 +1,6 @@
 # R4 — Publish stable v0.1.0
 
-Status: planned; sequencing revised 11 September 2026. Publication depends on R1/R2, R3b technical closure, and R3c nine-application validation. R3 independent adoption follows publication. Product outcome: developers can choose a documented stable version for everyday terminal regression testing, with clear support and migration expectations.
+Status: stable publication complete 12 September 2026; post-publication independent adoption remains pending under R3. R1, R2's automated public-install boundary, R3b technical closure, and R3c nine-application validation were completed before publication. R2's unassisted human walkthroughs remain part of the independent-adoption work rather than being inferred from operator or CI evidence. Product outcome: developers can choose a documented stable version for everyday terminal regression testing, with clear support and migration expectations.
 
 ## Meaning of stable here
 
@@ -70,11 +70,11 @@ Never silently overwrite a published tag or replace a published binary under the
 
 ## Definition of done
 
-- [ ] R2, R3b technical evidence, and R3c nine-application results apply to the promoted candidate; publication blockers are closed.
-- [ ] Contract audit, changelog, compatibility policy, and support instructions reviewed.
-- [ ] Stable-version binaries pass native and extracted-archive checks.
-- [ ] Stable release published with explicit authorization and verified public links/hashes.
-- [ ] Website and examples lead to the correct stable behavior.
+- [x] R2 automated installation evidence, R3b technical evidence, and R3c nine-application results apply to the promoted candidate; publication blockers are closed.
+- [x] Contract audit, changelog, compatibility policy, and support instructions reviewed.
+- [x] Stable-version binaries pass native and extracted-archive checks.
+- [x] Stable release published with explicit authorization and verified public links/hashes.
+- [x] Website and examples lead to the correct stable behavior.
 - [ ] Post-publication: at least one independent stable installation or upgrade verified and issues triaged; full adoption tracked in R3.
 
 Handoff: choose Sprint 5 using trial findings. Stable v0.1.0 is a useful stopping point even if later sprint plans are deferred.

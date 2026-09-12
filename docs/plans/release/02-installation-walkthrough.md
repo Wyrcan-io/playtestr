@@ -1,6 +1,6 @@
 # R2 — Verify the installation experience
 
-Status: planned. Depends on R1. Product outcome: a new user downloads Playtestr and gets a useful result using only the published instructions.
+Status: automated public-asset checks complete; unassisted human walkthroughs remain pending with post-publication R3 adoption. Stable install run 34701451854 passed on all three advertised hosts on 12 September 2026. Product outcome: a new user downloads Playtestr and gets a useful result using only the published instructions.
 
 ## User and task
 
@@ -74,10 +74,10 @@ Record participant alias/consent, host, shell, immutable download URL, archive h
 
 ## Definition of done
 
-- [ ] All three native public-download checks pass for the candidate under consideration.
+- [x] All three native public-download checks pass for stable v0.1.0.
 - [ ] At least two independent walkthroughs completed, including intentional failure diagnosis.
-- [ ] No unresolved installation blocker remains on an advertised target.
-- [ ] Documentation distinguishes binary installation from building a demo/target.
-- [ ] R3 receives the exact instructions and known friction; R4 receives candidate-specific evidence.
+- [x] No unresolved installation blocker remains on an advertised target.
+- [x] Documentation distinguishes binary installation from building a demo/target.
+- [x] R3 receives the exact instructions and known friction; R4 receives candidate-specific evidence.
 
 A green build pipeline alone cannot close this milestone. If participants are unavailable, record the outstanding human check and continue only independent preparation work.
