@@ -119,8 +119,7 @@ jobs:
           set -e
           test "$code" -eq 1
           grep --fixed-strings '"category": "snapshot_mismatch"' artifacts/release-expected-failure.json
-          grep --fixed-strings '"screen_path": "examples/snapshot-mismatch.json.actual.txt"' artifacts/release-expected-failure.json
-          grep --fixed-strings '"diff_path": "examples/snapshot-mismatch.json.diff.txt"' artifacts/release-expected-failure.json
+          python -c 'import json; r=json.load(open("artifacts/release-expected-failure.json", encoding="utf-8"))["results"][0]; assert r["evidence"]["screen_path"].replace("\\", "/") == "examples/snapshot-mismatch.json.actual.txt"; assert r["evidence"]["diff_path"].replace("\\", "/") == "examples/snapshot-mismatch.json.diff.txt"'
           test -s examples/snapshot-mismatch.json.actual.txt
           test -s examples/snapshot-mismatch.json.diff.txt
 
