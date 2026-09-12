@@ -1,6 +1,6 @@
 # R3 cohort record
 
-Status: prepared for recruitment after stable publication, per the 11 September 2026 sequencing decision. No independent project has been counted yet.
+Status: recruiting against stable v0.1.0. No independent project has been counted yet.
 
 This file tracks completion without publishing participant details that lack consent. Store private identity/permission references outside the repository and use a stable trial ID here.
 

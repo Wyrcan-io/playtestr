@@ -1,6 +1,6 @@
 # R3 — Trial Playtestr in three to five real projects
 
-Status: prepared; independent runs remain open and are scheduled after R4 stable publication by the 11 September 2026 sequencing decision. This plan retains the R3 identifier. Product outcome: independent maintainers use Playtestr to protect actual terminal interactions and tell us where it helps or breaks down.
+Status: active after stable v0.1.0 publication on 12 September 2026; recruitment is open and no independent run has been counted yet. Outreach to specific recipients still requires authorization. This plan retains the R3 identifier. Product outcome: independent maintainers use Playtestr to protect actual terminal interactions and tell us where it helps or breaks down.
 
 The preceding technical campaign is [R3c](03c-cross-stack-validation.md): nine applications, three each in Python, Rust, and Node.js. Its operator sessions do not count as participant review or voluntary reuse. Reuse its proven recipes when they serve a participant's actual task; do not duplicate technical campaigns just to collect more counts.
 
