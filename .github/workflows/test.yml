@@ -28,12 +28,15 @@ jobs:
       - name: Install pinned external TUI
         run: go install github.com/charmbracelet/gum@v0.17.0
       - name: Run passing acceptance specs
-        run: ./bin/playtestr${{ runner.os == 'Windows' && '.exe' || '' }} test --report artifacts/results.json examples/menu.json examples/menu-exit.json examples/silent-input.json examples/screen-compat.json examples/resize.json examples/external-gum.json
+        run: |
+          ./bin/playtestr${{ runner.os == 'Windows' && '.exe' || '' }} test --list examples/suite
+          ./bin/playtestr${{ runner.os == 'Windows' && '.exe' || '' }} test --artifacts-dir artifacts/playtestr --report artifacts/suite-results.json examples/suite
+          ./bin/playtestr${{ runner.os == 'Windows' && '.exe' || '' }} test --report artifacts/results.json examples/silent-input.json examples/screen-compat.json examples/resize.json examples/external-gum.json
       - name: Run deliberate screen regression
         shell: bash
         run: |
           set +e
-          ./bin/playtestr${{ runner.os == 'Windows' && '.exe' || '' }} test --report artifacts/expected-failure.json examples/snapshot-mismatch.json
+          ./bin/playtestr${{ runner.os == 'Windows' && '.exe' || '' }} test --artifacts-dir artifacts/playtestr --report artifacts/expected-failure.json examples/snapshot-mismatch.json
           code=$?
           set -e
           if [ "$code" -ne 1 ]; then
@@ -46,6 +49,6 @@ jobs:
           name: terminal-evidence-${{ matrix.os }}
           path: |
             artifacts/*.json
-            examples/*.actual.txt
-            examples/*.diff.txt
+            artifacts/playtestr/**
           if-no-files-found: error
+          retention-days: 14

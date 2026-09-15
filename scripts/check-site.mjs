@@ -10,6 +10,7 @@ const requiredRoutes = [
   'docs/installation/index.html', 'docs/writing-tests/index.html',
   'docs/snapshots/index.html', 'docs/troubleshooting/index.html',
   'docs/spec-v1/index.html', 'docs/report-v1/index.html',
+  'docs/suites/index.html',
   'docs/compatibility/index.html', 'docs/platform-evidence/index.html',
   'docs/terminal-compatibility/index.html', 'examples/index.html',
   'releases/index.html', 'releases/v0.1.0/index.html',

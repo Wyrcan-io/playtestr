@@ -18,7 +18,8 @@ Run the core checks:
 go test ./...
 go vet ./...
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\test-race.ps1
-go run ./cmd/playtestr test examples/menu.json examples/menu-exit.json
+go run ./cmd/playtestr test --list examples/suite
+go run ./cmd/playtestr test --artifacts-dir artifacts/playtestr --report artifacts/results.json examples/suite
 ```
 
 The race script requires the ignored project-local compiler under `.tools`. If it is absent, record the prerequisite as missing instead of reporting a successful race check.

@@ -42,10 +42,11 @@ type TerminalSize struct {
 	Height int `json:"height"`
 }
 
-// RunOptions controls deliberate baseline updates for one spec.
+// RunOptions controls deliberate baseline updates and failure evidence for one spec.
 type RunOptions struct {
-	Update   bool
-	Snapshot string
+	Update         bool
+	Snapshot       string
+	ArtifactPrefix string
 }
 
 // Spec describes one target process and its ordered terminal interactions.
@@ -500,7 +501,7 @@ func RunDetailedContext(parent context.Context, path string, options RunOptions,
 		var mismatch *snapshotMismatchError
 		if errors.As(runErr, &mismatch) {
 			observation.screen = mismatch.actual
-			diffArtifact := path + ".diff.txt"
+			diffArtifact := artifactPrefix(path, options) + ".diff.txt"
 			if writeErr := writeFileAtomic(diffArtifact, []byte(mismatch.diff), 0644); writeErr == nil {
 				result.Evidence.DiffPath = filepath.Clean(diffArtifact)
 				fmt.Fprintf(out, "Diff saved: %s\n", diffArtifact)
@@ -510,7 +511,7 @@ func RunDetailedContext(parent context.Context, path string, options RunOptions,
 				runErr = errors.Join(runErr, withCategory(FailureArtifact, artifactErr))
 			}
 		}
-		artifact := path + ".actual.txt"
+		artifact := artifactPrefix(path, options) + ".actual.txt"
 		if writeErr := writeFileAtomic(artifact, []byte(observation.screen), 0644); writeErr == nil {
 			result.Evidence.ScreenPath = filepath.Clean(artifact)
 			fmt.Fprintf(out, "Screen saved: %s\n", artifact)
@@ -526,6 +527,13 @@ func RunDetailedContext(parent context.Context, path string, options RunOptions,
 	result.Status = "passed"
 	fmt.Fprintf(out, "PASS %s\n", spec.Name)
 	return result
+}
+
+func artifactPrefix(specPath string, options RunOptions) string {
+	if options.ArtifactPrefix != "" {
+		return options.ArtifactPrefix
+	}
+	return specPath
 }
 
 func waitForStartup(ctx context.Context, session *terminalSession) error {

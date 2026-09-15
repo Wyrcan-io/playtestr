@@ -6,6 +6,6 @@ previous:
   label: "Test specification v1"
   url: "docs/spec-v1/"
 next:
-  label: "Compatibility and evidence"
-  url: "docs/compatibility/"
+  label: "Suites and CI evidence"
+  url: "docs/suites/"
 ---

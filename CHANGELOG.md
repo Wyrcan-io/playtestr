@@ -4,7 +4,18 @@ All notable user-visible changes are recorded here. Playtestr is pre-1.0; the
 compatibility rules for released specs, reports, and patches are in
 [`SUPPORT.md`](SUPPORT.md).
 
-## Unreleased documentation
+## Unreleased
+
+### Added
+
+- Recursively discover deterministic `.json` suites, preview them with
+  `test --list`, and report complete serial pass/fail/cancelled/not-run totals.
+- Collect evidence beneath a unique `--artifacts-dir` run directory with
+  collision-resistant spec identifiers and direct failure-summary paths.
+- Bound discovery and aggregate step metadata, reject input/output and shared
+  snapshot-update collisions before launch, and exclude prior output trees.
+
+### Documentation
 
 - Build a complete static website with dedicated installation, authoring,
   snapshots, troubleshooting, compatibility, examples, releases, support, and

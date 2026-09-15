@@ -1,6 +1,6 @@
 # Sprint 5 — Run a small CI suite and find its failures
 
-Status: proposed; no commands below are implemented by this plan. Depends on release/adopter evidence in [R3](../release/03-real-project-trials.md). Primary outcome: a maintainer runs an intended test directory serially with one command and can identify every failed spec and its evidence.
+Status: engineering implementation complete locally on 15 September 2026; independent adopter acceptance remains open under [R3](../release/03-real-project-trials.md). See the [Sprint 5 engineering validation](../../validation/sprint-5-engineering-2026-09-15.md). Primary outcome: a maintainer runs an intended test directory serially with one command and can identify every failed spec and its evidence.
 
 Scope refined after the [September 2026 competitive assessment](../../research/competitive-assessment-2026-09.md) and [product-focus rule](../product-focus.md). Active alternatives already provide broad automation and installation surfaces. This sprint deliberately owns one narrower job: deterministic suite selection and honest failure evidence. A setup action, package manager, recorder, retries, parallel workers, tags, config framework, and hosted upload are separate products or later evidence-backed responses.
 
@@ -124,10 +124,10 @@ Run pure selection/writer tests and real-PTY suite tests. Run Go tests/vet and n
 
 ## Definition of done and handoff
 
-- [ ] Checkpoints 5.1–5.6 evidenced, including negative/cancellation paths.
-- [ ] One real project uses directory selection and CI results successfully.
-- [ ] Existing explicit-file and report-v1 consumers keep working.
-- [ ] Artifact layout, limits, commands, and any selected JUnit mapping documented.
-- [ ] No parallelism, implicit retries, or baseline auto-approval slipped into scope.
+- [x] Checkpoints 5.1–5.5 have local engineering evidence, including negative and cancellation paths; checkpoint 5.6's documented operator fallback is complete.
+- [ ] One independent real project uses directory selection and CI results successfully; no qualifying participant was supplied, so this adoption gate remains open as required.
+- [x] Existing explicit-file and report-v1 consumers keep working.
+- [x] Artifact layout, limits, and commands are documented; JUnit was omitted because no actual results consumer was identified.
+- [x] No parallelism, implicit retries, or baseline auto-approval slipped into scope.
 
 Stop and review repeat use after this milestone. The recommended next candidate is Sprint 7's compact offline report, which reuses this evidence layout. Sprint 6 remains conditional on missing reproduction context. Record omitted optional work and separate completed engineering from any pending participant evaluation.

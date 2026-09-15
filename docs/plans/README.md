@@ -1,6 +1,6 @@
 # Release and post-MVP delivery plans
 
-Status: R1, the automated R2 boundary, R3b, R3c, R4 stable publication, and R5 public presentation are implemented. The public website and terminal-test workflows passed at commit `0ec1e2d`; independent walkthrough and adoption gates remain open under R2/R3. These documents do not by themselves authorize outreach. Unimplemented commands and formats remain design targets, not current CLI capabilities.
+Status: R1, the automated R2 boundary, R3b, R3c, R4 stable publication, R5 public presentation, and Sprint 5 engineering are implemented. The last recorded remote website and terminal-test workflows passed at commit `0ec1e2d`; the current Sprint 5 working tree has local evidence only. Independent walkthrough and adoption gates remain open under R2/R3. These documents do not by themselves authorize outreach. Unimplemented commands and formats remain design targets, not current CLI capabilities.
 
 The [September 2026 competitive assessment](../research/competitive-assessment-2026-09.md) was rechecked against the active alternatives' public documentation and repository metadata. Its conclusion stands: the released core is credible, but independent adoption, suite/CI ergonomics, authoring, interaction breadth, and terminal fidelity trail active alternatives. The [product-focus rule](product-focus.md) now governs the roadmap: become the simplest runner teams trust for deterministic CI regression, not a feature-parity terminal automation platform.
 
@@ -20,15 +20,15 @@ The original Sprints 0–4 delivered the MVP. The next four release/adoption mil
 
 Sequence revised 11 September 2026: R1 → R2 → R3b technical closure → R3c nine-application validation → R4 stable publication → R3 independent adoption → evidence-based Sprint 5 selection. Existing plan identifiers are retained for links. R3 adoption no longer blocks initial stable publication and remains incomplete until observed. R4's post-publication handoff closes after the first participant stable run; full adoption remains owned by R3. Technical correctness and installation blockers still block publication. A feature needed to unblock a trial is either a small release fix or a separately planned sprint, never an unrecorded expansion of release scope.
 
-## Next milestone
+## Completed engineering milestone
 
 | Sprint | Plan | Primary user value | Start gate |
 | --- | --- | --- | --- |
-| 5 | [Run a small CI suite](sprints/05-suites-and-ci-results.md) | Run an intended test directory serially and find each failed screen safely. | A reproducible multi-spec project case defines selection and evidence needs; independent feedback is recorded when available. |
+| 5 | [Run a small CI suite](sprints/05-suites-and-ci-results.md) | Run an intended test directory serially and find each failed screen safely. | Implemented locally; independent adopter acceptance remains open. |
 
-Stop after Sprint 5's acceptance project. Record engineering completion separately from independent adoption; operator tests cannot close adoption gates. Recruitment can continue while bounded technical work addresses a documented case. This request refines plans and does not start implementation.
+Sprint 5 stopped at its acceptance boundary. Engineering completion is recorded separately from independent adoption; operator tests do not close adoption gates. Recruitment can continue while the next candidate is evaluated.
 
-Recommended order: Sprint 5, then the compact failure report in Sprint 7. Keep the existing identifiers for links. Sprint 7 can render existing evidence without Sprint 6. Reproduction follows only if context remains costly to reconstruct. Installation, workspaces, and terminal correctness can move earlier when they block a chosen real flow.
+The recommended next candidate is the compact failure report in Sprint 7. Keep the existing identifiers for links. Sprint 7 can render existing evidence without Sprint 6. Reproduction follows only if context remains costly to reconstruct. Installation, workspaces, and terminal correctness can move earlier when they block a chosen real flow.
 
 ## Conditional follow-ons, not a feature checklist
 

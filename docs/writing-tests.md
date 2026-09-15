@@ -73,4 +73,6 @@ Resize with `{"resize": {"width": 100, "height": 30}}`. A following `{"wait_for_
 playtestr test --report results.json path/to/test.json
 ```
 
+For multiple tests, pass a directory to resolve all lowercase `.json` files recursively before execution. Preview it without launching targets using `--list`, and use `--artifacts-dir` in CI so every run has an isolated evidence directory. The complete behavior is documented in [Test suites and CI evidence](suites.md).
+
 A passing run exits 0. Test failures exit 1 and identify the failed step and category. Ctrl+C cancellation exits 130 after bounded cleanup. The complete public contract is [Test specification version 1](spec-v1.md).

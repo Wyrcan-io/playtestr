@@ -9,6 +9,7 @@
   <p>Reference</p>
   {{ $url = "docs/spec-v1/" | relURL }}<a href="{{ $url }}"{{ if eq $current $url }} aria-current="page"{{ end }}>Test spec v1</a>
   {{ $url = "docs/report-v1/" | relURL }}<a href="{{ $url }}"{{ if eq $current $url }} aria-current="page"{{ end }}>Report v1</a>
+  {{ $url = "docs/suites/" | relURL }}<a href="{{ $url }}"{{ if eq $current $url }} aria-current="page"{{ end }}>Suites and CI</a>
   {{ $url = "docs/compatibility/" | relURL }}<a href="{{ $url }}"{{ if eq $current $url }} aria-current="page"{{ end }}>Compatibility overview</a>
   {{ $url = "docs/platform-evidence/" | relURL }}<a href="{{ $url }}"{{ if eq $current $url }} aria-current="page"{{ end }}>Platform evidence</a>
   {{ $url = "docs/terminal-compatibility/" | relURL }}<a href="{{ $url }}"{{ if eq $current $url }} aria-current="page"{{ end }}>Terminal behavior</a>

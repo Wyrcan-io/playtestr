@@ -8,11 +8,13 @@ Playtestr is a local runner for deterministic end-to-end tests of trusted intera
 2. [Write a test for your own application](writing-tests.md).
 3. [Add and review text snapshots](snapshots.md) when a complete rendered screen is useful.
 4. [Diagnose a failure](troubleshooting.md) using its category, failed step, final screen, and diff.
+5. [Run a deterministic suite](suites.md) and collect isolated CI evidence.
 
 ## Reference
 
 - [Test specification version 1](spec-v1.md) defines every input field, action, default, and limit.
 - [Machine report version 1](report-v1.md) defines structured outcomes and evidence references.
+- [Test suites and CI evidence](suites.md) defines directory selection, summaries, limits, and artifact layout.
 - [Platform support](platform-support.md) records exact release targets and native evidence.
 - [Terminal compatibility](terminal-compatibility.md) records rendered-screen behavior and known limits.
 - [Support and compatibility policy](../SUPPORT.md) explains stable-contract and reporting expectations.

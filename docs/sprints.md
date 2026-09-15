@@ -67,6 +67,14 @@ Implemented: required spec version 1 and canonical JSON Schema; structured runne
 
 Remote acceptance: commit `bcd1b6e` passed the complete native terminal-test matrix on Ubuntu amd64, macOS arm64, and Windows amd64. Each job ran the pinned external Gum test, proved that the deliberate regression failed, and uploaded its JSON report, screen, and diff. Historical packaging run `34048585717` built and exercised binaries before packaging on all three targets. Release run `34052977944` later verified checksums and archive members, extracted each archive, and exercised the exact packaged binaries before publishing `v0.1.0-rc.1`. The recorded evidence and scope are listed in [Platform support](platform-support.md).
 
+## Sprint 5 — deterministic suites and CI evidence (implemented locally)
+
+User-visible result: a developer can preview and run a directory of `.json` specs serially, receive a complete suite summary, and place failure evidence in a collision-safe directory unique to that invocation.
+
+Explicit paths retain their order. Directory matches are recursively sorted and deduplicated without following directory symlinks. Selection, aggregate step metadata, and outputs are bounded and checked before launch. Ctrl+C retains status 130 while accounting for the active and remaining specs. Report v1 remains unchanged.
+
+Local Windows evidence covers directory listing, real-PTY execution, ordinary failure continuation, expected nonzero exit, cancellation, duplicate basenames, stale evidence, alias rejection, filesystem failures, and resource caps. JUnit, globs, and filters were omitted because the available acceptance project did not demonstrate those needs. See [Test suites and CI evidence](suites.md) and the [engineering validation record](validation/sprint-5-engineering-2026-09-15.md). Independent participant-owned CI acceptance remains open and is not replaced by operator evidence.
+
 ## After the MVP
 
 First publish and verify a release candidate, trial it with independent projects, and promote a stable version when the release gates pass. The [post-MVP plans](plans/README.md) then propose suites and CI results, failure reproduction, local diagnosis, CI installation, repeatable workspaces, and a narrowly selected terminal compatibility improvement.

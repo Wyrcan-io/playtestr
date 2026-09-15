@@ -81,6 +81,38 @@ func TestFailureScreenIsCapturedBeforeCleanup(t *testing.T) {
 	}
 }
 
+func TestConfiguredArtifactWriteFailureRemainsSeparate(t *testing.T) {
+	spec := Spec{
+		Version: SpecVersion,
+		Name:    "artifact write failure",
+		Command: []string{os.Args[0], "-test.run=TestHelperProcess", "--", "exit-seven"},
+		Env:     map[string]string{"PLAYTESTR_HELPER_PROCESS": "1"},
+		Steps:   []Step{{Exit: intPointer(0)}},
+	}
+	data, err := json.Marshal(spec)
+	if err != nil {
+		t.Fatal(err)
+	}
+	path := filepath.Join(t.TempDir(), "spec.json")
+	if err := os.WriteFile(path, data, 0600); err != nil {
+		t.Fatal(err)
+	}
+	blockedPrefix := filepath.Join(t.TempDir(), "blocked")
+	if err := os.Mkdir(blockedPrefix+".actual.txt", 0755); err != nil {
+		t.Fatal(err)
+	}
+	result := RunDetailedContext(context.Background(), path, RunOptions{ArtifactPrefix: blockedPrefix}, &bytes.Buffer{})
+	if result.Failure == nil || result.Failure.Category != FailureUnexpectedExit {
+		t.Fatalf("primary failure = %+v", result.Failure)
+	}
+	if len(result.Evidence.Failures) != 1 || result.Evidence.Failures[0].Category != FailureArtifact {
+		t.Fatalf("evidence failures = %+v", result.Evidence.Failures)
+	}
+	if result.Evidence.ScreenPath != "" {
+		t.Fatalf("screen path points to unwritten evidence: %q", result.Evidence.ScreenPath)
+	}
+}
+
 func TestWaitForRedrawSynchronizesAfterResize(t *testing.T) {
 	err := runHelperSpec(t, "resize-redraw", []Step{
 		{Expect: "resize redraw ready"},

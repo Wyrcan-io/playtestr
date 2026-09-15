@@ -1,6 +1,6 @@
 # Machine report version 1
 
-`playtestr test --report results.json spec.json [...]` writes a JSON report atomically after every requested spec has passed, failed, or been marked `not_run`. The report is also written after Ctrl+C; the active result is `cancelled`, later paths are `not_run`, and the process exits with status 130.
+`playtestr test --report results.json path [...]` writes a JSON report atomically after every selected spec has passed, failed, or been marked `not_run`. A path may be an explicit spec or a recursively discovered directory. The report is also written after Ctrl+C; the active result is `cancelled`, later paths are `not_run`, and the process exits with status 130.
 
 The canonical JSON Schema is [`schema/playtestr-report-v1.schema.json`](../schema/playtestr-report-v1.schema.json).
 
@@ -9,3 +9,5 @@ The top level contains `report_version`, `runner_version`, `os`, `arch`, `summar
 Failure categories in version 1 are `invalid_spec`, `launch_failure`, `assertion_timeout`, `run_timeout`, `unexpected_exit`, `snapshot_mismatch`, `output_limit`, `cancelled`, `cleanup_failure`, `artifact_failure`, `snapshot_update_failure`, and `internal_error`.
 
 Reports are limited to 8 MB. They omit command arguments, environment data, typed input, expected text, and embedded terminal screens. Evidence remains in bounded files referenced by the report. Consumers should branch on version, status, and category fields rather than parsing human-readable messages.
+
+Report v1's shape and ordering are unchanged for suites. Results appear in resolved execution order, including `not_run` entries after cancellation. Evidence paths name files actually written and retain the established path semantics. Use `--artifacts-dir` for a unique per-invocation layout; see [Test suites and CI evidence](suites.md).

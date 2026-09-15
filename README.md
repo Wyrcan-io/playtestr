@@ -86,6 +86,15 @@ Ctrl+C cancels the active spec, performs bounded cleanup, and prevents later spe
 
 Write an ordered machine report with `--report results.json`. It includes stable status and failure categories, step metadata, target exit, cleanup evidence, and artifact paths. It deliberately excludes command arguments, environment data, typed text, and terminal-screen contents. See [Machine report version 1](docs/report-v1.md).
 
+Run a directory as a deterministic serial suite and keep each invocation's evidence together:
+
+```sh
+playtestr test --list tests/terminal
+playtestr test --artifacts-dir artifacts/playtestr --report artifacts/results.json tests/terminal
+```
+
+Directory matches are recursive, sorted, deduplicated, bounded, and resolved before any target launches. The final summary accounts for every selected spec and points directly to each failed screen or diff. See [Test suites and CI evidence](docs/suites.md) for selection rules, limits, output layout, and exit statuses.
+
 ### Working directory and environment
 
 When omitted, `cwd` remains the directory where Playtestr was invoked. A relative `cwd` is resolved from the test file's directory.
@@ -106,7 +115,8 @@ Environment values are never written to failure artifacts by Playtestr itself, a
 ```sh
 go run ./cmd/playtestr test --update examples/menu.json
 go run ./cmd/playtestr test --update --snapshot diagnostics.txt examples/menu.json
-go run ./cmd/playtestr test examples/menu.json
+go run ./cmd/playtestr test --list examples/suite
+go run ./cmd/playtestr test --artifacts-dir artifacts/playtestr --report artifacts/results.json examples/suite
 go test ./...
 ```
 
