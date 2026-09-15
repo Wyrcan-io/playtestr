@@ -31,7 +31,7 @@ The list contained exactly the two frozen paths on repeated resolution. The real
 
 A separate seeded `snapshot_mismatch` exited 1, named step 4 and category `snapshot_mismatch`, and wrote independently addressable screen and diff files beneath one unique run directory. Running the green directory afterward passed 2/2 in a second run directory; its report contained no stale screen or diff reference. Unit and real-PTY tests additionally cover ordinary continue-after-failure, exact expected nonzero exit, cancellation with `cancelled`/`not_run`, duplicate basenames, hard-file deduplication, symlink non-traversal, case behavior, Windows separators, zero matches, missing roots, output aliases, shared update baselines, all suite limits, and evidence-write failure separation.
 
-The workflow file now lists and runs the directory suite, places deliberate-failure evidence under the explicit artifact root, and uploads only that explicit root and reports. This records configuration only; remote CI has not been run for the current working tree and is not claimed as passing.
+The workflow file now lists and runs the directory suite, places deliberate-failure evidence under the explicit artifact root, and uploads only that explicit root and reports. GitHub Actions run [34983854289](https://github.com/Wyrcan-io/playtestr/actions/runs/34983854289) for commit `4b12547443fd93605f5daa9aea1c2a06f8461224` completed successfully on Ubuntu, Windows, and macOS; each matrix job passed the suite, deliberate regression, and artifact upload. The artifact retention is 14 days.
 
 ## Remaining external acceptance
 
