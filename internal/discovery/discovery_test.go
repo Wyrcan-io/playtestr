@@ -150,8 +150,10 @@ func TestResolveCaseBehaviorMatchesHost(t *testing.T) {
 		t.Fatal(err)
 	}
 	want := 1
-	if runtime.GOOS != "windows" {
-		want = 2
+	if upperInfo, upperErr := os.Stat(upper); upperErr == nil {
+		if lowerInfo, lowerErr := os.Stat(lower); lowerErr == nil && !os.SameFile(upperInfo, lowerInfo) {
+			want = 2
+		}
 	}
 	if len(got) != want {
 		t.Fatalf("selected %d specs, want %d", len(got), want)
