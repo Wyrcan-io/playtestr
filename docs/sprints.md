@@ -1,6 +1,6 @@
 # MVP delivery plan
 
-For the next delivery sequence, see the [four release/adoption plans and detailed Sprint 5–10 plans](plans/README.md). Those documents define proposed work and evidence gates; they do not claim that future features are implemented.
+For the next delivery sequence, see the [release/adoption plans and Sprint 5–10 candidates](plans/README.md) and [product focus](plans/product-focus.md). The proposed order starts with Sprint 5 suites, then Sprint 7's compact offline failure report; identifiers are retained, not dependency order. Reproduction, installation, workspaces, and compatibility follow the demonstrated task, with correctness blockers prioritized. These plans do not claim future features are implemented.
 
 ## Working agreement
 

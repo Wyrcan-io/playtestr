@@ -1,133 +1,97 @@
-# Sprint 8: make installation and CI adoption repeatable
+# Sprint 8 — Install the chosen release with less effort
 
-Status: proposed. The setup action and commands in this plan do not exist yet. Start after [Sprint 7](07-failure-diagnosis.md) provides a usable artifact workflow and stable release assets are available.
+Status: conditional candidate. It may move before diagnosis or reproduction if
+installation blocks a willing user. It requires no HTML report or Sprint 6
+manifest. This document does not implement or publish an installer.
 
-## User problem and outcome
+## User result and entry case
 
-A developer has a useful local test but must maintain custom scripts to choose an OS archive, download it, verify it, extract it, and put the correct binary on PATH. Their CI can accidentally run a stale executable or upload nothing after a failure.
+A maintainer chooses an exact Playtestr release and installs it using one
+documented route, with the expected binary available to the next test command.
 
-The outcome is one supported, version-pinned setup action plus a complete external-repository example. A maintainer chooses a runner version, installs their own trusted target, executes ordinary Playtestr commands, and retains useful evidence. Installation convenience must not obscure which binary ran or change test semantics.
+Record two setup-friction observations, or one blocked participant whose
+platform/CI requirements identify the needed route. Existing direct archive
+installation remains a valid fallback. Scope follows where users actually work.
 
-## Entry gate and user evidence
+## Choose one delivery route
 
-Require two adopter setup-friction records from release trials: copied download plumbing, version drift, platform selection errors, or missing CI evidence. Obtain permission for any external repository changes separately during implementation. The planning request does not authorize publishing an action, opening third-party PRs, or contacting maintainers.
+Choose a setup-only GitHub Action when repeated CI jobs need verified downloads.
+Choose one package channel when local installation is the demonstrated obstacle.
+Do not ship both routes in this milestone. Record the maintenance owner and
+how future releases update that route.
 
-Verify the exact release assets and their supported OS/architecture pairs before designing mappings. Existing successful native targets provide a starting point, not a promise that every GitHub-hosted or self-hosted runner works.
+The route only installs Playtestr. Target installation, test execution,
+baseline review, and artifact upload remain ordinary explicit workflow steps.
+No caching layer, self-update, hosted upload, or repository write permissions
+are needed for the first implementation.
 
-Success is an external repository using a pinned published runner to pass a known-good flow, reject a seeded regression with the correct failure category, and expose readable artifacts. Record setup edits, time, assistance, and whether a later version upgrade required rewriting the workflow.
+## Installation contract
 
-## Required scope and conditional work
+- Require an exact version for CI. Pin the installer/action independently of
+  the runner version. Use only commands available in that runner release.
+- Verify the exact supported OS/architecture mapping from published assets.
+- Bound downloads, retries, and archive size; keep TLS verification enabled.
+- Verify the published checksum and archive members before exposing the binary.
+  A same-origin checksum is integrity evidence, not an independent signature.
+- Extract into a fresh owned directory and invoke the absolute binary for its
+  version check. Validate the next step resolves that version even if another
+  Playtestr is already on PATH.
+- Handle spaced paths and executable permissions natively. Avoid elevation or
+  persistent machine-wide changes for a CI job.
+- Failure must leave no partially installed binary presented as ready.
+- Package metadata must have a named update process. If upgrade/uninstall is
+  in scope, prove it touches only owned files.
 
-Required work is a setup-only GitHub Action, its installation checks, a documented CI recipe, and one adopter integration. Keep a direct-download fallback for users outside GitHub Actions. The action invokes the standalone Go binary; it is not a second implementation of the runner.
+Use the smallest implementation consistent with supported hosts. A setup action
+may use platform shell scripts; it must call the released Go runner and does not
+introduce a second runner implementation.
 
-Package-manager distribution is conditional. At checkpoint 8.1, record demand for one channel and a maintainer commitment. If that evidence exists, plan one channel, such as Scoop or Homebrew according to the actual users. Do not implement both by default. If no channel qualifies, record the decision and finish the required setup-action scope; an unneeded package manager is not an unfinished acceptance item.
+## Checkpoints
 
-Excluded: hosted services, PR comments, automatic snapshot commits, repository write permissions, a matrix of package managers, a universal installer, self-update, and automatic upgrades to an unpinned latest release.
+### 8.1 — Select the route
 
-## Proposed integration contract
+Capture installation attempts, prerequisites, time, assistance, and concrete
+errors. Choose action or package channel, version policy, ownership, asset
+mapping, and limits.
 
-The following is a conceptual recipe, not a published action reference or a copy-and-run workflow yet:
+Acceptance: one route removes the identified work and has a maintenance owner.
 
-```yaml
-# Pin each action to a reviewed immutable commit when publishing the example.
-- uses: Wyrcan-io/playtestr@<setup-action-commit>
-  with:
-    version: 'v0.1.0'
-- run: playtestr test --artifacts-dir artifacts/playtestr --report artifacts/results.json --junit artifacts/results.xml tests/terminal
-# Add an artifact upload step with an appropriate always/failure condition.
-```
+### 8.2 — Implement and verify installation
 
-Finalize action location and supported action version separately from the installed runner version. If the required CLI flags first ship after v0.1.0, the actual example must pin the first release that contains them. Never publish this conceptual version combination as a verified example.
+Run fresh native checks for the promised targets. Cover a normal install,
+missing release, wrong checksum, corrupt or escaping archive, unsupported
+architecture, network timeout, spaced paths, and stale executable on PATH.
 
-Inputs should be minimal: an exact release version, and only a necessary installation/cache option. An omitted or floating version should fail with guidance in the initial action. Derive OS and architecture from the runner and reject unsupported pairs before downloading anything.
+Acceptance: only the expected verified version becomes available. A configured
+workflow alone is not execution evidence.
 
-Outputs should identify the installed version and resolved binary path. Print the selected release and platform, without environment values or token contents. Do not print a claimed verified identity before checking the downloaded bytes and executed binary.
+### 8.3 — Finish the actual adopter workflow
 
-The action only installs Playtestr. It never discovers or runs specs, installs arbitrary target dependencies, sends reports, opens a browser, or modifies baselines. Target installation and test commands remain explicit workflow steps under the repository owner's control.
+Have the adopter use the route to run a known-good test, reject a controlled
+regression, find the existing evidence, and recover. In CI, use finite artifact
+retention, explicit artifact paths, and minimal permissions. Ordinary failures
+must remain failed; do not teach blanket continue-on-error.
 
-## Distribution and installation design
+Acceptance: setup and assertions are distinguished, and the maintainer can
+change the version pin without rebuilding the integration.
 
-Choose the smallest maintainable action implementation after inspecting platform shell availability. A composite action with small platform-specific scripts is preferable if it meets the verified environments; do not add a JavaScript service or another product runtime merely to wrap a download. Scripts must quote paths, preserve exit status, and handle spaces on Windows and Unix.
+### 8.4 — Prepare publication and maintenance
 
-Download only from the documented release origin for an exact version. Validate asset naming and checksums using the published manifest. Checksums detect accidental corruption and mismatched bytes; a checksum obtained from the same compromised source is not an independent signature. Do not invent signing claims or disable TLS verification when installation fails.
+Prepare exact metadata, instructions, and any external submission for review.
+Publication, upstream PRs, and contacting recipients need their existing
+explicit authority; a planning edit cannot claim they happened.
 
-Extract into a fresh owned directory. Check archive members before extraction where required by the extraction tool; reject path traversal, unexpected executables, and ambiguous layouts. Verify executable permissions on Unix and invoke the extracted absolute path for version/help checks before changing PATH.
+Acceptance: local preparation, actual publication, and independent adoption
+are recorded separately. Verify a later real release upgrade when available;
+do not publish dummy versions for the test.
 
-If caching is justified, key by exact release, platform, architecture, and expected content identity. A cache hit still needs binary/version validation. A failed or partial download must not leave a cache entry treated as valid. Prefer no cache in the first slice if download time is negligible; cache plumbing is not user value by itself.
+## Definition of done
 
-Do not require elevated installation or persistent machine-wide PATH edits on hosted runners. Publish the chosen binary path through the action mechanism. Ensure the following workflow step resolves the selected binary even when a different Playtestr is already on PATH.
+- [ ] One route and its owner selected from an observed obstacle.
+- [ ] Fresh native installation and failure checks recorded.
+- [ ] Correct released binary runs the adopter's pass/failure/recovery flow.
+- [ ] Version selection, fallback, maintenance, and applicable removal documented.
+- [ ] Uncompleted publication or adoption steps remain explicitly open.
 
-Bound download time, retries, and archive size. Authentication is optional for rate limits or permitted private distribution, with the least necessary read permission; no personal access token is required for the public-release happy path. Missing credentials or throttling must produce an actionable error, not trigger endless fallback attempts.
-
-## CI evidence and permissions
-
-The recipe builds or installs a pinned trusted target, invokes the normal CLI, and uploads the explicit artifact directory even when a test fails. Do not upload the whole working directory or inherited environment. Give evidence retention a documented finite value, with a reminder that screens can contain application data.
-
-Distinguish a real regression from a broken setup. The seeded-failure example must check exit status and the expected structured failure category/step, and confirm useful screen/diff evidence. A launch failure returning nonzero does not prove snapshot checking works.
-
-An expected failure in Playtestr's own demonstration can be handled inside a successful validation step after checking its exact result. A user's ordinary regression workflow must stay failed when tests fail; do not teach blanket `continue-on-error` as the normal integration.
-
-Use read-only repository permissions where possible. Exercise a pull request from a fork without secrets, assuming only trusted test targets are eligible under the repository's own contribution policy. Do not introduce `pull_request_target` execution of untrusted checkout code, automatic commenting, or write permissions for a setup-only task.
-
-## Implementation checkpoints
-
-### 8.1 — Freeze the supported install contract
-
-Review both friction records, current release layout, action location, version policy, supported hosts, retry limits, and conditional package-manager evidence. Decide how action updates and binary releases are maintained independently.
-
-Acceptance: a short contract with no floating version default, no invented platform coverage, and an explicit yes/no decision on one distribution channel.
-
-### 8.2 — Install a release in fresh native jobs
-
-Build the download/verify/extract/version/PATH sequence using actual released archives, without relying on checkout-built binaries. Use isolated temporary install directories and introduce an intentionally stale executable on PATH in one test.
-
-Acceptance: the next step runs the selected version on each advertised host. Wrong checksum, missing version, unsupported architecture, corrupt archive, and failed download are bounded actionable failures.
-
-### 8.3 — Package and validate the setup action
-
-Expose minimal inputs/outputs, add self-tests, and verify quoting and failure propagation. Inspect artifact provenance before constructing a reviewable action release or tag. Publication remains an explicit authorized step, not a side effect of local testing.
-
-Acceptance: an action test exercises installation in a fresh job, including subsequent-step PATH resolution. A successful archive build alone does not satisfy this checkpoint.
-
-### 8.4 — Build the complete CI recipe
-
-Create a small documented example with target prerequisites, a pass, a deliberately checked mismatch, report/JUnit output, and failure-artifact retention. Update the website/README only with commands available in the pinned version.
-
-Acceptance: both test semantics and artifact accessibility are verified. Inspect the downloaded artifact and local HTML report, not just the workflow's green status.
-
-### 8.5 — Complete the selected distribution addition, if justified
-
-For a channel approved in 8.1, generate versioned metadata from release assets, verify install/upgrade/uninstall in a fresh environment, and document who updates checksums and handles withdrawn releases. Prepare any third-party submission fully before requesting the necessary publication approval.
-
-Acceptance: the chosen channel installs the expected binary and removes only its owned files. If this checkpoint was excluded by the entry decision, preserve the reason and keep the direct-download/action routes complete.
-
-### 8.6 — Integrate with an independent repository
-
-Have the adopter review and run the workflow. Introduce and remove a controlled regression. Repeat installation at another exact released version when available to check upgrade mechanics; do not publish a dummy release just for this test.
-
-Acceptance: the owner can explain version selection, find failure evidence, and update the pin. Record any unresolved external approval or publication as incomplete, rather than calling prepared files a deployed integration.
-
-## Acceptance matrix
-
-| Scenario | Expected behavior |
-| --- | --- |
-| Exact supported version | Downloaded bytes, invoked version, and subsequent PATH agree. |
-| Existing different binary | Selected action version wins within the job; original installation is not deleted. |
-| Corrupt/mismatched download | Installation fails before exposing a runnable binary. |
-| Missing release/unsupported host | Clear bounded failure with direct-download/support guidance. |
-| Network timeout/rate limit | Finite retry policy; useful error without leaked credentials. |
-| Cache hit or partial cache | Identity revalidated; invalid entries cannot silently execute. |
-| Paths with spaces | Installation and invocation work natively on the claimed host. |
-| Passing and deliberately failing target | Correct categories and artifacts, not merely expected shell status. |
-| Fork PR without secrets | Read-only recipe works for the verified fixture. |
-| Package upgrade/uninstall, when selected | Exact version changes; unrelated user files remain intact. |
-
-## Definition of done and handoff
-
-- [ ] Required checkpoints and any explicitly selected distribution checkpoint complete.
-- [ ] Actual published assets installed on advertised native targets; resulting runs recorded.
-- [ ] External repository integration demonstrates both success and a real assertion regression.
-- [ ] Version pinning, permissions, evidence retention, failure handling, and maintenance owner documented.
-- [ ] No publication, upstream submission, or outreach is claimed without evidence and authorization.
-
-Handoff to [Sprint 9](09-repeatable-workspaces.md): a reproducible CI installation path. Installation consistency does not solve mutable target state; the next sprint addresses that separate, demonstrated source of nondeterminism.
+Review the next task on its own evidence. Installation does not determine the
+order of workspace or terminal compatibility work.

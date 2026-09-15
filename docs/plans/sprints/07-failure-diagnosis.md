@@ -1,132 +1,150 @@
-# Sprint 7: diagnose a failure from local evidence
+# Sprint 7 — Understand a failure in one offline report
 
-Status: proposed. Commands, timeline data, and report views below are not implemented capabilities. This sprint builds on [Sprint 6](06-failure-reproduction.md); it does not replace the existing console output or report v1.
+Status: proposed; recommended next candidate after Sprint 5's evidence layout.
+The number is retained for existing links. Sprint 6 is not a prerequisite.
+No report command or HTML report described here is currently implemented.
 
-## User problem and outcome
+## User result
 
-A maintainer downloads a failed CI run and sees a timeout, final screen, and JSON. They still need to answer: which interaction failed, what assertion was pending, whether the target exited, whether the viewport changed, and whether cleanup succeeded. A final screen alone can hide the preceding transition.
+A developer opens a failed run and immediately sees which test and step failed,
+the captured terminal text, the relevant snapshot diff, and the cleanup outcome.
+This same useful view becomes the memorable moment in the public demo.
 
-The outcome is an offline report that answers those questions from captured evidence. The user can open it without a server, account, or the target application installed. Missing observations remain missing; the report must not invent why an application behaved a certain way.
+The report is a self-contained HTML file produced locally from captured
+evidence. It opens without a server, account, network, or target application.
 
-## Entry evidence and success measure
+## Entry cases and scope
 
-Collect two diagnosis tasks from trials: preferably one assertion timeout and one snapshot mismatch or unexpected exit. Keep the actual report and reviewed, synthetic-data artifacts, plus the maintainer's steps to understand them. Establish how long it takes to locate the first failure and the relevant evidence with current tools.
+Use two concrete tasks: a snapshot mismatch and an assertion timeout or early
+exit. Start with existing fixtures and one available project reproduction;
+record independent reviewer results separately when participants are available.
+Document the questions a reviewer needs answered and the current effort.
 
-Success requires another developer to identify the failing interaction, expected behavior, observed behavior, and cleanup result for both tasks using the report. Record time, assistance, and unresolved questions. With this small sample, report task results rather than claiming a general productivity percentage.
+Required: one report renderer using report v1 and its existing screen/diff
+artifacts; clear failure navigation; portable offline output; bounded loading
+and rendering; usable keyboard navigation and small-screen layout.
 
-If final screens already answer both tasks, first improve their presentation. Add checkpoint capture only for the demonstrated missing transition; a continuous terminal recording is not a prerequisite.
+Later proposals: event histories, step checkpoints, continuous recording,
+side-by-side style comparison, or automatic diagnosis. None is needed for this
+milestone. Existing evidence can be made easier to understand without expanding
+the terminal capture contract.
 
-## Scope
-
-Required: a self-contained static HTML report generated locally; summary and per-spec failure detail; safe links or embedded copies of bounded evidence; an explicit timeline contract; optional checkpoint screens when the selected tasks require them; accessible text and keyboard navigation.
-
-Excluded: live dashboards, remote asset loading, GIF/video export, raw ANSI playback, automatic root-cause diagnosis, automatic minimization, styled snapshots, and a target execution button. Opening a report never runs its original command.
-
-The existing JSON report remains an automation interface. HTML is a view of captured outcomes, not a second outcome evaluator.
-
-## Proposed workflow
+## Proposed command and first view
 
 ```text
-playtestr test --report artifacts/results.json --diagnostics artifacts/diagnostics.json tests/terminal
-playtestr report --input artifacts/results.json --diagnostics artifacts/diagnostics.json --output artifacts/report.html
+playtestr report --input artifacts/results.json --evidence-root artifacts --output artifacts/report.html
 ```
 
-These are proposed commands. Rendering a report from existing report v1 without diagnostics must work; unavailable history is visibly labeled. The renderer accepts only supported format versions and never fetches references from the network.
+Finalize flag names at checkpoint 7.1. The evidence root is explicit so a
+downloaded report cannot request arbitrary files on the developer's machine.
+Rendering accepts already captured evidence and never starts the target.
 
-The generated page starts with result counts, cancellation/incomplete-run state, and failures. A selected failure shows its spec identity, step, assertion kind, expected snapshot name where applicable, failure category, screen/diff, viewport, relevant event ordering, and separate cleanup outcome. Passing specs remain accessible without dominating the first view.
+The first view contains:
 
-## Evidence contract
+- Overall pass/fail/cancelled/not-run counts.
+- A compact list of failures, selected by stable spec identity.
+- The selected failure's step, category, terminal dimensions, captured screen,
+  and existing unified diff where available.
+- Separate process exit, cleanup, and evidence-write outcomes.
+- Missing evidence labeled where it belongs.
 
-Use a separately versioned diagnostics sidecar with its own schema. Do not add unrecognized fields to report v1. Associate it with the report through a documented local identity mechanism, including spec identity and step indexes, and reject a mismatched pairing rather than displaying another run's history.
+The ordinary view needs no knowledge of sidecars, emulator libraries, or schema
+internals. Supporting metadata can sit behind native disclosure elements.
+Passing tests remain available without displacing failures.
 
-Record only observable lifecycle events: step started/completed, input submission completed or failed, assertion satisfied or failed, resize acknowledged, process exit observed, cancellation observed, cleanup started/completed, and evidence write failure. An input write completing does not prove the application handled it. A resize call completing does not prove a redraw completed. Quiet time is not readiness.
+Do not recover omitted command arguments, typed text, or expected strings by
+reading arbitrary specs. A timeout report can show its category, step, and
+captured screen; it must label an expected expression unavailable if report v1
+did not record it. Show no guessed history or root cause.
 
-Use monotonic elapsed durations for ordering within a run. Wall-clock timestamps, if present, are descriptive and not the basis of ordering. Mark simultaneous/uncertain observation order honestly; never claim the exact instant the target made an internal decision.
+## Evidence, privacy, and resource contract
 
-Checkpoint screens are opt-in and event-based: for example after an assertion provides positive readiness and at the first failure. Capture a bounded, synchronized screen with its dimensions and step phase. Reuse the same captured failure screen for text evidence and HTML rather than sampling the terminal again and showing contradictory states.
+Use the current report v1 outcome model. No new timeline format, reproduction
+manifest, or runner instrumentation is required. Reuse existing artifacts
+rather than sampling a terminal again or silently comparing a newer baseline.
 
-### Resource budgets
+At checkpoint 7.1 define how an exported run keeps report references resolvable.
+Reject references outside the chosen root, escaping links/junctions, network
+URIs, input/output aliasing, and inconsistent spec/artifact association. Existing
+v1 files may not prove artifact integrity; do not represent a readable file as
+cryptographically verified capture.
 
-Before implementation, confirm provisional limits against the two trial tasks:
+Set bounded per-file and aggregate input/output limits before implementation:
+provisionally 256 KiB per screen and 32 MiB for the whole generated document,
+while honoring existing report/snapshot limits. Inspect file sizes and enforce
+bounded reads as well. Validate limits against the selected tasks. Missing
+optional evidence is visible; malformed input, path rejection, or a failed
+requested output write returns a rendering error without changing test results.
 
-- At most 10,000 timeline events per spec and 64 checkpoint screens per spec.
-- At most 256 KiB per checkpoint, 8 MiB diagnostics data per spec, and 32 MiB for a generated HTML file.
-- Existing spec, session output, snapshot, and report limits remain authoritative.
-- Stream or budget suite aggregation so many passing specs do not allocate all possible checkpoint limits at once.
+Escape all text, paths, and diffs as literal content. Do not interpret terminal
+OSC/ANSI as links or HTML. No CDN, telemetry, external fonts, or remote requests.
+Embed the admitted screen/diff contents so the output can be moved as one file.
+Write atomically and preserve any previous output if rendering fails.
 
-Exhausting an optional capture budget records omitted-event/frame counts and preserves core execution. Failure to write an explicitly requested artifact follows the established artifact-failure policy and cannot silently produce a passing result with missing promised evidence. The separate render command fails clearly when it cannot produce a valid bounded document; it never modifies the recorded test outcome.
-
-## Privacy and safe rendering
-
-Screens and diffs can contain application data. Enable richer capture explicitly, document the extra persistence, and use synthetic test data in public examples. Do not copy environment values, raw input text, arbitrary command arguments, or unrelated filesystem contents into diagnostics. Capture action kinds and indexes instead.
-
-Automatic masking cannot promise to remove all sensitive terminal output. Keep ordinary privacy obligations explicit: a target must not print secrets into evidence intended for sharing; inspect artifacts before upload; any redaction is a visible transformation and cannot be used as proof of the original assertion. Existing failure screens are also sensitive, so the guidance applies to them.
-
-Treat all report text, filenames, and terminal output as untrusted HTML input. Escape them as text; never interpret ANSI/OSC sequences as browser links or execute embedded HTML, JavaScript, or URLs. Use a self-contained page with no analytics, web fonts, CDN libraries, or external requests. Prefer static HTML and CSS; any necessary script must operate only on already embedded, escaped data.
-
-Resolve artifact references within an explicit evidence root, reject traversal and escaping symlinks, and reject unsupported URI schemes. Do not read the user's arbitrary absolute paths merely because a downloaded report requests them. Show an unavailable-artifact entry when evidence was not provided.
-
-Use readable contrast, visible focus, semantic headings, and textual outcome labels rather than color alone. Respect the existing site's restrained visual direction without making the report depend on the public website.
+Screens and diffs may contain application data. Make export explicit, use
+synthetic examples, and tell authors what the HTML embeds before they share it.
+Metadata continues excluding secrets, command arguments, and typed input.
+Automatic sanitization is not promised.
 
 ## Implementation checkpoints
 
-### 7.1 — Validate the diagnosis tasks and freeze the view contract
+### 7.1 — Freeze the two tasks and the presentation
 
-Sketch the report using the two real tasks and current report v1. Inventory which questions existing evidence can answer. Approve the minimal event/frame set, limits, privacy behavior, and standalone command semantics before instrumenting the runner.
+Sketch one small failure view from actual report/screen/diff evidence. Decide
+path resolution, limits, output errors, missing-data labels, and command names.
+Choose legible typography, aligned terminal text, restrained diff highlights,
+and a visible first failing step consistent with the existing site.
 
-Acceptance: every proposed panel points to an existing or explicitly planned observation. Remove speculative panels and inferred root causes.
+Acceptance: every displayed fact has an identified captured source. The report
+is useful with no timeline and no additional recording.
 
-### 7.2 — Render existing outcomes safely
+### 7.2 — Render existing evidence
 
-Implement the standalone renderer in Go behind the artifact boundary. Show suites, failures, captured screens, diffs, and cleanup using existing evidence. Resolve roots safely; handle missing artifacts and unsupported versions without running a target.
+Implement the Go renderer and command behind the artifact boundary. Keep test
+outcomes unchanged. Handle one spec and a mixed suite, duplicate display names,
+cancelled/not-run results, missing screens, and cleanup failure.
 
-Acceptance: a report v1 from an intentional mismatch renders offline; a malformed report fails; hostile screen text appears literally. Open the result in a browser as well as checking generated markup.
+Acceptance: generated files are portable, offline, and readable with JavaScript
+disabled. No target launches or baseline writes occur.
 
-### 7.3 — Capture the minimal diagnostic events
+### 7.3 — Verify hostile and incomplete input
 
-Instrument the runner/session boundary without changing assertion decisions. Preserve synchronization and avoid blocking terminal reads on HTML or filesystem writes. Define how queued observations are bounded and drained on cancellation.
+Cover traversal, absolute/remote references, escaping links, wrong versions,
+malformed/truncated reports, oversized files, HTML/OSC text, unusual Unicode,
+and unwritable/aliased output. Test only applicable filesystem paths on each
+advertised host.
 
-Acceptance: real-PTY success, timeout, early exit, and cancellation produce correctly attributed events with bounded shutdown. Run the race detector because shared lifecycle observations change.
+Acceptance: errors are bounded and understandable, original inputs survive,
+and test results cannot be changed through the renderer.
 
-### 7.4 — Add bounded checkpoint evidence
+### 7.4 — Review the actual user experience
 
-Implement only the checkpoints justified in 7.1. Reuse immutable screen captures, annotate viewport and phase, and enforce per-spec and suite budgets. State when frames/events were omitted.
+Open the output in a browser on narrow and desktop viewports. Check keyboard
+navigation, focus, contrast, terminal alignment, diff readability, literal
+hostile text, and zero external requests. Long terminal lines may scroll within
+their pane; the page itself should remain navigable.
 
-Acceptance: a delayed redraw followed by a satisfied assertion has evidence at the right phase; a silent timeout shows no invented readiness; an output flood cannot expand diagnostic memory indefinitely.
+Acceptance: a reviewer finds the first failing step and explains the captured
+difference without parsing JSON. Record assistance and unanswered questions.
 
-### 7.5 — Exercise corrupted and adversarial artifacts
+### 7.5 — Demonstrate and hand off
 
-Test wrong-run sidecars, missing screens, path escape, symlinks, oversized references, XML/HTML-like terminal text, control sequences, Unicode, very long lines, and write failures. Verify the page has no external requests and remains usable without JavaScript where practical.
+Use the [demo acceptance](../product-focus.md#demo-acceptance) with the same
+generated report a user receives. Show a good run, controlled target regression,
+correct failure, and restored good run. Preserve the bad run's evidence.
 
-Acceptance: report problems are visible and separate from test outcomes; the renderer does not execute, fetch, or read outside its allowed evidence root.
+Acceptance: another developer can follow the documented export and inspect
+workflow. Record technical completion separately from independent usability
+and adoption outcomes.
 
-### 7.6 — Repeat the maintainer diagnosis tasks
+## Definition of done
 
-Give the generated artifacts to a developer without explaining the seeded failure. Record their explanation and comparison with the expected diagnosis. Include a case with incomplete evidence so uncertainty is tested as deliberately as success.
+- [ ] Both diagnosis cases render correctly from report v1 and existing files.
+- [ ] Input paths, aggregate sizes, output errors, and privacy are bounded.
+- [ ] Browser review proves offline usability, keyboard access, and portability.
+- [ ] Missing information stays visible; no inferred history or cause appears.
+- [ ] Documentation and the demo use commands from an actual released version.
+- [ ] Independent review is recorded or explicitly remains open.
 
-Acceptance: both tasks can be explained from the artifacts, and missing observations are not mistaken for confirmed target behavior. Update examples and troubleshooting documentation based on actual confusion.
-
-## Acceptance matrix
-
-| Case | Required observation |
-| --- | --- |
-| Snapshot mismatch | Correct step, expected/actual diff, and matching failure screen. |
-| Assertion timeout after input | Input submission and pending assertion visible; no claim the app consumed input. |
-| Unexpected exit | Observed exit status and first failing step preserved. |
-| Cancelled suite | Active failure and later not-run specs remain distinguishable. |
-| Failure plus cleanup failure | Both visible without replacing the primary outcome. |
-| Report without diagnostics | Useful static summary; history explicitly unavailable. |
-| Wrong or truncated sidecar | Clear diagnostic error; no merged cross-run history. |
-| Large/flooding target | Bounded capture; omissions disclosed; cleanup still completes. |
-| Hostile HTML/OSC/path | Literal text or rejected reference; no execution/network/path escape. |
-| Sensitive synthetic canary | Disallowed metadata fields are absent; screen persistence follows the documented opt-in boundary. |
-
-## Definition of done and handoff
-
-- [ ] Checkpoints 7.1–7.6 complete and both real diagnosis tasks recorded.
-- [ ] Standalone rendering cannot launch a target or alter snapshots/outcomes.
-- [ ] Timeline schema, capture limits, missing-data behavior, and privacy guidance published together.
-- [ ] Unit/renderer checks and relevant real-PTY, race, and native platform checks pass.
-- [ ] Existing console and JSON workflows remain usable without diagnostics enabled.
-
-Handoff to [Sprint 8](08-ci-adoption-and-installation.md): a documented artifact set that an external repository can upload and inspect. Recordings and minimization remain separate proposals requiring evidence that these reports cannot solve a real task.
+Review the next obstacle after delivery. Add history or reproduction machinery
+only when an observed question requires new evidence.

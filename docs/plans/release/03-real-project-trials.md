@@ -57,7 +57,7 @@ Acceptance: each trial has a passing good case and a failing bad case whose evid
 
 ## Checkpoint 4 — Test repeated use and CI fit
 
-Have the maintainer run the test on a second working session or later application change. Where practical, run it in the project's CI with read-only repository access and bounded artifact retention. Keep the trial narrow: CI installation can use the documented archive path until Sprint 8 provides a reusable action.
+Have the maintainer run the test on a second working session or later application change. Where practical, run it in the project's CI with read-only repository access and bounded artifact retention. Use documented archive installation initially. If that blocks a willing participant, the conditional Sprint 8 can deliver one needed installation route earlier.
 
 Collect a modest fixed sample, such as ten consecutive local runs of the pinned flow, to expose timing or state issues. Report the denominator, application version, and host; ten passes do not establish statistical reliability across other systems. Preserve any failures rather than adding retries that conceal them.
 
@@ -91,4 +91,4 @@ If fewer than three projects participate, keep R3 open and reassess recruitment 
 - [ ] Ranked backlog has evidence and a small proposed remedy for each accepted item.
 - [ ] Permission exists for any names, quotes, or examples intended for public release notes.
 
-Handoff: R4's post-publication checkpoint receives the first independent stable run. Sprint 5 selection receives the full review/reuse/CI evidence and ranked user tasks. Human adoption remains open until its own checks pass; it no longer blocks initial stable publication.
+Handoff: R4's post-publication checkpoint receives the first independent stable run. Sprint 5 selection uses the concrete project task and available feedback while recruitment continues; full R3 completion is a separate adoption result. Human adoption remains open until its own checks pass and cannot be replaced by technical repetitions.

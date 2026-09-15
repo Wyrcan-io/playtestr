@@ -46,6 +46,21 @@ Copy this file once per project. Use an opaque local identifier when the partici
 
 ## First session
 
+### Demo and first-use observations
+
+- Example and exact runner version shown:
+- Could the participant explain the demonstrated defect after one viewing:
+- Could they find the matching runnable spec and prerequisites:
+- Installation time (separate from test authoring/execution):
+- Time from prerequisites ready to pass/failure/recovery:
+- Could they change one assertion and explain its result:
+- First point of confusion or abandonment:
+- Current alternative for this task and reason to switch or stay:
+- If a comparison ran: alternative version, same target/host/defect, assistance:
+- Willingness to try on their own project (not counted as actual later use):
+
+### Execution evidence
+
 - Prerequisites-ready time:
 - First passing-test time:
 - Assistance given before first pass:

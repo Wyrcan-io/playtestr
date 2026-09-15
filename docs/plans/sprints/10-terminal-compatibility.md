@@ -2,6 +2,12 @@
 
 Status: proposed and evidence-gated. This plan is not a promise of full Unicode or terminal-emulator compatibility. Read the current [terminal compatibility contract](../../terminal-compatibility.md) before selecting the implementation scope.
 
+Priority rule: this candidate can precede any convenience milestone when the
+chosen flow renders incorrectly. Correct terminal behavior is part of quality,
+even when it adds no command or visible feature. A reduced real-application
+case is sufficient to investigate; it need not wait for several adopters.
+Retain the one-family scope and independently specified expected cells.
+
 ## User problem and outcome
 
 A real application's screen looks correct in the maintainer's terminal, but Playtestr places a character in the wrong cell, wraps a line incorrectly, or does not handle a control sequence the application needs. The resulting snapshot failure describes the emulator's limitation instead of a product regression.
@@ -70,7 +76,7 @@ For new width/profile behavior, propose an opt-in terminal profile under the the
 
 Each profile has a deterministic documented width policy, including handling of ambiguous characters. Do not depend on the developer's font or unspecified locale for snapshot widths. Text snapshots stay text snapshots; no color/style comparison is introduced here.
 
-Add profile information to reproduction prerequisites using an appropriately versioned format. A rerun with a different profile cannot be called identical context. Ensure diagnostic screen exports and HTML reports render text legibly without asserting that a browser font proves terminal cell correctness. If needed, show cell/cursor metadata in an optional technical view for this debugging task.
+Record the chosen profile in the approved evidence contract. If reproduction tooling exists, include it in prerequisite checks; otherwise document the ordinary rerun context without building that tooling here. Different profiles are different context. If an HTML report exists, display captured text legibly without treating browser font appearance as proof of terminal cell correctness. Neither workspace, reproduction, nor HTML tooling is a prerequisite for this compatibility fix.
 
 Migration instructions identify affected specs, run the old and new profiles against the chosen application, review differences, update only deliberately selected baselines after positive readiness, and rerun without update. Existing transactional snapshot protections remain mandatory.
 

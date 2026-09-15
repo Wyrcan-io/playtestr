@@ -1,6 +1,8 @@
 # Sprint 6 — Reproduce a CI failure locally
 
-Status: proposed. Depends on Sprint 5's stable suite/artifact identities. Primary outcome: a developer can inspect a failed run's required inputs and rerun its reviewed test against a local trusted application without reconstructing CI context by hand.
+Status: conditional candidate, not the automatic next sprint. It depends on Sprint 5's stable suite/artifact identities and a recorded case where a CI failure cannot be reproduced locally because necessary context is unclear. Primary outcome: a developer can inspect one failed run's required inputs and rerun its reviewed test against a local trusted application without reconstructing CI context by hand.
+
+This is deliberately a failure handoff, not a terminal recorder, source bundle, checkout manager, or general replay system. Do not start it because a manifest seems useful; start only when the existing spec, report, screen, diff, and CI logs leave a maintainer unable to perform a specific local rerun.
 
 ## User problem and value
 
@@ -46,7 +48,11 @@ Identify the original failure using structured category, selected spec identity,
 
 The result of a reproduction attempt is one of: reproduced within the recorded observable identity; not reproduced; different failure; prerequisite mismatch; or cancelled. Document the CLI status mapping at checkpoint 1. A proposed mapping is 0 for the same observed failure, 1 for not reproduced/different failure, 2 for invalid inputs/prerequisites, and 130 for cancellation; explain that this command's success means successful reproduction, unlike `test` where success means the target test passed.
 
-Missing application state remains a stated limitation. The reproduction manifest does not capture databases, network services, the process scheduler, or secret inputs. Sprint 9 will later make repository-local workspace state more repeatable.
+Missing application state remains a stated limitation. The reproduction manifest does not capture databases, network services, the process scheduler, or secret inputs. If the separate workspace candidate has shipped, record its relevant prerequisites; otherwise retain the limitation without making that candidate a dependency.
+
+Matching a category and step can still describe two different defects. Label this
+as a matching observed failure signature, not proof of the same root cause.
+Where captured snapshot evidence exists, review its difference as well.
 
 ## Scope exclusions and resource budgets
 
@@ -121,4 +127,4 @@ Acceptance: the maintainer can explain whether the observed failure reproduced a
 - [ ] Advertised platform paths run natively; no new unsupported compatibility claim.
 - [ ] Existing `test` commands and report v1 remain compatible.
 
-Handoff to Sprint 7: a bounded manifest and stable evidence references suitable for local inspection. Automatic minimization remains deferred until repeated runs establish a useful, stable failure predicate.
+Stop and review retention after this milestone. Consider a diagnosis view only when a maintainer identifies a question that the manifest, report, screen, and diff still cannot answer. Automatic minimization remains deferred until repeated runs establish a useful, stable failure predicate.

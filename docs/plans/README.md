@@ -1,6 +1,8 @@
 # Release and post-MVP delivery plans
 
-Status: R1, the automated R2 boundary, R3b, R3c, and R4 stable publication are complete as recorded in their individual plans; independent walkthrough and adoption gates remain open under R2/R3. R5 public-presentation work is implemented locally and awaits review and live deployment validation. These documents do not by themselves authorize outreach. Unimplemented commands and formats remain design targets, not current CLI capabilities.
+Status: R1, the automated R2 boundary, R3b, R3c, R4 stable publication, and R5 public presentation are implemented. The public website and terminal-test workflows passed at commit `0ec1e2d`; independent walkthrough and adoption gates remain open under R2/R3. These documents do not by themselves authorize outreach. Unimplemented commands and formats remain design targets, not current CLI capabilities.
+
+The [September 2026 competitive assessment](../research/competitive-assessment-2026-09.md) was rechecked against the active alternatives' public documentation and repository metadata. Its conclusion stands: the released core is credible, but independent adoption, suite/CI ergonomics, authoring, interaction breadth, and terminal fidelity trail active alternatives. The [product-focus rule](product-focus.md) now governs the roadmap: become the simplest runner teams trust for deterministic CI regression, not a feature-parity terminal automation platform.
 
 The original Sprints 0–4 delivered the MVP. The next four release/adoption milestones make that MVP accessible and test whether independent developers can use it. Sprints 5–10 are proposed development milestones; start each only after reviewing the evidence from the previous milestone. No calendar deadline or future platform claim follows from a sprint number.
 
@@ -18,18 +20,29 @@ The original Sprints 0–4 delivered the MVP. The next four release/adoption mil
 
 Sequence revised 11 September 2026: R1 → R2 → R3b technical closure → R3c nine-application validation → R4 stable publication → R3 independent adoption → evidence-based Sprint 5 selection. Existing plan identifiers are retained for links. R3 adoption no longer blocks initial stable publication and remains incomplete until observed. R4's post-publication handoff closes after the first participant stable run; full adoption remains owned by R3. Technical correctness and installation blockers still block publication. A feature needed to unblock a trial is either a small release fix or a separately planned sprint, never an unrecorded expansion of release scope.
 
-## Development sequence
+## Next milestone
 
 | Sprint | Plan | Primary user value | Start gate |
 | --- | --- | --- | --- |
-| 5 | [Suites and CI results](sprints/05-suites-and-ci-results.md) | Run a growing test directory and find each failure. | Trial evidence of multi-spec or CI friction. |
-| 6 | [Portable failure reproduction](sprints/06-failure-reproduction.md) | Reproduce a CI failure with the right local inputs and version checks. | Suite evidence layout is stable; a CI-to-local reproduction case exists. |
-| 7 | [Local failure diagnosis](sprints/07-failure-diagnosis.md) | Understand the first failing step without decoding JSON by hand. | Reproduction metadata exists; two diagnosis tasks are recorded. |
-| 8 | [CI adoption and installation](sprints/08-ci-adoption-and-installation.md) | Add a pinned runner to a real repository without custom download plumbing. | Stable assets exist; two adopters demonstrate setup friction. |
-| 9 | [Repeatable test workspaces](sprints/09-repeatable-workspaces.md) | Test stateful setup flows without polluting or reusing the user's project state. | A real stateful CLI trial demonstrates contamination or setup difficulty. |
-| 10 | [Terminal compatibility that users need](sprints/10-terminal-compatibility.md) | Correct one documented rendering/protocol gap affecting adopted apps. | Reproductions and a bounded compatibility corpus identify the chosen gap. |
+| 5 | [Run a small CI suite](sprints/05-suites-and-ci-results.md) | Run an intended test directory serially and find each failed screen safely. | A reproducible multi-spec project case defines selection and evidence needs; independent feedback is recorded when available. |
 
-Sprints 9 and 10 extend the earlier outline, which named only Sprints 5–8. The known Unicode layout limitation makes terminal compatibility a useful candidate for Sprint 10; real application evidence selects the actual scope. If it blocks adoption sooner, move it earlier with an explicit dependency review.
+Stop after Sprint 5's acceptance project. Record engineering completion separately from independent adoption; operator tests cannot close adoption gates. Recruitment can continue while bounded technical work addresses a documented case. This request refines plans and does not start implementation.
+
+Recommended order: Sprint 5, then the compact failure report in Sprint 7. Keep the existing identifiers for links. Sprint 7 can render existing evidence without Sprint 6. Reproduction follows only if context remains costly to reconstruct. Installation, workspaces, and terminal correctness can move earlier when they block a chosen real flow.
+
+## Conditional follow-ons, not a feature checklist
+
+| Candidate | User value | Required evidence before implementation |
+| --- | --- | --- |
+| [Failure handoff](sprints/06-failure-reproduction.md) | Clarify the local inputs and identity of one CI failure. | A Sprint 5 CI failure cannot be reproduced locally because required context is unclear. |
+| [Readable failure report](sprints/07-failure-diagnosis.md) | Show the failing step, captured screen, diff, and cleanup in one attractive offline view. | Two concrete diagnosis cases and stable artifact paths; independent reviewer results stay separately recorded. |
+| [Easier installation](sprints/08-ci-adoption-and-installation.md) | Install an exact runner release through one convenient route. | Repeated installation friction or one blocked willing participant selects an action or one package channel. |
+| [Repeatable workspaces](sprints/09-repeatable-workspaces.md) | Make one stateful target flow start from reviewed state. | A real adopted flow is contaminated by prior state and cannot use a simpler documented reset. |
+| [Terminal compatibility](sprints/10-terminal-compatibility.md) | Fix one rendering or protocol gap that blocks an adopted test. | A reduced native reproduction identifies one behavior family and independent expected result. |
+
+Keep the installer as its own bounded milestone so suite execution can ship and be evaluated independently. Use the verified archive instructions initially; move installation work forward if those instructions cause abandonment. Convenience is valuable, but maintaining several routes requires evidence and an owner.
+
+Authoring friction is measured in the same trials. If editing the small spec is the main obstacle, select a separate template or validation slice before introducing a recorder, scripting language, or SDK.
 
 ## Delivery discipline
 

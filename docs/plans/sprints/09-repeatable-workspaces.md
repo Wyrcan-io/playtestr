@@ -1,6 +1,6 @@
 # Sprint 9: repeatable workspaces for stateful CLIs
 
-Status: proposed. Workspace fields and flags below are design targets, not current spec features. This sprint follows [Sprint 8](08-ci-adoption-and-installation.md) unless trial evidence justifies moving it earlier.
+Status: conditional candidate. Workspace fields and flags below are design targets, not current spec features. It has no required predecessor sprint: start only when an adopted stateful flow is demonstrably contaminated by prior state and a simpler documented reset cannot solve it.
 
 ## User problem and outcome
 
@@ -84,7 +84,7 @@ Proposed `--keep-workspace=on-failure` is an explicit debugging option. Retained
 
 Represent workspace setup/cleanup failures accurately. Existing report v1 cannot accept arbitrary new fields or enum values. Select a versioned report extension or a separate versioned workspace artifact, and specify how primary test failure and cleanup failure coexist. Preserve existing v1 reports for existing commands; any new default report version needs migration notes and an explicit compatibility review.
 
-Extend Sprint 6 prerequisite checks so a reproduction needs the selected fixture and relevant workspace configuration. Do not bundle a whole home or hash sensitive files to claim complete identity. Reproduction metadata states any unverifiable state and treats a changed fixture as a material context difference. Sprint 7 can display workspace setup/cleanup observations without deciding outcomes itself.
+If Sprint 6 has shipped, extend its prerequisite checks for the fixture and workspace configuration. Otherwise document those prerequisites in the workspace evidence without implementing reproduction tooling here. Do not bundle a whole home or hash sensitive files to claim complete identity. A changed fixture is a material context difference. If Sprint 7's report has shipped, display captured workspace setup/cleanup outcomes using the approved format; neither feature is a prerequisite.
 
 ## Implementation checkpoints
 
@@ -114,7 +114,7 @@ Acceptance: no deletion escapes owned roots, descendants are handled before dele
 
 ### 9.5 — Integrate reproduction and diagnosis
 
-Add the approved format/schema changes, fixture prerequisites, and local retained-directory guidance. Demonstrate an original failed run and a new fresh-workspace reproduction. Do not imply the whole machine state was captured.
+Add the approved format/schema changes, fixture prerequisites, and local retained-directory guidance. Demonstrate an original failed run and a fresh-workspace rerun using the normal test command. Integrate reproduction/report tools only if they already exist. Do not imply the whole machine state was captured.
 
 Acceptance: changed/missing fixture context is visible before a rerun, the original evidence survives, and the report explains setup versus assertion versus cleanup failure.
 
@@ -148,4 +148,4 @@ Acceptance: the maintainer can remove their manual state-reset workaround and ex
 - [ ] Preparation, execution, cancellation, and deletion are bounded and tested natively.
 - [ ] Documentation consistently describes repeatable directories rather than isolation.
 
-Handoff to [Sprint 10](10-terminal-compatibility.md): fixtures can reproduce stateful rendering issues reliably. Parallel execution remains deferred until resource independence and measured suite performance justify a separate scheduling design.
+Stop and review the original state-contamination task. Consider [Sprint 10](10-terminal-compatibility.md) only if a separate rendering problem exists. Verify the intended file mutation with the explicit target-specific oracle as well as terminal assertions; a correct screen does not prove correct files. Parallel execution remains deferred until resource independence and measured suite performance justify separate work.
