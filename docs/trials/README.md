@@ -2,7 +2,7 @@
 
 Status: recruiting. These trials test whether Playtestr protects a real terminal interaction well enough that a project maintainer chooses to run the test again.
 
-For Sprint 5 directory selection and isolated CI evidence, use the [suite adopter walkthrough](sprint-5-suite-adopter.md) only with a suite-capable release candidate. Stable `v0.1.0` predates those features and cannot produce a qualifying Sprint 5 result.
+For Sprint 5 directory selection and isolated CI evidence, use the [suite adopter walkthrough](sprint-5-suite-adopter.md) with the checksum-verified [`v0.2.0-rc.1` prerelease](https://github.com/Wyrcan-io/playtestr/releases/tag/v0.2.0-rc.1). Stable `v0.1.0` predates those features and cannot produce a qualifying Sprint 5 result.
 
 This is an optional trial for maintainers and contributors with one repeatable, non-sensitive CLI or TUI workflow. Plan for 30–60 minutes after the target is already runnable. Read the eligibility and prerequisites below, then use the [public project-trial form](https://github.com/Wyrcan-io/playtestr/issues/new?template=project-trial.yml) only for information you are comfortable publishing. Attribution is optional and a project alias is allowed.
 
