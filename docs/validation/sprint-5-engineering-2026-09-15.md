@@ -1,6 +1,6 @@
 # Sprint 5 engineering validation — 15 September 2026
 
-Status: engineering acceptance complete on Windows amd64 from the current working tree. Independent participant-owned CI acceptance remains open; no participant or JUnit results consumer was supplied or recorded.
+Status: engineering acceptance complete locally, from a fresh public clone, and in native CI on Linux amd64, macOS arm64, and Windows amd64. Independent participant-owned CI acceptance remains open; no participant or JUnit results consumer was supplied or recorded.
 
 ## Acceptance project and frozen choices
 
@@ -33,6 +33,14 @@ A separate seeded `snapshot_mismatch` exited 1, named step 4 and category `snaps
 
 The workflow file now lists and runs the directory suite, places deliberate-failure evidence under the explicit artifact root, and uploads only that explicit root and reports. GitHub Actions run [34983854289](https://github.com/Wyrcan-io/playtestr/actions/runs/34983854289) for commit `4b12547443fd93605f5daa9aea1c2a06f8461224` completed successfully on Ubuntu, Windows, and macOS; each matrix job passed the suite, deliberate regression, and artifact upload. The artifact retention is 14 days.
 
+The final documentation commit was independently exercised by Terminal tests run [34984166487](https://github.com/Wyrcan-io/playtestr/actions/runs/34984166487) and Website run [34984166381](https://github.com/Wyrcan-io/playtestr/actions/runs/34984166381); both passed. All three native Terminal-test artifacts were downloaded and audited. Each contained a 2/2 passing suite report, a 4/4 explicit-file report, and a deliberate `snapshot_mismatch` at step 4 with resolvable screen and diff references. The screen SHA-256 and diff SHA-256 matched across Linux, macOS, and Windows, and no unrelated file types were present.
+
+A fresh public clone of commit `20ce06281de7af46b3ccbeda7dbda106eb185b7b` also passed `go test ./...`, native binary builds, the exact two-path list, the 2/2 directory suite, a seeded exit-1 snapshot mismatch with isolated evidence, and a subsequent 2/2 recovery whose report contained no stale evidence reference. This clean-clone exercise used only repository instructions and generated state outside the source checkout.
+
+The native release workflow now gates future archives on the same deterministic list, 2/2 suite run, isolated deliberate-failure evidence, legacy adjacent evidence, cancellation, checksum, archive layout, version, and packaged-binary checks. The prepared [Sprint 5 suite adopter walkthrough](../trials/sprint-5-suite-adopter.md) keeps independent evidence explicitly separate from these operator checks.
+
 ## Remaining external acceptance
 
 No independent maintainer walkthrough or participant-owned CI integration is available in the repository. Per checkpoint 5.6, engineering completion is recorded without substituting operator work for adoption. The adopter review, released-binary rerun, observed diagnosis friction, and CI consumer validation remain open until a consenting project supplies them.
+
+The current stable `v0.1.0` predates Sprint 5. The next release decision should therefore be a suite-capable `v0.2.0-rc.1` from the verified main branch, followed by the adopter walkthrough above. Sprint 7 remains the recommended engineering candidate when diagnosis friction is the observed problem; Sprint 6 remains conditional on missing reproduction context. Publication of a new tag/release still requires explicit authorization and successful native-release evidence for that exact tag.

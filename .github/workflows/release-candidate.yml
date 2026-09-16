@@ -108,6 +108,11 @@ jobs:
           "$released_binary" --help | grep --fixed-strings "Playtestr drives trusted interactive CLIs"
           "$released_binary" test --report artifacts/release-walkthrough.json examples/menu.json examples/menu-exit.json
 
+          "$released_binary" test --list examples/suite > artifacts/release-suite-list.txt
+          python -c 'from pathlib import Path; lines=[line.strip().replace("\\", "/") for line in Path("artifacts/release-suite-list.txt").read_text(encoding="utf-8").splitlines() if line.strip()]; assert lines == ["Selected 2 specs:", "examples/suite/menu-exit.json", "examples/suite/menu.json"], lines'
+          "$released_binary" test --artifacts-dir artifacts/release-suite --report artifacts/release-suite-results.json examples/suite
+          python -c 'import json; r=json.load(open("artifacts/release-suite-results.json", encoding="utf-8")); assert r["summary"] == {"total": 2, "passed": 2, "failed": 0, "cancelled": 0, "not_run": 0}; assert [x["spec_path"].replace("\\", "/") for x in r["results"]] == ["examples/suite/menu-exit.json", "examples/suite/menu.json"]'
+
           if [ "${{ matrix.target_os }}" != "windows" ]; then
             chmod +x testdata/install-smoke/unix/controlling-tty.sh
             "$released_binary" test --report artifacts/release-controlling-tty.json testdata/install-smoke/unix/controlling-tty.json
@@ -122,6 +127,13 @@ jobs:
           python -c 'import json; r=json.load(open("artifacts/release-expected-failure.json", encoding="utf-8"))["results"][0]; assert r["evidence"]["screen_path"].replace("\\", "/") == "examples/snapshot-mismatch.json.actual.txt"; assert r["evidence"]["diff_path"].replace("\\", "/") == "examples/snapshot-mismatch.json.diff.txt"'
           test -s examples/snapshot-mismatch.json.actual.txt
           test -s examples/snapshot-mismatch.json.diff.txt
+
+          set +e
+          "$released_binary" test --artifacts-dir artifacts/release-suite-failure --report artifacts/release-suite-failure.json examples/snapshot-mismatch.json
+          code=$?
+          set -e
+          test "$code" -eq 1
+          python -c 'import json, pathlib; p=pathlib.Path("artifacts/release-suite-failure.json"); r=json.load(p.open(encoding="utf-8"))["results"][0]; assert r["failure"]["category"] == "snapshot_mismatch"; refs=[r["evidence"]["screen_path"], r["evidence"]["diff_path"]]; assert all(pathlib.Path(ref).resolve().is_file() for ref in refs), refs; assert all("release-suite-failure" in ref.replace("\\", "/") for ref in refs), refs'
 
           python scripts/release-cancel-smoke.py "$released_binary" "$(pwd)/bin/${{ matrix.fixture }}" "$(pwd)/artifacts/cancellation"
           grep --fixed-strings '"category": "cancelled"' artifacts/cancellation/release-cancellation.json

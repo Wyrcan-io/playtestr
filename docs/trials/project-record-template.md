@@ -43,6 +43,8 @@ Copy this file once per project. Use an opaque local identifier when the partici
 - Data or evidence that must remain private:
 - Network/external services involved:
 - Concrete regression to detect:
+- Prior explicit multi-spec command or suite setup:
+- Frozen expected suite paths, in order:
 
 ## First session
 
@@ -65,6 +67,9 @@ Copy this file once per project. Use an opaque local identifier when the partici
 - First passing-test time:
 - Assistance given before first pass:
 - Spec path/reference:
+- Suite root and exact `--list` output:
+- List matched the frozen expected set: yes/no
+- Suite command, report path, and artifact root:
 - Readiness assertions chosen and why:
 - Snapshot names and review decision:
 - Good application result and report reference:
@@ -72,7 +77,11 @@ Copy this file once per project. Use an opaque local identifier when the partici
 - Bad result exit code/category/step:
 - Evidence the participant inspected:
 - Could the participant explain the failure unaided: yes/no
+- Time from failed command completion to locating evidence:
+- Time from locating evidence to explaining the regression:
+- Evidence discovery or interpretation friction:
 - Restored-good result:
+- Recovery report free of stale evidence references: yes/no
 - Historical artifact behavior understood: yes/no/not encountered
 
 ### Ten-run observation
