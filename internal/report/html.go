@@ -103,6 +103,11 @@ func RenderHTML(options HTMLOptions) error {
 			return fmt.Errorf("resolve working directory: %w", err)
 		}
 	}
+	workingDirectory, err := filepath.Abs(workingDirectory)
+	if err != nil {
+		return fmt.Errorf("resolve working directory: %w", err)
+	}
+	workingDirectory = canonicalMissing(workingDirectory)
 	root, err := existingDirectory(options.EvidenceRoot)
 	if err != nil {
 		return fmt.Errorf("resolve evidence root: %w", err)
@@ -437,7 +442,7 @@ func canonicalMissing(path string) string {
 	path = filepath.Clean(path)
 	missing := make([]string, 0, 4)
 	for cursor := path; ; cursor = filepath.Dir(cursor) {
-		if resolved, err := filepath.EvalSymlinks(cursor); err == nil {
+		if resolved, err := platformCanonicalExisting(cursor); err == nil {
 			for index := len(missing) - 1; index >= 0; index-- {
 				resolved = filepath.Join(resolved, missing[index])
 			}

@@ -150,6 +150,32 @@ func TestRenderHTMLRejectsEscapingSymlinkOrJunction(t *testing.T) {
 	}
 }
 
+func TestRenderHTMLCanonicalizesWorkingDirectoryAlias(t *testing.T) {
+	parent := t.TempDir()
+	working := filepath.Join(parent, "real")
+	root := filepath.Join(working, "artifacts")
+	if err := os.MkdirAll(root, 0755); err != nil {
+		t.Fatal(err)
+	}
+	alias := filepath.Join(parent, "working-alias")
+	if err := os.Symlink(working, alias); err != nil {
+		if runtime.GOOS != "windows" {
+			t.Skipf("filesystem does not permit a working-directory symlink: %v", err)
+		}
+		if output, junctionErr := exec.Command("cmd", "/c", "mklink", "/J", alias, working).CombinedOutput(); junctionErr != nil {
+			t.Skipf("filesystem does not permit a working-directory junction: %v (%s)", junctionErr, output)
+		}
+	}
+	reference := filepath.ToSlash(filepath.Join("artifacts", "screen.actual.txt"))
+	writeTestFile(t, filepath.Join(root, "screen.actual.txt"), []byte("captured through an aliased working directory"))
+	input := filepath.Join(root, "results.json")
+	writeDocument(t, input, oneFailure(reference, ""))
+	output := filepath.Join(parent, "report.html")
+	if err := RenderHTML(HTMLOptions{InputPath: input, EvidenceRoot: root, OutputPath: output, WorkingDirectory: alias}); err != nil {
+		t.Fatal(err)
+	}
+}
+
 func TestRenderHTMLRejectsMalformedVersionOversizeAndInconsistentInput(t *testing.T) {
 	working := t.TempDir()
 	root := filepath.Join(working, "root")
