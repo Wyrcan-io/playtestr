@@ -35,9 +35,10 @@ func usage(out io.Writer) {
 	fmt.Fprintln(out, "Usage:")
 	fmt.Fprintln(out, "  playtestr test [--list] path [...]")
 	fmt.Fprintln(out, "  playtestr test [--artifacts-dir dir] [--report results.json] [--update [--snapshot name]] path [...]")
+	fmt.Fprintln(out, "  playtestr report --input results.json --evidence-root dir --output report.html")
 	fmt.Fprintln(out, "  playtestr --version")
 	fmt.Fprintln(out)
-	fmt.Fprintln(out, "Run 'playtestr test --help' for test options.")
+	fmt.Fprintln(out, "Run 'playtestr test --help' or 'playtestr report --help' for command options.")
 }
 
 func run(ctx context.Context, args []string, stdout, stderr io.Writer) int {
@@ -48,6 +49,9 @@ func run(ctx context.Context, args []string, stdout, stderr io.Writer) int {
 	if len(args) == 0 || (len(args) == 1 && (args[0] == "--help" || args[0] == "-h" || args[0] == "help")) {
 		usage(stdout)
 		return 0
+	}
+	if args[0] == "report" {
+		return runReport(args[1:], stdout, stderr)
 	}
 	if args[0] != "test" {
 		fmt.Fprintf(stderr, "unknown command %q\n\n", args[0])
@@ -165,6 +169,42 @@ func run(ctx context.Context, args []string, stdout, stderr io.Writer) int {
 	if failed {
 		return 1
 	}
+	return 0
+}
+
+func runReport(args []string, stdout, stderr io.Writer) int {
+	flags := flag.NewFlagSet("report", flag.ContinueOnError)
+	flags.SetOutput(stderr)
+	flags.Usage = func() {
+		fmt.Fprintln(flags.Output(), "Usage: playtestr report --input results.json --evidence-root dir --output report.html")
+		fmt.Fprintln(flags.Output())
+		fmt.Fprintln(flags.Output(), "Creates one self-contained offline HTML file from captured report-v1 evidence.")
+		fmt.Fprintln(flags.Output())
+		fmt.Fprintln(flags.Output(), "Options:")
+		flags.PrintDefaults()
+	}
+	input := flags.String("input", "", "read this report-v1 JSON file")
+	evidenceRoot := flags.String("evidence-root", "", "admit referenced screen and diff files only from this directory")
+	output := flags.String("output", "", "atomically write the self-contained HTML report")
+	if err := flags.Parse(args); err != nil {
+		if err == flag.ErrHelp {
+			return 0
+		}
+		return 2
+	}
+	if flags.NArg() != 0 {
+		fmt.Fprintln(stderr, "report does not accept positional arguments")
+		return 2
+	}
+	if *input == "" || *evidenceRoot == "" || *output == "" {
+		fmt.Fprintln(stderr, "--input, --evidence-root, and --output are required")
+		return 2
+	}
+	if err := report.RenderHTML(report.HTMLOptions{InputPath: *input, EvidenceRoot: *evidenceRoot, OutputPath: *output}); err != nil {
+		fmt.Fprintln(stderr, "FAIL render report:", err)
+		return 1
+	}
+	fmt.Fprintln(stdout, "Offline report saved:", *output)
 	return 0
 }
 

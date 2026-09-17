@@ -44,7 +44,7 @@ await call('Page.addScriptToEvaluateOnNewDocument', { source: `
   try { new PerformanceObserver((list) => { for (const entry of list.getEntries()) if (!entry.hadRecentInput) window.__playtestrVitals.cls += entry.value; }).observe({ type: 'layout-shift', buffered: true }); } catch (_) {}
 ` });
 
-const routes = ['', 'download/', 'docs/', 'docs/installation/', 'docs/writing-tests/', 'docs/snapshots/', 'docs/troubleshooting/', 'docs/spec-v1/', 'docs/report-v1/', 'docs/compatibility/', 'docs/platform-evidence/', 'docs/terminal-compatibility/', 'examples/', 'releases/', 'releases/v0.1.0/', 'support/', 'trials/', 'does-not-exist/'];
+const routes = ['', 'download/', 'docs/', 'docs/installation/', 'docs/writing-tests/', 'docs/snapshots/', 'docs/troubleshooting/', 'docs/spec-v1/', 'docs/report-v1/', 'docs/failure-reports/', 'docs/compatibility/', 'docs/platform-evidence/', 'docs/terminal-compatibility/', 'examples/', 'releases/', 'releases/v0.1.0/', 'support/', 'trials/', 'does-not-exist/'];
 const widths = [320, 375, 768, 1440];
 const failures = [];
 for (const width of widths) {

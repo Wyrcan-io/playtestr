@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
+	"unicode/utf8"
 )
 
 func writeSnapshotSpec(t *testing.T, mode string, names ...string) string {
@@ -342,5 +343,15 @@ func TestSnapshotRollbackRestoresEveryChangedFile(t *testing.T) {
 	}
 	if _, err := os.Stat(created); !os.IsNotExist(err) {
 		t.Fatalf("created file survived rollback: %v", err)
+	}
+}
+
+func TestBoundTextIncludesMarkerWithinLimitAndKeepsUTF8(t *testing.T) {
+	bounded := boundText(strings.Repeat("雪", 100), 80)
+	if len(bounded) > 80 {
+		t.Fatalf("bounded text has %d bytes, limit 80", len(bounded))
+	}
+	if !strings.Contains(bounded, "diff truncated by Playtestr") || !utf8.ValidString(bounded) {
+		t.Fatalf("bounded text is missing its marker or invalid UTF-8: %q", bounded)
 	}
 }

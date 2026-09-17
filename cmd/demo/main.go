@@ -7,6 +7,10 @@ import (
 	"os"
 )
 
+// diagnosticsSuffix can be replaced at build time to demonstrate that the
+// unchanged Playtestr spec catches a controlled target regression.
+var diagnosticsSuffix string
+
 func main() {
 	old, err := term.MakeRaw(int(os.Stdin.Fd()))
 	if err != nil {
@@ -57,7 +61,7 @@ func main() {
 			if selected == 0 {
 				fmt.Print("\r\nPreview deployed successfully.\r\n")
 			} else {
-				fmt.Print("\r\nDiagnostics: all systems healthy.\r\n")
+				fmt.Printf("\r\nDiagnostics: all systems healthy.%s\r\n", diagnosticsSuffix)
 			}
 		}
 	}

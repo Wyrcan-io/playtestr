@@ -318,9 +318,13 @@ func boundText(value string, limit int) string {
 	if len(value) <= limit {
 		return value
 	}
-	end := limit
+	marker := "\n... diff truncated by Playtestr ...\n"
+	end := limit - len(marker)
+	if end < 0 {
+		end = 0
+	}
 	for end > 0 && !utf8.RuneStart(value[end]) {
 		end--
 	}
-	return value[:end] + "\n... diff truncated by Playtestr ...\n"
+	return value[:end] + marker
 }

@@ -1,10 +1,12 @@
-// Package report writes the versioned Playtestr machine report.
+// Package report reads and writes the versioned machine report and renders its
+// admitted evidence as a self-contained offline diagnosis.
 package report
 
 import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -17,6 +19,35 @@ const (
 	Version        = 1
 	maxReportBytes = 8 * 1024 * 1024
 )
+
+// Read decodes one bounded report-v1 document and rejects trailing or unknown
+// JSON fields. Consumers still need to validate semantic consistency for their
+// particular use before presenting the document.
+func Read(path string) (Document, error) {
+	var document Document
+	file, err := os.Open(path)
+	if err != nil {
+		return document, fmt.Errorf("open report: %w", err)
+	}
+	defer file.Close()
+	data, err := io.ReadAll(io.LimitReader(file, maxReportBytes+1))
+	if err != nil {
+		return document, fmt.Errorf("read report: %w", err)
+	}
+	if len(data) > maxReportBytes {
+		return document, fmt.Errorf("report exceeds %d bytes", maxReportBytes)
+	}
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	if err := decoder.Decode(&document); err != nil {
+		return document, fmt.Errorf("decode report: %w", err)
+	}
+	var extra any
+	if decoder.Decode(&extra) != io.EOF {
+		return document, fmt.Errorf("decode report: expected one JSON object")
+	}
+	return document, nil
+}
 
 // Summary counts every requested spec, including specs skipped after cancellation.
 type Summary struct {

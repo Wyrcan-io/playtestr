@@ -14,6 +14,7 @@ Playtestr is a local runner for deterministic end-to-end tests of trusted intera
 
 - [Test specification version 1](spec-v1.md) defines every input field, action, default, and limit.
 - [Machine report version 1](report-v1.md) defines structured outcomes and evidence references.
+- [Offline failure reports](failure-reports.md) explains safe, bounded HTML export and diagnosis.
 - [Test suites and CI evidence](suites.md) defines directory selection, summaries, limits, and artifact layout.
 - [Platform support](platform-support.md) records exact release targets and native evidence.
 - [Terminal compatibility](terminal-compatibility.md) records rendered-screen behavior and known limits.

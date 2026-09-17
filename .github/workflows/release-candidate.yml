@@ -134,6 +134,10 @@ jobs:
           set -e
           test "$code" -eq 1
           python -c 'import json, pathlib; p=pathlib.Path("artifacts/release-suite-failure.json"); r=json.load(p.open(encoding="utf-8"))["results"][0]; assert r["failure"]["category"] == "snapshot_mismatch"; refs=[r["evidence"]["screen_path"], r["evidence"]["diff_path"]]; assert all(pathlib.Path(ref).resolve().is_file() for ref in refs), refs; assert all("release-suite-failure" in ref.replace("\\", "/") for ref in refs), refs'
+          "$released_binary" report --input artifacts/release-suite-failure.json --evidence-root artifacts --output artifacts/release-suite-failure.html
+          grep --fixed-strings 'Playtestr offline report' artifacts/release-suite-failure.html
+          grep --fixed-strings 'snapshot_mismatch' artifacts/release-suite-failure.html
+          grep --fixed-strings 'Preview deployed successfully.' artifacts/release-suite-failure.html
 
           python scripts/release-cancel-smoke.py "$released_binary" "$(pwd)/bin/${{ matrix.fixture }}" "$(pwd)/artifacts/cancellation"
           grep --fixed-strings '"category": "cancelled"' artifacts/cancellation/release-cancellation.json

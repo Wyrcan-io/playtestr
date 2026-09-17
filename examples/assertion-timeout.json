@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "name": "A missing terminal state is diagnosed",
+  "command": ["./bin/fixture", "hang"],
+  "width": 60,
+  "height": 10,
+  "timeout_ms": 500,
+  "run_timeout_ms": 3000,
+  "max_output_bytes": 100000,
+  "steps": [
+    {"expect": "fixture ready"},
+    {"expect": "operation complete"}
+  ]
+}

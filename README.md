@@ -86,6 +86,19 @@ Ctrl+C cancels the active spec, performs bounded cleanup, and prevents later spe
 
 Write an ordered machine report with `--report results.json`. It includes stable status and failure categories, step metadata, target exit, cleanup evidence, and artifact paths. It deliberately excludes command arguments, environment data, typed text, and terminal-screen contents. See [Machine report version 1](docs/report-v1.md).
 
+From an unreleased Sprint 7 build, render that captured report and its admitted
+evidence as one portable offline diagnosis:
+
+```text
+playtestr report --input artifacts/results.json --evidence-root artifacts --output artifacts/report.html
+```
+
+The renderer never launches the target or reads specs. It escapes and embeds
+bounded screen/diff text, labels missing report-v1 information, works without
+JavaScript or a server, and preserves an existing output if rendering fails.
+See [Offline failure reports](docs/failure-reports.md) for its path, privacy,
+resource, and release boundaries.
+
 Run a directory as a deterministic serial suite and keep each invocation's evidence together:
 
 ```sh

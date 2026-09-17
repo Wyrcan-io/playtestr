@@ -12,6 +12,8 @@ import (
 	"time"
 
 	"github.com/Wyrcan-io/playtestr/internal/discovery"
+	"github.com/Wyrcan-io/playtestr/internal/report"
+	"github.com/Wyrcan-io/playtestr/internal/runner"
 )
 
 func TestCLIHelperProcess(t *testing.T) {
@@ -37,10 +39,60 @@ func TestCLIHelperProcess(t *testing.T) {
 }
 
 func TestVersionAndHelp(t *testing.T) {
-	for _, args := range [][]string{{"--version"}, {"--help"}, {"test", "--help"}} {
+	for _, args := range [][]string{{"--version"}, {"--help"}, {"test", "--help"}, {"report", "--help"}} {
 		var stdout, stderr bytes.Buffer
 		if code := run(context.Background(), args, &stdout, &stderr); code != 0 {
 			t.Fatalf("args=%v code=%d stderr=%q", args, code, stderr.String())
+		}
+	}
+}
+
+func TestOfflineReportCLI(t *testing.T) {
+	directory, err := os.MkdirTemp(".", ".cli-report-")
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() { _ = os.RemoveAll(directory) })
+	screen := filepath.Join(directory, "failure.actual.txt")
+	if err := os.WriteFile(filepath.Join(directory, "failure.actual.txt"), []byte("captured screen\n"), 0600); err != nil {
+		t.Fatal(err)
+	}
+	document := report.New("test", []runner.RunResult{{
+		SpecVersion: 1, Name: "failure", SpecPath: "tests/failure.json", Status: "failed",
+		Viewport: runner.TerminalSize{Width: 80, Height: 24},
+		Steps:    []runner.StepResult{{Number: 1, Action: "expect", Status: "failed", Failure: &runner.Failure{Category: runner.FailureAssertionTimeout, Message: "timeout"}}},
+		Failure:  &runner.Failure{Category: runner.FailureAssertionTimeout, Message: "timeout"},
+		Cleanup:  runner.CleanupReport{Attempted: true, ConfirmedExited: true}, Evidence: runner.EvidenceReport{ScreenPath: screen},
+	}})
+	input := filepath.Join(directory, "results.json")
+	if err := report.Write(input, document); err != nil {
+		t.Fatal(err)
+	}
+	output := filepath.Join(directory, "report.html")
+	var stdout, stderr bytes.Buffer
+	code := run(context.Background(), []string{"report", "--input", input, "--evidence-root", directory, "--output", output}, &stdout, &stderr)
+	if code != 0 || !strings.Contains(stdout.String(), "Offline report saved:") || stderr.Len() != 0 {
+		t.Fatalf("code=%d stdout=%q stderr=%q", code, stdout.String(), stderr.String())
+	}
+	data, err := os.ReadFile(output)
+	if err != nil || !strings.Contains(string(data), "captured screen") {
+		t.Fatalf("offline report: err=%v data=%q", err, data)
+	}
+}
+
+func TestOfflineReportCLIUsageAndRenderingErrors(t *testing.T) {
+	for _, test := range []struct {
+		args []string
+		want string
+		code int
+	}{
+		{args: []string{"report"}, want: "are required", code: 2},
+		{args: []string{"report", "extra"}, want: "does not accept positional", code: 2},
+		{args: []string{"report", "--input", "missing.json", "--evidence-root", ".", "--output", "out.html"}, want: "FAIL render report", code: 1},
+	} {
+		var stdout, stderr bytes.Buffer
+		if code := run(context.Background(), test.args, &stdout, &stderr); code != test.code || !strings.Contains(stderr.String(), test.want) {
+			t.Fatalf("args=%v code=%d stdout=%q stderr=%q", test.args, code, stdout.String(), stderr.String())
 		}
 	}
 }

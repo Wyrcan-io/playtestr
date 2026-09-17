@@ -43,12 +43,17 @@ jobs:
             echo "expected snapshot mismatch exit code 1, got $code" >&2
             exit 1
           fi
+          ./bin/playtestr${{ runner.os == 'Windows' && '.exe' || '' }} report --input artifacts/expected-failure.json --evidence-root artifacts --output artifacts/expected-failure.html
+          grep --fixed-strings 'Playtestr offline report' artifacts/expected-failure.html
+          grep --fixed-strings 'snapshot_mismatch' artifacts/expected-failure.html
+          grep --fixed-strings 'Preview deployed successfully.' artifacts/expected-failure.html
       - uses: actions/upload-artifact@v6
         if: always()
         with:
           name: terminal-evidence-${{ matrix.os }}
           path: |
             artifacts/*.json
+            artifacts/*.html
             artifacts/playtestr/**
           if-no-files-found: error
           retention-days: 14

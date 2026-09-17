@@ -16,6 +16,7 @@ Playtestr drives trusted interactive terminal applications with authored keyboar
 
 - [Test specification v1](/playtestr/docs/spec-v1/) defines inputs, actions, defaults, and limits.
 - [Machine report v1](/playtestr/docs/report-v1/) defines structured outcomes and evidence references.
+- [Offline failure reports](/playtestr/docs/failure-reports/) explains safe, bounded HTML export and diagnosis.
 - [Compatibility and evidence](/playtestr/docs/compatibility/) records exact supported downloads and terminal limits.
 
 Documentation describes stable v0.1.0 and spec/report version 1. Development plans are proposals until their behavior is implemented and evidenced.

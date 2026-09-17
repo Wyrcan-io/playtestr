@@ -1,8 +1,10 @@
 # Sprint 7 — Understand a failure in one offline report
 
-Status: proposed; recommended next candidate after Sprint 5's evidence layout.
-The number is retained for existing links. Sprint 6 is not a prerequisite.
-No report command or HTML report described here is currently implemented.
+Status: implemented and locally validated on Windows amd64 on 18 September
+2026. The number is retained for existing links. Sprint 6 is not a
+prerequisite. Published-binary verification remains a release gate;
+independent maintainer adoption and outside feedback are intentionally deferred
+until after Sprint 10.
 
 ## User result
 
@@ -139,12 +141,19 @@ and adoption outcomes.
 
 ## Definition of done
 
-- [ ] Both diagnosis cases render correctly from report v1 and existing files.
-- [ ] Input paths, aggregate sizes, output errors, and privacy are bounded.
-- [ ] Browser review proves offline usability, keyboard access, and portability.
-- [ ] Missing information stays visible; no inferred history or cause appears.
+- [x] Both diagnosis cases render correctly from report v1 and existing files.
+- [x] Input paths, aggregate sizes, output errors, and privacy are bounded.
+- [x] Browser review proves offline usability, keyboard access, and portability.
+- [x] Missing information stays visible; no inferred history or cause appears.
 - [ ] Documentation and the demo use commands from an actual released version.
-- [ ] Independent review is recorded or explicitly remains open.
+  The implementation is unreleased and is labeled accordingly; publishing a
+  release was not authorized as part of this engineering change.
+- [x] Independent review explicitly remains open. Per product decision,
+  maintainer adoption and outside feedback resume after Sprint 10.
 
 Review the next obstacle after delivery. Add history or reproduction machinery
 only when an observed question requires new evidence.
+
+Engineering evidence, source mapping, exact limits, hostile-input coverage,
+browser checks, demo results, and the deliberately open release/adoption gates
+are recorded in [Sprint 7 engineering validation](../../validation/sprint-7-engineering-2026-09-18.md).

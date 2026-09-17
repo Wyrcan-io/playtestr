@@ -1,0 +1,125 @@
+# Sprint 7 engineering validation — 18 September 2026
+
+Status: local engineering acceptance complete on Windows amd64 from an
+unreleased checkout build. Independent maintainer adoption and outside
+usability feedback are deliberately deferred until after Sprint 10 by product
+decision. Published-release verification is still a release gate and is not
+claimed here.
+
+## Frozen presentation and sources
+
+The renderer uses report v1 without changing its schema. Every ordinary-view
+fact comes from one of these captured fields:
+
+| Displayed fact | Captured source |
+| --- | --- |
+| Totals | `summary` after consistency validation against `results` |
+| Stable test identity and name | `results[].spec_path` and `name` |
+| Status, duration, viewport | matching result fields |
+| First failing step/action/category | first `steps[]` entry with `status=failed` |
+| Primary category/message | `results[].failure` |
+| Terminal and unified diff | admitted `evidence.screen_path` / `diff_path` files |
+| Target exit | `target` |
+| Cleanup | `cleanup` |
+| Evidence-write outcome | `evidence.failures` |
+
+Expected assertion text, typed input, commands, environment, event history, and
+root cause are not reconstructed. The timeout view explicitly labels its
+expected expression unavailable in report v1. A readable artifact is described
+as embedded evidence, not cryptographically verified capture.
+
+Relative references resolve from the report command's working directory and
+must remain within the explicit evidence root. Absolute, traversal, URI,
+network, symlink, and Windows junction escapes are rejected. Report input,
+evidence, and output aliasing are rejected. Screen/diff pairs must retain one
+report-v1 artifact prefix, and evidence cannot be assigned to two results.
+
+Limits are 8 MiB report input, 1,000 results, 10,000 aggregate steps, 256 KiB
+per evidence file, 24 MiB aggregate evidence, and 32 MiB generated HTML. Reads
+and rendering enforce the limits. Output is atomic and an existing file remains
+unchanged after admission or write failure.
+
+## Actual diagnosis cases
+
+The checkout-built Windows binary produced and rendered both required cases:
+
+- `examples/snapshot-mismatch.json` exited 1 with `snapshot_mismatch` at step 4,
+  a 64×16 screen, unified diff, clean confirmed Windows Job Object cleanup, and
+  successful offline HTML export.
+- `examples/assertion-timeout.json` exited 1 with `assertion_timeout` at step 2,
+  a 60×10 screen, no invented diff or expected expression, forced confirmed
+  Windows Job Object cleanup, and successful offline HTML export.
+
+A real mixed invocation of `examples/menu.json`, the snapshot mismatch, and the
+timeout reported `total=3 passed=1 failed=2 cancelled=0 not_run=0`. Its HTML put
+the two failures before the passing test while retaining original stable
+identities and step records.
+
+Unit and CLI tests additionally cover one result, duplicate display names,
+cancelled/not-run results, missing screens and diffs, cleanup failures, evidence
+write failures, malformed/truncated/unknown-field/wrong-version reports,
+inconsistent summaries and artifact pairs, shared paths and hard-linked evidence, traversal,
+absolute/remote/network paths, an escaping Windows junction, input/evidence
+output aliases (including a missing referenced path), invalid UTF-8, unusual
+Unicode, HTML and OSC text, per-file/aggregate/generated-output limits,
+unwritable output, and preservation of prior inputs and output.
+
+## Browser review
+
+The exact generated mixed report and the controlled-regression report were
+opened from `file:` in installed Microsoft Edge using the Chrome DevTools
+Protocol. Automated inspection at 375×812 and 1440×1000 verified:
+
+- one heading, failure-first navigation, a visible first failing step, and no
+  page-level horizontal overflow;
+- keyboard focus begins at the skip link and Enter reaches the main report;
+- terminal text uses a preformatted monospace pane with internal scrolling;
+- added and removed diff rows exist and body/diff contrast is at least 4.5:1;
+- the complete diagnosis remains available with JavaScript disabled;
+- accessibility-tree links have names; and
+- no HTTP(S) request, script, external font, image, or stylesheet is present.
+
+Long lines remain inside their pane. On the narrow viewport, facts, evidence,
+and separate outcomes collapse to one column. Hostile HTML remains text and OSC
+content does not become a link.
+
+This is operator engineering review, not independent usability evidence. No
+outside reviewer, assistance time, or adoption preference is invented. The
+prepared workflow and questions remain open for the post-Sprint-10 session.
+
+## Demo and verification
+
+The demo used the unchanged `examples/menu.json` spec and reviewed
+`diagnostics.txt` baseline for all three runs. The normal target passed 6/6. A
+demo binary built with the explicit linker fixture
+`-X=main.diagnosticsSuffix=_REGRESSION` failed at snapshot step 6, and the same
+user-facing HTML showed the final screen and focused added suffix. Rebuilding
+the normal target restored a 6/6 pass. The bad run evidence remains under the
+ignored local `artifacts/sprint7-demo` tree for inspection.
+
+The following checks passed:
+
+```text
+go test ./...
+go vet ./...
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\test-race.ps1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\site.ps1
+node scripts/check-site.mjs public
+node scripts/report-browser-check.mjs http://127.0.0.1:9223 artifacts/sprint7-demo-bad.html
+```
+
+The race run included the runner and report packages and exited 0. Website
+validation included the new offline-report documentation route. Go emitted
+non-fatal module stat-cache access warnings during local builds; the requested
+binaries and all recorded product outcomes completed successfully using the
+project-local build cache.
+
+## Open gates
+
+- No published Playtestr release contains `playtestr report` yet. Documentation
+  labels it unreleased, and no packaged-version claim is made. A future release
+  must run the same capture/export/browser checks before its command is called
+  released.
+- Independent usability and maintainer adoption remain explicitly open until
+  after Sprint 10. This follows the product decision and does not weaken or
+  fabricate the technical acceptance above.

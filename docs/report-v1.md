@@ -11,3 +11,8 @@ Failure categories in version 1 are `invalid_spec`, `launch_failure`, `assertion
 Reports are limited to 8 MB. They omit command arguments, environment data, typed input, expected text, and embedded terminal screens. Evidence remains in bounded files referenced by the report. Consumers should branch on version, status, and category fields rather than parsing human-readable messages.
 
 Report v1's shape and ordering are unchanged for suites. Results appear in resolved execution order, including `not_run` entries after cancellation. Evidence paths name files actually written and retain the established path semantics. Use `--artifacts-dir` for a unique per-invocation layout; see [Test suites and CI evidence](suites.md).
+
+The unreleased `playtestr report` command consumes this unchanged format and
+embeds admitted screen/diff files in a self-contained offline HTML view. It does
+not add expected expressions, history, commands, input, or causes that report v1
+did not capture. See [Offline failure reports](failure-reports.md).

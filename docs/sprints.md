@@ -1,6 +1,6 @@
 # MVP delivery plan
 
-For the next delivery sequence, see the [release/adoption plans and Sprint 5–10 candidates](plans/README.md) and [product focus](plans/product-focus.md). The proposed order starts with Sprint 5 suites, then Sprint 7's compact offline failure report; identifiers are retained, not dependency order. Reproduction, installation, workspaces, and compatibility follow the demonstrated task, with correctness blockers prioritized. These plans do not claim future features are implemented.
+For the delivery sequence, see the [release/adoption plans and Sprint 5–10 candidates](plans/README.md) and [product focus](plans/product-focus.md). Sprint 5 suites and Sprint 7's compact offline failure report are implemented locally; identifiers are retained, not dependency order. Reproduction, installation, workspaces, and compatibility follow the demonstrated task, with correctness blockers prioritized. Candidate plans do not claim their future features are implemented.
 
 ## Working agreement
 
@@ -74,6 +74,29 @@ User-visible result: a developer can preview and run a directory of `.json` spec
 Explicit paths retain their order. Directory matches are recursively sorted and deduplicated without following directory symlinks. Selection, aggregate step metadata, and outputs are bounded and checked before launch. Ctrl+C retains status 130 while accounting for the active and remaining specs. Report v1 remains unchanged.
 
 Local Windows evidence covers directory listing, real-PTY execution, ordinary failure continuation, expected nonzero exit, cancellation, duplicate basenames, stale evidence, alias rejection, filesystem failures, and resource caps. JUnit, globs, and filters were omitted because the available acceptance project did not demonstrate those needs. See [Test suites and CI evidence](suites.md) and the [engineering validation record](validation/sprint-5-engineering-2026-09-15.md). Independent participant-owned CI acceptance remains open and is not replaced by operator evidence.
+
+## Sprint 7 — offline failure diagnosis (implemented locally)
+
+User-visible result: `playtestr report` renders an existing report-v1 document
+and admitted screen/diff evidence into one atomic, self-contained HTML file.
+The failure-first view separates target exit, cleanup, and evidence-write
+outcomes; labels missing or unavailable data; remains usable without JavaScript
+or a server; and does not launch the target, read specs, update baselines, or
+infer a cause.
+
+The renderer strictly bounds JSON, per-file and aggregate evidence, result/step
+counts, and generated output. It rejects traversal, absolute/remote/network
+references, escaping links and Windows junctions, inconsistent/shared evidence,
+and input/evidence output aliases. Browser checks cover narrow and desktop
+layouts, keyboard entry, contrast, terminal/diff readability, no-script use,
+accessibility names, literal hostile content, and zero external requests.
+
+Local Windows engineering acceptance, the two diagnosis cases, and a real
+same-spec pass/regression/recovery demo are recorded in [Sprint 7 engineering
+validation](validation/sprint-7-engineering-2026-09-18.md). The command is not
+yet in a published release and docs label it unreleased. Independent maintainer
+adoption and outside feedback are deferred until after Sprint 10 by product
+decision.
 
 ## After the MVP
 

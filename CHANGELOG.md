@@ -8,6 +8,11 @@ compatibility rules for released specs, reports, and patches are in
 
 ### Added
 
+- Render report v1 and its admitted screen/diff evidence into one bounded,
+  atomic, self-contained offline HTML diagnosis with failure-first navigation,
+  responsive keyboard-accessible layout, and no JavaScript or remote assets.
+- Reject unsafe, escaping, aliased, oversized, malformed, or inconsistently
+  associated report evidence while labeling genuinely missing optional files.
 - Recursively discover deterministic `.json` suites, preview them with
   `test --list`, and report complete serial pass/fail/cancelled/not-run totals.
 - Collect evidence beneath a unique `--artifacts-dir` run directory with
