@@ -138,6 +138,10 @@ jobs:
           grep --fixed-strings '"category": "assertion_timeout"' intentional-failure.json
           grep --fixed-strings '"screen_path": "test.json.actual.txt"' intentional-failure.json
           test -s test.json.actual.txt
+          env -u GOROOT -u GOPATH "$released_binary" report --input intentional-failure.json --evidence-root . --output intentional-failure.html
+          grep --fixed-strings 'Playtestr offline report' intentional-failure.html
+          grep --fixed-strings 'assertion_timeout' intentional-failure.html
+          grep --fixed-strings 'Hello, terminal tester!' intentional-failure.html
 
           cp good.json test.json
           env -u GOROOT -u GOPATH "$released_binary" test --report recovered.json test.json
@@ -177,7 +181,8 @@ jobs:
           cp first-pass.json intentional-failure.json recovered.json \
             missing-target.json.result.json unsupported.json.result.json \
             intentional-failure-output.txt missing-target-output.txt \
-            unsupported-output.txt blocked-report-output.txt "../../$evidence_dir/"
+            unsupported-output.txt blocked-report-output.txt intentional-failure.html \
+            "../../$evidence_dir/"
           if [ -f controlling-tty.json.result.json ]; then
             cp controlling-tty.json.result.json "../../$evidence_dir/"
           fi
@@ -201,5 +206,6 @@ jobs:
             install-smoke-evidence/
             installation smoke/first test/*.json
             installation smoke/first test/*.actual.txt
+            installation smoke/first test/*.html
             installation smoke/first test/*-output.txt
           if-no-files-found: warn
