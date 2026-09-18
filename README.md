@@ -86,8 +86,9 @@ Ctrl+C cancels the active spec, performs bounded cleanup, and prevents later spe
 
 Write an ordered machine report with `--report results.json`. It includes stable status and failure categories, step metadata, target exit, cleanup evidence, and artifact paths. It deliberately excludes command arguments, environment data, typed text, and terminal-screen contents. See [Machine report version 1](docs/report-v1.md).
 
-From an unreleased Sprint 7 build, render that captured report and its admitted
-evidence as one portable offline diagnosis:
+Starting with the verified [`v0.3.0-rc.1`](https://github.com/Wyrcan-io/playtestr/releases/tag/v0.3.0-rc.1)
+prerelease, render that captured report and its admitted evidence as one
+portable offline diagnosis:
 
 ```text
 playtestr report --input artifacts/results.json --evidence-root artifacts --output artifacts/report.html

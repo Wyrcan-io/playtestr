@@ -93,10 +93,10 @@ accessibility names, literal hostile content, and zero external requests.
 
 Local Windows engineering acceptance, the two diagnosis cases, and a real
 same-spec pass/regression/recovery demo are recorded in [Sprint 7 engineering
-validation](validation/sprint-7-engineering-2026-09-18.md). The command is not
-yet in a published release and docs label it unreleased. Independent maintainer
-adoption and outside feedback are deferred until after Sprint 10 by product
-decision.
+validation](validation/sprint-7-engineering-2026-09-18.md). The command shipped
+in the checksum-verified `v0.3.0-rc.1` prerelease and passed published-install
+checks on every advertised host. Independent maintainer adoption and outside
+feedback are deferred until after Sprint 10 by product decision.
 
 ## After the MVP
 

@@ -6,6 +6,10 @@ compatibility rules for released specs, reports, and patches are in
 
 ## Unreleased
 
+No user-visible changes yet.
+
+## v0.3.0-rc.1 - 2026-09-18
+
 ### Added
 
 - Render report v1 and its admitted screen/diff evidence into one bounded,
@@ -13,6 +17,17 @@ compatibility rules for released specs, reports, and patches are in
   responsive keyboard-accessible layout, and no JavaScript or remote assets.
 - Reject unsafe, escaping, aliased, oversized, malformed, or inconsistently
   associated report evidence while labeling genuinely missing optional files.
+
+### Fixed
+
+- Resolve platform-native final paths before containment checks so system
+  working-directory aliases do not reject valid evidence on macOS or Windows.
+
+### Compatibility and migration
+
+- Specification v1 and report v1 are unchanged. Existing captured reports can
+  be rendered without rerunning a target or rereading its test specification.
+
 - Recursively discover deterministic `.json` suites, preview them with
   `test --list`, and report complete serial pass/fail/cancelled/not-run totals.
 - Collect evidence beneath a unique `--artifacts-dir` run directory with

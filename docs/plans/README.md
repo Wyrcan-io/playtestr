@@ -28,9 +28,9 @@ Sequence revised 11 September 2026: R1 → R2 → R3b technical closure → R3c 
 
 Sprint 5 stopped at its acceptance boundary. Engineering completion is recorded separately from independent adoption; operator tests do not close adoption gates. Recruitment can continue while the next candidate is evaluated.
 
-Sprint 7's compact failure report is implemented and locally validated from
-existing evidence without Sprint 6. Its published-release check remains open,
-and independent feedback is deferred until after Sprint 10. Keep the existing
+Sprint 7's compact failure report is implemented from existing evidence without
+Sprint 6 and published in the natively verified `v0.3.0-rc.1` prerelease.
+Independent feedback is deferred until after Sprint 10. Keep the existing
 identifiers for links. Reproduction follows only if context remains costly to
 reconstruct. Installation, workspaces, and terminal correctness can move
 earlier when they block a chosen real flow.

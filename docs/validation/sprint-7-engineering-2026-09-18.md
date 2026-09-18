@@ -1,10 +1,9 @@
 # Sprint 7 engineering validation — 18 September 2026
 
-Status: local engineering acceptance complete on Windows amd64 from an
-unreleased checkout build. Independent maintainer adoption and outside
-usability feedback are deliberately deferred until after Sprint 10 by product
-decision. Published-release verification is still a release gate and is not
-claimed here.
+Status: engineering acceptance and published-release verification complete for
+the `v0.3.0-rc.1` prerelease on Linux amd64, macOS arm64, and Windows amd64.
+Independent maintainer adoption and outside usability feedback are deliberately
+deferred until after Sprint 10 by product decision.
 
 ## Frozen presentation and sources
 
@@ -58,8 +57,9 @@ identities and step records.
 Unit and CLI tests additionally cover one result, duplicate display names,
 cancelled/not-run results, missing screens and diffs, cleanup failures, evidence
 write failures, malformed/truncated/unknown-field/wrong-version reports,
-inconsistent summaries and artifact pairs, shared paths and hard-linked evidence, traversal,
-absolute/remote/network paths, an escaping Windows junction, input/evidence
+inconsistent summaries and artifact pairs, shared paths and hard-linked
+evidence, traversal, absolute/remote/network paths, an escaping Windows
+junction, input/evidence
 output aliases (including a missing referenced path), invalid UTF-8, unusual
 Unicode, HTML and OSC text, per-file/aggregate/generated-output limits,
 unwritable output, and preservation of prior inputs and output.
@@ -114,12 +114,45 @@ non-fatal module stat-cache access warnings during local builds; the requested
 binaries and all recorded product outcomes completed successfully using the
 project-local build cache.
 
-## Open gates
+## Published release evidence
 
-- No published Playtestr release contains `playtestr report` yet. Documentation
-  labels it unreleased, and no packaged-version claim is made. A future release
-  must run the same capture/export/browser checks before its command is called
-  released.
+The release source is commit `7cf64afc105decfdbbe37141d45ab5b15e32c3d6`
+and the published prerelease is
+[`v0.3.0-rc.1`](https://github.com/Wyrcan-io/playtestr/releases/tag/v0.3.0-rc.1).
+The replacement [terminal matrix run
+35288077080](https://github.com/Wyrcan-io/playtestr/actions/runs/35288077080)
+passed tests, vet, real PTY acceptance, deliberate failure HTML export, and
+artifact upload on all three advertised hosts.
+
+The first pushed matrix run `35287731727` failed on macOS and Windows because
+the evidence root was canonicalized while aliased system temporary directories
+were not. No release existed at that point. The regression was reproduced with
+a Windows working-directory junction; platform-native final-path resolution and
+a focused test fixed it before the successful replacement run.
+
+[Native release run
+35288218202](https://github.com/Wyrcan-io/playtestr/actions/runs/35288218202)
+built, packaged, checksum-verified, extracted, and exercised all three archives,
+including `playtestr report` against isolated snapshot-mismatch evidence. The
+downloaded workflow archives matched their adjacent checksum files:
+
+| Target | Archive SHA-256 |
+| --- | --- |
+| Linux amd64 | `dc8c3c2142219bc47a995b09bc8130b39fe6b8a5392e2b7f3bc4d999120ed881` |
+| macOS arm64 | `498c163483b071f353ba3d4342a9680594e1ff1dc7f3139317b4979a34a07e1f` |
+| Windows amd64 | `3ed1f69faa0abf970ee6cf1f17b59bd3d72f89e305ac2cf7b9687833a6a457f6` |
+
+[Published-install run
+35288555826](https://github.com/Wyrcan-io/playtestr/actions/runs/35288555826)
+downloaded those public assets and passed checksum rejection, no-Go execution,
+good/failure/recovery, invalid input, report-write failure, and applicable
+controlling-terminal checks on all three hosts. Each downloaded binary also
+rendered the intentional assertion-timeout evidence to HTML. Auditing all three
+workflow artifacts found the expected `assertion_timeout`, captured greeting,
+version, host, and archive hash.
+
+## Deferred adoption gate
+
 - Independent usability and maintainer adoption remain explicitly open until
   after Sprint 10. This follows the product decision and does not weaken or
   fabricate the technical acceptance above.

@@ -27,5 +27,6 @@ Playtestr is a local runner for deterministic end-to-end tests of trusted intera
 - [Troubleshooting](troubleshooting.md) maps common results to the next useful check.
 - [Support](../SUPPORT.md) links the bug and private security-report routes.
 - [Project trials](trials/README.md) are optional and intended for maintainers testing one real, repeatable workflow.
+- [`v0.3.0-rc.1` release notes](releases/v0.3.0-rc.1.md) record the published offline-report binaries, hashes, and verification runs.
 
 Development plans describe possible future work and are not released functionality. Contributors can start with [Development and repository checks](development.md).

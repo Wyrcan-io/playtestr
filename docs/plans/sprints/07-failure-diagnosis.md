@@ -1,10 +1,9 @@
 # Sprint 7 — Understand a failure in one offline report
 
-Status: implemented and locally validated on Windows amd64 on 18 September
-2026. The number is retained for existing links. Sprint 6 is not a
-prerequisite. Published-binary verification remains a release gate;
-independent maintainer adoption and outside feedback are intentionally deferred
-until after Sprint 10.
+Status: implemented and published as the checksum-verified `v0.3.0-rc.1`
+prerelease on 18 September 2026. The number is retained for existing links.
+Sprint 6 is not a prerequisite. Independent maintainer adoption and outside
+feedback are intentionally deferred until after Sprint 10.
 
 ## User result
 
@@ -145,9 +144,8 @@ and adoption outcomes.
 - [x] Input paths, aggregate sizes, output errors, and privacy are bounded.
 - [x] Browser review proves offline usability, keyboard access, and portability.
 - [x] Missing information stays visible; no inferred history or cause appears.
-- [ ] Documentation and the demo use commands from an actual released version.
-  The implementation is unreleased and is labeled accordingly; publishing a
-  release was not authorized as part of this engineering change.
+- [x] Documentation and the demo use commands from the published and natively
+  verified `v0.3.0-rc.1` prerelease.
 - [x] Independent review explicitly remains open. Per product decision,
   maintainer adoption and outside feedback resume after Sprint 10.
 
@@ -155,5 +153,5 @@ Review the next obstacle after delivery. Add history or reproduction machinery
 only when an observed question requires new evidence.
 
 Engineering evidence, source mapping, exact limits, hostile-input coverage,
-browser checks, demo results, and the deliberately open release/adoption gates
-are recorded in [Sprint 7 engineering validation](../../validation/sprint-7-engineering-2026-09-18.md).
+browser checks, demo results, published-release verification, and the deferred
+adoption gate are recorded in [Sprint 7 engineering validation](../../validation/sprint-7-engineering-2026-09-18.md).

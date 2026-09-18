@@ -4,9 +4,10 @@
 into one self-contained HTML file. It does not start the target, read test
 specifications, update snapshots, or compare against a newer baseline.
 
-The command is part of the unreleased Sprint 7 implementation. Do not expect it
-in `v0.1.0` or `v0.2.0-rc.1`; check `playtestr report --help` before following
-this workflow with a packaged binary.
+The command is available in the checksum-verified
+[`v0.3.0-rc.1`](https://github.com/Wyrcan-io/playtestr/releases/tag/v0.3.0-rc.1)
+prerelease and later builds. It is not present in `v0.1.0` or `v0.2.0-rc.1`.
+Check `playtestr report --help` when using another packaged version.
 
 ## Capture and export
 

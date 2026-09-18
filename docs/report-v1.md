@@ -12,7 +12,7 @@ Reports are limited to 8 MB. They omit command arguments, environment data, type
 
 Report v1's shape and ordering are unchanged for suites. Results appear in resolved execution order, including `not_run` entries after cancellation. Evidence paths name files actually written and retain the established path semantics. Use `--artifacts-dir` for a unique per-invocation layout; see [Test suites and CI evidence](suites.md).
 
-The unreleased `playtestr report` command consumes this unchanged format and
+Starting in `v0.3.0-rc.1`, `playtestr report` consumes this unchanged format and
 embeds admitted screen/diff files in a self-contained offline HTML view. It does
 not add expected expressions, history, commands, input, or causes that report v1
 did not capture. See [Offline failure reports](failure-reports.md).

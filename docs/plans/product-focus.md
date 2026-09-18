@@ -140,8 +140,8 @@ A deliberately different expected baseline can explain diff mechanics, but
 label that as a snapshot-mismatch demonstration; it alone does not prove a
 target regression was detected.
 
-Use Sprint 7's actual exported report in this story after the command is
-included in a verified release. Color
+Use Sprint 7's actual exported report from the verified `v0.3.0-rc.1` release
+in this story. Color
 highlights in a diff show text changes and do not imply styled terminal
 assertions. Any annotation or accelerated playback must be labeled as
 presentation. Do not render proposed commands as shipped functionality.

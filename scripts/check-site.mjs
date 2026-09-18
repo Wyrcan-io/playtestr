@@ -15,6 +15,7 @@ const requiredRoutes = [
   'docs/compatibility/index.html', 'docs/platform-evidence/index.html',
   'docs/terminal-compatibility/index.html', 'examples/index.html',
   'releases/index.html', 'releases/v0.1.0/index.html',
+  'releases/v0.3.0-rc.1/index.html',
   'support/index.html', 'trials/index.html', 'index.json',
   'demos/terminal-demo.json', 'schema/playtestr-spec-v1.schema.json',
   'schema/playtestr-report-v1.schema.json', 'images/social-preview.png'
