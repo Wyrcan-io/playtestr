@@ -142,11 +142,14 @@ func TestReportWriteFailureReturnsNonzero(t *testing.T) {
 	}
 }
 
-func writeCLISpec(t *testing.T, name string, second bool) string {
+func writeCLISpec(t *testing.T, name string, second bool, sentinel string) string {
 	t.Helper()
 	environment := map[string]string{"PLAYTESTR_CLI_HELPER": "1"}
 	if second {
 		environment["PLAYTESTR_SECOND_SPEC"] = "1"
+	}
+	if sentinel != "" {
+		environment["PLAYTESTR_CLI_SENTINEL"] = sentinel
 	}
 	spec := map[string]any{
 		"version": 1, "name": name, "command": []string{os.Args[0], "-test.run=TestCLIHelperProcess"},
@@ -165,15 +168,37 @@ func writeCLISpec(t *testing.T, name string, second bool) string {
 }
 
 func TestCancellationReturns130AndStopsLaterSpecs(t *testing.T) {
-	first := writeCLISpec(t, "first", false)
-	second := writeCLISpec(t, "second", true)
+	sentinel := filepath.Join(t.TempDir(), "first-started.txt")
+	first := writeCLISpec(t, "first", false, sentinel)
+	second := writeCLISpec(t, "second", true, "")
 	ctx, cancel := context.WithCancel(context.Background())
-	time.AfterFunc(100*time.Millisecond, cancel)
+	fallback := time.AfterFunc(4*time.Second, cancel)
+	defer fallback.Stop()
+	stopPolling := make(chan struct{})
+	defer close(stopPolling)
+	go func() {
+		poll := time.NewTicker(10 * time.Millisecond)
+		defer poll.Stop()
+		for {
+			select {
+			case <-stopPolling:
+				return
+			case <-poll.C:
+				if _, err := os.Stat(sentinel); err == nil {
+					cancel()
+					return
+				}
+			}
+		}
+	}()
 	var stdout, stderr bytes.Buffer
 	outputRoot := t.TempDir()
 	reportPath := filepath.Join(outputRoot, "cancelled.json")
 	artifactsPath := filepath.Join(outputRoot, "artifacts")
 	code := run(ctx, []string{"test", "--artifacts-dir", artifactsPath, "--report", reportPath, first, second}, &stdout, &stderr)
+	if _, err := os.Stat(sentinel); err != nil {
+		t.Fatalf("first spec did not start before cancellation: %v", err)
+	}
 	if code != 130 {
 		t.Fatalf("exit code = %d, stderr = %s", code, stderr.String())
 	}
@@ -197,8 +222,8 @@ func TestCancellationReturns130AndStopsLaterSpecs(t *testing.T) {
 }
 
 func TestSnapshotSelectorCLIValidation(t *testing.T) {
-	one := writeCLISpec(t, "one", false)
-	two := writeCLISpec(t, "two", false)
+	one := writeCLISpec(t, "one", false, "")
+	two := writeCLISpec(t, "two", false, "")
 	for _, test := range []struct {
 		name string
 		args []string
@@ -216,6 +241,79 @@ func TestSnapshotSelectorCLIValidation(t *testing.T) {
 				t.Fatalf("stderr = %q", stderr.String())
 			}
 		})
+	}
+}
+
+func TestWorkspaceCLIEmitsReportV2AndCanRetainFailure(t *testing.T) {
+	root := t.TempDir()
+	fixture := filepath.Join(root, "fixture")
+	if err := os.Mkdir(fixture, 0755); err != nil {
+		t.Fatal(err)
+	}
+	writeSpec := func(name string, exit bool) string {
+		t.Helper()
+		environment := map[string]string{"PLAYTESTR_CLI_HELPER": "1"}
+		steps := []map[string]any{{"expect": "never"}}
+		timeoutMS := 100
+		if exit {
+			environment["PLAYTESTR_CLI_EXIT"] = "1"
+			steps = []map[string]any{{"expect": "finished"}, {"exit": 0}}
+			timeoutMS = 3000
+		}
+		spec := map[string]any{
+			"version": 2, "name": name,
+			"command": []string{os.Args[0], "-test.run=TestCLIHelperProcess"},
+			"env":     environment, "timeout_ms": timeoutMS, "run_timeout_ms": 10000,
+			"workspace": map[string]any{"fixture": "fixture", "home": "temporary", "temp": "temporary"},
+			"steps":     steps,
+		}
+		data, err := json.Marshal(spec)
+		if err != nil {
+			t.Fatal(err)
+		}
+		path := filepath.Join(root, name+".json")
+		if err := os.WriteFile(path, data, 0600); err != nil {
+			t.Fatal(err)
+		}
+		return path
+	}
+
+	passReport := filepath.Join(root, "pass-report.json")
+	var stdout, stderr bytes.Buffer
+	if code := run(context.Background(), []string{"test", "--report", passReport, writeSpec("pass", true)}, &stdout, &stderr); code != 0 {
+		t.Fatalf("pass code=%d stdout=%q stderr=%q", code, stdout.String(), stderr.String())
+	}
+	passData, err := os.ReadFile(passReport)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(string(passData), `"report_version": 2`) || !strings.Contains(string(passData), `"cleaned": true`) {
+		t.Fatalf("workspace report = %s", passData)
+	}
+
+	failureReport := filepath.Join(root, "failure-report.json")
+	stdout.Reset()
+	stderr.Reset()
+	if code := run(context.Background(), []string{"test", "--keep-workspace-on-failure", "--report", failureReport, writeSpec("failure", false)}, &stdout, &stderr); code != 1 {
+		t.Fatalf("failure code=%d stdout=%q stderr=%q", code, stdout.String(), stderr.String())
+	}
+	if !strings.Contains(stdout.String(), "Workspace retained:") {
+		t.Fatalf("retention output = %q", stdout.String())
+	}
+	var document report.Document
+	failureData, err := os.ReadFile(failureReport)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := json.Unmarshal(failureData, &document); err != nil {
+		t.Fatal(err)
+	}
+	retained := document.Results[0].Workspace
+	if retained == nil || !retained.Retained || retained.RetainedPath == "" {
+		t.Fatalf("retained workspace report = %+v", retained)
+	}
+	if err := os.RemoveAll(retained.RetainedPath); err != nil {
+		t.Fatal(err)
 	}
 }
 

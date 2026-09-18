@@ -1,6 +1,6 @@
 # MVP delivery plan
 
-For the delivery sequence, see the [release/adoption plans and Sprint 5–10 candidates](plans/README.md) and [product focus](plans/product-focus.md). Sprint 5 suites and Sprint 7's compact offline failure report are implemented locally; identifiers are retained, not dependency order. Reproduction, installation, workspaces, and compatibility follow the demonstrated task, with correctness blockers prioritized. Candidate plans do not claim their future features are implemented.
+For the delivery sequence, see the [release/adoption plans and Sprint 5–10 candidates](plans/README.md) and [product focus](plans/product-focus.md). Sprint 5 suites, Sprint 7's compact offline failure report, and Sprint 8's setup-action engineering are implemented locally; identifiers are retained, not dependency order. Reproduction, installation, workspaces, and compatibility follow the demonstrated task, with correctness blockers prioritized. Candidate plans do not claim their future features are implemented.
 
 ## Working agreement
 
@@ -97,6 +97,44 @@ validation](validation/sprint-7-engineering-2026-09-18.md). The command shipped
 in the checksum-verified `v0.3.0-rc.1` prerelease and passed published-install
 checks on every advertised host. Independent maintainer adoption and outside
 feedback are deferred until after Sprint 10 by product decision.
+
+## Sprint 8 — exact CI installation (implemented locally)
+
+User-visible result: a setup-only GitHub Action installs one exact published
+runner on an advertised host, verifies its checksum and archive layout, checks
+the binary by absolute path, and only then makes that version available to the
+next workflow step.
+
+The action and runner use independent pins. Downloads, retries, time, archive
+and checksum sizes, archive membership, staging, and failure cleanup are
+bounded. Linux amd64, macOS arm64, and Windows amd64 are the only mapped release
+assets. Direct archive installation remains the fallback; target setup, test
+execution, baseline review, and artifact upload remain explicit workflow work.
+
+Local Windows normal and failure coverage, the route evidence, and maintenance
+contract are recorded in [Sprint 8 engineering validation](validation/sprint-8-engineering-2026-09-18.md).
+The first immutable public action revision, native Linux/macOS action results,
+a later real-release upgrade, and independent adoption remain open. Maintainer
+adoption and outside feedback are deferred until after Sprint 10.
+
+## Sprint 9 — repeatable workspaces (implemented locally)
+
+User-visible result: a spec-v2 test receives a unique bounded copy of a reviewed
+fixture, an explicit working directory, and optional managed home/temp paths.
+The runner resolves the trusted executable before changing directories, stops
+the process tree before deleting files, preserves evidence outside the owned
+root, and can explicitly retain failed state for inspection.
+
+Spec and report v1 remain unchanged. Workspace results use strict spec/report
+v2 schemas and distinct setup/cleanup outcomes; mixed suites emit report v2.
+Copy and deletion bounds, link/junction rejection, marker-verified cleanup,
+snapshot rollback, stateful repetition, cancellation, timeout, flood, expected
+nonzero exit, and descendant cleanup have local native coverage. See
+[Repeatable workspaces](workspaces.md) and the [Sprint 9 engineering record](validation/sprint-9-engineering-2026-09-19.md).
+
+The internal Lazygit R3-T09 persisted-draft observation selects the engineering
+case but is not independent adoption. Maintainer adoption/outside feedback and
+non-Windows native confirmation remain deferred until after Sprint 10.
 
 ## After the MVP
 

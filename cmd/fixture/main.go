@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strings"
 	"time"
 
@@ -12,7 +13,7 @@ import (
 
 func main() {
 	if len(os.Args) != 2 {
-		fmt.Fprintln(os.Stderr, "usage: fixture <hang|flood|input|child|sleep|screen|resize>")
+		fmt.Fprintln(os.Stderr, "usage: fixture <hang|flood|input|child|sleep|screen|resize|workspace>")
 		os.Exit(2)
 	}
 	switch os.Args[1] {
@@ -79,6 +80,37 @@ func main() {
 			os.Exit(1)
 		}
 		fmt.Printf("\x1b[2J\x1b[Hresized %dx%d\r\n", width, height)
+	case "workspace":
+		if _, err := os.Stat("state.txt"); err == nil {
+			fmt.Println("workspace was already used")
+			os.Exit(3)
+		} else if !os.IsNotExist(err) {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
+		seed, err := os.ReadFile("seed.txt")
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
+		home, err := os.UserHomeDir()
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
+		if err := os.WriteFile("state.txt", []byte("created"), 0600); err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
+		if err := os.WriteFile(filepath.Join(home, "playtestr-fixture-state"), []byte("created"), 0600); err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
+		if err := os.WriteFile(filepath.Join(os.TempDir(), "playtestr-fixture-temp"), []byte("created"), 0600); err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
+		fmt.Printf("fresh workspace seed=%s home=true temp=true\n", strings.TrimSpace(string(seed)))
 	default:
 		fmt.Fprintf(os.Stderr, "unknown fixture mode %q\n", os.Args[1])
 		os.Exit(2)

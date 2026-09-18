@@ -9,13 +9,17 @@ Playtestr is a local runner for deterministic end-to-end tests of trusted intera
 3. [Add and review text snapshots](snapshots.md) when a complete rendered screen is useful.
 4. [Diagnose a failure](troubleshooting.md) using its category, failed step, final screen, and diff.
 5. [Run a deterministic suite](suites.md) and collect isolated CI evidence.
+6. [Install an exact release in GitHub Actions](ci-installation.md) after the action revision is published.
+7. [Use a repeatable workspace](workspaces.md) when a local stateful flow needs fresh reviewed files.
 
 ## Reference
 
 - [Test specification version 1](spec-v1.md) defines every input field, action, default, and limit.
 - [Machine report version 1](report-v1.md) defines structured outcomes and evidence references.
+- [Test specification version 2](spec-v2.md) and [machine report version 2](report-v2.md) define the opt-in development workspace contract.
 - [Offline failure reports](failure-reports.md) explains safe, bounded HTML export and diagnosis.
 - [Test suites and CI evidence](suites.md) defines directory selection, summaries, limits, and artifact layout.
+- [CI installation](ci-installation.md) defines exact version selection, verification, fallback, removal, and action maintenance.
 - [Platform support](platform-support.md) records exact release targets and native evidence.
 - [Terminal compatibility](terminal-compatibility.md) records rendered-screen behavior and known limits.
 - [Support and compatibility policy](../SUPPORT.md) explains stable-contract and reporting expectations.
@@ -24,6 +28,7 @@ Playtestr is a local runner for deterministic end-to-end tests of trusted intera
 
 - [`examples/menu.json`](../examples/menu.json) drives the repository's small interactive demo.
 - [`examples/snapshot-mismatch.json`](../examples/snapshot-mismatch.json) is deliberately different from the reviewed baseline and should fail.
+- [`examples/workspace.json`](../examples/workspace.json) runs a state-writing fixture from fresh project, home, and temp directories.
 - [Troubleshooting](troubleshooting.md) maps common results to the next useful check.
 - [Support](../SUPPORT.md) links the bug and private security-report routes.
 - [Project trials](trials/README.md) are optional and intended for maintainers testing one real, repeatable workflow.

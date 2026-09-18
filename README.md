@@ -60,6 +60,27 @@ Specs are JSON. `command` is an executable followed by arguments and is executed
 
 `version` is required. Playtestr rejects missing or unsupported versions before it launches a target. The complete defaults, limits, normalization rules, and JSON Schema are in [Test specification version 1](docs/spec-v1.md).
 
+Stateful local flows can opt into specification version 2. It copies a bounded reviewed fixture for every run and can provide managed home and temporary directories:
+
+```json
+{
+  "version": 2,
+  "command": ["../bin/fixture", "workspace"],
+  "workspace": {
+    "fixture": "workspace-fixture",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "steps": [
+    {"expect": "fresh workspace seed=reviewed home=true temp=true"},
+    {"exit": 0}
+  ]
+}
+```
+
+The command resolves before the copied working directory is selected. Failed runs normally clean up; `--keep-workspace-on-failure` prints and records an explicitly retained local path. Successful workspaces are always removed. See [Repeatable workspaces](docs/workspaces.md), [spec v2](docs/spec-v2.md), and [report v2](docs/report-v2.md). A temporary workspace controls selected local paths but is not a security sandbox.
+
 Each step has exactly one action. Supported keys: `Enter`, `ArrowDown`, `ArrowUp`, `ArrowLeft`, `ArrowRight`, `Escape`, `Tab`, `Backspace`, `CtrlC`. An `exit` step waits for the process and requires the exact exit code; intentionally nonzero expected codes are supported. Long-running TUIs do not need an exit step.
 
 `expect` polls the current screen until the text appears or the per-step timeout expires. `expect_not` waits for text that an earlier `expect` observed to disappear after input or resize, which is useful for closing modals without arbitrary sleeps. If the process exits first, an unmatched assertion reports the exit code instead of waiting for a timeout. Snapshots compare the rendered screen after at least 150 ms without output.
@@ -131,6 +152,8 @@ go run ./cmd/playtestr test --update examples/menu.json
 go run ./cmd/playtestr test --update --snapshot diagnostics.txt examples/menu.json
 go run ./cmd/playtestr test --list examples/suite
 go run ./cmd/playtestr test --artifacts-dir artifacts/playtestr --report artifacts/results.json examples/suite
+go build -o bin/fixture ./cmd/fixture
+go run ./cmd/playtestr test examples/workspace.json
 go test ./...
 ```
 
@@ -159,6 +182,11 @@ The tested terminal behavior and known emulator gaps are recorded in [Terminal c
 Windows uses a Job Object and Unix uses a dedicated process group to terminate managed descendants. The current xpty API starts a Windows target immediately before Playtestr can attach it to the Job Object, leaving a small launch-to-attachment window in which a very early child could escape management. Unix descendants can deliberately detach into another session. Only test trusted applications; local PTY execution is not a sandbox.
 
 The GitHub Actions matrix runs native tests on Linux, macOS, and Windows and retains machine reports, screens, and diffs from its deliberate-failure check. Native and published-release results are recorded in [Platform support](docs/platform-support.md). Releases are packaged by a separate workflow; the process is documented in [Releasing](docs/releasing.md).
+
+The repository also contains a setup-only GitHub Action for installing one
+exact checksum-verified release. Its first immutable public revision is still
+pending; see [CI installation](docs/ci-installation.md) for the pinning contract,
+supported hosts, adopter workflow, archive fallback, and maintenance boundary.
 
 Recording, replay, exact-failure minimization, and styled snapshots remain post-MVP work.
 

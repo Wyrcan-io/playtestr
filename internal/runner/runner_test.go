@@ -9,6 +9,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
 	"strconv"
 	"strings"
 	"testing"
@@ -306,6 +307,35 @@ func TestHelperProcess(t *testing.T) {
 		cwd, _ := os.Getwd()
 		fmt.Printf("cwd-base=%s\r\nmarker=%s\r\nsecret=%s\r\ninherited=%s\r\n", filepath.Base(cwd), os.Getenv("PLAYTESTR_MARKER"), os.Getenv("PLAYTESTR_SECRET"), os.Getenv("PLAYTESTR_INHERITED"))
 		os.Exit(0)
+	case "workspace-state", "workspace-hang":
+		seed, _ := os.ReadFile("seed.txt")
+		_, stateErr := os.Stat("state.txt")
+		state := "contaminated"
+		if os.IsNotExist(stateErr) {
+			state = "fresh"
+		}
+		_ = os.WriteFile("state.txt", []byte("created"), 0600)
+		home := os.Getenv("HOME")
+		if runtime.GOOS == "windows" {
+			home = os.Getenv("USERPROFILE")
+		}
+		temporary := os.Getenv("TMPDIR")
+		if runtime.GOOS == "windows" {
+			temporary = os.Getenv("TEMP")
+		}
+		_ = os.WriteFile(filepath.Join(home, "home-state.txt"), []byte("home"), 0600)
+		_ = os.WriteFile(filepath.Join(temporary, "temp-state.txt"), []byte("temp"), 0600)
+		fmt.Printf("%s workspace seed=%s home=%t temp=%t\r\n", state, strings.TrimSpace(string(seed)), home != "", temporary != "")
+		if mode == "workspace-hang" {
+			time.Sleep(10 * time.Second)
+		}
+		os.Exit(0)
+	case "workspace-marker-tamper":
+		root := filepath.Dir(mustGetwd())
+		_ = os.WriteFile(filepath.Join(root, workspaceMarker), []byte("tampered"), 0600)
+		fmt.Print("workspace ready\r\n")
+		time.Sleep(10 * time.Second)
+		os.Exit(0)
 	case "controlling-tty":
 		tty, err := os.OpenFile("/dev/tty", os.O_RDWR, 0)
 		if err != nil {
@@ -376,6 +406,11 @@ func TestHelperProcess(t *testing.T) {
 	default:
 		os.Exit(99)
 	}
+}
+
+func mustGetwd() string {
+	directory, _ := os.Getwd()
+	return directory
 }
 
 func runHelperSpec(t *testing.T, mode string, steps []Step, timeoutMS int) error {

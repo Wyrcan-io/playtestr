@@ -1,6 +1,10 @@
 # Sprint 9: repeatable workspaces for stateful CLIs
 
-Status: conditional candidate. Workspace fields and flags below are design targets, not current spec features. It has no required predecessor sprint: start only when an adopted stateful flow is demonstrably contaminated by prior state and a simpler documented reset cannot solve it.
+Status: engineering implemented locally on 19 September 2026. The internal
+Lazygit R3-T09 persisted-draft case supplied the contamination evidence; it is
+not independent adoption. Maintainer adoption/outside feedback is deferred
+until after Sprint 10 by product decision. See the [workspace contract](../../workspaces.md)
+and [engineering record](../../validation/sprint-9-engineering-2026-09-19.md).
 
 ## User problem and outcome
 
@@ -26,7 +30,7 @@ Excluded: Docker orchestration, arbitrary setup/teardown shell hooks, network se
 
 The current spec schema rejects unknown fields. Introduce an opt-in spec version 2 for the selected workspace contract, retaining version 1 parsing and behavior. Publish a separate schema and migration notes; do not silently reinterpret existing `cwd`, `env`, or command resolution. If another approved sprint has already introduced v2, reconcile its contract before choosing the next version number.
 
-Proposed fragment, intentionally incomplete until checkpoint 9.1 settles naming:
+Implemented version 2 fragment:
 
 ```json
 {
@@ -48,7 +52,7 @@ Create a unique owned root under an explicit or documented OS temporary parent. 
 
 Reject a fixture root that resolves outside the allowed spec-relative fixture policy. Explain how users place shared fixtures in an explicitly selected project root if that real use case is admitted at 9.1; do not loosen traversal checks by accident. Do not copy the entire checkout implicitly.
 
-Provisional limits: 1,000 regular files, 32 MiB total contents, 8 MiB per file, depth 32, and a 30-second copy budget bounded by the enclosing run budget. Confirm these against the chosen application before freezing them. Validate and enforce limits during copying as well as enumeration, because files can change between those operations.
+Frozen limits: 2,000 filesystem entries including at most 1,000 regular files, 32 MiB total contents, 8 MiB per file, depth 32, and a 30-second copy budget bounded by the enclosing run budget. Limits are enforced during copying as well as enumeration because files can change between those operations.
 
 Preserve executable permission where supported and required for fixture scripts. Do not preserve ownership, privileged mode bits, or host-specific attributes merely because an archive or source file contains them. State platform differences, including unsupported fixture names and case collisions.
 
@@ -78,7 +82,7 @@ If setup fails, never launch the target. If process cleanup cannot confirm termi
 
 Deletion must verify the resolved absolute path and ownership against the created root immediately before removal, avoid following links introduced by the target, and stay within that root. Use platform-native safe deletion logic; do not string-build cross-shell recursive deletion commands. Target-created symlinks/junctions must never cause deletion of their destinations.
 
-Proposed `--keep-workspace=on-failure` is an explicit debugging option. Retained workspaces can contain target data and are local evidence, not an automatic CI upload bundle. Successful runs still clean up. Interrupted preparation and retained failure directories must identify what remains and why. Do not implement an unattended sweeper that guesses which temporary directories are safe to delete.
+`--keep-workspace-on-failure` is the explicit debugging option. Retained workspaces can contain target data and are local evidence, not an automatic CI upload bundle. Successful runs still clean up. Interrupted preparation and retained failure directories identify what remains and why. There is no unattended sweeper that guesses which temporary directories are safe to delete.
 
 ### Format and reproduction interaction
 
@@ -142,10 +146,10 @@ Acceptance: the maintainer can remove their manual state-reset workaround and ex
 
 ## Definition of done and handoff
 
-- [ ] Checkpoints 9.1–9.6 complete using a real stateful application.
-- [ ] New spec/artifact contracts, strict validation, migration examples, and schema tests agree.
-- [ ] Source fixtures and known original state remain unchanged across recorded repeated runs.
-- [ ] Preparation, execution, cancellation, and deletion are bounded and tested natively.
-- [ ] Documentation consistently describes repeatable directories rather than isolation.
+- [x] Checkpoints 9.1–9.6 complete using a real stateful application.
+- [x] New spec/artifact contracts, strict validation, migration examples, and schema tests agree.
+- [x] Source fixtures and known original state remain unchanged across recorded repeated runs.
+- [x] Preparation, execution, cancellation, and deletion are bounded and tested natively.
+- [x] Documentation consistently describes repeatable directories rather than isolation.
 
 Stop and review the original state-contamination task. Consider [Sprint 10](10-terminal-compatibility.md) only if a separate rendering problem exists. Verify the intended file mutation with the explicit target-specific oracle as well as terminal assertions; a correct screen does not prove correct files. Parallel execution remains deferred until resource independence and measured suite performance justify separate work.

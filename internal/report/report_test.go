@@ -39,3 +39,14 @@ func TestReportSummaryOrderAndSecretBoundary(t *testing.T) {
 		t.Fatalf("decoded report = %+v", decoded)
 	}
 }
+
+func TestWorkspaceResultSelectsReportVersion2(t *testing.T) {
+	document := New("test", []runner.RunResult{{
+		SpecVersion: runner.WorkspaceSpecVersion,
+		Name:        "workspace", SpecPath: "workspace.json", Status: "passed",
+		Workspace: &runner.WorkspaceReport{Attempted: true, Prepared: true, CleanupAttempted: true, Cleaned: true},
+	}})
+	if document.ReportVersion != WorkspaceVersion {
+		t.Fatalf("report version = %d", document.ReportVersion)
+	}
+}

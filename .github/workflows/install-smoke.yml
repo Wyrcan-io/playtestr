@@ -6,7 +6,7 @@ on:
       version:
         description: Published version to verify
         required: true
-        default: v0.1.0
+        default: v0.3.0-rc.1
       verify_controlling_tty:
         description: Require the Unix /dev/tty regression (disable only for the known-bad rc.1 baseline)
         required: true
@@ -26,75 +26,50 @@ jobs:
           - runner: ubuntu-latest
             target_os: linux
             target_arch: amd64
-            extension: tar.gz
-            executable: playtestr
             fixture: unix
           - runner: macos-latest
             target_os: darwin
             target_arch: arm64
-            extension: tar.gz
-            executable: playtestr
             fixture: unix
           - runner: windows-latest
             target_os: windows
             target_arch: amd64
-            extension: zip
-            executable: playtestr.exe
             fixture: windows
     runs-on: ${{ matrix.runner }}
     env:
       VERSION: ${{ inputs.version }}
     steps:
       - uses: actions/checkout@v6
-      - name: Download, install, and exercise the published binary
+      - name: Put an obsolete Playtestr first on PATH
         shell: bash
         run: |
           set -euo pipefail
+          stale_dir="$(pwd)/stale playtestr"
+          mkdir -p "$stale_dir"
+          printf '#!/bin/sh\nprintf "playtestr stale\\n"\n' > "$stale_dir/playtestr"
+          chmod +x "$stale_dir/playtestr"
+          printf '%s\n' "$stale_dir" >> "$GITHUB_PATH"
+      - name: Install the exact published release
+        id: setup
+        uses: ./setup-playtestr
+        with:
+          version: ${{ inputs.version }}
+      - name: Exercise pass, failure, evidence, and recovery
+        shell: bash
+        env:
+          RELEASED_BINARY: ${{ steps.setup.outputs.binary-path }}
+          ARCHIVE_SHA256: ${{ steps.setup.outputs.archive-sha256 }}
+        run: |
+          set -euo pipefail
           [[ "$VERSION" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-rc\.[0-9]+)?$ ]]
+          test "$(playtestr --version)" = "playtestr $VERSION"
+          test ${#ARCHIVE_SHA256} -eq 64
 
-          base="playtestr_${VERSION#v}_${{ matrix.target_os }}_${{ matrix.target_arch }}"
-          archive="$base.${{ matrix.extension }}"
-          release_url="https://github.com/Wyrcan-io/playtestr/releases/download/$VERSION"
           install_root="installation smoke"
-          download_dir="$install_root/download"
-          extract_dir="$install_root/extracted"
           test_dir="$install_root/first test"
           evidence_dir="install-smoke-evidence"
-
           rm -rf -- "$install_root" "$evidence_dir"
-          mkdir -p "$download_dir" "$extract_dir" "$test_dir" "$evidence_dir"
-          curl --fail --location --retry 3 --retry-all-errors --connect-timeout 15 --max-time 120 \
-            --output "$download_dir/$archive" "$release_url/$archive"
-          curl --fail --location --retry 3 --retry-all-errors --connect-timeout 15 --max-time 120 \
-            --output "$download_dir/$archive.sha256" "$release_url/$archive.sha256"
-
-          expected_hash="$(awk '{print $1}' "$download_dir/$archive.sha256")"
-          expected_name="$(awk '{print $2}' "$download_dir/$archive.sha256")"
-          test "$expected_name" = "$archive"
-          if [ "${{ matrix.target_os }}" = "darwin" ]; then
-            actual_hash="$(shasum -a 256 "$download_dir/$archive" | awk '{print $1}')"
-          else
-            actual_hash="$(sha256sum "$download_dir/$archive" | awk '{print $1}')"
-          fi
-          test "$actual_hash" = "$expected_hash"
-
-          cp "$download_dir/$archive" "$download_dir/corrupt-$archive"
-          printf 'damaged' >> "$download_dir/corrupt-$archive"
-          if [ "${{ matrix.target_os }}" = "darwin" ]; then
-            corrupt_hash="$(shasum -a 256 "$download_dir/corrupt-$archive" | awk '{print $1}')"
-          else
-            corrupt_hash="$(sha256sum "$download_dir/corrupt-$archive" | awk '{print $1}')"
-          fi
-          test "$corrupt_hash" != "$expected_hash"
-          test ! -e "$extract_dir/$base"
-
-          if [ "${{ matrix.target_os }}" = "windows" ]; then
-            unzip -q "$download_dir/$archive" -d "$extract_dir"
-          else
-            tar -xzf "$download_dir/$archive" -C "$extract_dir"
-            test -x "$extract_dir/$base/${{ matrix.executable }}"
-          fi
-          released_binary="$(pwd)/$extract_dir/$base/${{ matrix.executable }}"
+          mkdir -p "$test_dir" "$evidence_dir"
 
           no_go_dir="$(pwd)/$install_root/no-go-bin"
           mkdir -p "$no_go_dir"
@@ -110,8 +85,8 @@ jobs:
           set -e
           test "$go_code" -eq 97
 
-          test "$(env -u GOROOT -u GOPATH "$released_binary" --version)" = "playtestr $VERSION"
-          env -u GOROOT -u GOPATH "$released_binary" --help | grep --fixed-strings "Playtestr drives trusted interactive CLIs"
+          test "$(env -u GOROOT -u GOPATH "$RELEASED_BINARY" --version)" = "playtestr $VERSION"
+          env -u GOROOT -u GOPATH "$RELEASED_BINARY" --help | grep --fixed-strings "Playtestr drives trusted interactive CLIs"
 
           cp -R "testdata/install-smoke/${{ matrix.fixture }}/." "$test_dir/"
           cd "$test_dir"
@@ -120,31 +95,31 @@ jobs:
           fi
 
           cp good.json test.json
-          env -u GOROOT -u GOPATH "$released_binary" test --report first-pass.json test.json
+          env -u GOROOT -u GOPATH "$RELEASED_BINARY" test --report first-pass.json test.json
           grep --fixed-strings "\"runner_version\": \"$VERSION\"" first-pass.json
           grep --fixed-strings '"passed": 1' first-pass.json
 
           if [ "${{ matrix.target_os }}" != "windows" ] && [ "${{ inputs.verify_controlling_tty }}" = "true" ]; then
-            env -u GOROOT -u GOPATH "$released_binary" test --report controlling-tty.json.result.json controlling-tty.json
+            env -u GOROOT -u GOPATH "$RELEASED_BINARY" test --report controlling-tty.json.result.json controlling-tty.json
             grep --fixed-strings '"passed": 1' controlling-tty.json.result.json
           fi
 
           cp bad.json test.json
           set +e
-          env -u GOROOT -u GOPATH "$released_binary" test --report intentional-failure.json test.json > intentional-failure-output.txt 2>&1
+          env -u GOROOT -u GOPATH "$RELEASED_BINARY" test --report intentional-failure.json test.json > intentional-failure-output.txt 2>&1
           failure_code=$?
           set -e
           test "$failure_code" -eq 1
           grep --fixed-strings '"category": "assertion_timeout"' intentional-failure.json
           grep --fixed-strings '"screen_path": "test.json.actual.txt"' intentional-failure.json
           test -s test.json.actual.txt
-          env -u GOROOT -u GOPATH "$released_binary" report --input intentional-failure.json --evidence-root . --output intentional-failure.html
+          env -u GOROOT -u GOPATH "$RELEASED_BINARY" report --input intentional-failure.json --evidence-root . --output intentional-failure.html
           grep --fixed-strings 'Playtestr offline report' intentional-failure.html
           grep --fixed-strings 'assertion_timeout' intentional-failure.html
           grep --fixed-strings 'Hello, terminal tester!' intentional-failure.html
 
           cp good.json test.json
-          env -u GOROOT -u GOPATH "$released_binary" test --report recovered.json test.json
+          env -u GOROOT -u GOPATH "$RELEASED_BINARY" test --report recovered.json test.json
           grep --fixed-strings '"passed": 1' recovered.json
           if grep --quiet '"screen_path"' recovered.json; then
             exit 1
@@ -154,14 +129,14 @@ jobs:
           test ! -e test.json.actual.txt
 
           set +e
-          env -u GOROOT -u GOPATH "$released_binary" test --report missing-target.json.result.json missing-target.json > missing-target-output.txt 2>&1
+          env -u GOROOT -u GOPATH "$RELEASED_BINARY" test --report missing-target.json.result.json missing-target.json > missing-target-output.txt 2>&1
           missing_code=$?
           set -e
           test "$missing_code" -eq 1
           grep --fixed-strings '"category": "launch_failure"' missing-target.json.result.json
 
           set +e
-          env -u GOROOT -u GOPATH "$released_binary" test --report unsupported.json.result.json unsupported.json > unsupported-output.txt 2>&1
+          env -u GOROOT -u GOPATH "$RELEASED_BINARY" test --report unsupported.json.result.json unsupported.json > unsupported-output.txt 2>&1
           unsupported_code=$?
           set -e
           test "$unsupported_code" -eq 1
@@ -171,7 +146,7 @@ jobs:
           mkdir blocked-report
           cp good.json test.json
           set +e
-          env -u GOROOT -u GOPATH "$released_binary" test --report blocked-report test.json > blocked-report-output.txt 2>&1
+          env -u GOROOT -u GOPATH "$RELEASED_BINARY" test --report blocked-report test.json > blocked-report-output.txt 2>&1
           blocked_code=$?
           set -e
           test "$blocked_code" -eq 1
@@ -189,8 +164,9 @@ jobs:
           printf '%s\n' \
             "version=$VERSION" \
             "host=${{ matrix.target_os }}/${{ matrix.target_arch }}" \
-            "archive=$archive" \
-            "sha256=$actual_hash" \
+            "binary=$RELEASED_BINARY" \
+            "sha256=$ARCHIVE_SHA256" \
+            "stale_path_overridden=true" \
             "go_shell_lookup_shadowed=true" \
             "controlling_tty_required=${{ inputs.verify_controlling_tty }}" \
             "fresh_path=$test_dir" > "../../$evidence_dir/summary.txt"
@@ -209,3 +185,4 @@ jobs:
             installation smoke/first test/*.html
             installation smoke/first test/*-output.txt
           if-no-files-found: warn
+          retention-days: 14

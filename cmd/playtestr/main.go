@@ -71,6 +71,7 @@ func run(ctx context.Context, args []string, stdout, stderr io.Writer) int {
 	reportPath := flags.String("report", "", "atomically write a versioned JSON report")
 	artifactsDir := flags.String("artifacts-dir", "", "write evidence beneath a unique directory for this suite run")
 	listOnly := flags.Bool("list", false, "list selected specs without launching targets")
+	keepWorkspace := flags.Bool("keep-workspace-on-failure", false, "retain a version 2 workspace after a failed or cancelled run")
 	if err := flags.Parse(args[1:]); err != nil {
 		if err == flag.ErrHelp {
 			return 0
@@ -85,8 +86,8 @@ func run(ctx context.Context, args []string, stdout, stderr io.Writer) int {
 		fmt.Fprintln(stderr, "--snapshot requires --update")
 		return 2
 	}
-	if *listOnly && (*update || *snapshot != "" || *reportPath != "" || *artifactsDir != "") {
-		fmt.Fprintln(stderr, "--list cannot be combined with --update, --snapshot, --report, or --artifacts-dir")
+	if *listOnly && (*update || *snapshot != "" || *reportPath != "" || *artifactsDir != "" || *keepWorkspace) {
+		fmt.Fprintln(stderr, "--list cannot be combined with execution or output options")
 		return 2
 	}
 	selected, err := discovery.ResolveExcluding(flags.Args(), []string{*artifactsDir})
@@ -133,7 +134,7 @@ func run(ctx context.Context, args []string, stdout, stderr io.Writer) int {
 	failed := false
 	cancelled := false
 	for index, path := range paths {
-		options := runner.RunOptions{Update: *update, Snapshot: *snapshot}
+		options := runner.RunOptions{Update: *update, Snapshot: *snapshot, KeepWorkspaceOnFailure: *keepWorkspace}
 		if runArtifactsDir != "" {
 			options.ArtifactPrefix = filepath.Join(runArtifactsDir, artifactID(selected[index]))
 		}
@@ -146,8 +147,12 @@ func run(ctx context.Context, args []string, stdout, stderr io.Writer) int {
 		if ctx.Err() != nil || result.Status == "cancelled" {
 			cancelled = true
 			for _, skipped := range paths[index+1:] {
+				specVersion := 0
+				if spec, loadErr := runner.Load(skipped); loadErr == nil {
+					specVersion = spec.Version
+				}
 				results = append(results, runner.RunResult{
-					Name: filepath.Base(skipped), SpecPath: filepath.Clean(skipped), Status: "not_run",
+					SpecVersion: specVersion, Name: filepath.Base(skipped), SpecPath: filepath.Clean(skipped), Status: "not_run",
 				})
 			}
 			break
@@ -178,7 +183,7 @@ func runReport(args []string, stdout, stderr io.Writer) int {
 	flags.Usage = func() {
 		fmt.Fprintln(flags.Output(), "Usage: playtestr report --input results.json --evidence-root dir --output report.html")
 		fmt.Fprintln(flags.Output())
-		fmt.Fprintln(flags.Output(), "Creates one self-contained offline HTML file from captured report-v1 evidence.")
+		fmt.Fprintln(flags.Output(), "Creates one self-contained offline HTML file from captured report-v1 or report-v2 evidence.")
 		fmt.Fprintln(flags.Output())
 		fmt.Fprintln(flags.Output(), "Options:")
 		flags.PrintDefaults()

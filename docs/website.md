@@ -44,7 +44,7 @@ sh scripts/site.sh build
 sh scripts/site.sh serve
 ```
 
-The build writes only to ignored `public/`. Build mode copies the canonical schemas to `public/schema/` and runs the Node-based validation. Serve mode uses Hugo's development server and renders drafts without changing repository content.
+The build writes only to ignored `public/`. Build mode copies the four canonical v1/v2 schemas to `public/schema/` and runs the Node-based validation. Serve mode uses Hugo's development server and renders drafts without changing repository content.
 
 For a local browser check, start the Hugo server and a Chromium-based browser with a remote debugging port, then run `node scripts/browser-check.mjs`. The script visits every public route at 320, 375, 768, and 1440 CSS pixels, checks overflow and basic semantics, exercises the intentional-failure evidence controls, inspects accessible control names, and saves representative screenshots under ignored `.cache/site-browser/`.
 
@@ -82,7 +82,7 @@ The demonstration JSON is website data, not report v1 and not a runner replay fo
 
 ## Deployment workflow
 
-`.github/workflows/pages.yml` builds and validates website changes on pull requests without deploying. On an authorized change reaching `main`, it builds the same static output, uploads the Pages artifact, and deploys it. The workflow continues to publish the two canonical JSON schemas at `/playtestr/schema/`.
+`.github/workflows/pages.yml` builds and validates website changes on pull requests without deploying. On an authorized change reaching `main`, it builds the same static output, uploads the Pages artifact, and deploys it. The workflow continues to publish the canonical versioned JSON schemas at `/playtestr/schema/`.
 
 A configured or green build is not evidence that the public site works. After deployment, check direct entry to nested routes, downloads and checksums, schemas, search, the terminal controls, social-preview assets, mobile layout, keyboard navigation, and the 404 page at the configured Pages address.
 

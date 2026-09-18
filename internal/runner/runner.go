@@ -19,9 +19,10 @@ import (
 var errOutputLimit = errors.New("target exceeded max_output_bytes")
 
 const (
-	SpecVersion  = 1
-	maxSpecBytes = 1_000_000
-	maxSpecSteps = 1_000
+	SpecVersion          = 1
+	WorkspaceSpecVersion = 2
+	maxSpecBytes         = 1_000_000
+	maxSpecSteps         = 1_000
 )
 
 // Step contains exactly one terminal action or assertion.
@@ -44,9 +45,18 @@ type TerminalSize struct {
 
 // RunOptions controls deliberate baseline updates and failure evidence for one spec.
 type RunOptions struct {
-	Update         bool
-	Snapshot       string
-	ArtifactPrefix string
+	Update                 bool
+	Snapshot               string
+	ArtifactPrefix         string
+	KeepWorkspaceOnFailure bool
+}
+
+// WorkspaceSpec opts a version 2 specification into a fresh fixture copy.
+type WorkspaceSpec struct {
+	Fixture string `json:"fixture"`
+	CWD     string `json:"cwd,omitempty"`
+	Home    string `json:"home,omitempty"`
+	Temp    string `json:"temp,omitempty"`
 }
 
 // Spec describes one target process and its ordered terminal interactions.
@@ -55,6 +65,7 @@ type Spec struct {
 	Name             string            `json:"name"`
 	Command          []string          `json:"command"`
 	CWD              string            `json:"cwd,omitempty"`
+	Workspace        *WorkspaceSpec    `json:"workspace,omitempty"`
 	Env              map[string]string `json:"env,omitempty"`
 	InheritEnv       []string          `json:"inherit_env,omitempty"`
 	Width            int               `json:"width"`
@@ -102,8 +113,14 @@ func Load(path string) (Spec, error) {
 	if spec.Version == 0 {
 		return spec, fmt.Errorf("spec version is required; add \"version\": %d", SpecVersion)
 	}
-	if spec.Version != SpecVersion {
-		return spec, fmt.Errorf("unsupported spec version %d; this runner supports version %d", spec.Version, SpecVersion)
+	if spec.Version != SpecVersion && spec.Version != WorkspaceSpecVersion {
+		return spec, fmt.Errorf("unsupported spec version %d; this runner supports versions %d and %d", spec.Version, SpecVersion, WorkspaceSpecVersion)
+	}
+	if spec.Version == SpecVersion && spec.Workspace != nil {
+		return spec, fmt.Errorf("workspace requires spec version %d", WorkspaceSpecVersion)
+	}
+	if spec.Version == WorkspaceSpecVersion && spec.Workspace == nil {
+		return spec, fmt.Errorf("spec version %d requires workspace", WorkspaceSpecVersion)
 	}
 	if spec.Name == "" {
 		spec.Name = filepath.Base(path)
@@ -164,6 +181,9 @@ func Load(path string) (Spec, error) {
 		if !environmentName.MatchString(name) {
 			return spec, fmt.Errorf("invalid inherited environment name %q", name)
 		}
+	}
+	if err := validateWorkspaceSpec(spec); err != nil {
+		return spec, err
 	}
 	ready := false
 	seenSnapshots := make(map[string]struct{})
@@ -266,6 +286,10 @@ func environmentKey(name string) string {
 }
 
 func targetEnvironment(spec Spec) []string {
+	return targetEnvironmentWithManaged(spec, nil)
+}
+
+func targetEnvironmentWithManaged(spec Spec, managed map[string]string) []string {
 	allowed := []string{"PATH", "HOME", "TMPDIR", "LANG", "LC_ALL", "LC_CTYPE"}
 	if runtime.GOOS == "windows" {
 		allowed = []string{"PATH", "PATHEXT", "SYSTEMROOT", "WINDIR", "COMSPEC", "TEMP", "TMP", "USERPROFILE"}
@@ -283,6 +307,9 @@ func targetEnvironment(spec Spec) []string {
 		inherit(name)
 	}
 	for name, value := range spec.Env {
+		values[environmentKey(name)] = name + "=" + value
+	}
+	for name, value := range managed {
 		values[environmentKey(name)] = name + "=" + value
 	}
 	values[environmentKey("TERM")] = "TERM=xterm-256color"
@@ -379,20 +406,52 @@ func RunDetailedContext(parent context.Context, path string, options RunOptions,
 			return result
 		}
 	}
+	runContext, cancelRun := context.WithTimeout(parent, time.Duration(spec.RunTimeoutMS)*time.Millisecond)
+	defer cancelRun()
 	dir, err := targetDirectory(path, spec.CWD)
 	if err != nil {
 		runErr := withCategory(FailureInvalidSpec, err)
 		setFailure(FailureInvalidSpec, runErr)
 		return result
 	}
-	runContext, cancelRun := context.WithTimeout(parent, time.Duration(spec.RunTimeoutMS)*time.Millisecond)
-	defer cancelRun()
+	command := spec.Command
+	environment := targetEnvironment(spec)
+	var workspace *preparedWorkspace
+	if spec.Workspace != nil {
+		result.Workspace = &WorkspaceReport{Attempted: true, Fixture: filepath.ToSlash(spec.Workspace.Fixture)}
+		setupContext, cancelSetup := context.WithTimeout(runContext, workspaceCopyTimeout)
+		workspace, err = prepareWorkspace(setupContext, path, spec)
+		cancelSetup()
+		if err != nil {
+			result.Workspace.SetupFailure = workspaceFailure(FailureWorkspaceSetup, err)
+			category := FailureWorkspaceSetup
+			if parent.Err() != nil {
+				category = FailureCancellation
+				result.Status = "cancelled"
+			} else if runContext.Err() != nil {
+				category = FailureRunTimeout
+			}
+			runErr := withCategory(category, fmt.Errorf("workspace setup failed: %w", err))
+			if cleanupErr := finishWorkspace(workspace, result.Workspace, true, true, options.KeepWorkspaceOnFailure, out); cleanupErr != nil {
+				runErr = errors.Join(runErr, withCategory(FailureWorkspaceCleanup, fmt.Errorf("workspace cleanup failed: %w", cleanupErr)))
+			}
+			setFailure(category, runErr)
+			return result
+		}
+		result.Workspace.Prepared = true
+		dir = workspace.workingDir
+		command = workspace.command
+		environment = targetEnvironmentWithManaged(spec, workspace.managedEnv)
+	}
 	session, err := startTerminalSession(sessionConfig{
-		command: spec.Command, dir: dir, env: targetEnvironment(spec), width: spec.Width,
+		command: command, dir: dir, env: environment, width: spec.Width,
 		height: spec.Height, maxOutputBytes: spec.MaxOutputBytes,
 	})
 	if err != nil {
 		runErr := withCategory(FailureLaunch, err)
+		if cleanupErr := finishWorkspace(workspace, result.Workspace, true, true, options.KeepWorkspaceOnFailure, out); cleanupErr != nil {
+			runErr = errors.Join(runErr, withCategory(FailureWorkspaceCleanup, fmt.Errorf("workspace cleanup failed: %w", cleanupErr)))
+		}
 		setFailure(FailureLaunch, runErr)
 		return result
 	}
@@ -481,44 +540,30 @@ func RunDetailedContext(parent context.Context, path string, options RunOptions,
 	if runErr == nil && parent.Err() != nil {
 		runErr = withCategory(FailureCancellation, fmt.Errorf("%s: run cancelled: %w", spec.Name, parent.Err()))
 	}
+	evidenceCaptured := false
+	if runErr != nil {
+		runErr = captureFailureEvidence(path, options, &result, session, failureObservation, cleanup, runErr, out)
+		evidenceCaptured = true
+	}
+	if workspace != nil {
+		workspaceErr := finishWorkspace(workspace, result.Workspace, cleanup.confirmedExited, runErr != nil, options.KeepWorkspaceOnFailure, out)
+		if workspaceErr != nil {
+			cleanupErr := withCategory(FailureWorkspaceCleanup, fmt.Errorf("workspace cleanup failed: %w", workspaceErr))
+			if runErr == nil {
+				runErr = cleanupErr
+			} else {
+				runErr = errors.Join(runErr, cleanupErr)
+			}
+		}
+	}
 	if runErr == nil {
 		if err := commitSnapshotUpdates(updates, out); err != nil {
 			runErr = withCategory(FailureSnapshotUpdate, fmt.Errorf("commit snapshot updates: %w", err))
 		}
 	}
 	if runErr != nil {
-		if cleanup.confirmedExited {
-			mode := "clean"
-			if cleanup.forced {
-				mode = "forced"
-			}
-			fmt.Fprintf(out, "Cleanup: process tree stopped (%s, %s)\n", mode, cleanup.mechanism)
-		}
-		observation := session.observe()
-		if failureObservation != nil {
-			observation = *failureObservation
-		}
-		var mismatch *snapshotMismatchError
-		if errors.As(runErr, &mismatch) {
-			observation.screen = mismatch.actual
-			diffArtifact := artifactPrefix(path, options) + ".diff.txt"
-			if writeErr := writeFileAtomic(diffArtifact, []byte(mismatch.diff), 0644); writeErr == nil {
-				result.Evidence.DiffPath = filepath.Clean(diffArtifact)
-				fmt.Fprintf(out, "Diff saved: %s\n", diffArtifact)
-			} else {
-				artifactErr := fmt.Errorf("write snapshot diff: %w", writeErr)
-				result.Evidence.Failures = append(result.Evidence.Failures, *failure(FailureArtifact, artifactErr))
-				runErr = errors.Join(runErr, withCategory(FailureArtifact, artifactErr))
-			}
-		}
-		artifact := artifactPrefix(path, options) + ".actual.txt"
-		if writeErr := writeFileAtomic(artifact, []byte(observation.screen), 0644); writeErr == nil {
-			result.Evidence.ScreenPath = filepath.Clean(artifact)
-			fmt.Fprintf(out, "Screen saved: %s\n", artifact)
-		} else {
-			artifactErr := fmt.Errorf("write failure screen: %w", writeErr)
-			result.Evidence.Failures = append(result.Evidence.Failures, *failure(FailureArtifact, artifactErr))
-			runErr = errors.Join(runErr, withCategory(FailureArtifact, artifactErr))
+		if !evidenceCaptured {
+			runErr = captureFailureEvidence(path, options, &result, session, failureObservation, cleanup, runErr, out)
 		}
 		category := categoryOf(runErr)
 		setFailure(category, runErr)
@@ -527,6 +572,43 @@ func RunDetailedContext(parent context.Context, path string, options RunOptions,
 	result.Status = "passed"
 	fmt.Fprintf(out, "PASS %s\n", spec.Name)
 	return result
+}
+
+func captureFailureEvidence(path string, options RunOptions, result *RunResult, session *terminalSession, failureObservation *sessionObservation, cleanup cleanupResult, runErr error, out io.Writer) error {
+	if cleanup.confirmedExited {
+		mode := "clean"
+		if cleanup.forced {
+			mode = "forced"
+		}
+		fmt.Fprintf(out, "Cleanup: process tree stopped (%s, %s)\n", mode, cleanup.mechanism)
+	}
+	observation := session.observe()
+	if failureObservation != nil {
+		observation = *failureObservation
+	}
+	var mismatch *snapshotMismatchError
+	if errors.As(runErr, &mismatch) {
+		observation.screen = mismatch.actual
+		diffArtifact := artifactPrefix(path, options) + ".diff.txt"
+		if writeErr := writeFileAtomic(diffArtifact, []byte(mismatch.diff), 0644); writeErr == nil {
+			result.Evidence.DiffPath = filepath.Clean(diffArtifact)
+			fmt.Fprintf(out, "Diff saved: %s\n", diffArtifact)
+		} else {
+			artifactErr := fmt.Errorf("write snapshot diff: %w", writeErr)
+			result.Evidence.Failures = append(result.Evidence.Failures, *failure(FailureArtifact, artifactErr))
+			runErr = errors.Join(runErr, withCategory(FailureArtifact, artifactErr))
+		}
+	}
+	artifact := artifactPrefix(path, options) + ".actual.txt"
+	if writeErr := writeFileAtomic(artifact, []byte(observation.screen), 0644); writeErr == nil {
+		result.Evidence.ScreenPath = filepath.Clean(artifact)
+		fmt.Fprintf(out, "Screen saved: %s\n", artifact)
+	} else {
+		artifactErr := fmt.Errorf("write failure screen: %w", writeErr)
+		result.Evidence.Failures = append(result.Evidence.Failures, *failure(FailureArtifact, artifactErr))
+		runErr = errors.Join(runErr, withCategory(FailureArtifact, artifactErr))
+	}
+	return runErr
 }
 
 func artifactPrefix(specPath string, options RunOptions) string {

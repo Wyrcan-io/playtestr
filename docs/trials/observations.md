@@ -10,7 +10,7 @@ These are prompts to observe, not cohort findings:
 | --- | --- | --- | --- |
 | PRE-001 | Does retained adjacent failure evidence confuse a later passing run? | Report v1 correctly removes evidence references, while old `.actual.txt` files remain. | Ask participants whether the latest report/status is clear and whether manual removal is acceptable. |
 | PRE-002 | Does direct release installation create too much CI plumbing? | R2 uses explicit asset download and checksum verification. | Record actual adopter setup before scheduling reusable CI work. |
-| PRE-003 | Does mutable application state prevent repeated runs? | No qualifying project evidence yet. | Record exact files/resources rather than assuming a workspace feature solves it. |
+| PRE-003 | Does mutable application state prevent repeated runs? | Internal R3-T09 Lazygit evidence selected the Sprint 9 engineering case; independent adoption remains deferred until after Sprint 10. | Record exact files/resources and external oracles; a workspace controls selected local paths but is not isolation. |
 
 Pre-trial questions do not count toward frequency or roadmap priority until a participant encounters them.
 

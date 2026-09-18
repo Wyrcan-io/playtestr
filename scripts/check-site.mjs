@@ -10,6 +10,8 @@ const requiredRoutes = [
   'docs/installation/index.html', 'docs/writing-tests/index.html',
   'docs/snapshots/index.html', 'docs/troubleshooting/index.html',
   'docs/spec-v1/index.html', 'docs/report-v1/index.html',
+  'docs/spec-v2/index.html', 'docs/report-v2/index.html',
+  'docs/workspaces/index.html',
   'docs/failure-reports/index.html',
   'docs/suites/index.html',
   'docs/compatibility/index.html', 'docs/platform-evidence/index.html',
@@ -18,7 +20,8 @@ const requiredRoutes = [
   'releases/v0.3.0-rc.1/index.html',
   'support/index.html', 'trials/index.html', 'index.json',
   'demos/terminal-demo.json', 'schema/playtestr-spec-v1.schema.json',
-  'schema/playtestr-report-v1.schema.json', 'images/social-preview.png'
+  'schema/playtestr-report-v1.schema.json', 'schema/playtestr-spec-v2.schema.json',
+  'schema/playtestr-report-v2.schema.json', 'images/social-preview.png'
 ];
 
 const fail = (message) => failures.push(message);

@@ -15,12 +15,14 @@ import (
 )
 
 const (
-	// Version is the current machine-report contract.
-	Version        = 1
-	maxReportBytes = 8 * 1024 * 1024
+	// Version is the unchanged report contract used by v1-only suites.
+	Version = 1
+	// WorkspaceVersion records spec-v2 workspace outcomes.
+	WorkspaceVersion = 2
+	maxReportBytes   = 8 * 1024 * 1024
 )
 
-// Read decodes one bounded report-v1 document and rejects trailing or unknown
+// Read decodes one bounded supported report document and rejects trailing or unknown
 // JSON fields. Consumers still need to validate semantic consistency for their
 // particular use before presenting the document.
 func Read(path string) (Document, error) {
@@ -76,6 +78,12 @@ func New(runnerVersion string, results []runner.RunResult) Document {
 		OS:            runtime.GOOS,
 		Arch:          runtime.GOARCH,
 		Results:       results,
+	}
+	for _, result := range results {
+		if result.SpecVersion >= runner.WorkspaceSpecVersion || result.Workspace != nil {
+			document.ReportVersion = WorkspaceVersion
+			break
+		}
 	}
 	document.Summary.Total = len(results)
 	for _, result := range results {

@@ -65,7 +65,7 @@ func TestRenderHTMLMixedSuiteIsOfflineEscapedAndComplete(t *testing.T) {
 	html := string(data)
 	for _, wanted := range []string{
 		"Run diagnosis", "tests/one.json", "tests/two.json", "First failing step", "snapshot_mismatch",
-		"Expected expression:</b> unavailable in report v1", "Screen evidence is referenced but the file is missing",
+		"Expected expression:</b> unavailable in the captured report contract", "Screen evidence is referenced but the file is missing",
 		"Exit confirmed: true", "recorded cleanup warning", "screen write failed", "cancelled", "tests/later.json", "雪🙂", "Readable evidence is embedded, not cryptographically verified",
 	} {
 		if !strings.Contains(html, wanted) {
@@ -189,7 +189,7 @@ func TestRenderHTMLRejectsMalformedVersionOversizeAndInconsistentInput(t *testin
 	}{
 		{"malformed", []byte(`{"report_version":`), "decode report"},
 		{"unknown", []byte(`{"report_version":1,"runner_version":"x","os":"x","arch":"x","summary":{"total":0,"passed":0,"failed":0,"cancelled":0,"not_run":0},"results":[],"extra":true}`), "unknown field"},
-		{"wrong-version", mustJSON(t, Document{ReportVersion: 2, Summary: Summary{}}), "unsupported report version"},
+		{"wrong-version", mustJSON(t, Document{ReportVersion: 3, Summary: Summary{}}), "unsupported report version"},
 		{"wrong-summary", mustJSON(t, Document{ReportVersion: 1, Summary: Summary{Total: 1}}), "inconsistent"},
 	}
 	for _, test := range tests {
@@ -332,6 +332,39 @@ func TestRenderHTMLAggregateEvidenceAndGeneratedOutputLimits(t *testing.T) {
 	err = RenderHTML(HTMLOptions{InputPath: input, EvidenceRoot: root, OutputPath: filepath.Join(working, "html-limit.html"), WorkingDirectory: working})
 	if err == nil || !strings.Contains(err.Error(), "generated report exceeds") {
 		t.Fatalf("HTML limit error = %v", err)
+	}
+}
+
+func TestRenderHTMLReportV2WorkspaceOutcome(t *testing.T) {
+	working := t.TempDir()
+	input := filepath.Join(working, "report.json")
+	output := filepath.Join(working, "report.html")
+	document := Document{
+		ReportVersion: WorkspaceVersion, RunnerVersion: "test", OS: runtime.GOOS, Arch: runtime.GOARCH,
+		Summary: Summary{Total: 1, Failed: 1},
+		Results: []runner.RunResult{{
+			SpecVersion: runner.WorkspaceSpecVersion, Name: "workspace", SpecPath: "tests/workspace.json", Status: "failed",
+			Viewport: runner.TerminalSize{Width: 80, Height: 24},
+			Target:   runner.TargetReport{Exited: true}, Cleanup: runner.CleanupReport{Attempted: true, ConfirmedExited: true},
+			Failure: &runner.Failure{Category: runner.FailureAssertionTimeout, Message: "primary assertion"},
+			Workspace: &runner.WorkspaceReport{
+				Attempted: true, Fixture: "fixture", Prepared: true, Retained: true,
+				RetainedPath: `C:\Temp\playtestr-workspace-owned`,
+			},
+		}},
+	}
+	writeDocument(t, input, document)
+	if err := RenderHTML(HTMLOptions{InputPath: input, EvidenceRoot: working, OutputPath: output, WorkingDirectory: working}); err != nil {
+		t.Fatal(err)
+	}
+	data, err := os.ReadFile(output)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, expected := range []string{"Workspace", "Fixture: fixture", "Retained: true", "playtestr-workspace-owned", "report version 2"} {
+		if !strings.Contains(string(data), expected) {
+			t.Fatalf("rendered report lacks %q", expected)
+		}
 	}
 }
 

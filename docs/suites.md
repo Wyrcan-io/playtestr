@@ -53,4 +53,4 @@ Evidence can contain target-rendered data. Review it before sharing, upload only
 
 ## Deliberately omitted
 
-The acceptance evidence did not identify a CI test-results viewer requiring JUnit, so Sprint 5 keeps the existing JSON report rather than adding an unvalidated format. It also found no selection task requiring custom globs or filters. Workers, retries, tags, hooks, setup actions, hosted upload, and a configuration framework remain out of scope.
+The acceptance evidence did not identify a CI test-results viewer requiring JUnit, so Sprint 5 keeps the existing JSON report rather than adding an unvalidated format. It also found no selection task requiring custom globs or filters. Workers, retries, tags, hooks, hosted upload, and a configuration framework remain out of scope. A later bounded [setup-only GitHub Action](ci-installation.md) installs the runner but does not change suite selection or execution.

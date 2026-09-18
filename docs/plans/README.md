@@ -1,10 +1,10 @@
 # Release and post-MVP delivery plans
 
-Status: R1, the automated R2 boundary, R3b, R3c, R4 stable publication, R5 public presentation, and Sprint 5 engineering are implemented. Sprint 5's remote terminal-test matrix passed on commit `4b12547` (run `34983854289`); website validation remains covered by the preceding successful run for the documentation commit. Independent walkthrough and adoption gates remain open under R2/R3. These documents do not by themselves authorize outreach. Unimplemented commands and formats remain design targets, not current CLI capabilities.
+Status: R1, the automated R2 boundary, R3b, R3c, R4 stable publication, R5 public presentation, and Sprint 5/7 engineering are implemented. Sprint 8's setup-action engineering and Sprint 9's repeatable-workspace engineering are implemented locally. Sprint 8 publication/native-action gates and independent adoption remain open. Independent walkthrough and adoption gates remain open under R2/R3 and are deferred until after Sprint 10. These documents do not by themselves authorize outreach or publication. Unimplemented commands and formats remain design targets, not current CLI capabilities.
 
 The [September 2026 competitive assessment](../research/competitive-assessment-2026-09.md) was rechecked against the active alternatives' public documentation and repository metadata. Its conclusion stands: the released core is credible, but independent adoption, suite/CI ergonomics, authoring, interaction breadth, and terminal fidelity trail active alternatives. The [product-focus rule](product-focus.md) now governs the roadmap: become the simplest runner teams trust for deterministic CI regression, not a feature-parity terminal automation platform.
 
-The original Sprints 0–4 delivered the MVP. The next four release/adoption milestones make that MVP accessible and test whether independent developers can use it. Sprints 5–10 are proposed development milestones; start each only after reviewing the evidence from the previous milestone. No calendar deadline or future platform claim follows from a sprint number.
+The original Sprints 0–4 delivered the MVP. The next four release/adoption milestones make that MVP accessible and test whether independent developers can use it. Sprints 5–10 are staged development milestones; each plan records whether its engineering is implemented or remains conditional. No calendar deadline or future platform claim follows from a sprint number.
 
 ## Release and adoption sequence
 
@@ -34,6 +34,11 @@ Independent feedback is deferred until after Sprint 10. Keep the existing
 identifiers for links. Reproduction follows only if context remains costly to
 reconstruct. Installation, workspaces, and terminal correctness can move
 earlier when they block a chosen real flow.
+
+Sprint 8 now provides one bounded setup-only GitHub Action route and preserves
+direct archives as fallback. Local engineering and Windows failure coverage are
+recorded separately from publication and native Linux/macOS evidence. The
+action revision and runner version are independent exact pins.
 
 ## Conditional follow-ons, not a feature checklist
 

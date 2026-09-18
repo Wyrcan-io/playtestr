@@ -20,6 +20,8 @@ const (
 	FailureCleanup          FailureCategory = "cleanup_failure"
 	FailureArtifact         FailureCategory = "artifact_failure"
 	FailureSnapshotUpdate   FailureCategory = "snapshot_update_failure"
+	FailureWorkspaceSetup   FailureCategory = "workspace_setup_failure"
+	FailureWorkspaceCleanup FailureCategory = "workspace_cleanup_failure"
 	FailureInternal         FailureCategory = "internal_error"
 )
 
@@ -63,20 +65,35 @@ type EvidenceReport struct {
 	Failures   []Failure `json:"failures,omitempty"`
 }
 
+// WorkspaceReport records bounded workspace preparation and cleanup without
+// exposing fixture contents or target environment values.
+type WorkspaceReport struct {
+	Attempted        bool     `json:"attempted"`
+	Fixture          string   `json:"fixture,omitempty"`
+	Prepared         bool     `json:"prepared"`
+	CleanupAttempted bool     `json:"cleanup_attempted"`
+	Cleaned          bool     `json:"cleaned"`
+	Retained         bool     `json:"retained"`
+	RetainedPath     string   `json:"retained_path,omitempty"`
+	SetupFailure     *Failure `json:"setup_failure,omitempty"`
+	CleanupFailure   *Failure `json:"cleanup_failure,omitempty"`
+}
+
 // RunResult is the structured outcome for one test specification.
 type RunResult struct {
-	SpecVersion int            `json:"spec_version,omitempty"`
-	Name        string         `json:"name"`
-	SpecPath    string         `json:"spec_path"`
-	Status      string         `json:"status"`
-	DurationMS  int64          `json:"duration_ms"`
-	Viewport    TerminalSize   `json:"viewport"`
-	Resizes     []TerminalSize `json:"resizes,omitempty"`
-	Steps       []StepResult   `json:"steps,omitempty"`
-	Target      TargetReport   `json:"target"`
-	Failure     *Failure       `json:"failure,omitempty"`
-	Cleanup     CleanupReport  `json:"cleanup"`
-	Evidence    EvidenceReport `json:"evidence"`
+	SpecVersion int              `json:"spec_version,omitempty"`
+	Name        string           `json:"name"`
+	SpecPath    string           `json:"spec_path"`
+	Status      string           `json:"status"`
+	DurationMS  int64            `json:"duration_ms"`
+	Viewport    TerminalSize     `json:"viewport"`
+	Resizes     []TerminalSize   `json:"resizes,omitempty"`
+	Steps       []StepResult     `json:"steps,omitempty"`
+	Target      TargetReport     `json:"target"`
+	Failure     *Failure         `json:"failure,omitempty"`
+	Cleanup     CleanupReport    `json:"cleanup"`
+	Evidence    EvidenceReport   `json:"evidence"`
+	Workspace   *WorkspaceReport `json:"workspace,omitempty"`
 	err         error
 }
 

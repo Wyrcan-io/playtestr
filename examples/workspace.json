@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "name": "Run a stateful CLI from fresh reviewed files",
+  "command": ["../bin/fixture", "workspace"],
+  "workspace": {
+    "fixture": "workspace-fixture",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 72,
+  "height": 12,
+  "steps": [
+    {"expect": "fresh workspace seed=reviewed home=true temp=true"},
+    {"exit": 0}
+  ]
+}

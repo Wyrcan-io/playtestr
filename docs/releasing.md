@@ -18,3 +18,12 @@ The **Native release build** workflow builds each advertised native runner, pack
 The separate **Published install smoke** workflow accepts release candidates and stable semantic versions. Its `verify_controlling_tty` input defaults to true. Disable that check only when recording the known-bad rc.1 baseline; every later candidate and stable release must leave it enabled. The workflow places a sentinel `go` command first in the shell's `PATH` and confirms that lookup reaches the sentinel. Released binaries then run with `GOROOT` and `GOPATH` cleared while preserving the host path required by native target runtimes and ConPTY. It also renders an intentional failure to self-contained HTML and retains that diagnosis with the job summary. This proves the tested shell lookup is shadowed; it does not prove that the hosted image has no Go installation elsewhere.
 
 Publishing a GitHub Release and tag remains a separate explicit action after every native job passes. Use the exact workflow commit, create each versioned tag once, and never replace a published asset under that version. Release assets must be downloaded from the published release afterward and compared with the workflow outputs; an uploaded archive is not accepted merely because its build job succeeded. Record the commit, workflow runs, archive hashes, and public verification in the versioned release record.
+
+The setup action is maintained independently from runner versions. If a runner
+release preserves the supported asset names and exact four-member archive
+layout, run the published-install workflow with the new exact runner version;
+do not rebuild or retag the action. An action-code change requires focused
+failure tests, native runs on every promised host, an immutable published commit
+SHA, and a recorded public install run. Keep prior action SHAs usable. The
+complete owner, update, fallback, and removal contract is in
+[`docs/ci-installation.md`](ci-installation.md).

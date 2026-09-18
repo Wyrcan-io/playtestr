@@ -21,4 +21,6 @@ hugo --source "$repo_root" --config site/hugo.toml --cleanDestinationDir --minif
 mkdir -p "$repo_root/public/schema"
 cp "$repo_root/schema/playtestr-spec-v1.schema.json" "$repo_root/public/schema/"
 cp "$repo_root/schema/playtestr-report-v1.schema.json" "$repo_root/public/schema/"
+cp "$repo_root/schema/playtestr-spec-v2.schema.json" "$repo_root/public/schema/"
+cp "$repo_root/schema/playtestr-report-v2.schema.json" "$repo_root/public/schema/"
 node "$repo_root/scripts/check-site.mjs" "$repo_root/public"

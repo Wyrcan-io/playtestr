@@ -1,8 +1,12 @@
 # Sprint 8 — Install the chosen release with less effort
 
-Status: conditional candidate. It may move before diagnosis or reproduction if
-installation blocks a willing user. It requires no HTML report or Sprint 6
-manifest. This document does not implement or publish an installer.
+Status: engineering implemented locally on 18 September 2026. The selected
+route is the setup-only GitHub Action owned by the Playtestr repository
+maintainers. Publication, three-host public-action execution, a later real
+release upgrade, and independent adoption remain explicitly open; maintainer
+adoption/outside feedback is deferred until after Sprint 10 by product decision.
+See the [engineering record](../../validation/sprint-8-engineering-2026-09-18.md)
+and [installation contract](../../ci-installation.md).
 
 ## User result and entry case
 
@@ -87,11 +91,11 @@ do not publish dummy versions for the test.
 
 ## Definition of done
 
-- [ ] One route and its owner selected from an observed obstacle.
-- [ ] Fresh native installation and failure checks recorded.
-- [ ] Correct released binary runs the adopter's pass/failure/recovery flow.
-- [ ] Version selection, fallback, maintenance, and applicable removal documented.
-- [ ] Uncompleted publication or adoption steps remain explicitly open.
+- [x] One route and its owner selected from an observed obstacle.
+- [x] Fresh Windows amd64 installation and failure checks recorded; Linux/macOS public-action runs remain open and are not inferred from workflow configuration.
+- [x] Correct released binary runs the adopter's pass/failure/recovery flow on the locally available Windows amd64 host.
+- [x] Version selection, fallback, maintenance, and applicable removal documented.
+- [x] Uncompleted publication or adoption steps remain explicitly open.
 
 Review the next task on its own evidence. Installation does not determine the
 order of workspace or terminal compatibility work.

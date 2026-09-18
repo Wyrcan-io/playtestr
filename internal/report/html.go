@@ -202,8 +202,8 @@ func RenderHTML(options HTMLOptions) error {
 }
 
 func validateHTMLDocument(document Document) error {
-	if document.ReportVersion != Version {
-		return fmt.Errorf("unsupported report version %d; this renderer supports version %d", document.ReportVersion, Version)
+	if document.ReportVersion != Version && document.ReportVersion != WorkspaceVersion {
+		return fmt.Errorf("unsupported report version %d; this renderer supports versions %d and %d", document.ReportVersion, Version, WorkspaceVersion)
 	}
 	if len(document.Results) > maxHTMLResults {
 		return fmt.Errorf("report exceeds limit of %d results", maxHTMLResults)
@@ -212,6 +212,9 @@ func validateHTMLDocument(document Document) error {
 	identities := make(map[string]struct{})
 	steps := 0
 	for index, result := range document.Results {
+		if document.ReportVersion == Version && result.Workspace != nil {
+			return fmt.Errorf("report version 1 result %q contains workspace metadata", result.SpecPath)
+		}
 		if result.SpecPath == "" {
 			return fmt.Errorf("result %d has no stable spec_path identity", index+1)
 		}
@@ -258,6 +261,17 @@ func validateHTMLDocument(document Document) error {
 		if err := validateFailure(result.Cleanup.Failure); err != nil {
 			return fmt.Errorf("result %q cleanup: %w", result.SpecPath, err)
 		}
+		if result.Workspace != nil {
+			if err := validateFailure(result.Workspace.SetupFailure); err != nil {
+				return fmt.Errorf("result %q workspace setup: %w", result.SpecPath, err)
+			}
+			if err := validateFailure(result.Workspace.CleanupFailure); err != nil {
+				return fmt.Errorf("result %q workspace cleanup: %w", result.SpecPath, err)
+			}
+			if result.Workspace.Retained != (result.Workspace.RetainedPath != "") || result.Workspace.Cleaned && result.Workspace.Retained {
+				return fmt.Errorf("result %q has inconsistent workspace outcome", result.SpecPath)
+			}
+		}
 		for _, failure := range result.Evidence.Failures {
 			copy := failure
 			if err := validateFailure(&copy); err != nil {
@@ -288,7 +302,8 @@ func validateFailure(failure *runner.Failure) error {
 		string(runner.FailureInvalidSpec), string(runner.FailureLaunch), string(runner.FailureAssertionTimeout),
 		string(runner.FailureRunTimeout), string(runner.FailureUnexpectedExit), string(runner.FailureSnapshotMismatch),
 		string(runner.FailureOutputLimit), string(runner.FailureCancellation), string(runner.FailureCleanup),
-		string(runner.FailureArtifact), string(runner.FailureSnapshotUpdate), string(runner.FailureInternal)) {
+		string(runner.FailureArtifact), string(runner.FailureSnapshotUpdate), string(runner.FailureWorkspaceSetup),
+		string(runner.FailureWorkspaceCleanup), string(runner.FailureInternal)) {
 		return fmt.Errorf("unsupported failure category %q", failure.Category)
 	}
 	return nil
@@ -296,7 +311,7 @@ func validateFailure(failure *runner.Failure) error {
 
 func evidencePrefix(reference, suffix string) (string, error) {
 	if !strings.HasSuffix(strings.ToLower(reference), suffix) || len(reference) == len(suffix) {
-		return "", fmt.Errorf("expected an existing report-v1 %s artifact name", suffix)
+		return "", fmt.Errorf("expected an existing machine-report %s artifact name", suffix)
 	}
 	return reference[:len(reference)-len(suffix)], nil
 }
@@ -571,9 +586,9 @@ const offlineHTML = `<!doctype html>
 {{range .Results}}<article class="result" id="{{.ID}}" aria-labelledby="{{.ID}}-heading"><header><span class="status status-{{.Result.Status}}">{{.Result.Status}}</span><h2 id="{{.ID}}-heading">{{.Result.Name}}</h2><p class="identity">Stable identity: {{.Identity}}</p></header>
 <div class="facts"><div class="fact"><b>Primary category</b>{{category .Result}}</div><div class="fact"><b>Viewport</b>{{.Result.Viewport.Width}} × {{.Result.Viewport.Height}}</div><div class="fact"><b>Duration</b>{{.Result.DurationMS}} ms</div></div>
 {{if .Result.Failure}}<div class="failure"><b>Recorded failure</b><div>{{.Result.Failure.Message}}</div></div>{{end}}
-{{if .FailedStep}}<h3>First failing step</h3><div class="facts"><div class="fact"><b>Step</b>{{.FailedStep.Number}}</div><div class="fact"><b>Action</b>{{.FailedStep.Action}}</div><div class="fact"><b>Category</b>{{if .FailedStep.Failure}}{{.FailedStep.Failure.Category}}{{else}}unavailable{{end}}</div></div>{{if assertionTimeout .Result}}<p class="missing"><b>Expected expression:</b> unavailable in report v1.</p>{{end}}{{else if .IsProblem}}<p class="missing">Failing step: unavailable in captured report.</p>{{end}}
+{{if .FailedStep}}<h3>First failing step</h3><div class="facts"><div class="fact"><b>Step</b>{{.FailedStep.Number}}</div><div class="fact"><b>Action</b>{{.FailedStep.Action}}</div><div class="fact"><b>Category</b>{{if .FailedStep.Failure}}{{.FailedStep.Failure.Category}}{{else}}unavailable{{end}}</div></div>{{if assertionTimeout .Result}}<p class="missing"><b>Expected expression:</b> unavailable in the captured report contract.</p>{{end}}{{else if .IsProblem}}<p class="missing">Failing step: unavailable in captured report.</p>{{end}}
 <div class="panes"><section class="pane"><h3>Captured terminal</h3>{{if eq .Screen.State "available"}}<pre class="terminal" tabindex="0" aria-label="Captured terminal screen">{{.Screen.Text}}</pre>{{else if eq .Screen.State "missing"}}<p class="missing">Screen evidence is referenced but the file is missing.</p>{{else}}<p class="missing">Screen evidence was not captured.</p>{{end}}</section>
 <section class="pane"><h3>Captured snapshot diff</h3>{{if eq .Diff.State "available"}}<pre class="diff" tabindex="0" aria-label="Captured unified diff">{{range .DiffLines}}<span class="diff-line {{.Class}}">{{.Text}}</span>{{end}}</pre>{{else if eq .Diff.State "missing"}}<p class="missing">Diff evidence is referenced but the file is missing.</p>{{else}}<p class="missing">Diff evidence is not available for this result.</p>{{end}}</section></div>
-<h3>Separate outcomes</h3><div class="outcomes"><section class="outcome"><b>Target process</b><p>{{if .Result.Target.Exited}}Exited{{if .Result.Target.ExitCode}} with code {{.Result.Target.ExitCode}}{{else}}; exit code unavailable{{end}}{{else}}Exit was not observed{{end}}</p></section><section class="outcome"><b>Cleanup</b><p>Attempted: {{.Result.Cleanup.Attempted}}<br>Graceful: {{.Result.Cleanup.Graceful}}<br>Forced: {{.Result.Cleanup.Forced}}<br>Exit confirmed: {{.Result.Cleanup.ConfirmedExited}}{{if .Result.Cleanup.Mechanism}}<br>Mechanism: {{.Result.Cleanup.Mechanism}}{{end}}</p>{{if .Result.Cleanup.Failure}}<p>{{.Result.Cleanup.Failure.Message}}</p>{{end}}</section><section class="outcome"><b>Evidence writes</b>{{if .Result.Evidence.Failures}}<ul>{{range .Result.Evidence.Failures}}<li>{{.Category}}: {{.Message}}</li>{{end}}</ul>{{else}}<p>No evidence-write failure was recorded.</p>{{end}}</section></div>
+<h3>Separate outcomes</h3><div class="outcomes"><section class="outcome"><b>Target process</b><p>{{if .Result.Target.Exited}}Exited{{if .Result.Target.ExitCode}} with code {{.Result.Target.ExitCode}}{{else}}; exit code unavailable{{end}}{{else}}Exit was not observed{{end}}</p></section><section class="outcome"><b>Cleanup</b><p>Attempted: {{.Result.Cleanup.Attempted}}<br>Graceful: {{.Result.Cleanup.Graceful}}<br>Forced: {{.Result.Cleanup.Forced}}<br>Exit confirmed: {{.Result.Cleanup.ConfirmedExited}}{{if .Result.Cleanup.Mechanism}}<br>Mechanism: {{.Result.Cleanup.Mechanism}}{{end}}</p>{{if .Result.Cleanup.Failure}}<p>{{.Result.Cleanup.Failure.Message}}</p>{{end}}</section>{{with .Result.Workspace}}<section class="outcome"><b>Workspace</b><p>Fixture: {{.Fixture}}<br>Prepared: {{.Prepared}}<br>Cleanup attempted: {{.CleanupAttempted}}<br>Cleaned: {{.Cleaned}}<br>Retained: {{.Retained}}{{if .RetainedPath}}<br>Retained path: <span class="identity">{{.RetainedPath}}</span>{{end}}</p>{{if .SetupFailure}}<p>Setup: {{.SetupFailure.Message}}</p>{{end}}{{if .CleanupFailure}}<p>Cleanup: {{.CleanupFailure.Message}}</p>{{end}}</section>{{end}}<section class="outcome"><b>Evidence writes</b>{{if .Result.Evidence.Failures}}<ul>{{range .Result.Evidence.Failures}}<li>{{.Category}}: {{.Message}}</li>{{end}}</ul>{{else}}<p>No evidence-write failure was recorded.</p>{{end}}</section></div>
 <details><summary>All recorded steps and metadata</summary>{{if .Result.Steps}}<table class="steps"><thead><tr><th>#</th><th>Action</th><th>Status</th><th>Duration</th><th>Recorded failure</th></tr></thead><tbody>{{range .Result.Steps}}<tr><td>{{.Number}}</td><td>{{.Action}}{{if .Resize}} ({{.Resize.Width}} × {{.Resize.Height}}){{end}}</td><td>{{.Status}}</td><td>{{.DurationMS}} ms</td><td>{{if .Failure}}{{.Failure.Category}}: {{.Failure.Message}}{{else}}—{{end}}</td></tr>{{end}}</tbody></table>{{else}}<p>No step records are available.</p>{{end}}<p class="source">Runner {{$.Document.RunnerVersion}} · {{$.Document.OS}}/{{$.Document.Arch}} · report version {{$.Document.ReportVersion}}. Readable evidence is embedded, not cryptographically verified.</p></details></article>{{end}}
 </main></body></html>`

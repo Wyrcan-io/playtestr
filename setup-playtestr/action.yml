@@ -1,0 +1,38 @@
+name: Setup Playtestr
+description: Install one exact, checksum-verified Playtestr release on a supported GitHub-hosted runner.
+author: Wyrcan-io
+
+inputs:
+  version:
+    description: Exact Playtestr release, for example v0.3.0-rc.1.
+    required: true
+
+outputs:
+  version:
+    description: The exact installed Playtestr version.
+    value: ${{ steps.install.outputs.version }}
+  binary-path:
+    description: Absolute path to the verified Playtestr executable.
+    value: ${{ steps.install.outputs.binary-path }}
+  install-dir:
+    description: Absolute path to the fresh installation directory added to PATH.
+    value: ${{ steps.install.outputs.install-dir }}
+  archive-sha256:
+    description: Verified SHA-256 digest of the installed release archive.
+    value: ${{ steps.install.outputs.archive-sha256 }}
+
+runs:
+  using: composite
+  steps:
+    - id: install
+      name: Download and verify Playtestr
+      shell: pwsh
+      env:
+        PLAYTESTR_SETUP_VERSION: ${{ inputs.version }}
+      run: >-
+        & "${{ github.action_path }}/install.ps1"
+        -Version $env:PLAYTESTR_SETUP_VERSION
+
+branding:
+  icon: terminal
+  color: purple

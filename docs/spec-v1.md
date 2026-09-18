@@ -12,6 +12,8 @@ Snapshots contain the normalized rendered screen. Line endings are converted to 
 
 Version 1 is frozen for backward-compatible additions only. A change that alters existing meaning requires a new spec version and migration notes.
 
+Version 1 remains the non-workspace contract. Tests that need a bounded fresh fixture copy can explicitly migrate to [specification version 2](spec-v2.md); the runner never changes v1 path or environment behavior implicitly.
+
 ## Migrating an unversioned prototype spec
 
 Add `"version": 1` as a top-level field. The Sprint 3 prototype fields otherwise retain their meaning. Run the spec once without `--update`, then review any failure evidence before changing a baseline. Unsupported nonzero versions require a runner that explicitly supports that version; Playtestr does not guess or silently downgrade them.

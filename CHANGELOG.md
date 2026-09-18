@@ -6,7 +6,23 @@ compatibility rules for released specs, reports, and patches are in
 
 ## Unreleased
 
-No user-visible changes yet.
+### Added
+
+- Add a setup-only GitHub Action that installs one exact Playtestr release on
+  Linux amd64, macOS arm64, or Windows amd64 after bounded download, checksum,
+  archive-layout, and absolute version verification.
+- Add a pinned CI workflow contract with explicit evidence upload, finite
+  retention, fallback, removal, and maintainer update instructions.
+- Add opt-in specification version 2 repeatable workspaces with bounded fixture
+  copying, explicit working-directory and managed home/temp behavior, safe
+  process-before-files cleanup, and failure-only local retention.
+- Add machine report version 2 workspace setup/cleanup evidence and render it in
+  the existing bounded offline HTML report while preserving v1-only reports.
+
+### Compatibility and migration
+
+- Specification and report version 1 are unchanged. Workspace use requires an
+  explicit spec-v2 migration; mixed suites emit report v2.
 
 ## v0.3.0-rc.1 - 2026-09-18
 

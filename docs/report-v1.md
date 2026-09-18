@@ -10,6 +10,8 @@ Failure categories in version 1 are `invalid_spec`, `launch_failure`, `assertion
 
 Reports are limited to 8 MB. They omit command arguments, environment data, typed input, expected text, and embedded terminal screens. Evidence remains in bounded files referenced by the report. Consumers should branch on version, status, and category fields rather than parsing human-readable messages.
 
+An all-v1 suite continues to emit this exact format. A suite containing a workspace/spec-v2 result emits [machine report version 2](report-v2.md) so workspace setup and cleanup can be represented without changing report v1.
+
 Report v1's shape and ordering are unchanged for suites. Results appear in resolved execution order, including `not_run` entries after cancellation. Evidence paths name files actually written and retain the established path semantics. Use `--artifacts-dir` for a unique per-invocation layout; see [Test suites and CI evidence](suites.md).
 
 Starting in `v0.3.0-rc.1`, `playtestr report` consumes this unchanged format and

@@ -24,5 +24,7 @@ $schemaOutput = Join-Path $repoRoot 'public\schema'
 New-Item -ItemType Directory -Force -Path $schemaOutput | Out-Null
 Copy-Item -LiteralPath (Join-Path $repoRoot 'schema\playtestr-spec-v1.schema.json') -Destination $schemaOutput
 Copy-Item -LiteralPath (Join-Path $repoRoot 'schema\playtestr-report-v1.schema.json') -Destination $schemaOutput
+Copy-Item -LiteralPath (Join-Path $repoRoot 'schema\playtestr-spec-v2.schema.json') -Destination $schemaOutput
+Copy-Item -LiteralPath (Join-Path $repoRoot 'schema\playtestr-report-v2.schema.json') -Destination $schemaOutput
 & node (Join-Path $repoRoot 'scripts\check-site.mjs') (Join-Path $repoRoot 'public')
 exit $LASTEXITCODE
