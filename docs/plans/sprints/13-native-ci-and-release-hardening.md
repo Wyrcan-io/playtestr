@@ -1,7 +1,6 @@
 # Sprint 13: trust the installed runner and its evidence
 
-Status: 13-A0 completed on the available Windows host, with Linux/macOS native
-jobs prepared and explicitly blocked pending hosts. See the
+Status: 13-A0 completed on Windows amd64, Linux amd64 and macOS arm64. See the
 [13-A0 evidence record](../../validation/sprint-13-a0-native-gaps-2026-09-20.md).
 Owner: Playtestr maintainer/release owner. Integrated A1/B/C follow corpus
 discovery and any selected 10/12/6 implementation. [Root roadmap](../../../roadmap.md)

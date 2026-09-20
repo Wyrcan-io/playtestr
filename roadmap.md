@@ -70,7 +70,7 @@ The table is a dependency chain. A completed checkpoint produces the stated evid
 
 | Step | Checkpoint | Concrete action | Exit evidence / what it unlocks |
 | --- | --- | --- | --- |
-| 1 | **13-A0: existing native gaps — completed 2026-09-20** | Audited S8/S9, ran focused Windows checks, repaired the Unix installer diagnostic contract and prepared enforced native jobs | [Current-source evidence table](docs/validation/sprint-13-a0-native-gaps-2026-09-20.md); Linux/macOS jobs remain explicitly blocked until native execution |
+| 1 | **13-A0: existing native gaps — completed 2026-09-20** | Audited S8/S9, repaired the Unix installer diagnostic contract, and ran enforced focused checks on Windows amd64, Linux amd64 and macOS arm64 | [Current-source evidence table](docs/validation/sprint-13-a0-native-gaps-2026-09-20.md) and passing native/complete terminal runs |
 | 2 | **11-A0: five pilot workflows** | Admit five small representative flows from the [catalog](docs/plans/corpus-catalog.md), one each for selection, state change, prompt validation, resize/redraw and fresh-workspace behavior | Real commands, independent expected results, first baseline outcomes and measured setup/run cost |
 | 3 | **11-A1: corpus contract** | Freeze the 15-project candidate roster and 120 workflow intents; inventory existing focused tests; specify state checks before workspace deletion | Admission matrix, exact pins for admitted cases, 300-case coverage mapping, prioritized blockers; no requirement to implement all 120 before fixing a blocker |
 | 4 | **10: one compatibility family** | Reduce the most serious terminal blocker and fix it behind the existing terminal boundary | Independent expected cells, failing-before/passing-after application case, unchanged lifecycle bounds; or documented deferral if no qualifying case |
@@ -111,7 +111,7 @@ Sprint 14 may draft stories earlier, but final captures use the qualified behavi
 
 Start **11-A0**, not a new terminal rewrite. The 13-A0
 [native-evidence table](docs/validation/sprint-13-a0-native-gaps-2026-09-20.md)
-and missing-host jobs are complete. Produce five runnable pilot cases, including
+and three-host native checks are complete. Produce five runnable pilot cases, including
 an explicit solution for checking state before successful workspace deletion.
 Do not run the 3,000-repeat campaign until the candidate is frozen. Do not
 contact maintainers yet.

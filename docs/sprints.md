@@ -2,9 +2,9 @@
 
 The root [roadmap](../roadmap.md) is authoritative for completed releases, current status and the execution sequence. The sections below preserve Sprints 0–9 engineering history; their dated platform statements are historical, not current aggregate support claims. Current evidence lives in [platform support](platform-support.md).
 
-Sprint 13-A0 native-gap triage is complete on the available Windows host, with
-the unavailable Linux amd64 and macOS arm64 runs prepared and explicitly
-blocked in the [evidence record](validation/sprint-13-a0-native-gaps-2026-09-20.md).
+Sprint 13-A0 native-gap triage is complete on Windows amd64, Linux amd64 and
+macOS arm64, with individual JSON test events inspected in the
+[evidence record](validation/sprint-13-a0-native-gaps-2026-09-20.md).
 The next work is the five Sprint 11 pilots, followed by selected
 compatibility/authoring/handoff changes, integrated hardening, corpus depth,
 candidate freeze, frozen-byte qualification, demos and R6

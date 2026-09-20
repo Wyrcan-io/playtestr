@@ -1,18 +1,19 @@
 # Sprint 13-A0 native gap evidence — 20 September 2026
 
-Status: the available Windows amd64 checkpoint is complete. Linux amd64 and
-macOS arm64 remain unavailable in this workspace and have concrete native jobs
-prepared in `.github/workflows/native-gaps.yml`. A configured job is not a
-passing result.
+Status: complete on Windows amd64, Linux amd64 and macOS arm64. Native gap run
+[`35507925555`](https://github.com/Wyrcan-io/playtestr/actions/runs/35507925555)
+and complete terminal run
+[`35507925481`](https://github.com/Wyrcan-io/playtestr/actions/runs/35507925481)
+passed from commit `4298fe2ed3765c78f2f5f57716c162f31012eb3c`.
 
 ## Scope and identity
 
-The checkout started at commit
-`f08a5cc55c0f5a798a3bcdfc20fb115cc524907c`. The evidence below includes the
-working-tree changes named in this record, so it is development evidence rather
-than immutable release evidence. The available host was Windows amd64,
-Windows build `26200.9457` (25H2), with Go `1.27.0` and Windows PowerShell
-`5.1`.
+The local checkpoint started at commit
+`f08a5cc55c0f5a798a3bcdfc20fb115cc524907c`; the final native evidence is tied
+to immutable commit `4298fe2ed3765c78f2f5f57716c162f31012eb3c`. The local host
+was Windows amd64, Windows build `26200.9457` (25H2), with Go `1.27.0` and
+Windows PowerShell `5.1`. The workflow used the Go version selected by `go.mod`
+on `windows-latest`, `ubuntu-latest` and Apple-silicon `macos-15`.
 
 `scripts/test-native-gaps.ps1` runs each focused group with `go test -json`,
 requires the named tests to finish as passes, inventories every terminal test
@@ -26,12 +27,12 @@ no-follow cleanup tests and the locked-file cleanup test remain mandatory.
 
 | Path | Source | Host | Command | Expected | Observed | Passes | Failures | Skips | Evidence | Exact blocker / next action |
 | --- | --- | --- | --- | --- | --- | ---: | ---: | ---: | --- | --- |
-| Action-source installer | `f08a5cc` + recorded patch | Windows amd64, build `26200.9457` | `go test -count=1 -json ./internal/setupaction` | Three required top-level tests pass; no skip | exit 0, passed | 3 | 0 | 0 | `artifacts/sprint13-a0/current/installer.jsonl` and `summary.json` | None |
-| Workspace v2 and native filesystem cleanup | same | Windows amd64, build `26200.9457` | `go test -count=1 -json -run '^TestWorkspace' ./internal/runner` | Required common and Windows-specific cases pass; privilege limits visible | exit 0, passed | 13 | 0 | 1 | `artifacts/sprint13-a0/current/workspace.jsonl` and `summary.json` | `TestWorkspaceFixtureCopyRejectsUnsafeAndBoundedInputs/symbolic_link` skipped because this host cannot create an ordinary symlink. Junction rejection, junction no-follow cleanup, and locked-file cleanup passed. Obtain ordinary-symlink proof on a privilege-enabled Windows host before extending that claim. |
-| Report v1/v2 rendering | same | Windows amd64, build `26200.9457` | `go test -count=1 -json -run '^TestRenderHTML' ./internal/report` | Mixed suite and report-v2 workspace facts pass; no skip | exit 0, passed | 9 | 0 | 0 | `artifacts/sprint13-a0/current/report-v2.jsonl` and `summary.json` | Browser presentation remains part of integrated A1, not this focused source checkpoint. |
-| Process lifecycle and cleanup | same | Windows amd64, build `26200.9457` | focused lifecycle regex recorded in `summary.json` | Natural/expected exits, timeouts, cancellation, flood, descendants, repeated sessions, blocked input and idempotent stop pass | exit 0, passed | 14 | 0 | 0 | `artifacts/sprint13-a0/current/lifecycle-cleanup.jsonl` and `summary.json` | None |
-| Installer, workspace, report-v2, lifecycle and cleanup | same prepared source | Linux amd64 | `./scripts/test-native-gaps.ps1 -EvidenceDirectory artifacts/native-gaps` in `ubuntu-latest` job | Same contract plus Unix symlink cleanup; no skip | unavailable; not run | 0 | 0 | 0 | `.github/workflows/native-gaps.yml`, artifact name `native-gaps-linux-amd64` when run | No native Linux host is attached to this workspace. Commit/push or explicit workflow dispatch is an external action and was not authorized. Run the prepared job and attach its JSONL and summary before closing Linux evidence. |
-| Installer, workspace, report-v2, lifecycle and cleanup | same prepared source | macOS arm64 | `./scripts/test-native-gaps.ps1 -EvidenceDirectory artifacts/native-gaps` in `macos-15` job | Same contract plus Unix symlink cleanup; no skip | unavailable; not run | 0 | 0 | 0 | `.github/workflows/native-gaps.yml`, artifact name `native-gaps-darwin-arm64` when run | No native Apple-silicon host is attached to this workspace. Commit/push or explicit workflow dispatch is an external action and was not authorized. Run the prepared job and attach its JSONL and summary before closing macOS evidence. |
+| Action-source installer | `4298fe2` | Windows amd64, `windows-latest` | `go test -count=1 -json ./internal/setupaction` | Three required top-level tests pass; no skip | exit 0, passed | 3 | 0 | 0 | Run `35507925555`, artifact `native-gaps-windows-amd64`; local JSONL under `artifacts/sprint13-a0/current` | None |
+| Workspace v2 and native filesystem cleanup | same | Windows amd64, `windows-latest` | `go test -count=1 -json -run '^TestWorkspace' ./internal/runner` | Required common and Windows-specific cases pass; privilege limits visible | exit 0, passed | 13 | 0 | 0 remote; 1 local | Same Windows artifact and local JSONL | The local host skipped ordinary symlink creation because it lacked privilege. The native workflow ran it without a skip; junction rejection, junction no-follow cleanup and locked-file cleanup also passed. |
+| Report v1/v2 rendering | same | Windows amd64, `windows-latest` | `go test -count=1 -json -run '^TestRenderHTML' ./internal/report` | Mixed suite and report-v2 workspace facts pass; no skip | exit 0, passed | 9 | 0 | 0 | Same Windows artifact | Browser presentation remains part of integrated A1, not this focused source checkpoint. |
+| Process lifecycle and cleanup | same | Windows amd64, `windows-latest` | focused lifecycle regex recorded in `summary.json` | Natural/expected exits, timeouts, cancellation, flood, descendants, repeated sessions, blocked input and idempotent stop pass | exit 0, passed | 14 | 0 | 0 | Same Windows artifact | None |
+| Installer, workspace, report-v2, lifecycle and cleanup | same | Linux amd64, `ubuntu-latest` | `./scripts/test-native-gaps.ps1 -EvidenceDirectory artifacts/native-gaps` | Three installer, eleven workspace, nine report and fourteen lifecycle tests pass; no skip | exit 0, passed | 37 | 0 | 0 | Run `35507925555`, artifact `native-gaps-linux-amd64`, digest `sha256:78ee9d260471b070a02e82d734245f9f464d901527201d5163880c31d5350813` | None |
+| Installer, workspace, report-v2, lifecycle and cleanup | same | macOS arm64, `macos-15` | `./scripts/test-native-gaps.ps1 -EvidenceDirectory artifacts/native-gaps` | Three installer, eleven workspace, nine report and fourteen lifecycle tests pass; no skip | exit 0, passed | 37 | 0 | 0 | Run `35507925555`, artifact `native-gaps-darwin-arm64`, digest `sha256:a799a929865f098706f2735f6b39f790a6631afb0dae713bca0bcbe97b221a58` | None |
 
 ## Repair and verification
 
@@ -42,12 +43,20 @@ path returned `cannot list release archive`. The tar path now uses the common
 diagnostic, so the prepared Linux and macOS installer tests exercise the same
 contract as Windows.
 
+The first native run, `35507466220`, then exposed a test-only PowerShell 7
+formatting difference: its rendered exception inserted ANSI-decorated source
+context between `failed` and `after 1 attempts`. The bounded timeout itself
+worked and left no installation outputs. The assertion now checks the stable
+attempt-count phrase. The replacement native run passed that test on all three
+hosts. The initial failure remains linked here rather than being hidden.
+
 The final Windows working tree also passed `go test -count=1 ./...`,
 `go vet ./...`, and
 `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\test-race.ps1`.
-The race run used the project-local GCC and completed every package. No Linux or
-macOS pass is inferred from these Windows results, from cross-platform source
-inspection, or from the prepared workflow.
+The race run used the project-local GCC and completed every package. The
+separate complete terminal run `35507925481` passed repository-wide tests, vet,
+builds, native acceptance specs, the external Gum trial and deliberate-failure
+evidence on all three hosts.
 
 A built-binary walkthrough ran `examples/workspace.json`, emitted a passing
 report-v2 document with `prepared=true` and `cleaned=true`, and rendered it to a
