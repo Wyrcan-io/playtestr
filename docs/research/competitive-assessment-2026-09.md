@@ -1,5 +1,7 @@
 # Competitive assessment — 15 September 2026
 
+> Historical assessment. Current-state descriptions and recommendations are superseded by the [19 September survey](competitive-user-survey-2026-09-19.md) and [delivery roadmap](../plans/README.md). Preserve the dated observations below as history, not current feature status.
+
 ## Verified conclusion
 
 Playtestr can already serve supported keyboard-driven regression flows. We have

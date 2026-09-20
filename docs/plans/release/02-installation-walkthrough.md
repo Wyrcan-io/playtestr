@@ -1,5 +1,7 @@
 # R2 — Verify the installation experience
 
+> Scheduling update, 19 September 2026: the [current roadmap](../README.md) supersedes ordering in this historical plan. Engineering and R6 precede all maintainer recruitment/adoption; [A1](07-maintainer-adoption.md) owns that later work. Completed release evidence below remains historical evidence.
+
 Status: automated public-asset checks complete; unassisted human walkthroughs remain pending with post-publication R3 adoption. Stable install run 34701451854 passed on all three advertised hosts on 12 September 2026. Product outcome: a new user downloads Playtestr and gets a useful result using only the published instructions.
 
 ## User and task

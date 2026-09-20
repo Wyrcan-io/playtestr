@@ -191,3 +191,5 @@ supported hosts, adopter workflow, archive fallback, and maintenance boundary.
 Recording, replay, exact-failure minimization, and styled snapshots remain post-MVP work.
 
 Built on [Charm's xpty](https://github.com/charmbracelet/x/tree/main/xpty) and [vt10x](https://github.com/hinshun/vt10x).
+
+For completed releases, engineering status and the next implementation steps, see the [project roadmap](roadmap.md). Plans describe future work separately from the released capabilities above.

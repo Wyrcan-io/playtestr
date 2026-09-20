@@ -3,7 +3,7 @@
 Status: engineering implemented locally on 19 September 2026. The internal
 Lazygit R3-T09 persisted-draft case supplied the contamination evidence; it is
 not independent adoption. Maintainer adoption/outside feedback is deferred
-until after Sprint 10 by product decision. See the [workspace contract](../../workspaces.md)
+until A1, after the complete engineering batch and R6 by product decision. See the [workspace contract](../../workspaces.md)
 and [engineering record](../../validation/sprint-9-engineering-2026-09-19.md).
 
 ## User problem and outcome
@@ -149,7 +149,7 @@ Acceptance: the maintainer can remove their manual state-reset workaround and ex
 - [x] Checkpoints 9.1–9.6 complete using a real stateful application.
 - [x] New spec/artifact contracts, strict validation, migration examples, and schema tests agree.
 - [x] Source fixtures and known original state remain unchanged across recorded repeated runs.
-- [x] Preparation, execution, cancellation, and deletion are bounded and tested natively.
+- [x] Preparation, execution, cancellation, and deletion are bounded and tested on native Windows; Linux/macOS verification remains assigned to Sprint 13.
 - [x] Documentation consistently describes repeatable directories rather than isolation.
 
-Stop and review the original state-contamination task. Consider [Sprint 10](10-terminal-compatibility.md) only if a separate rendering problem exists. Verify the intended file mutation with the explicit target-specific oracle as well as terminal assertions; a correct screen does not prove correct files. Parallel execution remains deferred until resource independence and measured suite performance justify separate work.
+Follow the root roadmap: Sprint 13 closes native evidence, and Sprint 11 validates deeper stateful workflows. Apply the [oracle lifecycle design](../corpus-catalog.md#state-oracle-implementation-boundary) before checking successful v2 workspace files, because successful roots are deleted before runner return. A correct screen does not prove correct files. Independent adoption waits for A1; parallel execution remains deferred.

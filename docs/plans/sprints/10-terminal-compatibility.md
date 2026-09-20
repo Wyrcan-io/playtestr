@@ -2,6 +2,8 @@
 
 Status: proposed and evidence-gated. This plan is not a promise of full Unicode or terminal-emulator compatibility. Read the current [terminal compatibility contract](../../terminal-compatibility.md) before selecting the implementation scope.
 
+Execution follows 11-A pilots/admission in the [root roadmap](../../../roadmap.md), after early native-gap triage. Apply the [execution contract](../execution-contract.md). The decision is one family or an explicit deferral, not a terminal-engine rewrite by default.
+
 Priority rule: this candidate can precede any convenience milestone when the
 chosen flow renders incorrectly. Correct terminal behavior is part of quality,
 even when it adds no command or visible feature. A reduced real-application
@@ -18,7 +20,7 @@ The known one-rune-per-cell limitation makes wide-character layout a likely cand
 
 ## Entry gate and scope selection
 
-Require a real adopter reproduction that fails with the current runner, the exact target/version, terminal dimensions, input sequence, and independently observed expected screen. Reduce the problem to a small fixture while retaining the application case as the acceptance test.
+Require an operator-reproduced real-application case from Sprint 11 that fails with the current runner, the exact target/version, terminal dimensions, input sequence, and independently observed expected screen. Reduce the problem to a small fixture while retaining the application case as the acceptance test.
 
 Choose one family of behavior after triage:
 
@@ -27,6 +29,10 @@ Choose one family of behavior after triage:
 3. One specific terminal-query response needed for startup or resize, if that is the actual cause.
 
 These are alternatives, not three required workstreams. Write the chosen family and explicit exclusions into checkpoint 10.1. If there is no blocking case, postpone this sprint; collecting broader compatibility claims without user need is not completion.
+
+Triage before changing code: confirm target/version and startup environment, prove the manual expected state, capture the smallest relevant bytes/input, distinguish wrong renderer cells from unsupported input or stale readiness, and repeat on a second relevant native host where available. Record whether the fault belongs to the target, PTY, parser, width policy, runner wait, or test oracle. A blank screen alone does not prove the emulator needs replacement.
+
+For a width-family choice, freeze a small explicit character set and operations: one wide character at an ordinary column and right edge, overwrite/erase through occupied cells, wrap, resize, and split UTF-8. Combining marks and multi-codepoint emoji remain excluded unless the selected family explicitly includes them. For a query/VT choice, freeze exact requests/responses and partial-write behavior from the primary protocol reference. Never return invented general-purpose capability claims to make a target launch.
 
 Review ordering before starting. If this gap prevented a useful R3 trial or an earlier sprint's core workflow, move this work earlier rather than waiting for the number 10. Conversely, do not use the known limitation alone to justify replacing the whole terminal engine.
 
@@ -104,7 +110,7 @@ Acceptance: the independent corpus passes; out-of-scope inputs do not panic, all
 
 Exercise selected behavior across erase, wrapping, redraw, resize, and alternate-screen transitions as relevant. Update strict schemas, version validation, report/reproduction prerequisites, and migration examples together.
 
-Acceptance: assertion, snapshot, failure artifact, and diagnostic frame reflect the same captured terminal state. A mismatched profile is visible during reproduction inspection.
+Acceptance: assertion, snapshot, failure artifact, and diagnostic frame reflect the same captured terminal state. A mismatched profile is documented in the ordinary rerun context and, only if Sprint 6 ships, visible during reproduction inspection.
 
 ### 10.5 — Run native compatibility and regression checks
 
@@ -112,11 +118,11 @@ Run existing real-PTY regression suites and the selected application on each cla
 
 Acceptance: exact run evidence supports the advertised scope; unsupported hosts remain labeled. Any newly failing previous supported case is fixed or explicitly prevents promotion.
 
-### 10.6 — Complete a reviewed adopter migration
+### 10.6 — Complete a reviewed application migration
 
-Have the maintainer enable the new profile where applicable, inspect the deliberate baseline change, and rerun the actual workflow. Introduce a controlled target regression and show that the test still rejects it. Record any unsupported neighboring characters or protocol behavior they encountered.
+Have the Playtestr operator enable the new profile where applicable, inspect the deliberate baseline change, and rerun the actual workflow. Introduce a controlled target regression and show that the test still rejects it. Record any unsupported neighboring characters or protocol behavior they encountered.
 
-Acceptance: the original adoption blocker is removed, regression detection remains useful, and the public compatibility table reflects tested scope rather than aspirational coverage.
+Acceptance: the original application blocker is removed, regression detection remains useful, and the public compatibility table reflects tested scope rather than aspirational coverage.
 
 ## Acceptance matrix
 
@@ -129,16 +135,16 @@ Acceptance: the original adoption blocker is removed, regression detection remai
 | Alternate-screen transition | Correct restoration for the supported profile. |
 | Unsupported profile | Validation failure before target launch. |
 | Old spec/profile | Existing documented behavior preserved or an explicitly approved migration required. |
-| Different reproduction profile | Context mismatch is visible; no claim of exact reproduction. |
+| Different terminal profile | Ordinary rerun context identifies the mismatch; reproduction-tool integration only if shipped. |
 | Malformed/flood input | Bounded resource use, timeout/cancellation, and cleanup retained. |
 | Native application trial | Evidence names actual host/version; no framework-wide inference. |
 
 ## Definition of done and next decision
 
 - [ ] Checkpoints 10.1–10.6 complete for one selected compatibility family.
-- [ ] Independent corpus and real adopter workflow both demonstrate the fix.
+- [ ] Independent corpus and real-application workflow both demonstrate the fix.
 - [ ] Previous supported behavior, resource bounds, and lifecycle checks remain intact.
 - [ ] Profile/version/schema changes and reviewed baseline migration are documented together.
 - [ ] Compatibility table names exact supported and unsupported behavior with evidence.
 
-At this boundary, review adoption and maintenance rather than automatically inventing Sprint 11. Ask which real task is still costly: slow suites, authoring long interactions, sharing failure evidence, or another compatibility gap. Parallelism, recording, minimization, and services each need their own concrete evidence and acceptance boundary. The success of Sprints 5–10 is a dependable tool people keep using, not the number of features delivered.
+At this boundary, continue with the fixed engineering sequence in the [roadmap](../README.md). Sprint 11 supplies the application corpus; Sprint 12 addresses authoring; Sprint 13 qualifies native behavior; Sprint 14 prepares demos. Independent maintainer validation follows at A1 after R6. No additional compatibility family is implied by completing this one.

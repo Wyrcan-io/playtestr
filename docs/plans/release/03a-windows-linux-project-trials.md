@@ -1,5 +1,7 @@
 # R3 technical trial plan: Lazygit, Lazydocker, and K9s
 
+> Scheduling update, 19 September 2026: the [current roadmap](../README.md) supersedes ordering in this historical plan. Engineering and R6 precede all maintainer recruitment/adoption; [A1](07-maintainer-adoption.md) owns that later work. Completed release evidence below remains historical evidence.
+
 Status: executed across all six matrix cells with open findings. See the [reviewed technical result](../../trials/technical-trial-2026-09.md). Target applications are identified for reproducibility; their inclusion does not imply maintainer participation, endorsement, sponsorship, or permission to publish private correspondence.
 
 ## 1. Outcome and boundaries

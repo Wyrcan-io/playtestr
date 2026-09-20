@@ -1,6 +1,8 @@
-# MVP delivery plan
+# Sprint delivery record and current roadmap
 
-For the delivery sequence, see the [release/adoption plans and Sprint 5–10 candidates](plans/README.md) and [product focus](plans/product-focus.md). Sprint 5 suites, Sprint 7's compact offline failure report, and Sprint 8's setup-action engineering are implemented locally; identifiers are retained, not dependency order. Reproduction, installation, workspaces, and compatibility follow the demonstrated task, with correctness blockers prioritized. Candidate plans do not claim their future features are implemented.
+The root [roadmap](../roadmap.md) is authoritative for completed releases, current status and the execution sequence. The sections below preserve Sprints 0–9 engineering history; their dated platform statements are historical, not current aggregate support claims. Current evidence lives in [platform support](platform-support.md).
+
+The next work is early Sprint 13 native-gap triage and five Sprint 11 pilots, followed by selected compatibility/authoring/handoff changes, integrated hardening, corpus depth, candidate freeze, frozen-byte qualification, demos and R6 publication/verification. Maintainer adoption begins only afterward. The root roadmap owns exact checkpoint order; [planning documents](plans/README.md) define execution details. All new campaign counts are targets, not completed results.
 
 ## Working agreement
 
@@ -96,7 +98,7 @@ same-spec pass/regression/recovery demo are recorded in [Sprint 7 engineering
 validation](validation/sprint-7-engineering-2026-09-18.md). The command shipped
 in the checksum-verified `v0.3.0-rc.1` prerelease and passed published-install
 checks on every advertised host. Independent maintainer adoption and outside
-feedback are deferred until after Sprint 10 by product decision.
+feedback are deferred until A1, after the complete engineering batch and R6 by product decision.
 
 ## Sprint 8 — exact CI installation (implemented locally)
 
@@ -115,7 +117,7 @@ Local Windows normal and failure coverage, the route evidence, and maintenance
 contract are recorded in [Sprint 8 engineering validation](validation/sprint-8-engineering-2026-09-18.md).
 The first immutable public action revision, native Linux/macOS action results,
 a later real-release upgrade, and independent adoption remain open. Maintainer
-adoption and outside feedback are deferred until after Sprint 10.
+adoption and outside feedback are deferred until A1, after the complete engineering batch and R6.
 
 ## Sprint 9 — repeatable workspaces (implemented locally)
 
@@ -133,11 +135,15 @@ nonzero exit, and descendant cleanup have local native coverage. See
 [Repeatable workspaces](workspaces.md) and the [Sprint 9 engineering record](validation/sprint-9-engineering-2026-09-19.md).
 
 The internal Lazygit R3-T09 persisted-draft observation selects the engineering
-case but is not independent adoption. Maintainer adoption/outside feedback and
-non-Windows native confirmation remain deferred until after Sprint 10.
+case but is not independent adoption. Maintainer adoption/outside feedback remains deferred to A1 after engineering and R6. Non-Windows native confirmation is required during Sprint 13 before release qualification.
 
-## After the MVP
+## Current development plans
 
-First publish and verify a release candidate, trial it with independent projects, and promote a stable version when the release gates pass. The [post-MVP plans](plans/README.md) then propose suites and CI results, failure reproduction, local diagnosis, CI installation, repeatable workspaces, and a narrowly selected terminal compatibility improvement.
+- [Sprint 10: selected terminal compatibility](plans/sprints/10-terminal-compatibility.md).
+- [Sprint 11: real-project corpus](plans/sprints/11-real-project-corpus.md), with baseline and completion phases.
+- [Sprint 12: authoring and one conditional extension](plans/sprints/12-authoring-and-focused-assertions.md).
+- [Sprint 13: native CI and release hardening](plans/sprints/13-native-ci-and-release-hardening.md).
+- [Sprint 14: reproducible demos and release kit](plans/sprints/14-demos-and-release-kit.md).
+- [R6: release qualification](plans/release/06-qualified-release.md), followed by [A1 adoption](plans/release/07-maintainer-adoption.md).
 
-Each sprint starts from a demonstrated user problem. Parallel execution, minimization, styled snapshots, recordings, and hosted reports remain deferred until adoption evidence justifies a separate plan. Autonomous game exploration remains outside Playtestr's product boundary.
+Sprint 6 remains conditional; a documented rerun may solve the task without a new manifest. Historical sprint identifiers are retained for links. Optional ideas do not extend the pre-adoption batch automatically. See [product focus](plans/product-focus.md) for the feature budget and [current research](research/competitive-user-survey-2026-09-19.md) for the evidence behind priorities.

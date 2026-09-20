@@ -35,3 +35,10 @@ Playtestr is a local runner for deterministic end-to-end tests of trusted intera
 - [`v0.3.0-rc.1` release notes](releases/v0.3.0-rc.1.md) record the published offline-report binaries, hashes, and verification runs.
 
 Development plans describe possible future work and are not released functionality. Contributors can start with [Development and repository checks](development.md).
+
+## Product planning
+
+- [Current delivery roadmap and completed releases](../roadmap.md).
+- [Competitive and user-needs research](research/competitive-user-survey-2026-09-19.md).
+- [Real-application validation program](plans/validation-program.md) and [120 proposed workflows](plans/corpus-catalog.md).
+- [Maintainer adoption after engineering](plans/release/07-maintainer-adoption.md).

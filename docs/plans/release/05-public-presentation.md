@@ -1,5 +1,7 @@
 # R5 — Public presentation before independent adoption
 
+> Scheduling update, 19 September 2026: the [current roadmap](../README.md) supersedes ordering in this historical plan. Engineering and R6 precede all maintainer recruitment/adoption; [A1](07-maintainer-adoption.md) owns that later work. Completed release evidence below remains historical evidence.
+
 Status: implemented locally on 12 September 2026. The static build, generated-route checks, responsive browser matrix, documentation search, progressive fallbacks, interactive pass/failure evidence, social preview, and Windows pass/failure/recovery check pass in the working tree. Publication, live Pages inspection, external GitHub repository settings, and native macOS/Linux repetition remain open because they require external state or hosts. Product scope and evidence requirements remain unchanged.
 
 ## Objective

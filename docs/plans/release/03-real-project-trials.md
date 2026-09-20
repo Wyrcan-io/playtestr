@@ -1,6 +1,8 @@
 # R3 — Trial Playtestr in three to five real projects
 
-Status: active after stable v0.1.0 publication on 12 September 2026; recruitment is open and no independent run has been counted yet. Outreach to specific recipients still requires authorization. This plan retains the R3 identifier. Product outcome: independent maintainers use Playtestr to protect actual terminal interactions and tell us where it helps or breaks down.
+> Scheduling update, 19 September 2026: the [current roadmap](../README.md) supersedes ordering in this historical plan. Engineering and R6 precede all maintainer recruitment/adoption; [A1](07-maintainer-adoption.md) owns that later work. Completed release evidence below remains historical evidence.
+
+Status: deferred to A1 after the complete engineering batch and R6. No independent run has been counted yet. Outreach to specific recipients still requires authorization. This plan retains the R3 identifier. Product outcome: independent maintainers use Playtestr to protect actual terminal interactions and tell us where it helps or breaks down.
 
 The preceding technical campaign is [R3c](03c-cross-stack-validation.md): nine applications, three each in Python, Rust, and Node.js. Its operator sessions do not count as participant review or voluntary reuse. Reuse its proven recipes when they serve a participant's actual task; do not duplicate technical campaigns just to collect more counts.
 
@@ -91,4 +93,4 @@ If fewer than three projects participate, keep R3 open and reassess recruitment 
 - [ ] Ranked backlog has evidence and a small proposed remedy for each accepted item.
 - [ ] Permission exists for any names, quotes, or examples intended for public release notes.
 
-Handoff: R4's post-publication checkpoint receives the first independent stable run. Sprint 5 selection uses the concrete project task and available feedback while recruitment continues; full R3 completion is a separate adoption result. Human adoption remains open until its own checks pass and cannot be replaced by technical repetitions.
+Handoff: A1 owns recruitment, independent review, participant CI and voluntary reuse after the completed engineering batch and R6. This protocol is supporting material; it does not unlock or block engineering sprints.

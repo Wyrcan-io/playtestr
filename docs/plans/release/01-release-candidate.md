@@ -1,5 +1,7 @@
 # R1 — Publish the first release candidate
 
+> Scheduling update, 19 September 2026: the [current roadmap](../README.md) supersedes ordering in this historical plan. Engineering and R6 precede all maintainer recruitment/adoption; [A1](07-maintainer-adoption.md) owns that later work. Completed release evidence below remains historical evidence.
+
 Status: completed on 2026-09-07. Product outcome: a developer can download a known Playtestr build without installing Go or cloning the runner source.
 
 Completion evidence: [v0.1.0-rc.1](https://github.com/Wyrcan-io/playtestr/releases/tag/v0.1.0-rc.1) was published from commit `1dde372282a574025957c4bf1b603287cbef93e4` after [native release run 34052977944](https://github.com/Wyrcan-io/playtestr/actions/runs/34052977944) passed on Linux amd64, macOS arm64, and Windows amd64. The six public assets were downloaded and matched against the staged workflow artifacts byte-for-byte.

@@ -1,6 +1,6 @@
 # R3 cohort record
 
-Status: recruiting against stable v0.1.0. No independent project has been counted yet.
+Status: recruitment deferred to [A1](../plans/release/07-maintainer-adoption.md) after the complete engineering batch and R6. No independent project has been counted yet.
 
 This file tracks completion without publishing participant details that lack consent. Store private identity/permission references outside the repository and use a stable trial ID here.
 
@@ -8,11 +8,11 @@ This file tracks completion without publishing participant details that lack con
 
 | Trial ID | Public project or private alias | Maintainer confirmed | Stack | Host | Interaction | Good/bad complete | 10 runs | Later use | CI | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| T01 | Unassigned | No | | | | No | No | No | No | Recruiting |
-| T02 | Unassigned | No | | | | No | No | No | No | Recruiting |
-| T03 | Unassigned | No | | | | No | No | No | No | Recruiting |
-| T04 | Unassigned | No | | | | No | No | No | No | Optional |
-| T05 | Unassigned | No | | | | No | No | No | No | Optional |
+| T01 | Unassigned | No | | | | No | No | No | No | Deferred to A1 |
+| T02 | Unassigned | No | | | | No | No | No | No | Deferred to A1 |
+| T03 | Unassigned | No | | | | No | No | No | No | Deferred to A1 |
+| T04 | Unassigned | No | | | | No | No | No | No | Deferred to A1 |
+| T05 | Unassigned | No | | | | No | No | No | No | Deferred to A1 |
 
 ## Technical baselines that do not count as adoption
 
@@ -43,4 +43,4 @@ Reject or redesign a proposed trial when it needs production credentials, uncont
 
 ## Post-publication handoff
 
-R4's post-publication checkpoint receives the first independent stable run. R3 closure and Sprint 5 selection receive the completed cohort count, exact stable version, blocker status, voluntary reuse, successful participant CI, and consent-limited claims. Missing adoption gates remain open without blocking the initial technically qualified publication. Operator trials cannot fill participant counts.
+Adoption A1 receives the completed cohort count, exact verified R6 version, blocker status, voluntary reuse, participant CI and consent-limited claims. Five invitations are the new cohort target; three completed projects/two stacks remain the initial value threshold. Operator trials cannot fill participant counts. Recruitment starts only after engineering and R6.

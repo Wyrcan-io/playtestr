@@ -1,5 +1,7 @@
 # R4 — Publish stable v0.1.0
 
+> Scheduling update, 19 September 2026: the [current roadmap](../README.md) supersedes ordering in this historical plan. Engineering and R6 precede all maintainer recruitment/adoption; [A1](07-maintainer-adoption.md) owns that later work. Completed release evidence below remains historical evidence.
+
 Status: stable publication complete 12 September 2026; post-publication independent adoption remains pending under R3. R1, R2's automated public-install boundary, R3b technical closure, and R3c nine-application validation were completed before publication. R2's unassisted human walkthroughs remain part of the independent-adoption work rather than being inferred from operator or CI evidence. Product outcome: developers can choose a documented stable version for everyday terminal regression testing, with clear support and migration expectations.
 
 ## Meaning of stable here

@@ -3,7 +3,7 @@
 Status: implemented and published as the checksum-verified `v0.3.0-rc.1`
 prerelease on 18 September 2026. The number is retained for existing links.
 Sprint 6 is not a prerequisite. Independent maintainer adoption and outside
-feedback are intentionally deferred until after Sprint 10.
+feedback are intentionally deferred until A1, after the complete engineering batch and R6.
 
 ## User result
 
@@ -147,7 +147,7 @@ and adoption outcomes.
 - [x] Documentation and the demo use commands from the published and natively
   verified `v0.3.0-rc.1` prerelease.
 - [x] Independent review explicitly remains open. Per product decision,
-  maintainer adoption and outside feedback resume after Sprint 10.
+  maintainer adoption and outside feedback resume until A1, after the complete engineering batch and R6.
 
 Review the next obstacle after delivery. Add history or reproduction machinery
 only when an observed question requires new evidence.

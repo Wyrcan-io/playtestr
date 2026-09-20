@@ -2,17 +2,25 @@
 
 Status: conditional candidate, not the automatic next sprint. It depends on Sprint 5's stable suite/artifact identities and a recorded case where a CI failure cannot be reproduced locally because necessary context is unclear. Primary outcome: a developer can inspect one failed run's required inputs and rerun its reviewed test against a local trusted application without reconstructing CI context by hand.
 
-This is deliberately a failure handoff, not a terminal recorder, source bundle, checkout manager, or general replay system. Do not start it because a manifest seems useful; start only when the existing spec, report, screen, diff, and CI logs leave a maintainer unable to perform a specific local rerun.
+This is deliberately a failure handoff, not a terminal recorder, source bundle, checkout manager, or general replay system. A written rerun recipe is the first implementation candidate; close this milestone as deferred if that solves the case. Do not start a new manifest because it seems useful; start only when the existing spec, report, screen, diff, and CI logs leave a maintainer unable to perform a specific local rerun.
 
 ## User problem and value
 
 A test fails in CI but passes on a laptop. The author does not know whether the viewport, application version, spec revision, baseline, or test selection differed. Saving every raw terminal byte would not recreate the filesystem, backend state, or process scheduler, and copying complete launch environments could expose secrets.
 
-This sprint delivers a bounded reproduction manifest with local input resolution and explicit execution. It does not promise deterministic replay of arbitrary applications. A rerun that passes is useful evidence of non-reproduction; it must never be labeled a successful reproduction of the original failure.
+If the ordinary handoff fails the entry experiment, the optional implementation branch delivers a bounded reproduction manifest with local input resolution and explicit execution. It does not promise deterministic replay of arbitrary applications. A rerun that passes is useful evidence of non-reproduction; it must never be labeled a successful reproduction of the original failure.
 
 ## Entry gate
 
-Use at least one real CI-to-local reproduction case from the adopter cohort. Collect the current manual steps and missing facts. Require stable Sprint 5 output paths and a named test/application revision. If the only difficulty is missing documentation, fix that first and reevaluate the need for a manifest command.
+Use at least one operator-reproduced real-project CI-to-local failure from Sprint 11 or 13. Independent adopter validation follows in A1. Collect the current manual steps and missing facts. Require stable Sprint 5 output paths and a named test/application revision. If the only difficulty is missing documentation, fix that first and reevaluate the need for a manifest command.
+
+## Ordinary-handoff experiment before a new format
+
+Use one failed real-project run, its reviewed spec/baseline/fixture revisions, runner/target identities, host, viewport, safe synthetic prerequisites and existing report/screen/diff. From a clean checkout or owned directory, follow the written commands to reproduce the intended failure. Then show the repaired target passes and a missing prerequisite fails clearly. Never copy an unreviewed environment or source bundle from the failure artifact.
+
+Record which facts cannot be recovered and whether adding them to a short recipe solves the problem. If it does, this milestone closes as a documented deferral. A manifest exception to the feature budget needs a repeated concrete context omission that the recipe cannot reasonably prevent. Inspection must remain inert and never execute artifact-supplied commands.
+
+The following design and commands apply only to the optional implementation branch. They are **not current CLI capabilities**. Public docs/demo instructions must not use them before implementation, schema/exit-policy review and verification. Record the ordinary-command alternative even if the branch ships.
 
 ## Proposed workflow
 
@@ -70,7 +78,7 @@ Separate inspect, prerequisite evaluation, and execute into testable operations.
 
 ### 6.1 — Reproduce one failure manually and freeze semantics
 
-Document the adopter failure, the missing context, and what can actually be captured safely. Define manifest fields, unknown/unverified states, failure identity, and CLI status semantics. Review redacted fingerprints and explicitly list what they do not verify.
+Document the operator-reproduced real-project failure, attempt the ordinary handoff, and identify the exact missing context. If complete rerun instructions solve it, close this sprint as deferred without implementing 6.2–6.6. Otherwise record what can actually be captured safely. Define manifest fields, unknown/unverified states, failure identity, and CLI status semantics. Review redacted fingerprints and explicitly list what they do not verify.
 
 Acceptance: the contract supports this real task without claiming a complete execution snapshot.
 
@@ -100,9 +108,9 @@ Acceptance: limitations are visible before execution; no silent auto-download or
 
 ### 6.6 — Trial the CI-to-local workflow
 
-Have the adopter obtain the CI evidence, inspect it locally, identify prerequisites, and rerun the chosen regression. Measure assistance and time spent locating the correct inputs. Record a non-reproduction case as well as a successful one.
+Have the operator obtain the real-project CI evidence in a clean local context, inspect it, identify prerequisites, and rerun the chosen regression. Record operator time and familiarity bias; independent use is measured only in adoption A1. Record a non-reproduction case as well as a successful one.
 
-Acceptance: the maintainer can explain whether the observed failure reproduced and which facts remain unverified.
+Acceptance: the engineering evidence distinguishes matching observed failure, passing non-reproduction, different failure and missing prerequisites; unknown facts remain visible. A1 later measures whether an independent maintainer can understand the handoff.
 
 ## Acceptance matrix
 
@@ -121,10 +129,10 @@ Acceptance: the maintainer can explain whether the observed failure reproduced a
 
 ## Definition of done and handoff
 
-- [ ] Checkpoints 6.1–6.6 complete with one real reproduction task.
+- [ ] 6.1 either demonstrates sufficient ordinary instructions and explicitly defers the manifest, or 6.1–6.6 complete for one real reproduction task. The remaining implementation checks apply only to the implemented branch.
 - [ ] Inspect cannot execute and execute cannot rewrite original evidence/baselines.
 - [ ] Format, privacy boundary, failure identity, limits, and unknown states documented and tested.
 - [ ] Advertised platform paths run natively; no new unsupported compatibility claim.
 - [ ] Existing `test` commands and report v1 remain compatible.
 
-Stop and review retention after this milestone. Consider a diagnosis view only when a maintainer identifies a question that the manifest, report, screen, and diff still cannot answer. Automatic minimization remains deferred until repeated runs establish a useful, stable failure predicate.
+Follow the [root roadmap](../../../roadmap.md) after this engineering decision. The offline diagnosis view already exists; reuse it. Independent retention review waits for adoption A1. Automatic minimization remains deferred until repeated runs establish a useful, stable failure predicate.

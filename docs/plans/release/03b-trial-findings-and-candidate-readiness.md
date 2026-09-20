@@ -1,5 +1,7 @@
 # R3b — Resolve trial findings and verify the next candidate
 
+> Scheduling update, 19 September 2026: the [current roadmap](../README.md) supersedes ordering in this historical plan. Engineering and R6 precede all maintainer recruitment/adoption; [A1](07-maintainer-adoption.md) owns that later work. Completed release evidence below remains historical evidence.
+
 Status: technical candidate work complete as of 10 September 2026. Sequencing revised 11 September: [R3c nine-application validation](03c-cross-stack-validation.md) precedes [R4 publication](04-stable-release.md); independent R3 adoption follows publication. Source fixes, rc.1 baseline, rc.2 publication, native checks, release boundaries, six Windows/Linux real-app cells, second sessions, negatives, and exact cleanup remain completed evidence. Created 8 September 2026.
 
 ## Outcome

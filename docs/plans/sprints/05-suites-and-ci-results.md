@@ -18,7 +18,7 @@ website pass/failure/recovery demonstration remains the public visual showcase.
 
 ## Entry gate and scope budget
 
-Require a documented project case with an awkward multi-spec command or scattered CI evidence. Capture its expected selection set before implementation. An operator reproduction can justify bounded engineering while independent trials continue; it does not count as adoption. The sprint delivers directory selection, serial execution, artifact organization, and a human summary. JUnit is a conditional interoperability addition when the acceptance project uses a CI test-results viewer. Custom globs and filtering also require a demonstrated selection task. Exclude test hooks, a config framework, workers, retries, tags, a runner dashboard, hosted upload, setup actions, and package-manager installers.
+Require a documented project case with an awkward multi-spec command or scattered CI evidence. Capture its expected selection set before implementation. An operator reproduction can justify bounded engineering while independent trials remain deferred to A1; it does not count as adoption. The sprint delivers directory selection, serial execution, artifact organization, and a human summary. JUnit is a conditional interoperability addition when the acceptance project uses a CI test-results viewer. Custom globs and filtering also require a demonstrated selection task. Exclude test hooks, a config framework, workers, retries, tags, a runner dashboard, hosted upload, setup actions, and package-manager installers.
 
 ## Proposed user workflow
 
@@ -130,4 +130,4 @@ Run pure selection/writer tests and real-PTY suite tests. Run Go tests/vet and n
 - [x] Artifact layout, limits, and commands are documented; JUnit was omitted because no actual results consumer was identified.
 - [x] No parallelism, implicit retries, or baseline auto-approval slipped into scope.
 
-Stop and review repeat use after this milestone. The recommended next candidate is Sprint 7's compact offline report, which reuses this evidence layout. Sprint 6 remains conditional on missing reproduction context. Record omitted optional work and separate completed engineering from any pending participant evaluation.
+Engineering is complete; independent repeat-use review is deferred to A1 after the full batch and R6. Sprint 7 is also implemented. Follow the [current roadmap](../README.md) for remaining engineering rather than reopening these completed milestones. Sprint 6 remains conditional on demonstrated missing context.

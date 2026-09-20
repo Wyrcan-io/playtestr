@@ -4,9 +4,11 @@ Status: engineering implemented locally on 18 September 2026. The selected
 route is the setup-only GitHub Action owned by the Playtestr repository
 maintainers. Publication, three-host public-action execution, a later real
 release upgrade, and independent adoption remain explicitly open; maintainer
-adoption/outside feedback is deferred until after Sprint 10 by product decision.
+adoption/outside feedback is deferred until A1, after the complete engineering batch and R6 by product decision.
 See the [engineering record](../../validation/sprint-8-engineering-2026-09-18.md)
 and [installation contract](../../ci-installation.md).
+
+Engineering/native/publication follow-up now runs through [Sprint 13](13-native-ci-and-release-hardening.md) and [R6](../release/06-qualified-release.md). Independent adopter portions below are deferred to [A1](../release/07-maintainer-adoption.md) and do not gate engineering.
 
 ## User result and entry case
 
@@ -71,7 +73,7 @@ workflow alone is not execution evidence.
 
 ### 8.3 — Finish the actual adopter workflow
 
-Have the adopter use the route to run a known-good test, reject a controlled
+For engineering, have the operator use the route to run a known-good test, reject a controlled
 regression, find the existing evidence, and recover. In CI, use finite artifact
 retention, explicit artifact paths, and minimal permissions. Ordinary failures
 must remain failed; do not teach blanket continue-on-error.

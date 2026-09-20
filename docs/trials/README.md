@@ -1,6 +1,6 @@
 # Playtestr v0.1.0 project trials
 
-Status: recruiting. These trials test whether Playtestr protects a real terminal interaction well enough that a project maintainer chooses to run the test again.
+Status: recruitment deferred until [A1](../plans/release/07-maintainer-adoption.md), after the complete engineering batch and R6. This guide retains earlier release-specific instructions; refresh its version pins against the R6 release before recruitment. These trials test whether Playtestr protects a real terminal interaction well enough that a project maintainer chooses to run the test again.
 
 For Sprint 5 directory selection and isolated CI evidence, use the [suite adopter walkthrough](sprint-5-suite-adopter.md) with the checksum-verified [`v0.2.0-rc.1` prerelease](https://github.com/Wyrcan-io/playtestr/releases/tag/v0.2.0-rc.1). Stable `v0.1.0` predates those features and cannot produce a qualifying Sprint 5 result.
 
@@ -10,7 +10,7 @@ This is an optional trial for maintainers and contributors with one repeatable, 
 
 Operator technical evidence is recorded separately in the [R3c cross-stack record](cross-stack-validation-2026-09.md), with reusable [sanitized recipes](cross-stack-recipes.md).
 
-R3 is active following stable publication. It needs three completed participant projects across at least two implementation stacks, two maintainers who voluntarily repeat use, and one successful participant-owned CI integration. The demo, Gum fixture, and nine-application R3c campaign are technical coverage; they do not count as independent adoption. Use only the checksum-verified [stable v0.1.0 download](https://github.com/Wyrcan-io/playtestr/releases/tag/v0.1.0) for participant results.
+R3 participant work is deferred to A1 after engineering and R6. It needs three completed participant projects across at least two implementation stacks, two maintainers who voluntarily repeat use, and one successful participant-owned CI integration. The demo, Gum fixture, and nine-application R3c campaign are technical coverage; they do not count as independent adoption. Use the checksum-verified R6 release for the new cohort; earlier v0.1.0 instructions remain historical and do not cover later features.
 
 ## Who should participate
 
