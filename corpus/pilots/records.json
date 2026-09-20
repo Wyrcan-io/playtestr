@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-09-20",
+  "boundary": "Operator discovery evidence only; WSL cells are not native Linux claims and these attempts are not qualification samples.",
+  "pilots": [
+    {
+      "id": "GUM-01",
+      "behavior": "selection",
+      "target": "Charm Gum v0.17.0",
+      "host": "windows_amd64",
+      "command": ".\\bin\\playtestr.exe test --report <attempt>.json .\\examples\\external-gum.json",
+      "manual_route": "gum choose Alpha Beta Gamma --header 'Pick deployment'; ArrowDown; Enter; observe exact stdout Beta and exit 0",
+      "expectation": "the reviewed screen baseline is exactly Beta and the target exits 0",
+      "oracle": "exact reviewed snapshot; the standalone manual route independently confirms stdout",
+      "attempts": [
+        {"variant":"good-1","runner":"passed","campaign":"correct_good_result","duration_ms":280},
+        {"variant":"good-2","runner":"passed","campaign":"correct_good_result","duration_ms":292},
+        {"variant":"good-3","runner":"passed","campaign":"correct_good_result","duration_ms":299},
+        {"variant":"wrong-selection","runner":"failed:snapshot_mismatch","campaign":"correctly_detected_intended_bad","duration_ms":320},
+        {"variant":"recovery","runner":"passed","campaign":"recovery","duration_ms":398}
+      ],
+      "cleanup": "no target state; attempt reports remain under ignored .trial-private",
+      "setup_seconds": 0.242,
+      "setup_note": "measured warm offline setup copies and hashes the retained verified binary; cold download time was not remeasured"
+    },
+    {
+      "id": "LG-01",
+      "behavior": "state change",
+      "target": "Lazygit v0.65.0",
+      "host": "windows_amd64 and historical WSL Linux",
+      "command": "powershell -NoProfile -File <retained-lg01-launcher> -Runner <playtestr> -Target <lazygit-v0.65.0>",
+      "manual_route": "open disposable two-change repository; focus alpha.txt; Space; q",
+      "expectation": "only alpha.txt with its exact reviewed bytes is staged; neighbor remains unstaged; exit 0",
+      "oracle": "git diff --cached --name-only plus git show :alpha.txt; oracle runs before reset/disposal",
+      "attempts": [
+        {"variant":"good-primary","runner":"passed","campaign":"10/10 Windows candidate sample and 10/10 WSL candidate sample","median_windows_ms":918},
+        {"variant":"index-lock","runner":"passed","campaign":"false_pass_detected_by_oracle"},
+        {"variant":"recovery","runner":"passed","campaign":"correct_good_result"}
+      ],
+      "cleanup": "verify exact owned repository, git reset index, then delete disposable repository/config",
+      "setup_seconds": 0.795,
+      "setup_note": "measured warm offline setup extracts the retained archive, copies the repository and creates private config; historical acquisition time remains unknown"
+    },
+    {
+      "id": "CV-01",
+      "behavior": "prompt validation/scaffold",
+      "target": "create-vite 9.2.1",
+      "host": "windows_amd64 and historical WSL Linux",
+      "command": "<playtestr> test --report <attempt>/runner-report.json <trial-root>/primary.json && <oracle> <owned-scaffold>",
+      "manual_route": "run create-vite for playtestr-js02; choose Vanilla; choose JavaScript; decline install/start",
+      "expectation": "fixed manifest and package fields are produced without node_modules or a dev-server child",
+      "oracle": "parse package.json and compare the exact admitted file manifest before deleting the owned cwd",
+      "attempts": [
+        {"variant":"good-1","runner":"passed","campaign":"correct_good_result","duration_ms":466},
+        {"variant":"good-2","runner":"passed","campaign":"correct_good_result","duration_ms":450},
+        {"variant":"good-3","runner":"passed","campaign":"correct_good_result","duration_ms":444},
+        {"variant":"missing-template","runner":"failed:assertion_timeout","campaign":"correctly_detected_intended_bad","duration_ms":6054},
+        {"variant":"recovery","runner":"passed","campaign":"recovery","duration_ms":433}
+      ],
+      "cleanup": "oracle first, then remove scaffold/private npm cache; no install/start accepted",
+      "setup_seconds": 3.265,
+      "setup_note": "measured warm offline install from the retained tarball into a private npm cache and owned cwd; runtime median is 450 ms"
+    },
+    {
+      "id": "BT-06",
+      "behavior": "resize/redraw",
+      "target": "bottom 0.14.9",
+      "host": "windows_amd64 and historical WSL Linux",
+      "command": "<playtestr> test --report <attempt>/runner-report.json <trial-root>/primary.json && <pid-oracle> <marker-pid>",
+      "manual_route": "filter exact marker process; open/close help; resize 120x40 to 80x24 and back; quit",
+      "expectation": "fresh Processes and marker evidence appears after each redraw; target exits 0",
+      "oracle": "marker PID resolves to the exact helper executable and remains alive until harness cleanup",
+      "attempts": [
+        {"variant":"good-1","runner":"passed","campaign":"correct_good_result","duration_ms":2479},
+        {"variant":"good-2","runner":"passed","campaign":"correct_good_result","duration_ms":2499},
+        {"variant":"good-3","runner":"passed","campaign":"correct_good_result","duration_ms":2474},
+        {"variant":"missing-helper","runner":"failed:assertion_timeout","campaign":"correctly_detected_intended_bad","duration_ms":5151},
+        {"variant":"recovery","runner":"passed","campaign":"recovery","duration_ms":2451}
+      ],
+      "cleanup": "verify and stop the exact harness-owned marker PID, then delete config",
+      "setup_seconds": 0.435,
+      "setup_note": "measured warm offline archive extraction plus marker/config preparation; runtime median is 2479 ms"
+    },
+    {
+      "id": "LG-08",
+      "behavior": "fresh workspace",
+      "target": "Lazygit v0.65.0",
+      "host": "windows_amd64 and historical WSL Linux",
+      "command": "go build -o <trial-bin>/fresh-workspace-adapter ./scripts/corpus/fresh-workspace-adapter && <playtestr> test --report <attempt>/runner-report.json <generated-v2-spec-using-adapter>",
+      "manual_route": "start from copied repository and empty private config; observe alpha.txt; Ctrl+C; repeat from a new copy/home",
+      "expectation": "each run sees the reviewed repository with no stale draft/config and exits 0",
+      "oracle": "adapter requires an empty index, unchanged alpha.txt and file-empty managed home before launching real Lazygit; it rechecks index/file after exit and emits PLAYTESTR_FRESH_ORACLE=passed before successful v2 deletion",
+      "attempts": [
+        {"variant":"good-1","runner":"passed","campaign":"correct_good_result_with_pre_deletion_oracle","duration_ms":1368},
+        {"variant":"good-2","runner":"passed","campaign":"correct_good_result_with_pre_deletion_oracle","duration_ms":959},
+        {"variant":"good-3","runner":"passed","campaign":"correct_good_result_with_pre_deletion_oracle","duration_ms":995},
+        {"variant":"persisted-commit-draft","runner":"passed","campaign":"false_pass_detected_by_git_oracle"},
+        {"variant":"recovery","runner":"passed","campaign":"recovery_with_cleared_draft"}
+      ],
+      "cleanup": "runner deletes marker-owned v2 workspace; harness verifies immutable source fixture and absence of managed home/temp",
+      "setup_seconds": 0.466,
+      "setup_note": "current adapter-backed runner median is 995 ms; runner duration includes workspace preparation and oracle work, so cold acquisition remains separate"
+    }
+  ]
+}

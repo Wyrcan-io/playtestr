@@ -5,7 +5,8 @@ The root [roadmap](../roadmap.md) is authoritative for completed releases, curre
 Sprint 13-A0 native-gap triage is complete on Windows amd64, Linux amd64 and
 macOS arm64, with individual JSON test events inspected in the
 [evidence record](validation/sprint-13-a0-native-gaps-2026-09-20.md).
-The next work is the five Sprint 11 pilots, followed by selected
+Sprint 11 A0/A1 admitted the five pilots and froze the 15-project/120-intent
+contract plus 300-cell risk map. The next work is the selected
 compatibility/authoring/handoff changes, integrated hardening, corpus depth,
 candidate freeze, frozen-byte qualification, demos and R6
 publication/verification. Maintainer adoption begins only afterward. The root

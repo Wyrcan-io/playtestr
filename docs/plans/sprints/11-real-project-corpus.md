@@ -1,10 +1,20 @@
 # Sprint 11: useful behavior across real applications
 
-Status: planned. Owner: Playtestr maintainer. Read the [root order](../../../roadmap.md), [validation program](../validation-program.md), [120-intent catalog](../corpus-catalog.md), and [execution contract](../execution-contract.md). This is internal engineering, with no recruitment dependency.
+Status: **A0 and A1 complete on 20 September 2026; B/C planned.** The checked
+admission artifacts, pilot results, cost floor and ranked blockers are in the
+[`corpus/` checkpoint](../../../corpus/README.md). Owner: Playtestr maintainer.
+Read the [root order](../../../roadmap.md), [validation program](../validation-program.md),
+[120-intent catalog](../corpus-catalog.md), and [execution contract](../execution-contract.md).
+This is internal engineering, with no recruitment dependency.
 
 User result: a developer finds a reviewed recipe for a comparable application, runs it, and sees that the intended behavior and regression detection are actually checked.
 
 ## A0: five pilots, not a huge test framework
+
+Completed at the admission boundary. The five records preserve their actual
+Windows/WSL evidence, intended negatives, recovery and oracle ordering; WSL is
+not promoted to native Linux. Cold acquisition timing remains the top campaign
+measurement blocker and is not fabricated from old filesystem timestamps.
 
 Start after or alongside independent parts of 13-A0. Admit the five catalog pilots for selection, Git mutation, prompt validation, resize/redraw and fresh-workspace state. Pin target/runtime versions and hashes, validate the real documented keyboard route, prepare local data, and verify expected behavior manually.
 
@@ -15,6 +25,12 @@ Prove at least one independent state check before successful spec-v2 workspace d
 Exit: five runnable pilot records, exact baseline expectations, native host availability, first cost estimate and ranked blockers. Stop to select the narrow compatibility/authoring repair before expanding code.
 
 ## A1: admission and coverage design
+
+Completed as design/admission, not execution: 15 exact target identities and all
+120 catalog intents are frozen. The 300-cell map identifies 99 reviewed existing
+boundaries and 201 planned gaps. Unsupported/unrun hosts remain explicit. The
+machine checks reject missing pins, host cells, workflow IDs and unresolved pilot
+outcomes.
 
 Review earlier campaigns without pooling different runner bytes or retries. Admit a 15-project roster with 120 distinct workflow IDs from the catalog; exact versions/hashes are required for admitted cases, while unadmitted candidates remain pending. Include licenses, install/build commands, dependency locks, clean state, external-resource ownership, time/output limits and disposal rules.
 

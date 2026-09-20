@@ -44,7 +44,7 @@ Exact hashes and run links belong to the cited records. Local tags corroborate i
 | 8 | Setup-only exact-version GitHub Action | Implemented, Windows local verification; [record](docs/validation/sprint-8-engineering-2026-09-18.md) | Native Linux/macOS action checks, verified immutable public action revision, real upgrade |
 | 9 | Fresh bounded workspaces, spec/report v2, v2 HTML rendering | Implemented, Windows local verification; [record](docs/validation/sprint-9-engineering-2026-09-19.md) | Native Linux/macOS workspace checks and release-byte verification |
 | 10 | One evidence-selected terminal compatibility improvement | **Planned, conditional on reduced case**; [plan](docs/plans/sprints/10-terminal-compatibility.md) | Select from corpus; no universal Unicode promise |
-| 11 | Deep real-project validation corpus | **Planned**; [plan](docs/plans/sprints/11-real-project-corpus.md) | Five pilots, 120 admitted workflows, 300 risk cases, 15 defect controls and 3,000 frozen-byte repeats |
+| 11 | Deep real-project validation corpus | **A0/A1 complete; B/C planned**; [checkpoint](corpus/README.md), [plan](docs/plans/sprints/11-real-project-corpus.md) | Five pilots, 120 admitted workflows, 300 risk cases, 15 defect controls and 3,000 frozen-byte repeats |
 | 12 | Easier first-test authoring | **Planned**, optional extension separately gated; [plan](docs/plans/sprints/12-authoring-and-focused-assertions.md) | Three recipes, ten diagnostics, then one justified input or focused-assertion family |
 | 13 | Native evidence, integrated hardening and fair comparison | **Planned**, starts with existing S8/S9 gaps; [plan](docs/plans/sprints/13-native-ci-and-release-hardening.md) | Early native triage, three-host verification, benchmark and freeze preparation |
 | 14 | Reproducible demos and release kit | **Planned**; [plan](docs/plans/sprints/14-demos-and-release-kit.md) | Three real stories, accessible watch-to-run path, final frozen-byte captures and accurate release materials |
@@ -109,12 +109,13 @@ Sprint 14 may draft stories earlier, but final captures use the qualified behavi
 
 ## Immediate next implementation task
 
-Start **11-A0**, not a new terminal rewrite. The 13-A0
-[native-evidence table](docs/validation/sprint-13-a0-native-gaps-2026-09-20.md)
-and three-host native checks are complete. Produce five runnable pilot cases, including
-an explicit solution for checking state before successful workspace deletion.
-Do not run the 3,000-repeat campaign until the candidate is frozen. Do not
-contact maintainers yet.
+Sprint 11-A0/A1 is complete at its admission boundary; continue with **Sprint
+10's compatibility-family decision**. Reduce an actual blocker from the five
+pilots and implement one narrow family only if the entry evidence qualifies.
+Otherwise record the evidence-backed deferral and proceed to Sprint 12-A. The
+13-A0 [native-evidence table](docs/validation/sprint-13-a0-native-gaps-2026-09-20.md)
+remains the current three-host source evidence. Do not run the 3,000-repeat
+campaign until candidate bytes are frozen, and do not contact maintainers yet.
 
 The [operational checklists](docs/plans/operational-checklists.md) provide current focused test commands, required skip detection, reader/version checks and concrete responses when execution hits a blocker.
 
