@@ -195,35 +195,13 @@ func TestSetupActionBoundsNetworkTimeout(t *testing.T) {
 	result := runInstaller(t, "-Version", testVersion, "-InstallRoot", root,
 		"-DownloadBaseUrl", server.URL, "-RequestTimeoutSeconds", "1", "-DownloadAttempts", "1",
 		"-OutputFile", output, "-PathFile", pathOutput)
-	normalizedOutput := normalizePowerShellOutput(result.output)
-	if result.err == nil || !strings.Contains(normalizedOutput, "failed after 1 attempts") {
+	if result.err == nil || !strings.Contains(result.output, "after 1 attempts") {
 		t.Fatalf("timeout error = %v, output = %q", result.err, result.output)
 	}
 	if elapsed := time.Since(started); elapsed > 5*time.Second {
 		t.Fatalf("bounded timeout took %s", elapsed)
 	}
 	assertNotExposed(t, root, output, pathOutput)
-}
-
-func normalizePowerShellOutput(output string) string {
-	const escape = '\x1b'
-	var plain strings.Builder
-	for index := 0; index < len(output); {
-		if output[index] != escape || index+1 >= len(output) || output[index+1] != '[' {
-			plain.WriteByte(output[index])
-			index++
-			continue
-		}
-		index += 2
-		for index < len(output) {
-			character := output[index]
-			index++
-			if character >= '@' && character <= '~' {
-				break
-			}
-		}
-	}
-	return strings.Join(strings.Fields(plain.String()), " ")
 }
 
 type commandResult struct {
