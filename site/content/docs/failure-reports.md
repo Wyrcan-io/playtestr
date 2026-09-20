@@ -6,6 +6,6 @@ previous:
   label: "Machine report v1"
   url: "docs/report-v1/"
 next:
-  label: "Suites and CI evidence"
-  url: "docs/suites/"
+  label: "Reproduce a CI failure"
+  url: "docs/ci-failure-handoff/"
 ---

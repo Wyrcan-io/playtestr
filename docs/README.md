@@ -10,8 +10,9 @@ Playtestr is a local runner for deterministic end-to-end tests of trusted intera
 4. [Add and review text snapshots](snapshots.md) when a complete rendered screen is useful.
 5. [Diagnose a failure](troubleshooting.md) using its category, failed step, final screen, and diff.
 6. [Run a deterministic suite](suites.md) and collect isolated CI evidence.
-7. [Install an exact release in GitHub Actions](ci-installation.md) after the action revision is published.
-8. [Use a repeatable workspace](workspaces.md) when a local stateful flow needs fresh reviewed files.
+7. [Reproduce a CI failure locally](ci-failure-handoff.md) from reviewed identities and ordinary rerun commands.
+8. [Install an exact release in GitHub Actions](ci-installation.md) after the action revision is published.
+9. [Use a repeatable workspace](workspaces.md) when a local stateful flow needs fresh reviewed files.
 
 ## Reference
 
@@ -20,6 +21,7 @@ Playtestr is a local runner for deterministic end-to-end tests of trusted intera
 - [Test specification version 2](spec-v2.md) and [machine report version 2](report-v2.md) define the opt-in development workspace contract.
 - [Offline failure reports](failure-reports.md) explains safe, bounded HTML export and diagnosis.
 - [Test suites and CI evidence](suites.md) defines directory selection, summaries, limits, and artifact layout.
+- [CI failure handoff](ci-failure-handoff.md) defines the ordinary reviewed context needed for a local rerun.
 - [CI installation](ci-installation.md) defines exact version selection, verification, fallback, removal, and action maintenance.
 - [Platform support](platform-support.md) records exact release targets and native evidence.
 - [Terminal compatibility](terminal-compatibility.md) records rendered-screen behavior and known limits.

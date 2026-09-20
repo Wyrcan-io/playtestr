@@ -1,6 +1,6 @@
 # Sprint 6 — Reproduce a CI failure locally
 
-Status: conditional candidate, not the automatic next sprint. It depends on Sprint 5's stable suite/artifact identities and a recorded case where a CI failure cannot be reproduced locally because necessary context is unclear. Primary outcome: a developer can inspect one failed run's required inputs and rerun its reviewed test against a local trusted application without reconstructing CI context by hand.
+Status: deferred at checkpoint 6.1 on 2026-09-21 because the [ordinary handoff experiment](../../validation/sprint-6-handoff-2026-09-21.md) recovered every required fact; the optional manifest branch was not entered. It depends on Sprint 5's stable suite/artifact identities and a recorded case where a CI failure cannot be reproduced locally because necessary context is unclear. Primary outcome: a developer can inspect one failed run's required inputs and rerun its reviewed test against a local trusted application without reconstructing CI context by hand.
 
 This is deliberately a failure handoff, not a terminal recorder, source bundle, checkout manager, or general replay system. A written rerun recipe is the first implementation candidate; close this milestone as deferred if that solves the case. Do not start a new manifest because it seems useful; start only when the existing spec, report, screen, diff, and CI logs leave a maintainer unable to perform a specific local rerun.
 
@@ -129,10 +129,10 @@ Acceptance: the engineering evidence distinguishes matching observed failure, pa
 
 ## Definition of done and handoff
 
-- [ ] 6.1 either demonstrates sufficient ordinary instructions and explicitly defers the manifest, or 6.1–6.6 complete for one real reproduction task. The remaining implementation checks apply only to the implemented branch.
-- [ ] Inspect cannot execute and execute cannot rewrite original evidence/baselines.
-- [ ] Format, privacy boundary, failure identity, limits, and unknown states documented and tested.
-- [ ] Advertised platform paths run natively; no new unsupported compatibility claim.
-- [ ] Existing `test` commands and report v1 remain compatible.
+- [x] 6.1 demonstrates sufficient ordinary instructions and explicitly defers the manifest; 6.2–6.6 were not entered.
+- [x] No inspect/execute capability was added; ordinary reruns preserved original evidence and baselines.
+- [x] No format was added; the handoff documents identities, privacy boundaries, failure classification, limits and unknown state.
+- [x] The experiment claims only its native Windows amd64 path; no platform claim was widened.
+- [x] Existing `test` commands and report v1 remain compatible.
 
 Follow the [root roadmap](../../../roadmap.md) after this engineering decision. The offline diagnosis view already exists; reuse it. Independent retention review waits for adoption A1. Automatic minimization remains deferred until repeated runs establish a useful, stable failure predicate.

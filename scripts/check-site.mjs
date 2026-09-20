@@ -15,6 +15,7 @@ const requiredRoutes = [
   'docs/spec-v2/index.html', 'docs/report-v2/index.html',
   'docs/workspaces/index.html',
   'docs/failure-reports/index.html',
+  'docs/ci-failure-handoff/index.html',
   'docs/suites/index.html',
   'docs/compatibility/index.html', 'docs/platform-evidence/index.html',
   'docs/terminal-compatibility/index.html', 'examples/index.html',

@@ -10,7 +10,8 @@ contract plus 300-cell risk map. Sprint 10 was then explicitly deferred because
 no pilot supplied its required terminal blocker. Sprint 12-A added three
 complete authoring recipes and audited ten diagnostic cases; 12-B then deferred
 both optional extensions because no pair of workflows met the entry gate. The
-next work is the handoff decision, integrated hardening, corpus depth,
+Sprint 6 then proved an ordinary pinned-input handoff sufficient and deferred
+its optional manifest. The next work is integrated hardening, corpus depth,
 candidate freeze, frozen-byte qualification, demos and R6
 publication/verification. Maintainer adoption begins only afterward. The root
 roadmap owns exact checkpoint order; [planning documents](plans/README.md)
@@ -159,4 +160,4 @@ case but is not independent adoption. Maintainer adoption/outside feedback remai
 - [Sprint 14: reproducible demos and release kit](plans/sprints/14-demos-and-release-kit.md).
 - [R6: release qualification](plans/release/06-qualified-release.md), followed by [A1 adoption](plans/release/07-maintainer-adoption.md).
 
-Sprint 6 remains conditional; a documented rerun may solve the task without a new manifest. Historical sprint identifiers are retained for links. Optional ideas do not extend the pre-adoption batch automatically. See [product focus](plans/product-focus.md) for the feature budget and [current research](research/competitive-user-survey-2026-09-19.md) for the evidence behind priorities.
+Sprint 6's documented ordinary rerun solved the selected handoff task, so the optional manifest is deferred. Historical sprint identifiers are retained for links. Optional ideas do not extend the pre-adoption batch automatically. See [product focus](plans/product-focus.md) for the feature budget and [current research](research/competitive-user-survey-2026-09-19.md) for the evidence behind priorities.

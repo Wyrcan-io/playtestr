@@ -20,6 +20,7 @@ Updated 19 September 2026. The [root roadmap](../../roadmap.md) fixes order; thi
 | D12 | Documentation-only audit does not rerun PTY test suite | Check links, provenance, feasibility and consistency; later implementation must execute relevant tests |
 | D13 | Defer Sprint 10 without a qualifying pilot blocker | All five admitted pilots complete their intended current flows; BT-06 redraw passes and no reduced application case demonstrates wrong terminal cells/protocol behavior. Reopen only with the evidence in the Sprint 10 decision record. |
 | D14 | Defer both Sprint 12-B extension candidates | No two admitted workflows share a missing input family or unavoidable dynamic-text blocker after fixture/state control. Keep strict formats unchanged; reopen only with two named reduced failures. |
+| D15 | Defer the Sprint 6 reproduction manifest | A clean-directory `GUM-01` failure, corrected pass and missing-target control were fully classified from ordinary pinned inputs and existing evidence. Add software only after a repeated safe context omission survives the written handoff. |
 
 ## Decisions to make at explicit checkpoints
 
@@ -27,7 +28,7 @@ Updated 19 September 2026. The [root roadmap](../../roadmap.md) fixes order; thi
 | --- | --- | --- | --- |
 | Q01 | Which terminal family blocks the most valuable pilot? | **Closed 2026-09-21: none qualifies; Sprint 10 deferred** | [Decision record](../validation/sprint-10-decision-2026-09-21.md); reopen only with a reduced failing real case and independent expectation |
 | Q02 | Extra input or focused region? | **Closed 2026-09-21: neither qualifies; 12-B deferred** | [Decision record](../validation/sprint-12-b-decision-2026-09-21.md); reopen only with two distinct named blocked workflows and failed fixture/state-control workarounds |
-| Q03 | Does CI handoff need new software? | Maintainer, S6 decision | Try complete ordinary instructions on clean local context; default documentation |
+| Q03 | Does CI handoff need new software? | **Closed 2026-09-21: no; Sprint 6 manifest deferred** | [Experiment](../validation/sprint-6-handoff-2026-09-21.md); reopen only for a repeated context omission the ordinary handoff cannot safely prevent |
 | Q04 | Which candidate projects cannot meet host/task depth? | Corpus owner, 11-A1 | Exact pinned target attempts; replacement preserves interaction risk and counts |
 | Q05 | What next version and compatible migration? | Release owner, R6-F | Actual public contract delta, old spec/report reader behavior, tag inventory; no number reserved here |
 | Q06 | How to retain reproducible evidence affordably? | Corpus owner, before 11-B | Measured bytes/time, available CI retention, sanitized durable compact ledger; bounded failures/artifacts |

@@ -12,8 +12,9 @@ Playtestr drives trusted interactive terminal applications with authored keyboar
 3. [Adapt a complete real-application recipe](/playtestr/docs/recipes/).
 4. [Add a reviewed text snapshot](/playtestr/docs/snapshots/) when a complete screen is useful.
 5. [Diagnose failures](/playtestr/docs/troubleshooting/) by category, failed step, screen, and diff.
-6. [Install an exact release in GitHub Actions](/playtestr/docs/ci-installation/) after the action revision is published.
-7. [Use a repeatable workspace](/playtestr/docs/workspaces/) for a stateful local flow.
+6. [Reproduce a CI failure locally](/playtestr/docs/ci-failure-handoff/) from reviewed identities and ordinary rerun commands.
+7. [Install an exact release in GitHub Actions](/playtestr/docs/ci-installation/) after the action revision is published.
+8. [Use a repeatable workspace](/playtestr/docs/workspaces/) for a stateful local flow.
 
 ## Use the reference
 

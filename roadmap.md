@@ -39,7 +39,7 @@ Exact hashes and run links belong to the cited records. Local tags corroborate i
 | 3 | Rendered text snapshots, diffs, transactional updates and terminal fixtures | Implemented; incorporated into MVP releases; [history](docs/sprints.md) | Selected cell-width/protocol limits remain |
 | 4 | Formats, packaging, native matrix, Gum trial, licensing | Implemented and published; [platform evidence](docs/platform-support.md) | New releases must requalify their own bytes |
 | 5 | Serial suites, deterministic listing and useful evidence layout | Implemented, natively/publicly verified in v0.2.0-rc.1; [record](docs/validation/sprint-5-engineering-2026-09-15.md) | Independent CI adoption in A1 |
-| 6 | CI-to-local failure handoff | **Conditional, not implemented**; [plan](docs/plans/sprints/06-failure-reproduction.md) | First prove whether ordinary rerun instructions suffice |
+| 6 | CI-to-local failure handoff | **Ordinary handoff documented; manifest deferred**; [experiment](docs/validation/sprint-6-handoff-2026-09-21.md), [guide](docs/ci-failure-handoff.md) | Reopen software only for a repeated safe context omission the guide cannot resolve |
 | 7 | Offline failure diagnosis | Implemented, natively/publicly verified in v0.3.0-rc.1; [record](docs/validation/sprint-7-engineering-2026-09-18.md) | Independent diagnosis timing in A1 |
 | 8 | Setup-only exact-version GitHub Action | Implemented, Windows local verification; [record](docs/validation/sprint-8-engineering-2026-09-18.md) | Native Linux/macOS action checks, verified immutable public action revision, real upgrade |
 | 9 | Fresh bounded workspaces, spec/report v2, v2 HTML rendering | Implemented, Windows local verification; [record](docs/validation/sprint-9-engineering-2026-09-19.md) | Native Linux/macOS workspace checks and release-byte verification |
@@ -76,7 +76,7 @@ The table is a dependency chain. A completed checkpoint produces the stated evid
 | 4 | **10: one compatibility family — deferred 2026-09-21** | Five pilots were triaged; none supplies a qualifying terminal blocker, and BT-06 redraw passes | [Evidence-backed deferral](docs/validation/sprint-10-decision-2026-09-21.md); reopen only with a reduced failing application case |
 | 5 | **12-A: authoring — completed 2026-09-21** | Added three recipes and audited ten concrete diagnostic cases | [Windows engineering evidence](docs/validation/sprint-12-a-authoring-2026-09-21.md): clean pass/bug/recovery, useful validation, measured operator friction |
 | 6 | **12-B: optional extension — deferred 2026-09-21** | No two admitted flows share a missing input or focused-assertion blocker | [Decision](docs/validation/sprint-12-b-decision-2026-09-21.md); strict public formats remain unchanged |
-| 7 | **6: handoff decision** | Reproduce a corpus CI failure using ordinary spec/revision/fixture/report instructions | Recipe sufficient → close as deferred; demonstrably missing context → implement only the bounded manifest branch |
+| 7 | **6: handoff decision — completed/deferred 2026-09-21** | Reproduced `GUM-01` from ordinary pinned inputs; recovery passed and an absent target failed distinctly | [Experiment and decision](docs/validation/sprint-6-handoff-2026-09-21.md); no manifest or replay command added |
 | 8 | **13-B/C: integrated hardening and comparison** | Finish native gaps after changes; verify current reports/action source; run bounded fair comparisons and adversarial checks | Three-host engineering evidence, comparison task results, no open correctness blockers |
 | 9 | **11-B: application depth** | Complete 120 admitted workflows across 15 projects and the 300 focused-case map; prove 15 known-bad/recovered controls | Full outcomes, postconditions, host exclusions and unchanged reviewed baselines |
 | 10 | **13-D + R6-F: candidate freeze** | Choose candidate version, freeze source/schema/fixtures, build once per host, package and hash executable/archive | Immutable candidate identities available before expensive qualification; not public publication |
@@ -109,13 +109,13 @@ Sprint 14 may draft stories earlier, but final captures use the qualified behavi
 
 ## Immediate next implementation task
 
-Sprint 12 is complete: A delivered the authoring recipes and diagnostics, and B
-was deferred because no two admitted workflows meet its extension gate.
-Continue with the **Sprint 6 handoff decision** by reproducing the deterministic
-`GUM-01` wrong-selection failure from ordinary revision, target, spec, baseline
-and report instructions before considering any new manifest software. The
-13-A0 [native-evidence table](docs/validation/sprint-13-a0-native-gaps-2026-09-20.md)
-remains the current three-host source evidence. Do not run the 3,000-repeat
+Sprint 12 is complete and Sprint 6's ordinary handoff proved sufficient, so its
+optional manifest remains deferred. Continue with **Sprint 13-B/C integrated
+hardening and bounded comparison**: reverify affected native paths, current
+reports and action source, then run the matched comparison and adversarial
+checks defined by the plan. The 13-A0
+[native-evidence table](docs/validation/sprint-13-a0-native-gaps-2026-09-20.md)
+remains the starting three-host source evidence. Do not run the 3,000-repeat
 campaign until candidate bytes are frozen, and do not contact maintainers yet.
 
 The [operational checklists](docs/plans/operational-checklists.md) provide current focused test commands, required skip detection, reader/version checks and concrete responses when execution hits a blocker.

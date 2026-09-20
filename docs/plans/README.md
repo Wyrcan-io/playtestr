@@ -22,7 +22,7 @@ The root **[roadmap.md](../../roadmap.md)** is the single source of truth for co
 - [Sprint 10](sprints/10-terminal-compatibility.md): compatibility-family gate deferred until a reduced real-project blocker exists.
 - [Sprint 11](sprints/11-real-project-corpus.md): five pilots, admission, deep application cases and frozen-byte repetition.
 - [Sprint 12](sprints/12-authoring-and-focused-assertions.md): complete recipes and diagnostics; one conditional input or focused-assertion extension.
-- [Sprint 6](sprints/06-failure-reproduction.md): ordinary handoff instructions first; manifest only if demonstrated necessary.
+- [Sprint 6](sprints/06-failure-reproduction.md): ordinary handoff instructions proved sufficient; the optional manifest is deferred.
 - [Sprint 13](sprints/13-native-ci-and-release-hardening.md): early existing native gaps, integrated hardening, fair comparison and freeze preparation.
 - [Sprint 14](sprints/14-demos-and-release-kit.md): three reproducible stories, accessible watch-to-run path and release kit.
 - [R6](release/06-qualified-release.md): freeze, qualify, publish when instructed, verify public bytes.
