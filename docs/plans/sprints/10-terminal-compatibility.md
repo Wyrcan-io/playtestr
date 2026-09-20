@@ -1,6 +1,12 @@
 # Sprint 10: fix a terminal compatibility gap that blocks a real test
 
-Status: proposed and evidence-gated. This plan is not a promise of full Unicode or terminal-emulator compatibility. Read the current [terminal compatibility contract](../../terminal-compatibility.md) before selecting the implementation scope.
+Status: **deferred at the evidence gate on 21 September 2026.** The five Sprint
+11 pilots contain no qualifying current-runner terminal blocker; see the
+[decision record](../../validation/sprint-10-decision-2026-09-21.md). Reopen only
+with the reduced real-application evidence required below. This plan is not a
+promise of full Unicode or terminal-emulator compatibility. Read the current
+[terminal compatibility contract](../../terminal-compatibility.md) before
+selecting any future implementation scope.
 
 Execution follows 11-A pilots/admission in the [root roadmap](../../../roadmap.md), after early native-gap triage. Apply the [execution contract](../execution-contract.md). The decision is one family or an explicit deferral, not a terminal-engine rewrite by default.
 

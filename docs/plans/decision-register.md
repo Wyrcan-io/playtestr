@@ -18,12 +18,13 @@ Updated 19 September 2026. The [root roadmap](../../roadmap.md) fixes order; thi
 | D10 | Native application claims are version/workflow/host-specific | Language diversity, framework examples and WSL do not prove all-platform compatibility |
 | D11 | No version per sprint; no forced v1.0 | Releases express qualified coherent behavior and contract policy, not number of tasks completed |
 | D12 | Documentation-only audit does not rerun PTY test suite | Check links, provenance, feasibility and consistency; later implementation must execute relevant tests |
+| D13 | Defer Sprint 10 without a qualifying pilot blocker | All five admitted pilots complete their intended current flows; BT-06 redraw passes and no reduced application case demonstrates wrong terminal cells/protocol behavior. Reopen only with the evidence in the Sprint 10 decision record. |
 
 ## Decisions to make at explicit checkpoints
 
 | ID | Question | Owner / deadline | Evidence needed / default |
 | --- | --- | --- | --- |
-| Q01 | Which terminal family blocks the most valuable pilot? | Maintainer, after 11-A1 | Reduced real case, independent cells/protocol expectation; no qualifying blocker → defer S10 |
+| Q01 | Which terminal family blocks the most valuable pilot? | **Closed 2026-09-21: none qualifies; Sprint 10 deferred** | [Decision record](../validation/sprint-10-decision-2026-09-21.md); reopen only with a reduced failing real case and independent expectation |
 | Q02 | Extra input or focused region? | Maintainer, 12-A exit | Two distinct admitted flows, failed recipe workaround, migration cost; neither justified → defer 12-B |
 | Q03 | Does CI handoff need new software? | Maintainer, S6 decision | Try complete ordinary instructions on clean local context; default documentation |
 | Q04 | Which candidate projects cannot meet host/task depth? | Corpus owner, 11-A1 | Exact pinned target attempts; replacement preserves interaction risk and counts |

@@ -19,7 +19,7 @@ The root **[roadmap.md](../../roadmap.md)** is the single source of truth for co
 
 ## Remaining engineering plans
 
-- [Sprint 10](sprints/10-terminal-compatibility.md): one compatibility family selected from reduced real-project evidence.
+- [Sprint 10](sprints/10-terminal-compatibility.md): compatibility-family gate deferred until a reduced real-project blocker exists.
 - [Sprint 11](sprints/11-real-project-corpus.md): five pilots, admission, deep application cases and frozen-byte repetition.
 - [Sprint 12](sprints/12-authoring-and-focused-assertions.md): complete recipes and diagnostics; one conditional input or focused-assertion extension.
 - [Sprint 6](sprints/06-failure-reproduction.md): ordinary handoff instructions first; manifest only if demonstrated necessary.
