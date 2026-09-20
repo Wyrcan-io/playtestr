@@ -1,6 +1,11 @@
 # Sprint 13: trust the installed runner and its evidence
 
-Status: planned. Owner: Playtestr maintainer/release owner. **13-A0 runs first for existing S8/S9 behavior**; integrated A1/B/C follow corpus discovery and any selected 10/12/6 implementation. [Root roadmap](../../../roadmap.md) owns sequence. Finish existing engineering boundaries before adding features.
+Status: 13-A0 completed on the available Windows host, with Linux/macOS native
+jobs prepared and explicitly blocked pending hosts. See the
+[13-A0 evidence record](../../validation/sprint-13-a0-native-gaps-2026-09-20.md).
+Owner: Playtestr maintainer/release owner. Integrated A1/B/C follow corpus
+discovery and any selected 10/12/6 implementation. [Root roadmap](../../../roadmap.md)
+owns sequence. Finish existing engineering boundaries before adding features.
 
 User result: an exact installed runner behaves as documented on its advertised host, preserves diagnosis for failure, and can be upgraded without corrupting tests or state.
 

@@ -1,0 +1,56 @@
+name: Native gap checks
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/native-gaps.yml'
+      - 'go.mod'
+      - 'go.sum'
+      - 'cmd/playtestr/**'
+      - 'internal/report/**'
+      - 'internal/runner/**'
+      - 'internal/setupaction/**'
+      - 'schema/**'
+      - 'scripts/test-native-gaps.ps1'
+      - 'setup-playtestr/**'
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  focused-native-gaps:
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: windows-latest
+            target: windows-amd64
+          - runner: ubuntu-latest
+            target: linux-amd64
+          - runner: macos-15
+            target: darwin-arm64
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+          cache-dependency-path: go.sum
+      - name: Preflight PowerShell
+        shell: bash
+        run: pwsh -NoLogo -NoProfile -NonInteractive -Command '$PSVersionTable.PSVersion.ToString()'
+      - name: Run focused tests and inspect every result
+        shell: pwsh
+        run: ./scripts/test-native-gaps.ps1 -EvidenceDirectory artifacts/native-gaps
+      - name: Upload native gap evidence
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: native-gaps-${{ matrix.target }}
+          path: artifacts/native-gaps/**
+          if-no-files-found: error
+          retention-days: 14

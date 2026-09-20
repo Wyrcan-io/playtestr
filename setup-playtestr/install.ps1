@@ -197,7 +197,7 @@ function Expand-VerifiedTar {
     param([string] $Archive, [string] $Destination, [string[]] $ExpectedMembers)
     $actual = @(& tar -tzf $Archive 2>&1)
     if ($LASTEXITCODE -ne 0) {
-        throw "cannot list release archive: $($actual -join ' ')"
+        throw "cannot inspect release archive: $($actual -join ' ')"
     }
     if (($actual.Count -ne $ExpectedMembers.Count) -or (Compare-Object $actual $ExpectedMembers)) {
         throw "archive members do not match the published layout"
