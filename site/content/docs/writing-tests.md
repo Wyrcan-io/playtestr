@@ -6,6 +6,6 @@ previous:
   label: "Installation"
   url: "docs/installation/"
 next:
-  label: "Review snapshots"
-  url: "docs/snapshots/"
+  label: "Authoring recipes"
+  url: "docs/recipes/"
 ---

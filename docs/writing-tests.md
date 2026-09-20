@@ -1,5 +1,9 @@
 # Writing a Playtestr test
 
+For complete pass/failure/recovery starting points, see the three
+[authoring recipes](https://wyrcan-io.github.io/playtestr/docs/recipes/): exact selection, a stateful scaffold with
+an external oracle, and a full-screen modal/resize flow.
+
 Start with one user goal that can run repeatedly against synthetic or disposable local state. Run the target manually first and record its starting screen, meaningful inputs, resulting screen, and expected exit behavior.
 
 ## A complete finite test

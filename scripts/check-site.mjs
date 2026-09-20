@@ -8,6 +8,8 @@ const failures = [];
 const requiredRoutes = [
   'index.html', '404.html', 'download/index.html', 'docs/index.html',
   'docs/installation/index.html', 'docs/writing-tests/index.html',
+  'docs/recipes/index.html', 'docs/recipes/selector/index.html',
+  'docs/recipes/stateful-wizard/index.html', 'docs/recipes/full-screen/index.html',
   'docs/snapshots/index.html', 'docs/troubleshooting/index.html',
   'docs/spec-v1/index.html', 'docs/report-v1/index.html',
   'docs/spec-v2/index.html', 'docs/report-v2/index.html',

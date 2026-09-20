@@ -408,6 +408,20 @@ func TestSelectionErrorsReturnUsageStatus(t *testing.T) {
 	}
 }
 
+func TestAuthoringEmptySelectionExplainsNextActionWithoutLaunch(t *testing.T) {
+	empty := t.TempDir()
+	var stdout, stderr bytes.Buffer
+	if code := run(context.Background(), []string{"test", empty}, &stdout, &stderr); code != 2 {
+		t.Fatalf("code=%d stdout=%q stderr=%q", code, stdout.String(), stderr.String())
+	}
+	if text := stderr.String(); !strings.Contains(text, "selection error:") || !strings.Contains(text, "selection matched no test specifications") {
+		t.Fatalf("stderr does not identify the empty selection or next action: %q", text)
+	}
+	if strings.Contains(stdout.String(), "PASS step") {
+		t.Fatalf("empty selection launched a target: %q", stdout.String())
+	}
+}
+
 func TestArtifactRunDirectoriesSeparateDuplicateBasenamesAndNoStaleReferences(t *testing.T) {
 	root := t.TempDir()
 	first := filepath.Join(root, "one", "menu.json")

@@ -213,11 +213,11 @@ func Load(path string) (Spec, error) {
 		}
 		if step.Key != "" {
 			if _, ok := keys[step.Key]; !ok {
-				return spec, fmt.Errorf("unknown key %q", step.Key)
+				return spec, fmt.Errorf("step %d unknown key %q", i+1, step.Key)
 			}
 		}
 		if step.Snapshot != "" && (filepath.Base(step.Snapshot) != step.Snapshot || strings.ContainsAny(step.Snapshot, "/\\:") || step.Snapshot == "..") {
-			return spec, fmt.Errorf("snapshot must be a filename")
+			return spec, fmt.Errorf("step %d snapshot must be a filename", i+1)
 		}
 		if step.Resize != nil {
 			if err := validateTerminalSize(step.Resize.Width, step.Resize.Height); err != nil {

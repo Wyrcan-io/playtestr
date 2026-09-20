@@ -161,6 +161,53 @@ func TestRejectInvalidSpecs(t *testing.T) {
 	}
 }
 
+func TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput(t *testing.T) {
+	secret := "PLAYTESTR-TYPED-SECRET-CANARY"
+	tests := []struct {
+		name string
+		data string
+		want string
+	}{
+		{name: "wrong version", data: `{"version":99,"command":["sentinel"],"steps":[{"exit":0}]}`, want: "unsupported spec version 99"},
+		{name: "unknown field", data: `{"version":1,"command":["sentinel"],"steps":[{"exit":0}],"commnad":[]}`, want: `unknown field "commnad"`},
+		{name: "invalid key", data: `{"version":1,"command":["sentinel"],"steps":[{"key":"F13"}]}`, want: `step 1 unknown key "F13"`},
+		{name: "mixed actions", data: `{"version":1,"command":["sentinel"],"steps":[{"text":"` + secret + `","expect":"ready"}]}`, want: "step 1 must have exactly one action"},
+		{name: "missing command", data: `{"version":1,"steps":[{"exit":0}]}`, want: "command is required"},
+		{name: "malformed duration", data: `{"version":1,"command":["sentinel"],"timeout_ms":"soon","steps":[{"exit":0}]}`, want: "timeout_ms"},
+		{name: "snapshot without readiness", data: `{"version":1,"command":["sentinel"],"steps":[{"snapshot":"screen.txt"}]}`, want: `step 1 snapshot "screen.txt" requires a successful expect`},
+		{name: "incorrect workspace path", data: `{"version":2,"command":["sentinel"],"workspace":{"fixture":"../outside"},"steps":[{"exit":0}]}`, want: "workspace.fixture must stay below"},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			path := filepath.Join(t.TempDir(), "authoring.json")
+			if err := os.WriteFile(path, []byte(test.data), 0600); err != nil {
+				t.Fatal(err)
+			}
+			result := RunDetailedContext(context.Background(), path, RunOptions{}, &bytes.Buffer{})
+			if result.Failure == nil || result.Failure.Category != FailureInvalidSpec || !strings.Contains(result.Failure.Message, test.want) {
+				t.Fatalf("result = %+v, want diagnostic %q", result, test.want)
+			}
+			if result.Target.Exited || result.Cleanup.Attempted {
+				t.Fatalf("invalid input launched or cleaned a target: %+v", result)
+			}
+			if strings.Contains(result.Failure.Message, secret) {
+				t.Fatalf("diagnostic leaked typed input: %q", result.Failure.Message)
+			}
+		})
+	}
+}
+
+func TestAuthoringMissingBaselineIsExecutionTimeAndActionable(t *testing.T) {
+	path := writeSnapshotSpec(t, "exit-zero", "missing-authoring.txt")
+	result := RunDetailedContext(context.Background(), path, RunOptions{}, &bytes.Buffer{})
+	if result.Failure == nil || result.Failure.Category != FailureArtifact || !strings.Contains(result.Failure.Message, "--update") {
+		t.Fatalf("result = %+v", result)
+	}
+	if !result.Target.Exited || result.Target.ExitCode == nil || *result.Target.ExitCode != 0 {
+		t.Fatalf("missing baseline timing was not preserved: %+v", result.Target)
+	}
+}
+
 func TestSpecVersionAndSizeLimits(t *testing.T) {
 	for name, data := range map[string]string{
 		"missing":     `{"command":["demo"],"steps":[{"exit":0}]}`,

@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "name": "Recipe: select Beta in Gum v0.17.0",
+  "command": ["./.tools/external/gum", "choose", "Alpha", "Beta", "Gamma", "--header", "Pick deployment"],
+  "width": 60,
+  "height": 12,
+  "timeout_ms": 15000,
+  "run_timeout_ms": 30000,
+  "max_output_bytes": 500000,
+  "steps": [
+    {"expect": "Pick deployment"},
+    {"key": "ArrowDown"},
+    {"key": "Enter"},
+    {"exit": 0},
+    {"snapshot": "selector.txt"}
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "name": "Recipe: bottom 0.14.9 modal and resize",
+  "command": ["./.tools/recipes/bottom/btm.exe", "--read_only", "--rate", "250ms", "--config_location", "./examples/recipes/bottom-config.toml"],
+  "cwd": "../..",
+  "width": 120,
+  "height": 40,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 30000,
+  "max_output_bytes": 10000000,
+  "steps": [
+    {"expect": "Processes"},
+    {"text": "/"},
+    {"expect": "Case(Alt+C)"},
+    {"text": "PLAYTESTR-RS01"},
+    {"expect": "PLAYTESTR-RS01"},
+    {"key": "Enter"},
+    {"expect": "PLAYTESTR-RS01X"},
+    {"text": "?"},
+    {"expect": "Help"},
+    {"key": "Escape"},
+    {"expect_not": "Help"},
+    {"resize": {"width": 80, "height": 24}},
+    {"wait_for_redraw": true},
+    {"expect": "Processes"},
+    {"resize": {"width": 120, "height": 40}},
+    {"wait_for_redraw": true},
+    {"expect": "PLAYTESTR-RS01X"},
+    {"text": "q"},
+    {"exit": 0}
+  ]
+}

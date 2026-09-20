@@ -6,11 +6,12 @@ Playtestr is a local runner for deterministic end-to-end tests of trusted intera
 
 1. [Install the stable binary and run a first test](releases/v0.1.0-installation-walkthrough.md).
 2. [Write a test for your own application](writing-tests.md).
-3. [Add and review text snapshots](snapshots.md) when a complete rendered screen is useful.
-4. [Diagnose a failure](troubleshooting.md) using its category, failed step, final screen, and diff.
-5. [Run a deterministic suite](suites.md) and collect isolated CI evidence.
-6. [Install an exact release in GitHub Actions](ci-installation.md) after the action revision is published.
-7. [Use a repeatable workspace](workspaces.md) when a local stateful flow needs fresh reviewed files.
+3. [Adapt a complete real-application recipe](recipes/README.md).
+4. [Add and review text snapshots](snapshots.md) when a complete rendered screen is useful.
+5. [Diagnose a failure](troubleshooting.md) using its category, failed step, final screen, and diff.
+6. [Run a deterministic suite](suites.md) and collect isolated CI evidence.
+7. [Install an exact release in GitHub Actions](ci-installation.md) after the action revision is published.
+8. [Use a repeatable workspace](workspaces.md) when a local stateful flow needs fresh reviewed files.
 
 ## Reference
 

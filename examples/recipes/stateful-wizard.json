@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "name": "Recipe: create-vite 9.2.1 Vanilla JavaScript scaffold",
+  "command": ["node", "../runtime/node_modules/create-vite/index.js", "playtestr-recipe"],
+  "cwd": "../../.trial-private/recipes/create-vite/work",
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 6000,
+  "run_timeout_ms": 20000,
+  "max_output_bytes": 1000000,
+  "steps": [
+    {"expect": "Select a framework:"},
+    {"key": "Enter"},
+    {"expect": "Select a variant:"},
+    {"key": "ArrowDown"},
+    {"key": "Enter"},
+    {"expect": "Install with npm and start now?"},
+    {"key": "ArrowRight"},
+    {"key": "Enter"},
+    {"expect": "Done. Now run:"},
+    {"expect": "cd playtestr-recipe"},
+    {"exit": 0}
+  ]
+}

@@ -45,7 +45,7 @@ Exact hashes and run links belong to the cited records. Local tags corroborate i
 | 9 | Fresh bounded workspaces, spec/report v2, v2 HTML rendering | Implemented, Windows local verification; [record](docs/validation/sprint-9-engineering-2026-09-19.md) | Native Linux/macOS workspace checks and release-byte verification |
 | 10 | One evidence-selected terminal compatibility improvement | **Deferred at evidence gate**; [decision](docs/validation/sprint-10-decision-2026-09-21.md), [plan](docs/plans/sprints/10-terminal-compatibility.md) | Reopen only for a reduced real-app terminal blocker; no universal Unicode promise |
 | 11 | Deep real-project validation corpus | **A0/A1 complete; B/C planned**; [checkpoint](corpus/README.md), [plan](docs/plans/sprints/11-real-project-corpus.md) | Five pilots, 120 admitted workflows, 300 risk cases, 15 defect controls and 3,000 frozen-byte repeats |
-| 12 | Easier first-test authoring | **Planned**, optional extension separately gated; [plan](docs/plans/sprints/12-authoring-and-focused-assertions.md) | Three recipes, ten diagnostics, then one justified input or focused-assertion family |
+| 12 | Easier first-test authoring | **A complete; B pending its evidence gate**; [record](docs/validation/sprint-12-a-authoring-2026-09-21.md), [plan](docs/plans/sprints/12-authoring-and-focused-assertions.md) | Decide whether two admitted flows justify one input or focused-assertion family; otherwise defer B |
 | 13 | Native evidence, integrated hardening and fair comparison | **Planned**, starts with existing S8/S9 gaps; [plan](docs/plans/sprints/13-native-ci-and-release-hardening.md) | Early native triage, three-host verification, benchmark and freeze preparation |
 | 14 | Reproducible demos and release kit | **Planned**; [plan](docs/plans/sprints/14-demos-and-release-kit.md) | Three real stories, accessible watch-to-run path, final frozen-byte captures and accurate release materials |
 
@@ -74,7 +74,7 @@ The table is a dependency chain. A completed checkpoint produces the stated evid
 | 2 | **11-A0: five pilot workflows** | Admit five small representative flows from the [catalog](docs/plans/corpus-catalog.md), one each for selection, state change, prompt validation, resize/redraw and fresh-workspace behavior | Real commands, independent expected results, first baseline outcomes and measured setup/run cost |
 | 3 | **11-A1: corpus contract** | Freeze the 15-project candidate roster and 120 workflow intents; inventory existing focused tests; specify state checks before workspace deletion | Admission matrix, exact pins for admitted cases, 300-case coverage mapping, prioritized blockers; no requirement to implement all 120 before fixing a blocker |
 | 4 | **10: one compatibility family — deferred 2026-09-21** | Five pilots were triaged; none supplies a qualifying terminal blocker, and BT-06 redraw passes | [Evidence-backed deferral](docs/validation/sprint-10-decision-2026-09-21.md); reopen only with a reduced failing application case |
-| 5 | **12-A: authoring** | Complete three recipes and ten concrete diagnostic improvements/checks | Clean-environment pass/bug/recovery, useful prelaunch errors, measured operator friction |
+| 5 | **12-A: authoring — completed 2026-09-21** | Added three recipes and audited ten concrete diagnostic cases | [Windows engineering evidence](docs/validation/sprint-12-a-authoring-2026-09-21.md): clean pass/bug/recovery, useful validation, measured operator friction |
 | 6 | **12-B: optional extension** | Choose one input family OR focused text assertion only if two distinct admitted flows still require it | Minimum version/schema/migration plus negative controls; otherwise explicitly defer |
 | 7 | **6: handoff decision** | Reproduce a corpus CI failure using ordinary spec/revision/fixture/report instructions | Recipe sufficient → close as deferred; demonstrably missing context → implement only the bounded manifest branch |
 | 8 | **13-B/C: integrated hardening and comparison** | Finish native gaps after changes; verify current reports/action source; run bounded fair comparisons and adversarial checks | Three-host engineering evidence, comparison task results, no open correctness blockers |
@@ -109,10 +109,10 @@ Sprint 14 may draft stories earlier, but final captures use the qualified behavi
 
 ## Immediate next implementation task
 
-Sprint 11-A0/A1 is complete and Sprint 10 is deferred at its evidence gate;
-continue with **Sprint 12-A authoring and diagnostics**. Produce the three
-versioned recipes, verify the ten diagnostic cases, and measure the operator
-journey without presenting it as independent usability evidence. The
+Sprint 12-A is complete with three versioned recipes, ten diagnostic cases and
+maintainer-operated timing. Continue with the separate **Sprint 12-B optional
+extension gate**: require two distinct admitted workflows blocked by the same
+input or focused-assertion limitation, otherwise explicitly defer both. The
 13-A0 [native-evidence table](docs/validation/sprint-13-a0-native-gaps-2026-09-20.md)
 remains the current three-host source evidence. Do not run the 3,000-repeat
 campaign until candidate bytes are frozen, and do not contact maintainers yet.

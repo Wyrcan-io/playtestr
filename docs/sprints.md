@@ -7,8 +7,9 @@ macOS arm64, with individual JSON test events inspected in the
 [evidence record](validation/sprint-13-a0-native-gaps-2026-09-20.md).
 Sprint 11 A0/A1 admitted the five pilots and froze the 15-project/120-intent
 contract plus 300-cell risk map. Sprint 10 was then explicitly deferred because
-no pilot supplied its required terminal blocker. The next work is the
-authoring/handoff decisions, integrated hardening, corpus depth,
+no pilot supplied its required terminal blocker. Sprint 12-A added three
+complete authoring recipes and audited ten diagnostic cases. The next work is
+the optional-extension and handoff decisions, integrated hardening, corpus depth,
 candidate freeze, frozen-byte qualification, demos and R6
 publication/verification. Maintainer adoption begins only afterward. The root
 roadmap owns exact checkpoint order; [planning documents](plans/README.md)

@@ -1,6 +1,6 @@
 # Sprint 12: make the first useful test easy to write
 
-Status: planned; checkpoint B conditional. Owner: Playtestr maintainer. Entry: Sprint 11 baseline recipes and the [research evidence](../../research/competitive-user-survey-2026-09-19.md). No independent adopter is needed before engineering; human measurements wait for A1.
+Status: checkpoint A completed 2026-09-21; checkpoint B pending its separate conditional gate. Owner: Playtestr maintainer. Entry: Sprint 11 baseline recipes and the [research evidence](../../research/competitive-user-survey-2026-09-19.md). No independent adopter is needed before engineering; human measurements wait for A1. See the [A evidence record](../../validation/sprint-12-a-authoring-2026-09-21.md).
 
 Follow the [execution contract](../execution-contract.md) and [root roadmap](../../../roadmap.md). Reuse existing multi-snapshot, `expect_not`, redraw-wait and v2 report behavior. This sprint improves a demonstrated journey rather than inventing commands to make a plan look complete.
 
@@ -41,8 +41,8 @@ Acceptance: both entry workflows become shorter or feasible while their known-ba
 
 ## Exit
 
-- [ ] Three complete recipes and ten diagnostic cases verified.
-- [ ] Authoring friction observations recorded, including remaining limits.
+- [x] Three complete recipes and ten diagnostic cases verified.
+- [x] Authoring friction observations recorded, including remaining limits.
 - [ ] B has a justified minimal implementation or explicit deferral.
 - [ ] Contract changes have schemas, examples, migration and native evidence.
 - [ ] A1 receives the onboarding tasks and proposed timing targets.

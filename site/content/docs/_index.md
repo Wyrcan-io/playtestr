@@ -9,10 +9,11 @@ Playtestr drives trusted interactive terminal applications with authored keyboar
 
 1. [Install v0.1.0 and run a first test](/playtestr/docs/installation/).
 2. [Write a test for your CLI or TUI](/playtestr/docs/writing-tests/).
-3. [Add a reviewed text snapshot](/playtestr/docs/snapshots/) when a complete screen is useful.
-4. [Diagnose failures](/playtestr/docs/troubleshooting/) by category, failed step, screen, and diff.
-5. [Install an exact release in GitHub Actions](/playtestr/docs/ci-installation/) after the action revision is published.
-6. [Use a repeatable workspace](/playtestr/docs/workspaces/) for a stateful local flow.
+3. [Adapt a complete real-application recipe](/playtestr/docs/recipes/).
+4. [Add a reviewed text snapshot](/playtestr/docs/snapshots/) when a complete screen is useful.
+5. [Diagnose failures](/playtestr/docs/troubleshooting/) by category, failed step, screen, and diff.
+6. [Install an exact release in GitHub Actions](/playtestr/docs/ci-installation/) after the action revision is published.
+7. [Use a repeatable workspace](/playtestr/docs/workspaces/) for a stateful local flow.
 
 ## Use the reference
 
