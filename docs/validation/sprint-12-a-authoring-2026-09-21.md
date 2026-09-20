@@ -69,10 +69,20 @@ still require explicit redraw waits and post-resize positive evidence. Initial
 target acquisition, independent first-use timing, native non-Windows recipe
 execution, and accessibility observation remain for their named later gates.
 
+For adoption A1, the onboarding task is to choose the nearest recipe, acquire
+its exact prerequisite, run the reviewed pass, introduce one assertion or state
+expectation defect, explain the category/evidence, and recover without changing
+the target to fit the test. Proposed observation targets—not release gates—are:
+prerequisite-to-first-launch within 10 minutes when the documented toolchain is
+already present, first valid adapted result within another 10 minutes, and
+failure diagnosis plus recovery within 5 minutes. Record assistance, confusion,
+abandonment and acquisition time separately instead of grading participants.
+
 ## Verification
 
 Focused authoring tests passed before the real recipes. The checkpoint also ran
 the full Go suite, vet, race script, example smoke tests, JSON/spec validation,
 and a tracked-diff review before commit. Exact final results are recorded in the
-commit handoff. Sprint 12-B remains a separate evidence gate; completing A does
-not authorize a new public input or assertion contract.
+commit handoff. Sprint 12-B remained a separate evidence gate and was
+subsequently [deferred](sprint-12-b-decision-2026-09-21.md); completing A did not
+authorize a new public input or assertion contract.

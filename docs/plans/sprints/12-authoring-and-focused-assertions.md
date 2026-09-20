@@ -1,6 +1,6 @@
 # Sprint 12: make the first useful test easy to write
 
-Status: checkpoint A completed 2026-09-21; checkpoint B pending its separate conditional gate. Owner: Playtestr maintainer. Entry: Sprint 11 baseline recipes and the [research evidence](../../research/competitive-user-survey-2026-09-19.md). No independent adopter is needed before engineering; human measurements wait for A1. See the [A evidence record](../../validation/sprint-12-a-authoring-2026-09-21.md).
+Status: completed 2026-09-21: checkpoint A delivered; checkpoint B explicitly deferred at its evidence gate. Owner: Playtestr maintainer. Entry: Sprint 11 baseline recipes and the [research evidence](../../research/competitive-user-survey-2026-09-19.md). No independent adopter is needed before engineering; human measurements wait for A1. See the [A evidence record](../../validation/sprint-12-a-authoring-2026-09-21.md) and [B decision](../../validation/sprint-12-b-decision-2026-09-21.md).
 
 Follow the [execution contract](../execution-contract.md) and [root roadmap](../../../roadmap.md). Reuse existing multi-snapshot, `expect_not`, redraw-wait and v2 report behavior. This sprint improves a demonstrated journey rather than inventing commands to make a plan look complete.
 
@@ -43,6 +43,6 @@ Acceptance: both entry workflows become shorter or feasible while their known-ba
 
 - [x] Three complete recipes and ten diagnostic cases verified.
 - [x] Authoring friction observations recorded, including remaining limits.
-- [ ] B has a justified minimal implementation or explicit deferral.
-- [ ] Contract changes have schemas, examples, migration and native evidence.
-- [ ] A1 receives the onboarding tasks and proposed timing targets.
+- [x] B has an explicit evidence-backed deferral.
+- [x] No format contract changed; schema, migration and new native evidence are not applicable.
+- [x] A1 receives the onboarding tasks and proposed timing targets in the A evidence record.
