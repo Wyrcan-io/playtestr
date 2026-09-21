@@ -70,3 +70,12 @@ The final handoff records the exact run URL and commit. Any failed or absent
 job, missing artifact, unexpected test skip, or `blocked_missing_c_compiler`
 row keeps the affected claim open. This source checkpoint does not freeze or
 publish runner bytes.
+
+The first exact-commit attempt, run `35570373489` at `9bc6d18`, failed on all
+three hosts because the new manual rehearsal did not build `bin/demo` and
+`bin/fixture` in a clean checkout. Its intended-negative command also accepted
+any exit status 1 without proving `snapshot_mismatch`, so the launch failure
+could have been misclassified as successful campaign detection. The failed
+artifacts are retained. The repair builds both native targets and adds positive
+machine checks for mixed-contract identity, workspace preparation/cleanup, the
+exact negative category and evidence, and recovery without stale references.
