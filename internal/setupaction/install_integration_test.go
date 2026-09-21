@@ -240,7 +240,7 @@ func TestSetupActionRejectsPartialAndOversizedDownloads(t *testing.T) {
 				_ = buffer.Flush()
 				_ = connection.Close()
 			},
-			want: "failed after 1 attempts",
+			want: "after 1 attempts",
 		},
 		{
 			name: "oversized response",
@@ -248,7 +248,7 @@ func TestSetupActionRejectsPartialAndOversizedDownloads(t *testing.T) {
 				w.Header().Set("Content-Length", fmt.Sprint(64*1024*1024+1))
 				w.WriteHeader(http.StatusOK)
 			},
-			want: "download exceeds",
+			want: "67108864 byte limit",
 		},
 	}
 

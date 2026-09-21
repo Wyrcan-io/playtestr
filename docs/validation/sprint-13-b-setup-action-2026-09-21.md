@@ -72,3 +72,10 @@ Preparing source and hashes is not evidence for an immutable public action
 reference. Public action verification remains after explicit publication
 approval in R6-P/V, and no successful upgrade claim is made without two actual
 published runner pins.
+
+The first exact-commit native attempt, run `35573149236` at `ba8236e`, retained
+correct partial/oversized rejection and cleanup on every host but failed its
+test wording: PowerShell 7 ANSI/source wrapping split `failed after`, and the
+Windows renderer split `download exceeds`. The replacement assertions use the
+stable semantic tokens `after 1 attempts` and the exact `67108864 byte limit`;
+they do not weaken the failure condition or resource bound.
