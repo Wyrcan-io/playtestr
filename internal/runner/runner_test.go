@@ -184,14 +184,17 @@ func TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput(t *testing.T)
 				t.Fatal(err)
 			}
 			result := RunDetailedContext(context.Background(), path, RunOptions{}, &bytes.Buffer{})
-			if result.Failure == nil || result.Failure.Category != FailureInvalidSpec || !strings.Contains(result.Failure.Message, test.want) {
-				t.Fatalf("result = %+v, want diagnostic %q", result, test.want)
+			if result.Failure == nil || result.Failure.Category != FailureInvalidSpec {
+				t.Fatalf("failure = %+v, want category %q", result.Failure, FailureInvalidSpec)
+			}
+			if result.Err() == nil || !strings.Contains(result.Err().Error(), test.want) {
+				t.Fatalf("error = %v, want diagnostic %q", result.Err(), test.want)
 			}
 			if result.Target.Exited || result.Cleanup.Attempted {
 				t.Fatalf("invalid input launched or cleaned a target: %+v", result)
 			}
-			if strings.Contains(result.Failure.Message, secret) {
-				t.Fatalf("diagnostic leaked typed input: %q", result.Failure.Message)
+			if strings.Contains(result.Failure.Message, secret) || strings.Contains(result.Err().Error(), secret) {
+				t.Fatalf("diagnostic leaked typed input: report=%q error=%q", result.Failure.Message, result.Err())
 			}
 		})
 	}
