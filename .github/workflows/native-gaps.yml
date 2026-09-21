@@ -12,6 +12,7 @@ on:
       - 'internal/runner/**'
       - 'internal/setupaction/**'
       - 'schema/**'
+      - 'scripts/test-integrated-hardening.ps1'
       - 'scripts/test-native-gaps.ps1'
       - 'setup-playtestr/**'
   push:
@@ -45,12 +46,12 @@ jobs:
         run: pwsh -NoLogo -NoProfile -NonInteractive -Command '$PSVersionTable.PSVersion.ToString()'
       - name: Run focused tests and inspect every result
         shell: pwsh
-        run: ./scripts/test-native-gaps.ps1 -EvidenceDirectory artifacts/native-gaps
-      - name: Upload native gap evidence
+        run: ./scripts/test-integrated-hardening.ps1 -EvidenceDirectory artifacts/integrated-hardening
+      - name: Upload integrated hardening evidence
         if: always()
         uses: actions/upload-artifact@v6
         with:
-          name: native-gaps-${{ matrix.target }}
-          path: artifacts/native-gaps/**
+          name: integrated-hardening-${{ matrix.target }}
+          path: artifacts/integrated-hardening/**
           if-no-files-found: error
           retention-days: 14
