@@ -75,7 +75,8 @@ jobs:
 | Windows x86-64 | `windows_amd64.zip` |
 
 Other OS/architecture pairs fail before download. The action outputs
-`version`, `binary-path`, `install-dir`, and `archive-sha256`. `binary-path` is
+`version`, `binary-path`, `install-dir`, `archive-sha256`, and
+`binary-sha256`. `binary-path` is
 absolute and is useful when a workflow must avoid all PATH ambiguity.
 
 GitHub-hosted runners provide the action's prerequisites. A self-hosted runner

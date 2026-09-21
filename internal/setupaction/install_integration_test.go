@@ -47,6 +47,18 @@ func TestSetupActionInstallsVerifiedBinaryAndOverridesStalePath(t *testing.T) {
 	}
 	binaryPath := values["binary-path"]
 	installDir := values["install-dir"]
+	wantBinaryHash := sha256.Sum256(releaseBinary(t))
+	if values["binary-sha256"] != fmt.Sprintf("%x", wantBinaryHash) {
+		t.Fatalf("binary hash = %q, want %x", values["binary-sha256"], wantBinaryHash)
+	}
+	archiveData, err := os.ReadFile(filepath.Join(releaseDir, releaseArchiveName()))
+	if err != nil {
+		t.Fatal(err)
+	}
+	wantArchiveHash := sha256.Sum256(archiveData)
+	if values["archive-sha256"] != fmt.Sprintf("%x", wantArchiveHash) {
+		t.Fatalf("archive hash = %q, want %x", values["archive-sha256"], wantArchiveHash)
+	}
 	if !filepath.IsAbs(binaryPath) || filepath.Dir(binaryPath) != installDir {
 		t.Fatalf("invalid action paths: binary=%q dir=%q", binaryPath, installDir)
 	}
@@ -132,6 +144,11 @@ func TestSetupActionRejectsUnsafeOrUnverifiedInputs(t *testing.T) {
 			want: "archive members do not match",
 		},
 		{
+			name:    "missing executable member",
+			prepare: makeReleaseWithoutExecutable,
+			want:    "archive members do not match",
+		},
+		{
 			name:    "unsupported architecture",
 			prepare: func(t *testing.T) string { return makeRelease(t, nil) },
 			args:    []string{"-TargetOS", "linux", "-TargetArch", "arm64"},
@@ -142,6 +159,12 @@ func TestSetupActionRejectsUnsafeOrUnverifiedInputs(t *testing.T) {
 			prepare: func(t *testing.T) string { return makeRelease(t, nil) },
 			args:    []string{"-Version", "latest"},
 			want:    "version must be an exact release",
+		},
+		{
+			name:    "supported but non-native platform",
+			prepare: func(t *testing.T) string { return makeRelease(t, nil) },
+			args:    wrongNativeTarget(),
+			want:    "does not match native host",
 		},
 	}
 
@@ -166,6 +189,106 @@ func TestSetupActionRejectsUnsafeOrUnverifiedInputs(t *testing.T) {
 			result := runInstaller(t, args...)
 			if result.err == nil || !strings.Contains(result.output, tt.want) {
 				t.Fatalf("error = %v, output = %q, want failure containing %q", result.err, result.output, tt.want)
+			}
+			assertNotExposed(t, root, output, pathOutput)
+		})
+	}
+}
+
+func TestSetupActionDownloadsVerifiedArchiveAndRunsOffline(t *testing.T) {
+	requireSupportedHost(t)
+	releaseDir := makeRelease(t, nil)
+	server := httptest.NewServer(http.StripPrefix("/"+testVersion+"/", http.FileServer(http.Dir(releaseDir))))
+
+	root := filepath.Join(t.TempDir(), "downloaded installation with spaces")
+	output := filepath.Join(t.TempDir(), "github-output")
+	pathOutput := filepath.Join(t.TempDir(), "github-path")
+	result := runInstaller(t, "-Version", testVersion, "-InstallRoot", root,
+		"-DownloadBaseUrl", server.URL, "-DownloadAttempts", "1",
+		"-OutputFile", output, "-PathFile", pathOutput)
+	server.Close()
+	if result.err != nil {
+		t.Fatalf("network installer failed: %v\n%s", result.err, result.output)
+	}
+	values := readEnvironmentFile(t, output)
+	if got := strings.TrimSpace(runCommand(t, values["binary-path"], "--version")); got != "playtestr "+testVersion {
+		t.Fatalf("offline installed version = %q", got)
+	}
+}
+
+func TestSetupActionRejectsPartialAndOversizedDownloads(t *testing.T) {
+	requireSupportedHost(t)
+	tests := []struct {
+		name    string
+		handler http.HandlerFunc
+		want    string
+	}{
+		{
+			name: "partial response",
+			handler: func(w http.ResponseWriter, r *http.Request) {
+				hijacker, ok := w.(http.Hijacker)
+				if !ok {
+					t.Error("HTTP server does not support hijacking")
+					return
+				}
+				connection, buffer, err := hijacker.Hijack()
+				if err != nil {
+					t.Error(err)
+					return
+				}
+				_, _ = buffer.WriteString("HTTP/1.1 200 OK\r\nContent-Length: 1024\r\n\r\npartial")
+				_ = buffer.Flush()
+				_ = connection.Close()
+			},
+			want: "failed after 1 attempts",
+		},
+		{
+			name: "oversized response",
+			handler: func(w http.ResponseWriter, r *http.Request) {
+				w.Header().Set("Content-Length", fmt.Sprint(64*1024*1024+1))
+				w.WriteHeader(http.StatusOK)
+			},
+			want: "download exceeds",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			server := httptest.NewServer(tt.handler)
+			defer server.Close()
+			root := filepath.Join(t.TempDir(), "failed network install")
+			output := filepath.Join(t.TempDir(), "github-output")
+			pathOutput := filepath.Join(t.TempDir(), "github-path")
+			result := runInstaller(t, "-Version", testVersion, "-InstallRoot", root,
+				"-DownloadBaseUrl", server.URL, "-DownloadAttempts", "1",
+				"-OutputFile", output, "-PathFile", pathOutput)
+			if result.err == nil || !strings.Contains(result.output, tt.want) {
+				t.Fatalf("error = %v, output = %q, want failure containing %q", result.err, result.output, tt.want)
+			}
+			assertNotExposed(t, root, output, pathOutput)
+		})
+	}
+}
+
+func TestSetupActionRollsBackFailedOutputPublication(t *testing.T) {
+	requireSupportedHost(t)
+	releaseDir := makeRelease(t, nil)
+	for _, blocked := range []string{"output", "path"} {
+		t.Run(blocked, func(t *testing.T) {
+			root := filepath.Join(t.TempDir(), "rolled back install")
+			output := filepath.Join(t.TempDir(), "github-output")
+			pathOutput := filepath.Join(t.TempDir(), "github-path")
+			blockedPath := output
+			if blocked == "path" {
+				blockedPath = pathOutput
+			}
+			if err := os.Mkdir(blockedPath, 0755); err != nil {
+				t.Fatal(err)
+			}
+			result := runInstaller(t, "-Version", testVersion, "-InstallRoot", root,
+				"-DownloadDirectory", releaseDir, "-OutputFile", output, "-PathFile", pathOutput)
+			if result.err == nil {
+				t.Fatal("blocked action output destination was accepted")
 			}
 			assertNotExposed(t, root, output, pathOutput)
 		})
@@ -236,8 +359,6 @@ func powerShell(t *testing.T) (string, []string) {
 
 func makeRelease(t *testing.T, extra map[string][]byte) string {
 	t.Helper()
-	directory := t.TempDir()
-	binary := releaseBinary(t)
 	base := releaseBaseName()
 	files := map[string][]byte{}
 	for _, name := range []string{"LICENSE", "README.md", "THIRD_PARTY_NOTICES.md"} {
@@ -247,10 +368,26 @@ func makeRelease(t *testing.T, extra map[string][]byte) string {
 	if runtime.GOOS == "windows" {
 		binaryName += ".exe"
 	}
-	files[base+"/"+binaryName] = binary
+	files[base+"/"+binaryName] = releaseBinary(t)
 	for name, data := range extra {
 		files[name] = data
 	}
+	return writeRelease(t, files)
+}
+
+func makeReleaseWithoutExecutable(t *testing.T) string {
+	t.Helper()
+	base := releaseBaseName()
+	files := map[string][]byte{}
+	for _, name := range []string{"LICENSE", "README.md", "THIRD_PARTY_NOTICES.md"} {
+		files[base+"/"+name] = []byte(name + "\n")
+	}
+	return writeRelease(t, files)
+}
+
+func writeRelease(t *testing.T, files map[string][]byte) string {
+	t.Helper()
+	directory := t.TempDir()
 	archivePath := filepath.Join(directory, releaseArchiveName())
 	if runtime.GOOS == "windows" {
 		writeZip(t, archivePath, files)
@@ -259,6 +396,13 @@ func makeRelease(t *testing.T, extra map[string][]byte) string {
 	}
 	writeChecksum(t, archivePath)
 	return directory
+}
+
+func wrongNativeTarget() []string {
+	if runtime.GOOS == "windows" {
+		return []string{"-TargetOS", "linux", "-TargetArch", "amd64"}
+	}
+	return []string{"-TargetOS", "windows", "-TargetArch", "amd64"}
 }
 
 func releaseBinary(t *testing.T) []byte {

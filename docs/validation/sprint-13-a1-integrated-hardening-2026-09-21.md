@@ -1,9 +1,12 @@
 # Sprint 13-A1 integrated hardening evidence — 21 September 2026
 
-Status: local Windows gate passed; the exact-commit Windows amd64, Linux amd64,
-and macOS arm64 result is gated on the post-push `Native gap checks` run. A
-configured matrix is not native evidence. Completion requires all three
-`integrated-hardening-*` artifacts from one successful run of the final commit.
+Status: complete on Windows amd64, Linux amd64, and macOS arm64 at commit
+`1a098bd32f1a0e819d6ccb8e1731ed7656f80f56`. The successful
+[`Native gap checks` run `35571028383`](https://github.com/Wyrcan-io/playtestr/actions/runs/35571028383)
+uploaded all three `integrated-hardening-*` artifacts. The matching
+[`Terminal tests` run `35571028547`](https://github.com/Wyrcan-io/playtestr/actions/runs/35571028547)
+and [`Website` run `35571028376`](https://github.com/Wyrcan-io/playtestr/actions/runs/35571028376)
+also passed.
 
 ## Boundary
 
@@ -79,3 +82,10 @@ could have been misclassified as successful campaign detection. The failed
 artifacts are retained. The repair builds both native targets and adds positive
 machine checks for mixed-contract identity, workspace preparation/cleanup, the
 exact negative category and evidence, and recovery without stale references.
+
+The final artifacts record clean source, Go `1.25.0`, and 15 passing command
+rows on every host. Linux ran Ubuntu `24.04.5` amd64 with `/usr/bin/cc`; macOS
+ran `15.7.9` arm64 with `/usr/bin/cc`; Windows ran build `10.0.26100` amd64 with
+`C:\mingw64\bin\gcc.exe`. Every host completed the race row as `passed`, not
+blocked, and every focused group reported zero unexpected skips and zero
+missing required tests.

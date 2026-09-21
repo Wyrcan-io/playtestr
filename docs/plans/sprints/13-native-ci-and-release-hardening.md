@@ -1,9 +1,9 @@
 # Sprint 13: trust the installed runner and its evidence
 
-Status: 13-A0 completed on Windows amd64, Linux amd64 and macOS arm64. The A1
-integrated harness is locally green on Windows and awaits the exact-commit
-three-host workflow gate; see the
-[A1 evidence record](../../validation/sprint-13-a1-integrated-hardening-2026-09-21.md).
+Status: 13-A0/A1 completed on Windows amd64, Linux amd64 and macOS arm64. The B
+setup-action expansion is locally green on Windows and awaits its exact-commit
+three-host workflow gate; see the [A1 evidence record](../../validation/sprint-13-a1-integrated-hardening-2026-09-21.md)
+and [B record](../../validation/sprint-13-b-setup-action-2026-09-21.md).
 Owner: Playtestr maintainer/release owner. Integrated A1/B/C follow corpus
 discovery and any selected 10/12/6 implementation. [Root roadmap](../../../roadmap.md)
 owns sequence. Finish existing engineering boundaries before adding features.

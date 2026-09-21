@@ -32,41 +32,85 @@ $checksumLimit = 4KB
 $expandedFileLimit = 128MB
 $expectedDocumentNames = @('LICENSE', 'README.md', 'THIRD_PARTY_NOTICES.md')
 
-function Write-EnvironmentLine {
-    param([string] $File, [string] $Line)
-    if ([string]::IsNullOrWhiteSpace($File)) {
-        return
-    }
+function Publish-ActionEnvironment {
+    param(
+        [string] $OutputFile,
+        [string[]] $OutputLines,
+        [string] $PathFile,
+        [string] $PathLine
+    )
+
     $encoding = New-Object System.Text.UTF8Encoding($false)
-    [System.IO.File]::AppendAllText($File, $Line + [Environment]::NewLine, $encoding)
+    $files = @($OutputFile, $PathFile) | Where-Object { -not [string]::IsNullOrWhiteSpace($_) } | Select-Object -Unique
+    $states = @()
+    foreach ($file in $files) {
+        $existed = Test-Path -LiteralPath $file
+        [long] $length = 0
+        if ($existed) {
+            $item = Get-Item -LiteralPath $file
+            if ($item.PSIsContainer) {
+                throw "action environment destination is not a file: $file"
+            }
+            $length = $item.Length
+        }
+        $states += @{ Path = $file; Existed = $existed; Length = $length }
+    }
+
+    try {
+        if (-not [string]::IsNullOrWhiteSpace($OutputFile)) {
+            $text = ($OutputLines -join [Environment]::NewLine) + [Environment]::NewLine
+            [System.IO.File]::AppendAllText($OutputFile, $text, $encoding)
+        }
+        if (-not [string]::IsNullOrWhiteSpace($PathFile)) {
+            [System.IO.File]::AppendAllText($PathFile, $PathLine + [Environment]::NewLine, $encoding)
+        }
+    } catch {
+        $publishError = $_
+        foreach ($state in $states) {
+            try {
+                if ($state.Existed) {
+                    $stream = [System.IO.File]::Open($state.Path, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Write, [System.IO.FileShare]::Read)
+                    try { $stream.SetLength($state.Length) } finally { $stream.Dispose() }
+                } else {
+                    Remove-Item -LiteralPath $state.Path -Force -ErrorAction SilentlyContinue
+                }
+            } catch {
+                Write-Warning "could not roll back action environment file $($state.Path): $_"
+            }
+        }
+        throw "publish action environment failed: $publishError"
+    }
 }
 
 function Get-NativeTarget {
     param([string] $RequestedOS, [string] $RequestedArch)
 
-    if ([string]::IsNullOrEmpty($RequestedOS)) {
-        if ([Environment]::OSVersion.Platform -eq [PlatformID]::Win32NT) {
-            $RequestedOS = 'windows'
-        } elseif ($IsMacOS) {
-            $RequestedOS = 'darwin'
-        } elseif ($IsLinux) {
-            $RequestedOS = 'linux'
-        } else {
-            throw "unsupported operating system: $([Environment]::OSVersion.Platform)"
-        }
+    $nativeOS = if ([Environment]::OSVersion.Platform -eq [PlatformID]::Win32NT) {
+        'windows'
+    } elseif ($IsMacOS) {
+        'darwin'
+    } elseif ($IsLinux) {
+        'linux'
+    } else {
+        throw "unsupported operating system: $([Environment]::OSVersion.Platform)"
     }
-    if ([string]::IsNullOrEmpty($RequestedArch)) {
-        $RequestedArch = switch ([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture.ToString()) {
-            'X64' { 'amd64' }
-            'Arm64' { 'arm64' }
-            default { throw "unsupported architecture: $([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)" }
-        }
+    $nativeArch = switch ([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture.ToString()) {
+        'X64' { 'amd64' }
+        'Arm64' { 'arm64' }
+        default { throw "unsupported architecture: $([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)" }
     }
+
+    if ([string]::IsNullOrEmpty($RequestedOS)) { $RequestedOS = $nativeOS }
+    if ([string]::IsNullOrEmpty($RequestedArch)) { $RequestedArch = $nativeArch }
 
     $supported = @('linux/amd64', 'darwin/arm64', 'windows/amd64')
     $target = "$RequestedOS/$RequestedArch"
     if ($supported -notcontains $target) {
         throw "unsupported Playtestr release target $target; supported targets: $($supported -join ', ')"
+    }
+    $nativeTarget = "$nativeOS/$nativeArch"
+    if ($target -ne $nativeTarget) {
+        throw "requested Playtestr target $target does not match native host $nativeTarget"
     }
     return @{ OS = $RequestedOS; Arch = $RequestedArch }
 }
@@ -235,6 +279,8 @@ $downloadRoot = Join-Path $workRoot 'download'
 $extractRoot = Join-Path $workRoot 'extract'
 [System.IO.Directory]::CreateDirectory($downloadRoot) | Out-Null
 [System.IO.Directory]::CreateDirectory($extractRoot) | Out-Null
+$installDirectory = $null
+$published = $false
 
 try {
     $archivePath = Join-Path $downloadRoot $archiveName
@@ -266,6 +312,7 @@ try {
     if ($LASTEXITCODE -ne 0 -or $reportedVersion -ne "playtestr $Version") {
         throw "downloaded binary reported '$reportedVersion', expected 'playtestr $Version'"
     }
+    $stagedBinaryHash = (Get-FileHash -LiteralPath $stagedBinary -Algorithm SHA256).Hash.ToLowerInvariant()
 
     $installDirectory = Join-Path $InstallRoot ("$baseName-" + [Guid]::NewGuid().ToString('N'))
     Move-Item -LiteralPath $stagedDirectory -Destination $installDirectory
@@ -275,13 +322,25 @@ try {
         Remove-Item -LiteralPath $installDirectory -Recurse -Force -ErrorAction SilentlyContinue
         throw "installed binary failed its absolute-path version check"
     }
+    $installedBinaryHash = (Get-FileHash -LiteralPath $binaryPath -Algorithm SHA256).Hash.ToLowerInvariant()
+    if ($installedBinaryHash -ne $stagedBinaryHash) {
+        Remove-Item -LiteralPath $installDirectory -Recurse -Force -ErrorAction SilentlyContinue
+        throw "installed binary hash changed after verified extraction"
+    }
 
-    Write-EnvironmentLine -File $OutputFile -Line "version=$Version"
-    Write-EnvironmentLine -File $OutputFile -Line "binary-path=$binaryPath"
-    Write-EnvironmentLine -File $OutputFile -Line "install-dir=$installDirectory"
-    Write-EnvironmentLine -File $OutputFile -Line "archive-sha256=$archiveHash"
-    Write-EnvironmentLine -File $PathFile -Line $installDirectory
+    $outputLines = @(
+        "version=$Version",
+        "binary-path=$binaryPath",
+        "install-dir=$installDirectory",
+        "archive-sha256=$archiveHash",
+        "binary-sha256=$installedBinaryHash"
+    )
+    Publish-ActionEnvironment -OutputFile $OutputFile -OutputLines $outputLines -PathFile $PathFile -PathLine $installDirectory
+    $published = $true
     Write-Host "Installed and verified Playtestr $Version at $binaryPath"
 } finally {
+    if (-not $published -and $installDirectory) {
+        Remove-Item -LiteralPath $installDirectory -Recurse -Force -ErrorAction SilentlyContinue
+    }
     Remove-Item -LiteralPath $workRoot -Recurse -Force -ErrorAction SilentlyContinue
 }

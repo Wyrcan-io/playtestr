@@ -20,6 +20,9 @@ outputs:
   archive-sha256:
     description: Verified SHA-256 digest of the installed release archive.
     value: ${{ steps.install.outputs.archive-sha256 }}
+  binary-sha256:
+    description: SHA-256 digest of the installed Playtestr executable.
+    value: ${{ steps.install.outputs.binary-sha256 }}
 
 runs:
   using: composite

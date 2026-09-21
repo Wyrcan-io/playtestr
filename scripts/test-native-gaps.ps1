@@ -35,7 +35,10 @@ $cases = @(
         Required = @(
             'TestSetupActionInstallsVerifiedBinaryAndOverridesStalePath',
             'TestSetupActionRejectsUnsafeOrUnverifiedInputs',
-            'TestSetupActionBoundsNetworkTimeout'
+            'TestSetupActionBoundsNetworkTimeout',
+            'TestSetupActionDownloadsVerifiedArchiveAndRunsOffline',
+            'TestSetupActionRejectsPartialAndOversizedDownloads',
+            'TestSetupActionRollsBackFailedOutputPublication'
         )
         AllowedSkips = @()
     },

@@ -16,6 +16,7 @@ $commandEvidenceRoot = if ([IO.Path]::IsPathRooted($EvidenceDirectory)) {
     $EvidenceDirectory
 }
 [IO.Directory]::CreateDirectory($evidenceRoot) | Out-Null
+$env:GOCACHE = Join-Path $projectRoot '.cache'
 
 $targetOS = (& go env GOOS).Trim()
 $targetArch = (& go env GOARCH).Trim()
@@ -141,7 +142,6 @@ if ($targetOS -eq 'windows') {
 
 if ($raceCompiler) {
     $env:CGO_ENABLED = '1'
-    $env:GOCACHE = Join-Path $projectRoot '.cache'
     Invoke-EvidenceCommand -Name 'race' -File 'go' -Arguments @('test', '-race', '-count=1', './...') `
         -ExpectedResult 'Every package passes with the race detector.'
 } else {

@@ -21,6 +21,7 @@ Updated 19 September 2026. The [root roadmap](../../roadmap.md) fixes order; thi
 | D13 | Defer Sprint 10 without a qualifying pilot blocker | All five admitted pilots complete their intended current flows; BT-06 redraw passes and no reduced application case demonstrates wrong terminal cells/protocol behavior. Reopen only with the evidence in the Sprint 10 decision record. |
 | D14 | Defer both Sprint 12-B extension candidates | No two admitted workflows share a missing input family or unavoidable dynamic-text blocker after fixture/state control. Keep strict formats unchanged; reopen only with two named reduced failures. |
 | D15 | Defer the Sprint 6 reproduction manifest | A clean-directory `GUM-01` failure, corrected pass and missing-target control were fully classified from ordinary pinned inputs and existing evidence. Add software only after a repeated safe context omission survives the written handoff. |
+| D16 | Setup action reports both archive and executable SHA-256 and rejects non-native target overrides | The immutable action identity and selected runner release remain independent. Successful outputs are transactionally published only after native mapping, extraction, version and staged/final executable identity checks all pass; a publication failure rolls back the fresh install and output files. |
 
 ## Decisions to make at explicit checkpoints
 

@@ -46,7 +46,7 @@ Exact hashes and run links belong to the cited records. Local tags corroborate i
 | 10 | One evidence-selected terminal compatibility improvement | **Deferred at evidence gate**; [decision](docs/validation/sprint-10-decision-2026-09-21.md), [plan](docs/plans/sprints/10-terminal-compatibility.md) | Reopen only for a reduced real-app terminal blocker; no universal Unicode promise |
 | 11 | Deep real-project validation corpus | **A0/A1 complete; B/C planned**; [checkpoint](corpus/README.md), [plan](docs/plans/sprints/11-real-project-corpus.md) | Five pilots, 120 admitted workflows, 300 risk cases, 15 defect controls and 3,000 frozen-byte repeats |
 | 12 | Easier first-test authoring | **A complete; B deferred at its evidence gate**; [A record](docs/validation/sprint-12-a-authoring-2026-09-21.md), [B decision](docs/validation/sprint-12-b-decision-2026-09-21.md) | Reopen B only for two reduced workflow failures with the same missing input/assertion family |
-| 13 | Native evidence, integrated hardening and fair comparison | **A0 complete; A1 final native run pending**; [A0](docs/validation/sprint-13-a0-native-gaps-2026-09-20.md), [A1 record](docs/validation/sprint-13-a1-integrated-hardening-2026-09-21.md), [plan](docs/plans/sprints/13-native-ci-and-release-hardening.md) | Complete the exact-commit three-host A1 run, then setup-action engineering and bounded comparison |
+| 13 | Native evidence, integrated hardening and fair comparison | **A0/A1 complete; B final native run pending**; [A0](docs/validation/sprint-13-a0-native-gaps-2026-09-20.md), [A1](docs/validation/sprint-13-a1-integrated-hardening-2026-09-21.md), [B record](docs/validation/sprint-13-b-setup-action-2026-09-21.md), [plan](docs/plans/sprints/13-native-ci-and-release-hardening.md) | Complete setup-action native source evidence, then bounded comparison and adversarial checks |
 | 14 | Reproducible demos and release kit | **Planned**; [plan](docs/plans/sprints/14-demos-and-release-kit.md) | Three real stories, accessible watch-to-run path, final frozen-byte captures and accurate release materials |
 
 Sprint numbers are durable identifiers, not chronology: 7 shipped before 6, and 11 discovery precedes 10 selection. Do not rebuild implemented suites, HTML reports, the setup action or report-v2 rendering.
@@ -110,9 +110,9 @@ Sprint 14 may draft stories earlier, but final captures use the qualified behavi
 ## Immediate next implementation task
 
 Sprint 12 is complete and Sprint 6's ordinary handoff proved sufficient, so its
-optional manifest remains deferred. The Sprint 13-A1 integrated harness is
-locally green on Windows; finish its exact-commit three-host workflow gate, then
-continue with **Sprint 13-B/C setup-action engineering and bounded comparison**.
+optional manifest remains deferred. Sprint 13-A1 is complete on the exact
+three-host commit. Finish the Sprint 13-B setup-action exact-commit native gate,
+then continue with **Sprint 13-C bounded comparison and adversarial checks**.
 The 13-A0
 [native-evidence table](docs/validation/sprint-13-a0-native-gaps-2026-09-20.md)
 remains the starting three-host source evidence. Do not run the 3,000-repeat
