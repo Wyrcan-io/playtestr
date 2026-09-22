@@ -37,7 +37,7 @@ case "$tool" in
       "$tool_dir/tui-test" "${common[@]}" expect text "Select record" --timeout 5000 || status=$?
     fi
     if [[ $status -eq 0 ]]; then
-      "$tool_dir/tui-test" "${common[@]}" key press ArrowDown || status=$?
+      "$tool_dir/tui-test" "${common[@]}" key press Down || status=$?
     fi
     if [[ $status -eq 0 ]]; then
       "$tool_dir/tui-test" "${common[@]}" expect text "> Beta" --timeout 5000 || status=$?

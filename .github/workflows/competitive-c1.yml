@@ -47,6 +47,13 @@ jobs:
         uses: actions/upload-artifact@v6
         with:
           name: competitive-c1-linux-amd64
-          path: artifacts/competitive
+          path: |
+            artifacts/competitive/c1-attempts.jsonl
+            artifacts/competitive/c1-controls.jsonl
+            artifacts/competitive/install.jsonl
+            artifacts/competitive/versions.txt
+            artifacts/competitive/logs
+            artifacts/competitive/oracles
+            artifacts/competitive/evidence
           if-no-files-found: error
           retention-days: 30
