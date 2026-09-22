@@ -15,3 +15,9 @@ Frozen tool pins for the first admission are Playtestr at the tested repository
 commit, Atago v0.23.0, Microsoft tui-test 0.1.0-beta.5, and Termlens 0.11.2.
 The host is GitHub's Ubuntu 24.04 amd64 image. Documentation was retrieved from
 the matching project tags on 22 September 2026.
+
+The Microsoft CLI's `expect exit-code` applies to submitted shell commands and
+does not expose the exit code of a direct `run` program. Its adapter therefore
+uses `/bin/sh` to run the same target and print `TARGET_EXIT:<code>` before
+returning that code; the test asserts the marker and `wait exit`. This extra
+command and authored glue remain part of that tool's measured surface.

@@ -32,7 +32,9 @@ case "$tool" in
     common=(--session "$session" --failure-artifacts "$evidence_dir")
     status=0
     "$tool_dir/tui-test" "${common[@]}" run --restart --cols 60 --rows 12 \
-      --env "C1_RESULT_PATH=$result_path" "$selector" || status=$?
+      --env "C1_RESULT_PATH=$result_path" /bin/sh -c \
+      '"$1"; status=$?; printf "\nTARGET_EXIT:%s\n" "$status"; exit "$status"' \
+      c1-exit-shim "$selector" || status=$?
     if [[ $status -eq 0 ]]; then
       "$tool_dir/tui-test" "${common[@]}" expect text "Select record" --timeout 5000 || status=$?
     fi
@@ -49,10 +51,10 @@ case "$tool" in
       "$tool_dir/tui-test" "${common[@]}" expect text "Selected: Beta" --timeout 5000 || status=$?
     fi
     if [[ $status -eq 0 ]]; then
-      "$tool_dir/tui-test" "${common[@]}" wait exit --timeout 5000 || status=$?
+      "$tool_dir/tui-test" "${common[@]}" expect text "TARGET_EXIT:0" --timeout 5000 || status=$?
     fi
     if [[ $status -eq 0 ]]; then
-      "$tool_dir/tui-test" "${common[@]}" expect exit-code 0 --timeout 5000 || status=$?
+      "$tool_dir/tui-test" "${common[@]}" wait exit --timeout 5000 || status=$?
     fi
     "$tool_dir/tui-test" --session "$session" close >/dev/null 2>&1 || true
     exit "$status"
