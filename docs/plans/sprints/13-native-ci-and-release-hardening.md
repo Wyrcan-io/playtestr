@@ -1,8 +1,8 @@
 # Sprint 13: trust the installed runner and its evidence
 
-Status: 13-A0/A1 completed on Windows amd64, Linux amd64 and macOS arm64. The B
-setup-action expansion is locally green on Windows and awaits its exact-commit
-three-host workflow gate; see the [A1 evidence record](../../validation/sprint-13-a1-integrated-hardening-2026-09-21.md)
+Status: 13-A0/A1 and B completed on Windows amd64, Linux amd64 and macOS arm64.
+The setup-action expansion passed its exact-commit three-host workflow gate;
+see the [A1 evidence record](../../validation/sprint-13-a1-integrated-hardening-2026-09-21.md)
 and [B record](../../validation/sprint-13-b-setup-action-2026-09-21.md).
 Owner: Playtestr maintainer/release owner. Integrated A1/B/C follow corpus
 discovery and any selected 10/12/6 implementation. [Root roadmap](../../../roadmap.md)
@@ -69,8 +69,8 @@ All source/native correctness gates required for advertised support close before
 
 ## Exit
 
-- [ ] Three native hosts, current contracts and correct report evidence verified.
-- [ ] Action source validated; public revision and later-release gates clearly separated.
+- [x] Three native hosts, current contracts and correct report evidence verified.
+- [x] Action source validated; public revision and later-release gates clearly separated.
 - [ ] Fair task comparison and cost measurements recorded with limitations.
 - [ ] Relevant success/failure/timeout/cancel/cleanup/security-boundary cases pass.
 - [ ] Frozen candidate checklist and remaining blockers handed to R6.

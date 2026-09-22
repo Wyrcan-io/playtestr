@@ -1,8 +1,8 @@
 # Sprint 13-B setup-action engineering — 21 September 2026
 
-Status: locally verified on Windows amd64; the final exact-commit three-host
-source-action run is pending. No tag, release, Marketplace listing, or immutable
-public action revision was created.
+Status: completed for source-action engineering on Windows amd64, Linux amd64,
+and macOS arm64. No tag, release, Marketplace listing, or immutable public
+action revision was created.
 
 ## User-visible result
 
@@ -65,9 +65,21 @@ rerun passed all packages without changing product limits.
 
 ## Native and publication gate
 
-The final commit must produce six required installer test passes, zero
-unexpected skips, and successful integrated rows on Windows amd64, Linux amd64,
-and macOS arm64. The handoff records that run and its three artifact names.
+Commit `9674b75725e26d68897a825fafb8657bc3047e43` produced six required installer
+test passes, zero missing required tests, zero unexpected skips, and all 15
+integrated rows passed on Windows amd64, Linux amd64, and macOS arm64. The
+platform-applicable workspace rows passed 13 tests on Windows and 11 on each
+Unix host; report v2 passed 9 and lifecycle cleanup passed 14 on every host.
+The evidence artifacts are `integrated-hardening-windows-amd64`,
+`integrated-hardening-linux-amd64`, and
+`integrated-hardening-darwin-arm64` from [Native gap checks run
+35573692914](https://github.com/Wyrcan-io/playtestr/actions/runs/35573692914).
+[Terminal tests run
+35573692997](https://github.com/Wyrcan-io/playtestr/actions/runs/35573692997)
+and [Website run
+35573693039](https://github.com/Wyrcan-io/playtestr/actions/runs/35573693039)
+also passed for the same exact commit.
+
 Preparing source and hashes is not evidence for an immutable public action
 reference. Public action verification remains after explicit publication
 approval in R6-P/V, and no successful upgrade claim is made without two actual
