@@ -26,6 +26,7 @@ case "$task" in
     spec_playtestr="$root/benchmarks/competitive/c3/playtestr.json"
     spec_atago="$root/benchmarks/competitive/c3/atago.atago.yaml"
     rust_test=c3_resize_redraw
+    export C3_RESIZE_BIN="$target"
     ;;
   *)
     echo "unsupported task: $task" >&2
@@ -80,9 +81,6 @@ case "$tool" in
     "$tool_dir/tui-test" --session "$session" close >/dev/null 2>&1 || true
     ;;
   termlens)
-    if [[ "$task" == C3 ]]; then
-      export C3_RESIZE_BIN="$target"
-    fi
     CARGO_TARGET_DIR="$root/artifacts/competitive/cargo-target" \
       cargo +1.85.0 test --offline --locked \
       --manifest-path "$root/benchmarks/competitive/c1/termlens/Cargo.toml" \
