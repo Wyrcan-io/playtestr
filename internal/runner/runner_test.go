@@ -200,6 +200,77 @@ func TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput(t *testing.T)
 	}
 }
 
+func TestSecretCanaryPersistenceBoundary(t *testing.T) {
+	writeSpec := func(t *testing.T, mode string, environment map[string]string, steps []Step) string {
+		t.Helper()
+		spec := Spec{
+			Version: SpecVersion, Name: mode,
+			Command: []string{os.Args[0], "-test.run=TestHelperProcess", "--", mode},
+			Env:     environment, Width: 40, Height: 8, TimeoutMS: 100,
+			RunTimeoutMS: 2000, MaxOutputBytes: 100000, Steps: steps,
+		}
+		data, err := json.Marshal(spec)
+		if err != nil {
+			t.Fatal(err)
+		}
+		path := filepath.Join(t.TempDir(), mode+".json")
+		if err := os.WriteFile(path, data, 0600); err != nil {
+			t.Fatal(err)
+		}
+		return path
+	}
+
+	environmentCanary := "PLAYTESTR-ENV-SECRET-CANARY-7f284a"
+	typedCanary := "PLAYTESTR-TYPED-SECRET-CANARY-1d690c"
+	privatePrefix := filepath.Join(t.TempDir(), "private")
+	var privateLog bytes.Buffer
+	private := RunDetailedContext(context.Background(), writeSpec(t, "private-input", map[string]string{
+		"PLAYTESTR_HELPER_PROCESS": "1",
+		"PLAYTESTR_SECRET":         environmentCanary,
+	}, []Step{{Expect: "private input ready"}, {Text: typedCanary}, {Expect: "input accepted"}, {Expect: "never rendered"}}), RunOptions{ArtifactPrefix: privatePrefix}, &privateLog)
+	if private.Failure == nil || private.Failure.Category != FailureAssertionTimeout {
+		t.Fatalf("private-input result = %+v", private)
+	}
+	privateReport, err := json.Marshal(private)
+	if err != nil {
+		t.Fatal(err)
+	}
+	privateScreen, err := os.ReadFile(privatePrefix + ".actual.txt")
+	if err != nil {
+		t.Fatal(err)
+	}
+	for label, data := range map[string][]byte{"structured result": privateReport, "runner log": privateLog.Bytes(), "screen artifact": privateScreen} {
+		if bytes.Contains(data, []byte(environmentCanary)) || bytes.Contains(data, []byte(typedCanary)) {
+			t.Fatalf("%s retained a non-rendered secret canary: %q", label, data)
+		}
+	}
+
+	emittedCanary := "PT-OUTPUT-CANARY-a236bf"
+	emittedPrefix := filepath.Join(t.TempDir(), "emitted")
+	var emittedLog bytes.Buffer
+	emitted := RunDetailedContext(context.Background(), writeSpec(t, "cwd-env", map[string]string{
+		"PLAYTESTR_HELPER_PROCESS": "1",
+		"PLAYTESTR_SECRET":         emittedCanary,
+	}, []Step{{Expect: "never rendered"}}), RunOptions{ArtifactPrefix: emittedPrefix}, &emittedLog)
+	if emitted.Failure == nil {
+		t.Fatal("target-emitted canary case unexpectedly passed")
+	}
+	emittedReport, err := json.Marshal(emitted)
+	if err != nil {
+		t.Fatal(err)
+	}
+	emittedScreen, err := os.ReadFile(emittedPrefix + ".actual.txt")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if bytes.Contains(emittedReport, []byte(emittedCanary)) || bytes.Contains(emittedLog.Bytes(), []byte(emittedCanary)) {
+		t.Fatalf("structured result or runner log retained target output: result=%s log=%s", emittedReport, emittedLog.Bytes())
+	}
+	if !bytes.Contains(emittedScreen, []byte(emittedCanary)) {
+		t.Fatalf("screen evidence did not preserve target-emitted canary: %q", emittedScreen)
+	}
+}
+
 func TestAuthoringMissingBaselineIsExecutionTimeAndActionable(t *testing.T) {
 	path := writeSnapshotSpec(t, "exit-zero", "missing-authoring.txt")
 	result := RunDetailedContext(context.Background(), path, RunOptions{}, &bytes.Buffer{})
@@ -333,6 +404,18 @@ func TestHelperProcess(t *testing.T) {
 			os.Exit(9)
 		}
 		defer term.Restore(int(os.Stdin.Fd()), old)
+		time.Sleep(10 * time.Second)
+		os.Exit(0)
+	case "private-input":
+		old, err := term.MakeRaw(int(os.Stdin.Fd()))
+		if err != nil {
+			os.Exit(9)
+		}
+		defer term.Restore(int(os.Stdin.Fd()), old)
+		fmt.Print("private input ready\r\n")
+		buffer := make([]byte, 4096)
+		_, _ = os.Stdin.Read(buffer)
+		fmt.Print("input accepted\r\n")
 		time.Sleep(10 * time.Second)
 		os.Exit(0)
 	case "delayed-redraw":
