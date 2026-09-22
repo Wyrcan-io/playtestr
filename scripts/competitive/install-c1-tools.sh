@@ -64,6 +64,12 @@ go build -trimpath -o "$bin_dir/selector-good" ./benchmarks/competitive/c1/selec
 go build -trimpath -tags=competitive_bad \
   -o "$bin_dir/selector-bad" ./benchmarks/competitive/c1/selector
 cp "$bin_dir/selector-good" "$bin_dir/selector"
+go build -trimpath -o "$bin_dir/stateful-good" ./benchmarks/competitive/c2/stateful
+go build -trimpath -tags=competitive_bad -o "$bin_dir/stateful-bad" ./benchmarks/competitive/c2/stateful
+cp "$bin_dir/stateful-good" "$bin_dir/stateful"
+go build -trimpath -o "$bin_dir/resize-good" ./benchmarks/competitive/c3/resize
+go build -trimpath -tags=competitive_bad -o "$bin_dir/resize-bad" ./benchmarks/competitive/c3/resize
+cp "$bin_dir/resize-good" "$bin_dir/resize"
 
 {
   echo "commit=$(git rev-parse HEAD)"
@@ -73,5 +79,7 @@ cp "$bin_dir/selector-good" "$bin_dir/selector"
   "$tool_dir/atago" --version 2>&1 || "$tool_dir/atago" version 2>&1
   "$tool_dir/tui-test" --version 2>&1
   cargo +1.85.0 tree --locked --manifest-path "$root/benchmarks/competitive/c1/termlens/Cargo.toml" -e normal
-  sha256sum "$bin_dir/playtestr" "$bin_dir/selector-good" "$bin_dir/selector-bad" "$tool_dir/atago" "$tool_dir/tui-test"
+  sha256sum "$bin_dir/playtestr" "$bin_dir/selector-good" "$bin_dir/selector-bad" \
+    "$bin_dir/stateful-good" "$bin_dir/stateful-bad" "$bin_dir/resize-good" \
+    "$bin_dir/resize-bad" "$tool_dir/atago" "$tool_dir/tui-test"
 } >"$artifact_root/versions.txt"

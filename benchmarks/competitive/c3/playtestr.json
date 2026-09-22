@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "name": "Competitive C3: resize and dismiss modal",
+  "command": ["./artifacts/competitive/bin/resize"],
+  "width": 60,
+  "height": 12,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 10000,
+  "max_output_bytes": 100000,
+  "steps": [
+    {"expect": "Main screen"},
+    {"text": "?"},
+    {"expect": "Help modal"},
+    {"resize": {"width": 80, "height": 20}},
+    {"expect": "Size: 80x20"},
+    {"key": "Escape"},
+    {"expect_not": "Help modal"},
+    {"expect": "Press ? for help"},
+    {"text": "q"},
+    {"exit": 0}
+  ]
+}

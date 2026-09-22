@@ -1,0 +1,22 @@
+version: "1"
+
+suite:
+  name: Competitive C2 stateful setup
+
+scenarios:
+  - name: correct invalid input and persist port 4242
+    steps:
+      - pty:
+          command: "${env:C2_STATEFUL_BIN}"
+          rows: 12
+          cols: 60
+          timeout: 10s
+          session:
+            - expect_screen: {contains: "Port (1024-65535):"}
+            - send: "invalid\n"
+            - expect_screen: {contains: "Invalid port"}
+            - send: "4242\n"
+            - expect: "Saved port 4242"
+      - assert:
+          exit_code: 0
+          stdout: {contains: "Saved port 4242"}

@@ -1,0 +1,26 @@
+version: "1"
+
+suite:
+  name: Competitive C3 resize and redraw
+
+scenarios:
+  - name: resize an open modal then dismiss to the main screen
+    steps:
+      - pty:
+          command: "${env:C3_RESIZE_BIN}"
+          rows: 12
+          cols: 60
+          timeout: 10s
+          session:
+            - expect_screen: {contains: "Main screen"}
+            - send: "?"
+            - expect_screen: {contains: "Help modal"}
+            - resize: {rows: 20, cols: 80}
+            - expect_screen: {contains: "Size: 80x20", stable_for: 20ms}
+            - send: {key: esc}
+            - expect_screen:
+                contains: "Press ? for help"
+                not_contains: "Help modal"
+                stable_for: 20ms
+            - send: "q"
+      - assert: {exit_code: 0}

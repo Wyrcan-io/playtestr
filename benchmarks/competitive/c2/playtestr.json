@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "name": "Competitive C2: correct invalid config",
+  "command": ["./artifacts/competitive/bin/stateful"],
+  "inherit_env": ["C2_CONFIG_PATH"],
+  "width": 60,
+  "height": 12,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 10000,
+  "max_output_bytes": 100000,
+  "steps": [
+    {"expect": "Port (1024-65535):"},
+    {"text": "invalid"},
+    {"key": "Enter"},
+    {"expect": "Invalid port"},
+    {"text": "4242"},
+    {"key": "Enter"},
+    {"expect": "Saved port 4242"},
+    {"exit": 0}
+  ]
+}

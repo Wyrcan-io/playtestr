@@ -1,10 +1,12 @@
-name: Competitive C1
+name: Competitive tasks
 
 on:
   push:
     branches: [main]
     paths:
       - benchmarks/competitive/c1/**
+      - benchmarks/competitive/c2/**
+      - benchmarks/competitive/c3/**
       - scripts/competitive/**
       - .github/workflows/competitive-c1.yml
       - cmd/playtestr/**
@@ -14,6 +16,8 @@ on:
   pull_request:
     paths:
       - benchmarks/competitive/c1/**
+      - benchmarks/competitive/c2/**
+      - benchmarks/competitive/c3/**
       - scripts/competitive/**
       - .github/workflows/competitive-c1.yml
       - cmd/playtestr/**
@@ -40,8 +44,10 @@ jobs:
           rustup override set 1.85.0
       - name: Install pinned tools and build frozen target
         run: bash scripts/competitive/install-c1-tools.sh
-      - name: Run controls and 30 fresh attempts per tool
-        run: bash scripts/competitive/run-c1-campaign.sh
+      - name: Run controls and 30 fresh attempts per tool and task
+        run: |
+          bash scripts/competitive/run-c1-campaign.sh
+          bash scripts/competitive/run-c23-campaign.sh
       - name: Upload complete comparison evidence
         if: always()
         uses: actions/upload-artifact@v6
@@ -50,6 +56,8 @@ jobs:
           path: |
             artifacts/competitive/c1-attempts.jsonl
             artifacts/competitive/c1-controls.jsonl
+            artifacts/competitive/c23-attempts.jsonl
+            artifacts/competitive/c23-controls.jsonl
             artifacts/competitive/install.jsonl
             artifacts/competitive/versions.txt
             artifacts/competitive/logs
