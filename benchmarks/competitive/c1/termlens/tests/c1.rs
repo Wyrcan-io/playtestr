@@ -1,6 +1,8 @@
 use std::{env, fs, path::PathBuf, time::Duration};
 
 use termlens::{Key, Terminal};
+#[cfg(unix)]
+use termlens::Signal;
 
 #[test]
 fn c1_selection() -> termlens::Result<()> {
@@ -66,5 +68,65 @@ fn c3_resize_redraw() -> termlens::Result<()> {
     })?;
     terminal.send_str("q")?;
     assert!(terminal.wait_exit()?.success());
+    Ok(())
+}
+
+#[cfg(unix)]
+fn adversarial_terminal(mode: &str, pid_path: &PathBuf) -> termlens::Result<Terminal> {
+    let binary = env::var("ADVERSARIAL_BIN").expect("ADVERSARIAL_BIN must name the fixture");
+    Terminal::builder()
+        .size(60, 12)
+        .env_clear()
+        .env("ADVERSARIAL_PID_PATH", pid_path)
+        .arg(mode)
+        .timeout(Duration::from_millis(500))
+        .spawn(binary)
+}
+
+#[cfg(unix)]
+fn assert_process_gone(pid_path: &PathBuf) {
+    let pid = fs::read_to_string(pid_path).expect("read fixture pid");
+    let status = std::process::Command::new("kill")
+        .args(["-0", pid.trim()])
+        .status()
+        .expect("probe fixture pid");
+    assert!(!status.success(), "fixture pid {} survived", pid.trim());
+}
+
+#[test]
+#[cfg(unix)]
+fn adversarial_hang() -> termlens::Result<()> {
+    let pid_path = PathBuf::from(env::var("ADVERSARIAL_PID_PATH").expect("pid path required"));
+    let mut terminal = adversarial_terminal("hang", &pid_path)?;
+    terminal.wait_until(|screen| screen.contains("adversarial ready"))?;
+    assert!(terminal.wait_until(|_| false).is_err());
+    drop(terminal);
+    assert_process_gone(&pid_path);
+    Ok(())
+}
+
+#[test]
+#[cfg(unix)]
+fn adversarial_cancel() -> termlens::Result<()> {
+    let pid_path = PathBuf::from(env::var("ADVERSARIAL_PID_PATH").expect("pid path required"));
+    let mut terminal = adversarial_terminal("hang", &pid_path)?;
+    terminal.wait_until(|screen| screen.contains("adversarial ready"))?;
+    terminal.signal(Signal::Int)?;
+    terminal.wait_until(|screen| screen.contains("cancelled by signal"))?;
+    assert!(!terminal.wait_exit()?.success());
+    drop(terminal);
+    assert_process_gone(&pid_path);
+    Ok(())
+}
+
+#[test]
+#[cfg(unix)]
+fn adversarial_finite_flood() -> termlens::Result<()> {
+    let pid_path = PathBuf::from(env::var("ADVERSARIAL_PID_PATH").expect("pid path required"));
+    let mut terminal = adversarial_terminal("flood", &pid_path)?;
+    terminal.wait_until_for(|screen| screen.contains("flood complete"), Duration::from_secs(10))?;
+    assert!(terminal.wait_exit()?.success());
+    drop(terminal);
+    assert_process_gone(&pid_path);
     Ok(())
 }

@@ -70,6 +70,7 @@ cp "$bin_dir/stateful-good" "$bin_dir/stateful"
 go build -trimpath -o "$bin_dir/resize-good" ./benchmarks/competitive/c3/resize
 go build -trimpath -tags=competitive_bad -o "$bin_dir/resize-bad" ./benchmarks/competitive/c3/resize
 cp "$bin_dir/resize-good" "$bin_dir/resize"
+go build -trimpath -o "$bin_dir/adversarial" ./benchmarks/competitive/adversarial
 
 {
   echo "commit=$(git rev-parse HEAD)"
@@ -81,5 +82,5 @@ cp "$bin_dir/resize-good" "$bin_dir/resize"
   cargo +1.85.0 tree --locked --manifest-path "$root/benchmarks/competitive/c1/termlens/Cargo.toml" -e normal
   sha256sum "$bin_dir/playtestr" "$bin_dir/selector-good" "$bin_dir/selector-bad" \
     "$bin_dir/stateful-good" "$bin_dir/stateful-bad" "$bin_dir/resize-good" \
-    "$bin_dir/resize-bad" "$tool_dir/atago" "$tool_dir/tui-test"
+    "$bin_dir/resize-bad" "$bin_dir/adversarial" "$tool_dir/atago" "$tool_dir/tui-test"
 } >"$artifact_root/versions.txt"

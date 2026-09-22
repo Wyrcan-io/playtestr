@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "name": "Competitive adversarial cancellation",
+  "command": ["./artifacts/competitive/bin/adversarial", "hang"],
+  "inherit_env": ["ADVERSARIAL_PID_PATH"],
+  "run_timeout_ms": 10000,
+  "timeout_ms": 10000,
+  "max_output_bytes": 65536,
+  "steps": [{"expect": "adversarial ready"}, {"expect": "never appears"}]
+}

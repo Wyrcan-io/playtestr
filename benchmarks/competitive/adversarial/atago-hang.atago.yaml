@@ -1,0 +1,12 @@
+version: "1"
+suite: {name: Competitive adversarial hang}
+scenarios:
+  - name: bound a non-exiting target
+    steps:
+      - pty:
+          command: "${env:ADVERSARIAL_BIN} hang"
+          shell: true
+          timeout: 500ms
+          session:
+            - expect: "adversarial ready"
+            - expect: "never appears"

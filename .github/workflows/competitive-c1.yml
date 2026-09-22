@@ -7,6 +7,7 @@ on:
       - benchmarks/competitive/c1/**
       - benchmarks/competitive/c2/**
       - benchmarks/competitive/c3/**
+      - benchmarks/competitive/adversarial/**
       - scripts/competitive/**
       - .github/workflows/competitive-c1.yml
       - cmd/playtestr/**
@@ -18,6 +19,7 @@ on:
       - benchmarks/competitive/c1/**
       - benchmarks/competitive/c2/**
       - benchmarks/competitive/c3/**
+      - benchmarks/competitive/adversarial/**
       - scripts/competitive/**
       - .github/workflows/competitive-c1.yml
       - cmd/playtestr/**
@@ -48,6 +50,7 @@ jobs:
         run: |
           bash scripts/competitive/run-c1-campaign.sh
           bash scripts/competitive/run-c23-campaign.sh
+          bash scripts/competitive/run-adversarial.sh
       - name: Upload complete comparison evidence
         if: always()
         uses: actions/upload-artifact@v6
@@ -58,6 +61,10 @@ jobs:
             artifacts/competitive/c1-controls.jsonl
             artifacts/competitive/c23-attempts.jsonl
             artifacts/competitive/c23-controls.jsonl
+            artifacts/competitive/adversarial.jsonl
+            artifacts/competitive/playtestr-hang.json
+            artifacts/competitive/playtestr-cancel.json
+            artifacts/competitive/playtestr-flood.json
             artifacts/competitive/install.jsonl
             artifacts/competitive/versions.txt
             artifacts/competitive/logs

@@ -1,0 +1,13 @@
+version: "1"
+suite: {name: Competitive adversarial output flood}
+scenarios:
+  - name: drain a four MiB finite flood
+    steps:
+      - pty:
+          command: "${env:ADVERSARIAL_BIN} flood"
+          shell: true
+          timeout: 10s
+          session:
+            - expect: "adversarial ready"
+            - expect: "flood complete"
+      - assert: {exit_code: 0}
