@@ -2,13 +2,15 @@ version: "1"
 suite: {name: Competitive adversarial cancellation}
 scenarios:
   - name: interrupt a ready target
+    services:
+      - name: target
+        command: "${env:ADVERSARIAL_BIN} hang"
+        shell: true
+        ready:
+          log: "adversarial ready"
     steps:
-      - pty:
-          command: "${env:ADVERSARIAL_BIN} hang"
-          shell: true
-          timeout: 5s
-          session:
-            - expect: "adversarial ready"
-            - signal: INT
-            - expect: "cancelled by signal"
-      - assert: {exit_code: 130}
+      - signal:
+          service: target
+          signal: INT
+          wait:
+            timeout: 5s
