@@ -1,0 +1,52 @@
+name: Competitive C1
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - benchmarks/competitive/c1/**
+      - scripts/competitive/**
+      - .github/workflows/competitive-c1.yml
+      - cmd/playtestr/**
+      - internal/**
+      - go.mod
+      - go.sum
+  pull_request:
+    paths:
+      - benchmarks/competitive/c1/**
+      - scripts/competitive/**
+      - .github/workflows/competitive-c1.yml
+      - cmd/playtestr/**
+      - internal/**
+      - go.mod
+      - go.sum
+
+permissions:
+  contents: read
+
+jobs:
+  linux-amd64:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v7
+        with:
+          go-version: 1.26.0
+          cache: false
+      - name: Pin Rust 1.85
+        run: |
+          rustup toolchain install 1.85.0 --profile minimal
+          rustup override set 1.85.0
+      - name: Install pinned tools and build frozen target
+        run: bash scripts/competitive/install-c1-tools.sh
+      - name: Run controls and 30 fresh attempts per tool
+        run: bash scripts/competitive/run-c1-campaign.sh
+      - name: Upload complete comparison evidence
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: competitive-c1-linux-amd64
+          path: artifacts/competitive
+          if-no-files-found: error
+          retention-days: 30

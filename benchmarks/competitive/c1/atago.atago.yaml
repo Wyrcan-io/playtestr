@@ -1,0 +1,25 @@
+version: "1"
+
+suite:
+  name: Competitive C1 selection
+
+scenarios:
+  - name: select Beta and confirm the committed record
+    steps:
+      - pty:
+          command: "${env:C1_SELECTOR_BIN}"
+          rows: 12
+          cols: 60
+          timeout: 10s
+          session:
+            - expect_screen:
+                contains: "Select record"
+            - send: {key: down}
+            - expect_screen:
+                contains: "> Beta"
+            - send: {key: enter}
+            - expect: "Selected: Beta"
+      - assert:
+          exit_code: 0
+          stdout:
+            contains: "Selected: Beta"
