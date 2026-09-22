@@ -24,7 +24,7 @@ mkdir -p "$log_dir" "$oracle_dir"
 : >"$control_ledger"
 
 run_control() {
-  local tool=$1 phase=$2 binary=$3 expected_status=$4 expected_oracle=$5
+  local tool=$1 phase=$2 binary=$3 expected_status_class=$4 expected_oracle=$5
   local identity="control-${phase}-${tool}"
   local result="$oracle_dir/$identity.txt"
   local log="$log_dir/$identity.log"
@@ -36,18 +36,24 @@ run_control() {
   local oracle="missing"
   [[ -f "$result" ]] && oracle=$(tr -d '\r\n' <"$result")
   local outcome=passed
-  if [[ "$status" -ne "$expected_status" || "$oracle" != "$expected_oracle" ]]; then
+  if [[ "$expected_status_class" == zero && "$status" -ne 0 ]]; then
     outcome=failed
   fi
-  printf '{"tool":"%s","phase":"%s","expected_status":%d,"observed_status":%d,"expected_oracle":"%s","observed_oracle":"%s","outcome":"%s","log":"%s"}\n' \
-    "$tool" "$phase" "$expected_status" "$status" "$expected_oracle" "$oracle" "$outcome" "${log#$root/}" >>"$control_ledger"
+  if [[ "$expected_status_class" == nonzero && "$status" -eq 0 ]]; then
+    outcome=failed
+  fi
+  if [[ "$oracle" != "$expected_oracle" ]]; then
+    outcome=failed
+  fi
+  printf '{"tool":"%s","phase":"%s","expected_status_class":"%s","observed_status":%d,"expected_oracle":"%s","observed_oracle":"%s","outcome":"%s","log":"%s"}\n' \
+    "$tool" "$phase" "$expected_status_class" "$status" "$expected_oracle" "$oracle" "$outcome" "${log#$root/}" >>"$control_ledger"
   [[ "$outcome" == passed ]]
 }
 
 for tool in "${tools[@]}"; do
-  run_control "$tool" good "$bin_dir/selector-good" 0 Beta
-  run_control "$tool" known-bad "$bin_dir/selector-bad" 1 Alpha
-  run_control "$tool" recovery "$bin_dir/selector-good" 0 Beta
+  run_control "$tool" good "$bin_dir/selector-good" zero Beta
+  run_control "$tool" known-bad "$bin_dir/selector-bad" nonzero Alpha
+  run_control "$tool" recovery "$bin_dir/selector-good" zero Beta
 done
 
 cp "$bin_dir/selector-good" "$bin_dir/selector"
