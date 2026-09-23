@@ -5,6 +5,10 @@ The root [roadmap](../roadmap.md) is authoritative for completed releases, curre
 Sprint 13-A0 native-gap triage is complete on Windows amd64, Linux amd64 and
 macOS arm64, with individual JSON test events inspected in the
 [evidence record](validation/sprint-13-a0-native-gaps-2026-09-20.md).
+Sprint 13-A1/B then closed integrated native and setup-action source gates, and
+the [Sprint 13-C record](validation/sprint-13-c-competitive-2026-09-22.md)
+records 36/36 controls, 360/360 fresh matched attempts, costs, losses and
+non-equivalent adversarial capabilities without a universal-winner claim.
 Sprint 11 A0/A1 admitted the five pilots and froze the 15-project/120-intent
 contract plus 300-cell risk map. Sprint 10 was then explicitly deferred because
 no pilot supplied its required terminal blocker. Sprint 12-A added three

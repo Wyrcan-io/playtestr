@@ -1,6 +1,10 @@
 # Bounded comparative evaluation
 
-Status: planned, not measured. Owner: maintainer acting as benchmark operator. Entry: Sprint 11 pilots and stable supported behavior. Run in Sprint 13-C; independent preference is measured only in A1. The [research survey](../research/competitive-user-survey-2026-09-19.md) describes capabilities; this protocol tests selected workflows.
+Status: completed on Linux amd64 for the admitted C1-C3 cells; see the
+[dated measurement record](../validation/sprint-13-c-competitive-2026-09-22.md).
+Owner: maintainer acting as benchmark operator. Independent preference remains
+an A1 question. The [research survey](../research/competitive-user-survey-2026-09-19.md)
+describes capabilities; this protocol tested selected workflows.
 
 ## Questions to answer
 

@@ -46,7 +46,7 @@ Exact hashes and run links belong to the cited records. Local tags corroborate i
 | 10 | One evidence-selected terminal compatibility improvement | **Deferred at evidence gate**; [decision](docs/validation/sprint-10-decision-2026-09-21.md), [plan](docs/plans/sprints/10-terminal-compatibility.md) | Reopen only for a reduced real-app terminal blocker; no universal Unicode promise |
 | 11 | Deep real-project validation corpus | **A0/A1 complete; B/C planned**; [checkpoint](corpus/README.md), [plan](docs/plans/sprints/11-real-project-corpus.md) | Five pilots, 120 admitted workflows, 300 risk cases, 15 defect controls and 3,000 frozen-byte repeats |
 | 12 | Easier first-test authoring | **A complete; B deferred at its evidence gate**; [A record](docs/validation/sprint-12-a-authoring-2026-09-21.md), [B decision](docs/validation/sprint-12-b-decision-2026-09-21.md) | Reopen B only for two reduced workflow failures with the same missing input/assertion family |
-| 13 | Native evidence, integrated hardening and fair comparison | **A0/A1 complete; B final native run pending**; [A0](docs/validation/sprint-13-a0-native-gaps-2026-09-20.md), [A1](docs/validation/sprint-13-a1-integrated-hardening-2026-09-21.md), [B record](docs/validation/sprint-13-b-setup-action-2026-09-21.md), [plan](docs/plans/sprints/13-native-ci-and-release-hardening.md) | Complete setup-action native source evidence, then bounded comparison and adversarial checks |
+| 13 | Native evidence, integrated hardening and fair comparison | **A0/A1/B/C complete**; [A0](docs/validation/sprint-13-a0-native-gaps-2026-09-20.md), [A1](docs/validation/sprint-13-a1-integrated-hardening-2026-09-21.md), [B](docs/validation/sprint-13-b-setup-action-2026-09-21.md), [C](docs/validation/sprint-13-c-competitive-2026-09-22.md), [plan](docs/plans/sprints/13-native-ci-and-release-hardening.md) | After 11-B, run 13-D rehearsal and prepare the candidate-freeze handoff |
 | 14 | Reproducible demos and release kit | **Planned**; [plan](docs/plans/sprints/14-demos-and-release-kit.md) | Three real stories, accessible watch-to-run path, final frozen-byte captures and accurate release materials |
 
 Sprint numbers are durable identifiers, not chronology: 7 shipped before 6, and 11 discovery precedes 10 selection. Do not rebuild implemented suites, HTML reports, the setup action or report-v2 rendering.
@@ -77,7 +77,7 @@ The table is a dependency chain. A completed checkpoint produces the stated evid
 | 5 | **12-A: authoring — completed 2026-09-21** | Added three recipes and audited ten concrete diagnostic cases | [Windows engineering evidence](docs/validation/sprint-12-a-authoring-2026-09-21.md): clean pass/bug/recovery, useful validation, measured operator friction |
 | 6 | **12-B: optional extension — deferred 2026-09-21** | No two admitted flows share a missing input or focused-assertion blocker | [Decision](docs/validation/sprint-12-b-decision-2026-09-21.md); strict public formats remain unchanged |
 | 7 | **6: handoff decision — completed/deferred 2026-09-21** | Reproduced `GUM-01` from ordinary pinned inputs; recovery passed and an absent target failed distinctly | [Experiment and decision](docs/validation/sprint-6-handoff-2026-09-21.md); no manifest or replay command added |
-| 8 | **13-B/C: integrated hardening and comparison** | Finish native gaps after changes; verify current reports/action source; run bounded fair comparisons and adversarial checks | Three-host engineering evidence, comparison task results, no open correctness blockers |
+| 8 | **13-B/C: integrated hardening and comparison — completed 2026-09-22** | Verified reports/action source and ran bounded fair comparisons plus adversarial checks | [Three-host hardening](docs/validation/sprint-13-a1-integrated-hardening-2026-09-21.md), [action evidence](docs/validation/sprint-13-b-setup-action-2026-09-21.md), and [comparison results](docs/validation/sprint-13-c-competitive-2026-09-22.md) |
 | 9 | **11-B: application depth** | Complete 120 admitted workflows across 15 projects and the 300 focused-case map; prove 15 known-bad/recovered controls | Full outcomes, postconditions, host exclusions and unchanged reviewed baselines |
 | 10 | **13-D + R6-F: candidate freeze** | Choose candidate version, freeze source/schema/fixtures, build once per host, package and hash executable/archive | Immutable candidate identities available before expensive qualification; not public publication |
 | 11 | **11-C + R6-Q: frozen-byte qualification** | Run the full admitted matrix and 3,000 repeats using those candidate executable hashes | Complete attempt ledger, no unexplained false results/leaks, honest exclusions; execute once and reuse valid evidence by hash |
@@ -110,9 +110,10 @@ Sprint 14 may draft stories earlier, but final captures use the qualified behavi
 ## Immediate next implementation task
 
 Sprint 12 is complete and Sprint 6's ordinary handoff proved sufficient, so its
-optional manifest remains deferred. Sprint 13-A1 is complete on the exact
-three-host commit. Finish the Sprint 13-B setup-action exact-commit native gate,
-then continue with **Sprint 13-C bounded comparison and adversarial checks**.
+optional manifest remains deferred. Sprint 13-A1/B/C are complete with exact
+native, action and Linux matched-comparison records. Continue with **Sprint
+11-B application depth**; after it closes, Sprint 13-D performs the development
+archive rehearsal and hands the source boundary to R6-F.
 The 13-A0
 [native-evidence table](docs/validation/sprint-13-a0-native-gaps-2026-09-20.md)
 remains the starting three-host source evidence. Do not run the 3,000-repeat

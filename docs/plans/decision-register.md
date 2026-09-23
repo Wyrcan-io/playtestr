@@ -22,6 +22,7 @@ Updated 19 September 2026. The [root roadmap](../../roadmap.md) fixes order; thi
 | D14 | Defer both Sprint 12-B extension candidates | No two admitted workflows share a missing input family or unavoidable dynamic-text blocker after fixture/state control. Keep strict formats unchanged; reopen only with two named reduced failures. |
 | D15 | Defer the Sprint 6 reproduction manifest | A clean-directory `GUM-01` failure, corrected pass and missing-target control were fully classified from ordinary pinned inputs and existing evidence. Add software only after a repeated safe context omission survives the written handoff. |
 | D16 | Setup action reports both archive and executable SHA-256 and rejects non-native target overrides | The immutable action identity and selected runner release remain independent. Successful outputs are transactionally published only after native mapping, extraction, version and staged/final executable identity checks all pass; a publication failure rolls back the fresh install and output files. |
+| D17 | Keep the Sprint 13-C comparison factual, task-specific and Linux-only | All four tools detected the three reviewed mutations in 360/360 fresh attempts, while Playtestr was slower on these short tasks. Only Playtestr supplied the exercised raw-output cap; alternatives retain finite-drain labels instead of artificial failures. No universal winner or cross-host claim follows. |
 
 ## Decisions to make at explicit checkpoints
 
@@ -33,7 +34,7 @@ Updated 19 September 2026. The [root roadmap](../../roadmap.md) fixes order; thi
 | Q04 | Which candidate projects cannot meet host/task depth? | Corpus owner, 11-A1 | Exact pinned target attempts; replacement preserves interaction risk and counts |
 | Q05 | What next version and compatible migration? | Release owner, R6-F | Actual public contract delta, old spec/report reader behavior, tag inventory; no number reserved here |
 | Q06 | How to retain reproducible evidence affordably? | Corpus owner, before 11-B | Measured bytes/time, available CI retention, sanitized durable compact ledger; bounded failures/artifacts |
-| Q07 | Is a comparison task fairly supported by all chosen tools? | Benchmark owner, 13-C pilot | Matching docs/pins and real PTY task; unsupported cells visible, not forced or scored as slow failures |
+| Q07 | Is a comparison task fairly supported by all chosen tools? | **Closed 2026-09-22 for C1-C3 on Linux amd64** | [Measurement record](../validation/sprint-13-c-competitive-2026-09-22.md); raw-output limiting and cancellation models remain explicitly non-equivalent |
 | Q08 | Can genuine installer upgrade be shown in this batch? | Release owner, R6-V | Same published immutable action SHA installs existing v0.3.0-rc.1 then new R6 release; otherwise future longitudinal check stays open without invented releases |
 | Q09 | How do strict formats interact with patch-addition wording? | Release owner, before R6-F | SUPPORT.md permits optional patch additions, while readers reject unknown fields; explicitly distinguish new-reader/old-document compatibility from old-reader/new-document compatibility and freeze minimum-version/migration policy |
 
