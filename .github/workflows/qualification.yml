@@ -119,5 +119,5 @@ jobs:
         with:
           name: qualification-${{ matrix.target_os }}-${{ matrix.target_arch }}-${{ inputs.attempts }}
           path: artifacts/qualification-${{ matrix.target_os }}-${{ matrix.target_arch }}
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 14

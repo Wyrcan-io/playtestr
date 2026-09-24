@@ -13,7 +13,8 @@ if [[ "${RUNNER_OS:-}" == "Windows" ]] || [[ "$(go env GOOS)" == "windows" ]]; t
 fi
 
 fetch_commit() {
-  local name="$1" url="$2" commit="$3" destination="$sources/$name"
+  local name="$1" url="$2" commit="$3"
+  local destination="$sources/$name"
   rm -rf -- "$destination"
   git init -q "$destination"
   git -C "$destination" remote add origin "$url"
@@ -23,9 +24,6 @@ fetch_commit() {
 }
 
 GOBIN="$external" go install github.com/charmbracelet/gum@v0.17.0
-if [[ -n "$suffix" ]]; then
-  cp "$external/gum$suffix" "$external/gum"
-fi
 
 fetch_commit lazygit https://github.com/jesseduffield/lazygit.git c07f4d381b90419583b7ce04f87379654d983ebc
 (cd "$sources/lazygit" && go build -trimpath -o "$tools/lazygit-target/lazygit$suffix" ./cmd/lazygit)
@@ -36,15 +34,9 @@ fetch_commit micro https://github.com/zyedidia/micro.git 04c577049ca898f097cd6a2
 fetch_commit bottom https://github.com/ClementTsang/bottom.git e22236a928eeb876b2ccaad2f3d1ce5f6450281a
 (cd "$sources/bottom" && cargo build --release --locked)
 cp "$sources/bottom/target/release/btm$suffix" "$tools/bottom-original/btm$suffix"
-if [[ -n "$suffix" ]]; then
-  cp "$tools/bottom-original/btm$suffix" "$tools/bottom-original/btm"
-fi
 
 for oracle in lazygit micro create-vite; do
   (cd "$root/corpus/controls/$oracle-oracle" && go build -trimpath -o "$tools/$oracle-oracle$suffix" .)
-  if [[ -n "$suffix" ]]; then
-    cp "$tools/$oracle-oracle$suffix" "$tools/$oracle-oracle"
-  fi
 done
 
 runtime="$tools/create-vite-runtime"
