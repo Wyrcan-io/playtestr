@@ -128,6 +128,15 @@ type boundaryMap struct {
 	} `json:"projects"`
 }
 
+type qualificationPlan struct {
+	SchemaVersion int      `json:"schema_version"`
+	Attempts      int      `json:"attempts_per_workflow_host"`
+	Hosts         []string `json:"hosts"`
+	Workflows     []struct {
+		ID, Project, Spec, Class string
+	} `json:"workflows"`
+}
+
 func TestCorpusContract(t *testing.T) {
 	root := repositoryRoot(t)
 	var got manifest
@@ -288,6 +297,40 @@ func TestTwoReviewedBoundaryWorkflowsPerProject(t *testing.T) {
 				t.Errorf("boundary workflow %s has no implemented spec", workflow.ID)
 			}
 		}
+	}
+}
+
+func TestQualificationPlanDimensionsAndInputs(t *testing.T) {
+	root := repositoryRoot(t)
+	var got qualificationPlan
+	readJSON(t, filepath.Join(root, "release", "qualification-plan.json"), &got)
+	if got.SchemaVersion != 1 || got.Attempts != 100 || len(got.Hosts) != 3 || len(got.Workflows) != 10 {
+		t.Fatalf("qualification dimensions = version %d, attempts %d, hosts %d, workflows %d", got.SchemaVersion, got.Attempts, len(got.Hosts), len(got.Workflows))
+	}
+	wantHosts := []string{"darwin_arm64", "linux_amd64", "windows_amd64"}
+	sort.Strings(got.Hosts)
+	if strings.Join(got.Hosts, ",") != strings.Join(wantHosts, ",") {
+		t.Fatalf("qualification hosts = %v, want %v", got.Hosts, wantHosts)
+	}
+	projects := make(map[string]bool)
+	workflows := make(map[string]bool)
+	classes := make(map[string]bool)
+	for _, workflow := range got.Workflows {
+		if workflow.ID == "" || workflow.Project == "" || workflow.Class == "" || workflows[workflow.ID] {
+			t.Fatalf("invalid or duplicate qualification workflow: %+v", workflow)
+		}
+		if _, err := os.Stat(filepath.Join(root, filepath.FromSlash(workflow.Spec))); err != nil {
+			t.Errorf("qualification workflow %s references missing spec %s", workflow.ID, workflow.Spec)
+		}
+		projects[workflow.Project] = true
+		workflows[workflow.ID] = true
+		classes[workflow.Class] = true
+	}
+	if len(projects) < 5 || len(classes) < 8 {
+		t.Fatalf("qualification breadth = %d projects, %d classes; want at least 5/8", len(projects), len(classes))
+	}
+	if len(got.Hosts)*len(got.Workflows)*got.Attempts != 3000 {
+		t.Fatalf("qualification execution count is not exactly 3,000")
 	}
 }
 

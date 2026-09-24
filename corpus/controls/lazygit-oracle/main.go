@@ -5,6 +5,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
 	"strings"
 )
 
@@ -16,7 +17,7 @@ func fail(format string, args ...any) {
 func git(cwd string, args ...string) string {
 	command := exec.Command("git", append([]string{"-c", "commit.gpgsign=false"}, args...)...)
 	command.Dir = cwd
-	command.Env = append(os.Environ(), "GIT_CONFIG_GLOBAL=NUL")
+	command.Env = append(os.Environ(), "GIT_CONFIG_GLOBAL="+os.DevNull)
 	output, err := command.CombinedOutput()
 	if err != nil {
 		fail("git %s: %v: %s", strings.Join(args, " "), err, output)
@@ -83,7 +84,11 @@ func main() {
 		fail("locate oracle: %v", err)
 	}
 	tools := filepath.Dir(exe)
-	target := filepath.Join(tools, "..", "tools", "windows", "lazygit", "lazygit.exe")
+	targetName := "lazygit"
+	if runtime.GOOS == "windows" {
+		targetName += ".exe"
+	}
+	target := filepath.Join(tools, "lazygit-target", targetName)
 	if os.Getenv("PLAYTESTR_LAZYGIT_MUTATION") == "1" {
 		target = filepath.Join(tools, "lazygit-mutated.exe")
 	}

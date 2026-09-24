@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "attempts_per_workflow_host": 100,
+  "artifact_limit_bytes_per_attempt": 67108864,
+  "job_limit_bytes": 1073741824,
+  "hosts": ["linux_amd64", "darwin_arm64", "windows_amd64"],
+  "workflows": [
+    {"id": "GUM-01", "project": "GUM", "spec": "corpus/workflows/gum/gum-01.json", "class": "selection"},
+    {"id": "GUM-04", "project": "GUM", "spec": "corpus/workflows/gum/gum-04.json", "class": "expected_nonzero"},
+    {"id": "GUM-05", "project": "GUM", "spec": "corpus/workflows/gum/gum-05.json", "class": "text_edit"},
+    {"id": "LG-01", "project": "LG", "spec": "corpus/workflows/lazygit/lg-01.json", "class": "state_mutation_oracle"},
+    {"id": "LG-04", "project": "LG", "spec": "corpus/workflows/lazygit/lg-04.json", "class": "modal_cancellation_oracle"},
+    {"id": "BT-06", "project": "BT", "spec": "corpus/workflows/bottom/bottom-06.json", "class": "resize_redraw"},
+    {"id": "MICRO-01", "project": "MICRO", "spec": "corpus/workflows/micro/micro-01.json", "class": "file_mutation_oracle"},
+    {"id": "MICRO-05", "project": "MICRO", "spec": "corpus/workflows/micro/micro-05.json", "class": "unsaved_cancel_oracle"},
+    {"id": "CV-01", "project": "CV", "spec": "corpus/workflows/create-vite/create-vite-01.json", "class": "fresh_workspace_scaffold"},
+    {"id": "CV-06", "project": "CV", "spec": "corpus/workflows/create-vite/create-vite-06.json", "class": "wizard_cancellation_oracle"}
+  ]
+}

@@ -25,6 +25,12 @@ on:
       - 'scripts/check-site.mjs'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
+    inputs:
+      publish:
+        description: Deploy the validated site to GitHub Pages
+        required: true
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -66,13 +72,13 @@ jobs:
       - name: Validate generated website
         run: node scripts/check-site.mjs public
       - name: Upload Pages artifact
-        if: github.event_name != 'pull_request'
+        if: github.event_name == 'workflow_dispatch' && inputs.publish
         uses: actions/upload-pages-artifact@v4
         with:
           path: public
 
   deploy:
-    if: github.event_name != 'pull_request'
+    if: github.event_name == 'workflow_dispatch' && inputs.publish
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 10
