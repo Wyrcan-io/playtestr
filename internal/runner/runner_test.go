@@ -223,6 +223,7 @@ func TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput(t *testing.T)
 func TestSecretCanaryPersistenceBoundary(t *testing.T) {
 	writeSpec := func(t *testing.T, mode string, environment map[string]string, steps []Step) string {
 		t.Helper()
+		environment["PLAYTESTR_HELPER_MODE"] = mode
 		spec := Spec{
 			Version: SpecVersion, Name: mode,
 			Command: []string{os.Args[0], "-test.run=TestHelperProcess", "--", mode},
@@ -272,8 +273,8 @@ func TestSecretCanaryPersistenceBoundary(t *testing.T) {
 		"PLAYTESTR_HELPER_PROCESS": "1",
 		"PLAYTESTR_SECRET":         emittedCanary,
 	}, []Step{{Expect: "secret=" + emittedCanary}, {Expect: "never rendered"}}), RunOptions{ArtifactPrefix: emittedPrefix}, &emittedLog)
-	if emitted.Failure == nil {
-		t.Fatal("target-emitted canary case unexpectedly passed")
+	if emitted.Failure == nil || emitted.Failure.Category != FailureAssertionTimeout || emitted.Steps[0].Status != "passed" || emitted.Steps[1].Status != "failed" {
+		t.Fatalf("target-emitted canary result = %+v", emitted)
 	}
 	emittedReport, err := json.Marshal(emitted)
 	if err != nil {
@@ -373,7 +374,10 @@ func TestHelperProcess(t *testing.T) {
 	if os.Getenv("PLAYTESTR_HELPER_PROCESS") != "1" {
 		return
 	}
-	mode := os.Args[len(os.Args)-1]
+	mode := os.Getenv("PLAYTESTR_HELPER_MODE")
+	if mode == "" {
+		mode = os.Args[len(os.Args)-1]
+	}
 	switch mode {
 	case "exit-zero":
 		fmt.Print("finished cleanly\r\n")

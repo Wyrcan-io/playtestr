@@ -124,7 +124,10 @@ fn adversarial_cancel() -> termlens::Result<()> {
 fn adversarial_finite_flood() -> termlens::Result<()> {
     let pid_path = PathBuf::from(env::var("ADVERSARIAL_PID_PATH").expect("pid path required"));
     let mut terminal = adversarial_terminal("flood", &pid_path)?;
-    terminal.wait_until_for(|screen| screen.contains("flood complete"), Duration::from_secs(10))?;
+    // The retained 4 MiB producer takes just over ten seconds to drain on
+    // slower hosted runners. This is a benchmark-harness wait, not a change to
+    // any Playtestr product timeout or output limit.
+    terminal.wait_until_for(|screen| screen.contains("flood complete"), Duration::from_secs(15))?;
     assert!(terminal.wait_exit()?.success());
     drop(terminal);
     assert_process_gone(&pid_path);
