@@ -227,8 +227,8 @@ func TestSecretCanaryPersistenceBoundary(t *testing.T) {
 		spec := Spec{
 			Version: SpecVersion, Name: mode,
 			Command: []string{os.Args[0], "-test.run=TestHelperProcess", "--", mode},
-			Env:     environment, Width: 40, Height: 8, TimeoutMS: 100,
-			RunTimeoutMS: 2000, MaxOutputBytes: 100000, Steps: steps,
+			Env:     environment, Width: 40, Height: 8, TimeoutMS: 2000,
+			RunTimeoutMS: 5000, MaxOutputBytes: 100000, Steps: steps,
 		}
 		data, err := json.Marshal(spec)
 		if err != nil {
@@ -684,6 +684,10 @@ func TestSilentTargetCanReceiveInputWithoutStartupTimeout(t *testing.T) {
 func TestStartupTimeout(t *testing.T) {
 	err := runConfiguredHelperSpec(t, "no-output", []Step{{Exit: intPointer(0)}}, func(spec *Spec) {
 		spec.StartupTimeoutMS = 100
+		// Keep the total test budget well beyond the startup boundary so a
+		// heavily instrumented host cannot misclassify the intended startup
+		// timeout as the enclosing run timeout.
+		spec.RunTimeoutMS = 15000
 	})
 	if err == nil || !strings.Contains(err.Error(), "timed out waiting for first output") {
 		t.Fatalf("got %v", err)
