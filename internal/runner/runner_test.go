@@ -271,7 +271,7 @@ func TestSecretCanaryPersistenceBoundary(t *testing.T) {
 	emitted := RunDetailedContext(context.Background(), writeSpec(t, "render-secret", map[string]string{
 		"PLAYTESTR_HELPER_PROCESS": "1",
 		"PLAYTESTR_SECRET":         emittedCanary,
-	}, []Step{{Expect: "never rendered"}}), RunOptions{ArtifactPrefix: emittedPrefix}, &emittedLog)
+	}, []Step{{Expect: "secret=" + emittedCanary}, {Expect: "never rendered"}}), RunOptions{ArtifactPrefix: emittedPrefix}, &emittedLog)
 	if emitted.Failure == nil {
 		t.Fatal("target-emitted canary case unexpectedly passed")
 	}
