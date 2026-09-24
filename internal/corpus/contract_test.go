@@ -1,7 +1,9 @@
 package corpus_test
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -53,6 +55,77 @@ type pilotRecords struct {
 			Variant, Runner, Campaign string
 		} `json:"attempts"`
 	} `json:"pilots"`
+}
+
+type workflowResult struct {
+	SchemaVersion int    `json:"schema_version"`
+	RecordedOn    string `json:"recorded_on"`
+	Project       struct {
+		ID           string `json:"id"`
+		Version      string `json:"version"`
+		BinarySHA256 string `json:"binary_sha256"`
+	} `json:"project"`
+	Runner struct {
+		SourceCommit string `json:"source_commit"`
+		Host         string `json:"host"`
+		Command      string `json:"command"`
+	} `json:"runner"`
+	StartingState struct {
+		Fixture       string `json:"fixture"`
+		FixtureSHA256 string `json:"fixture_sha256"`
+		Home          string `json:"home"`
+		Temp          string `json:"temp"`
+	} `json:"starting_state"`
+	Setup struct {
+		Operation string `json:"operation"`
+		ElapsedMS int    `json:"elapsed_ms"`
+		Network   bool   `json:"network"`
+	} `json:"setup"`
+	Limits struct {
+		RunMS       int   `json:"run_ms"`
+		StepMS      int   `json:"step_ms"`
+		OutputBytes int64 `json:"output_bytes"`
+	} `json:"limits"`
+	Workflows []struct {
+		ID                       string                      `json:"id"`
+		Spec                     string                      `json:"spec"`
+		ExpectedScreen           string                      `json:"expected_screen"`
+		IndependentPostcondition string                      `json:"independent_postcondition"`
+		RunnerOutcome            string                      `json:"runner_outcome"`
+		CampaignInterpretation   string                      `json:"campaign_interpretation"`
+		TargetCommand            []string                    `json:"target_command"`
+		Viewport                 struct{ Width, Height int } `json:"viewport"`
+		ExpectedExit             int                         `json:"expected_exit"`
+		DurationMS               int                         `json:"duration_ms"`
+	} `json:"workflows"`
+	Control struct {
+		KnownBadSpec         string `json:"known_bad_spec"`
+		ObservedCategory     string `json:"observed_category"`
+		ObservedDifference   string `json:"observed_difference"`
+		RecoverySpec         string `json:"recovery_spec"`
+		ObservedRunnerStatus int    `json:"observed_runner_status"`
+		TargetExit           int    `json:"target_exit"`
+		RecoveryRunnerStatus int    `json:"recovery_runner_status"`
+		CleanupConfirmed     bool   `json:"cleanup_confirmed"`
+	} `json:"control"`
+	Cleanup struct {
+		AllTargetExitsConfirmed  bool `json:"all_target_exits_confirmed"`
+		AllWorkspacesCleaned     bool `json:"all_workspaces_cleaned"`
+		OriginalFixtureUnchanged bool `json:"original_fixture_unchanged"`
+	} `json:"cleanup"`
+	Exclusions []string `json:"exclusions"`
+}
+
+type boundaryMap struct {
+	SchemaVersion int `json:"schema_version"`
+	Projects      []struct {
+		ID        string `json:"id"`
+		Workflows []struct {
+			ID        string `json:"id"`
+			Kind      string `json:"kind"`
+			Rationale string `json:"rationale"`
+		} `json:"workflows"`
+	} `json:"projects"`
 }
 
 func TestCorpusContract(t *testing.T) {
@@ -151,8 +224,15 @@ func TestFocusedRiskMap(t *testing.T) {
 			if entry.Reference == "" || entry.Gap != "" {
 				t.Errorf("covered case %s has invalid reference/gap", entry.ID)
 			}
-			if _, err := os.Stat(filepath.Join(root, filepath.FromSlash(entry.Reference))); err != nil {
+			parts := strings.SplitN(entry.Reference, "#", 2)
+			path := filepath.Join(root, filepath.FromSlash(parts[0]))
+			if _, err := os.Stat(path); err != nil {
 				t.Errorf("case %s references missing file %s", entry.ID, entry.Reference)
+			} else if len(parts) == 2 {
+				data, err := os.ReadFile(path)
+				if err != nil || !bytes.Contains(data, []byte("func "+parts[1]+"(")) {
+					t.Errorf("case %s references missing test anchor %s", entry.ID, entry.Reference)
+				}
 			}
 		case "planned_gap":
 			if entry.Gap == "" || entry.Reference != "" {
@@ -164,6 +244,50 @@ func TestFocusedRiskMap(t *testing.T) {
 	}
 	if !mapsEqual(counts, wantFamilies) {
 		t.Fatalf("family counts = %v, want %v", counts, wantFamilies)
+	}
+}
+
+func TestTwoReviewedBoundaryWorkflowsPerProject(t *testing.T) {
+	root := repositoryRoot(t)
+	var got boundaryMap
+	readJSON(t, filepath.Join(root, "corpus", "boundary-map.json"), &got)
+	if got.SchemaVersion != 1 || len(got.Projects) != 15 {
+		t.Fatalf("boundary map version/projects = %d/%d, want 1/15", got.SchemaVersion, len(got.Projects))
+	}
+	available := make(map[string]bool)
+	specs, err := filepath.Glob(filepath.Join(root, "corpus", "workflows", "*", "*.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, path := range specs {
+		var spec struct {
+			Name string `json:"name"`
+		}
+		readJSON(t, path, &spec)
+		fields := strings.Fields(spec.Name)
+		if len(fields) > 0 {
+			available[fields[0]] = true
+		}
+	}
+	seenProjects := make(map[string]bool)
+	seenWorkflows := make(map[string]bool)
+	for _, project := range got.Projects {
+		if seenProjects[project.ID] || project.ID == "" {
+			t.Fatalf("empty or duplicate boundary project %q", project.ID)
+		}
+		seenProjects[project.ID] = true
+		if len(project.Workflows) != 2 {
+			t.Errorf("project %s has %d reviewed boundary workflows, want 2", project.ID, len(project.Workflows))
+		}
+		for _, workflow := range project.Workflows {
+			if seenWorkflows[workflow.ID] || !strings.HasPrefix(workflow.ID, project.ID+"-") || strings.TrimSpace(workflow.Kind) == "" || strings.TrimSpace(workflow.Rationale) == "" {
+				t.Errorf("invalid or duplicate boundary workflow for %s: %+v", project.ID, workflow)
+			}
+			seenWorkflows[workflow.ID] = true
+			if !available[workflow.ID] {
+				t.Errorf("boundary workflow %s has no implemented spec", workflow.ID)
+			}
+		}
 	}
 }
 
@@ -195,6 +319,117 @@ func TestFivePilotRecords(t *testing.T) {
 	sort.Strings(ids)
 	if strings.Join(ids, ",") != strings.Join(want, ",") {
 		t.Fatalf("pilot IDs = %v, want %v", ids, want)
+	}
+}
+
+func TestCompletedGumWorkflowRecords(t *testing.T) {
+	validateCompletedWorkflowRecord(t, "gum-windows-amd64.json", "GUM", "v0.17.0", "snapshot_mismatch")
+}
+
+func TestCompletedFZFWorkflowRecords(t *testing.T) {
+	validateCompletedWorkflowRecord(t, "fzf-windows-amd64.json", "FZF", "v0.74.4", "snapshot_mismatch")
+}
+
+func TestCompletedMicroWorkflowRecords(t *testing.T) {
+	validateCompletedWorkflowRecord(t, "micro-windows-amd64.json", "MICRO", "v2.0.14", "unexpected_exit")
+}
+
+func TestCompletedTelevisionWorkflowRecords(t *testing.T) {
+	validateCompletedWorkflowRecord(t, "television-windows-amd64.json", "TV", "0.15.9", "snapshot_mismatch")
+}
+
+func TestCompletedNPKillWorkflowRecords(t *testing.T) {
+	validateCompletedWorkflowRecord(t, "npkill-windows-amd64.json", "NPK", "0.12.2", "assertion_timeout")
+}
+
+func TestCompletedCreateViteWorkflowRecords(t *testing.T) {
+	validateCompletedWorkflowRecord(t, "create-vite-windows-amd64.json", "CV", "9.2.1", "unexpected_exit")
+}
+
+func TestCompletedIPMWorkflowRecords(t *testing.T) {
+	validateCompletedWorkflowRecord(t, "ipm-windows-amd64.json", "IPM", "1.3.3", "unexpected_exit")
+}
+
+func TestCompletedBottomWorkflowRecords(t *testing.T) {
+	validateCompletedWorkflowRecord(t, "bottom-windows-amd64.json", "BT", "0.14.9", "assertion_timeout")
+}
+
+func TestCompletedLiteCLIWorkflowRecords(t *testing.T) {
+	validateCompletedWorkflowRecord(t, "litecli-windows-amd64.json", "LITE", "1.17.1", "assertion_timeout")
+}
+
+func TestCompletedPostingWorkflowRecords(t *testing.T) {
+	validateCompletedWorkflowRecord(t, "posting-windows-amd64.json", "POST", "2.10.0", "assertion_timeout")
+}
+
+func TestCompletedMitmproxyWorkflowRecords(t *testing.T) {
+	validateCompletedWorkflowRecord(t, "mitmproxy-windows-amd64.json", "MITM", "12.2.3", "assertion_timeout")
+}
+
+func TestCompletedGitUIWorkflowRecords(t *testing.T) {
+	validateCompletedWorkflowRecord(t, "gitui-windows-amd64.json", "GUI", "0.28.1", "unexpected_exit")
+}
+
+func TestCompletedLazygitWorkflowRecords(t *testing.T) {
+	validateCompletedWorkflowRecord(t, "lazygit-windows-amd64.json", "LG", "0.65.0", "unexpected_exit")
+}
+
+func TestCompletedTIGWorkflowRecords(t *testing.T) {
+	validateCompletedWorkflowRecord(t, "tig-windows-amd64.json", "TIG", "2.6.1", "assertion_timeout")
+}
+
+func TestCompletedTaskwarriorTUIWorkflowRecords(t *testing.T) {
+	validateCompletedWorkflowRecord(t, "taskwarrior-tui-windows-amd64.json", "TASK", "0.27.0", "assertion_timeout")
+}
+
+func validateCompletedWorkflowRecord(t *testing.T, resultFile, projectID, projectVersion, controlCategory string) {
+	t.Helper()
+	root := repositoryRoot(t)
+	var got workflowResult
+	readJSON(t, filepath.Join(root, "corpus", "results", resultFile), &got)
+	if got.SchemaVersion != 1 || got.Project.ID != projectID || got.Project.Version != projectVersion || got.Runner.Host != "windows_amd64" {
+		t.Fatalf("result identity = version %d project %s/%s host %s", got.SchemaVersion, got.Project.ID, got.Project.Version, got.Runner.Host)
+	}
+	hash := regexp.MustCompile(`^[0-9a-f]{64}$`)
+	if !hash.MatchString(got.Project.BinarySHA256) || !hash.MatchString(got.StartingState.FixtureSHA256) || !regexp.MustCompile(`^[0-9a-f]{40}$`).MatchString(got.Runner.SourceCommit) {
+		t.Fatalf("result hashes are not exact: project=%q fixture=%q runner=%q", got.Project.BinarySHA256, got.StartingState.FixtureSHA256, got.Runner.SourceCommit)
+	}
+	if got.Setup.ElapsedMS <= 0 || got.Limits.RunMS <= 0 || got.Limits.StepMS <= 0 || got.Limits.OutputBytes <= 0 || len(got.Exclusions) == 0 {
+		t.Fatalf("result omits setup, bounds, or exclusions: %+v", got)
+	}
+	if len(got.Workflows) != 8 {
+		t.Fatalf("completed Gum workflows = %d, want 8", len(got.Workflows))
+	}
+	for index, workflow := range got.Workflows {
+		wantID := fmt.Sprintf("%s-%02d", projectID, index+1)
+		if workflow.ID != wantID || len(workflow.TargetCommand) == 0 || workflow.Viewport.Width <= 0 || workflow.Viewport.Height <= 0 || workflow.DurationMS <= 0 || workflow.RunnerOutcome != "passed" || workflow.CampaignInterpretation == "" || workflow.IndependentPostcondition == "" {
+			t.Errorf("workflow %s record is incomplete: %+v", wantID, workflow)
+			continue
+		}
+		var spec struct {
+			Version        int      `json:"version"`
+			Command        []string `json:"command"`
+			Width          int      `json:"width"`
+			Height         int      `json:"height"`
+			TimeoutMS      int      `json:"timeout_ms"`
+			RunTimeoutMS   int      `json:"run_timeout_ms"`
+			MaxOutputBytes int64    `json:"max_output_bytes"`
+		}
+		readJSON(t, filepath.Join(root, filepath.FromSlash(workflow.Spec)), &spec)
+		if spec.Version != 2 || strings.Join(spec.Command, "\x00") != strings.Join(workflow.TargetCommand, "\x00") || spec.Width != workflow.Viewport.Width || spec.Height != workflow.Viewport.Height || spec.TimeoutMS > got.Limits.StepMS || spec.RunTimeoutMS > got.Limits.RunMS || spec.MaxOutputBytes > got.Limits.OutputBytes {
+			t.Errorf("workflow %s result/spec contract differs: result=%+v spec=%+v", workflow.ID, workflow, spec)
+		}
+	}
+	if got.Control.ObservedRunnerStatus != 1 || got.Control.ObservedCategory != controlCategory || got.Control.RecoveryRunnerStatus != 0 || !got.Control.CleanupConfirmed {
+		t.Fatalf("known-bad/recovery control = %+v", got.Control)
+	}
+	for _, path := range []string{got.Control.KnownBadSpec, got.Control.RecoverySpec} {
+		if _, err := os.Stat(filepath.Join(root, filepath.FromSlash(path))); err != nil {
+			t.Errorf("control references missing spec %q: %v", path, err)
+		}
+	}
+	if !got.Cleanup.AllTargetExitsConfirmed || !got.Cleanup.AllWorkspacesCleaned || !got.Cleanup.OriginalFixtureUnchanged {
+		t.Fatalf("cleanup result = %+v", got.Cleanup)
 	}
 }
 

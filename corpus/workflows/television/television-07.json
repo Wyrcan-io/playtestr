@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "name": "TV-07 inspect a controlled preview",
+  "command": ["../../../.trial-private/corpus-tools/tv", "--source-command", "cmd.exe /d /c type preview-candidates.txt", "--source-output", "{}", "--preview-command", "cmd.exe /d /c type {}", "--no-sort", "--exact", "--config-file", "config.toml"],
+  "workspace": {"fixture": "fixture", "cwd": ".", "home": "temporary", "temp": "temporary"},
+  "width": 100, "height": 24, "timeout_ms": 15000, "run_timeout_ms": 30000, "max_output_bytes": 10000000,
+  "steps": [{"expect":"1 / 2"},{"expect":"ALPHA PREVIEW MARKER"},{"text":"beta"},{"expect":"1 / 1"},{"expect":"BETA PREVIEW MARKER"},{"key":"Escape"},{"exit":0},{"snapshot":"television-07.txt"}]
+}

@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-09-23",
+  "project": {
+    "id": "GUM",
+    "version": "v0.17.0",
+    "binary_sha256": "0327f1c91a9e75d831fa4c62174bc4edc183fd8106109271e7cf74f77bc83bc9"
+  },
+  "runner": {
+    "source_commit": "e89618df1908e0d98a7025fc26bd362dfeab5019",
+    "host": "windows_amd64",
+    "command": "go run ./cmd/playtestr test --report .trial-private/corpus-gum-v2-pass.json --artifacts-dir .trial-private/corpus-gum-v2-artifacts corpus/workflows/gum"
+  },
+  "starting_state": {
+    "fixture": "corpus/workflows/gum/fixture",
+    "fixture_sha256": "507548a31485b72d5535c208f896937f334f108e3bd5caa5fcf2f3d665a2d3ea",
+    "home": "fresh temporary directory per workflow",
+    "temp": "fresh temporary directory per workflow"
+  },
+  "setup": {
+    "operation": "verify retained binary SHA-256",
+    "elapsed_ms": 222,
+    "network": false
+  },
+  "limits": {"run_ms": 30000, "step_ms": 15000, "output_bytes": 500000},
+  "workflows": [
+    {
+      "id": "GUM-01",
+      "spec": "corpus/workflows/gum/gum-01.json",
+      "target_command": ["../../../.tools/external/gum", "choose", "Alpha", "Beta", "Gamma", "--header", "Pick deployment"],
+      "viewport": {"width": 60, "height": 12},
+      "expected_screen": "Beta\n",
+      "expected_exit": 0,
+      "independent_postcondition": "target exit 0; original fixture hash unchanged after suite",
+      "duration_ms": 287,
+      "runner_outcome": "passed",
+      "campaign_interpretation": "correct_good_result"
+    },
+    {
+      "id": "GUM-02",
+      "spec": "corpus/workflows/gum/gum-02.json",
+      "target_command": ["../../../.tools/external/gum", "choose", "Alpha", "Beta", "Gamma", "--header", "Filter deployment"],
+      "viewport": {"width": 60, "height": 12},
+      "expected_screen": "Gamma\n",
+      "expected_exit": 0,
+      "independent_postcondition": "target exit 0; original fixture hash unchanged after suite",
+      "duration_ms": 337,
+      "runner_outcome": "passed",
+      "campaign_interpretation": "correct_good_result"
+    },
+    {
+      "id": "GUM-03",
+      "spec": "corpus/workflows/gum/gum-03.json",
+      "target_command": ["../../../.tools/external/gum", "confirm", "Deploy reviewed build?", "--show-output"],
+      "viewport": {"width": 60, "height": 12},
+      "expected_screen": "Deploy reviewed build? Yes\n",
+      "expected_exit": 0,
+      "independent_postcondition": "target exit 0; original fixture hash unchanged after suite",
+      "duration_ms": 309,
+      "runner_outcome": "passed",
+      "campaign_interpretation": "correct_good_result"
+    },
+    {
+      "id": "GUM-04",
+      "spec": "corpus/workflows/gum/gum-04.json",
+      "target_command": ["../../../.tools/external/gum", "confirm", "Delete reviewed fixture?", "--show-output"],
+      "viewport": {"width": 60, "height": 12},
+      "expected_screen": "Delete reviewed fixture? No\n",
+      "expected_exit": 1,
+      "independent_postcondition": "exact target rejection exit 1; original fixture hash unchanged after suite",
+      "duration_ms": 377,
+      "runner_outcome": "passed",
+      "campaign_interpretation": "correct_expected_nonzero"
+    },
+    {
+      "id": "GUM-05",
+      "spec": "corpus/workflows/gum/gum-05.json",
+      "target_command": ["../../../.tools/external/gum", "input", "--header", "Release channel", "--value", "dragt"],
+      "viewport": {"width": 60, "height": 12},
+      "expected_screen": "draft\n",
+      "expected_exit": 0,
+      "independent_postcondition": "target exit 0; original fixture hash unchanged after suite",
+      "duration_ms": 301,
+      "runner_outcome": "passed",
+      "campaign_interpretation": "correct_good_result"
+    },
+    {
+      "id": "GUM-06",
+      "spec": "corpus/workflows/gum/gum-06.json",
+      "target_command": ["../../../.tools/external/gum", "input", "--header", "Environment", "--value", "staging"],
+      "viewport": {"width": 60, "height": 12},
+      "expected_screen": "staging\n",
+      "expected_exit": 0,
+      "independent_postcondition": "target exit 0; original fixture hash unchanged after suite",
+      "duration_ms": 323,
+      "runner_outcome": "passed",
+      "campaign_interpretation": "correct_good_result"
+    },
+    {
+      "id": "GUM-07",
+      "spec": "corpus/workflows/gum/gum-07.json",
+      "target_command": ["../../../.tools/external/gum", "choose", "Alpha", "Beta", "Gamma", "--header", "Select deployments", "--limit", "2", "--ordered"],
+      "viewport": {"width": 60, "height": 12},
+      "expected_screen": "Alpha\nBeta\n",
+      "expected_exit": 0,
+      "independent_postcondition": "target exit 0; original fixture hash unchanged after suite",
+      "duration_ms": 348,
+      "runner_outcome": "passed",
+      "campaign_interpretation": "correct_good_result"
+    },
+    {
+      "id": "GUM-08",
+      "spec": "corpus/workflows/gum/gum-08.json",
+      "target_command": ["../../../.tools/external/gum", "choose", "Alpha", "Beta", "Gamma", "--header", "Cancel deployment"],
+      "viewport": {"width": 60, "height": 12},
+      "expected_screen": "nothing selected\n",
+      "expected_exit": 1,
+      "independent_postcondition": "exact target cancellation exit 1 and no accepted value; original fixture hash unchanged after suite",
+      "duration_ms": 407,
+      "runner_outcome": "passed",
+      "campaign_interpretation": "correct_target_cancellation"
+    }
+  ],
+  "control": {
+    "known_bad_spec": "corpus/pilots/gum-01-negative.json",
+    "observed_runner_status": 1,
+    "observed_category": "snapshot_mismatch",
+    "observed_difference": "expected Beta, actual Alpha",
+    "target_exit": 0,
+    "cleanup_confirmed": true,
+    "recovery_spec": "corpus/workflows/gum/gum-01.json",
+    "recovery_runner_status": 0
+  },
+  "cleanup": {
+    "all_target_exits_confirmed": true,
+    "all_workspaces_cleaned": true,
+    "original_fixture_unchanged": true
+  },
+  "exclusions": [
+    "Linux amd64 and macOS arm64 were not run in this record.",
+    "Setup time is warm/offline hash verification, not acquisition or download time.",
+    "Read-only Gum tasks use exact target exit plus external fixture-hash preservation; no state-changing postcondition is claimed."
+  ]
+}

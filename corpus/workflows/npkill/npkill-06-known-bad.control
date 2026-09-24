@@ -1,0 +1,8 @@
+{
+  "version":2,"name":"NPK-06 reviewed dry-run marker corruption mutation",
+  "command":["../../../.trial-private/corpus-tools/node-target","npkill/lib/index.js","--directory",".","--no-check-update","--dry-run","--sort","path"],
+  "workspace":{"fixture":"fixture","cwd":".","home":"temporary","temp":"temporary"},
+  "env":{"PLAYTESTR_NODE_RUNTIME":"npkill-mutated-runtime"},
+  "width":120,"height":40,"timeout_ms":5000,"run_timeout_ms":15000,"max_output_bytes":10000000,
+  "steps":[{"expect":"Search completed"},{"expect":"alpha-PLAYTESTR-NPK"},{"text":" "},{"expect":"[DELETED] alpha-PLAYTESTR-NPK"},{"text":"q"},{"expect":"Thanks for using npkill!"},{"exit":0}]
+}

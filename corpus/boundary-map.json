@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-09-24",
+  "projects": [
+    {"id":"GUM","workflows":[{"id":"GUM-04","kind":"rejection","rationale":"Rejects an explicit confirmation without confusing target status with runner cancellation."},{"id":"GUM-08","kind":"cancellation","rationale":"Cancels before committing a selection and verifies no accepted value."}]},
+    {"id":"LG","workflows":[{"id":"LG-04","kind":"cancellation","rationale":"Cancels commit editing and independently proves HEAD did not move."},{"id":"LG-07","kind":"resize boundary","rationale":"Exercises help dismissal across compact resize while preserving repository state."}]},
+    {"id":"FZF","workflows":[{"id":"FZF-04","kind":"cancellation","rationale":"Cancels selection with the documented non-success target outcome."},{"id":"FZF-05","kind":"empty boundary","rationale":"Exercises a no-match query and bounded user exit."}]},
+    {"id":"POST","workflows":[{"id":"POST-07","kind":"failure boundary","rationale":"Exercises a controlled local connection failure without fabricated success."},{"id":"POST-08","kind":"cancellation","rationale":"Cancels edited request state without sending a request."}]},
+    {"id":"LITE","workflows":[{"id":"LITE-03","kind":"rejection","rationale":"Rejects invalid SQL, recovers, and proves no invalid mutation occurred."},{"id":"LITE-06","kind":"cancellation","rationale":"Cancels an unfinished statement and proves the next valid query works."}]},
+    {"id":"MITM","workflows":[{"id":"MITM-03","kind":"empty boundary","rationale":"Applies a match-none filter then restores the reviewed flow list."},{"id":"MITM-08","kind":"rejection","rationale":"Rejects a quit confirmation before accepting a later quit."}]},
+    {"id":"BT","workflows":[{"id":"BT-07","kind":"empty boundary","rationale":"Exercises an empty process filter and explicit recovery."},{"id":"BT-08","kind":"lifecycle boundary","rationale":"Quits during active repaint and confirms managed cleanup."}]},
+    {"id":"GUI","workflows":[{"id":"GUI-04","kind":"cancellation","rationale":"Cancels commit input and independently checks HEAD and index."},{"id":"GUI-08","kind":"empty boundary","rationale":"Exercises a clean working tree without accidental stage or commit."}]},
+    {"id":"TV","workflows":[{"id":"TV-04","kind":"empty boundary","rationale":"Exercises a no-match query and bounded exit."},{"id":"TV-05","kind":"cancellation","rationale":"Cancels selection and verifies input remains unchanged."}]},
+    {"id":"NPK","workflows":[{"id":"NPK-05","kind":"empty boundary","rationale":"Scans an empty owned root and exits within bounds."},{"id":"NPK-08","kind":"cancellation","rationale":"Cancels scanning or selection and independently verifies fixture trees."}]},
+    {"id":"CV","workflows":[{"id":"CV-04","kind":"rejection","rationale":"Rejects an invalid package name before accepting the corrected value."},{"id":"CV-05","kind":"rejection","rationale":"Refuses overwrite of a nonempty directory and preserves its sentinel."}]},
+    {"id":"IPM","workflows":[{"id":"IPM-03","kind":"rejection","rationale":"Rejects an invalid theme type before one valid scaffold."},{"id":"IPM-06","kind":"cancellation","rationale":"Cancels before write and verifies destination invariants."}]},
+    {"id":"MICRO","workflows":[{"id":"MICRO-05","kind":"cancellation","rationale":"Cancels unsaved close while proving disk content is unchanged."},{"id":"MICRO-06","kind":"discard boundary","rationale":"Explicitly discards unsaved changes and verifies original bytes."}]},
+    {"id":"TIG","workflows":[{"id":"TIG-04","kind":"navigation boundary","rationale":"Returns from a nested detail view to the list with repository invariants."},{"id":"TIG-08","kind":"lifecycle boundary","rationale":"Quits through nested view levels without repository change or process leak."}]},
+    {"id":"TASK","workflows":[{"id":"TASK-04","kind":"cancellation","rationale":"Cancels completion and independently proves all tasks remain pending."},{"id":"TASK-06","kind":"empty boundary","rationale":"Renders an empty exact report without changing owned task data."}]}
+  ]
+}

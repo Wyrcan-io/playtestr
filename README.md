@@ -81,7 +81,7 @@ Stateful local flows can opt into specification version 2. It copies a bounded r
 
 The command resolves before the copied working directory is selected. Failed runs normally clean up; `--keep-workspace-on-failure` prints and records an explicitly retained local path. Successful workspaces are always removed. See [Repeatable workspaces](docs/workspaces.md), [spec v2](docs/spec-v2.md), and [report v2](docs/report-v2.md). A temporary workspace controls selected local paths but is not a security sandbox.
 
-Each step has exactly one action. Supported keys: `Enter`, `ArrowDown`, `ArrowUp`, `ArrowLeft`, `ArrowRight`, `Escape`, `Tab`, `Backspace`, `CtrlC`. An `exit` step waits for the process and requires the exact exit code; intentionally nonzero expected codes are supported. Long-running TUIs do not need an exit step.
+Each step has exactly one action. Supported keys: `Enter`, `ArrowDown`, `ArrowUp`, `ArrowLeft`, `ArrowRight`, `Escape`, `Tab`, `Backspace`, `CtrlC`, `CtrlE`, `CtrlF`, `CtrlO`, `CtrlQ`, `CtrlS`, `CtrlSpace`, and `CtrlZ`. An `exit` step waits for the process and requires the exact exit code; intentionally nonzero expected codes are supported. Long-running TUIs do not need an exit step.
 
 `expect` polls the current screen until the text appears or the per-step timeout expires. `expect_not` waits for text that an earlier `expect` observed to disappear after input or resize, which is useful for closing modals without arbitrary sleeps. If the process exits first, an unmatched assertion reports the exit code instead of waiting for a timeout. Snapshots compare the rendered screen after at least 150 ms without output.
 

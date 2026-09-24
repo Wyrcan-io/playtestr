@@ -1,0 +1,22 @@
+--- a/src/app/layout_manager.rs
++++ b/src/app/layout_manager.rs
+@@ -963,7 +963,7 @@
+             Cpu => "CPU",
+             Mem => "Memory",
+             Net => "Network",
+-            Proc => "Processes",
++            Proc => "BROCESSES",
+             Temp => "Temperature",
+             Disk => "Disks",
+             Battery => "Battery",
+--- a/src/widgets/process_table.rs
++++ b/src/widgets/process_table.rs
+@@ -259,7 +259,7 @@
+         default_index: usize, default_order: SortOrder,
+     ) -> ProcessTable {
+         let inner_props = DataTableProps {
+-            title: Some(" Processes ".into()),
++            title: Some(" BROCESSES ".into()),
+             table_gap: config.table_gap,
+             left_to_right: true,
+             is_basic: config.use_basic_mode,

@@ -1,0 +1,7 @@
+{
+  "version":2,"name":"CV-01 scaffold minimal JavaScript project",
+  "command":["../../../.trial-private/corpus-tools/create-vite-oracle","vanilla","cv-vanilla","--interactive"],
+  "workspace":{"fixture":"fixture","cwd":".","home":"temporary","temp":"temporary"},
+  "width":100,"height":30,"timeout_ms":10000,"run_timeout_ms":30000,"max_output_bytes":1000000,
+  "steps":[{"expect":"Select a framework:"},{"key":"Enter"},{"expect":"Select a variant:"},{"key":"ArrowDown"},{"key":"Enter"},{"expect":"Install with npm and start now?"},{"key":"ArrowRight"},{"key":"Enter"},{"expect":"Done. Now run:"},{"expect":"PLAYTESTR-CV-ORACLE vanilla OK"},{"exit":0}]
+}

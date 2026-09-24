@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-09-23",
+  "project": {"id": "NPK", "version": "0.12.2", "binary_sha256": "039d6c3118667d1ae53751e45e8bd6b97c32cbbe7f7416ca4b7c9fc4c272c399"},
+  "runner": {
+    "source_commit": "e89618df1908e0d98a7025fc26bd362dfeab5019",
+    "host": "windows_amd64",
+    "command": "go run ./cmd/playtestr test --artifacts-dir .trial-private/artifacts-npk-stability --report .trial-private/corpus-npk-stability.json corpus/workflows/npkill"
+  },
+  "starting_state": {
+    "fixture": "corpus/workflows/npkill/fixture",
+    "fixture_sha256": "d4e181d27cc91f522650b1f9c48010eb7a4ff4bbe6bd38ae2edbacfe5c6ac7e9",
+    "home": "fresh temporary directory per workflow",
+    "temp": "fresh temporary directory per workflow"
+  },
+  "setup": {"operation": "verify retained pinned npm tarball SHA-256", "elapsed_ms": 15, "network": false},
+  "limits": {"run_ms": 30000, "step_ms": 15000, "output_bytes": 10000000},
+  "workflows": [
+    {
+      "id": "NPK-01", "spec": "corpus/workflows/npkill/npkill-01.json",
+      "target_command": ["../../../.trial-private/corpus-tools/node-target", "npkill/lib/index.js", "--directory", ".", "--no-check-update", "--dry-run"],
+      "viewport": {"width": 120, "height": 40}, "expected_screen": "both synthetic dependency trees and completed scan are visible", "expected_exit": 0,
+      "independent_postcondition": "fixture manifest digest unchanged after bounded quit", "duration_ms": 708, "runner_outcome": "passed", "campaign_interpretation": "correct_discovery_result"
+    },
+    {
+      "id": "NPK-02", "spec": "corpus/workflows/npkill/npkill-02.json",
+      "target_command": ["../../../.trial-private/corpus-tools/node-target", "npkill/lib/index.js", "--directory", ".", "--no-check-update", "--dry-run", "--sort", "path"],
+      "viewport": {"width": 120, "height": 40}, "expected_screen": "navigated beta tree receives the reviewed dry-run deletion marker", "expected_exit": 0,
+      "independent_postcondition": "beta tree bytes remain present and fixture digest is unchanged", "duration_ms": 1264, "runner_outcome": "passed", "campaign_interpretation": "correct_navigation_action"
+    },
+    {
+      "id": "NPK-03", "spec": "corpus/workflows/npkill/npkill-03.json",
+      "target_command": ["../../../.trial-private/corpus-tools/node-target", "npkill/lib/index.js", "--directory", ".", "--no-check-update", "--dry-run", "--exclude", "beta-neighbor"],
+      "viewport": {"width": 120, "height": 40}, "expected_screen": "included alpha tree receives the dry-run marker with beta excluded", "expected_exit": 0,
+      "independent_postcondition": "both fixture trees remain byte-identical", "duration_ms": 1511, "runner_outcome": "passed", "campaign_interpretation": "correct_exclusion_boundary"
+    },
+    {
+      "id": "NPK-04", "spec": "corpus/workflows/npkill/npkill-04.json",
+      "target_command": ["../../../.trial-private/corpus-tools/node-target", "npkill/lib/index.js", "--directory", ".", "--no-check-update", "--dry-run", "--sort", "path"],
+      "viewport": {"width": 120, "height": 40}, "expected_screen": "path-sorted initial alpha selection receives the dry-run marker", "expected_exit": 0,
+      "independent_postcondition": "fixture manifest digest unchanged", "duration_ms": 4305, "runner_outcome": "passed", "campaign_interpretation": "correct_sort_boundary"
+    },
+    {
+      "id": "NPK-05", "spec": "corpus/workflows/npkill/npkill-05.json",
+      "target_command": ["../../../.trial-private/corpus-tools/node-target", "npkill/lib/index.js", "--directory", "custom-target", "--target", "vendor", "--no-check-update", "--dry-run"],
+      "viewport": {"width": 120, "height": 40}, "expected_screen": "documented custom vendor target is discovered and dry-run selected", "expected_exit": 0,
+      "independent_postcondition": "custom vendor fixture remains byte-identical", "duration_ms": 2063, "runner_outcome": "passed", "campaign_interpretation": "correct_custom_target_boundary"
+    },
+    {
+      "id": "NPK-06", "spec": "corpus/workflows/npkill/npkill-06.json",
+      "target_command": ["../../../.trial-private/corpus-tools/node-target", "npkill/lib/index.js", "--directory", ".", "--no-check-update", "--dry-run", "--sort", "path"],
+      "viewport": {"width": 120, "height": 40}, "expected_screen": "exact reviewed dry-run marker prefixes the alpha tree", "expected_exit": 0,
+      "independent_postcondition": "alpha tree remains present with original fixture digest", "duration_ms": 1808, "runner_outcome": "passed", "campaign_interpretation": "correct_non_destructive_action"
+    },
+    {
+      "id": "NPK-07", "spec": "corpus/workflows/npkill/npkill-07.json",
+      "target_command": ["../../../.trial-private/corpus-tools/node-target", "npkill/lib/index.js", "--directory", ".", "--no-check-update", "--dry-run", "--sort", "path"],
+      "viewport": {"width": 120, "height": 40}, "expected_screen": "beta selection survives 80x24 and 120x40 redraws then receives dry-run marker", "expected_exit": 0,
+      "independent_postcondition": "fixture manifest digest unchanged after resize and action", "duration_ms": 6291, "runner_outcome": "passed", "campaign_interpretation": "correct_resize_state"
+    },
+    {
+      "id": "NPK-08", "spec": "corpus/workflows/npkill/npkill-08.json",
+      "target_command": ["../../../.trial-private/corpus-tools/node-target", "npkill/lib/index.js", "--directory", ".", "--no-check-update", "--dry-run"],
+      "viewport": {"width": 120, "height": 40}, "expected_screen": "reviewed post-exit snapshot contains the bounded quit message", "expected_exit": 0,
+      "independent_postcondition": "fixture manifest digest unchanged and no dry-run action selected", "duration_ms": 737, "runner_outcome": "passed", "campaign_interpretation": "correct_user_cancellation"
+    }
+  ],
+  "control": {
+    "known_bad_spec": "corpus/workflows/npkill/npkill-06-known-bad.control", "observed_runner_status": 1,
+    "observed_category": "assertion_timeout", "observed_difference": "expected [DELETED] alpha-PLAYTESTR-NPK; captured real target screen contained [WRONG-DELETED] alpha-PLAYTESTR-NPK", "target_exit": 0,
+    "cleanup_confirmed": true, "recovery_spec": "corpus/workflows/npkill/npkill-06.json", "recovery_runner_status": 0
+  },
+  "cleanup": {"all_target_exits_confirmed": true, "all_workspaces_cleaned": true, "original_fixture_unchanged": true},
+  "exclusions": [
+    "Linux amd64 and macOS arm64 were not run in this record.",
+    "The retained npm archive acquisition time was not remeasured; 15 ms is warm offline tarball hash verification only.",
+    "NPK-03 uses npkill's documented --exclude boundary because version 0.12.2 has no interactive filter action.",
+    "NPK-05 uses a documented custom vendor target because version 0.12.2 does not render an explicit empty-state marker.",
+    "All deletion actions use --dry-run; no dependency tree is actually removed.",
+    "The reviewed mutation changes only DELETED_FOLDER in messages.constants.js from SHA-256 2a36c838ca800cf5a0541b136b7c601159a5903adc5a1d172853dc5c2acd3651 to 4d5f196c4b294823a24b3f7c0ddf3d5dbc8ab3047b6c214b28f22e57e26be3e3.",
+    "Fixture SHA-256 is over a UTF-8 manifest of sorted relative path, tab, per-file SHA-256, and newline entries."
+  ]
+}

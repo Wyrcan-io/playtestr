@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "name": "MICRO-02 undo an edit before saving",
+  "command": ["../../../.trial-private/corpus-tools/micro-oracle", "oracle-unchanged.oracle", "--", "micro.exe", "document.txt"],
+  "workspace": {"fixture": "fixture", "cwd": ".", "home": "temporary", "temp": "temporary"},
+  "width": 70, "height": 16, "timeout_ms": 15000, "run_timeout_ms": 30000, "max_output_bytes": 10000000,
+  "steps": [
+    {"expect": "alpha marker"}, {"text": "wrong "}, {"expect": "wrong alpha marker"},
+    {"key": "CtrlZ"}, {"expect_not": "wrong alpha marker"}, {"key": "CtrlS"}, {"expect": "Saved document.txt"},
+    {"key": "CtrlQ"}, {"expect": "PLAYTESTR_MICRO_ORACLE=passed"}, {"exit": 0}
+  ]
+}

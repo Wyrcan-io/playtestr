@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-09-23",
+  "project": {"id": "TV", "version": "0.15.9", "binary_sha256": "a5fa660cac0bbb2fdc6f46a987dc4b4ceb60592d95b1de42c23806a7c2ae1136"},
+  "runner": {
+    "source_commit": "e89618df1908e0d98a7025fc26bd362dfeab5019",
+    "host": "windows_amd64",
+    "command": "go run ./cmd/playtestr test --artifacts-dir .trial-private/artifacts-tv-stability-2 --report .trial-private/corpus-tv-stability-2.json corpus/workflows/television"
+  },
+  "starting_state": {
+    "fixture": "corpus/workflows/television/fixture",
+    "fixture_sha256": "aac6ca64af7ac7771bb2970c31464e45d4fa50d2721515c42cfdcc9b5261a3dd",
+    "home": "fresh temporary directory per workflow",
+    "temp": "fresh temporary directory per workflow"
+  },
+  "setup": {"operation": "verify retained pinned Windows binary SHA-256", "elapsed_ms": 125, "network": false},
+  "limits": {"run_ms": 30000, "step_ms": 15000, "output_bytes": 10000000},
+  "workflows": [
+    {
+      "id": "TV-01", "spec": "corpus/workflows/television/television-01.json",
+      "target_command": ["../../../.trial-private/corpus-tools/tv", "--source-command", "cmd.exe /d /c type candidates.txt", "--source-output", "{}", "--no-preview", "--no-sort", "--exact", "--config-file", "config.toml"],
+      "viewport": {"width": 80, "height": 20}, "expected_screen": "alpha ordinary.txt accepted in reviewed alternate-screen snapshot", "expected_exit": 0,
+      "independent_postcondition": "exact retained candidate fixture digest unchanged; target exit 0", "duration_ms": 580, "runner_outcome": "passed", "campaign_interpretation": "correct_good_result"
+    },
+    {
+      "id": "TV-02", "spec": "corpus/workflows/television/television-02.json",
+      "target_command": ["../../../.trial-private/corpus-tools/tv", "--source-command", "cmd.exe /d /c type candidates.txt", "--source-output", "{}", "--no-preview", "--no-sort", "--exact", "--config-file", "config.toml"],
+      "viewport": {"width": 80, "height": 20}, "expected_screen": "second matching record beta record two.txt accepted", "expected_exit": 0,
+      "independent_postcondition": "exact retained candidate fixture digest unchanged; target exit 0", "duration_ms": 646, "runner_outcome": "passed", "campaign_interpretation": "correct_good_result"
+    },
+    {
+      "id": "TV-03", "spec": "corpus/workflows/television/television-03.json",
+      "target_command": ["../../../.trial-private/corpus-tools/tv", "--source-command", "cmd.exe /d /c type candidates.txt", "--source-output", "{}", "--no-preview", "--no-sort", "--exact", "--config-file", "config.toml"],
+      "viewport": {"width": 80, "height": 20}, "expected_screen": "cleared alpha query then exact accepted gamma-unicode-雪.txt result field", "expected_exit": 0,
+      "independent_postcondition": "exact retained UTF-8 candidate fixture digest unchanged; target exit 0", "duration_ms": 568, "runner_outcome": "passed", "campaign_interpretation": "correct_query_reset_result"
+    },
+    {
+      "id": "TV-04", "spec": "corpus/workflows/television/television-04.json",
+      "target_command": ["../../../.trial-private/corpus-tools/tv", "--source-command", "cmd.exe /d /c type candidates.txt", "--source-output", "{}", "--no-preview", "--no-sort", "--exact", "--config-file", "config.toml"],
+      "viewport": {"width": 80, "height": 20}, "expected_screen": "no-such-record with 0 / 0 results and no accepted record", "expected_exit": 0,
+      "independent_postcondition": "bounded Escape exit with candidate fixture digest unchanged", "duration_ms": 563, "runner_outcome": "passed", "campaign_interpretation": "correct_empty_result_boundary"
+    },
+    {
+      "id": "TV-05", "spec": "corpus/workflows/television/television-05.json",
+      "target_command": ["../../../.trial-private/corpus-tools/tv", "--source-command", "cmd.exe /d /c type candidates.txt", "--source-output", "{}", "--no-preview", "--no-sort", "--exact", "--config-file", "config.toml"],
+      "viewport": {"width": 80, "height": 20}, "expected_screen": "initial five-record view retained with no accepted output", "expected_exit": 0,
+      "independent_postcondition": "bounded user cancellation with candidate fixture digest unchanged", "duration_ms": 568, "runner_outcome": "passed", "campaign_interpretation": "correct_user_cancellation"
+    },
+    {
+      "id": "TV-06", "spec": "corpus/workflows/television/television-06.json",
+      "target_command": ["../../../.trial-private/corpus-tools/tv", "--source-command", "cmd.exe /d /c type candidates.txt", "--source-output", "{}", "--no-preview", "--no-sort", "--exact", "--config-file", "config.toml"],
+      "viewport": {"width": 80, "height": 20}, "expected_screen": "exact accepted gamma-unicode-雪.txt result field", "expected_exit": 0,
+      "independent_postcondition": "exact UTF-8 source fixture digest unchanged; target exit 0", "duration_ms": 518, "runner_outcome": "passed", "campaign_interpretation": "correct_unicode_result"
+    },
+    {
+      "id": "TV-07", "spec": "corpus/workflows/television/television-07.json",
+      "target_command": ["../../../.trial-private/corpus-tools/tv", "--source-command", "cmd.exe /d /c type preview-candidates.txt", "--source-output", "{}", "--preview-command", "cmd.exe /d /c type {}", "--no-sort", "--exact", "--config-file", "config.toml"],
+      "viewport": {"width": 100, "height": 24}, "expected_screen": "BETA PREVIEW MARKER belongs to selected preview-beta.txt", "expected_exit": 0,
+      "independent_postcondition": "preview and candidate fixture bytes unchanged after bounded cancellation", "duration_ms": 694, "runner_outcome": "passed", "campaign_interpretation": "correct_preview_result"
+    },
+    {
+      "id": "TV-08", "spec": "corpus/workflows/television/television-08.json",
+      "target_command": ["../../../.trial-private/corpus-tools/tv", "--source-command", "cmd.exe /d /c type candidates.txt", "--source-output", "{}", "--no-preview", "--no-sort", "--exact", "--config-file", "config.toml"],
+      "viewport": {"width": 80, "height": 20}, "expected_screen": "path with spaces.txt remains selected after 100x28 redraw", "expected_exit": 0,
+      "independent_postcondition": "exact retained candidate fixture digest unchanged; target exit 0", "duration_ms": 1517, "runner_outcome": "passed", "campaign_interpretation": "correct_resize_result"
+    }
+  ],
+  "control": {
+    "known_bad_spec": "corpus/workflows/television/television-01-known-bad.control", "observed_runner_status": 1,
+    "observed_category": "snapshot_mismatch", "observed_difference": "expected alpha ordinary.txt accepted output, actual BROKEN-TV-OUTPUT", "target_exit": 0,
+    "cleanup_confirmed": true, "recovery_spec": "corpus/workflows/television/television-01.json", "recovery_runner_status": 0
+  },
+  "cleanup": {"all_target_exits_confirmed": true, "all_workspaces_cleaned": true, "original_fixture_unchanged": true},
+  "exclusions": [
+    "Linux amd64 and macOS arm64 were not run in this record.",
+    "The retained release archive acquisition time was not remeasured; 125 ms is warm offline binary hash verification only.",
+    "The exact-commit reviewed mutation cold build took 4m50s with locked Rust dependencies; its rustfmt-clean relink took 2m12s and mutated binary SHA-256 is ddc7dbb6d5cb168fe6ba8faab770d474d951c126d4d7e11576e4f559ab0e4982.",
+    "The live results list rendered the tested CJK-width filename suffix as .xxt while the accepted result field contained gamma-unicode-雪.txt exactly; no general wide-character layout claim is made.",
+    "Fixture SHA-256 is over a UTF-8 manifest of sorted relative path, tab, per-file SHA-256, and newline entries."
+  ]
+}

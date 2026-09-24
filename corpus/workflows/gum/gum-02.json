@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "name": "GUM-02 filter then choose one matching item",
+  "workspace": {"fixture": "fixture", "cwd": ".", "home": "temporary", "temp": "temporary"},
+  "command": ["../../../.tools/external/gum", "choose", "Alpha", "Beta", "Gamma", "--header", "Filter deployment"],
+  "width": 60,
+  "height": 12,
+  "timeout_ms": 15000,
+  "run_timeout_ms": 30000,
+  "max_output_bytes": 500000,
+  "steps": [
+    {"expect": "Filter deployment"},
+    {"text": "Gam"},
+    {"expect": "Gamma"},
+    {"key": "Enter"},
+    {"exit": 0},
+    {"snapshot": "gum-02.txt"}
+  ]
+}

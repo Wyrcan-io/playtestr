@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-09-23",
+  "project": {"id": "CV", "version": "9.2.1", "binary_sha256": "4dd92d0e734e96e88ec8afd8c0153f6a9446156205460a995b978b63b49b4eb8"},
+  "runner": {
+    "source_commit": "e89618df1908e0d98a7025fc26bd362dfeab5019", "host": "windows_amd64",
+    "command": "go run ./cmd/playtestr test --report .trial-private/corpus-cv-stability.json --artifacts-dir .trial-private/artifacts-cv-stability corpus/workflows/create-vite"
+  },
+  "starting_state": {"fixture": "corpus/workflows/create-vite/fixture", "fixture_sha256": "4b50eeb151e4f2b1a2a2de060fc5c6dcdfbedee54689f81cde829ac7fa67ce63", "home": "fresh temporary directory per workflow", "temp": "fresh temporary directory per workflow"},
+  "setup": {"operation": "verify retained pinned npm tarball SHA-256", "elapsed_ms": 22, "network": false},
+  "limits": {"run_ms": 30000, "step_ms": 10000, "output_bytes": 1000000},
+  "workflows": [
+    {
+      "id":"CV-01","spec":"corpus/workflows/create-vite/create-vite-01.json","target_command":["../../../.trial-private/corpus-tools/create-vite-oracle","vanilla","cv-vanilla","--interactive"],"viewport":{"width":100,"height":30},
+      "expected_screen":"interactive Vanilla JavaScript choice, declined install, completion, and positive oracle","expected_exit":0,"independent_postcondition":"package name/type/dev script and src/main.js verified","duration_ms":487,"runner_outcome":"passed","campaign_interpretation":"correct_minimal_scaffold"
+    },
+    {
+      "id":"CV-02","spec":"corpus/workflows/create-vite/create-vite-02.json","target_command":["../../../.trial-private/corpus-tools/create-vite-oracle","typescript","cv-typescript","--interactive"],"viewport":{"width":100,"height":30},
+      "expected_screen":"interactive TypeScript variant selection and positive oracle","expected_exit":0,"independent_postcondition":"package fields and src/main.ts verified with no install","duration_ms":449,"runner_outcome":"passed","campaign_interpretation":"correct_typescript_variant"
+    },
+    {
+      "id":"CV-03","spec":"corpus/workflows/create-vite/create-vite-03.json","target_command":["../../../.trial-private/corpus-tools/create-vite-oracle","lit","cv-lit","--template","lit","--no-immediate"],"viewport":{"width":100,"height":30},
+      "expected_screen":"Lit scaffold completion and positive oracle","expected_exit":0,"independent_postcondition":"Lit dependency and src/my-element.js verified","duration_ms":414,"runner_outcome":"passed","campaign_interpretation":"correct_second_framework"
+    },
+    {
+      "id":"CV-04","spec":"corpus/workflows/create-vite/create-vite-04.json","target_command":["../../../.trial-private/corpus-tools/create-vite-oracle","corrected","Bad Name","--interactive"],"viewport":{"width":100,"height":30},
+      "expected_screen":"invalid package-name correction prompt, accepted value, and positive oracle","expected_exit":0,"independent_postcondition":"generated package name is corrected-package and JavaScript template is complete","duration_ms":521,"runner_outcome":"passed","campaign_interpretation":"correct_invalid_name_recovery"
+    },
+    {
+      "id":"CV-05","spec":"corpus/workflows/create-vite/create-vite-05.json","target_command":["../../../.trial-private/corpus-tools/create-vite-oracle","refuse","occupied","--template","vanilla","--no-immediate","--interactive"],"viewport":{"width":100,"height":30},
+      "expected_screen":"nonempty target warning and explicit operation cancellation","expected_exit":0,"independent_postcondition":"sentinel retained exactly and no package.json created","duration_ms":437,"runner_outcome":"passed","campaign_interpretation":"correct_overwrite_refusal"
+    },
+    {
+      "id":"CV-06","spec":"corpus/workflows/create-vite/create-vite-06.json","target_command":["../../../.trial-private/corpus-tools/create-vite-oracle","cancel"],"viewport":{"width":100,"height":30},
+      "expected_screen":"project-name input followed by Ctrl+C cancellation and positive oracle","expected_exit":0,"independent_postcondition":"cancelled-project destination does not exist","duration_ms":454,"runner_outcome":"passed","campaign_interpretation":"correct_user_cancellation"
+    },
+    {
+      "id":"CV-07","spec":"corpus/workflows/create-vite/create-vite-07.json","target_command":["../../../.trial-private/corpus-tools/create-vite-oracle","nested","nested/cv-nested","--template","vanilla","--no-immediate"],"viewport":{"width":100,"height":30},
+      "expected_screen":"nested destination completion and positive oracle","expected_exit":0,"independent_postcondition":"scaffold exists only below nested/cv-nested and neighbor sentinel is unchanged","duration_ms":439,"runner_outcome":"passed","campaign_interpretation":"correct_nested_output_boundary"
+    },
+    {
+      "id":"CV-08","spec":"corpus/workflows/create-vite/create-vite-08.json","target_command":["../../../.trial-private/corpus-tools/create-vite-oracle","decline","cv-decline","--interactive"],"viewport":{"width":100,"height":30},
+      "expected_screen":"interactive install/start offer declined, completion, and positive oracle","expected_exit":0,"independent_postcondition":"scaffold verified without node_modules or package-lock.json","duration_ms":506,"runner_outcome":"passed","campaign_interpretation":"correct_optional_install_decline"
+    }
+  ],
+  "control": {"known_bad_spec":"corpus/workflows/create-vite/create-vite-01-known-bad.control","observed_runner_status":1,"observed_category":"unexpected_exit","observed_difference":"wizard rendered Done, but oracle found generated package type commonjs instead of module and exited 90","target_exit":90,"cleanup_confirmed":true,"recovery_spec":"corpus/workflows/create-vite/create-vite-01.json","recovery_runner_status":0},
+  "cleanup": {"all_target_exits_confirmed":true,"all_workspaces_cleaned":true,"original_fixture_unchanged":true},
+  "exclusions": [
+    "Linux amd64 and macOS arm64 were not run in this record.",
+    "The retained npm archive acquisition time was not remeasured; 22 ms is warm offline tarball hash verification only.",
+    "CV-03 uses the documented --template path; the remaining selection and cancellation cases use the interactive PTY route.",
+    "The reviewed mutation changes template-vanilla/package.json from SHA-256 9c7fda4e995fcf8bd8fb6510c5986215b29c721aa969e31601bd7e9b4fb26872 to 5ac8dc84de9ce9eea80986590318b9532fcb780641daab193c037ef2778a5fc3.",
+    "Fixture SHA-256 is over a UTF-8 manifest of sorted relative path, tab, per-file SHA-256, and newline entries."
+  ]
+}

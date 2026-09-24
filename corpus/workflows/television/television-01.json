@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "name": "TV-01 filter and accept an exact line",
+  "command": ["../../../.trial-private/corpus-tools/tv", "--source-command", "cmd.exe /d /c type candidates.txt", "--source-output", "{}", "--no-preview", "--no-sort", "--exact", "--config-file", "config.toml"],
+  "workspace": {"fixture": "fixture", "cwd": ".", "home": "temporary", "temp": "temporary"},
+  "width": 80, "height": 20, "timeout_ms": 15000, "run_timeout_ms": 30000, "max_output_bytes": 10000000,
+  "steps": [{"expect":"1 / 5"},{"text":"alpha ordinary"},{"expect":"1 / 1"},{"expect":"alpha ordinary.txt"},{"key":"Enter"},{"exit":0},{"snapshot":"television-01.txt"}]
+}

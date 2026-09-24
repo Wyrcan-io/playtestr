@@ -1,0 +1,8 @@
+diff --git a/src/keyconfig.rs b/src/keyconfig.rs
+--- a/src/keyconfig.rs
++++ b/src/keyconfig.rs
+@@ -77,3 +77,3 @@ impl Default for KeyConfig {
+-      done: KeyCode::Char('d'),
++      done: KeyCode::Char('D'), // reviewed mutation: lowercase completion is ignored
+       start_stop: KeyCode::Char('s'),
+       quick_tag: KeyCode::Char('t'),

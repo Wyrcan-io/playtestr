@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "name": "FZF-06 toggle multi-selection",
+  "command": ["../../../.trial-private/corpus-tools/fzf", "--height=10", "--layout=reverse", "--border", "--prompt=Find: ", "--walker=file", "--walker-root=walker-root", "--no-sort", "--bind=start:reload(type candidates.txt)", "--multi", "--sync"],
+  "workspace": {"fixture": "fixture", "cwd": ".", "home": "temporary", "temp": "temporary"},
+  "width": 60, "height": 12, "timeout_ms": 15000, "run_timeout_ms": 30000, "max_output_bytes": 1000000,
+  "steps": [
+    {"expect": "5/5"}, {"text": "'record-"}, {"expect": "Find: 'record-"}, {"expect": "record-alpha.txt"}, {"expect": "record-beta.txt"}, {"key": "Tab"}, {"key": "Tab"}, {"key": "Enter"}, {"exit": 0}, {"snapshot": "fzf-06.txt"}
+  ]
+}

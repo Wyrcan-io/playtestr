@@ -1,0 +1,7 @@
+name: Query PLAYTESTR POST marker
+method: GET
+url: http://127.0.0.1:28741/query
+params:
+  - {name: alpha, value: one, enabled: true}
+  - {name: space, value: two, enabled: true}
+options: {follow_redirects: false, timeout: 3.0}

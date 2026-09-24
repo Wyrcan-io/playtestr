@@ -1,0 +1,18 @@
+--- a/pkg/commands/git_commands/working_tree.go
++++ b/pkg/commands/git_commands/working_tree.go
+@@ -43,13 +43,8 @@
+ }
+ 
+ func (self *WorkingTreeCommands) StageFiles(paths []string, extraArgs []string) error {
+-	cmdArgs := NewGitCmd("add").
+-		Arg(extraArgs...).
+-		Arg("--").
+-		Arg(paths...).
+-		ToArgv()
+-
+-	return self.cmd.New(cmdArgs).Run()
++	_, _ = paths, extraArgs
++	return nil
+ }
+ 
+ // StageAll stages all files

@@ -1,0 +1,7 @@
+{
+  "version":2,"name":"CV-07 use reviewed nested output directory",
+  "command":["../../../.trial-private/corpus-tools/create-vite-oracle","nested","nested/cv-nested","--template","vanilla","--no-immediate"],
+  "workspace":{"fixture":"fixture","cwd":".","home":"temporary","temp":"temporary"},
+  "width":100,"height":30,"timeout_ms":10000,"run_timeout_ms":30000,"max_output_bytes":1000000,
+  "steps":[{"expect":"Scaffolding project in"},{"expect":"nested\\cv-nested"},{"expect":"PLAYTESTR-CV-ORACLE nested OK"},{"exit":0}]
+}

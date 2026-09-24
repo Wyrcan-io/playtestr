@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "name": "MICRO-04 replace selected text",
+  "command": ["../../../.trial-private/corpus-tools/micro-oracle", "oracle-04.oracle", "--", "micro.exe", "document.txt"],
+  "workspace": {"fixture": "fixture", "cwd": ".", "home": "temporary", "temp": "temporary"},
+  "width": 70, "height": 16, "timeout_ms": 15000, "run_timeout_ms": 30000, "max_output_bytes": 10000000,
+  "steps": [
+    {"expect": "replace old token"}, {"key": "CtrlE"}, {"text": "replaceall old new"},
+    {"expect": "> replaceall old new"}, {"key": "Enter"}, {"expect": "replace new token"},
+    {"key": "CtrlS"}, {"expect": "Saved document.txt"}, {"key": "CtrlQ"},
+    {"expect": "PLAYTESTR_MICRO_ORACLE=passed"}, {"exit": 0}
+  ]
+}

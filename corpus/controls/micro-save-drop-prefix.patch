@@ -1,0 +1,10 @@
+--- a/internal/buffer/save.go
++++ b/internal/buffer/save.go
+@@
+-		if fileSize, e = file.Write(b.lines[0].data); e != nil {
++		// Reviewed corpus mutation: report a normal save while silently dropping
++		// the MICRO-01 inserted prefix from the first line on disk.
++		firstLine := bytes.TrimPrefix(b.lines[0].data, []byte("edited "))
++		if fileSize, e = file.Write(firstLine); e != nil {
+ 			return
+ 		}

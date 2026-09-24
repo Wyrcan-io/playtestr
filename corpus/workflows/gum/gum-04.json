@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "name": "GUM-04 reject a confirmation",
+  "workspace": {"fixture": "fixture", "cwd": ".", "home": "temporary", "temp": "temporary"},
+  "command": ["../../../.tools/external/gum", "confirm", "Delete reviewed fixture?", "--show-output"],
+  "width": 60,
+  "height": 12,
+  "timeout_ms": 15000,
+  "run_timeout_ms": 30000,
+  "max_output_bytes": 500000,
+  "steps": [
+    {"expect": "Delete reviewed fixture?"},
+    {"key": "ArrowRight"},
+    {"key": "Enter"},
+    {"exit": 1},
+    {"snapshot": "gum-04.txt"}
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "name": "MICRO-07 switch among two owned buffers",
+  "command": ["../../../.trial-private/corpus-tools/micro-oracle", "oracle-07.oracle", "--", "micro.exe", "document.txt", "second.txt"],
+  "workspace": {"fixture": "fixture", "cwd": ".", "home": "temporary", "temp": "temporary"},
+  "width": 70, "height": 16, "timeout_ms": 15000, "run_timeout_ms": 30000, "max_output_bytes": 10000000,
+  "steps": [
+    {"expect": "alpha marker"}, {"key": "CtrlE"}, {"text": "open second.txt"}, {"key": "Enter"},
+    {"expect": "second buffer marker"}, {"text": "edited "}, {"key": "CtrlS"}, {"expect": "Saved second.txt"},
+    {"key": "CtrlE"}, {"text": "open document.txt"}, {"key": "Enter"}, {"expect": "alpha marker"},
+    {"key": "CtrlQ"}, {"expect": "edited second buffer marker"}, {"key": "CtrlQ"},
+    {"expect": "PLAYTESTR_MICRO_ORACLE=passed"}, {"exit": 0}
+  ]
+}

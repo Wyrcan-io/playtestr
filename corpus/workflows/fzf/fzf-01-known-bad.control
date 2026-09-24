@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "name": "FZF-01 reviewed wrong-output mutation",
+  "command": ["../../../.trial-private/corpus-tools/fzf-mutated", "--height=10", "--layout=reverse", "--border", "--prompt=Find: ", "--walker=file", "--walker-root=walker-root", "--no-sort", "--bind=start:reload(type candidates.txt)", "--sync"],
+  "workspace": {"fixture": "fixture", "cwd": ".", "home": "temporary", "temp": "temporary"},
+  "width": 60, "height": 12, "timeout_ms": 15000, "run_timeout_ms": 30000, "max_output_bytes": 1000000,
+  "steps": [
+    {"expect": "5/5"}, {"text": "beta record.txt$"}, {"expect": "Find: beta record.txt$"}, {"expect": "beta record.txt"}, {"key": "Enter"}, {"exit": 0}, {"snapshot": "fzf-01.txt"}
+  ]
+}

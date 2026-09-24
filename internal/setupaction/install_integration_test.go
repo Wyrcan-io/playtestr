@@ -22,11 +22,35 @@ import (
 const testVersion = "v9.8.7"
 
 func TestMain(m *testing.M) {
-	if os.Getenv("PLAYTESTR_SETUP_FIXTURE") == "1" && len(os.Args) == 2 && os.Args[1] == "--version" {
+	if isSetupFixtureInvocation(os.Getenv("PLAYTESTR_SETUP_FIXTURE"), os.Args) {
 		fmt.Println("playtestr " + testVersion)
 		os.Exit(0)
 	}
 	os.Exit(m.Run())
+}
+
+func isSetupFixtureInvocation(marker string, args []string) bool {
+	return marker == "1" && len(args) >= 2 && args[len(args)-1] == "--version"
+}
+
+func TestSetupFixtureInvocationDetection(t *testing.T) {
+	for _, test := range []struct {
+		name   string
+		marker string
+		args   []string
+		want   bool
+	}{
+		{name: "ordinary", marker: "1", args: []string{"playtestr.exe", "--version"}, want: true},
+		{name: "PowerShell duplicates long executable path", marker: "1", args: []string{"PLAYTE~1.EXE", `C:\path with spaces\playtestr.exe`, "--version"}, want: true},
+		{name: "marker required", args: []string{"playtestr.exe", "--version"}},
+		{name: "version must be final", marker: "1", args: []string{"playtestr.exe", "--version", "extra"}},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			if got := isSetupFixtureInvocation(test.marker, test.args); got != test.want {
+				t.Fatalf("isSetupFixtureInvocation(%q, %q) = %t, want %t", test.marker, test.args, got, test.want)
+			}
+		})
+	}
 }
 
 func TestSetupActionInstallsVerifiedBinaryAndOverridesStalePath(t *testing.T) {

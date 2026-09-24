@@ -1,0 +1,7 @@
+{
+  "version":2,"name":"NPK-06 use reviewed dry-run action",
+  "command":["../../../.trial-private/corpus-tools/node-target","npkill/lib/index.js","--directory",".","--no-check-update","--dry-run","--sort","path"],
+  "workspace":{"fixture":"fixture","cwd":".","home":"temporary","temp":"temporary"},
+  "width":120,"height":40,"timeout_ms":15000,"run_timeout_ms":30000,"max_output_bytes":10000000,
+  "steps":[{"expect":"Search completed"},{"expect":"alpha-PLAYTESTR-NPK"},{"text":" "},{"expect":"[DELETED] alpha-PLAYTESTR-NPK"},{"text":"q"},{"expect":"Thanks for using npkill!"},{"exit":0}]
+}

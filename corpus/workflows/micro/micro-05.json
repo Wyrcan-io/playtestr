@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "name": "MICRO-05 cancel unsaved close",
+  "command": ["../../../.trial-private/corpus-tools/micro-oracle", "oracle-unchanged.oracle", "--", "micro.exe", "document.txt"],
+  "workspace": {"fixture": "fixture", "cwd": ".", "home": "temporary", "temp": "temporary"},
+  "width": 70, "height": 16, "timeout_ms": 15000, "run_timeout_ms": 30000, "max_output_bytes": 10000000,
+  "steps": [
+    {"expect": "alpha marker"}, {"text": "draft "}, {"expect": "draft alpha marker"}, {"key": "CtrlQ"},
+    {"expect": "Save changes to document.txt before closing?"}, {"key": "Escape"}, {"expect": "draft alpha marker"},
+    {"key": "CtrlZ"}, {"expect_not": "draft alpha marker"}, {"key": "CtrlQ"},
+    {"expect": "PLAYTESTR_MICRO_ORACLE=passed"}, {"exit": 0}
+  ]
+}

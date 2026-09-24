@@ -1,0 +1,7 @@
+{
+  "version":2,"name":"NPK-08 cancel or quit scanning selection",
+  "command":["../../../.trial-private/corpus-tools/node-target","npkill/lib/index.js","--directory",".","--no-check-update","--dry-run"],
+  "workspace":{"fixture":"fixture","cwd":".","home":"temporary","temp":"temporary"},
+  "width":120,"height":40,"timeout_ms":15000,"run_timeout_ms":30000,"max_output_bytes":10000000,
+  "steps":[{"expect":"alpha-PLAYTESTR-NPK"},{"text":"q"},{"expect":"Thanks for using npkill!"},{"exit":0},{"snapshot":"npkill-08.txt"}]
+}

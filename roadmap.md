@@ -1,6 +1,6 @@
 # Playtestr roadmap
 
-Updated 19 September 2026. **This file is the authoritative status and execution order.** Detailed plans live in [docs/plans](docs/plans/README.md). Historical evidence remains in its original dated records. This is a planning audit of checkout `2a1fcfc` and repository records, not a new remote CI run or execution of the proposed test campaign.
+Updated 24 September 2026. **This file is the authoritative status and execution order.** Detailed plans live in [docs/plans](docs/plans/README.md). Historical evidence remains in its original dated records.
 
 Product goal: a developer installs one runner, writes a short terminal interaction, catches a meaningful regression, and understands the failure quickly. Protect correctness and simplicity while increasing real-project depth. Maintainer recruitment/adoption starts after the engineering batch and qualified release below.
 
@@ -44,7 +44,7 @@ Exact hashes and run links belong to the cited records. Local tags corroborate i
 | 8 | Setup-only exact-version GitHub Action | Implemented, Windows local verification; [record](docs/validation/sprint-8-engineering-2026-09-18.md) | Native Linux/macOS action checks, verified immutable public action revision, real upgrade |
 | 9 | Fresh bounded workspaces, spec/report v2, v2 HTML rendering | Implemented, Windows local verification; [record](docs/validation/sprint-9-engineering-2026-09-19.md) | Native Linux/macOS workspace checks and release-byte verification |
 | 10 | One evidence-selected terminal compatibility improvement | **Deferred at evidence gate**; [decision](docs/validation/sprint-10-decision-2026-09-21.md), [plan](docs/plans/sprints/10-terminal-compatibility.md) | Reopen only for a reduced real-app terminal blocker; no universal Unicode promise |
-| 11 | Deep real-project validation corpus | **A0/A1 complete; B/C planned**; [checkpoint](corpus/README.md), [plan](docs/plans/sprints/11-real-project-corpus.md) | Five pilots, 120 admitted workflows, 300 risk cases, 15 defect controls and 3,000 frozen-byte repeats |
+| 11 | Deep real-project validation corpus | **A0/A1/B complete; C planned**; [checkpoint](corpus/README.md), [B evidence](docs/validation/sprint-11-b-corpus-depth-2026-09-24.md), [plan](docs/plans/sprints/11-real-project-corpus.md) | Candidate-frozen full matrix and 3,000 repeats remain for C |
 | 12 | Easier first-test authoring | **A complete; B deferred at its evidence gate**; [A record](docs/validation/sprint-12-a-authoring-2026-09-21.md), [B decision](docs/validation/sprint-12-b-decision-2026-09-21.md) | Reopen B only for two reduced workflow failures with the same missing input/assertion family |
 | 13 | Native evidence, integrated hardening and fair comparison | **A0/A1/B/C complete**; [A0](docs/validation/sprint-13-a0-native-gaps-2026-09-20.md), [A1](docs/validation/sprint-13-a1-integrated-hardening-2026-09-21.md), [B](docs/validation/sprint-13-b-setup-action-2026-09-21.md), [C](docs/validation/sprint-13-c-competitive-2026-09-22.md), [plan](docs/plans/sprints/13-native-ci-and-release-hardening.md) | After 11-B, run 13-D rehearsal and prepare the candidate-freeze handoff |
 | 14 | Reproducible demos and release kit | **Planned**; [plan](docs/plans/sprints/14-demos-and-release-kit.md) | Three real stories, accessible watch-to-run path, final frozen-byte captures and accurate release materials |
@@ -78,7 +78,7 @@ The table is a dependency chain. A completed checkpoint produces the stated evid
 | 6 | **12-B: optional extension — deferred 2026-09-21** | No two admitted flows share a missing input or focused-assertion blocker | [Decision](docs/validation/sprint-12-b-decision-2026-09-21.md); strict public formats remain unchanged |
 | 7 | **6: handoff decision — completed/deferred 2026-09-21** | Reproduced `GUM-01` from ordinary pinned inputs; recovery passed and an absent target failed distinctly | [Experiment and decision](docs/validation/sprint-6-handoff-2026-09-21.md); no manifest or replay command added |
 | 8 | **13-B/C: integrated hardening and comparison — completed 2026-09-22** | Verified reports/action source and ran bounded fair comparisons plus adversarial checks | [Three-host hardening](docs/validation/sprint-13-a1-integrated-hardening-2026-09-21.md), [action evidence](docs/validation/sprint-13-b-setup-action-2026-09-21.md), and [comparison results](docs/validation/sprint-13-c-competitive-2026-09-22.md) |
-| 9 | **11-B: application depth** | Complete 120 admitted workflows across 15 projects and the 300 focused-case map; prove 15 known-bad/recovered controls | Full outcomes, postconditions, host exclusions and unchanged reviewed baselines |
+| 9 | **11-B: application depth â€” completed 2026-09-24** | Implemented 120 admitted workflows across 15 projects and closed the 300 focused-case map; proved 15 known-bad/recovered controls | [Full outcomes](docs/validation/sprint-11-b-corpus-depth-2026-09-24.md), postconditions, host exclusions and unchanged reviewed baselines |
 | 10 | **13-D + R6-F: candidate freeze** | Choose candidate version, freeze source/schema/fixtures, build once per host, package and hash executable/archive | Immutable candidate identities available before expensive qualification; not public publication |
 | 11 | **11-C + R6-Q: frozen-byte qualification** | Run the full admitted matrix and 3,000 repeats using those candidate executable hashes | Complete attempt ledger, no unexplained false results/leaks, honest exclusions; execute once and reuse valid evidence by hash |
 | 12 | **14: demos and release kit** | Capture three pass/defect/recovery stories and verify watch-to-run instructions using the frozen candidate | Reproducible assets, accessible presentation, accurate versions and draft announcements |
@@ -99,7 +99,7 @@ Sprint 14 may draft stories earlier, but final captures use the qualified behavi
 
 ## Quality and scope commitments
 
-- Target 15 independently maintained applications, 120 distinct meaningful workflows, 300 distinct risk cases and 3,000 repeated process executions. These measures are separate and **planned, not completed**. The [validation program](docs/plans/validation-program.md) defines counts, budgets and qualification.
+- Completed depth totals are 15 independently maintained applications, 120 distinct meaningful workflows and 300 focused risk cells. The 3,000 frozen-byte executions remain planned for 11-C/R6-Q. These measures are separate. The [validation program](docs/plans/validation-program.md) defines counts, budgets and qualification.
 - Include Linux amd64, macOS arm64 and Windows amd64 evidence for claimed native paths. Application support is per version/workflow/host, not per language or framework logo.
 - A passing screen is insufficient for a state-writing task. Validate exact Git/file/DB state at the right lifecycle point; preserve original fixtures and confirm cleanup.
 - No new feature solely to match a competitor. The [feature budget](docs/plans/product-focus.md) allows one selected compatibility family and one conditional authoring/input/assertion family; failure-manifest work requires its own measured exception.
@@ -110,10 +110,11 @@ Sprint 14 may draft stories earlier, but final captures use the qualified behavi
 ## Immediate next implementation task
 
 Sprint 12 is complete and Sprint 6's ordinary handoff proved sufficient, so its
-optional manifest remains deferred. Sprint 13-A1/B/C are complete with exact
-native, action and Linux matched-comparison records. Continue with **Sprint
-11-B application depth**; after it closes, Sprint 13-D performs the development
-archive rehearsal and hands the source boundary to R6-F.
+optional manifest remains deferred. Sprint 13-A1/B/C and Sprint 11-B are complete
+with exact native, action, comparison, application-depth and risk-map records.
+Continue with **Sprint 13-D plus R6-F candidate freeze**: perform the development
+archive rehearsal, select the candidate version, and freeze source/schema/fixture
+and per-host artifact identities before any qualification repetitions.
 The 13-A0
 [native-evidence table](docs/validation/sprint-13-a0-native-gaps-2026-09-20.md)
 remains the starting three-host source evidence. Do not run the 3,000-repeat

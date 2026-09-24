@@ -1,24 +1,44 @@
-# Sprint 11 A0/A1 corpus checkpoint
+# Sprint 11 corpus checkpoint
 
-Status: **A0 and A1 complete as an admission/design checkpoint on 20 September
-2026.** This does not claim Sprint 11-B's 120 implemented real-app workflows,
-the 300 executed focused cases, macOS real-app compatibility, or R6's frozen-byte
-qualification sample.
+Status: **A0/A1 complete on 20 September 2026 and Sprint 11-B complete on 24
+September 2026.** Sprint 11-B implements all 120 admitted workflows, closes the
+300 focused risk cells, and records one detected known-bad plus recovery for all
+15 projects. This is discovery/depth evidence, not R6 frozen-byte qualification
+or broad cross-platform application compatibility.
 
 The machine-checked artifacts are:
 
 - [`manifest.json`](manifest.json): 15 frozen projects, exact source/package or
   binary identities, install/lock/state/resource/limit/disposal contracts and
   explicit host status.
-- [`risk-map.json`](risk-map.json): 300 distinct risk/layer cells. It inventories
-  99 reviewed existing boundaries and leaves 201 visible gaps; a file name is
-  not treated as proof that every proposed cell is green.
+- [`risk-map.json`](risk-map.json): 300 distinct risk/layer cells with exact test
+  anchors. The contract verifies every referenced file/test anchor exists.
+- [`boundary-map.json`](boundary-map.json): two reviewed rejection,
+  cancellation, or meaningful-boundary workflows for every project.
+- [`results/`](results): 15 machine-checked result records with exact target and
+  fixture hashes, commands, viewports, independent postconditions, costs,
+  cleanup, exclusions, known-bad detection, and recovery.
 - [`pilots/records.json`](pilots/records.json): the five pilot commands, manual
   routes, independently specified results, separate runner/campaign outcomes,
   negatives, recovery and cleanup.
 - [`../scripts/corpus/generate-risk-map.go`](../scripts/corpus/generate-risk-map.go):
   deterministic generator for the reviewed allocation. `go test ./...` checks
   the 15/120/300 cardinalities, exact identities, host cells and pilot record.
+
+## Sprint 11-B outcome
+
+The completed depth checkpoint is recorded in
+[`docs/validation/sprint-11-b-corpus-depth-2026-09-24.md`](../docs/validation/sprint-11-b-corpus-depth-2026-09-24.md).
+The machine-checked denominators are 15 projects, 120 distinct workflow specs,
+300 reviewed focused risk cells, 15 intended known-bad detections with 15
+passing recoveries, and 30 reviewed rejection/cancellation/boundary workflows.
+
+Thirteen application suites ran as native Windows amd64 targets. TIG and
+taskwarrior-tui ran as pinned Linux amd64 targets under WSL on a Windows amd64
+runner and are explicitly not native-Windows or native-Linux-host claims. Linux
+and macOS application suites remain unrun; only the portable focused tests have
+three-host native evidence. Those exclusions carry into candidate freeze and
+qualification rather than being converted into green support cells.
 
 ## A0 outcome
 
@@ -68,7 +88,7 @@ it rechecks the index/file and emits `PLAYTESTR_FRESH_ORACLE=passed`; the spec
 asserts that marker before successful v2 cleanup deletes the workspace. `LG-01`
 separately reads the staged path/bytes before its harness resets the repository.
 
-## A1 admission and gaps
+## Historical A1 admission and gaps (20 September 2026)
 
 The 120 IDs in the catalog are frozen as eight intents for each manifest prefix.
 An intent is admitted to the design corpus, not marked implemented. The exact
@@ -94,7 +114,7 @@ WSL is historical WSL, and macOS real applications are unrun. Final qualificatio
 still requires five actually verified applications per native host and three
 shared applications across all three.
 
-## Ranked blockers and next decisions
+## Historical A1 blockers and next decisions
 
 1. **Native breadth:** macOS has no real-app cell and Linux evidence here is WSL.
    Sprint 13's native jobs must run at least five admitted apps per host and three

@@ -1,0 +1,12 @@
+--- a/television/main.rs
++++ b/television/main.rs
+@@
+     if let Some(entries) = output.selected_entries {
+         for entry in &entries {
+-            writeln!(bufwriter, "{}", entry.output()?)?;
++            // Reviewed corpus mutation: preserve television's real UI and
++            // selection, but corrupt the accepted output at its final boundary.
++            let _ = entry.output()?;
++            writeln!(bufwriter, "BROKEN-TV-OUTPUT")?;
+         }
+     }

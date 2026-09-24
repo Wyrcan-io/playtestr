@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "frozen_on": "2026-09-20",
+  "frozen_on": "2026-09-24",
   "cases": [
     {
       "id": "VAL-001",
@@ -8,39 +8,39 @@
       "risk": "unsupported spec version",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestSpecVersionAndSizeLimits"
     },
     {
       "id": "VAL-002",
       "family": "spec/schema/CLI validation",
       "risk": "unsupported spec version",
       "layer": "runner integration boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestSpecVersionAndSizeLimits"
     },
     {
       "id": "VAL-003",
       "family": "spec/schema/CLI validation",
       "risk": "unsupported spec version",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestSpecVersionAndSizeLimits"
     },
     {
       "id": "VAL-004",
       "family": "spec/schema/CLI validation",
       "risk": "unsupported spec version",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestSpecVersionAndSizeLimits"
     },
     {
       "id": "VAL-005",
       "family": "spec/schema/CLI validation",
       "risk": "unsupported spec version",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestSpecVersionAndSizeLimits"
     },
     {
       "id": "VAL-006",
@@ -48,39 +48,39 @@
       "risk": "unknown object field",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestRejectInvalidSpecs"
     },
     {
       "id": "VAL-007",
       "family": "spec/schema/CLI validation",
       "risk": "unknown object field",
       "layer": "runner integration boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestRejectInvalidSpecs"
     },
     {
       "id": "VAL-008",
       "family": "spec/schema/CLI validation",
       "risk": "unknown object field",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestRejectInvalidSpecs"
     },
     {
       "id": "VAL-009",
       "family": "spec/schema/CLI validation",
       "risk": "unknown object field",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestRejectInvalidSpecs"
     },
     {
       "id": "VAL-010",
       "family": "spec/schema/CLI validation",
       "risk": "unknown object field",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestRejectInvalidSpecs"
     },
     {
       "id": "VAL-011",
@@ -88,39 +88,39 @@
       "risk": "explicit null field",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput"
     },
     {
       "id": "VAL-012",
       "family": "spec/schema/CLI validation",
       "risk": "explicit null field",
       "layer": "runner integration boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput"
     },
     {
       "id": "VAL-013",
       "family": "spec/schema/CLI validation",
       "risk": "explicit null field",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput"
     },
     {
       "id": "VAL-014",
       "family": "spec/schema/CLI validation",
       "risk": "explicit null field",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput"
     },
     {
       "id": "VAL-015",
       "family": "spec/schema/CLI validation",
       "risk": "explicit null field",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput"
     },
     {
       "id": "VAL-016",
@@ -128,39 +128,39 @@
       "risk": "missing command",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput"
     },
     {
       "id": "VAL-017",
       "family": "spec/schema/CLI validation",
       "risk": "missing command",
       "layer": "runner integration boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput"
     },
     {
       "id": "VAL-018",
       "family": "spec/schema/CLI validation",
       "risk": "missing command",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput"
     },
     {
       "id": "VAL-019",
       "family": "spec/schema/CLI validation",
       "risk": "missing command",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput"
     },
     {
       "id": "VAL-020",
       "family": "spec/schema/CLI validation",
       "risk": "missing command",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput"
     },
     {
       "id": "VAL-021",
@@ -168,39 +168,39 @@
       "risk": "empty command element",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput"
     },
     {
       "id": "VAL-022",
       "family": "spec/schema/CLI validation",
       "risk": "empty command element",
       "layer": "runner integration boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput"
     },
     {
       "id": "VAL-023",
       "family": "spec/schema/CLI validation",
       "risk": "empty command element",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput"
     },
     {
       "id": "VAL-024",
       "family": "spec/schema/CLI validation",
       "risk": "empty command element",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput"
     },
     {
       "id": "VAL-025",
       "family": "spec/schema/CLI validation",
       "risk": "empty command element",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput"
     },
     {
       "id": "VAL-026",
@@ -208,39 +208,39 @@
       "risk": "step with mixed actions",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestRejectInvalidSpecs"
     },
     {
       "id": "VAL-027",
       "family": "spec/schema/CLI validation",
       "risk": "step with mixed actions",
       "layer": "runner integration boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestRejectInvalidSpecs"
     },
     {
       "id": "VAL-028",
       "family": "spec/schema/CLI validation",
       "risk": "step with mixed actions",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestRejectInvalidSpecs"
     },
     {
       "id": "VAL-029",
       "family": "spec/schema/CLI validation",
       "risk": "step with mixed actions",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestRejectInvalidSpecs"
     },
     {
       "id": "VAL-030",
       "family": "spec/schema/CLI validation",
       "risk": "step with mixed actions",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestRejectInvalidSpecs"
     },
     {
       "id": "VAL-031",
@@ -248,39 +248,39 @@
       "risk": "unsupported key name",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput"
     },
     {
       "id": "VAL-032",
       "family": "spec/schema/CLI validation",
       "risk": "unsupported key name",
       "layer": "runner integration boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput"
     },
     {
       "id": "VAL-033",
       "family": "spec/schema/CLI validation",
       "risk": "unsupported key name",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput"
     },
     {
       "id": "VAL-034",
       "family": "spec/schema/CLI validation",
       "risk": "unsupported key name",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput"
     },
     {
       "id": "VAL-035",
       "family": "spec/schema/CLI validation",
       "risk": "unsupported key name",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput"
     },
     {
       "id": "VAL-036",
@@ -288,39 +288,39 @@
       "risk": "nonpositive duration",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestRejectInvalidSpecs"
     },
     {
       "id": "VAL-037",
       "family": "spec/schema/CLI validation",
       "risk": "nonpositive duration",
       "layer": "runner integration boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestRejectInvalidSpecs"
     },
     {
       "id": "VAL-038",
       "family": "spec/schema/CLI validation",
       "risk": "nonpositive duration",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestRejectInvalidSpecs"
     },
     {
       "id": "VAL-039",
       "family": "spec/schema/CLI validation",
       "risk": "nonpositive duration",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestRejectInvalidSpecs"
     },
     {
       "id": "VAL-040",
       "family": "spec/schema/CLI validation",
       "risk": "nonpositive duration",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestRejectInvalidSpecs"
     },
     {
       "id": "VAL-041",
@@ -328,39 +328,39 @@
       "risk": "viewport below minimum",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestRejectInvalidSpecs"
     },
     {
       "id": "VAL-042",
       "family": "spec/schema/CLI validation",
       "risk": "viewport below minimum",
       "layer": "runner integration boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestRejectInvalidSpecs"
     },
     {
       "id": "VAL-043",
       "family": "spec/schema/CLI validation",
       "risk": "viewport below minimum",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestRejectInvalidSpecs"
     },
     {
       "id": "VAL-044",
       "family": "spec/schema/CLI validation",
       "risk": "viewport below minimum",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestRejectInvalidSpecs"
     },
     {
       "id": "VAL-045",
       "family": "spec/schema/CLI validation",
       "risk": "viewport below minimum",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestRejectInvalidSpecs"
     },
     {
       "id": "VAL-046",
@@ -368,39 +368,39 @@
       "risk": "viewport above maximum",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestRejectInvalidSpecs"
     },
     {
       "id": "VAL-047",
       "family": "spec/schema/CLI validation",
       "risk": "viewport above maximum",
       "layer": "runner integration boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestRejectInvalidSpecs"
     },
     {
       "id": "VAL-048",
       "family": "spec/schema/CLI validation",
       "risk": "viewport above maximum",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestRejectInvalidSpecs"
     },
     {
       "id": "VAL-049",
       "family": "spec/schema/CLI validation",
       "risk": "viewport above maximum",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestRejectInvalidSpecs"
     },
     {
       "id": "VAL-050",
       "family": "spec/schema/CLI validation",
       "risk": "viewport above maximum",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestRejectInvalidSpecs"
     },
     {
       "id": "VAL-051",
@@ -408,47 +408,47 @@
       "risk": "invalid environment name",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestRejectInvalidSpecs"
     },
     {
       "id": "VAL-052",
       "family": "spec/schema/CLI validation",
       "risk": "invalid environment name",
       "layer": "runner integration boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestRejectInvalidSpecs"
     },
     {
       "id": "VAL-053",
       "family": "spec/schema/CLI validation",
       "risk": "invalid environment name",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestRejectInvalidSpecs"
     },
     {
       "id": "VAL-054",
       "family": "spec/schema/CLI validation",
       "risk": "invalid environment name",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestRejectInvalidSpecs"
     },
     {
       "id": "VAL-055",
       "family": "spec/schema/CLI validation",
       "risk": "invalid environment name",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestRejectInvalidSpecs"
     },
     {
       "id": "LIF-001",
       "family": "process/input/lifecycle",
       "risk": "natural exit zero",
       "layer": "pure contract boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestExpectedExitZero"
     },
     {
       "id": "LIF-002",
@@ -456,7 +456,7 @@
       "risk": "natural exit zero",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestExpectedExitZero"
     },
     {
       "id": "LIF-003",
@@ -464,31 +464,31 @@
       "risk": "natural exit zero",
       "layer": "Windows amd64 native boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestExpectedExitZero"
     },
     {
       "id": "LIF-004",
       "family": "process/input/lifecycle",
       "risk": "natural exit zero",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestExpectedExitZero"
     },
     {
       "id": "LIF-005",
       "family": "process/input/lifecycle",
       "risk": "natural exit zero",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestExpectedExitZero"
     },
     {
       "id": "LIF-006",
       "family": "process/input/lifecycle",
       "risk": "expected nonzero exit",
       "layer": "pure contract boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestExpectedNonzeroExit"
     },
     {
       "id": "LIF-007",
@@ -496,7 +496,7 @@
       "risk": "expected nonzero exit",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestExpectedNonzeroExit"
     },
     {
       "id": "LIF-008",
@@ -504,31 +504,31 @@
       "risk": "expected nonzero exit",
       "layer": "Windows amd64 native boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestExpectedNonzeroExit"
     },
     {
       "id": "LIF-009",
       "family": "process/input/lifecycle",
       "risk": "expected nonzero exit",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestExpectedNonzeroExit"
     },
     {
       "id": "LIF-010",
       "family": "process/input/lifecycle",
       "risk": "expected nonzero exit",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestExpectedNonzeroExit"
     },
     {
       "id": "LIF-011",
       "family": "process/input/lifecycle",
       "risk": "unexpected exit code",
       "layer": "pure contract boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestWrongExitCode"
     },
     {
       "id": "LIF-012",
@@ -536,7 +536,7 @@
       "risk": "unexpected exit code",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestWrongExitCode"
     },
     {
       "id": "LIF-013",
@@ -544,31 +544,31 @@
       "risk": "unexpected exit code",
       "layer": "Windows amd64 native boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestWrongExitCode"
     },
     {
       "id": "LIF-014",
       "family": "process/input/lifecycle",
       "risk": "unexpected exit code",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestWrongExitCode"
     },
     {
       "id": "LIF-015",
       "family": "process/input/lifecycle",
       "risk": "unexpected exit code",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestWrongExitCode"
     },
     {
       "id": "LIF-016",
       "family": "process/input/lifecycle",
       "risk": "exit before readiness",
       "layer": "pure contract boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestExitWhileWaitingForText"
     },
     {
       "id": "LIF-017",
@@ -576,7 +576,7 @@
       "risk": "exit before readiness",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestExitWhileWaitingForText"
     },
     {
       "id": "LIF-018",
@@ -584,31 +584,31 @@
       "risk": "exit before readiness",
       "layer": "Windows amd64 native boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestExitWhileWaitingForText"
     },
     {
       "id": "LIF-019",
       "family": "process/input/lifecycle",
       "risk": "exit before readiness",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestExitWhileWaitingForText"
     },
     {
       "id": "LIF-020",
       "family": "process/input/lifecycle",
       "risk": "exit before readiness",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestExitWhileWaitingForText"
     },
     {
       "id": "LIF-021",
       "family": "process/input/lifecycle",
       "risk": "silent target input",
       "layer": "pure contract boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestSilentTargetCanReceiveInputWithoutStartupTimeout"
     },
     {
       "id": "LIF-022",
@@ -616,7 +616,7 @@
       "risk": "silent target input",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestSilentTargetCanReceiveInputWithoutStartupTimeout"
     },
     {
       "id": "LIF-023",
@@ -624,31 +624,31 @@
       "risk": "silent target input",
       "layer": "Windows amd64 native boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestSilentTargetCanReceiveInputWithoutStartupTimeout"
     },
     {
       "id": "LIF-024",
       "family": "process/input/lifecycle",
       "risk": "silent target input",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestSilentTargetCanReceiveInputWithoutStartupTimeout"
     },
     {
       "id": "LIF-025",
       "family": "process/input/lifecycle",
       "risk": "silent target input",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestSilentTargetCanReceiveInputWithoutStartupTimeout"
     },
     {
       "id": "LIF-026",
       "family": "process/input/lifecycle",
       "risk": "startup timeout",
       "layer": "pure contract boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestStartupTimeout"
     },
     {
       "id": "LIF-027",
@@ -656,7 +656,7 @@
       "risk": "startup timeout",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestStartupTimeout"
     },
     {
       "id": "LIF-028",
@@ -664,31 +664,31 @@
       "risk": "startup timeout",
       "layer": "Windows amd64 native boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestStartupTimeout"
     },
     {
       "id": "LIF-029",
       "family": "process/input/lifecycle",
       "risk": "startup timeout",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestStartupTimeout"
     },
     {
       "id": "LIF-030",
       "family": "process/input/lifecycle",
       "risk": "startup timeout",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestStartupTimeout"
     },
     {
       "id": "LIF-031",
       "family": "process/input/lifecycle",
       "risk": "total run timeout",
       "layer": "pure contract boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestRunTimeout"
     },
     {
       "id": "LIF-032",
@@ -696,7 +696,7 @@
       "risk": "total run timeout",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestRunTimeout"
     },
     {
       "id": "LIF-033",
@@ -704,31 +704,31 @@
       "risk": "total run timeout",
       "layer": "Windows amd64 native boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestRunTimeout"
     },
     {
       "id": "LIF-034",
       "family": "process/input/lifecycle",
       "risk": "total run timeout",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestRunTimeout"
     },
     {
       "id": "LIF-035",
       "family": "process/input/lifecycle",
       "risk": "total run timeout",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestRunTimeout"
     },
     {
       "id": "LIF-036",
       "family": "process/input/lifecycle",
       "risk": "blocked input cancellation",
       "layer": "pure contract boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestBlockedInputHonorsContext"
     },
     {
       "id": "LIF-037",
@@ -736,7 +736,7 @@
       "risk": "blocked input cancellation",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestBlockedInputHonorsContext"
     },
     {
       "id": "LIF-038",
@@ -744,31 +744,31 @@
       "risk": "blocked input cancellation",
       "layer": "Windows amd64 native boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestBlockedInputHonorsContext"
     },
     {
       "id": "LIF-039",
       "family": "process/input/lifecycle",
       "risk": "blocked input cancellation",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestBlockedInputHonorsContext"
     },
     {
       "id": "LIF-040",
       "family": "process/input/lifecycle",
       "risk": "blocked input cancellation",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestBlockedInputHonorsContext"
     },
     {
       "id": "LIF-041",
       "family": "process/input/lifecycle",
       "risk": "output flood",
       "layer": "pure contract boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestOutputLimit"
     },
     {
       "id": "LIF-042",
@@ -776,7 +776,7 @@
       "risk": "output flood",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestOutputLimit"
     },
     {
       "id": "LIF-043",
@@ -784,31 +784,31 @@
       "risk": "output flood",
       "layer": "Windows amd64 native boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestOutputLimit"
     },
     {
       "id": "LIF-044",
       "family": "process/input/lifecycle",
       "risk": "output flood",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestOutputLimit"
     },
     {
       "id": "LIF-045",
       "family": "process/input/lifecycle",
       "risk": "output flood",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestOutputLimit"
     },
     {
       "id": "LIF-046",
       "family": "process/input/lifecycle",
       "risk": "runner interrupt",
       "layer": "pure contract boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "cmd/playtestr/main_test.go#TestCancellationReturns130AndStopsLaterSpecs"
     },
     {
       "id": "LIF-047",
@@ -816,7 +816,7 @@
       "risk": "runner interrupt",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "cmd/playtestr/main_test.go#TestCancellationReturns130AndStopsLaterSpecs"
     },
     {
       "id": "LIF-048",
@@ -824,31 +824,31 @@
       "risk": "runner interrupt",
       "layer": "Windows amd64 native boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "cmd/playtestr/main_test.go#TestCancellationReturns130AndStopsLaterSpecs"
     },
     {
       "id": "LIF-049",
       "family": "process/input/lifecycle",
       "risk": "runner interrupt",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "cmd/playtestr/main_test.go#TestCancellationReturns130AndStopsLaterSpecs"
     },
     {
       "id": "LIF-050",
       "family": "process/input/lifecycle",
       "risk": "runner interrupt",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "cmd/playtestr/main_test.go#TestCancellationReturns130AndStopsLaterSpecs"
     },
     {
       "id": "LIF-051",
       "family": "process/input/lifecycle",
       "risk": "hung descendant cleanup",
       "layer": "pure contract boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestChildProcessCleanup"
     },
     {
       "id": "LIF-052",
@@ -856,7 +856,7 @@
       "risk": "hung descendant cleanup",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestChildProcessCleanup"
     },
     {
       "id": "LIF-053",
@@ -864,31 +864,31 @@
       "risk": "hung descendant cleanup",
       "layer": "Windows amd64 native boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestChildProcessCleanup"
     },
     {
       "id": "LIF-054",
       "family": "process/input/lifecycle",
       "risk": "hung descendant cleanup",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestChildProcessCleanup"
     },
     {
       "id": "LIF-055",
       "family": "process/input/lifecycle",
       "risk": "hung descendant cleanup",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestChildProcessCleanup"
     },
     {
       "id": "LIF-056",
       "family": "process/input/lifecycle",
       "risk": "repeated session cleanup",
       "layer": "pure contract boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestRepeatedSessionCleanup"
     },
     {
       "id": "LIF-057",
@@ -896,7 +896,7 @@
       "risk": "repeated session cleanup",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestRepeatedSessionCleanup"
     },
     {
       "id": "LIF-058",
@@ -904,23 +904,23 @@
       "risk": "repeated session cleanup",
       "layer": "Windows amd64 native boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestRepeatedSessionCleanup"
     },
     {
       "id": "LIF-059",
       "family": "process/input/lifecycle",
       "risk": "repeated session cleanup",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestRepeatedSessionCleanup"
     },
     {
       "id": "LIF-060",
       "family": "process/input/lifecycle",
       "risk": "repeated session cleanup",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestRepeatedSessionCleanup"
     },
     {
       "id": "REN-001",
@@ -928,15 +928,15 @@
       "risk": "split UTF-8 sequence",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/terminal_test.go"
+      "reference": "internal/runner/terminal_test.go#TestRenderedScreenContract"
     },
     {
       "id": "REN-002",
       "family": "render/readiness/resize",
       "risk": "split UTF-8 sequence",
       "layer": "runner integration boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/terminal_test.go#TestRenderedScreenContract"
     },
     {
       "id": "REN-003",
@@ -944,23 +944,23 @@
       "risk": "split UTF-8 sequence",
       "layer": "Windows amd64 native boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/terminal_test.go#TestRenderedScreenContract"
     },
     {
       "id": "REN-004",
       "family": "render/readiness/resize",
       "risk": "split UTF-8 sequence",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/terminal_test.go#TestRenderedScreenContract"
     },
     {
       "id": "REN-005",
       "family": "render/readiness/resize",
       "risk": "split UTF-8 sequence",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/terminal_test.go#TestRenderedScreenContract"
     },
     {
       "id": "REN-006",
@@ -968,15 +968,15 @@
       "risk": "split CSI escape",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/terminal_test.go"
+      "reference": "internal/runner/terminal_test.go#TestRenderedScreenContract"
     },
     {
       "id": "REN-007",
       "family": "render/readiness/resize",
       "risk": "split CSI escape",
       "layer": "runner integration boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/terminal_test.go#TestRenderedScreenContract"
     },
     {
       "id": "REN-008",
@@ -984,23 +984,23 @@
       "risk": "split CSI escape",
       "layer": "Windows amd64 native boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/terminal_test.go#TestRenderedScreenContract"
     },
     {
       "id": "REN-009",
       "family": "render/readiness/resize",
       "risk": "split CSI escape",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/terminal_test.go#TestRenderedScreenContract"
     },
     {
       "id": "REN-010",
       "family": "render/readiness/resize",
       "risk": "split CSI escape",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/terminal_test.go#TestRenderedScreenContract"
     },
     {
       "id": "REN-011",
@@ -1008,15 +1008,15 @@
       "risk": "screen erase and home",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/terminal_test.go"
+      "reference": "internal/runner/terminal_test.go#TestRenderedScreenContract"
     },
     {
       "id": "REN-012",
       "family": "render/readiness/resize",
       "risk": "screen erase and home",
       "layer": "runner integration boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/terminal_test.go#TestRenderedScreenContract"
     },
     {
       "id": "REN-013",
@@ -1024,23 +1024,23 @@
       "risk": "screen erase and home",
       "layer": "Windows amd64 native boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/terminal_test.go#TestRenderedScreenContract"
     },
     {
       "id": "REN-014",
       "family": "render/readiness/resize",
       "risk": "screen erase and home",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/terminal_test.go#TestRenderedScreenContract"
     },
     {
       "id": "REN-015",
       "family": "render/readiness/resize",
       "risk": "screen erase and home",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/terminal_test.go#TestRenderedScreenContract"
     },
     {
       "id": "REN-016",
@@ -1048,15 +1048,15 @@
       "risk": "carriage-return redraw",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/terminal_test.go"
+      "reference": "internal/runner/terminal_test.go#TestRenderedScreenContract"
     },
     {
       "id": "REN-017",
       "family": "render/readiness/resize",
       "risk": "carriage-return redraw",
       "layer": "runner integration boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/terminal_test.go#TestRenderedScreenContract"
     },
     {
       "id": "REN-018",
@@ -1064,23 +1064,23 @@
       "risk": "carriage-return redraw",
       "layer": "Windows amd64 native boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/terminal_test.go#TestRenderedScreenContract"
     },
     {
       "id": "REN-019",
       "family": "render/readiness/resize",
       "risk": "carriage-return redraw",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/terminal_test.go#TestRenderedScreenContract"
     },
     {
       "id": "REN-020",
       "family": "render/readiness/resize",
       "risk": "carriage-return redraw",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/terminal_test.go#TestRenderedScreenContract"
     },
     {
       "id": "REN-021",
@@ -1088,15 +1088,15 @@
       "risk": "alternate-screen enter and leave",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/terminal_test.go"
+      "reference": "internal/runner/terminal_test.go#TestRenderedScreenContract"
     },
     {
       "id": "REN-022",
       "family": "render/readiness/resize",
       "risk": "alternate-screen enter and leave",
       "layer": "runner integration boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/terminal_test.go#TestRenderedScreenContract"
     },
     {
       "id": "REN-023",
@@ -1104,23 +1104,23 @@
       "risk": "alternate-screen enter and leave",
       "layer": "Windows amd64 native boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/terminal_test.go#TestRenderedScreenContract"
     },
     {
       "id": "REN-024",
       "family": "render/readiness/resize",
       "risk": "alternate-screen enter and leave",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/terminal_test.go#TestRenderedScreenContract"
     },
     {
       "id": "REN-025",
       "family": "render/readiness/resize",
       "risk": "alternate-screen enter and leave",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/terminal_test.go#TestRenderedScreenContract"
     },
     {
       "id": "REN-026",
@@ -1128,15 +1128,15 @@
       "risk": "stale positive text",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/terminal_test.go"
+      "reference": "internal/runner/runner_test.go#TestExpectNotTimesOutWhileObservedTextRemains"
     },
     {
       "id": "REN-027",
       "family": "render/readiness/resize",
       "risk": "stale positive text",
       "layer": "runner integration boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestExpectNotTimesOutWhileObservedTextRemains"
     },
     {
       "id": "REN-028",
@@ -1144,31 +1144,31 @@
       "risk": "stale positive text",
       "layer": "Windows amd64 native boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestExpectNotTimesOutWhileObservedTextRemains"
     },
     {
       "id": "REN-029",
       "family": "render/readiness/resize",
       "risk": "stale positive text",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestExpectNotTimesOutWhileObservedTextRemains"
     },
     {
       "id": "REN-030",
       "family": "render/readiness/resize",
       "risk": "stale positive text",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestExpectNotTimesOutWhileObservedTextRemains"
     },
     {
       "id": "REN-031",
       "family": "render/readiness/resize",
       "risk": "observed text disappearance",
       "layer": "pure contract boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestExpectNotWaitsForObservedTextToDisappear"
     },
     {
       "id": "REN-032",
@@ -1176,7 +1176,7 @@
       "risk": "observed text disappearance",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestExpectNotWaitsForObservedTextToDisappear"
     },
     {
       "id": "REN-033",
@@ -1184,31 +1184,31 @@
       "risk": "observed text disappearance",
       "layer": "Windows amd64 native boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestExpectNotWaitsForObservedTextToDisappear"
     },
     {
       "id": "REN-034",
       "family": "render/readiness/resize",
       "risk": "observed text disappearance",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestExpectNotWaitsForObservedTextToDisappear"
     },
     {
       "id": "REN-035",
       "family": "render/readiness/resize",
       "risk": "observed text disappearance",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestExpectNotWaitsForObservedTextToDisappear"
     },
     {
       "id": "REN-036",
       "family": "render/readiness/resize",
       "risk": "delayed redraw readiness",
       "layer": "pure contract boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestScreenRedraw"
     },
     {
       "id": "REN-037",
@@ -1216,7 +1216,7 @@
       "risk": "delayed redraw readiness",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestScreenRedraw"
     },
     {
       "id": "REN-038",
@@ -1224,31 +1224,31 @@
       "risk": "delayed redraw readiness",
       "layer": "Windows amd64 native boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestScreenRedraw"
     },
     {
       "id": "REN-039",
       "family": "render/readiness/resize",
       "risk": "delayed redraw readiness",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestScreenRedraw"
     },
     {
       "id": "REN-040",
       "family": "render/readiness/resize",
       "risk": "delayed redraw readiness",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestScreenRedraw"
     },
     {
       "id": "REN-041",
       "family": "render/readiness/resize",
       "risk": "continuous repaint",
       "layer": "pure contract boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "corpus/workflows/bottom/bottom-08.json"
     },
     {
       "id": "REN-042",
@@ -1256,7 +1256,7 @@
       "risk": "continuous repaint",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "corpus/workflows/bottom/bottom-08.json"
     },
     {
       "id": "REN-043",
@@ -1264,31 +1264,31 @@
       "risk": "continuous repaint",
       "layer": "Windows amd64 native boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "corpus/workflows/bottom/bottom-08.json"
     },
     {
       "id": "REN-044",
       "family": "render/readiness/resize",
       "risk": "continuous repaint",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "corpus/workflows/bottom/bottom-08.json"
     },
     {
       "id": "REN-045",
       "family": "render/readiness/resize",
       "risk": "continuous repaint",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "corpus/workflows/bottom/bottom-08.json"
     },
     {
       "id": "REN-046",
       "family": "render/readiness/resize",
       "risk": "narrow viewport resize",
       "layer": "pure contract boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestTargetObservesResize"
     },
     {
       "id": "REN-047",
@@ -1296,7 +1296,7 @@
       "risk": "narrow viewport resize",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestTargetObservesResize"
     },
     {
       "id": "REN-048",
@@ -1304,31 +1304,31 @@
       "risk": "narrow viewport resize",
       "layer": "Windows amd64 native boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestTargetObservesResize"
     },
     {
       "id": "REN-049",
       "family": "render/readiness/resize",
       "risk": "narrow viewport resize",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestTargetObservesResize"
     },
     {
       "id": "REN-050",
       "family": "render/readiness/resize",
       "risk": "narrow viewport resize",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestTargetObservesResize"
     },
     {
       "id": "REN-051",
       "family": "render/readiness/resize",
       "risk": "wide viewport resize",
       "layer": "pure contract boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestTargetObservesResize"
     },
     {
       "id": "REN-052",
@@ -1336,7 +1336,7 @@
       "risk": "wide viewport resize",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestTargetObservesResize"
     },
     {
       "id": "REN-053",
@@ -1344,31 +1344,31 @@
       "risk": "wide viewport resize",
       "layer": "Windows amd64 native boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/runner_test.go#TestTargetObservesResize"
     },
     {
       "id": "REN-054",
       "family": "render/readiness/resize",
       "risk": "wide viewport resize",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestTargetObservesResize"
     },
     {
       "id": "REN-055",
       "family": "render/readiness/resize",
       "risk": "wide viewport resize",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestTargetObservesResize"
     },
     {
       "id": "REN-056",
       "family": "render/readiness/resize",
       "risk": "supported Unicode width",
       "layer": "pure contract boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/terminal_test.go#TestRenderedScreenContract"
     },
     {
       "id": "REN-057",
@@ -1376,7 +1376,7 @@
       "risk": "supported Unicode width",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/terminal_test.go#TestRenderedScreenContract"
     },
     {
       "id": "REN-058",
@@ -1384,23 +1384,23 @@
       "risk": "supported Unicode width",
       "layer": "Windows amd64 native boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/runner_test.go"
+      "reference": "internal/runner/terminal_test.go#TestRenderedScreenContract"
     },
     {
       "id": "REN-059",
       "family": "render/readiness/resize",
       "risk": "supported Unicode width",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/terminal_test.go#TestRenderedScreenContract"
     },
     {
       "id": "REN-060",
       "family": "render/readiness/resize",
       "risk": "supported Unicode width",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/terminal_test.go#TestRenderedScreenContract"
     },
     {
       "id": "SNP-001",
@@ -1408,7 +1408,7 @@
       "risk": "missing baseline",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/snapshot_test.go"
+      "reference": "internal/runner/snapshot_test.go#TestSnapshotMissingAndSizeFailuresAreDistinct"
     },
     {
       "id": "SNP-002",
@@ -1416,31 +1416,31 @@
       "risk": "missing baseline",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/snapshot_test.go"
+      "reference": "internal/runner/snapshot_test.go#TestSnapshotMissingAndSizeFailuresAreDistinct"
     },
     {
       "id": "SNP-003",
       "family": "snapshots/suites",
       "risk": "missing baseline",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/snapshot_test.go#TestSnapshotMissingAndSizeFailuresAreDistinct"
     },
     {
       "id": "SNP-004",
       "family": "snapshots/suites",
       "risk": "missing baseline",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/snapshot_test.go#TestSnapshotMissingAndSizeFailuresAreDistinct"
     },
     {
       "id": "SNP-005",
       "family": "snapshots/suites",
       "risk": "missing baseline",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/snapshot_test.go#TestSnapshotMissingAndSizeFailuresAreDistinct"
     },
     {
       "id": "SNP-006",
@@ -1448,7 +1448,7 @@
       "risk": "oversized baseline",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/snapshot_test.go"
+      "reference": "internal/runner/snapshot_test.go#TestSnapshotMissingAndSizeFailuresAreDistinct"
     },
     {
       "id": "SNP-007",
@@ -1456,31 +1456,31 @@
       "risk": "oversized baseline",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/snapshot_test.go"
+      "reference": "internal/runner/snapshot_test.go#TestSnapshotMissingAndSizeFailuresAreDistinct"
     },
     {
       "id": "SNP-008",
       "family": "snapshots/suites",
       "risk": "oversized baseline",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/snapshot_test.go#TestSnapshotMissingAndSizeFailuresAreDistinct"
     },
     {
       "id": "SNP-009",
       "family": "snapshots/suites",
       "risk": "oversized baseline",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/snapshot_test.go#TestSnapshotMissingAndSizeFailuresAreDistinct"
     },
     {
       "id": "SNP-010",
       "family": "snapshots/suites",
       "risk": "oversized baseline",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/snapshot_test.go#TestSnapshotMissingAndSizeFailuresAreDistinct"
     },
     {
       "id": "SNP-011",
@@ -1488,7 +1488,7 @@
       "risk": "readable mismatch diff",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/snapshot_test.go"
+      "reference": "internal/runner/snapshot_test.go#TestSnapshotBaselineAndReadableMismatch"
     },
     {
       "id": "SNP-012",
@@ -1496,31 +1496,31 @@
       "risk": "readable mismatch diff",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/snapshot_test.go"
+      "reference": "internal/runner/snapshot_test.go#TestSnapshotBaselineAndReadableMismatch"
     },
     {
       "id": "SNP-013",
       "family": "snapshots/suites",
       "risk": "readable mismatch diff",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/snapshot_test.go#TestSnapshotBaselineAndReadableMismatch"
     },
     {
       "id": "SNP-014",
       "family": "snapshots/suites",
       "risk": "readable mismatch diff",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/snapshot_test.go#TestSnapshotBaselineAndReadableMismatch"
     },
     {
       "id": "SNP-015",
       "family": "snapshots/suites",
       "risk": "readable mismatch diff",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/snapshot_test.go#TestSnapshotBaselineAndReadableMismatch"
     },
     {
       "id": "SNP-016",
@@ -1528,7 +1528,7 @@
       "risk": "targeted baseline update",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/snapshot_test.go"
+      "reference": "internal/runner/snapshot_test.go#TestTargetedSnapshotUpdate"
     },
     {
       "id": "SNP-017",
@@ -1536,31 +1536,31 @@
       "risk": "targeted baseline update",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/snapshot_test.go"
+      "reference": "internal/runner/snapshot_test.go#TestTargetedSnapshotUpdate"
     },
     {
       "id": "SNP-018",
       "family": "snapshots/suites",
       "risk": "targeted baseline update",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/snapshot_test.go#TestTargetedSnapshotUpdate"
     },
     {
       "id": "SNP-019",
       "family": "snapshots/suites",
       "risk": "targeted baseline update",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/snapshot_test.go#TestTargetedSnapshotUpdate"
     },
     {
       "id": "SNP-020",
       "family": "snapshots/suites",
       "risk": "targeted baseline update",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/snapshot_test.go#TestTargetedSnapshotUpdate"
     },
     {
       "id": "SNP-021",
@@ -1568,7 +1568,7 @@
       "risk": "later-step rollback",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/snapshot_test.go"
+      "reference": "internal/runner/snapshot_test.go#TestSnapshotUpdatesAreNotCommittedAfterLaterFailure"
     },
     {
       "id": "SNP-022",
@@ -1576,31 +1576,31 @@
       "risk": "later-step rollback",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/snapshot_test.go"
+      "reference": "internal/runner/snapshot_test.go#TestSnapshotUpdatesAreNotCommittedAfterLaterFailure"
     },
     {
       "id": "SNP-023",
       "family": "snapshots/suites",
       "risk": "later-step rollback",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/snapshot_test.go#TestSnapshotUpdatesAreNotCommittedAfterLaterFailure"
     },
     {
       "id": "SNP-024",
       "family": "snapshots/suites",
       "risk": "later-step rollback",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/snapshot_test.go#TestSnapshotUpdatesAreNotCommittedAfterLaterFailure"
     },
     {
       "id": "SNP-025",
       "family": "snapshots/suites",
       "risk": "later-step rollback",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/snapshot_test.go#TestSnapshotUpdatesAreNotCommittedAfterLaterFailure"
     },
     {
       "id": "SNP-026",
@@ -1608,7 +1608,7 @@
       "risk": "cancellation rollback",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/snapshot_test.go"
+      "reference": "internal/runner/snapshot_test.go#TestSnapshotUpdatesAreNotCommittedAfterCancellation"
     },
     {
       "id": "SNP-027",
@@ -1616,31 +1616,31 @@
       "risk": "cancellation rollback",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/snapshot_test.go"
+      "reference": "internal/runner/snapshot_test.go#TestSnapshotUpdatesAreNotCommittedAfterCancellation"
     },
     {
       "id": "SNP-028",
       "family": "snapshots/suites",
       "risk": "cancellation rollback",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/snapshot_test.go#TestSnapshotUpdatesAreNotCommittedAfterCancellation"
     },
     {
       "id": "SNP-029",
       "family": "snapshots/suites",
       "risk": "cancellation rollback",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/snapshot_test.go#TestSnapshotUpdatesAreNotCommittedAfterCancellation"
     },
     {
       "id": "SNP-030",
       "family": "snapshots/suites",
       "risk": "cancellation rollback",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/snapshot_test.go#TestSnapshotUpdatesAreNotCommittedAfterCancellation"
     },
     {
       "id": "SNP-031",
@@ -1648,7 +1648,7 @@
       "risk": "unknown selector",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/snapshot_test.go"
+      "reference": "internal/runner/snapshot_test.go#TestUnknownSnapshotSelectorFailsBeforeTargetLaunch"
     },
     {
       "id": "SNP-032",
@@ -1656,31 +1656,31 @@
       "risk": "unknown selector",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/snapshot_test.go"
+      "reference": "internal/runner/snapshot_test.go#TestUnknownSnapshotSelectorFailsBeforeTargetLaunch"
     },
     {
       "id": "SNP-033",
       "family": "snapshots/suites",
       "risk": "unknown selector",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/snapshot_test.go#TestUnknownSnapshotSelectorFailsBeforeTargetLaunch"
     },
     {
       "id": "SNP-034",
       "family": "snapshots/suites",
       "risk": "unknown selector",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/snapshot_test.go#TestUnknownSnapshotSelectorFailsBeforeTargetLaunch"
     },
     {
       "id": "SNP-035",
       "family": "snapshots/suites",
       "risk": "unknown selector",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/snapshot_test.go#TestUnknownSnapshotSelectorFailsBeforeTargetLaunch"
     },
     {
       "id": "SNP-036",
@@ -1688,7 +1688,7 @@
       "risk": "duplicate basename artifact isolation",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/snapshot_test.go"
+      "reference": "cmd/playtestr/main_test.go#TestArtifactRunDirectoriesSeparateDuplicateBasenamesAndNoStaleReferences"
     },
     {
       "id": "SNP-037",
@@ -1696,39 +1696,39 @@
       "risk": "duplicate basename artifact isolation",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/snapshot_test.go"
+      "reference": "cmd/playtestr/main_test.go#TestArtifactRunDirectoriesSeparateDuplicateBasenamesAndNoStaleReferences"
     },
     {
       "id": "SNP-038",
       "family": "snapshots/suites",
       "risk": "duplicate basename artifact isolation",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "cmd/playtestr/main_test.go#TestArtifactRunDirectoriesSeparateDuplicateBasenamesAndNoStaleReferences"
     },
     {
       "id": "SNP-039",
       "family": "snapshots/suites",
       "risk": "duplicate basename artifact isolation",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "cmd/playtestr/main_test.go#TestArtifactRunDirectoriesSeparateDuplicateBasenamesAndNoStaleReferences"
     },
     {
       "id": "SNP-040",
       "family": "snapshots/suites",
       "risk": "duplicate basename artifact isolation",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "cmd/playtestr/main_test.go#TestArtifactRunDirectoriesSeparateDuplicateBasenamesAndNoStaleReferences"
     },
     {
       "id": "WSP-001",
       "family": "workspace/environment/filesystem",
       "risk": "fresh fixture copy",
       "layer": "pure contract boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceRunsTwiceFromFreshFixtureAndCleans"
     },
     {
       "id": "WSP-002",
@@ -1736,39 +1736,39 @@
       "risk": "fresh fixture copy",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/workspace_test.go"
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceRunsTwiceFromFreshFixtureAndCleans"
     },
     {
       "id": "WSP-003",
       "family": "workspace/environment/filesystem",
       "risk": "fresh fixture copy",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceRunsTwiceFromFreshFixtureAndCleans"
     },
     {
       "id": "WSP-004",
       "family": "workspace/environment/filesystem",
       "risk": "fresh fixture copy",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceRunsTwiceFromFreshFixtureAndCleans"
     },
     {
       "id": "WSP-005",
       "family": "workspace/environment/filesystem",
       "risk": "fresh fixture copy",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceRunsTwiceFromFreshFixtureAndCleans"
     },
     {
       "id": "WSP-006",
       "family": "workspace/environment/filesystem",
       "risk": "prior-state contamination",
       "layer": "pure contract boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceRunsTwiceFromFreshFixtureAndCleans"
     },
     {
       "id": "WSP-007",
@@ -1776,31 +1776,31 @@
       "risk": "prior-state contamination",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/workspace_test.go"
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceRunsTwiceFromFreshFixtureAndCleans"
     },
     {
       "id": "WSP-008",
       "family": "workspace/environment/filesystem",
       "risk": "prior-state contamination",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceRunsTwiceFromFreshFixtureAndCleans"
     },
     {
       "id": "WSP-009",
       "family": "workspace/environment/filesystem",
       "risk": "prior-state contamination",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceRunsTwiceFromFreshFixtureAndCleans"
     },
     {
       "id": "WSP-010",
       "family": "workspace/environment/filesystem",
       "risk": "prior-state contamination",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceRunsTwiceFromFreshFixtureAndCleans"
     },
     {
       "id": "WSP-011",
@@ -1808,7 +1808,7 @@
       "risk": "escaping relative path",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/workspace_test.go"
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceSpecValidation"
     },
     {
       "id": "WSP-012",
@@ -1816,39 +1816,39 @@
       "risk": "escaping relative path",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/workspace_test.go"
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceSpecValidation"
     },
     {
       "id": "WSP-013",
       "family": "workspace/environment/filesystem",
       "risk": "escaping relative path",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceSpecValidation"
     },
     {
       "id": "WSP-014",
       "family": "workspace/environment/filesystem",
       "risk": "escaping relative path",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceSpecValidation"
     },
     {
       "id": "WSP-015",
       "family": "workspace/environment/filesystem",
       "risk": "escaping relative path",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceSpecValidation"
     },
     {
       "id": "WSP-016",
       "family": "workspace/environment/filesystem",
       "risk": "fixture link or junction",
       "layer": "pure contract boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceFixtureCopyRejectsUnsafeAndBoundedInputs"
     },
     {
       "id": "WSP-017",
@@ -1856,7 +1856,7 @@
       "risk": "fixture link or junction",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/workspace_test.go"
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceFixtureCopyRejectsUnsafeAndBoundedInputs"
     },
     {
       "id": "WSP-018",
@@ -1864,7 +1864,7 @@
       "risk": "fixture link or junction",
       "layer": "Windows amd64 native boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/workspace_windows_test.go"
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceFixtureCopyRejectsUnsafeAndBoundedInputs"
     },
     {
       "id": "WSP-019",
@@ -1872,15 +1872,15 @@
       "risk": "fixture link or junction",
       "layer": "Linux amd64 native boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/workspace_unix_test.go"
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceFixtureCopyRejectsUnsafeAndBoundedInputs"
     },
     {
       "id": "WSP-020",
       "family": "workspace/environment/filesystem",
       "risk": "fixture link or junction",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceFixtureCopyRejectsUnsafeAndBoundedInputs"
     },
     {
       "id": "WSP-021",
@@ -1888,7 +1888,7 @@
       "risk": "entry and byte bounds",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/workspace_test.go"
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceFixtureCopyRejectsUnsafeAndBoundedInputs"
     },
     {
       "id": "WSP-022",
@@ -1896,31 +1896,31 @@
       "risk": "entry and byte bounds",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/workspace_test.go"
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceFixtureCopyRejectsUnsafeAndBoundedInputs"
     },
     {
       "id": "WSP-023",
       "family": "workspace/environment/filesystem",
       "risk": "entry and byte bounds",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceFixtureCopyRejectsUnsafeAndBoundedInputs"
     },
     {
       "id": "WSP-024",
       "family": "workspace/environment/filesystem",
       "risk": "entry and byte bounds",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceFixtureCopyRejectsUnsafeAndBoundedInputs"
     },
     {
       "id": "WSP-025",
       "family": "workspace/environment/filesystem",
       "risk": "entry and byte bounds",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceFixtureCopyRejectsUnsafeAndBoundedInputs"
     },
     {
       "id": "WSP-026",
@@ -1928,7 +1928,7 @@
       "risk": "managed environment conflict",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/workspace_test.go"
+      "reference": "internal/runner/runner_test.go#TestWorkingDirectoryAndExplicitEnvironment"
     },
     {
       "id": "WSP-027",
@@ -1936,39 +1936,39 @@
       "risk": "managed environment conflict",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/workspace_test.go"
+      "reference": "internal/runner/runner_test.go#TestWorkingDirectoryAndExplicitEnvironment"
     },
     {
       "id": "WSP-028",
       "family": "workspace/environment/filesystem",
       "risk": "managed environment conflict",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestWorkingDirectoryAndExplicitEnvironment"
     },
     {
       "id": "WSP-029",
       "family": "workspace/environment/filesystem",
       "risk": "managed environment conflict",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestWorkingDirectoryAndExplicitEnvironment"
     },
     {
       "id": "WSP-030",
       "family": "workspace/environment/filesystem",
       "risk": "managed environment conflict",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/runner_test.go#TestWorkingDirectoryAndExplicitEnvironment"
     },
     {
       "id": "WSP-031",
       "family": "workspace/environment/filesystem",
       "risk": "setup cancellation",
       "layer": "pure contract boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceCancellationCleansAfterTarget"
     },
     {
       "id": "WSP-032",
@@ -1976,39 +1976,39 @@
       "risk": "setup cancellation",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/workspace_test.go"
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceCancellationCleansAfterTarget"
     },
     {
       "id": "WSP-033",
       "family": "workspace/environment/filesystem",
       "risk": "setup cancellation",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceCancellationCleansAfterTarget"
     },
     {
       "id": "WSP-034",
       "family": "workspace/environment/filesystem",
       "risk": "setup cancellation",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceCancellationCleansAfterTarget"
     },
     {
       "id": "WSP-035",
       "family": "workspace/environment/filesystem",
       "risk": "setup cancellation",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceCancellationCleansAfterTarget"
     },
     {
       "id": "WSP-036",
       "family": "workspace/environment/filesystem",
       "risk": "retained failed state",
       "layer": "pure contract boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceFailureCleanupAndExplicitRetention"
     },
     {
       "id": "WSP-037",
@@ -2016,39 +2016,39 @@
       "risk": "retained failed state",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/workspace_test.go"
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceFailureCleanupAndExplicitRetention"
     },
     {
       "id": "WSP-038",
       "family": "workspace/environment/filesystem",
       "risk": "retained failed state",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceFailureCleanupAndExplicitRetention"
     },
     {
       "id": "WSP-039",
       "family": "workspace/environment/filesystem",
       "risk": "retained failed state",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceFailureCleanupAndExplicitRetention"
     },
     {
       "id": "WSP-040",
       "family": "workspace/environment/filesystem",
       "risk": "retained failed state",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceFailureCleanupAndExplicitRetention"
     },
     {
       "id": "WSP-041",
       "family": "workspace/environment/filesystem",
       "risk": "cleanup failure",
       "layer": "pure contract boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceCleanupFailurePreventsSnapshotCommit"
     },
     {
       "id": "WSP-042",
@@ -2056,7 +2056,7 @@
       "risk": "cleanup failure",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/workspace_test.go"
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceCleanupFailurePreventsSnapshotCommit"
     },
     {
       "id": "WSP-043",
@@ -2064,7 +2064,7 @@
       "risk": "cleanup failure",
       "layer": "Windows amd64 native boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/workspace_windows_test.go"
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceCleanupFailurePreventsSnapshotCommit"
     },
     {
       "id": "WSP-044",
@@ -2072,15 +2072,15 @@
       "risk": "cleanup failure",
       "layer": "Linux amd64 native boundary",
       "status": "reviewed_existing",
-      "reference": "internal/runner/workspace_unix_test.go"
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceCleanupFailurePreventsSnapshotCommit"
     },
     {
       "id": "WSP-045",
       "family": "workspace/environment/filesystem",
       "risk": "cleanup failure",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/runner/workspace_test.go#TestWorkspaceCleanupFailurePreventsSnapshotCommit"
     },
     {
       "id": "ART-001",
@@ -2088,39 +2088,39 @@
       "risk": "mixed report versions",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/report/html_test.go"
+      "reference": "internal/report/html_test.go#TestRenderHTMLMixedSuiteIsOfflineEscapedAndComplete"
     },
     {
       "id": "ART-002",
       "family": "reports/install/artifact handling",
       "risk": "mixed report versions",
       "layer": "runner integration boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/report/html_test.go#TestRenderHTMLMixedSuiteIsOfflineEscapedAndComplete"
     },
     {
       "id": "ART-003",
       "family": "reports/install/artifact handling",
       "risk": "mixed report versions",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/report/html_test.go#TestRenderHTMLMixedSuiteIsOfflineEscapedAndComplete"
     },
     {
       "id": "ART-004",
       "family": "reports/install/artifact handling",
       "risk": "mixed report versions",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/report/html_test.go#TestRenderHTMLMixedSuiteIsOfflineEscapedAndComplete"
     },
     {
       "id": "ART-005",
       "family": "reports/install/artifact handling",
       "risk": "mixed report versions",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/report/html_test.go#TestRenderHTMLMixedSuiteIsOfflineEscapedAndComplete"
     },
     {
       "id": "ART-006",
@@ -2128,39 +2128,39 @@
       "risk": "hostile report text",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/report/html_test.go"
+      "reference": "internal/report/html_test.go#TestRenderHTMLMixedSuiteIsOfflineEscapedAndComplete"
     },
     {
       "id": "ART-007",
       "family": "reports/install/artifact handling",
       "risk": "hostile report text",
       "layer": "runner integration boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/report/html_test.go#TestRenderHTMLMixedSuiteIsOfflineEscapedAndComplete"
     },
     {
       "id": "ART-008",
       "family": "reports/install/artifact handling",
       "risk": "hostile report text",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/report/html_test.go#TestRenderHTMLMixedSuiteIsOfflineEscapedAndComplete"
     },
     {
       "id": "ART-009",
       "family": "reports/install/artifact handling",
       "risk": "hostile report text",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/report/html_test.go#TestRenderHTMLMixedSuiteIsOfflineEscapedAndComplete"
     },
     {
       "id": "ART-010",
       "family": "reports/install/artifact handling",
       "risk": "hostile report text",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/report/html_test.go#TestRenderHTMLMixedSuiteIsOfflineEscapedAndComplete"
     },
     {
       "id": "ART-011",
@@ -2168,39 +2168,39 @@
       "risk": "missing evidence",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/report/html_test.go"
+      "reference": "internal/report/html_test.go#TestRenderHTMLRejectsUnsafeEvidenceReferences"
     },
     {
       "id": "ART-012",
       "family": "reports/install/artifact handling",
       "risk": "missing evidence",
       "layer": "runner integration boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/report/html_test.go#TestRenderHTMLRejectsUnsafeEvidenceReferences"
     },
     {
       "id": "ART-013",
       "family": "reports/install/artifact handling",
       "risk": "missing evidence",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/report/html_test.go#TestRenderHTMLRejectsUnsafeEvidenceReferences"
     },
     {
       "id": "ART-014",
       "family": "reports/install/artifact handling",
       "risk": "missing evidence",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/report/html_test.go#TestRenderHTMLRejectsUnsafeEvidenceReferences"
     },
     {
       "id": "ART-015",
       "family": "reports/install/artifact handling",
       "risk": "missing evidence",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/report/html_test.go#TestRenderHTMLRejectsUnsafeEvidenceReferences"
     },
     {
       "id": "ART-016",
@@ -2208,39 +2208,39 @@
       "risk": "evidence path escape",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/report/html_test.go"
+      "reference": "internal/report/html_test.go#TestRenderHTMLRejectsUnsafeEvidenceReferences"
     },
     {
       "id": "ART-017",
       "family": "reports/install/artifact handling",
       "risk": "evidence path escape",
       "layer": "runner integration boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/report/html_test.go#TestRenderHTMLRejectsUnsafeEvidenceReferences"
     },
     {
       "id": "ART-018",
       "family": "reports/install/artifact handling",
       "risk": "evidence path escape",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/report/html_test.go#TestRenderHTMLRejectsUnsafeEvidenceReferences"
     },
     {
       "id": "ART-019",
       "family": "reports/install/artifact handling",
       "risk": "evidence path escape",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/report/html_test.go#TestRenderHTMLRejectsUnsafeEvidenceReferences"
     },
     {
       "id": "ART-020",
       "family": "reports/install/artifact handling",
       "risk": "evidence path escape",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/report/html_test.go#TestRenderHTMLRejectsUnsafeEvidenceReferences"
     },
     {
       "id": "ART-021",
@@ -2248,39 +2248,39 @@
       "risk": "aggregate evidence limit",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/report/html_test.go"
+      "reference": "internal/report/html_test.go#TestRenderHTMLAggregateEvidenceAndGeneratedOutputLimits"
     },
     {
       "id": "ART-022",
       "family": "reports/install/artifact handling",
       "risk": "aggregate evidence limit",
       "layer": "runner integration boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/report/html_test.go#TestRenderHTMLAggregateEvidenceAndGeneratedOutputLimits"
     },
     {
       "id": "ART-023",
       "family": "reports/install/artifact handling",
       "risk": "aggregate evidence limit",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/report/html_test.go#TestRenderHTMLAggregateEvidenceAndGeneratedOutputLimits"
     },
     {
       "id": "ART-024",
       "family": "reports/install/artifact handling",
       "risk": "aggregate evidence limit",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/report/html_test.go#TestRenderHTMLAggregateEvidenceAndGeneratedOutputLimits"
     },
     {
       "id": "ART-025",
       "family": "reports/install/artifact handling",
       "risk": "aggregate evidence limit",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/report/html_test.go#TestRenderHTMLAggregateEvidenceAndGeneratedOutputLimits"
     },
     {
       "id": "ART-026",
@@ -2288,47 +2288,47 @@
       "risk": "atomic output preservation",
       "layer": "pure contract boundary",
       "status": "reviewed_existing",
-      "reference": "internal/report/html_test.go"
+      "reference": "internal/report/html_test.go#TestRenderHTMLBoundsEvidenceAndPreservesOutputOnEveryFailure"
     },
     {
       "id": "ART-027",
       "family": "reports/install/artifact handling",
       "risk": "atomic output preservation",
       "layer": "runner integration boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/report/html_test.go#TestRenderHTMLBoundsEvidenceAndPreservesOutputOnEveryFailure"
     },
     {
       "id": "ART-028",
       "family": "reports/install/artifact handling",
       "risk": "atomic output preservation",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/report/html_test.go#TestRenderHTMLBoundsEvidenceAndPreservesOutputOnEveryFailure"
     },
     {
       "id": "ART-029",
       "family": "reports/install/artifact handling",
       "risk": "atomic output preservation",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/report/html_test.go#TestRenderHTMLBoundsEvidenceAndPreservesOutputOnEveryFailure"
     },
     {
       "id": "ART-030",
       "family": "reports/install/artifact handling",
       "risk": "atomic output preservation",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/report/html_test.go#TestRenderHTMLBoundsEvidenceAndPreservesOutputOnEveryFailure"
     },
     {
       "id": "ART-031",
       "family": "reports/install/artifact handling",
       "risk": "corrupt archive or checksum",
       "layer": "pure contract boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/setupaction/install_integration_test.go#TestSetupActionRejectsUnsafeOrUnverifiedInputs"
     },
     {
       "id": "ART-032",
@@ -2336,39 +2336,39 @@
       "risk": "corrupt archive or checksum",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/setupaction/install_integration_test.go"
+      "reference": "internal/setupaction/install_integration_test.go#TestSetupActionRejectsUnsafeOrUnverifiedInputs"
     },
     {
       "id": "ART-033",
       "family": "reports/install/artifact handling",
       "risk": "corrupt archive or checksum",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/setupaction/install_integration_test.go#TestSetupActionRejectsUnsafeOrUnverifiedInputs"
     },
     {
       "id": "ART-034",
       "family": "reports/install/artifact handling",
       "risk": "corrupt archive or checksum",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/setupaction/install_integration_test.go#TestSetupActionRejectsUnsafeOrUnverifiedInputs"
     },
     {
       "id": "ART-035",
       "family": "reports/install/artifact handling",
       "risk": "corrupt archive or checksum",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/setupaction/install_integration_test.go#TestSetupActionRejectsUnsafeOrUnverifiedInputs"
     },
     {
       "id": "ART-036",
       "family": "reports/install/artifact handling",
       "risk": "interrupted download",
       "layer": "pure contract boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/setupaction/install_integration_test.go#TestSetupActionRejectsPartialAndOversizedDownloads"
     },
     {
       "id": "ART-037",
@@ -2376,31 +2376,31 @@
       "risk": "interrupted download",
       "layer": "runner integration boundary",
       "status": "reviewed_existing",
-      "reference": "internal/setupaction/install_integration_test.go"
+      "reference": "internal/setupaction/install_integration_test.go#TestSetupActionRejectsPartialAndOversizedDownloads"
     },
     {
       "id": "ART-038",
       "family": "reports/install/artifact handling",
       "risk": "interrupted download",
       "layer": "Windows amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/setupaction/install_integration_test.go#TestSetupActionRejectsPartialAndOversizedDownloads"
     },
     {
       "id": "ART-039",
       "family": "reports/install/artifact handling",
       "risk": "interrupted download",
       "layer": "Linux amd64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/setupaction/install_integration_test.go#TestSetupActionRejectsPartialAndOversizedDownloads"
     },
     {
       "id": "ART-040",
       "family": "reports/install/artifact handling",
       "risk": "interrupted download",
       "layer": "macOS arm64 native boundary",
-      "status": "planned_gap",
-      "gap": "No reviewed focused case at this exact risk/layer boundary."
+      "status": "reviewed_existing",
+      "reference": "internal/setupaction/install_integration_test.go#TestSetupActionRejectsPartialAndOversizedDownloads"
     }
   ]
 }

@@ -1,0 +1,10 @@
+--- a/litecli/sqlexecute.py
++++ b/litecli/sqlexecute.py
+@@ -170,6 +170,6 @@
+             if cursor.rowcount == -1:
+                 status = "Query OK"
+             else:
+-                status = "Query OK, {count} row{s} affected"
++                status = "BROKEN STATUS, {count} row{s} affected"
+             rowcount = cursor.rowcount
+             cursor = None

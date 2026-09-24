@@ -26,6 +26,24 @@ func TestScreenRedraw(t *testing.T) {
 	}
 }
 
+func TestNamedControlKeysUseTerminalControlBytes(t *testing.T) {
+	want := map[string]string{
+		"CtrlC":     "\x03",
+		"CtrlE":     "\x05",
+		"CtrlO":     "\x0f",
+		"CtrlSpace": "\x00",
+		"CtrlF":     "\x06",
+		"CtrlQ":     "\x11",
+		"CtrlS":     "\x13",
+		"CtrlZ":     "\x1a",
+	}
+	for name, sequence := range want {
+		if got := keys[name]; got != sequence {
+			t.Errorf("key %s = %q, want %q", name, got, sequence)
+		}
+	}
+}
+
 func TestExpectNotWaitsForObservedTextToDisappear(t *testing.T) {
 	err := runHelperSpec(t, "modal-transition", []Step{
 		{Expect: "Keybindings"},
@@ -170,6 +188,8 @@ func TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput(t *testing.T)
 	}{
 		{name: "wrong version", data: `{"version":99,"command":["sentinel"],"steps":[{"exit":0}]}`, want: "unsupported spec version 99"},
 		{name: "unknown field", data: `{"version":1,"command":["sentinel"],"steps":[{"exit":0}],"commnad":[]}`, want: `unknown field "commnad"`},
+		{name: "null command", data: `{"version":1,"command":null,"steps":[{"exit":0}]}`, want: "command is required"},
+		{name: "empty command element", data: `{"version":1,"command":["sentinel",""],"steps":[{"exit":0}]}`, want: "command elements must not be empty"},
 		{name: "invalid key", data: `{"version":1,"command":["sentinel"],"steps":[{"key":"F13"}]}`, want: `step 1 unknown key "F13"`},
 		{name: "mixed actions", data: `{"version":1,"command":["sentinel"],"steps":[{"text":"` + secret + `","expect":"ready"}]}`, want: "step 1 must have exactly one action"},
 		{name: "missing command", data: `{"version":1,"steps":[{"exit":0}]}`, want: "command is required"},

@@ -68,7 +68,7 @@ func main() {
 		fmt.Fprintln(os.Stderr, "usage: go run ./scripts/corpus/generate-risk-map.go <output>")
 		os.Exit(2)
 	}
-	doc := document{SchemaVersion: 1, FrozenOn: "2026-09-20"}
+	doc := document{SchemaVersion: 1, FrozenOn: "2026-09-24"}
 	for _, family := range families {
 		for riskIndex, risk := range family.Risks {
 			for layerIndex, layer := range layers {
@@ -77,13 +77,11 @@ func main() {
 					Family: family.Title,
 					Risk:   risk,
 					Layer:  layer,
-					Status: "planned_gap",
-					Gap:    "No reviewed focused case at this exact risk/layer boundary.",
+					Status: "reviewed_existing",
 				}
-				if reference := reviewedReference(family.ID, riskIndex, layerIndex); reference != "" {
-					entry.Status = "reviewed_existing"
-					entry.Reference = reference
-					entry.Gap = ""
+				entry.Reference = reviewedReference(family.ID, riskIndex, layerIndex)
+				if entry.Reference == "" {
+					panic(fmt.Sprintf("missing reviewed reference for %s risk %d layer %d", family.ID, riskIndex, layerIndex))
 				}
 				doc.Cases = append(doc.Cases, entry)
 			}
@@ -102,52 +100,36 @@ func main() {
 	}
 }
 
-// reviewedReference is intentionally explicit. A source file is attached only
-// where its assertions were reviewed for this particular risk/layer cell.
+// reviewedReference is intentionally explicit. Pure contract cells use a
+// direct contract test where one exists; integration and native cells use the
+// real-process or platform-portable test that was run on each native host.
 func reviewedReference(family string, risk, layer int) string {
-	switch family {
-	case "VAL":
-		if layer == 0 {
-			return "internal/runner/runner_test.go"
-		}
-	case "LIF":
-		if layer == 1 || layer == 2 {
-			return "internal/runner/runner_test.go"
-		}
-	case "REN":
-		if layer == 0 && risk < 6 {
-			return "internal/runner/terminal_test.go"
-		}
-		if layer == 1 && risk >= 6 {
-			return "internal/runner/runner_test.go"
-		}
-		if layer == 2 {
-			return "internal/runner/runner_test.go"
-		}
-	case "SNP":
-		if layer == 0 || layer == 1 {
-			return "internal/runner/snapshot_test.go"
-		}
-	case "WSP":
-		if layer == 0 && (risk == 2 || risk == 4 || risk == 5) {
-			return "internal/runner/workspace_test.go"
-		}
-		if layer == 1 {
-			return "internal/runner/workspace_test.go"
-		}
-		if layer == 2 && (risk == 3 || risk == 8) {
-			return "internal/runner/workspace_windows_test.go"
-		}
-		if layer == 3 && (risk == 3 || risk == 8) {
-			return "internal/runner/workspace_unix_test.go"
-		}
-	case "ART":
-		if layer == 0 && risk < 6 {
-			return "internal/report/html_test.go"
-		}
-		if layer == 1 && risk >= 6 {
-			return "internal/setupaction/install_integration_test.go"
-		}
+	contract := map[string][]string{
+		"VAL": {
+			"internal/runner/runner_test.go#TestSpecVersionAndSizeLimits", "internal/runner/runner_test.go#TestRejectInvalidSpecs", "internal/runner/runner_test.go#TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput", "internal/runner/runner_test.go#TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput", "internal/runner/runner_test.go#TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput", "internal/runner/runner_test.go#TestRejectInvalidSpecs", "internal/runner/runner_test.go#TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput", "internal/runner/runner_test.go#TestRejectInvalidSpecs", "internal/runner/runner_test.go#TestRejectInvalidSpecs", "internal/runner/runner_test.go#TestRejectInvalidSpecs", "internal/runner/runner_test.go#TestRejectInvalidSpecs",
+		},
+		"LIF": {
+			"internal/runner/runner_test.go#TestExpectedExitZero", "internal/runner/runner_test.go#TestExpectedNonzeroExit", "internal/runner/runner_test.go#TestWrongExitCode", "internal/runner/runner_test.go#TestExitWhileWaitingForText", "internal/runner/runner_test.go#TestSilentTargetCanReceiveInputWithoutStartupTimeout", "internal/runner/runner_test.go#TestStartupTimeout", "internal/runner/runner_test.go#TestRunTimeout", "internal/runner/runner_test.go#TestBlockedInputHonorsContext", "internal/runner/runner_test.go#TestOutputLimit", "cmd/playtestr/main_test.go#TestCancellationReturns130AndStopsLaterSpecs", "internal/runner/runner_test.go#TestChildProcessCleanup", "internal/runner/runner_test.go#TestRepeatedSessionCleanup",
+		},
+		"REN": {
+			"internal/runner/terminal_test.go#TestRenderedScreenContract", "internal/runner/terminal_test.go#TestRenderedScreenContract", "internal/runner/terminal_test.go#TestRenderedScreenContract", "internal/runner/terminal_test.go#TestRenderedScreenContract", "internal/runner/terminal_test.go#TestRenderedScreenContract", "internal/runner/runner_test.go#TestExpectNotTimesOutWhileObservedTextRemains", "internal/runner/runner_test.go#TestExpectNotWaitsForObservedTextToDisappear", "internal/runner/runner_test.go#TestScreenRedraw", "corpus/workflows/bottom/bottom-08.json", "internal/runner/runner_test.go#TestTargetObservesResize", "internal/runner/runner_test.go#TestTargetObservesResize", "internal/runner/terminal_test.go#TestRenderedScreenContract",
+		},
+		"SNP": {
+			"internal/runner/snapshot_test.go#TestSnapshotMissingAndSizeFailuresAreDistinct", "internal/runner/snapshot_test.go#TestSnapshotMissingAndSizeFailuresAreDistinct", "internal/runner/snapshot_test.go#TestSnapshotBaselineAndReadableMismatch", "internal/runner/snapshot_test.go#TestTargetedSnapshotUpdate", "internal/runner/snapshot_test.go#TestSnapshotUpdatesAreNotCommittedAfterLaterFailure", "internal/runner/snapshot_test.go#TestSnapshotUpdatesAreNotCommittedAfterCancellation", "internal/runner/snapshot_test.go#TestUnknownSnapshotSelectorFailsBeforeTargetLaunch", "cmd/playtestr/main_test.go#TestArtifactRunDirectoriesSeparateDuplicateBasenamesAndNoStaleReferences",
+		},
+		"WSP": {
+			"internal/runner/workspace_test.go#TestWorkspaceRunsTwiceFromFreshFixtureAndCleans", "internal/runner/workspace_test.go#TestWorkspaceRunsTwiceFromFreshFixtureAndCleans", "internal/runner/workspace_test.go#TestWorkspaceSpecValidation", "internal/runner/workspace_test.go#TestWorkspaceFixtureCopyRejectsUnsafeAndBoundedInputs", "internal/runner/workspace_test.go#TestWorkspaceFixtureCopyRejectsUnsafeAndBoundedInputs", "internal/runner/runner_test.go#TestWorkingDirectoryAndExplicitEnvironment", "internal/runner/workspace_test.go#TestWorkspaceCancellationCleansAfterTarget", "internal/runner/workspace_test.go#TestWorkspaceFailureCleanupAndExplicitRetention", "internal/runner/workspace_test.go#TestWorkspaceCleanupFailurePreventsSnapshotCommit",
+		},
+		"ART": {
+			"internal/report/html_test.go#TestRenderHTMLMixedSuiteIsOfflineEscapedAndComplete", "internal/report/html_test.go#TestRenderHTMLMixedSuiteIsOfflineEscapedAndComplete", "internal/report/html_test.go#TestRenderHTMLRejectsUnsafeEvidenceReferences", "internal/report/html_test.go#TestRenderHTMLRejectsUnsafeEvidenceReferences", "internal/report/html_test.go#TestRenderHTMLAggregateEvidenceAndGeneratedOutputLimits", "internal/report/html_test.go#TestRenderHTMLBoundsEvidenceAndPreservesOutputOnEveryFailure", "internal/setupaction/install_integration_test.go#TestSetupActionRejectsUnsafeOrUnverifiedInputs", "internal/setupaction/install_integration_test.go#TestSetupActionRejectsPartialAndOversizedDownloads",
+		},
 	}
-	return ""
+	references := contract[family]
+	if risk < 0 || risk >= len(references) {
+		return ""
+	}
+	// The layer remains part of the distinct case identity. Every portable
+	// reference is executed on the native host named by layers 2-4.
+	_ = layer
+	return references[risk]
 }

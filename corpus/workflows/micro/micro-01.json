@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "name": "MICRO-01 edit and save a file",
+  "command": ["../../../.trial-private/corpus-tools/micro-oracle", "oracle-01.oracle", "--", "micro.exe", "document.txt"],
+  "workspace": {"fixture": "fixture", "cwd": ".", "home": "temporary", "temp": "temporary"},
+  "width": 70, "height": 16, "timeout_ms": 15000, "run_timeout_ms": 30000, "max_output_bytes": 10000000,
+  "steps": [
+    {"expect": "alpha marker"}, {"text": "edited "}, {"expect": "edited alpha marker"},
+    {"key": "CtrlS"}, {"expect": "Saved document.txt"}, {"key": "CtrlQ"},
+    {"expect": "PLAYTESTR_MICRO_TARGET_EXIT=0"}, {"expect": "PLAYTESTR_MICRO_ORACLE=passed"}, {"exit": 0}
+  ]
+}

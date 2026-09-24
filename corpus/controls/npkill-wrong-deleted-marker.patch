@@ -1,0 +1,7 @@
+--- a/node_modules/npkill/lib/constants/messages.constants.js
++++ b/node_modules/npkill/lib/constants/messages.constants.js
+@@
+-    DELETED_FOLDER: '[DELETED] ',
++    // Reviewed corpus mutation: corrupt the dry-run success marker while
++    // preserving npkill's real scan, selection and deletion simulation.
++    DELETED_FOLDER: '[WRONG-DELETED] ',

@@ -1,0 +1,9 @@
+--- a/posting/widgets/response/response_area.py
++++ b/posting/widgets/response/response_area.py
+@@ -76,5 +76,5 @@
+         # Update the body text area with the body content.
+         response_text_area = self.text_editor.text_area
+-        response_text = response.text
++        response_text = response.text.replace("PLAYTESTR", "BROKEN")
+         response_settings = SETTINGS.get().response
+         if response_text_area.language == "json" and response_settings.prettify_json:

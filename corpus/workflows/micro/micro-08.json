@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "name": "MICRO-08 resize and save supported Unicode text",
+  "command": ["../../../.trial-private/corpus-tools/micro-oracle", "oracle-08.oracle", "--", "micro.exe", "document.txt"],
+  "workspace": {"fixture": "fixture", "cwd": ".", "home": "temporary", "temp": "temporary"},
+  "width": 70, "height": 16, "timeout_ms": 15000, "run_timeout_ms": 30000, "max_output_bytes": 10000000,
+  "steps": [
+    {"expect": "alpha marker"}, {"text": "雪 "}, {"expect": "雪 alpha marker"},
+    {"resize": {"width": 84, "height": 22}}, {"wait_for_redraw": true}, {"expect": "雪 alpha marker"},
+    {"key": "CtrlS"}, {"expect": "Saved document.txt"}, {"key": "CtrlQ"},
+    {"expect": "PLAYTESTR_MICRO_ORACLE=passed"}, {"exit": 0}
+  ]
+}

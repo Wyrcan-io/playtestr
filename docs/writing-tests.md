@@ -39,7 +39,7 @@ Use `expect` for text that positively identifies the screen you need. After send
 
 Finite applications should end with `{"exit": 0}` or the exact expected nonzero code. A target that exits without an exit assertion fails, even if earlier screen assertions passed. A long-running TUI does not need an exit step; Playtestr performs bounded cleanup when its steps finish.
 
-Supported named keys are `Enter`, `ArrowDown`, `ArrowUp`, `ArrowLeft`, `ArrowRight`, `Escape`, `Tab`, `Backspace`, and `CtrlC`. A `text` action sends literal text.
+Supported named keys are `Enter`, `ArrowDown`, `ArrowUp`, `ArrowLeft`, `ArrowRight`, `Escape`, `Tab`, `Backspace`, `CtrlC`, `CtrlE`, `CtrlF`, `CtrlO`, `CtrlQ`, `CtrlS`, `CtrlSpace`, and `CtrlZ`. A `text` action sends literal text.
 
 ## Working directory and environment
 

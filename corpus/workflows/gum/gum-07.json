@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "name": "GUM-07 select multiple items",
+  "workspace": {"fixture": "fixture", "cwd": ".", "home": "temporary", "temp": "temporary"},
+  "command": ["../../../.tools/external/gum", "choose", "Alpha", "Beta", "Gamma", "--header", "Select deployments", "--limit", "2", "--ordered"],
+  "width": 60,
+  "height": 12,
+  "timeout_ms": 15000,
+  "run_timeout_ms": 30000,
+  "max_output_bytes": 500000,
+  "steps": [
+    {"expect": "Select deployments"},
+    {"text": " "},
+    {"key": "ArrowDown"},
+    {"text": " "},
+    {"key": "Enter"},
+    {"exit": 0},
+    {"snapshot": "gum-07.txt"}
+  ]
+}

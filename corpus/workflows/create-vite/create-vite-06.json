@@ -1,0 +1,7 @@
+{
+  "version":2,"name":"CV-06 cancel wizard before creation",
+  "command":["../../../.trial-private/corpus-tools/create-vite-oracle","cancel"],
+  "workspace":{"fixture":"fixture","cwd":".","home":"temporary","temp":"temporary"},
+  "width":100,"height":30,"timeout_ms":10000,"run_timeout_ms":30000,"max_output_bytes":1000000,
+  "steps":[{"expect":"Project name:"},{"text":"cancelled-project"},{"key":"Enter"},{"expect":"Select a framework:"},{"key":"CtrlC"},{"expect":"Operation cancelled"},{"expect":"PLAYTESTR-CV-ORACLE cancel OK"},{"exit":0}]
+}

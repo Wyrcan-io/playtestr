@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-09-23",
+  "project": {
+    "id": "MICRO",
+    "version": "v2.0.14",
+    "binary_sha256": "3c5487ebceedf5dbeb91dd3081d00d814aa5f0ba3ab0bd6c76d963e630750394"
+  },
+  "runner": {
+    "source_commit": "e89618df1908e0d98a7025fc26bd362dfeab5019",
+    "host": "windows_amd64",
+    "command": "go run ./cmd/playtestr test --artifacts-dir .trial-private/artifacts-micro-stability-2 --report .trial-private/corpus-micro-stability-2.json corpus/workflows/micro"
+  },
+  "starting_state": {
+    "fixture": "corpus/workflows/micro/fixture",
+    "fixture_sha256": "5f8c39b35452ca5a7491c97a4be2a542b94452362d021a21ced87e2f15ca4fa1",
+    "home": "fresh temporary directory per workflow",
+    "temp": "fresh temporary directory per workflow"
+  },
+  "setup": {
+    "operation": "build exact v2.0.14 Go module source with pinned replace directives",
+    "elapsed_ms": 21129,
+    "network": true
+  },
+  "limits": {"run_ms": 30000, "step_ms": 15000, "output_bytes": 10000000},
+  "workflows": [
+    {
+      "id": "MICRO-01",
+      "spec": "corpus/workflows/micro/micro-01.json",
+      "target_command": ["../../../.trial-private/corpus-tools/micro-oracle", "oracle-01.oracle", "--", "micro.exe", "document.txt"],
+      "viewport": {"width": 70, "height": 16},
+      "expected_screen": "edited alpha marker; Saved document.txt; oracle passed",
+      "expected_exit": 0,
+      "independent_postcondition": "pre-deletion oracle observed exact edited document bytes and unchanged neighbor bytes; real micro exit 0",
+      "duration_ms": 445,
+      "runner_outcome": "passed",
+      "campaign_interpretation": "correct_good_result"
+    },
+    {
+      "id": "MICRO-02",
+      "spec": "corpus/workflows/micro/micro-02.json",
+      "target_command": ["../../../.trial-private/corpus-tools/micro-oracle", "oracle-unchanged.oracle", "--", "micro.exe", "document.txt"],
+      "viewport": {"width": 70, "height": 16},
+      "expected_screen": "wrong prefix appears then disappears after undo; save and oracle pass",
+      "expected_exit": 0,
+      "independent_postcondition": "pre-deletion oracle observed exact original document, neighbor, and second-buffer bytes",
+      "duration_ms": 464,
+      "runner_outcome": "passed",
+      "campaign_interpretation": "correct_undo_boundary"
+    },
+    {
+      "id": "MICRO-03",
+      "spec": "corpus/workflows/micro/micro-03.json",
+      "target_command": ["../../../.trial-private/corpus-tools/micro-oracle", "oracle-unchanged.oracle", "--", "micro.exe", "document.txt"],
+      "viewport": {"width": 70, "height": 16},
+      "expected_screen": "Find (regex): replace old; cursor at reviewed match (2,12); oracle passed",
+      "expected_exit": 0,
+      "independent_postcondition": "search left every owned fixture file byte-identical before workspace deletion",
+      "duration_ms": 417,
+      "runner_outcome": "passed",
+      "campaign_interpretation": "correct_read_only_result"
+    },
+    {
+      "id": "MICRO-04",
+      "spec": "corpus/workflows/micro/micro-04.json",
+      "target_command": ["../../../.trial-private/corpus-tools/micro-oracle", "oracle-04.oracle", "--", "micro.exe", "document.txt"],
+      "viewport": {"width": 70, "height": 16},
+      "expected_screen": "replace new token; Saved document.txt; oracle passed",
+      "expected_exit": 0,
+      "independent_postcondition": "pre-deletion oracle observed exactly one reviewed replacement and unchanged neighbor bytes",
+      "duration_ms": 424,
+      "runner_outcome": "passed",
+      "campaign_interpretation": "correct_good_result"
+    },
+    {
+      "id": "MICRO-05",
+      "spec": "corpus/workflows/micro/micro-05.json",
+      "target_command": ["../../../.trial-private/corpus-tools/micro-oracle", "oracle-unchanged.oracle", "--", "micro.exe", "document.txt"],
+      "viewport": {"width": 70, "height": 16},
+      "expected_screen": "unsaved-close prompt; canceled draft remains usable; undo and oracle pass",
+      "expected_exit": 0,
+      "independent_postcondition": "cancel prevented close and disk mutation; undo restored clean state before exact-byte oracle",
+      "duration_ms": 443,
+      "runner_outcome": "passed",
+      "campaign_interpretation": "correct_user_cancellation"
+    },
+    {
+      "id": "MICRO-06",
+      "spec": "corpus/workflows/micro/micro-06.json",
+      "target_command": ["../../../.trial-private/corpus-tools/micro-oracle", "oracle-unchanged.oracle", "--", "micro.exe", "document.txt"],
+      "viewport": {"width": 70, "height": 16},
+      "expected_screen": "unsaved-close prompt; explicit no; oracle passed",
+      "expected_exit": 0,
+      "independent_postcondition": "discard route exited micro 0 with all owned fixture bytes unchanged",
+      "duration_ms": 388,
+      "runner_outcome": "passed",
+      "campaign_interpretation": "correct_discard_boundary"
+    },
+    {
+      "id": "MICRO-07",
+      "spec": "corpus/workflows/micro/micro-07.json",
+      "target_command": ["../../../.trial-private/corpus-tools/micro-oracle", "oracle-07.oracle", "--", "micro.exe", "document.txt", "second.txt"],
+      "viewport": {"width": 70, "height": 16},
+      "expected_screen": "second buffer edited and saved; document buffer unchanged; oracle passed",
+      "expected_exit": 0,
+      "independent_postcondition": "only second.txt gained the reviewed prefix; document and neighbor bytes remained exact",
+      "duration_ms": 479,
+      "runner_outcome": "passed",
+      "campaign_interpretation": "correct_cross_buffer_result"
+    },
+    {
+      "id": "MICRO-08",
+      "spec": "corpus/workflows/micro/micro-08.json",
+      "target_command": ["../../../.trial-private/corpus-tools/micro-oracle", "oracle-08.oracle", "--", "micro.exe", "document.txt"],
+      "viewport": {"width": 70, "height": 16},
+      "expected_screen": "雪 alpha marker before and after 84x22 redraw; save and oracle pass",
+      "expected_exit": 0,
+      "independent_postcondition": "pre-deletion oracle observed exact UTF-8 bytes after redraw/save and unchanged neighbor",
+      "duration_ms": 1450,
+      "runner_outcome": "passed",
+      "campaign_interpretation": "correct_unicode_resize_result"
+    }
+  ],
+  "control": {
+    "known_bad_spec": "corpus/workflows/micro/micro-01-known-bad.control",
+    "observed_runner_status": 1,
+    "observed_category": "unexpected_exit",
+    "observed_difference": "real micro UI reported Saved and target exit 0, but reviewed save mutation dropped the inserted prefix and byte oracle exited 90",
+    "target_exit": 90,
+    "cleanup_confirmed": true,
+    "recovery_spec": "corpus/workflows/micro/micro-01.json",
+    "recovery_runner_status": 0
+  },
+  "cleanup": {
+    "all_target_exits_confirmed": true,
+    "all_workspaces_cleaned": true,
+    "original_fixture_unchanged": true
+  },
+  "exclusions": [
+    "Linux amd64 and macOS arm64 were not run in this record.",
+    "The setup timing includes the observed dependency-fetching build command; it is one measurement, not a benchmark.",
+    "The v2.0.14 tag resolved to exact origin commit 04c577049ca898f097cd6a2dae69af0b4d4493e1; module sum h1:eDyMBFxTsa8ISbHvLl0ZZyREF3YJlxWXWqewKf+iJ08=.",
+    "The corpus oracle binary SHA-256 is 1ca8dc7d666acd452a32f1d37c23c6cda82fe7719337c6f3ec1dd7978cdf7209 and runs real micro on inherited terminal handles.",
+    "The reviewed mutation patch is corpus/controls/micro-save-drop-prefix.patch; mutated binary SHA-256 2770e87f230cb3d5037f82b3bd1ab1f4ae9f4bff59308c04c420c6f54566569d.",
+    "Fixture SHA-256 is over a UTF-8 manifest of sorted relative path, tab, per-file SHA-256, and newline entries."
+  ]
+}

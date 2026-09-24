@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "name": "GUM-08 cancel before committing selection",
+  "workspace": {"fixture": "fixture", "cwd": ".", "home": "temporary", "temp": "temporary"},
+  "command": ["../../../.tools/external/gum", "choose", "Alpha", "Beta", "Gamma", "--header", "Cancel deployment"],
+  "width": 60,
+  "height": 12,
+  "timeout_ms": 15000,
+  "run_timeout_ms": 30000,
+  "max_output_bytes": 500000,
+  "steps": [
+    {"expect": "Cancel deployment"},
+    {"key": "Escape"},
+    {"exit": 1},
+    {"snapshot": "gum-08.txt"}
+  ]
+}

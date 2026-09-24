@@ -1,0 +1,11 @@
+--- a/mitmproxy/addons/view.py
++++ b/mitmproxy/addons/view.py
+@@ -352,7 +352,7 @@
+         self.set_filter(filt)
+ 
+     def set_filter(self, flt: flowfilter.TFilter | None):
+-        self.filter = flt or flowfilter.match_all
++        self.filter = (lambda _: False) if flt else flowfilter.match_all
+         self._refilter()
+ 
+     # View Updates

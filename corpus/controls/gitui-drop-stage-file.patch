@@ -1,0 +1,16 @@
+--- a/src/components/changes.rs
++++ b/src/components/changes.rs
+@@ -88,10 +88,9 @@
+ 								path,
+ 							)?;
+ 						}
+-						_ => sync::stage_add_file(
+-							&self.repo.borrow(),
+-							path,
+-						)?,
++						_ => {
++							let _ = path;
++						}
+ 					}
+ 				} else {
+ 					let config =

@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "name": "FZF-04 cancel selection",
+  "command": ["../../../.trial-private/corpus-tools/fzf", "--height=10", "--layout=reverse", "--border", "--prompt=Find: ", "--walker=file", "--walker-root=walker-root", "--no-sort", "--bind=start:reload(type candidates.txt)", "--sync"],
+  "workspace": {"fixture": "fixture", "cwd": ".", "home": "temporary", "temp": "temporary"},
+  "width": 60, "height": 12, "timeout_ms": 15000, "run_timeout_ms": 30000, "max_output_bytes": 1000000,
+  "steps": [
+    {"expect": "5/5"}, {"key": "Escape"}, {"exit": 130}, {"snapshot": "fzf-04.txt"}
+  ]
+}

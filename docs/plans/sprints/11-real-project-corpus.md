@@ -1,8 +1,11 @@
 # Sprint 11: useful behavior across real applications
 
-Status: **A0 and A1 complete on 20 September 2026; B/C planned.** The checked
-admission artifacts, pilot results, cost floor and ranked blockers are in the
-[`corpus/` checkpoint](../../../corpus/README.md). Owner: Playtestr maintainer.
+Status: **A0/A1 complete on 20 September 2026; B complete on 24 September 2026;
+C planned after candidate freeze.** The checked admission artifacts, 15 project
+records, 120 workflow specs, 300-cell focused map, controls, costs and exclusions
+are in the [`corpus/` checkpoint](../../../corpus/README.md) and the
+[B evidence](../../validation/sprint-11-b-corpus-depth-2026-09-24.md). Owner:
+Playtestr maintainer.
 Read the [root order](../../../roadmap.md), [validation program](../validation-program.md),
 [120-intent catalog](../corpus-catalog.md), and [execution contract](../execution-contract.md).
 This is internal engineering, with no recruitment dependency.
@@ -39,6 +42,13 @@ Map existing table-driven and PTY tests to the 300 focused risk cases. Existing 
 Exit: reviewed matrix and manifest, independently specified expected results, no fabricated green cells, targeted Sprint 10/12 entry evidence, a CI-local case for Sprint 6 evaluation, and a measured campaign estimate. A1 is the corpus checkpoint name here; maintainer adoption is separately named adoption A1 in the roadmap.
 
 ## B: complete depth and sensitivity
+
+Completed 24 September 2026. All 15 exact pins have eight distinct implemented
+workflows, an intended known-bad detection, and a passing recovery. The 300
+focused cells reference exact reviewed test anchors and the 30 required
+rejection/cancellation/boundary workflows are separately machine checked.
+Application evidence is scoped to 13 native Windows targets plus two Linux
+targets under WSL; it does not promote WSL to a native-host claim.
 
 After selected repairs and integrated hardening, implement and run the full 120 admitted workflows and 300 focused risk cases. Keep target-specific state verification outside the core. At least two tasks per project exercise rejection, cancellation or a meaningful boundary. Avoid live-metric goldens and unnecessary snapshots where an exact selected output or state postcondition is clearer.
 

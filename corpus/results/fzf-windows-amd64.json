@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-09-23",
+  "project": {
+    "id": "FZF",
+    "version": "v0.74.4",
+    "binary_sha256": "12a87c6f194c493147350425eb93f0c4152b15b645ee6a679dcec6944e265030"
+  },
+  "runner": {
+    "source_commit": "e89618df1908e0d98a7025fc26bd362dfeab5019",
+    "host": "windows_amd64",
+    "command": "go run ./cmd/playtestr test --artifacts-dir .trial-private/artifacts-fzf-stability-2 --report .trial-private/corpus-fzf-stability-2.json corpus/workflows/fzf"
+  },
+  "starting_state": {
+    "fixture": "corpus/workflows/fzf/fixture",
+    "fixture_sha256": "8ed7479960f3ca11f623671d270eef58f36373f1aea2a59875ddf0c3fcb26700",
+    "home": "fresh temporary directory per workflow",
+    "temp": "fresh temporary directory per workflow"
+  },
+  "setup": {
+    "operation": "download pinned Go module and build fzf v0.74.4",
+    "elapsed_ms": 60432,
+    "network": true
+  },
+  "limits": {"run_ms": 30000, "step_ms": 15000, "output_bytes": 1000000},
+  "workflows": [
+    {
+      "id": "FZF-01",
+      "spec": "corpus/workflows/fzf/fzf-01.json",
+      "target_command": ["../../../.trial-private/corpus-tools/fzf", "--height=10", "--layout=reverse", "--border", "--prompt=Find: ", "--walker=file", "--walker-root=walker-root", "--no-sort", "--bind=start:reload(type candidates.txt)", "--sync"],
+      "viewport": {"width": 60, "height": 12},
+      "expected_screen": "beta record.txt\n",
+      "expected_exit": 0,
+      "independent_postcondition": "exact accepted record and target exit 0; original fixture digest unchanged",
+      "duration_ms": 297,
+      "runner_outcome": "passed",
+      "campaign_interpretation": "correct_good_result"
+    },
+    {
+      "id": "FZF-02",
+      "spec": "corpus/workflows/fzf/fzf-02.json",
+      "target_command": ["../../../.trial-private/corpus-tools/fzf", "--height=10", "--layout=reverse", "--border", "--prompt=Find: ", "--walker=file", "--walker-root=walker-root", "--no-sort", "--bind=start:reload(type candidates.txt)", "--sync"],
+      "viewport": {"width": 60, "height": 12},
+      "expected_screen": "record-beta.txt\n",
+      "expected_exit": 0,
+      "independent_postcondition": "exact navigated record and target exit 0; original fixture digest unchanged",
+      "duration_ms": 280,
+      "runner_outcome": "passed",
+      "campaign_interpretation": "correct_good_result"
+    },
+    {
+      "id": "FZF-03",
+      "spec": "corpus/workflows/fzf/fzf-03.json",
+      "target_command": ["../../../.trial-private/corpus-tools/fzf", "--height=10", "--layout=reverse", "--border", "--prompt=Find: ", "--walker=file", "--walker-root=walker-root", "--no-sort", "--bind=start:reload(type candidates.txt)", "--sync"],
+      "viewport": {"width": 60, "height": 12},
+      "expected_screen": "gamma-unicode-雪.txt\n",
+      "expected_exit": 0,
+      "independent_postcondition": "exact Unicode record and target exit 0; original fixture digest unchanged",
+      "duration_ms": 294,
+      "runner_outcome": "passed",
+      "campaign_interpretation": "correct_good_result"
+    },
+    {
+      "id": "FZF-04",
+      "spec": "corpus/workflows/fzf/fzf-04.json",
+      "target_command": ["../../../.trial-private/corpus-tools/fzf", "--height=10", "--layout=reverse", "--border", "--prompt=Find: ", "--walker=file", "--walker-root=walker-root", "--no-sort", "--bind=start:reload(type candidates.txt)", "--sync"],
+      "viewport": {"width": 60, "height": 12},
+      "expected_screen": "",
+      "expected_exit": 130,
+      "independent_postcondition": "exact target cancellation exit 130 and no accepted record; original fixture digest unchanged",
+      "duration_ms": 663,
+      "runner_outcome": "passed",
+      "campaign_interpretation": "correct_target_cancellation"
+    },
+    {
+      "id": "FZF-05",
+      "spec": "corpus/workflows/fzf/fzf-05.json",
+      "target_command": ["../../../.trial-private/corpus-tools/fzf", "--height=10", "--layout=reverse", "--border", "--prompt=Find: ", "--walker=file", "--walker-root=walker-root", "--no-sort", "--bind=start:reload(type candidates.txt)", "--sync"],
+      "viewport": {"width": 60, "height": 12},
+      "expected_screen": "",
+      "expected_exit": 130,
+      "independent_postcondition": "zero matches observed before exact target cancellation exit 130; original fixture digest unchanged",
+      "duration_ms": 693,
+      "runner_outcome": "passed",
+      "campaign_interpretation": "correct_empty_result_cancellation"
+    },
+    {
+      "id": "FZF-06",
+      "spec": "corpus/workflows/fzf/fzf-06.json",
+      "target_command": ["../../../.trial-private/corpus-tools/fzf", "--height=10", "--layout=reverse", "--border", "--prompt=Find: ", "--walker=file", "--walker-root=walker-root", "--no-sort", "--bind=start:reload(type candidates.txt)", "--multi", "--sync"],
+      "viewport": {"width": 60, "height": 12},
+      "expected_screen": "record-alpha.txt\nrecord-beta.txt\n",
+      "expected_exit": 0,
+      "independent_postcondition": "exact ordered two-record selection and target exit 0; original fixture digest unchanged",
+      "duration_ms": 385,
+      "runner_outcome": "passed",
+      "campaign_interpretation": "correct_good_result"
+    },
+    {
+      "id": "FZF-07",
+      "spec": "corpus/workflows/fzf/fzf-07.json",
+      "target_command": ["../../../.trial-private/corpus-tools/fzf", "--height=10", "--layout=reverse", "--border", "--prompt=Find: ", "--walker=file", "--walker-root=walker-root", "--no-sort", "--bind=start:reload(type candidates.txt)", "--sync"],
+      "viewport": {"width": 60, "height": 12},
+      "expected_screen": "beta record.txt\n",
+      "expected_exit": 0,
+      "independent_postcondition": "exact space-containing record and target exit 0; original fixture digest unchanged",
+      "duration_ms": 311,
+      "runner_outcome": "passed",
+      "campaign_interpretation": "correct_good_result"
+    },
+    {
+      "id": "FZF-08",
+      "spec": "corpus/workflows/fzf/fzf-08.json",
+      "target_command": ["../../../.trial-private/corpus-tools/fzf", "--height=10", "--layout=reverse", "--border", "--prompt=Find: ", "--walker=file", "--walker-root=walker-root", "--no-sort", "--bind=start:reload(type candidates.txt)", "--sync"],
+      "viewport": {"width": 60, "height": 12},
+      "expected_screen": "gamma-unicode-雪.txt\n",
+      "expected_exit": 0,
+      "independent_postcondition": "80x20 redraw completed before exact Unicode record and target exit 0; original fixture digest unchanged",
+      "duration_ms": 1302,
+      "runner_outcome": "passed",
+      "campaign_interpretation": "correct_good_result"
+    }
+  ],
+  "control": {
+    "known_bad_spec": "corpus/workflows/fzf/fzf-01-known-bad.control",
+    "observed_runner_status": 1,
+    "observed_category": "snapshot_mismatch",
+    "observed_difference": "expected beta record.txt, actual alpha.txt",
+    "target_exit": 0,
+    "cleanup_confirmed": true,
+    "recovery_spec": "corpus/workflows/fzf/fzf-01.json",
+    "recovery_runner_status": 0
+  },
+  "cleanup": {
+    "all_target_exits_confirmed": true,
+    "all_workspaces_cleaned": true,
+    "original_fixture_unchanged": true
+  },
+  "exclusions": [
+    "Linux amd64 and macOS arm64 were not run in this record; the deterministic reload command uses Windows type.",
+    "The 60432 ms setup is one observed networked module-download-and-build command, not a benchmark.",
+    "Fixture SHA-256 is over a UTF-8 manifest of sorted relative path, tab, per-file SHA-256, and newline entries.",
+    "The known-bad binary is a reviewed source mutation built from the same v0.74.4 module; SHA-256 34270fcc712a5980332fa5fd9669b42edc8db35b49bb0321cc6e9518497d4ad7."
+  ]
+}

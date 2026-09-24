@@ -81,7 +81,8 @@ var (
 	keys = map[string]string{
 		"Enter": "\r", "ArrowDown": "\x1b[B", "ArrowUp": "\x1b[A",
 		"ArrowRight": "\x1b[C", "ArrowLeft": "\x1b[D", "Escape": "\x1b",
-		"Tab": "\t", "Backspace": "\x7f", "CtrlC": "\x03",
+		"Tab": "\t", "Backspace": "\x7f", "CtrlC": "\x03", "CtrlE": "\x05", "CtrlO": "\x0f", "CtrlSpace": "\x00",
+		"CtrlF": "\x06", "CtrlQ": "\x11", "CtrlS": "\x13", "CtrlZ": "\x1a",
 	}
 	environmentName = regexp.MustCompile(`^[A-Za-z_][A-Za-z0-9_]*$`)
 )
@@ -129,6 +130,9 @@ func Load(path string) (Spec, error) {
 		return spec, fmt.Errorf("command is required")
 	}
 	for i, value := range spec.Command {
+		if value == "" {
+			return spec, fmt.Errorf("command elements must not be empty")
+		}
 		if strings.ContainsRune(value, '\x00') {
 			return spec, fmt.Errorf("command value %d contains a NUL byte", i)
 		}
