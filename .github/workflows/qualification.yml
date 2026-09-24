@@ -55,8 +55,8 @@ jobs:
       - name: Pin Rust toolchain
         shell: bash
         run: |
-          rustup toolchain install 1.90.0 --profile minimal
-          rustup override set 1.90.0
+          rustup toolchain install 1.95.0 --profile minimal
+          rustup override set 1.95.0
       - name: Download frozen native archive
         uses: actions/download-artifact@v6
         with:
