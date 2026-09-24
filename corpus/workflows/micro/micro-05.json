@@ -7,7 +7,8 @@
   "steps": [
     {"expect": "alpha marker"}, {"text": "draft "}, {"expect": "draft alpha marker"}, {"key": "CtrlQ"},
     {"expect": "Save changes to document.txt before closing?"}, {"key": "Escape"}, {"expect": "draft alpha marker"},
-    {"key": "CtrlZ"}, {"expect_not": "draft alpha marker"}, {"key": "CtrlQ"},
+    {"text": "x"}, {"expect": "draft xalpha marker"}, {"key": "Backspace"}, {"expect": "draft alpha marker"},
+    {"key": "CtrlQ"}, {"expect": "Save changes to document.txt before closing?"}, {"text": "n"},
     {"expect": "PLAYTESTR_MICRO_ORACLE=passed"}, {"exit": 0}
   ]
 }

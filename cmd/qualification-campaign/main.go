@@ -37,7 +37,12 @@ type report struct {
 		Total, Passed, Failed, Cancelled, NotRun int
 	} `json:"summary"`
 	Results []struct {
-		Status  string `json:"status"`
+		Status     string `json:"status"`
+		DurationMS int64  `json:"duration_ms"`
+		Steps      []struct {
+			Action     string `json:"action"`
+			DurationMS int64  `json:"duration_ms"`
+		} `json:"steps"`
 		Failure *struct {
 			Category string `json:"category"`
 		} `json:"failure"`
@@ -49,28 +54,41 @@ type report struct {
 			Cleaned          bool `json:"cleaned"`
 			Retained         bool `json:"retained"`
 		} `json:"workspace"`
+		Evidence struct {
+			ScreenPath string `json:"screen_path"`
+		} `json:"evidence"`
 	} `json:"results"`
 }
 
 type attemptRecord struct {
-	SchemaVersion   int      `json:"schema_version"`
-	AttemptID       string   `json:"attempt_id"`
-	Host            string   `json:"host"`
-	WorkflowID      string   `json:"workflow_id"`
-	Project         string   `json:"project"`
-	Class           string   `json:"class"`
-	Ordinal         int      `json:"ordinal"`
-	StartedUTC      string   `json:"started_utc"`
-	ElapsedMS       int64    `json:"elapsed_ms"`
-	RunnerSHA256    string   `json:"runner_sha256"`
-	SpecSHA256      string   `json:"spec_sha256"`
-	TargetSHA256    []string `json:"target_sha256"`
-	ExitCode        int      `json:"exit_code"`
-	RunnerStatus    string   `json:"runner_status"`
-	FailureCategory string   `json:"failure_category,omitempty"`
-	Cleanup         string   `json:"cleanup"`
-	Disposition     string   `json:"disposition"`
-	Report          string   `json:"report,omitempty"`
+	SchemaVersion     int      `json:"schema_version"`
+	AttemptID         string   `json:"attempt_id"`
+	Host              string   `json:"host"`
+	WorkflowID        string   `json:"workflow_id"`
+	Project           string   `json:"project"`
+	Class             string   `json:"class"`
+	Ordinal           int      `json:"ordinal"`
+	StartedUTC        string   `json:"started_utc"`
+	Phase             string   `json:"phase"`
+	TotalWallMS       int64    `json:"total_wall_ms"`
+	ReportMS          int64    `json:"report_ms,omitempty"`
+	TargetStartupMS   int64    `json:"target_startup_ms,omitempty"`
+	IntentionalWaitMS int64    `json:"intentional_wait_ms,omitempty"`
+	RunnerOverheadMS  int64    `json:"runner_overhead_ms,omitempty"`
+	RunnerCPUUserMS   int64    `json:"runner_cpu_user_ms,omitempty"`
+	RunnerCPUSystemMS int64    `json:"runner_cpu_system_ms,omitempty"`
+	ArtifactBytes     int64    `json:"artifact_bytes,omitempty"`
+	RunnerSHA256      string   `json:"runner_sha256"`
+	SpecSHA256        string   `json:"spec_sha256"`
+	TargetSHA256      []string `json:"target_sha256"`
+	ExitCode          int      `json:"exit_code"`
+	RunnerStatus      string   `json:"runner_status"`
+	FailureCategory   string   `json:"failure_category,omitempty"`
+	Cleanup           string   `json:"cleanup"`
+	SurvivorCheck     string   `json:"survivor_check"`
+	AssertionOutcome  string   `json:"assertion_oracle_outcome"`
+	Disposition       string   `json:"disposition"`
+	Report            string   `json:"report,omitempty"`
 }
 
 type stringsFlag []string
@@ -138,15 +156,24 @@ func main() {
 				}
 			}
 			record := attemptRecord{
-				SchemaVersion: 1, AttemptID: fmt.Sprintf("%s-%03d", workflow.ID, ordinal), Host: host,
+				SchemaVersion: 2, AttemptID: fmt.Sprintf("%s-%03d", workflow.ID, ordinal), Host: host,
 				WorkflowID: workflow.ID, Project: workflow.Project, Class: workflow.Class, Ordinal: ordinal,
-				StartedUTC: started.Format(time.RFC3339Nano), ElapsedMS: time.Since(started).Milliseconds(),
+				StartedUTC: started.Format(time.RFC3339Nano), Phase: attemptPhase(ordinal), TotalWallMS: time.Since(started).Milliseconds(),
 				RunnerSHA256: runnerHash, SpecSHA256: mustHash(workflow.Spec), TargetSHA256: targetHashes,
 				ExitCode: exitCode, Disposition: "unexpected_failure", Report: filepath.ToSlash(reportPath),
+				SurvivorCheck: "not_confirmed", AssertionOutcome: "failed",
+			}
+			if command.ProcessState != nil {
+				record.RunnerCPUUserMS = command.ProcessState.UserTime().Milliseconds()
+				record.RunnerCPUSystemMS = command.ProcessState.SystemTime().Milliseconds()
+			}
+			if info, statErr := os.Stat(reportPath); statErr == nil {
+				record.ArtifactBytes = info.Size()
 			}
 			var parsed report
 			if data, readErr := os.ReadFile(reportPath); readErr == nil && json.Unmarshal(data, &parsed) == nil && len(parsed.Results) == 1 {
 				result := parsed.Results[0]
+				record.ReportMS, record.TargetStartupMS, record.IntentionalWaitMS, record.RunnerOverheadMS = reportMetrics(result.DurationMS, result.Steps, record.TotalWallMS)
 				record.RunnerStatus = result.Status
 				if result.Failure != nil {
 					record.FailureCategory = result.Failure.Category
@@ -154,12 +181,20 @@ func main() {
 				record.Cleanup = "confirmed_exited"
 				if !result.Cleanup.ConfirmedExited {
 					record.Cleanup = "not_confirmed"
+				} else {
+					record.SurvivorCheck = "confirmed_exited"
 				}
 				if result.Workspace != nil {
 					record.Cleanup += fmt.Sprintf(";workspace_cleaned=%t;workspace_retained=%t", result.Workspace.Cleaned, result.Workspace.Retained)
 				}
 				if exitCode == 0 && parsed.Summary.Total == 1 && parsed.Summary.Passed == 1 && result.Status == "passed" && result.Cleanup.ConfirmedExited && (result.Workspace == nil || result.Workspace.Cleaned) {
 					record.Disposition = "pass"
+					record.AssertionOutcome = "passed"
+				}
+				if record.Disposition != "pass" && result.Evidence.ScreenPath != "" {
+					if copied, copyErr := copyEvidence(result.Evidence.ScreenPath, filepath.Join(*out, record.AttemptID+".actual.txt")); copyErr == nil {
+						record.ArtifactBytes += copied
+					}
 				}
 			}
 			if record.Disposition == "pass" && ordinal != 1 {
@@ -184,11 +219,49 @@ func main() {
 		fatal(fmt.Errorf("runner changed during campaign: %s -> %s", runnerHash, finalHash))
 	}
 	summary := map[string]any{
-		"schema_version": 1, "status": "passed", "host": host, "runner_sha256": runnerHash,
+		"schema_version": 2, "status": "passed", "host": host, "runner_sha256": runnerHash,
 		"workflow_count": len(p.Workflows), "attempts_per_workflow": attempts, "attempt_count": completed,
 		"first_attempt_failures": 0, "managed_cleanup_failures": 0, "completed_utc": time.Now().UTC().Format(time.RFC3339Nano),
 	}
 	writeJSON(filepath.Join(*out, "summary.json"), summary)
+}
+
+func attemptPhase(ordinal int) string {
+	if ordinal == 1 {
+		return "cold_first_attempt"
+	}
+	return "warm_fresh_process"
+}
+
+func reportMetrics(reportMS int64, steps []struct {
+	Action     string `json:"action"`
+	DurationMS int64  `json:"duration_ms"`
+}, wallMS int64) (int64, int64, int64, int64) {
+	var startupMS, waitMS int64
+	if len(steps) > 0 {
+		startupMS = steps[0].DurationMS
+	}
+	for _, step := range steps {
+		if step.Action == "wait" || step.Action == "wait_for_redraw" {
+			waitMS += step.DurationMS
+		}
+	}
+	overheadMS := wallMS - reportMS
+	if overheadMS < 0 {
+		overheadMS = 0
+	}
+	return reportMS, startupMS, waitMS, overheadMS
+}
+
+func copyEvidence(source, destination string) (int64, error) {
+	data, err := os.ReadFile(source)
+	if err != nil {
+		return 0, err
+	}
+	if err := os.WriteFile(destination, data, 0o600); err != nil {
+		return 0, err
+	}
+	return int64(len(data)), nil
 }
 
 func readPlan(path string) plan {

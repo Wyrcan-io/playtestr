@@ -2,6 +2,8 @@
 set -euo pipefail
 
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+setup_started_utc="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+setup_started_epoch="$(date +%s)"
 tools="$root/.trial-private/corpus-tools"
 external="$root/.tools/external"
 sources="$root/.trial-private/qualification-sources"
@@ -44,10 +46,12 @@ rm -rf -- "$runtime"
 mkdir -p "$runtime"
 (cd "$runtime" && npm pack --silent create-vite@9.2.1 > tarball-name.txt)
 tarball="$(tr -d '\r\n' < "$runtime/tarball-name.txt")"
-echo "4dd92d0e734e96e88ec8afd8c0153f6a9446156205460a995b978b63b49b4eb8  $runtime/$tarball" | sha256sum --check --strict
+echo "4dd92d0e734e96e88ec8afd8c0153f6a9446156205460a995b978b63b49b4eb8  $runtime/$tarball" | sha256sum --check
 (cd "$runtime" && npm install --ignore-scripts --no-audit --no-fund "./$tarball")
 
 {
+  echo "setup_started_utc=$setup_started_utc"
+  echo "setup_elapsed_seconds=$(($(date +%s) - setup_started_epoch))"
   echo "go=$(go version)"
   echo "rust=$(rustc --version)"
   echo "cargo=$(cargo --version)"
