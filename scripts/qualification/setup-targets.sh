@@ -26,7 +26,7 @@ fetch_commit() {
 GOBIN="$external" go install github.com/charmbracelet/gum@v0.17.0
 
 fetch_commit lazygit https://github.com/jesseduffield/lazygit.git c07f4d381b90419583b7ce04f87379654d983ebc
-(cd "$sources/lazygit" && go build -trimpath -o "$tools/lazygit-target/lazygit$suffix" ./cmd/lazygit)
+(cd "$sources/lazygit" && go build -trimpath -o "$tools/lazygit-target/lazygit$suffix" .)
 
 fetch_commit micro https://github.com/zyedidia/micro.git 04c577049ca898f097cd6a2dae69af0b4d4493e1
 (cd "$sources/micro" && go build -trimpath -o "$tools/micro.exe" ./cmd/micro)
