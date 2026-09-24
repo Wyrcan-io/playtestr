@@ -268,7 +268,7 @@ func TestSecretCanaryPersistenceBoundary(t *testing.T) {
 	emittedCanary := "PT-OUTPUT-CANARY-a236bf"
 	emittedPrefix := filepath.Join(t.TempDir(), "emitted")
 	var emittedLog bytes.Buffer
-	emitted := RunDetailedContext(context.Background(), writeSpec(t, "cwd-env", map[string]string{
+	emitted := RunDetailedContext(context.Background(), writeSpec(t, "render-secret", map[string]string{
 		"PLAYTESTR_HELPER_PROCESS": "1",
 		"PLAYTESTR_SECRET":         emittedCanary,
 	}, []Step{{Expect: "never rendered"}}), RunOptions{ArtifactPrefix: emittedPrefix}, &emittedLog)
@@ -459,6 +459,10 @@ func TestHelperProcess(t *testing.T) {
 	case "cwd-env":
 		cwd, _ := os.Getwd()
 		fmt.Printf("cwd-base=%s\r\nmarker=%s\r\nsecret=%s\r\ninherited=%s\r\n", filepath.Base(cwd), os.Getenv("PLAYTESTR_MARKER"), os.Getenv("PLAYTESTR_SECRET"), os.Getenv("PLAYTESTR_INHERITED"))
+		os.Exit(0)
+	case "render-secret":
+		fmt.Printf("secret=%s\r\n", os.Getenv("PLAYTESTR_SECRET"))
+		time.Sleep(10 * time.Second)
 		os.Exit(0)
 	case "workspace-state", "workspace-hang":
 		seed, _ := os.ReadFile("seed.txt")
