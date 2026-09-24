@@ -883,7 +883,10 @@ func runConfiguredHelperSpecContext(t *testing.T, ctx context.Context, mode stri
 	spec := Spec{Version: SpecVersion,
 		Name: mode, Command: []string{os.Args[0], "-test.run=TestHelperProcess", "--", mode},
 		Env: map[string]string{"PLAYTESTR_HELPER_PROCESS": "1"}, Width: 40, Height: 8,
-		TimeoutMS: 5000, RunTimeoutMS: 5000, MaxOutputBytes: 2_000_000, Steps: steps,
+		// Keep the enclosing test budget clear of the per-step boundary when
+		// hosted instrumentation makes helper startup unusually slow. Tests of
+		// the product run timeout override this value explicitly.
+		TimeoutMS: 5000, RunTimeoutMS: 15000, MaxOutputBytes: 2_000_000, Steps: steps,
 	}
 	configure(&spec)
 	data, _ := json.Marshal(spec)
