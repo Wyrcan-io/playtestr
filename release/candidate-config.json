@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "candidate_version": "v0.4.0-rc.1",
+  "status": "freeze configuration; qualification pending",
+  "go_version": "1.25.0",
+  "build_command": "go build -trimpath -ldflags \"-s -w -X github.com/Wyrcan-io/playtestr/internal/buildinfo.Version=$VERSION\" -o $OUTPUT ./cmd/playtestr",
+  "package_command": "go run ./cmd/package-release -binary $OUTPUT -version $VERSION -os $TARGET_OS -arch $TARGET_ARCH -out dist",
+  "targets": [
+    {"os": "windows", "arch": "amd64", "archive": "zip"},
+    {"os": "linux", "arch": "amd64", "archive": "tar.gz"},
+    {"os": "darwin", "arch": "arm64", "archive": "tar.gz"}
+  ],
+  "required_members": ["playtestr executable", "README.md", "LICENSE", "THIRD_PARTY_NOTICES.md"],
+  "contracts": {
+    "spec": [1, 2],
+    "report": [1, 2],
+    "v1_policy": "backward-compatible",
+    "v2_policy": "opt-in workspaces and workspace outcomes; older runners and readers may reject v2"
+  },
+  "inputs": {
+    "dependency_locks": ["go.mod", "go.sum"],
+    "schemas": ["schema/playtestr-spec-v1.schema.json", "schema/playtestr-spec-v2.schema.json", "schema/playtestr-report-v1.schema.json", "schema/playtestr-report-v2.schema.json"],
+    "target_manifest": "corpus/manifest.json",
+    "risk_map": "corpus/risk-map.json",
+    "boundary_map": "corpus/boundary-map.json",
+    "fixtures": "corpus/workflows",
+    "oracles": "corpus/controls",
+    "reviewed_baselines": ["corpus/workflows", "examples/snapshots", "examples/recipes/snapshots"]
+  },
+  "support_boundary": {
+    "runner_hosts": ["windows/amd64", "linux/amd64", "darwin/arm64"],
+    "application_support": "only exact project/version/host/workflow cells with qualification evidence",
+    "exclusions": ["WSL as native Linux evidence", "cross-compilation as native evidence", "unlisted architectures", "unlisted application workflows", "automatic secret redaction", "sandboxing", "universal Unicode or terminal compatibility"]
+  }
+}

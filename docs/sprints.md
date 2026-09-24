@@ -9,6 +9,9 @@ Sprint 13-A1/B then closed integrated native and setup-action source gates, and
 the [Sprint 13-C record](validation/sprint-13-c-competitive-2026-09-22.md)
 records 36/36 controls, 360/360 fresh matched attempts, costs, losses and
 non-equivalent adversarial capabilities without a universal-winner claim.
+Sprint 13-D then passed the adversarial evidence inventory and a spaced-path
+mixed v1/v2 development-archive rehearsal; `v0.4.0-rc.1` is selected for R6-F
+without creating a tag or release.
 Sprint 11 A0/A1 admitted the five pilots and froze the 15-project/120-intent
 contract; Sprint 11-B then implemented all 120 workflows, closed the 300-cell
 risk map, and proved 15 known-bad/recovery controls. Sprint 10 was then explicitly deferred because
@@ -16,8 +19,8 @@ no pilot supplied its required terminal blocker. Sprint 12-A added three
 complete authoring recipes and audited ten diagnostic cases; 12-B then deferred
 both optional extensions because no pair of workflows met the entry gate. The
 Sprint 6 then proved an ordinary pinned-input handoff sufficient and deferred
-its optional manifest. The next work is Sprint 13-D plus R6-F candidate freeze,
-then frozen-byte qualification, demos and R6
+its optional manifest. The next work is the R6-F native candidate freeze, then
+frozen-byte qualification, demos and R6
 publication/verification. Maintainer adoption begins only afterward. The root
 roadmap owns exact checkpoint order; [planning documents](plans/README.md)
 define execution details. All new campaign counts are targets, not completed

@@ -142,8 +142,74 @@ jobs:
           python scripts/release-cancel-smoke.py "$released_binary" "$(pwd)/bin/${{ matrix.fixture }}" "$(pwd)/artifacts/cancellation"
           grep --fixed-strings '"category": "cancelled"' artifacts/cancellation/release-cancellation.json
           grep --fixed-strings '"confirmed_exited": true' artifacts/cancellation/release-cancellation.json
+      - name: Record immutable candidate evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="playtestr_${VERSION#v}_${{ matrix.target_os }}_${{ matrix.target_arch }}"
+          extension="tar.gz"
+          if [ "${{ matrix.target_os }}" = "windows" ]; then extension="zip"; fi
+          archive="dist/$base.$extension"
+          binary="bin/${{ matrix.executable }}"
+          extracted="release verification/$base/${{ matrix.executable }}"
+          binary_sha=$(sha256sum "$binary" | awk '{print $1}')
+          extracted_sha=$(sha256sum "$extracted" | awk '{print $1}')
+          archive_sha=$(sha256sum "$archive" | awk '{print $1}')
+          test "$binary_sha" = "$extracted_sha"
+          members=$(python - "$archive" <<'PY'
+          import json, sys, tarfile, zipfile
+          path = sys.argv[1]
+          if path.endswith('.zip'):
+              with zipfile.ZipFile(path) as archive:
+                  names = archive.namelist()
+          else:
+              with tarfile.open(path, 'r:gz') as archive:
+                  names = archive.getnames()
+          print(json.dumps(sorted(names)))
+          PY
+          )
+          python - \
+            "$GITHUB_SHA" "$VERSION" "${{ runner.os }}" "${{ runner.arch }}" \
+            "${ImageOS:-unknown}" "${ImageVersion:-unknown}" "$(go version)" \
+            "$binary_sha" "$archive_sha" "$members" "$archive" <<'PY'
+          import json, sys
+          (source, version, runner_os, runner_arch, image_os, image_version,
+           toolchain, binary_sha, archive_sha, members, archive) = sys.argv[1:]
+          record = {
+              "schema_version": 1,
+              "status": "candidate frozen; qualification pending",
+              "source_commit": source,
+              "version": version,
+              "host": {
+                  "runner_os": runner_os,
+                  "runner_arch": runner_arch,
+                  "image_os": image_os,
+                  "image_version": image_version,
+              },
+              "toolchain": toolchain,
+              "build_command": "go build -trimpath -ldflags '-s -w -X github.com/Wyrcan-io/playtestr/internal/buildinfo.Version=$VERSION' -o bin/<native-name> ./cmd/playtestr",
+              "executable_sha256": binary_sha,
+              "version_output": f"playtestr {version}",
+              "archive": archive,
+              "archive_sha256": archive_sha,
+              "archive_members": json.loads(members),
+              "extraction_path": "release verification",
+              "extracted_executable_sha256": binary_sha,
+              "smoke_exit_status": 0,
+              "limitations": [
+                  "hosted native build evidence; application compatibility requires R6-Q",
+                  "candidate is not published or qualified",
+              ],
+          }
+          path = f"artifacts/candidate-evidence-{runner_os.lower()}-{runner_arch.lower()}.json"
+          with open(path, "w", encoding="utf-8") as output:
+              json.dump(record, output, indent=2)
+              output.write("\n")
+          PY
       - uses: actions/upload-artifact@v6
         with:
           name: playtestr-${{ matrix.target_os }}-${{ matrix.target_arch }}
-          path: dist/*
+          path: |
+            dist/*
+            artifacts/candidate-evidence-*.json
           if-no-files-found: error

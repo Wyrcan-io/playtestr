@@ -1,6 +1,6 @@
 # Sprint 13: trust the installed runner and its evidence
 
-Status: 13-A0/A1, B and C completed. A0/A1/B passed on Windows amd64, Linux
+Status: 13-A0/A1, B, C and D completed. A0/A1/B passed on Windows amd64, Linux
 amd64 and macOS arm64; C is an intentionally Linux amd64 matched comparison.
 The setup-action expansion passed its exact-commit three-host workflow gate;
 see the [A1 evidence record](../../validation/sprint-13-a1-integrated-hardening-2026-09-21.md)
@@ -76,6 +76,6 @@ All source/native correctness gates required for advertised support close before
 - [x] Action source validated; public revision and later-release gates clearly separated.
 - [x] Fair task comparison and cost measurements recorded with limitations.
 - [x] Relevant success/failure/timeout/cancel/cleanup/security-boundary cases pass.
-- [ ] Frozen candidate checklist and remaining blockers handed to R6.
+- [x] Frozen candidate checklist and remaining blockers handed to R6.
 
 No package-channel expansion, retry engine, parallel scheduler, hosted report service or CI-vendor SDK is included.

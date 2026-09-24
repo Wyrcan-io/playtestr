@@ -46,7 +46,7 @@ Exact hashes and run links belong to the cited records. Local tags corroborate i
 | 10 | One evidence-selected terminal compatibility improvement | **Deferred at evidence gate**; [decision](docs/validation/sprint-10-decision-2026-09-21.md), [plan](docs/plans/sprints/10-terminal-compatibility.md) | Reopen only for a reduced real-app terminal blocker; no universal Unicode promise |
 | 11 | Deep real-project validation corpus | **A0/A1/B complete; C planned**; [checkpoint](corpus/README.md), [B evidence](docs/validation/sprint-11-b-corpus-depth-2026-09-24.md), [plan](docs/plans/sprints/11-real-project-corpus.md) | Candidate-frozen full matrix and 3,000 repeats remain for C |
 | 12 | Easier first-test authoring | **A complete; B deferred at its evidence gate**; [A record](docs/validation/sprint-12-a-authoring-2026-09-21.md), [B decision](docs/validation/sprint-12-b-decision-2026-09-21.md) | Reopen B only for two reduced workflow failures with the same missing input/assertion family |
-| 13 | Native evidence, integrated hardening and fair comparison | **A0/A1/B/C complete**; [A0](docs/validation/sprint-13-a0-native-gaps-2026-09-20.md), [A1](docs/validation/sprint-13-a1-integrated-hardening-2026-09-21.md), [B](docs/validation/sprint-13-b-setup-action-2026-09-21.md), [C](docs/validation/sprint-13-c-competitive-2026-09-22.md), [plan](docs/plans/sprints/13-native-ci-and-release-hardening.md) | After 11-B, run 13-D rehearsal and prepare the candidate-freeze handoff |
+| 13 | Native evidence, integrated hardening and fair comparison | **A0/A1/B/C/D complete**; [A0](docs/validation/sprint-13-a0-native-gaps-2026-09-20.md), [A1](docs/validation/sprint-13-a1-integrated-hardening-2026-09-21.md), [B](docs/validation/sprint-13-b-setup-action-2026-09-21.md), [C](docs/validation/sprint-13-c-competitive-2026-09-22.md), [D](docs/validation/sprint-13-d-rehearsal-2026-09-24.md), [plan](docs/plans/sprints/13-native-ci-and-release-hardening.md) | Freeze the selected R6 candidate and preserve its native artifact identities |
 | 14 | Reproducible demos and release kit | **Planned**; [plan](docs/plans/sprints/14-demos-and-release-kit.md) | Three real stories, accessible watch-to-run path, final frozen-byte captures and accurate release materials |
 
 Sprint numbers are durable identifiers, not chronology: 7 shipped before 6, and 11 discovery precedes 10 selection. Do not rebuild implemented suites, HTML reports, the setup action or report-v2 rendering.
@@ -79,7 +79,7 @@ The table is a dependency chain. A completed checkpoint produces the stated evid
 | 7 | **6: handoff decision — completed/deferred 2026-09-21** | Reproduced `GUM-01` from ordinary pinned inputs; recovery passed and an absent target failed distinctly | [Experiment and decision](docs/validation/sprint-6-handoff-2026-09-21.md); no manifest or replay command added |
 | 8 | **13-B/C: integrated hardening and comparison — completed 2026-09-22** | Verified reports/action source and ran bounded fair comparisons plus adversarial checks | [Three-host hardening](docs/validation/sprint-13-a1-integrated-hardening-2026-09-21.md), [action evidence](docs/validation/sprint-13-b-setup-action-2026-09-21.md), and [comparison results](docs/validation/sprint-13-c-competitive-2026-09-22.md) |
 | 9 | **11-B: application depth â€” completed 2026-09-24** | Implemented 120 admitted workflows across 15 projects and closed the 300 focused-case map; proved 15 known-bad/recovered controls | [Full outcomes](docs/validation/sprint-11-b-corpus-depth-2026-09-24.md), postconditions, host exclusions and unchanged reviewed baselines |
-| 10 | **13-D + R6-F: candidate freeze** | Choose candidate version, freeze source/schema/fixtures, build once per host, package and hash executable/archive | Immutable candidate identities available before expensive qualification; not public publication |
+| 10 | **13-D + R6-F: candidate freeze — in progress** | 13-D rehearsal is complete; `v0.4.0-rc.1` is selected and its native bytes are being frozen | Immutable candidate identities available before expensive qualification; not public publication |
 | 11 | **11-C + R6-Q: frozen-byte qualification** | Run the full admitted matrix and 3,000 repeats using those candidate executable hashes | Complete attempt ledger, no unexplained false results/leaks, honest exclusions; execute once and reuse valid evidence by hash |
 | 12 | **14: demos and release kit** | Capture three pass/defect/recovery stories and verify watch-to-run instructions using the frozen candidate | Reproducible assets, accessible presentation, accurate versions and draft announcements |
 | 13 | **R6-P: publication** | Present the complete kit; after explicit publication instruction, publish immutable runner assets and appropriate action revision | Public URLs and tags tied to frozen artifacts; no replacement of existing assets |
@@ -110,11 +110,11 @@ Sprint 14 may draft stories earlier, but final captures use the qualified behavi
 ## Immediate next implementation task
 
 Sprint 12 is complete and Sprint 6's ordinary handoff proved sufficient, so its
-optional manifest remains deferred. Sprint 13-A1/B/C and Sprint 11-B are complete
+optional manifest remains deferred. Sprint 13-A1/B/C/D and Sprint 11-B are complete
 with exact native, action, comparison, application-depth and risk-map records.
-Continue with **Sprint 13-D plus R6-F candidate freeze**: perform the development
-archive rehearsal, select the candidate version, and freeze source/schema/fixture
-and per-host artifact identities before any qualification repetitions.
+Continue with **R6-F candidate freeze**: `v0.4.0-rc.1` is selected; freeze the
+clean source commit and its per-host artifact identities before any
+qualification repetitions.
 The 13-A0
 [native-evidence table](docs/validation/sprint-13-a0-native-gaps-2026-09-20.md)
 remains the starting three-host source evidence. Do not run the 3,000-repeat
