@@ -59,8 +59,12 @@ jobs:
           set -euo pipefail
           test "$ARCHIVE_SHA256" = '${{ matrix.archive_sha256 }}'
           test "$BINARY_SHA256" = '${{ matrix.binary_sha256 }}'
-          test "$(sha256sum "$BINARY_PATH" | awk '{print $1}')" = '${{ matrix.binary_sha256 }}'
-          test "$("$BINARY_PATH" version)" = 'playtestr v0.4.0-rc.1'
+          binary_for_shell="$BINARY_PATH"
+          if [[ '${{ matrix.target_os }}' == windows ]]; then
+            binary_for_shell="$(cygpath -u "$BINARY_PATH")"
+          fi
+          test "$(sha256sum "$binary_for_shell" | awk '{print $1}')" = '${{ matrix.binary_sha256 }}'
+          test "$("$binary_for_shell" version)" = 'playtestr v0.4.0-rc.1'
           test "$(playtestr version)" = 'playtestr v0.4.0-rc.1'
       - name: Download and extract public archive into spaced path
         shell: bash
