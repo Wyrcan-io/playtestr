@@ -1,0 +1,222 @@
+name: Public release verification
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  RELEASE_VERSION: v0.4.0-rc.1
+  ACTION_REVISION: 1c03904075512e67f53b0c94a13daa17f0383f1d
+
+jobs:
+  public-behavior:
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-latest
+            target_os: linux
+            target_arch: amd64
+            executable: playtestr
+            archive: playtestr_0.4.0-rc.1_linux_amd64.tar.gz
+            archive_sha256: f7a4dd825fc066449265f90642a79dff0fc0318e4c1bc0918c139f699d461964
+            binary_sha256: 2ed5c7f06d9117a4450079312ffd00001205f893bbca36fbc0ab551338171d0b
+          - runner: macos-15
+            target_os: darwin
+            target_arch: arm64
+            executable: playtestr
+            archive: playtestr_0.4.0-rc.1_darwin_arm64.tar.gz
+            archive_sha256: d6425d4c68f67e18214706c250ee4f1452f65259747b3ba85edca7741e8371d8
+            binary_sha256: a2a662c53d948795cae12ee931d3d4e761a4baf9e54d7ddfe76ae2cd1fa524f8
+          - runner: windows-latest
+            target_os: windows
+            target_arch: amd64
+            executable: playtestr.exe
+            archive: playtestr_0.4.0-rc.1_windows_amd64.zip
+            archive_sha256: c33f02cff972edcd40109690a2909ffc834da86f7fdbfe95f881b344feb4ba2d
+            binary_sha256: 7a73b598613d34e8a05831d12f2ab26d4abae3e6ce05e63c7d80c316bcc80fc2
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v7
+        with:
+          go-version: '1.25.0'
+      - name: Install through immutable public action
+        id: setup
+        uses: Wyrcan-io/playtestr/setup-playtestr@1c03904075512e67f53b0c94a13daa17f0383f1d
+        with:
+          version: v0.4.0-rc.1
+      - name: Verify action identities and PATH
+        shell: bash
+        env:
+          BINARY_PATH: ${{ steps.setup.outputs.binary-path }}
+          ARCHIVE_SHA256: ${{ steps.setup.outputs.archive-sha256 }}
+          BINARY_SHA256: ${{ steps.setup.outputs.binary-sha256 }}
+        run: |
+          set -euo pipefail
+          test "$ARCHIVE_SHA256" = '${{ matrix.archive_sha256 }}'
+          test "$BINARY_SHA256" = '${{ matrix.binary_sha256 }}'
+          test "$(sha256sum "$BINARY_PATH" | awk '{print $1}')" = '${{ matrix.binary_sha256 }}'
+          test "$("$BINARY_PATH" version)" = 'playtestr v0.4.0-rc.1'
+          test "$(playtestr version)" = 'playtestr v0.4.0-rc.1'
+      - name: Download and extract public archive into spaced path
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p 'artifacts/public download/path with spaces'
+          base='https://github.com/Wyrcan-io/playtestr/releases/download/v0.4.0-rc.1'
+          archive='artifacts/public download/${{ matrix.archive }}'
+          curl --fail --location --retry 3 --silent --show-error \
+            --write-out 'status=%{http_code} size=%{size_download} seconds=%{time_total}\n' \
+            "$base/${{ matrix.archive }}" --output "$archive" \
+            > 'artifacts/public download/download.txt'
+          curl --fail --location --retry 3 --silent --show-error \
+            "$base/checksums-v0.4.0-rc.1.txt" \
+            --output 'artifacts/public download/checksums-v0.4.0-rc.1.txt'
+          test "$(sha256sum "$archive" | awk '{print $1}')" = '${{ matrix.archive_sha256 }}'
+          if [[ '${{ matrix.target_os }}' == windows ]]; then
+            unzip -q "$archive" -d 'artifacts/public download/path with spaces'
+          else
+            tar -xzf "$archive" -C 'artifacts/public download/path with spaces'
+          fi
+          extracted="$(find 'artifacts/public download/path with spaces' -name '${{ matrix.executable }}' -type f)"
+          test -n "$extracted"
+          test "$(sha256sum "$extracted" | awk '{print $1}')" = '${{ matrix.binary_sha256 }}'
+          test "$("$extracted" version)" = 'playtestr v0.4.0-rc.1'
+      - name: Build deterministic targets
+        shell: bash
+        run: |
+          set -euo pipefail
+          suffix=''
+          if [[ '${{ matrix.target_os }}' == windows ]]; then suffix='.exe'; fi
+          go build -trimpath -o "bin/demo$suffix" ./cmd/demo
+          go build -trimpath -o "bin/fixture$suffix" ./cmd/fixture
+      - name: Run release stories and cleanup checks
+        shell: bash
+        env:
+          PUBLIC_RUNNER: ${{ steps.setup.outputs.binary-path }}
+        run: bash release/stories/run.sh "$PUBLIC_RUNNER" 'artifacts/public-stories'
+      - name: Run v1, v2, mixed, expected-nonzero, and reports
+        shell: bash
+        env:
+          PUBLIC_RUNNER: ${{ steps.setup.outputs.binary-path }}
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/public-contracts
+          "$PUBLIC_RUNNER" test --report artifacts/public-contracts/v1.json examples/menu.json
+          "$PUBLIC_RUNNER" report --input artifacts/public-contracts/v1.json --evidence-root . --output artifacts/public-contracts/v1.html
+          "$PUBLIC_RUNNER" test --report artifacts/public-contracts/v2.json examples/workspace.json
+          "$PUBLIC_RUNNER" report --input artifacts/public-contracts/v2.json --evidence-root . --output artifacts/public-contracts/v2.html
+          "$PUBLIC_RUNNER" test --report artifacts/public-contracts/mixed.json examples/menu.json examples/workspace.json
+          cat > artifacts/public-contracts/expected-nonzero.json <<'JSON'
+          {
+            "version": 1,
+            "name": "Public expected nonzero",
+            "command": ["pwsh", "-NoLogo", "-NoProfile", "-Command", "Write-Output 'expected nonzero ready'; exit 7"],
+            "steps": [{"expect": "expected nonzero ready"}, {"exit": 7}]
+          }
+          JSON
+          "$PUBLIC_RUNNER" test --report artifacts/public-contracts/expected-nonzero-result.json artifacts/public-contracts/expected-nonzero.json
+          python - <<'PY'
+          import json, pathlib
+          root = pathlib.Path('artifacts/public-contracts')
+          for name in ('v1', 'v2', 'mixed', 'expected-nonzero-result'):
+              data = json.loads((root / f'{name}.json').read_text(encoding='utf-8'))
+              assert data['summary']['failed'] == 0, (name, data)
+          assert json.loads((root / 'v1.json').read_text())['report_version'] == 1
+          assert json.loads((root / 'v2.json').read_text())['report_version'] == 2
+          assert json.loads((root / 'mixed.json').read_text())['report_version'] == 2
+          PY
+      - uses: actions/upload-artifact@v6
+        if: always()
+        with:
+          name: public-verification-${{ matrix.target_os }}-${{ matrix.target_arch }}
+          path: |
+            artifacts/public download/download.txt
+            artifacts/public-stories/
+            artifacts/public-contracts/
+          if-no-files-found: error
+          retention-days: 14
+
+  upgrade:
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-latest
+            target_os: linux
+          - runner: macos-15
+            target_os: darwin
+          - runner: windows-latest
+            target_os: windows
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v7
+        with:
+          go-version: '1.25.0'
+      - name: Build v1 and v2 targets
+        shell: bash
+        run: |
+          set -euo pipefail
+          suffix=''
+          if [[ '${{ matrix.target_os }}' == windows ]]; then suffix='.exe'; fi
+          go build -trimpath -o "bin/demo$suffix" ./cmd/demo
+          go build -trimpath -o "bin/fixture$suffix" ./cmd/fixture
+          sha256sum examples/snapshots/diagnostics.txt > artifacts-baseline.sha256
+      - name: Install old runner with the new immutable action
+        id: old
+        uses: Wyrcan-io/playtestr/setup-playtestr@1c03904075512e67f53b0c94a13daa17f0383f1d
+        with:
+          version: v0.3.0-rc.1
+      - name: Exercise old v1 pass, failure, and recovery
+        shell: bash
+        env:
+          OLD_RUNNER: ${{ steps.old.outputs.binary-path }}
+        run: |
+          set -euo pipefail
+          test "$(playtestr version)" = 'playtestr v0.3.0-rc.1'
+          "$OLD_RUNNER" test --report old-pass.json examples/menu.json
+          set +e
+          "$OLD_RUNNER" test --report old-failure.json examples/snapshot-mismatch.json
+          code=$?
+          set -e
+          test "$code" -eq 1
+          "$OLD_RUNNER" test --report old-recovery.json examples/menu.json
+      - name: Install new runner separately with the same action
+        id: new
+        uses: Wyrcan-io/playtestr/setup-playtestr@1c03904075512e67f53b0c94a13daa17f0383f1d
+        with:
+          version: v0.4.0-rc.1
+      - name: Exercise new v1 path and v2-only path
+        shell: bash
+        env:
+          OLD_RUNNER: ${{ steps.old.outputs.binary-path }}
+          NEW_RUNNER: ${{ steps.new.outputs.binary-path }}
+        run: |
+          set -euo pipefail
+          test "$OLD_RUNNER" != "$NEW_RUNNER"
+          test "$(playtestr version)" = 'playtestr v0.4.0-rc.1'
+          "$NEW_RUNNER" test --report new-pass.json examples/menu.json
+          set +e
+          "$NEW_RUNNER" test --report new-failure.json examples/snapshot-mismatch.json
+          code=$?
+          set -e
+          test "$code" -eq 1
+          "$NEW_RUNNER" test --report new-recovery.json examples/menu.json
+          "$NEW_RUNNER" test --report new-v2.json examples/workspace.json
+          sha256sum --check --strict artifacts-baseline.sha256
+      - uses: actions/upload-artifact@v6
+        if: always()
+        with:
+          name: public-upgrade-${{ matrix.target_os }}
+          path: |
+            old-*.json
+            new-*.json
+            artifacts-baseline.sha256
+          if-no-files-found: warn
+          retention-days: 14
