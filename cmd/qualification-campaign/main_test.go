@@ -77,8 +77,9 @@ func TestQualificationInputsRemainPortable(t *testing.T) {
 	}
 
 	setup := read("scripts/qualification/setup-targets.sh")
-	if strings.Contains(setup, "sha256sum --check") || !strings.Contains(setup, "sha256sum -c") {
-		t.Fatal("target setup must use the portable sha256sum -c spelling")
+	if strings.Contains(setup, "sha256sum --check") || strings.Contains(setup, "sha256sum -c") ||
+		!strings.Contains(setup, `test "$(sha256sum "$runtime/$tarball" | awk '{print $1}')"`) {
+		t.Fatal("target setup must compare the extracted sha256sum value without GNU check-mode input")
 	}
 
 	workflow := read(".github/workflows/qualification.yml")
@@ -96,6 +97,22 @@ func TestQualificationInputsRemainPortable(t *testing.T) {
 	for _, step := range spec.Steps {
 		if step["expect"] == "draft xalpha marker" {
 			t.Fatal("cancellation proof must not depend on the post-dismiss cursor position")
+		}
+	}
+
+	var resizeSpec struct {
+		Steps []map[string]any `json:"steps"`
+	}
+	if err := json.Unmarshal([]byte(read("corpus/workflows/mitmproxy/mitm-07.json")), &resizeSpec); err != nil {
+		t.Fatal(err)
+	}
+	seenResize := false
+	for _, step := range resizeSpec.Steps {
+		if _, ok := step["resize"]; ok {
+			seenResize = true
+		}
+		if seenResize && step["expect"] == "Key Bindings" {
+			t.Fatal("narrow mitmproxy help assertion must use text retained by the responsive layout")
 		}
 	}
 }
