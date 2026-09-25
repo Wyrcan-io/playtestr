@@ -1,0 +1,73 @@
+name: Frozen release stories
+
+on:
+  workflow_dispatch:
+    inputs:
+      candidate_run_id:
+        description: Frozen native candidate run ID
+        required: true
+        default: '36103641387'
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  stories:
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-latest
+            target_os: linux
+            target_arch: amd64
+            executable: playtestr
+            extension: tar.gz
+          - runner: macos-15
+            target_os: darwin
+            target_arch: arm64
+            executable: playtestr
+            extension: tar.gz
+          - runner: windows-latest
+            target_os: windows
+            target_arch: amd64
+            executable: playtestr.exe
+            extension: zip
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v7
+        with:
+          go-version: '1.25.0'
+      - uses: actions/download-artifact@v6
+        with:
+          name: playtestr-${{ matrix.target_os }}-${{ matrix.target_arch }}
+          path: candidate
+          github-token: ${{ github.token }}
+          run-id: ${{ inputs.candidate_run_id }}
+      - name: Verify and extract frozen candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          evidence="$(find candidate -name 'candidate-evidence-*.json' -type f)"
+          test "$(python -c 'import json,sys; print(json.load(open(sys.argv[1]))["source_commit"])' "$evidence")" = 'f6ffeb76a7ec3b826052690ab53071dcdf0e565f'
+          archive="$(find candidate -name 'playtestr_*.${{ matrix.extension }}' -type f)"
+          expected_archive="$(python -c 'import json,sys; print(json.load(open(sys.argv[1]))["archive_sha256"])' "$evidence")"
+          test "$(sha256sum "$archive" | awk '{print $1}')" = "$expected_archive"
+          mkdir -p 'frozen candidate'
+          if [[ '${{ matrix.target_os }}' == windows ]]; then unzip -q "$archive" -d 'frozen candidate'; else tar -xzf "$archive" -C 'frozen candidate'; fi
+          frozen_runner="$(find 'frozen candidate' -name '${{ matrix.executable }}' -type f)"
+          expected_runner="$(python -c 'import json,sys; print(json.load(open(sys.argv[1]))["executable_sha256"])' "$evidence")"
+          test "$(sha256sum "$frozen_runner" | awk '{print $1}')" = "$expected_runner"
+          echo "FROZEN_RUNNER=$frozen_runner" >> "$GITHUB_ENV"
+      - name: Run three pass-defect-recovery stories
+        shell: bash
+        run: bash release/stories/run.sh "$FROZEN_RUNNER" 'artifacts/release-stories-${{ matrix.target_os }}-${{ matrix.target_arch }}'
+      - uses: actions/upload-artifact@v6
+        if: always()
+        with:
+          name: release-stories-${{ matrix.target_os }}-${{ matrix.target_arch }}
+          path: artifacts/release-stories-${{ matrix.target_os }}-${{ matrix.target_arch }}
+          if-no-files-found: error
+          retention-days: 14

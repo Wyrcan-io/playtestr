@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "name": "Release story: persist reviewed port",
+  "command": ["./artifacts/release-stories/bin/stateful-oracle", "./artifacts/release-stories/bin/stateful"],
+  "inherit_env": ["C2_CONFIG_PATH"],
+  "width": 60,
+  "height": 12,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 10000,
+  "max_output_bytes": 100000,
+  "steps": [
+    {"expect": "Port (1024-65535):"},
+    {"text": "invalid"},
+    {"key": "Enter"},
+    {"expect": "Invalid port"},
+    {"text": "4242"},
+    {"key": "Enter"},
+    {"expect": "Saved port 4242"},
+    {"expect": "PLAYTESTR_STATEFUL_ORACLE=passed"},
+    {"exit": 0}
+  ]
+}

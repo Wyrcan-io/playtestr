@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "name": "Release story: select Beta",
+  "command": ["./artifacts/release-stories/bin/selector"],
+  "width": 60,
+  "height": 12,
+  "inherit_env": ["C1_RESULT_PATH"],
+  "timeout_ms": 5000,
+  "run_timeout_ms": 10000,
+  "max_output_bytes": 100000,
+  "steps": [
+    {"expect": "Select record"},
+    {"key": "ArrowDown"},
+    {"expect": "> Beta"},
+    {"key": "Enter"},
+    {"expect": "Selected: Beta"},
+    {"exit": 0}
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "name": "Release story: cancel before persistence",
+  "command": ["./artifacts/release-stories/bin/stateful"],
+  "inherit_env": ["C2_CONFIG_PATH"],
+  "width": 60,
+  "height": 12,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 10000,
+  "max_output_bytes": 100000,
+  "steps": [
+    {"expect": "Port (1024-65535):"},
+    {"text": "4242"},
+    {"key": "CtrlC"},
+    {"exit": 130}
+  ]
+}
