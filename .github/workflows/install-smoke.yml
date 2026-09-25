@@ -27,14 +27,20 @@ jobs:
             target_os: linux
             target_arch: amd64
             fixture: unix
+            archive_sha256: f7a4dd825fc066449265f90642a79dff0fc0318e4c1bc0918c139f699d461964
+            binary_sha256: 2ed5c7f06d9117a4450079312ffd00001205f893bbca36fbc0ab551338171d0b
           - runner: macos-latest
             target_os: darwin
             target_arch: arm64
             fixture: unix
+            archive_sha256: d6425d4c68f67e18214706c250ee4f1452f65259747b3ba85edca7741e8371d8
+            binary_sha256: a2a662c53d948795cae12ee931d3d4e761a4baf9e54d7ddfe76ae2cd1fa524f8
           - runner: windows-latest
             target_os: windows
             target_arch: amd64
             fixture: windows
+            archive_sha256: c33f02cff972edcd40109690a2909ffc834da86f7fdbfe95f881b344feb4ba2d
+            binary_sha256: 7a73b598613d34e8a05831d12f2ab26d4abae3e6ce05e63c7d80c316bcc80fc2
     runs-on: ${{ matrix.runner }}
     env:
       VERSION: ${{ inputs.version }}
@@ -51,7 +57,7 @@ jobs:
           printf '%s\n' "$stale_dir" >> "$GITHUB_PATH"
       - name: Install the exact published release
         id: setup
-        uses: ./setup-playtestr
+        uses: Wyrcan-io/playtestr/setup-playtestr@1c03904075512e67f53b0c94a13daa17f0383f1d
         with:
           version: ${{ inputs.version }}
       - name: Exercise pass, failure, evidence, and recovery
@@ -59,11 +65,19 @@ jobs:
         env:
           RELEASED_BINARY: ${{ steps.setup.outputs.binary-path }}
           ARCHIVE_SHA256: ${{ steps.setup.outputs.archive-sha256 }}
+          BINARY_SHA256: ${{ steps.setup.outputs.binary-sha256 }}
+          EXPECTED_ARCHIVE_SHA256: ${{ matrix.archive_sha256 }}
+          EXPECTED_BINARY_SHA256: ${{ matrix.binary_sha256 }}
         run: |
           set -euo pipefail
           [[ "$VERSION" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-rc\.[0-9]+)?$ ]]
           test "$(playtestr --version)" = "playtestr $VERSION"
           test ${#ARCHIVE_SHA256} -eq 64
+          test ${#BINARY_SHA256} -eq 64
+          if [ "$VERSION" = "v0.4.0-rc.1" ]; then
+            test "$ARCHIVE_SHA256" = "$EXPECTED_ARCHIVE_SHA256"
+            test "$BINARY_SHA256" = "$EXPECTED_BINARY_SHA256"
+          fi
 
           install_root="installation smoke"
           test_dir="$install_root/first test"
@@ -166,6 +180,8 @@ jobs:
             "host=${{ matrix.target_os }}/${{ matrix.target_arch }}" \
             "binary=$RELEASED_BINARY" \
             "sha256=$ARCHIVE_SHA256" \
+            "binary_sha256=$BINARY_SHA256" \
+            "action_revision=1c03904075512e67f53b0c94a13daa17f0383f1d" \
             "stale_path_overridden=true" \
             "go_shell_lookup_shadowed=true" \
             "controlling_tty_required=${{ inputs.verify_controlling_tty }}" \
