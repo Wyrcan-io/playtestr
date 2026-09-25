@@ -240,6 +240,64 @@ func TestSetupActionDownloadsVerifiedArchiveAndRunsOffline(t *testing.T) {
 	}
 }
 
+func TestSetupActionAcceptsAggregateReleaseChecksum(t *testing.T) {
+	requireSupportedHost(t)
+	releaseDir := makeRelease(t, nil)
+	archiveName := releaseArchiveName()
+	individualPath := filepath.Join(releaseDir, archiveName+".sha256")
+	checksum, err := os.ReadFile(individualPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := os.Remove(individualPath); err != nil {
+		t.Fatal(err)
+	}
+	aggregate := strings.Repeat("1", 64) + "  unrelated_archive.tar.gz\n" + string(checksum)
+	if err := os.WriteFile(filepath.Join(releaseDir, "checksums-"+testVersion+".txt"), []byte(aggregate), 0644); err != nil {
+		t.Fatal(err)
+	}
+
+	root := filepath.Join(t.TempDir(), "aggregate checksum installation")
+	output := filepath.Join(t.TempDir(), "github-output")
+	pathOutput := filepath.Join(t.TempDir(), "github-path")
+	result := runInstaller(t, "-Version", testVersion, "-InstallRoot", root,
+		"-DownloadDirectory", releaseDir, "-OutputFile", output, "-PathFile", pathOutput)
+	if result.err != nil {
+		t.Fatalf("aggregate-checksum installer failed: %v\n%s", result.err, result.output)
+	}
+	values := readEnvironmentFile(t, output)
+	if got := strings.TrimSpace(runCommand(t, values["binary-path"], "--version")); got != "playtestr "+testVersion {
+		t.Fatalf("installed version = %q", got)
+	}
+}
+
+func TestSetupActionRejectsDuplicateAggregateChecksumEntry(t *testing.T) {
+	requireSupportedHost(t)
+	releaseDir := makeRelease(t, nil)
+	archiveName := releaseArchiveName()
+	individualPath := filepath.Join(releaseDir, archiveName+".sha256")
+	checksum, err := os.ReadFile(individualPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := os.Remove(individualPath); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(releaseDir, "checksums-"+testVersion+".txt"), append(checksum, checksum...), 0644); err != nil {
+		t.Fatal(err)
+	}
+
+	root := filepath.Join(t.TempDir(), "duplicate checksum installation")
+	output := filepath.Join(t.TempDir(), "github-output")
+	pathOutput := filepath.Join(t.TempDir(), "github-path")
+	result := runInstaller(t, "-Version", testVersion, "-InstallRoot", root,
+		"-DownloadDirectory", releaseDir, "-OutputFile", output, "-PathFile", pathOutput)
+	if result.err == nil || !strings.Contains(result.output, "exactly one SHA-256 entry") {
+		t.Fatalf("error = %v, output = %q, want duplicate-entry rejection", result.err, result.output)
+	}
+	assertNotExposed(t, root, output, pathOutput)
+}
+
 func TestSetupActionRejectsPartialAndOversizedDownloads(t *testing.T) {
 	requireSupportedHost(t)
 	tests := []struct {

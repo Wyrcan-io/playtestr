@@ -192,15 +192,46 @@ function Get-ReleaseFile {
     Receive-BoundedFile -Uri $uri -Destination $Destination -Limit $Limit
 }
 
+function Get-ReleaseChecksum {
+    param([string] $ArchiveName, [string] $Destination)
+
+    $individualName = "$ArchiveName.sha256"
+    try {
+        Get-ReleaseFile -Name $individualName -Destination $Destination -Limit $checksumLimit
+        return $individualName
+    } catch {
+        $individualError = $_
+        Remove-Item -LiteralPath $Destination -Force -ErrorAction SilentlyContinue
+    }
+
+    $aggregateName = "checksums-$Version.txt"
+    try {
+        Get-ReleaseFile -Name $aggregateName -Destination $Destination -Limit $checksumLimit
+        return $aggregateName
+    } catch {
+        Remove-Item -LiteralPath $Destination -Force -ErrorAction SilentlyContinue
+        throw "could not obtain checksum for $ArchiveName from $individualName or $aggregateName; individual: $individualError; aggregate: $_"
+    }
+}
+
 function Confirm-Checksum {
     param([string] $Archive, [string] $Checksum, [string] $ArchiveName)
     $checksumText = [System.IO.File]::ReadAllText($Checksum).Trim()
-    $match = [regex]::Match($checksumText, '^([0-9a-fA-F]{64})  ([^\r\n]+)$')
-    if (-not $match.Success -or $match.Groups[2].Value -ne $ArchiveName) {
-        throw "checksum file must contain one SHA-256 entry for $ArchiveName"
+    $matchingEntries = @()
+    foreach ($line in @($checksumText -split '\r?\n')) {
+        $match = [regex]::Match($line, '^([0-9a-fA-F]{64})  ([^\r\n]+)$')
+        if (-not $match.Success) {
+            throw "checksum file contains an invalid SHA-256 entry"
+        }
+        if ($match.Groups[2].Value -eq $ArchiveName) {
+            $matchingEntries += $match.Groups[1].Value.ToLowerInvariant()
+        }
+    }
+    if ($matchingEntries.Count -ne 1) {
+        throw "checksum file must contain exactly one SHA-256 entry for $ArchiveName"
     }
     $actual = (Get-FileHash -LiteralPath $Archive -Algorithm SHA256).Hash.ToLowerInvariant()
-    if ($actual -ne $match.Groups[1].Value.ToLowerInvariant()) {
+    if ($actual -ne $matchingEntries[0]) {
         throw "checksum mismatch for $ArchiveName"
     }
     return $actual
@@ -286,7 +317,8 @@ try {
     $archivePath = Join-Path $downloadRoot $archiveName
     $checksumPath = "$archivePath.sha256"
     Get-ReleaseFile -Name $archiveName -Destination $archivePath -Limit $archiveLimit
-    Get-ReleaseFile -Name "$archiveName.sha256" -Destination $checksumPath -Limit $checksumLimit
+    $checksumSource = Get-ReleaseChecksum -ArchiveName $archiveName -Destination $checksumPath
+    Write-Host "Verifying $archiveName with $checksumSource"
     $archiveHash = Confirm-Checksum -Archive $archivePath -Checksum $checksumPath -ArchiveName $archiveName
 
     if ($target.OS -eq 'windows') {
