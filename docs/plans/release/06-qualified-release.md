@@ -1,6 +1,12 @@
 # R6: freeze, qualify, publish and verify the completed batch
 
-Status: R6-F, R6-Q, and R6-K complete 25 September 2026 for `v0.4.0-rc.1`; **kit ready, publication pending**. R6-P/V require new publication authority and public bytes. Follow the [root roadmap](../../../roadmap.md) and [evidence invalidation rules](../execution-contract.md).
+Status: R6-F, R6-Q, R6-K, and R6-P complete 25 September 2026 for
+`v0.4.0-rc.1`. R6-V is blocked: the immutable setup-action candidate requests
+per-archive checksum assets, but the reviewed release contains one aggregate
+checksum file. The three-host public install run failed safely before PATH or
+outputs were published. Follow the [root roadmap](../../../roadmap.md),
+[failure record](../../validation/r6-publication-and-blocker-2026-09-25.md),
+and [evidence invalidation rules](../execution-contract.md).
 
 ## Entry and release boundary
 

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "qualified; kit ready, publication pending",
+  "status": "published; R6-V blocked by setup-action checksum asset contract",
   "version": "v0.4.0-rc.1",
   "source_commit": "f6ffeb76a7ec3b826052690ab53071dcdf0e565f",
   "build_run": 36103641387,
@@ -56,5 +56,8 @@
     }
   ],
   "identity_policy": "Executable SHA-256 is the qualification identity. A source, dependency, compiler, linker flag, build flag, or embedded-version change invalidates affected executable evidence. Documentation-only release-kit changes retain evidence only while executable hashes remain identical; archive/layout/install changes require their affected checks again.",
-  "publication": false
+  "publication": true,
+  "release_url": "https://github.com/Wyrcan-io/playtestr/releases/tag/v0.4.0-rc.1",
+  "public_install_run": 36168381776,
+  "public_install_status": "blocked: immutable action requests absent per-archive .sha256 assets; release intentionally contains the aggregate checksum asset"
 }

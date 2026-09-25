@@ -13,8 +13,12 @@ The first stable standalone runner for deterministic end-to-end tests of trusted
 
 ## Current prerelease
 
-### [Playtestr v0.3.0-rc.1](/playtestr/releases/v0.3.0-rc.1/)
+### [Playtestr v0.4.0-rc.1](/playtestr/releases/v0.4.0-rc.1/)
 
-Adds bounded, self-contained offline HTML failure reports. Its native archives and published-install workflow were verified on Linux x86-64, Apple silicon macOS, and Windows x86-64. This prerelease does not replace the stable download channel.
+Adds opt-in fresh workspaces and versioned mixed-suite reports. Its qualified
+archives are published unchanged, but the proposed setup-action revision is
+not compatible with the release's aggregate checksum asset. Use the direct
+archives while public verification remains blocked. This prerelease does not
+replace the stable download channel.
 
 Published tags and assets are never overwritten. Release-candidate records remain available with their verification evidence.

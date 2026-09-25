@@ -1,9 +1,15 @@
 # Install Playtestr in GitHub Actions
 
-Status: the setup action is implemented and tested in this repository. Its
-first public action revision has not been published yet. Until that revision is
-committed and pushed, use the [direct archive installation](releases/v0.1.0-installation-walkthrough.md)
-fallback. Do not replace the placeholder below with a branch name.
+Status: the setup action is implemented and source-tested, but the proposed
+immutable revision `f6ffeb76a7ec3b826052690ab53071dcdf0e565f` is **not a
+supported installer for v0.4.0-rc.1**. It requests per-archive checksum assets,
+while that release publishes one aggregate checksum file. Public run
+[36168381776](https://github.com/Wyrcan-io/playtestr/actions/runs/36168381776)
+failed safely on all three hosts before publishing PATH or successful outputs.
+Use the [direct archive installation](releases/v0.1.0-installation-walkthrough.md)
+fallback and do not use the placeholder below until a new immutable action
+revision is explicitly selected and verified. Do not replace it with a branch
+name.
 
 The setup action installs exactly one published Playtestr runner release. It
 does not install the target application, run tests, update snapshots, cache
