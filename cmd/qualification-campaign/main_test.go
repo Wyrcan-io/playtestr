@@ -1,8 +1,10 @@
 package main
 
 import (
+	"encoding/json"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 )
 
@@ -60,5 +62,40 @@ func TestCopyEvidence(t *testing.T) {
 	}
 	if string(data) != content {
 		t.Fatalf("content = %q", data)
+	}
+}
+
+func TestQualificationInputsRemainPortable(t *testing.T) {
+	repositoryRoot := filepath.Join("..", "..")
+	read := func(path string) string {
+		t.Helper()
+		data, err := os.ReadFile(filepath.Join(repositoryRoot, filepath.FromSlash(path)))
+		if err != nil {
+			t.Fatal(err)
+		}
+		return string(data)
+	}
+
+	setup := read("scripts/qualification/setup-targets.sh")
+	if strings.Contains(setup, "sha256sum --check") || !strings.Contains(setup, "sha256sum -c") {
+		t.Fatal("target setup must use the portable sha256sum -c spelling")
+	}
+
+	workflow := read(".github/workflows/qualification.yml")
+	if strings.Contains(workflow, "cp candidate/candidate-evidence-*.json") ||
+		!strings.Contains(workflow, "find candidate -name 'candidate-evidence-*.json'") {
+		t.Fatal("qualification evidence copy must handle the downloaded artifact subdirectory")
+	}
+
+	var spec struct {
+		Steps []map[string]any `json:"steps"`
+	}
+	if err := json.Unmarshal([]byte(read("corpus/workflows/micro/micro-05.json")), &spec); err != nil {
+		t.Fatal(err)
+	}
+	for _, step := range spec.Steps {
+		if step["expect"] == "draft xalpha marker" {
+			t.Fatal("cancellation proof must not depend on the post-dismiss cursor position")
+		}
 	}
 }

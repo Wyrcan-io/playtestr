@@ -113,7 +113,7 @@ jobs:
           assert record['first_attempt_failures'] == 0 and record['managed_cleanup_failures'] == 0, record
           PY
           cp .trial-private/corpus-tools/qualification-targets.txt 'artifacts/qualification-${{ matrix.target_os }}-${{ matrix.target_arch }}/'
-          cp candidate/candidate-evidence-*.json 'artifacts/qualification-${{ matrix.target_os }}-${{ matrix.target_arch }}/'
+          find candidate -name 'candidate-evidence-*.json' -type f -exec cp {} 'artifacts/qualification-${{ matrix.target_os }}-${{ matrix.target_arch }}/' \;
       - uses: actions/upload-artifact@v6
         if: always()
         with:

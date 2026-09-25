@@ -46,7 +46,7 @@ rm -rf -- "$runtime"
 mkdir -p "$runtime"
 (cd "$runtime" && npm pack --silent create-vite@9.2.1 > tarball-name.txt)
 tarball="$(tr -d '\r\n' < "$runtime/tarball-name.txt")"
-echo "4dd92d0e734e96e88ec8afd8c0153f6a9446156205460a995b978b63b49b4eb8  $runtime/$tarball" | sha256sum --check
+echo "4dd92d0e734e96e88ec8afd8c0153f6a9446156205460a995b978b63b49b4eb8  $runtime/$tarball" | sha256sum -c
 (cd "$runtime" && npm install --ignore-scripts --no-audit --no-fund "./$tarball")
 
 {
