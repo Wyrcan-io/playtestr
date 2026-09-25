@@ -1,6 +1,6 @@
 # Sprint 14: make the proof memorable and reproducible
 
-Status: planned. Owner: Playtestr maintainer. Entry: qualified source behavior from Sprints 11–13; keep the existing website identity. User result: a newcomer sees a real bug caught, understands the evidence, and can run the same example.
+Status: complete 25 September 2026; **kit ready, publication pending**. Owner: Playtestr maintainer. Evidence: [Sprint 14/R6-K record](../../validation/sprint-14-r6-k-2026-09-25.md). User result: a newcomer sees a real bug caught, understands the evidence, and can run the same example.
 
 Draft scripts can be prepared earlier; final captures run against the **R6-F/11-C qualified executable hashes**. R6 publication follows the completed kit, and final public download/asset links are verified afterward. See [root sequence](../../../roadmap.md) and [execution contract](../execution-contract.md). A draft captured from development source must be replaced or explicitly labeled before release.
 
@@ -42,8 +42,8 @@ After A1, distribution can emphasize actual case studies in relevant language/TU
 
 ## Exit
 
-- [ ] Three real stories, including third-party proof and independent state checks.
-- [ ] Recipes reproduce success, meaningful failure and recovery on documented hosts.
-- [ ] Website/report accessibility, links and version accuracy checked.
-- [ ] Downloadable evidence and draft launch kit ready for R6.
-- [ ] Remaining usability hypotheses handed to A1; no outreach or adoption implied.
+- [x] Three real stories, including attributed third-party proof and independent state checks.
+- [x] Recipes reproduce success, meaningful failure and recovery on documented hosts.
+- [x] Website/report automated accessibility, links and version accuracy checked; actual screen-reader session remains explicitly open because no interactive assistive-technology session was available.
+- [x] Downloadable evidence and draft launch kit ready for R6-P.
+- [x] Remaining usability hypotheses handed to A1; no outreach or adoption implied.

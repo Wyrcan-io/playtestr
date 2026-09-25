@@ -44,7 +44,7 @@ await call('Page.addScriptToEvaluateOnNewDocument', { source: `
   try { new PerformanceObserver((list) => { for (const entry of list.getEntries()) if (!entry.hadRecentInput) window.__playtestrVitals.cls += entry.value; }).observe({ type: 'layout-shift', buffered: true }); } catch (_) {}
 ` });
 
-const routes = ['', 'download/', 'docs/', 'docs/installation/', 'docs/writing-tests/', 'docs/snapshots/', 'docs/troubleshooting/', 'docs/spec-v1/', 'docs/report-v1/', 'docs/failure-reports/', 'docs/compatibility/', 'docs/platform-evidence/', 'docs/terminal-compatibility/', 'examples/', 'releases/', 'releases/v0.1.0/', 'releases/v0.3.0-rc.1/', 'support/', 'trials/', 'does-not-exist/'];
+const routes = ['', 'download/', 'docs/', 'docs/installation/', 'docs/writing-tests/', 'docs/snapshots/', 'docs/troubleshooting/', 'docs/spec-v1/', 'docs/report-v1/', 'docs/failure-reports/', 'docs/compatibility/', 'docs/platform-evidence/', 'docs/terminal-compatibility/', 'docs/recipes/release-hero/', 'docs/recipes/release-stateful/', 'docs/recipes/release-compatibility/', 'docs/evidence-gallery/', 'examples/', 'releases/', 'releases/v0.1.0/', 'releases/v0.3.0-rc.1/', 'releases/v0.4.0-rc.1/', 'support/', 'trials/', 'does-not-exist/'];
 const widths = [320, 375, 768, 1440];
 const failures = [];
 for (const width of widths) {
@@ -74,6 +74,20 @@ await call('Emulation.setDeviceMetricsOverride', { width: 375, height: 812, devi
 await navigate(`${site}/`);
 const mobileNav = await evaluate(`(() => { const button = document.querySelector('.nav-toggle'); button.click(); return { expanded: button.getAttribute('aria-expanded'), visible: getComputedStyle(document.querySelector('#site-nav')).display }; })()`);
 if (mobileNav.expanded !== 'true' || mobileNav.visible === 'none') failures.push('mobile navigation does not open from its button');
+await navigate(`${site}/docs/`);
+await navigate(`${site}/`);
+await call('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Tab', code: 'Tab' });
+await call('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Tab', code: 'Tab' });
+const firstFocus = await evaluate('document.activeElement?.className || document.activeElement?.tagName');
+if (!String(firstFocus).includes('skip')) failures.push(`keyboard: first focus is ${firstFocus}, not the skip link`);
+await call('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Enter', code: 'Enter' });
+await call('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Enter', code: 'Enter' });
+if (await evaluate('location.hash') !== '#main') failures.push('keyboard: skip link did not navigate to main content');
+await evaluate(`document.querySelector('.nav-toggle').focus()`);
+await call('Input.dispatchKeyEvent', { type: 'rawKeyDown', key: ' ', code: 'Space', windowsVirtualKeyCode: 32, nativeVirtualKeyCode: 32 });
+await call('Input.dispatchKeyEvent', { type: 'keyUp', key: ' ', code: 'Space', windowsVirtualKeyCode: 32, nativeVirtualKeyCode: 32 });
+const keyboardNav = await evaluate(`({ expanded: document.querySelector('.nav-toggle').getAttribute('aria-expanded'), visible: getComputedStyle(document.querySelector('#site-nav')).display })`);
+if (keyboardNav.expanded !== 'true' || keyboardNav.visible === 'none') failures.push('keyboard: mobile navigation does not open with Space');
 await evaluate(`new Promise((resolve) => { const done = () => resolve(document.querySelector('[data-demo-provenance]').textContent); if (document.querySelector('[data-demo-provenance]').textContent.includes('source')) done(); else setTimeout(done, 1200); })`);
 const demo = await evaluate(`(() => {
   document.querySelector('[data-scenario="failure"]').click();

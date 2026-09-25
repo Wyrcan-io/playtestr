@@ -1,7 +1,7 @@
 # Sprint 11: useful behavior across real applications
 
 Status: **A0/A1 complete on 20 September 2026; B complete on 24 September 2026;
-C planned after candidate freeze.** The checked admission artifacts, 15 project
+C complete on 25 September 2026.** The checked admission artifacts, 15 project
 records, 120 workflow specs, 300-cell focused map, controls, costs and exclusions
 are in the [`corpus/` checkpoint](../../../corpus/README.md) and the
 [B evidence](../../validation/sprint-11-b-corpus-depth-2026-09-24.md). Owner:
@@ -59,6 +59,11 @@ A negative succeeds as evidence only if the intended category/assertion or indep
 Exit: complete coverage map, explicit exclusions, intended defect controls and recovery, no unexplained false results or managed leaks. Support statements name application/version/host/workflow. If target selection cannot meet depth safely, revise the admission matrix visibly before claiming completion.
 
 ## C: qualify frozen bytes and maintenance
+
+Completed 25 September 2026 against the three executable hashes in the R6-F
+manifest. The 120-workflow matrix, exactly 3,000 first attempts, costs,
+controls, recoveries, failures, and exclusions are in the
+[C/R6-Q record](../../validation/sprint-11-c-r6-q-2026-09-25.md).
 
 Entry is **R6-F candidate freeze**, after Sprint 13-D. Freeze embedded version/build flags and executable hash per host before the expensive sample. Reuse that executable from the extracted candidate archive. R6-Q consumes this evidence; do not run the same campaign twice because it has two milestone names.
 

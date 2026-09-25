@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "status": "qualified; kit ready, publication pending",
+  "version": "v0.4.0-rc.1",
+  "source_commit": "f6ffeb76a7ec3b826052690ab53071dcdf0e565f",
+  "build_run": 36103641387,
+  "qualification_preflight_run": 36103801262,
+  "qualification_campaign_run": 36106092065,
+  "release_story_run": 36108031093,
+  "build": {
+    "toolchain": "Go 1.25.0",
+    "command": "go build -trimpath -ldflags '-s -w -X github.com/Wyrcan-io/playtestr/internal/buildinfo.Version=v0.4.0-rc.1' -o bin/<native-name> ./cmd/playtestr"
+  },
+  "targets": [
+    {
+      "target": "darwin_arm64",
+      "native_image": "macos26 20260907.0351.1",
+      "archive": "playtestr_0.4.0-rc.1_darwin_arm64.tar.gz",
+      "archive_sha256": "d6425d4c68f67e18214706c250ee4f1452f65259747b3ba85edca7741e8371d8",
+      "executable": "playtestr",
+      "executable_sha256": "a2a662c53d948795cae12ee931d3d4e761a4baf9e54d7ddfe76ae2cd1fa524f8",
+      "archive_members": [
+        "playtestr_0.4.0-rc.1_darwin_arm64/LICENSE",
+        "playtestr_0.4.0-rc.1_darwin_arm64/README.md",
+        "playtestr_0.4.0-rc.1_darwin_arm64/THIRD_PARTY_NOTICES.md",
+        "playtestr_0.4.0-rc.1_darwin_arm64/playtestr"
+      ]
+    },
+    {
+      "target": "linux_amd64",
+      "native_image": "ubuntu24 20260920.314.1",
+      "archive": "playtestr_0.4.0-rc.1_linux_amd64.tar.gz",
+      "archive_sha256": "f7a4dd825fc066449265f90642a79dff0fc0318e4c1bc0918c139f699d461964",
+      "executable": "playtestr",
+      "executable_sha256": "2ed5c7f06d9117a4450079312ffd00001205f893bbca36fbc0ab551338171d0b",
+      "archive_members": [
+        "playtestr_0.4.0-rc.1_linux_amd64/LICENSE",
+        "playtestr_0.4.0-rc.1_linux_amd64/README.md",
+        "playtestr_0.4.0-rc.1_linux_amd64/THIRD_PARTY_NOTICES.md",
+        "playtestr_0.4.0-rc.1_linux_amd64/playtestr"
+      ]
+    },
+    {
+      "target": "windows_amd64",
+      "native_image": "win25-vs2026 20260922.246.2",
+      "archive": "playtestr_0.4.0-rc.1_windows_amd64.zip",
+      "archive_sha256": "c33f02cff972edcd40109690a2909ffc834da86f7fdbfe95f881b344feb4ba2d",
+      "executable": "playtestr.exe",
+      "executable_sha256": "7a73b598613d34e8a05831d12f2ab26d4abae3e6ce05e63c7d80c316bcc80fc2",
+      "archive_members": [
+        "playtestr_0.4.0-rc.1_windows_amd64/LICENSE",
+        "playtestr_0.4.0-rc.1_windows_amd64/README.md",
+        "playtestr_0.4.0-rc.1_windows_amd64/THIRD_PARTY_NOTICES.md",
+        "playtestr_0.4.0-rc.1_windows_amd64/playtestr.exe"
+      ]
+    }
+  ],
+  "identity_policy": "Executable SHA-256 is the qualification identity. A source, dependency, compiler, linker flag, build flag, or embedded-version change invalidates affected executable evidence. Documentation-only release-kit changes retain evidence only while executable hashes remain identical; archive/layout/install changes require their affected checks again.",
+  "publication": false
+}

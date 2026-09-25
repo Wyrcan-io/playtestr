@@ -26,3 +26,9 @@ The recipes intentionally keep bounded reference details here and the short JSON
 under [`examples/recipes`](../../examples/recipes). See [Writing tests](../writing-tests.md),
 [Snapshots](../snapshots.md), and [Troubleshooting](../troubleshooting.md) for the
 complete contract.
+
+The `v0.4.0-rc.1` release kit also preserves three frozen-byte narratives:
+[wrong selection](release-hero.md), [persisted state](release-stateful.md), and
+[resize/redraw](release-compatibility.md). Each runs pass, a genuine target
+defect, and recovery with the same reviewed spec, plus an independent
+postcondition and exact hashes.

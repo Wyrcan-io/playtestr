@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "source_commit": "23d4f2e219b8b35f8aa21635c90c379cd2d37fc1",
+  "run_id": 36108031093,
+  "command": "bash release/stories/run.sh <extracted-frozen-runner> <output-directory>",
+  "editing": "none",
+  "accelerated_waits": "none",
+  "capture": "GitHub Actions log, Playtestr JSON/text evidence, and local headless screenshot of the frozen Windows offline report",
+  "hosts": {
+    "darwin_arm64": {
+      "runner_sha256": "a2a662c53d948795cae12ee931d3d4e761a4baf9e54d7ddfe76ae2cd1fa524f8",
+      "selector_good_sha256": "a0a72ccce2786feddbf7ea9b42ba611e25dd4969e272e5de8adf71736d3fe0cc",
+      "selector_bad_sha256": "f3fad025c859b187c93c570d133cc4cc41450c2eaf1c2728eb6ca00595bcc913",
+      "stateful_good_sha256": "bc32ee9210caa04d6af0f5a6d86918d1eee3fb59b4d0517c23b4823b1ea44929",
+      "stateful_bad_sha256": "83e3249dac4825a3f5787290a1f62087f4b29ec3c893538aaca7de06baf8917c",
+      "compatibility_good_sha256": "e3136b01270baef7cc7fab1d15b97c689db69802670302e22f07c1c71b1f32a0",
+      "compatibility_bad_sha256": "cc88c44730c21fe2b1b0a7f452681152ddeed4210a99d8995442f53fdac95bd2",
+      "hero_spec_sha256": "b8a234d8ac74237c9e2ba0287e82e1d1466d7be39a037b6d2d07bc9aa42a189f",
+      "stateful_spec_sha256": "58387d5608d32e9843c7645109a39e7c4015f5cf6ff4111453369bfafc2dc5c7",
+      "stateful_cancel_spec_sha256": "bd6eac483aa27998752198c27e5bf02582ad6098ca3f8ebd07dadc5388a64b88",
+      "compatibility_spec_sha256": "2dad814566ad75a945db6334c613f5941163cae829a0f312c35d06377269794d"
+    },
+    "linux_amd64": {
+      "runner_sha256": "2ed5c7f06d9117a4450079312ffd00001205f893bbca36fbc0ab551338171d0b",
+      "selector_good_sha256": "33ab60be4fc68e4504b9571863a151dbb0a96cad1a4a42875279906ed0295620",
+      "selector_bad_sha256": "0318e25ce05e372ab0f762526d674719a783a7bcd8429e0c95a10442a61f4194",
+      "stateful_good_sha256": "cb38cc3f0f9114d523efb5a6e1a9130e7e4e77f660b8580f16de6d519b9350f3",
+      "stateful_bad_sha256": "ae88794c923dc24315617d435a2a64b789269caef80040a2e0778b0ed48cc787",
+      "compatibility_good_sha256": "d5442f034cd000ac3a8cd1aa52b2e4c2d3312998efd71c03ce7c4ee102e4ff10",
+      "compatibility_bad_sha256": "7a198114ffa6ae386e137646548e49414be9a5bc2dd3823e683d117fb3d1f1d6",
+      "hero_spec_sha256": "b8a234d8ac74237c9e2ba0287e82e1d1466d7be39a037b6d2d07bc9aa42a189f",
+      "stateful_spec_sha256": "58387d5608d32e9843c7645109a39e7c4015f5cf6ff4111453369bfafc2dc5c7",
+      "stateful_cancel_spec_sha256": "bd6eac483aa27998752198c27e5bf02582ad6098ca3f8ebd07dadc5388a64b88",
+      "compatibility_spec_sha256": "2dad814566ad75a945db6334c613f5941163cae829a0f312c35d06377269794d"
+    },
+    "windows_amd64": {
+      "runner_sha256": "7a73b598613d34e8a05831d12f2ab26d4abae3e6ce05e63c7d80c316bcc80fc2",
+      "selector_good_sha256": "e8fdbf4f02b833c5e733f4af3dab86e217700fb38893f433b2066579f2852793",
+      "selector_bad_sha256": "0acd3c1e04be61104aea02589e950f829dd754df0f6f6396ea10e0ded5a93d8f",
+      "stateful_good_sha256": "f01bdef51ad058c00dd14bf60ad88e1e75649cadae177298f46f0af384dd2cf0",
+      "stateful_bad_sha256": "f0f25029df9390aa0b495f85ff81a3f1851e732f4b15df73b4df3e9e0807f222",
+      "compatibility_good_sha256": "0df282503d4b8df1128d16ee20673aa8468e935487ac13e020f677810a753ec1",
+      "compatibility_bad_sha256": "a0c4bbcb3f9fb33da3b75db7ed21e1b8d33df83e28e93acae49f5460760af7b8",
+      "hero_spec_sha256": "c15fcf39d87f06827dd22a09f70d46df32a86769647a2791af745096ddee7856",
+      "stateful_spec_sha256": "6b16661358d4a3101297510165e4cd36a113bd448a06e6dfbf7c5ea769ea3e7e",
+      "stateful_cancel_spec_sha256": "fe51ad5d9db29bced5b3d8ca528f8b07b27d54356a019348629e1de6799bcb28",
+      "compatibility_spec_sha256": "82a254a261dba772747be4363f22a1d1f070e710f7332620afb5f2e8cecfa134"
+    }
+  },
+  "outcomes": {
+    "hero": ["pass", "unexpected_exit defect", "recovery pass", "file=Beta/Alpha/Beta"],
+    "stateful": ["pass", "cancel exit 130 with no file", "unexpected_exit defect", "recovery pass", "file=port=4242/absent/port=8080/port=4242"],
+    "compatibility": ["pass", "assertion_timeout stale-viewport defect", "recovery pass", "file=size=80x20 modal=false/absent/same"]
+  },
+  "note": "Windows checkout line endings make spec byte hashes differ from Unix while parsed JSON and git blob content are equivalent. Each executed byte hash is recorded above."
+}

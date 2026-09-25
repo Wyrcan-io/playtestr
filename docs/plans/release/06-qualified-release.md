@@ -1,6 +1,6 @@
 # R6: freeze, qualify, publish and verify the completed batch
 
-Status: planned, version not assigned. Owner: named release owner at entry. Follow the [root roadmap](../../../roadmap.md) and [evidence invalidation rules](../execution-contract.md). R6 is deliberately split into phases so qualification never depends on a candidate that has not been frozen yet.
+Status: R6-F, R6-Q, and R6-K complete 25 September 2026 for `v0.4.0-rc.1`; **kit ready, publication pending**. R6-P/V require new publication authority and public bytes. Follow the [root roadmap](../../../roadmap.md) and [evidence invalidation rules](../execution-contract.md).
 
 ## Entry and release boundary
 

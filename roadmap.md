@@ -1,6 +1,6 @@
 # Playtestr roadmap
 
-Updated 24 September 2026. **This file is the authoritative status and execution order.** Detailed plans live in [docs/plans](docs/plans/README.md). Historical evidence remains in its original dated records.
+Updated 25 September 2026. **This file is the authoritative status and execution order.** Detailed plans live in [docs/plans](docs/plans/README.md). Historical evidence remains in its original dated records.
 
 Product goal: a developer installs one runner, writes a short terminal interaction, catches a meaningful regression, and understands the failure quickly. Protect correctness and simplicity while increasing real-project depth. Maintainer recruitment/adoption starts after the engineering batch and qualified release below.
 
@@ -41,13 +41,13 @@ Exact hashes and run links belong to the cited records. Local tags corroborate i
 | 5 | Serial suites, deterministic listing and useful evidence layout | Implemented, natively/publicly verified in v0.2.0-rc.1; [record](docs/validation/sprint-5-engineering-2026-09-15.md) | Independent CI adoption in A1 |
 | 6 | CI-to-local failure handoff | **Ordinary handoff documented; manifest deferred**; [experiment](docs/validation/sprint-6-handoff-2026-09-21.md), [guide](docs/ci-failure-handoff.md) | Reopen software only for a repeated safe context omission the guide cannot resolve |
 | 7 | Offline failure diagnosis | Implemented, natively/publicly verified in v0.3.0-rc.1; [record](docs/validation/sprint-7-engineering-2026-09-18.md) | Independent diagnosis timing in A1 |
-| 8 | Setup-only exact-version GitHub Action | Implemented, Windows local verification; [record](docs/validation/sprint-8-engineering-2026-09-18.md) | Native Linux/macOS action checks, verified immutable public action revision, real upgrade |
-| 9 | Fresh bounded workspaces, spec/report v2, v2 HTML rendering | Implemented, Windows local verification; [record](docs/validation/sprint-9-engineering-2026-09-19.md) | Native Linux/macOS workspace checks and release-byte verification |
+| 8 | Setup-only exact-version GitHub Action | Implemented and source-qualified on three native hosts; [record](docs/validation/sprint-8-engineering-2026-09-18.md), [R6-Q](docs/validation/sprint-11-c-r6-q-2026-09-25.md) | Immutable public action verification and real public upgrade remain R6-P/V |
+| 9 | Fresh bounded workspaces, spec/report v2, v2 HTML rendering | Implemented and qualified in frozen candidate bytes on three native hosts; [record](docs/validation/sprint-9-engineering-2026-09-19.md), [R6-Q](docs/validation/sprint-11-c-r6-q-2026-09-25.md) | Public-byte verification remains R6-V |
 | 10 | One evidence-selected terminal compatibility improvement | **Deferred at evidence gate**; [decision](docs/validation/sprint-10-decision-2026-09-21.md), [plan](docs/plans/sprints/10-terminal-compatibility.md) | Reopen only for a reduced real-app terminal blocker; no universal Unicode promise |
-| 11 | Deep real-project validation corpus | **A0/A1/B complete; C planned**; [checkpoint](corpus/README.md), [B evidence](docs/validation/sprint-11-b-corpus-depth-2026-09-24.md), [plan](docs/plans/sprints/11-real-project-corpus.md) | Candidate-frozen full matrix and 3,000 repeats remain for C |
+| 11 | Deep real-project validation corpus | **A0/A1/B/C complete**; [checkpoint](corpus/README.md), [B evidence](docs/validation/sprint-11-b-corpus-depth-2026-09-24.md), [C/R6-Q evidence](docs/validation/sprint-11-c-r6-q-2026-09-25.md) | Public-byte verification and independent adoption remain later |
 | 12 | Easier first-test authoring | **A complete; B deferred at its evidence gate**; [A record](docs/validation/sprint-12-a-authoring-2026-09-21.md), [B decision](docs/validation/sprint-12-b-decision-2026-09-21.md) | Reopen B only for two reduced workflow failures with the same missing input/assertion family |
-| 13 | Native evidence, integrated hardening and fair comparison | **A0/A1/B/C/D complete**; [A0](docs/validation/sprint-13-a0-native-gaps-2026-09-20.md), [A1](docs/validation/sprint-13-a1-integrated-hardening-2026-09-21.md), [B](docs/validation/sprint-13-b-setup-action-2026-09-21.md), [C](docs/validation/sprint-13-c-competitive-2026-09-22.md), [D](docs/validation/sprint-13-d-rehearsal-2026-09-24.md), [plan](docs/plans/sprints/13-native-ci-and-release-hardening.md) | Freeze the selected R6 candidate and preserve its native artifact identities |
-| 14 | Reproducible demos and release kit | **Planned**; [plan](docs/plans/sprints/14-demos-and-release-kit.md) | Three real stories, accessible watch-to-run path, final frozen-byte captures and accurate release materials |
+| 13 | Native evidence, integrated hardening and fair comparison | **A0/A1/B/C/D and R6-F complete**; [A0](docs/validation/sprint-13-a0-native-gaps-2026-09-20.md), [A1](docs/validation/sprint-13-a1-integrated-hardening-2026-09-21.md), [B](docs/validation/sprint-13-b-setup-action-2026-09-21.md), [C](docs/validation/sprint-13-c-competitive-2026-09-22.md), [D](docs/validation/sprint-13-d-rehearsal-2026-09-24.md), [freeze](docs/validation/r6-f-candidate-freeze-2026-09-25.md) | Public action/download verification remains R6-P/V |
+| 14 | Reproducible demos and release kit | **Complete; kit ready, publication pending**; [plan](docs/plans/sprints/14-demos-and-release-kit.md), [R6-K record](docs/validation/sprint-14-r6-k-2026-09-25.md) | Actual publication requires a new explicit R6-P instruction; manual screen-reader session remains open |
 
 Sprint numbers are durable identifiers, not chronology: 7 shipped before 6, and 11 discovery precedes 10 selection. Do not rebuild implemented suites, HTML reports, the setup action or report-v2 rendering.
 
@@ -79,9 +79,9 @@ The table is a dependency chain. A completed checkpoint produces the stated evid
 | 7 | **6: handoff decision — completed/deferred 2026-09-21** | Reproduced `GUM-01` from ordinary pinned inputs; recovery passed and an absent target failed distinctly | [Experiment and decision](docs/validation/sprint-6-handoff-2026-09-21.md); no manifest or replay command added |
 | 8 | **13-B/C: integrated hardening and comparison — completed 2026-09-22** | Verified reports/action source and ran bounded fair comparisons plus adversarial checks | [Three-host hardening](docs/validation/sprint-13-a1-integrated-hardening-2026-09-21.md), [action evidence](docs/validation/sprint-13-b-setup-action-2026-09-21.md), and [comparison results](docs/validation/sprint-13-c-competitive-2026-09-22.md) |
 | 9 | **11-B: application depth â€” completed 2026-09-24** | Implemented 120 admitted workflows across 15 projects and closed the 300 focused-case map; proved 15 known-bad/recovered controls | [Full outcomes](docs/validation/sprint-11-b-corpus-depth-2026-09-24.md), postconditions, host exclusions and unchanged reviewed baselines |
-| 10 | **13-D + R6-F: candidate freeze — in progress** | 13-D rehearsal is complete; `v0.4.0-rc.1` is selected and its native bytes are being frozen | Immutable candidate identities available before expensive qualification; not public publication |
-| 11 | **11-C + R6-Q: frozen-byte qualification** | Run the full admitted matrix and 3,000 repeats using those candidate executable hashes | Complete attempt ledger, no unexplained false results/leaks, honest exclusions; execute once and reuse valid evidence by hash |
-| 12 | **14: demos and release kit** | Capture three pass/defect/recovery stories and verify watch-to-run instructions using the frozen candidate | Reproducible assets, accessible presentation, accurate versions and draft announcements |
+| 10 | **13-D + R6-F: completed 2026-09-25** | `v0.4.0-rc.1` frozen from `f6ffeb7`; three exact native executable/archive identities preserved | [Immutable candidate record](docs/validation/r6-f-candidate-freeze-2026-09-25.md); no publication inferred |
+| 11 | **11-C + R6-Q: completed 2026-09-25** | Full admitted matrix, 15 controls/recoveries and exactly 3,000 first attempts ran against frozen hashes | [Qualification record](docs/validation/sprint-11-c-r6-q-2026-09-25.md); candidate is qualified |
+| 12 | **14 + R6-K: completed 2026-09-25** | Three native-host pass/defect/recovery stories and the publication-pending kit are ready | [Kit record](docs/validation/sprint-14-r6-k-2026-09-25.md); public/deployed verification remains later |
 | 13 | **R6-P: publication** | Present the complete kit; after explicit publication instruction, publish immutable runner assets and appropriate action revision | Public URLs and tags tied to frozen artifacts; no replacement of existing assets |
 | 14 | **R6-V: downloaded verification** | Download public bytes on each advertised host, compare hashes, execute representative pass/failure/recovery and the pinned action | Verified public release and supported install route; real old→new runner pin upgrade where applicable |
 | 15 | **A1: independent adoption** | Now recruit five consenting maintainers, observe first use, participant CI and later reuse | Separate genuine user outcomes, timings, assistance and dropouts; no operator substitutes |
@@ -99,7 +99,7 @@ Sprint 14 may draft stories earlier, but final captures use the qualified behavi
 
 ## Quality and scope commitments
 
-- Completed depth totals are 15 independently maintained applications, 120 distinct meaningful workflows and 300 focused risk cells. The 3,000 frozen-byte executions remain planned for 11-C/R6-Q. These measures are separate. The [validation program](docs/plans/validation-program.md) defines counts, budgets and qualification.
+- Completed depth totals are 15 independently maintained applications, 120 distinct meaningful workflows, 300 focused risk cells, and exactly 3,000 frozen-byte first attempts. These measures are separate. The [validation program](docs/plans/validation-program.md) defines counts, budgets and qualification.
 - Include Linux amd64, macOS arm64 and Windows amd64 evidence for claimed native paths. Application support is per version/workflow/host, not per language or framework logo.
 - A passing screen is insufficient for a state-writing task. Validate exact Git/file/DB state at the right lifecycle point; preserve original fixtures and confirm cleanup.
 - No new feature solely to match a competitor. The [feature budget](docs/plans/product-focus.md) allows one selected compatibility family and one conditional authoring/input/assertion family; failure-manifest work requires its own measured exception.
@@ -112,13 +112,10 @@ Sprint 14 may draft stories earlier, but final captures use the qualified behavi
 Sprint 12 is complete and Sprint 6's ordinary handoff proved sufficient, so its
 optional manifest remains deferred. Sprint 13-A1/B/C/D and Sprint 11-B are complete
 with exact native, action, comparison, application-depth and risk-map records.
-Continue with **R6-F candidate freeze**: `v0.4.0-rc.1` is selected; freeze the
-clean source commit and its per-host artifact identities before any
-qualification repetitions.
-The 13-A0
-[native-evidence table](docs/validation/sprint-13-a0-native-gaps-2026-09-20.md)
-remains the starting three-host source evidence. Do not run the 3,000-repeat
-campaign until candidate bytes are frozen, and do not contact maintainers yet.
+The engineering batch is complete through Sprint 14/R6-K. Status is **kit
+ready, publication pending**. The exact next checkpoint is **R6-P authorized
+publication**, which requires a new explicit instruction. Do not tag, publish,
+deploy, announce, contact maintainers, or begin A1 before that gate.
 
 The [operational checklists](docs/plans/operational-checklists.md) provide current focused test commands, required skip detection, reader/version checks and concrete responses when execution hits a blocker.
 

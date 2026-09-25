@@ -10,6 +10,10 @@ const requiredRoutes = [
   'docs/installation/index.html', 'docs/writing-tests/index.html',
   'docs/recipes/index.html', 'docs/recipes/selector/index.html',
   'docs/recipes/stateful-wizard/index.html', 'docs/recipes/full-screen/index.html',
+  'docs/recipes/release-hero/index.html',
+  'docs/recipes/release-stateful/index.html',
+  'docs/recipes/release-compatibility/index.html',
+  'docs/evidence-gallery/index.html',
   'docs/snapshots/index.html', 'docs/troubleshooting/index.html',
   'docs/spec-v1/index.html', 'docs/report-v1/index.html',
   'docs/spec-v2/index.html', 'docs/report-v2/index.html',
@@ -21,6 +25,7 @@ const requiredRoutes = [
   'docs/terminal-compatibility/index.html', 'examples/index.html',
   'releases/index.html', 'releases/v0.1.0/index.html',
   'releases/v0.3.0-rc.1/index.html',
+  'releases/v0.4.0-rc.1/index.html',
   'support/index.html', 'trials/index.html', 'index.json',
   'demos/terminal-demo.json', 'schema/playtestr-spec-v1.schema.json',
   'schema/playtestr-report-v1.schema.json', 'schema/playtestr-spec-v2.schema.json',
@@ -124,7 +129,9 @@ for (const file of markdownFiles) {
     let decoded;
     try { decoded = decodeURIComponent(target); }
     catch { fail(`${relative(repository, file)}: malformed local Markdown link ${target}`); continue; }
-    const destination = decoded.startsWith('/') ? resolve(repository, `.${decoded}`) : resolve(dirname(file), decoded);
+    const destination = decoded.startsWith('/playtestr/')
+      ? resolve(repository, 'site/static', decoded.slice('/playtestr/'.length))
+      : decoded.startsWith('/') ? resolve(repository, `.${decoded}`) : resolve(dirname(file), decoded);
     if (!existsSync(destination)) fail(`${relative(repository, file)}: broken local Markdown target ${target}`);
   }
 }

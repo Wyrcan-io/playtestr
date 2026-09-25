@@ -1,6 +1,6 @@
 # Decisions, unresolved questions and scope control
 
-Updated 19 September 2026. The [root roadmap](../../roadmap.md) fixes order; this register makes choices and revisit triggers visible. A proposed feature is not approved merely because it has a row.
+Updated 25 September 2026. The [root roadmap](../../roadmap.md) fixes order; this register makes choices and revisit triggers visible. A proposed feature is not approved merely because it has a row.
 
 ## Decisions made for this batch
 
@@ -24,6 +24,8 @@ Updated 19 September 2026. The [root roadmap](../../roadmap.md) fixes order; thi
 | D16 | Setup action reports both archive and executable SHA-256 and rejects non-native target overrides | The immutable action identity and selected runner release remain independent. Successful outputs are transactionally published only after native mapping, extraction, version and staged/final executable identity checks all pass; a publication failure rolls back the fresh install and output files. |
 | D17 | Keep the Sprint 13-C comparison factual, task-specific and Linux-only | All four tools detected the three reviewed mutations in 360/360 fresh attempts, while Playtestr was slower on these short tasks. Only Playtestr supplied the exercised raw-output cap; alternatives retain finite-drain labels instead of artificial failures. No universal winner or cross-host claim follows. |
 | D18 | Close Sprint 11-B at depth while retaining host exclusions | The corpus now has 15 exact projects, 120 distinct workflows, 300 focused risk cells, 15 intended defect detections/recoveries and two reviewed boundary workflows per project. Thirteen targets are native Windows; TIG and taskwarrior-tui are Linux-under-WSL evidence only. Native application breadth is deferred honestly to candidate qualification rather than inferred. |
+| D19 | Select and qualify `v0.4.0-rc.1` without stable relabeling | Exact-version setup plus opt-in workspace/report v2 is a coherent minor prerelease. V1 remains the downgrade boundary; changing the embedded version changes bytes and requires qualification. |
+| D20 | Close R6-Q with exact hash evidence and retain transient failures | The 120-workflow matrix, 15 intended negatives/recoveries and 3,000 unique first attempts passed. CV-02 and Posting host transients remain recorded; WSL target rows are not native app claims. |
 
 ## Decisions to make at explicit checkpoints
 
@@ -33,11 +35,11 @@ Updated 19 September 2026. The [root roadmap](../../roadmap.md) fixes order; thi
 | Q02 | Extra input or focused region? | **Closed 2026-09-21: neither qualifies; 12-B deferred** | [Decision record](../validation/sprint-12-b-decision-2026-09-21.md); reopen only with two distinct named blocked workflows and failed fixture/state-control workarounds |
 | Q03 | Does CI handoff need new software? | **Closed 2026-09-21: no; Sprint 6 manifest deferred** | [Experiment](../validation/sprint-6-handoff-2026-09-21.md); reopen only for a repeated context omission the ordinary handoff cannot safely prevent |
 | Q04 | Which candidate projects cannot meet host/task depth? | **Closed 2026-09-24 for task depth** | All 15 pins reached eight workflows and a defect control; TIG and taskwarrior-tui retain explicit native-host exclusions for qualification. |
-| Q05 | What next version and compatible migration? | Release owner, R6-F | Actual public contract delta, old spec/report reader behavior, tag inventory; no number reserved here |
+| Q05 | What next version and compatible migration? | **Closed 2026-09-25: `v0.4.0-rc.1`** | V1 remains compatible; v2 workspace/mixed reports need the new reader. Remote novelty checked; migration/rollback is documented. |
 | Q06 | How to retain reproducible evidence affordably? | **Closed 2026-09-24 for discovery depth** | Checked-in corpus metadata is 384,243 bytes; screen artifacts and raw reports remain ignored/private, while compact result records preserve hashes, outcomes, costs and exclusions. R6-Q defines its own bounded attempt ledger. |
 | Q07 | Is a comparison task fairly supported by all chosen tools? | **Closed 2026-09-22 for C1-C3 on Linux amd64** | [Measurement record](../validation/sprint-13-c-competitive-2026-09-22.md); raw-output limiting and cancellation models remain explicitly non-equivalent |
 | Q08 | Can genuine installer upgrade be shown in this batch? | Release owner, R6-V | Same published immutable action SHA installs existing v0.3.0-rc.1 then new R6 release; otherwise future longitudinal check stays open without invented releases |
-| Q09 | How do strict formats interact with patch-addition wording? | Release owner, before R6-F | SUPPORT.md permits optional patch additions, while readers reject unknown fields; explicitly distinguish new-reader/old-document compatibility from old-reader/new-document compatibility and freeze minimum-version/migration policy |
+| Q09 | How do strict formats interact with patch-addition wording? | **Closed 2026-09-25** | New reader accepts old v1 documents; old strict readers may reject v2/new documents. V2 is opt-in and not silently downgraded. |
 
 Do not silently pick a new format version during implementation. Document alternatives and cost at the relevant checkpoint; the maintainer reviews the concrete contract before it is presented as stable. Routine implementation choices within accepted scope do not need repeated permission requests.
 
