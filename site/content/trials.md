@@ -12,7 +12,9 @@ Before starting, choose the exact target version, one keyboard workflow, the rep
 
 Use the checksum-verified
 [`v0.4.0-rc.1` prerelease](/playtestr/releases/v0.4.0-rc.1/) and the exact
-immutable setup-action pin in the [CI installation guide](/playtestr/docs/ci-installation/).
+immutable setup-action pin
+`1c03904075512e67f53b0c94a13daa17f0383f1d` from the
+[CI installation guide](/playtestr/docs/ci-installation/).
 Participation and public attribution are optional; an invitation or initial
 reply is not counted as adoption.
 
