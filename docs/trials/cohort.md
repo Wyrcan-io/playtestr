@@ -1,6 +1,7 @@
 # R3 cohort record
 
-Status: recruitment deferred to [A1](../plans/release/07-maintainer-adoption.md) after the complete engineering batch and R6. No independent project has been counted yet.
+Status: A1 recruitment opened 26 September 2026 after R6-V. No independent
+project has been counted yet; invitations and consent are not adoption.
 
 This file tracks completion without publishing participant details that lack consent. Store private identity/permission references outside the repository and use a stable trial ID here.
 
@@ -8,11 +9,11 @@ This file tracks completion without publishing participant details that lack con
 
 | Trial ID | Public project or private alias | Maintainer confirmed | Stack | Host | Interaction | Good/bad complete | 10 runs | Later use | CI | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| T01 | Unassigned | No | | | | No | No | No | No | Deferred to A1 |
-| T02 | Unassigned | No | | | | No | No | No | No | Deferred to A1 |
-| T03 | Unassigned | No | | | | No | No | No | No | Deferred to A1 |
-| T04 | Unassigned | No | | | | No | No | No | No | Deferred to A1 |
-| T05 | Unassigned | No | | | | No | No | No | No | Deferred to A1 |
+| T01 | Unassigned | No | | | | No | No | No | No | Recruiting |
+| T02 | Unassigned | No | | | | No | No | No | No | Recruiting |
+| T03 | Unassigned | No | | | | No | No | No | No | Recruiting |
+| T04 | Unassigned | No | | | | No | No | No | No | Recruiting |
+| T05 | Unassigned | No | | | | No | No | No | No | Recruiting |
 
 ## Technical baselines that do not count as adoption
 

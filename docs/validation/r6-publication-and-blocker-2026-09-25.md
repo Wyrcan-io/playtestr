@@ -81,3 +81,25 @@ Git Bash. The installer and the Windows upgrade job had succeeded. Commit
 R6-V is complete. The immutable runner tag and its four release assets remain
 unchanged. Manual interactive screen-reader evidence remains a separately
 declared presentation gap and does not become a pass from automated checks.
+
+## Deployed presentation
+
+[Website deployment 36222050575](https://github.com/Wyrcan-io/playtestr/actions/runs/36222050575)
+built, validated, uploaded, and deployed commit
+`215d234365db589793522e8c30c6f4b7b2c62e54`. Direct HTTP checks returned 200
+for the home, download, v0.4 release, CI installation, and spec-v2 schema
+routes; the deliberately absent route returned 404. The deployed download,
+release, and CI pages contained the exact action pin.
+
+A headless Chrome sweep of the deployed site passed 25 routes at 320, 375,
+768, and 1440 pixels, including direct navigation/refresh, search, 404,
+keyboard and mobile navigation, reduced-motion and no-script paths,
+interactive evidence, and accessible control names. Measured mobile LCP was
+264 ms and CLS was 0.000. The prepublication offline report check remains
+applicable because the exported report bytes and renderer were not changed; it
+passed keyboard/no-script/contrast/overflow checks with zero external requests.
+
+No usable interactive human screen-reader session is available in this
+execution environment. The accessibility-tree checks above are retained, but
+the required Narrator/NVDA/VoiceOver path remains explicitly open. No complete
+accessibility or universal WCAG claim is made.

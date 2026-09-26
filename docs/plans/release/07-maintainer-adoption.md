@@ -1,6 +1,10 @@
 # A1: maintainer adoption after engineering
 
-Status: deliberately deferred until Sprints 11–14, dispositions of 6/10/12-B, and R6 are complete. This replaces older recruitment timing. Owner: project maintainer. Existing [R3 protocol](03-real-project-trials.md), participant templates and cohort ledger may be reused, without treating operator tests as independent runs.
+Status: recruitment active from 26 September 2026 after R6-V completion. No
+participant, review, repeat use, or participant-owned CI result has yet been
+counted. Owner: project maintainer. Existing [R3 protocol](03-real-project-trials.md),
+participant templates and cohort ledger may be reused, without treating
+operator tests as independent runs.
 
 ## Entry and recruitment
 

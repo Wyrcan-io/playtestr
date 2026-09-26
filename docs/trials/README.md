@@ -1,8 +1,10 @@
-# Playtestr v0.1.0 project trials
+# Playtestr v0.4.0-rc.1 maintainer trials
 
-Status: recruitment deferred until [A1](../plans/release/07-maintainer-adoption.md), after the complete engineering batch and R6. This guide retains earlier release-specific instructions; refresh its version pins against the R6 release before recruitment. These trials test whether Playtestr protects a real terminal interaction well enough that a project maintainer chooses to run the test again.
-
-For Sprint 5 directory selection and isolated CI evidence, use the [suite adopter walkthrough](sprint-5-suite-adopter.md) with the checksum-verified [`v0.2.0-rc.1` prerelease](https://github.com/Wyrcan-io/playtestr/releases/tag/v0.2.0-rc.1). Stable `v0.1.0` predates those features and cannot produce a qualifying Sprint 5 result.
+Status: A1 recruitment opened 26 September 2026 after the engineering batch
+and R6-V completed. No invitation, consent, review, repeat use, or
+participant-owned CI result is counted until it actually occurs. These trials
+test whether Playtestr protects a real terminal interaction well enough that a
+project maintainer chooses to run the test again.
 
 This is an optional trial for maintainers and contributors with one repeatable, non-sensitive CLI or TUI workflow. Plan for 30–60 minutes after the target is already runnable. Read the eligibility and prerequisites below, then use the [public project-trial form](https://github.com/Wyrcan-io/playtestr/issues/new?template=project-trial.yml) only for information you are comfortable publishing. Attribution is optional and a project alias is allowed.
 
@@ -10,7 +12,12 @@ This is an optional trial for maintainers and contributors with one repeatable, 
 
 Operator technical evidence is recorded separately in the [R3c cross-stack record](cross-stack-validation-2026-09.md), with reusable [sanitized recipes](cross-stack-recipes.md).
 
-R3 participant work is deferred to A1 after engineering and R6. It needs three completed participant projects across at least two implementation stacks, two maintainers who voluntarily repeat use, and one successful participant-owned CI integration. The demo, Gum fixture, and nine-application R3c campaign are technical coverage; they do not count as independent adoption. Use the checksum-verified R6 release for the new cohort; earlier v0.1.0 instructions remain historical and do not cover later features.
+A1 needs five consenting maintainers to enter the program, three completed
+participant projects across at least two implementation stacks, two maintainers
+who voluntarily repeat use, and one successful participant-owned CI
+integration. The demo, Gum fixture, corpus, and operator campaigns are
+technical coverage; they do not count as independent adoption. Use the
+checksum-verified `v0.4.0-rc.1` release and the exact action pin below.
 
 ## Who should participate
 
@@ -26,7 +33,10 @@ Choose an offline flow that can use synthetic data. Do not use production creden
 
 Plan for 30–60 minutes for the first integration after the target application is already runnable. Installation alone should take much less; record actual time rather than forcing the work into this estimate.
 
-Use one advertised host: Linux amd64, macOS arm64, or Windows amd64. Start with the [published installation walkthrough](../releases/v0.1.0-installation-walkthrough.md). Release binaries do not require Go and do not install the target application's runtime or dependencies.
+Use one advertised host: Linux amd64, macOS arm64, or Windows amd64. Start with
+the [v0.4.0-rc.1 release notes](../releases/v0.4.0-rc.1.md) and
+[CI installation guide](../ci-installation.md). Release binaries do not require
+Go and do not install the target application's runtime or dependencies.
 
 ## What the maintainer chooses before the session
 
@@ -49,7 +59,10 @@ Run the chosen application flow once without Playtestr. Record the visible state
 
 ### 2. Install the published runner
 
-Download `v0.1.0`, verify its checksum, extract it, and run `playtestr --version`. Record the archive name, observed checksum, host, shell, and version output. Do not use a checkout-built runner for the trial result.
+Download `v0.4.0-rc.1`, verify the archive against
+`checksums-v0.4.0-rc.1.txt`, extract it, and run `playtestr version`. Record the
+archive name, observed checksum, host, shell, and version output. Do not use a
+checkout-built runner for the trial result.
 
 ### 3. Write one small spec
 
@@ -96,7 +109,9 @@ Use a known-bad application revision or make one small, reversible local change 
 
 Record the structured failure category and failing step. A missing executable or malformed spec does not prove the intended UI regression is detected.
 
-Restore the known-good application and confirm the same spec passes again. In `v0.1.0`, an adjacent `.actual.txt` or `.diff.txt` from an earlier failure can remain after a pass; the latest report has no evidence reference. Treat the old file as historical, review it, then remove it explicitly.
+Restore the known-good application and confirm the same spec passes again.
+Keep each run's explicit artifact directory separate so historical failure
+evidence cannot be confused with the current outcome.
 
 ### 5. Repeat from the same starting state
 
@@ -110,7 +125,11 @@ At least two participants need to run the test in a later working session or aft
 
 At least one project should try CI if its target is suitable for noninteractive automation. Pin the Playtestr release URL and checksum, install the project's own dependencies explicitly, run the normal command, and retain only the selected report/screen/diff files with a finite retention period. A failing Playtestr command must keep the job failed; uploading evidence should use an `always()` condition rather than ignoring the test status.
 
-Until a reusable setup action exists, use the download/checksum pattern in the repository's [published-install workflow](../../.github/workflows/install-smoke.yml) as a reference. Copy only the platform branch the project needs. Do not copy its internal fixture commands as though they install the participant's target.
+For GitHub Actions, pin
+`Wyrcan-io/playtestr/setup-playtestr@1c03904075512e67f53b0c94a13daa17f0383f1d`
+and select runner version `v0.4.0-rc.1` as shown in the
+[CI installation guide](../ci-installation.md). The action installs Playtestr,
+not the participant's target or runtime.
 
 ## How results are classified
 
@@ -139,7 +158,7 @@ For a private project, keep the record private until the repository owner provid
 
 This text is prepared for the repository owner to send to specific maintainers. It has not been sent automatically:
 
-> I’m testing Playtestr v0.1.0, a small tool for driving and checking interactive terminal applications. I’m looking for maintainers with one real keyboard-driven workflow they want to protect. The trial takes roughly 30–60 minutes, uses a downloaded binary and synthetic data, and includes a known-good/known-bad check. Participation and public attribution are optional. Would you be willing to try it on one flow in your project?
+> I’m testing Playtestr v0.4.0-rc.1, an early prerelease for deterministic end-to-end tests of interactive terminal applications. One public workflow in your project looks relevant: [specific workflow and public source]. The optional trial takes roughly 30–60 minutes after prerequisites, uses synthetic data, and includes known-good, intended-bad, and recovery checks. Playtestr runs trusted targets with your permissions and is not a sandbox. The exact release, evidence, limits, removal steps, and trial guide are linked here: [links]. Public attribution is optional, no reply is required, and I will send at most one follow-up unless you engage. Would you be willing to try one flow?
 
 Record the recipient and authorization before sending outreach. Do not imply compatibility with their stack before their exact flow passes.
 
