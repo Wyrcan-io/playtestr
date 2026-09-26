@@ -1,6 +1,6 @@
 ---
 title: "Try Playtestr on one real workflow"
-description: "Join the optional Playtestr v0.1.0 project trial with one repeatable, non-sensitive CLI or TUI workflow."
+description: "Join the optional Playtestr v0.4.0-rc.1 maintainer trial with one repeatable, non-sensitive CLI or TUI workflow."
 eyebrow: "PROJECT TRIALS / OPTIONAL"
 ---
 
@@ -9,6 +9,12 @@ The project trial is for maintainers or contributors who have one existing inter
 Plan for 30–60 minutes after the target application is already runnable. Use synthetic or disposable local data on Linux x86-64, Apple silicon macOS, or Windows x86-64. Playtestr runs the trusted target with your own permissions and is not a sandbox.
 
 Before starting, choose the exact target version, one keyboard workflow, the repeatable starting state, and a concrete regression the test should catch. The trial includes a known-good run, an intended known-bad run, recovery, and a later decision about whether the test is useful enough to keep.
+
+Use the checksum-verified
+[`v0.4.0-rc.1` prerelease](/playtestr/releases/v0.4.0-rc.1/) and the exact
+immutable setup-action pin in the [CI installation guide](/playtestr/docs/ci-installation/).
+Participation and public attribution are optional; an invitation or initial
+reply is not counted as adoption.
 
 [Open the public project-trial form](https://github.com/Wyrcan-io/playtestr/issues/new?template=project-trial.yml) only with information you are comfortable publishing. Attribution is optional and a project alias is allowed. Do not include credentials, private source, personal paths, or unreviewed terminal evidence.
 
