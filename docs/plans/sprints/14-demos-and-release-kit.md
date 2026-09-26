@@ -1,6 +1,6 @@
 # Sprint 14: make the proof memorable and reproducible
 
-Status: complete 25 September 2026; **kit ready, publication pending**. Owner: Playtestr maintainer. Evidence: [Sprint 14/R6-K record](../../validation/sprint-14-r6-k-2026-09-25.md). User result: a newcomer sees a real bug caught, understands the evidence, and can run the same example.
+Status: complete 25 September 2026; published and publicly verified by R6-V on 26 September. Owner: Playtestr maintainer. Evidence: [Sprint 14/R6-K record](../../validation/sprint-14-r6-k-2026-09-25.md) and [R6-V record](../../validation/r6-publication-and-blocker-2026-09-25.md). User result: a newcomer sees a real bug caught, understands the evidence, and can run the same example.
 
 Draft scripts can be prepared earlier; final captures run against the **R6-F/11-C qualified executable hashes**. R6 publication follows the completed kit, and final public download/asset links are verified afterward. See [root sequence](../../../roadmap.md) and [execution contract](../execution-contract.md). A draft captured from development source must be replaced or explicitly labeled before release.
 

@@ -11,7 +11,7 @@ Playtestr is a local runner for deterministic end-to-end tests of trusted intera
 5. [Diagnose a failure](troubleshooting.md) using its category, failed step, final screen, and diff.
 6. [Run a deterministic suite](suites.md) and collect isolated CI evidence.
 7. [Reproduce a CI failure locally](ci-failure-handoff.md) from reviewed identities and ordinary rerun commands.
-8. [Install an exact release in GitHub Actions](ci-installation.md) after the action revision is published.
+8. [Install an exact release in GitHub Actions](ci-installation.md) with the verified immutable action revision.
 9. [Use a repeatable workspace](workspaces.md) when a local stateful flow needs fresh reviewed files.
 
 ## Reference
@@ -35,7 +35,7 @@ Playtestr is a local runner for deterministic end-to-end tests of trusted intera
 - [Troubleshooting](troubleshooting.md) maps common results to the next useful check.
 - [Support](../SUPPORT.md) links the bug and private security-report routes.
 - [Project trials](trials/README.md) are optional and intended for maintainers testing one real, repeatable workflow.
-- [`v0.3.0-rc.1` release notes](releases/v0.3.0-rc.1.md) record the published offline-report binaries, hashes, and verification runs.
+- [`v0.4.0-rc.1` release notes](releases/v0.4.0-rc.1.md) record the published workspace/report-v2 binaries, exact hashes, setup-action pin, and verification runs.
 
 Development plans describe possible future work and are not released functionality. Contributors can start with [Development and repository checks](development.md).
 

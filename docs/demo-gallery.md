@@ -1,6 +1,6 @@
 # Frozen-candidate evidence gallery
 
-Status: recorded static evidence for `v0.4.0-rc.1`; publication pending. This
+Status: recorded static evidence for published `v0.4.0-rc.1`. This
 page remains useful without JavaScript, animation, network access, or video.
 
 ![Offline Playtestr report showing one failed wrong-selection story, its unexpected-exit category, viewport, and duration](/playtestr/images/release-stories/hero-defect-report.png)

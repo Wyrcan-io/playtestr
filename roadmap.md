@@ -26,7 +26,7 @@ Engineering completion, publication and adoption are separate dimensions. An unc
 | [v0.1.0](docs/releases/v0.1.0.md) | First stable MVP, published 12 September | Three native package/public-install paths; source `4ed8884`; nine-app refresh separately scoped | Latest stable in reviewed records; no directory-suite, HTML-report or workspace promise from this version |
 | [v0.2.0-rc.1](docs/validation/sprint-5-engineering-2026-09-15.md) | Sprint 5 directory suites, preview, summaries and isolated evidence | Source `ea2e77f`; release run `35096743871`; public-install run `35120830130`; three native hosts | Prerelease, not stable v0.2.0; participant acceptance pending |
 | [v0.3.0-rc.1](docs/releases/v0.3.0-rc.1.md) | Sprint 7 offline HTML reports plus prior suite work, published 18 September | Source `7cf64af`; release run `35288218202`; public-install run `35288555826`; three native hosts | Latest prerelease in reviewed records; does not contain later spec-v2 workspaces |
-| [v0.4.0-rc.1](docs/releases/v0.4.0-rc.1.md) | Opt-in workspaces, report v2, setup-action source and release stories, published 25 September | Frozen source `f6ffeb7`; qualified archive hashes match the public assets | Direct archives only; R6-V is blocked because the immutable action expects absent per-archive checksum assets |
+| [v0.4.0-rc.1](docs/releases/v0.4.0-rc.1.md) | Opt-in workspaces, report v2, setup action and release stories, published 25 September | Frozen source `f6ffeb7`; qualified archive hashes match public assets; immutable action `1c03904`; six-lane public verification [36173075209](https://github.com/Wyrcan-io/playtestr/actions/runs/36173075209) | Verified prerelease on Windows amd64, Linux amd64 and macOS arm64; not the stable channel |
 
 Exact hashes and run links belong to the cited records. Local tags corroborate identities but do not themselves prove publication. The annotated v0.1.0 tag object differs from its peeled source commit; use the source commit above for code provenance. No stable v0.2.0/v0.3.0 or released workspace version is claimed.
 
@@ -42,13 +42,13 @@ Exact hashes and run links belong to the cited records. Local tags corroborate i
 | 5 | Serial suites, deterministic listing and useful evidence layout | Implemented, natively/publicly verified in v0.2.0-rc.1; [record](docs/validation/sprint-5-engineering-2026-09-15.md) | Independent CI adoption in A1 |
 | 6 | CI-to-local failure handoff | **Ordinary handoff documented; manifest deferred**; [experiment](docs/validation/sprint-6-handoff-2026-09-21.md), [guide](docs/ci-failure-handoff.md) | Reopen software only for a repeated safe context omission the guide cannot resolve |
 | 7 | Offline failure diagnosis | Implemented, natively/publicly verified in v0.3.0-rc.1; [record](docs/validation/sprint-7-engineering-2026-09-18.md) | Independent diagnosis timing in A1 |
-| 8 | Setup-only exact-version GitHub Action | Implemented and source-qualified on three native hosts; [record](docs/validation/sprint-8-engineering-2026-09-18.md), [R6-Q](docs/validation/sprint-11-c-r6-q-2026-09-25.md) | Public v0.4.0-rc.1 installation failed on all three hosts because the action checksum URL contract does not match the release assets; select and verify a new immutable action revision |
-| 9 | Fresh bounded workspaces, spec/report v2, v2 HTML rendering | Implemented and qualified in frozen candidate bytes on three native hosts; [record](docs/validation/sprint-9-engineering-2026-09-19.md), [R6-Q](docs/validation/sprint-11-c-r6-q-2026-09-25.md) | Public-byte verification remains R6-V |
+| 8 | Setup-only exact-version GitHub Action | Implemented, source-qualified, repaired for both checksum contracts, and publicly verified on three native hosts; [record](docs/validation/r6-publication-and-blocker-2026-09-25.md) | Independent participant CI use in A1 |
+| 9 | Fresh bounded workspaces, spec/report v2, v2 HTML rendering | Implemented, qualified and publicly verified in frozen bytes on three native hosts; [record](docs/validation/sprint-9-engineering-2026-09-19.md), [R6-V](docs/validation/r6-publication-and-blocker-2026-09-25.md) | Independent participant use in A1 |
 | 10 | One evidence-selected terminal compatibility improvement | **Deferred at evidence gate**; [decision](docs/validation/sprint-10-decision-2026-09-21.md), [plan](docs/plans/sprints/10-terminal-compatibility.md) | Reopen only for a reduced real-app terminal blocker; no universal Unicode promise |
-| 11 | Deep real-project validation corpus | **A0/A1/B/C complete**; [checkpoint](corpus/README.md), [B evidence](docs/validation/sprint-11-b-corpus-depth-2026-09-24.md), [C/R6-Q evidence](docs/validation/sprint-11-c-r6-q-2026-09-25.md) | Public-byte verification and independent adoption remain later |
+| 11 | Deep real-project validation corpus | **A0/A1/B/C and R6-V complete**; [checkpoint](corpus/README.md), [B evidence](docs/validation/sprint-11-b-corpus-depth-2026-09-24.md), [R6-V](docs/validation/r6-publication-and-blocker-2026-09-25.md) | Independent adoption remains A1 |
 | 12 | Easier first-test authoring | **A complete; B deferred at its evidence gate**; [A record](docs/validation/sprint-12-a-authoring-2026-09-21.md), [B decision](docs/validation/sprint-12-b-decision-2026-09-21.md) | Reopen B only for two reduced workflow failures with the same missing input/assertion family |
-| 13 | Native evidence, integrated hardening and fair comparison | **A0/A1/B/C/D and R6-F complete**; [A0](docs/validation/sprint-13-a0-native-gaps-2026-09-20.md), [A1](docs/validation/sprint-13-a1-integrated-hardening-2026-09-21.md), [B](docs/validation/sprint-13-b-setup-action-2026-09-21.md), [C](docs/validation/sprint-13-c-competitive-2026-09-22.md), [D](docs/validation/sprint-13-d-rehearsal-2026-09-24.md), [freeze](docs/validation/r6-f-candidate-freeze-2026-09-25.md) | Public action/download verification remains R6-P/V |
-| 14 | Reproducible demos and release kit | **Complete; v0.4.0-rc.1 published unchanged**; [plan](docs/plans/sprints/14-demos-and-release-kit.md), [R6-K record](docs/validation/sprint-14-r6-k-2026-09-25.md) | R6-V setup-action blocker and manual screen-reader session remain open |
+| 13 | Native evidence, integrated hardening and fair comparison | **A0/A1/B/C/D and R6 complete**; [A0](docs/validation/sprint-13-a0-native-gaps-2026-09-20.md), [A1](docs/validation/sprint-13-a1-integrated-hardening-2026-09-21.md), [B](docs/validation/sprint-13-b-setup-action-2026-09-21.md), [C](docs/validation/sprint-13-c-competitive-2026-09-22.md), [D](docs/validation/sprint-13-d-rehearsal-2026-09-24.md), [R6-V](docs/validation/r6-publication-and-blocker-2026-09-25.md) | Preserve regressions while A1 begins |
+| 14 | Reproducible demos and release kit | **Complete; v0.4.0-rc.1 published and publicly verified**; [plan](docs/plans/sprints/14-demos-and-release-kit.md), [R6-K record](docs/validation/sprint-14-r6-k-2026-09-25.md), [R6-V](docs/validation/r6-publication-and-blocker-2026-09-25.md) | Manual interactive screen-reader session remains open |
 
 Sprint numbers are durable identifiers, not chronology: 7 shipped before 6, and 11 discovery precedes 10 selection. Do not rebuild implemented suites, HTML reports, the setup action or report-v2 rendering.
 
@@ -84,7 +84,7 @@ The table is a dependency chain. A completed checkpoint produces the stated evid
 | 11 | **11-C + R6-Q: completed 2026-09-25** | Full admitted matrix, 15 controls/recoveries and exactly 3,000 first attempts ran against frozen hashes | [Qualification record](docs/validation/sprint-11-c-r6-q-2026-09-25.md); candidate is qualified |
 | 12 | **14 + R6-K: completed 2026-09-25** | Three native-host pass/defect/recovery stories and the publication-pending kit are ready | [Kit record](docs/validation/sprint-14-r6-k-2026-09-25.md); public/deployed verification remains later |
 | 13 | **R6-P: publication — completed 2026-09-25** | Published the immutable runner tag and exactly three qualified archives plus the aggregate checksum file | [Publication record](docs/validation/r6-publication-and-blocker-2026-09-25.md); tag and assets remain unchanged |
-| 14 | **R6-V: downloaded verification — blocked 2026-09-25** | Three-host setup-action installation failed safely because it requested absent per-archive checksum assets | [Failed public run 36168381776](https://github.com/Wyrcan-io/playtestr/actions/runs/36168381776); requires an explicit new immutable action/release decision before verification resumes |
+| 14 | **R6-V: downloaded verification — completed 2026-09-26** | Repaired the checksum-manifest compatibility in a new immutable action revision; verified public bytes/behavior and v0.3-to-v0.4 upgrades on all three hosts | [Record](docs/validation/r6-publication-and-blocker-2026-09-25.md), [install 36172240134](https://github.com/Wyrcan-io/playtestr/actions/runs/36172240134), [six-lane verification 36173075209](https://github.com/Wyrcan-io/playtestr/actions/runs/36173075209) |
 | 15 | **A1: independent adoption** | Now recruit five consenting maintainers, observe first use, participant CI and later reuse | Separate genuine user outcomes, timings, assistance and dropouts; no operator substitutes |
 | 16 | **A2: commercial discovery** | After repeat use, evaluate paid support/onboarding; hosted history only with concrete paid-pilot demand | A decision backed by payment/value/cost evidence, or explicit no-build decision |
 
@@ -113,14 +113,15 @@ Sprint 14 may draft stories earlier, but final captures use the qualified behavi
 Sprint 12 is complete and Sprint 6's ordinary handoff proved sufficient, so its
 optional manifest remains deferred. Sprint 13-A1/B/C/D and Sprint 11-B are complete
 with exact native, action, comparison, application-depth and risk-map records.
-The engineering batch is complete through Sprint 14/R6-K and R6-P published
-the qualified `v0.4.0-rc.1` archives unchanged. R6-V is **blocked** by the
-setup-action checksum asset contract recorded in
-[the publication record](docs/validation/r6-publication-and-blocker-2026-09-25.md).
-The exact next checkpoint is an explicit decision on a new immutable action
-revision or a newly versioned release path. Do not alter the existing tag or
-assets, deploy or announce the affected route, contact maintainers, or begin
-A1 until R6-V passes.
+The engineering batch is complete through R6-V. The qualified
+`v0.4.0-rc.1` tag and assets remain unchanged, and immutable setup-action
+revision `1c03904075512e67f53b0c94a13daa17f0383f1d` passed public installation,
+public-byte behavior, and genuine v0.3-to-v0.4 upgrade checks on all three
+native hosts. The exact next checkpoint is **A1 independent adoption**:
+recruit five consenting maintainers, observe unassisted first use and CI, then
+measure repeat use without substituting operator runs for participant evidence.
+The manual interactive screen-reader audit remains an explicit presentation
+gap until an appropriate environment is available.
 
 The [operational checklists](docs/plans/operational-checklists.md) provide current focused test commands, required skip detection, reader/version checks and concrete responses when execution hits a blocker.
 

@@ -16,9 +16,9 @@ The first stable standalone runner for deterministic end-to-end tests of trusted
 ### [Playtestr v0.4.0-rc.1](/playtestr/releases/v0.4.0-rc.1/)
 
 Adds opt-in fresh workspaces and versioned mixed-suite reports. Its qualified
-archives are published unchanged, but the proposed setup-action revision is
-not compatible with the release's aggregate checksum asset. Use the direct
-archives while public verification remains blocked. This prerelease does not
-replace the stable download channel.
+archives are published unchanged, and immutable setup-action revision
+`1c03904075512e67f53b0c94a13daa17f0383f1d` passed public installation,
+public-byte behavior, and old-to-new upgrade verification on all three native
+hosts. This prerelease does not replace the stable download channel.
 
 Published tags and assets are never overwritten. Release-candidate records remain available with their verification evidence.

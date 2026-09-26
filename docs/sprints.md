@@ -14,10 +14,14 @@ mixed v1/v2 development-archive rehearsal. R6-F froze `v0.4.0-rc.1` from
 `f6ffeb7`; R6-Q passed the 120-workflow matrix, 15 controls/recoveries and
 exactly 3,000 native first attempts. Sprint 14/R6-K passed three cross-host
 stories and prepared the release kit. R6-P then published the qualified
-`v0.4.0-rc.1` archives unchanged. R6-V found that the proposed immutable setup
-action requests per-archive checksum assets that the reviewed release does not
-contain; the three-host public install run failed safely before PATH or output
-publication.
+`v0.4.0-rc.1` archives unchanged. R6-V found that the original immutable setup
+action requested per-archive checksum assets that the reviewed release does not
+contain; the first three-host public install run failed safely before PATH or
+output publication. The repaired immutable action
+`1c03904075512e67f53b0c94a13daa17f0383f1d` supports both checksum contracts.
+Its published-install matrix and the complete public-byte plus v0.3-to-v0.4
+upgrade matrix passed on all three native hosts without changing the release
+assets.
 Sprint 11 A0/A1 admitted the five pilots and froze the 15-project/120-intent
 contract; Sprint 11-B then implemented all 120 workflows, closed the 300-cell
 risk map, and proved 15 known-bad/recovery controls. Sprint 10 was then explicitly deferred because
@@ -25,9 +29,9 @@ no pilot supplied its required terminal blocker. Sprint 12-A added three
 complete authoring recipes and audited ten diagnostic cases; 12-B then deferred
 both optional extensions because no pair of workflows met the entry gate. The
 Sprint 6 then proved an ordinary pinned-input handoff sufficient and deferred
-its optional manifest. Status is **R6-P complete; R6-V blocked**. The next
-work requires an explicit new immutable action/release decision. Maintainer
-adoption begins only after public verification passes. The root
+its optional manifest. Status is **R6-V complete**. Maintainer adoption A1 is
+the next product checkpoint; the manual interactive screen-reader audit remains
+separately open. The root
 roadmap owns exact checkpoint order; [planning documents](plans/README.md)
 define execution details. Completed counts link to dated evidence; no adoption
 is inferred.

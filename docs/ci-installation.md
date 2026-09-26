@@ -1,15 +1,13 @@
 # Install Playtestr in GitHub Actions
 
-Status: the setup action is implemented and source-tested, but the proposed
-immutable revision `f6ffeb76a7ec3b826052690ab53071dcdf0e565f` is **not a
-supported installer for v0.4.0-rc.1**. It requests per-archive checksum assets,
-while that release publishes one aggregate checksum file. Public run
-[36168381776](https://github.com/Wyrcan-io/playtestr/actions/runs/36168381776)
-failed safely on all three hosts before publishing PATH or successful outputs.
-Use the [direct archive installation](releases/v0.1.0-installation-walkthrough.md)
-fallback and do not use the placeholder below until a new immutable action
-revision is explicitly selected and verified. Do not replace it with a branch
-name.
+Status: immutable action revision
+`1c03904075512e67f53b0c94a13daa17f0383f1d` is verified for exact-version
+installation on Windows amd64, Linux amd64, and macOS arm64. Public install
+[36172240134](https://github.com/Wyrcan-io/playtestr/actions/runs/36172240134)
+and the six-lane public-byte/upgrade run
+[36173075209](https://github.com/Wyrcan-io/playtestr/actions/runs/36173075209)
+passed with `v0.4.0-rc.1`. Pin this full commit SHA; do not replace it with a
+branch name.
 
 The setup action installs exactly one published Playtestr runner release. It
 does not install the target application, run tests, update snapshots, cache
@@ -17,9 +15,7 @@ downloads, upload artifacts, or write to the repository.
 
 ## Pinned CI workflow
 
-Pin the action implementation and runner version independently. After the
-action revision is published, replace `<ACTION_COMMIT_SHA>` with its full
-40-character commit SHA:
+Pin the action implementation and runner version independently:
 
 ```yaml
 name: terminal regression
@@ -34,12 +30,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
-      PLAYTESTR_VERSION: v0.3.0-rc.1
+      PLAYTESTR_VERSION: v0.4.0-rc.1
     steps:
       - uses: actions/checkout@v6
       - name: Install Playtestr
         id: playtestr
-        uses: Wyrcan-io/playtestr/setup-playtestr@<ACTION_COMMIT_SHA>
+        uses: Wyrcan-io/playtestr/setup-playtestr@1c03904075512e67f53b0c94a13daa17f0383f1d
         with:
           version: ${{ env.PLAYTESTR_VERSION }}
       - name: Verify selected version
@@ -92,10 +88,13 @@ application and its runtime remain the workflow owner's responsibility.
 
 The installer accepts an exact `vMAJOR.MINOR.PATCH` or
 `vMAJOR.MINOR.PATCH-rc.NUMBER`; aliases such as `latest`, version ranges, and
-branches are rejected. It downloads the matching archive and adjacent checksum
-over verified HTTPS with three attempts, a 120-second timeout per attempt, a
-64 MiB archive limit, and a 4 KiB checksum-file limit. A checksum from the same
-GitHub Release proves transport/storage integrity, not independent authorship.
+branches are rejected. It downloads the matching archive and checksum over
+verified HTTPS with three attempts, a 120-second timeout per attempt, a 64 MiB
+archive limit, and a 4 KiB checksum-file limit. It first accepts the historical
+adjacent `<archive>.sha256` asset, then falls back to the release's aggregate
+`checksums-<version>.txt` manifest. The selected manifest must contain exactly
+one valid entry for the requested archive. A checksum from the same GitHub
+Release proves transport/storage integrity, not independent authorship.
 
 Before extraction, the action requires the checksum filename and SHA-256 to
 match and requires exactly the binary, `README.md`, `LICENSE`, and
@@ -118,10 +117,10 @@ staging directories are removed automatically. The action has no upgrade or
 self-update operation: change the exact version pin to install a new directory.
 
 If the action is unavailable, use the direct archive route linked above:
-download the exact host archive and adjacent `.sha256`, verify the named digest,
-inspect/extract the expected versioned directory, and invoke the binary by its
-absolute path. Do not treat a same-version archive fetched from another source
-as equivalent.
+download the exact host archive and the checksum asset published by that
+release, verify the named digest, inspect/extract the expected versioned
+directory, and invoke the binary by its absolute path. Do not treat a
+same-version archive fetched from another source as equivalent.
 
 ## Maintenance ownership and release updates
 

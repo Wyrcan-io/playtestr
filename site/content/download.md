@@ -13,7 +13,8 @@ These are the exact release targets verified by their native packaging and publi
 
 The [v0.4.0-rc.1 release](/playtestr/releases/v0.4.0-rc.1/) publishes three
 qualified archives and one [aggregate checksum file](https://github.com/Wyrcan-io/playtestr/releases/download/v0.4.0-rc.1/checksums-v0.4.0-rc.1.txt).
-Use the direct archive links in its release notes. The proposed setup action is
-not a supported route for this prerelease because its checksum URL contract did
-not match the published asset set; the failed three-host verification remains
-linked from the release notes.
+Use the direct archive links in its release notes or the setup action at
+immutable revision
+`1c03904075512e67f53b0c94a13daa17f0383f1d`; its installation and public-byte
+verification passed on Windows amd64, Linux amd64, and macOS arm64. The initial
+checksum-contract failure remains linked from the release evidence.
