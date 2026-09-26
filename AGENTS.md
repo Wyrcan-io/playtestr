@@ -30,6 +30,13 @@ Work in small, demonstrable increments:
 
 Do not produce large speculative implementations. Prefer a narrow vertical slice that a user can run over partially built architecture for several future features.
 
+## External communication and outreach
+
+- Never perform outreach or contact maintainers, users, projects, or communities without the user's explicit permission for that specific outreach action.
+- Never create, post, comment on, edit, close, reopen, or otherwise modify a GitHub Discussion, issue, or pull request without the user's explicit permission for that specific mutation.
+- General authorization to continue work, make implementation decisions, publish a release, or use remote services does not authorize outreach or discussion/issue/pull-request activity.
+- Drafting private outreach text or preparing local templates is allowed when requested, but sending or publishing them always requires separate explicit permission.
+
 ## Architecture boundaries
 
 Maintain clear boundaries as the prototype is separated into packages:
