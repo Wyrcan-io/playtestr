@@ -3,6 +3,13 @@
 Status: A1 recruitment opened 26 September 2026 after R6-V. No independent
 project has been counted yet; invitations and consent are not adoption.
 
+Five project-specific invitations were posted through relevant public GitHub
+Discussion channels on 26 September across Go, Python, Rust, and Node projects.
+All responses and consents are pending. Exact routes and identities are kept in
+the ignored outreach ledger so this aggregate record does not pre-assign public
+participant status or imply endorsement. Each route permits at most one polite
+follow-up unless the recipient engages.
+
 This file tracks completion without publishing participant details that lack consent. Store private identity/permission references outside the repository and use a stable trial ID here.
 
 ## Selected projects
@@ -33,6 +40,9 @@ This file tracks completion without publishing participant details that lack con
 - Successful participant-owned CI integrations: 0/1 minimum (failed attempts retained separately)
 - Open release blockers: unknown until trials begin
 - Public-name permissions recorded: 0
+- Invitations sent: 5/5 target
+- Responses received: 0
+- Consenting maintainers: 0/5 target
 
 Do not convert a recruited or partially configured project into a completion count. A project completes the initial gate only after its maintainer reviews a passing good case and an intended failing bad case.
 

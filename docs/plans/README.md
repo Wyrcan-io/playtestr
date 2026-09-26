@@ -26,7 +26,8 @@ The root **[roadmap.md](../../roadmap.md)** is the single source of truth for co
 - [Sprint 13](sprints/13-native-ci-and-release-hardening.md): early existing native gaps, integrated hardening, fair comparison and freeze preparation.
 - [Sprint 14](sprints/14-demos-and-release-kit.md): three reproducible stories, accessible watch-to-run path and release kit.
 - [R6](release/06-qualified-release.md): freeze, qualify, publish when instructed, verify public bytes.
-- [A1/A2](release/07-maintainer-adoption.md): independent adoption after engineering/R6, commercial discovery only after repeat use.
+- [A1](release/07-maintainer-adoption.md): independent adoption after engineering/R6.
+- [A2](release/08-commercial-discovery.md): prepared interview, consent, cost, offer and hosted-history decision instruments; substantive discovery only after repeat use.
 
 Identifiers are retained for existing links; they are not a numeric execution order. Root roadmap resolves phases such as 13-A0 before 11 discovery and R6-F before 11-C repetitions. Conditional branches can close with a justified deferral, but essential correctness failures cannot.
 

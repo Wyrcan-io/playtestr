@@ -1,7 +1,11 @@
-# Draft announcements — do not post
+# Release announcement record
 
-Status: local drafts only. No outreach, maintainer contact, or publication has
-occurred.
+Status: the reviewed GitHub release summary was published with the verified
+release, and the deployed website carries the matching public announcement.
+Five project-specific, opt-in A1 invitations were posted on 26 September 2026
+after R6-V through relevant GitHub Discussion channels. No bulk message or
+direct email was sent, and no response, consent, endorsement, or adoption is
+inferred.
 
 ## GitHub release summary
 
@@ -18,13 +22,14 @@ We prepared a Playwright-style terminal testing prerelease focused on repeatable
 stateful CLI/TUI tests. A short example selects the wrong record after a real
 target defect, shows Playtestr reject the unchanged test, and passes after the
 target is restored. The same kit includes file-state and resize/redraw examples,
-offline evidence, exact hashes, and copyable commands. Feedback invitation and
-links must be added only after the release and site routes are public.
+offline evidence, exact hashes, and copyable commands. The deployed release,
+evidence, limitations, trial guide, and removal links were included in each
+tailored invitation after those routes were public.
 
 ## Maintainer/direct message
 
-Not authorized for sending. If later approved: explain why one exact pinned
-workflow is relevant, disclose that the project was operator-tested without
-implying endorsement, link the evidence and opt-in reproduction, and make clear
-that no response is required. Never send a bulk or unsolicited version of this
-draft.
+The public Discussion invitations followed this boundary: each explained why
+one exact pinned workflow was relevant, disclosed that the project was
+operator-tested without implying endorsement, linked evidence and the opt-in
+trial, stated that no response was required, and limited follow-up to one unless
+the recipient engages. No private direct-message channel was used.
