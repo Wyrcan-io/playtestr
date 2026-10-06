@@ -134,6 +134,7 @@ func runRecord(ctx context.Context, args []string, stdin *os.File, stdout, stder
 		fmt.Fprint(stdout, "record> ")
 		line, err := controller.line(r.Context())
 		if err != nil {
+			err = r.InputError(err)
 			if !errors.Is(err, io.EOF) {
 				fmt.Fprintln(stderr, err)
 			}

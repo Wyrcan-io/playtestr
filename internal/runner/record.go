@@ -122,6 +122,14 @@ func (r *Recording) Context() context.Context {
 	return r.ctx
 }
 
+// InputError preserves target overflow as the cause of an idle input wakeup.
+func (r *Recording) InputError(err error) error {
+	if r.session != nil && r.session.observe().outputLimitExceeded {
+		return errOutputLimit
+	}
+	return err
+}
+
 // Screen returns the normalized rendered viewport, never raw ANSI output.
 func (r *Recording) Screen() string {
 	if r.session == nil {

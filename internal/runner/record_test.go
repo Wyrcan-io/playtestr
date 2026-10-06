@@ -138,6 +138,9 @@ func TestRecordingCancellationAndFloodStopIdleTargets(t *testing.T) {
 			case <-time.After(5 * time.Second):
 				t.Fatal("idle recording unbounded")
 			}
+			if mode == "flood" && !errors.Is(r.InputError(context.Canceled), errOutputLimit) {
+				t.Fatal("idle overflow misclassified as operator cancellation")
+			}
 			if err := r.Close(); err != nil {
 				t.Fatal(err)
 			}
