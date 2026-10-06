@@ -172,3 +172,61 @@ func TestRecordingFixtureChangesAndCanceledExport(t *testing.T) {
 		t.Fatalf("dirty fixture: %v", result.Err())
 	}
 }
+
+func TestRecordingCleanupFailureIsPreserved(t *testing.T) {
+	r := newHelperRecording(t, "workspace-marker-tamper", func(s *Spec) { s.Version = 2; s.Workspace = &WorkspaceSpec{Fixture: "fixture"} })
+	capture(t, r, Step{Expect: "workspace ready"})
+	w := r.workspace
+	err := r.Close()
+	if err == nil || !strings.Contains(err.Error(), "retained") {
+		t.Fatalf("cleanup evidence: %v", err)
+	}
+	if r.Close() != err {
+		t.Fatal("idempotent close erased cleanup failure")
+	}
+	if _, statErr := os.Stat(w.root); statErr != nil {
+		t.Fatal("unowned workspace removed")
+	}
+	// Test-only repair of this known synthetic marker; preserve the original error.
+	if repairErr := os.WriteFile(filepath.Join(w.root, workspaceMarker), []byte(w.token), 0600); repairErr != nil {
+		t.Fatal(repairErr)
+	}
+	if repairErr := cleanupPreparedWorkspace(w); repairErr != nil {
+		t.Fatal(repairErr)
+	}
+	r.closeErr = nil
+	r.workspace = nil
+}
+
+func TestRecordingTracksDescendantCleanupAndExpectedNonzero(t *testing.T) {
+	r := newHelperRecording(t, "parent-child", nil)
+	capture(t, r, Step{Expect: "child started:"})
+	session := r.session
+	if err := r.Close(); err != nil {
+		t.Fatal(err)
+	}
+	if !session.stopResult.confirmedExited {
+		t.Fatal("descendants unconfirmed")
+	}
+	nonzero := newHelperRecording(t, "exit-seven", nil)
+	capture(t, nonzero, Step{Expect: "about to crash"}, Step{Exit: intPointer(7)})
+	if result := nonzero.Replay(context.Background(), io.Discard); result.Err() != nil {
+		t.Fatal(result.Err())
+	}
+}
+
+func TestRecordingRejectsAmbiguousAndDynamicReadiness(t *testing.T) {
+	ambiguous := newHelperRecording(t, "ambiguous-output", nil)
+	if err := ambiguous.Capture(Step{Expect: "ready"}); err == nil {
+		t.Fatal("ambiguous anchor accepted")
+	}
+	if len(ambiguous.Steps()) != 0 {
+		t.Fatal("ambiguous candidate entered draft")
+	}
+	dynamic := newHelperRecording(t, "dynamic-output", nil)
+	capture(t, dynamic, Step{Expect: "dynamic ready"}, Step{Snapshot: "dynamic.txt"})
+	result := dynamic.Replay(context.Background(), io.Discard)
+	if result.Failure == nil || result.Failure.Category != FailureSnapshotMismatch {
+		t.Fatalf("dynamic content silently normalized: %+v", result)
+	}
+}

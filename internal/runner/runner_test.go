@@ -394,6 +394,14 @@ func TestHelperProcess(t *testing.T) {
 		fmt.Print("still running\r\n")
 		time.Sleep(10 * time.Second)
 		os.Exit(0)
+	case "dynamic-output":
+		fmt.Printf("dynamic ready nonce=%d\r\n", time.Now().UnixNano())
+		time.Sleep(10 * time.Second)
+		os.Exit(0)
+	case "ambiguous-output":
+		fmt.Print("ready ready\r\n")
+		time.Sleep(10 * time.Second)
+		os.Exit(0)
 	case "silent-input":
 		buffer := make([]byte, 1)
 		_, _ = os.Stdin.Read(buffer)

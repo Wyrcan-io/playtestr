@@ -34,6 +34,7 @@ type Recording struct {
 	firstFailure *RunResult
 	firstScreen  string
 	watchDone    chan struct{}
+	closeErr     error
 }
 
 // StartRecording validates setup and starts only the explicitly declared target.
@@ -49,6 +50,15 @@ func StartRecording(ctx context.Context, path string, setup Spec) (*Recording, e
 	}
 	spec.Steps = nil
 	absolute, err := filepath.Abs(path)
+	if err != nil {
+		return nil, err
+	}
+	// macOS /var and /tmp are system symlinks. Resolve the explicitly chosen
+	// directory once, then validate canonical paths without following output links.
+	if info, statErr := os.Lstat(absolute); statErr == nil && (info.Mode()&os.ModeSymlink != 0 || workspaceReparsePoint(absolute)) {
+		return nil, fmt.Errorf("output cannot be a link/junction")
+	}
+	absolute, err = canonicalRecordPath(absolute)
 	if err != nil {
 		return nil, err
 	}
@@ -118,6 +128,14 @@ func (r *Recording) Screen() string {
 		return ""
 	}
 	return r.session.observe().screen
+}
+
+// ResolvedSetup returns the actual launched executable and working directory.
+func (r *Recording) ResolvedSetup() (string, string) {
+	if r.session == nil {
+		return "", ""
+	}
+	return r.session.cmd.Path, r.session.cmd.Dir
 }
 
 // Preview returns the ordinary spec and selected baselines for explicit review.
@@ -402,6 +420,34 @@ func safeRecordPath(path string) error {
 	return nil
 }
 
+func canonicalRecordPath(path string) (string, error) {
+	parent := filepath.Dir(path)
+	missing := []string{filepath.Base(path)}
+	for {
+		_, err := os.Lstat(parent)
+		if err == nil {
+			break
+		}
+		if !errors.Is(err, os.ErrNotExist) {
+			return "", err
+		}
+		missing = append(missing, filepath.Base(parent))
+		next := filepath.Dir(parent)
+		if next == parent {
+			return "", fmt.Errorf("output has no existing parent")
+		}
+		parent = next
+	}
+	resolved, err := filepath.EvalSymlinks(parent)
+	if err != nil {
+		return "", err
+	}
+	for i := len(missing) - 1; i >= 0; i-- {
+		resolved = filepath.Join(resolved, missing[i])
+	}
+	return resolved, nil
+}
+
 func (r *Recording) hashFixture() ([32]byte, error) {
 	var zero [32]byte
 	if r.spec.Workspace == nil {
@@ -453,6 +499,9 @@ func (r *Recording) checkFixture() error {
 
 // Close terminates the entire tracked target tree before removing owned state.
 func (r *Recording) Close() error {
+	if r.closeErr != nil {
+		return r.closeErr
+	}
 	if r.cancel != nil {
 		r.cancel()
 	}
@@ -471,11 +520,15 @@ func (r *Recording) Close() error {
 	}
 	if r.workspace != nil {
 		if confirmed {
-			err = errors.Join(err, cleanupPreparedWorkspace(r.workspace))
-			r.workspace = nil
+			if cleanupErr := cleanupPreparedWorkspace(r.workspace); cleanupErr != nil {
+				err = errors.Join(err, fmt.Errorf("workspace retained at %s after cleanup failure: %w", r.workspace.root, cleanupErr))
+			} else {
+				r.workspace = nil
+			}
 		} else {
 			err = errors.Join(err, fmt.Errorf("workspace retained because target exit unconfirmed: %s", r.workspace.root))
 		}
 	}
+	r.closeErr = err
 	return err
 }

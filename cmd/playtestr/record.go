@@ -12,6 +12,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
+	"unicode/utf8"
 
 	"github.com/Wyrcan-io/playtestr/internal/console"
 	"github.com/Wyrcan-io/playtestr/internal/runner"
@@ -104,6 +105,8 @@ func runRecord(ctx context.Context, args []string, stdin *os.File, stdout, stder
 		fmt.Fprintln(stderr, err)
 		return 1
 	}
+	resolvedTarget, resolvedDirectory := r.ResolvedSetup()
+	fmt.Fprintf(stdout, "Resolved target=%q working-directory=%q\n", resolvedTarget, resolvedDirectory)
 	defer func() {
 		if err := r.Close(); err != nil {
 			fmt.Fprintf(stderr, "Recording cleanup: %v\n", err)
@@ -322,7 +325,8 @@ func (c *recordController) line(ctx context.Context) (string, error) {
 		}
 		if b == 127 || b == 8 {
 			if len(line) > 0 {
-				line = line[:len(line)-1]
+				_, size := utf8.DecodeLastRune(line)
+				line = line[:len(line)-size]
 				if c.interactive {
 					fmt.Fprint(c.out, "\b \b")
 				}
