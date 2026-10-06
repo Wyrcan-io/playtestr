@@ -3,6 +3,7 @@ package runner
 import (
 	"context"
 	"errors"
+	"fmt"
 	"io"
 	"os"
 	"path/filepath"
@@ -292,5 +293,39 @@ func TestRecordingRerecordInputPrefixAllowsFreshCheckpoint(t *testing.T) {
 	capture(t, r, Step{Expect: "Main ready"}, Step{Exit: intPointer(0)})
 	if result := r.Replay(context.Background(), io.Discard); result.Err() != nil {
 		t.Fatal(result.Err())
+	}
+}
+
+func TestRecordingExportAtSnapshotLimitAndDiscardedMemory(t *testing.T) {
+	r := newHelperRecording(t, "hang", nil)
+	capture(t, r, Step{Expect: "still running"})
+	for n := 0; n < maxStagedSnapshots; n++ {
+		capture(t, r, Step{Snapshot: fmt.Sprintf("checkpoint-%03d.txt", n)})
+	}
+	if err := r.Capture(Step{Snapshot: "one-too-many.txt"}); err == nil {
+		t.Fatal("oversized checkpoint collection accepted")
+	}
+	if result := r.Replay(context.Background(), io.Discard); result.Err() != nil {
+		t.Fatal(result.Err())
+	}
+	if err := r.Export(context.Background()); err != nil {
+		t.Fatalf("supported 100-snapshot export failed: %v", err)
+	}
+	files, err := os.ReadDir(filepath.Join(filepath.Dir(r.path), "snapshots"))
+	if err != nil || len(files) != maxStagedSnapshots {
+		t.Fatalf("exported snapshots=%d error=%v", len(files), err)
+	}
+	if err := r.Rerecord(context.Background(), 1); err != nil {
+		t.Fatal(err)
+	}
+	if len(r.snapshots) != 0 || r.snapshotBytes != 0 {
+		t.Fatal("discarded rerecord baselines retained in memory")
+	}
+	capture(t, r, Step{Snapshot: "replacement.txt"})
+	if err := r.Edit(r.Steps()[:1]); err != nil {
+		t.Fatal(err)
+	}
+	if len(r.snapshots) != 0 || r.snapshotBytes != 0 {
+		t.Fatal("deleted edit baselines retained in memory")
 	}
 }

@@ -19,22 +19,23 @@ const maxRecordText = 64 * 1024
 // Recording is an in-memory candidate. Calls are serialized by its controller.
 // Target output remains synchronized by the existing terminal session.
 type Recording struct {
-	spec         Spec
-	path         string
-	ctx          context.Context
-	parent       context.Context
-	cancel       context.CancelFunc
-	session      *terminalSession
-	workspace    *preparedWorkspace
-	snapshots    map[string]string
-	beforeInput  string
-	transition   bool
-	replayed     bool
-	fixtureHash  [32]byte
-	firstFailure *RunResult
-	firstScreen  string
-	watchDone    chan struct{}
-	closeErr     error
+	spec          Spec
+	path          string
+	ctx           context.Context
+	parent        context.Context
+	cancel        context.CancelFunc
+	session       *terminalSession
+	workspace     *preparedWorkspace
+	snapshots     map[string]string
+	snapshotBytes int
+	beforeInput   string
+	transition    bool
+	replayed      bool
+	fixtureHash   [32]byte
+	firstFailure  *RunResult
+	firstScreen   string
+	watchDone     chan struct{}
+	closeErr      error
 }
 
 // StartRecording validates setup and starts only the explicitly declared target.
@@ -230,7 +231,13 @@ func (r *Recording) Capture(step Step) error {
 		return fmt.Errorf("ambiguous anchor: choose text appearing exactly once")
 	}
 	for path, content := range updates.values {
-		r.snapshots[filepath.Base(path)] = content
+		name := filepath.Base(path)
+		nextBytes := r.snapshotBytes - len(r.snapshots[name]) + len(content)
+		if nextBytes > maxStagedSnapshotBytes {
+			return fmt.Errorf("recorded snapshots exceed %d bytes; remove/rerecord selected checkpoints", maxStagedSnapshotBytes)
+		}
+		r.snapshots[name] = content
+		r.snapshotBytes = nextBytes
 	}
 	r.spec.Steps = next.Steps
 	r.replayed = false
@@ -259,6 +266,7 @@ func (r *Recording) Edit(steps []Step) error {
 		}
 	}
 	r.spec = next
+	r.pruneSnapshots()
 	r.replayed = false
 	return nil
 }
@@ -281,6 +289,7 @@ func (r *Recording) Rerecord(ctx context.Context, prefix int) error {
 	}
 	r.ctx, r.cancel = context.WithTimeout(ctx, time.Duration(r.spec.RunTimeoutMS)*time.Millisecond)
 	r.spec.Steps = r.spec.Steps[:prefix]
+	r.pruneSnapshots()
 	r.replayed, r.transition = false, false
 	if err := r.checkFixture(); err != nil {
 		return err
@@ -357,9 +366,12 @@ func (r *Recording) Export(ctx context.Context) error {
 			return err
 		}
 	}
-	if err := updates.stage(r.path, string(data)); err != nil {
-		return err
+	if updates.bytes+len(data) > maxStagedSnapshotBytes {
+		return fmt.Errorf("export exceeds %d bytes", maxStagedSnapshotBytes)
 	}
+	// The spec is not one of the 100 admitted snapshot files.
+	updates.values[r.path] = string(data)
+	updates.bytes += len(data)
 	for path := range updates.values {
 		if err := safeRecordPath(path); err != nil {
 			return err
@@ -420,6 +432,23 @@ func appendRecordSpecLast(paths []string, spec string) []string {
 		}
 	}
 	return append(result, spec)
+}
+
+func (r *Recording) pruneSnapshots() {
+	referenced := make(map[string]bool)
+	for _, step := range r.spec.Steps {
+		if step.Snapshot != "" {
+			referenced[step.Snapshot] = true
+		}
+	}
+	r.snapshotBytes = 0
+	for name, content := range r.snapshots {
+		if !referenced[name] {
+			delete(r.snapshots, name)
+		} else {
+			r.snapshotBytes += len(content)
+		}
+	}
 }
 
 func rollbackRecordReservations(paths []string) {
