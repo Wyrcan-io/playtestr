@@ -263,3 +263,15 @@ func TestRecordingInterruptedExportRollsBackWrittenFiles(t *testing.T) {
 		}
 	}
 }
+
+func TestRecordingLiteralControlKeyAndResolvedSetup(t *testing.T) {
+	r := newHelperRecording(t, "literal-control", nil)
+	program, directory := r.ResolvedSetup()
+	if !filepath.IsAbs(program) || !filepath.IsAbs(directory) {
+		t.Fatalf("unresolved setup %q %q", program, directory)
+	}
+	capture(t, r, Step{Expect: "literal control ready"}, Step{Text: "\x07"}, Step{Expect: "literal hotkey received"}, Step{Exit: intPointer(0)})
+	if result := r.Replay(context.Background(), io.Discard); result.Err() != nil {
+		t.Fatal(result.Err())
+	}
+}

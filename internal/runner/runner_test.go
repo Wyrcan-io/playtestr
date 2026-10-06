@@ -402,6 +402,20 @@ func TestHelperProcess(t *testing.T) {
 		fmt.Print("ready ready\r\n")
 		time.Sleep(10 * time.Second)
 		os.Exit(0)
+	case "literal-control":
+		old, err := term.MakeRaw(int(os.Stdin.Fd()))
+		if err != nil {
+			os.Exit(9)
+		}
+		defer term.Restore(int(os.Stdin.Fd()), old)
+		fmt.Print("literal control ready\r\n")
+		buffer := make([]byte, 1)
+		_, err = os.Stdin.Read(buffer)
+		if err != nil || buffer[0] != 7 {
+			os.Exit(8)
+		}
+		fmt.Print("literal hotkey received\r\n")
+		os.Exit(0)
 	case "silent-input":
 		buffer := make([]byte, 1)
 		_, _ = os.Stdin.Read(buffer)

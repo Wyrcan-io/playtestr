@@ -143,7 +143,19 @@ func (r *Recording) ResolvedSetup() (string, string) {
 	if r.session == nil {
 		return "", ""
 	}
-	return r.session.cmd.Path, r.session.cmd.Dir
+	directory := r.session.cmd.Dir
+	if directory == "" {
+		var err error
+		directory, err = os.Getwd()
+		if err != nil {
+			return r.session.cmd.Path, "unavailable: " + err.Error()
+		}
+	}
+	program := r.session.cmd.Path
+	if !filepath.IsAbs(program) {
+		program = filepath.Join(directory, program)
+	}
+	return filepath.Clean(program), filepath.Clean(directory)
 }
 
 // Preview returns the ordinary spec and selected baselines for explicit review.
