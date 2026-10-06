@@ -1,6 +1,6 @@
 # Playtestr product and launch roadmap
 
-Planning baseline: **6 October 2026**. Execution update: **7 October 2026**, P0–P2 authorized through the [full batch prompt](docs/plans/p0-p2-full-implementation-prompt.md). P0 scoped decisions complete; P1 implemented/local Windows evidence collected; P2 implemented/hosted acceptance pending. Exact status and failures live in the [acceptance record](docs/validation/p0-p2-2026-10-07.md). Later phases remain planned. The [planning index](docs/plans/README.md) owns detailed plans; [archived plans](docs/archive/prelaunch-2026-10-06/README.md) preserve history.
+Planning baseline: **6 October 2026**. Execution update: **7 October 2026**, P0–P2 authorized through the [full batch prompt](docs/plans/p0-p2-full-implementation-prompt.md). P0, P1 and P2 accepted within their scoped boundary: recorder/export/replay, generated free workflows, actual same-repository/fork PR journeys and final native/race evidence. Exact status and failures live in the [acceptance record](docs/validation/p0-p2-2026-10-07.md). Later phases remain planned. The [planning index](docs/plans/README.md) owns detailed plans; [archived plans](docs/archive/prelaunch-2026-10-06/README.md) preserve history.
 
 ## Direction
 
@@ -23,11 +23,11 @@ Operate the integration on managed serverless infrastructure. Target zero mandat
 - No LLM dependencies, AI test inference, self-healing assertions, or autonomous game exploration.
 - No dedicated servers, Kubernetes, customer application hosting, custom enterprise deployments, consulting-led sales, or unlimited support in the launch offer.
 - Current release evidence stays valid only within its recorded scope. New plans do not reclassify historical tests as new validation or adoption.
-- Publication, spending, remote pushes, and each outreach/PR/issue/discussion mutation still need the applicable explicit authorization. Future plans describe synthetic PR tests; this task does not create them.
+- Publication, spending, remote pushes, and each outreach/PR/issue/discussion mutation still need the applicable explicit authorization. The invoked P0-P2 batch created and closed exactly its two authorized synthetic acceptance PRs; further remote mutations need their applicable authorization.
 
 ## Existing foundation and new work
 
-The [baseline audit](docs/plans/00-baseline-and-decisions.md) distinguishes source, recorded verification, and future work. The runner already provides real PTY execution, assertions, text snapshots, bounded outcomes, suites, fixtures/workspaces, offline reports, and an exact-version setup Action. A demonstrated ordinary PR workflow exists. Recording, the commercial App, entitlements, and paid baseline policies are new work.
+The [baseline audit](docs/plans/00-baseline-and-decisions.md) distinguishes source, recorded verification, and future work. The runner already provides real PTY execution, assertions, text snapshots, bounded outcomes, suites, fixtures/workspaces, offline reports, and an exact-version setup Action. A demonstrated ordinary PR workflow exists. Recording and workflow generation are delivered in the P0-P2 source candidate. The commercial App, entitlements and paid baseline policies remain new work.
 
 The historical corpus records 15 projects and 120 workflows. It is reusable input, **not 15 automatically accepted entries in the new campaign**. Every reused project must meet the new protocol. Current campaign count: **0/100 accepted under this plan**. This is an evidence-accounting reset, not a claim that prior engineering did not happen.
 

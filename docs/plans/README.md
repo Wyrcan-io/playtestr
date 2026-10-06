@@ -1,6 +1,6 @@
 # Playtestr prelaunch planning set
 
-Created 6 October 2026. **Plans only.** The [root roadmap](../../roadmap.md) defines authoritative order and acceptance. Implementation milestones are planned; document completion does not mean product completion.
+Created 6 October 2026. Originally **plans only**; the user subsequently invoked the P0-P2 execution prompt. P0-P2 now satisfy scoped acceptance in [the dated record](../validation/p0-p2-2026-10-07.md). Later milestones remain plans. The [root roadmap](../../roadmap.md) defines authoritative order and acceptance. Status is supported by the dated execution evidence; planning prose alone is not product completion.
 
 | Document | Owns |
 | --- | --- |
@@ -23,7 +23,7 @@ Created 6 October 2026. **Plans only.** The [root roadmap](../../roadmap.md) def
 
 ## Implementation prompt
 
-[Execute P0–P2 fully](p0-p2-full-implementation-prompt.md) is the reusable instruction for a later implementation session. It references the controlling plans, includes full acceptance gates and bounded internal GitHub validation actions, and directs continuous execution across all three phases. Creating or reading that file does not invoke it; the user must explicitly send/invoke it as the task.
+[Execute P0–P2 fully](p0-p2-full-implementation-prompt.md) was invoked for this completed implementation session and remains the reusable scope/acceptance reference. It references the controlling plans, includes full acceptance gates and bounded internal GitHub validation actions, and directs continuous execution across all three phases. Creating or reading that file does not invoke it; the user must explicitly send/invoke it as the task.
 
 ## Authority and maintenance
 
@@ -35,7 +35,7 @@ Two old filenames contain archive pointers only: `corpus-catalog.md` and `wide-c
 
 Release notes, validation results, research, trials, source and public contracts remain evidence of original work. Relocated links do not change recorded outcomes. [Sprint history](../sprints.md) is an archive entry point, not another roadmap.
 
-The user authorized replacement plans only. No implementation, registration, spending, deployment, remote publication or outreach follows from this change. Older deferrals of recording/billing/App work no longer veto the new planned scope. Technical and evidence safeguards still apply.
+The original replacement-plans change authorized documentation only. The later invoked batch separately authorized P0-P2 implementation, scoped commits/pushes and exactly two internal PR journeys; it did not authorize spending, production deployment, releases or outreach. Older deferrals of recording/billing/App work no longer veto the new planned scope. Technical and evidence safeguards still apply.
 
 ## Planning review
 

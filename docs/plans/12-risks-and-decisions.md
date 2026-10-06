@@ -2,7 +2,7 @@
 
 Status: planning baseline. The owner is the Playtestr maintainer unless a later execution record names another responsible person. Decisions below are not external-action authorizations.
 
-7 October execution: the user invoked P0–P2 and authorized the scoped commits/pushes and synthetic acceptance PRs. D10 describes the original planning change, not this execution. Q01–Q05 and authoring/state-oracle Q09 now have scoped conclusions in [authoring/PR ADR](../decisions/p0-authoring-and-pr-contract.md) and [managed/commerce ADR](../decisions/p0-managed-backend-and-commerce.md). Q06 has a provisional hosted route and source-verified requirements; actual seller facts/approval remain owner gates before P7. Q04 deployed CPU/cold-start proof remains before P5. Q08 free restricted-fork execution is being qualified in P2; future App API publication/tenant binding remain P3. Pricing/demand/operations/100-project acceptance are not inferred from this batch.
+7 October execution: the user invoked P0–P2 and authorized the scoped commits/pushes and synthetic acceptance PRs. D10 describes the original planning change, not this execution. Q01–Q05 and authoring/state-oracle Q09 now have scoped conclusions in [authoring/PR ADR](../decisions/p0-authoring-and-pr-contract.md) and [managed/commerce ADR](../decisions/p0-managed-backend-and-commerce.md). Q06 has a provisional hosted route and source-verified requirements; actual seller facts/approval remain owner gates before P7. Q04 deployed CPU/cold-start proof remains before P5. Q08 free restricted-fork execution is accepted with actual passing/defect/recovery evidence in P2; future App API publication/tenant binding remain P3. Pricing/demand/operations/100-project acceptance are not inferred from this batch.
 
 ## Direction decisions selected for this plan
 
@@ -65,3 +65,5 @@ No unresolved critical feasibility decision may be disguised as a later implemen
 Hosted execution requires explicit new product economics/security approval. Additional SCM providers need paying demand. More tiers need observed capacity/value segments. JUnit, parallel runner, SDKs, broad mouse/styles/graphemes and change-based test selection need named blocked workflows, a minimal contract and maintenance cost. Enterprise SLAs/on-prem/consulting conflict with the present operating model and are not implicit growth milestones.
 
 A recorder compatibility fix needed for an admitted promised workflow is current-scope triage, not automatically backlog. Autonomous discovery/AI remains outside this direction unless the user explicitly changes it.
+
+P0-P2 acceptance is complete in [the dated record](../validation/p0-p2-2026-10-07.md). Retain its intermittent earlier Windows wizard input/resize timeout as a P5 reliability investigation; later green runs are not a proven causal fix. No broad compatibility or final commercial qualification follows.

@@ -1,0 +1,1241 @@
+{
+  "evidence_version": 1,
+  "records": [
+    {
+      "label": "same-pass",
+      "run_id": 37535885418,
+      "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/37535885418",
+      "workflow": {
+        "conclusion": "success",
+        "event": "pull_request",
+        "headSha": "3fc4c7e8447fd453db7888c7c9787c49485b8104"
+      },
+      "artifact_id": 11446706666,
+      "artifact_digest": "sha256:bef64fd2a6841d3ffe17a69644d9fc1055068b391c609e2630592f34e50a7a0e",
+      "artifact_bytes": 4148,
+      "head_sha": "3fc4c7e8447fd453db7888c7c9787c49485b8104",
+      "base_sha": "3627c062da98093cdbb24c4c4d4a1bc20d159bbe",
+      "tested_sha": "682d423afbb39f777164b370ae1da86759d1ec9f",
+      "runner_version": "source-e5d993b239f986f31db42340f2dc9f174feb5c06",
+      "runner_sha256": "21c671c682b692d5bb9e7f4a99fbaff1366b219ffbc7bf6e83ca4a932264523d",
+      "contract_files": {
+        "examples/recorded/fullscreen.json": "8a93c970bbd32f2231dcdb427160becabf19cc8f09b24ab02a7359ee545cdc4f",
+        "examples/recorded/snapshots/recorded-diagnostics.txt": "96bbce2386a3ab5e113225d126bbedbd674e1bcc28f33c657c4d621604aa3eb4"
+      },
+      "target_binaries": {
+        "bin/demo": "497ad91d62e937cf57e40b79516ecb774056d1679fb5d4b7d4cb994763c45225"
+      },
+      "summary": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "cancelled": 0,
+        "not_run": 0
+      },
+      "failure_category": null,
+      "cleanup_confirmed": true,
+      "permissions": [
+        "2026-10-06T21:43:38.5803263Z Contents: read",
+        "2026-10-06T21:43:38.5803879Z Metadata: read"
+      ],
+      "file_sha256": {
+        "context.json": "087dfffb5f92daf578727a5b6f7ebb8651a8a9968f653a21eb80de082e144f0f",
+        "report.html": "103b8acdb1035a34c3f42f9cd214f04d1b1de3191aaa112b23ef0fc4fdb18af5",
+        "results.json": "73e06b4405e0d3efc83116e20e7374493117436ce5eb9438c0171d3dfa9b18a2",
+        "selected.txt": "958809c88ad8ea939328df1391a33cad1b61cb6084254df72eaf5a8fa6844e44",
+        "workflow-job.log": "58f768818e847be3e48e7072a21e5ddf80fef51c1fc1f30f0bc853d177cf8ab8"
+      }
+    },
+    {
+      "label": "fork-pass",
+      "run_id": 37535901304,
+      "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/37535901304",
+      "workflow": {
+        "conclusion": "success",
+        "event": "pull_request",
+        "headSha": "3fc4c7e8447fd453db7888c7c9787c49485b8104"
+      },
+      "artifact_id": 11446935589,
+      "artifact_digest": "sha256:3fefbd40372a0bf8ea68054aad98d5e304390958b469de108fde501061662b92",
+      "artifact_bytes": 4143,
+      "head_sha": "3fc4c7e8447fd453db7888c7c9787c49485b8104",
+      "base_sha": "3627c062da98093cdbb24c4c4d4a1bc20d159bbe",
+      "tested_sha": "4e33491b0869eb7095c53b07b51b8f4fed57e31e",
+      "runner_version": "source-e5d993b239f986f31db42340f2dc9f174feb5c06",
+      "runner_sha256": "21c671c682b692d5bb9e7f4a99fbaff1366b219ffbc7bf6e83ca4a932264523d",
+      "contract_files": {
+        "examples/recorded/fullscreen.json": "8a93c970bbd32f2231dcdb427160becabf19cc8f09b24ab02a7359ee545cdc4f",
+        "examples/recorded/snapshots/recorded-diagnostics.txt": "96bbce2386a3ab5e113225d126bbedbd674e1bcc28f33c657c4d621604aa3eb4"
+      },
+      "target_binaries": {
+        "bin/demo": "a0c7745f0eab701ed5a35ec11cf23c6cd221f4675dc8dde86a5ea2f048b78b80"
+      },
+      "summary": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "cancelled": 0,
+        "not_run": 0
+      },
+      "failure_category": null,
+      "cleanup_confirmed": true,
+      "permissions": [
+        "2026-10-06T21:43:46.6421999Z Contents: read",
+        "2026-10-06T21:43:46.6422709Z Metadata: read"
+      ],
+      "file_sha256": {
+        "context.json": "415477f2fad68b0fc55276a89a4c84f4bdb2e1acb672478e27f95b76fb35d04c",
+        "report.html": "7d9104fd98fb5c89c0763380e322003b0cbb27e18e2637f9ee055a5c0741d48b",
+        "results.json": "ffd38b7ffafbe932ed9636a07c02f9e4df55d7d8bea1796a0badf824e38207ce",
+        "selected.txt": "958809c88ad8ea939328df1391a33cad1b61cb6084254df72eaf5a8fa6844e44",
+        "workflow-job.log": "24e1bef9841cff6fd59c5b5cd89da67126830f911819a49b9f7273f362ae6e00"
+      }
+    },
+    {
+      "label": "same-defect",
+      "run_id": 37536248086,
+      "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/37536248086",
+      "workflow": {
+        "conclusion": "failure",
+        "event": "pull_request",
+        "headSha": "6fe81bdc287d4a300804fc97b2e3debed5d9ee53"
+      },
+      "artifact_id": 11446208291,
+      "artifact_digest": "sha256:521b2c0cec46d22545f50adaa5500c139ebba26bceecc918d37f2137a204b857",
+      "artifact_bytes": 5520,
+      "head_sha": "6fe81bdc287d4a300804fc97b2e3debed5d9ee53",
+      "base_sha": "3627c062da98093cdbb24c4c4d4a1bc20d159bbe",
+      "tested_sha": "0bfe2d11d484b363dc2be008870bbdf13091245c",
+      "runner_version": "source-e5d993b239f986f31db42340f2dc9f174feb5c06",
+      "runner_sha256": "21c671c682b692d5bb9e7f4a99fbaff1366b219ffbc7bf6e83ca4a932264523d",
+      "contract_files": {
+        "examples/recorded/fullscreen.json": "8a93c970bbd32f2231dcdb427160becabf19cc8f09b24ab02a7359ee545cdc4f",
+        "examples/recorded/snapshots/recorded-diagnostics.txt": "96bbce2386a3ab5e113225d126bbedbd674e1bcc28f33c657c4d621604aa3eb4"
+      },
+      "target_binaries": {
+        "bin/demo": "0ca0bfc34572cdc7737fb6bf5aab916ec3bbb66ea5c9e4423180c163136b9da4"
+      },
+      "summary": {
+        "total": 1,
+        "passed": 0,
+        "failed": 1,
+        "cancelled": 0,
+        "not_run": 0
+      },
+      "failure_category": "snapshot_mismatch",
+      "cleanup_confirmed": true,
+      "permissions": [
+        "2026-10-06T21:46:45.7977610Z Contents: read",
+        "2026-10-06T21:46:45.7978309Z Metadata: read"
+      ],
+      "file_sha256": {
+        "context.json": "d7dba59231b613ed3caf1d0e18053d78473d8e261db9a31de93995360880534f",
+        "report.html": "7fca327bf25c448c7bd7fee69260a323b6d4e613edfc58831db65d407204e81c",
+        "results.json": "7b68f8d5db85f620d46205cbe88eeb5ce1e1a7a023a4d66a483e47ebff0da7ad",
+        "selected.txt": "958809c88ad8ea939328df1391a33cad1b61cb6084254df72eaf5a8fa6844e44",
+        "workflow-job.log": "b2245f3adbeaf51df6b27848ebb2b0353acd75f30b169cd6be8593bf41987149",
+        "evidence/20261006T214712Z-3588680327/examples-recorded-fullscreen.json-9bb5d1dbd741.actual.txt": "be18de3482eb3ce100a2fbbccb35fc37a4f1de9f97ec23d451cb0aff07d59790",
+        "evidence/20261006T214712Z-3588680327/examples-recorded-fullscreen.json-9bb5d1dbd741.diff.txt": "b362e598e90f6aa49ea2492b538b1c185a47a23731221951f51a1971eb1c782a"
+      }
+    },
+    {
+      "label": "fork-defect",
+      "run_id": 37536251501,
+      "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/37536251501",
+      "workflow": {
+        "conclusion": "failure",
+        "event": "pull_request",
+        "headSha": "6fe81bdc287d4a300804fc97b2e3debed5d9ee53"
+      },
+      "artifact_id": 11446906137,
+      "artifact_digest": "sha256:d85a0bbdf35b3ab56ddd04a1bb415c30ed69d7601ef10b688b8444a7ce32ef56",
+      "artifact_bytes": 5520,
+      "head_sha": "6fe81bdc287d4a300804fc97b2e3debed5d9ee53",
+      "base_sha": "3627c062da98093cdbb24c4c4d4a1bc20d159bbe",
+      "tested_sha": "77368d11209075c230d8d3484d8ed6ae4ce05ad9",
+      "runner_version": "source-e5d993b239f986f31db42340f2dc9f174feb5c06",
+      "runner_sha256": "21c671c682b692d5bb9e7f4a99fbaff1366b219ffbc7bf6e83ca4a932264523d",
+      "contract_files": {
+        "examples/recorded/fullscreen.json": "8a93c970bbd32f2231dcdb427160becabf19cc8f09b24ab02a7359ee545cdc4f",
+        "examples/recorded/snapshots/recorded-diagnostics.txt": "96bbce2386a3ab5e113225d126bbedbd674e1bcc28f33c657c4d621604aa3eb4"
+      },
+      "target_binaries": {
+        "bin/demo": "6dde827ee3b2e974255d280be2b3e82e53cc0c3d807e2ad1b74e4458b823cc72"
+      },
+      "summary": {
+        "total": 1,
+        "passed": 0,
+        "failed": 1,
+        "cancelled": 0,
+        "not_run": 0
+      },
+      "failure_category": "snapshot_mismatch",
+      "cleanup_confirmed": true,
+      "permissions": [
+        "2026-10-06T21:47:12.1878857Z Contents: read",
+        "2026-10-06T21:47:12.1879279Z Metadata: read"
+      ],
+      "file_sha256": {
+        "context.json": "286cb7c9d47cec1cb17283a493306a23ce71d034f88f918d07acd65a956344c4",
+        "report.html": "f4d0df67cbb1b3017a6ecfdb35fb7a9384a3bf26d679716e22103c45c128cf53",
+        "results.json": "7009a3fba8bc359bddd7c1595440f93a5cbd513202c48064fb1dfbf7aca98b7c",
+        "selected.txt": "958809c88ad8ea939328df1391a33cad1b61cb6084254df72eaf5a8fa6844e44",
+        "workflow-job.log": "bc86deaeba8c54c554ecfedf88de3faee75277c9f0686bebdea0d765cea916c2",
+        "evidence/20261006T214732Z-1846821001/examples-recorded-fullscreen.json-9bb5d1dbd741.actual.txt": "be18de3482eb3ce100a2fbbccb35fc37a4f1de9f97ec23d451cb0aff07d59790",
+        "evidence/20261006T214732Z-1846821001/examples-recorded-fullscreen.json-9bb5d1dbd741.diff.txt": "b362e598e90f6aa49ea2492b538b1c185a47a23731221951f51a1971eb1c782a"
+      }
+    },
+    {
+      "label": "same-recovery",
+      "run_id": 37536577150,
+      "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/37536577150",
+      "workflow": {
+        "conclusion": "success",
+        "event": "pull_request",
+        "headSha": "dc6928e5a1e6616fc6963e4abc89387ddfa9bb8d"
+      },
+      "artifact_id": 11447016316,
+      "artifact_digest": "sha256:5e44065fb32924f8e0a4639aac88cd9a9c74e9346bb9163747cdd8deeb7ce6b6",
+      "artifact_bytes": 4147,
+      "head_sha": "dc6928e5a1e6616fc6963e4abc89387ddfa9bb8d",
+      "base_sha": "3627c062da98093cdbb24c4c4d4a1bc20d159bbe",
+      "tested_sha": "fc1ea6eb2c00cf7bf5bb316ba04c401c8f0c613f",
+      "runner_version": "source-df5c206f43f0d304b5122646b8b52011bfc57f79",
+      "runner_sha256": "a9fd5e400b242f1a6b539c7bc13091ee13553e2305eabd6845d40ea351702904",
+      "contract_files": {
+        "examples/recorded/fullscreen.json": "8a93c970bbd32f2231dcdb427160becabf19cc8f09b24ab02a7359ee545cdc4f",
+        "examples/recorded/snapshots/recorded-diagnostics.txt": "96bbce2386a3ab5e113225d126bbedbd674e1bcc28f33c657c4d621604aa3eb4"
+      },
+      "target_binaries": {
+        "bin/demo": "b58e27ebfc72ed58ceb774c356b08ae3f012f8e81ac906afddc81087f8d6a352"
+      },
+      "summary": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "cancelled": 0,
+        "not_run": 0
+      },
+      "failure_category": null,
+      "cleanup_confirmed": true,
+      "permissions": [
+        "2026-10-06T21:49:41.5497815Z Contents: read",
+        "2026-10-06T21:49:41.5498540Z Metadata: read"
+      ],
+      "file_sha256": {
+        "context.json": "b9de99b45da5ba4f7ec0615d55ea4c11bede2873f5174c38a9abaaa77dacce59",
+        "report.html": "c87639140869b7d10ffeb337016ee7e8c3a606af779e37d332a619be03e77a4d",
+        "results.json": "3c0168a3d172acc6fffd53b625243ce0d9e29542e76411cd8ef2c73c11504793",
+        "selected.txt": "958809c88ad8ea939328df1391a33cad1b61cb6084254df72eaf5a8fa6844e44",
+        "workflow-job.log": "815ba0e2863745f065411e146107bcd2ed6281e9b40f673b054281459a89e17d"
+      }
+    },
+    {
+      "label": "fork-recovery",
+      "run_id": 37536584229,
+      "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/37536584229",
+      "workflow": {
+        "conclusion": "success",
+        "event": "pull_request",
+        "headSha": "dc6928e5a1e6616fc6963e4abc89387ddfa9bb8d"
+      },
+      "artifact_id": 11446154508,
+      "artifact_digest": "sha256:97f45fbcb311cb1cece3729e100530d807cc0a67c2cdd6f0b6242d4c36eac3d4",
+      "artifact_bytes": 4150,
+      "head_sha": "dc6928e5a1e6616fc6963e4abc89387ddfa9bb8d",
+      "base_sha": "3627c062da98093cdbb24c4c4d4a1bc20d159bbe",
+      "tested_sha": "8e2fb06d835eaf5447506fc8b07357ec36d57396",
+      "runner_version": "source-df5c206f43f0d304b5122646b8b52011bfc57f79",
+      "runner_sha256": "a9fd5e400b242f1a6b539c7bc13091ee13553e2305eabd6845d40ea351702904",
+      "contract_files": {
+        "examples/recorded/fullscreen.json": "8a93c970bbd32f2231dcdb427160becabf19cc8f09b24ab02a7359ee545cdc4f",
+        "examples/recorded/snapshots/recorded-diagnostics.txt": "96bbce2386a3ab5e113225d126bbedbd674e1bcc28f33c657c4d621604aa3eb4"
+      },
+      "target_binaries": {
+        "bin/demo": "7f374575640f51cd93cfb8929281304b9edeab19d52ead8c4246137679fedd7d"
+      },
+      "summary": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "cancelled": 0,
+        "not_run": 0
+      },
+      "failure_category": null,
+      "cleanup_confirmed": true,
+      "permissions": [
+        "2026-10-06T21:53:12.6808484Z Contents: read",
+        "2026-10-06T21:53:12.6809214Z Metadata: read"
+      ],
+      "file_sha256": {
+        "context.json": "5e623b6695b8c78f64e1c55b1a5aa7a1517f101141d3bb86c8661b30f9da5458",
+        "report.html": "c87639140869b7d10ffeb337016ee7e8c3a606af779e37d332a619be03e77a4d",
+        "results.json": "3c0168a3d172acc6fffd53b625243ce0d9e29542e76411cd8ef2c73c11504793",
+        "selected.txt": "958809c88ad8ea939328df1391a33cad1b61cb6084254df72eaf5a8fa6844e44",
+        "workflow-job.log": "813c9c0f95f74acba6f7f9049178aa825c5fd72855c6eb4350d771b9ac5eeeb0"
+      }
+    },
+    {
+      "label": "same-intentional",
+      "run_id": 37537251681,
+      "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/37537251681",
+      "workflow": {
+        "conclusion": "success",
+        "event": "pull_request",
+        "headSha": "ff5e1d5a4a975167f5d0e51b154c93d9bb5f4ae1"
+      },
+      "artifact_id": 11446334389,
+      "artifact_digest": "sha256:89dfaaaf1510dce944c782e0523d312fdec2045f8fd6fcd236c9c51c73b9bf56",
+      "artifact_bytes": 4140,
+      "head_sha": "ff5e1d5a4a975167f5d0e51b154c93d9bb5f4ae1",
+      "base_sha": "3627c062da98093cdbb24c4c4d4a1bc20d159bbe",
+      "tested_sha": "8a43e28840bc0677cd8f3b7d5acfccb7c1357796",
+      "runner_version": "source-5d5276f3648474f5c38a38c5b7c552c7f6a6085f",
+      "runner_sha256": "1c9ce3e8d165a8b0c12c8917392c5b3147e9c2f61eafd30b9ba5294d68a1e91e",
+      "contract_files": {
+        "examples/recorded/fullscreen.json": "8a93c970bbd32f2231dcdb427160becabf19cc8f09b24ab02a7359ee545cdc4f",
+        "examples/recorded/snapshots/recorded-diagnostics.txt": "3fc09d78e2ea46a6c17564ae4d13b5336da6afd912d8db8df6cf3361ae799de8"
+      },
+      "target_binaries": {
+        "bin/demo": "905d65a9c62fa596d4c6367a97a8277335bac630f6f28526eeb57816403eae8c"
+      },
+      "summary": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "cancelled": 0,
+        "not_run": 0
+      },
+      "failure_category": null,
+      "cleanup_confirmed": true,
+      "permissions": [
+        "2026-10-06T21:58:07.6200689Z Contents: read",
+        "2026-10-06T21:58:07.6201677Z Metadata: read"
+      ],
+      "file_sha256": {
+        "context.json": "ca12004cdbe418cbd09c5bd65f616e718c6b6f10334e0df7f8ede2ffc1590498",
+        "report.html": "260621bbbd93cc42bac2883ad55f869d2528d32386e76d59cf9a727e17a00dd4",
+        "results.json": "88f59bf8858034af4927c7570573c14b4a9c4cd2a20b9fdb066e7d46732313d1",
+        "selected.txt": "958809c88ad8ea939328df1391a33cad1b61cb6084254df72eaf5a8fa6844e44",
+        "workflow-job.log": "586f3b02557f66f657cc1edbc59105e5e611dbfe85b1d22c3966378c9da39a4b"
+      }
+    },
+    {
+      "label": "fork-intentional",
+      "run_id": 37537256114,
+      "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/37537256114",
+      "workflow": {
+        "conclusion": "success",
+        "event": "pull_request",
+        "headSha": "ff5e1d5a4a975167f5d0e51b154c93d9bb5f4ae1"
+      },
+      "artifact_id": 11446314912,
+      "artifact_digest": "sha256:2d9e3f51279fb503e5ae40d44ee28021ab505ec06cf51eee11111414ca8c6f9b",
+      "artifact_bytes": 4143,
+      "head_sha": "ff5e1d5a4a975167f5d0e51b154c93d9bb5f4ae1",
+      "base_sha": "3627c062da98093cdbb24c4c4d4a1bc20d159bbe",
+      "tested_sha": "9209813960b6da35dd84ae49fe5d1a4f442fb6bd",
+      "runner_version": "source-5d5276f3648474f5c38a38c5b7c552c7f6a6085f",
+      "runner_sha256": "1c9ce3e8d165a8b0c12c8917392c5b3147e9c2f61eafd30b9ba5294d68a1e91e",
+      "contract_files": {
+        "examples/recorded/fullscreen.json": "8a93c970bbd32f2231dcdb427160becabf19cc8f09b24ab02a7359ee545cdc4f",
+        "examples/recorded/snapshots/recorded-diagnostics.txt": "3fc09d78e2ea46a6c17564ae4d13b5336da6afd912d8db8df6cf3361ae799de8"
+      },
+      "target_binaries": {
+        "bin/demo": "f6a558d135e96fbbd37dd98794e4503f60fd3e646ffc74e1bef4a9950be5961e"
+      },
+      "summary": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "cancelled": 0,
+        "not_run": 0
+      },
+      "failure_category": null,
+      "cleanup_confirmed": true,
+      "permissions": [
+        "2026-10-06T21:57:36.8475043Z Contents: read",
+        "2026-10-06T21:57:36.8475685Z Metadata: read"
+      ],
+      "file_sha256": {
+        "context.json": "30d25404eeed905f3c9ae351c2a4b010f3e98db4837198de2d15c3d2689f4538",
+        "report.html": "260621bbbd93cc42bac2883ad55f869d2528d32386e76d59cf9a727e17a00dd4",
+        "results.json": "88f59bf8858034af4927c7570573c14b4a9c4cd2a20b9fdb066e7d46732313d1",
+        "selected.txt": "958809c88ad8ea939328df1391a33cad1b61cb6084254df72eaf5a8fa6844e44",
+        "workflow-job.log": "77875bfea8e3f2fe77aa86a0aa00acdb5144b343a8d19370c34dbe952f9c72d4"
+      }
+    },
+    {
+      "label": "fork-final",
+      "run_id": 37537638564,
+      "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/37537638564",
+      "workflow": {
+        "conclusion": "success",
+        "event": "pull_request",
+        "headSha": "6af8123d312a460035a49d2694ea43f7e4557d1b"
+      },
+      "artifact_id": 11447065943,
+      "artifact_digest": "sha256:1c17f97f5caaac756dbb0f97a4824792240eea3f00a8cce8ab7f5b9a4c656f3f",
+      "artifact_bytes": 4143,
+      "head_sha": "6af8123d312a460035a49d2694ea43f7e4557d1b",
+      "base_sha": "3627c062da98093cdbb24c4c4d4a1bc20d159bbe",
+      "tested_sha": "ba5de97e6cf59a82f2276ff442218e82d32f00ba",
+      "runner_version": "source-871c34e2087dfb6859e91cf457abce6f152b1fca",
+      "runner_sha256": "2958e73ceaa2d911a9d3dcc9a246a574c7e90c23f0fe1afc536f67270f361dcf",
+      "contract_files": {
+        "examples/recorded/fullscreen.json": "8a93c970bbd32f2231dcdb427160becabf19cc8f09b24ab02a7359ee545cdc4f",
+        "examples/recorded/snapshots/recorded-diagnostics.txt": "3fc09d78e2ea46a6c17564ae4d13b5336da6afd912d8db8df6cf3361ae799de8"
+      },
+      "target_binaries": {
+        "bin/demo": "a73ff134fa6fd5180d980155f88c9116743498d92b5e2105b83761cadddb4152"
+      },
+      "summary": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "cancelled": 0,
+        "not_run": 0
+      },
+      "failure_category": null,
+      "cleanup_confirmed": true,
+      "permissions": [
+        "2026-10-06T21:59:36.7188757Z Contents: read",
+        "2026-10-06T21:59:36.7189385Z Metadata: read"
+      ],
+      "file_sha256": {
+        "context.json": "06f4d1f1f306c45c68be989d982bbf3532d023e3344a29ec9ecd0669ce940f26",
+        "report.html": "05dbcced5530fb217676d62d41da070fc116facc36c00108b8f1d3b5d18a1205",
+        "results.json": "43b9bacf59fc3f49ebb0f0208297eaf070f7859ee8123b16cde69f84b61ee87b",
+        "selected.txt": "958809c88ad8ea939328df1391a33cad1b61cb6084254df72eaf5a8fa6844e44",
+        "workflow-job.log": "0260a510582c79c10e2e2b2948d6b898d2fb75698bef16e9fdcf5f139a5c8c5d"
+      }
+    },
+    {
+      "label": "same-final",
+      "run_id": 37537632591,
+      "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/37537632591",
+      "workflow": {
+        "conclusion": "success",
+        "event": "pull_request",
+        "headSha": "6af8123d312a460035a49d2694ea43f7e4557d1b"
+      },
+      "artifact_id": 11447181001,
+      "artifact_digest": "sha256:f1c38e717d13ad76ff9149858faa0e50b1963bfac4d82e93cc77d8672fe8e26b",
+      "artifact_bytes": 4140,
+      "head_sha": "6af8123d312a460035a49d2694ea43f7e4557d1b",
+      "base_sha": "3627c062da98093cdbb24c4c4d4a1bc20d159bbe",
+      "tested_sha": "82ffbebe77243862c67cb8c4b66ce8a44f12760d",
+      "runner_version": "source-871c34e2087dfb6859e91cf457abce6f152b1fca",
+      "runner_sha256": "2958e73ceaa2d911a9d3dcc9a246a574c7e90c23f0fe1afc536f67270f361dcf",
+      "contract_files": {
+        "examples/recorded/fullscreen.json": "8a93c970bbd32f2231dcdb427160becabf19cc8f09b24ab02a7359ee545cdc4f",
+        "examples/recorded/snapshots/recorded-diagnostics.txt": "3fc09d78e2ea46a6c17564ae4d13b5336da6afd912d8db8df6cf3361ae799de8"
+      },
+      "target_binaries": {
+        "bin/demo": "4ce859981dba60fe984a32b8bf9f2aa4decaf766c47518e67def761313ba77f8"
+      },
+      "summary": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "cancelled": 0,
+        "not_run": 0
+      },
+      "cleanup_confirmed": true,
+      "permissions": [
+        "2026-10-06T22:01:58.8811301Z Contents: read",
+        "2026-10-06T22:01:58.8812399Z Metadata: read"
+      ],
+      "file_sha256": {
+        "context.json": "55bb6372acae340b5aef0a9112845ba7b360e3fc8eb9f27cb2267014c3b204a1",
+        "report.html": "05dbcced5530fb217676d62d41da070fc116facc36c00108b8f1d3b5d18a1205",
+        "results.json": "43b9bacf59fc3f49ebb0f0208297eaf070f7859ee8123b16cde69f84b61ee87b",
+        "selected.txt": "958809c88ad8ea939328df1391a33cad1b61cb6084254df72eaf5a8fa6844e44",
+        "workflow-job.log": "2bf158d981bbd7caf3491028c00f4d3bf72e4ec2295e95588342ca387fb3f8e9"
+      }
+    }
+  ],
+  "local_reproduction": {
+    "tested_sha": "0bfe2d11d484b363dc2be008870bbdf13091245c",
+    "runner_source": "e5d993b239f986f31db42340f2dc9f174feb5c06",
+    "host": "windows_amd64",
+    "exit_code": 1,
+    "category": "snapshot_mismatch",
+    "cleanup_confirmed": true
+  },
+  "campaign_credit": 0,
+  "native": [
+    {
+      "host": "windows_amd64",
+      "run_id": 37539997820,
+      "job_id": 112530387137,
+      "checkout_sha": "d498be38cd0120a09b37e81331be9b9d42b72b9c",
+      "conclusion": "success",
+      "verified_steps": [
+        "Set up job",
+        "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+        "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+        "Verify evidence-tool failure controls",
+        "Verify CI summary failure controls",
+        "Verify published prerelease installation and greeting documentation",
+        "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+        "Run go test -count=1 ./...",
+        "Run go vet ./...",
+        "Native race checks",
+        "Run go build -o bin/demo.exe ./cmd/demo",
+        "Run go build -o bin/fixture.exe ./cmd/fixture",
+        "Run go build -trimpath -ldflags \"-X github.com/Wyrcan-io/playtestr/internal/buildinfo.Version=ci\" -o bin/playtestr.exe ./cmd/playtestr",
+        "Install pinned external TUI",
+        "Record, fresh replay, mutate target and recover",
+        "Run passing acceptance specs",
+        "Run deliberate screen regression",
+        "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+        "Post Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+        "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+        "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+        "Complete job"
+      ],
+      "artifact_id": 11447774403,
+      "artifact_digest": "sha256:f6dce35ce2c2d6a2ef7e5112469e7a87ab8d8112d0412f33a09798b3d3fa7c9f",
+      "artifact_bytes": 53930,
+      "acceptance_sha256": "ae4e69df7f120474f597e919bcaa96d65914ee54aeb55065fa5823b5cd77bc88",
+      "fresh_replays_per_example": 10,
+      "examples": [
+        {
+          "example": "wizard",
+          "independent_saved_file_oracle": true,
+          "capabilities": [
+            "fixture",
+            "wizard",
+            "resize",
+            "saved-state"
+          ],
+          "fresh_replays": 10,
+          "delays_ms": [
+            0,
+            25,
+            100,
+            5,
+            60,
+            150,
+            10,
+            80,
+            40,
+            120
+          ],
+          "defect_detected": true,
+          "recovery": true,
+          "unchanged_test_baseline_hashes": {
+            ".cache\\p0-p2\\recorded-4kmofkzu\\wizard.json": "784ed705331d57b66b6030afdaa5b01ad7d52cc8a40335ce2e43d24a96d5332e",
+            ".cache\\p0-p2\\recorded-4kmofkzu\\snapshots\\recorded-wizard-confirm.txt": "6e1844217cbc8a667b1e61145c487994a609b979f04d463cf1e2862748474dfe",
+            ".cache\\p0-p2\\recorded-4kmofkzu\\snapshots\\recorded-wizard-saved.txt": "7d59b71638a5c842e0386e791400100e338ba4ac2c42babae0da585349a06e11"
+          }
+        },
+        {
+          "example": "selector",
+          "independent_saved_file_oracle": false,
+          "capabilities": [
+            "external-gum-v0.17.0",
+            "selector"
+          ],
+          "fresh_replays": 10,
+          "delays_ms": [
+            0,
+            25,
+            100,
+            5,
+            60,
+            150,
+            10,
+            80,
+            40,
+            120
+          ],
+          "defect_detected": true,
+          "recovery": true,
+          "unchanged_test_baseline_hashes": {
+            ".cache\\p0-p2\\recorded-4kmofkzu\\selector.json": "4e77a02f133d314bbb136fd36a1fe73015a9157794fc7d7c65025e6be7edd198",
+            ".cache\\p0-p2\\recorded-4kmofkzu\\snapshots\\recorded-gum-beta.txt": "977fe4f3da44d8d29129d1135c219221a22a721b6c89862af2178da577ef9b4a"
+          }
+        },
+        {
+          "example": "fullscreen",
+          "independent_saved_file_oracle": false,
+          "capabilities": [
+            "full-screen"
+          ],
+          "fresh_replays": 10,
+          "delays_ms": [
+            0,
+            25,
+            100,
+            5,
+            60,
+            150,
+            10,
+            80,
+            40,
+            120
+          ],
+          "defect_detected": true,
+          "recovery": true,
+          "unchanged_test_baseline_hashes": {
+            ".cache\\p0-p2\\recorded-4kmofkzu\\fullscreen.json": "8a93c970bbd32f2231dcdb427160becabf19cc8f09b24ab02a7359ee545cdc4f",
+            ".cache\\p0-p2\\recorded-4kmofkzu\\snapshots\\recorded-diagnostics.txt": "96bbce2386a3ab5e113225d126bbedbd674e1bcc28f33c657c4d621604aa3eb4"
+          }
+        }
+      ]
+    },
+    {
+      "host": "linux_amd64",
+      "run_id": 37539997820,
+      "job_id": 112530387046,
+      "checkout_sha": "d498be38cd0120a09b37e81331be9b9d42b72b9c",
+      "conclusion": "success",
+      "verified_steps": [
+        "Set up job",
+        "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+        "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+        "Verify evidence-tool failure controls",
+        "Verify CI summary failure controls",
+        "Verify published prerelease installation and greeting documentation",
+        "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+        "Run go test -count=1 ./...",
+        "Run go vet ./...",
+        "Native race checks",
+        "Run go build -o bin/demo ./cmd/demo",
+        "Run go build -o bin/fixture ./cmd/fixture",
+        "Run go build -trimpath -ldflags \"-X github.com/Wyrcan-io/playtestr/internal/buildinfo.Version=ci\" -o bin/playtestr ./cmd/playtestr",
+        "Install pinned external TUI",
+        "Record, fresh replay, mutate target and recover",
+        "Run passing acceptance specs",
+        "Run deliberate screen regression",
+        "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+        "Post Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+        "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+        "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+        "Complete job"
+      ],
+      "artifact_id": 11447299375,
+      "artifact_digest": "sha256:9d1ea40ca7e8b6feb76ecc25d4ae257c614a0cddaffe0eb2d07dca626c1f0846",
+      "artifact_bytes": 53910,
+      "acceptance_sha256": "6d267e2dae50aeec818949aa5888f1a04639a5909ab5f1b98d3ddf8eadfca5df",
+      "fresh_replays_per_example": 10,
+      "examples": [
+        {
+          "example": "wizard",
+          "independent_saved_file_oracle": true,
+          "capabilities": [
+            "fixture",
+            "wizard",
+            "resize",
+            "saved-state"
+          ],
+          "fresh_replays": 10,
+          "delays_ms": [
+            0,
+            25,
+            100,
+            5,
+            60,
+            150,
+            10,
+            80,
+            40,
+            120
+          ],
+          "defect_detected": true,
+          "recovery": true,
+          "unchanged_test_baseline_hashes": {
+            ".cache/p0-p2/recorded-2r9w7ym8/wizard.json": "784ed705331d57b66b6030afdaa5b01ad7d52cc8a40335ce2e43d24a96d5332e",
+            ".cache/p0-p2/recorded-2r9w7ym8/snapshots/recorded-wizard-confirm.txt": "6e1844217cbc8a667b1e61145c487994a609b979f04d463cf1e2862748474dfe",
+            ".cache/p0-p2/recorded-2r9w7ym8/snapshots/recorded-wizard-saved.txt": "7d59b71638a5c842e0386e791400100e338ba4ac2c42babae0da585349a06e11"
+          }
+        },
+        {
+          "example": "selector",
+          "independent_saved_file_oracle": false,
+          "capabilities": [
+            "external-gum-v0.17.0",
+            "selector"
+          ],
+          "fresh_replays": 10,
+          "delays_ms": [
+            0,
+            25,
+            100,
+            5,
+            60,
+            150,
+            10,
+            80,
+            40,
+            120
+          ],
+          "defect_detected": true,
+          "recovery": true,
+          "unchanged_test_baseline_hashes": {
+            ".cache/p0-p2/recorded-2r9w7ym8/selector.json": "4e77a02f133d314bbb136fd36a1fe73015a9157794fc7d7c65025e6be7edd198",
+            ".cache/p0-p2/recorded-2r9w7ym8/snapshots/recorded-gum-beta.txt": "977fe4f3da44d8d29129d1135c219221a22a721b6c89862af2178da577ef9b4a"
+          }
+        },
+        {
+          "example": "fullscreen",
+          "independent_saved_file_oracle": false,
+          "capabilities": [
+            "full-screen"
+          ],
+          "fresh_replays": 10,
+          "delays_ms": [
+            0,
+            25,
+            100,
+            5,
+            60,
+            150,
+            10,
+            80,
+            40,
+            120
+          ],
+          "defect_detected": true,
+          "recovery": true,
+          "unchanged_test_baseline_hashes": {
+            ".cache/p0-p2/recorded-2r9w7ym8/fullscreen.json": "8a93c970bbd32f2231dcdb427160becabf19cc8f09b24ab02a7359ee545cdc4f",
+            ".cache/p0-p2/recorded-2r9w7ym8/snapshots/recorded-diagnostics.txt": "96bbce2386a3ab5e113225d126bbedbd674e1bcc28f33c657c4d621604aa3eb4"
+          }
+        }
+      ]
+    },
+    {
+      "host": "darwin_arm64",
+      "run_id": 37539997820,
+      "job_id": 112530386789,
+      "checkout_sha": "d498be38cd0120a09b37e81331be9b9d42b72b9c",
+      "conclusion": "success",
+      "verified_steps": [
+        "Set up job",
+        "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+        "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+        "Verify evidence-tool failure controls",
+        "Verify CI summary failure controls",
+        "Verify published prerelease installation and greeting documentation",
+        "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+        "Run go test -count=1 ./...",
+        "Run go vet ./...",
+        "Native race checks",
+        "Run go build -o bin/demo ./cmd/demo",
+        "Run go build -o bin/fixture ./cmd/fixture",
+        "Run go build -trimpath -ldflags \"-X github.com/Wyrcan-io/playtestr/internal/buildinfo.Version=ci\" -o bin/playtestr ./cmd/playtestr",
+        "Install pinned external TUI",
+        "Record, fresh replay, mutate target and recover",
+        "Run passing acceptance specs",
+        "Run deliberate screen regression",
+        "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+        "Post Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+        "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+        "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+        "Complete job"
+      ],
+      "artifact_id": 11448099080,
+      "artifact_digest": "sha256:31555fbd3768f20b493f1deada574beea52bea2d4169e2c47f9bc78c2c6eb62f",
+      "artifact_bytes": 54393,
+      "acceptance_sha256": "d8a2a6d45d8cf6b4b4e67aa89242164268de01e3096f366bee66a00329db556d",
+      "fresh_replays_per_example": 10,
+      "examples": [
+        {
+          "example": "wizard",
+          "independent_saved_file_oracle": true,
+          "capabilities": [
+            "fixture",
+            "wizard",
+            "resize",
+            "saved-state"
+          ],
+          "fresh_replays": 10,
+          "delays_ms": [
+            0,
+            25,
+            100,
+            5,
+            60,
+            150,
+            10,
+            80,
+            40,
+            120
+          ],
+          "defect_detected": true,
+          "recovery": true,
+          "unchanged_test_baseline_hashes": {
+            ".cache/p0-p2/recorded-8s4gdhc0/wizard.json": "784ed705331d57b66b6030afdaa5b01ad7d52cc8a40335ce2e43d24a96d5332e",
+            ".cache/p0-p2/recorded-8s4gdhc0/snapshots/recorded-wizard-confirm.txt": "6e1844217cbc8a667b1e61145c487994a609b979f04d463cf1e2862748474dfe",
+            ".cache/p0-p2/recorded-8s4gdhc0/snapshots/recorded-wizard-saved.txt": "7d59b71638a5c842e0386e791400100e338ba4ac2c42babae0da585349a06e11"
+          }
+        },
+        {
+          "example": "selector",
+          "independent_saved_file_oracle": false,
+          "capabilities": [
+            "external-gum-v0.17.0",
+            "selector"
+          ],
+          "fresh_replays": 10,
+          "delays_ms": [
+            0,
+            25,
+            100,
+            5,
+            60,
+            150,
+            10,
+            80,
+            40,
+            120
+          ],
+          "defect_detected": true,
+          "recovery": true,
+          "unchanged_test_baseline_hashes": {
+            ".cache/p0-p2/recorded-8s4gdhc0/selector.json": "4e77a02f133d314bbb136fd36a1fe73015a9157794fc7d7c65025e6be7edd198",
+            ".cache/p0-p2/recorded-8s4gdhc0/snapshots/recorded-gum-beta.txt": "977fe4f3da44d8d29129d1135c219221a22a721b6c89862af2178da577ef9b4a"
+          }
+        },
+        {
+          "example": "fullscreen",
+          "independent_saved_file_oracle": false,
+          "capabilities": [
+            "full-screen"
+          ],
+          "fresh_replays": 10,
+          "delays_ms": [
+            0,
+            25,
+            100,
+            5,
+            60,
+            150,
+            10,
+            80,
+            40,
+            120
+          ],
+          "defect_detected": true,
+          "recovery": true,
+          "unchanged_test_baseline_hashes": {
+            ".cache/p0-p2/recorded-8s4gdhc0/fullscreen.json": "8a93c970bbd32f2231dcdb427160becabf19cc8f09b24ab02a7359ee545cdc4f",
+            ".cache/p0-p2/recorded-8s4gdhc0/snapshots/recorded-diagnostics.txt": "96bbce2386a3ab5e113225d126bbedbd674e1bcc28f33c657c4d621604aa3eb4"
+          }
+        }
+      ]
+    }
+  ],
+  "pr_cleanup": {
+    "main_pr": 1,
+    "fork_pr": 2,
+    "state": "closed",
+    "merged": false,
+    "branches_and_fork_retained": true
+  },
+  "local_checks": {
+    "go_test": true,
+    "go_vet": true,
+    "windows_race": true,
+    "ci_python_tests": 10,
+    "readiness_python_tests": 7,
+    "workflow_actionlint": true,
+    "new_doc_links": true,
+    "source": "d498be38cd0120a09b37e81331be9b9d42b72b9c",
+    "extra_windows_wizard_replays": 30,
+    "manual_menu_and_exit": true
+  },
+  "previous_native": [
+    {
+      "host": "windows_amd64",
+      "run_id": 37537560766,
+      "job_id": 112522332152,
+      "checkout_sha": "70b07b03539cbb4e9b9316aef6d9f36865bf716e",
+      "conclusion": "success",
+      "verified_steps": [
+        "Set up job",
+        "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+        "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+        "Verify evidence-tool failure controls",
+        "Verify CI summary failure controls",
+        "Verify published prerelease installation and greeting documentation",
+        "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+        "Run go test -count=1 ./...",
+        "Run go vet ./...",
+        "Native race checks",
+        "Run go build -o bin/demo.exe ./cmd/demo",
+        "Run go build -o bin/fixture.exe ./cmd/fixture",
+        "Run go build -trimpath -ldflags \"-X github.com/Wyrcan-io/playtestr/internal/buildinfo.Version=ci\" -o bin/playtestr.exe ./cmd/playtestr",
+        "Install pinned external TUI",
+        "Record, fresh replay, mutate target and recover",
+        "Run passing acceptance specs",
+        "Run deliberate screen regression",
+        "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+        "Post Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+        "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+        "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+        "Complete job"
+      ],
+      "artifact_id": 11447086697,
+      "artifact_digest": "sha256:5f3d38f9ffd6d5d2aafdf8cb1e105967176ee59f6a01fafdc16790e56ce5f98b",
+      "artifact_bytes": 53980,
+      "acceptance_sha256": "edee40e5cc2b8eabca4d0814df7ffc6c819fcad8f51868e39b37472a11bf5d96",
+      "fresh_replays_per_example": 10,
+      "examples": [
+        {
+          "example": "wizard",
+          "independent_saved_file_oracle": true,
+          "capabilities": [
+            "fixture",
+            "wizard",
+            "resize",
+            "saved-state"
+          ],
+          "fresh_replays": 10,
+          "delays_ms": [
+            0,
+            25,
+            100,
+            5,
+            60,
+            150,
+            10,
+            80,
+            40,
+            120
+          ],
+          "defect_detected": true,
+          "recovery": true,
+          "unchanged_test_baseline_hashes": {
+            ".cache\\p0-p2\\recorded-8x8v9wq8\\wizard.json": "784ed705331d57b66b6030afdaa5b01ad7d52cc8a40335ce2e43d24a96d5332e",
+            ".cache\\p0-p2\\recorded-8x8v9wq8\\snapshots\\recorded-wizard-confirm.txt": "6e1844217cbc8a667b1e61145c487994a609b979f04d463cf1e2862748474dfe",
+            ".cache\\p0-p2\\recorded-8x8v9wq8\\snapshots\\recorded-wizard-saved.txt": "7d59b71638a5c842e0386e791400100e338ba4ac2c42babae0da585349a06e11"
+          }
+        },
+        {
+          "example": "selector",
+          "independent_saved_file_oracle": false,
+          "capabilities": [
+            "external-gum-v0.17.0",
+            "selector"
+          ],
+          "fresh_replays": 10,
+          "delays_ms": [
+            0,
+            25,
+            100,
+            5,
+            60,
+            150,
+            10,
+            80,
+            40,
+            120
+          ],
+          "defect_detected": true,
+          "recovery": true,
+          "unchanged_test_baseline_hashes": {
+            ".cache\\p0-p2\\recorded-8x8v9wq8\\selector.json": "4e77a02f133d314bbb136fd36a1fe73015a9157794fc7d7c65025e6be7edd198",
+            ".cache\\p0-p2\\recorded-8x8v9wq8\\snapshots\\recorded-gum-beta.txt": "977fe4f3da44d8d29129d1135c219221a22a721b6c89862af2178da577ef9b4a"
+          }
+        },
+        {
+          "example": "fullscreen",
+          "independent_saved_file_oracle": false,
+          "capabilities": [
+            "full-screen"
+          ],
+          "fresh_replays": 10,
+          "delays_ms": [
+            0,
+            25,
+            100,
+            5,
+            60,
+            150,
+            10,
+            80,
+            40,
+            120
+          ],
+          "defect_detected": true,
+          "recovery": true,
+          "unchanged_test_baseline_hashes": {
+            ".cache\\p0-p2\\recorded-8x8v9wq8\\fullscreen.json": "8a93c970bbd32f2231dcdb427160becabf19cc8f09b24ab02a7359ee545cdc4f",
+            ".cache\\p0-p2\\recorded-8x8v9wq8\\snapshots\\recorded-diagnostics.txt": "96bbce2386a3ab5e113225d126bbedbd674e1bcc28f33c657c4d621604aa3eb4"
+          }
+        }
+      ]
+    },
+    {
+      "host": "linux_amd64",
+      "run_id": 37537560766,
+      "job_id": 112522332040,
+      "checkout_sha": "70b07b03539cbb4e9b9316aef6d9f36865bf716e",
+      "conclusion": "success",
+      "verified_steps": [
+        "Set up job",
+        "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+        "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+        "Verify evidence-tool failure controls",
+        "Verify CI summary failure controls",
+        "Verify published prerelease installation and greeting documentation",
+        "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+        "Run go test -count=1 ./...",
+        "Run go vet ./...",
+        "Native race checks",
+        "Run go build -o bin/demo ./cmd/demo",
+        "Run go build -o bin/fixture ./cmd/fixture",
+        "Run go build -trimpath -ldflags \"-X github.com/Wyrcan-io/playtestr/internal/buildinfo.Version=ci\" -o bin/playtestr ./cmd/playtestr",
+        "Install pinned external TUI",
+        "Record, fresh replay, mutate target and recover",
+        "Run passing acceptance specs",
+        "Run deliberate screen regression",
+        "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+        "Post Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+        "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+        "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+        "Complete job"
+      ],
+      "artifact_id": 11448130042,
+      "artifact_digest": "sha256:9b534112d7aa97c461cb8fb2746e4155a181102149c091d499f8c103d16dfbd4",
+      "artifact_bytes": 53858,
+      "acceptance_sha256": "7c499e0b3dd516b56b84a7f95e5efa1838b25e6b462432053be20f8ddf63a10a",
+      "fresh_replays_per_example": 10,
+      "examples": [
+        {
+          "example": "wizard",
+          "independent_saved_file_oracle": true,
+          "capabilities": [
+            "fixture",
+            "wizard",
+            "resize",
+            "saved-state"
+          ],
+          "fresh_replays": 10,
+          "delays_ms": [
+            0,
+            25,
+            100,
+            5,
+            60,
+            150,
+            10,
+            80,
+            40,
+            120
+          ],
+          "defect_detected": true,
+          "recovery": true,
+          "unchanged_test_baseline_hashes": {
+            ".cache/p0-p2/recorded-7tnaot45/wizard.json": "784ed705331d57b66b6030afdaa5b01ad7d52cc8a40335ce2e43d24a96d5332e",
+            ".cache/p0-p2/recorded-7tnaot45/snapshots/recorded-wizard-confirm.txt": "6e1844217cbc8a667b1e61145c487994a609b979f04d463cf1e2862748474dfe",
+            ".cache/p0-p2/recorded-7tnaot45/snapshots/recorded-wizard-saved.txt": "7d59b71638a5c842e0386e791400100e338ba4ac2c42babae0da585349a06e11"
+          }
+        },
+        {
+          "example": "selector",
+          "independent_saved_file_oracle": false,
+          "capabilities": [
+            "external-gum-v0.17.0",
+            "selector"
+          ],
+          "fresh_replays": 10,
+          "delays_ms": [
+            0,
+            25,
+            100,
+            5,
+            60,
+            150,
+            10,
+            80,
+            40,
+            120
+          ],
+          "defect_detected": true,
+          "recovery": true,
+          "unchanged_test_baseline_hashes": {
+            ".cache/p0-p2/recorded-7tnaot45/selector.json": "4e77a02f133d314bbb136fd36a1fe73015a9157794fc7d7c65025e6be7edd198",
+            ".cache/p0-p2/recorded-7tnaot45/snapshots/recorded-gum-beta.txt": "977fe4f3da44d8d29129d1135c219221a22a721b6c89862af2178da577ef9b4a"
+          }
+        },
+        {
+          "example": "fullscreen",
+          "independent_saved_file_oracle": false,
+          "capabilities": [
+            "full-screen"
+          ],
+          "fresh_replays": 10,
+          "delays_ms": [
+            0,
+            25,
+            100,
+            5,
+            60,
+            150,
+            10,
+            80,
+            40,
+            120
+          ],
+          "defect_detected": true,
+          "recovery": true,
+          "unchanged_test_baseline_hashes": {
+            ".cache/p0-p2/recorded-7tnaot45/fullscreen.json": "8a93c970bbd32f2231dcdb427160becabf19cc8f09b24ab02a7359ee545cdc4f",
+            ".cache/p0-p2/recorded-7tnaot45/snapshots/recorded-diagnostics.txt": "96bbce2386a3ab5e113225d126bbedbd674e1bcc28f33c657c4d621604aa3eb4"
+          }
+        }
+      ]
+    },
+    {
+      "host": "darwin_arm64",
+      "run_id": 37537560766,
+      "job_id": 112522331759,
+      "checkout_sha": "70b07b03539cbb4e9b9316aef6d9f36865bf716e",
+      "conclusion": "success",
+      "verified_steps": [
+        "Set up job",
+        "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+        "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+        "Verify evidence-tool failure controls",
+        "Verify CI summary failure controls",
+        "Verify published prerelease installation and greeting documentation",
+        "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+        "Run go test -count=1 ./...",
+        "Run go vet ./...",
+        "Native race checks",
+        "Run go build -o bin/demo ./cmd/demo",
+        "Run go build -o bin/fixture ./cmd/fixture",
+        "Run go build -trimpath -ldflags \"-X github.com/Wyrcan-io/playtestr/internal/buildinfo.Version=ci\" -o bin/playtestr ./cmd/playtestr",
+        "Install pinned external TUI",
+        "Record, fresh replay, mutate target and recover",
+        "Run passing acceptance specs",
+        "Run deliberate screen regression",
+        "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+        "Post Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+        "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+        "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+        "Complete job"
+      ],
+      "artifact_id": 11448245226,
+      "artifact_digest": "sha256:6489a31994b8d5f58d0dcddfc819ee0e9e9e1cda01cad0d837117d25ef3f09c3",
+      "artifact_bytes": 54418,
+      "acceptance_sha256": "a185fd008d43f68f97d6479fae2d474a308b56c89507c07aec2a1e3aecc88761",
+      "fresh_replays_per_example": 10,
+      "examples": [
+        {
+          "example": "wizard",
+          "independent_saved_file_oracle": true,
+          "capabilities": [
+            "fixture",
+            "wizard",
+            "resize",
+            "saved-state"
+          ],
+          "fresh_replays": 10,
+          "delays_ms": [
+            0,
+            25,
+            100,
+            5,
+            60,
+            150,
+            10,
+            80,
+            40,
+            120
+          ],
+          "defect_detected": true,
+          "recovery": true,
+          "unchanged_test_baseline_hashes": {
+            ".cache/p0-p2/recorded-0ayuqe36/wizard.json": "784ed705331d57b66b6030afdaa5b01ad7d52cc8a40335ce2e43d24a96d5332e",
+            ".cache/p0-p2/recorded-0ayuqe36/snapshots/recorded-wizard-confirm.txt": "6e1844217cbc8a667b1e61145c487994a609b979f04d463cf1e2862748474dfe",
+            ".cache/p0-p2/recorded-0ayuqe36/snapshots/recorded-wizard-saved.txt": "7d59b71638a5c842e0386e791400100e338ba4ac2c42babae0da585349a06e11"
+          }
+        },
+        {
+          "example": "selector",
+          "independent_saved_file_oracle": false,
+          "capabilities": [
+            "external-gum-v0.17.0",
+            "selector"
+          ],
+          "fresh_replays": 10,
+          "delays_ms": [
+            0,
+            25,
+            100,
+            5,
+            60,
+            150,
+            10,
+            80,
+            40,
+            120
+          ],
+          "defect_detected": true,
+          "recovery": true,
+          "unchanged_test_baseline_hashes": {
+            ".cache/p0-p2/recorded-0ayuqe36/selector.json": "4e77a02f133d314bbb136fd36a1fe73015a9157794fc7d7c65025e6be7edd198",
+            ".cache/p0-p2/recorded-0ayuqe36/snapshots/recorded-gum-beta.txt": "977fe4f3da44d8d29129d1135c219221a22a721b6c89862af2178da577ef9b4a"
+          }
+        },
+        {
+          "example": "fullscreen",
+          "independent_saved_file_oracle": false,
+          "capabilities": [
+            "full-screen"
+          ],
+          "fresh_replays": 10,
+          "delays_ms": [
+            0,
+            25,
+            100,
+            5,
+            60,
+            150,
+            10,
+            80,
+            40,
+            120
+          ],
+          "defect_detected": true,
+          "recovery": true,
+          "unchanged_test_baseline_hashes": {
+            ".cache/p0-p2/recorded-0ayuqe36/fullscreen.json": "8a93c970bbd32f2231dcdb427160becabf19cc8f09b24ab02a7359ee545cdc4f",
+            ".cache/p0-p2/recorded-0ayuqe36/snapshots/recorded-diagnostics.txt": "96bbce2386a3ab5e113225d126bbedbd674e1bcc28f33c657c4d621604aa3eb4"
+          }
+        }
+      ]
+    }
+  ],
+  "qualification_scope": {
+    "recorder_source": "d498be38cd0120a09b37e81331be9b9d42b72b9c",
+    "pr_runner_and_helpers_source": "871c34e2087dfb6859e91cf457abce6f152b1fca",
+    "subsequent_execution_changes": "record.go and recorder tests only; ordinary runner, schemas, report and workflow generator/helpers unchanged",
+    "doc_only_commit_does_not_replace_execution_identity": true
+  },
+  "retained_failures": [
+    {
+      "run_id": 37535664911,
+      "category": "macos_output_parent_validation",
+      "resolution": "canonicalize chosen parent; native correction qualified"
+    },
+    {
+      "run_id": 37538837223,
+      "checkout_sha": "50a670e0d58a5a0542fda16408b1abe638e18b83",
+      "host": "windows_amd64",
+      "example": "wizard-replay-9",
+      "category": "assertion_timeout",
+      "step": 5,
+      "cleanup_confirmed": true,
+      "report_sha256": "131e227533fad67ce8da975ec439e14f2201e4ba8d31dd305f2bfb2e080dfcf9",
+      "root_cause": "not reproduced or established; retain for P5 investigation, no causal fix claim",
+      "followup": "subsequent fd68 and d498 native matrices passed; additional d498 Windows stress 30/30 passed, no automatic retry hid failure"
+    }
+  ]
+}

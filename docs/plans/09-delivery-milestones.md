@@ -1,6 +1,6 @@
 # 09 — Implementation slices and dependencies
 
-Execution update 7 October 2026: P0–P2 explicitly authorized by the invoked [batch prompt](p0-p2-full-implementation-prompt.md). P0 scoped decisions complete; P1/P2 implementation and acceptance are tracked in the [dated record](../validation/p0-p2-2026-10-07.md). P3 onward remain unstarted. [Roadmap](../../roadmap.md) sets phase estimates and constraints.
+Execution update 7 October 2026: P0–P2 explicitly authorized by the invoked [batch prompt](p0-p2-full-implementation-prompt.md). P0-P2 scoped acceptance is complete, including final native/race and real same-repository/fork journeys; evidence and retained failures are tracked in the [dated record](../validation/p0-p2-2026-10-07.md). P3 onward remain unstarted. [Roadmap](../../roadmap.md) sets phase estimates and constraints.
 
 ## Working method
 
