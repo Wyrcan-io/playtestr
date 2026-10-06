@@ -290,6 +290,9 @@ func (r *Recording) Rerecord(ctx context.Context, prefix int) error {
 	}
 	exited := false
 	for _, step := range r.spec.Steps {
+		if step.Key != "" || step.Text != "" || step.Resize != nil {
+			r.beforeInput = r.Screen()
+		}
 		stepCtx, cancel := context.WithTimeout(r.ctx, time.Duration(r.spec.TimeoutMS)*time.Millisecond)
 		err := executeStep(stepCtx, r.path, step, RunOptions{recordSnapshots: r.snapshots}, nil, r.session, exited)
 		cancel()
@@ -305,7 +308,6 @@ func (r *Recording) Rerecord(ctx context.Context, prefix int) error {
 			r.transition = false
 		}
 	}
-	r.beforeInput = r.Screen()
 	return nil
 }
 

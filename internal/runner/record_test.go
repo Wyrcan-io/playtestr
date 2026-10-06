@@ -275,3 +275,22 @@ func TestRecordingLiteralControlKeyAndResolvedSetup(t *testing.T) {
 		t.Fatal(result.Err())
 	}
 }
+
+func TestRecordingRerecordInputPrefixAllowsFreshCheckpoint(t *testing.T) {
+	r := newHelperRecording(t, "modal-transition", nil)
+	capture(t, r, Step{Expect: "Keybindings"}, Step{Snapshot: "modal.txt"}, Step{Key: "Escape"}, Step{Expect: "Main ready"}, Step{Exit: intPointer(0)})
+	if err := r.Rerecord(context.Background(), 3); err != nil {
+		t.Fatal(err)
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	if _, _, exited := r.session.outcome.wait(ctx); !exited {
+		t.Fatal("reconstructed target never transitioned")
+	}
+	// The author sees the completed new state after retained input. Its anchor
+	// must be compared with the pre-input screen, not that already changed state.
+	capture(t, r, Step{Expect: "Main ready"}, Step{Exit: intPointer(0)})
+	if result := r.Replay(context.Background(), io.Discard); result.Err() != nil {
+		t.Fatal(result.Err())
+	}
+}
