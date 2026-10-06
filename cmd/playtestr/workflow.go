@@ -68,14 +68,14 @@ func runWorkflow(args []string, stdout, stderr io.Writer) int {
 	quoted := []string{}
 	for _, suite := range suites {
 		clean := filepath.Clean(suite)
-		if suite == "" || filepath.IsAbs(suite) || clean == ".." || strings.HasPrefix(clean, ".."+string(os.PathSeparator)) || strings.HasPrefix(suite, "-") || strings.ContainsAny(suite, "\r\n\x00") {
+		if suite == "" || filepath.IsAbs(suite) || clean == ".." || strings.HasPrefix(clean, ".."+string(os.PathSeparator)) || strings.HasPrefix(suite, "-") || strings.ContainsAny(suite, "\r\n\x00") || strings.Contains(suite, "${{") {
 			fmt.Fprintln(stderr, "suite must be a relative repository path without newline/options")
 			return 2
 		}
 		quoted = append(quoted, bashQuote(filepath.ToSlash(clean)))
 	}
 	for _, command := range append(append([]string{}, setup...), build...) {
-		if strings.TrimSpace(command) == "" || strings.ContainsRune(command, 0) || len(command) > 16384 {
+		if strings.TrimSpace(command) == "" || strings.ContainsRune(command, 0) || len(command) > 16384 || strings.Contains(command, "${{") {
 			fmt.Fprintln(stderr, "setup/build command invalid or too large")
 			return 2
 		}
@@ -117,10 +117,12 @@ func runWorkflow(args []string, stdout, stderr io.Writer) int {
 	if len(setup) > 0 {
 		prerequisites = "      - name: Explicit target prerequisites\n        run: |\n" + indentCommands(setup)
 	}
-	yaml := workflowTemplate
+	installation = strings.ReplaceAll(strings.ReplaceAll(installation, "@SOURCE@", *source), "@VERSION@", *version)
+	replacements := []string{}
 	for _, pair := range [][2]string{{"@MATRIX@", strings.Join(matrix, ", ")}, {"@TIMEOUT@", fmt.Sprint(*jobTimeout)}, {"@RETENTION@", fmt.Sprint(*retention)}, {"@TOOLING@", *tooling}, {"@INSTALLATION@", installation}, {"@PREREQUISITES@", prerequisites}, {"@BUILD@", indentCommands(build)}, {"@SUITES@", strings.Join(quoted, " ")}, {"@SOURCE@", *source}, {"@VERSION@", *version}} {
-		yaml = strings.ReplaceAll(yaml, pair[0], pair[1])
+		replacements = append(replacements, pair[0], pair[1])
 	}
+	yaml := strings.NewReplacer(replacements...).Replace(workflowTemplate)
 	if *printOnly {
 		fmt.Fprint(stdout, yaml)
 		return 0

@@ -27,10 +27,21 @@ func TestWorkflowExplicitChoicesAndPins(t *testing.T) {
 
 func TestWorkflowRejectsMissingAndHostileChoices(t *testing.T) {
 	base := []string{"--print", "--source-revision", strings.Repeat("a", 40), "--suite", "tests", "--build", "true"}
-	for _, extra := range [][]string{{"--os", "self-hosted"}, {"--retention-days", "31"}, {"--suite", "../outside"}, {"--runner-version", "v1.0.0"}, {"--source-revision", "main"}, {"--suite", "bad\nname"}} {
+	for _, extra := range [][]string{{"--os", "self-hosted"}, {"--retention-days", "31"}, {"--suite", "../outside"}, {"--runner-version", "v1.0.0"}, {"--source-revision", "main"}, {"--suite", "bad\nname"}, {"--suite", "${{ github.event.pull_request.title }}"}, {"--build", "echo '${{ github.event.pull_request.title }}'"}} {
 		var out, err bytes.Buffer
 		if code := runWorkflow(append(append([]string{}, base...), extra...), &out, &err); code == 0 {
 			t.Fatal("accepted", extra)
 		}
+	}
+}
+
+func TestWorkflowDoesNotReinterpretLiteralCommandMarkers(t *testing.T) {
+	var out, err bytes.Buffer
+	args := []string{"--print", "--source-revision", strings.Repeat("a", 40), "--suite", "test.json", "--build", "printf '@SOURCE@ @SUITES@'"}
+	if code := runWorkflow(args, &out, &err); code != 0 {
+		t.Fatal(code, err.String())
+	}
+	if !strings.Contains(out.String(), "printf '@SOURCE@ @SUITES@'") {
+		t.Fatal("literal build command was rewritten")
 	}
 }
