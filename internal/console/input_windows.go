@@ -4,6 +4,7 @@ import (
 	"golang.org/x/sys/windows"
 	"io"
 	"os"
+	"strings"
 	"unicode/utf8"
 	"unsafe"
 )
@@ -32,14 +33,18 @@ func readNative(file *os.File, raw bool) ([]byte, error) {
 			return nil, nil
 		}
 		char := *(*uint16)(unsafe.Pointer(&record[14]))
+		repeat := *(*uint16)(unsafe.Pointer(&record[8]))
+		if repeat < 1 || repeat > 256 {
+			return nil, windows.ERROR_INVALID_DATA
+		}
 		if char != 0 {
 			if char >= 0xd800 && char <= 0xdfff {
 				return nil, windows.ERROR_NO_UNICODE_TRANSLATION
 			}
 			if char == 8 {
-				return []byte{127}, nil
+				return []byte(strings.Repeat("\x7f", int(repeat))), nil
 			}
-			return utf8.AppendRune(nil, rune(char)), nil
+			return []byte(strings.Repeat(string(utf8.AppendRune(nil, rune(char))), int(repeat))), nil
 		}
 		key := *(*uint16)(unsafe.Pointer(&record[10]))
 		if key == 0x10 || key == 0x11 || key == 0x12 || key == 0x14 {
@@ -49,7 +54,7 @@ func readNative(file *os.File, raw bool) ([]byte, error) {
 		if sequence == "" {
 			return nil, windows.ERROR_NOT_SUPPORTED
 		}
-		return []byte(sequence), nil
+		return []byte(strings.Repeat(sequence, int(repeat))), nil
 	}
 	var available uint32
 	ok, _, pipeErr := peekNamedPipe.Call(uintptr(handle), 0, 0, 0, uintptr(unsafe.Pointer(&available)), 0)

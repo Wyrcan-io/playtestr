@@ -230,3 +230,33 @@ func TestRecordingRejectsAmbiguousAndDynamicReadiness(t *testing.T) {
 		t.Fatalf("dynamic content silently normalized: %+v", result)
 	}
 }
+
+type interruptedExportContext struct {
+	context.Context
+	checks int
+}
+
+func (c *interruptedExportContext) Err() error {
+	c.checks++
+	if c.checks >= 4 {
+		return context.Canceled
+	}
+	return nil
+}
+
+func TestRecordingInterruptedExportRollsBackWrittenFiles(t *testing.T) {
+	r := newHelperRecording(t, "exit-zero", nil)
+	capture(t, r, Step{Exit: intPointer(0)}, Step{Snapshot: "first.txt"}, Step{Snapshot: "second.txt"})
+	if result := r.Replay(context.Background(), io.Discard); result.Err() != nil {
+		t.Fatal(result.Err())
+	}
+	ctx := &interruptedExportContext{Context: context.Background()}
+	if err := r.Export(ctx); !errors.Is(err, context.Canceled) {
+		t.Fatalf("interrupted transaction: %v", err)
+	}
+	for _, path := range []string{r.path, filepath.Join(filepath.Dir(r.path), "snapshots", "first.txt"), filepath.Join(filepath.Dir(r.path), "snapshots", "second.txt")} {
+		if _, err := os.Stat(path); !errors.Is(err, os.ErrNotExist) {
+			t.Fatalf("partial export left %s: %v", path, err)
+		}
+	}
+}

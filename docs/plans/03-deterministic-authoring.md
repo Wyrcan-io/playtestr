@@ -1,6 +1,6 @@
 # 03 — Deterministic recording and authoring
 
-Status: planned. Existing commands/contracts stay unchanged until implementation. [Journeys](02-customer-journeys.md) · [Quality](10-quality-and-release.md).
+Execution update 7 October 2026: source `record` implemented with existing strict v1/v2; actual controls, review/replay/export and maintenance are documented in [recording](../recording.md), with [generated examples](../../examples/recorded/README.md). Native/hosted acceptance is tracked in [the dated record](../validation/p0-p2-2026-10-07.md); prior published binaries are unchanged. [Journeys](02-customer-journeys.md) · [Quality](10-quality-and-release.md).
 
 ## Fundamental contract
 

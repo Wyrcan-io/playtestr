@@ -34,7 +34,7 @@ Jobs have type, tenant, external identity, lease, attempt count, next-attempt ti
 | --- | ---: | --- |
 | Selected repositories per paid account | 3 | Explicit selection; no silent rotation to evade limits |
 | Accepted review evaluations per billing month | 1,000 total across selected repositories | Usage meter/reset time; no automatic overage charge |
-| Result metadata envelope | 256 KiB decompressed | Reject oversized/unknown fields with reason |
+| Paid result metadata envelope | 64 KiB decompressed (P0 revised) | Compact summaries; raw reports stay in GitHub; reject oversized/unknown fields |
 | Test results in envelope | 1,000 | Require summary/chunk contract if genuinely needed later |
 | Backend raw screens/artifacts | 0 retained | Links to customer-owned GitHub artifacts |
 | Retained review/outcome metadata | 30 days | Explain expiry and export before deletion |

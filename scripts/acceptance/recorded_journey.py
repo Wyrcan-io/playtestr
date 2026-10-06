@@ -5,11 +5,13 @@ Only synthetic repo fixtures are mutated, restored in finally. No network or
 outreach. Requires compiled candidate, demo, fixture and pinned Gum v0.17.0.
 """
 import argparse
+import asyncio
 import hashlib
 import json
 import os
 from pathlib import Path
 import platform
+import re
 import shutil
 import subprocess
 import sys
@@ -33,6 +35,62 @@ def command(args, name, env=None, input=None, expected=0):
 
 def digest(paths):
     return {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}
+
+
+async def record_with_file_oracle(args, controls, env, name):
+    """Inspect actual synthetic saved state before recorder teardown/replay.
+
+    The assertion belongs to this harness, not to the target's success message.
+    Each pipe read and the full child lifetime are bounded; no background thread.
+    """
+    proc = await asyncio.create_subprocess_exec(*map(str, args), cwd=ROOT, env=env,
+                                              stdin=asyncio.subprocess.PIPE,
+                                              stdout=asyncio.subprocess.PIPE,
+                                              stderr=asyncio.subprocess.STDOUT,
+                                              limit=256 * 1024)
+    lines = []
+    try:
+        proc.stdin.write((controls + "/screen\n").encode("utf-8"))
+        await proc.stdin.drain()
+        working = None
+        while True:
+            line = await asyncio.wait_for(proc.stdout.readline(), timeout=25)
+            if not line:
+                raise RuntimeError("recorder exited before independent state oracle")
+            text = line.decode("utf-8")
+            lines.append(text)
+            if sum(map(len, lines)) > 256 * 1024:
+                raise RuntimeError("recorder preview exceeds harness bound")
+            match = re.search(r'working-directory=(".*")', text)
+            if match:
+                working = Path(json.loads(match[1]))
+            if "Saved and verified atlas:synthetic" in text:
+                if working is None or not working.parent.name.startswith("playtestr-workspace-"):
+                    raise RuntimeError("missing owned synthetic workspace identity")
+                saved = working / "result.txt"
+                if saved.stat().st_size > 1024 or saved.read_bytes() != b"atlas:synthetic":
+                    raise RuntimeError("independent saved-file oracle failed")
+                break
+        proc.stdin.write(b"/review\n/replay\n/save\n")
+        await proc.stdin.drain()
+        proc.stdin.close()
+        remainder = await asyncio.wait_for(proc.stdout.read(), timeout=60)
+        lines.append(remainder.decode("utf-8"))
+        await asyncio.wait_for(proc.wait(), timeout=5)
+        if proc.returncode != 0:
+            raise RuntimeError("recorded wizard failed after state oracle")
+    finally:
+        if proc.returncode is None:
+            # Signal normal cancellation so the recorder restores/cleans up.
+            try:
+                proc.stdin.write(b"/quit\n")
+                await proc.stdin.drain()
+                await asyncio.wait_for(proc.wait(), timeout=5)
+            except (BrokenPipeError, ConnectionResetError, asyncio.TimeoutError):
+                proc.kill()
+                await proc.wait()
+        EVIDENCE.mkdir(parents=True, exist_ok=True)
+        (EVIDENCE / (name + ".log")).write_text("".join(lines), encoding="utf-8")
 
 
 def main():
@@ -75,7 +133,10 @@ def main():
         if case["mode"]:
             flags += [case["mode"]]
         controls = case["controls"] + "/review\n/replay\n/save\n"
-        command(flags, name + "-record", env, controls)
+        if name == "wizard":
+            asyncio.run(record_with_file_oracle(flags, case["controls"], env, name + "-record"))
+        else:
+            command(flags, name + "-record", env, controls)
         spec = json.loads(path.read_text(encoding="utf-8"))
         snapshots = [path.parent / "snapshots" / s["snapshot"] for s in spec["steps"] if "snapshot" in s]
         before = digest([path] + snapshots)
@@ -109,7 +170,7 @@ def main():
             command([BIN, "test", editable], name + "-manual-edit", env)
         finally:
             editable.unlink()
-        observations.append(dict(example=name, capabilities=["fixture", "wizard", "resize", "saved-state"] if name == "wizard" else ["external-gum-v0.17.0", "selector"] if name == "selector" else ["full-screen"], fresh_replays=10, delays_ms=[0,25,100,5,60,150,10,80,40,120], defect_detected=True, recovery=True, unchanged_test_baseline_hashes=before))
+        observations.append(dict(example=name, independent_saved_file_oracle=name == "wizard", capabilities=["fixture", "wizard", "resize", "saved-state"] if name == "wizard" else ["external-gum-v0.17.0", "selector"] if name == "selector" else ["full-screen"], fresh_replays=10, delays_ms=[0,25,100,5,60,150,10,80,40,120], defect_detected=True, recovery=True, unchanged_test_baseline_hashes=before))
     summary = dict(host=platform.platform(), arch=platform.machine(), examples=observations, campaign_credit=0)
     (EVIDENCE / "acceptance.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(summary, indent=2))

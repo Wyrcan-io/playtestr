@@ -155,11 +155,11 @@ func (r *Recording) Capture(step Step) error {
 	if r.session == nil {
 		return fmt.Errorf("capture is closed; use rerecord to start fresh")
 	}
-	if err := r.ctx.Err(); err != nil {
-		return err
-	}
 	if o := r.session.observe(); o.outputLimitExceeded {
 		return errOutputLimit
+	}
+	if err := r.ctx.Err(); err != nil {
+		return err
 	}
 	if len(step.Text) > maxRecordText || !utf8.ValidString(step.Text) {
 		return fmt.Errorf("text must be valid UTF-8 and at most %d bytes", maxRecordText)
@@ -177,6 +177,11 @@ func (r *Recording) Capture(step Step) error {
 		return err
 	}
 	input := step.Key != "" || step.Text != "" || step.Resize != nil
+	if input {
+		if code, _, exited := r.session.outcome.result(); exited {
+			return unexpectedExit("target exited with code %d before recorded input", code)
+		}
+	}
 	if step.Expect != "" {
 		if strings.TrimSpace(step.Expect) == "" {
 			return fmt.Errorf("checkpoint must identify meaningful content")
