@@ -43,4 +43,6 @@ Maintenance is practical and explicit: `/delete N`, `/move N M` or `/replace N {
 
 The wizard target checks its file before its success marker. The native acceptance harness also independently reads `result.txt` and compares it with the expected synthetic bytes while the recorder's managed workspace still exists, before replay/cleanup. That host-side oracle is bounded and specific to this example; it is not a new general filesystem assertion or a guarantee that an arbitrary target saved correct state. Existing independent state harnesses remain necessary for other applications. No postcondition hooks or new public spec version were added.
 
+After successful rerecording, the console prints the resolved target and new working directory again. A managed workspace is recreated, so use this latest identity when independently inspecting synthetic saved state; the previous directory has already been cleaned up.
+
 See [recorded examples](../examples/recorded/README.md), [workflow setup](generated-workflows.md) and [dated acceptance evidence](validation/p0-p2-2026-10-07.md). Operator measurements supply development evidence, not independent-user usability or campaign credit.

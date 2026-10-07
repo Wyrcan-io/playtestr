@@ -235,6 +235,10 @@ func runRecord(ctx context.Context, args []string, stdin *os.File, stdout, stder
 			n, err = strconv.Atoi(value)
 			if err == nil {
 				err = r.Rerecord(ctx, n)
+				if err == nil {
+					program, directory := r.ResolvedSetup()
+					fmt.Fprintf(stdout, "Resolved target=%q working-directory=%q\n", program, directory)
+				}
 			}
 		case "/delete", "/move", "/replace":
 			capture = false
