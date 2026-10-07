@@ -87,7 +87,7 @@ Stateful local flows can opt into specification version 2. It copies a bounded r
 
 The command resolves before the copied working directory is selected. Failed runs normally clean up; `--keep-workspace-on-failure` prints and records an explicitly retained local path. Successful workspaces are always removed. See [Repeatable workspaces](docs/workspaces.md), [spec v2](docs/spec-v2.md), and [report v2](docs/report-v2.md). A temporary workspace controls selected local paths but is not a security sandbox.
 
-Each step has exactly one action. Supported keys: `Enter`, `ArrowDown`, `ArrowUp`, `ArrowLeft`, `ArrowRight`, `Escape`, `Tab`, `Backspace`, `CtrlC`, `CtrlE`, `CtrlF`, `CtrlO`, `CtrlQ`, `CtrlS`, `CtrlSpace`, and `CtrlZ`. An `exit` step waits for the process and requires the exact exit code; intentionally nonzero expected codes are supported. Long-running TUIs do not need an exit step.
+Each step has exactly one action. Supported keys: `Enter`, `ArrowDown`, `ArrowUp`, `ArrowLeft`, `ArrowRight`, `Escape`, `Tab`, `Backspace`, `CtrlA`, `CtrlC`, `CtrlE`, `CtrlF`, `CtrlK`, `CtrlO`, `CtrlQ`, `CtrlS`, `CtrlSpace`, and `CtrlZ`. An `exit` step waits for the process and requires the exact exit code; intentionally nonzero expected codes are supported. Long-running TUIs do not need an exit step.
 
 `expect` polls the current screen until the text appears or the per-step timeout expires. `expect_not` waits for text that an earlier `expect` observed to disappear after input or resize, which is useful for closing modals without arbitrary sleeps. If the process exits first, an unmatched assertion reports the exit code instead of waiting for a timeout. Snapshots compare the rendered screen after at least 150 ms without output.
 
@@ -199,3 +199,5 @@ Built on [Charm's xpty](https://github.com/charmbracelet/x/tree/main/xpty) and a
 The selected wide-character repair is in verified v0.4.0-rc.3; [release evidence](docs/validation/wide-character-release-2026-10-01.md) records the exact scope. Combining clusters, emoji/ZWJ sequences and target-visible terminal queries remain excluded.
 
 For completed releases, engineering status and the next implementation steps, see the [project roadmap](roadmap.md). Plans describe future work separately from the released capabilities above.
+
+The current source candidate additionally supports `CtrlA` (byte 0x01) and `CtrlK` (byte 0x0b) for terminal editor controls; published earlier archives may reject those names. Existing specs remain unchanged.

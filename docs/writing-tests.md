@@ -39,7 +39,7 @@ Use `expect` for text that positively identifies the screen you need. After send
 
 Finite applications should end with `{"exit": 0}` or the exact expected nonzero code. A target that exits without an exit assertion fails, even if earlier screen assertions passed. A long-running TUI does not need an exit step; Playtestr performs bounded cleanup when its steps finish.
 
-Supported named keys are `Enter`, `ArrowDown`, `ArrowUp`, `ArrowLeft`, `ArrowRight`, `Escape`, `Tab`, `Backspace`, `CtrlC`, `CtrlE`, `CtrlF`, `CtrlO`, `CtrlQ`, `CtrlS`, `CtrlSpace`, and `CtrlZ`. A `text` action sends literal text.
+Supported named keys are `Enter`, `ArrowDown`, `ArrowUp`, `ArrowLeft`, `ArrowRight`, `Escape`, `Tab`, `Backspace`, `CtrlA`, `CtrlC`, `CtrlE`, `CtrlF`, `CtrlK`, `CtrlO`, `CtrlQ`, `CtrlS`, `CtrlSpace`, and `CtrlZ`. A `text` action sends literal text.
 
 ## Working directory and environment
 
@@ -80,3 +80,7 @@ playtestr test --report results.json path/to/test.json
 For multiple tests, pass a directory to resolve all lowercase `.json` files recursively before execution. Preview it without launching targets using `--list`, and use `--artifacts-dir` in CI so every run has an isolated evidence directory. The complete behavior is documented in [Test suites and CI evidence](suites.md).
 
 A passing run exits 0. Test failures exit 1 and identify the failed step and category. Ctrl+C cancellation exits 130 after bounded cleanup. The complete public contract is [Test specification version 1](spec-v1.md).
+
+The current source candidate additionally supports `CtrlA` (byte 0x01) and `CtrlK` (byte 0x0b) for terminal editor controls; published earlier archives may reject those names. Existing specs remain unchanged.
+
+The executable (`command[0]`) must be nonempty. The current source candidate preserves empty subsequent arguments, for example `["app", "--option", ""]`, as real argv entries without invoking a shell. Earlier archives rejected them. NUL bytes remain invalid.

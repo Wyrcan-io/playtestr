@@ -28,6 +28,7 @@ func TestScreenRedraw(t *testing.T) {
 
 func TestNamedControlKeysUseTerminalControlBytes(t *testing.T) {
 	want := map[string]string{
+		"CtrlA": "\x01", "CtrlK": "\x0b",
 		"CtrlC":     "\x03",
 		"CtrlE":     "\x05",
 		"CtrlO":     "\x0f",
@@ -189,7 +190,7 @@ func TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput(t *testing.T)
 		{name: "wrong version", data: `{"version":99,"command":["sentinel"],"steps":[{"exit":0}]}`, want: "unsupported spec version 99"},
 		{name: "unknown field", data: `{"version":1,"command":["sentinel"],"steps":[{"exit":0}],"commnad":[]}`, want: `unknown field "commnad"`},
 		{name: "null command", data: `{"version":1,"command":null,"steps":[{"exit":0}]}`, want: "command is required"},
-		{name: "empty command element", data: `{"version":1,"command":["sentinel",""],"steps":[{"exit":0}]}`, want: "command elements must not be empty"},
+		{name: "empty executable", data: `{"version":1,"command":["","argument"],"steps":[{"exit":0}]}`, want: "command is required"},
 		{name: "invalid key", data: `{"version":1,"command":["sentinel"],"steps":[{"key":"F13"}]}`, want: `step 1 unknown key "F13"`},
 		{name: "mixed actions", data: `{"version":1,"command":["sentinel"],"steps":[{"text":"` + secret + `","expect":"ready"}]}`, want: "step 1 must have exactly one action"},
 		{name: "missing command", data: `{"version":1,"steps":[{"exit":0}]}`, want: "command is required"},
@@ -409,6 +410,33 @@ func TestHelperProcess(t *testing.T) {
 		}
 		fmt.Printf("\x1b[2J\x1b[Hinstance=%d\r\nrow %s caf\u00e9\r\n", os.Getpid(), value)
 		time.Sleep(10 * time.Second)
+		os.Exit(0)
+	case "empty-arguments":
+		args := os.Args[len(os.Args)-4:]
+		if args[0] != "" || args[1] != "space arg" || args[2] != "quote\"arg" {
+			os.Exit(5)
+		}
+		fmt.Print("empty argument preserved\r\n")
+		os.Exit(0)
+	case "edit-controls":
+		old, err := term.MakeRaw(int(os.Stdin.Fd()))
+		if err != nil {
+			os.Exit(2)
+		}
+		defer term.Restore(int(os.Stdin.Fd()), old)
+		fmt.Print("edit controls ready\r\n")
+		buf := make([]byte, 2)
+		for n := 0; n < len(buf); {
+			count, err := os.Stdin.Read(buf[n:])
+			if err != nil {
+				os.Exit(3)
+			}
+			n += count
+		}
+		if buf[0] != 1 || buf[1] != 11 {
+			os.Exit(4)
+		}
+		fmt.Print("edit controls received\r\n")
 		os.Exit(0)
 	case "literal-control":
 		old, err := term.MakeRaw(int(os.Stdin.Fd()))
@@ -937,4 +965,19 @@ func runConfiguredHelperSpecContext(t *testing.T, ctx context.Context, mode stri
 		t.Fatal(err)
 	}
 	return RunContext(ctx, path, false, &bytes.Buffer{})
+}
+
+func TestEditingControlKeysThroughRealPTY(t *testing.T) {
+	if err := runHelperSpec(t, "edit-controls", []Step{{Expect: "edit controls ready"}, {Key: "CtrlA"}, {Key: "CtrlK"}, {Expect: "edit controls received"}, {Exit: intPointer(0)}}, 5000); err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestEmptyArgumentPreservedThroughRealPTY(t *testing.T) {
+	err := runConfiguredHelperSpec(t, "empty-arguments", []Step{{Expect: "empty argument preserved"}, {Exit: intPointer(0)}}, func(spec *Spec) {
+		spec.Command = []string{os.Args[0], "-test.run=TestHelperProcess", "--", "", "space arg", "quote\"arg", "empty-arguments"}
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
 }
