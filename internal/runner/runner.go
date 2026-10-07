@@ -87,7 +87,7 @@ var (
 		"Enter": "\r", "ArrowDown": "\x1b[B", "ArrowUp": "\x1b[A",
 		"ArrowRight": "\x1b[C", "ArrowLeft": "\x1b[D", "Escape": "\x1b",
 		"Tab": "\t", "Backspace": "\x7f", "CtrlC": "\x03", "CtrlE": "\x05", "CtrlO": "\x0f", "CtrlSpace": "\x00",
-		"CtrlA": "\x01", "CtrlK": "\x0b", "CtrlF": "\x06", "CtrlQ": "\x11", "CtrlS": "\x13", "CtrlZ": "\x1a",
+		"CtrlA": "\x01", "CtrlJ": "\x0a", "CtrlK": "\x0b", "CtrlF": "\x06", "CtrlQ": "\x11", "CtrlS": "\x13", "CtrlZ": "\x1a",
 	}
 	environmentName = regexp.MustCompile(`^[A-Za-z_][A-Za-z0-9_]*$`)
 )

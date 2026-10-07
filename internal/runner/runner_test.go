@@ -28,7 +28,7 @@ func TestScreenRedraw(t *testing.T) {
 
 func TestNamedControlKeysUseTerminalControlBytes(t *testing.T) {
 	want := map[string]string{
-		"CtrlA": "\x01", "CtrlK": "\x0b",
+		"CtrlA": "\x01", "CtrlJ": "\x0a", "CtrlK": "\x0b",
 		"CtrlC":     "\x03",
 		"CtrlE":     "\x05",
 		"CtrlO":     "\x0f",
@@ -425,7 +425,7 @@ func TestHelperProcess(t *testing.T) {
 		}
 		defer term.Restore(int(os.Stdin.Fd()), old)
 		fmt.Print("edit controls ready\r\n")
-		buf := make([]byte, 2)
+		buf := make([]byte, 3)
 		for n := 0; n < len(buf); {
 			count, err := os.Stdin.Read(buf[n:])
 			if err != nil {
@@ -433,7 +433,7 @@ func TestHelperProcess(t *testing.T) {
 			}
 			n += count
 		}
-		if buf[0] != 1 || buf[1] != 11 {
+		if buf[0] != 1 || buf[1] != 11 || buf[2] != 10 {
 			os.Exit(4)
 		}
 		fmt.Print("edit controls received\r\n")
@@ -968,7 +968,7 @@ func runConfiguredHelperSpecContext(t *testing.T, ctx context.Context, mode stri
 }
 
 func TestEditingControlKeysThroughRealPTY(t *testing.T) {
-	if err := runHelperSpec(t, "edit-controls", []Step{{Expect: "edit controls ready"}, {Key: "CtrlA"}, {Key: "CtrlK"}, {Expect: "edit controls received"}, {Exit: intPointer(0)}}, 5000); err != nil {
+	if err := runHelperSpec(t, "edit-controls", []Step{{Expect: "edit controls ready"}, {Key: "CtrlA"}, {Key: "CtrlK"}, {Key: "CtrlJ"}, {Expect: "edit controls received"}, {Exit: intPointer(0)}}, 5000); err != nil {
 		t.Fatal(err)
 	}
 }
