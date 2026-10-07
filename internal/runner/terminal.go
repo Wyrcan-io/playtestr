@@ -43,6 +43,11 @@ func (e *screenEmulator) String() string {
 	return e.terminal.String()
 }
 
+func (e *screenEmulator) Rows() int {
+	_, rows := e.terminal.Size()
+	return rows
+}
+
 func (e *screenEmulator) Resize(width, height int) {
 	e.terminal.Resize(width, height)
 }

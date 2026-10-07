@@ -45,4 +45,6 @@ The wizard target checks its file before its success marker. The native acceptan
 
 After successful rerecording, the console prints the resolved target and new working directory again. A managed workspace is recreated, so use this latest identity when independently inspecting synthetic saved state; the previous directory has already been cleaned up.
 
+For a deliberate limited screen contract, `/snapshot-rows name.rows.json 2 24` captures inclusive 1-based rows after the same readiness checks. Review the explicit range and selected text before replay/export. See [selected-row format and migration](snapshot-rows-v1.md); this source feature does not automatically normalize paths or timestamps and is unavailable in published archives.
+
 See [recorded examples](../examples/recorded/README.md), [workflow setup](generated-workflows.md) and [dated acceptance evidence](validation/p0-p2-2026-10-07.md). Operator measurements supply development evidence, not independent-user usability or campaign credit.

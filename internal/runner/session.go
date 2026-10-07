@@ -31,6 +31,7 @@ type processOutcome struct {
 
 type sessionObservation struct {
 	screen              string
+	rows                int
 	lastOutput          time.Time
 	outputBytes         int64
 	outputLimitExceeded bool
@@ -179,6 +180,7 @@ func (s *terminalSession) observe() sessionObservation {
 	defer s.mu.Unlock()
 	return sessionObservation{
 		screen:              normalize(s.terminal.String()),
+		rows:                s.terminal.Rows(),
 		lastOutput:          s.lastOutput,
 		outputBytes:         s.outputBytes,
 		outputLimitExceeded: s.outputLimitExceeded,

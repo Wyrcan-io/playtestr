@@ -51,6 +51,7 @@ type RunOptions struct {
 	KeepWorkspaceOnFailure bool
 	recordSpec             *Spec
 	recordSnapshots        map[string]string
+	recordSnapshotRows     map[string]snapshotRows
 	noArtifacts            bool
 	recordEvidence         *string
 }
@@ -699,9 +700,16 @@ func executeStep(ctx context.Context, specPath string, step Step, options RunOpt
 	}
 
 	var expected []byte
+	var selectedRows *snapshotRows
 	base := filepath.Join(filepath.Dir(specPath), "snapshots")
 	updateSnapshot := options.Update && (options.Snapshot == "" || options.Snapshot == step.Snapshot)
-	if step.Snapshot != "" && !updateSnapshot {
+	rowSnapshot := strings.HasSuffix(step.Snapshot, ".rows.json")
+	if rowSnapshot && options.recordSnapshotRows != nil {
+		if rows, ok := options.recordSnapshotRows[step.Snapshot]; ok {
+			selectedRows = &rows
+		}
+	}
+	if step.Snapshot != "" && (!updateSnapshot || rowSnapshot && selectedRows == nil) {
 		var err error
 		if options.recordSnapshots != nil {
 			content, ok := options.recordSnapshots[step.Snapshot]
@@ -715,11 +723,23 @@ func executeStep(ctx context.Context, specPath string, step Step, options RunOpt
 		}
 		if err != nil {
 			if errors.Is(err, os.ErrNotExist) {
+				if rowSnapshot {
+					return withCategory(FailureArtifact, fmt.Errorf("row snapshot %q is missing; create reviewed row metadata with record /snapshot-rows before replay or update: %w", step.Snapshot, err))
+				}
 				return withCategory(FailureArtifact, fmt.Errorf("snapshot %q is missing (create it with --update): %w", step.Snapshot, err))
 			}
 			return withCategory(FailureArtifact, fmt.Errorf("read snapshot %q: %w", step.Snapshot, err))
 		}
-		expected = []byte(normalize(string(expected)))
+		if rowSnapshot {
+			rows, err := decodeSnapshotRows(expected)
+			if err != nil {
+				return withCategory(FailureArtifact, err)
+			}
+			selectedRows = &rows
+			expected = []byte(normalize(rows.Text))
+		} else {
+			expected = []byte(normalize(string(expected)))
+		}
 	}
 	ticker := time.NewTicker(10 * time.Millisecond)
 	defer ticker.Stop()
@@ -735,13 +755,34 @@ func executeStep(ctx context.Context, specPath string, step Step, options RunOpt
 			return nil
 		}
 		if step.Snapshot != "" && time.Since(observation.lastOutput) >= 150*time.Millisecond {
-			if updateSnapshot {
-				return updates.stage(filepath.Join(base, step.Snapshot), observation.screen)
+			actual := observation.screen
+			if selectedRows != nil {
+				var err error
+				actual, err = selectedRows.capture(actual, observation.rows)
+				if err != nil {
+					return withCategory(FailureArtifact, err)
+				}
 			}
-			if observation.screen == string(expected) {
+			if updateSnapshot {
+				content := actual
+				if selectedRows != nil {
+					var err error
+					content, err = selectedRows.encode(actual)
+					if err != nil {
+						return withCategory(FailureArtifact, err)
+					}
+				}
+				return updates.stage(filepath.Join(base, step.Snapshot), content)
+			}
+			if actual == string(expected) {
 				return nil
 			}
-			return newSnapshotMismatch(step.Snapshot, string(expected), observation.screen)
+			mismatch := newSnapshotMismatch(step.Snapshot, string(expected), actual)
+			// Diff the selected rows, but preserve the complete failed viewport.
+			if selectedRows != nil {
+				mismatch.(*snapshotMismatchError).actual = observation.screen
+			}
+			return mismatch
 		}
 		if code, waitErr, exited := session.outcome.result(); exited && !exitAsserted {
 			drainContext, cancelDrain := context.WithTimeout(ctx, 250*time.Millisecond)

@@ -2,6 +2,8 @@
 
 Snapshots protect the complete rendered terminal screen after the application reaches a positively identified state. They compare normalized text, not ANSI byte streams, colors, or styles.
 
+The early reliability source candidate also supports deliberately selected whole viewport rows in a [versioned `.rows.json` baseline](snapshot-rows-v1.md). The reviewed interval is explicit, ordinary text snapshots remain complete-screen comparisons, and published binaries do not support the new format.
+
 ## When a snapshot helps
 
 Use `expect` for a small fact such as a prompt or confirmation. Add a snapshot when line order, spacing, a menu selection, or several visible values together form a useful reviewed interface contract.

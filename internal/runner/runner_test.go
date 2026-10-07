@@ -402,6 +402,14 @@ func TestHelperProcess(t *testing.T) {
 		fmt.Print("ready ready\r\n")
 		time.Sleep(10 * time.Second)
 		os.Exit(0)
+	case "row-view":
+		value := "stable"
+		if os.Getenv("PLAYTESTR_ROWS_DEFECT") == "1" {
+			value = "broken"
+		}
+		fmt.Printf("\x1b[2J\x1b[Hinstance=%d\r\nrow %s caf\u00e9\r\n", os.Getpid(), value)
+		time.Sleep(10 * time.Second)
+		os.Exit(0)
 	case "literal-control":
 		old, err := term.MakeRaw(int(os.Stdin.Fd()))
 		if err != nil {

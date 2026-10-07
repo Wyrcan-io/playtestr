@@ -33,6 +33,7 @@ const recordHelp = `Recorder controls (target input is separate):
   /exit 0                     exact expected exit code
   /snapshot name.txt          capture a ready, settled screen
   /resize 100 30; /redraw     resize and optional observed redraw wait
+  /snapshot-rows name.rows.json 2 24  capture reviewed inclusive viewport rows
   /screen; /review            inspect screen or full candidate/baselines
   /delete N; /move N M         edit 1-based step positions
   /replace N {"expect":"..."} replace a step with one strict JSON action
@@ -165,6 +166,19 @@ func runRecord(ctx context.Context, args []string, stdin *os.File, stdout, stder
 			step.Exit = &n
 		case "/snapshot":
 			step.Snapshot = value
+		case "/snapshot-rows":
+			capture = false
+			var name, extra string
+			var first, last int
+			n, _ := fmt.Sscan(value, &name, &first, &last, &extra)
+			if n != 3 {
+				err = fmt.Errorf("snapshot-rows requires file.rows.json first-row last-row")
+			} else {
+				err = r.CaptureRowsSnapshot(name, first, last)
+				if err == nil {
+					reviewed = false
+				}
+			}
 		case "/redraw":
 			step.WaitForRedraw = true
 		case "/resize":

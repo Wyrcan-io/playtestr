@@ -27,6 +27,7 @@ type Recording struct {
 	session       *terminalSession
 	workspace     *preparedWorkspace
 	snapshots     map[string]string
+	snapshotRows  map[string]snapshotRows
 	snapshotBytes int
 	beforeInput   string
 	transition    bool
@@ -66,7 +67,7 @@ func StartRecording(ctx context.Context, path string, setup Spec) (*Recording, e
 	if err := safeRecordPath(absolute); err != nil {
 		return nil, err
 	}
-	r := &Recording{spec: spec, path: absolute, snapshots: make(map[string]string), parent: ctx}
+	r := &Recording{spec: spec, path: absolute, snapshots: make(map[string]string), snapshotRows: make(map[string]snapshotRows), parent: ctx}
 	r.ctx, r.cancel = context.WithTimeout(ctx, time.Duration(spec.RunTimeoutMS)*time.Millisecond)
 	if spec.Workspace != nil {
 		r.fixtureHash, err = r.hashFixture()
@@ -224,7 +225,7 @@ func (r *Recording) Capture(step Step) error {
 			exitAsserted = true
 		}
 	}
-	if err := executeStep(ctx, r.path, step, RunOptions{Update: true}, updates, r.session, exitAsserted); err != nil {
+	if err := executeStep(ctx, r.path, step, RunOptions{Update: true, recordSnapshotRows: r.snapshotRows}, updates, r.session, exitAsserted); err != nil {
 		return fmt.Errorf("capture step %d: %w", len(next.Steps), err)
 	}
 	if step.Expect != "" && strings.Count(r.Screen(), step.Expect) != 1 {
@@ -243,6 +244,33 @@ func (r *Recording) Capture(step Step) error {
 	r.replayed = false
 	if step.Expect != "" || step.ExpectNot != "" || step.Exit != nil {
 		r.transition = false
+	}
+	return nil
+}
+
+// CaptureRowsSnapshot explicitly selects inclusive 1-based viewport rows.
+// The ordinary snapshot action references a versioned .rows.json baseline.
+func (r *Recording) CaptureRowsSnapshot(name string, first, last int) error {
+	if !strings.HasSuffix(name, ".rows.json") {
+		return fmt.Errorf("selected-row snapshots require a .rows.json filename")
+	}
+	rows := snapshotRows{Version: 1, First: first, Last: last}
+	if r.session == nil {
+		return fmt.Errorf("capture is closed; use rerecord")
+	}
+	observation := r.session.observe()
+	if _, err := rows.capture(observation.screen, observation.rows); err != nil {
+		return err
+	}
+	previous, existed := r.snapshotRows[name]
+	r.snapshotRows[name] = rows
+	if err := r.Capture(Step{Snapshot: name}); err != nil {
+		if existed {
+			r.snapshotRows[name] = previous
+		} else {
+			delete(r.snapshotRows, name)
+		}
+		return err
 	}
 	return nil
 }
@@ -445,6 +473,7 @@ func (r *Recording) pruneSnapshots() {
 	for name, content := range r.snapshots {
 		if !referenced[name] {
 			delete(r.snapshots, name)
+			delete(r.snapshotRows, name)
 		} else {
 			r.snapshotBytes += len(content)
 		}

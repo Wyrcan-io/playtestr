@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Playtestr selected-row snapshot version 1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["snapshot_version", "first_row", "last_row", "text"],
+  "properties": {
+    "snapshot_version": {"const": 1},
+    "first_row": {"type": "integer", "minimum": 1, "maximum": 500},
+    "last_row": {"type": "integer", "minimum": 1, "maximum": 500},
+    "text": {"type": "string", "maxLength": 2000000}
+  },
+  "$comment": "Runtime also requires first_row <= last_row <= current viewport height, nonempty visible capture, bounded UTF-8 bytes/lines and exactly one JSON object."
+}
