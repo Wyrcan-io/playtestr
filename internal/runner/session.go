@@ -77,6 +77,12 @@ func startTerminalSession(config sessionConfig) (*terminalSession, error) {
 	if err != nil {
 		return nil, fmt.Errorf("create pseudoterminal: %w", err)
 	}
+	return startTerminalSessionWithPTY(config, p)
+}
+
+// startTerminalSessionWithPTY retains ownership of the supplied backend. Tests
+// can inspect real backend traffic without persisting target bytes in the core.
+func startTerminalSessionWithPTY(config sessionConfig, p xpty.Pty) (*terminalSession, error) {
 	cmd := exec.Command(config.command[0], config.command[1:]...)
 	cmd.Dir = config.dir
 	cmd.Env = config.env
@@ -192,7 +198,10 @@ func (s *terminalSession) send(ctx context.Context, value string) error {
 	go func() {
 		s.writeMu.Lock()
 		defer s.writeMu.Unlock()
-		_, err := io.WriteString(s.pty, value)
+		n, err := io.WriteString(s.pty, value)
+		if n != len(value) && err == nil {
+			err = io.ErrShortWrite
+		}
 		done <- err
 	}()
 	select {
@@ -210,14 +219,18 @@ func (s *terminalSession) resize(ctx context.Context, width, height int) error {
 		return err
 	}
 	s.mu.Lock()
-	defer s.mu.Unlock()
 	if err := s.pty.Resize(width, height); err != nil {
+		s.mu.Unlock()
 		return fmt.Errorf("resize pseudoterminal to %dx%d: %w", width, height, err)
 	}
 	s.terminal.Resize(width, height)
 	s.resizeOutputBytes = s.outputBytes
 	s.resizeStartedAt = time.Now()
 	s.hasResizeBaseline = true
+	s.mu.Unlock()
+	if backend, ok := s.pty.(interface{ AwaitResize(context.Context) error }); ok {
+		return backend.AwaitResize(ctx)
+	}
 	return nil
 }
 

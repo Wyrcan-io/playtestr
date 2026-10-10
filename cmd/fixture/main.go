@@ -148,6 +148,31 @@ func main() {
 }
 
 func wizard() error {
+	traceEvents := make(chan string, 300)
+	if path := os.Getenv("PLAYTESTR_WIZARD_TRACE"); path != "" {
+		go func() {
+			// Avoid filesystem writes in the input/resize race being investigated.
+			time.Sleep(250 * time.Millisecond)
+			var captured strings.Builder
+			for {
+				select {
+				case event := <-traceEvents:
+					captured.WriteString(event + "\n")
+				default:
+					_ = os.WriteFile(path, []byte(captured.String()), 0600)
+					return
+				}
+			}
+		}()
+	}
+	trace := func(format string, values ...any) {
+		// Optional acceptance diagnostics contain only this synthetic fixture's
+		// input. The harness supplies an owned bounded file, never user input.
+		select {
+		case traceEvents <- fmt.Sprintf(format, values...):
+		default:
+		}
+	}
 	if _, err := os.Stat("result.txt"); err == nil {
 		return fmt.Errorf("dirty fixture: result.txt already exists")
 	}
@@ -160,6 +185,7 @@ func wizard() error {
 		return err
 	}
 	defer term.Restore(int(os.Stdin.Fd()), old)
+	trace("raw ready pid=%d", os.Getpid())
 	delay, _ := strconv.Atoi(os.Getenv("PLAYTESTR_DELAY_MS"))
 	draw := func(text string) {
 		time.Sleep(time.Duration(delay) * time.Millisecond)
@@ -170,6 +196,7 @@ func wizard() error {
 	var name []byte
 	for {
 		b, err := r.ReadByte()
+		trace("name byte=%02x err=%v", b, err)
 		if err != nil {
 			return err
 		}
@@ -182,6 +209,7 @@ func wizard() error {
 		}
 	}
 	width, height, err := term.GetSize(int(os.Stdout.Fd()))
+	trace("name=%x size=%dx%d err=%v", name, width, height, err)
 	if err != nil {
 		return err
 	}

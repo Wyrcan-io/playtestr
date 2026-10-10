@@ -1,0 +1,128 @@
+{
+  "report_version": 2,
+  "runner_version": "source-e28d653",
+  "os": "windows",
+  "arch": "amd64",
+  "summary": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1,
+    "cancelled": 0,
+    "not_run": 0
+  },
+  "results": [
+    {
+      "spec_version": 2,
+      "name": "Recorded wizard",
+      "spec_path": "C:\\Users\\abhir\\OneDrive\\Documents\\playtestr\\artifacts\\ten-new-project-adversarial-pass\\wizard-reproduction\\1791629261238768500\\wizard.json",
+      "status": "failed",
+      "duration_ms": 1127,
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "resizes": [
+        {
+          "width": 100,
+          "height": 30
+        }
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 50
+        },
+        {
+          "number": 2,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 3,
+          "action": "resize",
+          "status": "passed",
+          "duration_ms": 0,
+          "resize": {
+            "width": 100,
+            "height": 30
+          }
+        },
+        {
+          "number": 4,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 5,
+          "action": "expect",
+          "status": "failed",
+          "duration_ms": 1000,
+          "failure": {
+            "category": "assertion_timeout",
+            "message": "Recorded wizard: step 5: step timed out: context deadline exceeded"
+          }
+        },
+        {
+          "number": 6,
+          "action": "snapshot",
+          "status": "not_run",
+          "duration_ms": 0
+        },
+        {
+          "number": 7,
+          "action": "text",
+          "status": "not_run",
+          "duration_ms": 0
+        },
+        {
+          "number": 8,
+          "action": "expect",
+          "status": "not_run",
+          "duration_ms": 0
+        },
+        {
+          "number": 9,
+          "action": "exit",
+          "status": "not_run",
+          "duration_ms": 0
+        },
+        {
+          "number": 10,
+          "action": "snapshot",
+          "status": "not_run",
+          "duration_ms": 0
+        }
+      ],
+      "target": {
+        "exited": true,
+        "exit_code": 1
+      },
+      "failure": {
+        "category": "assertion_timeout",
+        "message": "Recorded wizard: step 5: step timed out: context deadline exceeded"
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": true,
+        "forced": false,
+        "confirmed_exited": true,
+        "mechanism": "windows-job-object"
+      },
+      "evidence": {
+        "screen_path": "artifacts\\ten-new-project-adversarial-pass\\wizard-reproduction\\1791629261238768500\\26\\20261010T104803Z-249830943\\new-project-adversarial-pass-wizard-reproduction-1791629261238768500-wizard.json-9a57a384813f.actual.txt"
+      },
+      "workspace": {
+        "attempted": true,
+        "fixture": "fixture",
+        "prepared": true,
+        "cleanup_attempted": true,
+        "cleaned": true,
+        "retained": false
+      }
+    }
+  ]
+}

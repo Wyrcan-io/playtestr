@@ -60,5 +60,17 @@ class NativeHarnessControls(unittest.TestCase):
             with self.assertRaises(ValueError):
                 check_state(working,dict(expected_files={'../outside':'x'}))
 
+    def test_inside_workspace_symlink_does_not_pass(self):
+        with tempfile.TemporaryDirectory(prefix='playtestr-workspace-oracle-') as root:
+            working=Path(root)/'fixture'
+            working.mkdir()
+            (working/'actual').write_bytes(b'approved')
+            try:
+                (working/'linked').symlink_to('actual')
+            except OSError as error:
+                self.skipTest('Native symlink prerequisite unavailable: '+str(error))
+            with self.assertRaisesRegex(RuntimeError,'linked state'):
+                check_state(working,dict(expected_files={'linked':'approved'}))
+
 if __name__=='__main__':
     unittest.main()

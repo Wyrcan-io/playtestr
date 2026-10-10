@@ -1,0 +1,10 @@
+{
+  "repair": "Reject a backend incomplete write instead of silently passing the action",
+  "source": "internal/runner/session.go",
+  "candidate_sha256": "5c8dd87269b637fa90228c6f1ebae81bfac68c2fec512ff98c9d5bb9cfa88f23",
+  "before_sha256": "dc2c1bea178d8d517602c7084a5f9a57e51ed7577157ece116433439a2768dbc",
+  "before_id": "ce9cdcf4dcb64618aa50a8ad0a649e61",
+  "after_id": "fa70076b087744c3884721fb7cdad944",
+  "layer": "Fault-injected writer forwards a real byte into a real PTY; actual target and cleanup run in both controls",
+  "limits": "Demonstrates a faulty backend return, not an observed OS short-write or explanation of the wizard timeout"
+}

@@ -1,0 +1,742 @@
+{
+  "run": {
+    "conclusion": "success",
+    "headSha": "3b27ffa72d97712e90bc5eec9515a9d5e802b8db",
+    "jobs": [
+      {
+        "completedAt": "2026-10-10T10:41:27Z",
+        "conclusion": "success",
+        "databaseId": 114194271208,
+        "name": "cookiecutter (ubuntu-24.04)",
+        "startedAt": "2026-10-10T10:37:49Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-10T10:37:51Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-10T10:37:50Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:37:52Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "number": 2,
+            "startedAt": "2026-10-10T10:37:51Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:37:52Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 3,
+            "startedAt": "2026-10-10T10:37:52Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:38:02Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+            "number": 4,
+            "startedAt": "2026-10-10T10:37:52Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:41:22Z",
+            "conclusion": "success",
+            "name": "Pinned application native flows, mutations, restoration and fresh repetitions",
+            "number": 5,
+            "startedAt": "2026-10-10T10:38:02Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:41:23Z",
+            "conclusion": "success",
+            "name": "Remove owned application after qualification and process verification",
+            "number": 6,
+            "startedAt": "2026-10-10T10:41:22Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:41:24Z",
+            "conclusion": "success",
+            "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+            "number": 7,
+            "startedAt": "2026-10-10T10:41:23Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:41:24Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+            "number": 12,
+            "startedAt": "2026-10-10T10:41:24Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:41:25Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 13,
+            "startedAt": "2026-10-10T10:41:24Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:41:25Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "number": 14,
+            "startedAt": "2026-10-10T10:41:25Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:41:25Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 15,
+            "startedAt": "2026-10-10T10:41:25Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/38045564217/job/114194271208"
+      },
+      {
+        "completedAt": "2026-10-10T10:40:46Z",
+        "conclusion": "success",
+        "databaseId": 114194271370,
+        "name": "controls (ubuntu-24.04)",
+        "startedAt": "2026-10-10T10:37:49Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-10T10:37:51Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-10T10:37:50Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:37:52Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "number": 2,
+            "startedAt": "2026-10-10T10:37:51Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:37:52Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 3,
+            "startedAt": "2026-10-10T10:37:52Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:38:04Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+            "number": 4,
+            "startedAt": "2026-10-10T10:37:52Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:38:05Z",
+            "conclusion": "success",
+            "name": "Native bounded process and state oracle calibration",
+            "number": 5,
+            "startedAt": "2026-10-10T10:38:04Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:40:43Z",
+            "conclusion": "success",
+            "name": "Actual native product events",
+            "number": 6,
+            "startedAt": "2026-10-10T10:38:05Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:40:44Z",
+            "conclusion": "success",
+            "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+            "number": 7,
+            "startedAt": "2026-10-10T10:40:43Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:40:44Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+            "number": 12,
+            "startedAt": "2026-10-10T10:40:44Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:40:44Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 13,
+            "startedAt": "2026-10-10T10:40:44Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:40:44Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "number": 14,
+            "startedAt": "2026-10-10T10:40:44Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:40:45Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 15,
+            "startedAt": "2026-10-10T10:40:44Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/38045564217/job/114194271370"
+      },
+      {
+        "completedAt": "2026-10-10T10:43:00Z",
+        "conclusion": "success",
+        "databaseId": 114194271396,
+        "name": "cookiecutter (windows-2025)",
+        "startedAt": "2026-10-10T10:37:49Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-10T10:37:50Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-10T10:37:49Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:37:59Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "number": 2,
+            "startedAt": "2026-10-10T10:37:50Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:37:59Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 3,
+            "startedAt": "2026-10-10T10:37:59Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:38:32Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+            "number": 4,
+            "startedAt": "2026-10-10T10:37:59Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:42:49Z",
+            "conclusion": "success",
+            "name": "Pinned application native flows, mutations, restoration and fresh repetitions",
+            "number": 5,
+            "startedAt": "2026-10-10T10:38:32Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:42:54Z",
+            "conclusion": "success",
+            "name": "Remove owned application after qualification and process verification",
+            "number": 6,
+            "startedAt": "2026-10-10T10:42:49Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:42:55Z",
+            "conclusion": "success",
+            "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+            "number": 7,
+            "startedAt": "2026-10-10T10:42:54Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:42:56Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+            "number": 12,
+            "startedAt": "2026-10-10T10:42:55Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:42:56Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 13,
+            "startedAt": "2026-10-10T10:42:56Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:42:58Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "number": 14,
+            "startedAt": "2026-10-10T10:42:56Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:42:58Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 15,
+            "startedAt": "2026-10-10T10:42:58Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/38045564217/job/114194271396"
+      },
+      {
+        "completedAt": "2026-10-10T10:40:53Z",
+        "conclusion": "success",
+        "databaseId": 114194271397,
+        "name": "controls (macos-15)",
+        "startedAt": "2026-10-10T10:37:54Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-10T10:37:57Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-10T10:37:55Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:37:59Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "number": 2,
+            "startedAt": "2026-10-10T10:37:57Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:37:59Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 3,
+            "startedAt": "2026-10-10T10:37:59Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:38:19Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+            "number": 4,
+            "startedAt": "2026-10-10T10:37:59Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:38:20Z",
+            "conclusion": "success",
+            "name": "Native bounded process and state oracle calibration",
+            "number": 5,
+            "startedAt": "2026-10-10T10:38:19Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:40:48Z",
+            "conclusion": "success",
+            "name": "Actual native product events",
+            "number": 6,
+            "startedAt": "2026-10-10T10:38:20Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:40:49Z",
+            "conclusion": "success",
+            "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+            "number": 7,
+            "startedAt": "2026-10-10T10:40:48Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:40:49Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+            "number": 12,
+            "startedAt": "2026-10-10T10:40:49Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:40:49Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 13,
+            "startedAt": "2026-10-10T10:40:49Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:40:50Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "number": 14,
+            "startedAt": "2026-10-10T10:40:49Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:40:51Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 15,
+            "startedAt": "2026-10-10T10:40:50Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/38045564217/job/114194271397"
+      },
+      {
+        "completedAt": "2026-10-10T10:41:54Z",
+        "conclusion": "success",
+        "databaseId": 114194271445,
+        "name": "controls (windows-2025)",
+        "startedAt": "2026-10-10T10:37:49Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-10T10:37:51Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-10T10:37:50Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:38:00Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "number": 2,
+            "startedAt": "2026-10-10T10:37:51Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:38:00Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 3,
+            "startedAt": "2026-10-10T10:38:00Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:38:40Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+            "number": 4,
+            "startedAt": "2026-10-10T10:38:00Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:38:44Z",
+            "conclusion": "success",
+            "name": "Native bounded process and state oracle calibration",
+            "number": 5,
+            "startedAt": "2026-10-10T10:38:40Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:41:48Z",
+            "conclusion": "success",
+            "name": "Actual native product events",
+            "number": 6,
+            "startedAt": "2026-10-10T10:38:44Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:41:49Z",
+            "conclusion": "success",
+            "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+            "number": 7,
+            "startedAt": "2026-10-10T10:41:48Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:41:49Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+            "number": 12,
+            "startedAt": "2026-10-10T10:41:49Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:41:50Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 13,
+            "startedAt": "2026-10-10T10:41:49Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:41:52Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "number": 14,
+            "startedAt": "2026-10-10T10:41:50Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-10T10:41:52Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 15,
+            "startedAt": "2026-10-10T10:41:52Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/38045564217/job/114194271445"
+      }
+    ],
+    "status": "completed",
+    "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/38045564217"
+  },
+  "artifacts": [
+    {
+      "artifact": "adversarial-controls-ubuntu-24.04",
+      "id": 11667543525,
+      "archive_digest": "sha256:32eb26ffcead2b2a989d6e2268ab55119fa327d873205ecf2cd868b4fa3ab4c4",
+      "files": {
+        "test-events.jsonl": "6ddd55b29537d92703563a3fe1eb183db93beb092bac6d62b4b3fcae6790c130"
+      },
+      "run": "38045564217",
+      "source": "3b27ffa72d97712e90bc5eec9515a9d5e802b8db",
+      "passed_mapped_controls": [
+        "natural-zero",
+        "declared-nonzero",
+        "wrong-exit",
+        "early-exit",
+        "exit-hang",
+        "whole-run-budget",
+        "cancel",
+        "direct-descendant",
+        "grandchild-pty",
+        "repeated-cleanup",
+        "idempotent-stop",
+        "recorder-tree",
+        "flood",
+        "blocked-input",
+        "silent-input",
+        "startup-budget",
+        "idle-recorder-flood",
+        "stale-ambiguous",
+        "absence-transition",
+        "absence-timeout",
+        "unready-row",
+        "control-keys",
+        "empty-argv",
+        "resize-target",
+        "resize-redraw",
+        "screen-redraw",
+        "literal-recorder-control",
+        "live-operator-restoration",
+        "strict-spec",
+        "spec-size",
+        "workspace-path",
+        "fixture-links-bounds",
+        "resolve-before-cwd",
+        "report-traversal",
+        "fresh-state",
+        "failure-retention",
+        "setup-no-launch",
+        "cleanup-blocks-update",
+        "fixture-dirty",
+        "genuine-mismatch",
+        "selected-update",
+        "late-failure-rollback",
+        "cancel-update",
+        "multi-file-rollback",
+        "interrupted-export",
+        "strict-row-format",
+        "row-defect",
+        "hostile-html",
+        "corrupt-report",
+        "artifact-association",
+        "report-write-error",
+        "zero-selection",
+        "output-alias",
+        "prior-output-preserved",
+        "private-canaries",
+        "report-field-boundary"
+      ]
+    },
+    {
+      "artifact": "adversarial-cookiecutter-windows-2025",
+      "id": 11667359020,
+      "archive_digest": "sha256:2d20bbd9adfa8b14eecabe51b5c131f5825b20be54cb074119738239967f7e0d",
+      "files": {
+        "native-cookiecutter-Windows.json": "37dc14387435b3e18e515d101710113a51d8d93d7019f6e50462f7be149e0289",
+        "cleanup-Windows.json": "eb534768f4cb8d6741df6d0e6fa526f1c77023b8bf0302040bb44d8c37e57fb3",
+        "mutation-controls-nt-1791628760454052300.json": "36cd9f7586a12d0f62395f6ac9308f02298e324d7f019ed3750d4f36713f85f3",
+        "choice-truncation-report.json": "4fc1fb18d19151d6e335f3fd1b699c10cf6a3247a476a4eaaf1bf3afd85dd0d5",
+        "silent-saved-corruption-report.json": "92cb677a51fdc9e284346ceec4d9841158c205168540d5fd6f53c501caf45da2",
+        "wrong-success-exit-report.json": "3f872d32403ed4a6e8e0e2c0a97f319632cfaafbb9c5434923d9cd3e5d396eaa"
+      },
+      "run": "38045564217",
+      "source": "3b27ffa72d97712e90bc5eec9515a9d5e802b8db"
+    },
+    {
+      "artifact": "adversarial-controls-macos-15",
+      "id": 11667168927,
+      "archive_digest": "sha256:72b0461096bd38a46686240e523c6a2697b3efca498a3f52a98e9a72f227bc7f",
+      "files": {
+        "test-events.jsonl": "1700254367fd5fd3edea8d5b5cbff96594795aefd07b9628ec2d2ca6508aa874"
+      },
+      "run": "38045564217",
+      "source": "3b27ffa72d97712e90bc5eec9515a9d5e802b8db",
+      "passed_mapped_controls": [
+        "natural-zero",
+        "declared-nonzero",
+        "wrong-exit",
+        "early-exit",
+        "exit-hang",
+        "whole-run-budget",
+        "cancel",
+        "direct-descendant",
+        "grandchild-pty",
+        "repeated-cleanup",
+        "idempotent-stop",
+        "recorder-tree",
+        "flood",
+        "blocked-input",
+        "silent-input",
+        "startup-budget",
+        "idle-recorder-flood",
+        "stale-ambiguous",
+        "absence-transition",
+        "absence-timeout",
+        "unready-row",
+        "control-keys",
+        "empty-argv",
+        "resize-target",
+        "resize-redraw",
+        "screen-redraw",
+        "literal-recorder-control",
+        "live-operator-restoration",
+        "strict-spec",
+        "spec-size",
+        "workspace-path",
+        "fixture-links-bounds",
+        "resolve-before-cwd",
+        "report-traversal",
+        "fresh-state",
+        "failure-retention",
+        "setup-no-launch",
+        "cleanup-blocks-update",
+        "fixture-dirty",
+        "genuine-mismatch",
+        "selected-update",
+        "late-failure-rollback",
+        "cancel-update",
+        "multi-file-rollback",
+        "interrupted-export",
+        "strict-row-format",
+        "row-defect",
+        "hostile-html",
+        "corrupt-report",
+        "artifact-association",
+        "report-write-error",
+        "zero-selection",
+        "output-alias",
+        "prior-output-preserved",
+        "private-canaries",
+        "report-field-boundary"
+      ]
+    },
+    {
+      "artifact": "adversarial-controls-windows-2025",
+      "id": 11666933226,
+      "archive_digest": "sha256:519f15ebcfa0a0f3dee6708e311af6ed9279ea6609aa0526aafefa7314cf9352",
+      "files": {
+        "test-events.jsonl": "28c9f163de6bb80109d2251fce4a87944aa3c90d3d2a3f7879c6ef6d4be4b1a7"
+      },
+      "run": "38045564217",
+      "source": "3b27ffa72d97712e90bc5eec9515a9d5e802b8db",
+      "passed_mapped_controls": [
+        "natural-zero",
+        "declared-nonzero",
+        "wrong-exit",
+        "early-exit",
+        "exit-hang",
+        "whole-run-budget",
+        "cancel",
+        "direct-descendant",
+        "grandchild-pty",
+        "repeated-cleanup",
+        "idempotent-stop",
+        "recorder-tree",
+        "flood",
+        "blocked-input",
+        "silent-input",
+        "startup-budget",
+        "idle-recorder-flood",
+        "stale-ambiguous",
+        "absence-transition",
+        "absence-timeout",
+        "unready-row",
+        "control-keys",
+        "empty-argv",
+        "resize-target",
+        "resize-redraw",
+        "screen-redraw",
+        "literal-recorder-control",
+        "live-operator-restoration",
+        "strict-spec",
+        "spec-size",
+        "workspace-path",
+        "fixture-links-bounds",
+        "resolve-before-cwd",
+        "report-traversal",
+        "fresh-state",
+        "failure-retention",
+        "setup-no-launch",
+        "cleanup-blocks-update",
+        "fixture-dirty",
+        "genuine-mismatch",
+        "selected-update",
+        "late-failure-rollback",
+        "cancel-update",
+        "multi-file-rollback",
+        "interrupted-export",
+        "strict-row-format",
+        "row-defect",
+        "hostile-html",
+        "corrupt-report",
+        "artifact-association",
+        "report-write-error",
+        "zero-selection",
+        "output-alias",
+        "prior-output-preserved",
+        "private-canaries",
+        "report-field-boundary"
+      ]
+    },
+    {
+      "artifact": "adversarial-cookiecutter-ubuntu-24.04",
+      "id": 11666928139,
+      "archive_digest": "sha256:47315c7b3783741d9836c9aece5809ab0e20ea750e5bce8b47ee9a4ea27aa8b6",
+      "files": {
+        "native-cookiecutter-Linux.json": "38499f018cd408d308174c6565a5a3bdb3fb16473662cc8dd82830cd446fefeb",
+        "cleanup-Linux.json": "ebcc8f6054b46bb48e4646ef92f04d4bf5854d4963822040d64ae5443325d492",
+        "mutation-controls-posix-1791628714434564087.json": "01260c60c75b63e9d623841cf7609103d68f1fc4abc0c64e57ca768f77add8c9",
+        "choice-truncation-report.json": "8d12fb5490374d41837b1a69348c40ecf077885db93e4e0145d80b9dcaeea9b7",
+        "silent-saved-corruption-report.json": "a3a2365464252639d2b8100ac7328ceb7eb52f511e890fe3ce327bfbbec40ae9",
+        "wrong-success-exit-report.json": "36d285e8eb5a9c05b871c5133489a45fe7638ddb25ca452fe4ed3342e0cb8208"
+      },
+      "run": "38045564217",
+      "source": "3b27ffa72d97712e90bc5eec9515a9d5e802b8db"
+    }
+  ],
+  "scope": "Actual development evidence; final campaign freeze still pending"
+}

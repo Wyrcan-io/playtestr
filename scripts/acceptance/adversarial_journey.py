@@ -28,7 +28,14 @@ def check_state(working,case):
         raise RuntimeError('Independent oracle received no managed workspace')
     checked={}
     for relative,value in case.get('expected_files',{}).items():
-        target=(working/relative).resolve()
+        unresolved=working/relative
+        unresolved.relative_to(working)
+        for parent in [unresolved,*unresolved.parents]:
+            if parent==working.parent:
+                break
+            if parent.is_symlink():
+                raise RuntimeError('Independent oracle refuses linked state: '+relative)
+        target=unresolved.resolve()
         target.relative_to(working.resolve())
         if target.is_symlink() or not target.is_file():
             raise RuntimeError('Independent expected file absent or unsafe: '+relative)

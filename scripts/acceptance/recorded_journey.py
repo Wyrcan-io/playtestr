@@ -160,7 +160,7 @@ def main():
                 choices.write_bytes(original_choices)
             else:
                 command(["go", "build", "-o", str(binary) + EXT, "./cmd/" + case["target"]], name + "-recover-build", env)
-        command([BIN, "test", "--report", EVIDENCE / name / "recovery.json", path], name + "-recovery", env)
+        command([BIN, "test", "--artifacts-dir", EVIDENCE / name / "recovery-evidence", "--report", EVIDENCE / name / "recovery.json", path], name + "-recovery", env)
         # A normal hand edit, with no recorder involved, remains runnable.
         modified = dict(spec)
         modified["name"] = spec["name"] + " (manual edit)"

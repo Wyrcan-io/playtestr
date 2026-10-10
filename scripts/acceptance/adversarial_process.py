@@ -26,6 +26,56 @@ def append(record):
         stream.flush()
         os.fsync(stream.fileno())
 
+def contract_identity(project, argv):
+    """Capture current bytes before execution, without reading ambient secrets."""
+    package=DOC/project
+    contracts={}
+    if package.is_dir():
+        for path in sorted(package.rglob('*')):
+            if path.is_file() and not path.is_symlink() and (
+                    path.parent==package and path.suffix=='.json' or
+                    'snapshots' in path.relative_to(package).parts or
+                    'fixtures' in path.relative_to(package).parts):
+                if path.stat().st_size>4*1024*1024:
+                    raise RuntimeError('Contract identity file exceeds independent bound')
+                contracts[path.relative_to(package).as_posix()]=hashlib.sha256(path.read_bytes()).hexdigest()
+    runner=Path(str(argv[0]))
+    identity={'contracts':contracts}
+    inputs={}
+    for argument in argv[1:]:
+        path=Path(str(argument))
+        if not path.is_absolute():
+            path=ROOT/path
+        if path.suffix=='.json' and path.is_file() and path.stat().st_size<=4*1024*1024:
+            inputs[str(path.relative_to(ROOT)) if path.is_relative_to(ROOT) else path.name]=hashlib.sha256(path.read_bytes()).hexdigest()
+    identity['existing_json_inputs']=inputs
+    if runner.is_file() and runner.name.startswith('playtestr'):
+        identity['runner_sha256']=hashlib.sha256(runner.read_bytes()).hexdigest()
+    runtime=ROOT/'.cache/ten-new-project-apps'/project/'runtime.json'
+    if runtime.is_file():
+        data=json.loads(runtime.read_text(encoding='utf-8'))
+        identity['target_revision']=data.get('source')
+        identity['runtime_sha256']=hashlib.sha256(runtime.read_bytes()).hexdigest()
+    # Stable inventories are stored once. Thousands of repetitions retain an
+    # exact reference without multiplying the same approved fixture manifest.
+    encoded=(json.dumps(identity,sort_keys=True,ensure_ascii=True,indent=2)+'\n').encode('utf-8')
+    digest=hashlib.sha256(encoded).hexdigest()
+    directory=DOC/'identities'
+    directory.mkdir(parents=True,exist_ok=True)
+    manifest=directory/(digest+'.json')
+    if manifest.exists():
+        if manifest.read_bytes()!=encoded:
+            raise RuntimeError('Existing identity manifest differs from its digest')
+    else:
+        try:
+            with manifest.open('xb') as stream:
+                stream.write(encoded)
+        except FileExistsError:
+            if manifest.read_bytes()!=encoded:
+                raise RuntimeError('Concurrent identity manifest mismatch')
+    return {'manifest':manifest.relative_to(DOC).as_posix(),'sha256':digest,
+            'runner_sha256':identity.get('runner_sha256'),'target_revision':identity.get('target_revision')}
+
 async def stop(proc):
     if os.name=='nt':
         if proc.returncode is not None:
@@ -52,6 +102,7 @@ async def execute(argv,project,label,*,cwd=ROOT,env=None,input=None,timeout=120,
                 timeout_seconds=timeout,output_cap=output_cap,
                 variation='owned 2-second 8-MiB SHA256 CPU worker' if load else 'ordinary',
                 expected_exit=expected,evidence=str(directory.relative_to(ROOT)))
+    record['identity']=contract_identity(project,argv)
     append(record)
     output=bytearray()
     proc=None

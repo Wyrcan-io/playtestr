@@ -8,7 +8,7 @@ on:
       - 'scripts/acceptance/adversarial_*.py'
       - 'scripts/acceptance/test_adversarial_harness.py'
       - 'docs/validation/ten-new-project-adversarial-pass/**'
-      - 'internal/runner/adversarial_tree_test.go'
+      - 'internal/runner/adversarial_*_test.go'
   workflow_dispatch:
 
 permissions:
@@ -48,6 +48,15 @@ jobs:
           fi
           export CGO_ENABLED=1
           go test -race -count=1 ./...
+      - name: Historical wizard sequence with retained failure screens
+        shell: bash
+        run: |
+          set -euo pipefail
+          suffix=''
+          if [ "$RUNNER_OS" = Windows ]; then suffix='.exe'; fi
+          go build -trimpath -ldflags "-X github.com/Wyrcan-io/playtestr/internal/buildinfo.Version=source-${GITHUB_SHA}" -o "bin/playtestr${suffix}" ./cmd/playtestr
+          go build -o "bin/fixture${suffix}" ./cmd/fixture
+          python scripts/acceptance/adversarial_wizard_reproduction.py --count 100
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
@@ -55,6 +64,7 @@ jobs:
           path: |
             artifacts/ten-new-project-adversarial-pass/**
             docs/validation/ten-new-project-adversarial-pass/attempts.jsonl
+            docs/validation/ten-new-project-adversarial-pass/identities
           if-no-files-found: error
           retention-days: 14
   cookiecutter:
@@ -92,5 +102,6 @@ jobs:
           path: |
             artifacts/ten-new-project-adversarial-pass/**
             docs/validation/ten-new-project-adversarial-pass/attempts.jsonl
+            docs/validation/ten-new-project-adversarial-pass/identities
           if-no-files-found: error
           retention-days: 14
