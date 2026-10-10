@@ -71,7 +71,7 @@ def main():
     if constraints.exists():
         installer+=['--constraint',constraints]
     run([*installer,'--editable',source],project,'install-reviewed-editable-source',timeout=1200)
-    freeze_command=([python,'-m','pip','freeze'] if os.name=='nt' else
+    freeze_command=([python,'-m','pip','freeze'] if not args.native_source else
                     [uv,'pip','freeze','--python',python])
     freeze=run(freeze_command,project,'freeze-dependencies',timeout=30)['output']
     if not constraints.exists():

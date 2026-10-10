@@ -68,7 +68,9 @@ def recorder(binary,project,case,env,*,export=True,rerecord=False):
         steps+=[{'snapshot':case['name']+'.txt'}]
     body='\n'.join(control(s) for s in steps)+'\n'
     if rerecord:
-        body+='/rerecord 0\n'+'\n'.join(control(s) for s in steps)+'\n'
+        if len(steps)<4:
+            raise RuntimeError('Suffix maintenance needs a meaningful retained prefix')
+        body+='/rerecord 3\n'+'\n'.join(control(s) for s in steps[3:])+'\n'
     body+='/review\n'
     sent=False
     async def inspect(proc,output,evidence):

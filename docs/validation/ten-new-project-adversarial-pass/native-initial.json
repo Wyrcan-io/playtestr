@@ -1,0 +1,30 @@
+{
+  "run_id": 38044385441,
+  "overall": "failed",
+  "evidence": [
+    {
+      "host": "macos",
+      "source": "e28d653214354659e6d9ea8c7cb30f2166700254",
+      "run_id": 38044385441,
+      "job_id": 114190846791,
+      "mapped_controls": 56,
+      "event_sha256": "d03b7ae631f78d3f94d569b69e8b09edecf5fd1da5719871c81a5ebad49cf950",
+      "event_path": "artifacts/ten-new-project-adversarial-pass/native-e28d653/controls-macos/artifacts/ten-new-project-adversarial-pass/core/test-events.jsonl"
+    },
+    {
+      "host": "windows",
+      "source": "e28d653214354659e6d9ea8c7cb30f2166700254",
+      "run_id": 38044385441,
+      "job_id": 114190846826,
+      "mapped_controls": 56,
+      "event_sha256": "f9c9e5afe3e510d5c243fda1fd8e02e55efa652749b283f4d90f321be2e3a239",
+      "event_path": "artifacts/ten-new-project-adversarial-pass/native-e28d653/controls-windows/artifacts/ten-new-project-adversarial-pass/core/test-events.jsonl"
+    }
+  ],
+  "unaccepted_jobs": {
+    "linux_controls": "flood pipe-drain deadlock in harness",
+    "linux_project": "freeze-route setup bug",
+    "windows_project": "100 repetitions and state probes pass; unknown symlink cleanup refused"
+  },
+  "project_credit": 0
+}

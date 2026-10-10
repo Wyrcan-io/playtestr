@@ -27,9 +27,9 @@ def append(record):
         os.fsync(stream.fileno())
 
 async def stop(proc):
-    if proc.returncode is not None:
-        return
     if os.name=='nt':
+        if proc.returncode is not None:
+            return
         killer=await asyncio.create_subprocess_exec('taskkill','/PID',str(proc.pid),'/T','/F',
             stdout=asyncio.subprocess.DEVNULL,stderr=asyncio.subprocess.DEVNULL)
         await asyncio.wait_for(killer.wait(),timeout=5)
@@ -38,7 +38,8 @@ async def stop(proc):
             os.killpg(proc.pid,signal.SIGKILL)
         except ProcessLookupError:
             pass
-    await asyncio.wait_for(proc.wait(),timeout=5)
+    # Waiting before draining a full PIPE can deadlock asyncio's transport.
+    # The caller drains bounded output first, then reaps the process.
 
 async def execute(argv,project,label,*,cwd=ROOT,env=None,input=None,timeout=120,
                   output_cap=4*1024*1024,expected=0,on_output=None,load=False):
@@ -141,6 +142,7 @@ async def execute(argv,project,label,*,cwd=ROOT,env=None,input=None,timeout=120,
                     if drained>4*1024*1024:
                         raise RuntimeError('stopped process pipe-drain bound')
             await asyncio.wait_for(drain_stopped(),timeout=2)
+            await asyncio.wait_for(proc.wait(),timeout=5)
             if cleanup=='not_started':
                 cleanup='harness_process_reaped'
         (directory/'console.log').write_bytes(output)
