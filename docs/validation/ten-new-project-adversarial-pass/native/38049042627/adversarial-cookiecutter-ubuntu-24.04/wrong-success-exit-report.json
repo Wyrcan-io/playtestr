@@ -1,0 +1,160 @@
+{
+  "report_version": 2,
+  "runner_version": "source-3154500e1e2a576378a951366cfa8e008f6c3441",
+  "os": "linux",
+  "arch": "amd64",
+  "summary": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1,
+    "cancelled": 0,
+    "not_run": 0
+  },
+  "results": [
+    {
+      "spec_version": 2,
+      "name": "Generate a project with reviewed state",
+      "spec_path": "/home/runner/work/playtestr/playtestr/docs/validation/ten-new-project-adversarial-pass/cookiecutter/normal-project.json",
+      "status": "failed",
+      "duration_ms": 306,
+      "viewport": {
+        "width": 100,
+        "height": 30
+      },
+      "steps": [
+        {
+          "number": 1,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 221
+        },
+        {
+          "number": 2,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 3,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 4,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 10
+        },
+        {
+          "number": 5,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 6,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 7,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 10
+        },
+        {
+          "number": 8,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 9,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 10,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 10
+        },
+        {
+          "number": 11,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 12,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 13,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 10
+        },
+        {
+          "number": 14,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 15,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 16,
+          "action": "exit",
+          "status": "failed",
+          "duration_ms": 37,
+          "failure": {
+            "category": "unexpected_exit",
+            "message": "Generate a project with reviewed state: step 16: expected exit code 0, got 7"
+          }
+        },
+        {
+          "number": 17,
+          "action": "snapshot",
+          "status": "not_run",
+          "duration_ms": 0
+        }
+      ],
+      "target": {
+        "exited": true,
+        "exit_code": 7
+      },
+      "failure": {
+        "category": "unexpected_exit",
+        "message": "Generate a project with reviewed state: step 16: expected exit code 0, got 7"
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": true,
+        "forced": false,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "evidence": {
+        "screen_path": "artifacts/ten-new-project-adversarial-pass/cookiecutter/wrong-success-exit-1791632276720372988/20261010T113756Z-1201339205/ocs-validation-ten-new-project-adversarial-pass-cookiecutter-normal-project.json-46fa94a51268.actual.txt"
+      },
+      "workspace": {
+        "attempted": true,
+        "fixture": "fixtures",
+        "prepared": true,
+        "cleanup_attempted": true,
+        "cleaned": true,
+        "retained": false
+      }
+    }
+  ]
+}

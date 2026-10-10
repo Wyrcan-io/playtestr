@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"os"
 	"os/exec"
 	"strings"
 	"sync"
@@ -93,9 +94,10 @@ func startTerminalSessionWithPTY(config sessionConfig, p xpty.Pty) (*terminalSes
 	}
 	tree, err := attachProcessTree(cmd.Process.Pid)
 	if err != nil {
-		_ = cmd.Process.Kill()
-		_ = p.Close()
-		return nil, fmt.Errorf("attach target process tree: %w", err)
+		return nil, abortTerminalStartup(cmd, p, nil, fmt.Errorf("attach target process tree: %w", err))
+	}
+	if err := activateProcess(cmd); err != nil {
+		return nil, abortTerminalStartup(cmd, p, tree, fmt.Errorf("activate target: %w", err))
 	}
 	s := &terminalSession{
 		pty:            p,
@@ -111,6 +113,27 @@ func startTerminalSessionWithPTY(config sessionConfig, p xpty.Pty) (*terminalSes
 	}
 	go s.readOutput()
 	return s, nil
+}
+
+func abortTerminalStartup(cmd *exec.Cmd, p xpty.Pty, tree *processTree, cause error) error {
+	killErr := cmd.Process.Kill()
+	if killErr != nil && !errors.Is(killErr, os.ErrProcessDone) {
+		cause = errors.Join(cause, fmt.Errorf("terminate startup target: %w", killErr))
+	}
+	if tree != nil {
+		if err := tree.close(); err != nil {
+			cause = errors.Join(cause, fmt.Errorf("close startup process-tree handle: %w", err))
+		}
+	}
+	if err := p.Close(); err != nil {
+		cause = errors.Join(cause, fmt.Errorf("close startup pseudoterminal: %w", err))
+	}
+	if killErr == nil || errors.Is(killErr, os.ErrProcessDone) {
+		if err := reapStartupProcess(cmd); err != nil {
+			cause = errors.Join(cause, fmt.Errorf("reap startup target: %w", err))
+		}
+	}
+	return cause
 }
 
 func newProcessOutcome(cmd *exec.Cmd) *processOutcome {

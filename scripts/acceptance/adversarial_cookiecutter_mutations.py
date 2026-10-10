@@ -66,6 +66,7 @@ def main():
                     if 'Independent exact file state mismatch' not in str(error):
                         raise
                     fault['state_oracle_detected']=True
+                    fault['state_probe_evidence_id']=error.evidence_id
                 else:
                     raise RuntimeError('State oracle accepted actual saved corruption')
             else:

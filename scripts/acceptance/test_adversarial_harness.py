@@ -6,10 +6,37 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
+import adversarial_process
 from adversarial_process import run
 from adversarial_journey import check_state
 
 class NativeHarnessControls(unittest.TestCase):
+    def test_cleanup_failure_keeps_original_failure_and_finished_record(self):
+        original_stop=adversarial_process.stop
+        async def failing_cleanup(proc):
+            await original_stop(proc)
+            raise RuntimeError('synthetic cleanup fault after actual termination')
+        with patch.object(adversarial_process,'stop',failing_cleanup):
+            with self.assertRaisesRegex(RuntimeError,'expected exit 0, got 7') as raised:
+                run([sys.executable,'-c','import sys;sys.exit(7)'],
+                    'harness-controls','preserve-original-cleanup-failure',timeout=5)
+        self.assertTrue(any('Separate cleanup failures' in note for note in raised.exception.__notes__))
+        rows=[json.loads(line) for line in (adversarial_process.DOC/'attempts.jsonl').read_text(encoding='utf-8').splitlines()]
+        finished=next(row for row in reversed(rows) if row['id']==raised.exception.evidence_id and row['event']=='finished')
+        self.assertEqual(finished['category'],'exit_mismatch')
+        self.assertEqual(finished['harness_cleanup'],'harness_cleanup_unconfirmed')
+        self.assertEqual(len(finished['cleanup_errors']),1)
+
+    def test_cleanup_failure_cannot_turn_into_success(self):
+        original_stop=adversarial_process.stop
+        async def failing_cleanup(proc):
+            await original_stop(proc)
+            raise RuntimeError('synthetic cleanup fault after actual termination')
+        with patch.object(adversarial_process,'stop',failing_cleanup):
+            with self.assertRaisesRegex(RuntimeError,'Separate cleanup failures'):
+                run([sys.executable,'-c','pass'],'harness-controls','reject-green-cleanup-failure',timeout=5)
+
     def test_utf8_and_exact_nonzero(self):
         result=run([sys.executable,'-c',"import sys;sys.stdout.buffer.write('café\\n'.encode());sys.exit(7)"],
                    'harness-controls','unicode-exact-nonzero',expected=7,timeout=5)

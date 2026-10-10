@@ -23,6 +23,17 @@ func attachProcessTree(pid int) (*processTree, error) {
 	return &processTree{pid: pid}, nil
 }
 
+func activateProcess(_ *exec.Cmd) error { return nil }
+
+func reapStartupProcess(cmd *exec.Cmd) error {
+	err := cmd.Wait()
+	var exitError *exec.ExitError
+	if errors.As(err, &exitError) {
+		return nil // Forced startup termination is expected.
+	}
+	return err
+}
+
 func (t *processTree) active() (bool, error) {
 	err := syscall.Kill(-t.pid, 0)
 	if err == nil || errors.Is(err, syscall.EPERM) {

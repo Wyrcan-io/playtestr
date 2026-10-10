@@ -1,22 +1,40 @@
 """Remove exactly one Unix owned application after qualification and process checks."""
 import json
+import argparse
 import os
 from pathlib import Path
 import platform
 import shutil
 from adversarial_process import ROOT,RAW
 
-project='cookiecutter'
+parser=argparse.ArgumentParser()
+parser.add_argument('--project',default='cookiecutter')
+parser.add_argument('--target',type=Path)
+parser.add_argument('--qualification',type=Path)
+args=parser.parse_args()
+project=args.project
+if not project or any(c not in 'abcdefghijklmnopqrstuvwxyz0123456789-' for c in project):
+    raise RuntimeError('Invalid owned project identity')
 root=(ROOT/'.cache/ten-new-project-apps').resolve(strict=True)
 target=root/project
-if target.is_symlink() or target.resolve(strict=True)!=root/project:
+if args.target:
+    if str(args.target)!='/var/tmp/playtestr-adversarial-'+project:
+        raise RuntimeError('Only the explicitly owned native exploratory root is admitted')
+    root=Path('/var/tmp').resolve(strict=True)
+    target=args.target
+if target.is_symlink() or target.resolve(strict=True)!=target or target.parent!=root:
     raise RuntimeError('Unknown application path/link')
 owner=json.loads((target/'task-owned.json').read_text())
 if owner['campaign']!='ten-new-project-adversarial-pass' or owner['workspace']!=str(ROOT) or owner['project']!=project:
     raise RuntimeError('Unknown application ownership')
-qualification=json.loads((RAW/('native-cookiecutter-'+platform.system()+'.json')).read_text())
+qualification=json.loads((args.qualification or RAW/('native-'+project+'-'+platform.system()+'.json')).read_text())
 if qualification['terminal_repetitions']!=100 or qualification['project']!=project:
     raise RuntimeError('Native evidence incomplete')
+import subprocess
+if subprocess.check_output(['git','-C',target/'source','rev-parse','HEAD'],text=True).strip()!=owner['source_sha']:
+    raise RuntimeError('Owned source revision mismatch')
+if subprocess.check_output(['git','-C',target/'source','status','--porcelain','--untracked-files=no'],text=True).strip():
+    raise RuntimeError('Source mutations not restored')
 for proc in Path('/proc').iterdir():
     if not proc.name.isdigit() or int(proc.name)==os.getpid():
         continue

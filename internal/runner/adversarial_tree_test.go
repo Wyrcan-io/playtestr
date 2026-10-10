@@ -27,7 +27,8 @@ func TestAdversarialTreeHelper(t *testing.T) {
 		time.Sleep(30 * time.Second)
 		os.Exit(0)
 	}
-	// Allow Windows Job Object attachment before creating descendants.
+	// This control exercises descendants after process-tree attachment. The
+	// separate immediate-startup control must also prove the launch boundary.
 	time.Sleep(200 * time.Millisecond)
 	role := "child"
 	if mode == "child" {

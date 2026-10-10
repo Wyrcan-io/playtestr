@@ -43,6 +43,12 @@ a bounded resize failure; older Windows implementations have not been qualified
 for this new path. This transport observation does not answer terminal queries
 or enable application-directed window manipulation.
 
+Current source creates Windows targets suspended, attaches their Job Object,
+then resumes the initial thread. This prevents immediate detached child
+processes from escaping the startup attachment window. Failure to attach or
+resume is a startup failure, with termination/reaping errors preserved.
+Job Objects remain process lifecycle tracking, not a security sandbox.
+
 The fixtures do not establish support for every VT control sequence, device query, mouse protocol, hyperlink, image protocol, color, style, or application-specific terminal extension. Snapshot comparison is text-only. Compatibility with a particular TUI requires exercising that application on the claimed operating system; cross-compilation alone is not runtime evidence.
 
 The real-application trial added a Unix requirement that the fixture suite had missed: some TUIs open `/dev/tty` instead of using only inherited standard streams. Current source starts the target in a new session and assigns the PTY slave as its controlling terminal. The published `v0.1.0-rc.1` Linux asset predates that fix. The stable v0.1.0 Linux and macOS archives passed the real `/dev/tty` package gate and the post-publication downloaded-asset install smoke. Every later stable archive must pass the same gates before support is recorded.

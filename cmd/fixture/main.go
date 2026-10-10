@@ -148,11 +148,20 @@ func main() {
 }
 
 func wizard() error {
-	traceEvents := make(chan string, 300)
+	var traceEvents chan string
 	if path := os.Getenv("PLAYTESTR_WIZARD_TRACE"); path != "" {
+		traceEvents = make(chan string, 300)
+		stop, done := make(chan struct{}), make(chan struct{})
+		defer func() { close(stop); <-done }()
 		go func() {
+			defer close(done)
 			// Avoid filesystem writes in the input/resize race being investigated.
-			time.Sleep(250 * time.Millisecond)
+			timer := time.NewTimer(250 * time.Millisecond)
+			defer timer.Stop()
+			select {
+			case <-timer.C:
+			case <-stop:
+			}
 			var captured strings.Builder
 			for {
 				select {
@@ -168,6 +177,9 @@ func wizard() error {
 	trace := func(format string, values ...any) {
 		// Optional acceptance diagnostics contain only this synthetic fixture's
 		// input. The harness supplies an owned bounded file, never user input.
+		if traceEvents == nil {
+			return
+		}
 		select {
 		case traceEvents <- fmt.Sprintf(format, values...):
 		default:

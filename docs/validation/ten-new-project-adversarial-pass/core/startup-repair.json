@@ -1,0 +1,11 @@
+{
+  "repair": "Create suspended, attach Job Object, resume initial thread",
+  "candidate_sha256": "5fc08a99300fd4a2d6642bf1a2ed1b757de1a31e2ae1f378be911ec3fc5abc7b",
+  "before_sha256": "2962bb224d5c466b176ed09a33d99fbf7fa934865d7afd77f5df1e1919db005f",
+  "before_id": "aeeabc1e49af4e628d7ac5cf3404be7c",
+  "after_id": "1d84b8d0e64a488bb8b96ad12158a961",
+  "fresh_after_repetitions": 10,
+  "layer": "Real ConPTY, delayed Start return, target immediately spawns two detached worker generations; independent process handles verify exit",
+  "before_scope": "Remove only suspended creation and activation barrier; retain same test and all cleanup logic",
+  "fallback": "Exact observed process handles terminated and waited independently in both controls"
+}

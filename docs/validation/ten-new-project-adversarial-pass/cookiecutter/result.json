@@ -1,0 +1,36 @@
+{
+  "status": "development_complete_on_3154500_pending_startup_requalification_and_final_freeze",
+  "upstream": "cookiecutter/cookiecutter",
+  "revision": "c88fbe921c97c58b65f1883ba90a0ab53cc91b34",
+  "runner_source": "3154500e1e2a576378a951366cfa8e008f6c3441",
+  "native_run": 38049042627,
+  "standard_run": 38049042653,
+  "normal_cases": 5,
+  "edge_cases": 5,
+  "native_hosts": [
+    "Linux",
+    "Windows"
+  ],
+  "ordinary_development_repetitions": 200,
+  "separate_state_probe_repetitions": 200,
+  "target_behavior_mutations": 2,
+  "false_green_saved_state_mutations": 1,
+  "final_frozen_repetitions": 0,
+  "first_pass_seconds": 65.078,
+  "first_pass_commands": 3,
+  "first_pass_recorder_operations": 12,
+  "diagnosis_commands": 2,
+  "suffix_rerecord_prefix_steps": 3,
+  "local_windows_source_absent": true,
+  "native_cleanup_receipts": [
+    "cleanup\\cleanup-Linux.json",
+    "cleanup\\cleanup-Windows.json"
+  ],
+  "limits": [
+    "State probes are separate executions from ordinary test replays",
+    "Earlier Windows wizard failure retained; exact internal OS wake-up mechanism remains uncertain",
+    "Older Windows implementations without resize confirmation are unqualified",
+    "Operator UX measurements have prior knowledge and warm-cache confounders",
+    "Final batch freeze and requalification still required"
+  ]
+}

@@ -52,10 +52,24 @@ def contract_identity(project, argv):
     if runner.is_file() and runner.name.startswith('playtestr'):
         identity['runner_sha256']=hashlib.sha256(runner.read_bytes()).hexdigest()
     runtime=ROOT/'.cache/ten-new-project-apps'/project/'runtime.json'
+    if not runtime.is_file() and os.name!='nt':
+        runtime=Path('/var/tmp')/('playtestr-adversarial-'+project)/'runtime.json'
     if runtime.is_file():
+        marker=json.loads((runtime.parent/'task-owned.json').read_text(encoding='utf-8'))
+        if marker.get('workspace')!=str(ROOT) or marker.get('project')!=project:
+            raise RuntimeError('Unowned runtime identity')
         data=json.loads(runtime.read_text(encoding='utf-8'))
         identity['target_revision']=data.get('source')
         identity['runtime_sha256']=hashlib.sha256(runtime.read_bytes()).hexdigest()
+        target_source=Path(data['source_path']).resolve()
+        target_source.relative_to(runtime.parent.resolve())
+        source_files={}
+        for path in sorted(target_source.rglob('*')):
+            if path.is_file() and not path.is_symlink() and path.suffix in {'.py','.go','.rs','.c','.h','.toml'} and '.git' not in path.relative_to(target_source).parts:
+                if path.stat().st_size>4*1024*1024:
+                    raise RuntimeError('Target source identity file bound')
+                source_files[path.relative_to(target_source).as_posix()]=hashlib.sha256(path.read_bytes()).hexdigest()
+        identity['target_source_files']=source_files
     # Stable inventories are stored once. Thousands of repetitions retain an
     # exact reference without multiplying the same approved fixture manifest.
     encoded=(json.dumps(identity,sort_keys=True,ensure_ascii=True,indent=2)+'\n').encode('utf-8')
@@ -109,6 +123,7 @@ async def execute(argv,project,label,*,cwd=ROOT,env=None,input=None,timeout=120,
     category='harness_error'
     result=None
     worker=None
+    original_error=None
     try:
         if load:
             worker=await asyncio.create_subprocess_exec(sys.executable,'-c',
@@ -143,22 +158,36 @@ async def execute(argv,project,label,*,cwd=ROOT,env=None,input=None,timeout=120,
             raise RuntimeError(f'{label}: expected exit {expected}, got {result}; {directory}')
         return dict(id=run_id,output=output.decode('utf-8',errors='replace'),directory=directory,
                     returncode=result,seconds=time.monotonic()-start)
-    except asyncio.TimeoutError:
+    except asyncio.TimeoutError as error:
+        original_error=error
+        error.evidence_id=run_id
+        error.evidence_directory=str(directory)
         category='harness_timeout'
+        (directory/'harness-error.json').write_text(json.dumps(dict(
+            type=type(error).__name__,message='independent deadline exceeded'),indent=2)+'\n',encoding='utf-8')
         raise
     except Exception as error:
+        original_error=error
+        error.evidence_id=run_id
+        error.evidence_directory=str(directory)
         if str(error)=='independent harness output cap':
             category='harness_output_limit'
         (directory/'harness-error.json').write_text(json.dumps(dict(
             type=type(error).__name__,message=str(error)[:4096]),indent=2)+'\n',encoding='utf-8')
         raise
     finally:
+        cleanup_errors=[]
+        async def clean(operation,awaitable):
+            try:
+                return await awaitable
+            except Exception as error:
+                cleanup_errors.append(operation+': '+type(error).__name__+': '+str(error)[:1024])
         if worker is not None:
             try:
                 await asyncio.wait_for(worker.wait(),timeout=3)
             except asyncio.TimeoutError:
                 worker.kill()
-                await asyncio.wait_for(worker.wait(),timeout=2)
+                await clean('reap load worker',asyncio.wait_for(worker.wait(),timeout=2))
         cleanup='not_started'
         if proc is not None:
             if on_output is not None and proc.returncode is None and not proc.stdin.is_closing():
@@ -175,7 +204,7 @@ async def execute(argv,project,label,*,cwd=ROOT,env=None,input=None,timeout=120,
                     cleanup='recorder_gracefully_cancelled'
                 except (OSError,RuntimeError,asyncio.TimeoutError):
                     cleanup='forced_harness_cleanup'
-            await stop(proc)
+            await clean('terminate owned command',stop(proc))
             if not proc.stdin.is_closing():
                 proc.stdin.close()
             try:
@@ -192,15 +221,25 @@ async def execute(argv,project,label,*,cwd=ROOT,env=None,input=None,timeout=120,
                     output.extend(block[:max(0,remaining)])
                     if drained>4*1024*1024:
                         raise RuntimeError('stopped process pipe-drain bound')
-            await asyncio.wait_for(drain_stopped(),timeout=2)
-            await asyncio.wait_for(proc.wait(),timeout=5)
+            await clean('drain stopped command',asyncio.wait_for(drain_stopped(),timeout=2))
+            await clean('reap owned command',asyncio.wait_for(proc.wait(),timeout=5))
             if cleanup=='not_started':
                 cleanup='harness_process_reaped'
         (directory/'console.log').write_bytes(output)
+        if cleanup_errors:
+            cleanup='harness_cleanup_unconfirmed'
+            if original_error is None:
+                category='harness_cleanup_error'
+            (directory/'cleanup-errors.json').write_text(json.dumps(cleanup_errors,indent=2)+'\n',encoding='utf-8')
         append(dict(id=run_id,event='finished',project=project,label=label,
                     category=category,exit_code=result,seconds=round(time.monotonic()-start,4),
                     console_sha256=hashlib.sha256(output).hexdigest(),
-                    harness_cleanup=cleanup,output_bytes=len(output)))
+                    harness_cleanup=cleanup,cleanup_errors=cleanup_errors,output_bytes=len(output)))
+        if cleanup_errors:
+            if original_error is not None:
+                original_error.add_note('Separate cleanup failures: '+'; '.join(cleanup_errors))
+            else:
+                raise RuntimeError('Separate cleanup failures: '+'; '.join(cleanup_errors))
 
 def run(*args,**kwargs):
     return asyncio.run(execute(*args,**kwargs))

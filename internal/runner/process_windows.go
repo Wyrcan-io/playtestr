@@ -4,6 +4,7 @@ package runner
 
 import (
 	"errors"
+	"fmt"
 	"os/exec"
 	"syscall"
 	"unsafe"
@@ -26,7 +27,71 @@ type jobAccounting struct {
 	TotalTerminatedProcesses  uint32
 }
 
-func configureProcess(_ *exec.Cmd) {}
+func configureProcess(cmd *exec.Cmd) {
+	if cmd.SysProcAttr == nil {
+		cmd.SysProcAttr = &syscall.SysProcAttr{}
+	}
+	// No target code may run until its Job Object membership is established.
+	cmd.SysProcAttr.CreationFlags |= windows.CREATE_SUSPENDED
+}
+
+func activateProcess(cmd *exec.Cmd) error {
+	// ConPTY's Spawn closes the initial thread handle. A process created
+	// suspended has exactly one initial thread; recover that handle by owner
+	// PID before allowing any target instructions to execute.
+	snapshot, err := windows.CreateToolhelp32Snapshot(windows.TH32CS_SNAPTHREAD, 0)
+	if err != nil {
+		return fmt.Errorf("snapshot suspended target thread: %w", err)
+	}
+	defer windows.CloseHandle(snapshot)
+	entry := windows.ThreadEntry32{Size: uint32(unsafe.Sizeof(windows.ThreadEntry32{}))}
+	var threadID uint32
+	for err = windows.Thread32First(snapshot, &entry); err == nil; err = windows.Thread32Next(snapshot, &entry) {
+		if entry.OwnerProcessID == uint32(cmd.Process.Pid) {
+			if threadID != 0 {
+				return errors.New("suspended target unexpectedly has multiple threads")
+			}
+			threadID = entry.ThreadID
+		}
+		entry.Size = uint32(unsafe.Sizeof(entry))
+	}
+	if !errors.Is(err, windows.ERROR_NO_MORE_FILES) {
+		return fmt.Errorf("enumerate suspended target thread: %w", err)
+	}
+	if threadID == 0 {
+		return errors.New("suspended target initial thread not found")
+	}
+	thread, err := windows.OpenThread(windows.THREAD_SUSPEND_RESUME, false, threadID)
+	if err != nil {
+		return fmt.Errorf("open suspended target thread: %w", err)
+	}
+	defer windows.CloseHandle(thread)
+	previous, err := windows.ResumeThread(thread)
+	if err != nil {
+		return fmt.Errorf("resume attached target thread: %w", err)
+	}
+	if previous != 1 {
+		return fmt.Errorf("unexpected initial target suspend count %d", previous)
+	}
+	return nil
+}
+
+func reapStartupProcess(cmd *exec.Cmd) error {
+	handle, err := windows.OpenProcess(windows.SYNCHRONIZE, false, uint32(cmd.Process.Pid))
+	if err != nil {
+		return fmt.Errorf("open startup target for exit confirmation: %w", err)
+	}
+	defer windows.CloseHandle(handle)
+	state, err := windows.WaitForSingleObject(handle, 3000)
+	if err != nil {
+		return fmt.Errorf("wait for startup target exit: %w", err)
+	}
+	if state != windows.WAIT_OBJECT_0 {
+		return fmt.Errorf("startup target exit unconfirmed: wait status %d", state)
+	}
+	cmd.ProcessState, err = cmd.Process.Wait()
+	return err
+}
 
 func attachProcessTree(pid int) (*processTree, error) {
 	job, err := windows.CreateJobObject(nil, nil)

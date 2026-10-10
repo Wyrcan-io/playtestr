@@ -1,0 +1,55 @@
+[
+  {
+    "name": "choice-truncation",
+    "source_path": "cookiecutter/prompt.py",
+    "pristine_sha256": "ab77946a6b260796e9d25de39c7f0415989c4d55d2075d755e873d4d02240db3",
+    "mutated_sha256": "a29f7b424741dcea00eace17f1f3f104f5be8724fac6b2991edfc8458bf6de09",
+    "contracts": {
+      "normal-project.json": "33dfb6872f234096b8ca6c3fcd7e712a629893df7937c0ab1d16721e891b845d",
+      "normal-project.txt": "328fabbdff215a37b8f8e843277e13622928c1118967fe9031cb295cf6fc0485"
+    },
+    "host": "nt",
+    "category": "assertion_timeout",
+    "failed_step": 10,
+    "evidence_id": "ff2e23ad4fbe4bc49b287bca7c4bd009",
+    "report": "artifacts\\ten-new-project-adversarial-pass\\cookiecutter\\choice-truncation-1791632326641744400.json",
+    "restored": true,
+    "recovery_id": "26b7b2e3f84c43cbb41017ba9b133a69",
+    "contracts_unchanged": true
+  },
+  {
+    "name": "wrong-success-exit",
+    "source_path": "cookiecutter/cli.py",
+    "pristine_sha256": "5457091a2db63f5d40ff558b64e428bafa0fb0e4e4888e1c6aaa6030f50de0da",
+    "mutated_sha256": "8833bf336e0bcb82de799dd4d03ec5bd0290f379d4a0953fa763fcbe98fe44b7",
+    "contracts": {
+      "normal-project.json": "33dfb6872f234096b8ca6c3fcd7e712a629893df7937c0ab1d16721e891b845d",
+      "normal-project.txt": "328fabbdff215a37b8f8e843277e13622928c1118967fe9031cb295cf6fc0485"
+    },
+    "host": "nt",
+    "category": "unexpected_exit",
+    "failed_step": 16,
+    "evidence_id": "dcb2835b36a14d5da3fb0eb24a5bcdb3",
+    "report": "artifacts\\ten-new-project-adversarial-pass\\cookiecutter\\wrong-success-exit-1791632335875448500.json",
+    "restored": true,
+    "recovery_id": "b608cb6d37af41d78d5538d5eaa0072a",
+    "contracts_unchanged": true
+  },
+  {
+    "name": "silent-saved-corruption",
+    "source_path": "cookiecutter/generate.py",
+    "pristine_sha256": "f3898d30deb78e06d176c36c38c417f68883407e05dd81eca8931d62d1c14e2e",
+    "mutated_sha256": "4acaf53d5af147ae76707d4449344b83391e91965f3225567fe35910151ad325",
+    "contracts": {
+      "normal-project.json": "33dfb6872f234096b8ca6c3fcd7e712a629893df7937c0ab1d16721e891b845d",
+      "normal-project.txt": "328fabbdff215a37b8f8e843277e13622928c1118967fe9031cb295cf6fc0485"
+    },
+    "host": "nt",
+    "state_oracle_detected": true,
+    "evidence_id": "b654194ebba247c3b6b0b079abd57cfb",
+    "report": "artifacts\\ten-new-project-adversarial-pass\\cookiecutter\\silent-saved-corruption-1791632337334875500.json",
+    "restored": true,
+    "recovery_id": "a809f04062214f5db149e0d8161dfff1",
+    "contracts_unchanged": true
+  }
+]

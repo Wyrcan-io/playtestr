@@ -18,6 +18,7 @@ CONTROLS={
  ('repeated-cleanup','TestRepeatedSessionCleanup','Repeated sessions leave no owned processes'),
  ('idempotent-stop','TestSessionStopIsIdempotent','Repeated stop preserves outcome'),
  ('recorder-tree','TestRecordingTracksDescendantCleanupAndExpectedNonzero','Recorder owns descendants and nonzero observation'),
+ ('immediate-detached-startup','TestAdversarialWindowsImmediateDescendantsCannotEscapeStartup','Windows target cannot fork detached descendants before Job Object attachment'),
  ],
  'Output and input bounds':[
  ('flood','TestOutputLimit','Real target output flood has bounded failure'),
@@ -38,6 +39,10 @@ CONTROLS={
  ('resize-target','TestTargetObservesResize','Actual target sees PTY dimensions'),
  ('resize-redraw','TestWaitForRedrawSynchronizesAfterResize','Resize/redraw synchronization before input'),
  ('screen-redraw','TestScreenRedraw','Pure renderer erase/redraw state; real PTY complements are separately required'),
+ ('adversarial-real-vt','TestAdversarialTerminalStreamsThroughRealPTY','Real split UTF-8/VT, alternate screen, scroll, malformed controls and wrapping'),
+ ('partial-real-input','TestPartialBackendInputCannotPass','A backend forwarding only part of real input cannot report success'),
+ ('windows-resize-reply','TestWindowsResizeRepliesRequireCurrentDimensions','Current dimensions required; stale or payload-contained acknowledgments rejected'),
+ ('windows-resize-bound','TestWindowsResizeWithoutAcknowledgmentIsBounded','Absent Windows resize acknowledgment must time out accurately'),
  ('literal-recorder-control','TestRecordingLiteralControlKeyAndResolvedSetup','Control-console escape can be transmitted literally'),
  ('live-operator-restoration','TestNativeRecorderLiveInputAndOperatorRestoration','Native operator terminal restored after live input'),
  ],
@@ -83,6 +88,10 @@ CONTROLS={
 
 def main():
     records=[]
+    previous={}
+    matrix=DOC/'coverage-matrix.json'
+    if matrix.exists():
+        previous={row['test']:row for row in json.loads(matrix.read_text(encoding='utf-8'))['controls']}
     files=list((ROOT/'internal').rglob('*_test.go'))+list((ROOT/'cmd/playtestr').glob('*_test.go'))
     for family,controls in CONTROLS.items():
         for name,test,requirement in controls:
@@ -97,6 +106,12 @@ def main():
                 layer='real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization',
                 source=str(path.relative_to(ROOT)).replace('\\','/')))
     DOC.mkdir(parents=True,exist_ok=True)
+    for row in records:
+        row['evidence']=previous.get(row['test'],{}).get('evidence',[])
+        if row['test'] in {'TestAdversarialWindowsImmediateDescendantsCannotEscapeStartup',
+                           'TestWindowsResizeRepliesRequireCurrentDimensions',
+                           'TestWindowsResizeWithoutAcknowledgmentIsBounded'}:
+            row['hosts']=['windows']
     (DOC/'coverage-matrix.json').write_text(json.dumps(dict(controls=records,
         count=len(records),claim='Named distinct controls; actual events required; not a coverage percentage'),indent=2)+'\n')
     text='# Product control matrix — execution pending\n\nExisting controls were inspected and mapped before campaign control execution. Test names and configured hosts alone are not evidence. Native test events must be linked after actual execution. Whole tests containing multiple cases count once here.\n\n| ID | Family | Requirement | Go control |\n| --- | --- | --- | --- |\n'

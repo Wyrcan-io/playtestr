@@ -43,6 +43,9 @@ func TestAdversarialNativeResizeInputProbe(t *testing.T) {
 			_ = cmd.Wait()
 			t.Fatal(err)
 		}
+		if err := activateProcess(cmd); err != nil {
+			t.Fatal(abortTerminalStartup(cmd, p, tree, err))
+		}
 		var mu sync.Mutex
 		var raw strings.Builder
 		readerDone := make(chan struct{})

@@ -1,0 +1,56 @@
+{
+  "version": 2,
+  "name": "recorded interaction",
+  "command": [
+    "cookiecutter",
+    "--default-config",
+    "--accept-hooks",
+    "no",
+    "--directory",
+    "templates/component",
+    "nested"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 8000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "project_name"
+    },
+    {
+      "text": "Bounded Component"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "project_slug"
+    },
+    {
+      "resize": {
+        "width": 80,
+        "height": 24
+      }
+    },
+    {
+      "text": "bounded-component"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "snapshot": "first-pass.txt"
+    }
+  ]
+}

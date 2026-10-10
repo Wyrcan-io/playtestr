@@ -1,4 +1,5 @@
-param([Parameter(Mandatory=$true)][string]$Project)
+param([Parameter(Mandatory=$true)][string]$Project,
+    [string]$QualificationPath='artifacts/ten-new-project-adversarial-pass/native-cookiecutter-Windows.json')
 $ErrorActionPreference='Stop'
 if ($Project -notmatch '^[a-z0-9-]+$') { throw 'Invalid owned application name' }
 $workspace=(Resolve-Path -LiteralPath '.').Path
@@ -7,8 +8,12 @@ $target=(Resolve-Path -LiteralPath (Join-Path $root $Project)).Path
 if ($target -ne (Join-Path $root $Project) -or -not $target.StartsWith($root+[IO.Path]::DirectorySeparatorChar)) { throw 'Unsafe deletion target' }
 $owner=Get-Content -LiteralPath (Join-Path $target 'task-owned.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 if ($owner.campaign -ne 'ten-new-project-adversarial-pass' -or $owner.workspace -ne $workspace -or $owner.project -ne $Project) { throw 'Unknown target ownership' }
-$qualification=Get-Content -LiteralPath 'artifacts/ten-new-project-adversarial-pass/native-cookiecutter-Windows.json' -Raw -Encoding UTF8 | ConvertFrom-Json
+$qualification=Get-Content -LiteralPath $QualificationPath -Raw -Encoding UTF8 | ConvertFrom-Json
 if ($qualification.project -ne $Project -or $qualification.terminal_repetitions -ne 100) { throw 'Native evidence incomplete' }
+$actualRevision=git -C (Join-Path $target 'source') rev-parse HEAD
+if ($LASTEXITCODE -ne 0 -or $actualRevision -ne $owner.source_sha) { throw 'Owned source revision differs' }
+$dirtySource=git -C (Join-Path $target 'source') status --porcelain --untracked-files=no
+if ($LASTEXITCODE -ne 0 -or $dirtySource) { throw 'Owned source mutations are not restored' }
 $live=Get-CimInstance Win32_Process | Where-Object { $_.ProcessId -ne $PID -and $_.CommandLine -and $_.CommandLine.Contains($target) }
 if ($live) { throw 'Task-owned application still has live references' }
 $links=Get-ChildItem -LiteralPath $target -Recurse -Force -Attributes ReparsePoint

@@ -16,6 +16,7 @@ Existing controls were inspected and mapped before campaign control execution. T
 | repeated-cleanup | Process cleanup | Repeated sessions leave no owned processes | `TestRepeatedSessionCleanup` |
 | idempotent-stop | Process cleanup | Repeated stop preserves outcome | `TestSessionStopIsIdempotent` |
 | recorder-tree | Process cleanup | Recorder owns descendants and nonzero observation | `TestRecordingTracksDescendantCleanupAndExpectedNonzero` |
+| immediate-detached-startup | Process cleanup | Windows target cannot fork detached descendants before Job Object attachment | `TestAdversarialWindowsImmediateDescendantsCannotEscapeStartup` |
 | flood | Output and input bounds | Real target output flood has bounded failure | `TestOutputLimit` |
 | blocked-input | Output and input bounds | Input to nonreading target observes cancellation | `TestBlockedInputHonorsContext` |
 | silent-input | Output and input bounds | Silent real target can receive initial input | `TestSilentTargetCanReceiveInputWithoutStartupTimeout` |
@@ -30,6 +31,10 @@ Existing controls were inspected and mapped before campaign control execution. T
 | resize-target | Keys and terminal | Actual target sees PTY dimensions | `TestTargetObservesResize` |
 | resize-redraw | Keys and terminal | Resize/redraw synchronization before input | `TestWaitForRedrawSynchronizesAfterResize` |
 | screen-redraw | Keys and terminal | Pure renderer erase/redraw state; real PTY complements are separately required | `TestScreenRedraw` |
+| adversarial-real-vt | Keys and terminal | Real split UTF-8/VT, alternate screen, scroll, malformed controls and wrapping | `TestAdversarialTerminalStreamsThroughRealPTY` |
+| partial-real-input | Keys and terminal | A backend forwarding only part of real input cannot report success | `TestPartialBackendInputCannotPass` |
+| windows-resize-reply | Keys and terminal | Current dimensions required; stale or payload-contained acknowledgments rejected | `TestWindowsResizeRepliesRequireCurrentDimensions` |
+| windows-resize-bound | Keys and terminal | Absent Windows resize acknowledgment must time out accurately | `TestWindowsResizeWithoutAcknowledgmentIsBounded` |
 | literal-recorder-control | Keys and terminal | Control-console escape can be transmitted literally | `TestRecordingLiteralControlKeyAndResolvedSetup` |
 | live-operator-restoration | Keys and terminal | Native operator terminal restored after live input | `TestNativeRecorderLiveInputAndOperatorRestoration` |
 | strict-spec | Spec and paths | Malformed/version/field/action errors reject without launch | `TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput` |
