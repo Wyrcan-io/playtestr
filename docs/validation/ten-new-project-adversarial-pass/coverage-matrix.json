@@ -1,0 +1,958 @@
+{
+  "controls": [
+    {
+      "id": "natural-zero",
+      "family": "Lifecycle",
+      "test": "TestExpectedExitZero",
+      "package": "./internal/runner",
+      "requirement": "Exact natural zero exit",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/runner_test.go"
+    },
+    {
+      "id": "declared-nonzero",
+      "family": "Lifecycle",
+      "test": "TestExpectedNonzeroExit",
+      "package": "./internal/runner",
+      "requirement": "Exact declared nonzero exit",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/runner_test.go"
+    },
+    {
+      "id": "wrong-exit",
+      "family": "Lifecycle",
+      "test": "TestWrongExitCode",
+      "package": "./internal/runner",
+      "requirement": "Unexpected exit differs from declared code",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/runner_test.go"
+    },
+    {
+      "id": "early-exit",
+      "family": "Lifecycle",
+      "test": "TestExitWhileWaitingForText",
+      "package": "./internal/runner",
+      "requirement": "Exit before readiness cannot pass",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/runner_test.go"
+    },
+    {
+      "id": "exit-hang",
+      "family": "Lifecycle",
+      "test": "TestExitTimeout",
+      "package": "./internal/runner",
+      "requirement": "Expected exit that never arrives is bounded",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/runner_test.go"
+    },
+    {
+      "id": "whole-run-budget",
+      "family": "Lifecycle",
+      "test": "TestRunTimeout",
+      "package": "./internal/runner",
+      "requirement": "Whole-run budget applies across steps",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/runner_test.go"
+    },
+    {
+      "id": "cancel",
+      "family": "Lifecycle",
+      "test": "TestCancellation",
+      "package": "./internal/runner",
+      "requirement": "Cancellation returns accurate outcome",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/runner_test.go"
+    },
+    {
+      "id": "direct-descendant",
+      "family": "Process cleanup",
+      "test": "TestChildProcessCleanup",
+      "package": "./internal/runner",
+      "requirement": "Child survives parent until cleanup",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/runner_test.go"
+    },
+    {
+      "id": "grandchild-pty",
+      "family": "Process cleanup",
+      "test": "TestAdversarialGrandchildAndRetainedPTYCleanup",
+      "package": "./internal/runner",
+      "requirement": "Two descendant generations inherit PTY handles",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/adversarial_tree_test.go"
+    },
+    {
+      "id": "repeated-cleanup",
+      "family": "Process cleanup",
+      "test": "TestRepeatedSessionCleanup",
+      "package": "./internal/runner",
+      "requirement": "Repeated sessions leave no owned processes",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/runner_test.go"
+    },
+    {
+      "id": "idempotent-stop",
+      "family": "Process cleanup",
+      "test": "TestSessionStopIsIdempotent",
+      "package": "./internal/runner",
+      "requirement": "Repeated stop preserves outcome",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/runner_test.go"
+    },
+    {
+      "id": "recorder-tree",
+      "family": "Process cleanup",
+      "test": "TestRecordingTracksDescendantCleanupAndExpectedNonzero",
+      "package": "./internal/runner",
+      "requirement": "Recorder owns descendants and nonzero observation",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/record_test.go"
+    },
+    {
+      "id": "flood",
+      "family": "Output and input bounds",
+      "test": "TestOutputLimit",
+      "package": "./internal/runner",
+      "requirement": "Real target output flood has bounded failure",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/runner_test.go"
+    },
+    {
+      "id": "blocked-input",
+      "family": "Output and input bounds",
+      "test": "TestBlockedInputHonorsContext",
+      "package": "./internal/runner",
+      "requirement": "Input to nonreading target observes cancellation",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/runner_test.go"
+    },
+    {
+      "id": "silent-input",
+      "family": "Output and input bounds",
+      "test": "TestSilentTargetCanReceiveInputWithoutStartupTimeout",
+      "package": "./internal/runner",
+      "requirement": "Silent real target can receive initial input",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/runner_test.go"
+    },
+    {
+      "id": "startup-budget",
+      "family": "Output and input bounds",
+      "test": "TestStartupTimeout",
+      "package": "./internal/runner",
+      "requirement": "Explicit startup readiness deadline",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/runner_test.go"
+    },
+    {
+      "id": "idle-recorder-flood",
+      "family": "Output and input bounds",
+      "test": "TestRecordingCancellationAndFloodStopIdleTargets",
+      "package": "./internal/runner",
+      "requirement": "Idle recorder observes overflow or hang",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/record_test.go"
+    },
+    {
+      "id": "stale-ambiguous",
+      "family": "Readiness",
+      "test": "TestRecordingRejectsAmbiguousAndDynamicReadiness",
+      "package": "./internal/runner",
+      "requirement": "Ambiguous capture and changing replay state do not qualify",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/record_test.go"
+    },
+    {
+      "id": "absence-transition",
+      "family": "Readiness",
+      "test": "TestExpectNotWaitsForObservedTextToDisappear",
+      "package": "./internal/runner",
+      "requirement": "Previously observed text must actually disappear",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/runner_test.go"
+    },
+    {
+      "id": "absence-timeout",
+      "family": "Readiness",
+      "test": "TestExpectNotTimesOutWhileObservedTextRemains",
+      "package": "./internal/runner",
+      "requirement": "Still-visible old text does not pass absence",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/runner_test.go"
+    },
+    {
+      "id": "unready-row",
+      "family": "Readiness",
+      "test": "TestRowSnapshotRejectsUnreadyEmptyInvalidAndResizedBounds",
+      "package": "./internal/runner",
+      "requirement": "No unready/empty/invalid row checkpoint",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/snapshot_rows_test.go"
+    },
+    {
+      "id": "control-keys",
+      "family": "Keys and terminal",
+      "test": "TestEditingControlKeysThroughRealPTY",
+      "package": "./internal/runner",
+      "requirement": "Exact control bytes through real PTY",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/runner_test.go"
+    },
+    {
+      "id": "empty-argv",
+      "family": "Keys and terminal",
+      "test": "TestEmptyArgumentPreservedThroughRealPTY",
+      "package": "./internal/runner",
+      "requirement": "Preserve empty arguments and quoted/spaced values",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/runner_test.go"
+    },
+    {
+      "id": "resize-target",
+      "family": "Keys and terminal",
+      "test": "TestTargetObservesResize",
+      "package": "./internal/runner",
+      "requirement": "Actual target sees PTY dimensions",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/runner_test.go"
+    },
+    {
+      "id": "resize-redraw",
+      "family": "Keys and terminal",
+      "test": "TestWaitForRedrawSynchronizesAfterResize",
+      "package": "./internal/runner",
+      "requirement": "Resize/redraw synchronization before input",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/runner_test.go"
+    },
+    {
+      "id": "screen-redraw",
+      "family": "Keys and terminal",
+      "test": "TestScreenRedraw",
+      "package": "./internal/runner",
+      "requirement": "Pure renderer erase/redraw state; real PTY complements are separately required",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/runner_test.go"
+    },
+    {
+      "id": "literal-recorder-control",
+      "family": "Keys and terminal",
+      "test": "TestRecordingLiteralControlKeyAndResolvedSetup",
+      "package": "./internal/runner",
+      "requirement": "Control-console escape can be transmitted literally",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/record_test.go"
+    },
+    {
+      "id": "live-operator-restoration",
+      "family": "Keys and terminal",
+      "test": "TestNativeRecorderLiveInputAndOperatorRestoration",
+      "package": "./cmd/playtestr",
+      "requirement": "Native operator terminal restored after live input",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "cmd/playtestr/record_test.go"
+    },
+    {
+      "id": "strict-spec",
+      "family": "Spec and paths",
+      "test": "TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput",
+      "package": "./internal/runner",
+      "requirement": "Malformed/version/field/action errors reject without launch",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/runner_test.go"
+    },
+    {
+      "id": "spec-size",
+      "family": "Spec and paths",
+      "test": "TestSpecVersionAndSizeLimits",
+      "package": "./internal/runner",
+      "requirement": "Spec version and size bounded",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/runner_test.go"
+    },
+    {
+      "id": "workspace-path",
+      "family": "Spec and paths",
+      "test": "TestWorkspaceSpecValidation",
+      "package": "./internal/runner",
+      "requirement": "Workspace paths and environment conflicts rejected",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/workspace_test.go"
+    },
+    {
+      "id": "fixture-links-bounds",
+      "family": "Spec and paths",
+      "test": "TestWorkspaceFixtureCopyRejectsUnsafeAndBoundedInputs",
+      "package": "./internal/runner",
+      "requirement": "Real fixture rejects links/specials/oversize",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/workspace_test.go"
+    },
+    {
+      "id": "resolve-before-cwd",
+      "family": "Spec and paths",
+      "test": "TestWorkspaceCommandResolutionPrecedesFixtureCWD",
+      "package": "./internal/runner",
+      "requirement": "Target executable resolved before changed cwd",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/workspace_test.go"
+    },
+    {
+      "id": "report-traversal",
+      "family": "Spec and paths",
+      "test": "TestRenderHTMLRejectsUnsafeEvidenceReferences",
+      "package": "./internal/report",
+      "requirement": "Evidence references cannot traverse admitted root",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/report/html_test.go"
+    },
+    {
+      "id": "fresh-state",
+      "family": "Workspaces",
+      "test": "TestWorkspaceRunsTwiceFromFreshFixtureAndCleans",
+      "package": "./internal/runner",
+      "requirement": "Every invocation has fresh owned fixture and cleanup",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/workspace_test.go"
+    },
+    {
+      "id": "failure-retention",
+      "family": "Workspaces",
+      "test": "TestWorkspaceFailureCleanupAndExplicitRetention",
+      "package": "./internal/runner",
+      "requirement": "Explicit failure retention has accurate evidence",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/workspace_test.go"
+    },
+    {
+      "id": "setup-no-launch",
+      "family": "Workspaces",
+      "test": "TestWorkspaceSetupFailureDoesNotLaunchTarget",
+      "package": "./internal/runner",
+      "requirement": "Invalid fixture never launches target",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/workspace_test.go"
+    },
+    {
+      "id": "cleanup-blocks-update",
+      "family": "Workspaces",
+      "test": "TestWorkspaceCleanupFailurePreventsSnapshotCommit",
+      "package": "./internal/runner",
+      "requirement": "Cleanup failure prevents accepted baseline",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/workspace_test.go"
+    },
+    {
+      "id": "fixture-dirty",
+      "family": "Workspaces",
+      "test": "TestRecordingFixtureChangesAndCanceledExport",
+      "package": "./internal/runner",
+      "requirement": "Dirty fixture invalidates reviewed replay",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/record_test.go"
+    },
+    {
+      "id": "genuine-mismatch",
+      "family": "Snapshots and export",
+      "test": "TestSnapshotBaselineAndReadableMismatch",
+      "package": "./internal/runner",
+      "requirement": "Actual screen mismatch is red with readable evidence",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/snapshot_test.go"
+    },
+    {
+      "id": "selected-update",
+      "family": "Snapshots and export",
+      "test": "TestTargetedSnapshotUpdate",
+      "package": "./internal/runner",
+      "requirement": "Only named baseline changes",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/snapshot_test.go"
+    },
+    {
+      "id": "late-failure-rollback",
+      "family": "Snapshots and export",
+      "test": "TestSnapshotUpdatesAreNotCommittedAfterLaterFailure",
+      "package": "./internal/runner",
+      "requirement": "Later failing step rolls back update",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/snapshot_test.go"
+    },
+    {
+      "id": "cancel-update",
+      "family": "Snapshots and export",
+      "test": "TestSnapshotUpdatesAreNotCommittedAfterCancellation",
+      "package": "./internal/runner",
+      "requirement": "Cancellation prevents staged commit",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/snapshot_test.go"
+    },
+    {
+      "id": "multi-file-rollback",
+      "family": "Snapshots and export",
+      "test": "TestSnapshotRollbackRestoresEveryChangedFile",
+      "package": "./internal/runner",
+      "requirement": "Real files and fault injection verify transactional rollback",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/snapshot_test.go"
+    },
+    {
+      "id": "interrupted-export",
+      "family": "Snapshots and export",
+      "test": "TestRecordingInterruptedExportRollsBackWrittenFiles",
+      "package": "./internal/runner",
+      "requirement": "Observed interrupted multi-file export removes partial files",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/record_test.go"
+    },
+    {
+      "id": "strict-row-format",
+      "family": "Snapshots and export",
+      "test": "TestRowSnapshotMetadataIsStrict",
+      "package": "./internal/runner",
+      "requirement": "Row metadata validates explicit version/range/text",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/snapshot_rows_test.go"
+    },
+    {
+      "id": "row-defect",
+      "family": "Snapshots and export",
+      "test": "TestRowSnapshotFreshCaptureReplayAndRealDefect",
+      "package": "./internal/runner",
+      "requirement": "Reviewed row checkpoint detects meaningful real change",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/snapshot_rows_test.go"
+    },
+    {
+      "id": "hostile-html",
+      "family": "Reports and selection",
+      "test": "TestRenderHTMLMixedSuiteIsOfflineEscapedAndComplete",
+      "package": "./internal/report",
+      "requirement": "Hostile synthetic text is escaped in offline HTML",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/report/html_test.go"
+    },
+    {
+      "id": "corrupt-report",
+      "family": "Reports and selection",
+      "test": "TestRenderHTMLRejectsMalformedVersionOversizeAndInconsistentInput",
+      "package": "./internal/report",
+      "requirement": "Corrupt/oversized/inconsistent results cannot render green",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/report/html_test.go"
+    },
+    {
+      "id": "artifact-association",
+      "family": "Reports and selection",
+      "test": "TestRenderHTMLRejectsInconsistentAndSharedArtifactAssociation",
+      "package": "./internal/report",
+      "requirement": "Wrong result/artifact association rejected",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/report/html_test.go"
+    },
+    {
+      "id": "report-write-error",
+      "family": "Reports and selection",
+      "test": "TestReportWriteFailureReturnsNonzero",
+      "package": "./cmd/playtestr",
+      "requirement": "Failed machine-report write preserves nonzero CLI status",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "cmd/playtestr/main_test.go"
+    },
+    {
+      "id": "zero-selection",
+      "family": "Reports and selection",
+      "test": "TestAuthoringEmptySelectionExplainsNextActionWithoutLaunch",
+      "package": "./cmd/playtestr",
+      "requirement": "Empty selection fails before launch with diagnosis",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "cmd/playtestr/main_test.go"
+    },
+    {
+      "id": "output-alias",
+      "family": "Reports and selection",
+      "test": "TestOutputAliasesAreRejectedBeforeLaunch",
+      "package": "./cmd/playtestr",
+      "requirement": "Output cannot overwrite selected test input",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "cmd/playtestr/main_test.go"
+    },
+    {
+      "id": "prior-output-preserved",
+      "family": "Reports and selection",
+      "test": "TestRenderHTMLBoundsEvidenceAndPreservesOutputOnEveryFailure",
+      "package": "./internal/report",
+      "requirement": "Evidence/write failures preserve prior HTML",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/report/html_test.go"
+    },
+    {
+      "id": "private-canaries",
+      "family": "Confidentiality",
+      "test": "TestSecretCanaryPersistenceBoundary",
+      "package": "./internal/runner",
+      "requirement": "Nonrendered fake environment/input absent from reports and logs; emitted evidence limitation explicit",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/runner_test.go"
+    },
+    {
+      "id": "report-field-boundary",
+      "family": "Confidentiality",
+      "test": "TestReportSummaryOrderAndSecretBoundary",
+      "package": "./internal/report",
+      "requirement": "Machine reports omit argument/input/environment values",
+      "severity": "high",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/report/report_test.go"
+    }
+  ],
+  "count": 56,
+  "claim": "Named distinct controls; actual events required; not a coverage percentage"
+}

@@ -1,0 +1,89 @@
+{
+  "version": 2,
+  "name": "Out-of-range choice is visibly rejected before valid correction",
+  "command": [
+    "cookiecutter",
+    "--default-config",
+    "--accept-hooks",
+    "no",
+    "basic"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHONUTF8": "1",
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 8000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "project_name"
+    },
+    {
+      "text": "Investor Fixture"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "project_slug"
+    },
+    {
+      "text": "investor-fixture"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Select license"
+    },
+    {
+      "text": "99"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Please select one of the available options"
+    },
+    {
+      "text": "2"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "include_docs"
+    },
+    {
+      "text": "no"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "metadata"
+    },
+    {
+      "text": "{\"owner\":\"reviewer\"}"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "snapshot": "edge-choice-recovery.txt"
+    }
+  ]
+}

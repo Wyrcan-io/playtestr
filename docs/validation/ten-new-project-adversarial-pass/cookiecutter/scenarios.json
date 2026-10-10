@@ -1,0 +1,752 @@
+{
+  "project": "cookiecutter",
+  "fixture": "fixtures",
+  "cases": [
+    {
+      "name": "normal-project",
+      "kind": "normal",
+      "purpose": "Generate a nondefault two-file project with dependent slug, chosen license and exact state",
+      "command": [
+        "cookiecutter",
+        "--default-config",
+        "--accept-hooks",
+        "no",
+        "basic"
+      ],
+      "steps": [
+        {
+          "expect": "project_name"
+        },
+        {
+          "text": "Investor Fixture"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "project_slug"
+        },
+        {
+          "text": "investor-fixture"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "Select license"
+        },
+        {
+          "text": "2"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "include_docs"
+        },
+        {
+          "text": "no"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "metadata"
+        },
+        {
+          "text": "{\"owner\":\"reviewer\"}"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "expected_files": {
+        "investor-fixture/README.md": "# Investor Fixture\nLicense=BSD-3-Clause\nDocs=False\n",
+        "investor-fixture/data/config.json": "{\"owner\":\"reviewer\",\"slug\":\"investor-fixture\"}\n",
+        "sentinel.txt": "outside output preserved\n"
+      },
+      "absent_paths": [],
+      "qualified_hosts": [
+        "linux",
+        "windows"
+      ],
+      "timeout_ms": 8000,
+      "run_timeout_ms": 120000,
+      "output_cap": 2000000,
+      "expected_exit": 0
+    },
+    {
+      "name": "normal-structured-data",
+      "kind": "normal",
+      "purpose": "Structured metadata and Unicode render while declared literal text and binary payload are copied exactly",
+      "command": [
+        "cookiecutter",
+        "--default-config",
+        "--accept-hooks",
+        "no",
+        "structured"
+      ],
+      "steps": [
+        {
+          "expect": "project_name"
+        },
+        {
+          "text": "Café Project"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "project_slug"
+        },
+        {
+          "text": "unicode-project"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "Select license"
+        },
+        {
+          "text": "1"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "include_docs"
+        },
+        {
+          "text": "yes"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "metadata"
+        },
+        {
+          "text": "{\"owner\":\"café\"}"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "expected_files": {
+        "unicode-project/README.md": "# Café Project\nLicense=MIT\nDocs=True\n",
+        "unicode-project/data/config.json": "{\"owner\":\"café\",\"slug\":\"unicode-project\"}\n",
+        "sentinel.txt": "outside output preserved\n",
+        "unicode-project/literal.txt": "{{ cookiecutter.project_name }} remains literal\n",
+        "unicode-project/payload.bin": "\u0000\u0001SYNTHETIC-BINARY\n"
+      },
+      "absent_paths": [],
+      "qualified_hosts": [
+        "linux",
+        "windows"
+      ],
+      "timeout_ms": 8000,
+      "run_timeout_ms": 120000,
+      "output_cap": 2000000,
+      "expected_exit": 0
+    },
+    {
+      "name": "normal-nested-template",
+      "kind": "normal",
+      "purpose": "Select a template below an aggregate directory; generated nested source is exact",
+      "command": [
+        "cookiecutter",
+        "--default-config",
+        "--accept-hooks",
+        "no",
+        "--directory",
+        "templates/component",
+        "nested"
+      ],
+      "steps": [
+        {
+          "expect": "project_name"
+        },
+        {
+          "text": "Nested Component"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "project_slug"
+        },
+        {
+          "resize": {
+            "width": 80,
+            "height": 24
+          }
+        },
+        {
+          "text": "nested-component"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "expected_files": {
+        "nested-component/src/component.txt": "component=Nested Component\n",
+        "sentinel.txt": "outside output preserved\n"
+      },
+      "absent_paths": [],
+      "qualified_hosts": [
+        "linux",
+        "windows"
+      ],
+      "timeout_ms": 8000,
+      "run_timeout_ms": 120000,
+      "output_cap": 2000000,
+      "expected_exit": 0
+    },
+    {
+      "name": "normal-reviewed-hook",
+      "kind": "normal",
+      "purpose": "Explicitly approve a reviewed local hook and verify its separate saved effect",
+      "command": [
+        "cookiecutter",
+        "--default-config",
+        "--accept-hooks",
+        "ask",
+        "hooked"
+      ],
+      "steps": [
+        {
+          "expect": "Do you want to execute hooks?"
+        },
+        {
+          "text": "y"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "project_name"
+        },
+        {
+          "text": "Hooked Fixture"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "project_slug"
+        },
+        {
+          "text": "hook-result"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "Reviewed local generation hook completed"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "expected_files": {
+        "hook-result/README.md": "# Hooked Fixture\n",
+        "hook-result/hook-result.txt": "hook executed\n"
+      },
+      "absent_paths": [],
+      "qualified_hosts": [
+        "linux",
+        "windows"
+      ],
+      "timeout_ms": 8000,
+      "run_timeout_ms": 120000,
+      "output_cap": 2000000,
+      "expected_exit": 0
+    },
+    {
+      "name": "normal-preserve-existing",
+      "kind": "normal",
+      "purpose": "Overwrite directory with skip-existing policy preserves protected bytes and adds missing generated file",
+      "command": [
+        "cookiecutter",
+        "--default-config",
+        "--accept-hooks",
+        "no",
+        "--overwrite-if-exists",
+        "--skip-if-file-exists",
+        "basic"
+      ],
+      "steps": [
+        {
+          "expect": "project_name"
+        },
+        {
+          "text": "Investor Fixture"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "project_slug"
+        },
+        {
+          "text": "existing"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "Select license"
+        },
+        {
+          "text": "2"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "include_docs"
+        },
+        {
+          "text": "no"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "metadata"
+        },
+        {
+          "text": "{\"owner\":\"reviewer\"}"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "expected_files": {
+        "existing/README.md": "original protected bytes\n",
+        "existing/neighbor.txt": "neighbor preserved\n",
+        "existing/data/config.json": "{\"owner\":\"reviewer\",\"slug\":\"existing\"}\n"
+      },
+      "absent_paths": [],
+      "qualified_hosts": [
+        "linux",
+        "windows"
+      ],
+      "timeout_ms": 8000,
+      "run_timeout_ms": 120000,
+      "output_cap": 2000000,
+      "expected_exit": 0
+    },
+    {
+      "name": "edge-choice-recovery",
+      "kind": "edge",
+      "purpose": "Out-of-range choice is visibly rejected before valid correction",
+      "command": [
+        "cookiecutter",
+        "--default-config",
+        "--accept-hooks",
+        "no",
+        "basic"
+      ],
+      "steps": [
+        {
+          "expect": "project_name"
+        },
+        {
+          "text": "Investor Fixture"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "project_slug"
+        },
+        {
+          "text": "investor-fixture"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "Select license"
+        },
+        {
+          "text": "99"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "Please select one of the available options"
+        },
+        {
+          "text": "2"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "include_docs"
+        },
+        {
+          "text": "no"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "metadata"
+        },
+        {
+          "text": "{\"owner\":\"reviewer\"}"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "expected_files": {
+        "investor-fixture/README.md": "# Investor Fixture\nLicense=BSD-3-Clause\nDocs=False\n",
+        "investor-fixture/data/config.json": "{\"owner\":\"reviewer\",\"slug\":\"investor-fixture\"}\n",
+        "sentinel.txt": "outside output preserved\n"
+      },
+      "absent_paths": [],
+      "qualified_hosts": [
+        "linux",
+        "windows"
+      ],
+      "timeout_ms": 8000,
+      "run_timeout_ms": 120000,
+      "output_cap": 2000000,
+      "expected_exit": 0
+    },
+    {
+      "name": "edge-boolean-recovery",
+      "kind": "edge",
+      "purpose": "Invalid Boolean cannot silently become true; correction reaches exact output",
+      "command": [
+        "cookiecutter",
+        "--default-config",
+        "--accept-hooks",
+        "no",
+        "basic"
+      ],
+      "steps": [
+        {
+          "expect": "project_name"
+        },
+        {
+          "text": "Investor Fixture"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "project_slug"
+        },
+        {
+          "text": "investor-fixture"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "Select license"
+        },
+        {
+          "text": "2"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "include_docs"
+        },
+        {
+          "text": "maybe"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "Please enter Y or N"
+        },
+        {
+          "text": "no"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "metadata"
+        },
+        {
+          "text": "{\"owner\":\"reviewer\"}"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "expected_files": {
+        "investor-fixture/README.md": "# Investor Fixture\nLicense=BSD-3-Clause\nDocs=False\n",
+        "investor-fixture/data/config.json": "{\"owner\":\"reviewer\",\"slug\":\"investor-fixture\"}\n",
+        "sentinel.txt": "outside output preserved\n"
+      },
+      "absent_paths": [],
+      "qualified_hosts": [
+        "linux",
+        "windows"
+      ],
+      "timeout_ms": 8000,
+      "run_timeout_ms": 120000,
+      "output_cap": 2000000,
+      "expected_exit": 0
+    },
+    {
+      "name": "edge-json-recovery",
+      "kind": "edge",
+      "purpose": "Array is rejected for dict metadata and valid object then persists",
+      "command": [
+        "cookiecutter",
+        "--default-config",
+        "--accept-hooks",
+        "no",
+        "basic"
+      ],
+      "steps": [
+        {
+          "expect": "project_name"
+        },
+        {
+          "text": "Investor Fixture"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "project_slug"
+        },
+        {
+          "text": "investor-fixture"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "Select license"
+        },
+        {
+          "text": "2"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "include_docs"
+        },
+        {
+          "text": "no"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "metadata"
+        },
+        {
+          "text": "[]"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "Requires JSON dict."
+        },
+        {
+          "text": "{\"owner\":\"reviewer\"}"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "expected_files": {
+        "investor-fixture/README.md": "# Investor Fixture\nLicense=BSD-3-Clause\nDocs=False\n",
+        "investor-fixture/data/config.json": "{\"owner\":\"reviewer\",\"slug\":\"investor-fixture\"}\n",
+        "sentinel.txt": "outside output preserved\n"
+      },
+      "absent_paths": [],
+      "qualified_hosts": [
+        "linux",
+        "windows"
+      ],
+      "timeout_ms": 8000,
+      "run_timeout_ms": 120000,
+      "output_cap": 2000000,
+      "expected_exit": 0
+    },
+    {
+      "name": "edge-cancel-after-edit",
+      "kind": "edge",
+      "purpose": "Cancel after entering name; no output directory or protected file mutation",
+      "command": [
+        "cookiecutter",
+        "--default-config",
+        "--accept-hooks",
+        "no",
+        "basic"
+      ],
+      "steps": [
+        {
+          "expect": "project_name"
+        },
+        {
+          "text": "Unsaved Fixture"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "project_slug"
+        },
+        {
+          "key": "CtrlC"
+        },
+        {
+          "expect": "Aborted!"
+        },
+        {
+          "exit": 1
+        }
+      ],
+      "expected_files": {
+        "existing/README.md": "original protected bytes\n",
+        "sentinel.txt": "outside output preserved\n"
+      },
+      "absent_paths": [
+        "unsaved-fixture",
+        "investor-fixture"
+      ],
+      "qualified_hosts": [
+        "linux",
+        "windows"
+      ],
+      "timeout_ms": 8000,
+      "run_timeout_ms": 120000,
+      "output_cap": 2000000,
+      "expected_exit": 1
+    },
+    {
+      "name": "edge-existing-rejected",
+      "kind": "edge",
+      "purpose": "Existing destination is rejected at exact nonzero exit and all original bytes survive",
+      "command": [
+        "cookiecutter",
+        "--default-config",
+        "--accept-hooks",
+        "no",
+        "basic"
+      ],
+      "steps": [
+        {
+          "expect": "project_name"
+        },
+        {
+          "text": "Investor Fixture"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "project_slug"
+        },
+        {
+          "text": "existing"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "Select license"
+        },
+        {
+          "text": "2"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "include_docs"
+        },
+        {
+          "text": "no"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "metadata"
+        },
+        {
+          "text": "{\"owner\":\"reviewer\"}"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "already exists"
+        },
+        {
+          "exit": 1
+        }
+      ],
+      "expected_files": {
+        "existing/README.md": "original protected bytes\n",
+        "existing/neighbor.txt": "neighbor preserved\n"
+      },
+      "absent_paths": [
+        "existing/data/config.json"
+      ],
+      "qualified_hosts": [
+        "linux",
+        "windows"
+      ],
+      "timeout_ms": 8000,
+      "run_timeout_ms": 120000,
+      "output_cap": 2000000,
+      "expected_exit": 1
+    }
+  ],
+  "environment": {
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHONUTF8": "1",
+    "TERM": "xterm-256color"
+  },
+  "scope_exclusions": [
+    "remote template acquisition",
+    "unreviewed hooks",
+    "real credentials",
+    "every template extension"
+  ],
+  "oracle": "Independent exact UTF-8 files and absence checks in the current managed workspace before teardown"
+}

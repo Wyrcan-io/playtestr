@@ -1,0 +1,21 @@
+# Cookiecutter — development validation in progress
+
+Exact independently maintained upstream: [cookiecutter/cookiecutter](https://github.com/cookiecutter/cookiecutter/tree/c88fbe921c97c58b65f1883ba90a0ab53cc91b34), revision `c88fbe921c97c58b65f1883ba90a0ab53cc91b34`, BSD-3-Clause. The retained upstream license covers attribution; local templates/hooks are synthetic campaign fixtures.
+
+[Scope](scope.md) declares five meaningful normal workflows and five distinct edge workflows before recording. [Scenario definitions](scenarios.json) contain independently constructed saved-state expectations. Ten ordinary public test executions passed on local Windows; all ten also passed on WSL after an explicit Unix cancellation baseline was reviewed. WSL is exploratory evidence; required hosted/native Linux remains pending.
+
+Two actual source mutations are retained: choice truncation makes the selected nondefault option unavailable; an incorrect success exit becomes 7. Both unchanged-contract terminal tests fail and restore. A third saved-file mutation keeps the ordinary terminal test passing but fails an independent exact-file oracle. Actual mutation/restoration reports, hashes and launch/finish IDs are under ignored campaign artifacts. Those controls also ran on WSL; no native macOS application claim.
+
+The primary route uses ordinary `version`, `record` with documented console controls, review/replay/save, and `test`. This took three Playtestr shell commands and twenty recorder controls for the prepared primary flow. The recorded 3.811 seconds measures execution of the prepared control sequence, not unassisted active authoring time. Operator knowledge, warm caches and prepared templates are confounders; the fifteen-minute active-authoring gate remains unqualified until measured.
+
+Every exported baseline was read and assessed against the intended prompt/choice/cancellation state. Only the existing-destination case snapshots the earlier stable metadata prompt; its later readiness checks the actual destination rejection and exact exit 1. Independent probes verify unchanged protected state. No arbitrary path stripping occurs.
+
+`edge-cancel-after-edit-unix.json` differs only in the explicit reviewed snapshot: Unix echoes `^C` on Ctrl+C, Windows omits it. This is a justified host variant, not an extra distinct scenario. Linux/Windows natural exit and exact nonzero outcomes remain identical.
+
+Manual maintenance changes one name input in a separate ordinary JSON, retains the original mismatch/diff, renders offline HTML using the documented relative evidence layout, updates only the named baseline and passes normally. [Maintenance result](maintenance-result.json) records unchanged primary contract hashes and relocation to a checkout containing spaces and café. The [generated workflow](workflow-template.yml) is a preview; actual native Actions execution is tracked separately and is not a PR journey.
+
+Reacquisition: create an owned `.cache/ten-new-project-apps/cookiecutter`, acquire the exact pin, review `pyproject.toml` and `LICENSE`, then run `python scripts/acceptance/adversarial_setup_cookiecutter.py`. This installs editable pinned source and locked runtime dependencies into a private venv. Do not use `--native-source` except for the documented local Linux `/var/tmp` exploratory route. No global package installs or target network calls are required. The accepted templates use local generation and one explicitly reviewed local hook.
+
+Qualification schedule: five ordinary plus five fresh repetitions with an owned two-second/eight-MiB CPU worker per scenario, each with a separately counted same-workspace state probe. No unsupported application delay is invented. State probes compare actual reviewed screens and exact expected files before teardown; they are campaign instrumentation, not a public Playtestr file-assertion feature.
+
+Open gates: hosted native Linux/Windows results and artifacts, complete measured basic-user UX ledger, final frozen-source requalification and verified local deletion. **Not yet accepted.** Remote acquisition, arbitrary hooks/extensions and all untested application features remain outside scope. Full-product campaign credit: **0/100**.

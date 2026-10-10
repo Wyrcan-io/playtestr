@@ -1,0 +1,79 @@
+{
+  "version": 2,
+  "name": "Reviewed intentional project label change",
+  "command": [
+    "cookiecutter",
+    "--default-config",
+    "--accept-hooks",
+    "no",
+    "basic"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHONUTF8": "1"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 8000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "project_name"
+    },
+    {
+      "text": "Maintained Fixture"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "project_slug"
+    },
+    {
+      "text": "investor-fixture"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Select license"
+    },
+    {
+      "text": "2"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "include_docs"
+    },
+    {
+      "text": "no"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "metadata"
+    },
+    {
+      "text": "{\"owner\":\"reviewer\"}"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "snapshot": "normal-project.txt"
+    }
+  ]
+}

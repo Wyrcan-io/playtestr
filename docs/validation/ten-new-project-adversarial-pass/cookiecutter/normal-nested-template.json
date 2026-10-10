@@ -1,0 +1,61 @@
+{
+  "version": 2,
+  "name": "Select a template below an aggregate directory; generated nested source is exact",
+  "command": [
+    "cookiecutter",
+    "--default-config",
+    "--accept-hooks",
+    "no",
+    "--directory",
+    "templates/component",
+    "nested"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHONUTF8": "1",
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 8000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "project_name"
+    },
+    {
+      "text": "Nested Component"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "project_slug"
+    },
+    {
+      "resize": {
+        "width": 80,
+        "height": 24
+      }
+    },
+    {
+      "text": "nested-component"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "snapshot": "normal-nested-template.txt"
+    }
+  ]
+}

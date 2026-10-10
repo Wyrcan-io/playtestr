@@ -1,0 +1,18 @@
+# Findings — investigation in progress
+
+No batch completion or final qualification is claimed.
+
+| ID | Class / severity | Observation | Disposition / evidence |
+| --- | --- | --- | --- |
+| H01 | Harness / high | Earlier helper used unbounded output capture and checks separate from repeated runner attempts | New async capture has independent output/time bounds and unique append-only launch/finish IDs. State checks use the current recorder workspace and compare the approved screen. They remain separately counted executions, not public filesystem assertions. |
+| H02 | Harness / high | Independent oracle failure killed recorder abruptly, retaining one owned workspace | Graceful `/quit` before forceful bounded cleanup; first retained directory removed only after exact attempt log, ownership marker, no live reference and link checks. Subsequent failures report graceful recorder cancellation. |
+| H03 | Synthetic fixtures / medium | JSON expectation escaped café whereas reviewed template writes UTF-8; default Windows file writes introduced CRLF | Explicit UTF-8 exact expectations and LF in owned synthetic fixture/hook writers. First mismatches retained; no target or Playtestr fix claimed. |
+| H04 | Harness / medium | Review-screen comparator removed meaningful leading spaces | Preserve exact displayed baseline indentation; ignore only the console's extra blank separator. First rejection retained. |
+| H05 | Native Python harness / medium | Flood/timeout shutdown left asyncio pipe transports open at loop closure | Close input, await pipe shutdown and boundedly drain stopped output. Real subprocess flood/timeout calibration rerun without transport warnings. First cleanup implementation's small drain bound incorrectly masked the original overflow; bound corrected before credit. |
+| P01 | Target/platform behavior | Linux renders Ctrl+C as `^C`; Windows does not | Preserve Windows baseline and explicitly reviewed Unix variant. Both preserve exact nonzero exit, cancellation marker and independent absence/protected-state checks. The Linux mismatch is retained; no stripping or assertion weakening. |
+| H06 | Harness / medium | Maintenance invoked `test --artifacts-dir` with an absolute path, producing references the documented offline renderer deliberately refuses | Use the documented relative evidence layout. No renderer security contract weakened. First diagnosis error retained; corrected mismatch → HTML → selected update → ordinary pass succeeded. |
+| C01 | Scope / high validation risk | Real generated-file corruption can retain a passing terminal transcript | Actual Cookiecutter source write is corrupted; ordinary unchanged terminal test stays green, independent exact-file oracle must reject. Recovery restores exact source/spec/baseline hashes. No automatic filesystem correctness claim. |
+
+Initial direct public smoke commands preceded attempt registration and are excluded from append-only campaign run counts. Their machine first-use report is retained separately. All credited helper-controlled attempts register before launch. The initial basic route used an already prepared control sequence; its 3.811-second record/review/replay/export execution measurement is not total first-time authoring effort. A fully bounded active-authoring assessment remains pending.
+
+The original Windows wizard timeout remains unexplained. No causal repair is claimed from later successes.

@@ -1,0 +1,10 @@
+--- a/cookiecutter/cli.py
++++ b/cookiecutter/cli.py
+@@ -232,6 +232,7 @@
+             accept_hooks=_accept_hooks,
+             keep_project_on_failure=keep_project_on_failure,
+         )
++        sys.exit(7)
+     except (
+         ContextDecodingException,
+         OutputDirExistsException,

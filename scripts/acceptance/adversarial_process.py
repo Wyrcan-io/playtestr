@@ -1,0 +1,153 @@
+"""Bounded native command execution and append-only campaign attempts.
+
+The harness is not a security sandbox. Only reviewed commands run here.
+"""
+import asyncio
+from datetime import datetime, timezone
+import hashlib
+import json
+import os
+from pathlib import Path
+import platform
+import signal
+import subprocess
+import sys
+import time
+import uuid
+
+ROOT = Path(__file__).resolve().parents[2]
+DOC = ROOT / 'docs/validation/ten-new-project-adversarial-pass'
+RAW = ROOT / 'artifacts/ten-new-project-adversarial-pass'
+
+def append(record):
+    DOC.mkdir(parents=True, exist_ok=True)
+    with (DOC/'attempts.jsonl').open('a',encoding='utf-8') as stream:
+        stream.write(json.dumps(record,ensure_ascii=True)+'\n')
+        stream.flush()
+        os.fsync(stream.fileno())
+
+async def stop(proc):
+    if proc.returncode is not None:
+        return
+    if os.name=='nt':
+        killer=await asyncio.create_subprocess_exec('taskkill','/PID',str(proc.pid),'/T','/F',
+            stdout=asyncio.subprocess.DEVNULL,stderr=asyncio.subprocess.DEVNULL)
+        await asyncio.wait_for(killer.wait(),timeout=5)
+    else:
+        try:
+            os.killpg(proc.pid,signal.SIGKILL)
+        except ProcessLookupError:
+            pass
+    await asyncio.wait_for(proc.wait(),timeout=5)
+
+async def execute(argv,project,label,*,cwd=ROOT,env=None,input=None,timeout=120,
+                  output_cap=4*1024*1024,expected=0,on_output=None,load=False):
+    run_id=uuid.uuid4().hex
+    directory=RAW/project/run_id
+    directory.mkdir(parents=True,exist_ok=False)
+    start=time.monotonic()
+    record=dict(id=run_id,event='started',project=project,label=label,
+                utc=datetime.now(timezone.utc).isoformat(),host=platform.platform(),
+                timeout_seconds=timeout,output_cap=output_cap,
+                variation='owned 2-second 8-MiB SHA256 CPU worker' if load else 'ordinary',
+                expected_exit=expected,evidence=str(directory.relative_to(ROOT)))
+    append(record)
+    output=bytearray()
+    proc=None
+    category='harness_error'
+    result=None
+    worker=None
+    try:
+        if load:
+            worker=await asyncio.create_subprocess_exec(sys.executable,'-c',
+                'import hashlib,time; b=b"x"*(8*1024*1024); end=time.monotonic()+2; '
+                '\nwhile time.monotonic()<end: hashlib.sha256(b).digest()',
+                stdin=asyncio.subprocess.DEVNULL,stdout=asyncio.subprocess.DEVNULL,
+                stderr=asyncio.subprocess.DEVNULL)
+        proc=await asyncio.create_subprocess_exec(*map(str,argv),cwd=cwd,env=env,
+            stdin=asyncio.subprocess.PIPE,stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.STDOUT,start_new_session=os.name!='nt')
+        append(dict(id=run_id,event='launched',project=project,label=label,pid=proc.pid))
+        async def interact():
+            if input is not None:
+                proc.stdin.write(input.encode('utf-8'))
+                await proc.stdin.drain()
+            if on_output is None:
+                proc.stdin.close()
+            while True:
+                block=await proc.stdout.read(16384)
+                if not block:
+                    break
+                remaining=output_cap-len(output)
+                output.extend(block[:remaining])
+                if len(block)>remaining:
+                    raise RuntimeError('independent harness output cap')
+                if on_output is not None:
+                    await on_output(proc,output,directory)
+            return await proc.wait()
+        result=await asyncio.wait_for(interact(),timeout=timeout)
+        category='passed' if result==expected else 'exit_mismatch'
+        if result!=expected:
+            raise RuntimeError(f'{label}: expected exit {expected}, got {result}; {directory}')
+        return dict(id=run_id,output=output.decode('utf-8',errors='replace'),directory=directory,
+                    returncode=result,seconds=time.monotonic()-start)
+    except asyncio.TimeoutError:
+        category='harness_timeout'
+        raise
+    except Exception as error:
+        if str(error)=='independent harness output cap':
+            category='harness_output_limit'
+        (directory/'harness-error.json').write_text(json.dumps(dict(
+            type=type(error).__name__,message=str(error)[:4096]),indent=2)+'\n',encoding='utf-8')
+        raise
+    finally:
+        if worker is not None:
+            try:
+                await asyncio.wait_for(worker.wait(),timeout=3)
+            except asyncio.TimeoutError:
+                worker.kill()
+                await asyncio.wait_for(worker.wait(),timeout=2)
+        cleanup='not_started'
+        if proc is not None:
+            if on_output is not None and proc.returncode is None and not proc.stdin.is_closing():
+                try:
+                    proc.stdin.write(b'/quit\n')
+                    await proc.stdin.drain()
+                    proc.stdin.close()
+                    async def finish_capture():
+                        while block:=await proc.stdout.read(16384):
+                            remaining=output_cap-len(output)
+                            output.extend(block[:max(0,remaining)])
+                        await proc.wait()
+                    await asyncio.wait_for(finish_capture(),timeout=5)
+                    cleanup='recorder_gracefully_cancelled'
+                except (OSError,RuntimeError,asyncio.TimeoutError):
+                    cleanup='forced_harness_cleanup'
+            await stop(proc)
+            if not proc.stdin.is_closing():
+                proc.stdin.close()
+            try:
+                await asyncio.wait_for(proc.stdin.wait_closed(),timeout=1)
+            except (OSError,asyncio.TimeoutError):
+                pass
+            # Reap pipe transports before closing a Windows Proactor loop.
+            # Independently bound even this final drain after process exit.
+            async def drain_stopped():
+                drained=0
+                while block:=await proc.stdout.read(16384):
+                    drained+=len(block)
+                    remaining=output_cap-len(output)
+                    output.extend(block[:max(0,remaining)])
+                    if drained>4*1024*1024:
+                        raise RuntimeError('stopped process pipe-drain bound')
+            await asyncio.wait_for(drain_stopped(),timeout=2)
+            if cleanup=='not_started':
+                cleanup='harness_process_reaped'
+        (directory/'console.log').write_bytes(output)
+        append(dict(id=run_id,event='finished',project=project,label=label,
+                    category=category,exit_code=result,seconds=round(time.monotonic()-start,4),
+                    console_sha256=hashlib.sha256(output).hexdigest(),
+                    harness_cleanup=cleanup,output_bytes=len(output)))
+
+def run(*args,**kwargs):
+    return asyncio.run(execute(*args,**kwargs))

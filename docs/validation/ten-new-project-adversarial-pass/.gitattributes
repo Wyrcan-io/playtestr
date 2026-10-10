@@ -1,0 +1,4 @@
+# Retained contracts/fixtures/patches must preserve their recorded bytes.
+** -text whitespace=cr-at-eol
+*.patch whitespace=cr-at-eol,-blank-at-eol,-blank-at-eof,-space-before-tab
+**/UPSTREAM-LICENSE.txt whitespace=cr-at-eol,-blank-at-eof

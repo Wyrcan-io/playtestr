@@ -1,0 +1,53 @@
+{
+  "version": 2,
+  "name": "Cancel after entering name; no output directory or protected file mutation",
+  "command": [
+    "cookiecutter",
+    "--default-config",
+    "--accept-hooks",
+    "no",
+    "basic"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHONUTF8": "1",
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 8000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "project_name"
+    },
+    {
+      "text": "Unsaved Fixture"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "project_slug"
+    },
+    {
+      "key": "CtrlC"
+    },
+    {
+      "expect": "Aborted!"
+    },
+    {
+      "exit": 1
+    },
+    {
+      "snapshot": "edge-cancel-after-edit.txt"
+    }
+  ]
+}

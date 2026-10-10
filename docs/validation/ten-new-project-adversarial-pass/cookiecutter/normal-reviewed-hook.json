@@ -1,0 +1,65 @@
+{
+  "version": 2,
+  "name": "Explicitly approve a reviewed local hook and verify its separate saved effect",
+  "command": [
+    "cookiecutter",
+    "--default-config",
+    "--accept-hooks",
+    "ask",
+    "hooked"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHONUTF8": "1",
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 8000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Do you want to execute hooks?"
+    },
+    {
+      "text": "y"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "project_name"
+    },
+    {
+      "text": "Hooked Fixture"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "project_slug"
+    },
+    {
+      "text": "hook-result"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Reviewed local generation hook completed"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "snapshot": "normal-reviewed-hook.txt"
+    }
+  ]
+}

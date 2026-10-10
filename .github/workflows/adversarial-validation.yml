@@ -1,0 +1,96 @@
+name: Adversarial native validation
+
+on:
+  push:
+    branches: [work/p0-p2-implementation]
+    paths:
+      - '.github/workflows/adversarial-validation.yml'
+      - 'scripts/acceptance/adversarial_*.py'
+      - 'scripts/acceptance/test_adversarial_harness.py'
+      - 'docs/validation/ten-new-project-adversarial-pass/**'
+      - 'internal/runner/adversarial_tree_test.go'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  controls:
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, macos-15, windows-2025]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+        with:
+          go-version-file: go.mod
+          cache-dependency-path: go.sum
+      - name: Native bounded process and state oracle calibration
+        run: python -m unittest discover -s scripts/acceptance -p test_adversarial_harness.py -v
+      - name: Actual native product events
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/ten-new-project-adversarial-pass/core
+          go test -json -count=1 ./... > artifacts/ten-new-project-adversarial-pass/core/test-events.jsonl
+          go vet ./...
+          if [ "$RUNNER_OS" = Windows ]; then
+            export PATH="/c/msys64/mingw64/bin:/c/msys64/ucrt64/bin:$PATH"
+            export CC=gcc
+          fi
+          export CGO_ENABLED=1
+          go test -race -count=1 ./...
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: adversarial-controls-${{ matrix.os }}
+          path: |
+            artifacts/ten-new-project-adversarial-pass/**
+            docs/validation/ten-new-project-adversarial-pass/attempts.jsonl
+          if-no-files-found: error
+          retention-days: 14
+  cookiecutter:
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, windows-2025]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+        with:
+          go-version-file: go.mod
+          cache-dependency-path: go.sum
+      - name: Pinned application native flows, mutations, restoration and fresh repetitions
+        run: python scripts/acceptance/adversarial_native_cookiecutter.py
+      - name: Remove owned application after qualification and process verification
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" = Windows ]; then
+            pwsh -NoProfile -File scripts/acceptance/remove-adversarial-project.ps1 -Project cookiecutter
+          else
+            python scripts/acceptance/adversarial_cleanup_unix.py
+          fi
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: adversarial-cookiecutter-${{ matrix.os }}
+          path: |
+            artifacts/ten-new-project-adversarial-pass/**
+            docs/validation/ten-new-project-adversarial-pass/attempts.jsonl
+          if-no-files-found: error
+          retention-days: 14

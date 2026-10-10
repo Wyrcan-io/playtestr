@@ -1,0 +1,11 @@
+--- a/cookiecutter/prompt.py
++++ b/cookiecutter/prompt.py
+@@ -100,7 +100,7 @@
+     if not options:
+         raise ValueError
+ 
+-    choice_map = OrderedDict((f'{i}', value) for i, value in enumerate(options, 1))
++    choice_map = OrderedDict((f'{i}', value) for i, value in enumerate(options[:1], 1))
+     choices = choice_map.keys()
+ 
+     question = f"Select {var_name}"

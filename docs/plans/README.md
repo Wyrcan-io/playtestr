@@ -29,6 +29,8 @@ Created 6 October 2026. Originally **plans only**; the user subsequently invoked
 
 [Ten-project user validation and general improvements](ten-project-user-validation-prompt.md) was explicitly invoked and is now completed within its early P5 reliability scope. [Results and limitations](../validation/ten-project-user-pass/README.md) record all ten user journeys, general fixes, final qualification and cleanup. The prompt remains reusable; reading it does not start another pass or the complete-product 100-project campaign.
 
+[Ten new projects: adversarial validation and usability repairs](ten-new-project-adversarial-validation-prompt.md) was invoked on 10 October 2026 and is **in progress**. It expands distinct normal/edge workflows, fault controls, real target mutations, native host coverage, simple onboarding assessment and final qualification. [Execution evidence](../validation/ten-new-project-adversarial-pass/README.md) distinguishes work in progress from accepted results.
+
 Scope belongs in 01; user behavior in 02; recording in 03; PR trust in 04; quotas in 05; pricing/billing in 06; retention in 07; campaign counting in 08; sequence in the roadmap/09; quality in 10; launch/operations in 11; open decisions in 12. Resolve contradictions before implementation. Numerical thresholds are proposed gates unless explicitly attributed to evidence or a provider source.
 
 The former `docs/plans` and `docs/adoption` trees have been removed from their active locations and retained in [the historical archive](../archive/prelaunch-2026-10-06/README.md), with the old roadmap and sprint record. The user's existing planning-index edits and two untracked prompts are preserved there. Existing `AGENTS.md` edits are untouched.

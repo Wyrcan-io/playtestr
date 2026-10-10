@@ -1,0 +1,11 @@
+--- a/cookiecutter/generate.py
++++ b/cookiecutter/generate.py
+@@ -254,7 +254,7 @@
+     logger.debug('Writing contents to file %s', outfile)
+ 
+     with open(outfile, 'w', encoding='utf-8', newline=newline) as fh:
+-        fh.write(rendered_file)
++        fh.write(rendered_file + 'CORRUPTED\n')
+ 
+     # Apply file permissions to output file
+     shutil.copymode(infile, outfile)
