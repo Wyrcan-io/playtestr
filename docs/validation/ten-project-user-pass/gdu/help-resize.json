@@ -1,0 +1,49 @@
+{
+  "version": 2,
+  "name": "Resize, open and close keyboard help without corrupting the file table",
+  "command": [
+    "../../../../.cache/ten-project-apps/gdu-05/gdu",
+    "--config-file",
+    "config.yml",
+    "--no-color",
+    "--show-apparent-size",
+    "data"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.bin"
+    },
+    {
+      "resize": {
+        "width": 80,
+        "height": 24
+      }
+    },
+    {
+      "text": "?"
+    },
+    {
+      "expect": "Move cursor up/down"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "Move cursor up/down"
+    },
+    {
+      "snapshot": "help-resize.rows.json"
+    }
+  ]
+}

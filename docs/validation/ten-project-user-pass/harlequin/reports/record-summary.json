@@ -1,0 +1,69 @@
+{
+  "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "runner_sha256": "dfa60294ef5d946bb690676dd1111a7396dc3922d4a4cb101e735887d914cf0a",
+  "mode": "record",
+  "scenarios": [
+    {
+      "scenario": "query",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/harlequin/query.json": "2f952ecb02c02d9d466fdd8167f0f16b521a33d8c36f46ae02d809e436dbf570",
+        "docs/validation/ten-project-user-pass/harlequin/snapshots/query-results.rows.json": "f6c1784007bfaf8ee8e4e07a5bdb27513b71e4fa1309ce1c13036b5c947b6f56"
+      },
+      "independent_state_oracle": null,
+      "cleanup_confirmed": true,
+      "load_variation": "fresh state repetition; no invented delay variation"
+    },
+    {
+      "scenario": "cancel-save",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/harlequin/cancel-save.json": "f2727b7346c7b9f61b85bfd84b674368bac03530c15749ed35b0ee1aca08379f",
+        "docs/validation/ten-project-user-pass/harlequin/snapshots/cancel-editor-row.rows.json": "7c5edad98be0ed1880a95e38a707fdc710fd482daa2dddd0da290d5311ac46dc"
+      },
+      "independent_state_oracle": {
+        "command": [
+          "python3",
+          "-c",
+          "from pathlib import Path; import json; print(json.dumps(sorted(str(p) for p in Path('.').rglob('*.sql'))))"
+        ],
+        "text": "[]\n"
+      },
+      "cleanup_confirmed": true,
+      "load_variation": "fresh state repetition; no invented delay variation"
+    },
+    {
+      "scenario": "error-recovery",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/harlequin/error-recovery.json": "6784df2ce139ddff252189010a4778f8a9ab6d9e79dc966fc32b52c9a29d2e29",
+        "docs/validation/ten-project-user-pass/harlequin/snapshots/recovered-results.rows.json": "cfe0f21d5f354f04b61e80aa5e59a1cee4403a7873a4a204c49a5d50c2687b36"
+      },
+      "independent_state_oracle": null,
+      "cleanup_confirmed": true,
+      "load_variation": "fresh state repetition; no invented delay variation"
+    },
+    {
+      "scenario": "save-query",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/harlequin/save-query.json": "e16bec0064d0c8a4ca0df9fbe737c514cabd19617e89f2e603142ff1e434f307",
+        "docs/validation/ten-project-user-pass/harlequin/snapshots/saved-editor-row.rows.json": "e6a80d5e1a41f8df15ed0787818c17284796e61030a0eca7a9750b295825e086"
+      },
+      "independent_state_oracle": {
+        "path": "reviewed.sql",
+        "text": "select 'caf\u00e9' as saved_value;"
+      },
+      "cleanup_confirmed": true,
+      "load_variation": "fresh state repetition; no invented delay variation"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "commands": [
+    {
+      "phase": "install",
+      "argv": [
+        "npm",
+        "install",
+        "--prefix",
+        "/var/tmp/playtestr-user-pass-create-vite-10/tooling",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund",
+        "pnpm@12.9.1"
+      ]
+    },
+    {
+      "phase": "install",
+      "argv": [
+        "/var/tmp/playtestr-user-pass-create-vite-10/tooling/node_modules/.bin/pnpm",
+        "--filter",
+        "create-vite...",
+        "install",
+        "--frozen-lockfile",
+        "--ignore-scripts",
+        "--store-dir",
+        "/var/tmp/playtestr-user-pass-create-vite-10/pnpm-store"
+      ]
+    },
+    {
+      "phase": "build",
+      "cwd": "packages/create-vite",
+      "argv": [
+        "/var/tmp/playtestr-user-pass-create-vite-10/tooling/node_modules/.bin/pnpm",
+        "run",
+        "build"
+      ]
+    }
+  ],
+  "review": "Pinned monorepo packageManager pnpm12.9.1; committed lockfile. Disable repository/package lifecycle hooks (Git hooks/browser downloads); actual tsdown build invoked explicitly. No generated application dependency installation."
+}

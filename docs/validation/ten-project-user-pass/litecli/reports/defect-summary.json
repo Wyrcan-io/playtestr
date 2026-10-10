@@ -1,0 +1,27 @@
+{
+  "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "runner_sha256": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+  "mode": "defect",
+  "scenarios": [
+    {
+      "scenario": "insert-query",
+      "attempts": 1,
+      "passed": 0,
+      "failed": 1,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/litecli/insert-query.json": "2c843485b0dbf87829677234bca2b080d46248ae13f3460d5d702c11e3dc9a61",
+        "docs/validation/ten-project-user-pass/litecli/snapshots/insert-query.rows.json": "06d3bd50d56a962d4e2254fdc5fa40f77715fa052438212fd3ef0faf60b37d58"
+      },
+      "independent_state_oracle": {
+        "command": [
+          "python3",
+          "-c",
+          "import sqlite3,json; print(json.dumps(sqlite3.connect('notes.db').execute('select name,quantity from items order by name').fetchall(),ensure_ascii=False,separators=(',',':')))"
+        ],
+        "text": "[[\"alpha\",3],[\"beta\",2],[\"caf\u00e9\",1]]\n"
+      },
+      "cleanup_confirmed": true,
+      "load_variation": "fresh state repetition; no invented delay variation"
+    }
+  ]
+}

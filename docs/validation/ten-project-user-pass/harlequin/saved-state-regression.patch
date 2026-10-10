@@ -1,0 +1,12 @@
+diff --git a/src/harlequin/components/code_editor.py b/src/harlequin/components/code_editor.py
+index 54321b1..aa59ea4 100644
+--- a/src/harlequin/components/code_editor.py
++++ b/src/harlequin/components/code_editor.py
+@@ -215,6 +215,7 @@ class CodeEditor(TextEditor, inherit_bindings=False):
+         self.post_message(EditorCollection.EditorSwitched(active_editor=None))
+ 
+     def on_text_area_saved(self, message: TextAreaSaved) -> None:
++        __import__("pathlib").Path(message.path).write_text("CORRUPT:" + self.text, encoding="utf-8")
+         self.app.notify(f"Editor contents saved to {message.path}")
+         if hasattr(self.app, "data_catalog"):
+             self.app.data_catalog.update_file_tree()

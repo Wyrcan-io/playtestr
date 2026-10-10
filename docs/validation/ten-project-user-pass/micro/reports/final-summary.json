@@ -1,0 +1,52 @@
+{
+  "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "runner_sha256": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+  "mode": "final",
+  "scenarios": [
+    {
+      "scenario": "save",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/micro/save.json": "2feef1a812a39e415b9bf833c0c3243f6ff25ddd4c2a4e9df484a36645c50882",
+        "docs/validation/ten-project-user-pass/micro/snapshots/save.txt": "4aec098a7be428090a7069dc09c76bf7451d880b676dd1424724ee52b27acade"
+      },
+      "independent_state_oracle": {
+        "path": "notes.txt",
+        "text": "caf\u00e9 seed alpha\nneedle target\nlast line\n"
+      },
+      "cleanup_confirmed": true,
+      "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+    },
+    {
+      "scenario": "discard",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/micro/discard.json": "36a3623679ecee7e6b4508635cabfda8a8af6a232487f7ded4e689a2af37539a",
+        "docs/validation/ten-project-user-pass/micro/snapshots/discard.txt": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      "independent_state_oracle": {
+        "path": "notes.txt",
+        "text": "seed alpha\nneedle target\nlast line\n"
+      },
+      "cleanup_confirmed": true,
+      "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+    },
+    {
+      "scenario": "search",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/micro/search.json": "0e1280a854f383a401e4df35661d155393ee139b04546202c7829f0da92a0a90",
+        "docs/validation/ten-project-user-pass/micro/snapshots/search.txt": "12667ab34143111660b37aa49d049cf97137458ebbfbcf94130137a5592c259e"
+      },
+      "independent_state_oracle": null,
+      "cleanup_confirmed": true,
+      "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+    }
+  ]
+}

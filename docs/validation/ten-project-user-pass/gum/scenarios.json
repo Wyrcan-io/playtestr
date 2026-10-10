@@ -1,0 +1,168 @@
+{
+  "cases": [
+    {
+      "name": "choose",
+      "purpose": "Choose the second release category, not the default",
+      "command": [
+        "../../../../.cache/ten-project-apps/gum-01/gum",
+        "choose",
+        "alpha",
+        "beta",
+        "gamma"
+      ],
+      "steps": [
+        {
+          "expect": "Choose:"
+        },
+        {
+          "key": "ArrowDown"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        },
+        {
+          "snapshot": "choose.txt"
+        }
+      ],
+      "snapshot": "choose.txt",
+      "rerecord": true
+    },
+    {
+      "name": "decline",
+      "purpose": "Decline a destructive confirmation with exact nonzero status",
+      "command": [
+        "../../../../.cache/ten-project-apps/gum-01/gum",
+        "confirm",
+        "Deploy fixture?",
+        "--default=false",
+        "--show-output"
+      ],
+      "steps": [
+        {
+          "expect": "Deploy fixture?"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 1
+        },
+        {
+          "snapshot": "decline.txt"
+        }
+      ],
+      "snapshot": "decline.txt"
+    },
+    {
+      "name": "input",
+      "purpose": "Enter and submit a Unicode project label",
+      "command": [
+        "../../../../.cache/ten-project-apps/gum-01/gum",
+        "input",
+        "--placeholder",
+        "Project label",
+        "--cursor.mode",
+        "static"
+      ],
+      "steps": [
+        {
+          "expect": "Project label"
+        },
+        {
+          "text": "caf\u00e9"
+        },
+        {
+          "expect": "caf\u00e9"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        },
+        {
+          "snapshot": "input.txt"
+        }
+      ],
+      "snapshot": "input.txt"
+    },
+    {
+      "name": "resize",
+      "purpose": "Resize and verify cursor selection before accepting output",
+      "command": [
+        "../../../../.cache/ten-project-apps/gum-01/gum",
+        "choose",
+        "alpha",
+        "beta",
+        "gamma"
+      ],
+      "steps": [
+        {
+          "expect": "Choose:"
+        },
+        {
+          "resize": {
+            "width": 80,
+            "height": 24
+          }
+        },
+        {
+          "key": "ArrowDown"
+        },
+        {
+          "expect": "> beta"
+        },
+        {
+          "snapshot": "resize.txt"
+        }
+      ],
+      "snapshot": "resize.txt"
+    },
+    {
+      "name": "limit",
+      "purpose": "Enforce application input length without silently truncating the test contract",
+      "command": [
+        "../../../../.cache/ten-project-apps/gum-01/gum",
+        "input",
+        "--placeholder",
+        "Code",
+        "--char-limit",
+        "3",
+        "--cursor.mode",
+        "static"
+      ],
+      "steps": [
+        {
+          "expect": "Code"
+        },
+        {
+          "text": "abcd"
+        },
+        {
+          "expect": "abc"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        },
+        {
+          "snapshot": "limit.txt"
+        }
+      ],
+      "snapshot": "limit.txt"
+    }
+  ],
+  "maintenance_controls": [
+    {
+      "spec": "intentional-gamma.json",
+      "baseline": "intentional-gamma.txt",
+      "old_baseline": "choose.txt",
+      "changed_text": "gamma"
+    }
+  ]
+}

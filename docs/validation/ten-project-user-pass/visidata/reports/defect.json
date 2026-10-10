@@ -1,0 +1,99 @@
+{
+  "report_version": 2,
+  "runner_version": "source-53561e6cbef4c80a25893c2f25be5a0979442103",
+  "os": "linux",
+  "arch": "amd64",
+  "summary": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1,
+    "cancelled": 0,
+    "not_run": 0
+  },
+  "results": [
+    {
+      "spec_version": 2,
+      "name": "Search actual table data and move to the matching beta row",
+      "spec_path": "/mnt/c/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-project-user-pass/visidata/search.json",
+      "status": "failed",
+      "duration_ms": 5796,
+      "viewport": {
+        "width": 100,
+        "height": 30
+      },
+      "steps": [
+        {
+          "number": 1,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 462
+        },
+        {
+          "number": 2,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 3,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 20
+        },
+        {
+          "number": 4,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 5,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 6,
+          "action": "expect",
+          "status": "failed",
+          "duration_ms": 5001,
+          "failure": {
+            "category": "assertion_timeout",
+            "message": "Search actual table data and move to the matching beta row: step 6: step timed out: context deadline exceeded"
+          }
+        },
+        {
+          "number": 7,
+          "action": "snapshot",
+          "status": "not_run",
+          "duration_ms": 0
+        }
+      ],
+      "target": {
+        "exited": true
+      },
+      "failure": {
+        "category": "assertion_timeout",
+        "message": "Search actual table data and move to the matching beta row: step 6: step timed out: context deadline exceeded"
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": false,
+        "forced": true,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "evidence": {
+        "screen_path": "docs/validation/ten-project-user-pass/visidata/reports/defect-screen.txt"
+      },
+      "workspace": {
+        "attempted": true,
+        "fixture": "fixtures",
+        "prepared": true,
+        "cleanup_attempted": true,
+        "cleaned": true,
+        "retained": false
+      }
+    }
+  ]
+}

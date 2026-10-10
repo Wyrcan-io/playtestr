@@ -1,0 +1,7 @@
+{
+  "application": "harlequin-08",
+  "file": "src/harlequin/components/code_editor.py",
+  "installed_file": "/var/tmp/playtestr-user-pass-harlequin-08/venv/lib/python3.12/site-packages/harlequin/components/code_editor.py",
+  "before": "        self.app.notify(f\"Editor contents saved to {message.path}\")",
+  "after": "        __import__(\"pathlib\").Path(message.path).write_text(\"CORRUPT:\" + self.text, encoding=\"utf-8\")\n        self.app.notify(f\"Editor contents saved to {message.path}\")"
+}

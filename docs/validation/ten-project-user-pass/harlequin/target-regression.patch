@@ -1,0 +1,13 @@
+diff --git a/src/harlequin_sqlite/adapter.py b/src/harlequin_sqlite/adapter.py
+index dd40dfd..0357804 100644
+--- a/src/harlequin_sqlite/adapter.py
++++ b/src/harlequin_sqlite/adapter.py
+@@ -169,7 +169,7 @@ class HarlequinSqliteCursor(HarlequinCursor):
+                 msg=str(e),
+                 title=("SQLite raised an error when fetching results for your query:"),
+             ) from e
+-        return [self._first_row, *remaining_rows]
++        return [self._first_row]  # deliberate regression: discard remaining result rows
+ 
+     def fetchone(self) -> tuple | None:
+         return self._first_row

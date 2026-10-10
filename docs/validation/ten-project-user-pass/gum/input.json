@@ -1,0 +1,43 @@
+{
+  "version": 2,
+  "name": "Enter and submit a Unicode project label",
+  "command": [
+    "../../../../.cache/ten-project-apps/gum-01/gum",
+    "input",
+    "--placeholder",
+    "Project label",
+    "--cursor.mode",
+    "static"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Project label"
+    },
+    {
+      "text": "café"
+    },
+    {
+      "expect": "café"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "snapshot": "input.txt"
+    }
+  ]
+}

@@ -1,0 +1,334 @@
+{
+  "project": "micro",
+  "upstream": {
+    "repo": "micro-editor/micro",
+    "url": "https://github.com/micro-editor/micro",
+    "sha": "02164788bd29c90456e39f976a566899d39579e4",
+    "license": "MIT",
+    "archived": false,
+    "description": "A modern and intuitive terminal-based text editor",
+    "default_branch": "master",
+    "source": "GitHub primary repository metadata/readme/license at pinned revision",
+    "language": "Go",
+    "terminal_stack": "tcell",
+    "interaction_style": "full-screen editor",
+    "selection_reason": "Real saved/discarded file bytes and search",
+    "primary_validation_host": "Ubuntu WSL2 Linux; do not infer macOS/Windows target compatibility"
+  },
+  "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "runner_sha256": "ee965498323d30097a859726acad07c9632d6228fe115dcf92f2418bcbf645f6",
+  "status": "qualified_on_final_source",
+  "scenarios": [
+    {
+      "scenario": "save",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/micro/save.json": "2feef1a812a39e415b9bf833c0c3243f6ff25ddd4c2a4e9df484a36645c50882",
+        "docs/validation/ten-project-user-pass/micro/snapshots/save.txt": "4aec098a7be428090a7069dc09c76bf7451d880b676dd1424724ee52b27acade"
+      },
+      "independent_state_oracle": {
+        "path": "notes.txt",
+        "text": "caf\u00e9 seed alpha\nneedle target\nlast line\n"
+      },
+      "cleanup_confirmed": true
+    },
+    {
+      "scenario": "discard",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/micro/discard.json": "36a3623679ecee7e6b4508635cabfda8a8af6a232487f7ded4e689a2af37539a",
+        "docs/validation/ten-project-user-pass/micro/snapshots/discard.txt": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      "independent_state_oracle": {
+        "path": "notes.txt",
+        "text": "seed alpha\nneedle target\nlast line\n"
+      },
+      "cleanup_confirmed": true
+    },
+    {
+      "scenario": "search",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/micro/search.json": "0e1280a854f383a401e4df35661d155393ee139b04546202c7829f0da92a0a90",
+        "docs/validation/ten-project-user-pass/micro/snapshots/search.txt": "12667ab34143111660b37aa49d049cf97137458ebbfbcf94130137a5592c259e"
+      },
+      "independent_state_oracle": null,
+      "cleanup_confirmed": true
+    }
+  ],
+  "defect_category": "assertion_timeout",
+  "defect_step": 4,
+  "defect_recovery_contract_hashes_equal": true,
+  "task_owned_application_directory": "C:\\Users\\abhir\\OneDrive\\Documents\\playtestr\\.cache\\ten-project-apps\\micro-03",
+  "deleted": true,
+  "complete_product_campaign_credit": 0,
+  "final_source": "53561e6cbef4c80a25893c2f25be5a0979442103",
+  "final_qualification": {
+    "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "runner_sha256": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+    "mode": "final",
+    "scenarios": [
+      {
+        "scenario": "save",
+        "attempts": 10,
+        "passed": 10,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/micro/save.json": "2feef1a812a39e415b9bf833c0c3243f6ff25ddd4c2a4e9df484a36645c50882",
+          "docs/validation/ten-project-user-pass/micro/snapshots/save.txt": "4aec098a7be428090a7069dc09c76bf7451d880b676dd1424724ee52b27acade"
+        },
+        "independent_state_oracle": {
+          "path": "notes.txt",
+          "text": "caf\u00e9 seed alpha\nneedle target\nlast line\n"
+        },
+        "cleanup_confirmed": true,
+        "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+      },
+      {
+        "scenario": "discard",
+        "attempts": 10,
+        "passed": 10,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/micro/discard.json": "36a3623679ecee7e6b4508635cabfda8a8af6a232487f7ded4e689a2af37539a",
+          "docs/validation/ten-project-user-pass/micro/snapshots/discard.txt": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+        },
+        "independent_state_oracle": {
+          "path": "notes.txt",
+          "text": "seed alpha\nneedle target\nlast line\n"
+        },
+        "cleanup_confirmed": true,
+        "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+      },
+      {
+        "scenario": "search",
+        "attempts": 10,
+        "passed": 10,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/micro/search.json": "0e1280a854f383a401e4df35661d155393ee139b04546202c7829f0da92a0a90",
+          "docs/validation/ten-project-user-pass/micro/snapshots/search.txt": "12667ab34143111660b37aa49d049cf97137458ebbfbcf94130137a5592c259e"
+        },
+        "independent_state_oracle": null,
+        "cleanup_confirmed": true,
+        "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+      }
+    ]
+  },
+  "final_target_identity": {
+    "source": "02164788bd29c90456e39f976a566899d39579e4",
+    "target_binary_sha256": "9cf764cd26313761997899632cccfe0fe78caf3aff89d96add4750bca63b13aa"
+  },
+  "final_mutated_identity": {
+    "target_binary_sha256": "00dd59646ab198608e5b57c7ba36fcfbc688c457e9897d92f5a8b39b57bac08d",
+    "patch_sha256": "e2a803d3a37f92c28b76a0cca40508f57951521da648fba17439594f468b3e76"
+  },
+  "final_defect": {
+    "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "runner_sha256": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+    "mode": "defect",
+    "scenarios": [
+      {
+        "scenario": "save",
+        "attempts": 1,
+        "passed": 0,
+        "failed": 1,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/micro/save.json": "2feef1a812a39e415b9bf833c0c3243f6ff25ddd4c2a4e9df484a36645c50882",
+          "docs/validation/ten-project-user-pass/micro/snapshots/save.txt": "4aec098a7be428090a7069dc09c76bf7451d880b676dd1424724ee52b27acade"
+        },
+        "independent_state_oracle": {
+          "path": "notes.txt",
+          "text": "caf\u00e9 seed alpha\nneedle target\nlast line\n"
+        },
+        "cleanup_confirmed": true,
+        "load_variation": "fresh state repetition; no invented delay variation"
+      }
+    ]
+  },
+  "final_recovery": {
+    "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "runner_sha256": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+    "mode": "recovery",
+    "scenarios": [
+      {
+        "scenario": "save",
+        "attempts": 1,
+        "passed": 1,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/micro/save.json": "2feef1a812a39e415b9bf833c0c3243f6ff25ddd4c2a4e9df484a36645c50882",
+          "docs/validation/ten-project-user-pass/micro/snapshots/save.txt": "4aec098a7be428090a7069dc09c76bf7451d880b676dd1424724ee52b27acade"
+        },
+        "independent_state_oracle": {
+          "path": "notes.txt",
+          "text": "caf\u00e9 seed alpha\nneedle target\nlast line\n"
+        },
+        "cleanup_confirmed": true,
+        "load_variation": "fresh state repetition; no invented delay variation"
+      },
+      {
+        "scenario": "discard",
+        "attempts": 1,
+        "passed": 1,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/micro/discard.json": "36a3623679ecee7e6b4508635cabfda8a8af6a232487f7ded4e689a2af37539a",
+          "docs/validation/ten-project-user-pass/micro/snapshots/discard.txt": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+        },
+        "independent_state_oracle": {
+          "path": "notes.txt",
+          "text": "seed alpha\nneedle target\nlast line\n"
+        },
+        "cleanup_confirmed": true,
+        "load_variation": "fresh state repetition; no invented delay variation"
+      },
+      {
+        "scenario": "search",
+        "attempts": 1,
+        "passed": 1,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/micro/search.json": "0e1280a854f383a401e4df35661d155393ee139b04546202c7829f0da92a0a90",
+          "docs/validation/ten-project-user-pass/micro/snapshots/search.txt": "12667ab34143111660b37aa49d049cf97137458ebbfbcf94130137a5592c259e"
+        },
+        "independent_state_oracle": null,
+        "cleanup_confirmed": true,
+        "load_variation": "fresh state repetition; no invented delay variation"
+      }
+    ]
+  },
+  "final_negative_contracts_unchanged": true,
+  "final_oracles": {
+    "project": "micro",
+    "checked": [
+      "save",
+      "discard"
+    ],
+    "passed": true,
+    "cleanup": "each recorder cleanly canceled after state check"
+  },
+  "operator_elapsed_seconds_before_deletion": 81.469,
+  "operator_measurement_scope": "Fresh pinned acquisition, build, regression/restoration, ten repetitions per scenario and independent state checks; shared Go caches warm, not independent-user onboarding research",
+  "final_maintenance": [
+    {
+      "spec": "intentional-save.json",
+      "baseline": "intentional-save.txt",
+      "before_sha256": "4aec098a7be428090a7069dc09c76bf7451d880b676dd1424724ee52b27acade",
+      "after_sha256": "d51aadc1382d5923d146cc76aacf02b89b13a82307e228f3d89047e7b0a88cdf",
+      "passed": true
+    }
+  ],
+  "fixture_hashes": {
+    "docs/validation/ten-project-user-pass/micro/fixtures/notes.txt": "77b1fd6b928b7ea4cad5b581d93c1492bed1431a0db1af2ec60f8a7314b530ce"
+  },
+  "license_sha256": "d2078bac6209f2190a98f497acda86fd8c896a04aead5abd35d933769aaca77b",
+  "retained_attempt_counts": {
+    "machine_reports": 106,
+    "observed_passed_results": 102,
+    "observed_failed_results": 4,
+    "expected_negative_failed_results": 3,
+    "expected_intentional_change_failures": 1,
+    "other_failed_results": 0,
+    "capture_logs": 12,
+    "rejected_captures": 2,
+    "scope": "Counts of retained artifacts, not total-ever execution claims. Early pre-archive overwritten passing retries are not recoverable; all known first failures are retained and described separately.",
+    "raw_evidence_bytes": 330026
+  },
+  "retained_failed_attempts": [
+    {
+      "raw_path": "artifacts/ten-project-user-pass/micro/intentional-expected-change.json",
+      "sha256": "8dc935613d4d794e0c12bd8a5d8536d82675d44a450d402e8dc26271f6c45411",
+      "classification": "expected_intentional_change_failures",
+      "failure": {
+        "category": "snapshot_mismatch",
+        "message": "rendered screen did not match the reviewed snapshot"
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": false,
+        "forced": true,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "runner_version": "source-53561e6cbef4c80a25893c2f25be5a0979442103",
+      "spec_path": "/mnt/c/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-project-user-pass/micro/intentional-save.json"
+    },
+    {
+      "raw_path": "artifacts/ten-project-user-pass/micro/save-defect-0.json",
+      "sha256": "e4bdb3a939f6e487be882a7c559c0696a8c1896143e97ada6fa564bb9117ec83",
+      "classification": "expected_negative_failed_results",
+      "failure": {
+        "category": "assertion_timeout",
+        "message": "Edit Unicode content, save, and independently inspect exact disk bytes: step 4: step timed out: context deadline exceeded"
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": false,
+        "forced": true,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "runner_version": "source-53561e6cbef4c80a25893c2f25be5a0979442103",
+      "spec_path": "/mnt/c/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-project-user-pass/micro/save.json"
+    },
+    {
+      "raw_path": "artifacts/ten-project-user-pass/micro/history/1791485270225923394-save-defect-0.json",
+      "sha256": "81f408c1ae714fea0effbcab3efa9cddc3007536fba34fbaf155e55dce6c7169",
+      "classification": "expected_negative_failed_results",
+      "failure": {
+        "category": "assertion_timeout",
+        "message": "Edit Unicode content, save, and independently inspect exact disk bytes: step 4: step timed out: context deadline exceeded"
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": false,
+        "forced": true,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "runner_version": "user-pass-rerecord-identity",
+      "spec_path": "/mnt/c/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-project-user-pass/micro/save.json"
+    },
+    {
+      "raw_path": "artifacts/ten-project-user-pass/micro/history/1791486746956221323-save-defect-0.json",
+      "sha256": "3ddb16268a8d5a1f30daa3309c107f9d74dd3baa719741b551139e1e138bd168",
+      "classification": "expected_negative_failed_results",
+      "failure": {
+        "category": "assertion_timeout",
+        "message": "Edit Unicode content, save, and independently inspect exact disk bytes: step 4: step timed out: context deadline exceeded"
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": false,
+        "forced": true,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "runner_version": "source-53561e6cbef4c80a25893c2f25be5a0979442103",
+      "spec_path": "/mnt/c/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-project-user-pass/micro/save.json"
+    }
+  ],
+  "scope": {
+    "tested": "Unicode save, discard without saving, regex search and resized cursor location",
+    "excluded": "Plugins, system clipboard, arbitrary languages, remote files and editor-wide compatibility",
+    "method": "Exact original and saved notes bytes are checked before workspace teardown. A source mutation suppresses the real Saved notification; another corrupts real saved bytes despite success UI.",
+    "findings": "Recorder rerecord printed a stale working directory. Fixed generally in 06af0c0 with a failing-before/passing-after regression. Manual-edit encoding mistakes were also rejected."
+  },
+  "final_runner": {
+    "source": "53561e6cbef4c80a25893c2f25be5a0979442103",
+    "clean_source_checkout": true,
+    "go": "go version go1.27.0 windows/amd64",
+    "binaries": {
+      "playtestr-linux": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+      "playtestr.exe": "7339121c103472bcdcf9b9c32a273c63ffa25ab1f773da8430a57b6f991c9597"
+    },
+    "version": "playtestr source-53561e6cbef4c80a25893c2f25be5a0979442103"
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "version": 2,
+  "name": "Reject invalid SQL then execute valid query after viewport resize",
+  "command": [
+    "/var/tmp/playtestr-user-pass-litecli-07/venv/bin/litecli",
+    "--liteclirc",
+    "config.ini",
+    "notes.db"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "PROMPT_TOOLKIT_NO_CPR": "1"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "SQL\u003e"
+    },
+    {
+      "resize": {
+        "width": 80,
+        "height": 24
+      }
+    },
+    {
+      "text": "select * from missing_table;"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "no such table: missing_table"
+    },
+    {
+      "text": "select sum(quantity) as fixture_total from items;"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "| fixture_total |"
+    },
+    {
+      "expect": "1 row in set"
+    },
+    {
+      "snapshot": "error-recovery.rows.json"
+    }
+  ]
+}

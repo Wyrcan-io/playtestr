@@ -1,0 +1,27 @@
+{
+  "source_sha": "620f011bf79ebf345d76d916448b37840b30e2a3",
+  "installed_tree_sha256": "8a4899ac3a690cabc19c2ee6a48454a2ed62eab9beada961049ffe02744533b4",
+  "files": 38294,
+  "node_version": "v24.7.0",
+  "build_seconds": 11.933157150999989,
+  "reviewed_commands": [
+    {
+      "argv": [
+        "npm",
+        "ci",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "phase": "install"
+    },
+    {
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "phase": "build"
+    }
+  ]
+}

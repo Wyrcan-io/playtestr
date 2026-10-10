@@ -1,0 +1,61 @@
+{
+  "version": 2,
+  "name": "Search a noninitial line after resize and inspect the result",
+  "command": [
+    "../../../../.cache/ten-project-apps/micro-03/micro",
+    "-basename",
+    "true",
+    "-backup",
+    "false",
+    "-savecursor",
+    "false",
+    "-saveundo",
+    "false",
+    "-clipboard",
+    "internal",
+    "notes.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "seed alpha"
+    },
+    {
+      "resize": {
+        "width": 80,
+        "height": 24
+      }
+    },
+    {
+      "key": "CtrlF"
+    },
+    {
+      "expect": "Find (regex):"
+    },
+    {
+      "text": "needle"
+    },
+    {
+      "expect": "(2,7)"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "Find (regex):"
+    },
+    {
+      "snapshot": "search.txt"
+    }
+  ]
+}

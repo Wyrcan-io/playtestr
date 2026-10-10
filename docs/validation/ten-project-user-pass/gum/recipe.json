@@ -1,0 +1,14 @@
+{
+  "upstream": "charmbracelet/gum",
+  "sha": "879f048103adf0214b85943b52d8d65b08d772c5",
+  "license": "MIT",
+  "acquisition": "python scripts/acceptance/user_project_admin.py acquire 0",
+  "build": "go -C .cache/ten-project-apps/gum-01/source build -trimpath -o ../gum .",
+  "host": "native Linux amd64 execution on Ubuntu WSL2; crosscompiled Go target on Windows 1.27",
+  "regression": "Apply target-regression.patch to choose/command.go, rebuild; prefix selection stdout with REGRESSION:",
+  "recovery": "Restore exact original source/binary, do not update ordinary baselines",
+  "intentional": "Explicitly change stdout prefix to INTENDED:, run test --update --snapshot choose.txt choose.json; inspected INTENDED:beta; restored original baseline afterward",
+  "dependencies": "Existing shared Go module/compiler caches used; not deleted because they may contain user prerequisites",
+  "scenarios": "record/recovery/final gum; README states actual scope",
+  "maintenance": "Explicit separate control shows a declared user input/selection change as snapshot mismatch, inspects changed state, performs selected baseline update and ordinary replay; original primary baseline remains unchanged. Evidence in reports/maintenance-summary.json after final execution."
+}

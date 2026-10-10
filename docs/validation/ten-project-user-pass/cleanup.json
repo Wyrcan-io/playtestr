@@ -1,0 +1,30 @@
+{
+  "applications_removed": 10,
+  "verified_date": "2026-10-10",
+  "clean_source_worktree_removed": true,
+  "native_audit": {
+    "application_directories": [],
+    "native_runtime_directories": [],
+    "target_process_ids": []
+  },
+  "prerequisite_runtime_removed": true,
+  "preserved": [
+    "Playtestr source and binaries",
+    "reports/specs/baselines/synthetic fixtures/licensed patches",
+    "pre-existing shared Go module/compiler caches",
+    "pre-existing .tools/winlibs compiler",
+    "earlier P0-P2 worktrees/evidence"
+  ],
+  "removed_prerequisites": [
+    "task-local Node 24.7.0",
+    "task-local uv 0.12.23",
+    "verified downloaded archives",
+    "all per-application native venv/build/cache directories"
+  ],
+  "native_audit_after_final_fixture_requalification": {
+    "application_directories": [],
+    "native_runtime_directories": [],
+    "target_process_ids": []
+  },
+  "final_fixture_requalification_cleanup": "LazyGit checkout reacquired for explicit fixture normalization, requalified and removed; read-only native cleanup audit rerun successfully 10 October 2026."
+}

@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "name": "Decline a destructive confirmation with exact nonzero status",
+  "command": [
+    "../../../../.cache/ten-project-apps/gum-01/gum",
+    "confirm",
+    "Deploy fixture?",
+    "--default=false",
+    "--show-output"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Deploy fixture?"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 1
+    },
+    {
+      "snapshot": "decline.txt"
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "runner_sha256": "ee965498323d30097a859726acad07c9632d6228fe115dcf92f2418bcbf645f6",
+  "mode": "record",
+  "scenarios": [
+    {
+      "scenario": "stage",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/lazygit/stage.json": "43439c24760872cbcc98528deafb1a37742181ba2f762f9f6606d6b3da775132",
+        "docs/validation/ten-project-user-pass/lazygit/snapshots/stage.txt": "1259c296c898cb19fafa7f85e4ae1880609b8de7ba41f2824f7b68d9e7490a7d"
+      },
+      "independent_state_oracle": {
+        "command": [
+          "git",
+          "diff",
+          "--cached",
+          "--name-only"
+        ],
+        "text": "seed.txt\n"
+      },
+      "cleanup_confirmed": true
+    },
+    {
+      "scenario": "cancel-discard",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/lazygit/cancel-discard.json": "e688dba1872b6c0c19a9c7689c561a50674d784b6b813a6cb340ab2a58f3dd2b",
+        "docs/validation/ten-project-user-pass/lazygit/snapshots/cancel-discard.txt": "c714ff1cc91343a33412c230363680f9943bf9a87634188e068a0d6c939c4696"
+      },
+      "independent_state_oracle": {
+        "command": [
+          "git",
+          "diff",
+          "--name-only"
+        ],
+        "text": "seed.txt\n"
+      },
+      "cleanup_confirmed": true
+    },
+    {
+      "scenario": "commit",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/lazygit/commit.json": "0d358a0a4cb6852d3bceb4020b0c0fd6b27079b925091310b00abb1d6245df0f",
+        "docs/validation/ten-project-user-pass/lazygit/snapshots/commit.txt": "d5305879ac4462da0809a68f22bcf778ae0f2fc9e5f4865f286259d59d9713fd"
+      },
+      "independent_state_oracle": {
+        "command": [
+          "git",
+          "log",
+          "-1",
+          "--format=%s"
+        ],
+        "text": "Fixture commit\n"
+      },
+      "cleanup_confirmed": true
+    }
+  ]
+}

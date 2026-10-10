@@ -1,0 +1,13 @@
+diff --git a/litecli/sqlexecute.py b/litecli/sqlexecute.py
+index 5e52b73..dab8522 100644
+--- a/litecli/sqlexecute.py
++++ b/litecli/sqlexecute.py
+@@ -163,7 +163,7 @@ class SQLExecute(object):
+         if cursor.description is not None:
+             headers = [x[0] for x in cursor.description]
+             status = "{count} row{s} in set"
+-            cursor = list(cursor)
++            cursor = list(cursor)[:-1]  # deliberate regression: silently omit final result row
+             rowcount = len(cursor)
+         else:
+             _logger.debug("No rows in result.")

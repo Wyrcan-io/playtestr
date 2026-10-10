@@ -1,0 +1,13 @@
+diff --git a/src/cli/ui/components/results.ui.ts b/src/cli/ui/components/results.ui.ts
+index 0104119..b77f7ee 100644
+--- a/src/cli/ui/components/results.ui.ts
++++ b/src/cli/ui/components/results.ui.ts
+@@ -287,7 +287,7 @@ export class ResultsUi extends HeavyUi implements InteractiveUi {
+     try {
+       const regex = new RegExp(this.searchText, 'i');
+       this.filteredResults = this.resultsService.results.filter((r) =>
+-        regex.test(r.path),
++        true,
+       );
+     } catch {
+       this.filteredResults = [];

@@ -1,0 +1,49 @@
+{
+  "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "runner_sha256": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+  "mode": "final",
+  "scenarios": [
+    {
+      "scenario": "navigate",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/gdu/navigate.json": "96e87de6de91dd9f7e115aafb26a79e4550efec2da51cf1247cfca021931f812",
+        "docs/validation/ten-project-user-pass/gdu/snapshots/navigate.rows.json": "5152a153ee11eb1f717b8e05380708a35809f93faf2e9439698ec6f4b2529feb"
+      },
+      "independent_state_oracle": null,
+      "cleanup_confirmed": true,
+      "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+    },
+    {
+      "scenario": "cancel-delete",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/gdu/cancel-delete.json": "a2ff12914b3886aa5a0e0aa247d8d1f12a4d04657acd98de435ea5ac3233c098",
+        "docs/validation/ten-project-user-pass/gdu/snapshots/cancel-delete.rows.json": "5152a153ee11eb1f717b8e05380708a35809f93faf2e9439698ec6f4b2529feb"
+      },
+      "independent_state_oracle": {
+        "path": "data/folder/child.bin",
+        "text": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      },
+      "cleanup_confirmed": true,
+      "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+    },
+    {
+      "scenario": "help-resize",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/gdu/help-resize.json": "a8b1cbcad6b4360a2a4ef5b84a3873a505874729c91d2f4a9431de888fa0de93",
+        "docs/validation/ten-project-user-pass/gdu/snapshots/help-resize.rows.json": "559307d7df1b94b6b95b02d5150e90d6b62386fb657a822a6c2003a8c9e207d2"
+      },
+      "independent_state_oracle": null,
+      "cleanup_confirmed": true,
+      "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+    }
+  ]
+}

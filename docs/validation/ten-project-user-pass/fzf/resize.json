@@ -1,0 +1,57 @@
+{
+  "version": 2,
+  "name": "Resize filtered Unicode search and preserve matching result",
+  "command": [
+    "../../../../.cache/ten-project-apps/fzf-02/fzf",
+    "--no-sort",
+    "--no-info",
+    "--no-clear",
+    "--no-mouse",
+    "--no-unicode",
+    "--height=15",
+    "--layout=reverse",
+    "--pointer=\u003e",
+    "--prompt=Find: ",
+    "--border=none"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "FZF_DEFAULT_COMMAND": "cat choices.txt"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Find:"
+    },
+    {
+      "resize": {
+        "width": 80,
+        "height": 24
+      }
+    },
+    {
+      "text": "café"
+    },
+    {
+      "expect": "Find: café"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "snapshot": "resize.txt"
+    }
+  ]
+}

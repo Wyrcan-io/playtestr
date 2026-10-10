@@ -1,0 +1,13 @@
+diff --git a/src/terminal.go b/src/terminal.go
+index ec0e760..5d78fb7 100644
+--- a/src/terminal.go
++++ b/src/terminal.go
+@@ -2260,7 +2260,7 @@ func (t *Terminal) output() bool {
+ 	if !found {
+ 		current := t.currentItem()
+ 		if current != nil {
+-			t.printer(transform(current))
++			t.printer("REGRESSION:" + transform(current))
+ 			found = true
+ 		}
+ 	} else {

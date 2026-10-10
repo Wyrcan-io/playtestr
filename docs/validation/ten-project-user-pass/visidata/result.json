@@ -1,0 +1,304 @@
+{
+  "project": "visidata",
+  "upstream": {
+    "repo": "saulpw/visidata",
+    "url": "https://github.com/saulpw/visidata",
+    "sha": "dd1a9f0a53fe4bf030db939b06c73cb665406d4a",
+    "license": "GPL-3.0",
+    "archived": false,
+    "description": "A terminal spreadsheet multitool for discovering and arranging data",
+    "default_branch": "develop",
+    "source": "GitHub primary repository metadata/readme/license at pinned revision",
+    "language": "Python",
+    "terminal_stack": "curses",
+    "interaction_style": "full-screen spreadsheet",
+    "selection_reason": "Table search, canceled edit and persisted Unicode TSV",
+    "primary_validation_host": "Ubuntu WSL2 Linux; do not infer macOS/Windows target compatibility"
+  },
+  "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "runner_sha256": "45a279eb29545795196b71354f6a7cf0a5c44614615d2d4960231f765a2efce1",
+  "status": "qualified_on_final_source",
+  "scenarios": [
+    {
+      "scenario": "search",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/visidata/search.json": "710129b2067b94bbbce8e1bed578a3bb2e35c287f4c9a9257000e8ca06b64308",
+        "docs/validation/ten-project-user-pass/visidata/snapshots/search-offline.txt": "8a5e659fa1fd75ef0c7123f17b5281651681169b69c84ad98915ef7b4e1e85da"
+      },
+      "independent_state_oracle": null,
+      "cleanup_confirmed": true
+    },
+    {
+      "scenario": "cancel-edit",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/visidata/cancel-edit.json": "a5b832504339bd54ba82e08f49b7cd0738e70fd93abd12039e79fdffb45728f7",
+        "docs/validation/ten-project-user-pass/visidata/snapshots/cancel-edit.txt": "6474ae50e1936d9a3d8f81c4601a16c74131ac336a190b4f824b22973d6c1961"
+      },
+      "independent_state_oracle": null,
+      "cleanup_confirmed": true
+    },
+    {
+      "scenario": "edit-save",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/visidata/edit-save.json": "ac69152ce6677eac48b4dbec0204797746530f84c8600d4c60be61cd4a51e220",
+        "docs/validation/ten-project-user-pass/visidata/snapshots/edit-save-complete.txt": "e8e5f8660ef54c386d0d545d8427f2257e292fe5f3dc221a9eda07f041c22ddb"
+      },
+      "independent_state_oracle": {
+        "path": "saved/data.tsv",
+        "text": "name\tquantity\ncaf\u00e9\t3\nbeta\t2\ngamma\t1\n"
+      },
+      "cleanup_confirmed": true
+    }
+  ],
+  "defect_category": "assertion_timeout",
+  "defect_step": 6,
+  "defect_recovery_contract_hashes_equal": true,
+  "task_owned_application_directory": "C:\\Users\\abhir\\OneDrive\\Documents\\playtestr\\.cache\\ten-project-apps\\visidata-06",
+  "deleted": true,
+  "complete_product_campaign_credit": 0,
+  "final_source": "53561e6cbef4c80a25893c2f25be5a0979442103",
+  "final_qualification": {
+    "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "runner_sha256": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+    "mode": "final",
+    "scenarios": [
+      {
+        "scenario": "search",
+        "attempts": 10,
+        "passed": 10,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/visidata/search.json": "710129b2067b94bbbce8e1bed578a3bb2e35c287f4c9a9257000e8ca06b64308",
+          "docs/validation/ten-project-user-pass/visidata/snapshots/search-offline.txt": "8a5e659fa1fd75ef0c7123f17b5281651681169b69c84ad98915ef7b4e1e85da"
+        },
+        "independent_state_oracle": null,
+        "cleanup_confirmed": true,
+        "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+      },
+      {
+        "scenario": "cancel-edit",
+        "attempts": 10,
+        "passed": 10,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/visidata/cancel-edit.json": "a5b832504339bd54ba82e08f49b7cd0738e70fd93abd12039e79fdffb45728f7",
+          "docs/validation/ten-project-user-pass/visidata/snapshots/cancel-edit.txt": "6474ae50e1936d9a3d8f81c4601a16c74131ac336a190b4f824b22973d6c1961"
+        },
+        "independent_state_oracle": null,
+        "cleanup_confirmed": true,
+        "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+      },
+      {
+        "scenario": "edit-save",
+        "attempts": 10,
+        "passed": 10,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/visidata/edit-save.json": "ac69152ce6677eac48b4dbec0204797746530f84c8600d4c60be61cd4a51e220",
+          "docs/validation/ten-project-user-pass/visidata/snapshots/edit-save-complete.txt": "e8e5f8660ef54c386d0d545d8427f2257e292fe5f3dc221a9eda07f041c22ddb"
+        },
+        "independent_state_oracle": {
+          "path": "saved/data.tsv",
+          "text": "name\tquantity\ncaf\u00e9\t3\nbeta\t2\ngamma\t1\n"
+        },
+        "cleanup_confirmed": true,
+        "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+      }
+    ]
+  },
+  "final_target_identity": {
+    "source_sha": "dd1a9f0a53fe4bf030db939b06c73cb665406d4a",
+    "files": 393,
+    "installed_tree_sha256": "85e9b5461d4952e428b26b7b6aba08858fdd4651a9045a09d2dd29c6397894e6",
+    "dependencies": [
+      "python-dateutil==2.9.0.post0",
+      "six==1.17.0",
+      "visidata @ file:///var/tmp/playtestr-user-pass-visidata-06/source"
+    ]
+  },
+  "final_mutated_identity": {
+    "patch_sha256": "9345358d28587430b7feb6416e0d0156af48ff8166970d815c0cebed80502ced",
+    "actual_target": {
+      "mutation": "target-regression",
+      "mode": "apply",
+      "source_file_sha256": "e7ecceabc0f9a3d32020b58ba3ed1e893322780025878eb656cfe098efaa3ffe",
+      "installed_file_sha256": "e7ecceabc0f9a3d32020b58ba3ed1e893322780025878eb656cfe098efaa3ffe"
+    }
+  },
+  "final_defect": {
+    "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "runner_sha256": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+    "mode": "defect",
+    "scenarios": [
+      {
+        "scenario": "search",
+        "attempts": 1,
+        "passed": 0,
+        "failed": 1,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/visidata/search.json": "710129b2067b94bbbce8e1bed578a3bb2e35c287f4c9a9257000e8ca06b64308",
+          "docs/validation/ten-project-user-pass/visidata/snapshots/search-offline.txt": "8a5e659fa1fd75ef0c7123f17b5281651681169b69c84ad98915ef7b4e1e85da"
+        },
+        "independent_state_oracle": null,
+        "cleanup_confirmed": true,
+        "load_variation": "fresh state repetition; no invented delay variation"
+      }
+    ]
+  },
+  "final_recovery": {
+    "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "runner_sha256": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+    "mode": "recovery",
+    "scenarios": [
+      {
+        "scenario": "search",
+        "attempts": 1,
+        "passed": 1,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/visidata/search.json": "710129b2067b94bbbce8e1bed578a3bb2e35c287f4c9a9257000e8ca06b64308",
+          "docs/validation/ten-project-user-pass/visidata/snapshots/search-offline.txt": "8a5e659fa1fd75ef0c7123f17b5281651681169b69c84ad98915ef7b4e1e85da"
+        },
+        "independent_state_oracle": null,
+        "cleanup_confirmed": true,
+        "load_variation": "fresh state repetition; no invented delay variation"
+      },
+      {
+        "scenario": "cancel-edit",
+        "attempts": 1,
+        "passed": 1,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/visidata/cancel-edit.json": "a5b832504339bd54ba82e08f49b7cd0738e70fd93abd12039e79fdffb45728f7",
+          "docs/validation/ten-project-user-pass/visidata/snapshots/cancel-edit.txt": "6474ae50e1936d9a3d8f81c4601a16c74131ac336a190b4f824b22973d6c1961"
+        },
+        "independent_state_oracle": null,
+        "cleanup_confirmed": true,
+        "load_variation": "fresh state repetition; no invented delay variation"
+      },
+      {
+        "scenario": "edit-save",
+        "attempts": 1,
+        "passed": 1,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/visidata/edit-save.json": "ac69152ce6677eac48b4dbec0204797746530f84c8600d4c60be61cd4a51e220",
+          "docs/validation/ten-project-user-pass/visidata/snapshots/edit-save-complete.txt": "e8e5f8660ef54c386d0d545d8427f2257e292fe5f3dc221a9eda07f041c22ddb"
+        },
+        "independent_state_oracle": {
+          "path": "saved/data.tsv",
+          "text": "name\tquantity\ncaf\u00e9\t3\nbeta\t2\ngamma\t1\n"
+        },
+        "cleanup_confirmed": true,
+        "load_variation": "fresh state repetition; no invented delay variation"
+      }
+    ]
+  },
+  "final_negative_contracts_unchanged": true,
+  "final_oracles": {
+    "project": "visidata",
+    "checked": [
+      "edit-save"
+    ],
+    "passed": true,
+    "cleanup": "each recorder cleanly canceled after state check"
+  },
+  "operator_elapsed_seconds_before_deletion": 86.61,
+  "operator_measurement_scope": "Fresh pinned acquisition, build, regression/restoration, ten repetitions per scenario and independent state checks; shared Go caches warm, not independent-user onboarding research",
+  "fixture_hashes": {
+    "docs/validation/ten-project-user-pass/visidata/fixtures/data.tsv": "81819382815b7ac4d27de3119e8b08e145cf7e1848787291064521f35d540631"
+  },
+  "license_sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+  "retained_attempt_counts": {
+    "machine_reports": 121,
+    "observed_passed_results": 118,
+    "observed_failed_results": 3,
+    "expected_negative_failed_results": 2,
+    "expected_intentional_change_failures": 0,
+    "other_failed_results": 1,
+    "capture_logs": 14,
+    "rejected_captures": 4,
+    "scope": "Counts of retained artifacts, not total-ever execution claims. Early pre-archive overwritten passing retries are not recoverable; all known first failures are retained and described separately.",
+    "raw_evidence_bytes": 430352
+  },
+  "retained_failed_attempts": [
+    {
+      "raw_path": "artifacts/ten-project-user-pass/visidata/search-defect-0.json",
+      "sha256": "c8edb468f3880b6d46b0b81300884df7fc58f9d3eaf2b0457d2a34649cad687f",
+      "classification": "expected_negative_failed_results",
+      "failure": {
+        "category": "assertion_timeout",
+        "message": "Search actual table data and move to the matching beta row: step 6: step timed out: context deadline exceeded"
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": false,
+        "forced": true,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "runner_version": "source-53561e6cbef4c80a25893c2f25be5a0979442103",
+      "spec_path": "/mnt/c/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-project-user-pass/visidata/search.json"
+    },
+    {
+      "raw_path": "artifacts/ten-project-user-pass/visidata/history/1791389254201330388-search-record-0.json",
+      "sha256": "d8cf065639bc9575b3b2f26e12fc4ddb4a8e0b24f5e0e9a0b19a584e86a61608",
+      "classification": "other_failed_results",
+      "failure": {
+        "category": "workspace_setup_failure",
+        "message": "workspace setup failed: inspect workspace command: stat /tmp/playtestr-user-pass-visidata-06/venv/bin/vd: no such file or directory"
+      },
+      "cleanup": {
+        "attempted": false,
+        "graceful": false,
+        "forced": false,
+        "confirmed_exited": false
+      },
+      "runner_version": "dev",
+      "spec_path": "/mnt/c/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-project-user-pass/visidata/search.json"
+    },
+    {
+      "raw_path": "artifacts/ten-project-user-pass/visidata/history/1791485817837178441-search-defect-0.json",
+      "sha256": "f0c3f1f289dadfebfc78a024679646756b72d2fd4b7b4dcff69d386ddb8ca7ed",
+      "classification": "expected_negative_failed_results",
+      "failure": {
+        "category": "assertion_timeout",
+        "message": "Search actual table data and move to the matching beta row: step 6: step timed out: context deadline exceeded"
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": false,
+        "forced": true,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "runner_version": "dev",
+      "spec_path": "/mnt/c/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-project-user-pass/visidata/search.json"
+    }
+  ],
+  "scope": {
+    "tested": "Find noninitial row, cancel cell edit, save Unicode TSV and inspect exact exported bytes",
+    "excluded": "Network loaders, arbitrary formats, plugins, styles and spreadsheet-wide correctness",
+    "method": "Native isolated Python environment; --nothing plus explicit empty --motd-url avoids MOTD network access. Actual search regression and real saved-header corruption are rejected.",
+    "findings": "Preserve empty argv values, and add general CtrlA/CtrlK keys (4a1f41d). Mounted Windows virtualenv startup took 11.85s; native /var/tmp runtime fixes setup. WSL erased a /tmp runtime; ownership-tracked /var/tmp replaces it."
+  },
+  "final_runner": {
+    "source": "53561e6cbef4c80a25893c2f25be5a0979442103",
+    "clean_source_checkout": true,
+    "go": "go version go1.27.0 windows/amd64",
+    "binaries": {
+      "playtestr-linux": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+      "playtestr.exe": "7339121c103472bcdcf9b9c32a273c63ffa25ab1f773da8430a57b6f991c9597"
+    },
+    "version": "playtestr source-53561e6cbef4c80a25893c2f25be5a0979442103"
+  }
+}

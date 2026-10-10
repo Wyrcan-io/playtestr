@@ -1,0 +1,35 @@
+{
+  "upstream": "micro-editor/micro",
+  "sha": "02164788bd29c90456e39f976a566899d39579e4",
+  "license": "MIT",
+  "acquisition": "python scripts/acceptance/user_project_admin.py acquire 2",
+  "build": "go -C .cache/ten-project-apps/micro-03/source build -trimpath -o ../micro ./cmd/micro; direct Makefile build-quick command, without version metadata, no plugin manager tests",
+  "regression": "Apply target-regression.patch; rebuild; saved notification changes; original target restores unchanged test",
+  "independent_state_negative": "Apply saved-state-corruption.patch, rebuilding target that still displays success. Unchanged host-side expected bytes reject the actual saved file before export. Restore original target and run oracle-positive.",
+  "findings": [
+    {
+      "category": "Playtestr_defect",
+      "description": "Rerecording displayed removed prior workspace instead of fresh current directory",
+      "fix": "06af0c0",
+      "regression": "TestRecorderRerecordDisplaysCurrentWorkspace failed before fix and passed after"
+    },
+    {
+      "category": "test_authoring",
+      "description": "Search does not emit Found; use actual regex prompt, cursor movement and disappearance checkpoint"
+    },
+    {
+      "category": "product_boundary",
+      "description": "Rendered success cannot prove disk bytes. Independent state oracle required; generic bounded harness used, not claimed as a public file assertion."
+    },
+    {
+      "category": "operator_encoding",
+      "description": "First manually edited Unicode spec used Windows legacy encoding and correctly mismatched the actual Unicode screen. Fixed with explicit UTF-8; original screen/diff retained under changed evidence filenames to avoid generated-artifact ignore rules."
+    },
+    {
+      "category": "operator_patch_transport",
+      "description": "Final fresh acquisition rejected CRLF text patch against LF source before any mutation. Normalize all retained Go diffs to LF, then check/apply/rebuild/restore and qualify."
+    }
+  ],
+  "intentional": "Selected baseline maintenance demonstrated through explicit new expected save state in manual save-and-quit flow; file corruption is not baseline-accepted",
+  "maintenance": "Explicit separate control shows a declared user input/selection change as snapshot mismatch, inspects changed state, performs selected baseline update and ordinary replay; original primary baseline remains unchanged. Evidence in reports/maintenance-summary.json after final execution."
+}

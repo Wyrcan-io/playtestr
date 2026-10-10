@@ -1,0 +1,7 @@
+{
+  "application": "visidata-06",
+  "file": "visidata/search.py",
+  "installed_file": "/var/tmp/playtestr-user-pass-visidata-06/venv/lib/python3.12/site-packages/visidata/search.py",
+  "before": "sheet.cursorRowIndex = rowidx",
+  "after": "sheet.cursorRowIndex = 0  # deliberate regression: discard actual matched row"
+}

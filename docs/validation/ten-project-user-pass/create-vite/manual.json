@@ -1,0 +1,66 @@
+{
+  "version": 2,
+  "name": "Manual JSON maintenance: explicitly assert generated command instructions",
+  "command": [
+    "../../../../.tools/ten-project-runtime/node-v24.7.0-linux-x64/bin/node",
+    "/var/tmp/playtestr-user-pass-create-vite-10/source/packages/create-vite/index.js",
+    "--interactive",
+    "--no-immediate",
+    "--no-eslint"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Project name:"
+    },
+    {
+      "text": "synth-react"
+    },
+    {
+      "expect": "synth-react"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Select a framework:"
+    },
+    {
+      "key": "ArrowDown"
+    },
+    {
+      "key": "ArrowDown"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Select a variant:"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Done. Now run:"
+    },
+    {
+      "expect": "npm run dev"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "snapshot": "react.rows.json"
+    }
+  ]
+}

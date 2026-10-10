@@ -1,0 +1,13 @@
+diff --git a/packages/create-vite/src/index.ts b/packages/create-vite/src/index.ts
+index 3eeb19e45..4e350a2b8 100755
+--- a/packages/create-vite/src/index.ts
++++ b/packages/create-vite/src/index.ts
+@@ -746,7 +746,7 @@ async function init() {
+     }
+     doneMessage += `\n  ${getInstallCommand(pkgManager).join(' ')}`
+     doneMessage += `\n  ${getRunCommand(pkgManager, 'dev').join(' ')}`
+-    prompts.outro(doneMessage)
++    prompts.outro(doneMessage); process.exitCode = 7
+   }
+ }
+ 

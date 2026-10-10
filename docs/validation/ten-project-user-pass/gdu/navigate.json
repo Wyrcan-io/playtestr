@@ -1,0 +1,43 @@
+{
+  "version": 2,
+  "name": "Scan actual files, enter largest directory and navigate back",
+  "command": [
+    "../../../../.cache/ten-project-apps/gdu-05/gdu",
+    "--config-file",
+    "config.yml",
+    "--no-color",
+    "--show-apparent-size",
+    "data"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.bin"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "child.bin"
+    },
+    {
+      "key": "ArrowLeft"
+    },
+    {
+      "expect": "alpha.bin"
+    },
+    {
+      "snapshot": "navigate.rows.json"
+    }
+  ]
+}

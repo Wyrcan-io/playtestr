@@ -1,0 +1,13 @@
+diff --git a/internal/buffer/save.go b/internal/buffer/save.go
+index 7063e6f..f3efce9 100644
+--- a/internal/buffer/save.go
++++ b/internal/buffer/save.go
+@@ -147,7 +147,7 @@ func (wf wrappedFile) Write(b *SharedBuffer) (int, error) {
+ 	}
+ 
+ 	// write lines
+-	size, err := file.Write(b.lines[0].data)
++	size, err := file.Write(append([]byte("CORRUPT:"), b.lines[0].data...))
+ 	if err != nil {
+ 		return 0, err
+ 	}

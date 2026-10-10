@@ -1,0 +1,43 @@
+{
+  "version": 2,
+  "name": "Cancel a destructive deletion and independently verify file bytes survive",
+  "command": [
+    "../../../../.cache/ten-project-apps/gdu-05/gdu",
+    "--config-file",
+    "config.yml",
+    "--no-color",
+    "--show-apparent-size",
+    "data"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.bin"
+    },
+    {
+      "text": "d"
+    },
+    {
+      "expect": "Are you sure you want to delete"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "Are you sure you want to delete"
+    },
+    {
+      "snapshot": "cancel-delete.rows.json"
+    }
+  ]
+}

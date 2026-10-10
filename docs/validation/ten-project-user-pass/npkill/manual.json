@@ -1,0 +1,71 @@
+{
+  "version": 2,
+  "name": "Manual filtered scan then exact clean quit",
+  "command": [
+    "../../../../.tools/ten-project-runtime/node-v24.7.0-linux-x64/bin/node",
+    "/var/tmp/playtestr-user-pass-npkill-09/source/lib/index.js",
+    "--directory",
+    "data",
+    "--targets",
+    "node_modules",
+    "--sort",
+    "path",
+    "--no-check-update",
+    "--no-age"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Search completed"
+    },
+    {
+      "expect": "data/alpha/node_modules"
+    },
+    {
+      "expect": "data/caf\u00e9/node_modules"
+    },
+    {
+      "expect": "data/beta/node_modules"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": "Search:"
+    },
+    {
+      "text": "beta"
+    },
+    {
+      "expect": "Search: beta_"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "data/alpha/node_modules"
+    },
+    {
+      "expect_not": "data/caf\u00e9/node_modules"
+    },
+    {
+      "snapshot": "filter.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

@@ -1,0 +1,166 @@
+{
+  "cases": [
+    {
+      "name": "search",
+      "purpose": "Search actual table data and move to the matching beta row",
+      "command": [
+        "/var/tmp/playtestr-user-pass-visidata-06/venv/bin/vd",
+        "--nothing",
+        "--motd-url",
+        "",
+        "--disp-status-fmt",
+        "{sheet.name} row={sheet.cursorRowIndex} ",
+        "--disp-rstatus-fmt",
+        "{sheet.nRows} rows",
+        "data.tsv"
+      ],
+      "steps": [
+        {
+          "expect": "alpha"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": "search"
+        },
+        {
+          "text": "beta"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "row=1"
+        },
+        {
+          "snapshot": "search-offline.txt"
+        }
+      ],
+      "snapshot": "search-offline.txt",
+      "rerecord": true
+    },
+    {
+      "name": "cancel-edit",
+      "purpose": "Cancel a pending cell edit without changing the data table",
+      "command": [
+        "/var/tmp/playtestr-user-pass-visidata-06/venv/bin/vd",
+        "--nothing",
+        "--motd-url",
+        "",
+        "--disp-status-fmt",
+        "{sheet.name} row={sheet.cursorRowIndex} ",
+        "--disp-rstatus-fmt",
+        "{sheet.nRows} rows",
+        "data.tsv"
+      ],
+      "steps": [
+        {
+          "expect": "alpha"
+        },
+        {
+          "text": "e"
+        },
+        {
+          "key": "CtrlA"
+        },
+        {
+          "key": "CtrlK"
+        },
+        {
+          "text": "DROP"
+        },
+        {
+          "expect": "DROP"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": "DROP"
+        },
+        {
+          "expect": "alpha"
+        },
+        {
+          "snapshot": "cancel-edit.txt"
+        }
+      ],
+      "snapshot": "cancel-edit.txt"
+    },
+    {
+      "name": "edit-save",
+      "purpose": "Resize, edit a Unicode cell, save a new TSV and independently inspect exact persisted data",
+      "command": [
+        "/var/tmp/playtestr-user-pass-visidata-06/venv/bin/vd",
+        "--nothing",
+        "--motd-url",
+        "",
+        "--disp-status-fmt",
+        "{sheet.name} row={sheet.cursorRowIndex} ",
+        "--disp-rstatus-fmt",
+        "{sheet.nRows} rows",
+        "data.tsv"
+      ],
+      "steps": [
+        {
+          "expect": "alpha"
+        },
+        {
+          "resize": {
+            "width": 80,
+            "height": 24
+          }
+        },
+        {
+          "text": "e"
+        },
+        {
+          "key": "CtrlA"
+        },
+        {
+          "key": "CtrlK"
+        },
+        {
+          "text": "caf\u00e9"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "caf\u00e9"
+        },
+        {
+          "key": "CtrlS"
+        },
+        {
+          "expect": "save to:"
+        },
+        {
+          "key": "CtrlA"
+        },
+        {
+          "key": "CtrlK"
+        },
+        {
+          "text": "saved/"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "save finished"
+        },
+        {
+          "snapshot": "edit-save-complete.txt"
+        }
+      ],
+      "snapshot": "edit-save-complete.txt",
+      "oracle": {
+        "path": "saved/data.tsv",
+        "text": "name\tquantity\ncaf\u00e9\t3\nbeta\t2\ngamma\t1\n"
+      }
+    }
+  ],
+  "exclusions": "Only TSV/search/cell edit cancellation; no plugin/network/executable expression workflows, formatting styles or full data-format coverage."
+}

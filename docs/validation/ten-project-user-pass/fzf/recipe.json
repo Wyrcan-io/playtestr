@@ -1,0 +1,17 @@
+{
+  "upstream": "junegunn/fzf",
+  "sha": "b1be3a8be1b833ce5b92fbbac11637643d60a046",
+  "license": "MIT",
+  "acquisition": "python scripts/acceptance/user_project_admin.py acquire 1",
+  "build": "go -C .cache/ten-project-apps/fzf-02/source build -trimpath -o ../fzf .",
+  "regression": "Apply target-regression.patch in source; selected stdout prefix REGRESSION; verify binary differs; rebuild",
+  "recovery": "Restore original source/binary; keep test/baseline identical",
+  "variation": "Fresh cwd/home/temp across 1004-item selection, cancellation and Unicode resize, not claimed artificial delay variation",
+  "findings": [
+    {
+      "category": "experiment_setup_failure",
+      "detail": "Windows cp1252 decoding prevented initial patch; unmodified good target remained passing. Preserved invalid negative experiment; UTF-8 patch then verified changed binary produced genuine snapshot mismatch."
+    }
+  ],
+  "maintenance": "Explicit separate control shows a declared user input/selection change as snapshot mismatch, inspects changed state, performs selected baseline update and ordinary replay; original primary baseline remains unchanged. Evidence in reports/maintenance-summary.json after final execution."
+}

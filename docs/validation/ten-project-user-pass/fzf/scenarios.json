@@ -1,0 +1,137 @@
+{
+  "cases": [
+    {
+      "name": "search",
+      "purpose": "Filter 1004 choices and select an exact nondefault item",
+      "command": [
+        "../../../../.cache/ten-project-apps/fzf-02/fzf",
+        "--no-sort",
+        "--no-info",
+        "--no-clear",
+        "--no-mouse",
+        "--no-unicode",
+        "--height=15",
+        "--layout=reverse",
+        "--pointer=>",
+        "--prompt=Find: ",
+        "--border=none"
+      ],
+      "steps": [
+        {
+          "expect": "Find:"
+        },
+        {
+          "text": "beta"
+        },
+        {
+          "expect": "Find: beta"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        },
+        {
+          "snapshot": "search.txt"
+        }
+      ],
+      "snapshot": "search.txt",
+      "env": {
+        "FZF_DEFAULT_COMMAND": "cat choices.txt"
+      },
+      "rerecord": true
+    },
+    {
+      "name": "cancel",
+      "purpose": "Cancel selection without returning a chosen item",
+      "command": [
+        "../../../../.cache/ten-project-apps/fzf-02/fzf",
+        "--no-sort",
+        "--no-info",
+        "--no-clear",
+        "--no-mouse",
+        "--no-unicode",
+        "--height=15",
+        "--layout=reverse",
+        "--pointer=>",
+        "--prompt=Find: ",
+        "--border=none"
+      ],
+      "steps": [
+        {
+          "expect": "Find:"
+        },
+        {
+          "key": "CtrlC"
+        },
+        {
+          "exit": 130
+        },
+        {
+          "snapshot": "cancel.txt"
+        }
+      ],
+      "snapshot": "cancel.txt",
+      "env": {
+        "FZF_DEFAULT_COMMAND": "cat choices.txt"
+      }
+    },
+    {
+      "name": "resize",
+      "purpose": "Resize filtered Unicode search and preserve matching result",
+      "command": [
+        "../../../../.cache/ten-project-apps/fzf-02/fzf",
+        "--no-sort",
+        "--no-info",
+        "--no-clear",
+        "--no-mouse",
+        "--no-unicode",
+        "--height=15",
+        "--layout=reverse",
+        "--pointer=>",
+        "--prompt=Find: ",
+        "--border=none"
+      ],
+      "steps": [
+        {
+          "expect": "Find:"
+        },
+        {
+          "resize": {
+            "width": 80,
+            "height": 24
+          }
+        },
+        {
+          "text": "caf\u00e9"
+        },
+        {
+          "expect": "Find: caf\u00e9"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        },
+        {
+          "snapshot": "resize.txt"
+        }
+      ],
+      "snapshot": "resize.txt",
+      "env": {
+        "FZF_DEFAULT_COMMAND": "cat choices.txt"
+      }
+    }
+  ],
+  "exclusions": "shell integration/history, previews that execute arbitrary commands, mouse and style matching; fixture supplies 1004 deterministic local entries",
+  "maintenance_controls": [
+    {
+      "spec": "intentional-gamma.json",
+      "baseline": "intentional-gamma.txt",
+      "old_baseline": "search.txt",
+      "changed_text": "gamma"
+    }
+  ]
+}

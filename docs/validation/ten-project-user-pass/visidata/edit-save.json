@@ -1,0 +1,79 @@
+{
+  "version": 2,
+  "name": "Resize, edit a Unicode cell, save a new TSV and independently inspect exact persisted data",
+  "command": [
+    "/var/tmp/playtestr-user-pass-visidata-06/venv/bin/vd",
+    "--nothing",
+    "--motd-url",
+    "",
+    "--disp-status-fmt",
+    "{sheet.name} row={sheet.cursorRowIndex} ",
+    "--disp-rstatus-fmt",
+    "{sheet.nRows} rows",
+    "data.tsv"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha"
+    },
+    {
+      "resize": {
+        "width": 80,
+        "height": 24
+      }
+    },
+    {
+      "text": "e"
+    },
+    {
+      "key": "CtrlA"
+    },
+    {
+      "key": "CtrlK"
+    },
+    {
+      "text": "café"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "café"
+    },
+    {
+      "key": "CtrlS"
+    },
+    {
+      "expect": "save to:"
+    },
+    {
+      "key": "CtrlA"
+    },
+    {
+      "key": "CtrlK"
+    },
+    {
+      "text": "saved/"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "save finished"
+    },
+    {
+      "snapshot": "edit-save-complete.txt"
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "version": 2,
+  "name": "Observe real invalid-query modal, dismiss it and successfully query after resize",
+  "command": [
+    "/var/tmp/playtestr-user-pass-harlequin-08/venv/bin/harlequin",
+    "--adapter",
+    "sqlite",
+    "--theme",
+    "textual-dark",
+    "notes.db"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 15000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "^s Save Query"
+    },
+    {
+      "text": "select * from missing_table;"
+    },
+    {
+      "expect": "select * from missing_table;"
+    },
+    {
+      "key": "CtrlJ"
+    },
+    {
+      "expect": "Query Error"
+    },
+    {
+      "expect": "no such table"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "Query Error"
+    },
+    {
+      "resize": {
+        "width": 80,
+        "height": 24
+      }
+    },
+    {
+      "text": "\u000e"
+    },
+    {
+      "expect": "Tab 2"
+    },
+    {
+      "text": "select 314 as recovered_value;"
+    },
+    {
+      "expect": "select 314 as recovered_value;"
+    },
+    {
+      "key": "CtrlJ"
+    },
+    {
+      "expect": "Query Results (1 Records)"
+    },
+    {
+      "snapshot": "recovered-results.rows.json"
+    }
+  ]
+}

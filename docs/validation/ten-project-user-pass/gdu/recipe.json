@@ -1,0 +1,22 @@
+{
+  "upstream": "dundee/gdu",
+  "sha": "387cf50377e53bad628603658cfb76fd4a54d718",
+  "license": "MIT",
+  "acquisition": "python scripts/acceptance/user_project_admin.py acquire 4",
+  "build": "CGO_ENABLED=0 go -C .cache/ten-project-apps/gdu-05/source build -trimpath -o ../gdu ./cmd/gdu",
+  "baseline_binary_sha256": "186bd681c2808cd6eda0b6ee44fc1f828a5ff336253dca5c8244414b1bfaeb54",
+  "fixture": "Actual files of 1024, 2048 and 3072 bytes; offline scan. Explicit synthetic config disables branding header, not directory label.",
+  "regression": "target-regression.patch doubles displayed binary-prefix sizes without changing files; actual mismatch caught within selected rows. Restore original target binary; ordinary recovery passes unchanged contracts.",
+  "findings": [
+    {
+      "category": "playtestr_defect",
+      "detail": "Whole-screen replay failed because actual target directory label contains fresh randomized workspace path. Added general explicit selected-row snapshot format, preserving full failure viewport. No inferred masks."
+    },
+    {
+      "category": "test_authoring",
+      "detail": "Delete capitalization and duplicated Move cursor anchor were invalid. Original failed recording logs retained; corrected exact observed unique text."
+    }
+  ],
+  "oracles": "After canceling delete, independently read unchanged full 3072-byte child file before managed workspace teardown.",
+  "exclusions": "Changing absolute directory label omitted explicitly. No host disk, confirmed delete or full feature claim."
+}

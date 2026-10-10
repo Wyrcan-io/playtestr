@@ -1,0 +1,60 @@
+{
+  "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "runner_sha256": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+  "mode": "final",
+  "scenarios": [
+    {
+      "scenario": "insert-query",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/litecli/insert-query.json": "2c843485b0dbf87829677234bca2b080d46248ae13f3460d5d702c11e3dc9a61",
+        "docs/validation/ten-project-user-pass/litecli/snapshots/insert-query.rows.json": "06d3bd50d56a962d4e2254fdc5fa40f77715fa052438212fd3ef0faf60b37d58"
+      },
+      "independent_state_oracle": {
+        "command": [
+          "python3",
+          "-c",
+          "import sqlite3,json; print(json.dumps(sqlite3.connect('notes.db').execute('select name,quantity from items order by name').fetchall(),ensure_ascii=False,separators=(',',':')))"
+        ],
+        "text": "[[\"alpha\",3],[\"beta\",2],[\"caf\u00e9\",1]]\n"
+      },
+      "cleanup_confirmed": true,
+      "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+    },
+    {
+      "scenario": "cancel-drop",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/litecli/cancel-drop.json": "27be7d26907e45e3505d8f21bda4ba3be9180bcc954d730c2b8473b23659f50d",
+        "docs/validation/ten-project-user-pass/litecli/snapshots/cancel-drop.txt": "9480ce25428db38fd9135eae85064bb4d14000d70659e4bb2e5162e522f5806b"
+      },
+      "independent_state_oracle": {
+        "command": [
+          "python3",
+          "-c",
+          "import sqlite3,json; print(json.dumps(sqlite3.connect('notes.db').execute('select name,quantity from items order by name').fetchall(),ensure_ascii=False,separators=(',',':')))"
+        ],
+        "text": "[[\"alpha\",3],[\"beta\",2]]\n"
+      },
+      "cleanup_confirmed": true,
+      "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+    },
+    {
+      "scenario": "error-recovery",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/litecli/error-recovery.json": "0cef0c897b47f4775fd6b05e2fdc5dbad04647854ca2365e5a75f695300a7108",
+        "docs/validation/ten-project-user-pass/litecli/snapshots/error-recovery.rows.json": "7efec17c93c1adcd55ba6d8d484c7b7fe67b92bc682ec7566881ec55cc8e7752"
+      },
+      "independent_state_oracle": null,
+      "cleanup_confirmed": true,
+      "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+    }
+  ]
+}

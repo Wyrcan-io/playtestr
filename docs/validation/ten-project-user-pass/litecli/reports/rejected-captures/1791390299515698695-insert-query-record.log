@@ -1,0 +1,132 @@
+Setup: output="/mnt/c/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-project-user-pass/litecli/insert-query.json" argv=["/var/tmp/playtestr-user-pass-litecli-07/venv/bin/litecli" "--liteclirc" "config.ini" "notes.db"] cwd="" fixture="fixtures" viewport=100x30 timeout=5000ms budget=120000ms output-cap=2000000
+Recorder controls (target input is separate):
+  /live                       type into the target; Ctrl+G returns to controls
+  /key ArrowDown              send a supported named key
+  /text "hello"               send JSON-quoted text/paste (literal Ctrl+G: "\u0007")
+  /expect unique new content  positive readiness checkpoint
+  /absent previous content    disappearance of previously asserted content
+  /exit 0                     exact expected exit code
+  /snapshot name.txt          capture a ready, settled screen
+  /resize 100 30; /redraw     resize and optional observed redraw wait
+  /snapshot-rows name.rows.json 2 24  capture reviewed inclusive viewport rows
+  /screen; /review            inspect screen or full candidate/baselines
+  /delete N; /move N M         edit 1-based step positions
+  /replace N {"expect":"..."} replace a step with one strict JSON action
+  /rerecord N                 fresh target, retain/reconstruct first N steps
+  /replay; /save               reviewed fresh replay, then export new files
+  /quit                       cancel without export
+No target input or raw draft is saved automatically. Review may display sensitive
+text the target printed or you typed. Targets run with your permissions.
+Resolved target="/var/tmp/playtestr-user-pass-litecli-07/venv/bin/litecli" working-directory="/tmp/playtestr-workspace-2913243243/fixture"
+record> record> record> record> record> record> record> record> record> Resolved target="/var/tmp/playtestr-user-pass-litecli-07/venv/bin/litecli" working-directory="/tmp/playtestr-workspace-3404895969/fixture"
+record> record> record> record> record> record> record> record> record> {
+  "version": 2,
+  "name": "Insert Unicode row through SQL and independently verify committed SQLite data",
+  "command": [
+    "/var/tmp/playtestr-user-pass-litecli-07/venv/bin/litecli",
+    "--liteclirc",
+    "config.ini",
+    "notes.db"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "SQL\u003e"
+    },
+    {
+      "text": "insert into items values ('café',1);"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "1 row affected"
+    },
+    {
+      "text": "select name,quantity from items order by name;"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "3 rows in set"
+    },
+    {
+      "snapshot": "insert-query.txt"
+    }
+  ]
+}
+
+Baseline insert-query.txt:
+SQL> insert into items values ('café',1);
+Query OK, 1 row affected
+Time: 0.015s
+select name,quantity from items order by name;
+SQL> select name,quantity from items order by name;
++-------+----------+
+| name  | quantity |
++-------+----------+
+| alpha | 3        |
+| beta  | 2        |
+| café  | 1        |
++-------+----------+
+3 rows in set
+Time: 0.003s
+SQL>
+
+record>   PASS step 1
+  PASS step 2
+  PASS step 3
+  PASS step 4
+  PASS step 5
+  PASS step 6
+  PASS step 7
+Cleanup: process tree stopped (forced, unix-process-group)
+First failed replay: snapshot_mismatch
+SQL> insert into items values ('café',1);
+Query OK, 1 row affected
+Time: 0.016s
+SQL> select name,quantity from items order by name;
++-------+----------+
+| name  | quantity |
++-------+----------+
+| alpha | 3        |
+| beta  | 2        |
+| café  | 1        |
++-------+----------+
+3 rows in set
+Time: 0.002s
+SQL>
+
+Recorder: Insert Unicode row through SQL and independently verify committed SQLite data: step 8: snapshot "insert-query.txt" did not match
+--- expected: insert-query.txt
++++ actual: insert-query.txt
+@@ -1,7 +1,6 @@
+ SQL> insert into items values ('café',1);
+ Query OK, 1 row affected
+-Time: 0.015s
+-select name,quantity from items order by name;
++Time: 0.016s
+ SQL> select name,quantity from items order by name;
+ +-------+----------+
+ | name  | quantity |
+@@ -11,5 +10,5 @@
+ | café  | 1        |
+ +-------+----------+
+ 3 rows in set
+-Time: 0.003s
++Time: 0.002s
+ SQL>
+
+record> Recorder: review and successfully replay the current candidate before export
+record> [0m[?25h

@@ -1,0 +1,450 @@
+{
+  "project": "create-vite",
+  "upstream": {
+    "repo": "vitejs/vite",
+    "url": "https://github.com/vitejs/vite",
+    "sha": "8a4c19cfc035f2dd203f2fa6d00ab9256a5e77c9",
+    "license": "MIT",
+    "archived": false,
+    "description": "Next generation frontend tooling. It's fast!",
+    "default_branch": "main",
+    "source": "GitHub primary repository metadata/readme/license at pinned revision",
+    "language": "TypeScript",
+    "terminal_stack": "@clack/prompts",
+    "interaction_style": "interactive scaffold wizard",
+    "selection_reason": "Invalid names, cancellation and generated project bytes",
+    "primary_validation_host": "Ubuntu WSL2 Linux; do not infer macOS/Windows target compatibility"
+  },
+  "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "runner_sha256": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+  "status": "qualified_on_final_source",
+  "scenarios": [
+    {
+      "scenario": "react-ts",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/create-vite/react-ts.json": "36c07d39ad8723f6f378a77fc45b58d15832858dd334d0dfa989091981eadeca",
+        "docs/validation/ten-project-user-pass/create-vite/snapshots/react.rows.json": "73e411e768a009401030d002572297d806c8111b84a29ebb0a0ec1babf1d53f2"
+      },
+      "independent_state_oracle": {
+        "command": [
+          "python3",
+          "scaffold_manifest.py",
+          "synth-react"
+        ],
+        "text": "{\".gitignore\": \"fe718e7babb14f3cbad2d97f08889b9ce5215ed3fe0e43b2b8cfbfb3b9b844e8\", \".oxlintrc.json\": \"b4d344818a1e1bf43997e4744a9153c8eef770c98b58229cd86363dabb85ded4\", \"README.md\": \"fa8aac78b8be1993010b57f41000a243ecba006f6731513fe4ec91e788bf2517\", \"index.html\": \"e3a1a86f21a63132e48be52a894660fad867bed599ecf72d0e9dddff23e23e0f\", \"package.json\": \"5e33ffcb47ccf922dd4b1fcb9393061c5142f8809f0358db46afd0c5a2174346\", \"public/favicon.svg\": \"61bc9a161de58248288e6905425d7180f0624c2865007b97d763fdac12043a66\", \"public/icons.svg\": \"b45fa506195cfcdef406ba9f0c77b36ddc1a7c224040926ec70abc2fdea7b93a\", \"src/App.css\": \"6e25a776d3e8102da5bacb3cb99f4a5fc662a2e01e6143140671a556d28c3d5c\", \"src/App.tsx\": \"c7184fc9b1c36d7492093e1b5f5844c440bd3396deeace21b6699d3838f6ecb2\", \"src/assets/hero.png\": \"881ffbcaafc212e49addad08846a5b82761355fa20624253af3477ba33262c5c\", \"src/assets/react.svg\": \"35ef61ed53b323ae94a16a8ec659b3d0af3880698791133f23b084085ab1c2e5\", \"src/assets/vite.svg\": \"5be21acd42eb7b896e517f4e0f0f11eb5c5d9e54fbbcebe9453f033008fcca6f\", \"src/index.css\": \"535c25dd1f338486ab3678832fc698011c8b8d1fe4ffd3d0ef5e33181457cc9f\", \"src/main.tsx\": \"6e9e5807fcbd48b75a96db5cbef36c996262196be42e6d4760dc86babbe61ad2\", \"tsconfig.app.json\": \"8e5d12ba330e7d86409edec74b95451e0db22ee09b9426c94b5bf817571eddb0\", \"tsconfig.json\": \"770b4140bbb581e2dfd9ea9946ffc9c75a1d86ba7d2db5f77c83e37cbdf9d808\", \"tsconfig.node.json\": \"d366cc0827139db39c61815f22491bbfda56c654354a42ad7795143d314e45e8\", \"vite.config.ts\": \"e1eefd0ed1639c88d1213884ef760516884db9e168190e223fee6b063ad3e088\"}\n"
+      },
+      "cleanup_confirmed": true,
+      "load_variation": "fresh state repetition; no invented delay variation"
+    },
+    {
+      "scenario": "cancel-existing",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/create-vite/cancel-existing.json": "2d88387390d712d32ee086b07672fe764b0326819e735ebd7aec252240be6b5e",
+        "docs/validation/ten-project-user-pass/create-vite/snapshots/cancel-existing.rows.json": "da6008e108c892bb1d07585c8ef0713994ea96edcb778ca0cb96a09c109cf55c"
+      },
+      "independent_state_oracle": [
+        {
+          "path": "existing/sentinel.txt",
+          "text": "synthetic caf\u00e9: keep this file\n"
+        },
+        {
+          "command": [
+            "python3",
+            "-c",
+            "from pathlib import Path; print(sorted(p.name for p in Path('existing').iterdir()))"
+          ],
+          "text": "['sentinel.txt']\n"
+        }
+      ],
+      "cleanup_confirmed": true,
+      "load_variation": "fresh state repetition; no invented delay variation"
+    },
+    {
+      "scenario": "invalid-name-recovery",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/create-vite/invalid-name-recovery.json": "f37d6ccdc5463f28d377e218690ae40962a91ec9ab0ad0d640935e87d70d8539",
+        "docs/validation/ten-project-user-pass/create-vite/snapshots/invalid-package.rows.json": "4df7d2fe9ff29b9ee94806b3b57a67c45d80a086cbd510383c184a5c2e177fda"
+      },
+      "independent_state_oracle": {
+        "command": [
+          "python3",
+          "scaffold_manifest.py",
+          "Bad Name"
+        ],
+        "text": "{\".gitignore\": \"fe718e7babb14f3cbad2d97f08889b9ce5215ed3fe0e43b2b8cfbfb3b9b844e8\", \".vscode/extensions.json\": \"70d56b550e796e3ea92922763ae03037a1a94596fda9d737982c75f6a20e88dd\", \"README.md\": \"309627dbb136135f84b9e5d12c06b4261b9b1f8cb169f8cdb8023f867b7a4165\", \"index.html\": \"32128acb051928e8cedcfccb3f7d4c70d5b119016248d128088902838f26dbce\", \"package.json\": \"c9dd2b54648190273c578b988dbf42c5928928448076f10a3c295e538054cfb8\", \"public/favicon.svg\": \"61bc9a161de58248288e6905425d7180f0624c2865007b97d763fdac12043a66\", \"public/icons.svg\": \"b45fa506195cfcdef406ba9f0c77b36ddc1a7c224040926ec70abc2fdea7b93a\", \"src/App.vue\": \"10e38230639e6305791413e147c85aa4ce429a13d772e0ecdec5dc5238249b06\", \"src/assets/hero.png\": \"881ffbcaafc212e49addad08846a5b82761355fa20624253af3477ba33262c5c\", \"src/assets/vite.svg\": \"5be21acd42eb7b896e517f4e0f0f11eb5c5d9e54fbbcebe9453f033008fcca6f\", \"src/assets/vue.svg\": \"5532db34f1c52841881bab8aeca6c3e8d092bd21a689a65f4d8f8cf8041eef9d\", \"src/components/HelloWorld.vue\": \"ccdae28704aec5b36ce12fc69ef21d6b2012f6b0b4db28a4a8ac19ead9683270\", \"src/main.js\": \"ae6eb9de53e72b97ee4c88fe88d2e982bf060266b2b82a0aa29ec859fa342019\", \"src/style.css\": \"5ec45168127a4b9229c69b55d25b3c5c6d3fcf284e0cf2bf24533285f7f89208\", \"vite.config.js\": \"a50d075c1daffaa54e9781e03570614535d8c89da27b2cb2d3b5264f07ad5f96\"}\n"
+      },
+      "cleanup_confirmed": true,
+      "load_variation": "fresh state repetition; no invented delay variation"
+    }
+  ],
+  "defect_category": "unexpected_exit",
+  "defect_step": 12,
+  "defect_recovery_contract_hashes_equal": true,
+  "task_owned_application_directory": "C:\\Users\\abhir\\OneDrive\\Documents\\playtestr\\.cache\\ten-project-apps\\create-vite-10",
+  "deleted": true,
+  "complete_product_campaign_credit": 0,
+  "final_source": "53561e6cbef4c80a25893c2f25be5a0979442103",
+  "final_qualification": {
+    "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "runner_sha256": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+    "mode": "final",
+    "scenarios": [
+      {
+        "scenario": "react-ts",
+        "attempts": 10,
+        "passed": 10,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/create-vite/react-ts.json": "36c07d39ad8723f6f378a77fc45b58d15832858dd334d0dfa989091981eadeca",
+          "docs/validation/ten-project-user-pass/create-vite/snapshots/react.rows.json": "73e411e768a009401030d002572297d806c8111b84a29ebb0a0ec1babf1d53f2"
+        },
+        "independent_state_oracle": {
+          "command": [
+            "python3",
+            "scaffold_manifest.py",
+            "synth-react"
+          ],
+          "text": "{\".gitignore\": \"fe718e7babb14f3cbad2d97f08889b9ce5215ed3fe0e43b2b8cfbfb3b9b844e8\", \".oxlintrc.json\": \"b4d344818a1e1bf43997e4744a9153c8eef770c98b58229cd86363dabb85ded4\", \"README.md\": \"fa8aac78b8be1993010b57f41000a243ecba006f6731513fe4ec91e788bf2517\", \"index.html\": \"e3a1a86f21a63132e48be52a894660fad867bed599ecf72d0e9dddff23e23e0f\", \"package.json\": \"5e33ffcb47ccf922dd4b1fcb9393061c5142f8809f0358db46afd0c5a2174346\", \"public/favicon.svg\": \"61bc9a161de58248288e6905425d7180f0624c2865007b97d763fdac12043a66\", \"public/icons.svg\": \"b45fa506195cfcdef406ba9f0c77b36ddc1a7c224040926ec70abc2fdea7b93a\", \"src/App.css\": \"6e25a776d3e8102da5bacb3cb99f4a5fc662a2e01e6143140671a556d28c3d5c\", \"src/App.tsx\": \"c7184fc9b1c36d7492093e1b5f5844c440bd3396deeace21b6699d3838f6ecb2\", \"src/assets/hero.png\": \"881ffbcaafc212e49addad08846a5b82761355fa20624253af3477ba33262c5c\", \"src/assets/react.svg\": \"35ef61ed53b323ae94a16a8ec659b3d0af3880698791133f23b084085ab1c2e5\", \"src/assets/vite.svg\": \"5be21acd42eb7b896e517f4e0f0f11eb5c5d9e54fbbcebe9453f033008fcca6f\", \"src/index.css\": \"535c25dd1f338486ab3678832fc698011c8b8d1fe4ffd3d0ef5e33181457cc9f\", \"src/main.tsx\": \"6e9e5807fcbd48b75a96db5cbef36c996262196be42e6d4760dc86babbe61ad2\", \"tsconfig.app.json\": \"8e5d12ba330e7d86409edec74b95451e0db22ee09b9426c94b5bf817571eddb0\", \"tsconfig.json\": \"770b4140bbb581e2dfd9ea9946ffc9c75a1d86ba7d2db5f77c83e37cbdf9d808\", \"tsconfig.node.json\": \"d366cc0827139db39c61815f22491bbfda56c654354a42ad7795143d314e45e8\", \"vite.config.ts\": \"e1eefd0ed1639c88d1213884ef760516884db9e168190e223fee6b063ad3e088\"}\n"
+        },
+        "cleanup_confirmed": true,
+        "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+      },
+      {
+        "scenario": "cancel-existing",
+        "attempts": 10,
+        "passed": 10,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/create-vite/cancel-existing.json": "2d88387390d712d32ee086b07672fe764b0326819e735ebd7aec252240be6b5e",
+          "docs/validation/ten-project-user-pass/create-vite/snapshots/cancel-existing.rows.json": "da6008e108c892bb1d07585c8ef0713994ea96edcb778ca0cb96a09c109cf55c"
+        },
+        "independent_state_oracle": [
+          {
+            "path": "existing/sentinel.txt",
+            "text": "synthetic caf\u00e9: keep this file\n"
+          },
+          {
+            "command": [
+              "python3",
+              "-c",
+              "from pathlib import Path; print(sorted(p.name for p in Path('existing').iterdir()))"
+            ],
+            "text": "['sentinel.txt']\n"
+          }
+        ],
+        "cleanup_confirmed": true,
+        "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+      },
+      {
+        "scenario": "invalid-name-recovery",
+        "attempts": 10,
+        "passed": 10,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/create-vite/invalid-name-recovery.json": "f37d6ccdc5463f28d377e218690ae40962a91ec9ab0ad0d640935e87d70d8539",
+          "docs/validation/ten-project-user-pass/create-vite/snapshots/invalid-package.rows.json": "4df7d2fe9ff29b9ee94806b3b57a67c45d80a086cbd510383c184a5c2e177fda"
+        },
+        "independent_state_oracle": {
+          "command": [
+            "python3",
+            "scaffold_manifest.py",
+            "Bad Name"
+          ],
+          "text": "{\".gitignore\": \"fe718e7babb14f3cbad2d97f08889b9ce5215ed3fe0e43b2b8cfbfb3b9b844e8\", \".vscode/extensions.json\": \"70d56b550e796e3ea92922763ae03037a1a94596fda9d737982c75f6a20e88dd\", \"README.md\": \"309627dbb136135f84b9e5d12c06b4261b9b1f8cb169f8cdb8023f867b7a4165\", \"index.html\": \"32128acb051928e8cedcfccb3f7d4c70d5b119016248d128088902838f26dbce\", \"package.json\": \"c9dd2b54648190273c578b988dbf42c5928928448076f10a3c295e538054cfb8\", \"public/favicon.svg\": \"61bc9a161de58248288e6905425d7180f0624c2865007b97d763fdac12043a66\", \"public/icons.svg\": \"b45fa506195cfcdef406ba9f0c77b36ddc1a7c224040926ec70abc2fdea7b93a\", \"src/App.vue\": \"10e38230639e6305791413e147c85aa4ce429a13d772e0ecdec5dc5238249b06\", \"src/assets/hero.png\": \"881ffbcaafc212e49addad08846a5b82761355fa20624253af3477ba33262c5c\", \"src/assets/vite.svg\": \"5be21acd42eb7b896e517f4e0f0f11eb5c5d9e54fbbcebe9453f033008fcca6f\", \"src/assets/vue.svg\": \"5532db34f1c52841881bab8aeca6c3e8d092bd21a689a65f4d8f8cf8041eef9d\", \"src/components/HelloWorld.vue\": \"ccdae28704aec5b36ce12fc69ef21d6b2012f6b0b4db28a4a8ac19ead9683270\", \"src/main.js\": \"ae6eb9de53e72b97ee4c88fe88d2e982bf060266b2b82a0aa29ec859fa342019\", \"src/style.css\": \"5ec45168127a4b9229c69b55d25b3c5c6d3fcf284e0cf2bf24533285f7f89208\", \"vite.config.js\": \"a50d075c1daffaa54e9781e03570614535d8c89da27b2cb2d3b5264f07ad5f96\"}\n"
+        },
+        "cleanup_confirmed": true,
+        "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+      }
+    ]
+  },
+  "final_target_identity": {
+    "source_sha": "8a4c19cfc035f2dd203f2fa6d00ab9256a5e77c9",
+    "installed_tree_sha256": "272f0d0b22763289a2b539a00e9cd0bedf09c78df3c44e88e74060ed832f0e74",
+    "files": 18257,
+    "node_version": "v24.7.0",
+    "build_seconds": 83.19790954799998,
+    "reviewed_commands": [
+      {
+        "phase": "install",
+        "argv": [
+          "npm",
+          "install",
+          "--prefix",
+          "/var/tmp/playtestr-user-pass-create-vite-10/tooling",
+          "--ignore-scripts",
+          "--no-audit",
+          "--no-fund",
+          "pnpm@12.9.1"
+        ]
+      },
+      {
+        "phase": "install",
+        "argv": [
+          "/var/tmp/playtestr-user-pass-create-vite-10/tooling/node_modules/.bin/pnpm",
+          "--filter",
+          "create-vite...",
+          "install",
+          "--frozen-lockfile",
+          "--ignore-scripts",
+          "--store-dir",
+          "/var/tmp/playtestr-user-pass-create-vite-10/pnpm-store"
+        ]
+      },
+      {
+        "phase": "build",
+        "cwd": "packages/create-vite",
+        "argv": [
+          "/var/tmp/playtestr-user-pass-create-vite-10/tooling/node_modules/.bin/pnpm",
+          "run",
+          "build"
+        ]
+      }
+    ]
+  },
+  "final_mutated_identity": {
+    "patch_sha256": "b5ae9e6a224fe27049a1794e3efea18c2d8039d7d30ba6f742ab71b6961b85d5",
+    "actual_target": {
+      "mutation": "target-regression",
+      "mode": "apply",
+      "source_file_sha256": "fe0bdf9033a20087440656e080c1078dfb4876ba92c6f72ceda6b1272c679b9a",
+      "compiled_file_sha256": "93d0f12b70f81517c4bafbd119104e2e85aea33c422d80b6df26e6c1cdf44c4e",
+      "installed_identity": {
+        "source_sha": "8a4c19cfc035f2dd203f2fa6d00ab9256a5e77c9",
+        "installed_tree_sha256": "4c98d8b6fbd71b0da128a34e9468a13b4a7c2c040e8c6b81e08692bc42166f82",
+        "files": 18257,
+        "node_version": "v24.7.0",
+        "build_seconds": 2.6623621680000724,
+        "reviewed_commands": [
+          {
+            "phase": "install",
+            "argv": [
+              "npm",
+              "install",
+              "--prefix",
+              "/var/tmp/playtestr-user-pass-create-vite-10/tooling",
+              "--ignore-scripts",
+              "--no-audit",
+              "--no-fund",
+              "pnpm@12.9.1"
+            ]
+          },
+          {
+            "phase": "install",
+            "argv": [
+              "/var/tmp/playtestr-user-pass-create-vite-10/tooling/node_modules/.bin/pnpm",
+              "--filter",
+              "create-vite...",
+              "install",
+              "--frozen-lockfile",
+              "--ignore-scripts",
+              "--store-dir",
+              "/var/tmp/playtestr-user-pass-create-vite-10/pnpm-store"
+            ]
+          },
+          {
+            "phase": "build",
+            "cwd": "packages/create-vite",
+            "argv": [
+              "/var/tmp/playtestr-user-pass-create-vite-10/tooling/node_modules/.bin/pnpm",
+              "run",
+              "build"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "final_defect": {
+    "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "runner_sha256": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+    "mode": "defect",
+    "scenarios": [
+      {
+        "scenario": "react-ts",
+        "attempts": 1,
+        "passed": 0,
+        "failed": 1,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/create-vite/react-ts.json": "36c07d39ad8723f6f378a77fc45b58d15832858dd334d0dfa989091981eadeca",
+          "docs/validation/ten-project-user-pass/create-vite/snapshots/react.rows.json": "73e411e768a009401030d002572297d806c8111b84a29ebb0a0ec1babf1d53f2"
+        },
+        "independent_state_oracle": {
+          "command": [
+            "python3",
+            "scaffold_manifest.py",
+            "synth-react"
+          ],
+          "text": "{\".gitignore\": \"fe718e7babb14f3cbad2d97f08889b9ce5215ed3fe0e43b2b8cfbfb3b9b844e8\", \".oxlintrc.json\": \"b4d344818a1e1bf43997e4744a9153c8eef770c98b58229cd86363dabb85ded4\", \"README.md\": \"fa8aac78b8be1993010b57f41000a243ecba006f6731513fe4ec91e788bf2517\", \"index.html\": \"e3a1a86f21a63132e48be52a894660fad867bed599ecf72d0e9dddff23e23e0f\", \"package.json\": \"5e33ffcb47ccf922dd4b1fcb9393061c5142f8809f0358db46afd0c5a2174346\", \"public/favicon.svg\": \"61bc9a161de58248288e6905425d7180f0624c2865007b97d763fdac12043a66\", \"public/icons.svg\": \"b45fa506195cfcdef406ba9f0c77b36ddc1a7c224040926ec70abc2fdea7b93a\", \"src/App.css\": \"6e25a776d3e8102da5bacb3cb99f4a5fc662a2e01e6143140671a556d28c3d5c\", \"src/App.tsx\": \"c7184fc9b1c36d7492093e1b5f5844c440bd3396deeace21b6699d3838f6ecb2\", \"src/assets/hero.png\": \"881ffbcaafc212e49addad08846a5b82761355fa20624253af3477ba33262c5c\", \"src/assets/react.svg\": \"35ef61ed53b323ae94a16a8ec659b3d0af3880698791133f23b084085ab1c2e5\", \"src/assets/vite.svg\": \"5be21acd42eb7b896e517f4e0f0f11eb5c5d9e54fbbcebe9453f033008fcca6f\", \"src/index.css\": \"535c25dd1f338486ab3678832fc698011c8b8d1fe4ffd3d0ef5e33181457cc9f\", \"src/main.tsx\": \"6e9e5807fcbd48b75a96db5cbef36c996262196be42e6d4760dc86babbe61ad2\", \"tsconfig.app.json\": \"8e5d12ba330e7d86409edec74b95451e0db22ee09b9426c94b5bf817571eddb0\", \"tsconfig.json\": \"770b4140bbb581e2dfd9ea9946ffc9c75a1d86ba7d2db5f77c83e37cbdf9d808\", \"tsconfig.node.json\": \"d366cc0827139db39c61815f22491bbfda56c654354a42ad7795143d314e45e8\", \"vite.config.ts\": \"e1eefd0ed1639c88d1213884ef760516884db9e168190e223fee6b063ad3e088\"}\n"
+        },
+        "cleanup_confirmed": true,
+        "load_variation": "fresh state repetition; no invented delay variation"
+      }
+    ]
+  },
+  "final_recovery": {
+    "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "runner_sha256": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+    "mode": "recovery",
+    "scenarios": [
+      {
+        "scenario": "react-ts",
+        "attempts": 1,
+        "passed": 1,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/create-vite/react-ts.json": "36c07d39ad8723f6f378a77fc45b58d15832858dd334d0dfa989091981eadeca",
+          "docs/validation/ten-project-user-pass/create-vite/snapshots/react.rows.json": "73e411e768a009401030d002572297d806c8111b84a29ebb0a0ec1babf1d53f2"
+        },
+        "independent_state_oracle": {
+          "command": [
+            "python3",
+            "scaffold_manifest.py",
+            "synth-react"
+          ],
+          "text": "{\".gitignore\": \"fe718e7babb14f3cbad2d97f08889b9ce5215ed3fe0e43b2b8cfbfb3b9b844e8\", \".oxlintrc.json\": \"b4d344818a1e1bf43997e4744a9153c8eef770c98b58229cd86363dabb85ded4\", \"README.md\": \"fa8aac78b8be1993010b57f41000a243ecba006f6731513fe4ec91e788bf2517\", \"index.html\": \"e3a1a86f21a63132e48be52a894660fad867bed599ecf72d0e9dddff23e23e0f\", \"package.json\": \"5e33ffcb47ccf922dd4b1fcb9393061c5142f8809f0358db46afd0c5a2174346\", \"public/favicon.svg\": \"61bc9a161de58248288e6905425d7180f0624c2865007b97d763fdac12043a66\", \"public/icons.svg\": \"b45fa506195cfcdef406ba9f0c77b36ddc1a7c224040926ec70abc2fdea7b93a\", \"src/App.css\": \"6e25a776d3e8102da5bacb3cb99f4a5fc662a2e01e6143140671a556d28c3d5c\", \"src/App.tsx\": \"c7184fc9b1c36d7492093e1b5f5844c440bd3396deeace21b6699d3838f6ecb2\", \"src/assets/hero.png\": \"881ffbcaafc212e49addad08846a5b82761355fa20624253af3477ba33262c5c\", \"src/assets/react.svg\": \"35ef61ed53b323ae94a16a8ec659b3d0af3880698791133f23b084085ab1c2e5\", \"src/assets/vite.svg\": \"5be21acd42eb7b896e517f4e0f0f11eb5c5d9e54fbbcebe9453f033008fcca6f\", \"src/index.css\": \"535c25dd1f338486ab3678832fc698011c8b8d1fe4ffd3d0ef5e33181457cc9f\", \"src/main.tsx\": \"6e9e5807fcbd48b75a96db5cbef36c996262196be42e6d4760dc86babbe61ad2\", \"tsconfig.app.json\": \"8e5d12ba330e7d86409edec74b95451e0db22ee09b9426c94b5bf817571eddb0\", \"tsconfig.json\": \"770b4140bbb581e2dfd9ea9946ffc9c75a1d86ba7d2db5f77c83e37cbdf9d808\", \"tsconfig.node.json\": \"d366cc0827139db39c61815f22491bbfda56c654354a42ad7795143d314e45e8\", \"vite.config.ts\": \"e1eefd0ed1639c88d1213884ef760516884db9e168190e223fee6b063ad3e088\"}\n"
+        },
+        "cleanup_confirmed": true,
+        "load_variation": "fresh state repetition; no invented delay variation"
+      },
+      {
+        "scenario": "cancel-existing",
+        "attempts": 1,
+        "passed": 1,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/create-vite/cancel-existing.json": "2d88387390d712d32ee086b07672fe764b0326819e735ebd7aec252240be6b5e",
+          "docs/validation/ten-project-user-pass/create-vite/snapshots/cancel-existing.rows.json": "da6008e108c892bb1d07585c8ef0713994ea96edcb778ca0cb96a09c109cf55c"
+        },
+        "independent_state_oracle": [
+          {
+            "path": "existing/sentinel.txt",
+            "text": "synthetic caf\u00e9: keep this file\n"
+          },
+          {
+            "command": [
+              "python3",
+              "-c",
+              "from pathlib import Path; print(sorted(p.name for p in Path('existing').iterdir()))"
+            ],
+            "text": "['sentinel.txt']\n"
+          }
+        ],
+        "cleanup_confirmed": true,
+        "load_variation": "fresh state repetition; no invented delay variation"
+      },
+      {
+        "scenario": "invalid-name-recovery",
+        "attempts": 1,
+        "passed": 1,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/create-vite/invalid-name-recovery.json": "f37d6ccdc5463f28d377e218690ae40962a91ec9ab0ad0d640935e87d70d8539",
+          "docs/validation/ten-project-user-pass/create-vite/snapshots/invalid-package.rows.json": "4df7d2fe9ff29b9ee94806b3b57a67c45d80a086cbd510383c184a5c2e177fda"
+        },
+        "independent_state_oracle": {
+          "command": [
+            "python3",
+            "scaffold_manifest.py",
+            "Bad Name"
+          ],
+          "text": "{\".gitignore\": \"fe718e7babb14f3cbad2d97f08889b9ce5215ed3fe0e43b2b8cfbfb3b9b844e8\", \".vscode/extensions.json\": \"70d56b550e796e3ea92922763ae03037a1a94596fda9d737982c75f6a20e88dd\", \"README.md\": \"309627dbb136135f84b9e5d12c06b4261b9b1f8cb169f8cdb8023f867b7a4165\", \"index.html\": \"32128acb051928e8cedcfccb3f7d4c70d5b119016248d128088902838f26dbce\", \"package.json\": \"c9dd2b54648190273c578b988dbf42c5928928448076f10a3c295e538054cfb8\", \"public/favicon.svg\": \"61bc9a161de58248288e6905425d7180f0624c2865007b97d763fdac12043a66\", \"public/icons.svg\": \"b45fa506195cfcdef406ba9f0c77b36ddc1a7c224040926ec70abc2fdea7b93a\", \"src/App.vue\": \"10e38230639e6305791413e147c85aa4ce429a13d772e0ecdec5dc5238249b06\", \"src/assets/hero.png\": \"881ffbcaafc212e49addad08846a5b82761355fa20624253af3477ba33262c5c\", \"src/assets/vite.svg\": \"5be21acd42eb7b896e517f4e0f0f11eb5c5d9e54fbbcebe9453f033008fcca6f\", \"src/assets/vue.svg\": \"5532db34f1c52841881bab8aeca6c3e8d092bd21a689a65f4d8f8cf8041eef9d\", \"src/components/HelloWorld.vue\": \"ccdae28704aec5b36ce12fc69ef21d6b2012f6b0b4db28a4a8ac19ead9683270\", \"src/main.js\": \"ae6eb9de53e72b97ee4c88fe88d2e982bf060266b2b82a0aa29ec859fa342019\", \"src/style.css\": \"5ec45168127a4b9229c69b55d25b3c5c6d3fcf284e0cf2bf24533285f7f89208\", \"vite.config.js\": \"a50d075c1daffaa54e9781e03570614535d8c89da27b2cb2d3b5264f07ad5f96\"}\n"
+        },
+        "cleanup_confirmed": true,
+        "load_variation": "fresh state repetition; no invented delay variation"
+      }
+    ]
+  },
+  "final_negative_contracts_unchanged": true,
+  "final_oracles": {
+    "project": "create-vite",
+    "checked": [
+      "react-ts",
+      "cancel-existing",
+      "invalid-name-recovery"
+    ],
+    "passed": true,
+    "cleanup": "each recorder cleanly canceled after state check"
+  },
+  "operator_elapsed_seconds_before_deletion": 173.906,
+  "operator_measurement_scope": "Fresh pinned acquisition, build, regression/restoration, ten repetitions per scenario and independent state checks; shared Go caches warm, not independent-user onboarding research",
+  "fixture_hashes": {
+    "docs/validation/ten-project-user-pass/create-vite/fixtures/scaffold_manifest.py": "aa5c0696f43f29626b6fd548338858be2e182b0fa845ad6a999de8051cb9e590",
+    "docs/validation/ten-project-user-pass/create-vite/fixtures/existing/sentinel.txt": "ad85ca2b2ccf9188a539321d774c5fa995322e138fdacb0482a4c7eac57851f4"
+  },
+  "license_sha256": "692057af3d664cbb79ac38293eb50aa3c4987f8182e2a440136e59e08f1b4a54",
+  "retained_attempt_counts": {
+    "machine_reports": 71,
+    "observed_passed_results": 69,
+    "observed_failed_results": 2,
+    "expected_negative_failed_results": 2,
+    "expected_intentional_change_failures": 0,
+    "other_failed_results": 0,
+    "capture_logs": 13,
+    "rejected_captures": 0,
+    "scope": "Counts of retained artifacts, not total-ever execution claims. Early pre-archive overwritten passing retries are not recoverable; all known first failures are retained and described separately.",
+    "raw_evidence_bytes": 334942
+  },
+  "retained_failed_attempts": [
+    {
+      "raw_path": "artifacts/ten-project-user-pass/create-vite/react-ts-defect-0.json",
+      "sha256": "1995ff283348865f964d78ec6f2d632d7031b581263c752e9dc1f6c431946b0a",
+      "classification": "expected_negative_failed_results",
+      "failure": {
+        "category": "unexpected_exit",
+        "message": "Choose React TypeScript in actual multi-step scaffold wizard: step 12: expected exit code 0, got 7"
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": true,
+        "forced": false,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "runner_version": "source-53561e6cbef4c80a25893c2f25be5a0979442103",
+      "spec_path": "/mnt/c/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-project-user-pass/create-vite/react-ts.json"
+    },
+    {
+      "raw_path": "artifacts/ten-project-user-pass/create-vite/history/1791486443055340705-react-ts-defect-0.json",
+      "sha256": "5b65871b8c9b6b0b94aa29aceff3666a77973631fe64655bd468f592c969cecd",
+      "classification": "expected_negative_failed_results",
+      "failure": {
+        "category": "unexpected_exit",
+        "message": "Choose React TypeScript in actual multi-step scaffold wizard: step 12: expected exit code 0, got 7"
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": true,
+        "forced": false,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "runner_version": "source-53561e6cbef4c80a25893c2f25be5a0979442103",
+      "spec_path": "/mnt/c/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-project-user-pass/create-vite/react-ts.json"
+    }
+  ],
+  "scope": {
+    "tested": "Full React TypeScript wizard, cancel nonempty destination, recover invalid Vue package name",
+    "excluded": "Network/custom starters, immediate install/dev server, credentials and generated-app runtime correctness",
+    "method": "Public --interactive --no-immediate --no-eslint, with no upstream test-only bypass. Independently compare full 18-file React and 15-file Vue manifests derived from pristine pinned templates. Exit-7 regression and corrupted package name despite success UI are rejected.",
+    "findings": "Retain @clack readiness checkpoints and package-name validation; snapshot final commands without random absolute destination. Native portable Node and task-local pinned pnpm build actual source; no global installs."
+  },
+  "final_runner": {
+    "source": "53561e6cbef4c80a25893c2f25be5a0979442103",
+    "clean_source_checkout": true,
+    "go": "go version go1.27.0 windows/amd64",
+    "binaries": {
+      "playtestr-linux": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+      "playtestr.exe": "7339121c103472bcdcf9b9c32a273c63ffa25ab1f773da8430a57b6f991c9597"
+    },
+    "version": "playtestr source-53561e6cbef4c80a25893c2f25be5a0979442103"
+  }
+}

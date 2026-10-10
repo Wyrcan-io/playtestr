@@ -1,0 +1,13 @@
+diff --git a/pkg/commands/git_commands/working_tree.go b/pkg/commands/git_commands/working_tree.go
+index 4f4a19a8..0f9c3e58 100644
+--- a/pkg/commands/git_commands/working_tree.go
++++ b/pkg/commands/git_commands/working_tree.go
+@@ -43,7 +43,7 @@ func (self *WorkingTreeCommands) StageFile(path string) error {
+ }
+ 
+ func (self *WorkingTreeCommands) StageFiles(paths []string, extraArgs []string) error {
+-	cmdArgs := NewGitCmd("add").
++	cmdArgs := NewGitCmd("reset").
+ 		Arg(extraArgs...).
+ 		Arg("--").
+ 		Arg(paths...).

@@ -1,0 +1,82 @@
+{
+  "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "runner_sha256": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+  "mode": "final",
+  "scenarios": [
+    {
+      "scenario": "stage",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/lazygit/stage.json": "6948cd78457d09e34ec6c99449d7c0e8e50f4df8dc86afed4530ca9032fcc48b",
+        "docs/validation/ten-project-user-pass/lazygit/snapshots/stage.txt": "17dfc288de5a010fd0e517bf9305ee27189db8181d16bd28fbe350b16f948d4e"
+      },
+      "independent_state_oracle": {
+        "command": [
+          "git",
+          "show",
+          ":seed.txt"
+        ],
+        "text": "synthetic edited\n"
+      },
+      "cleanup_confirmed": true,
+      "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+    },
+    {
+      "scenario": "cancel-discard",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/lazygit/cancel-discard.json": "83f2df561e1844496417e7abf273ad6de24188fbdab2e2d21aa7b38c8c330a50",
+        "docs/validation/ten-project-user-pass/lazygit/snapshots/cancel-discard.txt": "b51859b338084d47bf768c0b9d0ab1971aa494ea447f3b0fb9f7013b8899b28f"
+      },
+      "independent_state_oracle": {
+        "path": "seed.txt",
+        "text": "synthetic edited\n"
+      },
+      "cleanup_confirmed": true,
+      "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+    },
+    {
+      "scenario": "commit",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/lazygit/commit.json": "6134e936609d06fc074d783d9ff661f095b20f8094dcc0db9ee5e6d464325fae",
+        "docs/validation/ten-project-user-pass/lazygit/snapshots/commit.txt": "361b8e038550f78a3886e993a3cd9b3ca7f981b03dc943bffa333927d5e9a598"
+      },
+      "independent_state_oracle": [
+        {
+          "command": [
+            "git",
+            "log",
+            "-1",
+            "--format=%s"
+          ],
+          "text": "Fixture commit\n"
+        },
+        {
+          "command": [
+            "git",
+            "show",
+            "HEAD:seed.txt"
+          ],
+          "text": "synthetic edited\n"
+        },
+        {
+          "command": [
+            "git",
+            "status",
+            "--porcelain"
+          ],
+          "text": ""
+        }
+      ],
+      "cleanup_confirmed": true,
+      "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+    }
+  ]
+}

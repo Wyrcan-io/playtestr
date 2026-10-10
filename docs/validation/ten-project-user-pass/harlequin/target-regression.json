@@ -1,0 +1,7 @@
+{
+  "application": "harlequin-08",
+  "file": "src/harlequin_sqlite/adapter.py",
+  "installed_file": "/var/tmp/playtestr-user-pass-harlequin-08/venv/lib/python3.12/site-packages/harlequin_sqlite/adapter.py",
+  "before": "return [self._first_row, *remaining_rows]",
+  "after": "return [self._first_row]  # deliberate regression: discard remaining result rows"
+}

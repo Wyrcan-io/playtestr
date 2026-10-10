@@ -1,0 +1,20 @@
+{
+  "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "runner_sha256": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+  "mode": "defect",
+  "scenarios": [
+    {
+      "scenario": "search",
+      "attempts": 1,
+      "passed": 0,
+      "failed": 1,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/fzf/search.json": "e0c52ffc55d89cabc09f93aabaa62fcd7550978c3f53e18bdd8ad0e2559fbcff",
+        "docs/validation/ten-project-user-pass/fzf/snapshots/search.txt": "00a671efa5a7a9e467eca8bc1189fdc31a36bd4b51d9cee822565a8a2507038f"
+      },
+      "independent_state_oracle": null,
+      "cleanup_confirmed": true,
+      "load_variation": "fresh state repetition; no invented delay variation"
+    }
+  ]
+}

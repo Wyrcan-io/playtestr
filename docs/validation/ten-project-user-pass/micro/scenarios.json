@@ -1,0 +1,150 @@
+{
+  "cases": [
+    {
+      "name": "save",
+      "purpose": "Edit Unicode content, save, and independently inspect exact disk bytes",
+      "command": [
+        "../../../../.cache/ten-project-apps/micro-03/micro",
+        "-basename",
+        "true",
+        "-backup",
+        "false",
+        "-savecursor",
+        "false",
+        "-saveundo",
+        "false",
+        "-clipboard",
+        "internal",
+        "notes.txt"
+      ],
+      "steps": [
+        {
+          "expect": "seed alpha"
+        },
+        {
+          "text": "caf\u00e9 "
+        },
+        {
+          "key": "CtrlS"
+        },
+        {
+          "expect": "Saved notes.txt"
+        },
+        {
+          "snapshot": "save.txt"
+        }
+      ],
+      "snapshot": "save.txt",
+      "rerecord": true,
+      "oracle": {
+        "path": "notes.txt",
+        "text": "caf\u00e9 seed alpha\nneedle target\nlast line\n"
+      }
+    },
+    {
+      "name": "discard",
+      "purpose": "Refuse saving unsaved changes and verify original disk state",
+      "command": [
+        "../../../../.cache/ten-project-apps/micro-03/micro",
+        "-basename",
+        "true",
+        "-backup",
+        "false",
+        "-savecursor",
+        "false",
+        "-saveundo",
+        "false",
+        "-clipboard",
+        "internal",
+        "notes.txt"
+      ],
+      "steps": [
+        {
+          "expect": "seed alpha"
+        },
+        {
+          "text": "UNSAVED "
+        },
+        {
+          "key": "CtrlQ"
+        },
+        {
+          "expect": "Save changes"
+        },
+        {
+          "text": "n"
+        },
+        {
+          "exit": 0
+        },
+        {
+          "snapshot": "discard.txt"
+        }
+      ],
+      "snapshot": "discard.txt",
+      "oracle": {
+        "path": "notes.txt",
+        "text": "seed alpha\nneedle target\nlast line\n"
+      }
+    },
+    {
+      "name": "search",
+      "purpose": "Search a noninitial line after resize and inspect the result",
+      "command": [
+        "../../../../.cache/ten-project-apps/micro-03/micro",
+        "-basename",
+        "true",
+        "-backup",
+        "false",
+        "-savecursor",
+        "false",
+        "-saveundo",
+        "false",
+        "-clipboard",
+        "internal",
+        "notes.txt"
+      ],
+      "steps": [
+        {
+          "expect": "seed alpha"
+        },
+        {
+          "resize": {
+            "width": 80,
+            "height": 24
+          }
+        },
+        {
+          "key": "CtrlF"
+        },
+        {
+          "expect": "Find (regex):"
+        },
+        {
+          "text": "needle"
+        },
+        {
+          "expect": "(2,7)"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": "Find (regex):"
+        },
+        {
+          "snapshot": "search.txt"
+        }
+      ],
+      "snapshot": "search.txt"
+    }
+  ],
+  "maintenance_controls": [
+    {
+      "spec": "intentional-save.json",
+      "baseline": "intentional-save.txt",
+      "old_baseline": "save.txt",
+      "changed_text": "INTENTIONAL caf\u00e9"
+    }
+  ]
+}

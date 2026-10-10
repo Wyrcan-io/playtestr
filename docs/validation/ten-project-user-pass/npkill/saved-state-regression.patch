@@ -1,0 +1,13 @@
+diff --git a/src/cli/cli.controller.ts b/src/cli/cli.controller.ts
+index 4822921..1bfc47d 100644
+--- a/src/cli/cli.controller.ts
++++ b/src/cli/cli.controller.ts
+@@ -914,7 +914,7 @@ export class CliController {
+     this.printFoldersSection();
+ 
+     firstValueFrom(
+-      this.npkill.delete$(String(folder.path), { dryRun: this.config.dryRun }),
++      this.npkill.delete$(String(folder.path), { dryRun: true }),
+     )
+       .then(() => {
+         folder.status = 'deleted';

@@ -1,0 +1,302 @@
+[
+  {
+    "mutation": "target-regression",
+    "mode": "apply",
+    "source_file_sha256": "fe0bdf9033a20087440656e080c1078dfb4876ba92c6f72ceda6b1272c679b9a",
+    "compiled_file_sha256": "93d0f12b70f81517c4bafbd119104e2e85aea33c422d80b6df26e6c1cdf44c4e",
+    "installed_identity": {
+      "source_sha": "8a4c19cfc035f2dd203f2fa6d00ab9256a5e77c9",
+      "installed_tree_sha256": "ab17f42e435730b9ae868b9da26b3ee0b6d73e9320afaba119e05fe2735298c2",
+      "files": 18257,
+      "node_version": "v24.7.0",
+      "build_seconds": 8.858776939999984,
+      "reviewed_commands": [
+        {
+          "phase": "install",
+          "argv": [
+            "npm",
+            "install",
+            "--prefix",
+            "/var/tmp/playtestr-user-pass-create-vite-10/tooling",
+            "--ignore-scripts",
+            "--no-audit",
+            "--no-fund",
+            "pnpm@12.9.1"
+          ]
+        },
+        {
+          "phase": "install",
+          "argv": [
+            "/var/tmp/playtestr-user-pass-create-vite-10/tooling/node_modules/.bin/pnpm",
+            "--filter",
+            "create-vite...",
+            "install",
+            "--frozen-lockfile",
+            "--ignore-scripts",
+            "--store-dir",
+            "/var/tmp/playtestr-user-pass-create-vite-10/pnpm-store"
+          ]
+        },
+        {
+          "phase": "build",
+          "cwd": "packages/create-vite",
+          "argv": [
+            "/var/tmp/playtestr-user-pass-create-vite-10/tooling/node_modules/.bin/pnpm",
+            "run",
+            "build"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "mutation": "target-regression",
+    "mode": "restore",
+    "source_file_sha256": "eee55b8daae970dc86d64c9859863873b0287d7610f9909e3ed5b7e69a0ee37a",
+    "compiled_file_sha256": "6da13dfd784a148bb6e382125f749cc0665929524d4633088c53604f0240ca22",
+    "installed_identity": {
+      "source_sha": "8a4c19cfc035f2dd203f2fa6d00ab9256a5e77c9",
+      "installed_tree_sha256": "214be3cf054e442c87c2d68093c964598ef65ee3f426bda4117c8c854562ab8c",
+      "files": 18257,
+      "node_version": "v24.7.0",
+      "build_seconds": 3.291901660999997,
+      "reviewed_commands": [
+        {
+          "phase": "install",
+          "argv": [
+            "npm",
+            "install",
+            "--prefix",
+            "/var/tmp/playtestr-user-pass-create-vite-10/tooling",
+            "--ignore-scripts",
+            "--no-audit",
+            "--no-fund",
+            "pnpm@12.9.1"
+          ]
+        },
+        {
+          "phase": "install",
+          "argv": [
+            "/var/tmp/playtestr-user-pass-create-vite-10/tooling/node_modules/.bin/pnpm",
+            "--filter",
+            "create-vite...",
+            "install",
+            "--frozen-lockfile",
+            "--ignore-scripts",
+            "--store-dir",
+            "/var/tmp/playtestr-user-pass-create-vite-10/pnpm-store"
+          ]
+        },
+        {
+          "phase": "build",
+          "cwd": "packages/create-vite",
+          "argv": [
+            "/var/tmp/playtestr-user-pass-create-vite-10/tooling/node_modules/.bin/pnpm",
+            "run",
+            "build"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "mutation": "saved-state-regression",
+    "mode": "apply",
+    "source_file_sha256": "a90c15716b9c700736035c5606c8c4cbc0230b228fe9b749df4e83a0168c38a5",
+    "compiled_file_sha256": "56613c2f5303476bff6883558d583c6b7a311f43c400c2ea507bc19538bd0740",
+    "installed_identity": {
+      "source_sha": "8a4c19cfc035f2dd203f2fa6d00ab9256a5e77c9",
+      "installed_tree_sha256": "91b7778c21e61315167a07adce6fb3b74760ec2cf253bc7c0d76f8354b647007",
+      "files": 18257,
+      "node_version": "v24.7.0",
+      "build_seconds": 3.1954593419999355,
+      "reviewed_commands": [
+        {
+          "phase": "install",
+          "argv": [
+            "npm",
+            "install",
+            "--prefix",
+            "/var/tmp/playtestr-user-pass-create-vite-10/tooling",
+            "--ignore-scripts",
+            "--no-audit",
+            "--no-fund",
+            "pnpm@12.9.1"
+          ]
+        },
+        {
+          "phase": "install",
+          "argv": [
+            "/var/tmp/playtestr-user-pass-create-vite-10/tooling/node_modules/.bin/pnpm",
+            "--filter",
+            "create-vite...",
+            "install",
+            "--frozen-lockfile",
+            "--ignore-scripts",
+            "--store-dir",
+            "/var/tmp/playtestr-user-pass-create-vite-10/pnpm-store"
+          ]
+        },
+        {
+          "phase": "build",
+          "cwd": "packages/create-vite",
+          "argv": [
+            "/var/tmp/playtestr-user-pass-create-vite-10/tooling/node_modules/.bin/pnpm",
+            "run",
+            "build"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "mutation": "saved-state-regression",
+    "mode": "restore",
+    "source_file_sha256": "eee55b8daae970dc86d64c9859863873b0287d7610f9909e3ed5b7e69a0ee37a",
+    "compiled_file_sha256": "6da13dfd784a148bb6e382125f749cc0665929524d4633088c53604f0240ca22",
+    "installed_identity": {
+      "source_sha": "8a4c19cfc035f2dd203f2fa6d00ab9256a5e77c9",
+      "installed_tree_sha256": "214be3cf054e442c87c2d68093c964598ef65ee3f426bda4117c8c854562ab8c",
+      "files": 18257,
+      "node_version": "v24.7.0",
+      "build_seconds": 3.0516747210000403,
+      "reviewed_commands": [
+        {
+          "phase": "install",
+          "argv": [
+            "npm",
+            "install",
+            "--prefix",
+            "/var/tmp/playtestr-user-pass-create-vite-10/tooling",
+            "--ignore-scripts",
+            "--no-audit",
+            "--no-fund",
+            "pnpm@12.9.1"
+          ]
+        },
+        {
+          "phase": "install",
+          "argv": [
+            "/var/tmp/playtestr-user-pass-create-vite-10/tooling/node_modules/.bin/pnpm",
+            "--filter",
+            "create-vite...",
+            "install",
+            "--frozen-lockfile",
+            "--ignore-scripts",
+            "--store-dir",
+            "/var/tmp/playtestr-user-pass-create-vite-10/pnpm-store"
+          ]
+        },
+        {
+          "phase": "build",
+          "cwd": "packages/create-vite",
+          "argv": [
+            "/var/tmp/playtestr-user-pass-create-vite-10/tooling/node_modules/.bin/pnpm",
+            "run",
+            "build"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "mutation": "target-regression",
+    "mode": "apply",
+    "source_file_sha256": "fe0bdf9033a20087440656e080c1078dfb4876ba92c6f72ceda6b1272c679b9a",
+    "compiled_file_sha256": "93d0f12b70f81517c4bafbd119104e2e85aea33c422d80b6df26e6c1cdf44c4e",
+    "installed_identity": {
+      "source_sha": "8a4c19cfc035f2dd203f2fa6d00ab9256a5e77c9",
+      "installed_tree_sha256": "4c98d8b6fbd71b0da128a34e9468a13b4a7c2c040e8c6b81e08692bc42166f82",
+      "files": 18257,
+      "node_version": "v24.7.0",
+      "build_seconds": 2.6623621680000724,
+      "reviewed_commands": [
+        {
+          "phase": "install",
+          "argv": [
+            "npm",
+            "install",
+            "--prefix",
+            "/var/tmp/playtestr-user-pass-create-vite-10/tooling",
+            "--ignore-scripts",
+            "--no-audit",
+            "--no-fund",
+            "pnpm@12.9.1"
+          ]
+        },
+        {
+          "phase": "install",
+          "argv": [
+            "/var/tmp/playtestr-user-pass-create-vite-10/tooling/node_modules/.bin/pnpm",
+            "--filter",
+            "create-vite...",
+            "install",
+            "--frozen-lockfile",
+            "--ignore-scripts",
+            "--store-dir",
+            "/var/tmp/playtestr-user-pass-create-vite-10/pnpm-store"
+          ]
+        },
+        {
+          "phase": "build",
+          "cwd": "packages/create-vite",
+          "argv": [
+            "/var/tmp/playtestr-user-pass-create-vite-10/tooling/node_modules/.bin/pnpm",
+            "run",
+            "build"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "mutation": "target-regression",
+    "mode": "restore",
+    "source_file_sha256": "eee55b8daae970dc86d64c9859863873b0287d7610f9909e3ed5b7e69a0ee37a",
+    "compiled_file_sha256": "6da13dfd784a148bb6e382125f749cc0665929524d4633088c53604f0240ca22",
+    "installed_identity": {
+      "source_sha": "8a4c19cfc035f2dd203f2fa6d00ab9256a5e77c9",
+      "installed_tree_sha256": "272f0d0b22763289a2b539a00e9cd0bedf09c78df3c44e88e74060ed832f0e74",
+      "files": 18257,
+      "node_version": "v24.7.0",
+      "build_seconds": 2.6546772030000056,
+      "reviewed_commands": [
+        {
+          "phase": "install",
+          "argv": [
+            "npm",
+            "install",
+            "--prefix",
+            "/var/tmp/playtestr-user-pass-create-vite-10/tooling",
+            "--ignore-scripts",
+            "--no-audit",
+            "--no-fund",
+            "pnpm@12.9.1"
+          ]
+        },
+        {
+          "phase": "install",
+          "argv": [
+            "/var/tmp/playtestr-user-pass-create-vite-10/tooling/node_modules/.bin/pnpm",
+            "--filter",
+            "create-vite...",
+            "install",
+            "--frozen-lockfile",
+            "--ignore-scripts",
+            "--store-dir",
+            "/var/tmp/playtestr-user-pass-create-vite-10/pnpm-store"
+          ]
+        },
+        {
+          "phase": "build",
+          "cwd": "packages/create-vite",
+          "argv": [
+            "/var/tmp/playtestr-user-pass-create-vite-10/tooling/node_modules/.bin/pnpm",
+            "run",
+            "build"
+          ]
+        }
+      ]
+    }
+  }
+]

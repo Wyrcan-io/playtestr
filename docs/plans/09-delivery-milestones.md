@@ -87,3 +87,6 @@ P8 prepares exact release/deployment/publication actions for authorization. Sour
 - A missed throughput/time target requires an explanation and decision. Never weaken correctness or erase initial failures to hit it.
 - Native validation uses standard GitHub-hosted runners when local hosts are absent. Actual runs and retained artifacts are required; no demand that the user acquire devices.
 - No absolute launch date until P5 supplies realistic effort and provider constraints.
+
+
+10 October 2026: [ten-project early reliability pass](../validation/ten-project-user-pass/README.md) completed before paid integration: ten diverse applications, 33 scenarios and 330 final fresh passes, with actual target-regression/restoration evidence and temporary applications removed. Order: early P5 reliability -> P3 -> P4 -> remaining P5 -> full 100-project campaign. Full P5 and the campaign remain unqualified.

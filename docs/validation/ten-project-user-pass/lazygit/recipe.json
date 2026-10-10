@@ -1,0 +1,20 @@
+{
+  "upstream": "jesseduffield/lazygit",
+  "sha": "c5f7158154602d23b0750d4304c73e2aead8df5b",
+  "license": "MIT",
+  "acquisition": "python scripts/acceptance/user_project_admin.py acquire 3",
+  "build": "go -C .cache/ten-project-apps/lazygit-04/source build -trimpath -o ../lazygit .",
+  "fixture": "Explicit tiny reviewed launch.py initializes Git with fixed synthetic identity/dates, commits fixture, modifies only seed.txt, then execs real Lazygit. No remote or target-screen substitution.",
+  "regression": "Apply target-regression.patch; stage method invokes reset rather than add. Unchanged stage state assertion fails; restore binary to recover.",
+  "oracles": "After reviewed capture and before teardown, inspect real staged blob via git show :seed.txt; discarded worktree bytes; commit subject/content/clean status. Initial captures confirmed staged filename and commit subject; strengthened blob/clean checks separately reverified.",
+  "findings": [
+    {
+      "category": "test_authoring",
+      "detail": "Redundant focus key did not change state; recorder correctly rejected a stale diff anchor. Removed idempotent focus step, asserted genuinely staged state."
+    }
+  ],
+  "exclusions": "remote operations, credentials, hooks, signing, clipboard and destructive confirmation acceptance",
+  "portability": "Actual target resolved by PATH from explicit owned build directory; setup writes directory to GITHUB_PATH in workflow and user_journeys sets the same reviewed runtime_path. Removed operator-specific absolute executable argument; final qualification and mutation checks use this portable contract.",
+  "maintenance": "Explicit separate control shows a declared user input/selection change as snapshot mismatch, inspects changed state, performs selected baseline update and ordinary replay; original primary baseline remains unchanged. Evidence in reports/maintenance-summary.json after final execution.",
+  "fixture_portability": "Before initial Git commit, explicitly normalize only the three owned synthetic fixture files to LF bytes and mode 0755. Actual Git regression from 0644/LF and 0755/CRLF inputs yields identical final commits; reports/fixture-mode-regression.json. Only changed synthetic commit hashes were deliberately reviewed in named snapshots; target regression/recovery and 30 final passes repeated afterward."
+}

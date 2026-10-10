@@ -1,0 +1,159 @@
+{
+  "cases": [
+    {
+      "name": "insert-query",
+      "purpose": "Insert Unicode row through SQL and independently verify committed SQLite data",
+      "command": [
+        "/var/tmp/playtestr-user-pass-litecli-07/venv/bin/litecli",
+        "--liteclirc",
+        "config.ini",
+        "notes.db"
+      ],
+      "steps": [
+        {
+          "expect": "SQL>"
+        },
+        {
+          "text": "insert into items values ('caf\u00e9',1);"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "1 row affected"
+        },
+        {
+          "text": "select name,quantity from items order by name;"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "3 rows in set"
+        },
+        {
+          "snapshot": {
+            "name": "insert-query.rows.json",
+            "first": 5,
+            "last": 12
+          }
+        }
+      ],
+      "snapshot": "insert-query.rows.json",
+      "rerecord": true,
+      "oracle": {
+        "command": [
+          "python3",
+          "-c",
+          "import sqlite3,json; print(json.dumps(sqlite3.connect('notes.db').execute('select name,quantity from items order by name').fetchall(),ensure_ascii=False,separators=(',',':')))"
+        ],
+        "text": "[[\"alpha\",3],[\"beta\",2],[\"caf\u00e9\",1]]\n"
+      },
+      "env": {
+        "PROMPT_TOOLKIT_NO_CPR": "1"
+      }
+    },
+    {
+      "name": "cancel-drop",
+      "purpose": "Reject destructive table removal and independently confirm rows remain",
+      "command": [
+        "/var/tmp/playtestr-user-pass-litecli-07/venv/bin/litecli",
+        "--liteclirc",
+        "config.ini",
+        "notes.db"
+      ],
+      "steps": [
+        {
+          "expect": "SQL>"
+        },
+        {
+          "text": "drop table items;"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "destructive"
+        },
+        {
+          "text": "n"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "Wise choice!"
+        },
+        {
+          "snapshot": "cancel-drop.txt"
+        }
+      ],
+      "snapshot": "cancel-drop.txt",
+      "oracle": {
+        "command": [
+          "python3",
+          "-c",
+          "import sqlite3,json; print(json.dumps(sqlite3.connect('notes.db').execute('select name,quantity from items order by name').fetchall(),ensure_ascii=False,separators=(',',':')))"
+        ],
+        "text": "[[\"alpha\",3],[\"beta\",2]]\n"
+      },
+      "env": {
+        "PROMPT_TOOLKIT_NO_CPR": "1"
+      }
+    },
+    {
+      "name": "error-recovery",
+      "purpose": "Reject invalid SQL then execute valid query after viewport resize",
+      "command": [
+        "/var/tmp/playtestr-user-pass-litecli-07/venv/bin/litecli",
+        "--liteclirc",
+        "config.ini",
+        "notes.db"
+      ],
+      "steps": [
+        {
+          "expect": "SQL>"
+        },
+        {
+          "resize": {
+            "width": 80,
+            "height": 24
+          }
+        },
+        {
+          "text": "select * from missing_table;"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "no such table: missing_table"
+        },
+        {
+          "text": "select sum(quantity) as fixture_total from items;"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "| fixture_total |"
+        },
+        {
+          "expect": "1 row in set"
+        },
+        {
+          "snapshot": {
+            "name": "error-recovery.rows.json",
+            "first": 4,
+            "last": 9
+          }
+        }
+      ],
+      "snapshot": "error-recovery.rows.json",
+      "env": {
+        "PROMPT_TOOLKIT_NO_CPR": "1"
+      }
+    }
+  ],
+  "exclusions": "Local SQLite only, no AI extras, credentials, external DBs, pager/editor subprocesses or production data. Query timings explicitly outside deterministic snapshot comparisons where needed."
+}

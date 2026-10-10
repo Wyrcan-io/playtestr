@@ -1,0 +1,49 @@
+{
+  "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "runner_sha256": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+  "mode": "final",
+  "scenarios": [
+    {
+      "scenario": "search",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/visidata/search.json": "710129b2067b94bbbce8e1bed578a3bb2e35c287f4c9a9257000e8ca06b64308",
+        "docs/validation/ten-project-user-pass/visidata/snapshots/search-offline.txt": "8a5e659fa1fd75ef0c7123f17b5281651681169b69c84ad98915ef7b4e1e85da"
+      },
+      "independent_state_oracle": null,
+      "cleanup_confirmed": true,
+      "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+    },
+    {
+      "scenario": "cancel-edit",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/visidata/cancel-edit.json": "a5b832504339bd54ba82e08f49b7cd0738e70fd93abd12039e79fdffb45728f7",
+        "docs/validation/ten-project-user-pass/visidata/snapshots/cancel-edit.txt": "6474ae50e1936d9a3d8f81c4601a16c74131ac336a190b4f824b22973d6c1961"
+      },
+      "independent_state_oracle": null,
+      "cleanup_confirmed": true,
+      "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+    },
+    {
+      "scenario": "edit-save",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/visidata/edit-save.json": "ac69152ce6677eac48b4dbec0204797746530f84c8600d4c60be61cd4a51e220",
+        "docs/validation/ten-project-user-pass/visidata/snapshots/edit-save-complete.txt": "e8e5f8660ef54c386d0d545d8427f2257e292fe5f3dc221a9eda07f041c22ddb"
+      },
+      "independent_state_oracle": {
+        "path": "saved/data.tsv",
+        "text": "name\tquantity\ncaf\u00e9\t3\nbeta\t2\ngamma\t1\n"
+      },
+      "cleanup_confirmed": true,
+      "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+    }
+  ]
+}

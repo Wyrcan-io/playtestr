@@ -1,0 +1,13 @@
+SQL> insert into items values ('café',1);
+Query OK, 1 row affected
+Time: 0.009s
+SQL> select name,quantity from items order by name;
++-------+----------+
+| name  | quantity |
++-------+----------+
+| alpha | 3        |
+| beta  | 2        |
++-------+----------+
+2 rows in set
+Time: 0.001s
+SQL>

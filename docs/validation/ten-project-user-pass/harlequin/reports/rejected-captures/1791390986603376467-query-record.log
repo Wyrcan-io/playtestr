@@ -1,0 +1,92 @@
+Setup: output="/mnt/c/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-project-user-pass/harlequin/query.json" argv=["/var/tmp/playtestr-user-pass-harlequin-08/venv/bin/harlequin" "--adapter" "sqlite" "--theme" "textual-dark" "notes.db"] cwd="" fixture="fixtures" viewport=100x30 timeout=5000ms budget=120000ms output-cap=2000000
+Recorder controls (target input is separate):
+  /live                       type into the target; Ctrl+G returns to controls
+  /key ArrowDown              send a supported named key
+  /text "hello"               send JSON-quoted text/paste (literal Ctrl+G: "\u0007")
+  /expect unique new content  positive readiness checkpoint
+  /absent previous content    disappearance of previously asserted content
+  /exit 0                     exact expected exit code
+  /snapshot name.txt          capture a ready, settled screen
+  /resize 100 30; /redraw     resize and optional observed redraw wait
+  /snapshot-rows name.rows.json 2 24  capture reviewed inclusive viewport rows
+  /screen; /review            inspect screen or full candidate/baselines
+  /delete N; /move N M         edit 1-based step positions
+  /replace N {"expect":"..."} replace a step with one strict JSON action
+  /rerecord N                 fresh target, retain/reconstruct first N steps
+  /replay; /save               reviewed fresh replay, then export new files
+  /quit                       cancel without export
+No target input or raw draft is saved automatically. Review may display sensitive
+text the target printed or you typed. Targets run with your permissions.
+Resolved target="/var/tmp/playtestr-user-pass-harlequin-08/venv/bin/harlequin" working-directory="/tmp/playtestr-workspace-433523958/fixture"
+record> record> record> record> Recorder: capture step 4: context deadline exceeded
+record> Recorder: step 4 snapshot "query.txt" requires a successful expect since the last input or resize, or a successful exit assertion
+record> Resolved target="/var/tmp/playtestr-user-pass-harlequin-08/venv/bin/harlequin" working-directory="/tmp/playtestr-workspace-2811990199/fixture"
+record> record> record> record> Recorder: capture step 4: context deadline exceeded
+record> Recorder: step 4 snapshot "query.txt" requires a successful expect since the last input or resize, or a successful exit assertion
+record> {
+  "version": 2,
+  "name": "Execute actual SQLite query in editor and render ordered Unicode result rows",
+  "command": [
+    "/var/tmp/playtestr-user-pass-harlequin-08/venv/bin/harlequin",
+    "--adapter",
+    "sqlite",
+    "--theme",
+    "textual-dark",
+    "notes.db"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Run Query"
+    },
+    {
+      "text": "select name,quantity from items order by name;"
+    },
+    {
+      "key": "CtrlJ"
+    }
+  ]
+}
+
+record> ╭─ Data Catalog ────────╮╭─ Query Editor ──────────────────────────────────────────────────────────╮
+│ ▶ main db             ││ 1                                                                       │
+│                       ││                                                                         │
+│                       ││                                                                         │
+│                       ││                                                                         │
+│                       ││                                                                         │
+│                       ││                                                                         │
+│                       ││                                                                         │
+│                       ││                                                                         │
+│                       ││                                                                         │
+│                       ││                                                                         │
+│                       ││                                                                         │
+│                       ││                                                                         │
+│                       │╰─────────────────────────────────────────────────────────────────────────╯
+│                       │    Tx: Auto                        ▐X▌ Limit 500           Run Query
+│                       │╭─ Query Results ─────────────────────────────────────────────────────────╮
+│                       ││                                                                         │
+│                       ││                                                                         │
+│                       ││                                                                         │
+│                       ││                                                                         │
+│                       ││                                                                         │
+│                       ││                                                                         │
+│                       ││                                                                         │
+│                       ││                                                                         │
+│                       ││                                                                         │
+│                       ││                                                                         │
+│                       ││                                                                         │
+│                       ││                                                                         │
+╰───────────────────────╯╰─────────────────────────────────────────────────────────────────────────╯
+ ^q Quit  f1 Help  ^p Commands  f8 History  ^⏎ or ^j Run Query  f4 Format Query  ^s Save Query  ^o O
+
+record> [0m[?25h

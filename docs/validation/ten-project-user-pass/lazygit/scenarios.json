@@ -1,0 +1,155 @@
+{
+  "cases": [
+    {
+      "name": "stage",
+      "purpose": "Stage a modified file and independently verify the Git index",
+      "command": [
+        "python3",
+        "launch.py",
+        "--git",
+        "lazygit",
+        "--use-config-file",
+        "config.yml"
+      ],
+      "steps": [
+        {
+          "expect": " M seed.txt"
+        },
+        {
+          "text": " "
+        },
+        {
+          "expect": "M  seed.txt"
+        },
+        {
+          "snapshot": "stage.txt"
+        }
+      ],
+      "snapshot": "stage.txt",
+      "oracle": {
+        "command": [
+          "git",
+          "show",
+          ":seed.txt"
+        ],
+        "text": "synthetic edited\n"
+      },
+      "rerecord": true
+    },
+    {
+      "name": "cancel-discard",
+      "purpose": "Cancel destructive discard and prove worktree content remains modified",
+      "command": [
+        "python3",
+        "launch.py",
+        "--git",
+        "lazygit",
+        "--use-config-file",
+        "config.yml"
+      ],
+      "steps": [
+        {
+          "expect": " M seed.txt"
+        },
+        {
+          "text": "d"
+        },
+        {
+          "expect": "Discard all changes"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": "Discard all changes"
+        },
+        {
+          "snapshot": "cancel-discard.txt"
+        }
+      ],
+      "snapshot": "cancel-discard.txt",
+      "oracle": {
+        "path": "seed.txt",
+        "text": "synthetic edited\n"
+      }
+    },
+    {
+      "name": "commit",
+      "purpose": "Stage and commit a local change, independently verifying the commit subject",
+      "command": [
+        "python3",
+        "launch.py",
+        "--git",
+        "lazygit",
+        "--use-config-file",
+        "config.yml"
+      ],
+      "steps": [
+        {
+          "expect": " M seed.txt"
+        },
+        {
+          "text": " "
+        },
+        {
+          "expect": "M  seed.txt"
+        },
+        {
+          "text": "c"
+        },
+        {
+          "expect": "Commit summary"
+        },
+        {
+          "text": "Fixture commit"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "No changed files"
+        },
+        {
+          "snapshot": "commit.txt"
+        }
+      ],
+      "snapshot": "commit.txt",
+      "oracle": [
+        {
+          "command": [
+            "git",
+            "log",
+            "-1",
+            "--format=%s"
+          ],
+          "text": "Fixture commit\n"
+        },
+        {
+          "command": [
+            "git",
+            "show",
+            "HEAD:seed.txt"
+          ],
+          "text": "synthetic edited\n"
+        },
+        {
+          "command": [
+            "git",
+            "status",
+            "--porcelain"
+          ],
+          "text": ""
+        }
+      ]
+    }
+  ],
+  "runtime_path": ".cache/ten-project-apps/lazygit-04",
+  "maintenance_controls": [
+    {
+      "spec": "intentional-unstage.json",
+      "baseline": "intentional-unstage.txt",
+      "old_baseline": "stage.txt",
+      "changed_text": " M seed.txt"
+    }
+  ]
+}

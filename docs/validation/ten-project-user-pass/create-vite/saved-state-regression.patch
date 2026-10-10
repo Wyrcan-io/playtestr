@@ -1,0 +1,13 @@
+diff --git a/packages/create-vite/src/index.ts b/packages/create-vite/src/index.ts
+index 3eeb19e45..c6065e9b3 100755
+--- a/packages/create-vite/src/index.ts
++++ b/packages/create-vite/src/index.ts
+@@ -720,7 +720,7 @@ async function init() {
+     fs.readFileSync(path.join(templateDir, `package.json`), 'utf-8'),
+   )
+ 
+-  pkg.name = packageName
++  pkg.name = 'corrupt-package-name'
+ 
+   write('package.json', JSON.stringify(pkg, null, 2) + '\n')
+ 

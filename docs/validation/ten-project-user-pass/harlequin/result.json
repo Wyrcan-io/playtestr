@@ -1,0 +1,462 @@
+{
+  "project": "harlequin",
+  "upstream": {
+    "repo": "tconbeer/harlequin",
+    "url": "https://github.com/tconbeer/harlequin",
+    "sha": "2c6e7b21d42e10b08730ca89b0cce2f40c42dab3",
+    "license": "MIT",
+    "archived": false,
+    "description": "The SQL IDE for Your Terminal. Now with hsql, your agent's favorite sql client.",
+    "default_branch": "main",
+    "source": "GitHub primary repository metadata/readme/license at pinned revision",
+    "language": "Python",
+    "terminal_stack": "Textual",
+    "interaction_style": "full-screen SQL IDE",
+    "selection_reason": "Editor input, query execution and error recovery",
+    "primary_validation_host": "Ubuntu WSL2 Linux; do not infer macOS/Windows target compatibility"
+  },
+  "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "runner_sha256": "dfa60294ef5d946bb690676dd1111a7396dc3922d4a4cb101e735887d914cf0a",
+  "status": "qualified_on_final_source",
+  "scenarios": [
+    {
+      "scenario": "query",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/harlequin/query.json": "2f952ecb02c02d9d466fdd8167f0f16b521a33d8c36f46ae02d809e436dbf570",
+        "docs/validation/ten-project-user-pass/harlequin/snapshots/query-results.rows.json": "f6c1784007bfaf8ee8e4e07a5bdb27513b71e4fa1309ce1c13036b5c947b6f56"
+      },
+      "independent_state_oracle": null,
+      "cleanup_confirmed": true,
+      "load_variation": "fresh state repetition; no invented delay variation"
+    },
+    {
+      "scenario": "cancel-save",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/harlequin/cancel-save.json": "f2727b7346c7b9f61b85bfd84b674368bac03530c15749ed35b0ee1aca08379f",
+        "docs/validation/ten-project-user-pass/harlequin/snapshots/cancel-editor-row.rows.json": "7c5edad98be0ed1880a95e38a707fdc710fd482daa2dddd0da290d5311ac46dc"
+      },
+      "independent_state_oracle": {
+        "command": [
+          "python3",
+          "-c",
+          "from pathlib import Path; import json; print(json.dumps(sorted(str(p) for p in Path('.').rglob('*.sql'))))"
+        ],
+        "text": "[]\n"
+      },
+      "cleanup_confirmed": true,
+      "load_variation": "fresh state repetition; no invented delay variation"
+    },
+    {
+      "scenario": "error-recovery",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/harlequin/error-recovery.json": "6784df2ce139ddff252189010a4778f8a9ab6d9e79dc966fc32b52c9a29d2e29",
+        "docs/validation/ten-project-user-pass/harlequin/snapshots/recovered-results.rows.json": "cfe0f21d5f354f04b61e80aa5e59a1cee4403a7873a4a204c49a5d50c2687b36"
+      },
+      "independent_state_oracle": null,
+      "cleanup_confirmed": true,
+      "load_variation": "fresh state repetition; no invented delay variation"
+    },
+    {
+      "scenario": "save-query",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/harlequin/save-query.json": "e16bec0064d0c8a4ca0df9fbe737c514cabd19617e89f2e603142ff1e434f307",
+        "docs/validation/ten-project-user-pass/harlequin/snapshots/saved-editor-row.rows.json": "e6a80d5e1a41f8df15ed0787818c17284796e61030a0eca7a9750b295825e086"
+      },
+      "independent_state_oracle": {
+        "path": "reviewed.sql",
+        "text": "select 'caf\u00e9' as saved_value;"
+      },
+      "cleanup_confirmed": true,
+      "load_variation": "fresh state repetition; no invented delay variation"
+    }
+  ],
+  "defect_category": "assertion_timeout",
+  "defect_step": 5,
+  "defect_recovery_contract_hashes_equal": true,
+  "task_owned_application_directory": "C:\\Users\\abhir\\OneDrive\\Documents\\playtestr\\.cache\\ten-project-apps\\harlequin-08",
+  "deleted": true,
+  "complete_product_campaign_credit": 0,
+  "final_source": "53561e6cbef4c80a25893c2f25be5a0979442103",
+  "final_qualification": {
+    "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "runner_sha256": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+    "mode": "final",
+    "scenarios": [
+      {
+        "scenario": "query",
+        "attempts": 10,
+        "passed": 10,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/harlequin/query.json": "2f952ecb02c02d9d466fdd8167f0f16b521a33d8c36f46ae02d809e436dbf570",
+          "docs/validation/ten-project-user-pass/harlequin/snapshots/query-results.rows.json": "f6c1784007bfaf8ee8e4e07a5bdb27513b71e4fa1309ce1c13036b5c947b6f56"
+        },
+        "independent_state_oracle": null,
+        "cleanup_confirmed": true,
+        "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+      },
+      {
+        "scenario": "cancel-save",
+        "attempts": 10,
+        "passed": 10,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/harlequin/cancel-save.json": "f2727b7346c7b9f61b85bfd84b674368bac03530c15749ed35b0ee1aca08379f",
+          "docs/validation/ten-project-user-pass/harlequin/snapshots/cancel-editor-row.rows.json": "7c5edad98be0ed1880a95e38a707fdc710fd482daa2dddd0da290d5311ac46dc"
+        },
+        "independent_state_oracle": {
+          "command": [
+            "python3",
+            "-c",
+            "from pathlib import Path; import json; print(json.dumps(sorted(str(p) for p in Path('.').rglob('*.sql'))))"
+          ],
+          "text": "[]\n"
+        },
+        "cleanup_confirmed": true,
+        "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+      },
+      {
+        "scenario": "error-recovery",
+        "attempts": 10,
+        "passed": 10,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/harlequin/error-recovery.json": "6784df2ce139ddff252189010a4778f8a9ab6d9e79dc966fc32b52c9a29d2e29",
+          "docs/validation/ten-project-user-pass/harlequin/snapshots/recovered-results.rows.json": "cfe0f21d5f354f04b61e80aa5e59a1cee4403a7873a4a204c49a5d50c2687b36"
+        },
+        "independent_state_oracle": null,
+        "cleanup_confirmed": true,
+        "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+      },
+      {
+        "scenario": "save-query",
+        "attempts": 10,
+        "passed": 10,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/harlequin/save-query.json": "e16bec0064d0c8a4ca0df9fbe737c514cabd19617e89f2e603142ff1e434f307",
+          "docs/validation/ten-project-user-pass/harlequin/snapshots/saved-editor-row.rows.json": "e6a80d5e1a41f8df15ed0787818c17284796e61030a0eca7a9750b295825e086"
+        },
+        "independent_state_oracle": {
+          "path": "reviewed.sql",
+          "text": "select 'caf\u00e9' as saved_value;"
+        },
+        "cleanup_confirmed": true,
+        "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+      }
+    ]
+  },
+  "final_target_identity": {
+    "source_sha": "2c6e7b21d42e10b08730ca89b0cce2f40c42dab3",
+    "files": 2610,
+    "installed_tree_sha256": "bedbff49df19909fd7ba3699731b930c99ed5012384653d660532454ddd39344",
+    "dependencies": [
+      "click==8.5.0",
+      "duckdb==1.5.6",
+      "harlequin @ file:///var/tmp/playtestr-user-pass-harlequin-08/source",
+      "jinja2==3.1.6",
+      "linkify-it-py==2.2.0",
+      "markdown-it-py==4.2.0",
+      "markupsafe==3.0.4",
+      "mdit-py-plugins==0.6.1",
+      "mdurl==0.1.2",
+      "msgspec==0.22.0",
+      "platformdirs==4.12.3",
+      "prompt-toolkit==3.0.53",
+      "pyarrow==25.0.1",
+      "pygments==2.21.0",
+      "pyperclip==1.11.0",
+      "questionary==2.1.1",
+      "rich==15.0.0",
+      "rich-click==1.9.9",
+      "shandy-sqlfmt==0.32.0",
+      "textual==8.2.8",
+      "textual-fastdatatable==0.19.3",
+      "textual-textarea==0.18.5",
+      "tomlkit==0.15.1",
+      "tqdm==4.70.1",
+      "tree-sitter==0.26.0",
+      "tree-sitter-bash==0.25.1",
+      "tree-sitter-css==0.25.0",
+      "tree-sitter-go==0.25.0",
+      "tree-sitter-html==0.23.2",
+      "tree-sitter-java==0.23.5",
+      "tree-sitter-javascript==0.25.0",
+      "tree-sitter-json==0.24.8",
+      "tree-sitter-markdown==0.5.1",
+      "tree-sitter-python==0.25.0",
+      "tree-sitter-regex==0.25.0",
+      "tree-sitter-rust==0.24.2",
+      "tree-sitter-sql==0.3.11",
+      "tree-sitter-toml==0.7.0",
+      "tree-sitter-xml==0.7.0",
+      "tree-sitter-yaml==0.7.2",
+      "typing-extensions==4.16.0",
+      "wcwidth==0.9.2"
+    ]
+  },
+  "final_mutated_identity": {
+    "patch_sha256": "5a156509231dfb6f409f7e7e21e190c117547be607a83ea58c5e2428416f33f3",
+    "actual_target": {
+      "mutation": "target-regression",
+      "mode": "apply",
+      "source_file_sha256": "28851c4235fb1416bdfc93a740407cbfd2a47ebe35cc31297d81d7fb3f8e97ce",
+      "installed_file_sha256": "28851c4235fb1416bdfc93a740407cbfd2a47ebe35cc31297d81d7fb3f8e97ce"
+    }
+  },
+  "final_defect": {
+    "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "runner_sha256": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+    "mode": "defect",
+    "scenarios": [
+      {
+        "scenario": "query",
+        "attempts": 1,
+        "passed": 0,
+        "failed": 1,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/harlequin/query.json": "2f952ecb02c02d9d466fdd8167f0f16b521a33d8c36f46ae02d809e436dbf570",
+          "docs/validation/ten-project-user-pass/harlequin/snapshots/query-results.rows.json": "f6c1784007bfaf8ee8e4e07a5bdb27513b71e4fa1309ce1c13036b5c947b6f56"
+        },
+        "independent_state_oracle": null,
+        "cleanup_confirmed": true,
+        "load_variation": "fresh state repetition; no invented delay variation"
+      }
+    ]
+  },
+  "final_recovery": {
+    "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "runner_sha256": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+    "mode": "recovery",
+    "scenarios": [
+      {
+        "scenario": "query",
+        "attempts": 1,
+        "passed": 1,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/harlequin/query.json": "2f952ecb02c02d9d466fdd8167f0f16b521a33d8c36f46ae02d809e436dbf570",
+          "docs/validation/ten-project-user-pass/harlequin/snapshots/query-results.rows.json": "f6c1784007bfaf8ee8e4e07a5bdb27513b71e4fa1309ce1c13036b5c947b6f56"
+        },
+        "independent_state_oracle": null,
+        "cleanup_confirmed": true,
+        "load_variation": "fresh state repetition; no invented delay variation"
+      },
+      {
+        "scenario": "cancel-save",
+        "attempts": 1,
+        "passed": 1,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/harlequin/cancel-save.json": "f2727b7346c7b9f61b85bfd84b674368bac03530c15749ed35b0ee1aca08379f",
+          "docs/validation/ten-project-user-pass/harlequin/snapshots/cancel-editor-row.rows.json": "7c5edad98be0ed1880a95e38a707fdc710fd482daa2dddd0da290d5311ac46dc"
+        },
+        "independent_state_oracle": {
+          "command": [
+            "python3",
+            "-c",
+            "from pathlib import Path; import json; print(json.dumps(sorted(str(p) for p in Path('.').rglob('*.sql'))))"
+          ],
+          "text": "[]\n"
+        },
+        "cleanup_confirmed": true,
+        "load_variation": "fresh state repetition; no invented delay variation"
+      },
+      {
+        "scenario": "error-recovery",
+        "attempts": 1,
+        "passed": 1,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/harlequin/error-recovery.json": "6784df2ce139ddff252189010a4778f8a9ab6d9e79dc966fc32b52c9a29d2e29",
+          "docs/validation/ten-project-user-pass/harlequin/snapshots/recovered-results.rows.json": "cfe0f21d5f354f04b61e80aa5e59a1cee4403a7873a4a204c49a5d50c2687b36"
+        },
+        "independent_state_oracle": null,
+        "cleanup_confirmed": true,
+        "load_variation": "fresh state repetition; no invented delay variation"
+      },
+      {
+        "scenario": "save-query",
+        "attempts": 1,
+        "passed": 1,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/harlequin/save-query.json": "e16bec0064d0c8a4ca0df9fbe737c514cabd19617e89f2e603142ff1e434f307",
+          "docs/validation/ten-project-user-pass/harlequin/snapshots/saved-editor-row.rows.json": "e6a80d5e1a41f8df15ed0787818c17284796e61030a0eca7a9750b295825e086"
+        },
+        "independent_state_oracle": {
+          "path": "reviewed.sql",
+          "text": "select 'caf\u00e9' as saved_value;"
+        },
+        "cleanup_confirmed": true,
+        "load_variation": "fresh state repetition; no invented delay variation"
+      }
+    ]
+  },
+  "final_negative_contracts_unchanged": true,
+  "final_oracles": {
+    "project": "harlequin",
+    "checked": [
+      "cancel-save",
+      "save-query"
+    ],
+    "passed": true,
+    "cleanup": "each recorder cleanly canceled after state check"
+  },
+  "operator_elapsed_seconds_before_deletion": 142.046,
+  "operator_measurement_scope": "Fresh pinned acquisition, build, regression/restoration, ten repetitions per scenario and independent state checks; shared Go caches warm, not independent-user onboarding research",
+  "fixture_hashes": {
+    "docs/validation/ten-project-user-pass/harlequin/fixtures/notes.db": "f047ecfaa96636104062dc7f01a514d7cf26d346a15b2aed65cf51b08cd376ea"
+  },
+  "license_sha256": "59d7f5997117e3c2537b7527721b37bbc33bb14381eafd1f1ac308e563fb6c1e",
+  "retained_attempt_counts": {
+    "machine_reports": 240,
+    "observed_passed_results": 234,
+    "observed_failed_results": 6,
+    "expected_negative_failed_results": 3,
+    "expected_intentional_change_failures": 0,
+    "other_failed_results": 3,
+    "capture_logs": 22,
+    "rejected_captures": 7,
+    "scope": "Counts of retained artifacts, not total-ever execution claims. Early pre-archive overwritten passing retries are not recoverable; all known first failures are retained and described separately.",
+    "raw_evidence_bytes": 875914
+  },
+  "retained_failed_attempts": [
+    {
+      "raw_path": "artifacts/ten-project-user-pass/harlequin/query-defect-0.json",
+      "sha256": "1de30c172b58a5921f656a26de55e66d90f2f326e1ea4dcdd756b830898f4665",
+      "classification": "expected_negative_failed_results",
+      "failure": {
+        "category": "assertion_timeout",
+        "message": "Execute actual SQLite query in editor and render ordered Unicode result rows: step 5: step timed out: context deadline exceeded"
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": false,
+        "forced": true,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "runner_version": "source-53561e6cbef4c80a25893c2f25be5a0979442103",
+      "spec_path": "/mnt/c/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-project-user-pass/harlequin/query.json"
+    },
+    {
+      "raw_path": "artifacts/ten-project-user-pass/harlequin/history/1791391089611741121-query-record-3.json",
+      "sha256": "af2da5ec9246a1737f32aa670063ec38e39d45cf60ba03351c822f60cc28fede",
+      "classification": "other_failed_results",
+      "failure": {
+        "category": "snapshot_mismatch",
+        "message": "rendered screen did not match the reviewed snapshot"
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": false,
+        "forced": true,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "runner_version": "dev",
+      "spec_path": "/mnt/c/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-project-user-pass/harlequin/query.json"
+    },
+    {
+      "raw_path": "artifacts/ten-project-user-pass/harlequin/history/1791391289843769432-query-record-7.json",
+      "sha256": "6bd87ea4e0e3561a615bb5ad837694898a1b094204c509a79c473ba9afa43219",
+      "classification": "other_failed_results",
+      "failure": {
+        "category": "snapshot_mismatch",
+        "message": "rendered screen did not match the reviewed snapshot"
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": false,
+        "forced": true,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "runner_version": "dev",
+      "spec_path": "/mnt/c/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-project-user-pass/harlequin/query.json"
+    },
+    {
+      "raw_path": "artifacts/ten-project-user-pass/harlequin/history/1791393283240560393-query-record-0.json",
+      "sha256": "f7381df842df17cace12d37212fba393b255fdea1513f97e78c7966f63b26296",
+      "classification": "other_failed_results",
+      "failure": {
+        "category": "assertion_timeout",
+        "message": "Execute actual SQLite query in editor and render ordered Unicode result rows: step 5: step timed out: context deadline exceeded"
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": false,
+        "forced": true,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "runner_version": "dev",
+      "spec_path": "/mnt/c/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-project-user-pass/harlequin/query.json"
+    },
+    {
+      "raw_path": "artifacts/ten-project-user-pass/harlequin/history/1791393552573537457-query-defect-0.json",
+      "sha256": "ae07a2c5fdb35ad355af09d48e4a962196677486fce3a71098490b74a867e9d6",
+      "classification": "expected_negative_failed_results",
+      "failure": {
+        "category": "assertion_timeout",
+        "message": "Execute actual SQLite query in editor and render ordered Unicode result rows: step 5: step timed out: context deadline exceeded"
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": false,
+        "forced": true,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "runner_version": "dev",
+      "spec_path": "/mnt/c/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-project-user-pass/harlequin/query.json"
+    },
+    {
+      "raw_path": "artifacts/ten-project-user-pass/harlequin/history/1791485976705778344-query-defect-0.json",
+      "sha256": "e149f2d81c8f5c04bcbd6e1f39a401894748c5fb30bcd26c7daeea8584ee0e94",
+      "classification": "expected_negative_failed_results",
+      "failure": {
+        "category": "assertion_timeout",
+        "message": "Execute actual SQLite query in editor and render ordered Unicode result rows: step 5: step timed out: context deadline exceeded"
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": false,
+        "forced": true,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "runner_version": "dev",
+      "spec_path": "/mnt/c/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-project-user-pass/harlequin/query.json"
+    }
+  ],
+  "scope": {
+    "tested": "Real SQLite result grid, cancel save, recover from actual SQL error, save Unicode SQL",
+    "excluded": "AI/agent features, non-SQLite adapters, remote files, clipboard and database-wide correctness",
+    "method": "Assert full SQL and actual result caption/grid. An early mechanically passing recovery test only showed typed SQL and an error modal; visually rejected, retained and excluded from acceptance. Corrected new-buffer/error-dismissal flow really executes 314. Saved SQL bytes are independently checked.",
+    "findings": "General CtrlJ byte 0x0a differs from Enter 0x0d (53561e6). Cold startup needs an explicit bounded 15s application deadline. Timing toasts/completion are outside reviewed result rows; path prompts need unique Saving to evidence. Wrong save-path and UTF-8 edit attempts remain recorded."
+  },
+  "final_runner": {
+    "source": "53561e6cbef4c80a25893c2f25be5a0979442103",
+    "clean_source_checkout": true,
+    "go": "go version go1.27.0 windows/amd64",
+    "binaries": {
+      "playtestr-linux": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+      "playtestr.exe": "7339121c103472bcdcf9b9c32a273c63ffa25ab1f773da8430a57b6f991c9597"
+    },
+    "version": "playtestr source-53561e6cbef4c80a25893c2f25be5a0979442103"
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "version": 2,
+  "name": "Reject invalid package name, recover after resize and scaffold correct Vue files",
+  "command": [
+    "../../../../.tools/ten-project-runtime/node-v24.7.0-linux-x64/bin/node",
+    "/var/tmp/playtestr-user-pass-create-vite-10/source/packages/create-vite/index.js",
+    "--interactive",
+    "--no-immediate",
+    "--no-eslint",
+    "Bad Name",
+    "--template",
+    "vue"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Package name:"
+    },
+    {
+      "resize": {
+        "width": 80,
+        "height": 24
+      }
+    },
+    {
+      "text": "Bad*Name"
+    },
+    {
+      "expect": "Bad*Name"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Invalid package.json name"
+    },
+    {
+      "snapshot": "invalid-package.rows.json"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "text": "valid-vue-name"
+    },
+    {
+      "expect": "valid-vue-name"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Done. Now run:"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

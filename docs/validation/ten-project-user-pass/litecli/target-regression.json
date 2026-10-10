@@ -1,0 +1,7 @@
+{
+  "application": "litecli-07",
+  "file": "litecli/sqlexecute.py",
+  "installed_file": "/var/tmp/playtestr-user-pass-litecli-07/venv/lib/python3.12/site-packages/litecli/sqlexecute.py",
+  "before": "cursor = list(cursor)",
+  "after": "cursor = list(cursor)[:-1]  # deliberate regression: silently omit final result row"
+}

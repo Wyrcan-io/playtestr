@@ -1,0 +1,30 @@
+{
+  "upstream": "dbcli/litecli",
+  "sha": "aa53bb0c1530cd1dfb30534babb0bf47df33c60a",
+  "license": "BSD-3-Clause",
+  "acquisition": "python scripts/acceptance/user_project_admin.py acquire 6 --native-source-only; on Linux user_python_runtime.py acquire litecli-07 then install litecli-07",
+  "install": "Exact upstream source, base dependencies only. No ai or sqlean extras; sqlite3 standard library, no service credentials. Owned /var/tmp native source/venv/cache.",
+  "regression": "target-regression.patch omits final real SQL result row; unchanged 3-rows assertion fails. Restore source+installed module and recover identical contracts.",
+  "saved_state": "saved-state-regression.patch corrupts persisted quantity after caching normal result; screen still reflects expected cached data but independent SQLite query rejects real state. Restored source passes.",
+  "findings": [
+    {
+      "category": "upstream_host_boundary",
+      "detail": "Current upstream tracks Windows-invalid filename; preserve initial checkout failure and acquire unchanged source on Linux. No filtering or replacement."
+    },
+    {
+      "category": "known_terminal_boundary",
+      "detail": "Terminal query replies remain excluded by existing contract. Explicit application-supported PROMPT_TOOLKIT_NO_CPR=1 prevents query-dependent repaint; configuration visible in ordinary spec."
+    },
+    {
+      "category": "test_authoring",
+      "detail": "Query timings vary; explicit reviewed row ranges select actual result table + result count; failed full-screen recording preserved. Error header appeared in both echo and output, corrected to unique rendered table header."
+    },
+    {
+      "category": "test_authoring",
+      "detail": "An unnecessary manual XDG_CONFIG_HOME override was correctly rejected against temporary-home policy. Removed override and retained first failure, no policy weakening."
+    }
+  ],
+  "oracles": "Both Unicode insertion and destructive cancel independently read actual committed SQLite rows before cleanup; all state probes passed.",
+  "maintenance": "Fresh suffix rerecord, manual exact quit, separate supported psql table format selected baseline update/review and ordinary rerun passed.",
+  "exclusions": "Live timing, default CPR-dependent redraw, full SQL/completion/network/AI/plugin coverage."
+}

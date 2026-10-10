@@ -1,0 +1,27 @@
+{
+  "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "runner_sha256": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+  "mode": "defect",
+  "scenarios": [
+    {
+      "scenario": "react-ts",
+      "attempts": 1,
+      "passed": 0,
+      "failed": 1,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/create-vite/react-ts.json": "36c07d39ad8723f6f378a77fc45b58d15832858dd334d0dfa989091981eadeca",
+        "docs/validation/ten-project-user-pass/create-vite/snapshots/react.rows.json": "73e411e768a009401030d002572297d806c8111b84a29ebb0a0ec1babf1d53f2"
+      },
+      "independent_state_oracle": {
+        "command": [
+          "python3",
+          "scaffold_manifest.py",
+          "synth-react"
+        ],
+        "text": "{\".gitignore\": \"fe718e7babb14f3cbad2d97f08889b9ce5215ed3fe0e43b2b8cfbfb3b9b844e8\", \".oxlintrc.json\": \"b4d344818a1e1bf43997e4744a9153c8eef770c98b58229cd86363dabb85ded4\", \"README.md\": \"fa8aac78b8be1993010b57f41000a243ecba006f6731513fe4ec91e788bf2517\", \"index.html\": \"e3a1a86f21a63132e48be52a894660fad867bed599ecf72d0e9dddff23e23e0f\", \"package.json\": \"5e33ffcb47ccf922dd4b1fcb9393061c5142f8809f0358db46afd0c5a2174346\", \"public/favicon.svg\": \"61bc9a161de58248288e6905425d7180f0624c2865007b97d763fdac12043a66\", \"public/icons.svg\": \"b45fa506195cfcdef406ba9f0c77b36ddc1a7c224040926ec70abc2fdea7b93a\", \"src/App.css\": \"6e25a776d3e8102da5bacb3cb99f4a5fc662a2e01e6143140671a556d28c3d5c\", \"src/App.tsx\": \"c7184fc9b1c36d7492093e1b5f5844c440bd3396deeace21b6699d3838f6ecb2\", \"src/assets/hero.png\": \"881ffbcaafc212e49addad08846a5b82761355fa20624253af3477ba33262c5c\", \"src/assets/react.svg\": \"35ef61ed53b323ae94a16a8ec659b3d0af3880698791133f23b084085ab1c2e5\", \"src/assets/vite.svg\": \"5be21acd42eb7b896e517f4e0f0f11eb5c5d9e54fbbcebe9453f033008fcca6f\", \"src/index.css\": \"535c25dd1f338486ab3678832fc698011c8b8d1fe4ffd3d0ef5e33181457cc9f\", \"src/main.tsx\": \"6e9e5807fcbd48b75a96db5cbef36c996262196be42e6d4760dc86babbe61ad2\", \"tsconfig.app.json\": \"8e5d12ba330e7d86409edec74b95451e0db22ee09b9426c94b5bf817571eddb0\", \"tsconfig.json\": \"770b4140bbb581e2dfd9ea9946ffc9c75a1d86ba7d2db5f77c83e37cbdf9d808\", \"tsconfig.node.json\": \"d366cc0827139db39c61815f22491bbfda56c654354a42ad7795143d314e45e8\", \"vite.config.ts\": \"e1eefd0ed1639c88d1213884ef760516884db9e168190e223fee6b063ad3e088\"}\n"
+      },
+      "cleanup_confirmed": true,
+      "load_variation": "fresh state repetition; no invented delay variation"
+    }
+  ]
+}

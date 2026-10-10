@@ -1,0 +1,49 @@
+{
+  "version": 2,
+  "name": "Cancel SQL buffer Save As modal and keep editing without writing a file",
+  "command": [
+    "/var/tmp/playtestr-user-pass-harlequin-08/venv/bin/harlequin",
+    "--adapter",
+    "sqlite",
+    "--theme",
+    "textual-dark",
+    "notes.db"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 15000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "^s Save Query"
+    },
+    {
+      "text": "select 42 as unsaved_value;"
+    },
+    {
+      "expect": "unsaved_value"
+    },
+    {
+      "key": "CtrlS"
+    },
+    {
+      "expect": "Enter file path OR press ESC to cancel"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "Enter file path OR press ESC to cancel"
+    },
+    {
+      "snapshot": "cancel-editor-row.rows.json"
+    }
+  ]
+}

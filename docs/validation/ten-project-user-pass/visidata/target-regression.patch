@@ -1,0 +1,13 @@
+diff --git a/visidata/search.py b/visidata/search.py
+index 5799361a..9cded1bf 100644
+--- a/visidata/search.py
++++ b/visidata/search.py
+@@ -65,7 +65,7 @@ def searchRegex(vd, sheet, moveCursor=False, reverse=False, regex_flags=None, **
+             c = findMatchingColumn(sheet, sheet.rows[rowidx], columns, regex.search)
+             if c:
+                 if moveCursor:
+-                    sheet.cursorRowIndex = rowidx
++                    sheet.cursorRowIndex = 0  # deliberate regression: discard actual matched row
+                     sheet.cursorVisibleColIndex = sheet.visibleCols.index(c)
+                     return
+                 else:

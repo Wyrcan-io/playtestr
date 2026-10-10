@@ -1,0 +1,58 @@
+{
+  "version": 2,
+  "name": "Cancel a pending cell edit without changing the data table",
+  "command": [
+    "/var/tmp/playtestr-user-pass-visidata-06/venv/bin/vd",
+    "--nothing",
+    "--motd-url",
+    "",
+    "--disp-status-fmt",
+    "{sheet.name} row={sheet.cursorRowIndex} ",
+    "--disp-rstatus-fmt",
+    "{sheet.nRows} rows",
+    "data.tsv"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha"
+    },
+    {
+      "text": "e"
+    },
+    {
+      "key": "CtrlA"
+    },
+    {
+      "key": "CtrlK"
+    },
+    {
+      "text": "DROP"
+    },
+    {
+      "expect": "DROP"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "DROP"
+    },
+    {
+      "expect": "alpha"
+    },
+    {
+      "snapshot": "cancel-edit.txt"
+    }
+  ]
+}

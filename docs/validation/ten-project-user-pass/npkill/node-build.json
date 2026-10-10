@@ -1,0 +1,23 @@
+{
+  "commands": [
+    {
+      "argv": [
+        "npm",
+        "ci",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "phase": "install"
+    },
+    {
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "phase": "build"
+    }
+  ],
+  "review": "Pinned package-lock; disable unrelated prepare husky Git hook installation; actual production build tsc requires no package lifecycle hooks. No global install or release scripts."
+}

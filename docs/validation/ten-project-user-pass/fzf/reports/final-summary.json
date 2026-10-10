@@ -1,0 +1,46 @@
+{
+  "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "runner_sha256": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+  "mode": "final",
+  "scenarios": [
+    {
+      "scenario": "search",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/fzf/search.json": "e0c52ffc55d89cabc09f93aabaa62fcd7550978c3f53e18bdd8ad0e2559fbcff",
+        "docs/validation/ten-project-user-pass/fzf/snapshots/search.txt": "00a671efa5a7a9e467eca8bc1189fdc31a36bd4b51d9cee822565a8a2507038f"
+      },
+      "independent_state_oracle": null,
+      "cleanup_confirmed": true,
+      "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+    },
+    {
+      "scenario": "cancel",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/fzf/cancel.json": "6915e9b6791d725a9d5ec4d7cb626c0b6c1a961ffb44017586aa18675cf8d634",
+        "docs/validation/ten-project-user-pass/fzf/snapshots/cancel.txt": "7e646b514278c85dce1225700ac446a3fc2ed41a4ab1c2fa4a4a2e1edf143a8a"
+      },
+      "independent_state_oracle": null,
+      "cleanup_confirmed": true,
+      "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+    },
+    {
+      "scenario": "resize",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/fzf/resize.json": "5a646bbf5001577db1b6982ed661ff05b7a20db62f52701cf110cb44b8ac7d53",
+        "docs/validation/ten-project-user-pass/fzf/snapshots/resize.txt": "c017fa33ad67857a8290c1317a7a32d3fbdcb3277205016b343a857df8a800a1"
+      },
+      "independent_state_oracle": null,
+      "cleanup_confirmed": true,
+      "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+    }
+  ]
+}

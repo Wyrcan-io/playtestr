@@ -1,0 +1,72 @@
+{
+  "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "runner_sha256": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+  "mode": "recovery",
+  "scenarios": [
+    {
+      "scenario": "choose",
+      "attempts": 1,
+      "passed": 1,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/gum/choose.json": "8e98b98628f490997bd09d0a864d998d41d9e5465e72a65aaeed77713db7c156",
+        "docs/validation/ten-project-user-pass/gum/snapshots/choose.txt": "f2c82decdd7181cf98945929a62598db7e6b477e11f6e0eb0ae97020eff151ad"
+      },
+      "independent_state_oracle": null,
+      "cleanup_confirmed": true,
+      "load_variation": "fresh state repetition; no invented delay variation"
+    },
+    {
+      "scenario": "decline",
+      "attempts": 1,
+      "passed": 1,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/gum/decline.json": "c4a2d0591d4ee62b6333dfa20d93b7c40db8a7c0ea257ceee45f71f4f09afbe2",
+        "docs/validation/ten-project-user-pass/gum/snapshots/decline.txt": "22f3e5aabec64a361dce8c43e8cdd3a1b3b0101c17f843f27754b31410c0deb4"
+      },
+      "independent_state_oracle": null,
+      "cleanup_confirmed": true,
+      "load_variation": "fresh state repetition; no invented delay variation"
+    },
+    {
+      "scenario": "input",
+      "attempts": 1,
+      "passed": 1,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/gum/input.json": "be1a5ba63559684003151900d1c896afc03b773f62a96c584846a522555208c0",
+        "docs/validation/ten-project-user-pass/gum/snapshots/input.txt": "7b49b9e063bd91a4f9252b413261f5557b9c570aa61516989499f64a62dbcdd6"
+      },
+      "independent_state_oracle": null,
+      "cleanup_confirmed": true,
+      "load_variation": "fresh state repetition; no invented delay variation"
+    },
+    {
+      "scenario": "resize",
+      "attempts": 1,
+      "passed": 1,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/gum/resize.json": "92e997ce0e228d8b03b919c07af2534117a236e23f92eb286f7d7aad95620953",
+        "docs/validation/ten-project-user-pass/gum/snapshots/resize.txt": "2aee73b4605e1c6da304bc0bf0e1d7317a1be0cdafbc5cebacc096fc6c3c6f35"
+      },
+      "independent_state_oracle": null,
+      "cleanup_confirmed": true,
+      "load_variation": "fresh state repetition; no invented delay variation"
+    },
+    {
+      "scenario": "limit",
+      "attempts": 1,
+      "passed": 1,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/gum/limit.json": "4ece2ef84af918458b63b5459d69bff69af1b2dac291bc10ff08884ed9bb5586",
+        "docs/validation/ten-project-user-pass/gum/snapshots/limit.txt": "edeaaff3f1774ad2888673770c6d64097e391bc362d7d6fb34982ddf0efd18cb"
+      },
+      "independent_state_oracle": null,
+      "cleanup_confirmed": true,
+      "load_variation": "fresh state repetition; no invented delay variation"
+    }
+  ]
+}

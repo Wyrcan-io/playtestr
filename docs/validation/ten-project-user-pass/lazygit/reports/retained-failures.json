@@ -1,0 +1,92 @@
+[
+  {
+    "raw_path": "artifacts/ten-project-user-pass/lazygit/intentional-expected-change.json",
+    "sha256": "c532f259ab95be99023a0a075a524e7aac7ca8f0b5f98b3de2239d86e3fdf0a2",
+    "classification": "expected_intentional_change_failures",
+    "failure": {
+      "category": "snapshot_mismatch",
+      "message": "rendered screen did not match the reviewed snapshot"
+    },
+    "cleanup": {
+      "attempted": true,
+      "graceful": true,
+      "forced": false,
+      "confirmed_exited": true,
+      "mechanism": "unix-process-group"
+    },
+    "runner_version": "source-53561e6cbef4c80a25893c2f25be5a0979442103",
+    "spec_path": "/mnt/c/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-project-user-pass/lazygit/intentional-unstage.json"
+  },
+  {
+    "raw_path": "artifacts/ten-project-user-pass/lazygit/stage-defect-0.json",
+    "sha256": "afad894a4caee753f2fae9424bc902bdeaf9e8879aa5c63b78f0785284930a1b",
+    "classification": "expected_negative_failed_results",
+    "failure": {
+      "category": "snapshot_mismatch",
+      "message": "rendered screen did not match the reviewed snapshot"
+    },
+    "cleanup": {
+      "attempted": true,
+      "graceful": true,
+      "forced": false,
+      "confirmed_exited": true,
+      "mechanism": "unix-process-group"
+    },
+    "runner_version": "source-53561e6cbef4c80a25893c2f25be5a0979442103",
+    "spec_path": "/mnt/c/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-project-user-pass/lazygit/stage.json"
+  },
+  {
+    "raw_path": "artifacts/ten-project-user-pass/lazygit/history/1791485413751610362-stage-defect-0.json",
+    "sha256": "76ca7b514057585896d57ce7783e09b0e35fa36cc1f4a1eaf8d4550f0ab3c9ce",
+    "classification": "expected_negative_failed_results",
+    "failure": {
+      "category": "assertion_timeout",
+      "message": "Stage a modified file and independently verify the Git index: step 3: step timed out: context deadline exceeded"
+    },
+    "cleanup": {
+      "attempted": true,
+      "graceful": true,
+      "forced": false,
+      "confirmed_exited": true,
+      "mechanism": "unix-process-group"
+    },
+    "runner_version": "user-pass-rerecord-identity",
+    "spec_path": "/mnt/c/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-project-user-pass/lazygit/stage.json"
+  },
+  {
+    "raw_path": "artifacts/ten-project-user-pass/lazygit/history/1791486847533940329-stage-defect-0.json",
+    "sha256": "9240d1f169eca8c9a7cec428b8edc98e8f430f073b740776054e6f33e0a58a6e",
+    "classification": "expected_negative_failed_results",
+    "failure": {
+      "category": "assertion_timeout",
+      "message": "Stage a modified file and independently verify the Git index: step 3: step timed out: context deadline exceeded"
+    },
+    "cleanup": {
+      "attempted": true,
+      "graceful": true,
+      "forced": false,
+      "confirmed_exited": true,
+      "mechanism": "unix-process-group"
+    },
+    "runner_version": "source-53561e6cbef4c80a25893c2f25be5a0979442103",
+    "spec_path": "/mnt/c/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-project-user-pass/lazygit/stage.json"
+  },
+  {
+    "raw_path": "artifacts/ten-project-user-pass/lazygit/history/1791619587556899110-stage-defect-0.json",
+    "sha256": "d61fac8c30ba23a881577d9bb62081cc189fcd8388863bf392d64a8fb68c9bf6",
+    "classification": "expected_negative_failed_results",
+    "failure": {
+      "category": "snapshot_mismatch",
+      "message": "rendered screen did not match the reviewed snapshot"
+    },
+    "cleanup": {
+      "attempted": true,
+      "graceful": true,
+      "forced": false,
+      "confirmed_exited": true,
+      "mechanism": "unix-process-group"
+    },
+    "runner_version": "source-53561e6cbef4c80a25893c2f25be5a0979442103",
+    "spec_path": "/mnt/c/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-project-user-pass/lazygit/stage.json"
+  }
+]

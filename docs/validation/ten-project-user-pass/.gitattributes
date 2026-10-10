@@ -1,0 +1,12 @@
+# Preserve the exact captured evidence/fixture/spec bytes and their recorded
+# SHA-256 identities across checkout platforms. Patches remain captured LF.
+** -text whitespace=cr-at-eol
+# Unified diff context lines deliberately contain one leading space, including
+# blank context. Preserve valid patch bytes rather than trimming that context.
+*.patch whitespace=cr-at-eol,-blank-at-eol,-blank-at-eof,-space-before-tab
+# Captured prompts/diffs and upstream license bytes are evidence, not authored
+# formatting. Their meaningful trailing/context whitespace stays unchanged.
+**/defect-diff.txt whitespace=cr-at-eol,-blank-at-eol
+**/*.comparison.txt whitespace=cr-at-eol,-blank-at-eol
+**/rejected-captures/*.log whitespace=cr-at-eol,-blank-at-eol
+**/UPSTREAM-LICENSE.txt whitespace=cr-at-eol,-blank-at-eof

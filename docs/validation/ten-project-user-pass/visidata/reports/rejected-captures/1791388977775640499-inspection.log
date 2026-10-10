@@ -1,0 +1,24 @@
+Setup: output="/mnt/c/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-project-user-pass/visidata/inspection.json" argv=["../../../../.cache/ten-project-apps/visidata-06/.venv/bin/vd" "--nothing" "--disp-status-fmt" "{sheet.name} row={sheet.cursorRowIndex} " "--disp-rstatus-fmt" "{sheet.nRows} rows" "data.tsv"] cwd="" fixture="fixtures" viewport=120x40 timeout=5000ms budget=20000ms output-cap=2000000
+Recorder controls (target input is separate):
+  /live                       type into the target; Ctrl+G returns to controls
+  /key ArrowDown              send a supported named key
+  /text "hello"               send JSON-quoted text/paste (literal Ctrl+G: "\u0007")
+  /expect unique new content  positive readiness checkpoint
+  /absent previous content    disappearance of previously asserted content
+  /exit 0                     exact expected exit code
+  /snapshot name.txt          capture a ready, settled screen
+  /resize 100 30; /redraw     resize and optional observed redraw wait
+  /snapshot-rows name.rows.json 2 24  capture reviewed inclusive viewport rows
+  /screen; /review            inspect screen or full candidate/baselines
+  /delete N; /move N M         edit 1-based step positions
+  /replace N {"expect":"..."} replace a step with one strict JSON action
+  /rerecord N                 fresh target, retain/reconstruct first N steps
+  /replay; /save               reviewed fresh replay, then export new files
+  /quit                       cancel without export
+No target input or raw draft is saved automatically. Review may display sensitive
+text the target printed or you typed. Targets run with your permissions.
+Resolved target="/mnt/c/Users/abhir/OneDrive/Documents/playtestr/.cache/ten-project-apps/visidata-06/.venv/bin/vd" working-directory="/tmp/playtestr-workspace-3719286266/fixture"
+record> Recorder: capture step 1: context deadline exceeded
+record> 
+
+record> [0m[?25h

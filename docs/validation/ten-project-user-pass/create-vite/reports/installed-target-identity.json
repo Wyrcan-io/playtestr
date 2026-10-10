@@ -1,0 +1,44 @@
+{
+  "source_sha": "8a4c19cfc035f2dd203f2fa6d00ab9256a5e77c9",
+  "installed_tree_sha256": "272f0d0b22763289a2b539a00e9cd0bedf09c78df3c44e88e74060ed832f0e74",
+  "files": 18257,
+  "node_version": "v24.7.0",
+  "build_seconds": 2.6546772030000056,
+  "reviewed_commands": [
+    {
+      "phase": "install",
+      "argv": [
+        "npm",
+        "install",
+        "--prefix",
+        "/var/tmp/playtestr-user-pass-create-vite-10/tooling",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund",
+        "pnpm@12.9.1"
+      ]
+    },
+    {
+      "phase": "install",
+      "argv": [
+        "/var/tmp/playtestr-user-pass-create-vite-10/tooling/node_modules/.bin/pnpm",
+        "--filter",
+        "create-vite...",
+        "install",
+        "--frozen-lockfile",
+        "--ignore-scripts",
+        "--store-dir",
+        "/var/tmp/playtestr-user-pass-create-vite-10/pnpm-store"
+      ]
+    },
+    {
+      "phase": "build",
+      "cwd": "packages/create-vite",
+      "argv": [
+        "/var/tmp/playtestr-user-pass-create-vite-10/tooling/node_modules/.bin/pnpm",
+        "run",
+        "build"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,279 @@
+{
+  "project": "gdu",
+  "upstream": {
+    "repo": "dundee/gdu",
+    "url": "https://github.com/dundee/gdu",
+    "sha": "387cf50377e53bad628603658cfb76fd4a54d718",
+    "license": "MIT",
+    "archived": false,
+    "description": "Fast disk usage analyzer with console interface written in Go",
+    "default_branch": "master",
+    "source": "GitHub primary repository metadata/readme/license at pinned revision",
+    "language": "Go",
+    "terminal_stack": "tview/tcell",
+    "interaction_style": "full-screen disk UI",
+    "selection_reason": "Computed sizes, navigation and destructive cancellation",
+    "primary_validation_host": "Ubuntu WSL2 Linux; do not infer macOS/Windows target compatibility"
+  },
+  "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "runner_sha256": "86948a7836396d7c39ae5c27c7d7246a657608c3b2c092f4f96e5e3b66675efe",
+  "status": "qualified_on_final_source",
+  "scenarios": [
+    {
+      "scenario": "navigate",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/gdu/navigate.json": "96e87de6de91dd9f7e115aafb26a79e4550efec2da51cf1247cfca021931f812",
+        "docs/validation/ten-project-user-pass/gdu/snapshots/navigate.rows.json": "5152a153ee11eb1f717b8e05380708a35809f93faf2e9439698ec6f4b2529feb"
+      },
+      "independent_state_oracle": null,
+      "cleanup_confirmed": true
+    },
+    {
+      "scenario": "cancel-delete",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/gdu/cancel-delete.json": "a2ff12914b3886aa5a0e0aa247d8d1f12a4d04657acd98de435ea5ac3233c098",
+        "docs/validation/ten-project-user-pass/gdu/snapshots/cancel-delete.rows.json": "5152a153ee11eb1f717b8e05380708a35809f93faf2e9439698ec6f4b2529feb"
+      },
+      "independent_state_oracle": {
+        "path": "data/folder/child.bin",
+        "text": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      },
+      "cleanup_confirmed": true
+    },
+    {
+      "scenario": "help-resize",
+      "attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/gdu/help-resize.json": "a8b1cbcad6b4360a2a4ef5b84a3873a505874729c91d2f4a9431de888fa0de93",
+        "docs/validation/ten-project-user-pass/gdu/snapshots/help-resize.rows.json": "559307d7df1b94b6b95b02d5150e90d6b62386fb657a822a6c2003a8c9e207d2"
+      },
+      "independent_state_oracle": null,
+      "cleanup_confirmed": true
+    }
+  ],
+  "defect_category": "snapshot_mismatch",
+  "defect_step": 6,
+  "defect_recovery_contract_hashes_equal": true,
+  "task_owned_application_directory": "C:\\Users\\abhir\\OneDrive\\Documents\\playtestr\\.cache\\ten-project-apps\\gdu-05",
+  "deleted": true,
+  "complete_product_campaign_credit": 0,
+  "final_source": "53561e6cbef4c80a25893c2f25be5a0979442103",
+  "final_qualification": {
+    "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "runner_sha256": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+    "mode": "final",
+    "scenarios": [
+      {
+        "scenario": "navigate",
+        "attempts": 10,
+        "passed": 10,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/gdu/navigate.json": "96e87de6de91dd9f7e115aafb26a79e4550efec2da51cf1247cfca021931f812",
+          "docs/validation/ten-project-user-pass/gdu/snapshots/navigate.rows.json": "5152a153ee11eb1f717b8e05380708a35809f93faf2e9439698ec6f4b2529feb"
+        },
+        "independent_state_oracle": null,
+        "cleanup_confirmed": true,
+        "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+      },
+      {
+        "scenario": "cancel-delete",
+        "attempts": 10,
+        "passed": 10,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/gdu/cancel-delete.json": "a2ff12914b3886aa5a0e0aa247d8d1f12a4d04657acd98de435ea5ac3233c098",
+          "docs/validation/ten-project-user-pass/gdu/snapshots/cancel-delete.rows.json": "5152a153ee11eb1f717b8e05380708a35809f93faf2e9439698ec6f4b2529feb"
+        },
+        "independent_state_oracle": {
+          "path": "data/folder/child.bin",
+          "text": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        },
+        "cleanup_confirmed": true,
+        "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+      },
+      {
+        "scenario": "help-resize",
+        "attempts": 10,
+        "passed": 10,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/gdu/help-resize.json": "a8b1cbcad6b4360a2a4ef5b84a3873a505874729c91d2f4a9431de888fa0de93",
+          "docs/validation/ten-project-user-pass/gdu/snapshots/help-resize.rows.json": "559307d7df1b94b6b95b02d5150e90d6b62386fb657a822a6c2003a8c9e207d2"
+        },
+        "independent_state_oracle": null,
+        "cleanup_confirmed": true,
+        "load_variation": "five ordinary + five with a bounded 2-second, 8-MiB SHA256 CPU worker"
+      }
+    ]
+  },
+  "final_target_identity": {
+    "source": "387cf50377e53bad628603658cfb76fd4a54d718",
+    "target_binary_sha256": "186bd681c2808cd6eda0b6ee44fc1f828a5ff336253dca5c8244414b1bfaeb54"
+  },
+  "final_mutated_identity": {
+    "target_binary_sha256": "135ef80a362c6d6808a71129f17b8b9098469bc9e4932298445ea8ab1a63fb57",
+    "patch_sha256": "e377c8caf5f5b140170e09a34ba0bab6bae354654282db871284c219f4cfba9b"
+  },
+  "final_defect": {
+    "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "runner_sha256": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+    "mode": "defect",
+    "scenarios": [
+      {
+        "scenario": "navigate",
+        "attempts": 1,
+        "passed": 0,
+        "failed": 1,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/gdu/navigate.json": "96e87de6de91dd9f7e115aafb26a79e4550efec2da51cf1247cfca021931f812",
+          "docs/validation/ten-project-user-pass/gdu/snapshots/navigate.rows.json": "5152a153ee11eb1f717b8e05380708a35809f93faf2e9439698ec6f4b2529feb"
+        },
+        "independent_state_oracle": null,
+        "cleanup_confirmed": true,
+        "load_variation": "fresh state repetition; no invented delay variation"
+      }
+    ]
+  },
+  "final_recovery": {
+    "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "runner_sha256": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+    "mode": "recovery",
+    "scenarios": [
+      {
+        "scenario": "navigate",
+        "attempts": 1,
+        "passed": 1,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/gdu/navigate.json": "96e87de6de91dd9f7e115aafb26a79e4550efec2da51cf1247cfca021931f812",
+          "docs/validation/ten-project-user-pass/gdu/snapshots/navigate.rows.json": "5152a153ee11eb1f717b8e05380708a35809f93faf2e9439698ec6f4b2529feb"
+        },
+        "independent_state_oracle": null,
+        "cleanup_confirmed": true,
+        "load_variation": "fresh state repetition; no invented delay variation"
+      },
+      {
+        "scenario": "cancel-delete",
+        "attempts": 1,
+        "passed": 1,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/gdu/cancel-delete.json": "a2ff12914b3886aa5a0e0aa247d8d1f12a4d04657acd98de435ea5ac3233c098",
+          "docs/validation/ten-project-user-pass/gdu/snapshots/cancel-delete.rows.json": "5152a153ee11eb1f717b8e05380708a35809f93faf2e9439698ec6f4b2529feb"
+        },
+        "independent_state_oracle": {
+          "path": "data/folder/child.bin",
+          "text": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        },
+        "cleanup_confirmed": true,
+        "load_variation": "fresh state repetition; no invented delay variation"
+      },
+      {
+        "scenario": "help-resize",
+        "attempts": 1,
+        "passed": 1,
+        "failed": 0,
+        "contract_hashes": {
+          "docs/validation/ten-project-user-pass/gdu/help-resize.json": "a8b1cbcad6b4360a2a4ef5b84a3873a505874729c91d2f4a9431de888fa0de93",
+          "docs/validation/ten-project-user-pass/gdu/snapshots/help-resize.rows.json": "559307d7df1b94b6b95b02d5150e90d6b62386fb657a822a6c2003a8c9e207d2"
+        },
+        "independent_state_oracle": null,
+        "cleanup_confirmed": true,
+        "load_variation": "fresh state repetition; no invented delay variation"
+      }
+    ]
+  },
+  "final_negative_contracts_unchanged": true,
+  "final_oracles": {
+    "project": "gdu",
+    "checked": [
+      "cancel-delete"
+    ],
+    "passed": true,
+    "cleanup": "each recorder cleanly canceled after state check"
+  },
+  "operator_elapsed_seconds_before_deletion": 86.813,
+  "operator_measurement_scope": "Fresh pinned acquisition, build, regression/restoration, ten repetitions per scenario and independent state checks; shared Go caches warm, not independent-user onboarding research",
+  "fixture_hashes": {
+    "docs/validation/ten-project-user-pass/gdu/fixtures/config.yml": "4592d91d9850ad8f25d108ad5140ebe7d4911339d3fef2448ede3ff842ec337b",
+    "docs/validation/ten-project-user-pass/gdu/fixtures/data/alpha.bin": "2edc986847e209b4016e141a6dc8716d3207350f416969382d431539bf292e4a",
+    "docs/validation/ten-project-user-pass/gdu/fixtures/data/beta.bin": "80c58fc1932767b113819b033e1874d8de05e8809534590db9d01510abc8ed6b",
+    "docs/validation/ten-project-user-pass/gdu/fixtures/data/folder/child.bin": "0009ba67883a9cb414ce866c99cecf221c53bc7bef0f1d91ad935dbd69e717a4"
+  },
+  "license_sha256": "213d69a7fcd8f97769fbe8ec84c48f895ef87a31cc6d02755e0fd31fd2a9a21d",
+  "retained_attempt_counts": {
+    "machine_reports": 70,
+    "observed_passed_results": 68,
+    "observed_failed_results": 2,
+    "expected_negative_failed_results": 2,
+    "expected_intentional_change_failures": 0,
+    "other_failed_results": 0,
+    "capture_logs": 8,
+    "rejected_captures": 3,
+    "scope": "Counts of retained artifacts, not total-ever execution claims. Early pre-archive overwritten passing retries are not recoverable; all known first failures are retained and described separately.",
+    "raw_evidence_bytes": 231891
+  },
+  "retained_failed_attempts": [
+    {
+      "raw_path": "artifacts/ten-project-user-pass/gdu/navigate-defect-0.json",
+      "sha256": "17c378f8edf3f24e1d631a63ebc6dd9a4649d65f6546a701e90b108996e668f1",
+      "classification": "expected_negative_failed_results",
+      "failure": {
+        "category": "snapshot_mismatch",
+        "message": "rendered screen did not match the reviewed snapshot"
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": true,
+        "forced": false,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "runner_version": "source-53561e6cbef4c80a25893c2f25be5a0979442103",
+      "spec_path": "/mnt/c/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-project-user-pass/gdu/navigate.json"
+    },
+    {
+      "raw_path": "artifacts/ten-project-user-pass/gdu/history/1791485649541457292-navigate-defect-0.json",
+      "sha256": "ba46f1ff52f9ba2728db0e7e692b0014d77815758ed642953cd87fbe45aee267",
+      "classification": "expected_negative_failed_results",
+      "failure": {
+        "category": "snapshot_mismatch",
+        "message": "rendered screen did not match the reviewed snapshot"
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": true,
+        "forced": false,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "runner_version": "user-pass-explicit-row-snapshots",
+      "spec_path": "/mnt/c/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-project-user-pass/gdu/navigate.json"
+    }
+  ],
+  "scope": {
+    "tested": "Computed sizes, folder navigation, cancel deletion, help and resize",
+    "excluded": "Real disk/home scans, successful deletion, symlink traversal and every display mode",
+    "method": "Only 1/2/3 KiB synthetic files. Canceled deletion preserves exact child bytes. Actual size-formatting regression is rejected; explicit --si output provides intended expectation maintenance.",
+    "findings": "Random fresh workspace name made full-viewport snapshots unstable. Implemented explicit reviewed physical-row snapshots in c8274d5; meaningful result rows stay asserted and full failure screens remain available."
+  },
+  "final_runner": {
+    "source": "53561e6cbef4c80a25893c2f25be5a0979442103",
+    "clean_source_checkout": true,
+    "go": "go version go1.27.0 windows/amd64",
+    "binaries": {
+      "playtestr-linux": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+      "playtestr.exe": "7339121c103472bcdcf9b9c32a273c63ffa25ab1f773da8430a57b6f991c9597"
+    },
+    "version": "playtestr source-53561e6cbef4c80a25893c2f25be5a0979442103"
+  }
+}

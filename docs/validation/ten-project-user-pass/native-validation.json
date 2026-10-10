@@ -1,0 +1,51 @@
+{
+  "source": "06af0c092a751b4f92d4ca4eb1f2832bbda946de",
+  "run_id": 37644265408,
+  "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/37644265408",
+  "conclusion": "success",
+  "jobs": [
+    "ubuntu-24.04",
+    "macos-15",
+    "windows-2025"
+  ],
+  "evidence": "Retrieved actual run artifacts under ignored artifacts/ten-project-user-pass/native-06af0c0. All native tests/vet/race/public recording acceptance succeeded. This does not claim all ten target projects ran on all three hosts.",
+  "additional_runs": [
+    {
+      "source": "c8274d541d0573859aa28ca5c2a383e2ed63b107",
+      "run_id": 37647895910,
+      "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/37647895910",
+      "conclusion": "success",
+      "jobs": [
+        "ubuntu-24.04",
+        "macos-15",
+        "windows-2025"
+      ],
+      "artifact_directory": "artifacts/ten-project-user-pass/native-c8274d5",
+      "scope": "Explicit row snapshot real-PTY integration + all native tests/vet/race/public recorder acceptance; not ten upstream targets on every host."
+    },
+    {
+      "source": "4a1f41d76b3482cf95e79e991b5c912b1c056b8f",
+      "run_id": 37650730648,
+      "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/37650730648",
+      "conclusion": "success",
+      "jobs": [
+        "ubuntu-24.04",
+        "macos-15",
+        "windows-2025"
+      ],
+      "scope": "Actual native full tests/vet/race/public recorder journey; all ten external targets on all hosts are not claimed."
+    },
+    {
+      "source": "53561e6cbef4c80a25893c2f25be5a0979442103",
+      "run_id": 37654006327,
+      "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/37654006327",
+      "conclusion": "success",
+      "jobs": [
+        "ubuntu-24.04",
+        "macos-15",
+        "windows-2025"
+      ],
+      "scope": "Actual native full tests/vet/race/public recorder journey; all ten external targets on all hosts are not claimed."
+    }
+  ]
+}

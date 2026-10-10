@@ -1,0 +1,12 @@
+diff --git a/choose/command.go b/choose/command.go
+index f1a8d69..6134652 100644
+--- a/choose/command.go
++++ b/choose/command.go
+@@ -169,6 +169,6 @@ func (o Options) Run() error {
+ 			out = append(out, options[item.text])
+ 		}
+ 	}
+-	tty.Println(strings.Join(out, o.OutputDelimiter))
++	tty.Println("REGRESSION:" + strings.Join(out, o.OutputDelimiter))
+ 	return nil
+ }

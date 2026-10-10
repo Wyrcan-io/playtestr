@@ -1,0 +1,83 @@
+{
+  "version": 2,
+  "name": "Cancel filter, resize and inspect the nondefault directory without deleting any data",
+  "command": [
+    "../../../../.tools/ten-project-runtime/node-v24.7.0-linux-x64/bin/node",
+    "/var/tmp/playtestr-user-pass-npkill-09/source/lib/index.js",
+    "--directory",
+    "data",
+    "--targets",
+    "node_modules",
+    "--sort",
+    "path",
+    "--no-check-update",
+    "--no-age"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Search completed"
+    },
+    {
+      "expect": "data/alpha/node_modules"
+    },
+    {
+      "expect": "data/café/node_modules"
+    },
+    {
+      "expect": "data/beta/node_modules"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": "Search:"
+    },
+    {
+      "text": "beta"
+    },
+    {
+      "expect": "Search: beta_"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect": "data/alpha/node_modules"
+    },
+    {
+      "expect_not": "Search:"
+    },
+    {
+      "resize": {
+        "width": 80,
+        "height": 24
+      }
+    },
+    {
+      "key": "ArrowDown"
+    },
+    {
+      "key": "ArrowRight"
+    },
+    {
+      "expect": "Result Details"
+    },
+    {
+      "expect": "data/beta/node_modules"
+    },
+    {
+      "snapshot": "details.rows.json"
+    }
+  ]
+}

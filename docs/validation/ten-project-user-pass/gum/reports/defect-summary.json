@@ -1,0 +1,20 @@
+{
+  "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "runner_sha256": "07aa8992e278bb4227b92c6b0c617258cf0c0e6697550a56f81b80ba491b675b",
+  "mode": "defect",
+  "scenarios": [
+    {
+      "scenario": "choose",
+      "attempts": 1,
+      "passed": 0,
+      "failed": 1,
+      "contract_hashes": {
+        "docs/validation/ten-project-user-pass/gum/choose.json": "8e98b98628f490997bd09d0a864d998d41d9e5465e72a65aaeed77713db7c156",
+        "docs/validation/ten-project-user-pass/gum/snapshots/choose.txt": "f2c82decdd7181cf98945929a62598db7e6b477e11f6e0eb0ae97020eff151ad"
+      },
+      "independent_state_oracle": null,
+      "cleanup_confirmed": true,
+      "load_variation": "fresh state repetition; no invented delay variation"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "version": 2,
+  "name": "Choose the second release category, not the default",
+  "command": [
+    "../../../../.cache/ten-project-apps/gum-01/gum",
+    "choose",
+    "alpha",
+    "beta",
+    "gamma"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Choose:"
+    },
+    {
+      "key": "ArrowDown"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "snapshot": "choose.txt"
+    }
+  ]
+}

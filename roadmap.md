@@ -16,7 +16,7 @@ Operate the integration on managed serverless infrastructure. Target zero mandat
 
 ## Hard constraints
 
-- Current implementation scope is P0–P2 only. Billing accounts, production deployment, spending, releases, marketing and outreach remain outside this authorization.
+- P0–P2 and the invoked early ten-project P5 reliability pass are complete within their scoped boundaries. Billing accounts, production deployment, spending, releases, marketing and outreach remain outside this authorization.
 - Finish the defined product experience and validation before a new commercial launch or marketing campaign.
 - Complete **100 distinct independently maintained real projects**, with meaningful pass/defect/recovery evidence. Repetitions, forks, framework demos, and multiple workflows do not inflate the count.
 - Keep the application under test language/framework independent and the local execution core in Go. A thin serverless integration may use a provider-native language only after a scoped architecture decision.
@@ -33,7 +33,7 @@ The historical corpus records 15 projects and 120 workflows. It is reusable inpu
 
 ## Dependency order and acceptance
 
-P0–P2 are executing under the explicit batch instruction; P3–P9 remain **planned / not started**. Effort ranges remain planning forecasts, not an elapsed-time report.
+P0–P2 and early P5 runner reliability are accepted within their recorded scopes; P3/P4 and remaining P5–P9 remain **planned / not started**. Effort ranges remain planning forecasts, not an elapsed-time report.
 
 | Phase | User-visible outcome | Exit requirement | Dependencies | Focused effort |
 | --- | --- | --- | --- | --- |
@@ -79,4 +79,7 @@ GitHub Marketplace supplies distribution/billing, not backend hosting. Paid-app 
 
 Status lives here; details live in the plans; execution evidence belongs in dated validation records. Public contracts stay accurate to shipped behavior until implementation changes them. Use [milestones](docs/plans/09-delivery-milestones.md), [quality gates](docs/plans/10-quality-and-release.md), and [templates](docs/plans/14-execution-templates.md) when execution is requested.
 
-**Current action: finish P1 native and P2 real PR acceptance.** P0 ADRs are in `docs/decisions/`; no P3, provider signup, release or marketing starts automatically after this batch.
+**Next implementation gate: P3 paid review integration, when invoked.** P0–P2 and early P5 runner reliability are complete. P0 ADRs are in `docs/decisions/`; no provider signup, release or marketing starts automatically.
+
+
+10 October 2026: [ten-project early reliability pass](docs/validation/ten-project-user-pass/README.md) completed: 33 reviewed scenarios, 330 final fresh passes, 10 detected actual target regressions and all restored scenarios passing on exact source 53561e6. Order: early P5 reliability -> P3 -> P4 -> remaining P5 -> full 100-project campaign. Full P5 and the campaign remain unqualified.

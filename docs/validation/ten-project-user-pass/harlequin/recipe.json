@@ -1,0 +1,39 @@
+{
+  "upstream": "tconbeer/harlequin",
+  "sha": "2c6e7b21d42e10b08730ca89b0cce2f40c42dab3",
+  "license": "MIT",
+  "source_build": "Acquire pinned source; uv 0.12.23 verified official digest; isolated native Python 3.12 venv, base package only, exact dependency constraints. No AI/server adapters.",
+  "primary_host": "Ubuntu WSL2 Linux; upstream compatibility on other hosts is not inferred",
+  "startup_deadline_ms": 15000,
+  "findings": [
+    {
+      "category": "core_input_gap",
+      "detail": "Documented CtrlJ run-query shortcut required a general named key byte 0x0a distinct from Enter 0x0d; implemented 53561e6, real PTY tests and successful native three-host CI."
+    },
+    {
+      "category": "test_authoring",
+      "detail": "Whole viewport includes query timing toasts and delayed keyword completion; retained failed repetitions. Explicit reviewed result rows 16..20 capture actual caption/header/three database values; typed SQL remains independently asserted."
+    },
+    {
+      "category": "test_authoring_false_positive",
+      "detail": "Superseded recovery baseline showed error modal and typed 314, not a result. Rejected after visual review. Corrected new-buffer CtrlN, full SQL checkpoint, actual one-record caption and actual result rows 13..16; ten fresh accepted repetitions."
+    },
+    {
+      "category": "test_authoring",
+      "detail": "Save path initially over-edited empty field with CtrlA/CtrlK; real save error retained. Filename occurs twice so generic anchor correctly rejected. Use untouched input and unique Saving to validation checkpoint, then actual save notification and independent exact-byte file oracle."
+    },
+    {
+      "category": "host_setup",
+      "detail": "Five-second readiness expired during cold WSL/container startup. Explicit bounded per-application 15-second scenario deadline, no product-default change."
+    },
+    {
+      "category": "operator_encoding",
+      "detail": "Deadline-edit helper decoded a Unicode spec using Windows default legacy encoding; actual screen correct, expectation mojibake. Retained failure, corrected explicit UTF-8 and reran all scenarios."
+    }
+  ],
+  "snapshot_scopes": "Query 16..20, cancellation editor row2, recovery13..16, save editor row2. Editor completion, lower clock-bearing toasts and full incidental viewport intentionally outside baseline comparisons.",
+  "exclusions": "Agent/headless hsql features, AI, adapters beyond local SQLite, clipboard, history persistence, SQL coverage, remote files and network integrations.",
+  "maintenance": "Primary suffix rerecord; manual query and exact CtrlQ exit; separate explicit public --limit 1 selected-baseline update and ordinary rerun.",
+  "regression": "Drop real fetched rows in actual SQLite adapter; unchanged primary test must fail; restore target and repeat all four contracts.",
+  "saved_state": "Corrupt actual saved SQL after normal save while retaining success UI; unchanged independent exact-byte oracle must fail; restore target and verify all stateful workflows."
+}

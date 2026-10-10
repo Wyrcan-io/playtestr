@@ -1,0 +1,22 @@
+diff --git a/internal/action/actions.go b/internal/action/actions.go
+index ce1d0e1..a5d25b8 100644
+--- a/internal/action/actions.go
++++ b/internal/action/actions.go
+@@ -1052,7 +1052,7 @@ func (h *BufPane) saveBufToFile(filename string, action string, callback func())
+ 				if err != nil {
+ 					InfoBar.Error(err)
+ 				} else {
+-					InfoBar.Message("Saved " + filename)
++					InfoBar.Message("REGRESSION:" + filename)
+ 					if callback != nil {
+ 						callback()
+ 					}
+@@ -1076,7 +1076,7 @@ func (h *BufPane) saveBufToFile(filename string, action string, callback func())
+ 			InfoBar.Error(err)
+ 		}
+ 	} else {
+-		InfoBar.Message("Saved " + filename)
++		InfoBar.Message("REGRESSION:" + filename)
+ 		if callback != nil {
+ 			callback()
+ 		}

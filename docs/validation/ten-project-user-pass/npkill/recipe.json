@@ -1,0 +1,24 @@
+{
+  "upstream": "voidcosmos/npkill",
+  "sha": "620f011bf79ebf345d76d916448b37840b30e2a3",
+  "license": "MIT",
+  "attribution": "Copyright (c) 2025 Estefania Garcia Gallardo and Juan Torres Gomez; patches retain MIT upstream attribution.",
+  "build": "Verified official Node 24.7.0 archive; npm ci with committed package-lock, --ignore-scripts excludes unrelated Husky prepare hook. npm run build executes actual tsc. Task-local npm cache/home/config only; no global installation.",
+  "safe_target_scope": "Every scenario passes --directory data --targets node_modules; data is copied synthetic managed fixture. Neither --full nor --delete-all nor file-explorer actions are used. Explicit --no-check-update disables network; --no-age excludes live age measurement via supported public flag.",
+  "findings": [
+    {
+      "category": "recorder_authoring",
+      "detail": "Initial node_modules anchor ambiguous; beta path already existed before filtering and was correctly rejected as stale. Earlier positive presence checks plus disappearance checks prove filtering; actual baseline includes beta result."
+    },
+    {
+      "category": "recorder_authoring",
+      "detail": "Trailing-space anchors are trimmed by public recorder controls; use explicit previous search-state/absence and reviewed settled result snapshot, not whitespace to distinguish state."
+    }
+  ],
+  "snapshot_scopes": "Physical rows8..11 filtered/deleted path with actual status/size, rows8..12 resized selected Result Details. Live scan durations/animated progress header are explicitly outside comparisons.",
+  "state_oracles": "Before teardown independently check every survivor exact byte sequence and removed beta node_modules absence. Canceled interactions preserve all targets.",
+  "regression": "Remove real regex filtering in upstream TS; rebuild real compiled module, unchanged absence/snapshot fails; restore and rebuild then replay all contracts.",
+  "saved_state": "Force actual deletion call into dry-run while UI still marks deleted; unchanged filesystem oracle must reject real remaining directory; restore/rebuild and recheck.",
+  "maintenance": "Primary rerecord, manual filtered scan exact q exit, intentional alpha filter selected-baseline update followed by ordinary test.",
+  "exclusions": "Host/home scanning, delete-all, sensitive path detection, permission handling, shell/file explorer, multi-select/range and exact size accounting."
+}

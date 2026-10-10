@@ -1,0 +1,225 @@
+{
+  "cases": [
+    {
+      "name": "query",
+      "purpose": "Execute actual SQLite query in editor and render ordered Unicode result rows",
+      "command": [
+        "/var/tmp/playtestr-user-pass-harlequin-08/venv/bin/harlequin",
+        "--adapter",
+        "sqlite",
+        "--theme",
+        "textual-dark",
+        "notes.db"
+      ],
+      "steps": [
+        {
+          "expect": "^s Save Query"
+        },
+        {
+          "text": "select name,quantity from items order by name;"
+        },
+        {
+          "expect": "select name,quantity from items order by name;"
+        },
+        {
+          "key": "CtrlJ"
+        },
+        {
+          "expect": "caf\u00e9"
+        },
+        {
+          "snapshot": {
+            "name": "query-results.rows.json",
+            "first": 16,
+            "last": 20
+          }
+        }
+      ],
+      "snapshot": "query-results.rows.json",
+      "rerecord": true,
+      "timeout_ms": 15000
+    },
+    {
+      "name": "cancel-save",
+      "purpose": "Cancel SQL buffer Save As modal and keep editing without writing a file",
+      "command": [
+        "/var/tmp/playtestr-user-pass-harlequin-08/venv/bin/harlequin",
+        "--adapter",
+        "sqlite",
+        "--theme",
+        "textual-dark",
+        "notes.db"
+      ],
+      "steps": [
+        {
+          "expect": "^s Save Query"
+        },
+        {
+          "text": "select 42 as unsaved_value;"
+        },
+        {
+          "expect": "unsaved_value"
+        },
+        {
+          "key": "CtrlS"
+        },
+        {
+          "expect": "Enter file path OR press ESC to cancel"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": "Enter file path OR press ESC to cancel"
+        },
+        {
+          "snapshot": {
+            "name": "cancel-editor-row.rows.json",
+            "first": 2,
+            "last": 2
+          }
+        }
+      ],
+      "snapshot": "cancel-editor-row.rows.json",
+      "oracle": {
+        "command": [
+          "python3",
+          "-c",
+          "from pathlib import Path; import json; print(json.dumps(sorted(str(p) for p in Path('.').rglob('*.sql'))))"
+        ],
+        "text": "[]\n"
+      },
+      "timeout_ms": 15000
+    },
+    {
+      "name": "error-recovery",
+      "purpose": "Observe real invalid-query modal, dismiss it and successfully query after resize",
+      "command": [
+        "/var/tmp/playtestr-user-pass-harlequin-08/venv/bin/harlequin",
+        "--adapter",
+        "sqlite",
+        "--theme",
+        "textual-dark",
+        "notes.db"
+      ],
+      "steps": [
+        {
+          "expect": "^s Save Query"
+        },
+        {
+          "text": "select * from missing_table;"
+        },
+        {
+          "expect": "select * from missing_table;"
+        },
+        {
+          "key": "CtrlJ"
+        },
+        {
+          "expect": "Query Error"
+        },
+        {
+          "expect": "no such table"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": "Query Error"
+        },
+        {
+          "resize": {
+            "width": 80,
+            "height": 24
+          }
+        },
+        {
+          "text": "\u000e"
+        },
+        {
+          "expect": "Tab 2"
+        },
+        {
+          "text": "select 314 as recovered_value;"
+        },
+        {
+          "expect": "select 314 as recovered_value;"
+        },
+        {
+          "key": "CtrlJ"
+        },
+        {
+          "expect": "Query Results (1 Records)"
+        },
+        {
+          "snapshot": {
+            "name": "recovered-results.rows.json",
+            "first": 13,
+            "last": 16
+          }
+        }
+      ],
+      "snapshot": "recovered-results.rows.json",
+      "timeout_ms": 15000
+    },
+    {
+      "name": "save-query",
+      "purpose": "Save Unicode SQL buffer and independently verify exact file bytes",
+      "command": [
+        "/var/tmp/playtestr-user-pass-harlequin-08/venv/bin/harlequin",
+        "--adapter",
+        "sqlite",
+        "--theme",
+        "textual-dark",
+        "notes.db"
+      ],
+      "steps": [
+        {
+          "expect": "^s Save Query"
+        },
+        {
+          "text": "select 'caf\u00e9' as saved_value;"
+        },
+        {
+          "expect": "select 'caf\u00e9' as saved_value;"
+        },
+        {
+          "key": "CtrlS"
+        },
+        {
+          "expect": "Enter file path OR press ESC to cancel"
+        },
+        {
+          "text": "reviewed.sql"
+        },
+        {
+          "expect": "Saving to"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": "Enter file path OR press ESC to cancel"
+        },
+        {
+          "expect": "Editor contents saved to"
+        },
+        {
+          "snapshot": {
+            "name": "saved-editor-row.rows.json",
+            "first": 2,
+            "last": 2
+          }
+        }
+      ],
+      "snapshot": "saved-editor-row.rows.json",
+      "oracle": {
+        "path": "reviewed.sql",
+        "text": "select 'caf\u00e9' as saved_value;"
+      },
+      "timeout_ms": 15000
+    }
+  ],
+  "exclusions": "Actual local SQLite, keyboard editor and rendered table only. No headless hsql, server adapters, AI services, remote file browsers, clipboard/external editor or full SQL coverage. Reviewed row ranges exclude the lower toast notification area, including query wall-clock timing; readiness and result values remain explicitly asserted.",
+  "negative_oracle_case": "save-query"
+}

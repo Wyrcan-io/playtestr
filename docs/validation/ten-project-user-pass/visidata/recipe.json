@@ -1,0 +1,44 @@
+{
+  "upstream": "saulpw/visidata",
+  "sha": "dd1a9f0a53fe4bf030db939b06c73cb665406d4a",
+  "license": "GPL-3.0-only",
+  "acquisition": "python scripts/acceptance/user_project_admin.py acquire 5",
+  "install": "python3 scripts/acceptance/user_python_runtime.py install visidata-06 on Linux; uv 0.12.23 creates owned /var/tmp environment and installs exact checked-out source",
+  "dependencies": {
+    "python-dateutil": "2.9.0.post0",
+    "six": "1.17.0",
+    "setuptools_build": "84.0.0",
+    "python": "3.12.3"
+  },
+  "baseline": "Unmodified source installed as visidata 3.5.dev0. No plugins/config; explicitly --motd-url empty to disable remote startup fetch. Supported status formatting exposes actual cursorRowIndex, not fabricated data.",
+  "regression": "user_mutation.py apply visidata applies retained actual matched-row mutation to pinned source and same installed Python module. defect/recovery reuse identical contracts.",
+  "saved_state": "saved-state-regression.patch corrupts actual TSV header while leaving save-finished screen. Unchanged exact-byte oracle rejects it; restoring source passes.",
+  "findings": [
+    {
+      "category": "environment_prerequisite",
+      "detail": "Measured Windows-mounted Python startup 11.85s; moved task-owned installed environment to native Linux storage, kept original five-second checkpoints. Original failures retained."
+    },
+    {
+      "category": "environment_prerequisite",
+      "detail": "WSL restart removed /tmp environment; persistent /var/tmp runtime and explicit owned cleanup added."
+    },
+    {
+      "category": "playtestr_defect",
+      "detail": "CtrlA/CtrlK rejected; added general control encoding and real PTY test; schema lists aligned with previously implemented control keys."
+    },
+    {
+      "category": "playtestr_defect",
+      "detail": "Empty flag argument was rejected. Added actual argv roundtrip regression including empty, spaces and quotes; passes after parser fix with executable still required."
+    },
+    {
+      "category": "test_authoring",
+      "detail": "Long edit value clipped by real column width, so use visible DROP token for cancellation. Explicit completion checkpoint for directory export, verified persisted complete TSV."
+    },
+    {
+      "category": "target_configuration",
+      "detail": "--nothing still performs MOTD fetch. Initial motd-enabled attempts are preserved and excluded from offline final suites."
+    }
+  ],
+  "maintenance": "Fresh suffix rerecord/search; manual-search-quit exact exit passed; intentional configured menu caption baseline selected update inspected and passed.",
+  "cleanup": "Both native installed runtime and Windows source/build/venv/cache are task-owned and must be removed."
+}

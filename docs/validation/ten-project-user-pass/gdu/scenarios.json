@@ -1,0 +1,127 @@
+{
+  "cases": [
+    {
+      "name": "navigate",
+      "purpose": "Scan actual files, enter largest directory and navigate back",
+      "command": [
+        "../../../../.cache/ten-project-apps/gdu-05/gdu",
+        "--config-file",
+        "config.yml",
+        "--no-color",
+        "--show-apparent-size",
+        "data"
+      ],
+      "steps": [
+        {
+          "expect": "alpha.bin"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "child.bin"
+        },
+        {
+          "key": "ArrowLeft"
+        },
+        {
+          "expect": "alpha.bin"
+        },
+        {
+          "snapshot": {
+            "name": "navigate.rows.json",
+            "first": 2,
+            "last": 30
+          }
+        }
+      ],
+      "snapshot": "navigate.rows.json",
+      "rerecord": true
+    },
+    {
+      "name": "cancel-delete",
+      "purpose": "Cancel a destructive deletion and independently verify file bytes survive",
+      "command": [
+        "../../../../.cache/ten-project-apps/gdu-05/gdu",
+        "--config-file",
+        "config.yml",
+        "--no-color",
+        "--show-apparent-size",
+        "data"
+      ],
+      "steps": [
+        {
+          "expect": "alpha.bin"
+        },
+        {
+          "text": "d"
+        },
+        {
+          "expect": "Are you sure you want to delete"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": "Are you sure you want to delete"
+        },
+        {
+          "snapshot": {
+            "name": "cancel-delete.rows.json",
+            "first": 2,
+            "last": 30
+          }
+        }
+      ],
+      "snapshot": "cancel-delete.rows.json",
+      "oracle": {
+        "path": "data/folder/child.bin",
+        "text": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      }
+    },
+    {
+      "name": "help-resize",
+      "purpose": "Resize, open and close keyboard help without corrupting the file table",
+      "command": [
+        "../../../../.cache/ten-project-apps/gdu-05/gdu",
+        "--config-file",
+        "config.yml",
+        "--no-color",
+        "--show-apparent-size",
+        "data"
+      ],
+      "steps": [
+        {
+          "expect": "alpha.bin"
+        },
+        {
+          "resize": {
+            "width": 80,
+            "height": 24
+          }
+        },
+        {
+          "text": "?"
+        },
+        {
+          "expect": "Move cursor up/down"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": "Move cursor up/down"
+        },
+        {
+          "snapshot": {
+            "name": "help-resize.rows.json",
+            "first": 2,
+            "last": 24
+          }
+        }
+      ],
+      "snapshot": "help-resize.rows.json"
+    }
+  ],
+  "exclusions": "The changing absolute directory label in row 1 is explicitly excluded by reviewed row-range baselines; rows 2 onward cover actual file listing and totals. No host-disk scan, archive/database/web browsing or confirmed deletion is claimed."
+}

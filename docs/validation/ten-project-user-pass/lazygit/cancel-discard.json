@@ -1,0 +1,43 @@
+{
+  "version": 2,
+  "name": "Cancel destructive discard and prove worktree content remains modified",
+  "command": [
+    "python3",
+    "launch.py",
+    "--git",
+    "lazygit",
+    "--use-config-file",
+    "config.yml"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": " M seed.txt"
+    },
+    {
+      "text": "d"
+    },
+    {
+      "expect": "Discard all changes"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "Discard all changes"
+    },
+    {
+      "snapshot": "cancel-discard.txt"
+    }
+  ]
+}

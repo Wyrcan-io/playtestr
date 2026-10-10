@@ -1,0 +1,13 @@
+--- expected: stage.txt
++++ actual: stage.txt
+@@ -1,8 +1,8 @@
+-╭─[1]─Status─────────────────────╮╭─[0]─Staged changes─────────────────────────────────────────────╮
++╭─[1]─Status─────────────────────╮╭─[0]─Unstaged changes───────────────────────────────────────────╮
+ │fixture → main                  ││diff --git a/seed.txt b/seed.txt                                ▐
+ ╰────────────────────────────────╯│index dc6f87f..c3c33ba 100755                                   ▐
+ ╭─[2]─Files - Worktrees - Submod─╮│--- a/seed.txt                                                  ▐
+-│M  seed.txt                     ││+++ b/seed.txt                                                  ▐
++│ M seed.txt                     ││+++ b/seed.txt                                                  ▐
+ │                                ││@@ -1 +1 @@                                                     ▐
+ │                                ││-synthetic original                                             ▐
+ │                                ││+synthetic edited                                               ▐
