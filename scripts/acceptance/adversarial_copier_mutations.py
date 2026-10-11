@@ -32,7 +32,9 @@ def main():
     controls=[]
     for name,relative,old,new,case_name,state_only in mutations:
         spec=package/(case_name+suffix+'.json')
-        baseline=package/'snapshots'/(case_name+suffix+'.txt')
+        case_configuration=next(c for c in config['cases'] if c['name']==case_name)
+        extension='.rows.json' if case_configuration.get('snapshot_rows') else '.txt'
+        baseline=package/'snapshots'/(case_name+suffix+extension)
         contracts={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in [spec,baseline]}
         path=source/relative
         original=path.read_bytes()

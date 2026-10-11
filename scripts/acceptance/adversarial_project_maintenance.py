@@ -23,13 +23,15 @@ def main():
     env=dict(os.environ,PATH=identity['path']+os.pathsep+os.environ['PATH'])
     binary=ROOT/'bin'/('playtestr.exe' if os.name=='nt' else 'playtestr-linux')
     primary=directory/'normal-project.json'
-    primary_baseline=directory/'snapshots/normal-project.txt'
+    primary_value=json.loads(primary.read_text(encoding='utf-8'))
+    snapshot_name=next(step['snapshot'] for step in primary_value['steps'] if 'snapshot' in step)
+    primary_baseline=directory/'snapshots'/snapshot_name
     original={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in [primary,primary_baseline]}
     maintenance=directory/'maintenance'/str(time.time_ns())
     maintenance.mkdir(parents=True,exist_ok=False)
     shutil.copytree(directory/'fixtures',maintenance/'fixtures')
     (maintenance/'snapshots').mkdir()
-    baseline=maintenance/'snapshots/normal-project.txt'
+    baseline=maintenance/'snapshots'/snapshot_name
     baseline.write_bytes(primary_baseline.read_bytes())
     spec=maintenance/'intentional-name-change.json'
     value=json.loads(primary.read_text(encoding='utf-8'))
@@ -50,13 +52,13 @@ def main():
                    '--output',html],project,'diagnose-intentional-change',env=env)
     if 'snapshot_mismatch' not in html.read_text(encoding='utf-8'):
         raise RuntimeError('Diagnosis lacks actual failure category')
-    update=run([binary,'test','--update','--snapshot','normal-project.txt',spec],
+    update=run([binary,'test','--update','--snapshot',snapshot_name,spec],
                project,'selected-intentional-update',env=env)
     observed=baseline.read_text(encoding='utf-8')
     if args.new_text not in observed or args.new_visible not in observed:
         raise RuntimeError('Selected update omitted intended changed state')
     restore=run([binary,'test',spec],project,'ordinary-maintained-pass',env=env)
-    moved=app/'checkout with spaces café'
+    moved=app/('checkout with spaces café '+maintenance.name)
     moved.mkdir(exist_ok=False)
     shutil.copytree(directory/'fixtures',moved/'fixtures')
     shutil.copytree(directory/'snapshots',moved/'snapshots')

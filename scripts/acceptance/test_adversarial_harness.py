@@ -13,6 +13,42 @@ from adversarial_process import run
 from adversarial_journey import check_state
 
 class NativeHarnessControls(unittest.TestCase):
+    def test_concurrent_ledger_writers_preserve_every_record(self):
+        with tempfile.TemporaryDirectory(prefix='playtestr-ledger-controls-') as root:
+            directory=Path(root)/'doc'
+            raw=Path(root)/'raw'
+            program="import sys;from pathlib import Path;sys.path.insert(0,sys.argv[1]);import adversarial_process as a;a.DOC=Path(sys.argv[2]);a.RAW=Path(sys.argv[3]);writer=sys.argv[4]\nfor i in range(20): a.append({'id':writer+'-'+str(i),'event':'synthetic','payload':'x'*4096})"
+            processes=[]
+            try:
+                for writer in range(4):
+                    processes.append(subprocess.Popen([sys.executable,'-c',program,
+                        str(Path(__file__).parent),str(directory),str(raw),str(writer)],
+                        stdin=subprocess.DEVNULL,stdout=subprocess.PIPE,stderr=subprocess.STDOUT))
+                for process in processes:
+                    output,_=process.communicate(timeout=15)
+                    self.assertLessEqual(len(output),4096)
+                    self.assertEqual(process.returncode,0,output.decode(errors='replace'))
+                with patch.object(adversarial_process,'DOC',directory),patch.object(adversarial_process,'RAW',raw):
+                    rows=adversarial_process.read_attempts()
+                self.assertEqual(len(rows),80)
+                self.assertEqual({r['id'] for r in rows},{str(w)+'-'+str(i) for w in range(4) for i in range(20)})
+                self.assertTrue(all(r['payload']=='x'*4096 for r in rows))
+                self.assertFalse((raw/'.attempts-lock').exists())
+            finally:
+                for process in processes:
+                    if process.poll() is None: process.kill()
+                    process.wait(timeout=5)
+                    if process.stdout: process.stdout.close()
+
+    def test_unknown_ledger_damage_is_rejected(self):
+        with tempfile.TemporaryDirectory(prefix='playtestr-ledger-controls-') as root:
+            directory=Path(root)
+            ledger=directory/'attempts.jsonl'
+            ledger.write_bytes(b'{"id":"valid","event":"synthetic"}\ntruncated unknown fragment\n')
+            with patch.object(adversarial_process,'DOC',directory):
+                with self.assertRaisesRegex(RuntimeError,'Unknown campaign ledger damage'):
+                    adversarial_process.read_ledger(ledger)
+
     def test_cleanup_failure_keeps_original_failure_and_finished_record(self):
         original_stop=adversarial_process.stop
         async def failing_cleanup(proc):
@@ -23,7 +59,7 @@ class NativeHarnessControls(unittest.TestCase):
                 run([sys.executable,'-c','import sys;sys.exit(7)'],
                     'harness-controls','preserve-original-cleanup-failure',timeout=5)
         self.assertTrue(any('Separate cleanup failures' in note for note in raised.exception.__notes__))
-        rows=[json.loads(line) for line in (adversarial_process.DOC/'attempts.jsonl').read_text(encoding='utf-8').splitlines()]
+        rows=adversarial_process.read_attempts()
         finished=next(row for row in reversed(rows) if row['id']==raised.exception.evidence_id and row['event']=='finished')
         self.assertEqual(finished['category'],'exit_mismatch')
         self.assertEqual(finished['harness_cleanup'],'harness_cleanup_unconfirmed')

@@ -16,6 +16,8 @@ from adversarial_process import ROOT,DOC,RAW,run
 
 def control(step):
     key,value=next(iter(step.items()))
+    if key=='snapshot_rows':
+        return '/snapshot-rows '+value['name']+' '+str(value['first'])+' '+str(value['last'])
     if key=='text': return '/text '+json.dumps(value,ensure_ascii=False)
     if key=='resize': return f"/resize {value['width']} {value['height']}"
     names={'expect':'expect','expect_not':'absent','key':'key','exit':'exit','snapshot':'snapshot'}
@@ -74,12 +76,17 @@ def recorder(binary,project,case,env,*,export=True,rerecord=False):
         args+=['--env',key+'='+value]
     args+=['--',*case['command']]
     steps=list(case['steps'])
+    snapshot_name=case['name']+('.rows.json' if case.get('snapshot_rows') else '.txt')
     # These error strings contain random workspace paths: readiness/exit remain
     # explicit, and only the earlier stable prompt screen is snapshotted.
     if case['name']=='edge-existing-rejected':
         steps.insert(-4,{'snapshot':case['name']+'.txt'})
     else:
-        steps+=[{'snapshot':case['name']+'.txt'}]
+        if case.get('snapshot_rows'):
+            first,last=case['snapshot_rows']
+            steps+=[{'snapshot_rows':dict(name=snapshot_name,first=first,last=last)}]
+        else:
+            steps+=[{'snapshot':snapshot_name}]
     body='\n'.join(control(s) for s in steps)+'\n'
     if rerecord:
         if len(steps)<4:
@@ -97,19 +104,23 @@ def recorder(binary,project,case,env,*,export=True,rerecord=False):
             proc.stdin.write(b'/screen\n/quit\n')
             await proc.stdin.drain()
             raise RuntimeError('Public recorder rejected a step; evidence retained')
-        if f"Baseline {case['name']}.txt:" not in screen or not screen.rstrip().endswith('record>'):
+        if f"Baseline {snapshot_name}:" not in screen or not screen.rstrip().endswith('record>'):
             return
         matches=re.findall(r'working-directory=(".*")',screen)
         if not matches:
             raise RuntimeError('Recorder omitted current workspace identity')
         working=Path(json.loads(matches[-1]))
         if not export:
-            baseline=directory/'snapshots'/(case['name']+'.txt')
-            match=re.search(r'Baseline '+re.escape(case['name'])+r'\.txt:\r?\n(.*?)\r?\nrecord>',screen,re.S)
+            baseline=directory/'snapshots'/snapshot_name
+            match=re.search(r'Baseline '+re.escape(snapshot_name)+r':\r?\n(.*?)\r?\nrecord>',screen,re.S)
             if match is None:
                 return
             observed=match[1].replace('\r\n','\n').rstrip('\n')+'\n'
-            if observed!=baseline.read_text(encoding='utf-8'):
+            expected=baseline.read_text(encoding='utf-8')
+            if snapshot_name.endswith('.rows.json'):
+                if json.loads(observed)!=json.loads(expected):
+                    raise RuntimeError('Independent row capture differs from the reviewed row contract')
+            elif observed!=expected:
                 raise RuntimeError('Independent capture differs from the reviewed screen contract')
         state=check_state(working,case)
         (evidence/'state-oracle.json').write_text(json.dumps(state,indent=2)+'\n')

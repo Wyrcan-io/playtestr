@@ -1,0 +1,9 @@
+=== RUN   TestAdversarialWindowsImmediateDescendantsCannotEscapeStartup
+    adversarial_startup_windows_test.go:123: independent observed child.pid pid=7732
+    adversarial_startup_windows_test.go:123: independent observed grandchild.pid pid=5688
+    adversarial_startup_windows_test.go:134: descendant 0 survived cleanup reported confirmed=true: wait=258 error=<nil>
+    adversarial_startup_windows_test.go:134: descendant 1 survived cleanup reported confirmed=true: wait=258 error=<nil>
+--- FAIL: TestAdversarialWindowsImmediateDescendantsCannotEscapeStartup (5.04s)
+FAIL
+FAIL	github.com/Wyrcan-io/playtestr/internal/runner	5.068s
+FAIL

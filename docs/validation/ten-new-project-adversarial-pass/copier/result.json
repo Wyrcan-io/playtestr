@@ -5,10 +5,16 @@
   "status": "development_in_progress_pending_native_qualification_and_cleanup",
   "normal_scenarios": 6,
   "edge_scenarios": 6,
-  "reviewed_host_variants": ["Windows", "Linux-WSL-exploratory"],
+  "reviewed_host_variants": [
+    "Windows",
+    "Linux-WSL-exploratory"
+  ],
   "qualified_native_host_pairs": 0,
   "final_frozen_repetitions": 0,
-  "mutation_controls": ["validator-bypass", "wrong-success-exit"],
+  "mutation_controls": [
+    "validator-bypass",
+    "wrong-success-exit"
+  ],
   "state_corruption_control": "silent-saved-corruption",
   "local_mutation_scope": "Actual Windows target source mutations with unchanged contracts; native hosted requalification pending",
   "ux": {
@@ -17,11 +23,24 @@
     "active_operator_seconds": 92.5,
     "manual_json_edits_first_pass": 0,
     "diagnosis_commands": 2,
-    "confounders": ["Prepared synthetic fixtures", "Warm caches", "Prior corrected operator knowledge"],
+    "confounders": [
+      "Prepared synthetic fixtures",
+      "Warm caches",
+      "Prior corrected operator knowledge"
+    ],
     "assessment": "Operator assessment, not novice study"
   },
   "maintenance": "maintenance-result.json",
   "ux_ledger": "ux-bounded-ledger.json",
   "app_source_deleted": false,
-  "full_product_campaign_credit": 0
+  "full_product_campaign_credit": 0,
+  "first_native_run": "38115136553",
+  "first_native_source": "93b9463d922cd3a6c187ff15288dac5b216c049d",
+  "first_native_status": "both_application_hosts_failed_before_qualification",
+  "snapshot_scope_revision": "Explicit stable answer rows for multi-file operations; unordered create/conflict log excluded. Exact generated and protected files remain independently checked.",
+  "repairs_pending_native": [
+    "Windows long workspace spelling",
+    "Explicit stable answer row contracts",
+    "macOS instrumented stress whole-run budget"
+  ]
 }

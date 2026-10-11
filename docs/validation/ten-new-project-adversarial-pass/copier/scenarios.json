@@ -54,7 +54,11 @@
         "neighbor.txt": "protected neighboring state\n"
       },
       "absent_paths": [],
-      "timeout_ms": 10000
+      "timeout_ms": 10000,
+      "snapshot_rows": [
+        1,
+        6
+      ]
     },
     {
       "name": "normal-conditional",
@@ -98,7 +102,11 @@
         "neighbor.txt": "protected neighboring state\n"
       },
       "absent_paths": [],
-      "timeout_ms": 10000
+      "timeout_ms": 10000,
+      "snapshot_rows": [
+        1,
+        4
+      ]
     },
     {
       "name": "normal-features",
@@ -187,7 +195,11 @@
         "neighbor.txt": "protected neighboring state\n"
       },
       "absent_paths": [],
-      "timeout_ms": 10000
+      "timeout_ms": 10000,
+      "snapshot_rows": [
+        1,
+        2
+      ]
     },
     {
       "name": "normal-reviewed-task",
@@ -226,7 +238,11 @@
         "neighbor.txt": "protected neighboring state\n"
       },
       "absent_paths": [],
-      "timeout_ms": 10000
+      "timeout_ms": 10000,
+      "snapshot_rows": [
+        1,
+        2
+      ]
     },
     {
       "name": "edge-validator-recovery",
@@ -524,5 +540,6 @@
   "baseline_suffix_by_host": {
     "Linux": "-unix",
     "Darwin": "-unix"
-  }
+  },
+  "snapshot_scope_revision": "Explicit stable answer rows for multi-file operations; unordered create/conflict log excluded. Exact generated and protected files remain independently checked."
 }

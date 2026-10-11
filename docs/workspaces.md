@@ -22,6 +22,13 @@ Specification version 2 gives each test a fresh copy of a small reviewed fixture
 
 `workspace.fixture` is required and resolves below the spec directory. Playtestr copies that directory to the `fixture` directory inside a unique runner-owned OS temporary root. `workspace.cwd` defaults to `.` and resolves inside the copy. It must exist as a directory. Top-level `cwd` is not part of spec v2, so there is no ambiguous precedence.
 
+On Windows, the source candidate expands the created temporary root's short
+8.3 spelling to its native long spelling before launching the target. This
+keeps managed cwd/home/temp paths consistent with tools such as Git that report
+long paths. Cleanup compares the same native spellings and still requires its
+ownership marker and ordinary-directory checks. Path expansion does not add
+filesystem isolation or permission changes.
+
 The executable is resolved before the working directory changes. A command containing `/` or `\` is relative to the spec directory unless absolute; a bare name is resolved through `PATH`. On Windows the ordinary executable extension lookup applies. A same-named program inside the fixture is never selected implicitly. Put fixture programs outside the workspace and select them explicitly if they are trusted.
 
 `home` and `temp` may be omitted or set only to `"temporary"`. On Unix, managed home sets `HOME`, `XDG_CONFIG_HOME`, `XDG_CACHE_HOME`, `XDG_DATA_HOME`, and `XDG_STATE_HOME`; managed temp sets `TMPDIR`. On Windows, managed home sets `USERPROFILE`, `HOME`, `APPDATA`, `LOCALAPPDATA`, `HOMEDRIVE`, and `HOMEPATH`; managed temp sets `TEMP` and `TMP`. A spec cannot declare or inherit a variable managed by its selected workspace options. Other `env` and `inherit_env` rules remain unchanged.

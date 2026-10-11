@@ -3,6 +3,7 @@
 The harness is not a security sandbox. Only reviewed commands run here.
 """
 import asyncio
+from contextlib import contextmanager
 from datetime import datetime, timezone
 import hashlib
 import json
@@ -19,12 +20,56 @@ ROOT = Path(__file__).resolve().parents[2]
 DOC = ROOT / 'docs/validation/ten-new-project-adversarial-pass'
 RAW = ROOT / 'artifacts/ten-new-project-adversarial-pass'
 
+@contextmanager
+def ledger_lock():
+    # Atomic directory creation is shared by native Windows and WSL/DrvFS;
+    # flock and Windows byte locks would use different lock protocols here.
+    RAW.mkdir(parents=True,exist_ok=True)
+    lock=RAW/'.attempts-lock'
+    deadline=time.monotonic()+10
+    while True:
+        try:
+            lock.mkdir()
+            break
+        except FileExistsError:
+            if time.monotonic()>=deadline:
+                raise RuntimeError('Campaign ledger lock deadline; inspect owned writers before removing a stale lock')
+            time.sleep(0.01)
+    try:
+        yield
+    finally:
+        lock.rmdir()
+
 def append(record):
     DOC.mkdir(parents=True, exist_ok=True)
-    with (DOC/'attempts.jsonl').open('a',encoding='utf-8') as stream:
-        stream.write(json.dumps(record,ensure_ascii=True)+'\n')
-        stream.flush()
-        os.fsync(stream.fileno())
+    with ledger_lock():
+        # Epoch 1 remains byte-for-byte frozen after a diagnosed concurrent
+        # writer collision. New writes never rewrite or repair its raw bytes.
+        with (DOC/'attempts-v2.jsonl').open('a',encoding='utf-8') as stream:
+            stream.write(json.dumps(record,ensure_ascii=True)+'\n')
+            stream.flush()
+            os.fsync(stream.fileno())
+
+def read_ledger(path):
+    quarantine=DOC/'core/ledger-quarantine.json'
+    known=json.loads(quarantine.read_text(encoding='utf-8')) if quarantine.exists() else {}
+    fragments={r['sha256'] for r in known.get('fragments',[])}
+    data=path.read_bytes()
+    records=[]
+    for line in data.splitlines():
+        try:
+            records.append(json.loads(line))
+        except json.JSONDecodeError:
+            if hashlib.sha256(line).hexdigest() not in fragments or hashlib.sha256(data).hexdigest()!=known.get('frozen_sha256'):
+                raise RuntimeError('Unknown campaign ledger damage: '+str(path))
+            # This exact damaged fragment remains retained in the frozen file
+            # and quarantine manifest. It is never treated as a passing event.
+    return records
+
+def read_attempts():
+    with ledger_lock():
+        return [row for name in ['attempts.jsonl','attempts-v2.jsonl']
+                if (DOC/name).exists() for row in read_ledger(DOC/name)]
 
 def contract_identity(project, argv):
     """Capture current bytes before execution, without reading ambient secrets."""

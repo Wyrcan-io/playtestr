@@ -1,0 +1,45 @@
+[
+  {
+    "attempt_id": "a519bb55f3dc442297a8a9d600b7dded",
+    "kind": "harness-error.json",
+    "sha256": "9e2781a28fbca271d472ff5f63f6607e1a5943f18f0fbcae353060eb1f269f60",
+    "observed": {
+      "type": "TimeoutError",
+      "message": "independent deadline exceeded"
+    }
+  },
+  {
+    "attempt_id": "b9f0db5ab55746dba0c172553ea54362",
+    "kind": "cleanup-errors.json",
+    "sha256": "697c7e6f6de489ad1e2c5a8947bee5708d6ecb91e4a8d87846ff5155d69e7722",
+    "observed": [
+      "terminate owned command: RuntimeError: synthetic cleanup fault after actual termination"
+    ]
+  },
+  {
+    "attempt_id": "de674f6aec7647dab5af36a96ace246c",
+    "kind": "cleanup-errors.json",
+    "sha256": "697c7e6f6de489ad1e2c5a8947bee5708d6ecb91e4a8d87846ff5155d69e7722",
+    "observed": [
+      "terminate owned command: RuntimeError: synthetic cleanup fault after actual termination"
+    ]
+  },
+  {
+    "attempt_id": "de674f6aec7647dab5af36a96ace246c",
+    "kind": "harness-error.json",
+    "sha256": "7ae907b0aad42a511aa1e1fe243baeedb3d459003552bf60d39dc6685c0dd309",
+    "observed": {
+      "type": "RuntimeError",
+      "message": "preserve-original-cleanup-failure: expected exit 0, got 7; /home/runner/work/playtestr/playtestr/artifacts/ten-new-project-adversarial-pass/harness-controls/de674f6aec7647dab5af36a96ace246c"
+    }
+  },
+  {
+    "attempt_id": "eca856c7804e487d84247571f396c1ba",
+    "kind": "harness-error.json",
+    "sha256": "693dbba4118b9c0e1991956b566d6488e0189f52846fb3909854cbdc5868953c",
+    "observed": {
+      "type": "RuntimeError",
+      "message": "independent harness output cap"
+    }
+  }
+]

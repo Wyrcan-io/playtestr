@@ -1,0 +1,55 @@
+{
+  "version": 2,
+  "name": "Recopy from saved answers while preserving a local README",
+  "command": [
+    "copier",
+    "recopy",
+    "--skip-answered",
+    "--ask",
+    "project_name",
+    "existing"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Project name"
+    },
+    {
+      "key": "CtrlA"
+    },
+    {
+      "key": "CtrlK"
+    },
+    {
+      "text": "Recopied"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Overwrite"
+    },
+    {
+      "text": "n"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "snapshot": "normal-recopy-protected.txt"
+    }
+  ]
+}

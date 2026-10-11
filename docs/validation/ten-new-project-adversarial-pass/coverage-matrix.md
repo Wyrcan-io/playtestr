@@ -51,6 +51,7 @@ Existing controls were inspected and mapped before campaign control execution. T
 | fixture-links-bounds | Spec and paths | Real fixture rejects links/specials/oversize | `TestWorkspaceFixtureCopyRejectsUnsafeAndBoundedInputs` |
 | resolve-before-cwd | Spec and paths | Target executable resolved before changed cwd | `TestWorkspaceCommandResolutionPrecedesFixtureCWD` |
 | report-traversal | Spec and paths | Evidence references cannot traverse admitted root | `TestRenderHTMLRejectsUnsafeEvidenceReferences` |
+| windows-workspace-long-path | Workspaces | Actual Windows target receives long workspace path when TEMP is an 8.3 alias; process and filesystem cleanup confirmed | `TestAdversarialWindowsWorkspaceExpandsShortTemporaryPath` |
 | fresh-state | Workspaces | Every invocation has fresh owned fixture and cleanup | `TestWorkspaceRunsTwiceFromFreshFixtureAndCleans` |
 | failure-retention | Workspaces | Explicit failure retention has accurate evidence | `TestWorkspaceFailureCleanupAndExplicitRetention` |
 | setup-no-launch | Workspaces | Invalid fixture never launches target | `TestWorkspaceSetupFailureDoesNotLaunchTarget` |

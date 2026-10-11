@@ -15,3 +15,16 @@ The first operator route exceeded the recorder-operation gate: an incorrectly na
 Reacquisition uses `adversarial_setup_cookiecutter.py --project copier`; that wrapper's historical filename does not identify the installed application. Restore the reviewed synthetic Git metadata using `adversarial_copier_git_fixture.py` before running Git scenarios. The compressed archive contains only owned synthetic Git histories, no upstream checkout. The native recipe is `adversarial_native_project.py --project copier`. Dependency constraints, license, reviewed specs, baselines and fixtures are retained; application/runtime copies must be removed after actual qualification.
 
 Unsupported claims: automatic semantic test inference, complete filesystem correctness from terminal snapshots, sandboxing, independent beginner usability, all possible workflows, final batch acceptance, and commercial readiness.
+
+The first hosted attempt at source `93b9463d922cd3a6c187ff15288dac5b216c049d`
+failed Linux's full-screen file-list order and Windows's Git update path alias.
+[Actual native run](https://github.com/Wyrcan-io/playtestr/actions/runs/38115136553)
+and [first-failure evidence](../native/38115136553/first-failures/manifest.json)
+are retained. Four multi-file cases now deliberately select stable answer rows;
+the unordered create/conflict listing is excluded, while meaningful prompt
+actions, exact exits, and independent exact generated/protected files remain
+required. [Historical full-screen specs](historical-fullscreen/) and their
+original `.txt` baselines remain for audit. This is an explicit contract-scope
+revision, not a runner normalization fix or a claim that terminal rows prove
+filesystem correctness. Source faults and maintenance were rechecked locally
+against the revised contract; native repetitions and deletion are pending.

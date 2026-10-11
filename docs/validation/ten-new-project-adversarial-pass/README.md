@@ -2,6 +2,14 @@
 
 Invoked 10 October 2026. **In progress; no projects accepted yet.**
 
+The original `attempts.jsonl` is frozen after a diagnosed concurrent append
+collision. Its original bytes, exact fragment and checksum remain retained in
+[the quarantine record](core/ledger-quarantine.json). New serialized attempts
+append to `attempts-v2.jsonl`; `adversarial_process.read_attempts()` reads both
+epochs and rejects unknown damage. The affected imported identity was restored
+only from the actual native archive, with an appended audit. This migration
+does not turn incomplete, failed or corrupted attempts into qualification.
+
 This executes the [full prompt](../../plans/ten-new-project-adversarial-validation-prompt.md). The earlier campaign remains separate and unchanged. Full-product launch campaign credit remains **0/100**.
 
 Before acquiring applications, primary GitHub metadata and pinned READMEs were screened. [Candidate registry](candidates.json) and append-only [screening attempts](screening-attempts.jsonl) retain unavailable identities, exclusions and reserves. Pins are immutable; platform assignments remain provisional until actual execution.

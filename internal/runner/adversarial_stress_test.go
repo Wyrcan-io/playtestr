@@ -109,7 +109,9 @@ func runAdversarialStressSpec(t *testing.T, mode string, steps []Step, timeout i
 		env[name] = value
 	}
 	spec := Spec{Version: SpecVersion, Command: []string{os.Args[0], "-test.run=^TestAdversarialStressHelper$"},
-		Env: env, Width: 200, Height: 40, TimeoutMS: timeout, RunTimeoutMS: 15000,
+		// Test-only whole-run budget accommodates 320 actions under the race
+		// detector. Per-step deadlines and exact-byte correctness stay unchanged.
+		Env: env, Width: 200, Height: 40, TimeoutMS: timeout, RunTimeoutMS: 60000,
 		MaxOutputBytes: outputCap, Steps: steps}
 	data, err := json.Marshal(spec)
 	if err != nil {

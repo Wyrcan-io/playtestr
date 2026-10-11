@@ -63,6 +63,7 @@ CONTROLS={
  ('report-traversal','TestRenderHTMLRejectsUnsafeEvidenceReferences','Evidence references cannot traverse admitted root'),
  ],
  'Workspaces':[
+ ('windows-workspace-long-path','TestAdversarialWindowsWorkspaceExpandsShortTemporaryPath','Actual Windows target receives long workspace path when TEMP is an 8.3 alias; process and filesystem cleanup confirmed'),
  ('fresh-state','TestWorkspaceRunsTwiceFromFreshFixtureAndCleans','Every invocation has fresh owned fixture and cleanup'),
  ('failure-retention','TestWorkspaceFailureCleanupAndExplicitRetention','Explicit failure retention has accurate evidence'),
  ('setup-no-launch','TestWorkspaceSetupFailureDoesNotLaunchTarget','Invalid fixture never launches target'),
@@ -120,6 +121,7 @@ def main():
                            'TestWindowsResizeRepliesRequireCurrentDimensions',
                            'TestWindowsEnterAndCtrlJRemainDistinctThroughRealPTY',
                            'TestWindowsResizeOutputFenceRequiresReturnedCurrentRequest',
+                           'TestAdversarialWindowsWorkspaceExpandsShortTemporaryPath',
                            'TestWindowsResizeWithoutAcknowledgmentIsBounded'}:
             row['hosts']=['windows']
     (DOC/'coverage-matrix.json').write_text(json.dumps(dict(controls=records,

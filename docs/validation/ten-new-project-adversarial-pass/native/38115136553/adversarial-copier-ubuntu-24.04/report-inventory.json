@@ -1,0 +1,31 @@
+[
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/copier/normal-project-unix-test-0-1791696800870023172.json",
+    "sha256": "fb3c8ee1af531f6dd8d8dd86789d5bb5a1415f0a19453e32ccb5f3dc0428e30f",
+    "summary": {
+      "total": 1,
+      "passed": 0,
+      "failed": 1,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Dependent project files and nondefault keyboard-selected license",
+        "status": "failed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": {
+          "category": "snapshot_mismatch",
+          "message": "rendered screen did not match the reviewed snapshot"
+        }
+      }
+    ]
+  }
+]

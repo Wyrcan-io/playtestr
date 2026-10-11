@@ -135,6 +135,11 @@ func prepareWorkspace(ctx context.Context, specPath string, spec Spec) (*prepare
 	if err != nil {
 		return nil, fmt.Errorf("create workspace root: %w", err)
 	}
+	createdRoot := root
+	root, err = canonicalWorkspaceRoot(root)
+	if err != nil {
+		return nil, errors.Join(err, os.Remove(createdRoot))
+	}
 	tokenBytes := make([]byte, 16)
 	if _, err := rand.Read(tokenBytes); err != nil {
 		_ = os.Remove(root)
@@ -414,7 +419,14 @@ func (workspace *preparedWorkspace) cleanup(ctx context.Context) error {
 	if err != nil {
 		return fmt.Errorf("resolve workspace root: %w", err)
 	}
+	root, err = canonicalWorkspaceRoot(root)
+	if err != nil {
+		return fmt.Errorf("resolve native workspace root: %w", err)
+	}
 	temporary, err := filepath.Abs(os.TempDir())
+	if err == nil {
+		temporary, err = canonicalWorkspaceRoot(temporary)
+	}
 	if err != nil || !pathWithin(temporary, root) || filepath.Dir(root) != filepath.Clean(temporary) || !strings.HasPrefix(filepath.Base(root), "playtestr-workspace-") {
 		return fmt.Errorf("refusing to remove unowned workspace path %q", root)
 	}

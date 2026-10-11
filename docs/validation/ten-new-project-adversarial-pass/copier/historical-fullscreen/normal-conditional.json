@@ -1,0 +1,50 @@
+{
+  "version": 2,
+  "name": "Conditional question and actual optional file creation",
+  "command": [
+    "copier",
+    "copy",
+    "templates/conditional",
+    "project"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Include documentation"
+    },
+    {
+      "text": "y"
+    },
+    {
+      "expect": "Documentation module"
+    },
+    {
+      "key": "CtrlA"
+    },
+    {
+      "key": "CtrlK"
+    },
+    {
+      "text": "docs"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "snapshot": "normal-conditional.txt"
+    }
+  ]
+}

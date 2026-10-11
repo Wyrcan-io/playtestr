@@ -4,7 +4,7 @@ import hashlib
 import json
 from pathlib import Path
 import shutil
-from adversarial_process import ROOT,DOC,RAW,run,append
+from adversarial_process import ROOT,DOC,RAW,run,append,read_attempts,read_ledger
 
 def main():
     parser=argparse.ArgumentParser()
@@ -18,7 +18,7 @@ def main():
     destination=DOC/'native'/args.run
     destination.mkdir(parents=True,exist_ok=False)
     records=[]
-    known={(r['id'],r['event']) for r in map(json.loads,(DOC/'attempts.jsonl').read_text(encoding='utf-8').splitlines())}
+    known={(r['id'],r['event']) for r in read_attempts()}
     matrix=json.loads((DOC/'coverage-matrix.json').read_text(encoding='utf-8'))
     for artifact in metadata['artifacts']:
         folder=args.download/artifact['name']
@@ -31,11 +31,33 @@ def main():
         report_inventory=[]
         state_inventory=[]
         harness_failures=[]
+        def retain_evidence(result):
+            for key,reference in (result.get('evidence') or {}).items():
+                if key not in {'screen_path','diff_path'}: continue
+                relative=Path(reference.replace('\\','/'))
+                if relative.is_absolute() or '..' in relative.parts or ':' in reference:
+                    raise RuntimeError('Unsafe native failure reference')
+                lexical=folder/relative
+                for component in [lexical,*lexical.parents]:
+                    if component==folder.parent: break
+                    if component.is_symlink() or getattr(component,'is_junction',lambda:False)():
+                        raise RuntimeError('Linked native failure reference')
+                original=lexical.resolve(strict=True)
+                if not original.is_relative_to(folder.resolve()) or original.stat().st_size>4*1024*1024:
+                    raise RuntimeError('Native failure evidence escapes bounds')
+                output=retained/'fault-evidence'/relative
+                output.parent.mkdir(parents=True,exist_ok=True)
+                if output.exists() and output.read_bytes()!=original.read_bytes():
+                    raise RuntimeError('Native failure evidence conflict')
+                shutil.copyfile(original,output)
+                record['files'][output.relative_to(retained).as_posix()]=hashlib.sha256(output.read_bytes()).hexdigest()
         for path in folder.rglob('*.json'):
             if path.stat().st_size>4*1024*1024:
                 raise RuntimeError('Native evidence JSON file exceeds retention bound')
             data=json.loads(path.read_text(encoding='utf-8'))
             if isinstance(data,dict) and 'summary' in data and 'results' in data:
+                for result in data['results']:
+                    if result.get('status')=='failed': retain_evidence(result)
                 report_inventory.append({'path':path.relative_to(folder).as_posix(),
                     'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),
                     'summary':data['summary'],'results':[{key:result.get(key) for key in
@@ -64,15 +86,25 @@ def main():
                     control['evidence'].append({'run':args.run,'artifact_id':artifact['id'],
                         'source':info['headSha'],'artifact':artifact['name'],
                         'events_sha256':record['files']['test-events.jsonl']})
-        for ledger in folder.rglob('attempts.jsonl'):
-            for row in map(json.loads,ledger.read_text(encoding='utf-8').splitlines()):
+        race_events=list(folder.rglob('race-events.jsonl'))
+        if race_events:
+            if len(race_events)!=1: raise RuntimeError('Ambiguous native race events')
+            race=[json.loads(line) for line in race_events[0].read_text(encoding='utf-8').splitlines()]
+            record['race_failed_tests']=[r.get('Test',r.get('Package')) for r in race if r.get('Action')=='fail']
+            record['race_passed_tests']=[r['Test'] for r in race if r.get('Action')=='pass' and r.get('Test')]
+            shutil.copyfile(race_events[0],retained/'race-events.jsonl')
+            record['files']['race-events.jsonl']=hashlib.sha256(race_events[0].read_bytes()).hexdigest()
+        for ledger in [*folder.rglob('attempts.jsonl'),*folder.rglob('attempts-v2.jsonl')]:
+            ledger_rows=read_ledger(ledger)
+            for row in ledger_rows:
                 key=(row['id'],row['event'])
                 if key not in known:
                     append(row)
                     known.add(key)
                 if row['event']=='finished' and row['label'] in {'detached-startup-before','detached-startup-after'}:
-                    started=next(json.loads(line) for line in ledger.read_text(encoding='utf-8').splitlines()
-                        if json.loads(line)['id']==row['id'] and json.loads(line)['event']=='started')
+                    started=next(r for r in read_ledger(ledger.parent/'attempts.jsonl')+(
+                        read_ledger(ledger.parent/'attempts-v2.jsonl') if (ledger.parent/'attempts-v2.jsonl').exists() else [])
+                        if r['id']==row['id'] and r['event']=='started')
                     console=folder/started['evidence']/'console.log'
                     if not console.is_file():
                         continue # Historical ledger entries are not this host's executions.
@@ -118,24 +150,7 @@ def main():
             # retaining a JSON reference to evidence that was never copied.
             report=json.loads(report_path.read_text(encoding='utf-8'))
             for result in report.get('results',[]):
-                evidence=result.get('evidence') or {}
-                for key in ['screen_path','diff_path']:
-                    reference=evidence.get(key)
-                    if not reference: continue
-                    relative=Path(reference.replace('\\','/'))
-                    if relative.is_absolute() or '..' in relative.parts or ':' in reference:
-                        raise RuntimeError('Unsafe native fault evidence reference')
-                    original=(folder/relative).resolve(strict=True)
-                    if not original.is_relative_to(folder.resolve()) or original.is_symlink():
-                        raise RuntimeError('Native fault evidence escapes downloaded artifact')
-                    if original.stat().st_size>4*1024*1024:
-                        raise RuntimeError('Native fault evidence exceeds retained bound')
-                    output=retained/'fault-evidence'/relative
-                    output.parent.mkdir(parents=True,exist_ok=True)
-                    if output.exists() and output.read_bytes()!=original.read_bytes():
-                        raise RuntimeError('Native fault evidence conflict')
-                    shutil.copyfile(original,output)
-                    record['files'][output.relative_to(retained).as_posix()]=hashlib.sha256(output.read_bytes()).hexdigest()
+                retain_evidence(result)
         records.append(record)
     (destination/'manifest.json').write_text(json.dumps({'run':info,'artifacts':records,
         'scope':'Actual development evidence; final campaign freeze still pending'},indent=2)+'\n',encoding='utf-8')

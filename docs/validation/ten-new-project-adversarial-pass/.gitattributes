@@ -2,3 +2,6 @@
 ** -text whitespace=cr-at-eol
 *.patch whitespace=cr-at-eol,-blank-at-eol,-blank-at-eof,-space-before-tab
 **/UPSTREAM-LICENSE.txt whitespace=cr-at-eol,-blank-at-eof
+# Exact unified diffs include a space on otherwise blank context rows.
+**/first-failures/*-diff_path.txt whitespace=cr-at-eol,-blank-at-eol
+**/fault-evidence/**/*.diff.txt whitespace=cr-at-eol,-blank-at-eol

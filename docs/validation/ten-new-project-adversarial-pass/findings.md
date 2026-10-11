@@ -2,6 +2,56 @@
 
 No batch completion or final qualification is claimed.
 
+H15 — Shared ledger integrity / high: native-evidence import overlapped a WSL
+recorder finish and overwrote part of an imported identity event. Preserve
+epoch 1 byte-for-byte, including its exact malformed fragment and recorded
+checksum in [the quarantine manifest](core/ledger-quarantine.json). New writes
+use `attempts-v2.jsonl` under a bounded atomic-directory lock shared by Windows
+and WSL. Readers recognize only the exact quarantined fragment in the exact
+frozen file; any unknown damage is an error, never a green record. Restore the
+one lost identity event from the actual retained native Ubuntu artifact and
+append an explicit restoration audit with its archive-ledger checksum. Four
+real concurrent writers preserve all 80 exact synthetic records; an unrelated
+malformed ledger is rejected. Thirteen local harness controls pass (two native
+symlink prerequisites skipped), without transport warnings. Hosted reruns
+remain necessary. No original damaged bytes or failed attempts were rewritten.
+
+P06 — Windows workspace interoperability: native run 38115136553 reached
+Copier's Git update, then its actual path containment check rejected the short
+`RUNNER~1` temporary path against Git's `runneradmin` long spelling. Expand the
+newly created owned workspace and cleanup's temporary-root comparison through
+the native long-path API. Preserve ownership-marker and reparse checks. A real
+short-alias/ConPTY target fails with the original launch spelling and passes
+ten repaired runs with process and workspace cleanup. The first candidate
+exposed cleanup's own spelling mismatch and was rejected before correction.
+[Before/after evidence](core/workspace-short-path-repair.json). Native
+application requalification is pending.
+
+C02 — Target output determinism and explicit assertion scope: Copier's actual
+multi-file create/conflict log order differs between fresh filesystems. Native
+Linux failed its full-screen baseline while answers and exit matched. Preserve
+the old full-screen contracts and failure; publicly record deliberately
+selected stable answer rows for four multi-file workflows. Each still executes
+all meaningful prompts/actions and exact exit, and independently checks exact
+generated/protected files. Excluded listing order is explicitly untested; no
+automatic sorting, masking, or inferred filesystem assertion was added to the
+runner. Actual fault detection/restoration must rerun against these revised
+contracts. Windows and exploratory Linux/WSL reviewed row captures succeeded;
+hosted qualification remains pending.
+
+H13 — Instrumented stress-test budget: native macOS ordinary rapid-key control
+passed in 0.73 seconds; the race run matched all 320 expected bytes then exceeded
+its test-only 15-second whole-run deadline while waiting for exit at step 323.
+Retain the failure, use a 60-second test-only whole-run budget for this bounded
+stress helper, and keep exact byte assertions and per-step budgets unchanged.
+No product default or project deadline changed. Native race requalification is
+required; this is not a zero-failure or performance claim.
+
+H14 — Repeated maintenance collision: a second legitimate assessment found the
+earlier owned relocation directory. Use a unique campaign assessment ID in the
+relocated checkout name. The failed attempt and earlier result remain evidence;
+the corrected public edit/diagnosis/update/replay/relocation route passes.
+
 P05 — Windows repeated-resize defect: a real continuously redrawing target
 reported the second requested dimensions while ConPTY emitted no second CSI 8
 resize confirmation. The previous exact-confirmation-only barrier timed out.
