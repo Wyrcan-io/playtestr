@@ -2,6 +2,25 @@
 
 No batch completion or final qualification is claimed.
 
+P05 — Windows repeated-resize defect: a real continuously redrawing target
+reported the second requested dimensions while ConPTY emitted no second CSI 8
+resize confirmation. The previous exact-confirmation-only barrier timed out.
+The candidate also accepts an output read begun after successful native resize
+return, for the current request only. This fences transport progression; queued
+output does not prove application readiness, which remains an explicit screen
+assertion. A pre-return read and superseded read are rejected. Ten fresh real
+12-resize repetitions passed locally. The first combined ten-run command
+exceeded its 120-second harness budget and remains incomplete evidence; the
+300-second retry kept unchanged product deadlines. Native requalification and
+the historical wizard stability check are pending. [Before evidence and design](core/continuous-resize-investigation.json).
+
+H12 — CPython harness cleanup: calibration completed but emitted destructor
+warnings for unclosed Proactor subprocess transports after loop shutdown.
+Explicitly close the pinned Python 3.12 process transports after bounded
+drain/reaping while the loop remains live, including taskkill and load-worker
+transports. Eleven controls reran without warnings locally (two symlink tests
+skipped for unavailable Windows privilege); native checks remain required.
+
 | ID | Class / severity | Observation | Disposition / evidence |
 | --- | --- | --- | --- |
 | H01 | Harness / high | Earlier helper used unbounded output capture and checks separate from repeated runner attempts | New async capture has independent output/time bounds and unique append-only launch/finish IDs. State checks use the current recorder workspace and compare the approved screen. They remain separately counted executions, not public filesystem assertions. |
@@ -30,3 +49,5 @@ Attempts created after the provenance repair retain runner bytes and exact spec,
 Initial direct public smoke commands and the initial startup diagnostic preceded attempt registration and are excluded from append-only campaign counts. Registered startup before/after evidence is retained separately. The initial basic route used an already prepared control sequence; its 3.811-second execution measurement is not total authoring effort. A later bounded public Cookiecutter route measured 65.078 active operator seconds, three shell commands, twelve recorder controls and zero manual JSON edits. Prior project knowledge, prepared fixtures and warm caches remain confounders; this is an operator assessment, not novice usability evidence.
 
 Native source `3154500e1e2a576378a951366cfa8e008f6c3441` passed the wizard reproduction and standard recovery smoke on all three OSes. This supports the measured resize synchronization repair; it does not prove the earliest historical timeout's internal OS mechanism. P04 is a separate subsequent finding requiring its own native requalification.
+
+Native update: run 38051205443 passed all five jobs at `d9c5c46130f67e6e99d76ae289afa6ce439f1154`, including real Windows P04 before/after rejection and ten restored controls, all applicable core checks, Cookiecutter Linux/Windows faults/repetitions/state and owned deletion. H07?H10 native rechecks also passed. Standard smoke run 38051205435 passed all three OSes. Earlier pending-native table text describes discovery-time disposition; these actual subsequent results resolve those development requalification gates. H11 calibration intentionally retains separate synthetic cleanup errors.

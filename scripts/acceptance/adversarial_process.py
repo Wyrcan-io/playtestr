@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 import hashlib
 import json
 import os
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 import platform
 import signal
 import subprocess
@@ -30,17 +30,37 @@ def contract_identity(project, argv):
     """Capture current bytes before execution, without reading ambient secrets."""
     package=DOC/project
     contracts={}
+    fixture_names={'fixtures'}
+    scenarios=package/'scenarios.json'
+    if scenarios.is_file():
+        configuration=json.loads(scenarios.read_text(encoding='utf-8'))
+        fixture_names.add(configuration.get('fixture','fixtures'))
+        fixture_names.update(case.get('fixture',configuration.get('fixture','fixtures')) for case in configuration.get('cases',[]))
+    fixture_roots=[]
+    for name in fixture_names:
+        path=(package/name).resolve()
+        path.relative_to(package.resolve())
+        fixture_roots.append(path)
     if package.is_dir():
         for path in sorted(package.rglob('*')):
             if path.is_file() and not path.is_symlink() and (
                     path.parent==package and path.suffix=='.json' or
                     'snapshots' in path.relative_to(package).parts or
-                    'fixtures' in path.relative_to(package).parts):
+                    'fixtures' in path.relative_to(package).parts or
+                    any(path.is_relative_to(root) for root in fixture_roots)):
                 if path.stat().st_size>4*1024*1024:
                     raise RuntimeError('Contract identity file exceeds independent bound')
                 contracts[path.relative_to(package).as_posix()]=hashlib.sha256(path.read_bytes()).hexdigest()
     runner=Path(str(argv[0]))
     identity={'contracts':contracts}
+    if Path(str(argv[0])).name in {'go','go.exe'}:
+        source_files={}
+        for directory in [ROOT/'internal',ROOT/'cmd']:
+            for path in sorted(directory.rglob('*.go')):
+                source_files[path.relative_to(ROOT).as_posix()]=hashlib.sha256(path.read_bytes()).hexdigest()
+        for name in ['go.mod','go.sum']:
+            source_files[name]=hashlib.sha256((ROOT/name).read_bytes()).hexdigest()
+        identity['product_source_files']=source_files
     inputs={}
     for argument in argv[1:]:
         path=Path(str(argument))
@@ -52,6 +72,12 @@ def contract_identity(project, argv):
     if runner.is_file() and runner.name.startswith('playtestr'):
         identity['runner_sha256']=hashlib.sha256(runner.read_bytes()).hexdigest()
     runtime=ROOT/'.cache/ten-new-project-apps'/project/'runtime.json'
+    if runtime.is_file() and os.name!='nt':
+        owner=json.loads((runtime.parent/'task-owned.json').read_text(encoding='utf-8'))
+        foreign=PureWindowsPath(owner.get('workspace',''))
+        mapped=('/mnt/'+foreign.drive[0].lower()+'/'+('/'.join(foreign.parts[1:]))) if foreign.drive else ''
+        if owner.get('project')==project and mapped==ROOT.as_posix():
+            runtime=Path('/var/tmp')/('playtestr-adversarial-'+project)/'runtime.json'
     if not runtime.is_file() and os.name!='nt':
         runtime=Path('/var/tmp')/('playtestr-adversarial-'+project)/'runtime.json'
     if runtime.is_file():
@@ -96,7 +122,13 @@ async def stop(proc):
             return
         killer=await asyncio.create_subprocess_exec('taskkill','/PID',str(proc.pid),'/T','/F',
             stdout=asyncio.subprocess.DEVNULL,stderr=asyncio.subprocess.DEVNULL)
-        await asyncio.wait_for(killer.wait(),timeout=5)
+        try:
+            await asyncio.wait_for(killer.wait(),timeout=5)
+        finally:
+            if killer.returncode is None:
+                killer.kill()
+                await asyncio.wait_for(killer.wait(),timeout=2)
+            await close_transport(killer)
     else:
         try:
             os.killpg(proc.pid,signal.SIGKILL)
@@ -104,6 +136,15 @@ async def stop(proc):
             pass
     # Waiting before draining a full PIPE can deadlock asyncio's transport.
     # The caller drains bounded output first, then reaps the process.
+
+async def close_transport(proc):
+    # The pinned CPython 3.12 asyncio Process API has no public close operation.
+    # Explicitly release its transport after bounded drain/reaping, while the
+    # Proactor loop is still live. This is harness plumbing, not runner evidence.
+    transport=getattr(proc,'_transport',None)
+    if transport is not None:
+        transport.close()
+        await asyncio.sleep(0)
 
 async def execute(argv,project,label,*,cwd=ROOT,env=None,input=None,timeout=120,
                   output_cap=4*1024*1024,expected=0,on_output=None,load=False):
@@ -116,7 +157,6 @@ async def execute(argv,project,label,*,cwd=ROOT,env=None,input=None,timeout=120,
                 timeout_seconds=timeout,output_cap=output_cap,
                 variation='owned 2-second 8-MiB SHA256 CPU worker' if load else 'ordinary',
                 expected_exit=expected,evidence=str(directory.relative_to(ROOT)))
-    record['identity']=contract_identity(project,argv)
     append(record)
     output=bytearray()
     proc=None
@@ -125,6 +165,11 @@ async def execute(argv,project,label,*,cwd=ROOT,env=None,input=None,timeout=120,
     worker=None
     original_error=None
     try:
+        # Register even provenance/setup rejection before any subprocess starts.
+        # The separate identity event must precede launch, and captures current
+        # bytes without rewriting a previously fsynced started record.
+        identity=contract_identity(project,argv)
+        append(dict(id=run_id,event='identified',project=project,label=label,identity=identity))
         if load:
             worker=await asyncio.create_subprocess_exec(sys.executable,'-c',
                 'import hashlib,time; b=b"x"*(8*1024*1024); end=time.monotonic()+2; '
@@ -188,6 +233,7 @@ async def execute(argv,project,label,*,cwd=ROOT,env=None,input=None,timeout=120,
             except asyncio.TimeoutError:
                 worker.kill()
                 await clean('reap load worker',asyncio.wait_for(worker.wait(),timeout=2))
+            await clean('close load worker transport',close_transport(worker))
         cleanup='not_started'
         if proc is not None:
             if on_output is not None and proc.returncode is None and not proc.stdin.is_closing():
@@ -223,6 +269,7 @@ async def execute(argv,project,label,*,cwd=ROOT,env=None,input=None,timeout=120,
                         raise RuntimeError('stopped process pipe-drain bound')
             await clean('drain stopped command',asyncio.wait_for(drain_stopped(),timeout=2))
             await clean('reap owned command',asyncio.wait_for(proc.wait(),timeout=5))
+            await clean('close owned command transport',close_transport(proc))
             if cleanup=='not_started':
                 cleanup='harness_process_reaped'
         (directory/'console.log').write_bytes(output)

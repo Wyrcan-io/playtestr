@@ -1,0 +1,11 @@
+_envops:
+  keep_trailing_newline: true
+include_docs:
+  type: bool
+  default: false
+  help: Include documentation
+module_name:
+  type: str
+  default: core
+  when: "{{ include_docs }}"
+  help: Documentation module

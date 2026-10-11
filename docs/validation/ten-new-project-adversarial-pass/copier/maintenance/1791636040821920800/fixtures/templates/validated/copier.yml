@@ -1,0 +1,7 @@
+_envops:
+  keep_trailing_newline: true
+slug:
+  type: str
+  default: valid
+  help: Lowercase slug
+  validator: "{% if slug != slug | lower %}Slug must be lowercase{% endif %}"

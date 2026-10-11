@@ -1,0 +1,15 @@
+_envops:
+  keep_trailing_newline: true
+project_name:
+  type: str
+  default: Example
+  help: Project name
+project_slug:
+  type: str
+  default: "{{ project_name | lower | replace(' ', '-') }}"
+  help: Project slug
+license:
+  type: str
+  choices: [MIT, Apache-2.0]
+  default: MIT
+  help: License

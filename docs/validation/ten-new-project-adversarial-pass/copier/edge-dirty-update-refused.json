@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "name": "Dirty Git project refuses update and preserves actual uncommitted local state",
+  "command": [
+    "copier",
+    "update",
+    "--skip-answered",
+    "updated"
+  ],
+  "workspace": {
+    "fixture": "fixtures-dirty",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Destination repository is dirty; cannot continue."
+    },
+    {
+      "exit": 1
+    },
+    {
+      "snapshot": "edge-dirty-update-refused.txt"
+    }
+  ]
+}

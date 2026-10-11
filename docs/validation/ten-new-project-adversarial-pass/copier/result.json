@@ -1,0 +1,27 @@
+{
+  "project": "copier",
+  "source_pin": "04a8619f3b083bc278b70e556bd085551a2b3f79",
+  "license": "MIT",
+  "status": "development_in_progress_pending_native_qualification_and_cleanup",
+  "normal_scenarios": 6,
+  "edge_scenarios": 6,
+  "reviewed_host_variants": ["Windows", "Linux-WSL-exploratory"],
+  "qualified_native_host_pairs": 0,
+  "final_frozen_repetitions": 0,
+  "mutation_controls": ["validator-bypass", "wrong-success-exit"],
+  "state_corruption_control": "silent-saved-corruption",
+  "local_mutation_scope": "Actual Windows target source mutations with unchanged contracts; native hosted requalification pending",
+  "ux": {
+    "commands": 3,
+    "recorder_controls": 15,
+    "active_operator_seconds": 92.5,
+    "manual_json_edits_first_pass": 0,
+    "diagnosis_commands": 2,
+    "confounders": ["Prepared synthetic fixtures", "Warm caches", "Prior corrected operator knowledge"],
+    "assessment": "Operator assessment, not novice study"
+  },
+  "maintenance": "maintenance-result.json",
+  "ux_ledger": "ux-bounded-ledger.json",
+  "app_source_deleted": false,
+  "full_product_campaign_credit": 0
+}

@@ -14,13 +14,16 @@ from adversarial_process import ROOT,DOC,RAW,run
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--native-source',action='store_true')
+    parser.add_argument('--project',default='cookiecutter')
     args=parser.parse_args()
-    project='cookiecutter'
+    project=args.project
+    if not project or any(c not in 'abcdefghijklmnopqrstuvwxyz0123456789-' for c in project):
+        raise RuntimeError('Invalid owned project identity')
     candidate=next(c for c in json.loads((DOC/'candidates.json').read_text())
-                   if c['repo']=='cookiecutter/cookiecutter')
+                   if c['repo'].split('/')[-1]==project and c['disposition']=='selected')
     app=ROOT/'.cache/ten-new-project-apps'/project
     if args.native_source:
-        app=Path('/var/tmp/playtestr-adversarial-cookiecutter')
+        app=Path('/var/tmp')/('playtestr-adversarial-'+project)
     app.mkdir(parents=True,exist_ok=True)
     marker=app/'task-owned.json'
     owner=dict(campaign='ten-new-project-adversarial-pass',workspace=str(ROOT),

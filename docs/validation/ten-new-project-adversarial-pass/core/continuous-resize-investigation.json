@@ -1,0 +1,14 @@
+{
+  "status": "repair_under_validation",
+  "before_attempt": "330abee0687a4aab91f2856ec5153a97",
+  "console_sha256": "e8d0c429e6769f5de82e1f66b1f18283a433bfdfba6c27c341f064359aa2f61d",
+  "observation": "Second native resize returns and target repeatedly reports 85x25, but raw transport contains no matching CSI 8 acknowledgment.",
+  "first_after_attempt": "1803d4e7fc014ce69d7ce918e54300a2",
+  "first_after_status": "harness_timeout_120_seconds_incomplete_repetition_not_qualified",
+  "design": "Successful native resize plus a subsequent output read can complete the transport barrier. Application readiness remains a separate assertion. Pre-return or superseded reads cannot complete the barrier. Queued output is not semantic application readiness.",
+  "primary_reference": "https://learn.microsoft.com/en-us/windows/console/resizepseudoconsole",
+  "after_attempt": "c69f0d5bf54946d38754dbb67202755f",
+  "after_status": "passed",
+  "after_seconds": 130.766,
+  "after_console_sha256": "3f0260b48d214c20d5d6d11c289dffa6af4fe82752e195dd91dcc0a3be58a444"
+}

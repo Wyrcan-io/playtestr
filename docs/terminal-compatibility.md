@@ -36,12 +36,17 @@ settings remain unsupported. Terminal replies are discarded; query-dependent
 tasks and bracketed-paste behavior remain outside the supported contract.
 Selected two-column evidence is not general grapheme or universal Unicode support.
 
-Current source synchronizes Windows resize with ConPTY's matching
-`CSI 8;height;width t` output before sending the next input. The wait shares the
-step deadline. A console backend that does not emit this confirmation produces
-a bounded resize failure; older Windows implementations have not been qualified
-for this new path. This transport observation does not answer terminal queries
-or enable application-directed window manipulation.
+Current source synchronizes Windows resize before sending the next input.
+After successful native resize it accepts either ConPTY's matching
+`CSI 8;height;width t` output or output from a read begun after that API call
+returned, for the current resize request. ConPTY does not emit the matching
+confirmation on every resize. The wait shares the step deadline; absence of
+both signals produces a bounded resize failure. This transport barrier does
+not prove the application redrew: queued output can be older than the resize.
+Use an explicit expectation for the application's new state, or the supported
+redraw checkpoint. Older Windows implementations remain unqualified. This
+observation does not answer terminal queries or enable application-directed
+window manipulation.
 
 Current source creates Windows targets suspended, attaches their Job Object,
 then resumes the initial thread. This prevents immediate detached child

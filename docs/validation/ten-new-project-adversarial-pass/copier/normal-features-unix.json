@@ -1,0 +1,47 @@
+{
+  "version": 2,
+  "name": "Checkbox navigation and ordered multi-feature saved state",
+  "command": [
+    "copier",
+    "copy",
+    "templates/features",
+    "project"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Optional features"
+    },
+    {
+      "text": " "
+    },
+    {
+      "key": "ArrowDown"
+    },
+    {
+      "key": "ArrowDown"
+    },
+    {
+      "text": " "
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "snapshot": "normal-features-unix.txt"
+    }
+  ]
+}

@@ -1,7 +1,8 @@
 param([Parameter(Mandatory=$true)][string]$Project,
-    [string]$QualificationPath='artifacts/ten-new-project-adversarial-pass/native-cookiecutter-Windows.json')
+    [string]$QualificationPath='')
 $ErrorActionPreference='Stop'
 if ($Project -notmatch '^[a-z0-9-]+$') { throw 'Invalid owned application name' }
+if (-not $QualificationPath) { $QualificationPath = Join-Path 'artifacts/ten-new-project-adversarial-pass' ('native-'+$Project+'-Windows.json') }
 $workspace=(Resolve-Path -LiteralPath '.').Path
 $root=(Resolve-Path -LiteralPath '.cache/ten-new-project-apps').Path
 $target=(Resolve-Path -LiteralPath (Join-Path $root $Project)).Path
@@ -9,7 +10,7 @@ if ($target -ne (Join-Path $root $Project) -or -not $target.StartsWith($root+[IO
 $owner=Get-Content -LiteralPath (Join-Path $target 'task-owned.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 if ($owner.campaign -ne 'ten-new-project-adversarial-pass' -or $owner.workspace -ne $workspace -or $owner.project -ne $Project) { throw 'Unknown target ownership' }
 $qualification=Get-Content -LiteralPath $QualificationPath -Raw -Encoding UTF8 | ConvertFrom-Json
-if ($qualification.project -ne $Project -or $qualification.terminal_repetitions -ne 100) { throw 'Native evidence incomplete' }
+if ($qualification.project -ne $Project -or $qualification.scenarios -lt 10 -or $qualification.terminal_repetitions -ne (10*$qualification.scenarios)) { throw 'Native evidence incomplete' }
 $actualRevision=git -C (Join-Path $target 'source') rev-parse HEAD
 if ($LASTEXITCODE -ne 0 -or $actualRevision -ne $owner.source_sha) { throw 'Owned source revision differs' }
 $dirtySource=git -C (Join-Path $target 'source') status --porcelain --untracked-files=no

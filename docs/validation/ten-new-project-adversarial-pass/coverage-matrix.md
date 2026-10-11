@@ -22,10 +22,18 @@ Existing controls were inspected and mapped before campaign control execution. T
 | silent-input | Output and input bounds | Silent real target can receive initial input | `TestSilentTargetCanReceiveInputWithoutStartupTimeout` |
 | startup-budget | Output and input bounds | Explicit startup readiness deadline | `TestStartupTimeout` |
 | idle-recorder-flood | Output and input bounds | Idle recorder observes overflow or hang | `TestRecordingCancellationAndFloodStopIdleTargets` |
+| disappear-reappear | Readiness | Real target text disappears after input then reappears in a fresh third phase | `TestAdversarialDisappearanceAndReappearance` |
 | stale-ambiguous | Readiness | Ambiguous capture and changing replay state do not qualify | `TestRecordingRejectsAmbiguousAndDynamicReadiness` |
 | absence-transition | Readiness | Previously observed text must actually disappear | `TestExpectNotWaitsForObservedTextToDisappear` |
 | absence-timeout | Readiness | Still-visible old text does not pass absence | `TestExpectNotTimesOutWhileObservedTextRemains` |
 | unready-row | Readiness | No unready/empty/invalid row checkpoint | `TestRowSnapshotRejectsUnreadyEmptyInvalidAndResizedBounds` |
+| rapid-key-order | Keys and terminal | 320 rapid control/text bytes retain exact independent ordering | `TestAdversarialRapidKeysPreserveEveryEvent` |
+| unicode-literal-paste | Keys and terminal | Bounded multi-line Unicode literal input retains exact UTF-8 bytes | `TestAdversarialBoundedUnicodeLiteralPaste` |
+| repeated-resize-output | Keys and terminal | Twelve resizes during actual ongoing output expose correct target dimensions | `TestAdversarialRepeatedResizeDuringOutput` |
+| output-cap-boundary | Keys and terminal | Real output below and above the cap has distinct accurate outcomes | `TestAdversarialOutputCapBoundary` |
+| unsupported-query-bound | Keys and terminal | Unsupported cursor query produces bounded truthful failure, without claiming reply support | `TestAdversarialUnsupportedCursorQueryIsBounded` |
+| windows-enter-lf | Keys and terminal | Real Windows target distinguishes CR, LF and CR after resize | `TestWindowsEnterAndCtrlJRemainDistinctThroughRealPTY` |
+| windows-resize-fence | Keys and terminal | Protocol unit control rejects pre-return and superseded output read fences | `TestWindowsResizeOutputFenceRequiresReturnedCurrentRequest` |
 | control-keys | Keys and terminal | Exact control bytes through real PTY | `TestEditingControlKeysThroughRealPTY` |
 | empty-argv | Keys and terminal | Preserve empty arguments and quoted/spaced values | `TestEmptyArgumentPreservedThroughRealPTY` |
 | resize-target | Keys and terminal | Actual target sees PTY dimensions | `TestTargetObservesResize` |

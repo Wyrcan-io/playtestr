@@ -28,7 +28,7 @@ owner=json.loads((target/'task-owned.json').read_text())
 if owner['campaign']!='ten-new-project-adversarial-pass' or owner['workspace']!=str(ROOT) or owner['project']!=project:
     raise RuntimeError('Unknown application ownership')
 qualification=json.loads((args.qualification or RAW/('native-'+project+'-'+platform.system()+'.json')).read_text())
-if qualification['terminal_repetitions']!=100 or qualification['project']!=project:
+if qualification.get('scenarios',0)<10 or qualification['terminal_repetitions']!=10*qualification['scenarios'] or qualification['project']!=project:
     raise RuntimeError('Native evidence incomplete')
 import subprocess
 if subprocess.check_output(['git','-C',target/'source','rev-parse','HEAD'],text=True).strip()!=owner['source_sha']:

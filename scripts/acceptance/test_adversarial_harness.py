@@ -4,6 +4,7 @@ import json
 import os
 from pathlib import Path
 import sys
+import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -98,6 +99,36 @@ class NativeHarnessControls(unittest.TestCase):
                 self.skipTest('Native symlink prerequisite unavailable: '+str(error))
             with self.assertRaisesRegex(RuntimeError,'linked state'):
                 check_state(working,dict(expected_files={'linked':'approved'}))
+
+    def test_expected_absence_rejects_dangling_symlink(self):
+        with tempfile.TemporaryDirectory(prefix='playtestr-workspace-oracle-') as root:
+            working=Path(root)/'fixture'
+            working.mkdir()
+            try:
+                (working/'ghost').symlink_to('missing')
+            except OSError as error:
+                self.skipTest('Native symlink prerequisite unavailable: '+str(error))
+            with self.assertRaisesRegex(RuntimeError,'linked state'):
+                check_state(working,dict(absent_paths=['ghost']))
+
+    @unittest.skipUnless(os.name=='nt','Windows junction control')
+    def test_inside_workspace_junction_does_not_pass(self):
+        with tempfile.TemporaryDirectory(prefix='playtestr-workspace-oracle-') as root:
+            working=Path(root)/'fixture'
+            working.mkdir()
+            actual=working/'actual-dir'
+            actual.mkdir()
+            (actual/'saved.txt').write_bytes(b'approved')
+            link=working/'linked-dir'
+            result=subprocess.run(['cmd.exe','/d','/c','mklink','/J',str(link),str(actual)],
+                stdout=subprocess.PIPE,stderr=subprocess.STDOUT,timeout=5)
+            if result.returncode!=0:
+                self.skipTest('Native junction prerequisite unavailable')
+            try:
+                with self.assertRaisesRegex(RuntimeError,'linked state'):
+                    check_state(working,dict(expected_files={'linked-dir/saved.txt':'approved'}))
+            finally:
+                if link.is_junction(): os.rmdir(link) # Exact nonrecursive unlink.
 
 if __name__=='__main__':
     unittest.main()

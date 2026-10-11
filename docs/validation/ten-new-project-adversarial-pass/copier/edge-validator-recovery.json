@@ -1,0 +1,59 @@
+{
+  "version": 2,
+  "name": "Actual slug validator rejection and correction before generation",
+  "command": [
+    "copier",
+    "copy",
+    "templates/validated",
+    "project"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Lowercase slug"
+    },
+    {
+      "key": "CtrlA"
+    },
+    {
+      "key": "CtrlK"
+    },
+    {
+      "text": "INVALID"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Slug must be lowercase"
+    },
+    {
+      "key": "CtrlA"
+    },
+    {
+      "key": "CtrlK"
+    },
+    {
+      "text": "corrected"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "snapshot": "edge-validator-recovery.txt"
+    }
+  ]
+}

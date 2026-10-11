@@ -28,6 +28,29 @@ def main():
         retained.mkdir()
         record={'artifact':artifact['name'],'id':artifact['id'],'archive_digest':artifact['digest'],
             'files':{},'run':args.run,'source':info['headSha']}
+        report_inventory=[]
+        state_inventory=[]
+        harness_failures=[]
+        for path in folder.rglob('*.json'):
+            if path.stat().st_size>4*1024*1024:
+                raise RuntimeError('Native evidence JSON file exceeds retention bound')
+            data=json.loads(path.read_text(encoding='utf-8'))
+            if isinstance(data,dict) and 'summary' in data and 'results' in data:
+                report_inventory.append({'path':path.relative_to(folder).as_posix(),
+                    'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),
+                    'summary':data['summary'],'results':[{key:result.get(key) for key in
+                        ['run_id','name','status','cleanup','failure']} for result in data['results']]})
+            if path.name=='state-oracle.json':
+                state_inventory.append({'attempt_id':path.parent.name,
+                    'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'observed':data})
+            if path.name in {'harness-error.json','cleanup-errors.json'}:
+                harness_failures.append({'attempt_id':path.parent.name,
+                    'kind':path.name,'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'observed':data})
+        for name,inventory in [('report-inventory.json',report_inventory),('state-inventory.json',state_inventory),
+                               ('harness-failures.json',harness_failures)]:
+            output=retained/name
+            output.write_text(json.dumps(inventory,indent=2)+'\n',encoding='utf-8')
+            record['files'][name]=hashlib.sha256(output.read_bytes()).hexdigest()
         events=list(folder.rglob('test-events.jsonl'))
         if events:
             if len(events)!=1: raise RuntimeError('Ambiguous product events')
@@ -47,6 +70,17 @@ def main():
                 if key not in known:
                     append(row)
                     known.add(key)
+                if row['event']=='finished' and row['label'] in {'detached-startup-before','detached-startup-after'}:
+                    started=next(json.loads(line) for line in ledger.read_text(encoding='utf-8').splitlines()
+                        if json.loads(line)['id']==row['id'] and json.loads(line)['event']=='started')
+                    console=folder/started['evidence']/'console.log'
+                    if not console.is_file():
+                        continue # Historical ledger entries are not this host's executions.
+                    if hashlib.sha256(console.read_bytes()).hexdigest()!=row['console_sha256']:
+                        raise RuntimeError('Native startup console identity mismatch')
+                    output=retained/(row['label']+'.txt')
+                    shutil.copyfile(console,output)
+                    record['files'][output.name]=row['console_sha256']
         for identity_root in folder.rglob('identities'):
             if not identity_root.is_dir(): continue
             for manifest in identity_root.glob('*.json'):
@@ -58,7 +92,7 @@ def main():
                 if target.exists() and target.read_bytes()!=data:
                     raise RuntimeError('Retained identity manifest conflict')
                 if not target.exists(): target.write_bytes(data)
-        for pattern in ['native-cookiecutter-*.json','cleanup-*.json','mutation-controls-*.json']:
+        for pattern in ['native-*.json','cleanup-Linux.json','cleanup-Windows.json','cleanup-Darwin.json','mutation-controls-*.json']:
             for path in folder.rglob(pattern):
                 shutil.copyfile(path,retained/path.name)
                 record['files'][path.name]=hashlib.sha256(path.read_bytes()).hexdigest()
@@ -71,6 +105,37 @@ def main():
             shutil.copyfile(report_path,retained/name)
             shutil.copyfile(path,retained/path.name)
             record['files'][name]=hashlib.sha256(report_path.read_bytes()).hexdigest()
+            probe_id=fault.get('state_probe_evidence_id')
+            if probe_id:
+                if not all(c in '0123456789abcdef' for c in probe_id) or len(probe_id)!=32:
+                    raise RuntimeError('Invalid native state fault attempt ID')
+                errors=list(folder.rglob(probe_id+'/harness-error.json'))
+                if len(errors)!=1: raise RuntimeError('Native state fault diagnosis missing or ambiguous')
+                output=retained/(fault['name']+'-state-error.json')
+                shutil.copyfile(errors[0],output)
+                record['files'][output.name]=hashlib.sha256(output.read_bytes()).hexdigest()
+            # Remote archives expire. Keep actual fault screens/diffs rather than
+            # retaining a JSON reference to evidence that was never copied.
+            report=json.loads(report_path.read_text(encoding='utf-8'))
+            for result in report.get('results',[]):
+                evidence=result.get('evidence') or {}
+                for key in ['screen_path','diff_path']:
+                    reference=evidence.get(key)
+                    if not reference: continue
+                    relative=Path(reference.replace('\\','/'))
+                    if relative.is_absolute() or '..' in relative.parts or ':' in reference:
+                        raise RuntimeError('Unsafe native fault evidence reference')
+                    original=(folder/relative).resolve(strict=True)
+                    if not original.is_relative_to(folder.resolve()) or original.is_symlink():
+                        raise RuntimeError('Native fault evidence escapes downloaded artifact')
+                    if original.stat().st_size>4*1024*1024:
+                        raise RuntimeError('Native fault evidence exceeds retained bound')
+                    output=retained/'fault-evidence'/relative
+                    output.parent.mkdir(parents=True,exist_ok=True)
+                    if output.exists() and output.read_bytes()!=original.read_bytes():
+                        raise RuntimeError('Native fault evidence conflict')
+                    shutil.copyfile(original,output)
+                    record['files'][output.relative_to(retained).as_posix()]=hashlib.sha256(output.read_bytes()).hexdigest()
         records.append(record)
     (destination/'manifest.json').write_text(json.dumps({'run':info,'artifacts':records,
         'scope':'Actual development evidence; final campaign freeze still pending'},indent=2)+'\n',encoding='utf-8')

@@ -1,0 +1,11 @@
+--- a/copier/_cli.py
++++ b/copier/_cli.py
+@@ -89,7 +89,7 @@
+         print(colors.red | "\n".join(error.args), file=sys.stderr)
+         # DOCS https://github.com/copier-org/copier/issues/1328#issuecomment-1723214165
+         return 0b100
+-    return 0
++    return 7
+ 
+ 
+ class CopierApp(cli.Application):

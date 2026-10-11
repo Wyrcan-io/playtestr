@@ -8,6 +8,8 @@ import (
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/charmbracelet/x/xpty"
 )
 
 func TestWindowsResizeRepliesRequireCurrentDimensions(t *testing.T) {
@@ -44,6 +46,50 @@ func TestWindowsResizeRepliesRequireCurrentDimensions(t *testing.T) {
 			}
 			if len(p.csi) > 32 {
 				t.Fatal("protocol capture exceeds bound")
+			}
+		})
+	}
+}
+
+type resizeFenceReader struct {
+	xpty.Pty
+	entered chan struct{}
+	release chan struct{}
+}
+
+func (p *resizeFenceReader) Read(value []byte) (int, error) {
+	close(p.entered)
+	<-p.release
+	return copy(value, "ordinary output"), nil
+}
+
+func TestWindowsResizeOutputFenceRequiresReturnedCurrentRequest(t *testing.T) {
+	for _, kind := range []string{"before-return", "current-after-return", "superseded"} {
+		t.Run(kind, func(t *testing.T) {
+			reader := &resizeFenceReader{entered: make(chan struct{}), release: make(chan struct{})}
+			request := &consoleResizeRequest{done: make(chan struct{}), returned: kind != "before-return"}
+			p := &windowsResizePty{Pty: reader, request: request}
+			done := make(chan struct{})
+			go func() { defer close(done); _, _ = p.Read(make([]byte, 100)) }()
+			<-reader.entered
+			p.mu.Lock()
+			if kind == "superseded" {
+				p.request = &consoleResizeRequest{done: make(chan struct{}), returned: true}
+			} else {
+				request.returned = true
+			}
+			p.mu.Unlock()
+			close(reader.release)
+			<-done
+			select {
+			case <-p.request.done:
+				if kind != "current-after-return" {
+					t.Fatal("old output completed a newer or not-yet-returned resize")
+				}
+			default:
+				if kind == "current-after-return" {
+					t.Fatal("post-return output did not complete current transport fence")
+				}
 			}
 		})
 	}

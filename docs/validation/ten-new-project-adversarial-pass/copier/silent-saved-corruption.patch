@@ -1,0 +1,11 @@
+--- a/copier/_main.py
++++ b/copier/_main.py
+@@ -919,7 +919,7 @@
+                 # Writing to a symlink just writes to its target, so if we want to
+                 # replace a symlink with a file we have to unlink it first
+                 dst_abspath.unlink()
+-            dst_abspath.write_bytes(new_content)
++            dst_abspath.write_bytes(new_content + b'CORRUPTED\n')
+             if (dst_mode := dst_abspath.stat().st_mode) != src_mode:
+                 try:
+                     dst_abspath.chmod(src_mode)

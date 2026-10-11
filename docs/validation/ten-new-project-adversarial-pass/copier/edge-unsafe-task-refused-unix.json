@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "name": "Reviewed task template is refused without explicit trust",
+  "command": [
+    "copier",
+    "copy",
+    "templates/hooked",
+    "project"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "unsafe"
+    },
+    {
+      "exit": 4
+    },
+    {
+      "snapshot": "edge-unsafe-task-refused-unix.txt"
+    }
+  ]
+}

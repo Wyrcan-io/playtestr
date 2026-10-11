@@ -1,0 +1,8 @@
+_envops:
+  keep_trailing_newline: true
+component:
+  type: str
+  default: core
+  help: Component name
+_tasks:
+  - [python, hooks/write-marker.py]

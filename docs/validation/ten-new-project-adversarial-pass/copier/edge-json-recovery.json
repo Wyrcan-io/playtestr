@@ -1,0 +1,59 @@
+{
+  "version": 2,
+  "name": "Malformed JSON rejected then corrected without losing the prompt",
+  "command": [
+    "copier",
+    "copy",
+    "templates/json",
+    "project"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Project metadata"
+    },
+    {
+      "key": "CtrlA"
+    },
+    {
+      "key": "CtrlK"
+    },
+    {
+      "text": "{"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Invalid input"
+    },
+    {
+      "key": "CtrlA"
+    },
+    {
+      "key": "CtrlK"
+    },
+    {
+      "text": "{\"team\": \"core\", \"active\": true}"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "snapshot": "edge-json-recovery.txt"
+    }
+  ]
+}

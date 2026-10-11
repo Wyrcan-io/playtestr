@@ -14,6 +14,9 @@ on:
 permissions:
   contents: read
 
+env:
+  ACTIVE_PROJECT: copier
+
 jobs:
   controls:
     timeout-minutes: 25
@@ -70,7 +73,7 @@ jobs:
             docs/validation/ten-new-project-adversarial-pass/identities
           if-no-files-found: error
           retention-days: 14
-  cookiecutter:
+  project:
     timeout-minutes: 30
     strategy:
       fail-fast: false
@@ -89,19 +92,20 @@ jobs:
           go-version-file: go.mod
           cache-dependency-path: go.sum
       - name: Pinned application native flows, mutations, restoration and fresh repetitions
-        run: python scripts/acceptance/adversarial_native_cookiecutter.py
+        shell: bash
+        run: python scripts/acceptance/adversarial_native_project.py --project "$ACTIVE_PROJECT"
       - name: Remove owned application after qualification and process verification
         shell: bash
         run: |
           if [ "$RUNNER_OS" = Windows ]; then
-            pwsh -NoProfile -File scripts/acceptance/remove-adversarial-project.ps1 -Project cookiecutter
+            pwsh -NoProfile -File scripts/acceptance/remove-adversarial-project.ps1 -Project "$ACTIVE_PROJECT"
           else
-            python scripts/acceptance/adversarial_cleanup_unix.py
+            python scripts/acceptance/adversarial_cleanup_unix.py --project "$ACTIVE_PROJECT"
           fi
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
-          name: adversarial-cookiecutter-${{ matrix.os }}
+          name: adversarial-${{ env.ACTIVE_PROJECT }}-${{ matrix.os }}
           path: |
             artifacts/ten-new-project-adversarial-pass/**
             docs/validation/ten-new-project-adversarial-pass/attempts.jsonl

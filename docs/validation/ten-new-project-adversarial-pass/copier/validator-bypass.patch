@@ -1,0 +1,11 @@
+--- a/copier/_user_data.py
++++ b/copier/_user_data.py
+@@ -396,7 +396,7 @@
+             except Exception:  # noqa: BLE001
+                 return "Invalid input"
+             try:
+-                self.validate_answer(ans)
++                pass # Deliberate real validation regression
+             except Exception as exc:  # noqa: BLE001
+                 return str(exc)
+             return True

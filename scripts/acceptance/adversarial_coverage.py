@@ -28,12 +28,20 @@ CONTROLS={
  ('idle-recorder-flood','TestRecordingCancellationAndFloodStopIdleTargets','Idle recorder observes overflow or hang'),
  ],
  'Readiness':[
+ ('disappear-reappear','TestAdversarialDisappearanceAndReappearance','Real target text disappears after input then reappears in a fresh third phase'),
  ('stale-ambiguous','TestRecordingRejectsAmbiguousAndDynamicReadiness','Ambiguous capture and changing replay state do not qualify'),
  ('absence-transition','TestExpectNotWaitsForObservedTextToDisappear','Previously observed text must actually disappear'),
  ('absence-timeout','TestExpectNotTimesOutWhileObservedTextRemains','Still-visible old text does not pass absence'),
  ('unready-row','TestRowSnapshotRejectsUnreadyEmptyInvalidAndResizedBounds','No unready/empty/invalid row checkpoint'),
  ],
  'Keys and terminal':[
+ ('rapid-key-order','TestAdversarialRapidKeysPreserveEveryEvent','320 rapid control/text bytes retain exact independent ordering'),
+ ('unicode-literal-paste','TestAdversarialBoundedUnicodeLiteralPaste','Bounded multi-line Unicode literal input retains exact UTF-8 bytes'),
+ ('repeated-resize-output','TestAdversarialRepeatedResizeDuringOutput','Twelve resizes during actual ongoing output expose correct target dimensions'),
+ ('output-cap-boundary','TestAdversarialOutputCapBoundary','Real output below and above the cap has distinct accurate outcomes'),
+ ('unsupported-query-bound','TestAdversarialUnsupportedCursorQueryIsBounded','Unsupported cursor query produces bounded truthful failure, without claiming reply support'),
+ ('windows-enter-lf','TestWindowsEnterAndCtrlJRemainDistinctThroughRealPTY','Real Windows target distinguishes CR, LF and CR after resize'),
+ ('windows-resize-fence','TestWindowsResizeOutputFenceRequiresReturnedCurrentRequest','Protocol unit control rejects pre-return and superseded output read fences'),
  ('control-keys','TestEditingControlKeysThroughRealPTY','Exact control bytes through real PTY'),
  ('empty-argv','TestEmptyArgumentPreservedThroughRealPTY','Preserve empty arguments and quoted/spaced values'),
  ('resize-target','TestTargetObservesResize','Actual target sees PTY dimensions'),
@@ -110,6 +118,8 @@ def main():
         row['evidence']=previous.get(row['test'],{}).get('evidence',[])
         if row['test'] in {'TestAdversarialWindowsImmediateDescendantsCannotEscapeStartup',
                            'TestWindowsResizeRepliesRequireCurrentDimensions',
+                           'TestWindowsEnterAndCtrlJRemainDistinctThroughRealPTY',
+                           'TestWindowsResizeOutputFenceRequiresReturnedCurrentRequest',
                            'TestWindowsResizeWithoutAcknowledgmentIsBounded'}:
             row['hosts']=['windows']
     (DOC/'coverage-matrix.json').write_text(json.dumps(dict(controls=records,

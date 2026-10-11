@@ -33,7 +33,7 @@ def check_state(working,case):
         for parent in [unresolved,*unresolved.parents]:
             if parent==working.parent:
                 break
-            if parent.is_symlink():
+            if parent.is_symlink() or getattr(parent,'is_junction',lambda:False)():
                 raise RuntimeError('Independent oracle refuses linked state: '+relative)
         target=unresolved.resolve()
         target.relative_to(working.resolve())
@@ -49,7 +49,13 @@ def check_state(working,case):
                 ' actual='+hashlib.sha256(actual).hexdigest()+' expected='+hashlib.sha256(expected).hexdigest())
         checked[relative]=hashlib.sha256(actual).hexdigest()
     for relative in case.get('absent_paths',[]):
-        target=(working/relative).resolve()
+        unresolved=working/relative
+        for parent in [unresolved,*unresolved.parents]:
+            if parent==working.parent:
+                break
+            if parent.is_symlink() or getattr(parent,'is_junction',lambda:False)():
+                raise RuntimeError('Independent expected absence contains linked state: '+relative)
+        target=unresolved.resolve()
         target.relative_to(working.resolve())
         if target.exists():
             raise RuntimeError('Independent expected absence mismatch: '+relative)
@@ -57,12 +63,13 @@ def check_state(working,case):
 
 def recorder(binary,project,case,env,*,export=True,rerecord=False):
     directory=DOC/project
+    config=json.loads((directory/'scenarios.json').read_text(encoding='utf-8'))
     spec=directory/(case['name']+'.json')
     output=spec if export else directory/('probe-'+str(time.time_ns())+'.json')
-    args=[binary,'record','--output',output,'--name',case['purpose'],'--fixture','fixtures',
+    args=[binary,'record','--output',output,'--name',case['purpose'],
+          '--fixture',case.get('fixture',config.get('fixture','fixtures')),
           '--temporary-home','--temporary-temp','--width','100','--height','30',
           '--timeout-ms',str(case['timeout_ms']),'--run-timeout-ms','120000']
-    config=json.loads((directory/'scenarios.json').read_text(encoding='utf-8'))
     for key,value in config.get('environment',{}).items():
         args+=['--env',key+'='+value]
     args+=['--',*case['command']]
@@ -135,7 +142,10 @@ def main():
     if not cases:
         raise RuntimeError('Empty case selection')
     for case in cases:
-        if case['name']=='edge-cancel-after-edit' and os.name!='nt':
+        suffix=config.get('baseline_suffix_by_host',{}).get(platform.system(),'')
+        if suffix:
+            case=dict(case,name=case['name']+suffix)
+        elif case['name']=='edge-cancel-after-edit' and os.name!='nt':
             case=dict(case,name='edge-cancel-after-edit-unix')
         spec=DOC/args.project/(case['name']+'.json')
         if args.mode=='record':

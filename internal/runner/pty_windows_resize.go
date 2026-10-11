@@ -16,6 +16,7 @@ type consoleResizeRequest struct {
 	width, height int
 	done          chan struct{}
 	acknowledged  bool
+	returned      bool
 }
 
 type windowsResizePty struct {
@@ -28,8 +29,24 @@ type windowsResizePty struct {
 }
 
 func (p *windowsResizePty) Read(value []byte) (int, error) {
+	p.mu.Lock()
+	request := p.request
+	postResizeRead := request != nil && request.returned
+	p.mu.Unlock()
 	n, err := p.Pty.Read(value)
 	p.observeResize(value[:n])
+	// ConPTY does not emit CSI 8 for every resize. The native API's successful
+	// return establishes dimensions; a subsequent output read provides a
+	// transport fence without injecting input or fabricating target readiness.
+	// A read already blocked before that return cannot provide this fence.
+	if postResizeRead && n > 0 {
+		p.mu.Lock()
+		if p.request == request && !request.acknowledged {
+			request.acknowledged = true
+			close(request.done)
+		}
+		p.mu.Unlock()
+	}
 	return n, err
 }
 
@@ -50,7 +67,13 @@ func (p *windowsResizePty) Resize(width, height int) error {
 	if unchanged {
 		return nil
 	}
-	return p.Pty.Resize(width, height)
+	if err := p.Pty.Resize(width, height); err != nil {
+		return err
+	}
+	p.mu.Lock()
+	request.returned = true
+	p.mu.Unlock()
+	return nil
 }
 
 func (p *windowsResizePty) AwaitResize(ctx context.Context) error {
@@ -64,7 +87,7 @@ func (p *windowsResizePty) AwaitResize(ctx context.Context) error {
 	case <-request.done:
 		return nil
 	case <-ctx.Done():
-		return fmt.Errorf("wait for native console resize acknowledgment at %dx%d: %w", request.width, request.height, ctx.Err())
+		return fmt.Errorf("wait for native console resize acknowledgment or post-resize output at %dx%d: %w", request.width, request.height, ctx.Err())
 	}
 }
 
@@ -86,7 +109,7 @@ func (p *windowsResizePty) completeResize() {
 	}
 }
 
-// ConPTY emits CSI 8;height;width t when it applies a console resize. Do not
+// ConPTY may emit CSI 8;height;width t when it applies a console resize. Do not
 // interpret lookalike data inside titles/DCS as an acknowledgment. Protocol
 // capture is bounded and retains state across partial reads.
 func (p *windowsResizePty) observeResize(value []byte) {
