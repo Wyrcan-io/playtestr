@@ -2,6 +2,27 @@
 
 No batch completion or final qualification is claimed.
 
+Later evidence updates below supersede discovery-time pending statuses in the
+original table. The first failed attempts and original ledger bytes remain intact.
+
+| ID | Class / severity | Observation | Current disposition / evidence |
+| --- | --- | --- | --- |
+| P05 | Windows resize / high | A continuously redrawing target changed dimensions without another CSI 8 reply; the second resize timed out | Bounded current-request post-return output fence, plus explicit semantic readiness. Actual native core checks passed at `ff38039`, `6df8c37` and `5188978`; [investigation](core/continuous-resize-investigation.json). A transport fence does not prove application readiness. |
+| P06 | Windows workspace / high | Git returned long paths while a short TEMP alias produced a differently spelled managed root | Expand native created-root and cleanup parent spellings. Actual 8.3 before/after control passed on native Windows; [repair](core/workspace-short-path-repair.json). No isolation claim. |
+| H12 | Python process harness / medium | CPython emitted unclosed transport warnings after owned timeout/flood cleanup | Close the verified pinned asyncio process transport after bounded drain/reap; calibration passed without those warnings. |
+| H14 | Maintenance harness / medium | A second relocation assessment reused an already existing destination | Unique owned assessment path; actual meaningful manual edit/update/relocation routes passed. |
+| H15 | Evidence ledger / high | Cross-OS concurrent append damaged one imported identity record | Original ledger frozen byte-for-byte; serialized v2 epoch and exact quarantine reader; only actual archived identity restored. [Audit](core/ledger-quarantine.json); real concurrent writers and unknown-damage rejection passed natively. |
+| H16 | Recorder evidence / high | Buffered later controls could quit after an earlier rejection and erase the useful failure screen | Send one control per new public prompt and drain the requested failure screen before cancellation. Actual lf failed caption/precondition consoles now retain live screens. [Repair](core/recorder-protocol-repair.json). |
+| H17 | Semantic accounting / high | A state probe's expected cancellation exit was logged as process passed before the semantic rejection was raised outside the harness | Completion callback validates rejection and positive state evidence before logging pass. Original ID retains its process event plus an appended unqualified semantic audit. Real zero-exit/semantic-rejection calibration passed on all three native hosts at `5188978`. |
+| H18 | Target toolchain / high | Native lf compilation required Go 1.26 while Playtestr's workflow supplied Go 1.25 with switching disabled | [Exact first failures](lf/toolchain-first-failures/manifest.json). Target recipe pins Go 1.27.0 with checksum verification and owned module-cache acquisition. Local exact compiler/build passed; native retry pending. This is a target prerequisite repair, not a runner Go-version increase. |
+| H19 | Retained metadata / medium | Windows checkout CRLF and Linux checkout LF changed copied license/dependency metadata between setup attempts | Retain immutable pinned Git blob bytes for license/go.mod/go.sum; actual source-file and binary inventories still describe each host's real compiled inputs. |
+| C02/C03 | Explicit application scope | Copier file-list order and optional Git fallback warning differed across hosts | Deliberately reviewed semantic answer rows plus independently required exact generated/protected files. Historical full captures remain. Native source `6df8c37` passed twelve workflows, faults, 120 ordinary and 120 state executions per host, and owned deletion. Git merge/conflict correctness remains excluded. |
+
+Source `5188978057d4a31aaf752a1dafb9fbb73488f1ea` passed all three native core
+jobs and standard smoke run `38119968121`. The adversarial run `38119968128`
+failed both application setup jobs before lf qualification because of H18;
+core success does not turn the overall run or project qualification green.
+
 C03 — Host Git fallback output: the next native Linux/Windows attempt reaches
 the real Git update and exits 0, but emits an additional generic Git-version
 warning. Pinned Copier first requests `--inter-hunk-context=-1`, catches a Git

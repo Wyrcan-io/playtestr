@@ -2,6 +2,18 @@
 
 Invoked 10 October 2026. **In progress; no projects accepted yet.**
 
+Current development progress: Cookiecutter and Copier completed their native
+Linux/Windows journeys and owned teardown. Copier's successful source/run is
+`6df8c37cd7ffb2a6e8021cf9a0b4fa16c3b06583` / `38117318191`, with 120 ordinary
+and 120 separate state executions per host. lf is the sole acquired application;
+its twelve reviewed contracts passed 120 local Windows ordinary repetitions
+plus 120 state executions and exploratory WSL ordinary/state checks. Hosted
+source `5188978057d4a31aaf752a1dafb9fbb73488f1ea` passed all three product-control
+jobs, but both lf application jobs failed at a Go compiler prerequisite mismatch.
+The exact owned target-toolchain repair still requires native verification.
+Final single-source campaign qualification and the remaining seven development
+journeys are pending; completed full-product launch credit remains zero.
+
 The original `attempts.jsonl` is frozen after a diagnosed concurrent append
 collision. Its original bytes, exact fragment and checksum remain retained in
 [the quarantine record](core/ledger-quarantine.json). New serialized attempts

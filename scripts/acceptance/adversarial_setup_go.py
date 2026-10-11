@@ -5,11 +5,12 @@ import json
 import os
 from pathlib import Path
 import platform
+import re
 import subprocess
 from adversarial_process import ROOT, DOC, run
 
 
-def build(app, project, *, output=None):
+def build(app, project):
     identity_path = app / 'runtime.json'
     identity = json.loads(identity_path.read_text(encoding='utf-8')) if identity_path.exists() else {}
     env = dict(os.environ)
@@ -18,15 +19,23 @@ def build(app, project, *, output=None):
         path = app / folder
         path.mkdir(exist_ok=True)
         env[name] = str(path)
-    # Avoid automatically acquiring an unreviewed toolchain into a user cache.
-    env['GOTOOLCHAIN'] = 'local'
+    # The target can require a newer compiler than Playtestr's minimum Go.
+    # Select one reviewed exact toolchain, never an unconstrained upgrade.
+    # Go verifies toolchain modules through its checksum database and stores
+    # any acquisition in the owned GOMODCACHE established above.
+    env['GOTOOLCHAIN'] = 'go1.27.0'
+    env['GOSUMDB'] = 'sum.golang.org'
     executable = app / 'bin' / (project + ('.exe' if os.name == 'nt' else ''))
     executable.parent.mkdir(exist_ok=True)
     go = os.environ.get('PLAYTESTR_GO', 'go')
-    version = run([go, 'version'], project, 'target-go-version', env=env, timeout=15)['output'].strip()
+    output = run([go, 'version'], project, 'target-go-version', env=env, timeout=180)['output']
+    versions=re.findall(r'^go version go1\.27\.0 \S+\s*$',output,re.M)
+    if len(versions)!=1:
+        raise RuntimeError('Actual target compiler differs from the reviewed exact toolchain')
+    version=versions[0].strip()
     run([go, 'build', '-trimpath', '-o', executable, '.'], project,
         'target-build', env=env, cwd=app / 'source', timeout=600)
-    identity.update(toolchain=version, binary=str(executable),
+    identity.update(toolchain=version,requested_toolchain='go1.27.0',binary=str(executable),
                     binary_sha256=hashlib.sha256(executable.read_bytes()).hexdigest())
     identity_path.write_text(json.dumps(identity, indent=2) + '\n', encoding='utf-8')
     return identity
@@ -80,7 +89,13 @@ def main():
     license_path = next((p for p in [source / 'LICENSE', source / 'LICENSE.md', source / 'LICENSE.txt'] if p.is_file()), None)
     if license_path is None:
         raise RuntimeError('Reviewed license file missing')
-    (package / 'UPSTREAM-LICENSE.txt').write_bytes(license_path.read_bytes())
+    # Retain immutable Git blob bytes, not host checkout line-ending conversion.
+    def pinned_blob(name):
+        value=subprocess.check_output(['git','-C',source,'show',candidate['sha']+':'+name],timeout=15)
+        if len(value)>4*1024*1024:
+            raise RuntimeError('Retained target metadata size bound')
+        return value
+    (package / 'UPSTREAM-LICENSE.txt').write_bytes(pinned_blob(license_path.name))
     runtime = app / 'runtime.json'
     runtime.write_text(json.dumps(dict(source=candidate['sha'], native_host=platform.platform(),
         app=str(app), source_path=str(source), path=str(app / 'bin'), editable=False), indent=2) + '\n', encoding='utf-8')
@@ -90,7 +105,7 @@ def main():
             path_file.write(str(app/'bin')+'\n')
     for name in ['go.mod', 'go.sum']:
         if (source / name).is_file():
-            (package / ('target-' + name + '.txt')).write_bytes((source / name).read_bytes())
+            (package / ('target-' + name + '.txt')).write_bytes(pinned_blob(name))
     print(json.dumps(identity, indent=2))
 
 

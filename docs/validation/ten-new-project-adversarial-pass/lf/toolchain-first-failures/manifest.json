@@ -1,0 +1,20 @@
+{
+  "run": "38119968128",
+  "source": "5188978057d4a31aaf752a1dafb9fbb73488f1ea",
+  "application_qualification": false,
+  "cause": "Target go.mod minimum Go 1.26; actual hosted compiler Go 1.25; explicit local toolchain selection prevented compilation",
+  "repair": "Explicit exact Go 1.27.0 target-toolchain selection inside the owned module cache; actual native retry required",
+  "evidence": [
+    {
+      "host": "Linux",
+      "attempt_id": "fcfa771aa19947d9979f3bab431bfa5a",
+      "console_sha256": "c677b2b836084ac0dec0bb95b34df050ab4d57b3507d5aab479e4be165c5e4ca"
+    },
+    {
+      "host": "Windows",
+      "attempt_id": "f0dfed2adb7744ab8727f711116edf0f",
+      "console_sha256": "c677b2b836084ac0dec0bb95b34df050ab4d57b3507d5aab479e4be165c5e4ca"
+    }
+  ],
+  "primary_source": "https://go.dev/doc/toolchain"
+}
