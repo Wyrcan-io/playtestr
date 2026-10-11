@@ -1,0 +1,76 @@
+{
+  "version": 2,
+  "name": "Rename a real file to a spaced Unicode name without changing bytes",
+  "command": [
+    "lf",
+    "-single",
+    "-config",
+    "lfrc",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "xterm-256color",
+    "USERNAME": "synthetic-maintainer"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "LF 00-empty"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "text": "alpha.txt"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "LF alpha.txt"
+    },
+    {
+      "text": "r"
+    },
+    {
+      "expect": "rename:"
+    },
+    {
+      "key": "CtrlA"
+    },
+    {
+      "key": "CtrlK"
+    },
+    {
+      "text": "renamed café.txt"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "LF renamed"
+    },
+    {
+      "expect": "Alpha source retained."
+    },
+    {
+      "snapshot": "normal-project.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

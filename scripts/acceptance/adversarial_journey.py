@@ -84,26 +84,52 @@ def recorder(binary,project,case,env,*,export=True,rerecord=False):
     else:
         if case.get('snapshot_rows'):
             first,last=case['snapshot_rows']
-            steps+=[{'snapshot_rows':dict(name=snapshot_name,first=first,last=last)}]
+            capture={'snapshot_rows':dict(name=snapshot_name,first=first,last=last)}
         else:
-            steps+=[{'snapshot':snapshot_name}]
+            capture={'snapshot':snapshot_name}
+        # TUIs usually restore the previous screen on quit. Capture the actual
+        # meaningful live state at a declared position, then observe clean exit.
+        position=case.get('snapshot_after_step',len(steps))
+        if not isinstance(position,int) or not 0<=position<=len(steps):
+            raise RuntimeError('Invalid declared snapshot position')
+        steps.insert(position,capture)
     body='\n'.join(control(s) for s in steps)+'\n'
     if rerecord:
         if len(steps)<4:
             raise RuntimeError('Suffix maintenance needs a meaningful retained prefix')
         body+='/rerecord 3\n'+'\n'.join(control(s) for s in steps[3:])+'\n'
     body+='/review\n'
+    commands=body.splitlines()
+    next_command=0
+    last_prompt=-1
     sent=False
+    rejected=False
     async def inspect(proc,output,evidence):
-        nonlocal sent
+        nonlocal sent,rejected,next_command,last_prompt
         screen=output.decode('utf-8',errors='replace')
         if sent:
             return
         if 'Recorder:' in screen:
             sent=True
+            rejected=True
             proc.stdin.write(b'/screen\n/quit\n')
             await proc.stdin.drain()
-            raise RuntimeError('Public recorder rejected a step; evidence retained')
+            # Let the bounded process harness drain the requested real final
+            # screen and observe recorder cancellation before raising. Killing
+            # immediately after writing /screen used to lose useful evidence.
+            proc.stdin.close()
+            return
+        if not screen.rstrip().endswith('record>'):
+            return
+        prompt=screen.rfind('record>')
+        if prompt<=last_prompt:
+            return
+        last_prompt=prompt
+        if next_command<len(commands):
+            proc.stdin.write((commands[next_command]+'\n').encode('utf-8'))
+            next_command+=1
+            await proc.stdin.drain()
+            return
         if f"Baseline {snapshot_name}:" not in screen or not screen.rstrip().endswith('record>'):
             return
         matches=re.findall(r'working-directory=(".*")',screen)
@@ -128,8 +154,17 @@ def recorder(binary,project,case,env,*,export=True,rerecord=False):
         proc.stdin.write(b'/replay\n/save\n' if export else b'/quit\n')
         await proc.stdin.drain()
         proc.stdin.close()
+    def completed(exit_code,output,evidence):
+        if rejected:
+            raise RuntimeError('Public recorder rejected a step; final screen retained')
+        if not sent or not (evidence/'state-oracle.json').is_file():
+            raise RuntimeError('Recorder completed without independent state evidence')
+        if export and (not spec.exists() or b'Recorder:' in output):
+            raise RuntimeError('Recorder export/replay failed')
     result=run(args,project,case['name']+('-record' if export else '-state-probe'),env=env,
-        input=body,expected=0 if export else 130,on_output=inspect)
+        expected=0 if export else 130,on_output=inspect,on_complete=completed)
+    if rejected:
+        raise RuntimeError('Public recorder rejected a step; final screen retained')
     if not sent:
         raise RuntimeError('Recorder completed without independent state evidence')
     if export and (not spec.exists() or 'Recorder:' in result['output']):

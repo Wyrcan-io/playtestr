@@ -11,7 +11,7 @@ from adversarial_process import ROOT,DOC,RAW,run
 
 def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument('--project',required=True,choices=['cookiecutter','copier'])
+    parser.add_argument('--project',required=True,choices=['cookiecutter','copier','lf','superfile','glow'])
     args=parser.parse_args()
     project=args.project
     source=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
@@ -19,7 +19,9 @@ def main():
     run(['go','build','-trimpath','-ldflags',
         '-X github.com/Wyrcan-io/playtestr/internal/buildinfo.Version=source-'+source,
         '-o',binary,'./cmd/playtestr'],'core','native-build',timeout=180)
-    run([sys.executable,ROOT/'scripts/acceptance/adversarial_setup_cookiecutter.py','--project',project],
+    go_project=project in {'lf','superfile','glow'}
+    setup='adversarial_setup_go.py' if go_project else 'adversarial_setup_cookiecutter.py'
+    run([sys.executable,ROOT/'scripts/acceptance'/setup,'--project',project],
         project,'native-setup',timeout=1200)
     if project=='copier':
         run([sys.executable,ROOT/'scripts/acceptance/adversarial_copier_git_fixture.py'],
@@ -32,8 +34,11 @@ def main():
         run([sys.executable,helper,mode,project,'--binary',binary],project,label,timeout=480)
     run([sys.executable,helper,'rerecord',project,'--case','normal-project','--binary',binary],
         project,'native-rerecord',timeout=120)
-    run([sys.executable,ROOT/'scripts/acceptance'/('adversarial_'+project+'_mutations.py'),'--binary',binary],
-        project,'native-regressions-and-state-corruption',timeout=180)
+    mutation=[sys.executable,ROOT/'scripts/acceptance'/('adversarial_go_mutations.py' if go_project
+        else 'adversarial_'+project+'_mutations.py'),'--binary',binary]
+    if go_project:
+        mutation+=['--project',project]
+    run(mutation,project,'native-regressions-and-state-corruption',timeout=600 if go_project else 180)
     run([sys.executable,helper,'final',project,'--binary',binary],
         project,'native-development-repetitions',timeout=1200)
     run([sys.executable,budget,project,'--label','after-native'],project,'native-budget-after',timeout=90)

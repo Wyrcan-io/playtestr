@@ -8,6 +8,9 @@ Existing controls were inspected and mapped before campaign control execution. T
 | declared-nonzero | Lifecycle | Exact declared nonzero exit | `TestExpectedNonzeroExit` |
 | wrong-exit | Lifecycle | Unexpected exit differs from declared code | `TestWrongExitCode` |
 | early-exit | Lifecycle | Exit before readiness cannot pass | `TestExitWhileWaitingForText` |
+| output-actual-crash | Lifecycle | Actual target panic after positive checkpoint cannot pass | `TestAdversarialOutputFollowedByActualCrash` |
+| exit-final-output-race | Lifecycle | Twenty immediate exits retain final output after exit observation | `TestAdversarialImmediateExitPreservesFinalOutput` |
+| native-terminal-eof | Lifecycle | Unix natural exit drains final output; platform-specific EOF contract | `TestNaturalExitReachesTerminalEOF` |
 | exit-hang | Lifecycle | Expected exit that never arrives is bounded | `TestExitTimeout` |
 | whole-run-budget | Lifecycle | Whole-run budget applies across steps | `TestRunTimeout` |
 | cancel | Lifecycle | Cancellation returns accurate outcome | `TestCancellation` |
@@ -50,14 +53,19 @@ Existing controls were inspected and mapped before campaign control execution. T
 | workspace-path | Spec and paths | Workspace paths and environment conflicts rejected | `TestWorkspaceSpecValidation` |
 | fixture-links-bounds | Spec and paths | Real fixture rejects links/specials/oversize | `TestWorkspaceFixtureCopyRejectsUnsafeAndBoundedInputs` |
 | resolve-before-cwd | Spec and paths | Target executable resolved before changed cwd | `TestWorkspaceCommandResolutionPrecedesFixtureCWD` |
+| missing-executable | Spec and paths | Missing executable produces an accurate launch failure | `TestLaunchFailure` |
+| explicit-environment | Spec and paths | Actual target receives explicit cwd and environment | `TestWorkingDirectoryAndExplicitEnvironment` |
+| selected-inheritance | Spec and paths | Actual target receives only the selected inherited environment value | `TestInheritedEnvironment` |
 | report-traversal | Spec and paths | Evidence references cannot traverse admitted root | `TestRenderHTMLRejectsUnsafeEvidenceReferences` |
 | windows-workspace-long-path | Workspaces | Actual Windows target receives long workspace path when TEMP is an 8.3 alias; process and filesystem cleanup confirmed | `TestAdversarialWindowsWorkspaceExpandsShortTemporaryPath` |
 | fresh-state | Workspaces | Every invocation has fresh owned fixture and cleanup | `TestWorkspaceRunsTwiceFromFreshFixtureAndCleans` |
+| readonly-crlf-modes | Workspaces | Real read-only fixture preserves exact CRLF/UTF-8 bytes; copies are writable and Unix executable bits retained | `TestWorkspaceReadOnlyInputsPreserveBytesAndNormalizeModes` |
 | failure-retention | Workspaces | Explicit failure retention has accurate evidence | `TestWorkspaceFailureCleanupAndExplicitRetention` |
 | setup-no-launch | Workspaces | Invalid fixture never launches target | `TestWorkspaceSetupFailureDoesNotLaunchTarget` |
 | cleanup-blocks-update | Workspaces | Cleanup failure prevents accepted baseline | `TestWorkspaceCleanupFailurePreventsSnapshotCommit` |
 | fixture-dirty | Workspaces | Dirty fixture invalidates reviewed replay | `TestRecordingFixtureChangesAndCanceledExport` |
 | genuine-mismatch | Snapshots and export | Actual screen mismatch is red with readable evidence | `TestSnapshotBaselineAndReadableMismatch` |
+| missing-snapshot | Snapshots and export | Missing and oversized baselines produce distinct accurate failures | `TestSnapshotMissingAndSizeFailuresAreDistinct` |
 | selected-update | Snapshots and export | Only named baseline changes | `TestTargetedSnapshotUpdate` |
 | late-failure-rollback | Snapshots and export | Later failing step rolls back update | `TestSnapshotUpdatesAreNotCommittedAfterLaterFailure` |
 | cancel-update | Snapshots and export | Cancellation prevents staged commit | `TestSnapshotUpdatesAreNotCommittedAfterCancellation` |

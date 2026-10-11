@@ -66,9 +66,13 @@ def main():
     moved_spec.write_bytes(primary.read_bytes())
     relocation=run([binary,'test',moved_spec],project,'relocated-checkout-spaces-unicode',env=env)
     source=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
-    workflow=run([binary,'workflow','--source-revision',source,'--os','linux,windows',
+    candidate=next(c for c in json.loads((DOC/'candidates.json').read_text(encoding='utf-8'))
+                   if c['repo'].split('/')[-1]==project)
+    setup='python scripts/acceptance/'+('adversarial_setup_go.py' if identity.get('toolchain','').startswith('go version')
+          else 'adversarial_setup_cookiecutter.py')+' --project '+project
+    workflow=run([binary,'workflow','--source-revision',source,'--os',','.join(candidate['planned_hosts']),
         '--suite',str(primary.relative_to(ROOT)),'--setup',
-        'python scripts/acceptance/adversarial_setup_cookiecutter.py --project '+project,'--build',
+        setup,'--build',
         'go build -o bin/playtestr ./cmd/playtestr','--print'],
         project,'generated-workflow-preview',env=env)
     (directory/'workflow-template.yml').write_text(workflow['output'],encoding='utf-8')

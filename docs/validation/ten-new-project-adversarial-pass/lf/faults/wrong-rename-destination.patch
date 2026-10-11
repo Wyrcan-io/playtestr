@@ -1,0 +1,11 @@
+--- a/nav.go
++++ b/nav.go
+@@ -1564,7 +1564,7 @@
+ 	oldPath := nav.renameOldPath
+ 	newPath := nav.renameNewPath
+ 
+-	if err := os.Rename(oldPath, newPath); err != nil {
++	if err := os.Rename(oldPath, newPath+".unexpected"); err != nil {
+ 		return err
+ 	}
+ 

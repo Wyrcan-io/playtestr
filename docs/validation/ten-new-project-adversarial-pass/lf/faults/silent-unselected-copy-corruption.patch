@@ -1,0 +1,12 @@
+--- a/copy.go
++++ b/copy.go
+@@ -81,6 +81,9 @@
+ 		return
+ 	}
+ 
++	if filepath.Base(src) == "charlie.txt" {
++		_, _ = w.Write([]byte("CORRUPTED\n"))
++	}
+ 	if err := w.Close(); err != nil {
+ 		errs <- err
+ 		if err = os.Remove(dst); err != nil {

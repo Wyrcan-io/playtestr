@@ -1,0 +1,103 @@
+{
+  "version": 2,
+  "name": "Resize repeatedly, search an initially offscreen item, and return to Unicode preview",
+  "command": [
+    "lf",
+    "-single",
+    "-config",
+    "lfrc",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "xterm-256color",
+    "USERNAME": "synthetic-maintainer"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "LF 00-empty"
+    },
+    {
+      "resize": {
+        "width": 80,
+        "height": 24
+      }
+    },
+    {
+      "text": "/"
+    },
+    {
+      "text": "zz-scroll-34.txt"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "LF zz-scroll-34.txt"
+    },
+    {
+      "expect": "Scroll item 34 preserved."
+    },
+    {
+      "resize": {
+        "width": 120,
+        "height": 35
+      }
+    },
+    {
+      "text": "/"
+    },
+    {
+      "text": "long.txt"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "LF long.txt"
+    },
+    {
+      "expect": "line 00: bounded long preview café 雪"
+    },
+    {
+      "resize": {
+        "width": 100,
+        "height": 30
+      }
+    },
+    {
+      "text": "/"
+    },
+    {
+      "text": "zz-scroll-33.txt"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "LF zz-scroll-33.txt"
+    },
+    {
+      "expect": "Scroll item 33 preserved."
+    },
+    {
+      "snapshot": "edge-resize-scroll.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+[
+  {
+    "name": "wrong-rename-destination",
+    "case": "normal-project",
+    "file": "nav.go",
+    "old": "if err := os.Rename(oldPath, newPath); err != nil {",
+    "new": "if err := os.Rename(oldPath, newPath+\".unexpected\"); err != nil {"
+  },
+  {
+    "name": "decline-replacement-bypassed",
+    "case": "edge-conflicting-rename",
+    "file": "eval.go",
+    "old": "case strings.HasPrefix(app.ui.cmdPrefix, \"replace\"):\n\t\tnormal(app)\n\n\t\tif arg == \"y\" {",
+    "new": "case strings.HasPrefix(app.ui.cmdPrefix, \"replace\"):\n\t\tnormal(app)\n\n\t\tif arg != \"y\" {"
+  },
+  {
+    "name": "silent-unselected-copy-corruption",
+    "case": "normal-noncontiguous-copy",
+    "file": "copy.go",
+    "old": "\tif err := w.Close(); err != nil {",
+    "new": "\tif filepath.Base(src) == \"charlie.txt\" {\n\t\t_, _ = w.Write([]byte(\"CORRUPTED\\n\"))\n\t}\n\tif err := w.Close(); err != nil {",
+    "state_only": true
+  }
+]

@@ -24,6 +24,10 @@ func TestAdversarialStressHelper(t *testing.T) {
 	if mode == "" {
 		return
 	}
+	if mode == "immediate-exit" {
+		fmt.Print("final output before immediate exit\r\n")
+		os.Exit(0)
+	}
 	if mode == "output" {
 		n, err := strconv.Atoi(os.Getenv("PLAYTESTR_STRESS_BYTES"))
 		if err != nil || n < 1 || n > 5000 {
@@ -38,6 +42,13 @@ func TestAdversarialStressHelper(t *testing.T) {
 	}
 	defer term.Restore(int(os.Stdin.Fd()), old)
 	switch mode {
+	case "crash":
+		fmt.Print("crash checkpoint ready\r\n")
+		var value [1]byte
+		if _, err := io.ReadFull(os.Stdin, value[:]); err != nil || value[0] != 'x' {
+			os.Exit(12)
+		}
+		panic("synthetic target crash after positive checkpoint")
 	case "reappear":
 		fmt.Print("phase one processing\r\n")
 		for _, output := range []string{"phase two ready", "phase three processing complete"} {
@@ -99,6 +110,29 @@ func TestAdversarialStressHelper(t *testing.T) {
 		os.Exit(4)
 	default:
 		os.Exit(8)
+	}
+}
+
+func TestAdversarialOutputFollowedByActualCrash(t *testing.T) {
+	result := runAdversarialStressSpec(t, "crash", []Step{{Expect: "crash checkpoint ready"},
+		{Text: "x"}, {Exit: intPointer(0)}}, 5000, 100000, nil)
+	if result.Failure == nil || result.Failure.Category != FailureUnexpectedExit {
+		t.Fatalf("panic must produce unexpected exit, never a green readiness result: %+v", result)
+	}
+	if !result.Target.Exited || result.Target.ExitCode == nil || *result.Target.ExitCode != 2 {
+		t.Fatalf("actual Go panic exit status must be preserved: %+v", result.Target)
+	}
+}
+
+func TestAdversarialImmediateExitPreservesFinalOutput(t *testing.T) {
+	// Observe the exit before inspecting output: exercise the status/drain race,
+	// rather than relying on a target that waits for input before exiting.
+	for attempt := 0; attempt < 20; attempt++ {
+		result := runAdversarialStressSpec(t, "immediate-exit", []Step{{Exit: intPointer(0)},
+			{Expect: "final output before immediate exit"}}, 5000, 100000, nil)
+		if result.Err() != nil {
+			t.Fatalf("fresh exit/drain attempt %d: %v", attempt, result.Err())
+		}
 	}
 }
 

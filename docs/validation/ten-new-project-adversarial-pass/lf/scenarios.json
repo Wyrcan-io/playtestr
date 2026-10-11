@@ -1,0 +1,1458 @@
+{
+  "project": "lf",
+  "fixture": "fixtures",
+  "environment": {
+    "TERM": "xterm-256color",
+    "USERNAME": "synthetic-maintainer"
+  },
+  "cases": [
+    {
+      "name": "normal-project",
+      "kind": "normal",
+      "purpose": "Rename a real file to a spaced Unicode name without changing bytes",
+      "command": [
+        "lf",
+        "-single",
+        "-config",
+        "lfrc",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "LF 00-empty"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "alpha.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "LF alpha.txt"
+        },
+        {
+          "text": "r"
+        },
+        {
+          "expect": "rename:"
+        },
+        {
+          "key": "CtrlA"
+        },
+        {
+          "key": "CtrlK"
+        },
+        {
+          "text": "renamed café.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "LF renamed"
+        },
+        {
+          "expect": "Alpha source retained."
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 13,
+      "snapshot_rows": [
+        1,
+        20
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "bravo.txt": "Bravo move source.\n",
+        "charlie.txt": "Charlie noncontiguous selection.\n",
+        "occupied.txt": "Different occupied destination.\n",
+        "protected.txt": "NEIGHBOR MUST REMAIN EXACT\n",
+        "02-nested/notes.txt": "Nested notes preserved.\n",
+        "02-nested/plan.txt": "NONINITIAL PLAN PREVIEW\nsecond exact line\n",
+        "long.txt": "line 00: bounded long preview café 雪\nline 01: bounded long preview café 雪\nline 02: bounded long preview café 雪\nline 03: bounded long preview café 雪\nline 04: bounded long preview café 雪\nline 05: bounded long preview café 雪\nline 06: bounded long preview café 雪\nline 07: bounded long preview café 雪\nline 08: bounded long preview café 雪\nline 09: bounded long preview café 雪\nline 10: bounded long preview café 雪\nline 11: bounded long preview café 雪\nline 12: bounded long preview café 雪\nline 13: bounded long preview café 雪\nline 14: bounded long preview café 雪\nline 15: bounded long preview café 雪\nline 16: bounded long preview café 雪\nline 17: bounded long preview café 雪\nline 18: bounded long preview café 雪\nline 19: bounded long preview café 雪\nline 20: bounded long preview café 雪\nline 21: bounded long preview café 雪\nline 22: bounded long preview café 雪\nline 23: bounded long preview café 雪\nline 24: bounded long preview café 雪\nline 25: bounded long preview café 雪\nline 26: bounded long preview café 雪\nline 27: bounded long preview café 雪\nline 28: bounded long preview café 雪\nline 29: bounded long preview café 雪\nline 30: bounded long preview café 雪\nline 31: bounded long preview café 雪\nline 32: bounded long preview café 雪\nline 33: bounded long preview café 雪\nline 34: bounded long preview café 雪\nline 35: bounded long preview café 雪\nline 36: bounded long preview café 雪\nline 37: bounded long preview café 雪\nline 38: bounded long preview café 雪\nline 39: bounded long preview café 雪\n",
+        "zz-scroll-00.txt": "Scroll item 00 preserved.\n",
+        "zz-scroll-01.txt": "Scroll item 01 preserved.\n",
+        "zz-scroll-02.txt": "Scroll item 02 preserved.\n",
+        "zz-scroll-03.txt": "Scroll item 03 preserved.\n",
+        "zz-scroll-04.txt": "Scroll item 04 preserved.\n",
+        "zz-scroll-05.txt": "Scroll item 05 preserved.\n",
+        "zz-scroll-06.txt": "Scroll item 06 preserved.\n",
+        "zz-scroll-07.txt": "Scroll item 07 preserved.\n",
+        "zz-scroll-08.txt": "Scroll item 08 preserved.\n",
+        "zz-scroll-09.txt": "Scroll item 09 preserved.\n",
+        "zz-scroll-10.txt": "Scroll item 10 preserved.\n",
+        "zz-scroll-11.txt": "Scroll item 11 preserved.\n",
+        "zz-scroll-12.txt": "Scroll item 12 preserved.\n",
+        "zz-scroll-13.txt": "Scroll item 13 preserved.\n",
+        "zz-scroll-14.txt": "Scroll item 14 preserved.\n",
+        "zz-scroll-15.txt": "Scroll item 15 preserved.\n",
+        "zz-scroll-16.txt": "Scroll item 16 preserved.\n",
+        "zz-scroll-17.txt": "Scroll item 17 preserved.\n",
+        "zz-scroll-18.txt": "Scroll item 18 preserved.\n",
+        "zz-scroll-19.txt": "Scroll item 19 preserved.\n",
+        "zz-scroll-20.txt": "Scroll item 20 preserved.\n",
+        "zz-scroll-21.txt": "Scroll item 21 preserved.\n",
+        "zz-scroll-22.txt": "Scroll item 22 preserved.\n",
+        "zz-scroll-23.txt": "Scroll item 23 preserved.\n",
+        "zz-scroll-24.txt": "Scroll item 24 preserved.\n",
+        "zz-scroll-25.txt": "Scroll item 25 preserved.\n",
+        "zz-scroll-26.txt": "Scroll item 26 preserved.\n",
+        "zz-scroll-27.txt": "Scroll item 27 preserved.\n",
+        "zz-scroll-28.txt": "Scroll item 28 preserved.\n",
+        "zz-scroll-29.txt": "Scroll item 29 preserved.\n",
+        "zz-scroll-30.txt": "Scroll item 30 preserved.\n",
+        "zz-scroll-31.txt": "Scroll item 31 preserved.\n",
+        "zz-scroll-32.txt": "Scroll item 32 preserved.\n",
+        "zz-scroll-33.txt": "Scroll item 33 preserved.\n",
+        "zz-scroll-34.txt": "Scroll item 34 preserved.\n",
+        "lfrc": "set promptfmt \"LF %f\"\nset statfmt \"\"\nset ratios 1:2\nset info\nset sortby natural\nset preview\nset nohidden\nset noincsearch\nset noincfilter\n",
+        "renamed café.txt": "Alpha source retained.\n"
+      },
+      "absent_paths": [
+        "alpha.txt"
+      ],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Rows 21–30: host metadata/status area and long-list lower rows; explicit selected header and exact state remain required"
+    },
+    {
+      "name": "normal-nested-search",
+      "kind": "normal",
+      "purpose": "Navigate into a directory and preview a noninitial searched file",
+      "command": [
+        "lf",
+        "-single",
+        "-config",
+        "lfrc",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "LF 00-empty"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "02-nested"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "LF 02-nested"
+        },
+        {
+          "key": "ArrowRight"
+        },
+        {
+          "expect": "LF notes.txt"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "plan.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "LF plan.txt"
+        },
+        {
+          "expect": "NONINITIAL PLAN PREVIEW"
+        },
+        {
+          "expect": "second exact line"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 13,
+      "snapshot_rows": [
+        1,
+        20
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "Alpha source retained.\n",
+        "bravo.txt": "Bravo move source.\n",
+        "charlie.txt": "Charlie noncontiguous selection.\n",
+        "occupied.txt": "Different occupied destination.\n",
+        "protected.txt": "NEIGHBOR MUST REMAIN EXACT\n",
+        "02-nested/notes.txt": "Nested notes preserved.\n",
+        "02-nested/plan.txt": "NONINITIAL PLAN PREVIEW\nsecond exact line\n",
+        "long.txt": "line 00: bounded long preview café 雪\nline 01: bounded long preview café 雪\nline 02: bounded long preview café 雪\nline 03: bounded long preview café 雪\nline 04: bounded long preview café 雪\nline 05: bounded long preview café 雪\nline 06: bounded long preview café 雪\nline 07: bounded long preview café 雪\nline 08: bounded long preview café 雪\nline 09: bounded long preview café 雪\nline 10: bounded long preview café 雪\nline 11: bounded long preview café 雪\nline 12: bounded long preview café 雪\nline 13: bounded long preview café 雪\nline 14: bounded long preview café 雪\nline 15: bounded long preview café 雪\nline 16: bounded long preview café 雪\nline 17: bounded long preview café 雪\nline 18: bounded long preview café 雪\nline 19: bounded long preview café 雪\nline 20: bounded long preview café 雪\nline 21: bounded long preview café 雪\nline 22: bounded long preview café 雪\nline 23: bounded long preview café 雪\nline 24: bounded long preview café 雪\nline 25: bounded long preview café 雪\nline 26: bounded long preview café 雪\nline 27: bounded long preview café 雪\nline 28: bounded long preview café 雪\nline 29: bounded long preview café 雪\nline 30: bounded long preview café 雪\nline 31: bounded long preview café 雪\nline 32: bounded long preview café 雪\nline 33: bounded long preview café 雪\nline 34: bounded long preview café 雪\nline 35: bounded long preview café 雪\nline 36: bounded long preview café 雪\nline 37: bounded long preview café 雪\nline 38: bounded long preview café 雪\nline 39: bounded long preview café 雪\n",
+        "zz-scroll-00.txt": "Scroll item 00 preserved.\n",
+        "zz-scroll-01.txt": "Scroll item 01 preserved.\n",
+        "zz-scroll-02.txt": "Scroll item 02 preserved.\n",
+        "zz-scroll-03.txt": "Scroll item 03 preserved.\n",
+        "zz-scroll-04.txt": "Scroll item 04 preserved.\n",
+        "zz-scroll-05.txt": "Scroll item 05 preserved.\n",
+        "zz-scroll-06.txt": "Scroll item 06 preserved.\n",
+        "zz-scroll-07.txt": "Scroll item 07 preserved.\n",
+        "zz-scroll-08.txt": "Scroll item 08 preserved.\n",
+        "zz-scroll-09.txt": "Scroll item 09 preserved.\n",
+        "zz-scroll-10.txt": "Scroll item 10 preserved.\n",
+        "zz-scroll-11.txt": "Scroll item 11 preserved.\n",
+        "zz-scroll-12.txt": "Scroll item 12 preserved.\n",
+        "zz-scroll-13.txt": "Scroll item 13 preserved.\n",
+        "zz-scroll-14.txt": "Scroll item 14 preserved.\n",
+        "zz-scroll-15.txt": "Scroll item 15 preserved.\n",
+        "zz-scroll-16.txt": "Scroll item 16 preserved.\n",
+        "zz-scroll-17.txt": "Scroll item 17 preserved.\n",
+        "zz-scroll-18.txt": "Scroll item 18 preserved.\n",
+        "zz-scroll-19.txt": "Scroll item 19 preserved.\n",
+        "zz-scroll-20.txt": "Scroll item 20 preserved.\n",
+        "zz-scroll-21.txt": "Scroll item 21 preserved.\n",
+        "zz-scroll-22.txt": "Scroll item 22 preserved.\n",
+        "zz-scroll-23.txt": "Scroll item 23 preserved.\n",
+        "zz-scroll-24.txt": "Scroll item 24 preserved.\n",
+        "zz-scroll-25.txt": "Scroll item 25 preserved.\n",
+        "zz-scroll-26.txt": "Scroll item 26 preserved.\n",
+        "zz-scroll-27.txt": "Scroll item 27 preserved.\n",
+        "zz-scroll-28.txt": "Scroll item 28 preserved.\n",
+        "zz-scroll-29.txt": "Scroll item 29 preserved.\n",
+        "zz-scroll-30.txt": "Scroll item 30 preserved.\n",
+        "zz-scroll-31.txt": "Scroll item 31 preserved.\n",
+        "zz-scroll-32.txt": "Scroll item 32 preserved.\n",
+        "zz-scroll-33.txt": "Scroll item 33 preserved.\n",
+        "zz-scroll-34.txt": "Scroll item 34 preserved.\n",
+        "lfrc": "set promptfmt \"LF %f\"\nset statfmt \"\"\nset ratios 1:2\nset info\nset sortby natural\nset preview\nset nohidden\nset noincsearch\nset noincfilter\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Rows 21–30: host metadata/status area and long-list lower rows; explicit selected header and exact state remain required"
+    },
+    {
+      "name": "normal-copy",
+      "kind": "normal",
+      "purpose": "Built-in clipboard copy into an empty directory",
+      "command": [
+        "lf",
+        "-single",
+        "-config",
+        "lfrc",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "LF 00-empty"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "alpha.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "LF alpha.txt"
+        },
+        {
+          "text": "y"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "01-destination"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "LF 01-destination"
+        },
+        {
+          "key": "ArrowRight"
+        },
+        {
+          "text": "p"
+        },
+        {
+          "expect": "LF alpha.txt"
+        },
+        {
+          "expect": "Alpha source retained."
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 14,
+      "snapshot_rows": [
+        1,
+        20
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "Alpha source retained.\n",
+        "bravo.txt": "Bravo move source.\n",
+        "charlie.txt": "Charlie noncontiguous selection.\n",
+        "occupied.txt": "Different occupied destination.\n",
+        "protected.txt": "NEIGHBOR MUST REMAIN EXACT\n",
+        "02-nested/notes.txt": "Nested notes preserved.\n",
+        "02-nested/plan.txt": "NONINITIAL PLAN PREVIEW\nsecond exact line\n",
+        "long.txt": "line 00: bounded long preview café 雪\nline 01: bounded long preview café 雪\nline 02: bounded long preview café 雪\nline 03: bounded long preview café 雪\nline 04: bounded long preview café 雪\nline 05: bounded long preview café 雪\nline 06: bounded long preview café 雪\nline 07: bounded long preview café 雪\nline 08: bounded long preview café 雪\nline 09: bounded long preview café 雪\nline 10: bounded long preview café 雪\nline 11: bounded long preview café 雪\nline 12: bounded long preview café 雪\nline 13: bounded long preview café 雪\nline 14: bounded long preview café 雪\nline 15: bounded long preview café 雪\nline 16: bounded long preview café 雪\nline 17: bounded long preview café 雪\nline 18: bounded long preview café 雪\nline 19: bounded long preview café 雪\nline 20: bounded long preview café 雪\nline 21: bounded long preview café 雪\nline 22: bounded long preview café 雪\nline 23: bounded long preview café 雪\nline 24: bounded long preview café 雪\nline 25: bounded long preview café 雪\nline 26: bounded long preview café 雪\nline 27: bounded long preview café 雪\nline 28: bounded long preview café 雪\nline 29: bounded long preview café 雪\nline 30: bounded long preview café 雪\nline 31: bounded long preview café 雪\nline 32: bounded long preview café 雪\nline 33: bounded long preview café 雪\nline 34: bounded long preview café 雪\nline 35: bounded long preview café 雪\nline 36: bounded long preview café 雪\nline 37: bounded long preview café 雪\nline 38: bounded long preview café 雪\nline 39: bounded long preview café 雪\n",
+        "zz-scroll-00.txt": "Scroll item 00 preserved.\n",
+        "zz-scroll-01.txt": "Scroll item 01 preserved.\n",
+        "zz-scroll-02.txt": "Scroll item 02 preserved.\n",
+        "zz-scroll-03.txt": "Scroll item 03 preserved.\n",
+        "zz-scroll-04.txt": "Scroll item 04 preserved.\n",
+        "zz-scroll-05.txt": "Scroll item 05 preserved.\n",
+        "zz-scroll-06.txt": "Scroll item 06 preserved.\n",
+        "zz-scroll-07.txt": "Scroll item 07 preserved.\n",
+        "zz-scroll-08.txt": "Scroll item 08 preserved.\n",
+        "zz-scroll-09.txt": "Scroll item 09 preserved.\n",
+        "zz-scroll-10.txt": "Scroll item 10 preserved.\n",
+        "zz-scroll-11.txt": "Scroll item 11 preserved.\n",
+        "zz-scroll-12.txt": "Scroll item 12 preserved.\n",
+        "zz-scroll-13.txt": "Scroll item 13 preserved.\n",
+        "zz-scroll-14.txt": "Scroll item 14 preserved.\n",
+        "zz-scroll-15.txt": "Scroll item 15 preserved.\n",
+        "zz-scroll-16.txt": "Scroll item 16 preserved.\n",
+        "zz-scroll-17.txt": "Scroll item 17 preserved.\n",
+        "zz-scroll-18.txt": "Scroll item 18 preserved.\n",
+        "zz-scroll-19.txt": "Scroll item 19 preserved.\n",
+        "zz-scroll-20.txt": "Scroll item 20 preserved.\n",
+        "zz-scroll-21.txt": "Scroll item 21 preserved.\n",
+        "zz-scroll-22.txt": "Scroll item 22 preserved.\n",
+        "zz-scroll-23.txt": "Scroll item 23 preserved.\n",
+        "zz-scroll-24.txt": "Scroll item 24 preserved.\n",
+        "zz-scroll-25.txt": "Scroll item 25 preserved.\n",
+        "zz-scroll-26.txt": "Scroll item 26 preserved.\n",
+        "zz-scroll-27.txt": "Scroll item 27 preserved.\n",
+        "zz-scroll-28.txt": "Scroll item 28 preserved.\n",
+        "zz-scroll-29.txt": "Scroll item 29 preserved.\n",
+        "zz-scroll-30.txt": "Scroll item 30 preserved.\n",
+        "zz-scroll-31.txt": "Scroll item 31 preserved.\n",
+        "zz-scroll-32.txt": "Scroll item 32 preserved.\n",
+        "zz-scroll-33.txt": "Scroll item 33 preserved.\n",
+        "zz-scroll-34.txt": "Scroll item 34 preserved.\n",
+        "lfrc": "set promptfmt \"LF %f\"\nset statfmt \"\"\nset ratios 1:2\nset info\nset sortby natural\nset preview\nset nohidden\nset noincsearch\nset noincfilter\n",
+        "01-destination/alpha.txt": "Alpha source retained.\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Rows 21–30: host metadata/status area and long-list lower rows; explicit selected header and exact state remain required"
+    },
+    {
+      "name": "normal-move",
+      "kind": "normal",
+      "purpose": "Built-in clipboard move into an empty directory",
+      "command": [
+        "lf",
+        "-single",
+        "-config",
+        "lfrc",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "LF 00-empty"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "bravo.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "LF bravo.txt"
+        },
+        {
+          "text": "d"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "01-destination"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "LF 01-destination"
+        },
+        {
+          "key": "ArrowRight"
+        },
+        {
+          "text": "p"
+        },
+        {
+          "expect": "LF bravo.txt"
+        },
+        {
+          "expect": "Bravo move source."
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 14,
+      "snapshot_rows": [
+        1,
+        20
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "Alpha source retained.\n",
+        "charlie.txt": "Charlie noncontiguous selection.\n",
+        "occupied.txt": "Different occupied destination.\n",
+        "protected.txt": "NEIGHBOR MUST REMAIN EXACT\n",
+        "02-nested/notes.txt": "Nested notes preserved.\n",
+        "02-nested/plan.txt": "NONINITIAL PLAN PREVIEW\nsecond exact line\n",
+        "long.txt": "line 00: bounded long preview café 雪\nline 01: bounded long preview café 雪\nline 02: bounded long preview café 雪\nline 03: bounded long preview café 雪\nline 04: bounded long preview café 雪\nline 05: bounded long preview café 雪\nline 06: bounded long preview café 雪\nline 07: bounded long preview café 雪\nline 08: bounded long preview café 雪\nline 09: bounded long preview café 雪\nline 10: bounded long preview café 雪\nline 11: bounded long preview café 雪\nline 12: bounded long preview café 雪\nline 13: bounded long preview café 雪\nline 14: bounded long preview café 雪\nline 15: bounded long preview café 雪\nline 16: bounded long preview café 雪\nline 17: bounded long preview café 雪\nline 18: bounded long preview café 雪\nline 19: bounded long preview café 雪\nline 20: bounded long preview café 雪\nline 21: bounded long preview café 雪\nline 22: bounded long preview café 雪\nline 23: bounded long preview café 雪\nline 24: bounded long preview café 雪\nline 25: bounded long preview café 雪\nline 26: bounded long preview café 雪\nline 27: bounded long preview café 雪\nline 28: bounded long preview café 雪\nline 29: bounded long preview café 雪\nline 30: bounded long preview café 雪\nline 31: bounded long preview café 雪\nline 32: bounded long preview café 雪\nline 33: bounded long preview café 雪\nline 34: bounded long preview café 雪\nline 35: bounded long preview café 雪\nline 36: bounded long preview café 雪\nline 37: bounded long preview café 雪\nline 38: bounded long preview café 雪\nline 39: bounded long preview café 雪\n",
+        "zz-scroll-00.txt": "Scroll item 00 preserved.\n",
+        "zz-scroll-01.txt": "Scroll item 01 preserved.\n",
+        "zz-scroll-02.txt": "Scroll item 02 preserved.\n",
+        "zz-scroll-03.txt": "Scroll item 03 preserved.\n",
+        "zz-scroll-04.txt": "Scroll item 04 preserved.\n",
+        "zz-scroll-05.txt": "Scroll item 05 preserved.\n",
+        "zz-scroll-06.txt": "Scroll item 06 preserved.\n",
+        "zz-scroll-07.txt": "Scroll item 07 preserved.\n",
+        "zz-scroll-08.txt": "Scroll item 08 preserved.\n",
+        "zz-scroll-09.txt": "Scroll item 09 preserved.\n",
+        "zz-scroll-10.txt": "Scroll item 10 preserved.\n",
+        "zz-scroll-11.txt": "Scroll item 11 preserved.\n",
+        "zz-scroll-12.txt": "Scroll item 12 preserved.\n",
+        "zz-scroll-13.txt": "Scroll item 13 preserved.\n",
+        "zz-scroll-14.txt": "Scroll item 14 preserved.\n",
+        "zz-scroll-15.txt": "Scroll item 15 preserved.\n",
+        "zz-scroll-16.txt": "Scroll item 16 preserved.\n",
+        "zz-scroll-17.txt": "Scroll item 17 preserved.\n",
+        "zz-scroll-18.txt": "Scroll item 18 preserved.\n",
+        "zz-scroll-19.txt": "Scroll item 19 preserved.\n",
+        "zz-scroll-20.txt": "Scroll item 20 preserved.\n",
+        "zz-scroll-21.txt": "Scroll item 21 preserved.\n",
+        "zz-scroll-22.txt": "Scroll item 22 preserved.\n",
+        "zz-scroll-23.txt": "Scroll item 23 preserved.\n",
+        "zz-scroll-24.txt": "Scroll item 24 preserved.\n",
+        "zz-scroll-25.txt": "Scroll item 25 preserved.\n",
+        "zz-scroll-26.txt": "Scroll item 26 preserved.\n",
+        "zz-scroll-27.txt": "Scroll item 27 preserved.\n",
+        "zz-scroll-28.txt": "Scroll item 28 preserved.\n",
+        "zz-scroll-29.txt": "Scroll item 29 preserved.\n",
+        "zz-scroll-30.txt": "Scroll item 30 preserved.\n",
+        "zz-scroll-31.txt": "Scroll item 31 preserved.\n",
+        "zz-scroll-32.txt": "Scroll item 32 preserved.\n",
+        "zz-scroll-33.txt": "Scroll item 33 preserved.\n",
+        "zz-scroll-34.txt": "Scroll item 34 preserved.\n",
+        "lfrc": "set promptfmt \"LF %f\"\nset statfmt \"\"\nset ratios 1:2\nset info\nset sortby natural\nset preview\nset nohidden\nset noincsearch\nset noincfilter\n",
+        "01-destination/bravo.txt": "Bravo move source.\n"
+      },
+      "absent_paths": [
+        "bravo.txt"
+      ],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Rows 21–30: host metadata/status area and long-list lower rows; explicit selected header and exact state remain required"
+    },
+    {
+      "name": "normal-noncontiguous-copy",
+      "kind": "normal",
+      "purpose": "Copy two nonadjacent selected files and preserve their neighbors",
+      "command": [
+        "lf",
+        "-single",
+        "-config",
+        "lfrc",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "LF 00-empty"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "alpha.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "LF alpha.txt"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "charlie.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "LF charlie.txt"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "y"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "01-destination"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "LF 01-destination"
+        },
+        {
+          "key": "ArrowRight"
+        },
+        {
+          "text": "p"
+        },
+        {
+          "expect": "LF alpha.txt"
+        },
+        {
+          "expect": "charlie.txt"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 20,
+      "snapshot_rows": [
+        1,
+        20
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "Alpha source retained.\n",
+        "bravo.txt": "Bravo move source.\n",
+        "charlie.txt": "Charlie noncontiguous selection.\n",
+        "occupied.txt": "Different occupied destination.\n",
+        "protected.txt": "NEIGHBOR MUST REMAIN EXACT\n",
+        "02-nested/notes.txt": "Nested notes preserved.\n",
+        "02-nested/plan.txt": "NONINITIAL PLAN PREVIEW\nsecond exact line\n",
+        "long.txt": "line 00: bounded long preview café 雪\nline 01: bounded long preview café 雪\nline 02: bounded long preview café 雪\nline 03: bounded long preview café 雪\nline 04: bounded long preview café 雪\nline 05: bounded long preview café 雪\nline 06: bounded long preview café 雪\nline 07: bounded long preview café 雪\nline 08: bounded long preview café 雪\nline 09: bounded long preview café 雪\nline 10: bounded long preview café 雪\nline 11: bounded long preview café 雪\nline 12: bounded long preview café 雪\nline 13: bounded long preview café 雪\nline 14: bounded long preview café 雪\nline 15: bounded long preview café 雪\nline 16: bounded long preview café 雪\nline 17: bounded long preview café 雪\nline 18: bounded long preview café 雪\nline 19: bounded long preview café 雪\nline 20: bounded long preview café 雪\nline 21: bounded long preview café 雪\nline 22: bounded long preview café 雪\nline 23: bounded long preview café 雪\nline 24: bounded long preview café 雪\nline 25: bounded long preview café 雪\nline 26: bounded long preview café 雪\nline 27: bounded long preview café 雪\nline 28: bounded long preview café 雪\nline 29: bounded long preview café 雪\nline 30: bounded long preview café 雪\nline 31: bounded long preview café 雪\nline 32: bounded long preview café 雪\nline 33: bounded long preview café 雪\nline 34: bounded long preview café 雪\nline 35: bounded long preview café 雪\nline 36: bounded long preview café 雪\nline 37: bounded long preview café 雪\nline 38: bounded long preview café 雪\nline 39: bounded long preview café 雪\n",
+        "zz-scroll-00.txt": "Scroll item 00 preserved.\n",
+        "zz-scroll-01.txt": "Scroll item 01 preserved.\n",
+        "zz-scroll-02.txt": "Scroll item 02 preserved.\n",
+        "zz-scroll-03.txt": "Scroll item 03 preserved.\n",
+        "zz-scroll-04.txt": "Scroll item 04 preserved.\n",
+        "zz-scroll-05.txt": "Scroll item 05 preserved.\n",
+        "zz-scroll-06.txt": "Scroll item 06 preserved.\n",
+        "zz-scroll-07.txt": "Scroll item 07 preserved.\n",
+        "zz-scroll-08.txt": "Scroll item 08 preserved.\n",
+        "zz-scroll-09.txt": "Scroll item 09 preserved.\n",
+        "zz-scroll-10.txt": "Scroll item 10 preserved.\n",
+        "zz-scroll-11.txt": "Scroll item 11 preserved.\n",
+        "zz-scroll-12.txt": "Scroll item 12 preserved.\n",
+        "zz-scroll-13.txt": "Scroll item 13 preserved.\n",
+        "zz-scroll-14.txt": "Scroll item 14 preserved.\n",
+        "zz-scroll-15.txt": "Scroll item 15 preserved.\n",
+        "zz-scroll-16.txt": "Scroll item 16 preserved.\n",
+        "zz-scroll-17.txt": "Scroll item 17 preserved.\n",
+        "zz-scroll-18.txt": "Scroll item 18 preserved.\n",
+        "zz-scroll-19.txt": "Scroll item 19 preserved.\n",
+        "zz-scroll-20.txt": "Scroll item 20 preserved.\n",
+        "zz-scroll-21.txt": "Scroll item 21 preserved.\n",
+        "zz-scroll-22.txt": "Scroll item 22 preserved.\n",
+        "zz-scroll-23.txt": "Scroll item 23 preserved.\n",
+        "zz-scroll-24.txt": "Scroll item 24 preserved.\n",
+        "zz-scroll-25.txt": "Scroll item 25 preserved.\n",
+        "zz-scroll-26.txt": "Scroll item 26 preserved.\n",
+        "zz-scroll-27.txt": "Scroll item 27 preserved.\n",
+        "zz-scroll-28.txt": "Scroll item 28 preserved.\n",
+        "zz-scroll-29.txt": "Scroll item 29 preserved.\n",
+        "zz-scroll-30.txt": "Scroll item 30 preserved.\n",
+        "zz-scroll-31.txt": "Scroll item 31 preserved.\n",
+        "zz-scroll-32.txt": "Scroll item 32 preserved.\n",
+        "zz-scroll-33.txt": "Scroll item 33 preserved.\n",
+        "zz-scroll-34.txt": "Scroll item 34 preserved.\n",
+        "lfrc": "set promptfmt \"LF %f\"\nset statfmt \"\"\nset ratios 1:2\nset info\nset sortby natural\nset preview\nset nohidden\nset noincsearch\nset noincfilter\n",
+        "01-destination/alpha.txt": "Alpha source retained.\n",
+        "01-destination/charlie.txt": "Charlie noncontiguous selection.\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Rows 21–30: host metadata/status area and long-list lower rows; explicit selected header and exact state remain required"
+    },
+    {
+      "name": "normal-filter-sort-recover",
+      "kind": "normal",
+      "purpose": "Filter file names, change ordering and restore the full directory view",
+      "command": [
+        "lf",
+        "-single",
+        "-config",
+        "lfrc",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "LF 00-empty"
+        },
+        {
+          "text": ":"
+        },
+        {
+          "text": "setfilter .txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "LF alpha.txt"
+        },
+        {
+          "expect_not": "LF 00-empty"
+        },
+        {
+          "snapshot_rows": {
+            "name": "filter-intermediate.rows.json",
+            "first": 1,
+            "last": 20
+          }
+        },
+        {
+          "text": ":"
+        },
+        {
+          "text": "set sortby size"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "text": ":"
+        },
+        {
+          "text": "bottom"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "LF long.txt"
+        },
+        {
+          "text": ":"
+        },
+        {
+          "text": "set sortby natural"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "text": ":"
+        },
+        {
+          "text": "setfilter"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "protected.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "LF protected.txt"
+        },
+        {
+          "expect": "NEIGHBOR MUST REMAIN EXACT"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 25,
+      "snapshot_rows": [
+        1,
+        20
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "Alpha source retained.\n",
+        "bravo.txt": "Bravo move source.\n",
+        "charlie.txt": "Charlie noncontiguous selection.\n",
+        "occupied.txt": "Different occupied destination.\n",
+        "protected.txt": "NEIGHBOR MUST REMAIN EXACT\n",
+        "02-nested/notes.txt": "Nested notes preserved.\n",
+        "02-nested/plan.txt": "NONINITIAL PLAN PREVIEW\nsecond exact line\n",
+        "long.txt": "line 00: bounded long preview café 雪\nline 01: bounded long preview café 雪\nline 02: bounded long preview café 雪\nline 03: bounded long preview café 雪\nline 04: bounded long preview café 雪\nline 05: bounded long preview café 雪\nline 06: bounded long preview café 雪\nline 07: bounded long preview café 雪\nline 08: bounded long preview café 雪\nline 09: bounded long preview café 雪\nline 10: bounded long preview café 雪\nline 11: bounded long preview café 雪\nline 12: bounded long preview café 雪\nline 13: bounded long preview café 雪\nline 14: bounded long preview café 雪\nline 15: bounded long preview café 雪\nline 16: bounded long preview café 雪\nline 17: bounded long preview café 雪\nline 18: bounded long preview café 雪\nline 19: bounded long preview café 雪\nline 20: bounded long preview café 雪\nline 21: bounded long preview café 雪\nline 22: bounded long preview café 雪\nline 23: bounded long preview café 雪\nline 24: bounded long preview café 雪\nline 25: bounded long preview café 雪\nline 26: bounded long preview café 雪\nline 27: bounded long preview café 雪\nline 28: bounded long preview café 雪\nline 29: bounded long preview café 雪\nline 30: bounded long preview café 雪\nline 31: bounded long preview café 雪\nline 32: bounded long preview café 雪\nline 33: bounded long preview café 雪\nline 34: bounded long preview café 雪\nline 35: bounded long preview café 雪\nline 36: bounded long preview café 雪\nline 37: bounded long preview café 雪\nline 38: bounded long preview café 雪\nline 39: bounded long preview café 雪\n",
+        "zz-scroll-00.txt": "Scroll item 00 preserved.\n",
+        "zz-scroll-01.txt": "Scroll item 01 preserved.\n",
+        "zz-scroll-02.txt": "Scroll item 02 preserved.\n",
+        "zz-scroll-03.txt": "Scroll item 03 preserved.\n",
+        "zz-scroll-04.txt": "Scroll item 04 preserved.\n",
+        "zz-scroll-05.txt": "Scroll item 05 preserved.\n",
+        "zz-scroll-06.txt": "Scroll item 06 preserved.\n",
+        "zz-scroll-07.txt": "Scroll item 07 preserved.\n",
+        "zz-scroll-08.txt": "Scroll item 08 preserved.\n",
+        "zz-scroll-09.txt": "Scroll item 09 preserved.\n",
+        "zz-scroll-10.txt": "Scroll item 10 preserved.\n",
+        "zz-scroll-11.txt": "Scroll item 11 preserved.\n",
+        "zz-scroll-12.txt": "Scroll item 12 preserved.\n",
+        "zz-scroll-13.txt": "Scroll item 13 preserved.\n",
+        "zz-scroll-14.txt": "Scroll item 14 preserved.\n",
+        "zz-scroll-15.txt": "Scroll item 15 preserved.\n",
+        "zz-scroll-16.txt": "Scroll item 16 preserved.\n",
+        "zz-scroll-17.txt": "Scroll item 17 preserved.\n",
+        "zz-scroll-18.txt": "Scroll item 18 preserved.\n",
+        "zz-scroll-19.txt": "Scroll item 19 preserved.\n",
+        "zz-scroll-20.txt": "Scroll item 20 preserved.\n",
+        "zz-scroll-21.txt": "Scroll item 21 preserved.\n",
+        "zz-scroll-22.txt": "Scroll item 22 preserved.\n",
+        "zz-scroll-23.txt": "Scroll item 23 preserved.\n",
+        "zz-scroll-24.txt": "Scroll item 24 preserved.\n",
+        "zz-scroll-25.txt": "Scroll item 25 preserved.\n",
+        "zz-scroll-26.txt": "Scroll item 26 preserved.\n",
+        "zz-scroll-27.txt": "Scroll item 27 preserved.\n",
+        "zz-scroll-28.txt": "Scroll item 28 preserved.\n",
+        "zz-scroll-29.txt": "Scroll item 29 preserved.\n",
+        "zz-scroll-30.txt": "Scroll item 30 preserved.\n",
+        "zz-scroll-31.txt": "Scroll item 31 preserved.\n",
+        "zz-scroll-32.txt": "Scroll item 32 preserved.\n",
+        "zz-scroll-33.txt": "Scroll item 33 preserved.\n",
+        "zz-scroll-34.txt": "Scroll item 34 preserved.\n",
+        "lfrc": "set promptfmt \"LF %f\"\nset statfmt \"\"\nset ratios 1:2\nset info\nset sortby natural\nset preview\nset nohidden\nset noincsearch\nset noincfilter\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Rows 21–30: host metadata/status area and long-list lower rows; explicit selected header and exact state remain required"
+    },
+    {
+      "name": "edge-empty-directory",
+      "kind": "edge",
+      "purpose": "Enter an empty directory and recover to its nonempty parent",
+      "command": [
+        "lf",
+        "-single",
+        "-config",
+        "lfrc",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "LF 00-vacant"
+        },
+        {
+          "key": "ArrowRight"
+        },
+        {
+          "text": "r"
+        },
+        {
+          "expect": "rename: empty directory"
+        },
+        {
+          "key": "ArrowLeft"
+        },
+        {
+          "expect": "LF 00-vacant"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "protected.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "LF protected.txt"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 10,
+      "snapshot_rows": [
+        1,
+        20
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "Alpha source retained.\n",
+        "bravo.txt": "Bravo move source.\n",
+        "charlie.txt": "Charlie noncontiguous selection.\n",
+        "occupied.txt": "Different occupied destination.\n",
+        "protected.txt": "NEIGHBOR MUST REMAIN EXACT\n",
+        "02-nested/notes.txt": "Nested notes preserved.\n",
+        "02-nested/plan.txt": "NONINITIAL PLAN PREVIEW\nsecond exact line\n",
+        "long.txt": "line 00: bounded long preview café 雪\nline 01: bounded long preview café 雪\nline 02: bounded long preview café 雪\nline 03: bounded long preview café 雪\nline 04: bounded long preview café 雪\nline 05: bounded long preview café 雪\nline 06: bounded long preview café 雪\nline 07: bounded long preview café 雪\nline 08: bounded long preview café 雪\nline 09: bounded long preview café 雪\nline 10: bounded long preview café 雪\nline 11: bounded long preview café 雪\nline 12: bounded long preview café 雪\nline 13: bounded long preview café 雪\nline 14: bounded long preview café 雪\nline 15: bounded long preview café 雪\nline 16: bounded long preview café 雪\nline 17: bounded long preview café 雪\nline 18: bounded long preview café 雪\nline 19: bounded long preview café 雪\nline 20: bounded long preview café 雪\nline 21: bounded long preview café 雪\nline 22: bounded long preview café 雪\nline 23: bounded long preview café 雪\nline 24: bounded long preview café 雪\nline 25: bounded long preview café 雪\nline 26: bounded long preview café 雪\nline 27: bounded long preview café 雪\nline 28: bounded long preview café 雪\nline 29: bounded long preview café 雪\nline 30: bounded long preview café 雪\nline 31: bounded long preview café 雪\nline 32: bounded long preview café 雪\nline 33: bounded long preview café 雪\nline 34: bounded long preview café 雪\nline 35: bounded long preview café 雪\nline 36: bounded long preview café 雪\nline 37: bounded long preview café 雪\nline 38: bounded long preview café 雪\nline 39: bounded long preview café 雪\n",
+        "zz-scroll-00.txt": "Scroll item 00 preserved.\n",
+        "zz-scroll-01.txt": "Scroll item 01 preserved.\n",
+        "zz-scroll-02.txt": "Scroll item 02 preserved.\n",
+        "zz-scroll-03.txt": "Scroll item 03 preserved.\n",
+        "zz-scroll-04.txt": "Scroll item 04 preserved.\n",
+        "zz-scroll-05.txt": "Scroll item 05 preserved.\n",
+        "zz-scroll-06.txt": "Scroll item 06 preserved.\n",
+        "zz-scroll-07.txt": "Scroll item 07 preserved.\n",
+        "zz-scroll-08.txt": "Scroll item 08 preserved.\n",
+        "zz-scroll-09.txt": "Scroll item 09 preserved.\n",
+        "zz-scroll-10.txt": "Scroll item 10 preserved.\n",
+        "zz-scroll-11.txt": "Scroll item 11 preserved.\n",
+        "zz-scroll-12.txt": "Scroll item 12 preserved.\n",
+        "zz-scroll-13.txt": "Scroll item 13 preserved.\n",
+        "zz-scroll-14.txt": "Scroll item 14 preserved.\n",
+        "zz-scroll-15.txt": "Scroll item 15 preserved.\n",
+        "zz-scroll-16.txt": "Scroll item 16 preserved.\n",
+        "zz-scroll-17.txt": "Scroll item 17 preserved.\n",
+        "zz-scroll-18.txt": "Scroll item 18 preserved.\n",
+        "zz-scroll-19.txt": "Scroll item 19 preserved.\n",
+        "zz-scroll-20.txt": "Scroll item 20 preserved.\n",
+        "zz-scroll-21.txt": "Scroll item 21 preserved.\n",
+        "zz-scroll-22.txt": "Scroll item 22 preserved.\n",
+        "zz-scroll-23.txt": "Scroll item 23 preserved.\n",
+        "zz-scroll-24.txt": "Scroll item 24 preserved.\n",
+        "zz-scroll-25.txt": "Scroll item 25 preserved.\n",
+        "zz-scroll-26.txt": "Scroll item 26 preserved.\n",
+        "zz-scroll-27.txt": "Scroll item 27 preserved.\n",
+        "zz-scroll-28.txt": "Scroll item 28 preserved.\n",
+        "zz-scroll-29.txt": "Scroll item 29 preserved.\n",
+        "zz-scroll-30.txt": "Scroll item 30 preserved.\n",
+        "zz-scroll-31.txt": "Scroll item 31 preserved.\n",
+        "zz-scroll-32.txt": "Scroll item 32 preserved.\n",
+        "zz-scroll-33.txt": "Scroll item 33 preserved.\n",
+        "zz-scroll-34.txt": "Scroll item 34 preserved.\n",
+        "lfrc": "set promptfmt \"LF %f\"\nset statfmt \"\"\nset ratios 1:2\nset info\nset sortby natural\nset preview\nset nohidden\nset noincsearch\nset noincfilter\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Rows 21–30: host metadata/status area and long-list lower rows; explicit selected header and exact state remain required",
+      "fixture": "fixtures-empty"
+    },
+    {
+      "name": "edge-no-match-recovery",
+      "kind": "edge",
+      "purpose": "Reject an absent glob selection and recover with a genuine selected result",
+      "command": [
+        "lf",
+        "-single",
+        "-config",
+        "lfrc",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "LF 00-empty"
+        },
+        {
+          "text": ":"
+        },
+        {
+          "text": "glob-select absent-never-*"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "pattern not found: absent-never-*"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "bravo.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "LF bravo.txt"
+        },
+        {
+          "expect": "Bravo move source."
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 10,
+      "snapshot_rows": [
+        1,
+        20
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "Alpha source retained.\n",
+        "bravo.txt": "Bravo move source.\n",
+        "charlie.txt": "Charlie noncontiguous selection.\n",
+        "occupied.txt": "Different occupied destination.\n",
+        "protected.txt": "NEIGHBOR MUST REMAIN EXACT\n",
+        "02-nested/notes.txt": "Nested notes preserved.\n",
+        "02-nested/plan.txt": "NONINITIAL PLAN PREVIEW\nsecond exact line\n",
+        "long.txt": "line 00: bounded long preview café 雪\nline 01: bounded long preview café 雪\nline 02: bounded long preview café 雪\nline 03: bounded long preview café 雪\nline 04: bounded long preview café 雪\nline 05: bounded long preview café 雪\nline 06: bounded long preview café 雪\nline 07: bounded long preview café 雪\nline 08: bounded long preview café 雪\nline 09: bounded long preview café 雪\nline 10: bounded long preview café 雪\nline 11: bounded long preview café 雪\nline 12: bounded long preview café 雪\nline 13: bounded long preview café 雪\nline 14: bounded long preview café 雪\nline 15: bounded long preview café 雪\nline 16: bounded long preview café 雪\nline 17: bounded long preview café 雪\nline 18: bounded long preview café 雪\nline 19: bounded long preview café 雪\nline 20: bounded long preview café 雪\nline 21: bounded long preview café 雪\nline 22: bounded long preview café 雪\nline 23: bounded long preview café 雪\nline 24: bounded long preview café 雪\nline 25: bounded long preview café 雪\nline 26: bounded long preview café 雪\nline 27: bounded long preview café 雪\nline 28: bounded long preview café 雪\nline 29: bounded long preview café 雪\nline 30: bounded long preview café 雪\nline 31: bounded long preview café 雪\nline 32: bounded long preview café 雪\nline 33: bounded long preview café 雪\nline 34: bounded long preview café 雪\nline 35: bounded long preview café 雪\nline 36: bounded long preview café 雪\nline 37: bounded long preview café 雪\nline 38: bounded long preview café 雪\nline 39: bounded long preview café 雪\n",
+        "zz-scroll-00.txt": "Scroll item 00 preserved.\n",
+        "zz-scroll-01.txt": "Scroll item 01 preserved.\n",
+        "zz-scroll-02.txt": "Scroll item 02 preserved.\n",
+        "zz-scroll-03.txt": "Scroll item 03 preserved.\n",
+        "zz-scroll-04.txt": "Scroll item 04 preserved.\n",
+        "zz-scroll-05.txt": "Scroll item 05 preserved.\n",
+        "zz-scroll-06.txt": "Scroll item 06 preserved.\n",
+        "zz-scroll-07.txt": "Scroll item 07 preserved.\n",
+        "zz-scroll-08.txt": "Scroll item 08 preserved.\n",
+        "zz-scroll-09.txt": "Scroll item 09 preserved.\n",
+        "zz-scroll-10.txt": "Scroll item 10 preserved.\n",
+        "zz-scroll-11.txt": "Scroll item 11 preserved.\n",
+        "zz-scroll-12.txt": "Scroll item 12 preserved.\n",
+        "zz-scroll-13.txt": "Scroll item 13 preserved.\n",
+        "zz-scroll-14.txt": "Scroll item 14 preserved.\n",
+        "zz-scroll-15.txt": "Scroll item 15 preserved.\n",
+        "zz-scroll-16.txt": "Scroll item 16 preserved.\n",
+        "zz-scroll-17.txt": "Scroll item 17 preserved.\n",
+        "zz-scroll-18.txt": "Scroll item 18 preserved.\n",
+        "zz-scroll-19.txt": "Scroll item 19 preserved.\n",
+        "zz-scroll-20.txt": "Scroll item 20 preserved.\n",
+        "zz-scroll-21.txt": "Scroll item 21 preserved.\n",
+        "zz-scroll-22.txt": "Scroll item 22 preserved.\n",
+        "zz-scroll-23.txt": "Scroll item 23 preserved.\n",
+        "zz-scroll-24.txt": "Scroll item 24 preserved.\n",
+        "zz-scroll-25.txt": "Scroll item 25 preserved.\n",
+        "zz-scroll-26.txt": "Scroll item 26 preserved.\n",
+        "zz-scroll-27.txt": "Scroll item 27 preserved.\n",
+        "zz-scroll-28.txt": "Scroll item 28 preserved.\n",
+        "zz-scroll-29.txt": "Scroll item 29 preserved.\n",
+        "zz-scroll-30.txt": "Scroll item 30 preserved.\n",
+        "zz-scroll-31.txt": "Scroll item 31 preserved.\n",
+        "zz-scroll-32.txt": "Scroll item 32 preserved.\n",
+        "zz-scroll-33.txt": "Scroll item 33 preserved.\n",
+        "zz-scroll-34.txt": "Scroll item 34 preserved.\n",
+        "lfrc": "set promptfmt \"LF %f\"\nset statfmt \"\"\nset ratios 1:2\nset info\nset sortby natural\nset preview\nset nohidden\nset noincsearch\nset noincfilter\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Rows 21–30: host metadata/status area and long-list lower rows; explicit selected header and exact state remain required"
+    },
+    {
+      "name": "edge-cancel-rename",
+      "kind": "edge",
+      "purpose": "Cancel rename after editing and preserve original and neighboring files",
+      "command": [
+        "lf",
+        "-single",
+        "-config",
+        "lfrc",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "LF 00-empty"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "alpha.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "LF alpha.txt"
+        },
+        {
+          "text": "r"
+        },
+        {
+          "expect": "rename:"
+        },
+        {
+          "key": "CtrlA"
+        },
+        {
+          "key": "CtrlK"
+        },
+        {
+          "text": "abandoned-name.txt"
+        },
+        {
+          "expect": "abandoned-name.txt"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": "abandoned-name.txt"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 13,
+      "snapshot_rows": [
+        1,
+        20
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "Alpha source retained.\n",
+        "bravo.txt": "Bravo move source.\n",
+        "charlie.txt": "Charlie noncontiguous selection.\n",
+        "occupied.txt": "Different occupied destination.\n",
+        "protected.txt": "NEIGHBOR MUST REMAIN EXACT\n",
+        "02-nested/notes.txt": "Nested notes preserved.\n",
+        "02-nested/plan.txt": "NONINITIAL PLAN PREVIEW\nsecond exact line\n",
+        "long.txt": "line 00: bounded long preview café 雪\nline 01: bounded long preview café 雪\nline 02: bounded long preview café 雪\nline 03: bounded long preview café 雪\nline 04: bounded long preview café 雪\nline 05: bounded long preview café 雪\nline 06: bounded long preview café 雪\nline 07: bounded long preview café 雪\nline 08: bounded long preview café 雪\nline 09: bounded long preview café 雪\nline 10: bounded long preview café 雪\nline 11: bounded long preview café 雪\nline 12: bounded long preview café 雪\nline 13: bounded long preview café 雪\nline 14: bounded long preview café 雪\nline 15: bounded long preview café 雪\nline 16: bounded long preview café 雪\nline 17: bounded long preview café 雪\nline 18: bounded long preview café 雪\nline 19: bounded long preview café 雪\nline 20: bounded long preview café 雪\nline 21: bounded long preview café 雪\nline 22: bounded long preview café 雪\nline 23: bounded long preview café 雪\nline 24: bounded long preview café 雪\nline 25: bounded long preview café 雪\nline 26: bounded long preview café 雪\nline 27: bounded long preview café 雪\nline 28: bounded long preview café 雪\nline 29: bounded long preview café 雪\nline 30: bounded long preview café 雪\nline 31: bounded long preview café 雪\nline 32: bounded long preview café 雪\nline 33: bounded long preview café 雪\nline 34: bounded long preview café 雪\nline 35: bounded long preview café 雪\nline 36: bounded long preview café 雪\nline 37: bounded long preview café 雪\nline 38: bounded long preview café 雪\nline 39: bounded long preview café 雪\n",
+        "zz-scroll-00.txt": "Scroll item 00 preserved.\n",
+        "zz-scroll-01.txt": "Scroll item 01 preserved.\n",
+        "zz-scroll-02.txt": "Scroll item 02 preserved.\n",
+        "zz-scroll-03.txt": "Scroll item 03 preserved.\n",
+        "zz-scroll-04.txt": "Scroll item 04 preserved.\n",
+        "zz-scroll-05.txt": "Scroll item 05 preserved.\n",
+        "zz-scroll-06.txt": "Scroll item 06 preserved.\n",
+        "zz-scroll-07.txt": "Scroll item 07 preserved.\n",
+        "zz-scroll-08.txt": "Scroll item 08 preserved.\n",
+        "zz-scroll-09.txt": "Scroll item 09 preserved.\n",
+        "zz-scroll-10.txt": "Scroll item 10 preserved.\n",
+        "zz-scroll-11.txt": "Scroll item 11 preserved.\n",
+        "zz-scroll-12.txt": "Scroll item 12 preserved.\n",
+        "zz-scroll-13.txt": "Scroll item 13 preserved.\n",
+        "zz-scroll-14.txt": "Scroll item 14 preserved.\n",
+        "zz-scroll-15.txt": "Scroll item 15 preserved.\n",
+        "zz-scroll-16.txt": "Scroll item 16 preserved.\n",
+        "zz-scroll-17.txt": "Scroll item 17 preserved.\n",
+        "zz-scroll-18.txt": "Scroll item 18 preserved.\n",
+        "zz-scroll-19.txt": "Scroll item 19 preserved.\n",
+        "zz-scroll-20.txt": "Scroll item 20 preserved.\n",
+        "zz-scroll-21.txt": "Scroll item 21 preserved.\n",
+        "zz-scroll-22.txt": "Scroll item 22 preserved.\n",
+        "zz-scroll-23.txt": "Scroll item 23 preserved.\n",
+        "zz-scroll-24.txt": "Scroll item 24 preserved.\n",
+        "zz-scroll-25.txt": "Scroll item 25 preserved.\n",
+        "zz-scroll-26.txt": "Scroll item 26 preserved.\n",
+        "zz-scroll-27.txt": "Scroll item 27 preserved.\n",
+        "zz-scroll-28.txt": "Scroll item 28 preserved.\n",
+        "zz-scroll-29.txt": "Scroll item 29 preserved.\n",
+        "zz-scroll-30.txt": "Scroll item 30 preserved.\n",
+        "zz-scroll-31.txt": "Scroll item 31 preserved.\n",
+        "zz-scroll-32.txt": "Scroll item 32 preserved.\n",
+        "zz-scroll-33.txt": "Scroll item 33 preserved.\n",
+        "zz-scroll-34.txt": "Scroll item 34 preserved.\n",
+        "lfrc": "set promptfmt \"LF %f\"\nset statfmt \"\"\nset ratios 1:2\nset info\nset sortby natural\nset preview\nset nohidden\nset noincsearch\nset noincfilter\n"
+      },
+      "absent_paths": [
+        "abandoned-name.txt"
+      ],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Rows 21–30: host metadata/status area and long-list lower rows; explicit selected header and exact state remain required"
+    },
+    {
+      "name": "edge-conflicting-rename",
+      "kind": "edge",
+      "purpose": "Decline replacement of an existing different file",
+      "command": [
+        "lf",
+        "-single",
+        "-config",
+        "lfrc",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "LF 00-empty"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "alpha.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "LF alpha.txt"
+        },
+        {
+          "text": "r"
+        },
+        {
+          "key": "CtrlA"
+        },
+        {
+          "key": "CtrlK"
+        },
+        {
+          "text": "occupied.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "replace"
+        },
+        {
+          "text": "n"
+        },
+        {
+          "expect_not": "replace"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 13,
+      "snapshot_rows": [
+        1,
+        20
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "Alpha source retained.\n",
+        "bravo.txt": "Bravo move source.\n",
+        "charlie.txt": "Charlie noncontiguous selection.\n",
+        "occupied.txt": "Different occupied destination.\n",
+        "protected.txt": "NEIGHBOR MUST REMAIN EXACT\n",
+        "02-nested/notes.txt": "Nested notes preserved.\n",
+        "02-nested/plan.txt": "NONINITIAL PLAN PREVIEW\nsecond exact line\n",
+        "long.txt": "line 00: bounded long preview café 雪\nline 01: bounded long preview café 雪\nline 02: bounded long preview café 雪\nline 03: bounded long preview café 雪\nline 04: bounded long preview café 雪\nline 05: bounded long preview café 雪\nline 06: bounded long preview café 雪\nline 07: bounded long preview café 雪\nline 08: bounded long preview café 雪\nline 09: bounded long preview café 雪\nline 10: bounded long preview café 雪\nline 11: bounded long preview café 雪\nline 12: bounded long preview café 雪\nline 13: bounded long preview café 雪\nline 14: bounded long preview café 雪\nline 15: bounded long preview café 雪\nline 16: bounded long preview café 雪\nline 17: bounded long preview café 雪\nline 18: bounded long preview café 雪\nline 19: bounded long preview café 雪\nline 20: bounded long preview café 雪\nline 21: bounded long preview café 雪\nline 22: bounded long preview café 雪\nline 23: bounded long preview café 雪\nline 24: bounded long preview café 雪\nline 25: bounded long preview café 雪\nline 26: bounded long preview café 雪\nline 27: bounded long preview café 雪\nline 28: bounded long preview café 雪\nline 29: bounded long preview café 雪\nline 30: bounded long preview café 雪\nline 31: bounded long preview café 雪\nline 32: bounded long preview café 雪\nline 33: bounded long preview café 雪\nline 34: bounded long preview café 雪\nline 35: bounded long preview café 雪\nline 36: bounded long preview café 雪\nline 37: bounded long preview café 雪\nline 38: bounded long preview café 雪\nline 39: bounded long preview café 雪\n",
+        "zz-scroll-00.txt": "Scroll item 00 preserved.\n",
+        "zz-scroll-01.txt": "Scroll item 01 preserved.\n",
+        "zz-scroll-02.txt": "Scroll item 02 preserved.\n",
+        "zz-scroll-03.txt": "Scroll item 03 preserved.\n",
+        "zz-scroll-04.txt": "Scroll item 04 preserved.\n",
+        "zz-scroll-05.txt": "Scroll item 05 preserved.\n",
+        "zz-scroll-06.txt": "Scroll item 06 preserved.\n",
+        "zz-scroll-07.txt": "Scroll item 07 preserved.\n",
+        "zz-scroll-08.txt": "Scroll item 08 preserved.\n",
+        "zz-scroll-09.txt": "Scroll item 09 preserved.\n",
+        "zz-scroll-10.txt": "Scroll item 10 preserved.\n",
+        "zz-scroll-11.txt": "Scroll item 11 preserved.\n",
+        "zz-scroll-12.txt": "Scroll item 12 preserved.\n",
+        "zz-scroll-13.txt": "Scroll item 13 preserved.\n",
+        "zz-scroll-14.txt": "Scroll item 14 preserved.\n",
+        "zz-scroll-15.txt": "Scroll item 15 preserved.\n",
+        "zz-scroll-16.txt": "Scroll item 16 preserved.\n",
+        "zz-scroll-17.txt": "Scroll item 17 preserved.\n",
+        "zz-scroll-18.txt": "Scroll item 18 preserved.\n",
+        "zz-scroll-19.txt": "Scroll item 19 preserved.\n",
+        "zz-scroll-20.txt": "Scroll item 20 preserved.\n",
+        "zz-scroll-21.txt": "Scroll item 21 preserved.\n",
+        "zz-scroll-22.txt": "Scroll item 22 preserved.\n",
+        "zz-scroll-23.txt": "Scroll item 23 preserved.\n",
+        "zz-scroll-24.txt": "Scroll item 24 preserved.\n",
+        "zz-scroll-25.txt": "Scroll item 25 preserved.\n",
+        "zz-scroll-26.txt": "Scroll item 26 preserved.\n",
+        "zz-scroll-27.txt": "Scroll item 27 preserved.\n",
+        "zz-scroll-28.txt": "Scroll item 28 preserved.\n",
+        "zz-scroll-29.txt": "Scroll item 29 preserved.\n",
+        "zz-scroll-30.txt": "Scroll item 30 preserved.\n",
+        "zz-scroll-31.txt": "Scroll item 31 preserved.\n",
+        "zz-scroll-32.txt": "Scroll item 32 preserved.\n",
+        "zz-scroll-33.txt": "Scroll item 33 preserved.\n",
+        "zz-scroll-34.txt": "Scroll item 34 preserved.\n",
+        "lfrc": "set promptfmt \"LF %f\"\nset statfmt \"\"\nset ratios 1:2\nset info\nset sortby natural\nset preview\nset nohidden\nset noincsearch\nset noincfilter\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Rows 21–30: host metadata/status area and long-list lower rows; explicit selected header and exact state remain required"
+    },
+    {
+      "name": "edge-cancel-delete",
+      "kind": "edge",
+      "purpose": "Decline destructive delete confirmation and preserve exact selected file",
+      "command": [
+        "lf",
+        "-single",
+        "-config",
+        "lfrc",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "LF 00-empty"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "alpha.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "LF alpha.txt"
+        },
+        {
+          "text": ":"
+        },
+        {
+          "text": "delete"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "delete '"
+        },
+        {
+          "text": "n"
+        },
+        {
+          "expect_not": "delete '"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 11,
+      "snapshot_rows": [
+        1,
+        20
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "Alpha source retained.\n",
+        "bravo.txt": "Bravo move source.\n",
+        "charlie.txt": "Charlie noncontiguous selection.\n",
+        "occupied.txt": "Different occupied destination.\n",
+        "protected.txt": "NEIGHBOR MUST REMAIN EXACT\n",
+        "02-nested/notes.txt": "Nested notes preserved.\n",
+        "02-nested/plan.txt": "NONINITIAL PLAN PREVIEW\nsecond exact line\n",
+        "long.txt": "line 00: bounded long preview café 雪\nline 01: bounded long preview café 雪\nline 02: bounded long preview café 雪\nline 03: bounded long preview café 雪\nline 04: bounded long preview café 雪\nline 05: bounded long preview café 雪\nline 06: bounded long preview café 雪\nline 07: bounded long preview café 雪\nline 08: bounded long preview café 雪\nline 09: bounded long preview café 雪\nline 10: bounded long preview café 雪\nline 11: bounded long preview café 雪\nline 12: bounded long preview café 雪\nline 13: bounded long preview café 雪\nline 14: bounded long preview café 雪\nline 15: bounded long preview café 雪\nline 16: bounded long preview café 雪\nline 17: bounded long preview café 雪\nline 18: bounded long preview café 雪\nline 19: bounded long preview café 雪\nline 20: bounded long preview café 雪\nline 21: bounded long preview café 雪\nline 22: bounded long preview café 雪\nline 23: bounded long preview café 雪\nline 24: bounded long preview café 雪\nline 25: bounded long preview café 雪\nline 26: bounded long preview café 雪\nline 27: bounded long preview café 雪\nline 28: bounded long preview café 雪\nline 29: bounded long preview café 雪\nline 30: bounded long preview café 雪\nline 31: bounded long preview café 雪\nline 32: bounded long preview café 雪\nline 33: bounded long preview café 雪\nline 34: bounded long preview café 雪\nline 35: bounded long preview café 雪\nline 36: bounded long preview café 雪\nline 37: bounded long preview café 雪\nline 38: bounded long preview café 雪\nline 39: bounded long preview café 雪\n",
+        "zz-scroll-00.txt": "Scroll item 00 preserved.\n",
+        "zz-scroll-01.txt": "Scroll item 01 preserved.\n",
+        "zz-scroll-02.txt": "Scroll item 02 preserved.\n",
+        "zz-scroll-03.txt": "Scroll item 03 preserved.\n",
+        "zz-scroll-04.txt": "Scroll item 04 preserved.\n",
+        "zz-scroll-05.txt": "Scroll item 05 preserved.\n",
+        "zz-scroll-06.txt": "Scroll item 06 preserved.\n",
+        "zz-scroll-07.txt": "Scroll item 07 preserved.\n",
+        "zz-scroll-08.txt": "Scroll item 08 preserved.\n",
+        "zz-scroll-09.txt": "Scroll item 09 preserved.\n",
+        "zz-scroll-10.txt": "Scroll item 10 preserved.\n",
+        "zz-scroll-11.txt": "Scroll item 11 preserved.\n",
+        "zz-scroll-12.txt": "Scroll item 12 preserved.\n",
+        "zz-scroll-13.txt": "Scroll item 13 preserved.\n",
+        "zz-scroll-14.txt": "Scroll item 14 preserved.\n",
+        "zz-scroll-15.txt": "Scroll item 15 preserved.\n",
+        "zz-scroll-16.txt": "Scroll item 16 preserved.\n",
+        "zz-scroll-17.txt": "Scroll item 17 preserved.\n",
+        "zz-scroll-18.txt": "Scroll item 18 preserved.\n",
+        "zz-scroll-19.txt": "Scroll item 19 preserved.\n",
+        "zz-scroll-20.txt": "Scroll item 20 preserved.\n",
+        "zz-scroll-21.txt": "Scroll item 21 preserved.\n",
+        "zz-scroll-22.txt": "Scroll item 22 preserved.\n",
+        "zz-scroll-23.txt": "Scroll item 23 preserved.\n",
+        "zz-scroll-24.txt": "Scroll item 24 preserved.\n",
+        "zz-scroll-25.txt": "Scroll item 25 preserved.\n",
+        "zz-scroll-26.txt": "Scroll item 26 preserved.\n",
+        "zz-scroll-27.txt": "Scroll item 27 preserved.\n",
+        "zz-scroll-28.txt": "Scroll item 28 preserved.\n",
+        "zz-scroll-29.txt": "Scroll item 29 preserved.\n",
+        "zz-scroll-30.txt": "Scroll item 30 preserved.\n",
+        "zz-scroll-31.txt": "Scroll item 31 preserved.\n",
+        "zz-scroll-32.txt": "Scroll item 32 preserved.\n",
+        "zz-scroll-33.txt": "Scroll item 33 preserved.\n",
+        "zz-scroll-34.txt": "Scroll item 34 preserved.\n",
+        "lfrc": "set promptfmt \"LF %f\"\nset statfmt \"\"\nset ratios 1:2\nset info\nset sortby natural\nset preview\nset nohidden\nset noincsearch\nset noincfilter\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Rows 21–30: host metadata/status area and long-list lower rows; explicit selected header and exact state remain required"
+    },
+    {
+      "name": "edge-resize-scroll",
+      "kind": "edge",
+      "purpose": "Resize repeatedly, search an initially offscreen item, and return to Unicode preview",
+      "command": [
+        "lf",
+        "-single",
+        "-config",
+        "lfrc",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "LF 00-empty"
+        },
+        {
+          "resize": {
+            "width": 80,
+            "height": 24
+          }
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "zz-scroll-34.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "LF zz-scroll-34.txt"
+        },
+        {
+          "expect": "Scroll item 34 preserved."
+        },
+        {
+          "resize": {
+            "width": 120,
+            "height": 35
+          }
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "long.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "LF long.txt"
+        },
+        {
+          "expect": "line 00: bounded long preview café 雪"
+        },
+        {
+          "resize": {
+            "width": 100,
+            "height": 30
+          }
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "zz-scroll-33.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "LF zz-scroll-33.txt"
+        },
+        {
+          "expect": "Scroll item 33 preserved."
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 19,
+      "snapshot_rows": [
+        1,
+        20
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "Alpha source retained.\n",
+        "bravo.txt": "Bravo move source.\n",
+        "charlie.txt": "Charlie noncontiguous selection.\n",
+        "occupied.txt": "Different occupied destination.\n",
+        "protected.txt": "NEIGHBOR MUST REMAIN EXACT\n",
+        "02-nested/notes.txt": "Nested notes preserved.\n",
+        "02-nested/plan.txt": "NONINITIAL PLAN PREVIEW\nsecond exact line\n",
+        "long.txt": "line 00: bounded long preview café 雪\nline 01: bounded long preview café 雪\nline 02: bounded long preview café 雪\nline 03: bounded long preview café 雪\nline 04: bounded long preview café 雪\nline 05: bounded long preview café 雪\nline 06: bounded long preview café 雪\nline 07: bounded long preview café 雪\nline 08: bounded long preview café 雪\nline 09: bounded long preview café 雪\nline 10: bounded long preview café 雪\nline 11: bounded long preview café 雪\nline 12: bounded long preview café 雪\nline 13: bounded long preview café 雪\nline 14: bounded long preview café 雪\nline 15: bounded long preview café 雪\nline 16: bounded long preview café 雪\nline 17: bounded long preview café 雪\nline 18: bounded long preview café 雪\nline 19: bounded long preview café 雪\nline 20: bounded long preview café 雪\nline 21: bounded long preview café 雪\nline 22: bounded long preview café 雪\nline 23: bounded long preview café 雪\nline 24: bounded long preview café 雪\nline 25: bounded long preview café 雪\nline 26: bounded long preview café 雪\nline 27: bounded long preview café 雪\nline 28: bounded long preview café 雪\nline 29: bounded long preview café 雪\nline 30: bounded long preview café 雪\nline 31: bounded long preview café 雪\nline 32: bounded long preview café 雪\nline 33: bounded long preview café 雪\nline 34: bounded long preview café 雪\nline 35: bounded long preview café 雪\nline 36: bounded long preview café 雪\nline 37: bounded long preview café 雪\nline 38: bounded long preview café 雪\nline 39: bounded long preview café 雪\n",
+        "zz-scroll-00.txt": "Scroll item 00 preserved.\n",
+        "zz-scroll-01.txt": "Scroll item 01 preserved.\n",
+        "zz-scroll-02.txt": "Scroll item 02 preserved.\n",
+        "zz-scroll-03.txt": "Scroll item 03 preserved.\n",
+        "zz-scroll-04.txt": "Scroll item 04 preserved.\n",
+        "zz-scroll-05.txt": "Scroll item 05 preserved.\n",
+        "zz-scroll-06.txt": "Scroll item 06 preserved.\n",
+        "zz-scroll-07.txt": "Scroll item 07 preserved.\n",
+        "zz-scroll-08.txt": "Scroll item 08 preserved.\n",
+        "zz-scroll-09.txt": "Scroll item 09 preserved.\n",
+        "zz-scroll-10.txt": "Scroll item 10 preserved.\n",
+        "zz-scroll-11.txt": "Scroll item 11 preserved.\n",
+        "zz-scroll-12.txt": "Scroll item 12 preserved.\n",
+        "zz-scroll-13.txt": "Scroll item 13 preserved.\n",
+        "zz-scroll-14.txt": "Scroll item 14 preserved.\n",
+        "zz-scroll-15.txt": "Scroll item 15 preserved.\n",
+        "zz-scroll-16.txt": "Scroll item 16 preserved.\n",
+        "zz-scroll-17.txt": "Scroll item 17 preserved.\n",
+        "zz-scroll-18.txt": "Scroll item 18 preserved.\n",
+        "zz-scroll-19.txt": "Scroll item 19 preserved.\n",
+        "zz-scroll-20.txt": "Scroll item 20 preserved.\n",
+        "zz-scroll-21.txt": "Scroll item 21 preserved.\n",
+        "zz-scroll-22.txt": "Scroll item 22 preserved.\n",
+        "zz-scroll-23.txt": "Scroll item 23 preserved.\n",
+        "zz-scroll-24.txt": "Scroll item 24 preserved.\n",
+        "zz-scroll-25.txt": "Scroll item 25 preserved.\n",
+        "zz-scroll-26.txt": "Scroll item 26 preserved.\n",
+        "zz-scroll-27.txt": "Scroll item 27 preserved.\n",
+        "zz-scroll-28.txt": "Scroll item 28 preserved.\n",
+        "zz-scroll-29.txt": "Scroll item 29 preserved.\n",
+        "zz-scroll-30.txt": "Scroll item 30 preserved.\n",
+        "zz-scroll-31.txt": "Scroll item 31 preserved.\n",
+        "zz-scroll-32.txt": "Scroll item 32 preserved.\n",
+        "zz-scroll-33.txt": "Scroll item 33 preserved.\n",
+        "zz-scroll-34.txt": "Scroll item 34 preserved.\n",
+        "lfrc": "set promptfmt \"LF %f\"\nset statfmt \"\"\nset ratios 1:2\nset info\nset sortby natural\nset preview\nset nohidden\nset noincsearch\nset noincfilter\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Rows 21–30: host metadata/status area and long-list lower rows; explicit selected header and exact state remain required"
+    }
+  ]
+}

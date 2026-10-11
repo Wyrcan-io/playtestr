@@ -1,6 +1,6 @@
 # Copier development journey
 
-Pinned MIT source: `04a8619f3b083bc278b70e556bd085551a2b3f79`, Python/questionary, version 9.18.2. Development qualification is in progress. Final frozen-source qualification and owned-source deletion remain pending.
+Pinned MIT source: `04a8619f3b083bc278b70e556bd085551a2b3f79`, Python/questionary, version 9.18.2. Development qualification passed on native Linux and Windows at source 6df8c37cd7ffb2a6e8021cf9a0b4fa16c3b06583. Hosted and local owned-source deletion is confirmed; final single-source batch qualification remains pending.
 
 [Scope](scope.md) declares six substantive normal workflows and six edge workflows. All twelve were publicly recorded, explicitly reviewed, replayed and exported on local Windows and exploratory Linux/WSL. Unix baselines preserve the actual host rendering; they do not count as additional scenarios. Exact generated files and protected neighboring state are checked independently in the recorder's current managed workspace. A terminal pass alone does not prove saved-state correctness.
 
@@ -37,3 +37,5 @@ and excludes the trailer. Exact updated/generated files and preserved local
 customization remain independent required checks. The source's fallback retries
 its failed diff with zero inter-hunk context. Git versions are recorded in the
 native recipe. No merge-conflict preservation or all-Git-version claim is made.
+
+The successful [native run](https://github.com/Wyrcan-io/playtestr/actions/runs/38117318191) retained [actual reports, state probes, source faults, restoration and hosted cleanup](../native/38117318191/manifest.json). Each application host completed 120 ordinary replays and 120 separate current-workspace file-state probes. All three product control hosts also passed. Local Windows and WSL copies were subsequently removed; local deletion receipts prove local teardown, while hosted receipts qualify hosted repetitions.

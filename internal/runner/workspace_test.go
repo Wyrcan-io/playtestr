@@ -14,6 +14,63 @@ import (
 	"time"
 )
 
+func TestWorkspaceReadOnlyInputsPreserveBytesAndNormalizeModes(t *testing.T) {
+	root := t.TempDir()
+	source, destination := filepath.Join(root, "source"), filepath.Join(root, "copy")
+	if err := os.Mkdir(source, 0755); err != nil {
+		t.Fatal(err)
+	}
+	// Source permission restoration permits ordinary test-directory teardown
+	// on Windows too. The fixture's original bytes are checked after copying.
+	plain, executable := filepath.Join(source, "read only.txt"), filepath.Join(source, "run.sh")
+	payload := []byte("first\r\nsecond\r\ncaf\u00e9 \u96ea\r\n")
+	for _, path := range []string{plain, executable} {
+		if err := os.WriteFile(path, payload, 0644); err != nil {
+			t.Fatal(err)
+		}
+		t.Cleanup(func() { _ = os.Chmod(path, 0644) })
+	}
+	if err := os.Chmod(plain, 0444); err != nil {
+		t.Fatal(err)
+	}
+	if runtime.GOOS != "windows" {
+		if err := os.Chmod(executable, 0555); err != nil {
+			t.Fatal(err)
+		}
+		if err := os.Chmod(source, 0555); err != nil {
+			t.Fatal(err)
+		}
+		t.Cleanup(func() { _ = os.Chmod(source, 0755) })
+	}
+	if err := copyWorkspaceFixture(context.Background(), source, destination); err != nil {
+		t.Fatal(err)
+	}
+	for _, name := range []string{"read only.txt", "run.sh"} {
+		for _, folder := range []string{source, destination} {
+			data, err := os.ReadFile(filepath.Join(folder, name))
+			if err != nil || !bytes.Equal(data, payload) {
+				t.Fatalf("%s/%s changed CRLF or UTF-8 bytes: %q, %v", folder, name, data, err)
+			}
+		}
+		info, err := os.Stat(filepath.Join(destination, name))
+		if err != nil {
+			t.Fatal(err)
+		}
+		if runtime.GOOS != "windows" {
+			want := os.FileMode(0644)
+			if name == "run.sh" {
+				want = 0755
+			}
+			if info.Mode().Perm() != want {
+				t.Fatalf("copied %s mode %o, want %o", name, info.Mode().Perm(), want)
+			}
+		}
+	}
+	if err := os.WriteFile(filepath.Join(destination, "read only.txt"), []byte("owned edit"), 0644); err != nil {
+		t.Fatalf("copied read-only fixture must be writable under the documented normalization: %v", err)
+	}
+}
+
 func TestWorkspaceSpecValidation(t *testing.T) {
 	tests := []struct {
 		name string

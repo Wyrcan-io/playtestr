@@ -13,6 +13,20 @@ from adversarial_process import run
 from adversarial_journey import check_state
 
 class NativeHarnessControls(unittest.TestCase):
+    def test_semantic_rejection_is_recorded_before_process_success(self):
+        def reject(code,output,evidence):
+            self.assertEqual(code,0)
+            self.assertIn(b'actual final marker',output)
+            raise RuntimeError('synthetic final semantic rejection')
+        with self.assertRaisesRegex(RuntimeError,'synthetic final semantic rejection') as caught:
+            run([sys.executable,'-c',"print('actual final marker')"],
+                'harness-controls','final-semantic-rejection',timeout=5,on_complete=reject)
+        rows=[r for r in adversarial_process.read_attempts() if r['id']==caught.exception.evidence_id]
+        finished=next(r for r in rows if r['event']=='finished')
+        self.assertNotEqual(finished['category'],'passed')
+        self.assertEqual(finished['exit_code'],0)
+        self.assertFalse(finished['cleanup_errors'])
+
     def test_concurrent_ledger_writers_preserve_every_record(self):
         with tempfile.TemporaryDirectory(prefix='playtestr-ledger-controls-') as root:
             directory=Path(root)/'doc'

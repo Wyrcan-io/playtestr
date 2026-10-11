@@ -1,0 +1,11 @@
+--- a/eval.go
++++ b/eval.go
+@@ -881,7 +881,7 @@
+ 	case strings.HasPrefix(app.ui.cmdPrefix, "replace"):
+ 		normal(app)
+ 
+-		if arg == "y" {
++		if arg != "y" {
+ 			if err := app.nav.rename(); err != nil {
+ 				app.ui.echoerrf("rename: %s", err)
+ 				return

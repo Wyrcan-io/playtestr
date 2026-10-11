@@ -2,21 +2,21 @@
   "project": "copier",
   "source_pin": "04a8619f3b083bc278b70e556bd085551a2b3f79",
   "license": "MIT",
-  "status": "development_in_progress_pending_native_qualification_and_cleanup",
+  "status": "development_complete_pending_final_freeze",
   "normal_scenarios": 6,
   "edge_scenarios": 6,
   "reviewed_host_variants": [
     "Windows",
     "Linux-WSL-exploratory"
   ],
-  "qualified_native_host_pairs": 0,
+  "qualified_native_host_pairs": 2,
   "final_frozen_repetitions": 0,
   "mutation_controls": [
     "validator-bypass",
     "wrong-success-exit"
   ],
   "state_corruption_control": "silent-saved-corruption",
-  "local_mutation_scope": "Actual Windows target source mutations with unchanged contracts; native hosted requalification pending",
+  "local_mutation_scope": "Actual Windows and native hosted Linux/Windows target mutations with unchanged contracts and exact source restoration",
   "ux": {
     "commands": 3,
     "recorder_controls": 15,
@@ -32,19 +32,20 @@
   },
   "maintenance": "maintenance-result.json",
   "ux_ledger": "ux-bounded-ledger.json",
-  "app_source_deleted": false,
+  "app_source_deleted": true,
   "full_product_campaign_credit": 0,
   "first_native_run": "38115136553",
   "first_native_source": "93b9463d922cd3a6c187ff15288dac5b216c049d",
   "first_native_status": "both_application_hosts_failed_before_qualification",
   "snapshot_scope_revision": "Explicit stable answer rows for multi-file operations; unordered create/conflict log excluded. Exact generated and protected files remain independently checked.",
-  "repairs_pending_native": [
-    "Windows long workspace spelling",
-    "Explicit stable answer row contracts",
-    "macOS instrumented stress whole-run budget"
-  ],
+  "repairs_pending_native": [],
   "second_native_run": "38116687864",
   "second_native_source": "ff38039457da855a3f5d1b94c0ccb3f2fa9b530a",
   "second_native_application_status": "both_hosts_exit_zero_at_update_but_snapshot_rejected_git_warning",
-  "update_snapshot_scope": "Explicit stable update version/answer rows 1\u20133, Git fallback warning excluded; exact updated files and protected local customization remain independently required"
+  "update_snapshot_scope": "Explicit stable update version/answer rows 1\u20133, Git fallback warning excluded; exact updated files and protected local customization remain independently required",
+  "native_run": "38117318191",
+  "native_source": "6df8c37cd7ffb2a6e8021cf9a0b4fa16c3b06583",
+  "native_terminal_repetitions_per_host": 120,
+  "native_state_probes_per_host": 120,
+  "local_teardown_scope": "Windows and WSL owned copies removed after native qualification; hosted receipts qualify hosted repetitions, local receipts only prove local deletion"
 }

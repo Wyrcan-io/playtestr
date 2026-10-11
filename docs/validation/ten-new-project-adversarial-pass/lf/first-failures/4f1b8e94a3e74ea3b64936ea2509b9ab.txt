@@ -1,0 +1,58 @@
+Setup: output="C:\\Users\\abhir\\OneDrive\\Documents\\playtestr\\docs\\validation\\ten-new-project-adversarial-pass\\lf\\edge-resize-scroll.json" argv=["lf" "-single" "-config" "lfrc" "."] cwd="" fixture="fixtures" viewport=100x30 timeout=10000ms budget=120000ms output-cap=2000000
+Recorder controls (target input is separate):
+  /live                       type into the target; Ctrl+G returns to controls
+  /key ArrowDown              send a supported named key
+  /text "hello"               send JSON-quoted text/paste (literal Ctrl+G: "\u0007")
+  /expect unique new content  positive readiness checkpoint
+  /absent previous content    disappearance of previously asserted content
+  /exit 0                     exact expected exit code
+  /snapshot name.txt          capture a ready, settled screen
+  /resize 100 30; /redraw     resize and optional observed redraw wait
+  /snapshot-rows name.rows.json 2 24  capture reviewed inclusive viewport rows
+  /screen; /review            inspect screen or full candidate/baselines
+  /delete N; /move N M         edit 1-based step positions
+  /replace N {"expect":"..."} replace a step with one strict JSON action
+  /rerecord N                 fresh target, retain/reconstruct first N steps
+  /replay; /save               reviewed fresh replay, then export new files
+  /quit                       cancel without export
+No target input or raw draft is saved automatically. Review may display sensitive
+text the target printed or you typed. Targets run with your permissions.
+Resolved target="C:\\Users\\abhir\\OneDrive\\Documents\\playtestr\\.cache\\ten-new-project-apps\\lf\\bin\\lf.exe" working-directory="C:\\Users\\abhir\\AppData\\Local\\Temp\\playtestr-workspace-1919529408\\fixture"
+record> record> record> record> record> record> record> record> record> record> record> record> record> Recorder: ambiguous anchor: choose text appearing exactly once
+record> LF long.txt
+  long.txt                               line 00: bounded long preview café 雪
+  occupied.txt                           line 01: bounded long preview café 雪
+  protected.txt                          line 02: bounded long preview café 雪
+  zz-scroll-00.txt                       line 03: bounded long preview café 雪
+  zz-scroll-01.txt                       line 04: bounded long preview café 雪
+  zz-scroll-02.txt                       line 05: bounded long preview café 雪
+  zz-scroll-03.txt                       line 06: bounded long preview café 雪
+  zz-scroll-04.txt                       line 07: bounded long preview café 雪
+  zz-scroll-05.txt                       line 08: bounded long preview café 雪
+  zz-scroll-06.txt                       line 09: bounded long preview café 雪
+  zz-scroll-07.txt                       line 10: bounded long preview café 雪
+  zz-scroll-08.txt                       line 11: bounded long preview café 雪
+  zz-scroll-09.txt                       line 12: bounded long preview café 雪
+  zz-scroll-10.txt                       line 13: bounded long preview café 雪
+  zz-scroll-11.txt                       line 14: bounded long preview café 雪
+  zz-scroll-12.txt                       line 15: bounded long preview café 雪
+  zz-scroll-13.txt                       line 16: bounded long preview café 雪
+  zz-scroll-14.txt                       line 17: bounded long preview café 雪
+  zz-scroll-15.txt                       line 18: bounded long preview café 雪
+  zz-scroll-16.txt                       line 19: bounded long preview café 雪
+  zz-scroll-17.txt                       line 20: bounded long preview café 雪
+  zz-scroll-18.txt                       line 21: bounded long preview café 雪
+  zz-scroll-19.txt                       line 22: bounded long preview café 雪
+  zz-scroll-20.txt                       line 23: bounded long preview café 雪
+  zz-scroll-21.txt                       line 24: bounded long preview café 雪
+  zz-scroll-22.txt                       line 25: bounded long preview café 雪
+  zz-scroll-23.txt                       line 26: bounded long preview café 雪
+  zz-scroll-24.txt                       line 27: bounded long preview café 雪
+  zz-scroll-25.txt                       line 28: bounded long preview café 雪
+  zz-scroll-26.txt                       line 29: bounded long preview café 雪
+  zz-scroll-27.txt                       line 30: bounded long preview café 雪
+  zz-scroll-28.txt                       line 31: bounded long preview café 雪
+  zz-scroll-29.txt                       line 32: bounded long preview café 雪
+-rw-rw-rw-  1.6K Sun Oct 11 12:13:59 2026                                                                           8/45
+
+record> [0m[?25h

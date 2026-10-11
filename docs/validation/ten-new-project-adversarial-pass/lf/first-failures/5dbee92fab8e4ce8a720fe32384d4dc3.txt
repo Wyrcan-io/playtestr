@@ -1,0 +1,70 @@
+Setup: output="C:\\Users\\abhir\\OneDrive\\Documents\\playtestr\\docs\\validation\\ten-new-project-adversarial-pass\\lf\\normal-project.json" argv=["lf" "-single" "-config" "lfrc" "."] cwd="" fixture="fixtures" viewport=100x30 timeout=10000ms budget=120000ms output-cap=2000000
+Recorder controls (target input is separate):
+  /live                       type into the target; Ctrl+G returns to controls
+  /key ArrowDown              send a supported named key
+  /text "hello"               send JSON-quoted text/paste (literal Ctrl+G: "\u0007")
+  /expect unique new content  positive readiness checkpoint
+  /absent previous content    disappearance of previously asserted content
+  /exit 0                     exact expected exit code
+  /snapshot name.txt          capture a ready, settled screen
+  /resize 100 30; /redraw     resize and optional observed redraw wait
+  /snapshot-rows name.rows.json 2 24  capture reviewed inclusive viewport rows
+  /screen; /review            inspect screen or full candidate/baselines
+  /delete N; /move N M         edit 1-based step positions
+  /replace N {"expect":"..."} replace a step with one strict JSON action
+  /rerecord N                 fresh target, retain/reconstruct first N steps
+  /replay; /save               reviewed fresh replay, then export new files
+  /quit                       cancel without export
+No target input or raw draft is saved automatically. Review may display sensitive
+text the target printed or you typed. Targets run with your permissions.
+Resolved target="C:\\Users\\abhir\\OneDrive\\Documents\\playtestr\\.cache\\ten-new-project-apps\\lf\\bin\\lf.exe" working-directory="C:\\Users\\abhir\\AppData\\Local\\Temp\\playtestr-workspace-1350357190\\fixture"
+record> Recorder: capture step 1: process exited with code 2 before assertion matched
+record> Recorder: target exited with code 2 before recorded input
+record> Recorder: target exited with code 2 before recorded input
+record> Recorder: target exited with code 2 before recorded input
+record> Recorder: capture step 1: process exited with code 2 before assertion matched
+record> Recorder: target exited with code 2 before recorded input
+record> Recorder: capture step 1: process exited with code 2 before assertion matched
+record> Recorder: target exited with code 2 before recorded input
+record> Recorder: target exited with code 2 before recorded input
+record> Recorder: target exited with code 2 before recorded input
+record> Recorder: target exited with code 2 before recorded input
+record> Recorder: capture step 1: process exited with code 2 before assertion matched
+record> Recorder: capture step 1: process exited with code 2 before assertion matched
+record> Recorder: step 1 snapshot "normal-project.rows.json" requires a successful expect since the last input or resize, or a successful exit assertion
+record> Recorder: target exited with code 2 before recorded input
+record> Recorder: capture step 1: expected exit code 0, got 2
+record> {
+  "version": 2,
+  "name": "Rename a real file to a spaced Unicode name without changing bytes",
+  "command": [
+    "lf",
+    "-single",
+    "-config",
+    "lfrc",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": null
+}
+
+record> panic: $USERNAME variable is empty or not set
+
+goroutine 1 [running]:
+main.init.4()
+        github.com/gokcehan/lf/os_windows.go:67 +0xdc9
+
+record> [0m[?25h

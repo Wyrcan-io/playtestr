@@ -37,7 +37,7 @@ The executable is resolved before the working directory changes. A command conta
 
 The fixture may contain at most 2,000 filesystem entries including at most 1,000 regular files, 32 MiB total contents, 8 MiB per file, and 32 path components below its root. Copying has a 30-second ceiling and also consumes the spec's `run_timeout_ms`. Files and directories only are accepted: symbolic links, junctions, other reparse points, sockets, devices, and other special entries fail before target launch. Link-like fixture path components are rejected too.
 
-Executable permission is retained on Unix. Ownership, privileged bits, and host-specific attributes are not copied. Windows and macOS case-insensitive name collisions are rejected. A fixture must remain unchanged while it is copied; detected type, identity, or size changes fail setup. These checks do not make a concurrent filesystem snapshot atomic.
+Fixture bytes, including line endings, are copied unchanged. Copies use writable ordinary files and directories: Unix regular files use mode `0644`, executable files `0755`, and directories `0755`, subject to the runner's umask. Source read-only permission is not a way to make the copied fixture read-only. Ownership, privileged bits, and host-specific attributes are not copied. Windows and macOS case-insensitive name collisions are rejected. A fixture must remain unchanged while it is copied; detected type, identity, or size changes fail setup. These checks do not make a concurrent filesystem snapshot atomic.
 
 ## Cleanup, evidence, and retention
 

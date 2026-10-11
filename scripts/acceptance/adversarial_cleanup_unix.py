@@ -35,19 +35,49 @@ if subprocess.check_output(['git','-C',target/'source','rev-parse','HEAD'],text=
     raise RuntimeError('Owned source revision mismatch')
 if subprocess.check_output(['git','-C',target/'source','status','--porcelain','--untracked-files=no'],text=True).strip():
     raise RuntimeError('Source mutations not restored')
-for proc in Path('/proc').iterdir():
-    if not proc.name.isdigit() or int(proc.name)==os.getpid():
-        continue
-    try:
-        command=(proc/'cmdline').read_bytes().split(b'\0')
-        cwd=str((proc/'cwd').resolve())
-        if cwd.startswith(str(target)+'/') or any(p.decode(errors='replace').startswith(str(target)+'/') for p in command):
-            raise RuntimeError('Owned application process still live: '+proc.name)
-    except (OSError,PermissionError):
-        pass
+if platform.system()=='Linux':
+    for proc in Path('/proc').iterdir():
+        if not proc.name.isdigit() or int(proc.name)==os.getpid():
+            continue
+        try:
+            command=(proc/'cmdline').read_bytes().split(b'\0')
+            cwd=str((proc/'cwd').resolve())
+            if cwd.startswith(str(target)+'/') or any(p.decode(errors='replace').startswith(str(target)+'/') for p in command):
+                raise RuntimeError('Owned application process still live: '+proc.name)
+        except (OSError,PermissionError):
+            pass
+    process_check='Linux visible /proc command and cwd references; runner separately confirms target termination'
+elif platform.system()=='Darwin':
+    from adversarial_process import run
+    processes=run(['ps','-axo','pid=,command='],project,'cleanup-process-inventory',timeout=15)['output']
+    for line in processes.splitlines():
+        pid,command=line.strip().split(None,1)
+        if int(pid)!=os.getpid() and str(target)+'/' in command:
+            raise RuntimeError('Owned application command reference remains: '+pid)
+    current_pid=None
+    listing=run(['lsof','-n','-P','-a','-d','cwd','-F','pn'],project,
+                'cleanup-cwd-inventory',timeout=15)['output']
+    for line in listing.splitlines():
+        if line.startswith('p'):
+            current_pid=int(line[1:])
+        elif line.startswith('n') and current_pid!=os.getpid() and (
+                line[1:]==str(target) or line[1:].startswith(str(target)+'/')):
+            raise RuntimeError('Owned application cwd reference remains: '+str(current_pid))
+    process_check='macOS visible ps command and lsof cwd references; runner separately confirms target termination'
+else:
+    raise RuntimeError('Native process inspection is not implemented on this Unix host')
+# Go module caches deliberately contain read-only directories. Grant owner
+# write permission only to ordinary directories in the exact verified owned
+# tree. Never follow a symlink or change permission on its destination.
+for folder,dirs,_ in os.walk(target,followlinks=False):
+    path=Path(folder)
+    if path.is_symlink() or not path.resolve().is_relative_to(target):
+        raise RuntimeError('Unsafe owned directory while preparing removal')
+    os.chmod(path,0o700)
+    dirs[:]=[name for name in dirs if not (path/name).is_symlink()]
 shutil.rmtree(target)
 if target.exists():
     raise RuntimeError('Owned deletion failed')
 (RAW/('cleanup-'+platform.system()+'.json')).write_text(json.dumps(dict(project=project,
-    removed=True,canonical_target=str(target),process_check='no owned process references',source=qualification['source']),indent=2)+'\n')
+    removed=True,canonical_target=str(target),process_check=process_check,source=qualification['source']),indent=2)+'\n')
 print('Owned application removed after native evidence/process checks')

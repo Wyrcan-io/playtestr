@@ -1,0 +1,76 @@
+{
+  "version": 2,
+  "name": "Navigate into a directory and preview a noninitial searched file",
+  "command": [
+    "lf",
+    "-single",
+    "-config",
+    "lfrc",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "xterm-256color",
+    "USERNAME": "synthetic-maintainer"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "LF 00-empty"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "text": "02-nested"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "LF 02-nested"
+    },
+    {
+      "key": "ArrowRight"
+    },
+    {
+      "expect": "LF notes.txt"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "text": "plan.txt"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "LF plan.txt"
+    },
+    {
+      "expect": "NONINITIAL PLAN PREVIEW"
+    },
+    {
+      "expect": "second exact line"
+    },
+    {
+      "snapshot": "normal-nested-search.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

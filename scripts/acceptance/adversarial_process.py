@@ -132,11 +132,17 @@ def contract_identity(project, argv):
         data=json.loads(runtime.read_text(encoding='utf-8'))
         identity['target_revision']=data.get('source')
         identity['runtime_sha256']=hashlib.sha256(runtime.read_bytes()).hexdigest()
+        if data.get('binary'):
+            target_binary=Path(data['binary']).resolve(strict=True)
+            target_binary.relative_to(runtime.parent.resolve())
+            if target_binary.stat().st_size>128*1024*1024:
+                raise RuntimeError('Target executable identity size bound')
+            identity['target_binary_sha256']=hashlib.sha256(target_binary.read_bytes()).hexdigest()
         target_source=Path(data['source_path']).resolve()
         target_source.relative_to(runtime.parent.resolve())
         source_files={}
         for path in sorted(target_source.rglob('*')):
-            if path.is_file() and not path.is_symlink() and path.suffix in {'.py','.go','.rs','.c','.h','.toml'} and '.git' not in path.relative_to(target_source).parts:
+            if path.is_file() and not path.is_symlink() and (path.suffix in {'.py','.go','.rs','.c','.h','.toml'} or path.name in {'go.mod','go.sum','Cargo.lock'}) and '.git' not in path.relative_to(target_source).parts:
                 if path.stat().st_size>4*1024*1024:
                     raise RuntimeError('Target source identity file bound')
                 source_files[path.relative_to(target_source).as_posix()]=hashlib.sha256(path.read_bytes()).hexdigest()
@@ -192,7 +198,7 @@ async def close_transport(proc):
         await asyncio.sleep(0)
 
 async def execute(argv,project,label,*,cwd=ROOT,env=None,input=None,timeout=120,
-                  output_cap=4*1024*1024,expected=0,on_output=None,load=False):
+                  output_cap=4*1024*1024,expected=0,on_output=None,on_complete=None,load=False):
     run_id=uuid.uuid4().hex
     directory=RAW/project/run_id
     directory.mkdir(parents=True,exist_ok=False)
@@ -243,6 +249,8 @@ async def execute(argv,project,label,*,cwd=ROOT,env=None,input=None,timeout=120,
                     await on_output(proc,output,directory)
             return await proc.wait()
         result=await asyncio.wait_for(interact(),timeout=timeout)
+        if on_complete is not None:
+            on_complete(result,output,directory)
         category='passed' if result==expected else 'exit_mismatch'
         if result!=expected:
             raise RuntimeError(f'{label}: expected exit {expected}, got {result}; {directory}')

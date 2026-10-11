@@ -5,3 +5,5 @@
 # Exact unified diffs include a space on otherwise blank context rows.
 **/first-failures/*-diff_path.txt whitespace=cr-at-eol,-blank-at-eol
 **/fault-evidence/**/*.diff.txt whitespace=cr-at-eol,-blank-at-eol
+# Exact interactive prompt transcripts contain intentional trailing spaces.
+lf/first-failures/*.txt whitespace=cr-at-eol,-blank-at-eol,-blank-at-eof

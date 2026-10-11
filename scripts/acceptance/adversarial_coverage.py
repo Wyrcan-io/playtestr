@@ -8,6 +8,9 @@ CONTROLS={
  ('declared-nonzero','TestExpectedNonzeroExit','Exact declared nonzero exit'),
  ('wrong-exit','TestWrongExitCode','Unexpected exit differs from declared code'),
  ('early-exit','TestExitWhileWaitingForText','Exit before readiness cannot pass'),
+ ('output-actual-crash','TestAdversarialOutputFollowedByActualCrash','Actual target panic after positive checkpoint cannot pass'),
+ ('exit-final-output-race','TestAdversarialImmediateExitPreservesFinalOutput','Twenty immediate exits retain final output after exit observation'),
+ ('native-terminal-eof','TestNaturalExitReachesTerminalEOF','Unix natural exit drains final output; platform-specific EOF contract'),
  ('exit-hang','TestExitTimeout','Expected exit that never arrives is bounded'),
  ('whole-run-budget','TestRunTimeout','Whole-run budget applies across steps'),
  ('cancel','TestCancellation','Cancellation returns accurate outcome'),
@@ -60,11 +63,15 @@ CONTROLS={
  ('workspace-path','TestWorkspaceSpecValidation','Workspace paths and environment conflicts rejected'),
  ('fixture-links-bounds','TestWorkspaceFixtureCopyRejectsUnsafeAndBoundedInputs','Real fixture rejects links/specials/oversize'),
  ('resolve-before-cwd','TestWorkspaceCommandResolutionPrecedesFixtureCWD','Target executable resolved before changed cwd'),
+ ('missing-executable','TestLaunchFailure','Missing executable produces an accurate launch failure'),
+ ('explicit-environment','TestWorkingDirectoryAndExplicitEnvironment','Actual target receives explicit cwd and environment'),
+ ('selected-inheritance','TestInheritedEnvironment','Actual target receives only the selected inherited environment value'),
  ('report-traversal','TestRenderHTMLRejectsUnsafeEvidenceReferences','Evidence references cannot traverse admitted root'),
  ],
  'Workspaces':[
  ('windows-workspace-long-path','TestAdversarialWindowsWorkspaceExpandsShortTemporaryPath','Actual Windows target receives long workspace path when TEMP is an 8.3 alias; process and filesystem cleanup confirmed'),
  ('fresh-state','TestWorkspaceRunsTwiceFromFreshFixtureAndCleans','Every invocation has fresh owned fixture and cleanup'),
+ ('readonly-crlf-modes','TestWorkspaceReadOnlyInputsPreserveBytesAndNormalizeModes','Real read-only fixture preserves exact CRLF/UTF-8 bytes; copies are writable and Unix executable bits retained'),
  ('failure-retention','TestWorkspaceFailureCleanupAndExplicitRetention','Explicit failure retention has accurate evidence'),
  ('setup-no-launch','TestWorkspaceSetupFailureDoesNotLaunchTarget','Invalid fixture never launches target'),
  ('cleanup-blocks-update','TestWorkspaceCleanupFailurePreventsSnapshotCommit','Cleanup failure prevents accepted baseline'),
@@ -72,6 +79,7 @@ CONTROLS={
  ],
  'Snapshots and export':[
  ('genuine-mismatch','TestSnapshotBaselineAndReadableMismatch','Actual screen mismatch is red with readable evidence'),
+ ('missing-snapshot','TestSnapshotMissingAndSizeFailuresAreDistinct','Missing and oversized baselines produce distinct accurate failures'),
  ('selected-update','TestTargetedSnapshotUpdate','Only named baseline changes'),
  ('late-failure-rollback','TestSnapshotUpdatesAreNotCommittedAfterLaterFailure','Later failing step rolls back update'),
  ('cancel-update','TestSnapshotUpdatesAreNotCommittedAfterCancellation','Cancellation prevents staged commit'),
@@ -117,6 +125,8 @@ def main():
     DOC.mkdir(parents=True,exist_ok=True)
     for row in records:
         row['evidence']=previous.get(row['test'],{}).get('evidence',[])
+        if row['test']=='TestNaturalExitReachesTerminalEOF':
+            row['hosts']=['linux','macos']
         if row['test'] in {'TestAdversarialWindowsImmediateDescendantsCannotEscapeStartup',
                            'TestWindowsResizeRepliesRequireCurrentDimensions',
                            'TestWindowsEnterAndCtrlJRemainDistinctThroughRealPTY',

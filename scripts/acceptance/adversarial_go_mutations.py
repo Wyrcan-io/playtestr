@@ -1,0 +1,103 @@
+"""Actual pinned Go application faults, rebuilds, and unchanged-contract recovery."""
+import argparse
+import difflib
+import hashlib
+import json
+import os
+from pathlib import Path
+import time
+from adversarial_process import ROOT, DOC, RAW, run
+from adversarial_journey import recorder
+from adversarial_setup_go import build
+
+
+def main():
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--project',required=True)
+    parser.add_argument('--runtime',type=Path)
+    parser.add_argument('--binary',type=Path,required=True)
+    args=parser.parse_args()
+    package=DOC/args.project
+    app=args.runtime or ROOT/'.cache/ten-new-project-apps'/args.project
+    identity=json.loads((app/'runtime.json').read_text(encoding='utf-8'))
+    source=Path(identity['source_path'])
+    source.relative_to(app)
+    env=dict(os.environ,PATH=identity['path']+os.pathsep+os.environ['PATH'])
+    config=json.loads((package/'scenarios.json').read_text(encoding='utf-8'))
+    suffix=config.get('baseline_suffix_by_host',{}).get(__import__('platform').system(),'')
+    instructions=json.loads((package/'faults/definitions.json').read_text(encoding='utf-8'))
+    controls=[]
+    for mutation in instructions:
+        name=mutation['name']
+        case_name=mutation['case']
+        case=dict(next(c for c in config['cases'] if c['name']==case_name),name=case_name+suffix)
+        spec=package/(case['name']+'.json')
+        contracts=[spec,*(package/'snapshots').glob('*')]
+        digests={str(p.relative_to(package)):hashlib.sha256(p.read_bytes()).hexdigest() for p in contracts if p.is_file()}
+        path=source/mutation['file']
+        path.resolve(strict=True).relative_to(source.resolve())
+        original=path.read_bytes()
+        stat=path.stat()
+        value=original.decode('utf-8').replace('\r\n','\n')
+        if value.count(mutation['old'])!=1:
+            raise RuntimeError('Actual source mutation anchor is not unique: '+name)
+        modified=value.replace(mutation['old'],mutation['new'])
+        patch=''.join(difflib.unified_diff(value.splitlines(True),modified.splitlines(True),
+            fromfile='a/'+mutation['file'],tofile='b/'+mutation['file']))
+        (package/'faults'/(name+'.patch')).write_text(patch,encoding='utf-8')
+        before_binary=hashlib.sha256(Path(identity['binary']).read_bytes()).hexdigest()
+        fault=dict(name=name,source_file=mutation['file'],original_sha256=hashlib.sha256(original).hexdigest(),
+                   mutated_sha256=hashlib.sha256(modified.encode()).hexdigest(),case=case_name,
+                   pristine_target_binary_sha256=before_binary)
+        label=name+'-'+str(time.time_ns())
+        report=RAW/args.project/(label+'.json')
+        try:
+            path.write_bytes(modified.encode('utf-8'))
+            mutated_identity=build(app,args.project)
+            fault['mutated_target_binary_sha256']=mutated_identity['binary_sha256']
+            state_only=mutation.get('state_only',False)
+            result=run([args.binary,'test','--report',report.relative_to(ROOT),
+                '--artifacts-dir',report.with_suffix('').relative_to(ROOT),spec],args.project,label,
+                env=env,expected=0 if state_only else 1)
+            data=json.loads(report.read_text(encoding='utf-8'))
+            if state_only:
+                if data['summary']['passed']!=1:
+                    raise RuntimeError('Actual saved corruption did not preserve ordinary terminal green')
+                try:
+                    recorder(args.binary,args.project,case,env,export=False)
+                except RuntimeError as error:
+                    if 'Independent exact file state mismatch' not in str(error):
+                        raise
+                    fault.update(state_oracle_detected=True,state_probe_evidence_id=error.evidence_id)
+                else:
+                    raise RuntimeError('Independent oracle accepted actual corrupt saved bytes')
+            else:
+                if data['summary']['failed']!=1 or not data['results'][0].get('failure'):
+                    raise RuntimeError('Actual upstream regression lacked a failed result')
+                fault['category']=data['results'][0]['failure']['category']
+            if not data['results'][0]['cleanup']['confirmed_exited']:
+                raise RuntimeError('Mutated application cleanup not confirmed')
+            fault.update(evidence_id=result['id'],report=report.relative_to(ROOT).as_posix())
+        finally:
+            path.write_bytes(original)
+            os.utime(path,ns=(stat.st_atime_ns,stat.st_mtime_ns))
+            restored_identity=build(app,args.project)
+        if path.read_bytes()!=original or restored_identity['binary_sha256']!=before_binary:
+            raise RuntimeError('Source or reproducible target binary was not restored exactly')
+        if {str(p.relative_to(package)):hashlib.sha256(p.read_bytes()).hexdigest() for p in contracts if p.is_file()}!=digests:
+            raise RuntimeError('Fault detection changed its approved contract')
+        recovery=RAW/args.project/('restored-'+label+'.json')
+        result=run([args.binary,'test','--report',recovery.relative_to(ROOT),spec],
+                   args.project,'restore-'+name,env=env)
+        recorder(args.binary,args.project,case,env,export=False)
+        fault.update(restored=True,recovery_id=result['id'],contracts_unchanged=True,
+                     restored_target_binary_sha256=restored_identity['binary_sha256'])
+        controls.append(fault)
+        (RAW/args.project/(label+'-control.json')).write_text(json.dumps(fault,indent=2)+'\n',encoding='utf-8')
+        print(name,'detected; exact source/binary restored; ordinary and state recovery passed',flush=True)
+    (RAW/args.project/('mutation-controls-'+os.name+'-'+str(time.time_ns())+'.json')).write_text(
+        json.dumps(controls,indent=2)+'\n',encoding='utf-8')
+
+
+if __name__=='__main__':
+    main()
