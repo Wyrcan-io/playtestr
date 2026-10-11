@@ -24,6 +24,7 @@ def main():
     if project=='copier':
         run([sys.executable,ROOT/'scripts/acceptance/adversarial_copier_git_fixture.py'],
             project,'native-synthetic-git-prerequisites',timeout=60)
+    git_version=run(['git','--version'],project,'native-git-version',timeout=10)['output'].strip()
     budget=ROOT/'scripts/acceptance/adversarial_budgets.py'
     run([sys.executable,budget,project,'--label','before-native'],project,'native-budget-before',timeout=90)
     helper=ROOT/'scripts/acceptance/adversarial_journey.py'
@@ -39,6 +40,7 @@ def main():
     config=json.loads((DOC/project/'scenarios.json').read_text(encoding='utf-8'))
     report=dict(source=source,runner_sha256=hashlib.sha256(binary.read_bytes()).hexdigest(),
         actual_host=platform.platform(),project=project,scenarios=len(config['cases']),
+        git_version=git_version,
         terminal_repetitions=10*len(config['cases']),state_probe_repetitions=10*len(config['cases']),
         state_scope='Separate real recorder executions: exact reviewed screen and current managed workspace files before teardown',
         phase='Development qualification; final single-source batch freeze remains pending',

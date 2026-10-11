@@ -2,6 +2,20 @@
 
 No batch completion or final qualification is claimed.
 
+C03 — Host Git fallback output: the next native Linux/Windows attempt reaches
+the real Git update and exits 0, but emits an additional generic Git-version
+warning. Pinned Copier first requests `--inter-hunk-context=-1`, catches a Git
+execution error, retries with zero inter-hunk context, and prints this warning.
+Do not infer failed file updates from the warning, or claim correctness from
+exit 0. Preserve both native mismatch reports/screens/diffs and both earlier
+full-screen contracts. Publicly review explicit update version/answer rows
+1–3, exclude this trailer, and independently verify exact v2 files, absence
+conditions and preserved committed local customization on every state probe.
+Complex merge/conflict correctness remains untested. This is an explicit target
+scope/prerequisite choice, not a Playtestr normalization change or an upstream
+repair. Native Git versions are separately recorded; full hosted state and
+repetition requalification remain pending.
+
 H15 — Shared ledger integrity / high: native-evidence import overlapped a WSL
 recorder finish and overwrote part of an imported identity event. Preserve
 epoch 1 byte-for-byte, including its exact malformed fragment and recorded

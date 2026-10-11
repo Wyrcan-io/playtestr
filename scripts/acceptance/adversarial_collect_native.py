@@ -101,7 +101,8 @@ def main():
                 if key not in known:
                     append(row)
                     known.add(key)
-                if row['event']=='finished' and row['label'] in {'detached-startup-before','detached-startup-after'}:
+                if row['event']=='finished' and row['label'] in {'detached-startup-before','detached-startup-after',
+                        'workspace-short-path-before','workspace-short-path-after'}:
                     started=next(r for r in read_ledger(ledger.parent/'attempts.jsonl')+(
                         read_ledger(ledger.parent/'attempts-v2.jsonl') if (ledger.parent/'attempts-v2.jsonl').exists() else [])
                         if r['id']==row['id'] and r['event']=='started')

@@ -28,3 +28,12 @@ original `.txt` baselines remain for audit. This is an explicit contract-scope
 revision, not a runner normalization fix or a claim that terminal rows prove
 filesystem correctness. Source faults and maintenance were rechecked locally
 against the revised contract; native repetitions and deletion are pending.
+
+The next hosted attempt at `ff38039457da855a3f5d1b94c0ccb3f2fa9b530a`
+passed the earlier failure points and reached update exit 0 on both hosts,
+then rejected an additional upstream Git fallback warning. The update contract
+now explicitly captures rows 1–3 (template version and selected support answer)
+and excludes the trailer. Exact updated/generated files and preserved local
+customization remain independent required checks. The source's fallback retries
+its failed diff with zero inter-hunk context. Git versions are recorded in the
+native recipe. No merge-conflict preservation or all-Git-version claim is made.
