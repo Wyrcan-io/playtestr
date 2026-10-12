@@ -8,6 +8,7 @@ import platform
 import re
 import subprocess
 from adversarial_process import ROOT, DOC, run
+from adversarial_fixture_directories import prepare
 
 
 def build(app, project):
@@ -86,6 +87,7 @@ def main():
         raise RuntimeError('Pristine setup cannot adopt mutated source')
     package = DOC / project
     package.mkdir(parents=True, exist_ok=True)
+    prepare(package)
     license_path = next((p for p in [source / 'LICENSE', source / 'LICENSE.md', source / 'LICENSE.txt'] if p.is_file()), None)
     if license_path is None:
         raise RuntimeError('Reviewed license file missing')

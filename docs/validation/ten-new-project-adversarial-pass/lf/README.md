@@ -14,4 +14,11 @@ One early copy capture timed out. Ten unchanged fresh copy repetitions and the s
 
 Reacquisition: `python scripts/acceptance/adversarial_setup_go.py --project lf`. Native recipe: `python scripts/acceptance/adversarial_native_project.py --project lf`. Dependencies, license, fixtures, specs and reviewed captures are retained. Task-owned Go caches and application source/runtime must be deleted after successful native evidence and process checks.
 
+Git does not retain empty directories. [The explicit fixture directory manifest](fixture-directories.json)
+is restored by the setup command, before scenarios execute. This recreates the
+reviewed empty directories without adding marker files or changing fixture file
+bytes. [Actual missing-directory failure and recovery](fixture-prerequisite-repair.json)
+uses the same ordinary spec and baseline. The first hosted compiler-prerequisite
+failure and subsequent initial-screen failure remain unqualified and retained.
+
 Unsupported claims include cross-client synchronization, external opener/editor integrations, copy permission/ownership semantics, arbitrary filesystem races, complete style/mouse/grapheme emulation, automatic test inference, sandboxing, first-time beginner simplicity, final batch acceptance, and commercial readiness. Full-product campaign credit remains zero.

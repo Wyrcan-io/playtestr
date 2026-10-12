@@ -5,6 +5,21 @@ No batch completion or final qualification is claimed.
 Later evidence updates below supersede discovery-time pending statuses in the
 original table. The first failed attempts and original ledger bytes remain intact.
 
+H18 update: source `425288ae737e6b6e525913e351cae735a2372e00` successfully
+compiled the target on native Linux and Windows. All three product-control jobs
+and standard smoke passed. The application jobs then failed the first checkpoint
+with `LF 02-nested`, rather than the reviewed initial `LF 00-empty`.
+
+H20 — fixture prerequisites: Git omitted the two empty directories from each
+fixture tree. A reviewed `fixture-directories.json` now declares them explicitly;
+setup reconstructs only bounded paths below the declared fixture roots, rejects
+links/nonempty state and validates every entry before creating anything. Directory
+names are now included in pre-launch provenance. The real [local regression](lf/fixture-prerequisite-repair.json)
+preserves the original failure and passes the same spec/baseline after directory
+restoration; traversal/no-partial-creation/nonempty-preservation calibration also
+passed. This is a campaign prerequisite repair, not an application-specific core
+branch or an accepted snapshot update. Native retry is required.
+
 | ID | Class / severity | Observation | Current disposition / evidence |
 | --- | --- | --- | --- |
 | P05 | Windows resize / high | A continuously redrawing target changed dimensions without another CSI 8 reply; the second resize timed out | Bounded current-request post-return output fence, plus explicit semantic readiness. Actual native core checks passed at `ff38039`, `6df8c37` and `5188978`; [investigation](core/continuous-resize-investigation.json). A transport fence does not prove application readiness. |

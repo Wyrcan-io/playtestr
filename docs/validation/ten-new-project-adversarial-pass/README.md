@@ -10,7 +10,11 @@ its twelve reviewed contracts passed 120 local Windows ordinary repetitions
 plus 120 state executions and exploratory WSL ordinary/state checks. Hosted
 source `5188978057d4a31aaf752a1dafb9fbb73488f1ea` passed all three product-control
 jobs, but both lf application jobs failed at a Go compiler prerequisite mismatch.
-The exact owned target-toolchain repair still requires native verification.
+The exact owned target-toolchain repair compiled lf successfully on both native
+hosts at `425288a`, but their first scenario then accurately failed because Git
+omitted the empty synthetic fixture directories. The declared directory
+prerequisite passed a real local before/after regression with unchanged
+contracts; native journey qualification of this later repair remains pending.
 Final single-source campaign qualification and the remaining seven development
 journeys are pending; completed full-product launch credit remains zero.
 

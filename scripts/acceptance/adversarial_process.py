@@ -97,7 +97,13 @@ def contract_identity(project, argv):
                     raise RuntimeError('Contract identity file exceeds independent bound')
                 contracts[path.relative_to(package).as_posix()]=hashlib.sha256(path.read_bytes()).hexdigest()
     runner=Path(str(argv[0]))
-    identity={'contracts':contracts}
+    fixture_directories=[]
+    for root in fixture_roots:
+        if root.is_dir():
+            fixture_directories.extend(path.relative_to(package).as_posix()
+                for path in [root,*root.rglob('*')] if path.is_dir() and not path.is_symlink()
+                and not getattr(path,'is_junction',lambda:False)())
+    identity={'contracts':contracts,'fixture_directories':sorted(set(fixture_directories))}
     if Path(str(argv[0])).name in {'go','go.exe'}:
         source_files={}
         for directory in [ROOT/'internal',ROOT/'cmd']:

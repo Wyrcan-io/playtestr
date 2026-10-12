@@ -11,8 +11,28 @@ from unittest.mock import patch
 import adversarial_process
 from adversarial_process import run
 from adversarial_journey import check_state
+from adversarial_fixture_directories import prepare
 
 class NativeHarnessControls(unittest.TestCase):
+    def test_empty_fixture_directory_reconstruction_is_owned_and_prevalidated(self):
+        with tempfile.TemporaryDirectory(prefix='playtestr-fixture-dirs-') as root:
+            package=Path(root)/'package'
+            package.mkdir()
+            (package/'scenarios.json').write_text(json.dumps({'fixture':'fixtures','cases':[{}]}))
+            manifest=package/'fixture-directories.json'
+            manifest.write_text(json.dumps(['fixtures/empty','../escape']))
+            with self.assertRaisesRegex(RuntimeError,'Unsafe fixture directory path'):
+                prepare(package)
+            self.assertFalse((package/'fixtures').exists())
+            self.assertFalse((Path(root)/'escape').exists())
+            manifest.write_text(json.dumps(['fixtures/empty']))
+            prepare(package)
+            self.assertEqual(list((package/'fixtures/empty').iterdir()),[])
+            (package/'fixtures/empty/protected.txt').write_bytes(b'protected')
+            with self.assertRaisesRegex(RuntimeError,'not empty'):
+                prepare(package)
+            self.assertEqual((package/'fixtures/empty/protected.txt').read_bytes(),b'protected')
+
     def test_semantic_rejection_is_recorded_before_process_success(self):
         def reject(code,output,evidence):
             self.assertEqual(code,0)
