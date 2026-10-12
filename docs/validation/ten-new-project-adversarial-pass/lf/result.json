@@ -2,16 +2,16 @@
   "project": "lf",
   "source_pin": "5d3c7b702515dfb72d8d496673fa1c4144d1dbed",
   "license": "MIT",
-  "status": "development_in_progress_pending_native_qualification_and_cleanup",
+  "status": "development_complete_pending_final_freeze",
   "normal_scenarios": 6,
   "edge_scenarios": 6,
   "local_windows_terminal_repetitions": 120,
   "local_windows_state_repetitions": 120,
   "wsl_ordinary_cases": 12,
   "wsl_state_cases": 12,
-  "qualified_native_host_pairs": 0,
+  "qualified_native_host_pairs": 2,
   "final_frozen_repetitions": 0,
-  "app_source_deleted": false,
+  "app_source_deleted": true,
   "full_product_campaign_credit": 0,
   "mutation_controls": [
     "wrong-rename-destination",
@@ -23,5 +23,10 @@
     20
   ],
   "ux": "ux-prepared-route.json",
-  "maintenance": "maintenance-result.json"
+  "maintenance": "maintenance-result.json",
+  "native_run": "38311988432",
+  "native_source": "cb34cc3f8bc7d90eabca2b5cb6db233b571939ef",
+  "native_terminal_repetitions_per_host": 120,
+  "native_state_probes_per_host": 120,
+  "local_teardown_scope": "Windows and WSL owned sources, binaries and private caches removed after hosted native qualification; local receipts prove only local teardown"
 }

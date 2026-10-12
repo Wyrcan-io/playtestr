@@ -7,3 +7,6 @@
 **/fault-evidence/**/*.diff.txt whitespace=cr-at-eol,-blank-at-eol
 # Exact interactive prompt transcripts contain intentional trailing spaces.
 lf/first-failures/*.txt whitespace=cr-at-eol,-blank-at-eol,-blank-at-eof
+superfile/first-failures/*.txt whitespace=cr-at-eol,-blank-at-eol,-blank-at-eof
+# Licensed upstream TOML comments retain their exact whitespace.
+superfile/**/.configuration/config.toml whitespace=cr-at-eol,-blank-at-eol

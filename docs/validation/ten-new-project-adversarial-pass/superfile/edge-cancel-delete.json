@@ -1,0 +1,65 @@
+{
+  "version": 2,
+  "name": "Decline a destructive permanent-delete confirmation and preserve exact files",
+  "command": [
+    "superfile",
+    "--config-file",
+    ".configuration/config.toml",
+    "source"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Thanks for using superfile"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "Thanks for using superfile"
+    },
+    {
+      "expect": "ALPHA PREVIEW TOKEN"
+    },
+    {
+      "text": "D"
+    },
+    {
+      "expect": "This operation cannot be undone"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "This operation cannot be undone"
+    },
+    {
+      "key": "ArrowDown"
+    },
+    {
+      "expect": "BRAVO MOVE TOKEN"
+    },
+    {
+      "snapshot": "edge-cancel-delete.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "version": 2,
+  "name": "Select two nonadjacent files and copy the exact set into another panel",
+  "command": [
+    "superfile",
+    "--config-file",
+    ".configuration/config.toml",
+    "source",
+    "destination"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Thanks for using superfile"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "Thanks for using superfile"
+    },
+    {
+      "expect": "ALPHA PREVIEW TOKEN"
+    },
+    {
+      "text": "v"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "key": "ArrowDown"
+    },
+    {
+      "key": "ArrowDown"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "key": "CtrlC"
+    },
+    {
+      "key": "Tab"
+    },
+    {
+      "expect": "No metadata present"
+    },
+    {
+      "key": "CtrlV"
+    },
+    {
+      "expect": "ALPHA PREVIEW TOKEN"
+    },
+    {
+      "snapshot": "normal-multiple-selection.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

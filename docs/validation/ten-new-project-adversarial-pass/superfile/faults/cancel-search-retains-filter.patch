@@ -1,0 +1,10 @@
+--- a/src/internal/handle_modal.go
++++ b/src/internal/handle_modal.go
+@@ -162,7 +162,6 @@
+ func (m *model) cancelSearch() {
+ 	panel := m.getFocusedFilePanel()
+ 	panel.SearchBar.Blur()
+-	panel.SearchBar.SetValue("")
+ }
+ 
+ // Confirm search. This will exit the search bar and filter the files

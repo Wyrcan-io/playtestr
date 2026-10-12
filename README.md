@@ -87,7 +87,7 @@ Stateful local flows can opt into specification version 2. It copies a bounded r
 
 The command resolves before the copied working directory is selected. Failed runs normally clean up; `--keep-workspace-on-failure` prints and records an explicitly retained local path. Successful workspaces are always removed. See [Repeatable workspaces](docs/workspaces.md), [spec v2](docs/spec-v2.md), and [report v2](docs/report-v2.md). A temporary workspace controls selected local paths but is not a security sandbox.
 
-Each step has exactly one action. Supported keys: `Enter`, `ArrowDown`, `ArrowUp`, `ArrowLeft`, `ArrowRight`, `Escape`, `Tab`, `Backspace`, `CtrlA`, `CtrlC`, `CtrlE`, `CtrlF`, `CtrlJ`, `CtrlK`, `CtrlO`, `CtrlQ`, `CtrlS`, `CtrlSpace`, and `CtrlZ`. An `exit` step waits for the process and requires the exact exit code; intentionally nonzero expected codes are supported. Long-running TUIs do not need an exit step.
+Each step has exactly one action. The current source supports `Enter`, `ArrowDown`, `ArrowUp`, `ArrowLeft`, `ArrowRight`, `Escape`, `Tab`, `Backspace`, `CtrlSpace`, and every letter control from `CtrlA` through `CtrlZ`. Letter controls send the corresponding ASCII byte `0x01` through `0x1a`; the target defines what they do. `CtrlJ` sends LF, while `Enter` and `CtrlM` send CR. An `exit` step waits for the process and requires the exact exit code; intentionally nonzero expected codes are supported. Long-running TUIs do not need an exit step.
 
 `expect` polls the current screen until the text appears or the per-step timeout expires. `expect_not` waits for text that an earlier `expect` observed to disappear after input or resize, which is useful for closing modals without arbitrary sleeps. If the process exits first, an unmatched assertion reports the exit code instead of waiting for a timeout. Snapshots compare the rendered screen after at least 150 ms without output.
 
@@ -200,6 +200,6 @@ The selected wide-character repair is in verified v0.4.0-rc.3; [release evidence
 
 For completed releases, engineering status and the next implementation steps, see the [project roadmap](roadmap.md). Plans describe future work separately from the released capabilities above.
 
-The current source candidate additionally supports `CtrlA` (byte 0x01) and `CtrlK` (byte 0x0b) for terminal editor controls; published earlier archives may reject those names. Existing specs remain unchanged.
+The current source candidate supports every `CtrlA`–`CtrlZ` letter control, including common rename/create/copy/paste shortcuts. Published earlier archives may reject names outside their documented subset. This is a backward-compatible expansion of named input; existing spec versions and key bytes remain unchanged. A Windows Go console reader can interpret Ctrl+Z as EOF even when the PTY delivered the character; that is a target reader convention, not a promise that every target treats controls as ordinary text.
 
 The current source candidate supports `CtrlJ` as byte 0x0a, distinct from `Enter` (carriage return), for applications with that documented binding.

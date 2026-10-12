@@ -1,0 +1,69 @@
+{
+  "version": 2,
+  "name": "Built-in move into a different open panel",
+  "command": [
+    "superfile",
+    "--config-file",
+    ".configuration/config.toml",
+    "source",
+    "destination"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Thanks for using superfile"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "Thanks for using superfile"
+    },
+    {
+      "expect": "ALPHA PREVIEW TOKEN"
+    },
+    {
+      "key": "ArrowDown"
+    },
+    {
+      "expect": "BRAVO MOVE TOKEN"
+    },
+    {
+      "key": "CtrlX"
+    },
+    {
+      "key": "Tab"
+    },
+    {
+      "expect": "No metadata present"
+    },
+    {
+      "key": "CtrlV"
+    },
+    {
+      "expect": "BRAVO MOVE TOKEN"
+    },
+    {
+      "snapshot": "normal-panel-move.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

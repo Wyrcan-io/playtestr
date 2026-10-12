@@ -1,0 +1,186 @@
+{
+  "report_version": 2,
+  "runner_version": "source-cb34cc3f8bc7d90eabca2b5cb6db233b571939ef",
+  "os": "linux",
+  "arch": "amd64",
+  "summary": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "cancelled": 0,
+    "not_run": 0
+  },
+  "results": [
+    {
+      "spec_version": 2,
+      "name": "Copy two nonadjacent selected files and preserve their neighbors",
+      "spec_path": "/home/runner/work/playtestr/playtestr/docs/validation/ten-new-project-adversarial-pass/lf/normal-noncontiguous-copy.json",
+      "status": "passed",
+      "duration_ms": 1312,
+      "viewport": {
+        "width": 100,
+        "height": 30
+      },
+      "steps": [
+        {
+          "number": 1,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 1010
+        },
+        {
+          "number": 2,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 3,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 4,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 5,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 11
+        },
+        {
+          "number": 6,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 7,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 8,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 9,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 10,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 10
+        },
+        {
+          "number": 11,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 12,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 13,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 14,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 15,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 16,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 10
+        },
+        {
+          "number": 17,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 18,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 19,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 10
+        },
+        {
+          "number": 20,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 21,
+          "action": "snapshot",
+          "status": "passed",
+          "duration_ms": 250
+        },
+        {
+          "number": 22,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 23,
+          "action": "exit",
+          "status": "passed",
+          "duration_ms": 1
+        }
+      ],
+      "target": {
+        "exited": true,
+        "exit_code": 0
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": true,
+        "forced": false,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "evidence": {},
+      "workspace": {
+        "attempted": true,
+        "fixture": "fixtures",
+        "prepared": true,
+        "cleanup_attempted": true,
+        "cleaned": true,
+        "retained": false
+      }
+    }
+  ]
+}

@@ -37,6 +37,10 @@ func TestNamedControlKeysUseTerminalControlBytes(t *testing.T) {
 		"CtrlQ":     "\x11",
 		"CtrlS":     "\x13",
 		"CtrlZ":     "\x1a",
+		"CtrlN":     "\x0e",
+		"CtrlR":     "\x12",
+		"CtrlV":     "\x16",
+		"CtrlX":     "\x18",
 	}
 	for name, sequence := range want {
 		if got := keys[name]; got != sequence {
@@ -192,6 +196,8 @@ func TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput(t *testing.T)
 		{name: "null command", data: `{"version":1,"command":null,"steps":[{"exit":0}]}`, want: "command is required"},
 		{name: "empty executable", data: `{"version":1,"command":["","argument"],"steps":[{"exit":0}]}`, want: "command is required"},
 		{name: "invalid key", data: `{"version":1,"command":["sentinel"],"steps":[{"key":"F13"}]}`, want: `step 1 unknown key "F13"`},
+		{name: "unsupported mouse input", data: `{"version":1,"command":["sentinel"],"steps":[{"mouse":{"button":"left"}}]}`, want: `unknown field "mouse"`},
+		{name: "unsupported style assertion", data: `{"version":1,"command":["sentinel"],"steps":[{"expect_style":"red"}]}`, want: `unknown field "expect_style"`},
 		{name: "mixed actions", data: `{"version":1,"command":["sentinel"],"steps":[{"text":"` + secret + `","expect":"ready"}]}`, want: "step 1 must have exactly one action"},
 		{name: "missing command", data: `{"version":1,"steps":[{"exit":0}]}`, want: "command is required"},
 		{name: "malformed duration", data: `{"version":1,"command":["sentinel"],"timeout_ms":"soon","steps":[{"exit":0}]}`, want: "timeout_ms"},

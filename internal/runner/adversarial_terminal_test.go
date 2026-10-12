@@ -29,6 +29,12 @@ func TestAdversarialTerminalHelper(t *testing.T) {
 		chunks = []string{"\x1b[999999999999999999999999999999999999A", "\x1b[2J\x1b[Hmalformed bounded", "\x1b["}
 	case "wrap":
 		chunks = []string{"12345678901234567890ABCDEFGHIJ", "\x1b[3;1Hwrap complete"}
+	case "unsupported-presentation":
+		// These modes/cluster forms are outside the assertion contract. Prove
+		// bounded recovery to ordinary text, not glyph/style/mouse fidelity.
+		chunks = []string{"\x1b[?1000h\x1b[?1006h\x1b[38;2;1;2;3me\u0301\u2764\ufe0f",
+			"\x1b[0m\x1b[?1000l\x1b[?1006l\x1b[2J\x1b[Hbounded fallback",
+			"\x1b[2;1Hnext supported state"}
 	default:
 		os.Exit(8)
 	}
@@ -46,6 +52,7 @@ func TestAdversarialTerminalStreamsThroughRealPTY(t *testing.T) {
 		{"scroll", "final row\nfourth row\nscroll complete\n"},
 		{"malformed", "malformed bounded\n"},
 		{"wrap", "12345678901234567890\nABCDEFGHIJ\nwrap complete\n"},
+		{"unsupported-presentation", "bounded fallback\nnext supported state\n"},
 	} {
 		t.Run(test.mode, func(t *testing.T) {
 			spec := Spec{Version: SpecVersion, Command: []string{os.Args[0], "-test.run=^TestAdversarialTerminalHelper$"},

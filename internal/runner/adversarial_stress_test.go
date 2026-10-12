@@ -59,8 +59,11 @@ func TestAdversarialStressHelper(t *testing.T) {
 			fmt.Printf("\x1b[2J\x1b[H%s\r\n", output)
 		}
 		os.Exit(0)
-	case "rapid", "paste":
+	case "rapid", "paste", "all-controls":
 		n := 64 * 5
+		if mode == "all-controls" {
+			n = 26
+		}
 		if mode == "paste" {
 			n, err = strconv.Atoi(os.Getenv("PLAYTESTR_STRESS_BYTES"))
 			if err != nil || n < 1 || n > 8192 {
@@ -69,7 +72,12 @@ func TestAdversarialStressHelper(t *testing.T) {
 		}
 		fmt.Print("bounded input ready\r\n")
 		value := make([]byte, n)
-		if _, err := io.ReadFull(os.Stdin, value); err != nil {
+		read := func() (int, error) { return io.ReadFull(os.Stdin, value) }
+		if mode == "all-controls" {
+			read = func() (int, error) { return readExactLetterControls(value) }
+		}
+		if n, err := read(); err != nil {
+			fmt.Printf("incomplete exact input n=%d wanted=%d bytes=%x error=%v\r\n", n, len(value), value[:n], err)
 			os.Exit(10)
 		}
 		fmt.Printf("exact input %x\r\n", sha256.Sum256(value))
@@ -182,6 +190,23 @@ func TestAdversarialRapidKeysPreserveEveryEvent(t *testing.T) {
 	want := sha256.Sum256(bytes.Repeat([]byte{1, 11, 13, 10, 'x'}, 64))
 	steps = append(steps, Step{Expect: fmt.Sprintf("exact input %x", want)}, Step{Exit: intPointer(0)})
 	if result := runAdversarialStressSpec(t, "rapid", steps, 5000, 100000, nil); result.Err() != nil {
+		t.Fatal(result.Err())
+	}
+}
+
+func TestAdversarialEveryLetterControlKeyThroughRealPTY(t *testing.T) {
+	steps := []Step{{Expect: "bounded input ready"}}
+	for _, name := range []string{"CtrlA", "CtrlB", "CtrlC", "CtrlD", "CtrlE", "CtrlF", "CtrlG",
+		"CtrlH", "CtrlI", "CtrlJ", "CtrlK", "CtrlL", "CtrlM", "CtrlN", "CtrlO", "CtrlP", "CtrlQ",
+		"CtrlR", "CtrlS", "CtrlT", "CtrlU", "CtrlV", "CtrlW", "CtrlX", "CtrlY", "CtrlZ"} {
+		steps = append(steps, Step{Key: name})
+	}
+	// A literal independent byte contract, rather than the key lookup or its
+	// generation algorithm, proves the actual target received every control.
+	want := sha256.Sum256([]byte{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
+		14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26})
+	steps = append(steps, Step{Expect: fmt.Sprintf("exact input %x", want)}, Step{Exit: intPointer(0)})
+	if result := runAdversarialStressSpec(t, "all-controls", steps, 5000, 100000, nil); result.Err() != nil {
 		t.Fatal(result.Err())
 	}
 }

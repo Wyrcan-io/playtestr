@@ -5,7 +5,11 @@ Invoked 10 October 2026. **In progress; no projects accepted yet.**
 Current development progress: Cookiecutter and Copier completed their native
 Linux/Windows journeys and owned teardown. Copier's successful source/run is
 `6df8c37cd7ffb2a6e8021cf9a0b4fa16c3b06583` / `38117318191`, with 120 ordinary
-and 120 separate state executions per host. lf is the sole acquired application;
+and 120 separate state executions per host. lf completed its development pass at
+`cb34cc3f8bc7d90eabca2b5cb6db233b571939ef` / native run `38311988432`: all five
+jobs passed, including 120 ordinary plus 120 separate state executions per
+Linux/Windows host, actual mutations, restoration and verified owned teardown.
+Superfile is now the sole active application. The earlier lf investigation follows:
 its twelve reviewed contracts passed 120 local Windows ordinary repetitions
 plus 120 state executions and exploratory WSL ordinary/state checks. Hosted
 source `5188978057d4a31aaf752a1dafb9fbb73488f1ea` passed all three product-control
@@ -14,7 +18,7 @@ The exact owned target-toolchain repair compiled lf successfully on both native
 hosts at `425288a`, but their first scenario then accurately failed because Git
 omitted the empty synthetic fixture directories. The declared directory
 prerequisite passed a real local before/after regression with unchanged
-contracts; native journey qualification of this later repair remains pending.
+contracts; the successful native run above subsequently verified that repair.
 Final single-source campaign qualification and the remaining seven development
 journeys are pending; completed full-product launch credit remains zero.
 

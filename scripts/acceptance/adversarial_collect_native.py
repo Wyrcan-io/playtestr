@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import shutil
 from adversarial_process import ROOT,DOC,RAW,run,append,read_attempts,read_ledger
+from adversarial_coverage import recorded_source_digest
 
 def main():
     parser=argparse.ArgumentParser()
@@ -18,6 +19,7 @@ def main():
     destination=DOC/'native'/args.run
     destination.mkdir(parents=True,exist_ok=False)
     records=[]
+    source_cache={}
     known={(r['id'],r['event']) for r in read_attempts()}
     matrix=json.loads((DOC/'coverage-matrix.json').read_text(encoding='utf-8'))
     for artifact in metadata['artifacts']:
@@ -78,13 +80,18 @@ def main():
             if len(events)!=1: raise RuntimeError('Ambiguous product events')
             event_data=[json.loads(line) for line in events[0].read_text(encoding='utf-8').splitlines()]
             passed={r.get('Test') for r in event_data if r.get('Action')=='pass'}
-            record['passed_mapped_controls']=[c['id'] for c in matrix['controls'] if c['test'] in passed]
+            record['passed_mapped_controls']=[]
+            record['historical_definition_controls']=[]
             shutil.copyfile(events[0],retained/'test-events.jsonl')
             record['files']['test-events.jsonl']=hashlib.sha256(events[0].read_bytes()).hexdigest()
             for control in matrix['controls']:
                 if control['test'] in passed:
+                    actual=recorded_source_digest(info['headSha'],control['source'],source_cache)
+                    matches=actual==control['test_source_sha256']
+                    record['passed_mapped_controls' if matches else 'historical_definition_controls'].append(control['id'])
                     control['evidence'].append({'run':args.run,'artifact_id':artifact['id'],
                         'source':info['headSha'],'artifact':artifact['name'],
+                        'test_source_sha256':actual,'matches_current_test_source':matches,
                         'events_sha256':record['files']['test-events.jsonl']})
         race_events=list(folder.rglob('race-events.jsonl'))
         if race_events:

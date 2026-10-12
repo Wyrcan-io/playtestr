@@ -18,7 +18,37 @@ names are now included in pre-launch provenance. The real [local regression](lf/
 preserves the original failure and passes the same spec/baseline after directory
 restoration; traversal/no-partial-creation/nonempty-preservation calibration also
 passed. This is a campaign prerequisite repair, not an application-specific core
-branch or an accepted snapshot update. Native retry is required.
+branch or an accepted snapshot update. Native run `38311988432` at `cb34cc3`
+subsequently passed all five jobs, including lf's complete Linux/Windows
+development journeys and verified teardown.
+
+P07 — named control input: the real superfile recorder rejected its ordinary
+`CtrlR` shortcut (original console in `superfile/first-failures`). Support now
+maps all Ctrl+A–Z names to their defined terminal control bytes, preserving
+existing aliases and navigation. Schemas, contract documentation and migration
+notes are updated. Ten real Windows and ten WSL reduced controls verified all
+26 bytes; full Go/vet/native Windows race and public examples passed. Hosted
+three-native-OS checks of this later source are pending. This general repair
+does not infer application semantics or introduce target/framework branches.
+
+H21 — Windows ledger contention: a real four-process calibration failed with
+`PermissionError: [WinError 5] Access is denied` during atomic lock-directory
+creation. A just-removed Windows directory can remain delete-pending. Acquisition
+now retries that native error within the existing ten-second deadline; it never
+steals or removes a competing lock. A persistent denial still fails explicitly.
+Actual concurrent-writer calibration and deterministic transient/persistent
+controls pass; an additional twenty actual four-process series passed, preserving
+all 1,600 expected records with no lock left behind. This
+is a campaign accounting repair, not a product behavior change.
+
+H22 — superfile authoring/maintenance scope: empty-panel captions were assumed
+incorrectly, existing captions were rejected as stale after Tab, and an existing
+preview line was rejected as stale after resize. The corrected checkpoints use
+fresh metadata or newly exposed preview state, with exact independent file
+checks. One maintenance inspection looked for a preview token outside the
+declared snapshot rows; the new assessment checks the actual in-range neighbor
+name. Original attempts remain in the ledger; no reviewed primary contract was
+updated to conceal these mistakes.
 
 | ID | Class / severity | Observation | Current disposition / evidence |
 | --- | --- | --- | --- |

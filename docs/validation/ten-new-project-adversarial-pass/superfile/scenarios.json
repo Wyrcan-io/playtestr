@@ -1,0 +1,1358 @@
+{
+  "project": "superfile",
+  "fixture": "fixtures",
+  "environment": {
+    "TERM": "xterm-256color"
+  },
+  "cases": [
+    {
+      "name": "normal-project",
+      "kind": "normal",
+      "purpose": "Rename to a spaced Unicode name and inspect the preserved neighboring file",
+      "command": [
+        "superfile",
+        "--config-file",
+        ".configuration/config.toml",
+        "source"
+      ],
+      "steps": [
+        {
+          "expect": "Thanks for using superfile"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": "Thanks for using superfile"
+        },
+        {
+          "expect": "ALPHA PREVIEW TOKEN"
+        },
+        {
+          "key": "CtrlR"
+        },
+        {
+          "key": "CtrlA"
+        },
+        {
+          "key": "CtrlK"
+        },
+        {
+          "text": "atlas café.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "key": "ArrowDown"
+        },
+        {
+          "expect": "BRAVO MOVE TOKEN"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 11,
+      "snapshot_rows": [
+        4,
+        20
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        ".configuration/config.toml": "##############################################\n#                                            #\n#           Superfile Configuration          #\n#                                            #\n##############################################\n\n# This contains the root config file for superfile! More details can be found at\n# https://superfile.dev/configure/superfile-config/.\n\n###############################################################################\n#                                   Defaults                                  #\n###############################################################################\n\n#-- File Editor\n# Default: $EDITOR\neditor = \"\"\n\n#-- Directory Editor\n# \ndir_editor = \"\"\n\n#-- Auto check for update\nauto_check_update = false\n\n#-- cd on quit\n# Should we cd the shell to the last directory open in superfile when the\n# program exits? \ncd_on_quit = false\n\n#-- File Preview\n# Should we open a file preview by default whenever selection-hovering over a\n# file?\ndefault_open_file_preview = true\n\n#-- Image Preview\n# Should we open an image preview by default whenever selection-hovering over an\n# image?\nshow_image_preview = false\n\n#-- File Info Footer\n# Should we display a footer in the file panel that provides more file information?\nshow_panel_footer_info = false\n\n#-- Default Directory\n# The initial path that the file panel should navigate to when superfile is\n# opened. This setting understands relative paths such as \".\", \"..\", etc.\ndefault_directory = \".\"\n\n#-- File Size Units\n# true: SI decimal units of 1000 (kB, MB, GB).\n# false: IEC binary units of 1024 (KiB, MiB, GiB).\nfile_size_use_si = false\n\n#-- Default File Sort Type\n# (0: Name, 1: Size, 2: Date Modified, 3: Type, 4: Natural).\n# Natural sort treats numeric sequences as numbers (e.g., file2 before file10).\ndefault_sort_type = 0\n\n#-- Sort Order Reversing\n# true: Descending.\n# false: Ascending.\nsort_order_reversed = false\n\n#-- Case-Sensitive Sorting\n# An uppercase \"B\" comes before a lowercase \"a\" if true.\ncase_sensitive_sort = false\n\n#-- Exit Shell on Success\n# Whether to exit the shell on successful command execution.\nshell_close_on_success = false\n\n#-- Page Scroll Size\n# Number of lines to scroll for PgUp/PgDown keys (0: full page, default behavior).\npage_scroll_size = 0\n\n#-- Debug Mode\ndebug = false\n\n#-- Ignore Missing Config Fields\n# Whether to silence any warnings about missing config fields.\nignore_missing_fields = false\n\n#-- File Panel Extra Columns Count\n# Count of extra columns in file panel in addition to file name. When option equal 0 then feature is disabled.\nfile_panel_extra_columns = 0\n\n#-- File name width in File Panel\n# Percentage of file panel width allocated to file names (25-100). Higher values give more space to names, less to extra columns.\nfile_panel_name_percent = 50\n\n\n###############################################################################\n#                                   Styling                                   #\n###############################################################################\n\n#-- Theme\n# Put your theme's name here!\ntheme = \"catppuccin-mocha\"\n\n#-- Code Previewer\n# Whether to use the builtin syntax highlighting with chroma or use bat. Values: \"\" for builtin chroma, \"bat\" for bat\ncode_previewer = \"\"\n\n#-- Nerd Fonts Support\n# Whether to enable support for Nerd Fonts symbols.\n# Requires:  Font patched with the Nerd Fonts patch.\nnerdfont = false\n\n#-- Show checkbox icons in select mode\n# Requires: nerdfont = true\nshow_select_icons = true\n\n#-- Transparent Background Support\n# Set to true to enable background transparency.\n# Requires: terminal support for colour transparency\ntransparent_background = false\n\n#-- File Preview Panel Width\n# Width of the file preview panel will be 1/n of the total width.\n# Values recommended to be in 2–10.\n# Default (0): Use the same width as file picker panel.\nfile_preview_width = 0\n\n#-- File Preview Border\n# Enable border around the file preview panel for better visual separation.\n# Default: false (no border)\nenable_file_preview_border = false\n\n#-- Sidebar Width\n# If you don't want to display the sidebar, you can input 0 directly.\n# Values recommended to be in 5–20.\nsidebar_width = 0\n\n#-- Sidebar Section Order\n# Order of sidebar sections (valid values: \"home\", \"pinned\", \"disks\")\n# Only enabled sections will be displayed\nsidebar_sections = []\n\n#-- Border\n# Make sure to add strings that are exactly one character wide!\n# Use ' ' for borderless.\nborder_top = '─'\nborder_bottom = '─'\nborder_left = '│'\nborder_right = '│'\nborder_top_left = '╭'\nborder_top_right = '╮'\nborder_bottom_left = '╰'\nborder_bottom_right = '╯'\nborder_middle_left = '├'\nborder_middle_right = '┤'\n\n###############################################################################\n#                                   Plugins                                   #\n###############################################################################\n\n# This section is for using plugins with superfile, external addons that extend\n# the default capabilities of the program! More info can be found at\n# https://superfile.dev/list/plugin-list/.\n\n#-- Detailed Metadata\n# Requires: exiftool\nmetadata = false\n\n#-- MD5 Checksum Generation\n# No external dependency required\nenable_md5_checksum = false\n#\n#-- Zoxide Support - Smart directory navigation!\n# Requires: zoxide\nzoxide_support = false\n\n#-- File opening rules\n# Map file extensions to commands used to open them.\n# The file path will be appended as the last argument.\n# MUST BE IN THE VERY END OF THE FILE BECAUSE TOML CANNOT CLOSE TABLES\n# Example:\n#   png = \"feh\"\n#   pdf = \"zathura\"\n#   conf = \"nvim\"\n[open_with]\n",
+        "nested/notes.txt": "NESTED NOTES TOKEN\n",
+        "nested/plan.txt": "NONINITIAL PLAN TOKEN\nSecond exact line.\n",
+        "source/bravo.txt": "BRAVO MOVE TOKEN\nOriginal bravo bytes.\n",
+        "source/charlie.txt": "CHARLIE MULTISELECT TOKEN\nUnselected neighboring bytes.\n",
+        "source/long.txt": "line 00: long preview café 雪\nline 01: long preview café 雪\nline 02: long preview café 雪\nline 03: long preview café 雪\nline 04: long preview café 雪\nline 05: long preview café 雪\nline 06: long preview café 雪\nline 07: long preview café 雪\nline 08: long preview café 雪\nline 09: long preview café 雪\nline 10: long preview café 雪\nline 11: long preview café 雪\nline 12: long preview café 雪\nline 13: long preview café 雪\nline 14: long preview café 雪\nline 15: long preview café 雪\nline 16: long preview café 雪\nline 17: long preview café 雪\nline 18: long preview café 雪\nline 19: long preview café 雪\nline 20: long preview café 雪\nline 21: long preview café 雪\nline 22: long preview café 雪\nline 23: long preview café 雪\nline 24: long preview café 雪\nline 25: long preview café 雪\nline 26: long preview café 雪\nline 27: long preview café 雪\nline 28: long preview café 雪\nline 29: long preview café 雪\nline 30: long preview café 雪\nline 31: long preview café 雪\nline 32: long preview café 雪\nline 33: long preview café 雪\nline 34: long preview café 雪\nline 35: long preview café 雪\nline 36: long preview café 雪\nline 37: long preview café 雪\nline 38: long preview café 雪\nline 39: long preview café 雪\n",
+        "source/occupied.txt": "OCCUPIED DISTINCT TOKEN\nNever silently replace.\n",
+        "source/protected.txt": "PROTECTED NEIGHBOR TOKEN\nMust remain exact.\n",
+        "source/scroll-00.txt": "SCROLL ITEM 00 TOKEN\n",
+        "source/scroll-01.txt": "SCROLL ITEM 01 TOKEN\n",
+        "source/scroll-02.txt": "SCROLL ITEM 02 TOKEN\n",
+        "source/scroll-03.txt": "SCROLL ITEM 03 TOKEN\n",
+        "source/scroll-04.txt": "SCROLL ITEM 04 TOKEN\n",
+        "source/scroll-05.txt": "SCROLL ITEM 05 TOKEN\n",
+        "source/scroll-06.txt": "SCROLL ITEM 06 TOKEN\n",
+        "source/scroll-07.txt": "SCROLL ITEM 07 TOKEN\n",
+        "source/scroll-08.txt": "SCROLL ITEM 08 TOKEN\n",
+        "source/scroll-09.txt": "SCROLL ITEM 09 TOKEN\n",
+        "source/scroll-10.txt": "SCROLL ITEM 10 TOKEN\n",
+        "source/scroll-11.txt": "SCROLL ITEM 11 TOKEN\n",
+        "source/scroll-12.txt": "SCROLL ITEM 12 TOKEN\n",
+        "source/scroll-13.txt": "SCROLL ITEM 13 TOKEN\n",
+        "source/scroll-14.txt": "SCROLL ITEM 14 TOKEN\n",
+        "source/scroll-15.txt": "SCROLL ITEM 15 TOKEN\n",
+        "source/scroll-16.txt": "SCROLL ITEM 16 TOKEN\n",
+        "source/scroll-17.txt": "SCROLL ITEM 17 TOKEN\n",
+        "source/scroll-18.txt": "SCROLL ITEM 18 TOKEN\n",
+        "source/scroll-19.txt": "SCROLL ITEM 19 TOKEN\n",
+        "source/scroll-20.txt": "SCROLL ITEM 20 TOKEN\n",
+        "source/scroll-21.txt": "SCROLL ITEM 21 TOKEN\n",
+        "source/scroll-22.txt": "SCROLL ITEM 22 TOKEN\n",
+        "source/scroll-23.txt": "SCROLL ITEM 23 TOKEN\n",
+        "source/scroll-24.txt": "SCROLL ITEM 24 TOKEN\n",
+        "source/scroll-25.txt": "SCROLL ITEM 25 TOKEN\n",
+        "source/scroll-26.txt": "SCROLL ITEM 26 TOKEN\n",
+        "source/scroll-27.txt": "SCROLL ITEM 27 TOKEN\n",
+        "source/scroll-28.txt": "SCROLL ITEM 28 TOKEN\n",
+        "source/scroll-29.txt": "SCROLL ITEM 29 TOKEN\n",
+        "source/scroll-30.txt": "SCROLL ITEM 30 TOKEN\n",
+        "source/scroll-31.txt": "SCROLL ITEM 31 TOKEN\n",
+        "source/scroll-32.txt": "SCROLL ITEM 32 TOKEN\n",
+        "source/scroll-33.txt": "SCROLL ITEM 33 TOKEN\n",
+        "source/scroll-34.txt": "SCROLL ITEM 34 TOKEN\n",
+        "source/atlas café.txt": "ALPHA PREVIEW TOKEN\nOriginal alpha bytes.\n"
+      },
+      "absent_paths": [
+        "source/alpha.txt"
+      ],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Rows 1–3 contain the random managed directory header; rows 21–30 contain host metadata, progress durations and clipboard paths. Explicit preview/transition checkpoints and exact independent file state remain required."
+    },
+    {
+      "name": "normal-search-preview",
+      "kind": "normal",
+      "purpose": "Search a noninitial nested file and inspect its exact preview",
+      "command": [
+        "superfile",
+        "--config-file",
+        ".configuration/config.toml",
+        "nested"
+      ],
+      "steps": [
+        {
+          "expect": "Thanks for using superfile"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": "Thanks for using superfile"
+        },
+        {
+          "expect": "NESTED NOTES TOKEN"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "plan.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "NONINITIAL PLAN TOKEN"
+        },
+        {
+          "expect": "Second exact line."
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 9,
+      "snapshot_rows": [
+        4,
+        20
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        ".configuration/config.toml": "##############################################\n#                                            #\n#           Superfile Configuration          #\n#                                            #\n##############################################\n\n# This contains the root config file for superfile! More details can be found at\n# https://superfile.dev/configure/superfile-config/.\n\n###############################################################################\n#                                   Defaults                                  #\n###############################################################################\n\n#-- File Editor\n# Default: $EDITOR\neditor = \"\"\n\n#-- Directory Editor\n# \ndir_editor = \"\"\n\n#-- Auto check for update\nauto_check_update = false\n\n#-- cd on quit\n# Should we cd the shell to the last directory open in superfile when the\n# program exits? \ncd_on_quit = false\n\n#-- File Preview\n# Should we open a file preview by default whenever selection-hovering over a\n# file?\ndefault_open_file_preview = true\n\n#-- Image Preview\n# Should we open an image preview by default whenever selection-hovering over an\n# image?\nshow_image_preview = false\n\n#-- File Info Footer\n# Should we display a footer in the file panel that provides more file information?\nshow_panel_footer_info = false\n\n#-- Default Directory\n# The initial path that the file panel should navigate to when superfile is\n# opened. This setting understands relative paths such as \".\", \"..\", etc.\ndefault_directory = \".\"\n\n#-- File Size Units\n# true: SI decimal units of 1000 (kB, MB, GB).\n# false: IEC binary units of 1024 (KiB, MiB, GiB).\nfile_size_use_si = false\n\n#-- Default File Sort Type\n# (0: Name, 1: Size, 2: Date Modified, 3: Type, 4: Natural).\n# Natural sort treats numeric sequences as numbers (e.g., file2 before file10).\ndefault_sort_type = 0\n\n#-- Sort Order Reversing\n# true: Descending.\n# false: Ascending.\nsort_order_reversed = false\n\n#-- Case-Sensitive Sorting\n# An uppercase \"B\" comes before a lowercase \"a\" if true.\ncase_sensitive_sort = false\n\n#-- Exit Shell on Success\n# Whether to exit the shell on successful command execution.\nshell_close_on_success = false\n\n#-- Page Scroll Size\n# Number of lines to scroll for PgUp/PgDown keys (0: full page, default behavior).\npage_scroll_size = 0\n\n#-- Debug Mode\ndebug = false\n\n#-- Ignore Missing Config Fields\n# Whether to silence any warnings about missing config fields.\nignore_missing_fields = false\n\n#-- File Panel Extra Columns Count\n# Count of extra columns in file panel in addition to file name. When option equal 0 then feature is disabled.\nfile_panel_extra_columns = 0\n\n#-- File name width in File Panel\n# Percentage of file panel width allocated to file names (25-100). Higher values give more space to names, less to extra columns.\nfile_panel_name_percent = 50\n\n\n###############################################################################\n#                                   Styling                                   #\n###############################################################################\n\n#-- Theme\n# Put your theme's name here!\ntheme = \"catppuccin-mocha\"\n\n#-- Code Previewer\n# Whether to use the builtin syntax highlighting with chroma or use bat. Values: \"\" for builtin chroma, \"bat\" for bat\ncode_previewer = \"\"\n\n#-- Nerd Fonts Support\n# Whether to enable support for Nerd Fonts symbols.\n# Requires:  Font patched with the Nerd Fonts patch.\nnerdfont = false\n\n#-- Show checkbox icons in select mode\n# Requires: nerdfont = true\nshow_select_icons = true\n\n#-- Transparent Background Support\n# Set to true to enable background transparency.\n# Requires: terminal support for colour transparency\ntransparent_background = false\n\n#-- File Preview Panel Width\n# Width of the file preview panel will be 1/n of the total width.\n# Values recommended to be in 2–10.\n# Default (0): Use the same width as file picker panel.\nfile_preview_width = 0\n\n#-- File Preview Border\n# Enable border around the file preview panel for better visual separation.\n# Default: false (no border)\nenable_file_preview_border = false\n\n#-- Sidebar Width\n# If you don't want to display the sidebar, you can input 0 directly.\n# Values recommended to be in 5–20.\nsidebar_width = 0\n\n#-- Sidebar Section Order\n# Order of sidebar sections (valid values: \"home\", \"pinned\", \"disks\")\n# Only enabled sections will be displayed\nsidebar_sections = []\n\n#-- Border\n# Make sure to add strings that are exactly one character wide!\n# Use ' ' for borderless.\nborder_top = '─'\nborder_bottom = '─'\nborder_left = '│'\nborder_right = '│'\nborder_top_left = '╭'\nborder_top_right = '╮'\nborder_bottom_left = '╰'\nborder_bottom_right = '╯'\nborder_middle_left = '├'\nborder_middle_right = '┤'\n\n###############################################################################\n#                                   Plugins                                   #\n###############################################################################\n\n# This section is for using plugins with superfile, external addons that extend\n# the default capabilities of the program! More info can be found at\n# https://superfile.dev/list/plugin-list/.\n\n#-- Detailed Metadata\n# Requires: exiftool\nmetadata = false\n\n#-- MD5 Checksum Generation\n# No external dependency required\nenable_md5_checksum = false\n#\n#-- Zoxide Support - Smart directory navigation!\n# Requires: zoxide\nzoxide_support = false\n\n#-- File opening rules\n# Map file extensions to commands used to open them.\n# The file path will be appended as the last argument.\n# MUST BE IN THE VERY END OF THE FILE BECAUSE TOML CANNOT CLOSE TABLES\n# Example:\n#   png = \"feh\"\n#   pdf = \"zathura\"\n#   conf = \"nvim\"\n[open_with]\n",
+        "nested/notes.txt": "NESTED NOTES TOKEN\n",
+        "nested/plan.txt": "NONINITIAL PLAN TOKEN\nSecond exact line.\n",
+        "source/alpha.txt": "ALPHA PREVIEW TOKEN\nOriginal alpha bytes.\n",
+        "source/bravo.txt": "BRAVO MOVE TOKEN\nOriginal bravo bytes.\n",
+        "source/charlie.txt": "CHARLIE MULTISELECT TOKEN\nUnselected neighboring bytes.\n",
+        "source/long.txt": "line 00: long preview café 雪\nline 01: long preview café 雪\nline 02: long preview café 雪\nline 03: long preview café 雪\nline 04: long preview café 雪\nline 05: long preview café 雪\nline 06: long preview café 雪\nline 07: long preview café 雪\nline 08: long preview café 雪\nline 09: long preview café 雪\nline 10: long preview café 雪\nline 11: long preview café 雪\nline 12: long preview café 雪\nline 13: long preview café 雪\nline 14: long preview café 雪\nline 15: long preview café 雪\nline 16: long preview café 雪\nline 17: long preview café 雪\nline 18: long preview café 雪\nline 19: long preview café 雪\nline 20: long preview café 雪\nline 21: long preview café 雪\nline 22: long preview café 雪\nline 23: long preview café 雪\nline 24: long preview café 雪\nline 25: long preview café 雪\nline 26: long preview café 雪\nline 27: long preview café 雪\nline 28: long preview café 雪\nline 29: long preview café 雪\nline 30: long preview café 雪\nline 31: long preview café 雪\nline 32: long preview café 雪\nline 33: long preview café 雪\nline 34: long preview café 雪\nline 35: long preview café 雪\nline 36: long preview café 雪\nline 37: long preview café 雪\nline 38: long preview café 雪\nline 39: long preview café 雪\n",
+        "source/occupied.txt": "OCCUPIED DISTINCT TOKEN\nNever silently replace.\n",
+        "source/protected.txt": "PROTECTED NEIGHBOR TOKEN\nMust remain exact.\n",
+        "source/scroll-00.txt": "SCROLL ITEM 00 TOKEN\n",
+        "source/scroll-01.txt": "SCROLL ITEM 01 TOKEN\n",
+        "source/scroll-02.txt": "SCROLL ITEM 02 TOKEN\n",
+        "source/scroll-03.txt": "SCROLL ITEM 03 TOKEN\n",
+        "source/scroll-04.txt": "SCROLL ITEM 04 TOKEN\n",
+        "source/scroll-05.txt": "SCROLL ITEM 05 TOKEN\n",
+        "source/scroll-06.txt": "SCROLL ITEM 06 TOKEN\n",
+        "source/scroll-07.txt": "SCROLL ITEM 07 TOKEN\n",
+        "source/scroll-08.txt": "SCROLL ITEM 08 TOKEN\n",
+        "source/scroll-09.txt": "SCROLL ITEM 09 TOKEN\n",
+        "source/scroll-10.txt": "SCROLL ITEM 10 TOKEN\n",
+        "source/scroll-11.txt": "SCROLL ITEM 11 TOKEN\n",
+        "source/scroll-12.txt": "SCROLL ITEM 12 TOKEN\n",
+        "source/scroll-13.txt": "SCROLL ITEM 13 TOKEN\n",
+        "source/scroll-14.txt": "SCROLL ITEM 14 TOKEN\n",
+        "source/scroll-15.txt": "SCROLL ITEM 15 TOKEN\n",
+        "source/scroll-16.txt": "SCROLL ITEM 16 TOKEN\n",
+        "source/scroll-17.txt": "SCROLL ITEM 17 TOKEN\n",
+        "source/scroll-18.txt": "SCROLL ITEM 18 TOKEN\n",
+        "source/scroll-19.txt": "SCROLL ITEM 19 TOKEN\n",
+        "source/scroll-20.txt": "SCROLL ITEM 20 TOKEN\n",
+        "source/scroll-21.txt": "SCROLL ITEM 21 TOKEN\n",
+        "source/scroll-22.txt": "SCROLL ITEM 22 TOKEN\n",
+        "source/scroll-23.txt": "SCROLL ITEM 23 TOKEN\n",
+        "source/scroll-24.txt": "SCROLL ITEM 24 TOKEN\n",
+        "source/scroll-25.txt": "SCROLL ITEM 25 TOKEN\n",
+        "source/scroll-26.txt": "SCROLL ITEM 26 TOKEN\n",
+        "source/scroll-27.txt": "SCROLL ITEM 27 TOKEN\n",
+        "source/scroll-28.txt": "SCROLL ITEM 28 TOKEN\n",
+        "source/scroll-29.txt": "SCROLL ITEM 29 TOKEN\n",
+        "source/scroll-30.txt": "SCROLL ITEM 30 TOKEN\n",
+        "source/scroll-31.txt": "SCROLL ITEM 31 TOKEN\n",
+        "source/scroll-32.txt": "SCROLL ITEM 32 TOKEN\n",
+        "source/scroll-33.txt": "SCROLL ITEM 33 TOKEN\n",
+        "source/scroll-34.txt": "SCROLL ITEM 34 TOKEN\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Rows 1–3 contain the random managed directory header; rows 21–30 contain host metadata, progress durations and clipboard paths. Explicit preview/transition checkpoints and exact independent file state remain required."
+    },
+    {
+      "name": "normal-create-state",
+      "kind": "normal",
+      "purpose": "Create a nested spaced Unicode file with its parent directory through the ordinary prompt",
+      "command": [
+        "superfile",
+        "--config-file",
+        ".configuration/config.toml",
+        "source"
+      ],
+      "steps": [
+        {
+          "expect": "Thanks for using superfile"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": "Thanks for using superfile"
+        },
+        {
+          "expect": "ALPHA PREVIEW TOKEN"
+        },
+        {
+          "key": "CtrlN"
+        },
+        {
+          "expect": "transcend folders"
+        },
+        {
+          "text": "fresh folder/new café.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "fresh folder"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": ">  fresh folder"
+        },
+        {
+          "key": "ArrowRight"
+        },
+        {
+          "expect": ">  new café.txt"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 14,
+      "snapshot_rows": [
+        4,
+        20
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        ".configuration/config.toml": "##############################################\n#                                            #\n#           Superfile Configuration          #\n#                                            #\n##############################################\n\n# This contains the root config file for superfile! More details can be found at\n# https://superfile.dev/configure/superfile-config/.\n\n###############################################################################\n#                                   Defaults                                  #\n###############################################################################\n\n#-- File Editor\n# Default: $EDITOR\neditor = \"\"\n\n#-- Directory Editor\n# \ndir_editor = \"\"\n\n#-- Auto check for update\nauto_check_update = false\n\n#-- cd on quit\n# Should we cd the shell to the last directory open in superfile when the\n# program exits? \ncd_on_quit = false\n\n#-- File Preview\n# Should we open a file preview by default whenever selection-hovering over a\n# file?\ndefault_open_file_preview = true\n\n#-- Image Preview\n# Should we open an image preview by default whenever selection-hovering over an\n# image?\nshow_image_preview = false\n\n#-- File Info Footer\n# Should we display a footer in the file panel that provides more file information?\nshow_panel_footer_info = false\n\n#-- Default Directory\n# The initial path that the file panel should navigate to when superfile is\n# opened. This setting understands relative paths such as \".\", \"..\", etc.\ndefault_directory = \".\"\n\n#-- File Size Units\n# true: SI decimal units of 1000 (kB, MB, GB).\n# false: IEC binary units of 1024 (KiB, MiB, GiB).\nfile_size_use_si = false\n\n#-- Default File Sort Type\n# (0: Name, 1: Size, 2: Date Modified, 3: Type, 4: Natural).\n# Natural sort treats numeric sequences as numbers (e.g., file2 before file10).\ndefault_sort_type = 0\n\n#-- Sort Order Reversing\n# true: Descending.\n# false: Ascending.\nsort_order_reversed = false\n\n#-- Case-Sensitive Sorting\n# An uppercase \"B\" comes before a lowercase \"a\" if true.\ncase_sensitive_sort = false\n\n#-- Exit Shell on Success\n# Whether to exit the shell on successful command execution.\nshell_close_on_success = false\n\n#-- Page Scroll Size\n# Number of lines to scroll for PgUp/PgDown keys (0: full page, default behavior).\npage_scroll_size = 0\n\n#-- Debug Mode\ndebug = false\n\n#-- Ignore Missing Config Fields\n# Whether to silence any warnings about missing config fields.\nignore_missing_fields = false\n\n#-- File Panel Extra Columns Count\n# Count of extra columns in file panel in addition to file name. When option equal 0 then feature is disabled.\nfile_panel_extra_columns = 0\n\n#-- File name width in File Panel\n# Percentage of file panel width allocated to file names (25-100). Higher values give more space to names, less to extra columns.\nfile_panel_name_percent = 50\n\n\n###############################################################################\n#                                   Styling                                   #\n###############################################################################\n\n#-- Theme\n# Put your theme's name here!\ntheme = \"catppuccin-mocha\"\n\n#-- Code Previewer\n# Whether to use the builtin syntax highlighting with chroma or use bat. Values: \"\" for builtin chroma, \"bat\" for bat\ncode_previewer = \"\"\n\n#-- Nerd Fonts Support\n# Whether to enable support for Nerd Fonts symbols.\n# Requires:  Font patched with the Nerd Fonts patch.\nnerdfont = false\n\n#-- Show checkbox icons in select mode\n# Requires: nerdfont = true\nshow_select_icons = true\n\n#-- Transparent Background Support\n# Set to true to enable background transparency.\n# Requires: terminal support for colour transparency\ntransparent_background = false\n\n#-- File Preview Panel Width\n# Width of the file preview panel will be 1/n of the total width.\n# Values recommended to be in 2–10.\n# Default (0): Use the same width as file picker panel.\nfile_preview_width = 0\n\n#-- File Preview Border\n# Enable border around the file preview panel for better visual separation.\n# Default: false (no border)\nenable_file_preview_border = false\n\n#-- Sidebar Width\n# If you don't want to display the sidebar, you can input 0 directly.\n# Values recommended to be in 5–20.\nsidebar_width = 0\n\n#-- Sidebar Section Order\n# Order of sidebar sections (valid values: \"home\", \"pinned\", \"disks\")\n# Only enabled sections will be displayed\nsidebar_sections = []\n\n#-- Border\n# Make sure to add strings that are exactly one character wide!\n# Use ' ' for borderless.\nborder_top = '─'\nborder_bottom = '─'\nborder_left = '│'\nborder_right = '│'\nborder_top_left = '╭'\nborder_top_right = '╮'\nborder_bottom_left = '╰'\nborder_bottom_right = '╯'\nborder_middle_left = '├'\nborder_middle_right = '┤'\n\n###############################################################################\n#                                   Plugins                                   #\n###############################################################################\n\n# This section is for using plugins with superfile, external addons that extend\n# the default capabilities of the program! More info can be found at\n# https://superfile.dev/list/plugin-list/.\n\n#-- Detailed Metadata\n# Requires: exiftool\nmetadata = false\n\n#-- MD5 Checksum Generation\n# No external dependency required\nenable_md5_checksum = false\n#\n#-- Zoxide Support - Smart directory navigation!\n# Requires: zoxide\nzoxide_support = false\n\n#-- File opening rules\n# Map file extensions to commands used to open them.\n# The file path will be appended as the last argument.\n# MUST BE IN THE VERY END OF THE FILE BECAUSE TOML CANNOT CLOSE TABLES\n# Example:\n#   png = \"feh\"\n#   pdf = \"zathura\"\n#   conf = \"nvim\"\n[open_with]\n",
+        "nested/notes.txt": "NESTED NOTES TOKEN\n",
+        "nested/plan.txt": "NONINITIAL PLAN TOKEN\nSecond exact line.\n",
+        "source/alpha.txt": "ALPHA PREVIEW TOKEN\nOriginal alpha bytes.\n",
+        "source/bravo.txt": "BRAVO MOVE TOKEN\nOriginal bravo bytes.\n",
+        "source/charlie.txt": "CHARLIE MULTISELECT TOKEN\nUnselected neighboring bytes.\n",
+        "source/long.txt": "line 00: long preview café 雪\nline 01: long preview café 雪\nline 02: long preview café 雪\nline 03: long preview café 雪\nline 04: long preview café 雪\nline 05: long preview café 雪\nline 06: long preview café 雪\nline 07: long preview café 雪\nline 08: long preview café 雪\nline 09: long preview café 雪\nline 10: long preview café 雪\nline 11: long preview café 雪\nline 12: long preview café 雪\nline 13: long preview café 雪\nline 14: long preview café 雪\nline 15: long preview café 雪\nline 16: long preview café 雪\nline 17: long preview café 雪\nline 18: long preview café 雪\nline 19: long preview café 雪\nline 20: long preview café 雪\nline 21: long preview café 雪\nline 22: long preview café 雪\nline 23: long preview café 雪\nline 24: long preview café 雪\nline 25: long preview café 雪\nline 26: long preview café 雪\nline 27: long preview café 雪\nline 28: long preview café 雪\nline 29: long preview café 雪\nline 30: long preview café 雪\nline 31: long preview café 雪\nline 32: long preview café 雪\nline 33: long preview café 雪\nline 34: long preview café 雪\nline 35: long preview café 雪\nline 36: long preview café 雪\nline 37: long preview café 雪\nline 38: long preview café 雪\nline 39: long preview café 雪\n",
+        "source/occupied.txt": "OCCUPIED DISTINCT TOKEN\nNever silently replace.\n",
+        "source/protected.txt": "PROTECTED NEIGHBOR TOKEN\nMust remain exact.\n",
+        "source/scroll-00.txt": "SCROLL ITEM 00 TOKEN\n",
+        "source/scroll-01.txt": "SCROLL ITEM 01 TOKEN\n",
+        "source/scroll-02.txt": "SCROLL ITEM 02 TOKEN\n",
+        "source/scroll-03.txt": "SCROLL ITEM 03 TOKEN\n",
+        "source/scroll-04.txt": "SCROLL ITEM 04 TOKEN\n",
+        "source/scroll-05.txt": "SCROLL ITEM 05 TOKEN\n",
+        "source/scroll-06.txt": "SCROLL ITEM 06 TOKEN\n",
+        "source/scroll-07.txt": "SCROLL ITEM 07 TOKEN\n",
+        "source/scroll-08.txt": "SCROLL ITEM 08 TOKEN\n",
+        "source/scroll-09.txt": "SCROLL ITEM 09 TOKEN\n",
+        "source/scroll-10.txt": "SCROLL ITEM 10 TOKEN\n",
+        "source/scroll-11.txt": "SCROLL ITEM 11 TOKEN\n",
+        "source/scroll-12.txt": "SCROLL ITEM 12 TOKEN\n",
+        "source/scroll-13.txt": "SCROLL ITEM 13 TOKEN\n",
+        "source/scroll-14.txt": "SCROLL ITEM 14 TOKEN\n",
+        "source/scroll-15.txt": "SCROLL ITEM 15 TOKEN\n",
+        "source/scroll-16.txt": "SCROLL ITEM 16 TOKEN\n",
+        "source/scroll-17.txt": "SCROLL ITEM 17 TOKEN\n",
+        "source/scroll-18.txt": "SCROLL ITEM 18 TOKEN\n",
+        "source/scroll-19.txt": "SCROLL ITEM 19 TOKEN\n",
+        "source/scroll-20.txt": "SCROLL ITEM 20 TOKEN\n",
+        "source/scroll-21.txt": "SCROLL ITEM 21 TOKEN\n",
+        "source/scroll-22.txt": "SCROLL ITEM 22 TOKEN\n",
+        "source/scroll-23.txt": "SCROLL ITEM 23 TOKEN\n",
+        "source/scroll-24.txt": "SCROLL ITEM 24 TOKEN\n",
+        "source/scroll-25.txt": "SCROLL ITEM 25 TOKEN\n",
+        "source/scroll-26.txt": "SCROLL ITEM 26 TOKEN\n",
+        "source/scroll-27.txt": "SCROLL ITEM 27 TOKEN\n",
+        "source/scroll-28.txt": "SCROLL ITEM 28 TOKEN\n",
+        "source/scroll-29.txt": "SCROLL ITEM 29 TOKEN\n",
+        "source/scroll-30.txt": "SCROLL ITEM 30 TOKEN\n",
+        "source/scroll-31.txt": "SCROLL ITEM 31 TOKEN\n",
+        "source/scroll-32.txt": "SCROLL ITEM 32 TOKEN\n",
+        "source/scroll-33.txt": "SCROLL ITEM 33 TOKEN\n",
+        "source/scroll-34.txt": "SCROLL ITEM 34 TOKEN\n",
+        "source/fresh folder/new café.txt": ""
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Rows 1–3 contain the random managed directory header; rows 21–30 contain host metadata, progress durations and clipboard paths. Explicit preview/transition checkpoints and exact independent file state remain required."
+    },
+    {
+      "name": "normal-panel-copy",
+      "kind": "normal",
+      "purpose": "Built-in copy into a different open panel",
+      "command": [
+        "superfile",
+        "--config-file",
+        ".configuration/config.toml",
+        "source",
+        "destination"
+      ],
+      "steps": [
+        {
+          "expect": "Thanks for using superfile"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": "Thanks for using superfile"
+        },
+        {
+          "expect": "ALPHA PREVIEW TOKEN"
+        },
+        {
+          "key": "CtrlC"
+        },
+        {
+          "key": "Tab"
+        },
+        {
+          "expect": "No metadata present"
+        },
+        {
+          "key": "CtrlV"
+        },
+        {
+          "expect": "ALPHA PREVIEW TOKEN"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 9,
+      "snapshot_rows": [
+        4,
+        20
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        ".configuration/config.toml": "##############################################\n#                                            #\n#           Superfile Configuration          #\n#                                            #\n##############################################\n\n# This contains the root config file for superfile! More details can be found at\n# https://superfile.dev/configure/superfile-config/.\n\n###############################################################################\n#                                   Defaults                                  #\n###############################################################################\n\n#-- File Editor\n# Default: $EDITOR\neditor = \"\"\n\n#-- Directory Editor\n# \ndir_editor = \"\"\n\n#-- Auto check for update\nauto_check_update = false\n\n#-- cd on quit\n# Should we cd the shell to the last directory open in superfile when the\n# program exits? \ncd_on_quit = false\n\n#-- File Preview\n# Should we open a file preview by default whenever selection-hovering over a\n# file?\ndefault_open_file_preview = true\n\n#-- Image Preview\n# Should we open an image preview by default whenever selection-hovering over an\n# image?\nshow_image_preview = false\n\n#-- File Info Footer\n# Should we display a footer in the file panel that provides more file information?\nshow_panel_footer_info = false\n\n#-- Default Directory\n# The initial path that the file panel should navigate to when superfile is\n# opened. This setting understands relative paths such as \".\", \"..\", etc.\ndefault_directory = \".\"\n\n#-- File Size Units\n# true: SI decimal units of 1000 (kB, MB, GB).\n# false: IEC binary units of 1024 (KiB, MiB, GiB).\nfile_size_use_si = false\n\n#-- Default File Sort Type\n# (0: Name, 1: Size, 2: Date Modified, 3: Type, 4: Natural).\n# Natural sort treats numeric sequences as numbers (e.g., file2 before file10).\ndefault_sort_type = 0\n\n#-- Sort Order Reversing\n# true: Descending.\n# false: Ascending.\nsort_order_reversed = false\n\n#-- Case-Sensitive Sorting\n# An uppercase \"B\" comes before a lowercase \"a\" if true.\ncase_sensitive_sort = false\n\n#-- Exit Shell on Success\n# Whether to exit the shell on successful command execution.\nshell_close_on_success = false\n\n#-- Page Scroll Size\n# Number of lines to scroll for PgUp/PgDown keys (0: full page, default behavior).\npage_scroll_size = 0\n\n#-- Debug Mode\ndebug = false\n\n#-- Ignore Missing Config Fields\n# Whether to silence any warnings about missing config fields.\nignore_missing_fields = false\n\n#-- File Panel Extra Columns Count\n# Count of extra columns in file panel in addition to file name. When option equal 0 then feature is disabled.\nfile_panel_extra_columns = 0\n\n#-- File name width in File Panel\n# Percentage of file panel width allocated to file names (25-100). Higher values give more space to names, less to extra columns.\nfile_panel_name_percent = 50\n\n\n###############################################################################\n#                                   Styling                                   #\n###############################################################################\n\n#-- Theme\n# Put your theme's name here!\ntheme = \"catppuccin-mocha\"\n\n#-- Code Previewer\n# Whether to use the builtin syntax highlighting with chroma or use bat. Values: \"\" for builtin chroma, \"bat\" for bat\ncode_previewer = \"\"\n\n#-- Nerd Fonts Support\n# Whether to enable support for Nerd Fonts symbols.\n# Requires:  Font patched with the Nerd Fonts patch.\nnerdfont = false\n\n#-- Show checkbox icons in select mode\n# Requires: nerdfont = true\nshow_select_icons = true\n\n#-- Transparent Background Support\n# Set to true to enable background transparency.\n# Requires: terminal support for colour transparency\ntransparent_background = false\n\n#-- File Preview Panel Width\n# Width of the file preview panel will be 1/n of the total width.\n# Values recommended to be in 2–10.\n# Default (0): Use the same width as file picker panel.\nfile_preview_width = 0\n\n#-- File Preview Border\n# Enable border around the file preview panel for better visual separation.\n# Default: false (no border)\nenable_file_preview_border = false\n\n#-- Sidebar Width\n# If you don't want to display the sidebar, you can input 0 directly.\n# Values recommended to be in 5–20.\nsidebar_width = 0\n\n#-- Sidebar Section Order\n# Order of sidebar sections (valid values: \"home\", \"pinned\", \"disks\")\n# Only enabled sections will be displayed\nsidebar_sections = []\n\n#-- Border\n# Make sure to add strings that are exactly one character wide!\n# Use ' ' for borderless.\nborder_top = '─'\nborder_bottom = '─'\nborder_left = '│'\nborder_right = '│'\nborder_top_left = '╭'\nborder_top_right = '╮'\nborder_bottom_left = '╰'\nborder_bottom_right = '╯'\nborder_middle_left = '├'\nborder_middle_right = '┤'\n\n###############################################################################\n#                                   Plugins                                   #\n###############################################################################\n\n# This section is for using plugins with superfile, external addons that extend\n# the default capabilities of the program! More info can be found at\n# https://superfile.dev/list/plugin-list/.\n\n#-- Detailed Metadata\n# Requires: exiftool\nmetadata = false\n\n#-- MD5 Checksum Generation\n# No external dependency required\nenable_md5_checksum = false\n#\n#-- Zoxide Support - Smart directory navigation!\n# Requires: zoxide\nzoxide_support = false\n\n#-- File opening rules\n# Map file extensions to commands used to open them.\n# The file path will be appended as the last argument.\n# MUST BE IN THE VERY END OF THE FILE BECAUSE TOML CANNOT CLOSE TABLES\n# Example:\n#   png = \"feh\"\n#   pdf = \"zathura\"\n#   conf = \"nvim\"\n[open_with]\n",
+        "nested/notes.txt": "NESTED NOTES TOKEN\n",
+        "nested/plan.txt": "NONINITIAL PLAN TOKEN\nSecond exact line.\n",
+        "source/alpha.txt": "ALPHA PREVIEW TOKEN\nOriginal alpha bytes.\n",
+        "source/bravo.txt": "BRAVO MOVE TOKEN\nOriginal bravo bytes.\n",
+        "source/charlie.txt": "CHARLIE MULTISELECT TOKEN\nUnselected neighboring bytes.\n",
+        "source/long.txt": "line 00: long preview café 雪\nline 01: long preview café 雪\nline 02: long preview café 雪\nline 03: long preview café 雪\nline 04: long preview café 雪\nline 05: long preview café 雪\nline 06: long preview café 雪\nline 07: long preview café 雪\nline 08: long preview café 雪\nline 09: long preview café 雪\nline 10: long preview café 雪\nline 11: long preview café 雪\nline 12: long preview café 雪\nline 13: long preview café 雪\nline 14: long preview café 雪\nline 15: long preview café 雪\nline 16: long preview café 雪\nline 17: long preview café 雪\nline 18: long preview café 雪\nline 19: long preview café 雪\nline 20: long preview café 雪\nline 21: long preview café 雪\nline 22: long preview café 雪\nline 23: long preview café 雪\nline 24: long preview café 雪\nline 25: long preview café 雪\nline 26: long preview café 雪\nline 27: long preview café 雪\nline 28: long preview café 雪\nline 29: long preview café 雪\nline 30: long preview café 雪\nline 31: long preview café 雪\nline 32: long preview café 雪\nline 33: long preview café 雪\nline 34: long preview café 雪\nline 35: long preview café 雪\nline 36: long preview café 雪\nline 37: long preview café 雪\nline 38: long preview café 雪\nline 39: long preview café 雪\n",
+        "source/occupied.txt": "OCCUPIED DISTINCT TOKEN\nNever silently replace.\n",
+        "source/protected.txt": "PROTECTED NEIGHBOR TOKEN\nMust remain exact.\n",
+        "source/scroll-00.txt": "SCROLL ITEM 00 TOKEN\n",
+        "source/scroll-01.txt": "SCROLL ITEM 01 TOKEN\n",
+        "source/scroll-02.txt": "SCROLL ITEM 02 TOKEN\n",
+        "source/scroll-03.txt": "SCROLL ITEM 03 TOKEN\n",
+        "source/scroll-04.txt": "SCROLL ITEM 04 TOKEN\n",
+        "source/scroll-05.txt": "SCROLL ITEM 05 TOKEN\n",
+        "source/scroll-06.txt": "SCROLL ITEM 06 TOKEN\n",
+        "source/scroll-07.txt": "SCROLL ITEM 07 TOKEN\n",
+        "source/scroll-08.txt": "SCROLL ITEM 08 TOKEN\n",
+        "source/scroll-09.txt": "SCROLL ITEM 09 TOKEN\n",
+        "source/scroll-10.txt": "SCROLL ITEM 10 TOKEN\n",
+        "source/scroll-11.txt": "SCROLL ITEM 11 TOKEN\n",
+        "source/scroll-12.txt": "SCROLL ITEM 12 TOKEN\n",
+        "source/scroll-13.txt": "SCROLL ITEM 13 TOKEN\n",
+        "source/scroll-14.txt": "SCROLL ITEM 14 TOKEN\n",
+        "source/scroll-15.txt": "SCROLL ITEM 15 TOKEN\n",
+        "source/scroll-16.txt": "SCROLL ITEM 16 TOKEN\n",
+        "source/scroll-17.txt": "SCROLL ITEM 17 TOKEN\n",
+        "source/scroll-18.txt": "SCROLL ITEM 18 TOKEN\n",
+        "source/scroll-19.txt": "SCROLL ITEM 19 TOKEN\n",
+        "source/scroll-20.txt": "SCROLL ITEM 20 TOKEN\n",
+        "source/scroll-21.txt": "SCROLL ITEM 21 TOKEN\n",
+        "source/scroll-22.txt": "SCROLL ITEM 22 TOKEN\n",
+        "source/scroll-23.txt": "SCROLL ITEM 23 TOKEN\n",
+        "source/scroll-24.txt": "SCROLL ITEM 24 TOKEN\n",
+        "source/scroll-25.txt": "SCROLL ITEM 25 TOKEN\n",
+        "source/scroll-26.txt": "SCROLL ITEM 26 TOKEN\n",
+        "source/scroll-27.txt": "SCROLL ITEM 27 TOKEN\n",
+        "source/scroll-28.txt": "SCROLL ITEM 28 TOKEN\n",
+        "source/scroll-29.txt": "SCROLL ITEM 29 TOKEN\n",
+        "source/scroll-30.txt": "SCROLL ITEM 30 TOKEN\n",
+        "source/scroll-31.txt": "SCROLL ITEM 31 TOKEN\n",
+        "source/scroll-32.txt": "SCROLL ITEM 32 TOKEN\n",
+        "source/scroll-33.txt": "SCROLL ITEM 33 TOKEN\n",
+        "source/scroll-34.txt": "SCROLL ITEM 34 TOKEN\n",
+        "destination/alpha.txt": "ALPHA PREVIEW TOKEN\nOriginal alpha bytes.\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Rows 1–3 contain the random managed directory header; rows 21–30 contain host metadata, progress durations and clipboard paths. Explicit preview/transition checkpoints and exact independent file state remain required."
+    },
+    {
+      "name": "normal-panel-move",
+      "kind": "normal",
+      "purpose": "Built-in move into a different open panel",
+      "command": [
+        "superfile",
+        "--config-file",
+        ".configuration/config.toml",
+        "source",
+        "destination"
+      ],
+      "steps": [
+        {
+          "expect": "Thanks for using superfile"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": "Thanks for using superfile"
+        },
+        {
+          "expect": "ALPHA PREVIEW TOKEN"
+        },
+        {
+          "key": "ArrowDown"
+        },
+        {
+          "expect": "BRAVO MOVE TOKEN"
+        },
+        {
+          "key": "CtrlX"
+        },
+        {
+          "key": "Tab"
+        },
+        {
+          "expect": "No metadata present"
+        },
+        {
+          "key": "CtrlV"
+        },
+        {
+          "expect": "BRAVO MOVE TOKEN"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 11,
+      "snapshot_rows": [
+        4,
+        20
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        ".configuration/config.toml": "##############################################\n#                                            #\n#           Superfile Configuration          #\n#                                            #\n##############################################\n\n# This contains the root config file for superfile! More details can be found at\n# https://superfile.dev/configure/superfile-config/.\n\n###############################################################################\n#                                   Defaults                                  #\n###############################################################################\n\n#-- File Editor\n# Default: $EDITOR\neditor = \"\"\n\n#-- Directory Editor\n# \ndir_editor = \"\"\n\n#-- Auto check for update\nauto_check_update = false\n\n#-- cd on quit\n# Should we cd the shell to the last directory open in superfile when the\n# program exits? \ncd_on_quit = false\n\n#-- File Preview\n# Should we open a file preview by default whenever selection-hovering over a\n# file?\ndefault_open_file_preview = true\n\n#-- Image Preview\n# Should we open an image preview by default whenever selection-hovering over an\n# image?\nshow_image_preview = false\n\n#-- File Info Footer\n# Should we display a footer in the file panel that provides more file information?\nshow_panel_footer_info = false\n\n#-- Default Directory\n# The initial path that the file panel should navigate to when superfile is\n# opened. This setting understands relative paths such as \".\", \"..\", etc.\ndefault_directory = \".\"\n\n#-- File Size Units\n# true: SI decimal units of 1000 (kB, MB, GB).\n# false: IEC binary units of 1024 (KiB, MiB, GiB).\nfile_size_use_si = false\n\n#-- Default File Sort Type\n# (0: Name, 1: Size, 2: Date Modified, 3: Type, 4: Natural).\n# Natural sort treats numeric sequences as numbers (e.g., file2 before file10).\ndefault_sort_type = 0\n\n#-- Sort Order Reversing\n# true: Descending.\n# false: Ascending.\nsort_order_reversed = false\n\n#-- Case-Sensitive Sorting\n# An uppercase \"B\" comes before a lowercase \"a\" if true.\ncase_sensitive_sort = false\n\n#-- Exit Shell on Success\n# Whether to exit the shell on successful command execution.\nshell_close_on_success = false\n\n#-- Page Scroll Size\n# Number of lines to scroll for PgUp/PgDown keys (0: full page, default behavior).\npage_scroll_size = 0\n\n#-- Debug Mode\ndebug = false\n\n#-- Ignore Missing Config Fields\n# Whether to silence any warnings about missing config fields.\nignore_missing_fields = false\n\n#-- File Panel Extra Columns Count\n# Count of extra columns in file panel in addition to file name. When option equal 0 then feature is disabled.\nfile_panel_extra_columns = 0\n\n#-- File name width in File Panel\n# Percentage of file panel width allocated to file names (25-100). Higher values give more space to names, less to extra columns.\nfile_panel_name_percent = 50\n\n\n###############################################################################\n#                                   Styling                                   #\n###############################################################################\n\n#-- Theme\n# Put your theme's name here!\ntheme = \"catppuccin-mocha\"\n\n#-- Code Previewer\n# Whether to use the builtin syntax highlighting with chroma or use bat. Values: \"\" for builtin chroma, \"bat\" for bat\ncode_previewer = \"\"\n\n#-- Nerd Fonts Support\n# Whether to enable support for Nerd Fonts symbols.\n# Requires:  Font patched with the Nerd Fonts patch.\nnerdfont = false\n\n#-- Show checkbox icons in select mode\n# Requires: nerdfont = true\nshow_select_icons = true\n\n#-- Transparent Background Support\n# Set to true to enable background transparency.\n# Requires: terminal support for colour transparency\ntransparent_background = false\n\n#-- File Preview Panel Width\n# Width of the file preview panel will be 1/n of the total width.\n# Values recommended to be in 2–10.\n# Default (0): Use the same width as file picker panel.\nfile_preview_width = 0\n\n#-- File Preview Border\n# Enable border around the file preview panel for better visual separation.\n# Default: false (no border)\nenable_file_preview_border = false\n\n#-- Sidebar Width\n# If you don't want to display the sidebar, you can input 0 directly.\n# Values recommended to be in 5–20.\nsidebar_width = 0\n\n#-- Sidebar Section Order\n# Order of sidebar sections (valid values: \"home\", \"pinned\", \"disks\")\n# Only enabled sections will be displayed\nsidebar_sections = []\n\n#-- Border\n# Make sure to add strings that are exactly one character wide!\n# Use ' ' for borderless.\nborder_top = '─'\nborder_bottom = '─'\nborder_left = '│'\nborder_right = '│'\nborder_top_left = '╭'\nborder_top_right = '╮'\nborder_bottom_left = '╰'\nborder_bottom_right = '╯'\nborder_middle_left = '├'\nborder_middle_right = '┤'\n\n###############################################################################\n#                                   Plugins                                   #\n###############################################################################\n\n# This section is for using plugins with superfile, external addons that extend\n# the default capabilities of the program! More info can be found at\n# https://superfile.dev/list/plugin-list/.\n\n#-- Detailed Metadata\n# Requires: exiftool\nmetadata = false\n\n#-- MD5 Checksum Generation\n# No external dependency required\nenable_md5_checksum = false\n#\n#-- Zoxide Support - Smart directory navigation!\n# Requires: zoxide\nzoxide_support = false\n\n#-- File opening rules\n# Map file extensions to commands used to open them.\n# The file path will be appended as the last argument.\n# MUST BE IN THE VERY END OF THE FILE BECAUSE TOML CANNOT CLOSE TABLES\n# Example:\n#   png = \"feh\"\n#   pdf = \"zathura\"\n#   conf = \"nvim\"\n[open_with]\n",
+        "nested/notes.txt": "NESTED NOTES TOKEN\n",
+        "nested/plan.txt": "NONINITIAL PLAN TOKEN\nSecond exact line.\n",
+        "source/alpha.txt": "ALPHA PREVIEW TOKEN\nOriginal alpha bytes.\n",
+        "source/charlie.txt": "CHARLIE MULTISELECT TOKEN\nUnselected neighboring bytes.\n",
+        "source/long.txt": "line 00: long preview café 雪\nline 01: long preview café 雪\nline 02: long preview café 雪\nline 03: long preview café 雪\nline 04: long preview café 雪\nline 05: long preview café 雪\nline 06: long preview café 雪\nline 07: long preview café 雪\nline 08: long preview café 雪\nline 09: long preview café 雪\nline 10: long preview café 雪\nline 11: long preview café 雪\nline 12: long preview café 雪\nline 13: long preview café 雪\nline 14: long preview café 雪\nline 15: long preview café 雪\nline 16: long preview café 雪\nline 17: long preview café 雪\nline 18: long preview café 雪\nline 19: long preview café 雪\nline 20: long preview café 雪\nline 21: long preview café 雪\nline 22: long preview café 雪\nline 23: long preview café 雪\nline 24: long preview café 雪\nline 25: long preview café 雪\nline 26: long preview café 雪\nline 27: long preview café 雪\nline 28: long preview café 雪\nline 29: long preview café 雪\nline 30: long preview café 雪\nline 31: long preview café 雪\nline 32: long preview café 雪\nline 33: long preview café 雪\nline 34: long preview café 雪\nline 35: long preview café 雪\nline 36: long preview café 雪\nline 37: long preview café 雪\nline 38: long preview café 雪\nline 39: long preview café 雪\n",
+        "source/occupied.txt": "OCCUPIED DISTINCT TOKEN\nNever silently replace.\n",
+        "source/protected.txt": "PROTECTED NEIGHBOR TOKEN\nMust remain exact.\n",
+        "source/scroll-00.txt": "SCROLL ITEM 00 TOKEN\n",
+        "source/scroll-01.txt": "SCROLL ITEM 01 TOKEN\n",
+        "source/scroll-02.txt": "SCROLL ITEM 02 TOKEN\n",
+        "source/scroll-03.txt": "SCROLL ITEM 03 TOKEN\n",
+        "source/scroll-04.txt": "SCROLL ITEM 04 TOKEN\n",
+        "source/scroll-05.txt": "SCROLL ITEM 05 TOKEN\n",
+        "source/scroll-06.txt": "SCROLL ITEM 06 TOKEN\n",
+        "source/scroll-07.txt": "SCROLL ITEM 07 TOKEN\n",
+        "source/scroll-08.txt": "SCROLL ITEM 08 TOKEN\n",
+        "source/scroll-09.txt": "SCROLL ITEM 09 TOKEN\n",
+        "source/scroll-10.txt": "SCROLL ITEM 10 TOKEN\n",
+        "source/scroll-11.txt": "SCROLL ITEM 11 TOKEN\n",
+        "source/scroll-12.txt": "SCROLL ITEM 12 TOKEN\n",
+        "source/scroll-13.txt": "SCROLL ITEM 13 TOKEN\n",
+        "source/scroll-14.txt": "SCROLL ITEM 14 TOKEN\n",
+        "source/scroll-15.txt": "SCROLL ITEM 15 TOKEN\n",
+        "source/scroll-16.txt": "SCROLL ITEM 16 TOKEN\n",
+        "source/scroll-17.txt": "SCROLL ITEM 17 TOKEN\n",
+        "source/scroll-18.txt": "SCROLL ITEM 18 TOKEN\n",
+        "source/scroll-19.txt": "SCROLL ITEM 19 TOKEN\n",
+        "source/scroll-20.txt": "SCROLL ITEM 20 TOKEN\n",
+        "source/scroll-21.txt": "SCROLL ITEM 21 TOKEN\n",
+        "source/scroll-22.txt": "SCROLL ITEM 22 TOKEN\n",
+        "source/scroll-23.txt": "SCROLL ITEM 23 TOKEN\n",
+        "source/scroll-24.txt": "SCROLL ITEM 24 TOKEN\n",
+        "source/scroll-25.txt": "SCROLL ITEM 25 TOKEN\n",
+        "source/scroll-26.txt": "SCROLL ITEM 26 TOKEN\n",
+        "source/scroll-27.txt": "SCROLL ITEM 27 TOKEN\n",
+        "source/scroll-28.txt": "SCROLL ITEM 28 TOKEN\n",
+        "source/scroll-29.txt": "SCROLL ITEM 29 TOKEN\n",
+        "source/scroll-30.txt": "SCROLL ITEM 30 TOKEN\n",
+        "source/scroll-31.txt": "SCROLL ITEM 31 TOKEN\n",
+        "source/scroll-32.txt": "SCROLL ITEM 32 TOKEN\n",
+        "source/scroll-33.txt": "SCROLL ITEM 33 TOKEN\n",
+        "source/scroll-34.txt": "SCROLL ITEM 34 TOKEN\n",
+        "destination/bravo.txt": "BRAVO MOVE TOKEN\nOriginal bravo bytes.\n"
+      },
+      "absent_paths": [
+        "source/bravo.txt"
+      ],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Rows 1–3 contain the random managed directory header; rows 21–30 contain host metadata, progress durations and clipboard paths. Explicit preview/transition checkpoints and exact independent file state remain required."
+    },
+    {
+      "name": "normal-multiple-selection",
+      "kind": "normal",
+      "purpose": "Select two nonadjacent files and copy the exact set into another panel",
+      "command": [
+        "superfile",
+        "--config-file",
+        ".configuration/config.toml",
+        "source",
+        "destination"
+      ],
+      "steps": [
+        {
+          "expect": "Thanks for using superfile"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": "Thanks for using superfile"
+        },
+        {
+          "expect": "ALPHA PREVIEW TOKEN"
+        },
+        {
+          "text": "v"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "key": "ArrowDown"
+        },
+        {
+          "key": "ArrowDown"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "key": "CtrlC"
+        },
+        {
+          "key": "Tab"
+        },
+        {
+          "expect": "No metadata present"
+        },
+        {
+          "key": "CtrlV"
+        },
+        {
+          "expect": "ALPHA PREVIEW TOKEN"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 14,
+      "snapshot_rows": [
+        4,
+        20
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        ".configuration/config.toml": "##############################################\n#                                            #\n#           Superfile Configuration          #\n#                                            #\n##############################################\n\n# This contains the root config file for superfile! More details can be found at\n# https://superfile.dev/configure/superfile-config/.\n\n###############################################################################\n#                                   Defaults                                  #\n###############################################################################\n\n#-- File Editor\n# Default: $EDITOR\neditor = \"\"\n\n#-- Directory Editor\n# \ndir_editor = \"\"\n\n#-- Auto check for update\nauto_check_update = false\n\n#-- cd on quit\n# Should we cd the shell to the last directory open in superfile when the\n# program exits? \ncd_on_quit = false\n\n#-- File Preview\n# Should we open a file preview by default whenever selection-hovering over a\n# file?\ndefault_open_file_preview = true\n\n#-- Image Preview\n# Should we open an image preview by default whenever selection-hovering over an\n# image?\nshow_image_preview = false\n\n#-- File Info Footer\n# Should we display a footer in the file panel that provides more file information?\nshow_panel_footer_info = false\n\n#-- Default Directory\n# The initial path that the file panel should navigate to when superfile is\n# opened. This setting understands relative paths such as \".\", \"..\", etc.\ndefault_directory = \".\"\n\n#-- File Size Units\n# true: SI decimal units of 1000 (kB, MB, GB).\n# false: IEC binary units of 1024 (KiB, MiB, GiB).\nfile_size_use_si = false\n\n#-- Default File Sort Type\n# (0: Name, 1: Size, 2: Date Modified, 3: Type, 4: Natural).\n# Natural sort treats numeric sequences as numbers (e.g., file2 before file10).\ndefault_sort_type = 0\n\n#-- Sort Order Reversing\n# true: Descending.\n# false: Ascending.\nsort_order_reversed = false\n\n#-- Case-Sensitive Sorting\n# An uppercase \"B\" comes before a lowercase \"a\" if true.\ncase_sensitive_sort = false\n\n#-- Exit Shell on Success\n# Whether to exit the shell on successful command execution.\nshell_close_on_success = false\n\n#-- Page Scroll Size\n# Number of lines to scroll for PgUp/PgDown keys (0: full page, default behavior).\npage_scroll_size = 0\n\n#-- Debug Mode\ndebug = false\n\n#-- Ignore Missing Config Fields\n# Whether to silence any warnings about missing config fields.\nignore_missing_fields = false\n\n#-- File Panel Extra Columns Count\n# Count of extra columns in file panel in addition to file name. When option equal 0 then feature is disabled.\nfile_panel_extra_columns = 0\n\n#-- File name width in File Panel\n# Percentage of file panel width allocated to file names (25-100). Higher values give more space to names, less to extra columns.\nfile_panel_name_percent = 50\n\n\n###############################################################################\n#                                   Styling                                   #\n###############################################################################\n\n#-- Theme\n# Put your theme's name here!\ntheme = \"catppuccin-mocha\"\n\n#-- Code Previewer\n# Whether to use the builtin syntax highlighting with chroma or use bat. Values: \"\" for builtin chroma, \"bat\" for bat\ncode_previewer = \"\"\n\n#-- Nerd Fonts Support\n# Whether to enable support for Nerd Fonts symbols.\n# Requires:  Font patched with the Nerd Fonts patch.\nnerdfont = false\n\n#-- Show checkbox icons in select mode\n# Requires: nerdfont = true\nshow_select_icons = true\n\n#-- Transparent Background Support\n# Set to true to enable background transparency.\n# Requires: terminal support for colour transparency\ntransparent_background = false\n\n#-- File Preview Panel Width\n# Width of the file preview panel will be 1/n of the total width.\n# Values recommended to be in 2–10.\n# Default (0): Use the same width as file picker panel.\nfile_preview_width = 0\n\n#-- File Preview Border\n# Enable border around the file preview panel for better visual separation.\n# Default: false (no border)\nenable_file_preview_border = false\n\n#-- Sidebar Width\n# If you don't want to display the sidebar, you can input 0 directly.\n# Values recommended to be in 5–20.\nsidebar_width = 0\n\n#-- Sidebar Section Order\n# Order of sidebar sections (valid values: \"home\", \"pinned\", \"disks\")\n# Only enabled sections will be displayed\nsidebar_sections = []\n\n#-- Border\n# Make sure to add strings that are exactly one character wide!\n# Use ' ' for borderless.\nborder_top = '─'\nborder_bottom = '─'\nborder_left = '│'\nborder_right = '│'\nborder_top_left = '╭'\nborder_top_right = '╮'\nborder_bottom_left = '╰'\nborder_bottom_right = '╯'\nborder_middle_left = '├'\nborder_middle_right = '┤'\n\n###############################################################################\n#                                   Plugins                                   #\n###############################################################################\n\n# This section is for using plugins with superfile, external addons that extend\n# the default capabilities of the program! More info can be found at\n# https://superfile.dev/list/plugin-list/.\n\n#-- Detailed Metadata\n# Requires: exiftool\nmetadata = false\n\n#-- MD5 Checksum Generation\n# No external dependency required\nenable_md5_checksum = false\n#\n#-- Zoxide Support - Smart directory navigation!\n# Requires: zoxide\nzoxide_support = false\n\n#-- File opening rules\n# Map file extensions to commands used to open them.\n# The file path will be appended as the last argument.\n# MUST BE IN THE VERY END OF THE FILE BECAUSE TOML CANNOT CLOSE TABLES\n# Example:\n#   png = \"feh\"\n#   pdf = \"zathura\"\n#   conf = \"nvim\"\n[open_with]\n",
+        "nested/notes.txt": "NESTED NOTES TOKEN\n",
+        "nested/plan.txt": "NONINITIAL PLAN TOKEN\nSecond exact line.\n",
+        "source/alpha.txt": "ALPHA PREVIEW TOKEN\nOriginal alpha bytes.\n",
+        "source/bravo.txt": "BRAVO MOVE TOKEN\nOriginal bravo bytes.\n",
+        "source/charlie.txt": "CHARLIE MULTISELECT TOKEN\nUnselected neighboring bytes.\n",
+        "source/long.txt": "line 00: long preview café 雪\nline 01: long preview café 雪\nline 02: long preview café 雪\nline 03: long preview café 雪\nline 04: long preview café 雪\nline 05: long preview café 雪\nline 06: long preview café 雪\nline 07: long preview café 雪\nline 08: long preview café 雪\nline 09: long preview café 雪\nline 10: long preview café 雪\nline 11: long preview café 雪\nline 12: long preview café 雪\nline 13: long preview café 雪\nline 14: long preview café 雪\nline 15: long preview café 雪\nline 16: long preview café 雪\nline 17: long preview café 雪\nline 18: long preview café 雪\nline 19: long preview café 雪\nline 20: long preview café 雪\nline 21: long preview café 雪\nline 22: long preview café 雪\nline 23: long preview café 雪\nline 24: long preview café 雪\nline 25: long preview café 雪\nline 26: long preview café 雪\nline 27: long preview café 雪\nline 28: long preview café 雪\nline 29: long preview café 雪\nline 30: long preview café 雪\nline 31: long preview café 雪\nline 32: long preview café 雪\nline 33: long preview café 雪\nline 34: long preview café 雪\nline 35: long preview café 雪\nline 36: long preview café 雪\nline 37: long preview café 雪\nline 38: long preview café 雪\nline 39: long preview café 雪\n",
+        "source/occupied.txt": "OCCUPIED DISTINCT TOKEN\nNever silently replace.\n",
+        "source/protected.txt": "PROTECTED NEIGHBOR TOKEN\nMust remain exact.\n",
+        "source/scroll-00.txt": "SCROLL ITEM 00 TOKEN\n",
+        "source/scroll-01.txt": "SCROLL ITEM 01 TOKEN\n",
+        "source/scroll-02.txt": "SCROLL ITEM 02 TOKEN\n",
+        "source/scroll-03.txt": "SCROLL ITEM 03 TOKEN\n",
+        "source/scroll-04.txt": "SCROLL ITEM 04 TOKEN\n",
+        "source/scroll-05.txt": "SCROLL ITEM 05 TOKEN\n",
+        "source/scroll-06.txt": "SCROLL ITEM 06 TOKEN\n",
+        "source/scroll-07.txt": "SCROLL ITEM 07 TOKEN\n",
+        "source/scroll-08.txt": "SCROLL ITEM 08 TOKEN\n",
+        "source/scroll-09.txt": "SCROLL ITEM 09 TOKEN\n",
+        "source/scroll-10.txt": "SCROLL ITEM 10 TOKEN\n",
+        "source/scroll-11.txt": "SCROLL ITEM 11 TOKEN\n",
+        "source/scroll-12.txt": "SCROLL ITEM 12 TOKEN\n",
+        "source/scroll-13.txt": "SCROLL ITEM 13 TOKEN\n",
+        "source/scroll-14.txt": "SCROLL ITEM 14 TOKEN\n",
+        "source/scroll-15.txt": "SCROLL ITEM 15 TOKEN\n",
+        "source/scroll-16.txt": "SCROLL ITEM 16 TOKEN\n",
+        "source/scroll-17.txt": "SCROLL ITEM 17 TOKEN\n",
+        "source/scroll-18.txt": "SCROLL ITEM 18 TOKEN\n",
+        "source/scroll-19.txt": "SCROLL ITEM 19 TOKEN\n",
+        "source/scroll-20.txt": "SCROLL ITEM 20 TOKEN\n",
+        "source/scroll-21.txt": "SCROLL ITEM 21 TOKEN\n",
+        "source/scroll-22.txt": "SCROLL ITEM 22 TOKEN\n",
+        "source/scroll-23.txt": "SCROLL ITEM 23 TOKEN\n",
+        "source/scroll-24.txt": "SCROLL ITEM 24 TOKEN\n",
+        "source/scroll-25.txt": "SCROLL ITEM 25 TOKEN\n",
+        "source/scroll-26.txt": "SCROLL ITEM 26 TOKEN\n",
+        "source/scroll-27.txt": "SCROLL ITEM 27 TOKEN\n",
+        "source/scroll-28.txt": "SCROLL ITEM 28 TOKEN\n",
+        "source/scroll-29.txt": "SCROLL ITEM 29 TOKEN\n",
+        "source/scroll-30.txt": "SCROLL ITEM 30 TOKEN\n",
+        "source/scroll-31.txt": "SCROLL ITEM 31 TOKEN\n",
+        "source/scroll-32.txt": "SCROLL ITEM 32 TOKEN\n",
+        "source/scroll-33.txt": "SCROLL ITEM 33 TOKEN\n",
+        "source/scroll-34.txt": "SCROLL ITEM 34 TOKEN\n",
+        "destination/alpha.txt": "ALPHA PREVIEW TOKEN\nOriginal alpha bytes.\n",
+        "destination/charlie.txt": "CHARLIE MULTISELECT TOKEN\nUnselected neighboring bytes.\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Rows 1–3 contain the random managed directory header; rows 21–30 contain host metadata, progress durations and clipboard paths. Explicit preview/transition checkpoints and exact independent file state remain required."
+    },
+    {
+      "name": "edge-empty-recovery",
+      "kind": "edge",
+      "purpose": "Start in an empty directory and recover through another useful panel",
+      "command": [
+        "superfile",
+        "--config-file",
+        ".configuration/config.toml",
+        "empty",
+        "source"
+      ],
+      "steps": [
+        {
+          "expect": "Thanks for using superfile"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": "Thanks for using superfile"
+        },
+        {
+          "expect": "No such file or directory"
+        },
+        {
+          "key": "Tab"
+        },
+        {
+          "expect": "ALPHA PREVIEW TOKEN"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 6,
+      "snapshot_rows": [
+        4,
+        20
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        ".configuration/config.toml": "##############################################\n#                                            #\n#           Superfile Configuration          #\n#                                            #\n##############################################\n\n# This contains the root config file for superfile! More details can be found at\n# https://superfile.dev/configure/superfile-config/.\n\n###############################################################################\n#                                   Defaults                                  #\n###############################################################################\n\n#-- File Editor\n# Default: $EDITOR\neditor = \"\"\n\n#-- Directory Editor\n# \ndir_editor = \"\"\n\n#-- Auto check for update\nauto_check_update = false\n\n#-- cd on quit\n# Should we cd the shell to the last directory open in superfile when the\n# program exits? \ncd_on_quit = false\n\n#-- File Preview\n# Should we open a file preview by default whenever selection-hovering over a\n# file?\ndefault_open_file_preview = true\n\n#-- Image Preview\n# Should we open an image preview by default whenever selection-hovering over an\n# image?\nshow_image_preview = false\n\n#-- File Info Footer\n# Should we display a footer in the file panel that provides more file information?\nshow_panel_footer_info = false\n\n#-- Default Directory\n# The initial path that the file panel should navigate to when superfile is\n# opened. This setting understands relative paths such as \".\", \"..\", etc.\ndefault_directory = \".\"\n\n#-- File Size Units\n# true: SI decimal units of 1000 (kB, MB, GB).\n# false: IEC binary units of 1024 (KiB, MiB, GiB).\nfile_size_use_si = false\n\n#-- Default File Sort Type\n# (0: Name, 1: Size, 2: Date Modified, 3: Type, 4: Natural).\n# Natural sort treats numeric sequences as numbers (e.g., file2 before file10).\ndefault_sort_type = 0\n\n#-- Sort Order Reversing\n# true: Descending.\n# false: Ascending.\nsort_order_reversed = false\n\n#-- Case-Sensitive Sorting\n# An uppercase \"B\" comes before a lowercase \"a\" if true.\ncase_sensitive_sort = false\n\n#-- Exit Shell on Success\n# Whether to exit the shell on successful command execution.\nshell_close_on_success = false\n\n#-- Page Scroll Size\n# Number of lines to scroll for PgUp/PgDown keys (0: full page, default behavior).\npage_scroll_size = 0\n\n#-- Debug Mode\ndebug = false\n\n#-- Ignore Missing Config Fields\n# Whether to silence any warnings about missing config fields.\nignore_missing_fields = false\n\n#-- File Panel Extra Columns Count\n# Count of extra columns in file panel in addition to file name. When option equal 0 then feature is disabled.\nfile_panel_extra_columns = 0\n\n#-- File name width in File Panel\n# Percentage of file panel width allocated to file names (25-100). Higher values give more space to names, less to extra columns.\nfile_panel_name_percent = 50\n\n\n###############################################################################\n#                                   Styling                                   #\n###############################################################################\n\n#-- Theme\n# Put your theme's name here!\ntheme = \"catppuccin-mocha\"\n\n#-- Code Previewer\n# Whether to use the builtin syntax highlighting with chroma or use bat. Values: \"\" for builtin chroma, \"bat\" for bat\ncode_previewer = \"\"\n\n#-- Nerd Fonts Support\n# Whether to enable support for Nerd Fonts symbols.\n# Requires:  Font patched with the Nerd Fonts patch.\nnerdfont = false\n\n#-- Show checkbox icons in select mode\n# Requires: nerdfont = true\nshow_select_icons = true\n\n#-- Transparent Background Support\n# Set to true to enable background transparency.\n# Requires: terminal support for colour transparency\ntransparent_background = false\n\n#-- File Preview Panel Width\n# Width of the file preview panel will be 1/n of the total width.\n# Values recommended to be in 2–10.\n# Default (0): Use the same width as file picker panel.\nfile_preview_width = 0\n\n#-- File Preview Border\n# Enable border around the file preview panel for better visual separation.\n# Default: false (no border)\nenable_file_preview_border = false\n\n#-- Sidebar Width\n# If you don't want to display the sidebar, you can input 0 directly.\n# Values recommended to be in 5–20.\nsidebar_width = 0\n\n#-- Sidebar Section Order\n# Order of sidebar sections (valid values: \"home\", \"pinned\", \"disks\")\n# Only enabled sections will be displayed\nsidebar_sections = []\n\n#-- Border\n# Make sure to add strings that are exactly one character wide!\n# Use ' ' for borderless.\nborder_top = '─'\nborder_bottom = '─'\nborder_left = '│'\nborder_right = '│'\nborder_top_left = '╭'\nborder_top_right = '╮'\nborder_bottom_left = '╰'\nborder_bottom_right = '╯'\nborder_middle_left = '├'\nborder_middle_right = '┤'\n\n###############################################################################\n#                                   Plugins                                   #\n###############################################################################\n\n# This section is for using plugins with superfile, external addons that extend\n# the default capabilities of the program! More info can be found at\n# https://superfile.dev/list/plugin-list/.\n\n#-- Detailed Metadata\n# Requires: exiftool\nmetadata = false\n\n#-- MD5 Checksum Generation\n# No external dependency required\nenable_md5_checksum = false\n#\n#-- Zoxide Support - Smart directory navigation!\n# Requires: zoxide\nzoxide_support = false\n\n#-- File opening rules\n# Map file extensions to commands used to open them.\n# The file path will be appended as the last argument.\n# MUST BE IN THE VERY END OF THE FILE BECAUSE TOML CANNOT CLOSE TABLES\n# Example:\n#   png = \"feh\"\n#   pdf = \"zathura\"\n#   conf = \"nvim\"\n[open_with]\n",
+        "nested/notes.txt": "NESTED NOTES TOKEN\n",
+        "nested/plan.txt": "NONINITIAL PLAN TOKEN\nSecond exact line.\n",
+        "source/alpha.txt": "ALPHA PREVIEW TOKEN\nOriginal alpha bytes.\n",
+        "source/bravo.txt": "BRAVO MOVE TOKEN\nOriginal bravo bytes.\n",
+        "source/charlie.txt": "CHARLIE MULTISELECT TOKEN\nUnselected neighboring bytes.\n",
+        "source/long.txt": "line 00: long preview café 雪\nline 01: long preview café 雪\nline 02: long preview café 雪\nline 03: long preview café 雪\nline 04: long preview café 雪\nline 05: long preview café 雪\nline 06: long preview café 雪\nline 07: long preview café 雪\nline 08: long preview café 雪\nline 09: long preview café 雪\nline 10: long preview café 雪\nline 11: long preview café 雪\nline 12: long preview café 雪\nline 13: long preview café 雪\nline 14: long preview café 雪\nline 15: long preview café 雪\nline 16: long preview café 雪\nline 17: long preview café 雪\nline 18: long preview café 雪\nline 19: long preview café 雪\nline 20: long preview café 雪\nline 21: long preview café 雪\nline 22: long preview café 雪\nline 23: long preview café 雪\nline 24: long preview café 雪\nline 25: long preview café 雪\nline 26: long preview café 雪\nline 27: long preview café 雪\nline 28: long preview café 雪\nline 29: long preview café 雪\nline 30: long preview café 雪\nline 31: long preview café 雪\nline 32: long preview café 雪\nline 33: long preview café 雪\nline 34: long preview café 雪\nline 35: long preview café 雪\nline 36: long preview café 雪\nline 37: long preview café 雪\nline 38: long preview café 雪\nline 39: long preview café 雪\n",
+        "source/occupied.txt": "OCCUPIED DISTINCT TOKEN\nNever silently replace.\n",
+        "source/protected.txt": "PROTECTED NEIGHBOR TOKEN\nMust remain exact.\n",
+        "source/scroll-00.txt": "SCROLL ITEM 00 TOKEN\n",
+        "source/scroll-01.txt": "SCROLL ITEM 01 TOKEN\n",
+        "source/scroll-02.txt": "SCROLL ITEM 02 TOKEN\n",
+        "source/scroll-03.txt": "SCROLL ITEM 03 TOKEN\n",
+        "source/scroll-04.txt": "SCROLL ITEM 04 TOKEN\n",
+        "source/scroll-05.txt": "SCROLL ITEM 05 TOKEN\n",
+        "source/scroll-06.txt": "SCROLL ITEM 06 TOKEN\n",
+        "source/scroll-07.txt": "SCROLL ITEM 07 TOKEN\n",
+        "source/scroll-08.txt": "SCROLL ITEM 08 TOKEN\n",
+        "source/scroll-09.txt": "SCROLL ITEM 09 TOKEN\n",
+        "source/scroll-10.txt": "SCROLL ITEM 10 TOKEN\n",
+        "source/scroll-11.txt": "SCROLL ITEM 11 TOKEN\n",
+        "source/scroll-12.txt": "SCROLL ITEM 12 TOKEN\n",
+        "source/scroll-13.txt": "SCROLL ITEM 13 TOKEN\n",
+        "source/scroll-14.txt": "SCROLL ITEM 14 TOKEN\n",
+        "source/scroll-15.txt": "SCROLL ITEM 15 TOKEN\n",
+        "source/scroll-16.txt": "SCROLL ITEM 16 TOKEN\n",
+        "source/scroll-17.txt": "SCROLL ITEM 17 TOKEN\n",
+        "source/scroll-18.txt": "SCROLL ITEM 18 TOKEN\n",
+        "source/scroll-19.txt": "SCROLL ITEM 19 TOKEN\n",
+        "source/scroll-20.txt": "SCROLL ITEM 20 TOKEN\n",
+        "source/scroll-21.txt": "SCROLL ITEM 21 TOKEN\n",
+        "source/scroll-22.txt": "SCROLL ITEM 22 TOKEN\n",
+        "source/scroll-23.txt": "SCROLL ITEM 23 TOKEN\n",
+        "source/scroll-24.txt": "SCROLL ITEM 24 TOKEN\n",
+        "source/scroll-25.txt": "SCROLL ITEM 25 TOKEN\n",
+        "source/scroll-26.txt": "SCROLL ITEM 26 TOKEN\n",
+        "source/scroll-27.txt": "SCROLL ITEM 27 TOKEN\n",
+        "source/scroll-28.txt": "SCROLL ITEM 28 TOKEN\n",
+        "source/scroll-29.txt": "SCROLL ITEM 29 TOKEN\n",
+        "source/scroll-30.txt": "SCROLL ITEM 30 TOKEN\n",
+        "source/scroll-31.txt": "SCROLL ITEM 31 TOKEN\n",
+        "source/scroll-32.txt": "SCROLL ITEM 32 TOKEN\n",
+        "source/scroll-33.txt": "SCROLL ITEM 33 TOKEN\n",
+        "source/scroll-34.txt": "SCROLL ITEM 34 TOKEN\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Rows 1–3 contain the random managed directory header; rows 21–30 contain host metadata, progress durations and clipboard paths. Explicit preview/transition checkpoints and exact independent file state remain required."
+    },
+    {
+      "name": "edge-no-match-recovery",
+      "kind": "edge",
+      "purpose": "Filter to no matching item, clear the search, and select a genuine file",
+      "command": [
+        "superfile",
+        "--config-file",
+        ".configuration/config.toml",
+        "source"
+      ],
+      "steps": [
+        {
+          "expect": "Thanks for using superfile"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": "Thanks for using superfile"
+        },
+        {
+          "expect": "ALPHA PREVIEW TOKEN"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "absent-never-name"
+        },
+        {
+          "expect": "No such file or directory"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect": "ALPHA PREVIEW TOKEN"
+        },
+        {
+          "key": "ArrowDown"
+        },
+        {
+          "expect": "BRAVO MOVE TOKEN"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 11,
+      "snapshot_rows": [
+        4,
+        20
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        ".configuration/config.toml": "##############################################\n#                                            #\n#           Superfile Configuration          #\n#                                            #\n##############################################\n\n# This contains the root config file for superfile! More details can be found at\n# https://superfile.dev/configure/superfile-config/.\n\n###############################################################################\n#                                   Defaults                                  #\n###############################################################################\n\n#-- File Editor\n# Default: $EDITOR\neditor = \"\"\n\n#-- Directory Editor\n# \ndir_editor = \"\"\n\n#-- Auto check for update\nauto_check_update = false\n\n#-- cd on quit\n# Should we cd the shell to the last directory open in superfile when the\n# program exits? \ncd_on_quit = false\n\n#-- File Preview\n# Should we open a file preview by default whenever selection-hovering over a\n# file?\ndefault_open_file_preview = true\n\n#-- Image Preview\n# Should we open an image preview by default whenever selection-hovering over an\n# image?\nshow_image_preview = false\n\n#-- File Info Footer\n# Should we display a footer in the file panel that provides more file information?\nshow_panel_footer_info = false\n\n#-- Default Directory\n# The initial path that the file panel should navigate to when superfile is\n# opened. This setting understands relative paths such as \".\", \"..\", etc.\ndefault_directory = \".\"\n\n#-- File Size Units\n# true: SI decimal units of 1000 (kB, MB, GB).\n# false: IEC binary units of 1024 (KiB, MiB, GiB).\nfile_size_use_si = false\n\n#-- Default File Sort Type\n# (0: Name, 1: Size, 2: Date Modified, 3: Type, 4: Natural).\n# Natural sort treats numeric sequences as numbers (e.g., file2 before file10).\ndefault_sort_type = 0\n\n#-- Sort Order Reversing\n# true: Descending.\n# false: Ascending.\nsort_order_reversed = false\n\n#-- Case-Sensitive Sorting\n# An uppercase \"B\" comes before a lowercase \"a\" if true.\ncase_sensitive_sort = false\n\n#-- Exit Shell on Success\n# Whether to exit the shell on successful command execution.\nshell_close_on_success = false\n\n#-- Page Scroll Size\n# Number of lines to scroll for PgUp/PgDown keys (0: full page, default behavior).\npage_scroll_size = 0\n\n#-- Debug Mode\ndebug = false\n\n#-- Ignore Missing Config Fields\n# Whether to silence any warnings about missing config fields.\nignore_missing_fields = false\n\n#-- File Panel Extra Columns Count\n# Count of extra columns in file panel in addition to file name. When option equal 0 then feature is disabled.\nfile_panel_extra_columns = 0\n\n#-- File name width in File Panel\n# Percentage of file panel width allocated to file names (25-100). Higher values give more space to names, less to extra columns.\nfile_panel_name_percent = 50\n\n\n###############################################################################\n#                                   Styling                                   #\n###############################################################################\n\n#-- Theme\n# Put your theme's name here!\ntheme = \"catppuccin-mocha\"\n\n#-- Code Previewer\n# Whether to use the builtin syntax highlighting with chroma or use bat. Values: \"\" for builtin chroma, \"bat\" for bat\ncode_previewer = \"\"\n\n#-- Nerd Fonts Support\n# Whether to enable support for Nerd Fonts symbols.\n# Requires:  Font patched with the Nerd Fonts patch.\nnerdfont = false\n\n#-- Show checkbox icons in select mode\n# Requires: nerdfont = true\nshow_select_icons = true\n\n#-- Transparent Background Support\n# Set to true to enable background transparency.\n# Requires: terminal support for colour transparency\ntransparent_background = false\n\n#-- File Preview Panel Width\n# Width of the file preview panel will be 1/n of the total width.\n# Values recommended to be in 2–10.\n# Default (0): Use the same width as file picker panel.\nfile_preview_width = 0\n\n#-- File Preview Border\n# Enable border around the file preview panel for better visual separation.\n# Default: false (no border)\nenable_file_preview_border = false\n\n#-- Sidebar Width\n# If you don't want to display the sidebar, you can input 0 directly.\n# Values recommended to be in 5–20.\nsidebar_width = 0\n\n#-- Sidebar Section Order\n# Order of sidebar sections (valid values: \"home\", \"pinned\", \"disks\")\n# Only enabled sections will be displayed\nsidebar_sections = []\n\n#-- Border\n# Make sure to add strings that are exactly one character wide!\n# Use ' ' for borderless.\nborder_top = '─'\nborder_bottom = '─'\nborder_left = '│'\nborder_right = '│'\nborder_top_left = '╭'\nborder_top_right = '╮'\nborder_bottom_left = '╰'\nborder_bottom_right = '╯'\nborder_middle_left = '├'\nborder_middle_right = '┤'\n\n###############################################################################\n#                                   Plugins                                   #\n###############################################################################\n\n# This section is for using plugins with superfile, external addons that extend\n# the default capabilities of the program! More info can be found at\n# https://superfile.dev/list/plugin-list/.\n\n#-- Detailed Metadata\n# Requires: exiftool\nmetadata = false\n\n#-- MD5 Checksum Generation\n# No external dependency required\nenable_md5_checksum = false\n#\n#-- Zoxide Support - Smart directory navigation!\n# Requires: zoxide\nzoxide_support = false\n\n#-- File opening rules\n# Map file extensions to commands used to open them.\n# The file path will be appended as the last argument.\n# MUST BE IN THE VERY END OF THE FILE BECAUSE TOML CANNOT CLOSE TABLES\n# Example:\n#   png = \"feh\"\n#   pdf = \"zathura\"\n#   conf = \"nvim\"\n[open_with]\n",
+        "nested/notes.txt": "NESTED NOTES TOKEN\n",
+        "nested/plan.txt": "NONINITIAL PLAN TOKEN\nSecond exact line.\n",
+        "source/alpha.txt": "ALPHA PREVIEW TOKEN\nOriginal alpha bytes.\n",
+        "source/bravo.txt": "BRAVO MOVE TOKEN\nOriginal bravo bytes.\n",
+        "source/charlie.txt": "CHARLIE MULTISELECT TOKEN\nUnselected neighboring bytes.\n",
+        "source/long.txt": "line 00: long preview café 雪\nline 01: long preview café 雪\nline 02: long preview café 雪\nline 03: long preview café 雪\nline 04: long preview café 雪\nline 05: long preview café 雪\nline 06: long preview café 雪\nline 07: long preview café 雪\nline 08: long preview café 雪\nline 09: long preview café 雪\nline 10: long preview café 雪\nline 11: long preview café 雪\nline 12: long preview café 雪\nline 13: long preview café 雪\nline 14: long preview café 雪\nline 15: long preview café 雪\nline 16: long preview café 雪\nline 17: long preview café 雪\nline 18: long preview café 雪\nline 19: long preview café 雪\nline 20: long preview café 雪\nline 21: long preview café 雪\nline 22: long preview café 雪\nline 23: long preview café 雪\nline 24: long preview café 雪\nline 25: long preview café 雪\nline 26: long preview café 雪\nline 27: long preview café 雪\nline 28: long preview café 雪\nline 29: long preview café 雪\nline 30: long preview café 雪\nline 31: long preview café 雪\nline 32: long preview café 雪\nline 33: long preview café 雪\nline 34: long preview café 雪\nline 35: long preview café 雪\nline 36: long preview café 雪\nline 37: long preview café 雪\nline 38: long preview café 雪\nline 39: long preview café 雪\n",
+        "source/occupied.txt": "OCCUPIED DISTINCT TOKEN\nNever silently replace.\n",
+        "source/protected.txt": "PROTECTED NEIGHBOR TOKEN\nMust remain exact.\n",
+        "source/scroll-00.txt": "SCROLL ITEM 00 TOKEN\n",
+        "source/scroll-01.txt": "SCROLL ITEM 01 TOKEN\n",
+        "source/scroll-02.txt": "SCROLL ITEM 02 TOKEN\n",
+        "source/scroll-03.txt": "SCROLL ITEM 03 TOKEN\n",
+        "source/scroll-04.txt": "SCROLL ITEM 04 TOKEN\n",
+        "source/scroll-05.txt": "SCROLL ITEM 05 TOKEN\n",
+        "source/scroll-06.txt": "SCROLL ITEM 06 TOKEN\n",
+        "source/scroll-07.txt": "SCROLL ITEM 07 TOKEN\n",
+        "source/scroll-08.txt": "SCROLL ITEM 08 TOKEN\n",
+        "source/scroll-09.txt": "SCROLL ITEM 09 TOKEN\n",
+        "source/scroll-10.txt": "SCROLL ITEM 10 TOKEN\n",
+        "source/scroll-11.txt": "SCROLL ITEM 11 TOKEN\n",
+        "source/scroll-12.txt": "SCROLL ITEM 12 TOKEN\n",
+        "source/scroll-13.txt": "SCROLL ITEM 13 TOKEN\n",
+        "source/scroll-14.txt": "SCROLL ITEM 14 TOKEN\n",
+        "source/scroll-15.txt": "SCROLL ITEM 15 TOKEN\n",
+        "source/scroll-16.txt": "SCROLL ITEM 16 TOKEN\n",
+        "source/scroll-17.txt": "SCROLL ITEM 17 TOKEN\n",
+        "source/scroll-18.txt": "SCROLL ITEM 18 TOKEN\n",
+        "source/scroll-19.txt": "SCROLL ITEM 19 TOKEN\n",
+        "source/scroll-20.txt": "SCROLL ITEM 20 TOKEN\n",
+        "source/scroll-21.txt": "SCROLL ITEM 21 TOKEN\n",
+        "source/scroll-22.txt": "SCROLL ITEM 22 TOKEN\n",
+        "source/scroll-23.txt": "SCROLL ITEM 23 TOKEN\n",
+        "source/scroll-24.txt": "SCROLL ITEM 24 TOKEN\n",
+        "source/scroll-25.txt": "SCROLL ITEM 25 TOKEN\n",
+        "source/scroll-26.txt": "SCROLL ITEM 26 TOKEN\n",
+        "source/scroll-27.txt": "SCROLL ITEM 27 TOKEN\n",
+        "source/scroll-28.txt": "SCROLL ITEM 28 TOKEN\n",
+        "source/scroll-29.txt": "SCROLL ITEM 29 TOKEN\n",
+        "source/scroll-30.txt": "SCROLL ITEM 30 TOKEN\n",
+        "source/scroll-31.txt": "SCROLL ITEM 31 TOKEN\n",
+        "source/scroll-32.txt": "SCROLL ITEM 32 TOKEN\n",
+        "source/scroll-33.txt": "SCROLL ITEM 33 TOKEN\n",
+        "source/scroll-34.txt": "SCROLL ITEM 34 TOKEN\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Rows 1–3 contain the random managed directory header; rows 21–30 contain host metadata, progress durations and clipboard paths. Explicit preview/transition checkpoints and exact independent file state remain required."
+    },
+    {
+      "name": "edge-cancel-edited-rename",
+      "kind": "edge",
+      "purpose": "Cancel after editing a filename and preserve exact original and neighboring bytes",
+      "command": [
+        "superfile",
+        "--config-file",
+        ".configuration/config.toml",
+        "source"
+      ],
+      "steps": [
+        {
+          "expect": "Thanks for using superfile"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": "Thanks for using superfile"
+        },
+        {
+          "expect": "ALPHA PREVIEW TOKEN"
+        },
+        {
+          "key": "CtrlR"
+        },
+        {
+          "key": "CtrlA"
+        },
+        {
+          "key": "CtrlK"
+        },
+        {
+          "text": "abandoned-name.txt"
+        },
+        {
+          "expect": "abandoned-name.txt"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": "abandoned-name.txt"
+        },
+        {
+          "key": "ArrowDown"
+        },
+        {
+          "expect": "BRAVO MOVE TOKEN"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 13,
+      "snapshot_rows": [
+        4,
+        20
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        ".configuration/config.toml": "##############################################\n#                                            #\n#           Superfile Configuration          #\n#                                            #\n##############################################\n\n# This contains the root config file for superfile! More details can be found at\n# https://superfile.dev/configure/superfile-config/.\n\n###############################################################################\n#                                   Defaults                                  #\n###############################################################################\n\n#-- File Editor\n# Default: $EDITOR\neditor = \"\"\n\n#-- Directory Editor\n# \ndir_editor = \"\"\n\n#-- Auto check for update\nauto_check_update = false\n\n#-- cd on quit\n# Should we cd the shell to the last directory open in superfile when the\n# program exits? \ncd_on_quit = false\n\n#-- File Preview\n# Should we open a file preview by default whenever selection-hovering over a\n# file?\ndefault_open_file_preview = true\n\n#-- Image Preview\n# Should we open an image preview by default whenever selection-hovering over an\n# image?\nshow_image_preview = false\n\n#-- File Info Footer\n# Should we display a footer in the file panel that provides more file information?\nshow_panel_footer_info = false\n\n#-- Default Directory\n# The initial path that the file panel should navigate to when superfile is\n# opened. This setting understands relative paths such as \".\", \"..\", etc.\ndefault_directory = \".\"\n\n#-- File Size Units\n# true: SI decimal units of 1000 (kB, MB, GB).\n# false: IEC binary units of 1024 (KiB, MiB, GiB).\nfile_size_use_si = false\n\n#-- Default File Sort Type\n# (0: Name, 1: Size, 2: Date Modified, 3: Type, 4: Natural).\n# Natural sort treats numeric sequences as numbers (e.g., file2 before file10).\ndefault_sort_type = 0\n\n#-- Sort Order Reversing\n# true: Descending.\n# false: Ascending.\nsort_order_reversed = false\n\n#-- Case-Sensitive Sorting\n# An uppercase \"B\" comes before a lowercase \"a\" if true.\ncase_sensitive_sort = false\n\n#-- Exit Shell on Success\n# Whether to exit the shell on successful command execution.\nshell_close_on_success = false\n\n#-- Page Scroll Size\n# Number of lines to scroll for PgUp/PgDown keys (0: full page, default behavior).\npage_scroll_size = 0\n\n#-- Debug Mode\ndebug = false\n\n#-- Ignore Missing Config Fields\n# Whether to silence any warnings about missing config fields.\nignore_missing_fields = false\n\n#-- File Panel Extra Columns Count\n# Count of extra columns in file panel in addition to file name. When option equal 0 then feature is disabled.\nfile_panel_extra_columns = 0\n\n#-- File name width in File Panel\n# Percentage of file panel width allocated to file names (25-100). Higher values give more space to names, less to extra columns.\nfile_panel_name_percent = 50\n\n\n###############################################################################\n#                                   Styling                                   #\n###############################################################################\n\n#-- Theme\n# Put your theme's name here!\ntheme = \"catppuccin-mocha\"\n\n#-- Code Previewer\n# Whether to use the builtin syntax highlighting with chroma or use bat. Values: \"\" for builtin chroma, \"bat\" for bat\ncode_previewer = \"\"\n\n#-- Nerd Fonts Support\n# Whether to enable support for Nerd Fonts symbols.\n# Requires:  Font patched with the Nerd Fonts patch.\nnerdfont = false\n\n#-- Show checkbox icons in select mode\n# Requires: nerdfont = true\nshow_select_icons = true\n\n#-- Transparent Background Support\n# Set to true to enable background transparency.\n# Requires: terminal support for colour transparency\ntransparent_background = false\n\n#-- File Preview Panel Width\n# Width of the file preview panel will be 1/n of the total width.\n# Values recommended to be in 2–10.\n# Default (0): Use the same width as file picker panel.\nfile_preview_width = 0\n\n#-- File Preview Border\n# Enable border around the file preview panel for better visual separation.\n# Default: false (no border)\nenable_file_preview_border = false\n\n#-- Sidebar Width\n# If you don't want to display the sidebar, you can input 0 directly.\n# Values recommended to be in 5–20.\nsidebar_width = 0\n\n#-- Sidebar Section Order\n# Order of sidebar sections (valid values: \"home\", \"pinned\", \"disks\")\n# Only enabled sections will be displayed\nsidebar_sections = []\n\n#-- Border\n# Make sure to add strings that are exactly one character wide!\n# Use ' ' for borderless.\nborder_top = '─'\nborder_bottom = '─'\nborder_left = '│'\nborder_right = '│'\nborder_top_left = '╭'\nborder_top_right = '╮'\nborder_bottom_left = '╰'\nborder_bottom_right = '╯'\nborder_middle_left = '├'\nborder_middle_right = '┤'\n\n###############################################################################\n#                                   Plugins                                   #\n###############################################################################\n\n# This section is for using plugins with superfile, external addons that extend\n# the default capabilities of the program! More info can be found at\n# https://superfile.dev/list/plugin-list/.\n\n#-- Detailed Metadata\n# Requires: exiftool\nmetadata = false\n\n#-- MD5 Checksum Generation\n# No external dependency required\nenable_md5_checksum = false\n#\n#-- Zoxide Support - Smart directory navigation!\n# Requires: zoxide\nzoxide_support = false\n\n#-- File opening rules\n# Map file extensions to commands used to open them.\n# The file path will be appended as the last argument.\n# MUST BE IN THE VERY END OF THE FILE BECAUSE TOML CANNOT CLOSE TABLES\n# Example:\n#   png = \"feh\"\n#   pdf = \"zathura\"\n#   conf = \"nvim\"\n[open_with]\n",
+        "nested/notes.txt": "NESTED NOTES TOKEN\n",
+        "nested/plan.txt": "NONINITIAL PLAN TOKEN\nSecond exact line.\n",
+        "source/alpha.txt": "ALPHA PREVIEW TOKEN\nOriginal alpha bytes.\n",
+        "source/bravo.txt": "BRAVO MOVE TOKEN\nOriginal bravo bytes.\n",
+        "source/charlie.txt": "CHARLIE MULTISELECT TOKEN\nUnselected neighboring bytes.\n",
+        "source/long.txt": "line 00: long preview café 雪\nline 01: long preview café 雪\nline 02: long preview café 雪\nline 03: long preview café 雪\nline 04: long preview café 雪\nline 05: long preview café 雪\nline 06: long preview café 雪\nline 07: long preview café 雪\nline 08: long preview café 雪\nline 09: long preview café 雪\nline 10: long preview café 雪\nline 11: long preview café 雪\nline 12: long preview café 雪\nline 13: long preview café 雪\nline 14: long preview café 雪\nline 15: long preview café 雪\nline 16: long preview café 雪\nline 17: long preview café 雪\nline 18: long preview café 雪\nline 19: long preview café 雪\nline 20: long preview café 雪\nline 21: long preview café 雪\nline 22: long preview café 雪\nline 23: long preview café 雪\nline 24: long preview café 雪\nline 25: long preview café 雪\nline 26: long preview café 雪\nline 27: long preview café 雪\nline 28: long preview café 雪\nline 29: long preview café 雪\nline 30: long preview café 雪\nline 31: long preview café 雪\nline 32: long preview café 雪\nline 33: long preview café 雪\nline 34: long preview café 雪\nline 35: long preview café 雪\nline 36: long preview café 雪\nline 37: long preview café 雪\nline 38: long preview café 雪\nline 39: long preview café 雪\n",
+        "source/occupied.txt": "OCCUPIED DISTINCT TOKEN\nNever silently replace.\n",
+        "source/protected.txt": "PROTECTED NEIGHBOR TOKEN\nMust remain exact.\n",
+        "source/scroll-00.txt": "SCROLL ITEM 00 TOKEN\n",
+        "source/scroll-01.txt": "SCROLL ITEM 01 TOKEN\n",
+        "source/scroll-02.txt": "SCROLL ITEM 02 TOKEN\n",
+        "source/scroll-03.txt": "SCROLL ITEM 03 TOKEN\n",
+        "source/scroll-04.txt": "SCROLL ITEM 04 TOKEN\n",
+        "source/scroll-05.txt": "SCROLL ITEM 05 TOKEN\n",
+        "source/scroll-06.txt": "SCROLL ITEM 06 TOKEN\n",
+        "source/scroll-07.txt": "SCROLL ITEM 07 TOKEN\n",
+        "source/scroll-08.txt": "SCROLL ITEM 08 TOKEN\n",
+        "source/scroll-09.txt": "SCROLL ITEM 09 TOKEN\n",
+        "source/scroll-10.txt": "SCROLL ITEM 10 TOKEN\n",
+        "source/scroll-11.txt": "SCROLL ITEM 11 TOKEN\n",
+        "source/scroll-12.txt": "SCROLL ITEM 12 TOKEN\n",
+        "source/scroll-13.txt": "SCROLL ITEM 13 TOKEN\n",
+        "source/scroll-14.txt": "SCROLL ITEM 14 TOKEN\n",
+        "source/scroll-15.txt": "SCROLL ITEM 15 TOKEN\n",
+        "source/scroll-16.txt": "SCROLL ITEM 16 TOKEN\n",
+        "source/scroll-17.txt": "SCROLL ITEM 17 TOKEN\n",
+        "source/scroll-18.txt": "SCROLL ITEM 18 TOKEN\n",
+        "source/scroll-19.txt": "SCROLL ITEM 19 TOKEN\n",
+        "source/scroll-20.txt": "SCROLL ITEM 20 TOKEN\n",
+        "source/scroll-21.txt": "SCROLL ITEM 21 TOKEN\n",
+        "source/scroll-22.txt": "SCROLL ITEM 22 TOKEN\n",
+        "source/scroll-23.txt": "SCROLL ITEM 23 TOKEN\n",
+        "source/scroll-24.txt": "SCROLL ITEM 24 TOKEN\n",
+        "source/scroll-25.txt": "SCROLL ITEM 25 TOKEN\n",
+        "source/scroll-26.txt": "SCROLL ITEM 26 TOKEN\n",
+        "source/scroll-27.txt": "SCROLL ITEM 27 TOKEN\n",
+        "source/scroll-28.txt": "SCROLL ITEM 28 TOKEN\n",
+        "source/scroll-29.txt": "SCROLL ITEM 29 TOKEN\n",
+        "source/scroll-30.txt": "SCROLL ITEM 30 TOKEN\n",
+        "source/scroll-31.txt": "SCROLL ITEM 31 TOKEN\n",
+        "source/scroll-32.txt": "SCROLL ITEM 32 TOKEN\n",
+        "source/scroll-33.txt": "SCROLL ITEM 33 TOKEN\n",
+        "source/scroll-34.txt": "SCROLL ITEM 34 TOKEN\n"
+      },
+      "absent_paths": [
+        "source/abandoned-name.txt"
+      ],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Rows 1–3 contain the random managed directory header; rows 21–30 contain host metadata, progress durations and clipboard paths. Explicit preview/transition checkpoints and exact independent file state remain required."
+    },
+    {
+      "name": "edge-cancel-delete",
+      "kind": "edge",
+      "purpose": "Decline a destructive permanent-delete confirmation and preserve exact files",
+      "command": [
+        "superfile",
+        "--config-file",
+        ".configuration/config.toml",
+        "source"
+      ],
+      "steps": [
+        {
+          "expect": "Thanks for using superfile"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": "Thanks for using superfile"
+        },
+        {
+          "expect": "ALPHA PREVIEW TOKEN"
+        },
+        {
+          "text": "D"
+        },
+        {
+          "expect": "This operation cannot be undone"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": "This operation cannot be undone"
+        },
+        {
+          "key": "ArrowDown"
+        },
+        {
+          "expect": "BRAVO MOVE TOKEN"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 10,
+      "snapshot_rows": [
+        4,
+        20
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        ".configuration/config.toml": "##############################################\n#                                            #\n#           Superfile Configuration          #\n#                                            #\n##############################################\n\n# This contains the root config file for superfile! More details can be found at\n# https://superfile.dev/configure/superfile-config/.\n\n###############################################################################\n#                                   Defaults                                  #\n###############################################################################\n\n#-- File Editor\n# Default: $EDITOR\neditor = \"\"\n\n#-- Directory Editor\n# \ndir_editor = \"\"\n\n#-- Auto check for update\nauto_check_update = false\n\n#-- cd on quit\n# Should we cd the shell to the last directory open in superfile when the\n# program exits? \ncd_on_quit = false\n\n#-- File Preview\n# Should we open a file preview by default whenever selection-hovering over a\n# file?\ndefault_open_file_preview = true\n\n#-- Image Preview\n# Should we open an image preview by default whenever selection-hovering over an\n# image?\nshow_image_preview = false\n\n#-- File Info Footer\n# Should we display a footer in the file panel that provides more file information?\nshow_panel_footer_info = false\n\n#-- Default Directory\n# The initial path that the file panel should navigate to when superfile is\n# opened. This setting understands relative paths such as \".\", \"..\", etc.\ndefault_directory = \".\"\n\n#-- File Size Units\n# true: SI decimal units of 1000 (kB, MB, GB).\n# false: IEC binary units of 1024 (KiB, MiB, GiB).\nfile_size_use_si = false\n\n#-- Default File Sort Type\n# (0: Name, 1: Size, 2: Date Modified, 3: Type, 4: Natural).\n# Natural sort treats numeric sequences as numbers (e.g., file2 before file10).\ndefault_sort_type = 0\n\n#-- Sort Order Reversing\n# true: Descending.\n# false: Ascending.\nsort_order_reversed = false\n\n#-- Case-Sensitive Sorting\n# An uppercase \"B\" comes before a lowercase \"a\" if true.\ncase_sensitive_sort = false\n\n#-- Exit Shell on Success\n# Whether to exit the shell on successful command execution.\nshell_close_on_success = false\n\n#-- Page Scroll Size\n# Number of lines to scroll for PgUp/PgDown keys (0: full page, default behavior).\npage_scroll_size = 0\n\n#-- Debug Mode\ndebug = false\n\n#-- Ignore Missing Config Fields\n# Whether to silence any warnings about missing config fields.\nignore_missing_fields = false\n\n#-- File Panel Extra Columns Count\n# Count of extra columns in file panel in addition to file name. When option equal 0 then feature is disabled.\nfile_panel_extra_columns = 0\n\n#-- File name width in File Panel\n# Percentage of file panel width allocated to file names (25-100). Higher values give more space to names, less to extra columns.\nfile_panel_name_percent = 50\n\n\n###############################################################################\n#                                   Styling                                   #\n###############################################################################\n\n#-- Theme\n# Put your theme's name here!\ntheme = \"catppuccin-mocha\"\n\n#-- Code Previewer\n# Whether to use the builtin syntax highlighting with chroma or use bat. Values: \"\" for builtin chroma, \"bat\" for bat\ncode_previewer = \"\"\n\n#-- Nerd Fonts Support\n# Whether to enable support for Nerd Fonts symbols.\n# Requires:  Font patched with the Nerd Fonts patch.\nnerdfont = false\n\n#-- Show checkbox icons in select mode\n# Requires: nerdfont = true\nshow_select_icons = true\n\n#-- Transparent Background Support\n# Set to true to enable background transparency.\n# Requires: terminal support for colour transparency\ntransparent_background = false\n\n#-- File Preview Panel Width\n# Width of the file preview panel will be 1/n of the total width.\n# Values recommended to be in 2–10.\n# Default (0): Use the same width as file picker panel.\nfile_preview_width = 0\n\n#-- File Preview Border\n# Enable border around the file preview panel for better visual separation.\n# Default: false (no border)\nenable_file_preview_border = false\n\n#-- Sidebar Width\n# If you don't want to display the sidebar, you can input 0 directly.\n# Values recommended to be in 5–20.\nsidebar_width = 0\n\n#-- Sidebar Section Order\n# Order of sidebar sections (valid values: \"home\", \"pinned\", \"disks\")\n# Only enabled sections will be displayed\nsidebar_sections = []\n\n#-- Border\n# Make sure to add strings that are exactly one character wide!\n# Use ' ' for borderless.\nborder_top = '─'\nborder_bottom = '─'\nborder_left = '│'\nborder_right = '│'\nborder_top_left = '╭'\nborder_top_right = '╮'\nborder_bottom_left = '╰'\nborder_bottom_right = '╯'\nborder_middle_left = '├'\nborder_middle_right = '┤'\n\n###############################################################################\n#                                   Plugins                                   #\n###############################################################################\n\n# This section is for using plugins with superfile, external addons that extend\n# the default capabilities of the program! More info can be found at\n# https://superfile.dev/list/plugin-list/.\n\n#-- Detailed Metadata\n# Requires: exiftool\nmetadata = false\n\n#-- MD5 Checksum Generation\n# No external dependency required\nenable_md5_checksum = false\n#\n#-- Zoxide Support - Smart directory navigation!\n# Requires: zoxide\nzoxide_support = false\n\n#-- File opening rules\n# Map file extensions to commands used to open them.\n# The file path will be appended as the last argument.\n# MUST BE IN THE VERY END OF THE FILE BECAUSE TOML CANNOT CLOSE TABLES\n# Example:\n#   png = \"feh\"\n#   pdf = \"zathura\"\n#   conf = \"nvim\"\n[open_with]\n",
+        "nested/notes.txt": "NESTED NOTES TOKEN\n",
+        "nested/plan.txt": "NONINITIAL PLAN TOKEN\nSecond exact line.\n",
+        "source/alpha.txt": "ALPHA PREVIEW TOKEN\nOriginal alpha bytes.\n",
+        "source/bravo.txt": "BRAVO MOVE TOKEN\nOriginal bravo bytes.\n",
+        "source/charlie.txt": "CHARLIE MULTISELECT TOKEN\nUnselected neighboring bytes.\n",
+        "source/long.txt": "line 00: long preview café 雪\nline 01: long preview café 雪\nline 02: long preview café 雪\nline 03: long preview café 雪\nline 04: long preview café 雪\nline 05: long preview café 雪\nline 06: long preview café 雪\nline 07: long preview café 雪\nline 08: long preview café 雪\nline 09: long preview café 雪\nline 10: long preview café 雪\nline 11: long preview café 雪\nline 12: long preview café 雪\nline 13: long preview café 雪\nline 14: long preview café 雪\nline 15: long preview café 雪\nline 16: long preview café 雪\nline 17: long preview café 雪\nline 18: long preview café 雪\nline 19: long preview café 雪\nline 20: long preview café 雪\nline 21: long preview café 雪\nline 22: long preview café 雪\nline 23: long preview café 雪\nline 24: long preview café 雪\nline 25: long preview café 雪\nline 26: long preview café 雪\nline 27: long preview café 雪\nline 28: long preview café 雪\nline 29: long preview café 雪\nline 30: long preview café 雪\nline 31: long preview café 雪\nline 32: long preview café 雪\nline 33: long preview café 雪\nline 34: long preview café 雪\nline 35: long preview café 雪\nline 36: long preview café 雪\nline 37: long preview café 雪\nline 38: long preview café 雪\nline 39: long preview café 雪\n",
+        "source/occupied.txt": "OCCUPIED DISTINCT TOKEN\nNever silently replace.\n",
+        "source/protected.txt": "PROTECTED NEIGHBOR TOKEN\nMust remain exact.\n",
+        "source/scroll-00.txt": "SCROLL ITEM 00 TOKEN\n",
+        "source/scroll-01.txt": "SCROLL ITEM 01 TOKEN\n",
+        "source/scroll-02.txt": "SCROLL ITEM 02 TOKEN\n",
+        "source/scroll-03.txt": "SCROLL ITEM 03 TOKEN\n",
+        "source/scroll-04.txt": "SCROLL ITEM 04 TOKEN\n",
+        "source/scroll-05.txt": "SCROLL ITEM 05 TOKEN\n",
+        "source/scroll-06.txt": "SCROLL ITEM 06 TOKEN\n",
+        "source/scroll-07.txt": "SCROLL ITEM 07 TOKEN\n",
+        "source/scroll-08.txt": "SCROLL ITEM 08 TOKEN\n",
+        "source/scroll-09.txt": "SCROLL ITEM 09 TOKEN\n",
+        "source/scroll-10.txt": "SCROLL ITEM 10 TOKEN\n",
+        "source/scroll-11.txt": "SCROLL ITEM 11 TOKEN\n",
+        "source/scroll-12.txt": "SCROLL ITEM 12 TOKEN\n",
+        "source/scroll-13.txt": "SCROLL ITEM 13 TOKEN\n",
+        "source/scroll-14.txt": "SCROLL ITEM 14 TOKEN\n",
+        "source/scroll-15.txt": "SCROLL ITEM 15 TOKEN\n",
+        "source/scroll-16.txt": "SCROLL ITEM 16 TOKEN\n",
+        "source/scroll-17.txt": "SCROLL ITEM 17 TOKEN\n",
+        "source/scroll-18.txt": "SCROLL ITEM 18 TOKEN\n",
+        "source/scroll-19.txt": "SCROLL ITEM 19 TOKEN\n",
+        "source/scroll-20.txt": "SCROLL ITEM 20 TOKEN\n",
+        "source/scroll-21.txt": "SCROLL ITEM 21 TOKEN\n",
+        "source/scroll-22.txt": "SCROLL ITEM 22 TOKEN\n",
+        "source/scroll-23.txt": "SCROLL ITEM 23 TOKEN\n",
+        "source/scroll-24.txt": "SCROLL ITEM 24 TOKEN\n",
+        "source/scroll-25.txt": "SCROLL ITEM 25 TOKEN\n",
+        "source/scroll-26.txt": "SCROLL ITEM 26 TOKEN\n",
+        "source/scroll-27.txt": "SCROLL ITEM 27 TOKEN\n",
+        "source/scroll-28.txt": "SCROLL ITEM 28 TOKEN\n",
+        "source/scroll-29.txt": "SCROLL ITEM 29 TOKEN\n",
+        "source/scroll-30.txt": "SCROLL ITEM 30 TOKEN\n",
+        "source/scroll-31.txt": "SCROLL ITEM 31 TOKEN\n",
+        "source/scroll-32.txt": "SCROLL ITEM 32 TOKEN\n",
+        "source/scroll-33.txt": "SCROLL ITEM 33 TOKEN\n",
+        "source/scroll-34.txt": "SCROLL ITEM 34 TOKEN\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Rows 1–3 contain the random managed directory header; rows 21–30 contain host metadata, progress durations and clipboard paths. Explicit preview/transition checkpoints and exact independent file state remain required."
+    },
+    {
+      "name": "edge-name-conflict",
+      "kind": "edge",
+      "purpose": "Decline replacing an occupied file with different content",
+      "command": [
+        "superfile",
+        "--config-file",
+        ".configuration/config.toml",
+        "source"
+      ],
+      "steps": [
+        {
+          "expect": "Thanks for using superfile"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": "Thanks for using superfile"
+        },
+        {
+          "expect": "ALPHA PREVIEW TOKEN"
+        },
+        {
+          "key": "CtrlR"
+        },
+        {
+          "key": "CtrlA"
+        },
+        {
+          "key": "CtrlK"
+        },
+        {
+          "text": "occupied.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "This operation will override"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": "This operation will override"
+        },
+        {
+          "key": "ArrowDown"
+        },
+        {
+          "expect": "BRAVO MOVE TOKEN"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 14,
+      "snapshot_rows": [
+        4,
+        20
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        ".configuration/config.toml": "##############################################\n#                                            #\n#           Superfile Configuration          #\n#                                            #\n##############################################\n\n# This contains the root config file for superfile! More details can be found at\n# https://superfile.dev/configure/superfile-config/.\n\n###############################################################################\n#                                   Defaults                                  #\n###############################################################################\n\n#-- File Editor\n# Default: $EDITOR\neditor = \"\"\n\n#-- Directory Editor\n# \ndir_editor = \"\"\n\n#-- Auto check for update\nauto_check_update = false\n\n#-- cd on quit\n# Should we cd the shell to the last directory open in superfile when the\n# program exits? \ncd_on_quit = false\n\n#-- File Preview\n# Should we open a file preview by default whenever selection-hovering over a\n# file?\ndefault_open_file_preview = true\n\n#-- Image Preview\n# Should we open an image preview by default whenever selection-hovering over an\n# image?\nshow_image_preview = false\n\n#-- File Info Footer\n# Should we display a footer in the file panel that provides more file information?\nshow_panel_footer_info = false\n\n#-- Default Directory\n# The initial path that the file panel should navigate to when superfile is\n# opened. This setting understands relative paths such as \".\", \"..\", etc.\ndefault_directory = \".\"\n\n#-- File Size Units\n# true: SI decimal units of 1000 (kB, MB, GB).\n# false: IEC binary units of 1024 (KiB, MiB, GiB).\nfile_size_use_si = false\n\n#-- Default File Sort Type\n# (0: Name, 1: Size, 2: Date Modified, 3: Type, 4: Natural).\n# Natural sort treats numeric sequences as numbers (e.g., file2 before file10).\ndefault_sort_type = 0\n\n#-- Sort Order Reversing\n# true: Descending.\n# false: Ascending.\nsort_order_reversed = false\n\n#-- Case-Sensitive Sorting\n# An uppercase \"B\" comes before a lowercase \"a\" if true.\ncase_sensitive_sort = false\n\n#-- Exit Shell on Success\n# Whether to exit the shell on successful command execution.\nshell_close_on_success = false\n\n#-- Page Scroll Size\n# Number of lines to scroll for PgUp/PgDown keys (0: full page, default behavior).\npage_scroll_size = 0\n\n#-- Debug Mode\ndebug = false\n\n#-- Ignore Missing Config Fields\n# Whether to silence any warnings about missing config fields.\nignore_missing_fields = false\n\n#-- File Panel Extra Columns Count\n# Count of extra columns in file panel in addition to file name. When option equal 0 then feature is disabled.\nfile_panel_extra_columns = 0\n\n#-- File name width in File Panel\n# Percentage of file panel width allocated to file names (25-100). Higher values give more space to names, less to extra columns.\nfile_panel_name_percent = 50\n\n\n###############################################################################\n#                                   Styling                                   #\n###############################################################################\n\n#-- Theme\n# Put your theme's name here!\ntheme = \"catppuccin-mocha\"\n\n#-- Code Previewer\n# Whether to use the builtin syntax highlighting with chroma or use bat. Values: \"\" for builtin chroma, \"bat\" for bat\ncode_previewer = \"\"\n\n#-- Nerd Fonts Support\n# Whether to enable support for Nerd Fonts symbols.\n# Requires:  Font patched with the Nerd Fonts patch.\nnerdfont = false\n\n#-- Show checkbox icons in select mode\n# Requires: nerdfont = true\nshow_select_icons = true\n\n#-- Transparent Background Support\n# Set to true to enable background transparency.\n# Requires: terminal support for colour transparency\ntransparent_background = false\n\n#-- File Preview Panel Width\n# Width of the file preview panel will be 1/n of the total width.\n# Values recommended to be in 2–10.\n# Default (0): Use the same width as file picker panel.\nfile_preview_width = 0\n\n#-- File Preview Border\n# Enable border around the file preview panel for better visual separation.\n# Default: false (no border)\nenable_file_preview_border = false\n\n#-- Sidebar Width\n# If you don't want to display the sidebar, you can input 0 directly.\n# Values recommended to be in 5–20.\nsidebar_width = 0\n\n#-- Sidebar Section Order\n# Order of sidebar sections (valid values: \"home\", \"pinned\", \"disks\")\n# Only enabled sections will be displayed\nsidebar_sections = []\n\n#-- Border\n# Make sure to add strings that are exactly one character wide!\n# Use ' ' for borderless.\nborder_top = '─'\nborder_bottom = '─'\nborder_left = '│'\nborder_right = '│'\nborder_top_left = '╭'\nborder_top_right = '╮'\nborder_bottom_left = '╰'\nborder_bottom_right = '╯'\nborder_middle_left = '├'\nborder_middle_right = '┤'\n\n###############################################################################\n#                                   Plugins                                   #\n###############################################################################\n\n# This section is for using plugins with superfile, external addons that extend\n# the default capabilities of the program! More info can be found at\n# https://superfile.dev/list/plugin-list/.\n\n#-- Detailed Metadata\n# Requires: exiftool\nmetadata = false\n\n#-- MD5 Checksum Generation\n# No external dependency required\nenable_md5_checksum = false\n#\n#-- Zoxide Support - Smart directory navigation!\n# Requires: zoxide\nzoxide_support = false\n\n#-- File opening rules\n# Map file extensions to commands used to open them.\n# The file path will be appended as the last argument.\n# MUST BE IN THE VERY END OF THE FILE BECAUSE TOML CANNOT CLOSE TABLES\n# Example:\n#   png = \"feh\"\n#   pdf = \"zathura\"\n#   conf = \"nvim\"\n[open_with]\n",
+        "nested/notes.txt": "NESTED NOTES TOKEN\n",
+        "nested/plan.txt": "NONINITIAL PLAN TOKEN\nSecond exact line.\n",
+        "source/alpha.txt": "ALPHA PREVIEW TOKEN\nOriginal alpha bytes.\n",
+        "source/bravo.txt": "BRAVO MOVE TOKEN\nOriginal bravo bytes.\n",
+        "source/charlie.txt": "CHARLIE MULTISELECT TOKEN\nUnselected neighboring bytes.\n",
+        "source/long.txt": "line 00: long preview café 雪\nline 01: long preview café 雪\nline 02: long preview café 雪\nline 03: long preview café 雪\nline 04: long preview café 雪\nline 05: long preview café 雪\nline 06: long preview café 雪\nline 07: long preview café 雪\nline 08: long preview café 雪\nline 09: long preview café 雪\nline 10: long preview café 雪\nline 11: long preview café 雪\nline 12: long preview café 雪\nline 13: long preview café 雪\nline 14: long preview café 雪\nline 15: long preview café 雪\nline 16: long preview café 雪\nline 17: long preview café 雪\nline 18: long preview café 雪\nline 19: long preview café 雪\nline 20: long preview café 雪\nline 21: long preview café 雪\nline 22: long preview café 雪\nline 23: long preview café 雪\nline 24: long preview café 雪\nline 25: long preview café 雪\nline 26: long preview café 雪\nline 27: long preview café 雪\nline 28: long preview café 雪\nline 29: long preview café 雪\nline 30: long preview café 雪\nline 31: long preview café 雪\nline 32: long preview café 雪\nline 33: long preview café 雪\nline 34: long preview café 雪\nline 35: long preview café 雪\nline 36: long preview café 雪\nline 37: long preview café 雪\nline 38: long preview café 雪\nline 39: long preview café 雪\n",
+        "source/occupied.txt": "OCCUPIED DISTINCT TOKEN\nNever silently replace.\n",
+        "source/protected.txt": "PROTECTED NEIGHBOR TOKEN\nMust remain exact.\n",
+        "source/scroll-00.txt": "SCROLL ITEM 00 TOKEN\n",
+        "source/scroll-01.txt": "SCROLL ITEM 01 TOKEN\n",
+        "source/scroll-02.txt": "SCROLL ITEM 02 TOKEN\n",
+        "source/scroll-03.txt": "SCROLL ITEM 03 TOKEN\n",
+        "source/scroll-04.txt": "SCROLL ITEM 04 TOKEN\n",
+        "source/scroll-05.txt": "SCROLL ITEM 05 TOKEN\n",
+        "source/scroll-06.txt": "SCROLL ITEM 06 TOKEN\n",
+        "source/scroll-07.txt": "SCROLL ITEM 07 TOKEN\n",
+        "source/scroll-08.txt": "SCROLL ITEM 08 TOKEN\n",
+        "source/scroll-09.txt": "SCROLL ITEM 09 TOKEN\n",
+        "source/scroll-10.txt": "SCROLL ITEM 10 TOKEN\n",
+        "source/scroll-11.txt": "SCROLL ITEM 11 TOKEN\n",
+        "source/scroll-12.txt": "SCROLL ITEM 12 TOKEN\n",
+        "source/scroll-13.txt": "SCROLL ITEM 13 TOKEN\n",
+        "source/scroll-14.txt": "SCROLL ITEM 14 TOKEN\n",
+        "source/scroll-15.txt": "SCROLL ITEM 15 TOKEN\n",
+        "source/scroll-16.txt": "SCROLL ITEM 16 TOKEN\n",
+        "source/scroll-17.txt": "SCROLL ITEM 17 TOKEN\n",
+        "source/scroll-18.txt": "SCROLL ITEM 18 TOKEN\n",
+        "source/scroll-19.txt": "SCROLL ITEM 19 TOKEN\n",
+        "source/scroll-20.txt": "SCROLL ITEM 20 TOKEN\n",
+        "source/scroll-21.txt": "SCROLL ITEM 21 TOKEN\n",
+        "source/scroll-22.txt": "SCROLL ITEM 22 TOKEN\n",
+        "source/scroll-23.txt": "SCROLL ITEM 23 TOKEN\n",
+        "source/scroll-24.txt": "SCROLL ITEM 24 TOKEN\n",
+        "source/scroll-25.txt": "SCROLL ITEM 25 TOKEN\n",
+        "source/scroll-26.txt": "SCROLL ITEM 26 TOKEN\n",
+        "source/scroll-27.txt": "SCROLL ITEM 27 TOKEN\n",
+        "source/scroll-28.txt": "SCROLL ITEM 28 TOKEN\n",
+        "source/scroll-29.txt": "SCROLL ITEM 29 TOKEN\n",
+        "source/scroll-30.txt": "SCROLL ITEM 30 TOKEN\n",
+        "source/scroll-31.txt": "SCROLL ITEM 31 TOKEN\n",
+        "source/scroll-32.txt": "SCROLL ITEM 32 TOKEN\n",
+        "source/scroll-33.txt": "SCROLL ITEM 33 TOKEN\n",
+        "source/scroll-34.txt": "SCROLL ITEM 34 TOKEN\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Rows 1–3 contain the random managed directory header; rows 21–30 contain host metadata, progress durations and clipboard paths. Explicit preview/transition checkpoints and exact independent file state remain required."
+    },
+    {
+      "name": "edge-resize-scroll",
+      "kind": "edge",
+      "purpose": "Resize repeatedly, search an initially offscreen item and inspect Unicode long content",
+      "command": [
+        "superfile",
+        "--config-file",
+        ".configuration/config.toml",
+        "source"
+      ],
+      "steps": [
+        {
+          "expect": "Thanks for using superfile"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": "Thanks for using superfile"
+        },
+        {
+          "expect": "ALPHA PREVIEW TOKEN"
+        },
+        {
+          "resize": {
+            "width": 80,
+            "height": 24
+          }
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "scroll-34.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "SCROLL ITEM 34 TOKEN"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "key": "CtrlA"
+        },
+        {
+          "key": "CtrlK"
+        },
+        {
+          "text": "long.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "line 00: long preview café 雪"
+        },
+        {
+          "resize": {
+            "width": 120,
+            "height": 35
+          }
+        },
+        {
+          "expect": "line 20: long preview café 雪"
+        },
+        {
+          "resize": {
+            "width": 100,
+            "height": 30
+          }
+        },
+        {
+          "text": "/"
+        },
+        {
+          "key": "CtrlA"
+        },
+        {
+          "key": "CtrlK"
+        },
+        {
+          "text": "scroll-33.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "SCROLL ITEM 33 TOKEN"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 24,
+      "snapshot_rows": [
+        4,
+        20
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        ".configuration/config.toml": "##############################################\n#                                            #\n#           Superfile Configuration          #\n#                                            #\n##############################################\n\n# This contains the root config file for superfile! More details can be found at\n# https://superfile.dev/configure/superfile-config/.\n\n###############################################################################\n#                                   Defaults                                  #\n###############################################################################\n\n#-- File Editor\n# Default: $EDITOR\neditor = \"\"\n\n#-- Directory Editor\n# \ndir_editor = \"\"\n\n#-- Auto check for update\nauto_check_update = false\n\n#-- cd on quit\n# Should we cd the shell to the last directory open in superfile when the\n# program exits? \ncd_on_quit = false\n\n#-- File Preview\n# Should we open a file preview by default whenever selection-hovering over a\n# file?\ndefault_open_file_preview = true\n\n#-- Image Preview\n# Should we open an image preview by default whenever selection-hovering over an\n# image?\nshow_image_preview = false\n\n#-- File Info Footer\n# Should we display a footer in the file panel that provides more file information?\nshow_panel_footer_info = false\n\n#-- Default Directory\n# The initial path that the file panel should navigate to when superfile is\n# opened. This setting understands relative paths such as \".\", \"..\", etc.\ndefault_directory = \".\"\n\n#-- File Size Units\n# true: SI decimal units of 1000 (kB, MB, GB).\n# false: IEC binary units of 1024 (KiB, MiB, GiB).\nfile_size_use_si = false\n\n#-- Default File Sort Type\n# (0: Name, 1: Size, 2: Date Modified, 3: Type, 4: Natural).\n# Natural sort treats numeric sequences as numbers (e.g., file2 before file10).\ndefault_sort_type = 0\n\n#-- Sort Order Reversing\n# true: Descending.\n# false: Ascending.\nsort_order_reversed = false\n\n#-- Case-Sensitive Sorting\n# An uppercase \"B\" comes before a lowercase \"a\" if true.\ncase_sensitive_sort = false\n\n#-- Exit Shell on Success\n# Whether to exit the shell on successful command execution.\nshell_close_on_success = false\n\n#-- Page Scroll Size\n# Number of lines to scroll for PgUp/PgDown keys (0: full page, default behavior).\npage_scroll_size = 0\n\n#-- Debug Mode\ndebug = false\n\n#-- Ignore Missing Config Fields\n# Whether to silence any warnings about missing config fields.\nignore_missing_fields = false\n\n#-- File Panel Extra Columns Count\n# Count of extra columns in file panel in addition to file name. When option equal 0 then feature is disabled.\nfile_panel_extra_columns = 0\n\n#-- File name width in File Panel\n# Percentage of file panel width allocated to file names (25-100). Higher values give more space to names, less to extra columns.\nfile_panel_name_percent = 50\n\n\n###############################################################################\n#                                   Styling                                   #\n###############################################################################\n\n#-- Theme\n# Put your theme's name here!\ntheme = \"catppuccin-mocha\"\n\n#-- Code Previewer\n# Whether to use the builtin syntax highlighting with chroma or use bat. Values: \"\" for builtin chroma, \"bat\" for bat\ncode_previewer = \"\"\n\n#-- Nerd Fonts Support\n# Whether to enable support for Nerd Fonts symbols.\n# Requires:  Font patched with the Nerd Fonts patch.\nnerdfont = false\n\n#-- Show checkbox icons in select mode\n# Requires: nerdfont = true\nshow_select_icons = true\n\n#-- Transparent Background Support\n# Set to true to enable background transparency.\n# Requires: terminal support for colour transparency\ntransparent_background = false\n\n#-- File Preview Panel Width\n# Width of the file preview panel will be 1/n of the total width.\n# Values recommended to be in 2–10.\n# Default (0): Use the same width as file picker panel.\nfile_preview_width = 0\n\n#-- File Preview Border\n# Enable border around the file preview panel for better visual separation.\n# Default: false (no border)\nenable_file_preview_border = false\n\n#-- Sidebar Width\n# If you don't want to display the sidebar, you can input 0 directly.\n# Values recommended to be in 5–20.\nsidebar_width = 0\n\n#-- Sidebar Section Order\n# Order of sidebar sections (valid values: \"home\", \"pinned\", \"disks\")\n# Only enabled sections will be displayed\nsidebar_sections = []\n\n#-- Border\n# Make sure to add strings that are exactly one character wide!\n# Use ' ' for borderless.\nborder_top = '─'\nborder_bottom = '─'\nborder_left = '│'\nborder_right = '│'\nborder_top_left = '╭'\nborder_top_right = '╮'\nborder_bottom_left = '╰'\nborder_bottom_right = '╯'\nborder_middle_left = '├'\nborder_middle_right = '┤'\n\n###############################################################################\n#                                   Plugins                                   #\n###############################################################################\n\n# This section is for using plugins with superfile, external addons that extend\n# the default capabilities of the program! More info can be found at\n# https://superfile.dev/list/plugin-list/.\n\n#-- Detailed Metadata\n# Requires: exiftool\nmetadata = false\n\n#-- MD5 Checksum Generation\n# No external dependency required\nenable_md5_checksum = false\n#\n#-- Zoxide Support - Smart directory navigation!\n# Requires: zoxide\nzoxide_support = false\n\n#-- File opening rules\n# Map file extensions to commands used to open them.\n# The file path will be appended as the last argument.\n# MUST BE IN THE VERY END OF THE FILE BECAUSE TOML CANNOT CLOSE TABLES\n# Example:\n#   png = \"feh\"\n#   pdf = \"zathura\"\n#   conf = \"nvim\"\n[open_with]\n",
+        "nested/notes.txt": "NESTED NOTES TOKEN\n",
+        "nested/plan.txt": "NONINITIAL PLAN TOKEN\nSecond exact line.\n",
+        "source/alpha.txt": "ALPHA PREVIEW TOKEN\nOriginal alpha bytes.\n",
+        "source/bravo.txt": "BRAVO MOVE TOKEN\nOriginal bravo bytes.\n",
+        "source/charlie.txt": "CHARLIE MULTISELECT TOKEN\nUnselected neighboring bytes.\n",
+        "source/long.txt": "line 00: long preview café 雪\nline 01: long preview café 雪\nline 02: long preview café 雪\nline 03: long preview café 雪\nline 04: long preview café 雪\nline 05: long preview café 雪\nline 06: long preview café 雪\nline 07: long preview café 雪\nline 08: long preview café 雪\nline 09: long preview café 雪\nline 10: long preview café 雪\nline 11: long preview café 雪\nline 12: long preview café 雪\nline 13: long preview café 雪\nline 14: long preview café 雪\nline 15: long preview café 雪\nline 16: long preview café 雪\nline 17: long preview café 雪\nline 18: long preview café 雪\nline 19: long preview café 雪\nline 20: long preview café 雪\nline 21: long preview café 雪\nline 22: long preview café 雪\nline 23: long preview café 雪\nline 24: long preview café 雪\nline 25: long preview café 雪\nline 26: long preview café 雪\nline 27: long preview café 雪\nline 28: long preview café 雪\nline 29: long preview café 雪\nline 30: long preview café 雪\nline 31: long preview café 雪\nline 32: long preview café 雪\nline 33: long preview café 雪\nline 34: long preview café 雪\nline 35: long preview café 雪\nline 36: long preview café 雪\nline 37: long preview café 雪\nline 38: long preview café 雪\nline 39: long preview café 雪\n",
+        "source/occupied.txt": "OCCUPIED DISTINCT TOKEN\nNever silently replace.\n",
+        "source/protected.txt": "PROTECTED NEIGHBOR TOKEN\nMust remain exact.\n",
+        "source/scroll-00.txt": "SCROLL ITEM 00 TOKEN\n",
+        "source/scroll-01.txt": "SCROLL ITEM 01 TOKEN\n",
+        "source/scroll-02.txt": "SCROLL ITEM 02 TOKEN\n",
+        "source/scroll-03.txt": "SCROLL ITEM 03 TOKEN\n",
+        "source/scroll-04.txt": "SCROLL ITEM 04 TOKEN\n",
+        "source/scroll-05.txt": "SCROLL ITEM 05 TOKEN\n",
+        "source/scroll-06.txt": "SCROLL ITEM 06 TOKEN\n",
+        "source/scroll-07.txt": "SCROLL ITEM 07 TOKEN\n",
+        "source/scroll-08.txt": "SCROLL ITEM 08 TOKEN\n",
+        "source/scroll-09.txt": "SCROLL ITEM 09 TOKEN\n",
+        "source/scroll-10.txt": "SCROLL ITEM 10 TOKEN\n",
+        "source/scroll-11.txt": "SCROLL ITEM 11 TOKEN\n",
+        "source/scroll-12.txt": "SCROLL ITEM 12 TOKEN\n",
+        "source/scroll-13.txt": "SCROLL ITEM 13 TOKEN\n",
+        "source/scroll-14.txt": "SCROLL ITEM 14 TOKEN\n",
+        "source/scroll-15.txt": "SCROLL ITEM 15 TOKEN\n",
+        "source/scroll-16.txt": "SCROLL ITEM 16 TOKEN\n",
+        "source/scroll-17.txt": "SCROLL ITEM 17 TOKEN\n",
+        "source/scroll-18.txt": "SCROLL ITEM 18 TOKEN\n",
+        "source/scroll-19.txt": "SCROLL ITEM 19 TOKEN\n",
+        "source/scroll-20.txt": "SCROLL ITEM 20 TOKEN\n",
+        "source/scroll-21.txt": "SCROLL ITEM 21 TOKEN\n",
+        "source/scroll-22.txt": "SCROLL ITEM 22 TOKEN\n",
+        "source/scroll-23.txt": "SCROLL ITEM 23 TOKEN\n",
+        "source/scroll-24.txt": "SCROLL ITEM 24 TOKEN\n",
+        "source/scroll-25.txt": "SCROLL ITEM 25 TOKEN\n",
+        "source/scroll-26.txt": "SCROLL ITEM 26 TOKEN\n",
+        "source/scroll-27.txt": "SCROLL ITEM 27 TOKEN\n",
+        "source/scroll-28.txt": "SCROLL ITEM 28 TOKEN\n",
+        "source/scroll-29.txt": "SCROLL ITEM 29 TOKEN\n",
+        "source/scroll-30.txt": "SCROLL ITEM 30 TOKEN\n",
+        "source/scroll-31.txt": "SCROLL ITEM 31 TOKEN\n",
+        "source/scroll-32.txt": "SCROLL ITEM 32 TOKEN\n",
+        "source/scroll-33.txt": "SCROLL ITEM 33 TOKEN\n",
+        "source/scroll-34.txt": "SCROLL ITEM 34 TOKEN\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Rows 1–3 contain the random managed directory header; rows 21–30 contain host metadata, progress durations and clipboard paths. Explicit preview/transition checkpoints and exact independent file state remain required."
+    }
+  ]
+}

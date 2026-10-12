@@ -1,0 +1,24 @@
+[
+  {
+    "name": "wrong-rename-destination",
+    "case": "normal-project",
+    "file": "src/internal/handle_modal.go",
+    "old": "err := os.Rename(oldPath, newPath)",
+    "new": "err := os.Rename(oldPath, newPath+\".unexpected\")"
+  },
+  {
+    "name": "cancel-search-retains-filter",
+    "case": "edge-no-match-recovery",
+    "file": "src/internal/handle_modal.go",
+    "old": "func (m *model) cancelSearch() {\n\tpanel := m.getFocusedFilePanel()\n\tpanel.SearchBar.Blur()\n\tpanel.SearchBar.SetValue(\"\")\n}",
+    "new": "func (m *model) cancelSearch() {\n\tpanel := m.getFocusedFilePanel()\n\tpanel.SearchBar.Blur()\n}"
+  },
+  {
+    "name": "silent-nonpreviewed-copy-corruption",
+    "case": "normal-multiple-selection",
+    "file": "src/internal/handle_file_operations.go",
+    "old": "\t\t\tprocess.CurrentFile = filepath.Base(filePath)\n\t\t\tif err != nil {",
+    "new": "\t\t\tif err == nil && filepath.Base(filePath) == \"charlie.txt\" {\n\t\t\t\t_ = os.WriteFile(filepath.Join(panelLocation, filepath.Base(filePath)), []byte(\"CORRUPTED SAVED COPY\\n\"), 0600)\n\t\t\t}\n\t\t\tprocess.CurrentFile = filepath.Base(filePath)\n\t\t\tif err != nil {",
+    "state_only": true
+  }
+]

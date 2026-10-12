@@ -1,6 +1,6 @@
-# Product control matrix — execution pending
+# Product control matrix — scoped evidence
 
-Existing controls were inspected and mapped before campaign control execution. Test names and configured hosts alone are not evidence. Native test events must be linked after actual execution. Whole tests containing multiple cases count once here.
+Controls are mapped before qualification. Test names and configured hosts alone are not evidence. The JSON matrix preserves actual event hashes and source revisions, with a canonical test-file hash to distinguish historical definitions from the current control. Whole tests containing multiple cases count once. Final frozen-source qualification remains separate.
 
 | ID | Family | Requirement | Go control |
 | --- | --- | --- | --- |
@@ -16,6 +16,7 @@ Existing controls were inspected and mapped before campaign control execution. T
 | cancel | Lifecycle | Cancellation returns accurate outcome | `TestCancellation` |
 | direct-descendant | Process cleanup | Child survives parent until cleanup | `TestChildProcessCleanup` |
 | grandchild-pty | Process cleanup | Two descendant generations inherit PTY handles | `TestAdversarialGrandchildAndRetainedPTYCleanup` |
+| stubborn-live-generations | Process cleanup | Two executing descendant generations ignore actual SIGTERM, then are terminated after parent exit | `TestAdversarialStubbornUnixDescendantCleanup` |
 | repeated-cleanup | Process cleanup | Repeated sessions leave no owned processes | `TestRepeatedSessionCleanup` |
 | idempotent-stop | Process cleanup | Repeated stop preserves outcome | `TestSessionStopIsIdempotent` |
 | recorder-tree | Process cleanup | Recorder owns descendants and nonzero observation | `TestRecordingTracksDescendantCleanupAndExpectedNonzero` |
@@ -31,6 +32,7 @@ Existing controls were inspected and mapped before campaign control execution. T
 | absence-timeout | Readiness | Still-visible old text does not pass absence | `TestExpectNotTimesOutWhileObservedTextRemains` |
 | unready-row | Readiness | No unready/empty/invalid row checkpoint | `TestRowSnapshotRejectsUnreadyEmptyInvalidAndResizedBounds` |
 | rapid-key-order | Keys and terminal | 320 rapid control/text bytes retain exact independent ordering | `TestAdversarialRapidKeysPreserveEveryEvent` |
+| all-letter-controls | Keys and terminal | All 26 named letter controls reach a real raw target with independently specified exact bytes | `TestAdversarialEveryLetterControlKeyThroughRealPTY` |
 | unicode-literal-paste | Keys and terminal | Bounded multi-line Unicode literal input retains exact UTF-8 bytes | `TestAdversarialBoundedUnicodeLiteralPaste` |
 | repeated-resize-output | Keys and terminal | Twelve resizes during actual ongoing output expose correct target dimensions | `TestAdversarialRepeatedResizeDuringOutput` |
 | output-cap-boundary | Keys and terminal | Real output below and above the cap has distinct accurate outcomes | `TestAdversarialOutputCapBoundary` |
@@ -42,7 +44,7 @@ Existing controls were inspected and mapped before campaign control execution. T
 | resize-target | Keys and terminal | Actual target sees PTY dimensions | `TestTargetObservesResize` |
 | resize-redraw | Keys and terminal | Resize/redraw synchronization before input | `TestWaitForRedrawSynchronizesAfterResize` |
 | screen-redraw | Keys and terminal | Pure renderer erase/redraw state; real PTY complements are separately required | `TestScreenRedraw` |
-| adversarial-real-vt | Keys and terminal | Real split UTF-8/VT, alternate screen, scroll, malformed controls and wrapping | `TestAdversarialTerminalStreamsThroughRealPTY` |
+| adversarial-real-vt | Keys and terminal | Real split UTF-8/VT, alternate screen, scroll, malformed controls, wrapping and bounded recovery from unsupported presentation modes | `TestAdversarialTerminalStreamsThroughRealPTY` |
 | partial-real-input | Keys and terminal | A backend forwarding only part of real input cannot report success | `TestPartialBackendInputCannotPass` |
 | windows-resize-reply | Keys and terminal | Current dimensions required; stale or payload-contained acknowledgments rejected | `TestWindowsResizeRepliesRequireCurrentDimensions` |
 | windows-resize-bound | Keys and terminal | Absent Windows resize acknowledgment must time out accurately | `TestWindowsResizeWithoutAcknowledgmentIsBounded` |

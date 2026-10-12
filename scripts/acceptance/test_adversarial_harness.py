@@ -83,6 +83,34 @@ class NativeHarnessControls(unittest.TestCase):
                 with self.assertRaisesRegex(RuntimeError,'Unknown campaign ledger damage'):
                     adversarial_process.read_ledger(ledger)
 
+    @unittest.skipUnless(os.name=='nt','Windows delete-pending directory convention')
+    def test_ledger_delete_pending_retry_is_bounded(self):
+        with tempfile.TemporaryDirectory(prefix='playtestr-ledger-controls-') as root:
+            raw=Path(root)/'raw'
+            raw.mkdir()
+            original=Path.mkdir
+            transient=PermissionError('synthetic native delete-pending directory')
+            transient.winerror=5
+            calls=[]
+            def mkdir(path,*args,**kwargs):
+                if path.name=='.attempts-lock':
+                    calls.append(path)
+                    if len(calls)==1: raise transient
+                return original(path,*args,**kwargs)
+            with patch.object(adversarial_process,'RAW',raw),patch.object(Path,'mkdir',mkdir):
+                with adversarial_process.ledger_lock():
+                    self.assertTrue((raw/'.attempts-lock').is_dir())
+                self.assertEqual(len(calls),2)
+                self.assertFalse((raw/'.attempts-lock').exists())
+            def denied(path,*args,**kwargs):
+                if path.name=='.attempts-lock': raise transient
+                return original(path,*args,**kwargs)
+            with patch.object(adversarial_process,'RAW',raw),patch.object(Path,'mkdir',denied),patch.object(adversarial_process.time,'monotonic',side_effect=[0,11]):
+                with self.assertRaisesRegex(RuntimeError,'ledger lock deadline'):
+                    with adversarial_process.ledger_lock():
+                        self.fail('persistent denial acquired lock')
+            self.assertFalse((raw/'.attempts-lock').exists())
+
     def test_cleanup_failure_keeps_original_failure_and_finished_record(self):
         original_stop=adversarial_process.stop
         async def failing_cleanup(proc):

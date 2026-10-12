@@ -1,0 +1,11 @@
+--- a/src/internal/handle_modal.go
++++ b/src/internal/handle_modal.go
+@@ -142,7 +142,7 @@
+ 	newPath := filepath.Join(panel.Location, panel.Rename.Value())
+ 
+ 	// Rename the file
+-	err := os.Rename(oldPath, newPath)
++	err := os.Rename(oldPath, newPath+".unexpected")
+ 	if err != nil {
+ 		slog.Error("Error while confirmRename during rename", "error", err)
+ 		// Dont return. We have to also reset the panel and model information
