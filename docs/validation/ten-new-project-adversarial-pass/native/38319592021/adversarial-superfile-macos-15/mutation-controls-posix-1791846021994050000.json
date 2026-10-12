@@ -1,0 +1,51 @@
+[
+  {
+    "name": "wrong-rename-destination",
+    "source_file": "src/internal/handle_modal.go",
+    "original_sha256": "afa30a797d7bd2584ebb4ad9c2436b3bc8f611d54de2a803aac40ef2d9f248a3",
+    "mutated_sha256": "2c8c3fed19b417e4b54a45cd8bb4419fecb073429cdfc5964ffa8614744b505d",
+    "case": "normal-project",
+    "pristine_target_binary_sha256": "42fc5a6b4773a7b62fd6d04fe972e43c8c738be9ed6318a641726925bb094c36",
+    "mutated_target_binary_sha256": "f439c3667445fb71fb539b4f3781a5fc672b7880afe2a87bbccd94229762fd34",
+    "category": "snapshot_mismatch",
+    "evidence_id": "dcb5c9110647417394093c5a2e953938",
+    "report": "artifacts/ten-new-project-adversarial-pass/superfile/wrong-rename-destination-1791845984888533000.json",
+    "restored": true,
+    "recovery_id": "43c62e1ba0d8476288da6dd9df5ae38b",
+    "contracts_unchanged": true,
+    "restored_target_binary_sha256": "42fc5a6b4773a7b62fd6d04fe972e43c8c738be9ed6318a641726925bb094c36"
+  },
+  {
+    "name": "cancel-search-retains-filter",
+    "source_file": "src/internal/handle_modal.go",
+    "original_sha256": "afa30a797d7bd2584ebb4ad9c2436b3bc8f611d54de2a803aac40ef2d9f248a3",
+    "mutated_sha256": "462307ccce22df9418f7f9465a2efc3614ad8b4170c5df9a335dfdeaabd7da42",
+    "case": "edge-no-match-recovery",
+    "pristine_target_binary_sha256": "42fc5a6b4773a7b62fd6d04fe972e43c8c738be9ed6318a641726925bb094c36",
+    "mutated_target_binary_sha256": "ac5ea7001f6306da3094f9226d523b3d2ea6c904cad80028609b0622a80630ca",
+    "category": "assertion_timeout",
+    "evidence_id": "67de3d95cd1e44e081e8691935d937ae",
+    "report": "artifacts/ten-new-project-adversarial-pass/superfile/cancel-search-retains-filter-1791845994909571000.json",
+    "restored": true,
+    "recovery_id": "e8d38035875048ed9d04e9243a9d6c02",
+    "contracts_unchanged": true,
+    "restored_target_binary_sha256": "42fc5a6b4773a7b62fd6d04fe972e43c8c738be9ed6318a641726925bb094c36"
+  },
+  {
+    "name": "silent-nonpreviewed-copy-corruption",
+    "source_file": "src/internal/handle_file_operations.go",
+    "original_sha256": "63ba8d50fe436674a92b92d831cb9f345d71b4990d1fbcd1ed30acd4817e779e",
+    "mutated_sha256": "ca20fe7158d3e6fafa881c8bf5c3bcb5fd0875d623ec469d0448b8c5a4064c1a",
+    "case": "normal-multiple-selection",
+    "pristine_target_binary_sha256": "42fc5a6b4773a7b62fd6d04fe972e43c8c738be9ed6318a641726925bb094c36",
+    "mutated_target_binary_sha256": "248e2f090a53b4738e4d08457002750372900724f5e18c9247f9be7ec10bcdc3",
+    "state_oracle_detected": true,
+    "state_probe_evidence_id": "1525b2492fe8483f909e0468affc5acb",
+    "evidence_id": "134b59d604e74ac3b13b8e12b9c6bf3f",
+    "report": "artifacts/ten-new-project-adversarial-pass/superfile/silent-nonpreviewed-copy-corruption-1791846012625826000.json",
+    "restored": true,
+    "recovery_id": "d19fdd57aaf9402eab74fc7f96df2ed8",
+    "contracts_unchanged": true,
+    "restored_target_binary_sha256": "42fc5a6b4773a7b62fd6d04fe972e43c8c738be9ed6318a641726925bb094c36"
+  }
+]

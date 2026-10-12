@@ -1,0 +1,51 @@
+{
+  "status": "development-complete-final-freeze-pending",
+  "source": "4c90d39ba32489cae2db89565690c14abe3d7165",
+  "native_run": "38319592021",
+  "qualified_development_hosts": [
+    "linux",
+    "macos"
+  ],
+  "ordinary_repetitions_per_host": 120,
+  "separate_state_repetitions_per_host": 120,
+  "normal_cases": 6,
+  "edge_cases": 6,
+  "real_target_regressions": 2,
+  "saved_state_corruption_controls": 1,
+  "contracts_unchanged_during_faults": true,
+  "hosted_app_source_deleted": true,
+  "local_app_source_deleted": true,
+  "final_frozen_campaign_credit": 0,
+  "full_product_campaign_credit": 0,
+  "windows_disposition": "Unqualified pinned target input dependency race; original ordinary failure preserved",
+  "runner_identities": [
+    {
+      "source": "4c90d39ba32489cae2db89565690c14abe3d7165",
+      "runner_sha256": "9b1fbab469b38f42fd0912f4d475da2115dde91b7632c6d8f8dbc27e9276c2ad",
+      "actual_host": "macOS-15.7.9-arm64-arm-64bit",
+      "project": "superfile",
+      "scenarios": 12,
+      "git_version": "git version 2.55.0",
+      "terminal_repetitions": 120,
+      "state_probe_repetitions": 120,
+      "state_scope": "Separate real recorder executions: exact reviewed screen and current managed workspace files before teardown",
+      "phase": "Development qualification; final single-source batch freeze remains pending",
+      "run_id": "38319592021",
+      "run_attempt": "1"
+    },
+    {
+      "source": "4c90d39ba32489cae2db89565690c14abe3d7165",
+      "runner_sha256": "1ddb09b19732889d00836e259e252dd734ace08386c07a8a11a7036fa17f6ba6",
+      "actual_host": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "project": "superfile",
+      "scenarios": 12,
+      "git_version": "git version 2.55.0",
+      "terminal_repetitions": 120,
+      "state_probe_repetitions": 120,
+      "state_scope": "Separate real recorder executions: exact reviewed screen and current managed workspace files before teardown",
+      "phase": "Development qualification; final single-source batch freeze remains pending",
+      "run_id": "38319592021",
+      "run_attempt": "1"
+    }
+  ]
+}

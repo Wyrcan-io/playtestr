@@ -1,0 +1,11 @@
+--- a/helix-term/src/commands/typed.rs
++++ b/helix-term/src/commands/typed.rs
+@@ -116,7 +116,7 @@
+     }
+ 
+     // last view and we have unsaved changes
+-    if cx.editor.tree.views().count() == 1 {
++    if cx.editor.tree.views().count() == 0 {
+         buffers_remaining_impl(cx.editor)?
+     }
+ 

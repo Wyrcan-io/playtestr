@@ -1,0 +1,35 @@
+{
+  "phase": "Diagnostic target race experiment; not qualification",
+  "records": [
+    {
+      "repetition": 0,
+      "passed": false,
+      "evidence_id": "1397b374ca4c49898b4d3272e99391d2",
+      "failure": {
+        "category": "unexpected_exit",
+        "message": "Built-in copy into a different open panel: step 12: expected exit code 0, got 66"
+      },
+      "report": "artifacts\\ten-new-project-adversarial-pass\\superfile\\input-investigation-1791845673521882100-0.json",
+      "target_logs": [
+        {
+          "path": "artifacts\\ten-new-project-adversarial-pass\\superfile\\input-investigation-1791845673521882100-0.race-log.txt",
+          "sha256": "4db5a5420a6382842c4c08506e9cb24add46af256621111bd247a8cebf3354d1"
+        },
+        {
+          "path": "artifacts\\ten-new-project-adversarial-pass\\superfile\\input-investigation-1791845673521882100-0.target-log.txt",
+          "sha256": "4e207cb9e2e2da225cdd0ddfe3f6e2e65fbdfe9a6599294757bb0e3cc3bba6e7"
+        }
+      ],
+      "retained_workspace": "C:\\Users\\abhir\\OneDrive\\Documents\\playtestr\\.cache\\ten-new-project-apps\\superfile\\input-investigation-1791845673521882100\\temporary\\playtestr-workspace-1273028766"
+    }
+  ],
+  "pristine_target_sha256": "494f36a2dbfcf2f5f8586a4deed6b7c6af78314d5267cafef14b8f62f3644519",
+  "diagnostic_target_sha256": "9542d8bcaf4c3fe2b42f35a9fa4f69038a0e7e3c6935f3e08749ae1db998abab",
+  "owned_diagnostic_root": "C:\\Users\\abhir\\OneDrive\\Documents\\playtestr\\.cache\\ten-new-project-apps\\superfile\\input-investigation-1791845673521882100",
+  "retained_files": {
+    "confirmed-upstream-input-race.txt": "4db5a5420a6382842c4c08506e9cb24add46af256621111bd247a8cebf3354d1",
+    "upstream-input-race.json": "22930579b449a8634f4a8fadcf4f3aa635d49e938c652bd64721d5f1cae0b3de",
+    "upstream-input-race.target-log.txt": "4e207cb9e2e2da225cdd0ddfe3f6e2e65fbdfe9a6599294757bb0e3cc3bba6e7"
+  },
+  "causal_limit": "A target input-buffer data race is confirmed. Exact causality of the earlier hosted unrequested help overlay is not proven."
+}

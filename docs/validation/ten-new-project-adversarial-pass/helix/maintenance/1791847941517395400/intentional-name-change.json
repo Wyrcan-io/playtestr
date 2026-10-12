@@ -1,0 +1,77 @@
+{
+  "version": 2,
+  "name": "Reviewed intentional project label change",
+  "command": [
+    "hx",
+    "--config",
+    ".configuration/config.toml",
+    "main.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "ORIGINAL MAIN TOKEN"
+    },
+    {
+      "text": "%"
+    },
+    {
+      "text": "c"
+    },
+    {
+      "expect": "INS"
+    },
+    {
+      "text": "Audited project café 雪"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "text": "Protected second line."
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect": "NOR"
+    },
+    {
+      "expect": "Reviewed project café 雪"
+    },
+    {
+      "text": ":w"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "'main.txt' written"
+    },
+    {
+      "snapshot": "normal-project.rows.json"
+    },
+    {
+      "text": ":q"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

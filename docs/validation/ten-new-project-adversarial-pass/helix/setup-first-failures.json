@@ -1,0 +1,37 @@
+{
+  "attempts": [
+    {
+      "id": "51f5a01dbba94b6396243a90371a0bc4",
+      "event": "finished",
+      "project": "helix",
+      "label": "owned-exact-rust-toolchain",
+      "category": "exit_mismatch",
+      "exit_code": 1,
+      "seconds": 47.187,
+      "console_sha256": "bf164d9a71a0d507fd491995bf74ad3c1e1596cec2fe5064486ad33b53b06e5c",
+      "harness_cleanup": "harness_process_reaped",
+      "cleanup_errors": [],
+      "output_bytes": 439
+    },
+    {
+      "id": "ff1d8173e5a047efb25fbb826cb729c7",
+      "event": "finished",
+      "project": "helix",
+      "label": "target-build",
+      "category": "exit_mismatch",
+      "exit_code": 101,
+      "seconds": 6.6311,
+      "console_sha256": "f618130e31de28f8ea9be22c464816ef040d4c3d09cda28d1225a5192be11f47",
+      "harness_cleanup": "harness_process_reaped",
+      "cleanup_errors": [],
+      "output_bytes": 12011
+    }
+  ],
+  "corrections": [
+    "Disable Rustup self-update with private Cargo/Rustup homes",
+    "Resolve the owned Rust compiler and pass its absolute path to Cargo",
+    "Use MSVC /Brepro after observing a wall-clock PE timestamp"
+  ],
+  "go_product_changes": "None; these are target build prerequisites and authoring findings",
+  "restored_build_proof": "First actual Windows wrong-write mutation restored the exact reproducible target hash"
+}

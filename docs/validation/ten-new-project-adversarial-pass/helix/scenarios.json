@@ -1,0 +1,944 @@
+{
+  "project": "helix",
+  "fixture": "fixtures",
+  "environment": {
+    "TERM": "xterm-256color"
+  },
+  "cases": [
+    {
+      "name": "normal-project",
+      "kind": "normal",
+      "purpose": "Replace and save a complete Unicode document while preserving its neighbor",
+      "command": [
+        "hx",
+        "--config",
+        ".configuration/config.toml",
+        "main.txt"
+      ],
+      "steps": [
+        {
+          "expect": "ORIGINAL MAIN TOKEN"
+        },
+        {
+          "text": "%"
+        },
+        {
+          "text": "c"
+        },
+        {
+          "expect": "INS"
+        },
+        {
+          "text": "Reviewed project café 雪"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "text": "Protected second line."
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect": "NOR"
+        },
+        {
+          "expect": "Reviewed project café 雪"
+        },
+        {
+          "text": ":w"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "'main.txt' written"
+        },
+        {
+          "text": ":q"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 13,
+      "snapshot_rows": [
+        1,
+        29
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "main.txt": "Reviewed project café 雪\nProtected second line.\n",
+        "second.txt": "SECOND BUFFER TOKEN\nOriginal second bytes.\n",
+        "selection.txt": "alpha bravo charlie\nProtected neighboring line.\n",
+        "nested/notes café.txt": "NESTED NOTES TOKEN\nOther nested bytes.\n",
+        "protected.txt": "PROTECTED NEIGHBOR TOKEN\nNever change this file.\n",
+        "occupied/keep.txt": "OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 00: long text café 雪\nline 01: long text café 雪\nline 02: long text café 雪\nline 03: long text café 雪\nline 04: long text café 雪\nline 05: long text café 雪\nline 06: long text café 雪\nline 07: long text café 雪\nline 08: long text café 雪\nline 09: long text café 雪\nline 10: long text café 雪\nline 11: long text café 雪\nline 12: long text café 雪\nline 13: long text café 雪\nline 14: long text café 雪\nline 15: long text café 雪\nline 16: long text café 雪\nline 17: long text café 雪\nline 18: long text café 雪\nline 19: long text café 雪\nline 20: long text café 雪\nline 21: long text café 雪\nline 22: long text café 雪\nline 23: long text café 雪\nline 24: long text café 雪\nline 25: long text café 雪\nline 26: long text café 雪\nline 27: long text café 雪\nline 28: long text café 雪\nline 29: long text café 雪\nline 30: long text café 雪\nline 31: long text café 雪\nline 32: long text café 雪\nline 33: long text café 雪\nline 34: long text café 雪\nline 35: long text café 雪\nline 36: long text café 雪\nline 37: long text café 雪\nline 38: long text café 雪\nline 39: long text café 雪\nline 40: long text café 雪\nline 41: long text café 雪\nline 42: long text café 雪\nline 43: long text café 雪\nline 44: long text café 雪\nline 45: long text café 雪\nline 46: long text café 雪\nline 47: long text café 雪\nline 48: long text café 雪\nline 49: long text café 雪\nline 50: long text café 雪\nline 51: long text café 雪\nline 52: long text café 雪\nline 53: long text café 雪\nline 54: long text café 雪\nline 55: long text café 雪\nline 56: long text café 雪\nline 57: long text café 雪\nline 58: long text café 雪\nline 59: long text café 雪\n",
+        ".configuration/config.toml": "theme = \"base16_default_dark\"\n[editor]\nmouse = false\nauto-completion = false\npath-completion = false\nauto-format = false\nauto-info = false\nbufferline = \"always\"\ndefault-line-ending = \"lf\"\nclipboard-provider = \"none\"\neditor-config = false\nkitty-keyboard-protocol = \"disabled\"\ngutters = [\"line-numbers\", \"spacer\"]\n[editor.auto-save]\nfocus-lost = false\n[editor.auto-save.after-delay]\nenable = false\n[editor.lsp]\nenable = false\n[editor.statusline]\nleft = [\"mode\", \"file-name\", \"file-modification-indicator\"]\nright = [\"position\", \"file-encoding\", \"file-line-ending\"]\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Only transient bottom command/status messages are excluded. Content, buffer identity, mode and position remain in rows 1–29; explicit command outcomes and exact independent files complement the capture."
+    },
+    {
+      "name": "normal-buffer-switch",
+      "kind": "normal",
+      "purpose": "Switch to a second buffer, save a real change and return to the first",
+      "command": [
+        "hx",
+        "--config",
+        ".configuration/config.toml",
+        "main.txt",
+        "second.txt"
+      ],
+      "steps": [
+        {
+          "expect": "ORIGINAL MAIN TOKEN"
+        },
+        {
+          "text": ":buffer-next"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "SECOND BUFFER TOKEN"
+        },
+        {
+          "text": "%"
+        },
+        {
+          "text": "c"
+        },
+        {
+          "expect": "INS"
+        },
+        {
+          "text": "SECOND REVISED TOKEN"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect": "NOR"
+        },
+        {
+          "text": ":w"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "'second.txt' written"
+        },
+        {
+          "text": ":buffer-previous"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "ORIGINAL MAIN TOKEN"
+        },
+        {
+          "text": ":q"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 16,
+      "snapshot_rows": [
+        1,
+        29
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "main.txt": "ORIGINAL MAIN TOKEN\nProtected second line.\n",
+        "second.txt": "SECOND REVISED TOKEN\n",
+        "selection.txt": "alpha bravo charlie\nProtected neighboring line.\n",
+        "nested/notes café.txt": "NESTED NOTES TOKEN\nOther nested bytes.\n",
+        "protected.txt": "PROTECTED NEIGHBOR TOKEN\nNever change this file.\n",
+        "occupied/keep.txt": "OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 00: long text café 雪\nline 01: long text café 雪\nline 02: long text café 雪\nline 03: long text café 雪\nline 04: long text café 雪\nline 05: long text café 雪\nline 06: long text café 雪\nline 07: long text café 雪\nline 08: long text café 雪\nline 09: long text café 雪\nline 10: long text café 雪\nline 11: long text café 雪\nline 12: long text café 雪\nline 13: long text café 雪\nline 14: long text café 雪\nline 15: long text café 雪\nline 16: long text café 雪\nline 17: long text café 雪\nline 18: long text café 雪\nline 19: long text café 雪\nline 20: long text café 雪\nline 21: long text café 雪\nline 22: long text café 雪\nline 23: long text café 雪\nline 24: long text café 雪\nline 25: long text café 雪\nline 26: long text café 雪\nline 27: long text café 雪\nline 28: long text café 雪\nline 29: long text café 雪\nline 30: long text café 雪\nline 31: long text café 雪\nline 32: long text café 雪\nline 33: long text café 雪\nline 34: long text café 雪\nline 35: long text café 雪\nline 36: long text café 雪\nline 37: long text café 雪\nline 38: long text café 雪\nline 39: long text café 雪\nline 40: long text café 雪\nline 41: long text café 雪\nline 42: long text café 雪\nline 43: long text café 雪\nline 44: long text café 雪\nline 45: long text café 雪\nline 46: long text café 雪\nline 47: long text café 雪\nline 48: long text café 雪\nline 49: long text café 雪\nline 50: long text café 雪\nline 51: long text café 雪\nline 52: long text café 雪\nline 53: long text café 雪\nline 54: long text café 雪\nline 55: long text café 雪\nline 56: long text café 雪\nline 57: long text café 雪\nline 58: long text café 雪\nline 59: long text café 雪\n",
+        ".configuration/config.toml": "theme = \"base16_default_dark\"\n[editor]\nmouse = false\nauto-completion = false\npath-completion = false\nauto-format = false\nauto-info = false\nbufferline = \"always\"\ndefault-line-ending = \"lf\"\nclipboard-provider = \"none\"\neditor-config = false\nkitty-keyboard-protocol = \"disabled\"\ngutters = [\"line-numbers\", \"spacer\"]\n[editor.auto-save]\nfocus-lost = false\n[editor.auto-save.after-delay]\nenable = false\n[editor.lsp]\nenable = false\n[editor.statusline]\nleft = [\"mode\", \"file-name\", \"file-modification-indicator\"]\nright = [\"position\", \"file-encoding\", \"file-line-ending\"]\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Only transient bottom command/status messages are excluded. Content, buffer identity, mode and position remain in rows 1–29; explicit command outcomes and exact independent files complement the capture."
+    },
+    {
+      "name": "normal-nested-open",
+      "kind": "normal",
+      "purpose": "Open a spaced Unicode path through the command prompt and edit its content",
+      "command": [
+        "hx",
+        "--config",
+        ".configuration/config.toml",
+        "main.txt"
+      ],
+      "steps": [
+        {
+          "expect": "ORIGINAL MAIN TOKEN"
+        },
+        {
+          "text": ":open \"nested/notes café.txt\""
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "NESTED NOTES TOKEN"
+        },
+        {
+          "text": "%"
+        },
+        {
+          "text": "c"
+        },
+        {
+          "expect": "INS"
+        },
+        {
+          "text": "NESTED REVISED TOKEN"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect": "NOR"
+        },
+        {
+          "text": ":w"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "notes café.txt' written"
+        },
+        {
+          "text": ":q"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 13,
+      "snapshot_rows": [
+        1,
+        29
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "main.txt": "ORIGINAL MAIN TOKEN\nProtected second line.\n",
+        "second.txt": "SECOND BUFFER TOKEN\nOriginal second bytes.\n",
+        "selection.txt": "alpha bravo charlie\nProtected neighboring line.\n",
+        "nested/notes café.txt": "NESTED REVISED TOKEN\n",
+        "protected.txt": "PROTECTED NEIGHBOR TOKEN\nNever change this file.\n",
+        "occupied/keep.txt": "OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 00: long text café 雪\nline 01: long text café 雪\nline 02: long text café 雪\nline 03: long text café 雪\nline 04: long text café 雪\nline 05: long text café 雪\nline 06: long text café 雪\nline 07: long text café 雪\nline 08: long text café 雪\nline 09: long text café 雪\nline 10: long text café 雪\nline 11: long text café 雪\nline 12: long text café 雪\nline 13: long text café 雪\nline 14: long text café 雪\nline 15: long text café 雪\nline 16: long text café 雪\nline 17: long text café 雪\nline 18: long text café 雪\nline 19: long text café 雪\nline 20: long text café 雪\nline 21: long text café 雪\nline 22: long text café 雪\nline 23: long text café 雪\nline 24: long text café 雪\nline 25: long text café 雪\nline 26: long text café 雪\nline 27: long text café 雪\nline 28: long text café 雪\nline 29: long text café 雪\nline 30: long text café 雪\nline 31: long text café 雪\nline 32: long text café 雪\nline 33: long text café 雪\nline 34: long text café 雪\nline 35: long text café 雪\nline 36: long text café 雪\nline 37: long text café 雪\nline 38: long text café 雪\nline 39: long text café 雪\nline 40: long text café 雪\nline 41: long text café 雪\nline 42: long text café 雪\nline 43: long text café 雪\nline 44: long text café 雪\nline 45: long text café 雪\nline 46: long text café 雪\nline 47: long text café 雪\nline 48: long text café 雪\nline 49: long text café 雪\nline 50: long text café 雪\nline 51: long text café 雪\nline 52: long text café 雪\nline 53: long text café 雪\nline 54: long text café 雪\nline 55: long text café 雪\nline 56: long text café 雪\nline 57: long text café 雪\nline 58: long text café 雪\nline 59: long text café 雪\n",
+        ".configuration/config.toml": "theme = \"base16_default_dark\"\n[editor]\nmouse = false\nauto-completion = false\npath-completion = false\nauto-format = false\nauto-info = false\nbufferline = \"always\"\ndefault-line-ending = \"lf\"\nclipboard-provider = \"none\"\neditor-config = false\nkitty-keyboard-protocol = \"disabled\"\ngutters = [\"line-numbers\", \"spacer\"]\n[editor.auto-save]\nfocus-lost = false\n[editor.auto-save.after-delay]\nenable = false\n[editor.lsp]\nenable = false\n[editor.statusline]\nleft = [\"mode\", \"file-name\", \"file-modification-indicator\"]\nright = [\"position\", \"file-encoding\", \"file-line-ending\"]\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Only transient bottom command/status messages are excluded. Content, buffer identity, mode and position remain in rows 1–29; explicit command outcomes and exact independent files complement the capture.",
+      "baseline_suffix_by_host": {
+        "Linux": "-unix",
+        "Darwin": "-unix"
+      }
+    },
+    {
+      "name": "normal-selection-replace",
+      "kind": "normal",
+      "purpose": "Replace one selected word and preserve surrounding words and lines",
+      "command": [
+        "hx",
+        "--config",
+        ".configuration/config.toml",
+        "selection.txt"
+      ],
+      "steps": [
+        {
+          "expect": "alpha bravo charlie"
+        },
+        {
+          "text": "e"
+        },
+        {
+          "text": "c"
+        },
+        {
+          "text": "ALPHA"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect": "ALPHA bravo charlie"
+        },
+        {
+          "text": ":w"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "'selection.txt' written"
+        },
+        {
+          "text": ":q"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 9,
+      "snapshot_rows": [
+        1,
+        29
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "main.txt": "ORIGINAL MAIN TOKEN\nProtected second line.\n",
+        "second.txt": "SECOND BUFFER TOKEN\nOriginal second bytes.\n",
+        "selection.txt": "ALPHA bravo charlie\nProtected neighboring line.\n",
+        "nested/notes café.txt": "NESTED NOTES TOKEN\nOther nested bytes.\n",
+        "protected.txt": "PROTECTED NEIGHBOR TOKEN\nNever change this file.\n",
+        "occupied/keep.txt": "OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 00: long text café 雪\nline 01: long text café 雪\nline 02: long text café 雪\nline 03: long text café 雪\nline 04: long text café 雪\nline 05: long text café 雪\nline 06: long text café 雪\nline 07: long text café 雪\nline 08: long text café 雪\nline 09: long text café 雪\nline 10: long text café 雪\nline 11: long text café 雪\nline 12: long text café 雪\nline 13: long text café 雪\nline 14: long text café 雪\nline 15: long text café 雪\nline 16: long text café 雪\nline 17: long text café 雪\nline 18: long text café 雪\nline 19: long text café 雪\nline 20: long text café 雪\nline 21: long text café 雪\nline 22: long text café 雪\nline 23: long text café 雪\nline 24: long text café 雪\nline 25: long text café 雪\nline 26: long text café 雪\nline 27: long text café 雪\nline 28: long text café 雪\nline 29: long text café 雪\nline 30: long text café 雪\nline 31: long text café 雪\nline 32: long text café 雪\nline 33: long text café 雪\nline 34: long text café 雪\nline 35: long text café 雪\nline 36: long text café 雪\nline 37: long text café 雪\nline 38: long text café 雪\nline 39: long text café 雪\nline 40: long text café 雪\nline 41: long text café 雪\nline 42: long text café 雪\nline 43: long text café 雪\nline 44: long text café 雪\nline 45: long text café 雪\nline 46: long text café 雪\nline 47: long text café 雪\nline 48: long text café 雪\nline 49: long text café 雪\nline 50: long text café 雪\nline 51: long text café 雪\nline 52: long text café 雪\nline 53: long text café 雪\nline 54: long text café 雪\nline 55: long text café 雪\nline 56: long text café 雪\nline 57: long text café 雪\nline 58: long text café 雪\nline 59: long text café 雪\n",
+        ".configuration/config.toml": "theme = \"base16_default_dark\"\n[editor]\nmouse = false\nauto-completion = false\npath-completion = false\nauto-format = false\nauto-info = false\nbufferline = \"always\"\ndefault-line-ending = \"lf\"\nclipboard-provider = \"none\"\neditor-config = false\nkitty-keyboard-protocol = \"disabled\"\ngutters = [\"line-numbers\", \"spacer\"]\n[editor.auto-save]\nfocus-lost = false\n[editor.auto-save.after-delay]\nenable = false\n[editor.lsp]\nenable = false\n[editor.statusline]\nleft = [\"mode\", \"file-name\", \"file-modification-indicator\"]\nright = [\"position\", \"file-encoding\", \"file-line-ending\"]\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Only transient bottom command/status messages are excluded. Content, buffer identity, mode and position remain in rows 1–29; explicit command outcomes and exact independent files complement the capture."
+    },
+    {
+      "name": "normal-undo-redo",
+      "kind": "normal",
+      "purpose": "Undo and redo a substantive edit before saving its exact final bytes",
+      "command": [
+        "hx",
+        "--config",
+        ".configuration/config.toml",
+        "main.txt"
+      ],
+      "steps": [
+        {
+          "expect": "ORIGINAL MAIN TOKEN"
+        },
+        {
+          "text": "%"
+        },
+        {
+          "text": "c"
+        },
+        {
+          "expect": "INS"
+        },
+        {
+          "text": "UNDO REDO TOKEN"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect": "NOR"
+        },
+        {
+          "expect": "UNDO REDO TOKEN"
+        },
+        {
+          "text": "u"
+        },
+        {
+          "expect": "ORIGINAL MAIN TOKEN"
+        },
+        {
+          "text": "U"
+        },
+        {
+          "expect": "UNDO REDO TOKEN"
+        },
+        {
+          "text": ":w"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "'main.txt' written"
+        },
+        {
+          "text": ":q"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 15,
+      "snapshot_rows": [
+        1,
+        29
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "main.txt": "UNDO REDO TOKEN\n",
+        "second.txt": "SECOND BUFFER TOKEN\nOriginal second bytes.\n",
+        "selection.txt": "alpha bravo charlie\nProtected neighboring line.\n",
+        "nested/notes café.txt": "NESTED NOTES TOKEN\nOther nested bytes.\n",
+        "protected.txt": "PROTECTED NEIGHBOR TOKEN\nNever change this file.\n",
+        "occupied/keep.txt": "OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 00: long text café 雪\nline 01: long text café 雪\nline 02: long text café 雪\nline 03: long text café 雪\nline 04: long text café 雪\nline 05: long text café 雪\nline 06: long text café 雪\nline 07: long text café 雪\nline 08: long text café 雪\nline 09: long text café 雪\nline 10: long text café 雪\nline 11: long text café 雪\nline 12: long text café 雪\nline 13: long text café 雪\nline 14: long text café 雪\nline 15: long text café 雪\nline 16: long text café 雪\nline 17: long text café 雪\nline 18: long text café 雪\nline 19: long text café 雪\nline 20: long text café 雪\nline 21: long text café 雪\nline 22: long text café 雪\nline 23: long text café 雪\nline 24: long text café 雪\nline 25: long text café 雪\nline 26: long text café 雪\nline 27: long text café 雪\nline 28: long text café 雪\nline 29: long text café 雪\nline 30: long text café 雪\nline 31: long text café 雪\nline 32: long text café 雪\nline 33: long text café 雪\nline 34: long text café 雪\nline 35: long text café 雪\nline 36: long text café 雪\nline 37: long text café 雪\nline 38: long text café 雪\nline 39: long text café 雪\nline 40: long text café 雪\nline 41: long text café 雪\nline 42: long text café 雪\nline 43: long text café 雪\nline 44: long text café 雪\nline 45: long text café 雪\nline 46: long text café 雪\nline 47: long text café 雪\nline 48: long text café 雪\nline 49: long text café 雪\nline 50: long text café 雪\nline 51: long text café 雪\nline 52: long text café 雪\nline 53: long text café 雪\nline 54: long text café 雪\nline 55: long text café 雪\nline 56: long text café 雪\nline 57: long text café 雪\nline 58: long text café 雪\nline 59: long text café 雪\n",
+        ".configuration/config.toml": "theme = \"base16_default_dark\"\n[editor]\nmouse = false\nauto-completion = false\npath-completion = false\nauto-format = false\nauto-info = false\nbufferline = \"always\"\ndefault-line-ending = \"lf\"\nclipboard-provider = \"none\"\neditor-config = false\nkitty-keyboard-protocol = \"disabled\"\ngutters = [\"line-numbers\", \"spacer\"]\n[editor.auto-save]\nfocus-lost = false\n[editor.auto-save.after-delay]\nenable = false\n[editor.lsp]\nenable = false\n[editor.statusline]\nleft = [\"mode\", \"file-name\", \"file-modification-indicator\"]\nright = [\"position\", \"file-encoding\", \"file-line-ending\"]\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Only transient bottom command/status messages are excluded. Content, buffer identity, mode and position remain in rows 1–29; explicit command outcomes and exact independent files complement the capture."
+    },
+    {
+      "name": "normal-create-name",
+      "kind": "normal",
+      "purpose": "Create and save a new spaced Unicode filename from an empty buffer",
+      "command": [
+        "hx",
+        "--config",
+        ".configuration/config.toml"
+      ],
+      "steps": [
+        {
+          "expect": "NOR  [scratch]"
+        },
+        {
+          "text": "i"
+        },
+        {
+          "expect": "INS"
+        },
+        {
+          "text": "NEW FILE TOKEN café 雪"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect": "NOR"
+        },
+        {
+          "text": ":write \"created café.txt\""
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "'created café.txt' written"
+        },
+        {
+          "text": ":q"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 9,
+      "snapshot_rows": [
+        1,
+        29
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "main.txt": "ORIGINAL MAIN TOKEN\nProtected second line.\n",
+        "second.txt": "SECOND BUFFER TOKEN\nOriginal second bytes.\n",
+        "selection.txt": "alpha bravo charlie\nProtected neighboring line.\n",
+        "nested/notes café.txt": "NESTED NOTES TOKEN\nOther nested bytes.\n",
+        "protected.txt": "PROTECTED NEIGHBOR TOKEN\nNever change this file.\n",
+        "occupied/keep.txt": "OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 00: long text café 雪\nline 01: long text café 雪\nline 02: long text café 雪\nline 03: long text café 雪\nline 04: long text café 雪\nline 05: long text café 雪\nline 06: long text café 雪\nline 07: long text café 雪\nline 08: long text café 雪\nline 09: long text café 雪\nline 10: long text café 雪\nline 11: long text café 雪\nline 12: long text café 雪\nline 13: long text café 雪\nline 14: long text café 雪\nline 15: long text café 雪\nline 16: long text café 雪\nline 17: long text café 雪\nline 18: long text café 雪\nline 19: long text café 雪\nline 20: long text café 雪\nline 21: long text café 雪\nline 22: long text café 雪\nline 23: long text café 雪\nline 24: long text café 雪\nline 25: long text café 雪\nline 26: long text café 雪\nline 27: long text café 雪\nline 28: long text café 雪\nline 29: long text café 雪\nline 30: long text café 雪\nline 31: long text café 雪\nline 32: long text café 雪\nline 33: long text café 雪\nline 34: long text café 雪\nline 35: long text café 雪\nline 36: long text café 雪\nline 37: long text café 雪\nline 38: long text café 雪\nline 39: long text café 雪\nline 40: long text café 雪\nline 41: long text café 雪\nline 42: long text café 雪\nline 43: long text café 雪\nline 44: long text café 雪\nline 45: long text café 雪\nline 46: long text café 雪\nline 47: long text café 雪\nline 48: long text café 雪\nline 49: long text café 雪\nline 50: long text café 雪\nline 51: long text café 雪\nline 52: long text café 雪\nline 53: long text café 雪\nline 54: long text café 雪\nline 55: long text café 雪\nline 56: long text café 雪\nline 57: long text café 雪\nline 58: long text café 雪\nline 59: long text café 雪\n",
+        ".configuration/config.toml": "theme = \"base16_default_dark\"\n[editor]\nmouse = false\nauto-completion = false\npath-completion = false\nauto-format = false\nauto-info = false\nbufferline = \"always\"\ndefault-line-ending = \"lf\"\nclipboard-provider = \"none\"\neditor-config = false\nkitty-keyboard-protocol = \"disabled\"\ngutters = [\"line-numbers\", \"spacer\"]\n[editor.auto-save]\nfocus-lost = false\n[editor.auto-save.after-delay]\nenable = false\n[editor.lsp]\nenable = false\n[editor.statusline]\nleft = [\"mode\", \"file-name\", \"file-modification-indicator\"]\nright = [\"position\", \"file-encoding\", \"file-line-ending\"]\n",
+        "created café.txt": "NEW FILE TOKEN café 雪\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Only transient bottom command/status messages are excluded. Content, buffer identity, mode and position remain in rows 1–29; explicit command outcomes and exact independent files complement the capture."
+    },
+    {
+      "name": "edge-unsaved-quit",
+      "kind": "edge",
+      "purpose": "Reject an ordinary quit with unsaved bytes, then explicitly discard them",
+      "command": [
+        "hx",
+        "--config",
+        ".configuration/config.toml",
+        "main.txt"
+      ],
+      "steps": [
+        {
+          "expect": "ORIGINAL MAIN TOKEN"
+        },
+        {
+          "text": "%"
+        },
+        {
+          "text": "c"
+        },
+        {
+          "expect": "INS"
+        },
+        {
+          "text": "UNSAVED NEVER PERSIST TOKEN"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect": "NOR"
+        },
+        {
+          "text": ":q"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "unsaved buffer"
+        },
+        {
+          "expect": "UNSAVED NEVER PERSIST TOKEN"
+        },
+        {
+          "text": ":q!"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 11,
+      "snapshot_rows": [
+        1,
+        29
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "main.txt": "ORIGINAL MAIN TOKEN\nProtected second line.\n",
+        "second.txt": "SECOND BUFFER TOKEN\nOriginal second bytes.\n",
+        "selection.txt": "alpha bravo charlie\nProtected neighboring line.\n",
+        "nested/notes café.txt": "NESTED NOTES TOKEN\nOther nested bytes.\n",
+        "protected.txt": "PROTECTED NEIGHBOR TOKEN\nNever change this file.\n",
+        "occupied/keep.txt": "OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 00: long text café 雪\nline 01: long text café 雪\nline 02: long text café 雪\nline 03: long text café 雪\nline 04: long text café 雪\nline 05: long text café 雪\nline 06: long text café 雪\nline 07: long text café 雪\nline 08: long text café 雪\nline 09: long text café 雪\nline 10: long text café 雪\nline 11: long text café 雪\nline 12: long text café 雪\nline 13: long text café 雪\nline 14: long text café 雪\nline 15: long text café 雪\nline 16: long text café 雪\nline 17: long text café 雪\nline 18: long text café 雪\nline 19: long text café 雪\nline 20: long text café 雪\nline 21: long text café 雪\nline 22: long text café 雪\nline 23: long text café 雪\nline 24: long text café 雪\nline 25: long text café 雪\nline 26: long text café 雪\nline 27: long text café 雪\nline 28: long text café 雪\nline 29: long text café 雪\nline 30: long text café 雪\nline 31: long text café 雪\nline 32: long text café 雪\nline 33: long text café 雪\nline 34: long text café 雪\nline 35: long text café 雪\nline 36: long text café 雪\nline 37: long text café 雪\nline 38: long text café 雪\nline 39: long text café 雪\nline 40: long text café 雪\nline 41: long text café 雪\nline 42: long text café 雪\nline 43: long text café 雪\nline 44: long text café 雪\nline 45: long text café 雪\nline 46: long text café 雪\nline 47: long text café 雪\nline 48: long text café 雪\nline 49: long text café 雪\nline 50: long text café 雪\nline 51: long text café 雪\nline 52: long text café 雪\nline 53: long text café 雪\nline 54: long text café 雪\nline 55: long text café 雪\nline 56: long text café 雪\nline 57: long text café 雪\nline 58: long text café 雪\nline 59: long text café 雪\n",
+        ".configuration/config.toml": "theme = \"base16_default_dark\"\n[editor]\nmouse = false\nauto-completion = false\npath-completion = false\nauto-format = false\nauto-info = false\nbufferline = \"always\"\ndefault-line-ending = \"lf\"\nclipboard-provider = \"none\"\neditor-config = false\nkitty-keyboard-protocol = \"disabled\"\ngutters = [\"line-numbers\", \"spacer\"]\n[editor.auto-save]\nfocus-lost = false\n[editor.auto-save.after-delay]\nenable = false\n[editor.lsp]\nenable = false\n[editor.statusline]\nleft = [\"mode\", \"file-name\", \"file-modification-indicator\"]\nright = [\"position\", \"file-encoding\", \"file-line-ending\"]\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Only transient bottom command/status messages are excluded. Content, buffer identity, mode and position remain in rows 1–29; explicit command outcomes and exact independent files complement the capture."
+    },
+    {
+      "name": "edge-invalid-command",
+      "kind": "edge",
+      "purpose": "Recover from a genuine unknown command and still save a useful edit",
+      "command": [
+        "hx",
+        "--config",
+        ".configuration/config.toml",
+        "main.txt"
+      ],
+      "steps": [
+        {
+          "expect": "ORIGINAL MAIN TOKEN"
+        },
+        {
+          "text": ":not-a-real-command"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "no such command: 'not-a-real-command'"
+        },
+        {
+          "text": "%"
+        },
+        {
+          "text": "c"
+        },
+        {
+          "expect": "INS"
+        },
+        {
+          "text": "RECOVERY SAVED TOKEN"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect": "NOR"
+        },
+        {
+          "text": ":w"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "'main.txt' written"
+        },
+        {
+          "text": ":q"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 13,
+      "snapshot_rows": [
+        1,
+        29
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "main.txt": "RECOVERY SAVED TOKEN\n",
+        "second.txt": "SECOND BUFFER TOKEN\nOriginal second bytes.\n",
+        "selection.txt": "alpha bravo charlie\nProtected neighboring line.\n",
+        "nested/notes café.txt": "NESTED NOTES TOKEN\nOther nested bytes.\n",
+        "protected.txt": "PROTECTED NEIGHBOR TOKEN\nNever change this file.\n",
+        "occupied/keep.txt": "OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 00: long text café 雪\nline 01: long text café 雪\nline 02: long text café 雪\nline 03: long text café 雪\nline 04: long text café 雪\nline 05: long text café 雪\nline 06: long text café 雪\nline 07: long text café 雪\nline 08: long text café 雪\nline 09: long text café 雪\nline 10: long text café 雪\nline 11: long text café 雪\nline 12: long text café 雪\nline 13: long text café 雪\nline 14: long text café 雪\nline 15: long text café 雪\nline 16: long text café 雪\nline 17: long text café 雪\nline 18: long text café 雪\nline 19: long text café 雪\nline 20: long text café 雪\nline 21: long text café 雪\nline 22: long text café 雪\nline 23: long text café 雪\nline 24: long text café 雪\nline 25: long text café 雪\nline 26: long text café 雪\nline 27: long text café 雪\nline 28: long text café 雪\nline 29: long text café 雪\nline 30: long text café 雪\nline 31: long text café 雪\nline 32: long text café 雪\nline 33: long text café 雪\nline 34: long text café 雪\nline 35: long text café 雪\nline 36: long text café 雪\nline 37: long text café 雪\nline 38: long text café 雪\nline 39: long text café 雪\nline 40: long text café 雪\nline 41: long text café 雪\nline 42: long text café 雪\nline 43: long text café 雪\nline 44: long text café 雪\nline 45: long text café 雪\nline 46: long text café 雪\nline 47: long text café 雪\nline 48: long text café 雪\nline 49: long text café 雪\nline 50: long text café 雪\nline 51: long text café 雪\nline 52: long text café 雪\nline 53: long text café 雪\nline 54: long text café 雪\nline 55: long text café 雪\nline 56: long text café 雪\nline 57: long text café 雪\nline 58: long text café 雪\nline 59: long text café 雪\n",
+        ".configuration/config.toml": "theme = \"base16_default_dark\"\n[editor]\nmouse = false\nauto-completion = false\npath-completion = false\nauto-format = false\nauto-info = false\nbufferline = \"always\"\ndefault-line-ending = \"lf\"\nclipboard-provider = \"none\"\neditor-config = false\nkitty-keyboard-protocol = \"disabled\"\ngutters = [\"line-numbers\", \"spacer\"]\n[editor.auto-save]\nfocus-lost = false\n[editor.auto-save.after-delay]\nenable = false\n[editor.lsp]\nenable = false\n[editor.statusline]\nleft = [\"mode\", \"file-name\", \"file-modification-indicator\"]\nright = [\"position\", \"file-encoding\", \"file-line-ending\"]\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Only transient bottom command/status messages are excluded. Content, buffer identity, mode and position remain in rows 1–29; explicit command outcomes and exact independent files complement the capture."
+    },
+    {
+      "name": "edge-cancel-command",
+      "kind": "edge",
+      "purpose": "Cancel a partially entered destructive command and continue with intact files",
+      "command": [
+        "hx",
+        "--config",
+        ".configuration/config.toml",
+        "main.txt"
+      ],
+      "steps": [
+        {
+          "expect": "ORIGINAL MAIN TOKEN"
+        },
+        {
+          "text": ":quit!"
+        },
+        {
+          "expect": ":quit!"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": ":quit!"
+        },
+        {
+          "text": "j"
+        },
+        {
+          "expect": "2:1"
+        },
+        {
+          "text": ":q"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 7,
+      "snapshot_rows": [
+        1,
+        29
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "main.txt": "ORIGINAL MAIN TOKEN\nProtected second line.\n",
+        "second.txt": "SECOND BUFFER TOKEN\nOriginal second bytes.\n",
+        "selection.txt": "alpha bravo charlie\nProtected neighboring line.\n",
+        "nested/notes café.txt": "NESTED NOTES TOKEN\nOther nested bytes.\n",
+        "protected.txt": "PROTECTED NEIGHBOR TOKEN\nNever change this file.\n",
+        "occupied/keep.txt": "OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 00: long text café 雪\nline 01: long text café 雪\nline 02: long text café 雪\nline 03: long text café 雪\nline 04: long text café 雪\nline 05: long text café 雪\nline 06: long text café 雪\nline 07: long text café 雪\nline 08: long text café 雪\nline 09: long text café 雪\nline 10: long text café 雪\nline 11: long text café 雪\nline 12: long text café 雪\nline 13: long text café 雪\nline 14: long text café 雪\nline 15: long text café 雪\nline 16: long text café 雪\nline 17: long text café 雪\nline 18: long text café 雪\nline 19: long text café 雪\nline 20: long text café 雪\nline 21: long text café 雪\nline 22: long text café 雪\nline 23: long text café 雪\nline 24: long text café 雪\nline 25: long text café 雪\nline 26: long text café 雪\nline 27: long text café 雪\nline 28: long text café 雪\nline 29: long text café 雪\nline 30: long text café 雪\nline 31: long text café 雪\nline 32: long text café 雪\nline 33: long text café 雪\nline 34: long text café 雪\nline 35: long text café 雪\nline 36: long text café 雪\nline 37: long text café 雪\nline 38: long text café 雪\nline 39: long text café 雪\nline 40: long text café 雪\nline 41: long text café 雪\nline 42: long text café 雪\nline 43: long text café 雪\nline 44: long text café 雪\nline 45: long text café 雪\nline 46: long text café 雪\nline 47: long text café 雪\nline 48: long text café 雪\nline 49: long text café 雪\nline 50: long text café 雪\nline 51: long text café 雪\nline 52: long text café 雪\nline 53: long text café 雪\nline 54: long text café 雪\nline 55: long text café 雪\nline 56: long text café 雪\nline 57: long text café 雪\nline 58: long text café 雪\nline 59: long text café 雪\n",
+        ".configuration/config.toml": "theme = \"base16_default_dark\"\n[editor]\nmouse = false\nauto-completion = false\npath-completion = false\nauto-format = false\nauto-info = false\nbufferline = \"always\"\ndefault-line-ending = \"lf\"\nclipboard-provider = \"none\"\neditor-config = false\nkitty-keyboard-protocol = \"disabled\"\ngutters = [\"line-numbers\", \"spacer\"]\n[editor.auto-save]\nfocus-lost = false\n[editor.auto-save.after-delay]\nenable = false\n[editor.lsp]\nenable = false\n[editor.statusline]\nleft = [\"mode\", \"file-name\", \"file-modification-indicator\"]\nright = [\"position\", \"file-encoding\", \"file-line-ending\"]\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Only transient bottom command/status messages are excluded. Content, buffer identity, mode and position remain in rows 1–29; explicit command outcomes and exact independent files complement the capture."
+    },
+    {
+      "name": "edge-no-match-recovery",
+      "kind": "edge",
+      "purpose": "Search for a missing token, cancel, and search a real noninitial line",
+      "command": [
+        "hx",
+        "--config",
+        ".configuration/config.toml",
+        "main.txt"
+      ],
+      "steps": [
+        {
+          "expect": "ORIGINAL MAIN TOKEN"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "ABSENT NEVER TOKEN"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "text": "n"
+        },
+        {
+          "expect": "No more matches"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": "No more matches"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": "search:"
+        },
+        {
+          "text": "Protected second line"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": "search:"
+        },
+        {
+          "expect": "Protected second line."
+        },
+        {
+          "text": ":q"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 14,
+      "snapshot_rows": [
+        1,
+        29
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "main.txt": "ORIGINAL MAIN TOKEN\nProtected second line.\n",
+        "second.txt": "SECOND BUFFER TOKEN\nOriginal second bytes.\n",
+        "selection.txt": "alpha bravo charlie\nProtected neighboring line.\n",
+        "nested/notes café.txt": "NESTED NOTES TOKEN\nOther nested bytes.\n",
+        "protected.txt": "PROTECTED NEIGHBOR TOKEN\nNever change this file.\n",
+        "occupied/keep.txt": "OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 00: long text café 雪\nline 01: long text café 雪\nline 02: long text café 雪\nline 03: long text café 雪\nline 04: long text café 雪\nline 05: long text café 雪\nline 06: long text café 雪\nline 07: long text café 雪\nline 08: long text café 雪\nline 09: long text café 雪\nline 10: long text café 雪\nline 11: long text café 雪\nline 12: long text café 雪\nline 13: long text café 雪\nline 14: long text café 雪\nline 15: long text café 雪\nline 16: long text café 雪\nline 17: long text café 雪\nline 18: long text café 雪\nline 19: long text café 雪\nline 20: long text café 雪\nline 21: long text café 雪\nline 22: long text café 雪\nline 23: long text café 雪\nline 24: long text café 雪\nline 25: long text café 雪\nline 26: long text café 雪\nline 27: long text café 雪\nline 28: long text café 雪\nline 29: long text café 雪\nline 30: long text café 雪\nline 31: long text café 雪\nline 32: long text café 雪\nline 33: long text café 雪\nline 34: long text café 雪\nline 35: long text café 雪\nline 36: long text café 雪\nline 37: long text café 雪\nline 38: long text café 雪\nline 39: long text café 雪\nline 40: long text café 雪\nline 41: long text café 雪\nline 42: long text café 雪\nline 43: long text café 雪\nline 44: long text café 雪\nline 45: long text café 雪\nline 46: long text café 雪\nline 47: long text café 雪\nline 48: long text café 雪\nline 49: long text café 雪\nline 50: long text café 雪\nline 51: long text café 雪\nline 52: long text café 雪\nline 53: long text café 雪\nline 54: long text café 雪\nline 55: long text café 雪\nline 56: long text café 雪\nline 57: long text café 雪\nline 58: long text café 雪\nline 59: long text café 雪\n",
+        ".configuration/config.toml": "theme = \"base16_default_dark\"\n[editor]\nmouse = false\nauto-completion = false\npath-completion = false\nauto-format = false\nauto-info = false\nbufferline = \"always\"\ndefault-line-ending = \"lf\"\nclipboard-provider = \"none\"\neditor-config = false\nkitty-keyboard-protocol = \"disabled\"\ngutters = [\"line-numbers\", \"spacer\"]\n[editor.auto-save]\nfocus-lost = false\n[editor.auto-save.after-delay]\nenable = false\n[editor.lsp]\nenable = false\n[editor.statusline]\nleft = [\"mode\", \"file-name\", \"file-modification-indicator\"]\nright = [\"position\", \"file-encoding\", \"file-line-ending\"]\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Only transient bottom command/status messages are excluded. Content, buffer identity, mode and position remain in rows 1–29; explicit command outcomes and exact independent files complement the capture."
+    },
+    {
+      "name": "edge-invalid-save",
+      "kind": "edge",
+      "purpose": "Attempt to save over an occupied directory, recover and preserve protected bytes",
+      "command": [
+        "hx",
+        "--config",
+        ".configuration/config.toml",
+        "main.txt"
+      ],
+      "steps": [
+        {
+          "expect": "ORIGINAL MAIN TOKEN"
+        },
+        {
+          "text": "%"
+        },
+        {
+          "text": "c"
+        },
+        {
+          "expect": "INS"
+        },
+        {
+          "text": "SAVE RECOVERY TOKEN"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect": "NOR"
+        },
+        {
+          "text": ":write occupied"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "file modified by an external process"
+        },
+        {
+          "text": ":write! main.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "'main.txt' written"
+        },
+        {
+          "text": ":q"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 13,
+      "snapshot_rows": [
+        1,
+        29
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "main.txt": "SAVE RECOVERY TOKEN\n",
+        "second.txt": "SECOND BUFFER TOKEN\nOriginal second bytes.\n",
+        "selection.txt": "alpha bravo charlie\nProtected neighboring line.\n",
+        "nested/notes café.txt": "NESTED NOTES TOKEN\nOther nested bytes.\n",
+        "protected.txt": "PROTECTED NEIGHBOR TOKEN\nNever change this file.\n",
+        "occupied/keep.txt": "OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 00: long text café 雪\nline 01: long text café 雪\nline 02: long text café 雪\nline 03: long text café 雪\nline 04: long text café 雪\nline 05: long text café 雪\nline 06: long text café 雪\nline 07: long text café 雪\nline 08: long text café 雪\nline 09: long text café 雪\nline 10: long text café 雪\nline 11: long text café 雪\nline 12: long text café 雪\nline 13: long text café 雪\nline 14: long text café 雪\nline 15: long text café 雪\nline 16: long text café 雪\nline 17: long text café 雪\nline 18: long text café 雪\nline 19: long text café 雪\nline 20: long text café 雪\nline 21: long text café 雪\nline 22: long text café 雪\nline 23: long text café 雪\nline 24: long text café 雪\nline 25: long text café 雪\nline 26: long text café 雪\nline 27: long text café 雪\nline 28: long text café 雪\nline 29: long text café 雪\nline 30: long text café 雪\nline 31: long text café 雪\nline 32: long text café 雪\nline 33: long text café 雪\nline 34: long text café 雪\nline 35: long text café 雪\nline 36: long text café 雪\nline 37: long text café 雪\nline 38: long text café 雪\nline 39: long text café 雪\nline 40: long text café 雪\nline 41: long text café 雪\nline 42: long text café 雪\nline 43: long text café 雪\nline 44: long text café 雪\nline 45: long text café 雪\nline 46: long text café 雪\nline 47: long text café 雪\nline 48: long text café 雪\nline 49: long text café 雪\nline 50: long text café 雪\nline 51: long text café 雪\nline 52: long text café 雪\nline 53: long text café 雪\nline 54: long text café 雪\nline 55: long text café 雪\nline 56: long text café 雪\nline 57: long text café 雪\nline 58: long text café 雪\nline 59: long text café 雪\n",
+        ".configuration/config.toml": "theme = \"base16_default_dark\"\n[editor]\nmouse = false\nauto-completion = false\npath-completion = false\nauto-format = false\nauto-info = false\nbufferline = \"always\"\ndefault-line-ending = \"lf\"\nclipboard-provider = \"none\"\neditor-config = false\nkitty-keyboard-protocol = \"disabled\"\ngutters = [\"line-numbers\", \"spacer\"]\n[editor.auto-save]\nfocus-lost = false\n[editor.auto-save.after-delay]\nenable = false\n[editor.lsp]\nenable = false\n[editor.statusline]\nleft = [\"mode\", \"file-name\", \"file-modification-indicator\"]\nright = [\"position\", \"file-encoding\", \"file-line-ending\"]\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Only transient bottom command/status messages are excluded. Content, buffer identity, mode and position remain in rows 1–29; explicit command outcomes and exact independent files complement the capture."
+    },
+    {
+      "name": "edge-resize-scroll",
+      "kind": "edge",
+      "purpose": "Repeatedly resize and navigate a long Unicode document without saving unwanted edits",
+      "command": [
+        "hx",
+        "--config",
+        ".configuration/config.toml",
+        "long.txt"
+      ],
+      "steps": [
+        {
+          "expect": "line 00: long text café 雪"
+        },
+        {
+          "resize": {
+            "width": 80,
+            "height": 24
+          }
+        },
+        {
+          "text": "ge"
+        },
+        {
+          "expect": "line 59: long text café 雪"
+        },
+        {
+          "resize": {
+            "width": 120,
+            "height": 35
+          }
+        },
+        {
+          "text": "gg"
+        },
+        {
+          "expect": "line 00: long text café 雪"
+        },
+        {
+          "resize": {
+            "width": 100,
+            "height": 30
+          }
+        },
+        {
+          "text": "ge"
+        },
+        {
+          "expect": "line 59: long text café 雪"
+        },
+        {
+          "text": ":q"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 10,
+      "snapshot_rows": [
+        1,
+        29
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "main.txt": "ORIGINAL MAIN TOKEN\nProtected second line.\n",
+        "second.txt": "SECOND BUFFER TOKEN\nOriginal second bytes.\n",
+        "selection.txt": "alpha bravo charlie\nProtected neighboring line.\n",
+        "nested/notes café.txt": "NESTED NOTES TOKEN\nOther nested bytes.\n",
+        "protected.txt": "PROTECTED NEIGHBOR TOKEN\nNever change this file.\n",
+        "occupied/keep.txt": "OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 00: long text café 雪\nline 01: long text café 雪\nline 02: long text café 雪\nline 03: long text café 雪\nline 04: long text café 雪\nline 05: long text café 雪\nline 06: long text café 雪\nline 07: long text café 雪\nline 08: long text café 雪\nline 09: long text café 雪\nline 10: long text café 雪\nline 11: long text café 雪\nline 12: long text café 雪\nline 13: long text café 雪\nline 14: long text café 雪\nline 15: long text café 雪\nline 16: long text café 雪\nline 17: long text café 雪\nline 18: long text café 雪\nline 19: long text café 雪\nline 20: long text café 雪\nline 21: long text café 雪\nline 22: long text café 雪\nline 23: long text café 雪\nline 24: long text café 雪\nline 25: long text café 雪\nline 26: long text café 雪\nline 27: long text café 雪\nline 28: long text café 雪\nline 29: long text café 雪\nline 30: long text café 雪\nline 31: long text café 雪\nline 32: long text café 雪\nline 33: long text café 雪\nline 34: long text café 雪\nline 35: long text café 雪\nline 36: long text café 雪\nline 37: long text café 雪\nline 38: long text café 雪\nline 39: long text café 雪\nline 40: long text café 雪\nline 41: long text café 雪\nline 42: long text café 雪\nline 43: long text café 雪\nline 44: long text café 雪\nline 45: long text café 雪\nline 46: long text café 雪\nline 47: long text café 雪\nline 48: long text café 雪\nline 49: long text café 雪\nline 50: long text café 雪\nline 51: long text café 雪\nline 52: long text café 雪\nline 53: long text café 雪\nline 54: long text café 雪\nline 55: long text café 雪\nline 56: long text café 雪\nline 57: long text café 雪\nline 58: long text café 雪\nline 59: long text café 雪\n",
+        ".configuration/config.toml": "theme = \"base16_default_dark\"\n[editor]\nmouse = false\nauto-completion = false\npath-completion = false\nauto-format = false\nauto-info = false\nbufferline = \"always\"\ndefault-line-ending = \"lf\"\nclipboard-provider = \"none\"\neditor-config = false\nkitty-keyboard-protocol = \"disabled\"\ngutters = [\"line-numbers\", \"spacer\"]\n[editor.auto-save]\nfocus-lost = false\n[editor.auto-save.after-delay]\nenable = false\n[editor.lsp]\nenable = false\n[editor.statusline]\nleft = [\"mode\", \"file-name\", \"file-modification-indicator\"]\nright = [\"position\", \"file-encoding\", \"file-line-ending\"]\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Only transient bottom command/status messages are excluded. Content, buffer identity, mode and position remain in rows 1–29; explicit command outcomes and exact independent files complement the capture."
+    }
+  ]
+}

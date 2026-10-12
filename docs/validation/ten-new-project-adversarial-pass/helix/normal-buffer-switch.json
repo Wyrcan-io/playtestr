@@ -1,0 +1,87 @@
+{
+  "version": 2,
+  "name": "Switch to a second buffer, save a real change and return to the first",
+  "command": [
+    "hx",
+    "--config",
+    ".configuration/config.toml",
+    "main.txt",
+    "second.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "ORIGINAL MAIN TOKEN"
+    },
+    {
+      "text": ":buffer-next"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "SECOND BUFFER TOKEN"
+    },
+    {
+      "text": "%"
+    },
+    {
+      "text": "c"
+    },
+    {
+      "expect": "INS"
+    },
+    {
+      "text": "SECOND REVISED TOKEN"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect": "NOR"
+    },
+    {
+      "text": ":w"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "'second.txt' written"
+    },
+    {
+      "text": ":buffer-previous"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "ORIGINAL MAIN TOKEN"
+    },
+    {
+      "snapshot": "normal-buffer-switch.rows.json"
+    },
+    {
+      "text": ":q"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

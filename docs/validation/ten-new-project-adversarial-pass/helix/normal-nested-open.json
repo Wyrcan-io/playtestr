@@ -1,0 +1,77 @@
+{
+  "version": 2,
+  "name": "Open a spaced Unicode path through the command prompt and edit its content",
+  "command": [
+    "hx",
+    "--config",
+    ".configuration/config.toml",
+    "main.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "ORIGINAL MAIN TOKEN"
+    },
+    {
+      "text": ":open \"nested/notes café.txt\""
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "NESTED NOTES TOKEN"
+    },
+    {
+      "text": "%"
+    },
+    {
+      "text": "c"
+    },
+    {
+      "expect": "INS"
+    },
+    {
+      "text": "NESTED REVISED TOKEN"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect": "NOR"
+    },
+    {
+      "text": ":w"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "notes café.txt' written"
+    },
+    {
+      "snapshot": "normal-nested-open.rows.json"
+    },
+    {
+      "text": ":q"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

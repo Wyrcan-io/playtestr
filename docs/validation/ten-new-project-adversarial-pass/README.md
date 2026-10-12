@@ -9,7 +9,16 @@ and 120 separate state executions per host. lf completed its development pass at
 `cb34cc3f8bc7d90eabca2b5cb6db233b571939ef` / native run `38311988432`: all five
 jobs passed, including 120 ordinary plus 120 separate state executions per
 Linux/Windows host, actual mutations, restoration and verified owned teardown.
-Superfile is now the sole active application. The earlier lf investigation follows:
+Superfile completed Linux/macOS development qualification at
+`4c90d39ba32489cae2db89565690c14abe3d7165` / `38319592021`, with 120 ordinary
+and 120 separate state executions per host, actual faults/restoration and
+confirmed hosted and local teardown. All three native core jobs and standard
+smoke passed. Windows superfile remains unqualified because a real repetition
+failed and its pinned input dependency has a confirmed data race. The explicit
+host adjustment adds Windows to Glow's planned matrix; that future gate is not
+yet satisfied. Helix is now the sole active application. Four development
+projects are complete; final frozen-source credit remains zero.
+The earlier lf investigation follows:
 its twelve reviewed contracts passed 120 local Windows ordinary repetitions
 plus 120 state executions and exploratory WSL ordinary/state checks. Hosted
 source `5188978057d4a31aaf752a1dafb9fbb73488f1ea` passed all three product-control
@@ -19,7 +28,7 @@ hosts at `425288a`, but their first scenario then accurately failed because Git
 omitted the empty synthetic fixture directories. The declared directory
 prerequisite passed a real local before/after regression with unchanged
 contracts; the successful native run above subsequently verified that repair.
-Final single-source campaign qualification and the remaining seven development
+Final single-source campaign qualification and the remaining six development
 journeys are pending; completed full-product launch credit remains zero.
 
 The original `attempts.jsonl` is frozen after a diagnosed concurrent append

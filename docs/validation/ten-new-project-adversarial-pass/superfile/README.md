@@ -1,4 +1,4 @@
-# Superfile development validation — in progress
+# Superfile development validation — complete; final freeze pending
 
 Pinned MIT source: `yorukot/superfile` at
 `66fe169b87021f7424522ed5aadd711c5676601e`. The target uses Bubble Tea v2;
@@ -10,9 +10,10 @@ needed for the admitted workflows. Targets remain trusted, unsandboxed programs.
 Six normal and six edge scenarios have been recorded, inspected and replayed
 through the public Windows recorder and CLI. Each also has a separate exact
 file-state probe in its actual fresh managed workspace. These development
-results do not qualify native hosted Linux/Windows or the final frozen campaign.
-The same twelve ordinary contracts and separate state probes subsequently passed
-WSL exploration without baseline variants. Native hosted qualification is pending.
+results did not by themselves qualify a native hosted campaign. The same twelve
+ordinary contracts and separate state probes subsequently passed WSL exploration
+without baseline variants. Hosted Linux/macOS later completed the development
+qualification documented below; final frozen-source qualification is pending.
 
 Normal workflows rename a spaced Unicode filename, search a noninitial nested
 file and read its preview, create a nested Unicode file, copy across panels,
@@ -46,7 +47,8 @@ migration documentation updated. Ten native Windows and ten WSL reduced
 controls verified all 26 exact bytes. A Windows helper initially interpreted
 Ctrl+Z as Go standard-input EOF; its test-only reader now observes the native
 console bytes directly. This is a helper correction, not a ConPTY data-loss
-claim. Three-native-OS checks of the current source remain required.
+claim. Native Linux/macOS/Windows checks of this repair subsequently passed
+at sources `e2a6b8c` and `4c90d39`.
 
 Two actual source mutations—wrong rename destination and search cancellation
 that retains the no-match filter—were detected without contract changes. A
@@ -63,8 +65,8 @@ suffix rerecord passed while preserving primary contracts. The prepared public
 operator route used four commands and 17 recorder controls with no manual JSON
 edits; 4.094 seconds excludes acquisition, engineering and prior corrections.
 It is an automated warm-cache operator measurement, not beginner authoring time.
-Native repetitions, teardown and final single-source qualification remain
-pending. This report makes no beginner
+Native development repetitions and owned teardown completed at `4c90d39`.
+Final single-source qualification remains pending. This report makes no beginner
 usability, complete application coverage or launch-readiness claim.
 
 First native run `38317936008` at `e2a6b8c` passed all three product-control
@@ -75,7 +77,13 @@ regression reproduced this timing-dependent recorder defect. The general fix
 retains the screen before the first input since the last checkpoint, including
 prefix reconstruction, while still rejecting captions unchanged throughout the
 sequence. The same reviewed superfile contract passed ten fresh Windows state
-probes after the fix. Native requalification remains required.
+probes after the fix. Native requalification subsequently passed all three
+core jobs at `4c90d39` / `38319592021`; the same run completed 120 ordinary
+and 120 separate state repetitions on Linux and macOS, actual faults,
+restoration and confirmed owned teardown. Local Windows/WSL source, binaries,
+dependencies and retained diagnostic workspaces were also removed. Exact
+host/runner identities are in [the result](result.json) and compact actual
+evidence in [the native manifest](../native/38319592021/manifest.json).
 
 Windows ordinary copy repetition six instead timed out with an unrequested
 help overlay. A separately race-instrumented, otherwise unchanged target

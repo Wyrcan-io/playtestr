@@ -1,0 +1,24 @@
+[
+  {
+    "name": "write-diverted-to-unrequested-name",
+    "case": "normal-create-name",
+    "file": "helix-term/src/commands/typed.rs",
+    "old": "let path: Option<PathBuf> = path.map(Into::into);",
+    "new": "let path: Option<PathBuf> = path.map(|name| PathBuf::from(format!(\"{name}.unexpected\")));"
+  },
+  {
+    "name": "ordinary-quit-discards-unsaved",
+    "case": "edge-unsaved-quit",
+    "file": "helix-term/src/commands/typed.rs",
+    "old": "if cx.editor.tree.views().count() == 1 {\n        buffers_remaining_impl(cx.editor)?\n    }",
+    "new": "if cx.editor.tree.views().count() == 0 {\n        buffers_remaining_impl(cx.editor)?\n    }"
+  },
+  {
+    "name": "silent-saved-document-corruption",
+    "case": "normal-project",
+    "file": "helix-term/src/application.rs",
+    "old": "self.editor\n            .set_doc_path(doc_save_event.doc_id, &doc_save_event.path);",
+    "new": "let _ = std::fs::write(&doc_save_event.path, b\"CORRUPTED SAVED DOCUMENT\\n\");\n        self.editor\n            .set_doc_path(doc_save_event.doc_id, &doc_save_event.path);",
+    "state_only": true
+  }
+]

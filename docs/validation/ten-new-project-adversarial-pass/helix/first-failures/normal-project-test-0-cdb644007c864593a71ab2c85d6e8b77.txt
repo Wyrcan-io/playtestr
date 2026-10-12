@@ -1,0 +1,37 @@
+Artifacts: artifacts\ten-new-project-adversarial-pass\helix\normal-project-test-0-1791847368858192100\20261012T232249Z-1608678322
+  PASS step 1
+  PASS step 2
+  PASS step 3
+  PASS step 4
+  PASS step 5
+  PASS step 6
+  PASS step 7
+  PASS step 8
+  PASS step 9
+Cleanup: process tree stopped (forced, windows-job-object)
+Diff saved: artifacts\ten-new-project-adversarial-pass\helix\normal-project-test-0-1791847368858192100\20261012T232249Z-1608678322\testr-docs-validation-ten-new-project-adversarial-pass-helix-normal-project.json-4bc3aba9f82a.diff.txt
+Screen saved: artifacts\ten-new-project-adversarial-pass\helix\normal-project-test-0-1791847368858192100\20261012T232249Z-1608678322\testr-docs-validation-ten-new-project-adversarial-pass-helix-normal-project.json-4bc3aba9f82a.actual.txt
+FAIL Replace and save a complete Unicode document while preserving its neighbor: step 10: snapshot "normal-project.rows.json" did not match
+--- expected: normal-project.rows.json
++++ actual: normal-project.rows.json
+@@ -1,6 +1,5 @@
+  main.txt
+-  1 Reviewed project café 雪
+-  2 Protected second line.
++  1 Reviewed project café 雪Protected second line.
+   ~
+ 
+ 
+@@ -26,4 +25,5 @@
+ 
+ 
+ 
+- NOR  main.txt                                                                             2:23  LF
++
++ NOR  main.txt                                                                             1:46  LF
+
+Report saved: artifacts\ten-new-project-adversarial-pass\helix\normal-project-test-0-1791847368858192100.json
+Suite: total=1 passed=0 failed=1 cancelled=0 not-run=0
+  C:/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-new-project-adversarial-pass/helix/normal-project.json status=failed category=snapshot_mismatch step=10
+    screen: artifacts\ten-new-project-adversarial-pass\helix\normal-project-test-0-1791847368858192100\20261012T232249Z-1608678322\testr-docs-validation-ten-new-project-adversarial-pass-helix-normal-project.json-4bc3aba9f82a.actual.txt
+    diff: artifacts\ten-new-project-adversarial-pass\helix\normal-project-test-0-1791847368858192100\20261012T232249Z-1608678322\testr-docs-validation-ten-new-project-adversarial-pass-helix-normal-project.json-4bc3aba9f82a.diff.txt

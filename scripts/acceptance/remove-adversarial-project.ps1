@@ -1,5 +1,6 @@
 param([Parameter(Mandatory=$true)][string]$Project,
-    [string]$QualificationPath='')
+    [string]$QualificationPath='',
+    [switch]$Exploratory)
 $ErrorActionPreference='Stop'
 if ($Project -notmatch '^[a-z0-9-]+$') { throw 'Invalid owned application name' }
 if (-not $QualificationPath) { $QualificationPath = Join-Path 'artifacts/ten-new-project-adversarial-pass' ('native-'+$Project+'-Windows.json') }
@@ -9,8 +10,16 @@ $target=(Resolve-Path -LiteralPath (Join-Path $root $Project)).Path
 if ($target -ne (Join-Path $root $Project) -or -not $target.StartsWith($root+[IO.Path]::DirectorySeparatorChar)) { throw 'Unsafe deletion target' }
 $owner=Get-Content -LiteralPath (Join-Path $target 'task-owned.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 if ($owner.campaign -ne 'ten-new-project-adversarial-pass' -or $owner.workspace -ne $workspace -or $owner.project -ne $Project) { throw 'Unknown target ownership' }
-$qualification=Get-Content -LiteralPath $QualificationPath -Raw -Encoding UTF8 | ConvertFrom-Json
-if ($qualification.project -ne $Project -or $qualification.scenarios -lt 10 -or $qualification.terminal_repetitions -ne (10*$qualification.scenarios)) { throw 'Native evidence incomplete' }
+if ($Exploratory) {
+    $taskProductSource=git rev-parse HEAD
+    if ($LASTEXITCODE -ne 0) { throw 'Cannot identify exploratory cleanup source' }
+    $taskCleanupScope='Local exploratory teardown only; no native project qualification granted'
+} else {
+    $qualification=Get-Content -LiteralPath $QualificationPath -Raw -Encoding UTF8 | ConvertFrom-Json
+    if ($qualification.project -ne $Project -or $qualification.scenarios -lt 10 -or $qualification.terminal_repetitions -ne (10*$qualification.scenarios)) { throw 'Native evidence incomplete' }
+    $taskProductSource=$qualification.source
+    $taskCleanupScope='Teardown following native development qualification'
+}
 $actualRevision=git -C (Join-Path $target 'source') rev-parse HEAD
 if ($LASTEXITCODE -ne 0 -or $actualRevision -ne $owner.source_sha) { throw 'Owned source revision differs' }
 $dirtySource=git -C (Join-Path $target 'source') status --porcelain --untracked-files=no
@@ -41,5 +50,5 @@ public static class PlaytestrAdversarialLinks {
 }
 Remove-Item -LiteralPath $target -Recurse -Force
 if (Test-Path -LiteralPath $target) { throw 'Owned application deletion failed' }
-@{ project=$Project; removed=$true; canonical_target=$target; process_check='no owned references'; native_host='Windows'; source=$qualification.source } | ConvertTo-Json | Set-Content -LiteralPath 'artifacts/ten-new-project-adversarial-pass/cleanup-Windows.json' -Encoding UTF8
+@{ project=$Project; removed=$true; canonical_target=$target; process_check='no owned references'; native_host='Windows'; source=$taskProductSource; scope=$taskCleanupScope } | ConvertTo-Json | Set-Content -LiteralPath 'artifacts/ten-new-project-adversarial-pass/cleanup-Windows.json' -Encoding UTF8
 Write-Output 'Owned application removed after native evidence and process checks'

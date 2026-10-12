@@ -2,6 +2,38 @@
 
 No batch completion or final qualification is claimed.
 
+H23 — owned Rust setup: Rustup installed the requested private compiler but
+then failed attempting self-update in a private Cargo home without the global
+bootstrap. `--no-self-update` keeps the existing bootstrap untouched. WSL Cargo
+then chose system Rust 1.75 although direct Rustup execution reported 1.97.1.
+The recipe resolves and validates the canonical owned compiler and sets Cargo's
+explicit RUSTC/RUSTDOC paths. Actual Windows and WSL builds passed with exact
+1.97.1. MSVC's ordinary binary included a wall-clock PE timestamp; `/Brepro`
+enabled exact Windows executable restoration, proved by the first actual
+source mutation/restoration control. [Retained prerequisite failures](helix/setup-first-failures.json).
+
+H24 — terminal authoring semantics: Helix retained one final newline when
+changing a whole-buffer selection; the first pasted body added an unwanted
+blank line detected by the independent file probe. Its Windows input path
+ignored literal LF as logical Enter. Explicit named Enter between lines
+preserves the unchanged intended file bytes. On Unix, Escape followed directly
+by a command could parse as a combined sequence. INS/NOR checkpoints and a
+previously observed error's disappearance express actual readiness without
+sleeps. Historical contracts and first failures remain retained. These are
+target-input/authoring findings, not a raw-byte transport or automatic-paste
+normalization claim. One nested-path case preserves genuine host slash spelling
+through an explicit Unix baseline; it is still one scenario.
+
+H25 — intended maintenance: a changed document title also needs its explicitly
+associated positive checkpoint updated before testing the old snapshot. The
+maintenance helper now permits an explicitly selected assertion edit with the
+new input, while preserving all primary contracts. The initial early assertion
+failure remains in the ledger; meaningful snapshot mismatch/update recovery,
+diagnosis and relocation subsequently passed. The prepared Helix operator route
+used four commands and twenty recorder controls with no manual JSON edits,
+excluding earlier setup/engineering/corrections. No assertion is inferred or
+silently changed, and no independent beginner study is claimed.
+
 P08 — recorder input sequence / high: native Linux state probe
 `9509488d4ad2435b84f029ee8bfb99bc` rejected a genuinely new search result
 because the target rendered it before the following Enter confirmation. The
@@ -13,7 +45,8 @@ The general repair retains the first screen in an uncheckpointed input sequence;
 prefix reconstruction uses the same rule. Unchanged initial captions and a
 later already-satisfied result remain rejected. Contracts were not edited.
 Full Go/vet, native Windows race and public examples passed; native
-three-OS requalification of this later repair is pending.
+three-OS requalification passed at `4c90d39` / `38319592021`. The same run
+qualified superfile's Linux/macOS development journeys and confirmed teardown.
 
 T01 — target dependency / high: hosted Windows copy repetition six failed
 with an unrequested help overlay. A separate race-instrumented build of the

@@ -1,0 +1,11 @@
+--- a/helix-term/src/commands/typed.rs
++++ b/helix-term/src/commands/typed.rs
+@@ -402,7 +402,7 @@
+ 
+     let auto_format = config.auto_format && options.auto_format;
+     let force = options.force;
+-    let path: Option<PathBuf> = path.map(Into::into);
++    let path: Option<PathBuf> = path.map(|name| PathBuf::from(format!("{name}.unexpected")));
+ 
+     // Does the document configure any code actions to run on save?
+     let run_code_actions = options.code_actions

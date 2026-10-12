@@ -11,7 +11,7 @@ from adversarial_journey import recorder
 from adversarial_setup_go import build
 
 
-def main():
+def main(*,rust=False):
     parser=argparse.ArgumentParser()
     parser.add_argument('--project',required=True)
     parser.add_argument('--runtime',type=Path)
@@ -20,17 +20,28 @@ def main():
     package=DOC/args.project
     app=args.runtime or ROOT/'.cache/ten-new-project-apps'/args.project
     identity=json.loads((app/'runtime.json').read_text(encoding='utf-8'))
+    if rust:
+        from adversarial_setup_rust import build as rust_build
+        if not identity.get('toolchain','').startswith('rustc '):
+            raise RuntimeError('Rust mutation adapter requires an identified Rust target')
+        def build_target(directory,project):
+            return rust_build(directory,project,clean_package=True)
+    else:
+        if not identity.get('toolchain','').startswith('go version '):
+            raise RuntimeError('Go mutation adapter requires an identified Go target')
+        build_target=build
     source=Path(identity['source_path'])
     source.relative_to(app)
     env=dict(os.environ,PATH=identity['path']+os.pathsep+os.environ['PATH'])
     config=json.loads((package/'scenarios.json').read_text(encoding='utf-8'))
-    suffix=config.get('baseline_suffix_by_host',{}).get(__import__('platform').system(),'')
     instructions=json.loads((package/'faults/definitions.json').read_text(encoding='utf-8'))
     controls=[]
     for mutation in instructions:
         name=mutation['name']
         case_name=mutation['case']
-        case=dict(next(c for c in config['cases'] if c['name']==case_name),name=case_name+suffix)
+        original_case=next(c for c in config['cases'] if c['name']==case_name)
+        suffix=original_case.get('baseline_suffix_by_host',config.get('baseline_suffix_by_host',{})).get(__import__('platform').system(),'')
+        case=dict(original_case,name=case_name+suffix)
         spec=package/(case['name']+'.json')
         contracts=[spec,*(package/'snapshots').glob('*')]
         digests={str(p.relative_to(package)):hashlib.sha256(p.read_bytes()).hexdigest() for p in contracts if p.is_file()}
@@ -53,7 +64,7 @@ def main():
         report=RAW/args.project/(label+'.json')
         try:
             path.write_bytes(modified.encode('utf-8'))
-            mutated_identity=build(app,args.project)
+            mutated_identity=build_target(app,args.project)
             fault['mutated_target_binary_sha256']=mutated_identity['binary_sha256']
             state_only=mutation.get('state_only',False)
             result=run([args.binary,'test','--report',report.relative_to(ROOT),
@@ -81,7 +92,7 @@ def main():
         finally:
             path.write_bytes(original)
             os.utime(path,ns=(stat.st_atime_ns,stat.st_mtime_ns))
-            restored_identity=build(app,args.project)
+            restored_identity=build_target(app,args.project)
         if path.read_bytes()!=original or restored_identity['binary_sha256']!=before_binary:
             raise RuntimeError('Source or reproducible target binary was not restored exactly')
         if {str(p.relative_to(package)):hashlib.sha256(p.read_bytes()).hexdigest() for p in contracts if p.is_file()}!=digests:

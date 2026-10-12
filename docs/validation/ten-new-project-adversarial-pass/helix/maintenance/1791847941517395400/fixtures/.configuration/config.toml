@@ -1,0 +1,22 @@
+theme = "base16_default_dark"
+[editor]
+mouse = false
+auto-completion = false
+path-completion = false
+auto-format = false
+auto-info = false
+bufferline = "always"
+default-line-ending = "lf"
+clipboard-provider = "none"
+editor-config = false
+kitty-keyboard-protocol = "disabled"
+gutters = ["line-numbers", "spacer"]
+[editor.auto-save]
+focus-lost = false
+[editor.auto-save.after-delay]
+enable = false
+[editor.lsp]
+enable = false
+[editor.statusline]
+left = ["mode", "file-name", "file-modification-indicator"]
+right = ["position", "file-encoding", "file-line-ending"]

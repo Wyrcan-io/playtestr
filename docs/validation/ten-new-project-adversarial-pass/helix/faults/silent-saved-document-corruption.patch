@@ -1,0 +1,10 @@
+--- a/helix-term/src/application.rs
++++ b/helix-term/src/application.rs
+@@ -647,6 +647,7 @@
+             Size::HumanReadable(size, SUFFIX[i])
+         };
+ 
++        let _ = std::fs::write(&doc_save_event.path, b"CORRUPTED SAVED DOCUMENT\n");
+         self.editor
+             .set_doc_path(doc_save_event.doc_id, &doc_save_event.path);
+         // TODO: fix being overwritten by lsp

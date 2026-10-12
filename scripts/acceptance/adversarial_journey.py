@@ -188,7 +188,7 @@ def main():
     if not cases:
         raise RuntimeError('Empty case selection')
     for case in cases:
-        suffix=config.get('baseline_suffix_by_host',{}).get(platform.system(),'')
+        suffix=case.get('baseline_suffix_by_host',config.get('baseline_suffix_by_host',{})).get(platform.system(),'')
         if suffix:
             case=dict(case,name=case['name']+suffix)
         elif case['name']=='edge-cancel-after-edit' and os.name!='nt':

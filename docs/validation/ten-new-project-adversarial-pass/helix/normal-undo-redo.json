@@ -1,0 +1,83 @@
+{
+  "version": 2,
+  "name": "Undo and redo a substantive edit before saving its exact final bytes",
+  "command": [
+    "hx",
+    "--config",
+    ".configuration/config.toml",
+    "main.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "ORIGINAL MAIN TOKEN"
+    },
+    {
+      "text": "%"
+    },
+    {
+      "text": "c"
+    },
+    {
+      "expect": "INS"
+    },
+    {
+      "text": "UNDO REDO TOKEN"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect": "NOR"
+    },
+    {
+      "expect": "UNDO REDO TOKEN"
+    },
+    {
+      "text": "u"
+    },
+    {
+      "expect": "ORIGINAL MAIN TOKEN"
+    },
+    {
+      "text": "U"
+    },
+    {
+      "expect": "UNDO REDO TOKEN"
+    },
+    {
+      "text": ":w"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "'main.txt' written"
+    },
+    {
+      "snapshot": "normal-undo-redo.rows.json"
+    },
+    {
+      "text": ":q"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

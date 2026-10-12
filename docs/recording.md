@@ -41,6 +41,15 @@ Use unique, meaningful content identifying the new state. The recorder rejects a
 
 Maintenance is practical and explicit: `/delete N`, `/move N M` or `/replace N {"expect":"..."}` edits 1-based steps, validates the entire resulting sequence and invalidates replay. `/rerecord N` keeps the first N steps, starts fresh and reconstructs the prefix before accepting a replacement suffix. `/rerecord 0` starts over. To maintain an existing exported spec, edit its ordinary JSON and use `playtestr test`; update only an intentional named snapshot with `test --update --snapshot name.txt spec.json`, then inspect the diff. The recorder does not bulk-overwrite an existing suite.
 
+Use `/key Enter` for a logical Enter event between typed lines. Literal LF and
+Enter are different terminal inputs; a target may interpret or ignore LF
+differently across platforms. After Escape changes an editor mode or closes a
+prompt, checkpoint the observed mode or a previously asserted prompt's
+disappearance before typing the next command. This avoids treating Escape and
+the following characters as one combined key sequence. For an intended input
+change, explicitly adjust an associated content checkpoint when needed before
+reviewing the resulting snapshot mismatch; do not weaken unrelated assertions.
+
 The wizard target checks its file before its success marker. The native acceptance harness also independently reads `result.txt` and compares it with the expected synthetic bytes while the recorder's managed workspace still exists, before replay/cleanup. That host-side oracle is bounded and specific to this example; it is not a new general filesystem assertion or a guarantee that an arbitrary target saved correct state. Existing independent state harnesses remain necessary for other applications. No postcondition hooks or new public spec version were added.
 
 After successful rerecording, the console prints the resolved target and new working directory again. A managed workspace is recreated, so use this latest identity when independently inspecting synthetic saved state; the previous directory has already been cleaned up.

@@ -1,0 +1,59 @@
+{
+  "version": 2,
+  "name": "Cancel a partially entered destructive command and continue with intact files",
+  "command": [
+    "hx",
+    "--config",
+    ".configuration/config.toml",
+    "main.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "ORIGINAL MAIN TOKEN"
+    },
+    {
+      "text": ":quit!"
+    },
+    {
+      "expect": ":quit!"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": ":quit!"
+    },
+    {
+      "text": "j"
+    },
+    {
+      "expect": "2:1"
+    },
+    {
+      "snapshot": "edge-cancel-command.rows.json"
+    },
+    {
+      "text": ":q"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

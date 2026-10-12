@@ -1,0 +1,155 @@
+Setup: output="/mnt/c/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-new-project-adversarial-pass/helix/normal-buffer-switch.json" argv=["hx" "--config" ".configuration/config.toml" "main.txt" "second.txt"] cwd="" fixture="fixtures" viewport=100x30 timeout=10000ms budget=120000ms output-cap=2000000
+Recorder controls (target input is separate):
+  /live                       type into the target; Ctrl+G returns to controls
+  /key ArrowDown              send a supported named key
+  /text "hello"               send JSON-quoted text/paste (literal Ctrl+G: "\u0007")
+  /expect unique new content  positive readiness checkpoint
+  /absent previous content    disappearance of previously asserted content
+  /exit 0                     exact expected exit code
+  /snapshot name.txt          capture a ready, settled screen
+  /resize 100 30; /redraw     resize and optional observed redraw wait
+  /snapshot-rows name.rows.json 2 24  capture reviewed inclusive viewport rows
+  /screen; /review            inspect screen or full candidate/baselines
+  /delete N; /move N M         edit 1-based step positions
+  /replace N {"expect":"..."} replace a step with one strict JSON action
+  /rerecord N                 fresh target, retain/reconstruct first N steps
+  /replay; /save               reviewed fresh replay, then export new files
+  /quit                       cancel without export
+No target input or raw draft is saved automatically. Review may display sensitive
+text the target printed or you typed. Targets run with your permissions.
+Resolved target="/var/tmp/playtestr-adversarial-helix/bin/hx" working-directory="/tmp/playtestr-workspace-4150888638/fixture"
+record> record> record> record> record> record> record> record> record> record> record> record> record> record> record> record> record> record> record> {
+  "version": 2,
+  "name": "Switch to a second buffer, save a real change and return to the first",
+  "command": [
+    "hx",
+    "--config",
+    ".configuration/config.toml",
+    "main.txt",
+    "second.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "ORIGINAL MAIN TOKEN"
+    },
+    {
+      "text": ":buffer-next"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "SECOND BUFFER TOKEN"
+    },
+    {
+      "text": "%"
+    },
+    {
+      "text": "c"
+    },
+    {
+      "text": "SECOND REVISED TOKEN"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "text": ":w"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "'second.txt' written"
+    },
+    {
+      "text": ":buffer-previous"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "ORIGINAL MAIN TOKEN"
+    },
+    {
+      "snapshot": "normal-buffer-switch.rows.json"
+    },
+    {
+      "text": ":q"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}
+
+Baseline normal-buffer-switch.rows.json:
+{
+  "snapshot_version": 1,
+  "first_row": 1,
+  "last_row": 29,
+  "text": " main.txt  second.txt\n  1 ORIGINAL MAIN TOKEN\n  2 Protected second line.\n  ~\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n NOR  main.txt                                                                              1:1  LF\n"
+}
+
+record>   PASS step 1
+  PASS step 2
+  PASS step 3
+  PASS step 4
+  PASS step 5
+  PASS step 6
+  PASS step 7
+  PASS step 8
+  PASS step 9
+  PASS step 10
+Cleanup: process tree stopped (forced, unix-process-group)
+First failed replay: assertion_timeout
+ main.txt  second.txt[+]
+  1 SECOND REVISED TOKEN:w
+  2
+  ~
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ INS  second.txt [+]                                                                        2:1  LF
+
+Recorder: Switch to a second buffer, save a real change and return to the first: step 11: step timed out: context deadline exceeded
+record> Recorder: review and successfully replay the current candidate before export
+record> [0m[?25h

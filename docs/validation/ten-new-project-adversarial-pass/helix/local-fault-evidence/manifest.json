@@ -1,0 +1,145 @@
+{
+  "records": [
+    {
+      "control": {
+        "name": "ordinary-quit-discards-unsaved",
+        "source_file": "helix-term/src/commands/typed.rs",
+        "original_sha256": "d3fac446e46ba4add017104b268ec92b3fc224a72d10a22dcd636e8217b8de16",
+        "mutated_sha256": "bb92f59f64f27398f538a7009032949f73b20c22fd964e36ec85f66c5f6a7c9a",
+        "case": "edge-unsaved-quit",
+        "pristine_target_binary_sha256": "d76d311e3b97e963e71de19ae709e033370054a0b5257b68294245fe4e48aef6",
+        "mutated_target_binary_sha256": "633d2c8cc52363d0f13e98a2536e3f3bb0bd0956d5c3e6ac28b812305d975251",
+        "category": "unexpected_exit",
+        "evidence_id": "df755b065b0f467e90939e445f02bad3",
+        "report": "artifacts/ten-new-project-adversarial-pass/helix/ordinary-quit-discards-unsaved-1791848305274949300.json",
+        "restored": true,
+        "recovery_id": "434ac11644aa46db90901c5c5702423b",
+        "contracts_unchanged": true,
+        "restored_target_binary_sha256": "d76d311e3b97e963e71de19ae709e033370054a0b5257b68294245fe4e48aef6"
+      },
+      "retained": {
+        "ordinary-quit-discards-unsaved-1791848305274949300-control.json": "e113bb3119505bd34914442cbbc360395c4fe354521d0437bee8b2457d57a702",
+        "ordinary-quit-discards-unsaved-1791848305274949300-control-report.json": "8f6836528d0e225a926927f12d8bfd042593a86feb4f243d339e5d60b381b57f",
+        "ordinary-quit-discards-unsaved-1791848305274949300-control-screen_path.txt": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      }
+    },
+    {
+      "control": {
+        "name": "ordinary-quit-discards-unsaved",
+        "source_file": "helix-term/src/commands/typed.rs",
+        "original_sha256": "078cfda1378b119f1da695033f3a7a5c505a2f21d7c89db2ac57ff60e0d72c3f",
+        "mutated_sha256": "bb92f59f64f27398f538a7009032949f73b20c22fd964e36ec85f66c5f6a7c9a",
+        "case": "edge-unsaved-quit",
+        "pristine_target_binary_sha256": "1acaec08a84cbda245d750ff6c13a3933608c7ffb31e2db0f251302774158acc",
+        "mutated_target_binary_sha256": "3c7f992787625a258c0b27e8a1b597cb5b6d8ea843c0c61e358a43adccb59331",
+        "category": "unexpected_exit",
+        "evidence_id": "0af2e638fcf2459ba8133c0496e1a7c5",
+        "report": "artifacts/ten-new-project-adversarial-pass/helix/ordinary-quit-discards-unsaved-1791848513254456966.json",
+        "restored": true,
+        "recovery_id": "b0c4a2ad74334dd2b3680225e0e525bb",
+        "contracts_unchanged": true,
+        "restored_target_binary_sha256": "1acaec08a84cbda245d750ff6c13a3933608c7ffb31e2db0f251302774158acc"
+      },
+      "retained": {
+        "ordinary-quit-discards-unsaved-1791848513254456966-control.json": "7f5c531730fb89ec3955582dfc2a77aa5c97c4e7bb91a682bd7df1b88bb44ec8",
+        "ordinary-quit-discards-unsaved-1791848513254456966-control-report.json": "23a6cb5c5ef2f864cacd638071c7b355afce801f3937e5590894ee17584c5a3d",
+        "ordinary-quit-discards-unsaved-1791848513254456966-control-screen_path.txt": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      }
+    },
+    {
+      "control": {
+        "name": "silent-saved-document-corruption",
+        "source_file": "helix-term/src/application.rs",
+        "original_sha256": "be84d711463334e83725302c4a65d0b80aefa113fbd281878de6a664a5e2d66c",
+        "mutated_sha256": "9b732b93767aa09b3f8a2a5902b0c13a0e9a93931885f418e1225dad12ed1ae1",
+        "case": "normal-project",
+        "pristine_target_binary_sha256": "1acaec08a84cbda245d750ff6c13a3933608c7ffb31e2db0f251302774158acc",
+        "mutated_target_binary_sha256": "07508673778a8a42169379005f26225a0c7910027a07b9e0cf8ffcc946ad5b7c",
+        "state_oracle_detected": true,
+        "state_probe_evidence_id": "4f6108826e3645878dac2ca282fdb926",
+        "evidence_id": "3c9bc1852b1c49b38ebea67a5af95750",
+        "report": "artifacts/ten-new-project-adversarial-pass/helix/silent-saved-document-corruption-1791848715553567012.json",
+        "restored": true,
+        "recovery_id": "284c08d7220646618e48a6df32ce5f67",
+        "contracts_unchanged": true,
+        "restored_target_binary_sha256": "1acaec08a84cbda245d750ff6c13a3933608c7ffb31e2db0f251302774158acc"
+      },
+      "retained": {
+        "silent-saved-document-corruption-1791848715553567012-control.json": "36c06bbc9f3219dd29c4175d1c3abb03668fd1b1d379889ea4c3f7b1ba7e5b1f",
+        "silent-saved-document-corruption-1791848715553567012-control-report.json": "5b68afa0eff48b71bd55f5468ce2966ae1438fed2a2511b9453504a042a40e63",
+        "silent-saved-document-corruption-1791848715553567012-control-state-error.json": "20a2c6066e4dadde66492fe074ec538d7cc329da6a580e47fb01210e26c3ffbc"
+      }
+    },
+    {
+      "control": {
+        "name": "silent-saved-document-corruption",
+        "source_file": "helix-term/src/application.rs",
+        "original_sha256": "ab64c1d4efacee853ebd4af29d17b93cc877804dc90eecbd01efc7ee3eaf4b1d",
+        "mutated_sha256": "9b732b93767aa09b3f8a2a5902b0c13a0e9a93931885f418e1225dad12ed1ae1",
+        "case": "normal-project",
+        "pristine_target_binary_sha256": "d76d311e3b97e963e71de19ae709e033370054a0b5257b68294245fe4e48aef6",
+        "mutated_target_binary_sha256": "ff442ff655503ca39e1c33731fcca29dc16fab7100ac60d2aaebdcb122689324",
+        "state_oracle_detected": true,
+        "state_probe_evidence_id": "6679be237bf3432d9ea13f4164b37ada",
+        "evidence_id": "fd2b74f4f9504769854980a647d14bc5",
+        "report": "artifacts/ten-new-project-adversarial-pass/helix/silent-saved-document-corruption-1791848724532346500.json",
+        "restored": true,
+        "recovery_id": "58160c15e4a44e5fae29ca6980fb20f2",
+        "contracts_unchanged": true,
+        "restored_target_binary_sha256": "d76d311e3b97e963e71de19ae709e033370054a0b5257b68294245fe4e48aef6"
+      },
+      "retained": {
+        "silent-saved-document-corruption-1791848724532346500-control.json": "580b8ca56af6302a21c3a54fe4bcaa344dd347625791c96ee48ccb3813550161",
+        "silent-saved-document-corruption-1791848724532346500-control-report.json": "3e16e924023953ad6bc147558ebfacfe2464f21c4a9635c491396aa403e895b4",
+        "silent-saved-document-corruption-1791848724532346500-control-state-error.json": "a1b5721ffe32118369f0139eb5a1f29d1fff42bc786c840b0b6417692866352e"
+      }
+    },
+    {
+      "control": {
+        "name": "write-diverted-to-unrequested-name",
+        "source_file": "helix-term/src/commands/typed.rs",
+        "original_sha256": "d3fac446e46ba4add017104b268ec92b3fc224a72d10a22dcd636e8217b8de16",
+        "mutated_sha256": "c796fca16d230fe92f3a3763fa0d9b66c7f89985a4c0f0135cbc5120482b7dcd",
+        "case": "normal-create-name",
+        "pristine_target_binary_sha256": "d76d311e3b97e963e71de19ae709e033370054a0b5257b68294245fe4e48aef6",
+        "mutated_target_binary_sha256": "5c543482dc0ec511b0508e84d4f0dd5885aab39ad1058af4e8cc174997fb4d90",
+        "category": "assertion_timeout",
+        "evidence_id": "608b26fc6077445bac0d561c032dab90",
+        "report": "artifacts/ten-new-project-adversarial-pass/helix/write-diverted-to-unrequested-name-1791847927033898200.json",
+        "restored": true,
+        "recovery_id": "e04e1441070e40e2a7d210585319ea4c",
+        "contracts_unchanged": true,
+        "restored_target_binary_sha256": "d76d311e3b97e963e71de19ae709e033370054a0b5257b68294245fe4e48aef6"
+      },
+      "retained": {
+        "write-diverted-to-unrequested-name-1791847927033898200-control.json": "3b81ee261b47026f42973071d470c5c561ecf52abb221d5c46b0fa892aca36b1",
+        "write-diverted-to-unrequested-name-1791847927033898200-control-report.json": "8a6a457295eb8104214f2bd7c6ca7a6b64085aa8ef015ba5091ddf1bebf0a8d4",
+        "write-diverted-to-unrequested-name-1791847927033898200-control-screen_path.txt": "2d567a876f199314ccff8c1e4dbea5426a38595fd00bbb0883c53931d19e9f7f"
+      }
+    },
+    {
+      "control": {
+        "name": "write-diverted-to-unrequested-name",
+        "source_file": "helix-term/src/commands/typed.rs",
+        "original_sha256": "078cfda1378b119f1da695033f3a7a5c505a2f21d7c89db2ac57ff60e0d72c3f",
+        "mutated_sha256": "c796fca16d230fe92f3a3763fa0d9b66c7f89985a4c0f0135cbc5120482b7dcd",
+        "case": "normal-create-name",
+        "pristine_target_binary_sha256": "1acaec08a84cbda245d750ff6c13a3933608c7ffb31e2db0f251302774158acc",
+        "mutated_target_binary_sha256": "922e002b08698dc97eda6dcb3221d36dd64c80d2bd1d4248dec3e51cf9f9334b",
+        "category": "assertion_timeout",
+        "evidence_id": "ce5367564c9f494a977deb897d55d300",
+        "report": "artifacts/ten-new-project-adversarial-pass/helix/write-diverted-to-unrequested-name-1791848298168758893.json",
+        "restored": true,
+        "recovery_id": "25f95e43e56843b4b37eb3f615954524",
+        "contracts_unchanged": true,
+        "restored_target_binary_sha256": "1acaec08a84cbda245d750ff6c13a3933608c7ffb31e2db0f251302774158acc"
+      },
+      "retained": {
+        "write-diverted-to-unrequested-name-1791848298168758893-control.json": "f08f062af6d853f6f621468eb401350af641b553690a637c4f97b05d55762647",
+        "write-diverted-to-unrequested-name-1791848298168758893-control-report.json": "a7c2e1d1a11f981dcad5df07f84654daed13f9341970bd3d39e1c9c83fbcd616",
+        "write-diverted-to-unrequested-name-1791848298168758893-control-screen_path.txt": "2d567a876f199314ccff8c1e4dbea5426a38595fd00bbb0883c53931d19e9f7f"
+      }
+    }
+  ],
+  "scope": "Local Windows and explicitly exploratory WSL actual target faults; hosted qualification pending"
+}

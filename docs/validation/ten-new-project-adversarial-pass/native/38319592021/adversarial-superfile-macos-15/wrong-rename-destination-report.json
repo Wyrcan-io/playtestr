@@ -1,0 +1,142 @@
+{
+  "report_version": 2,
+  "runner_version": "source-4c90d39ba32489cae2db89565690c14abe3d7165",
+  "os": "darwin",
+  "arch": "arm64",
+  "summary": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1,
+    "cancelled": 0,
+    "not_run": 0
+  },
+  "results": [
+    {
+      "spec_version": 2,
+      "name": "Rename to a spaced Unicode name and inspect the preserved neighboring file",
+      "spec_path": "/Users/runner/work/playtestr/playtestr/docs/validation/ten-new-project-adversarial-pass/superfile/normal-project.json",
+      "status": "failed",
+      "duration_ms": 620,
+      "viewport": {
+        "width": 100,
+        "height": 30
+      },
+      "steps": [
+        {
+          "number": 1,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 50
+        },
+        {
+          "number": 2,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 51
+        },
+        {
+          "number": 3,
+          "action": "expect_not",
+          "status": "passed",
+          "duration_ms": 20
+        },
+        {
+          "number": 4,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 5,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 49
+        },
+        {
+          "number": 6,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 7
+        },
+        {
+          "number": 7,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 24
+        },
+        {
+          "number": 8,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 9,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 10,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 11,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 70
+        },
+        {
+          "number": 12,
+          "action": "snapshot",
+          "status": "failed",
+          "duration_ms": 151,
+          "failure": {
+            "category": "snapshot_mismatch",
+            "message": "rendered screen did not match the reviewed snapshot"
+          }
+        },
+        {
+          "number": 13,
+          "action": "text",
+          "status": "not_run",
+          "duration_ms": 0
+        },
+        {
+          "number": 14,
+          "action": "exit",
+          "status": "not_run",
+          "duration_ms": 0
+        }
+      ],
+      "target": {
+        "exited": true
+      },
+      "failure": {
+        "category": "snapshot_mismatch",
+        "message": "rendered screen did not match the reviewed snapshot"
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": false,
+        "forced": true,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "evidence": {
+        "screen_path": "artifacts/ten-new-project-adversarial-pass/superfile/wrong-rename-destination-1791845984888533000/20261012T225949Z-3643518779/r-docs-validation-ten-new-project-adversarial-pass-superfile-normal-project.json-e88da8f98bba.actual.txt",
+        "diff_path": "artifacts/ten-new-project-adversarial-pass/superfile/wrong-rename-destination-1791845984888533000/20261012T225949Z-3643518779/r-docs-validation-ten-new-project-adversarial-pass-superfile-normal-project.json-e88da8f98bba.diff.txt"
+      },
+      "workspace": {
+        "attempted": true,
+        "fixture": "fixtures",
+        "prepared": true,
+        "cleanup_attempted": true,
+        "cleaned": true,
+        "retained": false
+      }
+    }
+  ]
+}

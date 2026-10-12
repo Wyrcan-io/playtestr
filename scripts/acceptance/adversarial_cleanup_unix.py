@@ -11,6 +11,7 @@ parser=argparse.ArgumentParser()
 parser.add_argument('--project',default='cookiecutter')
 parser.add_argument('--target',type=Path)
 parser.add_argument('--qualification',type=Path)
+parser.add_argument('--exploratory',action='store_true')
 args=parser.parse_args()
 project=args.project
 if not project or any(c not in 'abcdefghijklmnopqrstuvwxyz0123456789-' for c in project):
@@ -27,10 +28,16 @@ if target.is_symlink() or target.resolve(strict=True)!=target or target.parent!=
 owner=json.loads((target/'task-owned.json').read_text())
 if owner['campaign']!='ten-new-project-adversarial-pass' or owner['workspace']!=str(ROOT) or owner['project']!=project:
     raise RuntimeError('Unknown application ownership')
-qualification=json.loads((args.qualification or RAW/('native-'+project+'-'+platform.system()+'.json')).read_text())
-if qualification.get('scenarios',0)<10 or qualification['terminal_repetitions']!=10*qualification['scenarios'] or qualification['project']!=project:
-    raise RuntimeError('Native evidence incomplete')
 import subprocess
+if args.exploratory:
+    cleanup_source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True,timeout=15).strip()
+    cleanup_scope='Local exploratory teardown only; no native project qualification granted'
+else:
+    qualification=json.loads((args.qualification or RAW/('native-'+project+'-'+platform.system()+'.json')).read_text())
+    if qualification.get('scenarios',0)<10 or qualification['terminal_repetitions']!=10*qualification['scenarios'] or qualification['project']!=project:
+        raise RuntimeError('Native evidence incomplete')
+    cleanup_source=qualification['source']
+    cleanup_scope='Teardown following native development qualification'
 if subprocess.check_output(['git','-C',target/'source','rev-parse','HEAD'],text=True).strip()!=owner['source_sha']:
     raise RuntimeError('Owned source revision mismatch')
 if subprocess.check_output(['git','-C',target/'source','status','--porcelain','--untracked-files=no'],text=True).strip():
@@ -79,5 +86,5 @@ shutil.rmtree(target)
 if target.exists():
     raise RuntimeError('Owned deletion failed')
 (RAW/('cleanup-'+platform.system()+'.json')).write_text(json.dumps(dict(project=project,
-    removed=True,canonical_target=str(target),process_check=process_check,source=qualification['source']),indent=2)+'\n')
+    removed=True,canonical_target=str(target),process_check=process_check,source=cleanup_source,scope=cleanup_scope),indent=2)+'\n')
 print('Owned application removed after native evidence/process checks')
