@@ -26,6 +26,7 @@ Controls are mapped before qualification. Test names and configured hosts alone 
 | silent-input | Output and input bounds | Silent real target can receive initial input | `TestSilentTargetCanReceiveInputWithoutStartupTimeout` |
 | startup-budget | Output and input bounds | Explicit startup readiness deadline | `TestStartupTimeout` |
 | idle-recorder-flood | Output and input bounds | Idle recorder observes overflow or hang | `TestRecordingCancellationAndFloodStopIdleTargets` |
+| input-sequence-readiness | Readiness | Filter-before-confirm input sequences use their first pre-input screen; unchanged/stale captions still reject, including reconstructed prefixes | `TestRecordingInputSequenceKeepsFirstTransitionScreen` |
 | disappear-reappear | Readiness | Real target text disappears after input then reappears in a fresh third phase | `TestAdversarialDisappearanceAndReappearance` |
 | stale-ambiguous | Readiness | Ambiguous capture and changing replay state do not qualify | `TestRecordingRejectsAmbiguousAndDynamicReadiness` |
 | absence-transition | Readiness | Previously observed text must actually disappear | `TestExpectNotWaitsForObservedTextToDisappear` |

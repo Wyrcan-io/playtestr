@@ -46,6 +46,7 @@ CONTROLS={
  ('idle-recorder-flood','TestRecordingCancellationAndFloodStopIdleTargets','Idle recorder observes overflow or hang'),
  ],
  'Readiness':[
+ ('input-sequence-readiness','TestRecordingInputSequenceKeepsFirstTransitionScreen','Filter-before-confirm input sequences use their first pre-input screen; unchanged/stale captions still reject, including reconstructed prefixes'),
  ('disappear-reappear','TestAdversarialDisappearanceAndReappearance','Real target text disappears after input then reappears in a fresh third phase'),
  ('stale-ambiguous','TestRecordingRejectsAmbiguousAndDynamicReadiness','Ambiguous capture and changing replay state do not qualify'),
  ('absence-transition','TestExpectNotWaitsForObservedTextToDisappear','Previously observed text must actually disappear'),

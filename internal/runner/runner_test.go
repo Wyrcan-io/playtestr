@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -458,6 +459,27 @@ func TestHelperProcess(t *testing.T) {
 		}
 		fmt.Print("literal hotkey received\r\n")
 		os.Exit(0)
+	case "filter-confirm":
+		old, err := term.MakeRaw(int(os.Stdin.Fd()))
+		if err != nil {
+			os.Exit(9)
+		}
+		defer term.Restore(int(os.Stdin.Fd()), old)
+		fmt.Print("filter ready\r\nconstant caption\r\n")
+		buffer := make([]byte, 1)
+		for {
+			if _, err := io.ReadFull(os.Stdin, buffer); err != nil {
+				os.Exit(8)
+			}
+			switch buffer[0] {
+			case 'F':
+				fmt.Print("new filtered result\r\n")
+			case '\r':
+				fmt.Print("confirmation consumed\r\n")
+			case 'q':
+				os.Exit(0)
+			}
+		}
 	case "silent-input":
 		buffer := make([]byte, 1)
 		_, _ = os.Stdin.Read(buffer)

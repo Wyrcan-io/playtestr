@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-24.04, windows-2025]
+        os: [ubuntu-24.04, macos-15]
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -28,7 +28,7 @@ jobs:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
           repository: Wyrcan-io/playtestr
-          ref: 'cb34cc3f8bc7d90eabca2b5cb6db233b571939ef'
+          ref: 'e2a6b8ca681d54f9d9aeba66070ef7a94561f910'
           path: .playtestr-tooling
           persist-credentials: false
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
@@ -41,7 +41,7 @@ jobs:
       - name: Build exact candidate runner
         id: setup
         env:
-          SOURCE_REVISION: 'cb34cc3f8bc7d90eabca2b5cb6db233b571939ef'
+          SOURCE_REVISION: 'e2a6b8ca681d54f9d9aeba66070ef7a94561f910'
         run: |
           mkdir -p .playtestr-bin
           ext=''

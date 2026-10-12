@@ -209,10 +209,13 @@ func (r *Recording) Capture(step Step) error {
 			return fmt.Errorf("checkpoint must identify meaningful content")
 		}
 		if r.transition && strings.Contains(r.beforeInput, step.Expect) {
-			return fmt.Errorf("stale anchor %q was already present before input; choose content identifying the new state", step.Expect)
+			return fmt.Errorf("stale anchor %q was already present before this input sequence; choose content identifying the new state", step.Expect)
 		}
 	}
-	if input {
+	if input && !r.transition {
+		// Keep the screen from the first uncheckpointed input. A later
+		// confirmation key must not make a newly rendered result stale merely
+		// because the target renders its filter before confirmation.
 		r.beforeInput = r.Screen()
 		r.transition = true
 	}
@@ -327,7 +330,7 @@ func (r *Recording) Rerecord(ctx context.Context, prefix int) error {
 	}
 	exited := false
 	for _, step := range r.spec.Steps {
-		if step.Key != "" || step.Text != "" || step.Resize != nil {
+		if (step.Key != "" || step.Text != "" || step.Resize != nil) && !r.transition {
 			r.beforeInput = r.Screen()
 		}
 		stepCtx, cancel := context.WithTimeout(r.ctx, time.Duration(r.spec.TimeoutMS)*time.Millisecond)

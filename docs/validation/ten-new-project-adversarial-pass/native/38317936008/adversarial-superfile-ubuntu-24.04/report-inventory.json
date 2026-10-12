@@ -1,0 +1,762 @@
+[
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/superfile/cancel-search-retains-filter-1791844853733303679.json",
+    "sha256": "650f463088b7abd593361591922f35578187c5203fdea65a5e34ea9922c04d26",
+    "summary": {
+      "total": 1,
+      "passed": 0,
+      "failed": 1,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Filter to no matching item, clear the search, and select a genuine file",
+        "status": "failed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": false,
+          "forced": true,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": {
+          "category": "assertion_timeout",
+          "message": "Filter to no matching item, clear the search, and select a genuine file: step 9: step timed out: context deadline exceeded"
+        }
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/superfile/edge-cancel-delete-test-0-1791844840287834795.json",
+    "sha256": "dadfd50ecebf35cc4e51d38b9ea7d553403a2dbd8185c1153d4793ca735852bd",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Decline a destructive permanent-delete confirmation and preserve exact files",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/superfile/edge-cancel-edited-rename-test-0-1791844839861833647.json",
+    "sha256": "669f45b0f60268bd239892f9683e8081cc8802370c6bdf75b876ffea8ebc499a",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Cancel after editing a filename and preserve exact original and neighboring bytes",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/superfile/edge-empty-recovery-test-0-1791844839092665051.json",
+    "sha256": "c806703e0b91b922ec9dd08d77e2f23404aa23d38f5982f6b83c7dc19ad6cb23",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Start in an empty directory and recover through another useful panel",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/superfile/edge-name-conflict-test-0-1791844840681007991.json",
+    "sha256": "d260438206366707a67d3551a431191b8e339bcbe135fc38bc26b802d6bf966c",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Decline replacing an occupied file with different content",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/superfile/edge-no-match-recovery-test-0-1791844839455575810.json",
+    "sha256": "ee5faac36e1545c00b3cd2e42a39700192fe1f49c999f533c7ae8f1dc6b41b1e",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Filter to no matching item, clear the search, and select a genuine file",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/superfile/edge-resize-scroll-test-0-1791844841106975913.json",
+    "sha256": "1a656fe575c80fde1ba212ce48d5fe9e43fdc93137a570d8392fcefd64417ab5",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Resize repeatedly, search an initially offscreen item and inspect Unicode long content",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/superfile/normal-create-state-test-0-1791844837606486672.json",
+    "sha256": "4b535491152d66f4d83d21fd37e2a79114c9ceaaef0408e9dee8a1e01c2bf102",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Create a nested spaced Unicode file with its parent directory through the ordinary prompt",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/superfile/normal-multiple-selection-test-0-1791844838749420307.json",
+    "sha256": "09394d295bdcc05c7357e5db74fde6edb45f76a2709b5faca6056347be7e5198",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Select two nonadjacent files and copy the exact set into another panel",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/superfile/normal-panel-copy-test-0-1791844838050941493.json",
+    "sha256": "168c85dec86cbacdfd6a315c67e364a05e6387ba686c56c29191c6310ee02189",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Built-in copy into a different open panel",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/superfile/normal-panel-move-test-0-1791844838403574992.json",
+    "sha256": "a6ba153ef10f9503e745d4535ddba45452a60b46d950c4ad10a7a90c6a8eed4c",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Built-in move into a different open panel",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/superfile/normal-project-final-0-1791844871163363496.json",
+    "sha256": "2dce1a24acc17415cb0d4be797339beed92e57f7d2ede89cb681f59af457c48b",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Rename to a spaced Unicode name and inspect the preserved neighboring file",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/superfile/normal-project-final-1-1791844872087696697.json",
+    "sha256": "ff3e56e874ffe3ecbc4988e3d9c8743ff671ef3105dd433d37b7ca60b90622d6",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Rename to a spaced Unicode name and inspect the preserved neighboring file",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/superfile/normal-project-final-2-1791844872998490283.json",
+    "sha256": "c4dc28a3397145242eacc25d8d985756982757874d5df81294a44b7a6b130b56",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Rename to a spaced Unicode name and inspect the preserved neighboring file",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/superfile/normal-project-final-3-1791844873911026840.json",
+    "sha256": "7fd23716f7553c9dcc1440d45f3e2f991ca3dcf8571902d872bcd46a6c751689",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Rename to a spaced Unicode name and inspect the preserved neighboring file",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/superfile/normal-project-final-4-1791844874823195598.json",
+    "sha256": "7fd23716f7553c9dcc1440d45f3e2f991ca3dcf8571902d872bcd46a6c751689",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Rename to a spaced Unicode name and inspect the preserved neighboring file",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/superfile/normal-project-final-5-1791844875733711981.json",
+    "sha256": "86f3408f5268f31d1069a0868c510976cd9e4f4fab0009ce6ee7866e88ba2624",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Rename to a spaced Unicode name and inspect the preserved neighboring file",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/superfile/normal-project-final-6-1791844878406913551.json",
+    "sha256": "f280592f44930f958d8104099435abc0852ed9045717acf8f1c5e7e6cf30817c",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Rename to a spaced Unicode name and inspect the preserved neighboring file",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/superfile/normal-project-final-7-1791844881070501661.json",
+    "sha256": "4aeccb20ccce5f83826159b233f7fbaf287b21a5843ca1dc6b5553d5b6cddcbc",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Rename to a spaced Unicode name and inspect the preserved neighboring file",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/superfile/normal-project-final-8-1791844883738661977.json",
+    "sha256": "51fd62dad82dd863e3ab1f4788f33d7693bfc21e6a7bdfa9a38699a9b1fe1fdb",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Rename to a spaced Unicode name and inspect the preserved neighboring file",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/superfile/normal-project-final-9-1791844886408351111.json",
+    "sha256": "498cfa5271a79b9948d6a307046b9c1c1e66f5b5b56b033f175510bd3b99f410",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Rename to a spaced Unicode name and inspect the preserved neighboring file",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/superfile/normal-project-test-0-1791844836893103288.json",
+    "sha256": "8e2ff5aaec9a7e37f45f6469a3df90673101930dd7ab51dd291c93d5f3018003",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Rename to a spaced Unicode name and inspect the preserved neighboring file",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/superfile/normal-search-preview-final-0-1791844889078746420.json",
+    "sha256": "57d414fee1635870e5389b3c1df9d0b74fa0415afb995cdca779bd9d56c26389",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Search a noninitial nested file and inspect its exact preview",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/superfile/normal-search-preview-test-0-1791844837281214188.json",
+    "sha256": "6879f844e8ae5395f066e683807725d69468a3d188f2e5c291db5e5beef5f08f",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Search a noninitial nested file and inspect its exact preview",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/superfile/restored-cancel-search-retains-filter-1791844853733303679.json",
+    "sha256": "1fc7a9e303721810f24dcbb47589cadf793209f281b4d861ae2d654661fca666",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Filter to no matching item, clear the search, and select a genuine file",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/superfile/restored-silent-nonpreviewed-copy-corruption-1791844867088213242.json",
+    "sha256": "0e9e041287b28c9891e10910cb9b62f53180d948aa354399356b04324c82a734",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Select two nonadjacent files and copy the exact set into another panel",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/superfile/restored-wrong-rename-destination-1791844850321783810.json",
+    "sha256": "0173602145954e526f76206ac659823d0e2c0eba3f745b0fe01fac348e4512f2",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Rename to a spaced Unicode name and inspect the preserved neighboring file",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/superfile/silent-nonpreviewed-copy-corruption-1791844867088213242.json",
+    "sha256": "877f388697070d31f1234adce8fb92338a39e25368f4373287531f3e88646330",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Select two nonadjacent files and copy the exact set into another panel",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/superfile/wrong-rename-destination-1791844850321783810.json",
+    "sha256": "d115573fca1ff2442e11c1b71d04a55a3d33182a1e9a84c090c91582bab8938e",
+    "summary": {
+      "total": 1,
+      "passed": 0,
+      "failed": 1,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Rename to a spaced Unicode name and inspect the preserved neighboring file",
+        "status": "failed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": false,
+          "forced": true,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": {
+          "category": "snapshot_mismatch",
+          "message": "rendered screen did not match the reviewed snapshot"
+        }
+      }
+    ]
+  }
+]

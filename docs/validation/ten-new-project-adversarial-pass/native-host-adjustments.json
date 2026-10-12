@@ -1,0 +1,35 @@
+{
+  "prior_candidate_source": "e2a6b8ca681d54f9d9aeba66070ef7a94561f910",
+  "prior_registry_sha256": "7f28b7ca6fc50f2fbd7c59f7381dac65500d37fb102f638bed458371f44f51bf",
+  "changes": [
+    {
+      "repo": "yorukot/superfile",
+      "sha": "66fe169b87021f7424522ed5aadd711c5676601e",
+      "before": [
+        "linux",
+        "windows"
+      ],
+      "after": [
+        "linux",
+        "macos"
+      ]
+    },
+    {
+      "repo": "charmbracelet/glow",
+      "sha": "8b0600fa445535b9c53194c0d4f7fe3cf700ef3e",
+      "before": [
+        "linux",
+        "macos"
+      ],
+      "after": [
+        "linux",
+        "macos",
+        "windows"
+      ]
+    }
+  ],
+  "reason": "Confirmed race in the pinned superfile Windows input dependency; hosted Windows repetition unqualified. Linux/macOS superfile qualification and Linux/macOS/Windows Glow qualification remain required.",
+  "actual_race_evidence_id": "1397b374ca4c49898b4d3272e99391d2",
+  "native_failure_run": "38317936008",
+  "claim": "Provisional host-plan changes only, no granted qualification"
+}

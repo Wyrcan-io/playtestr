@@ -2,6 +2,31 @@
 
 No batch completion or final qualification is claimed.
 
+P08 — recorder input sequence / high: native Linux state probe
+`9509488d4ad2435b84f029ee8bfb99bc` rejected a genuinely new search result
+because the target rendered it before the following Enter confirmation. The
+recorder overwrote its pre-input screen at every key, making authoring depend
+on target rendering speed. [Real reduced before/after evidence](core/input-sequence-repair/manifest.json)
+reproduces the failure, then passes ten repetitions of every recorder test,
+ten Unix reduced controls and ten unchanged Windows superfile state probes.
+The general repair retains the first screen in an uncheckpointed input sequence;
+prefix reconstruction uses the same rule. Unchanged initial captions and a
+later already-satisfied result remain rejected. Contracts were not edited.
+Full Go/vet, native Windows race and public examples passed; native
+three-OS requalification of this later repair is pending.
+
+T01 — target dependency / high: hosted Windows copy repetition six failed
+with an unrequested help overlay. A separate race-instrumented build of the
+unchanged target confirmed concurrent reuse/read of Ultraviolet's Windows input
+buffer (`terminal_reader_windows.go:106` versus `terminal_reader.go:201`).
+[Actual race stack](superfile/first-failures/confirmed-upstream-input-race.txt)
+and diagnostic ID `1397b374ca4c49898b4d3272e99391d2` are retained. It does not
+establish the precise cause of that original help event. The Windows target
+path is unqualified; no retry success erases the failure and no patched target
+is substituted. [Explicit host adjustment](native-host-adjustments.json) assigns
+superfile to Linux/macOS and adds Windows to Glow's existing Linux/macOS plan.
+The required five Windows project qualifications remain a gate, not a claim.
+
 Later evidence updates below supersede discovery-time pending statuses in the
 original table. The first failed attempts and original ledger bytes remain intact.
 

@@ -66,3 +66,26 @@ It is an automated warm-cache operator measurement, not beginner authoring time.
 Native repetitions, teardown and final single-source qualification remain
 pending. This report makes no beginner
 usability, complete application coverage or launch-readiness claim.
+
+First native run `38317936008` at `e2a6b8c` passed all three product-control
+jobs; the separate standard smoke also passed all three hosts. Neither
+application job qualified. Linux's search state probe exposed P08: a genuinely
+new filtered result was rejected when it rendered before Enter. A real reduced
+regression reproduced this timing-dependent recorder defect. The general fix
+retains the screen before the first input since the last checkpoint, including
+prefix reconstruction, while still rejecting captions unchanged throughout the
+sequence. The same reviewed superfile contract passed ten fresh Windows state
+probes after the fix. Native requalification remains required.
+
+Windows ordinary copy repetition six instead timed out with an unrequested
+help overlay. A separately race-instrumented, otherwise unchanged target
+confirmed an actual shared-buffer race inside its pinned Ultraviolet Windows
+input dependency. [Original race stack](first-failures/confirmed-upstream-input-race.txt)
+records the concurrent producer write and consumer read. This confirms a target
+dependency fault without establishing that particular overlay's precise cause.
+No target patch, silent retries, artificial input sleeps or accepted failure
+snapshot replace the original result. Windows superfile remains unqualified.
+[The explicit host-plan adjustment](../native-host-adjustments.json) uses
+Linux/macOS for this project and adds Windows to Glow's planned Linux/macOS
+matrix. Ten Linux, five Windows, five macOS and at least twenty actual
+project-host qualifications remain mandatory gates.

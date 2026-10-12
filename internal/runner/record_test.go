@@ -118,6 +118,41 @@ func TestRecordingInvalidActionsAreNotAccepted(t *testing.T) {
 	}
 }
 
+func TestRecordingInputSequenceKeepsFirstTransitionScreen(t *testing.T) {
+	for _, reconstruct := range []bool{false, true} {
+		t.Run(fmt.Sprintf("rerecord-%t", reconstruct), func(t *testing.T) {
+			r := newHelperRecording(t, "filter-confirm", nil)
+			capture(t, r, Step{Expect: "filter ready"}, Step{Text: "F"})
+			deadline := time.Now().Add(5 * time.Second)
+			for !strings.Contains(r.Screen(), "new filtered result") {
+				if time.Now().After(deadline) {
+					t.Fatal("target did not render filtered result before confirmation")
+				}
+				time.Sleep(time.Millisecond)
+			}
+			// Enter confirms an already rendered filter. The result is fresh
+			// relative to this input sequence's start, independent of rendering speed.
+			capture(t, r, Step{Key: "Enter"})
+			if reconstruct {
+				if err := r.Rerecord(context.Background(), 3); err != nil {
+					t.Fatal(err)
+				}
+			}
+			if err := r.Capture(Step{Expect: "constant caption"}); err == nil {
+				t.Fatal("unchanged caption accepted as fresh sequence evidence")
+			}
+			capture(t, r, Step{Expect: "new filtered result"}, Step{Text: "x"})
+			if err := r.Capture(Step{Expect: "new filtered result"}); err == nil {
+				t.Fatal("already satisfied result accepted after a later no-op sequence")
+			}
+			capture(t, r, Step{Text: "q"}, Step{Exit: intPointer(0)})
+			if result := r.Replay(context.Background(), io.Discard); result.Err() != nil {
+				t.Fatal(result.Err())
+			}
+		})
+	}
+}
+
 func TestRecordingRerecordFreshPrefix(t *testing.T) {
 	r := newHelperRecording(t, "modal-transition", nil)
 	capture(t, r, Step{Expect: "Keybindings"}, Step{Snapshot: "modal.txt"}, Step{Key: "Escape"}, Step{Expect: "Main ready"}, Step{Exit: intPointer(0)})
