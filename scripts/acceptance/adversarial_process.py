@@ -31,12 +31,17 @@ def ledger_lock():
         try:
             lock.mkdir()
             break
-        except (FileExistsError, PermissionError) as error:
+        except (FileExistsError, PermissionError, FileNotFoundError) as error:
             # Windows can report ERROR_ACCESS_DENIED while another writer's
             # just-removed directory is still delete-pending. Retry acquisition
             # only within the same deadline; never remove or steal the lock.
             if isinstance(error,PermissionError) and not (
                     os.name=='nt' and getattr(error,'winerror',None)==5):
+                raise
+            # DrvFS can expose the same Windows delete-pending transition as
+            # ENOENT. Retry only while the verified evidence parent still
+            # exists; do not recreate a disappeared parent or steal a lock.
+            if isinstance(error,FileNotFoundError) and not RAW.is_dir():
                 raise
             if time.monotonic()>=deadline:
                 raise RuntimeError('Campaign ledger lock deadline; inspect owned writers before removing a stale lock')

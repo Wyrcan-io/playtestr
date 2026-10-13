@@ -253,3 +253,8 @@ Execution correction: live Windows step metadata in run38469407174 misrepresente
 
 
 H28: The Glow resize recipe sent viewport-dependent G before target redraw; native Linux accurately failed at paragraph74/92%. Add the existing observed wait_for_redraw action immediately after each resize and expose /redraw through the generic campaign control encoder. Original contract/failure retained. Ten fresh ordinary and ten separate state probes passed on WSL; the final baseline is byte-identical. Native requalification remains pending. This fixes authoring synchronization, not the target or product deadline.
+
+
+H29: Actual WSL lock-directory acquisition returned missing-path while the Windows collector shared the ledger. Retry only when the parent remains an existing directory and within the unchanged ten-second deadline; never recreate a missing parent or remove another writer lock. The new reduced case failed before the repair; all17 calibrations passed on Windows and WSL afterward. Interrupted attempt4f88f8ba2f1e4ce988049aae6238aff1 remains uncredited.
+
+H30: Glow Enter could apply an old multi-result filter before the asynchronous new query completed, leaving the UI in its single-result list. Every affected selection now waits for its fresh selected-result marker before Enter. The original macOS load failure/contracts remain retained; six final baselines are identical. Ten ordinary plus ten state cases and repeated public UX/maintenance/rerecord passed on WSL; native requalification remains required.

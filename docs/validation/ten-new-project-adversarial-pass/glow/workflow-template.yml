@@ -28,7 +28,7 @@ jobs:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
           repository: Wyrcan-io/playtestr
-          ref: '6be1622087ba23bea2ecde609f098cc3fc47e3a4'
+          ref: '40251627a28031bbfb9aa2887ecb20b80735ac04'
           path: .playtestr-tooling
           persist-credentials: false
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
@@ -41,7 +41,7 @@ jobs:
       - name: Build exact candidate runner
         id: setup
         env:
-          SOURCE_REVISION: '6be1622087ba23bea2ecde609f098cc3fc47e3a4'
+          SOURCE_REVISION: '40251627a28031bbfb9aa2887ecb20b80735ac04'
         run: |
           mkdir -p .playtestr-bin
           ext=''

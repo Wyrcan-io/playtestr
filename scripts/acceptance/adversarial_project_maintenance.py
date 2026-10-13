@@ -17,8 +17,8 @@ def main():
     parser.add_argument('--text-step',type=int,required=True)
     parser.add_argument('--new-text',required=True)
     parser.add_argument('--new-visible',required=True)
-    parser.add_argument('--checkpoint-step',type=int)
-    parser.add_argument('--new-checkpoint')
+    parser.add_argument('--checkpoint-step',type=int,action='append',default=[])
+    parser.add_argument('--new-checkpoint',action='append',default=[])
     args=parser.parse_args()
     project=args.project
     directory=DOC/project
@@ -43,12 +43,12 @@ def main():
     if args.text_step<1 or args.text_step>len(value['steps']) or 'text' not in value['steps'][args.text_step-1]:
         raise RuntimeError('Selected maintenance step is not an actual text input')
     value['steps'][args.text_step-1]['text']=args.new_text
-    if (args.checkpoint_step is None)!=(args.new_checkpoint is None):
-        raise RuntimeError('An associated checkpoint edit requires both explicit arguments')
-    if args.checkpoint_step is not None:
-        if not 1<=args.checkpoint_step<=len(value['steps']) or 'expect' not in value['steps'][args.checkpoint_step-1]:
+    if len(args.checkpoint_step)!=len(args.new_checkpoint) or len(set(args.checkpoint_step))!=len(args.checkpoint_step):
+        raise RuntimeError('Associated checkpoint edits require paired explicit arguments and unique positions')
+    for position,checkpoint in zip(args.checkpoint_step,args.new_checkpoint):
+        if not 1<=position<=len(value['steps']) or 'expect' not in value['steps'][position-1]:
             raise RuntimeError('Selected associated checkpoint is not an actual text assertion')
-        value['steps'][args.checkpoint_step-1]['expect']=args.new_checkpoint
+        value['steps'][position-1]['expect']=checkpoint
     spec.write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     old=hashlib.sha256(baseline.read_bytes()).hexdigest()
     report=RAW/project/('intentional-name-mismatch-'+str(time.time_ns())+'.json')
@@ -97,7 +97,8 @@ def main():
         hosted_execution='separate native workflow; generated template is preview only',
         target_build='The explicit owned setup recipe already builds/installs the target; the separate build command is intentionally unnecessary',
         manual_edit='Changed one text input and, when explicitly selected, its associated positive checkpoint in a separate ordinary JSON; all primary bytes preserved',
-        associated_checkpoint_step=args.checkpoint_step)
+        associated_checkpoint_step=args.checkpoint_step[0] if len(args.checkpoint_step)==1 else None,
+        associated_checkpoint_steps=args.checkpoint_step)
     (directory/'maintenance-result.json').write_text(json.dumps(result,indent=2)+'\n')
     print('Manual maintenance, failure diagnosis, selected update and relocation passed')
 

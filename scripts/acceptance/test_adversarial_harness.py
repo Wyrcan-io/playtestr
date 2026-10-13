@@ -111,6 +111,37 @@ class NativeHarnessControls(unittest.TestCase):
                         self.fail('persistent denial acquired lock')
             self.assertFalse((raw/'.attempts-lock').exists())
 
+    def test_ledger_transient_missing_lock_requires_existing_parent_and_deadline(self):
+        with tempfile.TemporaryDirectory(prefix='playtestr-ledger-controls-') as root:
+            raw=Path(root)/'raw'
+            raw.mkdir()
+            original=Path.mkdir
+            calls=[]
+            def transient(path,*args,**kwargs):
+                if path.name=='.attempts-lock':
+                    calls.append(path)
+                    if len(calls)==1:raise FileNotFoundError('synthetic delete-pending lock')
+                return original(path,*args,**kwargs)
+            with patch.object(adversarial_process,'RAW',raw),patch.object(Path,'mkdir',transient):
+                with adversarial_process.ledger_lock():
+                    self.assertTrue((raw/'.attempts-lock').is_dir())
+                self.assertEqual(len(calls),2)
+            def persistent(path,*args,**kwargs):
+                if path.name=='.attempts-lock':raise FileNotFoundError('persistent missing lock')
+                return original(path,*args,**kwargs)
+            with patch.object(adversarial_process,'RAW',raw),patch.object(Path,'mkdir',persistent),patch.object(adversarial_process.time,'monotonic',side_effect=[0,11]):
+                with self.assertRaisesRegex(RuntimeError,'ledger lock deadline'):
+                    with adversarial_process.ledger_lock():self.fail('persistent fault acquired lock')
+            def removed_parent(path,*args,**kwargs):
+                if path.name=='.attempts-lock':
+                    raw.rmdir()
+                    raise FileNotFoundError('actual parent disappeared')
+                return original(path,*args,**kwargs)
+            with patch.object(adversarial_process,'RAW',raw),patch.object(Path,'mkdir',removed_parent):
+                with self.assertRaisesRegex(FileNotFoundError,'actual parent disappeared'):
+                    with adversarial_process.ledger_lock():self.fail('missing parent acquired lock')
+            self.assertFalse(raw.exists())
+
     def test_cleanup_failure_keeps_original_failure_and_finished_record(self):
         original_stop=adversarial_process.stop
         async def failing_cleanup(proc):

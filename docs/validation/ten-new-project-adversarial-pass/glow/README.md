@@ -49,8 +49,8 @@ unchanged. Windows is unqualified despite ordinary green tests. The explicit
 fifth Windows gate to Yazi. Linux/macOS qualification and actual Yazi Windows
 execution remain required. No upstream outreach or dependency patch is made.
 
-The prepared public Linux route used four commands, eleven recorder controls
-and zero JSON edits in 14.079 seconds; build time, prior engineering and warm
+The revised prepared public Linux route used four commands, twelve recorder controls
+and zero JSON edits in 24.369 seconds; build time, prior engineering and warm
 caches are disclosed confounders. Intentional selection maintenance, actual
 snapshot failure, HTML diagnosis, a named update, ordinary recovery, spaced
 Unicode relocation and suffix rerecord passed. Generated workflow setup must
@@ -97,6 +97,33 @@ baseline remains byte-identical
 (`65a1118737a32007ce540536d909cd20a7651a4caca8312c7288c5d7e1d8ba2a`).
 No target-source repair or deadline increase is used. Full native qualification
 of the synchronized recipe remains required.
+
+Run `38483613287` completed the full synchronized Linux qualification,
+including 120 ordinary and 120 separate state repetitions, faults/restoration
+and owned deletion. macOS later failed no-match recovery under load: its final
+screen showed one applied `guide` filter result rather than the opened document.
+Enter arrived while the previous filtered result array was still active.
+[That actual failure](first-failures/native-macos-unobserved-filter-selection.json)
+and all earlier selection contracts/assessments remain retained. Every affected
+selection now asserts its freshly selected result marker before Enter, rather
+than assuming input delivery means filtering has finished. All six final
+baselines remain byte-identical; native requalification is still required.
+
+The strengthened no-match route passed ten fresh ordinary and ten separate
+state executions on WSL. The public route, suffix rerecord and meaningful manual
+selection edit also passed again. That edit explicitly changes both its selected
+result and opened-body checkpoints; the generic maintenance helper now accepts
+paired repeated checkpoint arguments rather than silently inferring edits.
+Earlier assessments remain in the retained historical package.
+
+A shared Windows/WSL ledger acquisition reported transient missing-path while
+the Windows collector wrote concurrently. The harness retries that condition
+only while its parent exists and within the same ten-second deadline; it never
+recreates a disappeared parent or steals a lock. The new reduced case failed
+before the repair, and all seventeen calibrations passed on Windows and WSL
+afterward. The interrupted original state probe remains uncredited. See
+[the ledger repair](../core/ledger-drvfs-repair.json). Full native reruns of this
+latest recipe and calibration remain pending.
 
 Native Linux/macOS repetitions/restoration/teardown and final frozen
 qualification are still pending. No style/color/mouse/OSC fidelity, network/editor/clipboard

@@ -1,0 +1,15 @@
+{
+  "finding": "H29",
+  "actual_failure": "WSL mkdir lock raised ENOENT while a Windows native collector wrote the shared ledger; exact filesystem mechanism is inferred, not instrumented",
+  "repair": "Retry FileNotFoundError only while RAW parent remains an existing directory, within the same ten-second deadline; preserve missing-parent/persistent failures and never remove another writer lock",
+  "before": "New reduced transient-lock test failed with FileNotFoundError before repair",
+  "after": "All17 existing/new harness calibrations passed on native Windows and WSL; transient, persistent deadline and disappeared-parent paths exercised",
+  "unfinished_attempts": [
+    {
+      "id": "4f88f8ba2f1e4ce988049aae6238aff1",
+      "label": "edge-no-match-recovery-state-probe",
+      "qualification_credit": 0
+    }
+  ],
+  "claim": "Only the actual interrupted probe is uncredited; currently running attempts are not classified as ledger damage"
+}

@@ -1,0 +1,52 @@
+{
+  "version": 2,
+  "name": "Filter and read a nested spaced Unicode document",
+  "command": [
+    "glow",
+    "--style",
+    "dark",
+    "--mouse=false"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "GLAMOUR_STYLE": "dark",
+    "GLOW_TEXT_SIZING": "off",
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "6 documents"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "text": "notes cafe"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "NESTED UNICODE café 雪 TOKEN"
+    },
+    {
+      "snapshot": "normal-nested-unicode.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

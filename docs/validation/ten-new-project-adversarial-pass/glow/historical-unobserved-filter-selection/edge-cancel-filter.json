@@ -1,0 +1,67 @@
+{
+  "version": 2,
+  "name": "Cancel a partial filter and continue with the original complete library",
+  "command": [
+    "glow",
+    "--style",
+    "dark",
+    "--mouse=false"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "GLAMOUR_STYLE": "dark",
+    "GLOW_TEXT_SIZING": "off",
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "6 documents"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "text": "over"
+    },
+    {
+      "expect": "Find: over"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect": "6 documents"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "text": "guide"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "guide DOCUMENT TOKEN"
+    },
+    {
+      "snapshot": "edge-cancel-filter.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

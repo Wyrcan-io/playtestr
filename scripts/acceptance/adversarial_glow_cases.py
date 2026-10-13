@@ -26,7 +26,9 @@ def main():
     def key(value):return {'key':value}
     def expect(value):return {'expect':value}
     def absent(value):return {'expect_not':value}
-    def choose(query,body):return [text('/'),text(query),key('Enter'),expect(body)]
+    def choose(query,body):
+        selected={'overview':'│ overview.md','guide':'│ guide.md','notes cafe':'│ nested'}[query]
+        return [text('/'),text(query),expect(selected),key('Enter'),expect(body)]
     base=['glow','--style','dark','--mouse=false']
     cases=[]
     def add(name,kind,purpose,steps,*,arguments=None):
