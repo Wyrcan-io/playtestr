@@ -858,7 +858,62 @@
       },
       "absent_paths": [],
       "expected_exit": 0,
-      "snapshot_exclusion": "Only transient bottom command/status messages are excluded. Content, buffer identity, mode and position remain in rows 1–29; explicit command outcomes and exact independent files complement the capture."
+      "snapshot_exclusion": "Only transient bottom command/status messages are excluded. Content, buffer identity, mode and position remain in rows 1–29; explicit command outcomes and exact independent files complement the capture.",
+      "baseline_suffix_by_host": {
+        "Linux": "-unix"
+      },
+      "steps_by_host": {
+        "Linux": [
+          {
+            "expect": "ORIGINAL MAIN TOKEN"
+          },
+          {
+            "text": "%"
+          },
+          {
+            "text": "c"
+          },
+          {
+            "expect": "INS"
+          },
+          {
+            "text": "SAVE RECOVERY TOKEN"
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "expect": "NOR"
+          },
+          {
+            "text": ":write! occupied"
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "expect": "Is a directory (os error 21)"
+          },
+          {
+            "text": ":write! main.txt"
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "expect": "'main.txt' written"
+          },
+          {
+            "text": ":q"
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "exit": 0
+          }
+        ]
+      }
     },
     {
       "name": "edge-resize-scroll",

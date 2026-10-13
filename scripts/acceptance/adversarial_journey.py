@@ -75,7 +75,7 @@ def recorder(binary,project,case,env,*,export=True,rerecord=False):
     for key,value in config.get('environment',{}).items():
         args+=['--env',key+'='+value]
     args+=['--',*case['command']]
-    steps=list(case['steps'])
+    steps=list(case.get('steps_by_host',{}).get(platform.system(),case['steps']))
     snapshot_name=case['name']+('.rows.json' if case.get('snapshot_rows') else '.txt')
     # These error strings contain random workspace paths: readiness/exit remain
     # explicit, and only the earlier stable prompt screen is snapshotted.

@@ -98,6 +98,14 @@ right = ["position", "file-encoding", "file-line-ending"]
         [expect('ORIGINAL MAIN TOKEN'),*replace('SAVE RECOVERY TOKEN\n'),*command('write occupied'),
          expect('file modified by an external process'),*command('write! main.txt'),
          expect("'main.txt' written")],changed={'main.txt':'SAVE RECOVERY TOKEN\n'})
+    # Unix directory mtimes depend on fixture-copy timing. Explicit force skips
+    # that preliminary check and exercises the real directory-write refusal.
+    # Keep this contract separate from the observed Windows mtime refusal.
+    cases[-1]['baseline_suffix_by_host']={'Linux':'-unix'}
+    cases[-1]['steps_by_host']={'Linux':[
+        {'expect':'Is a directory (os error 21)'} if step=={'expect':'file modified by an external process'} else
+        {'text':':write! occupied'} if step=={'text':':write occupied'} else step
+        for step in cases[-1]['steps']]}
     add('edge-resize-scroll','edge','Repeatedly resize and navigate a long Unicode document without saving unwanted edits',
         [expect('line 00: long text café 雪'),{'resize':{'width':80,'height':24}},text('ge'),expect('line 59: long text café 雪'),
          {'resize':{'width':120,'height':35}},text('gg'),expect('line 00: long text café 雪'),

@@ -13,7 +13,22 @@ checked on local Windows. WSL passed all twelve current reviewed-screen/exact
 file-state probes and ordinary checks; the revised search case passed its fresh
 public recorder replay. Neither environment alone qualifies hosted native Linux
 or the final frozen campaign. Native Linux/Windows development qualification,
-repetitions and teardown remain pending.
+Linux qualification and local teardown remain pending. Hosted Windows run
+`38324763718` passed all twelve workflows, 120 ordinary repetitions, 120
+separate file-state probes, actual source faults, restoration and owned deletion.
+The same run passed core/race checks on all three native operating systems;
+standard CI `38324763722` also passed.
+
+Hosted Linux failed the directory-save checkpoint: its real screen said
+`Is a directory (os error 21)` instead of the expected Windows mtime refusal.
+[Retained native evidence](../native/38324763718/manifest.json) preserves the
+failure and successful Windows results. A first local attempt to merely change
+the expected string also failed because directory mtimes can trigger the earlier
+refusal. The reviewed Linux variant explicitly uses `:write! occupied` to reach
+the actual filesystem directory-write rejection, then saves to `main.txt` and
+checks every protected fixture byte. This bypasses no filesystem refusal. Its
+public recording, reviewed rows and ordinary replay passed; it is one scenario,
+not extra scenario credit. The Windows contract remains unchanged.
 
 Normal cases save a complete Unicode document, switch/save/return across
 buffers, open/edit a nested spaced Unicode path, replace one selected word,

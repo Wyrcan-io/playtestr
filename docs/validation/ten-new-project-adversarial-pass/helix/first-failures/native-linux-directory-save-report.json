@@ -1,0 +1,159 @@
+{
+  "report_version": 2,
+  "runner_version": "source-43bdb1d0b11e1e9b77b71cf6e77d7a7432bbe070",
+  "os": "linux",
+  "arch": "amd64",
+  "summary": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1,
+    "cancelled": 0,
+    "not_run": 0
+  },
+  "results": [
+    {
+      "spec_version": 2,
+      "name": "Attempt to save over an occupied directory, recover and preserve protected bytes",
+      "spec_path": "/home/runner/work/playtestr/playtestr/docs/validation/ten-new-project-adversarial-pass/helix/edge-invalid-save.json",
+      "status": "failed",
+      "duration_ms": 10296,
+      "viewport": {
+        "width": 100,
+        "height": 30
+      },
+      "steps": [
+        {
+          "number": 1,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 120
+        },
+        {
+          "number": 2,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 3,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 4,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 10
+        },
+        {
+          "number": 5,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 6,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 7,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 10
+        },
+        {
+          "number": 8,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 9,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 10,
+          "action": "expect",
+          "status": "failed",
+          "duration_ms": 10000,
+          "failure": {
+            "category": "assertion_timeout",
+            "message": "Attempt to save over an occupied directory, recover and preserve protected bytes: step 10: step timed out: context deadline exceeded"
+          }
+        },
+        {
+          "number": 11,
+          "action": "text",
+          "status": "not_run",
+          "duration_ms": 0
+        },
+        {
+          "number": 12,
+          "action": "key",
+          "status": "not_run",
+          "duration_ms": 0
+        },
+        {
+          "number": 13,
+          "action": "expect",
+          "status": "not_run",
+          "duration_ms": 0
+        },
+        {
+          "number": 14,
+          "action": "snapshot",
+          "status": "not_run",
+          "duration_ms": 0
+        },
+        {
+          "number": 15,
+          "action": "text",
+          "status": "not_run",
+          "duration_ms": 0
+        },
+        {
+          "number": 16,
+          "action": "key",
+          "status": "not_run",
+          "duration_ms": 0
+        },
+        {
+          "number": 17,
+          "action": "exit",
+          "status": "not_run",
+          "duration_ms": 0
+        }
+      ],
+      "target": {
+        "exited": true
+      },
+      "failure": {
+        "category": "assertion_timeout",
+        "message": "Attempt to save over an occupied directory, recover and preserve protected bytes: step 10: step timed out: context deadline exceeded"
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": false,
+        "forced": true,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "evidence": {
+        "screen_path": "artifacts/ten-new-project-adversarial-pass/helix/edge-invalid-save-test-0-1791849632416796143/20261013T000032Z-3854690265/tr-docs-validation-ten-new-project-adversarial-pass-helix-edge-invalid-save.json-aad5a73889d8.actual.txt"
+      },
+      "workspace": {
+        "attempted": true,
+        "fixture": "fixtures",
+        "prepared": true,
+        "cleanup_attempted": true,
+        "cleaned": true,
+        "retained": false
+      }
+    }
+  ]
+}
