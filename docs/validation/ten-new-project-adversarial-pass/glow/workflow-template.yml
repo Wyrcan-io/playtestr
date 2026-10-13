@@ -28,7 +28,7 @@ jobs:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
           repository: Wyrcan-io/playtestr
-          ref: '5bfe7085650b7aae0441284d96698ee46cb58006'
+          ref: '6be1622087ba23bea2ecde609f098cc3fc47e3a4'
           path: .playtestr-tooling
           persist-credentials: false
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
@@ -41,7 +41,7 @@ jobs:
       - name: Build exact candidate runner
         id: setup
         env:
-          SOURCE_REVISION: '5bfe7085650b7aae0441284d96698ee46cb58006'
+          SOURCE_REVISION: '6be1622087ba23bea2ecde609f098cc3fc47e3a4'
         run: |
           mkdir -p .playtestr-bin
           ext=''
@@ -54,10 +54,11 @@ jobs:
       - name: Explicit target prerequisites
         run: |
           python scripts/acceptance/adversarial_setup_go.py --project glow
+          python scripts/acceptance/adversarial_export_target_path.py --project glow
       - name: Explicit target build
         id: prepare
         run: |
-          go build -o bin/playtestr ./cmd/playtestr
+          true
       - name: Select committed suite and capture exact context
         id: context
         run: |

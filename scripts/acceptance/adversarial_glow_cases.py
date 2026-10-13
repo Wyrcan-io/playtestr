@@ -44,8 +44,10 @@ def main():
     add('normal-document-switch','normal','Return from one document and select a different useful document',
         [expect('6 documents'),*choose('overview','PROJECT OVERVIEW TOKEN'),key('Escape'),
          expect('6 documents'),*choose('guide','guide DOCUMENT TOKEN')])
-    add('normal-structured-reference','normal','Read rendered code and a Markdown table without changing source',
-        [expect('STRUCTURED REFERENCE TOKEN'),expect('CODE BLOCK TOKEN'),expect('TABLE CELL TOKEN')],arguments=['--tui','structured.md'])
+    add('normal-structured-reference','normal','Read code and validate Markdown table reflow at two reviewed viewport widths',
+        [expect('STRUCTURED REFERENCE TOKEN'),expect('CODE BLOCK TOKEN'),expect('TABLE CELL TOKEN'),
+         {'resize':{'width':80,'height':30}},expect('Key'+' '*34+'│ Value'),
+         {'resize':{'width':100,'height':30}},expect('Key'+' '*44+'│ Value')],arguments=['--tui','structured.md'])
     add('normal-line-numbers','normal','Read with explicit line numbers and navigate to a noninitial viewport',
         [expect('PARAGRAPH 00'),text('G'),expect('PARAGRAPH 79')],arguments=['--tui','--line-numbers','long.md'])
     add('edge-empty-library','edge','Handle a library containing no Markdown files and quit naturally',

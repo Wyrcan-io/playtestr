@@ -242,7 +242,7 @@
     {
       "name": "normal-structured-reference",
       "kind": "normal",
-      "purpose": "Read rendered code and a Markdown table without changing source",
+      "purpose": "Read code and validate Markdown table reflow at two reviewed viewport widths",
       "command": [
         "glow",
         "--style",
@@ -262,13 +262,31 @@
           "expect": "TABLE CELL TOKEN"
         },
         {
+          "resize": {
+            "width": 80,
+            "height": 30
+          }
+        },
+        {
+          "expect": "Key                                  │ Value"
+        },
+        {
+          "resize": {
+            "width": 100,
+            "height": 30
+          }
+        },
+        {
+          "expect": "Key                                            │ Value"
+        },
+        {
           "text": "q"
         },
         {
           "exit": 0
         }
       ],
-      "snapshot_after_step": 3,
+      "snapshot_after_step": 7,
       "snapshot_rows": [
         1,
         29

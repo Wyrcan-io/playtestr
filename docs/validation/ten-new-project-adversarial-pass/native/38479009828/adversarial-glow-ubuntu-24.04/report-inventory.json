@@ -1,0 +1,1545 @@
+[
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/bottom-navigation-stays-at-top-1791931119580908164.json",
+    "sha256": "e2097cadd4247e0ff86c446ba5365d71c5aeb9c0f987cd0f26c3f1234c27046a",
+    "summary": {
+      "total": 1,
+      "passed": 0,
+      "failed": 1,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Read noninitial long-document pages and return to the beginning",
+        "status": "failed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": {
+          "category": "assertion_timeout",
+          "message": "Read noninitial long-document pages and return to the beginning: step 3: step timed out: context deadline exceeded"
+        }
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/edge-cancel-filter-test-0-1791931098806732096.json",
+    "sha256": "be25ecde6890ef644ae69176b21e93879e71e74b1f1e105f1744c151342ce60e",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Cancel a partial filter and continue with the original complete library",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/edge-empty-document-test-0-1791931099165708328.json",
+    "sha256": "c41969e2934f27f9a6f16a4545dfcf67e165681570d1e34a58fafbc1ed403707",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Render an empty Markdown file without hanging or changing any input",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/edge-empty-library-test-0-1791931098191107033.json",
+    "sha256": "a1eefb3baf1973bf7f2de5de6a8c3e1bff498852824066d25ebfd4b0b4606ae6",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Handle a library containing no Markdown files and quit naturally",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/edge-long-filter-recovery-test-0-1791931099752089065.json",
+    "sha256": "4c4ccc9a1982a29db4aba8db4e127c42970badfaa1ddad8dbd101061d4614209",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Recover from a long unmatched input and select a Unicode filename",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/edge-no-match-recovery-test-0-1791931098445581323.json",
+    "sha256": "2ef6dda25a4f2ca8925360fd9138701762bf5092f0e5bff9047bcec2ee910938",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Recover from an empty filter result and open a useful document",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/edge-resize-scroll-test-0-1791931099426072767.json",
+    "sha256": "43f8e1dd85fc516580107f3361c2a77ce0c285fdba7a67af32de1eed747c30b3",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Resize narrow and wide while navigating long Unicode documentation",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-document-switch-final-0-1791931183769322676.json",
+    "sha256": "44f3d878d2c5e5550e2059f07399526760b625530abd2292a305ad21cc5f6a36",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Return from one document and select a different useful document",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-document-switch-final-1-1791931184713503197.json",
+    "sha256": "1007af337b69699e57a5d642a8c44871de3d9f5f385fcfed6b5f0c233de268e7",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Return from one document and select a different useful document",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-document-switch-final-2-1791931185656782829.json",
+    "sha256": "3d4b34b4399cc6ac21800a534f200e2bab9e3e5afc4d098482ff8ba1ba10109e",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Return from one document and select a different useful document",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-document-switch-final-3-1791931186601958409.json",
+    "sha256": "3d8b2d48640784c5ce57c89c1f1a153a6ee66b4f37294e1b18085c3dc71fd0db",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Return from one document and select a different useful document",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-document-switch-final-4-1791931187546839865.json",
+    "sha256": "858e4ca7eacb85fa2bf3e955f09c89dbc8673d69ad382c255787bbde66f6ad32",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Return from one document and select a different useful document",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-document-switch-final-5-1791931188488287442.json",
+    "sha256": "3560c3c33f8229303e50617a491c74b558a5f499c1285b5fc6ce03dd1b31218e",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Return from one document and select a different useful document",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-document-switch-final-6-1791931191144916249.json",
+    "sha256": "239400939e188ca3777816c5c0b08f0685cab6b1fd35fb2a422eebca50a58acb",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Return from one document and select a different useful document",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-document-switch-final-7-1791931193802717644.json",
+    "sha256": "9a2ed48dba57f48d256d4395861acad814d84cc1f79ed7867545d4bd964b1f03",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Return from one document and select a different useful document",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-document-switch-final-8-1791931196462063091.json",
+    "sha256": "4f6cf58b5fabe43485e36a86411c08f33cc8b103c06032c0b76809e35bf4bf1f",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Return from one document and select a different useful document",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-document-switch-final-9-1791931199125636268.json",
+    "sha256": "b4fc4fb22d2b7e4b28031d6f95f617360f8c2cf26f73f32f31f330f8b61ff636",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Return from one document and select a different useful document",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-document-switch-test-0-1791931097281035318.json",
+    "sha256": "227a9b7f0e9f990ce0986e8bc6a18fac207353b5fda60eda3fb573fd51350092",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Return from one document and select a different useful document",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-line-numbers-test-0-1791931097897310547.json",
+    "sha256": "3a0b665433523a47fde5570108909b5bee6b40b91906d7f1dd493c46ad8228f8",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Read with explicit line numbers and navigate to a noninitial viewport",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-long-scroll-final-0-1791931167609763958.json",
+    "sha256": "a304ceea8282513fb977bfe6e79accc8ff29930ad1c6a0a6851b8f87eb14d5d6",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Read noninitial long-document pages and return to the beginning",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-long-scroll-final-1-1791931168347474871.json",
+    "sha256": "8eb875d245855f0e5747e25c736f789bba6b429a9683b2fee71085249ad8da61",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Read noninitial long-document pages and return to the beginning",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-long-scroll-final-2-1791931169084873437.json",
+    "sha256": "bd6a67f5851cb730e9609f44d13ea7370092613483553cb7f72fd44ea5bed180",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Read noninitial long-document pages and return to the beginning",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-long-scroll-final-3-1791931169810597760.json",
+    "sha256": "af973e5f317dc45fbc27c2ced6c263594ca8a5b62eae4e9bab4f42f4c367c351",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Read noninitial long-document pages and return to the beginning",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-long-scroll-final-4-1791931170541195907.json",
+    "sha256": "8c89b36d7780f681b8b07e292b013f4caaf1ed1c50e46aff739ee4772a1649f0",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Read noninitial long-document pages and return to the beginning",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-long-scroll-final-5-1791931171268867541.json",
+    "sha256": "929bfb5210486e3b0f860c6df195e76a82976b50581d54d5bcfa153fe6314511",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Read noninitial long-document pages and return to the beginning",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-long-scroll-final-6-1791931173771873050.json",
+    "sha256": "523c2ac6b4e77a72e2b525b3e98393402e8fa27638d46fd8ca6eff263b279743",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Read noninitial long-document pages and return to the beginning",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-long-scroll-final-7-1791931176267037018.json",
+    "sha256": "5ef1fea64313a1ea731a11f3b6fe432bf0a4051f24c562a2e6a21718b75737a2",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Read noninitial long-document pages and return to the beginning",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-long-scroll-final-8-1791931178770484421.json",
+    "sha256": "bdb623d89bcce5562d7d20b121c5c0685c14f9db22a05fa854f31864866886bf",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Read noninitial long-document pages and return to the beginning",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-long-scroll-final-9-1791931181273720266.json",
+    "sha256": "58a144c638ab9a054940c4df4ad950b9db5b23df88c833be1a888deb01990a16",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Read noninitial long-document pages and return to the beginning",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-long-scroll-test-0-1791931096967574415.json",
+    "sha256": "ae33d1601287cf9207e50dd2c0b8a0da51a8e38ec6e03a36034963a9b38a83d8",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Read noninitial long-document pages and return to the beginning",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-nested-unicode-final-0-1791931151677915037.json",
+    "sha256": "1b01f167e8b071c62c39b3ca19babc8fbdf55c9a83f73fce4ca9c13a02a6f055",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Filter and read a nested spaced Unicode document",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-nested-unicode-final-1-1791931152376133759.json",
+    "sha256": "095a773d4f54fce22a1140016d09023a552ee0fd0351f1592cac90c7b6af041d",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Filter and read a nested spaced Unicode document",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-nested-unicode-final-2-1791931153060757044.json",
+    "sha256": "ec3323a15f1fedcba03955f442a6215996535a71f5d708ca6be8af65ef90a140",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Filter and read a nested spaced Unicode document",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-nested-unicode-final-3-1791931153754711875.json",
+    "sha256": "79622c6dc59b2cd9a86a373123ee84680debf6bab8853f1df3e81d5fe255c2bc",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Filter and read a nested spaced Unicode document",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-nested-unicode-final-4-1791931154441779947.json",
+    "sha256": "6eb48a624fca4bf6e457418d6d127d56cb3144d47d30a0cbb82123f173e31db2",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Filter and read a nested spaced Unicode document",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-nested-unicode-final-5-1791931155137362970.json",
+    "sha256": "fe7cf1da04e4760f4199bbec2821521fa786d22f1d6bc237546dd57e8b15e754",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Filter and read a nested spaced Unicode document",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-nested-unicode-final-6-1791931157632650927.json",
+    "sha256": "da8559becc0a2f228fd990b7e8e38dfb528d34b8ba16333f4ad193e4120ec0e0",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Filter and read a nested spaced Unicode document",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-nested-unicode-final-7-1791931160124659548.json",
+    "sha256": "fe7cf1da04e4760f4199bbec2821521fa786d22f1d6bc237546dd57e8b15e754",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Filter and read a nested spaced Unicode document",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-nested-unicode-final-8-1791931162622327284.json",
+    "sha256": "96d1fdf3c8c7f435788f6835abadfe9301ab24be2c7f02fc4212f7cdcfd2b8de",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Filter and read a nested spaced Unicode document",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-nested-unicode-final-9-1791931165116003047.json",
+    "sha256": "4392455c803033f13b8b450ca4407b32d0627f00e31e587e1a968ede7047d5bc",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Filter and read a nested spaced Unicode document",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-nested-unicode-test-0-1791931096698482543.json",
+    "sha256": "2809620da08ef2ffeede814b96b66b118e1fb2eb1ae6ebcc1997ff75dcae3de6",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Filter and read a nested spaced Unicode document",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-project-final-0-1791931135746321477.json",
+    "sha256": "5e4fd17f9998c1ef5152d6632cb28188371ceb7414254abd4d6d88203368e9f6",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Discover local documentation and read a specifically filtered overview",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-project-final-1-1791931136451861044.json",
+    "sha256": "12c26bb0befcc9352a5fb5d8300aeb1c061a3477840a1a55c31205105091199c",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Discover local documentation and read a specifically filtered overview",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-project-final-2-1791931137139080692.json",
+    "sha256": "2149f30def056650055505b2d586b105701d3dbb8ffc6c57a02c9002e7c401fc",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Discover local documentation and read a specifically filtered overview",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-project-final-3-1791931137824955342.json",
+    "sha256": "5118ceb1230b1546894d448946289b81ed3c7128ecc7dd567e9285b645a8a563",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Discover local documentation and read a specifically filtered overview",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-project-final-4-1791931138514677335.json",
+    "sha256": "eb8841010471df1eb3e1480eab6e04597bf99a6d895b5b4f1bd81a6f0e36e6b1",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Discover local documentation and read a specifically filtered overview",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-project-final-5-1791931139214805892.json",
+    "sha256": "33c59b77abcadc4f9e728cc615908b1d4dbfc88d799e8eb1612c3c5cc16a364e",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Discover local documentation and read a specifically filtered overview",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-project-final-6-1791931141710318326.json",
+    "sha256": "eb8841010471df1eb3e1480eab6e04597bf99a6d895b5b4f1bd81a6f0e36e6b1",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Discover local documentation and read a specifically filtered overview",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-project-final-7-1791931144203434053.json",
+    "sha256": "560b75aa961460b50593d5d0b501112a87ce53b38d205c444be8814ce16678ad",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Discover local documentation and read a specifically filtered overview",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-project-final-8-1791931146691625781.json",
+    "sha256": "2923b3e5884fcbeeb97acae4e7e1ba6d2f449be2249da15a8ee2a50783844feb",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Discover local documentation and read a specifically filtered overview",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-project-final-9-1791931149182837694.json",
+    "sha256": "43aff2930de68fda8dc86330821590cee22de440db79ecf5d4496f38d3cb107f",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Discover local documentation and read a specifically filtered overview",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-project-test-0-1791931096395603568.json",
+    "sha256": "3a0f0882d92f184e2a3b31a55b597fb42c4c3a0517fcf3b1b445f5f1a26051d0",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Discover local documentation and read a specifically filtered overview",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-structured-reference-final-0-1791931201789060350.json",
+    "sha256": "489d4c3a6e26b0fb11220fb52ea012c1e57270db24c819803e64e6e0e9e7aeb6",
+    "summary": {
+      "total": 1,
+      "passed": 0,
+      "failed": 1,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Read rendered code and a Markdown table without changing source",
+        "status": "failed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": {
+          "category": "snapshot_mismatch",
+          "message": "rendered screen did not match the reviewed snapshot"
+        }
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/normal-structured-reference-test-0-1791931097640453581.json",
+    "sha256": "31482bbbada2b9fd991bf21a5e7d8b46b1f1982e7febc58df5c1d802962a10f9",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Read rendered code and a Markdown table without changing source",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/restored-bottom-navigation-stays-at-top-1791931119580908164.json",
+    "sha256": "8bb47003674170eafd058310dc0ea807756a282d20d6de57b4a2244536593ab2",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Read noninitial long-document pages and return to the beginning",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/restored-selection-opens-wrong-document-1791931106819479726.json",
+    "sha256": "4be7ec58b752a3130f6dc9e57a8c0dafe1aa4eb182f12dba9c3450aa7de721f4",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Filter and read a nested spaced Unicode document",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/restored-silent-input-document-corruption-1791931132350314003.json",
+    "sha256": "909cba6ca9f5a52e3f50ae538251d4cc77872fd1bbcd0b5f2f0513507e34cd62",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Discover local documentation and read a specifically filtered overview",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/selection-opens-wrong-document-1791931106819479726.json",
+    "sha256": "e622af1fea6a90161ba2762ae100322517973296003e3ba172650b6f51ce5fa7",
+    "summary": {
+      "total": 1,
+      "passed": 0,
+      "failed": 1,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Filter and read a nested spaced Unicode document",
+        "status": "failed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": {
+          "category": "assertion_timeout",
+          "message": "Filter and read a nested spaced Unicode document: step 5: step timed out: context deadline exceeded"
+        }
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/glow/silent-input-document-corruption-1791931132350314003.json",
+    "sha256": "6d8ff544b2b5be57292fcd5b8945c5fbe64c995d537f16caa8a9c2d0c9025930",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Discover local documentation and read a specifically filtered overview",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  }
+]

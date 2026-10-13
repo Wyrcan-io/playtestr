@@ -1,0 +1,25 @@
+{
+  "run": "38479009828",
+  "source": "6be1622087ba23bea2ecde609f098cc3fc47e3a4",
+  "failures": [
+    {
+      "host": "adversarial-glow-ubuntu-24.04",
+      "report": "adversarial-glow-ubuntu-24.04-initial-table.json",
+      "actual_failure": {
+        "category": "snapshot_mismatch",
+        "message": "rendered screen did not match the reviewed snapshot"
+      }
+    },
+    {
+      "host": "adversarial-glow-macos-15",
+      "report": "adversarial-glow-macos-15-initial-table.json",
+      "actual_failure": {
+        "category": "snapshot_mismatch",
+        "message": "rendered screen did not match the reviewed snapshot"
+      }
+    }
+  ],
+  "observed": "Same document and actual100-column viewport sometimes produced minimal-width table after initial full-width runs passed",
+  "inference": "Pinned Init and WindowSize schedule width-zero and sized renders without a generation guard; out-of-order completion can overwrite content",
+  "revision": "Preserve failed original startup contract. Admit a useful explicit table-reflow workflow requiring exact distinct80 and100-column row geometry. No source patch, timing sleep, deadline increase or baseline weakening."
+}

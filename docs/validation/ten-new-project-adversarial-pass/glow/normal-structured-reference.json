@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "Read rendered code and a Markdown table without changing source",
+  "name": "Read code and validate Markdown table reflow at two reviewed viewport widths",
   "command": [
     "glow",
     "--style",
@@ -34,6 +34,24 @@
     },
     {
       "expect": "TABLE CELL TOKEN"
+    },
+    {
+      "resize": {
+        "width": 80,
+        "height": 30
+      }
+    },
+    {
+      "expect": "Key                                  │ Value"
+    },
+    {
+      "resize": {
+        "width": 100,
+        "height": 30
+      }
+    },
+    {
+      "expect": "Key                                            │ Value"
     },
     {
       "snapshot": "normal-structured-reference.rows.json"

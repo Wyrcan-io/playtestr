@@ -85,7 +85,7 @@ def main():
     workflow=run([binary,'workflow','--source-revision',source,'--os',','.join(candidate['planned_hosts']),
         '--suite',str(primary.relative_to(ROOT)),'--setup',
         setup,'--build',
-        'go build -o bin/playtestr ./cmd/playtestr','--print'],
+        'true','--print'],
         project,'generated-workflow-preview',env=env)
     (directory/'workflow-template.yml').write_text(workflow['output'],encoding='utf-8')
     if {p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in [primary,primary_baseline]}!=original:
@@ -95,6 +95,7 @@ def main():
         mismatch=mismatch['id'],diagnosis=diagnosis['id'],selected_update=update['id'],
         maintained_pass=restore['id'],relocation=relocation['id'],workflow_preview=workflow['id'],
         hosted_execution='separate native workflow; generated template is preview only',
+        target_build='The explicit owned setup recipe already builds/installs the target; the separate build command is intentionally unnecessary',
         manual_edit='Changed one text input and, when explicitly selected, its associated positive checkpoint in a separate ordinary JSON; all primary bytes preserved',
         associated_checkpoint_step=args.checkpoint_step)
     (directory/'maintenance-result.json').write_text(json.dumps(result,indent=2)+'\n')

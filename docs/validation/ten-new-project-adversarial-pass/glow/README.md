@@ -64,7 +64,25 @@ restoration and unchanged contracts were checked; ordinary/state recovery
 passed. [Local fault evidence](local-fault-evidence/manifest.json) retains actual
 reports, screens and the ordinary-green/independent-red corruption result.
 
-Native Linux/macOS repetitions/restoration/teardown,
-native verification of the product repair, and final frozen qualification are
-still pending. No style/color/mouse/OSC fidelity, network/editor/clipboard
+Native run `38479009828` passed all three core/race jobs, including the new
+environment control; standard run `38479009834` passed. Both application jobs
+passed initial cases, independent checks and source faults, then accurately
+failed the original structured-reference snapshot during repetitions. The
+actual table sometimes had minimal-width columns at an actual 100-column
+viewport. Pinned `Init` and `WindowSize` commands render concurrently without a
+generation guard; out-of-order completion is the source-based explanation,
+not an independently instrumented proof of the exact scheduling sequence.
+[Actual failures](first-failures/initial-table-render.json) and the original
+startup contract remain retained, and that startup layout is unqualified.
+
+The revised useful table-reflow workflow explicitly resizes to 80 and 100
+columns and asserts each distinct exact divider position before capture.
+Ten fresh ordinary and ten separate state runs passed locally on WSL, with
+load variation. Its final baseline is byte-identical to the original
+(`c8a69f8b8de626b6f85e5c755c2eced8a589a4cae14b7e16aee4dd322500551d`);
+no snapshot weakening, timing sleep, deadline increase or target-source repair
+is used. Native qualification of that revised workflow remains required.
+
+Native Linux/macOS repetitions/restoration/teardown and final frozen
+qualification are still pending. No style/color/mouse/OSC fidelity, network/editor/clipboard
 integration, full application coverage or beginner usability is claimed.

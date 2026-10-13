@@ -20,7 +20,16 @@
   "real_application_after_first_id": "91079a8686264ea4b6b9c557c480c5a0",
   "application_assertions_and_baselines_unchanged_after_repair": true,
   "full_local_go_vet_race_and_public_examples": "passed",
-  "native_linux_macos_windows_core": "pending",
+  "native_linux_macos_windows_core": {
+    "run": "38479009828",
+    "source": "6be1622087ba23bea2ecde609f098cc3fc47e3a4",
+    "all_three_core_and_race_jobs": "success",
+    "application_jobs": "failure in original table startup snapshot; no Glow qualification"
+  },
   "terminal_reply_support": "unchanged and unsupported",
-  "final_frozen_campaign_credit": 0
+  "final_frozen_campaign_credit": 0,
+  "standard_ci": {
+    "run": "38479009834",
+    "conclusion": "success"
+  }
 }
