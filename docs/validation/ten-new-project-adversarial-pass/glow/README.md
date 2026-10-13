@@ -83,6 +83,21 @@ load variation. Its final baseline is byte-identical to the original
 no snapshot weakening, timing sleep, deadline increase or target-source repair
 is used. Native qualification of that revised workflow remains required.
 
+Run `38481093443` subsequently completed all twelve macOS workflows, 120
+ordinary and 120 separate state repetitions, source faults/restoration and
+owned teardown. Linux passed revised table reflow and the next workflows,
+then failed viewport-dependent navigation immediately after a narrow resize:
+the screen showed paragraph 66-74 and 92%, rather than the requested bottom.
+That recipe sent `G` before the target processed its new height.
+[The original contract](historical-unsynchronized-resize/edge-resize-scroll.json)
+and actual failure remain retained. The revised contract uses the existing
+observed `/redraw` action immediately after each resize before dependent keys.
+Ten fresh ordinary plus ten separate state runs passed on WSL; its final-screen
+baseline remains byte-identical
+(`65a1118737a32007ce540536d909cd20a7651a4caca8312c7288c5d7e1d8ba2a`).
+No target-source repair or deadline increase is used. Full native qualification
+of the synchronized recipe remains required.
+
 Native Linux/macOS repetitions/restoration/teardown and final frozen
 qualification are still pending. No style/color/mouse/OSC fidelity, network/editor/clipboard
 integration, full application coverage or beginner usability is claimed.

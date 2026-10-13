@@ -20,6 +20,10 @@ def control(step):
         return '/snapshot-rows '+value['name']+' '+str(value['first'])+' '+str(value['last'])
     if key=='text': return '/text '+json.dumps(value,ensure_ascii=False)
     if key=='resize': return f"/resize {value['width']} {value['height']}"
+    if key=='wait_for_redraw':
+        if value is not True:
+            raise RuntimeError('Recorder redraw action must be explicitly true')
+        return '/redraw'
     names={'expect':'expect','expect_not':'absent','key':'key','exit':'exit','snapshot':'snapshot'}
     return '/'+names[key]+' '+str(value)
 

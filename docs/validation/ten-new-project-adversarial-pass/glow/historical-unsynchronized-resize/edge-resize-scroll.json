@@ -1,0 +1,78 @@
+{
+  "version": 2,
+  "name": "Resize narrow and wide while navigating long Unicode documentation",
+  "command": [
+    "glow",
+    "--style",
+    "dark",
+    "--mouse=false",
+    "--tui",
+    "long.md"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "GLAMOUR_STYLE": "dark",
+    "GLOW_TEXT_SIZING": "off",
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "PARAGRAPH 00"
+    },
+    {
+      "resize": {
+        "width": 45,
+        "height": 18
+      }
+    },
+    {
+      "text": "G"
+    },
+    {
+      "expect": "PARAGRAPH 79"
+    },
+    {
+      "resize": {
+        "width": 120,
+        "height": 35
+      }
+    },
+    {
+      "text": "g"
+    },
+    {
+      "expect": "PARAGRAPH 00"
+    },
+    {
+      "resize": {
+        "width": 100,
+        "height": 30
+      }
+    },
+    {
+      "text": "G"
+    },
+    {
+      "expect": "PARAGRAPH 79"
+    },
+    {
+      "snapshot": "edge-resize-scroll.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

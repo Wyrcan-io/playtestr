@@ -1,0 +1,51 @@
+[
+  {
+    "name": "selection-opens-wrong-document",
+    "source_file": "ui/stash.go",
+    "original_sha256": "b83d71c2bbfa5a644b976396c2f0daeb256b614493c4fd1e1765a31d86a11def",
+    "mutated_sha256": "3f8db303a40bb4cd8307d58577268e42d700caef8c3b1afa08f057c5a7377adf",
+    "case": "normal-nested-unicode",
+    "pristine_target_binary_sha256": "636bdf332f77a0bb1e1197c6b736a6e7be8f353b4f044a47835005191a960ed5",
+    "mutated_target_binary_sha256": "61a0db487541a26f869c9edebad95a09243fc7a6d051a31ec8ea07ef0dfd8321",
+    "category": "assertion_timeout",
+    "evidence_id": "b18030c637694c8aa7879f53948b1519",
+    "report": "artifacts/ten-new-project-adversarial-pass/glow/selection-opens-wrong-document-1791932278171267000.json",
+    "restored": true,
+    "recovery_id": "572fc79d0f93444aad84b356152ec0a9",
+    "contracts_unchanged": true,
+    "restored_target_binary_sha256": "636bdf332f77a0bb1e1197c6b736a6e7be8f353b4f044a47835005191a960ed5"
+  },
+  {
+    "name": "bottom-navigation-stays-at-top",
+    "source_file": "ui/pager.go",
+    "original_sha256": "1100018a50bef151356a8264863068ebdd44395ed1a900a5cda06d5a8b5c2b3a",
+    "mutated_sha256": "3550e1e7a348b3cab7324db4f5ca12dea4d5f79511440520ec1bb185009a7aad",
+    "case": "normal-long-scroll",
+    "pristine_target_binary_sha256": "636bdf332f77a0bb1e1197c6b736a6e7be8f353b4f044a47835005191a960ed5",
+    "mutated_target_binary_sha256": "6e9f829ac8164542643016c2fe059f596b071ca6639402c13c702b1a12496650",
+    "category": "assertion_timeout",
+    "evidence_id": "2128fc36d0004fdda33f1dd7dc46ad76",
+    "report": "artifacts/ten-new-project-adversarial-pass/glow/bottom-navigation-stays-at-top-1791932293772535000.json",
+    "restored": true,
+    "recovery_id": "f130b62cea9341ba9b369b8ebe90afa7",
+    "contracts_unchanged": true,
+    "restored_target_binary_sha256": "636bdf332f77a0bb1e1197c6b736a6e7be8f353b4f044a47835005191a960ed5"
+  },
+  {
+    "name": "silent-input-document-corruption",
+    "source_file": "ui/stash.go",
+    "original_sha256": "b83d71c2bbfa5a644b976396c2f0daeb256b614493c4fd1e1765a31d86a11def",
+    "mutated_sha256": "c23f3bea0cc1caba8197cf1aafde743a5880265058ccc75353cbe7bf6f1a57cf",
+    "case": "normal-project",
+    "pristine_target_binary_sha256": "636bdf332f77a0bb1e1197c6b736a6e7be8f353b4f044a47835005191a960ed5",
+    "mutated_target_binary_sha256": "7c3b0aba78e62dab1c9dd1bbf4c4c0eb60bcfc7bfc5c998a677dbbc3b2f50717",
+    "state_oracle_detected": true,
+    "state_probe_evidence_id": "4b64ddca5f184befa7c22bb047a2abc7",
+    "evidence_id": "aa78ee7ee89b4f12972e92a71c82471c",
+    "report": "artifacts/ten-new-project-adversarial-pass/glow/silent-input-document-corruption-1791932307630886000.json",
+    "restored": true,
+    "recovery_id": "40e989a63804400aa6dcee1c86e3c002",
+    "contracts_unchanged": true,
+    "restored_target_binary_sha256": "636bdf332f77a0bb1e1197c6b736a6e7be8f353b4f044a47835005191a960ed5"
+  }
+]

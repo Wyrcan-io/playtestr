@@ -64,9 +64,9 @@ def main():
     cases[-1]['snapshot_rows']=[1,30]
     cases[-1]['snapshot_exclusion']='No rows excluded: the empty body and its real filename/percentage footer together provide meaningful evidence.'
     add('edge-resize-scroll','edge','Resize narrow and wide while navigating long Unicode documentation',
-        [expect('PARAGRAPH 00'),{'resize':{'width':45,'height':18}},text('G'),expect('PARAGRAPH 79'),
-         {'resize':{'width':120,'height':35}},text('g'),expect('PARAGRAPH 00'),
-         {'resize':{'width':100,'height':30}},text('G'),expect('PARAGRAPH 79')],arguments=['--tui','long.md'])
+        [expect('PARAGRAPH 00'),{'resize':{'width':45,'height':18}},{'wait_for_redraw':True},text('G'),expect('PARAGRAPH 79'),
+         {'resize':{'width':120,'height':35}},{'wait_for_redraw':True},text('g'),expect('PARAGRAPH 00'),
+         {'resize':{'width':100,'height':30}},{'wait_for_redraw':True},text('G'),expect('PARAGRAPH 79')],arguments=['--tui','long.md'])
     add('edge-long-filter-recovery','edge','Recover from a long unmatched input and select a Unicode filename',
         [expect('6 documents'),text('/'),text('UNMATCHED'+('Z'*240)),expect('Find: ZZZZZZZZZZZZ'),
          expect('No files found.'),key('Escape'),
