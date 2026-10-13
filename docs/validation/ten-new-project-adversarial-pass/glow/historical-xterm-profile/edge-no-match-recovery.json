@@ -1,0 +1,70 @@
+{
+  "version": 2,
+  "name": "Recover from an empty filter result and open a useful document",
+  "command": [
+    "glow",
+    "--style",
+    "dark",
+    "--mouse=false"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "GLAMOUR_STYLE": "dark",
+    "GLOW_TEXT_SIZING": "off",
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "6 documents"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "text": "ABSENT NEVER DOCUMENT"
+    },
+    {
+      "expect": "ABSENT NEVER DOCUMENT"
+    },
+    {
+      "expect": "No files found."
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect": "6 documents"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "text": "guide"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "guide DOCUMENT TOKEN"
+    },
+    {
+      "snapshot": "edge-no-match-recovery.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

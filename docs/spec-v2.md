@@ -8,6 +8,10 @@ Required top-level fields are `version: 2`, a nonempty `command`, `workspace`, a
 
 Path containment, link/reparse rejection, copy limits, command resolution, exact environment mappings, lifecycle order, and retained-directory behavior are normative in [Repeatable workspaces](workspaces.md).
 
+Terminal environment precedence follows [v1](spec-v1.md): the stable `TERM`
+default can be replaced by explicitly selected inheritance or a literal value;
+literal values win. Temporary home/temp mappings remain managed separately.
+
 ## Migrating from version 1
 
 Keep a v1 spec when it intentionally uses the invocation directory or a stable external `cwd`; v1 remains supported and still emits report v1 when every selected spec is v1. To opt in:

@@ -1,0 +1,49 @@
+{
+  "version": 2,
+  "name": "Read with explicit line numbers and navigate to a noninitial viewport",
+  "command": [
+    "glow",
+    "--style",
+    "dark",
+    "--mouse=false",
+    "--tui",
+    "--line-numbers",
+    "long.md"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "GLAMOUR_STYLE": "dark",
+    "GLOW_TEXT_SIZING": "off",
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "PARAGRAPH 00"
+    },
+    {
+      "text": "G"
+    },
+    {
+      "expect": "PARAGRAPH 79"
+    },
+    {
+      "snapshot": "normal-line-numbers.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

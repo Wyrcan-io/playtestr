@@ -1,0 +1,28 @@
+{
+  "phase": "Diagnostic only; race-free behavior is not proved by absence in bounded runs",
+  "records": [
+    {
+      "repetition": 0,
+      "passed": false,
+      "evidence_id": "7b54a5b5ce1f4618b74ea53e50f5546b",
+      "failure": {
+        "category": "unexpected_exit",
+        "message": "Discover local documentation and read a specifically filtered overview: step 8: expected exit code 0, got 66"
+      },
+      "report": "artifacts\\ten-new-project-adversarial-pass\\glow\\race-diagnostic-1791929940398223900-0.json",
+      "target_logs": [
+        {
+          "path": "artifacts\\ten-new-project-adversarial-pass\\glow\\race-diagnostic-1791929940398223900-0-.owned-target-race.5032.txt",
+          "sha256": "2255e05acc143951990a731a376e6cb0c4b7775d64e41f7b25329e2b4ed6a2b3",
+          "actual_race_warning": true
+        }
+      ],
+      "retained_workspace": "C:\\Users\\abhir\\OneDrive\\Documents\\playtestr\\.cache\\ten-new-project-apps\\glow\\race-diagnostic-1791929940398223900\\temporary\\playtestr-workspace-474167016"
+    }
+  ],
+  "source_pin": "8b0600fa445535b9c53194c0d4f7fe3cf700ef3e",
+  "pristine_target_sha256": "d6c7a74434b80908856ca357a1c9ea63acaf9875b0ed7d32d22928b97aca97f2",
+  "diagnostic_target_sha256": "c2638cb0ae675c8e0112ff400266597c208b6bb718950c6cd29e1858c46bbf50",
+  "completed_requested_repetitions": false,
+  "owned_diagnostic_root": "C:\\Users\\abhir\\OneDrive\\Documents\\playtestr\\.cache\\ten-new-project-apps\\glow\\race-diagnostic-1791929940398223900"
+}

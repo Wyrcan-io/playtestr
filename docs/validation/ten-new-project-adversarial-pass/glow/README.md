@@ -1,0 +1,70 @@
+# Glow development validation - in progress
+
+Pinned MIT source: `charmbracelet/glow` at
+`8b0600fa445535b9c53194c0d4f7fe3cf700ef3e`.
+[Pre-acquisition scope](scope.md) records intended workflows and resource bounds.
+Go 1.27.0 builds the unmodified application with exclusively owned caches.
+
+Six useful normal and six edge contracts have passed public recording/replay
+and exact input-file preservation checks on local Windows and WSL. These do
+not grant hosted native or final frozen qualification. Normal workflows select
+an overview, read a nested Unicode filename, scroll a long document, switch
+documents, render code/tables and use line numbers. Boundaries cover an empty
+library, missing filter results, partial-filter cancellation, an empty document,
+repeated resizing and overlong-input recovery. Ordinary snapshots retain body
+rows 1-29; the intentionally empty document includes row 30 so its real identity
+footer provides meaningful evidence rather than an empty passing snapshot.
+
+The admitted deterministic profile is `TERM=screen-256color`,
+`GLAMOUR_STYLE=dark`, `GLOW_TEXT_SIZING=off`, with mouse disabled. It avoids
+legacy OSC color probing and optional OSC 66 sizing, which are outside the
+documented terminal-reply contract. It still uses ordinary Markdown rendering;
+no upstream application source is patched to qualify the profile.
+
+Initial Linux startup failed its readiness deadline. Disabling text sizing
+alone did not resolve it. A bounded direct real-PTY SIGQUIT diagnostic traced
+the remaining wait to the legacy logger's foreground/background OSC probing.
+The declared non-query profile initially also failed because Playtestr silently
+overwrote explicit `TERM`. The general environment-precedence repair failed its
+real v1/v2 PTY regression before the fix, then passed eighty cases on Windows
+and eighty on WSL. All twelve unchanged Glow body assertions and snapshots,
+plus separate exact-file checks, subsequently passed on both local hosts.
+[Earlier contracts](historical-xterm-profile/normal-project.json) and actual
+first failures remain retained. No terminal-reply support is claimed.
+
+Other authoring failures were accurate: an accented filter query did not match
+the target's accent-normalized filename keys; an unobserved disappearance
+anchor was rejected; `over` already appeared in `overview.md`; repeated `Z`
+substrings were ambiguous; and an empty-body row selection had no evidence.
+Revised contracts use normalized queries, the actual positive no-files caption,
+unique `Find:` anchors and the empty document's meaningful identity footer.
+Protected input bytes and useful workflow intent remain unchanged.
+
+[Actual Windows race output](first-failures/race-diagnostic-1791929940398223900-0-.owned-target-race.5032.txt)
+proves a producer/consumer shared-buffer race in pinned Ultraviolet
+`006e29f97886`. The separately race-instrumented pristine target completed the
+visible first workflow but exited 66; its original executable hash remained
+unchanged. Windows is unqualified despite ordinary green tests. The explicit
+[host-plan adjustment](../native-host-adjustments.json) moves the provisional
+fifth Windows gate to Yazi. Linux/macOS qualification and actual Yazi Windows
+execution remain required. No upstream outreach or dependency patch is made.
+
+The prepared public Linux route used four commands, eleven recorder controls
+and zero JSON edits in 14.079 seconds; build time, prior engineering and warm
+caches are disclosed confounders. Intentional selection maintenance, actual
+snapshot failure, HTML diagnosis, a named update, ordinary recovery, spaced
+Unicode relocation and suffix rerecord passed. Generated workflow setup must
+export the target's owned directory through `GITHUB_PATH` for subsequent steps;
+a setup subprocess's private PATH is insufficient. The generic exporter was
+checked against an actual temporary control file without replacing prior bytes.
+
+All three actual WSL source faults passed: wrong-document selection, broken
+bottom navigation and silent input-document corruption. Exact source/binary
+restoration and unchanged contracts were checked; ordinary/state recovery
+passed. [Local fault evidence](local-fault-evidence/manifest.json) retains actual
+reports, screens and the ordinary-green/independent-red corruption result.
+
+Native Linux/macOS repetitions/restoration/teardown,
+native verification of the product repair, and final frozen qualification are
+still pending. No style/color/mouse/OSC fidelity, network/editor/clipboard
+integration, full application coverage or beginner usability is claimed.

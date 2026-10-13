@@ -31,5 +31,42 @@
   "reason": "Confirmed race in the pinned superfile Windows input dependency; hosted Windows repetition unqualified. Linux/macOS superfile qualification and Linux/macOS/Windows Glow qualification remain required.",
   "actual_race_evidence_id": "1397b374ca4c49898b4d3272e99391d2",
   "native_failure_run": "38317936008",
-  "claim": "Provisional host-plan changes only, no granted qualification"
+  "claim": "Provisional host-plan changes only, no granted qualification",
+  "subsequent_changes": [
+    {
+      "prior_candidate_source": "5bfe7085650b7aae0441284d96698ee46cb58006",
+      "prior_registry_sha256": "57561850c10feff6def5447050362136aa7d2de406c22181833a401414ace42c",
+      "changes": [
+        {
+          "repo": "charmbracelet/glow",
+          "sha": "8b0600fa445535b9c53194c0d4f7fe3cf700ef3e",
+          "before": [
+            "linux",
+            "macos",
+            "windows"
+          ],
+          "after": [
+            "linux",
+            "macos"
+          ]
+        },
+        {
+          "repo": "sxyazi/yazi",
+          "sha": "f220cb6fb1018c7c656077e30b1aefbac136f719",
+          "before": [
+            "linux",
+            "macos"
+          ],
+          "after": [
+            "linux",
+            "macos",
+            "windows"
+          ]
+        }
+      ],
+      "reason": "Pristine pinned Glow Windows race-instrumented target detected a real producer/consumer shared-buffer race on first workflow, exit66. Ordinary pass is insufficient for that host admission. Yazi Windows remains a required provisional gate.",
+      "actual_race_evidence_id": "7b54a5b5ce1f4618b74ea53e50f5546b",
+      "claim": "No Windows Glow qualification granted; no Yazi qualification granted until actual native runs"
+    }
+  ]
 }

@@ -15,7 +15,7 @@ permissions:
   contents: read
 
 env:
-  ACTIVE_PROJECT: helix
+  ACTIVE_PROJECT: glow
 
 jobs:
   controls:
@@ -83,7 +83,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-24.04, windows-2025]
+        os: [ubuntu-24.04, macos-15]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
@@ -93,9 +93,11 @@ jobs:
         with:
           python-version: '3.12'
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+        timeout-minutes: 5
         with:
           go-version-file: go.mod
           cache-dependency-path: go.sum
+          cache: false
       - name: Pinned application native flows, mutations, restoration and fresh repetitions
         shell: bash
         run: python scripts/acceptance/adversarial_native_project.py --project "$ACTIVE_PROJECT"

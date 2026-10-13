@@ -12,6 +12,14 @@ Every Playtestr test is one UTF-8 JSON object with a required `"version": 1`. Th
 
 `command` contains the executable and arguments. Playtestr executes it directly, without a shell. `cwd` is resolved from the spec file when relative. The target receives Playtestr's small operational environment, values declared in `env`, and host values explicitly named by `inherit_env`. Reports do not include command arguments, environment names, environment values, input text, or expected text.
 
+`TERM` defaults to `xterm-256color` without implicitly inheriting the host's
+terminal profile. Explicit inheritance overrides the default, and an explicit
+literal value overrides inheritance. This also applies to v2 and recording.
+Current source corrects older runners that silently overwrote a declared
+`TERM`. To retain that earlier forced value, declare `xterm-256color` explicitly.
+This is an environment-precedence repair under the existing literal-value
+contract, not a new terminal protocol capability.
+
 The viewport defaults to 80 columns by 24 rows. `timeout_ms` defaults to 3,000, `run_timeout_ms` to 30,000, and `max_output_bytes` to 2,000,000. `startup_timeout_ms` is disabled when omitted or zero. Dimensions, time budgets, output, snapshots, diffs, artifacts, staged snapshot updates, and cleanup waits are bounded by the runner.
 
 Each step has exactly one action: `key`, `text`, `expect`, `expect_not`, `wait_for_redraw`, `snapshot`, `exit`, or `resize`. An `exit` action requires the exact process exit code. `expect_not` waits for previously observed text to leave the rendered screen: the same text must appear in an earlier `expect`, with input or resize between the two assertions. This prevents an absence check from passing before the application reaches the state being tested. `{"wait_for_redraw": true}` must immediately follow `resize`; it requires target output after that resize and allows a one-second redraw window before subsequent input is sent. The bounded window also works for targets that repaint continuously and never become output-quiet. It is synchronization evidence rather than a content assertion, so a snapshot still requires a later `expect` or `expect_not`. A snapshot needs positive readiness evidence from an `expect` or `expect_not` after the latest input or resize, or from an `exit` assertion. A spec can reference at most 100 distinct snapshots.

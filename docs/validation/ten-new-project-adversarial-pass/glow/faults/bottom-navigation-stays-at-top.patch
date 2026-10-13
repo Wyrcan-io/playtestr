@@ -1,0 +1,11 @@
+--- a/ui/pager.go
++++ b/ui/pager.go
+@@ -144,7 +144,7 @@
+ 		case "home", "g":
+ 			m.viewport.GotoTop()
+ 		case "end", "G":
+-			m.viewport.GotoBottom()
++			m.viewport.GotoTop()
+ 
+ 		case "d":
+ 			m.viewport.HalfPageDown()

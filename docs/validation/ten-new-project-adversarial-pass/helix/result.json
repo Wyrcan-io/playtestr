@@ -1,0 +1,59 @@
+{
+  "project": "helix",
+  "source_pin": "ba40e547426b0f9896c8bdc699a4ab11f2b37dbc",
+  "status": "development_complete_pending_final_freeze",
+  "normal_scenarios": 6,
+  "edge_scenarios": 6,
+  "qualified_native_host_pairs": 2,
+  "qualified_development_runs": {
+    "Windows": "38324763718",
+    "Linux": "38469407174"
+  },
+  "qualified_runner_identities": [
+    {
+      "source": "43bdb1d0b11e1e9b77b71cf6e77d7a7432bbe070",
+      "runner_sha256": "e6449289ca7a3b6590f5fd7ef3551e2326bf224302c2ce4fd6d09026724aa850",
+      "actual_host": "Windows-2025Server-10.0.26100-SP0",
+      "project": "helix",
+      "scenarios": 12,
+      "git_version": "git version 2.55.0.windows.5",
+      "terminal_repetitions": 120,
+      "state_probe_repetitions": 120,
+      "state_scope": "Separate real recorder executions: exact reviewed screen and current managed workspace files before teardown",
+      "phase": "Development qualification; final single-source batch freeze remains pending",
+      "run_id": "38324763718",
+      "run_attempt": "1"
+    },
+    {
+      "source": "5bfe7085650b7aae0441284d96698ee46cb58006",
+      "runner_sha256": "fda3e1a38a399fba14cb8b6225f40e09bd529aa8206d630ab2362ed08fcd3633",
+      "actual_host": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "project": "helix",
+      "scenarios": 12,
+      "git_version": "git version 2.55.0",
+      "terminal_repetitions": 120,
+      "state_probe_repetitions": 120,
+      "state_scope": "Separate real recorder executions: exact reviewed screen and current managed workspace files before teardown",
+      "phase": "Development qualification; final single-source batch freeze remains pending",
+      "run_id": "38469407174",
+      "run_attempt": "1"
+    }
+  ],
+  "real_target_regressions": 2,
+  "state_corruption_controls": 1,
+  "ordinary_repetitions_per_qualified_host": 120,
+  "separate_state_probes_per_qualified_host": 120,
+  "qualified_hosted_application_deletion_receipts": true,
+  "local_owned_application_trees_deleted": true,
+  "interrupted_windows_retry": {
+    "run": "38469407174",
+    "qualification_credit": 0,
+    "explicit_application_deletion_receipt": false,
+    "correction": "first-failures/windows-api-metadata-correction.json"
+  },
+  "development_source_equivalence": "development-source-equivalence.json",
+  "final_frozen_campaign_credit": 0,
+  "full_product_campaign_credit": 0,
+  "ux": "ux-prepared-route.json",
+  "maintenance": "maintenance-result.json"
+}

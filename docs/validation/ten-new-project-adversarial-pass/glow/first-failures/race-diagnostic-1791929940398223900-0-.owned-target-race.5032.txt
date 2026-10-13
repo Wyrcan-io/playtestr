@@ -1,0 +1,553 @@
+==================
+WARNING: DATA RACE
+Write at 0x00c0004cd240 by goroutine 38:
+  runtime.slicecopy()
+      runtime/slice.go:392 +0x0
+  bytes.(*Buffer).WriteString()
+      bytes/buffer.go:211 +0x118
+  github.com/charmbracelet/ultraviolet.(*TerminalReader).serializeWin32InputRecords()
+      github.com/charmbracelet/ultraviolet@v0.0.0-20260811164956-006e29f97886/terminal_reader_windows.go:180 +0x1064
+  github.com/charmbracelet/ultraviolet.(*TerminalReader).streamData()
+      github.com/charmbracelet/ultraviolet@v0.0.0-20260811164956-006e29f97886/terminal_reader_windows.go:62 +0x33e
+  github.com/charmbracelet/ultraviolet.(*TerminalReader).StreamEvents.func1()
+      github.com/charmbracelet/ultraviolet@v0.0.0-20260811164956-006e29f97886/terminal_reader.go:151 +0xd6
+
+Previous read at 0x00c0004cd240 by goroutine 35:
+  runtime.slicecopy()
+      runtime/slice.go:392 +0x0
+  bytes.(*Buffer).Write()
+      bytes/buffer.go:199 +0x118
+  github.com/charmbracelet/ultraviolet.(*TerminalReader).StreamEvents()
+      github.com/charmbracelet/ultraviolet@v0.0.0-20260811164956-006e29f97886/terminal_reader.go:201 +0x7a6
+  charm.land/bubbletea/v2.(*Program).readLoop()
+      charm.land/bubbletea/v2@v2.0.8/tty.go:87 +0x144
+  charm.land/bubbletea/v2.(*Program).initInputReader.gowrap1()
+      charm.land/bubbletea/v2@v2.0.8/tty.go:79 +0x2e
+
+Goroutine 38 (running) created at:
+  github.com/charmbracelet/ultraviolet.(*TerminalReader).StreamEvents()
+      github.com/charmbracelet/ultraviolet@v0.0.0-20260811164956-006e29f97886/terminal_reader.go:149 +0x312
+  charm.land/bubbletea/v2.(*Program).readLoop()
+      charm.land/bubbletea/v2@v2.0.8/tty.go:87 +0x144
+  charm.land/bubbletea/v2.(*Program).initInputReader.gowrap1()
+      charm.land/bubbletea/v2@v2.0.8/tty.go:79 +0x2e
+
+Goroutine 35 (running) created at:
+  github.com/alecthomas/chroma/v2/lexers.Register()
+      github.com/alecthomas/chroma/v2@v2.14.0/lexers/lexers.go:55 +0x4284
+  github.com/alecthomas/chroma/v2/lexers.init()
+      github.com/alecthomas/chroma/v2@v2.14.0/lexers/raku.go:14 +0x4292
+  github.com/alecthomas/chroma/v2/lexers.Register()
+      github.com/alecthomas/chroma/v2@v2.14.0/lexers/lexers.go:55 +0x3b0e
+  github.com/alecthomas/chroma/v2/lexers.init()
+      github.com/alecthomas/chroma/v2@v2.14.0/lexers/php.go:10 +0x3a24
+  github.com/alecthomas/chroma/v2/lexers.Register()
+      github.com/alecthomas/chroma/v2@v2.14.0/lexers/lexers.go:55 +0x3404
+  github.com/alecthomas/chroma/v2/lexers.init()
+      github.com/alecthomas/chroma/v2@v2.14.0/lexers/markdown.go:8 +0x3311
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.add()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:203 +0xd6
+  github.com/alecthomas/chroma/v2.(*LexerRegistry).Register()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:191 +0x37c
+  github.com/alecthomas/chroma/v2.(*LexerRegistry).Register()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:181 +0x6a
+  github.com/alecthomas/chroma/v2.(*LexerRegistry).Register()
+      github.com/alecthomas/chroma/v2@v2.14.0/registry.go:180 +0x54
+  github.com/alecthomas/chroma/v2/lexers.Register()
+      github.com/alecthomas/chroma/v2@v2.14.0/lexers/lexers.go:55 +0x2da5
+  github.com/alecthomas/chroma/v2/lexers.init()
+      github.com/alecthomas/chroma/v2@v2.14.0/lexers/http.go:10 +0x2db3
+==================
+Found 1 data race(s)

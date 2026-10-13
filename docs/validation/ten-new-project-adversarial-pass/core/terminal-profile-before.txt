@@ -1,0 +1,16 @@
+--- FAIL: TestAdversarialTerminalProfileEnvironmentThroughRealPTY (3.53s)
+    --- FAIL: TestAdversarialTerminalProfileEnvironmentThroughRealPTY/v1/explicit-literal (0.37s)
+        adversarial_environment_test.go:64: declared terminal profile was not observed through real PTY: profile.json: step 1: process exited with code 0 before assertion matched
+    --- FAIL: TestAdversarialTerminalProfileEnvironmentThroughRealPTY/v1/explicit-inheritance (0.36s)
+        adversarial_environment_test.go:64: declared terminal profile was not observed through real PTY: profile.json: step 1: process exited with code 0 before assertion matched
+    --- FAIL: TestAdversarialTerminalProfileEnvironmentThroughRealPTY/v1/literal-over-inheritance (0.36s)
+        adversarial_environment_test.go:64: declared terminal profile was not observed through real PTY: profile.json: step 1: process exited with code 0 before assertion matched
+    --- FAIL: TestAdversarialTerminalProfileEnvironmentThroughRealPTY/v2/explicit-literal (0.39s)
+        adversarial_environment_test.go:64: declared terminal profile was not observed through real PTY: profile.json: step 1: process exited with code 0 before assertion matched
+    --- FAIL: TestAdversarialTerminalProfileEnvironmentThroughRealPTY/v2/explicit-inheritance (0.38s)
+        adversarial_environment_test.go:64: declared terminal profile was not observed through real PTY: profile.json: step 1: process exited with code 0 before assertion matched
+    --- FAIL: TestAdversarialTerminalProfileEnvironmentThroughRealPTY/v2/literal-over-inheritance (0.38s)
+        adversarial_environment_test.go:64: declared terminal profile was not observed through real PTY: profile.json: step 1: process exited with code 0 before assertion matched
+FAIL
+FAIL github.com/Wyrcan-io/playtestr/internal/runner 4.627s
+FAIL

@@ -151,6 +151,13 @@ Targets receive a small operational environment including executable lookup, tem
 }
 ```
 
+`TERM` defaults to `xterm-256color`. An explicit `env.TERM` or selected
+`inherit_env` value overrides that default; literal `env` values take precedence
+over inheritance. Current source fixes older runners that silently replaced a
+declared terminal profile. Set `TERM` explicitly to `xterm-256color` if that is
+the intended profile. A profile declaration does not add terminal reply or
+protocol support; see [terminal compatibility](docs/terminal-compatibility.md).
+
 Environment values are never written to failure artifacts by Playtestr itself, although a target can still print them to its terminal.
 
 ```sh

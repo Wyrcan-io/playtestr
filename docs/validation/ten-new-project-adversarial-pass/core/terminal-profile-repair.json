@@ -1,0 +1,26 @@
+{
+  "finding": "P09",
+  "behavior": "Default TERM remains stable; explicitly inherited/literal TERM reaches real v1/v2 targets, literal wins",
+  "before": "terminal-profile-before.txt is a transcription of the actual failing tool output; six explicit/inherited cases failed and default cases passed",
+  "after": {
+    "Windows": {
+      "repetitions": 10,
+      "cases": 80,
+      "passed": true
+    },
+    "WSL": {
+      "repetitions": 10,
+      "cases": 80,
+      "passed": true
+    }
+  },
+  "real_application_before_ids": [
+    "eda9b92323354713b8d9202512ba2847"
+  ],
+  "real_application_after_first_id": "91079a8686264ea4b6b9c557c480c5a0",
+  "application_assertions_and_baselines_unchanged_after_repair": true,
+  "full_local_go_vet_race_and_public_examples": "passed",
+  "native_linux_macos_windows_core": "pending",
+  "terminal_reply_support": "unchanged and unsupported",
+  "final_frozen_campaign_credit": 0
+}

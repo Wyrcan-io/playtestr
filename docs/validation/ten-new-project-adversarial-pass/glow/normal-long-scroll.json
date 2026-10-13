@@ -1,0 +1,54 @@
+{
+  "version": 2,
+  "name": "Read noninitial long-document pages and return to the beginning",
+  "command": [
+    "glow",
+    "--style",
+    "dark",
+    "--mouse=false",
+    "--tui",
+    "long.md"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "GLAMOUR_STYLE": "dark",
+    "GLOW_TEXT_SIZING": "off",
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "PARAGRAPH 00"
+    },
+    {
+      "text": "G"
+    },
+    {
+      "expect": "PARAGRAPH 79"
+    },
+    {
+      "text": "g"
+    },
+    {
+      "expect": "PARAGRAPH 00"
+    },
+    {
+      "snapshot": "normal-long-scroll.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

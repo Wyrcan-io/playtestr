@@ -1,0 +1,24 @@
+[
+  {
+    "name": "selection-opens-wrong-document",
+    "case": "normal-nested-unicode",
+    "file": "ui/stash.go",
+    "old": "data, err := os.ReadFile(md.localPath)",
+    "new": "data, err := os.ReadFile(\"overview.md\")"
+  },
+  {
+    "name": "bottom-navigation-stays-at-top",
+    "case": "normal-long-scroll",
+    "file": "ui/pager.go",
+    "old": "case \"end\", \"G\":\n\t\t\tm.viewport.GotoBottom()",
+    "new": "case \"end\", \"G\":\n\t\t\tm.viewport.GotoTop()"
+  },
+  {
+    "name": "silent-input-document-corruption",
+    "case": "normal-project",
+    "file": "ui/stash.go",
+    "old": "md.Body = string(data)",
+    "new": "_ = os.WriteFile(md.localPath, []byte(\"CORRUPTED INPUT DOCUMENT\\n\"), 0o600)\n\t\tmd.Body = string(data)",
+    "state_only": true
+  }
+]

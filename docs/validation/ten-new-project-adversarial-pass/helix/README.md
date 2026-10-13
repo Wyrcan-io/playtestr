@@ -1,4 +1,4 @@
-# Helix development validation - in progress
+# Helix development validation - final freeze pending
 
 Pinned MPL-2.0 source: `helix-editor/helix` at
 `ba40e547426b0f9896c8bdc699a4ab11f2b37dbc`.
@@ -12,8 +12,7 @@ Six normal and six edge contracts have been recorded, replayed and independently
 checked on local Windows. WSL passed all twelve current reviewed-screen/exact
 file-state probes and ordinary checks; the revised search case passed its fresh
 public recorder replay. Neither environment alone qualifies hosted native Linux
-or the final frozen campaign. Native Linux/Windows development qualification,
-Linux qualification and local teardown remain pending. Hosted Windows run
+or the final frozen campaign. Hosted Windows run
 `38324763718` passed all twelve workflows, 120 ordinary repetitions, 120
 separate file-state probes, actual source faults, restoration and owned deletion.
 The same run passed core/race checks on all three native operating systems;
@@ -29,6 +28,26 @@ the actual filesystem directory-write rejection, then saves to `main.txt` and
 checks every protected fixture byte. This bypasses no filesystem refusal. Its
 public recording, reviewed rows and ordinary replay passed; it is one scenario,
 not extra scenario credit. The Windows contract remains unchanged.
+
+At corrected source `5bfe708`, ten local Linux ordinary executions and ten
+separate exact-state probes passed the revised directory-save variant. All
+three native core/race jobs and standard CI also passed that source. Corrected
+native Linux run `38469407174` passed all twelve cases, 120 ordinary and 120
+separate state repetitions, source faults, exact restoration and owned deletion.
+Together these two complete per-host runs qualify the development pass.
+[Go source equivalence](development-source-equivalence.json) proves all tracked
+Go/dependency blobs are unchanged between them; version labels differ and final
+frozen-source credit remains zero. Both restored local application
+trees are confirmed absent; [local cleanup receipts](local-cleanup/cleanup-Windows.json)
+record ownership/process verification and explicitly grant no native admission.
+
+The repeated Windows job in `38469407174` was cancelled after misleading live
+API metadata appeared to show a stuck prerequisite. Its actual archive proved
+Helix had already run workflows and restored all three faults; its repetitions
+were interrupted. [The correction](first-failures/windows-api-metadata-correction.json)
+retains that mistake and grants the interrupted retry no qualification credit.
+No explicit application-deletion receipt is available for that cancelled retry.
+The complete earlier Windows qualification retains its actual deletion receipt.
 
 Normal cases save a complete Unicode document, switch/save/return across
 buffers, open/edit a nested spaced Unicode path, replace one selected word,
@@ -83,7 +102,7 @@ with no manual JSON edits; its four seconds excludes acquisition, fixture
 engineering and earlier authoring corrections. This is an automated warm-cache
 operator assessment, not beginner authoring time. All twelve current ordinary
 and separate state cases then passed again on the pristine restored Windows
-target. Hosted Linux/Windows repetitions and owned teardown remain required.
+target. Hosted Linux qualification and the final frozen campaign remain required.
 
 No syntax/LSP/grammar/style/mouse fidelity, external formatter/clipboard,
 arbitrary concurrent real-file editor, full Helix coverage, beginner usability,

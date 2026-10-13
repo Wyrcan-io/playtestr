@@ -1,0 +1,57 @@
+{
+  "run": "38469407174",
+  "source": "5bfe7085650b7aae0441284d96698ee46cb58006",
+  "classification": "Hosted prerequisite stall before application acquisition; previous full Windows qualification remains independently retained",
+  "actual_job": {
+    "id": 115544253587,
+    "run_id": 38469407174,
+    "workflow_name": "Adversarial native validation",
+    "head_branch": "work/p0-p2-implementation",
+    "run_url": "https://api.github.com/repos/Wyrcan-io/playtestr/actions/runs/38469407174",
+    "run_attempt": 1,
+    "node_id": "CR_kwDOUPAeBM8AAAAa5vlkkw",
+    "head_sha": "5bfe7085650b7aae0441284d96698ee46cb58006",
+    "url": "https://api.github.com/repos/Wyrcan-io/playtestr/actions/jobs/115544253587",
+    "html_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/38469407174/job/115544253587",
+    "status": "in_progress",
+    "conclusion": null,
+    "created_at": "2026-10-13T21:17:01Z",
+    "started_at": "2026-10-13T21:17:03Z",
+    "completed_at": null,
+    "name": "project (windows-2025)",
+    "steps": [
+      {
+        "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 3,
+        "started_at": "2026-10-13T21:17:14Z",
+        "completed_at": "2026-10-13T21:17:14Z"
+      },
+      {
+        "name": "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+        "status": "in_progress",
+        "conclusion": null,
+        "number": 4,
+        "started_at": "2026-10-13T21:17:14Z",
+        "completed_at": null
+      },
+      {
+        "name": "Post Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+        "status": "pending",
+        "conclusion": null,
+        "number": 12,
+        "started_at": null,
+        "completed_at": null
+      }
+    ],
+    "check_run_url": "https://api.github.com/repos/Wyrcan-io/playtestr/check-runs/115544253587",
+    "labels": [
+      "windows-2025"
+    ],
+    "runner_id": 1000001780,
+    "runner_name": "GitHub Actions 1000001780",
+    "runner_group_id": 0,
+    "runner_group_name": "GitHub Actions"
+  }
+}

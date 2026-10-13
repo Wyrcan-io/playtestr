@@ -12,6 +12,8 @@ from adversarial_process import ROOT,DOC,RAW,run
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('project')
+    parser.add_argument('--runtime',type=Path)
+    parser.add_argument('--binary',type=Path)
     parser.add_argument('--text-step',type=int,required=True)
     parser.add_argument('--new-text',required=True)
     parser.add_argument('--new-visible',required=True)
@@ -20,10 +22,10 @@ def main():
     args=parser.parse_args()
     project=args.project
     directory=DOC/project
-    app=ROOT/'.cache/ten-new-project-apps'/project
+    app=args.runtime or ROOT/'.cache/ten-new-project-apps'/project
     identity=json.loads((app/'runtime.json').read_text())
     env=dict(os.environ,PATH=identity['path']+os.pathsep+os.environ['PATH'])
-    binary=ROOT/'bin'/('playtestr.exe' if os.name=='nt' else 'playtestr-linux')
+    binary=args.binary or ROOT/'bin'/('playtestr.exe' if os.name=='nt' else 'playtestr-linux')
     primary=directory/'normal-project.json'
     primary_value=json.loads(primary.read_text(encoding='utf-8'))
     snapshot_name=next(step['snapshot'] for step in primary_value['steps'] if 'snapshot' in step)
@@ -37,7 +39,7 @@ def main():
     baseline.write_bytes(primary_baseline.read_bytes())
     spec=maintenance/'intentional-name-change.json'
     value=json.loads(primary.read_text(encoding='utf-8'))
-    value['name']='Reviewed intentional project label change'
+    value['name']='Reviewed intentional workflow change'
     if args.text_step<1 or args.text_step>len(value['steps']) or 'text' not in value['steps'][args.text_step-1]:
         raise RuntimeError('Selected maintenance step is not an actual text input')
     value['steps'][args.text_step-1]['text']=args.new_text
@@ -79,6 +81,7 @@ def main():
     setup='python scripts/acceptance/'+('adversarial_setup_go.py' if identity.get('toolchain','').startswith('go version')
           else 'adversarial_setup_rust.py' if identity.get('toolchain','').startswith('rustc ')
           else 'adversarial_setup_cookiecutter.py')+' --project '+project
+    setup+='\npython scripts/acceptance/adversarial_export_target_path.py --project '+project
     workflow=run([binary,'workflow','--source-revision',source,'--os',','.join(candidate['planned_hosts']),
         '--suite',str(primary.relative_to(ROOT)),'--setup',
         setup,'--build',

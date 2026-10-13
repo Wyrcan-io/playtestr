@@ -83,6 +83,7 @@ CONTROLS={
  ('missing-executable','TestLaunchFailure','Missing executable produces an accurate launch failure'),
  ('explicit-environment','TestWorkingDirectoryAndExplicitEnvironment','Actual target receives explicit cwd and environment'),
  ('selected-inheritance','TestInheritedEnvironment','Actual target receives only the selected inherited environment value'),
+ ('terminal-profile-precedence','TestAdversarialTerminalProfileEnvironmentThroughRealPTY','Real v1/v2 PTY targets observe the stable TERM default, explicit inheritance and literal-over-inherited precedence without ambient opt-in'),
  ('report-traversal','TestRenderHTMLRejectsUnsafeEvidenceReferences','Evidence references cannot traverse admitted root'),
  ],
  'Workspaces':[

@@ -1,0 +1,11 @@
+--- a/ui/stash.go
++++ b/ui/stash.go
+@@ -844,7 +844,7 @@
+ 			return errMsg{errors.New("could not load file: missing path")}
+ 		}
+ 
+-		data, err := os.ReadFile(md.localPath)
++		data, err := os.ReadFile("overview.md")
+ 		if err != nil {
+ 			log.Debug("error reading local file", "error", err)
+ 			return errMsg{err}

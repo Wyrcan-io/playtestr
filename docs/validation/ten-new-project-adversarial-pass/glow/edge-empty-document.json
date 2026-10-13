@@ -1,0 +1,45 @@
+{
+  "version": 2,
+  "name": "Render an empty Markdown file without hanging or changing any input",
+  "command": [
+    "glow",
+    "--style",
+    "dark",
+    "--mouse=false",
+    "--tui",
+    "empty.md"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "GLAMOUR_STYLE": "dark",
+    "GLOW_TEXT_SIZING": "off",
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "empty.md"
+    },
+    {
+      "expect": "100%"
+    },
+    {
+      "snapshot": "edge-empty-document.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

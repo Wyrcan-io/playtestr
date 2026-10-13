@@ -1,0 +1,723 @@
+{
+  "project": "glow",
+  "fixture": "fixtures",
+  "environment": {
+    "TERM": "screen-256color",
+    "GLAMOUR_STYLE": "dark",
+    "GLOW_TEXT_SIZING": "off"
+  },
+  "cases": [
+    {
+      "name": "normal-project",
+      "kind": "normal",
+      "purpose": "Discover local documentation and read a specifically filtered overview",
+      "command": [
+        "glow",
+        "--style",
+        "dark",
+        "--mouse=false"
+      ],
+      "steps": [
+        {
+          "expect": "6 documents"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "overview"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "PROJECT OVERVIEW TOKEN"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 5,
+      "snapshot_rows": [
+        1,
+        29
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "overview.md": "# overview\n\nPROJECT OVERVIEW TOKEN\n\nProtected documentation paragraph.\n",
+        "guide.md": "# guide\n\nguide DOCUMENT TOKEN\n\nSECOND DOCUMENT BODY\n",
+        "nested/notes café.md": "# Nested notes\n\nNESTED UNICODE café 雪 TOKEN\n",
+        "structured.md": "# Structured reference\n\nSTRUCTURED REFERENCE TOKEN\n\n```go\nfmt.Println(\"CODE BLOCK TOKEN\")\n```\n\n| Key | Value |\n| --- | --- |\n| Setting | TABLE CELL TOKEN |\n",
+        "long.md": "# Long reference\n\nPARAGRAPH 00 café 雪 TOKEN\n\nPARAGRAPH 01 café 雪 TOKEN\n\nPARAGRAPH 02 café 雪 TOKEN\n\nPARAGRAPH 03 café 雪 TOKEN\n\nPARAGRAPH 04 café 雪 TOKEN\n\nPARAGRAPH 05 café 雪 TOKEN\n\nPARAGRAPH 06 café 雪 TOKEN\n\nPARAGRAPH 07 café 雪 TOKEN\n\nPARAGRAPH 08 café 雪 TOKEN\n\nPARAGRAPH 09 café 雪 TOKEN\n\nPARAGRAPH 10 café 雪 TOKEN\n\nPARAGRAPH 11 café 雪 TOKEN\n\nPARAGRAPH 12 café 雪 TOKEN\n\nPARAGRAPH 13 café 雪 TOKEN\n\nPARAGRAPH 14 café 雪 TOKEN\n\nPARAGRAPH 15 café 雪 TOKEN\n\nPARAGRAPH 16 café 雪 TOKEN\n\nPARAGRAPH 17 café 雪 TOKEN\n\nPARAGRAPH 18 café 雪 TOKEN\n\nPARAGRAPH 19 café 雪 TOKEN\n\nPARAGRAPH 20 café 雪 TOKEN\n\nPARAGRAPH 21 café 雪 TOKEN\n\nPARAGRAPH 22 café 雪 TOKEN\n\nPARAGRAPH 23 café 雪 TOKEN\n\nPARAGRAPH 24 café 雪 TOKEN\n\nPARAGRAPH 25 café 雪 TOKEN\n\nPARAGRAPH 26 café 雪 TOKEN\n\nPARAGRAPH 27 café 雪 TOKEN\n\nPARAGRAPH 28 café 雪 TOKEN\n\nPARAGRAPH 29 café 雪 TOKEN\n\nPARAGRAPH 30 café 雪 TOKEN\n\nPARAGRAPH 31 café 雪 TOKEN\n\nPARAGRAPH 32 café 雪 TOKEN\n\nPARAGRAPH 33 café 雪 TOKEN\n\nPARAGRAPH 34 café 雪 TOKEN\n\nPARAGRAPH 35 café 雪 TOKEN\n\nPARAGRAPH 36 café 雪 TOKEN\n\nPARAGRAPH 37 café 雪 TOKEN\n\nPARAGRAPH 38 café 雪 TOKEN\n\nPARAGRAPH 39 café 雪 TOKEN\n\nPARAGRAPH 40 café 雪 TOKEN\n\nPARAGRAPH 41 café 雪 TOKEN\n\nPARAGRAPH 42 café 雪 TOKEN\n\nPARAGRAPH 43 café 雪 TOKEN\n\nPARAGRAPH 44 café 雪 TOKEN\n\nPARAGRAPH 45 café 雪 TOKEN\n\nPARAGRAPH 46 café 雪 TOKEN\n\nPARAGRAPH 47 café 雪 TOKEN\n\nPARAGRAPH 48 café 雪 TOKEN\n\nPARAGRAPH 49 café 雪 TOKEN\n\nPARAGRAPH 50 café 雪 TOKEN\n\nPARAGRAPH 51 café 雪 TOKEN\n\nPARAGRAPH 52 café 雪 TOKEN\n\nPARAGRAPH 53 café 雪 TOKEN\n\nPARAGRAPH 54 café 雪 TOKEN\n\nPARAGRAPH 55 café 雪 TOKEN\n\nPARAGRAPH 56 café 雪 TOKEN\n\nPARAGRAPH 57 café 雪 TOKEN\n\nPARAGRAPH 58 café 雪 TOKEN\n\nPARAGRAPH 59 café 雪 TOKEN\n\nPARAGRAPH 60 café 雪 TOKEN\n\nPARAGRAPH 61 café 雪 TOKEN\n\nPARAGRAPH 62 café 雪 TOKEN\n\nPARAGRAPH 63 café 雪 TOKEN\n\nPARAGRAPH 64 café 雪 TOKEN\n\nPARAGRAPH 65 café 雪 TOKEN\n\nPARAGRAPH 66 café 雪 TOKEN\n\nPARAGRAPH 67 café 雪 TOKEN\n\nPARAGRAPH 68 café 雪 TOKEN\n\nPARAGRAPH 69 café 雪 TOKEN\n\nPARAGRAPH 70 café 雪 TOKEN\n\nPARAGRAPH 71 café 雪 TOKEN\n\nPARAGRAPH 72 café 雪 TOKEN\n\nPARAGRAPH 73 café 雪 TOKEN\n\nPARAGRAPH 74 café 雪 TOKEN\n\nPARAGRAPH 75 café 雪 TOKEN\n\nPARAGRAPH 76 café 雪 TOKEN\n\nPARAGRAPH 77 café 雪 TOKEN\n\nPARAGRAPH 78 café 雪 TOKEN\n\nPARAGRAPH 79 café 雪 TOKEN\n\n",
+        "empty.md": "",
+        "protected.txt": "PROTECTED NON-MARKDOWN NEIGHBOR\n",
+        "empty-library/.keep": "OWNED EMPTY MARKDOWN LIBRARY\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Only the last footer row is excluded; rendered document body and fresh transition checkpoints remain. Browser age labels are not accepted as deterministic body baselines."
+    },
+    {
+      "name": "normal-nested-unicode",
+      "kind": "normal",
+      "purpose": "Filter and read a nested spaced Unicode document",
+      "command": [
+        "glow",
+        "--style",
+        "dark",
+        "--mouse=false"
+      ],
+      "steps": [
+        {
+          "expect": "6 documents"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "notes cafe"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "NESTED UNICODE café 雪 TOKEN"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 5,
+      "snapshot_rows": [
+        1,
+        29
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "overview.md": "# overview\n\nPROJECT OVERVIEW TOKEN\n\nProtected documentation paragraph.\n",
+        "guide.md": "# guide\n\nguide DOCUMENT TOKEN\n\nSECOND DOCUMENT BODY\n",
+        "nested/notes café.md": "# Nested notes\n\nNESTED UNICODE café 雪 TOKEN\n",
+        "structured.md": "# Structured reference\n\nSTRUCTURED REFERENCE TOKEN\n\n```go\nfmt.Println(\"CODE BLOCK TOKEN\")\n```\n\n| Key | Value |\n| --- | --- |\n| Setting | TABLE CELL TOKEN |\n",
+        "long.md": "# Long reference\n\nPARAGRAPH 00 café 雪 TOKEN\n\nPARAGRAPH 01 café 雪 TOKEN\n\nPARAGRAPH 02 café 雪 TOKEN\n\nPARAGRAPH 03 café 雪 TOKEN\n\nPARAGRAPH 04 café 雪 TOKEN\n\nPARAGRAPH 05 café 雪 TOKEN\n\nPARAGRAPH 06 café 雪 TOKEN\n\nPARAGRAPH 07 café 雪 TOKEN\n\nPARAGRAPH 08 café 雪 TOKEN\n\nPARAGRAPH 09 café 雪 TOKEN\n\nPARAGRAPH 10 café 雪 TOKEN\n\nPARAGRAPH 11 café 雪 TOKEN\n\nPARAGRAPH 12 café 雪 TOKEN\n\nPARAGRAPH 13 café 雪 TOKEN\n\nPARAGRAPH 14 café 雪 TOKEN\n\nPARAGRAPH 15 café 雪 TOKEN\n\nPARAGRAPH 16 café 雪 TOKEN\n\nPARAGRAPH 17 café 雪 TOKEN\n\nPARAGRAPH 18 café 雪 TOKEN\n\nPARAGRAPH 19 café 雪 TOKEN\n\nPARAGRAPH 20 café 雪 TOKEN\n\nPARAGRAPH 21 café 雪 TOKEN\n\nPARAGRAPH 22 café 雪 TOKEN\n\nPARAGRAPH 23 café 雪 TOKEN\n\nPARAGRAPH 24 café 雪 TOKEN\n\nPARAGRAPH 25 café 雪 TOKEN\n\nPARAGRAPH 26 café 雪 TOKEN\n\nPARAGRAPH 27 café 雪 TOKEN\n\nPARAGRAPH 28 café 雪 TOKEN\n\nPARAGRAPH 29 café 雪 TOKEN\n\nPARAGRAPH 30 café 雪 TOKEN\n\nPARAGRAPH 31 café 雪 TOKEN\n\nPARAGRAPH 32 café 雪 TOKEN\n\nPARAGRAPH 33 café 雪 TOKEN\n\nPARAGRAPH 34 café 雪 TOKEN\n\nPARAGRAPH 35 café 雪 TOKEN\n\nPARAGRAPH 36 café 雪 TOKEN\n\nPARAGRAPH 37 café 雪 TOKEN\n\nPARAGRAPH 38 café 雪 TOKEN\n\nPARAGRAPH 39 café 雪 TOKEN\n\nPARAGRAPH 40 café 雪 TOKEN\n\nPARAGRAPH 41 café 雪 TOKEN\n\nPARAGRAPH 42 café 雪 TOKEN\n\nPARAGRAPH 43 café 雪 TOKEN\n\nPARAGRAPH 44 café 雪 TOKEN\n\nPARAGRAPH 45 café 雪 TOKEN\n\nPARAGRAPH 46 café 雪 TOKEN\n\nPARAGRAPH 47 café 雪 TOKEN\n\nPARAGRAPH 48 café 雪 TOKEN\n\nPARAGRAPH 49 café 雪 TOKEN\n\nPARAGRAPH 50 café 雪 TOKEN\n\nPARAGRAPH 51 café 雪 TOKEN\n\nPARAGRAPH 52 café 雪 TOKEN\n\nPARAGRAPH 53 café 雪 TOKEN\n\nPARAGRAPH 54 café 雪 TOKEN\n\nPARAGRAPH 55 café 雪 TOKEN\n\nPARAGRAPH 56 café 雪 TOKEN\n\nPARAGRAPH 57 café 雪 TOKEN\n\nPARAGRAPH 58 café 雪 TOKEN\n\nPARAGRAPH 59 café 雪 TOKEN\n\nPARAGRAPH 60 café 雪 TOKEN\n\nPARAGRAPH 61 café 雪 TOKEN\n\nPARAGRAPH 62 café 雪 TOKEN\n\nPARAGRAPH 63 café 雪 TOKEN\n\nPARAGRAPH 64 café 雪 TOKEN\n\nPARAGRAPH 65 café 雪 TOKEN\n\nPARAGRAPH 66 café 雪 TOKEN\n\nPARAGRAPH 67 café 雪 TOKEN\n\nPARAGRAPH 68 café 雪 TOKEN\n\nPARAGRAPH 69 café 雪 TOKEN\n\nPARAGRAPH 70 café 雪 TOKEN\n\nPARAGRAPH 71 café 雪 TOKEN\n\nPARAGRAPH 72 café 雪 TOKEN\n\nPARAGRAPH 73 café 雪 TOKEN\n\nPARAGRAPH 74 café 雪 TOKEN\n\nPARAGRAPH 75 café 雪 TOKEN\n\nPARAGRAPH 76 café 雪 TOKEN\n\nPARAGRAPH 77 café 雪 TOKEN\n\nPARAGRAPH 78 café 雪 TOKEN\n\nPARAGRAPH 79 café 雪 TOKEN\n\n",
+        "empty.md": "",
+        "protected.txt": "PROTECTED NON-MARKDOWN NEIGHBOR\n",
+        "empty-library/.keep": "OWNED EMPTY MARKDOWN LIBRARY\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Only the last footer row is excluded; rendered document body and fresh transition checkpoints remain. Browser age labels are not accepted as deterministic body baselines."
+    },
+    {
+      "name": "normal-long-scroll",
+      "kind": "normal",
+      "purpose": "Read noninitial long-document pages and return to the beginning",
+      "command": [
+        "glow",
+        "--style",
+        "dark",
+        "--mouse=false",
+        "--tui",
+        "long.md"
+      ],
+      "steps": [
+        {
+          "expect": "PARAGRAPH 00"
+        },
+        {
+          "text": "G"
+        },
+        {
+          "expect": "PARAGRAPH 79"
+        },
+        {
+          "text": "g"
+        },
+        {
+          "expect": "PARAGRAPH 00"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 5,
+      "snapshot_rows": [
+        1,
+        29
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "overview.md": "# overview\n\nPROJECT OVERVIEW TOKEN\n\nProtected documentation paragraph.\n",
+        "guide.md": "# guide\n\nguide DOCUMENT TOKEN\n\nSECOND DOCUMENT BODY\n",
+        "nested/notes café.md": "# Nested notes\n\nNESTED UNICODE café 雪 TOKEN\n",
+        "structured.md": "# Structured reference\n\nSTRUCTURED REFERENCE TOKEN\n\n```go\nfmt.Println(\"CODE BLOCK TOKEN\")\n```\n\n| Key | Value |\n| --- | --- |\n| Setting | TABLE CELL TOKEN |\n",
+        "long.md": "# Long reference\n\nPARAGRAPH 00 café 雪 TOKEN\n\nPARAGRAPH 01 café 雪 TOKEN\n\nPARAGRAPH 02 café 雪 TOKEN\n\nPARAGRAPH 03 café 雪 TOKEN\n\nPARAGRAPH 04 café 雪 TOKEN\n\nPARAGRAPH 05 café 雪 TOKEN\n\nPARAGRAPH 06 café 雪 TOKEN\n\nPARAGRAPH 07 café 雪 TOKEN\n\nPARAGRAPH 08 café 雪 TOKEN\n\nPARAGRAPH 09 café 雪 TOKEN\n\nPARAGRAPH 10 café 雪 TOKEN\n\nPARAGRAPH 11 café 雪 TOKEN\n\nPARAGRAPH 12 café 雪 TOKEN\n\nPARAGRAPH 13 café 雪 TOKEN\n\nPARAGRAPH 14 café 雪 TOKEN\n\nPARAGRAPH 15 café 雪 TOKEN\n\nPARAGRAPH 16 café 雪 TOKEN\n\nPARAGRAPH 17 café 雪 TOKEN\n\nPARAGRAPH 18 café 雪 TOKEN\n\nPARAGRAPH 19 café 雪 TOKEN\n\nPARAGRAPH 20 café 雪 TOKEN\n\nPARAGRAPH 21 café 雪 TOKEN\n\nPARAGRAPH 22 café 雪 TOKEN\n\nPARAGRAPH 23 café 雪 TOKEN\n\nPARAGRAPH 24 café 雪 TOKEN\n\nPARAGRAPH 25 café 雪 TOKEN\n\nPARAGRAPH 26 café 雪 TOKEN\n\nPARAGRAPH 27 café 雪 TOKEN\n\nPARAGRAPH 28 café 雪 TOKEN\n\nPARAGRAPH 29 café 雪 TOKEN\n\nPARAGRAPH 30 café 雪 TOKEN\n\nPARAGRAPH 31 café 雪 TOKEN\n\nPARAGRAPH 32 café 雪 TOKEN\n\nPARAGRAPH 33 café 雪 TOKEN\n\nPARAGRAPH 34 café 雪 TOKEN\n\nPARAGRAPH 35 café 雪 TOKEN\n\nPARAGRAPH 36 café 雪 TOKEN\n\nPARAGRAPH 37 café 雪 TOKEN\n\nPARAGRAPH 38 café 雪 TOKEN\n\nPARAGRAPH 39 café 雪 TOKEN\n\nPARAGRAPH 40 café 雪 TOKEN\n\nPARAGRAPH 41 café 雪 TOKEN\n\nPARAGRAPH 42 café 雪 TOKEN\n\nPARAGRAPH 43 café 雪 TOKEN\n\nPARAGRAPH 44 café 雪 TOKEN\n\nPARAGRAPH 45 café 雪 TOKEN\n\nPARAGRAPH 46 café 雪 TOKEN\n\nPARAGRAPH 47 café 雪 TOKEN\n\nPARAGRAPH 48 café 雪 TOKEN\n\nPARAGRAPH 49 café 雪 TOKEN\n\nPARAGRAPH 50 café 雪 TOKEN\n\nPARAGRAPH 51 café 雪 TOKEN\n\nPARAGRAPH 52 café 雪 TOKEN\n\nPARAGRAPH 53 café 雪 TOKEN\n\nPARAGRAPH 54 café 雪 TOKEN\n\nPARAGRAPH 55 café 雪 TOKEN\n\nPARAGRAPH 56 café 雪 TOKEN\n\nPARAGRAPH 57 café 雪 TOKEN\n\nPARAGRAPH 58 café 雪 TOKEN\n\nPARAGRAPH 59 café 雪 TOKEN\n\nPARAGRAPH 60 café 雪 TOKEN\n\nPARAGRAPH 61 café 雪 TOKEN\n\nPARAGRAPH 62 café 雪 TOKEN\n\nPARAGRAPH 63 café 雪 TOKEN\n\nPARAGRAPH 64 café 雪 TOKEN\n\nPARAGRAPH 65 café 雪 TOKEN\n\nPARAGRAPH 66 café 雪 TOKEN\n\nPARAGRAPH 67 café 雪 TOKEN\n\nPARAGRAPH 68 café 雪 TOKEN\n\nPARAGRAPH 69 café 雪 TOKEN\n\nPARAGRAPH 70 café 雪 TOKEN\n\nPARAGRAPH 71 café 雪 TOKEN\n\nPARAGRAPH 72 café 雪 TOKEN\n\nPARAGRAPH 73 café 雪 TOKEN\n\nPARAGRAPH 74 café 雪 TOKEN\n\nPARAGRAPH 75 café 雪 TOKEN\n\nPARAGRAPH 76 café 雪 TOKEN\n\nPARAGRAPH 77 café 雪 TOKEN\n\nPARAGRAPH 78 café 雪 TOKEN\n\nPARAGRAPH 79 café 雪 TOKEN\n\n",
+        "empty.md": "",
+        "protected.txt": "PROTECTED NON-MARKDOWN NEIGHBOR\n",
+        "empty-library/.keep": "OWNED EMPTY MARKDOWN LIBRARY\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Only the last footer row is excluded; rendered document body and fresh transition checkpoints remain. Browser age labels are not accepted as deterministic body baselines."
+    },
+    {
+      "name": "normal-document-switch",
+      "kind": "normal",
+      "purpose": "Return from one document and select a different useful document",
+      "command": [
+        "glow",
+        "--style",
+        "dark",
+        "--mouse=false"
+      ],
+      "steps": [
+        {
+          "expect": "6 documents"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "overview"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "PROJECT OVERVIEW TOKEN"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect": "6 documents"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "guide"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "guide DOCUMENT TOKEN"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 11,
+      "snapshot_rows": [
+        1,
+        29
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "overview.md": "# overview\n\nPROJECT OVERVIEW TOKEN\n\nProtected documentation paragraph.\n",
+        "guide.md": "# guide\n\nguide DOCUMENT TOKEN\n\nSECOND DOCUMENT BODY\n",
+        "nested/notes café.md": "# Nested notes\n\nNESTED UNICODE café 雪 TOKEN\n",
+        "structured.md": "# Structured reference\n\nSTRUCTURED REFERENCE TOKEN\n\n```go\nfmt.Println(\"CODE BLOCK TOKEN\")\n```\n\n| Key | Value |\n| --- | --- |\n| Setting | TABLE CELL TOKEN |\n",
+        "long.md": "# Long reference\n\nPARAGRAPH 00 café 雪 TOKEN\n\nPARAGRAPH 01 café 雪 TOKEN\n\nPARAGRAPH 02 café 雪 TOKEN\n\nPARAGRAPH 03 café 雪 TOKEN\n\nPARAGRAPH 04 café 雪 TOKEN\n\nPARAGRAPH 05 café 雪 TOKEN\n\nPARAGRAPH 06 café 雪 TOKEN\n\nPARAGRAPH 07 café 雪 TOKEN\n\nPARAGRAPH 08 café 雪 TOKEN\n\nPARAGRAPH 09 café 雪 TOKEN\n\nPARAGRAPH 10 café 雪 TOKEN\n\nPARAGRAPH 11 café 雪 TOKEN\n\nPARAGRAPH 12 café 雪 TOKEN\n\nPARAGRAPH 13 café 雪 TOKEN\n\nPARAGRAPH 14 café 雪 TOKEN\n\nPARAGRAPH 15 café 雪 TOKEN\n\nPARAGRAPH 16 café 雪 TOKEN\n\nPARAGRAPH 17 café 雪 TOKEN\n\nPARAGRAPH 18 café 雪 TOKEN\n\nPARAGRAPH 19 café 雪 TOKEN\n\nPARAGRAPH 20 café 雪 TOKEN\n\nPARAGRAPH 21 café 雪 TOKEN\n\nPARAGRAPH 22 café 雪 TOKEN\n\nPARAGRAPH 23 café 雪 TOKEN\n\nPARAGRAPH 24 café 雪 TOKEN\n\nPARAGRAPH 25 café 雪 TOKEN\n\nPARAGRAPH 26 café 雪 TOKEN\n\nPARAGRAPH 27 café 雪 TOKEN\n\nPARAGRAPH 28 café 雪 TOKEN\n\nPARAGRAPH 29 café 雪 TOKEN\n\nPARAGRAPH 30 café 雪 TOKEN\n\nPARAGRAPH 31 café 雪 TOKEN\n\nPARAGRAPH 32 café 雪 TOKEN\n\nPARAGRAPH 33 café 雪 TOKEN\n\nPARAGRAPH 34 café 雪 TOKEN\n\nPARAGRAPH 35 café 雪 TOKEN\n\nPARAGRAPH 36 café 雪 TOKEN\n\nPARAGRAPH 37 café 雪 TOKEN\n\nPARAGRAPH 38 café 雪 TOKEN\n\nPARAGRAPH 39 café 雪 TOKEN\n\nPARAGRAPH 40 café 雪 TOKEN\n\nPARAGRAPH 41 café 雪 TOKEN\n\nPARAGRAPH 42 café 雪 TOKEN\n\nPARAGRAPH 43 café 雪 TOKEN\n\nPARAGRAPH 44 café 雪 TOKEN\n\nPARAGRAPH 45 café 雪 TOKEN\n\nPARAGRAPH 46 café 雪 TOKEN\n\nPARAGRAPH 47 café 雪 TOKEN\n\nPARAGRAPH 48 café 雪 TOKEN\n\nPARAGRAPH 49 café 雪 TOKEN\n\nPARAGRAPH 50 café 雪 TOKEN\n\nPARAGRAPH 51 café 雪 TOKEN\n\nPARAGRAPH 52 café 雪 TOKEN\n\nPARAGRAPH 53 café 雪 TOKEN\n\nPARAGRAPH 54 café 雪 TOKEN\n\nPARAGRAPH 55 café 雪 TOKEN\n\nPARAGRAPH 56 café 雪 TOKEN\n\nPARAGRAPH 57 café 雪 TOKEN\n\nPARAGRAPH 58 café 雪 TOKEN\n\nPARAGRAPH 59 café 雪 TOKEN\n\nPARAGRAPH 60 café 雪 TOKEN\n\nPARAGRAPH 61 café 雪 TOKEN\n\nPARAGRAPH 62 café 雪 TOKEN\n\nPARAGRAPH 63 café 雪 TOKEN\n\nPARAGRAPH 64 café 雪 TOKEN\n\nPARAGRAPH 65 café 雪 TOKEN\n\nPARAGRAPH 66 café 雪 TOKEN\n\nPARAGRAPH 67 café 雪 TOKEN\n\nPARAGRAPH 68 café 雪 TOKEN\n\nPARAGRAPH 69 café 雪 TOKEN\n\nPARAGRAPH 70 café 雪 TOKEN\n\nPARAGRAPH 71 café 雪 TOKEN\n\nPARAGRAPH 72 café 雪 TOKEN\n\nPARAGRAPH 73 café 雪 TOKEN\n\nPARAGRAPH 74 café 雪 TOKEN\n\nPARAGRAPH 75 café 雪 TOKEN\n\nPARAGRAPH 76 café 雪 TOKEN\n\nPARAGRAPH 77 café 雪 TOKEN\n\nPARAGRAPH 78 café 雪 TOKEN\n\nPARAGRAPH 79 café 雪 TOKEN\n\n",
+        "empty.md": "",
+        "protected.txt": "PROTECTED NON-MARKDOWN NEIGHBOR\n",
+        "empty-library/.keep": "OWNED EMPTY MARKDOWN LIBRARY\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Only the last footer row is excluded; rendered document body and fresh transition checkpoints remain. Browser age labels are not accepted as deterministic body baselines."
+    },
+    {
+      "name": "normal-structured-reference",
+      "kind": "normal",
+      "purpose": "Read rendered code and a Markdown table without changing source",
+      "command": [
+        "glow",
+        "--style",
+        "dark",
+        "--mouse=false",
+        "--tui",
+        "structured.md"
+      ],
+      "steps": [
+        {
+          "expect": "STRUCTURED REFERENCE TOKEN"
+        },
+        {
+          "expect": "CODE BLOCK TOKEN"
+        },
+        {
+          "expect": "TABLE CELL TOKEN"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 3,
+      "snapshot_rows": [
+        1,
+        29
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "overview.md": "# overview\n\nPROJECT OVERVIEW TOKEN\n\nProtected documentation paragraph.\n",
+        "guide.md": "# guide\n\nguide DOCUMENT TOKEN\n\nSECOND DOCUMENT BODY\n",
+        "nested/notes café.md": "# Nested notes\n\nNESTED UNICODE café 雪 TOKEN\n",
+        "structured.md": "# Structured reference\n\nSTRUCTURED REFERENCE TOKEN\n\n```go\nfmt.Println(\"CODE BLOCK TOKEN\")\n```\n\n| Key | Value |\n| --- | --- |\n| Setting | TABLE CELL TOKEN |\n",
+        "long.md": "# Long reference\n\nPARAGRAPH 00 café 雪 TOKEN\n\nPARAGRAPH 01 café 雪 TOKEN\n\nPARAGRAPH 02 café 雪 TOKEN\n\nPARAGRAPH 03 café 雪 TOKEN\n\nPARAGRAPH 04 café 雪 TOKEN\n\nPARAGRAPH 05 café 雪 TOKEN\n\nPARAGRAPH 06 café 雪 TOKEN\n\nPARAGRAPH 07 café 雪 TOKEN\n\nPARAGRAPH 08 café 雪 TOKEN\n\nPARAGRAPH 09 café 雪 TOKEN\n\nPARAGRAPH 10 café 雪 TOKEN\n\nPARAGRAPH 11 café 雪 TOKEN\n\nPARAGRAPH 12 café 雪 TOKEN\n\nPARAGRAPH 13 café 雪 TOKEN\n\nPARAGRAPH 14 café 雪 TOKEN\n\nPARAGRAPH 15 café 雪 TOKEN\n\nPARAGRAPH 16 café 雪 TOKEN\n\nPARAGRAPH 17 café 雪 TOKEN\n\nPARAGRAPH 18 café 雪 TOKEN\n\nPARAGRAPH 19 café 雪 TOKEN\n\nPARAGRAPH 20 café 雪 TOKEN\n\nPARAGRAPH 21 café 雪 TOKEN\n\nPARAGRAPH 22 café 雪 TOKEN\n\nPARAGRAPH 23 café 雪 TOKEN\n\nPARAGRAPH 24 café 雪 TOKEN\n\nPARAGRAPH 25 café 雪 TOKEN\n\nPARAGRAPH 26 café 雪 TOKEN\n\nPARAGRAPH 27 café 雪 TOKEN\n\nPARAGRAPH 28 café 雪 TOKEN\n\nPARAGRAPH 29 café 雪 TOKEN\n\nPARAGRAPH 30 café 雪 TOKEN\n\nPARAGRAPH 31 café 雪 TOKEN\n\nPARAGRAPH 32 café 雪 TOKEN\n\nPARAGRAPH 33 café 雪 TOKEN\n\nPARAGRAPH 34 café 雪 TOKEN\n\nPARAGRAPH 35 café 雪 TOKEN\n\nPARAGRAPH 36 café 雪 TOKEN\n\nPARAGRAPH 37 café 雪 TOKEN\n\nPARAGRAPH 38 café 雪 TOKEN\n\nPARAGRAPH 39 café 雪 TOKEN\n\nPARAGRAPH 40 café 雪 TOKEN\n\nPARAGRAPH 41 café 雪 TOKEN\n\nPARAGRAPH 42 café 雪 TOKEN\n\nPARAGRAPH 43 café 雪 TOKEN\n\nPARAGRAPH 44 café 雪 TOKEN\n\nPARAGRAPH 45 café 雪 TOKEN\n\nPARAGRAPH 46 café 雪 TOKEN\n\nPARAGRAPH 47 café 雪 TOKEN\n\nPARAGRAPH 48 café 雪 TOKEN\n\nPARAGRAPH 49 café 雪 TOKEN\n\nPARAGRAPH 50 café 雪 TOKEN\n\nPARAGRAPH 51 café 雪 TOKEN\n\nPARAGRAPH 52 café 雪 TOKEN\n\nPARAGRAPH 53 café 雪 TOKEN\n\nPARAGRAPH 54 café 雪 TOKEN\n\nPARAGRAPH 55 café 雪 TOKEN\n\nPARAGRAPH 56 café 雪 TOKEN\n\nPARAGRAPH 57 café 雪 TOKEN\n\nPARAGRAPH 58 café 雪 TOKEN\n\nPARAGRAPH 59 café 雪 TOKEN\n\nPARAGRAPH 60 café 雪 TOKEN\n\nPARAGRAPH 61 café 雪 TOKEN\n\nPARAGRAPH 62 café 雪 TOKEN\n\nPARAGRAPH 63 café 雪 TOKEN\n\nPARAGRAPH 64 café 雪 TOKEN\n\nPARAGRAPH 65 café 雪 TOKEN\n\nPARAGRAPH 66 café 雪 TOKEN\n\nPARAGRAPH 67 café 雪 TOKEN\n\nPARAGRAPH 68 café 雪 TOKEN\n\nPARAGRAPH 69 café 雪 TOKEN\n\nPARAGRAPH 70 café 雪 TOKEN\n\nPARAGRAPH 71 café 雪 TOKEN\n\nPARAGRAPH 72 café 雪 TOKEN\n\nPARAGRAPH 73 café 雪 TOKEN\n\nPARAGRAPH 74 café 雪 TOKEN\n\nPARAGRAPH 75 café 雪 TOKEN\n\nPARAGRAPH 76 café 雪 TOKEN\n\nPARAGRAPH 77 café 雪 TOKEN\n\nPARAGRAPH 78 café 雪 TOKEN\n\nPARAGRAPH 79 café 雪 TOKEN\n\n",
+        "empty.md": "",
+        "protected.txt": "PROTECTED NON-MARKDOWN NEIGHBOR\n",
+        "empty-library/.keep": "OWNED EMPTY MARKDOWN LIBRARY\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Only the last footer row is excluded; rendered document body and fresh transition checkpoints remain. Browser age labels are not accepted as deterministic body baselines."
+    },
+    {
+      "name": "normal-line-numbers",
+      "kind": "normal",
+      "purpose": "Read with explicit line numbers and navigate to a noninitial viewport",
+      "command": [
+        "glow",
+        "--style",
+        "dark",
+        "--mouse=false",
+        "--tui",
+        "--line-numbers",
+        "long.md"
+      ],
+      "steps": [
+        {
+          "expect": "PARAGRAPH 00"
+        },
+        {
+          "text": "G"
+        },
+        {
+          "expect": "PARAGRAPH 79"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 3,
+      "snapshot_rows": [
+        1,
+        29
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "overview.md": "# overview\n\nPROJECT OVERVIEW TOKEN\n\nProtected documentation paragraph.\n",
+        "guide.md": "# guide\n\nguide DOCUMENT TOKEN\n\nSECOND DOCUMENT BODY\n",
+        "nested/notes café.md": "# Nested notes\n\nNESTED UNICODE café 雪 TOKEN\n",
+        "structured.md": "# Structured reference\n\nSTRUCTURED REFERENCE TOKEN\n\n```go\nfmt.Println(\"CODE BLOCK TOKEN\")\n```\n\n| Key | Value |\n| --- | --- |\n| Setting | TABLE CELL TOKEN |\n",
+        "long.md": "# Long reference\n\nPARAGRAPH 00 café 雪 TOKEN\n\nPARAGRAPH 01 café 雪 TOKEN\n\nPARAGRAPH 02 café 雪 TOKEN\n\nPARAGRAPH 03 café 雪 TOKEN\n\nPARAGRAPH 04 café 雪 TOKEN\n\nPARAGRAPH 05 café 雪 TOKEN\n\nPARAGRAPH 06 café 雪 TOKEN\n\nPARAGRAPH 07 café 雪 TOKEN\n\nPARAGRAPH 08 café 雪 TOKEN\n\nPARAGRAPH 09 café 雪 TOKEN\n\nPARAGRAPH 10 café 雪 TOKEN\n\nPARAGRAPH 11 café 雪 TOKEN\n\nPARAGRAPH 12 café 雪 TOKEN\n\nPARAGRAPH 13 café 雪 TOKEN\n\nPARAGRAPH 14 café 雪 TOKEN\n\nPARAGRAPH 15 café 雪 TOKEN\n\nPARAGRAPH 16 café 雪 TOKEN\n\nPARAGRAPH 17 café 雪 TOKEN\n\nPARAGRAPH 18 café 雪 TOKEN\n\nPARAGRAPH 19 café 雪 TOKEN\n\nPARAGRAPH 20 café 雪 TOKEN\n\nPARAGRAPH 21 café 雪 TOKEN\n\nPARAGRAPH 22 café 雪 TOKEN\n\nPARAGRAPH 23 café 雪 TOKEN\n\nPARAGRAPH 24 café 雪 TOKEN\n\nPARAGRAPH 25 café 雪 TOKEN\n\nPARAGRAPH 26 café 雪 TOKEN\n\nPARAGRAPH 27 café 雪 TOKEN\n\nPARAGRAPH 28 café 雪 TOKEN\n\nPARAGRAPH 29 café 雪 TOKEN\n\nPARAGRAPH 30 café 雪 TOKEN\n\nPARAGRAPH 31 café 雪 TOKEN\n\nPARAGRAPH 32 café 雪 TOKEN\n\nPARAGRAPH 33 café 雪 TOKEN\n\nPARAGRAPH 34 café 雪 TOKEN\n\nPARAGRAPH 35 café 雪 TOKEN\n\nPARAGRAPH 36 café 雪 TOKEN\n\nPARAGRAPH 37 café 雪 TOKEN\n\nPARAGRAPH 38 café 雪 TOKEN\n\nPARAGRAPH 39 café 雪 TOKEN\n\nPARAGRAPH 40 café 雪 TOKEN\n\nPARAGRAPH 41 café 雪 TOKEN\n\nPARAGRAPH 42 café 雪 TOKEN\n\nPARAGRAPH 43 café 雪 TOKEN\n\nPARAGRAPH 44 café 雪 TOKEN\n\nPARAGRAPH 45 café 雪 TOKEN\n\nPARAGRAPH 46 café 雪 TOKEN\n\nPARAGRAPH 47 café 雪 TOKEN\n\nPARAGRAPH 48 café 雪 TOKEN\n\nPARAGRAPH 49 café 雪 TOKEN\n\nPARAGRAPH 50 café 雪 TOKEN\n\nPARAGRAPH 51 café 雪 TOKEN\n\nPARAGRAPH 52 café 雪 TOKEN\n\nPARAGRAPH 53 café 雪 TOKEN\n\nPARAGRAPH 54 café 雪 TOKEN\n\nPARAGRAPH 55 café 雪 TOKEN\n\nPARAGRAPH 56 café 雪 TOKEN\n\nPARAGRAPH 57 café 雪 TOKEN\n\nPARAGRAPH 58 café 雪 TOKEN\n\nPARAGRAPH 59 café 雪 TOKEN\n\nPARAGRAPH 60 café 雪 TOKEN\n\nPARAGRAPH 61 café 雪 TOKEN\n\nPARAGRAPH 62 café 雪 TOKEN\n\nPARAGRAPH 63 café 雪 TOKEN\n\nPARAGRAPH 64 café 雪 TOKEN\n\nPARAGRAPH 65 café 雪 TOKEN\n\nPARAGRAPH 66 café 雪 TOKEN\n\nPARAGRAPH 67 café 雪 TOKEN\n\nPARAGRAPH 68 café 雪 TOKEN\n\nPARAGRAPH 69 café 雪 TOKEN\n\nPARAGRAPH 70 café 雪 TOKEN\n\nPARAGRAPH 71 café 雪 TOKEN\n\nPARAGRAPH 72 café 雪 TOKEN\n\nPARAGRAPH 73 café 雪 TOKEN\n\nPARAGRAPH 74 café 雪 TOKEN\n\nPARAGRAPH 75 café 雪 TOKEN\n\nPARAGRAPH 76 café 雪 TOKEN\n\nPARAGRAPH 77 café 雪 TOKEN\n\nPARAGRAPH 78 café 雪 TOKEN\n\nPARAGRAPH 79 café 雪 TOKEN\n\n",
+        "empty.md": "",
+        "protected.txt": "PROTECTED NON-MARKDOWN NEIGHBOR\n",
+        "empty-library/.keep": "OWNED EMPTY MARKDOWN LIBRARY\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Only the last footer row is excluded; rendered document body and fresh transition checkpoints remain. Browser age labels are not accepted as deterministic body baselines."
+    },
+    {
+      "name": "edge-empty-library",
+      "kind": "edge",
+      "purpose": "Handle a library containing no Markdown files and quit naturally",
+      "command": [
+        "glow",
+        "--style",
+        "dark",
+        "--mouse=false",
+        "empty-library"
+      ],
+      "steps": [
+        {
+          "expect": "No files found."
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 1,
+      "snapshot_rows": [
+        1,
+        29
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "overview.md": "# overview\n\nPROJECT OVERVIEW TOKEN\n\nProtected documentation paragraph.\n",
+        "guide.md": "# guide\n\nguide DOCUMENT TOKEN\n\nSECOND DOCUMENT BODY\n",
+        "nested/notes café.md": "# Nested notes\n\nNESTED UNICODE café 雪 TOKEN\n",
+        "structured.md": "# Structured reference\n\nSTRUCTURED REFERENCE TOKEN\n\n```go\nfmt.Println(\"CODE BLOCK TOKEN\")\n```\n\n| Key | Value |\n| --- | --- |\n| Setting | TABLE CELL TOKEN |\n",
+        "long.md": "# Long reference\n\nPARAGRAPH 00 café 雪 TOKEN\n\nPARAGRAPH 01 café 雪 TOKEN\n\nPARAGRAPH 02 café 雪 TOKEN\n\nPARAGRAPH 03 café 雪 TOKEN\n\nPARAGRAPH 04 café 雪 TOKEN\n\nPARAGRAPH 05 café 雪 TOKEN\n\nPARAGRAPH 06 café 雪 TOKEN\n\nPARAGRAPH 07 café 雪 TOKEN\n\nPARAGRAPH 08 café 雪 TOKEN\n\nPARAGRAPH 09 café 雪 TOKEN\n\nPARAGRAPH 10 café 雪 TOKEN\n\nPARAGRAPH 11 café 雪 TOKEN\n\nPARAGRAPH 12 café 雪 TOKEN\n\nPARAGRAPH 13 café 雪 TOKEN\n\nPARAGRAPH 14 café 雪 TOKEN\n\nPARAGRAPH 15 café 雪 TOKEN\n\nPARAGRAPH 16 café 雪 TOKEN\n\nPARAGRAPH 17 café 雪 TOKEN\n\nPARAGRAPH 18 café 雪 TOKEN\n\nPARAGRAPH 19 café 雪 TOKEN\n\nPARAGRAPH 20 café 雪 TOKEN\n\nPARAGRAPH 21 café 雪 TOKEN\n\nPARAGRAPH 22 café 雪 TOKEN\n\nPARAGRAPH 23 café 雪 TOKEN\n\nPARAGRAPH 24 café 雪 TOKEN\n\nPARAGRAPH 25 café 雪 TOKEN\n\nPARAGRAPH 26 café 雪 TOKEN\n\nPARAGRAPH 27 café 雪 TOKEN\n\nPARAGRAPH 28 café 雪 TOKEN\n\nPARAGRAPH 29 café 雪 TOKEN\n\nPARAGRAPH 30 café 雪 TOKEN\n\nPARAGRAPH 31 café 雪 TOKEN\n\nPARAGRAPH 32 café 雪 TOKEN\n\nPARAGRAPH 33 café 雪 TOKEN\n\nPARAGRAPH 34 café 雪 TOKEN\n\nPARAGRAPH 35 café 雪 TOKEN\n\nPARAGRAPH 36 café 雪 TOKEN\n\nPARAGRAPH 37 café 雪 TOKEN\n\nPARAGRAPH 38 café 雪 TOKEN\n\nPARAGRAPH 39 café 雪 TOKEN\n\nPARAGRAPH 40 café 雪 TOKEN\n\nPARAGRAPH 41 café 雪 TOKEN\n\nPARAGRAPH 42 café 雪 TOKEN\n\nPARAGRAPH 43 café 雪 TOKEN\n\nPARAGRAPH 44 café 雪 TOKEN\n\nPARAGRAPH 45 café 雪 TOKEN\n\nPARAGRAPH 46 café 雪 TOKEN\n\nPARAGRAPH 47 café 雪 TOKEN\n\nPARAGRAPH 48 café 雪 TOKEN\n\nPARAGRAPH 49 café 雪 TOKEN\n\nPARAGRAPH 50 café 雪 TOKEN\n\nPARAGRAPH 51 café 雪 TOKEN\n\nPARAGRAPH 52 café 雪 TOKEN\n\nPARAGRAPH 53 café 雪 TOKEN\n\nPARAGRAPH 54 café 雪 TOKEN\n\nPARAGRAPH 55 café 雪 TOKEN\n\nPARAGRAPH 56 café 雪 TOKEN\n\nPARAGRAPH 57 café 雪 TOKEN\n\nPARAGRAPH 58 café 雪 TOKEN\n\nPARAGRAPH 59 café 雪 TOKEN\n\nPARAGRAPH 60 café 雪 TOKEN\n\nPARAGRAPH 61 café 雪 TOKEN\n\nPARAGRAPH 62 café 雪 TOKEN\n\nPARAGRAPH 63 café 雪 TOKEN\n\nPARAGRAPH 64 café 雪 TOKEN\n\nPARAGRAPH 65 café 雪 TOKEN\n\nPARAGRAPH 66 café 雪 TOKEN\n\nPARAGRAPH 67 café 雪 TOKEN\n\nPARAGRAPH 68 café 雪 TOKEN\n\nPARAGRAPH 69 café 雪 TOKEN\n\nPARAGRAPH 70 café 雪 TOKEN\n\nPARAGRAPH 71 café 雪 TOKEN\n\nPARAGRAPH 72 café 雪 TOKEN\n\nPARAGRAPH 73 café 雪 TOKEN\n\nPARAGRAPH 74 café 雪 TOKEN\n\nPARAGRAPH 75 café 雪 TOKEN\n\nPARAGRAPH 76 café 雪 TOKEN\n\nPARAGRAPH 77 café 雪 TOKEN\n\nPARAGRAPH 78 café 雪 TOKEN\n\nPARAGRAPH 79 café 雪 TOKEN\n\n",
+        "empty.md": "",
+        "protected.txt": "PROTECTED NON-MARKDOWN NEIGHBOR\n",
+        "empty-library/.keep": "OWNED EMPTY MARKDOWN LIBRARY\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Only the last footer row is excluded; rendered document body and fresh transition checkpoints remain. Browser age labels are not accepted as deterministic body baselines."
+    },
+    {
+      "name": "edge-no-match-recovery",
+      "kind": "edge",
+      "purpose": "Recover from an empty filter result and open a useful document",
+      "command": [
+        "glow",
+        "--style",
+        "dark",
+        "--mouse=false"
+      ],
+      "steps": [
+        {
+          "expect": "6 documents"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "ABSENT NEVER DOCUMENT"
+        },
+        {
+          "expect": "ABSENT NEVER DOCUMENT"
+        },
+        {
+          "expect": "No files found."
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect": "6 documents"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "guide"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "guide DOCUMENT TOKEN"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 11,
+      "snapshot_rows": [
+        1,
+        29
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "overview.md": "# overview\n\nPROJECT OVERVIEW TOKEN\n\nProtected documentation paragraph.\n",
+        "guide.md": "# guide\n\nguide DOCUMENT TOKEN\n\nSECOND DOCUMENT BODY\n",
+        "nested/notes café.md": "# Nested notes\n\nNESTED UNICODE café 雪 TOKEN\n",
+        "structured.md": "# Structured reference\n\nSTRUCTURED REFERENCE TOKEN\n\n```go\nfmt.Println(\"CODE BLOCK TOKEN\")\n```\n\n| Key | Value |\n| --- | --- |\n| Setting | TABLE CELL TOKEN |\n",
+        "long.md": "# Long reference\n\nPARAGRAPH 00 café 雪 TOKEN\n\nPARAGRAPH 01 café 雪 TOKEN\n\nPARAGRAPH 02 café 雪 TOKEN\n\nPARAGRAPH 03 café 雪 TOKEN\n\nPARAGRAPH 04 café 雪 TOKEN\n\nPARAGRAPH 05 café 雪 TOKEN\n\nPARAGRAPH 06 café 雪 TOKEN\n\nPARAGRAPH 07 café 雪 TOKEN\n\nPARAGRAPH 08 café 雪 TOKEN\n\nPARAGRAPH 09 café 雪 TOKEN\n\nPARAGRAPH 10 café 雪 TOKEN\n\nPARAGRAPH 11 café 雪 TOKEN\n\nPARAGRAPH 12 café 雪 TOKEN\n\nPARAGRAPH 13 café 雪 TOKEN\n\nPARAGRAPH 14 café 雪 TOKEN\n\nPARAGRAPH 15 café 雪 TOKEN\n\nPARAGRAPH 16 café 雪 TOKEN\n\nPARAGRAPH 17 café 雪 TOKEN\n\nPARAGRAPH 18 café 雪 TOKEN\n\nPARAGRAPH 19 café 雪 TOKEN\n\nPARAGRAPH 20 café 雪 TOKEN\n\nPARAGRAPH 21 café 雪 TOKEN\n\nPARAGRAPH 22 café 雪 TOKEN\n\nPARAGRAPH 23 café 雪 TOKEN\n\nPARAGRAPH 24 café 雪 TOKEN\n\nPARAGRAPH 25 café 雪 TOKEN\n\nPARAGRAPH 26 café 雪 TOKEN\n\nPARAGRAPH 27 café 雪 TOKEN\n\nPARAGRAPH 28 café 雪 TOKEN\n\nPARAGRAPH 29 café 雪 TOKEN\n\nPARAGRAPH 30 café 雪 TOKEN\n\nPARAGRAPH 31 café 雪 TOKEN\n\nPARAGRAPH 32 café 雪 TOKEN\n\nPARAGRAPH 33 café 雪 TOKEN\n\nPARAGRAPH 34 café 雪 TOKEN\n\nPARAGRAPH 35 café 雪 TOKEN\n\nPARAGRAPH 36 café 雪 TOKEN\n\nPARAGRAPH 37 café 雪 TOKEN\n\nPARAGRAPH 38 café 雪 TOKEN\n\nPARAGRAPH 39 café 雪 TOKEN\n\nPARAGRAPH 40 café 雪 TOKEN\n\nPARAGRAPH 41 café 雪 TOKEN\n\nPARAGRAPH 42 café 雪 TOKEN\n\nPARAGRAPH 43 café 雪 TOKEN\n\nPARAGRAPH 44 café 雪 TOKEN\n\nPARAGRAPH 45 café 雪 TOKEN\n\nPARAGRAPH 46 café 雪 TOKEN\n\nPARAGRAPH 47 café 雪 TOKEN\n\nPARAGRAPH 48 café 雪 TOKEN\n\nPARAGRAPH 49 café 雪 TOKEN\n\nPARAGRAPH 50 café 雪 TOKEN\n\nPARAGRAPH 51 café 雪 TOKEN\n\nPARAGRAPH 52 café 雪 TOKEN\n\nPARAGRAPH 53 café 雪 TOKEN\n\nPARAGRAPH 54 café 雪 TOKEN\n\nPARAGRAPH 55 café 雪 TOKEN\n\nPARAGRAPH 56 café 雪 TOKEN\n\nPARAGRAPH 57 café 雪 TOKEN\n\nPARAGRAPH 58 café 雪 TOKEN\n\nPARAGRAPH 59 café 雪 TOKEN\n\nPARAGRAPH 60 café 雪 TOKEN\n\nPARAGRAPH 61 café 雪 TOKEN\n\nPARAGRAPH 62 café 雪 TOKEN\n\nPARAGRAPH 63 café 雪 TOKEN\n\nPARAGRAPH 64 café 雪 TOKEN\n\nPARAGRAPH 65 café 雪 TOKEN\n\nPARAGRAPH 66 café 雪 TOKEN\n\nPARAGRAPH 67 café 雪 TOKEN\n\nPARAGRAPH 68 café 雪 TOKEN\n\nPARAGRAPH 69 café 雪 TOKEN\n\nPARAGRAPH 70 café 雪 TOKEN\n\nPARAGRAPH 71 café 雪 TOKEN\n\nPARAGRAPH 72 café 雪 TOKEN\n\nPARAGRAPH 73 café 雪 TOKEN\n\nPARAGRAPH 74 café 雪 TOKEN\n\nPARAGRAPH 75 café 雪 TOKEN\n\nPARAGRAPH 76 café 雪 TOKEN\n\nPARAGRAPH 77 café 雪 TOKEN\n\nPARAGRAPH 78 café 雪 TOKEN\n\nPARAGRAPH 79 café 雪 TOKEN\n\n",
+        "empty.md": "",
+        "protected.txt": "PROTECTED NON-MARKDOWN NEIGHBOR\n",
+        "empty-library/.keep": "OWNED EMPTY MARKDOWN LIBRARY\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Only the last footer row is excluded; rendered document body and fresh transition checkpoints remain. Browser age labels are not accepted as deterministic body baselines."
+    },
+    {
+      "name": "edge-cancel-filter",
+      "kind": "edge",
+      "purpose": "Cancel a partial filter and continue with the original complete library",
+      "command": [
+        "glow",
+        "--style",
+        "dark",
+        "--mouse=false"
+      ],
+      "steps": [
+        {
+          "expect": "6 documents"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "over"
+        },
+        {
+          "expect": "Find: over"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect": "6 documents"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "guide"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "guide DOCUMENT TOKEN"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 10,
+      "snapshot_rows": [
+        1,
+        29
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "overview.md": "# overview\n\nPROJECT OVERVIEW TOKEN\n\nProtected documentation paragraph.\n",
+        "guide.md": "# guide\n\nguide DOCUMENT TOKEN\n\nSECOND DOCUMENT BODY\n",
+        "nested/notes café.md": "# Nested notes\n\nNESTED UNICODE café 雪 TOKEN\n",
+        "structured.md": "# Structured reference\n\nSTRUCTURED REFERENCE TOKEN\n\n```go\nfmt.Println(\"CODE BLOCK TOKEN\")\n```\n\n| Key | Value |\n| --- | --- |\n| Setting | TABLE CELL TOKEN |\n",
+        "long.md": "# Long reference\n\nPARAGRAPH 00 café 雪 TOKEN\n\nPARAGRAPH 01 café 雪 TOKEN\n\nPARAGRAPH 02 café 雪 TOKEN\n\nPARAGRAPH 03 café 雪 TOKEN\n\nPARAGRAPH 04 café 雪 TOKEN\n\nPARAGRAPH 05 café 雪 TOKEN\n\nPARAGRAPH 06 café 雪 TOKEN\n\nPARAGRAPH 07 café 雪 TOKEN\n\nPARAGRAPH 08 café 雪 TOKEN\n\nPARAGRAPH 09 café 雪 TOKEN\n\nPARAGRAPH 10 café 雪 TOKEN\n\nPARAGRAPH 11 café 雪 TOKEN\n\nPARAGRAPH 12 café 雪 TOKEN\n\nPARAGRAPH 13 café 雪 TOKEN\n\nPARAGRAPH 14 café 雪 TOKEN\n\nPARAGRAPH 15 café 雪 TOKEN\n\nPARAGRAPH 16 café 雪 TOKEN\n\nPARAGRAPH 17 café 雪 TOKEN\n\nPARAGRAPH 18 café 雪 TOKEN\n\nPARAGRAPH 19 café 雪 TOKEN\n\nPARAGRAPH 20 café 雪 TOKEN\n\nPARAGRAPH 21 café 雪 TOKEN\n\nPARAGRAPH 22 café 雪 TOKEN\n\nPARAGRAPH 23 café 雪 TOKEN\n\nPARAGRAPH 24 café 雪 TOKEN\n\nPARAGRAPH 25 café 雪 TOKEN\n\nPARAGRAPH 26 café 雪 TOKEN\n\nPARAGRAPH 27 café 雪 TOKEN\n\nPARAGRAPH 28 café 雪 TOKEN\n\nPARAGRAPH 29 café 雪 TOKEN\n\nPARAGRAPH 30 café 雪 TOKEN\n\nPARAGRAPH 31 café 雪 TOKEN\n\nPARAGRAPH 32 café 雪 TOKEN\n\nPARAGRAPH 33 café 雪 TOKEN\n\nPARAGRAPH 34 café 雪 TOKEN\n\nPARAGRAPH 35 café 雪 TOKEN\n\nPARAGRAPH 36 café 雪 TOKEN\n\nPARAGRAPH 37 café 雪 TOKEN\n\nPARAGRAPH 38 café 雪 TOKEN\n\nPARAGRAPH 39 café 雪 TOKEN\n\nPARAGRAPH 40 café 雪 TOKEN\n\nPARAGRAPH 41 café 雪 TOKEN\n\nPARAGRAPH 42 café 雪 TOKEN\n\nPARAGRAPH 43 café 雪 TOKEN\n\nPARAGRAPH 44 café 雪 TOKEN\n\nPARAGRAPH 45 café 雪 TOKEN\n\nPARAGRAPH 46 café 雪 TOKEN\n\nPARAGRAPH 47 café 雪 TOKEN\n\nPARAGRAPH 48 café 雪 TOKEN\n\nPARAGRAPH 49 café 雪 TOKEN\n\nPARAGRAPH 50 café 雪 TOKEN\n\nPARAGRAPH 51 café 雪 TOKEN\n\nPARAGRAPH 52 café 雪 TOKEN\n\nPARAGRAPH 53 café 雪 TOKEN\n\nPARAGRAPH 54 café 雪 TOKEN\n\nPARAGRAPH 55 café 雪 TOKEN\n\nPARAGRAPH 56 café 雪 TOKEN\n\nPARAGRAPH 57 café 雪 TOKEN\n\nPARAGRAPH 58 café 雪 TOKEN\n\nPARAGRAPH 59 café 雪 TOKEN\n\nPARAGRAPH 60 café 雪 TOKEN\n\nPARAGRAPH 61 café 雪 TOKEN\n\nPARAGRAPH 62 café 雪 TOKEN\n\nPARAGRAPH 63 café 雪 TOKEN\n\nPARAGRAPH 64 café 雪 TOKEN\n\nPARAGRAPH 65 café 雪 TOKEN\n\nPARAGRAPH 66 café 雪 TOKEN\n\nPARAGRAPH 67 café 雪 TOKEN\n\nPARAGRAPH 68 café 雪 TOKEN\n\nPARAGRAPH 69 café 雪 TOKEN\n\nPARAGRAPH 70 café 雪 TOKEN\n\nPARAGRAPH 71 café 雪 TOKEN\n\nPARAGRAPH 72 café 雪 TOKEN\n\nPARAGRAPH 73 café 雪 TOKEN\n\nPARAGRAPH 74 café 雪 TOKEN\n\nPARAGRAPH 75 café 雪 TOKEN\n\nPARAGRAPH 76 café 雪 TOKEN\n\nPARAGRAPH 77 café 雪 TOKEN\n\nPARAGRAPH 78 café 雪 TOKEN\n\nPARAGRAPH 79 café 雪 TOKEN\n\n",
+        "empty.md": "",
+        "protected.txt": "PROTECTED NON-MARKDOWN NEIGHBOR\n",
+        "empty-library/.keep": "OWNED EMPTY MARKDOWN LIBRARY\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Only the last footer row is excluded; rendered document body and fresh transition checkpoints remain. Browser age labels are not accepted as deterministic body baselines."
+    },
+    {
+      "name": "edge-empty-document",
+      "kind": "edge",
+      "purpose": "Render an empty Markdown file without hanging or changing any input",
+      "command": [
+        "glow",
+        "--style",
+        "dark",
+        "--mouse=false",
+        "--tui",
+        "empty.md"
+      ],
+      "steps": [
+        {
+          "expect": "empty.md"
+        },
+        {
+          "expect": "100%"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 2,
+      "snapshot_rows": [
+        1,
+        30
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "overview.md": "# overview\n\nPROJECT OVERVIEW TOKEN\n\nProtected documentation paragraph.\n",
+        "guide.md": "# guide\n\nguide DOCUMENT TOKEN\n\nSECOND DOCUMENT BODY\n",
+        "nested/notes café.md": "# Nested notes\n\nNESTED UNICODE café 雪 TOKEN\n",
+        "structured.md": "# Structured reference\n\nSTRUCTURED REFERENCE TOKEN\n\n```go\nfmt.Println(\"CODE BLOCK TOKEN\")\n```\n\n| Key | Value |\n| --- | --- |\n| Setting | TABLE CELL TOKEN |\n",
+        "long.md": "# Long reference\n\nPARAGRAPH 00 café 雪 TOKEN\n\nPARAGRAPH 01 café 雪 TOKEN\n\nPARAGRAPH 02 café 雪 TOKEN\n\nPARAGRAPH 03 café 雪 TOKEN\n\nPARAGRAPH 04 café 雪 TOKEN\n\nPARAGRAPH 05 café 雪 TOKEN\n\nPARAGRAPH 06 café 雪 TOKEN\n\nPARAGRAPH 07 café 雪 TOKEN\n\nPARAGRAPH 08 café 雪 TOKEN\n\nPARAGRAPH 09 café 雪 TOKEN\n\nPARAGRAPH 10 café 雪 TOKEN\n\nPARAGRAPH 11 café 雪 TOKEN\n\nPARAGRAPH 12 café 雪 TOKEN\n\nPARAGRAPH 13 café 雪 TOKEN\n\nPARAGRAPH 14 café 雪 TOKEN\n\nPARAGRAPH 15 café 雪 TOKEN\n\nPARAGRAPH 16 café 雪 TOKEN\n\nPARAGRAPH 17 café 雪 TOKEN\n\nPARAGRAPH 18 café 雪 TOKEN\n\nPARAGRAPH 19 café 雪 TOKEN\n\nPARAGRAPH 20 café 雪 TOKEN\n\nPARAGRAPH 21 café 雪 TOKEN\n\nPARAGRAPH 22 café 雪 TOKEN\n\nPARAGRAPH 23 café 雪 TOKEN\n\nPARAGRAPH 24 café 雪 TOKEN\n\nPARAGRAPH 25 café 雪 TOKEN\n\nPARAGRAPH 26 café 雪 TOKEN\n\nPARAGRAPH 27 café 雪 TOKEN\n\nPARAGRAPH 28 café 雪 TOKEN\n\nPARAGRAPH 29 café 雪 TOKEN\n\nPARAGRAPH 30 café 雪 TOKEN\n\nPARAGRAPH 31 café 雪 TOKEN\n\nPARAGRAPH 32 café 雪 TOKEN\n\nPARAGRAPH 33 café 雪 TOKEN\n\nPARAGRAPH 34 café 雪 TOKEN\n\nPARAGRAPH 35 café 雪 TOKEN\n\nPARAGRAPH 36 café 雪 TOKEN\n\nPARAGRAPH 37 café 雪 TOKEN\n\nPARAGRAPH 38 café 雪 TOKEN\n\nPARAGRAPH 39 café 雪 TOKEN\n\nPARAGRAPH 40 café 雪 TOKEN\n\nPARAGRAPH 41 café 雪 TOKEN\n\nPARAGRAPH 42 café 雪 TOKEN\n\nPARAGRAPH 43 café 雪 TOKEN\n\nPARAGRAPH 44 café 雪 TOKEN\n\nPARAGRAPH 45 café 雪 TOKEN\n\nPARAGRAPH 46 café 雪 TOKEN\n\nPARAGRAPH 47 café 雪 TOKEN\n\nPARAGRAPH 48 café 雪 TOKEN\n\nPARAGRAPH 49 café 雪 TOKEN\n\nPARAGRAPH 50 café 雪 TOKEN\n\nPARAGRAPH 51 café 雪 TOKEN\n\nPARAGRAPH 52 café 雪 TOKEN\n\nPARAGRAPH 53 café 雪 TOKEN\n\nPARAGRAPH 54 café 雪 TOKEN\n\nPARAGRAPH 55 café 雪 TOKEN\n\nPARAGRAPH 56 café 雪 TOKEN\n\nPARAGRAPH 57 café 雪 TOKEN\n\nPARAGRAPH 58 café 雪 TOKEN\n\nPARAGRAPH 59 café 雪 TOKEN\n\nPARAGRAPH 60 café 雪 TOKEN\n\nPARAGRAPH 61 café 雪 TOKEN\n\nPARAGRAPH 62 café 雪 TOKEN\n\nPARAGRAPH 63 café 雪 TOKEN\n\nPARAGRAPH 64 café 雪 TOKEN\n\nPARAGRAPH 65 café 雪 TOKEN\n\nPARAGRAPH 66 café 雪 TOKEN\n\nPARAGRAPH 67 café 雪 TOKEN\n\nPARAGRAPH 68 café 雪 TOKEN\n\nPARAGRAPH 69 café 雪 TOKEN\n\nPARAGRAPH 70 café 雪 TOKEN\n\nPARAGRAPH 71 café 雪 TOKEN\n\nPARAGRAPH 72 café 雪 TOKEN\n\nPARAGRAPH 73 café 雪 TOKEN\n\nPARAGRAPH 74 café 雪 TOKEN\n\nPARAGRAPH 75 café 雪 TOKEN\n\nPARAGRAPH 76 café 雪 TOKEN\n\nPARAGRAPH 77 café 雪 TOKEN\n\nPARAGRAPH 78 café 雪 TOKEN\n\nPARAGRAPH 79 café 雪 TOKEN\n\n",
+        "empty.md": "",
+        "protected.txt": "PROTECTED NON-MARKDOWN NEIGHBOR\n",
+        "empty-library/.keep": "OWNED EMPTY MARKDOWN LIBRARY\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "No rows excluded: the empty body and its real filename/percentage footer together provide meaningful evidence."
+    },
+    {
+      "name": "edge-resize-scroll",
+      "kind": "edge",
+      "purpose": "Resize narrow and wide while navigating long Unicode documentation",
+      "command": [
+        "glow",
+        "--style",
+        "dark",
+        "--mouse=false",
+        "--tui",
+        "long.md"
+      ],
+      "steps": [
+        {
+          "expect": "PARAGRAPH 00"
+        },
+        {
+          "resize": {
+            "width": 45,
+            "height": 18
+          }
+        },
+        {
+          "text": "G"
+        },
+        {
+          "expect": "PARAGRAPH 79"
+        },
+        {
+          "resize": {
+            "width": 120,
+            "height": 35
+          }
+        },
+        {
+          "text": "g"
+        },
+        {
+          "expect": "PARAGRAPH 00"
+        },
+        {
+          "resize": {
+            "width": 100,
+            "height": 30
+          }
+        },
+        {
+          "text": "G"
+        },
+        {
+          "expect": "PARAGRAPH 79"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 10,
+      "snapshot_rows": [
+        1,
+        29
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "overview.md": "# overview\n\nPROJECT OVERVIEW TOKEN\n\nProtected documentation paragraph.\n",
+        "guide.md": "# guide\n\nguide DOCUMENT TOKEN\n\nSECOND DOCUMENT BODY\n",
+        "nested/notes café.md": "# Nested notes\n\nNESTED UNICODE café 雪 TOKEN\n",
+        "structured.md": "# Structured reference\n\nSTRUCTURED REFERENCE TOKEN\n\n```go\nfmt.Println(\"CODE BLOCK TOKEN\")\n```\n\n| Key | Value |\n| --- | --- |\n| Setting | TABLE CELL TOKEN |\n",
+        "long.md": "# Long reference\n\nPARAGRAPH 00 café 雪 TOKEN\n\nPARAGRAPH 01 café 雪 TOKEN\n\nPARAGRAPH 02 café 雪 TOKEN\n\nPARAGRAPH 03 café 雪 TOKEN\n\nPARAGRAPH 04 café 雪 TOKEN\n\nPARAGRAPH 05 café 雪 TOKEN\n\nPARAGRAPH 06 café 雪 TOKEN\n\nPARAGRAPH 07 café 雪 TOKEN\n\nPARAGRAPH 08 café 雪 TOKEN\n\nPARAGRAPH 09 café 雪 TOKEN\n\nPARAGRAPH 10 café 雪 TOKEN\n\nPARAGRAPH 11 café 雪 TOKEN\n\nPARAGRAPH 12 café 雪 TOKEN\n\nPARAGRAPH 13 café 雪 TOKEN\n\nPARAGRAPH 14 café 雪 TOKEN\n\nPARAGRAPH 15 café 雪 TOKEN\n\nPARAGRAPH 16 café 雪 TOKEN\n\nPARAGRAPH 17 café 雪 TOKEN\n\nPARAGRAPH 18 café 雪 TOKEN\n\nPARAGRAPH 19 café 雪 TOKEN\n\nPARAGRAPH 20 café 雪 TOKEN\n\nPARAGRAPH 21 café 雪 TOKEN\n\nPARAGRAPH 22 café 雪 TOKEN\n\nPARAGRAPH 23 café 雪 TOKEN\n\nPARAGRAPH 24 café 雪 TOKEN\n\nPARAGRAPH 25 café 雪 TOKEN\n\nPARAGRAPH 26 café 雪 TOKEN\n\nPARAGRAPH 27 café 雪 TOKEN\n\nPARAGRAPH 28 café 雪 TOKEN\n\nPARAGRAPH 29 café 雪 TOKEN\n\nPARAGRAPH 30 café 雪 TOKEN\n\nPARAGRAPH 31 café 雪 TOKEN\n\nPARAGRAPH 32 café 雪 TOKEN\n\nPARAGRAPH 33 café 雪 TOKEN\n\nPARAGRAPH 34 café 雪 TOKEN\n\nPARAGRAPH 35 café 雪 TOKEN\n\nPARAGRAPH 36 café 雪 TOKEN\n\nPARAGRAPH 37 café 雪 TOKEN\n\nPARAGRAPH 38 café 雪 TOKEN\n\nPARAGRAPH 39 café 雪 TOKEN\n\nPARAGRAPH 40 café 雪 TOKEN\n\nPARAGRAPH 41 café 雪 TOKEN\n\nPARAGRAPH 42 café 雪 TOKEN\n\nPARAGRAPH 43 café 雪 TOKEN\n\nPARAGRAPH 44 café 雪 TOKEN\n\nPARAGRAPH 45 café 雪 TOKEN\n\nPARAGRAPH 46 café 雪 TOKEN\n\nPARAGRAPH 47 café 雪 TOKEN\n\nPARAGRAPH 48 café 雪 TOKEN\n\nPARAGRAPH 49 café 雪 TOKEN\n\nPARAGRAPH 50 café 雪 TOKEN\n\nPARAGRAPH 51 café 雪 TOKEN\n\nPARAGRAPH 52 café 雪 TOKEN\n\nPARAGRAPH 53 café 雪 TOKEN\n\nPARAGRAPH 54 café 雪 TOKEN\n\nPARAGRAPH 55 café 雪 TOKEN\n\nPARAGRAPH 56 café 雪 TOKEN\n\nPARAGRAPH 57 café 雪 TOKEN\n\nPARAGRAPH 58 café 雪 TOKEN\n\nPARAGRAPH 59 café 雪 TOKEN\n\nPARAGRAPH 60 café 雪 TOKEN\n\nPARAGRAPH 61 café 雪 TOKEN\n\nPARAGRAPH 62 café 雪 TOKEN\n\nPARAGRAPH 63 café 雪 TOKEN\n\nPARAGRAPH 64 café 雪 TOKEN\n\nPARAGRAPH 65 café 雪 TOKEN\n\nPARAGRAPH 66 café 雪 TOKEN\n\nPARAGRAPH 67 café 雪 TOKEN\n\nPARAGRAPH 68 café 雪 TOKEN\n\nPARAGRAPH 69 café 雪 TOKEN\n\nPARAGRAPH 70 café 雪 TOKEN\n\nPARAGRAPH 71 café 雪 TOKEN\n\nPARAGRAPH 72 café 雪 TOKEN\n\nPARAGRAPH 73 café 雪 TOKEN\n\nPARAGRAPH 74 café 雪 TOKEN\n\nPARAGRAPH 75 café 雪 TOKEN\n\nPARAGRAPH 76 café 雪 TOKEN\n\nPARAGRAPH 77 café 雪 TOKEN\n\nPARAGRAPH 78 café 雪 TOKEN\n\nPARAGRAPH 79 café 雪 TOKEN\n\n",
+        "empty.md": "",
+        "protected.txt": "PROTECTED NON-MARKDOWN NEIGHBOR\n",
+        "empty-library/.keep": "OWNED EMPTY MARKDOWN LIBRARY\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Only the last footer row is excluded; rendered document body and fresh transition checkpoints remain. Browser age labels are not accepted as deterministic body baselines."
+    },
+    {
+      "name": "edge-long-filter-recovery",
+      "kind": "edge",
+      "purpose": "Recover from a long unmatched input and select a Unicode filename",
+      "command": [
+        "glow",
+        "--style",
+        "dark",
+        "--mouse=false"
+      ],
+      "steps": [
+        {
+          "expect": "6 documents"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "UNMATCHEDZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ"
+        },
+        {
+          "expect": "Find: ZZZZZZZZZZZZ"
+        },
+        {
+          "expect": "No files found."
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect": "6 documents"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "notes cafe"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "NESTED UNICODE café 雪 TOKEN"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 11,
+      "snapshot_rows": [
+        1,
+        29
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "overview.md": "# overview\n\nPROJECT OVERVIEW TOKEN\n\nProtected documentation paragraph.\n",
+        "guide.md": "# guide\n\nguide DOCUMENT TOKEN\n\nSECOND DOCUMENT BODY\n",
+        "nested/notes café.md": "# Nested notes\n\nNESTED UNICODE café 雪 TOKEN\n",
+        "structured.md": "# Structured reference\n\nSTRUCTURED REFERENCE TOKEN\n\n```go\nfmt.Println(\"CODE BLOCK TOKEN\")\n```\n\n| Key | Value |\n| --- | --- |\n| Setting | TABLE CELL TOKEN |\n",
+        "long.md": "# Long reference\n\nPARAGRAPH 00 café 雪 TOKEN\n\nPARAGRAPH 01 café 雪 TOKEN\n\nPARAGRAPH 02 café 雪 TOKEN\n\nPARAGRAPH 03 café 雪 TOKEN\n\nPARAGRAPH 04 café 雪 TOKEN\n\nPARAGRAPH 05 café 雪 TOKEN\n\nPARAGRAPH 06 café 雪 TOKEN\n\nPARAGRAPH 07 café 雪 TOKEN\n\nPARAGRAPH 08 café 雪 TOKEN\n\nPARAGRAPH 09 café 雪 TOKEN\n\nPARAGRAPH 10 café 雪 TOKEN\n\nPARAGRAPH 11 café 雪 TOKEN\n\nPARAGRAPH 12 café 雪 TOKEN\n\nPARAGRAPH 13 café 雪 TOKEN\n\nPARAGRAPH 14 café 雪 TOKEN\n\nPARAGRAPH 15 café 雪 TOKEN\n\nPARAGRAPH 16 café 雪 TOKEN\n\nPARAGRAPH 17 café 雪 TOKEN\n\nPARAGRAPH 18 café 雪 TOKEN\n\nPARAGRAPH 19 café 雪 TOKEN\n\nPARAGRAPH 20 café 雪 TOKEN\n\nPARAGRAPH 21 café 雪 TOKEN\n\nPARAGRAPH 22 café 雪 TOKEN\n\nPARAGRAPH 23 café 雪 TOKEN\n\nPARAGRAPH 24 café 雪 TOKEN\n\nPARAGRAPH 25 café 雪 TOKEN\n\nPARAGRAPH 26 café 雪 TOKEN\n\nPARAGRAPH 27 café 雪 TOKEN\n\nPARAGRAPH 28 café 雪 TOKEN\n\nPARAGRAPH 29 café 雪 TOKEN\n\nPARAGRAPH 30 café 雪 TOKEN\n\nPARAGRAPH 31 café 雪 TOKEN\n\nPARAGRAPH 32 café 雪 TOKEN\n\nPARAGRAPH 33 café 雪 TOKEN\n\nPARAGRAPH 34 café 雪 TOKEN\n\nPARAGRAPH 35 café 雪 TOKEN\n\nPARAGRAPH 36 café 雪 TOKEN\n\nPARAGRAPH 37 café 雪 TOKEN\n\nPARAGRAPH 38 café 雪 TOKEN\n\nPARAGRAPH 39 café 雪 TOKEN\n\nPARAGRAPH 40 café 雪 TOKEN\n\nPARAGRAPH 41 café 雪 TOKEN\n\nPARAGRAPH 42 café 雪 TOKEN\n\nPARAGRAPH 43 café 雪 TOKEN\n\nPARAGRAPH 44 café 雪 TOKEN\n\nPARAGRAPH 45 café 雪 TOKEN\n\nPARAGRAPH 46 café 雪 TOKEN\n\nPARAGRAPH 47 café 雪 TOKEN\n\nPARAGRAPH 48 café 雪 TOKEN\n\nPARAGRAPH 49 café 雪 TOKEN\n\nPARAGRAPH 50 café 雪 TOKEN\n\nPARAGRAPH 51 café 雪 TOKEN\n\nPARAGRAPH 52 café 雪 TOKEN\n\nPARAGRAPH 53 café 雪 TOKEN\n\nPARAGRAPH 54 café 雪 TOKEN\n\nPARAGRAPH 55 café 雪 TOKEN\n\nPARAGRAPH 56 café 雪 TOKEN\n\nPARAGRAPH 57 café 雪 TOKEN\n\nPARAGRAPH 58 café 雪 TOKEN\n\nPARAGRAPH 59 café 雪 TOKEN\n\nPARAGRAPH 60 café 雪 TOKEN\n\nPARAGRAPH 61 café 雪 TOKEN\n\nPARAGRAPH 62 café 雪 TOKEN\n\nPARAGRAPH 63 café 雪 TOKEN\n\nPARAGRAPH 64 café 雪 TOKEN\n\nPARAGRAPH 65 café 雪 TOKEN\n\nPARAGRAPH 66 café 雪 TOKEN\n\nPARAGRAPH 67 café 雪 TOKEN\n\nPARAGRAPH 68 café 雪 TOKEN\n\nPARAGRAPH 69 café 雪 TOKEN\n\nPARAGRAPH 70 café 雪 TOKEN\n\nPARAGRAPH 71 café 雪 TOKEN\n\nPARAGRAPH 72 café 雪 TOKEN\n\nPARAGRAPH 73 café 雪 TOKEN\n\nPARAGRAPH 74 café 雪 TOKEN\n\nPARAGRAPH 75 café 雪 TOKEN\n\nPARAGRAPH 76 café 雪 TOKEN\n\nPARAGRAPH 77 café 雪 TOKEN\n\nPARAGRAPH 78 café 雪 TOKEN\n\nPARAGRAPH 79 café 雪 TOKEN\n\n",
+        "empty.md": "",
+        "protected.txt": "PROTECTED NON-MARKDOWN NEIGHBOR\n",
+        "empty-library/.keep": "OWNED EMPTY MARKDOWN LIBRARY\n"
+      },
+      "absent_paths": [],
+      "expected_exit": 0,
+      "snapshot_exclusion": "Only the last footer row is excluded; rendered document body and fresh transition checkpoints remain. Browser age labels are not accepted as deterministic body baselines."
+    }
+  ],
+  "windows_target_race_check": {
+    "case": "normal-project",
+    "count": 10
+  }
+}

@@ -3,21 +3,38 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
-import shutil
 from adversarial_process import ROOT,DOC,RAW,run,append,read_attempts,read_ledger
 from adversarial_coverage import recorded_source_digest
+
+def persist(path,data):
+    """Resume partial collection without replacing different retained bytes."""
+    if path.exists():
+        if path.read_bytes()!=data:
+            raise RuntimeError('Retained native evidence conflict: '+str(path))
+        return
+    path.write_bytes(data)
+
+def prepare_destination(destination,artifacts,download,*,resume=False):
+    for artifact in artifacts:
+        if not (download/artifact['name']).is_dir():
+            raise RuntimeError('Actual downloaded artifact missing: '+artifact['name'])
+    if destination.exists():
+        if not resume or (destination/'manifest.json').exists():
+            raise RuntimeError('Existing native collection requires explicit incomplete resume')
+    destination.mkdir(parents=True,exist_ok=resume)
 
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--run',required=True)
     parser.add_argument('--download',type=Path,required=True)
+    parser.add_argument('--resume',action='store_true')
     args=parser.parse_args()
     info=json.loads(run(['gh','run','view',args.run,'--json','status,conclusion,headSha,jobs,url'],
         'evidence','inspect-native-run')['output'])
     metadata=json.loads(run(['gh','api','repos/Wyrcan-io/playtestr/actions/runs/'+args.run+'/artifacts'],
         'evidence','native-artifact-metadata')['output'])
     destination=DOC/'native'/args.run
-    destination.mkdir(parents=True,exist_ok=False)
+    prepare_destination(destination,metadata['artifacts'],args.download,resume=args.resume)
     records=[]
     source_cache={}
     known={(r['id'],r['event']) for r in read_attempts()}
@@ -27,7 +44,7 @@ def main():
         if not folder.is_dir():
             raise RuntimeError('Actual downloaded artifact missing: '+artifact['name'])
         retained=destination/artifact['name']
-        retained.mkdir()
+        retained.mkdir(exist_ok=args.resume)
         record={'artifact':artifact['name'],'id':artifact['id'],'archive_digest':artifact['digest'],
             'files':{},'run':args.run,'source':info['headSha']}
         report_inventory=[]
@@ -51,7 +68,7 @@ def main():
                 output.parent.mkdir(parents=True,exist_ok=True)
                 if output.exists() and output.read_bytes()!=original.read_bytes():
                     raise RuntimeError('Native failure evidence conflict')
-                shutil.copyfile(original,output)
+                persist(output,original.read_bytes())
                 record['files'][output.relative_to(retained).as_posix()]=hashlib.sha256(output.read_bytes()).hexdigest()
         for path in folder.rglob('*.json'):
             if path.stat().st_size>4*1024*1024:
@@ -73,7 +90,7 @@ def main():
         for name,inventory in [('report-inventory.json',report_inventory),('state-inventory.json',state_inventory),
                                ('harness-failures.json',harness_failures)]:
             output=retained/name
-            output.write_text(json.dumps(inventory,indent=2)+'\n',encoding='utf-8')
+            persist(output,(json.dumps(inventory,indent=2)+'\n').encode('utf-8'))
             record['files'][name]=hashlib.sha256(output.read_bytes()).hexdigest()
         events=list(folder.rglob('test-events.jsonl'))
         if events:
@@ -82,7 +99,7 @@ def main():
             passed={r.get('Test') for r in event_data if r.get('Action')=='pass'}
             record['passed_mapped_controls']=[]
             record['historical_definition_controls']=[]
-            shutil.copyfile(events[0],retained/'test-events.jsonl')
+            persist(retained/'test-events.jsonl',events[0].read_bytes())
             record['files']['test-events.jsonl']=hashlib.sha256(events[0].read_bytes()).hexdigest()
             for control in matrix['controls']:
                 if control['test'] in passed:
@@ -99,7 +116,7 @@ def main():
             race=[json.loads(line) for line in race_events[0].read_text(encoding='utf-8').splitlines()]
             record['race_failed_tests']=[r.get('Test',r.get('Package')) for r in race if r.get('Action')=='fail']
             record['race_passed_tests']=[r['Test'] for r in race if r.get('Action')=='pass' and r.get('Test')]
-            shutil.copyfile(race_events[0],retained/'race-events.jsonl')
+            persist(retained/'race-events.jsonl',race_events[0].read_bytes())
             record['files']['race-events.jsonl']=hashlib.sha256(race_events[0].read_bytes()).hexdigest()
         for ledger in [*folder.rglob('attempts.jsonl'),*folder.rglob('attempts-v2.jsonl')]:
             ledger_rows=read_ledger(ledger)
@@ -119,7 +136,7 @@ def main():
                     if hashlib.sha256(console.read_bytes()).hexdigest()!=row['console_sha256']:
                         raise RuntimeError('Native startup console identity mismatch')
                     output=retained/(row['label']+'.txt')
-                    shutil.copyfile(console,output)
+                    persist(output,console.read_bytes())
                     record['files'][output.name]=row['console_sha256']
         for identity_root in folder.rglob('identities'):
             if not identity_root.is_dir(): continue
@@ -134,7 +151,7 @@ def main():
                 if not target.exists(): target.write_bytes(data)
         for pattern in ['native-*.json','cleanup-Linux.json','cleanup-Windows.json','cleanup-Darwin.json','mutation-controls-*.json']:
             for path in folder.rglob(pattern):
-                shutil.copyfile(path,retained/path.name)
+                persist(retained/path.name,path.read_bytes())
                 record['files'][path.name]=hashlib.sha256(path.read_bytes()).hexdigest()
         # Keep every distinct mutation's first actual red/false-green report.
         for path in folder.rglob('*-control.json'):
@@ -142,8 +159,8 @@ def main():
             report_path=folder/Path(fault['report'])
             if not report_path.is_file(): raise RuntimeError('Mutation report missing')
             name=fault['name']+'-report.json'
-            shutil.copyfile(report_path,retained/name)
-            shutil.copyfile(path,retained/path.name)
+            persist(retained/name,report_path.read_bytes())
+            persist(retained/path.name,path.read_bytes())
             record['files'][name]=hashlib.sha256(report_path.read_bytes()).hexdigest()
             probe_id=fault.get('state_probe_evidence_id')
             if probe_id:
@@ -152,7 +169,7 @@ def main():
                 errors=list(folder.rglob(probe_id+'/harness-error.json'))
                 if len(errors)!=1: raise RuntimeError('Native state fault diagnosis missing or ambiguous')
                 output=retained/(fault['name']+'-state-error.json')
-                shutil.copyfile(errors[0],output)
+                persist(output,errors[0].read_bytes())
                 record['files'][output.name]=hashlib.sha256(output.read_bytes()).hexdigest()
             # Remote archives expire. Keep actual fault screens/diffs rather than
             # retaining a JSON reference to evidence that was never copied.

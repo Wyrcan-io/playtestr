@@ -313,7 +313,9 @@ func targetEnvironmentWithManaged(spec Spec, managed map[string]string) []string
 	if runtime.GOOS == "windows" {
 		allowed = []string{"PATH", "PATHEXT", "SYSTEMROOT", "WINDIR", "COMSPEC", "TEMP", "TMP", "USERPROFILE"}
 	}
-	values := make(map[string]string)
+	// Keep a stable default without silently replacing a profile explicitly
+	// inherited or declared by the reviewed spec.
+	values := map[string]string{environmentKey("TERM"): "TERM=xterm-256color"}
 	inherit := func(name string) {
 		if value, ok := os.LookupEnv(name); ok {
 			values[environmentKey(name)] = name + "=" + value
@@ -331,7 +333,6 @@ func targetEnvironmentWithManaged(spec Spec, managed map[string]string) []string
 	for name, value := range managed {
 		values[environmentKey(name)] = name + "=" + value
 	}
-	values[environmentKey("TERM")] = "TERM=xterm-256color"
 	result := make([]string, 0, len(values))
 	for _, value := range values {
 		result = append(result, value)

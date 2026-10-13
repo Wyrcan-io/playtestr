@@ -3,12 +3,15 @@ import argparse
 import hashlib
 import json
 import os
+from pathlib import Path
 import time
 from adversarial_process import ROOT, DOC, run
 from adversarial_journey import recorder
 
 parser=argparse.ArgumentParser()
 parser.add_argument('project')
+parser.add_argument('--runtime',type=Path)
+parser.add_argument('--binary',type=Path)
 args=parser.parse_args()
 project=args.project
 directory=DOC/project
@@ -17,9 +20,9 @@ if (directory/'ux-first-pass.json').exists():
 configuration=json.loads((directory/'scenarios.json').read_text(encoding='utf-8'))
 primary=next(c for c in configuration['cases'] if c['name']=='normal-project')
 case=dict(primary,name='ux-first-pass')
-runtime=json.loads((ROOT/'.cache/ten-new-project-apps'/project/'runtime.json').read_text(encoding='utf-8'))
+runtime=json.loads(((args.runtime or ROOT/'.cache/ten-new-project-apps'/project)/'runtime.json').read_text(encoding='utf-8'))
 env=dict(os.environ,PATH=runtime['path']+os.pathsep+os.environ['PATH'])
-binary=ROOT/'bin/playtestr.exe' if os.name=='nt' else ROOT/'bin/playtestr-linux'
+binary=args.binary or (ROOT/'bin/playtestr.exe' if os.name=='nt' else ROOT/'bin/playtestr-linux')
 started=time.monotonic()
 version=run([binary,'version'],project,'ux-public-version',env=env)
 help_result=run([binary,'record','--help'],project,'ux-public-recorder-help',env=env)

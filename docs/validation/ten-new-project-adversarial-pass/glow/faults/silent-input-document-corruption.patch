@@ -1,0 +1,10 @@
+--- a/ui/stash.go
++++ b/ui/stash.go
+@@ -849,6 +849,7 @@
+ 			log.Debug("error reading local file", "error", err)
+ 			return errMsg{err}
+ 		}
++		_ = os.WriteFile(md.localPath, []byte("CORRUPTED INPUT DOCUMENT\n"), 0o600)
+ 		md.Body = string(data)
+ 		return fetchedMarkdownMsg(md)
+ 	}

@@ -45,6 +45,15 @@ def main():
         project,'native-development-repetitions',timeout=1200)
     run([sys.executable,budget,project,'--label','after-native'],project,'native-budget-after',timeout=90)
     config=json.loads((DOC/project/'scenarios.json').read_text(encoding='utf-8'))
+    diagnostic=config.get('windows_target_race_check')
+    if os.name=='nt' and diagnostic:
+        if not go_project:
+            raise RuntimeError('Declared Go target race diagnostic requires a Go application')
+        run([sys.executable,ROOT/'scripts/acceptance/adversarial_windows_target_race.py',
+            '--project',project,'--case',diagnostic['case'],'--count',str(diagnostic['count'])],
+            project,'native-pristine-target-race-diagnostic',timeout=1100)
+        run([sys.executable,budget,project,'--label','after-target-race'],
+            project,'native-budget-after-target-race',timeout=90)
     report=dict(source=source,runner_sha256=hashlib.sha256(binary.read_bytes()).hexdigest(),
         actual_host=platform.platform(),project=project,scenarios=len(config['cases']),
         git_version=git_version,

@@ -16,8 +16,16 @@ confirmed hosted and local teardown. All three native core jobs and standard
 smoke passed. Windows superfile remains unqualified because a real repetition
 failed and its pinned input dependency has a confirmed data race. The explicit
 host adjustment adds Windows to Glow's planned matrix; that future gate is not
-yet satisfied. Helix is now the sole active application. Four development
-projects are complete; final frozen-source credit remains zero.
+yet satisfied. Glow's actual pristine Windows race diagnostic subsequently
+failed, so that provisional fifth Windows gate now belongs to Yazi. Helix
+completed development qualification with full Windows run `38324763718` and
+corrected Linux run `38469407174`; all twelve cases, 120 ordinary and 120
+separate state repetitions, actual faults/restoration and qualified-run owned
+deletion are evidenced per host. Its redundant Windows retry was mistakenly
+cancelled after misleading live API metadata; the actual archive corrects that
+interpretation, and the interrupted retry receives no qualification credit.
+Glow is the sole active application. Five development projects are complete;
+final frozen-source credit remains zero.
 The earlier lf investigation follows:
 its twelve reviewed contracts passed 120 local Windows ordinary repetitions
 plus 120 state executions and exploratory WSL ordinary/state checks. Hosted
@@ -28,7 +36,7 @@ hosts at `425288a`, but their first scenario then accurately failed because Git
 omitted the empty synthetic fixture directories. The declared directory
 prerequisite passed a real local before/after regression with unchanged
 contracts; the successful native run above subsequently verified that repair.
-Final single-source campaign qualification and the remaining six development
+Final single-source campaign qualification and the remaining five development
 journeys are pending; completed full-product launch credit remains zero.
 
 The original `attempts.jsonl` is frozen after a diagnosed concurrent append
