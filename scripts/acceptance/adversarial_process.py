@@ -238,12 +238,15 @@ async def stop(proc):
                 await asyncio.wait_for(killer.wait(),timeout=2)
             await close_transport(killer)
     else:
+        termination_errors=[]
         before=await unix_process_inventory()
         owned=owned_descendants(before,proc.pid)
         try:
             os.killpg(proc.pid,signal.SIGINT)
         except ProcessLookupError:
             pass
+        except OSError as error:
+            termination_errors.append('interrupt owned group: '+str(error))
         # Python asyncio helpers and the public CLI handle Interrupt. Give
         # their finally/context cleanup a bounded chance before forced shutdown.
         # PIPE backpressure can prevent wait completion; force after this bound.
@@ -258,8 +261,14 @@ async def stop(proc):
             if pid not in current or current[pid][1]!=identity[1]:continue
             try:os.kill(pid,signal.SIGKILL)
             except ProcessLookupError:pass
+            except OSError as error:
+                termination_errors.append('terminate captured owned PID '+str(pid)+': '+str(error))
         try:os.killpg(proc.pid,signal.SIGKILL)
         except ProcessLookupError:pass
+        except OSError as error:
+            termination_errors.append('terminate owned group: '+str(error))
+        if termination_errors:
+            raise RuntimeError('Separate owned termination failures: '+'; '.join(termination_errors))
     # Waiting before draining a full PIPE can deadlock asyncio's transport.
     # The caller drains bounded output first, then reaps the process.
 

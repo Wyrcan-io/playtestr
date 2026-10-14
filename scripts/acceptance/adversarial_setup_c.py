@@ -21,8 +21,9 @@ def build(app,project):
     env=dict(os.environ,CC=compiler,TMPDIR=str(temp))
     version=run([compiler,'--version'],project,'native-c-compiler-version',env=env,timeout=15)['output']
     make_version=run([make,'--version'],project,'native-make-version',env=env,timeout=15)['output']
-    # Force the normal all target each time; never invoke installer, patches,
-    # signing, release-upload, static/musl or icon-generator targets.
+    # Force the normal all target each time. Its prepatch/postpatch hooks are
+    # no-ops with upstream default patch flags; installation, signing/upload,
+    # static/musl and icon-generator targets are never selected.
     run([make,'-B','all'],project,'target-c-build',cwd=app/'source',env=env,timeout=180)
     built=app/'source/nnn';binary=app/'bin/nnn';binary.parent.mkdir(exist_ok=True)
     shutil.copyfile(built,binary);binary.chmod(0o755)

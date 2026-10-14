@@ -134,7 +134,8 @@ def audit(run):
                     observed=state['observed']
                     if (observed.get('files')!=expected_files or
                         set(observed.get('absent',[]))!=set(case.get('absent_paths',[])) or
-                        set(observed.get('directories',[]))!=set(case.get('expected_directories',[]))):
+                        set(observed.get('directories',[]))!=set(case.get('expected_directories',[])) or
+                        set(observed.get('empty_directories',[]))!=set(case.get('empty_directories',[]))):
                         errors.append('Independent declared state differs: '+artifact+'/'+case_name)
                 # Initial, rerecord and source-recovery probes are separate;
                 # the native completion record and group logs bind the ten

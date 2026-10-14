@@ -20,5 +20,6 @@
   "workflow_syntax": "actionlint passed",
   "current_admission": false,
   "final_credit": 0,
-  "audit_preparation": "Auditor checks retained hashes, exact frozen source and runner identities, all declared case repetitions, run provenance/spec/upstream hashes, independent declared state hashes, actual source controls and deletion. Historical incomplete run is rejected; no positive final audit exists."
+  "audit_preparation": "Auditor checks retained hashes, exact frozen source and runner identities, all declared case repetitions, run provenance/spec/upstream hashes, independent declared state hashes, actual source controls and deletion. Historical incomplete run is rejected; no positive final audit exists.",
+  "target_build_provenance": "Prepared explicit compiler/interpreter/library/source identity capture before faults and after restoration, without ambient environment values. Native integration pending."
 }

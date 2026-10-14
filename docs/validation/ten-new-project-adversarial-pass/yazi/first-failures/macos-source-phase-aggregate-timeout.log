@@ -1,0 +1,48 @@
+creation-diverted-to-unrequested-name detected; exact source/binary restored; ordinary and state recovery passed
+preview-seek-scrolls-in-reverse detected; exact source/binary restored; ordinary and state recovery passed
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Users/runner/work/playtestr/playtestr/scripts/acceptance/adversarial_process.py", line 331, in execute
+    result=await asyncio.wait_for(interact(),timeout=remaining)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/Users/runner/work/playtestr/playtestr/scripts/acceptance/adversarial_process.py", line 318, in interact
+    block=await proc.stdout.read(16384)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/streams.py", line 713, in read
+    await self._wait_for_data('read')
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/streams.py", line 545, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+Separate cleanup failures: terminate owned command: PermissionError: [Errno 1] Operation not permitted
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/runner/work/playtestr/playtestr/scripts/acceptance/adversarial_rust_mutations.py", line 4, in <module>
+    if __name__=='__main__':main(rust=True)
+                            ^^^^^^^^^^^^^^^
+  File "/Users/runner/work/playtestr/playtestr/scripts/acceptance/adversarial_go_mutations.py", line 129, in main
+    restored_identity=build_target(app,args.project,mutation.get('invalidate_packages',[]))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/runner/work/playtestr/playtestr/scripts/acceptance/adversarial_go_mutations.py", line 37, in build_target
+    return rust_build(directory,project,clean_package=True,clean_packages=invalidate_packages)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/runner/work/playtestr/playtestr/scripts/acceptance/adversarial_setup_rust.py", line 77, in build
+    run(command,
+  File "/Users/runner/work/playtestr/playtestr/scripts/acceptance/adversarial_process.py", line 439, in run
+    return asyncio.run(execute(*args,**kwargs))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/runners.py", line 123, in run
+    raise KeyboardInterrupt()
+KeyboardInterrupt

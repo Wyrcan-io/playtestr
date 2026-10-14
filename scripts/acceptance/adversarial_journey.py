@@ -66,6 +66,11 @@ def check_state(working,case):
         if target.exists():
             raise RuntimeError('Independent expected absence mismatch: '+relative)
     directories=[]
+    empty_directories=case.get('empty_directories',[])
+    if not isinstance(empty_directories,list) or any(not isinstance(value,str) for value in empty_directories):
+        raise RuntimeError('Invalid declared empty directories')
+    if not set(empty_directories).issubset(case.get('expected_directories',[])):
+        raise RuntimeError('Empty directories must also declare their actual directory type')
     for relative in case.get('expected_directories',[]):
         unresolved=working/relative
         unresolved.relative_to(working)
@@ -77,8 +82,12 @@ def check_state(working,case):
         target.relative_to(working.resolve())
         if not target.is_dir():
             raise RuntimeError('Independent expected directory absent or wrong type: '+relative)
+        if relative in empty_directories and next(target.iterdir(),None) is not None:
+            raise RuntimeError('Independent expected empty directory contains an entry: '+relative)
         directories.append(relative)
-    return dict(files=checked,absent=case.get('absent_paths',[]),directories=directories,passed=True)
+    result=dict(files=checked,absent=case.get('absent_paths',[]),directories=directories,passed=True)
+    if empty_directories:result['empty_directories']=empty_directories
+    return result
 
 def recorder(binary,project,case,env,*,export=True,rerecord=False,wall_timeout=120):
     directory=DOC/project

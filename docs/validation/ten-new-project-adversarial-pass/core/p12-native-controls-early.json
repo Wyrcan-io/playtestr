@@ -1,0 +1,55 @@
+{
+  "run": 38577924923,
+  "source": "09a609f6c5c28d6f89667aba0467680fbf7358fe",
+  "distinct_mapped_controls": 85,
+  "hosts": {
+    "linux": {
+      "applicable_mapped_controls": 78,
+      "missing_controls": [],
+      "failed_events": [],
+      "test_events_sha256": "7393d4a4505ab706127c3872a12f7dcf84b5237dab6ec564914bc7300526c6a1",
+      "race_events_sha256": "8872dc170fa7e19acbbd993a7a6f1a3067c17cc87e9be4b2bc8d150308bd2dbf",
+      "wizard_variants": [
+        {
+          "attempts": 100,
+          "failures": 0,
+          "passed": 100
+        }
+      ]
+    },
+    "macos": {
+      "applicable_mapped_controls": 78,
+      "missing_controls": [],
+      "failed_events": [],
+      "test_events_sha256": "10fac551e3b32d1ce1b3df16502b6d5a7b535e7bf43a1d569b73937d1ff993e3",
+      "race_events_sha256": "a53cccf160b1162a37002560234faea5eb1a1cb8f97b36a2307bb6dfb1b75b6c",
+      "wizard_variants": [
+        {
+          "attempts": 100,
+          "failures": 0,
+          "passed": 100
+        }
+      ]
+    },
+    "windows": {
+      "applicable_mapped_controls": 83,
+      "missing_controls": [],
+      "failed_events": [],
+      "test_events_sha256": "bb8a552590b796468c806806499b369cd812181e675fa7243d3d2404c5be7782",
+      "race_events_sha256": "c64d0e65cbcc89164a5ef5ac5db559d3b3eff672c486114fed5d395f0a3a13a7",
+      "wizard_variants": [
+        {
+          "attempts": 100,
+          "failures": 0,
+          "passed": 100
+        },
+        {
+          "attempts": 100,
+          "failures": 0,
+          "passed": 100
+        }
+      ]
+    }
+  },
+  "scope": "Actual completed native core events and historical wizard variants; application jobs and final all-ten frozen qualification remain pending"
+}

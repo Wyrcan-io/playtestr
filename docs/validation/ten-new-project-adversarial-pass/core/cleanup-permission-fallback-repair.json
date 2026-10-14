@@ -1,0 +1,32 @@
+{
+  "native_trigger": {
+    "run": 38577924923,
+    "host": "macos-15",
+    "source": "09a609f6c5c28d6f89667aba0467680fbf7358fe",
+    "cause": "PermissionError interrupted owned-process termination during aggregate source-build timeout"
+  },
+  "repair": "Collect individual signal errors, continue remaining captured PID attempts and owned process-group fallback, then report separate cleanup failure. No permission escalation or silent success.",
+  "reduced_control": "test_signal_permission_failure_still_stops_owned_group",
+  "before": {
+    "actual_prior_stop_source": "09a609f6c5c28d6f89667aba0467680fbf7358fe",
+    "failed": true,
+    "seconds": 5.103
+  },
+  "after": {
+    "passed": true,
+    "seconds": 5.064,
+    "observed_child_exit": -9
+  },
+  "injection_scope": "Only direct-PID SIGKILL denial injected; process, ignored Interrupt, process inventory and group SIGKILL are real. Does not prove termination of an OS-protected process.",
+  "native_corrected_run_pending": true,
+  "full_harness": {
+    "windows_tests": 25,
+    "windows_skipped": 4,
+    "windows_passed": true,
+    "windows_seconds": 17.3,
+    "unix_tests": 25,
+    "unix_skipped": 2,
+    "unix_passed": true,
+    "unix_seconds": 21.666
+  }
+}

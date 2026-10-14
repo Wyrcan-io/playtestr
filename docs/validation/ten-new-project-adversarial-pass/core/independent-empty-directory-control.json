@@ -1,0 +1,18 @@
+{
+  "classification": "Private campaign state-oracle coverage gap",
+  "before": "Existing directory-type check accepted a directory containing .unexpected when an empty-directory intention was supplied",
+  "before_real_file_test": {
+    "failed": true,
+    "test": "test_declared_empty_directory_rejects_hidden_contents",
+    "seconds": 0.008
+  },
+  "after": {
+    "windows_passed": true,
+    "windows_seconds": 0.006,
+    "unix_exploratory_passed": true,
+    "unix_seconds": 0.002
+  },
+  "contract": "Optional empty_directories must also appear in expected_directories; any actual entry, including hidden entries, rejects declared emptiness",
+  "scope": "Private independent filesystem probe only; no public file assertion or existing application requalification claimed",
+  "existing_state_result_shape_preserved_when_unused": true
+}

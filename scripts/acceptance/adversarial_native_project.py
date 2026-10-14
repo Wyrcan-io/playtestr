@@ -17,6 +17,24 @@ def stage(argv,project,label,**kwargs):
     print(label+' passed '+result['id']+' ('+format(result['seconds'],'.3f')+'s)',flush=True)
     return result
 
+
+def retain_target_identity(project,phase):
+    runtime=ROOT/'.cache/ten-new-project-apps'/project/'runtime.json'
+    data=json.loads(runtime.read_text(encoding='utf-8'))
+    # Explicit build provenance only; never capture the ambient environment.
+    fields=['source','native_host','source_path','binary','binary_sha256','toolchain',
+            'requested_toolchain','compiler_path','build_profile','cargo_profile',
+            'reproducible_windows_link','helix_grammar_scope','interpreter_sha256',
+            'compiler_sha256','compiler_version','make_version','native_shared_libraries',
+            'python_probe','python','dependencies','setup','build_recipe','editable']
+    value={key:data[key] for key in fields if key in data}
+    if 'execution_identity' in data:
+        value['executed_source_sha256']=data['execution_identity']['digest']
+    value['scope']='Actual owned target build identity; no application qualification implied'
+    output=RAW/project/('native-target-'+phase+'-'+platform.system()+'.json')
+    if output.exists():raise RuntimeError('Refuse replacing retained target provenance')
+    output.write_text(json.dumps(value,indent=2)+'\n',encoding='utf-8')
+
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--project',required=True,choices=['cookiecutter','copier','lf','superfile','glow','helix','broot','yazi','ranger','nnn'])
@@ -42,6 +60,7 @@ def main():
         'adversarial_setup_c.py' if c_project else 'adversarial_setup_cookiecutter.py')
     stage([sys.executable,ROOT/'scripts/acceptance'/setup,'--project',project],
         project,'native-setup',timeout=1200)
+    retain_target_identity(project,'pristine')
     external_state_cleanup=None
     file_prerequisite=None
     if os.name=='nt' and project=='yazi':
@@ -74,7 +93,7 @@ def main():
         else 'adversarial_c_mutations.py' if c_project else 'adversarial_'+project+'_mutations.py'),'--binary',binary]
     if go_project or rust_project or python_project or c_project:
         mutation+=['--project',project]
-    stage(mutation,project,'native-regressions-and-state-corruption',timeout=1800 if rust_project else 600 if go_project or c_project else 180)
+    stage(mutation,project,'native-regressions-and-state-corruption',timeout=3600 if rust_project else 600 if go_project or c_project else 180)
     repetition_config=json.loads((DOC/project/'scenarios.json').read_text(encoding='utf-8'))
     for case in repetition_config['cases']:
         stage([sys.executable,helper,'final',project,'--case',case['name'],'--binary',binary],
@@ -92,6 +111,7 @@ def main():
             project,'native-budget-after-target-race',timeout=90)
     if args.frozen_runner_manifest:
         verify(args.frozen_runner_manifest)
+    retain_target_identity(project,'restored')
     if os.name=='nt' and project=='yazi':
         external_state_cleanup=release(project)
     report=dict(source=source,runner_sha256=hashlib.sha256(binary.read_bytes()).hexdigest(),

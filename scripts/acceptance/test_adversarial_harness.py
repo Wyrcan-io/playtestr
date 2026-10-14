@@ -16,6 +16,41 @@ from adversarial_fixture_directories import prepare
 from adversarial_project_maintenance import copy_spec_fixture
 
 class NativeHarnessControls(unittest.TestCase):
+    @unittest.skipIf(os.name=='nt','Unix signal fallback requires native process groups')
+    def test_signal_permission_failure_still_stops_owned_group(self):
+        import signal
+        async def exercise():
+            command='import signal,time; signal.signal(signal.SIGINT,signal.SIG_IGN); print("ready",flush=True); time.sleep(60)'
+            proc=await asyncio.create_subprocess_exec(sys.executable,'-c',command,
+                stdout=asyncio.subprocess.PIPE,start_new_session=True)
+            actual_kill=os.kill
+            def denied_direct_kill(pid,sig):
+                if pid==proc.pid and sig==signal.SIGKILL:
+                    raise PermissionError('injected native direct-PID permission failure')
+                return actual_kill(pid,sig)
+            try:
+                self.assertEqual(await asyncio.wait_for(proc.stdout.readline(),timeout=3),b'ready\n')
+                with patch.object(adversarial_process.os,'kill',side_effect=denied_direct_kill):
+                    with self.assertRaisesRegex(RuntimeError,'Separate owned termination failures'):
+                        await adversarial_process.stop(proc)
+                await asyncio.wait_for(proc.wait(),timeout=2)
+                self.assertEqual(proc.returncode,-signal.SIGKILL)
+            finally:
+                if proc.returncode is None:
+                    os.killpg(proc.pid,signal.SIGKILL)
+                    await asyncio.wait_for(proc.wait(),timeout=2)
+                await adversarial_process.close_transport(proc)
+        asyncio.run(exercise())
+
+    def test_declared_empty_directory_rejects_hidden_contents(self):
+        with tempfile.TemporaryDirectory(prefix='playtestr-workspace-oracle-') as directory:
+            working=Path(directory)/'fixture';working.mkdir();empty=working/'empty';empty.mkdir()
+            case=dict(expected_directories=['empty'],empty_directories=['empty'])
+            self.assertTrue(check_state(working,case)['passed'])
+            (empty/'.unexpected').write_bytes(b'not empty')
+            with self.assertRaisesRegex(RuntimeError,'expected empty directory'):
+                check_state(working,case)
+
     def test_owned_source_refuses_unmarked_existing_files(self):
         from adversarial_owned_source import claim
         with tempfile.TemporaryDirectory(prefix='playtestr-owned-') as directory:

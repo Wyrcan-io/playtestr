@@ -82,7 +82,7 @@ jobs:
           if-no-files-found: error
           retention-days: 14
   project:
-    timeout-minutes: 90
+    timeout-minutes: 120
     strategy:
       fail-fast: false
       matrix:
