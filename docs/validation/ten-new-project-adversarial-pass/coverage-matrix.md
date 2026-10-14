@@ -61,6 +61,7 @@ Controls are mapped before qualification. Test names and configured hosts alone 
 | selected-inheritance | Spec and paths | Actual target receives only the selected inherited environment value | `TestInheritedEnvironment` |
 | terminal-profile-precedence | Spec and paths | Real v1/v2 PTY targets observe the stable TERM default, explicit inheritance and literal-over-inherited precedence without ambient opt-in | `TestAdversarialTerminalProfileEnvironmentThroughRealPTY` |
 | report-traversal | Spec and paths | Evidence references cannot traverse admitted root | `TestRenderHTMLRejectsUnsafeEvidenceReferences` |
+| windows-workspace-marker-visibility | Workspaces | Real Windows directory attributes hide only the internal ownership marker; fixture visibility, token integrity and owned cleanup remain correct | `TestWorkspaceOwnershipMarkerUsesNativeHiddenAttribute` |
 | windows-workspace-long-path | Workspaces | Actual Windows target receives long workspace path when TEMP is an 8.3 alias; process and filesystem cleanup confirmed | `TestAdversarialWindowsWorkspaceExpandsShortTemporaryPath` |
 | fresh-state | Workspaces | Every invocation has fresh owned fixture and cleanup | `TestWorkspaceRunsTwiceFromFreshFixtureAndCleans` |
 | readonly-crlf-modes | Workspaces | Real read-only fixture preserves exact CRLF/UTF-8 bytes; copies are writable and Unix executable bits retained | `TestWorkspaceReadOnlyInputsPreserveBytesAndNormalizeModes` |

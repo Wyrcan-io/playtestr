@@ -67,6 +67,9 @@ jobs:
           go build -trimpath -ldflags "-X github.com/Wyrcan-io/playtestr/internal/buildinfo.Version=source-${GITHUB_SHA}" -o "bin/playtestr${suffix}" ./cmd/playtestr
           go build -o "bin/fixture${suffix}" ./cmd/fixture
           python scripts/acceptance/adversarial_wizard_reproduction.py --count 100
+      - name: Instrumented Windows wizard confirmation and saved-file diagnosis
+        if: always() && runner.os == 'Windows'
+        run: python scripts/acceptance/adversarial_wizard_reproduction.py --count 100 --trace
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:

@@ -1,0 +1,57 @@
+{
+  "version": 2,
+  "name": "Recorded wizard",
+  "command": [
+    "D:\\a\\playtestr\\playtestr\\bin\\fixture.exe",
+    "wizard"
+  ],
+  "workspace": {
+    "fixture": "fixture",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "inherit_env": [
+    "PLAYTESTR_DELAY_MS"
+  ],
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 1000,
+  "run_timeout_ms": 5000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Project name? (synthetic workspace)"
+    },
+    {
+      "text": "atlas"
+    },
+    {
+      "resize": {
+        "width": 100,
+        "height": 30
+      }
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Confirm project atlas at 100x30; seed=synthetic"
+    },
+    {
+      "snapshot": "recorded-wizard-confirm.txt"
+    },
+    {
+      "text": "y"
+    },
+    {
+      "expect": "Saved and verified atlas:synthetic"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "snapshot": "recorded-wizard-saved.txt"
+    }
+  ]
+}

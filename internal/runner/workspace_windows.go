@@ -33,3 +33,18 @@ func workspaceReparsePoint(path string) bool {
 	attributes, err := windows.GetFileAttributes(pointer)
 	return err != nil || attributes&windows.FILE_ATTRIBUTE_REPARSE_POINT != 0
 }
+
+func hideWorkspaceMarker(path string) error {
+	pointer, err := windows.UTF16PtrFromString(path)
+	if err != nil {
+		return err
+	}
+	attributes, err := windows.GetFileAttributes(pointer)
+	if err != nil {
+		return fmt.Errorf("read native file attributes: %w", err)
+	}
+	if err := windows.SetFileAttributes(pointer, attributes&^windows.FILE_ATTRIBUTE_NORMAL|windows.FILE_ATTRIBUTE_HIDDEN); err != nil {
+		return fmt.Errorf("set native hidden file attribute: %w", err)
+	}
+	return nil
+}

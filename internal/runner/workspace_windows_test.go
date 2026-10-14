@@ -13,6 +13,66 @@ import (
 	"golang.org/x/sys/windows"
 )
 
+func TestWorkspaceOwnershipMarkerUsesNativeHiddenAttribute(t *testing.T) {
+	root := t.TempDir()
+	fixture := filepath.Join(root, "fixture")
+	if err := os.Mkdir(fixture, 0700); err != nil {
+		t.Fatal(err)
+	}
+	input := filepath.Join(fixture, "reviewed café.txt")
+	if err := os.WriteFile(input, []byte("protected bytes\n"), 0600); err != nil {
+		t.Fatal(err)
+	}
+	spec := validWorkspaceSpec("workspace-state")
+	workspace, err := prepareWorkspace(context.Background(), filepath.Join(root, "test.json"), spec)
+	if err != nil {
+		t.Fatal(err)
+	}
+	cleaned := false
+	t.Cleanup(func() {
+		if cleaned {
+			return
+		}
+		if err := workspace.cleanup(context.Background()); err != nil {
+			t.Error(err)
+		}
+	})
+	marker := filepath.Join(workspace.root, workspaceMarker)
+	pointer, err := windows.UTF16PtrFromString(marker)
+	if err != nil {
+		t.Fatal(err)
+	}
+	attributes, err := windows.GetFileAttributes(pointer)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if attributes&windows.FILE_ATTRIBUTE_HIDDEN == 0 {
+		t.Fatalf("ownership marker appears in a default Windows directory view: attributes=%#x", attributes)
+	}
+	if attributes&windows.FILE_ATTRIBUTE_READONLY != 0 {
+		t.Fatal("ownership marker must remain writable for owned cleanup")
+	}
+	data, err := os.ReadFile(marker)
+	if err != nil || string(data) != workspace.token {
+		t.Fatalf("marker ownership changed: %q, %v", data, err)
+	}
+	pointer, err = windows.UTF16PtrFromString(filepath.Join(workspace.workingDir, "reviewed café.txt"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	attributes, err = windows.GetFileAttributes(pointer)
+	if err != nil || attributes&windows.FILE_ATTRIBUTE_HIDDEN != 0 {
+		t.Fatalf("ordinary fixture visibility changed: attributes=%#x, %v", attributes, err)
+	}
+	if err := workspace.cleanup(context.Background()); err != nil {
+		t.Fatal(err)
+	}
+	cleaned = true
+	if _, err := os.Stat(workspace.root); !os.IsNotExist(err) {
+		t.Fatalf("hidden-marker workspace was not removed: %v", err)
+	}
+}
+
 func TestWorkspaceCopyRejectsWindowsJunction(t *testing.T) {
 	source := t.TempDir()
 	external := t.TempDir()

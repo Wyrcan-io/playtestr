@@ -149,27 +149,40 @@ func main() {
 
 func wizard() error {
 	var traceEvents chan string
+	traceStarted := time.Now()
 	if path := os.Getenv("PLAYTESTR_WIZARD_TRACE"); path != "" {
 		traceEvents = make(chan string, 300)
 		stop, done := make(chan struct{}), make(chan struct{})
 		defer func() { close(stop); <-done }()
 		go func() {
 			defer close(done)
-			// Avoid filesystem writes in the input/resize race being investigated.
-			timer := time.NewTimer(250 * time.Millisecond)
+			// Diagnostic runs are separately labelled instrumented. Continue
+			// capturing confirmation and filesystem phases, not only startup.
+			timer := time.NewTicker(250 * time.Millisecond)
 			defer timer.Stop()
-			select {
-			case <-timer.C:
-			case <-stop:
-			}
 			var captured strings.Builder
+			appendEvent := func(event string) {
+				if captured.Len()+len(event)+1 <= 64*1024 {
+					captured.WriteString(event + "\n")
+				}
+			}
+			flush := func() { _ = os.WriteFile(path, []byte(captured.String()), 0600) }
 			for {
 				select {
 				case event := <-traceEvents:
-					captured.WriteString(event + "\n")
-				default:
-					_ = os.WriteFile(path, []byte(captured.String()), 0600)
-					return
+					appendEvent(event)
+				case <-timer.C:
+					flush()
+				case <-stop:
+					for {
+						select {
+						case event := <-traceEvents:
+							appendEvent(event)
+						default:
+							flush()
+							return
+						}
+					}
 				}
 			}
 		}()
@@ -181,7 +194,7 @@ func wizard() error {
 			return
 		}
 		select {
-		case traceEvents <- fmt.Sprintf(format, values...):
+		case traceEvents <- fmt.Sprintf("elapsed=%s %s", time.Since(traceStarted), fmt.Sprintf(format, values...)):
 		default:
 		}
 	}
@@ -200,8 +213,10 @@ func wizard() error {
 	trace("raw ready pid=%d", os.Getpid())
 	delay, _ := strconv.Atoi(os.Getenv("PLAYTESTR_DELAY_MS"))
 	draw := func(text string) {
+		trace("draw begin %q", text)
 		time.Sleep(time.Duration(delay) * time.Millisecond)
 		fmt.Printf("\x1b[2J\x1b[H%s\r\n", text)
+		trace("draw complete %q", text)
 	}
 	draw("Project name? (synthetic workspace)")
 	r := bufio.NewReader(os.Stdin)
@@ -226,7 +241,9 @@ func wizard() error {
 		return err
 	}
 	draw(fmt.Sprintf("Confirm project %s at %dx%d; seed=%s", name, width, height, strings.TrimSpace(string(seed))))
+	trace("confirmation read begin")
 	b, err := r.ReadByte()
+	trace("confirmation byte=%02x err=%v", b, err)
 	if err != nil {
 		return err
 	}
@@ -234,10 +251,13 @@ func wizard() error {
 		return fmt.Errorf("confirmation declined")
 	}
 	content := fmt.Sprintf("%s:%s", name, strings.TrimSpace(string(seed)))
+	trace("saved file write begin")
 	if err := os.WriteFile("result.txt", []byte(content), 0600); err != nil {
 		return err
 	}
+	trace("saved file write complete")
 	actual, err := os.ReadFile("result.txt")
+	trace("saved file read complete err=%v", err)
 	if err != nil {
 		return err
 	}

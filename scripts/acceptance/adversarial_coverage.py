@@ -87,6 +87,7 @@ CONTROLS={
  ('report-traversal','TestRenderHTMLRejectsUnsafeEvidenceReferences','Evidence references cannot traverse admitted root'),
  ],
  'Workspaces':[
+ ('windows-workspace-marker-visibility','TestWorkspaceOwnershipMarkerUsesNativeHiddenAttribute','Real Windows directory attributes hide only the internal ownership marker; fixture visibility, token integrity and owned cleanup remain correct'),
  ('windows-workspace-long-path','TestAdversarialWindowsWorkspaceExpandsShortTemporaryPath','Actual Windows target receives long workspace path when TEMP is an 8.3 alias; process and filesystem cleanup confirmed'),
  ('fresh-state','TestWorkspaceRunsTwiceFromFreshFixtureAndCleans','Every invocation has fresh owned fixture and cleanup'),
  ('readonly-crlf-modes','TestWorkspaceReadOnlyInputsPreserveBytesAndNormalizeModes','Real read-only fixture preserves exact CRLF/UTF-8 bytes; copies are writable and Unix executable bits retained'),
@@ -156,6 +157,7 @@ def main():
                            'TestWindowsEnterAndCtrlJRemainDistinctThroughRealPTY',
                            'TestWindowsResizeOutputFenceRequiresReturnedCurrentRequest',
                            'TestAdversarialWindowsWorkspaceExpandsShortTemporaryPath',
+                           'TestWorkspaceOwnershipMarkerUsesNativeHiddenAttribute',
                            'TestWindowsResizeWithoutAcknowledgmentIsBounded'}:
             row['hosts']=['windows']
     (DOC/'coverage-matrix.json').write_text(json.dumps(dict(controls=records,

@@ -1,0 +1,20 @@
+{
+  "finding": "P10",
+  "behavior": "Internal ownership metadata no longer appears in native Windows default hidden-file views",
+  "actual_application_failure": "yazi/first-failures/windows-internal-marker-report.json",
+  "before": {
+    "command": "go test -count=1 -run ^TestWorkspaceOwnershipMarkerUsesNativeHiddenAttribute$ -v ./internal/runner",
+    "exit_code": 1,
+    "message": "ownership marker appears in a default Windows directory view: attributes=0x20",
+    "evidence_kind": "Transcription of actual native tool output; real temporary workspace and Windows file attributes"
+  },
+  "after": {
+    "same_native_control_passed": true,
+    "ordinary_fixture_visibility_preserved": true,
+    "token_integrity_and_single_owned_cleanup_verified": true
+  },
+  "application_baselines_unchanged": true,
+  "actual_hosted_after": "pending",
+  "scope": "Windows hidden-file metadata only; applications may explicitly reveal hidden files",
+  "full_local_go_vet_race_and_manual_examples": "passed"
+}

@@ -151,6 +151,9 @@ func prepareWorkspace(ctx context.Context, specPath string, spec Spec) (*prepare
 		_ = os.Remove(root)
 		return nil, fmt.Errorf("write workspace ownership marker: %w", err)
 	}
+	if err := hideWorkspaceMarker(filepath.Join(root, workspaceMarker)); err != nil {
+		return workspace, fmt.Errorf("configure workspace ownership marker visibility: %w", err)
+	}
 	destination := filepath.Join(root, "fixture")
 	if err := copyWorkspaceFixture(ctx, source, destination); err != nil {
 		return workspace, err

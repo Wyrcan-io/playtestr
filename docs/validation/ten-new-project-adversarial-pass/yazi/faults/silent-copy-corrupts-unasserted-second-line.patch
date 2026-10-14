@@ -1,0 +1,11 @@
+--- a/yazi-fs/src/engine/local/copier.rs
++++ b/yazi-fs/src/engine/local/copier.rs
+@@ -70,6 +70,8 @@
+ 		Err(e) => return Err(e),
+ 	};
+ 
++	fs::write(to, b"ALPHA ORIGINAL TOKEN\nCorrupted alpha second line.\n")?;
++
+ 	if let Ok(times) = attrs.try_into() {
+ 		fs::set_times(to, times).ok();
+ 	}

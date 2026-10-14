@@ -1,0 +1,147 @@
+Setup: output="/mnt/c/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-new-project-adversarial-pass/yazi/probe-1791964672071556714.json" argv=["yazi" "."] cwd="" fixture="fixtures" viewport=100x30 timeout=10000ms budget=120000ms output-cap=2000000
+Recorder controls (target input is separate):
+  /live                       type into the target; Ctrl+G returns to controls
+  /key ArrowDown              send a supported named key
+  /text "hello"               send JSON-quoted text/paste (literal Ctrl+G: "\u0007")
+  /expect unique new content  positive readiness checkpoint
+  /absent previous content    disappearance of previously asserted content
+  /exit 0                     exact expected exit code
+  /snapshot name.txt          capture a ready, settled screen
+  /resize 100 30; /redraw     resize and optional observed redraw wait
+  /snapshot-rows name.rows.json 2 24  capture reviewed inclusive viewport rows
+  /screen; /review            inspect screen or full candidate/baselines
+  /delete N; /move N M         edit 1-based step positions
+  /replace N {"expect":"..."} replace a step with one strict JSON action
+  /rerecord N                 fresh target, retain/reconstruct first N steps
+  /replay; /save               reviewed fresh replay, then export new files
+  /quit                       cancel without export
+No target input or raw draft is saved automatically. Review may display sensitive
+text the target printed or you typed. Targets run with your permissions.
+Resolved target="/var/tmp/playtestr-adversarial-yazi/bin/yazi" working-directory="/tmp/playtestr-workspace-765274963/fixture"
+record> record> record> record> record> record> record> record> record> record> record> record> record> record> record> record> record> record> record> record> record> record> record> record> record> record> record> record> record> record> record> record> {
+  "version": 2,
+  "name": "Copy protected bytes into a nested directory and return to the parent",
+  "command": [
+    "yazi",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": "Find next:"
+    },
+    {
+      "text": "alpha"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "Find next:"
+    },
+    {
+      "expect": "(find: alpha)"
+    },
+    {
+      "expect": "󰈙 alpha.txt"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "(find: alpha)"
+    },
+    {
+      "text": "y"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": "Find next:"
+    },
+    {
+      "text": "nested"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "Find next:"
+    },
+    {
+      "expect": "(find: nested)"
+    },
+    {
+      "expect": " nested"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "(find: nested)"
+    },
+    {
+      "text": "l"
+    },
+    {
+      "expect": "/fixture/nested"
+    },
+    {
+      "expect": "󰈙 notes café.txt"
+    },
+    {
+      "text": "p"
+    },
+    {
+      "expect": "󰈙 alpha.txt"
+    },
+    {
+      "expect": "ALPHA ORIGINAL TOKEN"
+    },
+    {
+      "text": "h"
+    },
+    {
+      "expect": " fixture"
+    },
+    {
+      "snapshot": "normal-copy.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}
+
+Baseline normal-copy.rows.json:
+{
+  "snapshot_version": 1,
+  "first_row": 2,
+  "last_row": 28,
+  "text": "  fixture │  empty                                        │ 󰈙 alpha.txt\n   home     │ nested                                      │ 󰈙 notes café.txt\n   temp     │  occupied                                     │\n             │ 󰈙 alpha.txt                                    │\n             │ 󰈙 bravo.txt                                    │\n             │ 󰈙 long.txt                                     │\n             │ 󰈙 protected.txt                                │\n             │                                                │\n             │                                                │\n             │                                                │\n             │                                                │\n             │                                                │\n             │                                                │\n             │                                                │\n             │                                                │\n             │                                                │\n             │                                                │\n             │                                                │\n             │                                                │\n             │                                                │\n             │                                                │\n             │                                                │\n             │                                                │\n             │                                                │\n             │                                                │\n             │                                                │\n             │                                                │\n"
+}
+
+record> [0m[?25h

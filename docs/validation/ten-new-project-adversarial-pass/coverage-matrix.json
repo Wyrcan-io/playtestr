@@ -28576,6 +28576,22 @@
       "test_source_sha256": "ed4e13d3d9610147d668c9d5b81a8f60803cbf1eb482935a60681989c23ed467"
     },
     {
+      "id": "windows-workspace-marker-visibility",
+      "family": "Workspaces",
+      "test": "TestWorkspaceOwnershipMarkerUsesNativeHiddenAttribute",
+      "package": "./internal/runner",
+      "requirement": "Real Windows directory attributes hide only the internal ownership marker; fixture visibility, token integrity and owned cleanup remain correct",
+      "severity": "high",
+      "hosts": [
+        "windows"
+      ],
+      "evidence": [],
+      "status": "declared_not_qualified",
+      "layer": "real PTY where terminal/process behavior; pure logic/real temporary files for parsing or serialization",
+      "source": "internal/runner/workspace_windows_test.go",
+      "test_source_sha256": "9d5216c5a051d7c592dbf575d434a6ccc3205c932881ff71806a1e71dc829cb1"
+    },
+    {
       "id": "windows-workspace-long-path",
       "family": "Workspaces",
       "test": "TestAdversarialWindowsWorkspaceExpandsShortTemporaryPath",
@@ -42513,6 +42529,6 @@
       "test_source_sha256": "3b8a198b534594eee2dd54450860750976006279b962b483a4469c60993af1b6"
     }
   ],
-  "count": 82,
+  "count": 83,
   "claim": "Named distinct controls; actual events required; not a coverage percentage"
 }
