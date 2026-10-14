@@ -1,0 +1,46 @@
+{
+  "native_trigger": {
+    "run": 38586337489,
+    "source": "b7f46ed6abdc57e03c4ba84c9858199584678419",
+    "host": "macos-15",
+    "test": "TestAdversarialOutputCapBoundary/over-cap",
+    "emitted_payload_bytes": 4300,
+    "cap_bytes": 4096,
+    "precision": "Native failure struct prints category/error pointers, not their values. The exact early-exit misclassification is proved by the controlled real-PTY regression; its link to this native timing window is an inference from code and the observed over-cap failure."
+  },
+  "before_reduced": {
+    "test": "TestAdversarialFinalDrainPreservesOutputLimit",
+    "native_host": "Windows",
+    "failed": true,
+    "package_seconds": 2.278,
+    "observed": "process exited with code 0 before assertion matched despite outputLimitExceeded=true",
+    "actual_pty_bytes": 134,
+    "cap_bytes": 8
+  },
+  "mechanism": "Real PTY output held until actual helper exit and released when the assertion constructs its bounded final-drain context. No fake terminal bytes or sleep race.",
+  "repair": "Recheck output-limit violation on the final drained observation before matching an expectation or reporting target exit.",
+  "after": "Twenty repeated real-PTY checks, full Windows Go suite, vet, race and public examples passed; native core rerun pending.",
+  "product_deadlines_changed": false,
+  "baseline_changes": false,
+  "final_credit": 0,
+  "after_reduced": {
+    "runs_per_control": 20,
+    "failed": 0,
+    "host": "native Windows",
+    "package_seconds": 16.071,
+    "tests": [
+      "TestAdversarialFinalDrainPreservesOutputLimit",
+      "TestAdversarialOutputCapBoundary"
+    ]
+  },
+  "go_vet": true,
+  "full_go_test": true,
+  "checks": {
+    "full_go_test": true,
+    "go_vet": true,
+    "native_windows_race": true,
+    "race_runner_seconds": 214.312,
+    "race_setupaction_seconds": 103.386,
+    "public_examples_passed": 2
+  }
+}

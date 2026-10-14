@@ -74,6 +74,7 @@ CONTROLS={
  ('literal-recorder-control','TestRecordingLiteralControlKeyAndResolvedSetup','Control-console escape can be transmitted literally'),
  ('recorder-redraw-readiness','TestRecordingReadinessDuringRepeatedRedraw','Unique recorder readiness uses one real-PTY screen observation during repeated erase/redraw'),
  ('recorder-transient-ambiguity','TestRecordingWaitsForUniqueAnchorAfterRedraw','Recorder waits within its deadline for a transient duplicate to become a unique rendered anchor'),
+ ('final-drain-output-cap','TestAdversarialFinalDrainPreservesOutputLimit','Actual final PTY bytes exceeding the cap take precedence over a concurrently observed target exit'),
  ('live-operator-restoration','TestNativeRecorderLiveInputAndOperatorRestoration','Native operator terminal restored after live input'),
  ],
  'Spec and paths':[

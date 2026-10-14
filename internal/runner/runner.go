@@ -798,6 +798,9 @@ func executeStep(ctx context.Context, specPath string, step Step, options RunOpt
 			_ = session.drainFinal(drainContext, 25*time.Millisecond)
 			cancelDrain()
 			observation = session.observe()
+			if observation.outputLimitExceeded {
+				return fmt.Errorf("%w (%d bytes observed)", errOutputLimit, observation.outputBytes)
+			}
 			if step.Expect != "" {
 				matched, err := matchExpectedScreen(observation.screen, step.Expect, options.recordUniqueExpect)
 				if matched || err != nil {

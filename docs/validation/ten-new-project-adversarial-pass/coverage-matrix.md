@@ -52,6 +52,7 @@ Controls are mapped before qualification. Test names and configured hosts alone 
 | literal-recorder-control | Keys and terminal | Control-console escape can be transmitted literally | `TestRecordingLiteralControlKeyAndResolvedSetup` |
 | recorder-redraw-readiness | Keys and terminal | Unique recorder readiness uses one real-PTY screen observation during repeated erase/redraw | `TestRecordingReadinessDuringRepeatedRedraw` |
 | recorder-transient-ambiguity | Keys and terminal | Recorder waits within its deadline for a transient duplicate to become a unique rendered anchor | `TestRecordingWaitsForUniqueAnchorAfterRedraw` |
+| final-drain-output-cap | Keys and terminal | Actual final PTY bytes exceeding the cap take precedence over a concurrently observed target exit | `TestAdversarialFinalDrainPreservesOutputLimit` |
 | live-operator-restoration | Keys and terminal | Native operator terminal restored after live input | `TestNativeRecorderLiveInputAndOperatorRestoration` |
 | strict-spec | Spec and paths | Malformed/version/field/action errors reject without launch | `TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput` |
 | spec-size | Spec and paths | Spec version and size bounded | `TestSpecVersionAndSizeLimits` |
