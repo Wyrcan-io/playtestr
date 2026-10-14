@@ -1,0 +1,53 @@
+Setup: output="/mnt/c/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-new-project-adversarial-pass/ranger/normal-long-pager.json" argv=["ranger" "--clean" "--cmd=set preview_files true" "--cmd=set use_preview_script false" "--cmd=set confirm_on_delete always" "."] cwd="" fixture="fixtures" viewport=100x30 timeout=10000ms budget=120000ms output-cap=2000000
+Recorder controls (target input is separate):
+  /live                       type into the target; Ctrl+G returns to controls
+  /key ArrowDown              send a supported named key
+  /text "hello"               send JSON-quoted text/paste (literal Ctrl+G: "\u0007")
+  /expect unique new content  positive readiness checkpoint
+  /absent previous content    disappearance of previously asserted content
+  /exit 0                     exact expected exit code
+  /snapshot name.txt          capture a ready, settled screen
+  /resize 100 30; /redraw     resize and optional observed redraw wait
+  /snapshot-rows name.rows.json 2 24  capture reviewed inclusive viewport rows
+  /screen; /review            inspect screen or full candidate/baselines
+  /delete N; /move N M         edit 1-based step positions
+  /replace N {"expect":"..."} replace a step with one strict JSON action
+  /rerecord N                 fresh target, retain/reconstruct first N steps
+  /replay; /save               reviewed fresh replay, then export new files
+  /quit                       cancel without export
+No target input or raw draft is saved automatically. Review may display sensitive
+text the target printed or you typed. Targets run with your permissions.
+Resolved target="/var/tmp/playtestr-adversarial-ranger/bin/ranger" working-directory="/tmp/playtestr-workspace-167809940/fixture"
+record> record> record> record> record> record> record> record> record> record> record> Recorder: capture step 11: context deadline exceeded
+record> abhir@Abhirup0 /tmp/playtestr-workspace-167809940/fixture/long.txt
+line 000: ranger café 雪 TOKEN
+line 001: ranger café 雪 TOKEN
+line 002: ranger café 雪 TOKEN
+line 003: ranger café 雪 TOKEN
+line 004: ranger café 雪 TOKEN
+line 005: ranger café 雪 TOKEN
+line 006: ranger café 雪 TOKEN
+line 007: ranger café 雪 TOKEN
+line 008: ranger café 雪 TOKEN
+line 009: ranger café 雪 TOKEN
+line 010: ranger café 雪 TOKEN
+line 011: ranger café 雪 TOKEN
+line 012: ranger café 雪 TOKEN
+line 013: ranger café 雪 TOKEN
+line 014: ranger café 雪 TOKEN
+line 015: ranger café 雪 TOKEN
+line 016: ranger café 雪 TOKEN
+line 017: ranger café 雪 TOKEN
+line 018: ranger café 雪 TOKEN
+line 019: ranger café 雪 TOKEN
+line 020: ranger café 雪 TOKEN
+line 021: ranger café 雪 TOKEN
+line 022: ranger café 雪 TOKEN
+line 023: ranger café 雪 TOKEN
+line 024: ranger café 雪 TOKEN
+line 025: ranger café 雪 TOKEN
+line 026: ranger café 雪 TOKEN
+line 027: ranger café 雪 TOKEN
+-rwxr-xr-x 1 abhir abhir 3.96k 2026-10-14 22:24                      4.08k sum, 1.01T free  6/7  All
+
+record> [0m[?25h

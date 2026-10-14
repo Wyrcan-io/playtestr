@@ -1,0 +1,124 @@
+{
+  "version": 2,
+  "name": "Apply a no-match filter stack, clear it, then select a useful existing file",
+  "command": [
+    "ranger",
+    "--clean",
+    "--cmd=set preview_files true",
+    "--cmd=set use_preview_script false",
+    "--cmd=set confirm_on_delete always",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "expect": "All"
+    },
+    {
+      "text": ":"
+    },
+    {
+      "expect_not": "All"
+    },
+    {
+      "expect": ":"
+    },
+    {
+      "text": "filter_stack add name ^NO_SUCH_ENTRY$"
+    },
+    {
+      "expect": ":filter_stack add name ^NO_SUCH_ENTRY$"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": ":filter_stack add name ^NO_SUCH_ENTRY$"
+    },
+    {
+      "expect": "All"
+    },
+    {
+      "expect": "0/0"
+    },
+    {
+      "expect": "All"
+    },
+    {
+      "text": ":"
+    },
+    {
+      "expect_not": "All"
+    },
+    {
+      "expect": ":"
+    },
+    {
+      "text": "filter_stack clear"
+    },
+    {
+      "expect": ":filter_stack clear"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": ":filter_stack clear"
+    },
+    {
+      "expect": "All"
+    },
+    {
+      "expect": "alpha.txt                      57 B"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": ":search"
+    },
+    {
+      "text": "bravo"
+    },
+    {
+      "expect": ":search bravo"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": ":search bravo"
+    },
+    {
+      "expect": "/fixture/bravo.txt"
+    },
+    {
+      "expect": "RANGER BRAVO ORIGINAL TOKEN"
+    },
+    {
+      "snapshot": "edge-empty-filter-recovery.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

@@ -36,6 +36,27 @@ func TestDecodeSplitUnicodeKeysAndUnsupportedInput(t *testing.T) {
 	}
 }
 
+func TestDecodeStandardNavigationAcrossEveryByteBoundary(t *testing.T) {
+	for sequence, key := range map[string]string{
+		"\x1b[1~": "Home", "\x1b[H": "Home", "\x1bOH": "Home", "\x1b[7~": "Home",
+		"\x1b[4~": "End", "\x1b[F": "End", "\x1bOF": "End", "\x1b[8~": "End",
+		"\x1b[5~": "PageUp", "\x1b[6~": "PageDown",
+	} {
+		t.Run(key+sequence, func(t *testing.T) {
+			for split := 1; split < len(sequence); split++ {
+				events, rest, err := Decode([]byte(sequence[:split]), false)
+				if err != nil || len(events) != 0 || string(rest) != sequence[:split] {
+					t.Fatalf("partial navigation %q: events=%+v rest=%q err=%v", sequence[:split], events, rest, err)
+				}
+				events, rest, err = Decode(append(rest, sequence[split:]...), false)
+				if err != nil || len(rest) != 0 || len(events) != 1 || events[0].Key != key || events[0].Text != "" {
+					t.Fatalf("navigation %q: events=%+v rest=%q err=%v", sequence, events, rest, err)
+				}
+			}
+		})
+	}
+}
+
 func TestNativeRedirectedInputAndIdleCancellation(t *testing.T) {
 	read, write, err := os.Pipe()
 	if err != nil {

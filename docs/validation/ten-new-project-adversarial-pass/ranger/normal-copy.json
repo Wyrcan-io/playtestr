@@ -1,0 +1,181 @@
+{
+  "version": 2,
+  "name": "Copy protected multi-line bytes into a nested directory and return to the parent",
+  "command": [
+    "ranger",
+    "--clean",
+    "--cmd=set preview_files true",
+    "--cmd=set use_preview_script false",
+    "--cmd=set confirm_on_delete always",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": ":search"
+    },
+    {
+      "text": "alpha"
+    },
+    {
+      "expect": ":search alpha"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": ":search alpha"
+    },
+    {
+      "expect": "/fixture/alpha.txt"
+    },
+    {
+      "expect": "RANGER ALPHA ORIGINAL TOKEN"
+    },
+    {
+      "expect": "All"
+    },
+    {
+      "text": ":"
+    },
+    {
+      "expect_not": "All"
+    },
+    {
+      "expect": ":"
+    },
+    {
+      "text": "copy"
+    },
+    {
+      "expect": ":copy"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": ":copy"
+    },
+    {
+      "expect": "All"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": ":search"
+    },
+    {
+      "text": "nested"
+    },
+    {
+      "expect": ":search nested"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": ":search nested"
+    },
+    {
+      "expect": "/fixture/nested"
+    },
+    {
+      "text": "l"
+    },
+    {
+      "expect": "/fixture/nested/notes café.txt"
+    },
+    {
+      "expect": "RANGER NESTED UNICODE TOKEN"
+    },
+    {
+      "expect": "All"
+    },
+    {
+      "text": ":"
+    },
+    {
+      "expect_not": "All"
+    },
+    {
+      "expect": ":"
+    },
+    {
+      "text": "paste"
+    },
+    {
+      "expect": ":paste"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": ":paste"
+    },
+    {
+      "expect": "All"
+    },
+    {
+      "expect": "alpha.txt                      57 B"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": ":search"
+    },
+    {
+      "text": "alpha"
+    },
+    {
+      "expect": ":search alpha"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": ":search alpha"
+    },
+    {
+      "expect": "/fixture/nested/alpha.txt"
+    },
+    {
+      "expect": "RANGER ALPHA ORIGINAL TOKEN"
+    },
+    {
+      "text": "h"
+    },
+    {
+      "expect": "protected.txt                  32 B"
+    },
+    {
+      "snapshot": "normal-copy.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

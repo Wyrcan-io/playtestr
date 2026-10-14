@@ -88,6 +88,7 @@ var (
 		values := map[string]string{
 			"Enter": "\r", "ArrowDown": "\x1b[B", "ArrowUp": "\x1b[A",
 			"ArrowRight": "\x1b[C", "ArrowLeft": "\x1b[D", "Escape": "\x1b",
+			"Home": "\x1b[1~", "End": "\x1b[4~", "PageUp": "\x1b[5~", "PageDown": "\x1b[6~",
 			"Tab": "\t", "Backspace": "\x7f", "CtrlSpace": "\x00",
 		}
 		for letter := byte('A'); letter <= byte('Z'); letter++ {

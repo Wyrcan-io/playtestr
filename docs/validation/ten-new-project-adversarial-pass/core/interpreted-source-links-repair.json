@@ -1,0 +1,47 @@
+{
+  "classification": "Private interpreted-target source identity repair; no production runner change",
+  "target": "ranger",
+  "upstream_pin": "46e957af9762dd2fcaabfbef4d3c45c16edd1184",
+  "before": {
+    "actual_historical_function_rejected_pinned_checkout": true,
+    "error": "Unsafe interpreted source identity input"
+  },
+  "after": {
+    "actual_contained_links": {
+      "doc/config/colorschemes/default.py": {
+        "link": "../../../ranger/colorschemes/default.py",
+        "resolved": "ranger/colorschemes/default.py"
+      },
+      "doc/config/colorschemes/jungle.py": {
+        "link": "../../../ranger/colorschemes/jungle.py",
+        "resolved": "ranger/colorschemes/jungle.py"
+      },
+      "doc/config/colorschemes/snow.py": {
+        "link": "../../../ranger/colorschemes/snow.py",
+        "resolved": "ranger/colorschemes/snow.py"
+      },
+      "doc/config/commands.py": {
+        "link": "../../ranger/config/commands.py",
+        "resolved": "ranger/config/commands.py"
+      }
+    },
+    "executed_source_digest": "fb028f18b1e0545d704101749e3f67cac5c9fe1570f14d4996aec48337c74c20",
+    "external_link_rejection": "Real temporary-file regression passed"
+  },
+  "harness": {
+    "windows": {
+      "tests": 27,
+      "passed": true,
+      "skipped": 5,
+      "seconds": 19.916
+    },
+    "linux_wsl": {
+      "tests": 27,
+      "passed": true,
+      "skipped": 2,
+      "seconds": 21.393
+    },
+    "native_macos": "pending"
+  },
+  "final_credit": 0
+}

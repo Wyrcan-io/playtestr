@@ -1,0 +1,223 @@
+{
+  "project": "yazi",
+  "phase": "Development qualification complete; final frozen-source qualification pending",
+  "run": "38634382707",
+  "source": "0f85370f115571165a8c72954e462c74b343fbfe",
+  "normal_scenarios": 7,
+  "edge_scenarios": 7,
+  "hosts": {
+    "Linux": {
+      "native": {
+        "source": "0f85370f115571165a8c72954e462c74b343fbfe",
+        "runner_sha256": "095d8772dbea0a646876806fc1225a6eee527d0603dad5ec7495e8089ba9601d",
+        "actual_host": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+        "project": "yazi",
+        "scenarios": 14,
+        "git_version": "git version 2.55.0",
+        "terminal_repetitions": 140,
+        "state_probe_repetitions": 140,
+        "state_scope": "Separate real recorder executions: exact reviewed screen and current managed workspace files before teardown",
+        "phase": "Development qualification; final single-source batch freeze remains pending",
+        "frozen_manifest_sha256": null,
+        "external_state_cleanup": null,
+        "file_prerequisite": null,
+        "run_id": "38634382707",
+        "run_attempt": "1"
+      },
+      "cleanup": {
+        "project": "yazi",
+        "removed": true,
+        "canonical_target": "/home/runner/work/playtestr/playtestr/.cache/ten-new-project-apps/yazi",
+        "process_check": "Linux visible /proc command and cwd references; runner separately confirms target termination",
+        "source": "0f85370f115571165a8c72954e462c74b343fbfe",
+        "scope": "Teardown following native development qualification"
+      },
+      "source_faults": [
+        {
+          "name": "creation-diverted-to-unrequested-name",
+          "evidence_id": "0cc0df31f2c84241946574942419832f",
+          "recovery_id": "ecdb06a8344e44639fa7e53e3006ee2d",
+          "exact_binary_restored": true,
+          "state_oracle_detected": false,
+          "state_probe_evidence_id": null
+        },
+        {
+          "name": "preview-seek-scrolls-in-reverse",
+          "evidence_id": "a5514c2a265b41d18c0fea78eab9a7a1",
+          "recovery_id": "1e905676be594394bc42a6ad5182750d",
+          "exact_binary_restored": true,
+          "state_oracle_detected": false,
+          "state_probe_evidence_id": null
+        },
+        {
+          "name": "silent-copy-corrupts-unasserted-second-line",
+          "evidence_id": "26289c51194046a6ad6f7c1482827be2",
+          "recovery_id": "aeaf2045441b40c19795fae6ee42bc10",
+          "exact_binary_restored": true,
+          "state_oracle_detected": true,
+          "state_probe_evidence_id": "e232e4586c0745708587aa8ded1e291a"
+        }
+      ]
+    },
+    "Darwin": {
+      "native": {
+        "source": "0f85370f115571165a8c72954e462c74b343fbfe",
+        "runner_sha256": "024874974dda1eab3be3a3555a2533eed2570c2a01a83b79564f3817103d60bf",
+        "actual_host": "macOS-15.7.9-arm64-arm-64bit",
+        "project": "yazi",
+        "scenarios": 14,
+        "git_version": "git version 2.55.0",
+        "terminal_repetitions": 140,
+        "state_probe_repetitions": 140,
+        "state_scope": "Separate real recorder executions: exact reviewed screen and current managed workspace files before teardown",
+        "phase": "Development qualification; final single-source batch freeze remains pending",
+        "frozen_manifest_sha256": null,
+        "external_state_cleanup": null,
+        "file_prerequisite": null,
+        "run_id": "38634382707",
+        "run_attempt": "1"
+      },
+      "cleanup": {
+        "project": "yazi",
+        "removed": true,
+        "canonical_target": "/Users/runner/work/playtestr/playtestr/.cache/ten-new-project-apps/yazi",
+        "process_check": "macOS visible ps command and lsof cwd references; runner separately confirms target termination",
+        "source": "0f85370f115571165a8c72954e462c74b343fbfe",
+        "scope": "Teardown following native development qualification"
+      },
+      "source_faults": [
+        {
+          "name": "creation-diverted-to-unrequested-name",
+          "evidence_id": "958937bdd353468a8391087c5224a8cd",
+          "recovery_id": "c0f77fa0b17141d482efe20407b98ffb",
+          "exact_binary_restored": true,
+          "state_oracle_detected": false,
+          "state_probe_evidence_id": null
+        },
+        {
+          "name": "preview-seek-scrolls-in-reverse",
+          "evidence_id": "40131cf9f30446b6a5c00e43bed10a7f",
+          "recovery_id": "1f7e2956e994423b90cdbc3040ee2684",
+          "exact_binary_restored": true,
+          "state_oracle_detected": false,
+          "state_probe_evidence_id": null
+        },
+        {
+          "name": "silent-copy-corrupts-unasserted-second-line",
+          "evidence_id": "a4d2df70751942478c5c94a071484250",
+          "recovery_id": "4e247f95ee22441fafc511ff311bec22",
+          "exact_binary_restored": true,
+          "state_oracle_detected": true,
+          "state_probe_evidence_id": "b844ef2e66064d42aa4348ceb7dade6b"
+        }
+      ]
+    },
+    "Windows": {
+      "native": {
+        "source": "0f85370f115571165a8c72954e462c74b343fbfe",
+        "runner_sha256": "fed782f555dbfefbff30cbbb30e0369665441d700a5b4637a593f2f4ca9aa760",
+        "actual_host": "Windows-2025Server-10.0.26100-SP0",
+        "project": "yazi",
+        "scenarios": 14,
+        "git_version": "git version 2.56.0.windows.2",
+        "terminal_repetitions": 140,
+        "state_probe_repetitions": 140,
+        "state_scope": "Separate real recorder executions: exact reviewed screen and current managed workspace files before teardown",
+        "phase": "Development qualification; final single-source batch freeze remains pending",
+        "frozen_manifest_sha256": null,
+        "external_state_cleanup": {
+          "roots": [
+            "C:\\Users\\runneradmin\\AppData\\Roaming\\yazi",
+            "C:\\Users\\runneradmin\\AppData\\Local\\yazi"
+          ],
+          "removed": true,
+          "scope": "Owned disposable hosted Windows known-folder paths"
+        },
+        "file_prerequisite": {
+          "binary": "C:\\msys64\\usr\\bin\\file.exe",
+          "version": "file-5.48\nmagic file from /usr/share/misc/magic",
+          "actual_fixture_mime": "text/plain"
+        },
+        "run_id": "38634382707",
+        "run_attempt": "1"
+      },
+      "cleanup": {
+        "canonical_target": "D:\\a\\playtestr\\playtestr\\.cache\\ten-new-project-apps\\yazi",
+        "project": "yazi",
+        "process_check": "no owned references",
+        "native_host": "Windows",
+        "source": "0f85370f115571165a8c72954e462c74b343fbfe",
+        "removed": true,
+        "scope": "Teardown following native development qualification"
+      },
+      "source_faults": [
+        {
+          "name": "creation-diverted-to-unrequested-name",
+          "evidence_id": "c04e505403624832aab9450235b82abb",
+          "recovery_id": "ed22931631c04216a5b98c04979e7a25",
+          "exact_binary_restored": true,
+          "state_oracle_detected": false,
+          "state_probe_evidence_id": null
+        },
+        {
+          "name": "preview-seek-scrolls-in-reverse",
+          "evidence_id": "a1eccab1983c45daab3cf8931d23c926",
+          "recovery_id": "5c906c80d7904b6c99830d90512c4ea0",
+          "exact_binary_restored": true,
+          "state_oracle_detected": false,
+          "state_probe_evidence_id": null
+        },
+        {
+          "name": "silent-copy-corrupts-unasserted-second-line",
+          "evidence_id": "13de93144d194af3870d4f65eb4774f8",
+          "recovery_id": "2933c3096c4043179ca45123b11c6292",
+          "exact_binary_restored": true,
+          "state_oracle_detected": true,
+          "state_probe_evidence_id": "8975a5c61e924311b73019563822c6bb"
+        }
+      ]
+    }
+  },
+  "local_cleanup": {
+    "project": "yazi",
+    "removed": true,
+    "canonical_target": "/var/tmp/playtestr-adversarial-yazi",
+    "process_check": "Linux visible /proc command and cwd references; runner separately confirms target termination",
+    "source": "0d41e269a2b27dc09130f1806d5ef4c36ec0a2a4",
+    "scope": "Local exploratory teardown only; no native project qualification granted"
+  },
+  "ux": {
+    "commands": 4,
+    "recorder_controls": 15,
+    "elapsed_prepared_route_seconds": 43.339960666000025,
+    "manual_json_edits": 0,
+    "evidence_ids": [
+      "71c7b85f68ab4cf2bb9227b18c350ab3",
+      "2412e9eca6e747fea573e1e8897b93f2",
+      "12eec70d728d43cbb81acfc6f3c77f6e",
+      "f2d3428c78514639b83026529b6bc7b9"
+    ],
+    "runner_sha256": "a1d81f16942fdcb3cd7e222e0d24f533b72b0c4827a0cc2299442b25f3d8e5ef",
+    "provisional_command_gate_passed": true,
+    "provisional_control_gate_passed": true,
+    "provisional_elapsed_gate_passed": true,
+    "assessment": "Prepared operator walkthrough using public commands; not an independent novice study",
+    "confounders": [
+      "Prepared reviewed synthetic fixture and control sequence",
+      "Warm build/dependency caches",
+      "Prior operator knowledge and corrected authoring attempts",
+      "Controls automated one public recorder response at a time"
+    ],
+    "excluded_time": "Application acquisition, fixture engineering, prior exploratory authoring and correction; measured elapsed is not total setup or beginner authoring time",
+    "diagnosis": "Separate intentional mismatch/report route retained in maintenance-result.json"
+  },
+  "final_frozen_candidate_credit": 0,
+  "full_product_100_project_launch_credit": 0,
+  "limits": [
+    "Separate recorder state probes; ordinary terminal replays do not expose public file assertions",
+    "Declared files, absences and directory types checked; no complete-tree guarantee for this project",
+    "Windows qualified on clean disposable GitHub-hosted profiles with owned actual known-folder leases; local Windows target execution unqualified",
+    "Offline file-management/text-preview scope; no editor/media/clipboard/network/trash or exhaustive application coverage",
+    "Prepared operator walkthrough with warm caches and prior engineering; no independent novice study"
+  ]
+}

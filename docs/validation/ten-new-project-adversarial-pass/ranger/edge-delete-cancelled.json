@@ -1,0 +1,100 @@
+{
+  "version": 2,
+  "name": "Decline an actual permanent-deletion confirmation and preserve every file",
+  "command": [
+    "ranger",
+    "--clean",
+    "--cmd=set preview_files true",
+    "--cmd=set use_preview_script false",
+    "--cmd=set confirm_on_delete always",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": ":search"
+    },
+    {
+      "text": "protected"
+    },
+    {
+      "expect": ":search protected"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": ":search protected"
+    },
+    {
+      "expect": "/fixture/protected.txt"
+    },
+    {
+      "expect": "RANGER PROTECTED NEIGHBOR TOKEN"
+    },
+    {
+      "expect": "All"
+    },
+    {
+      "text": ":"
+    },
+    {
+      "expect_not": "All"
+    },
+    {
+      "expect": ":"
+    },
+    {
+      "text": "delete"
+    },
+    {
+      "expect": ":delete"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": ":delete"
+    },
+    {
+      "expect": "Confirm deletion of 1 items: protected.txt (y/N)"
+    },
+    {
+      "text": "n"
+    },
+    {
+      "expect_not": "Confirm deletion of 1 items: protected.txt (y/N)"
+    },
+    {
+      "expect": "All"
+    },
+    {
+      "snapshot": "edge-delete-cancelled.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

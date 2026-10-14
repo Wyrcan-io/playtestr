@@ -11,7 +11,7 @@
   "classification": "Authored asynchronous workflow/readiness defect; no claim of input transport loss",
   "snapshot_sha256": "16e01a19076bccaeda9c48aa9d26d402fbea46632c522edf63312c2c6c86a844",
   "snapshot_unchanged": true,
-  "after": "Local unchanged-snapshot series passed; full native requalification in progress",
+  "after": "Complete native Linux/macOS/Windows fourteen-scenario qualification passed, including corrected preview-source fault detection and restoration; reviewed snapshot unchanged",
   "final_credit": 0,
   "interrupted_local_series": {
     "reason": "Operator normalized CRLF to LF while repetition 5 was active; the unchanged-contract guard rejected the change. No completed series credit. Original attempts retained.",
@@ -21,8 +21,24 @@
   "native_requalification": {
     "run": 38634382707,
     "source": "0f85370",
-    "status": "in progress",
-    "credit": 0
+    "status": "success",
+    "credit": 0,
+    "linux": {
+      "qualified": true,
+      "scenarios": 14,
+      "ordinary_runs": 140,
+      "separate_state_runs": 140,
+      "source_faults": 3,
+      "exact_binary_restoration": true,
+      "owned_application_removed": true,
+      "preview_fault_used_corrected_contract": true
+    },
+    "development_qualified_hosts": [
+      "Linux",
+      "Darwin",
+      "Windows"
+    ],
+    "final_frozen_candidate_credit": 0
   },
   "local_requalification": {
     "ordinary_runs": 10,

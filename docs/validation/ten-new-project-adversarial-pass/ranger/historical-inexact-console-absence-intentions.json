@@ -1,0 +1,84 @@
+{
+  "project": "ranger",
+  "fixture": "fixtures",
+  "environment": {
+    "TERM": "screen-256color"
+  },
+  "cases": [
+    {
+      "name": "normal-project",
+      "kind": "normal",
+      "purpose": "Create a spaced Unicode file through the ordinary command console and preserve the complete fixture",
+      "command": [
+        "ranger",
+        "--clean",
+        "--cmd=set preview_files true",
+        "--cmd=set use_preview_script false",
+        "--cmd=set confirm_on_delete always",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "expect": "All"
+        },
+        {
+          "text": ":"
+        },
+        {
+          "expect_not": "All"
+        },
+        {
+          "expect": ":"
+        },
+        {
+          "text": "touch created café.txt"
+        },
+        {
+          "expect": ":touch created café.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": ":touch"
+        },
+        {
+          "expect": "created café.txt"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 10,
+      "snapshot_rows": [
+        2,
+        28
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "RANGER ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "RANGER BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "RANGER PROTECTED NEIGHBOR TOKEN\n",
+        "nested/notes cafÃ©.txt": "RANGER NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "RANGER OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 000: ranger cafÃ© é›ª TOKEN\nline 001: ranger cafÃ© é›ª TOKEN\nline 002: ranger cafÃ© é›ª TOKEN\nline 003: ranger cafÃ© é›ª TOKEN\nline 004: ranger cafÃ© é›ª TOKEN\nline 005: ranger cafÃ© é›ª TOKEN\nline 006: ranger cafÃ© é›ª TOKEN\nline 007: ranger cafÃ© é›ª TOKEN\nline 008: ranger cafÃ© é›ª TOKEN\nline 009: ranger cafÃ© é›ª TOKEN\nline 010: ranger cafÃ© é›ª TOKEN\nline 011: ranger cafÃ© é›ª TOKEN\nline 012: ranger cafÃ© é›ª TOKEN\nline 013: ranger cafÃ© é›ª TOKEN\nline 014: ranger cafÃ© é›ª TOKEN\nline 015: ranger cafÃ© é›ª TOKEN\nline 016: ranger cafÃ© é›ª TOKEN\nline 017: ranger cafÃ© é›ª TOKEN\nline 018: ranger cafÃ© é›ª TOKEN\nline 019: ranger cafÃ© é›ª TOKEN\nline 020: ranger cafÃ© é›ª TOKEN\nline 021: ranger cafÃ© é›ª TOKEN\nline 022: ranger cafÃ© é›ª TOKEN\nline 023: ranger cafÃ© é›ª TOKEN\nline 024: ranger cafÃ© é›ª TOKEN\nline 025: ranger cafÃ© é›ª TOKEN\nline 026: ranger cafÃ© é›ª TOKEN\nline 027: ranger cafÃ© é›ª TOKEN\nline 028: ranger cafÃ© é›ª TOKEN\nline 029: ranger cafÃ© é›ª TOKEN\nline 030: ranger cafÃ© é›ª TOKEN\nline 031: ranger cafÃ© é›ª TOKEN\nline 032: ranger cafÃ© é›ª TOKEN\nline 033: ranger cafÃ© é›ª TOKEN\nline 034: ranger cafÃ© é›ª TOKEN\nline 035: ranger cafÃ© é›ª TOKEN\nline 036: ranger cafÃ© é›ª TOKEN\nline 037: ranger cafÃ© é›ª TOKEN\nline 038: ranger cafÃ© é›ª TOKEN\nline 039: ranger cafÃ© é›ª TOKEN\nline 040: ranger cafÃ© é›ª TOKEN\nline 041: ranger cafÃ© é›ª TOKEN\nline 042: ranger cafÃ© é›ª TOKEN\nline 043: ranger cafÃ© é›ª TOKEN\nline 044: ranger cafÃ© é›ª TOKEN\nline 045: ranger cafÃ© é›ª TOKEN\nline 046: ranger cafÃ© é›ª TOKEN\nline 047: ranger cafÃ© é›ª TOKEN\nline 048: ranger cafÃ© é›ª TOKEN\nline 049: ranger cafÃ© é›ª TOKEN\nline 050: ranger cafÃ© é›ª TOKEN\nline 051: ranger cafÃ© é›ª TOKEN\nline 052: ranger cafÃ© é›ª TOKEN\nline 053: ranger cafÃ© é›ª TOKEN\nline 054: ranger cafÃ© é›ª TOKEN\nline 055: ranger cafÃ© é›ª TOKEN\nline 056: ranger cafÃ© é›ª TOKEN\nline 057: ranger cafÃ© é›ª TOKEN\nline 058: ranger cafÃ© é›ª TOKEN\nline 059: ranger cafÃ© é›ª TOKEN\nline 060: ranger cafÃ© é›ª TOKEN\nline 061: ranger cafÃ© é›ª TOKEN\nline 062: ranger cafÃ© é›ª TOKEN\nline 063: ranger cafÃ© é›ª TOKEN\nline 064: ranger cafÃ© é›ª TOKEN\nline 065: ranger cafÃ© é›ª TOKEN\nline 066: ranger cafÃ© é›ª TOKEN\nline 067: ranger cafÃ© é›ª TOKEN\nline 068: ranger cafÃ© é›ª TOKEN\nline 069: ranger cafÃ© é›ª TOKEN\nline 070: ranger cafÃ© é›ª TOKEN\nline 071: ranger cafÃ© é›ª TOKEN\nline 072: ranger cafÃ© é›ª TOKEN\nline 073: ranger cafÃ© é›ª TOKEN\nline 074: ranger cafÃ© é›ª TOKEN\nline 075: ranger cafÃ© é›ª TOKEN\nline 076: ranger cafÃ© é›ª TOKEN\nline 077: ranger cafÃ© é›ª TOKEN\nline 078: ranger cafÃ© é›ª TOKEN\nline 079: ranger cafÃ© é›ª TOKEN\nline 080: ranger cafÃ© é›ª TOKEN\nline 081: ranger cafÃ© é›ª TOKEN\nline 082: ranger cafÃ© é›ª TOKEN\nline 083: ranger cafÃ© é›ª TOKEN\nline 084: ranger cafÃ© é›ª TOKEN\nline 085: ranger cafÃ© é›ª TOKEN\nline 086: ranger cafÃ© é›ª TOKEN\nline 087: ranger cafÃ© é›ª TOKEN\nline 088: ranger cafÃ© é›ª TOKEN\nline 089: ranger cafÃ© é›ª TOKEN\nline 090: ranger cafÃ© é›ª TOKEN\nline 091: ranger cafÃ© é›ª TOKEN\nline 092: ranger cafÃ© é›ª TOKEN\nline 093: ranger cafÃ© é›ª TOKEN\nline 094: ranger cafÃ© é›ª TOKEN\nline 095: ranger cafÃ© é›ª TOKEN\nline 096: ranger cafÃ© é›ª TOKEN\nline 097: ranger cafÃ© é›ª TOKEN\nline 098: ranger cafÃ© é›ª TOKEN\nline 099: ranger cafÃ© é›ª TOKEN\nline 100: ranger cafÃ© é›ª TOKEN\nline 101: ranger cafÃ© é›ª TOKEN\nline 102: ranger cafÃ© é›ª TOKEN\nline 103: ranger cafÃ© é›ª TOKEN\nline 104: ranger cafÃ© é›ª TOKEN\nline 105: ranger cafÃ© é›ª TOKEN\nline 106: ranger cafÃ© é›ª TOKEN\nline 107: ranger cafÃ© é›ª TOKEN\nline 108: ranger cafÃ© é›ª TOKEN\nline 109: ranger cafÃ© é›ª TOKEN\nline 110: ranger cafÃ© é›ª TOKEN\nline 111: ranger cafÃ© é›ª TOKEN\nline 112: ranger cafÃ© é›ª TOKEN\nline 113: ranger cafÃ© é›ª TOKEN\nline 114: ranger cafÃ© é›ª TOKEN\nline 115: ranger cafÃ© é›ª TOKEN\nline 116: ranger cafÃ© é›ª TOKEN\nline 117: ranger cafÃ© é›ª TOKEN\nline 118: ranger cafÃ© é›ª TOKEN\nline 119: ranger cafÃ© é›ª TOKEN\n",
+        "created cafÃ©.txt": ""
+      },
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied"
+      ],
+      "empty_directories": [
+        "empty"
+      ],
+      "exact_tree": true
+    }
+  ]
+}

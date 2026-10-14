@@ -49,6 +49,19 @@ func TestVersionedSchemaContracts(t *testing.T) {
 	}
 }
 
+func TestSpecSchemasAdmitStandardNavigationKeys(t *testing.T) {
+	for _, name := range []string{"playtestr-spec-v1.schema.json", "playtestr-spec-v2.schema.json"} {
+		document := readSchema(t, name)
+		step := document["$defs"].(map[string]any)["step"].(map[string]any)
+		allowed := strings(t, property(t, step, "key")["enum"])
+		for _, key := range []string{"Home", "End", "PageUp", "PageDown"} {
+			if !slices.Contains(allowed, key) {
+				t.Fatalf("%s rejects supported navigation key %q", name, key)
+			}
+		}
+	}
+}
+
 func readSchema(t *testing.T, name string) map[string]any {
 	t.Helper()
 	data, err := os.ReadFile(name)

@@ -1,0 +1,103 @@
+{
+  "version": 2,
+  "name": "Create and enter nested Unicode directories, including a truly empty new leaf",
+  "command": [
+    "ranger",
+    "--clean",
+    "--cmd=set preview_files true",
+    "--cmd=set use_preview_script false",
+    "--cmd=set confirm_on_delete always",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "expect": "All"
+    },
+    {
+      "text": ":"
+    },
+    {
+      "expect_not": "All"
+    },
+    {
+      "expect": ":"
+    },
+    {
+      "text": "mkdir created café/sub"
+    },
+    {
+      "expect": ":mkdir created café/sub"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": ":mkdir created café/sub"
+    },
+    {
+      "expect": "All"
+    },
+    {
+      "expect": "created café"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": ":search"
+    },
+    {
+      "text": "created"
+    },
+    {
+      "expect": ":search created"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": ":search created"
+    },
+    {
+      "expect": "/fixture/created café"
+    },
+    {
+      "text": "l"
+    },
+    {
+      "expect": "/fixture/created café/sub"
+    },
+    {
+      "text": "l"
+    },
+    {
+      "expect": "0/0"
+    },
+    {
+      "snapshot": "normal-directory.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

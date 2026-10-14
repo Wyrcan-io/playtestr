@@ -1,0 +1,51 @@
+{
+  "finding": "P14: Standard navigation keys unavailable to pager/list workflows",
+  "production_scope": [
+    "spec named key encoding",
+    "live ANSI/SS3 input decoding",
+    "native Windows operator KEY_EVENT mapping"
+  ],
+  "before": {
+    "source": "0d41e269a2b27dc09130f1806d5ef4c36ec0a2a4",
+    "real_ranger_recording": "f8b8e5cfe880485289988227cd3e8745",
+    "error": "step 13 unknown key \"PageDown\"",
+    "regression_error": "step 2 unknown key \"Home\"",
+    "split_sequence_decoder_cases_failed": 10
+  },
+  "repair": {
+    "Home": "ESC [ 1 ~",
+    "End": "ESC [ 4 ~",
+    "PageUp": "ESC [ 5 ~",
+    "PageDown": "ESC [ 6 ~",
+    "live_home_end_aliases": [
+      "CSI H/F",
+      "SS3 H/F",
+      "CSI 7~/8~"
+    ],
+    "spec_versions_unchanged": true,
+    "target_specific_core_branches": false
+  },
+  "after": {
+    "windows_real_pty_and_native_console": "passed all four positive receipts",
+    "split_decoder_boundaries": "passed for all ten supported sequence variants",
+    "full_go_vet_race": {
+      "full_native_windows_go": "passed",
+      "runner_seconds": 122.612,
+      "vet": "passed",
+      "race": "running",
+      "sandboxed_attempt": "Native workspace path inspection denied before normal-permission rerun; failed attempt is not a product regression result"
+    },
+    "native_linux_macos": "pending",
+    "ranger_requalification": "pending"
+  },
+  "final_credit": 0,
+  "schema_contract": {
+    "versions": [
+      1,
+      2
+    ],
+    "before": "Published v1 schema rejected Home in the new contract regression",
+    "after": "Both schemas updated; schema tests passed",
+    "spec_versions_changed": false
+  }
+}

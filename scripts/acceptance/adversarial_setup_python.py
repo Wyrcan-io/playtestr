@@ -14,15 +14,18 @@ from adversarial_fixture_directories import prepare
 
 
 def source_identity(source):
-    files={}
+    files={};links={};root=source.resolve(strict=True)
     for path in sorted(source.rglob('*.py')):
         if '.git' in path.relative_to(source).parts:continue
-        if path.is_symlink() or path.stat().st_size>4*1024*1024:
+        resolved=path.resolve(strict=True)
+        if not resolved.is_relative_to(root) or not resolved.is_file() or resolved.stat().st_size>4*1024*1024:
             raise RuntimeError('Unsafe interpreted source identity input')
-        files[path.relative_to(source).as_posix()]=hashlib.sha256(path.read_bytes()).hexdigest()
+        relative=path.relative_to(source).as_posix()
+        if path.is_symlink():links[relative]=dict(link=os.readlink(path),resolved=resolved.relative_to(root).as_posix())
+        files[relative]=hashlib.sha256(resolved.read_bytes()).hexdigest()
         if len(files)>4096:raise RuntimeError('Interpreted source identity entry bound')
-    return dict(files_sha256=files,digest=hashlib.sha256(
-        json.dumps(files,sort_keys=True,separators=(',',':')).encode('utf-8')).hexdigest())
+    return dict(files_sha256=files,contained_links=links,digest=hashlib.sha256(
+        json.dumps(dict(files=files,links=links),sort_keys=True,separators=(',',':')).encode('utf-8')).hexdigest())
 
 
 def main():

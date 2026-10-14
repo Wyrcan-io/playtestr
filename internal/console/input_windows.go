@@ -50,7 +50,10 @@ func readNative(file *os.File, raw bool) ([]byte, error) {
 		if key == 0x10 || key == 0x11 || key == 0x12 || key == 0x14 {
 			return nil, nil
 		}
-		sequence := map[uint16]string{0x26: "\x1b[A", 0x28: "\x1b[B", 0x27: "\x1b[C", 0x25: "\x1b[D"}[key]
+		sequence := map[uint16]string{
+			0x26: "\x1b[A", 0x28: "\x1b[B", 0x27: "\x1b[C", 0x25: "\x1b[D",
+			0x24: "\x1b[1~", 0x23: "\x1b[4~", 0x21: "\x1b[5~", 0x22: "\x1b[6~",
+		}[key]
 		if sequence == "" {
 			return nil, windows.ERROR_NOT_SUPPORTED
 		}

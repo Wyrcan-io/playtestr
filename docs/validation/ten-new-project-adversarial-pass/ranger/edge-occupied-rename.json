@@ -1,0 +1,91 @@
+{
+  "version": 2,
+  "name": "Refuse a rename onto a protected existing file while preserving both originals",
+  "command": [
+    "ranger",
+    "--clean",
+    "--cmd=set preview_files true",
+    "--cmd=set use_preview_script false",
+    "--cmd=set confirm_on_delete always",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": ":search"
+    },
+    {
+      "text": "bravo"
+    },
+    {
+      "expect": ":search bravo"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": ":search bravo"
+    },
+    {
+      "expect": "/fixture/bravo.txt"
+    },
+    {
+      "expect": "RANGER BRAVO ORIGINAL TOKEN"
+    },
+    {
+      "expect": "All"
+    },
+    {
+      "text": ":"
+    },
+    {
+      "expect_not": "All"
+    },
+    {
+      "expect": ":"
+    },
+    {
+      "text": "rename protected.txt"
+    },
+    {
+      "expect": ":rename protected.txt"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": ":rename protected.txt"
+    },
+    {
+      "expect": "Can't rename: file already exists!"
+    },
+    {
+      "snapshot": "edge-occupied-rename.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

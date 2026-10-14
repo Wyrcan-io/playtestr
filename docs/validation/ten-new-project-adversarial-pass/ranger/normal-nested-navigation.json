@@ -1,0 +1,106 @@
+{
+  "version": 2,
+  "name": "Navigate and return between distinct directories with actual selected-file content",
+  "command": [
+    "ranger",
+    "--clean",
+    "--cmd=set preview_files true",
+    "--cmd=set use_preview_script false",
+    "--cmd=set confirm_on_delete always",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": ":search"
+    },
+    {
+      "text": "nested"
+    },
+    {
+      "expect": ":search nested"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": ":search nested"
+    },
+    {
+      "expect": "/fixture/nested"
+    },
+    {
+      "text": "l"
+    },
+    {
+      "expect": "/fixture/nested/notes café.txt"
+    },
+    {
+      "expect": "RANGER NESTED UNICODE TOKEN"
+    },
+    {
+      "text": "h"
+    },
+    {
+      "expect": "protected.txt                  32 B"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": ":search"
+    },
+    {
+      "text": "occupied"
+    },
+    {
+      "expect": ":search occupied"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": ":search occupied"
+    },
+    {
+      "expect": "/fixture/occupied"
+    },
+    {
+      "text": "l"
+    },
+    {
+      "expect": "/fixture/occupied/keep.txt"
+    },
+    {
+      "expect": "RANGER OCCUPIED DIRECTORY TOKEN"
+    },
+    {
+      "snapshot": "normal-nested-navigation.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

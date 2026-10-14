@@ -9,7 +9,14 @@ import (
 // Event represents exactly one supported input action.
 type Event struct{ Key, Text string }
 
-var sequences = map[string]string{"\x1b[A": "ArrowUp", "\x1b[B": "ArrowDown", "\x1b[C": "ArrowRight", "\x1b[D": "ArrowLeft", "\r": "Enter", "\n": "Enter", "\t": "Tab", "\x7f": "Backspace", "\b": "Backspace", "\x03": "CtrlC", "\x05": "CtrlE", "\x0f": "CtrlO", "\x00": "CtrlSpace", "\x06": "CtrlF", "\x11": "CtrlQ", "\x13": "CtrlS", "\x1a": "CtrlZ"}
+var sequences = map[string]string{
+	"\x1b[A": "ArrowUp", "\x1b[B": "ArrowDown", "\x1b[C": "ArrowRight", "\x1b[D": "ArrowLeft",
+	"\x1b[1~": "Home", "\x1b[H": "Home", "\x1bOH": "Home", "\x1b[7~": "Home",
+	"\x1b[4~": "End", "\x1b[F": "End", "\x1bOF": "End", "\x1b[8~": "End",
+	"\x1b[5~": "PageUp", "\x1b[6~": "PageDown",
+	"\r": "Enter", "\n": "Enter", "\t": "Tab", "\x7f": "Backspace", "\b": "Backspace",
+	"\x03": "CtrlC", "\x05": "CtrlE", "\x0f": "CtrlO", "\x00": "CtrlSpace", "\x06": "CtrlF", "\x11": "CtrlQ", "\x13": "CtrlS", "\x1a": "CtrlZ",
+}
 
 // Decode never silently drops unsupported sequences. Incomplete UTF-8/escapes
 // remain buffered; flush disambiguates a lone Escape after an idle interval.

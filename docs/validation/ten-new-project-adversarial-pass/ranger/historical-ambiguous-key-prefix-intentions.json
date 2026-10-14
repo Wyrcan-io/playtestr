@@ -1,0 +1,1946 @@
+{
+  "project": "ranger",
+  "fixture": "fixtures",
+  "environment": {
+    "TERM": "screen-256color"
+  },
+  "cases": [
+    {
+      "name": "normal-project",
+      "kind": "normal",
+      "purpose": "Create a spaced Unicode file through the ordinary command console and preserve the complete fixture",
+      "command": [
+        "ranger",
+        "--clean",
+        "--cmd=set preview_files true",
+        "--cmd=set use_preview_script false",
+        "--cmd=set confirm_on_delete always",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "expect": "All"
+        },
+        {
+          "text": ":"
+        },
+        {
+          "expect_not": "All"
+        },
+        {
+          "expect": ":"
+        },
+        {
+          "text": "touch created café.txt"
+        },
+        {
+          "expect": ":touch created café.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": ":touch created café.txt"
+        },
+        {
+          "expect": "created café.txt"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 10,
+      "snapshot_rows": [
+        2,
+        28
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "RANGER ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "RANGER BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "RANGER PROTECTED NEIGHBOR TOKEN\n",
+        "nested/notes café.txt": "RANGER NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "RANGER OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 000: ranger café 雪 TOKEN\nline 001: ranger café 雪 TOKEN\nline 002: ranger café 雪 TOKEN\nline 003: ranger café 雪 TOKEN\nline 004: ranger café 雪 TOKEN\nline 005: ranger café 雪 TOKEN\nline 006: ranger café 雪 TOKEN\nline 007: ranger café 雪 TOKEN\nline 008: ranger café 雪 TOKEN\nline 009: ranger café 雪 TOKEN\nline 010: ranger café 雪 TOKEN\nline 011: ranger café 雪 TOKEN\nline 012: ranger café 雪 TOKEN\nline 013: ranger café 雪 TOKEN\nline 014: ranger café 雪 TOKEN\nline 015: ranger café 雪 TOKEN\nline 016: ranger café 雪 TOKEN\nline 017: ranger café 雪 TOKEN\nline 018: ranger café 雪 TOKEN\nline 019: ranger café 雪 TOKEN\nline 020: ranger café 雪 TOKEN\nline 021: ranger café 雪 TOKEN\nline 022: ranger café 雪 TOKEN\nline 023: ranger café 雪 TOKEN\nline 024: ranger café 雪 TOKEN\nline 025: ranger café 雪 TOKEN\nline 026: ranger café 雪 TOKEN\nline 027: ranger café 雪 TOKEN\nline 028: ranger café 雪 TOKEN\nline 029: ranger café 雪 TOKEN\nline 030: ranger café 雪 TOKEN\nline 031: ranger café 雪 TOKEN\nline 032: ranger café 雪 TOKEN\nline 033: ranger café 雪 TOKEN\nline 034: ranger café 雪 TOKEN\nline 035: ranger café 雪 TOKEN\nline 036: ranger café 雪 TOKEN\nline 037: ranger café 雪 TOKEN\nline 038: ranger café 雪 TOKEN\nline 039: ranger café 雪 TOKEN\nline 040: ranger café 雪 TOKEN\nline 041: ranger café 雪 TOKEN\nline 042: ranger café 雪 TOKEN\nline 043: ranger café 雪 TOKEN\nline 044: ranger café 雪 TOKEN\nline 045: ranger café 雪 TOKEN\nline 046: ranger café 雪 TOKEN\nline 047: ranger café 雪 TOKEN\nline 048: ranger café 雪 TOKEN\nline 049: ranger café 雪 TOKEN\nline 050: ranger café 雪 TOKEN\nline 051: ranger café 雪 TOKEN\nline 052: ranger café 雪 TOKEN\nline 053: ranger café 雪 TOKEN\nline 054: ranger café 雪 TOKEN\nline 055: ranger café 雪 TOKEN\nline 056: ranger café 雪 TOKEN\nline 057: ranger café 雪 TOKEN\nline 058: ranger café 雪 TOKEN\nline 059: ranger café 雪 TOKEN\nline 060: ranger café 雪 TOKEN\nline 061: ranger café 雪 TOKEN\nline 062: ranger café 雪 TOKEN\nline 063: ranger café 雪 TOKEN\nline 064: ranger café 雪 TOKEN\nline 065: ranger café 雪 TOKEN\nline 066: ranger café 雪 TOKEN\nline 067: ranger café 雪 TOKEN\nline 068: ranger café 雪 TOKEN\nline 069: ranger café 雪 TOKEN\nline 070: ranger café 雪 TOKEN\nline 071: ranger café 雪 TOKEN\nline 072: ranger café 雪 TOKEN\nline 073: ranger café 雪 TOKEN\nline 074: ranger café 雪 TOKEN\nline 075: ranger café 雪 TOKEN\nline 076: ranger café 雪 TOKEN\nline 077: ranger café 雪 TOKEN\nline 078: ranger café 雪 TOKEN\nline 079: ranger café 雪 TOKEN\nline 080: ranger café 雪 TOKEN\nline 081: ranger café 雪 TOKEN\nline 082: ranger café 雪 TOKEN\nline 083: ranger café 雪 TOKEN\nline 084: ranger café 雪 TOKEN\nline 085: ranger café 雪 TOKEN\nline 086: ranger café 雪 TOKEN\nline 087: ranger café 雪 TOKEN\nline 088: ranger café 雪 TOKEN\nline 089: ranger café 雪 TOKEN\nline 090: ranger café 雪 TOKEN\nline 091: ranger café 雪 TOKEN\nline 092: ranger café 雪 TOKEN\nline 093: ranger café 雪 TOKEN\nline 094: ranger café 雪 TOKEN\nline 095: ranger café 雪 TOKEN\nline 096: ranger café 雪 TOKEN\nline 097: ranger café 雪 TOKEN\nline 098: ranger café 雪 TOKEN\nline 099: ranger café 雪 TOKEN\nline 100: ranger café 雪 TOKEN\nline 101: ranger café 雪 TOKEN\nline 102: ranger café 雪 TOKEN\nline 103: ranger café 雪 TOKEN\nline 104: ranger café 雪 TOKEN\nline 105: ranger café 雪 TOKEN\nline 106: ranger café 雪 TOKEN\nline 107: ranger café 雪 TOKEN\nline 108: ranger café 雪 TOKEN\nline 109: ranger café 雪 TOKEN\nline 110: ranger café 雪 TOKEN\nline 111: ranger café 雪 TOKEN\nline 112: ranger café 雪 TOKEN\nline 113: ranger café 雪 TOKEN\nline 114: ranger café 雪 TOKEN\nline 115: ranger café 雪 TOKEN\nline 116: ranger café 雪 TOKEN\nline 117: ranger café 雪 TOKEN\nline 118: ranger café 雪 TOKEN\nline 119: ranger café 雪 TOKEN\n",
+        "created café.txt": ""
+      },
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied"
+      ],
+      "empty_directories": [
+        "empty"
+      ],
+      "exact_tree": true
+    },
+    {
+      "name": "normal-directory",
+      "kind": "normal",
+      "purpose": "Create and enter nested Unicode directories, including a truly empty new leaf",
+      "command": [
+        "ranger",
+        "--clean",
+        "--cmd=set preview_files true",
+        "--cmd=set use_preview_script false",
+        "--cmd=set confirm_on_delete always",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "expect": "All"
+        },
+        {
+          "text": ":"
+        },
+        {
+          "expect_not": "All"
+        },
+        {
+          "expect": ":"
+        },
+        {
+          "text": "mkdir created café/sub"
+        },
+        {
+          "expect": ":mkdir created café/sub"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": ":mkdir created café/sub"
+        },
+        {
+          "expect": "All"
+        },
+        {
+          "expect": "created café"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": ":search"
+        },
+        {
+          "text": "created"
+        },
+        {
+          "expect": ":search created"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": ":search created"
+        },
+        {
+          "expect": "/fixture/created café"
+        },
+        {
+          "text": "l"
+        },
+        {
+          "expect": "/fixture/created café/sub"
+        },
+        {
+          "text": "l"
+        },
+        {
+          "expect": "0/0"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 22,
+      "snapshot_rows": [
+        2,
+        28
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "RANGER ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "RANGER BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "RANGER PROTECTED NEIGHBOR TOKEN\n",
+        "nested/notes café.txt": "RANGER NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "RANGER OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 000: ranger café 雪 TOKEN\nline 001: ranger café 雪 TOKEN\nline 002: ranger café 雪 TOKEN\nline 003: ranger café 雪 TOKEN\nline 004: ranger café 雪 TOKEN\nline 005: ranger café 雪 TOKEN\nline 006: ranger café 雪 TOKEN\nline 007: ranger café 雪 TOKEN\nline 008: ranger café 雪 TOKEN\nline 009: ranger café 雪 TOKEN\nline 010: ranger café 雪 TOKEN\nline 011: ranger café 雪 TOKEN\nline 012: ranger café 雪 TOKEN\nline 013: ranger café 雪 TOKEN\nline 014: ranger café 雪 TOKEN\nline 015: ranger café 雪 TOKEN\nline 016: ranger café 雪 TOKEN\nline 017: ranger café 雪 TOKEN\nline 018: ranger café 雪 TOKEN\nline 019: ranger café 雪 TOKEN\nline 020: ranger café 雪 TOKEN\nline 021: ranger café 雪 TOKEN\nline 022: ranger café 雪 TOKEN\nline 023: ranger café 雪 TOKEN\nline 024: ranger café 雪 TOKEN\nline 025: ranger café 雪 TOKEN\nline 026: ranger café 雪 TOKEN\nline 027: ranger café 雪 TOKEN\nline 028: ranger café 雪 TOKEN\nline 029: ranger café 雪 TOKEN\nline 030: ranger café 雪 TOKEN\nline 031: ranger café 雪 TOKEN\nline 032: ranger café 雪 TOKEN\nline 033: ranger café 雪 TOKEN\nline 034: ranger café 雪 TOKEN\nline 035: ranger café 雪 TOKEN\nline 036: ranger café 雪 TOKEN\nline 037: ranger café 雪 TOKEN\nline 038: ranger café 雪 TOKEN\nline 039: ranger café 雪 TOKEN\nline 040: ranger café 雪 TOKEN\nline 041: ranger café 雪 TOKEN\nline 042: ranger café 雪 TOKEN\nline 043: ranger café 雪 TOKEN\nline 044: ranger café 雪 TOKEN\nline 045: ranger café 雪 TOKEN\nline 046: ranger café 雪 TOKEN\nline 047: ranger café 雪 TOKEN\nline 048: ranger café 雪 TOKEN\nline 049: ranger café 雪 TOKEN\nline 050: ranger café 雪 TOKEN\nline 051: ranger café 雪 TOKEN\nline 052: ranger café 雪 TOKEN\nline 053: ranger café 雪 TOKEN\nline 054: ranger café 雪 TOKEN\nline 055: ranger café 雪 TOKEN\nline 056: ranger café 雪 TOKEN\nline 057: ranger café 雪 TOKEN\nline 058: ranger café 雪 TOKEN\nline 059: ranger café 雪 TOKEN\nline 060: ranger café 雪 TOKEN\nline 061: ranger café 雪 TOKEN\nline 062: ranger café 雪 TOKEN\nline 063: ranger café 雪 TOKEN\nline 064: ranger café 雪 TOKEN\nline 065: ranger café 雪 TOKEN\nline 066: ranger café 雪 TOKEN\nline 067: ranger café 雪 TOKEN\nline 068: ranger café 雪 TOKEN\nline 069: ranger café 雪 TOKEN\nline 070: ranger café 雪 TOKEN\nline 071: ranger café 雪 TOKEN\nline 072: ranger café 雪 TOKEN\nline 073: ranger café 雪 TOKEN\nline 074: ranger café 雪 TOKEN\nline 075: ranger café 雪 TOKEN\nline 076: ranger café 雪 TOKEN\nline 077: ranger café 雪 TOKEN\nline 078: ranger café 雪 TOKEN\nline 079: ranger café 雪 TOKEN\nline 080: ranger café 雪 TOKEN\nline 081: ranger café 雪 TOKEN\nline 082: ranger café 雪 TOKEN\nline 083: ranger café 雪 TOKEN\nline 084: ranger café 雪 TOKEN\nline 085: ranger café 雪 TOKEN\nline 086: ranger café 雪 TOKEN\nline 087: ranger café 雪 TOKEN\nline 088: ranger café 雪 TOKEN\nline 089: ranger café 雪 TOKEN\nline 090: ranger café 雪 TOKEN\nline 091: ranger café 雪 TOKEN\nline 092: ranger café 雪 TOKEN\nline 093: ranger café 雪 TOKEN\nline 094: ranger café 雪 TOKEN\nline 095: ranger café 雪 TOKEN\nline 096: ranger café 雪 TOKEN\nline 097: ranger café 雪 TOKEN\nline 098: ranger café 雪 TOKEN\nline 099: ranger café 雪 TOKEN\nline 100: ranger café 雪 TOKEN\nline 101: ranger café 雪 TOKEN\nline 102: ranger café 雪 TOKEN\nline 103: ranger café 雪 TOKEN\nline 104: ranger café 雪 TOKEN\nline 105: ranger café 雪 TOKEN\nline 106: ranger café 雪 TOKEN\nline 107: ranger café 雪 TOKEN\nline 108: ranger café 雪 TOKEN\nline 109: ranger café 雪 TOKEN\nline 110: ranger café 雪 TOKEN\nline 111: ranger café 雪 TOKEN\nline 112: ranger café 雪 TOKEN\nline 113: ranger café 雪 TOKEN\nline 114: ranger café 雪 TOKEN\nline 115: ranger café 雪 TOKEN\nline 116: ranger café 雪 TOKEN\nline 117: ranger café 雪 TOKEN\nline 118: ranger café 雪 TOKEN\nline 119: ranger café 雪 TOKEN\n"
+      },
+      "absent_paths": [],
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied",
+        "created café",
+        "created café/sub"
+      ],
+      "empty_directories": [
+        "empty",
+        "created café/sub"
+      ],
+      "exact_tree": true,
+      "snapshot_exclusion": "Exclude random header path, login and dynamic footer; preserve live file/tree/pager body"
+    },
+    {
+      "name": "normal-rename",
+      "kind": "normal",
+      "purpose": "Rename a noninitial file and verify original-path absence and exact bytes",
+      "command": [
+        "ranger",
+        "--clean",
+        "--cmd=set preview_files true",
+        "--cmd=set use_preview_script false",
+        "--cmd=set confirm_on_delete always",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": ":search"
+        },
+        {
+          "text": "bravo"
+        },
+        {
+          "expect": ":search bravo"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": ":search bravo"
+        },
+        {
+          "expect": "/fixture/bravo.txt"
+        },
+        {
+          "expect": "RANGER BRAVO ORIGINAL TOKEN"
+        },
+        {
+          "expect": "All"
+        },
+        {
+          "text": ":"
+        },
+        {
+          "expect_not": "All"
+        },
+        {
+          "expect": ":"
+        },
+        {
+          "text": "rename renamed café.txt"
+        },
+        {
+          "expect": ":rename renamed café.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": ":rename renamed café.txt"
+        },
+        {
+          "expect": "All"
+        },
+        {
+          "expect": "/fixture/renamed café.txt"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 19,
+      "snapshot_rows": [
+        2,
+        28
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "RANGER ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "protected.txt": "RANGER PROTECTED NEIGHBOR TOKEN\n",
+        "nested/notes café.txt": "RANGER NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "RANGER OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 000: ranger café 雪 TOKEN\nline 001: ranger café 雪 TOKEN\nline 002: ranger café 雪 TOKEN\nline 003: ranger café 雪 TOKEN\nline 004: ranger café 雪 TOKEN\nline 005: ranger café 雪 TOKEN\nline 006: ranger café 雪 TOKEN\nline 007: ranger café 雪 TOKEN\nline 008: ranger café 雪 TOKEN\nline 009: ranger café 雪 TOKEN\nline 010: ranger café 雪 TOKEN\nline 011: ranger café 雪 TOKEN\nline 012: ranger café 雪 TOKEN\nline 013: ranger café 雪 TOKEN\nline 014: ranger café 雪 TOKEN\nline 015: ranger café 雪 TOKEN\nline 016: ranger café 雪 TOKEN\nline 017: ranger café 雪 TOKEN\nline 018: ranger café 雪 TOKEN\nline 019: ranger café 雪 TOKEN\nline 020: ranger café 雪 TOKEN\nline 021: ranger café 雪 TOKEN\nline 022: ranger café 雪 TOKEN\nline 023: ranger café 雪 TOKEN\nline 024: ranger café 雪 TOKEN\nline 025: ranger café 雪 TOKEN\nline 026: ranger café 雪 TOKEN\nline 027: ranger café 雪 TOKEN\nline 028: ranger café 雪 TOKEN\nline 029: ranger café 雪 TOKEN\nline 030: ranger café 雪 TOKEN\nline 031: ranger café 雪 TOKEN\nline 032: ranger café 雪 TOKEN\nline 033: ranger café 雪 TOKEN\nline 034: ranger café 雪 TOKEN\nline 035: ranger café 雪 TOKEN\nline 036: ranger café 雪 TOKEN\nline 037: ranger café 雪 TOKEN\nline 038: ranger café 雪 TOKEN\nline 039: ranger café 雪 TOKEN\nline 040: ranger café 雪 TOKEN\nline 041: ranger café 雪 TOKEN\nline 042: ranger café 雪 TOKEN\nline 043: ranger café 雪 TOKEN\nline 044: ranger café 雪 TOKEN\nline 045: ranger café 雪 TOKEN\nline 046: ranger café 雪 TOKEN\nline 047: ranger café 雪 TOKEN\nline 048: ranger café 雪 TOKEN\nline 049: ranger café 雪 TOKEN\nline 050: ranger café 雪 TOKEN\nline 051: ranger café 雪 TOKEN\nline 052: ranger café 雪 TOKEN\nline 053: ranger café 雪 TOKEN\nline 054: ranger café 雪 TOKEN\nline 055: ranger café 雪 TOKEN\nline 056: ranger café 雪 TOKEN\nline 057: ranger café 雪 TOKEN\nline 058: ranger café 雪 TOKEN\nline 059: ranger café 雪 TOKEN\nline 060: ranger café 雪 TOKEN\nline 061: ranger café 雪 TOKEN\nline 062: ranger café 雪 TOKEN\nline 063: ranger café 雪 TOKEN\nline 064: ranger café 雪 TOKEN\nline 065: ranger café 雪 TOKEN\nline 066: ranger café 雪 TOKEN\nline 067: ranger café 雪 TOKEN\nline 068: ranger café 雪 TOKEN\nline 069: ranger café 雪 TOKEN\nline 070: ranger café 雪 TOKEN\nline 071: ranger café 雪 TOKEN\nline 072: ranger café 雪 TOKEN\nline 073: ranger café 雪 TOKEN\nline 074: ranger café 雪 TOKEN\nline 075: ranger café 雪 TOKEN\nline 076: ranger café 雪 TOKEN\nline 077: ranger café 雪 TOKEN\nline 078: ranger café 雪 TOKEN\nline 079: ranger café 雪 TOKEN\nline 080: ranger café 雪 TOKEN\nline 081: ranger café 雪 TOKEN\nline 082: ranger café 雪 TOKEN\nline 083: ranger café 雪 TOKEN\nline 084: ranger café 雪 TOKEN\nline 085: ranger café 雪 TOKEN\nline 086: ranger café 雪 TOKEN\nline 087: ranger café 雪 TOKEN\nline 088: ranger café 雪 TOKEN\nline 089: ranger café 雪 TOKEN\nline 090: ranger café 雪 TOKEN\nline 091: ranger café 雪 TOKEN\nline 092: ranger café 雪 TOKEN\nline 093: ranger café 雪 TOKEN\nline 094: ranger café 雪 TOKEN\nline 095: ranger café 雪 TOKEN\nline 096: ranger café 雪 TOKEN\nline 097: ranger café 雪 TOKEN\nline 098: ranger café 雪 TOKEN\nline 099: ranger café 雪 TOKEN\nline 100: ranger café 雪 TOKEN\nline 101: ranger café 雪 TOKEN\nline 102: ranger café 雪 TOKEN\nline 103: ranger café 雪 TOKEN\nline 104: ranger café 雪 TOKEN\nline 105: ranger café 雪 TOKEN\nline 106: ranger café 雪 TOKEN\nline 107: ranger café 雪 TOKEN\nline 108: ranger café 雪 TOKEN\nline 109: ranger café 雪 TOKEN\nline 110: ranger café 雪 TOKEN\nline 111: ranger café 雪 TOKEN\nline 112: ranger café 雪 TOKEN\nline 113: ranger café 雪 TOKEN\nline 114: ranger café 雪 TOKEN\nline 115: ranger café 雪 TOKEN\nline 116: ranger café 雪 TOKEN\nline 117: ranger café 雪 TOKEN\nline 118: ranger café 雪 TOKEN\nline 119: ranger café 雪 TOKEN\n",
+        "renamed café.txt": "RANGER BRAVO ORIGINAL TOKEN\n"
+      },
+      "absent_paths": [
+        "bravo.txt"
+      ],
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied"
+      ],
+      "empty_directories": [
+        "empty"
+      ],
+      "exact_tree": true,
+      "snapshot_exclusion": "Exclude random header path, login and dynamic footer; preserve live file/tree/pager body"
+    },
+    {
+      "name": "normal-copy",
+      "kind": "normal",
+      "purpose": "Copy protected multi-line bytes into a nested directory and return to the parent",
+      "command": [
+        "ranger",
+        "--clean",
+        "--cmd=set preview_files true",
+        "--cmd=set use_preview_script false",
+        "--cmd=set confirm_on_delete always",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": ":search"
+        },
+        {
+          "text": "alpha"
+        },
+        {
+          "expect": ":search alpha"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": ":search alpha"
+        },
+        {
+          "expect": "/fixture/alpha.txt"
+        },
+        {
+          "expect": "RANGER ALPHA ORIGINAL TOKEN"
+        },
+        {
+          "expect": "All"
+        },
+        {
+          "text": ":"
+        },
+        {
+          "expect_not": "All"
+        },
+        {
+          "expect": ":"
+        },
+        {
+          "text": "copy"
+        },
+        {
+          "expect": ":copy"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": ":copy"
+        },
+        {
+          "expect": "All"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": ":search"
+        },
+        {
+          "text": "nested"
+        },
+        {
+          "expect": ":search nested"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": ":search nested"
+        },
+        {
+          "expect": "/fixture/nested"
+        },
+        {
+          "text": "l"
+        },
+        {
+          "expect": "/fixture/nested/notes café.txt"
+        },
+        {
+          "expect": "RANGER NESTED UNICODE TOKEN"
+        },
+        {
+          "expect": "All"
+        },
+        {
+          "text": ":"
+        },
+        {
+          "expect_not": "All"
+        },
+        {
+          "expect": ":"
+        },
+        {
+          "text": "paste"
+        },
+        {
+          "expect": ":paste"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": ":paste"
+        },
+        {
+          "expect": "All"
+        },
+        {
+          "expect": "alpha.txt                      57 B"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": ":search"
+        },
+        {
+          "text": "alpha"
+        },
+        {
+          "expect": ":search alpha"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": ":search alpha"
+        },
+        {
+          "expect": "/fixture/nested/alpha.txt"
+        },
+        {
+          "expect": "RANGER ALPHA ORIGINAL TOKEN"
+        },
+        {
+          "text": "h"
+        },
+        {
+          "expect": "protected.txt                  32 B"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 48,
+      "snapshot_rows": [
+        2,
+        28
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "RANGER ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "RANGER BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "RANGER PROTECTED NEIGHBOR TOKEN\n",
+        "nested/notes café.txt": "RANGER NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "RANGER OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 000: ranger café 雪 TOKEN\nline 001: ranger café 雪 TOKEN\nline 002: ranger café 雪 TOKEN\nline 003: ranger café 雪 TOKEN\nline 004: ranger café 雪 TOKEN\nline 005: ranger café 雪 TOKEN\nline 006: ranger café 雪 TOKEN\nline 007: ranger café 雪 TOKEN\nline 008: ranger café 雪 TOKEN\nline 009: ranger café 雪 TOKEN\nline 010: ranger café 雪 TOKEN\nline 011: ranger café 雪 TOKEN\nline 012: ranger café 雪 TOKEN\nline 013: ranger café 雪 TOKEN\nline 014: ranger café 雪 TOKEN\nline 015: ranger café 雪 TOKEN\nline 016: ranger café 雪 TOKEN\nline 017: ranger café 雪 TOKEN\nline 018: ranger café 雪 TOKEN\nline 019: ranger café 雪 TOKEN\nline 020: ranger café 雪 TOKEN\nline 021: ranger café 雪 TOKEN\nline 022: ranger café 雪 TOKEN\nline 023: ranger café 雪 TOKEN\nline 024: ranger café 雪 TOKEN\nline 025: ranger café 雪 TOKEN\nline 026: ranger café 雪 TOKEN\nline 027: ranger café 雪 TOKEN\nline 028: ranger café 雪 TOKEN\nline 029: ranger café 雪 TOKEN\nline 030: ranger café 雪 TOKEN\nline 031: ranger café 雪 TOKEN\nline 032: ranger café 雪 TOKEN\nline 033: ranger café 雪 TOKEN\nline 034: ranger café 雪 TOKEN\nline 035: ranger café 雪 TOKEN\nline 036: ranger café 雪 TOKEN\nline 037: ranger café 雪 TOKEN\nline 038: ranger café 雪 TOKEN\nline 039: ranger café 雪 TOKEN\nline 040: ranger café 雪 TOKEN\nline 041: ranger café 雪 TOKEN\nline 042: ranger café 雪 TOKEN\nline 043: ranger café 雪 TOKEN\nline 044: ranger café 雪 TOKEN\nline 045: ranger café 雪 TOKEN\nline 046: ranger café 雪 TOKEN\nline 047: ranger café 雪 TOKEN\nline 048: ranger café 雪 TOKEN\nline 049: ranger café 雪 TOKEN\nline 050: ranger café 雪 TOKEN\nline 051: ranger café 雪 TOKEN\nline 052: ranger café 雪 TOKEN\nline 053: ranger café 雪 TOKEN\nline 054: ranger café 雪 TOKEN\nline 055: ranger café 雪 TOKEN\nline 056: ranger café 雪 TOKEN\nline 057: ranger café 雪 TOKEN\nline 058: ranger café 雪 TOKEN\nline 059: ranger café 雪 TOKEN\nline 060: ranger café 雪 TOKEN\nline 061: ranger café 雪 TOKEN\nline 062: ranger café 雪 TOKEN\nline 063: ranger café 雪 TOKEN\nline 064: ranger café 雪 TOKEN\nline 065: ranger café 雪 TOKEN\nline 066: ranger café 雪 TOKEN\nline 067: ranger café 雪 TOKEN\nline 068: ranger café 雪 TOKEN\nline 069: ranger café 雪 TOKEN\nline 070: ranger café 雪 TOKEN\nline 071: ranger café 雪 TOKEN\nline 072: ranger café 雪 TOKEN\nline 073: ranger café 雪 TOKEN\nline 074: ranger café 雪 TOKEN\nline 075: ranger café 雪 TOKEN\nline 076: ranger café 雪 TOKEN\nline 077: ranger café 雪 TOKEN\nline 078: ranger café 雪 TOKEN\nline 079: ranger café 雪 TOKEN\nline 080: ranger café 雪 TOKEN\nline 081: ranger café 雪 TOKEN\nline 082: ranger café 雪 TOKEN\nline 083: ranger café 雪 TOKEN\nline 084: ranger café 雪 TOKEN\nline 085: ranger café 雪 TOKEN\nline 086: ranger café 雪 TOKEN\nline 087: ranger café 雪 TOKEN\nline 088: ranger café 雪 TOKEN\nline 089: ranger café 雪 TOKEN\nline 090: ranger café 雪 TOKEN\nline 091: ranger café 雪 TOKEN\nline 092: ranger café 雪 TOKEN\nline 093: ranger café 雪 TOKEN\nline 094: ranger café 雪 TOKEN\nline 095: ranger café 雪 TOKEN\nline 096: ranger café 雪 TOKEN\nline 097: ranger café 雪 TOKEN\nline 098: ranger café 雪 TOKEN\nline 099: ranger café 雪 TOKEN\nline 100: ranger café 雪 TOKEN\nline 101: ranger café 雪 TOKEN\nline 102: ranger café 雪 TOKEN\nline 103: ranger café 雪 TOKEN\nline 104: ranger café 雪 TOKEN\nline 105: ranger café 雪 TOKEN\nline 106: ranger café 雪 TOKEN\nline 107: ranger café 雪 TOKEN\nline 108: ranger café 雪 TOKEN\nline 109: ranger café 雪 TOKEN\nline 110: ranger café 雪 TOKEN\nline 111: ranger café 雪 TOKEN\nline 112: ranger café 雪 TOKEN\nline 113: ranger café 雪 TOKEN\nline 114: ranger café 雪 TOKEN\nline 115: ranger café 雪 TOKEN\nline 116: ranger café 雪 TOKEN\nline 117: ranger café 雪 TOKEN\nline 118: ranger café 雪 TOKEN\nline 119: ranger café 雪 TOKEN\n",
+        "nested/alpha.txt": "RANGER ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n"
+      },
+      "absent_paths": [],
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied"
+      ],
+      "empty_directories": [
+        "empty"
+      ],
+      "exact_tree": true,
+      "snapshot_exclusion": "Exclude random header path, login and dynamic footer; preserve live file/tree/pager body"
+    },
+    {
+      "name": "normal-move",
+      "kind": "normal",
+      "purpose": "Move a noninitial file, inspect its bytes and verify the old path disappears",
+      "command": [
+        "ranger",
+        "--clean",
+        "--cmd=set preview_files true",
+        "--cmd=set use_preview_script false",
+        "--cmd=set confirm_on_delete always",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": ":search"
+        },
+        {
+          "text": "bravo"
+        },
+        {
+          "expect": ":search bravo"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": ":search bravo"
+        },
+        {
+          "expect": "/fixture/bravo.txt"
+        },
+        {
+          "expect": "RANGER BRAVO ORIGINAL TOKEN"
+        },
+        {
+          "expect": "All"
+        },
+        {
+          "text": ":"
+        },
+        {
+          "expect_not": "All"
+        },
+        {
+          "expect": ":"
+        },
+        {
+          "text": "cut"
+        },
+        {
+          "expect": ":cut"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": ":cut"
+        },
+        {
+          "expect": "All"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": ":search"
+        },
+        {
+          "text": "nested"
+        },
+        {
+          "expect": ":search nested"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": ":search nested"
+        },
+        {
+          "expect": "/fixture/nested"
+        },
+        {
+          "text": "l"
+        },
+        {
+          "expect": "/fixture/nested/notes café.txt"
+        },
+        {
+          "expect": "RANGER NESTED UNICODE TOKEN"
+        },
+        {
+          "expect": "All"
+        },
+        {
+          "text": ":"
+        },
+        {
+          "expect_not": "All"
+        },
+        {
+          "expect": ":"
+        },
+        {
+          "text": "paste"
+        },
+        {
+          "expect": ":paste"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": ":paste"
+        },
+        {
+          "expect": "All"
+        },
+        {
+          "expect": "bravo.txt                      28 B"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": ":search"
+        },
+        {
+          "text": "bravo"
+        },
+        {
+          "expect": ":search bravo"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": ":search bravo"
+        },
+        {
+          "expect": "/fixture/nested/bravo.txt"
+        },
+        {
+          "expect": "RANGER BRAVO ORIGINAL TOKEN"
+        },
+        {
+          "text": "h"
+        },
+        {
+          "expect": "protected.txt                  32 B"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 48,
+      "snapshot_rows": [
+        2,
+        28
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "RANGER ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "protected.txt": "RANGER PROTECTED NEIGHBOR TOKEN\n",
+        "nested/notes café.txt": "RANGER NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "RANGER OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 000: ranger café 雪 TOKEN\nline 001: ranger café 雪 TOKEN\nline 002: ranger café 雪 TOKEN\nline 003: ranger café 雪 TOKEN\nline 004: ranger café 雪 TOKEN\nline 005: ranger café 雪 TOKEN\nline 006: ranger café 雪 TOKEN\nline 007: ranger café 雪 TOKEN\nline 008: ranger café 雪 TOKEN\nline 009: ranger café 雪 TOKEN\nline 010: ranger café 雪 TOKEN\nline 011: ranger café 雪 TOKEN\nline 012: ranger café 雪 TOKEN\nline 013: ranger café 雪 TOKEN\nline 014: ranger café 雪 TOKEN\nline 015: ranger café 雪 TOKEN\nline 016: ranger café 雪 TOKEN\nline 017: ranger café 雪 TOKEN\nline 018: ranger café 雪 TOKEN\nline 019: ranger café 雪 TOKEN\nline 020: ranger café 雪 TOKEN\nline 021: ranger café 雪 TOKEN\nline 022: ranger café 雪 TOKEN\nline 023: ranger café 雪 TOKEN\nline 024: ranger café 雪 TOKEN\nline 025: ranger café 雪 TOKEN\nline 026: ranger café 雪 TOKEN\nline 027: ranger café 雪 TOKEN\nline 028: ranger café 雪 TOKEN\nline 029: ranger café 雪 TOKEN\nline 030: ranger café 雪 TOKEN\nline 031: ranger café 雪 TOKEN\nline 032: ranger café 雪 TOKEN\nline 033: ranger café 雪 TOKEN\nline 034: ranger café 雪 TOKEN\nline 035: ranger café 雪 TOKEN\nline 036: ranger café 雪 TOKEN\nline 037: ranger café 雪 TOKEN\nline 038: ranger café 雪 TOKEN\nline 039: ranger café 雪 TOKEN\nline 040: ranger café 雪 TOKEN\nline 041: ranger café 雪 TOKEN\nline 042: ranger café 雪 TOKEN\nline 043: ranger café 雪 TOKEN\nline 044: ranger café 雪 TOKEN\nline 045: ranger café 雪 TOKEN\nline 046: ranger café 雪 TOKEN\nline 047: ranger café 雪 TOKEN\nline 048: ranger café 雪 TOKEN\nline 049: ranger café 雪 TOKEN\nline 050: ranger café 雪 TOKEN\nline 051: ranger café 雪 TOKEN\nline 052: ranger café 雪 TOKEN\nline 053: ranger café 雪 TOKEN\nline 054: ranger café 雪 TOKEN\nline 055: ranger café 雪 TOKEN\nline 056: ranger café 雪 TOKEN\nline 057: ranger café 雪 TOKEN\nline 058: ranger café 雪 TOKEN\nline 059: ranger café 雪 TOKEN\nline 060: ranger café 雪 TOKEN\nline 061: ranger café 雪 TOKEN\nline 062: ranger café 雪 TOKEN\nline 063: ranger café 雪 TOKEN\nline 064: ranger café 雪 TOKEN\nline 065: ranger café 雪 TOKEN\nline 066: ranger café 雪 TOKEN\nline 067: ranger café 雪 TOKEN\nline 068: ranger café 雪 TOKEN\nline 069: ranger café 雪 TOKEN\nline 070: ranger café 雪 TOKEN\nline 071: ranger café 雪 TOKEN\nline 072: ranger café 雪 TOKEN\nline 073: ranger café 雪 TOKEN\nline 074: ranger café 雪 TOKEN\nline 075: ranger café 雪 TOKEN\nline 076: ranger café 雪 TOKEN\nline 077: ranger café 雪 TOKEN\nline 078: ranger café 雪 TOKEN\nline 079: ranger café 雪 TOKEN\nline 080: ranger café 雪 TOKEN\nline 081: ranger café 雪 TOKEN\nline 082: ranger café 雪 TOKEN\nline 083: ranger café 雪 TOKEN\nline 084: ranger café 雪 TOKEN\nline 085: ranger café 雪 TOKEN\nline 086: ranger café 雪 TOKEN\nline 087: ranger café 雪 TOKEN\nline 088: ranger café 雪 TOKEN\nline 089: ranger café 雪 TOKEN\nline 090: ranger café 雪 TOKEN\nline 091: ranger café 雪 TOKEN\nline 092: ranger café 雪 TOKEN\nline 093: ranger café 雪 TOKEN\nline 094: ranger café 雪 TOKEN\nline 095: ranger café 雪 TOKEN\nline 096: ranger café 雪 TOKEN\nline 097: ranger café 雪 TOKEN\nline 098: ranger café 雪 TOKEN\nline 099: ranger café 雪 TOKEN\nline 100: ranger café 雪 TOKEN\nline 101: ranger café 雪 TOKEN\nline 102: ranger café 雪 TOKEN\nline 103: ranger café 雪 TOKEN\nline 104: ranger café 雪 TOKEN\nline 105: ranger café 雪 TOKEN\nline 106: ranger café 雪 TOKEN\nline 107: ranger café 雪 TOKEN\nline 108: ranger café 雪 TOKEN\nline 109: ranger café 雪 TOKEN\nline 110: ranger café 雪 TOKEN\nline 111: ranger café 雪 TOKEN\nline 112: ranger café 雪 TOKEN\nline 113: ranger café 雪 TOKEN\nline 114: ranger café 雪 TOKEN\nline 115: ranger café 雪 TOKEN\nline 116: ranger café 雪 TOKEN\nline 117: ranger café 雪 TOKEN\nline 118: ranger café 雪 TOKEN\nline 119: ranger café 雪 TOKEN\n",
+        "nested/bravo.txt": "RANGER BRAVO ORIGINAL TOKEN\n"
+      },
+      "absent_paths": [
+        "bravo.txt"
+      ],
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied"
+      ],
+      "empty_directories": [
+        "empty"
+      ],
+      "exact_tree": true,
+      "snapshot_exclusion": "Exclude random header path, login and dynamic footer; preserve live file/tree/pager body"
+    },
+    {
+      "name": "normal-nested-navigation",
+      "kind": "normal",
+      "purpose": "Navigate and return between distinct directories with actual selected-file content",
+      "command": [
+        "ranger",
+        "--clean",
+        "--cmd=set preview_files true",
+        "--cmd=set use_preview_script false",
+        "--cmd=set confirm_on_delete always",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": ":search"
+        },
+        {
+          "text": "nested"
+        },
+        {
+          "expect": ":search nested"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": ":search nested"
+        },
+        {
+          "expect": "/fixture/nested"
+        },
+        {
+          "text": "l"
+        },
+        {
+          "expect": "/fixture/nested/notes café.txt"
+        },
+        {
+          "expect": "RANGER NESTED UNICODE TOKEN"
+        },
+        {
+          "text": "h"
+        },
+        {
+          "expect": "protected.txt                  32 B"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": ":search"
+        },
+        {
+          "text": "occupied"
+        },
+        {
+          "expect": ":search occupied"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": ":search occupied"
+        },
+        {
+          "expect": "/fixture/occupied"
+        },
+        {
+          "text": "l"
+        },
+        {
+          "expect": "/fixture/occupied/keep.txt"
+        },
+        {
+          "expect": "RANGER OCCUPIED DIRECTORY TOKEN"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 23,
+      "snapshot_rows": [
+        2,
+        28
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "RANGER ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "RANGER BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "RANGER PROTECTED NEIGHBOR TOKEN\n",
+        "nested/notes café.txt": "RANGER NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "RANGER OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 000: ranger café 雪 TOKEN\nline 001: ranger café 雪 TOKEN\nline 002: ranger café 雪 TOKEN\nline 003: ranger café 雪 TOKEN\nline 004: ranger café 雪 TOKEN\nline 005: ranger café 雪 TOKEN\nline 006: ranger café 雪 TOKEN\nline 007: ranger café 雪 TOKEN\nline 008: ranger café 雪 TOKEN\nline 009: ranger café 雪 TOKEN\nline 010: ranger café 雪 TOKEN\nline 011: ranger café 雪 TOKEN\nline 012: ranger café 雪 TOKEN\nline 013: ranger café 雪 TOKEN\nline 014: ranger café 雪 TOKEN\nline 015: ranger café 雪 TOKEN\nline 016: ranger café 雪 TOKEN\nline 017: ranger café 雪 TOKEN\nline 018: ranger café 雪 TOKEN\nline 019: ranger café 雪 TOKEN\nline 020: ranger café 雪 TOKEN\nline 021: ranger café 雪 TOKEN\nline 022: ranger café 雪 TOKEN\nline 023: ranger café 雪 TOKEN\nline 024: ranger café 雪 TOKEN\nline 025: ranger café 雪 TOKEN\nline 026: ranger café 雪 TOKEN\nline 027: ranger café 雪 TOKEN\nline 028: ranger café 雪 TOKEN\nline 029: ranger café 雪 TOKEN\nline 030: ranger café 雪 TOKEN\nline 031: ranger café 雪 TOKEN\nline 032: ranger café 雪 TOKEN\nline 033: ranger café 雪 TOKEN\nline 034: ranger café 雪 TOKEN\nline 035: ranger café 雪 TOKEN\nline 036: ranger café 雪 TOKEN\nline 037: ranger café 雪 TOKEN\nline 038: ranger café 雪 TOKEN\nline 039: ranger café 雪 TOKEN\nline 040: ranger café 雪 TOKEN\nline 041: ranger café 雪 TOKEN\nline 042: ranger café 雪 TOKEN\nline 043: ranger café 雪 TOKEN\nline 044: ranger café 雪 TOKEN\nline 045: ranger café 雪 TOKEN\nline 046: ranger café 雪 TOKEN\nline 047: ranger café 雪 TOKEN\nline 048: ranger café 雪 TOKEN\nline 049: ranger café 雪 TOKEN\nline 050: ranger café 雪 TOKEN\nline 051: ranger café 雪 TOKEN\nline 052: ranger café 雪 TOKEN\nline 053: ranger café 雪 TOKEN\nline 054: ranger café 雪 TOKEN\nline 055: ranger café 雪 TOKEN\nline 056: ranger café 雪 TOKEN\nline 057: ranger café 雪 TOKEN\nline 058: ranger café 雪 TOKEN\nline 059: ranger café 雪 TOKEN\nline 060: ranger café 雪 TOKEN\nline 061: ranger café 雪 TOKEN\nline 062: ranger café 雪 TOKEN\nline 063: ranger café 雪 TOKEN\nline 064: ranger café 雪 TOKEN\nline 065: ranger café 雪 TOKEN\nline 066: ranger café 雪 TOKEN\nline 067: ranger café 雪 TOKEN\nline 068: ranger café 雪 TOKEN\nline 069: ranger café 雪 TOKEN\nline 070: ranger café 雪 TOKEN\nline 071: ranger café 雪 TOKEN\nline 072: ranger café 雪 TOKEN\nline 073: ranger café 雪 TOKEN\nline 074: ranger café 雪 TOKEN\nline 075: ranger café 雪 TOKEN\nline 076: ranger café 雪 TOKEN\nline 077: ranger café 雪 TOKEN\nline 078: ranger café 雪 TOKEN\nline 079: ranger café 雪 TOKEN\nline 080: ranger café 雪 TOKEN\nline 081: ranger café 雪 TOKEN\nline 082: ranger café 雪 TOKEN\nline 083: ranger café 雪 TOKEN\nline 084: ranger café 雪 TOKEN\nline 085: ranger café 雪 TOKEN\nline 086: ranger café 雪 TOKEN\nline 087: ranger café 雪 TOKEN\nline 088: ranger café 雪 TOKEN\nline 089: ranger café 雪 TOKEN\nline 090: ranger café 雪 TOKEN\nline 091: ranger café 雪 TOKEN\nline 092: ranger café 雪 TOKEN\nline 093: ranger café 雪 TOKEN\nline 094: ranger café 雪 TOKEN\nline 095: ranger café 雪 TOKEN\nline 096: ranger café 雪 TOKEN\nline 097: ranger café 雪 TOKEN\nline 098: ranger café 雪 TOKEN\nline 099: ranger café 雪 TOKEN\nline 100: ranger café 雪 TOKEN\nline 101: ranger café 雪 TOKEN\nline 102: ranger café 雪 TOKEN\nline 103: ranger café 雪 TOKEN\nline 104: ranger café 雪 TOKEN\nline 105: ranger café 雪 TOKEN\nline 106: ranger café 雪 TOKEN\nline 107: ranger café 雪 TOKEN\nline 108: ranger café 雪 TOKEN\nline 109: ranger café 雪 TOKEN\nline 110: ranger café 雪 TOKEN\nline 111: ranger café 雪 TOKEN\nline 112: ranger café 雪 TOKEN\nline 113: ranger café 雪 TOKEN\nline 114: ranger café 雪 TOKEN\nline 115: ranger café 雪 TOKEN\nline 116: ranger café 雪 TOKEN\nline 117: ranger café 雪 TOKEN\nline 118: ranger café 雪 TOKEN\nline 119: ranger café 雪 TOKEN\n"
+      },
+      "absent_paths": [],
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied"
+      ],
+      "empty_directories": [
+        "empty"
+      ],
+      "exact_tree": true,
+      "snapshot_exclusion": "Exclude random header path, login and dynamic footer; preserve live file/tree/pager body"
+    },
+    {
+      "name": "normal-long-pager",
+      "kind": "normal",
+      "purpose": "Open the built-in text pager, page through Unicode content, return home and close it",
+      "command": [
+        "ranger",
+        "--clean",
+        "--cmd=set preview_files true",
+        "--cmd=set use_preview_script false",
+        "--cmd=set confirm_on_delete always",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": ":search"
+        },
+        {
+          "text": "long"
+        },
+        {
+          "expect": ":search long"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": ":search long"
+        },
+        {
+          "expect": "/fixture/long.txt"
+        },
+        {
+          "expect": "line 000:"
+        },
+        {
+          "text": "i"
+        },
+        {
+          "expect_not": "alpha.txt"
+        },
+        {
+          "expect": "line 027:"
+        },
+        {
+          "key": "PageDown"
+        },
+        {
+          "expect": "line 055:"
+        },
+        {
+          "expect_not": "line 000:"
+        },
+        {
+          "key": "Home"
+        },
+        {
+          "expect": "line 000:"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect": "protected.txt                  32 B"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 15,
+      "snapshot_rows": [
+        2,
+        28
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "RANGER ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "RANGER BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "RANGER PROTECTED NEIGHBOR TOKEN\n",
+        "nested/notes café.txt": "RANGER NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "RANGER OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 000: ranger café 雪 TOKEN\nline 001: ranger café 雪 TOKEN\nline 002: ranger café 雪 TOKEN\nline 003: ranger café 雪 TOKEN\nline 004: ranger café 雪 TOKEN\nline 005: ranger café 雪 TOKEN\nline 006: ranger café 雪 TOKEN\nline 007: ranger café 雪 TOKEN\nline 008: ranger café 雪 TOKEN\nline 009: ranger café 雪 TOKEN\nline 010: ranger café 雪 TOKEN\nline 011: ranger café 雪 TOKEN\nline 012: ranger café 雪 TOKEN\nline 013: ranger café 雪 TOKEN\nline 014: ranger café 雪 TOKEN\nline 015: ranger café 雪 TOKEN\nline 016: ranger café 雪 TOKEN\nline 017: ranger café 雪 TOKEN\nline 018: ranger café 雪 TOKEN\nline 019: ranger café 雪 TOKEN\nline 020: ranger café 雪 TOKEN\nline 021: ranger café 雪 TOKEN\nline 022: ranger café 雪 TOKEN\nline 023: ranger café 雪 TOKEN\nline 024: ranger café 雪 TOKEN\nline 025: ranger café 雪 TOKEN\nline 026: ranger café 雪 TOKEN\nline 027: ranger café 雪 TOKEN\nline 028: ranger café 雪 TOKEN\nline 029: ranger café 雪 TOKEN\nline 030: ranger café 雪 TOKEN\nline 031: ranger café 雪 TOKEN\nline 032: ranger café 雪 TOKEN\nline 033: ranger café 雪 TOKEN\nline 034: ranger café 雪 TOKEN\nline 035: ranger café 雪 TOKEN\nline 036: ranger café 雪 TOKEN\nline 037: ranger café 雪 TOKEN\nline 038: ranger café 雪 TOKEN\nline 039: ranger café 雪 TOKEN\nline 040: ranger café 雪 TOKEN\nline 041: ranger café 雪 TOKEN\nline 042: ranger café 雪 TOKEN\nline 043: ranger café 雪 TOKEN\nline 044: ranger café 雪 TOKEN\nline 045: ranger café 雪 TOKEN\nline 046: ranger café 雪 TOKEN\nline 047: ranger café 雪 TOKEN\nline 048: ranger café 雪 TOKEN\nline 049: ranger café 雪 TOKEN\nline 050: ranger café 雪 TOKEN\nline 051: ranger café 雪 TOKEN\nline 052: ranger café 雪 TOKEN\nline 053: ranger café 雪 TOKEN\nline 054: ranger café 雪 TOKEN\nline 055: ranger café 雪 TOKEN\nline 056: ranger café 雪 TOKEN\nline 057: ranger café 雪 TOKEN\nline 058: ranger café 雪 TOKEN\nline 059: ranger café 雪 TOKEN\nline 060: ranger café 雪 TOKEN\nline 061: ranger café 雪 TOKEN\nline 062: ranger café 雪 TOKEN\nline 063: ranger café 雪 TOKEN\nline 064: ranger café 雪 TOKEN\nline 065: ranger café 雪 TOKEN\nline 066: ranger café 雪 TOKEN\nline 067: ranger café 雪 TOKEN\nline 068: ranger café 雪 TOKEN\nline 069: ranger café 雪 TOKEN\nline 070: ranger café 雪 TOKEN\nline 071: ranger café 雪 TOKEN\nline 072: ranger café 雪 TOKEN\nline 073: ranger café 雪 TOKEN\nline 074: ranger café 雪 TOKEN\nline 075: ranger café 雪 TOKEN\nline 076: ranger café 雪 TOKEN\nline 077: ranger café 雪 TOKEN\nline 078: ranger café 雪 TOKEN\nline 079: ranger café 雪 TOKEN\nline 080: ranger café 雪 TOKEN\nline 081: ranger café 雪 TOKEN\nline 082: ranger café 雪 TOKEN\nline 083: ranger café 雪 TOKEN\nline 084: ranger café 雪 TOKEN\nline 085: ranger café 雪 TOKEN\nline 086: ranger café 雪 TOKEN\nline 087: ranger café 雪 TOKEN\nline 088: ranger café 雪 TOKEN\nline 089: ranger café 雪 TOKEN\nline 090: ranger café 雪 TOKEN\nline 091: ranger café 雪 TOKEN\nline 092: ranger café 雪 TOKEN\nline 093: ranger café 雪 TOKEN\nline 094: ranger café 雪 TOKEN\nline 095: ranger café 雪 TOKEN\nline 096: ranger café 雪 TOKEN\nline 097: ranger café 雪 TOKEN\nline 098: ranger café 雪 TOKEN\nline 099: ranger café 雪 TOKEN\nline 100: ranger café 雪 TOKEN\nline 101: ranger café 雪 TOKEN\nline 102: ranger café 雪 TOKEN\nline 103: ranger café 雪 TOKEN\nline 104: ranger café 雪 TOKEN\nline 105: ranger café 雪 TOKEN\nline 106: ranger café 雪 TOKEN\nline 107: ranger café 雪 TOKEN\nline 108: ranger café 雪 TOKEN\nline 109: ranger café 雪 TOKEN\nline 110: ranger café 雪 TOKEN\nline 111: ranger café 雪 TOKEN\nline 112: ranger café 雪 TOKEN\nline 113: ranger café 雪 TOKEN\nline 114: ranger café 雪 TOKEN\nline 115: ranger café 雪 TOKEN\nline 116: ranger café 雪 TOKEN\nline 117: ranger café 雪 TOKEN\nline 118: ranger café 雪 TOKEN\nline 119: ranger café 雪 TOKEN\n"
+      },
+      "absent_paths": [],
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied"
+      ],
+      "empty_directories": [
+        "empty"
+      ],
+      "exact_tree": true,
+      "snapshot_exclusion": "Exclude random header path, login and dynamic footer; preserve live file/tree/pager body"
+    },
+    {
+      "name": "edge-empty-directory",
+      "kind": "edge",
+      "purpose": "Enter a genuinely empty directory and quit without manufacturing files",
+      "command": [
+        "ranger",
+        "--clean",
+        "--cmd=set preview_files true",
+        "--cmd=set use_preview_script false",
+        "--cmd=set confirm_on_delete always",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": "l"
+        },
+        {
+          "expect": "0/0"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 3,
+      "snapshot_rows": [
+        2,
+        28
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "RANGER ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "RANGER BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "RANGER PROTECTED NEIGHBOR TOKEN\n",
+        "nested/notes café.txt": "RANGER NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "RANGER OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 000: ranger café 雪 TOKEN\nline 001: ranger café 雪 TOKEN\nline 002: ranger café 雪 TOKEN\nline 003: ranger café 雪 TOKEN\nline 004: ranger café 雪 TOKEN\nline 005: ranger café 雪 TOKEN\nline 006: ranger café 雪 TOKEN\nline 007: ranger café 雪 TOKEN\nline 008: ranger café 雪 TOKEN\nline 009: ranger café 雪 TOKEN\nline 010: ranger café 雪 TOKEN\nline 011: ranger café 雪 TOKEN\nline 012: ranger café 雪 TOKEN\nline 013: ranger café 雪 TOKEN\nline 014: ranger café 雪 TOKEN\nline 015: ranger café 雪 TOKEN\nline 016: ranger café 雪 TOKEN\nline 017: ranger café 雪 TOKEN\nline 018: ranger café 雪 TOKEN\nline 019: ranger café 雪 TOKEN\nline 020: ranger café 雪 TOKEN\nline 021: ranger café 雪 TOKEN\nline 022: ranger café 雪 TOKEN\nline 023: ranger café 雪 TOKEN\nline 024: ranger café 雪 TOKEN\nline 025: ranger café 雪 TOKEN\nline 026: ranger café 雪 TOKEN\nline 027: ranger café 雪 TOKEN\nline 028: ranger café 雪 TOKEN\nline 029: ranger café 雪 TOKEN\nline 030: ranger café 雪 TOKEN\nline 031: ranger café 雪 TOKEN\nline 032: ranger café 雪 TOKEN\nline 033: ranger café 雪 TOKEN\nline 034: ranger café 雪 TOKEN\nline 035: ranger café 雪 TOKEN\nline 036: ranger café 雪 TOKEN\nline 037: ranger café 雪 TOKEN\nline 038: ranger café 雪 TOKEN\nline 039: ranger café 雪 TOKEN\nline 040: ranger café 雪 TOKEN\nline 041: ranger café 雪 TOKEN\nline 042: ranger café 雪 TOKEN\nline 043: ranger café 雪 TOKEN\nline 044: ranger café 雪 TOKEN\nline 045: ranger café 雪 TOKEN\nline 046: ranger café 雪 TOKEN\nline 047: ranger café 雪 TOKEN\nline 048: ranger café 雪 TOKEN\nline 049: ranger café 雪 TOKEN\nline 050: ranger café 雪 TOKEN\nline 051: ranger café 雪 TOKEN\nline 052: ranger café 雪 TOKEN\nline 053: ranger café 雪 TOKEN\nline 054: ranger café 雪 TOKEN\nline 055: ranger café 雪 TOKEN\nline 056: ranger café 雪 TOKEN\nline 057: ranger café 雪 TOKEN\nline 058: ranger café 雪 TOKEN\nline 059: ranger café 雪 TOKEN\nline 060: ranger café 雪 TOKEN\nline 061: ranger café 雪 TOKEN\nline 062: ranger café 雪 TOKEN\nline 063: ranger café 雪 TOKEN\nline 064: ranger café 雪 TOKEN\nline 065: ranger café 雪 TOKEN\nline 066: ranger café 雪 TOKEN\nline 067: ranger café 雪 TOKEN\nline 068: ranger café 雪 TOKEN\nline 069: ranger café 雪 TOKEN\nline 070: ranger café 雪 TOKEN\nline 071: ranger café 雪 TOKEN\nline 072: ranger café 雪 TOKEN\nline 073: ranger café 雪 TOKEN\nline 074: ranger café 雪 TOKEN\nline 075: ranger café 雪 TOKEN\nline 076: ranger café 雪 TOKEN\nline 077: ranger café 雪 TOKEN\nline 078: ranger café 雪 TOKEN\nline 079: ranger café 雪 TOKEN\nline 080: ranger café 雪 TOKEN\nline 081: ranger café 雪 TOKEN\nline 082: ranger café 雪 TOKEN\nline 083: ranger café 雪 TOKEN\nline 084: ranger café 雪 TOKEN\nline 085: ranger café 雪 TOKEN\nline 086: ranger café 雪 TOKEN\nline 087: ranger café 雪 TOKEN\nline 088: ranger café 雪 TOKEN\nline 089: ranger café 雪 TOKEN\nline 090: ranger café 雪 TOKEN\nline 091: ranger café 雪 TOKEN\nline 092: ranger café 雪 TOKEN\nline 093: ranger café 雪 TOKEN\nline 094: ranger café 雪 TOKEN\nline 095: ranger café 雪 TOKEN\nline 096: ranger café 雪 TOKEN\nline 097: ranger café 雪 TOKEN\nline 098: ranger café 雪 TOKEN\nline 099: ranger café 雪 TOKEN\nline 100: ranger café 雪 TOKEN\nline 101: ranger café 雪 TOKEN\nline 102: ranger café 雪 TOKEN\nline 103: ranger café 雪 TOKEN\nline 104: ranger café 雪 TOKEN\nline 105: ranger café 雪 TOKEN\nline 106: ranger café 雪 TOKEN\nline 107: ranger café 雪 TOKEN\nline 108: ranger café 雪 TOKEN\nline 109: ranger café 雪 TOKEN\nline 110: ranger café 雪 TOKEN\nline 111: ranger café 雪 TOKEN\nline 112: ranger café 雪 TOKEN\nline 113: ranger café 雪 TOKEN\nline 114: ranger café 雪 TOKEN\nline 115: ranger café 雪 TOKEN\nline 116: ranger café 雪 TOKEN\nline 117: ranger café 雪 TOKEN\nline 118: ranger café 雪 TOKEN\nline 119: ranger café 雪 TOKEN\n"
+      },
+      "absent_paths": [],
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied"
+      ],
+      "empty_directories": [
+        "empty"
+      ],
+      "exact_tree": true,
+      "snapshot_exclusion": "Exclude random header path, login and dynamic footer; preserve live file/tree/pager body"
+    },
+    {
+      "name": "edge-empty-filter-recovery",
+      "kind": "edge",
+      "purpose": "Apply a no-match filter stack, clear it, then select a useful existing file",
+      "command": [
+        "ranger",
+        "--clean",
+        "--cmd=set preview_files true",
+        "--cmd=set use_preview_script false",
+        "--cmd=set confirm_on_delete always",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "expect": "All"
+        },
+        {
+          "text": ":"
+        },
+        {
+          "expect_not": "All"
+        },
+        {
+          "expect": ":"
+        },
+        {
+          "text": "filter_stack add name ^NO_SUCH_ENTRY$"
+        },
+        {
+          "expect": ":filter_stack add name ^NO_SUCH_ENTRY$"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": ":filter_stack add name ^NO_SUCH_ENTRY$"
+        },
+        {
+          "expect": "All"
+        },
+        {
+          "expect": "0/0"
+        },
+        {
+          "expect": "All"
+        },
+        {
+          "text": ":"
+        },
+        {
+          "expect_not": "All"
+        },
+        {
+          "expect": ":"
+        },
+        {
+          "text": "filter_stack clear"
+        },
+        {
+          "expect": ":filter_stack clear"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": ":filter_stack clear"
+        },
+        {
+          "expect": "All"
+        },
+        {
+          "expect": "alpha.txt                      57 B"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": ":search"
+        },
+        {
+          "text": "bravo"
+        },
+        {
+          "expect": ":search bravo"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": ":search bravo"
+        },
+        {
+          "expect": "/fixture/bravo.txt"
+        },
+        {
+          "expect": "RANGER BRAVO ORIGINAL TOKEN"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 29,
+      "snapshot_rows": [
+        2,
+        28
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "RANGER ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "RANGER BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "RANGER PROTECTED NEIGHBOR TOKEN\n",
+        "nested/notes café.txt": "RANGER NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "RANGER OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 000: ranger café 雪 TOKEN\nline 001: ranger café 雪 TOKEN\nline 002: ranger café 雪 TOKEN\nline 003: ranger café 雪 TOKEN\nline 004: ranger café 雪 TOKEN\nline 005: ranger café 雪 TOKEN\nline 006: ranger café 雪 TOKEN\nline 007: ranger café 雪 TOKEN\nline 008: ranger café 雪 TOKEN\nline 009: ranger café 雪 TOKEN\nline 010: ranger café 雪 TOKEN\nline 011: ranger café 雪 TOKEN\nline 012: ranger café 雪 TOKEN\nline 013: ranger café 雪 TOKEN\nline 014: ranger café 雪 TOKEN\nline 015: ranger café 雪 TOKEN\nline 016: ranger café 雪 TOKEN\nline 017: ranger café 雪 TOKEN\nline 018: ranger café 雪 TOKEN\nline 019: ranger café 雪 TOKEN\nline 020: ranger café 雪 TOKEN\nline 021: ranger café 雪 TOKEN\nline 022: ranger café 雪 TOKEN\nline 023: ranger café 雪 TOKEN\nline 024: ranger café 雪 TOKEN\nline 025: ranger café 雪 TOKEN\nline 026: ranger café 雪 TOKEN\nline 027: ranger café 雪 TOKEN\nline 028: ranger café 雪 TOKEN\nline 029: ranger café 雪 TOKEN\nline 030: ranger café 雪 TOKEN\nline 031: ranger café 雪 TOKEN\nline 032: ranger café 雪 TOKEN\nline 033: ranger café 雪 TOKEN\nline 034: ranger café 雪 TOKEN\nline 035: ranger café 雪 TOKEN\nline 036: ranger café 雪 TOKEN\nline 037: ranger café 雪 TOKEN\nline 038: ranger café 雪 TOKEN\nline 039: ranger café 雪 TOKEN\nline 040: ranger café 雪 TOKEN\nline 041: ranger café 雪 TOKEN\nline 042: ranger café 雪 TOKEN\nline 043: ranger café 雪 TOKEN\nline 044: ranger café 雪 TOKEN\nline 045: ranger café 雪 TOKEN\nline 046: ranger café 雪 TOKEN\nline 047: ranger café 雪 TOKEN\nline 048: ranger café 雪 TOKEN\nline 049: ranger café 雪 TOKEN\nline 050: ranger café 雪 TOKEN\nline 051: ranger café 雪 TOKEN\nline 052: ranger café 雪 TOKEN\nline 053: ranger café 雪 TOKEN\nline 054: ranger café 雪 TOKEN\nline 055: ranger café 雪 TOKEN\nline 056: ranger café 雪 TOKEN\nline 057: ranger café 雪 TOKEN\nline 058: ranger café 雪 TOKEN\nline 059: ranger café 雪 TOKEN\nline 060: ranger café 雪 TOKEN\nline 061: ranger café 雪 TOKEN\nline 062: ranger café 雪 TOKEN\nline 063: ranger café 雪 TOKEN\nline 064: ranger café 雪 TOKEN\nline 065: ranger café 雪 TOKEN\nline 066: ranger café 雪 TOKEN\nline 067: ranger café 雪 TOKEN\nline 068: ranger café 雪 TOKEN\nline 069: ranger café 雪 TOKEN\nline 070: ranger café 雪 TOKEN\nline 071: ranger café 雪 TOKEN\nline 072: ranger café 雪 TOKEN\nline 073: ranger café 雪 TOKEN\nline 074: ranger café 雪 TOKEN\nline 075: ranger café 雪 TOKEN\nline 076: ranger café 雪 TOKEN\nline 077: ranger café 雪 TOKEN\nline 078: ranger café 雪 TOKEN\nline 079: ranger café 雪 TOKEN\nline 080: ranger café 雪 TOKEN\nline 081: ranger café 雪 TOKEN\nline 082: ranger café 雪 TOKEN\nline 083: ranger café 雪 TOKEN\nline 084: ranger café 雪 TOKEN\nline 085: ranger café 雪 TOKEN\nline 086: ranger café 雪 TOKEN\nline 087: ranger café 雪 TOKEN\nline 088: ranger café 雪 TOKEN\nline 089: ranger café 雪 TOKEN\nline 090: ranger café 雪 TOKEN\nline 091: ranger café 雪 TOKEN\nline 092: ranger café 雪 TOKEN\nline 093: ranger café 雪 TOKEN\nline 094: ranger café 雪 TOKEN\nline 095: ranger café 雪 TOKEN\nline 096: ranger café 雪 TOKEN\nline 097: ranger café 雪 TOKEN\nline 098: ranger café 雪 TOKEN\nline 099: ranger café 雪 TOKEN\nline 100: ranger café 雪 TOKEN\nline 101: ranger café 雪 TOKEN\nline 102: ranger café 雪 TOKEN\nline 103: ranger café 雪 TOKEN\nline 104: ranger café 雪 TOKEN\nline 105: ranger café 雪 TOKEN\nline 106: ranger café 雪 TOKEN\nline 107: ranger café 雪 TOKEN\nline 108: ranger café 雪 TOKEN\nline 109: ranger café 雪 TOKEN\nline 110: ranger café 雪 TOKEN\nline 111: ranger café 雪 TOKEN\nline 112: ranger café 雪 TOKEN\nline 113: ranger café 雪 TOKEN\nline 114: ranger café 雪 TOKEN\nline 115: ranger café 雪 TOKEN\nline 116: ranger café 雪 TOKEN\nline 117: ranger café 雪 TOKEN\nline 118: ranger café 雪 TOKEN\nline 119: ranger café 雪 TOKEN\n"
+      },
+      "absent_paths": [],
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied"
+      ],
+      "empty_directories": [
+        "empty"
+      ],
+      "exact_tree": true,
+      "snapshot_exclusion": "Exclude random header path, login and dynamic footer; preserve live file/tree/pager body"
+    },
+    {
+      "name": "edge-cancel-create",
+      "kind": "edge",
+      "purpose": "Cancel a populated create command without altering any fixture entry",
+      "command": [
+        "ranger",
+        "--clean",
+        "--cmd=set preview_files true",
+        "--cmd=set use_preview_script false",
+        "--cmd=set confirm_on_delete always",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "expect": "All"
+        },
+        {
+          "text": ":"
+        },
+        {
+          "expect_not": "All"
+        },
+        {
+          "expect": ":"
+        },
+        {
+          "text": "touch not-created café.txt"
+        },
+        {
+          "expect": ":touch not-created café.txt"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": ":touch not-created café.txt"
+        },
+        {
+          "expect": "All"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 10,
+      "snapshot_rows": [
+        2,
+        28
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "RANGER ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "RANGER BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "RANGER PROTECTED NEIGHBOR TOKEN\n",
+        "nested/notes café.txt": "RANGER NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "RANGER OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 000: ranger café 雪 TOKEN\nline 001: ranger café 雪 TOKEN\nline 002: ranger café 雪 TOKEN\nline 003: ranger café 雪 TOKEN\nline 004: ranger café 雪 TOKEN\nline 005: ranger café 雪 TOKEN\nline 006: ranger café 雪 TOKEN\nline 007: ranger café 雪 TOKEN\nline 008: ranger café 雪 TOKEN\nline 009: ranger café 雪 TOKEN\nline 010: ranger café 雪 TOKEN\nline 011: ranger café 雪 TOKEN\nline 012: ranger café 雪 TOKEN\nline 013: ranger café 雪 TOKEN\nline 014: ranger café 雪 TOKEN\nline 015: ranger café 雪 TOKEN\nline 016: ranger café 雪 TOKEN\nline 017: ranger café 雪 TOKEN\nline 018: ranger café 雪 TOKEN\nline 019: ranger café 雪 TOKEN\nline 020: ranger café 雪 TOKEN\nline 021: ranger café 雪 TOKEN\nline 022: ranger café 雪 TOKEN\nline 023: ranger café 雪 TOKEN\nline 024: ranger café 雪 TOKEN\nline 025: ranger café 雪 TOKEN\nline 026: ranger café 雪 TOKEN\nline 027: ranger café 雪 TOKEN\nline 028: ranger café 雪 TOKEN\nline 029: ranger café 雪 TOKEN\nline 030: ranger café 雪 TOKEN\nline 031: ranger café 雪 TOKEN\nline 032: ranger café 雪 TOKEN\nline 033: ranger café 雪 TOKEN\nline 034: ranger café 雪 TOKEN\nline 035: ranger café 雪 TOKEN\nline 036: ranger café 雪 TOKEN\nline 037: ranger café 雪 TOKEN\nline 038: ranger café 雪 TOKEN\nline 039: ranger café 雪 TOKEN\nline 040: ranger café 雪 TOKEN\nline 041: ranger café 雪 TOKEN\nline 042: ranger café 雪 TOKEN\nline 043: ranger café 雪 TOKEN\nline 044: ranger café 雪 TOKEN\nline 045: ranger café 雪 TOKEN\nline 046: ranger café 雪 TOKEN\nline 047: ranger café 雪 TOKEN\nline 048: ranger café 雪 TOKEN\nline 049: ranger café 雪 TOKEN\nline 050: ranger café 雪 TOKEN\nline 051: ranger café 雪 TOKEN\nline 052: ranger café 雪 TOKEN\nline 053: ranger café 雪 TOKEN\nline 054: ranger café 雪 TOKEN\nline 055: ranger café 雪 TOKEN\nline 056: ranger café 雪 TOKEN\nline 057: ranger café 雪 TOKEN\nline 058: ranger café 雪 TOKEN\nline 059: ranger café 雪 TOKEN\nline 060: ranger café 雪 TOKEN\nline 061: ranger café 雪 TOKEN\nline 062: ranger café 雪 TOKEN\nline 063: ranger café 雪 TOKEN\nline 064: ranger café 雪 TOKEN\nline 065: ranger café 雪 TOKEN\nline 066: ranger café 雪 TOKEN\nline 067: ranger café 雪 TOKEN\nline 068: ranger café 雪 TOKEN\nline 069: ranger café 雪 TOKEN\nline 070: ranger café 雪 TOKEN\nline 071: ranger café 雪 TOKEN\nline 072: ranger café 雪 TOKEN\nline 073: ranger café 雪 TOKEN\nline 074: ranger café 雪 TOKEN\nline 075: ranger café 雪 TOKEN\nline 076: ranger café 雪 TOKEN\nline 077: ranger café 雪 TOKEN\nline 078: ranger café 雪 TOKEN\nline 079: ranger café 雪 TOKEN\nline 080: ranger café 雪 TOKEN\nline 081: ranger café 雪 TOKEN\nline 082: ranger café 雪 TOKEN\nline 083: ranger café 雪 TOKEN\nline 084: ranger café 雪 TOKEN\nline 085: ranger café 雪 TOKEN\nline 086: ranger café 雪 TOKEN\nline 087: ranger café 雪 TOKEN\nline 088: ranger café 雪 TOKEN\nline 089: ranger café 雪 TOKEN\nline 090: ranger café 雪 TOKEN\nline 091: ranger café 雪 TOKEN\nline 092: ranger café 雪 TOKEN\nline 093: ranger café 雪 TOKEN\nline 094: ranger café 雪 TOKEN\nline 095: ranger café 雪 TOKEN\nline 096: ranger café 雪 TOKEN\nline 097: ranger café 雪 TOKEN\nline 098: ranger café 雪 TOKEN\nline 099: ranger café 雪 TOKEN\nline 100: ranger café 雪 TOKEN\nline 101: ranger café 雪 TOKEN\nline 102: ranger café 雪 TOKEN\nline 103: ranger café 雪 TOKEN\nline 104: ranger café 雪 TOKEN\nline 105: ranger café 雪 TOKEN\nline 106: ranger café 雪 TOKEN\nline 107: ranger café 雪 TOKEN\nline 108: ranger café 雪 TOKEN\nline 109: ranger café 雪 TOKEN\nline 110: ranger café 雪 TOKEN\nline 111: ranger café 雪 TOKEN\nline 112: ranger café 雪 TOKEN\nline 113: ranger café 雪 TOKEN\nline 114: ranger café 雪 TOKEN\nline 115: ranger café 雪 TOKEN\nline 116: ranger café 雪 TOKEN\nline 117: ranger café 雪 TOKEN\nline 118: ranger café 雪 TOKEN\nline 119: ranger café 雪 TOKEN\n"
+      },
+      "absent_paths": [],
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied"
+      ],
+      "empty_directories": [
+        "empty"
+      ],
+      "exact_tree": true,
+      "snapshot_exclusion": "Exclude random header path, login and dynamic footer; preserve live file/tree/pager body"
+    },
+    {
+      "name": "edge-cancel-rename",
+      "kind": "edge",
+      "purpose": "Cancel a populated rename command without altering any fixture entry",
+      "command": [
+        "ranger",
+        "--clean",
+        "--cmd=set preview_files true",
+        "--cmd=set use_preview_script false",
+        "--cmd=set confirm_on_delete always",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": ":search"
+        },
+        {
+          "text": "bravo"
+        },
+        {
+          "expect": ":search bravo"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": ":search bravo"
+        },
+        {
+          "expect": "/fixture/bravo.txt"
+        },
+        {
+          "expect": "RANGER BRAVO ORIGINAL TOKEN"
+        },
+        {
+          "expect": "All"
+        },
+        {
+          "text": ":"
+        },
+        {
+          "expect_not": "All"
+        },
+        {
+          "expect": ":"
+        },
+        {
+          "text": "rename cancelled café.txt"
+        },
+        {
+          "expect": ":rename cancelled café.txt"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": ":rename cancelled café.txt"
+        },
+        {
+          "expect": "All"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 18,
+      "snapshot_rows": [
+        2,
+        28
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "RANGER ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "RANGER BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "RANGER PROTECTED NEIGHBOR TOKEN\n",
+        "nested/notes café.txt": "RANGER NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "RANGER OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 000: ranger café 雪 TOKEN\nline 001: ranger café 雪 TOKEN\nline 002: ranger café 雪 TOKEN\nline 003: ranger café 雪 TOKEN\nline 004: ranger café 雪 TOKEN\nline 005: ranger café 雪 TOKEN\nline 006: ranger café 雪 TOKEN\nline 007: ranger café 雪 TOKEN\nline 008: ranger café 雪 TOKEN\nline 009: ranger café 雪 TOKEN\nline 010: ranger café 雪 TOKEN\nline 011: ranger café 雪 TOKEN\nline 012: ranger café 雪 TOKEN\nline 013: ranger café 雪 TOKEN\nline 014: ranger café 雪 TOKEN\nline 015: ranger café 雪 TOKEN\nline 016: ranger café 雪 TOKEN\nline 017: ranger café 雪 TOKEN\nline 018: ranger café 雪 TOKEN\nline 019: ranger café 雪 TOKEN\nline 020: ranger café 雪 TOKEN\nline 021: ranger café 雪 TOKEN\nline 022: ranger café 雪 TOKEN\nline 023: ranger café 雪 TOKEN\nline 024: ranger café 雪 TOKEN\nline 025: ranger café 雪 TOKEN\nline 026: ranger café 雪 TOKEN\nline 027: ranger café 雪 TOKEN\nline 028: ranger café 雪 TOKEN\nline 029: ranger café 雪 TOKEN\nline 030: ranger café 雪 TOKEN\nline 031: ranger café 雪 TOKEN\nline 032: ranger café 雪 TOKEN\nline 033: ranger café 雪 TOKEN\nline 034: ranger café 雪 TOKEN\nline 035: ranger café 雪 TOKEN\nline 036: ranger café 雪 TOKEN\nline 037: ranger café 雪 TOKEN\nline 038: ranger café 雪 TOKEN\nline 039: ranger café 雪 TOKEN\nline 040: ranger café 雪 TOKEN\nline 041: ranger café 雪 TOKEN\nline 042: ranger café 雪 TOKEN\nline 043: ranger café 雪 TOKEN\nline 044: ranger café 雪 TOKEN\nline 045: ranger café 雪 TOKEN\nline 046: ranger café 雪 TOKEN\nline 047: ranger café 雪 TOKEN\nline 048: ranger café 雪 TOKEN\nline 049: ranger café 雪 TOKEN\nline 050: ranger café 雪 TOKEN\nline 051: ranger café 雪 TOKEN\nline 052: ranger café 雪 TOKEN\nline 053: ranger café 雪 TOKEN\nline 054: ranger café 雪 TOKEN\nline 055: ranger café 雪 TOKEN\nline 056: ranger café 雪 TOKEN\nline 057: ranger café 雪 TOKEN\nline 058: ranger café 雪 TOKEN\nline 059: ranger café 雪 TOKEN\nline 060: ranger café 雪 TOKEN\nline 061: ranger café 雪 TOKEN\nline 062: ranger café 雪 TOKEN\nline 063: ranger café 雪 TOKEN\nline 064: ranger café 雪 TOKEN\nline 065: ranger café 雪 TOKEN\nline 066: ranger café 雪 TOKEN\nline 067: ranger café 雪 TOKEN\nline 068: ranger café 雪 TOKEN\nline 069: ranger café 雪 TOKEN\nline 070: ranger café 雪 TOKEN\nline 071: ranger café 雪 TOKEN\nline 072: ranger café 雪 TOKEN\nline 073: ranger café 雪 TOKEN\nline 074: ranger café 雪 TOKEN\nline 075: ranger café 雪 TOKEN\nline 076: ranger café 雪 TOKEN\nline 077: ranger café 雪 TOKEN\nline 078: ranger café 雪 TOKEN\nline 079: ranger café 雪 TOKEN\nline 080: ranger café 雪 TOKEN\nline 081: ranger café 雪 TOKEN\nline 082: ranger café 雪 TOKEN\nline 083: ranger café 雪 TOKEN\nline 084: ranger café 雪 TOKEN\nline 085: ranger café 雪 TOKEN\nline 086: ranger café 雪 TOKEN\nline 087: ranger café 雪 TOKEN\nline 088: ranger café 雪 TOKEN\nline 089: ranger café 雪 TOKEN\nline 090: ranger café 雪 TOKEN\nline 091: ranger café 雪 TOKEN\nline 092: ranger café 雪 TOKEN\nline 093: ranger café 雪 TOKEN\nline 094: ranger café 雪 TOKEN\nline 095: ranger café 雪 TOKEN\nline 096: ranger café 雪 TOKEN\nline 097: ranger café 雪 TOKEN\nline 098: ranger café 雪 TOKEN\nline 099: ranger café 雪 TOKEN\nline 100: ranger café 雪 TOKEN\nline 101: ranger café 雪 TOKEN\nline 102: ranger café 雪 TOKEN\nline 103: ranger café 雪 TOKEN\nline 104: ranger café 雪 TOKEN\nline 105: ranger café 雪 TOKEN\nline 106: ranger café 雪 TOKEN\nline 107: ranger café 雪 TOKEN\nline 108: ranger café 雪 TOKEN\nline 109: ranger café 雪 TOKEN\nline 110: ranger café 雪 TOKEN\nline 111: ranger café 雪 TOKEN\nline 112: ranger café 雪 TOKEN\nline 113: ranger café 雪 TOKEN\nline 114: ranger café 雪 TOKEN\nline 115: ranger café 雪 TOKEN\nline 116: ranger café 雪 TOKEN\nline 117: ranger café 雪 TOKEN\nline 118: ranger café 雪 TOKEN\nline 119: ranger café 雪 TOKEN\n"
+      },
+      "absent_paths": [],
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied"
+      ],
+      "empty_directories": [
+        "empty"
+      ],
+      "exact_tree": true,
+      "snapshot_exclusion": "Exclude random header path, login and dynamic footer; preserve live file/tree/pager body"
+    },
+    {
+      "name": "edge-occupied-rename",
+      "kind": "edge",
+      "purpose": "Refuse a rename onto a protected existing file while preserving both originals",
+      "command": [
+        "ranger",
+        "--clean",
+        "--cmd=set preview_files true",
+        "--cmd=set use_preview_script false",
+        "--cmd=set confirm_on_delete always",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": ":search"
+        },
+        {
+          "text": "bravo"
+        },
+        {
+          "expect": ":search bravo"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": ":search bravo"
+        },
+        {
+          "expect": "/fixture/bravo.txt"
+        },
+        {
+          "expect": "RANGER BRAVO ORIGINAL TOKEN"
+        },
+        {
+          "expect": "All"
+        },
+        {
+          "text": ":"
+        },
+        {
+          "expect_not": "All"
+        },
+        {
+          "expect": ":"
+        },
+        {
+          "text": "rename protected.txt"
+        },
+        {
+          "expect": ":rename protected.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": ":rename protected.txt"
+        },
+        {
+          "expect": "Can't rename: file already exists!"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 18,
+      "snapshot_rows": [
+        2,
+        28
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "RANGER ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "RANGER BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "RANGER PROTECTED NEIGHBOR TOKEN\n",
+        "nested/notes café.txt": "RANGER NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "RANGER OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 000: ranger café 雪 TOKEN\nline 001: ranger café 雪 TOKEN\nline 002: ranger café 雪 TOKEN\nline 003: ranger café 雪 TOKEN\nline 004: ranger café 雪 TOKEN\nline 005: ranger café 雪 TOKEN\nline 006: ranger café 雪 TOKEN\nline 007: ranger café 雪 TOKEN\nline 008: ranger café 雪 TOKEN\nline 009: ranger café 雪 TOKEN\nline 010: ranger café 雪 TOKEN\nline 011: ranger café 雪 TOKEN\nline 012: ranger café 雪 TOKEN\nline 013: ranger café 雪 TOKEN\nline 014: ranger café 雪 TOKEN\nline 015: ranger café 雪 TOKEN\nline 016: ranger café 雪 TOKEN\nline 017: ranger café 雪 TOKEN\nline 018: ranger café 雪 TOKEN\nline 019: ranger café 雪 TOKEN\nline 020: ranger café 雪 TOKEN\nline 021: ranger café 雪 TOKEN\nline 022: ranger café 雪 TOKEN\nline 023: ranger café 雪 TOKEN\nline 024: ranger café 雪 TOKEN\nline 025: ranger café 雪 TOKEN\nline 026: ranger café 雪 TOKEN\nline 027: ranger café 雪 TOKEN\nline 028: ranger café 雪 TOKEN\nline 029: ranger café 雪 TOKEN\nline 030: ranger café 雪 TOKEN\nline 031: ranger café 雪 TOKEN\nline 032: ranger café 雪 TOKEN\nline 033: ranger café 雪 TOKEN\nline 034: ranger café 雪 TOKEN\nline 035: ranger café 雪 TOKEN\nline 036: ranger café 雪 TOKEN\nline 037: ranger café 雪 TOKEN\nline 038: ranger café 雪 TOKEN\nline 039: ranger café 雪 TOKEN\nline 040: ranger café 雪 TOKEN\nline 041: ranger café 雪 TOKEN\nline 042: ranger café 雪 TOKEN\nline 043: ranger café 雪 TOKEN\nline 044: ranger café 雪 TOKEN\nline 045: ranger café 雪 TOKEN\nline 046: ranger café 雪 TOKEN\nline 047: ranger café 雪 TOKEN\nline 048: ranger café 雪 TOKEN\nline 049: ranger café 雪 TOKEN\nline 050: ranger café 雪 TOKEN\nline 051: ranger café 雪 TOKEN\nline 052: ranger café 雪 TOKEN\nline 053: ranger café 雪 TOKEN\nline 054: ranger café 雪 TOKEN\nline 055: ranger café 雪 TOKEN\nline 056: ranger café 雪 TOKEN\nline 057: ranger café 雪 TOKEN\nline 058: ranger café 雪 TOKEN\nline 059: ranger café 雪 TOKEN\nline 060: ranger café 雪 TOKEN\nline 061: ranger café 雪 TOKEN\nline 062: ranger café 雪 TOKEN\nline 063: ranger café 雪 TOKEN\nline 064: ranger café 雪 TOKEN\nline 065: ranger café 雪 TOKEN\nline 066: ranger café 雪 TOKEN\nline 067: ranger café 雪 TOKEN\nline 068: ranger café 雪 TOKEN\nline 069: ranger café 雪 TOKEN\nline 070: ranger café 雪 TOKEN\nline 071: ranger café 雪 TOKEN\nline 072: ranger café 雪 TOKEN\nline 073: ranger café 雪 TOKEN\nline 074: ranger café 雪 TOKEN\nline 075: ranger café 雪 TOKEN\nline 076: ranger café 雪 TOKEN\nline 077: ranger café 雪 TOKEN\nline 078: ranger café 雪 TOKEN\nline 079: ranger café 雪 TOKEN\nline 080: ranger café 雪 TOKEN\nline 081: ranger café 雪 TOKEN\nline 082: ranger café 雪 TOKEN\nline 083: ranger café 雪 TOKEN\nline 084: ranger café 雪 TOKEN\nline 085: ranger café 雪 TOKEN\nline 086: ranger café 雪 TOKEN\nline 087: ranger café 雪 TOKEN\nline 088: ranger café 雪 TOKEN\nline 089: ranger café 雪 TOKEN\nline 090: ranger café 雪 TOKEN\nline 091: ranger café 雪 TOKEN\nline 092: ranger café 雪 TOKEN\nline 093: ranger café 雪 TOKEN\nline 094: ranger café 雪 TOKEN\nline 095: ranger café 雪 TOKEN\nline 096: ranger café 雪 TOKEN\nline 097: ranger café 雪 TOKEN\nline 098: ranger café 雪 TOKEN\nline 099: ranger café 雪 TOKEN\nline 100: ranger café 雪 TOKEN\nline 101: ranger café 雪 TOKEN\nline 102: ranger café 雪 TOKEN\nline 103: ranger café 雪 TOKEN\nline 104: ranger café 雪 TOKEN\nline 105: ranger café 雪 TOKEN\nline 106: ranger café 雪 TOKEN\nline 107: ranger café 雪 TOKEN\nline 108: ranger café 雪 TOKEN\nline 109: ranger café 雪 TOKEN\nline 110: ranger café 雪 TOKEN\nline 111: ranger café 雪 TOKEN\nline 112: ranger café 雪 TOKEN\nline 113: ranger café 雪 TOKEN\nline 114: ranger café 雪 TOKEN\nline 115: ranger café 雪 TOKEN\nline 116: ranger café 雪 TOKEN\nline 117: ranger café 雪 TOKEN\nline 118: ranger café 雪 TOKEN\nline 119: ranger café 雪 TOKEN\n"
+      },
+      "absent_paths": [],
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied"
+      ],
+      "empty_directories": [
+        "empty"
+      ],
+      "exact_tree": true,
+      "snapshot_exclusion": "Exclude random header path, login and dynamic footer; preserve live file/tree/pager body"
+    },
+    {
+      "name": "edge-delete-cancelled",
+      "kind": "edge",
+      "purpose": "Decline an actual permanent-deletion confirmation and preserve every file",
+      "command": [
+        "ranger",
+        "--clean",
+        "--cmd=set preview_files true",
+        "--cmd=set use_preview_script false",
+        "--cmd=set confirm_on_delete always",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": ":search"
+        },
+        {
+          "text": "protected"
+        },
+        {
+          "expect": ":search protected"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": ":search protected"
+        },
+        {
+          "expect": "/fixture/protected.txt"
+        },
+        {
+          "expect": "RANGER PROTECTED NEIGHBOR TOKEN"
+        },
+        {
+          "expect": "All"
+        },
+        {
+          "text": ":"
+        },
+        {
+          "expect_not": "All"
+        },
+        {
+          "expect": ":"
+        },
+        {
+          "text": "delete"
+        },
+        {
+          "expect": ":delete"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": ":delete"
+        },
+        {
+          "expect": "Confirm deletion of 1 items: protected.txt (y/N)"
+        },
+        {
+          "text": "n"
+        },
+        {
+          "expect_not": "Confirm deletion of 1 items: protected.txt (y/N)"
+        },
+        {
+          "expect": "All"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 21,
+      "snapshot_rows": [
+        2,
+        28
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "RANGER ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "RANGER BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "RANGER PROTECTED NEIGHBOR TOKEN\n",
+        "nested/notes café.txt": "RANGER NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "RANGER OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 000: ranger café 雪 TOKEN\nline 001: ranger café 雪 TOKEN\nline 002: ranger café 雪 TOKEN\nline 003: ranger café 雪 TOKEN\nline 004: ranger café 雪 TOKEN\nline 005: ranger café 雪 TOKEN\nline 006: ranger café 雪 TOKEN\nline 007: ranger café 雪 TOKEN\nline 008: ranger café 雪 TOKEN\nline 009: ranger café 雪 TOKEN\nline 010: ranger café 雪 TOKEN\nline 011: ranger café 雪 TOKEN\nline 012: ranger café 雪 TOKEN\nline 013: ranger café 雪 TOKEN\nline 014: ranger café 雪 TOKEN\nline 015: ranger café 雪 TOKEN\nline 016: ranger café 雪 TOKEN\nline 017: ranger café 雪 TOKEN\nline 018: ranger café 雪 TOKEN\nline 019: ranger café 雪 TOKEN\nline 020: ranger café 雪 TOKEN\nline 021: ranger café 雪 TOKEN\nline 022: ranger café 雪 TOKEN\nline 023: ranger café 雪 TOKEN\nline 024: ranger café 雪 TOKEN\nline 025: ranger café 雪 TOKEN\nline 026: ranger café 雪 TOKEN\nline 027: ranger café 雪 TOKEN\nline 028: ranger café 雪 TOKEN\nline 029: ranger café 雪 TOKEN\nline 030: ranger café 雪 TOKEN\nline 031: ranger café 雪 TOKEN\nline 032: ranger café 雪 TOKEN\nline 033: ranger café 雪 TOKEN\nline 034: ranger café 雪 TOKEN\nline 035: ranger café 雪 TOKEN\nline 036: ranger café 雪 TOKEN\nline 037: ranger café 雪 TOKEN\nline 038: ranger café 雪 TOKEN\nline 039: ranger café 雪 TOKEN\nline 040: ranger café 雪 TOKEN\nline 041: ranger café 雪 TOKEN\nline 042: ranger café 雪 TOKEN\nline 043: ranger café 雪 TOKEN\nline 044: ranger café 雪 TOKEN\nline 045: ranger café 雪 TOKEN\nline 046: ranger café 雪 TOKEN\nline 047: ranger café 雪 TOKEN\nline 048: ranger café 雪 TOKEN\nline 049: ranger café 雪 TOKEN\nline 050: ranger café 雪 TOKEN\nline 051: ranger café 雪 TOKEN\nline 052: ranger café 雪 TOKEN\nline 053: ranger café 雪 TOKEN\nline 054: ranger café 雪 TOKEN\nline 055: ranger café 雪 TOKEN\nline 056: ranger café 雪 TOKEN\nline 057: ranger café 雪 TOKEN\nline 058: ranger café 雪 TOKEN\nline 059: ranger café 雪 TOKEN\nline 060: ranger café 雪 TOKEN\nline 061: ranger café 雪 TOKEN\nline 062: ranger café 雪 TOKEN\nline 063: ranger café 雪 TOKEN\nline 064: ranger café 雪 TOKEN\nline 065: ranger café 雪 TOKEN\nline 066: ranger café 雪 TOKEN\nline 067: ranger café 雪 TOKEN\nline 068: ranger café 雪 TOKEN\nline 069: ranger café 雪 TOKEN\nline 070: ranger café 雪 TOKEN\nline 071: ranger café 雪 TOKEN\nline 072: ranger café 雪 TOKEN\nline 073: ranger café 雪 TOKEN\nline 074: ranger café 雪 TOKEN\nline 075: ranger café 雪 TOKEN\nline 076: ranger café 雪 TOKEN\nline 077: ranger café 雪 TOKEN\nline 078: ranger café 雪 TOKEN\nline 079: ranger café 雪 TOKEN\nline 080: ranger café 雪 TOKEN\nline 081: ranger café 雪 TOKEN\nline 082: ranger café 雪 TOKEN\nline 083: ranger café 雪 TOKEN\nline 084: ranger café 雪 TOKEN\nline 085: ranger café 雪 TOKEN\nline 086: ranger café 雪 TOKEN\nline 087: ranger café 雪 TOKEN\nline 088: ranger café 雪 TOKEN\nline 089: ranger café 雪 TOKEN\nline 090: ranger café 雪 TOKEN\nline 091: ranger café 雪 TOKEN\nline 092: ranger café 雪 TOKEN\nline 093: ranger café 雪 TOKEN\nline 094: ranger café 雪 TOKEN\nline 095: ranger café 雪 TOKEN\nline 096: ranger café 雪 TOKEN\nline 097: ranger café 雪 TOKEN\nline 098: ranger café 雪 TOKEN\nline 099: ranger café 雪 TOKEN\nline 100: ranger café 雪 TOKEN\nline 101: ranger café 雪 TOKEN\nline 102: ranger café 雪 TOKEN\nline 103: ranger café 雪 TOKEN\nline 104: ranger café 雪 TOKEN\nline 105: ranger café 雪 TOKEN\nline 106: ranger café 雪 TOKEN\nline 107: ranger café 雪 TOKEN\nline 108: ranger café 雪 TOKEN\nline 109: ranger café 雪 TOKEN\nline 110: ranger café 雪 TOKEN\nline 111: ranger café 雪 TOKEN\nline 112: ranger café 雪 TOKEN\nline 113: ranger café 雪 TOKEN\nline 114: ranger café 雪 TOKEN\nline 115: ranger café 雪 TOKEN\nline 116: ranger café 雪 TOKEN\nline 117: ranger café 雪 TOKEN\nline 118: ranger café 雪 TOKEN\nline 119: ranger café 雪 TOKEN\n"
+      },
+      "absent_paths": [],
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied"
+      ],
+      "empty_directories": [
+        "empty"
+      ],
+      "exact_tree": true,
+      "snapshot_exclusion": "Exclude random header path, login and dynamic footer; preserve live file/tree/pager body"
+    },
+    {
+      "name": "edge-key-prefix-cancel",
+      "kind": "edge",
+      "purpose": "Cancel an incomplete ordinary yank key chain, then perform useful search navigation",
+      "command": [
+        "ranger",
+        "--clean",
+        "--cmd=set preview_files true",
+        "--cmd=set use_preview_script false",
+        "--cmd=set confirm_on_delete always",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": "y"
+        },
+        {
+          "expect": " y"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": " y"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": ":search"
+        },
+        {
+          "text": "protected"
+        },
+        {
+          "expect": ":search protected"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": ":search protected"
+        },
+        {
+          "expect": "/fixture/protected.txt"
+        },
+        {
+          "expect": "RANGER PROTECTED NEIGHBOR TOKEN"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 13,
+      "snapshot_rows": [
+        2,
+        28
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "RANGER ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "RANGER BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "RANGER PROTECTED NEIGHBOR TOKEN\n",
+        "nested/notes café.txt": "RANGER NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "RANGER OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 000: ranger café 雪 TOKEN\nline 001: ranger café 雪 TOKEN\nline 002: ranger café 雪 TOKEN\nline 003: ranger café 雪 TOKEN\nline 004: ranger café 雪 TOKEN\nline 005: ranger café 雪 TOKEN\nline 006: ranger café 雪 TOKEN\nline 007: ranger café 雪 TOKEN\nline 008: ranger café 雪 TOKEN\nline 009: ranger café 雪 TOKEN\nline 010: ranger café 雪 TOKEN\nline 011: ranger café 雪 TOKEN\nline 012: ranger café 雪 TOKEN\nline 013: ranger café 雪 TOKEN\nline 014: ranger café 雪 TOKEN\nline 015: ranger café 雪 TOKEN\nline 016: ranger café 雪 TOKEN\nline 017: ranger café 雪 TOKEN\nline 018: ranger café 雪 TOKEN\nline 019: ranger café 雪 TOKEN\nline 020: ranger café 雪 TOKEN\nline 021: ranger café 雪 TOKEN\nline 022: ranger café 雪 TOKEN\nline 023: ranger café 雪 TOKEN\nline 024: ranger café 雪 TOKEN\nline 025: ranger café 雪 TOKEN\nline 026: ranger café 雪 TOKEN\nline 027: ranger café 雪 TOKEN\nline 028: ranger café 雪 TOKEN\nline 029: ranger café 雪 TOKEN\nline 030: ranger café 雪 TOKEN\nline 031: ranger café 雪 TOKEN\nline 032: ranger café 雪 TOKEN\nline 033: ranger café 雪 TOKEN\nline 034: ranger café 雪 TOKEN\nline 035: ranger café 雪 TOKEN\nline 036: ranger café 雪 TOKEN\nline 037: ranger café 雪 TOKEN\nline 038: ranger café 雪 TOKEN\nline 039: ranger café 雪 TOKEN\nline 040: ranger café 雪 TOKEN\nline 041: ranger café 雪 TOKEN\nline 042: ranger café 雪 TOKEN\nline 043: ranger café 雪 TOKEN\nline 044: ranger café 雪 TOKEN\nline 045: ranger café 雪 TOKEN\nline 046: ranger café 雪 TOKEN\nline 047: ranger café 雪 TOKEN\nline 048: ranger café 雪 TOKEN\nline 049: ranger café 雪 TOKEN\nline 050: ranger café 雪 TOKEN\nline 051: ranger café 雪 TOKEN\nline 052: ranger café 雪 TOKEN\nline 053: ranger café 雪 TOKEN\nline 054: ranger café 雪 TOKEN\nline 055: ranger café 雪 TOKEN\nline 056: ranger café 雪 TOKEN\nline 057: ranger café 雪 TOKEN\nline 058: ranger café 雪 TOKEN\nline 059: ranger café 雪 TOKEN\nline 060: ranger café 雪 TOKEN\nline 061: ranger café 雪 TOKEN\nline 062: ranger café 雪 TOKEN\nline 063: ranger café 雪 TOKEN\nline 064: ranger café 雪 TOKEN\nline 065: ranger café 雪 TOKEN\nline 066: ranger café 雪 TOKEN\nline 067: ranger café 雪 TOKEN\nline 068: ranger café 雪 TOKEN\nline 069: ranger café 雪 TOKEN\nline 070: ranger café 雪 TOKEN\nline 071: ranger café 雪 TOKEN\nline 072: ranger café 雪 TOKEN\nline 073: ranger café 雪 TOKEN\nline 074: ranger café 雪 TOKEN\nline 075: ranger café 雪 TOKEN\nline 076: ranger café 雪 TOKEN\nline 077: ranger café 雪 TOKEN\nline 078: ranger café 雪 TOKEN\nline 079: ranger café 雪 TOKEN\nline 080: ranger café 雪 TOKEN\nline 081: ranger café 雪 TOKEN\nline 082: ranger café 雪 TOKEN\nline 083: ranger café 雪 TOKEN\nline 084: ranger café 雪 TOKEN\nline 085: ranger café 雪 TOKEN\nline 086: ranger café 雪 TOKEN\nline 087: ranger café 雪 TOKEN\nline 088: ranger café 雪 TOKEN\nline 089: ranger café 雪 TOKEN\nline 090: ranger café 雪 TOKEN\nline 091: ranger café 雪 TOKEN\nline 092: ranger café 雪 TOKEN\nline 093: ranger café 雪 TOKEN\nline 094: ranger café 雪 TOKEN\nline 095: ranger café 雪 TOKEN\nline 096: ranger café 雪 TOKEN\nline 097: ranger café 雪 TOKEN\nline 098: ranger café 雪 TOKEN\nline 099: ranger café 雪 TOKEN\nline 100: ranger café 雪 TOKEN\nline 101: ranger café 雪 TOKEN\nline 102: ranger café 雪 TOKEN\nline 103: ranger café 雪 TOKEN\nline 104: ranger café 雪 TOKEN\nline 105: ranger café 雪 TOKEN\nline 106: ranger café 雪 TOKEN\nline 107: ranger café 雪 TOKEN\nline 108: ranger café 雪 TOKEN\nline 109: ranger café 雪 TOKEN\nline 110: ranger café 雪 TOKEN\nline 111: ranger café 雪 TOKEN\nline 112: ranger café 雪 TOKEN\nline 113: ranger café 雪 TOKEN\nline 114: ranger café 雪 TOKEN\nline 115: ranger café 雪 TOKEN\nline 116: ranger café 雪 TOKEN\nline 117: ranger café 雪 TOKEN\nline 118: ranger café 雪 TOKEN\nline 119: ranger café 雪 TOKEN\n"
+      },
+      "absent_paths": [],
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied"
+      ],
+      "empty_directories": [
+        "empty"
+      ],
+      "exact_tree": true,
+      "snapshot_exclusion": "Exclude random header path, login and dynamic footer; preserve live file/tree/pager body"
+    },
+    {
+      "name": "edge-resize-pager",
+      "kind": "edge",
+      "purpose": "Resize a live built-in pager, observe redraw and scroll before restoring the ordinary view",
+      "command": [
+        "ranger",
+        "--clean",
+        "--cmd=set preview_files true",
+        "--cmd=set use_preview_script false",
+        "--cmd=set confirm_on_delete always",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": ":search"
+        },
+        {
+          "text": "long"
+        },
+        {
+          "expect": ":search long"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": ":search long"
+        },
+        {
+          "expect": "/fixture/long.txt"
+        },
+        {
+          "expect": "line 000:"
+        },
+        {
+          "text": "i"
+        },
+        {
+          "expect_not": "alpha.txt"
+        },
+        {
+          "expect": "line 027:"
+        },
+        {
+          "resize": {
+            "width": 80,
+            "height": 24
+          }
+        },
+        {
+          "wait_for_redraw": true
+        },
+        {
+          "expect_not": "line 027:"
+        },
+        {
+          "expect": "line 021:"
+        },
+        {
+          "key": "PageDown"
+        },
+        {
+          "expect": "line 043:"
+        },
+        {
+          "expect_not": "line 000:"
+        },
+        {
+          "resize": {
+            "width": 100,
+            "height": 30
+          }
+        },
+        {
+          "wait_for_redraw": true
+        },
+        {
+          "expect": "line 049:"
+        },
+        {
+          "key": "Home"
+        },
+        {
+          "expect": "line 000:"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect": "protected.txt                  32 B"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 19,
+      "snapshot_rows": [
+        2,
+        22
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "RANGER ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "RANGER BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "RANGER PROTECTED NEIGHBOR TOKEN\n",
+        "nested/notes café.txt": "RANGER NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "RANGER OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 000: ranger café 雪 TOKEN\nline 001: ranger café 雪 TOKEN\nline 002: ranger café 雪 TOKEN\nline 003: ranger café 雪 TOKEN\nline 004: ranger café 雪 TOKEN\nline 005: ranger café 雪 TOKEN\nline 006: ranger café 雪 TOKEN\nline 007: ranger café 雪 TOKEN\nline 008: ranger café 雪 TOKEN\nline 009: ranger café 雪 TOKEN\nline 010: ranger café 雪 TOKEN\nline 011: ranger café 雪 TOKEN\nline 012: ranger café 雪 TOKEN\nline 013: ranger café 雪 TOKEN\nline 014: ranger café 雪 TOKEN\nline 015: ranger café 雪 TOKEN\nline 016: ranger café 雪 TOKEN\nline 017: ranger café 雪 TOKEN\nline 018: ranger café 雪 TOKEN\nline 019: ranger café 雪 TOKEN\nline 020: ranger café 雪 TOKEN\nline 021: ranger café 雪 TOKEN\nline 022: ranger café 雪 TOKEN\nline 023: ranger café 雪 TOKEN\nline 024: ranger café 雪 TOKEN\nline 025: ranger café 雪 TOKEN\nline 026: ranger café 雪 TOKEN\nline 027: ranger café 雪 TOKEN\nline 028: ranger café 雪 TOKEN\nline 029: ranger café 雪 TOKEN\nline 030: ranger café 雪 TOKEN\nline 031: ranger café 雪 TOKEN\nline 032: ranger café 雪 TOKEN\nline 033: ranger café 雪 TOKEN\nline 034: ranger café 雪 TOKEN\nline 035: ranger café 雪 TOKEN\nline 036: ranger café 雪 TOKEN\nline 037: ranger café 雪 TOKEN\nline 038: ranger café 雪 TOKEN\nline 039: ranger café 雪 TOKEN\nline 040: ranger café 雪 TOKEN\nline 041: ranger café 雪 TOKEN\nline 042: ranger café 雪 TOKEN\nline 043: ranger café 雪 TOKEN\nline 044: ranger café 雪 TOKEN\nline 045: ranger café 雪 TOKEN\nline 046: ranger café 雪 TOKEN\nline 047: ranger café 雪 TOKEN\nline 048: ranger café 雪 TOKEN\nline 049: ranger café 雪 TOKEN\nline 050: ranger café 雪 TOKEN\nline 051: ranger café 雪 TOKEN\nline 052: ranger café 雪 TOKEN\nline 053: ranger café 雪 TOKEN\nline 054: ranger café 雪 TOKEN\nline 055: ranger café 雪 TOKEN\nline 056: ranger café 雪 TOKEN\nline 057: ranger café 雪 TOKEN\nline 058: ranger café 雪 TOKEN\nline 059: ranger café 雪 TOKEN\nline 060: ranger café 雪 TOKEN\nline 061: ranger café 雪 TOKEN\nline 062: ranger café 雪 TOKEN\nline 063: ranger café 雪 TOKEN\nline 064: ranger café 雪 TOKEN\nline 065: ranger café 雪 TOKEN\nline 066: ranger café 雪 TOKEN\nline 067: ranger café 雪 TOKEN\nline 068: ranger café 雪 TOKEN\nline 069: ranger café 雪 TOKEN\nline 070: ranger café 雪 TOKEN\nline 071: ranger café 雪 TOKEN\nline 072: ranger café 雪 TOKEN\nline 073: ranger café 雪 TOKEN\nline 074: ranger café 雪 TOKEN\nline 075: ranger café 雪 TOKEN\nline 076: ranger café 雪 TOKEN\nline 077: ranger café 雪 TOKEN\nline 078: ranger café 雪 TOKEN\nline 079: ranger café 雪 TOKEN\nline 080: ranger café 雪 TOKEN\nline 081: ranger café 雪 TOKEN\nline 082: ranger café 雪 TOKEN\nline 083: ranger café 雪 TOKEN\nline 084: ranger café 雪 TOKEN\nline 085: ranger café 雪 TOKEN\nline 086: ranger café 雪 TOKEN\nline 087: ranger café 雪 TOKEN\nline 088: ranger café 雪 TOKEN\nline 089: ranger café 雪 TOKEN\nline 090: ranger café 雪 TOKEN\nline 091: ranger café 雪 TOKEN\nline 092: ranger café 雪 TOKEN\nline 093: ranger café 雪 TOKEN\nline 094: ranger café 雪 TOKEN\nline 095: ranger café 雪 TOKEN\nline 096: ranger café 雪 TOKEN\nline 097: ranger café 雪 TOKEN\nline 098: ranger café 雪 TOKEN\nline 099: ranger café 雪 TOKEN\nline 100: ranger café 雪 TOKEN\nline 101: ranger café 雪 TOKEN\nline 102: ranger café 雪 TOKEN\nline 103: ranger café 雪 TOKEN\nline 104: ranger café 雪 TOKEN\nline 105: ranger café 雪 TOKEN\nline 106: ranger café 雪 TOKEN\nline 107: ranger café 雪 TOKEN\nline 108: ranger café 雪 TOKEN\nline 109: ranger café 雪 TOKEN\nline 110: ranger café 雪 TOKEN\nline 111: ranger café 雪 TOKEN\nline 112: ranger café 雪 TOKEN\nline 113: ranger café 雪 TOKEN\nline 114: ranger café 雪 TOKEN\nline 115: ranger café 雪 TOKEN\nline 116: ranger café 雪 TOKEN\nline 117: ranger café 雪 TOKEN\nline 118: ranger café 雪 TOKEN\nline 119: ranger café 雪 TOKEN\n"
+      },
+      "absent_paths": [],
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied"
+      ],
+      "empty_directories": [
+        "empty"
+      ],
+      "exact_tree": true,
+      "snapshot_exclusion": "Exclude random header path, login and dynamic footer; preserve live file/tree/pager body"
+    },
+    {
+      "name": "edge-large-directory",
+      "kind": "edge",
+      "purpose": "Navigate to the last entry of a 200-file tree, inspect it and return home",
+      "command": [
+        "ranger",
+        "--clean",
+        "--cmd=set preview_files true",
+        "--cmd=set use_preview_script false",
+        "--cmd=set confirm_on_delete always",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "/fixture/file 000.txt"
+        },
+        {
+          "text": "G"
+        },
+        {
+          "expect": "/fixture/file 199.txt"
+        },
+        {
+          "expect": "RANGER BULK 199 TOKEN"
+        },
+        {
+          "key": "Home"
+        },
+        {
+          "expect": "/fixture/file 000.txt"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 4,
+      "snapshot_rows": [
+        2,
+        28
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "file 000.txt": "RANGER BULK 000 TOKEN\n",
+        "file 001.txt": "RANGER BULK 001 TOKEN\n",
+        "file 002.txt": "RANGER BULK 002 TOKEN\n",
+        "file 003.txt": "RANGER BULK 003 TOKEN\n",
+        "file 004.txt": "RANGER BULK 004 TOKEN\n",
+        "file 005.txt": "RANGER BULK 005 TOKEN\n",
+        "file 006.txt": "RANGER BULK 006 TOKEN\n",
+        "file 007.txt": "RANGER BULK 007 TOKEN\n",
+        "file 008.txt": "RANGER BULK 008 TOKEN\n",
+        "file 009.txt": "RANGER BULK 009 TOKEN\n",
+        "file 010.txt": "RANGER BULK 010 TOKEN\n",
+        "file 011.txt": "RANGER BULK 011 TOKEN\n",
+        "file 012.txt": "RANGER BULK 012 TOKEN\n",
+        "file 013.txt": "RANGER BULK 013 TOKEN\n",
+        "file 014.txt": "RANGER BULK 014 TOKEN\n",
+        "file 015.txt": "RANGER BULK 015 TOKEN\n",
+        "file 016.txt": "RANGER BULK 016 TOKEN\n",
+        "file 017.txt": "RANGER BULK 017 TOKEN\n",
+        "file 018.txt": "RANGER BULK 018 TOKEN\n",
+        "file 019.txt": "RANGER BULK 019 TOKEN\n",
+        "file 020.txt": "RANGER BULK 020 TOKEN\n",
+        "file 021.txt": "RANGER BULK 021 TOKEN\n",
+        "file 022.txt": "RANGER BULK 022 TOKEN\n",
+        "file 023.txt": "RANGER BULK 023 TOKEN\n",
+        "file 024.txt": "RANGER BULK 024 TOKEN\n",
+        "file 025.txt": "RANGER BULK 025 TOKEN\n",
+        "file 026.txt": "RANGER BULK 026 TOKEN\n",
+        "file 027.txt": "RANGER BULK 027 TOKEN\n",
+        "file 028.txt": "RANGER BULK 028 TOKEN\n",
+        "file 029.txt": "RANGER BULK 029 TOKEN\n",
+        "file 030.txt": "RANGER BULK 030 TOKEN\n",
+        "file 031.txt": "RANGER BULK 031 TOKEN\n",
+        "file 032.txt": "RANGER BULK 032 TOKEN\n",
+        "file 033.txt": "RANGER BULK 033 TOKEN\n",
+        "file 034.txt": "RANGER BULK 034 TOKEN\n",
+        "file 035.txt": "RANGER BULK 035 TOKEN\n",
+        "file 036.txt": "RANGER BULK 036 TOKEN\n",
+        "file 037.txt": "RANGER BULK 037 TOKEN\n",
+        "file 038.txt": "RANGER BULK 038 TOKEN\n",
+        "file 039.txt": "RANGER BULK 039 TOKEN\n",
+        "file 040.txt": "RANGER BULK 040 TOKEN\n",
+        "file 041.txt": "RANGER BULK 041 TOKEN\n",
+        "file 042.txt": "RANGER BULK 042 TOKEN\n",
+        "file 043.txt": "RANGER BULK 043 TOKEN\n",
+        "file 044.txt": "RANGER BULK 044 TOKEN\n",
+        "file 045.txt": "RANGER BULK 045 TOKEN\n",
+        "file 046.txt": "RANGER BULK 046 TOKEN\n",
+        "file 047.txt": "RANGER BULK 047 TOKEN\n",
+        "file 048.txt": "RANGER BULK 048 TOKEN\n",
+        "file 049.txt": "RANGER BULK 049 TOKEN\n",
+        "file 050.txt": "RANGER BULK 050 TOKEN\n",
+        "file 051.txt": "RANGER BULK 051 TOKEN\n",
+        "file 052.txt": "RANGER BULK 052 TOKEN\n",
+        "file 053.txt": "RANGER BULK 053 TOKEN\n",
+        "file 054.txt": "RANGER BULK 054 TOKEN\n",
+        "file 055.txt": "RANGER BULK 055 TOKEN\n",
+        "file 056.txt": "RANGER BULK 056 TOKEN\n",
+        "file 057.txt": "RANGER BULK 057 TOKEN\n",
+        "file 058.txt": "RANGER BULK 058 TOKEN\n",
+        "file 059.txt": "RANGER BULK 059 TOKEN\n",
+        "file 060.txt": "RANGER BULK 060 TOKEN\n",
+        "file 061.txt": "RANGER BULK 061 TOKEN\n",
+        "file 062.txt": "RANGER BULK 062 TOKEN\n",
+        "file 063.txt": "RANGER BULK 063 TOKEN\n",
+        "file 064.txt": "RANGER BULK 064 TOKEN\n",
+        "file 065.txt": "RANGER BULK 065 TOKEN\n",
+        "file 066.txt": "RANGER BULK 066 TOKEN\n",
+        "file 067.txt": "RANGER BULK 067 TOKEN\n",
+        "file 068.txt": "RANGER BULK 068 TOKEN\n",
+        "file 069.txt": "RANGER BULK 069 TOKEN\n",
+        "file 070.txt": "RANGER BULK 070 TOKEN\n",
+        "file 071.txt": "RANGER BULK 071 TOKEN\n",
+        "file 072.txt": "RANGER BULK 072 TOKEN\n",
+        "file 073.txt": "RANGER BULK 073 TOKEN\n",
+        "file 074.txt": "RANGER BULK 074 TOKEN\n",
+        "file 075.txt": "RANGER BULK 075 TOKEN\n",
+        "file 076.txt": "RANGER BULK 076 TOKEN\n",
+        "file 077.txt": "RANGER BULK 077 TOKEN\n",
+        "file 078.txt": "RANGER BULK 078 TOKEN\n",
+        "file 079.txt": "RANGER BULK 079 TOKEN\n",
+        "file 080.txt": "RANGER BULK 080 TOKEN\n",
+        "file 081.txt": "RANGER BULK 081 TOKEN\n",
+        "file 082.txt": "RANGER BULK 082 TOKEN\n",
+        "file 083.txt": "RANGER BULK 083 TOKEN\n",
+        "file 084.txt": "RANGER BULK 084 TOKEN\n",
+        "file 085.txt": "RANGER BULK 085 TOKEN\n",
+        "file 086.txt": "RANGER BULK 086 TOKEN\n",
+        "file 087.txt": "RANGER BULK 087 TOKEN\n",
+        "file 088.txt": "RANGER BULK 088 TOKEN\n",
+        "file 089.txt": "RANGER BULK 089 TOKEN\n",
+        "file 090.txt": "RANGER BULK 090 TOKEN\n",
+        "file 091.txt": "RANGER BULK 091 TOKEN\n",
+        "file 092.txt": "RANGER BULK 092 TOKEN\n",
+        "file 093.txt": "RANGER BULK 093 TOKEN\n",
+        "file 094.txt": "RANGER BULK 094 TOKEN\n",
+        "file 095.txt": "RANGER BULK 095 TOKEN\n",
+        "file 096.txt": "RANGER BULK 096 TOKEN\n",
+        "file 097.txt": "RANGER BULK 097 TOKEN\n",
+        "file 098.txt": "RANGER BULK 098 TOKEN\n",
+        "file 099.txt": "RANGER BULK 099 TOKEN\n",
+        "file 100.txt": "RANGER BULK 100 TOKEN\n",
+        "file 101.txt": "RANGER BULK 101 TOKEN\n",
+        "file 102.txt": "RANGER BULK 102 TOKEN\n",
+        "file 103.txt": "RANGER BULK 103 TOKEN\n",
+        "file 104.txt": "RANGER BULK 104 TOKEN\n",
+        "file 105.txt": "RANGER BULK 105 TOKEN\n",
+        "file 106.txt": "RANGER BULK 106 TOKEN\n",
+        "file 107.txt": "RANGER BULK 107 TOKEN\n",
+        "file 108.txt": "RANGER BULK 108 TOKEN\n",
+        "file 109.txt": "RANGER BULK 109 TOKEN\n",
+        "file 110.txt": "RANGER BULK 110 TOKEN\n",
+        "file 111.txt": "RANGER BULK 111 TOKEN\n",
+        "file 112.txt": "RANGER BULK 112 TOKEN\n",
+        "file 113.txt": "RANGER BULK 113 TOKEN\n",
+        "file 114.txt": "RANGER BULK 114 TOKEN\n",
+        "file 115.txt": "RANGER BULK 115 TOKEN\n",
+        "file 116.txt": "RANGER BULK 116 TOKEN\n",
+        "file 117.txt": "RANGER BULK 117 TOKEN\n",
+        "file 118.txt": "RANGER BULK 118 TOKEN\n",
+        "file 119.txt": "RANGER BULK 119 TOKEN\n",
+        "file 120.txt": "RANGER BULK 120 TOKEN\n",
+        "file 121.txt": "RANGER BULK 121 TOKEN\n",
+        "file 122.txt": "RANGER BULK 122 TOKEN\n",
+        "file 123.txt": "RANGER BULK 123 TOKEN\n",
+        "file 124.txt": "RANGER BULK 124 TOKEN\n",
+        "file 125.txt": "RANGER BULK 125 TOKEN\n",
+        "file 126.txt": "RANGER BULK 126 TOKEN\n",
+        "file 127.txt": "RANGER BULK 127 TOKEN\n",
+        "file 128.txt": "RANGER BULK 128 TOKEN\n",
+        "file 129.txt": "RANGER BULK 129 TOKEN\n",
+        "file 130.txt": "RANGER BULK 130 TOKEN\n",
+        "file 131.txt": "RANGER BULK 131 TOKEN\n",
+        "file 132.txt": "RANGER BULK 132 TOKEN\n",
+        "file 133.txt": "RANGER BULK 133 TOKEN\n",
+        "file 134.txt": "RANGER BULK 134 TOKEN\n",
+        "file 135.txt": "RANGER BULK 135 TOKEN\n",
+        "file 136.txt": "RANGER BULK 136 TOKEN\n",
+        "file 137.txt": "RANGER BULK 137 TOKEN\n",
+        "file 138.txt": "RANGER BULK 138 TOKEN\n",
+        "file 139.txt": "RANGER BULK 139 TOKEN\n",
+        "file 140.txt": "RANGER BULK 140 TOKEN\n",
+        "file 141.txt": "RANGER BULK 141 TOKEN\n",
+        "file 142.txt": "RANGER BULK 142 TOKEN\n",
+        "file 143.txt": "RANGER BULK 143 TOKEN\n",
+        "file 144.txt": "RANGER BULK 144 TOKEN\n",
+        "file 145.txt": "RANGER BULK 145 TOKEN\n",
+        "file 146.txt": "RANGER BULK 146 TOKEN\n",
+        "file 147.txt": "RANGER BULK 147 TOKEN\n",
+        "file 148.txt": "RANGER BULK 148 TOKEN\n",
+        "file 149.txt": "RANGER BULK 149 TOKEN\n",
+        "file 150.txt": "RANGER BULK 150 TOKEN\n",
+        "file 151.txt": "RANGER BULK 151 TOKEN\n",
+        "file 152.txt": "RANGER BULK 152 TOKEN\n",
+        "file 153.txt": "RANGER BULK 153 TOKEN\n",
+        "file 154.txt": "RANGER BULK 154 TOKEN\n",
+        "file 155.txt": "RANGER BULK 155 TOKEN\n",
+        "file 156.txt": "RANGER BULK 156 TOKEN\n",
+        "file 157.txt": "RANGER BULK 157 TOKEN\n",
+        "file 158.txt": "RANGER BULK 158 TOKEN\n",
+        "file 159.txt": "RANGER BULK 159 TOKEN\n",
+        "file 160.txt": "RANGER BULK 160 TOKEN\n",
+        "file 161.txt": "RANGER BULK 161 TOKEN\n",
+        "file 162.txt": "RANGER BULK 162 TOKEN\n",
+        "file 163.txt": "RANGER BULK 163 TOKEN\n",
+        "file 164.txt": "RANGER BULK 164 TOKEN\n",
+        "file 165.txt": "RANGER BULK 165 TOKEN\n",
+        "file 166.txt": "RANGER BULK 166 TOKEN\n",
+        "file 167.txt": "RANGER BULK 167 TOKEN\n",
+        "file 168.txt": "RANGER BULK 168 TOKEN\n",
+        "file 169.txt": "RANGER BULK 169 TOKEN\n",
+        "file 170.txt": "RANGER BULK 170 TOKEN\n",
+        "file 171.txt": "RANGER BULK 171 TOKEN\n",
+        "file 172.txt": "RANGER BULK 172 TOKEN\n",
+        "file 173.txt": "RANGER BULK 173 TOKEN\n",
+        "file 174.txt": "RANGER BULK 174 TOKEN\n",
+        "file 175.txt": "RANGER BULK 175 TOKEN\n",
+        "file 176.txt": "RANGER BULK 176 TOKEN\n",
+        "file 177.txt": "RANGER BULK 177 TOKEN\n",
+        "file 178.txt": "RANGER BULK 178 TOKEN\n",
+        "file 179.txt": "RANGER BULK 179 TOKEN\n",
+        "file 180.txt": "RANGER BULK 180 TOKEN\n",
+        "file 181.txt": "RANGER BULK 181 TOKEN\n",
+        "file 182.txt": "RANGER BULK 182 TOKEN\n",
+        "file 183.txt": "RANGER BULK 183 TOKEN\n",
+        "file 184.txt": "RANGER BULK 184 TOKEN\n",
+        "file 185.txt": "RANGER BULK 185 TOKEN\n",
+        "file 186.txt": "RANGER BULK 186 TOKEN\n",
+        "file 187.txt": "RANGER BULK 187 TOKEN\n",
+        "file 188.txt": "RANGER BULK 188 TOKEN\n",
+        "file 189.txt": "RANGER BULK 189 TOKEN\n",
+        "file 190.txt": "RANGER BULK 190 TOKEN\n",
+        "file 191.txt": "RANGER BULK 191 TOKEN\n",
+        "file 192.txt": "RANGER BULK 192 TOKEN\n",
+        "file 193.txt": "RANGER BULK 193 TOKEN\n",
+        "file 194.txt": "RANGER BULK 194 TOKEN\n",
+        "file 195.txt": "RANGER BULK 195 TOKEN\n",
+        "file 196.txt": "RANGER BULK 196 TOKEN\n",
+        "file 197.txt": "RANGER BULK 197 TOKEN\n",
+        "file 198.txt": "RANGER BULK 198 TOKEN\n",
+        "file 199.txt": "RANGER BULK 199 TOKEN\n"
+      },
+      "absent_paths": [],
+      "expected_directories": [],
+      "empty_directories": [],
+      "exact_tree": true,
+      "snapshot_exclusion": "Exclude random header path, login and dynamic footer; preserve live file/tree/pager body",
+      "fixture": "fixtures-large"
+    }
+  ]
+}

@@ -14,8 +14,25 @@ from adversarial_process import run
 from adversarial_journey import check_state
 from adversarial_fixture_directories import prepare
 from adversarial_project_maintenance import copy_spec_fixture
+from adversarial_setup_python import source_identity
 
 class NativeHarnessControls(unittest.TestCase):
+    def test_interpreted_identity_tracks_contained_links_and_rejects_escape(self):
+        with tempfile.TemporaryDirectory(prefix='playtestr-interpreted-source-') as directory:
+            root=Path(directory);source=root/'source';source.mkdir()
+            target=source/'actual.py';target.write_bytes(b'approved = True\n')
+            link=source/'documented.py'
+            try:link.symlink_to('actual.py')
+            except OSError as error:self.skipTest('Native file-link prerequisite unavailable: '+str(error))
+            before=source_identity(source)
+            self.assertEqual(before['files_sha256']['actual.py'],before['files_sha256']['documented.py'])
+            target.write_bytes(b'approved = False\n')
+            self.assertNotEqual(before['digest'],source_identity(source)['digest'])
+            outside=root/'outside.py';outside.write_bytes(b'private = True\n')
+            link.unlink();link.symlink_to('../outside.py')
+            with self.assertRaisesRegex(RuntimeError,'Unsafe interpreted source'):
+                source_identity(source)
+
     def test_exact_tree_rejects_collateral_hidden_file(self):
         with tempfile.TemporaryDirectory(prefix='playtestr-workspace-oracle-') as root:
             working=Path(root)/'fixture';working.mkdir()

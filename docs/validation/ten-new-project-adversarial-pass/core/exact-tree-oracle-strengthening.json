@@ -26,5 +26,19 @@
     "nnn"
   ],
   "existing_contracts_changed": false,
-  "final_credit": 0
+  "final_credit": 0,
+  "native_verification": {
+    "run": 38637442983,
+    "source": "0d41e269a2b27dc09130f1806d5ef4c36ec0a2a4",
+    "all_three_core_jobs": "success",
+    "actual_harness_log_lines": [
+      "controls (ubuntu-24.04)\tNative bounded process and state oracle calibration\t\ufeff2026-10-14T21:05:26.6820633Z ##[group]Run python -m unittest discover -s scripts/acceptance -p test_adversarial_harness.py -v",
+      "controls (ubuntu-24.04)\tNative bounded process and state oracle calibration\t2026-10-14T21:05:44.9961650Z Ran 26 tests in 17.973s",
+      "controls (windows-2025)\tNative bounded process and state oracle calibration\t\ufeff2026-10-14T21:06:00.9790026Z ##[group]Run python -m unittest discover -s scripts/acceptance -p test_adversarial_harness.py -v",
+      "controls (windows-2025)\tNative bounded process and state oracle calibration\t2026-10-14T21:06:13.1244584Z Ran 26 tests in 4.190s",
+      "controls (macos-15)\tNative bounded process and state oracle calibration\t\ufeff2026-10-14T21:05:43.2737290Z ##[group]Run python -m unittest discover -s scripts/acceptance -p test_adversarial_harness.py -v",
+      "controls (macos-15)\tNative bounded process and state oracle calibration\t2026-10-14T21:06:02.3839280Z Ran 26 tests in 18.371s"
+    ],
+    "log_evidence_id": "fa1072063adc4e24ad03b7449568b3a9"
+  }
 }

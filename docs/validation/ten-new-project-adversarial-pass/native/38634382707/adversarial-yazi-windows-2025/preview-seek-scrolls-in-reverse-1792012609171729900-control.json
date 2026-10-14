@@ -1,0 +1,59 @@
+{
+  "name": "preview-seek-scrolls-in-reverse",
+  "source_file": "yazi-plugin/preset/plugins/code.lua",
+  "original_sha256": "471ec059118c76882a05f5ab7017d826416d1737a81cfca0723f869e27164279",
+  "mutated_sha256": "a208864396a0df8cc7fbb691da8c567b205faf5852ed810b76e1889f51bed587",
+  "case": "normal-long-preview",
+  "pristine_target_binary_sha256": "87162d5aeae89a830f077f34f1fe5d815d2a23c712b8891537e6a8f6f4eea491",
+  "contract_sha256": {
+    "normal-long-preview.json": "a4c9fd18daac3754f6de824721909ffcec4238217dcf2b9e1ad23838d1f2cc4b",
+    "snapshots\\edge-cancel-create.rows.json": "4b50d370cfdf6b5baf8cc69caf0d9eb68985ff7a573674322be7099a7efe2ef8",
+    "snapshots\\edge-cancel-rename.rows.json": "4b50d370cfdf6b5baf8cc69caf0d9eb68985ff7a573674322be7099a7efe2ef8",
+    "snapshots\\edge-delete-cancelled.rows.json": "4b50d370cfdf6b5baf8cc69caf0d9eb68985ff7a573674322be7099a7efe2ef8",
+    "snapshots\\edge-empty-directory-windows.rows.json": "be67966d468edb748a36006a4a1ceb8e174bbdd1d8ee60a17aa1e2ab108e7f7f",
+    "snapshots\\edge-empty-directory.rows.json": "be67966d468edb748a36006a4a1ceb8e174bbdd1d8ee60a17aa1e2ab108e7f7f",
+    "snapshots\\edge-no-match-recovery.rows.json": "0089c681cbd6a1966f69f927fdc774457bb0b7e07b23550b3b552c65fc2f4682",
+    "snapshots\\edge-overwrite-declined.rows.json": "4b50d370cfdf6b5baf8cc69caf0d9eb68985ff7a573674322be7099a7efe2ef8",
+    "snapshots\\edge-resize-preview.rows.json": "d73f77743f6a1762fc89f001c7cfd964bc5582d5940460ed4dfc20379c1cdd81",
+    "snapshots\\explore-startup.rows.json": "50b121e65f8373cab1e19e8106bb2c1f54667758df08376983ef8c747dfc7b3c",
+    "snapshots\\normal-copy-windows.rows.json": "d6475e6922dc9258896ab7c70ef97d518c04a9e24a2ddcf8b974d755072d7fbc",
+    "snapshots\\normal-copy.rows.json": "d6475e6922dc9258896ab7c70ef97d518c04a9e24a2ddcf8b974d755072d7fbc",
+    "snapshots\\normal-directory-windows.rows.json": "3f761f6d531978c399de81a228968957c52ab4aa17ee3d900ab5271969316e92",
+    "snapshots\\normal-directory.rows.json": "3f761f6d531978c399de81a228968957c52ab4aa17ee3d900ab5271969316e92",
+    "snapshots\\normal-long-preview.rows.json": "16e01a19076bccaeda9c48aa9d26d402fbea46632c522edf63312c2c6c86a844",
+    "snapshots\\normal-move-windows.rows.json": "e0b26a4f07fa70c1440db947401a46060630e7a5db85bb39d837be328be1f569",
+    "snapshots\\normal-move.rows.json": "e0b26a4f07fa70c1440db947401a46060630e7a5db85bb39d837be328be1f569",
+    "snapshots\\normal-nested-navigation-windows.rows.json": "b08141ecd39aa0624691716c0655aad7c8a751a4505d45b9e6ca9a03b5b9b9a4",
+    "snapshots\\normal-nested-navigation.rows.json": "b08141ecd39aa0624691716c0655aad7c8a751a4505d45b9e6ca9a03b5b9b9a4",
+    "snapshots\\normal-project.rows.json": "c3a695b2caec1538f32c4f1777c29a0636070220195707e8d4ac89dc96446c5f",
+    "snapshots\\normal-rename.rows.json": "7d331dd52d337c9b29e02560f24fa838a8a0b780bb29d10ed9f21d2fefda5de2",
+    "snapshots\\ux-first-pass.rows.json": "c3a695b2caec1538f32c4f1777c29a0636070220195707e8d4ac89dc96446c5f"
+  },
+  "negative_probe_wall_timeout_seconds": 30,
+  "mutated_target_binary_sha256": "d98f014bdefcc6d2434b768914d2da4b767a981d3a2f634e85775a4847397f18",
+  "mutation_profile_cleanup": {
+    "profile": "release-windows",
+    "packages": [
+      "yazi-plugin",
+      "yazi-runner",
+      "yazi-fm"
+    ],
+    "removed_files": 39
+  },
+  "category": "assertion_timeout",
+  "evidence_id": "a1eccab1983c45daab3cf8931d23c926",
+  "report": "artifacts/ten-new-project-adversarial-pass/yazi/preview-seek-scrolls-in-reverse-1792012609171729900.json",
+  "restoration_profile_cleanup": {
+    "profile": "release-windows",
+    "packages": [
+      "yazi-plugin",
+      "yazi-runner",
+      "yazi-fm"
+    ],
+    "removed_files": 39
+  },
+  "restored": true,
+  "recovery_id": "5c906c80d7904b6c99830d90512c4ea0",
+  "contracts_unchanged": true,
+  "restored_target_binary_sha256": "87162d5aeae89a830f077f34f1fe5d815d2a23c712b8891537e6a8f6f4eea491"
+}
