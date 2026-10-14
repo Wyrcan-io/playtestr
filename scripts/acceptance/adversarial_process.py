@@ -184,6 +184,46 @@ def contract_identity(project, argv):
     return {'manifest':manifest.relative_to(DOC).as_posix(),'sha256':digest,
             'runner_sha256':identity.get('runner_sha256'),'target_revision':identity.get('target_revision')}
 
+async def unix_process_inventory():
+    """Read bounded PID/parent/birth identities without commands or environment."""
+    inspector=await asyncio.create_subprocess_exec('ps','-axo','pid=,ppid=,lstart=',
+        stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.DEVNULL,
+        env=dict(os.environ,LC_ALL='C'))
+    try:
+        async def read_inventory():
+            data=bytearray()
+            while block:=await inspector.stdout.read(16384):
+                if len(data)+len(block)>1024*1024:
+                    raise RuntimeError('Owned process inventory output bound')
+                data.extend(block)
+            return data
+        data=await asyncio.wait_for(read_inventory(),timeout=3)
+        if await asyncio.wait_for(inspector.wait(),timeout=1)!=0:
+            raise RuntimeError('Owned process inventory failed')
+        rows={}
+        for line in data.decode('utf-8',errors='strict').splitlines():
+            values=line.split(None,2)
+            if len(values)!=3:raise RuntimeError('Malformed native process identity')
+            rows[int(values[0])]=(int(values[1]),values[2])
+        return rows
+    finally:
+        if inspector.returncode is None:
+            inspector.kill()
+            await asyncio.wait_for(inspector.wait(),timeout=2)
+        await close_transport(inspector)
+
+
+def owned_descendants(rows,pid):
+    owned={pid} if pid in rows else set()
+    for _ in range(32):
+        added={child for child,(parent,_) in rows.items() if parent in owned and child not in owned}
+        if not added:break
+        owned.update(added)
+    else:raise RuntimeError('Owned process tree depth bound')
+    if len(owned)>4096:raise RuntimeError('Owned process tree count bound')
+    return {child:rows[child] for child in owned}
+
+
 async def stop(proc):
     if os.name=='nt':
         if proc.returncode is not None:
@@ -198,10 +238,28 @@ async def stop(proc):
                 await asyncio.wait_for(killer.wait(),timeout=2)
             await close_transport(killer)
     else:
+        before=await unix_process_inventory()
+        owned=owned_descendants(before,proc.pid)
         try:
-            os.killpg(proc.pid,signal.SIGKILL)
+            os.killpg(proc.pid,signal.SIGINT)
         except ProcessLookupError:
             pass
+        # Python asyncio helpers and the public CLI handle Interrupt. Give
+        # their finally/context cleanup a bounded chance before forced shutdown.
+        # PIPE backpressure can prevent wait completion; force after this bound.
+        if proc.returncode is None:
+            try:await asyncio.wait_for(asyncio.shield(proc.wait()),timeout=5)
+            except asyncio.TimeoutError:pass
+        current=await unix_process_inventory()
+        if current.get(proc.pid)==before.get(proc.pid) and proc.pid in current:
+            owned.update(owned_descendants(current,proc.pid))
+        for pid,identity in owned.items():
+            # Birth identity guards against reuse after graceful parent exit.
+            if pid not in current or current[pid][1]!=identity[1]:continue
+            try:os.kill(pid,signal.SIGKILL)
+            except ProcessLookupError:pass
+        try:os.killpg(proc.pid,signal.SIGKILL)
+        except ProcessLookupError:pass
     # Waiting before draining a full PIPE can deadlock asyncio's transport.
     # The caller drains bounded output first, then reaps the process.
 
@@ -280,6 +338,14 @@ async def execute(argv,project,label,*,cwd=ROOT,env=None,input=None,timeout=120,
             raise RuntimeError(f'{label}: expected exit {expected}, got {result}; {directory}')
         return dict(id=run_id,output=output.decode('utf-8',errors='replace'),directory=directory,
                     returncode=result,seconds=time.monotonic()-start)
+    except asyncio.CancelledError as error:
+        original_error=error
+        error.evidence_id=run_id
+        error.evidence_directory=str(directory)
+        category='harness_cancelled'
+        (directory/'harness-error.json').write_text(json.dumps(dict(
+            type=type(error).__name__,message='independent command cancelled'),indent=2)+'\n',encoding='utf-8')
+        raise
     except asyncio.TimeoutError as error:
         original_error=error
         error.evidence_id=run_id

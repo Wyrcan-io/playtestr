@@ -1,0 +1,22 @@
+{
+  "before": {
+    "one_all_case_stage_seconds": 1200,
+    "completed_ordinary_repetitions": 104,
+    "required": 140,
+    "result": "aggregate orchestration timeout; no qualification"
+  },
+  "after": {
+    "grouping": "One scenario per bounded repetition subprocess",
+    "ordinary_per_group": 10,
+    "separate_state_probes_per_group": 10,
+    "group_wall_seconds": 600,
+    "hosted_job_wall_minutes": 90
+  },
+  "product_bounds_unchanged": {
+    "step_timeout_ms": 10000,
+    "whole_test_timeout_ms": 120000,
+    "negative_probe_wall_seconds": 30
+  },
+  "scope": "Technical orchestration allowance on standard GitHub-hosted runners; no paid runner or monetary budget change",
+  "actual_corrected_native_execution": "pending"
+}

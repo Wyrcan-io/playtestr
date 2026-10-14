@@ -16,6 +16,30 @@ from adversarial_fixture_directories import prepare
 from adversarial_project_maintenance import copy_spec_fixture
 
 class NativeHarnessControls(unittest.TestCase):
+    @unittest.skipIf(os.name=='nt','Unix nested sessions require native process-group diagnosis')
+    def test_outer_timeout_reaps_nested_helper_session(self):
+        import signal
+        with tempfile.TemporaryDirectory(prefix='playtestr-nested-cleanup-') as root:
+            pidfile=Path(root)/'owned-child.pid'
+            child='import os,pathlib,time; pathlib.Path('+repr(str(pidfile))+').write_text(str(os.getpid())); time.sleep(60)'
+            helper=('import sys; sys.path.insert(0,'+repr(str(adversarial_process.ROOT/'scripts/acceptance'))+'); '
+                    'from adversarial_process import run; run([sys.executable,"-c",'+repr(child)+'], '
+                    '"harness-controls","owned-nested-child",timeout=60)')
+            pid=None
+            try:
+                with self.assertRaises(asyncio.TimeoutError):
+                    run([sys.executable,'-c',helper],'harness-controls','outer-nested-deadline',timeout=5)
+                self.assertTrue(pidfile.is_file(),'Controlled nested child never launched')
+                pid=int(pidfile.read_text(encoding='utf-8'))
+                try:os.kill(pid,0)
+                except ProcessLookupError:pass
+                else:self.fail('Outer deadline left its owned nested child session alive')
+            finally:
+                if pid is None and pidfile.exists():pid=int(pidfile.read_text(encoding='utf-8'))
+                if pid is not None:
+                    try:os.killpg(pid,signal.SIGKILL)
+                    except ProcessLookupError:pass
+
     def test_command_deadline_includes_contract_capture(self):
         def delayed_identity(project,argv):
             time.sleep(0.3)

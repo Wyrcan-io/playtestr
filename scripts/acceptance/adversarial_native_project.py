@@ -62,8 +62,10 @@ def main():
     if go_project or rust_project:
         mutation+=['--project',project]
     run(mutation,project,'native-regressions-and-state-corruption',timeout=1800 if rust_project else 600 if go_project else 180)
-    run([sys.executable,helper,'final',project,'--binary',binary],
-        project,'native-development-repetitions',timeout=1200)
+    repetition_config=json.loads((DOC/project/'scenarios.json').read_text(encoding='utf-8'))
+    for case in repetition_config['cases']:
+        run([sys.executable,helper,'final',project,'--case',case['name'],'--binary',binary],
+            project,'native-repetitions-'+case['name'],timeout=600)
     run([sys.executable,budget,project,'--label','after-native'],project,'native-budget-after',timeout=90)
     config=json.loads((DOC/project/'scenarios.json').read_text(encoding='utf-8'))
     diagnostic=config.get('windows_target_race_check')

@@ -1,0 +1,24 @@
+{
+  "finding": "General campaign lifecycle repair",
+  "actual_native_failure_run": "38529722350",
+  "failed_aggregate_stage": "native-development-repetitions",
+  "main_stage_seconds": 1200.0095,
+  "ordinary_repetitions_completed_before_interruption": 104,
+  "project_qualified": false,
+  "actual_host_orphan": "GitHub post-job cleanup reaped a playtestr process after abrupt orchestration termination",
+  "before": {
+    "control": "test_outer_timeout_reaps_nested_helper_session",
+    "native_host": "WSL Linux",
+    "outcome": "FAIL: Outer deadline left its owned nested child session alive",
+    "elapsed_seconds": 5.153
+  },
+  "after": {
+    "same_real_control_passed": true,
+    "elapsed_seconds": 5.268,
+    "all_native_harness_calibrations": 21,
+    "Windows_skips": 3,
+    "WSL_skips": 2
+  },
+  "repair": "Bounded native PID/parent/birth inventory, graceful Interrupt for owned Python/CLI cleanup, then forced removal of captured matching-birth descendants. Separate cancellation outcomes are retained.",
+  "limits": "Visible native process inventory; no sandbox or guarantee against arbitrary untrusted adversarial process creation"
+}
