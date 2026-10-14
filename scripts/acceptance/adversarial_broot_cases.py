@@ -2,6 +2,31 @@
 import json
 from adversarial_process import DOC
 
+def large_files():
+    files={f'group-{group:03d}/entry-{entry:03d}.txt':
+           f'LARGE BACKGROUND FILE {group:03d} {entry:03d}\n'
+           for group in range(25) for entry in range(20)}
+    files['group-024/needle café.txt']='LARGE DATA BRANCHED UNIQUE RESULT\nPreserve this exact Unicode file.\n'
+    files['.configuration/broot.hjson']=json.dumps({'show_selection_mark':True,'true_colors':False,
+        'enable_kitty_keyboard':False,'quit_on_last_cancel':False},indent=2)+'\n'
+    return files
+
+def prepare_large_fixture(package):
+    fixture=package/'fixtures-large'
+    if fixture.is_symlink() or getattr(fixture,'is_junction',lambda:False)():
+        raise RuntimeError('Refuse linked generated large fixture')
+    for name,value in large_files().items():
+        path=fixture/name
+        for parent in [path,*path.parents]:
+            if parent==package.parent:break
+            if parent.is_symlink() or getattr(parent,'is_junction',lambda:False)():
+                raise RuntimeError('Refuse linked generated large fixture content')
+        path.parent.mkdir(parents=True,exist_ok=True)
+        data=value.encode('utf-8')
+        if path.exists() and path.read_bytes()!=data:
+            raise RuntimeError('Refuse changing generated reviewed fixture bytes: '+name)
+        if not path.exists():path.write_bytes(data)
+
 
 def main():
     package=DOC/'broot'
@@ -86,6 +111,16 @@ def main():
          *execute('page_down'),expect('line 40:'),{'expect_not':'line 00:'},
          {'resize':{'width':100,'height':30}},{'wait_for_redraw':True},
          *execute('page_up'),expect('1 ▶line 00:')])
+    prepare_large_fixture(package)
+    steps=[expect('group-000'),text('c/BRANCHED'),expect('▶   └──needle café.txt'),
+           expect('LARGE DATA BRANCHED UNIQUE RESULT')]
+    cases.append(dict(name='edge-large-tree-content-search',kind='edge',
+        purpose='Find a unique Unicode file by contents in a 501-file,25-directory tree and preserve every byte',
+        command=['broot','--conf','.configuration/broot.hjson','--no-hidden','.'],
+        fixture='fixtures-large',steps=[*steps,text(':quit'),key('Enter'),{'exit':0}],
+        snapshot_after_step=len(steps),snapshot_rows=[2,28],timeout_ms=10000,
+        expected_files=large_files(),expected_directories=[f'group-{group:03d}' for group in range(25)],
+        absent_paths=[],snapshot_exclusion='Exclude generated root path and footer; retain unique matched path and actual content-search result'))
     value=dict(project='broot',fixture='fixtures-reviewed',
         environment={'TERM':'screen-256color','BR_INSTALL':'no'},cases=cases)
     (package/'scenarios.json').write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')

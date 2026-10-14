@@ -81,7 +81,7 @@ def build(app,project,*,clean_package=False):
     identity.update(toolchain=version,requested_toolchain=toolchain,cargo_profile=profile,binary=str(executable),
         compiler_path=str(compiler),
         binary_sha256=hashlib.sha256(executable.read_bytes()).hexdigest(),
-        build_profile='locked release; two jobs; no LTO/debug/incremental artifacts',
+        build_profile='locked '+profile+'; two jobs; no LTO/debug/incremental artifacts',
         reproducible_windows_link=os.name=='nt',
         helix_grammar_scope='disabled upstream auto-grammar build; plain text only' if project=='helix' else None)
     (app/'runtime.json').write_text(json.dumps(identity,indent=2)+'\n',encoding='utf-8')
@@ -123,6 +123,11 @@ def main():
         raise RuntimeError('Pristine setup cannot adopt modified source')
     package=DOC/project;package.mkdir(parents=True,exist_ok=True)
     if (package/'scenarios.json').exists():prepare(package)
+    if project=='broot' and (package/'scenarios.json').exists():
+        config=json.loads((package/'scenarios.json').read_text(encoding='utf-8'))
+        if any(case.get('fixture')=='fixtures-large' for case in config['cases']):
+            from adversarial_broot_cases import prepare_large_fixture
+            prepare_large_fixture(package)
     license_path=next((p for p in [source/'LICENSE',source/'LICENSE.md',source/'LICENSE.txt'] if p.is_file()),None)
     if license_path is None:raise RuntimeError('Missing reviewed upstream license')
     for name,output in [(license_path.name,'UPSTREAM-LICENSE.txt'),('Cargo.toml','target-Cargo.toml.txt'),('Cargo.lock','target-Cargo.lock.txt')]:

@@ -48,3 +48,33 @@ replay, and all five final baseline files are byte-identical to the archived
 pre-correction baselines. The public prepared route and maintenance passed
 again. New-contract native controls and complete host repetitions are pending;
 earlier local source controls apply to their captured historical contracts.
+
+Native run `38493835518` at `74083e4` subsequently passed all five jobs.
+Linux/macOS each completed the corrected twelve cases, 120 ordinary and
+120 separate state repetitions, all actual source controls with explicit
+contract hashes and thirty-second negative budgets, exact restoration and
+verified owned application deletion. All three native core/race jobs and
+standard `38493835733` passed. The [latest local control package](local-fault-evidence/manifest-6.json)
+also requalified the three source faults against these corrected contracts;
+the earlier three controls remain distinguishable historical evidence.
+
+The additional `edge-large-tree-content-search` boundary uses 501 text files
+in 25 directories plus the explicit configuration: 502 independent exact-byte
+checks. The deterministic generator in `adversarial_broot_cases.py` reconstructs
+the ignored fixture tree in a fresh checkout; generated files are not retained
+as hundreds of source-controlled inputs. Its first recording guessed a full
+path where Broot displays the group and selected basename on separate rows;
+the corrected actual marker passed recording, review, byte checks and fresh
+replay in 100.734 seconds on WSL with OneDrive/DrvFS provenance and copying
+overhead. This is measured total harness work, not a claimed startup benchmark.
+This thirteenth case is pending native qualification; the twelve-case result
+does not grant it credit.
+
+The larger dataset also exposed an inspection gap in the campaign harness:
+provenance time previously granted extra command time. A controlled 300-ms
+identity delay plus a real 300-ms child incorrectly passed a 500-ms deadline
+before the repair. Main execution now consumes the remaining original budget,
+and expired provenance cannot launch a child. The reduced control failed before
+and passed after; all twenty calibrations passed on Windows/WSL. Synchronous
+metadata reads are checked rather than preempted, and cleanup retains its
+separate bounded waits. This is a harness repair, not a new terminal capability.

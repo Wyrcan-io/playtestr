@@ -6,6 +6,7 @@ from pathlib import Path
 import sys
 import subprocess
 import tempfile
+import time
 import unittest
 from unittest.mock import patch
 import adversarial_process
@@ -15,6 +16,21 @@ from adversarial_fixture_directories import prepare
 from adversarial_project_maintenance import copy_spec_fixture
 
 class NativeHarnessControls(unittest.TestCase):
+    def test_command_deadline_includes_contract_capture(self):
+        def delayed_identity(project,argv):
+            time.sleep(0.3)
+            return {'synthetic_calibration':'bounded identity delay'}
+        with patch.object(adversarial_process,'contract_identity',delayed_identity):
+            with self.assertRaises(asyncio.TimeoutError):
+                run([sys.executable,'-c','import time;time.sleep(0.3)'],
+                    'harness-controls','deadline-includes-provenance',timeout=0.5)
+            with tempfile.TemporaryDirectory(prefix='playtestr-deadline-control-') as root:
+                marker=Path(root)/'launched.txt'
+                with self.assertRaises(asyncio.TimeoutError):
+                    run([sys.executable,'-c','import pathlib,sys;pathlib.Path(sys.argv[1]).write_bytes(b"launched")',marker],
+                        'harness-controls','expired-provenance-never-launches',timeout=0.1)
+                self.assertFalse(marker.exists())
+
     def test_maintenance_uses_declared_fixture_and_preserves_empty_directories(self):
         with tempfile.TemporaryDirectory(prefix='playtestr-maintenance-control-') as root:
             package=Path(root)/'package'

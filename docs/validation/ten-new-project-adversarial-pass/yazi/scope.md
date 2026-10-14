@@ -10,6 +10,18 @@ Read-only GitHub API review of this pin's root manifest, `yazi-fm` manifest/buil
 
 The remaining `yazi-version` hook emits compiler/build-date/commit metadata; exact rebuild restoration still requires measurement. `yazi-cli` has the same opt-in completions hook. The separately reviewed `yazi-build` installer can clone/install when built from a registry path; it is not part of the selected `yazi-fm` dependency/build route and must not be invoked. No installer or completion generation is needed for this source build.
 
+Further pinned-source review established that local MIME detection invokes
+ordinary `file`, with optional explicit `YAZI_FILE_ONE`; Windows supplies
+filenames through its stdin. Config override `YAZI_CONFIG_HOME` requires an
+absolute path, so a relative string must not be presented as effective.
+The DDS socket uses `XDG_RUNTIME_DIR` when absolute, otherwise the target's
+temporary directory; persisted DDS state uses the platform's state directory.
+Unix state/config/cache lookup honors managed XDG variables. Windows lookup
+uses `dirs` platform directories and requires actual verification of whether
+managed environment redirects them. Do not run it against real user settings,
+assume fresh state from environment names alone, or grant Windows admission
+without safe ownership and cleanup of every actual target state location.
+
 Act as a maintainer testing internal local file-management operations, not externally installed search plugins. Default bindings support creation (`a`), rename (`r`), internal yank/paste (`y`/`p`), cut/paste (`x`/`p`), directory entry (`l`), filter (`f`), preview seeking (`J`/`K`), cancellation, tab navigation and quit. Use synthetic small files, explicit temporary config/cache/HOME/temp, and useful positive transitions plus exact declared disk state. Never press default file-open/editor or shell bindings against unspecified paths.
 
 Normal intentions: create a spaced Unicode file/directory; rename a noninitial file; copy exact bytes into a nested directory; move a file and verify old-path absence; enter and return from nested directories; scroll a long text preview or switch distinct tabs with observable selection/context. Edge intentions: true empty directory; unmatched filter and recovery; cancelled creation/rename; occupied-name refusal with protected bytes; cancelled permanent-delete confirmation confined to synthetic files; repeated resize with observed redraw and useful navigation. These are intentions, not scenario credits; inspect actual screens and replace unsupported intentions transparently.

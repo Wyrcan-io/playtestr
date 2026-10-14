@@ -1,0 +1,76 @@
+{
+  "requirement": "Provenance capture must consume the same main command deadline rather than grant additional command time",
+  "actual_calibration": "Bounded300ms identity delay plus a real Python child sleeping300ms, requested500ms; old implementation incorrectly passed; repaired implementation times out using remaining budget",
+  "actual_finished_events": [
+    {
+      "id": "1e61a123eaa4427e94ab7557e297297f",
+      "event": "finished",
+      "project": "harness-controls",
+      "label": "deadline-includes-provenance",
+      "category": "harness_timeout",
+      "exit_code": null,
+      "seconds": 1.5,
+      "console_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "harness_cleanup": "harness_process_reaped",
+      "cleanup_errors": [],
+      "output_bytes": 0
+    },
+    {
+      "id": "1acd28be3ec9441c9d23ac41850f54ce",
+      "event": "finished",
+      "project": "harness-controls",
+      "label": "deadline-includes-provenance",
+      "category": "passed",
+      "exit_code": 0,
+      "seconds": 0.797,
+      "console_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "harness_cleanup": "harness_process_reaped",
+      "cleanup_errors": [],
+      "output_bytes": 0
+    },
+    {
+      "id": "b3d880c7e85a4b2aa15e213131c35237",
+      "event": "finished",
+      "project": "harness-controls",
+      "label": "deadline-includes-provenance",
+      "category": "harness_timeout",
+      "exit_code": null,
+      "seconds": 0.781,
+      "console_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "harness_cleanup": "harness_process_reaped",
+      "cleanup_errors": [],
+      "output_bytes": 0
+    },
+    {
+      "id": "db3d10f1bd80431c96c633cca5504254",
+      "event": "finished",
+      "project": "harness-controls",
+      "label": "deadline-includes-provenance",
+      "category": "harness_timeout",
+      "exit_code": null,
+      "seconds": 0.703,
+      "console_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "harness_cleanup": "harness_process_reaped",
+      "cleanup_errors": [],
+      "output_bytes": 0
+    },
+    {
+      "id": "8e06c2d4f6574674b36b7cc19aaeb571",
+      "event": "finished",
+      "project": "harness-controls",
+      "label": "deadline-includes-provenance",
+      "category": "harness_timeout",
+      "exit_code": null,
+      "seconds": 0.5371,
+      "console_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "harness_cleanup": "harness_process_reaped",
+      "cleanup_errors": [],
+      "output_bytes": 0
+    }
+  ],
+  "calibration_layers": "Identity latency is controlled instrumentation; child execution and cleanup are real processes, not PTY/terminal compatibility evidence",
+  "checks": "All20 harness tests passed on Windows and WSL with2 platform skips each",
+  "limit": "Synchronous metadata/filesystem operations are checked for elapsed budget; they are not forcibly preempted. Cleanup has separate explicit bounded waits. No OS scheduling or filesystem latency guarantee.",
+  "initial_draft_control": "The first retained event used a1-second child and timed out even before repair; it is retained history and is not the before-failure proof. The subsequent passed event is the actual300-ms child reproducer.",
+  "additional_actual_check": "An expired100-ms budget with300-ms provenance delay leaves the real child launch-marker absent on Windows and WSL"
+}

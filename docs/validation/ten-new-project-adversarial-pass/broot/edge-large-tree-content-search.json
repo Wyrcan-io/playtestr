@@ -1,0 +1,52 @@
+{
+  "version": 2,
+  "name": "Find a unique Unicode file by contents in a 501-file,25-directory tree and preserve every byte",
+  "command": [
+    "broot",
+    "--conf",
+    ".configuration/broot.hjson",
+    "--no-hidden",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures-large",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "BR_INSTALL": "no",
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "group-000"
+    },
+    {
+      "text": "c/BRANCHED"
+    },
+    {
+      "expect": "▶   └──needle café.txt"
+    },
+    {
+      "expect": "LARGE DATA BRANCHED UNIQUE RESULT"
+    },
+    {
+      "snapshot": "edge-large-tree-content-search.rows.json"
+    },
+    {
+      "text": ":quit"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

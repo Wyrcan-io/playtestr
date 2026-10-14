@@ -238,6 +238,8 @@ async def execute(argv,project,label,*,cwd=ROOT,env=None,input=None,timeout=120,
         # bytes without rewriting a previously fsynced started record.
         identity=contract_identity(project,argv)
         append(dict(id=run_id,event='identified',project=project,label=label,identity=identity))
+        if time.monotonic()-start>=timeout:
+            raise asyncio.TimeoutError()
         if load:
             worker=await asyncio.create_subprocess_exec(sys.executable,'-c',
                 'import hashlib,time; b=b"x"*(8*1024*1024); end=time.monotonic()+2; '
@@ -265,9 +267,14 @@ async def execute(argv,project,label,*,cwd=ROOT,env=None,input=None,timeout=120,
                 if on_output is not None:
                     await on_output(proc,output,directory)
             return await proc.wait()
-        result=await asyncio.wait_for(interact(),timeout=timeout)
+        remaining=timeout-(time.monotonic()-start)
+        if remaining<=0:
+            raise asyncio.TimeoutError()
+        result=await asyncio.wait_for(interact(),timeout=remaining)
         if on_complete is not None:
             on_complete(result,output,directory)
+        if time.monotonic()-start>=timeout:
+            raise asyncio.TimeoutError()
         category='passed' if result==expected else 'exit_mismatch'
         if result!=expected:
             raise RuntimeError(f'{label}: expected exit {expected}, got {result}; {directory}')
