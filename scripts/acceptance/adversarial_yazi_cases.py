@@ -97,7 +97,8 @@ def extend():
         [*into_nested(),expect('NESTED UNICODE NOTES TOKEN'),text('h'),expect(' fixture'),
          *select('occupied','occupied',True),text('l'),expect('/fixture/occupied'),expect('OCCUPIED DIRECTORY TOKEN')]))
     cases.append(add('normal-long-preview','normal','Scroll a long Unicode text preview using ordinary preview keys',
-        [*select('long','long.txt'),expect('line 00:'),text('JJ'),expect('line 40:'),absent('line 00:')]))
+        [*select('long','long.txt'),expect('line 00:'),expect('line 14:'),text('J'),
+         expect('line 40:'),absent('line 00:'),text('J'),expect('line 54:'),absent('line 14:')]))
     cases.append(add('edge-empty-directory','edge','Enter a truly empty directory and exit naturally',
         [*select('empty','empty',True),text('l'),expect('/fixture/empty'),expect('No items')]))
     cases.append(add('edge-no-match-recovery','edge','Recover from a genuinely empty filter and perform useful selection',

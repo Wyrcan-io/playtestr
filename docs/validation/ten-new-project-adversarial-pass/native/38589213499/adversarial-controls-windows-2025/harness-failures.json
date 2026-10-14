@@ -1,0 +1,72 @@
+[
+  {
+    "attempt_id": "1579e7e93a1c43babc2dfd957ce6006f",
+    "kind": "harness-error.json",
+    "sha256": "410af941f42e162fd2de0b8687eb6514f4d0eda3f3ad81a0ec1881c2f61ed1cd",
+    "observed": {
+      "type": "RuntimeError",
+      "message": "independent harness output cap"
+    }
+  },
+  {
+    "attempt_id": "24e5a7f253b74c49b6246027b94b39fc",
+    "kind": "harness-error.json",
+    "sha256": "e90dabe1df2557ba6fedb35347570be52f175fc05254e815a3bd64597690a6d3",
+    "observed": {
+      "type": "TimeoutError",
+      "message": "independent deadline exceeded"
+    }
+  },
+  {
+    "attempt_id": "2a1e7d9a439840dc9df31642656753af",
+    "kind": "harness-error.json",
+    "sha256": "40d7815e3d6405cfee9203fa47a58f60c18edbdcfce7dedaa381aad2cbb9a13a",
+    "observed": {
+      "type": "RuntimeError",
+      "message": "synthetic final semantic rejection"
+    }
+  },
+  {
+    "attempt_id": "52caca452c774e48b7833be149ea1f51",
+    "kind": "harness-error.json",
+    "sha256": "e90dabe1df2557ba6fedb35347570be52f175fc05254e815a3bd64597690a6d3",
+    "observed": {
+      "type": "TimeoutError",
+      "message": "independent deadline exceeded"
+    }
+  },
+  {
+    "attempt_id": "9a6b4cdb3387496eb22e6fb88305384e",
+    "kind": "harness-error.json",
+    "sha256": "e90dabe1df2557ba6fedb35347570be52f175fc05254e815a3bd64597690a6d3",
+    "observed": {
+      "type": "TimeoutError",
+      "message": "independent deadline exceeded"
+    }
+  },
+  {
+    "attempt_id": "c561d80a03434a1a9b070077e6abb61f",
+    "kind": "cleanup-errors.json",
+    "sha256": "742cf9aeaf71a1edbcdc62bfe9f52b3f66ef0c3a1f04b64af3da2512257783ed",
+    "observed": [
+      "terminate owned command: RuntimeError: synthetic cleanup fault after actual termination"
+    ]
+  },
+  {
+    "attempt_id": "cdf94c21046f4836ae3e1a8d69287254",
+    "kind": "cleanup-errors.json",
+    "sha256": "742cf9aeaf71a1edbcdc62bfe9f52b3f66ef0c3a1f04b64af3da2512257783ed",
+    "observed": [
+      "terminate owned command: RuntimeError: synthetic cleanup fault after actual termination"
+    ]
+  },
+  {
+    "attempt_id": "cdf94c21046f4836ae3e1a8d69287254",
+    "kind": "harness-error.json",
+    "sha256": "4c6ccbc53642f2852bfb042c019420dd5d3dff44ed0e311b68b4ff972c8beb7a",
+    "observed": {
+      "type": "RuntimeError",
+      "message": "preserve-original-cleanup-failure: expected exit 0, got 7; D:\\a\\playtestr\\playtestr\\artifacts\\ten-new-project-adversarial-pass\\harness-controls\\cdf94c21046f4836ae3e1a8d69287254"
+    }
+  }
+]

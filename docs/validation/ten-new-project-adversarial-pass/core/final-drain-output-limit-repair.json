@@ -67,5 +67,13 @@
       "seconds": 11.222
     }
   },
-  "gate_macos_correction_status": "Test-only correction ready for native verification; production output-limit repair unchanged"
+  "gate_macos_correction_status": "Portable real-PTY gate verified successfully on native Linux, macOS and Windows; production output-limit repair unchanged",
+  "native_corrected_run": {
+    "run": 38591002379,
+    "source": "f1eaa75be83f03ff79780e99c44b11a740e5b5da",
+    "linux_job": "success",
+    "macos_job": "success",
+    "windows_job": "success",
+    "event_collection": "Complete artifact import retained in native/38591002379/manifest.json"
+  }
 }

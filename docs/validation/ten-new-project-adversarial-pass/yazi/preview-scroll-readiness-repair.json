@@ -1,0 +1,16 @@
+{
+  "run": 38586337489,
+  "source": "b7f46ed6abdc57e03c4ba84c9858199584678419",
+  "host": "Linux",
+  "case": "normal-long-preview",
+  "failed_repetition": 8,
+  "observed_preview_lines": "14..41",
+  "reviewed_preview_lines": "28..55 (snapshot rows retain 28..54)",
+  "weak_anchor": "line 40 appeared after either one or two half-page scrolls",
+  "repair": "Separate each J with positive page-boundary evidence: first line 40/absence of 00, then line 54/absence of previously observed 14",
+  "classification": "Authored asynchronous workflow/readiness defect; no claim of input transport loss",
+  "snapshot_sha256": "16e01a19076bccaeda9c48aa9d26d402fbea46632c522edf63312c2c6c86a844",
+  "snapshot_unchanged": true,
+  "after": "Pending local and native requalification",
+  "final_credit": 0
+}
