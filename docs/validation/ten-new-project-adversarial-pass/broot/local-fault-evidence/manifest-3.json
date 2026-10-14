@@ -1,0 +1,73 @@
+[
+  {
+    "control": {
+      "name": "copy-diverted-to-unrequested-name",
+      "source_file": "src/verb/verb_store.rs",
+      "original_sha256": "637dcb720610071291f1340b9d866680a21804cee97d7aae666cd9421d4ced81",
+      "mutated_sha256": "a375816272af1b9fae071d52b9612a19a98784fe6d7824bf74240200e26071b3",
+      "case": "normal-project",
+      "pristine_target_binary_sha256": "e1f73ab9a1698ca583a7babce317734d3fcb20188921461bfde59e2327ada756",
+      "mutated_target_binary_sha256": "e18174c3f9075e7ec4b1467b12a243e16625b676ddd99544ed8ec2c7eb7eba69",
+      "category": "snapshot_mismatch",
+      "evidence_id": "552789450eb4480fb6b32ba3b4f74f87",
+      "report": "artifacts/ten-new-project-adversarial-pass/broot/copy-diverted-to-unrequested-name-1791937569116688262.json",
+      "restored": true,
+      "recovery_id": "a1e625350cf84ac3b94b552a8fbc7111",
+      "contracts_unchanged": true,
+      "restored_target_binary_sha256": "e1f73ab9a1698ca583a7babce317734d3fcb20188921461bfde59e2327ada756"
+    },
+    "files": {
+      "copy-diverted-to-unrequested-name-1791937569116688262-control-control.json": "2358ae09a86a09c29790e2f349a43f7eaf0fd0aece696418bd9508fcd0da9988",
+      "copy-diverted-to-unrequested-name-1791937569116688262-control-report.json": "59cd3a70edb3cfa2b9c7c624c92e02c374f647f952b67db54d923dafcaeebc93",
+      "copy-diverted-to-unrequested-name-1791937569116688262-control-screen_path.txt": "ae1759492c28ec706e43df14399a22608e8c0ff04c2124b6f795e67c9f0b66ce",
+      "copy-diverted-to-unrequested-name-1791937569116688262-control-diff_path.txt": "e84cecb4280e72b7aa33f21e572dd67cb2f4e5caea407ecd77253be7c1d80229"
+    }
+  },
+  {
+    "control": {
+      "name": "preview-page-down-scrolls-up",
+      "source_file": "src/preview/preview_state.rs",
+      "original_sha256": "4f638243834a4e8b684327bd1d9762d5a63ebe91a6e3c84bb0f1fc5c840ff015",
+      "mutated_sha256": "765cefe619adfa13cc106d4e0fb3b9958262258be808f7711c2f44fe7d945958",
+      "case": "edge-resize-preview",
+      "pristine_target_binary_sha256": "e1f73ab9a1698ca583a7babce317734d3fcb20188921461bfde59e2327ada756",
+      "mutated_target_binary_sha256": "03e05fc95b4ce626e21d5d5a28a4b0ab4aafb96c0f7f5da0b143630412c76e08",
+      "category": "assertion_timeout",
+      "evidence_id": "7db41e431fbc4cd4b7561fa876b6b512",
+      "report": "artifacts/ten-new-project-adversarial-pass/broot/preview-page-down-scrolls-up-1791937708932631759.json",
+      "restored": true,
+      "recovery_id": "1d39645e5cfc4f249edfd08b03f0f5f8",
+      "contracts_unchanged": true,
+      "restored_target_binary_sha256": "e1f73ab9a1698ca583a7babce317734d3fcb20188921461bfde59e2327ada756"
+    },
+    "files": {
+      "preview-page-down-scrolls-up-1791937708932631759-control-control.json": "d75e244602db7ce3ff754fa89ddfb83f47fc62d478ece990b59c0e62aafc26da",
+      "preview-page-down-scrolls-up-1791937708932631759-control-report.json": "d236a938f6daa7d2ad9b286eaf676c26f3d3044edd38a7d839bf850c19a4eb80",
+      "preview-page-down-scrolls-up-1791937708932631759-control-screen_path.txt": "6b597100c1176789f967c72997f551ecca461dad37fc90ae8fbb0d2769f75a2e"
+    }
+  },
+  {
+    "control": {
+      "name": "silent-copy-wrong-source-bytes",
+      "source_file": "src/verb/verb_store.rs",
+      "original_sha256": "637dcb720610071291f1340b9d866680a21804cee97d7aae666cd9421d4ced81",
+      "mutated_sha256": "e8d855722004a17fa9f52d5e7aa6d7082f36ad43b56498e3dbed81a867c5a21f",
+      "case": "normal-project",
+      "pristine_target_binary_sha256": "e1f73ab9a1698ca583a7babce317734d3fcb20188921461bfde59e2327ada756",
+      "mutated_target_binary_sha256": "92d312203f9aac3818b1fdca6def8e45c008c2ea396a9dd58530b91ec4b170ae",
+      "state_oracle_detected": true,
+      "state_probe_evidence_id": "b181bb4bac7246d383345e1761af85a2",
+      "evidence_id": "c03023701da347aeba8623cc53c9d865",
+      "report": "artifacts/ten-new-project-adversarial-pass/broot/silent-copy-wrong-source-bytes-1791937864621227591.json",
+      "restored": true,
+      "recovery_id": "6fdd65cfb5734d4e99280e18b3716477",
+      "contracts_unchanged": true,
+      "restored_target_binary_sha256": "e1f73ab9a1698ca583a7babce317734d3fcb20188921461bfde59e2327ada756"
+    },
+    "files": {
+      "silent-copy-wrong-source-bytes-1791937864621227591-control-control.json": "5882d1dfd8733a7a415eff488ec378a9e172172aecf8b90892d6b8414f36b5e6",
+      "silent-copy-wrong-source-bytes-1791937864621227591-control-report.json": "e03ed33aa7737325396366a68bf8d4045af448ea1e807b5ec5ef373a15b8e7e7",
+      "silent-copy-wrong-source-bytes-1791937864621227591-control-state-error.json": "b0a35bb6a319c9231e6f7707634203a33d9654c04eefe701355ca704514e6b39"
+    }
+  }
+]

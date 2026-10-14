@@ -1,18 +1,19 @@
 {
-  "updated_utc": "2026-10-13T21:31:08.083149+00:00",
+  "updated_utc": "2026-10-14T00:30:22.207888+00:00",
   "phase": "Development qualification in progress; final frozen campaign not started",
   "completed_development_projects": [
     "cookiecutter",
     "copier",
     "lf",
     "superfile",
-    "helix"
+    "helix",
+    "glow"
   ],
-  "active_project": "glow",
-  "corrected_source": "5bfe7085650b7aae0441284d96698ee46cb58006",
-  "active_native_run": "38483613287",
+  "active_project": "broot",
+  "corrected_source": "ad7f00ac9d375e1e72a8b45c17ee8cb71c3da97b",
+  "active_native_run": null,
   "standard_ci": {
-    "run": "38469407175",
+    "run": "38485822523",
     "conclusion": "success"
   },
   "native_core_hosts_passed": [
@@ -24,7 +25,7 @@
   "helix_old_windows_qualification_run": "38324763718",
   "helix_corrected_linux_directory_case_local_ordinary_runs": 10,
   "helix_corrected_linux_directory_case_local_state_probes": 10,
-  "next_project": "broot",
+  "next_project": "yazi",
   "next_project_source_acquired": false,
   "remaining_after_helix": [
     "glow",
@@ -35,7 +36,7 @@
   ],
   "final_frozen_project_credit": 0,
   "full_product_campaign_credit": 0,
-  "required_next_action": "Finish manual multiple-checkpoint maintenance and rerecord, then push exact-result readiness and rerun full Glow Linux/macOS before teardown/Broot",
+  "required_next_action": "Complete Broot faults, public maintenance and UX, native Linux/macOS repetitions and owned deletion before acquiring Yazi; final frozen campaign remains pending",
   "helix_corrected_linux_native_conclusion": "success",
   "helix_windows_retry": "Interrupted by mistaken cancellation after stale live API metadata; no qualification credit",
   "glow_local_ordinary_cases_per_host": 12,
@@ -43,9 +44,17 @@
   "glow_actual_wsl_fault_controls": 3,
   "glow_windows": "Unqualified: actual pristine upstream shared-buffer race detected",
   "product_terminal_profile_repair": "82 mapped controls and race passed on all three native hosts at6be1622; standard CI passed",
-  "glow_native": "Complete synchronized Linux passed12/120/120 plus faults/restoration/deletion; macOS asynchronous filter-confirmation race retained",
+  "glow_native": "Complete latest Linux/macOS12/120/120 plus faults/restoration and qualified hosted/local deletion atad7f00a",
   "glow_revised_table_reflow": "Exact80/100-column assertions, unchanged final baseline;10 ordinary plus10 independent state probes passed on WSL",
   "glow_revised_resize": "Existing wait_for_redraw before viewport-dependent keys;10 ordinary plus10 independent state probes passed on WSL, final baseline unchanged",
   "glow_selected_result_repair": "Every selection expects fresh selected-result marker before Enter; six unchanged final baselines;10 ordinary plus10 state no-match controls passed on WSL",
-  "ledger_drvfs_repair": "Bounded ENOENT retry only with existing parent; all17 Windows/WSL calibrations passed; interrupted original probe4f88... uncredited"
+  "ledger_drvfs_repair": "Bounded ENOENT retry only with existing parent; all17 Windows/WSL calibrations passed; interrupted original probe4f88... uncredited",
+  "remaining_development_projects": [
+    "broot",
+    "yazi",
+    "ranger",
+    "nnn"
+  ],
+  "broot_local_reviewed_cases": 12,
+  "broot_local_source_faults": "In progress; first actual copy diversion detected, exact restoration and ordinary/state recovery passed"
 }

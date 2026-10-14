@@ -65,7 +65,20 @@ def check_state(working,case):
         target.relative_to(working.resolve())
         if target.exists():
             raise RuntimeError('Independent expected absence mismatch: '+relative)
-    return dict(files=checked,absent=case.get('absent_paths',[]),passed=True)
+    directories=[]
+    for relative in case.get('expected_directories',[]):
+        unresolved=working/relative
+        unresolved.relative_to(working)
+        for parent in [unresolved,*unresolved.parents]:
+            if parent==working.parent:break
+            if parent.is_symlink() or getattr(parent,'is_junction',lambda:False)():
+                raise RuntimeError('Independent directory oracle refuses linked state: '+relative)
+        target=unresolved.resolve()
+        target.relative_to(working.resolve())
+        if not target.is_dir():
+            raise RuntimeError('Independent expected directory absent or wrong type: '+relative)
+        directories.append(relative)
+    return dict(files=checked,absent=case.get('absent_paths',[]),directories=directories,passed=True)
 
 def recorder(binary,project,case,env,*,export=True,rerecord=False):
     directory=DOC/project

@@ -1,0 +1,52 @@
+{
+  "version": 2,
+  "name": "Search a noninitial text token and inspect its matching document",
+  "command": [
+    "broot",
+    "--conf",
+    ".configuration/broot.hjson",
+    "--no-hidden",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures-reviewed",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "BR_INSTALL": "no",
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "text": "c/BRAVO"
+    },
+    {
+      "expect": "▶└──bravo.txt"
+    },
+    {
+      "expect": "BRAVO ORIGINAL TOKEN"
+    },
+    {
+      "snapshot": "normal-content-search.rows.json"
+    },
+    {
+      "text": ":quit"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

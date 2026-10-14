@@ -9,6 +9,21 @@ import subprocess
 import time
 from adversarial_process import ROOT,DOC,RAW,run
 
+def copy_spec_fixture(package,destination,spec):
+    relative=Path(spec['workspace']['fixture'])
+    if relative.is_absolute() or '..' in relative.parts or relative==Path('.'):
+        raise RuntimeError('Maintenance requires a safe explicit relative fixture')
+    source=package/relative
+    source.resolve(strict=True).relative_to(package.resolve(strict=True))
+    for entry in [source,*source.parents]:
+        if entry==package.parent:break
+        if entry.is_symlink() or getattr(entry,'is_junction',lambda:False)():
+            raise RuntimeError('Maintenance refuses linked fixture')
+    for entry in source.rglob('*'):
+        if entry.is_symlink() or getattr(entry,'is_junction',lambda:False)():
+            raise RuntimeError('Maintenance refuses linked fixture content')
+    shutil.copytree(source,destination/relative)
+
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('project')
@@ -33,7 +48,7 @@ def main():
     original={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in [primary,primary_baseline]}
     maintenance=directory/'maintenance'/str(time.time_ns())
     maintenance.mkdir(parents=True,exist_ok=False)
-    shutil.copytree(directory/'fixtures',maintenance/'fixtures')
+    copy_spec_fixture(directory,maintenance,primary_value)
     (maintenance/'snapshots').mkdir()
     baseline=maintenance/'snapshots'/snapshot_name
     baseline.write_bytes(primary_baseline.read_bytes())
@@ -70,7 +85,7 @@ def main():
     restore=run([binary,'test',spec],project,'ordinary-maintained-pass',env=env)
     moved=app/('checkout with spaces café '+maintenance.name)
     moved.mkdir(exist_ok=False)
-    shutil.copytree(directory/'fixtures',moved/'fixtures')
+    copy_spec_fixture(directory,moved,primary_value)
     shutil.copytree(directory/'snapshots',moved/'snapshots')
     moved_spec=moved/'normal-project.json'
     moved_spec.write_bytes(primary.read_bytes())

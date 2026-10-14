@@ -1,0 +1,11 @@
+--- a/src/verb/verb_store.rs
++++ b/src/verb/verb_store.rs
+@@ -156,7 +156,7 @@
+         #[cfg(unix)]
+         self.add_external(
+             "copy {newpath}",
+-            "cp -r {file} {newpath:path-from-parent}",
++            "cp -r {parent}/bravo.txt {newpath:path-from-parent}",
+             StayInBroot,
+         )
+         .with_shortcut("cp");

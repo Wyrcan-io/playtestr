@@ -1,0 +1,24 @@
+[
+  {
+    "name": "copy-diverted-to-unrequested-name",
+    "case": "normal-project",
+    "file": "src/verb/verb_store.rs",
+    "old": "\"cp -r {file} {newpath:path-from-parent}\",",
+    "new": "\"cp -r {file} {newpath:path-from-parent}.unexpected\","
+  },
+  {
+    "name": "preview-page-down-scrolls-up",
+    "case": "edge-resize-preview",
+    "file": "src/preview/preview_state.rs",
+    "old": "Internal::page_down => {\n                self.mut_preview().try_scroll(ScrollCommand::Pages(1));",
+    "new": "Internal::page_down => {\n                self.mut_preview().try_scroll(ScrollCommand::Pages(-1));"
+  },
+  {
+    "name": "silent-copy-wrong-source-bytes",
+    "case": "normal-project",
+    "file": "src/verb/verb_store.rs",
+    "old": "\"cp -r {file} {newpath:path-from-parent}\",",
+    "new": "\"cp -r {parent}/bravo.txt {newpath:path-from-parent}\",",
+    "state_only": true
+  }
+]

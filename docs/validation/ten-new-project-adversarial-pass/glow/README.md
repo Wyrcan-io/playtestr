@@ -1,4 +1,4 @@
-# Glow development validation - in progress
+# Glow development validation - final freeze pending
 
 Pinned MIT source: `charmbracelet/glow` at
 `8b0600fa445535b9c53194c0d4f7fe3cf700ef3e`.
@@ -128,3 +128,6 @@ latest recipe and calibration remain pending.
 Native Linux/macOS repetitions/restoration/teardown and final frozen
 qualification are still pending. No style/color/mouse/OSC fidelity, network/editor/clipboard
 integration, full application coverage or beginner usability is claimed.
+
+
+Final development update: native run38485822527 atad7f00ac9d375e1e72a8b45c17ee8cb71c3da97b passed all five jobs. Linux and macOS each completed12 scenarios,120 ordinary plus120 independent state repetitions, all source faults/restoration and verified owned deletion with the latest selected-result/redraw recipe. All three native core/race and seventeen-control harness jobs passed; standard38485822523 passed. Both local owned application trees are removed. Six projects are development-complete; final single-source qualification remains pending.

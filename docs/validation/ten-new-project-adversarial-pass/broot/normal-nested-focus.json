@@ -1,0 +1,58 @@
+{
+  "version": 2,
+  "name": "Focus a noninitial nested directory and inspect its actual children",
+  "command": [
+    "broot",
+    "--conf",
+    ".configuration/broot.hjson",
+    "--no-hidden",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures-reviewed",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "BR_INSTALL": "no",
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "text": "nested"
+    },
+    {
+      "expect": "▶└──nested"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "/fixture/nested"
+    },
+    {
+      "expect": "notes café.txt"
+    },
+    {
+      "snapshot": "normal-nested-focus.rows.json"
+    },
+    {
+      "text": ":quit"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

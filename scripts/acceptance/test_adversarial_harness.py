@@ -12,8 +12,37 @@ import adversarial_process
 from adversarial_process import run
 from adversarial_journey import check_state
 from adversarial_fixture_directories import prepare
+from adversarial_project_maintenance import copy_spec_fixture
 
 class NativeHarnessControls(unittest.TestCase):
+    def test_maintenance_uses_declared_fixture_and_preserves_empty_directories(self):
+        with tempfile.TemporaryDirectory(prefix='playtestr-maintenance-control-') as root:
+            package=Path(root)/'package'
+            (package/'nested/reviewed/empty').mkdir(parents=True)
+            (package/'nested/reviewed/file.txt').write_bytes(b'reviewed bytes')
+            destination=Path(root)/'moved'
+            copy_spec_fixture(package,destination,{'workspace':{'fixture':'nested/reviewed'}})
+            self.assertEqual((destination/'nested/reviewed/file.txt').read_bytes(),b'reviewed bytes')
+            self.assertTrue((destination/'nested/reviewed/empty').is_dir())
+            with self.assertRaisesRegex(RuntimeError,'safe explicit relative fixture'):
+                copy_spec_fixture(package,Path(root)/'unsafe',{'workspace':{'fixture':'../escape'}})
+            self.assertFalse((Path(root)/'unsafe').exists())
+
+    def test_directory_oracle_checks_real_type_missing_state_and_escape(self):
+        with tempfile.TemporaryDirectory(prefix='playtestr-workspace-') as root:
+            working=Path(root)/'fixture'
+            working.mkdir()
+            (working/'created/sub').mkdir(parents=True)
+            case={'expected_directories':['created','created/sub']}
+            self.assertEqual(check_state(working,case)['directories'],case['expected_directories'])
+            with self.assertRaisesRegex(RuntimeError,'absent or wrong type'):
+                check_state(working,{'expected_directories':['missing']})
+            (working/'wrong-type').write_bytes(b'not a directory')
+            with self.assertRaisesRegex(RuntimeError,'absent or wrong type'):
+                check_state(working,{'expected_directories':['wrong-type']})
+            with self.assertRaises(ValueError):
+                check_state(working,{'expected_directories':['../../escape']})
+
     def test_empty_fixture_directory_reconstruction_is_owned_and_prevalidated(self):
         with tempfile.TemporaryDirectory(prefix='playtestr-fixture-dirs-') as root:
             package=Path(root)/'package'

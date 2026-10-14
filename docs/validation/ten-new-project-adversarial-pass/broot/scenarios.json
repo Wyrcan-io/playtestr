@@ -1,0 +1,816 @@
+{
+  "project": "broot",
+  "fixture": "fixtures-reviewed",
+  "environment": {
+    "TERM": "screen-256color",
+    "BR_INSTALL": "no"
+  },
+  "cases": [
+    {
+      "name": "normal-project",
+      "kind": "normal",
+      "purpose": "Copy a selected file to a spaced Unicode destination and preserve neighbors",
+      "command": [
+        "broot",
+        "--conf",
+        ".configuration/broot.hjson",
+        "--no-hidden",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": "alpha"
+        },
+        {
+          "expect": "▶└──alpha"
+        },
+        {
+          "text": ":cp "
+        },
+        {
+          "text": "copied café.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect": "copied café.txt"
+        },
+        {
+          "text": ":quit"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 8,
+      "snapshot_rows": [
+        2,
+        28
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "PROTECTED NEIGHBOR TOKEN\n",
+        "nested/notes café.txt": "NESTED UNICODE NOTES TOKEN\nOther nested bytes.\n",
+        "occupied/keep.txt": "OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 00: long café 雪 TOKEN\nline 01: long café 雪 TOKEN\nline 02: long café 雪 TOKEN\nline 03: long café 雪 TOKEN\nline 04: long café 雪 TOKEN\nline 05: long café 雪 TOKEN\nline 06: long café 雪 TOKEN\nline 07: long café 雪 TOKEN\nline 08: long café 雪 TOKEN\nline 09: long café 雪 TOKEN\nline 10: long café 雪 TOKEN\nline 11: long café 雪 TOKEN\nline 12: long café 雪 TOKEN\nline 13: long café 雪 TOKEN\nline 14: long café 雪 TOKEN\nline 15: long café 雪 TOKEN\nline 16: long café 雪 TOKEN\nline 17: long café 雪 TOKEN\nline 18: long café 雪 TOKEN\nline 19: long café 雪 TOKEN\nline 20: long café 雪 TOKEN\nline 21: long café 雪 TOKEN\nline 22: long café 雪 TOKEN\nline 23: long café 雪 TOKEN\nline 24: long café 雪 TOKEN\nline 25: long café 雪 TOKEN\nline 26: long café 雪 TOKEN\nline 27: long café 雪 TOKEN\nline 28: long café 雪 TOKEN\nline 29: long café 雪 TOKEN\nline 30: long café 雪 TOKEN\nline 31: long café 雪 TOKEN\nline 32: long café 雪 TOKEN\nline 33: long café 雪 TOKEN\nline 34: long café 雪 TOKEN\nline 35: long café 雪 TOKEN\nline 36: long café 雪 TOKEN\nline 37: long café 雪 TOKEN\nline 38: long café 雪 TOKEN\nline 39: long café 雪 TOKEN\nline 40: long café 雪 TOKEN\nline 41: long café 雪 TOKEN\nline 42: long café 雪 TOKEN\nline 43: long café 雪 TOKEN\nline 44: long café 雪 TOKEN\nline 45: long café 雪 TOKEN\nline 46: long café 雪 TOKEN\nline 47: long café 雪 TOKEN\nline 48: long café 雪 TOKEN\nline 49: long café 雪 TOKEN\nline 50: long café 雪 TOKEN\nline 51: long café 雪 TOKEN\nline 52: long café 雪 TOKEN\nline 53: long café 雪 TOKEN\nline 54: long café 雪 TOKEN\nline 55: long café 雪 TOKEN\nline 56: long café 雪 TOKEN\nline 57: long café 雪 TOKEN\nline 58: long café 雪 TOKEN\nline 59: long café 雪 TOKEN\n",
+        ".configuration/broot.hjson": "{\n  \"show_selection_mark\": true,\n  \"true_colors\": false,\n  \"enable_kitty_keyboard\": false,\n  \"quit_on_last_cancel\": false\n}\n",
+        "copied café.txt": "ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n"
+      },
+      "absent_paths": [],
+      "expected_directories": [],
+      "snapshot_exclusion": "Exclude the random managed-root path and transient command/status rows; retain real tree/selection/preview content. Footer-only empty-view evidence is explicitly declared when needed."
+    },
+    {
+      "name": "normal-rename",
+      "kind": "normal",
+      "purpose": "Move a real selected file to a new spaced Unicode name",
+      "command": [
+        "broot",
+        "--conf",
+        ".configuration/broot.hjson",
+        "--no-hidden",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "bravo.txt"
+        },
+        {
+          "text": "bravo"
+        },
+        {
+          "expect": "▶└──bravo"
+        },
+        {
+          "text": ":mv renamed café.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect": "renamed café.txt"
+        },
+        {
+          "text": ":quit"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 7,
+      "snapshot_rows": [
+        2,
+        28
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "protected.txt": "PROTECTED NEIGHBOR TOKEN\n",
+        "nested/notes café.txt": "NESTED UNICODE NOTES TOKEN\nOther nested bytes.\n",
+        "occupied/keep.txt": "OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 00: long café 雪 TOKEN\nline 01: long café 雪 TOKEN\nline 02: long café 雪 TOKEN\nline 03: long café 雪 TOKEN\nline 04: long café 雪 TOKEN\nline 05: long café 雪 TOKEN\nline 06: long café 雪 TOKEN\nline 07: long café 雪 TOKEN\nline 08: long café 雪 TOKEN\nline 09: long café 雪 TOKEN\nline 10: long café 雪 TOKEN\nline 11: long café 雪 TOKEN\nline 12: long café 雪 TOKEN\nline 13: long café 雪 TOKEN\nline 14: long café 雪 TOKEN\nline 15: long café 雪 TOKEN\nline 16: long café 雪 TOKEN\nline 17: long café 雪 TOKEN\nline 18: long café 雪 TOKEN\nline 19: long café 雪 TOKEN\nline 20: long café 雪 TOKEN\nline 21: long café 雪 TOKEN\nline 22: long café 雪 TOKEN\nline 23: long café 雪 TOKEN\nline 24: long café 雪 TOKEN\nline 25: long café 雪 TOKEN\nline 26: long café 雪 TOKEN\nline 27: long café 雪 TOKEN\nline 28: long café 雪 TOKEN\nline 29: long café 雪 TOKEN\nline 30: long café 雪 TOKEN\nline 31: long café 雪 TOKEN\nline 32: long café 雪 TOKEN\nline 33: long café 雪 TOKEN\nline 34: long café 雪 TOKEN\nline 35: long café 雪 TOKEN\nline 36: long café 雪 TOKEN\nline 37: long café 雪 TOKEN\nline 38: long café 雪 TOKEN\nline 39: long café 雪 TOKEN\nline 40: long café 雪 TOKEN\nline 41: long café 雪 TOKEN\nline 42: long café 雪 TOKEN\nline 43: long café 雪 TOKEN\nline 44: long café 雪 TOKEN\nline 45: long café 雪 TOKEN\nline 46: long café 雪 TOKEN\nline 47: long café 雪 TOKEN\nline 48: long café 雪 TOKEN\nline 49: long café 雪 TOKEN\nline 50: long café 雪 TOKEN\nline 51: long café 雪 TOKEN\nline 52: long café 雪 TOKEN\nline 53: long café 雪 TOKEN\nline 54: long café 雪 TOKEN\nline 55: long café 雪 TOKEN\nline 56: long café 雪 TOKEN\nline 57: long café 雪 TOKEN\nline 58: long café 雪 TOKEN\nline 59: long café 雪 TOKEN\n",
+        ".configuration/broot.hjson": "{\n  \"show_selection_mark\": true,\n  \"true_colors\": false,\n  \"enable_kitty_keyboard\": false,\n  \"quit_on_last_cancel\": false\n}\n",
+        "renamed café.txt": "BRAVO ORIGINAL TOKEN\n"
+      },
+      "absent_paths": [
+        "bravo.txt"
+      ],
+      "expected_directories": [],
+      "snapshot_exclusion": "Exclude the random managed-root path and transient command/status rows; retain real tree/selection/preview content. Footer-only empty-view evidence is explicitly declared when needed."
+    },
+    {
+      "name": "normal-nested-focus",
+      "kind": "normal",
+      "purpose": "Focus a noninitial nested directory and inspect its actual children",
+      "command": [
+        "broot",
+        "--conf",
+        ".configuration/broot.hjson",
+        "--no-hidden",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": "nested"
+        },
+        {
+          "expect": "▶└──nested"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "/fixture/nested"
+        },
+        {
+          "expect": "notes café.txt"
+        },
+        {
+          "text": ":quit"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 6,
+      "snapshot_rows": [
+        2,
+        28
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "PROTECTED NEIGHBOR TOKEN\n",
+        "nested/notes café.txt": "NESTED UNICODE NOTES TOKEN\nOther nested bytes.\n",
+        "occupied/keep.txt": "OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 00: long café 雪 TOKEN\nline 01: long café 雪 TOKEN\nline 02: long café 雪 TOKEN\nline 03: long café 雪 TOKEN\nline 04: long café 雪 TOKEN\nline 05: long café 雪 TOKEN\nline 06: long café 雪 TOKEN\nline 07: long café 雪 TOKEN\nline 08: long café 雪 TOKEN\nline 09: long café 雪 TOKEN\nline 10: long café 雪 TOKEN\nline 11: long café 雪 TOKEN\nline 12: long café 雪 TOKEN\nline 13: long café 雪 TOKEN\nline 14: long café 雪 TOKEN\nline 15: long café 雪 TOKEN\nline 16: long café 雪 TOKEN\nline 17: long café 雪 TOKEN\nline 18: long café 雪 TOKEN\nline 19: long café 雪 TOKEN\nline 20: long café 雪 TOKEN\nline 21: long café 雪 TOKEN\nline 22: long café 雪 TOKEN\nline 23: long café 雪 TOKEN\nline 24: long café 雪 TOKEN\nline 25: long café 雪 TOKEN\nline 26: long café 雪 TOKEN\nline 27: long café 雪 TOKEN\nline 28: long café 雪 TOKEN\nline 29: long café 雪 TOKEN\nline 30: long café 雪 TOKEN\nline 31: long café 雪 TOKEN\nline 32: long café 雪 TOKEN\nline 33: long café 雪 TOKEN\nline 34: long café 雪 TOKEN\nline 35: long café 雪 TOKEN\nline 36: long café 雪 TOKEN\nline 37: long café 雪 TOKEN\nline 38: long café 雪 TOKEN\nline 39: long café 雪 TOKEN\nline 40: long café 雪 TOKEN\nline 41: long café 雪 TOKEN\nline 42: long café 雪 TOKEN\nline 43: long café 雪 TOKEN\nline 44: long café 雪 TOKEN\nline 45: long café 雪 TOKEN\nline 46: long café 雪 TOKEN\nline 47: long café 雪 TOKEN\nline 48: long café 雪 TOKEN\nline 49: long café 雪 TOKEN\nline 50: long café 雪 TOKEN\nline 51: long café 雪 TOKEN\nline 52: long café 雪 TOKEN\nline 53: long café 雪 TOKEN\nline 54: long café 雪 TOKEN\nline 55: long café 雪 TOKEN\nline 56: long café 雪 TOKEN\nline 57: long café 雪 TOKEN\nline 58: long café 雪 TOKEN\nline 59: long café 雪 TOKEN\n",
+        ".configuration/broot.hjson": "{\n  \"show_selection_mark\": true,\n  \"true_colors\": false,\n  \"enable_kitty_keyboard\": false,\n  \"quit_on_last_cancel\": false\n}\n"
+      },
+      "absent_paths": [],
+      "expected_directories": [],
+      "snapshot_exclusion": "Exclude the random managed-root path and transient command/status rows; retain real tree/selection/preview content. Footer-only empty-view evidence is explicitly declared when needed."
+    },
+    {
+      "name": "normal-unicode-preview",
+      "kind": "normal",
+      "purpose": "Preview a selected spaced Unicode text file without launching an editor",
+      "command": [
+        "broot",
+        "--conf",
+        ".configuration/broot.hjson",
+        "--no-hidden",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": "notes"
+        },
+        {
+          "expect": "▶   └──nested/notes café.txt"
+        },
+        {
+          "text": ":preview_text"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "NESTED UNICODE NOTES TOKEN"
+        },
+        {
+          "text": ":quit"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 6,
+      "snapshot_rows": [
+        2,
+        28
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "PROTECTED NEIGHBOR TOKEN\n",
+        "nested/notes café.txt": "NESTED UNICODE NOTES TOKEN\nOther nested bytes.\n",
+        "occupied/keep.txt": "OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 00: long café 雪 TOKEN\nline 01: long café 雪 TOKEN\nline 02: long café 雪 TOKEN\nline 03: long café 雪 TOKEN\nline 04: long café 雪 TOKEN\nline 05: long café 雪 TOKEN\nline 06: long café 雪 TOKEN\nline 07: long café 雪 TOKEN\nline 08: long café 雪 TOKEN\nline 09: long café 雪 TOKEN\nline 10: long café 雪 TOKEN\nline 11: long café 雪 TOKEN\nline 12: long café 雪 TOKEN\nline 13: long café 雪 TOKEN\nline 14: long café 雪 TOKEN\nline 15: long café 雪 TOKEN\nline 16: long café 雪 TOKEN\nline 17: long café 雪 TOKEN\nline 18: long café 雪 TOKEN\nline 19: long café 雪 TOKEN\nline 20: long café 雪 TOKEN\nline 21: long café 雪 TOKEN\nline 22: long café 雪 TOKEN\nline 23: long café 雪 TOKEN\nline 24: long café 雪 TOKEN\nline 25: long café 雪 TOKEN\nline 26: long café 雪 TOKEN\nline 27: long café 雪 TOKEN\nline 28: long café 雪 TOKEN\nline 29: long café 雪 TOKEN\nline 30: long café 雪 TOKEN\nline 31: long café 雪 TOKEN\nline 32: long café 雪 TOKEN\nline 33: long café 雪 TOKEN\nline 34: long café 雪 TOKEN\nline 35: long café 雪 TOKEN\nline 36: long café 雪 TOKEN\nline 37: long café 雪 TOKEN\nline 38: long café 雪 TOKEN\nline 39: long café 雪 TOKEN\nline 40: long café 雪 TOKEN\nline 41: long café 雪 TOKEN\nline 42: long café 雪 TOKEN\nline 43: long café 雪 TOKEN\nline 44: long café 雪 TOKEN\nline 45: long café 雪 TOKEN\nline 46: long café 雪 TOKEN\nline 47: long café 雪 TOKEN\nline 48: long café 雪 TOKEN\nline 49: long café 雪 TOKEN\nline 50: long café 雪 TOKEN\nline 51: long café 雪 TOKEN\nline 52: long café 雪 TOKEN\nline 53: long café 雪 TOKEN\nline 54: long café 雪 TOKEN\nline 55: long café 雪 TOKEN\nline 56: long café 雪 TOKEN\nline 57: long café 雪 TOKEN\nline 58: long café 雪 TOKEN\nline 59: long café 雪 TOKEN\n",
+        ".configuration/broot.hjson": "{\n  \"show_selection_mark\": true,\n  \"true_colors\": false,\n  \"enable_kitty_keyboard\": false,\n  \"quit_on_last_cancel\": false\n}\n"
+      },
+      "absent_paths": [],
+      "expected_directories": [],
+      "snapshot_exclusion": "Exclude the random managed-root path and transient command/status rows; retain real tree/selection/preview content. Footer-only empty-view evidence is explicitly declared when needed."
+    },
+    {
+      "name": "normal-mkdir",
+      "kind": "normal",
+      "purpose": "Create a real nested directory through the supported local mkdir verb",
+      "command": [
+        "broot",
+        "--conf",
+        ".configuration/broot.hjson",
+        "--no-hidden",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": ":mkdir "
+        },
+        {
+          "text": "created-dir/sub"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "created-dir"
+        },
+        {
+          "text": ":quit"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 5,
+      "snapshot_rows": [
+        2,
+        28
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "PROTECTED NEIGHBOR TOKEN\n",
+        "nested/notes café.txt": "NESTED UNICODE NOTES TOKEN\nOther nested bytes.\n",
+        "occupied/keep.txt": "OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 00: long café 雪 TOKEN\nline 01: long café 雪 TOKEN\nline 02: long café 雪 TOKEN\nline 03: long café 雪 TOKEN\nline 04: long café 雪 TOKEN\nline 05: long café 雪 TOKEN\nline 06: long café 雪 TOKEN\nline 07: long café 雪 TOKEN\nline 08: long café 雪 TOKEN\nline 09: long café 雪 TOKEN\nline 10: long café 雪 TOKEN\nline 11: long café 雪 TOKEN\nline 12: long café 雪 TOKEN\nline 13: long café 雪 TOKEN\nline 14: long café 雪 TOKEN\nline 15: long café 雪 TOKEN\nline 16: long café 雪 TOKEN\nline 17: long café 雪 TOKEN\nline 18: long café 雪 TOKEN\nline 19: long café 雪 TOKEN\nline 20: long café 雪 TOKEN\nline 21: long café 雪 TOKEN\nline 22: long café 雪 TOKEN\nline 23: long café 雪 TOKEN\nline 24: long café 雪 TOKEN\nline 25: long café 雪 TOKEN\nline 26: long café 雪 TOKEN\nline 27: long café 雪 TOKEN\nline 28: long café 雪 TOKEN\nline 29: long café 雪 TOKEN\nline 30: long café 雪 TOKEN\nline 31: long café 雪 TOKEN\nline 32: long café 雪 TOKEN\nline 33: long café 雪 TOKEN\nline 34: long café 雪 TOKEN\nline 35: long café 雪 TOKEN\nline 36: long café 雪 TOKEN\nline 37: long café 雪 TOKEN\nline 38: long café 雪 TOKEN\nline 39: long café 雪 TOKEN\nline 40: long café 雪 TOKEN\nline 41: long café 雪 TOKEN\nline 42: long café 雪 TOKEN\nline 43: long café 雪 TOKEN\nline 44: long café 雪 TOKEN\nline 45: long café 雪 TOKEN\nline 46: long café 雪 TOKEN\nline 47: long café 雪 TOKEN\nline 48: long café 雪 TOKEN\nline 49: long café 雪 TOKEN\nline 50: long café 雪 TOKEN\nline 51: long café 雪 TOKEN\nline 52: long café 雪 TOKEN\nline 53: long café 雪 TOKEN\nline 54: long café 雪 TOKEN\nline 55: long café 雪 TOKEN\nline 56: long café 雪 TOKEN\nline 57: long café 雪 TOKEN\nline 58: long café 雪 TOKEN\nline 59: long café 雪 TOKEN\n",
+        ".configuration/broot.hjson": "{\n  \"show_selection_mark\": true,\n  \"true_colors\": false,\n  \"enable_kitty_keyboard\": false,\n  \"quit_on_last_cancel\": false\n}\n"
+      },
+      "absent_paths": [],
+      "expected_directories": [
+        "created-dir",
+        "created-dir/sub"
+      ],
+      "snapshot_exclusion": "Exclude the random managed-root path and transient command/status rows; retain real tree/selection/preview content. Footer-only empty-view evidence is explicitly declared when needed."
+    },
+    {
+      "name": "normal-content-search",
+      "kind": "normal",
+      "purpose": "Search a noninitial text token and inspect its matching document",
+      "command": [
+        "broot",
+        "--conf",
+        ".configuration/broot.hjson",
+        "--no-hidden",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": "c/BRAVO"
+        },
+        {
+          "expect": "▶└──bravo.txt"
+        },
+        {
+          "expect": "BRAVO ORIGINAL TOKEN"
+        },
+        {
+          "text": ":quit"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 4,
+      "snapshot_rows": [
+        2,
+        28
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "PROTECTED NEIGHBOR TOKEN\n",
+        "nested/notes café.txt": "NESTED UNICODE NOTES TOKEN\nOther nested bytes.\n",
+        "occupied/keep.txt": "OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 00: long café 雪 TOKEN\nline 01: long café 雪 TOKEN\nline 02: long café 雪 TOKEN\nline 03: long café 雪 TOKEN\nline 04: long café 雪 TOKEN\nline 05: long café 雪 TOKEN\nline 06: long café 雪 TOKEN\nline 07: long café 雪 TOKEN\nline 08: long café 雪 TOKEN\nline 09: long café 雪 TOKEN\nline 10: long café 雪 TOKEN\nline 11: long café 雪 TOKEN\nline 12: long café 雪 TOKEN\nline 13: long café 雪 TOKEN\nline 14: long café 雪 TOKEN\nline 15: long café 雪 TOKEN\nline 16: long café 雪 TOKEN\nline 17: long café 雪 TOKEN\nline 18: long café 雪 TOKEN\nline 19: long café 雪 TOKEN\nline 20: long café 雪 TOKEN\nline 21: long café 雪 TOKEN\nline 22: long café 雪 TOKEN\nline 23: long café 雪 TOKEN\nline 24: long café 雪 TOKEN\nline 25: long café 雪 TOKEN\nline 26: long café 雪 TOKEN\nline 27: long café 雪 TOKEN\nline 28: long café 雪 TOKEN\nline 29: long café 雪 TOKEN\nline 30: long café 雪 TOKEN\nline 31: long café 雪 TOKEN\nline 32: long café 雪 TOKEN\nline 33: long café 雪 TOKEN\nline 34: long café 雪 TOKEN\nline 35: long café 雪 TOKEN\nline 36: long café 雪 TOKEN\nline 37: long café 雪 TOKEN\nline 38: long café 雪 TOKEN\nline 39: long café 雪 TOKEN\nline 40: long café 雪 TOKEN\nline 41: long café 雪 TOKEN\nline 42: long café 雪 TOKEN\nline 43: long café 雪 TOKEN\nline 44: long café 雪 TOKEN\nline 45: long café 雪 TOKEN\nline 46: long café 雪 TOKEN\nline 47: long café 雪 TOKEN\nline 48: long café 雪 TOKEN\nline 49: long café 雪 TOKEN\nline 50: long café 雪 TOKEN\nline 51: long café 雪 TOKEN\nline 52: long café 雪 TOKEN\nline 53: long café 雪 TOKEN\nline 54: long café 雪 TOKEN\nline 55: long café 雪 TOKEN\nline 56: long café 雪 TOKEN\nline 57: long café 雪 TOKEN\nline 58: long café 雪 TOKEN\nline 59: long café 雪 TOKEN\n",
+        ".configuration/broot.hjson": "{\n  \"show_selection_mark\": true,\n  \"true_colors\": false,\n  \"enable_kitty_keyboard\": false,\n  \"quit_on_last_cancel\": false\n}\n"
+      },
+      "absent_paths": [],
+      "expected_directories": [],
+      "snapshot_exclusion": "Exclude the random managed-root path and transient command/status rows; retain real tree/selection/preview content. Footer-only empty-view evidence is explicitly declared when needed."
+    },
+    {
+      "name": "edge-empty-directory",
+      "kind": "edge",
+      "purpose": "Inspect a truly empty fixture directory and quit naturally",
+      "command": [
+        "broot",
+        "--conf",
+        ".configuration/broot.hjson",
+        "--no-hidden",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": "empty"
+        },
+        {
+          "expect": "▶└──empty"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "/fixture/empty"
+        },
+        {
+          "text": ":quit"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 5,
+      "snapshot_rows": [
+        29,
+        30
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "PROTECTED NEIGHBOR TOKEN\n",
+        "nested/notes café.txt": "NESTED UNICODE NOTES TOKEN\nOther nested bytes.\n",
+        "occupied/keep.txt": "OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 00: long café 雪 TOKEN\nline 01: long café 雪 TOKEN\nline 02: long café 雪 TOKEN\nline 03: long café 雪 TOKEN\nline 04: long café 雪 TOKEN\nline 05: long café 雪 TOKEN\nline 06: long café 雪 TOKEN\nline 07: long café 雪 TOKEN\nline 08: long café 雪 TOKEN\nline 09: long café 雪 TOKEN\nline 10: long café 雪 TOKEN\nline 11: long café 雪 TOKEN\nline 12: long café 雪 TOKEN\nline 13: long café 雪 TOKEN\nline 14: long café 雪 TOKEN\nline 15: long café 雪 TOKEN\nline 16: long café 雪 TOKEN\nline 17: long café 雪 TOKEN\nline 18: long café 雪 TOKEN\nline 19: long café 雪 TOKEN\nline 20: long café 雪 TOKEN\nline 21: long café 雪 TOKEN\nline 22: long café 雪 TOKEN\nline 23: long café 雪 TOKEN\nline 24: long café 雪 TOKEN\nline 25: long café 雪 TOKEN\nline 26: long café 雪 TOKEN\nline 27: long café 雪 TOKEN\nline 28: long café 雪 TOKEN\nline 29: long café 雪 TOKEN\nline 30: long café 雪 TOKEN\nline 31: long café 雪 TOKEN\nline 32: long café 雪 TOKEN\nline 33: long café 雪 TOKEN\nline 34: long café 雪 TOKEN\nline 35: long café 雪 TOKEN\nline 36: long café 雪 TOKEN\nline 37: long café 雪 TOKEN\nline 38: long café 雪 TOKEN\nline 39: long café 雪 TOKEN\nline 40: long café 雪 TOKEN\nline 41: long café 雪 TOKEN\nline 42: long café 雪 TOKEN\nline 43: long café 雪 TOKEN\nline 44: long café 雪 TOKEN\nline 45: long café 雪 TOKEN\nline 46: long café 雪 TOKEN\nline 47: long café 雪 TOKEN\nline 48: long café 雪 TOKEN\nline 49: long café 雪 TOKEN\nline 50: long café 雪 TOKEN\nline 51: long café 雪 TOKEN\nline 52: long café 雪 TOKEN\nline 53: long café 雪 TOKEN\nline 54: long café 雪 TOKEN\nline 55: long café 雪 TOKEN\nline 56: long café 雪 TOKEN\nline 57: long café 雪 TOKEN\nline 58: long café 雪 TOKEN\nline 59: long café 雪 TOKEN\n",
+        ".configuration/broot.hjson": "{\n  \"show_selection_mark\": true,\n  \"true_colors\": false,\n  \"enable_kitty_keyboard\": false,\n  \"quit_on_last_cancel\": false\n}\n"
+      },
+      "absent_paths": [],
+      "expected_directories": [
+        "empty"
+      ],
+      "snapshot_exclusion": "Exclude the random managed-root path and transient command/status rows; retain real tree/selection/preview content. Footer-only empty-view evidence is explicitly declared when needed."
+    },
+    {
+      "name": "edge-no-match-recovery",
+      "kind": "edge",
+      "purpose": "Recover from an unmatched filter and still copy a useful file",
+      "command": [
+        "broot",
+        "--conf",
+        ".configuration/broot.hjson",
+        "--no-hidden",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": "ABSENTNEVERTOKEN"
+        },
+        {
+          "expect": "ABSENTNEVERTOKEN"
+        },
+        {
+          "expect_not": "alpha.txt"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": "alpha"
+        },
+        {
+          "expect": "▶└──alpha"
+        },
+        {
+          "text": ":cp recovered.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect": "recovered.txt"
+        },
+        {
+          "text": ":quit"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 12,
+      "snapshot_rows": [
+        2,
+        28
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "PROTECTED NEIGHBOR TOKEN\n",
+        "nested/notes café.txt": "NESTED UNICODE NOTES TOKEN\nOther nested bytes.\n",
+        "occupied/keep.txt": "OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 00: long café 雪 TOKEN\nline 01: long café 雪 TOKEN\nline 02: long café 雪 TOKEN\nline 03: long café 雪 TOKEN\nline 04: long café 雪 TOKEN\nline 05: long café 雪 TOKEN\nline 06: long café 雪 TOKEN\nline 07: long café 雪 TOKEN\nline 08: long café 雪 TOKEN\nline 09: long café 雪 TOKEN\nline 10: long café 雪 TOKEN\nline 11: long café 雪 TOKEN\nline 12: long café 雪 TOKEN\nline 13: long café 雪 TOKEN\nline 14: long café 雪 TOKEN\nline 15: long café 雪 TOKEN\nline 16: long café 雪 TOKEN\nline 17: long café 雪 TOKEN\nline 18: long café 雪 TOKEN\nline 19: long café 雪 TOKEN\nline 20: long café 雪 TOKEN\nline 21: long café 雪 TOKEN\nline 22: long café 雪 TOKEN\nline 23: long café 雪 TOKEN\nline 24: long café 雪 TOKEN\nline 25: long café 雪 TOKEN\nline 26: long café 雪 TOKEN\nline 27: long café 雪 TOKEN\nline 28: long café 雪 TOKEN\nline 29: long café 雪 TOKEN\nline 30: long café 雪 TOKEN\nline 31: long café 雪 TOKEN\nline 32: long café 雪 TOKEN\nline 33: long café 雪 TOKEN\nline 34: long café 雪 TOKEN\nline 35: long café 雪 TOKEN\nline 36: long café 雪 TOKEN\nline 37: long café 雪 TOKEN\nline 38: long café 雪 TOKEN\nline 39: long café 雪 TOKEN\nline 40: long café 雪 TOKEN\nline 41: long café 雪 TOKEN\nline 42: long café 雪 TOKEN\nline 43: long café 雪 TOKEN\nline 44: long café 雪 TOKEN\nline 45: long café 雪 TOKEN\nline 46: long café 雪 TOKEN\nline 47: long café 雪 TOKEN\nline 48: long café 雪 TOKEN\nline 49: long café 雪 TOKEN\nline 50: long café 雪 TOKEN\nline 51: long café 雪 TOKEN\nline 52: long café 雪 TOKEN\nline 53: long café 雪 TOKEN\nline 54: long café 雪 TOKEN\nline 55: long café 雪 TOKEN\nline 56: long café 雪 TOKEN\nline 57: long café 雪 TOKEN\nline 58: long café 雪 TOKEN\nline 59: long café 雪 TOKEN\n",
+        ".configuration/broot.hjson": "{\n  \"show_selection_mark\": true,\n  \"true_colors\": false,\n  \"enable_kitty_keyboard\": false,\n  \"quit_on_last_cancel\": false\n}\n",
+        "recovered.txt": "ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n"
+      },
+      "absent_paths": [],
+      "expected_directories": [],
+      "snapshot_exclusion": "Exclude the random managed-root path and transient command/status rows; retain real tree/selection/preview content. Footer-only empty-view evidence is explicitly declared when needed."
+    },
+    {
+      "name": "edge-cancel-operation",
+      "kind": "edge",
+      "purpose": "Cancel a partially entered copy command without creating its destination",
+      "command": [
+        "broot",
+        "--conf",
+        ".configuration/broot.hjson",
+        "--no-hidden",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": "alpha"
+        },
+        {
+          "expect": "▶└──alpha"
+        },
+        {
+          "text": ":cp CANCEL NEVER.txt"
+        },
+        {
+          "expect": "alpha:cp CANCEL NEVER.txt"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": "alpha:cp CANCEL NEVER.txt"
+        },
+        {
+          "expect": "bravo.txt"
+        },
+        {
+          "text": ":quit"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 8,
+      "snapshot_rows": [
+        2,
+        28
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "PROTECTED NEIGHBOR TOKEN\n",
+        "nested/notes café.txt": "NESTED UNICODE NOTES TOKEN\nOther nested bytes.\n",
+        "occupied/keep.txt": "OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 00: long café 雪 TOKEN\nline 01: long café 雪 TOKEN\nline 02: long café 雪 TOKEN\nline 03: long café 雪 TOKEN\nline 04: long café 雪 TOKEN\nline 05: long café 雪 TOKEN\nline 06: long café 雪 TOKEN\nline 07: long café 雪 TOKEN\nline 08: long café 雪 TOKEN\nline 09: long café 雪 TOKEN\nline 10: long café 雪 TOKEN\nline 11: long café 雪 TOKEN\nline 12: long café 雪 TOKEN\nline 13: long café 雪 TOKEN\nline 14: long café 雪 TOKEN\nline 15: long café 雪 TOKEN\nline 16: long café 雪 TOKEN\nline 17: long café 雪 TOKEN\nline 18: long café 雪 TOKEN\nline 19: long café 雪 TOKEN\nline 20: long café 雪 TOKEN\nline 21: long café 雪 TOKEN\nline 22: long café 雪 TOKEN\nline 23: long café 雪 TOKEN\nline 24: long café 雪 TOKEN\nline 25: long café 雪 TOKEN\nline 26: long café 雪 TOKEN\nline 27: long café 雪 TOKEN\nline 28: long café 雪 TOKEN\nline 29: long café 雪 TOKEN\nline 30: long café 雪 TOKEN\nline 31: long café 雪 TOKEN\nline 32: long café 雪 TOKEN\nline 33: long café 雪 TOKEN\nline 34: long café 雪 TOKEN\nline 35: long café 雪 TOKEN\nline 36: long café 雪 TOKEN\nline 37: long café 雪 TOKEN\nline 38: long café 雪 TOKEN\nline 39: long café 雪 TOKEN\nline 40: long café 雪 TOKEN\nline 41: long café 雪 TOKEN\nline 42: long café 雪 TOKEN\nline 43: long café 雪 TOKEN\nline 44: long café 雪 TOKEN\nline 45: long café 雪 TOKEN\nline 46: long café 雪 TOKEN\nline 47: long café 雪 TOKEN\nline 48: long café 雪 TOKEN\nline 49: long café 雪 TOKEN\nline 50: long café 雪 TOKEN\nline 51: long café 雪 TOKEN\nline 52: long café 雪 TOKEN\nline 53: long café 雪 TOKEN\nline 54: long café 雪 TOKEN\nline 55: long café 雪 TOKEN\nline 56: long café 雪 TOKEN\nline 57: long café 雪 TOKEN\nline 58: long café 雪 TOKEN\nline 59: long café 雪 TOKEN\n",
+        ".configuration/broot.hjson": "{\n  \"show_selection_mark\": true,\n  \"true_colors\": false,\n  \"enable_kitty_keyboard\": false,\n  \"quit_on_last_cancel\": false\n}\n"
+      },
+      "absent_paths": [
+        "CANCEL NEVER.txt"
+      ],
+      "expected_directories": [],
+      "snapshot_exclusion": "Exclude the random managed-root path and transient command/status rows; retain real tree/selection/preview content. Footer-only empty-view evidence is explicitly declared when needed."
+    },
+    {
+      "name": "edge-invalid-verb",
+      "kind": "edge",
+      "purpose": "Recover from a genuine invalid verb without changing any input file",
+      "command": [
+        "broot",
+        "--conf",
+        ".configuration/broot.hjson",
+        "--no-hidden",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": ":not_a_real_verb"
+        },
+        {
+          "expect": "No matching verb"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": "No matching verb"
+        },
+        {
+          "text": "alpha"
+        },
+        {
+          "expect": "▶└──alpha"
+        },
+        {
+          "text": ":cp after-invalid.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect": "after-invalid.txt"
+        },
+        {
+          "text": ":quit"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 11,
+      "snapshot_rows": [
+        2,
+        28
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "PROTECTED NEIGHBOR TOKEN\n",
+        "nested/notes café.txt": "NESTED UNICODE NOTES TOKEN\nOther nested bytes.\n",
+        "occupied/keep.txt": "OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 00: long café 雪 TOKEN\nline 01: long café 雪 TOKEN\nline 02: long café 雪 TOKEN\nline 03: long café 雪 TOKEN\nline 04: long café 雪 TOKEN\nline 05: long café 雪 TOKEN\nline 06: long café 雪 TOKEN\nline 07: long café 雪 TOKEN\nline 08: long café 雪 TOKEN\nline 09: long café 雪 TOKEN\nline 10: long café 雪 TOKEN\nline 11: long café 雪 TOKEN\nline 12: long café 雪 TOKEN\nline 13: long café 雪 TOKEN\nline 14: long café 雪 TOKEN\nline 15: long café 雪 TOKEN\nline 16: long café 雪 TOKEN\nline 17: long café 雪 TOKEN\nline 18: long café 雪 TOKEN\nline 19: long café 雪 TOKEN\nline 20: long café 雪 TOKEN\nline 21: long café 雪 TOKEN\nline 22: long café 雪 TOKEN\nline 23: long café 雪 TOKEN\nline 24: long café 雪 TOKEN\nline 25: long café 雪 TOKEN\nline 26: long café 雪 TOKEN\nline 27: long café 雪 TOKEN\nline 28: long café 雪 TOKEN\nline 29: long café 雪 TOKEN\nline 30: long café 雪 TOKEN\nline 31: long café 雪 TOKEN\nline 32: long café 雪 TOKEN\nline 33: long café 雪 TOKEN\nline 34: long café 雪 TOKEN\nline 35: long café 雪 TOKEN\nline 36: long café 雪 TOKEN\nline 37: long café 雪 TOKEN\nline 38: long café 雪 TOKEN\nline 39: long café 雪 TOKEN\nline 40: long café 雪 TOKEN\nline 41: long café 雪 TOKEN\nline 42: long café 雪 TOKEN\nline 43: long café 雪 TOKEN\nline 44: long café 雪 TOKEN\nline 45: long café 雪 TOKEN\nline 46: long café 雪 TOKEN\nline 47: long café 雪 TOKEN\nline 48: long café 雪 TOKEN\nline 49: long café 雪 TOKEN\nline 50: long café 雪 TOKEN\nline 51: long café 雪 TOKEN\nline 52: long café 雪 TOKEN\nline 53: long café 雪 TOKEN\nline 54: long café 雪 TOKEN\nline 55: long café 雪 TOKEN\nline 56: long café 雪 TOKEN\nline 57: long café 雪 TOKEN\nline 58: long café 雪 TOKEN\nline 59: long café 雪 TOKEN\n",
+        ".configuration/broot.hjson": "{\n  \"show_selection_mark\": true,\n  \"true_colors\": false,\n  \"enable_kitty_keyboard\": false,\n  \"quit_on_last_cancel\": false\n}\n",
+        "after-invalid.txt": "ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n"
+      },
+      "absent_paths": [],
+      "expected_directories": [],
+      "snapshot_exclusion": "Exclude the random managed-root path and transient command/status rows; retain real tree/selection/preview content. Footer-only empty-view evidence is explicitly declared when needed."
+    },
+    {
+      "name": "edge-invalid-destination",
+      "kind": "edge",
+      "purpose": "Recover after an unsuccessful external copy; independently verify no destination and intact inputs",
+      "command": [
+        "broot",
+        "--conf",
+        ".configuration/broot.hjson",
+        "--no-hidden",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": "alpha"
+        },
+        {
+          "expect": "▶└──alpha"
+        },
+        {
+          "text": ":cp absent-parent/destination.txt"
+        },
+        {
+          "expect": "alpha:cp absent-parent/destination.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": "alpha:cp absent-parent/destination.txt"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect": "bravo.txt"
+        },
+        {
+          "text": ":quit"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 9,
+      "snapshot_rows": [
+        2,
+        28
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "PROTECTED NEIGHBOR TOKEN\n",
+        "nested/notes café.txt": "NESTED UNICODE NOTES TOKEN\nOther nested bytes.\n",
+        "occupied/keep.txt": "OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 00: long café 雪 TOKEN\nline 01: long café 雪 TOKEN\nline 02: long café 雪 TOKEN\nline 03: long café 雪 TOKEN\nline 04: long café 雪 TOKEN\nline 05: long café 雪 TOKEN\nline 06: long café 雪 TOKEN\nline 07: long café 雪 TOKEN\nline 08: long café 雪 TOKEN\nline 09: long café 雪 TOKEN\nline 10: long café 雪 TOKEN\nline 11: long café 雪 TOKEN\nline 12: long café 雪 TOKEN\nline 13: long café 雪 TOKEN\nline 14: long café 雪 TOKEN\nline 15: long café 雪 TOKEN\nline 16: long café 雪 TOKEN\nline 17: long café 雪 TOKEN\nline 18: long café 雪 TOKEN\nline 19: long café 雪 TOKEN\nline 20: long café 雪 TOKEN\nline 21: long café 雪 TOKEN\nline 22: long café 雪 TOKEN\nline 23: long café 雪 TOKEN\nline 24: long café 雪 TOKEN\nline 25: long café 雪 TOKEN\nline 26: long café 雪 TOKEN\nline 27: long café 雪 TOKEN\nline 28: long café 雪 TOKEN\nline 29: long café 雪 TOKEN\nline 30: long café 雪 TOKEN\nline 31: long café 雪 TOKEN\nline 32: long café 雪 TOKEN\nline 33: long café 雪 TOKEN\nline 34: long café 雪 TOKEN\nline 35: long café 雪 TOKEN\nline 36: long café 雪 TOKEN\nline 37: long café 雪 TOKEN\nline 38: long café 雪 TOKEN\nline 39: long café 雪 TOKEN\nline 40: long café 雪 TOKEN\nline 41: long café 雪 TOKEN\nline 42: long café 雪 TOKEN\nline 43: long café 雪 TOKEN\nline 44: long café 雪 TOKEN\nline 45: long café 雪 TOKEN\nline 46: long café 雪 TOKEN\nline 47: long café 雪 TOKEN\nline 48: long café 雪 TOKEN\nline 49: long café 雪 TOKEN\nline 50: long café 雪 TOKEN\nline 51: long café 雪 TOKEN\nline 52: long café 雪 TOKEN\nline 53: long café 雪 TOKEN\nline 54: long café 雪 TOKEN\nline 55: long café 雪 TOKEN\nline 56: long café 雪 TOKEN\nline 57: long café 雪 TOKEN\nline 58: long café 雪 TOKEN\nline 59: long café 雪 TOKEN\n",
+        ".configuration/broot.hjson": "{\n  \"show_selection_mark\": true,\n  \"true_colors\": false,\n  \"enable_kitty_keyboard\": false,\n  \"quit_on_last_cancel\": false\n}\n"
+      },
+      "absent_paths": [
+        "absent-parent/destination.txt"
+      ],
+      "expected_directories": [],
+      "snapshot_exclusion": "Exclude the random managed-root path and transient command/status rows; retain real tree/selection/preview content. Footer-only empty-view evidence is explicitly declared when needed."
+    },
+    {
+      "name": "edge-resize-preview",
+      "kind": "edge",
+      "purpose": "Resize a long Unicode preview with observed redraw before dependent navigation",
+      "command": [
+        "broot",
+        "--conf",
+        ".configuration/broot.hjson",
+        "--no-hidden",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": "long"
+        },
+        {
+          "expect": "▶└──long"
+        },
+        {
+          "text": ":preview_text"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "line 00:"
+        },
+        {
+          "resize": {
+            "width": 80,
+            "height": 24
+          }
+        },
+        {
+          "wait_for_redraw": true
+        },
+        {
+          "text": ":page_down"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "line 40:"
+        },
+        {
+          "expect_not": "line 00:"
+        },
+        {
+          "resize": {
+            "width": 100,
+            "height": 30
+          }
+        },
+        {
+          "wait_for_redraw": true
+        },
+        {
+          "text": ":page_up"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "1 ▶line 00:"
+        },
+        {
+          "text": ":quit"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 17,
+      "snapshot_rows": [
+        2,
+        28
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "PROTECTED NEIGHBOR TOKEN\n",
+        "nested/notes café.txt": "NESTED UNICODE NOTES TOKEN\nOther nested bytes.\n",
+        "occupied/keep.txt": "OCCUPIED DIRECTORY TOKEN\n",
+        "long.txt": "line 00: long café 雪 TOKEN\nline 01: long café 雪 TOKEN\nline 02: long café 雪 TOKEN\nline 03: long café 雪 TOKEN\nline 04: long café 雪 TOKEN\nline 05: long café 雪 TOKEN\nline 06: long café 雪 TOKEN\nline 07: long café 雪 TOKEN\nline 08: long café 雪 TOKEN\nline 09: long café 雪 TOKEN\nline 10: long café 雪 TOKEN\nline 11: long café 雪 TOKEN\nline 12: long café 雪 TOKEN\nline 13: long café 雪 TOKEN\nline 14: long café 雪 TOKEN\nline 15: long café 雪 TOKEN\nline 16: long café 雪 TOKEN\nline 17: long café 雪 TOKEN\nline 18: long café 雪 TOKEN\nline 19: long café 雪 TOKEN\nline 20: long café 雪 TOKEN\nline 21: long café 雪 TOKEN\nline 22: long café 雪 TOKEN\nline 23: long café 雪 TOKEN\nline 24: long café 雪 TOKEN\nline 25: long café 雪 TOKEN\nline 26: long café 雪 TOKEN\nline 27: long café 雪 TOKEN\nline 28: long café 雪 TOKEN\nline 29: long café 雪 TOKEN\nline 30: long café 雪 TOKEN\nline 31: long café 雪 TOKEN\nline 32: long café 雪 TOKEN\nline 33: long café 雪 TOKEN\nline 34: long café 雪 TOKEN\nline 35: long café 雪 TOKEN\nline 36: long café 雪 TOKEN\nline 37: long café 雪 TOKEN\nline 38: long café 雪 TOKEN\nline 39: long café 雪 TOKEN\nline 40: long café 雪 TOKEN\nline 41: long café 雪 TOKEN\nline 42: long café 雪 TOKEN\nline 43: long café 雪 TOKEN\nline 44: long café 雪 TOKEN\nline 45: long café 雪 TOKEN\nline 46: long café 雪 TOKEN\nline 47: long café 雪 TOKEN\nline 48: long café 雪 TOKEN\nline 49: long café 雪 TOKEN\nline 50: long café 雪 TOKEN\nline 51: long café 雪 TOKEN\nline 52: long café 雪 TOKEN\nline 53: long café 雪 TOKEN\nline 54: long café 雪 TOKEN\nline 55: long café 雪 TOKEN\nline 56: long café 雪 TOKEN\nline 57: long café 雪 TOKEN\nline 58: long café 雪 TOKEN\nline 59: long café 雪 TOKEN\n",
+        ".configuration/broot.hjson": "{\n  \"show_selection_mark\": true,\n  \"true_colors\": false,\n  \"enable_kitty_keyboard\": false,\n  \"quit_on_last_cancel\": false\n}\n"
+      },
+      "absent_paths": [],
+      "expected_directories": [],
+      "snapshot_exclusion": "Exclude the random managed-root path and transient command/status rows; retain real tree/selection/preview content. Footer-only empty-view evidence is explicitly declared when needed."
+    }
+  ]
+}

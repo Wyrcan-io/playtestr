@@ -1,0 +1,94 @@
+Setup: output="/mnt/c/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-new-project-adversarial-pass/broot/probe-1791937930520039794.json" argv=["broot" "--conf" ".configuration/broot.hjson" "--no-hidden" "."] cwd="" fixture="fixtures-reviewed" viewport=100x30 timeout=10000ms budget=120000ms output-cap=2000000
+Recorder controls (target input is separate):
+  /live                       type into the target; Ctrl+G returns to controls
+  /key ArrowDown              send a supported named key
+  /text "hello"               send JSON-quoted text/paste (literal Ctrl+G: "\u0007")
+  /expect unique new content  positive readiness checkpoint
+  /absent previous content    disappearance of previously asserted content
+  /exit 0                     exact expected exit code
+  /snapshot name.txt          capture a ready, settled screen
+  /resize 100 30; /redraw     resize and optional observed redraw wait
+  /snapshot-rows name.rows.json 2 24  capture reviewed inclusive viewport rows
+  /screen; /review            inspect screen or full candidate/baselines
+  /delete N; /move N M         edit 1-based step positions
+  /replace N {"expect":"..."} replace a step with one strict JSON action
+  /rerecord N                 fresh target, retain/reconstruct first N steps
+  /replay; /save               reviewed fresh replay, then export new files
+  /quit                       cancel without export
+No target input or raw draft is saved automatically. Review may display sensitive
+text the target printed or you typed. Targets run with your permissions.
+Resolved target="/var/tmp/playtestr-adversarial-broot/bin/broot" working-directory="/tmp/playtestr-workspace-1356221039/fixture"
+record> record> record> record> record> record> record> record> record> record> record> record> record> {
+  "version": 2,
+  "name": "Copy a selected file to a spaced Unicode destination and preserve neighbors",
+  "command": [
+    "broot",
+    "--conf",
+    ".configuration/broot.hjson",
+    "--no-hidden",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures-reviewed",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "BR_INSTALL": "no",
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "text": "alpha"
+    },
+    {
+      "expect": "▶└──alpha"
+    },
+    {
+      "text": ":cp "
+    },
+    {
+      "text": "copied café.txt"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect": "copied café.txt"
+    },
+    {
+      "snapshot": "normal-project.rows.json"
+    },
+    {
+      "text": ":quit"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}
+
+Baseline normal-project.rows.json:
+{
+  "snapshot_version": 1,
+  "first_row": 2,
+  "last_row": 28,
+  "text": "▶├──alpha.txt\n ├──bravo.txt\n ├──copied café.txt\n ├──empty\n ├──long.txt\n ├──nested\n │  └──notes café.txt\n ├──occupied\n │  └──keep.txt\n └──protected.txt\n"
+}
+
+record> [0m[?25h

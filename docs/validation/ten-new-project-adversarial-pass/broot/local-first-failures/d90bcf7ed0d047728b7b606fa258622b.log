@@ -1,0 +1,47 @@
+Setup: output="/mnt/c/Users/abhir/OneDrive/Documents/playtestr/docs/validation/ten-new-project-adversarial-pass/broot/edge-resize-preview.json" argv=["broot" "--conf" ".configuration/broot.hjson" "--no-hidden" "."] cwd="" fixture="fixtures-reviewed" viewport=100x30 timeout=10000ms budget=120000ms output-cap=2000000
+Recorder controls (target input is separate):
+  /live                       type into the target; Ctrl+G returns to controls
+  /key ArrowDown              send a supported named key
+  /text "hello"               send JSON-quoted text/paste (literal Ctrl+G: "\u0007")
+  /expect unique new content  positive readiness checkpoint
+  /absent previous content    disappearance of previously asserted content
+  /exit 0                     exact expected exit code
+  /snapshot name.txt          capture a ready, settled screen
+  /resize 100 30; /redraw     resize and optional observed redraw wait
+  /snapshot-rows name.rows.json 2 24  capture reviewed inclusive viewport rows
+  /screen; /review            inspect screen or full candidate/baselines
+  /delete N; /move N M         edit 1-based step positions
+  /replace N {"expect":"..."} replace a step with one strict JSON action
+  /rerecord N                 fresh target, retain/reconstruct first N steps
+  /replay; /save               reviewed fresh replay, then export new files
+  /quit                       cancel without export
+No target input or raw draft is saved automatically. Review may display sensitive
+text the target printed or you typed. Targets run with your permissions.
+Resolved target="/var/tmp/playtestr-adversarial-broot/bin/broot" working-directory="/tmp/playtestr-workspace-3750627689/fixture"
+record> record> record> record> record> record> record> record> record> record> record> Recorder: stale anchor "line 20:" was already present before this input sequence; choose content identifying the new state
+record> …str-workspace-3750627689/fixture long.txt                             lines: 60
+▶└──long.txt                       ▶line 21: long café 雪 TOKEN
+                                    line 22: long café 雪 TOKEN
+                                    line 23: long café 雪 TOKEN
+                                    line 24: long café 雪 TOKEN
+                                    line 25: long café 雪 TOKEN
+                                    line 26: long café 雪 TOKEN
+                                    line 27: long café 雪 TOKEN
+                                    line 28: long café 雪 TOKEN                ▐
+                                    line 29: long café 雪 TOKEN                ▐
+                                    line 30: long café 雪 TOKEN                ▐
+                                    line 31: long café 雪 TOKEN                ▐
+                                    line 32: long café 雪 TOKEN                ▐
+                                    line 33: long café 雪 TOKEN                ▐
+                                    line 34: long café 雪 TOKEN                ▐
+                                    line 35: long café 雪 TOKEN                ▐
+                                    line 36: long café 雪 TOKEN
+                                    line 37: long café 雪 TOKEN
+                                    line 38: long café 雪 TOKEN
+                                    line 39: long café 雪 TOKEN
+                                    line 40: long café 雪 TOKEN
+                                    line 41: long café 雪 TOKEN
+ Hit a pattern to filter, or a space then a verb
+long:preview_text
+
+record> [0m[?25h

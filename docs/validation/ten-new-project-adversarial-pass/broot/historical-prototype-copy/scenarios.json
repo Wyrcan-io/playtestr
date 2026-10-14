@@ -1,0 +1,111 @@
+{
+  "project": "broot",
+  "fixture": "fixtures",
+  "environment": {
+    "TERM": "screen-256color",
+    "BR_INSTALL": "no"
+  },
+  "cases": [
+    {
+      "name": "explore-startup",
+      "kind": "diagnostic",
+      "purpose": "Inspect actual pinned Broot startup and natural quit without user shell installation",
+      "command": [
+        "broot",
+        "--conf",
+        ".configuration/broot.hjson",
+        "--no-hidden",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": ":quit"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 1,
+      "snapshot_rows": [
+        3,
+        28
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "PROTECTED NEIGHBOR TOKEN\n",
+        "nested/notes.txt": "NESTED NOTES TOKEN\n",
+        "empty/.keep": "OWNED EMPTY DIRECTORY MARKER\n",
+        ".configuration/broot.hjson": "{\n  \"show_selection_mark\": true,\n  \"true_colors\": false,\n  \"enable_kitty_keyboard\": false,\n  \"quit_on_last_cancel\": false\n}\n"
+      },
+      "absent_paths": []
+    },
+    {
+      "name": "normal-project",
+      "kind": "normal",
+      "purpose": "Copy a selected real file through the pinned built-in local copy verb",
+      "command": [
+        "broot",
+        "--conf",
+        ".configuration/broot.hjson",
+        "--no-hidden",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": "alpha"
+        },
+        {
+          "expect": "▶└──alpha.txt"
+        },
+        {
+          "text": ":cp copied.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect": "copied.txt"
+        },
+        {
+          "text": ":quit"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 7,
+      "snapshot_rows": [
+        2,
+        28
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "PROTECTED NEIGHBOR TOKEN\n",
+        "nested/notes.txt": "NESTED NOTES TOKEN\n",
+        "empty/.keep": "OWNED EMPTY DIRECTORY MARKER\n",
+        ".configuration/broot.hjson": "{\n  \"show_selection_mark\": true,\n  \"true_colors\": false,\n  \"enable_kitty_keyboard\": false,\n  \"quit_on_last_cancel\": false\n}\n",
+        "copied.txt": "ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n"
+      },
+      "absent_paths": []
+    }
+  ]
+}

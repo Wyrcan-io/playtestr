@@ -1,0 +1,58 @@
+{
+  "version": 2,
+  "name": "Preview a selected spaced Unicode text file without launching an editor",
+  "command": [
+    "broot",
+    "--conf",
+    ".configuration/broot.hjson",
+    "--no-hidden",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures-reviewed",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "BR_INSTALL": "no",
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "text": "notes"
+    },
+    {
+      "expect": "▶   └──nested/notes café.txt"
+    },
+    {
+      "text": ":preview_text"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "NESTED UNICODE NOTES TOKEN"
+    },
+    {
+      "snapshot": "normal-unicode-preview.rows.json"
+    },
+    {
+      "text": ":quit"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

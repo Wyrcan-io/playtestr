@@ -1,0 +1,11 @@
+--- a/src/preview/preview_state.rs
++++ b/src/preview/preview_state.rs
+@@ -490,7 +490,7 @@
+                 Ok(CmdResult::Keep)
+             }
+             Internal::page_down => {
+-                self.mut_preview().try_scroll(ScrollCommand::Pages(1));
++                self.mut_preview().try_scroll(ScrollCommand::Pages(-1));
+                 Ok(CmdResult::Keep)
+             }
+             Internal::page_up => {

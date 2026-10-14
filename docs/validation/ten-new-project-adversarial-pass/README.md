@@ -24,8 +24,15 @@ separate state repetitions, actual faults/restoration and qualified-run owned
 deletion are evidenced per host. Its redundant Windows retry was mistakenly
 cancelled after misleading live API metadata; the actual archive corrects that
 interpretation, and the interrupted retry receives no qualification credit.
-Glow is the sole active application. Five development projects are complete;
-final frozen-source credit remains zero.
+Glow completed development qualification at `ad7f00a` / native run
+`38485822527`: Linux/macOS each passed twelve scenarios, 120 ordinary and
+120 separate state repetitions, actual faults/restoration, and verified owned
+deletion. All three native core/race jobs and standard CI passed. Its Windows
+upstream race remains an explicit unqualified path. Broot is the sole active
+application; six development projects are complete. Broot's twelve local
+recorded/reviewed contracts passed fresh replay and independent state checks;
+actual source-fault controls, maintenance, repetitions and native qualification
+are in progress. Final frozen-source credit remains zero.
 The earlier lf investigation follows:
 its twelve reviewed contracts passed 120 local Windows ordinary repetitions
 plus 120 state executions and exploratory WSL ordinary/state checks. Hosted
@@ -36,7 +43,7 @@ hosts at `425288a`, but their first scenario then accurately failed because Git
 omitted the empty synthetic fixture directories. The declared directory
 prerequisite passed a real local before/after regression with unchanged
 contracts; the successful native run above subsequently verified that repair.
-Final single-source campaign qualification and the remaining five development
+Final single-source campaign qualification and the remaining four development
 journeys are pending; completed full-product launch credit remains zero.
 
 The original `attempts.jsonl` is frozen after a diagnosed concurrent append

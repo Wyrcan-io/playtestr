@@ -1,0 +1,52 @@
+{
+  "project": "glow",
+  "source_pin": "8b0600fa445535b9c53194c0d4f7fe3cf700ef3e",
+  "status": "development_complete_pending_final_freeze",
+  "normal_scenarios": 6,
+  "edge_scenarios": 6,
+  "qualified_native_host_pairs": 2,
+  "native_run": "38485822527",
+  "native_source": "ad7f00ac9d375e1e72a8b45c17ee8cb71c3da97b",
+  "runner_identities": [
+    {
+      "source": "ad7f00ac9d375e1e72a8b45c17ee8cb71c3da97b",
+      "runner_sha256": "b36176e2b04100015c889a524f8b4887eb0dec4636bf54b8dafcc7eb15b361e2",
+      "actual_host": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "project": "glow",
+      "scenarios": 12,
+      "git_version": "git version 2.55.0",
+      "terminal_repetitions": 120,
+      "state_probe_repetitions": 120,
+      "state_scope": "Separate real recorder executions: exact reviewed screen and current managed workspace files before teardown",
+      "phase": "Development qualification; final single-source batch freeze remains pending",
+      "run_id": "38485822527",
+      "run_attempt": "1"
+    },
+    {
+      "source": "ad7f00ac9d375e1e72a8b45c17ee8cb71c3da97b",
+      "runner_sha256": "84c714ec18be39636b58c1ebd6cc8871b95b8dfb9adf3857c0e5c72ae6914291",
+      "actual_host": "macOS-15.7.9-arm64-arm-64bit",
+      "project": "glow",
+      "scenarios": 12,
+      "git_version": "git version 2.55.0",
+      "terminal_repetitions": 120,
+      "state_probe_repetitions": 120,
+      "state_scope": "Separate real recorder executions: exact reviewed screen and current managed workspace files before teardown",
+      "phase": "Development qualification; final single-source batch freeze remains pending",
+      "run_id": "38485822527",
+      "run_attempt": "1"
+    }
+  ],
+  "ordinary_repetitions_per_host": 120,
+  "separate_state_repetitions_per_host": 120,
+  "real_target_regressions": 2,
+  "input_preservation_corruption_controls": 1,
+  "contracts_unchanged_during_faults": true,
+  "qualified_hosted_app_source_deleted": true,
+  "local_owned_application_trees_deleted": true,
+  "windows": "Unqualified actual pinned upstream input race; exploratory source/build/diagnostic trees removed",
+  "ux": "ux-prepared-route.json",
+  "maintenance": "maintenance-result.json",
+  "final_frozen_campaign_credit": 0,
+  "full_product_campaign_credit": 0
+}

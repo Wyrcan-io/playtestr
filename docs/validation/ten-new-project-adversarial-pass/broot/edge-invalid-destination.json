@@ -1,0 +1,67 @@
+{
+  "version": 2,
+  "name": "Recover after an unsuccessful external copy; independently verify no destination and intact inputs",
+  "command": [
+    "broot",
+    "--conf",
+    ".configuration/broot.hjson",
+    "--no-hidden",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures-reviewed",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "BR_INSTALL": "no",
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "text": "alpha"
+    },
+    {
+      "expect": "▶└──alpha"
+    },
+    {
+      "text": ":cp absent-parent/destination.txt"
+    },
+    {
+      "expect": "alpha:cp absent-parent/destination.txt"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "alpha:cp absent-parent/destination.txt"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect": "bravo.txt"
+    },
+    {
+      "snapshot": "edge-invalid-destination.rows.json"
+    },
+    {
+      "text": ":quit"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

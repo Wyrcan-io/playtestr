@@ -1,0 +1,3 @@
+These minimal temporary source changes apply only to Broot's pinned MIT-licensed source at `41cb4c78d9d7736dfe83c65f8a393fc962e50662`. See [upstream license](../UPSTREAM-LICENSE.txt). They deliberately divert a copy, reverse preview page navigation, and copy wrong bytes while retaining the expected destination name. They are campaign controls, never Playtestr production logic.
+
+Definitions are intentions until actual mutation reports establish detection, unchanged contracts, exact source/binary restoration, and ordinary plus independent-state recovery. Generated patches retain the corresponding licensed upstream context. The independent state probe is campaign functionality; the public runner does not assert filesystem contents.
