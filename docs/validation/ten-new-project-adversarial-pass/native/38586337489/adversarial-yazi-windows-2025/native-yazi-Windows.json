@@ -1,0 +1,28 @@
+{
+  "source": "b7f46ed6abdc57e03c4ba84c9858199584678419",
+  "runner_sha256": "b023c13357d2b475e663563e3e61c2daec8fee7ea2c1407f519f1dd859a04776",
+  "actual_host": "Windows-2025Server-10.0.26100-SP0",
+  "project": "yazi",
+  "scenarios": 14,
+  "git_version": "git version 2.55.0.windows.5",
+  "terminal_repetitions": 140,
+  "state_probe_repetitions": 140,
+  "state_scope": "Separate real recorder executions: exact reviewed screen and current managed workspace files before teardown",
+  "phase": "Development qualification; final single-source batch freeze remains pending",
+  "frozen_manifest_sha256": null,
+  "external_state_cleanup": {
+    "roots": [
+      "C:\\Users\\runneradmin\\AppData\\Roaming\\yazi",
+      "C:\\Users\\runneradmin\\AppData\\Local\\yazi"
+    ],
+    "removed": true,
+    "scope": "Owned disposable hosted Windows known-folder paths"
+  },
+  "file_prerequisite": {
+    "binary": "C:\\msys64\\usr\\bin\\file.exe",
+    "version": "file-5.48\nmagic file from /usr/share/misc/magic",
+    "actual_fixture_mime": "text/plain"
+  },
+  "run_id": "38586337489",
+  "run_attempt": "1"
+}

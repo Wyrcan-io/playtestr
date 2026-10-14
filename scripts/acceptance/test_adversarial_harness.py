@@ -16,6 +16,17 @@ from adversarial_fixture_directories import prepare
 from adversarial_project_maintenance import copy_spec_fixture
 
 class NativeHarnessControls(unittest.TestCase):
+    def test_exact_tree_rejects_collateral_hidden_file(self):
+        with tempfile.TemporaryDirectory(prefix='playtestr-workspace-oracle-') as root:
+            working=Path(root)/'fixture';working.mkdir()
+            (working/'nested').mkdir()
+            (working/'nested/saved.txt').write_bytes(b'approved')
+            case=dict(expected_files={'nested/saved.txt':'approved'},exact_tree=True)
+            self.assertTrue(check_state(working,case)['passed'])
+            (working/'.unexpected').write_bytes(b'collateral write')
+            with self.assertRaisesRegex(RuntimeError,'exact tree mismatch'):
+                check_state(working,case)
+
     @unittest.skipIf(os.name=='nt','Unix signal fallback requires native process groups')
     def test_signal_permission_failure_still_stops_owned_group(self):
         import signal

@@ -87,6 +87,30 @@ def check_state(working,case):
         directories.append(relative)
     result=dict(files=checked,absent=case.get('absent_paths',[]),directories=directories,passed=True)
     if empty_directories:result['empty_directories']=empty_directories
+    exact_tree=case.get('exact_tree',False)
+    if not isinstance(exact_tree,bool):raise RuntimeError('Invalid exact tree declaration')
+    if exact_tree:
+        if working.is_symlink() or getattr(working,'is_junction',lambda:False)():
+            raise RuntimeError('Independent exact tree refuses linked workspace')
+        if not working.is_dir():raise RuntimeError('Independent exact tree workspace is missing')
+        expected=set(case.get('expected_files',{}))|set(directories)
+        for relative in list(expected):
+            expected.update(parent.as_posix() for parent in Path(relative).parents if parent!=Path('.'))
+        observed=set();started=time.monotonic()
+        def inventory_error(error):
+            raise RuntimeError('Independent exact tree could not inventory workspace') from error
+        for directory,folders,files in os.walk(working,followlinks=False,onerror=inventory_error):
+            for name in [*folders,*files]:
+                path=Path(directory)/name
+                if path.is_symlink() or getattr(path,'is_junction',lambda:False)():
+                    raise RuntimeError('Independent exact tree refuses linked state')
+                observed.add(path.relative_to(working).as_posix())
+                if len(observed)>4096 or time.monotonic()-started>10:
+                    raise RuntimeError('Independent exact tree inventory bound')
+        if observed!=expected:
+            raise RuntimeError('Independent exact tree mismatch: unexpected='+repr(sorted(observed-expected)[:64])+
+                               ' missing='+repr(sorted(expected-observed)[:64]))
+        result['entries']=sorted(observed)
     return result
 
 def recorder(binary,project,case,env,*,export=True,rerecord=False,wall_timeout=120):

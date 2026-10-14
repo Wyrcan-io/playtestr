@@ -1,0 +1,30 @@
+{
+  "classification": "Additional private campaign oracle; earlier declared-file checks did not promise complete-tree coverage",
+  "public_runner_file_assertion": false,
+  "before": {
+    "test": "test_exact_tree_rejects_collateral_hidden_file",
+    "actual_hidden_file": ".unexpected",
+    "failed": true,
+    "diagnosis": "Declared-file oracle accepted the approved file despite an additional collateral hidden file"
+  },
+  "repair": "Optional exact_tree boolean compares every file/directory entry, including hidden entries, with declared files/directories and their parent directories; refuses links and bounds inventory to 4096 entries and ten seconds",
+  "after_windows": {
+    "tests": 26,
+    "passed": true,
+    "skipped": 4,
+    "seconds": 16.835
+  },
+  "after_linux": {
+    "tests": 26,
+    "passed": true,
+    "skipped": 2,
+    "seconds": 24.015,
+    "scope": "WSL native-process exploratory harness validation; macOS verification still pending"
+  },
+  "future_application_scope": [
+    "ranger",
+    "nnn"
+  ],
+  "existing_contracts_changed": false,
+  "final_credit": 0
+}

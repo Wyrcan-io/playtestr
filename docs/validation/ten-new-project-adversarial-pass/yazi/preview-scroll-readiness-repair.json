@@ -11,6 +11,35 @@
   "classification": "Authored asynchronous workflow/readiness defect; no claim of input transport loss",
   "snapshot_sha256": "16e01a19076bccaeda9c48aa9d26d402fbea46632c522edf63312c2c6c86a844",
   "snapshot_unchanged": true,
-  "after": "Pending local and native requalification",
-  "final_credit": 0
+  "after": "Local unchanged-snapshot series passed; full native requalification in progress",
+  "final_credit": 0,
+  "interrupted_local_series": {
+    "reason": "Operator normalized CRLF to LF while repetition 5 was active; the unchanged-contract guard rejected the change. No completed series credit. Original attempts retained.",
+    "classification": "Operator contract-write interruption; no application behavior failure claimed",
+    "completed_ordinary_and_state_pairs_before_interruption": 5
+  },
+  "native_requalification": {
+    "run": 38634382707,
+    "source": "0f85370",
+    "status": "in progress",
+    "credit": 0
+  },
+  "local_requalification": {
+    "ordinary_runs": 10,
+    "separate_saved_state_runs": 10,
+    "ordinary_evidence_ids": [
+      "88c48b6b7c034782a6b0ac5692a584c7",
+      "9e8ff358bf7d4315bd838e5770b904f9",
+      "5cea84eeb3114ee0bec227c04d78bc8d",
+      "41603d16d8a0496997f17897c3c794e5",
+      "99f620c4a45b40049344c2a343fd60f7",
+      "e0f007d8173e4b07a0e79045b1552175",
+      "40027afa53f24d4580f72e90bccf7f14",
+      "ad15e8631a92473d85aa53219c3d4a1f",
+      "2a6b1dde804c410780deae9675063284",
+      "bff2a4ad81674fcabce9457794d1c7a2"
+    ],
+    "result": "passed",
+    "scope": "WSL exploratory stability only; native qualification remains pending"
+  }
 }

@@ -137,6 +137,12 @@ def audit(run):
                         set(observed.get('directories',[]))!=set(case.get('expected_directories',[])) or
                         set(observed.get('empty_directories',[]))!=set(case.get('empty_directories',[]))):
                         errors.append('Independent declared state differs: '+artifact+'/'+case_name)
+                    if case.get('exact_tree'):
+                        expected_entries=set(case.get('expected_files',{}))|set(case.get('expected_directories',[]))
+                        for entry in list(expected_entries):
+                            expected_entries.update(p.as_posix() for p in Path(entry).parents if p!=Path('.'))
+                        if observed.get('entries')!=sorted(expected_entries):
+                            errors.append('Independent complete tree differs: '+artifact+'/'+case_name)
                 # Initial, rerecord and source-recovery probes are separate;
                 # the native completion record and group logs bind the ten
                 # final probes. Never count them as extra ordinary runs.
@@ -147,6 +153,19 @@ def audit(run):
                 control=json.loads(path.read_text(encoding='utf-8'))
                 if not control.get('restored') or not control.get('contracts_unchanged'):
                     errors.append('Unrestored source fault: '+str(path));continue
+                # Bind restoration to actual successful executions, including
+                # the separate saved-state probe, rather than its summary flag.
+                for key in ['recovery_id','state_recovery_id']:
+                    events=attempts.get(control.get(key),{})
+                    provenance=events.get('identified',{}).get('identity',{})
+                    if (events.get('started',{}).get('project')!=name or
+                        provenance.get('runner_sha256')!=identity['binary_sha256'] or
+                        provenance.get('target_revision')!=project['source_pin'] or
+                        events.get('finished',{}).get('category')!='passed' or
+                        events.get('finished',{}).get('cleanup_errors') or 'launched' not in events):
+                        errors.append('Source restoration execution missing or mismatched: '+artifact+'/'+control['name']+'/'+key)
+                if control.get('state_recovery_id') not in state_ids:
+                    errors.append('Source restoration saved-state evidence missing: '+artifact+'/'+control['name'])
                 controls.append(control)
             if len({c['name'] for c in controls})<2:errors.append('Two distinct real source faults missing: '+artifact)
             if not any(c.get('state_oracle_detected') for c in controls):errors.append('Saved-state false-green control missing: '+artifact)

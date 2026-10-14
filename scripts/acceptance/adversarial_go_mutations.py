@@ -140,8 +140,8 @@ def main(*,rust=False,c=False):
         recovery=RAW/args.project/('restored-'+label+'.json')
         result=run([args.binary,'test','--report',recovery.relative_to(ROOT),spec],
                    args.project,'restore-'+name,env=env)
-        recorder(args.binary,args.project,case,env,export=False)
-        fault.update(restored=True,recovery_id=result['id'],contracts_unchanged=True,
+        state_recovery=recorder(args.binary,args.project,case,env,export=False)
+        fault.update(restored=True,recovery_id=result['id'],state_recovery_id=state_recovery['id'],contracts_unchanged=True,
                      restored_target_binary_sha256=restored_identity['binary_sha256'])
         controls.append(fault)
         (RAW/args.project/(label+'-control.json')).write_text(json.dumps(fault,indent=2)+'\n',encoding='utf-8')
