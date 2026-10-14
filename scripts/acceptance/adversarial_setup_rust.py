@@ -15,38 +15,43 @@ TARGETS={'helix':('helix-term','hx'),'broot':('broot','broot'),'yazi':('yazi-fm'
 
 
 def build(app,project,*,clean_package=False):
+    toolchain='1.99.0' if project=='yazi' else TOOLCHAIN
+    profile='release-windows' if project=='yazi' and os.name=='nt' else 'release'
     identity=json.loads((app/'runtime.json').read_text(encoding='utf-8'))
     source=app/'source'
     env=dict(os.environ)
     for name,folder in [('CARGO_HOME','cargo-home'),('RUSTUP_HOME','rustup-home'),
                         ('CARGO_TARGET_DIR','cargo-target'),('TMPDIR','rust-tmp')]:
         path=app/folder;path.mkdir(exist_ok=True);env[name]=str(path)
-    env.update(RUSTUP_TOOLCHAIN=TOOLCHAIN,CARGO_BUILD_JOBS='2',CARGO_INCREMENTAL='0',
+    env.update(RUSTUP_TOOLCHAIN=toolchain,CARGO_BUILD_JOBS='2',CARGO_INCREMENTAL='0',
                CARGO_PROFILE_RELEASE_DEBUG='0',CARGO_PROFILE_RELEASE_LTO='false',
                RUSTUP_DIST_SERVER='https://static.rust-lang.org',
                RUSTUP_UPDATE_ROOT='https://static.rust-lang.org/rustup')
+    if profile=='release-windows':
+        env.update(CARGO_PROFILE_RELEASE_WINDOWS_DEBUG='0',CARGO_PROFILE_RELEASE_WINDOWS_LTO='false')
     if os.name=='nt':env.update(TEMP=str(app/'rust-tmp'),TMP=str(app/'rust-tmp'))
     # The admitted Helix scope is deterministic plain-text editing. The pinned
     # upstream build hook explicitly supports disabling grammar acquisition.
     # No downloaded grammar repository, LSP or syntax compatibility is claimed.
     if project=='helix':env['HELIX_DISABLE_AUTO_GRAMMAR_BUILD']='1'
+    if project=='yazi':env.pop('YAZI_GEN_COMPLETIONS',None)
     rustup=os.environ.get('PLAYTESTR_RUSTUP') or shutil.which('rustup')
     if not rustup:raise RuntimeError('Rustup prerequisite missing; install the official bootstrap in an owned runtime first')
     installed=app/'rustup-home/toolchains'
-    if not installed.is_dir() or not any(installed.glob(TOOLCHAIN+'-*')):
-        run([rustup,'toolchain','install',TOOLCHAIN,'--profile','minimal','--no-self-update'],project,
+    if not installed.is_dir() or not any(installed.glob(toolchain+'-*')):
+        run([rustup,'toolchain','install',toolchain,'--profile','minimal','--no-self-update'],project,
             'owned-exact-rust-toolchain',env=env,timeout=600)
-    tool=[rustup,'run',TOOLCHAIN]
+    tool=[rustup,'run',toolchain]
     # A private CARGO_HOME intentionally has no user/global rustc proxy. Cargo
     # otherwise finds an unrelated system rustc through PATH, even though
     # `rustup run ... rustc --version` selected the correct compiler directly.
-    compiler=Path(run([rustup,'which','--toolchain',TOOLCHAIN,'rustc'],project,
+    compiler=Path(run([rustup,'which','--toolchain',toolchain,'rustc'],project,
         'resolve-owned-rust-compiler',env=env)['output'].strip()).resolve(strict=True)
     compiler.relative_to((app/'rustup-home/toolchains').resolve(strict=True))
     env['RUSTC']=str(compiler)
     env['RUSTDOC']=str(compiler.with_name('rustdoc.exe' if os.name=='nt' else 'rustdoc'))
     version=run([*tool,'rustc','--version'],project,'actual-rust-compiler',env=env)['output'].strip()
-    if not version.startswith('rustc '+TOOLCHAIN+' '):raise RuntimeError('Actual Rust compiler differs from selected exact version')
+    if not version.startswith('rustc '+toolchain+' '):raise RuntimeError('Actual Rust compiler differs from selected exact version')
     package,binary_name=TARGETS[project]
     if clean_package:
         # Cargo can otherwise reuse a mutated binary when exact restoration
@@ -54,7 +59,7 @@ def build(app,project,*,clean_package=False):
         run([*tool,'cargo','clean','-p',package],project,'invalidate-mutated-package-artifacts',
             env=env,cwd=source,timeout=90)
     cargo_action='rustc' if os.name=='nt' else 'build'
-    command=[*tool,'cargo',cargo_action,'--locked','--release','-p',package,'--bin',binary_name]
+    command=[*tool,'cargo',cargo_action,'--locked','--profile',profile,'-p',package,'--bin',binary_name]
     if os.name=='nt':
         # MSVC otherwise embeds the current wall-clock timestamp in the PE
         # header, preventing exact pristine-binary restoration evidence.
@@ -62,7 +67,7 @@ def build(app,project,*,clean_package=False):
     run(command,
         project,'target-build',env=env,cwd=source,timeout=1200)
     suffix='.exe' if os.name=='nt' else ''
-    built=app/'cargo-target/release'/(binary_name+suffix)
+    built=app/'cargo-target'/profile/(binary_name+suffix)
     executable=app/'bin'/(binary_name+suffix)
     executable.parent.mkdir(exist_ok=True)
     shutil.copyfile(built,executable)
@@ -73,7 +78,7 @@ def build(app,project,*,clean_package=False):
             # The ordinary upstream runtime lookup includes this sibling path.
             # Copy only the pinned ordinary resources, never external grammars.
             shutil.copytree(source/'runtime',runtime,ignore=shutil.ignore_patterns('grammars'))
-    identity.update(toolchain=version,requested_toolchain=TOOLCHAIN,binary=str(executable),
+    identity.update(toolchain=version,requested_toolchain=toolchain,cargo_profile=profile,binary=str(executable),
         compiler_path=str(compiler),
         binary_sha256=hashlib.sha256(executable.read_bytes()).hexdigest(),
         build_profile='locked release; two jobs; no LTO/debug/incremental artifacts',

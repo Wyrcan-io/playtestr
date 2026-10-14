@@ -675,6 +675,9 @@
           "key": "Enter"
         },
         {
+          "expect": "Hit alt-Enter to open and quit, esc to clear the filter"
+        },
+        {
           "expect_not": "alpha:cp absent-parent/destination.txt"
         },
         {
@@ -693,7 +696,7 @@
           "exit": 0
         }
       ],
-      "snapshot_after_step": 9,
+      "snapshot_after_step": 10,
       "snapshot_rows": [
         2,
         28

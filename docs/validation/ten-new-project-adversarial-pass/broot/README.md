@@ -17,3 +17,22 @@ The [fault definitions](faults/definitions.json) deliberately divert a copy, rev
 The [prepared public route](ux-prepared-route.json) used four commands and fifteen recorder controls, taking 16.706 seconds with reviewed fixtures, warm caches and prior operator knowledge. It excludes acquisition, fixture engineering and earlier authoring corrections; it is not a beginner study. Manual editing changed the destination text and its explicitly selected checkpoint in a separate JSON test. The resulting snapshot mismatch, HTML diagnosis, named baseline update, ordinary rerun, Unicode/spaced checkout relocation, generated workflow preview and suffix rerecord all passed. Primary test/baseline bytes remained unchanged. The template is a preview; native execution requires separate successful hosted evidence.
 
 No Windows qualification, shell integration, editor/clipboard/image/network compatibility, full Broot coverage, or independent beginner-usability claim is made. Linux/macOS are the intended additional native runs. The pre-acquisition [scope](scope.md) remains historical: content search replaces a speculative second-panel workflow, and an actual unsuccessful copy replaces an unobserved overwrite/conflict intention. Both replacements preserve useful distinct behaviors and exact state evidence.
+
+First native run `38491057021` at `3d66b95` completed Linux's twelve cases,
+120 ordinary plus 120 separate state repetitions, all source controls and
+confirmed owned deletion. All three core/race jobs passed the nineteen-test
+harness calibration and 82 mapped product controls; standard `38491057052`
+passed. macOS failed initial unsuccessful-copy recovery: command disappearance
+passed, but Escape did not clear the filter and the subsequent `bravo.txt`
+checkpoint timed out. The source's external execution leaves/reenters the
+alternate screen; the observed failure is consistent with input arriving
+before resumed readiness, rather than proof from event-level instrumentation.
+The corrected recipe positively observes the resumed `Hit alt-Enter...` prompt
+before disappearance and Escape. Its old contract is retained under
+`historical-transient-external-completion`; its final snapshot is unchanged.
+The affected local development series was stopped via SIGINT to its exact
+verified owned Python process before changing contracts, and a subsequent
+process scan found no Broot or recorder remaining. Completed old attempts
+remain historical; the interrupted series is not credited as a complete run.
+The failed hosted macOS job skipped explicit owned deletion, so no deletion
+receipt is claimed for that attempt. Corrected native qualification is pending.

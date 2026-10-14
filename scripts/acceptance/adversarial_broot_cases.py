@@ -71,6 +71,7 @@ def main():
     add('edge-invalid-destination','edge','Recover after an unsuccessful external copy; independently verify no destination and intact inputs',
         [expect('alpha.txt'),*choose('alpha'),text(':cp absent-parent/destination.txt'),
          expect('alpha:cp absent-parent/destination.txt'),key('Enter'),
+         expect('Hit alt-Enter to open and quit, esc to clear the filter'),
          {'expect_not':'alpha:cp absent-parent/destination.txt'},key('Escape'),expect('bravo.txt')],
         absent=['absent-parent/destination.txt'])
     add('edge-resize-preview','edge','Resize a long Unicode preview with observed redraw before dependent navigation',
