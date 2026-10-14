@@ -34,10 +34,13 @@
       "text": "created-dir/sub"
     },
     {
+      "expect": ":mkdir created-dir/sub"
+    },
+    {
       "key": "Enter"
     },
     {
-      "expect": "created-dir"
+      "expect": "├──created-dir"
     },
     {
       "snapshot": "normal-mkdir.rows.json"

@@ -14,7 +14,7 @@ Broot does not retain the external failed copy's stderr in its resumed final scr
 
 The [fault definitions](faults/definitions.json) deliberately divert a copy, reverse page navigation, and copy the wrong file's bytes while preserving the expected visible destination. Both visible defects were detected. The third control passed ordinary terminal assertions while its independent byte oracle rejected the wrong copy. All three preserved contracts and restored exact source/binary hashes, followed by passing ordinary and state recovery. [Actual control reports and original failure evidence](local-fault-evidence/manifest-3.json) retain the identities. The first mutation invocation omitted the already-owned Rustup bootstrap environment; the adapter restored source bytes but could not rebuild without that prerequisite. The corrected invocation supplies the existing owned bootstrap explicitly; no system toolchain was installed.
 
-The [prepared public route](ux-prepared-route.json) used four commands and fifteen recorder controls, taking 16.706 seconds with reviewed fixtures, warm caches and prior operator knowledge. It excludes acquisition, fixture engineering and earlier authoring corrections; it is not a beginner study. Manual editing changed the destination text and its explicitly selected checkpoint in a separate JSON test. The resulting snapshot mismatch, HTML diagnosis, named baseline update, ordinary rerun, Unicode/spaced checkout relocation, generated workflow preview and suffix rerecord all passed. Primary test/baseline bytes remained unchanged. The template is a preview; native execution requires separate successful hosted evidence.
+The latest [prepared public route](ux-prepared-route.json) used four commands and seventeen recorder controls, taking 21.231 seconds with reviewed fixtures, warm caches and prior operator knowledge. It excludes acquisition, fixture engineering and earlier authoring corrections; it is not a beginner study. Manual editing changed the destination text and its two explicitly selected checkpoints in a separate JSON test. The resulting snapshot mismatch, HTML diagnosis, named baseline update, ordinary rerun, Unicode/spaced checkout relocation, generated workflow preview and suffix rerecord all passed again. Primary test/baseline bytes remained unchanged. The earlier fifteen-control assessment is archived with its earlier contract. The template is a preview; native execution requires separate successful hosted evidence.
 
 No Windows qualification, shell integration, editor/clipboard/image/network compatibility, full Broot coverage, or independent beginner-usability claim is made. Linux/macOS are the intended additional native runs. The pre-acquisition [scope](scope.md) remains historical: content search replaces a speculative second-panel workflow, and an actual unsuccessful copy replaces an unobserved overwrite/conflict intention. Both replacements preserve useful distinct behaviors and exact state evidence.
 
@@ -36,3 +36,15 @@ process scan found no Broot or recorder remaining. Completed old attempts
 remain historical; the interrupted series is not credited as a complete run.
 The failed hosted macOS job skipped explicit owned deletion, so no deletion
 receipt is claimed for that attempt. Corrected native qualification is pending.
+
+Second macOS run `38492657053` at `d6bc664` passed all twelve initial ordinary
+tests, then rejected an ambiguous destination anchor in the normal copy's
+independent recorder execution. [The actual first failing recording](first-failures/macos-normal-copy-recorder.json)
+is retained. All affected copy/move flows now assert their complete entered
+input before Enter, then a positive resumed-view prompt before Escape.
+Directory creation now asserts the actual tree branch, rather than the same
+name inside its input field. All five revised cases passed recording and fresh
+replay, and all five final baseline files are byte-identical to the archived
+pre-correction baselines. The public prepared route and maintenance passed
+again. New-contract native controls and complete host repetitions are pending;
+earlier local source controls apply to their captured historical contracts.

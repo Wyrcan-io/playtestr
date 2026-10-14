@@ -34,7 +34,13 @@
           "text": "copied café.txt"
         },
         {
+          "expect": "alpha:cp copied café.txt"
+        },
+        {
           "key": "Enter"
+        },
+        {
+          "expect": "Hit alt-Enter to open and quit, esc to clear the filter"
         },
         {
           "key": "Escape"
@@ -52,7 +58,7 @@
           "exit": 0
         }
       ],
-      "snapshot_after_step": 8,
+      "snapshot_after_step": 10,
       "snapshot_rows": [
         2,
         28
@@ -97,7 +103,13 @@
           "text": ":mv renamed café.txt"
         },
         {
+          "expect": "bravo:mv renamed café.txt"
+        },
+        {
           "key": "Enter"
+        },
+        {
+          "expect": "Hit alt-Enter to open and quit, esc to clear the filter"
         },
         {
           "key": "Escape"
@@ -115,7 +127,7 @@
           "exit": 0
         }
       ],
-      "snapshot_after_step": 7,
+      "snapshot_after_step": 9,
       "snapshot_rows": [
         2,
         28
@@ -276,10 +288,13 @@
           "text": "created-dir/sub"
         },
         {
+          "expect": ":mkdir created-dir/sub"
+        },
+        {
           "key": "Enter"
         },
         {
-          "expect": "created-dir"
+          "expect": "├──created-dir"
         },
         {
           "text": ":quit"
@@ -291,7 +306,7 @@
           "exit": 0
         }
       ],
-      "snapshot_after_step": 5,
+      "snapshot_after_step": 6,
       "snapshot_rows": [
         2,
         28
@@ -464,7 +479,13 @@
           "text": ":cp recovered.txt"
         },
         {
+          "expect": "alpha:cp recovered.txt"
+        },
+        {
           "key": "Enter"
+        },
+        {
+          "expect": "Hit alt-Enter to open and quit, esc to clear the filter"
         },
         {
           "key": "Escape"
@@ -482,7 +503,7 @@
           "exit": 0
         }
       ],
-      "snapshot_after_step": 12,
+      "snapshot_after_step": 14,
       "snapshot_rows": [
         2,
         28
@@ -606,7 +627,13 @@
           "text": ":cp after-invalid.txt"
         },
         {
+          "expect": "alpha:cp after-invalid.txt"
+        },
+        {
           "key": "Enter"
+        },
+        {
+          "expect": "Hit alt-Enter to open and quit, esc to clear the filter"
         },
         {
           "key": "Escape"
@@ -624,7 +651,7 @@
           "exit": 0
         }
       ],
-      "snapshot_after_step": 11,
+      "snapshot_after_step": 13,
       "snapshot_rows": [
         2,
         28

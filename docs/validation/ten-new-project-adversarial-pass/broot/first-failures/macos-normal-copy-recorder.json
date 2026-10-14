@@ -1,0 +1,57 @@
+{
+  "run": "38492657053",
+  "job": 115621258580,
+  "artifact": 11862069681,
+  "source": "d6bc66498f529487b8627e50c4b200ed69295326",
+  "attempts": [
+    {
+      "id": "54a87e34d3a24fe69e2d1f8bfde27a1c",
+      "event": "started",
+      "project": "broot",
+      "label": "normal-project-state-probe",
+      "utc": "2026-10-14T00:57:32.462351+00:00",
+      "host": "macOS-15.7.9-arm64-arm-64bit",
+      "timeout_seconds": 120,
+      "output_cap": 4194304,
+      "variation": "ordinary",
+      "expected_exit": 130,
+      "evidence": "artifacts/ten-new-project-adversarial-pass/broot/54a87e34d3a24fe69e2d1f8bfde27a1c"
+    },
+    {
+      "id": "54a87e34d3a24fe69e2d1f8bfde27a1c",
+      "event": "identified",
+      "project": "broot",
+      "label": "normal-project-state-probe",
+      "identity": {
+        "manifest": "identities/e0e8bac611c4f7e582eb194d1c69421239cb0f3fd48ca98cb5e11f3c541b382d.json",
+        "sha256": "e0e8bac611c4f7e582eb194d1c69421239cb0f3fd48ca98cb5e11f3c541b382d",
+        "runner_sha256": "3c064c3cb409d7baedbf5007ecea17c34d0308f6e95928b71fc89caa7aa6d226",
+        "target_revision": "41cb4c78d9d7736dfe83c65f8a393fc962e50662"
+      }
+    },
+    {
+      "id": "54a87e34d3a24fe69e2d1f8bfde27a1c",
+      "event": "launched",
+      "project": "broot",
+      "label": "normal-project-state-probe",
+      "pid": 12066
+    },
+    {
+      "id": "54a87e34d3a24fe69e2d1f8bfde27a1c",
+      "event": "finished",
+      "project": "broot",
+      "label": "normal-project-state-probe",
+      "category": "harness_error",
+      "exit_code": 130,
+      "seconds": 0.3825,
+      "console_sha256": "b22826416a78b02d3ea8c8e93baddad904580796c45889b22806f0355e1f0030",
+      "harness_cleanup": "harness_process_reaped",
+      "cleanup_errors": [],
+      "output_bytes": 1912
+    }
+  ],
+  "console_sha256": "b22826416a78b02d3ea8c8e93baddad904580796c45889b22806f0355e1f0030",
+  "console": "macos-normal-copy-recorder.log",
+  "scope": "Actual second macOS failure: normal copy state probe rejected ambiguous anchor during external transition; all12 initial ordinary tests had passed; no qualified application or owned-deletion credit",
+  "resolution": "New full-input checkpoint before Enter and positive resumed-view prompt before Escape for all affected external file operations; corrected native rerun pending"
+}

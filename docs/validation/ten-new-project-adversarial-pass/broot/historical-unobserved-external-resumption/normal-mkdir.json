@@ -1,0 +1,55 @@
+{
+  "version": 2,
+  "name": "Create a real nested directory through the supported local mkdir verb",
+  "command": [
+    "broot",
+    "--conf",
+    ".configuration/broot.hjson",
+    "--no-hidden",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures-reviewed",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "BR_INSTALL": "no",
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "text": ":mkdir "
+    },
+    {
+      "text": "created-dir/sub"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "created-dir"
+    },
+    {
+      "snapshot": "normal-mkdir.rows.json"
+    },
+    {
+      "text": ":quit"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

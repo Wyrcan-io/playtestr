@@ -1,0 +1,291 @@
+[
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/broot/edge-cancel-operation-test-0-1791938515295513000.json",
+    "sha256": "c115ec3c80e208a5d3c0898623f5ad4fd10e60f11cc0b1ae5a7e0497a4cd71cd",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Cancel a partially entered copy command without creating its destination",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/broot/edge-empty-directory-test-0-1791938513611297000.json",
+    "sha256": "69e2a6a875d7c166f0919dda7d5bf36df451d9ef958c2d9d39a997b46d460707",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Inspect a truly empty fixture directory and quit naturally",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/broot/edge-invalid-destination-test-0-1791938517064242000.json",
+    "sha256": "0f93f312bf40f2c1b9ecbb3888f6b1043865d1cd827c21db88d0fa9786b0657e",
+    "summary": {
+      "total": 1,
+      "passed": 0,
+      "failed": 1,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Recover after an unsuccessful external copy; independently verify no destination and intact inputs",
+        "status": "failed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": false,
+          "forced": true,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": {
+          "category": "assertion_timeout",
+          "message": "Recover after an unsuccessful external copy; independently verify no destination and intact inputs: step 9: step timed out: context deadline exceeded"
+        }
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/broot/edge-invalid-verb-test-0-1791938516086256000.json",
+    "sha256": "ab6e5771f09efcba832136b07a59244bb6d6a7acc0853f7ca5f521340fc6d76b",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Recover from a genuine invalid verb without changing any input file",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/broot/edge-no-match-recovery-test-0-1791938514344290000.json",
+    "sha256": "fc4e357a8408b7a813494bed911d77295dd51cd5591cf7c4cc022a6675b40cd5",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Recover from an unmatched filter and still copy a useful file",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/broot/normal-content-search-test-0-1791938513003775000.json",
+    "sha256": "dea3ee25ac446291a04d457ee0785c2685839fd19e9460060cf0386fb46f3ef4",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Search a noninitial text token and inspect its matching document",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/broot/normal-mkdir-test-0-1791938512243692000.json",
+    "sha256": "42ac487856e20f6c82827cbfa00758b10fbe58429d11a695f171cc4887da6094",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Create a real nested directory through the supported local mkdir verb",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/broot/normal-nested-focus-test-0-1791938510778778000.json",
+    "sha256": "d6fb2eb803ad2a3d78c721b4aabbe098675828e689e82816f23ebea4bf0cdbba",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Focus a noninitial nested directory and inspect its actual children",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/broot/normal-project-test-0-1791938508888400000.json",
+    "sha256": "6d3a0127d8b1cb3ac5c2490bd6ed63778a888739dcd9edf2490a01b5f3c5095a",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Copy a selected file to a spaced Unicode destination and preserve neighbors",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/broot/normal-rename-test-0-1791938509802678000.json",
+    "sha256": "58b79045aaa55ee6d09a79cc47a2e9ca53233bcc13abaf0224186ca8a2b39c9c",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Move a real selected file to a new spaced Unicode name",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/broot/normal-unicode-preview-test-0-1791938511468510000.json",
+    "sha256": "8ccd452be342fe36613da17db9c23d7eafb8b84df8af561655e737b57c524998",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Preview a selected spaced Unicode text file without launching an editor",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  }
+]

@@ -80,7 +80,7 @@ def check_state(working,case):
         directories.append(relative)
     return dict(files=checked,absent=case.get('absent_paths',[]),directories=directories,passed=True)
 
-def recorder(binary,project,case,env,*,export=True,rerecord=False):
+def recorder(binary,project,case,env,*,export=True,rerecord=False,wall_timeout=120):
     directory=DOC/project
     config=json.loads((directory/'scenarios.json').read_text(encoding='utf-8'))
     spec=directory/(case['name']+'.json')
@@ -178,7 +178,7 @@ def recorder(binary,project,case,env,*,export=True,rerecord=False):
             raise RuntimeError('Recorder completed without independent state evidence')
         if export and (not spec.exists() or b'Recorder:' in output):
             raise RuntimeError('Recorder export/replay failed')
-    result=run(args,project,case['name']+('-record' if export else '-state-probe'),env=env,
+    result=run(args,project,case['name']+('-record' if export else '-state-probe'),env=env,timeout=wall_timeout,
         expected=0 if export else 130,on_output=inspect,on_complete=completed)
     if rejected:
         raise RuntimeError('Public recorder rejected a step; final screen retained')

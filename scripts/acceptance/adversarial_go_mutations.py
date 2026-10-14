@@ -59,7 +59,8 @@ def main(*,rust=False):
         before_binary=hashlib.sha256(Path(identity['binary']).read_bytes()).hexdigest()
         fault=dict(name=name,source_file=mutation['file'],original_sha256=hashlib.sha256(original).hexdigest(),
                    mutated_sha256=hashlib.sha256(modified.encode()).hexdigest(),case=case_name,
-                   pristine_target_binary_sha256=before_binary)
+                   pristine_target_binary_sha256=before_binary,contract_sha256=digests,
+                   negative_probe_wall_timeout_seconds=30)
         label=name+'-'+str(time.time_ns())
         report=RAW/args.project/(label+'.json')
         try:
@@ -69,13 +70,13 @@ def main(*,rust=False):
             state_only=mutation.get('state_only',False)
             result=run([args.binary,'test','--report',report.relative_to(ROOT),
                 '--artifacts-dir',report.with_suffix('').relative_to(ROOT),spec],args.project,label,
-                env=env,expected=0 if state_only else 1)
+                env=env,expected=0 if state_only else 1,timeout=30)
             data=json.loads(report.read_text(encoding='utf-8'))
             if state_only:
                 if data['summary']['passed']!=1:
                     raise RuntimeError('Actual saved corruption did not preserve ordinary terminal green')
                 try:
-                    recorder(args.binary,args.project,case,env,export=False)
+                    recorder(args.binary,args.project,case,env,export=False,wall_timeout=30)
                 except RuntimeError as error:
                     if 'Independent exact file state mismatch' not in str(error):
                         raise

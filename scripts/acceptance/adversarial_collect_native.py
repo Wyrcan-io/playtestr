@@ -118,8 +118,14 @@ def main():
             record['race_passed_tests']=[r['Test'] for r in race if r.get('Action')=='pass' and r.get('Test')]
             persist(retained/'race-events.jsonl',race_events[0].read_bytes())
             record['files']['race-events.jsonl']=hashlib.sha256(race_events[0].read_bytes()).hexdigest()
-        for ledger in [*folder.rglob('attempts.jsonl'),*folder.rglob('attempts-v2.jsonl')]:
-            ledger_rows=read_ledger(ledger)
+        ledger_files=[*folder.rglob('attempts.jsonl'),*folder.rglob('attempts-v2.jsonl')]
+        ledgers=[(ledger,read_ledger(ledger)) for ledger in ledger_files]
+        started_by_directory={}
+        for ledger,ledger_rows in ledgers:
+            started_by_id=started_by_directory.setdefault(ledger.parent,{})
+            for row in ledger_rows:
+                if row['event']=='started':started_by_id.setdefault(row['id'],row)
+        for ledger,ledger_rows in ledgers:
             for row in ledger_rows:
                 key=(row['id'],row['event'])
                 if key not in known:
@@ -127,9 +133,8 @@ def main():
                     known.add(key)
                 if row['event']=='finished' and row['label'] in {'detached-startup-before','detached-startup-after',
                         'workspace-short-path-before','workspace-short-path-after'}:
-                    started=next(r for r in read_ledger(ledger.parent/'attempts.jsonl')+(
-                        read_ledger(ledger.parent/'attempts-v2.jsonl') if (ledger.parent/'attempts-v2.jsonl').exists() else [])
-                        if r['id']==row['id'] and r['event']=='started')
+                    started=started_by_directory[ledger.parent].get(row['id'])
+                    if started is None:raise RuntimeError('Native startup attempt lacks its original started record')
                     console=folder/started['evidence']/'console.log'
                     if not console.is_file():
                         continue # Historical ledger entries are not this host's executions.

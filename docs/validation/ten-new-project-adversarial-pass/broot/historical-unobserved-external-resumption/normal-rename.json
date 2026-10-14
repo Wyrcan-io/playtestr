@@ -1,0 +1,61 @@
+{
+  "version": 2,
+  "name": "Move a real selected file to a new spaced Unicode name",
+  "command": [
+    "broot",
+    "--conf",
+    ".configuration/broot.hjson",
+    "--no-hidden",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures-reviewed",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "BR_INSTALL": "no",
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "bravo.txt"
+    },
+    {
+      "text": "bravo"
+    },
+    {
+      "expect": "▶└──bravo"
+    },
+    {
+      "text": ":mv renamed café.txt"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect": "renamed café.txt"
+    },
+    {
+      "snapshot": "normal-rename.rows.json"
+    },
+    {
+      "text": ":quit"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}
