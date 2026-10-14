@@ -42,5 +42,30 @@
     "race_runner_seconds": 214.312,
     "race_setupaction_seconds": 103.386,
     "public_examples_passed": 2
-  }
+  },
+  "portable_gate_before": {
+    "prior_production_source": "b7f46ed6abdc57e03c4ba84c9858199584678419",
+    "failed": true,
+    "stdout": "--- FAIL: TestAdversarialFinalDrainPreservesOutputLimit (0.87s)\n    adversarial_output_drain_test.go:81: drained over-cap bytes must take precedence over target exit: process exited with code 0 before assertion matched; observation={screen:\n         rows:24 lastOutput:{wall:14027593653848564088 ext:624242001 loc:0x7ff785c5b300} outputBytes:134 outputLimitExceeded:true}\nFAIL\nFAIL\tgithub.com/Wyrcan-io/playtestr/internal/runner\t2.516s\nFAIL\n",
+    "source_exactly_restored": true
+  },
+  "portable_gate_after_windows": {
+    "runs": 10,
+    "failed": 0,
+    "package_seconds": 3.317
+  },
+  "gate_macos_limit": "Original gate withheld OS-level master reads and macOS did not report helper exit within 5 seconds. Revised test consumes real bytes first and holds only delivery to the emulator. Native validation pending.",
+  "portable_gate_race": {
+    "windows": {
+      "runs": 10,
+      "passed": true,
+      "seconds": 14.631
+    },
+    "unix_exploratory": {
+      "runs": 10,
+      "passed": true,
+      "seconds": 11.222
+    }
+  },
+  "gate_macos_correction_status": "Test-only correction ready for native verification; production output-limit repair unchanged"
 }

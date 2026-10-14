@@ -21,8 +21,13 @@ type gatedFinalOutputPTY struct {
 
 func (p *gatedFinalOutputPTY) release() { p.once.Do(func() { close(p.gate) }) }
 func (p *gatedFinalOutputPTY) Read(value []byte) (int, error) {
-	<-p.gate
-	return p.Pty.Read(value)
+	n, err := p.Pty.Read(value)
+	if n > 0 {
+		// BSD terminal shutdown can wait for the master to consume bytes.
+		// Hold delivery to the emulator, not the actual OS-level PTY read.
+		<-p.gate
+	}
+	return n, err
 }
 func (p *gatedFinalOutputPTY) Close() error {
 	p.release()
