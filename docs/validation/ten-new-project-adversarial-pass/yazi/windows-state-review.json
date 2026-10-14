@@ -1,0 +1,11 @@
+{
+  "dependency": "dirs-sys 0.5.0",
+  "official_archive": "https://static.crates.io/crates/dirs-sys/dirs-sys-0.5.0.crate",
+  "archive_sha256": "e01a3366d27ee9890022452ee61b2b63a67e6f13f58900b651ff5665f0bb1fab",
+  "review_date": "2026-10-14",
+  "finding": "Windows calls SHGetKnownFolderPath; APPDATA/LOCALAPPDATA environment overrides do not establish managed state ownership.",
+  "decision": "Do not execute on the local Windows user profile. Qualify on a clean GitHub-hosted Windows runner only after refusing existing Yazi roots, acquiring an explicit owned lease, resetting actual state between executions and confirming process/path cleanup.",
+  "qualification_granted": false,
+  "reviewed_excerpt_sha256": "f5c4653037f7c248069fc3b5bef16812ed5f89facf07394a1b10dea977cf0aee",
+  "source_location": "dirs-sys-0.5.0/src/lib.rs: target_windows::known_folder; calls SHGetKnownFolderPath with current-user token"
+}

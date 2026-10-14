@@ -28,11 +28,7 @@ Glow completed development qualification at `ad7f00a` / native run
 `38485822527`: Linux/macOS each passed twelve scenarios, 120 ordinary and
 120 separate state repetitions, actual faults/restoration, and verified owned
 deletion. All three native core/race jobs and standard CI passed. Its Windows
-upstream race remains an explicit unqualified path. Broot is the sole active
-application; six development projects are complete. Broot's twelve local
-recorded/reviewed contracts passed fresh replay and independent state checks;
-actual source-fault controls, maintenance, repetitions and native qualification
-are in progress. Final frozen-source credit remains zero.
+upstream race remains an explicit unqualified path. Broot completed thirteen-case Linux/macOS development qualification at `b50d7d8` / `38518046090`, with 130 ordinary and 130 separate state repetitions per host, all source faults/restoration and confirmed hosted/local teardown. Seven development projects are complete. Yazi is now the sole acquired application; its owned Linux Rust 1.99.0 build is in progress, while native Linux/macOS/Windows remain provisional. Windows known-folder state requires a clean hosted profile with explicit ownership/reset/cleanup, rather than assuming environment redirection. Ranger and nnn remain unacquired. A calibrated frozen-runner identity utility is available; the final single-source batch has not run and earns zero credit.
 The earlier lf investigation follows:
 its twelve reviewed contracts passed 120 local Windows ordinary repetitions
 plus 120 state executions and exploratory WSL ordinary/state checks. Hosted
@@ -43,7 +39,7 @@ hosts at `425288a`, but their first scenario then accurately failed because Git
 omitted the empty synthetic fixture directories. The declared directory
 prerequisite passed a real local before/after regression with unchanged
 contracts; the successful native run above subsequently verified that repair.
-Final single-source campaign qualification and the remaining four development
+Final single-source campaign qualification and the remaining three development
 journeys are pending; completed full-product launch credit remains zero.
 
 The original `attempts.jsonl` is frozen after a diagnosed concurrent append

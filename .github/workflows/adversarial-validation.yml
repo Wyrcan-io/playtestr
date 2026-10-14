@@ -15,7 +15,7 @@ permissions:
   contents: read
 
 env:
-  ACTIVE_PROJECT: broot
+  ACTIVE_PROJECT: yazi
 
 jobs:
   controls:
@@ -83,7 +83,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-24.04, macos-15]
+        os: [ubuntu-24.04, macos-15, windows-2025]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803

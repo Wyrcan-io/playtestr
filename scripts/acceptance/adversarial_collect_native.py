@@ -154,10 +154,15 @@ def main():
                 if target.exists() and target.read_bytes()!=data:
                     raise RuntimeError('Retained identity manifest conflict')
                 if not target.exists(): target.write_bytes(data)
-        for pattern in ['native-*.json','cleanup-Linux.json','cleanup-Windows.json','cleanup-Darwin.json','mutation-controls-*.json']:
+        for pattern in ['native-*.json','cleanup-Linux.json','cleanup-Windows.json','cleanup-Darwin.json','mutation-controls-*.json','rust-pristine-build-preflight-*.json','*-restoration-failure.json']:
             for path in folder.rglob(pattern):
                 persist(retained/path.name,path.read_bytes())
                 record['files'][path.name]=hashlib.sha256(path.read_bytes()).hexdigest()
+        for path in folder.rglob('external-state-*.json'):
+            state_root=retained/'external-state'
+            state_root.mkdir(exist_ok=True)
+            persist(state_root/path.name,path.read_bytes())
+            record['files']['external-state/'+path.name]=hashlib.sha256(path.read_bytes()).hexdigest()
         # Keep every distinct mutation's first actual red/false-green report.
         for path in folder.rglob('*-control.json'):
             fault=json.loads(path.read_text(encoding='utf-8'))

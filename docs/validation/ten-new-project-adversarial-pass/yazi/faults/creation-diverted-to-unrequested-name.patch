@@ -1,0 +1,11 @@
+--- a/yazi-actor/src/mgr/create.rs
++++ b/yazi-actor/src/mgr/create.rs
+@@ -38,7 +38,7 @@
+ 				return Ok(());
+ 			}
+ 
+-			let Ok(new) = cwd.try_join(&name) else {
++			let Ok(new) = cwd.try_join("unexpected-created.txt") else {
+ 				bail!("Failed to join new name with CWD");
+ 			};
+ 

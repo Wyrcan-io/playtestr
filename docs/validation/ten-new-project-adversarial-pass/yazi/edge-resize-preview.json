@@ -1,0 +1,105 @@
+{
+  "version": 2,
+  "name": "Resize with observed redraw, scroll new content and return to the beginning",
+  "command": [
+    "yazi",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": "Find next:"
+    },
+    {
+      "text": "long"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "Find next:"
+    },
+    {
+      "expect": "(find: long)"
+    },
+    {
+      "expect": "󰈙 long.txt"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "(find: long)"
+    },
+    {
+      "expect": "line 00:"
+    },
+    {
+      "resize": {
+        "width": 80,
+        "height": 24
+      }
+    },
+    {
+      "wait_for_redraw": true
+    },
+    {
+      "text": "JJ"
+    },
+    {
+      "expect": "line 30:"
+    },
+    {
+      "expect": "line 40:"
+    },
+    {
+      "expect_not": "line 00:"
+    },
+    {
+      "resize": {
+        "width": 100,
+        "height": 30
+      }
+    },
+    {
+      "wait_for_redraw": true
+    },
+    {
+      "text": "KK"
+    },
+    {
+      "expect": "line 00:"
+    },
+    {
+      "expect_not": "line 40:"
+    },
+    {
+      "snapshot": "edge-resize-preview.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

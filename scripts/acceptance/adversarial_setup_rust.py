@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path
 import platform
+import re
 import shutil
 import subprocess
 from adversarial_process import ROOT, DOC, run
@@ -14,7 +15,7 @@ TOOLCHAIN='1.97.1'
 TARGETS={'helix':('helix-term','hx'),'broot':('broot','broot'),'yazi':('yazi-fm','yazi')}
 
 
-def build(app,project,*,clean_package=False):
+def build(app,project,*,clean_package=False,clean_packages=()):
     toolchain='1.99.0' if project=='yazi' else TOOLCHAIN
     profile='release-windows' if project=='yazi' and os.name=='nt' else 'release'
     identity=json.loads((app/'runtime.json').read_text(encoding='utf-8'))
@@ -56,8 +57,17 @@ def build(app,project,*,clean_package=False):
     if clean_package:
         # Cargo can otherwise reuse a mutated binary when exact restoration
         # also restores the original older source mtime.
-        run([*tool,'cargo','clean','-p',package],project,'invalidate-mutated-package-artifacts',
-            env=env,cwd=source,timeout=90)
+        packages=list(dict.fromkeys([*clean_packages,package]))
+        if any(not isinstance(p,str) or not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_-]*',p) for p in packages):
+            raise RuntimeError('Invalid explicit Rust package invalidation')
+        clean=[*tool,'cargo','clean','--profile',profile,'--locked']
+        for p in packages:clean+=['-p',p]
+        removed=run(clean,project,'invalidate-mutated-package-artifacts',
+            env=env,cwd=source,timeout=90)['output']
+        count=re.search(r'Removed\s+([0-9]+)\s+files?',removed)
+        if count is None or int(count.group(1))==0:
+            raise RuntimeError('Rust profile cleanup did not positively remove compiled artifacts')
+        identity['last_profile_cleanup']=dict(profile=profile,packages=packages,removed_files=int(count.group(1)))
     cargo_action='rustc' if os.name=='nt' else 'build'
     command=[*tool,'cargo',cargo_action,'--locked','--profile',profile,'-p',package,'--bin',binary_name]
     if os.name=='nt':

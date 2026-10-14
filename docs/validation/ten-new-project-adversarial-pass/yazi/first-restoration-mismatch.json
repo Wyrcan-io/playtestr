@@ -1,0 +1,15 @@
+{
+  "scope": "First source control rejected at exact restoration; no qualified source-control credit",
+  "fault": "creation-diverted-to-unrequested-name",
+  "actual_failure_report": "artifacts/ten-new-project-adversarial-pass/yazi/creation-diverted-to-unrequested-name-1791960179161248421.json",
+  "actual_failure_report_sha256": "c4e62ac06c4e55b6a4a7d55680f06bd4a63b7a410b535b3a779565af9d0c3853",
+  "initial_target_binary_sha256": "74bc12ef8c56c7bc8ab3a6ed9ac9271a3c7a564cdc342bfa271cab71d752d872",
+  "source_git_status_pristine": true,
+  "cause": "Cargo package cleanup omitted the release profile and reported Removed 0 files. Source was pristine while cached faulty actor code remained; ordinary recovery created unexpected-created.txt and failed. Repeated matching hashes were not pristine-build proof.",
+  "qualification_granted": false,
+  "evidence_correction": "The earlier source-pristine candidates and zero-removal preflight are historical unqualified attempts. Actual release-profile removal and fresh recovery are now required.",
+  "source_restored_but_stale_target_binary_sha256": "65544f578540a3dd51e8cf2000dd99b10f29497dbfa25c8470aa36e91b60b38d",
+  "second_source_pristine_but_stale_binary_sha256": "65544f578540a3dd51e8cf2000dd99b10f29497dbfa25c8470aa36e91b60b38d",
+  "profile_aware_rebuild_restored_original_binary_sha256": "74bc12ef8c56c7bc8ab3a6ed9ac9271a3c7a564cdc342bfa271cab71d752d872",
+  "ordinary_primary_recovery_after_profile_fix": "6d7236a626f54efdb23dcfc1f4820fd5"
+}

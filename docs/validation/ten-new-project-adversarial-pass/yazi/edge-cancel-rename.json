@@ -1,0 +1,117 @@
+{
+  "version": 2,
+  "name": "Cancel edited rename input and preserve the original exact bytes",
+  "command": [
+    "yazi",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": "Find next:"
+    },
+    {
+      "text": "bravo"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "Find next:"
+    },
+    {
+      "expect": "(find: bravo)"
+    },
+    {
+      "expect": "󰈙 bravo.txt"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "(find: bravo)"
+    },
+    {
+      "text": "r"
+    },
+    {
+      "expect": "Rename:"
+    },
+    {
+      "key": "CtrlU"
+    },
+    {
+      "key": "CtrlK"
+    },
+    {
+      "text": "CANCEL RENAME café.txt"
+    },
+    {
+      "expect": "CANCEL RENAME café.txt"
+    },
+    {
+      "key": "CtrlC"
+    },
+    {
+      "expect_not": "Rename:"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": "Find next:"
+    },
+    {
+      "text": "protected"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "Find next:"
+    },
+    {
+      "expect": "(find: protected)"
+    },
+    {
+      "expect": "󰈙 protected.txt"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "(find: protected)"
+    },
+    {
+      "expect": "PROTECTED NEIGHBOR TOKEN"
+    },
+    {
+      "snapshot": "edge-cancel-rename.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

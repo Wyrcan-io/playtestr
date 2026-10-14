@@ -1,0 +1,11 @@
+--- a/yazi-plugin/preset/plugins/code.lua
++++ b/yazi-plugin/preset/plugins/code.lua
+@@ -19,7 +19,7 @@
+ 	step = step == 0 and ya.clamp(-1, job.units, 1) or step
+ 
+ 	ya.emit("peek", {
+-		math.max(0, cx.tab.preview.skip + step),
++		math.max(0, cx.tab.preview.skip - step),
+ 		only_if = job.file.url,
+ 		tab = job.tab,
+ 	})

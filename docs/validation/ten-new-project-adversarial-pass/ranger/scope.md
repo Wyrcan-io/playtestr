@@ -1,0 +1,13 @@
+# Ranger pre-acquisition scope
+
+Pinned GPL-3.0 repository `ranger/ranger` at `46e957af9762dd2fcaabfbef4d3c45c16edd1184`. Native Linux and macOS remain provisional. No source checkout, execution or qualification is claimed here.
+
+Read-only review of the pinned `setup.py` and `ranger/core/main.py` on 14 October establishes a Python/curses application. The setup script copies launch scripts and installs executable preview resources; installing it globally is unnecessary. Prefer the ordinary source launcher with an owned Python environment and source path. Verify the actual launcher and its imports after acquisition. Default external preview scripts and file openers are outside the admitted plain-text/file-management scope.
+
+Use upstream `--clean` to avoid loading user configuration, bookmarks, saved tabs and plugins; explicitly disable external preview scripts while retaining useful built-in text preview. Confirm actual settings and synthetic state locations before execution. The application defaults a missing shell to `sh`; do not launch arbitrary shell/editor commands. Its root-user path disables previews, so any local root exploration must enable only the reviewed built-in preview explicitly and disclose that configuration.
+
+Normal intentions: create a Unicode/spaced file or directory, rename a noninitial file, copy exact bytes to a nested directory, move and verify old-path absence, navigate nested directories, and inspect a long built-in text preview. Boundary intentions: a truly empty directory, unmatched filtering and useful recovery, cancelled editing, occupied-name refusal, cancelled deletion, resize/redraw with scrolling, and a larger generated directory. Actual screens decide the final contracts; these intentions earn no credit.
+
+Require reviewed literal screen checkpoints, fresh replay, independent exact bytes/absences/directory types, a public prepared first-use route, suffix rerecord, maintenance/mismatch/HTML/named update, Unicode/spaced relocation and generated workflow assessment. Use two real source regressions plus an ordinary-green saved-state corruption control, restoring exact source and execution identity without changing contracts. Interpreted source faults require a digest of the actual executed source, not a meaningless launcher-only binary hash.
+
+Acquire only after the preceding application's verified cleanup. Retain licensed minimal patches and results, delete owned source/environment/caches after native qualification, and honor the campaign's bounded commands and resource inventory. Final frozen-build credit remains zero until the full batch runs.

@@ -1,0 +1,34 @@
+[
+  {
+    "name": "creation-diverted-to-unrequested-name",
+    "file": "yazi-actor/src/mgr/create.rs",
+    "case": "normal-project",
+    "old": "let Ok(new) = cwd.try_join(&name) else {",
+    "new": "let Ok(new) = cwd.try_join(\"unexpected-created.txt\") else {",
+    "invalidate_packages": [
+      "yazi-actor"
+    ]
+  },
+  {
+    "name": "preview-seek-scrolls-in-reverse",
+    "file": "yazi-plugin/preset/plugins/code.lua",
+    "case": "normal-long-preview",
+    "old": "math.max(0, cx.tab.preview.skip + step)",
+    "new": "math.max(0, cx.tab.preview.skip - step)",
+    "invalidate_packages": [
+      "yazi-plugin",
+      "yazi-runner"
+    ]
+  },
+  {
+    "name": "silent-copy-corrupts-unasserted-second-line",
+    "file": "yazi-fs/src/engine/local/copier.rs",
+    "case": "normal-copy",
+    "old": "\t};\n\n\tif let Ok(times) = attrs.try_into() {",
+    "new": "\t};\n\n\tfs::write(to, b\"ALPHA ORIGINAL TOKEN\\nCorrupted alpha second line.\\n\")?;\n\n\tif let Ok(times) = attrs.try_into() {",
+    "invalidate_packages": [
+      "yazi-fs"
+    ],
+    "state_only": true
+  }
+]

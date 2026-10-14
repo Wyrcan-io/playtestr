@@ -1,0 +1,22 @@
+{
+  "before_zero_removal_ids": [
+    "feee6956326d4b06af679565ab89166e",
+    "85f13f4abcda4667a69a0d953c732d21",
+    "181dd6f9f13c46ed8bc1b583de6cfcba",
+    "634ee19f3a6b4f4b80951b06ffa4e0b4",
+    "5fe3da7cabe14925a3659c250d1555c1",
+    "47e054489da84a04a83bfc588bdbeb17",
+    "20060a4556b2428ca46a1075bbe1072c",
+    "ae2bc98212af4167b19d5a245208a222"
+  ],
+  "after_actual_removal_id": "6fae8ee5f7ee4e2b95fba5f486538909",
+  "after_removed_files": 55,
+  "profile": "release",
+  "initial_pristine_target_binary_sha256": "74bc12ef8c56c7bc8ab3a6ed9ac9271a3c7a564cdc342bfa271cab71d752d872",
+  "stale_mutated_target_binary_sha256": "65544f578540a3dd51e8cf2000dd99b10f29497dbfa25c8470aa36e91b60b38d",
+  "profile_clean_restored_target_binary_sha256": "74bc12ef8c56c7bc8ab3a6ed9ac9271a3c7a564cdc342bfa271cab71d752d872",
+  "finding": "Cargo package clean without an explicit profile did not remove the actual release artifacts. Old source mtimes allowed stale mutated library code to remain.",
+  "repair": "Explicit actual profile, locked dependency resolution, declared modified crates plus main binary, positive removal count, and ordinary/state recovery after exact restoration.",
+  "scope": "General campaign build/restore harness repair; not a production terminal capability",
+  "complete_source_controls_qualified": 0
+}

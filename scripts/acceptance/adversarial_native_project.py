@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path
 import platform
+import shutil
 import subprocess
 import sys
 from adversarial_process import ROOT,DOC,RAW,run
@@ -12,19 +13,39 @@ from adversarial_process import ROOT,DOC,RAW,run
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--project',required=True,choices=['cookiecutter','copier','lf','superfile','glow','helix','broot','yazi'])
+    parser.add_argument('--frozen-runner-manifest',type=Path)
     args=parser.parse_args()
     project=args.project
     source=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
     binary=ROOT/'bin'/('playtestr.exe' if os.name=='nt' else 'playtestr')
-    run(['go','build','-trimpath','-ldflags',
-        '-X github.com/Wyrcan-io/playtestr/internal/buildinfo.Version=source-'+source,
-        '-o',binary,'./cmd/playtestr'],'core','native-build',timeout=180)
+    if args.frozen_runner_manifest:
+        from adversarial_freeze_runner import verify
+        binary,_=verify(args.frozen_runner_manifest)
+    else:
+        run(['go','build','-trimpath','-ldflags',
+            '-X github.com/Wyrcan-io/playtestr/internal/buildinfo.Version=source-'+source,
+            '-o',binary,'./cmd/playtestr'],'core','native-build',timeout=180)
     go_project=project in {'lf','superfile','glow'}
     rust_project=project in {'helix','broot','yazi'}
     setup=('adversarial_setup_go.py' if go_project else
         'adversarial_setup_rust.py' if rust_project else 'adversarial_setup_cookiecutter.py')
     run([sys.executable,ROOT/'scripts/acceptance'/setup,'--project',project],
         project,'native-setup',timeout=1200)
+    external_state_cleanup=None
+    file_prerequisite=None
+    if os.name=='nt' and project=='yazi':
+        git=Path(shutil.which('git') or '').resolve(strict=True)
+        candidates=[git.parent.parent/'usr/bin/file.exe',Path('C:/msys64/usr/bin/file.exe')]
+        executable=next((p for p in candidates if p.is_file()),None)
+        if executable is None:raise RuntimeError('Reviewed existing file.exe prerequisite is missing')
+        os.environ['PATH']=str(executable.parent)+os.pathsep+os.environ['PATH']
+        version=run([executable,'--version'],project,'native-file-prerequisite-version',timeout=15)['output'].strip()
+        mime=run([executable,'-bL','--mime-type','-f','-'],project,'native-file-prerequisite-actual-path',
+                 input=str(DOC/project/'fixtures/protected.txt')+'\n',timeout=15)['output'].strip()
+        if mime!='text/plain':raise RuntimeError('Existing Windows file cannot inspect the actual synthetic fixture path')
+        file_prerequisite=dict(binary=str(executable),version=version,actual_fixture_mime=mime)
+        from adversarial_windows_state import claim,release
+        claim(project)
     if project=='copier':
         run([sys.executable,ROOT/'scripts/acceptance/adversarial_copier_git_fixture.py'],
             project,'native-synthetic-git-prerequisites',timeout=60)
@@ -54,12 +75,19 @@ def main():
             project,'native-pristine-target-race-diagnostic',timeout=1100)
         run([sys.executable,budget,project,'--label','after-target-race'],
             project,'native-budget-after-target-race',timeout=90)
+    if args.frozen_runner_manifest:
+        verify(args.frozen_runner_manifest)
+    if os.name=='nt' and project=='yazi':
+        external_state_cleanup=release(project)
     report=dict(source=source,runner_sha256=hashlib.sha256(binary.read_bytes()).hexdigest(),
         actual_host=platform.platform(),project=project,scenarios=len(config['cases']),
         git_version=git_version,
         terminal_repetitions=10*len(config['cases']),state_probe_repetitions=10*len(config['cases']),
         state_scope='Separate real recorder executions: exact reviewed screen and current managed workspace files before teardown',
-        phase='Development qualification; final single-source batch freeze remains pending',
+        phase='Final frozen-source qualification' if args.frozen_runner_manifest else 'Development qualification; final single-source batch freeze remains pending',
+        frozen_manifest_sha256=hashlib.sha256(args.frozen_runner_manifest.read_bytes()).hexdigest() if args.frozen_runner_manifest else None,
+        external_state_cleanup=external_state_cleanup,
+        file_prerequisite=file_prerequisite,
         run_id=os.environ.get('GITHUB_RUN_ID'),run_attempt=os.environ.get('GITHUB_RUN_ATTEMPT'))
     (RAW/('native-'+project+'-'+platform.system()+'.json')).write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
     print(json.dumps(report,indent=2))

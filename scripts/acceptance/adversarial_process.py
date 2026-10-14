@@ -366,4 +366,8 @@ async def execute(argv,project,label,*,cwd=ROOT,env=None,input=None,timeout=120,
                 raise RuntimeError('Separate cleanup failures: '+'; '.join(cleanup_errors))
 
 def run(*args,**kwargs):
+    if os.name=='nt' and len(args)>=2 and args[1]=='yazi':
+        from adversarial_windows_state import target_state
+        with target_state(args[1],args[0]):
+            return asyncio.run(execute(*args,**kwargs))
     return asyncio.run(execute(*args,**kwargs))

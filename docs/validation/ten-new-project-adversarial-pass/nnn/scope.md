@@ -1,0 +1,13 @@
+# nnn pre-acquisition scope
+
+Pinned BSD-2-Clause repository `jarun/nnn` at `c3e00d99cc83c71a9a0d285669775ae3c82db38e`. Native Linux and macOS remain provisional. No application has been acquired or executed for this scope.
+
+Read-only review of the pinned Makefile on 14 October establishes a C11 application using curses, pthreads and optional readline. Its ordinary `all` target builds `nnn`; it does not require global installation. Optional icon generation, source patches, static/musl scripts, release signing and upload targets must not be invoked. Use an existing native C compiler and curses development prerequisite; record actual compiler/link inputs and exact executable identity. Decide the ordinary readline option from available reviewed prerequisites, not an assumed installed library.
+
+Review command-line flags and configuration lookup after acquisition. Use managed synthetic HOME/config/temp, disable unnecessary mouse, external preview plugins, clipboard, file openers, network and trash integrations through upstream-supported options. File-management commands can invoke ordinary external utilities; review and observe their completion, inspect exact disk state, and do not infer readiness from silence or disappearing input.
+
+Normal intentions: create a spaced Unicode file/directory, rename a selected noninitial file, copy protected bytes into a nested directory, move and verify the original disappears, navigate and return from nested directories, and switch useful contexts or inspect local text. Boundary intentions: empty directory, no-match filter recovery, cancelled creation/rename, occupied destination with protected contents, cancelled destructive operation, resize/redraw with useful navigation, and a generated larger tree. Replace unsupported intentions transparently after observing the actual UI; no speculative scenario credit is granted.
+
+Require public recording/review/fresh replay, exact-byte and absence/type oracles, bounded real source faults, exact source/binary restoration, and a terminal-green saved-state corruption control. Measure the prepared user route and maintenance separately from engineering. Assess rerecord, mismatch/HTML/named baseline update, relocation and workflow generation. Never use an application-specific production-core branch to accommodate this target.
+
+One application remains active at a time. Acquire only after ranger cleanup; retain minimal licensed patches and evidence, then remove owned source/builds/caches after process verification. Final qualification requires the same frozen Playtestr source as the other nine applications.

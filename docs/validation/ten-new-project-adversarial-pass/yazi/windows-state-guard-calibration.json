@@ -1,0 +1,17 @@
+{
+  "checks": [
+    {
+      "control": "local-profile-lease",
+      "rejected": true,
+      "message": "Actual Windows state leases require a disposable GitHub-hosted runner"
+    },
+    {
+      "control": "local-profile-target-launch",
+      "rejected": true,
+      "message": "Actual Windows state leases require a disposable GitHub-hosted runner"
+    }
+  ],
+  "application_launched": false,
+  "lease_created": false,
+  "scope": "Local refusal calibration only; hosted Windows lease/reset/cleanup remain unqualified"
+}

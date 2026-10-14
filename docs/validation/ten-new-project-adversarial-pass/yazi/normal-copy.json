@@ -1,0 +1,117 @@
+{
+  "version": 2,
+  "name": "Copy protected bytes into a nested directory and return to the parent",
+  "command": [
+    "yazi",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": "Find next:"
+    },
+    {
+      "text": "alpha"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "Find next:"
+    },
+    {
+      "expect": "(find: alpha)"
+    },
+    {
+      "expect": "󰈙 alpha.txt"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "(find: alpha)"
+    },
+    {
+      "text": "y"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": "Find next:"
+    },
+    {
+      "text": "nested"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "Find next:"
+    },
+    {
+      "expect": "(find: nested)"
+    },
+    {
+      "expect": " nested"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "(find: nested)"
+    },
+    {
+      "text": "l"
+    },
+    {
+      "expect": "/fixture/nested"
+    },
+    {
+      "expect": "󰈙 notes café.txt"
+    },
+    {
+      "text": "p"
+    },
+    {
+      "expect": "󰈙 alpha.txt"
+    },
+    {
+      "expect": "ALPHA ORIGINAL TOKEN"
+    },
+    {
+      "text": "h"
+    },
+    {
+      "expect": " fixture"
+    },
+    {
+      "snapshot": "normal-copy.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

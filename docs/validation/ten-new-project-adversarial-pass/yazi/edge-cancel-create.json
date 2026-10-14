@@ -1,0 +1,84 @@
+{
+  "version": 2,
+  "name": "Cancel a partially entered creation without creating a destination",
+  "command": [
+    "yazi",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "text": "a"
+    },
+    {
+      "expect": "Create:"
+    },
+    {
+      "text": "CANCEL NEVER café.txt"
+    },
+    {
+      "expect": "CANCEL NEVER café.txt"
+    },
+    {
+      "key": "CtrlC"
+    },
+    {
+      "expect_not": "Create:"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": "Find next:"
+    },
+    {
+      "text": "protected"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "Find next:"
+    },
+    {
+      "expect": "(find: protected)"
+    },
+    {
+      "expect": "󰈙 protected.txt"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "(find: protected)"
+    },
+    {
+      "expect": "PROTECTED NEIGHBOR TOKEN"
+    },
+    {
+      "snapshot": "edge-cancel-create.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

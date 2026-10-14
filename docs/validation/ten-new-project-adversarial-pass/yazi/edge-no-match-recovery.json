@@ -1,0 +1,123 @@
+{
+  "version": 2,
+  "name": "Recover from a genuinely empty filter and perform useful selection",
+  "command": [
+    "yazi",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": "Find next:"
+    },
+    {
+      "text": "protected"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "Find next:"
+    },
+    {
+      "expect": "(find: protected)"
+    },
+    {
+      "expect": "󰈙 protected.txt"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "(find: protected)"
+    },
+    {
+      "expect": "PROTECTED NEIGHBOR TOKEN"
+    },
+    {
+      "text": "f"
+    },
+    {
+      "expect": "Filter:"
+    },
+    {
+      "text": "ABSENTNEVERTOKEN"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "Filter:"
+    },
+    {
+      "expect": "No filter results"
+    },
+    {
+      "expect": "(filter: ABSENTNEVERTOKEN)"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "(filter: ABSENTNEVERTOKEN)"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": "Find next:"
+    },
+    {
+      "text": "bravo"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "Find next:"
+    },
+    {
+      "expect": "(find: bravo)"
+    },
+    {
+      "expect": "󰈙 bravo.txt"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "(find: bravo)"
+    },
+    {
+      "expect": "BRAVO ORIGINAL TOKEN"
+    },
+    {
+      "snapshot": "edge-no-match-recovery.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}
