@@ -52,6 +52,7 @@ type RunOptions struct {
 	recordSpec             *Spec
 	recordSnapshots        map[string]string
 	recordSnapshotRows     map[string]snapshotRows
+	recordUniqueExpect     bool
 	noArtifacts            bool
 	recordEvidence         *string
 }
@@ -751,8 +752,11 @@ func executeStep(ctx context.Context, specPath string, step Step, options RunOpt
 		if observation.outputLimitExceeded {
 			return fmt.Errorf("%w (%d bytes observed)", errOutputLimit, observation.outputBytes)
 		}
-		if step.Expect != "" && strings.Contains(observation.screen, step.Expect) {
-			return nil
+		if step.Expect != "" {
+			matched, err := matchExpectedScreen(observation.screen, step.Expect, options.recordUniqueExpect)
+			if matched || err != nil {
+				return err
+			}
 		}
 		if step.ExpectNot != "" && !strings.Contains(observation.screen, step.ExpectNot) {
 			return nil
@@ -792,8 +796,11 @@ func executeStep(ctx context.Context, specPath string, step Step, options RunOpt
 			_ = session.drainFinal(drainContext, 25*time.Millisecond)
 			cancelDrain()
 			observation = session.observe()
-			if step.Expect != "" && strings.Contains(observation.screen, step.Expect) {
-				return nil
+			if step.Expect != "" {
+				matched, err := matchExpectedScreen(observation.screen, step.Expect, options.recordUniqueExpect)
+				if matched || err != nil {
+					return err
+				}
 			}
 			if step.ExpectNot != "" && !strings.Contains(observation.screen, step.ExpectNot) {
 				return nil
@@ -811,6 +818,19 @@ func executeStep(ctx context.Context, specPath string, step Step, options RunOpt
 		case <-ticker.C:
 		}
 	}
+}
+
+// Readiness and recorder uniqueness must use the same synchronized observation.
+// A second screen read can see a redraw erase an anchor that just matched.
+func matchExpectedScreen(screen, expected string, unique bool) (bool, error) {
+	if !unique {
+		return strings.Contains(screen, expected), nil
+	}
+	count := strings.Count(screen, expected)
+	if count > 1 {
+		return false, fmt.Errorf("ambiguous anchor: choose text appearing exactly once")
+	}
+	return count == 1, nil
 }
 
 func waitForRedraw(ctx context.Context, session *terminalSession, exitAsserted bool) error {

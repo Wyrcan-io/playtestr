@@ -38,7 +38,7 @@ def main():
         add('normal-project','normal','Create a real spaced Unicode file and preserve all neighboring bytes',
             [{'expect':'alpha.txt'},{'text':'a'},{'expect':'Create'},
              {'text':'created café.txt'},{'expect':'created café.txt'},{'key':'Enter'},
-             {'expect_not':'Create'},{'expect':'󰈙 created café.txt'}],
+             {'expect_not':'Create'},{'expect':'󰈙 created café.txt'},{'expect':'Empty file'}],
             {'created café.txt':''}),
     ]
     scenarios.write_text(json.dumps(dict(project='yazi',fixture='fixtures',

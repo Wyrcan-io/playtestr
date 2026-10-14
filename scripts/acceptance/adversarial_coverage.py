@@ -72,6 +72,7 @@ CONTROLS={
  ('windows-resize-reply','TestWindowsResizeRepliesRequireCurrentDimensions','Current dimensions required; stale or payload-contained acknowledgments rejected'),
  ('windows-resize-bound','TestWindowsResizeWithoutAcknowledgmentIsBounded','Absent Windows resize acknowledgment must time out accurately'),
  ('literal-recorder-control','TestRecordingLiteralControlKeyAndResolvedSetup','Control-console escape can be transmitted literally'),
+ ('recorder-redraw-readiness','TestRecordingReadinessDuringRepeatedRedraw','Unique recorder readiness uses one real-PTY screen observation during repeated erase/redraw'),
  ('live-operator-restoration','TestNativeRecorderLiveInputAndOperatorRestoration','Native operator terminal restored after live input'),
  ],
  'Spec and paths':[

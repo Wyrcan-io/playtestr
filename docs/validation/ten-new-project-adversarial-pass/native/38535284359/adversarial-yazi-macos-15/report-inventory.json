@@ -1,0 +1,1750 @@
+[
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/creation-diverted-to-unrequested-name-1791967859599342000.json",
+    "sha256": "96c9f1914bd9f93ce0cf0229c6632be5ab41ba40f2831390724775e67434baa8",
+    "summary": {
+      "total": 1,
+      "passed": 0,
+      "failed": 1,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Create a real spaced Unicode file and preserve all neighboring bytes",
+        "status": "failed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": false,
+          "forced": true,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": {
+          "category": "assertion_timeout",
+          "message": "Create a real spaced Unicode file and preserve all neighboring bytes: step 8: step timed out: context deadline exceeded"
+        }
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/edge-cancel-create-test-0-1791967236398521000.json",
+    "sha256": "821a1ceadf4413bd7833f335aafabf2ed30f2d78befeef61a1ccb5bafb3c35dd",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Cancel a partially entered creation without creating a destination",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/edge-cancel-rename-test-0-1791967242497775000.json",
+    "sha256": "7cc1cc9cb9cce50b55c6de60bab85da3426f9c926255c7a873fb394d60a4e012",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Cancel edited rename input and preserve the original exact bytes",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/edge-delete-cancelled-test-0-1791967255190357000.json",
+    "sha256": "3466e7b549cfe9a60daf1938df28cedf3b606351db6e4c6ed2e89980177893ef",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Cancel permanent deletion of a synthetic selected file",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/edge-empty-directory-test-0-1791967223857799000.json",
+    "sha256": "66c71ffff899c436dea6dee6d846e6b6a068579afa63d40613787e104f044959",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Enter a truly empty directory and exit naturally",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/edge-no-match-recovery-test-0-1791967229831940000.json",
+    "sha256": "24b3e98bd58b44aeea8f294de64522602cbc8d18695db2187e8d2c98c08c7aa0",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Recover from a genuinely empty filter and perform useful selection",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/edge-overwrite-declined-test-0-1791967248985431000.json",
+    "sha256": "3955fda7ae8d2786206503088cddf5541ae81f4bff0e5efdc728f2be5594e557",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Decline overwriting an occupied file and preserve its bytes",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/edge-resize-preview-test-0-1791967261415160000.json",
+    "sha256": "d4c140909fbe1199c96da01da87a5bd383c9c864b49709fc4dd086fac49d2133",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Resize with observed redraw, scroll new content and return to the beginning",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-copy-final-0-1791969369348752000.json",
+    "sha256": "bbc20a51722762c36b8a62a5c54d19a03f09eed7c75746ffd686c5bdd2b0485f",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Copy protected bytes into a nested directory and return to the parent",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-copy-final-1-1791969383271784000.json",
+    "sha256": "3685cd37050a87abd8ee5a4b572d4c81cbb123fde52d9f07aa1feaa5ca0e5d5f",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Copy protected bytes into a nested directory and return to the parent",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-copy-final-2-1791969397139190000.json",
+    "sha256": "ffcd869560842ae07ee1e7798340e36092d3ce83d4d0dbab1f8186f0ef78a441",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Copy protected bytes into a nested directory and return to the parent",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-copy-final-3-1791969411071115000.json",
+    "sha256": "a3b7a20163aba0bdf994ea1cd7798e506ab9477236cc32df8690b785da6d3364",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Copy protected bytes into a nested directory and return to the parent",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-copy-final-4-1791969425139395000.json",
+    "sha256": "9ef9393f8d35cdd08ceb8b8b2b432b193f210eb0234835fbad277ced218fc7c5",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Copy protected bytes into a nested directory and return to the parent",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-copy-final-5-1791969439178670000.json",
+    "sha256": "8d153465f14c507166ef678c0b924e0a9796dc513a9a1cc9a51478654984090c",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Copy protected bytes into a nested directory and return to the parent",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-copy-final-6-1791969453309062000.json",
+    "sha256": "c97db2f29c71cc48617f9d2bfea16c9ea64277cfb693b1885cc3233a320d522c",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Copy protected bytes into a nested directory and return to the parent",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-copy-final-7-1791969467337525000.json",
+    "sha256": "7ec009624b8d9d7fa830a9889c9e626db7f7e728ad1930cf9ad444e58ba263cf",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Copy protected bytes into a nested directory and return to the parent",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-copy-final-8-1791969481415976000.json",
+    "sha256": "3b50302697f2e2a8236c9af3e88c8e73b2b1d5a1fd528318628a45730ece092e",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Copy protected bytes into a nested directory and return to the parent",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-copy-final-9-1791969495361381000.json",
+    "sha256": "414d0bdb5b58b8e6026987f2334092cf149017b2955c72b8d32efb8271ec76a0",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Copy protected bytes into a nested directory and return to the parent",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-copy-test-0-1791967197848795000.json",
+    "sha256": "1b090303a13999475c9220803e60e339669b7c72ca18fddce5ce3bd2242d4297",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Copy protected bytes into a nested directory and return to the parent",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-directory-final-0-1791969119086417000.json",
+    "sha256": "63dfe9167d450174a8d83842a015eaef0945abc012145963309d28ffd9ac4999",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Create nested Unicode directories and verify actual directory types",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-directory-final-1-1791969131255973000.json",
+    "sha256": "658293b9a4772ea572752d147ed952fe29ebf6d69567b8e701a89ce0e02b4384",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Create nested Unicode directories and verify actual directory types",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-directory-final-2-1791969143625475000.json",
+    "sha256": "a35d1617ffefdc048768045a61b466ec4a81f228d1ea69618c0d963e387c21c9",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Create nested Unicode directories and verify actual directory types",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-directory-final-3-1791969156180551000.json",
+    "sha256": "5686f03c2dd163f3379799e8ce473c590592036172d20cba6b324636fcf50fd0",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Create nested Unicode directories and verify actual directory types",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-directory-final-4-1791969168331142000.json",
+    "sha256": "e69f603cdb4a9929c103705f3402441301fa4933ec039b9213590bf70224611b",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Create nested Unicode directories and verify actual directory types",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-directory-final-5-1791969180551772000.json",
+    "sha256": "df1247bf7ed84d6602d24015b1d9de1796553114c11fd5bcf70dbb2f669bde33",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Create nested Unicode directories and verify actual directory types",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-directory-final-6-1791969192590078000.json",
+    "sha256": "6cb2d11eb7a6a576b392fbb50b79726e592253ea63e38b1bb219c13093177232",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Create nested Unicode directories and verify actual directory types",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-directory-final-7-1791969204614145000.json",
+    "sha256": "cdf88ce5c2ac2a88fafdf8cc5bd21a9dc43b632c01e8ab636d866cf0a7b48c69",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Create nested Unicode directories and verify actual directory types",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-directory-final-8-1791969216794105000.json",
+    "sha256": "e411f2e3c6e96a1e9f2d679607192a7e375e0b1c45be1aa5338f8975c57c3b21",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Create nested Unicode directories and verify actual directory types",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-directory-final-9-1791969228931142000.json",
+    "sha256": "d2fe29fded17a09dfd45c6524b720579556d0fee596c0db485d4d39a62e8da95",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Create nested Unicode directories and verify actual directory types",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-directory-test-0-1791967185711954000.json",
+    "sha256": "985c4b010ee879421ad4ee55b5fc1aab1ab6d522a5c2a9372a1b6f5f701a4e26",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Create nested Unicode directories and verify actual directory types",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-long-preview-test-0-1791967217793194000.json",
+    "sha256": "795ea5326b13e3f46acf9c6fc6cf9871eee4018df5f209191eb1de4b3b102e01",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Scroll a long Unicode text preview using ordinary preview keys",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-move-final-0-1791969509375503000.json",
+    "sha256": "07b5f8b94e6513c7fa573261cca512277d92f429ecfc0198a6696bbdba054b0e",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Move a noninitial file and verify destination bytes and original absence",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-move-final-1-1791969523363102000.json",
+    "sha256": "c9173e8713c91b773d7c0ce0e581f6f8d230325255162afded38816f9148d9d4",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Move a noninitial file and verify destination bytes and original absence",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-move-final-2-1791969537579089000.json",
+    "sha256": "8bb948a7674589201fc95c64ce0d4766fa9462cb63c07ab806f458610d1db4ce",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Move a noninitial file and verify destination bytes and original absence",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-move-final-3-1791969551529206000.json",
+    "sha256": "9e709b60f52a2a11f74d21cd550e5f96d87f178607db621477d7b0b1ada6f226",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Move a noninitial file and verify destination bytes and original absence",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-move-final-4-1791969565555225000.json",
+    "sha256": "8966a4d1f4b9386955309a9333a13497ce301346eebd7de406e93f930e9e9cb4",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Move a noninitial file and verify destination bytes and original absence",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-move-final-5-1791969579587421000.json",
+    "sha256": "2866913937d6d91a1446c88cfaadb1ade0c15b0129b6144cf8307b79147bcdbf",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Move a noninitial file and verify destination bytes and original absence",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-move-final-6-1791969593601902000.json",
+    "sha256": "0dcbcc4e3c213b3de39378a22b57cd6c3d4728d78253c441e4aaf77f9f41c7c9",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Move a noninitial file and verify destination bytes and original absence",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-move-test-0-1791967204636014000.json",
+    "sha256": "738f2c6747c3b56242adc6a565cb52178e4bbd4d20ea493f94e7e784ba531b55",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Move a noninitial file and verify destination bytes and original absence",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-nested-navigation-test-0-1791967211324487000.json",
+    "sha256": "22d280fb6a636dc499dca0c0d260d0e03e107e385baa6d1ffaf5bd190792fc35",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Navigate two distinct directories and inspect their actual text files",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-project-final-0-1791968998361053000.json",
+    "sha256": "5f72de2f2c82ed952b24bc06f3b6d2aa0b3a857bdca07e662e4dab21cc75346a",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Create a real spaced Unicode file and preserve all neighboring bytes",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-project-final-1-1791969010366063000.json",
+    "sha256": "efab4aacad01a923b678cdbc5b89e0450637db9161258a22e5308b53a0b068c6",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Create a real spaced Unicode file and preserve all neighboring bytes",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-project-final-2-1791969022452008000.json",
+    "sha256": "e6d517b5cff71314c62f62e969eb00f89a164ec4f8a8500f8a8b7e9773798219",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Create a real spaced Unicode file and preserve all neighboring bytes",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-project-final-3-1791969034512741000.json",
+    "sha256": "2fe01453582a06b7f3f6980804bae8044dbb2c31b13906f2ec77cfe3248e7119",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Create a real spaced Unicode file and preserve all neighboring bytes",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-project-final-4-1791969046545523000.json",
+    "sha256": "bc4ce539456068fa1e0c3c4487167bbfd6def2bf99d46c8ece6ee24b77f507b7",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Create a real spaced Unicode file and preserve all neighboring bytes",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-project-final-5-1791969058618558000.json",
+    "sha256": "7aa689114feff06c0569ec78230cade180e97ba6e02e686ddfa78f8a16485dce",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Create a real spaced Unicode file and preserve all neighboring bytes",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-project-final-6-1791969070698162000.json",
+    "sha256": "b5d64526db49b21ec22781666ead918e67db20532768f8eca0505ca3a3d96fe8",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Create a real spaced Unicode file and preserve all neighboring bytes",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-project-final-7-1791969082789140000.json",
+    "sha256": "5261419caf4928cb2988da47a31da6374a3fabd3a88b33a6ddde3d99b4c72a64",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Create a real spaced Unicode file and preserve all neighboring bytes",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-project-final-8-1791969094953285000.json",
+    "sha256": "69a3b78a6ed7a520952a77c1dd8d3a73a83350c967d80cdf90b33efe280b7244",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Create a real spaced Unicode file and preserve all neighboring bytes",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-project-final-9-1791969107011068000.json",
+    "sha256": "0bd944bc812ee7767ae9e8dc1604c2de6f3bcc6a94950120710de2c277a749d3",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Create a real spaced Unicode file and preserve all neighboring bytes",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-project-test-0-1791967179590418000.json",
+    "sha256": "4b04998cb548672b4ecccf6e24421a17b453f6146fb9da168f0e765cb6de381a",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Create a real spaced Unicode file and preserve all neighboring bytes",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-rename-final-0-1791969241085505000.json",
+    "sha256": "03c7d9a8207c55660cb97822a5dfbb5d327d91fa7525d97551490e13ccfe7ec5",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Rename a noninitial file and verify the old path disappears",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-rename-final-1-1791969253853640000.json",
+    "sha256": "bc03aa2610425464ee7ffdba9c902f2ad03bb50990383c4148be0b9760186d23",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Rename a noninitial file and verify the old path disappears",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-rename-final-2-1791969266839931000.json",
+    "sha256": "9d4d343a096ea6e703d96e9770a1de3e6677ef6d8b825e593cc3b9ad0f8ce2c7",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Rename a noninitial file and verify the old path disappears",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-rename-final-3-1791969279864528000.json",
+    "sha256": "0f293586a6e5dcf6acb94f193e52044feb7d45f86e2ab8921701e3de3885cbb2",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Rename a noninitial file and verify the old path disappears",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-rename-final-4-1791969292777238000.json",
+    "sha256": "1306b6fc838d2358393cc9ed1ebc919b661f31983ab94ed9ffd6d4618a51cf46",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Rename a noninitial file and verify the old path disappears",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-rename-final-5-1791969305515884000.json",
+    "sha256": "974861b2b8de75cba3be2d814c3bceb0ffe6fc906fdd99b2e0ec097e68f4d1f0",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Rename a noninitial file and verify the old path disappears",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-rename-final-6-1791969318322741000.json",
+    "sha256": "716397fe285776574b4696f9812294744aad1dfac3c6af2df08ccb9c8621a2da",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Rename a noninitial file and verify the old path disappears",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-rename-final-7-1791969331032013000.json",
+    "sha256": "4332a8d4b3051ff755c5edc95864b4a7fcfad90d7e1695ab2f57bcae8e19b45c",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Rename a noninitial file and verify the old path disappears",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-rename-final-8-1791969343878745000.json",
+    "sha256": "73b176dc6c97b55eed5b9d453a8b61434359bb9b563f0a8f519722dd2bb01cd4",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Rename a noninitial file and verify the old path disappears",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-rename-final-9-1791969356600959000.json",
+    "sha256": "e9f27833d3322236d974cd6a36b81a70604c85d8e3134614af05caf75f65a851",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Rename a noninitial file and verify the old path disappears",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-rename-test-0-1791967191655616000.json",
+    "sha256": "39af30c944bfbc42e046e8ab9f415b1910f03e5f23087e1b050900032dbb4e96",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Rename a noninitial file and verify the old path disappears",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/preview-seek-scrolls-in-reverse-1791968081112236000.json",
+    "sha256": "d58e4ca0385d0c4d77e411e1731adec766dd9439ef89341f891a85ec12f9d522",
+    "summary": {
+      "total": 1,
+      "passed": 0,
+      "failed": 1,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Scroll a long Unicode text preview using ordinary preview keys",
+        "status": "failed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": false,
+          "forced": true,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": {
+          "category": "assertion_timeout",
+          "message": "Scroll a long Unicode text preview using ordinary preview keys: step 13: step timed out: context deadline exceeded"
+        }
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/restored-creation-diverted-to-unrequested-name-1791967859599342000.json",
+    "sha256": "37b1f9a9e89d99a64b88177bdba607181dcfd14cbf8a4fb310a82e5ad3d5ad5a",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Create a real spaced Unicode file and preserve all neighboring bytes",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/restored-preview-seek-scrolls-in-reverse-1791968081112236000.json",
+    "sha256": "8c74577114581ef6923b237650e84be42b0a9ad953bdab3eae82175acc6195e9",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Scroll a long Unicode text preview using ordinary preview keys",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/restored-silent-copy-corrupts-unasserted-second-line-1791968487658902000.json",
+    "sha256": "c1d20d36779ba95624d5a08e9b62c67a1b374f7cbd0b66e7ca19846ed087a8ce",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Copy protected bytes into a nested directory and return to the parent",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/silent-copy-corrupts-unasserted-second-line-1791968487658902000.json",
+    "sha256": "8bb349539f111181a973ab06a4a2fb359e3ce1e6660fb8265475178feaeec293",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Copy protected bytes into a nested directory and return to the parent",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  }
+]

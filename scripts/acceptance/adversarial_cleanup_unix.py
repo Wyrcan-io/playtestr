@@ -37,7 +37,9 @@ else:
     if qualification.get('scenarios',0)<10 or qualification['terminal_repetitions']!=10*qualification['scenarios'] or qualification['project']!=project:
         raise RuntimeError('Native evidence incomplete')
     cleanup_source=qualification['source']
-    cleanup_scope='Teardown following native development qualification'
+    cleanup_scope=('Teardown following native frozen-source qualification'
+        if qualification.get('phase')=='Final frozen-source qualification'
+        else 'Teardown following native development qualification')
 if subprocess.check_output(['git','-C',target/'source','rev-parse','HEAD'],text=True).strip()!=owner['source_sha']:
     raise RuntimeError('Owned source revision mismatch')
 if subprocess.check_output(['git','-C',target/'source','status','--porcelain','--untracked-files=no'],text=True).strip():

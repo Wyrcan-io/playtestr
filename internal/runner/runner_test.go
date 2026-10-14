@@ -402,6 +402,14 @@ func TestHelperProcess(t *testing.T) {
 		fmt.Print("still running\r\n")
 		time.Sleep(10 * time.Second)
 		os.Exit(0)
+	case "recording-redraw":
+		for i := 0; i < 10000; i++ {
+			fmt.Print("\x1b[2J\x1b[H")
+			time.Sleep(3 * time.Millisecond)
+			fmt.Print("unique redraw ready")
+			time.Sleep(time.Duration(17+i%7) * time.Millisecond)
+		}
+		select {}
 	case "dynamic-output":
 		fmt.Printf("dynamic ready nonce=%d\r\n", time.Now().UnixNano())
 		time.Sleep(10 * time.Second)

@@ -13,6 +13,7 @@ def main():
     parser.add_argument('--count',type=int,default=100)
     parser.add_argument('--trace',action='store_true')
     parser.add_argument('--target',type=Path)
+    parser.add_argument('--binary',type=Path)
     args=parser.parse_args()
     if not 1<=args.count<=1000:
         raise RuntimeError('Bounded reproduction count required')
@@ -22,6 +23,7 @@ def main():
     original=ROOT/'examples/recorded/wizard.json'
     spec=json.loads(original.read_text(encoding='utf-8'))
     target=(args.target or ROOT/'bin'/('fixture'+ext)).resolve(strict=True)
+    binary=(args.binary or ROOT/'bin'/('playtestr'+ext)).resolve(strict=True)
     spec['command']=[str(target),'wizard']
     shutil.copytree(original.parent/'fixtures/wizard',directory/'fixture')
     spec['workspace']['fixture']='fixture'
@@ -40,7 +42,7 @@ def main():
         if args.trace:
             env['PLAYTESTR_WIZARD_TRACE']=str(directory/(str(i)+'.trace'))
         try:
-            result=run([ROOT/'bin'/('playtestr'+ext),'test','--report',report.relative_to(ROOT),
+            result=run([binary,'test','--report',report.relative_to(ROOT),
                 '--artifacts-dir',(directory/str(i)).relative_to(ROOT),path],
                 'wizard-reproduction','historical-sequence-'+str(i),env=env,timeout=15)
             attempts.append({'index':i,'id':result['id'],'passed':True})
@@ -57,6 +59,7 @@ def main():
             print('Completed',i+1,'failures',len(failures),flush=True)
     (directory/'summary.json').write_text(json.dumps(dict(attempts=attempts,failures=failures,
         target_sha256=__import__('hashlib').sha256(target.read_bytes()).hexdigest(),
+        runner_sha256=__import__('hashlib').sha256(binary.read_bytes()).hexdigest(),
         scope='Reduced deadlines only; same target, keys, text, resize, reviewed snapshots. Exploratory, no external-project credit.'),indent=2)+'\n',encoding='utf-8')
     print(directory,'failures',len(failures))
     if failures:

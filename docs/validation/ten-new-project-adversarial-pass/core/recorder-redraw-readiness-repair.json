@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "native_trigger_run": 38538793471,
+  "native_trigger_host": "macos-15",
+  "native_trigger_probe": "86b4cc33743449258cef1a24de665fc2",
+  "classification": "General recorder screen-observation race",
+  "before": {
+    "real_pty_test": "TestRecordingReadinessDuringRepeatedRedraw",
+    "command": "go test ./internal/runner -run TestRecordingReadinessDuringRepeatedRedraw -count=20",
+    "runs": 20,
+    "failed": 17,
+    "passed": 3,
+    "failed_capture_indices": [
+      620,
+      88,
+      182,
+      460,
+      214,
+      247,
+      269,
+      462,
+      451,
+      376,
+      345,
+      75,
+      369,
+      215,
+      115,
+      97,
+      59
+    ],
+    "category": "ambiguous anchor with repeatedly clearing unique text"
+  },
+  "rejected_calibration": "Earlier 1ms visibility helper timed out from sampling; not causal regression evidence",
+  "repair": "Evaluate uniqueness on exactly the same synchronized terminal observation that satisfies recorder readiness. Ordinary test substring semantics unchanged.",
+  "after": "Real-PTY reduced, full Windows Go suite, vet, race script and public examples passed. Hosted requalification pending.",
+  "final_frozen_credit": 0,
+  "after_reduced": {
+    "command": "go test ./internal/runner -run TestRecordingReadinessDuringRepeatedRedraw|TestRecordingRejectsAmbiguousAndDynamicReadiness -count=20",
+    "host": "native Windows",
+    "redraw_runs": 20,
+    "duplicate_and_dynamic_runs": 20,
+    "failed": 0,
+    "go_package_seconds": 41.543
+  },
+  "checks": {
+    "full_go_test": true,
+    "go_vet": true,
+    "native_windows_race": true,
+    "race_runner_seconds": 224.471,
+    "race_setupaction_seconds": 129.965,
+    "public_menu_examples": 2
+  }
+}

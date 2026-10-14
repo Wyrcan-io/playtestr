@@ -228,11 +228,8 @@ func (r *Recording) Capture(step Step) error {
 			exitAsserted = true
 		}
 	}
-	if err := executeStep(ctx, r.path, step, RunOptions{Update: true, recordSnapshotRows: r.snapshotRows}, updates, r.session, exitAsserted); err != nil {
+	if err := executeStep(ctx, r.path, step, RunOptions{Update: true, recordSnapshotRows: r.snapshotRows, recordUniqueExpect: true}, updates, r.session, exitAsserted); err != nil {
 		return fmt.Errorf("capture step %d: %w", len(next.Steps), err)
-	}
-	if step.Expect != "" && strings.Count(r.Screen(), step.Expect) != 1 {
-		return fmt.Errorf("ambiguous anchor: choose text appearing exactly once")
 	}
 	for path, content := range updates.values {
 		name := filepath.Base(path)

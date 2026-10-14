@@ -1,0 +1,659 @@
+[
+  {
+    "attempt_id": "04e31c0a19924bf1920ae2189f6b55c7",
+    "sha256": "5051ac7c13ba757b9db171739ae193f4f8528341725a4d4ffb099eee1bc52614",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639",
+        "nested/alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec"
+      },
+      "absent": [],
+      "directories": [
+        "empty"
+      ],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "0d661b65e02f419885e81815639047e4",
+    "sha256": "d8525c9f00dea8a28b8fc88d899a419596302f11e8c6a2002342fb8079472a2c",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639",
+        "nested/bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb"
+      },
+      "absent": [
+        "bravo.txt"
+      ],
+      "directories": [
+        "empty"
+      ],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "15326257ec154e92aaa7e5128c7185c4",
+    "sha256": "17f3b0b4c534a54cc6201076f47576ee2eb2549089fde14cec19b7164b39f419",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639"
+      },
+      "absent": [],
+      "directories": [
+        "empty"
+      ],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "1b056dc5601e416b9223203710bc5c7e",
+    "sha256": "8fb181b3385a7fa9b264d9f17d480127282378bfe144b16265b7ac45bfd82de4",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639"
+      },
+      "absent": [],
+      "directories": [
+        "empty",
+        "created dir caf\u00e9",
+        "created dir caf\u00e9/sub"
+      ],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "2301e6b72f0043fb8fb9620f67c366b0",
+    "sha256": "8fb181b3385a7fa9b264d9f17d480127282378bfe144b16265b7ac45bfd82de4",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639"
+      },
+      "absent": [],
+      "directories": [
+        "empty",
+        "created dir caf\u00e9",
+        "created dir caf\u00e9/sub"
+      ],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "2c8a1eff030946d6a0de19aa191c0242",
+    "sha256": "f9d220e6e79a906493b5ed35d0edb06cc9fd794e1d681f44f8e303e34d8a89d2",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639",
+        "created caf\u00e9.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "absent": [],
+      "directories": [],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "378d7576a5aa4bc6b7617212acb9eac7",
+    "sha256": "f9d220e6e79a906493b5ed35d0edb06cc9fd794e1d681f44f8e303e34d8a89d2",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639",
+        "created caf\u00e9.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "absent": [],
+      "directories": [],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "4eba7ebd3ffb4755b6dde6a10b7c7f5b",
+    "sha256": "17f3b0b4c534a54cc6201076f47576ee2eb2549089fde14cec19b7164b39f419",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639"
+      },
+      "absent": [],
+      "directories": [
+        "empty"
+      ],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "4f56d9cd54ce4b82b74bae705f5dadca",
+    "sha256": "17f3b0b4c534a54cc6201076f47576ee2eb2549089fde14cec19b7164b39f419",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639"
+      },
+      "absent": [],
+      "directories": [
+        "empty"
+      ],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "502dba57caf542e584e8fed87bc07fb0",
+    "sha256": "f9d220e6e79a906493b5ed35d0edb06cc9fd794e1d681f44f8e303e34d8a89d2",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639",
+        "created caf\u00e9.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "absent": [],
+      "directories": [],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "50cbf975263e487daf880b8ee588f312",
+    "sha256": "8fb181b3385a7fa9b264d9f17d480127282378bfe144b16265b7ac45bfd82de4",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639"
+      },
+      "absent": [],
+      "directories": [
+        "empty",
+        "created dir caf\u00e9",
+        "created dir caf\u00e9/sub"
+      ],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "52abad13e5834f94922474aab0e99109",
+    "sha256": "f9d220e6e79a906493b5ed35d0edb06cc9fd794e1d681f44f8e303e34d8a89d2",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639",
+        "created caf\u00e9.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "absent": [],
+      "directories": [],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "5375d1ee3f7541efa4e3c73b1d7e188b",
+    "sha256": "c44c0f4b49bb46e04391a5dede4a8ab15b908584adde3136ea04008fe0d90d83",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639"
+      },
+      "absent": [
+        "CANCEL RENAME caf\u00e9.txt"
+      ],
+      "directories": [
+        "empty"
+      ],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "6aa504f832b4487db79769c4bd713bd5",
+    "sha256": "f9d220e6e79a906493b5ed35d0edb06cc9fd794e1d681f44f8e303e34d8a89d2",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639",
+        "created caf\u00e9.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "absent": [],
+      "directories": [],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "6fb6ec39a69842c490417027d93300a2",
+    "sha256": "f9d220e6e79a906493b5ed35d0edb06cc9fd794e1d681f44f8e303e34d8a89d2",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639",
+        "created caf\u00e9.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "absent": [],
+      "directories": [],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "704b017404e040da92bc15c5aa800db2",
+    "sha256": "f9d220e6e79a906493b5ed35d0edb06cc9fd794e1d681f44f8e303e34d8a89d2",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639",
+        "created caf\u00e9.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "absent": [],
+      "directories": [],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "72a4359b79d842439105c384141684cb",
+    "sha256": "17f3b0b4c534a54cc6201076f47576ee2eb2549089fde14cec19b7164b39f419",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639"
+      },
+      "absent": [],
+      "directories": [
+        "empty"
+      ],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "7309ef4b5f4341e0a71fd51621cf121f",
+    "sha256": "f9d220e6e79a906493b5ed35d0edb06cc9fd794e1d681f44f8e303e34d8a89d2",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639",
+        "created caf\u00e9.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "absent": [],
+      "directories": [],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "7b7791cc8deb4df4918f2930bd3db454",
+    "sha256": "8fb181b3385a7fa9b264d9f17d480127282378bfe144b16265b7ac45bfd82de4",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639"
+      },
+      "absent": [],
+      "directories": [
+        "empty",
+        "created dir caf\u00e9",
+        "created dir caf\u00e9/sub"
+      ],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "7e73a577b14c447d95f17596af28e311",
+    "sha256": "f9d220e6e79a906493b5ed35d0edb06cc9fd794e1d681f44f8e303e34d8a89d2",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639",
+        "created caf\u00e9.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "absent": [],
+      "directories": [],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "80ecb9055345478682e8f2d242f06017",
+    "sha256": "f9d220e6e79a906493b5ed35d0edb06cc9fd794e1d681f44f8e303e34d8a89d2",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639",
+        "created caf\u00e9.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "absent": [],
+      "directories": [],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "8295608dc6aa40c681af537ad7cf3e2e",
+    "sha256": "69f163f9fd91297d8875e1f77630830784eb9ca0649045890c02b725bac89150",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639",
+        "renamed caf\u00e9.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb"
+      },
+      "absent": [
+        "bravo.txt"
+      ],
+      "directories": [
+        "empty"
+      ],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "8d48aa7c99c74f1cbbab9fce8397ae04",
+    "sha256": "f9d220e6e79a906493b5ed35d0edb06cc9fd794e1d681f44f8e303e34d8a89d2",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639",
+        "created caf\u00e9.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "absent": [],
+      "directories": [],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "983af8a025c349f9a7b540dc1e4cb565",
+    "sha256": "5051ac7c13ba757b9db171739ae193f4f8528341725a4d4ffb099eee1bc52614",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639",
+        "nested/alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec"
+      },
+      "absent": [],
+      "directories": [
+        "empty"
+      ],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "c186408b7177450bad2627df4a515472",
+    "sha256": "c5730db84422a5de1eeb64d196796b9886f4658ec49af4ac50faf95932b26314",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639"
+      },
+      "absent": [
+        "CANCEL NEVER caf\u00e9.txt"
+      ],
+      "directories": [
+        "empty"
+      ],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "c3c54910ceff4ff492939796cddf97c2",
+    "sha256": "17f3b0b4c534a54cc6201076f47576ee2eb2549089fde14cec19b7164b39f419",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639"
+      },
+      "absent": [],
+      "directories": [
+        "empty"
+      ],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "d84ffa8c677745b08cbdda146483628d",
+    "sha256": "17f3b0b4c534a54cc6201076f47576ee2eb2549089fde14cec19b7164b39f419",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639"
+      },
+      "absent": [],
+      "directories": [
+        "empty"
+      ],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "db37efca50fe4245acd65075b2b3ce09",
+    "sha256": "8fb181b3385a7fa9b264d9f17d480127282378bfe144b16265b7ac45bfd82de4",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639"
+      },
+      "absent": [],
+      "directories": [
+        "empty",
+        "created dir caf\u00e9",
+        "created dir caf\u00e9/sub"
+      ],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "de44484207a9497f8ec7cc7f10dda28c",
+    "sha256": "f9d220e6e79a906493b5ed35d0edb06cc9fd794e1d681f44f8e303e34d8a89d2",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639",
+        "created caf\u00e9.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "absent": [],
+      "directories": [],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "f011029ed66940b49865b40a4291a7a1",
+    "sha256": "17f3b0b4c534a54cc6201076f47576ee2eb2549089fde14cec19b7164b39f419",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639"
+      },
+      "absent": [],
+      "directories": [
+        "empty"
+      ],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "f01b53c81dfd465db3415dac6b1a1274",
+    "sha256": "17f3b0b4c534a54cc6201076f47576ee2eb2549089fde14cec19b7164b39f419",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639"
+      },
+      "absent": [],
+      "directories": [
+        "empty"
+      ],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "fd628fb87153432d927a616b617ed718",
+    "sha256": "8fb181b3385a7fa9b264d9f17d480127282378bfe144b16265b7ac45bfd82de4",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639"
+      },
+      "absent": [],
+      "directories": [
+        "empty",
+        "created dir caf\u00e9",
+        "created dir caf\u00e9/sub"
+      ],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "fe4e00e6de5e44e6800f4cd82d2353b9",
+    "sha256": "f9d220e6e79a906493b5ed35d0edb06cc9fd794e1d681f44f8e303e34d8a89d2",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639",
+        "created caf\u00e9.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "absent": [],
+      "directories": [],
+      "passed": true
+    }
+  },
+  {
+    "attempt_id": "fed07d4ae27d40a0808daf939c185956",
+    "sha256": "8fb181b3385a7fa9b264d9f17d480127282378bfe144b16265b7ac45bfd82de4",
+    "observed": {
+      "files": {
+        "alpha.txt": "91805546ddd7d7ae4b52e2f016f5d4bab6dc8e8a9f347dad682b9065befbc1ec",
+        "bravo.txt": "6de1542a9feb00c63d6ed93c550143b8b6c30e7977c3119a7b0559f81ac8ebeb",
+        "protected.txt": "779db7aeb24affcec2197fb8aea4216357e8bf7dcc07e3f68bb7891ec95500a3",
+        "nested/notes caf\u00e9.txt": "711265afc8aa262bd0e23b513665616551e5ac2a8d69019654477dac192321d5",
+        "occupied/keep.txt": "08f2c0a67e275e1231051e253e11c91621f50d54f07cb592bfe94a8140316e31",
+        "long.txt": "83a6c1947cb7c9b7a5527c760ea71df91d83d73fe1195b7082b430e49a056639"
+      },
+      "absent": [],
+      "directories": [
+        "empty",
+        "created dir caf\u00e9",
+        "created dir caf\u00e9/sub"
+      ],
+      "passed": true
+    }
+  }
+]

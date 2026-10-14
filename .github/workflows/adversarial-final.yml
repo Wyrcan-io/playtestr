@@ -1,0 +1,137 @@
+name: All ten projects on one frozen runner
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  freeze:
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, macos-15, windows-2025]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+        with:
+          go-version-file: go.mod
+          cache: false
+      - name: Refuse incomplete corpus or missing development qualification
+        run: python scripts/acceptance/adversarial_final_guard.py --require-development
+      - name: Native harness calibration
+        run: python -m unittest discover -s scripts/acceptance -p test_adversarial_harness.py -v
+      - name: Native product controls, vet and race events
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/ten-new-project-adversarial-pass/core
+          export PLAYTESTR_ADVERSARIAL_EVIDENCE_DIR="$GITHUB_WORKSPACE/artifacts/ten-new-project-adversarial-pass/core/stress"
+          go test -json -count=1 ./... > artifacts/ten-new-project-adversarial-pass/core/test-events.jsonl
+          go vet ./...
+          if [ "$RUNNER_OS" = Windows ]; then
+            export PATH="/c/msys64/mingw64/bin:/c/msys64/ucrt64/bin:$PATH"
+            export CC=gcc
+          fi
+          export CGO_ENABLED=1
+          go test -race -json -count=1 ./... > artifacts/ten-new-project-adversarial-pass/core/race-events.jsonl
+      - name: Build the final runner exactly once on this host
+        run: python scripts/acceptance/adversarial_freeze_runner.py --manifest artifacts/ten-new-project-adversarial-pass/frozen-runner.json
+      - name: Historical wizard sequence using the actual frozen binary
+        shell: bash
+        run: |
+          set -euo pipefail
+          suffix=''
+          if [ "$RUNNER_OS" = Windows ]; then suffix='.exe'; fi
+          go build -o "bin/fixture${suffix}" ./cmd/fixture
+          python scripts/acceptance/adversarial_wizard_reproduction.py --count 100 --binary "bin/playtestr-frozen${suffix}"
+      - name: Instrumented historical Windows wizard using the frozen binary
+        if: always() && runner.os == 'Windows'
+        run: python scripts/acceptance/adversarial_wizard_reproduction.py --count 100 --trace --binary bin/playtestr-frozen.exe
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: frozen-runner-${{ matrix.os }}
+          path: |
+            bin/playtestr-frozen*
+            artifacts/ten-new-project-adversarial-pass/frozen-runner.json
+          if-no-files-found: error
+          retention-days: 14
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: adversarial-final-controls-${{ matrix.os }}
+          path: |
+            artifacts/ten-new-project-adversarial-pass/**
+            docs/validation/ten-new-project-adversarial-pass/attempts.jsonl
+            docs/validation/ten-new-project-adversarial-pass/attempts-v2.jsonl
+            docs/validation/ten-new-project-adversarial-pass/identities
+          if-no-files-found: error
+          retention-days: 14
+  cookiecutter:
+    needs: freeze
+    uses: ./.github/workflows/adversarial-frozen-project.yml
+    with:
+      project: cookiecutter
+      hosts: '["ubuntu-24.04","windows-2025"]'
+  copier:
+    needs: cookiecutter
+    uses: ./.github/workflows/adversarial-frozen-project.yml
+    with:
+      project: copier
+      hosts: '["ubuntu-24.04","windows-2025"]'
+  lf:
+    needs: copier
+    uses: ./.github/workflows/adversarial-frozen-project.yml
+    with:
+      project: lf
+      hosts: '["ubuntu-24.04","windows-2025"]'
+  superfile:
+    needs: lf
+    uses: ./.github/workflows/adversarial-frozen-project.yml
+    with:
+      project: superfile
+      hosts: '["ubuntu-24.04","macos-15"]'
+  helix:
+    needs: superfile
+    uses: ./.github/workflows/adversarial-frozen-project.yml
+    with:
+      project: helix
+      hosts: '["ubuntu-24.04","windows-2025"]'
+  glow:
+    needs: helix
+    uses: ./.github/workflows/adversarial-frozen-project.yml
+    with:
+      project: glow
+      hosts: '["ubuntu-24.04","macos-15"]'
+  broot:
+    needs: glow
+    uses: ./.github/workflows/adversarial-frozen-project.yml
+    with:
+      project: broot
+      hosts: '["ubuntu-24.04","macos-15"]'
+  yazi:
+    needs: broot
+    uses: ./.github/workflows/adversarial-frozen-project.yml
+    with:
+      project: yazi
+      hosts: '["ubuntu-24.04","macos-15","windows-2025"]'
+  ranger:
+    needs: yazi
+    uses: ./.github/workflows/adversarial-frozen-project.yml
+    with:
+      project: ranger
+      hosts: '["ubuntu-24.04","macos-15"]'
+  nnn:
+    needs: ranger
+    uses: ./.github/workflows/adversarial-frozen-project.yml
+    with:
+      project: nnn
+      hosts: '["ubuntu-24.04","macos-15"]'

@@ -1,0 +1,31 @@
+[
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/yazi/normal-project-test-0-1791964290909674300.json",
+    "sha256": "e4370eb96bc16690975e4af75f6e8aa2ec3d0425755cf945eca052662d145142",
+    "summary": {
+      "total": 1,
+      "passed": 0,
+      "failed": 1,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Create a real spaced Unicode file and preserve all neighboring bytes",
+        "status": "failed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "windows-job-object"
+        },
+        "failure": {
+          "category": "snapshot_mismatch",
+          "message": "rendered screen did not match the reviewed snapshot"
+        }
+      }
+    ]
+  }
+]

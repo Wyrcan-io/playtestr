@@ -270,6 +270,18 @@ func TestRecordingRejectsAmbiguousAndDynamicReadiness(t *testing.T) {
 	}
 }
 
+func TestRecordingReadinessDuringRepeatedRedraw(t *testing.T) {
+	r := newHelperRecording(t, "recording-redraw", nil)
+	for i := 0; i < 2000; i++ {
+		if err := r.Capture(Step{Expect: "unique redraw ready"}); err != nil {
+			t.Fatalf("redraw capture %d: %v", i, err)
+		}
+		// Each capture exercises a fresh observation without accumulating an
+		// artificial 2,000-step public contract.
+		r.spec.Steps = nil
+	}
+}
+
 type interruptedExportContext struct {
 	context.Context
 	checks int

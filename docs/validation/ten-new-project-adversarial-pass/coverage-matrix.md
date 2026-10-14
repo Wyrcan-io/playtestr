@@ -50,6 +50,7 @@ Controls are mapped before qualification. Test names and configured hosts alone 
 | windows-resize-reply | Keys and terminal | Current dimensions required; stale or payload-contained acknowledgments rejected | `TestWindowsResizeRepliesRequireCurrentDimensions` |
 | windows-resize-bound | Keys and terminal | Absent Windows resize acknowledgment must time out accurately | `TestWindowsResizeWithoutAcknowledgmentIsBounded` |
 | literal-recorder-control | Keys and terminal | Control-console escape can be transmitted literally | `TestRecordingLiteralControlKeyAndResolvedSetup` |
+| recorder-redraw-readiness | Keys and terminal | Unique recorder readiness uses one real-PTY screen observation during repeated erase/redraw | `TestRecordingReadinessDuringRepeatedRedraw` |
 | live-operator-restoration | Keys and terminal | Native operator terminal restored after live input | `TestNativeRecorderLiveInputAndOperatorRestoration` |
 | strict-spec | Spec and paths | Malformed/version/field/action errors reject without launch | `TestAuthoringDiagnosticsRejectBeforeLaunchWithoutLeakingInput` |
 | spec-size | Spec and paths | Spec version and size bounded | `TestSpecVersionAndSizeLimits` |

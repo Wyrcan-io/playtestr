@@ -1,0 +1,68 @@
+name: Sequential frozen application qualification
+
+on:
+  workflow_call:
+    inputs:
+      project:
+        required: true
+        type: string
+      hosts:
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  project:
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ${{ fromJSON(inputs.hosts) }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+        with:
+          go-version-file: go.mod
+          cache: false
+      - uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53
+        with:
+          name: frozen-runner-${{ matrix.os }}
+          path: .
+      - name: Restore execution permission and verify frozen identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "$RUNNER_OS" != Windows ]; then chmod 755 bin/playtestr-frozen; fi
+          python scripts/acceptance/adversarial_freeze_runner.py --manifest artifacts/ten-new-project-adversarial-pass/frozen-runner.json --verify
+      - name: All declared flows, independent state, actual faults and ten fresh repetitions
+        run: python scripts/acceptance/adversarial_native_project.py --project "${{ inputs.project }}" --frozen-runner-manifest artifacts/ten-new-project-adversarial-pass/frozen-runner.json
+      - name: Verify termination and remove the owned application
+        shell: bash
+        env:
+          QUALIFIED_PROJECT: ${{ inputs.project }}
+        run: |
+          set -euo pipefail
+          if [ "$RUNNER_OS" = Windows ]; then
+            pwsh -NoProfile -File scripts/acceptance/remove-adversarial-project.ps1 -Project "$QUALIFIED_PROJECT"
+          else
+            python scripts/acceptance/adversarial_cleanup_unix.py --project "$QUALIFIED_PROJECT"
+          fi
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: adversarial-final-${{ inputs.project }}-${{ matrix.os }}
+          path: |
+            artifacts/ten-new-project-adversarial-pass/**
+            docs/validation/ten-new-project-adversarial-pass/attempts.jsonl
+            docs/validation/ten-new-project-adversarial-pass/attempts-v2.jsonl
+            docs/validation/ten-new-project-adversarial-pass/identities
+          if-no-files-found: error
+          retention-days: 14

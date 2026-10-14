@@ -154,7 +154,7 @@ def main():
                 if target.exists() and target.read_bytes()!=data:
                     raise RuntimeError('Retained identity manifest conflict')
                 if not target.exists(): target.write_bytes(data)
-        for pattern in ['native-*.json','cleanup-Linux.json','cleanup-Windows.json','cleanup-Darwin.json','mutation-controls-*.json','rust-pristine-build-preflight-*.json','*-restoration-failure.json']:
+        for pattern in ['native-*.json','frozen-runner.json','cleanup-Linux.json','cleanup-Windows.json','cleanup-Darwin.json','mutation-controls-*.json','rust-pristine-build-preflight-*.json','*-restoration-failure.json']:
             for path in folder.rglob(pattern):
                 persist(retained/path.name,path.read_bytes())
                 record['files'][path.name]=hashlib.sha256(path.read_bytes()).hexdigest()
@@ -188,7 +188,9 @@ def main():
                 retain_evidence(result)
         records.append(record)
     (destination/'manifest.json').write_text(json.dumps({'run':info,'artifacts':records,
-        'scope':'Actual development evidence; final campaign freeze still pending'},indent=2)+'\n',encoding='utf-8')
+        'scope':('Actual frozen-campaign evidence; completion still requires all gates and verified identities'
+                 if any(a['name'].startswith('adversarial-final-') for a in metadata['artifacts'])
+                 else 'Actual development evidence; final campaign freeze still pending')},indent=2)+'\n',encoding='utf-8')
     (DOC/'coverage-matrix.json').write_text(json.dumps(matrix,indent=2)+'\n',encoding='utf-8')
     print('Retained native evidence',args.run,info['conclusion'])
 

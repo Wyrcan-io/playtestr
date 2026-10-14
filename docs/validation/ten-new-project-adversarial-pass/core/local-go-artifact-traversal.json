@@ -1,0 +1,21 @@
+{
+  "observed_utc": "2026-10-14T13:10:00.371029+00:00",
+  "commands": [
+    "go test ./...",
+    "go vet ./...",
+    "go test -race -count=1 ./..."
+  ],
+  "observation": "All three go.exe processes consumed minutes of CPU with no immediate children and no output while the ignored artifacts directory had 398 top-level entries. This is a local diagnostic, not a proved Go defect.",
+  "treatment": "Add a private ignored artifacts/go.mod module boundary to exclude retained application/evidence trees from the repository package wildcard. Preserve all evidence. Interrupt verified owned validation processes and rerun.",
+  "product_deadlines_changed": false,
+  "validation_credit": false,
+  "actual_interrupts": [
+    "go vet ./...",
+    "go test -race -count=1 ./..."
+  ],
+  "original_full_test": "Not stopped: the safety check found immediate children and refused to stop it; allowed to complete.",
+  "after_vet": {
+    "exit_code": 0,
+    "seconds": 7.6569901
+  }
+}
