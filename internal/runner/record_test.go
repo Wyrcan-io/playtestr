@@ -256,8 +256,11 @@ func TestRecordingTracksDescendantCleanupAndExpectedNonzero(t *testing.T) {
 
 func TestRecordingRejectsAmbiguousAndDynamicReadiness(t *testing.T) {
 	ambiguous := newHelperRecording(t, "ambiguous-output", nil)
-	if err := ambiguous.Capture(Step{Expect: "ready"}); err == nil {
-		t.Fatal("ambiguous anchor accepted")
+	capture(t, ambiguous, Step{Expect: "ambiguous initialized"})
+	ambiguous.spec.Steps = nil
+	ambiguous.spec.TimeoutMS = 250
+	if err := ambiguous.Capture(Step{Expect: "ready"}); err == nil || !strings.Contains(err.Error(), "ambiguous anchor") || !errors.Is(err, context.DeadlineExceeded) {
+		t.Fatalf("permanent ambiguity must fail within its deadline: %v", err)
 	}
 	if len(ambiguous.Steps()) != 0 {
 		t.Fatal("ambiguous candidate entered draft")
@@ -279,6 +282,16 @@ func TestRecordingReadinessDuringRepeatedRedraw(t *testing.T) {
 		// Each capture exercises a fresh observation without accumulating an
 		// artificial 2,000-step public contract.
 		r.spec.Steps = nil
+	}
+}
+
+func TestRecordingWaitsForUniqueAnchorAfterRedraw(t *testing.T) {
+	r := newHelperRecording(t, "recording-transient-duplicate", nil)
+	if err := r.Capture(Step{Expect: "redraw anchor"}); err != nil {
+		t.Fatalf("transient duplicate rejected before unique redraw: %v", err)
+	}
+	if len(r.Steps()) != 1 || strings.Count(r.Screen(), "redraw anchor") != 1 {
+		t.Fatal("capture lacks positive unique rendered readiness")
 	}
 }
 

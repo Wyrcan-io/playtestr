@@ -21,16 +21,11 @@ def main():
         raise RuntimeError('Invalid owned project identity')
     candidate=next(c for c in json.loads((DOC/'candidates.json').read_text())
                    if c['repo'].split('/')[-1]==project and c['disposition']=='selected')
-    app=ROOT/'.cache/ten-new-project-apps'/project
-    if args.native_source:
-        app=Path('/var/tmp')/('playtestr-adversarial-'+project)
-    app.mkdir(parents=True,exist_ok=True)
-    marker=app/'task-owned.json'
-    owner=dict(campaign='ten-new-project-adversarial-pass',workspace=str(ROOT),
-               project=project,source_sha=candidate['sha'])
-    if marker.exists() and json.loads(marker.read_text())!=owner:
-        raise RuntimeError('Unknown task ownership')
-    marker.write_text(json.dumps(owner))
+    from adversarial_owned_source import claim
+    root=ROOT/'.cache/ten-new-project-apps'
+    parents=[root,*([Path('/var/tmp')] if os.name!='nt' else [])]
+    app=claim(Path('/var/tmp') if args.native_source else root,project,candidate['sha'],
+              other_roots=parents,prefix='playtestr-adversarial-' if args.native_source else '')
     source=app/'source'
     if not source.exists():
         run(['git','clone','--filter=blob:none','--no-checkout',candidate['url']+'.git',source],
@@ -38,6 +33,8 @@ def main():
         run(['git','-C',source,'checkout','--detach',candidate['sha']],project,'pinned-checkout',timeout=180)
     if subprocess.check_output(['git','-C',source,'rev-parse','HEAD'],text=True).strip()!=candidate['sha']:
         raise RuntimeError('Source identity mismatch')
+    if subprocess.check_output(['git','-C',source,'status','--porcelain','--untracked-files=no'],text=True,timeout=15).strip():
+        raise RuntimeError('Pristine Python setup cannot adopt mutated source')
     package=DOC/project
     package.mkdir(parents=True,exist_ok=True)
     (package/'UPSTREAM-LICENSE.txt').write_bytes((source/'LICENSE').read_bytes())

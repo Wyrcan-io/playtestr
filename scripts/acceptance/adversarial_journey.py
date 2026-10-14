@@ -89,7 +89,9 @@ def recorder(binary,project,case,env,*,export=True,rerecord=False,wall_timeout=1
           '--fixture',case.get('fixture',config.get('fixture','fixtures')),
           '--temporary-home','--temporary-temp','--width','100','--height','30',
           '--timeout-ms',str(case['timeout_ms']),'--run-timeout-ms','120000']
-    for key,value in config.get('environment',{}).items():
+    environment=dict(config.get('environment',{}))
+    environment.update(config.get('environment_by_host',{}).get(platform.system(),{}))
+    for key,value in environment.items():
         args+=['--env',key+'='+value]
     args+=['--',*case['command']]
     steps=list(case.get('steps_by_host',{}).get(platform.system(),case['steps']))

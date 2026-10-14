@@ -410,12 +410,18 @@ func TestHelperProcess(t *testing.T) {
 			time.Sleep(time.Duration(17+i%7) * time.Millisecond)
 		}
 		select {}
+	case "recording-transient-duplicate":
+		fmt.Print("redraw anchor redraw anchor\r\n")
+		time.Sleep(time.Second)
+		fmt.Print("\x1b[2J\x1b[Hredraw anchor")
+		time.Sleep(10 * time.Second)
+		os.Exit(0)
 	case "dynamic-output":
 		fmt.Printf("dynamic ready nonce=%d\r\n", time.Now().UnixNano())
 		time.Sleep(10 * time.Second)
 		os.Exit(0)
 	case "ambiguous-output":
-		fmt.Print("ready ready\r\n")
+		fmt.Print("ambiguous initialized\r\nready ready\r\n")
 		time.Sleep(10 * time.Second)
 		os.Exit(0)
 	case "row-view":

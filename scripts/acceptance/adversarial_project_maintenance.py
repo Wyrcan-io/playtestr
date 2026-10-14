@@ -95,6 +95,8 @@ def main():
                    if c['repo'].split('/')[-1]==project)
     setup='python scripts/acceptance/'+('adversarial_setup_go.py' if identity.get('toolchain','').startswith('go version')
           else 'adversarial_setup_rust.py' if identity.get('toolchain','').startswith('rustc ')
+          else 'adversarial_setup_c.py' if identity.get('toolchain','').startswith('C compiler: ')
+          else 'adversarial_setup_python.py' if project=='ranger'
           else 'adversarial_setup_cookiecutter.py')+' --project '+project
     setup+='\npython scripts/acceptance/adversarial_export_target_path.py --project '+project
     workflow=run([binary,'workflow','--source-revision',source,'--os',','.join(candidate['planned_hosts']),

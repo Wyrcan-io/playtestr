@@ -747,6 +747,7 @@ func executeStep(ctx context.Context, specPath string, step Step, options RunOpt
 	}
 	ticker := time.NewTicker(10 * time.Millisecond)
 	defer ticker.Stop()
+	var pendingAnchorError error
 	for {
 		observation := session.observe()
 		if observation.outputLimitExceeded {
@@ -754,9 +755,10 @@ func executeStep(ctx context.Context, specPath string, step Step, options RunOpt
 		}
 		if step.Expect != "" {
 			matched, err := matchExpectedScreen(observation.screen, step.Expect, options.recordUniqueExpect)
-			if matched || err != nil {
-				return err
+			if matched {
+				return nil
 			}
+			pendingAnchorError = err
 		}
 		if step.ExpectNot != "" && !strings.Contains(observation.screen, step.ExpectNot) {
 			return nil
@@ -812,6 +814,9 @@ func executeStep(ctx context.Context, specPath string, step Step, options RunOpt
 		}
 		select {
 		case <-ctx.Done():
+			if pendingAnchorError != nil {
+				return fmt.Errorf("%w: %w", pendingAnchorError, ctx.Err())
+			}
 			return ctx.Err()
 		case <-session.outputLimit:
 			continue

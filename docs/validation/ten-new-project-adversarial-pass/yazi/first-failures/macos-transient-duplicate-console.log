@@ -1,0 +1,53 @@
+Setup: output="/Users/runner/work/playtestr/playtestr/docs/validation/ten-new-project-adversarial-pass/yazi/probe-1791985978847983000.json" argv=["yazi" "."] cwd="" fixture="fixtures" viewport=100x30 timeout=10000ms budget=120000ms output-cap=2000000
+Recorder controls (target input is separate):
+  /live                       type into the target; Ctrl+G returns to controls
+  /key ArrowDown              send a supported named key
+  /text "hello"               send JSON-quoted text/paste (literal Ctrl+G: "\u0007")
+  /expect unique new content  positive readiness checkpoint
+  /absent previous content    disappearance of previously asserted content
+  /exit 0                     exact expected exit code
+  /snapshot name.txt          capture a ready, settled screen
+  /resize 100 30; /redraw     resize and optional observed redraw wait
+  /snapshot-rows name.rows.json 2 24  capture reviewed inclusive viewport rows
+  /screen; /review            inspect screen or full candidate/baselines
+  /delete N; /move N M         edit 1-based step positions
+  /replace N {"expect":"..."} replace a step with one strict JSON action
+  /rerecord N                 fresh target, retain/reconstruct first N steps
+  /replay; /save               reviewed fresh replay, then export new files
+  /quit                       cancel without export
+No target input or raw draft is saved automatically. Review may display sensitive
+text the target printed or you typed. Targets run with your permissions.
+Resolved target="/Users/runner/work/playtestr/playtestr/.cache/ten-new-project-apps/yazi/bin/yazi" working-directory="/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/playtestr-workspace-1338167149/fixture"
+record> Recorder: capture step 1: ambiguous anchor: choose text appearing exactly once
+record> /private/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/playtestr-workspace-1338167149/fixture
+  fixture │ empty                                       │              No items
+   home     │  nested                                       │
+   temp     │  occupied                                     │
+             │ 󰈙 alpha.txt                                    │
+             │ 󰈙 bravo.txt                                    │
+             │ 󰈙 long.txt                                     │
+             │ 󰈙 protected.txt                                │
+             │                                                │
+             │                                                │
+             │                                                │
+             │                                                │
+             │                                                │
+             │                                                │
+             │                                                │
+             │                                                │
+             │                                                │
+             │                                                │
+             │                                                │
+             │                                                │
+             │                                                │
+             │                                                │
+             │                                                │
+             │                                                │
+             │                                                │
+             │                                                │
+             │                                                │
+             │                                                │
+             │                                                │
+ NOR  64B  empty                                                       drwxr-xr-x  Top   1/7  
+
+record> [0m[?25h

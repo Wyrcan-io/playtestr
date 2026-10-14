@@ -87,7 +87,11 @@ def main():
             raise RuntimeError('Mutation weakened an unchanged contract')
         recovery=RAW/'cookiecutter'/('restored-'+name+'-'+str(time.time_ns())+'.json')
         result=run([binary,'test','--report',recovery,spec],'cookiecutter','restore-'+name,env=env)
-        fault.update(restored=True,recovery_id=result['id'],contracts_unchanged=True)
+        config=json.loads((directory/'scenarios.json').read_text(encoding='utf-8'))
+        case=next(c for c in config['cases'] if c['name']=='normal-project')
+        state_recovery=recorder(binary,'cookiecutter',case,env,export=False)
+        fault.update(restored=True,recovery_id=result['id'],contracts_unchanged=True,
+                     state_recovery_id=state_recovery['id'])
         controls.append(fault)
         (RAW/'cookiecutter'/(label+'-control.json')).write_text(json.dumps(fault,indent=2)+'\n')
         print(name,'detected and restored',flush=True)

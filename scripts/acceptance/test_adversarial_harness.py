@@ -16,6 +16,28 @@ from adversarial_fixture_directories import prepare
 from adversarial_project_maintenance import copy_spec_fixture
 
 class NativeHarnessControls(unittest.TestCase):
+    def test_owned_source_refuses_unmarked_existing_files(self):
+        from adversarial_owned_source import claim
+        with tempfile.TemporaryDirectory(prefix='playtestr-owned-') as directory:
+            root=Path(directory);app=root/'sample';app.mkdir()
+            (app/'preserve.txt').write_bytes(b'preserve')
+            with self.assertRaisesRegex(RuntimeError,'nonempty unmarked'):
+                claim(root,'sample','a'*40)
+            self.assertEqual((app/'preserve.txt').read_bytes(),b'preserve')
+            self.assertFalse((app/'task-owned.json').exists())
+
+    def test_owned_source_identity_and_single_application(self):
+        from adversarial_owned_source import claim
+        with tempfile.TemporaryDirectory(prefix='playtestr-owned-') as directory:
+            root=Path(directory)
+            app=claim(root,'sample','a'*40)
+            self.assertEqual(claim(root,'sample','a'*40),app)
+            with self.assertRaisesRegex(RuntimeError,'Unknown existing'):
+                claim(root,'sample','b'*40)
+            with self.assertRaisesRegex(RuntimeError,'Another owned application'):
+                claim(root,'other','b'*40)
+            self.assertFalse((root/'other').exists())
+
     @unittest.skipIf(os.name=='nt','Unix nested sessions require native process-group diagnosis')
     def test_outer_timeout_reaps_nested_helper_session(self):
         import signal

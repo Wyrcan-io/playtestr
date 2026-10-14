@@ -12,7 +12,7 @@ from adversarial_journey import recorder
 from adversarial_setup_go import build
 
 
-def main(*,rust=False):
+def main(*,rust=False,c=False):
     parser=argparse.ArgumentParser()
     parser.add_argument('--project',required=True)
     parser.add_argument('--runtime',type=Path)
@@ -21,7 +21,15 @@ def main(*,rust=False):
     package=DOC/args.project
     app=args.runtime or ROOT/'.cache/ten-new-project-apps'/args.project
     identity=json.loads((app/'runtime.json').read_text(encoding='utf-8'))
-    if rust:
+    if rust and c:raise RuntimeError('Choose exactly one compiled target backend')
+    if c:
+        from adversarial_setup_c import build as c_build
+        if not identity.get('toolchain','').startswith('C compiler: '):
+            raise RuntimeError('C mutation adapter requires an identified C target')
+        def build_target(directory,project,invalidate_packages=()):
+            if invalidate_packages:raise RuntimeError('C build uses full recompilation, not crate invalidation')
+            return c_build(directory,project)
+    elif rust:
         from adversarial_setup_rust import build as rust_build
         if not identity.get('toolchain','').startswith('rustc '):
             raise RuntimeError('Rust mutation adapter requires an identified Rust target')
@@ -39,10 +47,10 @@ def main(*,rust=False):
     env=dict(os.environ,PATH=identity['path']+os.pathsep+os.environ['PATH'])
     config=json.loads((package/'scenarios.json').read_text(encoding='utf-8'))
     instructions=json.loads((package/'faults/definitions.json').read_text(encoding='utf-8'))
-    if rust:
+    if rust or c:
         if subprocess.check_output(['git','-C',source,'status','--porcelain','--untracked-files=no'],text=True,timeout=15).strip():
             raise RuntimeError('Pristine rebuild preflight requires unchanged target source')
-        invalidation=list(dict.fromkeys(p for fault in instructions for p in fault.get('invalidate_packages',[])))
+        invalidation=list(dict.fromkeys(p for fault in instructions for p in fault.get('invalidate_packages',[]))) if rust else []
         initial=identity['binary_sha256']
         first=build_target(app,args.project,invalidation)
         second=build_target(app,args.project,invalidation)
@@ -52,11 +60,12 @@ def main(*,rust=False):
             initial_build_differs=initial!=first['binary_sha256'],
             explicit_crate_invalidation=invalidation,
             reproducible=first['binary_sha256']==second['binary_sha256'],
-            scope='Two pristine declared-crate clean builds before source controls; no control qualification implied')
-        (RAW/args.project/('rust-pristine-build-preflight-'+str(time.time_ns())+'.json')).write_text(
+            scope=('Two pristine declared-crate clean builds before source controls; no control qualification implied'
+                   if rust else 'Two forced ordinary Makefile compilations before C source controls; no control qualification implied'))
+        (RAW/args.project/(('rust' if rust else 'c')+'-pristine-build-preflight-'+str(time.time_ns())+'.json')).write_text(
             json.dumps(preflight,indent=2)+'\n',encoding='utf-8')
         if not preflight['reproducible']:
-            raise RuntimeError('Pristine Rust target clean builds are not reproducible')
+            raise RuntimeError('Pristine compiled target rebuilds are not reproducible')
         identity=second
     controls=[]
     for mutation in instructions:

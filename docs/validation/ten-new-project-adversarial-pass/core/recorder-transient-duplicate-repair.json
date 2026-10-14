@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "native_failure": {
+    "run": 38570512241,
+    "source": "241eb49839f50f86b18be4bf08572dccc307f74f",
+    "host": "macos-15",
+    "state_probe": "182d6fa887d8473a83438fda25a721e8",
+    "failed_step": 1,
+    "anchor": "alpha.txt",
+    "scope": "Preview-regression restoration state probe; no host qualification"
+  },
+  "before": {
+    "test": "TestRecordingWaitsForUniqueAnchorAfterRedraw",
+    "host": "native Windows",
+    "runs": 1,
+    "failed": 1,
+    "package_seconds": 2.272,
+    "observed": "capture step 1: ambiguous anchor: choose text appearing exactly once"
+  },
+  "repair": "Continue within the unchanged assertion deadline while multiple occurrences are rendered; accept only a positive unique observation. Permanent duplicates retain ambiguity plus deadline failure.",
+  "after": "Reduced real-PTY controls, full Windows Go suite, vet, native race script and both public examples passed. New native rerun pending.",
+  "product_deadlines_changed": false,
+  "baselines_changed": false,
+  "final_credit": 0,
+  "after_reduced": {
+    "command": "go test ./internal/runner -run TestRecordingWaitsForUniqueAnchorAfterRedraw|TestRecordingRejectsAmbiguousAndDynamicReadiness|TestRecordingReadinessDuringRepeatedRedraw -count=10",
+    "runs_per_control": 10,
+    "failed": 0,
+    "host": "native Windows",
+    "package_seconds": 37.273
+  },
+  "go_vet": true,
+  "additional_windows_native_failure": {
+    "run": 38570512241,
+    "probe": "e2628abff0a24161a877db594ffdc1c0",
+    "case": "edge-cancel-create",
+    "failed_step": 1,
+    "anchor": "alpha.txt",
+    "ordinary_repetitions_completed_before_probe_failure": 98,
+    "ordinary_repetition_failures": 0,
+    "qualified": false
+  },
+  "checks": {
+    "full_go_test": true,
+    "go_vet": true,
+    "native_windows_race": true,
+    "race_runner_seconds": 212.532,
+    "race_setupaction_seconds": 106.253,
+    "public_examples_passed": 2
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "status": "Local calibrated; native execution and final frozen qualification pending",
+  "finding": "The earlier Python setup could write an ownership marker into an unmarked preexisting directory and did not enforce a single active application.",
+  "repair": "Explicit immutable ownership, refusal of nonempty unmarked roots or links, exact existing identity, and single-application gate before acquisition.",
+  "real_controls": [
+    "test_owned_source_refuses_unmarked_existing_files",
+    "test_owned_source_identity_and_single_application"
+  ],
+  "windows": {
+    "tests": 23,
+    "skipped": 3,
+    "seconds": 17.01,
+    "passed": true
+  },
+  "unix_exploratory": {
+    "tests": 23,
+    "skipped": 2,
+    "seconds": 15.563,
+    "passed": true
+  },
+  "python_execution_identity": "Actual Python source file digests plus private interpreter and transparent launcher identities; same-length edit and exact restore pilot passed",
+  "source_launcher": "Ranger adapter prepared only; no acquisition, execution or qualification claimed yet",
+  "before_after_real_files": {
+    "prior_source": "241eb49839f50f86b18be4bf08572dccc307f74f",
+    "prior_recipe_sha256": "6eba6c01b2d8f6d6dae35f7df368b2154ee800472b1e8d1c8bf90ef5c7dae10c",
+    "prior_recipe_wrote_marker_into_existing_nonempty_directory": true,
+    "new_recipe_rejected": "Refuse adopting nonempty unmarked application",
+    "existing_bytes_preserved": true,
+    "no_upstream_acquisition_or_installation": true
+  }
+}

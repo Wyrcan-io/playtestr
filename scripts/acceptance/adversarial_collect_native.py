@@ -154,7 +154,7 @@ def main():
                 if target.exists() and target.read_bytes()!=data:
                     raise RuntimeError('Retained identity manifest conflict')
                 if not target.exists(): target.write_bytes(data)
-        for pattern in ['native-*.json','frozen-runner.json','cleanup-Linux.json','cleanup-Windows.json','cleanup-Darwin.json','mutation-controls-*.json','rust-pristine-build-preflight-*.json','*-restoration-failure.json']:
+        for pattern in ['native-*.json','frozen-runner.json','cleanup-Linux.json','cleanup-Windows.json','cleanup-Darwin.json','mutation-controls-*.json','rust-pristine-build-preflight-*.json','c-pristine-build-preflight-*.json','*-restoration-failure.json']:
             for path in folder.rglob(pattern):
                 persist(retained/path.name,path.read_bytes())
                 record['files'][path.name]=hashlib.sha256(path.read_bytes()).hexdigest()
@@ -163,6 +163,14 @@ def main():
             state_root.mkdir(exist_ok=True)
             persist(state_root/path.name,path.read_bytes())
             record['files']['external-state/'+path.name]=hashlib.sha256(path.read_bytes()).hexdigest()
+        for path in folder.rglob('summary.json'):
+            if 'wizard-reproduction' not in path.parts:continue
+            summary=json.loads(path.read_text(encoding='utf-8'))
+            if 'attempts' not in summary or 'failures' not in summary:continue
+            relative=Path('wizard-reproduction')/path.parent.name/'summary.json'
+            output=retained/relative;output.parent.mkdir(parents=True,exist_ok=True)
+            persist(output,path.read_bytes())
+            record['files'][relative.as_posix()]=hashlib.sha256(path.read_bytes()).hexdigest()
         # Keep every distinct mutation's first actual red/false-green report.
         for path in folder.rglob('*-control.json'):
             fault=json.loads(path.read_text(encoding='utf-8'))

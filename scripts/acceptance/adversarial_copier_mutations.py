@@ -89,7 +89,11 @@ def main():
         recovery=RAW/'copier'/('restored-'+name+'-'+str(time.time_ns())+'.json')
         result=run([args.binary,'test','--report',recovery.relative_to(ROOT),spec],
             'copier','restore-'+name,env=env)
-        fault.update(restored=True,recovery_id=result['id'],contracts_unchanged=True)
+        config=json.loads((package/'scenarios.json').read_text(encoding='utf-8'))
+        case=dict(next(c for c in config['cases'] if c['name']==case_name),name=case_name+suffix)
+        state_recovery=recorder(args.binary,'copier',case,env,export=False)
+        fault.update(restored=True,recovery_id=result['id'],contracts_unchanged=True,
+                     state_recovery_id=state_recovery['id'])
         controls.append(fault)
         (RAW/'copier'/(label+'-control.json')).write_text(json.dumps(fault,indent=2)+'\n',encoding='utf-8')
         print(name,'detected and restored',flush=True)
