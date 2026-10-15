@@ -154,7 +154,7 @@ jobs:
         run: python scripts/acceptance/adversarial_ranger_startup_probe.py
       - name: Verify restored source and remove owned diagnostic target
         if: always()
-        run: python scripts/acceptance/adversarial_cleanup_unix.py --project ranger
+        run: python scripts/acceptance/adversarial_cleanup_unix.py --project ranger --exploratory
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
