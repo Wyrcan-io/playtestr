@@ -11,13 +11,22 @@ import unittest
 from unittest.mock import patch
 import adversarial_process
 from adversarial_process import run
-from adversarial_journey import check_state
+from adversarial_journey import check_state,host_case_name
 from adversarial_fixture_directories import prepare
 from adversarial_project_maintenance import copy_spec_fixture
 from adversarial_setup_python import source_identity
 from adversarial_final_audit import belongs_to_campaign,repetition_group,repeated_cleanup_passed
 
 class NativeHarnessControls(unittest.TestCase):
+    def test_host_case_names_preserve_actual_driver_selection(self):
+        case=dict(name='edge-cancel-after-edit')
+        for system in ['Linux','Darwin']:
+            self.assertEqual(host_case_name(case,{},system),'edge-cancel-after-edit-unix')
+        self.assertEqual(host_case_name(case,{},'Windows'),'edge-cancel-after-edit')
+        self.assertEqual(host_case_name(case,dict(baseline_suffix_by_host={'Linux':'-unix'}),'Linux'),'edge-cancel-after-edit-unix')
+        self.assertEqual(host_case_name(dict(case,baseline_suffix_by_host={'Darwin':'-macos'}),{},'Darwin'),'edge-cancel-after-edit-macos')
+        self.assertEqual(host_case_name(dict(name='ordinary'),{},'Linux'),'ordinary')
+
     def test_repeated_cleanup_requires_fifty_actual_passes_and_no_failure(self):
         events=[dict(Action='pass',Test='TestAdversarialStubbornUnixDescendantCleanup') for _ in range(50)]
         self.assertTrue(repeated_cleanup_passed(events))

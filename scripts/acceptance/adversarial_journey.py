@@ -14,6 +14,17 @@ import sys
 import time
 from adversarial_process import ROOT,DOC,RAW,run
 
+def host_case_name(case,config,system):
+    """Resolve exactly the reviewed variant used by the public-command driver."""
+    suffix=case.get('baseline_suffix_by_host',config.get('baseline_suffix_by_host',{})).get(system,'')
+    if suffix:
+        return case['name']+suffix
+    # Preserve the original pre-declarative cancellation recipe. Audits must
+    # recognize its actual Unix spec rather than crediting the Windows file.
+    if case['name']=='edge-cancel-after-edit' and system!='Windows':
+        return 'edge-cancel-after-edit-unix'
+    return case['name']
+
 def control(step):
     key,value=next(iter(step.items()))
     if key=='snapshot_rows':
@@ -113,7 +124,7 @@ def check_state(working,case):
         result['entries']=sorted(observed)
     return result
 
-def recorder(binary,project,case,env,*,export=True,rerecord=False,wall_timeout=120):
+def recorder(binary,project,case,env,*,export=True,rerecord=False,wall_timeout=120,diagnostic_environment=None):
     directory=DOC/project
     config=json.loads((directory/'scenarios.json').read_text(encoding='utf-8'))
     viewport=dict(width=100,height=30)
@@ -128,6 +139,7 @@ def recorder(binary,project,case,env,*,export=True,rerecord=False,wall_timeout=1
           '--timeout-ms',str(case['timeout_ms']),'--run-timeout-ms','120000']
     environment=dict(config.get('environment',{}))
     environment.update(config.get('environment_by_host',{}).get(platform.system(),{}))
+    environment.update(diagnostic_environment or {})
     for key,value in environment.items():
         args+=['--env',key+'='+value]
     args+=['--',*case['command']]
@@ -160,12 +172,22 @@ def recorder(binary,project,case,env,*,export=True,rerecord=False,wall_timeout=1
     last_prompt=-1
     sent=False
     rejected=False
+    timings=[]
+    pending_command=None
+    def acknowledge(evidence,status):
+        nonlocal pending_command
+        if pending_command is not None:
+            index,kind,started=pending_command
+            timings.append(dict(index=index,control=kind,seconds=time.monotonic()-started,status=status))
+            pending_command=None
+        (evidence/'recorder-control-timings.json').write_text(json.dumps(timings,indent=2)+'\n',encoding='utf-8')
     async def inspect(proc,output,evidence):
-        nonlocal sent,rejected,next_command,last_prompt
+        nonlocal sent,rejected,next_command,last_prompt,pending_command
         screen=output.decode('utf-8',errors='replace')
         if sent:
             return
         if 'Recorder:' in screen:
+            acknowledge(evidence,'rejected')
             sent=True
             rejected=True
             proc.stdin.write(b'/screen\n/quit\n')
@@ -181,7 +203,9 @@ def recorder(binary,project,case,env,*,export=True,rerecord=False,wall_timeout=1
         if prompt<=last_prompt:
             return
         last_prompt=prompt
+        acknowledge(evidence,'acknowledged')
         if next_command<len(commands):
+            pending_command=(next_command+1,commands[next_command].split(' ',1)[0],time.monotonic())
             proc.stdin.write((commands[next_command]+'\n').encode('utf-8'))
             next_command+=1
             await proc.stdin.drain()
@@ -211,6 +235,7 @@ def recorder(binary,project,case,env,*,export=True,rerecord=False,wall_timeout=1
         await proc.stdin.drain()
         proc.stdin.close()
     def completed(exit_code,output,evidence):
+        acknowledge(evidence,'process-completed')
         if rejected:
             raise RuntimeError('Public recorder rejected a step; final screen retained')
         if not sent or not (evidence/'state-oracle.json').is_file():
@@ -244,11 +269,7 @@ def main():
     if not cases:
         raise RuntimeError('Empty case selection')
     for case in cases:
-        suffix=case.get('baseline_suffix_by_host',config.get('baseline_suffix_by_host',{})).get(platform.system(),'')
-        if suffix:
-            case=dict(case,name=case['name']+suffix)
-        elif case['name']=='edge-cancel-after-edit' and os.name!='nt':
-            case=dict(case,name='edge-cancel-after-edit-unix')
+        case=dict(case,name=host_case_name(case,config,platform.system()))
         spec=DOC/args.project/(case['name']+'.json')
         if args.mode=='record':
             if spec.exists():

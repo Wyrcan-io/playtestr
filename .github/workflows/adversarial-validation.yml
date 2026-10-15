@@ -19,6 +19,10 @@ on:
         description: Run only the bounded Ranger first-key diagnostic
         type: boolean
         default: false
+      copier_startup_probe:
+        description: Measure bounded native Copier Git-update preparation without changing primary contracts
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -28,7 +32,7 @@ env:
 
 jobs:
   controls:
-    if: github.event_name != 'workflow_dispatch' || (!inputs.ranger_startup_probe && !inputs.final_campaign)
+    if: github.event_name != 'workflow_dispatch' || (!inputs.ranger_startup_probe && !inputs.copier_startup_probe && !inputs.final_campaign)
     timeout-minutes: 25
     strategy:
       fail-fast: false
@@ -97,7 +101,7 @@ jobs:
   project:
     # Full external-application campaigns are explicitly dispatched after their
     # reviewed corpus is ready. Core CI still runs on every relevant push.
-    if: github.event_name == 'workflow_dispatch' && !inputs.ranger_startup_probe && !inputs.final_campaign
+    if: github.event_name == 'workflow_dispatch' && !inputs.ranger_startup_probe && !inputs.copier_startup_probe && !inputs.final_campaign
     timeout-minutes: 120
     strategy:
       fail-fast: false
@@ -140,7 +144,7 @@ jobs:
           if-no-files-found: error
           retention-days: 14
   ranger-startup-probe:
-    if: github.event_name == 'workflow_dispatch' && inputs.ranger_startup_probe && !inputs.final_campaign
+    if: github.event_name == 'workflow_dispatch' && inputs.ranger_startup_probe && !inputs.copier_startup_probe && !inputs.final_campaign
     runs-on: macos-15
     timeout-minutes: 25
     steps:
@@ -168,6 +172,46 @@ jobs:
           name: adversarial-ranger-startup-probe-macos-15
           path: |
             artifacts/ten-new-project-adversarial-pass/**
+            docs/validation/ten-new-project-adversarial-pass/attempts-v2.jsonl
+            docs/validation/ten-new-project-adversarial-pass/identities
+          if-no-files-found: error
+          retention-days: 14
+  copier-startup-probe:
+    if: github.event_name == 'workflow_dispatch' && inputs.copier_startup_probe && !inputs.ranger_startup_probe && !inputs.final_campaign
+    runs-on: windows-2025
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+        with:
+          go-version-file: go.mod
+          cache: false
+      - name: Build unchanged runner and prepare pinned owned Copier with synthetic Git history
+        shell: pwsh
+        run: |
+          go build -trimpath -o bin/playtestr.exe ./cmd/playtestr
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python scripts/acceptance/adversarial_setup_cookiecutter.py --project copier
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python scripts/acceptance/adversarial_copier_git_fixture.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Twenty diagnostic recorder and exact-state probes with command timings and actual Git trace
+        run: python scripts/acceptance/adversarial_copier_startup_probe.py
+      - name: Verify termination and remove owned diagnostic Copier
+        if: always()
+        run: pwsh -NoProfile -File scripts/acceptance/remove-adversarial-project.ps1 -Project copier -Exploratory
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: adversarial-copier-startup-diagnostic-windows-2025
+          path: |
+            artifacts/ten-new-project-adversarial-pass/**
+            docs/validation/ten-new-project-adversarial-pass/attempts.jsonl
             docs/validation/ten-new-project-adversarial-pass/attempts-v2.jsonl
             docs/validation/ten-new-project-adversarial-pass/identities
           if-no-files-found: error

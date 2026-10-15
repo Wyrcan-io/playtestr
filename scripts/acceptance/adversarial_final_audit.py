@@ -7,6 +7,7 @@ import re
 from adversarial_process import DOC,read_attempts
 from adversarial_final_guard import inspect
 from adversarial_freeze_runner import source_inputs
+from adversarial_journey import host_case_name
 
 
 def digest(path):return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -140,8 +141,7 @@ def audit(run):
             state_ids={r['attempt_id'] for r in states if r['observed'].get('passed') is True}
             ordinary=0;state_count=0
             for case in config['cases']:
-                suffix=case.get('baseline_suffix_by_host',config.get('baseline_suffix_by_host',{})).get(system,'')
-                case_name=case['name']+suffix
+                case_name=host_case_name(case,config,system)
                 spec=DOC/name/(case_name+'.json');expected_spec=digest(spec)
                 matches=[r for r in inventory if re.fullmatch(re.escape(case_name)+r'-final-[0-9]+-[0-9]+\.json',Path(r['path']).name)]
                 indices={int(Path(r['path']).name[len(case_name)+7:].split('-')[0]) for r in matches}

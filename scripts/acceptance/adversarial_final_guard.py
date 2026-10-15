@@ -4,6 +4,7 @@ import hashlib
 import json
 from pathlib import Path
 from adversarial_process import DOC
+from adversarial_journey import host_case_name
 
 PROJECTS=['cookiecutter','copier','lf','superfile','helix','glow','broot','yazi','ranger','nnn']
 
@@ -26,9 +27,7 @@ def inspect(*,require_development=False):
         for case in cases:
             if case['kind'] not in ['normal','edge']:missing.append(project+': exploration cannot receive final credit')
             for host in candidate['planned_hosts']:
-                suffix=case.get('baseline_suffix_by_host',config.get('baseline_suffix_by_host',{})).get(
-                    {'linux':'Linux','macos':'Darwin','windows':'Windows'}[host],'')
-                spec=package/(case['name']+suffix+'.json')
+                spec=package/(host_case_name(case,config,{'linux':'Linux','macos':'Darwin','windows':'Windows'}[host])+'.json')
                 if not spec.is_file():
                     missing.append(project+': missing '+spec.name+' for '+host)
                     continue
