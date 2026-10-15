@@ -1,0 +1,76 @@
+{
+  "version": 2,
+  "name": "Cancel an incomplete ordinary yank key chain, then perform useful search navigation",
+  "command": [
+    "ranger",
+    "--clean",
+    "--cmd=set preview_files true",
+    "--cmd=set use_preview_script false",
+    "--cmd=set confirm_on_delete always",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "text": "y"
+    },
+    {
+      "expect": "copy mode=remove"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "copy mode=remove"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": ":search"
+    },
+    {
+      "text": "protected"
+    },
+    {
+      "expect": ":search protected"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": ":search protected"
+    },
+    {
+      "expect": "/fixture/protected.txt"
+    },
+    {
+      "expect": "RANGER PROTECTED NEIGHBOR TOKEN"
+    },
+    {
+      "snapshot": "edge-key-prefix-cancel.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

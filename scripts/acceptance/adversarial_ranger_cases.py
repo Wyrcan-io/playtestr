@@ -23,7 +23,8 @@ def main():
         target.write_bytes(value.encode('utf-8'))
     (package/'fixtures/empty').mkdir(exist_ok=True)
     command=['ranger','--clean','--cmd=set preview_files true',
-             '--cmd=set use_preview_script false','--cmd=set confirm_on_delete always','.']
+             '--cmd=set use_preview_script false','--cmd=set confirm_on_delete always',
+             '--cmd=set hostname_in_titlebar false','.']
     case=dict(name='explore-startup',kind='exploration',
               purpose='Observe ordinary clean Ranger startup and natural quit; no scenario credit',
               command=command,steps=[{'expect':'alpha.txt'},{'text':'q'},{'exit':0}],
