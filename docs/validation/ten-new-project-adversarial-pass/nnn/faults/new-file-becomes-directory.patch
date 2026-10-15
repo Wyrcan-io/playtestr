@@ -1,0 +1,11 @@
+--- a/src/nnn.c
++++ b/src/nnn.c
+@@ -9712,7 +9712,7 @@
+ 
+ 				/* Check if it's a dir or file */
+ 				if (r == 'f' || r == 'd') {
+-					ret = xmktree(tmp, r == 'f' ? FALSE : TRUE, TRUE);
++					ret = xmktree(tmp, TRUE, TRUE);
+ 				} else if (r == 's' || r == 'h') {
+ 					if (nselected > 1 && tmp[0] == '@' && tmp[1] == '\0')
+ 						tmp[0] = '\0';

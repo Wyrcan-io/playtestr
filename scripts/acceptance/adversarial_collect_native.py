@@ -116,6 +116,11 @@ def main():
             race=[json.loads(line) for line in race_events[0].read_text(encoding='utf-8').splitlines()]
             record['race_failed_tests']=[r.get('Test',r.get('Package')) for r in race if r.get('Action')=='fail']
             record['race_passed_tests']=[r['Test'] for r in race if r.get('Action')=='pass' and r.get('Test')]
+        repeated=list(folder.rglob('stubborn-race-events.jsonl'))
+        if repeated:
+            if len(repeated)!=1: raise RuntimeError('Ambiguous repeated cleanup diagnostic')
+            persist(retained/'stubborn-race-events.jsonl',repeated[0].read_bytes())
+            record['files']['stubborn-race-events.jsonl']=hashlib.sha256(repeated[0].read_bytes()).hexdigest()
             persist(retained/'race-events.jsonl',race_events[0].read_bytes())
             record['files']['race-events.jsonl']=hashlib.sha256(race_events[0].read_bytes()).hexdigest()
         ledger_files=[*folder.rglob('attempts.jsonl'),*folder.rglob('attempts-v2.jsonl')]

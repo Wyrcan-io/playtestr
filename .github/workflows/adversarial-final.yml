@@ -43,6 +43,9 @@ jobs:
             export CC=gcc
           fi
           export CGO_ENABLED=1
+          if [ "$RUNNER_OS" = macOS ]; then
+            go test -race -json -count=50 -run '^TestAdversarialStubbornUnixDescendantCleanup$' ./internal/runner > artifacts/ten-new-project-adversarial-pass/core/stubborn-race-events.jsonl
+          fi
           go test -race -json -count=1 ./... > artifacts/ten-new-project-adversarial-pass/core/race-events.jsonl
       - name: Build the final runner exactly once on this host
         run: python scripts/acceptance/adversarial_freeze_runner.py --manifest artifacts/ten-new-project-adversarial-pass/frozen-runner.json

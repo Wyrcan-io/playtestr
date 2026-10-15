@@ -1,0 +1,57 @@
+[
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/nnn/normal-directory-test-0-1792062827342002000.json",
+    "sha256": "75fe19b15066280b069570d497eff1578d9c074673c2d46c00c134742b0b101d",
+    "summary": {
+      "total": 1,
+      "passed": 0,
+      "failed": 1,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Create a nested Unicode directory tree and verify its empty leaf",
+        "status": "failed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": false,
+          "forced": true,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": {
+          "category": "assertion_timeout",
+          "message": "Create a nested Unicode directory tree and verify its empty leaf: step 13: step timed out: context deadline exceeded"
+        }
+      }
+    ]
+  },
+  {
+    "path": "artifacts/ten-new-project-adversarial-pass/nnn/normal-project-test-0-1792062826103371000.json",
+    "sha256": "4861e10d2ba59e4173938c7ca8e4de535a4582a0a8cb142e93bdc53dc576b6ca",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "results": [
+      {
+        "run_id": null,
+        "name": "Create an ordinary spaced Unicode file through the public nnn creation prompts",
+        "status": "passed",
+        "cleanup": {
+          "attempted": true,
+          "graceful": true,
+          "forced": false,
+          "confirmed_exited": true,
+          "mechanism": "unix-process-group"
+        },
+        "failure": null
+      }
+    ]
+  }
+]

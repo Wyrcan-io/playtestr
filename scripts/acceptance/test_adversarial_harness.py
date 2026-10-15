@@ -15,9 +15,17 @@ from adversarial_journey import check_state
 from adversarial_fixture_directories import prepare
 from adversarial_project_maintenance import copy_spec_fixture
 from adversarial_setup_python import source_identity
-from adversarial_final_audit import belongs_to_campaign,repetition_group
+from adversarial_final_audit import belongs_to_campaign,repetition_group,repeated_cleanup_passed
 
 class NativeHarnessControls(unittest.TestCase):
+    def test_repeated_cleanup_requires_fifty_actual_passes_and_no_failure(self):
+        events=[dict(Action='pass',Test='TestAdversarialStubbornUnixDescendantCleanup') for _ in range(50)]
+        self.assertTrue(repeated_cleanup_passed(events))
+        self.assertFalse(repeated_cleanup_passed(events[:-1]))
+        self.assertFalse(repeated_cleanup_passed(events+[dict(Action='fail',Package='runner')]))
+        self.assertFalse(repeated_cleanup_passed(events+[events[0]]))
+        self.assertFalse(repeated_cleanup_passed([dict(Action='pass',Test='another') for _ in range(50)]))
+
     def test_final_repetition_group_excludes_initial_state_and_rejects_bad_parent(self):
         attempts={};positions={};ordinal=0
         def event(ident,kind,**fields):

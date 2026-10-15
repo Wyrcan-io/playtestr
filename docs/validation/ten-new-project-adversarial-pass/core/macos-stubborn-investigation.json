@@ -1,0 +1,50 @@
+{
+  "run": "38728097151",
+  "source": "496d6d7308f468992b779da1caabbf92bc949323",
+  "status": "Not reproduced in fifty native race-instrumented repetitions; underlying cause unconfirmed, no production repair claimed",
+  "failed_test_events": [
+    {
+      "Time": "2026-10-15T11:36:29.916648Z",
+      "Action": "run",
+      "Package": "github.com/Wyrcan-io/playtestr/internal/runner",
+      "Test": "TestAdversarialStubbornUnixDescendantCleanup"
+    },
+    {
+      "Time": "2026-10-15T11:36:29.916713Z",
+      "Action": "output",
+      "Package": "github.com/Wyrcan-io/playtestr/internal/runner",
+      "Test": "TestAdversarialStubbornUnixDescendantCleanup",
+      "Output": "=== RUN   TestAdversarialStubbornUnixDescendantCleanup\n"
+    },
+    {
+      "Time": "2026-10-15T11:36:30.252769Z",
+      "Action": "output",
+      "Package": "github.com/Wyrcan-io/playtestr/internal/runner",
+      "Test": "TestAdversarialStubbornUnixDescendantCleanup",
+      "Output": "    adversarial_stubborn_unix_test.go:108: stubborn live descendants were not cleaned after natural parent exit: {SpecVersion:1 Name:stubborn.json SpecPath:/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/TestAdversarialStubbornUnixDescendantCleanup921949543/001/stubborn.json Status:failed DurationMS:335 Viewport:{Width:80 Height:10} Resizes:[] Steps:[{Number:1 Action:expect Status:failed DurationMS:313 Failure:0xc0003e4380 Resize:<nil>} {Number:2 Action:exit Status:not_run DurationMS:0 Failure:<nil> Resize:<nil>}] Target:{Exited:true ExitCode:0xc00000f458} Failure:0xc00005e040 Cleanup:{Attempted:true Graceful:true Forced:true ConfirmedExited:true Mechanism:unix-process-group Failure:<nil>} Evidence:{ScreenPath:/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/TestAdversarialStubbornUnixDescendantCleanup921949543/001/stubborn.json.actual.txt DiffPath: Failures:[]} Workspace:<nil> err:0xc0003e4360}\n"
+    },
+    {
+      "Time": "2026-10-15T11:36:30.254277Z",
+      "Action": "output",
+      "Package": "github.com/Wyrcan-io/playtestr/internal/runner",
+      "Test": "TestAdversarialStubbornUnixDescendantCleanup",
+      "Output": "--- FAIL: TestAdversarialStubbornUnixDescendantCleanup (0.34s)\n"
+    },
+    {
+      "Time": "2026-10-15T11:36:30.254295Z",
+      "Action": "fail",
+      "Package": "github.com/Wyrcan-io/playtestr/internal/runner",
+      "Test": "TestAdversarialStubbornUnixDescendantCleanup",
+      "Elapsed": 0.34
+    }
+  ],
+  "observed": "Expect step failed before readiness; parent exited zero and cleanup was forced and confirmed. Original assertion logged pointer fields rather than useful failure/screen details.",
+  "next": "Capture serialized result and actual screen on failure; run fifty real race-instrumented native repetitions before deciding the repair.",
+  "diagnostic_run": "38787830685",
+  "diagnostic_source": "faad84b24431d01f996690057f07d0108e5e0f70",
+  "actual_repeated_passes": 50,
+  "actual_repeated_failures": 0,
+  "repeat_events_sha256": "faa331723d404e15d9c13c096f9e2e9818dbc8da69d00fa3eb90f6022183d631",
+  "full_native_core_jobs": "Linux, Windows and macOS all passed; full archived collection pending",
+  "final_gate": "Requires fifty actual repeated macOS passes again, full native race suite, and strict final audit"
+}

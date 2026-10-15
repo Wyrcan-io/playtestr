@@ -1,0 +1,11 @@
+--- a/src/nnn.c
++++ b/src/nnn.c
+@@ -4123,7 +4123,7 @@
+ 		/* ndents = total; */
+ 		r = matches(pln);
+ 		if (r <= 0) {
+-			if (r == 0)
++			if (r < 0)
+ 				unget_wch(KEY_BACKSPACE);
+ 			attron((COLOR_PAIR(cfg.curctx + 1)) | A_REVERSE | A_STANDOUT);
+ 			printmsg_nc(ln);

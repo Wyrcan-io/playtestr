@@ -18,6 +18,11 @@ def belongs_to_campaign(events,run,attempt=None):
             (attempt is None or start.get('ci_run_attempt')==str(attempt)))
 
 
+def repeated_cleanup_passed(events):
+    passed=sum(e.get('Action')=='pass' and e.get('Test')=='TestAdversarialStubbornUnixDescendantCleanup' for e in events)
+    return passed==50 and not any(e.get('Action')=='fail' for e in events)
+
+
 def repetition_group(attempts,positions,project,case_name,ordinary_ids):
     """Find the actual completed parent containing the ten ordinary children."""
     if len(ordinary_ids)!=10 or len(set(ordinary_ids))!=10:
@@ -77,6 +82,14 @@ def audit(run):
             errors.append('Applicable mapped native controls missing: '+host)
         if record.get('race_failed_tests') or not record.get('race_passed_tests'):
             errors.append('Native race evidence failed or missing: '+host)
+        if host=='macos':
+            repeated=folder/'stubborn-race-events.jsonl'
+            if not repeated.is_file():
+                errors.append('Repeated macOS cleanup evidence missing')
+            else:
+                events=[json.loads(line) for line in repeated.read_text(encoding='utf-8').splitlines()]
+                if not repeated_cleanup_passed(events):
+                    errors.append('Fifty repeated macOS cleanup checks did not pass')
         summaries=list((folder/'wizard-reproduction').glob('*/summary.json'))
         if len(summaries)!=(2 if host=='windows' else 1):errors.append('Missing wizard variant: '+host)
         for summary in summaries:

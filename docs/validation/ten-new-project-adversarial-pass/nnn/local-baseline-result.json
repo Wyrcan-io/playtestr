@@ -1,0 +1,128 @@
+{
+  "source": "4c0dd48053a233813907089a251135d0873ab56c",
+  "runner_sha256": "d89bbd19b46c3ea00c8bb06764b20b28ca723c125d14bf562f06828d619c4e56",
+  "ordinary_cases": 17,
+  "separate_state_cases": 17,
+  "checks": [
+    {
+      "case": "normal-project",
+      "public_spec_sha256": "5f9fcf5d3ca218c08d546765fce8ffacd96adc7cc0862193a2f1055160c80be3",
+      "ordinary_id": "f13af922704a47a0b7d98d9c01de83ed",
+      "state_id": "502807a96cc646bda307a4e317207867",
+      "state_oracle_sha256": "6b38551651014f5ef47b1898a9465a9c613bd01edb6a0a01eb0bbc2169accfe3"
+    },
+    {
+      "case": "normal-directory",
+      "public_spec_sha256": "daae9a5b532e81dd1f2022d78c7b35da53744001a8b08abff38143f274c00856",
+      "ordinary_id": "99b458fd8cd3466b8d9d469c77014c62",
+      "state_id": "2e267fc121dd4bcfadfc06e6d755bdc7",
+      "state_oracle_sha256": "7e28501bc7b21152e76ea368a6251d3d352134b900642a71fc49d9fa0aaadf19"
+    },
+    {
+      "case": "normal-rename",
+      "public_spec_sha256": "a21b7edfc03824673c36c220f07652f10e407c325b7733338939dd917dca7cfa",
+      "ordinary_id": "950dee6dcd654493953c853de2ce3f12",
+      "state_id": "61853f018e7b4aa5bc61ab3d728426cc",
+      "state_oracle_sha256": "8bec0da901942f0f1e7e742e1457ae837b26acb8c95a6693defc80f76a31a958"
+    },
+    {
+      "case": "normal-copy",
+      "public_spec_sha256": "672d562e47e2cd8a9b13681652fb60fed93aa2c1b06edb329047fcce83dd64fb",
+      "ordinary_id": "246ac4de97904bb396c4d5289b928259",
+      "state_id": "67a1024a5b2340db81b36cae5a14d35d",
+      "state_oracle_sha256": "8b2ed186fe9c3699ea7f8a2485fec688cd21f43d5f6d0490d21b84304fab2851"
+    },
+    {
+      "case": "normal-move",
+      "public_spec_sha256": "6a258f78f2c2af03eb9850c97a831cd2a119ab7a2b62e58a48b3cda59cb80267",
+      "ordinary_id": "e5b6aaeaeb9b46279bd0e0f1d0cfb110",
+      "state_id": "3bcac8e926614ef4a02edee5309db4c3",
+      "state_oracle_sha256": "e88f15081615f6b219daaf86ea3990e4ea575552233fe2952839b81389858eee"
+    },
+    {
+      "case": "normal-context-navigation",
+      "public_spec_sha256": "e1472977a1c8c417bb95b9bf89964418ee2449c9c64fbfded261c90b0f948e11",
+      "ordinary_id": "3f37a0d08b634505a67c74b7ece03938",
+      "state_id": "0fc047e237f44771911d24e5dfd2e4c0",
+      "state_oracle_sha256": "999b98013d5f913121f6f3e3f13f6029b5032364e5ff2bd45a5a310f1d90323a"
+    },
+    {
+      "case": "normal-multi-selection-copy",
+      "public_spec_sha256": "7797aa8b04413d23ab72a8ce1e3153c5a7e2626b605223f522217af5db685794",
+      "ordinary_id": "1883004b64b04b089b05cfa46bcd6e77",
+      "state_id": "637e9977bb0e47c3a675a48e81f5ecb3",
+      "state_oracle_sha256": "b7b342156ed042f50729f14b2fdaa260c9cb0652e60839602dbf6fb64f432f52"
+    },
+    {
+      "case": "edge-empty-directory",
+      "public_spec_sha256": "d08531cdaf2d77992d8ec3decdf3232b622dbe7abd6ec60f7e8c30e220b16089",
+      "ordinary_id": "5783b1bf751747b69e74c53ec0312b74",
+      "state_id": "8f0aed113ce3489b9ac1940f6e9ac77a",
+      "state_oracle_sha256": "999b98013d5f913121f6f3e3f13f6029b5032364e5ff2bd45a5a310f1d90323a"
+    },
+    {
+      "case": "edge-no-match-filter-recovery",
+      "public_spec_sha256": "465d6ad9188f148f18ad3af71ffbf92f311503301be7026f81418954ec379576",
+      "ordinary_id": "be441729599c474eb2e147d0d6c032f6",
+      "state_id": "d8f7eb07740f49c98aaa088eedf19712",
+      "state_oracle_sha256": "999b98013d5f913121f6f3e3f13f6029b5032364e5ff2bd45a5a310f1d90323a"
+    },
+    {
+      "case": "edge-cancel-create",
+      "public_spec_sha256": "68a6b368109e5d16d99393f1e1dd8ed7f824c11ac8046c5d94c375efb83e935f",
+      "ordinary_id": "15c6bce5bcac42c593d6fdd6f707f280",
+      "state_id": "e9fde36469d34aae829abb3cc162321a",
+      "state_oracle_sha256": "a474af39a5b0990195017715b310f0d4bcec97eb1edc9201c55ba0d660071f69"
+    },
+    {
+      "case": "edge-cancel-rename",
+      "public_spec_sha256": "cbf72892b9f0fbcdc5325ef85d7759a7ea61d678ccd62e2eccd1b4a040255952",
+      "ordinary_id": "16b18bf23ebc415281f23f14edb93f46",
+      "state_id": "c4f89a3b9570486681e5c10522e87f71",
+      "state_oracle_sha256": "a474af39a5b0990195017715b310f0d4bcec97eb1edc9201c55ba0d660071f69"
+    },
+    {
+      "case": "edge-occupied-rename",
+      "public_spec_sha256": "908459d0a231741ed09b23ba8a2a1ed5bed19632c915e82e1601ac02ce77615e",
+      "ordinary_id": "9ecc99ae374846f8a9b8dd99370deaa6",
+      "state_id": "d87602cc0df8409c9269d10d5158dbe5",
+      "state_oracle_sha256": "999b98013d5f913121f6f3e3f13f6029b5032364e5ff2bd45a5a310f1d90323a"
+    },
+    {
+      "case": "edge-occupied-create",
+      "public_spec_sha256": "437ff96ead9659f8435577b385119a62e9944ff726813aab0b26f9ac7319235e",
+      "ordinary_id": "0f84f32e29654e7cbb22c154a0dfc4b6",
+      "state_id": "6aa56aabe2004077947e9eed517749b5",
+      "state_oracle_sha256": "999b98013d5f913121f6f3e3f13f6029b5032364e5ff2bd45a5a310f1d90323a"
+    },
+    {
+      "case": "edge-delete-cancelled",
+      "public_spec_sha256": "06dd7b95e1f7f3de38ebcd83861a7de4e35c083d3f6354c5f332e54af3683ef6",
+      "ordinary_id": "e9f1b4bc51d04b12ac6bc9e42faa44c0",
+      "state_id": "6860b92b3ff84f55a64e681adffebdaa",
+      "state_oracle_sha256": "999b98013d5f913121f6f3e3f13f6029b5032364e5ff2bd45a5a310f1d90323a"
+    },
+    {
+      "case": "edge-hidden-toggle",
+      "public_spec_sha256": "97e21842d203825dfaeccc3f34a084398125d02bb2ecb6399683ea383da9f711",
+      "ordinary_id": "41534591ac8b4acbaacf7f936c79cd4c",
+      "state_id": "4f739a1a5cc1409fab2a81b8ea1b191a",
+      "state_oracle_sha256": "999b98013d5f913121f6f3e3f13f6029b5032364e5ff2bd45a5a310f1d90323a"
+    },
+    {
+      "case": "edge-large-directory",
+      "public_spec_sha256": "0cefbc4e55638c201f8ab83f5eb973132b546cb73553ae208e1ef6bf56b2d137",
+      "ordinary_id": "2584408ae1964c0b849f80b3027121f6",
+      "state_id": "cc7e90ea4a8148d0b17abb2734058a4e",
+      "state_oracle_sha256": "fa2ea6904444b335ec4922ab88c29e4ce3295bdc67b0c22e0b8cc954b51ccccc"
+    },
+    {
+      "case": "edge-resize-recovery",
+      "public_spec_sha256": "ea6b7119dd313c9963b1b360bb17385852210e116734eca44e32e66bc92f2180",
+      "ordinary_id": "0aef6b202d0a4897979eb2c2b9f54115",
+      "state_id": "832281cb79f24fe2936c72f17eb9cfb0",
+      "state_oracle_sha256": "fa2ea6904444b335ec4922ab88c29e4ce3295bdc67b0c22e0b8cc954b51ccccc"
+    }
+  ],
+  "scope": "Actual common operational-locale local baseline before source controls; no native or frozen-campaign credit"
+}

@@ -1,0 +1,11 @@
+--- a/src/nnn.c
++++ b/src/nnn.c
+@@ -9698,7 +9698,7 @@
+ 				/* Rename the file */
+ 				if (ret == 'd')
+ 					spawn("cp -rp --", pdents[cur].name, tmp, NULL, F_SILENT);
+-				else if (rename(pdents[cur].name, tmp) != 0) {
++				else if (rename(pdents[cur].name, pdents[cur].name) != 0) {
+ 					goto warn_nochange;
+ 				}
+ 

@@ -1,0 +1,25 @@
+--- a/src/nnn.c
++++ b/src/nnn.c
+@@ -2956,6 +2956,22 @@
+ 	if (sel != SEL_CPMVAS && spawn(utils[UTIL_SH_EXEC], g_buf, NULL, NULL, F_CLI | F_CHKRTN)) {
+ 		printmsg(messages[MSG_FAILED]);
+ 		return FALSE;
++	}
++
++	if (sel == SEL_CP && nselected == 1 && selbufpos) {
++		char probe_copy_path[PATH_MAX];
++		mkpath(path, xbasename(pselbuf), probe_copy_path);
++		FILE *probe_copy = fopen(probe_copy_path, "r+");
++		if (probe_copy) {
++			char probe_first_line[4096];
++			if (fgets(probe_first_line, sizeof(probe_first_line), probe_copy)) {
++				long probe_second_line = ftell(probe_copy);
++				if (probe_second_line >= 0 && fgetc(probe_copy) != EOF &&
++				    fseek(probe_copy, probe_second_line, SEEK_SET) == 0)
++					fputc('X', probe_copy);
++			}
++			fclose(probe_copy);
++		}
+ 	}
+ 
+ 	/* Clear selection */
