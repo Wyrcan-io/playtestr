@@ -54,7 +54,7 @@ jobs:
           go build -o "bin/fixture${suffix}" ./cmd/fixture
           python scripts/acceptance/adversarial_wizard_reproduction.py --count 100 --binary "bin/playtestr-frozen${suffix}"
       - name: Instrumented historical Windows wizard using the frozen binary
-        if: always() && runner.os == 'Windows'
+        if: always() && runner.os == 'Windows' && hashFiles('bin/playtestr-frozen.exe') != '' && hashFiles('bin/fixture.exe') != ''
         run: python scripts/acceptance/adversarial_wizard_reproduction.py --count 100 --trace --binary bin/playtestr-frozen.exe
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:

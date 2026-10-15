@@ -1,0 +1,11 @@
+--- a/ranger/gui/widgets/pager.py
++++ b/ranger/gui/widgets/pager.py
+@@ -152,7 +152,7 @@
+                 offset=-self.wid + 1)
+         if direction.vertical():
+             movement = {
+-                "direction": direction.down(),
++                "direction": -direction.down(),
+                 "override": narg,
+                 "current": self.scroll_begin,
+                 "pagesize": self.hei,

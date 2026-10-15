@@ -1,0 +1,55 @@
+{
+  "version": 2,
+  "name": "Navigate to the last entry of a 200-file tree, inspect it and return home",
+  "command": [
+    "ranger",
+    "--clean",
+    "--cmd=set preview_files true",
+    "--cmd=set use_preview_script false",
+    "--cmd=set confirm_on_delete always",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures-large",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "/fixture/file 000.txt"
+    },
+    {
+      "text": "G"
+    },
+    {
+      "expect": "/fixture/file 199.txt"
+    },
+    {
+      "expect": "RANGER BULK 199 TOKEN"
+    },
+    {
+      "snapshot": "edge-large-directory.rows.json"
+    },
+    {
+      "key": "Home"
+    },
+    {
+      "expect": "/fixture/file 000.txt"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

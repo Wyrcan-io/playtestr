@@ -32,11 +32,21 @@
       "full_native_windows_go": "passed",
       "runner_seconds": 122.612,
       "vet": "passed",
-      "race": "running",
+      "race": "passed: full Windows suite before the final pure modifier guard; runner 248.165 seconds",
       "sandboxed_attempt": "Native workspace path inspection denied before normal-permission rerun; failed attempt is not a product regression result"
     },
-    "native_linux_macos": "pending",
-    "ranger_requalification": "pending"
+    "native_linux_macos": {
+      "run": 38649359410,
+      "source": "b0ce96c573e7b374c362b22972c48a1c32797b91",
+      "both_core_and_race_jobs": "success",
+      "standard_navigation_control": "passed on both",
+      "windows": "Go checks skipped after private link-calibration error; pending corrected run"
+    },
+    "ranger_requalification": "All sixteen actual contracts recorded/replayed; full fresh ordinary baseline in progress",
+    "manual_examples": {
+      "menu": "passed",
+      "menu_exit": "passed"
+    }
   },
   "final_credit": 0,
   "schema_contract": {
@@ -47,5 +57,16 @@
     "before": "Published v1 schema rejected Home in the new contract regression",
     "after": "Both schemas updated; schema tests passed",
     "spec_versions_changed": false
+  },
+  "modifier_guard": {
+    "before": "Unsupported modified key 0x21 state=0x1 silently became ESC [ 5 ~ in the actual native-record mapping regression",
+    "repair": "Reject Alt/Ctrl/Shift flags for native navigation while retaining ordinary and enhanced navigation keys",
+    "regression": "passed after failing before the guard",
+    "latest_targeted_race": {
+      "passed": true,
+      "console_seconds": 3.399,
+      "real_pty_runner_seconds": 4.531
+    },
+    "native_whole_suite": "pending next candidate"
   }
 }

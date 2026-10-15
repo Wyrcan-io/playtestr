@@ -15,7 +15,7 @@ permissions:
   contents: read
 
 env:
-  ACTIVE_PROJECT: yazi
+  ACTIVE_PROJECT: ranger
 
 jobs:
   controls:
@@ -68,7 +68,7 @@ jobs:
           go build -o "bin/fixture${suffix}" ./cmd/fixture
           python scripts/acceptance/adversarial_wizard_reproduction.py --count 100
       - name: Instrumented Windows wizard confirmation and saved-file diagnosis
-        if: always() && runner.os == 'Windows'
+        if: always() && runner.os == 'Windows' && hashFiles('bin/playtestr.exe') != '' && hashFiles('bin/fixture.exe') != ''
         run: python scripts/acceptance/adversarial_wizard_reproduction.py --count 100 --trace
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
@@ -89,7 +89,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-24.04, macos-15, windows-2025]
+        os: [ubuntu-24.04, macos-15]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803

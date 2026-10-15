@@ -1,0 +1,121 @@
+{
+  "version": 2,
+  "name": "Resize a live built-in pager, observe redraw and scroll before restoring the ordinary view",
+  "command": [
+    "ranger",
+    "--clean",
+    "--cmd=set preview_files true",
+    "--cmd=set use_preview_script false",
+    "--cmd=set confirm_on_delete always",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": ":search"
+    },
+    {
+      "text": "long"
+    },
+    {
+      "expect": ":search long"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": ":search long"
+    },
+    {
+      "expect": "/fixture/long.txt"
+    },
+    {
+      "expect": "line 000:"
+    },
+    {
+      "text": "i"
+    },
+    {
+      "expect_not": "alpha.txt"
+    },
+    {
+      "expect": "line 027:"
+    },
+    {
+      "resize": {
+        "width": 80,
+        "height": 24
+      }
+    },
+    {
+      "wait_for_redraw": true
+    },
+    {
+      "expect_not": "line 027:"
+    },
+    {
+      "expect": "line 021:"
+    },
+    {
+      "key": "PageDown"
+    },
+    {
+      "expect": "line 043:"
+    },
+    {
+      "expect_not": "line 000:"
+    },
+    {
+      "snapshot": "edge-resize-pager.rows.json"
+    },
+    {
+      "resize": {
+        "width": 100,
+        "height": 30
+      }
+    },
+    {
+      "wait_for_redraw": true
+    },
+    {
+      "expect": "line 049:"
+    },
+    {
+      "key": "Home"
+    },
+    {
+      "expect": "line 000:"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect": "protected.txt                  32 B"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

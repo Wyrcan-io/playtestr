@@ -17,7 +17,9 @@ def source_identity(source):
     files={};links={};root=source.resolve(strict=True)
     for path in sorted(source.rglob('*.py')):
         if '.git' in path.relative_to(source).parts:continue
-        resolved=path.resolve(strict=True)
+        try:resolved=path.resolve(strict=True)
+        except (OSError,RuntimeError) as error:
+            raise RuntimeError('Unsafe interpreted source identity input') from error
         if not resolved.is_relative_to(root) or not resolved.is_file() or resolved.stat().st_size>4*1024*1024:
             raise RuntimeError('Unsafe interpreted source identity input')
         relative=path.relative_to(source).as_posix()

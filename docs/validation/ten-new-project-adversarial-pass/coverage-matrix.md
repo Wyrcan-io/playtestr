@@ -35,6 +35,7 @@ Controls are mapped before qualification. Test names and configured hosts alone 
 | rapid-key-order | Keys and terminal | 320 rapid control/text bytes retain exact independent ordering | `TestAdversarialRapidKeysPreserveEveryEvent` |
 | all-letter-controls | Keys and terminal | All 26 named letter controls reach a real raw target with independently specified exact bytes | `TestAdversarialEveryLetterControlKeyThroughRealPTY` |
 | standard-navigation-input | Keys and terminal | Home, End, PageUp and PageDown reach a real raw target and native operator decoder with positive receipts | `TestAdversarialStandardNavigationKeys` |
+| native-navigation-modifiers | Keys and terminal | Unsupported native Alt/Ctrl/Shift navigation cannot silently become an unmodified key | `TestWindowsNativeNavigationModifiersRejected` |
 | unicode-literal-paste | Keys and terminal | Bounded multi-line Unicode literal input retains exact UTF-8 bytes | `TestAdversarialBoundedUnicodeLiteralPaste` |
 | repeated-resize-output | Keys and terminal | Twelve resizes during actual ongoing output expose correct target dimensions | `TestAdversarialRepeatedResizeDuringOutput` |
 | output-cap-boundary | Keys and terminal | Real output below and above the cap has distinct accurate outcomes | `TestAdversarialOutputCapBoundary` |

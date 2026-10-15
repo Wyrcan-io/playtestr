@@ -43,5 +43,19 @@
     },
     "native_macos": "pending"
   },
-  "final_credit": 0
+  "final_credit": 0,
+  "native_windows_first_failure": {
+    "run": 38649359410,
+    "source": "b0ce96c573e7b374c362b22972c48a1c32797b91",
+    "exception": "OSError WinError 123 resolving the outside-link negative control through a short Windows temp path",
+    "scope": "Private calibration error normalization; product Go steps skipped",
+    "repair": "Normalize resolution OS/loop errors to the existing fail-closed RuntimeError while preserving the cause; require both actual binaries before the optional always-run wizard trace",
+    "next_native": "pending"
+  },
+  "latest_local_windows_calibration": {
+    "tests": 27,
+    "passed": true,
+    "skipped": 5,
+    "seconds": 20.024
+  }
 }

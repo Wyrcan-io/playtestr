@@ -57,6 +57,7 @@ CONTROLS={
  ('rapid-key-order','TestAdversarialRapidKeysPreserveEveryEvent','320 rapid control/text bytes retain exact independent ordering'),
  ('all-letter-controls','TestAdversarialEveryLetterControlKeyThroughRealPTY','All 26 named letter controls reach a real raw target with independently specified exact bytes'),
  ('standard-navigation-input','TestAdversarialStandardNavigationKeys','Home, End, PageUp and PageDown reach a real raw target and native operator decoder with positive receipts'),
+ ('native-navigation-modifiers','TestWindowsNativeNavigationModifiersRejected','Unsupported native Alt/Ctrl/Shift navigation cannot silently become an unmodified key'),
  ('unicode-literal-paste','TestAdversarialBoundedUnicodeLiteralPaste','Bounded multi-line Unicode literal input retains exact UTF-8 bytes'),
  ('repeated-resize-output','TestAdversarialRepeatedResizeDuringOutput','Twelve resizes during actual ongoing output expose correct target dimensions'),
  ('output-cap-boundary','TestAdversarialOutputCapBoundary','Real output below and above the cap has distinct accurate outcomes'),
@@ -162,7 +163,8 @@ def main():
                            'TestWindowsResizeOutputFenceRequiresReturnedCurrentRequest',
                            'TestAdversarialWindowsWorkspaceExpandsShortTemporaryPath',
                            'TestWorkspaceOwnershipMarkerUsesNativeHiddenAttribute',
-                           'TestWindowsResizeWithoutAcknowledgmentIsBounded'}:
+                           'TestWindowsResizeWithoutAcknowledgmentIsBounded',
+                           'TestWindowsNativeNavigationModifiersRejected'}:
             row['hosts']=['windows']
     (DOC/'coverage-matrix.json').write_text(json.dumps(dict(controls=records,
         count=len(records),claim='Named distinct controls; actual events required; not a coverage percentage'),indent=2)+'\n')

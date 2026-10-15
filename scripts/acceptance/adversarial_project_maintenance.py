@@ -34,7 +34,10 @@ def main():
     parser.add_argument('--new-visible',required=True)
     parser.add_argument('--checkpoint-step',type=int,action='append',default=[])
     parser.add_argument('--new-checkpoint',action='append',default=[])
+    parser.add_argument('--absent-checkpoint-step',type=int,action='append',default=[])
+    parser.add_argument('--new-absent-checkpoint',action='append',default=[])
     args=parser.parse_args()
+    if not args.new_visible.strip():raise RuntimeError('Maintenance requires explicit meaningful final visible content')
     project=args.project
     directory=DOC/project
     app=args.runtime or ROOT/'.cache/ten-new-project-apps'/project
@@ -64,6 +67,13 @@ def main():
         if not 1<=position<=len(value['steps']) or 'expect' not in value['steps'][position-1]:
             raise RuntimeError('Selected associated checkpoint is not an actual text assertion')
         value['steps'][position-1]['expect']=checkpoint
+    if (len(args.absent_checkpoint_step)!=len(args.new_absent_checkpoint) or
+        len(set(args.absent_checkpoint_step))!=len(args.absent_checkpoint_step)):
+        raise RuntimeError('Associated disappearance edits require paired explicit arguments and unique positions')
+    for position,checkpoint in zip(args.absent_checkpoint_step,args.new_absent_checkpoint):
+        if not 1<=position<=len(value['steps']) or 'expect_not' not in value['steps'][position-1]:
+            raise RuntimeError('Selected associated disappearance checkpoint is not an actual absence assertion')
+        value['steps'][position-1]['expect_not']=checkpoint
     spec.write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     old=hashlib.sha256(baseline.read_bytes()).hexdigest()
     report=RAW/project/('intentional-name-mismatch-'+str(time.time_ns())+'.json')
@@ -80,7 +90,7 @@ def main():
     update=run([binary,'test','--update','--snapshot',snapshot_name,spec],
                project,'selected-intentional-update',env=env)
     observed=baseline.read_text(encoding='utf-8')
-    if args.new_text not in observed or args.new_visible not in observed:
+    if args.new_visible not in observed or hashlib.sha256(baseline.read_bytes()).hexdigest()==old:
         raise RuntimeError('Selected update omitted intended changed state')
     restore=run([binary,'test',spec],project,'ordinary-maintained-pass',env=env)
     moved=app/('checkout with spaces café '+maintenance.name)
@@ -113,9 +123,10 @@ def main():
         maintained_pass=restore['id'],relocation=relocation['id'],workflow_preview=workflow['id'],
         hosted_execution='separate native workflow; generated template is preview only',
         target_build='The explicit owned setup recipe already builds/installs the target; the separate build command is intentionally unnecessary',
-        manual_edit='Changed one text input and, when explicitly selected, its associated positive checkpoint in a separate ordinary JSON; all primary bytes preserved',
+        manual_edit='Changed one text input and its explicitly selected positive/disappearance checkpoints in a separate ordinary JSON; verified changed final visible content and preserved all primary bytes',
         associated_checkpoint_step=args.checkpoint_step[0] if len(args.checkpoint_step)==1 else None,
-        associated_checkpoint_steps=args.checkpoint_step)
+        associated_checkpoint_steps=args.checkpoint_step,
+        associated_absent_checkpoint_steps=args.absent_checkpoint_step)
     (directory/'maintenance-result.json').write_text(json.dumps(result,indent=2)+'\n')
     print('Manual maintenance, failure diagnosis, selected update and relocation passed')
 

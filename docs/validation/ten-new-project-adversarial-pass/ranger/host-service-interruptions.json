@@ -1,0 +1,30 @@
+{
+  "host": "local WSL service",
+  "errors": [
+    {
+      "operation": "27-test harness launch",
+      "code": "Wsl/Service/0x8007274c",
+      "launched": false,
+      "serial_retry": "passed 27 tests with 2 skips"
+    },
+    {
+      "operation": "edge-large-directory recording launch",
+      "code": "Wsl/Service/0x8007274c",
+      "launched": false,
+      "serial_retry": "Actual recording and fresh replay passed"
+    },
+    {
+      "operation": "post-source-control suffix rerecord launch",
+      "code": "Wsl/Service/0x8007274c",
+      "launched": false,
+      "serial_retry": "Actual public suffix rerecord completed successfully"
+    },
+    {
+      "operation": "local pre-native resource inventory launch",
+      "code": "Wsl/Service/0x8007274c",
+      "launched": false,
+      "serial_retry": "Measured owned source, both fixture trees and raw evidence; all budgets passed"
+    }
+  ],
+  "scope": "Host connection failures before process execution; no application attempt credit; later local WSL launches serialized; no host restart/reconfiguration"
+}

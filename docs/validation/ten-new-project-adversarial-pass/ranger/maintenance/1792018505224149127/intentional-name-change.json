@@ -1,0 +1,67 @@
+{
+  "version": 2,
+  "name": "Reviewed intentional workflow change",
+  "command": [
+    "ranger",
+    "--clean",
+    "--cmd=set preview_files true",
+    "--cmd=set use_preview_script false",
+    "--cmd=set confirm_on_delete always",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "expect": "All"
+    },
+    {
+      "text": ":"
+    },
+    {
+      "expect_not": "All"
+    },
+    {
+      "expect": ":"
+    },
+    {
+      "text": "touch reviewed café.txt"
+    },
+    {
+      "expect": ":touch reviewed café.txt"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": ":touch reviewed café.txt"
+    },
+    {
+      "expect": "reviewed café.txt"
+    },
+    {
+      "snapshot": "normal-project.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

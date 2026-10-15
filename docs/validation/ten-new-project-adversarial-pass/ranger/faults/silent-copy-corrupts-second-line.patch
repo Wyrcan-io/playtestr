@@ -1,0 +1,13 @@
+--- a/ranger/ext/shutil_generatorized.py
++++ b/ranger/ext/shutil_generatorized.py
+@@ -184,6 +184,10 @@
+         for done in copyfile(src, dst):
+             yield done
+         copystat(src, dst)
++        with open(dst, "r+b") as copied:
++            data = copied.read()
++            copied.seek(0)
++            copied.write(data.replace(b"Protected", b"Corrupted"))
+ 
+ 
+ def copytree(

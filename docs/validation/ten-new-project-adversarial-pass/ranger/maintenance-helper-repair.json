@@ -1,0 +1,35 @@
+{
+  "before": {
+    "failure_category": "invalid_spec",
+    "reason": "The earlier helper changed the command and positive check but could not update its paired disappearance assertion",
+    "product_behavior": "Correctly refused the inconsistent edited spec before target launch"
+  },
+  "repair": "Explicit paired disappearance-checkpoint edits; verify selected update changes the baseline and contains the declared final visible value instead of requiring a whole command string in the final screen",
+  "after": {
+    "primary_contracts_unchanged": true,
+    "primary_hashes": {
+      "normal-project.json": "3bae9235c4fe9bec4b364a1eb4107e7f9a23bc62a70b727a6f84823d25a03e4c",
+      "normal-project.rows.json": "aa77b4b9b94c6b7ec4a02b7e9b0d140acc886f5db60dac73aced83529b73fea8"
+    },
+    "old_maintenance_baseline_sha256": "aa77b4b9b94c6b7ec4a02b7e9b0d140acc886f5db60dac73aced83529b73fea8",
+    "new_maintenance_baseline_sha256": "f667689881107f877b85872543b395080c5e5faff72ded0de3dcffa167388a60",
+    "mismatch": "92a214a44c33445abf2b91528e78ec9b",
+    "diagnosis": "b621ee2a89e543cd9c005b676a2bdb11",
+    "selected_update": "81355128a11c4646a1c84e3f0ef26eaf",
+    "maintained_pass": "968e2b2b84d945268599425c34d13794",
+    "relocation": "696d302b4559427c9bb09046f60ecdfa",
+    "workflow_preview": "41fa1840dffc46e6bb6bd1113a6ec755",
+    "hosted_execution": "separate native workflow; generated template is preview only",
+    "target_build": "The explicit owned setup recipe already builds/installs the target; the separate build command is intentionally unnecessary",
+    "manual_edit": "Changed one text input and its explicitly selected positive/disappearance checkpoints in a separate ordinary JSON; verified changed final visible content and preserved all primary bytes",
+    "associated_checkpoint_step": null,
+    "associated_checkpoint_steps": [
+      7,
+      10
+    ],
+    "associated_absent_checkpoint_steps": [
+      9
+    ]
+  },
+  "scope": "Private campaign maintenance helper; no public validator weakening or production-core change"
+}

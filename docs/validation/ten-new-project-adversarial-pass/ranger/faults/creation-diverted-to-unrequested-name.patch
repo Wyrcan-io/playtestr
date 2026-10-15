@@ -1,0 +1,11 @@
+--- a/ranger/config/commands.py
++++ b/ranger/config/commands.py
+@@ -1040,7 +1040,7 @@
+         from os.path import join, expanduser, lexists, dirname
+         from os import makedirs
+ 
+-        fname = join(self.fm.thisdir.path, expanduser(self.rest(1)))
++        fname = join(self.fm.thisdir.path, "unexpected-created.txt")
+         dirname = dirname(fname)
+         if not lexists(fname):
+             if not lexists(dirname):

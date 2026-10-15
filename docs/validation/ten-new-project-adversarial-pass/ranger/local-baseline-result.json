@@ -1,0 +1,47 @@
+{
+  "scope": "Exploratory WSL baselines only; not final/native acceptance",
+  "ordinary": {
+    "normal-project": "76f282b3142e4b55acad83f6ba83a5be",
+    "normal-directory": "886f17a6ced04c8dbdf687218412ee33",
+    "normal-rename": "c3a1a1f048344c79a6b93af35839f64a",
+    "normal-copy": "80020b8fc1374c5e98a6e98040fbed6b",
+    "normal-move": "765a5cde075a4ebb83da09103e3ae597",
+    "normal-nested-navigation": "89ec30c10ca743b59e9d472b54b12a09",
+    "normal-long-pager": "6b5050a342da4ee0bedfcc9df5fdba43",
+    "edge-empty-directory": "ccbd1736876747cab4ff318522d79808",
+    "edge-empty-filter-recovery": "76f7a250d57a4ed2a22f202542ab6b70",
+    "edge-cancel-create": "4006b5c814ab42478179c654fd1dfc26",
+    "edge-cancel-rename": "70c5459871014144aec392c25a9b6ce8",
+    "edge-occupied-rename": "14870cafbaf04ff7a84e861e0f4836ff",
+    "edge-delete-cancelled": "04cb3223ffe348e6b3cb0edf30da6296",
+    "edge-key-prefix-cancel": "fcb485c153d84221977eea9a0d972cea",
+    "edge-resize-pager": "b9342526c4644bdc9bdc58bb91e23529",
+    "edge-large-directory": "b260edecb6bd4a278e264b54a5c0872e"
+  },
+  "independent_complete_state": {
+    "normal-project": "5734c643cd6c4f3abdba436684ca320a",
+    "normal-directory": "251107a4412749128ee5ab02a0f06b0e",
+    "normal-rename": "6567cf4680c44b75b2abc42e9f7944df",
+    "normal-copy": "0055dcca02d84d69ad11a3fa95254d0d",
+    "normal-move": "2d5731c974e44890a4e9593b8eb2fb22",
+    "normal-nested-navigation": "d00a8fea602443eaa5bee3cade0569bd",
+    "normal-long-pager": "88acc48d063245b3933c83d4fcc029db",
+    "edge-empty-directory": "143b1ae0091a4fcc921ed2fce23515fb",
+    "edge-empty-filter-recovery": "8c09f4dd22c244a9815bd9b9b625676a",
+    "edge-cancel-create": "5a08f97029de4ef69011ccfd14a620b8",
+    "edge-cancel-rename": "045b89cf8ab14536be5a4388bf7502c3",
+    "edge-occupied-rename": "060d90d6470e42778f3485cba6136294",
+    "edge-delete-cancelled": "29364456714446189a7e4694eb7a664f",
+    "edge-key-prefix-cancel": "934bc3e4df1347539643be53352dd20b",
+    "edge-resize-pager": "db1a52451e7e45c09b7efc31ba39f5c6",
+    "edge-large-directory": "02bd444ddfb0473495cb4eea534e8f14"
+  },
+  "all_source_faults_restored": true,
+  "source_faults": [
+    "creation-diverted-to-unrequested-name",
+    "page-down-moves-backward",
+    "silent-copy-corrupts-second-line"
+  ],
+  "native_hosts_qualified": [],
+  "final_credit": 0
+}

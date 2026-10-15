@@ -4,7 +4,9 @@ Current-source named input also accepts `Home`, `End`, `PageUp`, and `PageDown`.
 They send `ESC [ 1 ~`, `ESC [ 4 ~`, `ESC [ 5 ~`, and `ESC [ 6 ~`, respectively.
 Live recording recognizes these sequences and the common CSI/SS3 Home/End
 variants; a Windows operator console translates the corresponding native keys.
-This adds key names without changing existing spec versions or key encodings.
+Modified navigation chords are unsupported; the native Windows operator reader
+rejects them instead of recording an unmodified key. This adds key names without
+changing existing spec versions or key encodings.
 
 Current-source named input accepts every letter control from `CtrlA` through
 `CtrlZ`, encoded as ASCII bytes `0x01` through `0x1a`, plus `CtrlSpace` (`0x00`).

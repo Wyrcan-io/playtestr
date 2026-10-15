@@ -1,0 +1,24 @@
+[
+  {
+    "name": "creation-diverted-to-unrequested-name",
+    "case": "normal-project",
+    "file": "ranger/config/commands.py",
+    "old": "fname = join(self.fm.thisdir.path, expanduser(self.rest(1)))",
+    "new": "fname = join(self.fm.thisdir.path, \"unexpected-created.txt\")"
+  },
+  {
+    "name": "page-down-moves-backward",
+    "case": "normal-long-pager",
+    "file": "ranger/gui/widgets/pager.py",
+    "old": "\"direction\": direction.down(),",
+    "new": "\"direction\": -direction.down(),"
+  },
+  {
+    "name": "silent-copy-corrupts-second-line",
+    "case": "normal-copy",
+    "file": "ranger/ext/shutil_generatorized.py",
+    "state_only": true,
+    "old": "        for done in copyfile(src, dst):\n            yield done\n        copystat(src, dst)",
+    "new": "        for done in copyfile(src, dst):\n            yield done\n        copystat(src, dst)\n        with open(dst, \"r+b\") as copied:\n            data = copied.read()\n            copied.seek(0)\n            copied.write(data.replace(b\"Protected\", b\"Corrupted\"))"
+  }
+]
