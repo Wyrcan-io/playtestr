@@ -1,0 +1,113 @@
+{
+  "version": 2,
+  "name": "Maintain distinct nested/root context locations and recover after closing a context",
+  "command": [
+    "nnn",
+    "-A",
+    "-C",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "screen-256color"
+  },
+  "width": 160,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "expect": "bravo.txt"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": "str [/], ic [:]"
+    },
+    {
+      "text": "nested"
+    },
+    {
+      "expect": "/nested"
+    },
+    {
+      "expect_not": "alpha.txt"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "str [/], ic [:]"
+    },
+    {
+      "expect": "nested/"
+    },
+    {
+      "text": "l"
+    },
+    {
+      "expect": "/fixture/nested"
+    },
+    {
+      "expect": "notes café.txt*"
+    },
+    {
+      "text": "2"
+    },
+    {
+      "text": "h"
+    },
+    {
+      "expect_not": "/fixture/nested"
+    },
+    {
+      "expect": "protected.txt*"
+    },
+    {
+      "text": "1"
+    },
+    {
+      "expect": "/fixture/nested"
+    },
+    {
+      "expect": "notes café.txt*"
+    },
+    {
+      "text": "2"
+    },
+    {
+      "expect_not": "/fixture/nested"
+    },
+    {
+      "expect": "protected.txt*"
+    },
+    {
+      "snapshot": "normal-context-navigation-macos.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "expect": "/fixture/nested"
+    },
+    {
+      "expect": "notes café.txt*"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

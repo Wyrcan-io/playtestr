@@ -1,0 +1,77 @@
+{
+  "version": 2,
+  "name": "Refuse creation over an existing protected file and preserve its nonempty bytes",
+  "command": [
+    "nnn",
+    "-A",
+    "-C",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "screen-256color"
+  },
+  "width": 160,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "expect": "bravo.txt"
+    },
+    {
+      "text": "n"
+    },
+    {
+      "expect": "['f'ile]/'d'ir/'s'ym/'h'ard?"
+    },
+    {
+      "text": "f"
+    },
+    {
+      "expect": "[path/]name:"
+    },
+    {
+      "text": "protected.txt"
+    },
+    {
+      "expect": "[path/]name: protected.txt"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "[path/]name:"
+    },
+    {
+      "expect": "overwrite?"
+    },
+    {
+      "text": "n"
+    },
+    {
+      "expect_not": "overwrite?"
+    },
+    {
+      "expect": "protected.txt*"
+    },
+    {
+      "snapshot": "edge-occupied-create-macos.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

@@ -116,11 +116,15 @@ def check_state(working,case):
 def recorder(binary,project,case,env,*,export=True,rerecord=False,wall_timeout=120):
     directory=DOC/project
     config=json.loads((directory/'scenarios.json').read_text(encoding='utf-8'))
+    viewport=dict(width=100,height=30)
+    viewport.update(config.get('viewport',{}))
+    viewport.update(config.get('viewport_by_host',{}).get(platform.system(),{}))
+    viewport.update(case.get('viewport',{}))
     spec=directory/(case['name']+'.json')
     output=spec if export else directory/('probe-'+str(time.time_ns())+'.json')
     args=[binary,'record','--output',output,'--name',case['purpose'],
           '--fixture',case.get('fixture',config.get('fixture','fixtures')),
-          '--temporary-home','--temporary-temp','--width','100','--height','30',
+          '--temporary-home','--temporary-temp','--width',str(viewport['width']),'--height',str(viewport['height']),
           '--timeout-ms',str(case['timeout_ms']),'--run-timeout-ms','120000']
     environment=dict(config.get('environment',{}))
     environment.update(config.get('environment_by_host',{}).get(platform.system(),{}))

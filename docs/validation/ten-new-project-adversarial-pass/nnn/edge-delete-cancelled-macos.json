@@ -1,0 +1,86 @@
+{
+  "version": 2,
+  "name": "Cancel the destructive current/selection chooser before deletion and preserve selected bytes",
+  "command": [
+    "nnn",
+    "-A",
+    "-C",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "screen-256color"
+  },
+  "width": 160,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "expect": "bravo.txt"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": "str [/], ic [:]"
+    },
+    {
+      "text": "protected"
+    },
+    {
+      "expect": "/protected"
+    },
+    {
+      "expect_not": "alpha.txt"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "str [/], ic [:]"
+    },
+    {
+      "expect": "protected.txt*"
+    },
+    {
+      "text": " "
+    },
+    {
+      "expect": "+protected.txt*"
+    },
+    {
+      "text": "x"
+    },
+    {
+      "expect": "'c'urrent/'s'el?"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "'c'urrent/'s'el?"
+    },
+    {
+      "expect": "protected.txt*"
+    },
+    {
+      "snapshot": "edge-delete-cancelled-macos.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

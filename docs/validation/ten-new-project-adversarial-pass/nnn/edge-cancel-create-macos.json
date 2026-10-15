@@ -1,0 +1,68 @@
+{
+  "version": 2,
+  "name": "Cancel a populated Unicode creation prompt without creating its path",
+  "command": [
+    "nnn",
+    "-A",
+    "-C",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "screen-256color"
+  },
+  "width": 160,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "expect": "bravo.txt"
+    },
+    {
+      "text": "n"
+    },
+    {
+      "expect": "['f'ile]/'d'ir/'s'ym/'h'ard?"
+    },
+    {
+      "text": "f"
+    },
+    {
+      "expect": "[path/]name:"
+    },
+    {
+      "text": "discarded café.txt"
+    },
+    {
+      "expect": "[path/]name: discarded café.txt"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "[path/]name: discarded café.txt"
+    },
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "snapshot": "edge-cancel-create-macos.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

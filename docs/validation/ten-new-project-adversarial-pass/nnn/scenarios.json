@@ -2125,7 +2125,77 @@
       "empty_directories": [],
       "absent_paths": [],
       "exact_tree": true,
-      "snapshot_exclusion": "Exclude random path/context header and dynamic status; preserve the complete intended list body"
+      "snapshot_exclusion": "Exclude random path/context header and dynamic status; preserve the complete intended list body",
+      "steps_by_host": {
+        "Darwin": [
+          {
+            "expect": "entry 000.txt*"
+          },
+          {
+            "expect": "1/200"
+          },
+          {
+            "key": "End"
+          },
+          {
+            "expect": "200/200"
+          },
+          {
+            "expect": "entry 199.txt*"
+          },
+          {
+            "resize": {
+              "width": 80,
+              "height": 24
+            }
+          },
+          {
+            "wait_for_redraw": true
+          },
+          {
+            "key": "Home"
+          },
+          {
+            "expect": "1/200"
+          },
+          {
+            "expect": "entry 000.txt*"
+          },
+          {
+            "resize": {
+              "width": 160,
+              "height": 30
+            }
+          },
+          {
+            "wait_for_redraw": true
+          },
+          {
+            "key": "End"
+          },
+          {
+            "expect": "200/200"
+          },
+          {
+            "expect": "entry 199.txt*"
+          },
+          {
+            "text": "q"
+          },
+          {
+            "exit": 0
+          }
+        ]
+      }
     }
-  ]
+  ],
+  "viewport_by_host": {
+    "Darwin": {
+      "width": 160,
+      "height": 30
+    }
+  },
+  "baseline_suffix_by_host": {
+    "Darwin": "-macos"
+  }
 }

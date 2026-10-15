@@ -1,0 +1,92 @@
+{
+  "version": 2,
+  "name": "Refuse overwriting a protected neighbor during rename and preserve both files",
+  "command": [
+    "nnn",
+    "-A",
+    "-C",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "screen-256color"
+  },
+  "width": 160,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "expect": "bravo.txt"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": "str [/], ic [:]"
+    },
+    {
+      "text": "bravo"
+    },
+    {
+      "expect": "/bravo"
+    },
+    {
+      "expect_not": "alpha.txt"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "str [/], ic [:]"
+    },
+    {
+      "expect": "bravo.txt*"
+    },
+    {
+      "key": "CtrlR"
+    },
+    {
+      "key": "CtrlU"
+    },
+    {
+      "text": "protected.txt"
+    },
+    {
+      "expect": "protected.txt"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "overwrite?"
+    },
+    {
+      "text": "n"
+    },
+    {
+      "expect_not": "overwrite?"
+    },
+    {
+      "expect": "bravo.txt*"
+    },
+    {
+      "snapshot": "edge-occupied-rename-macos.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}
