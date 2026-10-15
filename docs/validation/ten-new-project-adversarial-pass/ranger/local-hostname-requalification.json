@@ -1,0 +1,105 @@
+{
+  "source": "422cc19333afc8f081eb8d6f9074ecb77b478ad9",
+  "runner_sha256": "4a6cf7879d0a65b279fefa349f978e3d80398296abf1637759c358fdab5cfc78",
+  "ordinary_cases": 16,
+  "separate_state_cases": 16,
+  "checks": [
+    {
+      "case": "normal-project",
+      "ordinary_id": "92742da7bc2e4fadb441a1849832ad5c",
+      "state_id": "9d03f83d10cb41578c895ed16ac6c0c2",
+      "state_oracle_sha256": "04a829113f5a3a7530aa26eecbf713d6ba3dc14739879ec5111c56c34f92e475"
+    },
+    {
+      "case": "normal-directory",
+      "ordinary_id": "d2e68c05394d4bc9bcff26e882589b06",
+      "state_id": "475cd42e926e4874bbbce38059423791",
+      "state_oracle_sha256": "47cc7507eb64ba2fe456e51d41db2537d27d71a37f38647d79c9a7786986ba68"
+    },
+    {
+      "case": "normal-rename",
+      "ordinary_id": "ca412fb2486d4311a6df30c3cc91050c",
+      "state_id": "007558df5f95442abf6a0bc7c363df07",
+      "state_oracle_sha256": "5bf3d17899cc1c85ebab50133c4c68c1fbe58e3c4b74343b4d8be6beb8c91d15"
+    },
+    {
+      "case": "normal-copy",
+      "ordinary_id": "45248408a26c46eab06f7a051150177f",
+      "state_id": "cd60a48932c04fd5afeeb2fa73b23d5b",
+      "state_oracle_sha256": "19c31778a8e75ec9b4164761bedbf9deb1a413d7bab96450bd48b4648edef347"
+    },
+    {
+      "case": "normal-move",
+      "ordinary_id": "0b9d89e4132042649c9c7e8d3b1bc04f",
+      "state_id": "7987fc0dde6440768bf8573d9e3632bf",
+      "state_oracle_sha256": "015dc6835f61808d1065b0dc388c1c3807031624167a467e501694e6f9bd51cd"
+    },
+    {
+      "case": "normal-nested-navigation",
+      "ordinary_id": "e9d6113ff620482383ddf7cf2cf6486c",
+      "state_id": "9c3094383d1a469b971e583e9fe13b88",
+      "state_oracle_sha256": "b31146655ab1d885e23311b36899988ec228827124b0e00520bd7733a7fab8f0"
+    },
+    {
+      "case": "normal-long-pager",
+      "ordinary_id": "a625a69430a14dda9223f5c3fc09849e",
+      "state_id": "8f30c85737134355ba797110dd25aa06",
+      "state_oracle_sha256": "b31146655ab1d885e23311b36899988ec228827124b0e00520bd7733a7fab8f0"
+    },
+    {
+      "case": "edge-empty-directory",
+      "ordinary_id": "653d598d670e4acbb7b44227c8cb8b72",
+      "state_id": "cd6c84597cb745cc9e12da0f7dccb095",
+      "state_oracle_sha256": "b31146655ab1d885e23311b36899988ec228827124b0e00520bd7733a7fab8f0"
+    },
+    {
+      "case": "edge-empty-filter-recovery",
+      "ordinary_id": "3b04ef185bc348eab7986c0735c792d7",
+      "state_id": "d83a4a8d5538495e9c2870f22b30f5ea",
+      "state_oracle_sha256": "b31146655ab1d885e23311b36899988ec228827124b0e00520bd7733a7fab8f0"
+    },
+    {
+      "case": "edge-cancel-create",
+      "ordinary_id": "adc321c7322849df9f235cf45f0039f4",
+      "state_id": "303c2dc1161b4da1ba9592ffc0ce8b35",
+      "state_oracle_sha256": "b31146655ab1d885e23311b36899988ec228827124b0e00520bd7733a7fab8f0"
+    },
+    {
+      "case": "edge-cancel-rename",
+      "ordinary_id": "64e84e79098548b8ac05892d46dc5ca2",
+      "state_id": "81db3d00acc94db4936debd10a00f7e7",
+      "state_oracle_sha256": "b31146655ab1d885e23311b36899988ec228827124b0e00520bd7733a7fab8f0"
+    },
+    {
+      "case": "edge-occupied-rename",
+      "ordinary_id": "468a4404d2ec405196b72fa730eac622",
+      "state_id": "e3eadf7ceef9459a8f9efa979a302463",
+      "state_oracle_sha256": "b31146655ab1d885e23311b36899988ec228827124b0e00520bd7733a7fab8f0"
+    },
+    {
+      "case": "edge-delete-cancelled",
+      "ordinary_id": "b7925e7809624fa38fc3766be507868e",
+      "state_id": "4691904f6562472faf9b3322aa422f9d",
+      "state_oracle_sha256": "b31146655ab1d885e23311b36899988ec228827124b0e00520bd7733a7fab8f0"
+    },
+    {
+      "case": "edge-key-prefix-cancel",
+      "ordinary_id": "90d7c61dd93f4dc7822472b783a9b460",
+      "state_id": "415312de2d3442a29d61e52ea5adfcd2",
+      "state_oracle_sha256": "b31146655ab1d885e23311b36899988ec228827124b0e00520bd7733a7fab8f0"
+    },
+    {
+      "case": "edge-resize-pager",
+      "ordinary_id": "f2a10e673f424bb7b45399c265bfb74e",
+      "state_id": "780261ac370f47dc946b5cb3bd4aa67b",
+      "state_oracle_sha256": "b31146655ab1d885e23311b36899988ec228827124b0e00520bd7733a7fab8f0"
+    },
+    {
+      "case": "edge-large-directory",
+      "ordinary_id": "f9f377a956a2418bbb9d90902f68d155",
+      "state_id": "3d016e6624a9404aaeff4de9d878bc24",
+      "state_oracle_sha256": "0749cd796fb2d8d68ac89c5175e71b229e54a6fc21b285fcf0cb0645e819725c"
+    }
+  ],
+  "scope": "Corrected local recipe, independent real executions; no native or final campaign credit"
+}

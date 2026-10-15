@@ -150,7 +150,8 @@ def extend():
         target=package/'fixtures-large'/name;target.parent.mkdir(exist_ok=True)
         if target.exists():raise RuntimeError('Refuse replacing large-tree fixture')
         target.write_bytes(value.encode('utf-8'))
-    last=[text('G'),expect('/fixture/file 199.txt'),expect('RANGER BULK 199 TOKEN')]
+    last=[expect('RANGER BULK 000 TOKEN'),expect('1/200  Top'),
+          text('G'),expect('/fixture/file 199.txt'),expect('RANGER BULK 199 TOKEN')]
     cases.append(add('edge-large-directory','edge','Navigate to the last entry of a 200-file tree, inspect it and return home',
         [*last,key('Home'),expect('/fixture/file 000.txt')],fixture='fixtures-large',expected=bulk,position=len(last)))
     config['cases']=cases

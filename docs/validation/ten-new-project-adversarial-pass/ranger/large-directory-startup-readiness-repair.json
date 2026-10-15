@@ -1,0 +1,16 @@
+{
+  "run": "38711292122",
+  "source": "c83225add796cd7ca0db9433f19355c7b5da765e",
+  "case": "edge-large-directory",
+  "failed_repetition": 3,
+  "failed_step": 3,
+  "category": "assertion_timeout",
+  "actual": "After the G text step, selected header/preview/footer still identified file 000 and 1/200 Top",
+  "established": "The header-only startup contract did not reliably precede useful first navigation on native macOS",
+  "mechanism": "Unconfirmed; bounded instrumented native getch diagnosis running at 38714717729",
+  "candidate_repair": "Assert initial file preview and complete 1/200 Top status before first navigation; no added delay, removed assertion or modified snapshot",
+  "snapshot_sha256": "dfcd413d87583003c8972f62d51e0285e20fa4cce8fef316b142dcc9504f62a8",
+  "local_weak_reproduction": "Ten ordinary repetitions and ten separate state probes passed; no macOS conclusion from WSL",
+  "new_native_status": "Not dispatched",
+  "qualification_credit": 0
+}

@@ -1,0 +1,7 @@
+{
+  "attempt": "891d6a51dfc54121b58e4d99d7bc3f29",
+  "outcome": "All recorder assertions and fresh replay passed, then export correctly refused an existing reviewed baseline",
+  "cause": "Operator archived the earlier UX assessment but left its baseline at the export destination",
+  "action": "Verified unchanged baseline against historical-hostname-ux, then removed only that owned duplicate before the new assessment",
+  "scope": "Expected overwrite refusal; not a product failure or completed onboarding assessment"
+}
