@@ -1,0 +1,69 @@
+{
+  "complete": false,
+  "errors": [
+    "Final native run did not complete successfully",
+    "Qualification or deletion receipt missing: adversarial-final-copier-windows-2025",
+    "Missing final project artifact: adversarial-final-lf-ubuntu-24.04",
+    "Missing final project artifact: adversarial-final-lf-windows-2025",
+    "Missing final project artifact: adversarial-final-superfile-ubuntu-24.04",
+    "Missing final project artifact: adversarial-final-superfile-macos-15",
+    "Missing final project artifact: adversarial-final-helix-ubuntu-24.04",
+    "Missing final project artifact: adversarial-final-helix-windows-2025",
+    "Missing final project artifact: adversarial-final-glow-ubuntu-24.04",
+    "Missing final project artifact: adversarial-final-glow-macos-15",
+    "Missing final project artifact: adversarial-final-broot-ubuntu-24.04",
+    "Missing final project artifact: adversarial-final-broot-macos-15",
+    "Missing final project artifact: adversarial-final-yazi-ubuntu-24.04",
+    "Missing final project artifact: adversarial-final-yazi-macos-15",
+    "Missing final project artifact: adversarial-final-yazi-windows-2025",
+    "Missing final project artifact: adversarial-final-ranger-ubuntu-24.04",
+    "Missing final project artifact: adversarial-final-ranger-macos-15",
+    "Missing final project artifact: adversarial-final-nnn-ubuntu-24.04",
+    "Missing final project artifact: adversarial-final-nnn-macos-15",
+    "Fewer than 1,000 primary Linux final repetitions",
+    "Fewer than twenty distinct real target controls"
+  ],
+  "source": "be139a399009bc1c01e252d53f4bfd357cb65c1b",
+  "run": "38793208349",
+  "distinct_scenarios": 130,
+  "project_host_pairs": [
+    {
+      "project": "cookiecutter",
+      "host": "linux",
+      "ordinary_repetitions": 100,
+      "separate_final_state_probes": 100,
+      "runner_sha256": "73b062f95fbcf0865b8e9ed6ff5ca05fb2056f538e45dc389011c33e3f169731",
+      "actual_host": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "source_fault_controls": 3,
+      "owned_application_removed": true
+    },
+    {
+      "project": "cookiecutter",
+      "host": "windows",
+      "ordinary_repetitions": 100,
+      "separate_final_state_probes": 100,
+      "runner_sha256": "87d44d661be2789436973a6d60bd423089efa57244ac2d50f6e07018f3ef3cc0",
+      "actual_host": "Windows-2025Server-10.0.26100-SP0",
+      "source_fault_controls": 3,
+      "owned_application_removed": true
+    },
+    {
+      "project": "copier",
+      "host": "linux",
+      "ordinary_repetitions": 120,
+      "separate_final_state_probes": 120,
+      "runner_sha256": "73b062f95fbcf0865b8e9ed6ff5ca05fb2056f538e45dc389011c33e3f169731",
+      "actual_host": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "source_fault_controls": 3,
+      "owned_application_removed": true
+    }
+  ],
+  "ordinary_final_repetitions": 320,
+  "linux_final_repetitions": 220,
+  "source_fault_controls_across_hosts": 9,
+  "distinct_target_fault_controls": 6,
+  "distinct_saved_state_controls": 2,
+  "state_corruption_controls_across_hosts": 3,
+  "full_product_100_project_launch_credit": 0,
+  "limits": "Scoped deterministic terminal/state evidence; no exhaustive user coverage, novice study or commercial-readiness claim"
+}

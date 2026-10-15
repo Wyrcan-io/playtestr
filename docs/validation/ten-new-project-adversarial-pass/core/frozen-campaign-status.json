@@ -1,0 +1,21 @@
+{
+  "run": "38793208349",
+  "source": "be139a399009bc1c01e252d53f4bfd357cb65c1b",
+  "status": "failure; zero final acceptance credit",
+  "development_projects_complete": 10,
+  "distinct_scenarios": 130,
+  "planned_project_host_pairs": 21,
+  "full_product_100_project_launch_credit": 0,
+  "pre_freeze_checks": "All three native freeze stages passed full product/vet/race, 29-test harness and frozen wizard replay gates; macOS fifty-repeat diagnostic passed",
+  "current_project": "copier: Linux and Windows qualification starting",
+  "successful_project_jobs_pending_strict_audit": [
+    "cookiecutter/Linux",
+    "cookiecutter/Windows"
+  ],
+  "phase": "Final campaign stopped on actual Copier Windows failure; diagnosis and repair required",
+  "failed_project_host": "copier/Windows",
+  "required_next_action": "Retain complete actual failure evidence; diagnose/repair and retest Copier Windows, then rerun frozen campaign with correct source/attempt binding",
+  "strict_audit": "Rejected: failed native conclusion, missing Copier Windows qualification/removal, and downstream unexecuted projects; complete=false",
+  "completed_pair_ordinary_repetitions_verified": 320,
+  "diagnostic_run": "38798304050"
+}

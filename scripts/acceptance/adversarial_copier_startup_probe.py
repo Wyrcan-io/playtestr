@@ -12,7 +12,7 @@ def main():
     project='copier';package=DOC/project
     config=json.loads((package/'scenarios.json').read_text(encoding='utf-8'))
     case=next(c for c in config['cases'] if c['name']=='normal-git-update')
-    case=dict(case,name=host_case_name(case,config,platform.system()),timeout_ms=30000)
+    case=dict(case,name=host_case_name(case,config,platform.system()),timeout_ms=30000,timeout_ms_by_host={})
     original={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in package.glob('normal-git-update*.json')}
     original.update({'snapshots/'+p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in (package/'snapshots').glob('normal-git-update*')})
     runtime=json.loads((ROOT/'.cache/ten-new-project-apps/copier/runtime.json').read_text(encoding='utf-8'))

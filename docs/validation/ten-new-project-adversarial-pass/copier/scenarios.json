@@ -510,7 +510,10 @@
         1,
         3
       ],
-      "snapshot_exclusion": "Host Git diff --inter-hunk-context=-1 warning outside stable version/answer rows; actual exit and independently exact updated/customized files remain required. Merge-conflict preservation is not claimed."
+      "snapshot_exclusion": "Host Git diff --inter-hunk-context=-1 warning outside stable version/answer rows; actual exit and independently exact updated/customized files remain required. Merge-conflict preservation is not claimed.",
+      "timeout_ms_by_host": {
+        "Windows": 20000
+      }
     },
     {
       "name": "edge-dirty-update-refused",

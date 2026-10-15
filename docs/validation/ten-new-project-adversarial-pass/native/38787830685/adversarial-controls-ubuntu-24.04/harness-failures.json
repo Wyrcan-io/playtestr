@@ -1,0 +1,90 @@
+[
+  {
+    "attempt_id": "0c1df1dfe26a4a89b3689e8fcaa87b27",
+    "kind": "harness-error.json",
+    "sha256": "9e2781a28fbca271d472ff5f63f6607e1a5943f18f0fbcae353060eb1f269f60",
+    "observed": {
+      "type": "TimeoutError",
+      "message": "independent deadline exceeded"
+    }
+  },
+  {
+    "attempt_id": "1d7565056b0c4891b408d17b6577b623",
+    "kind": "harness-error.json",
+    "sha256": "9e2781a28fbca271d472ff5f63f6607e1a5943f18f0fbcae353060eb1f269f60",
+    "observed": {
+      "type": "TimeoutError",
+      "message": "independent deadline exceeded"
+    }
+  },
+  {
+    "attempt_id": "2b5aded839ff4b6f928a63de64097ea7",
+    "kind": "cleanup-errors.json",
+    "sha256": "697c7e6f6de489ad1e2c5a8947bee5708d6ecb91e4a8d87846ff5155d69e7722",
+    "observed": [
+      "terminate owned command: RuntimeError: synthetic cleanup fault after actual termination"
+    ]
+  },
+  {
+    "attempt_id": "686c6be1442249a0b9a7982d35b4d735",
+    "kind": "harness-error.json",
+    "sha256": "3affc4a7444c9945057daf244889c6048db31ae34c4cd3206affdc4056fbaae5",
+    "observed": {
+      "type": "CancelledError",
+      "message": "independent command cancelled"
+    }
+  },
+  {
+    "attempt_id": "6ff7c76d98e844aea5fc1fbad5441a21",
+    "kind": "harness-error.json",
+    "sha256": "9e2781a28fbca271d472ff5f63f6607e1a5943f18f0fbcae353060eb1f269f60",
+    "observed": {
+      "type": "TimeoutError",
+      "message": "independent deadline exceeded"
+    }
+  },
+  {
+    "attempt_id": "b0a7ee5c767e4aa490d64e1eb5503903",
+    "kind": "cleanup-errors.json",
+    "sha256": "697c7e6f6de489ad1e2c5a8947bee5708d6ecb91e4a8d87846ff5155d69e7722",
+    "observed": [
+      "terminate owned command: RuntimeError: synthetic cleanup fault after actual termination"
+    ]
+  },
+  {
+    "attempt_id": "b0a7ee5c767e4aa490d64e1eb5503903",
+    "kind": "harness-error.json",
+    "sha256": "ec121b1512a5eb457f5dca55f9cfac4b6897bf766a41063dd8f83815005502ef",
+    "observed": {
+      "type": "RuntimeError",
+      "message": "preserve-original-cleanup-failure: expected exit 0, got 7; /home/runner/work/playtestr/playtestr/artifacts/ten-new-project-adversarial-pass/harness-controls/b0a7ee5c767e4aa490d64e1eb5503903"
+    }
+  },
+  {
+    "attempt_id": "bd12800cec8d4b14bf0b19fa00a7c675",
+    "kind": "harness-error.json",
+    "sha256": "15d7c5a17f69a2c1a6329949a55ed52619200b8215d7f4a2d25cbbcc835815a3",
+    "observed": {
+      "type": "RuntimeError",
+      "message": "synthetic final semantic rejection"
+    }
+  },
+  {
+    "attempt_id": "c1d66a869d834c15b34e8da63be36e47",
+    "kind": "harness-error.json",
+    "sha256": "693dbba4118b9c0e1991956b566d6488e0189f52846fb3909854cbdc5868953c",
+    "observed": {
+      "type": "RuntimeError",
+      "message": "independent harness output cap"
+    }
+  },
+  {
+    "attempt_id": "f101e00925b748cbb45d299c7fc7c069",
+    "kind": "harness-error.json",
+    "sha256": "9e2781a28fbca271d472ff5f63f6607e1a5943f18f0fbcae353060eb1f269f60",
+    "observed": {
+      "type": "TimeoutError",
+      "message": "independent deadline exceeded"
+    }
+  }
+]

@@ -1,0 +1,60 @@
+[
+  {
+    "name": "validator-bypass",
+    "source_path": "copier/_user_data.py",
+    "case": "edge-validator-recovery",
+    "pristine_sha256": "0b277a3f4cfbfe6736e28e33b66f9d486f353aee04a8455727ceb7ca4a1f020a",
+    "mutated_sha256": "76fe8898769648b0651a257591cda2258add04be7a9cd6dc30bc47ed6cbcb7ae",
+    "contracts": {
+      "edge-validator-recovery.json": "3d9da1f6ed675d87b6e15fad39a2f9459b7ac0330f96092b8ef0b217fa6926bd",
+      "edge-validator-recovery.txt": "9c27db222a6c1fa9bfb40974f6e788ef2efa3319f5af29d47cf15bd02f394b32"
+    },
+    "loader_mtime": "Original timestamp +2 seconds during mutation, exact original restored",
+    "category": "unexpected_exit",
+    "evidence_id": "db0b594107064fb38c473f58dce8832e",
+    "report": "artifacts/ten-new-project-adversarial-pass/copier/validator-bypass-1792093208843208400.json",
+    "restored": true,
+    "recovery_id": "599a29b035404a0b8eb4f163fba18540",
+    "contracts_unchanged": true,
+    "state_recovery_id": "5d6cede7a51e4e7388d6697e40a4a4cc"
+  },
+  {
+    "name": "wrong-success-exit",
+    "source_path": "copier/_cli.py",
+    "case": "normal-project",
+    "pristine_sha256": "b15463d07d18f2c264f5faf2d537ce100683a44fd96c7296a8de88adc63fe0c0",
+    "mutated_sha256": "c3dcad1c7105b94782eabe5ee9196178cfe56e17d068bfb899fa49e2978f56d0",
+    "contracts": {
+      "normal-project.json": "de7bff5fe450a1edfbf850ce2e53606a552df63665cbf90dcc100e576bd27c7c",
+      "normal-project.rows.json": "e6012d99c02b276ef4ad045d951d7b0af4498798105e11a12d33b386753fd1af"
+    },
+    "loader_mtime": "Original timestamp +2 seconds during mutation, exact original restored",
+    "category": "unexpected_exit",
+    "evidence_id": "c5e18b094abf4046955ec871074bdc32",
+    "report": "artifacts/ten-new-project-adversarial-pass/copier/wrong-success-exit-1792093216105051500.json",
+    "restored": true,
+    "recovery_id": "f6775c31f4b44d1791637014a0475e9e",
+    "contracts_unchanged": true,
+    "state_recovery_id": "097284ce511a4493b63d5a98b5327fa9"
+  },
+  {
+    "name": "silent-saved-corruption",
+    "source_path": "copier/_main.py",
+    "case": "normal-project",
+    "pristine_sha256": "e13f7bb485fdd187ff08e100b60983bb5c99395d4dfb19aa5c71b304a71279bd",
+    "mutated_sha256": "7529b97e290537ba057eb827cd4eba5f55d5438dfa36216fb59416bfdb140836",
+    "contracts": {
+      "normal-project.json": "de7bff5fe450a1edfbf850ce2e53606a552df63665cbf90dcc100e576bd27c7c",
+      "normal-project.rows.json": "e6012d99c02b276ef4ad045d951d7b0af4498798105e11a12d33b386753fd1af"
+    },
+    "loader_mtime": "Original timestamp +2 seconds during mutation, exact original restored",
+    "state_oracle_detected": true,
+    "state_probe_evidence_id": "c0525392328148999efc086150d8b124",
+    "evidence_id": "4f930e7dde1d4ed98b418ecc2e47db00",
+    "report": "artifacts/ten-new-project-adversarial-pass/copier/silent-saved-corruption-1792093221777206200.json",
+    "restored": true,
+    "recovery_id": "aef73e8d602c4929a96f0f8ad545f806",
+    "contracts_unchanged": true,
+    "state_recovery_id": "08fd7e28d1ba453f8bd559e3dd3498a9"
+  }
+]

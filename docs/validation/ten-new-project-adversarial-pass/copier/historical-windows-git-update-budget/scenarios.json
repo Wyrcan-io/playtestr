@@ -1,0 +1,550 @@
+{
+  "project": "copier",
+  "fixture": "fixtures",
+  "phase": "Twelve declared substantive flows; exact approved host variants required",
+  "cases": [
+    {
+      "name": "normal-project",
+      "kind": "normal",
+      "purpose": "Dependent project files and nondefault keyboard-selected license",
+      "command": [
+        "copier",
+        "copy",
+        "templates/basic",
+        "project"
+      ],
+      "steps": [
+        {
+          "expect": "Project name"
+        },
+        {
+          "key": "CtrlA"
+        },
+        {
+          "key": "CtrlK"
+        },
+        {
+          "text": "Atlas"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "Project slug"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "License"
+        },
+        {
+          "key": "ArrowDown"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "expected_files": {
+        "project/README.md": "# Atlas\nslug=atlas\nlicense=Apache-2.0\n",
+        "project/data/config.json": "{\"project_name\": \"Atlas\", \"project_slug\": \"atlas\", \"license\": \"Apache-2.0\"}\n",
+        "neighbor.txt": "protected neighboring state\n"
+      },
+      "absent_paths": [],
+      "timeout_ms": 10000,
+      "snapshot_rows": [
+        1,
+        6
+      ]
+    },
+    {
+      "name": "normal-conditional",
+      "kind": "normal",
+      "purpose": "Conditional question and actual optional file creation",
+      "command": [
+        "copier",
+        "copy",
+        "templates/conditional",
+        "project"
+      ],
+      "steps": [
+        {
+          "expect": "Include documentation"
+        },
+        {
+          "text": "y"
+        },
+        {
+          "expect": "Documentation module"
+        },
+        {
+          "key": "CtrlA"
+        },
+        {
+          "key": "CtrlK"
+        },
+        {
+          "text": "docs"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "expected_files": {
+        "project/config.json": "{\"include_docs\": true, \"module_name\": \"docs\"}\n",
+        "project/docs.txt": "module=docs\n",
+        "neighbor.txt": "protected neighboring state\n"
+      },
+      "absent_paths": [],
+      "timeout_ms": 10000,
+      "snapshot_rows": [
+        1,
+        4
+      ]
+    },
+    {
+      "name": "normal-features",
+      "kind": "normal",
+      "purpose": "Checkbox navigation and ordered multi-feature saved state",
+      "command": [
+        "copier",
+        "copy",
+        "templates/features",
+        "project"
+      ],
+      "steps": [
+        {
+          "expect": "Optional features"
+        },
+        {
+          "text": " "
+        },
+        {
+          "key": "ArrowDown"
+        },
+        {
+          "key": "ArrowDown"
+        },
+        {
+          "text": " "
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "expected_files": {
+        "project/features.json": "[\"lint\", \"docs\"]\n",
+        "neighbor.txt": "protected neighboring state\n"
+      },
+      "absent_paths": [],
+      "timeout_ms": 10000
+    },
+    {
+      "name": "normal-recopy-protected",
+      "kind": "normal",
+      "purpose": "Recopy from saved answers while preserving a local README",
+      "command": [
+        "copier",
+        "recopy",
+        "--skip-answered",
+        "--ask",
+        "project_name",
+        "existing"
+      ],
+      "steps": [
+        {
+          "expect": "Project name"
+        },
+        {
+          "key": "CtrlA"
+        },
+        {
+          "key": "CtrlK"
+        },
+        {
+          "text": "Recopied"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "Overwrite"
+        },
+        {
+          "text": "n"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "expected_files": {
+        "existing/README.md": "protected local README\n",
+        "existing/data/config.json": "{\"project_name\": \"Recopied\", \"project_slug\": \"existing\", \"license\": \"MIT\"}\n",
+        "neighbor.txt": "protected neighboring state\n"
+      },
+      "absent_paths": [],
+      "timeout_ms": 10000,
+      "snapshot_rows": [
+        1,
+        2
+      ]
+    },
+    {
+      "name": "normal-reviewed-task",
+      "kind": "normal",
+      "purpose": "Explicit trust for one reviewed local marker-writing task",
+      "command": [
+        "copier",
+        "copy",
+        "--trust",
+        "templates/hooked",
+        "project"
+      ],
+      "steps": [
+        {
+          "expect": "Component name"
+        },
+        {
+          "key": "CtrlA"
+        },
+        {
+          "key": "CtrlK"
+        },
+        {
+          "text": "engine"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "expected_files": {
+        "project/component.txt": "component=engine\n",
+        "project/task-marker.txt": "reviewed task executed\n",
+        "neighbor.txt": "protected neighboring state\n"
+      },
+      "absent_paths": [],
+      "timeout_ms": 10000,
+      "snapshot_rows": [
+        1,
+        2
+      ]
+    },
+    {
+      "name": "edge-validator-recovery",
+      "kind": "edge",
+      "purpose": "Actual slug validator rejection and correction before generation",
+      "command": [
+        "copier",
+        "copy",
+        "templates/validated",
+        "project"
+      ],
+      "steps": [
+        {
+          "expect": "Lowercase slug"
+        },
+        {
+          "key": "CtrlA"
+        },
+        {
+          "key": "CtrlK"
+        },
+        {
+          "text": "INVALID"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "Slug must be lowercase"
+        },
+        {
+          "key": "CtrlA"
+        },
+        {
+          "key": "CtrlK"
+        },
+        {
+          "text": "corrected"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "expected_files": {
+        "project/slug.txt": "slug=corrected\n",
+        "neighbor.txt": "protected neighboring state\n"
+      },
+      "absent_paths": [],
+      "timeout_ms": 10000
+    },
+    {
+      "name": "edge-integer-recovery",
+      "kind": "edge",
+      "purpose": "Invalid integer input rejected and corrected to an exact numeric state",
+      "command": [
+        "copier",
+        "copy",
+        "templates/integer",
+        "project"
+      ],
+      "steps": [
+        {
+          "expect": "Worker count"
+        },
+        {
+          "key": "CtrlA"
+        },
+        {
+          "key": "CtrlK"
+        },
+        {
+          "text": "abc"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "Invalid input"
+        },
+        {
+          "key": "CtrlA"
+        },
+        {
+          "key": "CtrlK"
+        },
+        {
+          "text": "7"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "expected_files": {
+        "project/workers.txt": "workers=7\n",
+        "neighbor.txt": "protected neighboring state\n"
+      },
+      "absent_paths": [],
+      "timeout_ms": 10000
+    },
+    {
+      "name": "edge-json-recovery",
+      "kind": "edge",
+      "purpose": "Malformed JSON rejected then corrected without losing the prompt",
+      "command": [
+        "copier",
+        "copy",
+        "templates/json",
+        "project"
+      ],
+      "steps": [
+        {
+          "expect": "Project metadata"
+        },
+        {
+          "key": "CtrlA"
+        },
+        {
+          "key": "CtrlK"
+        },
+        {
+          "text": "{"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "Invalid input"
+        },
+        {
+          "key": "CtrlA"
+        },
+        {
+          "key": "CtrlK"
+        },
+        {
+          "text": "{\"team\": \"core\", \"active\": true}"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "expected_files": {
+        "project/metadata.json": "{\"active\": true, \"team\": \"core\"}\n",
+        "neighbor.txt": "protected neighboring state\n"
+      },
+      "absent_paths": [],
+      "timeout_ms": 10000
+    },
+    {
+      "name": "edge-cancel-after-edit",
+      "kind": "edge",
+      "purpose": "Cancellation after editing leaves no generated project",
+      "command": [
+        "copier",
+        "copy",
+        "templates/basic",
+        "project"
+      ],
+      "steps": [
+        {
+          "expect": "Project name"
+        },
+        {
+          "key": "CtrlA"
+        },
+        {
+          "key": "CtrlK"
+        },
+        {
+          "text": "Abandoned"
+        },
+        {
+          "key": "CtrlC"
+        },
+        {
+          "expect": "Execution stopped by user"
+        },
+        {
+          "exit": 1
+        }
+      ],
+      "expected_files": {
+        "neighbor.txt": "protected neighboring state\n"
+      },
+      "absent_paths": [
+        "project"
+      ],
+      "timeout_ms": 10000
+    },
+    {
+      "name": "edge-unsafe-task-refused",
+      "kind": "edge",
+      "purpose": "Reviewed task template is refused without explicit trust",
+      "command": [
+        "copier",
+        "copy",
+        "templates/hooked",
+        "project"
+      ],
+      "steps": [
+        {
+          "expect": "unsafe"
+        },
+        {
+          "exit": 4
+        }
+      ],
+      "expected_files": {
+        "neighbor.txt": "protected neighboring state\n"
+      },
+      "absent_paths": [
+        "project",
+        "project/task-marker.txt"
+      ],
+      "timeout_ms": 10000
+    },
+    {
+      "name": "normal-git-update",
+      "kind": "normal",
+      "purpose": "Actual v1 to v2 template update with a new answer and preserved committed local file",
+      "command": [
+        "copier",
+        "update",
+        "--skip-answered",
+        "updated"
+      ],
+      "steps": [
+        {
+          "expect": "Support level"
+        },
+        {
+          "key": "CtrlA"
+        },
+        {
+          "key": "CtrlK"
+        },
+        {
+          "text": "premium"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "expected_files": {
+        "updated/README.md": "# UpdateSeed\nversion=v2\nsupport=premium\n",
+        "updated/new.txt": "new file for UpdateSeed\n",
+        "updated/local.txt": "committed local customization\n",
+        "neighbor.txt": "protected neighboring state\n"
+      },
+      "absent_paths": [],
+      "timeout_ms": 10000,
+      "snapshot_rows": [
+        1,
+        3
+      ],
+      "snapshot_exclusion": "Host Git diff --inter-hunk-context=-1 warning outside stable version/answer rows; actual exit and independently exact updated/customized files remain required. Merge-conflict preservation is not claimed."
+    },
+    {
+      "name": "edge-dirty-update-refused",
+      "kind": "edge",
+      "fixture": "fixtures-dirty",
+      "purpose": "Dirty Git project refuses update and preserves actual uncommitted local state",
+      "command": [
+        "copier",
+        "update",
+        "--skip-answered",
+        "updated"
+      ],
+      "steps": [
+        {
+          "expect": "Destination repository is dirty; cannot continue."
+        },
+        {
+          "exit": 1
+        }
+      ],
+      "expected_files": {
+        "updated/README.md": "# UpdateSeed\nversion=v1\n",
+        "updated/local.txt": "uncommitted local change\n",
+        "neighbor.txt": "protected neighboring state\n"
+      },
+      "absent_paths": [
+        "updated/new.txt"
+      ],
+      "timeout_ms": 10000
+    }
+  ],
+  "baseline_suffix_by_host": {
+    "Linux": "-unix",
+    "Darwin": "-unix"
+  },
+  "snapshot_scope_revision": "Explicit stable answer rows for multi-file operations; unordered create/conflict log excluded. Exact generated and protected files remain independently checked."
+}

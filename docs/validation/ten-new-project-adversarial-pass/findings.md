@@ -1,6 +1,29 @@
-# Findings — investigation in progress
+# Findings ? development complete, final campaign running
 
-No batch completion or final qualification is claimed.
+All ten development journeys are complete. The first final frozen-candidate campaign stopped on Copier Windows at `be139a399009bc1c01e252d53f4bfd357cb65c1b`, run `38793208349`; a bounded native startup diagnostic is running at `38798304050`. No final acceptance or full-product launch credit is claimed. The detailed entries below retain their discovery-time status; current project receipts and the final audit take precedence over historical pending text.
+
+Latest general product repairs:
+
+- P10: hide only the internal Windows workspace ownership marker through the native hidden attribute, preserving fixture visibility, ownership validation and cleanup. [Evidence](core/workspace-marker-visibility-repair.json).
+- P11: readiness and unique recorder assertions use one synchronized rendered-screen observation. A real redraw could erase the anchor between two reads; the actual reduced failure and post-fix repetitions are retained. [Evidence](core/recorder-redraw-readiness-repair.json).
+- P12: allow transient duplicate recorder anchors to resolve within the existing deadline; persistent ambiguity still fails. [Evidence](core/recorder-transient-duplicate-repair.json).
+- P13: check the output cap again after the final drain before reporting an early exit, preserving the correct failure category. [Evidence](core/final-drain-output-limit-repair.json).
+- P14: add ordinary Home, End, PageUp and PageDown throughout recording and replay, including native Windows key mapping; reject unsupported modified navigation visibly. [Evidence](core/standard-navigation-input-repair.json).
+
+Latest validation findings:
+
+- Require ten state probes inside each actual completed final repetition group. Initial or recovery probes cannot replace a missing final probe. Bind final events to the current workflow run and attempt, runner, public contract and exact upstream pin. Actual Ranger and nnn group calibrations and negative checks are retained. [Audit repair](core/final-state-group-audit-repair.json).
+- Ranger long native hostnames obscured meaningful path evidence; its ordinary supported title option removes that incidental header. An intermittent first-key loss was traced to startup mouse-event/input flushing; positive completed preview/counter readiness replaced header-only readiness. Original failures, source traces and corrected repetitions remain in [Ranger evidence](ranger/README.md).
+- nnn corrections preserve meaningful assertions: capture the actual first list row, snapshot a genuine empty-directory counter, model rejected unmatched filter characters accurately, share operational UTF-8 inheritance, and declare a wider macOS viewport for its long native path. Four compiled C faults, including terminal-green second-line corruption, were detected with exact source/binary restoration. [nnn evidence](nnn/README.md).
+- A separate macOS race-instrumented stubborn-descendant test failed its readiness step once, despite confirmed cleanup. The cause remains unconfirmed. Fifty subsequent native repetitions and the later full native suites passed; the final freeze also passed fifty repetitions. Serialized failure/screen diagnostics are now available and missing/failed repetitions block final audit. [Investigation and limits](core/macos-stubborn-investigation.json). This is not a claimed production repair.
+
+Prepared command/control/elapsed UX assessments use synthetic fixtures, warm caches and an experienced operator. They are not independent novice studies. Configured jobs, later retries and passing terminal output alone do not establish qualification; actual reports, separately checked saved state and confirmed removal remain required.
+
+Audit consistency: the original driver selects a reviewed Unix cancellation variant, but the first strict auditor and corpus guard looked for its base filename. A shared host-case resolver now preserves all 390 original scenario/platform selections and binds the actual variant. The real Cookiecutter Linux archive validates ten groups, 100 ordinary runs, 100 separate state probes and removal. All 30 harness checks passed on Windows (five platform skips) and Linux/WSL (two skips). No public spec, snapshot or frozen Go input changed. [Actual calibration](core/final-host-case-selection-repair.json).
+
+Copier Windows Git-update budget calibration: the original final-series recorder timed out before its Support level prompt at 10 seconds, with the update preparation screen retained. Twenty native traced probes measured 8.14?9.67 seconds to that prompt and passed unchanged screen/exact-state checks. Its Windows-only budget is declared as 20 seconds before corrected requalification; Unix remains 10 seconds and all assertions/snapshots remain unchanged. This is a test-authoring budget correction, with no precise host-scheduling or production-fix claim. [Evidence](copier/git-update-budget-calibration.json).
+
+## Historical investigations
 
 H23 — owned Rust setup: Rustup installed the requested private compiler but
 then failed attempting self-update in a private Cargo home without the global

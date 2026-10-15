@@ -1,5 +1,7 @@
 # Copier development journey
 
+Current update: the first frozen campaign failed a Windows Git-update recorder checkpoint at its 10-second preparation deadline. Twenty traced native probes reached that prompt in 8.14?9.67 seconds with correct exact state and unchanged screens. Only this Windows scenario now has a declared 20-second budget; Unix remains 10 seconds, total remains 120 seconds, and all assertions/snapshots are unchanged. Corrected full native requalification is pending. [Calibration and preserved original](git-update-budget-calibration.json).
+
 Pinned MIT source: `04a8619f3b083bc278b70e556bd085551a2b3f79`, Python/questionary, version 9.18.2. Development qualification passed on native Linux and Windows at source 6df8c37cd7ffb2a6e8021cf9a0b4fa16c3b06583. Hosted and local owned-source deletion is confirmed; final single-source batch qualification remains pending.
 
 [Scope](scope.md) declares six substantive normal workflows and six edge workflows. All twelve were publicly recorded, explicitly reviewed, replayed and exported on local Windows and exploratory Linux/WSL. Unix baselines preserve the actual host rendering; they do not count as additional scenarios. Exact generated files and protected neighboring state are checked independently in the recorder's current managed workspace. A terminal pass alone does not prove saved-state correctness.

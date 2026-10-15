@@ -136,7 +136,7 @@ def recorder(binary,project,case,env,*,export=True,rerecord=False,wall_timeout=1
     args=[binary,'record','--output',output,'--name',case['purpose'],
           '--fixture',case.get('fixture',config.get('fixture','fixtures')),
           '--temporary-home','--temporary-temp','--width',str(viewport['width']),'--height',str(viewport['height']),
-          '--timeout-ms',str(case['timeout_ms']),'--run-timeout-ms','120000']
+          '--timeout-ms',str(case.get('timeout_ms_by_host',{}).get(platform.system(),case['timeout_ms'])),'--run-timeout-ms','120000']
     environment=dict(config.get('environment',{}))
     environment.update(config.get('environment_by_host',{}).get(platform.system(),{}))
     environment.update(diagnostic_environment or {})

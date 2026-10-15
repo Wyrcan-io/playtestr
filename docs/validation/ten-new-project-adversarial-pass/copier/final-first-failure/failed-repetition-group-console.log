@@ -1,0 +1,28 @@
+normal-git-update-final-0 passed f927919232fc4b47ad88c963ce9f7a70
+normal-git-update-final-1 passed 143b70e27fb54535b4a765c1eab36e87
+normal-git-update-final-2 passed fb36d7c7751a4b228b1f0b169080938e
+Traceback (most recent call last):
+  File "D:\a\playtestr\playtestr\scripts\acceptance\adversarial_journey.py", line 280, in <module>
+    main()
+  File "D:\a\playtestr\playtestr\scripts\acceptance\adversarial_journey.py", line 274, in main
+    recorder(binary,args.project,case,env,export=False)
+  File "D:\a\playtestr\playtestr\scripts\acceptance\adversarial_journey.py", line 220, in recorder
+    result=run(args,project,case['name']+('-record' if export else '-state-probe'),env=env,timeout=wall_timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\playtestr\playtestr\scripts\acceptance\adversarial_process.py", line 453, in run
+    return asyncio.run(execute(*args,**kwargs))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\asyncio\runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\asyncio\base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "D:\a\playtestr\playtestr\scripts\acceptance\adversarial_process.py", line 347, in execute
+    on_complete(result,output,directory)
+  File "D:\a\playtestr\playtestr\scripts\acceptance\adversarial_journey.py", line 215, in completed
+    raise RuntimeError('Public recorder rejected a step; final screen retained')
+RuntimeError: Public recorder rejected a step; final screen retained
