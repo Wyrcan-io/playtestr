@@ -51,5 +51,13 @@
   },
   "original_contract_archive": "historical-windows-git-update-budget",
   "windows_spec_new_sha256": "5bb08b124ad6007ab1c2a8be07e197e937183423599bd9af662358e46120940f",
-  "scope": "Only Windows actual Git-update preparation budget changes, below protocol 30s step cap. Every assertion, final snapshot and exact-state expectation is unchanged. Full corrected native qualification remains required."
+  "scope": "Only Windows actual Git-update preparation budget changes, below protocol 30s step cap. Every assertion, final snapshot and exact-state expectation is unchanged. Full corrected native qualification remains required.",
+  "timing_confounders": "Git tracing and command timing enabled; observed readiness timings are not an unbiased application performance benchmark",
+  "corrected_native_run": "38799866153",
+  "corrected_native_source": "087ec53d86f167dbbade3ffaa82614409da3675f",
+  "retained_slow_probe_git_process_starts": [
+    161,
+    161
+  ],
+  "git_trace_scope": "Complete update invocation, including work after the answer; not all process starts belong to initial preparation"
 }

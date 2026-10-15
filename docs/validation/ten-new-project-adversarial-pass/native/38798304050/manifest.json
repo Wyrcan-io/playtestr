@@ -1,0 +1,173 @@
+{
+  "run": {
+    "conclusion": "success",
+    "headSha": "1b8dd4f3917b8a88788a7aeca02c86377c3bb054",
+    "jobs": [
+      {
+        "completedAt": "2026-10-15T20:05:37Z",
+        "conclusion": "success",
+        "databaseId": 116640443747,
+        "name": "copier-startup-probe",
+        "startedAt": "2026-10-15T19:59:28Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-15T19:59:31Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-15T19:59:29Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-15T19:59:47Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "number": 2,
+            "startedAt": "2026-10-15T19:59:31Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-15T19:59:47Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 3,
+            "startedAt": "2026-10-15T19:59:47Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-15T20:00:08Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+            "number": 4,
+            "startedAt": "2026-10-15T19:59:47Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-15T20:00:50Z",
+            "conclusion": "success",
+            "name": "Build unchanged runner and prepare pinned owned Copier with synthetic Git history",
+            "number": 5,
+            "startedAt": "2026-10-15T20:00:08Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-15T20:05:17Z",
+            "conclusion": "success",
+            "name": "Twenty diagnostic recorder and exact-state probes with command timings and actual Git trace",
+            "number": 6,
+            "startedAt": "2026-10-15T20:00:50Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-15T20:05:23Z",
+            "conclusion": "success",
+            "name": "Verify termination and remove owned diagnostic Copier",
+            "number": 7,
+            "startedAt": "2026-10-15T20:05:17Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-15T20:05:33Z",
+            "conclusion": "success",
+            "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+            "number": 8,
+            "startedAt": "2026-10-15T20:05:23Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-15T20:05:33Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+            "number": 14,
+            "startedAt": "2026-10-15T20:05:33Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-15T20:05:33Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 15,
+            "startedAt": "2026-10-15T20:05:33Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-15T20:05:35Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "number": 16,
+            "startedAt": "2026-10-15T20:05:33Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-15T20:05:35Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 17,
+            "startedAt": "2026-10-15T20:05:35Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/38798304050/job/116640443747"
+      },
+      {
+        "completedAt": "2026-10-15T19:59:25Z",
+        "conclusion": "skipped",
+        "databaseId": 116640445555,
+        "name": "ranger-startup-probe",
+        "startedAt": "2026-10-15T19:59:26Z",
+        "status": "completed",
+        "steps": [],
+        "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/38798304050/job/116640445555"
+      },
+      {
+        "completedAt": "2026-10-15T19:59:25Z",
+        "conclusion": "skipped",
+        "databaseId": 116640445776,
+        "name": "final-campaign",
+        "startedAt": "2026-10-15T19:59:26Z",
+        "status": "completed",
+        "steps": [],
+        "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/38798304050/job/116640445776"
+      },
+      {
+        "completedAt": "2026-10-15T19:59:25Z",
+        "conclusion": "skipped",
+        "databaseId": 116640445786,
+        "name": "project",
+        "startedAt": "2026-10-15T19:59:26Z",
+        "status": "completed",
+        "steps": [],
+        "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/38798304050/job/116640445786"
+      },
+      {
+        "completedAt": "2026-10-15T19:59:25Z",
+        "conclusion": "skipped",
+        "databaseId": 116640445807,
+        "name": "controls",
+        "startedAt": "2026-10-15T19:59:26Z",
+        "status": "completed",
+        "steps": [],
+        "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/38798304050/job/116640445807"
+      }
+    ],
+    "status": "completed",
+    "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/38798304050"
+  },
+  "artifacts": [
+    {
+      "artifact": "adversarial-copier-startup-diagnostic-windows-2025",
+      "id": 12002888582,
+      "archive_digest": "sha256:f01e3dadb96016f66c19f736374b3cc99b555cd32492bc983b11b6ae895fe63b",
+      "files": {
+        "report-inventory.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "state-inventory.json": "7c88b9f326347b4083a28b612e58d0d212538421092e9f68a27789250547354e",
+        "harness-failures.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "cleanup-Windows.json": "3e689235c1db90acba90616d7e5b41c69c64127c30ac7728d6a2815fa316287f"
+      },
+      "run": "38798304050",
+      "source": "1b8dd4f3917b8a88788a7aeca02c86377c3bb054"
+    }
+  ],
+  "scope": "Actual development evidence; final campaign freeze still pending"
+}

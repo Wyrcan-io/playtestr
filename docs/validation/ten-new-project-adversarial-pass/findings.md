@@ -1,6 +1,6 @@
-# Findings ? development complete, final campaign running
+# Findings: development complete; final qualification pending
 
-All ten development journeys are complete. The first final frozen-candidate campaign stopped on Copier Windows at `be139a399009bc1c01e252d53f4bfd357cb65c1b`, run `38793208349`; a bounded native startup diagnostic is running at `38798304050`. No final acceptance or full-product launch credit is claimed. The detailed entries below retain their discovery-time status; current project receipts and the final audit take precedence over historical pending text.
+All ten development journeys are complete. The first final frozen-candidate campaign stopped on Copier Windows at `be139a399009bc1c01e252d53f4bfd357cb65c1b`, run `38793208349`; the successful twenty-probe startup diagnostic is retained at `38798304050`. No final acceptance or full-product launch credit is claimed. The detailed entries below retain their discovery-time status; current project receipts and the final audit take precedence over historical pending text.
 
 Latest general product repairs:
 
@@ -21,7 +21,9 @@ Prepared command/control/elapsed UX assessments use synthetic fixtures, warm cac
 
 Audit consistency: the original driver selects a reviewed Unix cancellation variant, but the first strict auditor and corpus guard looked for its base filename. A shared host-case resolver now preserves all 390 original scenario/platform selections and binds the actual variant. The real Cookiecutter Linux archive validates ten groups, 100 ordinary runs, 100 separate state probes and removal. All 30 harness checks passed on Windows (five platform skips) and Linux/WSL (two skips). No public spec, snapshot or frozen Go input changed. [Actual calibration](core/final-host-case-selection-repair.json).
 
-Copier Windows Git-update budget calibration: the original final-series recorder timed out before its Support level prompt at 10 seconds, with the update preparation screen retained. Twenty native traced probes measured 8.14?9.67 seconds to that prompt and passed unchanged screen/exact-state checks. Its Windows-only budget is declared as 20 seconds before corrected requalification; Unix remains 10 seconds and all assertions/snapshots remain unchanged. This is a test-authoring budget correction, with no precise host-scheduling or production-fix claim. [Evidence](copier/git-update-budget-calibration.json).
+Copier Windows Git-update budget calibration: the original final-series recorder timed out before its Support level prompt at 10 seconds, with the update preparation screen retained. Twenty native traced probes measured 8.14 to 9.67 seconds to that prompt and passed unchanged screen/exact-state checks. Its Windows-only budget is declared as 20 seconds before corrected requalification; Unix remains 10 seconds and all assertions/snapshots remain unchanged. This is a test-authoring budget correction, with no precise host-scheduling or production-fix claim. [Evidence](copier/git-update-budget-calibration.json).
+
+Corrected Copier requalification passed at `087ec53d86f167dbbade3ffaa82614409da3675f` / `38799866153`: all five native jobs succeeded, with 120 ordinary and 120 separate final-group state probes on each application host, three restored source controls and owned removal. The calibration is explicit; the first failed frozen attempt remains rejected. A new all-ten freeze remains required. [Actual Linux groups](copier/corrected-native-group-check-Linux.json), [actual Windows groups](copier/corrected-native-group-check-Windows.json).
 
 ## Historical investigations
 

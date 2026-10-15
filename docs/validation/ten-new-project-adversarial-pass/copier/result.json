@@ -2,12 +2,12 @@
   "project": "copier",
   "source_pin": "04a8619f3b083bc278b70e556bd085551a2b3f79",
   "license": "MIT",
-  "status": "corrected_windows_git_budget_requalification_pending",
+  "status": "development_complete_pending_final_freeze",
   "normal_scenarios": 6,
   "edge_scenarios": 6,
   "reviewed_host_variants": [
-    "Windows",
-    "Linux-WSL-exploratory"
+    "Linux",
+    "Windows"
   ],
   "qualified_native_host_pairs": 2,
   "final_frozen_repetitions": 0,
@@ -43,13 +43,15 @@
   "second_native_source": "ff38039457da855a3f5d1b94c0ccb3f2fa9b530a",
   "second_native_application_status": "both_hosts_exit_zero_at_update_but_snapshot_rejected_git_warning",
   "update_snapshot_scope": "Explicit stable update version/answer rows 1\u20133, Git fallback warning excluded; exact updated files and protected local customization remain independently required",
-  "native_run": "38117318191",
-  "native_source": "6df8c37cd7ffb2a6e8021cf9a0b4fa16c3b06583",
+  "native_run": "38799866153",
+  "native_source": "087ec53d86f167dbbade3ffaa82614409da3675f",
   "native_terminal_repetitions_per_host": 120,
   "native_state_probes_per_host": 120,
   "local_teardown_scope": "Windows and WSL owned copies removed after native qualification; hosted receipts qualify hosted repetitions, local receipts only prove local deletion",
   "latest_failed_final_campaign": "38793208349",
   "startup_diagnostic": "38798304050",
   "calibrated_windows_git_step_budget_ms": 20000,
-  "qualification_note": "Prior development completed; corrected recipe must pass new native qualification and final frozen campaign. No new credit from diagnostic probes."
+  "qualification_note": "Corrected full native qualification passed:12 scenarios,120 ordinary+120 separate actual final-group state probes perhost,all3 actual source controls/restoration,and owned removal. Final all-ten frozen campaign must restart; no diagnostic-only credit.",
+  "previous_native_run": "38117318191",
+  "previous_native_source": "6df8c37cd7ffb2a6e8021cf9a0b4fa16c3b06583"
 }

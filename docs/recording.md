@@ -13,6 +13,8 @@ playtestr record --output examples/recorded/my-wizard.json \
 
 Flags explicitly select argv, cwd or fixture/cwd, viewport, environment allowlist, per-step deadline, whole recording budget and output cap. Use `--help` for all choices. `--env NAME=value` deliberately stores that value in the reviewed test; `--inherit-env NAME` stores only a name. Operational inherited variables remain as specified in [environment/workspace contracts](workspaces.md). Relative v2 executable paths resolve from the exported spec directory; v1 paths resolve as in the ordinary runner. The setup preview shows the chosen output, argv, cwd, fixture, viewport and bounds. The target runs with your permissions; use explicitly trusted applications and synthetic fixtures.
 
+Allow target startup and preparation to reach the actual checkpoint, including subprocess work such as local version-control operations. If capture times out, use `/screen` to inspect what was rendered; measure fresh runs before restarting with a different `--timeout-ms`, and keep the whole-run budget explicit. A progress banner alone does not prove readiness for input.
+
 `/resize` changes the PTY dimensions; the application processes that change
 asynchronously. Before sending keys whose meaning depends on the new viewport
 (such as scrolling to the bottom), use `/redraw` immediately after `/resize`.
