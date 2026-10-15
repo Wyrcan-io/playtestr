@@ -1,0 +1,18 @@
+{
+  "run": "38714717729",
+  "source": "7880ebe",
+  "exact_source_restored": true,
+  "weak_passed": 19,
+  "weak_failed": 1,
+  "stronger_passed": 20,
+  "observed_trace": "Failed getch trace: numeric startup event 409, then no G (71). Passing traces: 409 then G. Pinned UI flushes queued input on nonnegative events outside its console. Native event name not captured; no constant identity is assumed.",
+  "mechanism": "Consistent with startup event flushing the queued first navigation; instrumentation changes scheduling",
+  "cleanup": "Qualification-mode cleanup refused absent native qualification report; corrected exploratory rerun 38715296656 queued",
+  "qualification_credit": 0,
+  "evidence_reference": "Remote absolute failure screen was resolved only against the explicitly verified /Users/runner/work/playtestr/playtestr workspace prefix and downloaded artifact containment",
+  "files_sha256": {
+    "summary.json": "7b2b13449ddeb62c410ac5704cac9dae9b10c15d6e38af6e6f711b5ca2c48262",
+    "weak-failure-report.json": "fb6215f168a31ba2fb4e4ea6c0b91d7b7219f04a0fdef1da6e44003382e28c17",
+    "weak-failure-screen.txt": "201e6bacf9e88d0ceaf24e913658b853ed9ac106718554acd587991a8c6fbcbc"
+  }
+}

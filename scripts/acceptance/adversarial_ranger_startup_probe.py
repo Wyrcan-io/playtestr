@@ -8,7 +8,24 @@ from adversarial_process import DOC, RAW, ROOT, run
 from adversarial_setup_python import source_identity
 
 
+def startup_variants(steps):
+    """Build explicit weak/strong controls from either reviewed recipe."""
+    header = {'expect': '/fixture/file 000.txt'}
+    readiness = [{'expect': 'RANGER BULK 000 TOKEN'}, {'expect': '1/200  Top'}]
+    if not steps or steps[0] != header:
+        raise RuntimeError('Diagnostic requires reviewed first navigation contract')
+    suffix = steps[1:]
+    if suffix[:2] == readiness:
+        suffix = suffix[2:]
+    if suffix[:3] != [{'text': 'G'}, {'expect': '/fixture/file 199.txt'},
+                      {'expect': 'RANGER BULK 199 TOKEN'}]:
+        raise RuntimeError('Diagnostic requires exact reviewed navigation suffix')
+    weak = [header, *suffix]
+    return {'header-only': weak, 'preview-and-status': [header, *readiness, *suffix]}
+
+
 def main():
+    import curses
     app = ROOT / '.cache/ten-new-project-apps/ranger'
     identity = json.loads((app / 'runtime.json').read_text(encoding='utf-8'))
     source = Path(identity['source_path'])
@@ -39,17 +56,13 @@ def main():
     contract = json.loads(public.read_text(encoding='utf-8'))
     # Store diagnostic specs beside the reviewed fixture/snapshots so path
     # semantics remain ordinary. They are not declared campaign scenarios.
-    base_steps = contract['steps']
-    if base_steps[0] != {'expect': '/fixture/file 000.txt'}:
-        raise RuntimeError('Diagnostic requires reviewed first navigation contract')
-    stronger = [base_steps[0], {'expect': 'RANGER BULK 000 TOKEN'},
-                {'expect': '1/200  Top'}, *base_steps[1:]]
+    variants = startup_variants(contract['steps'])
     records = []
     try:
         ui.write_bytes(value.replace(anchor, probe).encode('utf-8'))
         os.utime(ui, ns=(stat.st_atime_ns, stat.st_mtime_ns + 2_000_000_000))
         instrumented = source_identity(source)
-        for variant, steps in [('header-only', base_steps), ('preview-and-status', stronger)]:
+        for variant, steps in variants.items():
             spec = public.with_name('diagnostic-startup-' + variant + '.json')
             if spec.exists():
                 raise RuntimeError('Refuse overwriting a diagnostic input')
@@ -60,8 +73,8 @@ def main():
                 report = evidence / (variant + '-' + str(index) + '.json')
                 error = None
                 try:
-                    run([binary, 'test', '--report', report, '--artifacts-dir',
-                                  report.with_suffix(''), spec], 'ranger',
+                    run([binary, 'test', '--report', report.relative_to(ROOT), '--artifacts-dir',
+                                  report.with_suffix('').relative_to(ROOT), spec], 'ranger',
                                  'diagnostic-startup-' + variant + '-' + str(index), env=env, timeout=30)
                 except RuntimeError as failure:
                     error = str(failure)
@@ -80,6 +93,9 @@ def main():
                 print(variant, index, outcome['status'], flush=True)
         result = dict(records=records, pristine_source_sha256=pristine['digest'],
                       instrumented_source_sha256=instrumented['digest'],
+                      diagnostic_steps=variants,
+                      native_curses_codes={name: getattr(curses, name, None)
+                                           for name in ['KEY_RESIZE', 'KEY_MOUSE', 'KEY_HOME']},
                       qualification_credit=0,
                       scope='Instrumented target diagnosis; file logging changes scheduling. No pristine application qualification.')
     finally:

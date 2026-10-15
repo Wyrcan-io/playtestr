@@ -1,0 +1,17 @@
+{
+  "before_actual_native_run": "38715296656",
+  "before_actual_steps": {
+    "header-only": 11,
+    "preview-and-status": 13
+  },
+  "before_problem": "Both variants included the strengthened readiness checks after the public contract changed",
+  "repair": "Validate exact header/navigation suffix; strip only the two known optional readiness checks before constructing explicit weak and strong recipes",
+  "after_calibration": {
+    "original_and_strengthened_inputs_produce_identical_variants": true,
+    "header_only_steps": 9,
+    "preview_and_status_steps": 11,
+    "input_not_mutated": true,
+    "unreviewed_prefix_rejected": true
+  },
+  "qualification_credit": 0
+}

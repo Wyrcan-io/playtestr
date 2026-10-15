@@ -43,6 +43,13 @@ For the wizard, enter:
 
 Use unique, meaningful content identifying the new state. The recorder rejects an anchor already present before the first input in the sequence since the previous checkpoint and whitespace-only anchors. It waits within the configured step deadline for exactly one occurrence of a meaningful anchor; transient duplicates during redraw can resolve, while persistent duplicates fail with an ambiguity/deadline error. Readiness and uniqueness use the same observed screen. This permits typing a filter and then confirming it with Enter even when its new result renders before Enter. An unchanged caption present before that sequence still cannot prove the transition. A successful text/disappearance/exit checkpoint ends the sequence; fresh prefix rerecord reconstructs the same rule. `/absent previous content` requires an earlier positive observation and intervening input/resize. After input or resize, a snapshot needs a fresh text/disappearance/exit checkpoint. `/redraw` is optional and must immediately follow `/resize`; observed redraw and settling do not replace a checkpoint. No recorded sleeps or automatic normalization hide dynamic fields. Configure deterministic state in the target, or select a more useful assertion. Correctness and coverage remain the author's responsibility.
 
+At startup, observe content showing that the initial view has finished loading
+before sending the first navigation key. A title or selected filename can appear
+while the application is still processing startup events. For a file browser,
+check the selected file's preview and the completed list status as well as its
+path. Choose checkpoints from the application's actual screen, then confirm
+that fresh replay reliably performs the first action.
+
 When an application temporarily leaves its full-screen view to run a command,
 text can disappear before the application resumes accepting input. Before
 sending another key, use `/expect` to observe a specific resumed-view prompt
