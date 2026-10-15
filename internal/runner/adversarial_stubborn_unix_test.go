@@ -105,7 +105,9 @@ func TestAdversarialStubbornUnixDescendantCleanup(t *testing.T) {
 	}
 	result := RunDetailedContext(context.Background(), path, RunOptions{}, &bytes.Buffer{})
 	if result.Err() != nil || !result.Cleanup.ConfirmedExited {
-		t.Fatalf("stubborn live descendants were not cleaned after natural parent exit: %+v", result)
+		detail, _ := json.Marshal(result)
+		screen, screenErr := os.ReadFile(result.Evidence.ScreenPath)
+		t.Fatalf("stubborn descendant test failed: error=%v result=%s screen=%q screen_error=%v", result.Err(), detail, screen, screenErr)
 	}
 	for _, name := range []string{"child", "grandchild"} {
 		data, err := os.ReadFile(filepath.Join(root, name+".pid"))
