@@ -1,0 +1,88 @@
+{
+  "version": 2,
+  "name": "Cancel a changed rename prompt and preserve the original selected file",
+  "command": [
+    "nnn",
+    "-A",
+    "-C",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "expect": "bravo.txt"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": "str [/], ic [:]"
+    },
+    {
+      "text": "bravo"
+    },
+    {
+      "expect": "/bravo"
+    },
+    {
+      "expect_not": "alpha.txt"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "str [/], ic [:]"
+    },
+    {
+      "expect": "bravo.txt*"
+    },
+    {
+      "key": "CtrlR"
+    },
+    {
+      "key": "CtrlU"
+    },
+    {
+      "text": "discarded café.txt"
+    },
+    {
+      "expect": "discarded café.txt"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "discarded café.txt"
+    },
+    {
+      "expect": "bravo.txt*"
+    },
+    {
+      "snapshot": "edge-cancel-rename.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

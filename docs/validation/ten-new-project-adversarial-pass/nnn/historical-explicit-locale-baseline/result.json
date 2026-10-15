@@ -1,0 +1,109 @@
+{
+  "ordinary_cases": 17,
+  "separate_state_cases": 17,
+  "checks": [
+    {
+      "case": "normal-project",
+      "public_spec_sha256": "a6ef9a11e13149e91129fbb8aad6ded2b5bf3984a0811d652c4eadf1d7bf05bc",
+      "ordinary_id": "046477c542d44d30936dbff135c2b149",
+      "state_id": "6af26f0f78584016a0acf893f5eb2900"
+    },
+    {
+      "case": "normal-directory",
+      "public_spec_sha256": "c726383c10b62173aa522a1f7e24f8a6c655465a276abe01b351bfac1e79e8e4",
+      "ordinary_id": "ecabb16b9b62483f90df24a71192e89a",
+      "state_id": "788d079ff73d472db71d9999d7f8668b"
+    },
+    {
+      "case": "normal-rename",
+      "public_spec_sha256": "05d325bfb62707f093cbdc2173005d88210e670197b3813cf696b8b3d40895b7",
+      "ordinary_id": "6e06164808e1435ea1bc05c40aecdabd",
+      "state_id": "4c6963036a0c41d2836b099d9dcedd9e"
+    },
+    {
+      "case": "normal-copy",
+      "public_spec_sha256": "206e7cd8a1df94e69bcc438c30ef9c7f79e405c9ed8d7d344fa0e566f54074a0",
+      "ordinary_id": "1afadc70980f4daa8974c0dd29a43981",
+      "state_id": "6e741abca0ad433aa1beba5d81c0712f"
+    },
+    {
+      "case": "normal-move",
+      "public_spec_sha256": "f0e37255158ef8ba1f22848c9e98e51b3c9421dd8d950bdb73661cfb83197d58",
+      "ordinary_id": "5cc5cf9e5d98459284b54b6db4650216",
+      "state_id": "1df52d3e53b54efaa920f4765a926722"
+    },
+    {
+      "case": "normal-context-navigation",
+      "public_spec_sha256": "85b775f10ec012b2abf158d3f626bb0967437c44501f80cd5fb86706244c61b5",
+      "ordinary_id": "0ef47a2927104c5cbd132b15baaeec4b",
+      "state_id": "a1fbc6a2cc894bc0852487521acfd065"
+    },
+    {
+      "case": "normal-multi-selection-copy",
+      "public_spec_sha256": "c03e7c40fd05a4b3faa6dc805d78e86d38ffbe92ed33006adca973d0cc96f692",
+      "ordinary_id": "eaa79116f4594a839499992e38eb4d28",
+      "state_id": "0c6bd24ffee4425fa5a4e9c039103b6a"
+    },
+    {
+      "case": "edge-empty-directory",
+      "public_spec_sha256": "980ce93df9932ce85b89b9b6326ddfe220cd1ed6c3b894cfeba82623e2f6aad1",
+      "ordinary_id": "93c3d263cd4e4e1995d0ff998d1e93f2",
+      "state_id": "124faaa95f494e7eb303c1dab557928f"
+    },
+    {
+      "case": "edge-no-match-filter-recovery",
+      "public_spec_sha256": "b6dcb9dd3914afb394f16cdb85eeb5b6513b56988302aac6d1934c97a30cb8d5",
+      "ordinary_id": "dbcfbedb8192484b840e60fb8a956035",
+      "state_id": "a6cb63b2a7014f198156b023b2dba2cc"
+    },
+    {
+      "case": "edge-cancel-create",
+      "public_spec_sha256": "14936a3639dd36ae4377e40b89fce57a7097e2bb3c2415782fd17ce6c463e0e6",
+      "ordinary_id": "1f24cb9a0ba544e0a1a7dd060a4b4bfc",
+      "state_id": "ab95ae98b0334ddea9a82a4e386ef431"
+    },
+    {
+      "case": "edge-cancel-rename",
+      "public_spec_sha256": "fdedba356fdf9dec3a0a419e5499bce4a7162ee19092ee6858d112202db8a9b4",
+      "ordinary_id": "27bd1327a62b440ea3a2d7f2a5f97900",
+      "state_id": "4b079754beb74558a87959b1ce008dae"
+    },
+    {
+      "case": "edge-occupied-rename",
+      "public_spec_sha256": "d8501ed2bbd48a46fad5abfd7628920d67efcd4604dc623c1de1a14c19bbef44",
+      "ordinary_id": "bf5046d947664d358ee40eeea47fb9c4",
+      "state_id": "19db9c579eea4f5997e082fac176b8eb"
+    },
+    {
+      "case": "edge-occupied-create",
+      "public_spec_sha256": "3ec85fa5b918e4c4552f5c737ab18b12f7444db35c0b4147169d4cb23c2efc31",
+      "ordinary_id": "796079b738c740d285be4cbaa27e68c1",
+      "state_id": "b662f78d0195407fae0f1a8f69e5e346"
+    },
+    {
+      "case": "edge-delete-cancelled",
+      "public_spec_sha256": "ed1e2bb77e412d68d50876afd24a6eb26e8a4adb33a2c4a83088c99028b83d5e",
+      "ordinary_id": "7e588cb2a59542c5bf9ab5d7c54ba49f",
+      "state_id": "667413d0b06a4561bfd7a3c4acad82a9"
+    },
+    {
+      "case": "edge-hidden-toggle",
+      "public_spec_sha256": "74421b3ebd5db87a17548f99ac6498c75dbe193eb0690a70fc20f2fc281595e5",
+      "ordinary_id": "1b25a39ca0e04ce6b9014db2171a7151",
+      "state_id": "dc5270399a944ad8a480dd6c1577b15a"
+    },
+    {
+      "case": "edge-large-directory",
+      "public_spec_sha256": "e815f634fc9ae7d26e71bc3ab965fe96896cf5de3820e4801a6c7a6a8fb9c471",
+      "ordinary_id": "accee14f6427483891231298846793aa",
+      "state_id": "87bb4dc92d554394896a925aed3b8a02"
+    },
+    {
+      "case": "edge-resize-recovery",
+      "public_spec_sha256": "0c8d7728b57142a1998cc012e6186163e0ceffb6d2663561afe801e08c5b94a6",
+      "ordinary_id": "7685abaae9804b53bdb3355adcd9f243",
+      "state_id": "9793c32d873249b0b74ce1d3e0b5f951"
+    }
+  ],
+  "scope": "Historical explicit Linux-locale baseline; common operational-locale recipe requires a new check"
+}

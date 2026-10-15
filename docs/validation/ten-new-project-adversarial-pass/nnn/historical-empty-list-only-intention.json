@@ -1,0 +1,85 @@
+{
+  "name": "edge-empty-directory",
+  "kind": "edge",
+  "purpose": "Enter a genuinely empty directory while preserving all other fixture entries",
+  "command": [
+    "nnn",
+    "-A",
+    "-C",
+    "."
+  ],
+  "steps": [
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "expect": "bravo.txt"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": "str [/], ic [:]"
+    },
+    {
+      "text": "empty"
+    },
+    {
+      "expect": "/empty"
+    },
+    {
+      "expect_not": "alpha.txt"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "str [/], ic [:]"
+    },
+    {
+      "expect": "empty/"
+    },
+    {
+      "text": "l"
+    },
+    {
+      "expect": "/fixture/empty"
+    },
+    {
+      "expect_not": "empty/"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ],
+  "snapshot_after_step": 13,
+  "snapshot_rows": [
+    3,
+    25
+  ],
+  "timeout_ms": 10000,
+  "fixture": "fixtures",
+  "expected_files": {
+    "alpha.txt": "NNN ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+    "bravo.txt": "NNN BRAVO ORIGINAL TOKEN\n",
+    "protected.txt": "NNN PROTECTED NEIGHBOR TOKEN\n",
+    "café 雪.txt": "NNN ROOT UNICODE TOKEN\n",
+    "nested/notes café.txt": "NNN NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+    "occupied/keep.txt": "NNN OCCUPIED DIRECTORY TOKEN\n",
+    ".hidden-synthetic.txt": "NNN SYNTHETIC HIDDEN TOKEN\n"
+  },
+  "expected_directories": [
+    "empty",
+    "nested",
+    "occupied"
+  ],
+  "empty_directories": [
+    "empty"
+  ],
+  "absent_paths": [],
+  "exact_tree": true,
+  "snapshot_exclusion": "Exclude random path/context header and dynamic status; preserve the complete intended list body"
+}

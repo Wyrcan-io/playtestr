@@ -2,6 +2,7 @@ name: All ten projects on one frozen runner
 
 on:
   workflow_dispatch:
+  workflow_call:
 
 permissions:
   contents: read

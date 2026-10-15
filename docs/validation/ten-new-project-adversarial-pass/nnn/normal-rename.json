@@ -1,0 +1,89 @@
+{
+  "version": 2,
+  "name": "Filter a noninitial file, rename it and preserve exact bytes",
+  "command": [
+    "nnn",
+    "-A",
+    "-C",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "expect": "bravo.txt"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": "str [/], ic [:]"
+    },
+    {
+      "text": "bravo"
+    },
+    {
+      "expect": "/bravo"
+    },
+    {
+      "expect_not": "alpha.txt"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "str [/], ic [:]"
+    },
+    {
+      "expect": "bravo.txt*"
+    },
+    {
+      "key": "CtrlR"
+    },
+    {
+      "key": "CtrlU"
+    },
+    {
+      "text": "renamed café.txt"
+    },
+    {
+      "expect": "renamed café.txt"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "bravo.txt*"
+    },
+    {
+      "expect": "renamed café.txt*"
+    },
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "snapshot": "normal-rename.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

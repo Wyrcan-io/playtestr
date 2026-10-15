@@ -1,0 +1,59 @@
+{
+  "version": 2,
+  "name": "Navigate to the final entry of a 200-file directory and return home",
+  "command": [
+    "nnn",
+    "-A",
+    "-C",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures-large",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "entry 000.txt*"
+    },
+    {
+      "expect": "1/200"
+    },
+    {
+      "key": "End"
+    },
+    {
+      "expect": "200/200"
+    },
+    {
+      "expect": "entry 199.txt*"
+    },
+    {
+      "snapshot": "edge-large-directory.rows.json"
+    },
+    {
+      "key": "Home"
+    },
+    {
+      "expect": "1/200"
+    },
+    {
+      "expect": "entry 000.txt*"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

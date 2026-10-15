@@ -1,0 +1,65 @@
+{
+  "version": 2,
+  "name": "Verify ordinary Unicode creation with inherited operational locale",
+  "command": [
+    "nnn",
+    "-A",
+    "-C",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "screen-256color"
+  },
+  "width": 100,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "text": "n"
+    },
+    {
+      "expect": "['f'ile]/'d'ir/'s'ym/'h'ard?"
+    },
+    {
+      "text": "f"
+    },
+    {
+      "expect": "[path/]name:"
+    },
+    {
+      "text": "created café.txt"
+    },
+    {
+      "expect": "[path/]name: created café.txt"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "[path/]name:"
+    },
+    {
+      "expect": "created café.txt"
+    },
+    {
+      "snapshot": "normal-project.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+[
+  {
+    "name": "new-file-becomes-directory",
+    "case": "normal-project",
+    "file": "src/nnn.c",
+    "old": "ret = xmktree(tmp, r == 'f' ? FALSE : TRUE, TRUE);",
+    "new": "ret = xmktree(tmp, TRUE, TRUE);"
+  },
+  {
+    "name": "rename-silently-does-nothing",
+    "case": "normal-rename",
+    "file": "src/nnn.c",
+    "old": "rename(pdents[cur].name, tmp)",
+    "new": "rename(pdents[cur].name, pdents[cur].name)"
+  },
+  {
+    "name": "unmatched-filter-character-retained",
+    "case": "edge-no-match-filter-recovery",
+    "file": "src/nnn.c",
+    "old": "if (r == 0)\n\t\t\t\tunget_wch(KEY_BACKSPACE);",
+    "new": "if (r < 0)\n\t\t\t\tunget_wch(KEY_BACKSPACE);"
+  },
+  {
+    "name": "copy-corrupts-second-line",
+    "case": "normal-copy",
+    "file": "src/nnn.c",
+    "state_only": true,
+    "old": "if (sel != SEL_CPMVAS && spawn(utils[UTIL_SH_EXEC], g_buf, NULL, NULL, F_CLI | F_CHKRTN)) {\n\t\tprintmsg(messages[MSG_FAILED]);\n\t\treturn FALSE;\n\t}\n\n\t/* Clear selection */",
+    "new": "if (sel != SEL_CPMVAS && spawn(utils[UTIL_SH_EXEC], g_buf, NULL, NULL, F_CLI | F_CHKRTN)) {\n\t\tprintmsg(messages[MSG_FAILED]);\n\t\treturn FALSE;\n\t}\n\n\tif (sel == SEL_CP && nselected == 1 && selbufpos) {\n\t\tchar probe_copy_path[PATH_MAX];\n\t\tmkpath(path, xbasename(pselbuf), probe_copy_path);\n\t\tFILE *probe_copy = fopen(probe_copy_path, \"r+\");\n\t\tif (probe_copy) {\n\t\t\tchar probe_first_line[4096];\n\t\t\tif (fgets(probe_first_line, sizeof(probe_first_line), probe_copy)) {\n\t\t\t\tlong probe_second_line = ftell(probe_copy);\n\t\t\t\tif (probe_second_line >= 0 && fgetc(probe_copy) != EOF &&\n\t\t\t\t    fseek(probe_copy, probe_second_line, SEEK_SET) == 0)\n\t\t\t\t\tfputc('X', probe_copy);\n\t\t\t}\n\t\t\tfclose(probe_copy);\n\t\t}\n\t}\n\n\t/* Clear selection */"
+  }
+]

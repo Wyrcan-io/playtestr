@@ -1,0 +1,91 @@
+{
+  "project": "nnn",
+  "fixture": "fixtures",
+  "environment": {
+    "TERM": "screen-256color",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8"
+  },
+  "environment_by_host": {
+    "Darwin": {
+      "LANG": "en_US.UTF-8",
+      "LC_ALL": "en_US.UTF-8"
+    }
+  },
+  "cases": [
+    {
+      "name": "normal-project",
+      "kind": "normal",
+      "purpose": "Create an ordinary spaced Unicode file through the public nnn creation prompts",
+      "command": [
+        "nnn",
+        "-A",
+        "-C",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": "n"
+        },
+        {
+          "expect": "['f'ile]/'d'ir/'s'ym/'h'ard?"
+        },
+        {
+          "text": "f"
+        },
+        {
+          "expect": "[path/]name:"
+        },
+        {
+          "text": "created café.txt"
+        },
+        {
+          "expect": "[path/]name: created café.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": "[path/]name:"
+        },
+        {
+          "expect": "created café.txt"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 10,
+      "snapshot_rows": [
+        4,
+        25
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "NNN ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "NNN BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "NNN PROTECTED NEIGHBOR TOKEN\n",
+        "café 雪.txt": "NNN ROOT UNICODE TOKEN\n",
+        "nested/notes café.txt": "NNN NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "NNN OCCUPIED DIRECTORY TOKEN\n",
+        ".hidden-synthetic.txt": "NNN SYNTHETIC HIDDEN TOKEN\n",
+        "created café.txt": ""
+      },
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied"
+      ],
+      "empty_directories": [
+        "empty"
+      ],
+      "exact_tree": true
+    }
+  ]
+}

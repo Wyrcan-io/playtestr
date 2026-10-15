@@ -71,6 +71,17 @@ def main():
     if not identity_path.exists():
         identity_path.write_text(json.dumps(dict(source=candidate['sha'],native_host=platform.platform(),
             app=str(app),source_path=str(source),path=str(app/'bin'),editable=False),indent=2)+'\n',encoding='utf-8')
+    # nnn uses native wide-character curses. Keep the public test's ordinary
+    # operational locale inheritance identical for recorder and replay instead
+    # of embedding a Linux locale name in a portable spec.
+    locale=shutil.which('locale')
+    if not locale:raise RuntimeError('Existing native locale utility is required')
+    character_map=run([locale,'charmap'],project,'native-character-map-prerequisite',timeout=60)['output'].strip()
+    if character_map.replace('-','').replace('_','').upper()!='UTF8':
+        raise RuntimeError('Reviewed Unicode journeys require an existing operational UTF-8 locale')
+    identity=json.loads(identity_path.read_text(encoding='utf-8'))
+    identity['native_locale_charmap']=character_map
+    identity_path.write_text(json.dumps(identity,indent=2)+'\n',encoding='utf-8')
     print(json.dumps(build(app,project),indent=2))
 
 

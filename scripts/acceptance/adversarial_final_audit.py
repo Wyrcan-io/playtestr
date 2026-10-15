@@ -12,6 +12,12 @@ from adversarial_freeze_runner import source_inputs
 def digest(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def belongs_to_campaign(events,run,attempt=None):
+    start=events.get('started',{})
+    return (start.get('ci_run_id')==str(run) and
+            (attempt is None or start.get('ci_run_attempt')==str(attempt)))
+
+
 def repetition_group(attempts,positions,project,case_name,ordinary_ids):
     """Find the actual completed parent containing the ten ordinary children."""
     if len(ordinary_ids)!=10 or len(set(ordinary_ids))!=10:
@@ -64,6 +70,7 @@ def audit(run):
         identity=json.loads(freeze.read_text(encoding='utf-8'));frozen[host]=(identity,digest(freeze))
         if identity['source']!=source or identity['source_inputs_normalized_lf_sha256']!=current_inputs:
             errors.append('Frozen Go source identity differs: '+host)
+        if str(identity.get('run_id'))!=run:errors.append('Frozen build belongs to another campaign: '+host)
         if identity['host_system']!=systems[host]:errors.append('Frozen native platform mismatch: '+host)
         applicable={c['id'] for c in matrix['controls'] if host in c['hosts']}
         if not applicable.issubset(set(record.get('passed_mapped_controls',[]))):
@@ -89,7 +96,8 @@ def audit(run):
     for host,(identity,_) in frozen.items():
         build=attempts.get(identity['build_evidence_id'],{})
         if (build.get('started',{}).get('label')!='freeze-host-runner-build' or
-            build.get('finished',{}).get('category')!='passed' or 'launched' not in build):
+            build.get('finished',{}).get('category')!='passed' or 'launched' not in build or
+            not belongs_to_campaign(build,run)):
             errors.append('Actual frozen build event missing: '+host)
     pairs=[];fault_total=state_fault_total=0;distinct_faults=set();distinct_state_faults=set()
     for project in corpus['projects']:
@@ -133,7 +141,8 @@ def audit(run):
                 # public contract to each launched, successfully finished run.
                 qualified=[]
                 final_attempts=[events for i in range(10)
-                    for events in by_label.get((name,identity['binary_sha256'],case_name+'-final-'+str(i)),[])]
+                    for events in by_label.get((name,identity['binary_sha256'],case_name+'-final-'+str(i)),[])
+                    if belongs_to_campaign(events,run,native['run_attempt'])]
                 for events in final_attempts:
                     start=events.get('started',{});identified=events.get('identified',{});finish=events.get('finished',{})
                     provenance=identified.get('identity',{})
@@ -152,7 +161,9 @@ def audit(run):
                 if len(qualified)!=10:errors.append('Ten frozen attempt identities missing: '+artifact+'/'+case_name)
                 ordinary+=len(matches)
                 try:
-                    _,members=repetition_group(attempts,positions,name,case['name'],qualified)
+                    group,members=repetition_group(attempts,positions,name,case['name'],qualified)
+                    if not belongs_to_campaign(attempts[group],run,native['run_attempt']):
+                        raise RuntimeError('Repetition group belongs to another campaign or attempt')
                 except RuntimeError as error:
                     errors.append(artifact+'/'+case_name+': '+str(error));members=set()
                 counted=[sid for sid in state_ids if sid in members and
@@ -164,6 +175,7 @@ def audit(run):
                     events=attempts[state['attempt_id']]
                     provenance=events.get('identified',{}).get('identity',{})
                     if (provenance.get('runner_sha256')!=identity['binary_sha256'] or
+                        not belongs_to_campaign(events,run,native['run_attempt']) or
                         provenance.get('target_revision')!=project['source_pin'] or
                         events.get('finished',{}).get('category')!='passed' or
                         events.get('finished',{}).get('cleanup_errors') or 'launched' not in events):
@@ -201,6 +213,7 @@ def audit(run):
                     events=attempts.get(control.get(key),{})
                     provenance=events.get('identified',{}).get('identity',{})
                     if (events.get('started',{}).get('project')!=name or
+                        not belongs_to_campaign(events,run,native['run_attempt']) or
                         provenance.get('runner_sha256')!=identity['binary_sha256'] or
                         provenance.get('target_revision')!=project['source_pin'] or
                         events.get('finished',{}).get('category')!='passed' or

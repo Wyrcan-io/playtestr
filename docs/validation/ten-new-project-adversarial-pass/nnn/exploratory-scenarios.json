@@ -1,0 +1,63 @@
+{
+  "project": "nnn",
+  "fixture": "fixtures",
+  "environment": {
+    "TERM": "screen-256color",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8"
+  },
+  "environment_by_host": {
+    "Darwin": {
+      "LANG": "en_US.UTF-8",
+      "LC_ALL": "en_US.UTF-8"
+    }
+  },
+  "cases": [
+    {
+      "name": "explore-startup",
+      "kind": "exploration",
+      "purpose": "Observe ordinary nnn startup and natural quit; no scenario credit",
+      "command": [
+        "nnn",
+        "-A",
+        "-C",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 1,
+      "snapshot_rows": [
+        4,
+        25
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "NNN ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "NNN BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "NNN PROTECTED NEIGHBOR TOKEN\n",
+        "café 雪.txt": "NNN ROOT UNICODE TOKEN\n",
+        "nested/notes café.txt": "NNN NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "NNN OCCUPIED DIRECTORY TOKEN\n",
+        ".hidden-synthetic.txt": "NNN SYNTHETIC HIDDEN TOKEN\n"
+      },
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied"
+      ],
+      "empty_directories": [
+        "empty"
+      ],
+      "exact_tree": true
+    }
+  ]
+}

@@ -25,7 +25,7 @@ def retain_target_identity(project,phase):
     fields=['source','native_host','source_path','binary','binary_sha256','toolchain',
             'requested_toolchain','compiler_path','build_profile','cargo_profile',
             'reproducible_windows_link','helix_grammar_scope','interpreter_sha256',
-            'compiler_sha256','compiler_version','make_version','native_shared_libraries',
+            'compiler_sha256','compiler_version','make_version','native_shared_libraries','native_locale_charmap',
             'python_probe','python','dependencies','setup','build_recipe','editable']
     value={key:data[key] for key in fields if key in data}
     if 'execution_identity' in data:

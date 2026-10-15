@@ -29,6 +29,17 @@
       "skipped": 2
     }
   },
-  "native_latest_28_suite": "Pending next CI source; earlier 27-test suite passed all three hosts",
-  "scope": "Private final campaign auditor repair; no new public runner assertions or final campaign credit"
+  "native_latest_28_suite": "All three native core jobs succeeded in 38719546842 at 4c0dd48; native evidence import pending",
+  "scope": "Private final campaign auditor repair; no new public runner assertions or final campaign credit",
+  "rerun_binding": {
+    "problem": "An identical frozen binary can appear in more than one workflow run or rerun attempt; global label/hash matching alone can mix their execution IDs",
+    "repair": "Capture only validated public numeric CI run/attempt identifiers in private started events and require matching current campaign/attempt for ordinary, grouped state and restoration executions; frozen builds are also bound to the current run",
+    "local_windows_suite": {
+      "tests": 28,
+      "passed": true,
+      "seconds": 18.637,
+      "skipped": 5
+    },
+    "native_source_status": "Run 38719546842 at 4c0dd48 passed all native core jobs and the earlier 28-test grouping suite; newest CI-identifier addition awaits next committed CI source"
+  }
 }

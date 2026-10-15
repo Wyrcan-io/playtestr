@@ -1,0 +1,2139 @@
+{
+  "project": "nnn",
+  "fixture": "fixtures",
+  "environment": {
+    "TERM": "screen-256color",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8"
+  },
+  "environment_by_host": {
+    "Darwin": {
+      "LANG": "en_US.UTF-8",
+      "LC_ALL": "en_US.UTF-8"
+    }
+  },
+  "cases": [
+    {
+      "name": "normal-project",
+      "kind": "normal",
+      "purpose": "Create an ordinary spaced Unicode file through the public nnn creation prompts",
+      "command": [
+        "nnn",
+        "-A",
+        "-C",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": "n"
+        },
+        {
+          "expect": "['f'ile]/'d'ir/'s'ym/'h'ard?"
+        },
+        {
+          "text": "f"
+        },
+        {
+          "expect": "[path/]name:"
+        },
+        {
+          "text": "created café.txt"
+        },
+        {
+          "expect": "[path/]name: created café.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": "[path/]name:"
+        },
+        {
+          "expect": "created café.txt"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 10,
+      "snapshot_rows": [
+        3,
+        25
+      ],
+      "timeout_ms": 10000,
+      "expected_files": {
+        "alpha.txt": "NNN ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "NNN BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "NNN PROTECTED NEIGHBOR TOKEN\n",
+        "café 雪.txt": "NNN ROOT UNICODE TOKEN\n",
+        "nested/notes café.txt": "NNN NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "NNN OCCUPIED DIRECTORY TOKEN\n",
+        ".hidden-synthetic.txt": "NNN SYNTHETIC HIDDEN TOKEN\n",
+        "created café.txt": ""
+      },
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied"
+      ],
+      "empty_directories": [
+        "empty"
+      ],
+      "exact_tree": true
+    },
+    {
+      "name": "normal-directory",
+      "kind": "normal",
+      "purpose": "Create a nested Unicode directory tree and verify its empty leaf",
+      "command": [
+        "nnn",
+        "-A",
+        "-C",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "expect": "bravo.txt"
+        },
+        {
+          "text": "n"
+        },
+        {
+          "expect": "['f'ile]/'d'ir/'s'ym/'h'ard?"
+        },
+        {
+          "text": "d"
+        },
+        {
+          "expect": "[path/]name:"
+        },
+        {
+          "text": "created café/sub"
+        },
+        {
+          "expect": "[path/]name: created café/sub"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": "[path/]name:"
+        },
+        {
+          "expect": "created café/"
+        },
+        {
+          "text": "l"
+        },
+        {
+          "expect": "/fixture/created café"
+        },
+        {
+          "expect": "sub/"
+        },
+        {
+          "text": "l"
+        },
+        {
+          "expect": "/fixture/created café/sub"
+        },
+        {
+          "expect_not": "sub/"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 14,
+      "snapshot_rows": [
+        3,
+        25
+      ],
+      "timeout_ms": 10000,
+      "fixture": "fixtures",
+      "expected_files": {
+        "alpha.txt": "NNN ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "NNN BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "NNN PROTECTED NEIGHBOR TOKEN\n",
+        "café 雪.txt": "NNN ROOT UNICODE TOKEN\n",
+        "nested/notes café.txt": "NNN NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "NNN OCCUPIED DIRECTORY TOKEN\n",
+        ".hidden-synthetic.txt": "NNN SYNTHETIC HIDDEN TOKEN\n"
+      },
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied",
+        "created café",
+        "created café/sub"
+      ],
+      "empty_directories": [
+        "empty",
+        "created café/sub"
+      ],
+      "absent_paths": [],
+      "exact_tree": true,
+      "snapshot_exclusion": "Exclude random path/context header and dynamic status; preserve the complete intended list body"
+    },
+    {
+      "name": "normal-rename",
+      "kind": "normal",
+      "purpose": "Filter a noninitial file, rename it and preserve exact bytes",
+      "command": [
+        "nnn",
+        "-A",
+        "-C",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "expect": "bravo.txt"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": "str [/], ic [:]"
+        },
+        {
+          "text": "bravo"
+        },
+        {
+          "expect": "/bravo"
+        },
+        {
+          "expect_not": "alpha.txt"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": "str [/], ic [:]"
+        },
+        {
+          "expect": "bravo.txt*"
+        },
+        {
+          "key": "CtrlR"
+        },
+        {
+          "key": "CtrlU"
+        },
+        {
+          "text": "renamed café.txt"
+        },
+        {
+          "expect": "renamed café.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": "bravo.txt*"
+        },
+        {
+          "expect": "renamed café.txt*"
+        },
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 18,
+      "snapshot_rows": [
+        3,
+        25
+      ],
+      "timeout_ms": 10000,
+      "fixture": "fixtures",
+      "expected_files": {
+        "alpha.txt": "NNN ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "protected.txt": "NNN PROTECTED NEIGHBOR TOKEN\n",
+        "café 雪.txt": "NNN ROOT UNICODE TOKEN\n",
+        "nested/notes café.txt": "NNN NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "NNN OCCUPIED DIRECTORY TOKEN\n",
+        ".hidden-synthetic.txt": "NNN SYNTHETIC HIDDEN TOKEN\n",
+        "renamed café.txt": "NNN BRAVO ORIGINAL TOKEN\n"
+      },
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied"
+      ],
+      "empty_directories": [
+        "empty"
+      ],
+      "absent_paths": [
+        "bravo.txt"
+      ],
+      "exact_tree": true,
+      "snapshot_exclusion": "Exclude random path/context header and dynamic status; preserve the complete intended list body"
+    },
+    {
+      "name": "normal-copy",
+      "kind": "normal",
+      "purpose": "Select and copy one file into a nested directory, then return",
+      "command": [
+        "nnn",
+        "-A",
+        "-C",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "expect": "bravo.txt"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": "str [/], ic [:]"
+        },
+        {
+          "text": "alpha"
+        },
+        {
+          "expect": "/alpha"
+        },
+        {
+          "expect_not": "bravo.txt"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": "str [/], ic [:]"
+        },
+        {
+          "expect": "alpha.txt*"
+        },
+        {
+          "text": " "
+        },
+        {
+          "expect": "+alpha.txt*"
+        },
+        {
+          "key": "CtrlL"
+        },
+        {
+          "expect": "bravo.txt"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": "str [/], ic [:]"
+        },
+        {
+          "text": "nested"
+        },
+        {
+          "expect": "/nested"
+        },
+        {
+          "expect_not": "alpha.txt"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": "str [/], ic [:]"
+        },
+        {
+          "expect": "nested/"
+        },
+        {
+          "text": "l"
+        },
+        {
+          "expect": "/fixture/nested"
+        },
+        {
+          "expect": "notes café.txt*"
+        },
+        {
+          "text": "p"
+        },
+        {
+          "expect": "alpha.txt*"
+        },
+        {
+          "text": "h"
+        },
+        {
+          "expect_not": "/fixture/nested"
+        },
+        {
+          "expect": "protected.txt*"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 27,
+      "snapshot_rows": [
+        3,
+        25
+      ],
+      "timeout_ms": 10000,
+      "fixture": "fixtures",
+      "expected_files": {
+        "alpha.txt": "NNN ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "NNN BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "NNN PROTECTED NEIGHBOR TOKEN\n",
+        "café 雪.txt": "NNN ROOT UNICODE TOKEN\n",
+        "nested/notes café.txt": "NNN NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "NNN OCCUPIED DIRECTORY TOKEN\n",
+        ".hidden-synthetic.txt": "NNN SYNTHETIC HIDDEN TOKEN\n",
+        "nested/alpha.txt": "NNN ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n"
+      },
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied"
+      ],
+      "empty_directories": [
+        "empty"
+      ],
+      "absent_paths": [],
+      "exact_tree": true,
+      "snapshot_exclusion": "Exclude random path/context header and dynamic status; preserve the complete intended list body"
+    },
+    {
+      "name": "normal-move",
+      "kind": "normal",
+      "purpose": "Select and move one file into a nested directory, then return",
+      "command": [
+        "nnn",
+        "-A",
+        "-C",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "expect": "bravo.txt"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": "str [/], ic [:]"
+        },
+        {
+          "text": "bravo"
+        },
+        {
+          "expect": "/bravo"
+        },
+        {
+          "expect_not": "alpha.txt"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": "str [/], ic [:]"
+        },
+        {
+          "expect": "bravo.txt*"
+        },
+        {
+          "text": " "
+        },
+        {
+          "expect": "+bravo.txt*"
+        },
+        {
+          "key": "CtrlL"
+        },
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": "str [/], ic [:]"
+        },
+        {
+          "text": "nested"
+        },
+        {
+          "expect": "/nested"
+        },
+        {
+          "expect_not": "alpha.txt"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": "str [/], ic [:]"
+        },
+        {
+          "expect": "nested/"
+        },
+        {
+          "text": "l"
+        },
+        {
+          "expect": "/fixture/nested"
+        },
+        {
+          "expect": "notes café.txt*"
+        },
+        {
+          "text": "v"
+        },
+        {
+          "expect": "bravo.txt*"
+        },
+        {
+          "text": "h"
+        },
+        {
+          "expect_not": "/fixture/nested"
+        },
+        {
+          "expect": "protected.txt*"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 27,
+      "snapshot_rows": [
+        3,
+        25
+      ],
+      "timeout_ms": 10000,
+      "fixture": "fixtures",
+      "expected_files": {
+        "alpha.txt": "NNN ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "protected.txt": "NNN PROTECTED NEIGHBOR TOKEN\n",
+        "café 雪.txt": "NNN ROOT UNICODE TOKEN\n",
+        "nested/notes café.txt": "NNN NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "NNN OCCUPIED DIRECTORY TOKEN\n",
+        ".hidden-synthetic.txt": "NNN SYNTHETIC HIDDEN TOKEN\n",
+        "nested/bravo.txt": "NNN BRAVO ORIGINAL TOKEN\n"
+      },
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied"
+      ],
+      "empty_directories": [
+        "empty"
+      ],
+      "absent_paths": [
+        "bravo.txt"
+      ],
+      "exact_tree": true,
+      "snapshot_exclusion": "Exclude random path/context header and dynamic status; preserve the complete intended list body"
+    },
+    {
+      "name": "normal-context-navigation",
+      "kind": "normal",
+      "purpose": "Maintain distinct nested/root context locations and recover after closing a context",
+      "command": [
+        "nnn",
+        "-A",
+        "-C",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "expect": "bravo.txt"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": "str [/], ic [:]"
+        },
+        {
+          "text": "nested"
+        },
+        {
+          "expect": "/nested"
+        },
+        {
+          "expect_not": "alpha.txt"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": "str [/], ic [:]"
+        },
+        {
+          "expect": "nested/"
+        },
+        {
+          "text": "l"
+        },
+        {
+          "expect": "/fixture/nested"
+        },
+        {
+          "expect": "notes café.txt*"
+        },
+        {
+          "text": "2"
+        },
+        {
+          "text": "h"
+        },
+        {
+          "expect_not": "/fixture/nested"
+        },
+        {
+          "expect": "protected.txt*"
+        },
+        {
+          "text": "1"
+        },
+        {
+          "expect": "/fixture/nested"
+        },
+        {
+          "expect": "notes café.txt*"
+        },
+        {
+          "text": "2"
+        },
+        {
+          "expect_not": "/fixture/nested"
+        },
+        {
+          "expect": "protected.txt*"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "expect": "/fixture/nested"
+        },
+        {
+          "expect": "notes café.txt*"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 23,
+      "snapshot_rows": [
+        3,
+        25
+      ],
+      "timeout_ms": 10000,
+      "fixture": "fixtures",
+      "expected_files": {
+        "alpha.txt": "NNN ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "NNN BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "NNN PROTECTED NEIGHBOR TOKEN\n",
+        "café 雪.txt": "NNN ROOT UNICODE TOKEN\n",
+        "nested/notes café.txt": "NNN NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "NNN OCCUPIED DIRECTORY TOKEN\n",
+        ".hidden-synthetic.txt": "NNN SYNTHETIC HIDDEN TOKEN\n"
+      },
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied"
+      ],
+      "empty_directories": [
+        "empty"
+      ],
+      "absent_paths": [],
+      "exact_tree": true,
+      "snapshot_exclusion": "Exclude random path/context header and dynamic status; preserve the complete intended list body"
+    },
+    {
+      "name": "normal-multi-selection-copy",
+      "kind": "normal",
+      "purpose": "Accumulate two filtered selections and copy both with exact preserved source/destination bytes",
+      "command": [
+        "nnn",
+        "-A",
+        "-C",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "expect": "bravo.txt"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": "str [/], ic [:]"
+        },
+        {
+          "text": "alpha"
+        },
+        {
+          "expect": "/alpha"
+        },
+        {
+          "expect_not": "bravo.txt"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": "str [/], ic [:]"
+        },
+        {
+          "expect": "alpha.txt*"
+        },
+        {
+          "text": " "
+        },
+        {
+          "expect": "+alpha.txt*"
+        },
+        {
+          "key": "CtrlL"
+        },
+        {
+          "expect": "bravo.txt"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": "str [/], ic [:]"
+        },
+        {
+          "text": "bravo"
+        },
+        {
+          "expect": "/bravo"
+        },
+        {
+          "expect_not": "alpha.txt"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": "str [/], ic [:]"
+        },
+        {
+          "expect": "bravo.txt*"
+        },
+        {
+          "text": " "
+        },
+        {
+          "expect": "+bravo.txt*"
+        },
+        {
+          "key": "CtrlL"
+        },
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": "str [/], ic [:]"
+        },
+        {
+          "text": "nested"
+        },
+        {
+          "expect": "/nested"
+        },
+        {
+          "expect_not": "alpha.txt"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": "str [/], ic [:]"
+        },
+        {
+          "expect": "nested/"
+        },
+        {
+          "text": "l"
+        },
+        {
+          "expect": "/fixture/nested"
+        },
+        {
+          "expect": "notes café.txt*"
+        },
+        {
+          "text": "p"
+        },
+        {
+          "expect": "alpha.txt*"
+        },
+        {
+          "expect": "bravo.txt*"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 40,
+      "snapshot_rows": [
+        3,
+        25
+      ],
+      "timeout_ms": 10000,
+      "fixture": "fixtures",
+      "expected_files": {
+        "alpha.txt": "NNN ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "NNN BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "NNN PROTECTED NEIGHBOR TOKEN\n",
+        "café 雪.txt": "NNN ROOT UNICODE TOKEN\n",
+        "nested/notes café.txt": "NNN NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "NNN OCCUPIED DIRECTORY TOKEN\n",
+        ".hidden-synthetic.txt": "NNN SYNTHETIC HIDDEN TOKEN\n",
+        "nested/alpha.txt": "NNN ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "nested/bravo.txt": "NNN BRAVO ORIGINAL TOKEN\n"
+      },
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied"
+      ],
+      "empty_directories": [
+        "empty"
+      ],
+      "absent_paths": [],
+      "exact_tree": true,
+      "snapshot_exclusion": "Exclude random path/context header and dynamic status; preserve the complete intended list body"
+    },
+    {
+      "name": "edge-empty-directory",
+      "kind": "edge",
+      "purpose": "Enter a genuinely empty directory while preserving all other fixture entries",
+      "command": [
+        "nnn",
+        "-A",
+        "-C",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "expect": "bravo.txt"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": "str [/], ic [:]"
+        },
+        {
+          "text": "empty"
+        },
+        {
+          "expect": "/empty"
+        },
+        {
+          "expect_not": "alpha.txt"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": "str [/], ic [:]"
+        },
+        {
+          "expect": "empty/"
+        },
+        {
+          "text": "l"
+        },
+        {
+          "expect": "/fixture/empty"
+        },
+        {
+          "expect_not": "empty/"
+        },
+        {
+          "expect": "0/0"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 14,
+      "snapshot_rows": [
+        30,
+        30
+      ],
+      "timeout_ms": 10000,
+      "fixture": "fixtures",
+      "expected_files": {
+        "alpha.txt": "NNN ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "NNN BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "NNN PROTECTED NEIGHBOR TOKEN\n",
+        "café 雪.txt": "NNN ROOT UNICODE TOKEN\n",
+        "nested/notes café.txt": "NNN NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "NNN OCCUPIED DIRECTORY TOKEN\n",
+        ".hidden-synthetic.txt": "NNN SYNTHETIC HIDDEN TOKEN\n"
+      },
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied"
+      ],
+      "empty_directories": [
+        "empty"
+      ],
+      "absent_paths": [],
+      "exact_tree": true,
+      "snapshot_exclusion": "Exclude random path/context header and dynamic status; preserve the complete intended list body"
+    },
+    {
+      "name": "edge-no-match-filter-recovery",
+      "kind": "edge",
+      "purpose": "Reject an unmatched filter suffix, accept subsequent valid typing, then clear and navigate",
+      "command": [
+        "nnn",
+        "-A",
+        "-C",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "expect": "bravo.txt"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": "str [/], ic [:]"
+        },
+        {
+          "text": "nZe"
+        },
+        {
+          "expect": "/ne"
+        },
+        {
+          "expect_not": "alpha.txt"
+        },
+        {
+          "key": "CtrlL"
+        },
+        {
+          "expect_not": "/ne"
+        },
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": "str [/], ic [:]"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": "str [/], ic [:]"
+        },
+        {
+          "text": "nested"
+        },
+        {
+          "expect": "/nested"
+        },
+        {
+          "expect_not": "alpha.txt"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": "str [/], ic [:]"
+        },
+        {
+          "expect": "nested/"
+        },
+        {
+          "text": "l"
+        },
+        {
+          "expect": "/fixture/nested"
+        },
+        {
+          "expect": "notes café.txt*"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 23,
+      "snapshot_rows": [
+        3,
+        25
+      ],
+      "timeout_ms": 10000,
+      "fixture": "fixtures",
+      "expected_files": {
+        "alpha.txt": "NNN ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "NNN BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "NNN PROTECTED NEIGHBOR TOKEN\n",
+        "café 雪.txt": "NNN ROOT UNICODE TOKEN\n",
+        "nested/notes café.txt": "NNN NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "NNN OCCUPIED DIRECTORY TOKEN\n",
+        ".hidden-synthetic.txt": "NNN SYNTHETIC HIDDEN TOKEN\n"
+      },
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied"
+      ],
+      "empty_directories": [
+        "empty"
+      ],
+      "absent_paths": [],
+      "exact_tree": true,
+      "snapshot_exclusion": "Exclude random path/context header and dynamic status; preserve the complete intended list body"
+    },
+    {
+      "name": "edge-cancel-create",
+      "kind": "edge",
+      "purpose": "Cancel a populated Unicode creation prompt without creating its path",
+      "command": [
+        "nnn",
+        "-A",
+        "-C",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "expect": "bravo.txt"
+        },
+        {
+          "text": "n"
+        },
+        {
+          "expect": "['f'ile]/'d'ir/'s'ym/'h'ard?"
+        },
+        {
+          "text": "f"
+        },
+        {
+          "expect": "[path/]name:"
+        },
+        {
+          "text": "discarded café.txt"
+        },
+        {
+          "expect": "[path/]name: discarded café.txt"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": "[path/]name: discarded café.txt"
+        },
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 11,
+      "snapshot_rows": [
+        3,
+        25
+      ],
+      "timeout_ms": 10000,
+      "fixture": "fixtures",
+      "expected_files": {
+        "alpha.txt": "NNN ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "NNN BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "NNN PROTECTED NEIGHBOR TOKEN\n",
+        "café 雪.txt": "NNN ROOT UNICODE TOKEN\n",
+        "nested/notes café.txt": "NNN NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "NNN OCCUPIED DIRECTORY TOKEN\n",
+        ".hidden-synthetic.txt": "NNN SYNTHETIC HIDDEN TOKEN\n"
+      },
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied"
+      ],
+      "empty_directories": [
+        "empty"
+      ],
+      "absent_paths": [
+        "discarded café.txt"
+      ],
+      "exact_tree": true,
+      "snapshot_exclusion": "Exclude random path/context header and dynamic status; preserve the complete intended list body"
+    },
+    {
+      "name": "edge-cancel-rename",
+      "kind": "edge",
+      "purpose": "Cancel a changed rename prompt and preserve the original selected file",
+      "command": [
+        "nnn",
+        "-A",
+        "-C",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "expect": "bravo.txt"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": "str [/], ic [:]"
+        },
+        {
+          "text": "bravo"
+        },
+        {
+          "expect": "/bravo"
+        },
+        {
+          "expect_not": "alpha.txt"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": "str [/], ic [:]"
+        },
+        {
+          "expect": "bravo.txt*"
+        },
+        {
+          "key": "CtrlR"
+        },
+        {
+          "key": "CtrlU"
+        },
+        {
+          "text": "discarded café.txt"
+        },
+        {
+          "expect": "discarded café.txt"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": "discarded café.txt"
+        },
+        {
+          "expect": "bravo.txt*"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 17,
+      "snapshot_rows": [
+        3,
+        25
+      ],
+      "timeout_ms": 10000,
+      "fixture": "fixtures",
+      "expected_files": {
+        "alpha.txt": "NNN ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "NNN BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "NNN PROTECTED NEIGHBOR TOKEN\n",
+        "café 雪.txt": "NNN ROOT UNICODE TOKEN\n",
+        "nested/notes café.txt": "NNN NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "NNN OCCUPIED DIRECTORY TOKEN\n",
+        ".hidden-synthetic.txt": "NNN SYNTHETIC HIDDEN TOKEN\n"
+      },
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied"
+      ],
+      "empty_directories": [
+        "empty"
+      ],
+      "absent_paths": [
+        "discarded café.txt"
+      ],
+      "exact_tree": true,
+      "snapshot_exclusion": "Exclude random path/context header and dynamic status; preserve the complete intended list body"
+    },
+    {
+      "name": "edge-occupied-rename",
+      "kind": "edge",
+      "purpose": "Refuse overwriting a protected neighbor during rename and preserve both files",
+      "command": [
+        "nnn",
+        "-A",
+        "-C",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "expect": "bravo.txt"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": "str [/], ic [:]"
+        },
+        {
+          "text": "bravo"
+        },
+        {
+          "expect": "/bravo"
+        },
+        {
+          "expect_not": "alpha.txt"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": "str [/], ic [:]"
+        },
+        {
+          "expect": "bravo.txt*"
+        },
+        {
+          "key": "CtrlR"
+        },
+        {
+          "key": "CtrlU"
+        },
+        {
+          "text": "protected.txt"
+        },
+        {
+          "expect": "protected.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect": "overwrite?"
+        },
+        {
+          "text": "n"
+        },
+        {
+          "expect_not": "overwrite?"
+        },
+        {
+          "expect": "bravo.txt*"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 19,
+      "snapshot_rows": [
+        3,
+        25
+      ],
+      "timeout_ms": 10000,
+      "fixture": "fixtures",
+      "expected_files": {
+        "alpha.txt": "NNN ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "NNN BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "NNN PROTECTED NEIGHBOR TOKEN\n",
+        "café 雪.txt": "NNN ROOT UNICODE TOKEN\n",
+        "nested/notes café.txt": "NNN NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "NNN OCCUPIED DIRECTORY TOKEN\n",
+        ".hidden-synthetic.txt": "NNN SYNTHETIC HIDDEN TOKEN\n"
+      },
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied"
+      ],
+      "empty_directories": [
+        "empty"
+      ],
+      "absent_paths": [],
+      "exact_tree": true,
+      "snapshot_exclusion": "Exclude random path/context header and dynamic status; preserve the complete intended list body"
+    },
+    {
+      "name": "edge-occupied-create",
+      "kind": "edge",
+      "purpose": "Refuse creation over an existing protected file and preserve its nonempty bytes",
+      "command": [
+        "nnn",
+        "-A",
+        "-C",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "expect": "bravo.txt"
+        },
+        {
+          "text": "n"
+        },
+        {
+          "expect": "['f'ile]/'d'ir/'s'ym/'h'ard?"
+        },
+        {
+          "text": "f"
+        },
+        {
+          "expect": "[path/]name:"
+        },
+        {
+          "text": "protected.txt"
+        },
+        {
+          "expect": "[path/]name: protected.txt"
+        },
+        {
+          "key": "Enter"
+        },
+        {
+          "expect_not": "[path/]name:"
+        },
+        {
+          "expect": "overwrite?"
+        },
+        {
+          "text": "n"
+        },
+        {
+          "expect_not": "overwrite?"
+        },
+        {
+          "expect": "protected.txt*"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 14,
+      "snapshot_rows": [
+        3,
+        25
+      ],
+      "timeout_ms": 10000,
+      "fixture": "fixtures",
+      "expected_files": {
+        "alpha.txt": "NNN ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "NNN BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "NNN PROTECTED NEIGHBOR TOKEN\n",
+        "café 雪.txt": "NNN ROOT UNICODE TOKEN\n",
+        "nested/notes café.txt": "NNN NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "NNN OCCUPIED DIRECTORY TOKEN\n",
+        ".hidden-synthetic.txt": "NNN SYNTHETIC HIDDEN TOKEN\n"
+      },
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied"
+      ],
+      "empty_directories": [
+        "empty"
+      ],
+      "absent_paths": [],
+      "exact_tree": true,
+      "snapshot_exclusion": "Exclude random path/context header and dynamic status; preserve the complete intended list body"
+    },
+    {
+      "name": "edge-delete-cancelled",
+      "kind": "edge",
+      "purpose": "Cancel the destructive current/selection chooser before deletion and preserve selected bytes",
+      "command": [
+        "nnn",
+        "-A",
+        "-C",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "expect": "bravo.txt"
+        },
+        {
+          "text": "/"
+        },
+        {
+          "expect": "str [/], ic [:]"
+        },
+        {
+          "text": "protected"
+        },
+        {
+          "expect": "/protected"
+        },
+        {
+          "expect_not": "alpha.txt"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": "str [/], ic [:]"
+        },
+        {
+          "expect": "protected.txt*"
+        },
+        {
+          "text": " "
+        },
+        {
+          "expect": "+protected.txt*"
+        },
+        {
+          "text": "x"
+        },
+        {
+          "expect": "'c'urrent/'s'el?"
+        },
+        {
+          "key": "Escape"
+        },
+        {
+          "expect_not": "'c'urrent/'s'el?"
+        },
+        {
+          "expect": "protected.txt*"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 17,
+      "snapshot_rows": [
+        3,
+        25
+      ],
+      "timeout_ms": 10000,
+      "fixture": "fixtures",
+      "expected_files": {
+        "alpha.txt": "NNN ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "NNN BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "NNN PROTECTED NEIGHBOR TOKEN\n",
+        "café 雪.txt": "NNN ROOT UNICODE TOKEN\n",
+        "nested/notes café.txt": "NNN NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "NNN OCCUPIED DIRECTORY TOKEN\n",
+        ".hidden-synthetic.txt": "NNN SYNTHETIC HIDDEN TOKEN\n"
+      },
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied"
+      ],
+      "empty_directories": [
+        "empty"
+      ],
+      "absent_paths": [],
+      "exact_tree": true,
+      "snapshot_exclusion": "Exclude random path/context header and dynamic status; preserve the complete intended list body"
+    },
+    {
+      "name": "edge-hidden-toggle",
+      "kind": "edge",
+      "purpose": "Reveal a real hidden file, hide it again and preserve its exact contents",
+      "command": [
+        "nnn",
+        "-A",
+        "-C",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "expect": "bravo.txt"
+        },
+        {
+          "text": "."
+        },
+        {
+          "expect": ".hidden-synthetic.txt*"
+        },
+        {
+          "text": "."
+        },
+        {
+          "expect_not": ".hidden-synthetic.txt*"
+        },
+        {
+          "expect": "alpha.txt"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 7,
+      "snapshot_rows": [
+        3,
+        25
+      ],
+      "timeout_ms": 10000,
+      "fixture": "fixtures",
+      "expected_files": {
+        "alpha.txt": "NNN ALPHA ORIGINAL TOKEN\nProtected alpha second line.\n",
+        "bravo.txt": "NNN BRAVO ORIGINAL TOKEN\n",
+        "protected.txt": "NNN PROTECTED NEIGHBOR TOKEN\n",
+        "café 雪.txt": "NNN ROOT UNICODE TOKEN\n",
+        "nested/notes café.txt": "NNN NESTED UNICODE TOKEN\nProtected nested bytes.\n",
+        "occupied/keep.txt": "NNN OCCUPIED DIRECTORY TOKEN\n",
+        ".hidden-synthetic.txt": "NNN SYNTHETIC HIDDEN TOKEN\n"
+      },
+      "expected_directories": [
+        "empty",
+        "nested",
+        "occupied"
+      ],
+      "empty_directories": [
+        "empty"
+      ],
+      "absent_paths": [],
+      "exact_tree": true,
+      "snapshot_exclusion": "Exclude random path/context header and dynamic status; preserve the complete intended list body"
+    },
+    {
+      "name": "edge-large-directory",
+      "kind": "edge",
+      "purpose": "Navigate to the final entry of a 200-file directory and return home",
+      "command": [
+        "nnn",
+        "-A",
+        "-C",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "entry 000.txt*"
+        },
+        {
+          "expect": "1/200"
+        },
+        {
+          "key": "End"
+        },
+        {
+          "expect": "200/200"
+        },
+        {
+          "expect": "entry 199.txt*"
+        },
+        {
+          "key": "Home"
+        },
+        {
+          "expect": "1/200"
+        },
+        {
+          "expect": "entry 000.txt*"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 5,
+      "snapshot_rows": [
+        3,
+        28
+      ],
+      "timeout_ms": 10000,
+      "fixture": "fixtures-large",
+      "expected_files": {
+        "entry 000.txt": "NNN BULK 000 TOKEN\n",
+        "entry 001.txt": "NNN BULK 001 TOKEN\n",
+        "entry 002.txt": "NNN BULK 002 TOKEN\n",
+        "entry 003.txt": "NNN BULK 003 TOKEN\n",
+        "entry 004.txt": "NNN BULK 004 TOKEN\n",
+        "entry 005.txt": "NNN BULK 005 TOKEN\n",
+        "entry 006.txt": "NNN BULK 006 TOKEN\n",
+        "entry 007.txt": "NNN BULK 007 TOKEN\n",
+        "entry 008.txt": "NNN BULK 008 TOKEN\n",
+        "entry 009.txt": "NNN BULK 009 TOKEN\n",
+        "entry 010.txt": "NNN BULK 010 TOKEN\n",
+        "entry 011.txt": "NNN BULK 011 TOKEN\n",
+        "entry 012.txt": "NNN BULK 012 TOKEN\n",
+        "entry 013.txt": "NNN BULK 013 TOKEN\n",
+        "entry 014.txt": "NNN BULK 014 TOKEN\n",
+        "entry 015.txt": "NNN BULK 015 TOKEN\n",
+        "entry 016.txt": "NNN BULK 016 TOKEN\n",
+        "entry 017.txt": "NNN BULK 017 TOKEN\n",
+        "entry 018.txt": "NNN BULK 018 TOKEN\n",
+        "entry 019.txt": "NNN BULK 019 TOKEN\n",
+        "entry 020.txt": "NNN BULK 020 TOKEN\n",
+        "entry 021.txt": "NNN BULK 021 TOKEN\n",
+        "entry 022.txt": "NNN BULK 022 TOKEN\n",
+        "entry 023.txt": "NNN BULK 023 TOKEN\n",
+        "entry 024.txt": "NNN BULK 024 TOKEN\n",
+        "entry 025.txt": "NNN BULK 025 TOKEN\n",
+        "entry 026.txt": "NNN BULK 026 TOKEN\n",
+        "entry 027.txt": "NNN BULK 027 TOKEN\n",
+        "entry 028.txt": "NNN BULK 028 TOKEN\n",
+        "entry 029.txt": "NNN BULK 029 TOKEN\n",
+        "entry 030.txt": "NNN BULK 030 TOKEN\n",
+        "entry 031.txt": "NNN BULK 031 TOKEN\n",
+        "entry 032.txt": "NNN BULK 032 TOKEN\n",
+        "entry 033.txt": "NNN BULK 033 TOKEN\n",
+        "entry 034.txt": "NNN BULK 034 TOKEN\n",
+        "entry 035.txt": "NNN BULK 035 TOKEN\n",
+        "entry 036.txt": "NNN BULK 036 TOKEN\n",
+        "entry 037.txt": "NNN BULK 037 TOKEN\n",
+        "entry 038.txt": "NNN BULK 038 TOKEN\n",
+        "entry 039.txt": "NNN BULK 039 TOKEN\n",
+        "entry 040.txt": "NNN BULK 040 TOKEN\n",
+        "entry 041.txt": "NNN BULK 041 TOKEN\n",
+        "entry 042.txt": "NNN BULK 042 TOKEN\n",
+        "entry 043.txt": "NNN BULK 043 TOKEN\n",
+        "entry 044.txt": "NNN BULK 044 TOKEN\n",
+        "entry 045.txt": "NNN BULK 045 TOKEN\n",
+        "entry 046.txt": "NNN BULK 046 TOKEN\n",
+        "entry 047.txt": "NNN BULK 047 TOKEN\n",
+        "entry 048.txt": "NNN BULK 048 TOKEN\n",
+        "entry 049.txt": "NNN BULK 049 TOKEN\n",
+        "entry 050.txt": "NNN BULK 050 TOKEN\n",
+        "entry 051.txt": "NNN BULK 051 TOKEN\n",
+        "entry 052.txt": "NNN BULK 052 TOKEN\n",
+        "entry 053.txt": "NNN BULK 053 TOKEN\n",
+        "entry 054.txt": "NNN BULK 054 TOKEN\n",
+        "entry 055.txt": "NNN BULK 055 TOKEN\n",
+        "entry 056.txt": "NNN BULK 056 TOKEN\n",
+        "entry 057.txt": "NNN BULK 057 TOKEN\n",
+        "entry 058.txt": "NNN BULK 058 TOKEN\n",
+        "entry 059.txt": "NNN BULK 059 TOKEN\n",
+        "entry 060.txt": "NNN BULK 060 TOKEN\n",
+        "entry 061.txt": "NNN BULK 061 TOKEN\n",
+        "entry 062.txt": "NNN BULK 062 TOKEN\n",
+        "entry 063.txt": "NNN BULK 063 TOKEN\n",
+        "entry 064.txt": "NNN BULK 064 TOKEN\n",
+        "entry 065.txt": "NNN BULK 065 TOKEN\n",
+        "entry 066.txt": "NNN BULK 066 TOKEN\n",
+        "entry 067.txt": "NNN BULK 067 TOKEN\n",
+        "entry 068.txt": "NNN BULK 068 TOKEN\n",
+        "entry 069.txt": "NNN BULK 069 TOKEN\n",
+        "entry 070.txt": "NNN BULK 070 TOKEN\n",
+        "entry 071.txt": "NNN BULK 071 TOKEN\n",
+        "entry 072.txt": "NNN BULK 072 TOKEN\n",
+        "entry 073.txt": "NNN BULK 073 TOKEN\n",
+        "entry 074.txt": "NNN BULK 074 TOKEN\n",
+        "entry 075.txt": "NNN BULK 075 TOKEN\n",
+        "entry 076.txt": "NNN BULK 076 TOKEN\n",
+        "entry 077.txt": "NNN BULK 077 TOKEN\n",
+        "entry 078.txt": "NNN BULK 078 TOKEN\n",
+        "entry 079.txt": "NNN BULK 079 TOKEN\n",
+        "entry 080.txt": "NNN BULK 080 TOKEN\n",
+        "entry 081.txt": "NNN BULK 081 TOKEN\n",
+        "entry 082.txt": "NNN BULK 082 TOKEN\n",
+        "entry 083.txt": "NNN BULK 083 TOKEN\n",
+        "entry 084.txt": "NNN BULK 084 TOKEN\n",
+        "entry 085.txt": "NNN BULK 085 TOKEN\n",
+        "entry 086.txt": "NNN BULK 086 TOKEN\n",
+        "entry 087.txt": "NNN BULK 087 TOKEN\n",
+        "entry 088.txt": "NNN BULK 088 TOKEN\n",
+        "entry 089.txt": "NNN BULK 089 TOKEN\n",
+        "entry 090.txt": "NNN BULK 090 TOKEN\n",
+        "entry 091.txt": "NNN BULK 091 TOKEN\n",
+        "entry 092.txt": "NNN BULK 092 TOKEN\n",
+        "entry 093.txt": "NNN BULK 093 TOKEN\n",
+        "entry 094.txt": "NNN BULK 094 TOKEN\n",
+        "entry 095.txt": "NNN BULK 095 TOKEN\n",
+        "entry 096.txt": "NNN BULK 096 TOKEN\n",
+        "entry 097.txt": "NNN BULK 097 TOKEN\n",
+        "entry 098.txt": "NNN BULK 098 TOKEN\n",
+        "entry 099.txt": "NNN BULK 099 TOKEN\n",
+        "entry 100.txt": "NNN BULK 100 TOKEN\n",
+        "entry 101.txt": "NNN BULK 101 TOKEN\n",
+        "entry 102.txt": "NNN BULK 102 TOKEN\n",
+        "entry 103.txt": "NNN BULK 103 TOKEN\n",
+        "entry 104.txt": "NNN BULK 104 TOKEN\n",
+        "entry 105.txt": "NNN BULK 105 TOKEN\n",
+        "entry 106.txt": "NNN BULK 106 TOKEN\n",
+        "entry 107.txt": "NNN BULK 107 TOKEN\n",
+        "entry 108.txt": "NNN BULK 108 TOKEN\n",
+        "entry 109.txt": "NNN BULK 109 TOKEN\n",
+        "entry 110.txt": "NNN BULK 110 TOKEN\n",
+        "entry 111.txt": "NNN BULK 111 TOKEN\n",
+        "entry 112.txt": "NNN BULK 112 TOKEN\n",
+        "entry 113.txt": "NNN BULK 113 TOKEN\n",
+        "entry 114.txt": "NNN BULK 114 TOKEN\n",
+        "entry 115.txt": "NNN BULK 115 TOKEN\n",
+        "entry 116.txt": "NNN BULK 116 TOKEN\n",
+        "entry 117.txt": "NNN BULK 117 TOKEN\n",
+        "entry 118.txt": "NNN BULK 118 TOKEN\n",
+        "entry 119.txt": "NNN BULK 119 TOKEN\n",
+        "entry 120.txt": "NNN BULK 120 TOKEN\n",
+        "entry 121.txt": "NNN BULK 121 TOKEN\n",
+        "entry 122.txt": "NNN BULK 122 TOKEN\n",
+        "entry 123.txt": "NNN BULK 123 TOKEN\n",
+        "entry 124.txt": "NNN BULK 124 TOKEN\n",
+        "entry 125.txt": "NNN BULK 125 TOKEN\n",
+        "entry 126.txt": "NNN BULK 126 TOKEN\n",
+        "entry 127.txt": "NNN BULK 127 TOKEN\n",
+        "entry 128.txt": "NNN BULK 128 TOKEN\n",
+        "entry 129.txt": "NNN BULK 129 TOKEN\n",
+        "entry 130.txt": "NNN BULK 130 TOKEN\n",
+        "entry 131.txt": "NNN BULK 131 TOKEN\n",
+        "entry 132.txt": "NNN BULK 132 TOKEN\n",
+        "entry 133.txt": "NNN BULK 133 TOKEN\n",
+        "entry 134.txt": "NNN BULK 134 TOKEN\n",
+        "entry 135.txt": "NNN BULK 135 TOKEN\n",
+        "entry 136.txt": "NNN BULK 136 TOKEN\n",
+        "entry 137.txt": "NNN BULK 137 TOKEN\n",
+        "entry 138.txt": "NNN BULK 138 TOKEN\n",
+        "entry 139.txt": "NNN BULK 139 TOKEN\n",
+        "entry 140.txt": "NNN BULK 140 TOKEN\n",
+        "entry 141.txt": "NNN BULK 141 TOKEN\n",
+        "entry 142.txt": "NNN BULK 142 TOKEN\n",
+        "entry 143.txt": "NNN BULK 143 TOKEN\n",
+        "entry 144.txt": "NNN BULK 144 TOKEN\n",
+        "entry 145.txt": "NNN BULK 145 TOKEN\n",
+        "entry 146.txt": "NNN BULK 146 TOKEN\n",
+        "entry 147.txt": "NNN BULK 147 TOKEN\n",
+        "entry 148.txt": "NNN BULK 148 TOKEN\n",
+        "entry 149.txt": "NNN BULK 149 TOKEN\n",
+        "entry 150.txt": "NNN BULK 150 TOKEN\n",
+        "entry 151.txt": "NNN BULK 151 TOKEN\n",
+        "entry 152.txt": "NNN BULK 152 TOKEN\n",
+        "entry 153.txt": "NNN BULK 153 TOKEN\n",
+        "entry 154.txt": "NNN BULK 154 TOKEN\n",
+        "entry 155.txt": "NNN BULK 155 TOKEN\n",
+        "entry 156.txt": "NNN BULK 156 TOKEN\n",
+        "entry 157.txt": "NNN BULK 157 TOKEN\n",
+        "entry 158.txt": "NNN BULK 158 TOKEN\n",
+        "entry 159.txt": "NNN BULK 159 TOKEN\n",
+        "entry 160.txt": "NNN BULK 160 TOKEN\n",
+        "entry 161.txt": "NNN BULK 161 TOKEN\n",
+        "entry 162.txt": "NNN BULK 162 TOKEN\n",
+        "entry 163.txt": "NNN BULK 163 TOKEN\n",
+        "entry 164.txt": "NNN BULK 164 TOKEN\n",
+        "entry 165.txt": "NNN BULK 165 TOKEN\n",
+        "entry 166.txt": "NNN BULK 166 TOKEN\n",
+        "entry 167.txt": "NNN BULK 167 TOKEN\n",
+        "entry 168.txt": "NNN BULK 168 TOKEN\n",
+        "entry 169.txt": "NNN BULK 169 TOKEN\n",
+        "entry 170.txt": "NNN BULK 170 TOKEN\n",
+        "entry 171.txt": "NNN BULK 171 TOKEN\n",
+        "entry 172.txt": "NNN BULK 172 TOKEN\n",
+        "entry 173.txt": "NNN BULK 173 TOKEN\n",
+        "entry 174.txt": "NNN BULK 174 TOKEN\n",
+        "entry 175.txt": "NNN BULK 175 TOKEN\n",
+        "entry 176.txt": "NNN BULK 176 TOKEN\n",
+        "entry 177.txt": "NNN BULK 177 TOKEN\n",
+        "entry 178.txt": "NNN BULK 178 TOKEN\n",
+        "entry 179.txt": "NNN BULK 179 TOKEN\n",
+        "entry 180.txt": "NNN BULK 180 TOKEN\n",
+        "entry 181.txt": "NNN BULK 181 TOKEN\n",
+        "entry 182.txt": "NNN BULK 182 TOKEN\n",
+        "entry 183.txt": "NNN BULK 183 TOKEN\n",
+        "entry 184.txt": "NNN BULK 184 TOKEN\n",
+        "entry 185.txt": "NNN BULK 185 TOKEN\n",
+        "entry 186.txt": "NNN BULK 186 TOKEN\n",
+        "entry 187.txt": "NNN BULK 187 TOKEN\n",
+        "entry 188.txt": "NNN BULK 188 TOKEN\n",
+        "entry 189.txt": "NNN BULK 189 TOKEN\n",
+        "entry 190.txt": "NNN BULK 190 TOKEN\n",
+        "entry 191.txt": "NNN BULK 191 TOKEN\n",
+        "entry 192.txt": "NNN BULK 192 TOKEN\n",
+        "entry 193.txt": "NNN BULK 193 TOKEN\n",
+        "entry 194.txt": "NNN BULK 194 TOKEN\n",
+        "entry 195.txt": "NNN BULK 195 TOKEN\n",
+        "entry 196.txt": "NNN BULK 196 TOKEN\n",
+        "entry 197.txt": "NNN BULK 197 TOKEN\n",
+        "entry 198.txt": "NNN BULK 198 TOKEN\n",
+        "entry 199.txt": "NNN BULK 199 TOKEN\n"
+      },
+      "expected_directories": [],
+      "empty_directories": [],
+      "absent_paths": [],
+      "exact_tree": true,
+      "snapshot_exclusion": "Exclude random path/context header and dynamic status; preserve the complete intended list body"
+    },
+    {
+      "name": "edge-resize-recovery",
+      "kind": "edge",
+      "purpose": "Resize a scrolled 200-file list, navigate home, restore geometry and return to the last entry",
+      "command": [
+        "nnn",
+        "-A",
+        "-C",
+        "."
+      ],
+      "steps": [
+        {
+          "expect": "entry 000.txt*"
+        },
+        {
+          "expect": "1/200"
+        },
+        {
+          "key": "End"
+        },
+        {
+          "expect": "200/200"
+        },
+        {
+          "expect": "entry 199.txt*"
+        },
+        {
+          "resize": {
+            "width": 80,
+            "height": 24
+          }
+        },
+        {
+          "wait_for_redraw": true
+        },
+        {
+          "key": "Home"
+        },
+        {
+          "expect": "1/200"
+        },
+        {
+          "expect": "entry 000.txt*"
+        },
+        {
+          "resize": {
+            "width": 100,
+            "height": 30
+          }
+        },
+        {
+          "wait_for_redraw": true
+        },
+        {
+          "key": "End"
+        },
+        {
+          "expect": "200/200"
+        },
+        {
+          "expect": "entry 199.txt*"
+        },
+        {
+          "text": "q"
+        },
+        {
+          "exit": 0
+        }
+      ],
+      "snapshot_after_step": 10,
+      "snapshot_rows": [
+        3,
+        22
+      ],
+      "timeout_ms": 10000,
+      "fixture": "fixtures-large",
+      "expected_files": {
+        "entry 000.txt": "NNN BULK 000 TOKEN\n",
+        "entry 001.txt": "NNN BULK 001 TOKEN\n",
+        "entry 002.txt": "NNN BULK 002 TOKEN\n",
+        "entry 003.txt": "NNN BULK 003 TOKEN\n",
+        "entry 004.txt": "NNN BULK 004 TOKEN\n",
+        "entry 005.txt": "NNN BULK 005 TOKEN\n",
+        "entry 006.txt": "NNN BULK 006 TOKEN\n",
+        "entry 007.txt": "NNN BULK 007 TOKEN\n",
+        "entry 008.txt": "NNN BULK 008 TOKEN\n",
+        "entry 009.txt": "NNN BULK 009 TOKEN\n",
+        "entry 010.txt": "NNN BULK 010 TOKEN\n",
+        "entry 011.txt": "NNN BULK 011 TOKEN\n",
+        "entry 012.txt": "NNN BULK 012 TOKEN\n",
+        "entry 013.txt": "NNN BULK 013 TOKEN\n",
+        "entry 014.txt": "NNN BULK 014 TOKEN\n",
+        "entry 015.txt": "NNN BULK 015 TOKEN\n",
+        "entry 016.txt": "NNN BULK 016 TOKEN\n",
+        "entry 017.txt": "NNN BULK 017 TOKEN\n",
+        "entry 018.txt": "NNN BULK 018 TOKEN\n",
+        "entry 019.txt": "NNN BULK 019 TOKEN\n",
+        "entry 020.txt": "NNN BULK 020 TOKEN\n",
+        "entry 021.txt": "NNN BULK 021 TOKEN\n",
+        "entry 022.txt": "NNN BULK 022 TOKEN\n",
+        "entry 023.txt": "NNN BULK 023 TOKEN\n",
+        "entry 024.txt": "NNN BULK 024 TOKEN\n",
+        "entry 025.txt": "NNN BULK 025 TOKEN\n",
+        "entry 026.txt": "NNN BULK 026 TOKEN\n",
+        "entry 027.txt": "NNN BULK 027 TOKEN\n",
+        "entry 028.txt": "NNN BULK 028 TOKEN\n",
+        "entry 029.txt": "NNN BULK 029 TOKEN\n",
+        "entry 030.txt": "NNN BULK 030 TOKEN\n",
+        "entry 031.txt": "NNN BULK 031 TOKEN\n",
+        "entry 032.txt": "NNN BULK 032 TOKEN\n",
+        "entry 033.txt": "NNN BULK 033 TOKEN\n",
+        "entry 034.txt": "NNN BULK 034 TOKEN\n",
+        "entry 035.txt": "NNN BULK 035 TOKEN\n",
+        "entry 036.txt": "NNN BULK 036 TOKEN\n",
+        "entry 037.txt": "NNN BULK 037 TOKEN\n",
+        "entry 038.txt": "NNN BULK 038 TOKEN\n",
+        "entry 039.txt": "NNN BULK 039 TOKEN\n",
+        "entry 040.txt": "NNN BULK 040 TOKEN\n",
+        "entry 041.txt": "NNN BULK 041 TOKEN\n",
+        "entry 042.txt": "NNN BULK 042 TOKEN\n",
+        "entry 043.txt": "NNN BULK 043 TOKEN\n",
+        "entry 044.txt": "NNN BULK 044 TOKEN\n",
+        "entry 045.txt": "NNN BULK 045 TOKEN\n",
+        "entry 046.txt": "NNN BULK 046 TOKEN\n",
+        "entry 047.txt": "NNN BULK 047 TOKEN\n",
+        "entry 048.txt": "NNN BULK 048 TOKEN\n",
+        "entry 049.txt": "NNN BULK 049 TOKEN\n",
+        "entry 050.txt": "NNN BULK 050 TOKEN\n",
+        "entry 051.txt": "NNN BULK 051 TOKEN\n",
+        "entry 052.txt": "NNN BULK 052 TOKEN\n",
+        "entry 053.txt": "NNN BULK 053 TOKEN\n",
+        "entry 054.txt": "NNN BULK 054 TOKEN\n",
+        "entry 055.txt": "NNN BULK 055 TOKEN\n",
+        "entry 056.txt": "NNN BULK 056 TOKEN\n",
+        "entry 057.txt": "NNN BULK 057 TOKEN\n",
+        "entry 058.txt": "NNN BULK 058 TOKEN\n",
+        "entry 059.txt": "NNN BULK 059 TOKEN\n",
+        "entry 060.txt": "NNN BULK 060 TOKEN\n",
+        "entry 061.txt": "NNN BULK 061 TOKEN\n",
+        "entry 062.txt": "NNN BULK 062 TOKEN\n",
+        "entry 063.txt": "NNN BULK 063 TOKEN\n",
+        "entry 064.txt": "NNN BULK 064 TOKEN\n",
+        "entry 065.txt": "NNN BULK 065 TOKEN\n",
+        "entry 066.txt": "NNN BULK 066 TOKEN\n",
+        "entry 067.txt": "NNN BULK 067 TOKEN\n",
+        "entry 068.txt": "NNN BULK 068 TOKEN\n",
+        "entry 069.txt": "NNN BULK 069 TOKEN\n",
+        "entry 070.txt": "NNN BULK 070 TOKEN\n",
+        "entry 071.txt": "NNN BULK 071 TOKEN\n",
+        "entry 072.txt": "NNN BULK 072 TOKEN\n",
+        "entry 073.txt": "NNN BULK 073 TOKEN\n",
+        "entry 074.txt": "NNN BULK 074 TOKEN\n",
+        "entry 075.txt": "NNN BULK 075 TOKEN\n",
+        "entry 076.txt": "NNN BULK 076 TOKEN\n",
+        "entry 077.txt": "NNN BULK 077 TOKEN\n",
+        "entry 078.txt": "NNN BULK 078 TOKEN\n",
+        "entry 079.txt": "NNN BULK 079 TOKEN\n",
+        "entry 080.txt": "NNN BULK 080 TOKEN\n",
+        "entry 081.txt": "NNN BULK 081 TOKEN\n",
+        "entry 082.txt": "NNN BULK 082 TOKEN\n",
+        "entry 083.txt": "NNN BULK 083 TOKEN\n",
+        "entry 084.txt": "NNN BULK 084 TOKEN\n",
+        "entry 085.txt": "NNN BULK 085 TOKEN\n",
+        "entry 086.txt": "NNN BULK 086 TOKEN\n",
+        "entry 087.txt": "NNN BULK 087 TOKEN\n",
+        "entry 088.txt": "NNN BULK 088 TOKEN\n",
+        "entry 089.txt": "NNN BULK 089 TOKEN\n",
+        "entry 090.txt": "NNN BULK 090 TOKEN\n",
+        "entry 091.txt": "NNN BULK 091 TOKEN\n",
+        "entry 092.txt": "NNN BULK 092 TOKEN\n",
+        "entry 093.txt": "NNN BULK 093 TOKEN\n",
+        "entry 094.txt": "NNN BULK 094 TOKEN\n",
+        "entry 095.txt": "NNN BULK 095 TOKEN\n",
+        "entry 096.txt": "NNN BULK 096 TOKEN\n",
+        "entry 097.txt": "NNN BULK 097 TOKEN\n",
+        "entry 098.txt": "NNN BULK 098 TOKEN\n",
+        "entry 099.txt": "NNN BULK 099 TOKEN\n",
+        "entry 100.txt": "NNN BULK 100 TOKEN\n",
+        "entry 101.txt": "NNN BULK 101 TOKEN\n",
+        "entry 102.txt": "NNN BULK 102 TOKEN\n",
+        "entry 103.txt": "NNN BULK 103 TOKEN\n",
+        "entry 104.txt": "NNN BULK 104 TOKEN\n",
+        "entry 105.txt": "NNN BULK 105 TOKEN\n",
+        "entry 106.txt": "NNN BULK 106 TOKEN\n",
+        "entry 107.txt": "NNN BULK 107 TOKEN\n",
+        "entry 108.txt": "NNN BULK 108 TOKEN\n",
+        "entry 109.txt": "NNN BULK 109 TOKEN\n",
+        "entry 110.txt": "NNN BULK 110 TOKEN\n",
+        "entry 111.txt": "NNN BULK 111 TOKEN\n",
+        "entry 112.txt": "NNN BULK 112 TOKEN\n",
+        "entry 113.txt": "NNN BULK 113 TOKEN\n",
+        "entry 114.txt": "NNN BULK 114 TOKEN\n",
+        "entry 115.txt": "NNN BULK 115 TOKEN\n",
+        "entry 116.txt": "NNN BULK 116 TOKEN\n",
+        "entry 117.txt": "NNN BULK 117 TOKEN\n",
+        "entry 118.txt": "NNN BULK 118 TOKEN\n",
+        "entry 119.txt": "NNN BULK 119 TOKEN\n",
+        "entry 120.txt": "NNN BULK 120 TOKEN\n",
+        "entry 121.txt": "NNN BULK 121 TOKEN\n",
+        "entry 122.txt": "NNN BULK 122 TOKEN\n",
+        "entry 123.txt": "NNN BULK 123 TOKEN\n",
+        "entry 124.txt": "NNN BULK 124 TOKEN\n",
+        "entry 125.txt": "NNN BULK 125 TOKEN\n",
+        "entry 126.txt": "NNN BULK 126 TOKEN\n",
+        "entry 127.txt": "NNN BULK 127 TOKEN\n",
+        "entry 128.txt": "NNN BULK 128 TOKEN\n",
+        "entry 129.txt": "NNN BULK 129 TOKEN\n",
+        "entry 130.txt": "NNN BULK 130 TOKEN\n",
+        "entry 131.txt": "NNN BULK 131 TOKEN\n",
+        "entry 132.txt": "NNN BULK 132 TOKEN\n",
+        "entry 133.txt": "NNN BULK 133 TOKEN\n",
+        "entry 134.txt": "NNN BULK 134 TOKEN\n",
+        "entry 135.txt": "NNN BULK 135 TOKEN\n",
+        "entry 136.txt": "NNN BULK 136 TOKEN\n",
+        "entry 137.txt": "NNN BULK 137 TOKEN\n",
+        "entry 138.txt": "NNN BULK 138 TOKEN\n",
+        "entry 139.txt": "NNN BULK 139 TOKEN\n",
+        "entry 140.txt": "NNN BULK 140 TOKEN\n",
+        "entry 141.txt": "NNN BULK 141 TOKEN\n",
+        "entry 142.txt": "NNN BULK 142 TOKEN\n",
+        "entry 143.txt": "NNN BULK 143 TOKEN\n",
+        "entry 144.txt": "NNN BULK 144 TOKEN\n",
+        "entry 145.txt": "NNN BULK 145 TOKEN\n",
+        "entry 146.txt": "NNN BULK 146 TOKEN\n",
+        "entry 147.txt": "NNN BULK 147 TOKEN\n",
+        "entry 148.txt": "NNN BULK 148 TOKEN\n",
+        "entry 149.txt": "NNN BULK 149 TOKEN\n",
+        "entry 150.txt": "NNN BULK 150 TOKEN\n",
+        "entry 151.txt": "NNN BULK 151 TOKEN\n",
+        "entry 152.txt": "NNN BULK 152 TOKEN\n",
+        "entry 153.txt": "NNN BULK 153 TOKEN\n",
+        "entry 154.txt": "NNN BULK 154 TOKEN\n",
+        "entry 155.txt": "NNN BULK 155 TOKEN\n",
+        "entry 156.txt": "NNN BULK 156 TOKEN\n",
+        "entry 157.txt": "NNN BULK 157 TOKEN\n",
+        "entry 158.txt": "NNN BULK 158 TOKEN\n",
+        "entry 159.txt": "NNN BULK 159 TOKEN\n",
+        "entry 160.txt": "NNN BULK 160 TOKEN\n",
+        "entry 161.txt": "NNN BULK 161 TOKEN\n",
+        "entry 162.txt": "NNN BULK 162 TOKEN\n",
+        "entry 163.txt": "NNN BULK 163 TOKEN\n",
+        "entry 164.txt": "NNN BULK 164 TOKEN\n",
+        "entry 165.txt": "NNN BULK 165 TOKEN\n",
+        "entry 166.txt": "NNN BULK 166 TOKEN\n",
+        "entry 167.txt": "NNN BULK 167 TOKEN\n",
+        "entry 168.txt": "NNN BULK 168 TOKEN\n",
+        "entry 169.txt": "NNN BULK 169 TOKEN\n",
+        "entry 170.txt": "NNN BULK 170 TOKEN\n",
+        "entry 171.txt": "NNN BULK 171 TOKEN\n",
+        "entry 172.txt": "NNN BULK 172 TOKEN\n",
+        "entry 173.txt": "NNN BULK 173 TOKEN\n",
+        "entry 174.txt": "NNN BULK 174 TOKEN\n",
+        "entry 175.txt": "NNN BULK 175 TOKEN\n",
+        "entry 176.txt": "NNN BULK 176 TOKEN\n",
+        "entry 177.txt": "NNN BULK 177 TOKEN\n",
+        "entry 178.txt": "NNN BULK 178 TOKEN\n",
+        "entry 179.txt": "NNN BULK 179 TOKEN\n",
+        "entry 180.txt": "NNN BULK 180 TOKEN\n",
+        "entry 181.txt": "NNN BULK 181 TOKEN\n",
+        "entry 182.txt": "NNN BULK 182 TOKEN\n",
+        "entry 183.txt": "NNN BULK 183 TOKEN\n",
+        "entry 184.txt": "NNN BULK 184 TOKEN\n",
+        "entry 185.txt": "NNN BULK 185 TOKEN\n",
+        "entry 186.txt": "NNN BULK 186 TOKEN\n",
+        "entry 187.txt": "NNN BULK 187 TOKEN\n",
+        "entry 188.txt": "NNN BULK 188 TOKEN\n",
+        "entry 189.txt": "NNN BULK 189 TOKEN\n",
+        "entry 190.txt": "NNN BULK 190 TOKEN\n",
+        "entry 191.txt": "NNN BULK 191 TOKEN\n",
+        "entry 192.txt": "NNN BULK 192 TOKEN\n",
+        "entry 193.txt": "NNN BULK 193 TOKEN\n",
+        "entry 194.txt": "NNN BULK 194 TOKEN\n",
+        "entry 195.txt": "NNN BULK 195 TOKEN\n",
+        "entry 196.txt": "NNN BULK 196 TOKEN\n",
+        "entry 197.txt": "NNN BULK 197 TOKEN\n",
+        "entry 198.txt": "NNN BULK 198 TOKEN\n",
+        "entry 199.txt": "NNN BULK 199 TOKEN\n"
+      },
+      "expected_directories": [],
+      "empty_directories": [],
+      "absent_paths": [],
+      "exact_tree": true,
+      "snapshot_exclusion": "Exclude random path/context header and dynamic status; preserve the complete intended list body"
+    }
+  ]
+}

@@ -11,6 +11,10 @@ on:
       - 'internal/runner/adversarial_*_test.go'
   workflow_dispatch:
     inputs:
+      final_campaign:
+        description: Run the guarded all-ten campaign on one frozen runner per host
+        type: boolean
+        default: false
       ranger_startup_probe:
         description: Run only the bounded Ranger first-key diagnostic
         type: boolean
@@ -24,7 +28,7 @@ env:
 
 jobs:
   controls:
-    if: github.event_name != 'workflow_dispatch' || !inputs.ranger_startup_probe
+    if: github.event_name != 'workflow_dispatch' || (!inputs.ranger_startup_probe && !inputs.final_campaign)
     timeout-minutes: 25
     strategy:
       fail-fast: false
@@ -90,7 +94,7 @@ jobs:
   project:
     # Full external-application campaigns are explicitly dispatched after their
     # reviewed corpus is ready. Core CI still runs on every relevant push.
-    if: github.event_name == 'workflow_dispatch' && !inputs.ranger_startup_probe
+    if: github.event_name == 'workflow_dispatch' && !inputs.ranger_startup_probe && !inputs.final_campaign
     timeout-minutes: 120
     strategy:
       fail-fast: false
@@ -133,7 +137,7 @@ jobs:
           if-no-files-found: error
           retention-days: 14
   ranger-startup-probe:
-    if: github.event_name == 'workflow_dispatch' && inputs.ranger_startup_probe
+    if: github.event_name == 'workflow_dispatch' && inputs.ranger_startup_probe && !inputs.final_campaign
     runs-on: macos-15
     timeout-minutes: 25
     steps:
@@ -165,3 +169,6 @@ jobs:
             docs/validation/ten-new-project-adversarial-pass/identities
           if-no-files-found: error
           retention-days: 14
+  final-campaign:
+    if: github.event_name == 'workflow_dispatch' && inputs.final_campaign
+    uses: ./.github/workflows/adversarial-final.yml

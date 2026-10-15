@@ -15,7 +15,7 @@ from adversarial_journey import check_state
 from adversarial_fixture_directories import prepare
 from adversarial_project_maintenance import copy_spec_fixture
 from adversarial_setup_python import source_identity
-from adversarial_final_audit import repetition_group
+from adversarial_final_audit import belongs_to_campaign,repetition_group
 
 class NativeHarnessControls(unittest.TestCase):
     def test_final_repetition_group_excludes_initial_state_and_rejects_bad_parent(self):
@@ -41,6 +41,11 @@ class NativeHarnessControls(unittest.TestCase):
         self.assertNotIn('initial',members)
         self.assertEqual(len(set(state)|{'initial'}),10)
         self.assertEqual(len(members.intersection(set(state)|{'initial'})),9)
+        for run,attempt,expected in [('current','2',True),('older','2',False),('current','1',False)]:
+            with self.subTest(run=run,attempt=attempt):
+                evidence={'started':{'ci_run_id':run,'ci_run_attempt':attempt}}
+                self.assertEqual(belongs_to_campaign(evidence,'current','2'),expected)
+        self.assertFalse(belongs_to_campaign({'started':{}},'current','2'))
         for category in ['failed','harness_error']:
             with self.subTest(category=category):
                 attempts['group']['finished']['category']=category

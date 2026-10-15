@@ -292,6 +292,11 @@ async def execute(argv,project,label,*,cwd=ROOT,env=None,input=None,timeout=120,
                 timeout_seconds=timeout,output_cap=output_cap,
                 variation='owned 2-second 8-MiB SHA256 CPU worker' if load else 'ordinary',
                 expected_exit=expected,evidence=str(directory.relative_to(ROOT)))
+    # Public numeric CI identifiers bind repetitions to a specific campaign
+    # and rerun attempt. Never capture arbitrary ambient environment values.
+    for name,key in [('GITHUB_RUN_ID','ci_run_id'),('GITHUB_RUN_ATTEMPT','ci_run_attempt')]:
+        value=os.environ.get(name)
+        record[key]=value if value and len(value)<=24 and value.isascii() and value.isdecimal() else None
     append(record)
     output=bytearray()
     proc=None
