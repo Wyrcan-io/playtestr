@@ -1,0 +1,55 @@
+{
+  "project": "ranger",
+  "source_pin": "46e957af9762dd2fcaabfbef4d3c45c16edd1184",
+  "development": "complete",
+  "final_frozen_campaign": "not run; zero credit",
+  "native_run": "38715026817",
+  "runner_source": "18bb8618742874b9d4065feed402396a2a914ab2",
+  "scenarios": 16,
+  "normal": 7,
+  "edges": 9,
+  "qualified_hosts": [
+    "Linux",
+    "Darwin"
+  ],
+  "ordinary_repetitions_per_host": 160,
+  "separate_final_group_state_probes_per_host": 160,
+  "real_source_faults": 3,
+  "source_fault_executions_across_hosts": 6,
+  "terminal_green_saved_corruption_controls": 1,
+  "exact_source_restoration": true,
+  "hosted_owned_applications_removed": true,
+  "local_owned_application_removed": true,
+  "prepared_route": {
+    "commands": 4,
+    "recorder_controls": 16,
+    "elapsed_prepared_route_seconds": 72.934167108,
+    "manual_json_edits": 0,
+    "evidence_ids": [
+      "f5c8be9381594d019976083d85fb181c",
+      "c0d54aaf1a3f42e082f38aed5b90c67f",
+      "45a885c356904108a5b3213bdd5fbdb4",
+      "a047a2f2342e4877bc80105d3272d9ee"
+    ],
+    "runner_sha256": "4a6cf7879d0a65b279fefa349f978e3d80398296abf1637759c358fdab5cfc78",
+    "provisional_command_gate_passed": true,
+    "provisional_control_gate_passed": true,
+    "provisional_elapsed_gate_passed": true,
+    "assessment": "Prepared operator walkthrough using public commands; not an independent novice study",
+    "confounders": [
+      "Prepared reviewed synthetic fixture and control sequence",
+      "Warm build/dependency caches",
+      "Prior operator knowledge and corrected authoring attempts",
+      "Controls automated one public recorder response at a time"
+    ],
+    "excluded_time": "Application acquisition, fixture engineering, prior exploratory authoring and correction; measured elapsed is not total setup or beginner authoring time",
+    "diagnosis": "Separate intentional mismatch/report route retained in maintenance-result.json"
+  },
+  "limits": [
+    "Scoped reviewed file operations, paging, resize, filtering and recovery; not exhaustive Ranger coverage",
+    "Terminal runs and state probes are distinct real executions",
+    "Prepared/warm/prior-engineering user route, not a novice study",
+    "Windows application execution not qualified",
+    "Full-product 100-project launch credit remains zero"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "problem": "Unscoped state count could substitute an initial/recovery probe for a missing final execution",
+  "before_actual_counterexample": {
+    "old_unscoped_count": 10,
+    "actual_final_group_count": 9,
+    "retained": "ranger/native-group-scope-calibration.json"
+  },
+  "repair": "Bind ten ordinary IDs to a unique completed parent; count exactly ten launched, passed state probes inside its ledger boundaries, with matching runner, target pin and public-spec hash",
+  "actual_global_ledger_positive_calibration": {
+    "groups": 32,
+    "ordinary_executions": 320,
+    "state_executions": 320,
+    "run": "38715026817",
+    "hosts": [
+      "Linux",
+      "Darwin"
+    ]
+  },
+  "unit_suite": {
+    "tests": 28,
+    "local_windows": {
+      "passed": true,
+      "seconds": 17.829,
+      "skipped": 5
+    },
+    "exploratory_wsl": {
+      "passed": true,
+      "seconds": 21.597,
+      "skipped": 2
+    }
+  },
+  "native_latest_28_suite": "Pending next CI source; earlier 27-test suite passed all three hosts",
+  "scope": "Private final campaign auditor repair; no new public runner assertions or final campaign credit"
+}

@@ -11,7 +11,7 @@
   "candidate_repair": "Assert initial file preview and complete 1/200 Top status before first navigation; no added delay, removed assertion or modified snapshot",
   "snapshot_sha256": "dfcd413d87583003c8972f62d51e0285e20fa4cce8fef316b142dcc9504f62a8",
   "local_weak_reproduction": "Ten ordinary repetitions and ten separate state probes passed; no macOS conclusion from WSL",
-  "new_native_status": "Full pristine run 38715026817: all three core jobs succeeded; Linux/macOS application qualification still running",
+  "new_native_status": "Full pristine run 38715026817 succeeded on Linux/macOS, 160 ordinary plus 160 actual final-group state probes per host; hosted/local owned removal verified",
   "qualification_credit": 0,
   "local_candidate": "Ordinary replay, public suffix rerecord, ten fresh ordinary repetitions and ten separate complete 200-file state probes passed; IDs retained in local-strong-startup-repetitions.json",
   "diagnostic": {
@@ -25,6 +25,9 @@
     "interpretation": "Consistent with a startup event flushing queued first navigation; source flushinput behavior observed in pinned UI; event constant name not captured",
     "scope": "Instrumented target, scheduling confounder; zero qualification credit",
     "retained": "startup-diagnostics/38714717729/manifest.json",
-    "cleanup": "Corrected exploratory diagnostic rerun 38715296656 succeeded, including owned cleanup; artifact verification pending"
-  }
+    "cleanup": "Later exploratory runs 38715296656 and 38717558462 verified exact restoration and owned deletion; 38715296656 comparison labels explicitly invalidated"
+  },
+  "established_cause": "Pinned _setup_mouse queues curses.ungetmouse(0,0,0,0,0) at ranger/gui/ui.py:48. Native KEY_MOUSE is 409. Its nonnegative input branch calls curses.flushinp before handling that event, consistent with the failed trace losing queued G before the next getch.",
+  "source_reference": "https://github.com/ranger/ranger/blob/46e957af9762dd2fcaabfbef4d3c45c16edd1184/ranger/gui/ui.py",
+  "calibrated_diagnostic": "startup-diagnostics/38717558462/manifest.json"
 }

@@ -15,8 +15,38 @@ from adversarial_journey import check_state
 from adversarial_fixture_directories import prepare
 from adversarial_project_maintenance import copy_spec_fixture
 from adversarial_setup_python import source_identity
+from adversarial_final_audit import repetition_group
 
 class NativeHarnessControls(unittest.TestCase):
+    def test_final_repetition_group_excludes_initial_state_and_rejects_bad_parent(self):
+        attempts={};positions={};ordinal=0
+        def event(ident,kind,**fields):
+            nonlocal ordinal
+            attempts.setdefault(ident,{})[kind]=fields
+            positions[(ident,kind)]=ordinal;ordinal+=1
+        event('initial','started',project='sample',label='case-state-probe')
+        event('initial','finished',category='passed')
+        event('group','started',project='sample',label='native-repetitions-case')
+        event('group','launched')
+        ordinary=[];state=[]
+        for index in range(10):
+            child='ordinary-'+str(index);ordinary.append(child)
+            event(child,'started');event(child,'finished',category='passed')
+            if index==9:continue
+            child='state-'+str(index);state.append(child)
+            event(child,'started');event(child,'finished',category='passed')
+        event('group','finished',category='passed',cleanup_errors=[])
+        group,members=repetition_group(attempts,positions,'sample','case',ordinary)
+        self.assertEqual(group,'group')
+        self.assertNotIn('initial',members)
+        self.assertEqual(len(set(state)|{'initial'}),10)
+        self.assertEqual(len(members.intersection(set(state)|{'initial'})),9)
+        for category in ['failed','harness_error']:
+            with self.subTest(category=category):
+                attempts['group']['finished']['category']=category
+                with self.assertRaisesRegex(RuntimeError,'repetition group failed'):
+                    repetition_group(attempts,positions,'sample','case',ordinary)
+
     def test_interpreted_identity_tracks_contained_links_and_rejects_escape(self):
         with tempfile.TemporaryDirectory(prefix='playtestr-interpreted-source-') as directory:
             root=Path(directory);source=root/'source';source.mkdir()

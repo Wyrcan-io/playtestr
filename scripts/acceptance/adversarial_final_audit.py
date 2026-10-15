@@ -12,6 +12,30 @@ from adversarial_freeze_runner import source_inputs
 def digest(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def repetition_group(attempts,positions,project,case_name,ordinary_ids):
+    """Find the actual completed parent containing the ten ordinary children."""
+    if len(ordinary_ids)!=10 or len(set(ordinary_ids))!=10:
+        raise RuntimeError('Ten distinct ordinary executions are required to bind a repetition group')
+    candidates=[]
+    for ident,events in attempts.items():
+        start=events.get('started',{})
+        if start.get('project')!=project or start.get('label')!='native-repetitions-'+case_name:continue
+        first=positions.get((ident,'started'));last=positions.get((ident,'finished'))
+        if first is None or last is None:continue
+        if all(first<positions.get((child,'started'),-1)<positions.get((child,'finished'),-1)<last
+               for child in ordinary_ids):
+            candidates.append((ident,events,first,last))
+    if len(candidates)!=1:
+        raise RuntimeError('A unique actual repetition group is missing or ambiguous')
+    ident,events,first,last=candidates[0]
+    if (events.get('finished',{}).get('category')!='passed' or
+        events.get('finished',{}).get('cleanup_errors') or 'launched' not in events):
+        raise RuntimeError('Actual repetition group failed or was not launched')
+    members={child for child,rows in attempts.items()
+             if first<positions.get((child,'started'),-1)<positions.get((child,'finished'),-1)<last}
+    return ident,members
+
+
 def audit(run):
     if not run.isdigit():raise RuntimeError('Invalid native run identifier')
     corpus=inspect(require_development=True)
@@ -54,8 +78,9 @@ def audit(run):
                 not all(a.get('passed') is True for a in value['attempts']) or
                 value.get('runner_sha256')!=identity['binary_sha256']):
                 errors.append('Historical wizard sequence failed or used another runner: '+host)
-    attempts={}
-    for row in read_attempts():attempts.setdefault(row['id'],{})[row['event']]=row
+    attempts={};ledger=read_attempts()
+    positions={(row['id'],row['event']):index for index,row in enumerate(ledger)}
+    for row in ledger:attempts.setdefault(row['id'],{})[row['event']]=row
     by_label={}
     for events in attempts.values():
         start=events.get('started',{});provenance=events.get('identified',{}).get('identity',{})
@@ -126,11 +151,28 @@ def audit(run):
                     qualified.append(start['id'])
                 if len(qualified)!=10:errors.append('Ten frozen attempt identities missing: '+artifact+'/'+case_name)
                 ordinary+=len(matches)
-                counted=[sid for sid in state_ids if attempts.get(sid,{}).get('started',{}).get('label')==case_name+'-state-probe']
+                try:
+                    _,members=repetition_group(attempts,positions,name,case['name'],qualified)
+                except RuntimeError as error:
+                    errors.append(artifact+'/'+case_name+': '+str(error));members=set()
+                counted=[sid for sid in state_ids if sid in members and
+                         attempts.get(sid,{}).get('started',{}).get('label')==case_name+'-state-probe']
                 expected_files={k:hashlib.sha256(v.encode('utf-8')).hexdigest()
                                 for k,v in case.get('expected_files',{}).items()}
                 for state in states:
                     if state['attempt_id'] not in counted:continue
+                    events=attempts[state['attempt_id']]
+                    provenance=events.get('identified',{}).get('identity',{})
+                    if (provenance.get('runner_sha256')!=identity['binary_sha256'] or
+                        provenance.get('target_revision')!=project['source_pin'] or
+                        events.get('finished',{}).get('category')!='passed' or
+                        events.get('finished',{}).get('cleanup_errors') or 'launched' not in events):
+                        errors.append('Final saved-state execution identity failed: '+state['attempt_id'])
+                    input_manifest=DOC/provenance['manifest']
+                    if digest(input_manifest)!=provenance['sha256']:raise RuntimeError('State identity hash mismatch')
+                    inputs=json.loads(input_manifest.read_text(encoding='utf-8'))
+                    if inputs['contracts'].get(spec.name)!=expected_spec:
+                        errors.append('Final saved-state spec identity differs: '+state['attempt_id'])
                     observed=state['observed']
                     if (observed.get('files')!=expected_files or
                         set(observed.get('absent',[]))!=set(case.get('absent_paths',[])) or
@@ -143,11 +185,11 @@ def audit(run):
                             expected_entries.update(p.as_posix() for p in Path(entry).parents if p!=Path('.'))
                         if observed.get('entries')!=sorted(expected_entries):
                             errors.append('Independent complete tree differs: '+artifact+'/'+case_name)
-                # Initial, rerecord and source-recovery probes are separate;
-                # the native completion record and group logs bind the ten
-                # final probes. Never count them as extra ordinary runs.
-                if len(counted)<10:errors.append('Independent state probes missing: '+artifact+'/'+case_name)
-                state_count+=10 if len(counted)>=10 else len(counted)
+                # Parent/child ledger boundaries exclude initial, rerecord and
+                # restoration probes; configured completion counts cannot fill
+                # a missing final execution.
+                if len(counted)!=10:errors.append('Ten distinct final-group state probes missing: '+artifact+'/'+case_name)
+                state_count+=len(counted)
             controls=[]
             for path in folder.glob('*-control.json'):
                 control=json.loads(path.read_text(encoding='utf-8'))
