@@ -43,3 +43,11 @@ under 5316cddbc03d44b88049b77f7878203f. Unrelated steps and selected-screen spec
 bytes were preserved; relocated contracts retained exact hashes. Human time is
 unmeasured. Observed active Poetry bytes: 96,832,410 (periodic observation, not
 quota/peak). Native qualification and final candidate remain open.
+
+First native run 38954006739 failed at context selection before scenarios: profile
+copy included five JSON fault receipts, so public selection listed 25 inputs.
+Narrowed copying now includes only each declared fixture plus snapshots; actual
+filesystem regression asserts exactly twenty specs and excludes receipts. Linux
+source restoration/removal passed; macOS rejected an external venv runtime link,
+retaining owned state on its ephemeral host. Next build requests stdlib venv
+--copies; actual macOS success is required before claiming cleanup repaired.

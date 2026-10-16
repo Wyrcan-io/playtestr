@@ -177,3 +177,20 @@ runner source 93bd63d; dispatch after this commit. Poetry remains the sole activ
 local target (~97 MB observed). Latest prior core batch 38950594057 has all three
 native jobs successful and all bounded packets retrieved. Final archives and old
 project migration remain open.
+
+Corrective Poetry native preparation: first run 38954006739 built both targets,
+but context rejected 25 selected JSON files (five fault receipts leaked into
+the suite). No ordinary scenario ran. Linux source restore/removal passed; macOS
+refused an escaping venv runtime link before removal. Both ~5.4 MB packets are
+retrieved. Corrected profile copies only declared fixtures/snapshots; regression
+proves exactly twenty selected JSON specs. Venv now requests --copies and
+cleanup reports any refused relative link explicitly; macOS repair still needs
+actual native proof. Twelve evidence/profile/provenance tests pass locally.
+Core 38953916606 at 49f3767 has now succeeded on all three native hosts.
+
+All 88 historical controls are source-bound to core 38950594057: 87 have passing
+applicable native evidence; the real short-path-alias control skipped on hosted
+Windows and remains explicitly unqualified. New control declarations list 33
+whole tests, with native/final binding pending; archive negative controls remain
+required. Three-by-fifty separate historical investigations and their workflow
+are prepared, not executed; dispatch after corrected Poetry jobs settle.

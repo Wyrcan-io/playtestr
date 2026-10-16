@@ -1,0 +1,432 @@
+{
+  "claim": "Declarations only; no final candidate credit. Archive/storage negative controls remain required and will extend this matrix. Existing 88 rows retain their original IDs; neither host copies nor fuzz executions count as new controls.",
+  "controls": [
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "state-prelaunch",
+      "requirement": "Invalid state contracts cannot launch a target",
+      "source": "internal/runner/state_contract_test.go",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "TestStateContractRejectsBeforeLaunch"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "state-resource-caps",
+      "requirement": "Real exact/over limits bound selected file bytes and directory enumeration",
+      "source": "internal/runner/state_contract_test.go",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "TestStateFileAndDirectoryResourceBoundaries"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "state-separate-cleanup",
+      "requirement": "State rejection preserves independent teardown error",
+      "source": "internal/runner/state_contract_test.go",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "TestStateFailurePreservesSeparateCleanupError"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "maintenance-json-bytes",
+      "requirement": "Selected update preserves exact unrelated JSON formatting/bytes",
+      "source": "internal/runner/state_maintenance_test.go",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "TestStateMaintenanceRetainsExactUnrelatedJSONBytes"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "maintenance-expectations",
+      "requirement": "Fresh selected update preserves unrelated screen and state expectations",
+      "source": "internal/runner/state_maintenance_test.go",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "TestStateMaintenancePreservesUnrelatedExpectations"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "maintenance-interrupted",
+      "requirement": "Cancellation/concurrent edit cannot overwrite approved original",
+      "source": "internal/runner/state_maintenance_test.go",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "TestStateMaintenanceCancellationAndConcurrentEditPreserveApproval"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "state-replacement",
+      "requirement": "Actual concurrent selected-file/link replacement cannot approve owned external canary",
+      "source": "internal/runner/state_replacement_test.go",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "TestStateConcurrentLinkReplacementNeverApprovesOwnedCanary"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "state-byte-types",
+      "requirement": "Exact binary/empty bytes and missing/wrong types yield accurate outcomes",
+      "source": "internal/runner/state_test.go",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "TestStateExactBytesAndTypes"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "state-directory-sets",
+      "requirement": "Exact immediate names detect extra/missing entries and absence/type differences",
+      "source": "internal/runner/state_test.go",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "TestStateDirectoriesAbsenceAndBounds"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "state-portable-paths",
+      "requirement": "Portable selected-path validation refuses traversal, aliases and unsupported forms",
+      "source": "internal/runner/state_test.go",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "TestStatePathValidation"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "state-link-containment",
+      "requirement": "Real owned link and ancestor links cannot expose selected canary",
+      "source": "internal/runner/state_test.go",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "TestStateRejectsOwnedLinks"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "state-same-invocation",
+      "requirement": "Public state rejects actual corruption in the same workspace and confirms cleanup",
+      "source": "internal/runner/state_test.go",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "TestStateSameExecutionCorruptionAndCleanup"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "record-state-export",
+      "requirement": "Public recorder review/replay/export retains reviewed exact state",
+      "source": "internal/runner/state_test.go",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "TestStateRecorderReviewReplayExport"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "record-rejected-capture",
+      "requirement": "Rejected requested captures cannot silently disappear behind a green replay/export",
+      "source": "internal/runner/record_false_green_test.go",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "TestRecordingRejectedStateCannotSilentlyDisappearFromExport"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "record-input-only",
+      "requirement": "Input-only candidate lacks positive completion and cannot be exported",
+      "source": "internal/runner/record_false_green_test.go",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "TestRecordingInputOnlyCandidateCannotReplayAsUsefulTest"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "record-discard-completion",
+      "requirement": "Explicitly discarding errors cannot bypass fresh completion after final input",
+      "source": "internal/runner/record_false_green_test.go",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "TestRecordingExplicitDiscardStillRequiresFreshCompletion"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos"
+      ],
+      "id": "state-native-unix-types",
+      "requirement": "Native FIFO/permission boundaries refuse unsafe or unreadable selected resources",
+      "source": "internal/runner/state_unix_test.go",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "TestStateUnixSpecialFileAndNativePermission"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "windows"
+      ],
+      "id": "state-native-windows-types",
+      "requirement": "Native junction and actual exclusive byte-range lock are rejected",
+      "source": "internal/runner/state_windows_test.go",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "TestStateWindowsJunctionAndLockedFile"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos"
+      ],
+      "id": "native-signal-status",
+      "requirement": "Real native signals have exact documented status and same-run post-exit state",
+      "source": "internal/runner/process_signal_unix_test.go",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "TestNativeSignalExitStatusAndSameRunState"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "state-report-identities",
+      "requirement": "Report v3 rejects incompatible/missing/inconsistent state invocation identity",
+      "source": "internal/report/state_test.go",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "TestStateReportVersionAndIdentityValidation"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "installer-version-bounds",
+      "requirement": "Actual version output flood/hang is bounded and cannot publish an installation",
+      "source": "internal/setupaction/install_integration_test.go",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "TestSetupActionBoundsVersionCheck"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "ledger-concurrent",
+      "requirement": "Concurrent independent immutable streams preserve every distinct attempt",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "EvidenceTests.test_concurrent_exclusive_events"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "ledger-no-overwrite",
+      "requirement": "A duplicate cannot replace an immutable failed result",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "EvidenceTests.test_duplicate_cannot_overwrite_failure"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "ledger-interrupted",
+      "requirement": "Truncated/partial/malformed ledger evidence is rejected",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "EvidenceTests.test_interrupted_and_malformed_records_reject"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "ledger-unfinished",
+      "requirement": "Started attempts without final outcomes remain incomplete",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "EvidenceTests.test_started_without_outcome_rejects"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "owned-go-boundary",
+      "requirement": "Downloaded target/SDK source cannot enter ordinary Go package discovery",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "EvidenceTests.test_downloaded_go_sources_have_module_boundary"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "ledger-prelaunch-failure",
+      "requirement": "Actual rejected identity setup stays in the denominator without process launch",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "EvidenceTests.test_rejected_prelaunch_identity_is_accounted_without_credit"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "ledger-false-success",
+      "requirement": "A fabricated green outcome without prelaunch identity is rejected",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "EvidenceTests.test_success_without_prelaunch_identity_rejects"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "editable-source-identity",
+      "requirement": "Real source mutation/restoration changes/restores immutable target identity",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "EvidenceTests.test_editable_target_mutation_changes_prelaunch_identity"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "selection-contract-coverage",
+      "requirement": "Directory invocation includes every publicly selected spec and fixture identity",
+      "source": "scripts/acceptance/test_readiness_public_suite.py",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "PublicSelectionTests.test_selection_directory_does_not_omit_contracts"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "selection-invalid",
+      "requirement": "Missing/duplicate/malformed public selection is rejected before launch",
+      "source": "scripts/acceptance/test_readiness_public_suite.py",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "PublicSelectionTests.test_bad_and_duplicate_selection_rejects_before_launch"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "selection-receipt-exclusion",
+      "requirement": "Non-spec receipts cannot enter a generated public test suite",
+      "source": "scripts/acceptance/test_readiness_poetry_profiles.py",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "PoetryProfileTests.test_native_selection_excludes_fault_receipts"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "ci-state-tamper",
+      "requirement": "CI summary rejects tampered state identities/outcomes and omits private failure payload",
+      "source": "scripts/ci/test_report_summary.py",
+      "status": "declared; final native/archive evidence binding pending",
+      "test": "test_state_same_execution_identity_and_failure_category"
+    }
+  ],
+  "count": 33,
+  "schema_version": 1
+}

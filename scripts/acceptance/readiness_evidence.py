@@ -80,6 +80,13 @@ class Campaign:
                     try:spec=json.loads(path.read_text(encoding='utf-8-sig'))
                     except (ValueError,UnicodeError):continue
                     if isinstance(spec,dict) and spec.get('version') in {1,2,3} and isinstance(spec.get('steps'),list):
+                        command=spec.get('command')
+                        if isinstance(command,list) and command and isinstance(command[0],str):
+                            executable=Path(command[0])
+                            if not executable.is_absolute() and any(c in command[0] for c in '/\\'):
+                                executable=(path.parent if spec['version']>=2 else ROOT)/executable
+                            if executable.is_absolute() and executable.is_file() and executable.resolve().is_relative_to(ROOT):
+                                paths.append(executable)
                         for step in spec['steps']:
                             if isinstance(step,dict) and isinstance(step.get('snapshot'),str):
                                 baseline=(path.parent/'snapshots'/step['snapshot']).resolve()

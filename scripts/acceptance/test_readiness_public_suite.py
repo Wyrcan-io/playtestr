@@ -33,5 +33,17 @@ class PublicSelectionTests(unittest.TestCase):
             with self.assertRaises((ValueError,FileNotFoundError)):
                 SelectedCampaign(self.selection).identity('selection-control',['must-not-launch'])
 
+    def test_selected_owned_executable_mutation_changes_identity(self):
+        import json
+        binary=self.root/'owned-target.exe';binary.write_bytes(b'reviewed target binary')
+        spec=self.root/'case.json'
+        spec.write_text(json.dumps(dict(version=3,command=[str(binary)],steps=[dict(exit=0)])))
+        self.selection.write_text('Selected 1 specs:\n'+spec.relative_to(ROOT).as_posix()+'\n')
+        campaign=SelectedCampaign(self.selection)
+        before=campaign.identity('selection-control',['public-runner','test',self.root])
+        binary.write_bytes(b'changed target binary')
+        after=campaign.identity('selection-control',['public-runner','test',self.root])
+        self.assertNotEqual(before['sha256'],after['sha256'])
+
 
 if __name__=='__main__':unittest.main()

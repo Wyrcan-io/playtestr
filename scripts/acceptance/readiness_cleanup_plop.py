@@ -121,7 +121,7 @@ async def main():
                     if (project!='poetry' or relative.parts[:2]!=('venv','bin') or
                         not re.fullmatch(r'python(?:[0-9]+(?:\.[0-9]+)?)?',path.name) or
                         not path.resolve().is_file() or sha256(path.resolve())!=runtime.get('python_sha256')):
-                        raise RuntimeError('unknown escaping package-manager link')
+                        raise RuntimeError('unknown escaping package-manager link: '+relative.as_posix())
                     external_runtime_links.append(dict(path=relative.as_posix(),runtime_sha256=runtime['python_sha256']))
                 links.append(path.relative_to(active).as_posix())
                 if name in dirs:dirs.remove(name)

@@ -81,3 +81,11 @@ Before Poetry native batch: three core jobs plus two standard native Poetry
 jobs, at most four concurrent, 125 job-minute ceiling, 30-45 job-minute forecast.
 Runner production source remains 93bd63d. Native project scripts and all runtime
 setup are explicitly owned. Windows Poetry E05 remains excluded. No final freeze.
+
+Poetry corrective batch: preceding core 38953916606 finished successfully on all
+three hosts. Next push starts three core jobs; manually repeat the two Poetry
+jobs with corrected suite selection and copied venv runtime. Same maximum four
+concurrent, 125 job-minute ceiling, forecast 30-45. Both first failing project
+packets remain in the denominator; no scenario credit from the setup-only run.
+Historical investigations are prepared but dispatched only after Poetry jobs
+settle, as separately declared in historical-investigations.md.

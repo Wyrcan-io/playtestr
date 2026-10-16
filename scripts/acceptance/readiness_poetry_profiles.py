@@ -11,9 +11,12 @@ from readiness_poetry_cases import PACKAGE, rows
 def main():
     target=RAW/'poetry/host-contracts'
     target.mkdir(parents=True,exist_ok=False)
-    for folder in PACKAGE.iterdir():
-        if folder.is_dir():shutil.copytree(folder,target/folder.name)
     contracts=[('N01','normal-init.json'),('N08','normal-build-sdist.json')]+[(r[0],r[1]) for r in rows()]
+    folders={'snapshots'}
+    for _,name in contracts:
+        folders.add(json.loads((PACKAGE/name).read_text())['workspace']['fixture'])
+    for folder in sorted(folders):
+        shutil.copytree(PACKAGE/folder,target/folder)
     records=[]
     for identity,name in contracts:
         source=PACKAGE/name;spec=json.loads(source.read_text())

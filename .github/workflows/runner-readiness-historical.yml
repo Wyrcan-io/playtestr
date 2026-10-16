@@ -1,0 +1,61 @@
+name: Runner readiness historical investigations
+on:
+  push:
+    branches: [work/p0-p2-implementation]
+    paths: ['.github/workflows/runner-readiness-historical.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+env:
+  GIT_CONFIG_COUNT: '1'
+  GIT_CONFIG_KEY_0: 'core.longpaths'
+  GIT_CONFIG_VALUE_0: 'true'
+jobs:
+  investigations:
+    if: github.event_name == 'workflow_dispatch'
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        os: [windows-2025, macos-15]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+      - name: Owned official SDK and historical fixture binaries
+        run: |
+          mkdir -p "$TEMP" "$GOCACHE" "$GOPATH" artifacts/runner-readiness-ten-project-pass/bin
+          python scripts/acceptance/readiness_check.py --label historical-owned-sdk --timeout 360 -- python scripts/acceptance/readiness_bootstrap_go.py
+          export PATH="$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass/toolchain/go/bin:$PATH"
+          ext=''; if [ "$RUNNER_OS" = Windows ]; then ext='.exe'; fi
+          python scripts/acceptance/readiness_check.py --label historical-runner-build --timeout 180 -- go build -trimpath -ldflags "-X github.com/Wyrcan-io/playtestr/internal/buildinfo.Version=source-${GITHUB_SHA}" -o "artifacts/runner-readiness-ten-project-pass/bin/playtestr${ext}" ./cmd/playtestr
+          python scripts/acceptance/readiness_check.py --label historical-fixture-build --timeout 180 -- go build -trimpath -o "artifacts/runner-readiness-ten-project-pass/bin/fixture${ext}" ./cmd/fixture
+      - name: Three native Windows wizard batches
+        if: runner.os == 'Windows'
+        run: |
+          python scripts/acceptance/readiness_check.py --label historical-wizard-parent --timeout 1200 -- python scripts/acceptance/readiness_wizard_investigation.py
+      - name: Separate native macOS readiness and publication batches
+        if: runner.os == 'macOS'
+        run: |
+          export PATH="$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass/toolchain/go/bin:$PATH"
+          export CGO_ENABLED=1
+          python scripts/acceptance/readiness_check.py --label historical-macos-parent --timeout 1200 -- python scripts/acceptance/readiness_macos_investigation.py
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: runner-readiness-historical-${{ matrix.os }}
+          path: |
+            artifacts/runner-readiness-ten-project-pass/events/
+            artifacts/runner-readiness-ten-project-pass/identities/
+            artifacts/runner-readiness-ten-project-pass/core/
+            artifacts/runner-readiness-ten-project-pass/historical-wizard/
+            artifacts/runner-readiness-ten-project-pass/historical-macos/
+            artifacts/runner-readiness-ten-project-pass/toolchain/sdk.json
+          if-no-files-found: error
+          retention-days: 14

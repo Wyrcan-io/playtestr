@@ -47,7 +47,7 @@ async def main():
             immutable_json(target/f'{label}-{uuid.uuid4().hex}-storage.json',
                            dict(observed_bytes=observations,measurement='periodic; not an exact peak or quota'))
     venv=target/'venv'
-    await run([sys.executable,'-m','venv',venv],'owned-runtime-venv')
+    await run([sys.executable,'-m','venv','--copies',venv],'owned-runtime-venv')
     python=venv/('Scripts/python.exe' if os.name=='nt' else 'bin/python')
     requirements=target/'runtime-requirements.txt'
     requirements.write_text('\n'.join(metadata['project']['dependencies'])+'\n',encoding='utf-8')
