@@ -2,6 +2,10 @@
 
 Planning baseline: **6 October 2026**. Execution update: **7 October 2026**, P0–P2 authorized through the [full batch prompt](docs/plans/p0-p2-full-implementation-prompt.md). P0, P1 and P2 accepted within their scoped boundary: recorder/export/replay, generated free workflows, actual same-repository/fork PR journeys and final native/race evidence. Exact status and failures live in the [acceptance record](docs/validation/p0-p2-2026-10-07.md). Later phases remain planned. The [planning index](docs/plans/README.md) owns detailed plans; [archived plans](docs/archive/prelaunch-2026-10-06/README.md) preserve history.
 
+## Current priority: runner readiness before paid integration
+
+User direction, 16 October 2026: defer P3/P4 until the local/free-CI runner has public same-execution saved-state checks, a simple documented user journey, bounded compatibility, investigated reliability risks and a separately qualified 100-project runner campaign. [Runner stability and usability plan](docs/plans/16-runner-stability-and-usability.md) defines R0-R5 and their acceptance. This is a planning change, not an implementation or launch claim. Its runner counter starts at 0/100 under the expanded contract; historical engineering evidence remains intact. The paid-product campaign remains a separate 0/100 gate.
+
 ## Direction
 
 Build a self-service, AI-free terminal regression product for pull requests. Proposed launch message:
@@ -35,12 +39,14 @@ The historical corpus records 15 projects and 120 workflows. It is reusable inpu
 
 P0–P2 and early P5 runner reliability are accepted within their recorded scopes; P3/P4 and remaining P5–P9 remain **planned / not started**. Effort ranges remain planning forecasts, not an elapsed-time report.
 
+The table retains the commercial phase IDs. [R0-R5](docs/plans/16-runner-stability-and-usability.md) now precede P3; their expanded scope needs a fresh estimate. P5/P6 below describe the later complete product, not the earlier runner-only ledger.
+
 | Phase | User-visible outcome | Exit requirement | Dependencies | Focused effort |
 | --- | --- | --- | --- | --- |
 | P0 — product and feasibility contracts | A precise promise, paid boundary, and affordable delivery model | Scope, pricing hypothesis, permissions/data model, provider/payment feasibility and known limits decided | This plan; later execution instruction | 1–2 weeks |
 | P1 — guided local authoring | Record a real flow and generate a reviewable, rerunnable test | Checkpoints, readiness, fixtures, exits, cancellation, secret avoidance, and compatibility proven | P0 | 3–5 weeks |
 | P2 — complete free PR workflow | Committed tests run on a PR and give useful evidence | Build → test → retained failure → local reproduction → reviewed update, including fork restrictions | P1; reuse existing Actions work | 1–2 weeks |
-| P3 — paid review integration | Install the App and review changed test contracts/baselines | Revision-bound policy, least privileges, metadata, invalidation, role checks and outages proven | P0 and P2 | 3–5 weeks |
+| P3 — paid review integration | Install the App and review changed test contracts/baselines | Revision-bound policy, least privileges, metadata, invalidation, role checks and outages proven | R0-R5 runner readiness, P0 and P2 | 3–5 weeks |
 | P4 — automated commercial lifecycle | Buy, activate, cancel, reinstall, export and delete without operator intervention | Payment sandbox, reconciliation, duplicate/out-of-order events, refunds and outage drills pass | P3; eligible provider route | 2–3 weeks |
 | P5 — hardening and first 10 projects | Complete experience works on diverse real applications | Ten accepted projects; native/security/format checks; cost and operations measurements | P1–P4 | 2–4 weeks |
 | P6 — 100-project validation | Evidence supports a precise compatibility statement | 100 accepted projects, visible failures/exclusions, 20 reserved late projects, native matrix and cost ledger | P5; 10 → 30 → 60 → 80 → 100 | 6–12+ weeks |
@@ -48,9 +54,9 @@ P0–P2 and early P5 runner reliability are accepted within their recorded scope
 | P8 — explicit launch decision | Publish the reviewed offer | Owner authorizes exact publication/deployment and selected marketing actions | P7 | Decision, not automatic |
 | P9 — low-maintenance operation | Routine purchases and runs need no manual work | Measure incidents, support minutes, margin and repeat use | Actual launch | Ongoing |
 
-Sequential total: approximately **20–36+ focused engineering weeks**, with substantial uncertainty in recorder reliability, App integrity, and project onboarding. This is not a promised launch date. Re-estimate after P0, the first ten projects, and every batch. An overrun triggers a visible scope/date decision; it never silently lowers the 100-project gate.
+Historical paid-roadmap forecast, excluding the new R0-R5 program: approximately **20–36+ focused engineering weeks**, with substantial uncertainty in recorder reliability, App integrity, and project onboarding. This is not a promised launch date. Re-estimate after R1, the first fresh-start journeys, and every new batch. An overrun triggers a visible scope/date decision; it never silently lowers the 100-project gate.
 
-Keep one implementation slice active. Candidate screening may overlap, but broad qualification follows the complete product. Avoid finishing 100 runner-only demonstrations while the actual paid PR experience remains untested.
+Keep one implementation slice active. The current order is R0-R5 runner readiness, including its 100-project campaign, then P3/P4 and remaining complete-product gates. Candidate screening may overlap. Runner qualification must include the expanded public assertion and user experience; paid PR behavior is qualified separately after it exists.
 
 ## Ready-to-launch definition
 
@@ -79,7 +85,7 @@ GitHub Marketplace supplies distribution/billing, not backend hosting. Paid-app 
 
 Status lives here; details live in the plans; execution evidence belongs in dated validation records. Public contracts stay accurate to shipped behavior until implementation changes them. Use [milestones](docs/plans/09-delivery-milestones.md), [quality gates](docs/plans/10-quality-and-release.md), and [templates](docs/plans/14-execution-templates.md) when execution is requested.
 
-**Next implementation gate: P3 paid review integration, when invoked.** P0–P2 and early P5 runner reliability are complete. P0 ADRs are in `docs/decisions/`; no provider signup, release or marketing starts automatically.
+**Next implementation gate: R0/R1 runner contract and public saved-state assertions, when invoked.** Follow [R0-R5](docs/plans/16-runner-stability-and-usability.md) through usability, reliability, 100-project runner validation and exact candidate artifacts before P3/P4. P0–P2 and early P5 runner reliability are complete. P0 ADRs are in `docs/decisions/`; no provider signup, release or marketing starts automatically.
 
 
 10 October 2026: [ten-project early reliability pass](docs/validation/ten-project-user-pass/README.md) completed: 33 reviewed scenarios, 330 final fresh passes, 10 detected actual target regressions and all restored scenarios passing on exact source 53561e6. Order: early P5 reliability -> P3 -> P4 -> remaining P5 -> full 100-project campaign. Full P5 and the campaign remain unqualified.

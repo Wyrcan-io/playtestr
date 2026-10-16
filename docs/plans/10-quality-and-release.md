@@ -2,6 +2,10 @@
 
 Status: future validation protocol. Existing evidence remains dated. [Campaign](08-real-project-validation.md) · [Milestones](09-delivery-milestones.md).
 
+## Current runner-first gate
+
+16 October 2026: [R0-R5](16-runner-stability-and-usability.md) now precede P3/P4. Qualify the expanded standalone runner, recorder, free CI and exact candidate archives independently of unimplemented paid services. The service/payment launch requirements below remain mandatory for the later commercial product. Preparing private candidate artifacts is not publishing a release; publication still needs exact authorization and subsequent actual downloaded-artifact verification.
+
 ## Verification layers
 
 | Layer | Proves | Does not prove |

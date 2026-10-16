@@ -2,6 +2,10 @@
 
 Status: campaign designed; **0/100 accepted under this protocol**. No downloads, project execution, CI jobs, PRs or upstream contact are initiated by this planning task. [Candidate discovery](15-candidate-discovery.md) · [Record templates](14-execution-templates.md).
 
+## Runner campaign before the paid campaign
+
+16 October 2026: [16](16-runner-stability-and-usability.md) adds a runner-readiness campaign **before P3/P4**, with its own 0/100 ledger. Reuse the safety, canonical-project, diversity, provenance, failure-preservation and cleanup rules here. Plan 16 owns the stricter runner scenario, public state-assertion and usability gates. Paid App approval and commerce are excluded from runner admission and remain mandatory for later complete-product admission. The original requirements below describe that later complete-product campaign, whose count remains 0/100. A runner qualification is not paid-product qualification. Historical projects can be re-admitted only with the relevant complete package and current candidate evidence.
+
 ## What the count means
 
 An accepted project is a distinct independently maintained upstream application with an actual interactive terminal workflow, tested at a pinned revision/version with repeatable synthetic state. Count the canonical upstream identity once. Multiple packages in one repository, forks/mirrors, language ports maintained as the same application, examples shipped by a framework, multiple specs, OS lanes and repeated runs cannot inflate the count.

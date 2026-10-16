@@ -2,6 +2,10 @@
 
 Execution update 7 October 2026: P0–P2 explicitly authorized by the invoked [batch prompt](p0-p2-full-implementation-prompt.md). P0-P2 scoped acceptance is complete, including final native/race and real same-repository/fork journeys; evidence and retained failures are tracked in the [dated record](../validation/p0-p2-2026-10-07.md). P3 onward remain unstarted. [Roadmap](../../roadmap.md) sets phase estimates and constraints.
 
+## Current ordering decision
+
+16 October 2026: the user deferred P3/P4 until runner stability and user experience are qualified. Execute [R0-R5](16-runner-stability-and-usability.md) first: contract, public same-execution saved-state assertions, fresh-start usability, reliability/compatibility, 100-project runner validation and exact candidate archives. The existing phase IDs below remain the commercial roadmap; their historical ordering notes do not override this decision. P3/P4 and full-product P5/P6 follow runner readiness. New runner work is planned, not implemented or credited.
+
 ## Working method
 
 One active user-visible slice, one bounded acceptance statement, relevant success/failure/timeout/cleanup checks, manual demonstration when behavior changes, and documentation in the same change. Reuse existing runner/report/installer assets. Stop at a phase boundary for recorded review unless a later execution instruction explicitly authorizes continuation.

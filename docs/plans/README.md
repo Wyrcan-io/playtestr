@@ -20,6 +20,11 @@ Created 6 October 2026. Originally **plans only**; the user subsequently invoked
 | [13 — source register](13-source-register.md) | Dated provider facts and recheck obligations |
 | [14 — execution templates](14-execution-templates.md) | Future slice, project, batch, billing and release records |
 | [15 — candidate discovery](15-candidate-discovery.md) | Screening lanes and leads; no compatibility claims |
+| [16 - runner stability and usability](16-runner-stability-and-usability.md) | Current R0-R5 priority before P3/P4; runner-only admission and release gates |
+
+## Current execution order
+
+User direction, 16 October 2026: **runner readiness first; P3/P4 deferred**. [16](16-runner-stability-and-usability.md) defines public saved-state assertions, fresh-start usability, intermittent-failure investigation, explicit compatibility, a 100-project runner campaign and exact candidate archives. Its runner counter and the later complete paid-product campaign are separate; neither inherits historical admissions automatically. Human beginner measurements remain unproven until real participants supply them. This change prepares plans only.
 
 ## Implementation prompt
 
