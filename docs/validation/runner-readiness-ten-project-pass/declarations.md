@@ -19,6 +19,11 @@ hosted Go/Python/compilers and checkout-owned dependency/build/temp paths. Only
 this campaign's compact events/identities/results are uploaded, excluding caches.
 This is a core-only declaration, not a project-host qualification or dispatch.
 
+Initial manual dispatch of new workflow at `81589cd` returned HTTP 404 because
+GitHub had not registered it on the default branch. No run was created. Add a
+narrow working-branch push trigger for changes to this workflow itself, allowing
+registration/execution without changing the default branch or opening a PR.
+
 First use begins after target availability and ends at the first reviewed
 ordinary passing test: at most five Playtestr shell invocations and twenty
 recorder controls. Count failed attempts too. Diagnosis allows three documented

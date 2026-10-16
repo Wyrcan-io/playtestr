@@ -1,6 +1,10 @@
 name: Runner readiness core
 
 on:
+  push:
+    branches: [work/p0-p2-implementation]
+    paths:
+      - '.github/workflows/runner-readiness.yml'
   workflow_dispatch:
 
 permissions:
