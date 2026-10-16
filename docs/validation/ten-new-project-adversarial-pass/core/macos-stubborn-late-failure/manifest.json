@@ -8,9 +8,9 @@
     "stubborn-race-events.jsonl": "3c3bac926f1784b88a3d73063c9c22f6f6daa8a9153b72c75b0bcdfcd51a7c0d",
     "test-events.jsonl": "ffc98ba596a2d56d8ebed313fec1201e0d3c98a0a5f4843504215e175ea8eb0d"
   },
-  "disposition": "Investigate test-helper heartbeat publication; no production diagnosis or completed-task claim",
+  "disposition": "Test-fixture publication race repaired with deterministic before/after evidence; actual native requalification and renewed all-ten frozen audit passed; original hosted branch causality remains limited",
   "historical_frozen_run": "38802794545",
-  "new_qualification_required": true,
+  "new_qualification_required": false,
   "reduced_before": "publication-before.txt",
   "reduced_after": "publication-after-wsl-race.txt",
   "repair": "Test-only atomic heartbeat replacement and contextual helper diagnostics; no product deadline or production Go file changed",
@@ -25,5 +25,23 @@
   "inputs_differing_from_e868": [
     "internal/runner/adversarial_stubborn_unix_test.go"
   ],
-  "production_go_and_module_inputs_unchanged": true
+  "production_go_and_module_inputs_unchanged": true,
+  "native_requalification": {
+    "source": "5f8867aa88aa0f3d6727bc64021b9a906617b58c",
+    "terminal_run": "38832525447",
+    "native_control_run": "38832525487",
+    "actual_conclusions": "Both success, all three hosts",
+    "frozen_campaign": "38832572859",
+    "frozen_macos_job": "Passed and actual fifty race repetitions independently verified from downloaded JSON events; full normal and race suites include the deterministic publication regression",
+    "frozen_campaign_conclusion": "Success; strict retained-evidence audit passed for source 5f8867aa88aa0f3d6727bc64021b9a906617b58c"
+  },
+  "reduced_before_function": "func publishStubbornHeartbeat(path string, value []byte, beforeWrite func()) error {\n    file, err := os.OpenFile(path, os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0600)\n    if err != nil { return err }\n    defer file.Close()\n    if beforeWrite != nil { beforeWrite() }\n    if _, err := file.Write(value); err != nil { return err }\n    return file.Close()\n}",
+  "reduced_mechanism": "The observation hook runs between opening/truncating the published file and writing the next value, exposing the same publication gap as the original os.WriteFile heartbeat. The recorded before result reads empty bytes without an I/O error.",
+  "before_command": "go test -count=1 -run ^TestAdversarialStubbornHeartbeatPublication$ ./internal/runner",
+  "after_command": "go test -race -count=10 -run ^TestAdversarialStubborn(HeartbeatPublication|UnixDescendantCleanup)$ ./internal/runner",
+  "original_late_repetition_counts": {
+    "run": 50,
+    "pass": 49,
+    "fail": 1
+  }
 }

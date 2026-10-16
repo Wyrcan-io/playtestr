@@ -185,6 +185,7 @@ def main():
             persist(retained/name,report_path.read_bytes())
             persist(retained/path.name,path.read_bytes())
             record['files'][name]=hashlib.sha256(report_path.read_bytes()).hexdigest()
+            record['files'][path.name]=hashlib.sha256(path.read_bytes()).hexdigest()
             probe_id=fault.get('state_probe_evidence_id')
             if probe_id:
                 if not all(c in '0123456789abcdef' for c in probe_id) or len(probe_id)!=32:

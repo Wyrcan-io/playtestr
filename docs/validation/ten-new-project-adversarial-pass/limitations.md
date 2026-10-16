@@ -50,6 +50,8 @@ avoid real credentials, home-directory scans and production data.
   measured raw execution-evidence budget. Hashes preserve integrity but do not
   keep remote artifacts available after expiry.
 
+- A later macOS helper exit8 exposed a proven test-fixture heartbeat publication race in a reduced checkpoint. Atomic replacement passed that regression, native normal/race checks, fifty macOS cleanup repetitions and renewed all-ten qualification. The exact original hosted exit8 branch was not logged, so its causal trace remains limited. Production Go inputs and product deadlines did not change. [Failure, repair and limits](core/macos-stubborn-late-failure/manifest.json).
+
 The standalone runner remains deterministic and AI-free. The paid integration
 and buyer lifecycle remain future work. This pass earns no complete-product
 100-project launch credit and does not authorize marketing, outreach or release.

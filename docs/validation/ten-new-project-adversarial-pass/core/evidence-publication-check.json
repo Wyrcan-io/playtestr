@@ -4,7 +4,7 @@
   "before_missing_bytes": 228728,
   "repair": "Two narrow native campaign exceptions for .actual.txt and .diff.txt",
   "after_missing_manifest_files": 0,
-  "manifest_files_with_verified_worktree_and_index_bytes": 3241,
+  "manifest_files_with_verified_worktree_and_index_bytes": 3929,
   "scope": "Every completed retained native collection; file hashes and staged blob identities verified, historical bytes unchanged",
   "ignore_scope_checks": [
     {
@@ -23,5 +23,7 @@
       "path": "docs/validation/ten-new-project-adversarial-pass/native/probe/test.diff.txt",
       "ignored": false
     }
-  ]
+  ],
+  "supplemental_current_native_inventory": "final-native-file-inventory.json",
+  "supplemental_scope": "All current retained native files, including original manifest and 65 fault descriptions omitted from its hash maps; source artifact bytes and exact staged bytes verified"
 }

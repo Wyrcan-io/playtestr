@@ -1,0 +1,29 @@
+{
+  "run": "38802794545",
+  "source": "e8682f866622442c421005c7f477cd45fcc66fc5",
+  "qualified_project_host_pairs": [
+    {
+      "project": "copier",
+      "host": "linux",
+      "ordinary_repetitions": 120,
+      "separate_final_state_probes": 120,
+      "runner_sha256": "1eec08e3589bad7bb9066fe72e6e8b44752c4153389d02a93de3cdc557f66844",
+      "actual_host": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "source_fault_controls": 3,
+      "owned_application_removed": true
+    },
+    {
+      "project": "copier",
+      "host": "windows",
+      "ordinary_repetitions": 120,
+      "separate_final_state_probes": 120,
+      "runner_sha256": "9a05973c401bd191b318329734539c8c3573581a74fc457e73829a9f3c884117",
+      "actual_host": "Windows-2025Server-10.0.26100-SP0",
+      "source_fault_controls": 3,
+      "owned_application_removed": true
+    }
+  ],
+  "audit": "../final-audit.json",
+  "native_manifest": "../native/38802794545/manifest.json",
+  "scope": "Reviewed terminal/state matrix only; development history and UX measurements retain their original identities and limits"
+}

@@ -1,0 +1,246 @@
+{
+  "report_version": 2,
+  "runner_version": "source-5f8867aa88aa0f3d6727bc64021b9a906617b58c",
+  "os": "darwin",
+  "arch": "arm64",
+  "summary": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "cancelled": 0,
+    "not_run": 0
+  },
+  "results": [
+    {
+      "spec_version": 2,
+      "name": "Select and copy one file into a nested directory, then return",
+      "spec_path": "/Users/runner/work/playtestr/playtestr/docs/validation/ten-new-project-adversarial-pass/nnn/normal-copy-macos.json",
+      "status": "passed",
+      "duration_ms": 1319,
+      "viewport": {
+        "width": 160,
+        "height": 30
+      },
+      "steps": [
+        {
+          "number": 1,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 10
+        },
+        {
+          "number": 2,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 3,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 46
+        },
+        {
+          "number": 4,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 14
+        },
+        {
+          "number": 5,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 42
+        },
+        {
+          "number": 6,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 12
+        },
+        {
+          "number": 7,
+          "action": "expect_not",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 8,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 42
+        },
+        {
+          "number": 9,
+          "action": "expect_not",
+          "status": "passed",
+          "duration_ms": 140
+        },
+        {
+          "number": 10,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 11,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 46
+        },
+        {
+          "number": 12,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 12
+        },
+        {
+          "number": 13,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 50
+        },
+        {
+          "number": 14,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 11
+        },
+        {
+          "number": 15,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 43
+        },
+        {
+          "number": 16,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 11
+        },
+        {
+          "number": 17,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 43
+        },
+        {
+          "number": 18,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 10
+        },
+        {
+          "number": 19,
+          "action": "expect_not",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 20,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 42
+        },
+        {
+          "number": 21,
+          "action": "expect_not",
+          "status": "passed",
+          "duration_ms": 90
+        },
+        {
+          "number": 22,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 23,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 45
+        },
+        {
+          "number": 24,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 12
+        },
+        {
+          "number": 25,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 26,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 43
+        },
+        {
+          "number": 27,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 52
+        },
+        {
+          "number": 28,
+          "action": "snapshot",
+          "status": "passed",
+          "duration_ms": 143
+        },
+        {
+          "number": 29,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 33
+        },
+        {
+          "number": 30,
+          "action": "expect_not",
+          "status": "passed",
+          "duration_ms": 10
+        },
+        {
+          "number": 31,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 32,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 43
+        },
+        {
+          "number": 33,
+          "action": "exit",
+          "status": "passed",
+          "duration_ms": 251
+        }
+      ],
+      "target": {
+        "exited": true,
+        "exit_code": 0
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": true,
+        "forced": false,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "evidence": {},
+      "workspace": {
+        "attempted": true,
+        "fixture": "fixtures",
+        "prepared": true,
+        "cleanup_attempted": true,
+        "cleaned": true,
+        "retained": false
+      }
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 """Calibrate real-process bounds and independent file oracles before credit."""
 import asyncio
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -10,6 +11,7 @@ import time
 import unittest
 from unittest.mock import patch
 import adversarial_process
+import adversarial_collect_native
 from adversarial_process import run
 from adversarial_journey import check_state,host_case_name
 from adversarial_fixture_directories import prepare
@@ -18,6 +20,27 @@ from adversarial_setup_python import source_identity
 from adversarial_final_audit import belongs_to_campaign,repetition_group,repeated_cleanup_passed
 
 class NativeHarnessControls(unittest.TestCase):
+    def test_native_collection_hashes_retained_fault_descriptions(self):
+        adversarial_process.RAW.mkdir(parents=True,exist_ok=True)
+        with tempfile.TemporaryDirectory(prefix='collector-inventory-',dir=adversarial_process.RAW) as root:
+            root=Path(root);doc=root/'docs';doc.mkdir()
+            (doc/'coverage-matrix.json').write_text('{"controls": []}',encoding='utf-8')
+            download=root/'download';artifact=download/'synthetic-calibration';artifact.mkdir(parents=True)
+            (artifact/'report.json').write_text('{"summary": {}, "results": []}',encoding='utf-8')
+            control=artifact/'synthetic-control.json'
+            control.write_bytes(b'{"name":"synthetic", "report":"report.json"}\n')
+            metadata={'artifacts':[dict(name=artifact.name,id=1,digest='synthetic-calibration-only')]}
+            def metadata_only(command,project,label):
+                value={'status':'completed','conclusion':'success','headSha':'synthetic-calibration-only'} if label=='inspect-native-run' else metadata
+                return {'output':json.dumps(value)}
+            args=['collector','--run','1','--download',str(download)]
+            with patch.object(adversarial_collect_native,'DOC',doc),patch.object(adversarial_collect_native,'run',metadata_only),patch.object(adversarial_collect_native,'read_attempts',return_value=[]),patch.object(sys,'argv',args):
+                adversarial_collect_native.main()
+            retained=doc/'native/1'/artifact.name/control.name
+            self.assertEqual(retained.read_bytes(),control.read_bytes())
+            manifest=json.loads((doc/'native/1/manifest.json').read_text(encoding='utf-8'))
+            self.assertEqual(manifest['artifacts'][0]['files'].get(control.name),hashlib.sha256(control.read_bytes()).hexdigest())
+
     def test_host_case_names_preserve_actual_driver_selection(self):
         case=dict(name='edge-cancel-after-edit')
         for system in ['Linux','Darwin']:

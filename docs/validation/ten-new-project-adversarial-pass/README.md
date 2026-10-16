@@ -1,8 +1,8 @@
 # Ten new projects: adversarial validation
 
-Invoked 10 October 2026. **Historical frozen matrix passed; overall closure withheld after a late native test-helper failure.** Closing CI run 38831100429 exposed helper exit8 during the repeated macOS descendant control. Investigation and renewed qualification are required. Usability measurement limits and unresolved historical risks remain explicit.
+Invoked 10 October 2026. **Final scoped terminal/state qualification passed.** Usability measurement limits and unresolved historical risks remain explicit.
 
-Frozen source `e8682f866622442c421005c7f477cd45fcc66fc5` / [native run 38802794545](https://github.com/Wyrcan-io/playtestr/actions/runs/38802794545): 10 projects, 130 distinct scenarios, 21 native project/host pairs, 2,740 ordinary final repetitions and 2,740 separately executed state probes. All qualified owned application trees were removed. Full-product launch credit remains **0/100**.
+Frozen source `5f8867aa88aa0f3d6727bc64021b9a906617b58c` / [native run 38832572859](https://github.com/Wyrcan-io/playtestr/actions/runs/38832572859): 10 projects, 130 distinct scenarios, 21 native project/host pairs, 2,740 ordinary final repetitions and 2,740 separately executed state probes. All qualified owned application trees were removed. Full-product launch credit remains **0/100**.
 
 Read the [final report](final-report.md), [strict audit](final-audit.json), [usability assessment](usability-assessment.md), [limitations](limitations.md), and [attempt accounting](all-attempt-accounting.json).
 

@@ -1,29 +1,27 @@
 {
-  "run": "38802794545",
-  "source": "e8682f866622442c421005c7f477cd45fcc66fc5",
-  "runner_sha256": "e3fdfb495f1a0eb35d68a90a25e3be954577db7895f8daebae6a2d7e3a2789c3",
+  "run": "38832572859",
+  "source": "5f8867aa88aa0f3d6727bc64021b9a906617b58c",
+  "runner_sha256": "9087c184f090139b3dc414734db447e242917b0eff3bf36eb0ab0b92474c9ab2",
   "host": "Darwin",
   "source_inputs_verified": true,
   "binary_bytes_verified": true,
   "events": {
     "test-events.jsonl": {
-      "sha256": "2d9d9e814541f11446a69e64cc60d3931a389237969976aa2ea939f2c90d7e75",
+      "sha256": "e60428cac56a8b6b0693b655b5f900a94eaa3711f3632b6a88acbac8c9dbd583",
       "applicable_mapped_controls_passed": 80
     },
     "race-events.jsonl": {
-      "sha256": "caf8c08cd904cb62009e07ed50d21ea8d60871c15393c8b63c2f149c893486b8",
+      "sha256": "87e608ae9f1b312dc3518c80754425f74e44cd92322fb66b0a1a54a71911b72d",
       "applicable_mapped_controls_passed": 80
-    },
-    "stubborn-race-events.jsonl": {
-      "sha256": "f11f89a4a5c74e9af589734d31b72a4c8c4b2d7f47b30a20ba033f3e04bd89d9",
-      "actual_passes": 50
     }
   },
   "wizard_variants": [
     {
       "attempts": 100,
-      "sha256": "fe63fc4d4c77b3ba704a7ff2765660b478a4bf0002b1823901899e6be293cd0a"
+      "sha256": "63af1601dd014fb4de6eaff181388f5fd4a95b4ebafade8ed81fe1a733e2e500"
     }
   ],
-  "scope": "Actual current frozen-host proof; full campaign qualification remains pending"
+  "scope": "Actual current frozen-host proof; full project matrix still requires strict final audit",
+  "extra_stubborn_cleanup_repetitions": 50,
+  "extra_stubborn_cleanup_events_sha256": "6362df2db5dcb8f1b3b0d292ed0445e8933b65bb10cc29d32cfd9c8d1fbd4cb7"
 }

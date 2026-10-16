@@ -1,0 +1,15 @@
+Retained native evidence 1 success
+test_native_collection_hashes_retained_fault_descriptions (test_adversarial_harness.NativeHarnessControls.test_native_collection_hashes_retained_fault_descriptions) ... FAIL
+
+======================================================================
+FAIL: test_native_collection_hashes_retained_fault_descriptions (test_adversarial_harness.NativeHarnessControls.test_native_collection_hashes_retained_fault_descriptions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\abhir\OneDrive\Documents\playtestr\scripts\acceptance\test_adversarial_harness.py", line 41, in test_native_collection_hashes_retained_fault_descriptions
+    self.assertEqual(manifest['artifacts'][0]['files'].get(control.name),hashlib.sha256(control.read_bytes()).hexdigest())
+AssertionError: None != 'cbf52c99eaa125ad9d5b2b6d24521f15a97d7220c4de7173985d855b9a608938'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.112s
+
+FAILED (failures=1)
