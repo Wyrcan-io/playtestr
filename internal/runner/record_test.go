@@ -146,6 +146,8 @@ func TestRecordingInputSequenceKeepsFirstTransitionScreen(t *testing.T) {
 				t.Fatal("already satisfied result accepted after a later no-op sequence")
 			}
 			capture(t, r, Step{Text: "q"}, Step{Exit: intPointer(0)})
+			// These two deliberately rejected anchors are intentionally omitted.
+			r.DiscardCaptureErrors()
 			if result := r.Replay(context.Background(), io.Discard); result.Err() != nil {
 				t.Fatal(result.Err())
 			}
@@ -365,6 +367,8 @@ func TestRecordingExportAtSnapshotLimitAndDiscardedMemory(t *testing.T) {
 	if err := r.Capture(Step{Snapshot: "one-too-many.txt"}); err == nil {
 		t.Fatal("oversized checkpoint collection accepted")
 	}
+	// Explicitly omit the deliberately rejected 101st snapshot.
+	r.DiscardCaptureErrors()
 	if result := r.Replay(context.Background(), io.Discard); result.Err() != nil {
 		t.Fatal(result.Err())
 	}

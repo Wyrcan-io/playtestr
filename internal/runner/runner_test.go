@@ -387,6 +387,16 @@ func TestHelperProcess(t *testing.T) {
 		mode = os.Args[len(os.Args)-1]
 	}
 	switch mode {
+	case "state-save":
+		payload := "reviewed\r\n\x00caf\u00e9\n"
+		if os.Getenv("PLAYTESTR_CORRUPT_STATE") == "1" {
+			payload = "reviewex\r\n\x00caf\u00e9\n"
+		}
+		if err := os.WriteFile("saved.bin", []byte(payload), 0600); err != nil {
+			os.Exit(9)
+		}
+		fmt.Print("Saved successfully\r\n")
+		os.Exit(0)
 	case "exit-zero":
 		fmt.Print("finished cleanly\r\n")
 		if marker := os.Getenv("PLAYTESTR_OUTPUT_MARKER"); marker != "" {

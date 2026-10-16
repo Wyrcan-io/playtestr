@@ -282,9 +282,15 @@ async def close_transport(proc):
         await asyncio.sleep(0)
 
 async def execute(argv,project,label,*,cwd=ROOT,env=None,input=None,timeout=120,
-                  output_cap=4*1024*1024,expected=0,on_output=None,on_complete=None,load=False):
+                  output_cap=4*1024*1024,expected=0,on_output=None,on_complete=None,load=False,
+                  campaign=None):
+    # A new campaign supplies its own immutable records and canonical identities;
+    # historical callers retain their original paths and accounting unchanged.
+    raw_root=RAW if campaign is None else campaign.raw
+    emit=append if campaign is None else campaign.append
+    identify=contract_identity if campaign is None else campaign.identity
     run_id=uuid.uuid4().hex
-    directory=RAW/project/run_id
+    directory=raw_root/project/run_id
     directory.mkdir(parents=True,exist_ok=False)
     start=time.monotonic()
     record=dict(id=run_id,event='started',project=project,label=label,
@@ -297,7 +303,7 @@ async def execute(argv,project,label,*,cwd=ROOT,env=None,input=None,timeout=120,
     for name,key in [('GITHUB_RUN_ID','ci_run_id'),('GITHUB_RUN_ATTEMPT','ci_run_attempt')]:
         value=os.environ.get(name)
         record[key]=value if value and len(value)<=24 and value.isascii() and value.isdecimal() else None
-    append(record)
+    emit(record)
     output=bytearray()
     proc=None
     category='harness_error'
@@ -308,8 +314,8 @@ async def execute(argv,project,label,*,cwd=ROOT,env=None,input=None,timeout=120,
         # Register even provenance/setup rejection before any subprocess starts.
         # The separate identity event must precede launch, and captures current
         # bytes without rewriting a previously fsynced started record.
-        identity=contract_identity(project,argv)
-        append(dict(id=run_id,event='identified',project=project,label=label,identity=identity))
+        identity=identify(project,argv)
+        emit(dict(id=run_id,event='identified',project=project,label=label,identity=identity))
         if time.monotonic()-start>=timeout:
             raise asyncio.TimeoutError()
         if load:
@@ -321,7 +327,7 @@ async def execute(argv,project,label,*,cwd=ROOT,env=None,input=None,timeout=120,
         proc=await asyncio.create_subprocess_exec(*map(str,argv),cwd=cwd,env=env,
             stdin=asyncio.subprocess.PIPE,stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.STDOUT,start_new_session=os.name!='nt')
-        append(dict(id=run_id,event='launched',project=project,label=label,pid=proc.pid))
+        emit(dict(id=run_id,event='launched',project=project,label=label,pid=proc.pid))
         async def interact():
             if input is not None:
                 proc.stdin.write(input.encode('utf-8'))
@@ -435,7 +441,7 @@ async def execute(argv,project,label,*,cwd=ROOT,env=None,input=None,timeout=120,
             if original_error is None:
                 category='harness_cleanup_error'
             (directory/'cleanup-errors.json').write_text(json.dumps(cleanup_errors,indent=2)+'\n',encoding='utf-8')
-        append(dict(id=run_id,event='finished',project=project,label=label,
+        emit(dict(id=run_id,event='finished',project=project,label=label,
                     category=category,exit_code=result,seconds=round(time.monotonic()-start,4),
                     console_sha256=hashlib.sha256(output).hexdigest(),
                     harness_cleanup=cleanup,cleanup_errors=cleanup_errors,output_bytes=len(output)))

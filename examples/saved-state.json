@@ -1,0 +1,15 @@
+{
+  "version": 3,
+  "name": "Exact saved bytes in this execution",
+  "command": ["../bin/fixture", "saved-state"],
+  "workspace": {"fixture": "saved-state-fixture", "home": "temporary", "temp": "temporary"},
+  "steps": [
+    {"expect": "Press Enter to save the synthetic file"},
+    {"key": "Enter"},
+    {"expect": "Saved successfully"},
+    {"exit": 0},
+    {"state": {"path": "result.bin", "kind": "file", "bytes_base64": "cmV2aWV3ZWQNCgBjYWbDqQo="}},
+    {"state": {"path": "unexpected.txt", "kind": "absent"}},
+    {"state": {"path": ".", "kind": "entries", "entries": ["seed.txt", "result.bin"]}}
+  ]
+}

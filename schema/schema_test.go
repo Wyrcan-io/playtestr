@@ -49,6 +49,33 @@ func TestVersionedSchemaContracts(t *testing.T) {
 	}
 }
 
+func TestSavedStateFormatDoesNotExpandOlderContracts(t *testing.T) {
+	for _, version := range []string{"v1", "v2"} {
+		document := readSchema(t, "playtestr-spec-"+version+".schema.json")
+		step := document["$defs"].(map[string]any)["step"].(map[string]any)
+		if _, exists := properties(t, step)["state"]; exists {
+			t.Fatal("saved state leaked into an older spec contract")
+		}
+	}
+	spec := readSchema(t, "playtestr-spec-v3.schema.json")
+	if property(t, spec, "version")["const"] != float64(3) {
+		t.Fatal("saved state format lacks its distinct version")
+	}
+	definitions := spec["$defs"].(map[string]any)
+	state := definitions["state"].(map[string]any)
+	if state["additionalProperties"] != false || !slices.Contains(strings(t, state["required"]), "path") {
+		t.Fatal("state assertion contract is not strict")
+	}
+	report := readSchema(t, "playtestr-report-v3.schema.json")
+	if property(t, report, "report_version")["const"] != float64(3) {
+		t.Fatal("state report lacks its distinct version")
+	}
+	step := report["$defs"].(map[string]any)["step"].(map[string]any)
+	if _, exists := properties(t, step)["state"]; !exists {
+		t.Fatal("same-execution evidence is absent from report schema")
+	}
+}
+
 func TestSpecSchemasAdmitStandardNavigationKeys(t *testing.T) {
 	for _, name := range []string{"playtestr-spec-v1.schema.json", "playtestr-spec-v2.schema.json"} {
 		document := readSchema(t, name)

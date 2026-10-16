@@ -30,6 +30,8 @@ User direction, 16 October 2026: **runner readiness first; P3/P4 deferred**. [16
 
 [Execute P0–P2 fully](p0-p2-full-implementation-prompt.md) was invoked for this completed implementation session and remains the reusable scope/acceptance reference. It references the controlling plans, includes full acceptance gates and bounded internal GitHub validation actions, and directs continuous execution across all three phases. Creating or reading that file does not invoke it; the user must explicitly send/invoke it as the task.
 
+[Implement runner readiness through ten new adversarial project journeys](runner-readiness-ten-project-execution-prompt.md) is the next prepared execution prompt, **not yet invoked**. It combines R1 same-execution saved-state assertions, R2 authoring/diagnosis improvements, R3 reliability investigations, the first ten new R4 project packages, prior-project migration and private R5 candidate-archive qualification. It requires at least 200 distinct real-project scenarios, native final-archive runs, genuine target faults and bounded workspace-only storage. Human beginner evidence, the remaining 100-project program, public release and P3/P4 remain separate gates.
+
 ## Authority and maintenance
 
 [Ten-project user validation and general improvements](ten-project-user-validation-prompt.md) was explicitly invoked and is now completed within its early P5 reliability scope. [Results and limitations](../validation/ten-project-user-pass/README.md) record all ten user journeys, general fixes, final qualification and cleanup. The prompt remains reusable; reading it does not start another pass or the complete-product 100-project campaign.

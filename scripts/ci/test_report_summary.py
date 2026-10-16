@@ -24,6 +24,25 @@ def report(status="passed", version=1):
 
 
 class SummaryTests(unittest.TestCase):
+    def test_state_same_execution_identity_and_failure_category(self):
+        document=report('failed',3)
+        result=document['results'][0]
+        result.update(spec_version=3,invocation_id='execution-a',workspace={'id':'execution-a'})
+        result['failure']={'category':'state_assertion_failure','message':'private payload must not appear'}
+        result['steps']=[dict(number=1,action='state',status='failed',duration_ms=1,
+            state=dict(invocation_id='execution-a',workspace_id='execution-a',path='saved.bin',kind='file',outcome='rejected'))]
+        summary.validate(document)
+        for change in ['invocation','workspace','outcome','missing','old-version']:
+            altered=copy.deepcopy(document)
+            step=altered['results'][0]['steps'][0]
+            if change=='invocation':step['state']['invocation_id']='another-execution'
+            elif change=='workspace':step['state']['workspace_id']='another-workspace'
+            elif change=='outcome':step['state']['outcome']='matched'
+            elif change=='missing':del step['state']
+            else:altered['report_version']=2
+            with self.subTest(change=change),self.assertRaises(summary.InvalidReport):
+                summary.validate(altered)
+
     def invoke(self, root, document=None, raw=None, extra=()):
         source, destination = root / "results.json", root / "summary.md"
         if document is not None:
@@ -36,11 +55,11 @@ class SummaryTests(unittest.TestCase):
         return code, destination.read_text(encoding="utf-8"), stderr.getvalue()
 
     def test_captured_outcomes_and_versions(self):
-        for version in (1, 2):
+        for version in (1, 2, 3):
             for status in summary.STATUSES:
                 with self.subTest(version=version, status=status), tempfile.TemporaryDirectory() as tmp:
                     document = report(status, version)
-                    if version == 2:
+                    if version >= 2:
                         document["results"][0]["workspace"] = {"cleaned": True}
                     code, text, _ = self.invoke(Path(tmp), document)
                     self.assertEqual(code, 0)
@@ -55,7 +74,7 @@ class SummaryTests(unittest.TestCase):
                  b'{"report_version":1,"report_version":2}',
                  b'{"number":NaN}', b"[" * 1200 + b"]" * 1200]
         documents = []
-        for field, value in (("report_version", 3), ("report_version", True),
+        for field, value in (("report_version", 999), ("report_version", True),
                              ("results", []), ("summary", {"total": 0})):
             document = report()
             document[field] = value

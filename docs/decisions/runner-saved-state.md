@@ -1,0 +1,42 @@
+# Public saved-state assertions
+
+Decision, 16 October 2026; implementation in progress.
+
+Existing spec versions 1/2 and report versions 1/2 have strict readers and
+published consumers. Introduce spec 3 (required managed workspace, inheriting
+v2 setup) and report 3. Old tools reject the spec before launch. Preserve older
+spec/report contracts and generic screen update behavior.
+
+`state` is one ordered action with `path`, `kind`, and kind-specific reviewed
+expectations. Kinds: `file` (required `bytes_base64`, including empty string),
+`absent`, `directory`, `empty_directory`, `entries` (required `entries` list of
+immediate names). Inline base64 preserves every byte without external-baseline
+path ambiguity. Recorder review must show a bounded escaped preview; reports
+must never store expected or observed payloads. No implicit normalization.
+
+Paths use portable slash-separated relative components, rooted at the copied
+fixture (independent of workspace.cwd). `.` selects the root for directory
+checks. Reject parent/dot components, absolute/drive/UNC/device paths, NUL,
+backslashes, streams, Windows reserved names, trailing dots/spaces and links or
+special entries. Use Go os.Root containment plus lstat/identity/type checks.
+Targets are trusted: observation is not an atomic filesystem snapshot and
+concurrent same-size writes cannot provide durability or complete race freedom.
+
+Observation occurs once at the declared step, before cleanup. Authors must
+first checkpoint completion or declare an exact exit. State assertions do not
+poll or establish terminal readiness. Reads check cancellation and existing
+output/exit failure boundaries. Limit 100 assertions, 64 KiB per selected file,
+512 KiB expected aggregate, 256 immediate entries and 32 components per path.
+No recursive traversal. Changed identity/metadata during reads fails closed.
+
+Same-run evidence associates state observations with a fresh invocation ID and
+workspace ID; it records only selected path/kind/outcome and sizes, never file
+payloads or unselected entry names. Missing, wrong type/bytes/entries, unsafe,
+unreadable, changing and oversized state remain distinguishable diagnoses.
+
+Review/capture is explicit and fresh replay is mandatory before recorder export.
+Editing a selected assertion invalidates replay and preserves other steps.
+Generic snapshot updates cannot approve state expectations. Inline expectations
+use the recorder's existing spec-last export transaction and bounds; crash
+durability is not promised. Native permission/link/replacement tests remain
+required before compatibility qualification.

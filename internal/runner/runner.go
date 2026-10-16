@@ -21,20 +21,23 @@ var errOutputLimit = errors.New("target exceeded max_output_bytes")
 const (
 	SpecVersion          = 1
 	WorkspaceSpecVersion = 2
-	maxSpecBytes         = 1_000_000
-	maxSpecSteps         = 1_000
+	// StateSpecVersion adds same-execution managed filesystem assertions.
+	StateSpecVersion = 3
+	maxSpecBytes     = 1_000_000
+	maxSpecSteps     = 1_000
 )
 
 // Step contains exactly one terminal action or assertion.
 type Step struct {
-	Key           string        `json:"key,omitempty"`
-	Text          string        `json:"text,omitempty"`
-	Expect        string        `json:"expect,omitempty"`
-	ExpectNot     string        `json:"expect_not,omitempty"`
-	WaitForRedraw bool          `json:"wait_for_redraw,omitempty"`
-	Snapshot      string        `json:"snapshot,omitempty"`
-	Exit          *int          `json:"exit,omitempty"`
-	Resize        *TerminalSize `json:"resize,omitempty"`
+	State         *StateAssertion `json:"state,omitempty"`
+	Key           string          `json:"key,omitempty"`
+	Text          string          `json:"text,omitempty"`
+	Expect        string          `json:"expect,omitempty"`
+	ExpectNot     string          `json:"expect_not,omitempty"`
+	WaitForRedraw bool            `json:"wait_for_redraw,omitempty"`
+	Snapshot      string          `json:"snapshot,omitempty"`
+	Exit          *int            `json:"exit,omitempty"`
+	Resize        *TerminalSize   `json:"resize,omitempty"`
 }
 
 // TerminalSize is a terminal viewport measured in columns and rows.
@@ -55,6 +58,7 @@ type RunOptions struct {
 	recordUniqueExpect     bool
 	noArtifacts            bool
 	recordEvidence         *string
+	stateRoot              string
 }
 
 // WorkspaceSpec opts a version 2 specification into a fresh fixture copy.
@@ -134,13 +138,13 @@ func decodeSpec(data []byte, path string) (Spec, error) {
 	if spec.Version == 0 {
 		return spec, fmt.Errorf("spec version is required; add \"version\": %d", SpecVersion)
 	}
-	if spec.Version != SpecVersion && spec.Version != WorkspaceSpecVersion {
-		return spec, fmt.Errorf("unsupported spec version %d; this runner supports versions %d and %d", spec.Version, SpecVersion, WorkspaceSpecVersion)
+	if spec.Version != SpecVersion && spec.Version != WorkspaceSpecVersion && spec.Version != StateSpecVersion {
+		return spec, fmt.Errorf("unsupported spec version %d; this runner supports versions 1, 2 and 3", spec.Version)
 	}
 	if spec.Version == SpecVersion && spec.Workspace != nil {
 		return spec, fmt.Errorf("workspace requires spec version %d", WorkspaceSpecVersion)
 	}
-	if spec.Version == WorkspaceSpecVersion && spec.Workspace == nil {
+	if spec.Version >= WorkspaceSpecVersion && spec.Workspace == nil {
 		return spec, fmt.Errorf("spec version %d requires workspace", WorkspaceSpecVersion)
 	}
 	if spec.Name == "" {
@@ -210,8 +214,27 @@ func decodeSpec(data []byte, path string) (Spec, error) {
 	seenSnapshots := make(map[string]struct{})
 	expectedAt := make(map[string]int)
 	lastTransition := -1
+	stateCount, stateBytes := 0, 0
 	for i, step := range spec.Steps {
 		actions := 0
+		if step.State != nil {
+			actions++
+			if spec.Version != StateSpecVersion {
+				return spec, fmt.Errorf("step %d state requires spec version 3", i+1)
+			}
+			if !ready {
+				return spec, fmt.Errorf("step %d state requires a completion checkpoint or exit after input", i+1)
+			}
+			n, err := validateStateAssertion(*step.State)
+			if err != nil {
+				return spec, fmt.Errorf("step %d state: %w", i+1, err)
+			}
+			stateCount++
+			stateBytes += n
+			if stateCount > 100 || stateBytes > 512*1024 {
+				return spec, fmt.Errorf("state assertions exceed count or aggregate byte limit")
+			}
+		}
 		for _, value := range []string{step.Key, step.Text, step.Expect, step.ExpectNot, step.Snapshot} {
 			if value != "" {
 				actions++
@@ -469,6 +492,11 @@ func RunDetailedContext(parent context.Context, path string, options RunOptions,
 			return result
 		}
 		result.Workspace.Prepared = true
+		if spec.Version == StateSpecVersion {
+			result.InvocationID = stateWorkspaceID(workspace)
+			result.Workspace.ID = result.InvocationID
+			options.stateRoot = filepath.Join(workspace.root, "fixture")
+		}
 		dir = workspace.workingDir
 		command = workspace.command
 		environment = targetEnvironmentWithManaged(spec, workspace.managedEnv)
@@ -504,6 +532,12 @@ func RunDetailedContext(parent context.Context, path string, options RunOptions,
 			result.Steps[i].Status = "running"
 			stepContext, cancelStep := context.WithTimeout(runContext, time.Duration(spec.TimeoutMS)*time.Millisecond)
 			err = executeStep(stepContext, path, step, options, updates, session, exitAsserted)
+			if step.State != nil {
+				result.Steps[i].State = &StateObservation{InvocationID: result.InvocationID, WorkspaceID: result.Workspace.ID, Path: step.State.Path, Kind: step.State.Kind, Outcome: "matched"}
+				if err != nil {
+					result.Steps[i].State.Outcome = "rejected"
+				}
+			}
 			cancelStep()
 			result.Steps[i].DurationMS = time.Since(stepStarted).Milliseconds()
 			if err != nil {
@@ -672,6 +706,25 @@ func waitForStartup(ctx context.Context, session *terminalSession) error {
 }
 
 func executeStep(ctx context.Context, specPath string, step Step, options RunOptions, updates *snapshotUpdates, session *terminalSession, exitAsserted bool) error {
+	if step.State != nil {
+		if err := ctx.Err(); err != nil {
+			return err
+		}
+		if session.observe().outputLimitExceeded {
+			return errOutputLimit
+		}
+		if code, _, exited := session.outcome.result(); exited && !exitAsserted {
+			return unexpectedExit("process exited with code %d before state checkpoint; declare exit first", code)
+		}
+		err := assertState(ctx, options.stateRoot, *step.State)
+		if session.observe().outputLimitExceeded {
+			return errOutputLimit
+		}
+		if err != nil {
+			return fmt.Errorf("state %q (%s): %w", step.State.Path, step.State.Kind, err)
+		}
+		return nil
+	}
 	if step.Key != "" {
 		return session.send(ctx, keys[step.Key])
 	}

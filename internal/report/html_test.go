@@ -189,7 +189,7 @@ func TestRenderHTMLRejectsMalformedVersionOversizeAndInconsistentInput(t *testin
 	}{
 		{"malformed", []byte(`{"report_version":`), "decode report"},
 		{"unknown", []byte(`{"report_version":1,"runner_version":"x","os":"x","arch":"x","summary":{"total":0,"passed":0,"failed":0,"cancelled":0,"not_run":0},"results":[],"extra":true}`), "unknown field"},
-		{"wrong-version", mustJSON(t, Document{ReportVersion: 3, Summary: Summary{}}), "unsupported report version"},
+		{"wrong-version", mustJSON(t, Document{ReportVersion: 999, Summary: Summary{}}), "unsupported report version"},
 		{"wrong-summary", mustJSON(t, Document{ReportVersion: 1, Summary: Summary{Total: 1}}), "inconsistent"},
 	}
 	for _, test := range tests {

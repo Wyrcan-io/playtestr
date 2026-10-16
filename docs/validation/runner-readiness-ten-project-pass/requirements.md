@@ -1,0 +1,24 @@
+# Requirements and findings
+
+Each row retains severity, first evidence, affected boundary, acceptance,
+disposition and requalification impact. All begin open.
+
+| ID | Behavior / severity / first evidence | Acceptance and affected layers | Status |
+| --- | --- | --- | --- |
+| R1-01 | Success screen can conceal corrupt saved bytes; high; previous limitations | Public ordinary test rejects exact-byte corruption in its own workspace before cleanup; parser/runner/recorder/reports | Open |
+| R1-02 | Selected absence, directory and entry-set expectations; high; execution contract | Missing/wrong type/extra entries distinguishable; bounded observation and safe paths | Open |
+| R1-03 | No handwritten JSON first route; high; execution contract | Review, fresh replay, export and selective maintenance preserve unrelated expectations | Open |
+| R1-04 | Failed captures silently omitted, then input-only draft replay/export passed; high; Plop first route `56cd5a7e4123492cbcfccbad5fad9d86` | Recorder refuses unresolved rejected controls and requires a completion checkpoint after final input; two real-PTY regressions failed before (`5fb04092bed54d438092436b3a3316ea`) and passed after (`ba1fe2f9ca384e07b99b4ba91f2f16cd`); all authoring routes need requalification | Repair in progress; full/native requalification open |
+| R3-01 | Historical Windows wizard timeout; unknown; earlier report | Three native batches of fifty with preserved evidence and honest causal limits | Open |
+| R3-02 | Historical macOS readiness/exit0; unknown; earlier limitations | Separate bounded native investigation; no causal claim from green retries | Open |
+| R3-03 | Later macOS helper exit8; fixture publication repair; earlier limitations | Preserve repair, separate original unlogged branch, repeat affected controls | Open |
+| R3-04 | Superfile/Glow Windows upstream races; previous exclusions | Bounded original-pin reproduction; no Windows admission without actual proof | Open |
+| R4-01 | Ten new diverse applications; execution contract | Twenty scenarios, three real faults each, required native cells and exact archive series | Open |
+| R4-02 | Earlier saved-state evidence ran separately; high; earlier limitations | Reacquire ten old pins sequentially and migrate every representable outcome | Open |
+| R5-01 | Exact private archive installation and qualification | Native identities, source-free install, checksums, final matrix and negative auditor controls | Open |
+| E-01 | Storage measurements are observations, not quotas; earlier limitations | Owned roots, caps, immutable attempts, verified compaction/restore and termination receipts | Open |
+| E-02 | Go module stat-cache used the default user cache; harness boundary defect; sandbox diagnostic in `4ebfdb3a13a14d9b982677cd7c4bb400` | Every new command inherits owned GOPATH/GOMODCACHE as well as GOCACHE/temp; preserve existing host caches | Wrapper corrected; readonly inspection found a 158-byte self-module `.info` entry last written 16 October 14:08:37 UTC outside the workspace. It is preserved, not deleted. Strict workspace-only acceptance is rejected for earlier attempts using default caches; corrected attempts use owned paths |
+| U-01 | Prepared agent routes do not establish beginner usability; earlier assessment | Measure command/control counts; prepare five participant sheets; human gate stays unmeasured without participants | Open |
+| C-01 | Terminal/service scope exceeds exercised paths; earlier limitations | Feature x native host x architecture matrix; styling/graphemes/mouse/clipboard/plugins/services unqualified without specific evidence | Open |
+| S-01 | Targets execute with user permissions; earlier limitations | Explicit trusted-target boundary, synthetic data, selected file capture, canary review | Open |
+| CI-01 | Hosted workflow is not a real PR/commercial journey; earlier limitations | Label actual jobs precisely; no unsolicited PR/billing/release actions | Open |

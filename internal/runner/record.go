@@ -3,6 +3,7 @@ package runner
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/base64"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -16,27 +17,110 @@ import (
 
 const maxRecordText = 64 * 1024
 
+func (r *Recording) stateRoot() string {
+	if r.workspace == nil {
+		return ""
+	}
+	return filepath.Join(r.workspace.root, "fixture")
+}
+
+// CaptureState selects and captures one bounded saved-state expectation.
+// Capturing is a candidate, never approval: review and fresh replay follow.
+func (r *Recording) CaptureState(path, kind string) (returnErr error) {
+	defer func() { r.captureOutcome(Step{State: &StateAssertion{Path: path, Kind: kind}}, returnErr) }()
+	if r.spec.Version != StateSpecVersion || r.workspace == nil {
+		return fmt.Errorf("state capture requires a v3 managed fixture")
+	}
+	if err := validateStatePath(path, kind != "file" && kind != "absent"); err != nil {
+		return err
+	}
+	a := StateAssertion{Path: path, Kind: kind}
+	if kind == "file" || kind == "entries" {
+		root, err := openStateRoot(r.stateRoot())
+		if err != nil {
+			return stateError("cannot open workspace")
+		}
+		defer root.Close()
+		info, err := stateInfo(root, r.stateRoot(), path)
+		if err != nil {
+			return stateError("unreadable or unsafe selected path")
+		}
+		if kind == "file" && (!info.Mode().IsRegular() || info.Size() > maxStateFileBytes) || kind == "entries" && !info.IsDir() {
+			return stateError("wrong type or oversized selection")
+		}
+		f, err := openStateFile(root, filepath.FromSlash(path))
+		if err != nil {
+			return stateError("cannot open selected path")
+		}
+		defer f.Close()
+		opened, err := f.Stat()
+		if err != nil || !os.SameFile(info, opened) {
+			return stateError("selected path changed")
+		}
+		if kind == "file" {
+			data, err := io.ReadAll(io.LimitReader(f, maxStateFileBytes+1))
+			if err != nil || len(data) > maxStateFileBytes {
+				return stateError("unreadable or oversized selection")
+			}
+			encoded := base64.StdEncoding.EncodeToString(data)
+			a.BytesBase64 = &encoded
+		} else {
+			entries, err := f.ReadDir(257)
+			if err != nil && err != io.EOF || len(entries) > 256 {
+				return stateError("unreadable or oversized directory")
+			}
+			names := make([]string, 0, len(entries))
+			for _, entry := range entries {
+				names = append(names, entry.Name())
+			}
+			a.Entries = &names
+		}
+	}
+	return r.Capture(Step{State: &a})
+}
+
+// StatePreview returns bounded escaped selected bytes, safe for control consoles.
+func (r *Recording) StatePreview() string {
+	var out strings.Builder
+	for i, step := range r.spec.Steps {
+		if step.State == nil || step.State.BytesBase64 == nil {
+			continue
+		}
+		data, _ := base64.StdEncoding.DecodeString(*step.State.BytesBase64)
+		preview := data
+		if len(preview) > 256 {
+			preview = preview[:256]
+		}
+		fmt.Fprintf(&out, "Selected file step %d (%d bytes), escaped first %d bytes: %q\n", i+1, len(data), len(preview), preview)
+	}
+	return out.String()
+}
+
 // Recording is an in-memory candidate. Calls are serialized by its controller.
 // Target output remains synchronized by the existing terminal session.
 type Recording struct {
-	spec          Spec
-	path          string
-	ctx           context.Context
-	parent        context.Context
-	cancel        context.CancelFunc
-	session       *terminalSession
-	workspace     *preparedWorkspace
-	snapshots     map[string]string
-	snapshotRows  map[string]snapshotRows
-	snapshotBytes int
-	beforeInput   string
-	transition    bool
-	replayed      bool
-	fixtureHash   [32]byte
-	firstFailure  *RunResult
-	firstScreen   string
-	watchDone     chan struct{}
-	closeErr      error
+	pendingCaptureErrors   map[[32]byte]struct{}
+	pendingCaptureOverflow bool
+	maintenanceOriginal    []byte
+	maintenanceSnapshots   map[string]string
+	spec                   Spec
+	path                   string
+	ctx                    context.Context
+	parent                 context.Context
+	cancel                 context.CancelFunc
+	session                *terminalSession
+	workspace              *preparedWorkspace
+	snapshots              map[string]string
+	snapshotRows           map[string]snapshotRows
+	snapshotBytes          int
+	beforeInput            string
+	transition             bool
+	replayed               bool
+	fixtureHash            [32]byte
+	firstFailure           *RunResult
+	firstScreen            string
+	watchDone              chan struct{}
+	closeErr               error
 }
 
 // StartRecording validates setup and starts only the explicitly declared target.
@@ -173,7 +257,8 @@ func (r *Recording) Preview() ([]byte, map[string]string, error) {
 }
 
 // Capture validates and executes one action before accepting it into the draft.
-func (r *Recording) Capture(step Step) error {
+func (r *Recording) Capture(step Step) (returnErr error) {
+	defer func() { r.captureOutcome(step, returnErr) }()
 	if r.session == nil {
 		return fmt.Errorf("capture is closed; use rerecord to start fresh")
 	}
@@ -228,7 +313,7 @@ func (r *Recording) Capture(step Step) error {
 			exitAsserted = true
 		}
 	}
-	if err := executeStep(ctx, r.path, step, RunOptions{Update: true, recordSnapshotRows: r.snapshotRows, recordUniqueExpect: true}, updates, r.session, exitAsserted); err != nil {
+	if err := executeStep(ctx, r.path, step, RunOptions{Update: true, recordSnapshotRows: r.snapshotRows, recordUniqueExpect: true, stateRoot: r.stateRoot()}, updates, r.session, exitAsserted); err != nil {
 		return fmt.Errorf("capture step %d: %w", len(next.Steps), err)
 	}
 	for path, content := range updates.values {
@@ -250,7 +335,8 @@ func (r *Recording) Capture(step Step) error {
 
 // CaptureRowsSnapshot explicitly selects inclusive 1-based viewport rows.
 // The ordinary snapshot action references a versioned .rows.json baseline.
-func (r *Recording) CaptureRowsSnapshot(name string, first, last int) error {
+func (r *Recording) CaptureRowsSnapshot(name string, first, last int) (returnErr error) {
+	defer func() { r.captureOutcome(Step{Snapshot: name}, returnErr) }()
 	if !strings.HasSuffix(name, ".rows.json") {
 		return fmt.Errorf("selected-row snapshots require a .rows.json filename")
 	}
@@ -331,7 +417,7 @@ func (r *Recording) Rerecord(ctx context.Context, prefix int) error {
 			r.beforeInput = r.Screen()
 		}
 		stepCtx, cancel := context.WithTimeout(r.ctx, time.Duration(r.spec.TimeoutMS)*time.Millisecond)
-		err := executeStep(stepCtx, r.path, step, RunOptions{recordSnapshots: r.snapshots}, nil, r.session, exited)
+		err := executeStep(stepCtx, r.path, step, RunOptions{recordSnapshots: r.snapshots, stateRoot: r.stateRoot()}, nil, r.session, exited)
 		cancel()
 		if err != nil {
 			return errors.Join(fmt.Errorf("reconstruct prefix: %w", err), r.Close())
@@ -345,6 +431,8 @@ func (r *Recording) Rerecord(ctx context.Context, prefix int) error {
 			r.transition = false
 		}
 	}
+	r.pendingCaptureErrors = nil
+	r.pendingCaptureOverflow = false
 	return nil
 }
 
@@ -352,6 +440,9 @@ func (r *Recording) Rerecord(ctx context.Context, prefix int) error {
 // The first failure and its screen remain in memory even if a later replay passes.
 func (r *Recording) Replay(ctx context.Context, out io.Writer) RunResult {
 	r.replayed = false
+	if err := r.validateCompletion(); err != nil {
+		return RunResult{Status: "failed", Failure: failure(FailureInvalidSpec, err), err: err}
+	}
 	if err := r.Close(); err != nil {
 		return RunResult{Status: "failed", Failure: failure(FailureCleanup, err), err: err}
 	}
@@ -375,6 +466,9 @@ func (r *Recording) FirstFailure() (*RunResult, string) { return r.firstFailure,
 // Export commits only a freshly replayed, explicitly reviewed candidate. Existing
 // specs and baselines are refused; selected maintenance uses test --update instead.
 func (r *Recording) Export(ctx context.Context) error {
+	if err := r.validateCompletion(); err != nil {
+		return err
+	}
 	if !r.replayed {
 		return fmt.Errorf("review and successfully replay the current candidate before export")
 	}
@@ -387,6 +481,9 @@ func (r *Recording) Export(ctx context.Context) error {
 	}
 	if _, err := decodeSpec(data, r.path); err != nil {
 		return err
+	}
+	if r.maintenanceOriginal != nil {
+		return r.exportMaintenance(ctx, data, snapshots)
 	}
 	updates := newSnapshotUpdates()
 	for name, content := range snapshots {

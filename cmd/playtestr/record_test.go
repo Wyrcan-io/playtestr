@@ -48,6 +48,29 @@ func TestRecorderRerecordDisplaysCurrentWorkspace(t *testing.T) {
 	}
 }
 
+func TestRecorderRejectedControlCannotBeLostAtSave(t *testing.T) {
+	directory := t.TempDir()
+	path := filepath.Join(directory, "must-not-export.json")
+	input, writer, err := os.Pipe()
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer input.Close()
+	_, err = io.WriteString(writer, "/expect Name?\n/key F12\n/review\n/replay\n/save\n/quit\n")
+	writer.Close()
+	if err != nil {
+		t.Fatal(err)
+	}
+	var output, diagnosis bytes.Buffer
+	code := runRecord(context.Background(), []string{"--output", path, "--timeout-ms", "10000", "--env", "PLAYTESTR_TARGET_HELPER=1", "--", os.Args[0], "-test.run=TestRecorderTargetHelper"}, input, &output, &diagnosis)
+	if code != 130 || !strings.Contains(diagnosis.String(), "unresolved") {
+		t.Fatalf("partial recording was not blocked: code=%d output=%s errors=%s", code, &output, &diagnosis)
+	}
+	if _, err := os.Stat(path); !os.IsNotExist(err) {
+		t.Fatal("partial candidate was exported")
+	}
+}
+
 func TestRecorderOperatorHelper(t *testing.T) {
 	if os.Getenv("PLAYTESTR_OPERATOR_HELPER") != "1" {
 		return

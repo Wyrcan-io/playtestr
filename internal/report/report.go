@@ -19,7 +19,9 @@ const (
 	Version = 1
 	// WorkspaceVersion records spec-v2 workspace outcomes.
 	WorkspaceVersion = 2
-	maxReportBytes   = 8 * 1024 * 1024
+	// StateVersion binds selected saved-state checkpoints to their invocation.
+	StateVersion   = 3
+	maxReportBytes = 8 * 1024 * 1024
 )
 
 // Read decodes one bounded supported report document and rejects trailing or unknown
@@ -80,9 +82,12 @@ func New(runnerVersion string, results []runner.RunResult) Document {
 		Results:       results,
 	}
 	for _, result := range results {
+		if result.SpecVersion == runner.StateSpecVersion {
+			document.ReportVersion = StateVersion
+			break
+		}
 		if result.SpecVersion >= runner.WorkspaceSpecVersion || result.Workspace != nil {
 			document.ReportVersion = WorkspaceVersion
-			break
 		}
 	}
 	document.Summary.Total = len(results)

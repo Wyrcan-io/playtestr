@@ -1,0 +1,60 @@
+name: Runner readiness core
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  GIT_CONFIG_COUNT: '1'
+  GIT_CONFIG_KEY_0: core.longpaths
+  GIT_CONFIG_VALUE_0: 'true'
+
+jobs:
+  native-core:
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        os: [ubuntu-24.04, macos-15, windows-2025]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - name: Native tests, race checks and public saved-state calibration
+        shell: bash
+        run: |
+          set -euo pipefail
+          campaign="$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass"
+          mkdir -p "$campaign/tmp" "$campaign/go-cache" "$campaign/gopath"
+          export TEMP="$campaign/tmp" TMP="$campaign/tmp" TMPDIR="$campaign/tmp" GOTMPDIR="$campaign/tmp"
+          export GOCACHE="$campaign/go-cache" GOPATH="$campaign/gopath" GOMODCACHE="$campaign/gopath/pkg/mod"
+          export GOTOOLCHAIN=local PYTHONIOENCODING=utf-8 PYTHONDONTWRITEBYTECODE=1
+          if [ "$RUNNER_OS" = Windows ]; then
+            export PATH="/c/msys64/mingw64/bin:/c/msys64/ucrt64/bin:$PATH"
+            export CC=gcc
+          fi
+          go version
+          python --version
+          python scripts/acceptance/readiness_check.py --label native-core-tests --timeout 600 -- go test -json -count=1 ./...
+          python scripts/acceptance/readiness_check.py --label native-vet --timeout 180 -- go vet ./...
+          export CGO_ENABLED=1
+          python scripts/acceptance/readiness_check.py --label native-race --timeout 600 -- go test -race -json -count=1 ./...
+          python scripts/acceptance/readiness_check.py --label native-evidence-controls --timeout 120 -- python -m unittest discover -s scripts/acceptance -p test_readiness_evidence.py -v
+          python scripts/acceptance/readiness_check.py --label native-ci-summary-controls --timeout 120 -- python -m unittest discover -s scripts/ci -p test_report_summary.py -v
+          python scripts/acceptance/readiness_check.py --label native-public-state-parent --timeout 300 -- python scripts/acceptance/readiness_state_journey.py
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: runner-readiness-core-${{ matrix.os }}
+          path: |
+            artifacts/runner-readiness-ten-project-pass/events/
+            artifacts/runner-readiness-ten-project-pass/identities/
+            artifacts/runner-readiness-ten-project-pass/core/
+            artifacts/runner-readiness-ten-project-pass/state-calibration/
+            artifacts/runner-readiness-ten-project-pass/public route*/
+          if-no-files-found: error
+          retention-days: 14

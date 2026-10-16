@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render bounded Playtestr report v1/v2 metadata for an Actions job summary.
+"""Render bounded Playtestr report v1/v2/v3 metadata for an Actions job summary.
 
 Uses only Python's standard library. Never reads a spec or screen, launches a
 target, changes a baseline, or decides the test step's exit status.
@@ -24,6 +24,7 @@ CATEGORIES = frozenset((
     "unexpected_exit", "snapshot_mismatch", "output_limit", "cancelled",
     "cleanup_failure", "artifact_failure", "snapshot_update_failure",
     "workspace_setup_failure", "workspace_cleanup_failure", "internal_error",
+    "state_assertion_failure",
 ))
 
 
@@ -81,7 +82,7 @@ def read_report(path):
 def validate(document):
     require(isinstance(document, dict), "report must be an object")
     version = document.get("report_version")
-    require(type(version) is int and version in (1, 2), "unsupported report version")
+    require(type(version) is int and version in (1, 2, 3), "unsupported report version")
     for field in ("runner_version", "os", "arch"):
         require(isinstance(document.get(field), str) and bool(document[field]),
                 "missing runner identity")
@@ -129,9 +130,23 @@ def validate(document):
             require(step.get("status") in ("passed", "failed", "running", "not_run")
                     and integer(step.get("duration_ms")), "invalid step outcome")
             failure(step.get("failure"))
+            if step.get('action') == 'state':
+                require(version == 3 and result.get('spec_version') == 3,
+                        'state action requires report/spec v3')
+                state = step.get('state')
+                if step['status'] in ('passed', 'failed'):
+                    workspace = result.get('workspace')
+                    identity = result.get('invocation_id')
+                    require(isinstance(state, dict) and isinstance(workspace, dict)
+                            and isinstance(identity, str) and bool(identity)
+                            and state.get('invocation_id') == identity
+                            and state.get('workspace_id') == workspace.get('id') == identity,
+                            'inconsistent same-execution state identity')
+                    require(state.get('outcome') == ('matched' if step['status'] == 'passed' else 'rejected'),
+                            'inconsistent state outcome')
         workspace = result.get("workspace")
         if workspace is not None:
-            require(version == 2 and isinstance(workspace, dict),
+            require(version in (2, 3) and isinstance(workspace, dict),
                     "invalid workspace version or metadata")
             failure(workspace.get("setup_failure"))
             failure(workspace.get("cleanup_failure"))

@@ -23,6 +23,7 @@ const (
 	FailureWorkspaceSetup   FailureCategory = "workspace_setup_failure"
 	FailureWorkspaceCleanup FailureCategory = "workspace_cleanup_failure"
 	FailureInternal         FailureCategory = "internal_error"
+	FailureState            FailureCategory = "state_assertion_failure"
 )
 
 // Failure describes one failure without requiring consumers to parse prose.
@@ -34,12 +35,13 @@ type Failure struct {
 // StepResult records the outcome of one declared step. Input and expected text
 // are deliberately omitted so reports cannot become a new secret sink.
 type StepResult struct {
-	Number     int           `json:"number"`
-	Action     string        `json:"action"`
-	Status     string        `json:"status"`
-	DurationMS int64         `json:"duration_ms"`
-	Failure    *Failure      `json:"failure,omitempty"`
-	Resize     *TerminalSize `json:"resize,omitempty"`
+	State      *StateObservation `json:"state,omitempty"`
+	Number     int               `json:"number"`
+	Action     string            `json:"action"`
+	Status     string            `json:"status"`
+	DurationMS int64             `json:"duration_ms"`
+	Failure    *Failure          `json:"failure,omitempty"`
+	Resize     *TerminalSize     `json:"resize,omitempty"`
 }
 
 // CleanupReport keeps cleanup evidence separate from the failure that caused it.
@@ -68,6 +70,7 @@ type EvidenceReport struct {
 // WorkspaceReport records bounded workspace preparation and cleanup without
 // exposing fixture contents or target environment values.
 type WorkspaceReport struct {
+	ID               string   `json:"id,omitempty"`
 	Attempted        bool     `json:"attempted"`
 	Fixture          string   `json:"fixture,omitempty"`
 	Prepared         bool     `json:"prepared"`
@@ -81,20 +84,21 @@ type WorkspaceReport struct {
 
 // RunResult is the structured outcome for one test specification.
 type RunResult struct {
-	SpecVersion int              `json:"spec_version,omitempty"`
-	Name        string           `json:"name"`
-	SpecPath    string           `json:"spec_path"`
-	Status      string           `json:"status"`
-	DurationMS  int64            `json:"duration_ms"`
-	Viewport    TerminalSize     `json:"viewport"`
-	Resizes     []TerminalSize   `json:"resizes,omitempty"`
-	Steps       []StepResult     `json:"steps,omitempty"`
-	Target      TargetReport     `json:"target"`
-	Failure     *Failure         `json:"failure,omitempty"`
-	Cleanup     CleanupReport    `json:"cleanup"`
-	Evidence    EvidenceReport   `json:"evidence"`
-	Workspace   *WorkspaceReport `json:"workspace,omitempty"`
-	err         error
+	InvocationID string           `json:"invocation_id,omitempty"`
+	SpecVersion  int              `json:"spec_version,omitempty"`
+	Name         string           `json:"name"`
+	SpecPath     string           `json:"spec_path"`
+	Status       string           `json:"status"`
+	DurationMS   int64            `json:"duration_ms"`
+	Viewport     TerminalSize     `json:"viewport"`
+	Resizes      []TerminalSize   `json:"resizes,omitempty"`
+	Steps        []StepResult     `json:"steps,omitempty"`
+	Target       TargetReport     `json:"target"`
+	Failure      *Failure         `json:"failure,omitempty"`
+	Cleanup      CleanupReport    `json:"cleanup"`
+	Evidence     EvidenceReport   `json:"evidence"`
+	Workspace    *WorkspaceReport `json:"workspace,omitempty"`
+	err          error
 }
 
 // Err returns the full Go error chain for programmatic callers.
@@ -151,6 +155,8 @@ func unexpectedExit(format string, args ...any) error {
 
 func stepAction(step Step) string {
 	switch {
+	case step.State != nil:
+		return "state"
 	case step.Key != "":
 		return "key"
 	case step.Text != "":

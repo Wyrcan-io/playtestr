@@ -16,12 +16,33 @@ import (
 // wizardSuffix is an acceptance-only target behavior mutation, never a test change.
 var wizardSuffix string
 
+// stateFileValue allows a build-time acceptance fault with unchanged tests.
+var stateFileValue = "reviewed\r\n\x00caf\u00e9\n"
+
 func main() {
 	if len(os.Args) != 2 {
 		fmt.Fprintln(os.Stderr, "usage: fixture <hang|flood|input|child|sleep|screen|resize|workspace>")
 		os.Exit(2)
 	}
 	switch os.Args[1] {
+	case "saved-state":
+		old, err := term.MakeRaw(int(os.Stdin.Fd()))
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
+		fmt.Print("Press Enter to save the synthetic file\r\n")
+		var key [1]byte
+		_, readErr := os.Stdin.Read(key[:])
+		_ = term.Restore(int(os.Stdin.Fd()), old)
+		if readErr != nil || key[0] != '\r' {
+			os.Exit(2)
+		}
+		if err := os.WriteFile("result.bin", []byte(stateFileValue), 0600); err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
+		fmt.Print("Saved successfully\r\n")
 	case "wizard":
 		if err := wizard(); err != nil {
 			fmt.Fprintln(os.Stderr, err)

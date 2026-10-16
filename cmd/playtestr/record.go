@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"crypto/sha256"
 	"encoding/json"
 	"errors"
 	"flag"
@@ -32,11 +33,18 @@ const recordHelp = `Recorder controls (target input is separate):
   /absent previous content    disappearance of previously asserted content
   /exit 0                     exact expected exit code
   /snapshot name.txt          capture a ready, settled screen
+  /file path                  capture selected exact file bytes (managed fixture)
+  /missing path               assert selected path absent
+  /directory path             assert selected directory exists
+  /empty-directory path       assert selected directory is empty
+  /entries path               capture exact immediate directory names
   /resize 100 30; /redraw     resize and optional observed redraw wait
   /snapshot-rows name.rows.json 2 24  capture reviewed inclusive viewport rows
   /screen; /review            inspect screen or full candidate/baselines
   /delete N; /move N M         edit 1-based step positions
   /replace N {"expect":"..."} replace a step with one strict JSON action
+  /update-state N             fresh prefix, recapture only this state step
+  /discard-errors             explicitly omit failed requested controls
   /rerecord N                 fresh target, retain/reconstruct first N steps
   /replay; /save               reviewed fresh replay, then export new files
   /quit                       cancel without export
@@ -48,9 +56,10 @@ func runRecord(ctx context.Context, args []string, stdin *os.File, stdout, stder
 	flags := flag.NewFlagSet("record", flag.ContinueOnError)
 	flags.SetOutput(stderr)
 	output := flags.String("output", "", "new spec path (existing files refused)")
+	edit := flags.String("edit", "", "open an existing spec for selected state maintenance; setup is loaded from it")
 	name := flags.String("name", "recorded interaction", "test name")
 	cwd := flags.String("cwd", "", "cwd relative to exported spec; incompatible with fixture")
-	fixture := flags.String("fixture", "", "synthetic fixture below exported spec directory; enables v2")
+	fixture := flags.String("fixture", "", "synthetic fixture below exported spec directory; enables v3 saved-state checks")
 	fixtureCWD := flags.String("fixture-cwd", ".", "cwd within copied fixture")
 	home := flags.Bool("temporary-home", false, "fresh managed home with fixture")
 	temp := flags.Bool("temporary-temp", false, "fresh managed temp with fixture")
@@ -68,7 +77,11 @@ func runRecord(ctx context.Context, args []string, stdin *os.File, stdout, stder
 		}
 		return 2
 	}
-	if *output == "" || flags.NArg() == 0 {
+	if *edit != "" && (*output != "" || flags.NArg() != 0 || flags.NFlag() != 1) {
+		fmt.Fprintln(stderr, "--edit loads setup; do not combine it with output, setup flags or executable arguments")
+		return 2
+	}
+	if *edit == "" && (*output == "" || flags.NArg() == 0) {
 		fmt.Fprintln(stderr, "record requires --output and an explicit executable after --")
 		return 2
 	}
@@ -90,7 +103,7 @@ func runRecord(ctx context.Context, args []string, stdin *os.File, stdout, stder
 		spec.Env[key] = value
 	}
 	if *fixture != "" {
-		spec.Version = 2
+		spec.Version = runner.StateSpecVersion
 		spec.Workspace = &runner.WorkspaceSpec{Fixture: *fixture, CWD: *fixtureCWD}
 		if *home {
 			spec.Workspace.Home = "temporary"
@@ -99,9 +112,22 @@ func runRecord(ctx context.Context, args []string, stdin *os.File, stdout, stder
 			spec.Workspace.Temp = "temporary"
 		}
 	}
-	fmt.Fprintf(stdout, "Setup: output=%q argv=%q cwd=%q fixture=%q viewport=%dx%d timeout=%dms budget=%dms output-cap=%d\n", *output, spec.Command, *cwd, *fixture, *width, *height, *timeout, *budget, *limit)
+	if *edit != "" {
+		*output = *edit
+	}
+	if *edit != "" {
+		fmt.Fprintf(stdout, "Maintenance setup loaded from %q; use /update-state N, /review, /replay, /save.\n", *edit)
+	} else {
+		fmt.Fprintf(stdout, "Setup: output=%q argv=%q cwd=%q fixture=%q viewport=%dx%d timeout=%dms budget=%dms output-cap=%d\n", *output, spec.Command, *cwd, *fixture, *width, *height, *timeout, *budget, *limit)
+	}
 	fmt.Fprint(stdout, recordHelp)
-	r, err := runner.StartRecording(ctx, *output, spec)
+	var r *runner.Recording
+	var err error
+	if *edit != "" {
+		r, err = runner.OpenRecording(ctx, *edit)
+	} else {
+		r, err = runner.StartRecording(ctx, *output, spec)
+	}
 	if err != nil {
 		fmt.Fprintln(stderr, err)
 		return 1
@@ -131,6 +157,8 @@ func runRecord(ctx context.Context, args []string, stdin *os.File, stdout, stder
 	interactive := term.IsTerminal(int(stdin.Fd()))
 	controller := recordController{input: input, out: stdout, interactive: interactive}
 	reviewed := false
+	unresolvedControls := make(map[[32]byte]bool)
+	controlOverflow := false
 	for {
 		fmt.Fprint(stdout, "record> ")
 		line, err := controller.line(r.Context())
@@ -149,6 +177,7 @@ func runRecord(ctx context.Context, args []string, stdin *os.File, stdout, stder
 			continue
 		}
 		command, value, _ := strings.Cut(line, " ")
+		controlIdentity := sha256.Sum256([]byte(line))
 		var step runner.Step
 		capture := true
 		switch command {
@@ -166,6 +195,14 @@ func runRecord(ctx context.Context, args []string, stdin *os.File, stdout, stder
 			step.Exit = &n
 		case "/snapshot":
 			step.Snapshot = value
+		case "/file", "/missing", "/directory", "/empty-directory", "/entries":
+			capture = false
+			kind := map[string]string{"/file": "file", "/missing": "absent", "/directory": "directory", "/empty-directory": "empty_directory", "/entries": "entries"}[command]
+			err = r.CaptureState(value, kind)
+			if err == nil {
+				reviewed = false
+				fmt.Fprintln(stdout, "Selected state captured; use /review to inspect before replay/export.")
+			}
 		case "/snapshot-rows":
 			capture = false
 			var name, extra string
@@ -192,6 +229,13 @@ func runRecord(ctx context.Context, args []string, stdin *os.File, stdout, stder
 		case "/screen":
 			capture = false
 			fmt.Fprintln(stdout, r.Screen())
+		case "/discard-errors":
+			capture = false
+			reviewed = false
+			r.DiscardCaptureErrors()
+			clear(unresolvedControls)
+			controlOverflow = false
+			fmt.Fprintln(stdout, "Failed requested controls explicitly omitted. Review the resulting coverage and replay before saving.")
 		case "/review":
 			capture = false
 			var data []byte
@@ -199,6 +243,7 @@ func runRecord(ctx context.Context, args []string, stdin *os.File, stdout, stder
 			data, snaps, err = r.Preview()
 			if err == nil {
 				fmt.Fprintln(stdout, string(data))
+				fmt.Fprint(stdout, r.StatePreview())
 				names := []string{}
 				for n := range snaps {
 					names = append(names, n)
@@ -211,6 +256,10 @@ func runRecord(ctx context.Context, args []string, stdin *os.File, stdout, stder
 			}
 		case "/replay":
 			capture = false
+			if len(unresolvedControls) > 0 || controlOverflow {
+				err = fmt.Errorf("unresolved control failures; retry, rerecord or explicitly /discard-errors before replay")
+				break
+			}
 			if !reviewed {
 				err = fmt.Errorf("use /review before replay")
 				break
@@ -224,6 +273,10 @@ func runRecord(ctx context.Context, args []string, stdin *os.File, stdout, stder
 			}
 		case "/save":
 			capture = false
+			if len(unresolvedControls) > 0 || controlOverflow {
+				err = fmt.Errorf("unresolved control failures; retry, rerecord or explicitly /discard-errors before saving")
+				break
+			}
 			if !reviewed {
 				err = fmt.Errorf("review candidate first")
 				break
@@ -250,9 +303,19 @@ func runRecord(ctx context.Context, args []string, stdin *os.File, stdout, stder
 			if err == nil {
 				err = r.Rerecord(ctx, n)
 				if err == nil {
+					clear(unresolvedControls)
+					controlOverflow = false
 					program, directory := r.ResolvedSetup()
 					fmt.Fprintf(stdout, "Resolved target=%q working-directory=%q\n", program, directory)
 				}
+			}
+		case "/update-state":
+			capture = false
+			reviewed = false
+			var number int
+			number, err = strconv.Atoi(value)
+			if err == nil {
+				err = r.UpdateStateStep(ctx, number)
 			}
 		case "/delete", "/move", "/replace":
 			capture = false
@@ -269,7 +332,17 @@ func runRecord(ctx context.Context, args []string, stdin *os.File, stdout, stder
 			}
 		}
 		if err != nil {
+			reviewed = false
+			if command != "/review" && command != "/replay" && command != "/save" && command != "/screen" && command != "/help" {
+				if len(unresolvedControls) < 100 {
+					unresolvedControls[controlIdentity] = true
+				} else {
+					controlOverflow = true
+				}
+			}
 			fmt.Fprintf(stderr, "Recorder: %v\n", err)
+		} else {
+			delete(unresolvedControls, controlIdentity)
 		}
 	}
 }

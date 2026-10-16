@@ -202,8 +202,8 @@ func RenderHTML(options HTMLOptions) error {
 }
 
 func validateHTMLDocument(document Document) error {
-	if document.ReportVersion != Version && document.ReportVersion != WorkspaceVersion {
-		return fmt.Errorf("unsupported report version %d; this renderer supports versions %d and %d", document.ReportVersion, Version, WorkspaceVersion)
+	if document.ReportVersion != Version && document.ReportVersion != WorkspaceVersion && document.ReportVersion != StateVersion {
+		return fmt.Errorf("unsupported report version %d; this renderer supports versions 1, 2 and 3", document.ReportVersion)
 	}
 	if len(document.Results) > maxHTMLResults {
 		return fmt.Errorf("report exceeds limit of %d results", maxHTMLResults)
@@ -239,10 +239,13 @@ func validateHTMLDocument(document Document) error {
 			return fmt.Errorf("report exceeds limit of %d aggregate steps", maxHTMLSteps)
 		}
 		for stepIndex, step := range result.Steps {
+			if step.Action == "state" && (document.ReportVersion != StateVersion || result.SpecVersion != runner.StateSpecVersion || (step.Status == "passed" || step.Status == "failed") && step.State == nil) {
+				return fmt.Errorf("result %q has invalid state action metadata", result.SpecPath)
+			}
 			if step.Number != stepIndex+1 {
 				return fmt.Errorf("result %q has inconsistent step number %d at position %d", result.SpecPath, step.Number, stepIndex+1)
 			}
-			if !oneOf(step.Action, "key", "text", "expect", "expect_not", "wait_for_redraw", "snapshot", "exit", "resize", "invalid") {
+			if !oneOf(step.Action, "key", "text", "expect", "expect_not", "wait_for_redraw", "snapshot", "exit", "resize", "invalid", "state") {
 				return fmt.Errorf("result %q step %d has unsupported action %q", result.SpecPath, step.Number, step.Action)
 			}
 			if !oneOf(step.Status, "not_run", "running", "passed", "failed") || step.DurationMS < 0 {
@@ -250,6 +253,14 @@ func validateHTMLDocument(document Document) error {
 			}
 			if err := validateFailure(step.Failure); err != nil {
 				return fmt.Errorf("result %q step %d: %w", result.SpecPath, step.Number, err)
+			}
+			if step.State != nil {
+				if document.ReportVersion != StateVersion || result.SpecVersion != runner.StateSpecVersion || result.InvocationID == "" || result.Workspace == nil || step.Action != "state" || step.State.InvocationID != result.InvocationID || step.State.WorkspaceID != result.Workspace.ID || result.Workspace.ID != result.InvocationID {
+					return fmt.Errorf("result %q has inconsistent same-execution state identity", result.SpecPath)
+				}
+				if step.Status == "passed" && step.State.Outcome != "matched" || step.Status == "failed" && step.State.Outcome != "rejected" || !oneOf(step.Status, "passed", "failed") {
+					return fmt.Errorf("result %q has inconsistent state outcome", result.SpecPath)
+				}
 			}
 		}
 		if result.DurationMS < 0 || result.Target.ExitCode != nil && (*result.Target.ExitCode < 0 || *result.Target.ExitCode > 255) {
@@ -303,7 +314,7 @@ func validateFailure(failure *runner.Failure) error {
 		string(runner.FailureRunTimeout), string(runner.FailureUnexpectedExit), string(runner.FailureSnapshotMismatch),
 		string(runner.FailureOutputLimit), string(runner.FailureCancellation), string(runner.FailureCleanup),
 		string(runner.FailureArtifact), string(runner.FailureSnapshotUpdate), string(runner.FailureWorkspaceSetup),
-		string(runner.FailureWorkspaceCleanup), string(runner.FailureInternal)) {
+		string(runner.FailureWorkspaceCleanup), string(runner.FailureState), string(runner.FailureInternal)) {
 		return fmt.Errorf("unsupported failure category %q", failure.Category)
 	}
 	return nil

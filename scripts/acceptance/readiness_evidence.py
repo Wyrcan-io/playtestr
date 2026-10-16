@@ -1,0 +1,130 @@
+"""Workspace-owned immutable records for runner-readiness work, not admission proof."""
+import hashlib
+import json
+import os
+from pathlib import Path
+import platform
+import uuid
+
+ROOT = Path(__file__).resolve().parents[2]
+RAW = ROOT / 'artifacts/runner-readiness-ten-project-pass'
+
+
+def sha256(path):
+    digest = hashlib.sha256()
+    with Path(path).open('rb') as stream:
+        while block := stream.read(65536):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def immutable_json(path, value):
+    """Publish a complete exclusive record; interrupted files stay visibly partial."""
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    data = (json.dumps(value, sort_keys=True, ensure_ascii=True, indent=2)+'\n').encode()
+    temporary = path.with_name('.'+path.name+'.'+uuid.uuid4().hex+'.partial')
+    with temporary.open('xb') as stream:
+        stream.write(data)
+        stream.flush()
+        os.fsync(stream.fileno())
+    try:
+        os.link(temporary, path)
+    finally:
+        temporary.unlink()
+
+
+class Campaign:
+    def __init__(self, raw=RAW):
+        self.raw = Path(raw).resolve()
+        self.raw.relative_to(ROOT)
+        self.raw.mkdir(parents=True, exist_ok=True)
+
+    def append(self, row):
+        if set(('id', 'event', 'project', 'label'))-row.keys():
+            raise ValueError('incomplete event')
+        if len(row['id']) != 32 or any(c not in '0123456789abcdef' for c in row['id']):
+            raise ValueError('invalid attempt id')
+        if row['event'] not in {'started', 'identified', 'launched', 'finished'}:
+            raise ValueError('invalid event')
+        row = dict(row, schema_version=1, campaign='runner-readiness-ten-project-pass',phase='development')
+        immutable_json(self.raw/'events'/(row['id']+'-'+row['event']+'.json'), row)
+
+    def identity(self, project, argv):
+        paths = [ROOT/'go.mod', ROOT/'go.sum']
+        for directory in ['scripts/acceptance','scripts/ci']:
+            paths.extend((ROOT/directory).rglob('*.py'))
+        paths.extend((ROOT/'schema').glob('*.json'))
+        directories=[]
+        if Path(str(argv[0])).name in {'go', 'go.exe', 'powershell', 'powershell.exe'}:
+            for directory in ['internal', 'cmd']:
+                paths.extend((ROOT/directory).rglob('*.go'))
+        for argument in argv:
+            path = Path(str(argument))
+            if not path.is_absolute():
+                path = ROOT/path
+            if path.is_file() and path.resolve().is_relative_to(ROOT):
+                paths.append(path)
+                if path.suffix=='.json' and path.stat().st_size<=1_000_000:
+                    try:spec=json.loads(path.read_text(encoding='utf-8-sig'))
+                    except (ValueError,UnicodeError):continue
+                    if isinstance(spec,dict) and spec.get('version') in {1,2,3} and isinstance(spec.get('steps'),list):
+                        for step in spec['steps']:
+                            if isinstance(step,dict) and isinstance(step.get('snapshot'),str):
+                                baseline=(path.parent/'snapshots'/step['snapshot']).resolve()
+                                if not baseline.is_relative_to(path.parent.resolve()):raise ValueError('baseline identity escapes package')
+                                if baseline.is_file():paths.append(baseline)
+                        fixture=spec.get('workspace',{}).get('fixture') if isinstance(spec.get('workspace'),dict) else None
+                        if fixture:
+                            fixture_root=(path.parent/fixture).resolve()
+                            fixture_root.relative_to(path.parent.resolve())
+                            entries=list(fixture_root.rglob('*'))
+                            if len(entries)>2000:raise ValueError('fixture identity count bound')
+                            for entry in entries:
+                                if entry.is_symlink() or getattr(entry,'is_junction',lambda:False)():raise ValueError('linked fixture identity')
+                                if entry.is_dir():directories.append(entry.relative_to(ROOT).as_posix())
+                                elif entry.is_file():paths.append(entry)
+        target=self.raw/'active'/project
+        if (target/'task-owned.json').is_file():
+            paths.append(target/'task-owned.json')
+            if (target/'build.json').is_file():paths.append(target/'build.json')
+            if (target/'runtime.json').is_file():paths.append(target/'runtime.json')
+            if project=='plop':
+                paths.extend((target/'src/packages/plop/src').rglob('*.js'))
+                paths.extend((target/'src/packages/plop/bin').rglob('*.js'))
+                paths.extend((target/'src/packages/node-plop/src').rglob('*.js'))
+                paths=[p for p in paths if 'node_modules' not in p.relative_to(ROOT).parts]
+                paths.append(target/'src/yarn.lock')
+        if any(p.stat().st_size>128*1024*1024 for p in paths):raise ValueError('identity file byte bound')
+        identity = {'project': project, 'host': platform.system(), 'architecture': platform.machine(),
+                    'fixture_directories':sorted(set(directories)),
+                    'files': {p.relative_to(ROOT).as_posix(): sha256(p) for p in sorted(set(paths))}}
+        data = (json.dumps(identity, sort_keys=True, ensure_ascii=True, indent=2)+'\n').encode()
+        digest = hashlib.sha256(data).hexdigest()
+        path = self.raw/'identities'/(digest+'.json')
+        try:
+            immutable_json(path, identity)
+        except FileExistsError:
+            if path.read_bytes() != data:
+                raise ValueError('identity collision')
+        return {'sha256': digest, 'manifest': str(path.relative_to(self.raw))}
+
+    def attempts(self):
+        directory = self.raw/'events'
+        if any(directory.glob('*.partial')):
+            raise ValueError('interrupted event publication')
+        attempts = {}
+        for path in sorted(directory.glob('*.json')):
+            row = json.loads(path.read_text(encoding='utf-8'))
+            if path.name != row['id']+'-'+row['event']+'.json':
+                raise ValueError('event filename identity mismatch')
+            events = attempts.setdefault(row['id'], {})
+            if row['event'] in events:
+                raise ValueError('duplicate event')
+            events[row['event']] = row
+        for events in attempts.values():
+            if not {'started', 'identified', 'finished'} <= events.keys():
+                raise ValueError('incomplete attempt')
+            if len({(r['project'], r['label']) for r in events.values()}) != 1:
+                raise ValueError('attempt identity mismatch')
+        return attempts

@@ -2,6 +2,34 @@
 
 `record` and `workflow` are source-candidate commands, added in P0–P2. Published stable/prerelease binaries do not acquire these commands automatically. Build the current source using [development](development.md); no account or network is needed for recording or replay.
 
+Managed-fixture recordings now export [spec v3](spec-v3.md). After a meaningful
+completion checkpoint or exact `/exit`, use `/file result.txt`, `/missing old.txt`,
+`/directory output`, `/empty-directory cache`, or `/entries output`. Paths are
+relative to the copied fixture root, including spaces without extra quoting.
+`/file` captures at most 64 KiB of exact bytes; `/review` shows base64 in the spec
+and an escaped preview of the first 256 bytes. Review the complete selected bytes
+when the preview is truncated. Captured output is a candidate expectation: you
+decide whether it is correct. `/replay` checks a fresh execution before `/save`.
+Only selected paths are read; state expectations never change under screen
+snapshot `--update`. Existing v1/v2 specs keep their original contract.
+
+Failed requested controls remain unresolved until retried successfully or a
+successful fresh `/rerecord`. To intentionally omit failed controls, use
+`/discard-errors`, then review the resulting coverage and replay. A successful
+unrelated checkpoint does not erase a failed file capture. Replay/export also
+requires a positive completion checkpoint after the last input or resize; an
+input-only draft cannot become a passing recorded test.
+
+For an intended saved-file change, open `playtestr record --edit path/to/test.json`.
+Use `/update-state N` for the 1-based existing state step, `/review`, `/replay`,
+then `/save`. This reconstructs the prefix in fresh state, captures the selected
+expectation, retains the suffix, and requires the full candidate to pass in
+another fresh execution. It saves only the spec after checking that approved
+files have not changed concurrently. Failed or cancelled saves leave approved
+data intact. Existing screen files remain byte-for-byte unchanged; maintain
+those separately with `test --update --snapshot name.txt`. A crash can leave an
+uncommitted temporary file; it does not automatically approve candidate bytes.
+
 From the repository root, build `bin/fixture` (`bin/fixture.exe` on Windows). The committed synthetic wizard fixture contains only `seed.txt`:
 
 ```sh
