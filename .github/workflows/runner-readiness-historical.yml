@@ -7,6 +7,16 @@ on:
 permissions:
   contents: read
 env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONIOENCODING: 'utf-8'
+  GOTOOLCHAIN: 'local'
+  TEMP: '${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp'
+  TMP: '${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp'
+  TMPDIR: '${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp'
+  GOTMPDIR: '${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp'
+  GOCACHE: '${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/go-cache'
+  GOPATH: '${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/gopath'
+  GOMODCACHE: '${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/gopath/pkg/mod'
   GIT_CONFIG_COUNT: '1'
   GIT_CONFIG_KEY_0: 'core.longpaths'
   GIT_CONFIG_VALUE_0: 'true'

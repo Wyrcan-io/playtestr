@@ -194,3 +194,24 @@ Windows and remains explicitly unqualified. New control declarations list 33
 whole tests, with native/final binding pending; archive negative controls remain
 required. Three-by-fifty separate historical investigations and their workflow
 are prepared, not executed; dispatch after corrected Poetry jobs settle.
+
+Poetry native 38955582601 passed 18/20 on Linux/macOS; only N04 new-config
+newline and N08 sdist exact bytes failed. Fault replicas, maintenance and verified
+source restoration/removal passed on both. Windows case-insensitive path sorting
+orders archive members differently; an independent standard tar/gzip expectation
+now uses reviewed fixture payloads and explicit fixed metadata before native
+target execution. Its complete TAR equals the independently reviewed Windows
+capture; platform member-order/payload checks pass. N04 native profile now uses
+LF for its newly created file. Fourteen local harness tests pass.
+
+Historical run 38956045809 failed both jobs before SDK launch because the initial
+mkdir used unset owned cache variables. No incident repetitions ran; no artifact
+was produced. Failed-step logs remain under the campaign root. All required
+workspace environment paths are now declared before setup. Core 38955563062 at
+db003c4 succeeded on all three hosts. Separate lightweight native harness CI
+now handles acceptance-only changes; full Go/core CI remains required for Go,
+schema, installer and core-workflow changes and at final freeze.
+
+Local Poetry source archive/selected restoration and all retained process and
+workspace cleanup checks passed under b36cd0710f9f49b78c713c65201e7e9d. Its local
+active tree is still retained until corrected native project gates pass.

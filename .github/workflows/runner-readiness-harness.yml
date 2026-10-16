@@ -1,0 +1,45 @@
+name: Runner readiness harness
+on:
+  push:
+    branches: [work/p0-p2-implementation]
+    paths:
+      - '.github/workflows/runner-readiness-harness.yml'
+      - 'scripts/acceptance/readiness_*.py'
+      - 'scripts/acceptance/test_readiness_*.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONIOENCODING: utf-8
+  GIT_CONFIG_COUNT: '1'
+  GIT_CONFIG_KEY_0: core.longpaths
+  GIT_CONFIG_VALUE_0: 'true'
+jobs:
+  native-harness:
+    timeout-minutes: 5
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        os: [ubuntu-24.04, macos-15, windows-2025]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+      - name: Native evidence, selection and independent archive controls
+        shell: bash
+        run: |
+          python scripts/acceptance/readiness_check.py --label native-harness-controls --timeout 120 -- python -m unittest discover -s scripts/acceptance -p 'test_readiness_*.py' -v
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: runner-readiness-harness-${{ matrix.os }}
+          path: |
+            artifacts/runner-readiness-ten-project-pass/events/
+            artifacts/runner-readiness-ten-project-pass/identities/
+            artifacts/runner-readiness-ten-project-pass/core/
+          if-no-files-found: error
+          retention-days: 14

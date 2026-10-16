@@ -6,6 +6,7 @@ import shutil
 
 from readiness_evidence import RAW, immutable_json, sha256
 from readiness_poetry_cases import PACKAGE, rows
+from readiness_poetry_archive_oracle import reviewed_archive
 
 
 def main():
@@ -26,7 +27,7 @@ def main():
             differences.append('native null-device name for isolated synthetic Git configuration')
             # Only newly generated text uses native newline defaults. Existing
             # LF fixtures and their edits preserve the original reviewed bytes.
-            if identity in {'N01','N02','E01','E05','E06'}:
+            if identity in {'N01','N02','N04','E01','E05','E06'}:
                 for step in spec['steps']:
                     selected=step.get('state',{})
                     if selected.get('kind')=='file':
@@ -34,6 +35,10 @@ def main():
                         if b'\r\n' in value:
                             selected['bytes_base64']=base64.b64encode(value.replace(b'\r\n',b'\n')).decode()
                 differences.append('reviewed native LF for newly generated TOML; existing LF fixture bytes unchanged')
+            if identity=='N08':
+                expected=reviewed_archive(PACKAGE/'project-fixture',windows=False)
+                spec['steps'][3]['state']['bytes_base64']=base64.b64encode(expected).decode()
+                differences.append('independent reviewed TAR metadata/payloads, native case-sensitive member ordering and native standard gzip encoding; prepared before target execution')
         (target/name).write_text(json.dumps(spec,indent=2)+'\n',encoding='utf-8',newline='\n')
         records.append(dict(id=identity,spec=name,source_sha256=sha256(source),
                             authored_sha256=sha256(target/name),differences=differences))

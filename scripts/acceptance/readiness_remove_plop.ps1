@@ -1,32 +1,37 @@
-param()
+param([ValidateSet('plop','poetry')][string]$Project = 'plop')
 $ErrorActionPreference = 'Stop'
 $workspace = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..')).TrimEnd('\')
 $campaign = Join-Path $workspace 'artifacts\runner-readiness-ten-project-pass'
-$active = [IO.Path]::GetFullPath((Join-Path $campaign 'active\plop'))
-$retained = Join-Path $campaign 'plop\retained-source'
-if ($active -ne (Join-Path $campaign 'active\plop') -or
+$relative = 'active\' + $Project
+$active = [IO.Path]::GetFullPath((Join-Path $campaign $relative))
+$retained = Join-Path $campaign ($Project + '\retained-source')
+if ($active -ne (Join-Path $campaign $relative) -or
     -not $active.StartsWith($workspace + '\', [StringComparison]::OrdinalIgnoreCase)) {
     throw 'Removal target is outside the exact owned project root'
 }
 $marker = Get-Content -LiteralPath (Join-Path $active 'task-owned.json') -Raw | ConvertFrom-Json
-if ($marker.workspace -ne $workspace -or $marker.project -ne 'plopjs/plop' -or
+$repository = @{plop='plopjs/plop';poetry='python-poetry/poetry'}[$Project]
+$pin = @{plop='0c90e7ef93ffa5f40b10fe8f53d3cc23adee5a8e';poetry='38a86661d2ae58694c76d0bb4e628e1400d6dc6f'}[$Project]
+if ($marker.workspace -ne $workspace -or $marker.project -ne $repository -or
     $marker.campaign -ne 'runner-readiness-ten-project-pass' -or
-    $marker.pin -ne '0c90e7ef93ffa5f40b10fe8f53d3cc23adee5a8e') { throw 'Ownership mismatch' }
+    $marker.pin -ne $pin) { throw 'Ownership mismatch' }
 $prepared = Get-Content -LiteralPath (Join-Path $retained 'removal-prepared.json') -Raw | ConvertFrom-Json
 $index = Get-Content -LiteralPath (Join-Path $retained 'verified-index.json') -Raw | ConvertFrom-Json
 if (-not $prepared.source_archive_verified -or -not $prepared.managed_cleanup_verified -or
-    -not $prepared.node_processes_verified -or $prepared.owned_relative_path -ne 'active/plop') {
+    -not ($prepared.runtime_processes_verified -or ($Project -eq 'plop' -and $prepared.node_processes_verified)) -or
+    $prepared.owned_relative_path -ne ('active/' + $Project)) {
     throw 'Archive/restore/cleanup preparation is incomplete'
 }
 $archive = Join-Path $retained 'source.tar.gz'
 if ((Get-FileHash -LiteralPath $archive -Algorithm SHA256).Hash.ToLowerInvariant() -ne $index.archive_sha256) {
     throw 'Retained archive identity changed'
 }
-$nodes = @(Get-CimInstance Win32_Process -Filter "Name='node.exe'" | Where-Object {
+$filter = if ($Project -eq 'plop') { "Name='node.exe'" } else { "Name='python.exe' OR Name='pythonw.exe' OR Name='poetry.exe'" }
+$nodes = @(Get-CimInstance Win32_Process -Filter $filter | Where-Object {
     $_.CommandLine -and ($_.CommandLine.IndexOf($active, [StringComparison]::OrdinalIgnoreCase) -ge 0 -or
     $_.CommandLine.IndexOf($active.Replace('\','/'), [StringComparison]::OrdinalIgnoreCase) -ge 0)
 })
-if ($nodes.Count -ne 0) { throw 'Owned Node process remains; do not remove live state' }
+if ($nodes.Count -ne 0) { throw 'Owned runtime process remains; do not remove live state' }
 if ((Get-Item -LiteralPath $active -Force).Attributes -band [IO.FileAttributes]::ReparsePoint) {
     throw 'Active root is a reparse point'
 }
@@ -55,8 +60,8 @@ Remove-Item -LiteralPath $active -Recurse -Force
 if (Test-Path -LiteralPath $active) { throw 'Owned project removal failed' }
 $receipt = Join-Path $retained 'removed.json'
 if (Test-Path -LiteralPath $receipt) { throw 'Removal receipt already exists' }
-[ordered]@{ removed=$true; owned_relative_path='active/plop';
+[ordered]@{ removed=$true; owned_relative_path=('active/' + $Project);
     source_archive_sha256=$index.archive_sha256; entries=$entries;
     reviewed_links_removed=$links.Count; checked_at_utc=[DateTime]::UtcNow.ToString('o') } |
     ConvertTo-Json | Set-Content -LiteralPath $receipt -Encoding UTF8
-Write-Output 'Removed only the checked owned Plop tree; retained archive and restore evidence preserved.'
+Write-Output "Removed only the checked owned $Project tree; retained archive and restore evidence preserved."

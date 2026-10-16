@@ -55,15 +55,16 @@ async def main():
         proof=json.loads((RAW/project/'local-process-cleanup.json').read_text(encoding='utf-8-sig'))
         age=(datetime.now(timezone.utc)-datetime.fromisoformat(proof['checked_at_utc'].replace('Z','+00:00'))).total_seconds()
         if (proof.get('query_succeeded') is not True or not 0<=age<60 or
-            proof.get('active_path')!=str(active.resolve()) or proof.get('matching_node_pids')!=[]):
-            raise RuntimeError('owned Windows Node process cleanup is unconfirmed')
+            proof.get('active_path')!=str(active.resolve()) or
+            proof.get('matching_node_pids' if project=='plop' else 'matching_runtime_pids')!=[]):
+            raise RuntimeError('owned Windows runtime process cleanup is unconfirmed')
         current={'windows_owned_command_path_check':proof}
     else:
         baseline_path=RAW/('plop-node-baseline.json' if project=='plop' else 'poetry-runtime-baseline.json')
         baseline=json.loads(baseline_path.read_text())
         current=await runtime_inventory(project,'verify-runtime-termination-before-removal')
         if any(baseline.get(pid)!=identity for pid,identity in current.items()):
-            raise RuntimeError('new Node process remains; cleanup unconfirmed, do not remove live state')
+            raise RuntimeError('new runtime process remains; cleanup unconfirmed, do not remove live state')
     for report in (RAW/project).rglob('*.json'):
         data=json.loads(report.read_text(encoding='utf-8-sig'))
         if isinstance(data,dict) and data.get('report_version')==3:
@@ -127,7 +128,8 @@ async def main():
                 if name in dirs:dirs.remove(name)
     immutable_json(retained/'removal-prepared.json',dict(owned_relative_path='active/'+project,
         source_archive_verified=True,source_members=len(manifest),managed_cleanup_verified=True,
-        node_processes_verified=True,entries=entries,owned_links=sorted(links),
+        node_processes_verified=project=='plop',runtime_processes_verified=True,
+        entries=entries,owned_links=sorted(links),
         existing_runtime_symlinks=external_runtime_links))
     if args.prepare_only:
         print('Archive/restore and cleanup checked; target retained for checked native removal.')

@@ -51,3 +51,12 @@ filesystem regression asserts exactly twenty specs and excludes receipts. Linux
 source restoration/removal passed; macOS rejected an external venv runtime link,
 retaining owned state on its ephemeral host. Next build requests stdlib venv
 --copies; actual macOS success is required before claiming cleanup repaired.
+
+Second native run 38955582601: 18/20 each, all faults/maintenance/cleanup passed.
+N04 needed the declared POSIX newline profile for a newly created config. N08
+kept Windows case-insensitive member ordering, unlike native POSIX paths. An
+independent bounded tar/gzip expectation uses only reviewed source fixture bytes
+and explicit synthetic package metadata, with native ordering/compression before
+Poetry runs. No native faulty output supplies an expectation. Complete independent
+Windows TAR equals the reviewed capture; POSIX and Windows member payload maps
+are identical. Native replay must still prove the new profile.

@@ -89,3 +89,12 @@ concurrent, 125 job-minute ceiling, forecast 30-45. Both first failing project
 packets remain in the denominator; no scenario credit from the setup-only run.
 Historical investigations are prepared but dispatched only after Poetry jobs
 settle, as separately declared in historical-investigations.md.
+
+Next corrective push: preceding core 38955563062 passed all hosts. Core-workflow
+change causes one full three-host run (75 job-minute ceiling); a separate
+three-host harness run has a 15 job-minute ceiling. Wait for harness jobs to
+settle, then two Poetry jobs (50 ceiling), then two historical jobs (50 ceiling).
+Maximum four concurrent at every stage, total additional ceiling 190 job-minutes,
+forecast 40-50. Future acceptance-only edits run the lightweight harness matrix;
+full Go/race/core validation stays on production source/schema/installer changes
+and final freeze. No host count or required final gate is reduced.
