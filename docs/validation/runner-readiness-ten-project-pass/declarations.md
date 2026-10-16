@@ -15,7 +15,8 @@ minute forecast must be declared before dispatch. No dispatch has occurred.
 
 Prepared core workflow: three native jobs, at most two concurrent, 25 minutes
 each (75 hosted job-minute ceiling; forecast 30–45 job-minutes). It uses existing
-hosted Go/Python/compilers and checkout-owned dependency/build/temp paths. Only
+Python/C compilers, an official checksum-verified Go 1.25.0 SDK extracted only
+below its campaign root, and checkout-owned dependency/build/temp paths. Only
 this campaign's compact events/identities/results are uploaded, excluding caches.
 This is a core-only declaration, not a project-host qualification or dispatch.
 
@@ -23,6 +24,22 @@ Initial manual dispatch of new workflow at `81589cd` returned HTTP 404 because
 GitHub had not registered it on the default branch. No run was created. Add a
 narrow working-branch push trigger for changes to this workflow itself, allowing
 registration/execution without changing the default branch or opening a PR.
+
+Actual initial core run `38916191429` failed setup on all hosts: Ubuntu's default
+Go was 1.24.13 (below go.mod), macOS had no `go` on PATH, and the Windows failure
+packet remains retained for inspection. No platform credit. The replacement
+bootstrap records its attempt before launch, verifies official release-index
+hash/size, bounds extraction and avoids global SDK installation. Product deadlines
+are unchanged. The pre-existing Terminal/adversarial workflows also trigger on
+source pushes; their jobs are separate evidence. The superseded Terminal run
+`38916048350` was explicitly cancelled to reduce duplicate hosted work. The
+initial aggregate job forecast omitted those automatic workflows; retain this
+planning deviation and account for them before subsequent pushes.
+
+Before the bootstrap correction push: expect three dedicated core jobs plus
+three automatic Terminal jobs, at most five newly concurrent jobs, 150 total
+job-minute ceiling and a 45–60 job-minute forecast. Existing earlier runs retain
+their own recorded outcomes; no paid runner or account/budget setting changes.
 
 First use begins after target availability and ends at the first reviewed
 ordinary passing test: at most five Playtestr shell invocations and twenty

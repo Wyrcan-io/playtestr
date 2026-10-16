@@ -28,6 +28,7 @@ jobs:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
           persist-credentials: false
+          set-safe-directory: false
       - name: Native tests, race checks and public saved-state calibration
         shell: bash
         run: |
@@ -37,19 +38,22 @@ jobs:
           export TEMP="$campaign/tmp" TMP="$campaign/tmp" TMPDIR="$campaign/tmp" GOTMPDIR="$campaign/tmp"
           export GOCACHE="$campaign/go-cache" GOPATH="$campaign/gopath" GOMODCACHE="$campaign/gopath/pkg/mod"
           export GOTOOLCHAIN=local PYTHONIOENCODING=utf-8 PYTHONDONTWRITEBYTECODE=1
+          if command -v python3 >/dev/null 2>&1; then py=python3; else py=python; fi
+          "$py" scripts/acceptance/readiness_check.py --label workspace-sdk-bootstrap --timeout 360 -- "$py" scripts/acceptance/readiness_bootstrap_go.py
+          export PATH="$campaign/toolchain/go/bin:$PATH"
           if [ "$RUNNER_OS" = Windows ]; then
             export PATH="/c/msys64/mingw64/bin:/c/msys64/ucrt64/bin:$PATH"
             export CC=gcc
           fi
           go version
-          python --version
-          python scripts/acceptance/readiness_check.py --label native-core-tests --timeout 600 -- go test -json -count=1 ./...
-          python scripts/acceptance/readiness_check.py --label native-vet --timeout 180 -- go vet ./...
+          "$py" --version
+          "$py" scripts/acceptance/readiness_check.py --label native-core-tests --timeout 600 -- go test -json -count=1 ./...
+          "$py" scripts/acceptance/readiness_check.py --label native-vet --timeout 180 -- go vet ./...
           export CGO_ENABLED=1
-          python scripts/acceptance/readiness_check.py --label native-race --timeout 600 -- go test -race -json -count=1 ./...
-          python scripts/acceptance/readiness_check.py --label native-evidence-controls --timeout 120 -- python -m unittest discover -s scripts/acceptance -p test_readiness_evidence.py -v
-          python scripts/acceptance/readiness_check.py --label native-ci-summary-controls --timeout 120 -- python -m unittest discover -s scripts/ci -p test_report_summary.py -v
-          python scripts/acceptance/readiness_check.py --label native-public-state-parent --timeout 300 -- python scripts/acceptance/readiness_state_journey.py
+          "$py" scripts/acceptance/readiness_check.py --label native-race --timeout 600 -- go test -race -json -count=1 ./...
+          "$py" scripts/acceptance/readiness_check.py --label native-evidence-controls --timeout 120 -- "$py" -m unittest discover -s scripts/acceptance -p test_readiness_evidence.py -v
+          "$py" scripts/acceptance/readiness_check.py --label native-ci-summary-controls --timeout 120 -- "$py" -m unittest discover -s scripts/ci -p test_report_summary.py -v
+          "$py" scripts/acceptance/readiness_check.py --label native-public-state-parent --timeout 300 -- "$py" scripts/acceptance/readiness_state_journey.py
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
@@ -60,5 +64,6 @@ jobs:
             artifacts/runner-readiness-ten-project-pass/core/
             artifacts/runner-readiness-ten-project-pass/state-calibration/
             artifacts/runner-readiness-ten-project-pass/public route*/
+            artifacts/runner-readiness-ten-project-pass/toolchain/sdk.json
           if-no-files-found: error
           retention-days: 14

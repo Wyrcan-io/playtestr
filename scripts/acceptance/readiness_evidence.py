@@ -52,6 +52,7 @@ class Campaign:
 
     def identity(self, project, argv):
         paths = [ROOT/'go.mod', ROOT/'go.sum']
+        if (self.raw/'toolchain/sdk.json').is_file():paths.append(self.raw/'toolchain/sdk.json')
         for directory in ['scripts/acceptance','scripts/ci']:
             paths.extend((ROOT/directory).rglob('*.py'))
         paths.extend((ROOT/'schema').glob('*.json'))
