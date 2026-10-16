@@ -1,0 +1,52 @@
+{
+  "version": 3,
+  "name": "Plop E07",
+  "command": [
+    "cmd.exe",
+    "/d",
+    "/s",
+    "/c",
+    "plop --no-progress artifact"
+  ],
+  "workspace": {
+    "fixture": "fixture",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Artifact name"
+    },
+    {
+      "text": "nested/caf\u00e9 notes"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "notes.txt"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "out/nested/caf\u00e9 notes.txt",
+        "kind": "file",
+        "bytes_base64": "bmFtZT1uZXN0ZWQvY2Fmw6kgbm90ZXMK"
+      }
+    },
+    {
+      "state": {
+        "path": "existing.txt",
+        "kind": "file",
+        "bytes_base64": "cmV2aWV3ZWQgZXhpc3RpbmcgYnl0ZXMK"
+      }
+    }
+  ]
+}

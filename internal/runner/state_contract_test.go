@@ -114,7 +114,11 @@ func TestStateFailurePreservesSeparateCleanupError(t *testing.T) {
 	// The known helper only changed its marker; verify the returned owned temp
 	// identity and terminated tree before removing this intentional test leak.
 	retained := filepath.Clean(result.Workspace.RetainedPath)
-	if filepath.Dir(retained) != filepath.Clean(os.TempDir()) || !strings.HasPrefix(filepath.Base(retained), "playtestr-workspace-") {
+	temporaryRoot, err := canonicalWorkspaceRoot(os.TempDir())
+	if err != nil {
+		t.Fatal(err)
+	}
+	if filepath.Dir(retained) != filepath.Clean(temporaryRoot) || !strings.HasPrefix(filepath.Base(retained), "playtestr-workspace-") {
 		t.Fatal("unexpected retained path")
 	}
 	if err := os.RemoveAll(retained); err != nil {

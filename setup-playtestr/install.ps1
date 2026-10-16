@@ -32,6 +32,17 @@ $checksumLimit = 4KB
 $expandedFileLimit = 128MB
 $expectedDocumentNames = @('LICENSE', 'README.md', 'THIRD_PARTY_NOTICES.md')
 
+function Get-NativeLaunchPath {
+    param([string] $Binary, [string] $OS)
+    # PowerShell 7's native launcher otherwise rejects paths beyond MAX_PATH,
+    # even after .NET successfully extracts and verifies the same file.
+    if ($OS -eq 'windows' -and $PSVersionTable.PSVersion.Major -ge 7 -and -not $Binary.StartsWith('\\?\')) {
+        if ($Binary.StartsWith('\\')) { return '\\?\UNC\' + $Binary.Substring(2) }
+        return '\\?\' + $Binary
+    }
+    return $Binary
+}
+
 function Publish-ActionEnvironment {
     param(
         [string] $OutputFile,
@@ -353,7 +364,8 @@ try {
         & chmod 755 $stagedBinary
         if ($LASTEXITCODE -ne 0) { throw "cannot make Playtestr executable" }
     }
-    $reportedVersion = (& $stagedBinary --version 2>&1 | Out-String).Trim()
+    $stagedLaunchBinary = Get-NativeLaunchPath -Binary $stagedBinary -OS $target.OS
+    $reportedVersion = (& $stagedLaunchBinary --version 2>&1 | Out-String).Trim()
     if ($LASTEXITCODE -ne 0 -or $reportedVersion -ne "playtestr $Version") {
         throw "downloaded binary reported '$reportedVersion', expected 'playtestr $Version'"
     }
@@ -362,7 +374,8 @@ try {
     $installDirectory = Join-Path $InstallRoot ("$baseName-" + [Guid]::NewGuid().ToString('N'))
     Move-Item -LiteralPath $stagedDirectory -Destination $installDirectory
     $binaryPath = Join-Path $installDirectory $executableName
-    $installedVersion = (& $binaryPath --version 2>&1 | Out-String).Trim()
+    $installedLaunchBinary = Get-NativeLaunchPath -Binary $binaryPath -OS $target.OS
+    $installedVersion = (& $installedLaunchBinary --version 2>&1 | Out-String).Trim()
     if ($LASTEXITCODE -ne 0 -or $installedVersion -ne "playtestr $Version") {
         Remove-Item -LiteralPath $installDirectory -Recurse -Force -ErrorAction SilentlyContinue
         throw "installed binary failed its absolute-path version check"

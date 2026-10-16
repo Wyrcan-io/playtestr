@@ -36,12 +36,24 @@ func TestStateWindowsJunctionAndLockedFile(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	handle, err := windows.CreateFile(name, windows.GENERIC_READ, 0, nil, windows.OPEN_EXISTING, windows.FILE_ATTRIBUTE_NORMAL, 0)
+	handle, err := windows.CreateFile(name, windows.GENERIC_READ|windows.GENERIC_WRITE,
+		windows.FILE_SHARE_READ|windows.FILE_SHARE_WRITE|windows.FILE_SHARE_DELETE,
+		nil, windows.OPEN_EXISTING, windows.FILE_ATTRIBUTE_NORMAL, 0)
 	if err != nil {
 		t.Fatal(err)
 	}
 	defer windows.CloseHandle(handle)
-	if err := assertState(context.Background(), root, fileState("owned-canary/value", []byte("canary"))); err == nil || !strings.Contains(err.Error(), "unreadable") {
+	// A real exclusive byte-range lock makes ReadFile fail. A share-mode-only
+	// lock is not sufficient on every privileged native rooted-open path.
+	if err := windows.LockFileEx(handle, windows.LOCKFILE_EXCLUSIVE_LOCK|windows.LOCKFILE_FAIL_IMMEDIATELY, 0, 6, 0, &windows.Overlapped{}); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := os.ReadFile(path); err == nil {
+		t.Fatal("native sharing lock did not prevent an independent ordinary read")
+	} else {
+		t.Logf("independent locked read: %v", err)
+	}
+	if err := assertState(context.Background(), root, fileState("owned-canary/value", []byte("canary"))); err == nil || !strings.Contains(err.Error(), "file read failed") {
 		t.Fatalf("native locked read: %v", err)
 	}
 }

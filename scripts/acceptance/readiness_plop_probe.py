@@ -1,5 +1,6 @@
 """Bounded public recorder startup diagnosis; no test is exported."""
 import asyncio
+import argparse
 import os
 
 from adversarial_process import execute
@@ -7,6 +8,9 @@ from readiness_evidence import Campaign, RAW, ROOT
 
 
 async def main():
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--timeout-ms',type=int,default=3000,choices=[3000,30000])
+    args=parser.parse_args()
     env=dict(os.environ)
     env['PATH']=str(RAW/'active/plop/bin')+os.pathsep+env['PATH']
     suffix='.exe' if os.name=='nt' else ''
@@ -16,9 +20,9 @@ async def main():
     forms.append(('node-direct',['node',str(RAW/'active/plop/src/packages/plop/bin/plop.js'),'--no-progress']))
     for label,argv in forms:
         result=await execute([runner,'record','--output','docs/validation/runner-readiness-ten-project-pass/plop/diagnostic-no-export.json',
-                              '--fixture','fixture','--temporary-home','--temporary-temp','--timeout-ms','3000',
-                              '--run-timeout-ms','30000','--',*argv],'plop','startup-probe-'+label,
-                             env=env,input='/expect Artifact name\n/screen\n/quit\n',expected=130,timeout=40,campaign=Campaign())
+                              '--fixture','fixture','--temporary-home','--temporary-temp','--timeout-ms',str(args.timeout_ms),
+                              '--run-timeout-ms','60000','--',*argv],'plop','startup-probe-'+label+'-'+str(args.timeout_ms),
+                             env=env,input='/expect Artifact name\n/screen\n/quit\n',expected=130,timeout=70,campaign=Campaign())
         print(label,result['output'][-3000:])
 
 

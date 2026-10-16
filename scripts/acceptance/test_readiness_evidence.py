@@ -46,6 +46,14 @@ class EvidenceTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'incomplete'):
             self.campaign.attempts()
 
+    def test_downloaded_go_sources_have_module_boundary(self):
+        boundary = Path(self.folder.name)/'go.mod'
+        self.assertIn(b'module playtestr.invalid/', boundary.read_bytes())
+        Campaign(Path(self.folder.name))
+        boundary.write_bytes(b'module unexpected\n')
+        with self.assertRaisesRegex(ValueError, 'module boundary'):
+            Campaign(Path(self.folder.name))
+
 
 if __name__ == '__main__':
     unittest.main()

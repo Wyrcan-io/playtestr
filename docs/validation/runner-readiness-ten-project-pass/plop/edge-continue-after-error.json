@@ -1,0 +1,52 @@
+{
+  "version": 3,
+  "name": "Plop E12",
+  "command": [
+    "cmd.exe",
+    "/d",
+    "/s",
+    "/c",
+    "plop --no-progress --plopfile extended.cjs continue-after-error"
+  ],
+  "workspace": {
+    "fixture": "fixture",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Continue generation name"
+    },
+    {
+      "text": "delta"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "continued.txt"
+    },
+    {
+      "exit": 1
+    },
+    {
+      "state": {
+        "path": "continued.txt",
+        "kind": "file",
+        "bytes_base64": "Y29udGludWVkPWRlbHRhCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "collision.txt",
+        "kind": "file",
+        "bytes_base64": "cmV2aWV3ZWQgY29sbGlzaW9uIGJ5dGVzCg=="
+      }
+    }
+  ]
+}

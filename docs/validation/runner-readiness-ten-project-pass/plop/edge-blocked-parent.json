@@ -1,0 +1,45 @@
+{
+  "version": 3,
+  "name": "Plop E03",
+  "command": [
+    "cmd.exe",
+    "/d",
+    "/s",
+    "/c",
+    "plop --no-progress --plopfile extended.cjs blocked-parent"
+  ],
+  "workspace": {
+    "fixture": "fixture",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Blocked output name"
+    },
+    {
+      "text": "alpha"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "EEXIST"
+    },
+    {
+      "exit": 1
+    },
+    {
+      "state": {
+        "path": "blocked",
+        "kind": "file",
+        "bytes_base64": "cmV2aWV3ZWQgcmVndWxhciBhbmNlc3Rvcgo="
+      }
+    }
+  ]
+}

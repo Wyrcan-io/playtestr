@@ -1,0 +1,59 @@
+{
+  "version": 3,
+  "name": "Plop E08",
+  "command": [
+    "cmd.exe",
+    "/d",
+    "/s",
+    "/c",
+    "plop --no-progress --plopfile extended.cjs raw-files"
+  ],
+  "workspace": {
+    "fixture": "fixture",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Copy raw reviewed fixtures?"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "2 files added"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "raw-output/line-endings.txt",
+        "kind": "file",
+        "bytes_base64": "Zmlyc3QNCnNlY29uZA0K"
+      }
+    },
+    {
+      "state": {
+        "path": "raw-output/binary.bin",
+        "kind": "file",
+        "bytes_base64": "AAEC/wByZXZpZXdlZAo="
+      }
+    },
+    {
+      "state": {
+        "path": "raw-output",
+        "kind": "entries",
+        "entries": [
+          "line-endings.txt",
+          "binary.bin"
+        ]
+      }
+    }
+  ]
+}

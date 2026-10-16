@@ -1,0 +1,60 @@
+{
+  "version": 3,
+  "name": "Plop N05",
+  "command": [
+    "cmd.exe",
+    "/d",
+    "/s",
+    "/c",
+    "plop --no-progress --plopfile extended.cjs optional"
+  ],
+  "workspace": {
+    "fixture": "fixture",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Required artifact name"
+    },
+    {
+      "text": "alpha"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Include optional file?"
+    },
+    {
+      "text": "n"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "required.txt"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "required.txt",
+        "kind": "file",
+        "bytes_base64": "cmVxdWlyZWQ9YWxwaGEK"
+      }
+    },
+    {
+      "state": {
+        "path": "optional.txt",
+        "kind": "absent"
+      }
+    }
+  ]
+}

@@ -47,13 +47,18 @@ jobs:
           fi
           go version
           "$py" --version
-          "$py" scripts/acceptance/readiness_check.py --label native-core-tests --timeout 600 -- go test -json -count=1 ./...
-          "$py" scripts/acceptance/readiness_check.py --label native-vet --timeout 180 -- go vet ./...
+          checks_failed=0
+          check() {
+            if ! "$py" scripts/acceptance/readiness_check.py "$@"; then checks_failed=1; fi
+          }
+          check --label native-core-tests --timeout 600 -- go test -json -count=1 ./...
+          check --label native-vet --timeout 180 -- go vet ./...
           export CGO_ENABLED=1
-          "$py" scripts/acceptance/readiness_check.py --label native-race --timeout 600 -- go test -race -json -count=1 ./...
-          "$py" scripts/acceptance/readiness_check.py --label native-evidence-controls --timeout 120 -- "$py" -m unittest discover -s scripts/acceptance -p test_readiness_evidence.py -v
-          "$py" scripts/acceptance/readiness_check.py --label native-ci-summary-controls --timeout 120 -- "$py" -m unittest discover -s scripts/ci -p test_report_summary.py -v
-          "$py" scripts/acceptance/readiness_check.py --label native-public-state-parent --timeout 300 -- "$py" scripts/acceptance/readiness_state_journey.py
+          check --label native-race --timeout 600 -- go test -race -json -count=1 ./...
+          check --label native-evidence-controls --timeout 120 -- "$py" -m unittest discover -s scripts/acceptance -p test_readiness_evidence.py -v
+          check --label native-ci-summary-controls --timeout 120 -- "$py" -m unittest discover -s scripts/ci -p test_report_summary.py -v
+          check --label native-public-state-parent --timeout 300 -- "$py" scripts/acceptance/readiness_state_journey.py
+          exit "$checks_failed"
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:

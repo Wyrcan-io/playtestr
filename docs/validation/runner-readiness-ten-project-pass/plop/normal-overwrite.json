@@ -1,0 +1,52 @@
+{
+  "version": 3,
+  "name": "Plop N07",
+  "command": [
+    "cmd.exe",
+    "/d",
+    "/s",
+    "/c",
+    "plop --no-progress --plopfile extended.cjs overwrite"
+  ],
+  "workspace": {
+    "fixture": "fixture",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Replace generated file?"
+    },
+    {
+      "text": "y"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "existing.txt"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "existing.txt",
+        "kind": "file",
+        "bytes_base64": "YXBwcm92ZWQgcmVwbGFjZW1lbnQK"
+      }
+    },
+    {
+      "state": {
+        "path": "collision.txt",
+        "kind": "file",
+        "bytes_base64": "cmV2aWV3ZWQgY29sbGlzaW9uIGJ5dGVzCg=="
+      }
+    }
+  ]
+}

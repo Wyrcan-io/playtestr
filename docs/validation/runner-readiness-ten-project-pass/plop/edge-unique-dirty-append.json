@@ -1,0 +1,42 @@
+{
+  "version": 3,
+  "name": "Plop E09",
+  "command": [
+    "cmd.exe",
+    "/d",
+    "/s",
+    "/c",
+    "plop --no-progress --plopfile extended.cjs route-unique"
+  ],
+  "workspace": {
+    "fixture": "fixture",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Register the existing route once?"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "unique-registry.txt"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "unique-registry.txt",
+        "kind": "file",
+        "bytes_base64": "cHJlZml4PXByZXNlcnZlClJPVVRFUwpyb3V0ZT1hbHBoYQpzdWZmaXg9cHJlc2VydmUK"
+      }
+    }
+  ]
+}

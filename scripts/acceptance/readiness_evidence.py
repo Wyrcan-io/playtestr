@@ -39,6 +39,16 @@ class Campaign:
         self.raw = Path(raw).resolve()
         self.raw.relative_to(ROOT)
         self.raw.mkdir(parents=True, exist_ok=True)
+        # Downloaded SDK/target Go sources are evidence, not packages in the
+        # Playtestr module. A nested module keeps ordinary ./... checks scoped.
+        boundary = self.raw/'go.mod'
+        module = b'module playtestr.invalid/runner-readiness-artifacts\n\ngo 1.25.0\n'
+        try:
+            with boundary.open('xb') as stream:
+                stream.write(module)
+        except FileExistsError:
+            if boundary.read_bytes() != module:
+                raise ValueError('unexpected campaign module boundary')
 
     def append(self, row):
         if set(('id', 'event', 'project', 'label'))-row.keys():
