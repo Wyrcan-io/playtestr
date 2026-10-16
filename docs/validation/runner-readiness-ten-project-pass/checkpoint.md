@@ -1,5 +1,25 @@
 # Resume checkpoint
 
+17 October evidence follow-up: core run `38948501204` at `93bd63d` succeeded
+on Windows, Linux and macOS; all three bounded packets were retrieved. Plop run
+`38948568382` used that exact runner source and passed 20/20 scenarios on both
+Linux and macOS, all three source-fault replicas, maintenance and verified
+source restore/removal. Windows E05 remains red. These are development results;
+formal admissions, old-project migrations and archive qualifications remain zero.
+
+The generated ordinary native suite had a prelaunch context manifest but lacked
+the campaign's immutable attempt stream. A new wrapper adds that stream and
+hashes every publicly selected contract, snapshot and fixture while preserving
+the public command unchanged. Earlier packets remain behavior evidence; no
+retroactive attempt events are invented. Nine evidence/selection controls pass
+locally. Rejected prelaunch identity failures remain in the attempt denominator,
+while success without identity is rejected. Dispatch fresh native suites after
+committing this correction. Plop remains the sole active local application.
+
+Only the original Windows F03 is the project holdout. The first native run's
+F03 metadata incorrectly repeated its held-out label; later native copies
+explicitly mark themselves replicas. Never count those as additional holdouts.
+
 17 October local-time checkpoint before signal-repair source commit:
 First Plop native run `38945857202` used runner source `e5571bd`; both Linux
 and macOS passed 19/20 cases, with only E04 failing because Go reported native

@@ -54,6 +54,31 @@ class EvidenceTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'module boundary'):
             Campaign(Path(self.folder.name))
 
+    def test_rejected_prelaunch_identity_is_accounted_without_credit(self):
+        import asyncio
+        from adversarial_process import execute
+        class RejectIdentity(Campaign):
+            def identity(self, project, argv):
+                raise ValueError('synthetic prelaunch identity rejection')
+        campaign=RejectIdentity(Path(self.folder.name))
+        with self.assertRaisesRegex(ValueError,'identity rejection'):
+            asyncio.run(execute(['must-not-launch'],'identity-control','rejected-setup',
+                                timeout=5,campaign=campaign))
+        attempts=campaign.attempts()
+        self.assertEqual(len(attempts),1)
+        events=next(iter(attempts.values()))
+        self.assertNotIn('identified',events)
+        self.assertNotIn('launched',events)
+        self.assertEqual(events['finished']['harness_cleanup'],'not_started')
+
+    def test_success_without_prelaunch_identity_rejects(self):
+        identity=uuid.uuid4().hex
+        self.campaign.append(dict(id=identity,event='started',project='fixture',label='control'))
+        self.campaign.append(dict(id=identity,event='finished',project='fixture',label='control',
+                                  category='passed',exit_code=0,harness_cleanup='harness_process_reaped'))
+        with self.assertRaisesRegex(ValueError,'prelaunch identity'):
+            self.campaign.attempts()
+
 
 if __name__ == '__main__':
     unittest.main()

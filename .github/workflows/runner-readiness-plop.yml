@@ -84,7 +84,7 @@ jobs:
         id: tests
         run: |
           export PATH="$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass/toolchain/go/bin:$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass/active/plop/bin:$PATH"
-          "$PLAYTESTR_BIN" test --artifacts-dir artifacts/playtestr/evidence --report artifacts/playtestr/results.json 'artifacts/runner-readiness-ten-project-pass/plop/host-contracts'
+          python3 scripts/acceptance/readiness_public_suite.py --project plop --selection artifacts/playtestr/selected.txt -- "$PLAYTESTR_BIN" test --artifacts-dir artifacts/playtestr/evidence --report artifacts/playtestr/results.json 'artifacts/runner-readiness-ten-project-pass/plop/host-contracts'
       - name: Render offline evidence
         id: html
         if: always() && steps.tests.outcome != 'skipped'

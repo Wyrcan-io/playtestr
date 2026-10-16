@@ -64,7 +64,7 @@ jobs:
           check --label native-vet --timeout 180 -- go vet ./...
           export CGO_ENABLED=1
           check --label native-race --timeout 600 -- go test -race -json -count=1 ./...
-          check --label native-evidence-controls --timeout 120 -- "$py" -m unittest discover -s scripts/acceptance -p test_readiness_evidence.py -v
+          check --label native-evidence-controls --timeout 120 -- "$py" -m unittest discover -s scripts/acceptance -p 'test_readiness_*.py' -v
           check --label native-ci-summary-controls --timeout 120 -- "$py" -m unittest discover -s scripts/ci -p test_report_summary.py -v
           check --label native-public-state-parent --timeout 300 -- "$py" scripts/acceptance/readiness_state_journey.py
           exit "$checks_failed"

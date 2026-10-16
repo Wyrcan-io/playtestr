@@ -134,8 +134,16 @@ class Campaign:
                 raise ValueError('duplicate event')
             events[row['event']] = row
         for events in attempts.values():
-            if not {'started', 'identified', 'finished'} <= events.keys():
+            if not {'started', 'finished'} <= events.keys():
                 raise ValueError('incomplete attempt')
+            if 'identified' not in events:
+                finished=events['finished']
+                if ('launched' in events or finished.get('category')!='harness_error'
+                    or finished.get('harness_cleanup')!='not_started'
+                    or finished.get('exit_code') is not None):
+                    raise ValueError('missing prelaunch identity')
+                # A complete rejected setup still belongs in the denominator.
+                # It has no qualifying identity and cannot earn execution credit.
             if len({(r['project'], r['label']) for r in events.values()}) != 1:
                 raise ValueError('attempt identity mismatch')
         return attempts

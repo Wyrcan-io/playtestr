@@ -71,3 +71,8 @@ on this campaign branch now use the dedicated owned-root core pipeline instead;
 other branches and pull-request merge refs retain the ordinary workflow.
 Earlier automatic runs keep their actual results but do not establish strict
 workspace-only compliance. No past outside write is deleted or reclassified.
+
+Next evidence-correction batch: three core jobs plus two manually dispatched
+Plop jobs, maximum four concurrent, 125 job-minute ceiling and 30-45 job-minute
+forecast. Runner remains pinned to 93bd63d; ordinary suite invocation gains
+immutable prelaunch identity. No production runner change or final freeze.
