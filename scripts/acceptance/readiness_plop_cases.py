@@ -126,10 +126,14 @@ async def run(selected):
 
 
 def main():
+    global PACKAGE
     parser=argparse.ArgumentParser()
     parser.add_argument('--author',action='store_true')
     parser.add_argument('--case',action='append',default=[])
+    parser.add_argument('--package',type=Path)
     args=parser.parse_args()
+    if args.package:
+        PACKAGE=args.package.resolve();PACKAGE.relative_to(ROOT)
     if args.author:author()
     else:asyncio.run(run(set(args.case)))
 

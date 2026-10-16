@@ -5,6 +5,15 @@ on:
     branches: [work/p0-p2-implementation]
     paths:
       - '.github/workflows/runner-readiness.yml'
+      - 'internal/**'
+      - 'cmd/**'
+      - 'go.mod'
+      - 'go.sum'
+      - 'schema/**'
+      - 'setup-playtestr/**'
+      - 'scripts/ci/**'
+      - 'scripts/acceptance/readiness_*.py'
+      - 'scripts/acceptance/test_readiness_*.py'
   workflow_dispatch:
 
 permissions:

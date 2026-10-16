@@ -1,0 +1,11 @@
+--- a/packages/node-plop/src/generator-runner.js
++++ b/packages/node-plop/src/generator-runner.js
+@@ -119,7 +119,7 @@
+         onSuccess(actionResult);
+         changes.push(actionResult);
+       } catch (failure) {
+-        if (actionCfg.abortOnFail !== false) {
++        if (true) {
+           abort = true;
+         }
+         onFailure(failure);

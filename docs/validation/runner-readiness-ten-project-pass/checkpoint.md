@@ -1,5 +1,32 @@
 # Resume checkpoint
 
+Latest checkpoint before the next corrective push: source remains unfrozen.
+Core run `38920729569` at `e5571bd` passed all dedicated checks on Linux amd64
+and macOS arm64, including race and the public saved-state journey. Windows
+state/cleanup/public journey checks passed; the whole test/race commands failed
+only in installer version launch from deep paths. All three bounded packets
+were retrieved (about 569 KiB compressed). Prefixing the path was insufficient.
+The new native-alias/direct-process repair passed the complete local installer
+package (`159a95844fe0402d86d7b960c5a7774b`), plus actual version flood/hang
+controls (`2757270ed23b483aab099b1b75a6de41`). Native revalidation remains open.
+
+Plop's three real source faults and exact restorations passed; F03 preserved
+screen/exit/snapshot success before same-execution state rejection. Its actual
+wrong-generator screen was independently inspected. Public selected file/screen
+maintenance, suffix rerecord and Unicode relocation also passed, parent
+`4183995b6929464c8db6c07c20e01240`. Curated patches/receipts and findings are
+under `plop/`; first failures remain local-only. Native generated-workflow
+derivative is prepared for Linux/macOS, pinned to actual source `e5571bd` and
+explicit reviewed host profiles. Initial push registers manual-only jobs;
+dispatch them after registration. No native project-host admission is claimed.
+
+Latest complete storage observation: 1,135,888,282 bytes / 53,686 files in the
+campaign raw root; active Plop 484,368,825 bytes. This inventory was slow but
+finished; no process was killed. Counts may include repeated linked-path
+observations and are not an operating-system quota or exact high-water mark.
+Plop remains the only local active application. No project has been removed or
+admitted; all final-archive and old-migration gates remain open.
+
 16 October, subsequent native/development checkpoint (source still unfrozen):
 `e22c1b7` Terminal tests run `38917498568` passed Linux and macOS; Windows
 failed the new cleanup test's short/long temporary-path comparison. The test now

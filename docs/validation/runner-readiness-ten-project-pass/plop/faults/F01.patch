@@ -1,0 +1,11 @@
+--- a/packages/plop/src/plop.js
++++ b/packages/plop/src/plop.js
+@@ -103,7 +103,7 @@
+       });
+   } else if (generatorNames.includes(generatorName)) {
+     // we have found the generator, run it!
+-    runGeneratorByName(generatorName);
++    runGeneratorByName(generatorNames[0]);
+   } else {
+     // we just can't make sense of your input... sorry :-(
+     const fuzzyGenName = (generatorName + " " + args.join(" ")).trim();

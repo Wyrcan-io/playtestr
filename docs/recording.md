@@ -103,7 +103,13 @@ the following characters as one combined key sequence. For an intended input
 change, explicitly adjust an associated content checkpoint when needed before
 reviewing the resulting snapshot mismatch; do not weaken unrelated assertions.
 
-The wizard target checks its file before its success marker. The native acceptance harness also independently reads `result.txt` and compares it with the expected synthetic bytes while the recorder's managed workspace still exists, before replay/cleanup. That host-side oracle is bounded and specific to this example; it is not a new general filesystem assertion or a guarantee that an arbitrary target saved correct state. Existing independent state harnesses remain necessary for other applications. No postcondition hooks or new public spec version were added.
+The older wizard example checks its file before printing its success marker.
+Its historical acceptance harness also independently inspected `result.txt`.
+That evidence applies only to that example. For a general saved-file check in
+the current source candidate, explicitly record `/file result.txt` after the
+completion checkpoint. Spec v3 then checks those reviewed bytes in the ordinary
+test's own workspace before cleanup. An independent probe from another run
+cannot supply that same-execution proof.
 
 After successful rerecording, the console prints the resolved target and new working directory again. A managed workspace is recreated, so use this latest identity when independently inspecting synthetic saved state; the previous directory has already been cleaned up.
 

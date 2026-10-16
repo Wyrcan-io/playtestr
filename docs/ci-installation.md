@@ -193,6 +193,15 @@ same-version archive fetched from another source as equivalent.
 
 ## Maintenance ownership and release updates
 
+The current source installer bounds each executable version check to ten
+seconds and 4,096 characters per output stream. A nonzero exit, unexpected
+stderr, excessive output or timeout rejects installation before publishing its
+path. On Windows, a deep executable path uses its existing native short alias;
+if the path exceeds the native launch limit and no usable alias exists, choose
+a shorter installation root. The installer does not enable short names or
+change the host's long-path settings. These source changes do not update an
+older pinned setup Action automatically.
+
 The Playtestr repository maintainers own `setup-playtestr/`, its integration
 tests, this contract, and the published-install smoke workflow. For every
 change to the action, they must:

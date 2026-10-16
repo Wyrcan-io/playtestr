@@ -15,10 +15,15 @@ defines acceptance. [Checkpoint](checkpoint.md), [requirements](requirements.md)
 
 Counters: 30 new pinned upstream metadata records reviewed; ten provisional
 selections and five provisional reserves in [the candidate ledger](candidates.json).
-None has been acquired or admitted; workflow breadth and native applicability
-still need verification. Attempted 0; development admitted 0; archive qualified 0;
+Plop is acquired and active; workflow breadth and native applicability still
+need verification. Attempted 1; development admitted 0; archive qualified 0;
 old projects migrated 0; runner admissions 0/100; paid-product admissions 0/100;
-qualified scenarios, faults, repetitions and native project/host cells all 0.
+final-qualified scenarios, faults, repetitions and native project/host cells all 0.
+Development evidence includes nineteen passing Windows Plop scenarios and three
+detected real source faults with exact restoration. The repeated-resize case
+remains red, and startup failures remain unresolved. Local-only raw fault packet:
+`artifacts/runner-readiness-ten-project-pass/plop/faults/a20ca9bc42554dac87dabffed6a78c2d/`.
+These development results do not supply a project admission or archive credit.
 Declared work is never execution evidence. Human usability is unmeasured;
 publication is not authorized.
 

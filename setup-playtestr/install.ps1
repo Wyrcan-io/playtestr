@@ -34,13 +34,68 @@ $expectedDocumentNames = @('LICENSE', 'README.md', 'THIRD_PARTY_NOTICES.md')
 
 function Get-NativeLaunchPath {
     param([string] $Binary, [string] $OS)
-    # PowerShell 7's native launcher otherwise rejects paths beyond MAX_PATH,
-    # even after .NET successfully extracts and verifies the same file.
-    if ($OS -eq 'windows' -and $PSVersionTable.PSVersion.Major -ge 7 -and -not $Binary.StartsWith('\\?\')) {
-        if ($Binary.StartsWith('\\')) { return '\\?\UNC\' + $Binary.Substring(2) }
-        return '\\?\' + $Binary
+    # Native process launch still has MAX_PATH-sensitive callers. Request the
+    # existing file's native alias; do not create a link or change host settings.
+    if ($OS -eq 'windows' -and $Binary.Length -ge 240) {
+        if (-not ('PlaytestrSetupNativePath' -as [type])) {
+            Add-Type -TypeDefinition @'
+using System.Runtime.InteropServices;
+using System.Text;
+public static class PlaytestrSetupNativePath {
+    [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+    public static extern uint GetShortPathName(string path, StringBuilder result, uint length);
+}
+'@
+        }
+        $buffer = New-Object System.Text.StringBuilder 32768
+        $length = [PlaytestrSetupNativePath]::GetShortPathName($Binary, $buffer, 32768)
+        if ($length -gt 0 -and $length -lt 32768 -and $buffer.Length -lt 260) { return $buffer.ToString() }
+        throw 'native binary launch path exceeds MAX_PATH and has no usable existing alias; choose a shorter installation root'
     }
     return $Binary
+}
+
+function Read-BinaryVersion {
+    param([string] $Binary, [string] $OS)
+    # Invoke through .NET directly: PowerShell's native-command resolution
+    # rejects some verified Windows executable paths beyond MAX_PATH.
+    $process = New-Object System.Diagnostics.Process
+    $process.StartInfo.FileName = Get-NativeLaunchPath -Binary $Binary -OS $OS
+    $process.StartInfo.Arguments = '--version'
+    $process.StartInfo.UseShellExecute = $false
+    $process.StartInfo.CreateNoWindow = $true
+    $process.StartInfo.RedirectStandardOutput = $true
+    $process.StartInfo.RedirectStandardError = $true
+    $started = $false
+    try {
+        if (-not $process.Start()) { throw 'cannot launch verified binary' }
+        $started = $true
+        $stdout = New-Object char[] 4097
+        $stderr = New-Object char[] 4097
+        $readOut = $process.StandardOutput.ReadBlockAsync($stdout, 0, $stdout.Length)
+        $readErr = $process.StandardError.ReadBlockAsync($stderr, 0, $stderr.Length)
+        $clock = [Diagnostics.Stopwatch]::StartNew()
+        while (-not $process.WaitForExit(50)) {
+            if (($readOut.IsCompleted -and $readOut.Result -gt 4096) -or ($readErr.IsCompleted -and $readErr.Result -gt 4096)) {
+                throw 'binary version output exceeds 4096 characters per stream'
+            }
+            if ($clock.ElapsedMilliseconds -ge 10000) { throw 'binary version check exceeded ten seconds' }
+        }
+        $remaining = [Math]::Max(1, 10000 - [int]$clock.ElapsedMilliseconds)
+        if (-not $readOut.Wait($remaining) -or -not $readErr.Wait([Math]::Max(1, 10000 - [int]$clock.ElapsedMilliseconds))) {
+            throw 'binary version output did not close within ten seconds'
+        }
+        if ($readOut.Result -gt 4096 -or $readErr.Result -gt 4096) { throw 'binary version output exceeds 4096 characters per stream' }
+        if ($process.ExitCode -ne 0) { throw "binary version check exited $($process.ExitCode)" }
+        if ($readErr.Result -ne 0) { throw 'binary version check wrote unexpected stderr' }
+        return ((-join $stdout[0..([Math]::Max(0, $readOut.Result - 1))]).Trim([char]0).Trim())
+    } finally {
+        if ($started -and -not $process.HasExited) {
+            $process.Kill()
+            if (-not $process.WaitForExit(3000)) { throw 'binary version process cleanup unconfirmed' }
+        }
+        $process.Dispose()
+    }
 }
 
 function Publish-ActionEnvironment {
@@ -364,9 +419,8 @@ try {
         & chmod 755 $stagedBinary
         if ($LASTEXITCODE -ne 0) { throw "cannot make Playtestr executable" }
     }
-    $stagedLaunchBinary = Get-NativeLaunchPath -Binary $stagedBinary -OS $target.OS
-    $reportedVersion = (& $stagedLaunchBinary --version 2>&1 | Out-String).Trim()
-    if ($LASTEXITCODE -ne 0 -or $reportedVersion -ne "playtestr $Version") {
+    $reportedVersion = Read-BinaryVersion -Binary $stagedBinary -OS $target.OS
+    if ($reportedVersion -ne "playtestr $Version") {
         throw "downloaded binary reported '$reportedVersion', expected 'playtestr $Version'"
     }
     $stagedBinaryHash = (Get-FileHash -LiteralPath $stagedBinary -Algorithm SHA256).Hash.ToLowerInvariant()
@@ -374,9 +428,8 @@ try {
     $installDirectory = Join-Path $InstallRoot ("$baseName-" + [Guid]::NewGuid().ToString('N'))
     Move-Item -LiteralPath $stagedDirectory -Destination $installDirectory
     $binaryPath = Join-Path $installDirectory $executableName
-    $installedLaunchBinary = Get-NativeLaunchPath -Binary $binaryPath -OS $target.OS
-    $installedVersion = (& $installedLaunchBinary --version 2>&1 | Out-String).Trim()
-    if ($LASTEXITCODE -ne 0 -or $installedVersion -ne "playtestr $Version") {
+    $installedVersion = Read-BinaryVersion -Binary $binaryPath -OS $target.OS
+    if ($installedVersion -ne "playtestr $Version") {
         Remove-Item -LiteralPath $installDirectory -Recurse -Force -ErrorAction SilentlyContinue
         throw "installed binary failed its absolute-path version check"
     }

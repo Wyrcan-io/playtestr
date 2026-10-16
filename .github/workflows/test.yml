@@ -12,6 +12,9 @@ env:
 
 jobs:
   test:
+    # This authorized campaign uses the checkout-owned SDK/cache workflow.
+    # Preserve the ordinary pipeline for other branches and PR merge refs.
+    if: github.ref != 'refs/heads/work/p0-p2-implementation'
     timeout-minutes: 25
     strategy:
       fail-fast: false

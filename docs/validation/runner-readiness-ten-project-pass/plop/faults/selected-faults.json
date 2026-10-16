@@ -1,0 +1,25 @@
+{
+  "faults": [
+    {
+      "held_out": false,
+      "id": "F01",
+      "risk": "Selected version generator incorrectly dispatches the first module generator",
+      "source": "packages/plop/src/plop.js",
+      "spec": "normal-version.json"
+    },
+    {
+      "held_out": false,
+      "id": "F02",
+      "risk": "Action failure incorrectly aborts an explicitly nonfatal action sequence",
+      "source": "packages/node-plop/src/generator-runner.js",
+      "spec": "edge-continue-after-error.json"
+    },
+    {
+      "held_out": true,
+      "id": "F03",
+      "risk": "Success screen retained while same-length persisted payload is corrupted",
+      "source": "packages/node-plop/src/actions/_common-action-add-file.js",
+      "spec": "normal-artifact.json"
+    }
+  ]
+}

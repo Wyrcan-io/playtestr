@@ -55,3 +55,19 @@ runs, including 2,400 native Linux, before faults/restorations/old migration.
 Compatibility starts unqualified on Linux amd64, macOS arm64 and Windows amd64
 for all newly changed public state paths. Declare project/host applicability
 after upstream screening. No declared test counts as passed.
+
+Next hosted batch: three corrected core jobs (max two concurrent, 25 minutes
+each) and two explicitly dispatched Plop POSIX jobs (max two concurrent,
+25 minutes each). Combined ceiling 125 job-minutes, forecast 30-45 minutes,
+at most four newly concurrent jobs. The narrow Plop registration push runs no
+target jobs. Its generated source runner remains pinned to `e5571bd`; this is
+development qualification, not final candidate freeze. Its native profiles are
+reviewed before dispatch, with POSIX path/exit and application-redraw differences
+recorded explicitly. Windows E05 remains red and is not eligible for credit.
+
+The pre-existing automatic Terminal workflow installs prerequisites outside
+checkout-owned roots and duplicates the dedicated core jobs. Further pushes
+on this campaign branch now use the dedicated owned-root core pipeline instead;
+other branches and pull-request merge refs retain the ordinary workflow.
+Earlier automatic runs keep their actual results but do not establish strict
+workspace-only compliance. No past outside write is deleted or reclassified.

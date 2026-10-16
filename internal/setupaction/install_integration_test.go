@@ -23,10 +23,44 @@ const testVersion = "v9.8.7"
 
 func TestMain(m *testing.M) {
 	if isSetupFixtureInvocation(os.Getenv("PLAYTESTR_SETUP_FIXTURE"), os.Args) {
+		switch os.Getenv("PLAYTESTR_SETUP_FIXTURE_VERSION_BEHAVIOR") {
+		case "flood":
+			fmt.Print(strings.Repeat("x", 8192))
+			os.Exit(0)
+		case "hang":
+			time.Sleep(30 * time.Second)
+			os.Exit(0)
+		}
 		fmt.Println("playtestr " + testVersion)
 		os.Exit(0)
 	}
 	os.Exit(m.Run())
+}
+
+func TestSetupActionBoundsVersionCheck(t *testing.T) {
+	requireSupportedHost(t)
+	for _, behavior := range []string{"flood", "hang"} {
+		t.Run(behavior, func(t *testing.T) {
+			t.Setenv("PLAYTESTR_SETUP_FIXTURE_VERSION_BEHAVIOR", behavior)
+			release := makeRelease(t, nil)
+			root := filepath.Join(t.TempDir(), "bounded version installation")
+			output, pathOutput := filepath.Join(t.TempDir(), "output"), filepath.Join(t.TempDir(), "path")
+			started := time.Now()
+			result := runInstaller(t, "-Version", testVersion, "-InstallRoot", root,
+				"-DownloadDirectory", release, "-OutputFile", output, "-PathFile", pathOutput)
+			want := "version output exceeds"
+			if behavior == "hang" {
+				want = "version check exceeded"
+			}
+			if result.err == nil || !strings.Contains(result.output, want) {
+				t.Fatalf("expected bounded version rejection: %v\n%s", result.err, result.output)
+			}
+			if time.Since(started) > 25*time.Second {
+				t.Fatal("version rejection exceeded independent deadline")
+			}
+			assertNotExposed(t, root, output, pathOutput)
+		})
+	}
 }
 
 func isSetupFixtureInvocation(marker string, args []string) bool {

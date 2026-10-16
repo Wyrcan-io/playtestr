@@ -1,0 +1,11 @@
+--- a/packages/node-plop/src/actions/_common-action-add-file.js
++++ b/packages/node-plop/src/actions/_common-action-add-file.js
+@@ -49,7 +49,7 @@
+           cfg,
+         );
+ 
+-        await fspp.writeFile(fileDestPath, transformedTemplate);
++        await fspp.writeFile(fileDestPath, transformedTemplate.replace(/name=/g, "namo="));
+       }
+ 
+       // keep the executable flags

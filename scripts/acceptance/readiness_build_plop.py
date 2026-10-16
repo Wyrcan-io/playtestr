@@ -61,7 +61,7 @@ async def main():
     immutable_json(target/'build.json',dict(pin=marker['pin'],attempt=result['id'],
         yarn_lock_sha256=sha256(source/'yarn.lock'),license_sha256=sha256(source/'LICENSE.md'),
         yarn_sha256=sha256(source/'.yarn/releases/yarn-4.9.4.cjs'),scripts_disabled=True,
-        runtime='installed Node 24.7.0; no global installs',observed_active_bytes=usage(target)))
+        runtime=json.loads((target/'runtime.json').read_text()),observed_active_bytes=usage(target)))
     print('Plop dependencies installed with scripts disabled:',result['id'])
 
 
