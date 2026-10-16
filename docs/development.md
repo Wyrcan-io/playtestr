@@ -2,6 +2,14 @@
 
 Use this guide for a source checkout. New users installing the standalone runner should follow the [stable installation walkthrough](releases/v0.1.0-installation-walkthrough.md).
 
+On Windows, enable Git long-path handling when cloning this source repository; retained validation screens have deep provenance paths:
+
+```powershell
+git clone -c core.longpaths=true https://github.com/Wyrcan-io/playtestr.git
+```
+
+For an existing checkout, run `git config core.longpaths true` before changing revisions. This is a source-checkout prerequisite; standalone binary installation does not clone the evidence tree. Native CI supplies this Git setting through workflow-scoped environment variables before checkout.
+
 Playtestr product code uses Go 1.25 or newer. Build the runner, deterministic fixture, and interactive demo from the repository root:
 
 ```powershell

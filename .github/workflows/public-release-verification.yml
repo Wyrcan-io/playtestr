@@ -7,6 +7,10 @@ permissions:
   contents: read
 
 env:
+  # Retained native failure evidence includes paths beyond MAX_PATH.
+  GIT_CONFIG_COUNT: "1"
+  GIT_CONFIG_KEY_0: core.longpaths
+  GIT_CONFIG_VALUE_0: "true"
   RELEASE_VERSION: v0.4.0-rc.1
   ACTION_REVISION: 1c03904075512e67f53b0c94a13daa17f0383f1d
 

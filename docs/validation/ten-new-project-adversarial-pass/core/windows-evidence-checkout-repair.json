@@ -1,0 +1,42 @@
+{
+  "before_hosted": [
+    {
+      "run": "38830301887",
+      "job": "116747311822",
+      "error_lines": [
+        "2026-10-16T00:35:22.3601135Z ##[error]fatal: cannot create directory at 'docs/validation/ten-new-project-adversarial-pass/native/38116687864/adversarial-copier-ubuntu-24.04/fault-evidence/artifacts/ten-new-project-adversarial-pass/copier/normal-git-update-unix-test-0-1791698530460565674/20261011T060210Z-1878647549': Filename too long",
+        "2026-10-16T00:35:24.4867851Z ##[error]The process 'C:\\Program Files\\Git\\bin\\git.exe' failed with exit code 128",
+        "2026-10-16T00:35:24.7187241Z ##[error]No files were found with the provided path: artifacts/*.json"
+      ]
+    },
+    {
+      "run": "38830302005",
+      "job": "116747312456",
+      "error_lines": [
+        "2026-10-16T00:35:25.9439151Z ##[error]fatal: cannot create directory at 'docs/validation/ten-new-project-adversarial-pass/native/38116687864/adversarial-copier-ubuntu-24.04/fault-evidence/artifacts/ten-new-project-adversarial-pass/copier/normal-git-update-unix-test-0-1791698530460565674/20261011T060210Z-1878647549': Filename too long",
+        "2026-10-16T00:35:28.3891513Z ##[error]The process 'C:\\Program Files\\Git\\bin\\git.exe' failed with exit code 128"
+      ]
+    }
+  ],
+  "local_probe": [
+    {
+      "core_longpaths": "false",
+      "exit_code": 0,
+      "file_sha256": "1d3da48d7ac8841879bd8df51f9a3b20c810b253676c982f2f294d7fa1af0770"
+    },
+    {
+      "core_longpaths": "true",
+      "exit_code": 0,
+      "file_sha256": "1d3da48d7ac8841879bd8df51f9a3b20c810b253676c982f2f294d7fa1af0770"
+    }
+  ],
+  "local_limit": "Local Windows host successfully created the 466-character path even with Git core.longpaths=false; this is not a local reproducer of the hosted failure.",
+  "repair": "Set core.longpaths=true through workflow-scoped Git configuration on all applicable native Windows workflows, before checkout; document Windows clone prerequisite.",
+  "changed_workflow_actionlint_files": 18,
+  "source_install_guide": "../../../development.md",
+  "cleanup_pending": false,
+  "after_hosted": "Pending actual corrected CI; no hosted repair acceptance claimed yet",
+  "setup_note": "Three initial clone attempts failed the exact source repository ownership check. Temporary process-scoped safe.directory config for this trusted workspace and its .git enabled the clone; no global user configuration changed.",
+  "frozen_go_inputs_changed": false,
+  "owned_sparse_clone_removed": true
+}

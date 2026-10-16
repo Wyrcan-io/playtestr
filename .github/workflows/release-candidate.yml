@@ -11,6 +11,12 @@ on:
 permissions:
   contents: read
 
+env:
+  # Retained native failure evidence includes paths beyond MAX_PATH.
+  GIT_CONFIG_COUNT: "1"
+  GIT_CONFIG_KEY_0: core.longpaths
+  GIT_CONFIG_VALUE_0: "true"
+
 jobs:
   package:
     timeout-minutes: 20
