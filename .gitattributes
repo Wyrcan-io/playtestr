@@ -6,5 +6,6 @@ corpus/workflows/micro/supported-unicode-fixture/** text eol=lf
 corpus/controls/create-vite-oracle/vanilla-golden/** -text
 # Adversarial contracts, state fixtures and evidence carry exact byte hashes.
 docs/validation/ten-new-project-adversarial-pass/** -text
-docs/validation/runner-readiness-ten-project-pass/** -text
+docs/validation/runner-readiness-ten-project-pass/** -text whitespace=cr-at-eol
+docs/validation/runner-readiness-ten-project-pass/**/*.patch whitespace=cr-at-eol,-blank-at-eol,-blank-at-eof,-space-before-tab
 examples/saved-state-fixture/** -text
