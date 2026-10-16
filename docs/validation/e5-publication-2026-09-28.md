@@ -1,5 +1,7 @@
 # Download publication — 28 September 2026
 
+Evidence availability: bulk raw records are local-only; see [the archive policy](README.md).
+
 The user authorized publishing downloads and completing distribution checks,
 and explicitly prohibited outreach and marketing. The execution prompt is
 [publish verified downloads](../archive/prelaunch-2026-10-06/plans/publish-verified-downloads-prompt.md).
@@ -46,7 +48,7 @@ Engineering completion does not authorize contacting anyone; only a later
 explicit user instruction can reopen that boundary.
 
 Actual acceptance: six distribution/upgrade lanes and three final binary lanes
-passed. The [machine packet](e5-publication-observations-2026-09-28.json)
+passed. The machine packet (`e5-publication-observations-2026-09-28.json`, local evidence)
 retains 66 distribution/upgrade report outcomes and 14 final binary outcomes,
 including expected negatives. Managed cleanup was confirmed for every launched
 reported target; invalid specs were rejected before launch. Unix `/dev/tty`,

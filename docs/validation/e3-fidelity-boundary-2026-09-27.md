@@ -1,5 +1,7 @@
 # E3 fidelity investigation — 27 September 2026
 
+Evidence availability: bulk raw records are local-only; see [the archive policy](README.md).
+
 Accepted investigation and evidence-backed deferral; no wide-cell implementation
 or new Unicode support. Owner/reviewer: Codex/self-review, not independent review.
 
@@ -9,7 +11,7 @@ used Ubuntu 24.04 amd64 and macOS 15.7.9 arm64, Go 1.26.0, `-trimpath`, source
 `a07d62e1c23f162b4481a1cb6077af3bdda506fd221d0f9aae2320ac61f966b2`;
 macOS: `6e5a1afe5d51a3bd8207b21dfd30e1508672d8b9b2c672c75578267e0f7cee8c`.
 Micro commit `04c577049ca898f097cd6a2dae69af0b4d4493e1`, fzf commit
-`a140afeb4d733cad3c96a56bf6db7e26853b6757`. The [ledger](e3-e4-observations-2026-09-27.json)
+`a140afeb4d733cad3c96a56bf6db7e26853b6757`. The ledger (`e3-e4-observations-2026-09-27.json`, local evidence)
 preserves exact binaries, inputs, fixture/spec identities and reports.
 
 Both native hosts failed original MICRO-08 at step 3, assertion timeout, useful

@@ -13,8 +13,13 @@
 /.trial-private/
 *.actual.txt
 *.diff.txt
-# Preserve manifest-declared native failure evidence in the retained campaign.
-!docs/validation/ten-new-project-adversarial-pass/native/**/*.actual.txt
-!docs/validation/ten-new-project-adversarial-pass/native/**/*.diff.txt
+# Bulk validation evidence stays local. Keep curated reports, test contracts,
+# fixtures and regression patches public; see docs/validation/README.md.
+/docs/validation/**/native/
+/docs/validation/**/identities/
+/docs/validation/**/*.jsonl
+/docs/validation/**/coverage-matrix.json
+/docs/validation/**/all-attempt-accounting*.json
+/docs/validation/*-observations-*.json
 __pycache__/
 /docs/validation/ten-new-project-adversarial-pass/broot/fixtures-large/

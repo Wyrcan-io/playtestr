@@ -1,5 +1,7 @@
 # E3–E5 evidence index — 27 September 2026
 
+Evidence availability: bulk raw records are local-only; see [the archive policy](README.md).
+
 E3/E4/E5 are accepted within their explicit boundaries. The complete native
 qualification ledgers and actual artifacts support the E5 readiness decision.
 
@@ -8,10 +10,10 @@ qualification ledgers and actual artifacts support the E5 readiness decision.
 - [E3 fidelity investigation](e3-fidelity-boundary-2026-09-27.md): original
   wide-cell failures, reduced cursor behavior, companions and bounded deferral.
 - [E4 operator record](e4-operator-readiness-2026-09-27.md) and
-  [observations](e3-e4-observations-2026-09-27.json): four walkthroughs,
+  observations (`e3-e4-observations-2026-09-27.json`, local evidence): four walkthroughs,
   eight maintenance changes, six diagnoses, installer and macOS repairs.
 - [E5 readiness record](e5-qualified-readiness-2026-09-27.md) and
-  [machine packet](e5-observations-2026-09-27.json): exact-byte denominators,
+  machine packet (`e5-observations-2026-09-27.json`, local evidence): exact-byte denominators,
   source event inventory, retained failures, resources, costs and limits.
 - [Native manifest](../../release/e5-candidate-manifest.json) and
   [checksums](../../release/checksums-v0.4.0-rc.2.txt): immutable source,

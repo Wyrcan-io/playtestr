@@ -1,10 +1,12 @@
 # Final frozen-source validation report
 
+Evidence availability: bulk raw records are local-only; see [the archive policy](../README.md).
+
 The scoped terminal/state matrix passed its strict retained-evidence audit. This completes the ten-project engineering qualification; the usability assessment retains explicit measurement limits. This is early runner hardening, not full P5 or commercial launch acceptance.
 
 - Frozen source: `5f8867aa88aa0f3d6727bc64021b9a906617b58c`.
 - Actual successful [native run 38832572859](https://github.com/Wyrcan-io/playtestr/actions/runs/38832572859).
-- [Strict audit](final-audit.json) and [immutable native manifest](native/38832572859/manifest.json).
+- [Strict audit](final-audit.json) and immutable native manifest (`native/38832572859/manifest.json`, local evidence).
 - 130 distinct scenarios, 21 qualified project/host pairs.
 - 2,740 ordinary final repetitions, including 1,300 on native Linux.
 - 2,740 separately executed final-group state probes; not additional scenarios or same-execution file assertions.
@@ -37,9 +39,9 @@ The [coverage matrix](coverage-matrix.md) maps 88 distinct product controls. Act
 
 | Native host | Frozen runner SHA-256 | Detailed race events |
 | --- | --- | --- |
-| [Linux](core/frozen-host-evidence-Linux.json) | `089089c49ae1c30df006ce8203ab12fb1bfdf9f124cdceb3a4940e7c753c5c4a` | [Events](core/final-race-events-Linux.jsonl) |
-| [Darwin](core/frozen-host-evidence-Darwin.json) | `9087c184f090139b3dc414734db447e242917b0eff3bf36eb0ab0b92474c9ab2` | [Events](core/final-race-events-Darwin.jsonl) |
-| [Windows](core/frozen-host-evidence-Windows.json) | `a018f33d452c6473edcd457e46c15c6d59e71036761bd9f7d004457342def8c5` | [Events](core/final-race-events-Windows.jsonl) |
+| [Linux](core/frozen-host-evidence-Linux.json) | `089089c49ae1c30df006ce8203ab12fb1bfdf9f124cdceb3a4940e7c753c5c4a` | Events (`core/final-race-events-Linux.jsonl`, local evidence) |
+| [Darwin](core/frozen-host-evidence-Darwin.json) | `9087c184f090139b3dc414734db447e242917b0eff3bf36eb0ab0b92474c9ab2` | Events (`core/final-race-events-Darwin.jsonl`, local evidence) |
+| [Windows](core/frozen-host-evidence-Windows.json) | `a018f33d452c6473edcd457e46c15c6d59e71036761bd9f7d004457342def8c5` | Events (`core/final-race-events-Windows.jsonl`, local evidence) |
 
 ## Repairs, failures and useful confidence
 
@@ -55,7 +57,7 @@ The demonstrated confidence is specific: the declared trusted applications can b
 
 The [usability assessment](usability-assessment.md) retains short public-command routes, maintenance, failure diagnosis, rerecord and relocation evidence. All recorded first routes meet five-command and twenty-recorder-control ceilings. Eight elapsed measurements are automated prepared walkthroughs; human authoring time is unmeasured there. This is an experienced operator assessment, not independent beginner or adoption research.
 
-[Final negative-command dispositions](final-negative-attempts.json) account for every nonpassing registered command in the accepted run. [All-attempt accounting](all-attempt-accounting.json) snapshots the original categories, unfinished IDs and ledger hashes. Setup, parent commands, intentional failures and retries are not added to final repetition credit. The original quarantined ledger remains unchanged. The completed native manifest preserves reports, fault screens, state inventories, restoration identities and hosted deletion receipts. Raw downloaded archives also duplicate historical provenance; per-project budget inventories are distinct from those whole archive sizes and do not measure peak resource usage.
+[Final negative-command dispositions](final-negative-attempts.json) account for every nonpassing registered command in the accepted run. All-attempt accounting (`all-attempt-accounting.json`, local evidence) snapshots the original categories, unfinished IDs and ledger hashes. Setup, parent commands, intentional failures and retries are not added to final repetition credit. The original quarantined ledger remains unchanged. The completed native manifest preserves reports, fault screens, state inventories, restoration identities and hosted deletion receipts. Raw downloaded archives also duplicate historical provenance; per-project budget inventories are distinct from those whole archive sizes and do not measure peak resource usage.
 
 [Local cleanup verification](core/final-local-cleanup.json) confirms that no task-owned external application checkout remains locally. Every qualified host confirms removal before the next repository starts. Shared Playtestr toolchains and existing caches are preserved.
 

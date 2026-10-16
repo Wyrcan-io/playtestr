@@ -1,5 +1,7 @@
 # Helix development validation - final freeze pending
 
+Evidence availability: bulk raw records are local-only; see [the archive policy](../../README.md).
+
 Pinned MPL-2.0 source: `helix-editor/helix` at
 `ba40e547426b0f9896c8bdc699a4ab11f2b37dbc`.
 [Scope](scope.md) preceded application acquisition. Rust 1.97.1, locked Cargo
@@ -20,7 +22,7 @@ standard CI `38324763722` also passed.
 
 Hosted Linux failed the directory-save checkpoint: its real screen said
 `Is a directory (os error 21)` instead of the expected Windows mtime refusal.
-[Retained native evidence](../native/38324763718/manifest.json) preserves the
+Retained native evidence (`../native/38324763718/manifest.json`, local evidence) preserves the
 failure and successful Windows results. A first local attempt to merely change
 the expected string also failed because directory mtimes can trigger the earlier
 refusal. The reviewed Linux variant explicitly uses `:write! occupied` to reach

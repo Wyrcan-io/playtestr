@@ -1,8 +1,10 @@
 # Cookiecutter — development validation in progress
 
+Evidence availability: bulk raw records are local-only; see [the archive policy](../../README.md).
+
 Exact independently maintained upstream: [cookiecutter/cookiecutter](https://github.com/cookiecutter/cookiecutter/tree/c88fbe921c97c58b65f1883ba90a0ab53cc91b34), revision `c88fbe921c97c58b65f1883ba90a0ab53cc91b34`, BSD-3-Clause. The retained upstream license covers attribution; local templates/hooks are synthetic campaign fixtures.
 
-[Scope](scope.md) declares five meaningful normal workflows and five distinct edge workflows before recording. [Scenario definitions](scenarios.json) contain independently constructed saved-state expectations. Native Linux and Windows each passed 100 fresh ordinary tests plus 100 separately counted exact-state probes on source `d9c5c46130f67e6e99d76ae289afa6ce439f1154`. [Actual native evidence](../native/38051205443/manifest.json) retains runner identities, mutation controls and hosted cleanup. WSL results are exploratory and add no native qualification credit.
+[Scope](scope.md) declares five meaningful normal workflows and five distinct edge workflows before recording. [Scenario definitions](scenarios.json) contain independently constructed saved-state expectations. Native Linux and Windows each passed 100 fresh ordinary tests plus 100 separately counted exact-state probes on source `d9c5c46130f67e6e99d76ae289afa6ce439f1154`. Actual native evidence (`../native/38051205443/manifest.json`, local evidence) retains runner identities, mutation controls and hosted cleanup. WSL results are exploratory and add no native qualification credit.
 
 Two actual source mutations are retained: choice truncation makes the selected nondefault option unavailable; an incorrect success exit becomes 7. Both unchanged-contract terminal tests fail and restore. A third saved-file mutation keeps the ordinary terminal test passing but fails an independent exact-file oracle. Actual mutation/restoration reports, hashes and launch/finish IDs are under ignored campaign artifacts. Those controls also ran on WSL; no native macOS application claim.
 

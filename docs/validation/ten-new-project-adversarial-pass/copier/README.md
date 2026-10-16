@@ -1,5 +1,7 @@
 # Copier development journey
 
+Evidence availability: bulk raw records are local-only; see [the archive policy](../../README.md).
+
 Current update: the first frozen campaign failed a Windows Git-update recorder checkpoint at its 10-second preparation deadline. Twenty traced native probes reached that prompt in 8.14 to 9.67 seconds with correct exact state and unchanged screens. Only this Windows scenario now has a declared 20-second budget; Unix remains 10 seconds, total remains 120 seconds, and all assertions/snapshots are unchanged. Corrected full native requalification passed on Linux and Windows at source `087ec53d86f167dbbade3ffaa82614409da3675f`, run `38799866153`: 120 ordinary and 120 separate final-group state probes per host, all three real source controls with exact restoration, and verified owned removal. [Calibration and preserved original](git-update-budget-calibration.json).
 
 Pinned MIT source: `04a8619f3b083bc278b70e556bd085551a2b3f79`, Python/questionary, version 9.18.2. The earlier development qualification passed at source `6df8c37cd7ffb2a6e8021cf9a0b4fa16c3b06583`; the corrected current source and run are above. Hosted and local owned-source deletion is confirmed; final single-source batch qualification remains pending.
@@ -21,7 +23,7 @@ Unsupported claims: automatic semantic test inference, complete filesystem corre
 The first hosted attempt at source `93b9463d922cd3a6c187ff15288dac5b216c049d`
 failed Linux's full-screen file-list order and Windows's Git update path alias.
 [Actual native run](https://github.com/Wyrcan-io/playtestr/actions/runs/38115136553)
-and [first-failure evidence](../native/38115136553/first-failures/manifest.json)
+and first-failure evidence (`../native/38115136553/first-failures/manifest.json`, local evidence)
 are retained. Four multi-file cases now deliberately select stable answer rows;
 the unordered create/conflict listing is excluded, while meaningful prompt
 actions, exact exits, and independent exact generated/protected files remain
@@ -40,7 +42,7 @@ customization remain independent required checks. The source's fallback retries
 its failed diff with zero inter-hunk context. Git versions are recorded in the
 native recipe. No merge-conflict preservation or all-Git-version claim is made.
 
-The successful [native run](https://github.com/Wyrcan-io/playtestr/actions/runs/38117318191) retained [actual reports, state probes, source faults, restoration and hosted cleanup](../native/38117318191/manifest.json). Each application host completed 120 ordinary replays and 120 separate current-workspace file-state probes. All three product control hosts also passed. Local Windows and WSL copies were subsequently removed; local deletion receipts prove local teardown, while hosted receipts qualify hosted repetitions.
+The successful [native run](https://github.com/Wyrcan-io/playtestr/actions/runs/38117318191) retained actual reports, state probes, source faults, restoration and hosted cleanup (`../native/38117318191/manifest.json`, local evidence). Each application host completed 120 ordinary replays and 120 separate current-workspace file-state probes. All three product control hosts also passed. Local Windows and WSL copies were subsequently removed; local deletion receipts prove local teardown, while hosted receipts qualify hosted repetitions.
 
 ## Final frozen qualification
 

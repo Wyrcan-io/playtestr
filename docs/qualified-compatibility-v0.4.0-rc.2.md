@@ -1,9 +1,11 @@
 # v0.4.0-rc.2 scope
 
+Evidence availability: bulk raw records are local-only; see [the archive policy](validation/README.md).
+
 This prerelease completed native three-host qualification and
 [public installation/upgrade verification](validation/e5-publication-2026-09-28.md). The
 [readiness record](validation/e5-qualified-readiness-2026-09-27.md) and
-[machine packet](validation/e5-observations-2026-09-27.json) are authoritative;
+machine packet (`validation/e5-observations-2026-09-27.json`, local evidence) are authoritative;
 this table distinguishes executed cases from reliable support claims.
 
 | Boundary | Evidence | Claim limit |

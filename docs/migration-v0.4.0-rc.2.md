@@ -1,5 +1,7 @@
 # v0.4.0-rc.2 migration and rollback
 
+Evidence availability: bulk raw records are local-only; see [the archive policy](validation/README.md).
+
 The [published prerelease](releases/v0.4.0-rc.2.md) passed public installation and
 upgrade checks on all three native hosts. Use the matching native archive with its
 exact [manifest hash](../release/e5-candidate-manifest.json), install beside the
@@ -12,7 +14,7 @@ Minimum workspace/report-v2 reader is v0.4.0-rc.1; older strict readers may reje
 v2 and cannot safely downgrade it by changing a version number. Source minimum
 Go version remains the go.mod contract; candidate builds used Go 1.26.0.
 
-The [side-by-side record](validation/e5-observations-2026-09-27.json) exercised
+The side-by-side record (`validation/e5-observations-2026-09-27.json`, local evidence) exercised
 retained v0.3.0-rc.1, public v0.4.0-rc.1 and private v0.4.0-rc.2 against unchanged
 v1 pass/failure/recovery, strict rejection of v2 by v0.3, v2 success in both v0.4
 readers, and old-v1/new-v2 offline report rendering. Reviewed baseline bytes

@@ -1,10 +1,12 @@
 # Final frozen-source validation report
 
+Evidence availability: bulk raw records are local-only; see [the archive policy](../README.md).
+
 The scoped terminal/state matrix passed its strict retained-evidence audit. This completes the ten-project engineering qualification; the usability assessment retains explicit measurement limits. This is early runner hardening, not full P5 or commercial launch acceptance.
 
 - Frozen source: `e8682f866622442c421005c7f477cd45fcc66fc5`.
 - Actual successful [native run 38802794545](https://github.com/Wyrcan-io/playtestr/actions/runs/38802794545).
-- [Strict audit](final-audit.json) and [immutable native manifest](native/38802794545/manifest.json).
+- [Strict audit](final-audit.json) and immutable native manifest (`native/38802794545/manifest.json`, local evidence).
 - 130 distinct scenarios, 21 qualified project/host pairs.
 - 2,740 ordinary final repetitions, including 1,300 on native Linux.
 - 2,740 separately executed final-group state probes; not additional scenarios or same-execution file assertions.
@@ -37,9 +39,9 @@ The [coverage matrix](coverage-matrix.md) maps 88 distinct product controls. Act
 
 | Native host | Frozen runner SHA-256 | Detailed race events |
 | --- | --- | --- |
-| [Linux](core/frozen-host-evidence-Linux.json) | `1eec08e3589bad7bb9066fe72e6e8b44752c4153389d02a93de3cdc557f66844` | [Events](core/final-race-events-Linux.jsonl) |
-| [Darwin](core/frozen-host-evidence-Darwin.json) | `e3fdfb495f1a0eb35d68a90a25e3be954577db7895f8daebae6a2d7e3a2789c3` | [Events](core/final-race-events-Darwin.jsonl) |
-| [Windows](core/frozen-host-evidence-Windows.json) | `9a05973c401bd191b318329734539c8c3573581a74fc457e73829a9f3c884117` | [Events](core/final-race-events-Windows.jsonl) |
+| [Linux](core/frozen-host-evidence-Linux.json) | `1eec08e3589bad7bb9066fe72e6e8b44752c4153389d02a93de3cdc557f66844` | Events (`core/final-race-events-Linux.jsonl`, local evidence) |
+| [Darwin](core/frozen-host-evidence-Darwin.json) | `e3fdfb495f1a0eb35d68a90a25e3be954577db7895f8daebae6a2d7e3a2789c3` | Events (`core/final-race-events-Darwin.jsonl`, local evidence) |
+| [Windows](core/frozen-host-evidence-Windows.json) | `9a05973c401bd191b318329734539c8c3573581a74fc457e73829a9f3c884117` | Events (`core/final-race-events-Windows.jsonl`, local evidence) |
 
 ## Repairs, failures and useful confidence
 
@@ -57,7 +59,7 @@ The [usability assessment](usability-assessment.md) retains short public-command
 
 [Final negative-attempt dispositions](final-negative-attempts.json) bind all 46 non-passing final-run command records to 21 actual saved-state corruption probes and 25 deliberate harness calibrations; no unexplained non-passing command remains in that final run. Their original failure categories remain unchanged.
 
-[All-attempt accounting](all-attempt-accounting.json) snapshots the original categories, unfinished IDs and ledger hashes. Setup, parent commands, intentional failures and retries are not added to final repetition credit. The original quarantined ledger remains unchanged. The completed native manifest preserves reports, fault screens, state inventories, restoration identities and hosted deletion receipts. Raw downloaded archives also duplicate historical provenance; per-project budget inventories are distinct from those whole archive sizes and do not measure peak resource usage.
+All-attempt accounting (`all-attempt-accounting.json`, local evidence) snapshots the original categories, unfinished IDs and ledger hashes. Setup, parent commands, intentional failures and retries are not added to final repetition credit. The original quarantined ledger remains unchanged. The completed native manifest preserves reports, fault screens, state inventories, restoration identities and hosted deletion receipts. Raw downloaded archives also duplicate historical provenance; per-project budget inventories are distinct from those whole archive sizes and do not measure peak resource usage.
 
 [Final local cleanup receipt](core/final-local-cleanup.json): no task-owned external application checkout remains locally. Every qualified host confirms removal before the next repository starts. Shared Playtestr toolchains and existing caches are preserved.
 

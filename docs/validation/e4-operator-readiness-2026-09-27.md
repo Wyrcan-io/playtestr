@@ -1,5 +1,7 @@
 # E4 operator execution record — 27 September 2026
 
+Evidence availability: bulk raw records are local-only; see [the archive policy](README.md).
+
 Status: **E4 accepted within the familiar-operator and scoped accessibility
 boundary**. At this E4 checkpoint no final candidate was qualified; the subsequent
 [E5 record](e5-qualified-readiness-2026-09-27.md) closes private qualification.
@@ -7,7 +9,7 @@ E3 closed through its
 [investigated fidelity boundary](e3-fidelity-boundary-2026-09-27.md).
 
 The [reproduction guide](../e4-operator-walkthroughs.md) and
-[machine observations](e3-e4-observations-2026-09-27.json) retain four fresh-directory
+machine observations (`e3-e4-observations-2026-09-27.json`, local evidence) retain four fresh-directory
 journeys: fzf selector, create-vite stateful wizard, micro editor and Lazygit
 repository tool. Selected final definitions accepted 52/52 executions: original
 good, reviewed baseline adoption/review, code defect and recovery, plus two

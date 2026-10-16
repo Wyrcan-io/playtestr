@@ -1,5 +1,7 @@
 # Superfile development validation — complete; final freeze pending
 
+Evidence availability: bulk raw records are local-only; see [the archive policy](../../README.md).
+
 Pinned MIT source: `yorukot/superfile` at
 `66fe169b87021f7424522ed5aadd711c5676601e`. The target uses Bubble Tea v2;
 Playtestr has no framework-specific code. The private build selects Go 1.27.0
@@ -83,7 +85,7 @@ and 120 separate state repetitions on Linux and macOS, actual faults,
 restoration and confirmed owned teardown. Local Windows/WSL source, binaries,
 dependencies and retained diagnostic workspaces were also removed. Exact
 host/runner identities are in [the result](result.json) and compact actual
-evidence in [the native manifest](../native/38319592021/manifest.json).
+evidence in the native manifest (`../native/38319592021/manifest.json`, local evidence).
 
 Windows ordinary copy repetition six instead timed out with an unrequested
 help overlay. A separately race-instrumented, otherwise unchanged target

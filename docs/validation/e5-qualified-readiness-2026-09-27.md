@@ -1,5 +1,7 @@
 # E5 private qualification and readiness decision — 27 September 2026
 
+Evidence availability: bulk raw records are local-only; see [the archive policy](README.md).
+
 **E5 accepted at the scoped technical boundary.** The complete three-host
 ledger records 3,000/3,000 passing first attempts, zero first-attempt failures
 and zero managed-cleanup failures; every row has the expected frozen runner hash.
@@ -27,7 +29,7 @@ fields describe subsequent checks. No tag or release was created.
 | macOS arm64 | `a6b806e38bf6818fcf2405f8fff2ccb83be3565e18ca444714c9886b2593c527` | `7dab72ab263b34f3e1a4958b6c6f6f8aa374633320531e9ebeaf11317006a9f4` |
 | Windows amd64 | `b09f8daea6211ae24ca15aeb4b7f15f5daac277c920a02cb28feb6b99eb3aa8b` | `27284f5e994dc7e7122bdca83a52819aec55fa420e9dbd78cdc2bdde70c7eff4` |
 
-The [machine packet](e5-observations-2026-09-27.json) preserves dated attempt
+The machine packet (`e5-observations-2026-09-27.json`, local evidence) preserves dated attempt
 ledgers, pinned target/runtime and spec identities, expected/actual categories,
 cleanup, resource observations, CI job metadata and artifact digests. The
 [private kit](../trials/e5-private-kit.md) gives reproduction and exact later

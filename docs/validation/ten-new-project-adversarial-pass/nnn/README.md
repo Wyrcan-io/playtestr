@@ -1,12 +1,14 @@
 # nnn adversarial development validation
 
+Evidence availability: bulk raw records are local-only; see [the archive policy](../../README.md).
+
 Development journeys completed on native Linux and macOS at source `496d6d7308f468992b779da1caabbf92bc949323`, run `38728097151`. Each host passed seventeen scenarios, 170 ordinary repetitions, 170 separate filesystem probes, four real C-source faults with exact source/binary restoration, and verified owned application removal. Local baseline, prepared UX, maintenance and public rerecord also passed; the local application has been removed. The overall native run includes a separate failed macOS core race test under investigation. Final frozen-candidate qualification has not run and receives zero credit.
 
 The target is BSD-2-Clause `jarun/nnn` at `c3e00d99cc83c71a9a0d285669775ae3c82db38e`, built using ordinary `make -B all`, default `O_NORL=1`, an existing native compiler and curses. Supported `-A -C` flags disable filter auto-entry and simplify colors. No external editor, opener, plugin, clipboard, mount, remote or archive workflow was selected. PTYs are not sandboxes.
 
 Seven normal journeys cover Unicode file creation, nested empty-directory creation, noninitial rename, exact-byte copy, move/original absence, distinct contexts, and accumulated two-file copy. Ten edges cover an empty directory, rejected unmatched filter character and recovery, cancelled creation/rename, refused occupied creation/rename, cancelled destructive selection, hidden-file toggle, 200-file End/Home navigation and resize/navigation recovery. Separate exact-tree probes inspect declared bytes, hidden entries, absences, directory types and empty directories; these are private validation oracles rather than public filesystem assertions.
 
-Four compiled C faults create a directory instead of a file, silently skip rename, retain an unmatched filter character, and corrupt only a copied file's second line. The last preserves a passing terminal result while the independent byte oracle fails. [Local fault evidence](local-fault-evidence/manifest.json) and [native receipts](../native/38728097151/manifest.json) retain actual detection and restoration evidence.
+Four compiled C faults create a directory instead of a file, silently skip rename, retain an unmatched filter character, and corrupt only a copied file's second line. The last preserves a passing terminal result while the independent byte oracle fails. [Local fault evidence](local-fault-evidence/manifest.json) and native receipts (`../native/38728097151/manifest.json`, local evidence) retain actual detection and restoration evidence.
 
 Prepared public-command UX took 57.996 seconds, four commands and sixteen recorder controls, with no handwritten JSON. This excludes acquisition and prior fixture/authoring engineering, uses warm caches and an experienced operator, and is not a novice study. [Maintenance](maintenance-result.json) covers intentional mismatch, HTML diagnosis, selected snapshot update, passing replay, relocation and workflow preview. The generated workflow is preview evidence; native execution is evidenced separately.
 
