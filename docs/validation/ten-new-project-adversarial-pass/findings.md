@@ -12,6 +12,8 @@ Latest general product repairs:
 
 Latest validation findings:
 
+- Final publication check: generic generated-screen ignore rules excluded 209 native manifest-declared screens/diffs from Git. Narrow retained-native-evidence exceptions fixed publication; all 3,241 declared files across completed native collections now match their recorded hashes and index bytes. General generated-artifact exclusions remain active. [Before/after check](core/evidence-publication-check.json).
+
 - Require ten state probes inside each actual completed final repetition group. Initial or recovery probes cannot replace a missing final probe. Bind final events to the current workflow run and attempt, runner, public contract and exact upstream pin. Actual Ranger and nnn group calibrations and negative checks are retained. [Audit repair](core/final-state-group-audit-repair.json).
 - Ranger long native hostnames obscured meaningful path evidence; its ordinary supported title option removes that incidental header. An intermittent first-key loss was traced to startup mouse-event/input flushing; positive completed preview/counter readiness replaced header-only readiness. Original failures, source traces and corrected repetitions remain in [Ranger evidence](ranger/README.md).
 - nnn corrections preserve meaningful assertions: capture the actual first list row, snapshot a genuine empty-directory counter, model rejected unmatched filter characters accurately, share operational UTF-8 inheritance, and declare a wider macOS viewport for its long native path. Four compiled C faults, including terminal-green second-line corruption, were detected with exact source/binary restoration. [nnn evidence](nnn/README.md).

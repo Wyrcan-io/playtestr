@@ -1,0 +1,27 @@
+{
+  "problem": "General generated-screen ignore rules excluded manifest-declared native failure screens/diffs from Git",
+  "before_missing_manifest_files": 209,
+  "before_missing_bytes": 228728,
+  "repair": "Two narrow native campaign exceptions for .actual.txt and .diff.txt",
+  "after_missing_manifest_files": 0,
+  "manifest_files_with_verified_worktree_and_index_bytes": 3241,
+  "scope": "Every completed retained native collection; file hashes and staged blob identities verified, historical bytes unchanged",
+  "ignore_scope_checks": [
+    {
+      "path": "artifacts/test.actual.txt",
+      "ignored": true
+    },
+    {
+      "path": "scratch/test.diff.txt",
+      "ignored": true
+    },
+    {
+      "path": "docs/validation/ten-new-project-adversarial-pass/native/probe/test.actual.txt",
+      "ignored": false
+    },
+    {
+      "path": "docs/validation/ten-new-project-adversarial-pass/native/probe/test.diff.txt",
+      "ignored": false
+    }
+  ]
+}

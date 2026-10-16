@@ -62,3 +62,5 @@ The [usability assessment](usability-assessment.md) retains short public-command
 [Final local cleanup receipt](core/final-local-cleanup.json): no task-owned external application checkout remains locally. Every qualified host confirms removal before the next repository starts. Shared Playtestr toolchains and existing caches are preserved.
 
 P3 paid review integration, P4 buyer lifecycle, remaining complete-product P5 and the full 100-project campaign remain planned. No release, outreach or marketing follows automatically from this engineering pass.
+
+Final publication check found that generic generated-screen ignore rules excluded 209 manifest-declared failure screens/diffs from Git. Two narrow native-evidence exceptions now preserve them. All 3,241 declared files across completed native collections match both their manifest SHA-256 and Git-index bytes; unrelated generated artifacts remain ignored. [Before/after publication check](core/evidence-publication-check.json).
