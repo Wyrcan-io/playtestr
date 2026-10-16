@@ -79,6 +79,22 @@ class EvidenceTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'prelaunch identity'):
             self.campaign.attempts()
 
+    def test_editable_target_mutation_changes_prelaunch_identity(self):
+        target=Path(self.folder.name)/'active/poetry'
+        source=target/'src/src/poetry/changed.py'
+        source.parent.mkdir(parents=True)
+        source.write_bytes(b'reviewed original\n')
+        (target/'task-owned.json').write_text('{}')
+        (target/'src/pyproject.toml').write_text('[project]\nname="owned-control"\n')
+        (target/'src/poetry.lock').write_text('# reviewed lock\n')
+        before=self.campaign.identity('poetry',['must-not-launch'])
+        source.write_bytes(b'real source mutation\n')
+        after=self.campaign.identity('poetry',['must-not-launch'])
+        self.assertNotEqual(before['sha256'],after['sha256'])
+        source.write_bytes(b'reviewed original\n')
+        restored=self.campaign.identity('poetry',['must-not-launch'])
+        self.assertEqual(before,restored)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,0 +1,11 @@
+--- a/src/poetry/console/commands/init.py
++++ b/src/poetry/console/commands/init.py
+@@ -140,7 +140,7 @@
+ 
+         if is_interactive:
+             question = self.create_question(
+-                f"Version [<comment>{version}</comment>]: ", default=version
++                f"Release revision [<comment>{version}</comment>]: ", default=version
+             )
+             version = self.ask(question)
+ 

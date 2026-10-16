@@ -1,0 +1,66 @@
+{
+  "version": 3,
+  "env": {
+    "GIT_CONFIG_GLOBAL": "nul",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "POETRY_KEYRING_ENABLED": "false",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONNOUSERSITE": "1"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "name": "Poetry E03",
+  "command": [
+    "poetry",
+    "--no-plugins",
+    "init",
+    "--name",
+    "atlas",
+    "--description",
+    "Fixture project",
+    "--author",
+    "Fixture Author <author@example.invalid>",
+    "--python",
+    ">=3.10",
+    "--license",
+    "MIT"
+  ],
+  "workspace": {
+    "fixture": "fixture",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "steps": [
+    {
+      "expect": "Version ["
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Author ["
+    },
+    {
+      "key": "CtrlC"
+    },
+    {
+      "exit": 1
+    },
+    {
+      "state": {
+        "path": "pyproject.toml",
+        "kind": "absent"
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    }
+  ]
+}

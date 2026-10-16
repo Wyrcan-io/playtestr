@@ -1,0 +1,51 @@
+{
+  "faults": [
+    {
+      "after": "f\"Release revision [<comment>{version}</comment>]: \"",
+      "baseline_attempt": "6d962f9dccca45e9bfbd2e60cf37ba2a",
+      "before": "f\"Version [<comment>{version}</comment>]: \"",
+      "held_out": false,
+      "id": "F01",
+      "mutated_source_sha256": "8e4919d159ead9a5a943ffc75112fdc43833d1dd320117cd4f4c05903bd4a377",
+      "mutation_attempt": "4c420859580b444dae91538eeafe1e32",
+      "original_source_sha256": "97d01fdab6c40f85aeb7ab480292fe1e992da18c987fd2b64bd8e610044fe289",
+      "path": "console/commands/init.py",
+      "restored_attempt": "75a8e554b2224a1ab3f175de2ceae27d",
+      "restored_exact": true,
+      "same_execution_state_rejection": false,
+      "spec": "normal-init.json"
+    },
+    {
+      "after": "if source.name.lower() != lower_name:",
+      "baseline_attempt": "07d843638a3041b6b6fe4d95fe4a9bd5",
+      "before": "if source.name.lower() == lower_name:",
+      "held_out": false,
+      "id": "F02",
+      "mutated_source_sha256": "1603c45f43b7cf844c25432033b038c2b0b93dfa1e50706cd29d0d35843c90a2",
+      "mutation_attempt": "904cdf7c32b84dd1aac51eb14eeaa173",
+      "original_source_sha256": "425dce87ccb86db760e331053d355b09a820219a8eb6a0d2a97c00089dde77e2",
+      "path": "console/commands/source/remove.py",
+      "restored_attempt": "0a2f812fa0fc40b7ba1524b996f5c3a0",
+      "restored_exact": true,
+      "same_execution_state_rejection": false,
+      "spec": "normal-source-remove.json"
+    },
+    {
+      "after": "project_content[\"version\"] = self.poetry.package.pretty_version",
+      "baseline_attempt": "f82f2155c7d74f9384b2c97d3a9ad58c",
+      "before": "project_content[\"version\"] = version.text",
+      "held_out": true,
+      "id": "F03",
+      "mutated_source_sha256": "7cea96201f77e4f4757b709b833ad16c0620bfc018cbaac31a9e61ecb68c7a15",
+      "mutation_attempt": "9cdf68148f914a2e99d26290947ca566",
+      "original_source_sha256": "c1db097c21e63617de1024ca86ce2b1ad91cdf29cb37b84575512fb8c07e989c",
+      "path": "console/commands/version.py",
+      "restored_attempt": "45729fe98d7647479da44e9fa7b2c298",
+      "restored_exact": true,
+      "same_execution_state_rejection": true,
+      "spec": "normal-version.json"
+    }
+  ],
+  "runner_sha256": "8477aecd5e457375dadbe3493b8f98396c097306b4cee9a4784f914d4aff4e82",
+  "source_execution": "Reviewed editable Python source, bytecode writing disabled; no stale rebuild or wrapper simulation"
+}

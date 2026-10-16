@@ -76,3 +76,8 @@ Next evidence-correction batch: three core jobs plus two manually dispatched
 Plop jobs, maximum four concurrent, 125 job-minute ceiling and 30-45 job-minute
 forecast. Runner remains pinned to 93bd63d; ordinary suite invocation gains
 immutable prelaunch identity. No production runner change or final freeze.
+
+Before Poetry native batch: three core jobs plus two standard native Poetry
+jobs, at most four concurrent, 125 job-minute ceiling, 30-45 job-minute forecast.
+Runner production source remains 93bd63d. Native project scripts and all runtime
+setup are explicitly owned. Windows Poetry E05 remains excluded. No final freeze.

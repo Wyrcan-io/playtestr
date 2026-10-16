@@ -1,0 +1,106 @@
+{
+  "version": 3,
+  "env": {
+    "GIT_CONFIG_GLOBAL": "nul",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "POETRY_KEYRING_ENABLED": "false",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONNOUSERSITE": "1"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "name": "Poetry E01",
+  "command": [
+    "poetry",
+    "--no-plugins",
+    "init",
+    "--name",
+    "atlas",
+    "--description",
+    "Fixture project",
+    "--author",
+    "Fixture Author <author@example.invalid>",
+    "--python",
+    ">=3.10",
+    "--license",
+    "MIT"
+  ],
+  "workspace": {
+    "fixture": "fixture",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "steps": [
+    {
+      "expect": "Version ["
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Author ["
+    },
+    {
+      "text": "broken <unclosed"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Invalid author string"
+    },
+    {
+      "text": "Fixture Author <author@example.invalid>"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Would you like to define your main dependencies interactively?"
+    },
+    {
+      "text": "n"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Would you like to define your development dependencies interactively?"
+    },
+    {
+      "text": "n"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Do you confirm generation?"
+    },
+    {
+      "text": "yes"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "pyproject.toml",
+        "kind": "file",
+        "bytes_base64": "W3Byb2plY3RdDQpuYW1lID0gImF0bGFzIg0KdmVyc2lvbiA9ICIwLjEuMCINCmRlc2NyaXB0aW9uID0gIkZpeHR1cmUgcHJvamVjdCINCmF1dGhvcnMgPSBbDQogICAge25hbWUgPSAiRml4dHVyZSBBdXRob3IiLGVtYWlsID0gImF1dGhvckBleGFtcGxlLmludmFsaWQifQ0KXQ0KbGljZW5zZSA9ICJNSVQiDQpyZXF1aXJlcy1weXRob24gPSAiPj0zLjEwIg0KZGVwZW5kZW5jaWVzID0gWw0KXQ0KDQoNCltidWlsZC1zeXN0ZW1dDQpyZXF1aXJlcyA9IFsicG9ldHJ5LWNvcmU+PTIuMC4wLDwzLjAuMCJdDQpidWlsZC1iYWNrZW5kID0gInBvZXRyeS5jb3JlLm1hc29ucnkuYXBpIg0K"
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    }
+  ]
+}

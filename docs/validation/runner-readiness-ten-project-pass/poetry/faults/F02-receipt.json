@@ -1,0 +1,15 @@
+{
+  "after": "if source.name.lower() != lower_name:",
+  "baseline_attempt": "07d843638a3041b6b6fe4d95fe4a9bd5",
+  "before": "if source.name.lower() == lower_name:",
+  "held_out": false,
+  "id": "F02",
+  "mutated_source_sha256": "1603c45f43b7cf844c25432033b038c2b0b93dfa1e50706cd29d0d35843c90a2",
+  "mutation_attempt": "904cdf7c32b84dd1aac51eb14eeaa173",
+  "original_source_sha256": "425dce87ccb86db760e331053d355b09a820219a8eb6a0d2a97c00089dde77e2",
+  "path": "console/commands/source/remove.py",
+  "restored_attempt": "0a2f812fa0fc40b7ba1524b996f5c3a0",
+  "restored_exact": true,
+  "same_execution_state_rejection": false,
+  "spec": "normal-source-remove.json"
+}

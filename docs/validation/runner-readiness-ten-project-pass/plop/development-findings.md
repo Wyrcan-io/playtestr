@@ -52,3 +52,20 @@ uses checkout-owned prerequisites/caches, the declared POSIX profiles, bounded
 faults/maintenance and verified source retention/removal. Initial push only
 registers its manual-only jobs. A real successful manual run and inspected
 artifact bytes are still required. This is not a real pull-request event test.
+
+17 October follow-up: the source-93bd63d native runs 38948568382 and
+38950615245 passed all twenty scenarios on both Linux amd64 and macOS arm64.
+The latter includes immutable prelaunch suite identities 5178c06391c14af5ac5800f926ca5415
+and 7c9e10cf57e54c1d8588e942bcfcc490 respectively. All fault replicas,
+maintenance and verified target retention/removal passed. First native F03
+metadata repeated the old held-out label incorrectly; only original Windows
+F03 counts as the project holdout. Later native copies explicitly say replica.
+
+Local source archive 89e0e93e746726d56b30f8915f300cfdcc709da0426b65ea54182575ebc9dd70
+was copied and verified against all 230 regular source members, with five selected
+restores checked. Native PowerShell removed only the marked active/plop tree
+after fresh owned-Node checks and unlinking its reviewed internal junction.
+Preparation attempt f69971b2a86e48d9a5756ef7da85a695 and retained-source/removed.json
+preserve the evidence. Two earlier preparation errors (CIM denial and UTF-8 BOM)
+are retained; neither supplied deletion approval. Windows E05 remains excluded.
+Development package admitted on Linux/macOS; final archive qualification open.

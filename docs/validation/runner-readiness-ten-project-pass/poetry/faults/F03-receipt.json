@@ -1,0 +1,15 @@
+{
+  "after": "project_content[\"version\"] = self.poetry.package.pretty_version",
+  "baseline_attempt": "f82f2155c7d74f9384b2c97d3a9ad58c",
+  "before": "project_content[\"version\"] = version.text",
+  "held_out": true,
+  "id": "F03",
+  "mutated_source_sha256": "7cea96201f77e4f4757b709b833ad16c0620bfc018cbaac31a9e61ecb68c7a15",
+  "mutation_attempt": "9cdf68148f914a2e99d26290947ca566",
+  "original_source_sha256": "c1db097c21e63617de1024ca86ce2b1ad91cdf29cb37b84575512fb8c07e989c",
+  "path": "console/commands/version.py",
+  "restored_attempt": "45729fe98d7647479da44e9fa7b2c298",
+  "restored_exact": true,
+  "same_execution_state_rejection": true,
+  "spec": "normal-version.json"
+}

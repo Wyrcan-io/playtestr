@@ -1,0 +1,30 @@
+{
+  "faults": [
+    {
+      "after": "f\"Release revision [<comment>{version}</comment>]: \"",
+      "before": "f\"Version [<comment>{version}</comment>]: \"",
+      "held_out": false,
+      "id": "F01",
+      "path": "console/commands/init.py",
+      "spec": "normal-init.json"
+    },
+    {
+      "after": "if source.name.lower() != lower_name:",
+      "before": "if source.name.lower() == lower_name:",
+      "held_out": false,
+      "id": "F02",
+      "path": "console/commands/source/remove.py",
+      "spec": "normal-source-remove.json"
+    },
+    {
+      "after": "project_content[\"version\"] = self.poetry.package.pretty_version",
+      "before": "project_content[\"version\"] = version.text",
+      "held_out": true,
+      "id": "F03",
+      "path": "console/commands/version.py",
+      "spec": "normal-version.json"
+    }
+  ],
+  "frozen_contracts_sha256": "48086085fa37551f0bb26d0ad51fd314f454ed6d2af5e5c5746321bc089eac01",
+  "heldout_selection": "F03 selected after immutable reviewed-contract freeze; agent-authored, not independent human review"
+}

@@ -2,6 +2,7 @@
 import io
 import json
 import os
+import re
 from pathlib import Path, PurePosixPath
 import tarfile
 import urllib.request
@@ -9,16 +10,17 @@ import urllib.request
 from readiness_evidence import RAW, ROOT, immutable_json, sha256
 
 
-def main():
+def acquire(slug, repository, pin):
+    if not re.fullmatch(r'[a-z][a-z0-9-]{0,63}',slug) or not re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+',repository) or not re.fullmatch(r'[0-9a-f]{40}',pin):
+        raise ValueError('invalid pinned source identity')
     active = RAW/'active'
     active.mkdir(parents=True,exist_ok=True)
     if any(active.iterdir()): raise RuntimeError('another active target exists; inspect its ownership/cleanup first')
-    target = active/'plop'
+    target = active/slug
     target.mkdir()
-    pin='0c90e7ef93ffa5f40b10fe8f53d3cc23adee5a8e'
     immutable_json(target/'task-owned.json',dict(workspace=str(ROOT),campaign='runner-readiness-ten-project-pass',
-                                               project='plopjs/plop',pin=pin))
-    request=urllib.request.Request('https://api.github.com/repos/plopjs/plop/tarball/'+pin,
+                                               project=repository,pin=pin))
+    request=urllib.request.Request('https://api.github.com/repos/'+repository+'/tarball/'+pin,
                                   headers={'User-Agent':'Playtestr-validation'})
     with urllib.request.urlopen(request,timeout=30) as response:
         data=response.read(8*1024*1024+1)
@@ -54,6 +56,10 @@ def main():
         compressed_bytes=len(data),extracted_source_bytes=total,entries=count,
         build_hooks_executed=False))
     print('Acquired pinned source only:',target.relative_to(ROOT),'bytes',total,'entries',count)
+
+
+def main():
+    acquire('plop','plopjs/plop','0c90e7ef93ffa5f40b10fe8f53d3cc23adee5a8e')
 
 
 if __name__=='__main__':main()

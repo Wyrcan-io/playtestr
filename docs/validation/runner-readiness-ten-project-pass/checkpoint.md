@@ -155,3 +155,25 @@ dispatch/result is claimed yet. No project is admitted; final/archive/migration
 counts remain zero. Before dependency installation observed campaign storage was
 166,626,448 bytes; Plop's installed active tree measured 399,321,279 bytes.
 Reinventory before advancing; these are observations, not an exact peak/quota.
+
+Latest advancement: native Plop run 38950615245 passed both complete twenty-case
+suites with immutable prelaunch selection identities, source-fault replicas,
+maintenance and source retention/removal. Local marked Plop tree is now removed
+after verified archive and selected restore, report/process checks and checked
+native PowerShell removal. Development package 1 admitted on Linux/macOS only.
+Poetry is now the sole active target, pinned source acquisition
+f9582222bcdc4ebc86311bc174b5d3fd. Reviewed MIT license and ordinary Poetry-core
+build backend; owned venv/wheel-only dependency build underway. No archive or
+old-project admission. Current evidence-correction core run 38950594057 is pending.
+
+Poetry follow-up before native dispatch: twenty reviewed contracts freeze exists;
+nineteen cases pass locally on Windows, while E05 repeats the bounded quiet
+resize acknowledgment failure. Three source faults detected/restored under
+109f5ce29a4f4e0b9c22bec6478168fd (original F03 held out after contract freeze).
+Public maintenance/suffix/Unicode relocation passed under
+5316cddbc03d44b88049b77f7878203f. Ten evidence tests pass, including real editable
+source identity change/restoration. Native Linux/macOS workflow is prepared with
+runner source 93bd63d; dispatch after this commit. Poetry remains the sole active
+local target (~97 MB observed). Latest prior core batch 38950594057 has all three
+native jobs successful and all bounded packets retrieved. Final archives and old
+project migration remain open.

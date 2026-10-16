@@ -98,6 +98,7 @@ class Campaign:
         target=self.raw/'active'/project
         if (target/'task-owned.json').is_file():
             paths.append(target/'task-owned.json')
+            if (target/'acquisition.json').is_file():paths.append(target/'acquisition.json')
             if (target/'build.json').is_file():paths.append(target/'build.json')
             if (target/'runtime.json').is_file():paths.append(target/'runtime.json')
             if project=='plop':
@@ -106,6 +107,10 @@ class Campaign:
                 paths.extend((target/'src/packages/node-plop/src').rglob('*.js'))
                 paths=[p for p in paths if 'node_modules' not in p.relative_to(ROOT).parts]
                 paths.append(target/'src/yarn.lock')
+            elif project=='poetry':
+                paths.extend((target/'src/src/poetry').rglob('*.py'))
+                paths.extend([target/'src/pyproject.toml',target/'src/poetry.lock'])
+                if (target/'wheels.json').is_file():paths.append(target/'wheels.json')
         if any(p.stat().st_size>128*1024*1024 for p in paths):raise ValueError('identity file byte bound')
         identity = {'project': project, 'host': platform.system(), 'architecture': platform.machine(),
                     'fixture_directories':sorted(set(directories)),

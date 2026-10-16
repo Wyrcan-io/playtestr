@@ -1,0 +1,11 @@
+--- a/src/poetry/console/commands/source/remove.py
++++ b/src/poetry/console/commands/source/remove.py
+@@ -32,7 +32,7 @@
+         removed = False
+ 
+         for source in self.poetry.get_sources():
+-            if source.name.lower() == lower_name:
++            if source.name.lower() != lower_name:
+                 self.line(f"Removing source with name <c1>{source.name}</c1>.")
+                 removed = True
+                 continue

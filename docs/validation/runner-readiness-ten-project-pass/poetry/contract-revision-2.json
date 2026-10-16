@@ -1,0 +1,19 @@
+{
+  "changes": [
+    {
+      "previous_sha256": "d67201faf331d13f5f0214da7ecd11dca96218593c9d60524af43f4f5b38ddcc",
+      "sha256": "49d44ca0030dbe76723993f4bf94d673972bfa9baca1d263465a9c8c423a9a4b",
+      "spec": "normal-source-add.json"
+    },
+    {
+      "previous_sha256": "ef9065b9bc19fa6c52c992496d3484bbc3b8c4929e9ced503302b0850e5426a8",
+      "sha256": "0a5e19f9ea4db57649cdf2fadfd38261e1d3c461a8e8ee836e28a70b14901c4e",
+      "spec": "normal-source-remove.json"
+    }
+  ],
+  "reason": "Correct independently authored TOML serialization expectations after unsaved public candidate review: added AoT has trailing blank line; empty source is a root dotted assignment. Semantic project/source values unchanged. Initial failing expectations retained by initial manifest and immutable attempt identities.",
+  "review_attempts": [
+    "468a545e5ac14b868ba9c793872e992a",
+    "79127b1dacf84eb3aabd97970818707a"
+  ]
+}

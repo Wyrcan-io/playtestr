@@ -1,0 +1,11 @@
+--- a/src/poetry/console/commands/version.py
++++ b/src/poetry/console/commands/version.py
+@@ -69,7 +69,7 @@
+                 content = self.poetry.file.read()
+                 project_content = content.get("project", {})
+                 if "version" in project_content:
+-                    project_content["version"] = version.text
++                    project_content["version"] = self.poetry.package.pretty_version
+                 poetry_content = content.get("tool", {}).get("poetry", {})
+                 if "version" in poetry_content:
+                     poetry_content["version"] = version.text

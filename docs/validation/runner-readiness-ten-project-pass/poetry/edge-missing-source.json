@@ -1,0 +1,50 @@
+{
+  "version": 3,
+  "env": {
+    "GIT_CONFIG_GLOBAL": "nul",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "POETRY_KEYRING_ENABLED": "false",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONNOUSERSITE": "1"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "name": "Poetry E11",
+  "command": [
+    "poetry",
+    "--no-plugins",
+    "source",
+    "remove",
+    "missing"
+  ],
+  "workspace": {
+    "fixture": "source-fixture",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "steps": [
+    {
+      "expect": "Source with name missing was not found."
+    },
+    {
+      "exit": 1
+    },
+    {
+      "state": {
+        "path": "pyproject.toml",
+        "kind": "file",
+        "bytes_base64": "IyBwcmVzZXJ2ZSB0aGlzIHJldmlld2VkIGNvbW1lbnQKW3Byb2plY3RdCm5hbWUgPSAiZml4dHVyZS1hcHAiCnZlcnNpb24gPSAiMS4yLjMiCmRlc2NyaXB0aW9uID0gIlJldmlld2VkIGxvY2FsIGZpeHR1cmUiCnJlcXVpcmVzLXB5dGhvbiA9ICI+PTMuMTAiCnJlYWRtZSA9ICJSRUFETUUubWQiCmF1dGhvcnMgPSBbe25hbWUgPSAiRml4dHVyZSBBdXRob3IiLCBlbWFpbCA9ICJhdXRob3JAZXhhbXBsZS5pbnZhbGlkIn1dCmRlcGVuZGVuY2llcyA9IFtdCgpbYnVpbGQtc3lzdGVtXQpyZXF1aXJlcyA9IFsicG9ldHJ5LWNvcmU+PTIuMC4wLDwzLjAuMCJdCmJ1aWxkLWJhY2tlbmQgPSAicG9ldHJ5LmNvcmUubWFzb25yeS5hcGkiCgpbW3Rvb2wucG9ldHJ5LnNvdXJjZV1dCm5hbWUgPSAicHJpdmF0ZSIKdXJsID0gImh0dHBzOi8vcGFja2FnZXMuZXhhbXBsZS5pbnZhbGlkL3NpbXBsZS8iCnByaW9yaXR5ID0gImV4cGxpY2l0Igo="
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    }
+  ]
+}
