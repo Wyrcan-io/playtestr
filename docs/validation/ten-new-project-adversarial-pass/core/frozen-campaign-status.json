@@ -1,7 +1,7 @@
 {
   "updated_utc": "2026-10-16T00:31:41.543081+00:00",
-  "phase": "Final scoped terminal/state qualification passed",
-  "status": "Strict audit complete with zero errors",
+  "phase": "Investigate late native failure; frozen e868 campaign is historical successful evidence, overall closure withheld",
+  "status": "Closing CI exposed macOS test-helper exit8; investigation and new qualification required",
   "run": "38802794545",
   "source": "e8682f866622442c421005c7f477cd45fcc66fc5",
   "completed_development_projects": [
@@ -236,7 +236,7 @@
   "separate_final_state_probes": 2740,
   "distinct_target_fault_controls": 31,
   "source_fault_controls_across_hosts": 65,
-  "final_frozen_project_credit": 10,
+  "final_frozen_project_credit": 0,
   "full_product_100_project_launch_credit": 0,
   "final_audit": "final-audit.json",
   "final_report": "final-report.md",
@@ -249,5 +249,7 @@
   "remaining_packaging": "Final documentation commit/push and actual final-commit CI monitoring",
   "next_implementation": "P3 only when separately invoked; P3/P4, full-product P5 and 100-project campaign remain planned.",
   "evidence_publication": "3,241 manifest files verified against worktree and Git index; 209 previously ignored screens/diffs now explicitly retained",
-  "source_checkout_repair": "Native Windows checkout passed in both corrected jobs; exact step receipts retained in core/windows-evidence-checkout-repair.json"
+  "source_checkout_repair": "Native Windows checkout passed in both corrected jobs; exact step receipts retained in core/windows-evidence-checkout-repair.json",
+  "late_failure": "core/macos-stubborn-late-failure/manifest.json",
+  "required_next_action": "Prove/fix heartbeat publication race, run relevant native/race checks, freeze new source and complete strict final matrix; do not stop at the old successful campaign"
 }

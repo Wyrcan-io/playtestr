@@ -17,6 +17,50 @@ import (
 	"time"
 )
 
+func publishStubbornHeartbeat(path string, value []byte, beforeWrite func()) error {
+	// A reader must retain the last complete heartbeat while the next value is
+	// being written. Truncating the published file exposes an empty checkpoint.
+	staging := path + ".next"
+	file, err := os.OpenFile(staging, os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0600)
+	if err != nil {
+		return err
+	}
+	defer func() {
+		_ = file.Close()
+		_ = os.Remove(staging)
+	}()
+	if beforeWrite != nil {
+		beforeWrite()
+	}
+	if _, err := file.Write(value); err != nil {
+		return err
+	}
+	if err := file.Close(); err != nil {
+		return err
+	}
+	return os.Rename(staging, path)
+}
+
+func TestAdversarialStubbornHeartbeatPublication(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "child.heartbeat")
+	if err := os.WriteFile(path, []byte("7"), 0600); err != nil {
+		t.Fatal(err)
+	}
+	err := publishStubbornHeartbeat(path, []byte("8"), func() {
+		value, err := os.ReadFile(path)
+		if err != nil || string(value) != "7" {
+			t.Errorf("previous heartbeat disappeared before replacement: value=%q error=%v", value, err)
+		}
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	value, err := os.ReadFile(path)
+	if err != nil || string(value) != "8" {
+		t.Fatalf("replacement heartbeat missing: value=%q error=%v", value, err)
+	}
+}
+
 func TestAdversarialStubbornUnixHelper(t *testing.T) {
 	role := os.Getenv("PLAYTESTR_STUBBORN_ROLE")
 	if role == "" {
@@ -28,6 +72,7 @@ func TestAdversarialStubbornUnixHelper(t *testing.T) {
 		// Playtestr's process-group cleanup is exercised.
 		signal.Ignore(syscall.SIGTERM, syscall.SIGHUP)
 		if err := os.WriteFile(filepath.Join(root, role+".pid"), []byte(strconv.Itoa(os.Getpid())), 0600); err != nil {
+			fmt.Fprintf(os.Stderr, "stubborn helper: write %s PID: %v\n", role, err)
 			os.Exit(8)
 		}
 	}
@@ -40,13 +85,15 @@ func TestAdversarialStubbornUnixHelper(t *testing.T) {
 		child.Env = append(os.Environ(), "PLAYTESTR_STUBBORN_ROLE="+next)
 		child.Stdin, child.Stdout, child.Stderr = os.Stdin, os.Stdout, os.Stderr
 		if err := child.Start(); err != nil {
+			fmt.Fprintf(os.Stderr, "stubborn helper: start %s: %v\n", next, err)
 			os.Exit(8)
 		}
 	}
 	if role != "parent" {
 		deadline := time.Now().Add(30 * time.Second)
 		for counter := 1; time.Now().Before(deadline); counter++ {
-			if err := os.WriteFile(filepath.Join(root, role+".heartbeat"), []byte(strconv.Itoa(counter)), 0600); err != nil {
+			if err := publishStubbornHeartbeat(filepath.Join(root, role+".heartbeat"), []byte(strconv.Itoa(counter)), nil); err != nil {
+				fmt.Fprintf(os.Stderr, "stubborn helper: publish %s heartbeat: %v\n", role, err)
 				os.Exit(8)
 			}
 			time.Sleep(25 * time.Millisecond)
@@ -72,7 +119,12 @@ func TestAdversarialStubbornUnixHelper(t *testing.T) {
 	for _, name := range []string{"child", "grandchild"} {
 		pid := read(name + ".pid")
 		previous[name] = read(name + ".heartbeat")
-		if pid <= 0 || previous[name] <= 0 || syscall.Kill(pid, syscall.SIGTERM) != nil {
+		if pid <= 0 || previous[name] <= 0 {
+			fmt.Fprintf(os.Stderr, "stubborn helper: invalid %s checkpoint: pid=%d heartbeat=%d\n", name, pid, previous[name])
+			os.Exit(8)
+		}
+		if err := syscall.Kill(pid, syscall.SIGTERM); err != nil {
+			fmt.Fprintf(os.Stderr, "stubborn helper: signal %s PID %d: %v\n", name, pid, err)
 			os.Exit(8)
 		}
 	}

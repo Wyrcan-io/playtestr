@@ -1,4 +1,6 @@
-# Final frozen-source validation report
+# Historical frozen-source report: e868 matrix; overall closure withheld
+
+Closing CI later exposed a native test-helper failure. [Preserved failure and repair](core/macos-stubborn-late-failure/manifest.json). Renewed qualification is required; the evidence below describes the earlier successful e868 matrix.
 
 The scoped terminal/state matrix passed its strict retained-evidence audit. This completes the ten-project engineering qualification; the usability assessment retains explicit measurement limits. This is early runner hardening, not full P5 or commercial launch acceptance.
 

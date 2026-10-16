@@ -1,6 +1,6 @@
-# Findings: final scoped terminal/state qualification passed
+# Findings: late native fixture repair and renewed qualification in progress
 
-The final frozen campaign at `e8682f866622442c421005c7f477cd45fcc66fc5` / `38802794545` passed the strict retained-evidence audit: 130 scenarios, 21 native project/host pairs, 2,740 ordinary final repetitions and 2,740 separate state probes, with source-fault restoration and owned removal verified. [Final report](final-report.md). The first failed frozen campaign remains rejected. Usability measurement limits and the unresolved historical macOS readiness failure remain explicit; full-product launch credit is zero. Entries below retain discovery-time status.
+The historical frozen campaign at `e8682f866622442c421005c7f477cd45fcc66fc5` / `38802794545` passed the strict retained-evidence audit: 130 scenarios, 21 native project/host pairs, 2,740 ordinary final repetitions and 2,740 separate state probes, with source-fault restoration and owned removal verified. [Final report](final-report.md). The first failed frozen campaign remains rejected. Usability measurement limits and the unresolved historical macOS readiness failure remain explicit; full-product launch credit is zero. Entries below retain discovery-time status.
 
 Latest general product repairs:
 
@@ -11,6 +11,8 @@ Latest general product repairs:
 - P14: add ordinary Home, End, PageUp and PageDown throughout recording and replay, including native Windows key mapping; reject unsupported modified navigation visibly. [Evidence](core/standard-navigation-input-repair.json).
 
 Latest validation findings:
+
+- Closing CI 38831100429 caught helper exit8 in the repeated macOS stubborn-descendant control. The runner accurately reported unexpected exit and confirmed cleanup. A deterministic reader checkpoint exposes a real test-fixture bug: truncating a published heartbeat briefly yields an empty value. Atomic staging/rename fixes that reduced case and ten WSL race repetitions; contextual helper diagnostics now identify future setup errors. Exact original hosted branch and the earlier exit0 failure remain unproven. Native requalification and a new all-ten frozen matrix are required. [Preserved late failure and before/after](core/macos-stubborn-late-failure/manifest.json).
 
 - Publishing the retained deep evidence paths exposed a real Windows source-checkout failure before test execution in runs 38830301887 and 38830302005. All 18 applicable native workflow files now supply Git core.longpaths through workflow-scoped environment configuration before checkout. The source-development guide documents the clone prerequisite. A local Windows sparse clone did not reproduce the hosted failure, so it supplies no before-fail claim; The exact failing checkout step passed in both corrected native Windows jobs, runs 38830901944 and 38830901998; the machine receipt retains their actual step metadata. [Actual errors and scope](core/windows-evidence-checkout-repair.json).
 

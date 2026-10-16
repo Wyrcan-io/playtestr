@@ -1,0 +1,29 @@
+{
+  "run": "38831100429",
+  "job": "116749819554",
+  "source": "bdc093e018e94c5e70eda46f00acbcd7cfae561d",
+  "test": "TestAdversarialStubbornUnixDescendantCleanup",
+  "observed": "Helper exit8 before readiness, empty captured screen, confirmed forced process-group cleanup",
+  "files": {
+    "stubborn-race-events.jsonl": "3c3bac926f1784b88a3d73063c9c22f6f6daa8a9153b72c75b0bcdfcd51a7c0d",
+    "test-events.jsonl": "ffc98ba596a2d56d8ebed313fec1201e0d3c98a0a5f4843504215e175ea8eb0d"
+  },
+  "disposition": "Investigate test-helper heartbeat publication; no production diagnosis or completed-task claim",
+  "historical_frozen_run": "38802794545",
+  "new_qualification_required": true,
+  "reduced_before": "publication-before.txt",
+  "reduced_after": "publication-after-wsl-race.txt",
+  "repair": "Test-only atomic heartbeat replacement and contextual helper diagnostics; no product deadline or production Go file changed",
+  "causality_limit": "The reduced checkpoint proves a real helper race compatible with exit8. The exact original hosted exit8 branch was not logged; the earlier historical exit0 failure also remains causally unexplained.",
+  "local_verification": {
+    "wsl_race": "10 repetitions of both atomic publication and real descendant cleanup passed",
+    "windows_vet": "Passed with project-local GOCACHE",
+    "windows_full_tests": "Passed native go test ./... with project-local GOCACHE and normal temp/console access",
+    "product_deadline_changes": 0,
+    "sandbox_failures": "Two sandboxed test attempts and one default-cache vet attempt failed access prerequisites; excluded from platform qualification"
+  },
+  "inputs_differing_from_e868": [
+    "internal/runner/adversarial_stubborn_unix_test.go"
+  ],
+  "production_go_and_module_inputs_unchanged": true
+}

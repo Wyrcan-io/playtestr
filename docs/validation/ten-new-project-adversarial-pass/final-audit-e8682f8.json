@@ -1,0 +1,227 @@
+{
+  "complete": true,
+  "errors": [],
+  "source": "e8682f866622442c421005c7f477cd45fcc66fc5",
+  "run": "38802794545",
+  "distinct_scenarios": 130,
+  "project_host_pairs": [
+    {
+      "project": "cookiecutter",
+      "host": "linux",
+      "ordinary_repetitions": 100,
+      "separate_final_state_probes": 100,
+      "runner_sha256": "1eec08e3589bad7bb9066fe72e6e8b44752c4153389d02a93de3cdc557f66844",
+      "actual_host": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "source_fault_controls": 3,
+      "owned_application_removed": true
+    },
+    {
+      "project": "cookiecutter",
+      "host": "windows",
+      "ordinary_repetitions": 100,
+      "separate_final_state_probes": 100,
+      "runner_sha256": "9a05973c401bd191b318329734539c8c3573581a74fc457e73829a9f3c884117",
+      "actual_host": "Windows-2025Server-10.0.26100-SP0",
+      "source_fault_controls": 3,
+      "owned_application_removed": true
+    },
+    {
+      "project": "copier",
+      "host": "linux",
+      "ordinary_repetitions": 120,
+      "separate_final_state_probes": 120,
+      "runner_sha256": "1eec08e3589bad7bb9066fe72e6e8b44752c4153389d02a93de3cdc557f66844",
+      "actual_host": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "source_fault_controls": 3,
+      "owned_application_removed": true
+    },
+    {
+      "project": "copier",
+      "host": "windows",
+      "ordinary_repetitions": 120,
+      "separate_final_state_probes": 120,
+      "runner_sha256": "9a05973c401bd191b318329734539c8c3573581a74fc457e73829a9f3c884117",
+      "actual_host": "Windows-2025Server-10.0.26100-SP0",
+      "source_fault_controls": 3,
+      "owned_application_removed": true
+    },
+    {
+      "project": "lf",
+      "host": "linux",
+      "ordinary_repetitions": 120,
+      "separate_final_state_probes": 120,
+      "runner_sha256": "1eec08e3589bad7bb9066fe72e6e8b44752c4153389d02a93de3cdc557f66844",
+      "actual_host": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "source_fault_controls": 3,
+      "owned_application_removed": true
+    },
+    {
+      "project": "lf",
+      "host": "windows",
+      "ordinary_repetitions": 120,
+      "separate_final_state_probes": 120,
+      "runner_sha256": "9a05973c401bd191b318329734539c8c3573581a74fc457e73829a9f3c884117",
+      "actual_host": "Windows-2025Server-10.0.26100-SP0",
+      "source_fault_controls": 3,
+      "owned_application_removed": true
+    },
+    {
+      "project": "superfile",
+      "host": "linux",
+      "ordinary_repetitions": 120,
+      "separate_final_state_probes": 120,
+      "runner_sha256": "1eec08e3589bad7bb9066fe72e6e8b44752c4153389d02a93de3cdc557f66844",
+      "actual_host": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "source_fault_controls": 3,
+      "owned_application_removed": true
+    },
+    {
+      "project": "superfile",
+      "host": "macos",
+      "ordinary_repetitions": 120,
+      "separate_final_state_probes": 120,
+      "runner_sha256": "e3fdfb495f1a0eb35d68a90a25e3be954577db7895f8daebae6a2d7e3a2789c3",
+      "actual_host": "macOS-15.7.9-arm64-arm-64bit",
+      "source_fault_controls": 3,
+      "owned_application_removed": true
+    },
+    {
+      "project": "helix",
+      "host": "linux",
+      "ordinary_repetitions": 120,
+      "separate_final_state_probes": 120,
+      "runner_sha256": "1eec08e3589bad7bb9066fe72e6e8b44752c4153389d02a93de3cdc557f66844",
+      "actual_host": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "source_fault_controls": 3,
+      "owned_application_removed": true
+    },
+    {
+      "project": "helix",
+      "host": "windows",
+      "ordinary_repetitions": 120,
+      "separate_final_state_probes": 120,
+      "runner_sha256": "9a05973c401bd191b318329734539c8c3573581a74fc457e73829a9f3c884117",
+      "actual_host": "Windows-2025Server-10.0.26100-SP0",
+      "source_fault_controls": 3,
+      "owned_application_removed": true
+    },
+    {
+      "project": "glow",
+      "host": "linux",
+      "ordinary_repetitions": 120,
+      "separate_final_state_probes": 120,
+      "runner_sha256": "1eec08e3589bad7bb9066fe72e6e8b44752c4153389d02a93de3cdc557f66844",
+      "actual_host": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "source_fault_controls": 3,
+      "owned_application_removed": true
+    },
+    {
+      "project": "glow",
+      "host": "macos",
+      "ordinary_repetitions": 120,
+      "separate_final_state_probes": 120,
+      "runner_sha256": "e3fdfb495f1a0eb35d68a90a25e3be954577db7895f8daebae6a2d7e3a2789c3",
+      "actual_host": "macOS-15.7.9-arm64-arm-64bit",
+      "source_fault_controls": 3,
+      "owned_application_removed": true
+    },
+    {
+      "project": "broot",
+      "host": "linux",
+      "ordinary_repetitions": 130,
+      "separate_final_state_probes": 130,
+      "runner_sha256": "1eec08e3589bad7bb9066fe72e6e8b44752c4153389d02a93de3cdc557f66844",
+      "actual_host": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "source_fault_controls": 3,
+      "owned_application_removed": true
+    },
+    {
+      "project": "broot",
+      "host": "macos",
+      "ordinary_repetitions": 130,
+      "separate_final_state_probes": 130,
+      "runner_sha256": "e3fdfb495f1a0eb35d68a90a25e3be954577db7895f8daebae6a2d7e3a2789c3",
+      "actual_host": "macOS-15.7.9-arm64-arm-64bit",
+      "source_fault_controls": 3,
+      "owned_application_removed": true
+    },
+    {
+      "project": "yazi",
+      "host": "linux",
+      "ordinary_repetitions": 140,
+      "separate_final_state_probes": 140,
+      "runner_sha256": "1eec08e3589bad7bb9066fe72e6e8b44752c4153389d02a93de3cdc557f66844",
+      "actual_host": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "source_fault_controls": 3,
+      "owned_application_removed": true
+    },
+    {
+      "project": "yazi",
+      "host": "macos",
+      "ordinary_repetitions": 140,
+      "separate_final_state_probes": 140,
+      "runner_sha256": "e3fdfb495f1a0eb35d68a90a25e3be954577db7895f8daebae6a2d7e3a2789c3",
+      "actual_host": "macOS-15.7.9-arm64-arm-64bit",
+      "source_fault_controls": 3,
+      "owned_application_removed": true
+    },
+    {
+      "project": "yazi",
+      "host": "windows",
+      "ordinary_repetitions": 140,
+      "separate_final_state_probes": 140,
+      "runner_sha256": "9a05973c401bd191b318329734539c8c3573581a74fc457e73829a9f3c884117",
+      "actual_host": "Windows-2025Server-10.0.26100-SP0",
+      "source_fault_controls": 3,
+      "owned_application_removed": true
+    },
+    {
+      "project": "ranger",
+      "host": "linux",
+      "ordinary_repetitions": 160,
+      "separate_final_state_probes": 160,
+      "runner_sha256": "1eec08e3589bad7bb9066fe72e6e8b44752c4153389d02a93de3cdc557f66844",
+      "actual_host": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "source_fault_controls": 3,
+      "owned_application_removed": true
+    },
+    {
+      "project": "ranger",
+      "host": "macos",
+      "ordinary_repetitions": 160,
+      "separate_final_state_probes": 160,
+      "runner_sha256": "e3fdfb495f1a0eb35d68a90a25e3be954577db7895f8daebae6a2d7e3a2789c3",
+      "actual_host": "macOS-15.7.9-arm64-arm-64bit",
+      "source_fault_controls": 3,
+      "owned_application_removed": true
+    },
+    {
+      "project": "nnn",
+      "host": "linux",
+      "ordinary_repetitions": 170,
+      "separate_final_state_probes": 170,
+      "runner_sha256": "1eec08e3589bad7bb9066fe72e6e8b44752c4153389d02a93de3cdc557f66844",
+      "actual_host": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "source_fault_controls": 4,
+      "owned_application_removed": true
+    },
+    {
+      "project": "nnn",
+      "host": "macos",
+      "ordinary_repetitions": 170,
+      "separate_final_state_probes": 170,
+      "runner_sha256": "e3fdfb495f1a0eb35d68a90a25e3be954577db7895f8daebae6a2d7e3a2789c3",
+      "actual_host": "macOS-15.7.9-arm64-arm-64bit",
+      "source_fault_controls": 4,
+      "owned_application_removed": true
+    }
+  ],
+  "ordinary_final_repetitions": 2740,
+  "linux_final_repetitions": 1300,
+  "source_fault_controls_across_hosts": 65,
+  "distinct_target_fault_controls": 31,
+  "distinct_saved_state_controls": 10,
+  "state_corruption_controls_across_hosts": 21,
+  "full_product_100_project_launch_credit": 0,
+  "limits": "Scoped deterministic terminal/state evidence; no exhaustive user coverage, novice study or commercial-readiness claim"
+}

@@ -1,0 +1,25 @@
+{
+  "run": "38802794545",
+  "source": "e8682f866622442c421005c7f477cd45fcc66fc5",
+  "runner_sha256": "1eec08e3589bad7bb9066fe72e6e8b44752c4153389d02a93de3cdc557f66844",
+  "host": "Linux",
+  "source_inputs_verified": true,
+  "binary_bytes_verified": true,
+  "events": {
+    "test-events.jsonl": {
+      "sha256": "cdabc78bde094793a9b2fbbe9eb50bbadf10c1f511eb58fae963e72d90821a20",
+      "applicable_mapped_controls_passed": 80
+    },
+    "race-events.jsonl": {
+      "sha256": "2e69113da726647407a00aaca6808bf2f7203b66fe2029fb3337030bac68f5d9",
+      "applicable_mapped_controls_passed": 80
+    }
+  },
+  "wizard_variants": [
+    {
+      "attempts": 100,
+      "sha256": "f2fa27e4e57bbbcf4d11ac537812653c0eae76531bf2f09b3657244adf216821"
+    }
+  ],
+  "scope": "Actual current frozen-host proof; full campaign qualification remains pending"
+}
