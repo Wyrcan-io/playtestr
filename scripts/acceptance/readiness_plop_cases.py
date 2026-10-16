@@ -50,7 +50,8 @@ def cases():
       ('E01','edge-validation-recovery.json','artifact',[
         {'expect':'Artifact name'},{'key':'Enter'},{'expect':'Enter a nonempty artifact name'},*answer('fixed'),
         {'expect':'fixed.txt'},{'exit':0},state('out/fixed.txt',value=b'name=fixed\n'),state('out','entries',['fixed.txt'])]),
-      ('E02','edge-collision.json','collision',flow('Collision attempt name','alpha','File already exists',1,[state('existing.txt',value=existing),state('out','absent')])),
+      ('E02','edge-collision.json','collision',flow('Collision attempt name','alpha','File already exists',1,[state('existing.txt',value=existing),state('out','absent'),
+        state('.','entries',['blocked','collision.txt','existing.txt','extended.cjs','plopfile.cjs','registry.txt','templates','unique-registry.txt','version.txt'])])),
       ('E03','edge-blocked-parent.json','blocked-parent',flow('Blocked output name','alpha','EEXIST',1,[state('blocked',value=b'reviewed regular ancestor\n')])),
       ('E04','edge-cancel-confirmation.json','optional',[
         {'expect':'Required artifact name'},*answer('cancelled'),{'expect':'Include optional file?'},{'key':'CtrlC'},
@@ -59,7 +60,7 @@ def cases():
         {'expect':'Please choose a generator.'},{'resize':{'width':100,'height':16}},{'wait_for_redraw':True},
         {'resize':{'width':80,'height':12}},{'wait_for_redraw':True},{'key':'ArrowDown'},{'key':'Enter'},
         {'expect':'Route name'},*answer('resized'),{'expect':'registry.txt'},{'exit':0},
-        state('registry.txt',value=b'prefix=preserve\nROUTES\nroute=resized\nsuffix=preserve\n')]),
+        state('registry.txt',value=b'prefix=preserve\nROUTES\nroute=resized\nsuffix=preserve\n'),state('modules','absent')]),
       ('E06','edge-long-choice.json','late-choice',[
         {'expect':'Choose a reviewed destination'},*[{'key':'ArrowDown'} for _ in range(17)],{'key':'Enter'},
         {'expect':'selection.txt'},{'exit':0},state('selection.txt',value=b'selected=item-18\n')]),

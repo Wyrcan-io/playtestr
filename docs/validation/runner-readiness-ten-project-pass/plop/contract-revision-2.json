@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "previous_manifest": "scenario-contracts-initial.json",
+  "changes": [
+    {
+      "spec": "edge-collision.json",
+      "sha256": "bd3403a29192f27e4c4ff88c383e1c096bb52fcf5b61b66b84792d4ed5797ce7"
+    },
+    {
+      "spec": "edge-resize-menu.json",
+      "sha256": "8109549be80a8f51cb3e80e878b816d41fd866a3f5b2569bda7911f9d2de26a8"
+    }
+  ],
+  "reason": "Align existing declared no-extra-entry and wrong-generator-absence requirements with explicit public assertions; no captured output or fault bytes supplied these expectations",
+  "native_requalification": "required; prior packets retained"
+}

@@ -29,10 +29,12 @@ async def main():
     folder.mkdir(parents=True)
     contracts={filename:sha256(PACKAGE/filename) for _,filename,_,_ in cases()}
     immutable_json(folder/'contracts-frozen-before-fault-selection.json',dict(
-        contracts=contracts,ordinary_development_passes=19,open_case='E05 repeated Windows resize',
+        contracts=contracts,ordinary_qualification='separate ordinary reports; this freeze earns no scenario credit',
+        known_windows_limitation='E05 repeated quiet resize remains unqualified',
         status='contract freeze only; project not qualified',runner_sha256=sha256(RAW/'bin/playtestr.exe' if os.name=='nt' else RAW/'bin/playtestr')))
-    # This selection happens after the immutable contract freeze above. No
-    # expectation is added to detect the selected same-length corruption.
+    # Replicate the three already selected project faults. The original Windows
+    # F03 packet preserves the one project holdout; native copies are not new
+    # holdouts. No expectation is added to detect its same-length corruption.
     definitions=[
       ('F01','packages/plop/src/plop.js','normal-version.json',
        '    runGeneratorByName(generatorName);','    runGeneratorByName(generatorNames[0]);',
@@ -44,7 +46,7 @@ async def main():
       ('F03','packages/node-plop/src/actions/_common-action-add-file.js','normal-artifact.json',
        'await fspp.writeFile(fileDestPath, transformedTemplate);',
        'await fspp.writeFile(fileDestPath, transformedTemplate.replace(/name=/g, "namo="));',
-       'Success screen retained while same-length persisted payload is corrupted',True),
+       'Success screen retained while same-length persisted payload is corrupted',False),
     ]
     immutable_json(folder/'selected-faults.json',dict(faults=[dict(id=d[0],source=d[1],spec=d[2],risk=d[5],held_out=d[6]) for d in definitions]))
     env=dict(os.environ);env['PATH']=str(RAW/'active/plop/bin')+os.pathsep+env['PATH']
@@ -104,7 +106,7 @@ async def main():
             if path.read_bytes()!=original:raise RuntimeError('exact source restoration failed')
         restored,restored_report=await test(identity,'restored',spec,0)
         if restored_report['status']!='passed':raise RuntimeError('unchanged test failed restoration')
-        receipt=dict(id=identity,held_out=heldout,baseline=baseline['id'],mutated=fault['id'],
+        receipt=dict(id=identity,held_out=heldout,replicates_original_project_holdout=identity=='F03',baseline=baseline['id'],mutated=fault['id'],
                      restored=restored['id'],source=relative,mutated_source_sha256=mutated_sha,
                      restored_source_sha256=sha256(path),spec_sha256=contracts[spec],
                      rejection=observed['failure']['category'],cleanup_confirmed=True)

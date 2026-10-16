@@ -1,5 +1,43 @@
 # Resume checkpoint
 
+17 October local-time checkpoint before signal-repair source commit:
+First Plop native run `38945857202` used runner source `e5571bd`; both Linux
+and macOS passed 19/20 cases, with only E04 failing because Go reported native
+SIGINT termination as -1. Both hosts nevertheless executed all three real fault
+replicas, maintenance and verified source/archive restore/removal; packets were
+retrieved (about 3.4 MiB). No project cell is admitted. The new general Unix
+process-status helper maps an actual signal to documented `128 + signal`.
+New real-PTY INT/TERM/mismatch plus same-run state tests await native execution.
+Windows normal code handling remains direct and unchanged.
+
+Bounded local property tests passed: path fuzz 25,584 executions, spec round-trip
+fuzz 413,712 executions, each declared 20 seconds and two workers. No minimized
+failure was found. A real symlink-replacement test is added; local Windows
+honestly skipped it because symlink privilege is unavailable. Unix/native
+coverage remains pending. The subsequent Windows full suite had one retained
+snapshot-rename access-denied failure; ten focused repetitions then passed.
+That is an unresolved residual, not proof of a repair. A subsequent Plop E02
+attempt timed out at startup before reaching the newly explicit root-entry
+assertion; preserve it with the earlier blank-screen startup observations.
+
+Core run `38945798531` at `f003cf1` passed Linux/macOS but Windows rejected two
+incidental overlong test installation roots without usable launch aliases.
+Version flood/hang controls passed there. Success fixtures now use compact
+owned temp names while retaining spaces; unsupported deep paths remain an
+explicit refusal, not a compatibility claim. Native alias lookup also now
+uses the documented extended input path form. Local supported-path plus
+version-bound tests passed (`1b528a99d4894e0582946378c305096f`). Requalify natively.
+
+E02/E05 now explicitly enforce their already-declared no-extra-entry and
+wrong-generator-output absence requirements (contract revision 2). Original
+hashes/reports are preserved. POSIX E05 passed its prior reviewed semantic
+profile; Windows E05 remains open. Native copies of F03 are replicas of the
+original Windows holdout, not new held-out faults.
+
+Next: commit/push the signal repair, repin the prepared Plop workflow to that
+exact source, dispatch both native cells again, and inspect all results/cleanup.
+Plop remains the sole active local application. No archive/migration admission.
+
 Latest checkpoint before the next corrective push: source remains unfrozen.
 Core run `38920729569` at `e5571bd` passed all dedicated checks on Linux amd64
 and macOS arm64, including race and the public saved-state journey. Windows

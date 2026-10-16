@@ -4,12 +4,20 @@ package runner
 
 import (
 	"errors"
+	"os"
 	"os/exec"
 	"syscall"
 )
 
 type processTree struct {
 	pid int
+}
+
+func terminalExitCode(state *os.ProcessState) int {
+	if status, ok := state.Sys().(syscall.WaitStatus); ok && status.Signaled() {
+		return 128 + int(status.Signal())
+	}
+	return state.ExitCode()
 }
 
 func configureProcess(cmd *exec.Cmd) {

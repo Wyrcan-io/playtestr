@@ -142,7 +142,7 @@ func newProcessOutcome(cmd *exec.Cmd) *processOutcome {
 		err := xpty.WaitProcess(context.Background(), cmd)
 		code := -1
 		if cmd.ProcessState != nil {
-			code = cmd.ProcessState.ExitCode()
+			code = terminalExitCode(cmd.ProcessState)
 		}
 		o.mu.Lock()
 		o.code = code

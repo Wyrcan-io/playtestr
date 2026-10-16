@@ -5,6 +5,7 @@ package runner
 import (
 	"errors"
 	"fmt"
+	"os"
 	"os/exec"
 	"syscall"
 	"unsafe"
@@ -15,6 +16,8 @@ import (
 type processTree struct {
 	job windows.Handle
 }
+
+func terminalExitCode(state *os.ProcessState) int { return state.ExitCode() }
 
 type jobAccounting struct {
 	TotalUserTime             int64

@@ -90,7 +90,7 @@ func TestSetupFixtureInvocationDetection(t *testing.T) {
 func TestSetupActionInstallsVerifiedBinaryAndOverridesStalePath(t *testing.T) {
 	requireSupportedHost(t)
 	releaseDir := makeRelease(t, nil)
-	root := filepath.Join(t.TempDir(), "installation root with spaces")
+	root := filepath.Join(installerTempDir(t), "installation root with spaces")
 	output := filepath.Join(t.TempDir(), "github output")
 	pathOutput := filepath.Join(t.TempDir(), "github path")
 
@@ -258,7 +258,7 @@ func TestSetupActionDownloadsVerifiedArchiveAndRunsOffline(t *testing.T) {
 	releaseDir := makeRelease(t, nil)
 	server := httptest.NewServer(http.StripPrefix("/"+testVersion+"/", http.FileServer(http.Dir(releaseDir))))
 
-	root := filepath.Join(t.TempDir(), "downloaded installation with spaces")
+	root := filepath.Join(installerTempDir(t), "downloaded installation with spaces")
 	output := filepath.Join(t.TempDir(), "github-output")
 	pathOutput := filepath.Join(t.TempDir(), "github-path")
 	result := runInstaller(t, "-Version", testVersion, "-InstallRoot", root,
@@ -484,6 +484,24 @@ func checkRequestTimeout(t *testing.T, drip bool) {
 type commandResult struct {
 	output string
 	err    error
+}
+
+// Keep execution fixtures within the native launch-path contract. t.TempDir's
+// full test-function prefix can itself add over 80 incidental characters under
+// an already deep checkout-owned TEMP. Archive/path rejection tests retain
+// their explicitly constructed inputs.
+func installerTempDir(t *testing.T) string {
+	t.Helper()
+	directory, err := os.MkdirTemp("", "playtestr-setup-")
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() {
+		if err := os.RemoveAll(directory); err != nil {
+			t.Error(err)
+		}
+	})
+	return directory
 }
 
 func runInstaller(t *testing.T, args ...string) commandResult {

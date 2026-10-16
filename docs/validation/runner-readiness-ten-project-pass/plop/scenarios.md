@@ -28,7 +28,7 @@ No fault or repetition counts as one of these scenarios.
 | E03 | Destination ancestor is a file | Fixture `out` is a regular file; attempt nested output | Visible action error, exit 1; ancestor bytes unchanged and intended child absent |
 | E04 | Cancel before optional confirmation with dirty pre-existing state | Name entered; cancel at confirmation | Exact native cancellation exit must be established from pinned reader before spec authoring; no outputs and old bytes unchanged |
 | E05 | Resize while selecting a nondefault generator | 80x12, select menu, resize to 100x16 and back; checkpoint redraw before navigation | Specific nondefault-generator prompt and intended output; other generator's output absent |
-| E06 | Off-screen choice in a long selector | More choices than supported viewport height; navigate to a named late item | Selected item's distinct follow-up prompt and exact output, not merely menu text |
+| E06 | Off-screen choice in a long selector | More choices than supported viewport height; navigate to a named late item | Specific generation result and exact selected item in saved output, not merely menu text |
 | E07 | Unicode/spaced nested path alongside existing dirty files | Explicit supported UTF-8 name and spaced path; preserve unrelated file | Exact encoded bytes/path set, successful save and unchanged unrelated data |
 | E08 | Multi-file generation preserves CRLF and binary NUL bytes | Reviewed raw binary and CRLF template fixtures | Successful addMany result, exit 0, byte-exact binary/text files and directory entries |
 | E09 | Append uniqueness with pre-existing matching content | Dirty registry already contains reviewed route; confirm append | No duplicate insertion, exact unrelated text preserved; exit 0 |

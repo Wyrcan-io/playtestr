@@ -5,6 +5,15 @@ Spec v3 retains [v2 workspace setup](spec-v2.md) and terminal actions, and adds
 one ordered `state` action. Its [schema](../schema/playtestr-spec-v3.schema.json)
 and [example](../examples/saved-state.json) accompany the implementation.
 
+The current source runner represents Unix signal termination with the shell
+status convention `128 + signal number`: SIGINT is 130 and SIGTERM is 143.
+This applies to terminal `exit` assertions in all supported spec versions.
+An explicitly declared matching status can pass; an undeclared or different
+termination still fails. The status alone does not distinguish a signal from
+an application that deliberately exits with that same integer. Windows retains
+its native process exit-code behavior. Older binaries may report an unavailable
+code for a signal and cannot supply this source capability.
+
 ```json
 {"state":{"path":"result.bin","kind":"file","bytes_base64":"AAo="}}
 ```

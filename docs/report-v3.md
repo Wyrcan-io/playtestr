@@ -1,5 +1,10 @@
 # Machine report version 3
 
+In the current source, a Unix signal-terminated target has a normalized
+`exit_code` of `128 + signal number` (for example SIGINT 130). This is the public
+terminal exit-status convention, not an assertion that the target called
+`exit(130)`. Unknown process-wait failures still have no available exit code.
+
 Source candidate only. A suite containing spec v3 produces report v3; all-v1
 and v1/v2 suites keep their existing formats. The
 [schema](../schema/playtestr-report-v3.schema.json) retains report v2 fields and

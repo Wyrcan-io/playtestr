@@ -48,8 +48,14 @@ public static class PlaytestrSetupNativePath {
 '@
         }
         $buffer = New-Object System.Text.StringBuilder 32768
-        $length = [PlaytestrSetupNativePath]::GetShortPathName($Binary, $buffer, 32768)
-        if ($length -gt 0 -and $length -lt 32768 -and $buffer.Length -lt 260) { return $buffer.ToString() }
+        $nativePath = if ($Binary.StartsWith('\\')) { '\\?\UNC\' + $Binary.Substring(2) } else { '\\?\' + $Binary }
+        $length = [PlaytestrSetupNativePath]::GetShortPathName($nativePath, $buffer, 32768)
+        if ($length -gt 0 -and $length -lt 32768) {
+            $alias = $buffer.ToString()
+            if ($alias.StartsWith('\\?\UNC\')) { $alias = '\\' + $alias.Substring(8) }
+            elseif ($alias.StartsWith('\\?\')) { $alias = $alias.Substring(4) }
+            if ($alias.Length -lt 260) { return $alias }
+        }
         throw 'native binary launch path exceeds MAX_PATH and has no usable existing alias; choose a shorter installation root'
     }
     return $Binary
