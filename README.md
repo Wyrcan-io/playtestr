@@ -192,7 +192,7 @@ The first three commands fail promptly, report why they stopped, confirm their c
 
 The tested terminal behavior and known emulator gaps are recorded in [Terminal compatibility](docs/terminal-compatibility.md). Compatibility with one application does not certify every terminal application.
 
-Windows uses a Job Object and Unix uses a dedicated process group to terminate managed descendants. The current xpty API starts a Windows target immediately before Playtestr can attach it to the Job Object, leaving a small launch-to-attachment window in which a very early child could escape management. Unix descendants can deliberately detach into another session. Only test trusted applications; local PTY execution is not a sandbox.
+Windows uses a Job Object and Unix uses a dedicated process group to terminate managed descendants. The current source candidate starts a Windows target suspended, attaches its Job Object, then resumes execution; [native regression evidence](docs/validation/ten-new-project-adversarial-pass/core/startup-repair.json) covers immediate child and grandchild creation. This closes the earlier prototype's launch-to-attachment window; published archives retain their documented behavior. Unix descendants can deliberately detach into another session. Only test trusted applications; local PTY execution is not a sandbox.
 
 The GitHub Actions matrix runs native tests on Linux, macOS, and Windows and retains machine reports, screens, and diffs from its deliberate-failure check. Native and published-release results are recorded in [Platform support](docs/platform-support.md). Releases are packaged by a separate workflow; the process is documented in [Releasing](docs/releasing.md).
 
