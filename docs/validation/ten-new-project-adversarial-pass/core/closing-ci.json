@@ -1,0 +1,1045 @@
+{
+  "verified_utc": "2026-10-16T06:37:52.501263+00:00",
+  "scope": "Closing CI for the published evidence and collector repair. No external-project repetition credit is added.",
+  "qualified_runner_source": "5f8867aa88aa0f3d6727bc64021b9a906617b58c",
+  "tested_packaging_source": "c65709aca75d1e5f4691a8db520bcaac3f643b98",
+  "all_frozen_go_inputs_still_match": true,
+  "harness_checks": 31,
+  "harness_actual_logs": [
+    {
+      "host": "Linux",
+      "job": 116843769812,
+      "source": "c65709aca75d1e5f4691a8db520bcaac3f643b98",
+      "excerpt": "closing-ci-harness-Linux.txt",
+      "sha256": "0d75f7118a860bc14747296d5e6f954a4878c4ec5cd47e86a91f610dc9da534e"
+    },
+    {
+      "host": "Darwin",
+      "job": 116843769970,
+      "source": "c65709aca75d1e5f4691a8db520bcaac3f643b98",
+      "excerpt": "closing-ci-harness-Darwin.txt",
+      "sha256": "b34d3a1301fa4220e576b7f15210a84cb5d57b00f67b89d4fe8dab870c1ea6a1"
+    },
+    {
+      "host": "Windows",
+      "job": 116843770110,
+      "source": "c65709aca75d1e5f4691a8db520bcaac3f643b98",
+      "excerpt": "closing-ci-harness-Windows.txt",
+      "sha256": "cd223089c7b2e4d4b53838ca1d11c596232d364a5ee5d8c9638a8a7ba0942ba3"
+    }
+  ],
+  "runs": [
+    {
+      "conclusion": "success",
+      "headSha": "c65709aca75d1e5f4691a8db520bcaac3f643b98",
+      "jobs": [
+        {
+          "completedAt": "2026-10-16T06:32:41Z",
+          "conclusion": "success",
+          "databaseId": 116843769112,
+          "name": "test (ubuntu-24.04)",
+          "startedAt": "2026-10-16T06:26:48Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-10-16T06:26:50Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-16T06:26:49Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:26:57Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "number": 2,
+              "startedAt": "2026-10-16T06:26:50Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:26:57Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+              "number": 3,
+              "startedAt": "2026-10-16T06:26:57Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:26:57Z",
+              "conclusion": "success",
+              "name": "Verify evidence-tool failure controls",
+              "number": 4,
+              "startedAt": "2026-10-16T06:26:57Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:26:57Z",
+              "conclusion": "success",
+              "name": "Verify CI summary failure controls",
+              "number": 5,
+              "startedAt": "2026-10-16T06:26:57Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:26:58Z",
+              "conclusion": "success",
+              "name": "Verify published prerelease installation and greeting documentation",
+              "number": 6,
+              "startedAt": "2026-10-16T06:26:57Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:27:09Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+              "number": 7,
+              "startedAt": "2026-10-16T06:26:58Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:27:56Z",
+              "conclusion": "success",
+              "name": "Run go test -count=1 ./...",
+              "number": 8,
+              "startedAt": "2026-10-16T06:27:09Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:27:59Z",
+              "conclusion": "success",
+              "name": "Run go vet ./...",
+              "number": 9,
+              "startedAt": "2026-10-16T06:27:56Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:30:30Z",
+              "conclusion": "success",
+              "name": "Native race checks",
+              "number": 10,
+              "startedAt": "2026-10-16T06:27:59Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:30:31Z",
+              "conclusion": "success",
+              "name": "Run go build -o bin/demo ./cmd/demo",
+              "number": 11,
+              "startedAt": "2026-10-16T06:30:30Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:30:32Z",
+              "conclusion": "success",
+              "name": "Run go build -o bin/fixture ./cmd/fixture",
+              "number": 12,
+              "startedAt": "2026-10-16T06:30:31Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:30:38Z",
+              "conclusion": "success",
+              "name": "Run go build -trimpath -ldflags \"-X github.com/Wyrcan-io/playtestr/internal/buildinfo.Version=ci\" -o bin/playtestr ./cmd/playtestr",
+              "number": 13,
+              "startedAt": "2026-10-16T06:30:32Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:30:46Z",
+              "conclusion": "success",
+              "name": "Install pinned external TUI",
+              "number": 14,
+              "startedAt": "2026-10-16T06:30:38Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:32:32Z",
+              "conclusion": "success",
+              "name": "Record, fresh replay, mutate target and recover",
+              "number": 15,
+              "startedAt": "2026-10-16T06:30:46Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:32:38Z",
+              "conclusion": "success",
+              "name": "Run passing acceptance specs",
+              "number": 16,
+              "startedAt": "2026-10-16T06:32:32Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:32:38Z",
+              "conclusion": "success",
+              "name": "Run deliberate screen regression",
+              "number": 17,
+              "startedAt": "2026-10-16T06:32:38Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:32:39Z",
+              "conclusion": "success",
+              "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+              "number": 18,
+              "startedAt": "2026-10-16T06:32:38Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:32:39Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+              "number": 34,
+              "startedAt": "2026-10-16T06:32:39Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:32:39Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+              "number": 35,
+              "startedAt": "2026-10-16T06:32:39Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:32:39Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "number": 36,
+              "startedAt": "2026-10-16T06:32:39Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:32:39Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 37,
+              "startedAt": "2026-10-16T06:32:39Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/38861240671/job/116843769112"
+        },
+        {
+          "completedAt": "2026-10-16T06:33:24Z",
+          "conclusion": "success",
+          "databaseId": 116843769352,
+          "name": "test (windows-2025)",
+          "startedAt": "2026-10-16T06:26:48Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-10-16T06:26:50Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-16T06:26:49Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:27:03Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "number": 2,
+              "startedAt": "2026-10-16T06:26:50Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:27:03Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+              "number": 3,
+              "startedAt": "2026-10-16T06:27:03Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:27:05Z",
+              "conclusion": "success",
+              "name": "Verify evidence-tool failure controls",
+              "number": 4,
+              "startedAt": "2026-10-16T06:27:03Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:27:05Z",
+              "conclusion": "success",
+              "name": "Verify CI summary failure controls",
+              "number": 5,
+              "startedAt": "2026-10-16T06:27:05Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:27:08Z",
+              "conclusion": "success",
+              "name": "Verify published prerelease installation and greeting documentation",
+              "number": 6,
+              "startedAt": "2026-10-16T06:27:05Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:27:33Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+              "number": 7,
+              "startedAt": "2026-10-16T06:27:08Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:28:51Z",
+              "conclusion": "success",
+              "name": "Run go test -count=1 ./...",
+              "number": 8,
+              "startedAt": "2026-10-16T06:27:33Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:28:55Z",
+              "conclusion": "success",
+              "name": "Run go vet ./...",
+              "number": 9,
+              "startedAt": "2026-10-16T06:28:51Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:32:17Z",
+              "conclusion": "success",
+              "name": "Native race checks",
+              "number": 10,
+              "startedAt": "2026-10-16T06:28:55Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:32:18Z",
+              "conclusion": "success",
+              "name": "Run go build -o bin/demo.exe ./cmd/demo",
+              "number": 11,
+              "startedAt": "2026-10-16T06:32:17Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:32:19Z",
+              "conclusion": "success",
+              "name": "Run go build -o bin/fixture.exe ./cmd/fixture",
+              "number": 12,
+              "startedAt": "2026-10-16T06:32:18Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:32:27Z",
+              "conclusion": "success",
+              "name": "Run go build -trimpath -ldflags \"-X github.com/Wyrcan-io/playtestr/internal/buildinfo.Version=ci\" -o bin/playtestr.exe ./cmd/playtestr",
+              "number": 13,
+              "startedAt": "2026-10-16T06:32:19Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:32:36Z",
+              "conclusion": "success",
+              "name": "Install pinned external TUI",
+              "number": 14,
+              "startedAt": "2026-10-16T06:32:27Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:33:16Z",
+              "conclusion": "success",
+              "name": "Record, fresh replay, mutate target and recover",
+              "number": 15,
+              "startedAt": "2026-10-16T06:32:36Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:33:19Z",
+              "conclusion": "success",
+              "name": "Run passing acceptance specs",
+              "number": 16,
+              "startedAt": "2026-10-16T06:33:16Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:33:19Z",
+              "conclusion": "success",
+              "name": "Run deliberate screen regression",
+              "number": 17,
+              "startedAt": "2026-10-16T06:33:19Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:33:20Z",
+              "conclusion": "success",
+              "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+              "number": 18,
+              "startedAt": "2026-10-16T06:33:19Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:33:20Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+              "number": 34,
+              "startedAt": "2026-10-16T06:33:20Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:33:20Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+              "number": 35,
+              "startedAt": "2026-10-16T06:33:20Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:33:22Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "number": 36,
+              "startedAt": "2026-10-16T06:33:20Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:33:22Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 37,
+              "startedAt": "2026-10-16T06:33:22Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/38861240671/job/116843769352"
+        },
+        {
+          "completedAt": "2026-10-16T06:34:46Z",
+          "conclusion": "success",
+          "databaseId": 116843769371,
+          "name": "test (macos-15)",
+          "startedAt": "2026-10-16T06:26:54Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-10-16T06:26:55Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-16T06:26:54Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:27:05Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "number": 2,
+              "startedAt": "2026-10-16T06:26:56Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:27:05Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+              "number": 3,
+              "startedAt": "2026-10-16T06:27:05Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:27:06Z",
+              "conclusion": "success",
+              "name": "Verify evidence-tool failure controls",
+              "number": 4,
+              "startedAt": "2026-10-16T06:27:05Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:27:06Z",
+              "conclusion": "success",
+              "name": "Verify CI summary failure controls",
+              "number": 5,
+              "startedAt": "2026-10-16T06:27:06Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:27:08Z",
+              "conclusion": "success",
+              "name": "Verify published prerelease installation and greeting documentation",
+              "number": 6,
+              "startedAt": "2026-10-16T06:27:06Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:27:30Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+              "number": 7,
+              "startedAt": "2026-10-16T06:27:08Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:28:46Z",
+              "conclusion": "success",
+              "name": "Run go test -count=1 ./...",
+              "number": 8,
+              "startedAt": "2026-10-16T06:27:30Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:28:51Z",
+              "conclusion": "success",
+              "name": "Run go vet ./...",
+              "number": 9,
+              "startedAt": "2026-10-16T06:28:46Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:32:15Z",
+              "conclusion": "success",
+              "name": "Native race checks",
+              "number": 10,
+              "startedAt": "2026-10-16T06:28:51Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:32:16Z",
+              "conclusion": "success",
+              "name": "Run go build -o bin/demo ./cmd/demo",
+              "number": 11,
+              "startedAt": "2026-10-16T06:32:15Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:32:17Z",
+              "conclusion": "success",
+              "name": "Run go build -o bin/fixture ./cmd/fixture",
+              "number": 12,
+              "startedAt": "2026-10-16T06:32:16Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:32:24Z",
+              "conclusion": "success",
+              "name": "Run go build -trimpath -ldflags \"-X github.com/Wyrcan-io/playtestr/internal/buildinfo.Version=ci\" -o bin/playtestr ./cmd/playtestr",
+              "number": 13,
+              "startedAt": "2026-10-16T06:32:17Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:32:31Z",
+              "conclusion": "success",
+              "name": "Install pinned external TUI",
+              "number": 14,
+              "startedAt": "2026-10-16T06:32:24Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:34:32Z",
+              "conclusion": "success",
+              "name": "Record, fresh replay, mutate target and recover",
+              "number": 15,
+              "startedAt": "2026-10-16T06:32:31Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:34:39Z",
+              "conclusion": "success",
+              "name": "Run passing acceptance specs",
+              "number": 16,
+              "startedAt": "2026-10-16T06:34:32Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:34:39Z",
+              "conclusion": "success",
+              "name": "Run deliberate screen regression",
+              "number": 17,
+              "startedAt": "2026-10-16T06:34:39Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:34:40Z",
+              "conclusion": "success",
+              "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+              "number": 18,
+              "startedAt": "2026-10-16T06:34:39Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:34:41Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+              "number": 34,
+              "startedAt": "2026-10-16T06:34:40Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:34:41Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+              "number": 35,
+              "startedAt": "2026-10-16T06:34:41Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:34:41Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "number": 36,
+              "startedAt": "2026-10-16T06:34:41Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:34:42Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 37,
+              "startedAt": "2026-10-16T06:34:41Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/38861240671/job/116843769371"
+        }
+      ],
+      "status": "completed",
+      "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/38861240671",
+      "run_id": "38861240671"
+    },
+    {
+      "conclusion": "success",
+      "headSha": "c65709aca75d1e5f4691a8db520bcaac3f643b98",
+      "jobs": [
+        {
+          "completedAt": "2026-10-16T06:32:14Z",
+          "conclusion": "success",
+          "databaseId": 116843769812,
+          "name": "controls (ubuntu-24.04)",
+          "startedAt": "2026-10-16T06:26:49Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-10-16T06:26:52Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-16T06:26:50Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:26:59Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "number": 2,
+              "startedAt": "2026-10-16T06:26:52Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:26:59Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+              "number": 3,
+              "startedAt": "2026-10-16T06:26:59Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:27:11Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+              "number": 4,
+              "startedAt": "2026-10-16T06:26:59Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:27:35Z",
+              "conclusion": "success",
+              "name": "Native bounded process and state oracle calibration",
+              "number": 5,
+              "startedAt": "2026-10-16T06:27:11Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:27:35Z",
+              "conclusion": "skipped",
+              "name": "Real Windows startup regression before and after repair",
+              "number": 6,
+              "startedAt": "2026-10-16T06:27:35Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:27:35Z",
+              "conclusion": "skipped",
+              "name": "Real Windows short-path regression before and after repair",
+              "number": 7,
+              "startedAt": "2026-10-16T06:27:35Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:30:57Z",
+              "conclusion": "success",
+              "name": "Actual native product events",
+              "number": 8,
+              "startedAt": "2026-10-16T06:27:35Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:31:58Z",
+              "conclusion": "success",
+              "name": "Historical wizard sequence with retained failure screens",
+              "number": 9,
+              "startedAt": "2026-10-16T06:30:57Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:31:58Z",
+              "conclusion": "skipped",
+              "name": "Instrumented Windows wizard confirmation and saved-file diagnosis",
+              "number": 10,
+              "startedAt": "2026-10-16T06:31:58Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:32:11Z",
+              "conclusion": "success",
+              "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+              "number": 11,
+              "startedAt": "2026-10-16T06:31:58Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:32:11Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+              "number": 20,
+              "startedAt": "2026-10-16T06:32:11Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:32:11Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+              "number": 21,
+              "startedAt": "2026-10-16T06:32:11Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:32:11Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "number": 22,
+              "startedAt": "2026-10-16T06:32:11Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:32:12Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 23,
+              "startedAt": "2026-10-16T06:32:11Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/38861240793/job/116843769812"
+        },
+        {
+          "completedAt": "2026-10-16T06:35:36Z",
+          "conclusion": "success",
+          "databaseId": 116843769970,
+          "name": "controls (macos-15)",
+          "startedAt": "2026-10-16T06:26:55Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-10-16T06:26:57Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-16T06:26:56Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:27:08Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "number": 2,
+              "startedAt": "2026-10-16T06:26:57Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:27:08Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+              "number": 3,
+              "startedAt": "2026-10-16T06:27:08Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:27:31Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+              "number": 4,
+              "startedAt": "2026-10-16T06:27:08Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:27:52Z",
+              "conclusion": "success",
+              "name": "Native bounded process and state oracle calibration",
+              "number": 5,
+              "startedAt": "2026-10-16T06:27:31Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:27:52Z",
+              "conclusion": "skipped",
+              "name": "Real Windows startup regression before and after repair",
+              "number": 6,
+              "startedAt": "2026-10-16T06:27:52Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:27:52Z",
+              "conclusion": "skipped",
+              "name": "Real Windows short-path regression before and after repair",
+              "number": 7,
+              "startedAt": "2026-10-16T06:27:52Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:33:45Z",
+              "conclusion": "success",
+              "name": "Actual native product events",
+              "number": 8,
+              "startedAt": "2026-10-16T06:27:52Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:35:14Z",
+              "conclusion": "success",
+              "name": "Historical wizard sequence with retained failure screens",
+              "number": 9,
+              "startedAt": "2026-10-16T06:33:45Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:35:14Z",
+              "conclusion": "skipped",
+              "name": "Instrumented Windows wizard confirmation and saved-file diagnosis",
+              "number": 10,
+              "startedAt": "2026-10-16T06:35:14Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:35:29Z",
+              "conclusion": "success",
+              "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+              "number": 11,
+              "startedAt": "2026-10-16T06:35:14Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:35:29Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+              "number": 20,
+              "startedAt": "2026-10-16T06:35:29Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:35:29Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+              "number": 21,
+              "startedAt": "2026-10-16T06:35:29Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:35:30Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "number": 22,
+              "startedAt": "2026-10-16T06:35:29Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:35:33Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 23,
+              "startedAt": "2026-10-16T06:35:30Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/38861240793/job/116843769970"
+        },
+        {
+          "completedAt": "2026-10-16T06:36:35Z",
+          "conclusion": "success",
+          "databaseId": 116843770110,
+          "name": "controls (windows-2025)",
+          "startedAt": "2026-10-16T06:26:49Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-10-16T06:26:52Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-16T06:26:50Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:27:09Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "number": 2,
+              "startedAt": "2026-10-16T06:26:52Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:27:09Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+              "number": 3,
+              "startedAt": "2026-10-16T06:27:09Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:27:49Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+              "number": 4,
+              "startedAt": "2026-10-16T06:27:09Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:27:57Z",
+              "conclusion": "success",
+              "name": "Native bounded process and state oracle calibration",
+              "number": 5,
+              "startedAt": "2026-10-16T06:27:49Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:28:18Z",
+              "conclusion": "success",
+              "name": "Real Windows startup regression before and after repair",
+              "number": 6,
+              "startedAt": "2026-10-16T06:27:57Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:28:24Z",
+              "conclusion": "success",
+              "name": "Real Windows short-path regression before and after repair",
+              "number": 7,
+              "startedAt": "2026-10-16T06:28:18Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:33:39Z",
+              "conclusion": "success",
+              "name": "Actual native product events",
+              "number": 8,
+              "startedAt": "2026-10-16T06:28:24Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:35:05Z",
+              "conclusion": "success",
+              "name": "Historical wizard sequence with retained failure screens",
+              "number": 9,
+              "startedAt": "2026-10-16T06:33:39Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:36:14Z",
+              "conclusion": "success",
+              "name": "Instrumented Windows wizard confirmation and saved-file diagnosis",
+              "number": 10,
+              "startedAt": "2026-10-16T06:35:05Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:36:30Z",
+              "conclusion": "success",
+              "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+              "number": 11,
+              "startedAt": "2026-10-16T06:36:14Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:36:30Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+              "number": 20,
+              "startedAt": "2026-10-16T06:36:30Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:36:30Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+              "number": 21,
+              "startedAt": "2026-10-16T06:36:30Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:36:33Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "number": 22,
+              "startedAt": "2026-10-16T06:36:30Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-16T06:36:33Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 23,
+              "startedAt": "2026-10-16T06:36:33Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/38861240793/job/116843770110"
+        },
+        {
+          "completedAt": "2026-10-16T06:26:46Z",
+          "conclusion": "skipped",
+          "databaseId": 116843771037,
+          "name": "project",
+          "startedAt": "2026-10-16T06:26:47Z",
+          "status": "completed",
+          "steps": [],
+          "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/38861240793/job/116843771037"
+        },
+        {
+          "completedAt": "2026-10-16T06:26:46Z",
+          "conclusion": "skipped",
+          "databaseId": 116843771168,
+          "name": "ranger-startup-probe",
+          "startedAt": "2026-10-16T06:26:47Z",
+          "status": "completed",
+          "steps": [],
+          "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/38861240793/job/116843771168"
+        },
+        {
+          "completedAt": "2026-10-16T06:26:46Z",
+          "conclusion": "skipped",
+          "databaseId": 116843771305,
+          "name": "copier-startup-probe",
+          "startedAt": "2026-10-16T06:26:47Z",
+          "status": "completed",
+          "steps": [],
+          "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/38861240793/job/116843771305"
+        },
+        {
+          "completedAt": "2026-10-16T06:26:46Z",
+          "conclusion": "skipped",
+          "databaseId": 116843771369,
+          "name": "final-campaign",
+          "startedAt": "2026-10-16T06:26:47Z",
+          "status": "completed",
+          "steps": [],
+          "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/38861240793/job/116843771369"
+        }
+      ],
+      "status": "completed",
+      "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/38861240793",
+      "run_id": "38861240793"
+    }
+  ]
+}
