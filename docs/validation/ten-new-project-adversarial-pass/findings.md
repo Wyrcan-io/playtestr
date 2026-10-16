@@ -12,7 +12,7 @@ Latest general product repairs:
 
 Latest validation findings:
 
-- Publishing the retained deep evidence paths exposed a real Windows source-checkout failure before test execution in runs 38830301887 and 38830302005. All 18 applicable native workflow files now supply Git core.longpaths through workflow-scoped environment configuration before checkout. The source-development guide documents the clone prerequisite. A local Windows sparse clone did not reproduce the hosted failure, so it supplies no before-fail claim; corrected hosted CI remains the acceptance gate. [Actual errors and scope](core/windows-evidence-checkout-repair.json).
+- Publishing the retained deep evidence paths exposed a real Windows source-checkout failure before test execution in runs 38830301887 and 38830302005. All 18 applicable native workflow files now supply Git core.longpaths through workflow-scoped environment configuration before checkout. The source-development guide documents the clone prerequisite. A local Windows sparse clone did not reproduce the hosted failure, so it supplies no before-fail claim; The exact failing checkout step passed in both corrected native Windows jobs, runs 38830901944 and 38830901998; the machine receipt retains their actual step metadata. [Actual errors and scope](core/windows-evidence-checkout-repair.json).
 
 - Final publication check: generic generated-screen ignore rules excluded 209 native manifest-declared screens/diffs from Git. Narrow retained-native-evidence exceptions fixed publication; all 3,241 declared files across completed native collections now match their recorded hashes and index bytes. General generated-artifact exclusions remain active. [Before/after check](core/evidence-publication-check.json).
 

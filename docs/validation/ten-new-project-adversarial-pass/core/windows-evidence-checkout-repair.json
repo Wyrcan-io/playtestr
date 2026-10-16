@@ -35,7 +35,42 @@
   "changed_workflow_actionlint_files": 18,
   "source_install_guide": "../../../development.md",
   "cleanup_pending": false,
-  "after_hosted": "Pending actual corrected CI; no hosted repair acceptance claimed yet",
+  "after_hosted": {
+    "verified_utc": "2026-10-16T00:43:12.377853+00:00",
+    "checkout_successes": [
+      {
+        "run": "38830901944",
+        "source": "03da9801f1280dcb0045b7fca64533d0d6b275d2",
+        "job_id": 116749198075,
+        "job": "test (windows-2025)",
+        "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/38830901944/job/116749198075",
+        "checkout_step": {
+          "completedAt": "2026-10-16T00:41:42Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "number": 2,
+          "startedAt": "2026-10-16T00:41:28Z",
+          "status": "completed"
+        }
+      },
+      {
+        "run": "38830901998",
+        "source": "03da9801f1280dcb0045b7fca64533d0d6b275d2",
+        "job_id": 116749198225,
+        "job": "controls (windows-2025)",
+        "url": "https://github.com/Wyrcan-io/playtestr/actions/runs/38830901998/job/116749198225",
+        "checkout_step": {
+          "completedAt": "2026-10-16T00:41:44Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "number": 2,
+          "startedAt": "2026-10-16T00:41:29Z",
+          "status": "completed"
+        }
+      }
+    ],
+    "scope": "Exact originally failing checkout step passed on native Windows in both corrected workflow jobs. Full-suite conclusions are separate CI outcomes."
+  },
   "setup_note": "Three initial clone attempts failed the exact source repository ownership check. Temporary process-scoped safe.directory config for this trusted workspace and its .git enabled the clone; no global user configuration changed.",
   "frozen_go_inputs_changed": false,
   "owned_sparse_clone_removed": true
