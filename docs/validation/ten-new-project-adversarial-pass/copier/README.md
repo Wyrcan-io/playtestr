@@ -41,3 +41,7 @@ its failed diff with zero inter-hunk context. Git versions are recorded in the
 native recipe. No merge-conflict preservation or all-Git-version claim is made.
 
 The successful [native run](https://github.com/Wyrcan-io/playtestr/actions/runs/38117318191) retained [actual reports, state probes, source faults, restoration and hosted cleanup](../native/38117318191/manifest.json). Each application host completed 120 ordinary replays and 120 separate current-workspace file-state probes. All three product control hosts also passed. Local Windows and WSL copies were subsequently removed; local deletion receipts prove local teardown, while hosted receipts qualify hosted repetitions.
+
+## Final frozen qualification
+
+Final source `e8682f866622442c421005c7f477cd45fcc66fc5` / [run 38802794545](https://github.com/Wyrcan-io/playtestr/actions/runs/38802794545) passed the strict batch audit on Linux, Windows: 120 ordinary plus 120 separate final-group state probes per host, real source-fault/restoration controls and verified owned removal. [Machine receipt](final-frozen-qualification.json). Earlier pending text records development-time status; this receipt qualifies only the stated terminal/state matrix. [Usability limits](../usability-assessment.md) and [remaining limitations](../limitations.md) still apply.

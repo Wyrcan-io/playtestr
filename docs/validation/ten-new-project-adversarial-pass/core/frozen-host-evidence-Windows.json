@@ -1,27 +1,29 @@
 {
-  "run": "38793208349",
-  "source": "be139a399009bc1c01e252d53f4bfd357cb65c1b",
-  "runner_sha256": "87d44d661be2789436973a6d60bd423089efa57244ac2d50f6e07018f3ef3cc0",
+  "run": "38802794545",
+  "source": "e8682f866622442c421005c7f477cd45fcc66fc5",
+  "runner_sha256": "9a05973c401bd191b318329734539c8c3573581a74fc457e73829a9f3c884117",
   "host": "Windows",
+  "source_inputs_verified": true,
+  "binary_bytes_verified": true,
   "events": {
     "test-events.jsonl": {
-      "sha256": "fe173af547e33cb73c55d7e9c216430fa08f08420e84409d22187ffdec9bfc97",
-      "passed_tests": 376
+      "sha256": "13713a22b816064c6263cc79eb7b94ce60f443240ce6924ed773de0867523f14",
+      "applicable_mapped_controls_passed": 86
     },
     "race-events.jsonl": {
-      "sha256": "6b67be2ebf4b1492ef959212a533c2feaaec325c96b16e81621b52ba5a90aff5",
-      "passed_tests": 376
+      "sha256": "e56f94f4e15a7ce282d76c1defadb85718705c0772083dff398edf7526b09151",
+      "applicable_mapped_controls_passed": 86
     }
   },
   "wizard_variants": [
     {
       "attempts": 100,
-      "summary_sha256": "c06aa20423b3529933f78ce36e8e246d022326af4165658f0dc7d72d8b78ef4b"
+      "sha256": "7ddfaed527c058302de0bbed764d9c364a2540a699e3e093030d86c2992a5caf"
     },
     {
       "attempts": 100,
-      "summary_sha256": "9d8658b38b29b508b60c954e3c2f946ffc78c307ddd5102a36493f3b8a10e920"
+      "sha256": "51403ae0108360da60aa51ab301798377672db1399e9f920df7e8edd6a89acfc"
     }
   ],
-  "scope": "Actual frozen host controls and wizard receipts; no application qualification or final campaign credit"
+  "scope": "Actual current frozen-host proof; full campaign qualification remains pending"
 }

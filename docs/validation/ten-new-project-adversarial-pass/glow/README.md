@@ -131,3 +131,7 @@ integration, full application coverage or beginner usability is claimed.
 
 
 Final development update: native run38485822527 atad7f00ac9d375e1e72a8b45c17ee8cb71c3da97b passed all five jobs. Linux and macOS each completed12 scenarios,120 ordinary plus120 independent state repetitions, all source faults/restoration and verified owned deletion with the latest selected-result/redraw recipe. All three native core/race and seventeen-control harness jobs passed; standard38485822523 passed. Both local owned application trees are removed. Six projects are development-complete; final single-source qualification remains pending.
+
+## Final frozen qualification
+
+Final source `e8682f866622442c421005c7f477cd45fcc66fc5` / [run 38802794545](https://github.com/Wyrcan-io/playtestr/actions/runs/38802794545) passed the strict batch audit on Linux, macOS: 120 ordinary plus 120 separate final-group state probes per host, real source-fault/restoration controls and verified owned removal. [Machine receipt](final-frozen-qualification.json). Earlier pending text records development-time status; this receipt qualifies only the stated terminal/state matrix. [Usability limits](../usability-assessment.md) and [remaining limitations](../limitations.md) still apply.

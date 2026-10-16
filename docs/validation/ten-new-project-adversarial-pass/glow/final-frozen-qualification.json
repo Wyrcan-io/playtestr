@@ -1,0 +1,29 @@
+{
+  "run": "38802794545",
+  "source": "e8682f866622442c421005c7f477cd45fcc66fc5",
+  "qualified_project_host_pairs": [
+    {
+      "project": "glow",
+      "host": "linux",
+      "ordinary_repetitions": 120,
+      "separate_final_state_probes": 120,
+      "runner_sha256": "1eec08e3589bad7bb9066fe72e6e8b44752c4153389d02a93de3cdc557f66844",
+      "actual_host": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "source_fault_controls": 3,
+      "owned_application_removed": true
+    },
+    {
+      "project": "glow",
+      "host": "macos",
+      "ordinary_repetitions": 120,
+      "separate_final_state_probes": 120,
+      "runner_sha256": "e3fdfb495f1a0eb35d68a90a25e3be954577db7895f8daebae6a2d7e3a2789c3",
+      "actual_host": "macOS-15.7.9-arm64-arm-64bit",
+      "source_fault_controls": 3,
+      "owned_application_removed": true
+    }
+  ],
+  "audit": "../final-audit.json",
+  "native_manifest": "../native/38802794545/manifest.json",
+  "scope": "Reviewed terminal/state matrix only; development history and UX measurements retain their original identities and limits"
+}

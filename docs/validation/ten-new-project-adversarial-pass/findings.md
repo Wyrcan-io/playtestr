@@ -1,6 +1,6 @@
-# Findings: development complete; final qualification pending
+# Findings: final scoped terminal/state qualification passed
 
-All ten development journeys are complete. The first final frozen-candidate campaign stopped on Copier Windows at `be139a399009bc1c01e252d53f4bfd357cb65c1b`, run `38793208349`; the successful twenty-probe startup diagnostic is retained at `38798304050`. No final acceptance or full-product launch credit is claimed. The detailed entries below retain their discovery-time status; current project receipts and the final audit take precedence over historical pending text.
+The final frozen campaign at `e8682f866622442c421005c7f477cd45fcc66fc5` / `38802794545` passed the strict retained-evidence audit: 130 scenarios, 21 native project/host pairs, 2,740 ordinary final repetitions and 2,740 separate state probes, with source-fault restoration and owned removal verified. [Final report](final-report.md). The first failed frozen campaign remains rejected. Usability measurement limits and the unresolved historical macOS readiness failure remain explicit; full-product launch credit is zero. Entries below retain discovery-time status.
 
 Latest general product repairs:
 

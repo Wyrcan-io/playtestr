@@ -1,6 +1,6 @@
 # Execute ten NEW project journeys, adversarial stress tests and usability repairs
 
-Prepared and explicitly invoked 10 October 2026. **Execution in progress; completion is not claimed.** [Execution evidence](../validation/ten-new-project-adversarial-pass/README.md) records actual status. Creating, linking or reading this reusable file does not independently invoke another campaign. When the user explicitly invokes it, execute the complete scope below, diagnose failures, implement general repairs, retest and finish all ten projects. Do not stop after selecting repositories, making a harness, obtaining a few green runs or writing a report.
+Prepared and explicitly invoked 10 October 2026. **Scoped terminal/state engineering qualification completed; usability measurement limits remain documented.** [Execution evidence](../validation/ten-new-project-adversarial-pass/README.md) records actual status. Creating, linking or reading this reusable file does not independently invoke another campaign. When the user explicitly invokes it, execute the complete scope below, diagnose failures, implement general repairs, retest and finish all ten projects. Do not stop after selecting repositories, making a harness, obtaining a few green runs or writing a report.
 
 ## 1. Objective and standard of evidence
 

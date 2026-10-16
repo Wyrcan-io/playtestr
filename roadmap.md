@@ -83,3 +83,5 @@ Status lives here; details live in the plans; execution evidence belongs in date
 
 
 10 October 2026: [ten-project early reliability pass](docs/validation/ten-project-user-pass/README.md) completed: 33 reviewed scenarios, 330 final fresh passes, 10 detected actual target regressions and all restored scenarios passing on exact source 53561e6. Order: early P5 reliability -> P3 -> P4 -> remaining P5 -> full 100-project campaign. Full P5 and the campaign remain unqualified.
+
+16 October 2026: [second ten-project adversarial report](docs/validation/ten-new-project-adversarial-pass/final-report.md) completed scoped terminal/state qualification on frozen source `e8682f8`: 130 scenarios (62 normal / 68 edge), 21 native project/host pairs, 2,740 ordinary repetitions, 2,740 separate state probes and 31 distinct actual source-fault controls. All qualified owned application trees were removed. Usability is a prepared operator assessment; eight human-authoring-time gates remain unmeasured, and one earlier macOS readiness failure has no established cause. P3/P4, remaining full-product P5 and the full 100-project campaign remain planned; launch credit remains 0/100.

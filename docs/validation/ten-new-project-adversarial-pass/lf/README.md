@@ -22,3 +22,7 @@ uses the same ordinary spec and baseline. The first hosted compiler-prerequisite
 failure and subsequent initial-screen failure remain unqualified and retained.
 
 Unsupported claims include cross-client synchronization, external opener/editor integrations, copy permission/ownership semantics, arbitrary filesystem races, complete style/mouse/grapheme emulation, automatic test inference, sandboxing, first-time beginner simplicity, final batch acceptance, and commercial readiness. Full-product campaign credit remains zero.
+
+## Final frozen qualification
+
+Final source `e8682f866622442c421005c7f477cd45fcc66fc5` / [run 38802794545](https://github.com/Wyrcan-io/playtestr/actions/runs/38802794545) passed the strict batch audit on Linux, Windows: 120 ordinary plus 120 separate final-group state probes per host, real source-fault/restoration controls and verified owned removal. [Machine receipt](final-frozen-qualification.json). Earlier pending text records development-time status; this receipt qualifies only the stated terminal/state matrix. [Usability limits](../usability-assessment.md) and [remaining limitations](../limitations.md) still apply.

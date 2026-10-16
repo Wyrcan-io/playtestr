@@ -107,3 +107,7 @@ target. Hosted Linux qualification and the final frozen campaign remain required
 No syntax/LSP/grammar/style/mouse fidelity, external formatter/clipboard,
 arbitrary concurrent real-file editor, full Helix coverage, beginner usability,
 final campaign acceptance or commercial-readiness claim is made.
+
+## Final frozen qualification
+
+Final source `e8682f866622442c421005c7f477cd45fcc66fc5` / [run 38802794545](https://github.com/Wyrcan-io/playtestr/actions/runs/38802794545) passed the strict batch audit on Linux, Windows: 120 ordinary plus 120 separate final-group state probes per host, real source-fault/restoration controls and verified owned removal. [Machine receipt](final-frozen-qualification.json). Earlier pending text records development-time status; this receipt qualifies only the stated terminal/state matrix. [Usability limits](../usability-assessment.md) and [remaining limitations](../limitations.md) still apply.

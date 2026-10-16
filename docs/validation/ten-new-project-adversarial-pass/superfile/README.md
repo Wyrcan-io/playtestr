@@ -97,3 +97,7 @@ snapshot replace the original result. Windows superfile remains unqualified.
 Linux/macOS for this project and adds Windows to Glow's planned Linux/macOS
 matrix. Ten Linux, five Windows, five macOS and at least twenty actual
 project-host qualifications remain mandatory gates.
+
+## Final frozen qualification
+
+Final source `e8682f866622442c421005c7f477cd45fcc66fc5` / [run 38802794545](https://github.com/Wyrcan-io/playtestr/actions/runs/38802794545) passed the strict batch audit on Linux, macOS: 120 ordinary plus 120 separate final-group state probes per host, real source-fault/restoration controls and verified owned removal. [Machine receipt](final-frozen-qualification.json). Earlier pending text records development-time status; this receipt qualifies only the stated terminal/state matrix. [Usability limits](../usability-assessment.md) and [remaining limitations](../limitations.md) still apply.

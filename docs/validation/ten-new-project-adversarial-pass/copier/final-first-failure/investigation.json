@@ -5,12 +5,58 @@
   "case": "normal-git-update",
   "failed_state_probe": "dfa8c710f57d4b1eb29fd012f9577b15",
   "failed_group": "2b0ff7821c2c49afa58c3cd6d931e70d",
-  "ordinary_repetitions_before_failure": 3,
+  "ordinary_repetitions_before_failure": 4,
   "failed_checkpoint": "Support level",
   "actual_screen": "Updating to template version 2.0.0",
   "deadline_ms": 10000,
   "diagnosis": "Recorder correctly reports a readiness timeout; actual Git/terminal preparation cause and required budget are under measurement",
   "remaining_projects": "Not executed in this attempt; downstream jobs did not proceed",
   "qualification_credit": 0,
-  "diagnostic": "Twenty native Windows same-screen/exact-state recorder probes with 30000ms diagnostic deadline, control timing and Git trace; primary contracts unchanged"
+  "diagnostic": "Twenty native Windows same-screen/exact-state recorder probes with 30000ms diagnostic deadline, control timing and Git trace; primary contracts unchanged",
+  "successful_state_probes_before_failure": 3,
+  "actual_partial_ordinary": [
+    {
+      "id": "f927919232fc4b47ad88c963ce9f7a70",
+      "label": "normal-git-update-final-0",
+      "category": "passed"
+    },
+    {
+      "id": "143b70e27fb54535b4a765c1eab36e87",
+      "label": "normal-git-update-final-1",
+      "category": "passed"
+    },
+    {
+      "id": "fb36d7c7751a4b228b1f0b169080938e",
+      "label": "normal-git-update-final-2",
+      "category": "passed"
+    },
+    {
+      "id": "8d5a4abc1bfe42179726e39a671d7251",
+      "label": "normal-git-update-final-3",
+      "category": "passed"
+    }
+  ],
+  "actual_partial_state": [
+    {
+      "id": "7191ae3e11b744c1a14811e8304299ce",
+      "label": "normal-git-update-state-probe",
+      "category": "passed"
+    },
+    {
+      "id": "dad49df93bc04ee7bc538df62e49d4de",
+      "label": "normal-git-update-state-probe",
+      "category": "passed"
+    },
+    {
+      "id": "8111c7130ef4483e89b5ccd72c76baf5",
+      "label": "normal-git-update-state-probe",
+      "category": "passed"
+    },
+    {
+      "id": "dfa8c710f57d4b1eb29fd012f9577b15",
+      "label": "normal-git-update-state-probe",
+      "category": "harness_error"
+    }
+  ],
+  "accounting_note": "Console prints ordinary label only after its associated state probe succeeds; the fourth ordinary run passed before its state probe failed. Partial series receives zero qualification credit."
 }
