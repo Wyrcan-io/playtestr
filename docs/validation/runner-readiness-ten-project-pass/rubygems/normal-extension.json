@@ -1,0 +1,104 @@
+{
+  "version": 3,
+  "name": "recorded interaction",
+  "command": [
+    "ruby",
+    "-EUTF-8",
+    "-S",
+    "bundle",
+    "gem",
+    "native_atlas",
+    "--no-git",
+    "--no-bundle",
+    "--no-ci",
+    "--no-mit",
+    "--no-coc",
+    "--no-changelog",
+    "--no-linter",
+    "--test=rspec",
+    "--ext=c"
+  ],
+  "workspace": {
+    "fixture": "fixture",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "BUNDLE_DISABLE_VERSION_CHECK": "true",
+    "BUNDLE_USER_CONFIG": ".bundle-user-config",
+    "BUNDLE_VERSION": "system",
+    "GEMRC": "nul",
+    "GIT_CONFIG_GLOBAL": "nul",
+    "GIT_CONFIG_NOSYSTEM": "1"
+  },
+  "inherit_env": [
+    "RUBYLIB"
+  ],
+  "width": 160,
+  "height": 100,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Gem 'native_atlas' was successfully created."
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "native_atlas/ext/native_atlas/native_atlas.c",
+        "kind": "file",
+        "bytes_base64": "I2luY2x1ZGUgIm5hdGl2ZV9hdGxhcy5oIgoKVkFMVUUgcmJfbU5hdGl2ZUF0bGFzOwoKUlVCWV9GVU5DX0VYUE9SVEVEIHZvaWQKSW5pdF9uYXRpdmVfYXRsYXModm9pZCkKewogIHJiX21OYXRpdmVBdGxhcyA9IHJiX2RlZmluZV9tb2R1bGUoIk5hdGl2ZUF0bGFzIik7Cn0K"
+      }
+    },
+    {
+      "state": {
+        "path": "native_atlas/ext/native_atlas/native_atlas.h",
+        "kind": "file",
+        "bytes_base64": "I2lmbmRlZiBOQVRJVkVfQVRMQVNfSAojZGVmaW5lIE5BVElWRV9BVExBU19IIDEKCiNpbmNsdWRlICJydWJ5LmgiCgojZW5kaWYgLyogTkFUSVZFX0FUTEFTX0ggKi8K"
+      }
+    },
+    {
+      "state": {
+        "path": "native_atlas/ext/native_atlas/extconf.rb",
+        "kind": "file",
+        "bytes_base64": "IyBmcm96ZW5fc3RyaW5nX2xpdGVyYWw6IHRydWUKCnJlcXVpcmUgIm1rbWYiCgojIE1ha2VzIGFsbCBzeW1ib2xzIHByaXZhdGUgYnkgZGVmYXVsdCB0byBhdm9pZCB1bmludGVuZGVkIGNvbmZsaWN0CiMgd2l0aCBvdGhlciBnZW1zLiBUbyBleHBsaWNpdGx5IGV4cG9ydCBzeW1ib2xzIHlvdSBjYW4gdXNlIFJVQllfRlVOQ19FWFBPUlRFRAojIHNlbGVjdGl2ZWx5LCBvciBlbnRpcmVseSByZW1vdmUgdGhpcyBmbGFnLgphcHBlbmRfY2ZsYWdzKCItZnZpc2liaWxpdHk9aGlkZGVuIikKCmNyZWF0ZV9tYWtlZmlsZSgibmF0aXZlX2F0bGFzL25hdGl2ZV9hdGxhcyIpCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "native_atlas/lib/native_atlas.rb",
+        "kind": "file",
+        "bytes_base64": "IyBmcm96ZW5fc3RyaW5nX2xpdGVyYWw6IHRydWUKCnJlcXVpcmVfcmVsYXRpdmUgIm5hdGl2ZV9hdGxhcy92ZXJzaW9uIgpyZXF1aXJlICJuYXRpdmVfYXRsYXMvbmF0aXZlX2F0bGFzIgoKbW9kdWxlIE5hdGl2ZUF0bGFzCiAgY2xhc3MgRXJyb3IgPCBTdGFuZGFyZEVycm9yOyBlbmQKICAjIFlvdXIgY29kZSBnb2VzIGhlcmUuLi4KZW5kCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "native_atlas/lib/native_atlas/version.rb",
+        "kind": "file",
+        "bytes_base64": "IyBmcm96ZW5fc3RyaW5nX2xpdGVyYWw6IHRydWUKCm1vZHVsZSBOYXRpdmVBdGxhcwogIFZFUlNJT04gPSAiMC4xLjAiCmVuZAo="
+      }
+    },
+    {
+      "state": {
+        "path": "native_atlas/ext/native_atlas",
+        "kind": "entries",
+        "entries": [
+          "extconf.rb",
+          "native_atlas.c",
+          "native_atlas.h"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    }
+  ]
+}

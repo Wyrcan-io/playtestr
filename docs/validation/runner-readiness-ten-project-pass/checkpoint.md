@@ -215,3 +215,28 @@ schema, installer and core-workflow changes and at final freeze.
 Local Poetry source archive/selected restoration and all retained process and
 workspace cleanup checks passed under b36cd0710f9f49b78c713c65201e7e9d. Its local
 active tree is still retained until corrected native project gates pass.
+
+Resume update: Poetry run 38957159731 has all twenty ordinary scenarios, three
+fault replicas, maintenance and checked retention/removal successful on both
+Linux and macOS. Local Poetry source is now removed with its prepared receipt;
+Bundler is the sole active target. Counts: attempted 3, development admitted 2,
+development native cells 4; final archives, old migrations and final runner
+admissions remain zero. Latest full core 38956942712 passed all three hosts;
+lightweight harness 38956942702 passed all three hosts. Bundler first use passed
+three shell invocations and twenty recorder controls (capture 25bce262ef3346c980bc124b2cf6bd06,
+ordinary b7adc86da5bd4fbd8d02869b3ce2090a); 18 initial technical contracts are
+authored and first failures retained. C-extension review passed; binary package
+review remains pending. Windows quiet repeated resize also fails in Bundler;
+no Windows Bundler qualification is claimed. Serializer/lock/command authoring
+corrections are in progress, with unchanged production Go sources since 93bd63d.
+
+Historical macOS run 38957542544 passed all six declared fifty-repetition batches
+(R3-02 and R3-03 separately). Windows local parent
+396e32e495914b2caf3fcd5575e9f065 passed all 150 declared wizard attempts.
+Original causes remain unresolved; fixture publication repair is separate.
+Hosted Windows historical setup still failed before SDK launch because Git Bash
+reset a nonexistent globally supplied temporary path. Bootstrap now creates
+owned paths before exporting them; the workflow supports Windows-only dispatch
+to avoid repeating already-completed macOS batches. Re-execution remains pending.
+Actual local Windows short-path control 5605544cfc0d49e8a26a5fb5c74f5a0f passes,
+supplementing the original all-88 matrix without rewriting its hosted skip.

@@ -1,0 +1,63 @@
+{
+  "version": 3,
+  "name": "Bundler E04",
+  "command": [
+    "ruby",
+    "-EUTF-8",
+    "-S",
+    "bundle",
+    "gem",
+    "blocked/atlas",
+    "--no-git",
+    "--no-bundle",
+    "--no-ci",
+    "--no-mit",
+    "--no-coc",
+    "--no-changelog",
+    "--no-linter",
+    "--test=rspec"
+  ],
+  "workspace": {
+    "fixture": "wrong-type-fixture",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "BUNDLE_DISABLE_VERSION_CHECK": "true",
+    "BUNDLE_USER_CONFIG": ".bundle-user-config",
+    "BUNDLE_VERSION": "system",
+    "GEMRC": "nul",
+    "GIT_CONFIG_GLOBAL": "nul",
+    "GIT_CONFIG_NOSYSTEM": "1"
+  },
+  "inherit_env": [
+    "RUBYLIB"
+  ],
+  "width": 160,
+  "height": 100,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "rb_file_s_stat"
+    },
+    {
+      "exit": 1
+    },
+    {
+      "state": {
+        "path": "blocked",
+        "kind": "file",
+        "bytes_base64": "cmV2aWV3ZWQgcmVndWxhciBmaWxlCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    }
+  ]
+}

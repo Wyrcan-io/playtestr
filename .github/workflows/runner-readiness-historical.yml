@@ -4,19 +4,18 @@ on:
     branches: [work/p0-p2-implementation]
     paths: ['.github/workflows/runner-readiness-historical.yml']
   workflow_dispatch:
+    inputs:
+      hosts:
+        description: Native investigation hosts
+        type: choice
+        default: both
+        options: [both, windows]
 permissions:
   contents: read
 env:
   PYTHONDONTWRITEBYTECODE: '1'
   PYTHONIOENCODING: 'utf-8'
   GOTOOLCHAIN: 'local'
-  TEMP: '${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp'
-  TMP: '${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp'
-  TMPDIR: '${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp'
-  GOTMPDIR: '${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp'
-  GOCACHE: '${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/go-cache'
-  GOPATH: '${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/gopath'
-  GOMODCACHE: '${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/gopath/pkg/mod'
   GIT_CONFIG_COUNT: '1'
   GIT_CONFIG_KEY_0: 'core.longpaths'
   GIT_CONFIG_VALUE_0: 'true'
@@ -28,7 +27,7 @@ jobs:
       fail-fast: false
       max-parallel: 2
       matrix:
-        os: [windows-2025, macos-15]
+        os: ${{ fromJSON(inputs.hosts == 'windows' && '["windows-2025"]' || '["windows-2025", "macos-15"]') }}
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -40,7 +39,13 @@ jobs:
           set-safe-directory: false
       - name: Owned official SDK and historical fixture binaries
         run: |
-          mkdir -p "$TEMP" "$GOCACHE" "$GOPATH" artifacts/runner-readiness-ten-project-pass/bin
+          campaign="$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass"
+          mkdir -p "$campaign/tmp" "$campaign/go-cache" "$campaign/gopath" "$campaign/bin"
+          export TEMP="$campaign/tmp" TMP="$campaign/tmp" TMPDIR="$campaign/tmp" GOTMPDIR="$campaign/tmp"
+          export GOCACHE="$campaign/go-cache" GOPATH="$campaign/gopath" GOMODCACHE="$campaign/gopath/pkg/mod"
+          for name in TEMP TMP TMPDIR GOTMPDIR GOCACHE GOPATH GOMODCACHE; do
+            printf '%s=%s\n' "$name" "${!name}" >> "$GITHUB_ENV"
+          done
           python scripts/acceptance/readiness_check.py --label historical-owned-sdk --timeout 360 -- python scripts/acceptance/readiness_bootstrap_go.py
           export PATH="$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass/toolchain/go/bin:$PATH"
           ext=''; if [ "$RUNNER_OS" = Windows ]; then ext='.exe'; fi

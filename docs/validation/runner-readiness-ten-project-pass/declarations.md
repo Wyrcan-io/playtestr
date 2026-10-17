@@ -98,3 +98,35 @@ Maximum four concurrent at every stage, total additional ceiling 190 job-minutes
 forecast 40-50. Future acceptance-only edits run the lightweight harness matrix;
 full Go/race/core validation stays on production source/schema/installer changes
 and final freeze. No host count or required final gate is reduced.
+
+Bundler/RubyGems acquisition predeclaration: the first download exceeded the
+shared 8 MiB source-archive guard and stopped before persistence/extraction.
+Retain failed attempt 30bc4e943cc04e4c9aca167f1f74989c and its marker-only tree.
+A reviewed retry permits 32 MiB compressed, 192 MiB expanded, 20,000 members,
+8 MiB/member. This remains within the original 512 MiB active forecast and
+4 GiB hard ceiling; no campaign/evidence cap increase. Resume only that exact
+marker-only owned tree. Portable official Ruby 4.0.7-1 x64 archive is 17,742,012
+bytes, GitHub-reported SHA256 7a9be96d3448ecbd9a81eccae1f619131dfcc761f2c98dded03ece6c05d0474f.
+No installer/global changes; bounded inventory/extraction must precede execution.
+
+Pinned RubyGems archive inspection: 13,869,557 compressed bytes, 37,323,733
+expanded bytes, 3,173 members, no links. A recorded public package-index test
+fixture is 21,539,733 bytes and exceeded the old per-member 8 MiB guard. Preserve
+17e5c3c29cff4dfca7108e9f8db9c6ff and its partial tree. Completion permits
+32 MiB/member within the already declared 192 MiB total, performs all member
+validation before any new extraction, and verifies the existing archive digest
+from a prelaunch proof. No fixture recording or build hook is executed.
+
+Portable Ruby inventory first hit the default 4 MiB harness output cap before
+extraction (2c91b4a4c7af44c19b633672d538db9b). Preserve that bounded rejection.
+A reviewed retry uses only the already SHA-verified archive, permits 16 MiB for
+this technical member listing and at most 40,000 runtime entries; expanded data
+remains capped at 256 MiB, 32 MiB/member. Ordinary target output remains at the
+original 2 MiB/4 MiB scenario/harness bounds. No installer or global changes.
+
+Complete official Ruby inventory has 20,370 entries, 276,090,150 expanded bytes,
+maximum member 5,749,760 bytes and 4,787,785 listing bytes. The 256 MiB expanded
+guard stopped before extraction (9bcafca7fb694dc5a01d1bfc75f9016d). Reviewed
+completion permits 288 MiB expanded, still inside the 512 MiB active forecast
+with the measured source tree. Directory type uses actual 7-Zip Attributes D.
+All earlier failures remain; no native Ruby target run has yet earned credit.

@@ -1,7 +1,9 @@
 """Three declared native batches; preserve every historical wizard attempt."""
 import asyncio
+import argparse
 import json
 import os
+from pathlib import Path
 import shutil
 import uuid
 
@@ -17,8 +19,14 @@ class InvestigationAttempt(Campaign):
 
 async def main():
     if os.name!='nt':raise RuntimeError('this incident requires native Windows')
+    parser=argparse.ArgumentParser();parser.add_argument('--binary',type=Path);parser.add_argument('--target',type=Path)
+    args=parser.parse_args()
     root=RAW/'historical-wizard'/uuid.uuid4().hex;root.mkdir(parents=True)
-    runner=RAW/'bin/playtestr.exe';target=RAW/'bin/fixture.exe'
+    runner=(args.binary or RAW/'bin/playtestr.exe').resolve(strict=True)
+    target=(args.target or RAW/'bin/fixture.exe').resolve(strict=True)
+    for binary in [runner,target]:
+        binary.relative_to(ROOT)
+        if not binary.is_file() or binary.stat().st_size>64*1024**2:raise ValueError('owned binary identity bound')
     original=ROOT/'examples/recorded/wizard.json'
     base=json.loads(original.read_text())
     shutil.copytree(original.parent/'fixtures/wizard',root/'fixture')

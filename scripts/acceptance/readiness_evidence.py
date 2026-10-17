@@ -118,6 +118,10 @@ class Campaign:
                 paths.extend((target/'src/src/poetry').rglob('*.py'))
                 paths.extend([target/'src/pyproject.toml',target/'src/poetry.lock'])
                 if (target/'wheels.json').is_file():paths.append(target/'wheels.json')
+            elif project=='rubygems':
+                paths.extend(p for p in (target/'src/lib').rglob('*') if p.is_file())
+                paths.extend(p for p in (target/'src/exe').iterdir() if p.is_file())
+                paths.append(target/'src/bundler.gemspec')
         if any(p.stat().st_size>128*1024*1024 for p in paths):raise ValueError('identity file byte bound')
         identity = {'project': project, 'host': platform.system(), 'architecture': platform.machine(),
                     'fixture_directories':sorted(set(directories)),

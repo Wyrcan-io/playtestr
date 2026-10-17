@@ -9,6 +9,13 @@ if ($active -ne (Join-Path $campaign $relative) -or
     -not $active.StartsWith($workspace + '\', [StringComparison]::OrdinalIgnoreCase)) {
     throw 'Removal target is outside the exact owned project root'
 }
+foreach ($ancestor in @((Join-Path $workspace 'artifacts'), $campaign, (Join-Path $campaign 'active'))) {
+    $resolved = (Resolve-Path -LiteralPath $ancestor).ProviderPath
+    if (-not $resolved.StartsWith($workspace + '\', [StringComparison]::OrdinalIgnoreCase) -or
+        ((Get-Item -LiteralPath $ancestor -Force).Attributes -band [IO.FileAttributes]::ReparsePoint)) {
+        throw 'Owned removal ancestor redirects or escapes the workspace'
+    }
+}
 $marker = Get-Content -LiteralPath (Join-Path $active 'task-owned.json') -Raw | ConvertFrom-Json
 $repository = @{plop='plopjs/plop';poetry='python-poetry/poetry'}[$Project]
 $pin = @{plop='0c90e7ef93ffa5f40b10fe8f53d3cc23adee5a8e';poetry='38a86661d2ae58694c76d0bb4e628e1400d6dc6f'}[$Project]

@@ -23,7 +23,7 @@ async def main():
     records=[]
     for incident in declarations:
         for batch in schedule:
-            argv=['go','test','-json','-count=50','-run','^'+incident['control']+'$','./internal/runner']
+            argv=['go','test','-failfast','-json','-count=50','-run','^'+incident['control']+'$','./internal/runner']
             if batch['race']:argv.insert(2,'-race')
             result=await execute(argv,'historical-macos',incident['incident']+'-'+batch['batch'],
                                  timeout=900,load=batch['load'],campaign=Campaign())
