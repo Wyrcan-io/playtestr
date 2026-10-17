@@ -135,6 +135,13 @@ def main():
         reports = list((packet/'fff/suites').glob('*/results.json'))
         require(len(reports) == 1 and sha256(reports[0]) == freeze['ordinary_report_sha256'], 'changed frozen suite result')
         full = load(reports[0])
+        require(full['runner_version']=='source-'+source_revision,'ordinary report has wrong runner revision')
+        require(len(full['results'])==20 and {Path(result['spec_path'].replace('\\','/')).name for result in full['results']}==set(freeze['contracts']),'ordinary selected set differs')
+        suite_ids=[identity for identity,events in attempts.items() if events['started']['label']=='public-recorded-suite']
+        require(len(suite_ids)==1,'ambiguous actual ordinary suite')
+        inputs=witness(suite_ids[0])
+        for name in freeze['contracts']:
+            require(inputs['artifacts/runner-readiness-ten-project-pass/fff/contracts/'+name]==sha256(package/name),'actual suite contract bytes differ')
         require(full['summary'] == dict(total=20, passed=20, failed=0, cancelled=0, not_run=0), 'ordinary suite incomplete')
         for result in full['results']:
             result_ok(result)

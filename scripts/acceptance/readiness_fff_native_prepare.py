@@ -28,6 +28,9 @@ async def main():
     with Path(os.environ['GITHUB_PATH']).open('a',encoding='utf-8') as output:
         output.write(str(RAW/'active/fff/src')+'\n')
         output.write(str(Path('/bin/bash').resolve().parent)+'\n')
+    if args.target_only:
+        await execute([sys.executable,'scripts/acceptance/readiness_fff_native_contracts.py','--prepare-only'],
+            'fff','prepare-reviewed-workflow-contracts',timeout=30,campaign=Campaign())
     print('Owned pinned native fff is available for its first public recorder route.')
 
 

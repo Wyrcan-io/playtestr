@@ -57,6 +57,11 @@ def main():
         require(any(files.get(key)==runner['copied_sha256'] for key in runner_keys),'ordinary runner binary not bound')
         for name in canonical:
             require(files['artifacts/runner-readiness-ten-project-pass/'+project+'/host-contracts/'+name]==sha256(package/name),'ordinary contract identity missing')
+        prefix='artifacts/runner-readiness-ten-project-pass/'+project+'/host-contracts/'
+        for name,digest in files.items():
+            if name.startswith(prefix):
+                relative=name.removeprefix('artifacts/runner-readiness-ten-project-pass/')
+                require(sha256(packet_file(packet,relative,64*1024**2))==digest,'bound native fixture/baseline payload missing or changed')
         summaries=list((packet/project/'faults').glob('*/summary.json'));require(len(summaries)==1,'ambiguous fault batch')
         summary_path=summaries[0];faults=load(summary_path)['faults']
         require(len(faults)==3 and {f['id'] for f in faults}=={'F01','F02','F03'},'missing real source faults')

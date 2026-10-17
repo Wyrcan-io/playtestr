@@ -10,16 +10,43 @@ import re
 from pathlib import Path, PurePosixPath
 import shutil
 import tarfile
+import uuid
 
-from adversarial_process import execute, unix_process_inventory
+from adversarial_process import close_transport, execute, unix_process_inventory
 from readiness_evidence import Campaign, RAW, ROOT, immutable_json, sha256
+
+
+async def owned_runtime_command(pid,identity):
+    """Inspect bounded arguments privately; persist only the ownership decision."""
+    inspector=await asyncio.create_subprocess_exec('ps','-p',str(pid),'-o','command=',
+        stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.DEVNULL,
+        env=dict(os.environ,LC_ALL='C'))
+    try:
+        async def read_command():
+            data=bytearray()
+            while block:=await inspector.stdout.read(4096):
+                if len(data)+len(block)>65536:raise RuntimeError('runtime ownership observation byte bound')
+                data.extend(block)
+            return data
+        data=await asyncio.wait_for(read_command(),timeout=2)
+        status=await asyncio.wait_for(inspector.wait(),timeout=1)
+        current=await unix_process_inventory()
+        # A parent may exit while its child remains live. Compare birth, not PPID.
+        if pid not in current or current[pid][1]!=identity[1]:return False
+        if status!=0 or not data.strip():raise RuntimeError('runtime command ownership unconfirmed for PID '+str(pid))
+        return (str(RAW.resolve())+'/').encode('utf-8') in data
+    finally:
+        if inspector.returncode is None:
+            inspector.kill()
+            await asyncio.wait_for(inspector.wait(),timeout=2)
+        await close_transport(inspector)
 
 
 async def runtime_inventory(project,label):
     result=await execute(['ps','-axo','pid=,comm='],project,label,timeout=15,
                          output_cap=65536,campaign=Campaign())
     birth=await unix_process_inventory()
-    selected={}
+    selected={};scope=[]
     ancestors=set();ancestor=os.getpid()
     if project=='fff':
         while ancestor in birth and ancestor not in ancestors:
@@ -38,7 +65,16 @@ async def runtime_inventory(project,label):
             if project=='fff' and pid in ancestors:continue
             if project=='poetry' and pid in {os.getpid(),os.getppid()}:continue
             if pid not in birth:continue
+            if project=='fff':
+                owned=await owned_runtime_command(pid,birth[pid])
+                scope.append(dict(pid=pid,birth=birth[pid][1],owned_campaign_command=owned))
+                if not owned:continue
             selected[str(pid)]=list(birth[pid])
+    if project=='fff':
+        immutable_json(RAW/project/'runtime-inventories'/(uuid.uuid4().hex+'.json'),
+            dict(schema_version=1,label=label,checked_at_utc=datetime.now(timezone.utc).isoformat(),
+                 owned_root=str(RAW.resolve()),observations=scope,command_values_persisted=False,
+                 boundary='Additional owned-root observer; every public target process-group cleanup must still pass.'))
     return selected
 
 
