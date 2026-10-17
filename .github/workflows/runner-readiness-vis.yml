@@ -10,6 +10,11 @@ on:
         default: both
         options: [both, linux, macos]
         description: Native hosts for source-reviewed first use
+      phase:
+        type: choice
+        default: first-use
+        options: [first-use, author]
+        description: First useful route or twenty public recordings
 permissions:
   contents: read
 env:
@@ -67,6 +72,10 @@ jobs:
       - name: First public recording, explicit review and ordinary replay
         run: |
           python3 scripts/acceptance/readiness_check.py --label native-vis-first-public-route --timeout 600 -- python3 scripts/acceptance/readiness_vis_first_use.py
+      - name: Author twenty declared public contracts and independently review saved bytes
+        if: inputs.phase == 'author'
+        run: |
+          python3 scripts/acceptance/readiness_check.py --label native-vis-twenty-public-recordings --timeout 1200 -- python3 scripts/acceptance/readiness_vis_cases.py
       - name: Verify pinned source restores and owned runtime termination
         if: always() && steps.prepare.outcome == 'success'
         run: |
