@@ -5,6 +5,7 @@ package runner
 import (
 	"context"
 	"fmt"
+	"os/exec"
 	"strconv"
 	"strings"
 	"sync"
@@ -26,6 +27,23 @@ type windowsResizePty struct {
 	state         byte // output protocol state belongs exclusively to the PTY reader
 	csi           []byte
 	overflow, osc bool
+	targetPID     uint32
+	targetBirth   uint64
+	queryError    error
+}
+
+// Start retains the launched process identity for read-only dimension queries.
+func (p *windowsResizePty) Start(cmd *exec.Cmd) error {
+	if err := p.Pty.Start(cmd); err != nil {
+		return err
+	}
+	// A failed optional query must not turn a successful Start into a partially
+	// started failure. The normal session retains ownership and cleanup duties.
+	birth, err := windowsProcessBirth(uint32(cmd.Process.Pid))
+	p.mu.Lock()
+	p.targetPID, p.targetBirth, p.queryError = uint32(cmd.Process.Pid), birth, err
+	p.mu.Unlock()
+	return nil
 }
 
 func (p *windowsResizePty) Read(value []byte) (int, error) {
@@ -79,6 +97,7 @@ func (p *windowsResizePty) Resize(width, height int) error {
 func (p *windowsResizePty) AwaitResize(ctx context.Context) error {
 	p.mu.Lock()
 	request := p.request
+	pid, birth, queryErr := p.targetPID, p.targetBirth, p.queryError
 	p.mu.Unlock()
 	if request == nil {
 		return fmt.Errorf("native console resize has no request")
@@ -86,8 +105,34 @@ func (p *windowsResizePty) AwaitResize(ctx context.Context) error {
 	select {
 	case <-request.done:
 		return nil
+	default:
+	}
+	if err := ctx.Err(); err != nil {
+		return err
+	}
+	if pid != 0 && birth != 0 && queryErr == nil {
+		observed, err := probeWindowsConsole(ctx, pid, birth)
+		queryErr = err
+		if err == nil && observed.buffer.Width == request.width && observed.buffer.Height == request.height &&
+			observed.viewport.Width == request.width && observed.viewport.Height == request.height {
+			p.mu.Lock()
+			if p.request == request && request.returned && !request.acknowledged {
+				request.acknowledged = true
+				close(request.done)
+			}
+			p.mu.Unlock()
+		} else if err == nil {
+			queryErr = fmt.Errorf("observed native buffer %dx%d viewport %dx%d", observed.buffer.Width, observed.buffer.Height, observed.viewport.Width, observed.viewport.Height)
+		}
+	}
+	select {
+	case <-request.done:
+		return nil
 	case <-ctx.Done():
-		return fmt.Errorf("wait for native console resize acknowledgment or post-resize output at %dx%d: %w", request.width, request.height, ctx.Err())
+		if queryErr != nil {
+			return fmt.Errorf("wait for native console dimensions or resize output at %dx%d (native query: %v): %w", request.width, request.height, queryErr, ctx.Err())
+		}
+		return fmt.Errorf("wait for native console dimensions, resize acknowledgment or post-resize output at %dx%d: %w", request.width, request.height, ctx.Err())
 	}
 }
 

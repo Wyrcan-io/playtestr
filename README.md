@@ -101,6 +101,10 @@ Screen snapshots preserve leading spaces and internal blank lines while trimming
 
 Resize a running terminal with one action:
 
+On Windows, current source can confirm quiet resizes by querying the owned
+console's actual dimensions. This confirms terminal size; use a content
+assertion to check what the application did afterward.
+
 ```json
 {"resize": {"width": 100, "height": 30}}
 ```

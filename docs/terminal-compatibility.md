@@ -37,12 +37,15 @@ tasks and bracketed-paste behavior remain outside the supported contract.
 Selected two-column evidence is not general grapheme or universal Unicode support.
 
 Current source synchronizes Windows resize before sending the next input.
-After successful native resize it accepts either ConPTY's matching
-`CSI 8;height;width t` output or output from a read begun after that API call
-returned, for the current resize request. ConPTY does not emit the matching
-confirmation on every resize. The wait shares the step deadline; absence of
-both signals produces a bounded resize failure. This transport barrier does
-not prove the application redrew: queued output can be older than the resize.
+After successful native resize it accepts ConPTY's matching
+`CSI 8;height;width t` output, output from a read begun after that API call
+returned, or a read-only native query of the owned console's actual buffer and
+viewport dimensions for the current request. ConPTY does not emit a matching
+confirmation on every resize. For a quiet target, a hidden detached instance of
+the same binary queries dimensions, bound to target PID and creation time,
+without reading its screen or sending input. The helper is reaped within the
+step deadline. Missing evidence still produces a bounded failure. Native size
+evidence does not prove the application redrew or that all queued output drained.
 Use an explicit expectation for the application's new state, or the supported
 redraw checkpoint. Older Windows implementations remain unqualified. This
 observation does not answer terminal queries or enable application-directed

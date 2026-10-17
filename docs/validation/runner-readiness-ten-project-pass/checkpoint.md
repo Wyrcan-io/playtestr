@@ -240,3 +240,46 @@ owned paths before exporting them; the workflow supports Windows-only dispatch
 to avoid repeating already-completed macOS batches. Re-execution remains pending.
 Actual local Windows short-path control 5605544cfc0d49e8a26a5fb5c74f5a0f passes,
 supplementing the original all-88 matrix without rewriting its hosted skip.
+
+Bundler follow-up: all twenty contracts now exist, including independently
+reviewed C-extension source and reproducible gem payload/checksums. Original
+three source faults were detected/restored under parent
+0d2bd717c6324ec5aa90383bb9bf0f84 (raw faults
+5cb5ef81b4374d3ab56f775bd9f0e472); F03 was selected after reviewed freeze.
+Public file/screen maintenance, suffix and Unicode relocation passed; initial
+workflow generation lacked required --suite/--build flags. Only that missing
+step was resumed under 38cf4918f5f647fcbd848932ea9f228c, preserving every earlier
+report. No human time claim.
+
+Crucially, individually passing paged E05 failed in the first complete directory
+suite: second resize lacked the stream acknowledgment. Keep that failed suite
+and source-93 boundary; do not count a Windows Bundler admission. A read-only
+native console-query experiment (60231bb2a79a495ebf48f8f76e0c33b6) verified actual
+quiet dimensions without input or target output. The real PTY regression failed
+before the repair under 1316485d956e4289a0c60e1386225beb, then focused controls
+passed under 198f559efd1a46999a44e6e4e288729f. A general Windows-only positive
+native-size acknowledgment is implemented locally; full/race/manual/native
+checks and a new runner source pin remain pending. Existing stream checks stay
+intact. See the [decision](../../decisions/windows-quiet-resize.md).
+
+Hosted Windows historical run 39006031018 succeeded after owned bootstrap
+correction, with exactly 150 actual wizard attempts in three batches. Its
+bounded packet is retrieved. Mac historical results and original unexplained
+causal branches remain separate. Harness 39005929747 succeeded on all three
+hosts with sixteen actual tests. Additional eighteen-test local harness run
+8cc4a90dc5114a2e9684e7b63cd46cd0 passes, including real ERB identity and exact
+Bundler selection controls. No newly authored workflow is passed evidence.
+
+Quiet resize repair checks: focused ordinary and race controls pass
+(198f559efd1a46999a44e6e4e288729f / ae530c6e57fd443abc6ceaf3c096b5b6).
+The repaired development binary passes the complete unchanged twenty-spec
+ordinary Bundler directory suite under 7628aa76647e4d1a8397f37c9da1313b;
+report packet local-suite/dad8a9a4dc814ef0803ab77b692346c5. Public menu examples
+pass under 638026b42c614a39958e8ce95a2982d0. Vet passes under
+1f7fd4c483224c4ba97ed5326a707f3d (before the final cleanup-error-only adjustment).
+Full local Go run 856b371a258a4623a443b0cb3438f803 is RED: R3-07 recurred during
+fixture snapshot rename, with access denied, 211/191-character source/destination
+paths. It is not a quiet resize failure. Preserve this residual and do not claim
+all local checks pass. Fresh full native CI remains required. No automatic retry
+or weakened file expectation was added. Hosted historical Windows packet now
+has a verified curated 150-attempt receipt.
