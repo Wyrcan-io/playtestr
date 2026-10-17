@@ -1,0 +1,44 @@
+{
+  "acquisition_parent": "e922ff5e25914da390b2912c9e749d19",
+  "active_forecast_mib": 256,
+  "archive_sha256": "0f8895b2e3aacb6acd3f0add71da614b876a0735d496c5ce64b6c62281bdcd06",
+  "build_growth_stop_mib": 192,
+  "expanded_source_limit_bytes": 67108864,
+  "first_native_minute_forecast": 20,
+  "hosted_job_cap": 2,
+  "license": "ISC; compatible MIT/CC0/ISC-like portions documented in upstream LICENSE",
+  "license_sha256": "73e2a0c2466f45bc2902c729adeb6dfb2c10392a721bf0ef6ba5b50bfecfcac0",
+  "materialized_links": {
+    "lua/lexer.lua": "lexers/lexer.lua",
+    "lua/themes/default.lua": "base-16.lua",
+    "test/core/ccan/compiler/LICENSE": "../../licenses/CC0",
+    "test/fuzz/dictionaries/text-libfuzzer.dict": "text-fuzzer.dict",
+    "test/fuzz/inputs/text-libfuzzer/text-libfuzzer.in": "../text-fuzzer/text-fuzzer.in",
+    "test/sam/commands/loop-lines1.in": "loop-lines.in",
+    "test/sam/commands/loop-lines2.in": "loop-lines.in",
+    "test/sam/commands/loop-lines3.in": "loop-lines.in",
+    "test/sam/commands/loop-lines4.in": "loop-lines.in",
+    "test/sam/commands/loop-lines5.in": "loop-lines.in",
+    "test/sam/commands/loop-lines6.in": "loop-lines.in",
+    "test/sam/commands/loop-lines7.in": "loop-lines.in",
+    "test/sam/commands/loop-lines8.in": "loop-lines.in",
+    "test/sam/commands/loop-lines9.in": "loop-lines.in"
+  },
+  "pin": "10b630af09404cf2c887e2d7e6e24ecda9d05ea7",
+  "planned_hosts": [
+    "linux-amd64",
+    "macos-arm64"
+  ],
+  "primary_build": "https://github.com/martanne/vis/blob/10b630af09404cf2c887e2d7e6e24ecda9d05ea7/configure",
+  "primary_readme": "https://github.com/martanne/vis/blob/10b630af09404cf2c887e2d7e6e24ecda9d05ea7/README.md",
+  "profile": "Curses enabled; Lua/LPeg/TRE/ACL/SELinux disabled through supported configure flags; make vis only, no install. VERSION and API supplied explicitly to avoid ancestor Git discovery.",
+  "repository": "martanne/vis",
+  "reviewed_build_inputs": {
+    "Makefile": "4001e2dba3494696ce124ccda3ba2b1983173b85cff0d766ba81b3c5ab994168",
+    "configure": "a71004bc4c36a8311b0b86b2b4ddbdaa56bcfb5d6ac57796cfbec2037076813b"
+  },
+  "scenario_concurrency_per_host": 1,
+  "schema_version": 1,
+  "source_member_limit_bytes": 16777216,
+  "status": "source and build scripts reviewed; native build and first use pending"
+}

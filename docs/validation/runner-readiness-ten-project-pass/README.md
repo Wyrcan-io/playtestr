@@ -1,6 +1,6 @@
 # Runner readiness campaign
 
-Invoked 16 October 2026. Status: **in progress; three development admissions across six native cells**.
+Invoked 16 October 2026. Status: **in progress; four development admissions across eight native cells**.
 
 Base: `deed954a9ed1c05db73ee93cb2fbb84d9271d1e1`, branch
 `work/p0-p2-implementation`. Pre-existing edits: planning index and execution
@@ -19,7 +19,7 @@ Plop's owned local tree is removed after archive/restore and cleanup checks.
 Poetry's owned local tree is also removed after verified retention and cleanup.
 RubyGems/Bundler is admitted on Linux/Windows and its owned local tree is removed.
 Microsoft Edit is admitted on Linux/Windows and its owned local tree is removed.
-No target is active locally. Attempted 4; development admitted 4; archive qualified 0;
+Vis is active locally as reviewed source only. Attempted 5; development admitted 4; archive qualified 0;
 old projects migrated 0; final runner admissions 0/100; paid-product admissions 0/100;
 final-qualified scenarios, faults, repetitions and native project/host cells all 0.
 Development evidence includes nineteen passing Windows Plop scenarios and three
@@ -66,7 +66,7 @@ source/binary/event verification, all 3,510 native payloads retained in a verifi
 3,368,897-byte archive, four restores and checked source removal. Earlier failures
 remain retained. See [development findings](edit/development-findings.md). The expanded evidence
 harness passes all applicable controls on three native hosts in `39037396111`;
-[33 whole controls](new-control-development-evidence-revision-4.json) bind to
+[33 whole controls](new-control-development-evidence-revision-6.json) bind to
 actual successful native events and matching sources. Final archive credit stays
 zero. Earlier new-record fixture identities were incomplete; E-05 preserves this
 limitation and requires repaired final authoring routes.
@@ -77,7 +77,7 @@ native core ordinary/race checks on all three hosts in `39039797857`, source
 requalification at that source in runs `39053462427`, `39053952439` and
 `39054328503`. Their [retention references](earlier-project-requalification-retention-e7b5f29.json)
 preserve old failures and new passes without adding project/cell credit.
-No target is active locally; project five is next.
+Project five Vis is acquired at its screened pin; reviewed native C builds and first public recording are pending. Linux/macOS are the declared hosts.
 
 Raw attempts/caches/packages belong only under ignored
 `artifacts/runner-readiness-ten-project-pass/`. Earlier evidence is preserved.

@@ -5,6 +5,7 @@ import tempfile
 import unittest
 
 from readiness_acquire_plop import extract_source
+from readiness_vis_source import materialize_archive
 from readiness_evidence import RAW
 
 
@@ -18,6 +19,25 @@ def bundle(entries):
 
 
 class AcquisitionTests(unittest.TestCase):
+    def test_reviewed_archive_alias_is_materialized_without_host_links(self):
+        RAW.mkdir(parents=True,exist_ok=True)
+        def linked(target):
+            output=io.BytesIO()
+            with tarfile.open(fileobj=output,mode='w:gz') as stream:
+                value=b'\x00reviewed\xff';entry=tarfile.TarInfo('repo/data');entry.size=len(value)
+                stream.addfile(entry,io.BytesIO(value))
+                alias=tarfile.TarInfo('repo/sub/alias');alias.type=tarfile.SYMTYPE;alias.linkname=target;stream.addfile(alias)
+            return output.getvalue()
+        with tempfile.TemporaryDirectory(dir=RAW) as folder:
+            output=Path(folder)/'source'
+            data=materialize_archive(linked('../data'),{'sub/alias':'../data'})
+            extract_source(data,output,expanded_limit=1024,entry_limit=10,member_limit=1024)
+            self.assertEqual((output/'sub/alias').read_bytes(),b'\x00reviewed\xff')
+            self.assertFalse((output/'sub/alias').is_symlink())
+            for target in ['../../outside','/outside','../missing']:
+                with self.assertRaises(RuntimeError):materialize_archive(linked(target),{'sub/alias':target})
+            with self.assertRaisesRegex(RuntimeError,'profile differs'):materialize_archive(linked('../data'),{})
+
     def test_rejected_archive_plan_creates_no_partial_tree_or_canary_write(self):
         RAW.mkdir(parents=True,exist_ok=True)
         with tempfile.TemporaryDirectory(dir=RAW) as folder:

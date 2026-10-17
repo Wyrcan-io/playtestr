@@ -127,6 +127,22 @@ class EvidenceTests(unittest.TestCase):
         binary.write_bytes(b'reviewed binary')
         self.assertEqual(before,self.campaign.identity('edit',['must-not-launch']))
 
+    def test_c_source_and_built_target_mutations_change_prelaunch_identity(self):
+        target=Path(self.folder.name)/'active/vis';source=target/'src/main.c';source.parent.mkdir(parents=True)
+        source.write_bytes(b'int main(void) { return 0; }\n')
+        (target/'task-owned.json').write_text('{}')
+        binary=target/'src/vis';binary.write_bytes(b'reviewed native binary')
+        (target/'build.json').write_text(json.dumps({'binary_relative_path':'src/vis'}))
+        before=self.campaign.identity('vis',['must-not-launch'])
+        source.write_bytes(b'int main(void) { return 7; }\n')
+        self.assertNotEqual(before,self.campaign.identity('vis',['must-not-launch']))
+        source.write_bytes(b'int main(void) { return 0; }\n')
+        self.assertEqual(before,self.campaign.identity('vis',['must-not-launch']))
+        binary.write_bytes(b'changed native binary')
+        self.assertNotEqual(before,self.campaign.identity('vis',['must-not-launch']))
+        binary.write_bytes(b'reviewed native binary')
+        self.assertEqual(before,self.campaign.identity('vis',['must-not-launch']))
+
     def test_new_recorder_fixture_bytes_are_bound_before_export_exists(self):
         package=Path(self.folder.name)/'record-package';fixture=package/'fixture';fixture.mkdir(parents=True)
         selected=fixture/'selected.txt';selected.write_bytes(b'reviewed fixture\n')

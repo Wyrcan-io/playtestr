@@ -3,6 +3,7 @@ import asyncio
 import argparse
 from datetime import datetime, timezone
 import hashlib
+import io
 import json
 import os
 import re
@@ -24,7 +25,8 @@ async def runtime_inventory(project,label):
         name=Path(fields[1]).name if len(fields)==2 else ''
         runtime_match=(name in {'node','nodejs'} if project=='plop' else
                        name.startswith('ruby') or name in {'git','less','diff'} if project=='rubygems' else
-                       name in {'edit','cargo','rustc','rustdoc','cc','ld','lld','collect2'} if project=='edit' else name.startswith('python'))
+                       name in {'edit','cargo','rustc','rustdoc','cc','ld','lld','collect2'} if project=='edit' else
+                       name in {'vis','make','cc','as','ld','collect2'} or name.startswith(('gcc','clang','cc1','x86_64-linux-gn','aarch64-linux-gn')) if project=='vis' else name.startswith('python'))
         if len(fields)==2 and runtime_match:
             pid=int(fields[0])
             if project=='poetry' and pid in {os.getpid(),os.getppid()}:continue
@@ -40,7 +42,7 @@ async def node_inventory(label):
 async def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--prepare-only',action='store_true')
-    parser.add_argument('--project',choices=['plop','poetry','rubygems','edit'],default='plop')
+    parser.add_argument('--project',choices=['plop','poetry','rubygems','edit','vis'],default='plop')
     args=parser.parse_args()
     if os.name=='nt' and not args.prepare_only:
         raise RuntimeError('use --prepare-only then the checked native PowerShell removal route on Windows')
@@ -50,7 +52,7 @@ async def main():
     if active.is_symlink() or active.resolve().parent!=base or not base.is_relative_to(RAW.resolve()):
         raise RuntimeError('unsafe cleanup target')
     marker=json.loads((active/'task-owned.json').read_text())
-    repository={'plop':'plopjs/plop','poetry':'python-poetry/poetry','rubygems':'ruby/rubygems','edit':'microsoft/edit'}[project]
+    repository={'plop':'plopjs/plop','poetry':'python-poetry/poetry','rubygems':'ruby/rubygems','edit':'microsoft/edit','vis':'martanne/vis'}[project]
     if marker['workspace']!=str(ROOT) or marker['campaign']!='runner-readiness-ten-project-pass' or marker['project']!=repository:
         raise RuntimeError('cleanup ownership mismatch')
     if os.name=='nt':
@@ -95,13 +97,20 @@ async def main():
     elif project=='edit':
         selected={'LICENSE','Cargo.lock','Cargo.toml','i18n/edit.toml','crates/edit/build/main.rs',
                   'crates/edit/src/bin/edit/main.rs','crates/edit/src/bin/edit/documents.rs'}
-    with tarfile.open(copy,'r:gz') as bundle:
+    elif project=='vis':
+        selected={'LICENSE','Makefile','configure','main.c','text.c','vis-modes.c','external/termkey.c','lua/lexer.lua'}
+    stream_args=dict(name=copy,mode='r:gz')
+    if project=='vis':
+        from readiness_vis_source import ARCHIVE_SHA256,LINKS,materialize_archive
+        if sha256(copy)!=ARCHIVE_SHA256 or acquisition['materialized_links']!=LINKS:raise RuntimeError('vis retained source profile changed')
+        stream_args=dict(fileobj=io.BytesIO(materialize_archive(copy.read_bytes(),LINKS)),mode='r:gz')
+    with tarfile.open(**stream_args) as bundle:
         for member in bundle:
             parts=PurePosixPath(member.name).parts[1:]
             if not parts:continue
             if any(p in {'..','.'} or ':' in p or '\\' in p for p in parts):raise RuntimeError('unsafe retained member')
             if member.isdir():continue
-            if not member.isfile() or member.size>(32 if project=='rubygems' else 8)*1024**2:raise RuntimeError('unsafe retained member type/size')
+            if not member.isfile() or member.size>({'rubygems':32,'vis':16}.get(project,8))*1024**2:raise RuntimeError('unsafe retained member type/size')
             expanded+=member.size
             if expanded>64*1024**2 or len(manifest)>=10000:raise RuntimeError('restore bounds exceeded')
             value=bundle.extractfile(member).read(member.size+1)
@@ -115,8 +124,8 @@ async def main():
     if not selected<=manifest.keys():raise RuntimeError('restore coverage missing')
     for name in ['task-owned.json','acquisition.json','runtime.json','build.json']:
         shutil.copyfile(active/name,retained/name)
-    if project=='edit':
-        for name in ['dependencies.json','build-review.json']:shutil.copyfile(active/name,retained/name)
+    if project in {'edit','vis'}:
+        for name in (['dependencies.json','build-review.json'] if project=='edit' else []):shutil.copyfile(active/name,retained/name)
         if (active/'build-revisions').is_dir():shutil.copytree(active/'build-revisions',retained/'build-revisions')
     immutable_json(retained/'verified-index.json',dict(archive_sha256=sha256(copy),files=manifest,
         selected_restore=sorted(selected),expanded_source_bytes=expanded,process_inventory=current))

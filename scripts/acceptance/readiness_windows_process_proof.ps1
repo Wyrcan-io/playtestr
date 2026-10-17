@@ -1,4 +1,4 @@
-param([ValidateSet('plop','poetry','rubygems','edit')][string]$Project)
+param([ValidateSet('plop','poetry','rubygems','edit','vis')][string]$Project)
 $ErrorActionPreference = 'Stop'
 $workspace = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..')).TrimEnd('\')
 $campaign = Join-Path $workspace 'artifacts\runner-readiness-ten-project-pass'
@@ -12,6 +12,8 @@ $filter = if ($Project -eq 'plop') { "Name='node.exe'" } elseif ($Project -eq 'r
     "Name='ruby.exe' OR Name='rubyw.exe' OR Name='git.exe' OR Name='less.exe' OR Name='diff.exe'"
 } elseif ($Project -eq 'edit') {
     "Name='edit.exe' OR Name='cargo.exe' OR Name='rustc.exe' OR Name='rustdoc.exe' OR Name='link.exe' OR Name='rc.exe' OR Name='cl.exe'"
+} elseif ($Project -eq 'vis') {
+    "Name='vis.exe' OR Name='gcc.exe' OR Name='clang.exe' OR Name='cc1.exe' OR Name='make.exe' OR Name='ld.exe'"
 } else { "Name='python.exe' OR Name='pythonw.exe' OR Name='poetry.exe'" }
 $matching = @(Get-CimInstance Win32_Process -Filter $filter | Where-Object {
     $_.CommandLine -and ($_.CommandLine.IndexOf($active, [StringComparison]::OrdinalIgnoreCase) -ge 0 -or

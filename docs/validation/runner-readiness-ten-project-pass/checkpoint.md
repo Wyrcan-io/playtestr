@@ -635,3 +635,9 @@ new alias-test source still needs native requalification. Storage observation
 193,512,793, curated 1,436,360, Bundler 39,351,909, active list empty. Logical-byte
 observations before subsequent small records; not exact peaks or OS quotas.
 Next: finish alias native checks, then acquire project five vis at the screened pin.
+
+Alias native harness 39055247018 succeeds on Linux/macOS/Windows; whole-control revision six binds its actual events with core 39039797857 (af2429e1f082407fa400a6cfdd06bb85).
+
+Project five Vis pin 10b630af09404cf2c887e2d7e6e24ecda9d05ea7 is now source-reviewed and acquired locally, with no Windows build/runtime claim. Initial strict acquisition d986bf98804e44ea80e0588e3c8ca739 rejects an 8,493,417-byte upstream fixture before extraction. Reviewed Vis-only profile permits sixteen-MiB members, materializes exactly fourteen internal source aliases as regular files, and retains the unchanged canonical archive SHA 0f8895b2e3aacb6acd3f0add71da614b876a0735d496c5ce64b6c62281bdcd06. Resumed owned acquisition e922ff5e25914da390b2912c9e749d19 succeeds. No global installation or build hooks executed.
+
+C-source/binary prelaunch provenance regression fails before dad3c7462d97464e9f78214bb0a67e98; full 31-test local harness passes 11171bf497bf48baaf443856cb4484d1, including reviewed alias rejection controls. Native qualification of these new harness sources remains pending. Source review records bounded native C build flags, two standard hosted jobs, first-use forecast, and active/storage limits. Next: native Linux/macOS builds and first public recorder route; four admissions/eight cells unchanged, final archives still zero.

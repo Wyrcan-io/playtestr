@@ -154,6 +154,15 @@ class Campaign:
                     binary.resolve(strict=True).relative_to(target.resolve())
                     if binary.is_symlink() or getattr(binary,'is_junction',lambda:False)():raise ValueError('linked editor binary')
                     paths.append(binary)
+            elif project=='vis':
+                paths.extend(p for p in (target/'src').rglob('*') if p.is_file() and
+                    (p.suffix in {'.c','.h','.inc','.mk'} or p.name in {'configure','Makefile','LICENSE'}))
+                if (target/'build.json').is_file():
+                    build=json.loads((target/'build.json').read_text())
+                    binary=target/build['binary_relative_path']
+                    binary.resolve(strict=True).relative_to(target.resolve())
+                    if binary.is_symlink() or getattr(binary,'is_junction',lambda:False)():raise ValueError('linked native editor binary')
+                    paths.append(binary)
         if any(p.stat().st_size>128*1024*1024 for p in paths):raise ValueError('identity file byte bound')
         identity = {'project': project, 'host': platform.system(), 'architecture': platform.machine(),
                     'fixture_directories':sorted(set(directories)),
