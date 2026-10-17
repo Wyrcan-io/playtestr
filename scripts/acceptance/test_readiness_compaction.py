@@ -36,9 +36,11 @@ class NativeCompactionTests(unittest.TestCase):
     def test_native_removal_refuses_changed_payload_then_removes_exact_packet(self):
         RAW.mkdir(parents=True,exist_ok=True)
         run=str(uuid.uuid4().int)[:18];project='compaction-control-'+uuid.uuid4().hex[:8]
-        root=RAW/project;root.mkdir();packet=RAW/'native'/run;packet.mkdir()
-        value=packet/'owned.json';original=b'{"owned":true}\n';value.write_bytes(original)
+        root=RAW/project;packet=RAW/'native'/run;owned=[]
         try:
+            root.mkdir();owned.append(root)
+            packet.mkdir(parents=True);owned.append(packet)
+            value=packet/'owned.json';original=b'{"owned":true}\n';value.write_bytes(original)
             output=compact(RAW,project,[run])
             command=['powershell.exe','-NoProfile','-ExecutionPolicy','Bypass','-File',
                 str(ROOT/'scripts/acceptance/readiness_remove_native_packets.ps1'),'-Project',project]
@@ -50,7 +52,7 @@ class NativeCompactionTests(unittest.TestCase):
             self.assertEqual(removed.returncode,0,removed.stderr.decode(errors='replace'))
             self.assertFalse(packet.exists());self.assertTrue((output/'packets.tar.gz').is_file())
         finally:
-            for selected in [root,packet]:
+            for selected in owned:
                 selected.resolve().relative_to(RAW.resolve())
                 if selected.exists():shutil.rmtree(selected)
 

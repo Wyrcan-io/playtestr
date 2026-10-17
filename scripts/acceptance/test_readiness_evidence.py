@@ -110,6 +110,23 @@ class EvidenceTests(unittest.TestCase):
         source.write_bytes(b'VERSION = "0.1.0"\n')
         self.assertEqual(before,self.campaign.identity('rubygems',['must-not-launch']))
 
+    def test_rust_source_mutation_changes_prelaunch_identity_and_restores(self):
+        target=Path(self.folder.name)/'active/edit'
+        source=target/'src/crates/edit/src/document.rs';source.parent.mkdir(parents=True)
+        original=b'fn save() { reviewed_write(); }\n';source.write_bytes(original)
+        (target/'task-owned.json').write_text('{}')
+        binary=target/'target/reviewed.exe';binary.parent.mkdir();binary.write_bytes(b'reviewed binary')
+        (target/'build.json').write_text(json.dumps({'binary_relative_path':'target/reviewed.exe'}))
+        before=self.campaign.identity('edit',['must-not-launch'])
+        source.write_bytes(b'fn save() { wrong_write(); }\n')
+        self.assertNotEqual(before,self.campaign.identity('edit',['must-not-launch']))
+        source.write_bytes(original)
+        self.assertEqual(before,self.campaign.identity('edit',['must-not-launch']))
+        binary.write_bytes(b'changed binary')
+        self.assertNotEqual(before,self.campaign.identity('edit',['must-not-launch']))
+        binary.write_bytes(b'reviewed binary')
+        self.assertEqual(before,self.campaign.identity('edit',['must-not-launch']))
+
     def test_identified_success_requires_launch_but_setup_failure_is_counted(self):
         identity=uuid.uuid4().hex
         for event in ['started','identified']:

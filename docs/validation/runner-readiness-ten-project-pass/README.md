@@ -18,7 +18,7 @@ selections and five provisional reserves in [the candidate ledger](candidates.js
 Plop's owned local tree is removed after archive/restore and cleanup checks.
 Poetry's owned local tree is also removed after verified retention and cleanup.
 RubyGems/Bundler is admitted on Linux/Windows and its owned local tree is removed.
-No target is active at this checkpoint; Microsoft Edit is next. Attempted 3; development admitted 3; archive qualified 0;
+Microsoft Edit is the sole active target. Attempted 4; development admitted 3; archive qualified 0;
 old projects migrated 0; final runner admissions 0/100; paid-product admissions 0/100;
 final-qualified scenarios, faults, repetitions and native project/host cells all 0.
 Development evidence includes nineteen passing Windows Plop scenarios and three

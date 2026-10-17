@@ -430,3 +430,34 @@ b65ccf7b69604d7a9af7355d1991dea1; compaction negatives also pass
 8e6d618f7d614b12ab580e6b58da574e. Native new-compaction harness remains pending.
 Next: project four microsoft/edit at cb6de0a8966aecd01d19a3541dab1829d0e679ca,
 review pinned build/license, acquire only after this completed cleanup/storage gate.
+
+Project four Edit is now the sole active source tree, acquisition parent
+5a32c51ef891481caa25f8ca07ed432b: 1,747,524 expanded bytes, 215 entries, no build
+hooks executed. MIT license, workspace manifests, build/main.rs, i18n/helper
+generation and LSH definition path reviewed. Installed direct stable rustc is
+1.97.1, meeting the pinned Rust >=1.93 requirement; existing Visual Studio 2022
+BuildTools and Windows ICU DLLs are present read-only. Next: owned Cargo cache
+fetch, review dependency hooks, then stable locked build with owned temp/home.
+
+New compaction harness 39012181884: Linux/macOS pass; Windows fails before its
+deletion control because a fresh checkout lacks the native fixture parent. Local
+history had masked this setup assumption. Fix creates that parent explicitly and
+tracks each created test root for finally cleanup. Preserve the failed packet;
+this is a harness fixture repair, not a production or Bundler scenario retry.
+
+Edit stable offline build passes 849c7d48bb4946f084cc323601f429fa, version 2.0.0,
+binary SHA 5c4957350366912ceeb1bb47df1987e3035c80635e57243a44d9772aa3beffc4.
+Locked fetch c4e4ae47307b4475a477c8f4f439e7f4 verifies 74 archives; actual release
+dependency edges a65ff9eee32b477db03bbcd65bb3c026 exclude fetched dev/test hooks.
+Observed active build storage peaks at 152,881,186 bytes in the sampled series.
+No nightly/bootstrap/global installation was used. Public first-use route
+145aa526971a4e49a02cc38e12bcd030 passes three commands/thirteen controls, with
+independent exact saved-byte review and an ordinary fresh test; human time stays
+unmeasured. Curated source-review.json and first-use.json bind this evidence.
+
+Logical editor executable provenance now includes the actual built binary as well
+as Rust source. The negative control fails before 42edd8d3928c4bb39a8d8d3567d32ed7;
+the full 26-test local harness passes after 3f803ccb957744efa2bcd976690f90ca.
+Next: declare and author eight normal/twelve edge workflows through public
+recorder/ordinary tests, freeze reviewed twenty contracts, then choose source
+faults. No Edit scenario or project admission is credited yet.
