@@ -23,7 +23,8 @@ async def runtime_inventory(project,label):
         fields=line.split(None,1)
         name=Path(fields[1]).name if len(fields)==2 else ''
         runtime_match=(name in {'node','nodejs'} if project=='plop' else
-                       name.startswith('ruby') or name in {'git','less','diff'} if project=='rubygems' else name.startswith('python'))
+                       name.startswith('ruby') or name in {'git','less','diff'} if project=='rubygems' else
+                       name in {'edit','cargo','rustc','rustdoc','cc','ld','lld','collect2'} if project=='edit' else name.startswith('python'))
         if len(fields)==2 and runtime_match:
             pid=int(fields[0])
             if project=='poetry' and pid in {os.getpid(),os.getppid()}:continue
@@ -39,7 +40,7 @@ async def node_inventory(label):
 async def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--prepare-only',action='store_true')
-    parser.add_argument('--project',choices=['plop','poetry','rubygems'],default='plop')
+    parser.add_argument('--project',choices=['plop','poetry','rubygems','edit'],default='plop')
     args=parser.parse_args()
     if os.name=='nt' and not args.prepare_only:
         raise RuntimeError('use --prepare-only then the checked native PowerShell removal route on Windows')
@@ -49,7 +50,7 @@ async def main():
     if active.is_symlink() or active.resolve().parent!=base or not base.is_relative_to(RAW.resolve()):
         raise RuntimeError('unsafe cleanup target')
     marker=json.loads((active/'task-owned.json').read_text())
-    repository={'plop':'plopjs/plop','poetry':'python-poetry/poetry','rubygems':'ruby/rubygems'}[project]
+    repository={'plop':'plopjs/plop','poetry':'python-poetry/poetry','rubygems':'ruby/rubygems','edit':'microsoft/edit'}[project]
     if marker['workspace']!=str(ROOT) or marker['campaign']!='runner-readiness-ten-project-pass' or marker['project']!=repository:
         raise RuntimeError('cleanup ownership mismatch')
     if os.name=='nt':
@@ -91,6 +92,9 @@ async def main():
         selected={'MIT.txt','LICENSE.txt','bundler.gemspec','exe/bundle','exe/gem',
                   'lib/bundler/cli/gem.rb','lib/rubygems/commands/build_command.rb',
                   'lib/bundler/templates/newgem/lib/newgem/version.rb.tt'}
+    elif project=='edit':
+        selected={'LICENSE','Cargo.lock','Cargo.toml','i18n/edit.toml','crates/edit/build/main.rs',
+                  'crates/edit/src/bin/edit/main.rs','crates/edit/src/bin/edit/documents.rs'}
     with tarfile.open(copy,'r:gz') as bundle:
         for member in bundle:
             parts=PurePosixPath(member.name).parts[1:]
@@ -111,6 +115,9 @@ async def main():
     if not selected<=manifest.keys():raise RuntimeError('restore coverage missing')
     for name in ['task-owned.json','acquisition.json','runtime.json','build.json']:
         shutil.copyfile(active/name,retained/name)
+    if project=='edit':
+        for name in ['dependencies.json','build-review.json']:shutil.copyfile(active/name,retained/name)
+        if (active/'build-revisions').is_dir():shutil.copytree(active/'build-revisions',retained/'build-revisions')
     immutable_json(retained/'verified-index.json',dict(archive_sha256=sha256(copy),files=manifest,
         selected_restore=sorted(selected),expanded_source_bytes=expanded,process_inventory=current))
     # Do not follow package-manager links during either verification or removal.

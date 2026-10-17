@@ -14,7 +14,8 @@ from readiness_evidence import Campaign,immutable_json,sha256
 
 
 async def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--label',default='initial');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--label',default='initial')
+    parser.add_argument('--version-exit-code',type=int,choices=range(256),default=0);args=parser.parse_args()
     if not re.fullmatch(r'[a-z][a-z0-9-]{0,63}',args.label):raise RuntimeError('invalid editor build label')
     active,cargo,triple,env=build_environment();source=active/'src'
     dependencies=json.loads((active/'dependencies.json').read_text())
@@ -31,10 +32,15 @@ async def main():
     hooks=[source/'crates/edit/build/main.rs',source/'crates/edit/build/i18n.rs',source/'crates/edit/build/helpers.rs',
         source/'crates/lsh/src/compiler/mod.rs',source/'crates/lsh/src/compiler/generator.rs']
     if os.name=='nt':hooks.extend((active/'cargo-home/registry/src').glob('*/winresource-0.1.31/lib.rs'))
+    else:
+        libc=list((active/'cargo-home/registry/src').glob('*/libc-0.2.183/build.rs'))
+        if len(libc)!=1 or sha256(libc[0])!='f722dcaa2c68d449a6f0c3f7c69b9dbcda1cda1960ade41679d2dfb89f182bfb':
+            raise RuntimeError('Unix libc hook differs from pre-native reviewed locked source')
+        hooks.extend(libc)
     review=active/'build-review.json'
     if not review.exists():
         immutable_json(review,dict(reviewed_files={p.relative_to(active).as_posix():sha256(p) for p in hooks},
-            policy='Generate pinned LSH/i18n in Cargo OUT_DIR; native resource compiler writes OUT_DIR; registry discovery reads only. No network build hooks. Fetched dev/test hooks excluded from release dependency graph.',
+            policy='Generate pinned LSH/i18n in Cargo OUT_DIR; native resource compiler writes OUT_DIR; registry discovery reads only. Reviewed Unix libc hook probes rustc --version and optional emcc -dumpversion, then emits target cfg; owned environment excludes LIBC_CI/unstable overrides. No network build hooks. Fetched dev/test hooks excluded from release dependency graph.',
             dependencies_sha256=sha256(active/'dependencies.json'),stable_build=True,bootstrap=False,
             build_options=['--release','--locked','--offline','-p','edit','--bin','edit'],languages='en',resource_compiler=resource))
     reviewed=json.loads(review.read_text())
@@ -57,14 +63,14 @@ async def main():
     binary=active/'target'/triple/'release'/('edit.exe' if os.name=='nt' else 'edit')
     if not binary.is_file():raise RuntimeError('reviewed build produced no editor')
     version=await execute([binary,'--version'],'edit',args.label+'-built-editor-version',cwd=source,env=env,
-        timeout=30,campaign=Campaign())
+        timeout=30,expected=args.version_exit_code,campaign=Campaign())
     if '2.0.0' not in version['output']:raise RuntimeError('wrong pinned editor version')
     output=active/'build.json' if args.label=='initial' else active/'build-revisions'/(args.label+'-'+uuid.uuid4().hex+'.json')
     immutable_json(output,dict(pin='cb6de0a8966aecd01d19a3541dab1829d0e679ca',binary_relative_path=binary.relative_to(active).as_posix(),
         binary_sha256=sha256(binary),build_attempt=built['id'],version_attempt=version['id'],version=version['output'].strip(),
         native_triple=triple,dependencies_sha256=sha256(active/'dependencies.json'),review_sha256=sha256(review),
         lock_sha256=sha256(source/'Cargo.lock'),license_sha256=sha256(source/'LICENSE'),resource_compiler=resource,
-        active_bytes_observed=sizes,stable_build=True,bootstrap=False,languages='en'))
+        active_bytes_observed=sizes,stable_build=True,bootstrap=False,languages='en',version_exit_code=args.version_exit_code))
     print('Built pinned editor with ordinary stable Rust and owned offline dependencies:',binary)
 
 

@@ -1,0 +1,118 @@
+name: Runner readiness Edit native
+on:
+  push:
+    branches: [work/p0-p2-implementation]
+    paths: ['.github/workflows/runner-readiness-edit.yml']
+  workflow_dispatch:
+    inputs:
+      hosts:
+        type: choice
+        default: both
+        options: [both, windows, linux]
+        description: Native hosts
+permissions:
+  contents: read
+env:
+  SOURCE_REVISION: f470cd99aef89e080cc8455e4f8ad4715ecd12c2
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONIOENCODING: utf-8
+  GOTOOLCHAIN: local
+concurrency:
+  group: playtestr-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  terminal:
+    if: github.event_name == 'workflow_dispatch'
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        os: ${{ fromJSON(inputs.hosts == 'windows' && '["windows-2025"]' || inputs.hosts == 'linux' && '["ubuntu-24.04"]' || '["ubuntu-24.04", "windows-2025"]') }}
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          repository: Wyrcan-io/playtestr
+          ref: f470cd99aef89e080cc8455e4f8ad4715ecd12c2
+          path: .playtestr-tooling
+          persist-credentials: false
+          set-safe-directory: false
+      - name: Bootstrap official SDK inside checkout
+        run: |
+          campaign="$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass"
+          mkdir -p "$campaign/tmp" "$campaign/go-cache" "$campaign/gopath"
+          export TEMP="$campaign/tmp" TMP="$campaign/tmp" TMPDIR="$campaign/tmp" GOTMPDIR="$campaign/tmp"
+          export GOCACHE="$campaign/go-cache" GOPATH="$campaign/gopath" GOMODCACHE="$campaign/gopath/pkg/mod"
+          for name in TEMP TMP TMPDIR GOTMPDIR GOCACHE GOPATH GOMODCACHE; do
+            printf '%s=%s\n' "$name" "${!name}" >> "$GITHUB_ENV"
+          done
+          python scripts/acceptance/readiness_check.py --label edit-native-sdk --timeout 360 -- python scripts/acceptance/readiness_bootstrap_go.py
+          echo "$campaign/toolchain/go/bin" >> "$GITHUB_PATH"
+      - name: Build exact candidate runner
+        run: |
+          mkdir -p .playtestr-bin
+          ext=''
+          if [ "$RUNNER_OS" = Windows ]; then ext='.exe'; fi
+          cd .playtestr-tooling
+          go build -trimpath -ldflags "-X github.com/Wyrcan-io/playtestr/internal/buildinfo.Version=source-$SOURCE_REVISION" -o "$GITHUB_WORKSPACE/.playtestr-bin/playtestr$ext" ./cmd/playtestr
+          cd "$GITHUB_WORKSPACE"
+          echo "PLAYTESTR_BIN=$GITHUB_WORKSPACE/.playtestr-bin/playtestr$ext" >> "$GITHUB_ENV"
+          test "$(".playtestr-bin/playtestr$ext" --version)" = "playtestr source-$SOURCE_REVISION"
+      - name: Reviewed pinned editor and owned locked dependencies
+        id: prepare
+        run: python scripts/acceptance/readiness_edit_native_prepare.py
+      - name: Select frozen ordinary suite
+        id: context
+        run: |
+          mkdir -p artifacts/playtestr
+          "$PLAYTESTR_BIN" test --list artifacts/runner-readiness-ten-project-pass/edit/host-contracts > artifacts/playtestr/selected.txt
+          python .playtestr-tooling/scripts/ci/context_manifest.py --selection artifacts/playtestr/selected.txt --runner "$PLAYTESTR_BIN" --output artifacts/playtestr/context.json
+      - name: Twenty public ordinary tests
+        id: tests
+        run: |
+          python scripts/acceptance/readiness_public_suite.py --project edit --selection artifacts/playtestr/selected.txt -- "$PLAYTESTR_BIN" test --artifacts-dir artifacts/playtestr/evidence --report artifacts/playtestr/results.json artifacts/runner-readiness-ten-project-pass/edit/host-contracts
+      - name: Offline report
+        if: always() && steps.tests.outcome != 'skipped'
+        run: '"$PLAYTESTR_BIN" report --input artifacts/playtestr/results.json --evidence-root artifacts/playtestr --output artifacts/playtestr/report.html'
+      - name: Rebuilt source faults and exact restorations
+        if: always() && steps.context.outcome == 'success'
+        run: |
+          python scripts/acceptance/readiness_check.py --label native-edit-faults-parent --timeout 1200 -- python scripts/acceptance/readiness_edit_faults.py --package artifacts/runner-readiness-ten-project-pass/edit/host-contracts
+      - name: Public selected maintenance and relocation
+        if: always() && steps.context.outcome == 'success'
+        run: |
+          python scripts/acceptance/readiness_check.py --label native-edit-maintenance-parent --timeout 900 -- python scripts/acceptance/readiness_edit_maintenance.py --package artifacts/runner-readiness-ten-project-pass/edit/host-contracts
+      - name: Verify restore and remove owned target
+        if: always() && steps.prepare.outcome == 'success'
+        run: |
+          if [ "$RUNNER_OS" = Windows ]; then
+            python scripts/acceptance/readiness_check.py --label native-edit-process-proof --timeout 30 -- powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/acceptance/readiness_windows_process_proof.ps1 -Project edit
+            python scripts/acceptance/readiness_check.py --label native-edit-cleanup-parent --timeout 120 -- python scripts/acceptance/readiness_cleanup_plop.py --project edit --prepare-only
+            powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/acceptance/readiness_remove_plop.ps1 -Project edit
+          else
+            python scripts/acceptance/readiness_check.py --label native-edit-cleanup-parent --timeout 120 -- python scripts/acceptance/readiness_cleanup_plop.py --project edit
+          fi
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: playtestr-${{ runner.os }}
+          path: |
+            artifacts/playtestr/
+            artifacts/runner-readiness-ten-project-pass/events/
+            artifacts/runner-readiness-ten-project-pass/identities/
+            artifacts/runner-readiness-ten-project-pass/core/
+            artifacts/runner-readiness-ten-project-pass/edit/
+            artifacts/runner-readiness-ten-project-pass/edit-native-runner.json
+            artifacts/runner-readiness-ten-project-pass/edit-runtime-baseline.json
+            artifacts/runner-readiness-ten-project-pass/toolchain/sdk.json
+            !artifacts/runner-readiness-ten-project-pass/edit/retained-source/source.tar.gz
+          if-no-files-found: error
+          retention-days: 14

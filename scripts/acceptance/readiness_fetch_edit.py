@@ -18,7 +18,7 @@ async def main():
         raise RuntimeError('unreviewed Cargo dependency source')
     version=await execute([env['RUSTC'],'-Vv'],'edit','installed-stable-rust-identity',env=env,timeout=30,campaign=Campaign())
     cargo_version=await execute([cargo,'-Vv'],'edit','installed-stable-cargo-identity',env=env,timeout=30,campaign=Campaign())
-    operation=asyncio.create_task(execute([cargo,'fetch','--locked','--target',triple],
+    operation=asyncio.create_task(execute([cargo,'fetch','--manifest-path',source/'Cargo.toml','--locked','--target',triple],
         'edit','owned-locked-dependency-fetch-no-build-hooks',cwd=source,env=env,timeout=240,campaign=Campaign()))
     sizes=[]
     try:
