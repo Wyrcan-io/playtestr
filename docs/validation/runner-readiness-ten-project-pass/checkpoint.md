@@ -590,3 +590,48 @@ local harness: 489bd781f1da4b0eb2bf6ff9d287813a. Native requalification pending.
 Repeated native source archives are omitted from new Plop/Poetry uploads when
 the verified canonical source is already retained locally; selected restores,
 complete source hash indexes and acquisition identities remain in each packet.
+
+Earlier-project requalification is complete at production source e7b5f29:
+Poetry 39053952439 Linux/macOS passes full twenty/faults/maintenance/removal,
+independently verified bedb07aa412d4fe997afee8a768f6f58; Bundler 39054328503
+Linux/Windows likewise passes, independently verified
+cb8e9f806aff4b0b877669f4cbc2ef94. Curated per-project receipts and combined
+earlier-project-requalification-retention-e7b5f29.json record actual source,
+runner bytes, reports and archive references. Four projects/eight unique native
+cells remain; these repeats add no admissions or final archive credit.
+
+Plop first failures plus current requalification are retained in generation one:
+2,707 files, 19,497,873 expanded bytes, 11,612,034 archive bytes, four restores;
+verified 0277d69a2e46406986d071baeba30f82, checked expanded removal
+c9920305b5be46fe86c184908c7e41b5. Bundler new run alone is generation two:
+777 logical files/524 unique payloads, 11,928,104 expanded/2,049,834 archive bytes,
+one restore; verified 3b43d0797a62427081c89f5589e8111c, removal
+8faac996605e43118b307c7b91aef099. Default four-MiB guard first refuses its known
+4,787,785-byte bootstrap listing without creating output (47d3acb...); explicit
+sixteen-MiB file cap matches the previously declared bootstrap log bound.
+
+Poetry compaction initially refuses its 5,068,476-byte canonical source archive
+at the default four-MiB file cap, before creating output (2c564c026a414871b0a4dc05b0cd7ae3).
+Six native copies and the retained canonical archive have identical SHA
+b98d09d877587ab642302db2f37eca239883993ab8a53aa8c992c6ef27cd6142.
+E-06 repair uses self-contained one-level in-archive aliases, preserving every
+logical path/size/hash while storing identical bytes once. No external dictionary
+or remote-only reference. Alias escapes, payload mismatch, cycles and changed
+archives reject; native Windows removal still verifies every logical file.
+Regression fails before 91fd97e23f3441a09d9ce56910d6542b; full 29-test harness
+passes a324ebd105494559a0aba400dcff97ec, and cross-run alias restoration passes
+4021a5ee9a134a76be756850038990e7. New format two reads coexist with legacy format
+one; all five actual retained archives verify e136c29f4b634158886fbe0bcf3f30ab.
+Native alias requalification pending. No total storage cap is raised.
+
+Poetry's actual format-two archive: 2,510 logical paths/1,511 unique payloads,
+45,167,937 expanded bytes/7,947,446 archive bytes, four restores; verified
+efc86dbf283f40fe90a800454cc3b08c. Checked expanded removal
+40b71670c6364625a1296977ddd23a1d. All first failures remain recoverable.
+Current whole-control revision five binds successful numbered-retention harness
+39053952147 and core 39039797857, parent 82a20fc1ea64423aa3c563a42c9fc449;
+new alias-test source still needs native requalification. Storage observation
+6b91f9fcb0ad44ffb4f699b4a7d3bf38: campaign 1,295,289,118 bytes, retained
+193,512,793, curated 1,436,360, Bundler 39,351,909, active list empty. Logical-byte
+observations before subsequent small records; not exact peaks or OS quotas.
+Next: finish alias native checks, then acquire project five vis at the screened pin.

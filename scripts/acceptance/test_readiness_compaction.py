@@ -1,9 +1,12 @@
 import gzip
+import copy
+import json
 import os
 from pathlib import Path
 import shutil
 import subprocess
 import tempfile
+import tarfile
 import unittest
 import uuid
 
@@ -26,11 +29,27 @@ class NativeCompactionTests(unittest.TestCase):
             root=Path(folder);(root/'fixture').mkdir()
             packet=root/'native/123/playtestr-Linux';packet.mkdir(parents=True)
             value=packet/'synthetic caf\u00e9.json';value.write_bytes(b'\x00exact\r\nbytes\xff')
-            output=compact(root,'fixture',['123']);files,_=inventory(root,['123'])
+            (packet/'z-identical-copy.bin').write_bytes(value.read_bytes())
+            other=root/'native/124/playtestr-Linux';other.mkdir(parents=True)
+            (other/value.name).write_bytes(value.read_bytes())
+            runs=['123','124']
+            output=compact(root,'fixture',runs);files,_=inventory(root,runs)
+            with tarfile.open(output/'packets.tar.gz','r:gz') as bundle:
+                self.assertEqual(len(bundle.getmembers()),1,'identical logical files must share one physical archive member')
+            indexed=json.loads((output/'index.json').read_text())['files']
+            verify(output/'packets.tar.gz',indexed)
+            alias=next(name for name,row in indexed.items() if 'member' in row)
+            unsafe=copy.deepcopy(indexed);unsafe[alias]['member']='../../outside'
+            with self.assertRaisesRegex(ValueError,'unsafe archive alias'):verify(output/'packets.tar.gz',unsafe)
+            wrong=copy.deepcopy(indexed);wrong[alias]['sha256']='0'*64
+            with self.assertRaisesRegex(ValueError,'payload mismatch'):verify(output/'packets.tar.gz',wrong)
+            cycle=copy.deepcopy(indexed);cycle[indexed[alias]['member']]['member']=alias
+            with self.assertRaisesRegex(ValueError,'chain/cycle'):verify(output/'packets.tar.gz',cycle)
             self.assertEqual((output/'selected-restore/native/123/playtestr-Linux'/value.name).read_bytes(),value.read_bytes())
+            self.assertEqual((output/'selected-restore/native/124/playtestr-Linux'/value.name).read_bytes(),value.read_bytes())
             archive_bytes=(output/'packets.tar.gz').read_bytes()
-            with self.assertRaises(FileExistsError):compact(root,'fixture',['123'])
-            second=compact(root,'fixture',['123'],generation=2)
+            with self.assertRaises(FileExistsError):compact(root,'fixture',runs)
+            second=compact(root,'fixture',runs,generation=2)
             self.assertEqual((output/'packets.tar.gz').read_bytes(),archive_bytes)
             self.assertEqual((second/'selected-restore/native/123/playtestr-Linux'/value.name).read_bytes(),value.read_bytes())
             changed=output/'changed.tar.gz'
@@ -46,6 +65,7 @@ class NativeCompactionTests(unittest.TestCase):
             root.mkdir();owned.append(root)
             packet.mkdir(parents=True);owned.append(packet)
             value=packet/'owned.json';original=b'{"owned":true}\n';value.write_bytes(original)
+            (packet/'also-owned.json').write_bytes(original)
             output=compact(RAW,project,[run],generation=2)
             command=['powershell.exe','-NoProfile','-ExecutionPolicy','Bypass','-File',
                 str(ROOT/'scripts/acceptance/readiness_remove_native_packets.ps1'),'-Project',project,'-Generation','2']

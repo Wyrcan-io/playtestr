@@ -33,12 +33,31 @@ def inventory(root,runs,max_file_bytes=4*1024**2):
     return files,total
 
 
+def physical_members(files):
+    """Resolve one-level in-archive aliases; no external dictionary or chains."""
+    members={}
+    for name,record in files.items():
+        member=record.get('member',name)
+        for value in [name,member]:
+            if not isinstance(value,str) or len(value)>4096 or value.startswith('/') or any(
+                p in {'','.','..'} or ':' in p or '\\' in p or '\x00' in p for p in value.split('/')):
+                raise ValueError('unsafe archive alias path')
+        if member not in files:raise ValueError('archive alias lacks canonical member')
+        canonical=files[member]
+        if canonical.get('member',member)!=member:raise ValueError('archive alias chain/cycle')
+        if record['bytes']!=canonical['bytes'] or record['sha256']!=canonical['sha256']:
+            raise ValueError('archive alias payload mismatch')
+        members[member]=canonical
+    return members
+
+
 def verify(archive,files):
+    members=physical_members(files)
     seen=set()
     with tarfile.open(archive,'r:gz') as source:
         for member in source:
-            if member.name not in files or member.name in seen or not member.isfile():raise ValueError('archive coverage/type mismatch')
-            expected=files[member.name]
+            if member.name not in members or member.name in seen or not member.isfile():raise ValueError('archive coverage/type mismatch')
+            expected=members[member.name]
             if member.size!=expected['bytes']:raise ValueError('archive size mismatch')
             digest=hashlib.sha256();size=0
             with source.extractfile(member) as stream:
@@ -48,7 +67,7 @@ def verify(archive,files):
                     digest.update(block)
             if size!=expected['bytes'] or digest.hexdigest()!=expected['sha256']:raise ValueError('archive payload mismatch')
             seen.add(member.name)
-    if seen!=set(files):raise ValueError('archive omitted evidence')
+    if seen!=set(members):raise ValueError('archive omitted evidence')
     with gzip.open(archive,'rb') as stream:
         total=0
         while block:=stream.read(65536):
@@ -62,12 +81,18 @@ def compact(root,project,runs,max_file_bytes=4*1024**2,*,generation=1):
         if ancestor.is_symlink() or getattr(ancestor,'is_junction',lambda:False)():raise ValueError('linked compaction destination')
     (root/project).resolve().relative_to(root.resolve())
     files,total=inventory(root,runs,max_file_bytes)
+    canonical={}
+    for relative,record in sorted(files.items()):
+        key=(record['sha256'],record['bytes'])
+        member=canonical.setdefault(key,relative)
+        if member!=relative:record['member']=member
+    members=physical_members(files)
     output=root/project/('retained-native-v'+str(generation));output.mkdir(exist_ok=False)
     archive=output/'packets.tar.gz'
     with archive.open('xb') as destination:
         with gzip.GzipFile(filename='',mode='wb',fileobj=destination,mtime=0) as compressed:
             with tarfile.open(fileobj=compressed,mode='w|',format=tarfile.PAX_FORMAT) as target:
-                for relative,record in sorted(files.items()):
+                for relative,record in sorted(members.items()):
                     path=root/relative
                     if sha256(path)!=record['sha256']:raise ValueError('source evidence changed')
                     member=tarfile.TarInfo(relative);member.size=record['bytes'];member.mode=0o644
@@ -84,16 +109,17 @@ def compact(root,project,runs,max_file_bytes=4*1024**2,*,generation=1):
     with tarfile.open(archive,'r:gz') as source:
         for relative in selected:
             target=restore/relative;target.parent.mkdir(parents=True,exist_ok=True)
-            with source.extractfile(relative) as stream,target.open('xb') as destination:
+            with source.extractfile(files[relative].get('member',relative)) as stream,target.open('xb') as destination:
                 while block:=stream.read(65536):destination.write(block)
             if sha256(target)!=files[relative]['sha256']:raise ValueError('selected restore mismatch')
     index=output/'index.json'
-    immutable_json(index,dict(schema_version=1,project=project,generation=generation,runs=runs,files=files,expanded_bytes=total,
+    immutable_json(index,dict(schema_version=2,project=project,generation=generation,runs=runs,files=files,expanded_bytes=total,
+        unique_payloads=len(members),
         archive_sha256=sha256(archive),archive_bytes=archive.stat().st_size,selected_restore=selected,max_file_bytes=max_file_bytes,
-        scope='All selected packet payloads retained; no dictionary or remote-only reference required.'))
+        scope='Every logical path/hash retained; identical bytes alias one verified in-archive member. No external dictionary or remote-only reference.'))
     immutable_json(output/'verified.json',dict(index_sha256=sha256(index),archive_sha256=sha256(archive),
-        members_verified=len(files),selected_restore_verified=len(selected),expanded_removal_performed=False))
-    print('Verified native compaction:',len(files),'files;',total,'expanded bytes;',archive.stat().st_size,'archive bytes.')
+        members_verified=len(files),physical_members_verified=len(members),selected_restore_verified=len(selected),expanded_removal_performed=False))
+    print('Verified native compaction:',len(files),'logical files;',len(members),'unique payloads;',total,'expanded bytes;',archive.stat().st_size,'archive bytes.')
     return output
 
 

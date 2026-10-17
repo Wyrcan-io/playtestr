@@ -73,8 +73,11 @@ limitation and requires repaired final authoring routes.
 
 The primary-device-attributes and nonblocking Unix cleanup repair passes full
 native core ordinary/race checks on all three hosts in `39039797857`, source
-`e7b5f29`. Requalification of earlier Plop, Poetry and Bundler cells precedes
-project five; those old development passes do not transfer to new bytes.
+`e7b5f29`. Earlier Plop, Poetry and Bundler cells now pass independently verified
+requalification at that source in runs `39053462427`, `39053952439` and
+`39054328503`. Their [retention references](earlier-project-requalification-retention-e7b5f29.json)
+preserve old failures and new passes without adding project/cell credit.
+No target is active locally; project five is next.
 
 Raw attempts/caches/packages belong only under ignored
 `artifacts/runner-readiness-ten-project-pass/`. Earlier evidence is preserved.

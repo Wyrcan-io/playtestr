@@ -21,9 +21,9 @@ remain in the owned raw packets. Final frozen archives must run their own series
 | Ctrl-C from a Windows ignoring ancestor through the standalone CLI | Not applicable | Not applicable | Real ancestor/CLI/PTY ordinary/race control and original Bundler E03 pass after process-local repair |
 | Exact temporary short-path alias expansion | Not applicable | Not applicable | Actual local C-filesystem control passes; hosted D-filesystem alias unavailable |
 | Installer version flood/hang, supported compact/spaced install route | Native controls pass | Native controls pass | Native controls pass; arbitrary long launch paths excluded |
-| Plop full twenty-scenario development package | Admitted | Admitted | Nineteen pass; resize case red; excluded |
-| Poetry full twenty-scenario development package | Admitted, run 38957159731 | Admitted, run 38957159731 | Nineteen pass; resize case red; excluded |
-| Bundler full twenty-scenario development package | Admitted, run 39011298428 | Not selected | Admitted, run 39011298428; explicit runtime profiles retained |
+| Plop full twenty-scenario development package | Admitted; requalified e7b5f29 in 39053462427 | Admitted; requalified e7b5f29 in 39053462427 | Historical nineteen pass; resize case red; excluded |
+| Poetry full twenty-scenario development package | Admitted; requalified e7b5f29 in 39053952439 | Admitted; requalified e7b5f29 in 39053952439 | Historical nineteen pass; resize case red; excluded |
+| Bundler full twenty-scenario development package | Admitted; requalified e7b5f29 in 39054328503 | Not selected | Admitted; requalified e7b5f29 in 39054328503; explicit runtime profiles retained |
 | Edit full twenty-scenario development package | Admitted, run 39039845616 | Not selected | Admitted, run 39039845616; explicit new-document LF host difference retained |
 | Primary device attributes, exact CSI c / CSI 0 c | Real PTY ordinary/race passes, core 39039797857 | Real PTY ordinary/race passes, core 39039797857 | ConPTY replies independently; runner injects no duplicate reply |
 
