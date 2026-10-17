@@ -1,0 +1,152 @@
+{
+  "version": 3,
+  "name": "papis N02: export selected metadata as a spreadsheet CSV",
+  "command": [
+    "papis",
+    "--config",
+    "config.ini",
+    "--lib",
+    "library",
+    "--np",
+    "1",
+    "--color",
+    "no",
+    "--set",
+    "exporter-csv-keys",
+    "['title','year']",
+    "export",
+    "--format",
+    "csv",
+    "--out",
+    "result.csv",
+    "--sort",
+    "title"
+  ],
+  "workspace": {
+    "fixture": "fixtures/N02",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONIOENCODING": "utf-8",
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 15000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Alpha Book"
+    },
+    {
+      "key": "ArrowDown"
+    },
+    {
+      "expect": "2/2"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Writing to"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "config.ini",
+        "kind": "file",
+        "bytes_base64": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK"
+      }
+    },
+    {
+      "state": {
+        "path": "library/alpha/info.yaml",
+        "kind": "file",
+        "bytes_base64": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg=="
+      }
+    },
+    {
+      "state": {
+        "path": "library/alpha/paper.txt",
+        "kind": "file",
+        "bytes_base64": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK"
+      }
+    },
+    {
+      "state": {
+        "path": "library/beta/info.yaml",
+        "kind": "file",
+        "bytes_base64": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK"
+      }
+    },
+    {
+      "state": {
+        "path": "library/beta/paper.txt",
+        "kind": "file",
+        "bytes_base64": "YmV0YSByZXZpZXdlZCBwYXBlcg0K"
+      }
+    },
+    {
+      "state": {
+        "path": "result.csv",
+        "kind": "file",
+        "bytes_base64": "InRpdGxlIiwieWVhciINCiJCZXRhIEJvb2siLCIyMDI0Ig0K"
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "library",
+          "result.csv",
+          "sentinel.txt",
+          "config.ini"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "library",
+        "kind": "entries",
+        "entries": [
+          "alpha",
+          "beta"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "library/alpha",
+        "kind": "entries",
+        "entries": [
+          "paper.txt",
+          "info.yaml"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "library/beta",
+        "kind": "entries",
+        "entries": [
+          "paper.txt",
+          "info.yaml"
+        ]
+      }
+    }
+  ]
+}

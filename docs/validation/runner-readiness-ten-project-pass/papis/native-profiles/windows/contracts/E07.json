@@ -1,0 +1,435 @@
+{
+  "version": 3,
+  "name": "papis E07: navigate beyond the first viewport and return before export",
+  "command": [
+    "papis",
+    "--config",
+    "config.ini",
+    "--lib",
+    "library",
+    "--np",
+    "1",
+    "--color",
+    "no",
+    "--set",
+    "exporter-csv-keys",
+    "['title','year']",
+    "export",
+    "--folder",
+    "--out",
+    "exported",
+    "--sort",
+    "title"
+  ],
+  "workspace": {
+    "fixture": "fixtures/E07",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONIOENCODING": "utf-8",
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 15000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Alpha Book"
+    },
+    {
+      "key": "End"
+    },
+    {
+      "expect": "Zeta 14"
+    },
+    {
+      "key": "Home"
+    },
+    {
+      "expect": "1/17"
+    },
+    {
+      "key": "ArrowDown"
+    },
+    {
+      "expect": "2/17"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Exporting document"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "config.ini",
+        "kind": "file",
+        "bytes_base64": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK"
+      }
+    },
+    {
+      "state": {
+        "path": "exported/info.yaml",
+        "kind": "file",
+        "bytes_base64": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK"
+      }
+    },
+    {
+      "state": {
+        "path": "exported/paper.txt",
+        "kind": "file",
+        "bytes_base64": "YmV0YSByZXZpZXdlZCBwYXBlcg0K"
+      }
+    },
+    {
+      "state": {
+        "path": "library/alpha/info.yaml",
+        "kind": "file",
+        "bytes_base64": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg=="
+      }
+    },
+    {
+      "state": {
+        "path": "library/alpha/paper.txt",
+        "kind": "file",
+        "bytes_base64": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK"
+      }
+    },
+    {
+      "state": {
+        "path": "library/beta/info.yaml",
+        "kind": "file",
+        "bytes_base64": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK"
+      }
+    },
+    {
+      "state": {
+        "path": "library/beta/paper.txt",
+        "kind": "file",
+        "bytes_base64": "YmV0YSByZXZpZXdlZCBwYXBlcg0K"
+      }
+    },
+    {
+      "state": {
+        "path": "library/extra00/info.yaml",
+        "kind": "file",
+        "bytes_base64": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMApyZWY6IGV4dHJhMAp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDAwCnR5cGU6IGJvb2sKeWVhcjogMjAyNAo="
+      }
+    },
+    {
+      "state": {
+        "path": "library/extra01/info.yaml",
+        "kind": "file",
+        "bytes_base64": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMQpyZWY6IGV4dHJhMQp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDAxCnR5cGU6IGJvb2sKeWVhcjogMjAyNAo="
+      }
+    },
+    {
+      "state": {
+        "path": "library/extra02/info.yaml",
+        "kind": "file",
+        "bytes_base64": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMgpyZWY6IGV4dHJhMgp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDAyCnR5cGU6IGJvb2sKeWVhcjogMjAyNAo="
+      }
+    },
+    {
+      "state": {
+        "path": "library/extra03/info.yaml",
+        "kind": "file",
+        "bytes_base64": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMwpyZWY6IGV4dHJhMwp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDAzCnR5cGU6IGJvb2sKeWVhcjogMjAyNAo="
+      }
+    },
+    {
+      "state": {
+        "path": "library/extra04/info.yaml",
+        "kind": "file",
+        "bytes_base64": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhNApyZWY6IGV4dHJhNAp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDA0CnR5cGU6IGJvb2sKeWVhcjogMjAyNAo="
+      }
+    },
+    {
+      "state": {
+        "path": "library/extra05/info.yaml",
+        "kind": "file",
+        "bytes_base64": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhNQpyZWY6IGV4dHJhNQp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDA1CnR5cGU6IGJvb2sKeWVhcjogMjAyNAo="
+      }
+    },
+    {
+      "state": {
+        "path": "library/extra06/info.yaml",
+        "kind": "file",
+        "bytes_base64": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhNgpyZWY6IGV4dHJhNgp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDA2CnR5cGU6IGJvb2sKeWVhcjogMjAyNAo="
+      }
+    },
+    {
+      "state": {
+        "path": "library/extra07/info.yaml",
+        "kind": "file",
+        "bytes_base64": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhNwpyZWY6IGV4dHJhNwp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDA3CnR5cGU6IGJvb2sKeWVhcjogMjAyNAo="
+      }
+    },
+    {
+      "state": {
+        "path": "library/extra08/info.yaml",
+        "kind": "file",
+        "bytes_base64": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhOApyZWY6IGV4dHJhOAp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDA4CnR5cGU6IGJvb2sKeWVhcjogMjAyNAo="
+      }
+    },
+    {
+      "state": {
+        "path": "library/extra09/info.yaml",
+        "kind": "file",
+        "bytes_base64": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhOQpyZWY6IGV4dHJhOQp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDA5CnR5cGU6IGJvb2sKeWVhcjogMjAyNAo="
+      }
+    },
+    {
+      "state": {
+        "path": "library/extra10/info.yaml",
+        "kind": "file",
+        "bytes_base64": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMTAKcmVmOiBleHRyYTEwCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IFpldGEgMTAKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg=="
+      }
+    },
+    {
+      "state": {
+        "path": "library/extra11/info.yaml",
+        "kind": "file",
+        "bytes_base64": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMTEKcmVmOiBleHRyYTExCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IFpldGEgMTEKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg=="
+      }
+    },
+    {
+      "state": {
+        "path": "library/extra12/info.yaml",
+        "kind": "file",
+        "bytes_base64": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMTIKcmVmOiBleHRyYTEyCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IFpldGEgMTIKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg=="
+      }
+    },
+    {
+      "state": {
+        "path": "library/extra13/info.yaml",
+        "kind": "file",
+        "bytes_base64": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMTMKcmVmOiBleHRyYTEzCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IFpldGEgMTMKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg=="
+      }
+    },
+    {
+      "state": {
+        "path": "library/extra14/info.yaml",
+        "kind": "file",
+        "bytes_base64": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMTQKcmVmOiBleHRyYTE0CnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IFpldGEgMTQKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg=="
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "config.ini",
+          "exported",
+          "library",
+          "sentinel.txt"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "exported",
+        "kind": "entries",
+        "entries": [
+          "info.yaml",
+          "paper.txt"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "library",
+        "kind": "entries",
+        "entries": [
+          "alpha",
+          "beta",
+          "extra00",
+          "extra01",
+          "extra02",
+          "extra03",
+          "extra04",
+          "extra05",
+          "extra06",
+          "extra07",
+          "extra08",
+          "extra09",
+          "extra10",
+          "extra11",
+          "extra12",
+          "extra13",
+          "extra14"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "library/alpha",
+        "kind": "entries",
+        "entries": [
+          "info.yaml",
+          "paper.txt"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "library/beta",
+        "kind": "entries",
+        "entries": [
+          "info.yaml",
+          "paper.txt"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "library/extra00",
+        "kind": "entries",
+        "entries": [
+          "info.yaml"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "library/extra01",
+        "kind": "entries",
+        "entries": [
+          "info.yaml"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "library/extra02",
+        "kind": "entries",
+        "entries": [
+          "info.yaml"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "library/extra03",
+        "kind": "entries",
+        "entries": [
+          "info.yaml"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "library/extra04",
+        "kind": "entries",
+        "entries": [
+          "info.yaml"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "library/extra05",
+        "kind": "entries",
+        "entries": [
+          "info.yaml"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "library/extra06",
+        "kind": "entries",
+        "entries": [
+          "info.yaml"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "library/extra07",
+        "kind": "entries",
+        "entries": [
+          "info.yaml"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "library/extra08",
+        "kind": "entries",
+        "entries": [
+          "info.yaml"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "library/extra09",
+        "kind": "entries",
+        "entries": [
+          "info.yaml"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "library/extra10",
+        "kind": "entries",
+        "entries": [
+          "info.yaml"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "library/extra11",
+        "kind": "entries",
+        "entries": [
+          "info.yaml"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "library/extra12",
+        "kind": "entries",
+        "entries": [
+          "info.yaml"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "library/extra13",
+        "kind": "entries",
+        "entries": [
+          "info.yaml"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "library/extra14",
+        "kind": "entries",
+        "entries": [
+          "info.yaml"
+        ]
+      }
+    }
+  ]
+}
