@@ -18,7 +18,7 @@ from readiness_evidence import Campaign, RAW, ROOT, immutable_json, sha256
 
 async def owned_runtime_command(pid,identity):
     """Inspect bounded arguments privately; persist only the ownership decision."""
-    inspector=await asyncio.create_subprocess_exec('ps','-p',str(pid),'-o','command=',
+    inspector=await asyncio.create_subprocess_exec('ps','-ww','-p',str(pid),'-o','command=',
         stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.DEVNULL,
         env=dict(os.environ,LC_ALL='C'))
     try:
