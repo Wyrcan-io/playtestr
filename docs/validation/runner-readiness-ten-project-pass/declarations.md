@@ -196,3 +196,13 @@ source-fault and maintenance journey; Windows runs reduced diagnosis and exact
 original-contract retention with the ordinary workflow's inherited environment.
 This separates a measured PATH/environment discrepancy from the inherited
 interrupt repair. At most two core plus two project jobs run concurrently.
+
+39010635498 produced Linux 18/20 and positive repaired Windows interrupt evidence.
+The exact retained Windows root contained a literal `%SystemDrive%` directory;
+the next Windows profile explicitly inherits this runtime prerequisite for all
+contracts while preserving every expected state. Linux N01/N06 require reduction.
+One Linux-only diagnostic is declared next (standard host, 25-minute ceiling,
+expected 3-5 minutes). It uses an unsaved selected lock-file review and one
+five-second/64-KiB synthetic Readline PTY capture with owned process-group reap.
+No expectation changes, no automatic retry, no qualification credit. Maximum
+four aggregate hosted jobs remains in force.

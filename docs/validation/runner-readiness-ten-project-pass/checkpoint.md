@@ -369,3 +369,20 @@ and the complete unchanged Bundler twenty-case local suite passes under
 89c1c71fc8f1441e85606910beb5a79c (packet local-suite/2ec1d844c19548079504cef44922a1b1).
 Next native batch pins this production source, runs the Linux project journey
 and Windows diagnosis without changing the original twenty scenario contracts.
+
+Bundler 39010635498 retrieved: Linux 18/20, N01 snapshot shows literal [32m/[0m
+in the Readline prompt; N06 exact lock bytes differ. No native fault/maintenance
+credit because unchanged F01 baseline fails. Windows diagnosis confirms repaired
+interrupt (original E03 and both independent Ruby probes pass). Exact original
+ordinary environment root inspection records the extra literal `%SystemDrive%`
+directory, invocation c143b20e3dc3f9aa3c3533b1acd3e49e. Checked removal has a
+separate receipt. Explicit Windows runtime SystemDrive inheritance is now authored
+for all host contracts; no entry-set or file expectations change. Profile guard
+fails before cafeeeb266f94562bc7084836cbf125e and the complete 22-test local harness
+passes after 2b8217943b1f464fa3b64e783f464665. Real native verification pending.
+
+Next Linux-only diagnostic reviews N06 selected file bytes without export,
+records actual Readline/platform identities, and captures at most 64 KiB from a
+five-second synthetic real PTY. This separates actual emitted bytes from terminal
+parsing before deciding whether any renderer repair or explicit target profile
+is warranted. No baseline accepted and no project admission from diagnostic jobs.

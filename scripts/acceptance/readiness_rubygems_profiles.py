@@ -7,6 +7,8 @@ from readiness_evidence import RAW, immutable_json, sha256
 from readiness_rubygems_cases import PACKAGE, rows
 from readiness_rubygems_faults import contract_names
 
+WINDOWS=os.name=='nt'
+
 
 def main():
     target=RAW/'rubygems/host-contracts';target.mkdir(parents=True,exist_ok=False)
@@ -21,7 +23,10 @@ def main():
     records=[]
     for name in contract_names():
         source=PACKAGE/name;spec=json.loads(source.read_text());identity=by_name[name];differences=[]
-        if os.name!='nt':
+        if WINDOWS:
+            if 'SystemDrive' not in spec['inherit_env']:spec['inherit_env'].append('SystemDrive')
+            differences.append('explicit SystemDrive required by the owned Windows Ruby runtime system directory expansion')
+        else:
             spec['env']['GEMRC']=os.devnull;spec['env']['GIT_CONFIG_GLOBAL']=os.devnull
             spec['inherit_env']=[k for k in spec['inherit_env'] if k!='SystemDrive']
             differences.append('native null device and POSIX Ruby has no Windows SystemDrive prerequisite')

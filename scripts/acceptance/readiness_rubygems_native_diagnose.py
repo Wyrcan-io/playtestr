@@ -9,10 +9,68 @@ from readiness_evidence import Campaign, RAW, ROOT, immutable_json, sha256
 from readiness_rubygems_cases import environment
 
 
+async def linux_diagnosis(package,runner):
+    """Review selected lock bytes and distinguish target bytes from VT parsing."""
+    import base64
+    import errno
+    import pty
+    import select
+    import signal
+    import time
+    root=RAW/'rubygems/linux-diagnosis'/uuid.uuid4().hex;root.mkdir(parents=True)
+    spec=package/'normal-lock.json';before=sha256(spec)
+    review=await execute([runner,'record','--edit',spec.relative_to(ROOT)],'rubygems','linux-unsaved-lock-byte-review',
+        input='/update-state 3\n/review\n/quit\n',expected=130,env=environment(),timeout=130,campaign=Campaign())
+    assert sha256(spec)==before
+    runtime=json.loads((RAW/'active/rubygems/runtime.json').read_text())
+    ruby=runtime['installed_ruby_executable']
+    metadata=await execute([ruby,'-e','require "readline"; require "bundler"; puts RUBY_DESCRIPTION; puts Readline::VERSION; puts Gem::Platform.local; puts Bundler.local_platform; p Gem.platforms.map(&:to_s); p Gem::Platform.instance_method(:initialize).source_location'],
+        'rubygems','linux-readline-and-platform-identity',env=environment(),timeout=30,campaign=Campaign())
+    env={k:v for k,v in environment().items() if k in ['PATH','RUBYLIB','LANG','LC_ALL']}
+    home=root/'home';home.mkdir();env.update(HOME=str(home),INPUTRC=os.devnull,TERM='xterm-256color',TMPDIR=str(root))
+    code='require "readline"; STDOUT.sync=true; puts "\\e[31mDIRECT-READY\\e[0m"; Readline.readline("\\e[32mPROMPT>\\e[0m"); puts "COMPLETE"'
+    pid,fd=pty.fork()
+    if pid==0:
+        os.chdir(root)
+        os.execve(ruby,[ruby,'-e',code],env)
+    data=bytearray();status=None;sent=False;deadline=time.monotonic()+5
+    try:
+        while time.monotonic()<deadline:
+            if select.select([fd],[],[],0.05)[0]:
+                try:block=os.read(fd,4096)
+                except OSError as error:
+                    if error.errno==errno.EIO:break
+                    raise
+                if not block:break
+                data.extend(block)
+                if len(data)>65536:raise RuntimeError('synthetic raw PTY byte cap')
+                if b'PROMPT>' in data and not sent:os.write(fd,b'reviewed\n');sent=True
+            if status is None:
+                observed,status_value=os.waitpid(pid,os.WNOHANG)
+                if observed:status=status_value
+        while status is None and time.monotonic()<deadline:
+            observed,status_value=os.waitpid(pid,os.WNOHANG)
+            if observed:status=status_value
+            else:time.sleep(0.01)
+        if status is None:raise RuntimeError('synthetic Readline PTY deadline')
+    finally:
+        if status is None:
+            if os.getpgid(pid)!=pid:raise RuntimeError('owned synthetic process group changed')
+            os.killpg(pid,signal.SIGKILL);_,status=os.waitpid(pid,0)
+        os.close(fd)
+    immutable_json(root/'observation.json',dict(lock_review_attempt=review['id'],metadata_attempt=metadata['id'],
+        synthetic_raw_bytes_base64=base64.b64encode(data).decode(),exit_code=os.waitstatus_to_exitcode(status),
+        reaped=True,qualification='diagnosis only; no baseline export or project admission'))
+    print('Selected lock bytes and bounded synthetic native Readline raw bytes retained.')
+
+
 async def main():
     diagnostic_id=uuid.uuid4().hex
     package=RAW/'rubygems/host-contracts'
     runner=RAW/'bin'/('playtestr.exe' if os.name=='nt' else 'playtestr')
+    if os.name!='nt':
+        await linux_diagnosis(package,runner)
+        return
     spec=package/'normal-gem.json';original=sha256(spec)
     steps=json.loads(spec.read_text())['steps']
     selected=next(i+1 for i,s in enumerate(steps) if s.get('state',{}).get('path')=='.')

@@ -8,6 +8,17 @@ import readiness_rubygems_profiles as profiles
 
 
 class BundlerProfileTests(unittest.TestCase):
+    def test_windows_profiles_explicitly_inherit_system_drive_and_preserve_entry_sets(self):
+        RAW.mkdir(parents=True,exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=RAW) as folder:
+            root=Path(folder)
+            with patch.object(profiles,'RAW',root),patch.object(profiles,'WINDOWS',True):profiles.main()
+            suite=root/'rubygems/host-contracts'
+            for path in suite.glob('*.json'):
+                actual=json.loads(path.read_text());original=json.loads((profiles.PACKAGE/path.name).read_text())
+                self.assertIn('SystemDrive',actual['inherit_env'])
+                self.assertEqual(actual['steps'],original['steps'])
+
     def test_exact_native_suite_keeps_paged_resize_and_excludes_receipts(self):
         RAW.mkdir(parents=True,exist_ok=True)
         with tempfile.TemporaryDirectory(dir=RAW) as folder:
