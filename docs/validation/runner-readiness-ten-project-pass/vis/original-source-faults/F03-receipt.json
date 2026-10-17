@@ -1,0 +1,25 @@
+{
+  "after": "\tssize_t written = text_write_range(ctx->txt, range, ctx->fd);\n\tif (written > 0 && ftruncate(ctx->fd, written - 1) == -1)\n\t\treturn -1;\n\treturn written;",
+  "baseline_attempt": "c4ea7872cd134210a83773129b053264",
+  "baseline_binary_sha256": "94bbb5bb49bf6b459f07d34a8fccd42427d19d5928cc3969536620391608f6a0",
+  "before": "\treturn text_write_range(ctx->txt, range, ctx->fd);",
+  "category": "state_assertion_failure",
+  "held_out": true,
+  "id": "F03",
+  "mutated_source_sha256": "95a0703a0108503ef1cc01857687db08ff6e6cf96b59475d514fb20884c68db6",
+  "mutation_attempt": "081688e9271b450fbfacc62da8e5089d",
+  "mutation_build": {
+    "attempt": "0f0750525d444ebba5fa27b2b7920e10",
+    "binary_sha256": "1fea0f35add72006e026f1f30fc9f083607c66ad9a8abf3e8af98dc05487a7f8"
+  },
+  "original_source_sha256": "36e0e24e3c6a01ee2f1a87e91e4ecad47707d4224192628eaf5ca3ed9e8bdd1a",
+  "path": "text-io.c",
+  "restored_attempt": "757fb36ee33c485bbedfc825130d2860",
+  "restored_build": {
+    "attempt": "6917e6d35cfb45aebec3a6612fce47be",
+    "binary_sha256": "94bbb5bb49bf6b459f07d34a8fccd42427d19d5928cc3969536620391608f6a0"
+  },
+  "restored_exact": true,
+  "same_execution_state_rejection": true,
+  "spec": "N01.json"
+}

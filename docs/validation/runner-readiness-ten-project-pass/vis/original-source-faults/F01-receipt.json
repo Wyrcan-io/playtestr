@@ -1,0 +1,25 @@
+{
+  "after": "snprintf(left_parts[left_count++], sizeof(left_parts[0]), \"REGRESSION %s%s%s\",",
+  "baseline_attempt": "c312fa850d35439f8f6fa68173e590d7",
+  "baseline_binary_sha256": "94bbb5bb49bf6b459f07d34a8fccd42427d19d5928cc3969536620391608f6a0",
+  "before": "snprintf(left_parts[left_count++], sizeof(left_parts[0]), \"%s%s%s\",",
+  "category": "snapshot_mismatch",
+  "held_out": false,
+  "id": "F01",
+  "mutated_source_sha256": "53c23391bfa53412f7ffeb524d9026a2e8d8f9f604385c6ea5e9268553f73996",
+  "mutation_attempt": "d9e56a8729aa4172a80351e3ab4eefab",
+  "mutation_build": {
+    "attempt": "03db85a33222462ba2343a5e8a5d0fad",
+    "binary_sha256": "930dc03e854a6f19fb6d9ca54648c391c109be51b0bae1e3a6e51a69e33af008"
+  },
+  "original_source_sha256": "3f484857e2f4e178e464ba41e136894e075054ca2a36a8a7c6c8ee7a22c34e80",
+  "path": "view.c",
+  "restored_attempt": "64b743aea371448e98873b3676ca18d2",
+  "restored_build": {
+    "attempt": "2e740b4f5e884885b5318fd7a57e7d8e",
+    "binary_sha256": "94bbb5bb49bf6b459f07d34a8fccd42427d19d5928cc3969536620391608f6a0"
+  },
+  "restored_exact": true,
+  "same_execution_state_rejection": false,
+  "spec": "N01.json"
+}

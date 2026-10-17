@@ -1,6 +1,6 @@
 # Runner readiness campaign
 
-Invoked 16 October 2026. Status: **in progress; four development admissions across eight native cells**.
+Invoked 16 October 2026. Status: **in progress; five development admissions across ten native cells**.
 
 Base: `deed954a9ed1c05db73ee93cb2fbb84d9271d1e1`, branch
 `work/p0-p2-implementation`. Pre-existing edits: planning index and execution
@@ -19,7 +19,8 @@ Plop's owned local tree is removed after archive/restore and cleanup checks.
 Poetry's owned local tree is also removed after verified retention and cleanup.
 RubyGems/Bundler is admitted on Linux/Windows and its owned local tree is removed.
 Microsoft Edit is admitted on Linux/Windows and its owned local tree is removed.
-Vis is active locally as reviewed source only. Attempted 5; development admitted 4; archive qualified 0;
+Vis is admitted on Linux/macOS and its owned local source tree is removed.
+No target is active locally. Attempted 5; development admitted 5; archive qualified 0;
 old projects migrated 0; final runner admissions 0/100; paid-product admissions 0/100;
 final-qualified scenarios, faults, repetitions and native project/host cells all 0.
 Development evidence includes nineteen passing Windows Plop scenarios and three
@@ -41,7 +42,7 @@ and eight selected restoration checks. Expanded evidence briefly exceeded the
 project cap; the breach remains recorded, and retained Bundler evidence is now
 37,003,254 bytes after verified compaction. Whole campaign storage observation
 is 1,199,571,043 bytes, excluding subsequent small records, with no active targets.
-Development cells: 8;
+Development cells: 10;
 archive cells: 0. The original Windows F03 alone supplies each project's holdout;
 native copies are replicas. Bundler includes Windows; Plop and Poetry retain
 their historical Windows exclusions and first-use/usability limitations.
@@ -66,7 +67,7 @@ source/binary/event verification, all 3,510 native payloads retained in a verifi
 3,368,897-byte archive, four restores and checked source removal. Earlier failures
 remain retained. See [development findings](edit/development-findings.md). The expanded evidence
 harness passes all applicable controls on three native hosts in `39037396111`;
-[33 whole controls](new-control-development-evidence-revision-6.json) bind to
+[33 whole controls](new-control-development-evidence-revision-7.json) bind to
 actual successful native events and matching sources. Final archive credit stays
 zero. Earlier new-record fixture identities were incomplete; E-05 preserves this
 limitation and requires repaired final authoring routes.
@@ -77,7 +78,7 @@ native core ordinary/race checks on all three hosts in `39039797857`, source
 requalification at that source in runs `39053462427`, `39053952439` and
 `39054328503`. Their [retention references](earlier-project-requalification-retention-e7b5f29.json)
 preserve old failures and new passes without adding project/cell credit.
-Project five Vis is acquired at its screened pin; reviewed native C builds and first public recording are pending. Linux/macOS are the declared hosts.
+Vis now passes native Linux/macOS run `39064393286`: twenty frozen cases, three rebuilt C source faults/restorations, public maintenance and cleanup. [Admission receipt](vis/development-admission.json) binds independent native verification, canonical source restoration, all 4,403 retained native payloads, five selected restores and checked removal. Only initial Linux F03 supplies holdout credit; macOS copies and later repetitions are replicas. No Windows runtime was attempted. No target is active locally; project six fff is next.
 
 Raw attempts/caches/packages belong only under ignored
 `artifacts/runner-readiness-ten-project-pass/`. Earlier evidence is preserved.

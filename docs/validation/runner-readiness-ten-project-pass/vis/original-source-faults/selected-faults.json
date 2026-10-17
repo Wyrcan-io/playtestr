@@ -1,0 +1,34 @@
+{
+  "actual_build": "Every mutated and restored pinned C source is rebuilt through the ordinary reviewed native make vis target.",
+  "faults": [
+    {
+      "after": "snprintf(left_parts[left_count++], sizeof(left_parts[0]), \"REGRESSION %s%s%s\",",
+      "before": "snprintf(left_parts[left_count++], sizeof(left_parts[0]), \"%s%s%s\",",
+      "category": "snapshot_mismatch",
+      "held_out": false,
+      "id": "F01",
+      "path": "view.c",
+      "spec": "N01.json"
+    },
+    {
+      "after": "\tvis_cleanup(vis);\n\treturn status == 0 ? 7 : status;",
+      "before": "\tvis_cleanup(vis);\n\treturn status;",
+      "category": "unexpected_exit",
+      "held_out": false,
+      "id": "F02",
+      "path": "main.c",
+      "spec": "N02.json"
+    },
+    {
+      "after": "\tssize_t written = text_write_range(ctx->txt, range, ctx->fd);\n\tif (written > 0 && ftruncate(ctx->fd, written - 1) == -1)\n\t\treturn -1;\n\treturn written;",
+      "before": "\treturn text_write_range(ctx->txt, range, ctx->fd);",
+      "category": "state_assertion_failure",
+      "held_out": true,
+      "id": "F03",
+      "path": "text-io.c",
+      "spec": "N01.json"
+    }
+  ],
+  "frozen_contract_sha256": "e54bc6fbb3fad0b27dbd788b7e3d6cf253616efdf00ab18a1b46e08608b62c7e",
+  "selection": "Original F03 designated Linux after committed twenty-case freeze 69247e8; all other cells/reruns are replicas."
+}

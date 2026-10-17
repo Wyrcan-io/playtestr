@@ -42,12 +42,17 @@ async def node_inventory(label):
 async def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--prepare-only',action='store_true')
+    parser.add_argument('--source-only',action='store_true',help='Retain an acquired, never-built local Windows Vis source tree without inventing runtime/build receipts')
     parser.add_argument('--project',choices=['plop','poetry','rubygems','edit','vis'],default='plop')
     args=parser.parse_args()
     if os.name=='nt' and not args.prepare_only:
         raise RuntimeError('use --prepare-only then the checked native PowerShell removal route on Windows')
     project=args.project
+    if args.source_only and (os.name!='nt' or project!='vis' or not args.prepare_only):
+        raise RuntimeError('source-only retention applies only to never-built local Windows Vis preparation')
     active=RAW/'active'/project
+    if args.source_only and any((active/name).exists() for name in ['runtime.json','build.json','src/vis','src/vis.exe']):
+        raise RuntimeError('source-only retention refuses build/runtime or executable evidence')
     base=(RAW/'active').resolve()
     if active.is_symlink() or active.resolve().parent!=base or not base.is_relative_to(RAW.resolve()):
         raise RuntimeError('unsafe cleanup target')
@@ -122,8 +127,12 @@ async def main():
                 restored=restore/relative;restored.parent.mkdir(parents=True,exist_ok=True);restored.write_bytes(value)
                 if sha256(restored)!=digest:raise RuntimeError('selected restore verification failed')
     if not selected<=manifest.keys():raise RuntimeError('restore coverage missing')
-    for name in ['task-owned.json','acquisition.json','runtime.json','build.json']:
+    records=['task-owned.json','acquisition.json'] if args.source_only else ['task-owned.json','acquisition.json','runtime.json','build.json']
+    for name in records:
         shutil.copyfile(active/name,retained/name)
+    if args.source_only:
+        immutable_json(retained/'source-only.json',dict(project='martanne/vis',native_local_build_attempted=False,
+            native_local_runtime_attempted=False,local_host='Windows',qualification='not attempted; declared runtime hosts Linux/macOS only'))
     if project in {'edit','vis'}:
         for name in (['dependencies.json','build-review.json'] if project=='edit' else []):shutil.copyfile(active/name,retained/name)
         if (active/'build-revisions').is_dir():shutil.copytree(active/'build-revisions',retained/'build-revisions')

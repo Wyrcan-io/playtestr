@@ -1,0 +1,14 @@
+--- a/text-io.c
++++ b/text-io.c
+@@ -446,7 +446,10 @@
+ 
+ ssize_t text_save_write_range(TextSave *ctx, Filerange range)
+ {
+-	return text_write_range(ctx->txt, range, ctx->fd);
++	ssize_t written = text_write_range(ctx->txt, range, ctx->fd);
++	if (written > 0 && ftruncate(ctx->fd, written - 1) == -1)
++		return -1;
++	return written;
+ }
+ 
+ ssize_t text_write_range(const Text *txt, Filerange range, int fd)

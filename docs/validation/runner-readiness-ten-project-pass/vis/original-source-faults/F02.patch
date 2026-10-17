@@ -1,0 +1,10 @@
+--- a/main.c
++++ b/main.c
+@@ -1452,5 +1452,5 @@
+ 
+ 	int status = vis_run(vis);
+ 	vis_cleanup(vis);
+-	return status;
+-}
++	return status == 0 ? 7 : status;
++}

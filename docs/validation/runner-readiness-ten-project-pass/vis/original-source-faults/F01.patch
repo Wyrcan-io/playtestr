@@ -1,0 +1,11 @@
+--- a/view.c
++++ b/view.c
+@@ -65,7 +65,7 @@
+ 	if (focused && mode)
+ 		strcpy(left_parts[left_count++], mode);
+ 
+-	snprintf(left_parts[left_count++], sizeof(left_parts[0]), "%s%s%s",
++	snprintf(left_parts[left_count++], sizeof(left_parts[0]), "REGRESSION %s%s%s",
+ 	         filename.length > 0 ? (char *)filename.data : "[No Name]",
+ 	         text_modified(txt) ? " [+]" : "",
+ 	         vis_macro_recording(vis) ? " @": "");

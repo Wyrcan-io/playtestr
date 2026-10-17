@@ -1,0 +1,25 @@
+{
+  "after": "\tvis_cleanup(vis);\n\treturn status == 0 ? 7 : status;",
+  "baseline_attempt": "ce3ba459d541414fa1aea9e8973b9e29",
+  "baseline_binary_sha256": "94bbb5bb49bf6b459f07d34a8fccd42427d19d5928cc3969536620391608f6a0",
+  "before": "\tvis_cleanup(vis);\n\treturn status;",
+  "category": "unexpected_exit",
+  "held_out": false,
+  "id": "F02",
+  "mutated_source_sha256": "b1c6dad26cad2df30763cc1def465973593e5d1d09e9dcb85d6ee8bf3fbc2601",
+  "mutation_attempt": "e67dc3299d96426f9a063523139e9695",
+  "mutation_build": {
+    "attempt": "c33aac7db5a7456eac4feb225243f53d",
+    "binary_sha256": "f5b08bab86d1bc54eecf3a1cb5bec3f1ab515229734d872abe07e9b4b6d99c73"
+  },
+  "original_source_sha256": "6cac51eac3c874da09f64531f79b3615d165d96e27b9fa583f90a387aac7bb55",
+  "path": "main.c",
+  "restored_attempt": "0a9d1e310812492bbca9ef81b7c45e2f",
+  "restored_build": {
+    "attempt": "7d9e923e15274779b4e4ba9a389c109b",
+    "binary_sha256": "94bbb5bb49bf6b459f07d34a8fccd42427d19d5928cc3969536620391608f6a0"
+  },
+  "restored_exact": true,
+  "same_execution_state_rejection": false,
+  "spec": "N02.json"
+}
