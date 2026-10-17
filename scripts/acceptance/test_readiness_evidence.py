@@ -110,6 +110,22 @@ class EvidenceTests(unittest.TestCase):
         source.write_bytes(b'VERSION = "0.1.0"\n')
         self.assertEqual(before,self.campaign.identity('rubygems',['must-not-launch']))
 
+    def test_identified_success_requires_launch_but_setup_failure_is_counted(self):
+        identity=uuid.uuid4().hex
+        for event in ['started','identified']:
+            self.campaign.append(dict(id=identity,event=event,project='fixture',label='control'))
+        self.campaign.append(dict(id=identity,event='finished',project='fixture',label='control',
+            category='passed',exit_code=0,harness_cleanup='harness_process_reaped'))
+        with self.assertRaisesRegex(ValueError,'launch'):
+            self.campaign.attempts()
+        setup=Campaign(Path(self.folder.name)/'prelaunch-timeout')
+        identity=uuid.uuid4().hex
+        for event in ['started','identified']:
+            setup.append(dict(id=identity,event=event,project='fixture',label='bounded-setup'))
+        setup.append(dict(id=identity,event='finished',project='fixture',label='bounded-setup',
+            category='harness_timeout',exit_code=None,harness_cleanup='not_started'))
+        self.assertEqual(len(setup.attempts()),1)
+
 
 if __name__ == '__main__':
     unittest.main()

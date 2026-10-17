@@ -283,3 +283,43 @@ paths. It is not a quiet resize failure. Preserve this residual and do not claim
 all local checks pass. Fresh full native CI remains required. No automatic retry
 or weakened file expectation was added. Hosted historical Windows packet now
 has a verified curated 150-attempt receipt.
+
+Current production runner source is now
+bb09d7d0b53118507c236f8fb47614c009e12240, committed/pushed with the general
+native-size query. Full core 39007726395 passes on Linux amd64, macOS arm64 and
+Windows amd64; all packets are retrieved. The local R3-07 failure remains red.
+Harness 39008324773 passes eighteen controls on all three hosts. Original 33
+new whole-control declarations now have actual source-matched native outcomes
+bound in new-control-development-evidence.json under
+f490a9c653724450887a18d34faa232e; this is development evidence, no archive credit.
+
+Bundler native 39008017809 at outer 4f2e55a / runner bb09d7d: Windows 16/20,
+Linux stopped at strict context rejection of installed Ruby symlink. Windows
+N01/E02/E05 fail only root entry sets, E03 Ctrl-C does not exit within the declared
+deadline. Source faults stop at the failed unchanged F01 baseline; none is newly
+credited. Both native targets passed source restore and checked removal; packets
+are retained without duplicate tarballs. Local verified retention is prepared
+under 42068505deff4f2a91217c9bf8379e3f, but source is still active until native gates.
+Next Linux profile explicitly resolves the installed runtime and declares LF for
+new preferences. Windows diagnostic 39008375030 failed downloading the SDK before
+target launch; a fresh separate diagnostic run 39008624569 is active. It only
+reviews selected root entries and discriminates Ctrl-C/Enter without exports.
+Current pushed outer source 5ddc15d. Next action: inspect that diagnostic, repair
+the measured cause, rerun native Bundler, then checked local removal and project 4.
+Latest storage observation: campaign 1,513,846,907 bytes; active Bundler
+358,108,129; local Bundler raw/retention 29,079,386; curated campaign 717,304.
+These observations precede latest small packets, are not quotas or exact peaks.
+
+Resumed after review-service access returned. Diagnostic 39008624569 succeeded,
+packet retrieved (800,452 compressed bytes); no project qualification. Public
+unsaved root review shows the three expected names, while Ctrl-C followed by
+Enter exits zero rather than the declared interrupt status one. Neither cause
+is established. Next diagnostic uses a separately authored Ruby exit hook to
+print only synthetic immediate root names before exit, and complete-prompt
+readiness for the interrupt probe. Approved contracts remain untouched.
+
+E-03 missing-launch regression fails before repair (1a6031e25827495b80a5bdc5a495b15d)
+and twenty local harness controls pass after repair (f9d3a0c758834233b64505002ed19834).
+Native control binder additionally rejects escaping/linked/oversized manifest
+references before reading payloads. Local diagnostic preflight 2c984e33a24f47daa0ec516eaa1751f6
+was denied PTY access in the sandbox before launch; authorized execution follows.

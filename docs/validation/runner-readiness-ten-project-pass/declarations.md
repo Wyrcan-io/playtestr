@@ -161,3 +161,20 @@ no project admission. Run after harness jobs settle to maintain four-job cap.
 Linux's next profile uses the explicitly resolved installed executable, and
 native LF only for selected newly generated YAML preferences. No symlink-policy
 relaxation, target wrapper or automatic baseline update is introduced.
+
+Diagnostic job 39008375030 hit the existing Go download read timeout before
+target acquisition. Its 10,290-byte compact packet is retained; no project case
+ran. Separate diagnostic run 39008624569 repeats the same one-job route with
+unchanged SDK and product timeouts. This extra dispatch was not included in the
+preceding one-job forecast; record a planning deviation and another 25-minute
+ceiling (expected 3-5 minutes), rather than erasing the setup failure or calling
+it a product retry. Full core 39007726395 and harness 39008324773 have completed
+successfully, so this new diagnostic is the sole active hosted job.
+
+Next separate Windows-only diagnostic: one standard job, 25-minute ceiling,
+expected 3-5 minutes, unchanged product deadlines. In addition to the unsaved
+reviews it uses two explicitly nonqualifying diagnostic contracts: a Ruby exit
+hook lists only the synthetic working directory's immediate names before exit;
+the interrupt probe waits for the complete framework prompt. All original
+contracts remain byte-identical. Twenty-test harness validation may overlap
+(maximum two harness jobs plus this one diagnostic, below the four-job cap).
