@@ -1,0 +1,46 @@
+{
+  "acquisition_attempt": "d536f16ac1294be4af491ec034cc980d",
+  "archive_sha256": "9411c915529860e0134907fdb5b54282cdd191be202436a6d3df9ed32d175e6f",
+  "excluded_workflows": [
+    "external editors/openers",
+    "spawned shell",
+    "image rendering/display servers/framebuffer",
+    "bulk rename source-script execution",
+    "symbolic links"
+  ],
+  "license": "MIT",
+  "license_sha256": "7e3e53864a49ea5587001f5935125f4399a19c5a47a24c5d7c56a6dc3e8d3454",
+  "native_runtime": "Read/execute installed Bash 3.2+ and installed file/core tools; no installation or compilation",
+  "pin": "6f2dc6f3a003d24e8b3fd48b046241b486022ad5",
+  "primary_sources": [
+    "https://github.com/dylanaraps/fff/blob/6f2dc6f3a003d24e8b3fd48b046241b486022ad5/README.md",
+    "https://github.com/dylanaraps/fff/blob/6f2dc6f3a003d24e8b3fd48b046241b486022ad5/fff"
+  ],
+  "profile": "Explicit trusted target. Synthetic fixture only; temporary HOME/temp; relative trash under fixture. No shell/user config edits, global package manager, make install or uninstall.",
+  "repository": "dylanaraps/fff",
+  "resource_forecast": {
+    "active_mib": 32,
+    "build_growth_stop_mib": 24,
+    "expected_total_job_minutes": 10,
+    "first_use_recorder_controls": 17,
+    "first_use_shell_invocations": 3,
+    "hosted_jobs": 2,
+    "hosted_parallelism": 2,
+    "job_timeout_minutes": 15,
+    "scenario_parallelism_per_host": 1
+  },
+  "reviewed_inputs": {
+    "LICENSE.md": "7e3e53864a49ea5587001f5935125f4399a19c5a47a24c5d7c56a6dc3e8d3454",
+    "Makefile": "18e1215b058669bf3ef280d02f55d66a19ef7a8e6b645e3c21d831442dd166b4",
+    "README.md": "1376e8d714978e63ae03c34399279a029393e65f0778c48f5313f2fbc9a3d2bb",
+    "fff": "8df57ec1af7667fd2896a7ea437b1bf5bc8eff17408c398e4efa10a9d7e3bf4c"
+  },
+  "reviewed_startup": "mkdir only owned HOME/XDG cache and declared synthetic trash; reads stty/file and shell path lookup; no network or config sourcing at startup",
+  "schema_version": 1,
+  "source_bytes": 50484,
+  "status": "source reviewed; native interpreter/syntax/version/interactive recording pending",
+  "supported_native_hosts": [
+    "linux-amd64",
+    "macos-arm64"
+  ]
+}

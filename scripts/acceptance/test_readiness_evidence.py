@@ -127,6 +127,17 @@ class EvidenceTests(unittest.TestCase):
         binary.write_bytes(b'reviewed binary')
         self.assertEqual(before,self.campaign.identity('edit',['must-not-launch']))
 
+    def test_extensionless_shell_target_mutation_changes_prelaunch_identity(self):
+        target=Path(self.folder.name)/'active/fff'
+        (target/'src').mkdir(parents=True)
+        immutable_json(target/'task-owned.json',{'project':'synthetic shell fixture'})
+        script=target/'src/fff'
+        script.write_bytes(b'#!/usr/bin/env bash\nprintf correct\n')
+        before=self.campaign.identity('fff',['not-launched'])
+        script.write_bytes(b'#!/usr/bin/env bash\nprintf corrupt\n')
+        after=self.campaign.identity('fff',['not-launched'])
+        self.assertNotEqual(before['sha256'],after['sha256'])
+
     def test_c_source_and_built_target_mutations_change_prelaunch_identity(self):
         target=Path(self.folder.name)/'active/vis';source=target/'src/main.c';source.parent.mkdir(parents=True)
         source.write_bytes(b'int main(void) { return 0; }\n')

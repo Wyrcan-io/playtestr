@@ -20,15 +20,22 @@ async def runtime_inventory(project,label):
                          output_cap=65536,campaign=Campaign())
     birth=await unix_process_inventory()
     selected={}
+    ancestors=set();ancestor=os.getpid()
+    if project=='fff':
+        while ancestor in birth and ancestor not in ancestors:
+            if len(ancestors)>=64:raise RuntimeError('process ancestor inventory bound')
+            ancestors.add(ancestor);ancestor=birth[ancestor][0]
     for line in result['output'].splitlines():
         fields=line.split(None,1)
         name=Path(fields[1]).name if len(fields)==2 else ''
         runtime_match=(name in {'node','nodejs'} if project=='plop' else
                        name.startswith('ruby') or name in {'git','less','diff'} if project=='rubygems' else
                        name in {'edit','cargo','rustc','rustdoc','cc','ld','lld','collect2'} if project=='edit' else
-                       name in {'vis','make','cc','as','ld','collect2'} or name.startswith(('gcc','clang','cc1','x86_64-linux-gn','aarch64-linux-gn')) if project=='vis' else name.startswith('python'))
+                       name in {'vis','make','cc','as','ld','collect2'} or name.startswith(('gcc','clang','cc1','x86_64-linux-gn','aarch64-linux-gn')) if project=='vis' else
+                       name in {'bash','sh','fff','cp','mv','rm','mkdir','stty','file','chmod','ln'} if project=='fff' else name.startswith('python'))
         if len(fields)==2 and runtime_match:
             pid=int(fields[0])
+            if project=='fff' and pid in ancestors:continue
             if project=='poetry' and pid in {os.getpid(),os.getppid()}:continue
             if pid not in birth:continue
             selected[str(pid)]=list(birth[pid])
@@ -42,14 +49,14 @@ async def node_inventory(label):
 async def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--prepare-only',action='store_true')
-    parser.add_argument('--source-only',action='store_true',help='Retain an acquired, never-built local Windows Vis source tree without inventing runtime/build receipts')
-    parser.add_argument('--project',choices=['plop','poetry','rubygems','edit','vis'],default='plop')
+    parser.add_argument('--source-only',action='store_true',help='Retain an acquired, never-built local Windows Vis/fff source tree without inventing runtime/build receipts')
+    parser.add_argument('--project',choices=['plop','poetry','rubygems','edit','vis','fff'],default='plop')
     args=parser.parse_args()
     if os.name=='nt' and not args.prepare_only:
         raise RuntimeError('use --prepare-only then the checked native PowerShell removal route on Windows')
     project=args.project
-    if args.source_only and (os.name!='nt' or project!='vis' or not args.prepare_only):
-        raise RuntimeError('source-only retention applies only to never-built local Windows Vis preparation')
+    if args.source_only and (os.name!='nt' or project not in {'vis','fff'} or not args.prepare_only):
+        raise RuntimeError('source-only retention applies only to never-built local Windows Vis/fff preparation')
     active=RAW/'active'/project
     if args.source_only and any((active/name).exists() for name in ['runtime.json','build.json','src/vis','src/vis.exe']):
         raise RuntimeError('source-only retention refuses build/runtime or executable evidence')
@@ -57,7 +64,7 @@ async def main():
     if active.is_symlink() or active.resolve().parent!=base or not base.is_relative_to(RAW.resolve()):
         raise RuntimeError('unsafe cleanup target')
     marker=json.loads((active/'task-owned.json').read_text())
-    repository={'plop':'plopjs/plop','poetry':'python-poetry/poetry','rubygems':'ruby/rubygems','edit':'microsoft/edit','vis':'martanne/vis'}[project]
+    repository={'plop':'plopjs/plop','poetry':'python-poetry/poetry','rubygems':'ruby/rubygems','edit':'microsoft/edit','vis':'martanne/vis','fff':'dylanaraps/fff'}[project]
     if marker['workspace']!=str(ROOT) or marker['campaign']!='runner-readiness-ten-project-pass' or marker['project']!=repository:
         raise RuntimeError('cleanup ownership mismatch')
     if os.name=='nt':
@@ -104,6 +111,8 @@ async def main():
                   'crates/edit/src/bin/edit/main.rs','crates/edit/src/bin/edit/documents.rs'}
     elif project=='vis':
         selected={'LICENSE','Makefile','configure','main.c','text.c','vis-modes.c','external/termkey.c','lua/lexer.lua'}
+    elif project=='fff':
+        selected={'LICENSE.md','Makefile','README.md','fff','fff.1'}
     stream_args=dict(name=copy,mode='r:gz')
     if project=='vis':
         from readiness_vis_source import ARCHIVE_SHA256,LINKS,materialize_archive
@@ -131,7 +140,7 @@ async def main():
     for name in records:
         shutil.copyfile(active/name,retained/name)
     if args.source_only:
-        immutable_json(retained/'source-only.json',dict(project='martanne/vis',native_local_build_attempted=False,
+        immutable_json(retained/'source-only.json',dict(project=repository,native_local_build_attempted=False,
             native_local_runtime_attempted=False,local_host='Windows',qualification='not attempted; declared runtime hosts Linux/macOS only'))
     if project in {'edit','vis'}:
         for name in (['dependencies.json','build-review.json'] if project=='edit' else []):shutil.copyfile(active/name,retained/name)

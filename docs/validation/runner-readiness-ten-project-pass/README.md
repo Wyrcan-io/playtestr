@@ -20,7 +20,7 @@ Poetry's owned local tree is also removed after verified retention and cleanup.
 RubyGems/Bundler is admitted on Linux/Windows and its owned local tree is removed.
 Microsoft Edit is admitted on Linux/Windows and its owned local tree is removed.
 Vis is admitted on Linux/macOS and its owned local source tree is removed.
-No target is active locally. Attempted 5; development admitted 5; archive qualified 0;
+fff is active locally as reviewed source only. Attempted 6; development admitted 5; archive qualified 0;
 old projects migrated 0; final runner admissions 0/100; paid-product admissions 0/100;
 final-qualified scenarios, faults, repetitions and native project/host cells all 0.
 Development evidence includes nineteen passing Windows Plop scenarios and three
@@ -78,7 +78,7 @@ native core ordinary/race checks on all three hosts in `39039797857`, source
 requalification at that source in runs `39053462427`, `39053952439` and
 `39054328503`. Their [retention references](earlier-project-requalification-retention-e7b5f29.json)
 preserve old failures and new passes without adding project/cell credit.
-Vis now passes native Linux/macOS run `39064393286`: twenty frozen cases, three rebuilt C source faults/restorations, public maintenance and cleanup. [Admission receipt](vis/development-admission.json) binds independent native verification, canonical source restoration, all 4,403 retained native payloads, five selected restores and checked removal. Only initial Linux F03 supplies holdout credit; macOS copies and later repetitions are replicas. No Windows runtime was attempted. No target is active locally; project six fff is next.
+Vis now passes native Linux/macOS run `39064393286`: twenty frozen cases, three rebuilt C source faults/restorations, public maintenance and cleanup. [Admission receipt](vis/development-admission.json) binds independent native verification, canonical source restoration, all 4,403 retained native payloads, five selected restores and checked removal. Only initial Linux F03 supplies holdout credit; macOS copies and later repetitions are replicas. No Windows runtime was attempted. Project six fff is acquired and source-reviewed; native Bash setup and first recording are pending.
 
 Raw attempts/caches/packages belong only under ignored
 `artifacts/runner-readiness-ten-project-pass/`. Earlier evidence is preserved.

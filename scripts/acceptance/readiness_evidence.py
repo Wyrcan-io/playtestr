@@ -154,6 +154,13 @@ class Campaign:
                     binary.resolve(strict=True).relative_to(target.resolve())
                     if binary.is_symlink() or getattr(binary,'is_junction',lambda:False)():raise ValueError('linked editor binary')
                     paths.append(binary)
+            elif project=='fff':
+                for name in ['fff','Makefile','LICENSE.md']:
+                    source=target/'src'/name
+                    if source.is_symlink() or getattr(source,'is_junction',lambda:False)():raise ValueError('linked shell target source')
+                    if source.is_file():
+                        source.resolve(strict=True).relative_to(target.resolve())
+                        paths.append(source)
             elif project=='vis':
                 paths.extend(p for p in (target/'src').rglob('*') if p.is_file() and
                     (p.suffix in {'.c','.h','.inc','.mk'} or p.name in {'configure','Makefile','LICENSE'}))
