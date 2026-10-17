@@ -149,3 +149,15 @@ This avoids counting duplicate immutable upstream tarballs against the 64 MiB
 per-project packet cap. A digest mismatch requires preserving the distinct
 archive within the existing cap before any admission. Never omit failed logs,
 identity records or target-fault patches to manufacture a storage pass.
+
+Bundler native 39008017809: Linux context refused the installed Ruby symlink
+before any scenario; Windows passed 16/20, with root entry-set mismatches in
+N01/E02/E05 and interrupt exit timeout in E03. Both verified source restore and
+checked removal. Small packets are retrieved (271,321/815,538 compressed bytes).
+Next bounded diagnostic batch is one standard Windows job, 25-minute ceiling,
+forecast 3-5 minutes. It performs only unsaved public root-entry review and a
+Ctrl-C/Enter discrimination, records all attempts, exports no baseline and earns
+no project admission. Run after harness jobs settle to maintain four-job cap.
+Linux's next profile uses the explicitly resolved installed executable, and
+native LF only for selected newly generated YAML preferences. No symlink-policy
+relaxation, target wrapper or automatic baseline update is introduced.

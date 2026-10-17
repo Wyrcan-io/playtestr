@@ -13,7 +13,7 @@ class BundlerProfileTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(dir=RAW) as folder:
             root=Path(folder)
             runtime=root/'active/rubygems/runtime.json';runtime.parent.mkdir(parents=True)
-            runtime.write_text(json.dumps({'native_platform':'x86_64-linux'}))
+            runtime.write_text(json.dumps({'native_platform':'x86_64-linux','installed_ruby_executable':'/usr/bin/ruby3.2'}))
             with patch.object(profiles,'RAW',root):profiles.main()
             suite=root/'rubygems/host-contracts'
             specs=list(suite.rglob('*.json'));self.assertEqual(len(specs),20)

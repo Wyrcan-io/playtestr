@@ -25,12 +25,20 @@ def main():
             spec['env']['GEMRC']=os.devnull;spec['env']['GIT_CONFIG_GLOBAL']=os.devnull
             spec['inherit_env']=[k for k in spec['inherit_env'] if k!='SystemDrive']
             differences.append('native null device and POSIX Ruby has no Windows SystemDrive prerequisite')
+            runtime=json.loads((RAW/'active/rubygems/runtime.json').read_text())
+            spec['command'][0]=runtime['installed_ruby_executable']
+            differences.append('explicit resolved installed Ruby executable; context correctly refuses the symlink alias')
             if identity in {'N04','N05'}:
                 for step in spec['steps']:
                     selected=step.get('state',{})
                     if selected.get('path')=='.bundle/config':
                         selected['bytes_base64']=base64.b64encode(base64.b64decode(selected['bytes_base64']).replace(b'\r\n',b'\n')).decode()
                 differences.append('new native YAML file uses LF, existing reviewed LF fixtures unchanged')
+            for step in spec['steps']:
+                selected=step.get('state',{})
+                if selected.get('path')=='.bundle-user-config' and selected.get('kind')=='file':
+                    selected['bytes_base64']=base64.b64encode(base64.b64decode(selected['bytes_base64']).replace(b'\r\n',b'\n')).decode()
+                    differences.append('new selected Bundler preferences use native LF')
             if identity=='N06':
                 runtime=json.loads((RAW/'active/rubygems/runtime.json').read_text())
                 i=spec['command'].index('--remove-platform')
