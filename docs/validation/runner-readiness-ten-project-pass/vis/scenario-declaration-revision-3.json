@@ -1,0 +1,681 @@
+{
+  "fault_selection": "No source fault selected",
+  "first_runs": [
+    "39063459858",
+    "39063744346"
+  ],
+  "hosts": [
+    "linux-amd64",
+    "macos-arm64"
+  ],
+  "rows": [
+    {
+      "actions": [
+        "/expect reviewed seed",
+        "/text \"A\"",
+        "/expect INSERT",
+        "/text \" + tested\"",
+        "/key Escape",
+        "/absent INSERT",
+        "/expect reviewed seed + tested",
+        "/expect [+]",
+        "/text \":w\"",
+        "/key Enter",
+        "/absent [+]"
+      ],
+      "args": [
+        "note.txt"
+      ],
+      "expected": {
+        "note.txt": "cmV2aWV3ZWQgc2VlZCArIHRlc3RlZAo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "note.txt": "cmV2aWV3ZWQgc2VlZAo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "N01",
+      "kind": "normal",
+      "missing": [],
+      "snapshot": true,
+      "title": "append and save an existing document"
+    },
+    {
+      "actions": [
+        "/expect new-note.txt",
+        "/text \"i\"",
+        "/expect INSERT",
+        "/text \"fresh document\"",
+        "/key Escape",
+        "/absent INSERT",
+        "/expect fresh document",
+        "/expect [+]",
+        "/text \":w\"",
+        "/key Enter",
+        "/absent [+]"
+      ],
+      "args": [
+        "new-note.txt"
+      ],
+      "expected": {
+        "new-note.txt": "ZnJlc2ggZG9jdW1lbnQ=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "N02",
+      "kind": "normal",
+      "missing": [],
+      "snapshot": false,
+      "title": "create a named document without a final newline"
+    },
+    {
+      "actions": [
+        "/expect bravo charlie",
+        "/text \"cw\"",
+        "/expect INSERT",
+        "/text \"reviewed\"",
+        "/key Escape",
+        "/absent INSERT",
+        "/expect reviewed charlie",
+        "/expect [+]",
+        "/text \":w\"",
+        "/key Enter",
+        "/absent [+]"
+      ],
+      "args": [
+        "note.txt"
+      ],
+      "expected": {
+        "note.txt": "cmV2aWV3ZWQgY2hhcmxpZQo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "note.txt": "YnJhdm8gY2hhcmxpZQo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "N03",
+      "kind": "normal",
+      "missing": [],
+      "snapshot": false,
+      "title": "change the first word while preserving the remaining line"
+    },
+    {
+      "actions": [
+        "/expect reviewed seed",
+        "/text \"A\"",
+        "/expect INSERT",
+        "/text \" + redo\"",
+        "/key Escape",
+        "/absent INSERT",
+        "/expect reviewed seed + redo",
+        "/text \"u\"",
+        "/absent reviewed seed + redo",
+        "/key CtrlR",
+        "/expect reviewed seed + redo",
+        "/expect [+]",
+        "/text \":w\"",
+        "/key Enter",
+        "/absent [+]"
+      ],
+      "args": [
+        "note.txt"
+      ],
+      "expected": {
+        "note.txt": "cmV2aWV3ZWQgc2VlZCArIHJlZG8K",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "note.txt": "cmV2aWV3ZWQgc2VlZAo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "N04",
+      "kind": "normal",
+      "missing": [],
+      "snapshot": true,
+      "title": "undo and redo an inserted group"
+    },
+    {
+      "actions": [
+        "/expect delete this",
+        "/text \"dd\"",
+        "/absent delete this",
+        "/expect keep this",
+        "/expect [+]",
+        "/text \":w\"",
+        "/key Enter",
+        "/absent [+]"
+      ],
+      "args": [
+        "note.txt"
+      ],
+      "expected": {
+        "note.txt": "a2VlcCB0aGlzCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "note.txt": "ZGVsZXRlIHRoaXMKa2VlcCB0aGlzCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "N05",
+      "kind": "normal",
+      "missing": [],
+      "snapshot": false,
+      "title": "delete the first complete line and retain the next"
+    },
+    {
+      "actions": [
+        "/expect copy this",
+        "/text \"yyp\"",
+        "/expect [+]",
+        "/text \":w\"",
+        "/key Enter",
+        "/absent [+]"
+      ],
+      "args": [
+        "note.txt"
+      ],
+      "expected": {
+        "note.txt": "Y29weSB0aGlzCmNvcHkgdGhpcwpsYXN0Cg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "note.txt": "Y29weSB0aGlzCmxhc3QK",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "N06",
+      "kind": "normal",
+      "missing": [],
+      "snapshot": false,
+      "title": "yank and paste a complete line"
+    },
+    {
+      "actions": [
+        "/expect alpha document",
+        "/text \"A\"",
+        "/expect INSERT",
+        "/text \" + checked\"",
+        "/key Escape",
+        "/absent INSERT",
+        "/expect alpha document + checked",
+        "/expect [+]",
+        "/text \":w\"",
+        "/key Enter",
+        "/absent [+]",
+        "/text \":e beta.txt\"",
+        "/key Enter",
+        "/expect beta document",
+        "/text \"A\"",
+        "/expect INSERT",
+        "/text \" + checked\"",
+        "/key Escape",
+        "/absent INSERT",
+        "/expect beta document + checked",
+        "/expect [+]",
+        "/text \":w\"",
+        "/key Enter",
+        "/absent [+]"
+      ],
+      "args": [
+        "alpha.txt"
+      ],
+      "expected": {
+        "alpha.txt": "YWxwaGEgZG9jdW1lbnQgKyBjaGVja2VkCg==",
+        "beta.txt": "YmV0YSBkb2N1bWVudCArIGNoZWNrZWQK",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "alpha.txt": "YWxwaGEgZG9jdW1lbnQK",
+        "beta.txt": "YmV0YSBkb2N1bWVudAo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "N07",
+      "kind": "normal",
+      "missing": [],
+      "snapshot": false,
+      "title": "save two files across an explicit buffer switch"
+    },
+    {
+      "actions": [
+        "/expect alpha bravo charlie",
+        "/text \"/bravo\"",
+        "/key Enter",
+        "/text \"cw\"",
+        "/expect INSERT",
+        "/text \"reviewed\"",
+        "/key Escape",
+        "/absent INSERT",
+        "/expect alpha reviewed charlie",
+        "/expect [+]",
+        "/text \":w\"",
+        "/key Enter",
+        "/absent [+]"
+      ],
+      "args": [
+        "note.txt"
+      ],
+      "expected": {
+        "note.txt": "YWxwaGEgcmV2aWV3ZWQgY2hhcmxpZQo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "note.txt": "YWxwaGEgYnJhdm8gY2hhcmxpZQo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "N08",
+      "kind": "normal",
+      "missing": [],
+      "snapshot": false,
+      "title": "search for a later word and change only that match"
+    },
+    {
+      "actions": [
+        "/expect reviewed seed",
+        "/text \"A\"",
+        "/expect INSERT",
+        "/text \" not saved\"",
+        "/key Escape",
+        "/absent INSERT",
+        "/expect reviewed seed not saved",
+        "/text \":q!\"",
+        "/key Enter",
+        "/exit 0"
+      ],
+      "args": [
+        "note.txt"
+      ],
+      "expected": {
+        "note.txt": "cmV2aWV3ZWQgc2VlZAo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "note.txt": "cmV2aWV3ZWQgc2VlZAo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "E01",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "discard dirty changes while preserving original bytes"
+    },
+    {
+      "actions": [
+        "/expect reviewed seed",
+        "/text \"A\"",
+        "/expect INSERT",
+        "/text \" staged\"",
+        "/key Escape",
+        "/absent INSERT",
+        "/text \":q\"",
+        "/key Enter",
+        "/expect No write since last change",
+        "/text \"A\"",
+        "/expect INSERT",
+        "/text \" recovered\"",
+        "/key Escape",
+        "/absent INSERT",
+        "/expect reviewed seed staged recovered",
+        "/expect [+]",
+        "/text \":w\"",
+        "/key Enter",
+        "/absent [+]"
+      ],
+      "args": [
+        "note.txt"
+      ],
+      "expected": {
+        "note.txt": "cmV2aWV3ZWQgc2VlZCBzdGFnZWQgcmVjb3ZlcmVkCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "note.txt": "cmV2aWV3ZWQgc2VlZAo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "E02",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "reject an unsaved quit then resume and save"
+    },
+    {
+      "actions": [
+        "/expect abandon.txt",
+        "/text \"i\"",
+        "/expect INSERT",
+        "/text \"will not persist\"",
+        "/key Escape",
+        "/absent INSERT",
+        "/expect will not persist",
+        "/text \":q!\"",
+        "/key Enter",
+        "/exit 0"
+      ],
+      "args": [
+        "abandon.txt"
+      ],
+      "expected": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "E03",
+      "kind": "edge",
+      "missing": [
+        "abandon.txt"
+      ],
+      "snapshot": false,
+      "title": "abandon a new dirty file without creating it"
+    },
+    {
+      "actions": [
+        "/expect temporary",
+        "/text \"dd\"",
+        "/absent temporary",
+        "/expect [+]",
+        "/text \":w\"",
+        "/key Enter",
+        "/absent [+]"
+      ],
+      "args": [
+        "empty.txt"
+      ],
+      "expected": {
+        "empty.txt": "",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "empty.txt": "dGVtcG9yYXJ5Cg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "E04",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "delete all text and persist exactly zero bytes"
+    },
+    {
+      "actions": [
+        "/expect starter",
+        "/text \"A\"",
+        "/expect INSERT",
+        "/text \" caf\\u00e9 \\u96ea\"",
+        "/key Escape",
+        "/absent INSERT",
+        "/expect starter caf\u00e9 \u96ea",
+        "/expect [+]",
+        "/text \":w\"",
+        "/key Enter",
+        "/absent [+]"
+      ],
+      "args": [
+        "project caf\u00e9/notes \u96ea.txt"
+      ],
+      "expected": {
+        "project caf\u00e9/notes \u96ea.txt": "c3RhcnRlciBjYWbDqSDpm6oK",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "project caf\u00e9/notes \u96ea.txt": "c3RhcnRlcgo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "E05",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "edit UTF-8 text in a Unicode and spaced path"
+    },
+    {
+      "actions": [
+        "/expect second",
+        "/text \"I\"",
+        "/expect INSERT",
+        "/text \"!\"",
+        "/key Escape",
+        "/absent INSERT",
+        "/expect !first",
+        "/expect [+]",
+        "/text \":w\"",
+        "/key Enter",
+        "/absent [+]"
+      ],
+      "args": [
+        "note.txt"
+      ],
+      "expected": {
+        "note.txt": "IWZpcnN0DQpzZWNvbmQNCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "note.txt": "Zmlyc3QNCnNlY29uZA0K",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "E06",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "preserve CRLF while editing the first line"
+    },
+    {
+      "actions": [
+        "/expect tail",
+        "/text \"A\"",
+        "/expect INSERT",
+        "/text \"!\"",
+        "/key Escape",
+        "/absent INSERT",
+        "/expect tail!",
+        "/expect [+]",
+        "/text \":w\"",
+        "/key Enter",
+        "/absent [+]"
+      ],
+      "args": [
+        "note.txt"
+      ],
+      "expected": {
+        "note.txt": "dGFpbCE=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "note.txt": "dGFpbA==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "E07",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "preserve an absent final newline"
+    },
+    {
+      "actions": [
+        "/expect reviewed seed",
+        "/text \"A\"",
+        "/expect INSERT",
+        "/text \" + resized\"",
+        "/key Escape",
+        "/absent INSERT",
+        "/resize 40 12",
+        "/redraw",
+        "/text \"A\"",
+        "/expect INSERT",
+        "/text \" narrow\"",
+        "/key Escape",
+        "/absent INSERT",
+        "/expect resized narrow",
+        "/resize 100 28",
+        "/redraw",
+        "/text \"A\"",
+        "/expect INSERT",
+        "/text \" wide\"",
+        "/key Escape",
+        "/absent INSERT",
+        "/expect resized narrow wide",
+        "/expect [+]",
+        "/text \":w\"",
+        "/key Enter",
+        "/absent [+]"
+      ],
+      "args": [
+        "note.txt"
+      ],
+      "expected": {
+        "note.txt": "cmV2aWV3ZWQgc2VlZCArIHJlc2l6ZWQgbmFycm93IHdpZGUK",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "note.txt": "cmV2aWV3ZWQgc2VlZAo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "E08",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": true,
+      "title": "resize a dirty document and retain fresh ordered edits"
+    },
+    {
+      "actions": [
+        "/expect reviewed seed",
+        "/text \":no-such-command\"",
+        "/key Enter",
+        "/expect Unknown command",
+        "/expect no-such-command",
+        "/key CtrlC",
+        "/key Escape",
+        "/absent no-such-command",
+        "/text \"A\"",
+        "/expect INSERT",
+        "/text \" recovered\"",
+        "/key Escape",
+        "/absent INSERT",
+        "/expect reviewed seed recovered",
+        "/expect [+]",
+        "/text \":w\"",
+        "/key Enter",
+        "/absent [+]"
+      ],
+      "args": [
+        "note.txt"
+      ],
+      "expected": {
+        "note.txt": "cmV2aWV3ZWQgc2VlZCByZWNvdmVyZWQK",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "note.txt": "cmV2aWV3ZWQgc2VlZAo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "E09",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "recover from an unknown editor command"
+    },
+    {
+      "actions": [
+        "/expect reviewed seed",
+        "/text \"A\"",
+        "/expect INSERT",
+        "/text \" discarded\"",
+        "/key Escape",
+        "/absent INSERT",
+        "/expect reviewed seed discarded",
+        "/text \":e!\"",
+        "/key Enter",
+        "/absent reviewed seed discarded",
+        "/text \"A\"",
+        "/expect INSERT",
+        "/text \" retained\"",
+        "/key Escape",
+        "/absent INSERT",
+        "/expect reviewed seed retained",
+        "/expect [+]",
+        "/text \":w\"",
+        "/key Enter",
+        "/absent [+]"
+      ],
+      "args": [
+        "note.txt"
+      ],
+      "expected": {
+        "note.txt": "cmV2aWV3ZWQgc2VlZCByZXRhaW5lZAo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "note.txt": "cmV2aWV3ZWQgc2VlZAo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "E10",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "force reload to discard changes then save a new edit"
+    },
+    {
+      "actions": [
+        "/expect draft contents",
+        "/text \"A\"",
+        "/expect INSERT",
+        "/text \"!\"",
+        "/key Escape",
+        "/absent INSERT",
+        "/expect draft contents!",
+        "/expect [+]",
+        "/text \":w\"",
+        "/key Enter",
+        "/absent [+]"
+      ],
+      "args": [
+        "--",
+        "-draft.txt"
+      ],
+      "expected": {
+        "-draft.txt": "ZHJhZnQgY29udGVudHMhCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "-draft.txt": "ZHJhZnQgY29udGVudHMK",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "E11",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "open a leading-dash filename after the option terminator"
+    },
+    {
+      "actions": [
+        "/expect tail",
+        "/text \"A\"",
+        "/expect INSERT",
+        "/text \"!\"",
+        "/key Escape",
+        "/absent INSERT",
+        "/expect tail!",
+        "/expect [+]",
+        "/text \":w\"",
+        "/key Enter",
+        "/absent [+]"
+      ],
+      "args": [
+        "note.txt"
+      ],
+      "expected": {
+        "note.txt": "aGVhZAB0YWlsIQo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "note.txt": "aGVhZAB0YWlsCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "E12",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "retain embedded binary NUL bytes when appending to a line"
+    }
+  ],
+  "schema_version": 1,
+  "status": "second authoring correction before frozen public contracts; not qualification"
+}

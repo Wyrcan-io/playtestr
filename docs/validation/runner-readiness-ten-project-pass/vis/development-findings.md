@@ -13,3 +13,9 @@ Initial twenty-case authoring run `39063459858` passes fourteen independent capt
 These are authoring/oracle corrections. They do not establish a Playtestr repair or justify omitting failed controls. Revision two preserves the original declaration and all first failures. Native rerun and twenty-contract freeze remain pending.
 
 Storage measurement initially attributed only the older nested artifact layout. The new Vis packets use a flat campaign layout; attribution now recognizes both without traversing links. Earlier observations remain historical undercounts for Vis. Global campaign totals already included those files.
+
+Revision-two run `39063744346` passes eighteen cases on each host, with N02 and E09 still rejected; both packets and source cleanup are retained. The earlier interpretation of N02 was incorrect: without Enter the file has no final newline; upstream `vis_insert_newline` explicitly inserts a second newline at EOF for the blank line. Revision three specifies a new named document without a final newline and independently checks those exact bytes. Neither previous byte mismatch is accepted as a pass.
+
+E09 exposed an unobserved transition: consecutive Escape bytes followed by a printable key may be decoded as Alt input by the target. Use the documented insert-mode Ctrl-C alias, then Escape, then observe disappearance of the previously asserted command text before returning to document input. No sleep, dropped control, deadline increase or runner behavior change.
+
+Corrected storage observation `4cffffa49c8f42a0921f21cb7565cfc6` attributes both native packet layouts: Vis 6,432,164 retained bytes, campaign 1,313,994,745, retained total 200,870,894; observations precede later small records. All declared caps hold.
