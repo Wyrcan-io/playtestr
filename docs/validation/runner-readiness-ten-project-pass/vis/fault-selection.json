@@ -1,0 +1,37 @@
+{
+  "faults": [
+    {
+      "after": "snprintf(left_parts[left_count++], sizeof(left_parts[0]), \"REGRESSION %s%s%s\",",
+      "before": "snprintf(left_parts[left_count++], sizeof(left_parts[0]), \"%s%s%s\",",
+      "category": "snapshot_mismatch",
+      "held_out": false,
+      "id": "F01",
+      "path": "view.c",
+      "spec": "N01.json"
+    },
+    {
+      "after": "\tvis_cleanup(vis);\n\treturn status == 0 ? 7 : status;",
+      "before": "\tvis_cleanup(vis);\n\treturn status;",
+      "category": "unexpected_exit",
+      "held_out": false,
+      "id": "F02",
+      "path": "main.c",
+      "spec": "N02.json"
+    },
+    {
+      "after": "\tssize_t written = text_write_range(ctx->txt, range, ctx->fd);\n\tif (written > 0 && ftruncate(ctx->fd, written - 1) == -1)\n\t\treturn -1;\n\treturn written;",
+      "before": "\treturn text_write_range(ctx->txt, range, ctx->fd);",
+      "category": "state_assertion_failure",
+      "held_out": true,
+      "id": "F03",
+      "path": "text-io.c",
+      "spec": "N01.json"
+    }
+  ],
+  "freeze_commit": "69247e8",
+  "frozen_contract_sha256": "e54bc6fbb3fad0b27dbd788b7e3d6cf253616efdf00ab18a1b46e08608b62c7e",
+  "independent_freeze_review": "17f35fad7a66484aae0117da7d37ea6e",
+  "original_heldout": "F03 Linux initial native fault run only; first consumption must remain recorded even if a harness repair is needed",
+  "selected_after_native_freeze_run": "39063981212",
+  "version_probe": "F02 changes the final interactive main return; early -v version probe remains exit 0"
+}

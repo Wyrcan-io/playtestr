@@ -13,8 +13,12 @@ on:
       phase:
         type: choice
         default: first-use
-        options: [first-use, author]
-        description: First useful route or twenty public recordings
+        options: [first-use, author, qualify]
+        description: First useful route, twenty recordings or frozen native qualification
+      original_faults:
+        type: boolean
+        default: false
+        description: Consume designated original Linux heldout once; later runs stay replicas
 permissions:
   contents: read
 env:
@@ -80,6 +84,20 @@ jobs:
         if: inputs.phase == 'author'
         run: |
           python3 scripts/acceptance/readiness_check.py --label native-vis-reviewed-twenty-freeze --timeout 900 -- python3 scripts/acceptance/readiness_vis_freeze.py
+      - name: Run all twenty frozen public contracts with the reviewed locale profile
+        if: inputs.phase == 'qualify'
+        run: |
+          python3 scripts/acceptance/readiness_check.py --label native-vis-frozen-twenty --timeout 900 -- python3 scripts/acceptance/readiness_vis_native_contracts.py
+      - name: Detect three actual rebuilt source faults and restore unchanged contracts
+        if: inputs.phase == 'qualify'
+        run: |
+          original=()
+          if [[ "${{ inputs.original_faults }}" == "true" && "${{ runner.os }}" == "Linux" ]]; then original+=(--original-heldout); fi
+          python3 scripts/acceptance/readiness_check.py --label native-vis-three-source-faults --timeout 1200 -- python3 scripts/acceptance/readiness_vis_faults.py --package artifacts/runner-readiness-ten-project-pass/vis/host-contracts "${original[@]}"
+      - name: Public selected maintenance, suffix rerecord and relocated replay
+        if: inputs.phase == 'qualify'
+        run: |
+          python3 scripts/acceptance/readiness_check.py --label native-vis-public-maintenance --timeout 600 -- python3 scripts/acceptance/readiness_vis_maintenance.py --package artifacts/runner-readiness-ten-project-pass/vis/host-contracts
       - name: Verify pinned source restores and owned runtime termination
         if: always() && steps.prepare.outcome == 'success'
         run: |
