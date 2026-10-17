@@ -128,7 +128,7 @@ func TestPrimaryReplyBlockedWriterStopsWithinCleanup(t *testing.T) {
 	defer cancel()
 	cleanup := session.stop(ctx)
 	if cleanup.err != nil || !cleanup.confirmedExited {
-		t.Fatalf("blocked reply cleanup: %+v", cleanup)
+		t.Fatalf("blocked reply cleanup: %+v; error: %v", cleanup, cleanup.err)
 	}
 	select {
 	case <-session.replyDone:

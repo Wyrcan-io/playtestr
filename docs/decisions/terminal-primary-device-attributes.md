@@ -33,6 +33,17 @@ from the original test failure; a transport failure cannot earn a green result.
 Existing target output and run/step budgets still bound a query flood; replies
 are transport data and are not persisted as target output or recorder controls.
 
+Native core 39038928656 at d7a9ed1 catches a Linux backpressure cleanup failure
+in both ordinary and race tests: process termination is confirmed, but the reply
+worker does not join within the unchanged three-second cleanup budget. The same
+real-PTY test passes on macOS. Linux previously used a blocking master write;
+closing its descriptor is insufficient to guarantee that syscall returns.
+Use the existing macOS nonblocking read/write polling mechanism on both Unix
+hosts, with at most 25 ms holding the transport lock per poll. Closure marks the
+transport closed under that lock and releases both loops. Preserve Linux's
+startup slave release and macOS's retained slave/final-output behavior. Do not
+increase the cleanup deadline to hide a blocked writer. Requalify both paths.
+
 Acceptance: exact bytes and rejected variants across every split boundary;
 real native Unix PTY startup waiting for DA, repeated requests interleaved with
 normal input and wide cursor content, wrong expected exit, timeout/cancellation,

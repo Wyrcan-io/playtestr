@@ -511,3 +511,22 @@ ffca88fb07c841b8803470b9f1adcb6b; revision 3 retained. Full final archive
 qualification and old migrations remain zero. Edit canonical-source restore
 preparation passes cd98fd7d24984034b011c216db9a2c76; active source intentionally
 remains available until the measured Linux gap is repaired and requalified.
+
+Reply source d7a9ed1: full local Go tests pass 92182e873bc84a4faff05b4fab48c38d,
+vet 5af91e0932d943748c525524934a3313, focused Windows race
+8cd357b25ecf408ea819cfa859e9ed45 and public manual menu examples
+5017fc8ba6584c1fbd5fbc8d45cf27b6. Native core 39038928656 macOS succeeds, but
+Linux ordinary and race both fail the new actual blocked-reply writer cleanup
+test; process exit is confirmed, writer join is not. Linux core packet retrieved.
+Keep that failure; full source is not yet qualified. The repair now shares
+macOS's bounded nonblocking native read/write polling on Linux, preserving the
+different parent-slave lifetimes and unchanged three-second cleanup budget.
+
+Edit run 39038978138 at d7a9ed1: Windows entire cell succeeds and is retrieved;
+Linux nineteen cases pass, N02 fails because pinned upstream explicitly inserts
+the final LF for a new Unix document. Existing no-final-LF E07 passes unchanged.
+Profile correction changes only N02's explicit expected bytes and removes
+Windows-only inheritance; original Windows contracts remain frozen. Local
+29-test harness passes 10b935e855f1408cb909531cb40227bf. Linux-only run
+39039386047 is in progress at outer 905e1cb, still using d7a9ed1. A subsequent
+native batch must use the corrected polling source before Edit admission.
