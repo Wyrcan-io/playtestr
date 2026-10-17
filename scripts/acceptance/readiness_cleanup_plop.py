@@ -151,7 +151,7 @@ async def main():
         selected={'LICENSE.md','Makefile','README.md','fff','fff.1'}
     elif project=='papis':
         selected={'LICENSE','pyproject.toml','papis/commands/export.py','papis/commands/tag.py',
-                  'papis/commands/update.py','papis/tui/picker/__init__.py'}
+                  'papis/commands/update.py','papis/tui/picker/__init__.py','papis/tui/picker/options_list.py'}
     stream_args=dict(name=copy,mode='r:gz')
     if project=='vis':
         from readiness_vis_source import ARCHIVE_SHA256,LINKS,materialize_archive
