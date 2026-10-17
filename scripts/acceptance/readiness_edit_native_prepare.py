@@ -30,7 +30,7 @@ async def main():
     candidate=ROOT/'.playtestr-bin'/('playtestr.exe' if os.name=='nt' else 'playtestr')
     binary=RAW/'bin'/candidate.name;binary.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(candidate,binary)
     if os.name!='nt':binary.chmod(0o755)
-    immutable_json(RAW/'edit-native-runner.json',dict(source_revision='e7b5f29e575e44babe7fdaa2e83e55b62d318305',
+    immutable_json(RAW/'edit-native-runner.json',dict(source_revision=os.environ.get('SOURCE_REVISION','e7b5f29e575e44babe7fdaa2e83e55b62d318305'),
         candidate_sha256=sha256(candidate),copied_sha256=sha256(binary)))
     if os.name!='nt':
         immutable_json(RAW/'edit-runtime-baseline.json',await runtime_inventory('edit','runtime-baseline-before-acquisition'))

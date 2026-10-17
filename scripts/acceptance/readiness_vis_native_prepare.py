@@ -10,7 +10,7 @@ from adversarial_process import execute
 from readiness_cleanup_plop import runtime_inventory
 from readiness_evidence import Campaign,RAW,ROOT,immutable_json,sha256
 
-SOURCE='e7b5f29e575e44babe7fdaa2e83e55b62d318305'
+SOURCE=os.environ.get('SOURCE_REVISION','e7b5f29e575e44babe7fdaa2e83e55b62d318305')
 
 
 async def main():

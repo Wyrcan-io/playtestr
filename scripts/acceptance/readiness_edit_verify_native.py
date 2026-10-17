@@ -16,7 +16,11 @@ def require(condition,message):
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--run',required=True)
     parser.add_argument('--windows-run',help='Keep a verified Windows job from an earlier run when only Linux needed a profile correction.')
+    parser.add_argument('--source-revision',default=SOURCE)
+    parser.add_argument('--output',type=Path)
     args=parser.parse_args()
+    source_revision=args.source_revision
+    require(len(source_revision)==40 and all(c in '0123456789abcdef' for c in source_revision),'invalid source revision')
     runs={'playtestr-Linux':args.run,'playtestr-Windows':args.windows_run or args.run}
     for identity in set(runs.values()):require(identity.isascii() and identity.isdecimal(),'invalid native run ID')
     reviewed=ROOT/'docs/validation/runner-readiness-ten-project-pass/edit'
@@ -35,7 +39,7 @@ def main():
         base=run/host;packet=base/'runner-readiness-ten-project-pass'
         ledger=object.__new__(Campaign);ledger.raw=packet;attempts=ledger.attempts()
         runner=load(packet/'edit-native-runner.json')
-        require(runner['source_revision']==SOURCE and runner['candidate_sha256']==runner['copied_sha256'],'runner identity mismatch')
+        require(runner['source_revision']==source_revision and runner['candidate_sha256']==runner['copied_sha256'],'runner identity mismatch')
         def witness(identity,expected):
             events=attempts[identity]
             require('launched' in events and events['started']['expected_exit']==expected,'missing or wrong launch')
@@ -66,7 +70,7 @@ def main():
         for name,digest in freeze['all_package_inputs'].items():
             if name not in freeze['contracts']:require(sha256(contracts/name)==digest,'changed fixture or snapshot')
         report=load(base/'playtestr/results.json')
-        require(report['runner_version']=='source-'+SOURCE,'wrong runner source')
+        require(report['runner_version']=='source-'+source_revision,'wrong runner source')
         require(report['summary']==dict(total=20,passed=20,failed=0,cancelled=0,not_run=0),'incomplete ordinary suite')
         require({Path(r['spec_path'].replace('\\','/')).name for r in report['results']}==set(freeze['contracts']),'wrong ordinary selection')
         suites=[k for k,v in attempts.items() if v['started']['label']=='public-recorded-suite']
@@ -118,7 +122,8 @@ def main():
             job_conclusion=jobs[0]['conclusion'],scenarios=20,report_sha256=sha256(base/'playtestr/results.json'),
             source_fault_summary_sha256=sha256(summary),maintenance_sha256=sha256(journey_path),
             cleanup_receipt_sha256=sha256(removed),runner_sha256=runner['copied_sha256']))
-    immutable_json(RAW/'edit/native-development-verification.json',dict(runs=runs,runner_source=SOURCE,cells=cells,
+    output=(args.output or RAW/'edit/native-development-verification.json').resolve();output.relative_to(ROOT)
+    immutable_json(output,dict(runs=runs,runner_source=source_revision,cells=cells,
         phase='development',claim='Native gates verified; local checked removal required before admission.',archive_qualified=False))
     print('Verified both native editor cells from actual events, source/binary hashes, reports, builds and restores.')
 

@@ -9,7 +9,10 @@ from readiness_new_control_matrix import packet_file,read_json as load
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--project',choices=['plop','poetry','rubygems'],required=True)
-    parser.add_argument('--run',required=True);args=parser.parse_args();project=args.project
+    parser.add_argument('--run',required=True);parser.add_argument('--source-revision',default=SOURCE)
+    args=parser.parse_args();project=args.project
+    source_revision=args.source_revision
+    require(len(source_revision)==40 and all(c in '0123456789abcdef' for c in source_revision),'invalid source revision')
     require(args.run.isascii() and args.run.isdecimal(),'invalid native run')
     run=RAW/'native'/args.run;metadata=load(run/'run-metadata.json')
     require(metadata['status']=='completed' and metadata['conclusion']=='success','native requalification incomplete or failed')
@@ -22,7 +25,7 @@ def main():
         base=run/host;packet=base/'runner-readiness-ten-project-pass'
         ledger=object.__new__(Campaign);ledger.raw=packet;attempts=ledger.attempts()
         runner=load(packet/(project+'-native-runner.json'))
-        require(runner['source_revision']==SOURCE and runner['candidate_sha256']==runner['copied_sha256'],'wrong requalification runner')
+        require(runner['source_revision']==source_revision and runner['candidate_sha256']==runner['copied_sha256'],'wrong requalification runner')
         suffix='.exe' if host.endswith('Windows') else ''
         runner_keys=['artifacts/runner-readiness-ten-project-pass/bin/playtestr'+suffix,'.playtestr-bin/playtestr'+suffix]
         def witness(identity,expected):
@@ -46,7 +49,7 @@ def main():
         for row in profile['contracts']:
             require(row['source_sha256']==canonical[row['spec']] and row['authored_sha256']==sha256(package/row['spec']),'unreviewed native profile bytes')
         report=load(base/'playtestr/results.json')
-        require(report['runner_version']=='source-'+SOURCE and report['summary']==dict(total=20,passed=20,failed=0,cancelled=0,not_run=0),'incomplete exact-source ordinary suite')
+        require(report['runner_version']=='source-'+source_revision and report['summary']==dict(total=20,passed=20,failed=0,cancelled=0,not_run=0),'incomplete exact-source ordinary suite')
         require({Path(r['spec_path'].replace('\\','/')).name for r in report['results']}==set(canonical),'wrong executed suite')
         for result in report['results']:result_ok(result,'passed')
         suites=[key for key,row in attempts.items() if row['started']['label']=='public-recorded-suite']
@@ -100,7 +103,7 @@ def main():
         cells.append(dict(host=host,scenarios=20,runner_sha256=runner['copied_sha256'],report_sha256=sha256(base/'playtestr/results.json'),
             source_fault_summary_sha256=sha256(summary_path),maintenance_sha256=sha256(journey_path),cleanup_receipt_sha256=sha256(retained/'removed.json')))
     output=RAW/project/('requalification-'+args.run+'.json')
-    immutable_json(output,dict(schema_version=1,project=project,run=args.run,runner_source=SOURCE,cells=cells,
+    immutable_json(output,dict(schema_version=1,project=project,run=args.run,runner_source=source_revision,cells=cells,
         claim='Earlier-project development requalification only; no new project/cell or final archive credit.'))
     print('Verified earlier-project native requalification:',project,args.run)
 

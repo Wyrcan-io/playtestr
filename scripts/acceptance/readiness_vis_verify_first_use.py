@@ -15,12 +15,14 @@ def require(condition, message):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--run', required=True)
+    parser.add_argument('--source-revision',default='e7b5f29e575e44babe7fdaa2e83e55b62d318305')
     args = parser.parse_args()
     require(args.run.isascii() and args.run.isdecimal(), 'invalid native run')
     root = RAW/'native'/args.run
     metadata = load(root/'run-metadata.json')
     require(metadata['status'] == 'completed' and metadata['conclusion'] == 'success', 'unsuccessful native run')
-    source = 'e7b5f29e575e44babe7fdaa2e83e55b62d318305'
+    source = args.source_revision
+    require(len(source)==40 and all(c in '0123456789abcdef' for c in source),'invalid source revision')
     cells = []
     for host in ['Linux', 'macOS']:
         packet = root/('playtestr-'+host)
