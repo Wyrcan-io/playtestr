@@ -1,0 +1,122 @@
+{
+  "version": 3,
+  "name": "fff N08: rename a directory without losing its nested file",
+  "command": [
+    "fff"
+  ],
+  "workspace": {
+    "fixture": "fixtures/N08",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "FFF_CD_ON_EXIT": "1",
+    "FFF_LS_COLORS": "0",
+    "FFF_TRASH": "trash",
+    "LC_ALL": "en_US.UTF-8",
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "folder/"
+    },
+    {
+      "expect": "(1/5)"
+    },
+    {
+      "text": "G"
+    },
+    {
+      "expect": "(5/5)"
+    },
+    {
+      "text": "g"
+    },
+    {
+      "expect": "(1/5)"
+    },
+    {
+      "text": "j"
+    },
+    {
+      "expect": "(2/5)"
+    },
+    {
+      "text": "r"
+    },
+    {
+      "expect": "rename folder:"
+    },
+    {
+      "text": "renamed-folder"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "rename folder:"
+    },
+    {
+      "expect": "renamed-folder"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "renamed-folder/nested.txt",
+        "kind": "file",
+        "bytes_base64": "cmV2aWV3ZWQgc291cmNlCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    },
+    {
+      "state": {
+        "path": "folder",
+        "kind": "absent"
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "trash",
+          "renamed-folder",
+          "sentinel.txt"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "renamed-folder",
+        "kind": "entries",
+        "entries": [
+          "nested.txt"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "trash",
+        "kind": "entries",
+        "entries": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "version": 3,
+  "name": "fff E02: refuse to recreate an existing file and preserve its bytes",
+  "command": [
+    "fff"
+  ],
+  "workspace": {
+    "fixture": "fixtures/E02",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "FFF_CD_ON_EXIT": "1",
+    "FFF_LS_COLORS": "0",
+    "FFF_TRASH": "trash",
+    "LC_ALL": "C.UTF-8",
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "source.txt"
+    },
+    {
+      "text": "f"
+    },
+    {
+      "expect": "mkfile:"
+    },
+    {
+      "text": "source.txt"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "warn: 'source.txt' already exists."
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "warn: 'source.txt' already exists."
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    },
+    {
+      "state": {
+        "path": "source.txt",
+        "kind": "file",
+        "bytes_base64": "cmV2aWV3ZWQgc291cmNlCg=="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "trash",
+          "sentinel.txt",
+          "source.txt"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "trash",
+        "kind": "entries",
+        "entries": []
+      }
+    }
+  ]
+}

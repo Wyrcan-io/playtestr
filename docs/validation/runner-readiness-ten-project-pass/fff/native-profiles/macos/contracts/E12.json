@@ -1,0 +1,112 @@
+{
+  "version": 3,
+  "name": "fff E12: recover from an empty search before creating another file",
+  "command": [
+    "fff"
+  ],
+  "workspace": {
+    "fixture": "fixtures/E12",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "FFF_CD_ON_EXIT": "1",
+    "FFF_LS_COLORS": "0",
+    "FFF_TRASH": "trash",
+    "LC_ALL": "en_US.UTF-8",
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "source.txt"
+    },
+    {
+      "text": "/no-matching-item"
+    },
+    {
+      "expect": "/no-matching-item"
+    },
+    {
+      "expect_not": "source.txt"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "/no-matching-item"
+    },
+    {
+      "expect": "source.txt"
+    },
+    {
+      "text": "f"
+    },
+    {
+      "expect": "mkfile:"
+    },
+    {
+      "text": "recovered.txt"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "mkfile:"
+    },
+    {
+      "expect": "recovered.txt"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "recovered.txt",
+        "kind": "file",
+        "bytes_base64": ""
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    },
+    {
+      "state": {
+        "path": "source.txt",
+        "kind": "file",
+        "bytes_base64": "cmV2aWV3ZWQgc291cmNlCg=="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "recovered.txt",
+          "trash",
+          "source.txt",
+          "sentinel.txt"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "trash",
+        "kind": "entries",
+        "entries": []
+      }
+    }
+  ]
+}

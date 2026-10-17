@@ -1,0 +1,92 @@
+{
+  "version": 3,
+  "name": "fff E10: clear a marked operation before attempting paste",
+  "command": [
+    "fff"
+  ],
+  "workspace": {
+    "fixture": "fixtures/E10",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "FFF_CD_ON_EXIT": "1",
+    "FFF_LS_COLORS": "0",
+    "FFF_TRASH": "trash",
+    "LC_ALL": "C.UTF-8",
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "source.txt"
+    },
+    {
+      "text": "/source.txt"
+    },
+    {
+      "expect": "/source.txt"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "/source.txt"
+    },
+    {
+      "text": "m"
+    },
+    {
+      "expect": "[1] selected"
+    },
+    {
+      "text": "c"
+    },
+    {
+      "expect_not": "[1] selected"
+    },
+    {
+      "text": "pq"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    },
+    {
+      "state": {
+        "path": "source.txt",
+        "kind": "file",
+        "bytes_base64": "cmV2aWV3ZWQgc291cmNlCg=="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "trash",
+          "sentinel.txt",
+          "source.txt"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "trash",
+        "kind": "entries",
+        "entries": []
+      }
+    }
+  ]
+}

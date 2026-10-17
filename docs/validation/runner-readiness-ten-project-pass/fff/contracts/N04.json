@@ -1,0 +1,141 @@
+{
+  "version": 3,
+  "name": "fff N04: copy a file into another directory",
+  "command": [
+    "fff"
+  ],
+  "workspace": {
+    "fixture": "fixtures/N04",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "FFF_CD_ON_EXIT": "1",
+    "FFF_LS_COLORS": "0",
+    "FFF_TRASH": "trash",
+    "LC_ALL": "C.UTF-8",
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "source.txt"
+    },
+    {
+      "text": "/source.txt"
+    },
+    {
+      "expect": "/source.txt"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "/source.txt"
+    },
+    {
+      "text": "y"
+    },
+    {
+      "expect": "[1] selected"
+    },
+    {
+      "text": ":"
+    },
+    {
+      "expect": "go to dir:"
+    },
+    {
+      "text": "destination"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "go to dir:"
+    },
+    {
+      "expect": "anchor.txt"
+    },
+    {
+      "text": "p"
+    },
+    {
+      "expect": "source.txt"
+    },
+    {
+      "expect_not": "[1] selected"
+    },
+    {
+      "snapshot": "N04.rows.json"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "destination/anchor.txt",
+        "kind": "file",
+        "bytes_base64": "ZGVzdGluYXRpb24gYW5jaG9yCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "destination/source.txt",
+        "kind": "file",
+        "bytes_base64": "cmV2aWV3ZWQgc291cmNlCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    },
+    {
+      "state": {
+        "path": "source.txt",
+        "kind": "file",
+        "bytes_base64": "cmV2aWV3ZWQgc291cmNlCg=="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "destination",
+          "trash",
+          "sentinel.txt",
+          "source.txt"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "destination",
+        "kind": "entries",
+        "entries": [
+          "anchor.txt",
+          "source.txt"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "trash",
+        "kind": "entries",
+        "entries": []
+      }
+    }
+  ]
+}
