@@ -1,6 +1,8 @@
 package runner
 
 import (
+	"bytes"
+	"io"
 	"unicode/utf8"
 
 	"github.com/Wyrcan-io/playtestr/internal/terminal/vt10x"
@@ -10,12 +12,39 @@ import (
 // parser state across writes, but its Write method does not retain an incomplete
 // rune at the end of a write.
 type screenEmulator struct {
-	terminal vt10x.Terminal
-	pending  []byte
+	terminal       vt10x.Terminal
+	pending        []byte
+	primaryReplies []byte
+	replyError     error
 }
 
 func newScreenEmulator(width, height int) *screenEmulator {
-	return &screenEmulator{terminal: vt10x.New(vt10x.WithSize(width, height))}
+	e := &screenEmulator{}
+	e.terminal = vt10x.New(vt10x.WithSize(width, height), vt10x.WithWriter(primaryReplyCollector{e}))
+	return e
+}
+
+// The PTY reader supplies at most 8192 bytes per batch. Even all-DA input
+// generates fewer than 16 KiB of replies. Keep the collector independently
+// bounded for direct emulator users and retain an overflow as an error.
+type primaryReplyCollector struct{ emulator *screenEmulator }
+
+func (w primaryReplyCollector) Write(value []byte) (int, error) {
+	if !bytes.Equal(value, []byte("\x1b[?6c")) {
+		return len(value), nil
+	}
+	if len(w.emulator.primaryReplies)+len(value) > 16*1024 {
+		w.emulator.replyError = io.ErrShortBuffer
+		return 0, io.ErrShortBuffer
+	}
+	w.emulator.primaryReplies = append(w.emulator.primaryReplies, value...)
+	return len(value), nil
+}
+
+func (e *screenEmulator) takePrimaryReplies() ([]byte, error) {
+	value, err := e.primaryReplies, e.replyError
+	e.primaryReplies, e.replyError = nil, nil
+	return value, err
 }
 
 func (e *screenEmulator) Write(chunk []byte) {

@@ -35,3 +35,20 @@ or configuration change is authorized by this review.
 
 Native Linux/Windows qualification, checked source removal, retention gates and
 development admission remain pending. No final candidate archive credit.
+
+First native run `39037952527`: Windows completes all twenty cases, three rebuilt
+source-fault replicas/restorations, public maintenance and checked source removal.
+Linux builds correctly, but all twenty cases time out at the first readiness
+assertion. Its failure screen contains only the ellipsis from startup probing;
+pinned setup_terminal waits for a primary device-attributes response. Linux
+fault baseline and maintenance also fail before substantive execution. All owned
+targets are terminated and source removal verified; both compact packets and
+completed metadata are retrieved. This is a measured runner capability gap,
+R3-09; no Linux cell or project admission is credited. Preserve the prior
+Windows pass at f470 as development evidence, not qualification of later bytes.
+
+Local full-source verification and selected restoration preparation pass
+`cd98fd7d24984034b011c216db9a2c76`; active source remains available for the
+general repair. Retained Edit observation is 2,427,652 bytes before downloaded
+native packets; active Edit observation 160,490,575 bytes. These are observations,
+not exact peaks. Local removal is pending.

@@ -91,7 +91,7 @@ func TestRenderedWideScreenContract(t *testing.T) {
 			t.Fatalf("redraw = %q", got)
 		}
 	})
-	t.Run("queries remain discarded", func(t *testing.T) {
+	t.Run("queries do not alter rendered text", func(t *testing.T) {
 		e := newScreenEmulator(8, 3)
 		e.Write([]byte("雪X\x1b[6n\x1b[c"))
 		if got := normalize(e.String()); got != "雪X\n" {

@@ -487,3 +487,27 @@ Next: three actual rebuilt Edit source faults and restorations (one selected
 after the twenty-contract freeze), public maintenance, Linux/Windows native
 qualification, bounded retention and checked active-source removal. Still three
 admitted projects/six development cells; all final archive/migration counters zero.
+
+Edit's three actual rebuilt source faults/restorations pass locally under
+6a5d1ad71730478fb11d483faccc0b68. Public maintenance passes after correcting the
+helper's required JSON text quoting (086edb21d14045fcb64e543a7b97660d); its first
+failed capture remains. Native 39037952527 at outer 0e4423e: Windows all twenty,
+faults, maintenance and checked removal succeed; Linux all twenty fail first
+readiness. Both bounded packets and completed metadata are retrieved. Linux
+screen is only startup ellipsis, and upstream setup_terminal waits for CSI c
+response. R3-09 is a general primary-device-attributes capability gap; no Edit
+admission. ADR terminal-primary-device-attributes.md precedes the repair.
+
+Local parser regression fails before 5badb3a0b50f43b497d0b031f027c0ff and passes
+after 3fcd18f59643450d90fac3f27b154505; parser/collector filter and overflow tests
+pass 5973f5e57d0f4a97b5ea74dd45918e55. Unix reply worker and real PTY success,
+wrong exit, output flood, blocked writer and injected transport-error controls
+are implemented, with native/race qualification pending. Cursor/color and other
+queries remain unsupported; ConPTY retains its independent replies.
+
+All 33 declared whole controls rebound to actual native source-matched events
+using core 39010459162 and harness 39037396111, parent
+ffca88fb07c841b8803470b9f1adcb6b; revision 3 retained. Full final archive
+qualification and old migrations remain zero. Edit canonical-source restore
+preparation passes cd98fd7d24984034b011c216db9a2c76; active source intentionally
+remains available until the measured Linux gap is repaired and requalified.

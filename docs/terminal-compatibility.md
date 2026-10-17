@@ -32,8 +32,15 @@ and published rc.2 bytes remain unchanged.
 
 Ambiguous characters remain one column; resize does not reflow text. Combining
 clusters, variation selectors, emoji/ZWJ sequences and terminal-specific width
-settings remain unsupported. Terminal replies are discarded; query-dependent
-tasks and bracketed-paste behavior remain outside the supported contract.
+settings remain unsupported. Current source answers only exact primary
+device-attributes queries (`CSI c` and `CSI 0 c`) with `CSI ? 6 c` on Unix.
+The response uses a bounded session-owned queue/writer and shares input
+serialization with user keys. Windows leaves query replies to ConPTY.
+Cursor/status/color queries, other device queries and bracketed-paste behavior
+remain outside the supported contract. Published binaries retain their recorded
+behavior; native requalification of this source change is pending. This minimal
+identification is not complete VT102 certification. See the
+[decision and transport bounds](decisions/terminal-primary-device-attributes.md).
 Selected two-column evidence is not general grapheme or universal Unicode support.
 
 Current source synchronizes Windows resize before sending the next input.

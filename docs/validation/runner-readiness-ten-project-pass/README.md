@@ -41,19 +41,31 @@ project cap; the breach remains recorded, and retained Bundler evidence is now
 37,003,254 bytes after verified compaction. Whole campaign storage observation
 is 1,199,571,043 bytes, excluding subsequent small records, with no active targets.
 Development cells: 6;
-archive cells: 0. The original Windows F03 alone supplies the project holdout;
-native copies are replicas. This admits the development package on those two
-hosts, with Windows excluded and first-use/usability limitations retained.
+archive cells: 0. The original Windows F03 alone supplies each project's holdout;
+native copies are replicas. Bundler includes Windows; Plop and Poetry retain
+their historical Windows exclusions and first-use/usability limitations.
 Declared work is never execution evidence. Human usability is unmeasured;
 publication is not authorized.
 
 Bundler's first public route passed in three invocations and twenty recorder
-controls, without handwritten JSON. Its remaining scenarios and qualification
-are in progress. The [historical investigation disposition](historical-disposition-development.json)
+controls, without handwritten JSON. Its development qualification is complete;
+final archive qualification remains open. The [historical investigation disposition](historical-disposition-development.json)
 records 150 Windows wizard attempts and 150 repetitions of each separate macOS
 control. Green current repetitions leave original causal branches unresolved.
 The [88-control mapping correction](old-control-matrix-revision-2.json) adds an
 actual local Windows short-path alias pass; the hosted filesystem skip remains.
+
+Edit's twenty reviewed public contracts pass the complete local suite, with three
+actual rebuilt source faults and exact restorations. The saved-byte fault fails
+in the same execution after a passing screen and exact exit. Public selected
+file/screen maintenance, suffix rerecord and Unicode relocation pass. Native
+Linux/Windows run `39037952527` is pending; no Edit admission is credited.
+See [development findings](edit/development-findings.md). The expanded evidence
+harness passes all applicable controls on three native hosts in `39037396111`;
+[33 whole controls](new-control-development-evidence-revision-3.json) bind to
+actual successful native events and matching sources. Final archive credit stays
+zero. Earlier new-record fixture identities were incomplete; E-05 preserves this
+limitation and requires repaired final authoring routes.
 
 Raw attempts/caches/packages belong only under ignored
 `artifacts/runner-readiness-ten-project-pass/`. Earlier evidence is preserved.

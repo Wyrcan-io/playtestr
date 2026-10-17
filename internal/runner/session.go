@@ -7,6 +7,7 @@ import (
 	"io"
 	"os"
 	"os/exec"
+	"runtime"
 	"strings"
 	"sync"
 	"time"
@@ -71,6 +72,10 @@ type terminalSession struct {
 	stopOnce    sync.Once
 	writeMu     sync.Mutex
 	stopResult  cleanupResult
+	replyQueue  chan []byte
+	replyStop   chan struct{}
+	replyDone   chan struct{}
+	replyError  error // guarded by mu
 }
 
 func startTerminalSession(config sessionConfig) (*terminalSession, error) {
@@ -110,6 +115,15 @@ func startTerminalSessionWithPTY(config sessionConfig, p xpty.Pty) (*terminalSes
 		firstOutput:    make(chan struct{}),
 		outputLimit:    make(chan struct{}),
 		readerDone:     make(chan struct{}),
+		replyStop:      make(chan struct{}),
+		replyDone:      make(chan struct{}),
+	}
+	if runtime.GOOS != "windows" {
+		s.replyQueue = make(chan []byte, 16)
+		go s.writePrimaryReplies()
+	} else {
+		// ConPTY handles its own device queries. Never inject duplicate replies.
+		close(s.replyDone)
 	}
 	go s.readOutput()
 	return s, nil
@@ -178,6 +192,7 @@ func (s *terminalSession) readOutput() {
 	buffer := make([]byte, 8192)
 	for {
 		n, err := s.pty.Read(buffer)
+		var replies []byte
 		if n > 0 {
 			s.mu.Lock()
 			s.outputBytes += int64(n)
@@ -187,6 +202,11 @@ func (s *terminalSession) readOutput() {
 			}
 			if accepted > 0 {
 				s.terminal.Write(buffer[:accepted])
+				var replyErr error
+				replies, replyErr = s.terminal.takePrimaryReplies()
+				if replyErr != nil {
+					s.replyError = errors.Join(s.replyError, fmt.Errorf("collect terminal primary replies: %w", replyErr))
+				}
 				s.lastOutput = time.Now()
 				if strings.TrimSpace(normalize(s.terminal.String())) != "" {
 					s.firstOnce.Do(func() { close(s.firstOutput) })
@@ -198,8 +218,54 @@ func (s *terminalSession) readOutput() {
 			}
 			s.mu.Unlock()
 		}
+		if s.replyQueue != nil && len(replies) > 0 {
+			select {
+			case s.replyQueue <- replies:
+			case <-s.replyStop:
+				return
+			case <-s.replyDone:
+				return
+			}
+		}
 		if err != nil {
 			return
+		}
+	}
+}
+
+// One bounded writer per Unix session serializes replies with ordinary input.
+// A blocked backend write is released by PTY closure; stop joins this worker.
+func (s *terminalSession) writePrimaryReplies() {
+	defer close(s.replyDone)
+	for {
+		select {
+		case <-s.replyStop:
+			return
+		case reply := <-s.replyQueue:
+			select {
+			case <-s.replyStop:
+				return
+			default:
+			}
+			s.writeMu.Lock()
+			n, err := s.pty.Write(reply)
+			s.writeMu.Unlock()
+			if n != len(reply) && err == nil {
+				err = io.ErrShortWrite
+			}
+			if err != nil {
+				select {
+				case <-s.replyStop:
+					return
+				case <-s.outcome.done:
+					return
+				default:
+				}
+				s.mu.Lock()
+				s.replyError = errors.Join(s.replyError, fmt.Errorf("write terminal primary reply: %w", err))
+				s.mu.Unlock()
+				return
+			}
 		}
 	}
 }
@@ -288,6 +354,7 @@ func (s *terminalSession) drainFinal(ctx context.Context, quiet time.Duration) e
 
 func (s *terminalSession) stop(ctx context.Context) cleanupResult {
 	s.stopOnce.Do(func() {
+		close(s.replyStop)
 		result := cleanupResult{attempted: true, mechanism: s.tree.mechanism()}
 		var terminationErr error
 		_, _, exited := s.outcome.result()
@@ -322,6 +389,14 @@ func (s *terminalSession) stop(ctx context.Context) cleanupResult {
 				result.err = fmt.Errorf("wait for terminal reader: %w", ctx.Err())
 			}
 		}
+		select {
+		case <-s.replyDone:
+		case <-ctx.Done():
+			result.err = errors.Join(result.err, fmt.Errorf("wait for terminal reply writer: %w", ctx.Err()))
+		}
+		s.mu.Lock()
+		result.err = errors.Join(result.err, s.replyError)
+		s.mu.Unlock()
 		select {
 		case <-s.outcome.done:
 		case <-ctx.Done():

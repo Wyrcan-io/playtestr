@@ -17,6 +17,11 @@ Stable `v0.1.0` publishes native archives for Linux x86-64 (`amd64`), Apple sili
 
 Playtestr starts a real pseudoterminal, sends keyboard input, and feeds output into a VT terminal emulator. Assertions inspect the rendered screen, including cursor movement and redraws.
 
+Current source also answers basic primary device-attributes startup queries on
+Unix through a bounded reply path. Other terminal queries retain the limits in
+[Terminal compatibility](docs/terminal-compatibility.md); this source change is
+still undergoing native qualification and is not included in published archives.
+
 The newest verified prerelease is [v0.4.0-rc.3](https://github.com/Wyrcan-io/playtestr/releases/tag/v0.4.0-rc.3), adding the selected two-column wide-character repair while retaining suites, offline reports, workspaces and installer/macOS output repairs. See its [downloads and installation](docs/releases/v0.4.0-rc.3.md). Stable v0.1.0 remains available below.
 
 For a prerelease trial, see the [captured pass/failure/recovery demo](docs/adoption-demo.md) and the [complete PR workflow](docs/ci-installation.md). The workflow builds an actual example target and retains failure evidence; [hosted pass, deliberate failure and recovery](docs/validation/adoption-preparation-2026-10-05.md#hosted-validation-after-authorized-push) verified its summary and artifact steps.
