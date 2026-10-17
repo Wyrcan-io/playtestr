@@ -336,3 +336,27 @@ contracts distinguish native input from application handling. Local preflight
 aaabddcc0efa408f9a1cd72b5abc38c1 passes; checked deletion rejects a changed marker
 and preserves an outside-selected-root canary before removing the exact owned
 workspace under b494aca464514e3ea64948f7deb7bdf6. No original contracts changed.
+
+R3-08 is now reduced and repaired locally: process-local inherited-ignore Ruby
+experiment 68054e299b2340789cf12cabf38f2dc6 reproduces the failure; the independent
+real ancestor/CLI/PTY Go control fails before 88fd69be0f634b39bc533db726fdbaa0 and
+passes after 18c8e3115e5547aa9b04fd24e5df3d6e. The Windows standalone CLI restores
+normal interrupt processing before os/signal registration. Full local Go tests
+8688e30405bb451ea20a4c806c4d7714 and vet dc25d8a2e819410e9eaf819db02bdd1e pass.
+This passing full run does not repair or erase the earlier R3-07 rename failure.
+Repaired binary build 8fa79fb0ac3346c1a6b16e5af20c4548 is separate from all old
+binary identities. Focused race and new native source qualification are pending.
+
+Diagnostic 39009806863 succeeded, compact packet 963,117 bytes retrieved. Both
+minimal Ruby Ctrl-C probes fail natively; the single original normal-gem test
+passes when given the diagnostic environment. No failed workspace was retained.
+The next exact-contract inspection must inherit the ordinary workflow environment,
+including PATH order, instead of the local diagnostic environment helper.
+Native harness 39009806770 passes 21 tests on Windows and 20 applicable tests on
+Linux/macOS (one Windows-only deletion test skipped there); packets retrieved.
+The original 33 new whole controls are rebound to actual native source identities
+in new-control-development-evidence-revision-2.json, parent
+36b104ad49ce49c5a9921a9b0520cb3e. Final archive counts remain zero.
+Latest storage observation: campaign 1,531,872,079 bytes, active Bundler 358,108,129,
+local Bundler raw 29,153,583, curated 835,776; latest tiny packets follow this
+observation. Two projects/four development cells admitted, Bundler still active.

@@ -57,6 +57,13 @@ processes from escaping the startup attachment window. Failure to attach or
 resume is a startup failure, with termination/reaping errors preserved.
 Job Objects remain process lifecycle tracking, not a security sandbox.
 
+The current standalone Windows CLI restores normal Ctrl-C processing before
+registering cancellation and launching targets. This prevents an ancestor's
+inherited ignore-Ctrl-C attribute from silently suppressing target interrupts.
+Failure to restore processing is an explicit startup error. The named `CtrlC`
+key still sends its byte through the PTY; application handlers and input modes
+determine its effect. See the [decision](decisions/windows-inherited-interrupt.md).
+
 The fixtures do not establish support for every VT control sequence, device query, mouse protocol, hyperlink, image protocol, color, style, or application-specific terminal extension. Snapshot comparison is text-only. Compatibility with a particular TUI requires exercising that application on the claimed operating system; cross-compilation alone is not runtime evidence.
 
 The real-application trial added a Unix requirement that the fixture suite had missed: some TUIs open `/dev/tty` instead of using only inherited standard streams. Current source starts the target in a new session and assigns the PTY slave as its controlling terminal. The published `v0.1.0-rc.1` Linux asset predates that fix. The stable v0.1.0 Linux and macOS archives passed the real `/dev/tty` package gate and the post-publication downloaded-asset install smoke. Every later stable archive must pass the same gates before support is recorded.

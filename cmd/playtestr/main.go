@@ -24,6 +24,10 @@ const maxSuiteSteps = 10_000
 var unsafeArtifactCharacter = regexp.MustCompile(`[^A-Za-z0-9._-]+`)
 
 func main() {
+	if err := prepareInterruptHandling(); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(2)
+	}
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
 	defer stop()
 	os.Exit(run(ctx, os.Args[1:], os.Stdout, os.Stderr))
