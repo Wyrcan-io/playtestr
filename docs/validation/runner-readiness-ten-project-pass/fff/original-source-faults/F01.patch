@@ -1,0 +1,11 @@
+--- a/fff
++++ b/fff
+@@ -225,7 +225,7 @@
+ 
+ print_line() {
+     # Format the list item and print it.
+-    local file_name=${list[$1]##*/}
++    local file_name="REGRESSION ${list[$1]##*/}"
+     local file_ext=${file_name##*.}
+     local format
+     local suffix

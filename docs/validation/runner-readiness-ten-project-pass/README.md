@@ -1,6 +1,6 @@
 # Runner readiness campaign
 
-Invoked 16 October 2026. Status: **in progress; five development admissions across ten native cells**.
+Invoked 16 October 2026. Status: **in progress; six development admissions across twelve native cells**.
 
 Base: `deed954a9ed1c05db73ee93cb2fbb84d9271d1e1`, branch
 `work/p0-p2-implementation`. Pre-existing edits: planning index and execution
@@ -20,7 +20,7 @@ Poetry's owned local tree is also removed after verified retention and cleanup.
 RubyGems/Bundler is admitted on Linux/Windows and its owned local tree is removed.
 Microsoft Edit is admitted on Linux/Windows and its owned local tree is removed.
 Vis is admitted on Linux/macOS and its owned local source tree is removed.
-fff is active locally as reviewed source only. Attempted 6; development admitted 5; archive qualified 0;
+fff is admitted on Linux/macOS and its owned local source tree is removed. Attempted 6; development admitted 6; archive qualified 0;
 old projects migrated 0; final runner admissions 0/100; paid-product admissions 0/100;
 final-qualified scenarios, faults, repetitions and native project/host cells all 0.
 Development evidence includes nineteen passing Windows Plop scenarios and three
@@ -78,7 +78,7 @@ native core ordinary/race checks on all three hosts in `39039797857`, source
 requalification at that source in runs `39053462427`, `39053952439` and
 `39054328503`. Their [retention references](earlier-project-requalification-retention-e7b5f29.json)
 preserve old failures and new passes without adding project/cell credit.
-Vis now passes native Linux/macOS run `39064393286`: twenty frozen cases, three rebuilt C source faults/restorations, public maintenance and cleanup. [Admission receipt](vis/development-admission.json) binds independent native verification, canonical source restoration, all 4,403 retained native payloads, five selected restores and checked removal. Only initial Linux F03 supplies holdout credit; macOS copies and later repetitions are replicas. No Windows runtime was attempted. Project six fff is acquired and source-reviewed; native Bash setup and first recording are pending.
+Vis now passes native Linux/macOS run `39064393286`: twenty frozen cases, three rebuilt C source faults/restorations, public maintenance and cleanup. [Admission receipt](vis/development-admission.json) binds independent native verification, canonical source restoration, all 4,403 retained native payloads, five selected restores and checked removal. Only initial Linux F03 supplies holdout credit; macOS copies and later repetitions are replicas. No Windows runtime was attempted. Project six fff is now admitted: native run `39070554085` passes all twenty frozen cases, three actual interpreted-source faults/restorations, public maintenance and cleanup. See [admission](fff/development-admission.json).
 
 Raw attempts/caches/packages belong only under ignored
 `artifacts/runner-readiness-ten-project-pass/`. Earlier evidence is preserved.

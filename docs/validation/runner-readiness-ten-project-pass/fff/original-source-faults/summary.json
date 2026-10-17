@@ -1,0 +1,91 @@
+{
+  "faults": [
+    {
+      "after": "    local file_name=\"REGRESSION ${list[$1]##*/}\"",
+      "baseline_attempt": "01886be3cfd247e2b0a68ea6ba5a6bb9",
+      "before": "    local file_name=${list[$1]##*/}",
+      "category": "snapshot_mismatch",
+      "held_out": false,
+      "id": "F01",
+      "mutated_source_sha256": "35e1e30a2126bd9a35569f2e94431b976e16bf2e4b2315de35dac2e6fda86194",
+      "mutation_attempt": "3698bceff9fc444282a6cf3f595f0794",
+      "mutation_validation": {
+        "interpreter_sha256": "bc5945feb8bd26203ebfafea5ce1878bb2e32cb8fb50ab7ae395cfb1e1aaaef1",
+        "script_sha256": "35e1e30a2126bd9a35569f2e94431b976e16bf2e4b2315de35dac2e6fda86194",
+        "syntax_attempt": "84df6a643faa4da6a528de04c6e395f4",
+        "version_attempt": "7ea1c46f81ab4a8f98f3078806523469"
+      },
+      "original_source_sha256": "8df57ec1af7667fd2896a7ea437b1bf5bc8eff17408c398e4efa10a9d7e3bf4c",
+      "path": "fff",
+      "restored_attempt": "b311383f3c1a4182a2b9f9138a5800a8",
+      "restored_exact": true,
+      "restored_validation": {
+        "interpreter_sha256": "bc5945feb8bd26203ebfafea5ce1878bb2e32cb8fb50ab7ae395cfb1e1aaaef1",
+        "script_sha256": "8df57ec1af7667fd2896a7ea437b1bf5bc8eff17408c398e4efa10a9d7e3bf4c",
+        "syntax_attempt": "4563b6361d274356b1e0f6ca0dc016f3",
+        "version_attempt": "d56c20dcb3654a63b840596d49b25645"
+      },
+      "same_execution_state_rejection": false,
+      "spec": "N01.json"
+    },
+    {
+      "after": "            exit 7\n        ;;\n    esac\n}",
+      "baseline_attempt": "2d1d341219c94b3f8cf58bd706f1803e",
+      "before": "            exit\n        ;;\n    esac\n}",
+      "category": "unexpected_exit",
+      "held_out": false,
+      "id": "F02",
+      "mutated_source_sha256": "df3ceb88f57679381d7ef588e964774b9a05ad7708cc5fb60c43164c06ffd81e",
+      "mutation_attempt": "d7385914e92040f99b9528aef3fd4b60",
+      "mutation_validation": {
+        "interpreter_sha256": "bc5945feb8bd26203ebfafea5ce1878bb2e32cb8fb50ab7ae395cfb1e1aaaef1",
+        "script_sha256": "df3ceb88f57679381d7ef588e964774b9a05ad7708cc5fb60c43164c06ffd81e",
+        "syntax_attempt": "32b8568f79384f538bc9b1532ea2128e",
+        "version_attempt": "7b259b27fe62410ab4ff05fa55df811f"
+      },
+      "original_source_sha256": "8df57ec1af7667fd2896a7ea437b1bf5bc8eff17408c398e4efa10a9d7e3bf4c",
+      "path": "fff",
+      "restored_attempt": "87f4d04470404f0b937d4f96853e7e85",
+      "restored_exact": true,
+      "restored_validation": {
+        "interpreter_sha256": "bc5945feb8bd26203ebfafea5ce1878bb2e32cb8fb50ab7ae395cfb1e1aaaef1",
+        "script_sha256": "8df57ec1af7667fd2896a7ea437b1bf5bc8eff17408c398e4efa10a9d7e3bf4c",
+        "syntax_attempt": "dc206aedc3c14104a84bb2b7515ef56f",
+        "version_attempt": "efd5e289797e4f45917ad6524ed8cb9c"
+      },
+      "same_execution_state_rejection": false,
+      "spec": "N02.json"
+    },
+    {
+      "after": "                    printf '\\0' > \"$cmd_reply\"",
+      "baseline_attempt": "54c18015265c4525ad499ad7e4e48add",
+      "before": "                    : > \"$cmd_reply\"",
+      "category": "state_assertion_failure",
+      "held_out": true,
+      "id": "F03",
+      "mutated_source_sha256": "ba06b0cb8cfad48ad2e4b9e3f235996fa9db5c74844f24fdc7549bc121dd3962",
+      "mutation_attempt": "555b4cdba56f4f98ab7cfaf0cee37259",
+      "mutation_validation": {
+        "interpreter_sha256": "bc5945feb8bd26203ebfafea5ce1878bb2e32cb8fb50ab7ae395cfb1e1aaaef1",
+        "script_sha256": "ba06b0cb8cfad48ad2e4b9e3f235996fa9db5c74844f24fdc7549bc121dd3962",
+        "syntax_attempt": "3d8036d4c03947a8813e731c7f91e380",
+        "version_attempt": "cef0a40b74cf441a8d69984b9ca115b4"
+      },
+      "original_source_sha256": "8df57ec1af7667fd2896a7ea437b1bf5bc8eff17408c398e4efa10a9d7e3bf4c",
+      "path": "fff",
+      "restored_attempt": "79671635eb4b4e7499d8774fb9b6838f",
+      "restored_exact": true,
+      "restored_validation": {
+        "interpreter_sha256": "bc5945feb8bd26203ebfafea5ce1878bb2e32cb8fb50ab7ae395cfb1e1aaaef1",
+        "script_sha256": "8df57ec1af7667fd2896a7ea437b1bf5bc8eff17408c398e4efa10a9d7e3bf4c",
+        "syntax_attempt": "debfa4c379244060b2097d23ec17a31f",
+        "version_attempt": "26b41cd36d734410a9fd3be72df1a256"
+      },
+      "same_execution_state_rejection": true,
+      "spec": "N01.json"
+    }
+  ],
+  "interpreter_sha256": "bc5945feb8bd26203ebfafea5ce1878bb2e32cb8fb50ab7ae395cfb1e1aaaef1",
+  "runner_sha256": "6e7071f5569b089ed22a9b6c2f13dd797c737b44da0e108e58cd943e22350d2e",
+  "source_execution": "Actual pinned upstream Bash script"
+}

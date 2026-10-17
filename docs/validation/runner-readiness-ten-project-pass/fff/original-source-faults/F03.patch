@@ -1,0 +1,11 @@
+--- a/fff
++++ b/fff
+@@ -975,7 +975,7 @@
+                     cmd_line "warn: '$cmd_reply' already exists."
+ 
+                 elif [[ -w $PWD ]]; then
+-                    : > "$cmd_reply"
++                    printf '\0' > "$cmd_reply"
+                     redraw full
+ 
+                 else
