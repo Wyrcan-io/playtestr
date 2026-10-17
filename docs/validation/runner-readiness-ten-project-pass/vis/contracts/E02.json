@@ -1,0 +1,115 @@
+{
+  "version": 3,
+  "name": "Vis E02: reject an unsaved quit then resume and save",
+  "command": [
+    "vis",
+    "note.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures/E02",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "LC_ALL": "C.UTF-8",
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "reviewed seed"
+    },
+    {
+      "text": "A"
+    },
+    {
+      "expect": "INSERT"
+    },
+    {
+      "text": " staged"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "INSERT"
+    },
+    {
+      "text": ":q"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "No write since last change"
+    },
+    {
+      "text": "A"
+    },
+    {
+      "expect": "INSERT"
+    },
+    {
+      "text": " recovered"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "INSERT"
+    },
+    {
+      "expect": "reviewed seed staged recovered"
+    },
+    {
+      "expect": "[+]"
+    },
+    {
+      "text": ":w"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "[+]"
+    },
+    {
+      "text": ":q"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "note.txt",
+        "kind": "file",
+        "bytes_base64": "cmV2aWV3ZWQgc2VlZCBzdGFnZWQgcmVjb3ZlcmVkCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "note.txt",
+          "sentinel.txt"
+        ]
+      }
+    }
+  ]
+}

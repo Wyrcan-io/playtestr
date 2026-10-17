@@ -1,0 +1,92 @@
+{
+  "version": 3,
+  "name": "Vis E11: open a leading-dash filename after the option terminator",
+  "command": [
+    "vis",
+    "--",
+    "-draft.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures/E11",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "LC_ALL": "C.UTF-8",
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "draft contents"
+    },
+    {
+      "text": "A"
+    },
+    {
+      "expect": "INSERT"
+    },
+    {
+      "text": "!"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "INSERT"
+    },
+    {
+      "expect": "draft contents!"
+    },
+    {
+      "expect": "[+]"
+    },
+    {
+      "text": ":w"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "[+]"
+    },
+    {
+      "text": ":q"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "-draft.txt",
+        "kind": "file",
+        "bytes_base64": "ZHJhZnQgY29udGVudHMhCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "-draft.txt",
+          "sentinel.txt"
+        ]
+      }
+    }
+  ]
+}

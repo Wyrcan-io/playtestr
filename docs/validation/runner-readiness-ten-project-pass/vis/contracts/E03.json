@@ -1,0 +1,77 @@
+{
+  "version": 3,
+  "name": "Vis E03: abandon a new dirty file without creating it",
+  "command": [
+    "vis",
+    "abandon.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures/E03",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "LC_ALL": "C.UTF-8",
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "abandon.txt"
+    },
+    {
+      "text": "i"
+    },
+    {
+      "expect": "INSERT"
+    },
+    {
+      "text": "will not persist"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "INSERT"
+    },
+    {
+      "expect": "will not persist"
+    },
+    {
+      "text": ":q!"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    },
+    {
+      "state": {
+        "path": "abandon.txt",
+        "kind": "absent"
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "sentinel.txt"
+        ]
+      }
+    }
+  ]
+}

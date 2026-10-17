@@ -1,0 +1,91 @@
+{
+  "version": 3,
+  "name": "Vis E05: edit UTF-8 text in a Unicode and spaced path",
+  "command": [
+    "vis",
+    "project caf\u00e9/notes \u96ea.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures/E05",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "LC_ALL": "C.UTF-8",
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "starter"
+    },
+    {
+      "text": "A"
+    },
+    {
+      "expect": "INSERT"
+    },
+    {
+      "text": " caf\u00e9 \u96ea"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "INSERT"
+    },
+    {
+      "expect": "starter caf\u00e9 \u96ea"
+    },
+    {
+      "expect": "[+]"
+    },
+    {
+      "text": ":w"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "[+]"
+    },
+    {
+      "text": ":q"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "project caf\u00e9/notes \u96ea.txt",
+        "kind": "file",
+        "bytes_base64": "c3RhcnRlciBjYWbDqSDpm6oK"
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "project caf\u00e9",
+          "sentinel.txt"
+        ]
+      }
+    }
+  ]
+}
