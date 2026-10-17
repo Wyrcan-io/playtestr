@@ -40,7 +40,7 @@ async def main():
         return report,outcome
     async def workflow():
         output=root/'generated-workflow.yml'
-        await run([runner,'workflow','--source-revision','f470cd99aef89e080cc8455e4f8ad4715ecd12c2',
+        await run([runner,'workflow','--source-revision','e7b5f29e575e44babe7fdaa2e83e55b62d318305',
             '--os','linux,windows','--suite','artifacts/runner-readiness-ten-project-pass/rubygems/host-contracts',
             '--build','python scripts/acceptance/readiness_rubygems_native_prepare.py',
             '--output',output.relative_to(ROOT)],'generate-ordinary-workflow')

@@ -1,0 +1,25 @@
+{
+  "after": "            tb.write_file(&mut file)?;\n            file.set_len(file.metadata()?.len().saturating_sub(1))?;",
+  "baseline_attempt": "877de6a5397748a7a300fd6b3ba227d1",
+  "baseline_binary_sha256": "cfbc72d197acb47fc3bc73ce1af8ab75b3cd6641d5199f8ead02f574b8f389a1",
+  "before": "            tb.write_file(&mut file)?;",
+  "category": "state_assertion_failure",
+  "held_out": true,
+  "id": "F03",
+  "mutated_source_sha256": "7325b9e4e1f4eb675f4db87e4d5db54a1eb847b8ddc84009e9fffacace26d371",
+  "mutation_attempt": "1d1d45adb20549818e8ab840bd789d48",
+  "mutation_build": {
+    "attempt": "592809812ade4bfa9f862a26f326ef74",
+    "binary_sha256": "3722256e3a6ab63207e4addbda29cc4ecc1a1991ac298c87548805eab5b6c9d6"
+  },
+  "original_source_sha256": "1fc0794cc58b1d1dc11c81721d2494b96ad218dafa8448e17a4517e567835830",
+  "path": "crates/edit/src/bin/edit/documents.rs",
+  "restored_attempt": "d3720a7f8be14e5faef74e16189cbf48",
+  "restored_build": {
+    "attempt": "ed2a308358cf4707b05e27942712c9e8",
+    "binary_sha256": "01321b640850a9ceea8f6fbfb1fbf97ee184d4f0563bdacdcc5dbe6a2c16b581"
+  },
+  "restored_exact": true,
+  "same_execution_state_rejection": true,
+  "spec": "N01.json"
+}

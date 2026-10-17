@@ -1,6 +1,6 @@
 # Bounded primary device-attributes replies
 
-Status: implementation and native requalification in progress, 17 October 2026.
+Status: development source verified; exact archives pending, 17 October 2026.
 
 Edit Linux run 39037952527 builds successfully but all twenty scenarios time out
 at their first readiness assertion. Failure screens contain only the ellipsis
@@ -43,6 +43,14 @@ hosts, with at most 25 ms holding the transport lock per poll. Closure marks the
 transport closed under that lock and releases both loops. Preserve Linux's
 startup slave release and macOS's retained slave/final-output behavior. Do not
 increase the cleanup deadline to hide a blocked writer. Requalify both paths.
+
+Source e7b5f29 passes full Go tests/vet/race and the actual blocked-writer,
+normal-input, output-limit and transport-error controls on all applicable native
+hosts in core run 39039797857. Edit run 39039845616 passes all twenty scenarios,
+three rebuilt source faults/restorations and public maintenance on Linux amd64
+and Windows amd64. Independent packet verification precedes checked compaction
+and removal. The earlier Linux ordinary/race failure remains retained. Earlier
+project requalification and exact private candidate archives remain separate gates.
 
 Acceptance: exact bytes and rejected variants across every split boundary;
 real native Unix PTY startup waiting for DA, repeated requests interleaved with

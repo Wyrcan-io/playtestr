@@ -38,7 +38,9 @@ The response uses a bounded session-owned queue/writer and shares input
 serialization with user keys. Windows leaves query replies to ConPTY.
 Cursor/status/color queries, other device queries and bracketed-paste behavior
 remain outside the supported contract. Published binaries retain their recorded
-behavior; native requalification of this source change is pending. This minimal
+behavior; native ordinary/race source validation passes in
+[run 39039797857](https://github.com/Wyrcan-io/playtestr/actions/runs/39039797857).
+Exact candidate archive qualification remains pending. This minimal
 identification is not complete VT102 certification. See the
 [decision and transport bounds](decisions/terminal-primary-device-attributes.md).
 Selected two-column evidence is not general grapheme or universal Unicode support.

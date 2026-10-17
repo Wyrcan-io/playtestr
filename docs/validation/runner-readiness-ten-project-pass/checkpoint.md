@@ -530,3 +530,44 @@ Windows-only inheritance; original Windows contracts remain frozen. Local
 29-test harness passes 10b935e855f1408cb909531cb40227bf. Linux-only run
 39039386047 is in progress at outer 905e1cb, still using d7a9ed1. A subsequent
 native batch must use the corrected polling source before Edit admission.
+
+PROJECT FOUR COMPLETE (development only): source e7b5f29 passes all twenty Edit
+cases, three real rebuilt fault replicas/restorations, public maintenance and
+checked source removal on Linux amd64 and Windows amd64 in run 39039845616.
+Independent verifier 34ef4bc282ef4316b6835f47acfd4145 checks actual events,
+source/binary hashes, build/version probes, unchanged reviewed host contracts,
+same-run F03 screen/exit-before-state rejection, maintenance and selected restores.
+Full core 39039797857 at the exact same production source succeeds all three
+hosts, including ordinary/race blocked-writer and transport-error controls. All
+core and latest 29-control native harness 39039844762 packets are retrieved.
+33 declared whole controls rebound to both actual native source identities under
+d0a202ced26146f491f192ae1d42ca00, revision 4; extra tests do not inflate that count.
+
+All four Edit native run packets are compacted: 3,510 payloads, 12,105,257
+expanded bytes, archive 3,368,897 bytes, four selected restores; parent
+315d04f3338540beb8f95a6787a559d5. Archive SHA
+1991b4ab61bfb96ec44f14fd90dad6ba81cdc999c7e9340448c38eeb0f0e824b,
+index SHA 2e52a542687e8821f02812bc1fc20a0626e99f512c41052b224ed9e36cbdc761.
+Checked expanded removal completed 62adec6a45294722ab19915438763802, even though
+its tool response was interrupted; actual finished event and removal receipt are
+confirmed. No deletion retry ran. Checked local active/edit removal completes
+24d87cacd5a044bfa9a6f667bdd31150; retained original source and restores preserved.
+Admission parent 727586e78af448fa999f7f8c1307f5fd verifies all gates including
+core native controls, archive coverage/CRC, source/selected restores, no expanded
+duplicates, empty active root and the 64-MiB bound. Edit retained observation:
+6,965,315 bytes. Four projects/eight native development cells; final archive,
+old migrations, final runner and paid launch counters remain zero.
+
+Next: requalify earlier Plop/Poetry/Bundler at e7b5f29 because Unix PTY transport
+changed, preserving their earlier admissions and every failed run. Run projects
+sequentially on their already declared native hosts; do not count repeats as new
+projects/cells. Their workflow pins are prepared. After those gates and verified
+owned cleanup, advance to project five vis. Reserved projects nine/ten untouched.
+
+Post-Edit storage observation cdef9739099d490daa931eab4b11dcd0: total campaign
+1,325,891,164 bytes, conservatively retained evidence/packages 224,114,839 bytes,
+curated 1,307,308 bytes, Edit 6,965,315 bytes, active projects empty. These are
+logical-byte observations before that receipt, not exact peaks or quotas. The
+first strict observation rejects a retained synthetic target-junction before
+following it (fa9eeb0e657245a8978cb13f6b475ad7). The corrected inventory records
+link metadata and skips linked traversal; it grants no link deletion authority.

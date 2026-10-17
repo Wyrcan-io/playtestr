@@ -18,7 +18,8 @@ selections and five provisional reserves in [the candidate ledger](candidates.js
 Plop's owned local tree is removed after archive/restore and cleanup checks.
 Poetry's owned local tree is also removed after verified retention and cleanup.
 RubyGems/Bundler is admitted on Linux/Windows and its owned local tree is removed.
-Microsoft Edit is the sole active target. Attempted 4; development admitted 3; archive qualified 0;
+Microsoft Edit is admitted on Linux/Windows and its owned local tree is removed.
+No target is active locally. Attempted 4; development admitted 4; archive qualified 0;
 old projects migrated 0; final runner admissions 0/100; paid-product admissions 0/100;
 final-qualified scenarios, faults, repetitions and native project/host cells all 0.
 Development evidence includes nineteen passing Windows Plop scenarios and three
@@ -40,7 +41,7 @@ and eight selected restoration checks. Expanded evidence briefly exceeded the
 project cap; the breach remains recorded, and retained Bundler evidence is now
 37,003,254 bytes after verified compaction. Whole campaign storage observation
 is 1,199,571,043 bytes, excluding subsequent small records, with no active targets.
-Development cells: 6;
+Development cells: 8;
 archive cells: 0. The original Windows F03 alone supplies each project's holdout;
 native copies are replicas. Bundler includes Windows; Plop and Poetry retain
 their historical Windows exclusions and first-use/usability limitations.
@@ -59,13 +60,21 @@ Edit's twenty reviewed public contracts pass the complete local suite, with thre
 actual rebuilt source faults and exact restorations. The saved-byte fault fails
 in the same execution after a passing screen and exact exit. Public selected
 file/screen maintenance, suffix rerecord and Unicode relocation pass. Native
-Linux/Windows run `39037952527` is pending; no Edit admission is credited.
-See [development findings](edit/development-findings.md). The expanded evidence
+Linux/Windows run `39039845616` passes the complete repaired-source cell;
+[Edit admission](edit/development-admission.json) also requires independent
+source/binary/event verification, all 3,510 native payloads retained in a verified
+3,368,897-byte archive, four restores and checked source removal. Earlier failures
+remain retained. See [development findings](edit/development-findings.md). The expanded evidence
 harness passes all applicable controls on three native hosts in `39037396111`;
-[33 whole controls](new-control-development-evidence-revision-3.json) bind to
+[33 whole controls](new-control-development-evidence-revision-4.json) bind to
 actual successful native events and matching sources. Final archive credit stays
 zero. Earlier new-record fixture identities were incomplete; E-05 preserves this
 limitation and requires repaired final authoring routes.
+
+The primary-device-attributes and nonblocking Unix cleanup repair passes full
+native core ordinary/race checks on all three hosts in `39039797857`, source
+`e7b5f29`. Requalification of earlier Plop, Poetry and Bundler cells precedes
+project five; those old development passes do not transfer to new bytes.
 
 Raw attempts/caches/packages belong only under ignored
 `artifacts/runner-readiness-ten-project-pass/`. Earlier evidence is preserved.

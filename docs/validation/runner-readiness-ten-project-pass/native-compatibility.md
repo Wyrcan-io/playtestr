@@ -24,12 +24,14 @@ remain in the owned raw packets. Final frozen archives must run their own series
 | Plop full twenty-scenario development package | Admitted | Admitted | Nineteen pass; resize case red; excluded |
 | Poetry full twenty-scenario development package | Admitted, run 38957159731 | Admitted, run 38957159731 | Nineteen pass; resize case red; excluded |
 | Bundler full twenty-scenario development package | Admitted, run 39011298428 | Not selected | Admitted, run 39011298428; explicit runtime profiles retained |
+| Edit full twenty-scenario development package | Admitted, run 39039845616 | Not selected | Admitted, run 39039845616; explicit new-document LF host difference retained |
+| Primary device attributes, exact CSI c / CSI 0 c | Real PTY ordinary/race passes, core 39039797857 | Real PTY ordinary/race passes, core 39039797857 | ConPTY replies independently; runner injects no duplicate reply |
 
 The [all-88 mapping](old-control-matrix.json) preserves every earlier control and
 its actual host applicability: all 88 now have applicable development evidence
 after the [local alias supplement](old-control-matrix-revision-2.json), preserving
 the hosted filesystem's explicit skip. New controls are separately declared
-with [actual development binding](new-control-development-evidence-revision-2.json);
+with [actual development binding](new-control-development-evidence-revision-4.json);
 all still need final archive evidence. A configured workflow is never a passed cell.
 
 One local Windows snapshot-rename access-denied result remains an unexplained
@@ -38,7 +40,7 @@ Historical wizard/readiness/helper incidents have separately declared bounded
 investigations. Target/framework names never select production core behavior.
 
 No coverage is claimed for arbitrary grapheme clusters/styles, mouse, clipboard,
-terminal replies, third-party plugins or network services. Concrete Unicode/path
+other terminal replies, third-party plugins or network services. Concrete Unicode/path
 fixtures do not establish universal Unicode support. PTYs, subprocesses and
 managed workspaces run trusted targets with user permissions and provide no
 security isolation. Native Actions execution is neither a PR-event study nor

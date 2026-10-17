@@ -20,7 +20,7 @@ Playtestr starts a real pseudoterminal, sends keyboard input, and feeds output i
 Current source also answers basic primary device-attributes startup queries on
 Unix through a bounded reply path. Other terminal queries retain the limits in
 [Terminal compatibility](docs/terminal-compatibility.md); this source change is
-still undergoing native qualification and is not included in published archives.
+verified by native source tests and is not included in published archives.
 
 The newest verified prerelease is [v0.4.0-rc.3](https://github.com/Wyrcan-io/playtestr/releases/tag/v0.4.0-rc.3), adding the selected two-column wide-character repair while retaining suites, offline reports, workspaces and installer/macOS output repairs. See its [downloads and installation](docs/releases/v0.4.0-rc.3.md). Stable v0.1.0 remains available below.
 

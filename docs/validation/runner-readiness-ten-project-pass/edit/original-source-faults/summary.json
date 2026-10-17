@@ -1,0 +1,81 @@
+{
+  "faults": [
+    {
+      "after": "[File]\nen = \"Files\"",
+      "baseline_attempt": "aeea7185ea994eda8c7ca8a28450e505",
+      "baseline_binary_sha256": "5c4957350366912ceeb1bb47df1987e3035c80635e57243a44d9772aa3beffc4",
+      "before": "[File]\nen = \"File\"",
+      "category": "snapshot_mismatch",
+      "held_out": false,
+      "id": "F01",
+      "mutated_source_sha256": "9e6e449b607ef574bd7e1fda0728978b9bc7758fc6904b41ccac393988903e45",
+      "mutation_attempt": "1e04e61404cd4d12a82930cc7b536e7e",
+      "mutation_build": {
+        "attempt": "92db716841154396ad13316cc6f176a0",
+        "binary_sha256": "7e549e68524fcbf59f86503158a9dd522d866dab422d4c8c79e673f08b1bfd7f"
+      },
+      "original_source_sha256": "af538628e2b10f67e70d13a513701b9b795a7d1e32e0d54dbdb93b1a0068f237",
+      "path": "i18n/edit.toml",
+      "restored_attempt": "a101bfb4bca8418eb5dc69c4a84bc9bc",
+      "restored_build": {
+        "attempt": "401ac142c37146d396cf4f0cd07da4d0",
+        "binary_sha256": "122094029d4c7754ac9144757e6e2f99ce38677dca2554f3ec7f800e65edb4ff"
+      },
+      "restored_exact": true,
+      "same_execution_state_rejection": false,
+      "spec": "N01.json"
+    },
+    {
+      "after": "Ok(()) => process::ExitCode::from(7),",
+      "baseline_attempt": "77c233014beb4d2a9cfbab4fc52854a9",
+      "baseline_binary_sha256": "122094029d4c7754ac9144757e6e2f99ce38677dca2554f3ec7f800e65edb4ff",
+      "before": "Ok(()) => process::ExitCode::SUCCESS,",
+      "category": "unexpected_exit",
+      "held_out": false,
+      "id": "F02",
+      "mutated_source_sha256": "5377e0a630aaa3a5942de3c7b775ec5f9a1d81e1b6c0b3fd2da8fc17b4a32b0f",
+      "mutation_attempt": "c877726ab3224c5b9f298d34781ea7ff",
+      "mutation_build": {
+        "attempt": "8d3b775cb33e40e1b971dee462bedff3",
+        "binary_sha256": "e292f17a46e5ac555b716a581ace72547eabeacd84926a0abfbd3b052914d7d7"
+      },
+      "original_source_sha256": "6f96a358e56c965d532fa1d9260e962bac0b88d484bebf753fd5204fd4e61152",
+      "path": "crates/edit/src/bin/edit/main.rs",
+      "restored_attempt": "29934a9376954d65a6d776a2291769bb",
+      "restored_build": {
+        "attempt": "c2b4e1f2e4f8431cba72b626332a6b5e",
+        "binary_sha256": "cfbc72d197acb47fc3bc73ce1af8ab75b3cd6641d5199f8ead02f574b8f389a1"
+      },
+      "restored_exact": true,
+      "same_execution_state_rejection": false,
+      "spec": "N02.json"
+    },
+    {
+      "after": "            tb.write_file(&mut file)?;\n            file.set_len(file.metadata()?.len().saturating_sub(1))?;",
+      "baseline_attempt": "877de6a5397748a7a300fd6b3ba227d1",
+      "baseline_binary_sha256": "cfbc72d197acb47fc3bc73ce1af8ab75b3cd6641d5199f8ead02f574b8f389a1",
+      "before": "            tb.write_file(&mut file)?;",
+      "category": "state_assertion_failure",
+      "held_out": true,
+      "id": "F03",
+      "mutated_source_sha256": "7325b9e4e1f4eb675f4db87e4d5db54a1eb847b8ddc84009e9fffacace26d371",
+      "mutation_attempt": "1d1d45adb20549818e8ab840bd789d48",
+      "mutation_build": {
+        "attempt": "592809812ade4bfa9f862a26f326ef74",
+        "binary_sha256": "3722256e3a6ab63207e4addbda29cc4ecc1a1991ac298c87548805eab5b6c9d6"
+      },
+      "original_source_sha256": "1fc0794cc58b1d1dc11c81721d2494b96ad218dafa8448e17a4517e567835830",
+      "path": "crates/edit/src/bin/edit/documents.rs",
+      "restored_attempt": "d3720a7f8be14e5faef74e16189cbf48",
+      "restored_build": {
+        "attempt": "ed2a308358cf4707b05e27942712c9e8",
+        "binary_sha256": "01321b640850a9ceea8f6fbfb1fbf97ee184d4f0563bdacdcc5dbe6a2c16b581"
+      },
+      "restored_exact": true,
+      "same_execution_state_rejection": true,
+      "spec": "N01.json"
+    }
+  ],
+  "runner_sha256": "e0962e7e974ad62b82aef051e1771c42d69a2b8b84348f9fbb61db4e0c728db1",
+  "source_execution": "actual pinned Rust source and ordinary rebuilt native editor executable"
+}

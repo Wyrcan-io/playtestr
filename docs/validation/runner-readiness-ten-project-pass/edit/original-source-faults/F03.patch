@@ -1,0 +1,10 @@
+--- a/crates/edit/src/bin/edit/documents.rs
++++ b/crates/edit/src/bin/edit/documents.rs
+@@ -33,6 +33,7 @@
+         {
+             let mut tb = self.buffer.borrow_mut();
+             tb.write_file(&mut file)?;
++            file.set_len(file.metadata()?.len().saturating_sub(1))?;
+         }
+ 
+         if let Ok(id) = sys::file_id(None, path) {

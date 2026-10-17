@@ -7,7 +7,7 @@ on:
     paths: ['.github/workflows/runner-readiness-plop.yml']
   workflow_dispatch:
 env:
-  SOURCE_REVISION: '93bd63df93c2a697ccea4e695afdb9c6a89e5221'
+  SOURCE_REVISION: 'e7b5f29e575e44babe7fdaa2e83e55b62d318305'
   PYTHONDONTWRITEBYTECODE: '1'
   PYTHONIOENCODING: utf-8
   GOTOOLCHAIN: local
@@ -45,7 +45,7 @@ jobs:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
           repository: Wyrcan-io/playtestr
-          ref: '93bd63df93c2a697ccea4e695afdb9c6a89e5221'
+          ref: 'e7b5f29e575e44babe7fdaa2e83e55b62d318305'
           path: .playtestr-tooling
           persist-credentials: false
           set-safe-directory: false
@@ -57,7 +57,7 @@ jobs:
       - name: Build exact candidate runner
         id: setup
         env:
-          SOURCE_REVISION: '93bd63df93c2a697ccea4e695afdb9c6a89e5221'
+          SOURCE_REVISION: 'e7b5f29e575e44babe7fdaa2e83e55b62d318305'
         run: |
           export PATH="$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass/toolchain/go/bin:$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass/active/plop/bin:$PATH"
           mkdir -p .playtestr-bin

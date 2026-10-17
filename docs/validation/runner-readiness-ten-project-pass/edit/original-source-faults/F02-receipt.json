@@ -1,0 +1,25 @@
+{
+  "after": "Ok(()) => process::ExitCode::from(7),",
+  "baseline_attempt": "77c233014beb4d2a9cfbab4fc52854a9",
+  "baseline_binary_sha256": "122094029d4c7754ac9144757e6e2f99ce38677dca2554f3ec7f800e65edb4ff",
+  "before": "Ok(()) => process::ExitCode::SUCCESS,",
+  "category": "unexpected_exit",
+  "held_out": false,
+  "id": "F02",
+  "mutated_source_sha256": "5377e0a630aaa3a5942de3c7b775ec5f9a1d81e1b6c0b3fd2da8fc17b4a32b0f",
+  "mutation_attempt": "c877726ab3224c5b9f298d34781ea7ff",
+  "mutation_build": {
+    "attempt": "8d3b775cb33e40e1b971dee462bedff3",
+    "binary_sha256": "e292f17a46e5ac555b716a581ace72547eabeacd84926a0abfbd3b052914d7d7"
+  },
+  "original_source_sha256": "6f96a358e56c965d532fa1d9260e962bac0b88d484bebf753fd5204fd4e61152",
+  "path": "crates/edit/src/bin/edit/main.rs",
+  "restored_attempt": "29934a9376954d65a6d776a2291769bb",
+  "restored_build": {
+    "attempt": "c2b4e1f2e4f8431cba72b626332a6b5e",
+    "binary_sha256": "cfbc72d197acb47fc3bc73ce1af8ab75b3cd6641d5199f8ead02f574b8f389a1"
+  },
+  "restored_exact": true,
+  "same_execution_state_rejection": false,
+  "spec": "N02.json"
+}

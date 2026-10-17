@@ -1,0 +1,11 @@
+--- a/crates/edit/src/bin/edit/main.rs
++++ b/crates/edit/src/bin/edit/main.rs
+@@ -53,7 +53,7 @@
+     }
+ 
+     match run() {
+-        Ok(()) => process::ExitCode::SUCCESS,
++        Ok(()) => process::ExitCode::from(7),
+         Err(err) => {
+             sys::write_stdout(&format!("{}\n", FormatApperr::from(err)));
+             process::ExitCode::FAILURE
