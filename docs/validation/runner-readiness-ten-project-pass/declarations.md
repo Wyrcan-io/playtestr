@@ -206,3 +206,12 @@ expected 3-5 minutes). It uses an unsaved selected lock-file review and one
 five-second/64-KiB synthetic Readline PTY capture with owned process-group reap.
 No expectation changes, no automatic retry, no qualification credit. Maximum
 four aggregate hosted jobs remains in force.
+
+After the Linux raw-byte/selected-file reduction, the next full Bundler batch is
+two standard native jobs, 25-minute ceilings, expected 5-8 minutes each. Explicit
+profiles are reviewed before dispatch: Windows SystemDrive, Linux no-color
+EditLine prompt, and portable force-Ruby-platform lock generation. They preserve
+all expected bytes and entry sets; original failures remain. Execute exactly the
+twenty public cases plus source-fault replicas, restoration, maintenance and
+checked retention/removal. Core jobs have completed; at most two harness plus
+two project jobs may overlap. No diagnostic job contributes admission credit.

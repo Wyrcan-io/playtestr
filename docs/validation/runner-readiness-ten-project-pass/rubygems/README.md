@@ -46,3 +46,8 @@ required flags; only that missing step was resumed after correction. All prior
 successful and failed maintenance reports remain. Native generated-workflow
 execution is pending, with pinned runner source `bb09d7d` and explicit owned
 SDK/runtime/fixture preparation. No real PR event or human study is claimed.
+
+Subsequent native reductions and explicit runtime profiles are recorded in
+[native findings](native-findings.md). The next route pins runner source
+`f470cd99aef89e080cc8455e4f8ad4715ecd12c2`, with full three-host core validation
+39010459162. Native Bundler admission remains pending its complete two-host run.

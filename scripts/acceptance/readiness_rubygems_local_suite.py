@@ -14,9 +14,10 @@ from readiness_rubygems_profiles import main as profiles
 
 
 async def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--runner',type=Path);args=parser.parse_args()
-    suite=RAW/'rubygems/host-contracts'
-    if not suite.exists():profiles()
+    parser=argparse.ArgumentParser();parser.add_argument('--runner',type=Path);parser.add_argument('--suite',type=Path);args=parser.parse_args()
+    suite=args.suite.resolve() if args.suite else RAW/'rubygems/host-contracts'
+    suite.resolve().relative_to((RAW/'rubygems').resolve())
+    if not suite.exists():profiles(suite)
     root=RAW/'rubygems/local-suite'/uuid.uuid4().hex;root.mkdir(parents=True)
     runner=args.runner.resolve() if args.runner else RAW/'bin'/('playtestr.exe' if os.name=='nt' else 'playtestr')
     runner.relative_to(ROOT)

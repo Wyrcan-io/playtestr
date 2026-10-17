@@ -386,3 +386,19 @@ records actual Readline/platform identities, and captures at most 64 KiB from a
 five-second synthetic real PTY. This separates actual emitted bytes from terminal
 parsing before deciding whether any renderer repair or explicit target profile
 is warranted. No baseline accepted and no project admission from diagnostic jobs.
+
+Full native core 39010459162 succeeds on all three hosts at production source
+f470cd99aef89e080cc8455e4f8ad4715ecd12c2; all compact packets and metadata are
+retrieved, including ordinary/race positive ignoring-ancestor CLI events on
+Windows. Public menu examples pass locally 068609af3f404fb8b65be96f67de3672.
+
+Linux diagnosis 39010958048 succeeds and is retrieved (318,180 compressed bytes).
+It proves EditLine itself emits literal CSI suffixes without ESC while direct
+ANSI retains ESC, and the selected N06 lock contains duplicate ruby lines. See
+rubygems/native-findings.md. Explicit native profiles use NO_COLOR for that
+prompt and the documented force-Ruby-platform workflow instead of native
+add/remove. Expected files/entry sets/snapshots remain unchanged. Fresh local
+twenty-case profile suite passes ae647f9d0bee4c7199cb396be3394ff0, packet
+local-suite/15147839aeaa46bbbf3b48ad4c77c116; 22 harness controls pass
+2f670ff0d8bd451f81f8cdc0aa0e7458. Next full native batch must qualify both hosts,
+all source-fault replicas and public maintenance, then local checked removal.
