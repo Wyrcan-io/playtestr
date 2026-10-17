@@ -63,10 +63,10 @@ jobs:
           test "$(.playtestr-bin/playtestr --version)" = "playtestr source-$SOURCE_REVISION"
       - name: Reviewed installed native Bash setup
         id: prepare
-        run: python3 scripts/acceptance/readiness_vis_native_prepare.py
+        run: python3 scripts/acceptance/readiness_fff_native_prepare.py
       - name: First public recording, explicit review and ordinary replay
         run: |
-          python3 scripts/acceptance/readiness_check.py --label native-fff-first-public-route --timeout 600 -- python3 scripts/acceptance/readiness_vis_first_use.py
+          python3 scripts/acceptance/readiness_check.py --label native-fff-first-public-route --timeout 600 -- python3 scripts/acceptance/readiness_fff_first_use.py
       - name: Verify pinned source restores and owned runtime termination
         if: always() && steps.prepare.outcome == 'success'
         run: |

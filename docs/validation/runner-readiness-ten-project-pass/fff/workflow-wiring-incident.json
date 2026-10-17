@@ -1,0 +1,14 @@
+{
+  "actual": "An unintended Vis first-use repetition ran; fff cleanup failed because no active/fff task-owned marker existed on either host",
+  "cause": "Workflow copied from Vis retained readiness_vis_native_prepare.py and readiness_vis_first_use.py references; word-boundary substitution did not match underscore-separated helper names",
+  "correction": "Explicitly select readiness_fff_native_prepare.py and readiness_fff_first_use.py; rerun as a new attempt; keep original failures",
+  "evidence": {
+    "events_and_identities": "native/39065269800",
+    "workflow_log_bytes": 159528,
+    "workflow_log_sha256": "4fdfff9038fcfeb13d49ec5c836ba50d76ba5fa4b14d0ad862001f77321af8b4"
+  },
+  "limitations": "Artifact list excluded the unintended Vis project subtree. Core/events/identities and complete workflow logs are retained, but that extra Vis first-use packet is incomplete. Target cleanup was not confirmed before these hosted jobs ended. No new Vis credit.",
+  "outer_source": "f2e40e59ccadd37d185621178420d9f6365c469a",
+  "run": "39065269800",
+  "status": "failed setup; no fff target execution or qualification credit"
+}
