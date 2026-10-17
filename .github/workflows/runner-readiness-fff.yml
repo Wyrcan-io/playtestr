@@ -101,5 +101,6 @@ jobs:
             artifacts/runner-readiness-ten-project-pass/fff-runtime-baseline.json
             artifacts/runner-readiness-ten-project-pass/toolchain/sdk.json
             !artifacts/runner-readiness-ten-project-pass/fff/retained-source/source.tar.gz
+          include-hidden-files: true
           if-no-files-found: error
           retention-days: 14
