@@ -11,6 +11,7 @@ import uuid
 
 from adversarial_process import execute
 from readiness_edit_cases import environment
+from readiness_edit_profiles import native_profile
 from readiness_evidence import Campaign,RAW,ROOT,immutable_json,sha256
 
 
@@ -25,7 +26,8 @@ async def main():
         if sha256(canonical/name)!=digest:raise RuntimeError('canonical contract changed after freeze')
         original=json.loads((canonical/name).read_text(encoding='utf-8-sig'))
         current=json.loads((package/name).read_text(encoding='utf-8-sig'))
-        if original['steps']!=current['steps']:raise RuntimeError('fault run changed frozen actions')
+        expected=native_profile(original,name,os.name=='nt') if args.package else original
+        if expected['steps']!=current['steps']:raise RuntimeError('fault run changed reviewed host actions')
     faults=[
         dict(id='F01',spec='N01.json',path='i18n/edit.toml',before='[File]\nen = "File"',
              after='[File]\nen = "Files"',held_out=False,category='snapshot_mismatch'),

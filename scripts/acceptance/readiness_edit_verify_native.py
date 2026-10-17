@@ -1,5 +1,6 @@
 """Independently inspect actual native editor events, inputs, outcomes and restore."""
 import argparse
+import base64
 from pathlib import Path
 
 from readiness_evidence import Campaign,RAW,ROOT,immutable_json,sha256
@@ -13,11 +14,11 @@ def require(condition,message):
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--run',required=True);args=parser.parse_args()
-    require(args.run.isascii() and args.run.isdecimal(),'invalid native run ID')
-    run=RAW/'native'/args.run;metadata=load(run/'run-metadata.json')
-    require(metadata['status']=='completed' and metadata['conclusion']=='success','native run incomplete or failed')
-    require(len(metadata['jobs'])==2 and all(j['conclusion']=='success' for j in metadata['jobs']),'missing native cell')
+    parser=argparse.ArgumentParser();parser.add_argument('--run',required=True)
+    parser.add_argument('--windows-run',help='Keep a verified Windows job from an earlier run when only Linux needed a profile correction.')
+    args=parser.parse_args()
+    runs={'playtestr-Linux':args.run,'playtestr-Windows':args.windows_run or args.run}
+    for identity in set(runs.values()):require(identity.isascii() and identity.isdecimal(),'invalid native run ID')
     reviewed=ROOT/'docs/validation/runner-readiness-ten-project-pass/edit'
     freeze=load(reviewed/'reviewed-contract-freeze.json')
     require(len(freeze['contracts'])==20,'twenty frozen contracts required')
@@ -25,6 +26,12 @@ def main():
         require(sha256(reviewed/'contracts'/name)==digest,'canonical input changed')
     canonical=load(reviewed/'source-review.json')['archive_sha256'];cells=[]
     for host in ['playtestr-Linux','playtestr-Windows']:
+        run=RAW/'native'/runs[host];metadata=load(run/'run-metadata.json')
+        require(metadata['status']=='completed','native run incomplete')
+        if runs[host]==args.run:require(metadata['conclusion']=='success','new native run failed')
+        expected_job='terminal ('+('windows-2025' if host.endswith('Windows') else 'ubuntu-24.04')+')'
+        jobs=[j for j in metadata['jobs'] if j['name']==expected_job]
+        require(len(jobs)==1 and jobs[0]['status']=='completed' and jobs[0]['conclusion']=='success','selected native job missing or failed')
         base=run/host;packet=base/'runner-readiness-ten-project-pass'
         ledger=object.__new__(Campaign);ledger.raw=packet;attempts=ledger.attempts()
         runner=load(packet/'edit-native-runner.json')
@@ -49,7 +56,12 @@ def main():
         contracts=packet/'edit/host-contracts'
         for name in freeze['contracts']:
             original=load(reviewed/'contracts'/name);native=load(contracts/name)
-            if host.endswith('Linux'):original.pop('inherit_env',None)
+            if host.endswith('Linux'):
+                original.pop('inherit_env',None)
+                if name=='N02.json':
+                    state=original['steps'][8]['state']
+                    require(state==dict(path='new-note.txt',kind='file',bytes_base64=base64.b64encode(b'fresh document').decode()),'unexpected canonical new-document assertion')
+                    state['bytes_base64']=base64.b64encode(b'fresh document\n').decode()
             require(original==native,'unreviewed native contract change')
         for name,digest in freeze['all_package_inputs'].items():
             if name not in freeze['contracts']:require(sha256(contracts/name)==digest,'changed fixture or snapshot')
@@ -102,10 +114,11 @@ def main():
         removed=packet/'edit/retained-source/removed.json';removal=load(removed);index=load(removed.parent/'verified-index.json')
         require(removal['removed'] and removal['owned_relative_path']=='active/edit' and removal['source_archive_sha256']==canonical==index['archive_sha256'],'source removal or archive mismatch')
         for name in index['selected_restore']:require(sha256(removed.parent/'selected-restore'/name)==index['files'][name]['sha256'],'source restore mismatch')
-        cells.append(dict(host=host,scenarios=20,report_sha256=sha256(base/'playtestr/results.json'),
+        cells.append(dict(host=host,run=runs[host],run_conclusion=metadata['conclusion'],
+            job_conclusion=jobs[0]['conclusion'],scenarios=20,report_sha256=sha256(base/'playtestr/results.json'),
             source_fault_summary_sha256=sha256(summary),maintenance_sha256=sha256(journey_path),
             cleanup_receipt_sha256=sha256(removed),runner_sha256=runner['copied_sha256']))
-    immutable_json(RAW/'edit/native-development-verification.json',dict(run=args.run,runner_source=SOURCE,cells=cells,
+    immutable_json(RAW/'edit/native-development-verification.json',dict(runs=runs,runner_source=SOURCE,cells=cells,
         phase='development',claim='Native gates verified; local checked removal required before admission.',archive_qualified=False))
     print('Verified both native editor cells from actual events, source/binary hashes, reports, builds and restores.')
 

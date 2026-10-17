@@ -52,3 +52,23 @@ Local full-source verification and selected restoration preparation pass
 general repair. Retained Edit observation is 2,427,652 bytes before downloaded
 native packets; active Edit observation 160,490,575 bytes. These are observations,
 not exact peaks. Local removal is pending.
+
+Repaired source d7a9ed1 native run `39038978138`: Linux advances to nineteen
+passing cases; N02 fails exact file bytes after passing readiness/save/exit, and
+F02 correctly refuses to proceed from the same failing baseline. Public native
+maintenance and checked removal succeed. Pinned documents.rs line 289 explicitly
+enables final-newline insertion for new documents on Unix (`!cfg!(windows)`).
+Existing files infer their own policy; the no-final-newline E07 passes unchanged.
+The reviewed Linux N02 profile therefore expects exactly `fresh document\n`;
+Windows keeps exactly `fresh document`. This is an explicit source-derived host
+expectation, with no normalization or automatic baseline update. Every other
+action, expected file and snapshot stays unchanged; two profile controls verify
+this and reject changed canonical inputs. Local full 29-control harness passes
+`10b935e855f1408cb909531cb40227bf`.
+
+Windows completes the entire repaired-runner cell successfully in that same run.
+Its successful job may be reused while only Linux's declared expectation changes;
+the aggregate failed run, failing Linux cell and original N02 failure remain in
+the denominator. Native replicas never earn another holdout credit. Independent
+per-cell verification must inspect actual successful job metadata, complete
+events, exact source/binary hashes, reports, rebuild/version probes and restores.

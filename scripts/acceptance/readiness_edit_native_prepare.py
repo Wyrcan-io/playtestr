@@ -9,6 +9,7 @@ import sys
 from adversarial_process import execute
 from readiness_cleanup_plop import runtime_inventory
 from readiness_edit_environment import build_environment
+from readiness_edit_profiles import native_profile
 from readiness_evidence import Campaign,RAW,ROOT,immutable_json,sha256
 
 
@@ -50,12 +51,14 @@ async def main():
         if sha256(package/name)!=digest:raise RuntimeError('native checked-out frozen input differs: '+name)
     profile=[]
     if os.name!='nt':
+        documents=active/'src/crates/edit/src/bin/edit/documents.rs'
+        if sha256(documents)!='1fc0794cc58b1d1dc11c81721d2494b96ad218dafa8448e17a4517e567835830':
+            raise RuntimeError('Unix new-document source policy differs from reviewed pin')
         for path in sorted(package.glob('*.json')):
-            value=json.loads(path.read_text());original=sha256(path)
-            value.pop('inherit_env',None)
+            value=native_profile(json.loads(path.read_text()),path.name,False);original=sha256(path)
             path.write_text(json.dumps(value,indent=2)+'\n',encoding='utf-8',newline='\n')
             profile.append(dict(contract=path.name,before_sha256=original,after_sha256=sha256(path),
-                change='Remove Windows-only SystemDrive inheritance; all actions, expected bytes and snapshots unchanged.'))
+                change='Remove Windows-only SystemDrive inheritance.'+(' N02 new-document output explicitly ends in LF under pinned Unix policy; other assertions unchanged.' if path.name=='N02.json' else ' All actions, expected bytes and snapshots unchanged.')))
     immutable_json(RAW/'edit/native-profile.json',dict(changes=profile,host=os.name,
         canonical_freeze_sha256=sha256(source.parent/'reviewed-contract-freeze.json')))
     built=json.loads((active/'build.json').read_text());target=active/built['binary_relative_path']
