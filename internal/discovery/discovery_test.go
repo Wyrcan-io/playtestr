@@ -42,6 +42,41 @@ func TestResolveExpansionOrderDedupAndExclusions(t *testing.T) {
 	}
 }
 
+func TestResolveSelectedRowBaselinesAreDataDuringDirectoryExpansion(t *testing.T) {
+	root := t.TempDir()
+	spec := filepath.Join(root, "suite.json")
+	baseline := filepath.Join(root, "snapshots", "screen.rows.json")
+	nestedSpec := filepath.Join(root, "snapshots", "another-suite.json")
+	malformedSpec := filepath.Join(root, "malformed.json")
+	for _, path := range []string{spec, baseline, nestedSpec, malformedSpec, filepath.Join(root, "root.rows.json")} {
+		touch(t, path)
+	}
+	if err := os.WriteFile(malformedSpec, []byte("invalid JSON remains a selected spec"), 0600); err != nil {
+		t.Fatal(err)
+	}
+	got, err := Resolve([]string{root})
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := []string{malformedSpec, nestedSpec, spec}
+	if len(got) != len(want) {
+		t.Fatalf("selected %+v, want %v; reserved row baselines must not become tests", got, want)
+	}
+	for i, path := range want {
+		if got[i].Path != path {
+			t.Fatalf("selected[%d]=%q, want %q", i, got[i].Path, path)
+		}
+	}
+	// An explicit file is still parsed and diagnosed normally by the caller.
+	explicit, err := Resolve([]string{baseline})
+	if err != nil || len(explicit) != 1 || explicit[0].Path != baseline {
+		t.Fatalf("explicit baseline selection=%+v error=%v", explicit, err)
+	}
+	if _, err := resolve([]string{root}, nil, 1, 100); err == nil {
+		t.Fatal("baseline exclusion bypassed the visited-entry bound")
+	}
+}
+
 func TestResolveDeduplicatesHardLinks(t *testing.T) {
 	root := t.TempDir()
 	original := filepath.Join(root, "original.json")

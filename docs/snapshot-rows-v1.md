@@ -26,6 +26,8 @@ The exported ordinary v1/v2 step remains `{"snapshot":"results.rows.json"}`. Its
 
 Unknown fields, multiple JSON objects, invalid versions/ranges, invalid UTF-8 and existing size/line limits are rejected. `.rows.json` is the reserved filename suffix that selects this reader. Ordinary `.txt` snapshots keep complete-screen semantics. If an old plain-text baseline happens to use `.rows.json`, rename it and its spec reference to `.txt` before using this candidate; it is not silently converted. No spec action or unknown field was added.
 
+Directory suite discovery omits this reserved `.rows.json` suffix so the baselines exported beside a recorded suite are not run as additional specs. Explicit file arguments retain normal parsing diagnostics; other JSON files are still selected and diagnosed. See [suite selection](suites.md).
+
 Review both the rows and text. An excluded row is not tested by this snapshot. Keep separate `expect` assertions for important facts outside the selected interval. A resize that makes the range invalid fails rather than truncating the comparison or passing with empty content.
 
 Selected intentional updates use the existing command:

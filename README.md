@@ -145,7 +145,7 @@ playtestr test --list tests/terminal
 playtestr test --artifacts-dir artifacts/playtestr --report artifacts/results.json tests/terminal
 ```
 
-Directory matches are recursive, sorted, deduplicated, bounded, and resolved before any target launches. The final summary accounts for every selected spec and points directly to each failed screen or diff. See [Test suites and CI evidence](docs/suites.md) for selection rules, limits, output layout, and exit statuses.
+Directory matches are recursive, sorted, deduplicated, bounded, and resolved before any target launches. Reserved `.rows.json` snapshot baselines are omitted from directory selection. The final summary accounts for every selected spec and points directly to each failed screen or diff. See [Test suites and CI evidence](docs/suites.md) for selection rules, limits, output layout, and exit statuses.
 
 ### Working directory and environment
 

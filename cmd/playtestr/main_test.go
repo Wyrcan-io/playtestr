@@ -366,6 +366,40 @@ func TestDirectorySuiteContinuesAndSummarizes(t *testing.T) {
 	}
 }
 
+func TestDirectorySuiteDoesNotRunSelectedRowBaselinesAsSpecs(t *testing.T) {
+	root := t.TempDir()
+	writeSuiteSpec(t, filepath.Join(root, "a-fail.json"), "real failure retained", 0, true)
+	writeSuiteSpec(t, filepath.Join(root, "b-pass.json"), "real pass retained", 0, false)
+	baselineDir := filepath.Join(root, "snapshots")
+	if err := os.Mkdir(baselineDir, 0700); err != nil {
+		t.Fatal(err)
+	}
+	for name, content := range map[string]string{
+		"screen.rows.json": `{"snapshot_version":1,"first_row":1,"last_row":24,"text":"reviewed screen\n"}`,
+		"broken.rows.json": `{"snapshot_version":`,
+	} {
+		if err := os.WriteFile(filepath.Join(baselineDir, name), []byte(content), 0600); err != nil {
+			t.Fatal(err)
+		}
+	}
+	var stdout, stderr bytes.Buffer
+	if code := run(context.Background(), []string{"test", "--list", root}, &stdout, &stderr); code != 0 {
+		t.Fatalf("list code=%d stdout=%q stderr=%q", code, stdout.String(), stderr.String())
+	}
+	if strings.Contains(stdout.String(), ".rows.json") || !strings.HasPrefix(stdout.String(), "Selected 2 specs:") {
+		t.Fatalf("list selected snapshot data: %q", stdout.String())
+	}
+	stdout.Reset()
+	stderr.Reset()
+	if code := run(context.Background(), []string{"test", root}, &stdout, &stderr); code != 1 {
+		t.Fatalf("suite code=%d stdout=%q stderr=%q", code, stdout.String(), stderr.String())
+	}
+	if !strings.Contains(stdout.String(), "Suite: total=2 passed=1 failed=1 cancelled=0 not-run=0") ||
+		!strings.Contains(stdout.String(), "PASS real pass retained") || strings.Contains(stdout.String(), "decode spec") {
+		t.Fatalf("ordinary suite included baselines or omitted real outcomes: %q", stdout.String())
+	}
+}
+
 func TestListResolvesWithoutLaunching(t *testing.T) {
 	root := t.TempDir()
 	writeSuiteSpec(t, filepath.Join(root, "b.json"), "b", 0, false)

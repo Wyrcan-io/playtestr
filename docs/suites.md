@@ -1,6 +1,6 @@
 # Test suites and CI evidence
 
-Pass one or more spec files or directories to `playtestr test`. A directory is searched recursively for files whose names end in lowercase `.json`:
+Pass one or more spec files or directories to `playtestr test`. A directory is searched recursively for files whose names end in lowercase `.json`, excluding the reserved `.rows.json` snapshot artifacts:
 
 ```text
 playtestr test --list tests/terminal
@@ -16,6 +16,7 @@ Flags must precede paths. `--list` prints the exact resolved selection and never
 - The same filesystem file is run once, even when selected through duplicate arguments or hard links.
 - Directory symlinks are not followed. An explicitly supplied symlink root is rejected; pass its resolved target deliberately instead.
 - `.git`, `.cache`, `.playtestr`, `artifacts`, and `node_modules` directories are skipped. The configured artifact destination is also excluded from traversal, so a prior evidence run cannot become test input. Put the report outside the selected tree (normally under `artifacts/`); a report path that is itself selected is rejected as an input/output collision.
+- The reserved `.rows.json` filename suffix identifies selected-row snapshot data and is skipped during directory expansion, wherever the file resides. Other JSON files, including malformed specs and specs inside a directory named `snapshots`, remain selected. An explicitly named file retains normal parsing and error reporting. Rename a real test that uses this reserved suffix to ordinary `.json` if it should be found through a directory; explicit invocations remain unchanged.
 - Discovery is limited to 10,000 visited entries and 1,000 selected specs. Valid selected specs may declare at most 10,000 steps in aggregate; existing per-spec limits still apply.
 - Custom glob and filter syntax is not implemented. A shell-expanded explicit file list remains supported.
 

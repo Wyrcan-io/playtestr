@@ -46,7 +46,8 @@ type excludedPath struct {
 // Resolve expands every argument in place. Explicit files retain argument
 // order; each directory is recursively expanded and sorted by normalized
 // relative path. Files referring to the same filesystem object are selected
-// only once.
+// only once. Reserved .rows.json snapshot artifacts are omitted from directory
+// expansion; explicitly named files retain their normal parsing diagnostics.
 func Resolve(arguments []string) ([]Spec, error) {
 	return ResolveExcluding(arguments, nil)
 }
@@ -116,6 +117,9 @@ func resolve(arguments, excludedPaths []string, maxVisited, maxSelected int) ([]
 				return nil
 			}
 			if entry.Type()&os.ModeSymlink != 0 || !entry.Type().IsRegular() || filepath.Ext(entry.Name()) != ".json" {
+				return nil
+			}
+			if strings.HasSuffix(entry.Name(), ".rows.json") {
 				return nil
 			}
 			entryInfo, err := entry.Info()
