@@ -323,3 +323,16 @@ and twenty local harness controls pass after repair (f9d3a0c758834233b64505002ed
 Native control binder additionally rejects escaping/linked/oversized manifest
 references before reading payloads. Local diagnostic preflight 2c984e33a24f47daa0ec516eaa1751f6
 was denied PTY access in the sandbox before launch; authorized execution follows.
+
+Outer source 14ebaab pushed. Harness 39009488905 passes all twenty tests on
+three native hosts, packets and completed-run metadata retrieved. Diagnostic
+39009496800 succeeds with checked target removal (880,529 compressed bytes
+retrieved): complete-prompt interrupt still times out, while modified direct-load
+exit-hook root diagnostic passes. This does not establish the original mismatch's
+cause. New bounded diagnosis retains the exact ordinary failed workspace, records
+only its synthetic root names with invocation/report identity, and removes it
+using checked native PowerShell. Separate minimal Ruby gets/readline Ctrl-C
+contracts distinguish native input from application handling. Local preflight
+aaabddcc0efa408f9a1cd72b5abc38c1 passes; checked deletion rejects a changed marker
+and preserves an outside-selected-root canary before removing the exact owned
+workspace under b494aca464514e3ea64948f7deb7bdf6. No original contracts changed.

@@ -178,3 +178,11 @@ hook lists only the synthetic working directory's immediate names before exit;
 the interrupt probe waits for the complete framework prompt. All original
 contracts remain byte-identical. Twenty-test harness validation may overlap
 (maximum two harness jobs plus this one diagnostic, below the four-job cap).
+
+After 39009496800 ruled out complete-prompt readiness as sufficient, one further
+Windows diagnostic is declared (25-minute ceiling, expected 3-5 minutes). It
+retains the exact original failed ordinary workspace for immediate-name
+inspection, then verifies marker identity and removes only that owned temporary
+workspace through PowerShell. Its untouched original report remains retained
+with a separate removal receipt. Two minimal real Ruby input contracts compare
+gets and Readline Ctrl-C handling. No delay padding or qualification credit.
