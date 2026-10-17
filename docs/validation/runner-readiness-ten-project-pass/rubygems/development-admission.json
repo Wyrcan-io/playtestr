@@ -1,0 +1,48 @@
+{
+  "all_native_payloads_verified": 1986,
+  "archive_qualified": false,
+  "cells": [
+    {
+      "cleanup_receipt_sha256": "04bb5b8570b7eb03a0aa304d8f29cda0af8dd1824529f42bbd0dbc9a04ef4c8b",
+      "host": "playtestr-Linux",
+      "maintenance_sha256": "70688bde872480df2fa09787e436bb866da04f25c1a8f3472ebd7beef05a2431",
+      "report_sha256": "c6b537cf14b3513ee68e6a0b78c02d79bd14db37346ff299dbdae696ceb944d3",
+      "runner_sha256": "81f58e37540c0b5cb9959f0a11dc127b039811169fa3952b81bd8e1f738dcfad",
+      "scenarios": 20,
+      "source_fault_summary_sha256": "f5ffe9b6711def6ba196f94c65cb66c16aab29f66d9fd5d52aecf6e484160766"
+    },
+    {
+      "cleanup_receipt_sha256": "f6363767b77a2f60f3f8e526c2cdfb246d5dc90d2a3c5cd868d4403711e73879",
+      "host": "playtestr-Windows",
+      "maintenance_sha256": "8ee33500e3727e606324e64cf214900c2f1de1258366a9b76ebd55da4c88e0f8",
+      "report_sha256": "a7df4a6315c303cf5a7e30b6ce65ee6c338d28159ace7807f4d07e638a561afc",
+      "runner_sha256": "eb642a1250ba0bee742f43f770e5f0db3b4ea6fc57282766e6b5710301690ec9",
+      "scenarios": 20,
+      "source_fault_summary_sha256": "aba27d9b782512a193fc0b6872b465d9646196ce6c26a4963dfeeb0b94d00390"
+    }
+  ],
+  "edge_scenarios": 12,
+  "final_runner_admissions": 0,
+  "first_use_sha256": "3117263dc46817ba72a86cfb19b80d3f21cbdee65876c21a6b08c60384757d83",
+  "holdout": "Original local F03 only; native copies are replicas.",
+  "human_usability": "unmeasured",
+  "local_source_removal_receipt_sha256": "f31101dba1ff3a4603de3e90ada5549b713cd12b7103eb7cd718f3ce5f548805",
+  "native_packet_archive_sha256": "691db9247b66cc375893133d71f135fafc2f97196e36a714709f0b8f4d7a1482",
+  "native_packet_index_sha256": "737d12e0549ac8cea5cb36424da2efc4598b375a39a0e50d64f36eb367d7b466",
+  "native_packet_reference": "Local-only artifacts/runner-readiness-ten-project-pass/rubygems/retained-native-v1/",
+  "native_verification_sha256": "12ccafc2065aa7087f89ef0e198a1954a5d4715da742115547b7d9d81baf5814",
+  "normal_scenarios": 8,
+  "observed_project_retained_bytes": 37003254,
+  "original_fault_summary_sha256": "ea242754b6b6251e235c361449f5217cf25075835836dbf714e987ae2937a45f",
+  "pin": "f033df93676007227d1ae0bd7326008e6396b3e9",
+  "prior_storage_cap_breach_bytes": 76588551,
+  "project": "ruby/rubygems",
+  "real_faults": 3,
+  "reviewed_freeze_sha256": "caf3c24bc8069d22282e214c4475a5a47cd5611dfdf9fd4cdd16c1a27df52f09",
+  "run": "39011298428",
+  "runner_source": "f470cd99aef89e080cc8455e4f8ad4715ecd12c2",
+  "schema_version": 1,
+  "selected_native_restores": 8,
+  "status": "development-admitted",
+  "storage_disposition": "Prior expanded-packet breach preserved; verified compaction and checked removal restore the 64-MiB bound."
+}

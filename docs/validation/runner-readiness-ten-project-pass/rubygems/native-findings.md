@@ -40,3 +40,12 @@ selected lock review, original failed reports and removal receipts are retained
 there. No diagnostic job earns a project admission. Re-run all twenty ordinary
 cases, source-fault replicas and maintenance on both declared native hosts before
 admission.
+
+That requalification completed in run 39011298428 on both hosts; see the
+[development admission](development-admission.json). After complete payload/hash
+verification, all expanded Bundler native packets were compacted into the
+local-only `artifacts/runner-readiness-ten-project-pass/rubygems/retained-native-v1/packets.tar.gz`.
+Its index maps every original relative path and hash; all 1,986 payloads and eight
+selected restores verify. Expanded copies are removed. Earlier expanded-path
+references resolve through that archive and index, without expired remote data.
+The prior project storage-cap breach remains recorded separately.

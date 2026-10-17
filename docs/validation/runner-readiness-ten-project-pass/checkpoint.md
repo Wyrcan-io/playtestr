@@ -402,3 +402,31 @@ twenty-case profile suite passes ae647f9d0bee4c7199cb396be3394ff0, packet
 local-suite/15147839aeaa46bbbf3b48ad4c77c116; 22 harness controls pass
 2f670ff0d8bd451f81f8cdc0aa0e7458. Next full native batch must qualify both hosts,
 all source-fault replicas and public maintenance, then local checked removal.
+
+PROJECT THREE COMPLETE (development only): full Bundler run 39011298428 passes
+all twenty scenarios, three actual source-fault replicas/restorations and public
+maintenance on Linux amd64 and Windows amd64. Independent packet verification
+b09ea126b48d448b96fe800c0d33c391 binds actual target-source mutations and exact
+runner bytes, plus same-invocation/workspace F03 rejection. Fresh local process
+proof and checked PowerShell removal confirm active/rubygems absent; retained
+canonical source/restore verification is preserved. Admission is recorded under
+6662c9f75c974993918375c75b65e884.
+
+E-04: expanded native packets caused an observed 76,588,551-byte project retention
+breach. Admission paused; no first failure was discarded. Compaction verifies all
+1,986 payloads and eight restores, archive 6,808,855 bytes, parent
+c02b3d89885a4ba4aebabce94b09a056. Checked PowerShell removes only unchanged
+expanded packets after matching their complete hash inventory. Original metadata
+and failures remain in retained-native-v1/packets.tar.gz and index.json. Current
+Bundler retained observation is 37,003,254 bytes; campaign 1,199,571,043, curated
+959,256 before these small records, active target list empty. These are observed
+sizes, not exact peaks. The earlier breach is not erased by compaction.
+
+Current pushed outer source before this checkpoint is 1fde87c; production source
+is f470cd99aef89e080cc8455e4f8ad4715ecd12c2. Three projects/six native development
+cells admitted; all final-archive, old-project migration and final runner counters
+remain zero. Latest local full harness has 25 passing controls under
+b65ccf7b69604d7a9af7355d1991dea1; compaction negatives also pass
+8e6d618f7d614b12ab580e6b58da574e. Native new-compaction harness remains pending.
+Next: project four microsoft/edit at cb6de0a8966aecd01d19a3541dab1829d0e679ca,
+review pinned build/license, acquire only after this completed cleanup/storage gate.

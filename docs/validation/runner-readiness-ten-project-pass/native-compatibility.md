@@ -1,8 +1,10 @@
 # Native development compatibility boundary
 
 This table describes current source development evidence, not a published
-archive or a final qualification claim. Production runner source is `93bd63d`;
-later campaign commits change validation/provenance material. Core runs
+archive or a final qualification claim. Production runner source is now
+`f470cd99aef89e080cc8455e4f8ad4715ecd12c2`; full native core 39010459162 passes
+on Linux amd64, macOS arm64 and Windows amd64, including ordinary/race checks.
+Earlier core runs
 `38948501204`, `38950594057` and `38953916606` each succeeded on native Linux
 amd64, macOS arm64 and Windows amd64. Their exact source/test/event identities
 remain in the owned raw packets. Final frozen archives must run their own series.
@@ -15,17 +17,20 @@ remain in the owned raw packets. Final frozen archives must run their own series
 | Native special-file/permission rejection | Applicable controls pass | Applicable controls pass | Different native junction/exclusive-lock controls pass |
 | Actual selected file/link replacement | Passes ordinary/race controls | Passes ordinary/race controls | Hosted control passes; local symlink privilege unavailable |
 | Resize with observed applicable terminal/output fence | Applicable controls pass | Applicable controls pass | Applicable controlled-output controls pass |
-| Repeated resize while application/terminal remains quiet | Project semantics exercised in POSIX Plop | Project semantics exercised in POSIX Plop | Bounded acknowledgment failure in Plop and Poetry; no affected project admission |
+| Repeated resize while application/terminal remains quiet | Project semantics exercised in POSIX Plop | Project semantics exercised in POSIX Plop | General positive native-size query passes real ordinary/race controls; old Plop/Poetry Windows exclusions remain historical |
+| Ctrl-C from a Windows ignoring ancestor through the standalone CLI | Not applicable | Not applicable | Real ancestor/CLI/PTY ordinary/race control and original Bundler E03 pass after process-local repair |
 | Exact temporary short-path alias expansion | Not applicable | Not applicable | Actual local C-filesystem control passes; hosted D-filesystem alias unavailable |
 | Installer version flood/hang, supported compact/spaced install route | Native controls pass | Native controls pass | Native controls pass; arbitrary long launch paths excluded |
 | Plop full twenty-scenario development package | Admitted | Admitted | Nineteen pass; resize case red; excluded |
 | Poetry full twenty-scenario development package | Admitted, run 38957159731 | Admitted, run 38957159731 | Nineteen pass; resize case red; excluded |
+| Bundler full twenty-scenario development package | Admitted, run 39011298428 | Not selected | Admitted, run 39011298428; explicit runtime profiles retained |
 
 The [all-88 mapping](old-control-matrix.json) preserves every earlier control and
 its actual host applicability: all 88 now have applicable development evidence
 after the [local alias supplement](old-control-matrix-revision-2.json), preserving
 the hosted filesystem's explicit skip. New controls are separately declared
-and need final evidence binding. A configured workflow is never a passed cell.
+with [actual development binding](new-control-development-evidence-revision-2.json);
+all still need final archive evidence. A configured workflow is never a passed cell.
 
 One local Windows snapshot-rename access-denied result remains an unexplained
 residual (R3-07); ten unchanged focused repetitions did not prove a repair.
