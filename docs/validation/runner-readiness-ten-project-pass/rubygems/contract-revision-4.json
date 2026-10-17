@@ -1,0 +1,16 @@
+{
+  "changes": [
+    {
+      "after": "fa7679d1f61996254ea3f2ba08ae4c5c7ff33dadd755fb0e952970d7277ecd83",
+      "before": "a37d31971ed7af892f982747330af75abc7ad3426c1d8206834a4ce286ca781c",
+      "spec": "edge-build-missing.json"
+    },
+    {
+      "after": "8f545c895169423cfefcff7c18256ff261688f4f8ad16c3e6346f9bb7bcaf654",
+      "before": "ab20d7369ade08f168a111aec18ecd01acf2f8e085c97a85f83dc8d328364c46",
+      "spec": "edge-resize-collision.json"
+    }
+  ],
+  "qualification": "reviewed authored correction; execution pending",
+  "rationale": "retain missing-spec diagnostic and use actual interactive pager instead of an already-finished unpaged diff"
+}

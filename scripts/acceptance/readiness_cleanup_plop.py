@@ -22,7 +22,8 @@ async def runtime_inventory(project,label):
     for line in result['output'].splitlines():
         fields=line.split(None,1)
         name=Path(fields[1]).name if len(fields)==2 else ''
-        runtime_match=name in {'node','nodejs'} if project=='plop' else name.startswith('python')
+        runtime_match=(name in {'node','nodejs'} if project=='plop' else
+                       name.startswith('ruby') or name in {'git','less','diff'} if project=='rubygems' else name.startswith('python'))
         if len(fields)==2 and runtime_match:
             pid=int(fields[0])
             if project=='poetry' and pid in {os.getpid(),os.getppid()}:continue
@@ -38,7 +39,7 @@ async def node_inventory(label):
 async def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--prepare-only',action='store_true')
-    parser.add_argument('--project',choices=['plop','poetry'],default='plop')
+    parser.add_argument('--project',choices=['plop','poetry','rubygems'],default='plop')
     args=parser.parse_args()
     if os.name=='nt' and not args.prepare_only:
         raise RuntimeError('use --prepare-only then the checked native PowerShell removal route on Windows')
@@ -48,7 +49,7 @@ async def main():
     if active.is_symlink() or active.resolve().parent!=base or not base.is_relative_to(RAW.resolve()):
         raise RuntimeError('unsafe cleanup target')
     marker=json.loads((active/'task-owned.json').read_text())
-    repository={'plop':'plopjs/plop','poetry':'python-poetry/poetry'}[project]
+    repository={'plop':'plopjs/plop','poetry':'python-poetry/poetry','rubygems':'ruby/rubygems'}[project]
     if marker['workspace']!=str(ROOT) or marker['campaign']!='runner-readiness-ten-project-pass' or marker['project']!=repository:
         raise RuntimeError('cleanup ownership mismatch')
     if os.name=='nt':
@@ -60,7 +61,7 @@ async def main():
             raise RuntimeError('owned Windows runtime process cleanup is unconfirmed')
         current={'windows_owned_command_path_check':proof}
     else:
-        baseline_path=RAW/('plop-node-baseline.json' if project=='plop' else 'poetry-runtime-baseline.json')
+        baseline_path=RAW/('plop-node-baseline.json' if project=='plop' else project+'-runtime-baseline.json')
         baseline=json.loads(baseline_path.read_text())
         current=await runtime_inventory(project,'verify-runtime-termination-before-removal')
         if any(baseline.get(pid)!=identity for pid,identity in current.items()):
@@ -86,13 +87,17 @@ async def main():
     if project=='poetry':
         selected={'LICENSE','pyproject.toml','poetry.lock','src/poetry/console/commands/init.py',
                   'src/poetry/console/commands/source/remove.py','src/poetry/console/commands/version.py'}
+    elif project=='rubygems':
+        selected={'MIT.txt','LICENSE.txt','bundler.gemspec','exe/bundle','exe/gem',
+                  'lib/bundler/cli/gem.rb','lib/rubygems/commands/build_command.rb',
+                  'lib/bundler/templates/newgem/lib/newgem/version.rb.tt'}
     with tarfile.open(copy,'r:gz') as bundle:
         for member in bundle:
             parts=PurePosixPath(member.name).parts[1:]
             if not parts:continue
             if any(p in {'..','.'} or ':' in p or '\\' in p for p in parts):raise RuntimeError('unsafe retained member')
             if member.isdir():continue
-            if not member.isfile() or member.size>8*1024**2:raise RuntimeError('unsafe retained member type/size')
+            if not member.isfile() or member.size>(32 if project=='rubygems' else 8)*1024**2:raise RuntimeError('unsafe retained member type/size')
             expanded+=member.size
             if expanded>64*1024**2 or len(manifest)>=10000:raise RuntimeError('restore bounds exceeded')
             value=bundle.extractfile(member).read(member.size+1)

@@ -7,6 +7,7 @@
     "-S",
     "gem",
     "build",
+    "--norc",
     "missing.gemspec"
   ],
   "workspace": {
@@ -23,7 +24,8 @@
     "GIT_CONFIG_NOSYSTEM": "1"
   },
   "inherit_env": [
-    "RUBYLIB"
+    "RUBYLIB",
+    "SystemDrive"
   ],
   "width": 100,
   "height": 28,
@@ -32,7 +34,7 @@
   "max_output_bytes": 2000000,
   "steps": [
     {
-      "expect": "was not found"
+      "expect": "Couldn't find a gemspec file matching 'missing.gemspec'"
     },
     {
       "exit": 1

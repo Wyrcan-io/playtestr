@@ -1,0 +1,18 @@
+{
+  "qualification": "authored only; requires actual unchanged public runs",
+  "revisions": [
+    {
+      "after": "a37d31971ed7af892f982747330af75abc7ad3426c1d8206834a4ce286ca781c",
+      "before": "0b748be96dc92e9c212c8aad34f1d7d09c4805bfaa040313e2b77dc0a2fc93c9",
+      "reason": "actual Ruby Windows shell-folder SystemDrive prerequisite; gem common options follow subcommand",
+      "spec": "edge-build-missing.json"
+    },
+    {
+      "after": "ab20d7369ade08f168a111aec18ecd01acf2f8e085c97a85f83dc8d328364c46",
+      "before": "fe245b6fac5d36a5c8f90eca5310edce0de97f1e3279145e739881172d03034e",
+      "fixture_bytes": 49200,
+      "reason": "real supported diff child with bounded dirty data; resizing while output is available; original quiet-resize failure retained and excluded",
+      "spec": "edge-resize-collision.json"
+    }
+  ]
+}

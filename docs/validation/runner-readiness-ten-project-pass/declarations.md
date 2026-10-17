@@ -130,3 +130,22 @@ guard stopped before extraction (9bcafca7fb694dc5a01d1bfc75f9016d). Reviewed
 completion permits 288 MiB expanded, still inside the 512 MiB active forecast
 with the measured source tree. Directory type uses actual 7-Zip Attributes D.
 All earlier failures remain; no native Ruby target run has yet earned credit.
+
+Bundler native batch: standard Linux amd64 and Windows amd64, at most two jobs,
+25 minutes each (50 job-minute ceiling); expected 10-15 job minutes. Existing
+core is complete and harness 39005929747 succeeded, leaving only the one-job
+historical Windows batch active. Ruby Linux uses an already installed >=3.2
+runtime; Windows repeats the reviewed owned portable runtime. No global install.
+Use the public generated workflow with explicit SDK/target preparation and the
+reviewed bounded manual campaign steps. All twenty ordinary scenarios, source
+fault replicas, maintenance, source restore and checked removal must actually
+pass. Original local F03 alone supplies Bundler's held-out fault.
+
+Native Bundler packets retain source member indexes, acquisition digests, selected
+restores, cleanup receipts and all attempts. Omit repeated native
+`retained-source/source.tar.gz` copies from upload: the one canonical local
+archive will be retained and its SHA must equal each native acquisition/index.
+This avoids counting duplicate immutable upstream tarballs against the 64 MiB
+per-project packet cap. A digest mismatch requires preserving the distinct
+archive within the existing cap before any admission. Never omit failed logs,
+identity records or target-fault patches to manufacture a storage pass.

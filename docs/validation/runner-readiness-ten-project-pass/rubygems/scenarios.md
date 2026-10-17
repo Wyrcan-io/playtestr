@@ -36,7 +36,7 @@ and metadata review. Capture/repetition/fault counts never fill scenario quota.
 | E02 | Decline overwrite of a dirty pre-existing Gemfile | Specific collision/skip and final creation; original Gemfile retained, other intended scaffold files exact |
 | E03 | Ctrl-C at the framework question | Declared upstream interrupt exit 1; no generated project or preferences; existing sentinel unchanged |
 | E04 | Destination ancestor is a regular file | Accurate native filesystem error/nonzero exit; original file unchanged, no descendant output |
-| E05 | Repeated narrow/wide resize at overwrite decision | Actual long collision prompt reflows at 40x12 then 100x28; decline and prove correct file preservation/remaining generation. Quiet no-reflow resize is separately excluded |
+| E05 | Repeated narrow/wide resize during a real overwrite diff | Invoke the documented collision diff on a reviewed 48 KiB dirty Gemfile using installed Git; observe diff output, resize 40x12 then 100x28, return, decline and prove exact original preservation/remaining generation. Quiet no-reflow resize is separately excluded |
 | E06 | Nested Unicode/spaced parent plus namespaced gem | Specific namespace completion; exact portable paths/module/version and unchanged unrelated work |
 | E07 | Missing local dependency during check | Specific missing-gem diagnostic, nonzero exit; no silent network/install or fabricated lock |
 | E08 | Malformed manifest with an existing reviewed lock | Specific parse error/nonzero exit; original invalid input and old lock unchanged |
@@ -60,3 +60,21 @@ this upstream. E10 instead sets `with=development` against reviewed
 `without=development`, exercising its real mutually-exclusive-group validator.
 No boolean test was executed or counted. N06 uses explicit `--add-platform ruby`
 and removes the native platform for a portable, independently reviewed lock.
+
+E05 revision declared before its next execution: the original quiet collision
+prompt failed its second Windows resize acknowledgment and remains a retained
+unsupported boundary. The revised workflow actually requests Thor's supported
+diff action, using `THOR_DIFF=git --no-pager diff --no-index --` and a bounded
+48 KiB synthetic file. Resize occurs during the real child command's output;
+there is no delay, synthetic target output, lowered fence or core exception.
+Actual success and confirmed descendant/workspace cleanup remain required.
+This adds a useful diff/return interaction; it does not establish quiet resize.
+
+E05 subsequent pre-execution correction: the unpaged 1,200-line diff completed
+before its early `@@` anchor could be observed, so the attempt timed out at the
+readiness assertion before either resize. Use Git's documented pager option with
+its installed `less` pager, inspect the first diff hunk, resize while the actual
+pager is waiting, quit the pager, then explicitly decline overwrite. Set
+`LESSHISTFILE=-` and `LESSSECURE=1`; no external commands/editor or history write.
+This is a meaningful real child transition with long-content review, not a
+timing delay or generated substitute output. Both earlier attempts remain red.

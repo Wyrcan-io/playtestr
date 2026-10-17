@@ -1,0 +1,30 @@
+{
+  "faults": [
+    {
+      "after": "Choose a test library. rspec/minitest/test-unit/(none):",
+      "before": "Enter a test framework. rspec/minitest/test-unit/(none):",
+      "held_out": false,
+      "id": "F01",
+      "path": "bundler/cli/gem.rb",
+      "spec": "normal-gem.json"
+    },
+    {
+      "after": "terminate_interaction(0)",
+      "before": "terminate_interaction(1)",
+      "held_out": false,
+      "id": "F02",
+      "path": "rubygems/commands/build_command.rb",
+      "spec": "edge-build-missing.json"
+    },
+    {
+      "after": "VERSION = \"0.1.1\"",
+      "before": "VERSION = \"0.1.0\"",
+      "held_out": true,
+      "id": "F03",
+      "path": "bundler/templates/newgem/lib/newgem/version.rb.tt",
+      "spec": "normal-gem.json"
+    }
+  ],
+  "frozen_contract_sha256": "caf3c24bc8069d22282e214c4475a5a47cd5611dfdf9fd4cdd16c1a27df52f09",
+  "heldout_selection": "F03 selected after reviewed twenty-contract freeze; agent authored"
+}

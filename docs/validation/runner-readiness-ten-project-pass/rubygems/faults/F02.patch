@@ -1,0 +1,11 @@
+--- a/lib/rubygems/commands/build_command.rb
++++ b/lib/rubygems/commands/build_command.rb
+@@ -96,7 +96,7 @@
+       build_package(gemspec)
+     else
+       alert_error error_message
+-      terminate_interaction(1)
++      terminate_interaction(0)
+     end
+   end
+ 

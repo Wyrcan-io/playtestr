@@ -1,0 +1,11 @@
+--- a/lib/bundler/templates/newgem/lib/newgem/version.rb.tt
++++ b/lib/bundler/templates/newgem/lib/newgem/version.rb.tt
+@@ -3,7 +3,7 @@
+ <%- config[:constant_array].each_with_index do |c, i| -%>
+ <%= "  " * i %>module <%= c %>
+ <%- end -%>
+-<%= "  " * config[:constant_array].size %>VERSION = "0.1.0"
++<%= "  " * config[:constant_array].size %>VERSION = "0.1.1"
+ <%- (config[:constant_array].size-1).downto(0) do |i| -%>
+ <%= "  " * i %>end
+ <%- end -%>

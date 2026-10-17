@@ -1,0 +1,51 @@
+{
+  "faults": [
+    {
+      "after": "Choose a test library. rspec/minitest/test-unit/(none):",
+      "baseline_attempt": "df283f7b244540cd9eed4f21067abf5b",
+      "before": "Enter a test framework. rspec/minitest/test-unit/(none):",
+      "held_out": false,
+      "id": "F01",
+      "mutated_source_sha256": "3a0ce2ac6d59fe4eb3bd740f720fb312042ad154d0512214bfb5678787ff16d9",
+      "mutation_attempt": "31df9c6b8f13494a8954239665948808",
+      "original_source_sha256": "87ef1fe3a551a9c7db2ce4a6a53b5b024f7fb0d4f03f2711ddaa96d8e947f6ab",
+      "path": "bundler/cli/gem.rb",
+      "restored_attempt": "c69fe2e669a341d0b4f502d9702018e5",
+      "restored_exact": true,
+      "same_execution_state_rejection": false,
+      "spec": "normal-gem.json"
+    },
+    {
+      "after": "terminate_interaction(0)",
+      "baseline_attempt": "d8eb8ba69ba64337ab2c7ca0d5fd60cb",
+      "before": "terminate_interaction(1)",
+      "held_out": false,
+      "id": "F02",
+      "mutated_source_sha256": "bc913616c7630f26483e883da10a199df0906cbe7443e3c9198c448f734053af",
+      "mutation_attempt": "ec85a0ae9808464bb0a0943c02a13aa8",
+      "original_source_sha256": "1d92011a3cd6fdacd83d51850247f9332695affc2db9335c19da91698ff77f0e",
+      "path": "rubygems/commands/build_command.rb",
+      "restored_attempt": "25796bc1585a47e287c57862400384d0",
+      "restored_exact": true,
+      "same_execution_state_rejection": false,
+      "spec": "edge-build-missing.json"
+    },
+    {
+      "after": "VERSION = \"0.1.1\"",
+      "baseline_attempt": "359c17d72d76423ab2ff73a310cdbf01",
+      "before": "VERSION = \"0.1.0\"",
+      "held_out": true,
+      "id": "F03",
+      "mutated_source_sha256": "c91eba40f030809ca87d276491060b9aa1be4559a6e1533e4c62eb3d74f1d273",
+      "mutation_attempt": "250c4e777b5447028060db4b640f9d75",
+      "original_source_sha256": "ea7f6d005e9b90118efd52bd6ddbce1f0d5f1dc729ba848fe16319d6d699551d",
+      "path": "bundler/templates/newgem/lib/newgem/version.rb.tt",
+      "restored_attempt": "cc915be0c391449fb1c26da624bc1566",
+      "restored_exact": true,
+      "same_execution_state_rejection": true,
+      "spec": "normal-gem.json"
+    }
+  ],
+  "runner_sha256": "8477aecd5e457375dadbe3493b8f98396c097306b4cee9a4784f914d4aff4e82",
+  "source_execution": "actual pinned Ruby and ERB source loaded fresh by normal CLI; no wrapper or rebuild simulation"
+}

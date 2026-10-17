@@ -90,7 +90,11 @@ def author():
 def environment():
     active=RAW/'active/rubygems'
     runtime=json.loads((active/'runtime.json').read_text())
-    ruby=active/runtime['ruby_relative_path']
+    if runtime.get('installed_ruby_executable'):
+        from pathlib import Path
+        ruby=Path(runtime['installed_ruby_executable'])
+        if os.name=='nt' or sha256(ruby)!=runtime['ruby_sha256']:raise RuntimeError('native installed Ruby identity changed')
+    else:ruby=active/runtime['ruby_relative_path']
     env=dict(os.environ,PYTHONDONTWRITEBYTECODE='1',RUBYLIB=str(active/'src/lib'))
     env['PATH']=str(active/'src/exe')+os.pathsep+str(ruby.parent)+os.pathsep+env['PATH']
     return env

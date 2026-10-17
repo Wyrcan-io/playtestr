@@ -1,0 +1,11 @@
+--- a/lib/bundler/cli/gem.rb
++++ b/lib/bundler/cli/gem.rb
+@@ -318,7 +318,7 @@
+         Bundler.ui.info "\nDo you want to generate tests with your gem?"
+         Bundler.ui.info hint_text("test")
+ 
+-        result = Bundler.ui.ask "Enter a test framework. rspec/minitest/test-unit/(none):"
++        result = Bundler.ui.ask "Choose a test library. rspec/minitest/test-unit/(none):"
+         if /rspec|minitest|test-unit/.match?(result)
+           test_framework = result
+         else

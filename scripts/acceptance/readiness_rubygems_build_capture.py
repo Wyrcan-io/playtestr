@@ -1,5 +1,6 @@
 """Capture a reproducible real gem, then independently inspect every payload."""
 import asyncio
+import argparse
 import base64
 import gzip
 import hashlib
@@ -36,23 +37,28 @@ def members(data, expected):
 
 
 async def main():
-    fixture=PACKAGE/'build-fixture';fixture.mkdir(exist_ok=False)
-    (fixture/'lib').mkdir();(fixture/'dist').mkdir()
+    parser=argparse.ArgumentParser();parser.add_argument('--resume',action='store_true');args=parser.parse_args()
+    fixture=PACKAGE/'build-fixture'
     files={'fixture_atlas.gemspec':GEMSPEC,'README.md':b'Reviewed local gem\n',
            'lib/fixture_atlas.rb':b'module FixtureAtlas\n  VERSION = "1.2.3"\nend\n','sentinel.txt':SENTINEL}
-    for name,value in files.items():(fixture/name).write_bytes(value)
+    if args.resume:
+        if any((fixture/name).read_bytes()!=value for name,value in files.items()):raise RuntimeError('prepared fixture changed')
+        if list((fixture/'dist').iterdir()):raise RuntimeError('prepared archive directory is not empty')
+    else:
+        fixture.mkdir(exist_ok=False);(fixture/'lib').mkdir();(fixture/'dist').mkdir()
+        for name,value in files.items():(fixture/name).write_bytes(value)
     runner=RAW/'bin'/('playtestr.exe' if __import__('os').name=='nt' else 'playtestr')
     spec=PACKAGE/'normal-build-gem.json'
     reference=json.loads((PACKAGE/'normal-gem.json').read_text())
     argv=[runner,'record','--output',spec.relative_to(ROOT),'--fixture','build-fixture',
-          '--temporary-home','--temporary-temp','--inherit-env','RUBYLIB','--timeout-ms','10000',
+          '--temporary-home','--temporary-temp','--inherit-env','RUBYLIB','--inherit-env','SystemDrive','--timeout-ms','10000',
           '--run-timeout-ms','120000']
-    for key,value in {**reference['env'],'SOURCE_DATE_EPOCH':'946684800','PROGRAMDATA':'.'}.items():
+    for key,value in {**reference['env'],'SOURCE_DATE_EPOCH':'946684800'}.items():
         argv+=['--env',key+'='+value]
-    argv+=['--','ruby','-EUTF-8','-S','gem','build','fixture_atlas.gemspec','--output','dist/fixture_atlas-1.2.3.gem']
+    argv+=['--','ruby','-EUTF-8','-S','gem','build','--norc','fixture_atlas.gemspec','--output','dist/fixture_atlas-1.2.3.gem']
     controls='/expect Successfully built RubyGem\n/expect Version: 1.2.3\n/exit 0\n/file dist/fixture_atlas-1.2.3.gem\n'
     controls+=''.join('/file '+name+'\n' for name in files)
-    controls+='/entries dist\n/review\n/replay\n/save\n'
+    controls+='/entries dist\n/screen\n/review\n/replay\n/save\n'
     result=await execute(argv,'rubygems','record-reproducible-gem',input=controls,env=environment(),
                          timeout=180,campaign=Campaign())
     saved=json.loads(spec.read_text())

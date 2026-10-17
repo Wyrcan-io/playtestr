@@ -95,6 +95,21 @@ class EvidenceTests(unittest.TestCase):
         restored=self.campaign.identity('poetry',['must-not-launch'])
         self.assertEqual(before,restored)
 
+    def test_real_template_mutation_changes_prelaunch_identity(self):
+        target=Path(self.folder.name)/'active/rubygems'
+        source=target/'src/lib/bundler/templates/version.rb.tt'
+        source.parent.mkdir(parents=True)
+        source.write_bytes(b'VERSION = "0.1.0"\n')
+        (target/'task-owned.json').write_text('{}')
+        (target/'src/exe').mkdir()
+        (target/'src/bundler.gemspec').write_text('# reviewed gemspec\n')
+        before=self.campaign.identity('rubygems',['must-not-launch'])
+        source.write_bytes(b'VERSION = "0.1.1"\n')
+        after=self.campaign.identity('rubygems',['must-not-launch'])
+        self.assertNotEqual(before['sha256'],after['sha256'])
+        source.write_bytes(b'VERSION = "0.1.0"\n')
+        self.assertEqual(before,self.campaign.identity('rubygems',['must-not-launch']))
+
 
 if __name__ == '__main__':
     unittest.main()

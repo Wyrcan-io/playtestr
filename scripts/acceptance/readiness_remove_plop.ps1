@@ -1,4 +1,4 @@
-param([ValidateSet('plop','poetry')][string]$Project = 'plop')
+param([ValidateSet('plop','poetry','rubygems')][string]$Project = 'plop')
 $ErrorActionPreference = 'Stop'
 $workspace = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..')).TrimEnd('\')
 $campaign = Join-Path $workspace 'artifacts\runner-readiness-ten-project-pass'
@@ -17,8 +17,8 @@ foreach ($ancestor in @((Join-Path $workspace 'artifacts'), $campaign, (Join-Pat
     }
 }
 $marker = Get-Content -LiteralPath (Join-Path $active 'task-owned.json') -Raw | ConvertFrom-Json
-$repository = @{plop='plopjs/plop';poetry='python-poetry/poetry'}[$Project]
-$pin = @{plop='0c90e7ef93ffa5f40b10fe8f53d3cc23adee5a8e';poetry='38a86661d2ae58694c76d0bb4e628e1400d6dc6f'}[$Project]
+$repository = @{plop='plopjs/plop';poetry='python-poetry/poetry';rubygems='ruby/rubygems'}[$Project]
+$pin = @{plop='0c90e7ef93ffa5f40b10fe8f53d3cc23adee5a8e';poetry='38a86661d2ae58694c76d0bb4e628e1400d6dc6f';rubygems='f033df93676007227d1ae0bd7326008e6396b3e9'}[$Project]
 if ($marker.workspace -ne $workspace -or $marker.project -ne $repository -or
     $marker.campaign -ne 'runner-readiness-ten-project-pass' -or
     $marker.pin -ne $pin) { throw 'Ownership mismatch' }
@@ -33,7 +33,7 @@ $archive = Join-Path $retained 'source.tar.gz'
 if ((Get-FileHash -LiteralPath $archive -Algorithm SHA256).Hash.ToLowerInvariant() -ne $index.archive_sha256) {
     throw 'Retained archive identity changed'
 }
-$filter = if ($Project -eq 'plop') { "Name='node.exe'" } else { "Name='python.exe' OR Name='pythonw.exe' OR Name='poetry.exe'" }
+$filter = if ($Project -eq 'plop') { "Name='node.exe'" } elseif ($Project -eq 'rubygems') { "Name='ruby.exe' OR Name='rubyw.exe' OR Name='git.exe' OR Name='less.exe' OR Name='diff.exe'" } else { "Name='python.exe' OR Name='pythonw.exe' OR Name='poetry.exe'" }
 $nodes = @(Get-CimInstance Win32_Process -Filter $filter | Where-Object {
     $_.CommandLine -and ($_.CommandLine.IndexOf($active, [StringComparison]::OrdinalIgnoreCase) -ge 0 -or
     $_.CommandLine.IndexOf($active.Replace('\','/'), [StringComparison]::OrdinalIgnoreCase) -ge 0)
