@@ -78,6 +78,10 @@ jobs:
         if: inputs.phase == 'author'
         run: |
           python scripts/acceptance/readiness_check.py --label native-papis-twenty-public-recordings --timeout 1200 -- python scripts/acceptance/readiness_papis_cases.py
+      - name: Verify full public directory suite and freeze reviewed exports
+        if: inputs.phase == 'author'
+        run: |
+          python scripts/acceptance/readiness_check.py --label native-papis-twenty-ordinary-freeze --timeout 900 -- python scripts/acceptance/readiness_papis_freeze.py
       - name: Verify pinned source restores and owned runtime termination
         if: always() && steps.prepare.outcome == 'success'
         run: |

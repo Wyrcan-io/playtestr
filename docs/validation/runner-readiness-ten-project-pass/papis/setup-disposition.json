@@ -1,0 +1,24 @@
+{
+  "attempts": [
+    {
+      "id": "49028faeba7b461c9fb6b08f57fdb91c",
+      "outcome": "wheel-only download refused python-doi; no unreviewed source hooks"
+    },
+    {
+      "id": "48956376ea5a43dd92e41f0826cd306f",
+      "outcome": "reviewed prerequisite wheels built and installed; editable backend lacked editables"
+    },
+    {
+      "id": "33bf3ac022ba49ed83120e081f606923",
+      "outcome": "overstrict resume rejected setup-generated egg metadata changes; no source overwritten"
+    },
+    {
+      "id": "cfd21fc0e1344ae584654776ed213949",
+      "outcome": "reused original hash-verified prerequisite wheels, added ordinary editables wheel; owned build/version successful"
+    }
+  ],
+  "schema_version": 1,
+  "scope": "All homes, build/temp/package caches and venv installs remain owned; no global installs.",
+  "source_builds": "python-doi 0.2.0 is required. sgmllib3k 1.0.0 was initially built as a proposed older arxiv/feedparser prerequisite, but is absent from the resolved arxiv 4 closure and was not installed as a runtime prerequisite. Its acquired/reviewed/built records remain; future native setup skips it.",
+  "wording_correction": "The initial successful console said wheel-only dependencies; python-doi and the unused sgmllib wheel were actually built from the separately reviewed exact sources. Current helper wording records this boundary."
+}

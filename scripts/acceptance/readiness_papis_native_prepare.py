@@ -1,7 +1,6 @@
 """Prepare exact candidate and reviewed Papis solely inside a native checkout."""
 import asyncio
 import os
-from pathlib import Path
 import shutil
 import sys
 
@@ -22,8 +21,9 @@ async def main():
     for script,label,timeout in [('readiness_acquire_papis.py','native-pinned-source-acquisition',180),
             ('readiness_build_papis.py','native-owned-reviewed-build',1200)]:
         await execute([sys.executable,'scripts/acceptance/'+script],'papis',label,timeout=timeout,campaign=Campaign())
-    with Path(os.environ['GITHUB_PATH']).open('a',encoding='utf-8') as output:
-        output.write(str(RAW/'active/papis/venv'/('Scripts' if os.name=='nt' else 'bin'))+'\n')
+    # Each public journey sets the target PATH only in its child environment.
+    # Keep workflow helpers on the installed bootstrap interpreter so the
+    # additional owned-runtime observer cannot match a venv helper itself.
 
 
 if __name__=='__main__':asyncio.run(main())

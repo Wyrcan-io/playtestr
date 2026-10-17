@@ -19,7 +19,13 @@ $matching = @(Get-CimInstance Win32_Process -Filter $filter | Where-Object {
     $_.CommandLine -and ($_.CommandLine.IndexOf($active, [StringComparison]::OrdinalIgnoreCase) -ge 0 -or
     $_.CommandLine.IndexOf($active.Replace('\','/'), [StringComparison]::OrdinalIgnoreCase) -ge 0)
 } | Select-Object -ExpandProperty ProcessId)
-if ($matching.Count -ne 0) { throw 'Owned runtime remains live; preserve the active tree' }
+if ($matching.Count -ne 0) {
+    $unconfirmed = Join-Path $campaign ($Project + '\runtime-unconfirmed-' + [Guid]::NewGuid().ToString('N') + '.json')
+    [ordered]@{checked_at_utc=[DateTime]::UtcNow.ToString('o');query_succeeded=$true;
+        active_path=$active;matching_runtime_pids=$matching;command_values_persisted=$false;cleanup_confirmed=$false} |
+        ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $unconfirmed -Encoding UTF8
+    throw 'Owned runtime remains live; preserve the active tree'
+}
 $proof = [ordered]@{checked_at_utc=[DateTime]::UtcNow.ToString('o');query_succeeded=$true;active_path=$active}
 if ($Project -eq 'plop') { $proof.matching_node_pids=@() } else { $proof.matching_runtime_pids=@() }
 $destination=Join-Path $campaign ($Project + '\local-process-cleanup.json')

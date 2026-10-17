@@ -1,5 +1,6 @@
 """Declare and publicly author twenty offline bibliography workflows."""
 import asyncio
+import argparse
 import base64
 import hashlib
 import json
@@ -113,7 +114,7 @@ def rows(host=None):
             ['export','--format','csv','--out','missing/result.csv','--sort','title'],
             [*select,expect('FileNotFoundError'),'/exit 1'],missing=['missing/result.csv'],exit=1),
         row('E12','inspect help and entry information before exporting exact bytes',folder,
-            [expect('Alpha Book'),key('Tab'),text('help'),key('Enter'),expect('Move cursor down'),key('Escape'),key('Tab'),text('info'),key('Enter'),expect('author:'),key('Escape'),*beta[1:],key('Enter'),expect('Exporting document'),'/exit 0'],copied(seed),
+            [expect('Alpha Book'),key('Tab'),text('help'),key('Enter'),'/screen',expect('Move cursor down in the list'),key('Escape'),key('Tab'),text('info'),key('Enter'),'/screen',expect("'author': 'Ada Alpha'"),key('Escape'),*beta[1:],key('Enter'),expect('Exporting document'),'/exit 0'],copied(seed),
             combined=['help overlay','metadata overlay','focus restoration','nondefault selection']),
     ]
     return result
@@ -161,11 +162,13 @@ async def author(row):
 
 
 async def main():
+    parser=argparse.ArgumentParser();parser.add_argument('--case',action='append',choices=[r['id'] for r in rows()]);args=parser.parse_args()
+    selected=[r for r in rows() if not args.case or r['id'] in args.case]
     failures=[]
-    for row in rows():
+    for row in selected:
         try:await author(row)
         except Exception as exc:failures.append(dict(id=row['id'],error=str(exc)));print(row['id'],'FAILED',str(exc),flush=True)
-    immutable_json(RAW/'papis/authoring-batches'/(uuid.uuid4().hex+'.json'),dict(total=20,passed=20-len(failures),failures=failures))
+    immutable_json(RAW/'papis/authoring-batches'/(uuid.uuid4().hex+'.json'),dict(total=len(selected),selected=[r['id'] for r in selected],passed=len(selected)-len(failures),failures=failures))
     if failures:raise RuntimeError('preserved public authoring failures: '+str([f['id'] for f in failures]))
 
 

@@ -1,0 +1,2954 @@
+{
+  "changes": "Second batch 050420e50ba8492ea555c7e9c2fbd955 passes 19/20. E12 uses the exact unique help description and actual dictionary-form info pane, with two public screen inspections. Intended state outcomes remain unchanged.",
+  "faults_selected": false,
+  "frozen": false,
+  "host_profiles": {
+    "linux": [
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/key ArrowDown",
+          "/expect 2/2",
+          "/snapshot selected.txt",
+          "/key Enter",
+          "/expect Exporting document",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--folder",
+          "--out",
+          "exported",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "exported",
+            "library",
+            "sentinel.txt"
+          ],
+          "exported": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "exported/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "exported/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "N01",
+        "kind": "normal",
+        "missing": [],
+        "snapshot": true,
+        "title": "export a nondefault document folder with exact attachment bytes"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/key ArrowDown",
+          "/expect 2/2",
+          "/key Enter",
+          "/expect Writing to",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--format",
+          "csv",
+          "--out",
+          "result.csv",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "library",
+            "result.csv",
+            "sentinel.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "result.csv": "InRpdGxlIiwieWVhciINCiJCZXRhIEJvb2siLCIyMDI0Ig0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "N02",
+        "kind": "normal",
+        "missing": [],
+        "snapshot": false,
+        "title": "export selected metadata as a spreadsheet CSV"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/key ArrowDown",
+          "/expect 2/2",
+          "/key Enter",
+          "/expect Appending to",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--format",
+          "csv",
+          "--out",
+          "result.csv",
+          "--sort",
+          "title",
+          "--append"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "library",
+            "result.csv",
+            "sentinel.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "result.csv": "a2VlcCBleGlzdGluZyBleHBvcnQNCiJ0aXRsZSIsInllYXIiDQoiQmV0YSBCb29rIiwiMjAyNCINCg==",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "result.csv": "a2VlcCBleGlzdGluZyBleHBvcnQNCg==",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "N03",
+        "kind": "normal",
+        "missing": [],
+        "snapshot": false,
+        "title": "append a selected bibliography export to preexisting content"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/key ArrowDown",
+          "/expect 2/2",
+          "/key Enter",
+          "/expect Updated 1 / 1 documents",
+          "/exit 0"
+        ],
+        "args": [
+          "tag",
+          "--add",
+          "classic",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "library",
+            "sentinel.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKLSBjbGFzc2ljCnRpdGxlOiBCZXRhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "N04",
+        "kind": "normal",
+        "missing": [],
+        "snapshot": false,
+        "title": "add a tag to the selected entry and preserve other metadata"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/key ArrowDown",
+          "/expect 2/2",
+          "/key Enter",
+          "/expect Updated 1 / 1 documents",
+          "/exit 0"
+        ],
+        "args": [
+          "update",
+          "--set",
+          "title",
+          "Revised Beta Book",
+          "--no-auto-doctor",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "library",
+            "sentinel.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IFJldmlzZWQgQmV0YSBCb29rCnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "N05",
+        "kind": "normal",
+        "missing": [],
+        "snapshot": false,
+        "title": "change the title of one selected entry"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/key ArrowDown",
+          "/expect 2/2",
+          "/key Enter",
+          "/expect 1/2",
+          "/key Enter",
+          "/expect Are you sure?",
+          "/text \"y\"",
+          "/key Enter",
+          "/expect Removing file",
+          "/exit 0"
+        ],
+        "args": [
+          "rm",
+          "--file",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "library",
+            "sentinel.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "attachment.bin",
+            "info.yaml"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/attachment.bin": "aGVhZAB0YWlsDQo=",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBhdHRhY2htZW50LmJpbgpwYXBpc19pZDogYmV0YQpyZWY6IGJldGEKdGFnczoKLSByZXZpZXdlZAp0aXRsZTogQmV0YSBCb29rCnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/attachment.bin": "aGVhZAB0YWlsDQo=",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKLSBhdHRhY2htZW50LmJpbgpwYXBpc19pZDogYmV0YQpyZWY6IGJldGEKdGFnczoKLSByZXZpZXdlZAp0aXRsZTogQmV0YSBCb29rCnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "N06",
+        "kind": "normal",
+        "missing": [
+          "library/beta/paper.txt"
+        ],
+        "snapshot": false,
+        "title": "remove one attached file with explicit confirmation"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/text \"\\u0014\"",
+          "/key ArrowDown",
+          "/expect 2/2",
+          "/expect #Alpha Book",
+          "/text \"\\u0014\"",
+          "/key Enter",
+          "/expect Exporting document 'Beta Book - Ada Beta'",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--folder",
+          "--out",
+          "exported",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "exported",
+            "library",
+            "sentinel.txt"
+          ],
+          "exported": [
+            "alpha",
+            "beta"
+          ],
+          "exported/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "exported/beta": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "exported/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "exported/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "exported/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "exported/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "N07",
+        "kind": "normal",
+        "missing": [],
+        "snapshot": false,
+        "title": "mark and export multiple selected folders"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/key ArrowDown",
+          "/expect 2/2",
+          "/key Enter",
+          "/expect Overwrite?",
+          "/text \"n\"",
+          "/key Enter",
+          "/expect Aborting.",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--format",
+          "csv",
+          "--out",
+          "result.csv",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "library",
+            "result.csv",
+            "sentinel.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "result.csv": "a2VlcCBleGlzdGluZyBleHBvcnQNCg==",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "result.csv": "a2VlcCBleGlzdGluZyBleHBvcnQNCg==",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "N08",
+        "kind": "normal",
+        "missing": [],
+        "snapshot": false,
+        "title": "decline overwriting an existing export after selection"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/text \"no-matching-entry\"",
+          "/expect no-matching-entry",
+          "/absent Alpha Book",
+          "/text \"\\u0015\"",
+          "/expect Alpha Book",
+          "/key ArrowDown",
+          "/expect 2/2",
+          "/key Enter",
+          "/expect Exporting document",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--folder",
+          "--out",
+          "exported",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "exported",
+            "library",
+            "sentinel.txt"
+          ],
+          "exported": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "exported/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "exported/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "E01",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": false,
+        "title": "recover from an empty picker filter before export"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/text \"\\u0003\"",
+          "/expect No documents retrieved",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--folder",
+          "--out",
+          "exported",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "library",
+            "sentinel.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "E02",
+        "kind": "edge",
+        "missing": [
+          "exported"
+        ],
+        "snapshot": false,
+        "title": "cancel a picker without producing an export"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/key ArrowDown",
+          "/expect 2/2",
+          "/key Enter",
+          "/expect Overwrite?",
+          "/text \"maybe\"",
+          "/expect Please, write either",
+          "/text \"\\u0015n\"",
+          "/key Enter",
+          "/expect Aborting.",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--format",
+          "csv",
+          "--out",
+          "result.csv",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [
+          "invalid input",
+          "correction",
+          "cancel",
+          "preexisting file"
+        ],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "library",
+            "result.csv",
+            "sentinel.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "result.csv": "a2VlcCBleGlzdGluZyBleHBvcnQNCg==",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "result.csv": "a2VlcCBleGlzdGluZyBleHBvcnQNCg==",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "E03",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": false,
+        "title": "reject invalid confirmation then decline overwrite"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/key ArrowDown",
+          "/expect 2/2",
+          "/key Enter",
+          "/expect Overwrite?",
+          "/text \"y\"",
+          "/key Enter",
+          "/expect Overwriting",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--format",
+          "csv",
+          "--out",
+          "result.csv",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "library",
+            "result.csv",
+            "sentinel.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "result.csv": "InRpdGxlIiwieWVhciINCiJCZXRhIEJvb2siLCIyMDI0Ig0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "result.csv": "b2xkAGJ5dGVzDQo=",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "E04",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": false,
+        "title": "confirm replacing an existing binary export file"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/key ArrowDown",
+          "/expect 2/2",
+          "/key Enter",
+          "/expect Exporting document",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--folder",
+          "--out",
+          "exported",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [
+          "Unicode path",
+          "binary NUL/CRLF",
+          "multiple attachments"
+        ],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "exported",
+            "library",
+            "sentinel.txt"
+          ],
+          "exported": [
+            "attachment.bin",
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library": [
+            "alpha",
+            "caf\u00e9 \u96ea"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/caf\u00e9 \u96ea": [
+            "attachment.bin",
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "exported/attachment.bin": "aGVhZAB0YWlsDQo=",
+          "exported/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKLSBhdHRhY2htZW50LmJpbgpwYXBpc19pZDogYmV0YQpyZWY6IGJldGEKdGFnczoKLSByZXZpZXdlZAp0aXRsZTogQmV0YSBCb29rCnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "exported/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/caf\u00e9 \u96ea/attachment.bin": "aGVhZAB0YWlsDQo=",
+          "library/caf\u00e9 \u96ea/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKLSBhdHRhY2htZW50LmJpbgpwYXBpc19pZDogYmV0YQpyZWY6IGJldGEKdGFnczoKLSByZXZpZXdlZAp0aXRsZTogQmV0YSBCb29rCnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/caf\u00e9 \u96ea/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/caf\u00e9 \u96ea/attachment.bin": "aGVhZAB0YWlsDQo=",
+          "library/caf\u00e9 \u96ea/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKLSBhdHRhY2htZW50LmJpbgpwYXBpc19pZDogYmV0YQpyZWY6IGJldGEKdGFnczoKLSByZXZpZXdlZAp0aXRsZTogQmV0YSBCb29rCnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/caf\u00e9 \u96ea/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "E05",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": false,
+        "title": "export a Unicode folder and preserve binary attachments"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/resize 50 14",
+          "/redraw",
+          "/text \"Beta\"",
+          "/expect > Beta",
+          "/resize 100 28",
+          "/redraw",
+          "/key Enter",
+          "/expect Exporting document",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--folder",
+          "--out",
+          "exported",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [
+          "small viewport",
+          "repeated resize",
+          "long title",
+          "search"
+        ],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "exported",
+            "library",
+            "sentinel.txt"
+          ],
+          "exported": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "exported/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vayB3aXRoIGFuIGludGVudGlvbmFsbHkgbG9uZyB0aXRsZSBmb3IgYSBuYXJyb3cgdGVybWluYWwgdmlld3BvcnQKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "exported/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vayB3aXRoIGFuIGludGVudGlvbmFsbHkgbG9uZyB0aXRsZSBmb3IgYSBuYXJyb3cgdGVybWluYWwgdmlld3BvcnQKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vayB3aXRoIGFuIGludGVudGlvbmFsbHkgbG9uZyB0aXRsZSBmb3IgYSBuYXJyb3cgdGVybWluYWwgdmlld3BvcnQKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "E06",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": false,
+        "title": "resize a long-title picker then filter and export"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/key End",
+          "/expect Zeta 14",
+          "/key Home",
+          "/expect 1/17",
+          "/key ArrowDown",
+          "/expect 2/17",
+          "/key Enter",
+          "/expect Exporting document",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--folder",
+          "--out",
+          "exported",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "exported",
+            "library",
+            "sentinel.txt"
+          ],
+          "exported": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta",
+            "extra00",
+            "extra01",
+            "extra02",
+            "extra03",
+            "extra04",
+            "extra05",
+            "extra06",
+            "extra07",
+            "extra08",
+            "extra09",
+            "extra10",
+            "extra11",
+            "extra12",
+            "extra13",
+            "extra14"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/extra00": [
+            "info.yaml"
+          ],
+          "library/extra01": [
+            "info.yaml"
+          ],
+          "library/extra02": [
+            "info.yaml"
+          ],
+          "library/extra03": [
+            "info.yaml"
+          ],
+          "library/extra04": [
+            "info.yaml"
+          ],
+          "library/extra05": [
+            "info.yaml"
+          ],
+          "library/extra06": [
+            "info.yaml"
+          ],
+          "library/extra07": [
+            "info.yaml"
+          ],
+          "library/extra08": [
+            "info.yaml"
+          ],
+          "library/extra09": [
+            "info.yaml"
+          ],
+          "library/extra10": [
+            "info.yaml"
+          ],
+          "library/extra11": [
+            "info.yaml"
+          ],
+          "library/extra12": [
+            "info.yaml"
+          ],
+          "library/extra13": [
+            "info.yaml"
+          ],
+          "library/extra14": [
+            "info.yaml"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "exported/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "exported/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "library/extra00/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMApyZWY6IGV4dHJhMAp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDAwCnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra01/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMQpyZWY6IGV4dHJhMQp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDAxCnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra02/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMgpyZWY6IGV4dHJhMgp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDAyCnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra03/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMwpyZWY6IGV4dHJhMwp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDAzCnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra04/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhNApyZWY6IGV4dHJhNAp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDA0CnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra05/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhNQpyZWY6IGV4dHJhNQp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDA1CnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra06/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhNgpyZWY6IGV4dHJhNgp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDA2CnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra07/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhNwpyZWY6IGV4dHJhNwp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDA3CnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra08/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhOApyZWY6IGV4dHJhOAp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDA4CnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra09/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhOQpyZWY6IGV4dHJhOQp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDA5CnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra10/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMTAKcmVmOiBleHRyYTEwCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IFpldGEgMTAKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/extra11/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMTEKcmVmOiBleHRyYTExCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IFpldGEgMTEKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/extra12/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMTIKcmVmOiBleHRyYTEyCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IFpldGEgMTIKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/extra13/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMTMKcmVmOiBleHRyYTEzCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IFpldGEgMTMKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/extra14/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMTQKcmVmOiBleHRyYTE0CnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IFpldGEgMTQKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "library/extra00/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMApyZWY6IGV4dHJhMAp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDAwCnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra01/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMQpyZWY6IGV4dHJhMQp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDAxCnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra02/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMgpyZWY6IGV4dHJhMgp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDAyCnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra03/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMwpyZWY6IGV4dHJhMwp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDAzCnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra04/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhNApyZWY6IGV4dHJhNAp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDA0CnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra05/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhNQpyZWY6IGV4dHJhNQp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDA1CnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra06/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhNgpyZWY6IGV4dHJhNgp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDA2CnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra07/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhNwpyZWY6IGV4dHJhNwp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDA3CnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra08/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhOApyZWY6IGV4dHJhOAp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDA4CnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra09/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhOQpyZWY6IGV4dHJhOQp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDA5CnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra10/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMTAKcmVmOiBleHRyYTEwCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IFpldGEgMTAKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/extra11/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMTEKcmVmOiBleHRyYTExCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IFpldGEgMTEKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/extra12/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMTIKcmVmOiBleHRyYTEyCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IFpldGEgMTIKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/extra13/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMTMKcmVmOiBleHRyYTEzCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IFpldGEgMTMKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/extra14/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMTQKcmVmOiBleHRyYTE0CnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IFpldGEgMTQKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "E07",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": false,
+        "title": "navigate beyond the first viewport and return before export"
+      },
+      {
+        "actions": [
+          "/expect Ada Alpha",
+          "/expect Ada Beta",
+          "/text \"Ada Beta\"",
+          "/expect > Ada Beta",
+          "/absent Ada Alpha",
+          "/key Enter",
+          "/expect Exporting document",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--folder",
+          "--out",
+          "exported",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [
+          "duplicate labels",
+          "author search",
+          "exact saved identity"
+        ],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "exported",
+            "library",
+            "sentinel.txt"
+          ],
+          "exported": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "exported/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "exported/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "E08",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": false,
+        "title": "disambiguate identical titles by author before export"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/text \"\\u0014\"",
+          "/key ArrowDown",
+          "/expect #Alpha Book",
+          "/key ArrowUp",
+          "/expect 1/2",
+          "/text \"\\u0014\"",
+          "/key ArrowDown",
+          "/expect 2/2",
+          "/absent #Alpha Book",
+          "/key Enter",
+          "/expect Exporting document",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--folder",
+          "--out",
+          "exported",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "exported",
+            "library",
+            "sentinel.txt"
+          ],
+          "exported": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "exported/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "exported/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "E09",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": false,
+        "title": "unmark a previously selected entry before exporting another"
+      },
+      {
+        "actions": [
+          "/expect No documents retrieved",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--format",
+          "csv",
+          "--out",
+          "result.csv",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [],
+        "dirs": [
+          "library"
+        ],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "library",
+            "sentinel.txt"
+          ],
+          "library": []
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "E10",
+        "kind": "edge",
+        "missing": [
+          "result.csv"
+        ],
+        "snapshot": false,
+        "title": "handle an empty synthetic library without writing an export"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/key ArrowDown",
+          "/expect 2/2",
+          "/key Enter",
+          "/expect FileNotFoundError",
+          "/exit 1"
+        ],
+        "args": [
+          "export",
+          "--format",
+          "csv",
+          "--out",
+          "missing/result.csv",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "library",
+            "sentinel.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 1,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "E11",
+        "kind": "edge",
+        "missing": [
+          "missing/result.csv"
+        ],
+        "snapshot": false,
+        "title": "fail accurately when export parent directory is missing"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/key Tab",
+          "/text \"help\"",
+          "/key Enter",
+          "/screen",
+          "/expect Move cursor down in the list",
+          "/key Escape",
+          "/key Tab",
+          "/text \"info\"",
+          "/key Enter",
+          "/screen",
+          "/expect 'author': 'Ada Alpha'",
+          "/key Escape",
+          "/key ArrowDown",
+          "/expect 2/2",
+          "/key Enter",
+          "/expect Exporting document",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--folder",
+          "--out",
+          "exported",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [
+          "help overlay",
+          "metadata overlay",
+          "focus restoration",
+          "nondefault selection"
+        ],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "exported",
+            "library",
+            "sentinel.txt"
+          ],
+          "exported": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "exported/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "exported/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "E12",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": false,
+        "title": "inspect help and entry information before exporting exact bytes"
+      }
+    ],
+    "windows": [
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/key ArrowDown",
+          "/expect 2/2",
+          "/snapshot selected.txt",
+          "/key Enter",
+          "/expect Exporting document",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--folder",
+          "--out",
+          "exported",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "exported",
+            "library",
+            "sentinel.txt"
+          ],
+          "exported": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "exported/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "exported/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "N01",
+        "kind": "normal",
+        "missing": [],
+        "snapshot": true,
+        "title": "export a nondefault document folder with exact attachment bytes"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/key ArrowDown",
+          "/expect 2/2",
+          "/key Enter",
+          "/expect Writing to",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--format",
+          "csv",
+          "--out",
+          "result.csv",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "library",
+            "result.csv",
+            "sentinel.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "result.csv": "InRpdGxlIiwieWVhciINDQoiQmV0YSBCb29rIiwiMjAyNCINDQo=",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "N02",
+        "kind": "normal",
+        "missing": [],
+        "snapshot": false,
+        "title": "export selected metadata as a spreadsheet CSV"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/key ArrowDown",
+          "/expect 2/2",
+          "/key Enter",
+          "/expect Appending to",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--format",
+          "csv",
+          "--out",
+          "result.csv",
+          "--sort",
+          "title",
+          "--append"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "library",
+            "result.csv",
+            "sentinel.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "result.csv": "a2VlcCBleGlzdGluZyBleHBvcnQNCiJ0aXRsZSIsInllYXIiDQ0KIkJldGEgQm9vayIsIjIwMjQiDQ0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "result.csv": "a2VlcCBleGlzdGluZyBleHBvcnQNCg==",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "N03",
+        "kind": "normal",
+        "missing": [],
+        "snapshot": false,
+        "title": "append a selected bibliography export to preexisting content"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/key ArrowDown",
+          "/expect 2/2",
+          "/key Enter",
+          "/expect Updated 1 / 1 documents",
+          "/exit 0"
+        ],
+        "args": [
+          "tag",
+          "--add",
+          "classic",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "library",
+            "sentinel.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQ0KZmlsZXM6DQotIHBhcGVyLnR4dA0KcGFwaXNfaWQ6IGJldGENCnJlZjogYmV0YQ0KdGFnczoNCi0gcmV2aWV3ZWQNCi0gY2xhc3NpYw0KdGl0bGU6IEJldGEgQm9vaw0KdHlwZTogYm9vaw0KeWVhcjogMjAyNA0K",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "N04",
+        "kind": "normal",
+        "missing": [],
+        "snapshot": false,
+        "title": "add a tag to the selected entry and preserve other metadata"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/key ArrowDown",
+          "/expect 2/2",
+          "/key Enter",
+          "/expect Updated 1 / 1 documents",
+          "/exit 0"
+        ],
+        "args": [
+          "update",
+          "--set",
+          "title",
+          "Revised Beta Book",
+          "--no-auto-doctor",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "library",
+            "sentinel.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQ0KZmlsZXM6DQotIHBhcGVyLnR4dA0KcGFwaXNfaWQ6IGJldGENCnJlZjogYmV0YQ0KdGFnczoNCi0gcmV2aWV3ZWQNCnRpdGxlOiBSZXZpc2VkIEJldGEgQm9vaw0KdHlwZTogYm9vaw0KeWVhcjogMjAyNA0K",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "N05",
+        "kind": "normal",
+        "missing": [],
+        "snapshot": false,
+        "title": "change the title of one selected entry"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/key ArrowDown",
+          "/expect 2/2",
+          "/key Enter",
+          "/expect 1/2",
+          "/key Enter",
+          "/expect Are you sure?",
+          "/text \"y\"",
+          "/key Enter",
+          "/expect Removing file",
+          "/exit 0"
+        ],
+        "args": [
+          "rm",
+          "--file",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "library",
+            "sentinel.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "attachment.bin",
+            "info.yaml"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/attachment.bin": "aGVhZAB0YWlsDQo=",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQ0KZmlsZXM6DQotIGF0dGFjaG1lbnQuYmluDQpwYXBpc19pZDogYmV0YQ0KcmVmOiBiZXRhDQp0YWdzOg0KLSByZXZpZXdlZA0KdGl0bGU6IEJldGEgQm9vaw0KdHlwZTogYm9vaw0KeWVhcjogMjAyNA0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/attachment.bin": "aGVhZAB0YWlsDQo=",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKLSBhdHRhY2htZW50LmJpbgpwYXBpc19pZDogYmV0YQpyZWY6IGJldGEKdGFnczoKLSByZXZpZXdlZAp0aXRsZTogQmV0YSBCb29rCnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "N06",
+        "kind": "normal",
+        "missing": [
+          "library/beta/paper.txt"
+        ],
+        "snapshot": false,
+        "title": "remove one attached file with explicit confirmation"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/text \"\\u0014\"",
+          "/key ArrowDown",
+          "/expect 2/2",
+          "/expect #Alpha Book",
+          "/text \"\\u0014\"",
+          "/key Enter",
+          "/expect Exporting document 'Beta Book - Ada Beta'",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--folder",
+          "--out",
+          "exported",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "exported",
+            "library",
+            "sentinel.txt"
+          ],
+          "exported": [
+            "alpha",
+            "beta"
+          ],
+          "exported/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "exported/beta": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "exported/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "exported/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "exported/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "exported/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "N07",
+        "kind": "normal",
+        "missing": [],
+        "snapshot": false,
+        "title": "mark and export multiple selected folders"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/key ArrowDown",
+          "/expect 2/2",
+          "/key Enter",
+          "/expect Overwrite?",
+          "/text \"n\"",
+          "/key Enter",
+          "/expect Aborting.",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--format",
+          "csv",
+          "--out",
+          "result.csv",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "library",
+            "result.csv",
+            "sentinel.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "result.csv": "a2VlcCBleGlzdGluZyBleHBvcnQNCg==",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "result.csv": "a2VlcCBleGlzdGluZyBleHBvcnQNCg==",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "N08",
+        "kind": "normal",
+        "missing": [],
+        "snapshot": false,
+        "title": "decline overwriting an existing export after selection"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/text \"no-matching-entry\"",
+          "/expect no-matching-entry",
+          "/absent Alpha Book",
+          "/text \"\\u0015\"",
+          "/expect Alpha Book",
+          "/key ArrowDown",
+          "/expect 2/2",
+          "/key Enter",
+          "/expect Exporting document",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--folder",
+          "--out",
+          "exported",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "exported",
+            "library",
+            "sentinel.txt"
+          ],
+          "exported": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "exported/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "exported/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "E01",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": false,
+        "title": "recover from an empty picker filter before export"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/text \"\\u0003\"",
+          "/expect No documents retrieved",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--folder",
+          "--out",
+          "exported",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "library",
+            "sentinel.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "E02",
+        "kind": "edge",
+        "missing": [
+          "exported"
+        ],
+        "snapshot": false,
+        "title": "cancel a picker without producing an export"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/key ArrowDown",
+          "/expect 2/2",
+          "/key Enter",
+          "/expect Overwrite?",
+          "/text \"maybe\"",
+          "/expect Please, write either",
+          "/text \"\\u0015n\"",
+          "/key Enter",
+          "/expect Aborting.",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--format",
+          "csv",
+          "--out",
+          "result.csv",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [
+          "invalid input",
+          "correction",
+          "cancel",
+          "preexisting file"
+        ],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "library",
+            "result.csv",
+            "sentinel.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "result.csv": "a2VlcCBleGlzdGluZyBleHBvcnQNCg==",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "result.csv": "a2VlcCBleGlzdGluZyBleHBvcnQNCg==",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "E03",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": false,
+        "title": "reject invalid confirmation then decline overwrite"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/key ArrowDown",
+          "/expect 2/2",
+          "/key Enter",
+          "/expect Overwrite?",
+          "/text \"y\"",
+          "/key Enter",
+          "/expect Overwriting",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--format",
+          "csv",
+          "--out",
+          "result.csv",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "library",
+            "result.csv",
+            "sentinel.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "result.csv": "InRpdGxlIiwieWVhciINDQoiQmV0YSBCb29rIiwiMjAyNCINDQo=",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "result.csv": "b2xkAGJ5dGVzDQo=",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "E04",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": false,
+        "title": "confirm replacing an existing binary export file"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/key ArrowDown",
+          "/expect 2/2",
+          "/key Enter",
+          "/expect Exporting document",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--folder",
+          "--out",
+          "exported",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [
+          "Unicode path",
+          "binary NUL/CRLF",
+          "multiple attachments"
+        ],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "exported",
+            "library",
+            "sentinel.txt"
+          ],
+          "exported": [
+            "attachment.bin",
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library": [
+            "alpha",
+            "caf\u00e9 \u96ea"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/caf\u00e9 \u96ea": [
+            "attachment.bin",
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "exported/attachment.bin": "aGVhZAB0YWlsDQo=",
+          "exported/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKLSBhdHRhY2htZW50LmJpbgpwYXBpc19pZDogYmV0YQpyZWY6IGJldGEKdGFnczoKLSByZXZpZXdlZAp0aXRsZTogQmV0YSBCb29rCnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "exported/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/caf\u00e9 \u96ea/attachment.bin": "aGVhZAB0YWlsDQo=",
+          "library/caf\u00e9 \u96ea/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKLSBhdHRhY2htZW50LmJpbgpwYXBpc19pZDogYmV0YQpyZWY6IGJldGEKdGFnczoKLSByZXZpZXdlZAp0aXRsZTogQmV0YSBCb29rCnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/caf\u00e9 \u96ea/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/caf\u00e9 \u96ea/attachment.bin": "aGVhZAB0YWlsDQo=",
+          "library/caf\u00e9 \u96ea/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKLSBhdHRhY2htZW50LmJpbgpwYXBpc19pZDogYmV0YQpyZWY6IGJldGEKdGFnczoKLSByZXZpZXdlZAp0aXRsZTogQmV0YSBCb29rCnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/caf\u00e9 \u96ea/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "E05",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": false,
+        "title": "export a Unicode folder and preserve binary attachments"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/resize 50 14",
+          "/redraw",
+          "/text \"Beta\"",
+          "/expect > Beta",
+          "/resize 100 28",
+          "/redraw",
+          "/key Enter",
+          "/expect Exporting document",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--folder",
+          "--out",
+          "exported",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [
+          "small viewport",
+          "repeated resize",
+          "long title",
+          "search"
+        ],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "exported",
+            "library",
+            "sentinel.txt"
+          ],
+          "exported": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "exported/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vayB3aXRoIGFuIGludGVudGlvbmFsbHkgbG9uZyB0aXRsZSBmb3IgYSBuYXJyb3cgdGVybWluYWwgdmlld3BvcnQKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "exported/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vayB3aXRoIGFuIGludGVudGlvbmFsbHkgbG9uZyB0aXRsZSBmb3IgYSBuYXJyb3cgdGVybWluYWwgdmlld3BvcnQKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vayB3aXRoIGFuIGludGVudGlvbmFsbHkgbG9uZyB0aXRsZSBmb3IgYSBuYXJyb3cgdGVybWluYWwgdmlld3BvcnQKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "E06",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": false,
+        "title": "resize a long-title picker then filter and export"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/key End",
+          "/expect Zeta 14",
+          "/key Home",
+          "/expect 1/17",
+          "/key ArrowDown",
+          "/expect 2/17",
+          "/key Enter",
+          "/expect Exporting document",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--folder",
+          "--out",
+          "exported",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "exported",
+            "library",
+            "sentinel.txt"
+          ],
+          "exported": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta",
+            "extra00",
+            "extra01",
+            "extra02",
+            "extra03",
+            "extra04",
+            "extra05",
+            "extra06",
+            "extra07",
+            "extra08",
+            "extra09",
+            "extra10",
+            "extra11",
+            "extra12",
+            "extra13",
+            "extra14"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/extra00": [
+            "info.yaml"
+          ],
+          "library/extra01": [
+            "info.yaml"
+          ],
+          "library/extra02": [
+            "info.yaml"
+          ],
+          "library/extra03": [
+            "info.yaml"
+          ],
+          "library/extra04": [
+            "info.yaml"
+          ],
+          "library/extra05": [
+            "info.yaml"
+          ],
+          "library/extra06": [
+            "info.yaml"
+          ],
+          "library/extra07": [
+            "info.yaml"
+          ],
+          "library/extra08": [
+            "info.yaml"
+          ],
+          "library/extra09": [
+            "info.yaml"
+          ],
+          "library/extra10": [
+            "info.yaml"
+          ],
+          "library/extra11": [
+            "info.yaml"
+          ],
+          "library/extra12": [
+            "info.yaml"
+          ],
+          "library/extra13": [
+            "info.yaml"
+          ],
+          "library/extra14": [
+            "info.yaml"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "exported/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "exported/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "library/extra00/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMApyZWY6IGV4dHJhMAp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDAwCnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra01/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMQpyZWY6IGV4dHJhMQp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDAxCnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra02/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMgpyZWY6IGV4dHJhMgp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDAyCnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra03/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMwpyZWY6IGV4dHJhMwp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDAzCnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra04/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhNApyZWY6IGV4dHJhNAp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDA0CnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra05/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhNQpyZWY6IGV4dHJhNQp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDA1CnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra06/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhNgpyZWY6IGV4dHJhNgp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDA2CnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra07/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhNwpyZWY6IGV4dHJhNwp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDA3CnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra08/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhOApyZWY6IGV4dHJhOAp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDA4CnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra09/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhOQpyZWY6IGV4dHJhOQp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDA5CnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra10/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMTAKcmVmOiBleHRyYTEwCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IFpldGEgMTAKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/extra11/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMTEKcmVmOiBleHRyYTExCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IFpldGEgMTEKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/extra12/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMTIKcmVmOiBleHRyYTEyCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IFpldGEgMTIKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/extra13/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMTMKcmVmOiBleHRyYTEzCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IFpldGEgMTMKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/extra14/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMTQKcmVmOiBleHRyYTE0CnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IFpldGEgMTQKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "library/extra00/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMApyZWY6IGV4dHJhMAp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDAwCnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra01/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMQpyZWY6IGV4dHJhMQp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDAxCnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra02/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMgpyZWY6IGV4dHJhMgp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDAyCnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra03/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMwpyZWY6IGV4dHJhMwp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDAzCnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra04/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhNApyZWY6IGV4dHJhNAp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDA0CnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra05/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhNQpyZWY6IGV4dHJhNQp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDA1CnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra06/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhNgpyZWY6IGV4dHJhNgp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDA2CnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra07/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhNwpyZWY6IGV4dHJhNwp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDA3CnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra08/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhOApyZWY6IGV4dHJhOAp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDA4CnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra09/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhOQpyZWY6IGV4dHJhOQp0YWdzOgotIHJldmlld2VkCnRpdGxlOiBaZXRhIDA5CnR5cGU6IGJvb2sKeWVhcjogMjAyNAo=",
+          "library/extra10/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMTAKcmVmOiBleHRyYTEwCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IFpldGEgMTAKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/extra11/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMTEKcmVmOiBleHRyYTExCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IFpldGEgMTEKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/extra12/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMTIKcmVmOiBleHRyYTEyCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IFpldGEgMTIKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/extra13/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMTMKcmVmOiBleHRyYTEzCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IFpldGEgMTMKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/extra14/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGV4dHJhMTQKcmVmOiBleHRyYTE0CnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IFpldGEgMTQKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "E07",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": false,
+        "title": "navigate beyond the first viewport and return before export"
+      },
+      {
+        "actions": [
+          "/expect Ada Alpha",
+          "/expect Ada Beta",
+          "/text \"Ada Beta\"",
+          "/expect > Ada Beta",
+          "/absent Ada Alpha",
+          "/key Enter",
+          "/expect Exporting document",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--folder",
+          "--out",
+          "exported",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [
+          "duplicate labels",
+          "author search",
+          "exact saved identity"
+        ],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "exported",
+            "library",
+            "sentinel.txt"
+          ],
+          "exported": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "exported/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "exported/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "E08",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": false,
+        "title": "disambiguate identical titles by author before export"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/text \"\\u0014\"",
+          "/key ArrowDown",
+          "/expect #Alpha Book",
+          "/key ArrowUp",
+          "/expect 1/2",
+          "/text \"\\u0014\"",
+          "/key ArrowDown",
+          "/expect 2/2",
+          "/absent #Alpha Book",
+          "/key Enter",
+          "/expect Exporting document",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--folder",
+          "--out",
+          "exported",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "exported",
+            "library",
+            "sentinel.txt"
+          ],
+          "exported": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "exported/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "exported/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "E09",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": false,
+        "title": "unmark a previously selected entry before exporting another"
+      },
+      {
+        "actions": [
+          "/expect No documents retrieved",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--format",
+          "csv",
+          "--out",
+          "result.csv",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [],
+        "dirs": [
+          "library"
+        ],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "library",
+            "sentinel.txt"
+          ],
+          "library": []
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "E10",
+        "kind": "edge",
+        "missing": [
+          "result.csv"
+        ],
+        "snapshot": false,
+        "title": "handle an empty synthetic library without writing an export"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/key ArrowDown",
+          "/expect 2/2",
+          "/key Enter",
+          "/expect FileNotFoundError",
+          "/exit 1"
+        ],
+        "args": [
+          "export",
+          "--format",
+          "csv",
+          "--out",
+          "missing/result.csv",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "library",
+            "sentinel.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 1,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "E11",
+        "kind": "edge",
+        "missing": [
+          "missing/result.csv"
+        ],
+        "snapshot": false,
+        "title": "fail accurately when export parent directory is missing"
+      },
+      {
+        "actions": [
+          "/expect Alpha Book",
+          "/key Tab",
+          "/text \"help\"",
+          "/key Enter",
+          "/screen",
+          "/expect Move cursor down in the list",
+          "/key Escape",
+          "/key Tab",
+          "/text \"info\"",
+          "/key Enter",
+          "/screen",
+          "/expect 'author': 'Ada Alpha'",
+          "/key Escape",
+          "/key ArrowDown",
+          "/expect 2/2",
+          "/key Enter",
+          "/expect Exporting document",
+          "/exit 0"
+        ],
+        "args": [
+          "export",
+          "--folder",
+          "--out",
+          "exported",
+          "--sort",
+          "title"
+        ],
+        "combined_risks": [
+          "help overlay",
+          "metadata overlay",
+          "focus restoration",
+          "nondefault selection"
+        ],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "config.ini",
+            "exported",
+            "library",
+            "sentinel.txt"
+          ],
+          "exported": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library": [
+            "alpha",
+            "beta"
+          ],
+          "library/alpha": [
+            "info.yaml",
+            "paper.txt"
+          ],
+          "library/beta": [
+            "info.yaml",
+            "paper.txt"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "exported/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "exported/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "files": {
+          "config.ini": "W3NldHRpbmdzXQpwaWNrdG9vbCA9IHByb21wdF90b29sa2l0CmRhdGFiYXNlLWJhY2tlbmQgPSBwYXBpcwp1c2UtZ2l0ID0gZmFsc2UK",
+          "library/alpha/info.yaml": "YXV0aG9yOiBBZGEgQWxwaGEKZmlsZXM6Ci0gcGFwZXIudHh0CnBhcGlzX2lkOiBhbHBoYQpyZWY6IGFscGhhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEFscGhhIEJvb2sKdHlwZTogYm9vawp5ZWFyOiAyMDI0Cg==",
+          "library/alpha/paper.txt": "YWxwaGEgcmV2aWV3ZWQgcGFwZXIK",
+          "library/beta/info.yaml": "YXV0aG9yOiBBZGEgQmV0YQpmaWxlczoKLSBwYXBlci50eHQKcGFwaXNfaWQ6IGJldGEKcmVmOiBiZXRhCnRhZ3M6Ci0gcmV2aWV3ZWQKdGl0bGU6IEJldGEgQm9vawp0eXBlOiBib29rCnllYXI6IDIwMjQK",
+          "library/beta/paper.txt": "YmV0YSByZXZpZXdlZCBwYXBlcg0K",
+          "sentinel.txt": "cHJlc2VydmUgaW5kZXBlbmRlbnQgZXhpc3Rpbmcgd29yawo="
+        },
+        "id": "E12",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": false,
+        "title": "inspect help and entry information before exporting exact bytes"
+      }
+    ]
+  },
+  "schema_version": 1
+}

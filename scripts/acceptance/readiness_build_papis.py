@@ -1,4 +1,4 @@
-"""Build pinned Papis with owned wheels and two explicitly reviewed source builds."""
+"""Build pinned Papis with owned wheels and its reviewed python-doi source build."""
 import asyncio
 import argparse
 import json
@@ -68,6 +68,9 @@ async def main():
     review=json.loads((ROOT/'docs/validation/runner-readiness-ten-project-pass/papis/source-dependency-review.json').read_text(encoding='utf-8-sig'))
     dependency_root=target/'dependency-review';dependency_root.mkdir(exist_ok=True)
     for dependency in review['dependencies']:
+        # The resolved arxiv version uses httpx; its older feedparser/sgmllib
+        # dependency is absent. Preserve the historical review without building it.
+        if dependency['name']!='python-doi':continue
         archive=dependency_root/dependency['filename']
         if not archive.exists():
             with urllib.request.urlopen(dependency['url'],timeout=30) as response:
