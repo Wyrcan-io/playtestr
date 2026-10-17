@@ -34,6 +34,28 @@ def immutable_json(path, value):
         temporary.unlink()
 
 
+def fixture_inputs(base,relative):
+    """Collect only the selected fixture, refusing links before traversal."""
+    base=Path(base).resolve();base.relative_to(ROOT)
+    selected=base/relative
+    selected.resolve(strict=True).relative_to(base)
+    current=selected
+    while current!=base:
+        if current.is_symlink() or getattr(current,'is_junction',lambda:False)():raise ValueError('linked fixture identity')
+        current=current.parent
+    pending=[selected];files=[];directories=[selected.relative_to(ROOT).as_posix()];count=0
+    while pending:
+        directory=pending.pop()
+        for entry in directory.iterdir():
+            count+=1
+            if count>2000:raise ValueError('fixture identity count bound')
+            if entry.is_symlink() or getattr(entry,'is_junction',lambda:False)():raise ValueError('linked fixture identity')
+            if entry.is_dir():pending.append(entry);directories.append(entry.relative_to(ROOT).as_posix())
+            elif entry.is_file():files.append(entry)
+            else:raise ValueError('special fixture identity')
+    return files,directories
+
+
 class Campaign:
     def __init__(self, raw=RAW):
         self.raw = Path(raw).resolve()
@@ -67,6 +89,12 @@ class Campaign:
             paths.extend((ROOT/directory).rglob('*.py'))
         paths.extend((ROOT/'schema').glob('*.json'))
         directories=[]
+        values=list(map(str,argv))
+        if len(values)>1 and values[1]=='record' and '--output' in values and '--fixture' in values:
+            output=Path(values[values.index('--output')+1])
+            if not output.is_absolute():output=ROOT/output
+            selected,folders=fixture_inputs(output.parent,values[values.index('--fixture')+1])
+            paths.extend(selected);directories.extend(folders)
         if Path(str(argv[0])).name in {'go', 'go.exe', 'powershell', 'powershell.exe'}:
             for directory in ['internal', 'cmd']:
                 paths.extend((ROOT/directory).rglob('*.go'))
@@ -94,14 +122,8 @@ class Campaign:
                                 if baseline.is_file():paths.append(baseline)
                         fixture=spec.get('workspace',{}).get('fixture') if isinstance(spec.get('workspace'),dict) else None
                         if fixture:
-                            fixture_root=(path.parent/fixture).resolve()
-                            fixture_root.relative_to(path.parent.resolve())
-                            entries=list(fixture_root.rglob('*'))
-                            if len(entries)>2000:raise ValueError('fixture identity count bound')
-                            for entry in entries:
-                                if entry.is_symlink() or getattr(entry,'is_junction',lambda:False)():raise ValueError('linked fixture identity')
-                                if entry.is_dir():directories.append(entry.relative_to(ROOT).as_posix())
-                                elif entry.is_file():paths.append(entry)
+                            selected,folders=fixture_inputs(path.parent,fixture)
+                            paths.extend(selected);directories.extend(folders)
         target=self.raw/'active'/project
         if (target/'task-owned.json').is_file():
             paths.append(target/'task-owned.json')

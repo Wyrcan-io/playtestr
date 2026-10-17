@@ -461,3 +461,29 @@ the full 26-test local harness passes after 3f803ccb957744efa2bcd976690f90ca.
 Next: declare and author eight normal/twelve edge workflows through public
 recorder/ordinary tests, freeze reviewed twenty contracts, then choose source
 faults. No Edit scenario or project admission is credited yet.
+
+Edit now has twenty independently reviewed public exports (eight normal/twelve
+edge). Full ordinary directory selection/replay passes under parent
+b3a89f4cc68847cd81b339ec2f6cf44d, with confirmed cleanup and same-invocation state
+evidence. Contracts, fixture bytes and snapshots are frozen in
+edit/reviewed-contract-freeze.json before selecting source faults. Initial
+authoring failures remain: missing prior Undo observation, an extra replacement
+newline caught by the independent oracle, wrong search-field focus, Save As
+autocomplete needing a second Enter, and an unobserved Escape before Save.
+Unicode export decoding was repaired in the Python harness using explicit UTF-8;
+the original good capture was retained and only its missing ordinary replay ran.
+No production change or Edit native admission is claimed from these corrections.
+
+E-05 provenance repair: newly recorded fixtures are now hashed before the public
+export exists, with bounded traversal and link rejection. The reduced regression
+fails before 00869a4a8f0d4667ac7e5a1631a286f1; all 27 local harness tests pass
+after 245b6878de314ff28297c25c7a4a2c2e. Earlier recording manifests did not
+explicitly bind these fixture inputs; preserve that limitation and rerun final
+archive authoring routes with this repair. Native 27-test requalification pending.
+The previous 26-test native harness run 39013657489 succeeds on all three hosts;
+compact packet retrieval and independent verification remain pending.
+
+Next: three actual rebuilt Edit source faults and restorations (one selected
+after the twenty-contract freeze), public maintenance, Linux/Windows native
+qualification, bounded retention and checked active-source removal. Still three
+admitted projects/six development cells; all final archive/migration counters zero.

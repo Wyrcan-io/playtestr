@@ -1,0 +1,111 @@
+{
+  "version": 3,
+  "name": "Edit E12: refuse Save As overwrite then discard the scratch document",
+  "command": [
+    "edit",
+    "note.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures/E12",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "inherit_env": [
+    "SystemDrive"
+  ],
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "reviewed seed"
+    },
+    {
+      "key": "CtrlN"
+    },
+    {
+      "expect": "Untitled-1"
+    },
+    {
+      "text": "replacement candidate"
+    },
+    {
+      "expect": "replacement candidate"
+    },
+    {
+      "key": "CtrlS"
+    },
+    {
+      "expect": "Save As"
+    },
+    {
+      "key": "CtrlA"
+    },
+    {
+      "text": "sentinel.txt"
+    },
+    {
+      "expect": "File name: sentinel.txt"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "File already exists."
+    },
+    {
+      "text": "n"
+    },
+    {
+      "expect_not": "File already exists."
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "Save As"
+    },
+    {
+      "key": "CtrlQ"
+    },
+    {
+      "expect": "Unsaved Changes"
+    },
+    {
+      "text": "n"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "note.txt",
+        "kind": "file",
+        "bytes_base64": "cmV2aWV3ZWQgc2VlZAo="
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "note.txt",
+          "sentinel.txt"
+        ]
+      }
+    }
+  ]
+}

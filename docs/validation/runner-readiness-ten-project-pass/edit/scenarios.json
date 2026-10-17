@@ -1,0 +1,619 @@
+{
+  "first_authoring_declaration": "Local-only edit/authoring-batches/c51d3274692649f9bd570cfa952c3955/declared.json",
+  "fresh_readiness": "Observe dirty marker, save, observe its disappearance; close search with an observed disappearance before saving.",
+  "hosts": [
+    "linux-amd64",
+    "windows-amd64"
+  ],
+  "ordinary_parent": "c6dde8d3464e4b79bf80d6d26fd916d2",
+  "public_contract_freeze_sha256": "6189c8314a95423e1c55ff0cb860b2b8dfa9c6c7b7e27e72bcc5fe77a7fa8aff",
+  "rows": [
+    {
+      "actions": [
+        "/expect reviewed seed",
+        "/key End",
+        "/text \" + tested\"",
+        "/expect reviewed seed + tested",
+        "/expect *",
+        "/key CtrlS",
+        "/absent *"
+      ],
+      "args": [
+        "note.txt"
+      ],
+      "expected": {
+        "note.txt": "cmV2aWV3ZWQgc2VlZCArIHRlc3RlZAo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "note.txt": "cmV2aWV3ZWQgc2VlZAo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "N01",
+      "kind": "normal",
+      "missing": [],
+      "snapshot": true,
+      "title": "append and save an existing text file"
+    },
+    {
+      "actions": [
+        "/expect new-note.txt",
+        "/text \"fresh document\"",
+        "/expect fresh document",
+        "/expect *",
+        "/key CtrlS",
+        "/absent *"
+      ],
+      "args": [
+        "new-note.txt"
+      ],
+      "expected": {
+        "new-note.txt": "ZnJlc2ggZG9jdW1lbnQ=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "N02",
+      "kind": "normal",
+      "missing": [],
+      "snapshot": false,
+      "title": "create a named new document"
+    },
+    {
+      "actions": [
+        "/expect bravo",
+        "/text \"reviewed \"",
+        "/expect reviewed bravo",
+        "/expect *",
+        "/key CtrlS",
+        "/absent *"
+      ],
+      "args": [
+        "--goto",
+        "note.txt:2:1"
+      ],
+      "expected": {
+        "note.txt": "YWxwaGEKcmV2aWV3ZWQgYnJhdm8KY2hhcmxpZQo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "note.txt": "YWxwaGEKYnJhdm8KY2hhcmxpZQo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "N03",
+      "kind": "normal",
+      "missing": [],
+      "snapshot": false,
+      "title": "edit the requested line and column"
+    },
+    {
+      "actions": [
+        "/expect reviewed seed",
+        "/key End",
+        "/text \" + redo\"",
+        "/expect reviewed seed + redo",
+        "/expect + redo",
+        "/key CtrlZ",
+        "/absent + redo",
+        "/expect reviewed seed",
+        "/key CtrlY",
+        "/expect reviewed seed + redo",
+        "/expect *",
+        "/key CtrlS",
+        "/absent *"
+      ],
+      "args": [
+        "note.txt"
+      ],
+      "expected": {
+        "note.txt": "cmV2aWV3ZWQgc2VlZCArIHJlZG8K",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "note.txt": "cmV2aWV3ZWQgc2VlZAo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "N04",
+      "kind": "normal",
+      "missing": [],
+      "snapshot": true,
+      "title": "undo and redo the last inserted group"
+    },
+    {
+      "actions": [
+        "/expect old document",
+        "/key CtrlA",
+        "/text \"rewritten document\"",
+        "/expect rewritten document",
+        "/expect *",
+        "/key CtrlS",
+        "/absent *"
+      ],
+      "args": [
+        "note.txt"
+      ],
+      "expected": {
+        "note.txt": "cmV3cml0dGVuIGRvY3VtZW50Cg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "note.txt": "b2xkIGRvY3VtZW50Cg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "N05",
+      "kind": "normal",
+      "missing": [],
+      "snapshot": false,
+      "title": "replace all selected document text"
+    },
+    {
+      "actions": [
+        "/expect beta",
+        "/key ArrowDown",
+        "/key Home",
+        "/key Backspace",
+        "/expect alpha beta",
+        "/expect *",
+        "/key CtrlS",
+        "/absent *"
+      ],
+      "args": [
+        "note.txt"
+      ],
+      "expected": {
+        "note.txt": "YWxwaGEgYmV0YQo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "note.txt": "YWxwaGEgCmJldGEK",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "N06",
+      "kind": "normal",
+      "missing": [],
+      "snapshot": false,
+      "title": "join adjacent lines without losing remaining text"
+    },
+    {
+      "actions": [
+        "/expect beta document",
+        "/key End",
+        "/text \" + checked\"",
+        "/expect beta document + checked",
+        "/expect *",
+        "/key CtrlS",
+        "/absent *",
+        "/key CtrlW",
+        "/expect alpha document",
+        "/key End",
+        "/text \" + checked\"",
+        "/expect alpha document + checked",
+        "/expect *",
+        "/key CtrlS",
+        "/absent *"
+      ],
+      "args": [
+        "alpha.txt",
+        "beta.txt"
+      ],
+      "expected": {
+        "alpha.txt": "YWxwaGEgZG9jdW1lbnQgKyBjaGVja2VkCg==",
+        "beta.txt": "YmV0YSBkb2N1bWVudCArIGNoZWNrZWQK",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "alpha.txt": "YWxwaGEgZG9jdW1lbnQK",
+        "beta.txt": "YmV0YSBkb2N1bWVudAo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "N07",
+      "kind": "normal",
+      "missing": [],
+      "snapshot": false,
+      "title": "save two documents across an active-file transition"
+    },
+    {
+      "actions": [
+        "/expect alpha alpha",
+        "/key CtrlF",
+        "/expect Find:",
+        "/text \"alpha\"",
+        "/key CtrlR",
+        "/expect Replace:",
+        "/key Tab",
+        "/text \"beta\"",
+        "/key Enter",
+        "/key Escape",
+        "/absent Replace:",
+        "/expect beta alpha",
+        "/expect *",
+        "/key CtrlS",
+        "/absent *"
+      ],
+      "args": [
+        "note.txt"
+      ],
+      "expected": {
+        "note.txt": "YmV0YSBhbHBoYQo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "note.txt": "YWxwaGEgYWxwaGEK",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "N08",
+      "kind": "normal",
+      "missing": [],
+      "snapshot": false,
+      "title": "find and replace the selected first match"
+    },
+    {
+      "actions": [
+        "/expect reviewed seed",
+        "/key End",
+        "/text \" not saved\"",
+        "/expect reviewed seed not saved",
+        "/key CtrlQ",
+        "/expect Unsaved Changes",
+        "/text \"n\"",
+        "/exit 0"
+      ],
+      "args": [
+        "note.txt"
+      ],
+      "expected": {
+        "note.txt": "cmV2aWV3ZWQgc2VlZAo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "note.txt": "cmV2aWV3ZWQgc2VlZAo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "E01",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "discard dirty changes and preserve original bytes"
+    },
+    {
+      "actions": [
+        "/expect reviewed seed",
+        "/key End",
+        "/text \" staged\"",
+        "/expect reviewed seed staged",
+        "/key CtrlQ",
+        "/expect Unsaved Changes",
+        "/key Escape",
+        "/absent Unsaved Changes",
+        "/text \" recovered\"",
+        "/expect reviewed seed staged recovered",
+        "/expect *",
+        "/key CtrlS",
+        "/absent *"
+      ],
+      "args": [
+        "note.txt"
+      ],
+      "expected": {
+        "note.txt": "cmV2aWV3ZWQgc2VlZCBzdGFnZWQgcmVjb3ZlcmVkCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "note.txt": "cmV2aWV3ZWQgc2VlZAo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "E02",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "cancel an unsaved exit then keep editing and save"
+    },
+    {
+      "actions": [
+        "/expect abandon.txt",
+        "/text \"will not persist\"",
+        "/expect will not persist",
+        "/key CtrlQ",
+        "/expect Unsaved Changes",
+        "/text \"n\"",
+        "/exit 0"
+      ],
+      "args": [
+        "abandon.txt"
+      ],
+      "expected": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "E03",
+      "kind": "edge",
+      "missing": [
+        "abandon.txt"
+      ],
+      "snapshot": false,
+      "title": "abandon a new document without creating its path"
+    },
+    {
+      "actions": [
+        "/expect empty.txt",
+        "/text \"ephemeral\"",
+        "/expect ephemeral",
+        "/key CtrlA",
+        "/key Backspace",
+        "/absent ephemeral",
+        "/expect *",
+        "/key CtrlS",
+        "/absent *"
+      ],
+      "args": [
+        "empty.txt"
+      ],
+      "expected": {
+        "empty.txt": "",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "empty.txt": "",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "E04",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "save an emptied document as exactly zero bytes"
+    },
+    {
+      "actions": [
+        "/expect starter",
+        "/key End",
+        "/text \" caf\\u00e9 \\u96ea\"",
+        "/expect starter caf\u00e9 \u96ea",
+        "/expect *",
+        "/key CtrlS",
+        "/absent *"
+      ],
+      "args": [
+        "project caf\u00e9/notes \u96ea.txt"
+      ],
+      "expected": {
+        "project caf\u00e9/notes \u96ea.txt": "c3RhcnRlciBjYWbDqSDpm6oK",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "project caf\u00e9/notes \u96ea.txt": "c3RhcnRlcgo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "E05",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "edit UTF-8 content in a Unicode and spaced path"
+    },
+    {
+      "actions": [
+        "/expect first",
+        "/key End",
+        "/text \"!\"",
+        "/expect first!",
+        "/expect *",
+        "/key CtrlS",
+        "/absent *"
+      ],
+      "args": [
+        "note.txt"
+      ],
+      "expected": {
+        "note.txt": "Zmlyc3QhDQpzZWNvbmQNCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "note.txt": "Zmlyc3QNCnNlY29uZA0K",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "E06",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "preserve CRLF while editing one line"
+    },
+    {
+      "actions": [
+        "/expect tail",
+        "/key End",
+        "/text \"!\"",
+        "/expect tail!",
+        "/expect *",
+        "/key CtrlS",
+        "/absent *"
+      ],
+      "args": [
+        "note.txt"
+      ],
+      "expected": {
+        "note.txt": "dGFpbCE=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "note.txt": "dGFpbA==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "E07",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "preserve an absent final newline"
+    },
+    {
+      "actions": [
+        "/expect reviewed seed",
+        "/key End",
+        "/text \" + resized\"",
+        "/expect reviewed seed + resized",
+        "/resize 40 12",
+        "/redraw",
+        "/text \" narrow\"",
+        "/expect resized narrow",
+        "/resize 100 28",
+        "/redraw",
+        "/text \" wide\"",
+        "/expect resized narrow wide",
+        "/expect *",
+        "/key CtrlS",
+        "/absent *"
+      ],
+      "args": [
+        "note.txt"
+      ],
+      "expected": {
+        "note.txt": "cmV2aWV3ZWQgc2VlZCArIHJlc2l6ZWQgbmFycm93IHdpZGUK",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "note.txt": "cmV2aWV3ZWQgc2VlZAo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "E08",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": true,
+      "title": "resize a dirty document and retain ordered edits"
+    },
+    {
+      "actions": [
+        "/expect last",
+        "/text \"!\"",
+        "/expect last!",
+        "/expect *",
+        "/key CtrlS",
+        "/absent *"
+      ],
+      "args": [
+        "--goto",
+        "note.txt:999:999"
+      ],
+      "expected": {
+        "note.txt": "Zmlyc3QKbGFzdCE=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "note.txt": "Zmlyc3QKbGFzdA==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "E09",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "clamp an out-of-range command-line position safely"
+    },
+    {
+      "actions": [
+        "/expect second",
+        "/key CtrlG",
+        "/expect Go to Line",
+        "/text \"invalid-line\"",
+        "/key Enter",
+        "/expect invalid-line",
+        "/expect Go to Line",
+        "/key CtrlA",
+        "/text \"2:1\"",
+        "/key Enter",
+        "/absent Go to Line",
+        "/text \"fixed \"",
+        "/expect fixed second",
+        "/expect *",
+        "/key CtrlS",
+        "/absent *"
+      ],
+      "args": [
+        "note.txt"
+      ],
+      "expected": {
+        "note.txt": "Zmlyc3QKZml4ZWQgc2Vjb25kCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "note.txt": "Zmlyc3QKc2Vjb25kCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "E10",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "reject invalid go-to input and recover with a valid position"
+    },
+    {
+      "actions": [
+        "/expect draft contents",
+        "/key End",
+        "/text \"!\"",
+        "/expect draft contents!",
+        "/expect *",
+        "/key CtrlS",
+        "/absent *"
+      ],
+      "args": [
+        "--",
+        "-draft.txt"
+      ],
+      "expected": {
+        "-draft.txt": "ZHJhZnQgY29udGVudHMhCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "-draft.txt": "ZHJhZnQgY29udGVudHMK",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "E11",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "open a leading-dash filename using the option terminator"
+    },
+    {
+      "actions": [
+        "/expect reviewed seed",
+        "/key CtrlN",
+        "/expect Untitled-1",
+        "/text \"replacement candidate\"",
+        "/expect replacement candidate",
+        "/key CtrlS",
+        "/expect Save As",
+        "/key CtrlA",
+        "/text \"sentinel.txt\"",
+        "/expect File name: sentinel.txt",
+        "/key Enter",
+        "/key Enter",
+        "/expect File already exists.",
+        "/text \"n\"",
+        "/absent File already exists.",
+        "/key Escape",
+        "/absent Save As",
+        "/key CtrlQ",
+        "/expect Unsaved Changes",
+        "/text \"n\"",
+        "/exit 0"
+      ],
+      "args": [
+        "note.txt"
+      ],
+      "expected": {
+        "note.txt": "cmV2aWV3ZWQgc2VlZAo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "note.txt": "cmV2aWV3ZWQgc2VlZAo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "E12",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "refuse Save As overwrite then discard the scratch document"
+    }
+  ],
+  "schema_version": 1,
+  "status": "reviewed local development suite; native execution pending"
+}

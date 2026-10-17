@@ -1,0 +1,75 @@
+{
+  "version": 3,
+  "name": "Edit E05: edit UTF-8 content in a Unicode and spaced path",
+  "command": [
+    "edit",
+    "project caf\u00e9/notes \u96ea.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures/E05",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "inherit_env": [
+    "SystemDrive"
+  ],
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "starter"
+    },
+    {
+      "key": "End"
+    },
+    {
+      "text": " caf\u00e9 \u96ea"
+    },
+    {
+      "expect": "starter caf\u00e9 \u96ea"
+    },
+    {
+      "expect": "*"
+    },
+    {
+      "key": "CtrlS"
+    },
+    {
+      "expect_not": "*"
+    },
+    {
+      "key": "CtrlQ"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "project caf\u00e9/notes \u96ea.txt",
+        "kind": "file",
+        "bytes_base64": "c3RhcnRlciBjYWbDqSDpm6oK"
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "project caf\u00e9",
+          "sentinel.txt"
+        ]
+      }
+    }
+  ]
+}

@@ -127,6 +127,16 @@ class EvidenceTests(unittest.TestCase):
         binary.write_bytes(b'reviewed binary')
         self.assertEqual(before,self.campaign.identity('edit',['must-not-launch']))
 
+    def test_new_recorder_fixture_bytes_are_bound_before_export_exists(self):
+        package=Path(self.folder.name)/'record-package';fixture=package/'fixture';fixture.mkdir(parents=True)
+        selected=fixture/'selected.txt';selected.write_bytes(b'reviewed fixture\n')
+        argv=['playtestr','record','--output',str(package/'not-created.json'),'--fixture','fixture','--','trusted-target']
+        before=self.campaign.identity('fixture',argv)
+        selected.write_bytes(b'changed fixture\n')
+        self.assertNotEqual(before,self.campaign.identity('fixture',argv))
+        selected.write_bytes(b'reviewed fixture\n')
+        self.assertEqual(before,self.campaign.identity('fixture',argv))
+
     def test_identified_success_requires_launch_but_setup_failure_is_counted(self):
         identity=uuid.uuid4().hex
         for event in ['started','identified']:
