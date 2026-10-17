@@ -13,7 +13,7 @@ on:
       phase:
         type: choice
         default: first-use
-        options: [first-use, author]
+        options: [first-use, author, diagnose]
         description: First useful route or twenty declared public recordings
 permissions:
   contents: read
@@ -76,6 +76,10 @@ jobs:
         if: inputs.phase == 'author'
         run: |
           python3 scripts/acceptance/readiness_check.py --label native-fff-twenty-public-recordings --timeout 1200 -- python3 scripts/acceptance/readiness_fff_cases.py
+      - name: Bounded independent PTY input observations and unchanged public reproduction
+        if: inputs.phase == 'diagnose'
+        run: |
+          python3 scripts/acceptance/readiness_check.py --label native-fff-input-reduction --timeout 600 -- python3 scripts/acceptance/readiness_fff_input_diagnose.py
       - name: Verify pinned source restores and owned runtime termination
         if: always() && steps.prepare.outcome == 'success'
         run: |
