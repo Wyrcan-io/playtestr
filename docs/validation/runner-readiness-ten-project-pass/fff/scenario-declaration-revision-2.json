@@ -1,0 +1,1728 @@
+{
+  "canonical_linux_rows": [
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"f\"",
+        "/expect mkfile:",
+        "/text \"created.txt\"",
+        "/key Enter",
+        "/absent mkfile:",
+        "/expect created.txt"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "created.txt",
+          "sentinel.txt",
+          "source.txt",
+          "trash"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "created.txt": "",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "files": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "id": "N01",
+      "kind": "normal",
+      "missing": [],
+      "snapshot": true,
+      "title": "create an empty named file"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"n\"",
+        "/expect mkdir:",
+        "/text \"made/deep\"",
+        "/key Enter",
+        "/absent mkdir:",
+        "/expect made/"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "made",
+          "sentinel.txt",
+          "source.txt",
+          "trash"
+        ],
+        "made": [
+          "deep"
+        ],
+        "made/deep": [],
+        "trash": []
+      },
+      "expected": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "files": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "id": "N02",
+      "kind": "normal",
+      "missing": [],
+      "snapshot": false,
+      "title": "create a nested empty directory tree"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"/source.txt\"",
+        "/expect /source.txt",
+        "/key Enter",
+        "/absent /source.txt",
+        "/text \"r\"",
+        "/expect rename source.txt:",
+        "/text \"renamed.txt\"",
+        "/key Enter",
+        "/absent rename source.txt:",
+        "/expect renamed.txt"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "renamed.txt",
+          "sentinel.txt",
+          "trash"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "renamed.txt": "cmV2aWV3ZWQgc291cmNlCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "id": "N03",
+      "kind": "normal",
+      "missing": [
+        "source.txt"
+      ],
+      "snapshot": false,
+      "title": "rename a file while preserving its exact contents"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"/source.txt\"",
+        "/expect /source.txt",
+        "/key Enter",
+        "/absent /source.txt",
+        "/text \"y\"",
+        "/expect [1] selected",
+        "/text \":\"",
+        "/expect go to dir:",
+        "/text \"destination\"",
+        "/key Enter",
+        "/absent go to dir:",
+        "/expect anchor.txt",
+        "/text \"p\"",
+        "/expect source.txt",
+        "/absent [1] selected"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "destination",
+          "sentinel.txt",
+          "source.txt",
+          "trash"
+        ],
+        "destination": [
+          "anchor.txt",
+          "source.txt"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "destination/anchor.txt": "ZGVzdGluYXRpb24gYW5jaG9yCg==",
+        "destination/source.txt": "cmV2aWV3ZWQgc291cmNlCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "files": {
+        "destination/anchor.txt": "ZGVzdGluYXRpb24gYW5jaG9yCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "id": "N04",
+      "kind": "normal",
+      "missing": [],
+      "snapshot": true,
+      "title": "copy a file into another directory"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"/source.txt\"",
+        "/expect /source.txt",
+        "/key Enter",
+        "/absent /source.txt",
+        "/text \"m\"",
+        "/expect [1] selected",
+        "/text \":\"",
+        "/expect go to dir:",
+        "/text \"destination\"",
+        "/key Enter",
+        "/absent go to dir:",
+        "/expect anchor.txt",
+        "/text \"p\"",
+        "/expect source.txt",
+        "/absent [1] selected"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "destination",
+          "sentinel.txt",
+          "trash"
+        ],
+        "destination": [
+          "anchor.txt",
+          "source.txt"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "destination/anchor.txt": "ZGVzdGluYXRpb24gYW5jaG9yCg==",
+        "destination/source.txt": "cmV2aWV3ZWQgc291cmNlCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "destination/anchor.txt": "ZGVzdGluYXRpb24gYW5jaG9yCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "id": "N05",
+      "kind": "normal",
+      "missing": [
+        "source.txt"
+      ],
+      "snapshot": false,
+      "title": "move a file into another directory"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"/source.txt\"",
+        "/expect /source.txt",
+        "/key Enter",
+        "/absent /source.txt",
+        "/text \"d\"",
+        "/expect [1] selected",
+        "/text \"p\"",
+        "/expect trash [1] items?",
+        "/text \"y\"",
+        "/absent trash [1] items?",
+        "/absent source.txt"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "sentinel.txt",
+          "trash"
+        ],
+        "trash": [
+          "source.txt"
+        ]
+      },
+      "expected": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "trash/source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "files": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "id": "N06",
+      "kind": "normal",
+      "missing": [
+        "source.txt"
+      ],
+      "snapshot": false,
+      "title": "confirm moving a selected file to the synthetic trash"
+    },
+    {
+      "actions": [
+        "/expect bundle/",
+        "/expect (1/4)",
+        "/text \"G\"",
+        "/expect (4/4)",
+        "/text \"g\"",
+        "/expect (1/4)",
+        "/text \"y\"",
+        "/expect [1] selected",
+        "/text \":\"",
+        "/expect go to dir:",
+        "/text \"destination\"",
+        "/key Enter",
+        "/absent go to dir:",
+        "/expect anchor.txt",
+        "/text \"p\"",
+        "/expect bundle/",
+        "/absent [1] selected"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "bundle",
+          "destination",
+          "sentinel.txt",
+          "trash"
+        ],
+        "bundle": [
+          ".hidden",
+          "nested"
+        ],
+        "bundle/nested": [
+          "deep.txt"
+        ],
+        "destination": [
+          "anchor.txt",
+          "bundle"
+        ],
+        "destination/bundle": [
+          ".hidden",
+          "nested"
+        ],
+        "destination/bundle/nested": [
+          "deep.txt"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "bundle/.hidden": "aGlkZGVuIGJ5dGVzCg==",
+        "bundle/nested/deep.txt": "cmV2aWV3ZWQgc291cmNlCg==",
+        "destination/anchor.txt": "ZGVzdGluYXRpb24gYW5jaG9yCg==",
+        "destination/bundle/.hidden": "aGlkZGVuIGJ5dGVzCg==",
+        "destination/bundle/nested/deep.txt": "cmV2aWV3ZWQgc291cmNlCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "bundle/.hidden": "aGlkZGVuIGJ5dGVzCg==",
+        "bundle/nested/deep.txt": "cmV2aWV3ZWQgc291cmNlCg==",
+        "destination/anchor.txt": "ZGVzdGluYXRpb24gYW5jaG9yCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "N07",
+      "kind": "normal",
+      "missing": [],
+      "snapshot": false,
+      "title": "copy a directory tree with nested and hidden contents"
+    },
+    {
+      "actions": [
+        "/expect folder/",
+        "/expect (1/3)",
+        "/text \"G\"",
+        "/expect (3/3)",
+        "/text \"g\"",
+        "/expect (1/3)",
+        "/text \"r\"",
+        "/expect rename folder:",
+        "/text \"renamed-folder\"",
+        "/key Enter",
+        "/absent rename folder:",
+        "/expect renamed-folder"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "renamed-folder",
+          "sentinel.txt",
+          "trash"
+        ],
+        "renamed-folder": [
+          "nested.txt"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "renamed-folder/nested.txt": "cmV2aWV3ZWQgc291cmNlCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "folder/nested.txt": "cmV2aWV3ZWQgc291cmNlCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "N08",
+      "kind": "normal",
+      "missing": [
+        "folder"
+      ],
+      "snapshot": false,
+      "title": "rename a directory without losing its nested file"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"f\"",
+        "/expect mkfile:",
+        "/key Enter",
+        "/absent mkfile:"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "sentinel.txt",
+          "source.txt",
+          "trash"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "files": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "id": "E01",
+      "kind": "edge",
+      "missing": [
+        "cancelled.txt"
+      ],
+      "snapshot": false,
+      "title": "cancel file creation by submitting an empty name"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"f\"",
+        "/expect mkfile:",
+        "/text \"source.txt\"",
+        "/key Enter",
+        "/expect warn: 'source.txt' already exists.",
+        "/key Enter",
+        "/absent warn: 'source.txt' already exists."
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "sentinel.txt",
+          "source.txt",
+          "trash"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "files": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "id": "E02",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "refuse to recreate an existing file and preserve its bytes"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"/source.txt\"",
+        "/expect /source.txt",
+        "/key Enter",
+        "/absent /source.txt",
+        "/text \"r\"",
+        "/expect rename source.txt:",
+        "/text \"draft\"",
+        "/expect draft",
+        "/text \"\\u007f\\u007f\\u007f\\u007f\\u007f\"",
+        "/absent draft",
+        "/key Enter",
+        "/absent rename source.txt:"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "sentinel.txt",
+          "source.txt",
+          "trash"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "files": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "id": "E03",
+      "kind": "edge",
+      "missing": [
+        "draft"
+      ],
+      "snapshot": false,
+      "title": "erase a proposed rename and keep the original path"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"/source.txt\"",
+        "/expect /source.txt",
+        "/key Enter",
+        "/absent /source.txt",
+        "/text \"r\"",
+        "/expect rename source.txt:",
+        "/text \"taken.txt\"",
+        "/key Enter",
+        "/expect warn: 'taken.txt' already exists.",
+        "/key Enter",
+        "/absent warn: 'taken.txt' already exists."
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "sentinel.txt",
+          "source.txt",
+          "taken.txt",
+          "trash"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg==",
+        "taken.txt": "ZXhpc3RpbmcgZGVzdGluYXRpb24K"
+      },
+      "files": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg==",
+        "taken.txt": "ZXhpc3RpbmcgZGVzdGluYXRpb24K"
+      },
+      "id": "E04",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "reject a rename collision without changing either file"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"/source.txt\"",
+        "/expect /source.txt",
+        "/key Enter",
+        "/absent /source.txt",
+        "/text \"d\"",
+        "/expect [1] selected",
+        "/text \"p\"",
+        "/expect trash [1] items?",
+        "/key Enter",
+        "/absent trash [1] items?"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "sentinel.txt",
+          "source.txt",
+          "trash"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "files": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "id": "E05",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "decline trash by submitting no affirmative answer"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"f\"",
+        "/expect mkfile:",
+        "/text \"notes caf\\u00e9 \\u96ea.txt\"",
+        "/key Enter",
+        "/absent mkfile:",
+        "/expect notes caf\u00e9 \u96ea.txt"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "notes caf\u00e9 \u96ea.txt",
+          "sentinel.txt",
+          "source.txt",
+          "trash"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "notes caf\u00e9 \u96ea.txt": "",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "files": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "id": "E06",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "create a Unicode and spaced filename"
+    },
+    {
+      "actions": [
+        "/expect sentinel.txt",
+        "/text \".\"",
+        "/expect .hidden.txt",
+        "/text \"/.hidden.txt\"",
+        "/expect /.hidden.txt",
+        "/key Enter",
+        "/absent /.hidden.txt",
+        "/text \"r\"",
+        "/expect rename .hidden.txt:",
+        "/text \"visible.txt\"",
+        "/key Enter",
+        "/absent rename .hidden.txt:",
+        "/expect visible.txt"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "sentinel.txt",
+          "trash",
+          "visible.txt"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "visible.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "files": {
+        ".hidden.txt": "cmV2aWV3ZWQgc291cmNlCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "E07",
+      "kind": "edge",
+      "missing": [
+        ".hidden.txt"
+      ],
+      "snapshot": false,
+      "title": "show a hidden file then rename it with bytes preserved"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"/source.txt\"",
+        "/expect /source.txt",
+        "/key Enter",
+        "/absent /source.txt",
+        "/text \"y\"",
+        "/expect [1] selected",
+        "/text \":\"",
+        "/expect go to dir:",
+        "/text \"destination\"",
+        "/key Enter",
+        "/absent go to dir:",
+        "/expect anchor.txt",
+        "/text \"p\"",
+        "/expect source.txt",
+        "/absent [1] selected"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "destination",
+          "sentinel.txt",
+          "source.txt",
+          "trash"
+        ],
+        "destination": [
+          "anchor.txt",
+          "source.txt"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "destination/anchor.txt": "ZGVzdGluYXRpb24gYW5jaG9yCg==",
+        "destination/source.txt": "aGVhZAB0YWlsDQo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "aGVhZAB0YWlsDQo="
+      },
+      "files": {
+        "destination/anchor.txt": "ZGVzdGluYXRpb24gYW5jaG9yCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "aGVhZAB0YWlsDQo="
+      },
+      "id": "E08",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "copy embedded binary NUL bytes without conversion"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"/source.txt\"",
+        "/expect /source.txt",
+        "/key Enter",
+        "/absent /source.txt",
+        "/text \"y\"",
+        "/expect [1] selected",
+        "/text \":\"",
+        "/expect go to dir:",
+        "/text \"destination\"",
+        "/key Enter",
+        "/absent go to dir:",
+        "/expect anchor.txt",
+        "/text \"p\"",
+        "/expect overwrite",
+        "/text \"n\"",
+        "/key Enter",
+        "/absent overwrite"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "destination",
+          "sentinel.txt",
+          "source.txt",
+          "trash"
+        ],
+        "destination": [
+          "anchor.txt",
+          "source.txt"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "destination/anchor.txt": "ZGVzdGluYXRpb24gYW5jaG9yCg==",
+        "destination/source.txt": "a2VlcCBvbGQgZGVzdGluYXRpb24K",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "files": {
+        "destination/anchor.txt": "ZGVzdGluYXRpb24gYW5jaG9yCg==",
+        "destination/source.txt": "a2VlcCBvbGQgZGVzdGluYXRpb24K",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "id": "E09",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "decline an interactive copy overwrite"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"/source.txt\"",
+        "/expect /source.txt",
+        "/key Enter",
+        "/absent /source.txt",
+        "/text \"m\"",
+        "/expect [1] selected",
+        "/text \"c\"",
+        "/absent [1] selected",
+        "/text \"pq\"",
+        "/exit 0"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "sentinel.txt",
+          "source.txt",
+          "trash"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "files": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "id": "E10",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "clear a marked operation before attempting paste"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/resize 40 12",
+        "/redraw",
+        "/text \"f\"",
+        "/expect mkfile:",
+        "/text \"narrow.txt\"",
+        "/key Enter",
+        "/absent mkfile:",
+        "/expect narrow.txt",
+        "/resize 100 28",
+        "/redraw",
+        "/text \"f\"",
+        "/expect mkfile:",
+        "/text \"wide.txt\"",
+        "/key Enter",
+        "/absent mkfile:",
+        "/expect wide.txt"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "narrow.txt",
+          "sentinel.txt",
+          "source.txt",
+          "trash",
+          "wide.txt"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "narrow.txt": "",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg==",
+        "wide.txt": ""
+      },
+      "files": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "id": "E11",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": true,
+      "title": "resize and create files in both viewports"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"/no-matching-item\"",
+        "/expect /no-matching-item",
+        "/absent source.txt",
+        "/key Enter",
+        "/absent /no-matching-item",
+        "/expect source.txt",
+        "/text \"f\"",
+        "/expect mkfile:",
+        "/text \"recovered.txt\"",
+        "/key Enter",
+        "/absent mkfile:",
+        "/expect recovered.txt"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "recovered.txt",
+          "sentinel.txt",
+          "source.txt",
+          "trash"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "recovered.txt": "",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "files": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "id": "E12",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "recover from an empty search before creating another file"
+    }
+  ],
+  "changes": [
+    "N07/N08 observe complete initial count, move to bottom, then observe return to top; macOS explicitly skips its observed leading empty selection",
+    "E03 sends the five reviewed DEL bytes as one public text input, retaining the unchanged exact file/path oracle",
+    "E10 sends no-op paste and quit in one public text input after observed unmarking; unchanged saved-state oracle"
+  ],
+  "diagnostic_run": "39066275841",
+  "fault_selection": "No source fault selected before reviewed twenty-contract freeze",
+  "native_macos_rows": [
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"f\"",
+        "/expect mkfile:",
+        "/text \"created.txt\"",
+        "/key Enter",
+        "/absent mkfile:",
+        "/expect created.txt"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "created.txt",
+          "sentinel.txt",
+          "source.txt",
+          "trash"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "created.txt": "",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "files": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "id": "N01",
+      "kind": "normal",
+      "missing": [],
+      "snapshot": true,
+      "title": "create an empty named file"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"n\"",
+        "/expect mkdir:",
+        "/text \"made/deep\"",
+        "/key Enter",
+        "/absent mkdir:",
+        "/expect made/"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "made",
+          "sentinel.txt",
+          "source.txt",
+          "trash"
+        ],
+        "made": [
+          "deep"
+        ],
+        "made/deep": [],
+        "trash": []
+      },
+      "expected": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "files": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "id": "N02",
+      "kind": "normal",
+      "missing": [],
+      "snapshot": false,
+      "title": "create a nested empty directory tree"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"/source.txt\"",
+        "/expect /source.txt",
+        "/key Enter",
+        "/absent /source.txt",
+        "/text \"r\"",
+        "/expect rename source.txt:",
+        "/text \"renamed.txt\"",
+        "/key Enter",
+        "/absent rename source.txt:",
+        "/expect renamed.txt"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "renamed.txt",
+          "sentinel.txt",
+          "trash"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "renamed.txt": "cmV2aWV3ZWQgc291cmNlCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "id": "N03",
+      "kind": "normal",
+      "missing": [
+        "source.txt"
+      ],
+      "snapshot": false,
+      "title": "rename a file while preserving its exact contents"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"/source.txt\"",
+        "/expect /source.txt",
+        "/key Enter",
+        "/absent /source.txt",
+        "/text \"y\"",
+        "/expect [1] selected",
+        "/text \":\"",
+        "/expect go to dir:",
+        "/text \"destination\"",
+        "/key Enter",
+        "/absent go to dir:",
+        "/expect anchor.txt",
+        "/text \"p\"",
+        "/expect source.txt",
+        "/absent [1] selected"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "destination",
+          "sentinel.txt",
+          "source.txt",
+          "trash"
+        ],
+        "destination": [
+          "anchor.txt",
+          "source.txt"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "destination/anchor.txt": "ZGVzdGluYXRpb24gYW5jaG9yCg==",
+        "destination/source.txt": "cmV2aWV3ZWQgc291cmNlCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "files": {
+        "destination/anchor.txt": "ZGVzdGluYXRpb24gYW5jaG9yCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "id": "N04",
+      "kind": "normal",
+      "missing": [],
+      "snapshot": true,
+      "title": "copy a file into another directory"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"/source.txt\"",
+        "/expect /source.txt",
+        "/key Enter",
+        "/absent /source.txt",
+        "/text \"m\"",
+        "/expect [1] selected",
+        "/text \":\"",
+        "/expect go to dir:",
+        "/text \"destination\"",
+        "/key Enter",
+        "/absent go to dir:",
+        "/expect anchor.txt",
+        "/text \"p\"",
+        "/expect source.txt",
+        "/absent [1] selected"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "destination",
+          "sentinel.txt",
+          "trash"
+        ],
+        "destination": [
+          "anchor.txt",
+          "source.txt"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "destination/anchor.txt": "ZGVzdGluYXRpb24gYW5jaG9yCg==",
+        "destination/source.txt": "cmV2aWV3ZWQgc291cmNlCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "destination/anchor.txt": "ZGVzdGluYXRpb24gYW5jaG9yCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "id": "N05",
+      "kind": "normal",
+      "missing": [
+        "source.txt"
+      ],
+      "snapshot": false,
+      "title": "move a file into another directory"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"/source.txt\"",
+        "/expect /source.txt",
+        "/key Enter",
+        "/absent /source.txt",
+        "/text \"d\"",
+        "/expect [1] selected",
+        "/text \"p\"",
+        "/expect trash [1] items?",
+        "/text \"y\"",
+        "/absent trash [1] items?",
+        "/absent source.txt"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "sentinel.txt",
+          "trash"
+        ],
+        "trash": [
+          "source.txt"
+        ]
+      },
+      "expected": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "trash/source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "files": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "id": "N06",
+      "kind": "normal",
+      "missing": [
+        "source.txt"
+      ],
+      "snapshot": false,
+      "title": "confirm moving a selected file to the synthetic trash"
+    },
+    {
+      "actions": [
+        "/expect bundle/",
+        "/expect (1/6)",
+        "/text \"G\"",
+        "/expect (6/6)",
+        "/text \"g\"",
+        "/expect (1/6)",
+        "/text \"j\"",
+        "/expect (2/6)",
+        "/text \"y\"",
+        "/expect [1] selected",
+        "/text \":\"",
+        "/expect go to dir:",
+        "/text \"destination\"",
+        "/key Enter",
+        "/absent go to dir:",
+        "/expect anchor.txt",
+        "/text \"p\"",
+        "/expect bundle/",
+        "/absent [1] selected"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "bundle",
+          "destination",
+          "sentinel.txt",
+          "trash"
+        ],
+        "bundle": [
+          ".hidden",
+          "nested"
+        ],
+        "bundle/nested": [
+          "deep.txt"
+        ],
+        "destination": [
+          "anchor.txt",
+          "bundle"
+        ],
+        "destination/bundle": [
+          ".hidden",
+          "nested"
+        ],
+        "destination/bundle/nested": [
+          "deep.txt"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "bundle/.hidden": "aGlkZGVuIGJ5dGVzCg==",
+        "bundle/nested/deep.txt": "cmV2aWV3ZWQgc291cmNlCg==",
+        "destination/anchor.txt": "ZGVzdGluYXRpb24gYW5jaG9yCg==",
+        "destination/bundle/.hidden": "aGlkZGVuIGJ5dGVzCg==",
+        "destination/bundle/nested/deep.txt": "cmV2aWV3ZWQgc291cmNlCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "bundle/.hidden": "aGlkZGVuIGJ5dGVzCg==",
+        "bundle/nested/deep.txt": "cmV2aWV3ZWQgc291cmNlCg==",
+        "destination/anchor.txt": "ZGVzdGluYXRpb24gYW5jaG9yCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "N07",
+      "kind": "normal",
+      "missing": [],
+      "snapshot": false,
+      "title": "copy a directory tree with nested and hidden contents"
+    },
+    {
+      "actions": [
+        "/expect folder/",
+        "/expect (1/5)",
+        "/text \"G\"",
+        "/expect (5/5)",
+        "/text \"g\"",
+        "/expect (1/5)",
+        "/text \"j\"",
+        "/expect (2/5)",
+        "/text \"r\"",
+        "/expect rename folder:",
+        "/text \"renamed-folder\"",
+        "/key Enter",
+        "/absent rename folder:",
+        "/expect renamed-folder"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "renamed-folder",
+          "sentinel.txt",
+          "trash"
+        ],
+        "renamed-folder": [
+          "nested.txt"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "renamed-folder/nested.txt": "cmV2aWV3ZWQgc291cmNlCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "files": {
+        "folder/nested.txt": "cmV2aWV3ZWQgc291cmNlCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "N08",
+      "kind": "normal",
+      "missing": [
+        "folder"
+      ],
+      "snapshot": false,
+      "title": "rename a directory without losing its nested file"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"f\"",
+        "/expect mkfile:",
+        "/key Enter",
+        "/absent mkfile:"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "sentinel.txt",
+          "source.txt",
+          "trash"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "files": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "id": "E01",
+      "kind": "edge",
+      "missing": [
+        "cancelled.txt"
+      ],
+      "snapshot": false,
+      "title": "cancel file creation by submitting an empty name"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"f\"",
+        "/expect mkfile:",
+        "/text \"source.txt\"",
+        "/key Enter",
+        "/expect warn: 'source.txt' already exists.",
+        "/key Enter",
+        "/absent warn: 'source.txt' already exists."
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "sentinel.txt",
+          "source.txt",
+          "trash"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "files": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "id": "E02",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "refuse to recreate an existing file and preserve its bytes"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"/source.txt\"",
+        "/expect /source.txt",
+        "/key Enter",
+        "/absent /source.txt",
+        "/text \"r\"",
+        "/expect rename source.txt:",
+        "/text \"draft\"",
+        "/expect draft",
+        "/text \"\\u007f\\u007f\\u007f\\u007f\\u007f\"",
+        "/absent draft",
+        "/key Enter",
+        "/absent rename source.txt:"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "sentinel.txt",
+          "source.txt",
+          "trash"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "files": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "id": "E03",
+      "kind": "edge",
+      "missing": [
+        "draft"
+      ],
+      "snapshot": false,
+      "title": "erase a proposed rename and keep the original path"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"/source.txt\"",
+        "/expect /source.txt",
+        "/key Enter",
+        "/absent /source.txt",
+        "/text \"r\"",
+        "/expect rename source.txt:",
+        "/text \"taken.txt\"",
+        "/key Enter",
+        "/expect warn: 'taken.txt' already exists.",
+        "/key Enter",
+        "/absent warn: 'taken.txt' already exists."
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "sentinel.txt",
+          "source.txt",
+          "taken.txt",
+          "trash"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg==",
+        "taken.txt": "ZXhpc3RpbmcgZGVzdGluYXRpb24K"
+      },
+      "files": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg==",
+        "taken.txt": "ZXhpc3RpbmcgZGVzdGluYXRpb24K"
+      },
+      "id": "E04",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "reject a rename collision without changing either file"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"/source.txt\"",
+        "/expect /source.txt",
+        "/key Enter",
+        "/absent /source.txt",
+        "/text \"d\"",
+        "/expect [1] selected",
+        "/text \"p\"",
+        "/expect trash [1] items?",
+        "/key Enter",
+        "/absent trash [1] items?"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "sentinel.txt",
+          "source.txt",
+          "trash"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "files": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "id": "E05",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "decline trash by submitting no affirmative answer"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"f\"",
+        "/expect mkfile:",
+        "/text \"notes caf\\u00e9 \\u96ea.txt\"",
+        "/key Enter",
+        "/absent mkfile:",
+        "/expect notes caf\u00e9 \u96ea.txt"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "notes caf\u00e9 \u96ea.txt",
+          "sentinel.txt",
+          "source.txt",
+          "trash"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "notes caf\u00e9 \u96ea.txt": "",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "files": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "id": "E06",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "create a Unicode and spaced filename"
+    },
+    {
+      "actions": [
+        "/expect sentinel.txt",
+        "/text \".\"",
+        "/expect .hidden.txt",
+        "/text \"/.hidden.txt\"",
+        "/expect /.hidden.txt",
+        "/key Enter",
+        "/absent /.hidden.txt",
+        "/text \"r\"",
+        "/expect rename .hidden.txt:",
+        "/text \"visible.txt\"",
+        "/key Enter",
+        "/absent rename .hidden.txt:",
+        "/expect visible.txt"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "sentinel.txt",
+          "trash",
+          "visible.txt"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "visible.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "files": {
+        ".hidden.txt": "cmV2aWV3ZWQgc291cmNlCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      },
+      "id": "E07",
+      "kind": "edge",
+      "missing": [
+        ".hidden.txt"
+      ],
+      "snapshot": false,
+      "title": "show a hidden file then rename it with bytes preserved"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"/source.txt\"",
+        "/expect /source.txt",
+        "/key Enter",
+        "/absent /source.txt",
+        "/text \"y\"",
+        "/expect [1] selected",
+        "/text \":\"",
+        "/expect go to dir:",
+        "/text \"destination\"",
+        "/key Enter",
+        "/absent go to dir:",
+        "/expect anchor.txt",
+        "/text \"p\"",
+        "/expect source.txt",
+        "/absent [1] selected"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "destination",
+          "sentinel.txt",
+          "source.txt",
+          "trash"
+        ],
+        "destination": [
+          "anchor.txt",
+          "source.txt"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "destination/anchor.txt": "ZGVzdGluYXRpb24gYW5jaG9yCg==",
+        "destination/source.txt": "aGVhZAB0YWlsDQo=",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "aGVhZAB0YWlsDQo="
+      },
+      "files": {
+        "destination/anchor.txt": "ZGVzdGluYXRpb24gYW5jaG9yCg==",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "aGVhZAB0YWlsDQo="
+      },
+      "id": "E08",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "copy embedded binary NUL bytes without conversion"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"/source.txt\"",
+        "/expect /source.txt",
+        "/key Enter",
+        "/absent /source.txt",
+        "/text \"y\"",
+        "/expect [1] selected",
+        "/text \":\"",
+        "/expect go to dir:",
+        "/text \"destination\"",
+        "/key Enter",
+        "/absent go to dir:",
+        "/expect anchor.txt",
+        "/text \"p\"",
+        "/expect overwrite",
+        "/text \"n\"",
+        "/key Enter",
+        "/absent overwrite"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "destination",
+          "sentinel.txt",
+          "source.txt",
+          "trash"
+        ],
+        "destination": [
+          "anchor.txt",
+          "source.txt"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "destination/anchor.txt": "ZGVzdGluYXRpb24gYW5jaG9yCg==",
+        "destination/source.txt": "a2VlcCBvbGQgZGVzdGluYXRpb24K",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "files": {
+        "destination/anchor.txt": "ZGVzdGluYXRpb24gYW5jaG9yCg==",
+        "destination/source.txt": "a2VlcCBvbGQgZGVzdGluYXRpb24K",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "id": "E09",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "decline an interactive copy overwrite"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"/source.txt\"",
+        "/expect /source.txt",
+        "/key Enter",
+        "/absent /source.txt",
+        "/text \"m\"",
+        "/expect [1] selected",
+        "/text \"c\"",
+        "/absent [1] selected",
+        "/text \"pq\"",
+        "/exit 0"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "sentinel.txt",
+          "source.txt",
+          "trash"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "files": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "id": "E10",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "clear a marked operation before attempting paste"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/resize 40 12",
+        "/redraw",
+        "/text \"f\"",
+        "/expect mkfile:",
+        "/text \"narrow.txt\"",
+        "/key Enter",
+        "/absent mkfile:",
+        "/expect narrow.txt",
+        "/resize 100 28",
+        "/redraw",
+        "/text \"f\"",
+        "/expect mkfile:",
+        "/text \"wide.txt\"",
+        "/key Enter",
+        "/absent mkfile:",
+        "/expect wide.txt"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "narrow.txt",
+          "sentinel.txt",
+          "source.txt",
+          "trash",
+          "wide.txt"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "narrow.txt": "",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg==",
+        "wide.txt": ""
+      },
+      "files": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "id": "E11",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": true,
+      "title": "resize and create files in both viewports"
+    },
+    {
+      "actions": [
+        "/expect source.txt",
+        "/text \"/no-matching-item\"",
+        "/expect /no-matching-item",
+        "/absent source.txt",
+        "/key Enter",
+        "/absent /no-matching-item",
+        "/expect source.txt",
+        "/text \"f\"",
+        "/expect mkfile:",
+        "/text \"recovered.txt\"",
+        "/key Enter",
+        "/absent mkfile:",
+        "/expect recovered.txt"
+      ],
+      "args": [],
+      "entry_sets": {
+        ".": [
+          "recovered.txt",
+          "sentinel.txt",
+          "source.txt",
+          "trash"
+        ],
+        "trash": []
+      },
+      "expected": {
+        "recovered.txt": "",
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "files": {
+        "sentinel.txt": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo=",
+        "source.txt": "cmV2aWV3ZWQgc291cmNlCg=="
+      },
+      "id": "E12",
+      "kind": "edge",
+      "missing": [],
+      "snapshot": false,
+      "title": "recover from an empty search before creating another file"
+    }
+  ],
+  "prior_run": "39065770070",
+  "schema_version": 1,
+  "status": "reviewed explicit authoring revisions before re-execution; not qualification"
+}

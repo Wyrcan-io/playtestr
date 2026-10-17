@@ -42,7 +42,14 @@ def entry_sets(files,declared_dirs):
             for name in {'.',*dirs}}
 
 
-def rows():
+def rows(host=None):
+    host=host or ('macos' if platform.system()=='Darwin' else 'linux')
+    if host not in {'linux','macos'}:raise RuntimeError('undeclared native authoring profile')
+    def first_directory(real_entries):
+        count=real_entries+(2 if host=='macos' else 0)
+        controls=[expect('(1/'+str(count)+')'),text('G'),expect('('+str(count)+'/'+str(count)+')'),text('g'),expect('(1/'+str(count)+')')]
+        if host=='macos':controls += [text('j'),expect('(2/'+str(count)+')')]
+        return controls
     seed=b'reviewed source\n';anchor=b'destination anchor\n'
     def row(identity,title,files,actions,expected,missing=(),dirs=(),snapshot=False):
         expected={**expected,'sentinel.txt':SENTINEL}
@@ -69,11 +76,11 @@ def rows():
              absent('trash [1] items?'),absent('source.txt')],{'trash/source.txt':seed},missing=['source.txt']),
         row('N07','copy a directory tree with nested and hidden contents',
             {'bundle/nested/deep.txt':seed,'bundle/.hidden':b'hidden bytes\n','destination/anchor.txt':anchor},
-            [expect('bundle/'),text('g'),*marked('y'),*goto('destination'),expect('anchor.txt'),*paste('bundle/')],
+            [expect('bundle/'),*first_directory(4),*marked('y'),*goto('destination'),expect('anchor.txt'),*paste('bundle/')],
             {'bundle/nested/deep.txt':seed,'bundle/.hidden':b'hidden bytes\n','destination/anchor.txt':anchor,
              'destination/bundle/nested/deep.txt':seed,'destination/bundle/.hidden':b'hidden bytes\n'}),
         row('N08','rename a directory without losing its nested file',{'folder/nested.txt':seed},
-            [expect('folder/'),text('g'),*rename('folder','renamed-folder')],{'renamed-folder/nested.txt':seed},missing=['folder']),
+            [expect('folder/'),*first_directory(3),*rename('folder','renamed-folder')],{'renamed-folder/nested.txt':seed},missing=['folder']),
         row('E01','cancel file creation by submitting an empty name',{'source.txt':seed},
             [expect('source.txt'),text('f'),expect('mkfile:'),key('Enter'),absent('mkfile:')],{'source.txt':seed},missing=['cancelled.txt']),
         row('E02','refuse to recreate an existing file and preserve its bytes',{'source.txt':seed},
@@ -81,7 +88,7 @@ def rows():
              key('Enter'),absent("warn: 'source.txt' already exists.")],{'source.txt':seed}),
         row('E03','erase a proposed rename and keep the original path',{'source.txt':seed},
             [expect('source.txt'),*choose('source.txt'),text('r'),expect('rename source.txt:'),text('draft'),expect('draft'),
-             *[key('Backspace') for _ in range(5)],absent('draft'),key('Enter'),absent('rename source.txt:')],{'source.txt':seed},missing=['draft']),
+             text('\x7f'*5),absent('draft'),key('Enter'),absent('rename source.txt:')],{'source.txt':seed},missing=['draft']),
         row('E04','reject a rename collision without changing either file',{'source.txt':seed,'taken.txt':b'existing destination\n'},
             [expect('source.txt'),*choose('source.txt'),text('r'),expect('rename source.txt:'),text('taken.txt'),key('Enter'),
              expect("warn: 'taken.txt' already exists."),key('Enter'),absent("warn: 'taken.txt' already exists.")],
@@ -100,7 +107,7 @@ def rows():
              text('n'),key('Enter'),absent('overwrite')],
             {'source.txt':seed,'destination/anchor.txt':anchor,'destination/source.txt':b'keep old destination\n'}),
         row('E10','clear a marked operation before attempting paste',{'source.txt':seed},
-            [expect('source.txt'),*choose('source.txt'),*marked('m'),text('c'),absent('[1] selected'),text('p')],{'source.txt':seed}),
+            [expect('source.txt'),*choose('source.txt'),*marked('m'),text('c'),absent('[1] selected'),text('pq'),'/exit 0'],{'source.txt':seed}),
         row('E11','resize and create files in both viewports',{'source.txt':seed},
             [expect('source.txt'),'/resize 40 12','/redraw',*create('narrow.txt'),'/resize 100 28','/redraw',*create('wide.txt')],
             {'source.txt':seed,'narrow.txt':b'','wide.txt':b''},snapshot=True),
