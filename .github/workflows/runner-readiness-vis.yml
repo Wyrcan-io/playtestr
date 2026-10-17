@@ -76,6 +76,10 @@ jobs:
         if: inputs.phase == 'author'
         run: |
           python3 scripts/acceptance/readiness_check.py --label native-vis-twenty-public-recordings --timeout 1200 -- python3 scripts/acceptance/readiness_vis_cases.py
+      - name: Freeze all reviewed contracts after the complete ordinary suite
+        if: inputs.phase == 'author'
+        run: |
+          python3 scripts/acceptance/readiness_check.py --label native-vis-reviewed-twenty-freeze --timeout 900 -- python3 scripts/acceptance/readiness_vis_freeze.py
       - name: Verify pinned source restores and owned runtime termination
         if: always() && steps.prepare.outcome == 'success'
         run: |

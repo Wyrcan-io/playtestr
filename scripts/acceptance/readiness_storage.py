@@ -45,7 +45,7 @@ def main():
     project_bytes=raw['top_level_bytes'].get(args.project,0)
     native_bytes=0;native_runs=[]
     for run in (RAW/'native').iterdir():
-        if run.is_dir() and any(run.glob('*/runner-readiness-ten-project-pass/'+args.project+'-native-runner.json')):
+        if run.is_dir() and (any(run.glob('*/runner-readiness-ten-project-pass/'+args.project+'-native-runner.json')) or any(run.glob('*/'+args.project+'-native-runner.json'))):
             native_bytes+=measure(run)['total_bytes'];native_runs.append(run.name)
     project_bytes+=native_bytes
     record=dict(raw=raw,curated=curated,retained_bytes=retained,selected_project=args.project,
