@@ -571,3 +571,22 @@ logical-byte observations before that receipt, not exact peaks or quotas. The
 first strict observation rejects a retained synthetic target-junction before
 following it (fa9eeb0e657245a8978cb13f6b475ad7). The corrected inventory records
 link metadata and skips linked traversal; it grants no link deletion authority.
+
+Earlier-project requalification one complete: Plop 39053462427 succeeds all twenty
+scenarios, three real source-fault replicas/restorations, public maintenance and
+verified source removal on native Linux amd64/macOS arm64 at e7b5f29. Independent
+event/source/spec/binary/state/restore verification passes
+cad1378a4ae24110beab4de0ae28918e. Curated plop/requalification-e7b5f29.json records
+this additional source qualification; it adds no project/cell credit. Plop
+expanded/local evidence observation before this collection is 16,221,050 bytes;
+the new compressed packets are 1,782,332 and 1,794,866 bytes. Poetry next, then
+Bundler; no local target active.
+
+Immutable numbered compaction now supports explicit generations without
+overwriting earlier archives. Real Windows checks reject the wrong generation
+and changed expanded bytes, then remove only the matched current packet;
+binary/Unicode restores and refused archive overwrite also pass. Full 29-control
+local harness: 489bd781f1da4b0eb2bf6ff9d287813a. Native requalification pending.
+Repeated native source archives are omitted from new Plop/Poetry uploads when
+the verified canonical source is already retained locally; selected restores,
+complete source hash indexes and acquisition identities remain in each packet.

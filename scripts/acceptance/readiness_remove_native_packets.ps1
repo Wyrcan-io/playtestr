@@ -1,8 +1,9 @@
-param([Parameter(Mandatory=$true)][ValidatePattern('^[a-z][a-z0-9-]{0,63}$')][string]$Project)
+param([Parameter(Mandatory=$true)][ValidatePattern('^[a-z][a-z0-9-]{0,63}$')][string]$Project,
+    [ValidateRange(1,1000)][int]$Generation=1)
 $ErrorActionPreference='Stop'
 $workspace=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
 $campaign=Join-Path $workspace 'artifacts\runner-readiness-ten-project-pass'
-$retained=Join-Path $campaign ($Project+'\retained-native-v1')
+$retained=Join-Path $campaign ($Project+'\retained-native-v'+$Generation)
 foreach($path in @((Join-Path $workspace 'artifacts'),$campaign,(Join-Path $campaign 'native'),(Join-Path $campaign $Project),$retained)) {
     if ((Get-Item -LiteralPath $path -Force).Attributes -band [IO.FileAttributes]::ReparsePoint) { throw 'Linked packet removal ancestor' }
 }
@@ -10,6 +11,8 @@ $indexPath=Join-Path $retained 'index.json'
 $verified=Get-Content -LiteralPath (Join-Path $retained 'verified.json') -Raw | ConvertFrom-Json
 if ((Get-FileHash -LiteralPath $indexPath -Algorithm SHA256).Hash.ToLowerInvariant() -ne $verified.index_sha256) { throw 'Compaction index changed' }
 $index=Get-Content -LiteralPath $indexPath -Raw | ConvertFrom-Json
+if (($Generation -ne 1 -and $null -eq $index.generation) -or
+    ($null -ne $index.generation -and $index.generation -ne $Generation)) { throw 'Compaction generation mismatch' }
 if ($index.project -ne $Project -or (Get-FileHash -LiteralPath (Join-Path $retained 'packets.tar.gz') -Algorithm SHA256).Hash.ToLowerInvariant() -ne $index.archive_sha256) { throw 'Compaction ownership or archive changed' }
 $actual=@{};$targets=@()
 foreach($run in $index.runs) {

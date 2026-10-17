@@ -131,5 +131,6 @@ jobs:
             artifacts/runner-readiness-ten-project-pass/poetry-native-runner.json
             artifacts/runner-readiness-ten-project-pass/poetry-runtime-baseline.json
             artifacts/runner-readiness-ten-project-pass/toolchain/sdk.json
+            !artifacts/runner-readiness-ten-project-pass/poetry/retained-source/source.tar.gz
           if-no-files-found: error
           retention-days: 14

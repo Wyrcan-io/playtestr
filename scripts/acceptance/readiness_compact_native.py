@@ -56,13 +56,13 @@ def verify(archive,files):
             if total>256*1024**2:raise ValueError('archive stream bound')
 
 
-def compact(root,project,runs,max_file_bytes=4*1024**2):
-    if not re.fullmatch(r'[a-z][a-z0-9-]{0,63}',project) or len(set(runs))!=len(runs):raise ValueError('invalid compaction scope')
+def compact(root,project,runs,max_file_bytes=4*1024**2,*,generation=1):
+    if not re.fullmatch(r'[a-z][a-z0-9-]{0,63}',project) or len(set(runs))!=len(runs) or not 1<=generation<=1000:raise ValueError('invalid compaction scope')
     for ancestor in [root,root/project]:
         if ancestor.is_symlink() or getattr(ancestor,'is_junction',lambda:False)():raise ValueError('linked compaction destination')
     (root/project).resolve().relative_to(root.resolve())
     files,total=inventory(root,runs,max_file_bytes)
-    output=root/project/'retained-native-v1';output.mkdir(exist_ok=False)
+    output=root/project/('retained-native-v'+str(generation));output.mkdir(exist_ok=False)
     archive=output/'packets.tar.gz'
     with archive.open('xb') as destination:
         with gzip.GzipFile(filename='',mode='wb',fileobj=destination,mtime=0) as compressed:
@@ -88,7 +88,7 @@ def compact(root,project,runs,max_file_bytes=4*1024**2):
                 while block:=stream.read(65536):destination.write(block)
             if sha256(target)!=files[relative]['sha256']:raise ValueError('selected restore mismatch')
     index=output/'index.json'
-    immutable_json(index,dict(schema_version=1,project=project,runs=runs,files=files,expanded_bytes=total,
+    immutable_json(index,dict(schema_version=1,project=project,generation=generation,runs=runs,files=files,expanded_bytes=total,
         archive_sha256=sha256(archive),archive_bytes=archive.stat().st_size,selected_restore=selected,max_file_bytes=max_file_bytes,
         scope='All selected packet payloads retained; no dictionary or remote-only reference required.'))
     immutable_json(output/'verified.json',dict(index_sha256=sha256(index),archive_sha256=sha256(archive),
@@ -100,7 +100,8 @@ def compact(root,project,runs,max_file_bytes=4*1024**2):
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--project',required=True);parser.add_argument('--runs',nargs='+',required=True)
     parser.add_argument('--max-file-mib',type=int,choices=[4,16],default=4)
-    args=parser.parse_args();compact(RAW,args.project,args.runs,args.max_file_mib*1024**2)
+    parser.add_argument('--generation',type=int,choices=range(1,1001),default=1)
+    args=parser.parse_args();compact(RAW,args.project,args.runs,args.max_file_mib*1024**2,generation=args.generation)
 
 
 if __name__=='__main__':main()

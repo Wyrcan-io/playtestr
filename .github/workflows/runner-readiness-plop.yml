@@ -130,5 +130,6 @@ jobs:
             artifacts/runner-readiness-ten-project-pass/plop/
             artifacts/runner-readiness-ten-project-pass/plop-native-runner.json
             artifacts/runner-readiness-ten-project-pass/toolchain/sdk.json
+            !artifacts/runner-readiness-ten-project-pass/plop/retained-source/source.tar.gz
           if-no-files-found: error
           retention-days: 14

@@ -28,6 +28,11 @@ class NativeCompactionTests(unittest.TestCase):
             value=packet/'synthetic caf\u00e9.json';value.write_bytes(b'\x00exact\r\nbytes\xff')
             output=compact(root,'fixture',['123']);files,_=inventory(root,['123'])
             self.assertEqual((output/'selected-restore/native/123/playtestr-Linux'/value.name).read_bytes(),value.read_bytes())
+            archive_bytes=(output/'packets.tar.gz').read_bytes()
+            with self.assertRaises(FileExistsError):compact(root,'fixture',['123'])
+            second=compact(root,'fixture',['123'],generation=2)
+            self.assertEqual((output/'packets.tar.gz').read_bytes(),archive_bytes)
+            self.assertEqual((second/'selected-restore/native/123/playtestr-Linux'/value.name).read_bytes(),value.read_bytes())
             changed=output/'changed.tar.gz'
             with gzip.open(changed,'wb') as stream:stream.write(b'not the retained tar payload')
             with self.assertRaises(Exception):verify(changed,files)
@@ -41,9 +46,11 @@ class NativeCompactionTests(unittest.TestCase):
             root.mkdir();owned.append(root)
             packet.mkdir(parents=True);owned.append(packet)
             value=packet/'owned.json';original=b'{"owned":true}\n';value.write_bytes(original)
-            output=compact(RAW,project,[run])
+            output=compact(RAW,project,[run],generation=2)
             command=['powershell.exe','-NoProfile','-ExecutionPolicy','Bypass','-File',
-                str(ROOT/'scripts/acceptance/readiness_remove_native_packets.ps1'),'-Project',project]
+                str(ROOT/'scripts/acceptance/readiness_remove_native_packets.ps1'),'-Project',project,'-Generation','2']
+            wrong=subprocess.run(command[:-1]+['1'],cwd=ROOT,capture_output=True,timeout=20)
+            self.assertNotEqual(wrong.returncode,0);self.assertTrue(value.is_file())
             value.write_bytes(b'changed bytes')
             refused=subprocess.run(command,cwd=ROOT,capture_output=True,timeout=20)
             self.assertNotEqual(refused.returncode,0);self.assertTrue(value.is_file())
