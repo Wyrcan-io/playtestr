@@ -1,0 +1,37 @@
+{
+  "execution": "Actual interpreted upstream Bash script; syntax/version validation is not a compiled rebuild. F02 changes only interactive q, preserving -v.",
+  "faults": [
+    {
+      "after": "    local file_name=\"REGRESSION ${list[$1]##*/}\"",
+      "before": "    local file_name=${list[$1]##*/}",
+      "category": "snapshot_mismatch",
+      "held_out": false,
+      "id": "F01",
+      "path": "fff",
+      "spec": "N01.json"
+    },
+    {
+      "after": "            exit 7\n        ;;\n    esac\n}",
+      "before": "            exit\n        ;;\n    esac\n}",
+      "category": "unexpected_exit",
+      "held_out": false,
+      "id": "F02",
+      "path": "fff",
+      "spec": "N02.json"
+    },
+    {
+      "after": "                    printf '\\0' > \"$cmd_reply\"",
+      "before": "                    : > \"$cmd_reply\"",
+      "category": "state_assertion_failure",
+      "held_out": true,
+      "id": "F03",
+      "path": "fff",
+      "spec": "N01.json"
+    }
+  ],
+  "freeze_commit": "fc3dacd",
+  "frozen_contract_sha256": "6bdfbe77f018808be728e86079fcb54367e576cb8f48cb0fc36c3bd507afe744",
+  "independent_freeze_review": "2e50f51a269c4f88bc062c9eb2bac794",
+  "original_heldout": "First Linux F03 execution only; all macOS executions and later runs are replicas. Retain any miss or early failure.",
+  "selected_after_native_freeze_run": "39070122758"
+}

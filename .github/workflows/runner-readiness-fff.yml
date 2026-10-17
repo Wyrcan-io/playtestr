@@ -13,8 +13,12 @@ on:
       phase:
         type: choice
         default: first-use
-        options: [first-use, author, diagnose]
+        options: [first-use, author, diagnose, qualify]
         description: First useful route or twenty declared public recordings
+      original_faults:
+        type: boolean
+        default: false
+        description: Consume original Linux F03 once after committed freeze
 permissions:
   contents: read
 env:
@@ -84,6 +88,20 @@ jobs:
         if: inputs.phase == 'diagnose'
         run: |
           python3 scripts/acceptance/readiness_check.py --label native-fff-input-reduction --timeout 600 -- python3 scripts/acceptance/readiness_fff_input_diagnose.py
+      - name: Execute exact frozen native profile through the public suite
+        if: inputs.phase == 'qualify'
+        run: |
+          python3 scripts/acceptance/readiness_check.py --label native-fff-frozen-suite --timeout 900 -- python3 scripts/acceptance/readiness_fff_native_contracts.py
+      - name: Actual interpreted source faults and exact restorations
+        if: inputs.phase == 'qualify'
+        run: |
+          original=()
+          if [ "$RUNNER_OS" = Linux ] && [ '${{ inputs.original_faults }}' = true ]; then original=(--original-heldout); fi
+          python3 scripts/acceptance/readiness_check.py --label native-fff-real-source-faults --timeout 900 -- python3 scripts/acceptance/readiness_fff_faults.py "${original[@]}"
+      - name: Public selected maintenance, suffix and relocated replay
+        if: inputs.phase == 'qualify'
+        run: |
+          python3 scripts/acceptance/readiness_check.py --label native-fff-public-maintenance --timeout 900 -- python3 scripts/acceptance/readiness_fff_maintenance.py --package artifacts/runner-readiness-ten-project-pass/fff/host-contracts
       - name: Verify pinned source restores and owned runtime termination
         if: always() && steps.prepare.outcome == 'success'
         run: |

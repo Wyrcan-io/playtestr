@@ -1,0 +1,120 @@
+"""Actual interpreted source faults against already frozen native contracts."""
+import argparse
+import asyncio
+import difflib
+import hashlib
+import json
+import platform
+from pathlib import Path
+import uuid
+
+from adversarial_process import execute
+from readiness_fff_cases import environment
+from readiness_evidence import Campaign, RAW, ROOT, immutable_json, sha256
+
+
+def load(path):
+    return json.loads(path.read_text(encoding='utf-8-sig'))
+
+
+async def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--original-heldout', action='store_true')
+    args = parser.parse_args()
+    if platform.system() not in {'Linux', 'Darwin'}:
+        raise RuntimeError('undeclared fff native host')
+    if args.original_heldout and platform.system() != 'Linux':
+        raise RuntimeError('original heldout designated Linux only')
+    docs = ROOT/'docs/validation/runner-readiness-ten-project-pass/fff'
+    profile = docs/'native-profiles/macos' if platform.system() == 'Darwin' else docs
+    frozen = load(profile/'reviewed-contract-freeze.json')
+    package = RAW/'fff/host-contracts'
+    for name, digest in frozen['all_package_inputs'].items():
+        if sha256(package/name) != digest:
+            raise RuntimeError('fault run changed frozen contract or fixture')
+    selection = load(docs/'fault-selection.json')
+    if selection['frozen_contract_sha256'] != sha256(docs/'reviewed-contract-freeze.json'):
+        raise RuntimeError('source selection belongs to another freeze')
+    root = RAW/'fff/faults'/uuid.uuid4().hex
+    root.mkdir(parents=True)
+    faults = [{**f, 'held_out': bool(args.original_heldout and f['id'] == 'F03')}
+              for f in selection['faults']]
+    immutable_json(root/'selected-faults.json', dict(faults=faults,
+        frozen_contract_sha256=selection['frozen_contract_sha256'],
+        native_freeze_sha256=sha256(profile/'reviewed-contract-freeze.json'),
+        execution='Actual interpreted Bash source; no compilation or installation.',
+        original_heldout=args.original_heldout))
+    active = RAW/'active/fff'
+    source = active/'src/fff'
+    runtime = load(active/'runtime.json')
+    bash = runtime['bash_path']
+    if sha256(Path(bash)) != runtime['bash_sha256']:
+        raise RuntimeError('installed interpreter changed')
+    runner = RAW/'bin/playtestr'
+
+    async def validate(label):
+        syntax = await execute([bash, '--noprofile', '--norc', '-n', source], 'fff', label+'-syntax',
+            env=environment(), timeout=30, campaign=Campaign())
+        version = await execute([bash, '--noprofile', '--norc', source, '-v'], 'fff', label+'-version',
+            env=environment(), timeout=30, campaign=Campaign())
+        if version['output'].strip() != 'fff 2.2':
+            raise RuntimeError('source fault altered version route')
+        return dict(syntax_attempt=syntax['id'], version_attempt=version['id'],
+                    script_sha256=sha256(source), interpreter_sha256=runtime['bash_sha256'])
+
+    async def run(fault, phase, expected):
+        report = root/(fault['id']+'-'+phase+'.json')
+        attempt = await execute([runner, 'test', '--report', report.relative_to(ROOT),
+            '--artifacts-dir', report.with_suffix('').relative_to(ROOT),
+            (package/fault['spec']).relative_to(ROOT)], 'fff', fault['id']+'-'+phase,
+            env=environment(), expected=expected, timeout=150, campaign=Campaign())
+        outcome = load(report)['results'][0]
+        if not outcome['cleanup']['confirmed_exited'] or not outcome['workspace']['cleaned']:
+            raise RuntimeError('fault cleanup unconfirmed')
+        return attempt, outcome
+
+    receipts = []
+    for fault in faults:
+        original = source.read_bytes()
+        before, after = fault['before'].encode(), fault['after'].encode()
+        if original.count(before) != 1:
+            raise RuntimeError('ambiguous upstream source mutation')
+        mutated = original.replace(before, after)
+        patch = ''.join(difflib.unified_diff(original.decode().splitlines(True),
+            mutated.decode().splitlines(True), fromfile='a/fff', tofile='b/fff'))
+        (root/(fault['id']+'.patch')).write_text(patch, encoding='utf-8', newline='\n')
+        baseline, _ = await run(fault, 'baseline', 0)
+        try:
+            source.write_bytes(mutated)
+            mutation_validation = await validate(fault['id']+'-mutated')
+            mutation, outcome = await run(fault, 'mutated', 1)
+            if outcome['status'] != 'failed' or outcome['failure']['category'] != fault['category']:
+                raise RuntimeError('wrong real fault diagnosis: '+json.dumps(outcome.get('failure')))
+            if fault['id'] == 'F03':
+                failed = next(i for i, step in enumerate(outcome['steps']) if step['status'] == 'failed')
+                prior = outcome['steps'][:failed]
+                if not all(s['status'] == 'passed' for s in prior) or not {'snapshot', 'exit'} <= {s['action'] for s in prior}:
+                    raise RuntimeError('F03 lacks prior passing screen and exact exit')
+                state = outcome['steps'][failed]['state']
+                if state['invocation_id'] != outcome['invocation_id'] or state['workspace_id'] != outcome['workspace']['id']:
+                    raise RuntimeError('F03 cross-execution state')
+        finally:
+            source.write_bytes(original)
+            restored_validation = await validate(fault['id']+'-restored')
+        if source.read_bytes() != original:
+            raise RuntimeError('source restoration changed bytes')
+        restored, _ = await run(fault, 'restored', 0)
+        receipt = dict(**fault, baseline_attempt=baseline['id'], mutation_attempt=mutation['id'],
+            restored_attempt=restored['id'], original_source_sha256=sha256(source),
+            mutated_source_sha256=hashlib.sha256(mutated).hexdigest(), restored_exact=True,
+            mutation_validation=mutation_validation, restored_validation=restored_validation,
+            same_execution_state_rejection=fault['id'] == 'F03')
+        immutable_json(root/(fault['id']+'-receipt.json'), receipt)
+        receipts.append(receipt)
+        print(fault['id'], 'actual interpreted source fault detected and restored', flush=True)
+    immutable_json(root/'summary.json', dict(faults=receipts, runner_sha256=sha256(runner),
+        interpreter_sha256=runtime['bash_sha256'], source_execution='Actual pinned upstream Bash script'))
+
+
+if __name__ == '__main__':
+    asyncio.run(main())
