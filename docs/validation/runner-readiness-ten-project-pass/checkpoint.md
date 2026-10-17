@@ -360,3 +360,12 @@ in new-control-development-evidence-revision-2.json, parent
 Latest storage observation: campaign 1,531,872,079 bytes, active Bundler 358,108,129,
 local Bundler raw 29,153,583, curated 835,776; latest tiny packets follow this
 observation. Two projects/four development cells admitted, Bundler still active.
+
+Production source f470cd99aef89e080cc8455e4f8ad4715ecd12c2 is committed/pushed;
+full native core 39010459162 is running. Focused local race passes
+a52508b8552d457e8b21b5a8319a194f. The unchanged Ruby contract now passes with
+both controlled ancestor attributes under aaa7b5ab2f9e4c55ab7412ed1e554bf0,
+and the complete unchanged Bundler twenty-case local suite passes under
+89c1c71fc8f1441e85606910beb5a79c (packet local-suite/2ec1d844c19548079504cef44922a1b1).
+Next native batch pins this production source, runs the Linux project journey
+and Windows diagnosis without changing the original twenty scenario contracts.

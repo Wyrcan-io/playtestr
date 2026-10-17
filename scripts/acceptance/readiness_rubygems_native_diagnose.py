@@ -33,7 +33,7 @@ async def main():
         try:
             await execute([runner,'test','--keep-workspace-on-failure','--report',report.relative_to(ROOT),
                 '--artifacts-dir',(retained/'evidence').relative_to(ROOT),spec.relative_to(ROOT)],
-                'rubygems','native-exact-contract-retained-root',expected=1,env=environment(),timeout=130,campaign=Campaign())
+                'rubygems','native-exact-contract-retained-root',expected=1,timeout=130,campaign=Campaign())
         except RuntimeError:
             if json.loads(report.read_text())['summary']['passed']!=1:raise
         result=json.loads(report.read_text())['results'][0]
@@ -41,7 +41,8 @@ async def main():
             from pathlib import Path
             path=Path(result['workspace']['retained_path']);path.resolve().relative_to((RAW/'tmp').resolve())
             fixture=path/'fixture'
-            names=sorted(p.name for p in fixture.iterdir())
+            from itertools import islice
+            names=sorted(p.name for p in islice(fixture.iterdir(),257))
             if len(names)>256:raise RuntimeError('diagnostic entry bound')
             immutable_json(retained/'root-names.json',dict(report_sha256=sha256(report),invocation=result['invocation_id'],names=names))
             await execute(['powershell.exe','-NoProfile','-ExecutionPolicy','Bypass','-File',

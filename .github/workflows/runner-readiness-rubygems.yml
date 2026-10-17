@@ -15,9 +15,9 @@ on:
       diagnose:
         type: boolean
         default: false
-        description: Unsaved public failure diagnosis only
+        description: Windows diagnosis; Linux uses ordinary qualification
 env:
-  SOURCE_REVISION: 'bb09d7d0b53118507c236f8fb47614c009e12240'
+  SOURCE_REVISION: 'f470cd99aef89e080cc8455e4f8ad4715ecd12c2'
   PYTHONDONTWRITEBYTECODE: '1'
   PYTHONIOENCODING: utf-8
   GOTOOLCHAIN: local
@@ -48,7 +48,7 @@ jobs:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
           repository: Wyrcan-io/playtestr
-          ref: 'bb09d7d0b53118507c236f8fb47614c009e12240'
+          ref: 'f470cd99aef89e080cc8455e4f8ad4715ecd12c2'
           path: .playtestr-tooling
           persist-credentials: false
           set-safe-directory: false
@@ -66,7 +66,7 @@ jobs:
       - name: Build exact candidate runner
         id: setup
         env:
-          SOURCE_REVISION: 'bb09d7d0b53118507c236f8fb47614c009e12240'
+          SOURCE_REVISION: 'f470cd99aef89e080cc8455e4f8ad4715ecd12c2'
         run: |
           export PATH="$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass/toolchain/go/bin:$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass/active/rubygems/src/exe:$PATH"
           mkdir -p .playtestr-bin
@@ -91,12 +91,12 @@ jobs:
           python .playtestr-tooling/scripts/ci/context_manifest.py --selection artifacts/playtestr/selected.txt --runner "$PLAYTESTR_BIN" --output artifacts/playtestr/context.json
       - name: Test recorded interactions
         id: tests
-        if: ${{ !inputs.diagnose }}
+        if: ${{ !inputs.diagnose || runner.os != 'Windows' }}
         run: |
           export PATH="$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass/toolchain/go/bin:$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass/active/rubygems/src/exe:$PATH"
           python scripts/acceptance/readiness_public_suite.py --project rubygems --selection artifacts/playtestr/selected.txt -- "$PLAYTESTR_BIN" test --artifacts-dir artifacts/playtestr/evidence --report artifacts/playtestr/results.json 'artifacts/runner-readiness-ten-project-pass/rubygems/host-contracts'
       - name: Public unsaved native failure diagnosis
-        if: inputs.diagnose
+        if: inputs.diagnose && runner.os == 'Windows'
         run: |
           python scripts/acceptance/readiness_check.py --label native-bundler-unsaved-diagnosis --timeout 240 -- python scripts/acceptance/readiness_rubygems_native_diagnose.py
       - name: Render offline evidence
@@ -106,7 +106,7 @@ jobs:
           export PATH="$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass/toolchain/go/bin:$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass/active/rubygems/src/exe:$PATH"
           "$PLAYTESTR_BIN" report --input artifacts/playtestr/results.json --evidence-root artifacts/playtestr --output artifacts/playtestr/report.html
       - name: Accessible outcome summary
-        if: always() && !inputs.diagnose
+        if: always() && (!inputs.diagnose || runner.os != 'Windows')
         env:
           SETUP_OUTCOME: ${{ steps.setup.outcome }}
           PREPARE_OUTCOME: ${{ steps.prepare.outcome }}
@@ -122,7 +122,7 @@ jobs:
             exit 1
           fi
       - name: Real source faults and public maintenance
-        if: always() && steps.context.outcome == 'success' && !inputs.diagnose
+        if: always() && steps.context.outcome == 'success' && (!inputs.diagnose || runner.os != 'Windows')
         run: |
           export PATH="$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass/toolchain/go/bin:$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass/active/rubygems/src/exe:$PATH"
           python scripts/acceptance/readiness_check.py --label native-rubygems-faults-parent --timeout 900 -- python scripts/acceptance/readiness_rubygems_faults.py --package artifacts/runner-readiness-ten-project-pass/rubygems/host-contracts

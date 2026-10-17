@@ -186,3 +186,13 @@ inspection, then verifies marker identity and removes only that owned temporary
 workspace through PowerShell. Its untouched original report remains retained
 with a separate removal receipt. Two minimal real Ruby input contracts compare
 gets and Readline Ctrl-C handling. No delay padding or qualification credit.
+
+R3-08 repair native series: core source f470cd99aef89e080cc8455e4f8ad4715ecd12c2
+has the ordinary/full-local and focused-before/after regression evidence. Core
+run 39010459162 uses its existing three-host bounds. After the new lightweight
+harness finishes, dispatch one two-host Bundler batch (25 minutes per job,
+forecast 5-8 minutes Linux, 3-5 Windows). Linux runs its complete ordinary,
+source-fault and maintenance journey; Windows runs reduced diagnosis and exact
+original-contract retention with the ordinary workflow's inherited environment.
+This separates a measured PATH/environment discrepancy from the inherited
+interrupt repair. At most two core plus two project jobs run concurrently.
