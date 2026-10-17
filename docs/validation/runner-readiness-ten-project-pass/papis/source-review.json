@@ -1,0 +1,51 @@
+{
+  "archive_sha256": "779244bd1231195ad95f744816175ad09a96ad0dc8d23122404656df0b80da3e",
+  "build": "Ordinary hatchling editable install in owned venv. Try wheel-only dependencies first; no unreviewed source dependency hook is authorized by this review.",
+  "excluded": [
+    "remote document/DOI/arxiv imports",
+    "serve/web UI",
+    "editor/opener/browser commands",
+    "Git writes or hooks",
+    "user config plugins",
+    "outside-root library access"
+  ],
+  "first_use_plan": "Three public Playtestr commands: version, record+explicit review+replay+save, ordinary test. Select nondefault synthetic book and export its folder with exact saved bytes. Counts measured from actual controls, no handwritten spec.",
+  "forecast": {
+    "active_stop_bytes": 805306368,
+    "build_timeout_seconds": 1200,
+    "hosted_parallel_jobs": 2,
+    "project_retained_stop_bytes": 67108864,
+    "scenario_timeout_seconds": 180
+  },
+  "hosts": [
+    "linux-amd64",
+    "windows-amd64"
+  ],
+  "license": "GPL-3.0-or-later; notices retained, no upstream license changes",
+  "owned_paths": "venv, wheels, cache, home, all temp, config and synthetic libraries under this campaign. Runtime uses fresh managed home/temp and explicit fixture config.",
+  "pin": "c744b5efe9b307b9664f3e96c154cb620e140a8f",
+  "primary_source": "https://github.com/papis/papis/tree/c744b5efe9b307b9664f3e96c154cb620e140a8f",
+  "project": "papis/papis",
+  "reviewed_inputs": {
+    "LICENSE": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+    "README.rst": "2e19bcd2fd5006459bb1831f4d454ffc06263ff0068b45820097741dabde8108",
+    "papis/commands/default.py": "d9ec4288f656cdd6bd8e4a0e5eb8d8255a5b8db9093a7a5eccdcd7573916a632",
+    "papis/commands/export.py": "01f76ba506e62edb748a2467e9b108fd07842b96066e5a874dbde2eb64512d37",
+    "papis/commands/rm.py": "e02b8e337e01a780f5ae09646c1043d307f83ca8faf08406b4bfed8f6d296df9",
+    "papis/commands/tag.py": "7b5399326b7b3ee0b21cc27e39b66daaf75508ec75b4f474b7a77cee49c9eb5e",
+    "papis/commands/update.py": "48673ca854d191277658ee9d0301b8111f9d20adeeea10fe7acf216be86754d5",
+    "papis/config.py": "c606e10558e1b6ee43c7a37412826f7d7d27d07e150b2bda4ec66212b623d7bd",
+    "papis/database/cache.py": "9e462fdd31a1c2fa490d73511c65f3f81501a930d3de6994742f387ead166136",
+    "papis/exporters/bibtex.py": "22d5031f1432544694ddf8107df8e20e99b078c59ae07ade5fce4c40f9023270",
+    "papis/exporters/csv.py": "16b1c83565df82c5c4517dc577c0b298ec1fe71a9e24f030ec8e35d051fcb5dd",
+    "papis/pick/prompt_toolkit.py": "52048fd31975d9797df3411d160f48313202b4ee567d9e00b0afbf8f95590f02",
+    "papis/tui/__init__.py": "75f1392f2b41cacc495f346231c0744f72bf0a1ca4c80a91589f667881019005",
+    "papis/tui/picker/__init__.py": "1bb9f984c57b1d1a4d031761c994f1ec3bff6b20d0a159305caf30c613a20a1c",
+    "pyproject.toml": "96b46647cd614acdbe018c6c6bb8e2a91aaceb14fb59308517fe3419f63335e7"
+  },
+  "schema_version": 1,
+  "source_identity_before_regression": "bbd73545c9e043efb14c5d1f47874038",
+  "status": "source-reviewed only; not yet built or qualified",
+  "trust": "Trusted pinned target, PTY is not a sandbox.",
+  "upstream_host_evidence": "pyproject classifiers: OS Independent, POSIX, Microsoft; Python >=3.10"
+}

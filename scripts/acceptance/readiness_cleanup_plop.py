@@ -48,7 +48,7 @@ async def runtime_inventory(project,label):
     birth=await unix_process_inventory()
     selected={};scope=[]
     ancestors=set();ancestor=os.getpid()
-    if project=='fff':
+    if project in {'fff','papis'}:
         while ancestor in birth and ancestor not in ancestors:
             if len(ancestors)>=64:raise RuntimeError('process ancestor inventory bound')
             ancestors.add(ancestor);ancestor=birth[ancestor][0]
@@ -62,15 +62,15 @@ async def runtime_inventory(project,label):
                        name in {'bash','sh','fff','cp','mv','rm','mkdir','stty','file','chmod','ln'} if project=='fff' else name.startswith('python'))
         if len(fields)==2 and runtime_match:
             pid=int(fields[0])
-            if project=='fff' and pid in ancestors:continue
+            if project in {'fff','papis'} and pid in ancestors:continue
             if project=='poetry' and pid in {os.getpid(),os.getppid()}:continue
             if pid not in birth:continue
-            if project=='fff':
+            if project in {'fff','papis'}:
                 owned=await owned_runtime_command(pid,birth[pid])
                 scope.append(dict(pid=pid,birth=birth[pid][1],owned_campaign_command=owned))
                 if not owned:continue
             selected[str(pid)]=list(birth[pid])
-    if project=='fff':
+    if project in {'fff','papis'}:
         immutable_json(RAW/project/'runtime-inventories'/(uuid.uuid4().hex+'.json'),
             dict(schema_version=1,label=label,checked_at_utc=datetime.now(timezone.utc).isoformat(),
                  owned_root=str(RAW.resolve()),observations=scope,command_values_persisted=False,
@@ -86,7 +86,7 @@ async def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--prepare-only',action='store_true')
     parser.add_argument('--source-only',action='store_true',help='Retain an acquired, never-built local Windows Vis/fff source tree without inventing runtime/build receipts')
-    parser.add_argument('--project',choices=['plop','poetry','rubygems','edit','vis','fff'],default='plop')
+    parser.add_argument('--project',choices=['plop','poetry','rubygems','edit','vis','fff','papis'],default='plop')
     args=parser.parse_args()
     if os.name=='nt' and not args.prepare_only:
         raise RuntimeError('use --prepare-only then the checked native PowerShell removal route on Windows')
@@ -100,7 +100,7 @@ async def main():
     if active.is_symlink() or active.resolve().parent!=base or not base.is_relative_to(RAW.resolve()):
         raise RuntimeError('unsafe cleanup target')
     marker=json.loads((active/'task-owned.json').read_text())
-    repository={'plop':'plopjs/plop','poetry':'python-poetry/poetry','rubygems':'ruby/rubygems','edit':'microsoft/edit','vis':'martanne/vis','fff':'dylanaraps/fff'}[project]
+    repository={'plop':'plopjs/plop','poetry':'python-poetry/poetry','rubygems':'ruby/rubygems','edit':'microsoft/edit','vis':'martanne/vis','fff':'dylanaraps/fff','papis':'papis/papis'}[project]
     if marker['workspace']!=str(ROOT) or marker['campaign']!='runner-readiness-ten-project-pass' or marker['project']!=repository:
         raise RuntimeError('cleanup ownership mismatch')
     if os.name=='nt':
@@ -149,6 +149,9 @@ async def main():
         selected={'LICENSE','Makefile','configure','main.c','text.c','vis-modes.c','external/termkey.c','lua/lexer.lua'}
     elif project=='fff':
         selected={'LICENSE.md','Makefile','README.md','fff','fff.1'}
+    elif project=='papis':
+        selected={'LICENSE','pyproject.toml','papis/commands/export.py','papis/commands/tag.py',
+                  'papis/commands/update.py','papis/tui/picker/__init__.py'}
     stream_args=dict(name=copy,mode='r:gz')
     if project=='vis':
         from readiness_vis_source import ARCHIVE_SHA256,LINKS,materialize_archive
@@ -181,6 +184,11 @@ async def main():
     if project in {'edit','vis'}:
         for name in (['dependencies.json','build-review.json'] if project=='edit' else []):shutil.copyfile(active/name,retained/name)
         if (active/'build-revisions').is_dir():shutil.copytree(active/'build-revisions',retained/'build-revisions')
+    if project=='papis':
+        for name in ['wheels.json']:
+            if (active/name).is_file():shutil.copyfile(active/name,retained/name)
+        for name in ['wheel-manifests','dependency-review']:
+            if (active/name).is_dir():shutil.copytree(active/name,retained/name)
     immutable_json(retained/'verified-index.json',dict(archive_sha256=sha256(copy),files=manifest,
         selected_restore=sorted(selected),expanded_source_bytes=expanded,process_inventory=current))
     # Do not follow package-manager links during either verification or removal.
@@ -194,7 +202,7 @@ async def main():
                 if not path.resolve().is_relative_to(active.resolve()):
                     relative=path.relative_to(active)
                     runtime=json.loads((active/'runtime.json').read_text())
-                    if (project!='poetry' or relative.parts[:2]!=('venv','bin') or
+                    if (project not in {'poetry','papis'} or relative.parts[:2]!=('venv','bin') or
                         not re.fullmatch(r'python(?:[0-9]+(?:\.[0-9]+)?)?',path.name) or
                         not path.resolve().is_file() or sha256(path.resolve())!=runtime.get('python_sha256')):
                         raise RuntimeError('unknown escaping package-manager link: '+relative.as_posix())

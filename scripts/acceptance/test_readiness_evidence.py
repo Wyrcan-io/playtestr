@@ -138,6 +138,19 @@ class EvidenceTests(unittest.TestCase):
         after=self.campaign.identity('fff',['not-launched'])
         self.assertNotEqual(before['sha256'],after['sha256'])
 
+    def test_papis_editable_package_binds_source_and_exact_restoration(self):
+        target=Path(self.folder.name)/'active/papis'
+        source=target/'src/papis/commands/export.py'
+        source.parent.mkdir(parents=True)
+        (target/'task-owned.json').write_text('{}')
+        (target/'src/pyproject.toml').write_text('[project]\nname="owned-control"\n')
+        source.write_bytes(b'reviewed source\n')
+        before=self.campaign.identity('papis',['not-launched'])
+        source.write_bytes(b'changed source\n')
+        self.assertNotEqual(before,self.campaign.identity('papis',['not-launched']))
+        source.write_bytes(b'reviewed source\n')
+        self.assertEqual(before,self.campaign.identity('papis',['not-launched']))
+
     def test_c_source_and_built_target_mutations_change_prelaunch_identity(self):
         target=Path(self.folder.name)/'active/vis';source=target/'src/main.c';source.parent.mkdir(parents=True)
         source.write_bytes(b'int main(void) { return 0; }\n')

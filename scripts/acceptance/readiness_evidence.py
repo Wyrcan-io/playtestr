@@ -140,6 +140,13 @@ class Campaign:
                 paths.extend((target/'src/src/poetry').rglob('*.py'))
                 paths.extend([target/'src/pyproject.toml',target/'src/poetry.lock'])
                 if (target/'wheels.json').is_file():paths.append(target/'wheels.json')
+            elif project=='papis':
+                paths.extend((target/'src/papis').rglob('*.py'))
+                paths.append(target/'src/pyproject.toml')
+                if (target/'wheels.json').is_file():paths.append(target/'wheels.json')
+                paths.extend((target/'wheel-manifests').glob('*.json'))
+                if (target/'dependency-review').is_dir():
+                    paths.extend(p for p in (target/'dependency-review').rglob('*') if p.is_file())
             elif project=='rubygems':
                 paths.extend(p for p in (target/'src/lib').rglob('*') if p.is_file())
                 paths.extend(p for p in (target/'src/exe').iterdir() if p.is_file())

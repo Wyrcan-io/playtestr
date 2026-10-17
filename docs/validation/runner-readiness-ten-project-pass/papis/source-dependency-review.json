@@ -1,0 +1,35 @@
+{
+  "archive_limit_bytes": 2097152,
+  "dependencies": [
+    {
+      "filename": "python-doi-0.2.0.tar.gz",
+      "name": "python-doi",
+      "review": "Plain setuptools pure-Python packaging; reads bundled README/version; no arbitrary subprocess/network/global configuration hooks. Run only --no-deps --no-build-isolation --no-index with owned temp.",
+      "reviewed_build_files": {
+        "python-doi-0.2.0/LICENSE": "fdfba9dc67cebd51ca5b124f8507a478a6f4e997b280a73e7a1a055f778ead45",
+        "python-doi-0.2.0/setup.cfg": "e64526e4c91da952682d0eec9341784edd2798073bb9ad7f5c1b0ac1b93e2e4e",
+        "python-doi-0.2.0/setup.py": "4b23d939293e02f87e6bbe4b823cfd2679c6d3d433016516de1a337d1b6eb4aa"
+      },
+      "sha256": "2e01e56fb319bd219ea8586baa43a1fc794dfe45a83156ac70242c4ce961fd9a",
+      "url": "https://files.pythonhosted.org/packages/fd/03/b71a3b7f4deba34b60b2d65342facaf916c5dcb62e31494dc4356d153550/python-doi-0.2.0.tar.gz",
+      "version": "0.2.0"
+    },
+    {
+      "filename": "sgmllib3k-1.0.0.tar.gz",
+      "name": "sgmllib3k",
+      "review": "Plain setuptools pure-Python packaging; reads bundled README/version; no arbitrary subprocess/network/global configuration hooks. Run only --no-deps --no-build-isolation --no-index with owned temp.",
+      "reviewed_build_files": {
+        "sgmllib3k-1.0.0/setup.cfg": "063d04b462ef73e9d86e0b0ae49c4321b51984444a5a2a90aece1e0082b488ee",
+        "sgmllib3k-1.0.0/setup.py": "032f40b9673a557056595efebe21a51e3f70fb2da663d2e0c78fb15143be395b"
+      },
+      "sha256": "7868fb1c8bfa764c1ac563d3cf369c381d1325d36124933a726f29fcdaa812e9",
+      "url": "https://files.pythonhosted.org/packages/9e/bd/3704a8c3e0942d711c1299ebf7b9091930adae6675d7c8f476a7ce48653c/sgmllib3k-1.0.0.tar.gz",
+      "version": "1.0.0"
+    }
+  ],
+  "entry_limit": 1000,
+  "expanded_limit_bytes": 8388608,
+  "member_limit_bytes": 2097152,
+  "reason": "Initial wheel-only setup 49028faeba7b461c9fb6b08f57fdb91c refuses python-doi. Source-only setup review completed before any hooks. sgmllib3k is feedparser transitive prerequisite.",
+  "schema_version": 1
+}
