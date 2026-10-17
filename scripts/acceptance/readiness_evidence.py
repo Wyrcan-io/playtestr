@@ -143,6 +143,15 @@ class Campaign:
             elif project=='papis':
                 paths.extend((target/'src/papis').rglob('*.py'))
                 paths.append(target/'src/pyproject.toml')
+                if (target/'runtime.json').is_file():
+                    runtime=json.loads((target/'runtime.json').read_text(encoding='utf-8-sig'))
+                    interpreter=Path(runtime['python'])
+                    interpreter.resolve(strict=True).relative_to(target.resolve())
+                    paths.append(interpreter)
+                    launcher=interpreter.parent/('papis.exe' if os.name=='nt' else 'papis')
+                    if launcher.is_file():
+                        launcher.resolve(strict=True).relative_to(target.resolve())
+                        paths.append(launcher)
                 if (target/'wheels.json').is_file():paths.append(target/'wheels.json')
                 paths.extend((target/'wheel-manifests').glob('*.json'))
                 if (target/'dependency-review').is_dir():

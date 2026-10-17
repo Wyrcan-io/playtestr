@@ -103,10 +103,13 @@ async def main():
               'reviewed-source-editable-build')
     result=await run([python,'-m','papis','--version'],'built-version')
     if metadata['project']['version'] not in result['output']:raise RuntimeError('built Papis version mismatch')
+    launcher=python.parent/('papis.exe' if os.name=='nt' else 'papis')
+    if not launcher.is_file():raise RuntimeError('editable Papis launcher missing')
     immutable_json(target/'runtime.json',dict(python=str(python),python_version=sys.version,
         python_sha256=sha256(python),source_pin=marker['pin']))
     immutable_json(target/'build.json',dict(pin=marker['pin'],license_sha256=sha256(source/'LICENSE'),
         source_editable=True,build_backend=metadata['build-system'],dependency_wheels=wheel_identity,
+        launcher_relative_path=launcher.relative_to(target).as_posix(),launcher_sha256=sha256(launcher),
         wheel_manifest=wheel_manifest.relative_to(target).as_posix(),
         version_attempt=result['id'],observed_active_bytes=usage(target)))
     print('Pinned Papis built with reviewed backend, exact source-built prerequisites and other wheel-only dependencies:',result['output'].strip())

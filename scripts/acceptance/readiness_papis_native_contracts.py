@@ -25,10 +25,21 @@ async def main():
     for name,digest in freeze['all_package_inputs'].items():
         if sha256(canonical/name)!=digest:raise RuntimeError('reviewed native papis package changed')
     package=RAW/'papis/host-contracts';shutil.copytree(canonical,package)
+    declaration=reviewed/'scenario-declaration-revision-3.json'
+    declared=json.loads(declaration.read_text(encoding='utf-8-sig'))['host_profiles']['windows' if os.name=='nt' else 'linux']
+    prepared_directories=[]
+    for row in declared:
+        for name in row['dirs']:
+            directory=package/'fixtures'/row['id']/name
+            directory.resolve().relative_to(package.resolve())
+            directory.mkdir(parents=True,exist_ok=True)
+            prepared_directories.append(directory.relative_to(package).as_posix())
     changes=[dict(contract=name,canonical_sha256=digest,native_sha256=sha256(package/name),
                   only_permitted_change='No changes; exact independently reviewed native profile') for name,digest in sorted(freeze['contracts'].items())]
     immutable_json(RAW/'papis/native-profile.json',dict(host=platform.system(),contracts=changes,
-        profile=profile.relative_to(ROOT).as_posix(),freeze_sha256=sha256(profile/'reviewed-contract-freeze.json')))
+        profile=profile.relative_to(ROOT).as_posix(),freeze_sha256=sha256(profile/'reviewed-contract-freeze.json'),
+        declared_empty_directories=prepared_directories,declaration_sha256=sha256(declaration),
+        setup='Create only explicitly declared synthetic fixture directories absent from Git; frozen files, actions and outcomes unchanged.'))
     if args.prepare_only:
         print('Prepared the exact reviewed native papis contracts without a target invocation.')
         return

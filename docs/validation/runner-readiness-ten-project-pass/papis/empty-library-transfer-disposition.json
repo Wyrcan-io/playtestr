@@ -1,0 +1,25 @@
+{
+  "credit": 0,
+  "evidence": "Original native authoring/freezes 39072664569 and local full suite had the explicitly declared empty directory and passed. Git preserves files only, so DOC fixture topology did not transfer.",
+  "failed_case": "E10",
+  "failure": "Public target exits 1 before No documents retrieved because the empty fixture library directory is absent from Git checkout.",
+  "holdout": "Original local Windows F03 remains the sole original; future hosted runs are replicas.",
+  "linux": {
+    "failed": 1,
+    "passed": 19,
+    "total": 20
+  },
+  "new_interpreter_binding": {
+    "after": "e83b62ae3bf1449c94f8c2384cd7a6c7",
+    "before": "0c4914352a3b4cea9b3c3767e4299b06",
+    "scope": "Acceptance identity now hashes actual owned Python interpreter and installed Papis launcher directly, in addition to editable source and runtime receipt. Fresh complete native qualification required. Earlier records keep their original narrower provenance."
+  },
+  "repair": "Before public tests, create exactly fixtures/E10/library from the pre-freeze revision-three declaration. This is explicit synthetic fixture setup. No frozen file, action, state expectation or source fault is changed.",
+  "run": "39073306640",
+  "schema_version": 1,
+  "windows": {
+    "failed": 1,
+    "passed": 19,
+    "total": 20
+  }
+}

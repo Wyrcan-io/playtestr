@@ -150,6 +150,14 @@ class EvidenceTests(unittest.TestCase):
         self.assertNotEqual(before,self.campaign.identity('papis',['not-launched']))
         source.write_bytes(b'reviewed source\n')
         self.assertEqual(before,self.campaign.identity('papis',['not-launched']))
+        interpreter=target/'venv/python.runtime';interpreter.parent.mkdir()
+        interpreter.write_bytes(b'reviewed interpreter bytes')
+        (target/'runtime.json').write_text(json.dumps({'python':str(interpreter)}))
+        before=self.campaign.identity('papis',['not-launched'])
+        interpreter.write_bytes(b'changed interpreter bytes')
+        self.assertNotEqual(before,self.campaign.identity('papis',['not-launched']))
+        interpreter.write_bytes(b'reviewed interpreter bytes')
+        self.assertEqual(before,self.campaign.identity('papis',['not-launched']))
 
     def test_c_source_and_built_target_mutations_change_prelaunch_identity(self):
         target=Path(self.folder.name)/'active/vis';source=target/'src/main.c';source.parent.mkdir(parents=True)
