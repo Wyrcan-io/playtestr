@@ -1,0 +1,94 @@
+{
+  "version": 3,
+  "name": "frogmouth N08: page through a long document and recover the first page",
+  "command": [
+    "frogmouth",
+    "alpha.md"
+  ],
+  "workspace": {
+    "fixture": "fixtures/N08",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONIOENCODING": "utf-8",
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 15000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Alpha body independent source."
+    },
+    {
+      "text": "\u000e"
+    },
+    {
+      "expect": "Contents"
+    },
+    {
+      "text": "\u000e"
+    },
+    {
+      "expect_not": "Contents"
+    },
+    {
+      "key": "End"
+    },
+    {
+      "expect": "Deep destination independently reached."
+    },
+    {
+      "key": "Home"
+    },
+    {
+      "expect": "Alpha body independent source."
+    },
+    {
+      "snapshot": "N08.rows.json"
+    },
+    {
+      "text": "\u0011"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "alpha.md",
+        "kind": "file",
+        "bytes_base64": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgojIyBEZWVwIGRlc3RpbmF0aW9uCgpEZWVwIGRlc3RpbmF0aW9uIGluZGVwZW5kZW50bHkgcmVhY2hlZC4K"
+      }
+    },
+    {
+      "state": {
+        "path": "beta.md",
+        "kind": "file",
+        "bytes_base64": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo="
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.bin",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "beta.md",
+          "sentinel.bin",
+          "alpha.md"
+        ]
+      }
+    }
+  ]
+}

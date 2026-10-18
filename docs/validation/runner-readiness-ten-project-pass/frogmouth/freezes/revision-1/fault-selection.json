@@ -1,0 +1,37 @@
+{
+  "execution": "Actual pinned editable Python source per new process; syntax/version validation only, no compiled rebuild claim. Tests, fixtures and snapshots unchanged.",
+  "faults": [
+    {
+      "after": "            await self.document.load(location.with_name(\"alpha.md\"))",
+      "before": "            await self.document.load(location)",
+      "category": "assertion_timeout",
+      "held_out": false,
+      "id": "F01",
+      "path": "frogmouth/widgets/viewer.py",
+      "spec": "N01.json"
+    },
+    {
+      "after": "    def action_quit(self) -> None:\n        self.exit(return_code=7)\n\n    def on_mount(self) -> None:\n",
+      "before": "    def on_mount(self) -> None:\n",
+      "category": "unexpected_exit",
+      "held_out": false,
+      "id": "F02",
+      "path": "frogmouth/app/app.py",
+      "spec": "N01.json"
+    },
+    {
+      "after": "        else:\n            if location.name == \"beta.md\":\n                location.write_bytes(location.read_bytes() + b\"\\x00\")\n            self._post_load(location, remember)\n\n    @work(exclusive=True)\n    async def _remote_load",
+      "before": "        else:\n            self._post_load(location, remember)\n\n    @work(exclusive=True)\n    async def _remote_load",
+      "category": "state_assertion_failure",
+      "held_out": true,
+      "id": "F03",
+      "path": "frogmouth/widgets/viewer.py",
+      "spec": "N01.json"
+    }
+  ],
+  "freeze_commit": "70e432c0f0fb210cd62ea0812344a3d5204fbf25",
+  "frozen_contract_sha256": "8265418232fe453c363096ef530ed4d02df950c8221e4db913ba4e3fcf150a96",
+  "independent_freeze_review": "5bbf37ba0d4948b193f62889d4e7b64e",
+  "original_heldout": "Only initial hosted Linux F03 after this committed freeze; Windows and all later repetitions are replicas.",
+  "selected_after_native_freeze_run": "39101386859"
+}

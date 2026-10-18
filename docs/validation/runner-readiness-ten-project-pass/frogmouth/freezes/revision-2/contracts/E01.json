@@ -1,0 +1,148 @@
+{
+  "version": 3,
+  "name": "frogmouth E01: recover from a missing local document without modifying the originals",
+  "command": [
+    "frogmouth",
+    "alpha.md"
+  ],
+  "workspace": {
+    "fixture": "fixtures/E01",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONIOENCODING": "utf-8",
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 15000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Alpha body independent source."
+    },
+    {
+      "text": "\u000e"
+    },
+    {
+      "expect": "Contents"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": "\u250f\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513"
+    },
+    {
+      "text": "focus-marker-probe"
+    },
+    {
+      "expect": "probe"
+    },
+    {
+      "text": "\u0015"
+    },
+    {
+      "expect_not": "probe"
+    },
+    {
+      "text": "missing.md"
+    },
+    {
+      "expect": "missing.md"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Error loading"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "Error loading"
+    },
+    {
+      "text": "\u0014"
+    },
+    {
+      "expect_not": "\u250f\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": "\u250f\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513"
+    },
+    {
+      "text": "focus-marker-probe"
+    },
+    {
+      "expect": "probe"
+    },
+    {
+      "text": "\u0015"
+    },
+    {
+      "expect_not": "probe"
+    },
+    {
+      "text": "beta.md"
+    },
+    {
+      "expect": "beta.md"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Beta body independent source."
+    },
+    {
+      "snapshot": "E01.rows.json"
+    },
+    {
+      "text": "\u0011"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "alpha.md",
+        "kind": "file",
+        "bytes_base64": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "beta.md",
+        "kind": "file",
+        "bytes_base64": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo="
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.bin",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "beta.md",
+          "sentinel.bin",
+          "alpha.md"
+        ]
+      }
+    }
+  ]
+}

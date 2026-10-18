@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "name": "frogmouth N06: inspect application information and dismiss it",
+  "name": "frogmouth N06: decline then confirm clearing browsing history while preserving the current document",
   "command": [
     "frogmouth",
     "alpha.md"
@@ -50,22 +50,55 @@
       "expect_not": "probe"
     },
     {
-      "text": "about"
+      "text": "beta.md"
     },
     {
-      "expect": "about"
-    },
-    {
-      "key": "Enter"
-    },
-    {
-      "expect": "Built with Textual"
+      "expect": "beta.md"
     },
     {
       "key": "Enter"
     },
     {
-      "expect_not": "Built with Textual"
+      "expect": "Beta body independent source."
+    },
+    {
+      "text": "\u0019"
+    },
+    {
+      "expect": "alpha.md"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "expect": "Clear history?"
+    },
+    {
+      "key": "ArrowRight"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "Clear history?"
+    },
+    {
+      "expect": "alpha.md"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "expect": "Clear history?"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "Clear history?"
+    },
+    {
+      "expect_not": "alpha.md"
     },
     {
       "snapshot": "N06.rows.json"

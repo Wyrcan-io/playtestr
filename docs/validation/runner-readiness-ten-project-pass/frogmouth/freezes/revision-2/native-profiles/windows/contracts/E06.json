@@ -1,0 +1,136 @@
+{
+  "version": 3,
+  "name": "frogmouth E06: render a Markdown table after narrowing and restoring the viewport",
+  "command": [
+    "frogmouth",
+    "alpha.md"
+  ],
+  "workspace": {
+    "fixture": "fixtures/E06",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONIOENCODING": "utf-8",
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 15000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Alpha body independent source."
+    },
+    {
+      "text": "\u000e"
+    },
+    {
+      "expect": "Contents"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": "\u250f\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513"
+    },
+    {
+      "text": "focus-marker-probe"
+    },
+    {
+      "expect": "probe"
+    },
+    {
+      "text": "\u0015"
+    },
+    {
+      "expect_not": "probe"
+    },
+    {
+      "text": "beta.md"
+    },
+    {
+      "expect": "beta.md"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "table_marker"
+    },
+    {
+      "resize": {
+        "width": 70,
+        "height": 28
+      }
+    },
+    {
+      "wait_for_redraw": true
+    },
+    {
+      "text": "\u000e"
+    },
+    {
+      "expect_not": "Contents"
+    },
+    {
+      "resize": {
+        "width": 100,
+        "height": 28
+      }
+    },
+    {
+      "wait_for_redraw": true
+    },
+    {
+      "text": "\u000e"
+    },
+    {
+      "expect": "Contents"
+    },
+    {
+      "snapshot": "E06.rows.json"
+    },
+    {
+      "text": "\u0011"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "alpha.md",
+        "kind": "file",
+        "bytes_base64": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "beta.md",
+        "kind": "file",
+        "bytes_base64": "IyBUYWJsZSBndWlkZQoKfCBLZXkgfCBWYWx1ZSB8CnwgLS0tIHwgLS0tIHwKfCB0YWJsZV9tYXJrZXIgfCByZXZpZXdlZCB8Cg=="
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.bin",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "alpha.md",
+          "beta.md",
+          "sentinel.bin"
+        ]
+      }
+    }
+  ]
+}

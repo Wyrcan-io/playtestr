@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "name": "frogmouth N05: read local help and return to the current document",
+  "name": "frogmouth N05: bookmark a selected document and revisit it after navigating away",
   "command": [
     "frogmouth",
     "alpha.md"
@@ -50,22 +50,73 @@
       "expect_not": "probe"
     },
     {
-      "text": "help"
+      "text": "beta.md"
     },
     {
-      "expect": "help"
+      "expect": "beta.md"
     },
     {
       "key": "Enter"
     },
     {
-      "expect": "Welcome to Frogmouth Help!"
+      "expect": "Beta body independent source."
     },
     {
-      "key": "Escape"
+      "text": "\u0004"
     },
     {
-      "expect_not": "Welcome to Frogmouth Help!"
+      "expect": "Bookmark title:"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "Bookmark title:"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "expect": "\u250f\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513"
+    },
+    {
+      "text": "focus-marker-probe"
+    },
+    {
+      "expect": "probe"
+    },
+    {
+      "text": "\u0015"
+    },
+    {
+      "expect_not": "probe"
+    },
+    {
+      "text": "alpha.md"
+    },
+    {
+      "expect": "alpha.md"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Alpha body independent source."
+    },
+    {
+      "text": "\u0002"
+    },
+    {
+      "expect": "beta.md"
+    },
+    {
+      "key": "Home"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Beta body independent source."
     },
     {
       "snapshot": "N05.rows.json"
