@@ -33,6 +33,7 @@ type processOutcome struct {
 
 type sessionObservation struct {
 	screen              string
+	restoredAlternate   string
 	rows                int
 	lastOutput          time.Time
 	outputBytes         int64
@@ -275,6 +276,7 @@ func (s *terminalSession) observe() sessionObservation {
 	defer s.mu.Unlock()
 	return sessionObservation{
 		screen:              normalize(s.terminal.String()),
+		restoredAlternate:   normalize(s.terminal.LastAlternateScreen()),
 		rows:                s.terminal.Rows(),
 		lastOutput:          s.lastOutput,
 		outputBytes:         s.outputBytes,

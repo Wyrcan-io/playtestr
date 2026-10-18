@@ -37,6 +37,14 @@ is written atomically; a validation, read, size, or write error leaves an
 existing output unchanged. A rendering error does not modify any captured test
 status.
 
+Source builds preserve the last nonempty alternate-screen frame when a failure
+occurs after the target restores a blank primary viewport. The CLI identifies
+this fallback before writing the screen artifact. The runner retains one
+captured viewport, rather than terminal output history. A newer nonempty live
+screen takes precedence. Assertions and snapshots always inspect the live
+viewport; a snapshot mismatch still writes its actual mismatched frame, including
+a blank frame. This source behavior does not imply coverage in older archives.
+
 ## What the first view answers
 
 The report shows:

@@ -3,6 +3,7 @@ package vt10x
 import (
 	"io"
 	"log"
+	"strings"
 	"sync"
 )
 
@@ -91,6 +92,7 @@ type State struct {
 	cols, rows    int
 	lines         []line
 	altLines      []line
+	lastAlternate string
 	dirty         []bool // line dirtiness
 	anydirty      bool
 	cur, curSaved Cursor
@@ -588,6 +590,13 @@ func (t *State) setMode(priv bool, set bool, args []int) {
 			case 1049, // = 1047 and 1048
 				47, 1047:
 				alt := t.mode&ModeAltScreen != 0
+				if alt && !set {
+					// Write already owns the state lock. Capture before clear and
+					// swap, even when drawing and restoration share one PTY read.
+					if frame := t.screenString(); strings.TrimSpace(frame) != "" {
+						t.lastAlternate = frame
+					}
+				}
 				if alt {
 					t.clear(0, 0, t.cols-1, t.rows-1)
 				}
@@ -803,7 +812,18 @@ func (t *State) Size() (cols, rows int) {
 func (t *State) String() string {
 	t.Lock()
 	defer t.Unlock()
+	return t.screenString()
+}
 
+// LastAlternateScreen returns one bounded viewport, never a history of output.
+func (t *State) LastAlternateScreen() string {
+	t.mu.Lock()
+	defer t.mu.Unlock()
+	return t.lastAlternate
+}
+
+// screenString requires the state lock.
+func (t *State) screenString() string {
 	var view []rune
 	for y := 0; y < t.rows; y++ {
 		for x := 0; x < t.cols; x++ {

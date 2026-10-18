@@ -26,6 +26,10 @@ type View interface {
 	// String dumps the virtual terminal contents.
 	fmt.Stringer
 
+	// LastAlternateScreen returns the last nonempty frame captured immediately
+	// before leaving the alternate buffer. String always returns the live buffer.
+	LastAlternateScreen() string
+
 	// Size returns the size of the virtual terminal.
 	Size() (cols, rows int)
 

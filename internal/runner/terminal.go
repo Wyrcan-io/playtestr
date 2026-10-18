@@ -72,6 +72,10 @@ func (e *screenEmulator) String() string {
 	return e.terminal.String()
 }
 
+func (e *screenEmulator) LastAlternateScreen() string {
+	return e.terminal.LastAlternateScreen()
+}
+
 func (e *screenEmulator) Rows() int {
 	_, rows := e.terminal.Size()
 	return rows

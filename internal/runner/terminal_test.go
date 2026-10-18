@@ -1,11 +1,33 @@
 package runner
 
 import (
+	"fmt"
 	"strings"
 	"testing"
 
 	"github.com/Wyrcan-io/playtestr/internal/terminal/vt10x"
 )
+
+func TestAlternateEvidenceCapturesCoalescedAndSplitRestoration(t *testing.T) {
+	for _, mode := range []int{47, 1047, 1049} {
+		for _, split := range []bool{false, true} {
+			t.Run(fmt.Sprintf("mode-%d-split-%t", mode, split), func(t *testing.T) {
+				e := newScreenEmulator(30, 5)
+				stream := fmt.Sprintf("\x1b[?%dh\x1b[2J\x1b[Hfinal caf\u00e9 \u96ea\x1b[?%dl", mode, mode)
+				if split {
+					for _, value := range []byte(stream) {
+						e.Write([]byte{value})
+					}
+				} else {
+					e.Write([]byte(stream))
+				}
+				if strings.TrimSpace(e.String()) != "" || normalize(e.LastAlternateScreen()) != "final caf\u00e9 \u96ea\n" {
+					t.Fatalf("live=%q evidence=%q", e.String(), e.LastAlternateScreen())
+				}
+			})
+		}
+	}
+}
 
 func TestRenderedScreenContract(t *testing.T) {
 	t.Run("normalization", func(t *testing.T) {

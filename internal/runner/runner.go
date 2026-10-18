@@ -650,14 +650,19 @@ func captureFailureEvidence(path string, options RunOptions, result *RunResult, 
 	if failureObservation != nil {
 		observation = *failureObservation
 	}
+	var mismatch *snapshotMismatchError
+	isMismatch := errors.As(runErr, &mismatch)
+	if !isMismatch && strings.TrimSpace(observation.screen) == "" && strings.TrimSpace(observation.restoredAlternate) != "" {
+		observation.screen = observation.restoredAlternate
+		fmt.Fprintln(out, "Screen evidence: last nonempty alternate-screen frame before terminal restoration.")
+	}
 	if options.recordEvidence != nil {
 		*options.recordEvidence = observation.screen
 	}
 	if options.noArtifacts {
 		return runErr
 	}
-	var mismatch *snapshotMismatchError
-	if errors.As(runErr, &mismatch) {
+	if isMismatch {
 		observation.screen = mismatch.actual
 		diffArtifact := artifactPrefix(path, options) + ".diff.txt"
 		if writeErr := writeFileAtomic(diffArtifact, []byte(mismatch.diff), 0644); writeErr == nil {
