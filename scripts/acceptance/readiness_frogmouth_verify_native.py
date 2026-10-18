@@ -10,18 +10,15 @@ from readiness_papis_verify_native import verifier,result_ok
 from readiness_frogmouth_first_use import ADDRESS_FOCUS_BORDER,SOURCE,fixture_files
 from readiness_frogmouth_verify_first_use import PIN,ARCHIVE,require
 
-ORIGINAL_RUN='39101741429'
-
-
 def verify_faults(packet,docs,profile,runtime,build,runner_sha,host,witness,original):
     summaries=list((packet/'frogmouth/faults').glob('*/summary.json'));require(len(summaries)==1,'ambiguous source fault batch')
     summary=summaries[0];data=load(summary);faults=data['faults']
-    require(len(faults)==3 and {r['id'] for r in faults}=={'F01','F02','F03'} and data['runner_sha256']==runner_sha,'fault coverage/runner differs')
+    require(len(faults)==3 and {r['id'] for r in faults}=={'F01','F02','F04'} and data['runner_sha256']==runner_sha,'fault coverage/runner differs')
     require(data['interpreter_sha256']==runtime['python_sha256'],'fault interpreter differs')
-    selected=load(docs/'fault-selection.json');review={r['id']:r for r in load(docs/'source-fault-review.json')['faults']}
+    selected=load(docs/'fault-selection-revision-2.json');review={r['id']:r for r in load(docs/'source-fault-review-revision-2.json')['faults']}
     actual_selection=load(summary.parent/'selected-faults.json')
     require(actual_selection['frozen_contract_sha256']==sha256(docs/'reviewed-contract-freeze.json') and actual_selection['native_freeze_sha256']==sha256(profile/'reviewed-contract-freeze.json'),'faults belong to another freeze')
-    require(actual_selection['original_heldout']==original,'original selection reused or missing')
+    require(actual_selection['original_heldout']==original and actual_selection['selection_revision']==2,'original selection reused, missing or wrong revision')
     runner_key='artifacts/runner-readiness-ten-project-pass/bin/playtestr'+('.exe' if host=='Windows' else '')
     interpreter='artifacts/runner-readiness-ten-project-pass/active/frogmouth/venv/'+('Scripts/python.exe' if host=='Windows' else 'bin/python')
     launcher='artifacts/runner-readiness-ten-project-pass/active/frogmouth/'+build['launcher_relative_path']
@@ -29,7 +26,7 @@ def verify_faults(packet,docs,profile,runtime,build,runner_sha,host,witness,orig
         declaration=next(r for r in selected['faults'] if r['id']==fault['id'])
         require(all(fault[k]==declaration[k] for k in ['path','spec','before','after','category']),'actual source fault differs from declaration')
         require(all(fault[k]==review[fault['id']][k] for k in ['path','original_source_sha256','mutated_source_sha256']),'complete source byte mutation differs')
-        require(fault['held_out']==bool(original and fault['id']=='F03') and fault['restored_exact'],'heldout reuse or restoration absent')
+        require(fault['held_out']==bool(original and fault['id']=='F04') and fault['restored_exact'],'heldout reuse or restoration absent')
         source='artifacts/runner-readiness-ten-project-pass/active/frogmouth/src/'+fault['path']
         for phase,expected,digest,key in [('baseline',0,fault['original_source_sha256'],'baseline_attempt'),('mutated',1,fault['mutated_source_sha256'],'mutation_attempt'),('restored',0,fault['original_source_sha256'],'restored_attempt')]:
             inputs=witness(fault[key],expected)
@@ -38,7 +35,7 @@ def verify_faults(packet,docs,profile,runtime,build,runner_sha,host,witness,orig
             report=load(summary.parent/(fault['id']+'-'+phase+'.json'));require(report['runner_version']=='source-'+SOURCE,'fault runner source differs')
             result=report['results'][0];result_ok(result,'failed' if expected else 'passed')
             if expected:require(result['failure']['category']==fault['category'],'wrong real fault diagnosis')
-            if fault['id']=='F03' and phase=='mutated':
+            if fault['id']=='F04' and phase=='mutated':
                 failed=next(i for i,s in enumerate(result['steps']) if s['status']=='failed');prior=result['steps'][:failed]
                 require(all(s['status']=='passed' for s in prior) and {'snapshot','exit'}<={s['action'] for s in prior},'F03 lacks prior passing screen and exact exit')
                 state=result['steps'][failed]['state'];require(state['kind']=='file' and state['path']=='beta.md','wrong saved-state rejection')
@@ -85,9 +82,12 @@ def verify_maintenance(packet,contracts,witness):
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--run',required=True);args=parser.parse_args()
-    require(args.run==ORIGINAL_RUN,'this verifier binds the original native qualification; repetitions require replica verification')
+    require(args.run.isascii() and args.run.isdecimal() and len(args.run)<=20,'invalid native run ID')
     docs=ROOT/'docs/validation/runner-readiness-ten-project-pass/frogmouth';run=RAW/'native'/args.run;metadata=load(run/'run-metadata.json')
-    require(metadata['status']=='completed' and metadata['conclusion']=='success' and metadata['headSha']=='abeae74bf6ae963775afa0507bdec84008218b80' and len(metadata['jobs'])==2 and all(j['conclusion']=='success' for j in metadata['jobs']),'native qualification failed/incomplete or wrong committed declaration')
+    series=load(docs/'current-qualification-series.json')
+    require(args.run==series['native_run'] and args.run.isascii() and args.run.isdecimal(),'wrong original native series; repetitions require replica verification')
+    require(series['original_heldout']==dict(host='Linux',fault='F04') and series['freeze_commit']=='b393fc1afb8814ac6db6ff40ffc844f15f0816a8','wrong original holdout/freeze binding')
+    require(metadata['status']=='completed' and metadata['conclusion']=='success' and metadata['headSha']==series['declaration_commit'] and len(metadata['jobs'])==2 and all(j['conclusion']=='success' for j in metadata['jobs']),'native qualification failed/incomplete or wrong committed declaration')
     cells=[]
     for host in ['Linux','Windows']:
         packet=run/('playtestr-'+host);attempts,witness=verifier(packet);profile=docs/'native-profiles/windows' if host=='Windows' else docs
@@ -113,10 +113,10 @@ def main():
         require(removed['removed'] and removed['owned_relative_path']=='active/frogmouth' and removed['source_archive_sha256']==ARCHIVE==index['archive_sha256'],'source cleanup/archive differs')
         for name in index['selected_restore']:require(sha256(retained/'selected-restore'/name)==index['files'][name]['sha256'],'selected source restore differs')
         cells.append(dict(host='playtestr-'+host,run=args.run,scenarios=20,runner_sha256=runner['copied_sha256'],report_sha256=sha256(report_path),source_fault_summary_sha256=sha256(summary),maintenance_sha256=sha256(maintenance),cleanup_receipt_sha256=sha256(retained/'removed.json')))
-    immutable_json(RAW/'frogmouth/native-development-verification.json',dict(runner_source=SOURCE,cells=cells,real_faults=3,original_current_source_heldout=dict(run=args.run,host='Linux',fault='F03'),phase='development',final_archive_credit=False))
+    immutable_json(RAW/'frogmouth/native-development-verification.json',dict(runner_source=SOURCE,cells=cells,real_faults=3,original_current_source_heldout=dict(run=args.run,host='Linux',fault='F04'),phase='development',final_archive_credit=False))
     original=list((run/'playtestr-Linux/frogmouth/faults').glob('*/summary.json'))[0]
     destination=docs/'original-source-faults';destination.mkdir(exist_ok=False)
-    for name in ['summary.json','selected-faults.json','F01.patch','F02.patch','F03.patch']:shutil.copyfile(original.parent/name,destination/name)
+    for name in ['summary.json','selected-faults.json','F01.patch','F02.patch','F04.patch']:shutil.copyfile(original.parent/name,destination/name)
     print('Verified both native Frogmouth twenty-case suites, three actual source faults/restores, maintenance and cleanup.')
 
 

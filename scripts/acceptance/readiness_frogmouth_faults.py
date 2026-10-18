@@ -21,13 +21,13 @@ def load(path):
 async def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--original-heldout', action='store_true')
-    parser.add_argument('--selection',choices=['original'],default='original')
+    parser.add_argument('--selection',choices=['original','fresh'],default='fresh')
     args = parser.parse_args()
     if platform.system() not in {'Linux', 'Windows'}:
         raise RuntimeError('undeclared frogmouth native host')
-    fresh=False
-    if args.original_heldout and (platform.system()!='Linux' or os.environ.get('GITHUB_ACTIONS')!='true'):
-        raise RuntimeError('original F03 is designated initial hosted Linux only')
+    fresh=args.selection=='fresh'
+    if args.original_heldout and (not fresh or platform.system()!='Linux' or os.environ.get('GITHUB_ACTIONS')!='true'):
+        raise RuntimeError('fresh F04 is designated initial hosted Linux only')
     docs = ROOT/'docs/validation/runner-readiness-ten-project-pass/frogmouth'
     profile = docs/'native-profiles/windows' if platform.system() == 'Windows' else docs
     frozen = load(profile/'reviewed-contract-freeze.json')
@@ -110,8 +110,8 @@ async def main():
                 if not all(s['status'] == 'passed' for s in prior) or not {'snapshot', 'exit'} <= {s['action'] for s in prior}:
                     raise RuntimeError('F03 lacks prior passing screen and exact exit')
                 state = outcome['steps'][failed]['state']
-                if fault['id']=='F04' and (state['kind']!='entries' or state['path']!='exported'):
-                    raise RuntimeError('fresh unwanted-file fault was not caught by the unchanged exact export entry set')
+                if fault['id']=='F04' and (state['kind']!='file' or state['path']!='beta.md'):
+                    raise RuntimeError('fresh deleted-document fault was not caught by the unchanged expected file')
                 if state['invocation_id'] != outcome['invocation_id'] or state['workspace_id'] != outcome['workspace']['id']:
                     raise RuntimeError('F03 cross-execution state')
         finally:

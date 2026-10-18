@@ -1,0 +1,39 @@
+{
+  "execution": "Actual interpreted pinned source per new process, no compiled rebuild claim; syntax and unchanged version verified with owned direct-validation homes. All frozen test inputs/actions/oracles unchanged.",
+  "faults": [
+    {
+      "after": "            await self.document.load(location.with_name(\"alpha.md\"))",
+      "before": "            await self.document.load(location)",
+      "category": "assertion_timeout",
+      "held_out": false,
+      "id": "F01",
+      "path": "frogmouth/widgets/viewer.py",
+      "spec": "N01.json"
+    },
+    {
+      "after": "    MarkdownViewer(get_args()).run()\n    raise SystemExit(7)\n",
+      "before": "    MarkdownViewer(get_args()).run()\n",
+      "category": "unexpected_exit",
+      "held_out": false,
+      "id": "F02",
+      "path": "frogmouth/app/app.py",
+      "spec": "N01.json"
+    },
+    {
+      "after": "        else:\n            if location.name == \"beta.md\":\n                location.unlink()\n            self._post_load(location, remember)\n\n    @work(exclusive=True)\n    async def _remote_load",
+      "before": "        else:\n            self._post_load(location, remember)\n\n    @work(exclusive=True)\n    async def _remote_load",
+      "category": "state_assertion_failure",
+      "held_out": true,
+      "id": "F04",
+      "path": "frogmouth/widgets/viewer.py",
+      "spec": "N01.json"
+    }
+  ],
+  "freeze_commit": "b393fc1afb8814ac6db6ff40ffc844f15f0816a8",
+  "frozen_contract_sha256": "a5c2fae9143a0c4445cb3b7c05e52de1e7ebc82c30ea73856325b02ab086309c",
+  "independent_freeze_review": "4ba70e99103f4a228f8941a5579a2cc6",
+  "original_heldout": "Only initial hosted Linux F04 deleting the successfully displayed document after load. Windows and all later runs are replicas. Prior F03 never executed and gets zero revised-freeze heldout credit.",
+  "previous_selection_sha256": "eef44608c44e565eca5b6a23b8e914ff0979ba3ffb05be6603eeb3f713e95a53",
+  "qualifying_faults": 3,
+  "selected_after_native_freeze_run": "39102351210"
+}
