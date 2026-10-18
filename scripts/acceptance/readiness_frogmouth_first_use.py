@@ -11,6 +11,7 @@ from readiness_evidence import Campaign,RAW,ROOT,immutable_json,sha256
 
 SOURCE='f46f2409985af077fd29723ab963d24792eabbbe'
 PIN='15c3e85a6e84b2e4a6845723acf12beb54c81eb2'
+ADDRESS_FOCUS_BORDER='\u250f'+'\u2501'*98+'\u2513'
 
 
 def runner():
@@ -40,7 +41,7 @@ def fixture_files():
 
 
 def command(text):
-    return ['/text "/"','/text "focus-marker-probe"','/expect probe','/text "\\u0015"',
+    return ['/text "/"','/expect '+ADDRESS_FOCUS_BORDER,'/text "focus-marker-probe"','/expect probe','/text "\\u0015"',
         '/absent probe','/text '+json.dumps(text),'/expect '+text,'/key Enter']
 
 

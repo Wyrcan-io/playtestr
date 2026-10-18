@@ -35,7 +35,7 @@ def main():
         require(build['source_editable'] and load(retained/build['wheel_manifest'])==build['dependency_wheels'],'dependency manifest differs')
         journeys=list((packet/'frogmouth/first-use').glob('*/journey.json'));require(len(journeys)==1,'ambiguous first-use journey')
         journey=load(journeys[0]);package=journeys[0].parent
-        require(journey['shell_invocations']==3 and journey['recorder_controls']==23 and not journey['handwritten_playtestr_json'],'wrong route count')
+        require(journey['shell_invocations']==3 and journey['recorder_controls']==24 and not journey['handwritten_playtestr_json'],'wrong route count')
         require(journey['target_build_sha256']==sha256(retained/'build.json') and journey['runner_sha256']==runner['copied_sha256'],'journey identity differs')
         for identity in [*journey['attempts'],build['version_attempt']]:
             event=attempts[identity];finished=event['finished']

@@ -1,0 +1,2020 @@
+{
+  "edges": 12,
+  "execution_credit": false,
+  "host_profiles": {
+    "linux": [
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"beta.md\"",
+          "/expect beta.md",
+          "/key Enter",
+          "/expect Beta body independent source.",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "N01",
+        "kind": "normal",
+        "missing": [],
+        "snapshot": true,
+        "title": "open a nondefault local document through the address bar"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/key End",
+          "/key Enter",
+          "/expect Deep destination independently reached.",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgojIyBEZWVwIGRlc3RpbmF0aW9uCgpEZWVwIGRlc3RpbmF0aW9uIGluZGVwZW5kZW50bHkgcmVhY2hlZC4K",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgojIyBEZWVwIGRlc3RpbmF0aW9uCgpEZWVwIGRlc3RpbmF0aW9uIGluZGVwZW5kZW50bHkgcmVhY2hlZC4K",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "N02",
+        "kind": "normal",
+        "missing": [],
+        "snapshot": true,
+        "title": "jump to a below-viewport heading through the table of contents"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"chdir .\"",
+          "/expect chdir .",
+          "/key Enter",
+          "/expect beta.md",
+          "/key Home",
+          "/key ArrowDown",
+          "/key ArrowDown",
+          "/key Enter",
+          "/expect Beta body independent source.",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "N03",
+        "kind": "normal",
+        "missing": [],
+        "snapshot": true,
+        "title": "browse the current directory and select a Markdown file"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"beta.md\"",
+          "/expect beta.md",
+          "/key Enter",
+          "/expect Beta body independent source.",
+          "/text \"\\u0019\"",
+          "/expect alpha.md",
+          "/key Home",
+          "/key ArrowDown",
+          "/key Enter",
+          "/expect Alpha body independent source.",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "N04",
+        "kind": "normal",
+        "missing": [],
+        "snapshot": true,
+        "title": "revisit the earlier document through browsing history"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"help\"",
+          "/expect help",
+          "/key Enter",
+          "/expect Welcome to Frogmouth Help!",
+          "/key Enter",
+          "/absent Welcome to Frogmouth Help!",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "N05",
+        "kind": "normal",
+        "missing": [],
+        "snapshot": true,
+        "title": "read local help and return to the current document"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"about\"",
+          "/expect about",
+          "/key Enter",
+          "/expect Built with Textual",
+          "/key Enter",
+          "/absent Built with Textual",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "N06",
+        "kind": "normal",
+        "missing": [],
+        "snapshot": true,
+        "title": "inspect application information and dismiss it"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/key End",
+          "/key Enter",
+          "/expect Deep destination independently reached.",
+          "/text \"\\u0012\"",
+          "/expect Alpha body independent source.",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgojIyBEZWVwIGRlc3RpbmF0aW9uCgpEZWVwIGRlc3RpbmF0aW9uIGluZGVwZW5kZW50bHkgcmVhY2hlZC4K",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgojIyBEZWVwIGRlc3RpbmF0aW9uCgpEZWVwIGRlc3RpbmF0aW9uIGluZGVwZW5kZW50bHkgcmVhY2hlZC4K",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "N07",
+        "kind": "normal",
+        "missing": [],
+        "snapshot": true,
+        "title": "reload a scrolled document and return to its beginning"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"\\u000e\"",
+          "/absent Contents",
+          "/key End",
+          "/expect Deep destination independently reached.",
+          "/key Home",
+          "/expect Alpha body independent source.",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgojIyBEZWVwIGRlc3RpbmF0aW9uCgpEZWVwIGRlc3RpbmF0aW9uIGluZGVwZW5kZW50bHkgcmVhY2hlZC4K",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgojIyBEZWVwIGRlc3RpbmF0aW9uCgpEZWVwIGRlc3RpbmF0aW9uIGluZGVwZW5kZW50bHkgcmVhY2hlZC4K",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "N08",
+        "kind": "normal",
+        "missing": [],
+        "snapshot": true,
+        "title": "page through a long document and recover the first page"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"missing.md\"",
+          "/expect missing.md",
+          "/key Enter",
+          "/expect Error loading",
+          "/key Enter",
+          "/absent Error loading",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"beta.md\"",
+          "/expect beta.md",
+          "/key Enter",
+          "/expect Beta body independent source.",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [
+          "missing file",
+          "error dialog",
+          "focus recovery"
+        ],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "E01",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": true,
+        "title": "recover from a missing local document without modifying the originals"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"cancel-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"\\u000e\"",
+          "/absent Contents",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "E02",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": true,
+        "title": "cancel a partially entered address and preserve the current document"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"beta.md\"",
+          "/expect beta.md",
+          "/key Enter",
+          "/expect CRLF body independently rendered.",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBDUkxGIGd1aWRlDQoNCkNSTEYgYm9keSBpbmRlcGVuZGVudGx5IHJlbmRlcmVkLg0K",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBDUkxGIGd1aWRlDQoNCkNSTEYgYm9keSBpbmRlcGVuZGVudGx5IHJlbmRlcmVkLg0K",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "E03",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": true,
+        "title": "display a CRLF document with explicit original byte preservation"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"caf\\u00e9 \\u96ea guide.md\"",
+          "/expect caf\u00e9 \u96ea guide.md",
+          "/key Enter",
+          "/expect Reviewed caf\u00e9 \u96ea destination.",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [
+          "Unicode path",
+          "spaces",
+          "Unicode cells",
+          "CRLF bytes"
+        ],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "caf\u00e9 \u96ea guide.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "caf\u00e9 \u96ea guide.md": "IyBVbmljb2RlIGd1aWRlDQoNClJldmlld2VkIGNhZsOpIOmbqiBkZXN0aW5hdGlvbi4NCg==",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "caf\u00e9 \u96ea guide.md": "IyBVbmljb2RlIGd1aWRlDQoNClJldmlld2VkIGNhZsOpIOmbqiBkZXN0aW5hdGlvbi4NCg==",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "E04",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": true,
+        "title": "open a spaced Unicode path with Unicode CRLF content"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"beta.md\"",
+          "/expect beta.md",
+          "/key Enter",
+          "/expect fenced_code_marker",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBTb3VyY2UgZ3VpZGUKCmBgYHB5dGhvbgpwcmludCgiZmVuY2VkX2NvZGVfbWFya2VyIikKYGBgCg==",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBTb3VyY2UgZ3VpZGUKCmBgYHB5dGhvbgpwcmludCgiZmVuY2VkX2NvZGVfbWFya2VyIikKYGBgCg==",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "E05",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": true,
+        "title": "render fenced source code without interpreting its markup"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"beta.md\"",
+          "/expect beta.md",
+          "/key Enter",
+          "/expect table_marker",
+          "/resize 70 28",
+          "/redraw",
+          "/text \"\\u000e\"",
+          "/absent Contents",
+          "/resize 100 28",
+          "/redraw",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [
+          "table layout",
+          "narrow viewport",
+          "repeated resize"
+        ],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBUYWJsZSBndWlkZQoKfCBLZXkgfCBWYWx1ZSB8CnwgLS0tIHwgLS0tIHwKfCB0YWJsZV9tYXJrZXIgfCByZXZpZXdlZCB8Cg==",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBUYWJsZSBndWlkZQoKfCBLZXkgfCBWYWx1ZSB8CnwgLS0tIHwgLS0tIHwKfCB0YWJsZV9tYXJrZXIgfCByZXZpZXdlZCB8Cg==",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "E06",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": true,
+        "title": "render a Markdown table after narrowing and restoring the viewport"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"beta.md\"",
+          "/expect beta.md",
+          "/key Enter",
+          "/expect nested_list_marker",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBMaXN0IGd1aWRlCgotIHBhcmVudCBpdGVtCiAgLSBuZXN0ZWRfbGlzdF9tYXJrZXIKCkVzY2FwZWQgXCpsaXRlcmFsXCogdGV4dC4K",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBMaXN0IGd1aWRlCgotIHBhcmVudCBpdGVtCiAgLSBuZXN0ZWRfbGlzdF9tYXJrZXIKCkVzY2FwZWQgXCpsaXRlcmFsXCogdGV4dC4K",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "E07",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": true,
+        "title": "render nested list indentation and escaped markup"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"beta.md\"",
+          "/expect beta.md",
+          "/key Enter",
+          "/expect Visible frontmatter body.",
+          "/absent Alpha body independent source.",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [
+          "front matter",
+          "rendered/source distinction",
+          "binary sentinel preservation"
+        ],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "LS0tCnNlY3JldF9tZXRhZGF0YV9tYXJrZXI6IHN5bnRoZXRpYwotLS0KIyBNZXRhZGF0YSBndWlkZQoKVmlzaWJsZSBmcm9udG1hdHRlciBib2R5Lgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "LS0tCnNlY3JldF9tZXRhZGF0YV9tYXJrZXI6IHN5bnRoZXRpYwotLS0KIyBNZXRhZGF0YSBndWlkZQoKVmlzaWJsZSBmcm9udG1hdHRlciBib2R5Lgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "E08",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": true,
+        "title": "hide YAML front matter while retaining its exact bytes"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"beta.md\"",
+          "/expect beta.md",
+          "/key Enter",
+          "/absent Alpha body independent source.",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "E09",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": true,
+        "title": "open an empty Markdown file and remove the previous document view"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"beta.md\"",
+          "/expect beta.md",
+          "/key Enter",
+          "/expect unfinished_fence_marker",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBJbmNvbXBsZXRlIGd1aWRlCgpgYGB0ZXh0CnVuZmluaXNoZWRfZmVuY2VfbWFya2VyCg==",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBJbmNvbXBsZXRlIGd1aWRlCgpgYGB0ZXh0CnVuZmluaXNoZWRfZmVuY2VfbWFya2VyCg==",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "E10",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": true,
+        "title": "render incomplete Markdown fences as bounded plain content"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"reviewed long local guide segment segment segment segment segment segment caf\\u00e9.md\"",
+          "/expect reviewed long local guide segment segment segment segment segment segment caf\u00e9.md",
+          "/key Enter",
+          "/expect Long filename destination body.",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [
+          "long filename",
+          "spaces",
+          "Unicode path",
+          "path scrolling"
+        ],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "reviewed long local guide segment segment segment segment segment segment caf\u00e9.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "reviewed long local guide segment segment segment segment segment segment caf\u00e9.md": "IyBMb25nIGZpbGVuYW1lCgpMb25nIGZpbGVuYW1lIGRlc3RpbmF0aW9uIGJvZHkuCg==",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "reviewed long local guide segment segment segment segment segment segment caf\u00e9.md": "IyBMb25nIGZpbGVuYW1lCgpMb25nIGZpbGVuYW1lIGRlc3RpbmF0aW9uIGJvZHkuCg==",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "E11",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": true,
+        "title": "open a long spaced Unicode filename as a local path"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"beta.md\"",
+          "/expect beta.md",
+          "/key Enter",
+          "/expect Wide cells",
+          "/resize 70 28",
+          "/redraw",
+          "/text \"\\u000e\"",
+          "/absent Contents",
+          "/resize 100 28",
+          "/redraw",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [
+          "wide cells",
+          "combining marks",
+          "repeated resize",
+          "exact UTF-8 bytes"
+        ],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBXaWRlIGd1aWRlCgpXaWRlIGNlbGxzIOmbqueVjCBhbmQgY29tYmluaW5nIGXMgSByZW1haW4gc291cmNlIGV4YWN0Lgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBXaWRlIGd1aWRlCgpXaWRlIGNlbGxzIOmbqueVjCBhbmQgY29tYmluaW5nIGXMgSByZW1haW4gc291cmNlIGV4YWN0Lgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "E12",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": true,
+        "title": "resize a document with wide characters and combining marks"
+      }
+    ],
+    "windows": [
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"beta.md\"",
+          "/expect beta.md",
+          "/key Enter",
+          "/expect Beta body independent source.",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "N01",
+        "kind": "normal",
+        "missing": [],
+        "snapshot": true,
+        "title": "open a nondefault local document through the address bar"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/key End",
+          "/key Enter",
+          "/expect Deep destination independently reached.",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgojIyBEZWVwIGRlc3RpbmF0aW9uCgpEZWVwIGRlc3RpbmF0aW9uIGluZGVwZW5kZW50bHkgcmVhY2hlZC4K",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgojIyBEZWVwIGRlc3RpbmF0aW9uCgpEZWVwIGRlc3RpbmF0aW9uIGluZGVwZW5kZW50bHkgcmVhY2hlZC4K",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "N02",
+        "kind": "normal",
+        "missing": [],
+        "snapshot": true,
+        "title": "jump to a below-viewport heading through the table of contents"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"chdir .\"",
+          "/expect chdir .",
+          "/key Enter",
+          "/expect beta.md",
+          "/key Home",
+          "/key ArrowDown",
+          "/key ArrowDown",
+          "/key Enter",
+          "/expect Beta body independent source.",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "N03",
+        "kind": "normal",
+        "missing": [],
+        "snapshot": true,
+        "title": "browse the current directory and select a Markdown file"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"beta.md\"",
+          "/expect beta.md",
+          "/key Enter",
+          "/expect Beta body independent source.",
+          "/text \"\\u0019\"",
+          "/expect alpha.md",
+          "/key Home",
+          "/key ArrowDown",
+          "/key Enter",
+          "/expect Alpha body independent source.",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "N04",
+        "kind": "normal",
+        "missing": [],
+        "snapshot": true,
+        "title": "revisit the earlier document through browsing history"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"help\"",
+          "/expect help",
+          "/key Enter",
+          "/expect Welcome to Frogmouth Help!",
+          "/key Enter",
+          "/absent Welcome to Frogmouth Help!",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "N05",
+        "kind": "normal",
+        "missing": [],
+        "snapshot": true,
+        "title": "read local help and return to the current document"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"about\"",
+          "/expect about",
+          "/key Enter",
+          "/expect Built with Textual",
+          "/key Enter",
+          "/absent Built with Textual",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "N06",
+        "kind": "normal",
+        "missing": [],
+        "snapshot": true,
+        "title": "inspect application information and dismiss it"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/key End",
+          "/key Enter",
+          "/expect Deep destination independently reached.",
+          "/text \"\\u0012\"",
+          "/expect Alpha body independent source.",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgojIyBEZWVwIGRlc3RpbmF0aW9uCgpEZWVwIGRlc3RpbmF0aW9uIGluZGVwZW5kZW50bHkgcmVhY2hlZC4K",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgojIyBEZWVwIGRlc3RpbmF0aW9uCgpEZWVwIGRlc3RpbmF0aW9uIGluZGVwZW5kZW50bHkgcmVhY2hlZC4K",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "N07",
+        "kind": "normal",
+        "missing": [],
+        "snapshot": true,
+        "title": "reload a scrolled document and return to its beginning"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"\\u000e\"",
+          "/absent Contents",
+          "/key End",
+          "/expect Deep destination independently reached.",
+          "/key Home",
+          "/expect Alpha body independent source.",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgojIyBEZWVwIGRlc3RpbmF0aW9uCgpEZWVwIGRlc3RpbmF0aW9uIGluZGVwZW5kZW50bHkgcmVhY2hlZC4K",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgpSZXZpZXdlZCBzY3JvbGxhYmxlIHBhcmFncmFwaC4KClJldmlld2VkIHNjcm9sbGFibGUgcGFyYWdyYXBoLgoKUmV2aWV3ZWQgc2Nyb2xsYWJsZSBwYXJhZ3JhcGguCgojIyBEZWVwIGRlc3RpbmF0aW9uCgpEZWVwIGRlc3RpbmF0aW9uIGluZGVwZW5kZW50bHkgcmVhY2hlZC4K",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "N08",
+        "kind": "normal",
+        "missing": [],
+        "snapshot": true,
+        "title": "page through a long document and recover the first page"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"missing.md\"",
+          "/expect missing.md",
+          "/key Enter",
+          "/expect Error loading",
+          "/key Enter",
+          "/absent Error loading",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"beta.md\"",
+          "/expect beta.md",
+          "/key Enter",
+          "/expect Beta body independent source.",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [
+          "missing file",
+          "error dialog",
+          "focus recovery"
+        ],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "E01",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": true,
+        "title": "recover from a missing local document without modifying the originals"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"cancel-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"\\u000e\"",
+          "/absent Contents",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "E02",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": true,
+        "title": "cancel a partially entered address and preserve the current document"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"beta.md\"",
+          "/expect beta.md",
+          "/key Enter",
+          "/expect CRLF body independently rendered.",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBDUkxGIGd1aWRlDQoNCkNSTEYgYm9keSBpbmRlcGVuZGVudGx5IHJlbmRlcmVkLg0K",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBDUkxGIGd1aWRlDQoNCkNSTEYgYm9keSBpbmRlcGVuZGVudGx5IHJlbmRlcmVkLg0K",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "E03",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": true,
+        "title": "display a CRLF document with explicit original byte preservation"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"caf\\u00e9 \\u96ea guide.md\"",
+          "/expect caf\u00e9 \u96ea guide.md",
+          "/key Enter",
+          "/expect Reviewed caf\u00e9 \u96ea destination.",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [
+          "Unicode path",
+          "spaces",
+          "Unicode cells",
+          "CRLF bytes"
+        ],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "caf\u00e9 \u96ea guide.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "caf\u00e9 \u96ea guide.md": "IyBVbmljb2RlIGd1aWRlDQoNClJldmlld2VkIGNhZsOpIOmbqiBkZXN0aW5hdGlvbi4NCg==",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "caf\u00e9 \u96ea guide.md": "IyBVbmljb2RlIGd1aWRlDQoNClJldmlld2VkIGNhZsOpIOmbqiBkZXN0aW5hdGlvbi4NCg==",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "E04",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": true,
+        "title": "open a spaced Unicode path with Unicode CRLF content"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"beta.md\"",
+          "/expect beta.md",
+          "/key Enter",
+          "/expect fenced_code_marker",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBTb3VyY2UgZ3VpZGUKCmBgYHB5dGhvbgpwcmludCgiZmVuY2VkX2NvZGVfbWFya2VyIikKYGBgCg==",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBTb3VyY2UgZ3VpZGUKCmBgYHB5dGhvbgpwcmludCgiZmVuY2VkX2NvZGVfbWFya2VyIikKYGBgCg==",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "E05",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": true,
+        "title": "render fenced source code without interpreting its markup"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"beta.md\"",
+          "/expect beta.md",
+          "/key Enter",
+          "/expect table_marker",
+          "/resize 70 28",
+          "/redraw",
+          "/text \"\\u000e\"",
+          "/absent Contents",
+          "/resize 100 28",
+          "/redraw",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [
+          "table layout",
+          "narrow viewport",
+          "repeated resize"
+        ],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBUYWJsZSBndWlkZQoKfCBLZXkgfCBWYWx1ZSB8CnwgLS0tIHwgLS0tIHwKfCB0YWJsZV9tYXJrZXIgfCByZXZpZXdlZCB8Cg==",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBUYWJsZSBndWlkZQoKfCBLZXkgfCBWYWx1ZSB8CnwgLS0tIHwgLS0tIHwKfCB0YWJsZV9tYXJrZXIgfCByZXZpZXdlZCB8Cg==",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "E06",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": true,
+        "title": "render a Markdown table after narrowing and restoring the viewport"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"beta.md\"",
+          "/expect beta.md",
+          "/key Enter",
+          "/expect nested_list_marker",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBMaXN0IGd1aWRlCgotIHBhcmVudCBpdGVtCiAgLSBuZXN0ZWRfbGlzdF9tYXJrZXIKCkVzY2FwZWQgXCpsaXRlcmFsXCogdGV4dC4K",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBMaXN0IGd1aWRlCgotIHBhcmVudCBpdGVtCiAgLSBuZXN0ZWRfbGlzdF9tYXJrZXIKCkVzY2FwZWQgXCpsaXRlcmFsXCogdGV4dC4K",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "E07",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": true,
+        "title": "render nested list indentation and escaped markup"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"beta.md\"",
+          "/expect beta.md",
+          "/key Enter",
+          "/expect Visible frontmatter body.",
+          "/absent Alpha body independent source.",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [
+          "front matter",
+          "rendered/source distinction",
+          "binary sentinel preservation"
+        ],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "LS0tCnNlY3JldF9tZXRhZGF0YV9tYXJrZXI6IHN5bnRoZXRpYwotLS0KIyBNZXRhZGF0YSBndWlkZQoKVmlzaWJsZSBmcm9udG1hdHRlciBib2R5Lgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "LS0tCnNlY3JldF9tZXRhZGF0YV9tYXJrZXI6IHN5bnRoZXRpYwotLS0KIyBNZXRhZGF0YSBndWlkZQoKVmlzaWJsZSBmcm9udG1hdHRlciBib2R5Lgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "E08",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": true,
+        "title": "hide YAML front matter while retaining its exact bytes"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"beta.md\"",
+          "/expect beta.md",
+          "/key Enter",
+          "/absent Alpha body independent source.",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "E09",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": true,
+        "title": "open an empty Markdown file and remove the previous document view"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"beta.md\"",
+          "/expect beta.md",
+          "/key Enter",
+          "/expect unfinished_fence_marker",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBJbmNvbXBsZXRlIGd1aWRlCgpgYGB0ZXh0CnVuZmluaXNoZWRfZmVuY2VfbWFya2VyCg==",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBJbmNvbXBsZXRlIGd1aWRlCgpgYGB0ZXh0CnVuZmluaXNoZWRfZmVuY2VfbWFya2VyCg==",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "E10",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": true,
+        "title": "render incomplete Markdown fences as bounded plain content"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"reviewed long local guide segment segment segment segment segment segment caf\\u00e9.md\"",
+          "/expect reviewed long local guide segment segment segment segment segment segment caf\u00e9.md",
+          "/key Enter",
+          "/expect Long filename destination body.",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [
+          "long filename",
+          "spaces",
+          "Unicode path",
+          "path scrolling"
+        ],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "reviewed long local guide segment segment segment segment segment segment caf\u00e9.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "reviewed long local guide segment segment segment segment segment segment caf\u00e9.md": "IyBMb25nIGZpbGVuYW1lCgpMb25nIGZpbGVuYW1lIGRlc3RpbmF0aW9uIGJvZHkuCg==",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBCZXRhIGd1aWRlCgpCZXRhIGJvZHkgaW5kZXBlbmRlbnQgc291cmNlLgoKIyMgU2Vjb25kIHNlY3Rpb24KClJldmlld2VkIGJldGEgaW5zdHJ1Y3Rpb25zLgo=",
+          "reviewed long local guide segment segment segment segment segment segment caf\u00e9.md": "IyBMb25nIGZpbGVuYW1lCgpMb25nIGZpbGVuYW1lIGRlc3RpbmF0aW9uIGJvZHkuCg==",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "E11",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": true,
+        "title": "open a long spaced Unicode filename as a local path"
+      },
+      {
+        "actions": [
+          "/expect Alpha body independent source.",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/text \"/\"",
+          "/text \"focus-marker-probe\"",
+          "/expect probe",
+          "/text \"\\u0015\"",
+          "/absent probe",
+          "/text \"beta.md\"",
+          "/expect beta.md",
+          "/key Enter",
+          "/expect Wide cells",
+          "/resize 70 28",
+          "/redraw",
+          "/text \"\\u000e\"",
+          "/absent Contents",
+          "/resize 100 28",
+          "/redraw",
+          "/text \"\\u000e\"",
+          "/expect Contents",
+          "/snapshot-rows selected.rows.json 4 26",
+          "/text \"\\u0011\"",
+          "/exit 0"
+        ],
+        "args": [
+          "alpha.md"
+        ],
+        "combined_risks": [
+          "wide cells",
+          "combining marks",
+          "repeated resize",
+          "exact UTF-8 bytes"
+        ],
+        "dirs": [],
+        "entry_sets": {
+          ".": [
+            "alpha.md",
+            "beta.md",
+            "sentinel.bin"
+          ]
+        },
+        "exit": 0,
+        "expected": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBXaWRlIGd1aWRlCgpXaWRlIGNlbGxzIOmbqueVjCBhbmQgY29tYmluaW5nIGXMgSByZW1haW4gc291cmNlIGV4YWN0Lgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "files": {
+          "alpha.md": "IyBBbHBoYSBndWlkZQoKQWxwaGEgYm9keSBpbmRlcGVuZGVudCBzb3VyY2UuCgojIyBGaXJzdCBzZWN0aW9uCgpSZXZpZXdlZCBhbHBoYSBpbnN0cnVjdGlvbnMuCg==",
+          "beta.md": "IyBXaWRlIGd1aWRlCgpXaWRlIGNlbGxzIOmbqueVjCBhbmQgY29tYmluaW5nIGXMgSByZW1haW4gc291cmNlIGV4YWN0Lgo=",
+          "sentinel.bin": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+        },
+        "id": "E12",
+        "kind": "edge",
+        "missing": [],
+        "snapshot": true,
+        "title": "resize a document with wide characters and combining marks"
+      }
+    ]
+  },
+  "normals": 8,
+  "pin": "15c3e85a6e84b2e4a6845723acf12beb54c81eb2",
+  "project": "Textualize/frogmouth",
+  "scenario_ceiling_ms": 120000,
+  "schema_version": 1,
+  "scope": "Read-only local synthetic Markdown browsing. Public same-execution exact file preservation and complete directory-entry assertions; managed HOME configuration/history remain unclaimed structured state. No remote inputs/openers.",
+  "source_faults_selected": false,
+  "step_ceiling_ms": 15000
+}
