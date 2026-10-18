@@ -1,0 +1,8 @@
+{
+  "first_native_authoring_run": "39152550656",
+  "outcome": "All twenty public captures/replays and individual ordinary tests pass both hosts. Linux full twenty suite passes. Mac full suite19/20: N03 extra Enter writes after Enquirer has already submitted n, logged skipped and exited0; public runner returns red EIO, target/workspace cleanup confirmed.",
+  "primary_source": "Pinned dependency enquirer/lib/types/boolean.js dispatch(ch) sets input and immediately calls submit(). Both y and n submit without Enter.",
+  "revision": "Remove only the redundant Enter after confirmation y/n in N02/N03. Every expected generated/preserved byte and directory set is unchanged. Preserve prior approval/freeze snapshots before replacing current local approval slots. Re-author both revised cases, run full local suite, and then fresh full native twenty-case authoring/freeze.",
+  "freeze_boundary": "No source fault selected; initial Linux freeze and failed Mac series remain historical, not the current canonical two-host freeze.",
+  "product_change": false
+}
