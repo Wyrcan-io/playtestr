@@ -1,0 +1,75 @@
+name: Runner readiness Hygen reserved native
+on:
+  push:
+    branches: [work/p0-p2-implementation]
+    paths: ['.github/workflows/runner-readiness-hygen.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONIOENCODING: utf-8
+  TEMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+  TMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+  TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+  RUNNER_TEMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+concurrency:
+  group: playtestr-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  terminal:
+    if: github.event_name == 'workflow_dispatch'
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        os: [ubuntu-24.04, macos-15]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+      - name: Prepare owned temporary path
+        run: mkdir -p "$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass/tmp"
+      - name: Download exact already-frozen native private artifact
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          github-token: ${{ github.token }}
+          repository: Wyrcan-io/playtestr
+          run-id: 39147652486
+          name: private-candidate-${{ runner.os }}
+          path: artifacts/runner-readiness-ten-project-pass/provisional-download
+      - name: Extract and verify frozen native binary without rebuilding
+        run: |
+          campaign="$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass"
+          if [ "$RUNNER_OS" = macOS ]; then target=darwin-arm64; else target=linux-amd64; fi
+          archive="$campaign/provisional-download/candidate-packages/provisional-v1/$target/dist/playtestr_0.4.0-rc.4_${target/-/_}.tar.gz"
+          python3 scripts/acceptance/readiness_check.py --label hygen-exact-provisional-extraction --timeout 120 -- python3 scripts/acceptance/readiness_install_provisional.py --archive "$archive"
+      - name: Reviewed owned target setup
+        id: prepare
+        run: python3 scripts/acceptance/readiness_check.py --label hygen-native-reviewed-target-setup --timeout 900 -- python3 scripts/acceptance/readiness_hygen_native_prepare.py
+      - name: First public recording, explicit review, replay and ordinary test
+        run: python3 scripts/acceptance/readiness_check.py --label hygen-native-first-public-route --timeout 600 -- python3 scripts/acceptance/readiness_hygen_first_use.py
+      - name: Verify source restoration and owned runtime termination before removal
+        if: always() && steps.prepare.outcome == 'success'
+        run: python3 scripts/acceptance/readiness_check.py --label hygen-native-checked-source-cleanup --timeout 180 -- python3 scripts/acceptance/readiness_cleanup_plop.py --project hygen
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: playtestr-${{ runner.os }}
+          path: |
+            artifacts/runner-readiness-ten-project-pass/events/
+            artifacts/runner-readiness-ten-project-pass/identities/
+            artifacts/runner-readiness-ten-project-pass/core/
+            artifacts/runner-readiness-ten-project-pass/hygen/
+            artifacts/runner-readiness-ten-project-pass/private-install/provisional-v1/*/installation.json
+            !artifacts/runner-readiness-ten-project-pass/hygen/retained-source/source.tar.gz
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14

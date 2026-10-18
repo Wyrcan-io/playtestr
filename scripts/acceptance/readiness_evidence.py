@@ -89,6 +89,7 @@ class Campaign:
             paths.extend((ROOT/directory).rglob('*.py'))
         paths.extend((ROOT/'schema').glob('*.json'))
         directories=[]
+        runtime_executables={}
         values=list(map(str,argv))
         if len(values)>1 and values[1]=='record' and '--output' in values and '--fixture' in values:
             output=Path(values[values.index('--output')+1])
@@ -156,6 +157,19 @@ class Campaign:
                 paths.extend((target/'wheel-manifests').glob('*.json'))
                 if (target/'dependency-review').is_dir():
                     paths.extend(p for p in (target/'dependency-review').rglob('*') if p.is_file())
+            elif project=='hygen':
+                for directory in ['dist','node_modules']:
+                    paths.extend(p for p in (target/'src'/directory).rglob('*') if p.is_file() and
+                        p.suffix in {'.js','.cjs','.mjs','.json','.node','.wasm'})
+                paths.extend([target/'src/package.json',target/'src/yarn.lock'])
+                paths.extend(p for p in (target/'src/src/templates').rglob('*') if p.is_file())
+                paths.extend(p for p in (target/'bin').glob('*') if p.is_file())
+                if (target/'dependencies.json').is_file():paths.append(target/'dependencies.json')
+                if (target/'runtime.json').is_file():
+                    runtime=json.loads((target/'runtime.json').read_text(encoding='utf-8-sig'))
+                    node=Path(runtime['node'])
+                    if node.name.lower() not in {'node','node.exe'}:raise ValueError('unexpected Hygen runtime executable')
+                    runtime_executables['node']=sha256(node)
             elif project=='rubygems':
                 paths.extend(p for p in (target/'src/lib').rglob('*') if p.is_file())
                 paths.extend(p for p in (target/'src/exe').iterdir() if p.is_file())
@@ -190,6 +204,7 @@ class Campaign:
         identity = {'project': project, 'host': platform.system(), 'architecture': platform.machine(),
                     'fixture_directories':sorted(set(directories)),
                     'files': {p.relative_to(ROOT).as_posix(): sha256(p) for p in sorted(set(paths))}}
+        if runtime_executables:identity['runtime_executables']=runtime_executables
         data = (json.dumps(identity, sort_keys=True, ensure_ascii=True, indent=2)+'\n').encode()
         digest = hashlib.sha256(data).hexdigest()
         path = self.raw/'identities'/(digest+'.json')

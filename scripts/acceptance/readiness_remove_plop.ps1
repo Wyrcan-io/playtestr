@@ -1,4 +1,4 @@
-param([ValidateSet('plop','poetry','rubygems','edit','vis','fff','papis','frogmouth')][string]$Project = 'plop')
+param([ValidateSet('plop','poetry','rubygems','edit','vis','fff','papis','frogmouth','hygen')][string]$Project = 'plop')
 $ErrorActionPreference = 'Stop'
 $workspace = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..')).TrimEnd('\')
 $campaign = Join-Path $workspace 'artifacts\runner-readiness-ten-project-pass'
@@ -17,8 +17,8 @@ foreach ($ancestor in @((Join-Path $workspace 'artifacts'), $campaign, (Join-Pat
     }
 }
 $marker = Get-Content -LiteralPath (Join-Path $active 'task-owned.json') -Raw | ConvertFrom-Json
-$repository = @{plop='plopjs/plop';poetry='python-poetry/poetry';rubygems='ruby/rubygems';edit='microsoft/edit';vis='martanne/vis';fff='dylanaraps/fff';papis='papis/papis';frogmouth='Textualize/frogmouth'}[$Project]
-$pin = @{plop='0c90e7ef93ffa5f40b10fe8f53d3cc23adee5a8e';poetry='38a86661d2ae58694c76d0bb4e628e1400d6dc6f';rubygems='f033df93676007227d1ae0bd7326008e6396b3e9';edit='cb6de0a8966aecd01d19a3541dab1829d0e679ca';vis='10b630af09404cf2c887e2d7e6e24ecda9d05ea7';fff='6f2dc6f3a003d24e8b3fd48b046241b486022ad5';papis='c744b5efe9b307b9664f3e96c154cb620e140a8f';frogmouth='15c3e85a6e84b2e4a6845723acf12beb54c81eb2'}[$Project]
+$repository = @{plop='plopjs/plop';poetry='python-poetry/poetry';rubygems='ruby/rubygems';edit='microsoft/edit';vis='martanne/vis';fff='dylanaraps/fff';papis='papis/papis';frogmouth='Textualize/frogmouth';hygen='jondot/hygen'}[$Project]
+$pin = @{plop='0c90e7ef93ffa5f40b10fe8f53d3cc23adee5a8e';poetry='38a86661d2ae58694c76d0bb4e628e1400d6dc6f';rubygems='f033df93676007227d1ae0bd7326008e6396b3e9';edit='cb6de0a8966aecd01d19a3541dab1829d0e679ca';vis='10b630af09404cf2c887e2d7e6e24ecda9d05ea7';fff='6f2dc6f3a003d24e8b3fd48b046241b486022ad5';papis='c744b5efe9b307b9664f3e96c154cb620e140a8f';frogmouth='15c3e85a6e84b2e4a6845723acf12beb54c81eb2';hygen='26f76d8dede565b2bf38d0b9e9f3009ee2c8f9ae'}[$Project]
 if ($marker.workspace -ne $workspace -or $marker.project -ne $repository -or
     $marker.campaign -ne 'runner-readiness-ten-project-pass' -or
     $marker.pin -ne $pin) { throw 'Ownership mismatch' }
@@ -33,7 +33,7 @@ $archive = Join-Path $retained 'source.tar.gz'
 if ((Get-FileHash -LiteralPath $archive -Algorithm SHA256).Hash.ToLowerInvariant() -ne $index.archive_sha256) {
     throw 'Retained archive identity changed'
 }
-$filter = if ($Project -eq 'plop') { "Name='node.exe'" } elseif ($Project -eq 'rubygems') { "Name='ruby.exe' OR Name='rubyw.exe' OR Name='git.exe' OR Name='less.exe' OR Name='diff.exe'" } elseif ($Project -eq 'edit') { "Name='edit.exe' OR Name='cargo.exe' OR Name='rustc.exe' OR Name='rustdoc.exe' OR Name='link.exe' OR Name='rc.exe' OR Name='cl.exe'" } elseif ($Project -eq 'vis') { "Name='vis.exe' OR Name='gcc.exe' OR Name='clang.exe' OR Name='cc1.exe' OR Name='make.exe' OR Name='ld.exe'" } elseif ($Project -eq 'fff') { "Name='bash.exe' OR Name='sh.exe' OR Name='cp.exe' OR Name='mv.exe' OR Name='rm.exe' OR Name='mkdir.exe'" } else { "Name='python.exe' OR Name='pythonw.exe' OR Name='poetry.exe' OR Name='papis.exe' OR Name='frogmouth.exe' OR Name='pip.exe'" }
+$filter = if ($Project -in @('plop','hygen')) { "Name='node.exe'" } elseif ($Project -eq 'rubygems') { "Name='ruby.exe' OR Name='rubyw.exe' OR Name='git.exe' OR Name='less.exe' OR Name='diff.exe'" } elseif ($Project -eq 'edit') { "Name='edit.exe' OR Name='cargo.exe' OR Name='rustc.exe' OR Name='rustdoc.exe' OR Name='link.exe' OR Name='rc.exe' OR Name='cl.exe'" } elseif ($Project -eq 'vis') { "Name='vis.exe' OR Name='gcc.exe' OR Name='clang.exe' OR Name='cc1.exe' OR Name='make.exe' OR Name='ld.exe'" } elseif ($Project -eq 'fff') { "Name='bash.exe' OR Name='sh.exe' OR Name='cp.exe' OR Name='mv.exe' OR Name='rm.exe' OR Name='mkdir.exe'" } else { "Name='python.exe' OR Name='pythonw.exe' OR Name='poetry.exe' OR Name='papis.exe' OR Name='frogmouth.exe' OR Name='pip.exe'" }
 $nodes = @(Get-CimInstance Win32_Process -Filter $filter | Where-Object {
     $_.CommandLine -and ($_.CommandLine.IndexOf($active, [StringComparison]::OrdinalIgnoreCase) -ge 0 -or
     $_.CommandLine.IndexOf($active.Replace('\','/'), [StringComparison]::OrdinalIgnoreCase) -ge 0)
