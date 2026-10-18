@@ -1,0 +1,61 @@
+{
+  "archive_qualified": false,
+  "cells": [
+    {
+      "cleanup_receipt_sha256": "c422951aeeeb006b18e63f2cd3a5465f8921ec7c12840fd45b426c3a2598937e",
+      "host": "playtestr-Linux",
+      "maintenance_sha256": "a5d68e09f851ba216ded8c6504731f99833a76ff7b1226254c103f59444ea33b",
+      "report_sha256": "d1f1af7a933c72cd9d4ddb409bb483325e4c4a4bdd332ac2cfbb305942d36660",
+      "run": "39104095852",
+      "runner_sha256": "de5a0fedb19a2cd68d564b936ea71ca06c842dcf018fd30935c68626a74c80d0",
+      "scenarios": 20,
+      "source_fault_summary_sha256": "17c778ba5df83a7ac7ebaa474496ed676d48146a4fd3f1a357c1517b978f827b"
+    },
+    {
+      "cleanup_receipt_sha256": "9d6a2d75c981b60b8e8bc6f861fd3e47648300d328bdab9b0f36bcd005a06f43",
+      "host": "playtestr-Windows",
+      "maintenance_sha256": "b596eb2ff60b408bd1d8d5d2abd0e45310972adcdd1877d4098c61d5e22c71b0",
+      "report_sha256": "3462d9ac228b1691bb57ecdf73c0458076f01c209b28a451689b60c780dfe2a0",
+      "run": "39104095852",
+      "runner_sha256": "1293a325fb14d048ff34933c1cc5a7470980b9c20fb098262c3ab4aa19885960",
+      "scenarios": 20,
+      "source_fault_summary_sha256": "ed46ac8f891dbc453b9545aa85c0669fae9afe915c9a5c79b21f550451679f81"
+    }
+  ],
+  "core_metadata_sha256": "5a7adb834a27ef72ed0c142e5a48ab998246d0a9e24efbca9fd109a9d6278435",
+  "core_run": "39103715410",
+  "edge_scenarios": 12,
+  "final_runner_admissions": 0,
+  "first_use_sha256": "0cfe5b5bf2c05922f0ef6324ac50a2a72521fb3ee078e5868c5dd3fab32f0c6d",
+  "holdout": "Only initial Linux F04 in 39102850362 is original, declared after meaningful twenty-case freeze b393fc1. Windows/later runs are replicas. Prior F03 was selected but never reached and has zero revised-freeze heldout credit.",
+  "human_usability": "unmeasured",
+  "limitations": "Trusted offline local Markdown browsing only. Managed-home bookmark/history UI exercised, without a public structured-home-state claim. Earlier help/About-only breadth, focus failures and ineffective process-exit injection are preserved and excluded. Agent familiarity and warm prerequisites; human usability unmeasured. Final archives and actual generated CI remain open.",
+  "local_source_removal_receipt_sha256": "99416648008094a9a1c4ba2ab5333de61266fe6c989485cf04756561c3149418",
+  "native_packet_archives": [
+    {
+      "archive_sha256": "11f7fa12c461495a3bed19f2ac4ed02e6fe3408176da2711563d4ef1fa652958",
+      "generation": 1,
+      "index_sha256": "0ac7148c74f46bb10e9385d144e35c4c07ea797e06aa3c8f45120a8802350f24",
+      "logical_files": 2608,
+      "selected_restores": 5
+    },
+    {
+      "archive_sha256": "d27214e80b1302e44c8c4bfb3b8bd468c8c4d38d1327d5e67f8cad1ad713b45c",
+      "generation": 2,
+      "index_sha256": "a2881c388b06f01bca7a7bb5d3e24dfab31e8491a1c6c507e7ea0a17bd9d2def",
+      "logical_files": 5314,
+      "selected_restores": 5
+    }
+  ],
+  "native_verification_sha256": "ef2dc8a9602baea7fa4b4c829794496ddde024b93a700c10dd9006ab69544dcc",
+  "normal_scenarios": 8,
+  "observed_project_retained_bytes": 11471164,
+  "original_fault_summary_sha256": "f66ce02830f6e41079b90444d9e7e5287ebd7cbf8f381e826058fdd9fa41e265",
+  "pin": "15c3e85a6e84b2e4a6845723acf12beb54c81eb2",
+  "project": "Textualize/frogmouth",
+  "real_faults": 3,
+  "reviewed_freeze_sha256": "a5c2fae9143a0c4445cb3b7c05e52de1e7ebc82c30ea73856325b02ab086309c",
+  "runner_source": "3d50d81aae8f1d24f7a718e6e05b39069697b1a6",
+  "schema_version": 1,
+  "status": "development-admitted"
+}

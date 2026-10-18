@@ -51,6 +51,11 @@ def main():
     route=load(docs/'current-first-use-route.json')
     first_path=docs/('first-use-native-'+route['native_run']+'.json');first=load(first_path)
     require(first['source_revision']==SOURCE and len(first['cells'])==2 and first['recorder_controls']<=20 and first['shell_invocations']<=5,'native first use unqualified or engineering control target unmet')
+    require(sha256(first_path)==route['verification_sha256'],'first-use verification changed')
+    for cell in first['cells']:
+        prefix='native/'+route['native_run']+'/playtestr-'+cell['host']+'/'
+        for key in ['journey_sha256','spec_sha256','cleanup_sha256']:
+            require(any(name.startswith(prefix) and record['sha256']==cell[key] for name,record in all_files.items()),'first-use verified payload absent from retained archive')
     observed=sum(p.stat().st_size for p in project.rglob('*') if p.is_file());require(observed<64*1024**2,'retained evidence cap exceeded')
     candidate_path=docs.parent/'candidates.json';before=candidate_path.read_bytes();candidates=load(candidate_path)
     require(candidates['project_admissions']==candidates['development_admissions']==7,'unexpected admission counter')

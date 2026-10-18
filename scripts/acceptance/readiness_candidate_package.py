@@ -32,6 +32,15 @@ async def main():
     if ledger['development_admissions']!=8:raise RuntimeError('provisional freeze requires eight completed development admissions')
     for repo,status in [('jondot/hygen','provisional-holdout-9'),('rclone/rclone','provisional-holdout-10')]:
         if next(r for r in ledger['rows'] if r['repository']==repo)['status']!=status:raise RuntimeError('reserved transfer target was already consumed')
+    qualification=docs/'earlier-project-requalification-retention-3d50d81.json'
+    current=json.loads(qualification.read_text(encoding='utf-8-sig'))
+    if current['runner_source']!=SOURCE or len(current['projects'])!=7 or {r['project'] for r in current['projects']}!={'plop','poetry','rubygems','edit','vis','fff','papis'}:raise RuntimeError('seven earlier projects lack current-source requalification')
+    for row in current['projects']:
+        receipt=docs/row['project']/'requalification-3d50d81.json'
+        value=json.loads(receipt.read_text(encoding='utf-8-sig'))
+        if sha256(receipt)!=row['requalification_sha256'] or value['runner_source']!=SOURCE or value['cells']!=row['cells']:raise RuntimeError('current-source project verification changed')
+    admission=docs/'frogmouth/development-admission.json'
+    if json.loads(admission.read_text(encoding='utf-8-sig'))['runner_source']!=SOURCE:raise RuntimeError('eighth admission uses stale source')
     checkout=ROOT/'.playtestr-tooling'
     if subprocess.check_output(['git','-C',str(checkout),'rev-parse','HEAD'],text=True,timeout=15).strip()!=SOURCE:raise RuntimeError('candidate source checkout differs')
     host={'Linux':'linux','Darwin':'darwin','Windows':'windows'}[platform.system()]
@@ -83,7 +92,7 @@ async def main():
     await run([released,'--help'],'extracted-help')
     if inputs!={n:sha256(checkout/n) for n in names}:raise RuntimeError('candidate source inputs changed during build')
     immutable_json(root/'candidate.json',dict(schema_version=1,series=args.series,version=VERSION,source_revision=SOURCE,host=host,architecture=arch,
-        source_inputs=inputs,compiler_sha256=sha256(tool),sdk=sdk['output'].strip(),sdk_settings=native,sdk_attempt=sdk['id'],settings_attempt=settings['id'],binary_sha256=sha256(binary),extracted_binary_sha256=sha256(released),
+        source_qualification_index_sha256=sha256(qualification),eighth_admission_sha256=sha256(admission),source_inputs=inputs,compiler_sha256=sha256(tool),sdk=sdk['output'].strip(),sdk_settings=native,sdk_attempt=sdk['id'],settings_attempt=settings['id'],binary_sha256=sha256(binary),extracted_binary_sha256=sha256(released),
         archive=archive.relative_to(ROOT).as_posix(),archive_sha256=sha256(archive),archive_bytes=archive.stat().st_size,archive_members=members,
         build_attempt=build['id'],version_attempt=version['id'],ledger_sha256=sha256(docs/'candidates.json'),project_qualification=False,
         freeze='Private provisional archive before reserved projects nine/ten. No release/tag/publication authorized; final qualification remains separate.'))

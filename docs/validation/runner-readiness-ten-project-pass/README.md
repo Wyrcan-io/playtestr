@@ -1,6 +1,6 @@
 # Runner readiness campaign
 
-Invoked 16 October 2026. Status: **in progress; seven development admissions across fourteen native cells**.
+Invoked 16 October 2026. Status: **in progress; eight development admissions across sixteen native cells**.
 
 Base: `deed954a9ed1c05db73ee93cb2fbb84d9271d1e1`, branch
 `work/p0-p2-implementation`. Pre-existing edits: planning index and execution
@@ -20,7 +20,7 @@ Poetry's owned local tree is also removed after verified retention and cleanup.
 RubyGems/Bundler is admitted on Linux/Windows and its owned local tree is removed.
 Microsoft Edit is admitted on Linux/Windows and its owned local tree is removed.
 Vis is admitted on Linux/macOS and its owned local source tree is removed.
-fff is admitted on Linux/macOS and its owned local source tree is removed. Attempted 8; development admitted 7; archive qualified 0;
+fff is admitted on Linux/macOS and its owned local source tree is removed. Attempted 8; development admitted 8; archive qualified 0;
 old projects migrated 0; final runner admissions 0/100; paid-product admissions 0/100;
 final-qualified scenarios, faults, repetitions and native project/host cells all 0.
 Development evidence includes nineteen passing Windows Plop scenarios and three
@@ -82,3 +82,5 @@ Vis now passes native Linux/macOS run `39064393286`: twenty frozen cases, three 
 
 Raw attempts/caches/packages belong only under ignored
 `artifacts/runner-readiness-ten-project-pass/`. Earlier evidence is preserved.
+
+Current R3-11 source is `3d50d81aae8f1d24f7a718e6e05b39069697b1a6`. Native core 39103715410 passed Linux/macOS/Windows; [33 whole controls](new-control-development-evidence-revision-11.json) bind current inputs to successful native events. [Frogmouth admission](frogmouth/development-admission.json) adds project eight on Linux/Windows, including useful post-exit failure frames and a verified sixteen-control first-use route. Earlier sections retain historical source/run details; all seven earlier projects are being requalified against R3-11. Reserved Hygen/Rclone remain untouched pending actual provisional archive freeze.
