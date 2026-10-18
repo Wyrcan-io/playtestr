@@ -63,7 +63,7 @@ async def main():
     immutable_json(freeze,dict(schema_version=1,contracts={r['id']+'.json':r['contract_sha256'] for r in approved},
         all_package_inputs=files,approvals=approved,normal_scenarios=8,edge_scenarios=12,
         ordinary_parent=suite['id'],ordinary_report_sha256=sha256(report),runner_sha256=sha256(runner),
-        target_build_sha256=sha256(RAW/'active/frogmouth/build.json'),holdout='No source fault selected before this freeze.'))
+        target_build_sha256=sha256(RAW/'active/frogmouth/build.json'),holdout='No fresh heldout selected for this revised freeze; earlier selection belongs to the prior preserved freeze.'))
     print('Twenty reviewed Markdown browsing contracts pass the ordinary public directory suite and are frozen before fault selection.')
 
 

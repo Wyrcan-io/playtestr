@@ -56,10 +56,13 @@ async def main():
     runner=select_runner()
 
     async def validate(label):
+        validation_env=environment()
+        for name,folder in [('HOME','home'),('USERPROFILE','home'),('APPDATA','home/appdata'),('LOCALAPPDATA','home/localappdata'),('XDG_CONFIG_HOME','home/config'),('XDG_CACHE_HOME','home/cache'),('XDG_DATA_HOME','home/data')]:
+            owned=active/folder;owned.mkdir(parents=True,exist_ok=True);validation_env[name]=str(owned)
         syntax = await execute([python, '-c', "import pathlib,sys; compile(pathlib.Path(sys.argv[1]).read_bytes(),sys.argv[1],'exec')", source], 'frogmouth', label+'-syntax',
-            env=environment(), timeout=30, campaign=Campaign())
+            env=validation_env, timeout=30, campaign=Campaign())
         version = await execute([python,'-m','frogmouth','--version'], 'frogmouth', label+'-version',
-            env=environment(), timeout=30, campaign=Campaign())
+            env=validation_env, timeout=30, campaign=Campaign())
         if version['output'].strip()!='frogmouth 0.9.1 (Textual v0.53.1)':
             raise RuntimeError('source fault altered version route')
         return dict(syntax_attempt=syntax['id'], version_attempt=version['id'],

@@ -29,6 +29,7 @@ def declared_steps(controls):
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--run',required=True)
+    parser.add_argument('--output',type=Path)
     parser.add_argument('--source-revision',default='f46f2409985af077fd29723ab963d24792eabbbe');args=parser.parse_args()
     require(args.run.isascii() and args.run.isdecimal(),'invalid native run')
     source=args.source_revision;require(len(source)==40 and all(c in '0123456789abcdef' for c in source),'invalid source revision')
@@ -96,7 +97,7 @@ def main():
                 selected=load(package/'snapshots'/snapshot);screen=selected['text']
                 require(selected['snapshot_version']==1 and selected['first_row']==4 and selected['last_row']==26,'selected row scope changed')
                 anchors={'N01':'Beta body independent source.','N02':'Deep destination independently reached.','N03':'Beta body independent source.',
-                    'N04':'Alpha body independent source.','N05':'Alpha body independent source.','N06':'Alpha body independent source.',
+                    'N04':'Alpha body independent source.','N05':'Beta body independent source.','N06':'Beta body independent source.',
                     'N07':'Alpha body independent source.','N08':'Alpha body independent source.','E01':'Beta body independent source.',
                     'E02':'Alpha body independent source.','E03':'CRLF body independently rendered.','E04':'Reviewed caf\u00e9',
                     'E05':'fenced_code_marker','E06':'table_marker','E07':'nested_list_marker','E08':'Visible frontmatter body.',
@@ -114,6 +115,8 @@ def main():
         for result in report['results']:result_ok(result)
         removed=load(retained/'removed.json');require(removed['removed'] and removed['source_archive_sha256']==ARCHIVE,'source removal unconfirmed')
         cells.append(dict(host=host,freeze_sha256=sha256(packet/'frogmouth/reviewed-contract-freeze.json'),report_sha256=sha256(reports[0]),runner_sha256=runner['copied_sha256']))
+    if args.output:
+        destination=(ROOT/args.output).resolve();destination.relative_to((docs/'freezes').resolve());destination.mkdir(parents=True,exist_ok=False);docs=destination
     require(not (docs/'contracts').exists() and not (docs/'reviewed-contract-freeze.json').exists(),'curated native freeze already published')
     shutil.copytree(run/'playtestr-Linux/frogmouth/contracts',docs/'contracts')
     shutil.copyfile(run/'playtestr-Linux/frogmouth/reviewed-contract-freeze.json',docs/'reviewed-contract-freeze.json')
@@ -121,7 +124,7 @@ def main():
     shutil.copytree(run/'playtestr-Windows/frogmouth/contracts',windows/'contracts')
     shutil.copyfile(run/'playtestr-Windows/frogmouth/reviewed-contract-freeze.json',windows/'reviewed-contract-freeze.json')
     immutable_json(docs/'native-authoring-review.json',dict(run=args.run,cells=cells,source_revision=source,
-        public_contract_freeze_sha256=sha256(docs/'reviewed-contract-freeze.json'),fault_selection='None selected before independent native freeze review.',development_admission=False,final_archive_credit=False))
+        public_contract_freeze_sha256=sha256(docs/'reviewed-contract-freeze.json'),fault_selection='No fresh heldout selected for this revised freeze; previous fault declarations/results remain historical.',development_admission=False,final_archive_credit=False))
     print('Independently reviewed both native Frogmouth twenty-case freezes before source fault selection.')
 
 
