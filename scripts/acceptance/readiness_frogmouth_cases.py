@@ -8,7 +8,7 @@ import uuid
 
 from adversarial_process import execute
 from readiness_evidence import Campaign,RAW,ROOT,immutable_json,sha256
-from readiness_frogmouth_first_use import SOURCE,command,environment,fixture_files,runner
+from readiness_frogmouth_first_use import ADDRESS_FOCUS_BORDER,SOURCE,command,environment,fixture_files,runner
 from readiness_papis_cases import entry_sets,plan_hash,serialise
 
 
@@ -25,7 +25,7 @@ def rows(host=None):
     def row(identity,title,actions,files=None,combined=()):
         files=dict(seed if files is None else files)
         return dict(id=identity,title=title,kind='normal' if identity.startswith('N') else 'edge',args=['alpha.md'],
-            actions=[*actions,'/snapshot-rows selected.rows.json 4 26',*finish],files=files,expected=files,
+            actions=[*actions,'/snapshot-rows '+identity+'.rows.json 4 26',*finish],files=files,expected=files,
             missing=[],dirs=[],entry_sets=entry_sets(files,[]),snapshot=True,exit=0,combined_risks=list(combined))
     result=[
         row('N01','open a nondefault local document through the address bar',navigate),
@@ -36,7 +36,7 @@ def rows(host=None):
         row('N04','revisit the earlier document through browsing history',
             [*navigate,text('\x19'),expect('alpha.md'),key('Home'),key('ArrowDown'),key('Enter'),expect('Alpha body independent source.')]),
         row('N05','read local help and return to the current document',
-            [*start,*command('help'),expect('Welcome to Frogmouth Help!'),key('Enter'),'/absent Welcome to Frogmouth Help!']),
+            [*start,*command('help'),expect('Welcome to Frogmouth Help!'),key('Escape'),'/absent Welcome to Frogmouth Help!']),
         row('N06','inspect application information and dismiss it',
             [*start,*command('about'),expect('Built with Textual'),key('Enter'),'/absent Built with Textual']),
         row('N07','reload a scrolled document and return to its beginning',
@@ -44,9 +44,9 @@ def rows(host=None):
         row('N08','page through a long document and recover the first page',
             [*start,text('\x0e'),'/absent Contents',key('End'),expect('Deep destination independently reached.'),key('Home'),expect('Alpha body independent source.')],{**seed,'alpha.md':long}),
         row('E01','recover from a missing local document without modifying the originals',
-            [*start,*command('missing.md'),expect('Error loading'),key('Enter'),'/absent Error loading',*command('beta.md'),expect('Beta body independent source.')],combined=['missing file','error dialog','focus recovery']),
+            [*start,*command('missing.md'),expect('Error loading'),key('Enter'),'/absent Error loading',text('\x14'),'/absent '+ADDRESS_FOCUS_BORDER,*command('beta.md'),expect('Beta body independent source.')],combined=['missing file','error dialog','focus recovery']),
         row('E02','cancel a partially entered address and preserve the current document',
-            [*start,text('/'),text('cancel-probe'),expect('probe'),text('\x15'),'/absent probe',text('\x0e'),'/absent Contents']),
+            [*start,*command('beta.md')[:-1],text('\x15'),'/absent beta.md',text('\x0e'),'/absent Contents']),
     ]
     def document(identity,title,content,anchor,name='beta.md',extra=(),combined=()):
         files={**seed,name:content}

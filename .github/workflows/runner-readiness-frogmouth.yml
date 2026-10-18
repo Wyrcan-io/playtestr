@@ -10,6 +10,11 @@ on:
         default: both
         options: [both, linux, windows]
         description: Native hosts for source-reviewed first use
+      phase:
+        type: choice
+        default: first-use
+        options: [first-use, author]
+        description: First useful route or twenty declared public recordings
 permissions:
   contents: read
 env:
@@ -69,6 +74,12 @@ jobs:
       - name: First public recording, explicit review and ordinary replay
         run: |
           python scripts/acceptance/readiness_check.py --label native-frogmouth-first-public-route --timeout 600 -- python scripts/acceptance/readiness_frogmouth_first_use.py
+      - name: Author twenty declared public workflows and independently check original bytes
+        if: inputs.phase == 'author'
+        run: python scripts/acceptance/readiness_check.py --label native-frogmouth-twenty-public-recordings --timeout 1200 -- python scripts/acceptance/readiness_frogmouth_cases.py
+      - name: Verify full public directory suite and freeze reviewed exports
+        if: inputs.phase == 'author'
+        run: python scripts/acceptance/readiness_check.py --label native-frogmouth-twenty-ordinary-freeze --timeout 900 -- python scripts/acceptance/readiness_frogmouth_freeze.py
       - name: Verify pinned source restores and owned runtime termination
         if: always() && steps.prepare.outcome == 'success'
         run: |
