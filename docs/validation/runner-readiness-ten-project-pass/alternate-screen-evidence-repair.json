@@ -1,0 +1,21 @@
+{
+  "after": "755e1df7579b4d1e8d254f0d9e031e73",
+  "before": "1e0be52c5bc6480d96f854b1c46a09b2",
+  "behavior": "Retain one rendered nonempty alternate viewport immediately before restoration. Use it only for failure evidence when the live viewport is blank; identify fallback in CLI. Prefer newer nonblank live output and retain actual snapshot mismatch frames. Live assertions never read the retained evidence frame.",
+  "demo_build": "0510ed55719c49c19ad191ae3d7a52ef",
+  "final_archive_credit": false,
+  "finding": "R3-11",
+  "full_go_tests": "2613e3992a764e189ec875559c2fe4e4",
+  "local_race": "bcc4be78cf374b25b07591dda13ccbf0",
+  "manual_cli_build": "5863d4bf799b42e793654d893a95bf5e",
+  "manual_examples": "14054c6731ea44d4afac77397c6cea5e",
+  "native_core_run": "39103715410",
+  "native_status": "pending, not configured-workflow credit",
+  "python_harness": "1f11e325c0c942a6be104aeb6a23b268",
+  "race_route": "Existing repository GCC and owned Go1.25/cache paths; equivalent go test -race checks. Stock race script forces shared .cache and was not used.",
+  "requalification": "All eight current project packages must run at this source; old passes and original controls remain historical. Provisional candidate and reserved projects are still untouched.",
+  "schema_version": 1,
+  "scope": "General standalone runner evidence repair, no target branches or production dependency changes.",
+  "source_revision": "3d50d81aae8f1d24f7a718e6e05b39069697b1a6",
+  "vet": "6bdf3a8febe942148a9a467756fff1b1"
+}

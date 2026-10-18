@@ -49,7 +49,7 @@ async def main():
         result=await execute(argv,'papis','first-use-'+label,env=environment(),input=input,
             timeout=180,campaign=Campaign());attempts.append(result['id']);return result
     version=await run([runner,'--version'],'version')
-    expected_version='playtestr source-'+os.environ.get('SOURCE_REVISION','f46f2409985af077fd29723ab963d24792eabbbe')
+    expected_version='playtestr source-'+os.environ.get('SOURCE_REVISION','3d50d81aae8f1d24f7a718e6e05b39069697b1a6')
     if version['output'].strip()!=expected_version:
         raise RuntimeError('first-use runner is not the exact declared source candidate: '+version['output'].strip())
     spec=root/'spec.json'

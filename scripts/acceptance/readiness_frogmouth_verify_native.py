@@ -5,7 +5,7 @@ from pathlib import Path
 import shutil
 
 from readiness_evidence import RAW,ROOT,immutable_json,sha256
-from readiness_new_control_matrix import read_json as load
+from readiness_new_control_matrix import packet_file,read_json as load
 from readiness_papis_verify_native import verifier,result_ok
 from readiness_frogmouth_first_use import ADDRESS_FOCUS_BORDER,SOURCE,fixture_files
 from readiness_frogmouth_verify_first_use import PIN,ARCHIVE,require
@@ -39,6 +39,12 @@ def verify_faults(packet,docs,profile,runtime,build,runner_sha,host,witness,orig
                 failed=next(i for i,s in enumerate(result['steps']) if s['status']=='failed');prior=result['steps'][:failed]
                 require(all(s['status']=='passed' for s in prior) and {'snapshot','exit'}<={s['action'] for s in prior},'F03 lacks prior passing screen and exact exit')
                 state=result['steps'][failed]['state'];require(state['kind']=='file' and state['path']=='beta.md','wrong saved-state rejection')
+                if SOURCE!='f46f2409985af077fd29723ab963d24792eabbbe':
+                    reference=result['evidence']['screen_path'].replace('\\','/')
+                    prefix='artifacts/runner-readiness-ten-project-pass/'
+                    require(reference.startswith(prefix),'unsafe failure screen reference')
+                    screen=packet_file(packet,reference.removeprefix(prefix),4*1024**2).read_text(encoding='utf-8-sig')
+                    require(screen.count('Beta body independent source.')==1,'R3-11 final useful TUI frame remains missing')
         for phase,digest in [('mutation_validation',fault['mutated_source_sha256']),('restored_validation',fault['original_source_sha256'])]:
             validation=fault[phase]
             require(validation['source_sha256']==digest and validation['interpreter_sha256']==runtime['python_sha256'],'validation source/runtime receipt differs')
@@ -74,20 +80,27 @@ def verify_maintenance(packet,contracts,witness):
     suffix=load(package/'rerecorded-suffix.json');expected={**fixture_files(),'sentinel.bin':b'reviewed sentinel revision two\x00\r\n','gamma.md':b'# Gamma guide\n\nGamma corrected suffix destination.\n'}
     actual={s['state']['path']:base64.b64decode(s['state']['bytes_base64']) for s in suffix['steps'] if s.get('state',{}).get('kind')=='file'}
     require(actual==expected and not any(s.get('text')=='beta.md' for s in suffix['steps']) and sum(s.get('key')=='Enter' for s in suffix['steps'])==1,'wrong-document suffix survived or saved oracle differs')
-    require(next(s['state']['entries'] for s in suffix['steps'] if s.get('state',{}).get('kind')=='entries')==sorted(expected),'suffix directory set differs')
+    entries=next(s['state']['entries'] for s in suffix['steps'] if s.get('state',{}).get('kind')=='entries')
+    require(len(entries)==len(expected) and set(entries)==set(expected),'suffix directory set differs')
     require(sha256(package/'N01.json')==journey['maintained_spec_sha256'] and sha256(path.parent/'relocated \u96ea route/N01.json')==journey['relocated_spec_sha256'],'relocation changed maintained bytes')
     require(sha256(path.parent/'generated-workflow.yml')==journey['generated_workflow_sha256'] and journey['generated_workflow_execution'] is False,'workflow preparation identity/claim differs')
     return path
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--run',required=True);args=parser.parse_args()
+    global SOURCE
+    parser=argparse.ArgumentParser();parser.add_argument('--run',required=True);parser.add_argument('--source-revision',default=SOURCE);parser.add_argument('--replicas',action='store_true');args=parser.parse_args()
+    SOURCE=args.source_revision
+    require(len(SOURCE)==40 and all(c in '0123456789abcdef' for c in SOURCE),'invalid runner source revision')
     require(args.run.isascii() and args.run.isdecimal() and len(args.run)<=20,'invalid native run ID')
     docs=ROOT/'docs/validation/runner-readiness-ten-project-pass/frogmouth';run=RAW/'native'/args.run;metadata=load(run/'run-metadata.json')
     series=load(docs/'current-qualification-series.json')
-    require(args.run==series['native_run'] and args.run.isascii() and args.run.isdecimal(),'wrong original native series; repetitions require replica verification')
+    current=load(docs/'current-source-requalification.json') if args.replicas else series
+    require(args.run==current['native_run'],'wrong original/requalification native series')
     require(series['original_heldout']==dict(host='Linux',fault='F04') and series['freeze_commit']=='b393fc1afb8814ac6db6ff40ffc844f15f0816a8','wrong original holdout/freeze binding')
-    require(metadata['status']=='completed' and metadata['conclusion']=='success' and metadata['headSha']==series['declaration_commit'] and len(metadata['jobs'])==2 and all(j['conclusion']=='success' for j in metadata['jobs']),'native qualification failed/incomplete or wrong committed declaration')
+    expected_commit=current['tooling_commit'] if args.replicas else series['declaration_commit']
+    require(not args.replicas or current['runner_source']==SOURCE,'wrong requalified runner source')
+    require(metadata['status']=='completed' and metadata['conclusion']=='success' and metadata['headSha']==expected_commit and len(metadata['jobs'])==2 and all(j['conclusion']=='success' for j in metadata['jobs']),'native qualification failed/incomplete or wrong committed declaration')
     cells=[]
     for host in ['Linux','Windows']:
         packet=run/('playtestr-'+host);attempts,witness=verifier(packet);profile=docs/'native-profiles/windows' if host=='Windows' else docs
@@ -107,17 +120,20 @@ def main():
         require(inputs['artifacts/runner-readiness-ten-project-pass/active/frogmouth/venv/'+('Scripts/python.exe' if host=='Windows' else 'bin/python')]==runtime['python_sha256'],'ordinary interpreter not bound')
         for name,digest in freeze['all_package_inputs'].items():require(inputs['artifacts/runner-readiness-ten-project-pass/frogmouth/host-contracts/'+name]==digest,'ordinary frozen payload not bound')
         for result in report['results']:result_ok(result,'passed')
-        summary=verify_faults(packet,docs,profile,runtime,build,runner['copied_sha256'],host,witness,host=='Linux')
+        summary=verify_faults(packet,docs,profile,runtime,build,runner['copied_sha256'],host,witness,not args.replicas and host=='Linux')
         maintenance=verify_maintenance(packet,contracts,witness)
         removed=load(retained/'removed.json');index=load(retained/'verified-index.json')
         require(removed['removed'] and removed['owned_relative_path']=='active/frogmouth' and removed['source_archive_sha256']==ARCHIVE==index['archive_sha256'],'source cleanup/archive differs')
         for name in index['selected_restore']:require(sha256(retained/'selected-restore'/name)==index['files'][name]['sha256'],'selected source restore differs')
         cells.append(dict(host='playtestr-'+host,run=args.run,scenarios=20,runner_sha256=runner['copied_sha256'],report_sha256=sha256(report_path),source_fault_summary_sha256=sha256(summary),maintenance_sha256=sha256(maintenance),cleanup_receipt_sha256=sha256(retained/'removed.json')))
-    immutable_json(RAW/'frogmouth/native-development-verification.json',dict(runner_source=SOURCE,cells=cells,real_faults=3,original_current_source_heldout=dict(run=args.run,host='Linux',fault='F04'),phase='development',final_archive_credit=False))
-    original=list((run/'playtestr-Linux/frogmouth/faults').glob('*/summary.json'))[0]
-    destination=docs/'original-source-faults';destination.mkdir(exist_ok=False)
-    for name in ['summary.json','selected-faults.json','F01.patch','F02.patch','F04.patch']:shutil.copyfile(original.parent/name,destination/name)
-    print('Verified both native Frogmouth twenty-case suites, three actual source faults/restores, maintenance and cleanup.')
+    historical=SOURCE=='f46f2409985af077fd29723ab963d24792eabbbe'
+    output='historical-f46f240-verification.json' if historical else 'native-development-verification.json'
+    immutable_json(RAW/'frogmouth'/output,dict(runner_source=SOURCE,cells=cells,real_faults=3,original_current_source_heldout=dict(run=series['native_run'],host='Linux',fault='F04'),original_fault_runner_source=series['current_source'],phase='development',evidence_repair_required=historical,final_archive_credit=False))
+    if not args.replicas:
+        original=list((run/'playtestr-Linux/frogmouth/faults').glob('*/summary.json'))[0]
+        destination=docs/'original-source-faults';destination.mkdir(exist_ok=False)
+        for name in ['summary.json','selected-faults.json','F01.patch','F02.patch','F04.patch']:shutil.copyfile(original.parent/name,destination/name)
+    print('Verified both native suites, three actual source faults/restores, maintenance and cleanup; '+('historical R3-11 blank-screen gap remains unqualified.' if historical else 'final useful failure frames preserved.'))
 
 
 if __name__=='__main__':main()

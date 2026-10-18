@@ -10,7 +10,7 @@ from pathlib import Path
 import uuid
 
 from adversarial_process import execute
-from readiness_frogmouth_first_use import environment,runner as select_runner
+from readiness_frogmouth_first_use import SOURCE,environment,runner as select_runner
 from readiness_evidence import Campaign, RAW, ROOT, immutable_json, sha256
 
 
@@ -75,7 +75,7 @@ async def main():
             (package/fault['spec']).relative_to(ROOT)], 'frogmouth', fault['id']+'-'+phase,
             env=environment(), expected=expected, timeout=150, campaign=Campaign())
         evidence=load(report)
-        if evidence['runner_version']!='source-'+os.environ.get('SOURCE_REVISION','f46f2409985af077fd29723ab963d24792eabbbe'):
+        if evidence['runner_version']!='source-'+os.environ.get('SOURCE_REVISION',SOURCE):
             raise RuntimeError('fault runner is not the exact declared source candidate')
         outcome = evidence['results'][0]
         if not outcome['cleanup']['confirmed_exited'] or not outcome['workspace']['cleaned']:

@@ -9,7 +9,7 @@ import uuid
 from adversarial_process import execute
 from readiness_evidence import Campaign,RAW,ROOT,immutable_json,sha256
 
-SOURCE='f46f2409985af077fd29723ab963d24792eabbbe'
+SOURCE='3d50d81aae8f1d24f7a718e6e05b39069697b1a6'
 PIN='15c3e85a6e84b2e4a6845723acf12beb54c81eb2'
 ADDRESS_FOCUS_BORDER='\u250f'+'\u2501'*98+'\u2513'
 

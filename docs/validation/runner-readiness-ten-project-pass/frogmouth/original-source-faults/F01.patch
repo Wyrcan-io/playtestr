@@ -1,0 +1,11 @@
+--- a/frogmouth/widgets/viewer.py
++++ b/frogmouth/widgets/viewer.py
+@@ -196,7 +196,7 @@
+             remember: Should we remember the location in th ehistory?
+         """
+         try:
+-            await self.document.load(location)
++            await self.document.load(location.with_name("alpha.md"))
+         except OSError as error:
+             self.app.push_screen(
+                 ErrorDialog(

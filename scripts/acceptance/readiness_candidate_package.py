@@ -12,8 +12,17 @@ import zipfile
 from adversarial_process import execute
 from readiness_evidence import Campaign,RAW,ROOT,immutable_json,sha256
 
-SOURCE='f46f2409985af077fd29723ab963d24792eabbbe'
+SOURCE='3d50d81aae8f1d24f7a718e6e05b39069697b1a6'
 VERSION='v0.4.0-rc.4'
+
+
+class SourceCampaign(Campaign):
+    def __init__(self,inputs):
+        super().__init__();self.inputs=inputs
+
+    def identity(self,project,argv):
+        # Bind checkout inputs without changing the actual executed command.
+        return super().identity(project,[*argv,*self.inputs])
 
 
 async def main():
@@ -31,10 +40,10 @@ async def main():
     tool=RAW/'toolchain/go/bin'/('go.exe' if os.name=='nt' else 'go')
     env=dict(os.environ,GOTOOLCHAIN='local',GOCACHE=str(RAW/'go-cache'),GOPATH=str(RAW/'gopath'),GOMODCACHE=str(RAW/'gopath/pkg/mod'),TEMP=str(RAW/'tmp'),TMP=str(RAW/'tmp'),TMPDIR=str(RAW/'tmp'),GOTMPDIR=str(RAW/'tmp'))
     binary=root/('playtestr.exe' if os.name=='nt' else 'playtestr')
-    async def run(argv,label):return await execute(argv,'core','candidate-'+label,cwd=checkout,env=env,timeout=180,campaign=Campaign())
     tracked=subprocess.check_output(['git','-C',str(checkout),'ls-files','-z'],timeout=15).decode().split('\0')
     names=sorted(n for n in tracked if n.endswith('.go') or n in {'go.mod','go.sum','README.md','LICENSE','THIRD_PARTY_NOTICES.md'})
     inputs={n:sha256(checkout/n) for n in names}
+    async def run(argv,label):return await execute(argv,'core','candidate-'+label,cwd=checkout,env=env,timeout=180,campaign=SourceCampaign([checkout/n for n in names]))
     sdk=await run([tool,'version'],'sdk-version')
     build=await run([tool,'build','-trimpath','-buildvcs=false','-ldflags','-s -w -X github.com/Wyrcan-io/playtestr/internal/buildinfo.Version='+VERSION,'-o',binary,'./cmd/playtestr'],'native-build')
     await run([tool,'run','./cmd/package-release','-binary',binary,'-version',VERSION,'-os',host,'-arch',arch,'-out',root/'dist'],'native-package')

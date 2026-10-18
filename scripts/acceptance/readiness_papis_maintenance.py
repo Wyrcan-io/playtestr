@@ -83,7 +83,7 @@ async def main():
         if sha256(relocated/selected.name)!=sha256(selected):raise RuntimeError('relocation changed a contract')
         await test(relocated/selected.name,'relocated-'+selected.stem)
     workflow=root/'generated-workflow.yml'
-    await run([runner,'workflow','--source-revision',os.environ.get('SOURCE_REVISION','f46f2409985af077fd29723ab963d24792eabbbe'),
+    await run([runner,'workflow','--source-revision',os.environ.get('SOURCE_REVISION','3d50d81aae8f1d24f7a718e6e05b39069697b1a6'),
         '--os','linux,windows','--suite','artifacts/runner-readiness-ten-project-pass/papis/host-contracts',
         '--build','python scripts/acceptance/readiness_papis_native_prepare.py --target-only',
         '--output',workflow.relative_to(ROOT)],'generate-ordinary-workflow')

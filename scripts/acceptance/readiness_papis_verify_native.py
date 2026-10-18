@@ -10,7 +10,7 @@ from readiness_new_control_matrix import packet_file,read_json as load
 from readiness_papis_first_use import fixture_files
 from readiness_papis_verify_first_use import PIN,ARCHIVE,require
 
-SOURCE='f46f2409985af077fd29723ab963d24792eabbbe'
+SOURCE='3d50d81aae8f1d24f7a718e6e05b39069697b1a6'
 
 
 def verifier(packet,identities=None):
@@ -117,7 +117,10 @@ def verify_maintenance(packet,contracts,witness):
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--run');parser.add_argument('--local-original',action='store_true');parser.add_argument('--fresh',action='store_true');args=parser.parse_args()
+    global SOURCE
+    parser=argparse.ArgumentParser();parser.add_argument('--run');parser.add_argument('--local-original',action='store_true');parser.add_argument('--fresh',action='store_true');parser.add_argument('--replicas',action='store_true');parser.add_argument('--source-revision',default=SOURCE);parser.add_argument('--output',type=Path);args=parser.parse_args()
+    SOURCE=args.source_revision
+    require(len(SOURCE)==40 and all(c in '0123456789abcdef' for c in SOURCE),'invalid source revision')
     require(bool(args.run)!=args.local_original,'select a native run or local original')
     docs=ROOT/'docs/validation/runner-readiness-ten-project-pass/papis'
     if args.local_original:
@@ -147,7 +150,8 @@ def main():
         print('Verified historical dev-binary source faults/restores and maintenance only; current-source qualification and holdout credit remain zero.')
         return
     require(args.run.isascii() and args.run.isdecimal(),'invalid native run')
-    require(not args.fresh or args.run=='39099744836','fresh heldout verifier binds the first committed native consumption; later runs require replica verification')
+    require(not args.fresh or args.replicas or args.run=='39099744836','fresh heldout verifier binds the first committed native consumption; later runs require replica verification')
+    require(not args.replicas or (args.fresh and args.output),'replica verification requires current four-fault selection and a new output path')
     run=RAW/'native'/args.run;metadata=load(run/'run-metadata.json')
     require(metadata['status']=='completed' and metadata['conclusion']=='success' and len(metadata['jobs'])==2 and all(j['conclusion']=='success' for j in metadata['jobs']),'native qualification failed or incomplete')
     cells=[]
@@ -171,16 +175,16 @@ def main():
         for name,digest in freeze['all_package_inputs'].items():require(inputs['artifacts/runner-readiness-ten-project-pass/papis/host-contracts/'+name]==digest,'ordinary payload not bound')
         require('artifacts/runner-readiness-ten-project-pass/papis/host-contracts/fixtures/E10/library' in load(packet_file(packet,attempts[suites[0]]['identified']['identity']['manifest'],1024**2))['fixture_directories'],'declared empty fixture directory not bound')
         for result in report['results']:result_ok(result,'passed')
-        summary=verify_faults(packet,docs,profile,runtime,build,runner['copied_sha256'],host,witness,fresh=args.fresh,original_fresh=args.fresh and host=='Linux')
+        summary=verify_faults(packet,docs,profile,runtime,build,runner['copied_sha256'],host,witness,fresh=args.fresh,original_fresh=args.fresh and not args.replicas and host=='Linux')
         maintenance=verify_maintenance(packet,contracts,witness)
         removed=load(retained/'removed.json');index=load(retained/'verified-index.json')
         require(removed['removed'] and removed['owned_relative_path']=='active/papis' and removed['source_archive_sha256']==ARCHIVE==index['archive_sha256'],'source cleanup or archive differs')
         for name in index['selected_restore']:require(sha256(retained/'selected-restore'/name)==index['files'][name]['sha256'],'source restore changed')
         cells.append(dict(host='playtestr-'+host,run=args.run,scenarios=20,runner_sha256=runner['copied_sha256'],
             report_sha256=sha256(report_path),source_fault_summary_sha256=sha256(summary),maintenance_sha256=sha256(maintenance),cleanup_receipt_sha256=sha256(retained/'removed.json')))
-    output='native-fresh-development-verification.json' if args.fresh else 'native-development-verification.json'
-    immutable_json(RAW/'papis'/output,dict(runner_source=SOURCE,cells=cells,phase='development',real_faults=4 if args.fresh else 3,original_current_source_heldout=dict(run=args.run,host='Linux',fault='F04') if args.fresh else None,final_archive_credit=False))
-    if args.fresh:
+    output=(args.output or RAW/'papis'/('native-fresh-development-verification.json' if args.fresh else 'native-development-verification.json')).resolve();output.relative_to(ROOT)
+    immutable_json(output,dict(runner_source=SOURCE,cells=cells,phase='development',real_faults=4 if args.fresh else 3,original_current_source_heldout=dict(run='39099744836' if args.replicas else args.run,host='Linux',fault='F04') if args.fresh else None,faults_are_replicas=args.replicas,final_archive_credit=False))
+    if args.fresh and not args.replicas:
         original=list((run/'playtestr-Linux/papis/faults').glob('*/summary.json'))[0]
         destination=docs/'original-current-source-faults';destination.mkdir(exist_ok=False)
         for name in ['summary.json','selected-faults.json','F01.patch','F02.patch','F03.patch','F04.patch']:

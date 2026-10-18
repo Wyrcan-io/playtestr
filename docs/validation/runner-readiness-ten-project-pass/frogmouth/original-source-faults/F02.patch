@@ -1,0 +1,7 @@
+--- a/frogmouth/app/app.py
++++ b/frogmouth/app/app.py
+@@ -76,3 +76,4 @@
+ def run() -> None:
+     """Run the application."""
+     MarkdownViewer(get_args()).run()
++    raise SystemExit(7)

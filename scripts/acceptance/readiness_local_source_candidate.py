@@ -7,7 +7,7 @@ from adversarial_process import execute
 from readiness_acquire_plop import extract_source
 from readiness_evidence import Campaign,RAW,ROOT,immutable_json,sha256
 
-SOURCE='f46f2409985af077fd29723ab963d24792eabbbe'
+SOURCE='3d50d81aae8f1d24f7a718e6e05b39069697b1a6'
 
 
 async def main():

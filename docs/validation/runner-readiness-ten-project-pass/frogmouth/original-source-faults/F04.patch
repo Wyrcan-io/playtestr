@@ -1,0 +1,11 @@
+--- a/frogmouth/widgets/viewer.py
++++ b/frogmouth/widgets/viewer.py
+@@ -205,6 +205,8 @@
+                 )
+             )
+         else:
++            if location.name == "beta.md":
++                location.unlink()
+             self._post_load(location, remember)
+ 
+     @work(exclusive=True)

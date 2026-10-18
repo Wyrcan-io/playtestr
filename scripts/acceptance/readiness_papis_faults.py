@@ -75,7 +75,7 @@ async def main():
             (package/fault['spec']).relative_to(ROOT)], 'papis', fault['id']+'-'+phase,
             env=environment(), expected=expected, timeout=150, campaign=Campaign())
         evidence=load(report)
-        if evidence['runner_version']!='source-'+os.environ.get('SOURCE_REVISION','f46f2409985af077fd29723ab963d24792eabbbe'):
+        if evidence['runner_version']!='source-'+os.environ.get('SOURCE_REVISION','3d50d81aae8f1d24f7a718e6e05b39069697b1a6'):
             raise RuntimeError('fault runner is not the exact declared source candidate')
         outcome = evidence['results'][0]
         if not outcome['cleanup']['confirmed_exited'] or not outcome['workspace']['cleaned']:

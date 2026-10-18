@@ -7,7 +7,7 @@ on:
     paths: ['.github/workflows/runner-readiness-poetry.yml']
   workflow_dispatch:
 env:
-  SOURCE_REVISION: 'f46f2409985af077fd29723ab963d24792eabbbe'
+  SOURCE_REVISION: '3d50d81aae8f1d24f7a718e6e05b39069697b1a6'
   PYTHONDONTWRITEBYTECODE: '1'
   PYTHONIOENCODING: utf-8
   GOTOOLCHAIN: local
@@ -45,7 +45,7 @@ jobs:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
           repository: Wyrcan-io/playtestr
-          ref: 'f46f2409985af077fd29723ab963d24792eabbbe'
+          ref: '3d50d81aae8f1d24f7a718e6e05b39069697b1a6'
           path: .playtestr-tooling
           persist-credentials: false
           set-safe-directory: false
@@ -57,7 +57,7 @@ jobs:
       - name: Build exact candidate runner
         id: setup
         env:
-          SOURCE_REVISION: 'f46f2409985af077fd29723ab963d24792eabbbe'
+          SOURCE_REVISION: '3d50d81aae8f1d24f7a718e6e05b39069697b1a6'
         run: |
           export PATH="$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass/toolchain/go/bin:$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass/active/poetry/venv/bin:$PATH"
           mkdir -p .playtestr-bin

@@ -16,7 +16,7 @@ def require(condition,message):
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--run',required=True)
-    parser.add_argument('--source-revision',default='f46f2409985af077fd29723ab963d24792eabbbe');args=parser.parse_args()
+    parser.add_argument('--source-revision',default='3d50d81aae8f1d24f7a718e6e05b39069697b1a6');args=parser.parse_args()
     require(args.run.isascii() and args.run.isdecimal(),'invalid native run')
     source=args.source_revision
     require(len(source)==40 and all(c in '0123456789abcdef' for c in source),'invalid source revision')

@@ -1,0 +1,36 @@
+{
+  "execution": "Actual editable Python source; no compiled rebuild or installation per mutation.",
+  "faults": [
+    {
+      "after": "            await self.document.load(location.with_name(\"alpha.md\"))",
+      "before": "            await self.document.load(location)",
+      "category": "assertion_timeout",
+      "held_out": false,
+      "id": "F01",
+      "path": "frogmouth/widgets/viewer.py",
+      "spec": "N01.json"
+    },
+    {
+      "after": "    MarkdownViewer(get_args()).run()\n    raise SystemExit(7)\n",
+      "before": "    MarkdownViewer(get_args()).run()\n",
+      "category": "unexpected_exit",
+      "held_out": false,
+      "id": "F02",
+      "path": "frogmouth/app/app.py",
+      "spec": "N01.json"
+    },
+    {
+      "after": "        else:\n            if location.name == \"beta.md\":\n                location.unlink()\n            self._post_load(location, remember)\n\n    @work(exclusive=True)\n    async def _remote_load",
+      "before": "        else:\n            self._post_load(location, remember)\n\n    @work(exclusive=True)\n    async def _remote_load",
+      "category": "state_assertion_failure",
+      "held_out": true,
+      "id": "F04",
+      "path": "frogmouth/widgets/viewer.py",
+      "spec": "N01.json"
+    }
+  ],
+  "frozen_contract_sha256": "a5c2fae9143a0c4445cb3b7c05e52de1e7ebc82c30ea73856325b02ab086309c",
+  "native_freeze_sha256": "a5c2fae9143a0c4445cb3b7c05e52de1e7ebc82c30ea73856325b02ab086309c",
+  "original_heldout": true,
+  "selection_revision": 2
+}
