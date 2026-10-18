@@ -47,12 +47,13 @@ def result_ok(result,status):
         if 'state' in step:require(step['state']['invocation_id']==result['invocation_id'] and step['state']['workspace_id']==result['workspace']['id'],'cross-execution state')
 
 
-def verify_faults(packet,docs,profile,runtime,build,runner_sha,host,witness,original=False):
+def verify_faults(packet,docs,profile,runtime,build,runner_sha,host,witness,original=False,fresh=False,original_fresh=False):
     summaries=list((packet/'papis/faults').glob('*/summary.json'));require(len(summaries)==1,'ambiguous source fault batch')
     summary=summaries[0];data=load(summary);faults=data['faults']
-    require(len(faults)==3 and {r['id'] for r in faults}=={'F01','F02','F03'} and data['runner_sha256']==runner_sha,'source fault coverage/runner differs')
+    expected_ids={'F01','F02','F03','F04'} if fresh else {'F01','F02','F03'}
+    require(len(faults)==len(expected_ids) and {r['id'] for r in faults}==expected_ids and data['runner_sha256']==runner_sha,'source fault coverage/runner differs')
     require(data['interpreter_sha256']==runtime['python_sha256'],'fault interpreter receipt differs')
-    selected=load(docs/'fault-selection.json');review={r['id']:r for r in load(docs/'source-fault-review.json')['faults']}
+    selected=load(docs/('fault-selection-revision-2.json' if fresh else 'fault-selection.json'));review={r['id']:r for r in load(docs/('source-fault-review-revision-2.json' if fresh else 'source-fault-review.json'))['faults']}
     require(load(summary.parent/'selected-faults.json')['frozen_contract_sha256']==sha256(docs/'reviewed-contract-freeze.json'),'fault batch belongs to another freeze')
     runner_key='artifacts/runner-readiness-ten-project-pass/bin/playtestr'+('.exe' if host=='Windows' else '')
     interpreter_key='artifacts/runner-readiness-ten-project-pass/active/papis/venv/'+('Scripts/python.exe' if host=='Windows' else 'bin/python')
@@ -60,7 +61,7 @@ def verify_faults(packet,docs,profile,runtime,build,runner_sha,host,witness,orig
         declaration=next(r for r in selected['faults'] if r['id']==fault['id'])
         require(all(fault[k]==declaration[k] for k in ['path','spec','before','after','category']),'actual selected fault changed')
         require(all(fault[k]==review[fault['id']][k] for k in ['path','original_source_sha256','mutated_source_sha256']),'actual complete source mutation differs')
-        require(fault['held_out']==bool(original and fault['id']=='F03') and fault['restored_exact'],'heldout reuse or missing exact restoration')
+        require(fault['held_out']==bool((original and fault['id']=='F03') or (original_fresh and fault['id']=='F04')) and fault['restored_exact'],'heldout reuse or missing exact restoration')
         key='artifacts/runner-readiness-ten-project-pass/active/papis/src/'+fault['path']
         for phase,expected,digest in [('baseline',0,fault['original_source_sha256']),('mutated',1,fault['mutated_source_sha256']),('restored',0,fault['original_source_sha256'])]:
             identity=fault[{'baseline':'baseline_attempt','mutated':'mutation_attempt','restored':'restored_attempt'}[phase]]
@@ -75,9 +76,12 @@ def verify_faults(packet,docs,profile,runtime,build,runner_sha,host,witness,orig
             require(report['runner_version']==('dev' if original else 'source-'+SOURCE),'fault uses another runner source')
             result=report['results'][0];result_ok(result,'failed' if expected else 'passed')
             if expected:require(result['failure']['category']==fault['category'],'wrong real fault diagnosis')
-            if fault['id']=='F03' and phase=='mutated':
+            if fault['id'] in {'F03','F04'} and phase=='mutated':
                 failed=next(i for i,s in enumerate(result['steps']) if s['status']=='failed');prior=result['steps'][:failed]
                 require(all(s['status']=='passed' for s in prior) and {'snapshot','exit'}<={s['action'] for s in prior},'F03 lacks prior passing screen and exact exit')
+                if fault['id']=='F04':
+                    state=result['steps'][failed]['state']
+                    require(state['kind']=='entries' and state['path']=='exported','F04 was not rejected by unchanged exact exported entries')
         for phase,digest in [('mutation_validation',fault['mutated_source_sha256']),('restored_validation',fault['original_source_sha256'])]:
             validation=fault[phase]
             require(validation['source_sha256']==digest and validation['interpreter_sha256']==runtime['python_sha256'],'syntax/version source receipt differs')
@@ -113,7 +117,7 @@ def verify_maintenance(packet,contracts,witness):
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--run');parser.add_argument('--local-original',action='store_true');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--run');parser.add_argument('--local-original',action='store_true');parser.add_argument('--fresh',action='store_true');args=parser.parse_args()
     require(bool(args.run)!=args.local_original,'select a native run or local original')
     docs=ROOT/'docs/validation/runner-readiness-ten-project-pass/papis'
     if args.local_original:
@@ -143,6 +147,7 @@ def main():
         print('Verified historical dev-binary source faults/restores and maintenance only; current-source qualification and holdout credit remain zero.')
         return
     require(args.run.isascii() and args.run.isdecimal(),'invalid native run')
+    require(not args.fresh or args.run=='39099744836','fresh heldout verifier binds the first committed native consumption; later runs require replica verification')
     run=RAW/'native'/args.run;metadata=load(run/'run-metadata.json')
     require(metadata['status']=='completed' and metadata['conclusion']=='success' and len(metadata['jobs'])==2 and all(j['conclusion']=='success' for j in metadata['jobs']),'native qualification failed or incomplete')
     cells=[]
@@ -166,14 +171,20 @@ def main():
         for name,digest in freeze['all_package_inputs'].items():require(inputs['artifacts/runner-readiness-ten-project-pass/papis/host-contracts/'+name]==digest,'ordinary payload not bound')
         require('artifacts/runner-readiness-ten-project-pass/papis/host-contracts/fixtures/E10/library' in load(packet_file(packet,attempts[suites[0]]['identified']['identity']['manifest'],1024**2))['fixture_directories'],'declared empty fixture directory not bound')
         for result in report['results']:result_ok(result,'passed')
-        summary=verify_faults(packet,docs,profile,runtime,build,runner['copied_sha256'],host,witness)
+        summary=verify_faults(packet,docs,profile,runtime,build,runner['copied_sha256'],host,witness,fresh=args.fresh,original_fresh=args.fresh and host=='Linux')
         maintenance=verify_maintenance(packet,contracts,witness)
         removed=load(retained/'removed.json');index=load(retained/'verified-index.json')
         require(removed['removed'] and removed['owned_relative_path']=='active/papis' and removed['source_archive_sha256']==ARCHIVE==index['archive_sha256'],'source cleanup or archive differs')
         for name in index['selected_restore']:require(sha256(retained/'selected-restore'/name)==index['files'][name]['sha256'],'source restore changed')
         cells.append(dict(host='playtestr-'+host,run=args.run,scenarios=20,runner_sha256=runner['copied_sha256'],
             report_sha256=sha256(report_path),source_fault_summary_sha256=sha256(summary),maintenance_sha256=sha256(maintenance),cleanup_receipt_sha256=sha256(retained/'removed.json')))
-    immutable_json(RAW/'papis/native-development-verification.json',dict(runner_source=SOURCE,cells=cells,phase='development',final_archive_credit=False))
+    output='native-fresh-development-verification.json' if args.fresh else 'native-development-verification.json'
+    immutable_json(RAW/'papis'/output,dict(runner_source=SOURCE,cells=cells,phase='development',real_faults=4 if args.fresh else 3,original_current_source_heldout=dict(run=args.run,host='Linux',fault='F04') if args.fresh else None,final_archive_credit=False))
+    if args.fresh:
+        original=list((run/'playtestr-Linux/papis/faults').glob('*/summary.json'))[0]
+        destination=docs/'original-current-source-faults';destination.mkdir(exist_ok=False)
+        for name in ['summary.json','selected-faults.json','F01.patch','F02.patch','F03.patch','F04.patch']:
+            shutil.copyfile(original.parent/name,destination/name)
     print('Independently verified both native Papis suites, actual runtimes, source fault replicas, public maintenance and cleanup.')
 
 

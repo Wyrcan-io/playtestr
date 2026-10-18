@@ -1,0 +1,61 @@
+{
+  "archive_qualified": false,
+  "cells": [
+    {
+      "cleanup_receipt_sha256": "1cc4a7af85ca8a5b9252d6ec2dc73d52ea4f83026e06ba9ee564778b1c674076",
+      "host": "playtestr-Linux",
+      "maintenance_sha256": "f897f3ea0e8845db0b8342c2b900f7a80206934136e6f98436425c517029cc13",
+      "report_sha256": "cc6717e622b7b2bdb72669c0188595b6d280f028682b6879077153182cb0448b",
+      "run": "39099744836",
+      "runner_sha256": "6e7071f5569b089ed22a9b6c2f13dd797c737b44da0e108e58cd943e22350d2e",
+      "scenarios": 20,
+      "source_fault_summary_sha256": "ca39b8548ae9a5f32bda252fff6675cd00bac5166bbd1480f431a809d827c658"
+    },
+    {
+      "cleanup_receipt_sha256": "b9d709a19f87d5f7dce6cb4f470bfebec30d02883a4125607968cda8eb7ff69c",
+      "host": "playtestr-Windows",
+      "maintenance_sha256": "f63f7d78ec7f306c277c7fdc86f40737848cbd7975c7ad383c4a8e7a89df2cd5",
+      "report_sha256": "3f23702fd9613b346fa7c19f0d88bc6a5801ba5d4d694af8855c6b32fafd2208",
+      "run": "39099744836",
+      "runner_sha256": "78efa9c2db2a411e6b2592505c3f2fce4709fbfc2cca13cce9c5f3f84f6fc16f",
+      "scenarios": 20,
+      "source_fault_summary_sha256": "a5e11b09c18283c902bcc69454ae82370b1b90ef909de9ab566746c4452bf5cd"
+    }
+  ],
+  "core_metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+  "core_run": "39067447993",
+  "edge_scenarios": 12,
+  "final_runner_admissions": 0,
+  "first_use_sha256": "f47ca1196b881d276b6343fb6cadc09f001839ef4e08e67ac42aa4b698127e30",
+  "holdout": "F04 initial Linux execution in 39099744836, after committed freeze a9a6a25 and declaration d3edbe9. Windows and subsequent repetitions are replicas. Earlier local dev F03 remains historical with zero current-source credit.",
+  "human_usability": "unmeasured",
+  "limitations": "Trusted local offline library/picker/export workflows only. Agent familiarity and warm prerequisites; human usability unmeasured. Local dev-runner explorations excluded. First Windows cleanup refusal and empty-directory transfer failure preserved; successful native qualification is fresh. Final archive and actual generated CI gates remain open.",
+  "local_source_removal_receipt_sha256": "eed6b499a235102003e28116d386d001133c3d16a36324adc77c486f5a55a499",
+  "native_packet_archives": [
+    {
+      "archive_sha256": "c9a5ae2c6914bcd358a742c19b85531cab6ef8d69c5e074c43adef7249ea1dd5",
+      "generation": 1,
+      "index_sha256": "d50508837011ebc8fa0a3ec004586c76c13181903d8aaf53f8cceb5753cb03df",
+      "logical_files": 4480,
+      "selected_restores": 4
+    },
+    {
+      "archive_sha256": "0eff6678baa7f17f4bc842c98454310845a2cdf65a6ad2a1965dc4aae31ca16c",
+      "generation": 2,
+      "index_sha256": "bc68b3ee2da8d5659757efb6fd01c9a61f4b6c157b3596213c0ac72b06e9cfc4",
+      "logical_files": 1891,
+      "selected_restores": 1
+    }
+  ],
+  "native_verification_sha256": "a8fc4361add82f0dad7253130c5dcbe1759e2468917587d2c7fae65195d6ecbe",
+  "normal_scenarios": 8,
+  "observed_project_retained_bytes": 13144887,
+  "original_fault_summary_sha256": "ca39b8548ae9a5f32bda252fff6675cd00bac5166bbd1480f431a809d827c658",
+  "pin": "c744b5efe9b307b9664f3e96c154cb620e140a8f",
+  "project": "papis/papis",
+  "real_faults": 4,
+  "reviewed_freeze_sha256": "b33b0e24c75fb3eb5eb5e13350cd560baba0a7190fb9de4b0c5de27f4fad9fa3",
+  "runner_source": "f46f2409985af077fd29723ab963d24792eabbbe",
+  "schema_version": 1,
+  "status": "development-admitted"
+}

@@ -1,0 +1,45 @@
+{
+  "execution": "Actual editable Python source; no compiled rebuild or installation per mutation.",
+  "faults": [
+    {
+      "after": "            index = self.indices.index(self.current_index)\n            index += 0",
+      "before": "            index = self.indices.index(self.current_index)\n            index += 1",
+      "category": "assertion_timeout",
+      "held_out": false,
+      "id": "F01",
+      "path": "papis/tui/picker/options_list.py",
+      "spec": "N01.json"
+    },
+    {
+      "after": "            fd.write(ret_string)\n\n        raise SystemExit(7)",
+      "before": "            fd.write(ret_string)\n\n        return",
+      "category": "unexpected_exit",
+      "held_out": false,
+      "id": "F02",
+      "path": "papis/commands/export.py",
+      "spec": "N02.json"
+    },
+    {
+      "after": "            shutil.copytree(doc_main_folder, outdir)\n            with open(os.path.join(outdir, papis.config.getstring(\"info-name\")), \"ab\") as broken:\n                broken.write(b\"\\x00\")",
+      "before": "            shutil.copytree(doc_main_folder, outdir)",
+      "category": "state_assertion_failure",
+      "held_out": false,
+      "id": "F03",
+      "path": "papis/commands/export.py",
+      "spec": "N01.json"
+    },
+    {
+      "after": "            shutil.copytree(doc_main_folder, outdir)\n            with open(os.path.join(outdir, \".unexpected-export\"), \"wb\") as broken:\n                broken.write(b\"unwanted export residue\\n\")",
+      "before": "            shutil.copytree(doc_main_folder, outdir)",
+      "category": "state_assertion_failure",
+      "held_out": true,
+      "id": "F04",
+      "path": "papis/commands/export.py",
+      "spec": "N01.json"
+    }
+  ],
+  "frozen_contract_sha256": "b33b0e24c75fb3eb5eb5e13350cd560baba0a7190fb9de4b0c5de27f4fad9fa3",
+  "native_freeze_sha256": "b33b0e24c75fb3eb5eb5e13350cd560baba0a7190fb9de4b0c5de27f4fad9fa3",
+  "original_heldout": true,
+  "selection_revision": 2
+}
