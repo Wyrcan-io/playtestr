@@ -81,12 +81,54 @@ def main():
                                         archive_sha256=sha256(archive),
                                         index_sha256=sha256(retained / 'index.json'),
                                         expanded_removed_receipt_sha256=sha256(retained / 'expanded-removed.json'))))
+    investigation = docs / 'fff/current-source-cancel-investigation.json'
+    residual = load(investigation)
+    require(residual['source_revision'] == SOURCE and residual['qualification_credit'] == 0
+            and residual['first_failure_run'] == '39146617427'
+            and residual['diagnostic_run'] == '39147072326', 'missing fff first-failure disposition')
+    first = RAW / 'fff/retained-native-v2'
+    first_index = load(first / 'index.json', 4*1024**2)
+    first_checked = load(first / 'verified.json')
+    first_removed = load(first / 'expanded-removed.json')
+    require(set(first_index['runs']) == {'39146617427', '39147072326'}
+            and sha256(first / 'index.json') == first_checked['index_sha256']
+            and sha256(first / 'packets.tar.gz') == first_index['archive_sha256'] == first_checked['archive_sha256']
+            and first_removed['all_expanded_removed']
+            and first_removed['archive_sha256'] == first_index['archive_sha256']
+            and all(not (RAW / 'native' / run).exists() for run in first_index['runs']),
+            'first failed fff series/diagnostic preservation or removal incomplete')
+    verify(first / 'packets.tar.gz', first_index['files'])
+    failed_reports = [name for name in first_index['files']
+                      if name.startswith('native/39146617427/playtestr-Linux/fff/suites/')
+                      and name.endswith('/results.json')]
+    require(len(failed_reports) == 1, 'original failed suite report absent or ambiguous')
+    first_record = first_index['files'][failed_reports[0]]
+    require(first_record['bytes'] <= 1024**2, 'first failure report bound')
+    with tarfile.open(first / 'packets.tar.gz', 'r:gz') as stream:
+        data = stream.extractfile(first_record.get('member', failed_reports[0])).read(1024**2 + 1)
+    require(hashlib.sha256(data).hexdigest() == first_record['sha256'], 'first failure changed')
+    failed = json.loads(data.decode('utf-8-sig'))
+    require(failed['runner_version'] == 'source-' + SOURCE
+            and failed['summary'] == dict(total=20, passed=19, failed=1, cancelled=0, not_run=0),
+            'first failed series denominator changed')
+    reds = [r for r in failed['results'] if r['status'] == 'failed']
+    require(len(reds) == 1 and reds[0]['spec_path'].endswith('/E03.json')
+            and reds[0]['failure']['category'] == 'assertion_timeout'
+            and reds[0]['cleanup']['confirmed_exited'] and reds[0]['workspace']['cleaned'],
+            'original rename-cancel timeout or cleanup differs')
+    require(any(name.startswith('native/39147072326/') and record['sha256'] == residual['summary_sha256']
+                for name, record in first_index['files'].items()), 'diagnostic payload absent from archive')
     # Validate every project before publishing any new immutable curated receipts.
     for row in rows:
         immutable_json(docs / row['project'] / 'requalification-3d50d81.json',
                        load(RAW / row['project'] / ('requalification-' + row['run'] + '.json')))
     immutable_json(docs / 'earlier-project-requalification-retention-3d50d81.json',
                    dict(schema_version=1, runner_source=SOURCE, projects=rows,
+                        residuals=[dict(project='fff', investigation_sha256=sha256(investigation),
+                                        first_failed_report_sha256=first_record['sha256'],
+                                        retained_archive_sha256=first_index['archive_sha256'],
+                                        retained_index_sha256=sha256(first / 'index.json'),
+                                        stable_qualification=residual['stable_qualification'])],
                         new_project_credit=0, new_native_cell_credit=0, final_archive_credit=0))
     print('Seven earlier projects independently requalified and retained at exact repaired source.')
 

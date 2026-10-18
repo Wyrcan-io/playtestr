@@ -39,6 +39,7 @@ async def main():
         receipt=docs/row['project']/'requalification-3d50d81.json'
         value=json.loads(receipt.read_text(encoding='utf-8-sig'))
         if sha256(receipt)!=row['requalification_sha256'] or value['runner_source']!=SOURCE or value['cells']!=row['cells']:raise RuntimeError('current-source project verification changed')
+    if len(current['residuals'])!=1 or current['residuals'][0]['project']!='fff' or sha256(docs/'fff/current-source-cancel-investigation.json')!=current['residuals'][0]['investigation_sha256']:raise RuntimeError('first failed fff series disposition is missing or changed')
     admission=docs/'frogmouth/development-admission.json'
     if json.loads(admission.read_text(encoding='utf-8-sig'))['runner_source']!=SOURCE:raise RuntimeError('eighth admission uses stale source')
     checkout=ROOT/'.playtestr-tooling'
