@@ -1,0 +1,149 @@
+{
+  "version": 3,
+  "name": "Hygen N08: generate related files from one prompt",
+  "command": [
+    "hygen",
+    "work",
+    "new"
+  ],
+  "workspace": {
+    "fixture": "fixtures/N08",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Message for file?"
+    },
+    {
+      "snapshot": "N08-prompt.rows.json"
+    },
+    {
+      "text": "reviewed"
+    },
+    {
+      "expect": "reviewed"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "added: generated/first.txt"
+    },
+    {
+      "expect": "added: generated/second.txt"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": ".hygen.js",
+        "kind": "file",
+        "bytes_base64": "bW9kdWxlLmV4cG9ydHMgPSB7fTsK"
+      }
+    },
+    {
+      "state": {
+        "path": "_templates/work/new/01-first.ejs.t",
+        "kind": "file",
+        "bytes_base64": "LS0tCnRvOiAiZ2VuZXJhdGVkL2ZpcnN0LnR4dCIKLS0tCkZpcnN0IDwlPSBtZXNzYWdlICU+Cg=="
+      }
+    },
+    {
+      "state": {
+        "path": "_templates/work/new/02-second.ejs.t",
+        "kind": "file",
+        "bytes_base64": "LS0tCnRvOiAiZ2VuZXJhdGVkL3NlY29uZC50eHQiCi0tLQpTZWNvbmQgPCU9IG1lc3NhZ2UgJT4K"
+      }
+    },
+    {
+      "state": {
+        "path": "_templates/work/new/prompt.js",
+        "kind": "file",
+        "bytes_base64": "bW9kdWxlLmV4cG9ydHMgPSBbeyJ0eXBlIjogImlucHV0IiwgIm5hbWUiOiAibWVzc2FnZSIsICJtZXNzYWdlIjogIk1lc3NhZ2UgZm9yIGZpbGU/In1dOwo="
+      }
+    },
+    {
+      "state": {
+        "path": "generated/first.txt",
+        "kind": "file",
+        "bytes_base64": "Rmlyc3QgcmV2aWV3ZWQK"
+      }
+    },
+    {
+      "state": {
+        "path": "generated/second.txt",
+        "kind": "file",
+        "bytes_base64": "U2Vjb25kIHJldmlld2VkCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.bin",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "generated",
+          "_templates",
+          ".hygen.js",
+          "sentinel.bin"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "_templates",
+        "kind": "entries",
+        "entries": [
+          "work"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "_templates/work",
+        "kind": "entries",
+        "entries": [
+          "new"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "_templates/work/new",
+        "kind": "entries",
+        "entries": [
+          "02-second.ejs.t",
+          "prompt.js",
+          "01-first.ejs.t"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "generated",
+        "kind": "entries",
+        "entries": [
+          "second.txt",
+          "first.txt"
+        ]
+      }
+    }
+  ]
+}

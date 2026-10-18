@@ -1,0 +1,130 @@
+{
+  "version": 3,
+  "name": "Hygen E05: force replacement of the selected existing destination",
+  "command": [
+    "hygen",
+    "work",
+    "new"
+  ],
+  "workspace": {
+    "fixture": "fixtures/E05",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Message for file?"
+    },
+    {
+      "snapshot": "E05-prompt.rows.json"
+    },
+    {
+      "text": "reviewed"
+    },
+    {
+      "expect": "reviewed"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "FORCED: generated/result.txt"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": ".hygen.js",
+        "kind": "file",
+        "bytes_base64": "bW9kdWxlLmV4cG9ydHMgPSB7fTsK"
+      }
+    },
+    {
+      "state": {
+        "path": "_templates/work/new/output.ejs.t",
+        "kind": "file",
+        "bytes_base64": "LS0tCnRvOiAiZ2VuZXJhdGVkL3Jlc3VsdC50eHQiCmZvcmNlOiB0cnVlCi0tLQo8JT0gbWVzc2FnZSAlPgo="
+      }
+    },
+    {
+      "state": {
+        "path": "_templates/work/new/prompt.js",
+        "kind": "file",
+        "bytes_base64": "bW9kdWxlLmV4cG9ydHMgPSBbeyJ0eXBlIjogImlucHV0IiwgIm5hbWUiOiAibWVzc2FnZSIsICJtZXNzYWdlIjogIk1lc3NhZ2UgZm9yIGZpbGU/In1dOwo="
+      }
+    },
+    {
+      "state": {
+        "path": "generated/result.txt",
+        "kind": "file",
+        "bytes_base64": "cmV2aWV3ZWQK"
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.bin",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "generated",
+          "_templates",
+          ".hygen.js",
+          "sentinel.bin"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "_templates",
+        "kind": "entries",
+        "entries": [
+          "work"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "_templates/work",
+        "kind": "entries",
+        "entries": [
+          "new"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "_templates/work/new",
+        "kind": "entries",
+        "entries": [
+          "prompt.js",
+          "output.ejs.t"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "generated",
+        "kind": "entries",
+        "entries": [
+          "result.txt"
+        ]
+      }
+    }
+  ]
+}

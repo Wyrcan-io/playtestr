@@ -1,0 +1,136 @@
+{
+  "version": 3,
+  "name": "Hygen N05: select two nonadjacent feature values",
+  "command": [
+    "hygen",
+    "work",
+    "new"
+  ],
+  "workspace": {
+    "fixture": "fixtures/N05",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Choose features"
+    },
+    {
+      "snapshot": "N05-prompt.rows.json"
+    },
+    {
+      "text": " "
+    },
+    {
+      "key": "ArrowDown"
+    },
+    {
+      "key": "ArrowDown"
+    },
+    {
+      "text": " "
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "added: generated/features.txt"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": ".hygen.js",
+        "kind": "file",
+        "bytes_base64": "bW9kdWxlLmV4cG9ydHMgPSB7fTsK"
+      }
+    },
+    {
+      "state": {
+        "path": "_templates/work/new/output.ejs.t",
+        "kind": "file",
+        "bytes_base64": "LS0tCnRvOiAiZ2VuZXJhdGVkL2ZlYXR1cmVzLnR4dCIKLS0tCkZlYXR1cmVzOiA8JT0gZmVhdHVyZXMuam9pbigiLCIpICU+Cg=="
+      }
+    },
+    {
+      "state": {
+        "path": "_templates/work/new/prompt.js",
+        "kind": "file",
+        "bytes_base64": "bW9kdWxlLmV4cG9ydHMgPSBbeyJ0eXBlIjogIm11bHRpc2VsZWN0IiwgIm5hbWUiOiAiZmVhdHVyZXMiLCAibWVzc2FnZSI6ICJDaG9vc2UgZmVhdHVyZXMiLCAiY2hvaWNlcyI6IFsiY2FjaGUiLCAidGVzdHMiLCAiZG9jcyJdfV07Cg=="
+      }
+    },
+    {
+      "state": {
+        "path": "generated/features.txt",
+        "kind": "file",
+        "bytes_base64": "RmVhdHVyZXM6IGNhY2hlLGRvY3MK"
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.bin",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "generated",
+          ".hygen.js",
+          "_templates",
+          "sentinel.bin"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "_templates",
+        "kind": "entries",
+        "entries": [
+          "work"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "_templates/work",
+        "kind": "entries",
+        "entries": [
+          "new"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "_templates/work/new",
+        "kind": "entries",
+        "entries": [
+          "output.ejs.t",
+          "prompt.js"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "generated",
+        "kind": "entries",
+        "entries": [
+          "features.txt"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "version": 3,
+  "name": "Hygen E07: skip a template using its rendered condition",
+  "command": [
+    "hygen",
+    "work",
+    "new"
+  ],
+  "workspace": {
+    "fixture": "fixtures/E07",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Message for file?"
+    },
+    {
+      "snapshot": "E07-prompt.rows.json"
+    },
+    {
+      "text": "skip"
+    },
+    {
+      "expect": "skip"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Loaded templates:"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": ".hygen.js",
+        "kind": "file",
+        "bytes_base64": "bW9kdWxlLmV4cG9ydHMgPSB7fTsK"
+      }
+    },
+    {
+      "state": {
+        "path": "_templates/work/new/output.ejs.t",
+        "kind": "file",
+        "bytes_base64": "LS0tCnRvOiAiZ2VuZXJhdGVkL3Jlc3VsdC50eHQiCnNraXBfaWY6ICI8JT0gbWVzc2FnZSA9PT0gJ3NraXAnICU+IgotLS0KPCU9IG1lc3NhZ2UgJT4K"
+      }
+    },
+    {
+      "state": {
+        "path": "_templates/work/new/prompt.js",
+        "kind": "file",
+        "bytes_base64": "bW9kdWxlLmV4cG9ydHMgPSBbeyJ0eXBlIjogImlucHV0IiwgIm5hbWUiOiAibWVzc2FnZSIsICJtZXNzYWdlIjogIk1lc3NhZ2UgZm9yIGZpbGU/In1dOwo="
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.bin",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "generated",
+        "kind": "absent"
+      }
+    },
+    {
+      "state": {
+        "path": "generated/result.txt",
+        "kind": "absent"
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          ".hygen.js",
+          "_templates",
+          "sentinel.bin"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "_templates",
+        "kind": "entries",
+        "entries": [
+          "work"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "_templates/work",
+        "kind": "entries",
+        "entries": [
+          "new"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "_templates/work/new",
+        "kind": "entries",
+        "entries": [
+          "output.ejs.t",
+          "prompt.js"
+        ]
+      }
+    }
+  ]
+}

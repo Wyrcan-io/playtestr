@@ -1,0 +1,147 @@
+{
+  "version": 3,
+  "name": "Hygen E09: copy a local from-file body without extra interpolation",
+  "command": [
+    "hygen",
+    "work",
+    "new"
+  ],
+  "workspace": {
+    "fixture": "fixtures/E09",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Message for file?"
+    },
+    {
+      "snapshot": "E09-prompt.rows.json"
+    },
+    {
+      "text": "reviewed"
+    },
+    {
+      "expect": "reviewed"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "added: generated/from.bin"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": ".hygen.js",
+        "kind": "file",
+        "bytes_base64": "bW9kdWxlLmV4cG9ydHMgPSB7fTsK"
+      }
+    },
+    {
+      "state": {
+        "path": "_templates/shared/body.txt",
+        "kind": "file",
+        "bytes_base64": "bGl0ZXJhbCA8JT0gbWVzc2FnZSAlPgANCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "_templates/work/new/output.ejs.t",
+        "kind": "file",
+        "bytes_base64": "LS0tCnRvOiAiZ2VuZXJhdGVkL2Zyb20uYmluIgpmcm9tOiAic2hhcmVkL2JvZHkudHh0IgotLS0KaWdub3JlZCBib2R5Cg=="
+      }
+    },
+    {
+      "state": {
+        "path": "_templates/work/new/prompt.js",
+        "kind": "file",
+        "bytes_base64": "bW9kdWxlLmV4cG9ydHMgPSBbeyJ0eXBlIjogImlucHV0IiwgIm5hbWUiOiAibWVzc2FnZSIsICJtZXNzYWdlIjogIk1lc3NhZ2UgZm9yIGZpbGU/In1dOwo="
+      }
+    },
+    {
+      "state": {
+        "path": "generated/from.bin",
+        "kind": "file",
+        "bytes_base64": "bGl0ZXJhbCA8JT0gbWVzc2FnZSAlPgANCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.bin",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "generated",
+          ".hygen.js",
+          "_templates",
+          "sentinel.bin"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "_templates",
+        "kind": "entries",
+        "entries": [
+          "shared",
+          "work"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "_templates/shared",
+        "kind": "entries",
+        "entries": [
+          "body.txt"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "_templates/work",
+        "kind": "entries",
+        "entries": [
+          "new"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "_templates/work/new",
+        "kind": "entries",
+        "entries": [
+          "output.ejs.t",
+          "prompt.js"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "generated",
+        "kind": "entries",
+        "entries": [
+          "from.bin"
+        ]
+      }
+    }
+  ]
+}
