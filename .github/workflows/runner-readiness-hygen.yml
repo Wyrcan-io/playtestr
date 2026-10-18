@@ -4,6 +4,12 @@ on:
     branches: [work/p0-p2-implementation]
     paths: ['.github/workflows/runner-readiness-hygen.yml']
   workflow_dispatch:
+    inputs:
+      phase:
+        type: choice
+        default: first-use
+        options: [first-use, author]
+        description: First useful route or twenty declared public recordings
 permissions:
   contents: read
   actions: read
@@ -56,6 +62,12 @@ jobs:
         run: python3 scripts/acceptance/readiness_check.py --label hygen-native-reviewed-target-setup --timeout 900 -- python3 scripts/acceptance/readiness_hygen_native_prepare.py
       - name: First public recording, explicit review, replay and ordinary test
         run: python3 scripts/acceptance/readiness_check.py --label hygen-native-first-public-route --timeout 600 -- python3 scripts/acceptance/readiness_hygen_first_use.py
+      - name: Author twenty declared public workflows and independently check bytes
+        if: inputs.phase == 'author'
+        run: python3 scripts/acceptance/readiness_check.py --label hygen-native-twenty-public-authoring --timeout 1200 -- python3 scripts/acceptance/readiness_hygen_cases.py
+      - name: Full public directory suite and reviewed contract freeze
+        if: inputs.phase == 'author'
+        run: python3 scripts/acceptance/readiness_check.py --label hygen-native-twenty-ordinary-freeze --timeout 900 -- python3 scripts/acceptance/readiness_hygen_freeze.py
       - name: Verify source restoration and owned runtime termination before removal
         if: always() && steps.prepare.outcome == 'success'
         run: python3 scripts/acceptance/readiness_check.py --label hygen-native-checked-source-cleanup --timeout 180 -- python3 scripts/acceptance/readiness_cleanup_plop.py --project hygen
