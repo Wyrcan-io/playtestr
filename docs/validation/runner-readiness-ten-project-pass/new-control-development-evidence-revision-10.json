@@ -1,0 +1,2162 @@
+{
+  "claim": "Development native events only; no final archive credit. No subcase, seed or host-copy inflation.",
+  "controls": [
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "57dbb87fed591b7f1e1a29148997d47ea2fa7bc53411f2f3a8ee40c0c2b849c9",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "02401cdbe2264597a53dd44f64357310",
+          "console_sha256": "b472bdc0838209194af3aa80b6adcfe77c49dd23bbd4495e8217e09975a9ff72",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "5fd709dc53794fd18d7934ac4d760ff1",
+          "console_sha256": "7de74d4c360bf24c6fd0606b0d9a55f5e50c55832d22f8126bfbc2f9624fec73",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b3334b7a31da43c3866bcbcba778d109",
+          "console_sha256": "8cf7fbba74cf75213664e8103de9d6111b5fbb1d9dd6133a883e60d40430bf2b",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b814a5e1bc4e449fb2ce3fe7f92392b6",
+          "console_sha256": "bd746f30007d94475b80de6514fdceca6715c5a31343e0b5e8eecf5a9976f0e2",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "1d2783065c87481ca20bd87849ae2b67",
+          "console_sha256": "6bb7459f8bf6e3bd5ad1c4bdd45543cd4c3df3b7d5611f26904cd876ac209d71",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "f88a901f712d46ad9a34f07d36fda90b",
+          "console_sha256": "d7b96679d218cec6c2acdea2b04821f53e95325a6300e9e2c4eb716fd34a5727",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "state-prelaunch",
+      "requirement": "Invalid state contracts cannot launch a target",
+      "source": "internal/runner/state_contract_test.go",
+      "status": "development executed; final archive qualification pending",
+      "test": "TestStateContractRejectsBeforeLaunch"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "57dbb87fed591b7f1e1a29148997d47ea2fa7bc53411f2f3a8ee40c0c2b849c9",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "02401cdbe2264597a53dd44f64357310",
+          "console_sha256": "b472bdc0838209194af3aa80b6adcfe77c49dd23bbd4495e8217e09975a9ff72",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "5fd709dc53794fd18d7934ac4d760ff1",
+          "console_sha256": "7de74d4c360bf24c6fd0606b0d9a55f5e50c55832d22f8126bfbc2f9624fec73",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b3334b7a31da43c3866bcbcba778d109",
+          "console_sha256": "8cf7fbba74cf75213664e8103de9d6111b5fbb1d9dd6133a883e60d40430bf2b",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b814a5e1bc4e449fb2ce3fe7f92392b6",
+          "console_sha256": "bd746f30007d94475b80de6514fdceca6715c5a31343e0b5e8eecf5a9976f0e2",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "1d2783065c87481ca20bd87849ae2b67",
+          "console_sha256": "6bb7459f8bf6e3bd5ad1c4bdd45543cd4c3df3b7d5611f26904cd876ac209d71",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "f88a901f712d46ad9a34f07d36fda90b",
+          "console_sha256": "d7b96679d218cec6c2acdea2b04821f53e95325a6300e9e2c4eb716fd34a5727",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "state-resource-caps",
+      "requirement": "Real exact/over limits bound selected file bytes and directory enumeration",
+      "source": "internal/runner/state_contract_test.go",
+      "status": "development executed; final archive qualification pending",
+      "test": "TestStateFileAndDirectoryResourceBoundaries"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "57dbb87fed591b7f1e1a29148997d47ea2fa7bc53411f2f3a8ee40c0c2b849c9",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "02401cdbe2264597a53dd44f64357310",
+          "console_sha256": "b472bdc0838209194af3aa80b6adcfe77c49dd23bbd4495e8217e09975a9ff72",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "5fd709dc53794fd18d7934ac4d760ff1",
+          "console_sha256": "7de74d4c360bf24c6fd0606b0d9a55f5e50c55832d22f8126bfbc2f9624fec73",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b3334b7a31da43c3866bcbcba778d109",
+          "console_sha256": "8cf7fbba74cf75213664e8103de9d6111b5fbb1d9dd6133a883e60d40430bf2b",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b814a5e1bc4e449fb2ce3fe7f92392b6",
+          "console_sha256": "bd746f30007d94475b80de6514fdceca6715c5a31343e0b5e8eecf5a9976f0e2",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "1d2783065c87481ca20bd87849ae2b67",
+          "console_sha256": "6bb7459f8bf6e3bd5ad1c4bdd45543cd4c3df3b7d5611f26904cd876ac209d71",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "f88a901f712d46ad9a34f07d36fda90b",
+          "console_sha256": "d7b96679d218cec6c2acdea2b04821f53e95325a6300e9e2c4eb716fd34a5727",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "state-separate-cleanup",
+      "requirement": "State rejection preserves independent teardown error",
+      "source": "internal/runner/state_contract_test.go",
+      "status": "development executed; final archive qualification pending",
+      "test": "TestStateFailurePreservesSeparateCleanupError"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "e0c654dbdfd42a793f5602cdb6ca9a27a3e686645e0a89e9bc32c4875f22bd32",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "02401cdbe2264597a53dd44f64357310",
+          "console_sha256": "b472bdc0838209194af3aa80b6adcfe77c49dd23bbd4495e8217e09975a9ff72",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "5fd709dc53794fd18d7934ac4d760ff1",
+          "console_sha256": "7de74d4c360bf24c6fd0606b0d9a55f5e50c55832d22f8126bfbc2f9624fec73",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b3334b7a31da43c3866bcbcba778d109",
+          "console_sha256": "8cf7fbba74cf75213664e8103de9d6111b5fbb1d9dd6133a883e60d40430bf2b",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b814a5e1bc4e449fb2ce3fe7f92392b6",
+          "console_sha256": "bd746f30007d94475b80de6514fdceca6715c5a31343e0b5e8eecf5a9976f0e2",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "1d2783065c87481ca20bd87849ae2b67",
+          "console_sha256": "6bb7459f8bf6e3bd5ad1c4bdd45543cd4c3df3b7d5611f26904cd876ac209d71",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "f88a901f712d46ad9a34f07d36fda90b",
+          "console_sha256": "d7b96679d218cec6c2acdea2b04821f53e95325a6300e9e2c4eb716fd34a5727",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "maintenance-json-bytes",
+      "requirement": "Selected update preserves exact unrelated JSON formatting/bytes",
+      "source": "internal/runner/state_maintenance_test.go",
+      "status": "development executed; final archive qualification pending",
+      "test": "TestStateMaintenanceRetainsExactUnrelatedJSONBytes"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "e0c654dbdfd42a793f5602cdb6ca9a27a3e686645e0a89e9bc32c4875f22bd32",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "02401cdbe2264597a53dd44f64357310",
+          "console_sha256": "b472bdc0838209194af3aa80b6adcfe77c49dd23bbd4495e8217e09975a9ff72",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "5fd709dc53794fd18d7934ac4d760ff1",
+          "console_sha256": "7de74d4c360bf24c6fd0606b0d9a55f5e50c55832d22f8126bfbc2f9624fec73",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b3334b7a31da43c3866bcbcba778d109",
+          "console_sha256": "8cf7fbba74cf75213664e8103de9d6111b5fbb1d9dd6133a883e60d40430bf2b",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b814a5e1bc4e449fb2ce3fe7f92392b6",
+          "console_sha256": "bd746f30007d94475b80de6514fdceca6715c5a31343e0b5e8eecf5a9976f0e2",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "1d2783065c87481ca20bd87849ae2b67",
+          "console_sha256": "6bb7459f8bf6e3bd5ad1c4bdd45543cd4c3df3b7d5611f26904cd876ac209d71",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "f88a901f712d46ad9a34f07d36fda90b",
+          "console_sha256": "d7b96679d218cec6c2acdea2b04821f53e95325a6300e9e2c4eb716fd34a5727",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "maintenance-expectations",
+      "requirement": "Fresh selected update preserves unrelated screen and state expectations",
+      "source": "internal/runner/state_maintenance_test.go",
+      "status": "development executed; final archive qualification pending",
+      "test": "TestStateMaintenancePreservesUnrelatedExpectations"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "e0c654dbdfd42a793f5602cdb6ca9a27a3e686645e0a89e9bc32c4875f22bd32",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "02401cdbe2264597a53dd44f64357310",
+          "console_sha256": "b472bdc0838209194af3aa80b6adcfe77c49dd23bbd4495e8217e09975a9ff72",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "5fd709dc53794fd18d7934ac4d760ff1",
+          "console_sha256": "7de74d4c360bf24c6fd0606b0d9a55f5e50c55832d22f8126bfbc2f9624fec73",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b3334b7a31da43c3866bcbcba778d109",
+          "console_sha256": "8cf7fbba74cf75213664e8103de9d6111b5fbb1d9dd6133a883e60d40430bf2b",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b814a5e1bc4e449fb2ce3fe7f92392b6",
+          "console_sha256": "bd746f30007d94475b80de6514fdceca6715c5a31343e0b5e8eecf5a9976f0e2",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "1d2783065c87481ca20bd87849ae2b67",
+          "console_sha256": "6bb7459f8bf6e3bd5ad1c4bdd45543cd4c3df3b7d5611f26904cd876ac209d71",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "f88a901f712d46ad9a34f07d36fda90b",
+          "console_sha256": "d7b96679d218cec6c2acdea2b04821f53e95325a6300e9e2c4eb716fd34a5727",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "maintenance-interrupted",
+      "requirement": "Cancellation/concurrent edit cannot overwrite approved original",
+      "source": "internal/runner/state_maintenance_test.go",
+      "status": "development executed; final archive qualification pending",
+      "test": "TestStateMaintenanceCancellationAndConcurrentEditPreserveApproval"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "e73795ad238e871dee2bcd60c4a988931be859e7d7bc67f2aa2f57dc09851266",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "02401cdbe2264597a53dd44f64357310",
+          "console_sha256": "b472bdc0838209194af3aa80b6adcfe77c49dd23bbd4495e8217e09975a9ff72",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "5fd709dc53794fd18d7934ac4d760ff1",
+          "console_sha256": "7de74d4c360bf24c6fd0606b0d9a55f5e50c55832d22f8126bfbc2f9624fec73",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b3334b7a31da43c3866bcbcba778d109",
+          "console_sha256": "8cf7fbba74cf75213664e8103de9d6111b5fbb1d9dd6133a883e60d40430bf2b",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b814a5e1bc4e449fb2ce3fe7f92392b6",
+          "console_sha256": "bd746f30007d94475b80de6514fdceca6715c5a31343e0b5e8eecf5a9976f0e2",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "1d2783065c87481ca20bd87849ae2b67",
+          "console_sha256": "6bb7459f8bf6e3bd5ad1c4bdd45543cd4c3df3b7d5611f26904cd876ac209d71",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "f88a901f712d46ad9a34f07d36fda90b",
+          "console_sha256": "d7b96679d218cec6c2acdea2b04821f53e95325a6300e9e2c4eb716fd34a5727",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "state-replacement",
+      "requirement": "Actual concurrent selected-file/link replacement cannot approve owned external canary",
+      "source": "internal/runner/state_replacement_test.go",
+      "status": "development executed; final archive qualification pending",
+      "test": "TestStateConcurrentLinkReplacementNeverApprovesOwnedCanary"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "422924ae0c0f4378e139ff6d5adf2bc975f71410f28bab74687ba36b2fc0bf16",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "02401cdbe2264597a53dd44f64357310",
+          "console_sha256": "b472bdc0838209194af3aa80b6adcfe77c49dd23bbd4495e8217e09975a9ff72",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "5fd709dc53794fd18d7934ac4d760ff1",
+          "console_sha256": "7de74d4c360bf24c6fd0606b0d9a55f5e50c55832d22f8126bfbc2f9624fec73",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b3334b7a31da43c3866bcbcba778d109",
+          "console_sha256": "8cf7fbba74cf75213664e8103de9d6111b5fbb1d9dd6133a883e60d40430bf2b",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b814a5e1bc4e449fb2ce3fe7f92392b6",
+          "console_sha256": "bd746f30007d94475b80de6514fdceca6715c5a31343e0b5e8eecf5a9976f0e2",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "1d2783065c87481ca20bd87849ae2b67",
+          "console_sha256": "6bb7459f8bf6e3bd5ad1c4bdd45543cd4c3df3b7d5611f26904cd876ac209d71",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "f88a901f712d46ad9a34f07d36fda90b",
+          "console_sha256": "d7b96679d218cec6c2acdea2b04821f53e95325a6300e9e2c4eb716fd34a5727",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "state-byte-types",
+      "requirement": "Exact binary/empty bytes and missing/wrong types yield accurate outcomes",
+      "source": "internal/runner/state_test.go",
+      "status": "development executed; final archive qualification pending",
+      "test": "TestStateExactBytesAndTypes"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "422924ae0c0f4378e139ff6d5adf2bc975f71410f28bab74687ba36b2fc0bf16",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "02401cdbe2264597a53dd44f64357310",
+          "console_sha256": "b472bdc0838209194af3aa80b6adcfe77c49dd23bbd4495e8217e09975a9ff72",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "5fd709dc53794fd18d7934ac4d760ff1",
+          "console_sha256": "7de74d4c360bf24c6fd0606b0d9a55f5e50c55832d22f8126bfbc2f9624fec73",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b3334b7a31da43c3866bcbcba778d109",
+          "console_sha256": "8cf7fbba74cf75213664e8103de9d6111b5fbb1d9dd6133a883e60d40430bf2b",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b814a5e1bc4e449fb2ce3fe7f92392b6",
+          "console_sha256": "bd746f30007d94475b80de6514fdceca6715c5a31343e0b5e8eecf5a9976f0e2",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "1d2783065c87481ca20bd87849ae2b67",
+          "console_sha256": "6bb7459f8bf6e3bd5ad1c4bdd45543cd4c3df3b7d5611f26904cd876ac209d71",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "f88a901f712d46ad9a34f07d36fda90b",
+          "console_sha256": "d7b96679d218cec6c2acdea2b04821f53e95325a6300e9e2c4eb716fd34a5727",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "state-directory-sets",
+      "requirement": "Exact immediate names detect extra/missing entries and absence/type differences",
+      "source": "internal/runner/state_test.go",
+      "status": "development executed; final archive qualification pending",
+      "test": "TestStateDirectoriesAbsenceAndBounds"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "422924ae0c0f4378e139ff6d5adf2bc975f71410f28bab74687ba36b2fc0bf16",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "02401cdbe2264597a53dd44f64357310",
+          "console_sha256": "b472bdc0838209194af3aa80b6adcfe77c49dd23bbd4495e8217e09975a9ff72",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "5fd709dc53794fd18d7934ac4d760ff1",
+          "console_sha256": "7de74d4c360bf24c6fd0606b0d9a55f5e50c55832d22f8126bfbc2f9624fec73",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b3334b7a31da43c3866bcbcba778d109",
+          "console_sha256": "8cf7fbba74cf75213664e8103de9d6111b5fbb1d9dd6133a883e60d40430bf2b",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b814a5e1bc4e449fb2ce3fe7f92392b6",
+          "console_sha256": "bd746f30007d94475b80de6514fdceca6715c5a31343e0b5e8eecf5a9976f0e2",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "1d2783065c87481ca20bd87849ae2b67",
+          "console_sha256": "6bb7459f8bf6e3bd5ad1c4bdd45543cd4c3df3b7d5611f26904cd876ac209d71",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "f88a901f712d46ad9a34f07d36fda90b",
+          "console_sha256": "d7b96679d218cec6c2acdea2b04821f53e95325a6300e9e2c4eb716fd34a5727",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "state-portable-paths",
+      "requirement": "Portable selected-path validation refuses traversal, aliases and unsupported forms",
+      "source": "internal/runner/state_test.go",
+      "status": "development executed; final archive qualification pending",
+      "test": "TestStatePathValidation"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "422924ae0c0f4378e139ff6d5adf2bc975f71410f28bab74687ba36b2fc0bf16",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "02401cdbe2264597a53dd44f64357310",
+          "console_sha256": "b472bdc0838209194af3aa80b6adcfe77c49dd23bbd4495e8217e09975a9ff72",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "5fd709dc53794fd18d7934ac4d760ff1",
+          "console_sha256": "7de74d4c360bf24c6fd0606b0d9a55f5e50c55832d22f8126bfbc2f9624fec73",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b3334b7a31da43c3866bcbcba778d109",
+          "console_sha256": "8cf7fbba74cf75213664e8103de9d6111b5fbb1d9dd6133a883e60d40430bf2b",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b814a5e1bc4e449fb2ce3fe7f92392b6",
+          "console_sha256": "bd746f30007d94475b80de6514fdceca6715c5a31343e0b5e8eecf5a9976f0e2",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "1d2783065c87481ca20bd87849ae2b67",
+          "console_sha256": "6bb7459f8bf6e3bd5ad1c4bdd45543cd4c3df3b7d5611f26904cd876ac209d71",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "f88a901f712d46ad9a34f07d36fda90b",
+          "console_sha256": "d7b96679d218cec6c2acdea2b04821f53e95325a6300e9e2c4eb716fd34a5727",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "state-link-containment",
+      "requirement": "Real owned link and ancestor links cannot expose selected canary",
+      "source": "internal/runner/state_test.go",
+      "status": "development executed; final archive qualification pending",
+      "test": "TestStateRejectsOwnedLinks"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "422924ae0c0f4378e139ff6d5adf2bc975f71410f28bab74687ba36b2fc0bf16",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "02401cdbe2264597a53dd44f64357310",
+          "console_sha256": "b472bdc0838209194af3aa80b6adcfe77c49dd23bbd4495e8217e09975a9ff72",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "5fd709dc53794fd18d7934ac4d760ff1",
+          "console_sha256": "7de74d4c360bf24c6fd0606b0d9a55f5e50c55832d22f8126bfbc2f9624fec73",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b3334b7a31da43c3866bcbcba778d109",
+          "console_sha256": "8cf7fbba74cf75213664e8103de9d6111b5fbb1d9dd6133a883e60d40430bf2b",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b814a5e1bc4e449fb2ce3fe7f92392b6",
+          "console_sha256": "bd746f30007d94475b80de6514fdceca6715c5a31343e0b5e8eecf5a9976f0e2",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "1d2783065c87481ca20bd87849ae2b67",
+          "console_sha256": "6bb7459f8bf6e3bd5ad1c4bdd45543cd4c3df3b7d5611f26904cd876ac209d71",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "f88a901f712d46ad9a34f07d36fda90b",
+          "console_sha256": "d7b96679d218cec6c2acdea2b04821f53e95325a6300e9e2c4eb716fd34a5727",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "state-same-invocation",
+      "requirement": "Public state rejects actual corruption in the same workspace and confirms cleanup",
+      "source": "internal/runner/state_test.go",
+      "status": "development executed; final archive qualification pending",
+      "test": "TestStateSameExecutionCorruptionAndCleanup"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "422924ae0c0f4378e139ff6d5adf2bc975f71410f28bab74687ba36b2fc0bf16",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "02401cdbe2264597a53dd44f64357310",
+          "console_sha256": "b472bdc0838209194af3aa80b6adcfe77c49dd23bbd4495e8217e09975a9ff72",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "5fd709dc53794fd18d7934ac4d760ff1",
+          "console_sha256": "7de74d4c360bf24c6fd0606b0d9a55f5e50c55832d22f8126bfbc2f9624fec73",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b3334b7a31da43c3866bcbcba778d109",
+          "console_sha256": "8cf7fbba74cf75213664e8103de9d6111b5fbb1d9dd6133a883e60d40430bf2b",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b814a5e1bc4e449fb2ce3fe7f92392b6",
+          "console_sha256": "bd746f30007d94475b80de6514fdceca6715c5a31343e0b5e8eecf5a9976f0e2",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "1d2783065c87481ca20bd87849ae2b67",
+          "console_sha256": "6bb7459f8bf6e3bd5ad1c4bdd45543cd4c3df3b7d5611f26904cd876ac209d71",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "f88a901f712d46ad9a34f07d36fda90b",
+          "console_sha256": "d7b96679d218cec6c2acdea2b04821f53e95325a6300e9e2c4eb716fd34a5727",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "record-state-export",
+      "requirement": "Public recorder review/replay/export retains reviewed exact state",
+      "source": "internal/runner/state_test.go",
+      "status": "development executed; final archive qualification pending",
+      "test": "TestStateRecorderReviewReplayExport"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "c1bac188e18651da80dff959ab5823feb8275f7b5afadd176b64d478ece6df62",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "02401cdbe2264597a53dd44f64357310",
+          "console_sha256": "b472bdc0838209194af3aa80b6adcfe77c49dd23bbd4495e8217e09975a9ff72",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "5fd709dc53794fd18d7934ac4d760ff1",
+          "console_sha256": "7de74d4c360bf24c6fd0606b0d9a55f5e50c55832d22f8126bfbc2f9624fec73",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b3334b7a31da43c3866bcbcba778d109",
+          "console_sha256": "8cf7fbba74cf75213664e8103de9d6111b5fbb1d9dd6133a883e60d40430bf2b",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b814a5e1bc4e449fb2ce3fe7f92392b6",
+          "console_sha256": "bd746f30007d94475b80de6514fdceca6715c5a31343e0b5e8eecf5a9976f0e2",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "1d2783065c87481ca20bd87849ae2b67",
+          "console_sha256": "6bb7459f8bf6e3bd5ad1c4bdd45543cd4c3df3b7d5611f26904cd876ac209d71",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "f88a901f712d46ad9a34f07d36fda90b",
+          "console_sha256": "d7b96679d218cec6c2acdea2b04821f53e95325a6300e9e2c4eb716fd34a5727",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "record-rejected-capture",
+      "requirement": "Rejected requested captures cannot silently disappear behind a green replay/export",
+      "source": "internal/runner/record_false_green_test.go",
+      "status": "development executed; final archive qualification pending",
+      "test": "TestRecordingRejectedStateCannotSilentlyDisappearFromExport"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "c1bac188e18651da80dff959ab5823feb8275f7b5afadd176b64d478ece6df62",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "02401cdbe2264597a53dd44f64357310",
+          "console_sha256": "b472bdc0838209194af3aa80b6adcfe77c49dd23bbd4495e8217e09975a9ff72",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "5fd709dc53794fd18d7934ac4d760ff1",
+          "console_sha256": "7de74d4c360bf24c6fd0606b0d9a55f5e50c55832d22f8126bfbc2f9624fec73",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b3334b7a31da43c3866bcbcba778d109",
+          "console_sha256": "8cf7fbba74cf75213664e8103de9d6111b5fbb1d9dd6133a883e60d40430bf2b",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b814a5e1bc4e449fb2ce3fe7f92392b6",
+          "console_sha256": "bd746f30007d94475b80de6514fdceca6715c5a31343e0b5e8eecf5a9976f0e2",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "1d2783065c87481ca20bd87849ae2b67",
+          "console_sha256": "6bb7459f8bf6e3bd5ad1c4bdd45543cd4c3df3b7d5611f26904cd876ac209d71",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "f88a901f712d46ad9a34f07d36fda90b",
+          "console_sha256": "d7b96679d218cec6c2acdea2b04821f53e95325a6300e9e2c4eb716fd34a5727",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "record-input-only",
+      "requirement": "Input-only candidate lacks positive completion and cannot be exported",
+      "source": "internal/runner/record_false_green_test.go",
+      "status": "development executed; final archive qualification pending",
+      "test": "TestRecordingInputOnlyCandidateCannotReplayAsUsefulTest"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "c1bac188e18651da80dff959ab5823feb8275f7b5afadd176b64d478ece6df62",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "02401cdbe2264597a53dd44f64357310",
+          "console_sha256": "b472bdc0838209194af3aa80b6adcfe77c49dd23bbd4495e8217e09975a9ff72",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "5fd709dc53794fd18d7934ac4d760ff1",
+          "console_sha256": "7de74d4c360bf24c6fd0606b0d9a55f5e50c55832d22f8126bfbc2f9624fec73",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b3334b7a31da43c3866bcbcba778d109",
+          "console_sha256": "8cf7fbba74cf75213664e8103de9d6111b5fbb1d9dd6133a883e60d40430bf2b",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b814a5e1bc4e449fb2ce3fe7f92392b6",
+          "console_sha256": "bd746f30007d94475b80de6514fdceca6715c5a31343e0b5e8eecf5a9976f0e2",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "1d2783065c87481ca20bd87849ae2b67",
+          "console_sha256": "6bb7459f8bf6e3bd5ad1c4bdd45543cd4c3df3b7d5611f26904cd876ac209d71",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "f88a901f712d46ad9a34f07d36fda90b",
+          "console_sha256": "d7b96679d218cec6c2acdea2b04821f53e95325a6300e9e2c4eb716fd34a5727",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "record-discard-completion",
+      "requirement": "Explicitly discarding errors cannot bypass fresh completion after final input",
+      "source": "internal/runner/record_false_green_test.go",
+      "status": "development executed; final archive qualification pending",
+      "test": "TestRecordingExplicitDiscardStillRequiresFreshCompletion"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "11a7f123334832522d7a7d2e317ac2adee0a73f423fa2b0613c891fab7bd41e0",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "02401cdbe2264597a53dd44f64357310",
+          "console_sha256": "b472bdc0838209194af3aa80b6adcfe77c49dd23bbd4495e8217e09975a9ff72",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "5fd709dc53794fd18d7934ac4d760ff1",
+          "console_sha256": "7de74d4c360bf24c6fd0606b0d9a55f5e50c55832d22f8126bfbc2f9624fec73",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b3334b7a31da43c3866bcbcba778d109",
+          "console_sha256": "8cf7fbba74cf75213664e8103de9d6111b5fbb1d9dd6133a883e60d40430bf2b",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b814a5e1bc4e449fb2ce3fe7f92392b6",
+          "console_sha256": "bd746f30007d94475b80de6514fdceca6715c5a31343e0b5e8eecf5a9976f0e2",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos"
+      ],
+      "id": "state-native-unix-types",
+      "requirement": "Native FIFO/permission boundaries refuse unsafe or unreadable selected resources",
+      "source": "internal/runner/state_unix_test.go",
+      "status": "development executed; final archive qualification pending",
+      "test": "TestStateUnixSpecialFileAndNativePermission"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "e1a86f464500f6d0d97279e409d9ac31ab37250982abaca23ef41a3e258bad91",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "1d2783065c87481ca20bd87849ae2b67",
+          "console_sha256": "6bb7459f8bf6e3bd5ad1c4bdd45543cd4c3df3b7d5611f26904cd876ac209d71",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "f88a901f712d46ad9a34f07d36fda90b",
+          "console_sha256": "d7b96679d218cec6c2acdea2b04821f53e95325a6300e9e2c4eb716fd34a5727",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        }
+      ],
+      "hosts": [
+        "windows"
+      ],
+      "id": "state-native-windows-types",
+      "requirement": "Native junction and actual exclusive byte-range lock are rejected",
+      "source": "internal/runner/state_windows_test.go",
+      "status": "development executed; final archive qualification pending",
+      "test": "TestStateWindowsJunctionAndLockedFile"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "0144e5871057c7545cbb7cf0871ee7fa18de432c6b1c5a5b1021415ab8bade14",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "02401cdbe2264597a53dd44f64357310",
+          "console_sha256": "b472bdc0838209194af3aa80b6adcfe77c49dd23bbd4495e8217e09975a9ff72",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "5fd709dc53794fd18d7934ac4d760ff1",
+          "console_sha256": "7de74d4c360bf24c6fd0606b0d9a55f5e50c55832d22f8126bfbc2f9624fec73",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b3334b7a31da43c3866bcbcba778d109",
+          "console_sha256": "8cf7fbba74cf75213664e8103de9d6111b5fbb1d9dd6133a883e60d40430bf2b",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b814a5e1bc4e449fb2ce3fe7f92392b6",
+          "console_sha256": "bd746f30007d94475b80de6514fdceca6715c5a31343e0b5e8eecf5a9976f0e2",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos"
+      ],
+      "id": "native-signal-status",
+      "requirement": "Real native signals have exact documented status and same-run post-exit state",
+      "source": "internal/runner/process_signal_unix_test.go",
+      "status": "development executed; final archive qualification pending",
+      "test": "TestNativeSignalExitStatusAndSameRunState"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "39c1e32bc746a31d582f0b4b5b5b371b698730dfe948e45b709c6bb6a0337acb",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "02401cdbe2264597a53dd44f64357310",
+          "console_sha256": "b472bdc0838209194af3aa80b6adcfe77c49dd23bbd4495e8217e09975a9ff72",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "5fd709dc53794fd18d7934ac4d760ff1",
+          "console_sha256": "7de74d4c360bf24c6fd0606b0d9a55f5e50c55832d22f8126bfbc2f9624fec73",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b3334b7a31da43c3866bcbcba778d109",
+          "console_sha256": "8cf7fbba74cf75213664e8103de9d6111b5fbb1d9dd6133a883e60d40430bf2b",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b814a5e1bc4e449fb2ce3fe7f92392b6",
+          "console_sha256": "bd746f30007d94475b80de6514fdceca6715c5a31343e0b5e8eecf5a9976f0e2",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "1d2783065c87481ca20bd87849ae2b67",
+          "console_sha256": "6bb7459f8bf6e3bd5ad1c4bdd45543cd4c3df3b7d5611f26904cd876ac209d71",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "f88a901f712d46ad9a34f07d36fda90b",
+          "console_sha256": "d7b96679d218cec6c2acdea2b04821f53e95325a6300e9e2c4eb716fd34a5727",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "state-report-identities",
+      "requirement": "Report v3 rejects incompatible/missing/inconsistent state invocation identity",
+      "source": "internal/report/state_test.go",
+      "status": "development executed; final archive qualification pending",
+      "test": "TestStateReportVersionAndIdentityValidation"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "1765d8aa4321538eb398f1cec01dc8adc5534c7f52ae4a0809beac0f2a0e281e",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "02401cdbe2264597a53dd44f64357310",
+          "console_sha256": "b472bdc0838209194af3aa80b6adcfe77c49dd23bbd4495e8217e09975a9ff72",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "5fd709dc53794fd18d7934ac4d760ff1",
+          "console_sha256": "7de74d4c360bf24c6fd0606b0d9a55f5e50c55832d22f8126bfbc2f9624fec73",
+          "host": "linux",
+          "manifest_sha256": "bf4514000b6ff88b32f2ebd61e64b7b9462db6e4700c15173c7a0f4f3cbd5b49",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b3334b7a31da43c3866bcbcba778d109",
+          "console_sha256": "8cf7fbba74cf75213664e8103de9d6111b5fbb1d9dd6133a883e60d40430bf2b",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "b814a5e1bc4e449fb2ce3fe7f92392b6",
+          "console_sha256": "bd746f30007d94475b80de6514fdceca6715c5a31343e0b5e8eecf5a9976f0e2",
+          "host": "macos",
+          "manifest_sha256": "94f6a156fc1d24e25ff3eba0fed52f366f83c646c0c8f9edfa8cf87dada68408",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "1d2783065c87481ca20bd87849ae2b67",
+          "console_sha256": "6bb7459f8bf6e3bd5ad1c4bdd45543cd4c3df3b7d5611f26904cd876ac209d71",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "f88a901f712d46ad9a34f07d36fda90b",
+          "console_sha256": "d7b96679d218cec6c2acdea2b04821f53e95325a6300e9e2c4eb716fd34a5727",
+          "host": "windows",
+          "manifest_sha256": "ab1f32a9e31e5ae1a563a29ffefaf01958b27d874dc5d804fa7ef06ac921e19b",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "installer-version-bounds",
+      "requirement": "Actual version output flood/hang is bounded and cannot publish an installation",
+      "source": "internal/setupaction/install_integration_test.go",
+      "status": "development executed; final archive qualification pending",
+      "test": "TestSetupActionBoundsVersionCheck"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "b903ff189cfa846a102ccc5ae7ef3f9da348ed0906991128070e7b461c250e21",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-harness-ubuntu-24.04",
+          "attempt": "e1b04b7e7f2443d6bcc5587721fcf084",
+          "console_sha256": "c377da2b3b1ecc6c62a402682204f24cc106dc027a38a4c8042f807a54e936ae",
+          "host": "linux",
+          "manifest_sha256": "8c09da6e0ae83183cb5f151e97d506e651b943688f30c0066fc6aaab668a5fd6",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        },
+        {
+          "artifact": "runner-readiness-harness-macos-15",
+          "attempt": "00a68f20e4c240b78c74710017621d72",
+          "console_sha256": "ef6028386028202cef82a504dae379f5bc754a6a062b5f7ad729d158c4a7c572",
+          "host": "macos",
+          "manifest_sha256": "7bbb61010737beca423304bedd9af38ef9559aca4232bb8d5065f68455fe5cb1",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        },
+        {
+          "artifact": "runner-readiness-harness-windows-2025",
+          "attempt": "c361b459a6da4944b1363f0d45b0287e",
+          "console_sha256": "a54d588653dcd0b5188295ba1f1a1ea3b0dadf3e77313d4bb7a8e6a0bbefa5bd",
+          "host": "windows",
+          "manifest_sha256": "a194ab80da946da2b6952bdd506b23888c7a6f36e32737fbfb62c986d9d682e9",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "ledger-concurrent",
+      "requirement": "Concurrent independent immutable streams preserve every distinct attempt",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "status": "development executed; final archive qualification pending",
+      "test": "EvidenceTests.test_concurrent_exclusive_events"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "b903ff189cfa846a102ccc5ae7ef3f9da348ed0906991128070e7b461c250e21",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-harness-ubuntu-24.04",
+          "attempt": "e1b04b7e7f2443d6bcc5587721fcf084",
+          "console_sha256": "c377da2b3b1ecc6c62a402682204f24cc106dc027a38a4c8042f807a54e936ae",
+          "host": "linux",
+          "manifest_sha256": "8c09da6e0ae83183cb5f151e97d506e651b943688f30c0066fc6aaab668a5fd6",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        },
+        {
+          "artifact": "runner-readiness-harness-macos-15",
+          "attempt": "00a68f20e4c240b78c74710017621d72",
+          "console_sha256": "ef6028386028202cef82a504dae379f5bc754a6a062b5f7ad729d158c4a7c572",
+          "host": "macos",
+          "manifest_sha256": "7bbb61010737beca423304bedd9af38ef9559aca4232bb8d5065f68455fe5cb1",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        },
+        {
+          "artifact": "runner-readiness-harness-windows-2025",
+          "attempt": "c361b459a6da4944b1363f0d45b0287e",
+          "console_sha256": "a54d588653dcd0b5188295ba1f1a1ea3b0dadf3e77313d4bb7a8e6a0bbefa5bd",
+          "host": "windows",
+          "manifest_sha256": "a194ab80da946da2b6952bdd506b23888c7a6f36e32737fbfb62c986d9d682e9",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "ledger-no-overwrite",
+      "requirement": "A duplicate cannot replace an immutable failed result",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "status": "development executed; final archive qualification pending",
+      "test": "EvidenceTests.test_duplicate_cannot_overwrite_failure"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "b903ff189cfa846a102ccc5ae7ef3f9da348ed0906991128070e7b461c250e21",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-harness-ubuntu-24.04",
+          "attempt": "e1b04b7e7f2443d6bcc5587721fcf084",
+          "console_sha256": "c377da2b3b1ecc6c62a402682204f24cc106dc027a38a4c8042f807a54e936ae",
+          "host": "linux",
+          "manifest_sha256": "8c09da6e0ae83183cb5f151e97d506e651b943688f30c0066fc6aaab668a5fd6",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        },
+        {
+          "artifact": "runner-readiness-harness-macos-15",
+          "attempt": "00a68f20e4c240b78c74710017621d72",
+          "console_sha256": "ef6028386028202cef82a504dae379f5bc754a6a062b5f7ad729d158c4a7c572",
+          "host": "macos",
+          "manifest_sha256": "7bbb61010737beca423304bedd9af38ef9559aca4232bb8d5065f68455fe5cb1",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        },
+        {
+          "artifact": "runner-readiness-harness-windows-2025",
+          "attempt": "c361b459a6da4944b1363f0d45b0287e",
+          "console_sha256": "a54d588653dcd0b5188295ba1f1a1ea3b0dadf3e77313d4bb7a8e6a0bbefa5bd",
+          "host": "windows",
+          "manifest_sha256": "a194ab80da946da2b6952bdd506b23888c7a6f36e32737fbfb62c986d9d682e9",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "ledger-interrupted",
+      "requirement": "Truncated/partial/malformed ledger evidence is rejected",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "status": "development executed; final archive qualification pending",
+      "test": "EvidenceTests.test_interrupted_and_malformed_records_reject"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "b903ff189cfa846a102ccc5ae7ef3f9da348ed0906991128070e7b461c250e21",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-harness-ubuntu-24.04",
+          "attempt": "e1b04b7e7f2443d6bcc5587721fcf084",
+          "console_sha256": "c377da2b3b1ecc6c62a402682204f24cc106dc027a38a4c8042f807a54e936ae",
+          "host": "linux",
+          "manifest_sha256": "8c09da6e0ae83183cb5f151e97d506e651b943688f30c0066fc6aaab668a5fd6",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        },
+        {
+          "artifact": "runner-readiness-harness-macos-15",
+          "attempt": "00a68f20e4c240b78c74710017621d72",
+          "console_sha256": "ef6028386028202cef82a504dae379f5bc754a6a062b5f7ad729d158c4a7c572",
+          "host": "macos",
+          "manifest_sha256": "7bbb61010737beca423304bedd9af38ef9559aca4232bb8d5065f68455fe5cb1",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        },
+        {
+          "artifact": "runner-readiness-harness-windows-2025",
+          "attempt": "c361b459a6da4944b1363f0d45b0287e",
+          "console_sha256": "a54d588653dcd0b5188295ba1f1a1ea3b0dadf3e77313d4bb7a8e6a0bbefa5bd",
+          "host": "windows",
+          "manifest_sha256": "a194ab80da946da2b6952bdd506b23888c7a6f36e32737fbfb62c986d9d682e9",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "ledger-unfinished",
+      "requirement": "Started attempts without final outcomes remain incomplete",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "status": "development executed; final archive qualification pending",
+      "test": "EvidenceTests.test_started_without_outcome_rejects"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "b903ff189cfa846a102ccc5ae7ef3f9da348ed0906991128070e7b461c250e21",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-harness-ubuntu-24.04",
+          "attempt": "e1b04b7e7f2443d6bcc5587721fcf084",
+          "console_sha256": "c377da2b3b1ecc6c62a402682204f24cc106dc027a38a4c8042f807a54e936ae",
+          "host": "linux",
+          "manifest_sha256": "8c09da6e0ae83183cb5f151e97d506e651b943688f30c0066fc6aaab668a5fd6",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        },
+        {
+          "artifact": "runner-readiness-harness-macos-15",
+          "attempt": "00a68f20e4c240b78c74710017621d72",
+          "console_sha256": "ef6028386028202cef82a504dae379f5bc754a6a062b5f7ad729d158c4a7c572",
+          "host": "macos",
+          "manifest_sha256": "7bbb61010737beca423304bedd9af38ef9559aca4232bb8d5065f68455fe5cb1",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        },
+        {
+          "artifact": "runner-readiness-harness-windows-2025",
+          "attempt": "c361b459a6da4944b1363f0d45b0287e",
+          "console_sha256": "a54d588653dcd0b5188295ba1f1a1ea3b0dadf3e77313d4bb7a8e6a0bbefa5bd",
+          "host": "windows",
+          "manifest_sha256": "a194ab80da946da2b6952bdd506b23888c7a6f36e32737fbfb62c986d9d682e9",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "owned-go-boundary",
+      "requirement": "Downloaded target/SDK source cannot enter ordinary Go package discovery",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "status": "development executed; final archive qualification pending",
+      "test": "EvidenceTests.test_downloaded_go_sources_have_module_boundary"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "b903ff189cfa846a102ccc5ae7ef3f9da348ed0906991128070e7b461c250e21",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-harness-ubuntu-24.04",
+          "attempt": "e1b04b7e7f2443d6bcc5587721fcf084",
+          "console_sha256": "c377da2b3b1ecc6c62a402682204f24cc106dc027a38a4c8042f807a54e936ae",
+          "host": "linux",
+          "manifest_sha256": "8c09da6e0ae83183cb5f151e97d506e651b943688f30c0066fc6aaab668a5fd6",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        },
+        {
+          "artifact": "runner-readiness-harness-macos-15",
+          "attempt": "00a68f20e4c240b78c74710017621d72",
+          "console_sha256": "ef6028386028202cef82a504dae379f5bc754a6a062b5f7ad729d158c4a7c572",
+          "host": "macos",
+          "manifest_sha256": "7bbb61010737beca423304bedd9af38ef9559aca4232bb8d5065f68455fe5cb1",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        },
+        {
+          "artifact": "runner-readiness-harness-windows-2025",
+          "attempt": "c361b459a6da4944b1363f0d45b0287e",
+          "console_sha256": "a54d588653dcd0b5188295ba1f1a1ea3b0dadf3e77313d4bb7a8e6a0bbefa5bd",
+          "host": "windows",
+          "manifest_sha256": "a194ab80da946da2b6952bdd506b23888c7a6f36e32737fbfb62c986d9d682e9",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "ledger-prelaunch-failure",
+      "requirement": "Actual rejected identity setup stays in the denominator without process launch",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "status": "development executed; final archive qualification pending",
+      "test": "EvidenceTests.test_rejected_prelaunch_identity_is_accounted_without_credit"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "b903ff189cfa846a102ccc5ae7ef3f9da348ed0906991128070e7b461c250e21",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-harness-ubuntu-24.04",
+          "attempt": "e1b04b7e7f2443d6bcc5587721fcf084",
+          "console_sha256": "c377da2b3b1ecc6c62a402682204f24cc106dc027a38a4c8042f807a54e936ae",
+          "host": "linux",
+          "manifest_sha256": "8c09da6e0ae83183cb5f151e97d506e651b943688f30c0066fc6aaab668a5fd6",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        },
+        {
+          "artifact": "runner-readiness-harness-macos-15",
+          "attempt": "00a68f20e4c240b78c74710017621d72",
+          "console_sha256": "ef6028386028202cef82a504dae379f5bc754a6a062b5f7ad729d158c4a7c572",
+          "host": "macos",
+          "manifest_sha256": "7bbb61010737beca423304bedd9af38ef9559aca4232bb8d5065f68455fe5cb1",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        },
+        {
+          "artifact": "runner-readiness-harness-windows-2025",
+          "attempt": "c361b459a6da4944b1363f0d45b0287e",
+          "console_sha256": "a54d588653dcd0b5188295ba1f1a1ea3b0dadf3e77313d4bb7a8e6a0bbefa5bd",
+          "host": "windows",
+          "manifest_sha256": "a194ab80da946da2b6952bdd506b23888c7a6f36e32737fbfb62c986d9d682e9",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "ledger-false-success",
+      "requirement": "A fabricated green outcome without prelaunch identity is rejected",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "status": "development executed; final archive qualification pending",
+      "test": "EvidenceTests.test_success_without_prelaunch_identity_rejects"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "b903ff189cfa846a102ccc5ae7ef3f9da348ed0906991128070e7b461c250e21",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-harness-ubuntu-24.04",
+          "attempt": "e1b04b7e7f2443d6bcc5587721fcf084",
+          "console_sha256": "c377da2b3b1ecc6c62a402682204f24cc106dc027a38a4c8042f807a54e936ae",
+          "host": "linux",
+          "manifest_sha256": "8c09da6e0ae83183cb5f151e97d506e651b943688f30c0066fc6aaab668a5fd6",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        },
+        {
+          "artifact": "runner-readiness-harness-macos-15",
+          "attempt": "00a68f20e4c240b78c74710017621d72",
+          "console_sha256": "ef6028386028202cef82a504dae379f5bc754a6a062b5f7ad729d158c4a7c572",
+          "host": "macos",
+          "manifest_sha256": "7bbb61010737beca423304bedd9af38ef9559aca4232bb8d5065f68455fe5cb1",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        },
+        {
+          "artifact": "runner-readiness-harness-windows-2025",
+          "attempt": "c361b459a6da4944b1363f0d45b0287e",
+          "console_sha256": "a54d588653dcd0b5188295ba1f1a1ea3b0dadf3e77313d4bb7a8e6a0bbefa5bd",
+          "host": "windows",
+          "manifest_sha256": "a194ab80da946da2b6952bdd506b23888c7a6f36e32737fbfb62c986d9d682e9",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "editable-source-identity",
+      "requirement": "Real source mutation/restoration changes/restores immutable target identity",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "status": "development executed; final archive qualification pending",
+      "test": "EvidenceTests.test_editable_target_mutation_changes_prelaunch_identity"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "3aac221ad92ed14f24a6353c1954d8bce2dc040681b19ef28e4e4967e35ae480",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "c7966d52fbed45baa0ae10ecce4d86a8",
+          "console_sha256": "cd2a95888f1c49de5422dcfaa559701f2821fd1ad0fcf2602414a2336f24cf87",
+          "host": "linux",
+          "manifest_sha256": "b3b449ad86eec4dae69662379d2f367451f3d308957ff0c88ca0ed82074cbbce",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-harness-ubuntu-24.04",
+          "attempt": "e1b04b7e7f2443d6bcc5587721fcf084",
+          "console_sha256": "c377da2b3b1ecc6c62a402682204f24cc106dc027a38a4c8042f807a54e936ae",
+          "host": "linux",
+          "manifest_sha256": "8c09da6e0ae83183cb5f151e97d506e651b943688f30c0066fc6aaab668a5fd6",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "126e758ab13148d587248c73366e29b9",
+          "console_sha256": "5cf56d08cbc6fe589416d08966cb66309a19b90f4ab988a944593cce691375c4",
+          "host": "macos",
+          "manifest_sha256": "24978b8d6a15c5420816329668eaa00f7a1d51b7015aedb0702b2902a0a5c4a4",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-harness-macos-15",
+          "attempt": "00a68f20e4c240b78c74710017621d72",
+          "console_sha256": "ef6028386028202cef82a504dae379f5bc754a6a062b5f7ad729d158c4a7c572",
+          "host": "macos",
+          "manifest_sha256": "7bbb61010737beca423304bedd9af38ef9559aca4232bb8d5065f68455fe5cb1",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "5711df62b6c846a59e1216b3daad4f7f",
+          "console_sha256": "79b1d5bd1f1c7f16ff35ea991ebb38984a47013fb5f2ada69b57b935d2bf19d5",
+          "host": "windows",
+          "manifest_sha256": "4564852069642fc0c8aeb0b8656bc44091a783d6a10efba6f4a4184410c4fa77",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-harness-windows-2025",
+          "attempt": "c361b459a6da4944b1363f0d45b0287e",
+          "console_sha256": "a54d588653dcd0b5188295ba1f1a1ea3b0dadf3e77313d4bb7a8e6a0bbefa5bd",
+          "host": "windows",
+          "manifest_sha256": "a194ab80da946da2b6952bdd506b23888c7a6f36e32737fbfb62c986d9d682e9",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "selection-contract-coverage",
+      "requirement": "Directory invocation includes every publicly selected spec and fixture identity",
+      "source": "scripts/acceptance/test_readiness_public_suite.py",
+      "status": "development executed; final archive qualification pending",
+      "test": "PublicSelectionTests.test_selection_directory_does_not_omit_contracts"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "3aac221ad92ed14f24a6353c1954d8bce2dc040681b19ef28e4e4967e35ae480",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "c7966d52fbed45baa0ae10ecce4d86a8",
+          "console_sha256": "cd2a95888f1c49de5422dcfaa559701f2821fd1ad0fcf2602414a2336f24cf87",
+          "host": "linux",
+          "manifest_sha256": "b3b449ad86eec4dae69662379d2f367451f3d308957ff0c88ca0ed82074cbbce",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-harness-ubuntu-24.04",
+          "attempt": "e1b04b7e7f2443d6bcc5587721fcf084",
+          "console_sha256": "c377da2b3b1ecc6c62a402682204f24cc106dc027a38a4c8042f807a54e936ae",
+          "host": "linux",
+          "manifest_sha256": "8c09da6e0ae83183cb5f151e97d506e651b943688f30c0066fc6aaab668a5fd6",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "126e758ab13148d587248c73366e29b9",
+          "console_sha256": "5cf56d08cbc6fe589416d08966cb66309a19b90f4ab988a944593cce691375c4",
+          "host": "macos",
+          "manifest_sha256": "24978b8d6a15c5420816329668eaa00f7a1d51b7015aedb0702b2902a0a5c4a4",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-harness-macos-15",
+          "attempt": "00a68f20e4c240b78c74710017621d72",
+          "console_sha256": "ef6028386028202cef82a504dae379f5bc754a6a062b5f7ad729d158c4a7c572",
+          "host": "macos",
+          "manifest_sha256": "7bbb61010737beca423304bedd9af38ef9559aca4232bb8d5065f68455fe5cb1",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "5711df62b6c846a59e1216b3daad4f7f",
+          "console_sha256": "79b1d5bd1f1c7f16ff35ea991ebb38984a47013fb5f2ada69b57b935d2bf19d5",
+          "host": "windows",
+          "manifest_sha256": "4564852069642fc0c8aeb0b8656bc44091a783d6a10efba6f4a4184410c4fa77",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-harness-windows-2025",
+          "attempt": "c361b459a6da4944b1363f0d45b0287e",
+          "console_sha256": "a54d588653dcd0b5188295ba1f1a1ea3b0dadf3e77313d4bb7a8e6a0bbefa5bd",
+          "host": "windows",
+          "manifest_sha256": "a194ab80da946da2b6952bdd506b23888c7a6f36e32737fbfb62c986d9d682e9",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "selection-invalid",
+      "requirement": "Missing/duplicate/malformed public selection is rejected before launch",
+      "source": "scripts/acceptance/test_readiness_public_suite.py",
+      "status": "development executed; final archive qualification pending",
+      "test": "PublicSelectionTests.test_bad_and_duplicate_selection_rejects_before_launch"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "a5cca92238e421c1a5dea009c60df62d0c764146ef00f3f8d76d9d8942647fac",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "c7966d52fbed45baa0ae10ecce4d86a8",
+          "console_sha256": "cd2a95888f1c49de5422dcfaa559701f2821fd1ad0fcf2602414a2336f24cf87",
+          "host": "linux",
+          "manifest_sha256": "b3b449ad86eec4dae69662379d2f367451f3d308957ff0c88ca0ed82074cbbce",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-harness-ubuntu-24.04",
+          "attempt": "e1b04b7e7f2443d6bcc5587721fcf084",
+          "console_sha256": "c377da2b3b1ecc6c62a402682204f24cc106dc027a38a4c8042f807a54e936ae",
+          "host": "linux",
+          "manifest_sha256": "8c09da6e0ae83183cb5f151e97d506e651b943688f30c0066fc6aaab668a5fd6",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "126e758ab13148d587248c73366e29b9",
+          "console_sha256": "5cf56d08cbc6fe589416d08966cb66309a19b90f4ab988a944593cce691375c4",
+          "host": "macos",
+          "manifest_sha256": "24978b8d6a15c5420816329668eaa00f7a1d51b7015aedb0702b2902a0a5c4a4",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-harness-macos-15",
+          "attempt": "00a68f20e4c240b78c74710017621d72",
+          "console_sha256": "ef6028386028202cef82a504dae379f5bc754a6a062b5f7ad729d158c4a7c572",
+          "host": "macos",
+          "manifest_sha256": "7bbb61010737beca423304bedd9af38ef9559aca4232bb8d5065f68455fe5cb1",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "5711df62b6c846a59e1216b3daad4f7f",
+          "console_sha256": "79b1d5bd1f1c7f16ff35ea991ebb38984a47013fb5f2ada69b57b935d2bf19d5",
+          "host": "windows",
+          "manifest_sha256": "4564852069642fc0c8aeb0b8656bc44091a783d6a10efba6f4a4184410c4fa77",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-harness-windows-2025",
+          "attempt": "c361b459a6da4944b1363f0d45b0287e",
+          "console_sha256": "a54d588653dcd0b5188295ba1f1a1ea3b0dadf3e77313d4bb7a8e6a0bbefa5bd",
+          "host": "windows",
+          "manifest_sha256": "a194ab80da946da2b6952bdd506b23888c7a6f36e32737fbfb62c986d9d682e9",
+          "metadata_sha256": "4974b351a8c85f13f598eae5c06fb4ee76ef232a0e7df6bfa9362578171aeb16",
+          "run": "39100449454",
+          "source_revision": "1a6cd2560a206947b18233071cafeab22f12a349"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "selection-receipt-exclusion",
+      "requirement": "Non-spec receipts cannot enter a generated public test suite",
+      "source": "scripts/acceptance/test_readiness_poetry_profiles.py",
+      "status": "development executed; final archive qualification pending",
+      "test": "PoetryProfileTests.test_native_selection_excludes_fault_receipts"
+    },
+    {
+      "counting": "one whole test; subcases, seeds and host copies do not add credit",
+      "current_source_sha256": "6a91e19b43c2af33f20c8f6f3a18c803662a48b2e12e621c6e58df68084708bf",
+      "evidence": [
+        {
+          "artifact": "runner-readiness-core-ubuntu-24.04",
+          "attempt": "b2b3734129ce459c8818dd6b956b63ae",
+          "console_sha256": "9fa3df5c1e679cdfd287a3b1064f974a07e490d5e2bf567731aa5bdbe5be2863",
+          "host": "linux",
+          "manifest_sha256": "b3b449ad86eec4dae69662379d2f367451f3d308957ff0c88ca0ed82074cbbce",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-macos-15",
+          "attempt": "8ddaf4fd90df474b9ca99638f6ef0b12",
+          "console_sha256": "89148ff2a3a0c1902765f5f51c6ea74adbd779ed5568a5490be1b29b0a54fbbb",
+          "host": "macos",
+          "manifest_sha256": "24978b8d6a15c5420816329668eaa00f7a1d51b7015aedb0702b2902a0a5c4a4",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        },
+        {
+          "artifact": "runner-readiness-core-windows-2025",
+          "attempt": "c9813f662be24cfc8bd585ec37db36d6",
+          "console_sha256": "5ff65d138f02a684de1f755438c5f46d4c416db5c91d61fc2e19ddd5a5c4bf67",
+          "host": "windows",
+          "manifest_sha256": "4564852069642fc0c8aeb0b8656bc44091a783d6a10efba6f4a4184410c4fa77",
+          "metadata_sha256": "f6113e838c4d993a9d0c5758f7b6a82cbdccff27948ac4dc1e75d8ad995dde20",
+          "run": "39067447993",
+          "source_revision": "f46f2409985af077fd29723ab963d24792eabbbe"
+        }
+      ],
+      "hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "id": "ci-state-tamper",
+      "requirement": "CI summary rejects tampered state identities/outcomes and omits private failure payload",
+      "source": "scripts/ci/test_report_summary.py",
+      "status": "development executed; final archive qualification pending",
+      "test": "test_state_same_execution_identity_and_failure_category"
+    }
+  ],
+  "declarations_sha256": "44fc9d342159f83eb82c3b0c71652d2cfda8882eadb380245be7358332c7e64f",
+  "distinct_whole_controls": 33,
+  "schema_version": 1
+}

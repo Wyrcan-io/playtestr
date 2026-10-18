@@ -40,14 +40,15 @@ def fixture_files():
 
 
 def command(text):
-    return ['/text "/"','/key End','/text '+json.dumps('\x15'+text),'/key Enter']
+    return ['/text "/"','/text "focus-marker-probe"','/expect probe','/text "\\u0015"',
+        '/absent probe','/text '+json.dumps(text),'/expect '+text,'/key Enter']
 
 
 async def main():
     root=RAW/'frogmouth/first-use'/uuid.uuid4().hex;fixture=root/'fixture';fixture.mkdir(parents=True)
     expected=fixture_files()
     for name,value in expected.items():(fixture/name).write_bytes(value)
-    controls=['/expect Alpha body independent source.',*command('beta.md'),'/screen','/expect Beta body independent source.',
+    controls=['/expect Alpha body independent source.','/text "\\u000e"','/expect Contents',*command('beta.md'),'/expect Beta body independent source.','/screen',
         '/snapshot-rows selected.rows.json 4 26','/text "\\u0011"','/exit 0',
         *['/file '+name for name in expected],'/entries .','/review','/replay','/save']
     immutable_json(root/'intent.json',dict(expected_files={name:value.hex() for name,value in expected.items()},controls=controls,handwritten_spec=False,scope='Read-only synthetic local Markdown, second document selection; explicit snapshot rows exclude absolute path omnibox.'))
