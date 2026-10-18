@@ -13,8 +13,12 @@ on:
       phase:
         type: choice
         default: first-use
-        options: [first-use, author]
+        options: [first-use, author, qualify]
         description: First useful route or twenty declared public recordings
+      original_faults:
+        type: boolean
+        default: false
+        description: Consume original Linux F03 once after committed twenty-case freeze
 permissions:
   contents: read
 env:
@@ -80,6 +84,18 @@ jobs:
       - name: Verify full public directory suite and freeze reviewed exports
         if: inputs.phase == 'author'
         run: python scripts/acceptance/readiness_check.py --label native-frogmouth-twenty-ordinary-freeze --timeout 900 -- python scripts/acceptance/readiness_frogmouth_freeze.py
+      - name: Execute exact independently reviewed native profile
+        if: inputs.phase == 'qualify'
+        run: python scripts/acceptance/readiness_check.py --label native-frogmouth-frozen-twenty --timeout 900 -- python scripts/acceptance/readiness_frogmouth_native_contracts.py
+      - name: Actual editable source faults and exact restorations
+        if: inputs.phase == 'qualify'
+        run: |
+          original=()
+          if [ "$RUNNER_OS" = Linux ] && [ '${{ inputs.original_faults }}' = true ]; then original=(--original-heldout); fi
+          python scripts/acceptance/readiness_check.py --label native-frogmouth-real-source-faults --timeout 900 -- python scripts/acceptance/readiness_frogmouth_faults.py "${original[@]}"
+      - name: Public maintenance, suffix rerecord and relocated replay
+        if: inputs.phase == 'qualify'
+        run: python scripts/acceptance/readiness_check.py --label native-frogmouth-public-maintenance --timeout 900 -- python scripts/acceptance/readiness_frogmouth_maintenance.py
       - name: Verify pinned source restores and owned runtime termination
         if: always() && steps.prepare.outcome == 'success'
         run: |
