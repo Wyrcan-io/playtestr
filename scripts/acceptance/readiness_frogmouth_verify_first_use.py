@@ -16,6 +16,7 @@ def require(condition,message):
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--run',required=True)
+    parser.add_argument('--controls',type=int,choices=[16,24],default=16)
     parser.add_argument('--source-revision',default='3d50d81aae8f1d24f7a718e6e05b39069697b1a6');args=parser.parse_args()
     require(args.run.isascii() and args.run.isdecimal(),'invalid native run')
     source=args.source_revision
@@ -35,7 +36,7 @@ def main():
         require(build['source_editable'] and load(retained/build['wheel_manifest'])==build['dependency_wheels'],'dependency manifest differs')
         journeys=list((packet/'frogmouth/first-use').glob('*/journey.json'));require(len(journeys)==1,'ambiguous first-use journey')
         journey=load(journeys[0]);package=journeys[0].parent
-        require(journey['shell_invocations']==3 and journey['recorder_controls']==24 and not journey['handwritten_playtestr_json'],'wrong route count')
+        require(journey['shell_invocations']==3 and journey['recorder_controls']==args.controls and not journey['handwritten_playtestr_json'],'wrong route count')
         require(journey['target_build_sha256']==sha256(retained/'build.json') and journey['runner_sha256']==runner['copied_sha256'],'journey identity differs')
         for identity in [*journey['attempts'],build['version_attempt']]:
             event=attempts[identity];finished=event['finished']
@@ -61,6 +62,7 @@ def main():
                     require(files['artifacts/runner-readiness-ten-project-pass/'+relative]==sha256(package/'fixture'/name),'actual prelaunch fixture bytes not bound')
         spec=package/'spec.json';contract=load(spec)
         require(sha256(spec)==journey['spec_sha256'] and contract['command'][0]=='frogmouth','changed public contract')
+        require(contract['command']==['frogmouth','.' if args.controls==16 else 'alpha.md'],'unreviewed first-use launch route')
         actual={s['state']['path']:base64.b64decode(s['state']['bytes_base64']) for s in contract['steps'] if s.get('state',{}).get('kind')=='file'}
         require(actual==expected,'independent saved-byte oracle differs')
         for name,value in seed.items():require((package/'fixture'/name).read_bytes()==value,'actual first-use fixture differs')
@@ -83,7 +85,7 @@ def main():
         cells.append(dict(host=host,runner_sha256=runner['copied_sha256'],journey_sha256=sha256(journeys[0]),
             spec_sha256=sha256(spec),cleanup_sha256=sha256(retained/'removed.json')))
     immutable_json(docs/('first-use-native-'+args.run+'.json'),dict(run=args.run,cells=cells,source_revision=source,
-        development_admission=False,human_usability='unmeasured',claim='First route only; twenty scenarios and faults remain open.'))
+        recorder_controls=args.controls,shell_invocations=3,development_admission=False,human_usability='unmeasured',claim='First route only; twenty scenarios and faults remain open.'))
     print('Verified actual Frogmouth first-use source, commands, selected screen, exact saved bytes and cleanup on Linux/Windows.')
 
 

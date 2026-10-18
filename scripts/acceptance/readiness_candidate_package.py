@@ -45,6 +45,9 @@ async def main():
     inputs={n:sha256(checkout/n) for n in names}
     async def run(argv,label):return await execute(argv,'core','candidate-'+label,cwd=checkout,env=env,timeout=180,campaign=SourceCampaign([checkout/n for n in names]))
     sdk=await run([tool,'version'],'sdk-version')
+    settings=await run([tool,'env','-json','GOOS','GOARCH','GOVERSION'],'native-sdk-settings')
+    native=json.loads(settings['output'])
+    if native['GOOS']!=host or native['GOARCH']!=arch:raise RuntimeError('candidate build would not be native to this host architecture')
     build=await run([tool,'build','-trimpath','-buildvcs=false','-ldflags','-s -w -X github.com/Wyrcan-io/playtestr/internal/buildinfo.Version='+VERSION,'-o',binary,'./cmd/playtestr'],'native-build')
     await run([tool,'run','./cmd/package-release','-binary',binary,'-version',VERSION,'-os',host,'-arch',arch,'-out',root/'dist'],'native-package')
     base='playtestr_'+VERSION.removeprefix('v')+'_'+host+'_'+arch
@@ -80,7 +83,7 @@ async def main():
     await run([released,'--help'],'extracted-help')
     if inputs!={n:sha256(checkout/n) for n in names}:raise RuntimeError('candidate source inputs changed during build')
     immutable_json(root/'candidate.json',dict(schema_version=1,series=args.series,version=VERSION,source_revision=SOURCE,host=host,architecture=arch,
-        source_inputs=inputs,compiler_sha256=sha256(tool),sdk=sdk['output'].strip(),sdk_attempt=sdk['id'],binary_sha256=sha256(binary),extracted_binary_sha256=sha256(released),
+        source_inputs=inputs,compiler_sha256=sha256(tool),sdk=sdk['output'].strip(),sdk_settings=native,sdk_attempt=sdk['id'],settings_attempt=settings['id'],binary_sha256=sha256(binary),extracted_binary_sha256=sha256(released),
         archive=archive.relative_to(ROOT).as_posix(),archive_sha256=sha256(archive),archive_bytes=archive.stat().st_size,archive_members=members,
         build_attempt=build['id'],version_attempt=version['id'],ledger_sha256=sha256(docs/'candidates.json'),project_qualification=False,
         freeze='Private provisional archive before reserved projects nine/ten. No release/tag/publication authorized; final qualification remains separate.'))
