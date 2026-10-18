@@ -87,7 +87,8 @@ jobs:
       - name: Bounded independent PTY input observations and unchanged public reproduction
         if: inputs.phase == 'diagnose'
         run: |
-          python3 scripts/acceptance/readiness_check.py --label native-fff-input-reduction --timeout 600 -- python3 scripts/acceptance/readiness_fff_input_diagnose.py
+          python3 scripts/acceptance/readiness_check.py --label native-fff-diagnostic-profile --timeout 60 -- python3 scripts/acceptance/readiness_fff_native_contracts.py --prepare-only
+          python3 scripts/acceptance/readiness_check.py --label native-fff-current-cancel-reduction --timeout 900 -- python3 scripts/acceptance/readiness_fff_cancel_diagnose.py
       - name: Execute exact frozen native profile through the public suite
         if: inputs.phase == 'qualify'
         run: |
