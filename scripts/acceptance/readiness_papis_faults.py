@@ -21,11 +21,16 @@ def load(path):
 async def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--original-heldout', action='store_true')
+    parser.add_argument('--selection',choices=['original','fresh'],default='fresh')
     args = parser.parse_args()
     if platform.system() not in {'Linux', 'Windows'}:
         raise RuntimeError('undeclared papis native host')
-    if args.original_heldout and (platform.system() != 'Windows' or os.environ.get('GITHUB_ACTIONS')=='true'):
-        raise RuntimeError('original heldout designated local Windows only')
+    fresh=args.selection=='fresh'
+    if args.original_heldout:
+        if fresh and (platform.system()!='Linux' or os.environ.get('GITHUB_ACTIONS')!='true'):
+            raise RuntimeError('fresh F04 heldout designated initial hosted native Linux execution only')
+        if not fresh and (platform.system()!='Windows' or os.environ.get('GITHUB_ACTIONS')=='true'):
+            raise RuntimeError('historical original selection designated local Windows only')
     docs = ROOT/'docs/validation/runner-readiness-ten-project-pass/papis'
     profile = docs/'native-profiles/windows' if platform.system() == 'Windows' else docs
     frozen = load(profile/'reviewed-contract-freeze.json')
@@ -33,19 +38,19 @@ async def main():
     for name, digest in frozen['all_package_inputs'].items():
         if sha256(package/name) != digest:
             raise RuntimeError('fault run changed frozen contract or fixture')
-    selection = load(docs/'fault-selection.json')
-    source_review={r['id']:r for r in load(docs/'source-fault-review.json')['faults']}
+    selection = load(docs/('fault-selection-revision-2.json' if fresh else 'fault-selection.json'))
+    source_review={r['id']:r for r in load(docs/('source-fault-review-revision-2.json' if fresh else 'source-fault-review.json'))['faults']}
     if selection['frozen_contract_sha256'] != sha256(docs/'reviewed-contract-freeze.json'):
         raise RuntimeError('source selection belongs to another freeze')
     root = RAW/'papis/faults'/uuid.uuid4().hex
     root.mkdir(parents=True)
-    faults = [{**f, 'held_out': bool(args.original_heldout and f['id'] == 'F03')}
+    faults = [{**f, 'held_out': bool(args.original_heldout and f['id'] == ('F04' if fresh else 'F03'))}
               for f in selection['faults']]
     immutable_json(root/'selected-faults.json', dict(faults=faults,
         frozen_contract_sha256=selection['frozen_contract_sha256'],
         native_freeze_sha256=sha256(profile/'reviewed-contract-freeze.json'),
         execution='Actual editable Python source; no compiled rebuild or installation per mutation.',
-        original_heldout=args.original_heldout))
+        original_heldout=args.original_heldout,selection_revision=2 if fresh else 1))
     active = RAW/'active/papis'
     runtime = load(active/'runtime.json')
     python = Path(runtime['python'])
@@ -69,7 +74,10 @@ async def main():
             '--artifacts-dir', report.with_suffix('').relative_to(ROOT),
             (package/fault['spec']).relative_to(ROOT)], 'papis', fault['id']+'-'+phase,
             env=environment(), expected=expected, timeout=150, campaign=Campaign())
-        outcome = load(report)['results'][0]
+        evidence=load(report)
+        if evidence['runner_version']!='source-'+os.environ.get('SOURCE_REVISION','f46f2409985af077fd29723ab963d24792eabbbe'):
+            raise RuntimeError('fault runner is not the exact declared source candidate')
+        outcome = evidence['results'][0]
         if not outcome['cleanup']['confirmed_exited'] or not outcome['workspace']['cleaned']:
             raise RuntimeError('fault cleanup unconfirmed')
         return attempt, outcome
@@ -96,12 +104,14 @@ async def main():
             mutation, outcome = await run(fault, 'mutated', 1)
             if outcome['status'] != 'failed' or outcome['failure']['category'] != fault['category']:
                 raise RuntimeError('wrong real fault diagnosis: '+json.dumps(outcome.get('failure')))
-            if fault['id'] == 'F03':
+            if fault['id'] in {'F03','F04'}:
                 failed = next(i for i, step in enumerate(outcome['steps']) if step['status'] == 'failed')
                 prior = outcome['steps'][:failed]
                 if not all(s['status'] == 'passed' for s in prior) or not {'snapshot', 'exit'} <= {s['action'] for s in prior}:
                     raise RuntimeError('F03 lacks prior passing screen and exact exit')
                 state = outcome['steps'][failed]['state']
+                if fault['id']=='F04' and (state['kind']!='entries' or state['path']!='exported'):
+                    raise RuntimeError('fresh unwanted-file fault was not caught by the unchanged exact export entry set')
                 if state['invocation_id'] != outcome['invocation_id'] or state['workspace_id'] != outcome['workspace']['id']:
                     raise RuntimeError('F03 cross-execution state')
         finally:
@@ -114,7 +124,7 @@ async def main():
             restored_attempt=restored['id'], original_source_sha256=sha256(source),
             mutated_source_sha256=hashlib.sha256(mutated).hexdigest(), restored_exact=True,
             mutation_validation=mutation_validation, restored_validation=restored_validation,
-            same_execution_state_rejection=fault['id'] == 'F03')
+            same_execution_state_rejection=fault['id'] in {'F03','F04'})
         immutable_json(root/(fault['id']+'-receipt.json'), receipt)
         receipts.append(receipt)
         print(fault['id'], 'actual interpreted source fault detected and restored', flush=True)

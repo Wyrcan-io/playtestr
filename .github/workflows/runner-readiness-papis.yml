@@ -15,6 +15,10 @@ on:
         default: first-use
         options: [first-use, author, qualify]
         description: First useful route or twenty declared public recordings
+      original_faults:
+        type: boolean
+        default: false
+        description: Consume initial native Linux F04 once after committed freeze
 permissions:
   contents: read
 env:
@@ -89,7 +93,9 @@ jobs:
       - name: Actual editable source faults and exact restorations
         if: inputs.phase == 'qualify'
         run: |
-          python scripts/acceptance/readiness_check.py --label native-papis-real-source-fault-replicas --timeout 900 -- python scripts/acceptance/readiness_papis_faults.py
+          original=()
+          if [ "$RUNNER_OS" = Linux ] && [ '${{ inputs.original_faults }}' = true ]; then original=(--original-heldout); fi
+          python scripts/acceptance/readiness_check.py --label native-papis-real-source-fault-replicas --timeout 900 -- python scripts/acceptance/readiness_papis_faults.py "${original[@]}"
       - name: Public maintenance, suffix rerecord and relocated replay
         if: inputs.phase == 'qualify'
         run: |

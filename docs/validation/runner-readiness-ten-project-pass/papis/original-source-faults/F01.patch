@@ -1,0 +1,11 @@
+--- a/papis/tui/picker/options_list.py
++++ b/papis/tui/picker/options_list.py
+@@ -180,7 +180,7 @@
+         from contextlib import suppress
+         with suppress(ValueError):
+             index = self.indices.index(self.current_index)
+-            index += 1
++            index += 0
+             if index >= len(self.indices):
+                 self.current_index = self.indices[0]
+             else:

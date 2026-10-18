@@ -1,0 +1,91 @@
+{
+  "faults": [
+    {
+      "after": "            index = self.indices.index(self.current_index)\n            index += 0",
+      "baseline_attempt": "9ca4815db4f742deb5d536370f4800cd",
+      "before": "            index = self.indices.index(self.current_index)\n            index += 1",
+      "category": "assertion_timeout",
+      "held_out": false,
+      "id": "F01",
+      "mutated_source_sha256": "31c5bf63ef0ad2410072e685c5d0cfce85de09f98883549c2b0455348336d22e",
+      "mutation_attempt": "bfec12c3239f4713b68cdcf2f23ea6d8",
+      "mutation_validation": {
+        "interpreter_sha256": "c4ea4a1805b8ce346c2a11ef882266562d2c937cdd98309b05e694c8c3a2a724",
+        "source_sha256": "31c5bf63ef0ad2410072e685c5d0cfce85de09f98883549c2b0455348336d22e",
+        "syntax_attempt": "c750ca6fa42b48388ba0dbb4e7f1b91e",
+        "version_attempt": "e2203d74854e4344b01a39a51d3b6722"
+      },
+      "original_source_sha256": "4129516e6ee992e3f479f12d533b9a0c08e50715d0f1e888df298195ca3fd3a6",
+      "path": "papis/tui/picker/options_list.py",
+      "restored_attempt": "a651a6113c7342f7add7b67ff49de19a",
+      "restored_exact": true,
+      "restored_validation": {
+        "interpreter_sha256": "c4ea4a1805b8ce346c2a11ef882266562d2c937cdd98309b05e694c8c3a2a724",
+        "source_sha256": "4129516e6ee992e3f479f12d533b9a0c08e50715d0f1e888df298195ca3fd3a6",
+        "syntax_attempt": "fdddc5696b0c482d97b5a2d301a67830",
+        "version_attempt": "3d9f5c8b1fba4e138998965478bc47ee"
+      },
+      "same_execution_state_rejection": false,
+      "spec": "N01.json"
+    },
+    {
+      "after": "            fd.write(ret_string)\n\n        raise SystemExit(7)",
+      "baseline_attempt": "6065b28b3e4a43d5a60c54f50945911d",
+      "before": "            fd.write(ret_string)\n\n        return",
+      "category": "unexpected_exit",
+      "held_out": false,
+      "id": "F02",
+      "mutated_source_sha256": "b28bba1d27e0c66c240ab184bc0f541800641ef19d4f26bcb4adbaec2851ce85",
+      "mutation_attempt": "a1ac8f66bb1d41ad91fc72f678e7bef4",
+      "mutation_validation": {
+        "interpreter_sha256": "c4ea4a1805b8ce346c2a11ef882266562d2c937cdd98309b05e694c8c3a2a724",
+        "source_sha256": "b28bba1d27e0c66c240ab184bc0f541800641ef19d4f26bcb4adbaec2851ce85",
+        "syntax_attempt": "62e04f9f4ec447d890d0e35cb0094b90",
+        "version_attempt": "bc3a801148f94bb59cf028f83b6de652"
+      },
+      "original_source_sha256": "01f76ba506e62edb748a2467e9b108fd07842b96066e5a874dbde2eb64512d37",
+      "path": "papis/commands/export.py",
+      "restored_attempt": "f65ead42fe5245d3aae350f96ae3f846",
+      "restored_exact": true,
+      "restored_validation": {
+        "interpreter_sha256": "c4ea4a1805b8ce346c2a11ef882266562d2c937cdd98309b05e694c8c3a2a724",
+        "source_sha256": "01f76ba506e62edb748a2467e9b108fd07842b96066e5a874dbde2eb64512d37",
+        "syntax_attempt": "6639a6e39ea040bab862520efbdb6087",
+        "version_attempt": "b268216ecca24e5c839b6aa1f1c88139"
+      },
+      "same_execution_state_rejection": false,
+      "spec": "N02.json"
+    },
+    {
+      "after": "            shutil.copytree(doc_main_folder, outdir)\n            with open(os.path.join(outdir, papis.config.getstring(\"info-name\")), \"ab\") as broken:\n                broken.write(b\"\\x00\")",
+      "baseline_attempt": "e6eb54e0bfd94990b238eda1684b1e38",
+      "before": "            shutil.copytree(doc_main_folder, outdir)",
+      "category": "state_assertion_failure",
+      "held_out": true,
+      "id": "F03",
+      "mutated_source_sha256": "06385c908e2d05cdcb242920af94df1ace52bf2dd984f6c82579e2a79a021a36",
+      "mutation_attempt": "a8e1bb97497140dcb0a62f1d7629be51",
+      "mutation_validation": {
+        "interpreter_sha256": "c4ea4a1805b8ce346c2a11ef882266562d2c937cdd98309b05e694c8c3a2a724",
+        "source_sha256": "06385c908e2d05cdcb242920af94df1ace52bf2dd984f6c82579e2a79a021a36",
+        "syntax_attempt": "670349681eef4814b86e9b1af6818603",
+        "version_attempt": "d30152a0955c45d0bbd0aaec05a0a7a5"
+      },
+      "original_source_sha256": "01f76ba506e62edb748a2467e9b108fd07842b96066e5a874dbde2eb64512d37",
+      "path": "papis/commands/export.py",
+      "restored_attempt": "2eb8b78269cb4a2cbbfa740dc1936293",
+      "restored_exact": true,
+      "restored_validation": {
+        "interpreter_sha256": "c4ea4a1805b8ce346c2a11ef882266562d2c937cdd98309b05e694c8c3a2a724",
+        "source_sha256": "01f76ba506e62edb748a2467e9b108fd07842b96066e5a874dbde2eb64512d37",
+        "syntax_attempt": "4ab526635dc243c2883476464f7de11f",
+        "version_attempt": "97cbaa403cc947378abe275ac2916764"
+      },
+      "same_execution_state_rejection": true,
+      "spec": "N01.json"
+    }
+  ],
+  "interpreter_sha256": "c4ea4a1805b8ce346c2a11ef882266562d2c937cdd98309b05e694c8c3a2a724",
+  "runner_sha256": "8477aecd5e457375dadbe3493b8f98396c097306b4cee9a4784f914d4aff4e82",
+  "source_execution": "Actual pinned upstream editable Python source"
+}

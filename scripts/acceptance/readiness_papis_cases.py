@@ -153,7 +153,10 @@ async def author(row):
     ordinary=await execute([runner,'test','--report',report.relative_to(ROOT),'--artifacts-dir',
         (root/'evidence').relative_to(ROOT),spec.relative_to(ROOT)],'papis',row['id']+'-ordinary-test',
         env=environment(),timeout=180,campaign=Campaign())
-    outcome=json.loads(report.read_text(encoding='utf-8-sig'))['results'][0]
+    evidence=json.loads(report.read_text(encoding='utf-8-sig'))
+    if evidence['runner_version']!='source-'+os.environ.get('SOURCE_REVISION','f46f2409985af077fd29723ab963d24792eabbbe'):
+        raise RuntimeError('authoring runner is not the declared source candidate')
+    outcome=evidence['results'][0]
     if outcome['status']!='passed' or not outcome['cleanup']['confirmed_exited'] or not outcome['workspace']['cleaned']:
         raise RuntimeError('ordinary outcome or cleanup unconfirmed')
     immutable_json(root/'approved.json',dict(id=row['id'],plan_sha256=plan_hash(row),capture=capture['id'],ordinary=ordinary['id'],

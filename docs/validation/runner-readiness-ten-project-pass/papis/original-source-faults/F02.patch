@@ -1,0 +1,11 @@
+--- a/papis/commands/export.py
++++ b/papis/commands/export.py
+@@ -208,7 +208,7 @@
+         with open(out, mode, encoding="utf-8") as fd:
+             fd.write(ret_string)
+ 
+-        return
++        raise SystemExit(7)
+ 
+     if folder:
+         import shutil

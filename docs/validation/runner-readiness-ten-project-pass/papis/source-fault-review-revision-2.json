@@ -1,0 +1,29 @@
+{
+  "faults": [
+    {
+      "id": "F01",
+      "mutated_source_sha256": "31c5bf63ef0ad2410072e685c5d0cfce85de09f98883549c2b0455348336d22e",
+      "original_source_sha256": "4129516e6ee992e3f479f12d533b9a0c08e50715d0f1e888df298195ca3fd3a6",
+      "path": "papis/tui/picker/options_list.py"
+    },
+    {
+      "id": "F02",
+      "mutated_source_sha256": "b28bba1d27e0c66c240ab184bc0f541800641ef19d4f26bcb4adbaec2851ce85",
+      "original_source_sha256": "01f76ba506e62edb748a2467e9b108fd07842b96066e5a874dbde2eb64512d37",
+      "path": "papis/commands/export.py"
+    },
+    {
+      "id": "F03",
+      "mutated_source_sha256": "06385c908e2d05cdcb242920af94df1ace52bf2dd984f6c82579e2a79a021a36",
+      "original_source_sha256": "01f76ba506e62edb748a2467e9b108fd07842b96066e5a874dbde2eb64512d37",
+      "path": "papis/commands/export.py"
+    },
+    {
+      "id": "F04",
+      "mutated_source_sha256": "3f1474dbb8bbd14c04bd13904c86296a71fbc7e2db4e0e12a23e340862b65d53",
+      "original_source_sha256": "01f76ba506e62edb748a2467e9b108fd07842b96066e5a874dbde2eb64512d37",
+      "path": "papis/commands/export.py"
+    }
+  ],
+  "review": "F04 creates actual unwanted hidden export residue after the ordinary copy. Frozen N01 already asserts the exact export directory set. Source and syntax inspected only; never executed before declared native Linux consumption."
+}
