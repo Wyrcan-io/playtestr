@@ -37,7 +37,7 @@ def rows(host=None):
             [*navigate,text('\x19'),expect('alpha.md'),key('Home'),key('ArrowDown'),key('Enter'),expect('Alpha body independent source.')]),
         row('N05','bookmark a selected document and revisit it after navigating away',
             [*navigate,text('\x04'),expect('Bookmark title:'),key('Enter'),'/absent Bookmark title:',
-             *command('alpha.md'),expect('Alpha body independent source.'),text('\x02'),expect('beta.md'),key('Enter'),expect('Beta body independent source.')]),
+             *command('alpha.md'),expect('Alpha body independent source.'),text('\x02'),expect('beta.md'),key('Home'),key('Enter'),expect('Beta body independent source.')]),
         row('N06','decline then confirm clearing browsing history while preserving the current document',
             [*navigate,text('\x19'),expect('alpha.md'),key('Backspace'),expect('Clear history?'),key('ArrowRight'),key('Enter'),
              '/absent Clear history?',expect('alpha.md'),key('Backspace'),expect('Clear history?'),key('Enter'),'/absent Clear history?','/absent alpha.md']),
