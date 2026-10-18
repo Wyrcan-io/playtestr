@@ -1,0 +1,41 @@
+{
+  "execution": "Real pinned tracked interpreted JavaScript dist, per new CLI process; no fake target, wrapper fault, TypeScript rebuild or expectation changes.",
+  "faults": [
+    {
+      "after": "        yield fs_extra_1.default.writeFile(absTo, action.body + \"\\nCORRUPTED\\n\");",
+      "before": "        yield fs_extra_1.default.writeFile(absTo, action.body);",
+      "behavior": "Actual add implementation writes wrong content while its normal added screen and exit0 remain correct.",
+      "category": "state_assertion_failure",
+      "held_out": false,
+      "id": "F01",
+      "path": "dist/ops/add.js",
+      "spec": "N01.json"
+    },
+    {
+      "after": "process.exit(success ? 7 : 1)",
+      "before": "process.exit(success ? 0 : 1)",
+      "behavior": "Actual CLI process exits7 after successful generation, not an internal library result.",
+      "category": "unexpected_exit",
+      "held_out": false,
+      "id": "F02",
+      "path": "dist/bin.js",
+      "spec": "N01.json"
+    },
+    {
+      "after": "        yield fs_extra_1.default.writeFile(absTo, action.body);\n        yield fs_extra_1.default.writeFile(path_1.default.join(path_1.default.dirname(absTo), \"unreviewed.tmp\"), \"unwanted\\n\");",
+      "before": "        yield fs_extra_1.default.writeFile(absTo, action.body);",
+      "behavior": "Actual add implementation leaves an extra sibling file after writing the correct destination; unchanged bytes, screen and exit0 pass before complete directory entries reject it.",
+      "category": "state_assertion_failure",
+      "held_out": true,
+      "id": "F03",
+      "path": "dist/ops/add.js",
+      "spec": "N01.json"
+    }
+  ],
+  "freeze_commit": "8b80490b60cce2edfe5d0ef7816723aa7fdd7286",
+  "frozen_contract_sha256": "b105aa2cb37051791f5e07a41707ca6995263d06168cdb07a820998235d7a3a7",
+  "independent_freeze_review": "4305f37da40b416da2ad53bd64e7f3d1",
+  "original_heldout": "Only initial hosted Linux F03 after committed native twenty-case freeze8b80490. Do not exercise F03 locally before this original. Mac and later runs are replicas; all original/failed attempt rows retained.",
+  "qualifying_faults": 3,
+  "selected_after_native_run": "39153221631"
+}

@@ -8,8 +8,17 @@ on:
       phase:
         type: choice
         default: first-use
-        options: [first-use, author]
-        description: First useful route or twenty declared public recordings
+        options: [first-use, author, qualify]
+        description: First route, twenty public recordings or frozen qualification
+      hosts:
+        type: choice
+        default: both
+        options: [both, linux, macos]
+        description: Declared native hosts
+      original_faults:
+        type: boolean
+        default: false
+        description: Initial Linux F03 only after committed two-host freeze
 permissions:
   contents: read
   actions: read
@@ -31,7 +40,7 @@ jobs:
       fail-fast: false
       max-parallel: 2
       matrix:
-        os: [ubuntu-24.04, macos-15]
+        os: ${{ fromJSON(inputs.hosts == 'linux' && '["ubuntu-24.04"]' || inputs.hosts == 'macos' && '["macos-15"]' || '["ubuntu-24.04", "macos-15"]') }}
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -41,6 +50,12 @@ jobs:
         with:
           persist-credentials: false
           set-safe-directory: false
+      - name: Restrict original heldout dispatch to its declared initial Linux qualification
+        run: |
+          if [ '${{ inputs.original_faults }}' = true ]; then
+            test '${{ inputs.hosts }}' = linux
+            test '${{ inputs.phase }}' = qualify
+          fi
       - name: Prepare owned temporary path
         run: mkdir -p "$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass/tmp"
       - name: Download exact already-frozen native private artifact
@@ -68,6 +83,18 @@ jobs:
       - name: Full public directory suite and reviewed contract freeze
         if: inputs.phase == 'author'
         run: python3 scripts/acceptance/readiness_check.py --label hygen-native-twenty-ordinary-freeze --timeout 900 -- python3 scripts/acceptance/readiness_hygen_freeze.py
+      - name: Execute the exact reviewed native twenty-case profile
+        if: inputs.phase == 'qualify'
+        run: python3 scripts/acceptance/readiness_check.py --label hygen-native-frozen-twenty --timeout 900 -- python3 scripts/acceptance/readiness_hygen_native_contracts.py
+      - name: Actual tracked-source faults and exact restoration
+        if: inputs.phase == 'qualify'
+        run: |
+          original=()
+          if [ "$RUNNER_OS" = Linux ] && [ '${{ inputs.original_faults }}' = true ]; then original=(--original-heldout); fi
+          python3 scripts/acceptance/readiness_check.py --label hygen-native-real-source-faults --timeout 900 -- python3 scripts/acceptance/readiness_hygen_faults.py "${original[@]}"
+      - name: Public selected maintenance, suffix rerecord and relocated replay
+        if: inputs.phase == 'qualify'
+        run: python3 scripts/acceptance/readiness_check.py --label hygen-native-public-maintenance --timeout 900 -- python3 scripts/acceptance/readiness_hygen_maintenance.py --package artifacts/runner-readiness-ten-project-pass/hygen/host-contracts
       - name: Verify source restoration and owned runtime termination before removal
         if: always() && steps.prepare.outcome == 'success'
         run: python3 scripts/acceptance/readiness_check.py --label hygen-native-checked-source-cleanup --timeout 180 -- python3 scripts/acceptance/readiness_cleanup_plop.py --project hygen
