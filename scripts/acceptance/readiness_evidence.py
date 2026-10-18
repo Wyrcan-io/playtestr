@@ -140,15 +140,15 @@ class Campaign:
                 paths.extend((target/'src/src/poetry').rglob('*.py'))
                 paths.extend([target/'src/pyproject.toml',target/'src/poetry.lock'])
                 if (target/'wheels.json').is_file():paths.append(target/'wheels.json')
-            elif project=='papis':
-                paths.extend((target/'src/papis').rglob('*.py'))
+            elif project in {'papis','frogmouth'}:
+                paths.extend((target/'src'/project).rglob('*.py'))
                 paths.append(target/'src/pyproject.toml')
                 if (target/'runtime.json').is_file():
                     runtime=json.loads((target/'runtime.json').read_text(encoding='utf-8-sig'))
                     interpreter=Path(runtime['python'])
                     interpreter.resolve(strict=True).relative_to(target.resolve())
                     paths.append(interpreter)
-                    launcher=interpreter.parent/('papis.exe' if os.name=='nt' else 'papis')
+                    launcher=interpreter.parent/(project+'.exe' if os.name=='nt' else project)
                     if launcher.is_file():
                         launcher.resolve(strict=True).relative_to(target.resolve())
                         paths.append(launcher)

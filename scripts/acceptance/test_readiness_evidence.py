@@ -159,6 +159,23 @@ class EvidenceTests(unittest.TestCase):
         interpreter.write_bytes(b'reviewed interpreter bytes')
         self.assertEqual(before,self.campaign.identity('papis',['not-launched']))
 
+    def test_frogmouth_editable_source_interpreter_and_launcher_are_bound(self):
+        target=Path(self.folder.name)/'active/frogmouth'
+        source=target/'src/frogmouth/widgets/viewer.py';source.parent.mkdir(parents=True)
+        (target/'task-owned.json').write_text('{}')
+        (target/'src/pyproject.toml').write_text('[tool.poetry]\nname="synthetic-owned-fixture"\n')
+        source.write_bytes(b'reviewed source\n')
+        interpreter=target/'venv/bin/python';interpreter.parent.mkdir(parents=True);interpreter.write_bytes(b'reviewed runtime')
+        import os
+        launcher=interpreter.parent/('frogmouth.exe' if os.name=='nt' else 'frogmouth');launcher.write_bytes(b'reviewed launcher')
+        (target/'runtime.json').write_text(json.dumps({'python':str(interpreter)}))
+        before=self.campaign.identity('frogmouth',['not-launched'])
+        for path in [source,interpreter,launcher]:
+            original=path.read_bytes();path.write_bytes(b'changed bytes')
+            self.assertNotEqual(before,self.campaign.identity('frogmouth',['not-launched']),str(path))
+            path.write_bytes(original)
+            self.assertEqual(before,self.campaign.identity('frogmouth',['not-launched']))
+
     def test_c_source_and_built_target_mutations_change_prelaunch_identity(self):
         target=Path(self.folder.name)/'active/vis';source=target/'src/main.c';source.parent.mkdir(parents=True)
         source.write_bytes(b'int main(void) { return 0; }\n')
