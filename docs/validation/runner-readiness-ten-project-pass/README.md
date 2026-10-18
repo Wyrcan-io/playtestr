@@ -1,6 +1,6 @@
 # Runner readiness campaign
 
-Invoked 16 October 2026. Status: **in progress; eight development admissions across sixteen native cells**.
+Invoked 16 October 2026. Status: **in progress; nine development admissions across eighteen native cells**.
 
 Base: `deed954a9ed1c05db73ee93cb2fbb84d9271d1e1`, branch
 `work/p0-p2-implementation`. Pre-existing edits: planning index and execution
@@ -20,7 +20,7 @@ Poetry's owned local tree is also removed after verified retention and cleanup.
 RubyGems/Bundler is admitted on Linux/Windows and its owned local tree is removed.
 Microsoft Edit is admitted on Linux/Windows and its owned local tree is removed.
 Vis is admitted on Linux/macOS and its owned local source tree is removed.
-fff is admitted on Linux/macOS and its owned local source tree is removed. Attempted 9; development admitted 8; archive qualified 0;
+fff is admitted on Linux/macOS and its owned local source tree is removed. Attempted 9; development admitted 9; archive qualified 0;
 old projects migrated 0; final runner admissions 0/100; paid-product admissions 0/100;
 final-qualified scenarios, faults, repetitions and native project/host cells all 0.
 Development evidence includes nineteen passing Windows Plop scenarios and three

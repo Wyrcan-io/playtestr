@@ -1,0 +1,8 @@
+--- a/dist/bin.js
++++ b/dist/bin.js
+@@ -18,4 +18,4 @@
+         return require('execa').command(action, Object.assign(Object.assign({}, opts), { shell: true })); // eslint-disable-line @typescript-eslint/no-var-requires
+     },
+     createPrompter: () => require('enquirer'),
+-}).then(({ success }) => process.exit(success ? 0 : 1));
++}).then(({ success }) => process.exit(success ? 7 : 1));

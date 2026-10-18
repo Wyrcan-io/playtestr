@@ -1,0 +1,39 @@
+{
+  "execution": "Actual pinned tracked interpreted dist code. No target wrapper fault or expectation edits.",
+  "faults": [
+    {
+      "after": "        yield fs_extra_1.default.writeFile(absTo, action.body + \"\\nCORRUPTED\\n\");",
+      "before": "        yield fs_extra_1.default.writeFile(absTo, action.body);",
+      "behavior": "Actual add implementation writes wrong content while its normal added screen and exit0 remain correct.",
+      "category": "state_assertion_failure",
+      "held_out": false,
+      "id": "F01",
+      "path": "dist/ops/add.js",
+      "spec": "N01.json"
+    },
+    {
+      "after": "process.exit(success ? 7 : 1)",
+      "before": "process.exit(success ? 0 : 1)",
+      "behavior": "Actual CLI process exits7 after successful generation, not an internal library result.",
+      "category": "unexpected_exit",
+      "held_out": false,
+      "id": "F02",
+      "path": "dist/bin.js",
+      "spec": "N01.json"
+    },
+    {
+      "after": "        yield fs_extra_1.default.writeFile(absTo, action.body);\n        yield fs_extra_1.default.writeFile(path_1.default.join(path_1.default.dirname(absTo), \"unreviewed.tmp\"), \"unwanted\\n\");",
+      "before": "        yield fs_extra_1.default.writeFile(absTo, action.body);",
+      "behavior": "Actual add implementation leaves an extra sibling file after writing the correct destination; unchanged bytes, screen and exit0 pass before complete directory entries reject it.",
+      "category": "state_assertion_failure",
+      "held_out": true,
+      "id": "F03",
+      "path": "dist/ops/add.js",
+      "spec": "N01.json"
+    }
+  ],
+  "frozen_contract_sha256": "b105aa2cb37051791f5e07a41707ca6995263d06168cdb07a820998235d7a3a7",
+  "local_exploratory": false,
+  "native_freeze_sha256": "b105aa2cb37051791f5e07a41707ca6995263d06168cdb07a820998235d7a3a7",
+  "original_heldout": true
+}

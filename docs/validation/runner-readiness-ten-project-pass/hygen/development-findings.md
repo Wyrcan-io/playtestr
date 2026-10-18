@@ -1,0 +1,15 @@
+# Hygen development admission
+
+[Admission](development-admission.json) covers native Linux amd64 and macOS arm64 on the exact frozen private provisional archives, source `3d50d81`. Windows is exploratory and excluded from admitted cells. This adds the ninth development project and eighteenth native cell; final archive repetition qualification remains open.
+
+[First use](first-use-native-39151639480.json) verifies three shell invocations and twenty recorder controls. [Native authoring review](native-authoring-review.json) verifies twenty real generation, overwrite, selection, injection, dry-run, binary/Unicode and resize workflows. All byte expectations, selected prompt rows and entry sets are reviewed; native snapshots retain exact glyphs and spacing. Agent familiarity, prepared fixtures and warm dependencies are confounders. Human usability is unmeasured.
+
+The canonical two-host freeze was committed as `8b80490` before [source fault selection](fault-selection.json). [Original Linux verification](original-fault-verification.json), run `39154095409`, proves wrong output bytes, real OS exit 7 and the fresh F03 extra sibling file. For F03 the screen, exact generated/preserved file bytes and exit 0 pass before the public same-execution directory assertion rejects the extra file. macOS run `39154521534` executes replicas; all source bytes are exactly restored. Minimal upstream fault patches are covered by the [retained upstream MIT license](UPSTREAM_LICENSE.txt).
+
+Both native hosts complete thirteen maintenance commands: intended file failure, offline HTML, selected state update with unrelated assertions preserved, intentional viewport mismatch, selected exact snapshot update, suffix reconstruction replacing wrong input, and three unchanged-spec relocations through spaces/Unicode paths. Generated workflow preparation passes; actual generated CI remains open.
+
+Original failures remain: local Yarn registry connection/time-bound failure; unnecessary initial Node24 guard on hosted Node22; invalid repeated resize anchors; redundant Enter after Enquirer auto-submits confirmation; and a maintenance-only full filename wrapping at width28. Each has a declared disposition. The failed snapshot update preserves its old baseline. No production Go repair or candidate rebuild was required for this project.
+
+Local source/runtime/cache removal follows confirmed process termination, canonical source archive/member hashes and selected restore checks. Six native packets, including first failures, are retained in one self-contained checked local-only archive: 4,765 logical files, 2,690 physical payloads, 40,381,596 expanded bytes and 9,914,548 archive bytes. Expanded copies are removed only after complete byte verification. The archive is local-only at `artifacts/runner-readiness-ten-project-pass/hygen/retained-native-v1/`; it is not a public download.
+
+The boundary is trusted local prompt/config/EJS files. Remote setup, shell actions, arbitrary plugins, browser/auth services and universal Unicode claims are excluded. Playtestr runs targets with user permissions; no isolation claim is made.
