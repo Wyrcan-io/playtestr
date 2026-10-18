@@ -1,0 +1,9 @@
+{
+  "first_native_run": "39151379008",
+  "outcome": "Both exact native archive extraction/version/help steps passed, then setup refused an unnecessarily restrictive Node24 guard before dependencies or first-use execution.",
+  "actual_installed": {"Linux": "v22.23.3", "macOS": "v22.23.2", "local_Windows": "v24.7.0"},
+  "review": "The pinned package declares no engines constraint requiring Node24. Its tracked dist uses ordinary supported CommonJS/JavaScript and the frozen production dependency tree. Accept the explicitly declared native Node22/24 profiles and record exact actual executable hashes/versions.",
+  "changes": "Prerequisite guard only; no target source/fixture/expected byte, Playtestr binary/archive or product deadline changes.",
+  "native_credit": 0,
+  "next": "Fresh native Linux/macOS first-use run; failed initial setup retained, no repair or compatibility claim until actual success."
+}

@@ -5,6 +5,7 @@ import base64
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 import shutil
 import tarfile
@@ -83,8 +84,8 @@ async def main():
     env = environment(target)
     node = Path(shutil.which('node', path=env['PATH'])).resolve()
     version = await execute([node, '--version'], 'hygen', 'reviewed-native-node-version', env=env, timeout=30, campaign=Campaign())
-    if not version['output'].strip().startswith('v24.'):
-        raise RuntimeError('declared Node 24 runtime required')
+    if not re.fullmatch(r'v(?:22|24)\.\d+\.\d+',version['output'].strip()):
+        raise RuntimeError('reviewed Node 22 or 24 native runtime required')
     runtime=dict(node=str(node),node_sha256=sha256(node),version=version['output'].strip(),version_attempt=version['id'],installed_globally=False)
     immutable_json(target/('runtime.json' if not (target/'runtime.json').exists() else 'runtime-resume-'+uuid.uuid4().hex+'.json'),runtime)
     lock=source/'yarn.lock';original_lock=lock.read_bytes()
