@@ -22,6 +22,16 @@ names the ten declared specs explicitly: the initial directory listing also
 selected six JSON template-data files and was stopped before target launch.
 That preparation failure remains retained.
 
-Native Linux execution, independent cell audits and checked retention/cleanup
-remain required before project migration credit. These old-project checks add
-no new-project, held-out-fault or final-archive credit.
+Native Linux run `39336792124` and local Windows both passed all ten migrated
+cases, the terminal-only false-green calibration, saved corruption rejection
+and exact restoration. Independent [Windows](verified-windows.json) and
+[Linux](verified-linux.json) audits bind actual public commands, frozen runner
+bytes, original contracts, same-execution state and checked cleanup.
+The [migration admission](migration-admission.json) records one old project,
+ten canonical scenarios and two native cells. Its 39 observed ordinary
+executions include the first Linux run whose tests passed but cleanup failed
+because the retention helper rejected the legacy v2 calibration report.
+The corrected helper validates both report versions; the original failed run
+remains archived. Both native packets are verified locally retained archives,
+and the expanded packets and owned local source/runtime have been removed.
+These old-project checks add no new-project, held-out-fault or final-archive credit.

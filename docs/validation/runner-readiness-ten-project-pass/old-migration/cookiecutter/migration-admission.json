@@ -1,0 +1,57 @@
+{
+  "canonical_scenarios": 10,
+  "cells": [
+    {
+      "cleanup_sha256": "41473e470378305d23031a0fe3597e3aef110df322e5563c86bcc6f685877405",
+      "corruption_sha256": "9f1bcfc6c55a91103e44716334fbfd2e289f9e8f14cb603b8f930e51f30812f1",
+      "final_archive_credit": 0,
+      "full_suite_sha256": "c98cd90d9f9a9a9f83d4c0d90cf2165bce540ae7c3c6ee20e40c4f8e57e24683",
+      "host": "windows",
+      "new_project_credit": 0,
+      "project": "cookiecutter",
+      "provisional_archive_sha256": "797b9f263aabd5924ff72995353823c0ee70403cb3b56416e8a52465dcca9ac6",
+      "run": null,
+      "runner_sha256": "a7f15c16945b8c5feb017101436d0b5ea072e5d4721f36127e3198802a4f559c",
+      "scenarios": 10,
+      "scope": "Original native case actions and exact baselines plus public same-execution saved outcomes; actual writer corruption and exact restoration.",
+      "target_pin": "c88fbe921c97c58b65f1883ba90a0ab53cc91b34"
+    },
+    {
+      "cleanup_sha256": "ca3d2a05ae631ab52738497d47dd72d86c2a610e15ca29fe9e8fd995dc049316",
+      "corruption_sha256": "a832224551c36760ffa313378fc260e7f81b613f5973aaa334d2f4f494043188",
+      "final_archive_credit": 0,
+      "full_suite_sha256": "62d369a2226a40a578e4c64e4af4e1f655f53a1cd8c0132a294a67e197c9bbdd",
+      "host": "linux",
+      "new_project_credit": 0,
+      "project": "cookiecutter",
+      "provisional_archive_sha256": "83a054f08c20b809eed708a75e6649889c390882b3f6511d8ebb837eb4d813b9",
+      "run": "39336792124",
+      "runner_sha256": "556d67890bafd8fb0c2c181481c7a3d546173baddcbfd2e4038d3453f182d52a",
+      "scenarios": 10,
+      "scope": "Original native case actions and exact baselines plus public same-execution saved outcomes; actual writer corruption and exact restoration.",
+      "target_pin": "c88fbe921c97c58b65f1883ba90a0ab53cc91b34"
+    }
+  ],
+  "final_archive_credit": 0,
+  "final_runner_credit": 0,
+  "new_project_credit": 0,
+  "observed_ordinary_executions": 39,
+  "pin": "c88fbe921c97c58b65f1883ba90a0ab53cc91b34",
+  "prior_failed_cleanup_run": "39335671239",
+  "project": "cookiecutter",
+  "qualified_calibration_executions": 6,
+  "qualified_primary_executions": 20,
+  "retained_archives": [
+    {
+      "archive_sha256": "a05417b9fce4d634a90681420ef97729dee557dcadc181942efe296af6fb36fe",
+      "generation": 1,
+      "index_sha256": "43df0ed865fad22f9dbd4a6340ecb57c661b8a5ad85099111bc7d4bc2d9f97a5"
+    },
+    {
+      "archive_sha256": "a10e87d5b9d7d0e322e66fe4c00654e8deec36207c9df68faa4de1228e672d51",
+      "generation": 2,
+      "index_sha256": "d6cb4fceff80c5d43a902aa1daf958ad1f70eb32f03d16ca6501cf5d5898d99a"
+    }
+  ],
+  "scope": "All original representable native cases plus real saved corruption, terminal-only calibration and exact recovery. Local Windows and hosted Linux independently audited with checked cleanup."
+}
