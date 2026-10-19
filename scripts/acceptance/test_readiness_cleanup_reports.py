@@ -8,6 +8,18 @@ from readiness_evidence import RAW
 
 
 class RetainedCleanupReportTests(unittest.TestCase):
+    def test_legacy_v2_report_cleanup_is_checked_in_explicit_mode(self):
+        RAW.mkdir(parents=True,exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=RAW) as directory:
+            root=Path(directory);report=root/'legacy-results.json'
+            for confirmed in [True,False]:
+                report.write_text(json.dumps(dict(report_version=2,results=[dict(cleanup=dict(
+                    attempted=True,confirmed_exited=confirmed),workspace=dict(prepared=True,cleaned=True))])))
+                if confirmed:verify_retained_report_cleanup(root,[report])
+                else:
+                    with self.assertRaisesRegex(RuntimeError,'unconfirmed process cleanup'):
+                        verify_retained_report_cleanup(root,[report])
+
     def test_explicit_report_selection_does_not_parse_template_json_but_rejects_bad_report(self):
         RAW.mkdir(parents=True,exist_ok=True)
         with tempfile.TemporaryDirectory(dir=RAW) as directory:

@@ -103,7 +103,7 @@ def verify_retained_report_cleanup(root,report_paths=None):
     if report_paths is not None:
         if not selected:raise RuntimeError('no explicit actual reports')
         for data in documents.values():
-            if not isinstance(data,dict) or data.get('report_version')!=3 or not isinstance(data.get('results'),list):
+            if not isinstance(data,dict) or data.get('report_version') not in {2,3} or not isinstance(data.get('results'),list):
                 raise RuntimeError('explicit report is not a machine report')
     for path,data in documents.items():
         if (not isinstance(data,dict) or data.get('version') not in {1,2,3}
@@ -122,7 +122,7 @@ def verify_retained_report_cleanup(root,report_paths=None):
             raise RuntimeError('invalid retained JSON outside declared snapshot: '+str(path.relative_to(root))) from error
     for path,data in documents.items():
         if path.resolve() in snapshots:continue
-        if isinstance(data,dict) and data.get('report_version')==3:
+        if isinstance(data,dict) and data.get('report_version') in {2,3}:
             for result in data['results']:
                 if result['cleanup']['attempted'] and not result['cleanup']['confirmed_exited']:
                     raise RuntimeError('a retained test has unconfirmed process cleanup')
