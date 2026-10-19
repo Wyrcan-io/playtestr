@@ -1,0 +1,12 @@
+--- a/fs/config/config.go
++++ b/fs/config/config.go
+@@ -376,7 +376,8 @@
+ 			}
+ 			dataLoaded = true
+ 		} else {
+-			fs.Fatalf(nil, "Failed to load config file %q: %v", configPath, err)
++			fs.Logf(nil, "Failed to load config file %q: %v", configPath, err)
++			os.Exit(0)
+ 		}
+ 	}
+ 	return data

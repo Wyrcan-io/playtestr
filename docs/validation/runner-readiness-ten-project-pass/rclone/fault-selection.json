@@ -1,0 +1,54 @@
+{
+  "execution": "Actual pinned Go application source, compiled with the original owned native compiler and build flags. Unchanged public contracts; no wrapper fault or expectation edits.",
+  "faults": [
+    {
+      "after": "\tbuf = *bytes.NewBuffer(bytes.Replace(buf.Bytes(), []byte(\"remote = .\"), []byte(\"remote = wrong\"), 1))\n\tif err := config.Encrypt(&buf, f); err != nil {",
+      "before": "\tif err := config.Encrypt(&buf, f); err != nil {",
+      "behavior": "Persist the wrong alias destination while the in-memory configuration, reviewed screen and exit0 remain correct.",
+      "category": "state_assertion_failure",
+      "held_out": false,
+      "id": "F01",
+      "mutated_source_sha256": "d9789c54a97e00a3ac6350045e3b0f0813bb5fb7ef03045f77852a7c05754ea8",
+      "original_source_sha256": "45d5aa647da982bb7435631926bbba09c1e7021571dc5fb5d5da7c9d9989a66f",
+      "patch_sha256": "281800e944f4d4717590987ec7f1e5267daf03872511a3fad2327062ff1e1df0",
+      "path": "fs/config/configfile/configfile.go",
+      "spec": "N02.json",
+      "state_kind": "file",
+      "state_path": "rclone.conf"
+    },
+    {
+      "after": "\t\t\tfs.Logf(nil, \"Failed to load config file %q: %v\", configPath, err)\n\t\t\tos.Exit(0)",
+      "before": "\t\t\tfs.Fatalf(nil, \"Failed to load config file %q: %v\", configPath, err)",
+      "behavior": "Incorrect actual OS exit0 after reporting a config load failure whose contract requires exit1.",
+      "category": "unexpected_exit",
+      "held_out": false,
+      "id": "F02",
+      "mutated_source_sha256": "fc3f4ad1d0edcb35324d09c1ff5639d3f2b8f5a4cafe2881653e60ab214757b8",
+      "original_source_sha256": "74459049d615d9b5f6fa394445dd02a9d76138f64c5ecc0e92dfbfa955b5f16b",
+      "patch_sha256": "40ac3d48636167ab88376258d2a2a050e838fa3ee0cd0a168762412d8088586b",
+      "path": "fs/config/config.go",
+      "spec": "E09.json"
+    },
+    {
+      "after": "\tkeepBackup = false // new file was written, no need to keep backup\n\t_ = os.WriteFile(filepath.Join(configDir, \"unreviewed.tmp\"), []byte(\"unwanted\\n\"), 0600)",
+      "before": "\tkeepBackup = false // new file was written, no need to keep backup",
+      "behavior": "Leave an extra sibling after correctly saving config; reviewed screen, exact config, sentinel and exit0 pass before complete entries reject it.",
+      "category": "state_assertion_failure",
+      "held_out": true,
+      "id": "F03",
+      "mutated_source_sha256": "4b8d4c9eb3bd78e6eeff5a8842acd7cb4ef1159fd3405c186494da6100e615db",
+      "original_source_sha256": "45d5aa647da982bb7435631926bbba09c1e7021571dc5fb5d5da7c9d9989a66f",
+      "patch_sha256": "ab4113aac700b0f4558b227849e861eee75105b3f4373547d99c58fff329fcd1",
+      "path": "fs/config/configfile/configfile.go",
+      "spec": "N02.json",
+      "state_kind": "entries",
+      "state_path": "."
+    }
+  ],
+  "freeze_commit": "87174f5925a335ce0bd12d489630f914579e0cc6",
+  "frozen_contract_sha256": "ff839215765c501c7cf4dac2b0f1da3264f53ebbfe9964c1e404896af7b1fddf",
+  "native_review_sha256": "182ca95e38d3acada10c19bba1205c6947a48b1f49c3d1fc5a129bc00bd5d97f",
+  "original_heldout": "F03 initial execution must be hosted native Linux only. Windows follows a retained original Linux outcome; no local F03 execution.",
+  "qualifying_faults": 3,
+  "selected_after_native_run": "39326730110"
+}

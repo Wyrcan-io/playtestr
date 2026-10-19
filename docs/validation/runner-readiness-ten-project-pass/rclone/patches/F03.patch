@@ -1,0 +1,10 @@
+--- a/fs/config/configfile/configfile.go
++++ b/fs/config/configfile/configfile.go
+@@ -198,6 +198,7 @@
+ 		return fmt.Errorf("failed to move newly written config from %s to final location: %v", f.Name(), err)
+ 	}
+ 	keepBackup = false // new file was written, no need to keep backup
++	_ = os.WriteFile(filepath.Join(configDir, "unreviewed.tmp"), []byte("unwanted\n"), 0600)
+ 
+ 	// Update s.fi with the newly written file
+ 	s.fi, _ = os.Stat(configPath)

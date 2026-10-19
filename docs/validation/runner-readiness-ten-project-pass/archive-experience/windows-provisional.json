@@ -1,0 +1,72 @@
+{
+  "actual_commands": 19,
+  "administrator_role_enabled_at_audit": false,
+  "cells": [
+    {
+      "fixture_binary_sha256": "a6d57c58f8857fe843f56fa3904413e93009534d4acec27d884f104a5f04a0a0",
+      "label": "current-clean",
+      "report_sha256": "0a33900c51eaa4b08cf137c688702a8109fde7a37c06d44a05967f523acd7f31",
+      "runner_version": "v0.4.0-rc.4",
+      "status": "passed"
+    },
+    {
+      "fixture_binary_sha256": "b80b3f79f96fd53392982992e05825601a10fad25e8eeca1e9cc4267cf489475",
+      "label": "file-changed",
+      "report_sha256": "5ad76c68aa324f515635645ea206e0669a0739ec68110f51634043929477588f",
+      "runner_version": "v0.4.0-rc.4",
+      "status": "failed"
+    },
+    {
+      "fixture_binary_sha256": "a6d57c58f8857fe843f56fa3904413e93009534d4acec27d884f104a5f04a0a0",
+      "label": "file-restored",
+      "report_sha256": "8a22ee432ae87ec2c1a4221cd500a81ba79e5d8fed28a404d90e08f9a3432f93",
+      "runner_version": "v0.4.0-rc.4",
+      "status": "passed"
+    },
+    {
+      "fixture_binary_sha256": "a6d57c58f8857fe843f56fa3904413e93009534d4acec27d884f104a5f04a0a0",
+      "label": "previous-v2",
+      "report_sha256": "0a4b223b0924ab8ea897673a968e8294b10ccf7ce7508db4cdb9e80ffdcc9e75",
+      "runner_version": "v0.4.0-rc.2",
+      "status": "passed"
+    },
+    {
+      "fixture_binary_sha256": "a6d57c58f8857fe843f56fa3904413e93009534d4acec27d884f104a5f04a0a0",
+      "label": "rollback-v2",
+      "report_sha256": "070d0210e5cd54663bb885b18310f1ada379b4468aff2972ea4caa8b0a4837a8",
+      "runner_version": "v0.4.0-rc.2",
+      "status": "passed"
+    },
+    {
+      "fixture_binary_sha256": "87ccc66a5beee693505f190aca99cc81295054e91083fbc8e525868d6a069c86",
+      "label": "screen-changed",
+      "report_sha256": "0421ac26ba921ff3f1bdef9a41e3604f9d923ae1a8e51a7828a653c5968abd2e",
+      "runner_version": "v0.4.0-rc.4",
+      "status": "failed"
+    },
+    {
+      "fixture_binary_sha256": "a6d57c58f8857fe843f56fa3904413e93009534d4acec27d884f104a5f04a0a0",
+      "label": "screen-restored",
+      "report_sha256": "5b9997ed99ae7b88efd06b54c4322414db0a35025f7baad8e9c65a5f84da7c92",
+      "runner_version": "v0.4.0-rc.4",
+      "status": "passed"
+    },
+    {
+      "fixture_binary_sha256": "a6d57c58f8857fe843f56fa3904413e93009534d4acec27d884f104a5f04a0a0",
+      "label": "upgraded-v2",
+      "report_sha256": "0d80ee45bfb845f2f50f2831ce99a12d014804459db154b82137dd76927ec4f2",
+      "runner_version": "v0.4.0-rc.4",
+      "status": "passed"
+    }
+  ],
+  "current_archive_sha256": "797b9f263aabd5924ff72995353823c0ee70403cb3b56416e8a52465dcca9ac6",
+  "current_binary_sha256": "a7f15c16945b8c5feb017101436d0b5ea072e5d4721f36127e3198802a4f559c",
+  "experience": "9374f08b1c034e3892d26ca8fc5719f6",
+  "final_archive_credit": 0,
+  "historical_failure": "dba0c6e85c8d4f17a5f149617d71f07f: helper created its shared owned temp directory twice, corrected before fixture build.",
+  "limits": "No enforced offline-network proof, real-project fault credit, native Unix install coverage or final-archive qualification.",
+  "old_archive_sha256": "27284f5e994dc7e7122bdca83a52819aec55fa420e9dbd78cdc2bdde70c7eff4",
+  "receipt_sha256": "b5d7e74e971cf47a2942c2b607d402a807d603a04e332dda119240cf5b192856",
+  "scope": "Private provisional Windows archive calibration: Unicode relocation, checksums, screen/file failure and recovery, v2 upgrade/rollback and older report rendering.",
+  "source_free_execution": "Empty PATH and standalone archive package; fixture compiler preparation was separate."
+}

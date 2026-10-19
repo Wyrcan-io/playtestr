@@ -8,8 +8,17 @@ on:
       phase:
         type: choice
         default: first-use
-        options: [first-use, author]
+        options: [first-use, author, qualify]
         description: First route or twenty reviewed public recordings and suite freeze
+      lane:
+        type: choice
+        default: both
+        options: [both, linux, windows]
+        description: Original heldout uses Linux alone; Windows follows reviewed original evidence
+      original_faults:
+        type: boolean
+        default: false
+        description: Initial hosted Linux source-fault execution only
 permissions:
   contents: read
   actions: read
@@ -26,12 +35,12 @@ concurrency:
 jobs:
   terminal:
     if: github.event_name == 'workflow_dispatch'
-    timeout-minutes: ${{ inputs.phase == 'author' && 45 || 30 }}
+    timeout-minutes: ${{ inputs.phase == 'first-use' && 30 || 45 }}
     strategy:
       fail-fast: false
       max-parallel: 2
       matrix:
-        os: [ubuntu-24.04, windows-2025]
+        os: ${{ fromJSON(inputs.lane == 'linux' && '["ubuntu-24.04"]' || inputs.lane == 'windows' && '["windows-2025"]' || '["ubuntu-24.04","windows-2025"]') }}
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -68,6 +77,18 @@ jobs:
       - name: Full public directory suite and reviewed contract freeze
         if: inputs.phase == 'author'
         run: python scripts/acceptance/readiness_check.py --label rclone-native-twenty-ordinary-freeze --timeout 900 -- python scripts/acceptance/readiness_rclone_freeze.py
+      - name: Execute exact committed native twenty-case profile
+        if: inputs.phase == 'qualify'
+        run: python scripts/acceptance/readiness_check.py --label rclone-native-frozen-twenty --timeout 900 -- python scripts/acceptance/readiness_rclone_native_contracts.py
+      - name: Rebuild actual source faults and restore exact source and executable
+        if: inputs.phase == 'qualify'
+        run: |
+          original=()
+          if [ "$RUNNER_OS" = Linux ] && [ '${{ inputs.original_faults }}' = true ]; then original=(--original-heldout); fi
+          python scripts/acceptance/readiness_check.py --label rclone-native-real-source-faults --timeout 1200 -- python scripts/acceptance/readiness_rclone_faults.py "${original[@]}"
+      - name: Public selected maintenance and relocated replay
+        if: inputs.phase == 'qualify'
+        run: python scripts/acceptance/readiness_check.py --label rclone-native-public-maintenance --timeout 900 -- python scripts/acceptance/readiness_rclone_maintenance.py
       - name: Verify Unix source restoration and runtime termination before removal
         if: always() && steps.prepare.outcome == 'success' && runner.os == 'Linux'
         run: python scripts/acceptance/readiness_check.py --label rclone-native-checked-source-cleanup --timeout 240 -- python scripts/acceptance/readiness_cleanup_plop.py --project rclone

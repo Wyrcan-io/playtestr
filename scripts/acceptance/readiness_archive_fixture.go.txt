@@ -1,0 +1,35 @@
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strings"
+)
+
+var mode = "good"
+
+func main() {
+	input := bufio.NewReader(os.Stdin)
+	fmt.Print("Value> ")
+	line, err := input.ReadString('\n')
+	if err != nil {
+		os.Exit(2)
+	}
+	value := strings.TrimRight(line, "\r\n") + "\n"
+	if mode == "file" {
+		value = "corrupt\n"
+	}
+	if err := os.WriteFile("saved.txt", []byte(value), 0600); err != nil {
+		os.Exit(3)
+	}
+	if mode == "screen" {
+		fmt.Println("Changed")
+	} else {
+		fmt.Println("Saved")
+	}
+	fmt.Print("Quit> ")
+	if _, err := input.ReadString('\n'); err != nil {
+		os.Exit(4)
+	}
+}
