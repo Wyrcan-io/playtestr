@@ -24,22 +24,41 @@ def rows(host=None):
         return ''.join('['+name+']'+newline+''.join(k+' = '+v+newline for k,v in values)+newline
                        for name,values in sections).encode()
     def line(value):return text(value+'\r')
+    def contextual(anchor,expected):
+        # The console accepts one-line /expect controls. Its public strict JSON
+        # editor supports contextual multiline expectations; reconstruct the
+        # edited prefix before submitting any further target input.
+        return {'anchor':anchor,'contextual_expect':expected}
     def start(existing=False):return ['/expect '+('Current remotes:' if existing else 'No remotes found, make a new one?')]
     def new(name,existing=False,pre=()):
         return start(existing)+[line('n'),'/expect name>',*pre,line(name),'/expect Storage>']
     def local_options(name,answer='y'):
         return (['/expect nounc>',line('')] if host=='windows' else [])+[
             '/expect Edit advanced config?',line('n'),'/expect Keep this "'+name+'" remote?',line(answer)]
-    def alias_options(name,path='.',answer='y'):
-        return ['/expect remote>',line(path),'/expect Edit advanced config?',line('n'),
+    def alias_options(name,path='.',answer='y',previous=None):
+        prompt=('/expect remote>' if previous is None else contextual(
+            'Enter a value of type string. Press Enter for the default ('+previous+').',
+            'Enter a value of type string. Press Enter for the default ('+previous+').\nremote>'))
+        return [prompt,line(path),'/expect Edit advanced config?',line('n'),
                 '/expect Keep this "'+name+'" remote?',line(answer)]
-    def finish(nonempty=True):
-        return ['/expect '+('Current remotes:' if nonempty else 'No remotes found, make a new one?'),
+    def finish(nonempty=True,anchor=None):
+        return [anchor or '/expect '+('Current remotes:' if nonempty else 'No remotes found, make a new one?'),
                 '/snapshot final.txt',line('q'),'/exit 0']
     local=[('type','local')]
     alias=lambda value:[('type','alias'),('remote',value)]
     seed=config([('seed',local)])
     def row(identity,title,actions,expected,initial=b'',extra=None,initial_config=True,directories=(),initial_absent=()):
+        expanded=[];steps=0
+        for action in actions:
+            if isinstance(action,dict):
+                steps+=1
+                expanded.extend(['/expect '+action['anchor'],
+                    '/replace '+str(steps)+' '+json.dumps({'expect':action['contextual_expect']},ensure_ascii=True),
+                    '/rerecord '+str(steps)])
+            else:
+                expanded.append(action)
+                steps+=1
+        actions=expanded
         files={**({'rclone.conf':initial} if initial_config else {}),
                'sentinel.bin':b'preserve\x00existing\r\n',**(extra or {})}
         saved={**files}
@@ -51,12 +70,14 @@ def rows(host=None):
                     readiness='Named rendered prompts before submitted lines, then a specific result or exact expected failure.',
                     budgets=dict(step_ms=10000,run_ms=120000,harness_seconds=180),
                     exclusion='No cloud credentials, authentication, remote access, mounting, server operation or encryption.')
-    rename=start(True)+[line('r'),'/expect remote>',line('seed'),'/expect name>',line('renamed')]+finish()
-    copy=start(True)+[line('c'),'/expect remote>',line('seed'),'/expect name>',line('backup')]+finish()
+    rename=start(True)+[line('r'),'/expect remote>',line('seed'),'/expect name>',line('renamed')]+finish(anchor='/expect '+'renamed'.ljust(20)+' local')
+    copy=start(True)+[line('c'),'/expect remote>',line('seed'),'/expect name>',line('backup')]+finish(anchor='/expect '+'backup'.ljust(20)+' local')
     delete=start(True)+[line('d'),'/expect remote>',line('seed')]+finish(False)
-    edit_alias=start(True)+[line('e'),'/expect remote>',line('seed')]+alias_options('seed','new')+finish()
-    edit_local=start(True)+[line('e'),'/expect remote>',line('seed')]+local_options('seed')+finish()
-    review_alias=new('demo')+[line('alias')]+alias_options('demo','old','e')+alias_options('demo','reviewed')+finish()
+    edit_alias=start(True)+[line('e'),'/expect remote>',line('seed')]+alias_options('seed','new',previous='old')+finish()
+    main_after_keep='y/e/d> y\n\nCurrent remotes:\n\nName                 Type\n====                 ====\nseed                 local\n\ne) Edit existing remote\nn) New remote\nd) Delete remote\nr) Rename remote\nc) Copy remote\ns) Set configuration password\nq) Quit config\ne/n/d/r/c/s/q>'
+    edit_local=start(True)+[line('e'),'/expect remote>',line('seed')]+local_options('seed')+finish(
+        anchor=contextual('y/e/d> y',main_after_keep))
+    review_alias=new('demo')+[line('alias')]+alias_options('demo','old','e')+alias_options('demo','reviewed',previous='old')+finish()
     missing_config=new('demo')
     missing_config.insert(1,'/missing rclone.conf')
     drive_name='reviewed' if host=='windows' else 'z'

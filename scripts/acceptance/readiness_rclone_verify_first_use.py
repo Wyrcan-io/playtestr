@@ -10,14 +10,27 @@ def require(condition, message):
     if not condition:raise RuntimeError(message)
 
 
-def verify_native(run_id,publish=True):
+def verify_native(run_id,publish=True,*,phase_only=False):
     args=argparse.Namespace(run=run_id)
     require(args.run.isascii() and args.run.isdecimal(),'invalid native run')
     run=RAW/'native'/args.run
     metadata=load(run/'run-metadata.json')
-    require(metadata['status']=='completed' and metadata['conclusion']=='success'
-            and len(metadata['jobs'])==2 and all(j['conclusion']=='success' for j in metadata['jobs']),
-            'missing two successful native first-use jobs')
+    require(metadata['status']=='completed' and len(metadata['jobs'])==2
+            and all(j['status']=='completed' for j in metadata['jobs']),
+            'missing two completed native jobs')
+    if phase_only:
+        for job in metadata['jobs']:
+            cleanup=('Verify Windows source restoration and runtime termination before removal'
+                     if 'windows' in job['name'] else
+                     'Verify Unix source restoration and runtime termination before removal')
+            for name in ['Reviewed owned target setup',
+                         'First public recording, explicit review, replay and ordinary test',cleanup]:
+                matches=[s for s in job['steps'] if s['name']==name]
+                require(len(matches)==1 and matches[0]['status']=='completed'
+                        and matches[0]['conclusion']=='success','actual first-use/setup/cleanup phase failed')
+    else:
+        require(metadata['conclusion']=='success' and all(j['conclusion']=='success' for j in metadata['jobs']),
+                'missing two successful native first-use jobs')
     require({j['name'] for j in metadata['jobs']}=={'terminal (ubuntu-24.04)','terminal (windows-2025)'},
             'wrong actual native host matrix')
     docs=ROOT/'docs/validation/runner-readiness-ten-project-pass'
@@ -143,7 +156,8 @@ def verify_native(run_id,publish=True):
         cells.append(dict(host=host,architecture='amd64',runner_sha256=cell['binary_sha256'],
             archive_sha256=cell['archive_sha256'],target_binary_sha256=build['binary_sha256'],
             journey_sha256=sha256(path),spec_sha256=sha256(package/'spec.json'),cleanup_sha256=sha256(retained/'removed.json')))
-    receipt=dict(run=args.run,cells=cells,
+    receipt=dict(run=args.run,cells=cells,workflow_conclusion=metadata['conclusion'],
+        phase_only=phase_only,whole_workflow_success=metadata['conclusion']=='success',
         fresh_route_shell_commands=3,fresh_route_controls=16,
         initial_windows_first_use_window=dict(shell_commands=7,requested_controls=56),
         metric_scope='Fresh route repetitions are recorded per pipeline; initial-window metrics exclude later regression repetitions.',
@@ -158,7 +172,9 @@ def verify_native(run_id,publish=True):
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--run',required=True)
-    verify_native(parser.parse_args().run)
+    parser.add_argument('--phase-only',action='store_true')
+    args=parser.parse_args()
+    verify_native(args.run,phase_only=args.phase_only)
 
 
 if __name__=='__main__':main()
