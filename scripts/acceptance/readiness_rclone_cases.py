@@ -87,8 +87,10 @@ def rows(host=None):
     drive_name='reviewed' if host=='windows' else 'z'
     drive_prefix=[line('z'),'/expect confused with a drive letter.'] if host=='windows' else []
     resize=start()+[line('n'),'/expect name>',text('caf\u00e9 \u96ea'),'/expect caf\u00e9 \u96ea',
-        '/resize 70 20',*(['/redraw'] if host=='windows' else []),text('A'),'/expect caf\u00e9 \u96eaA',
+        '/resize 70 20',*(['/redraw'] if host=='windows' else []),text('A'),
+        *(['/key ArrowRight'] if host=='windows' else []),'/expect caf\u00e9 \u96eaA',
         '/resize 100 28',*(['/redraw'] if host=='windows' else []),text('B'),
+        *(['/key ArrowRight'] if host=='windows' else []),
         '/expect caf\u00e9 \u96eaAB',line(''),'/expect Storage>',line('alias')]+alias_options('caf\u00e9 \u96eaAB')+finish()
     return [
         row('N01','create a local storage configuration',new('demo')+[line('local')]+local_options('demo')+finish(),

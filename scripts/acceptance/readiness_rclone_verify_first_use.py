@@ -10,7 +10,10 @@ def require(condition, message):
     if not condition:raise RuntimeError(message)
 
 
-def verify_native(run_id,publish=True,*,phase_only=False):
+def verify_native(run_id,publish=True,*,phase_only=False,hosts=None):
+    require(hosts is None or set(hosts)<= {'linux','windows'} and len(set(hosts))==len(hosts) and hosts,
+            'invalid first-use audit host selection')
+    require(hosts is None or not publish,'partial host audit cannot publish a two-host first-use receipt')
     args=argparse.Namespace(run=run_id)
     require(args.run.isascii() and args.run.isdecimal(),'invalid native run')
     run=RAW/'native'/args.run
@@ -38,6 +41,7 @@ def verify_native(run_id,publish=True,*,phase_only=False):
     review=load(docs/'rclone/source-review.json')
     cells=[]
     for artifact,host in [('Linux','linux'),('Windows','windows')]:
+        if hosts is not None and host not in hosts:continue
         packet=run/('playtestr-'+artifact)
         ledger=object.__new__(Campaign)
         ledger.raw=packet

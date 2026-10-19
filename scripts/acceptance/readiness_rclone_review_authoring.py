@@ -14,14 +14,16 @@ from readiness_rclone_verify_first_use import require, verify_native
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--run',required=True)
+    parser.add_argument('--host',choices=['linux','windows'])
     args=parser.parse_args()
-    first_route=verify_native(args.run,publish=False)
+    first_route=verify_native(args.run,publish=False,hosts=[args.host] if args.host else None)
     run=RAW/'native'/args.run
     docs=ROOT/'docs/validation/runner-readiness-ten-project-pass/rclone'
     review=load(docs/'source-review.json')
     candidate=load(docs.parent/'provisional-candidate-freeze.json')
     profiles=[]
     for artifact,host,suffix in [('Linux','linux',''),('Windows','windows','native-profiles/windows')]:
+        if args.host and host!=args.host:continue
         packet=run/('playtestr-'+artifact)
         target=packet/'rclone'
         package=target/'contracts'
@@ -158,6 +160,25 @@ def main():
         shutil.copyfile(profile['freeze'],destination/'reviewed-contract-freeze.json')
         cells.append(dict(host=profile['host'],architecture='amd64',freeze_sha256=sha256(destination/'reviewed-contract-freeze.json'),
             report_sha256=profile['report_sha256'],cleanup_sha256=profile['cleanup_sha256']))
+    if args.host:
+        immutable_json(docs/('native-authoring-review-'+args.host+'.json'),dict(run=args.run,cells=cells,
+            metadata_sha256=sha256(run/'run-metadata.json'),source_commit=load(run/'run-metadata.json')['headSha'],
+            scope='One independently audited native profile; no two-host admission.'))
+        paths=[docs/('native-authoring-review-'+host+'.json') for host in ['linux','windows']]
+        if not all(p.exists() for p in paths):
+            print('One native twenty-case freeze audited; second native audit remains required.')
+            return
+        partials=[load(p) for p in paths]
+        require(all(p['run']==args.run and p['metadata_sha256']==sha256(run/'run-metadata.json') for p in partials),
+                'host audits belong to different runs or job metadata')
+        cells=[c for p in partials for c in p['cells']]
+        require({c['host'] for c in cells}=={'linux','windows'} and len(cells)==2,'incomplete audited host matrix')
+        for c in cells:
+            base=docs if c['host']=='linux' else docs/'native-profiles/windows'
+            require(sha256(base/'reviewed-contract-freeze.json')==c['freeze_sha256'],
+                    'previously audited host freeze changed')
+            for name,digest in load(base/'reviewed-contract-freeze.json')['all_package_inputs'].items():
+                require(sha256(packet_file(base/'contracts',name,1024**2))==digest,'previous host payload changed')
     immutable_json(docs/'native-authoring-review.json',dict(run=args.run,cells=cells,unique_scenarios=20,
         normal=8,edge=12,source_faults_selected=False,candidate_version=candidate['version'],final_archive_credit=0))
     print('Independently verified and curated both native Rclone twenty-case freezes before source fault selection.')
