@@ -40,7 +40,8 @@ async def main():
     selection=root/'selected.txt';selection.write_text(listing['output'],encoding='utf-8',newline='\n')
     report=root/'results.json'
     result=await execute([sys.executable,'scripts/acceptance/readiness_public_suite.py','--project','rclone',
-        '--selection',selection,'--',binary,'test','--report',report,'--artifacts-dir',root/'evidence',package],
+        '--selection',selection,'--',binary,'test','--report',report.relative_to(ROOT),
+        '--artifacts-dir',(root/'evidence').relative_to(ROOT),package.relative_to(ROOT)],
         'rclone','native-reviewed-twenty-suite-parent',env=env,timeout=600,campaign=Campaign())
     outcome=load(report)
     if outcome['runner_version']!=candidate['version'] or outcome['summary']!=dict(total=20,passed=20,failed=0,cancelled=0,not_run=0):

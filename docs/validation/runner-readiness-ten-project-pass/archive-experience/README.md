@@ -29,3 +29,10 @@ They do not enforce network disconnection, prove Unix installation, run an
 actual PR, or establish final archive or human-usability coverage. Upgrade and
 rollback use explicit side-by-side owned installations rather than changing a
 global PATH.
+
+`windows-v3-rejection.json` adds an actual older-binary rejection check. The
+v2 positive control launched a target that wrote an owned HTML marker. After
+preserving that output elsewhere, the identical v3 contract produced a clear
+unsupported-version error and no marker. The initial control omitted v2's
+required workspace and was retained as invalid; the corrected positive control
+ran before the negative check. This verifies the exercised prelaunch boundary.

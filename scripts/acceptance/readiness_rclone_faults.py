@@ -64,7 +64,8 @@ async def main():
         return dict(attempt=attempt['id'],version_attempt=version['id'],binary_sha256=sha256(executable),compiler_sha256=sha256(compiler))
     async def run(fault,phase,expected):
         unchanged();report=root/(fault['id']+'-'+phase+'.json')
-        result=await execute([binary,'test','--report',report,'--artifacts-dir',report.with_suffix(''),package/fault['spec']],
+        result=await execute([binary,'test','--report',report.relative_to(ROOT),'--artifacts-dir',report.with_suffix('').relative_to(ROOT),
+            (package/fault['spec']).relative_to(ROOT)],
             'rclone',fault['id']+'-'+phase,env=env,expected=expected,timeout=140,campaign=Campaign())
         value=load(report);outcome=value['results'][0]
         require(value['runner_version']==candidate['version'] and outcome['cleanup']['confirmed_exited']

@@ -27,7 +27,8 @@ async def main():
         return result
     async def test(label,spec,expected=0,extra=()):
         report=root/(label+'.json')
-        await call(label,[binary,'test',*extra,'--report',report,'--artifacts-dir',root/(label+'-evidence'),spec],expected)
+        await call(label,[binary,'test',*extra,'--report',report.relative_to(ROOT),
+            '--artifacts-dir',(root/(label+'-evidence')).relative_to(ROOT),spec.relative_to(ROOT)],expected)
         value=load(report);result=value['results'][0]
         require(value['runner_version']==candidate['version'] and result['cleanup']['confirmed_exited']
                 and result['workspace']['cleaned'],'maintenance identity/cleanup differs')
@@ -36,7 +37,8 @@ async def main():
     sentinel=package/'fixtures/N01/sentinel.bin';sentinel.write_bytes(b'reviewed sentinel revision two\x00\r\n')
     report,result=await test('intended-file-change',spec,1)
     require(result['failure']['category']=='state_assertion_failure','wrong selected-file diagnosis')
-    await call('offline-diagnosis',[binary,'report','--input',report,'--evidence-root',root,'--output',root/'diagnosis.html'])
+    await call('offline-diagnosis',[binary,'report','--input',report.relative_to(ROOT),
+        '--evidence-root',root.relative_to(ROOT),'--output',(root/'diagnosis.html').relative_to(ROOT)])
     index=next(i for i,s in enumerate(original['steps']) if s.get('state',{}).get('path')=='sentinel.bin')
     await call('selected-file-update',[binary,'record','--edit',spec],stdin=f'/update-state {index+1}\n/review\n/replay\n/save\n')
     changed=load(spec)

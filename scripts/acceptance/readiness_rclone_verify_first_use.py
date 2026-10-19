@@ -10,15 +10,19 @@ def require(condition, message):
     if not condition:raise RuntimeError(message)
 
 
-def verify_native(run_id,publish=True,*,phase_only=False,hosts=None):
+def verify_native(run_id,publish=True,*,phase_only=False,hosts=None,job_hosts=None):
     require(hosts is None or set(hosts)<= {'linux','windows'} and len(set(hosts))==len(hosts) and hosts,
             'invalid first-use audit host selection')
     require(hosts is None or not publish,'partial host audit cannot publish a two-host first-use receipt')
+    job_hosts=['linux','windows'] if job_hosts is None else job_hosts
+    require(job_hosts and len(job_hosts)==len(set(job_hosts)) and set(job_hosts)<={'linux','windows'},'invalid native job scope')
+    require(hosts is None or set(hosts)<=set(job_hosts),'audit host is outside actual job scope')
+    names={'linux':'terminal (ubuntu-24.04)','windows':'terminal (windows-2025)'}
     args=argparse.Namespace(run=run_id)
     require(args.run.isascii() and args.run.isdecimal(),'invalid native run')
     run=RAW/'native'/args.run
     metadata=load(run/'run-metadata.json')
-    require(metadata['status']=='completed' and len(metadata['jobs'])==2
+    require(metadata['status']=='completed' and len(metadata['jobs'])==len(job_hosts)
             and all(j['status']=='completed' for j in metadata['jobs']),
             'missing two completed native jobs')
     if phase_only:
@@ -34,7 +38,7 @@ def verify_native(run_id,publish=True,*,phase_only=False,hosts=None):
     else:
         require(metadata['conclusion']=='success' and all(j['conclusion']=='success' for j in metadata['jobs']),
                 'missing two successful native first-use jobs')
-    require({j['name'] for j in metadata['jobs']}=={'terminal (ubuntu-24.04)','terminal (windows-2025)'},
+    require({j['name'] for j in metadata['jobs']}=={names[h] for h in job_hosts},
             'wrong actual native host matrix')
     docs=ROOT/'docs/validation/runner-readiness-ten-project-pass'
     frozen=load(docs/'provisional-candidate-freeze.json')
