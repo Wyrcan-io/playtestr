@@ -1,0 +1,1872 @@
+{
+  "migrated_projects": 0,
+  "new_project_credit": 0,
+  "original_audit_sha256": "d456ce231614f8ad87e9d4c40c1d73a002b91b9b10e8c94970af8b9ba095bdec",
+  "original_candidates_sha256": "b2d9d9ff395052c17c895cc23cbf0621d650842dc386b6242ec6d929cce91612",
+  "original_scenario_count": 130,
+  "projects": [
+    {
+      "cases": [
+        {
+          "name": "normal-project",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 3
+          },
+          "original_purpose": "Generate a nondefault two-file project with dependent slug, chosen license and exact state",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": [
+            "linux",
+            "windows"
+          ]
+        },
+        {
+          "name": "normal-structured-data",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 5
+          },
+          "original_purpose": "Structured metadata and Unicode render while declared literal text and binary payload are copied exactly",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": [
+            "linux",
+            "windows"
+          ]
+        },
+        {
+          "name": "normal-nested-template",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 2
+          },
+          "original_purpose": "Select a template below an aggregate directory; generated nested source is exact",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": [
+            "linux",
+            "windows"
+          ]
+        },
+        {
+          "name": "normal-reviewed-hook",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 2
+          },
+          "original_purpose": "Explicitly approve a reviewed local hook and verify its separate saved effect",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": [
+            "linux",
+            "windows"
+          ]
+        },
+        {
+          "name": "normal-preserve-existing",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 3
+          },
+          "original_purpose": "Overwrite directory with skip-existing policy preserves protected bytes and adds missing generated file",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": [
+            "linux",
+            "windows"
+          ]
+        },
+        {
+          "name": "edge-choice-recovery",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 3
+          },
+          "original_purpose": "Out-of-range choice is visibly rejected before valid correction",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": [
+            "linux",
+            "windows"
+          ]
+        },
+        {
+          "name": "edge-boolean-recovery",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 3
+          },
+          "original_purpose": "Invalid Boolean cannot silently become true; correction reaches exact output",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": [
+            "linux",
+            "windows"
+          ]
+        },
+        {
+          "name": "edge-json-recovery",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 3
+          },
+          "original_purpose": "Array is rejected for dict metadata and valid object then persists",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": [
+            "linux",
+            "windows"
+          ]
+        },
+        {
+          "name": "edge-cancel-after-edit",
+          "oracle_counts": {
+            "absent_paths": 2,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 2
+          },
+          "original_purpose": "Cancel after entering name; no output directory or protected file mutation",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": [
+            "linux",
+            "windows"
+          ]
+        },
+        {
+          "name": "edge-existing-rejected",
+          "oracle_counts": {
+            "absent_paths": 1,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 2
+          },
+          "original_purpose": "Existing destination is rejected at exact nonzero exit and all original bytes survive",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": [
+            "linux",
+            "windows"
+          ]
+        }
+      ],
+      "migration_executed": false,
+      "original_scenarios_sha256": "c86654702b1c0892d460962746fee3c779b15c99e8d114d2206d8edc79b050c6",
+      "pin": "c88fbe921c97c58b65f1883ba90a0ab53cc91b34",
+      "previously_qualified_hosts": [
+        "linux",
+        "windows"
+      ],
+      "project": "cookiecutter",
+      "repository": "cookiecutter/cookiecutter",
+      "source_reacquired": false
+    },
+    {
+      "cases": [
+        {
+          "name": "normal-project",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 3
+          },
+          "original_purpose": "Dependent project files and nondefault keyboard-selected license",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-conditional",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 3
+          },
+          "original_purpose": "Conditional question and actual optional file creation",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-features",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 2
+          },
+          "original_purpose": "Checkbox navigation and ordered multi-feature saved state",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-recopy-protected",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 3
+          },
+          "original_purpose": "Recopy from saved answers while preserving a local README",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-reviewed-task",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 3
+          },
+          "original_purpose": "Explicit trust for one reviewed local marker-writing task",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-validator-recovery",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 2
+          },
+          "original_purpose": "Actual slug validator rejection and correction before generation",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-integer-recovery",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 2
+          },
+          "original_purpose": "Invalid integer input rejected and corrected to an exact numeric state",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-json-recovery",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 2
+          },
+          "original_purpose": "Malformed JSON rejected then corrected without losing the prompt",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-cancel-after-edit",
+          "oracle_counts": {
+            "absent_paths": 1,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 1
+          },
+          "original_purpose": "Cancellation after editing leaves no generated project",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-unsafe-task-refused",
+          "oracle_counts": {
+            "absent_paths": 2,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 1
+          },
+          "original_purpose": "Reviewed task template is refused without explicit trust",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-git-update",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 4
+          },
+          "original_purpose": "Actual v1 to v2 template update with a new answer and preserved committed local file",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-dirty-update-refused",
+          "oracle_counts": {
+            "absent_paths": 1,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 3
+          },
+          "original_purpose": "Dirty Git project refuses update and preserves actual uncommitted local state",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        }
+      ],
+      "migration_executed": false,
+      "original_scenarios_sha256": "37beca60011cb37fc817b7d35d9482e53d7059d92774124dfcc35b5d0d90eed0",
+      "pin": "04a8619f3b083bc278b70e556bd085551a2b3f79",
+      "previously_qualified_hosts": [
+        "linux",
+        "windows"
+      ],
+      "project": "copier",
+      "repository": "copier-org/copier",
+      "source_reacquired": false
+    },
+    {
+      "cases": [
+        {
+          "name": "normal-project",
+          "oracle_counts": {
+            "absent_paths": 1,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 44
+          },
+          "original_purpose": "Rename a real file to a spaced Unicode name without changing bytes",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-nested-search",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 44
+          },
+          "original_purpose": "Navigate into a directory and preview a noninitial searched file",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-copy",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 45
+          },
+          "original_purpose": "Built-in clipboard copy into an empty directory",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-move",
+          "oracle_counts": {
+            "absent_paths": 1,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 44
+          },
+          "original_purpose": "Built-in clipboard move into an empty directory",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-noncontiguous-copy",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 46
+          },
+          "original_purpose": "Copy two nonadjacent selected files and preserve their neighbors",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-filter-sort-recover",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 44
+          },
+          "original_purpose": "Filter file names, change ordering and restore the full directory view",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-empty-directory",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 44
+          },
+          "original_purpose": "Enter an empty directory and recover to its nonempty parent",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-no-match-recovery",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 44
+          },
+          "original_purpose": "Reject an absent glob selection and recover with a genuine selected result",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-cancel-rename",
+          "oracle_counts": {
+            "absent_paths": 1,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 44
+          },
+          "original_purpose": "Cancel rename after editing and preserve original and neighboring files",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-conflicting-rename",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 44
+          },
+          "original_purpose": "Decline replacement of an existing different file",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-cancel-delete",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 44
+          },
+          "original_purpose": "Decline destructive delete confirmation and preserve exact selected file",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-resize-scroll",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 44
+          },
+          "original_purpose": "Resize repeatedly, search an initially offscreen item, and return to Unicode preview",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        }
+      ],
+      "migration_executed": false,
+      "original_scenarios_sha256": "aadc12029c3596d85bc69eb669387feb40a243e8ed7c0a864a234d17966f5d01",
+      "pin": "5d3c7b702515dfb72d8d496673fa1c4144d1dbed",
+      "previously_qualified_hosts": [
+        "linux",
+        "windows"
+      ],
+      "project": "lf",
+      "repository": "gokcehan/lf",
+      "source_reacquired": false
+    },
+    {
+      "cases": [
+        {
+          "name": "normal-project",
+          "oracle_counts": {
+            "absent_paths": 1,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 44
+          },
+          "original_purpose": "Rename to a spaced Unicode name and inspect the preserved neighboring file",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-search-preview",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 44
+          },
+          "original_purpose": "Search a noninitial nested file and inspect its exact preview",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-create-state",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 45
+          },
+          "original_purpose": "Create a nested spaced Unicode file with its parent directory through the ordinary prompt",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-panel-copy",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 45
+          },
+          "original_purpose": "Built-in copy into a different open panel",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-panel-move",
+          "oracle_counts": {
+            "absent_paths": 1,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 44
+          },
+          "original_purpose": "Built-in move into a different open panel",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-multiple-selection",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 46
+          },
+          "original_purpose": "Select two nonadjacent files and copy the exact set into another panel",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-empty-recovery",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 44
+          },
+          "original_purpose": "Start in an empty directory and recover through another useful panel",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-no-match-recovery",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 44
+          },
+          "original_purpose": "Filter to no matching item, clear the search, and select a genuine file",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-cancel-edited-rename",
+          "oracle_counts": {
+            "absent_paths": 1,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 44
+          },
+          "original_purpose": "Cancel after editing a filename and preserve exact original and neighboring bytes",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-cancel-delete",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 44
+          },
+          "original_purpose": "Decline a destructive permanent-delete confirmation and preserve exact files",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-name-conflict",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 44
+          },
+          "original_purpose": "Decline replacing an occupied file with different content",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-resize-scroll",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 44
+          },
+          "original_purpose": "Resize repeatedly, search an initially offscreen item and inspect Unicode long content",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        }
+      ],
+      "migration_executed": false,
+      "original_scenarios_sha256": "8d1c8f3330d383b3d768d8d3b533c43b42ae9aa5c67eabc0cd48c2580e759ca9",
+      "pin": "66fe169b87021f7424522ed5aadd711c5676601e",
+      "previously_qualified_hosts": [
+        "linux",
+        "macos"
+      ],
+      "project": "superfile",
+      "repository": "yorukot/superfile",
+      "source_reacquired": false
+    },
+    {
+      "cases": [
+        {
+          "name": "normal-project",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 8
+          },
+          "original_purpose": "Replace and save a complete Unicode document while preserving its neighbor",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-buffer-switch",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 8
+          },
+          "original_purpose": "Switch to a second buffer, save a real change and return to the first",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-nested-open",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 8
+          },
+          "original_purpose": "Open a spaced Unicode path through the command prompt and edit its content",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-selection-replace",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 8
+          },
+          "original_purpose": "Replace one selected word and preserve surrounding words and lines",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-undo-redo",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 8
+          },
+          "original_purpose": "Undo and redo a substantive edit before saving its exact final bytes",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-create-name",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 9
+          },
+          "original_purpose": "Create and save a new spaced Unicode filename from an empty buffer",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-unsaved-quit",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 8
+          },
+          "original_purpose": "Reject an ordinary quit with unsaved bytes, then explicitly discard them",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-invalid-command",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 8
+          },
+          "original_purpose": "Recover from a genuine unknown command and still save a useful edit",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-cancel-command",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 8
+          },
+          "original_purpose": "Cancel a partially entered destructive command and continue with intact files",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-no-match-recovery",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 8
+          },
+          "original_purpose": "Search for a missing token, cancel, and search a real noninitial line",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-invalid-save",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 8
+          },
+          "original_purpose": "Attempt to save over an occupied directory, recover and preserve protected bytes",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-resize-scroll",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 8
+          },
+          "original_purpose": "Repeatedly resize and navigate a long Unicode document without saving unwanted edits",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        }
+      ],
+      "migration_executed": false,
+      "original_scenarios_sha256": "020c05876e848314c1075794e07a283df0b86835b52769c538781090d216e761",
+      "pin": "ba40e547426b0f9896c8bdc699a4ab11f2b37dbc",
+      "previously_qualified_hosts": [
+        "linux",
+        "windows"
+      ],
+      "project": "helix",
+      "repository": "helix-editor/helix",
+      "source_reacquired": false
+    },
+    {
+      "cases": [
+        {
+          "name": "normal-project",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 8
+          },
+          "original_purpose": "Discover local documentation and read a specifically filtered overview",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-nested-unicode",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 8
+          },
+          "original_purpose": "Filter and read a nested spaced Unicode document",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-long-scroll",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 8
+          },
+          "original_purpose": "Read noninitial long-document pages and return to the beginning",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-document-switch",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 8
+          },
+          "original_purpose": "Return from one document and select a different useful document",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-structured-reference",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 8
+          },
+          "original_purpose": "Read code and validate Markdown table reflow at two reviewed viewport widths",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-line-numbers",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 8
+          },
+          "original_purpose": "Read with explicit line numbers and navigate to a noninitial viewport",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-empty-library",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 8
+          },
+          "original_purpose": "Handle a library containing no Markdown files and quit naturally",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-no-match-recovery",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 8
+          },
+          "original_purpose": "Recover from an empty filter result and open a useful document",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-cancel-filter",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 8
+          },
+          "original_purpose": "Cancel a partial filter and continue with the original complete library",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-empty-document",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 8
+          },
+          "original_purpose": "Render an empty Markdown file without hanging or changing any input",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-resize-scroll",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 8
+          },
+          "original_purpose": "Resize narrow and wide while navigating long Unicode documentation",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-long-filter-recovery",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 8
+          },
+          "original_purpose": "Recover from a long unmatched input and select a Unicode filename",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        }
+      ],
+      "migration_executed": false,
+      "original_scenarios_sha256": "553208ed34f8da06a5298bdaacb671ad6ba6e310d46a727bbd1e1324c7848c3b",
+      "pin": "8b0600fa445535b9c53194c0d4f7fe3cf700ef3e",
+      "previously_qualified_hosts": [
+        "linux",
+        "macos"
+      ],
+      "project": "glow",
+      "repository": "charmbracelet/glow",
+      "source_reacquired": false
+    },
+    {
+      "cases": [
+        {
+          "name": "normal-project",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 8
+          },
+          "original_purpose": "Copy a selected file to a spaced Unicode destination and preserve neighbors",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-rename",
+          "oracle_counts": {
+            "absent_paths": 1,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 7
+          },
+          "original_purpose": "Move a real selected file to a new spaced Unicode name",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-nested-focus",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 7
+          },
+          "original_purpose": "Focus a noninitial nested directory and inspect its actual children",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-unicode-preview",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 7
+          },
+          "original_purpose": "Preview a selected spaced Unicode text file without launching an editor",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-mkdir",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 2,
+            "expected_files": 7
+          },
+          "original_purpose": "Create a real nested directory through the supported local mkdir verb",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-content-search",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 7
+          },
+          "original_purpose": "Search a noninitial text token and inspect its matching document",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-empty-directory",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 1,
+            "expected_files": 7
+          },
+          "original_purpose": "Inspect a truly empty fixture directory and quit naturally",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-no-match-recovery",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 8
+          },
+          "original_purpose": "Recover from an unmatched filter and still copy a useful file",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-cancel-operation",
+          "oracle_counts": {
+            "absent_paths": 1,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 7
+          },
+          "original_purpose": "Cancel a partially entered copy command without creating its destination",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-invalid-verb",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 8
+          },
+          "original_purpose": "Recover from a genuine invalid verb without changing any input file",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-invalid-destination",
+          "oracle_counts": {
+            "absent_paths": 1,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 7
+          },
+          "original_purpose": "Recover after an unsuccessful external copy; independently verify no destination and intact inputs",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-resize-preview",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 7
+          },
+          "original_purpose": "Resize a long Unicode preview with observed redraw before dependent navigation",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-large-tree-content-search",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 25,
+            "expected_files": 502
+          },
+          "original_purpose": "Find a unique Unicode file by contents in a 501-file,25-directory tree and preserve every byte",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        }
+      ],
+      "migration_executed": false,
+      "original_scenarios_sha256": "027984bd564d2ca593b0b9c844d7880dcabd6f9b07b6a7d8528ce4fb279b05e8",
+      "pin": "41cb4c78d9d7736dfe83c65f8a393fc962e50662",
+      "previously_qualified_hosts": [
+        "linux",
+        "macos"
+      ],
+      "project": "broot",
+      "repository": "Canop/broot",
+      "source_reacquired": false
+    },
+    {
+      "cases": [
+        {
+          "name": "normal-project",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 0,
+            "expected_files": 7
+          },
+          "original_purpose": "Create a real spaced Unicode file and preserve all neighboring bytes",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-directory",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 3,
+            "expected_files": 6
+          },
+          "original_purpose": "Create nested Unicode directories and verify actual directory types",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-rename",
+          "oracle_counts": {
+            "absent_paths": 1,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 1,
+            "expected_files": 6
+          },
+          "original_purpose": "Rename a noninitial file and verify the old path disappears",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-copy",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 1,
+            "expected_files": 7
+          },
+          "original_purpose": "Copy protected bytes into a nested directory and return to the parent",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-move",
+          "oracle_counts": {
+            "absent_paths": 1,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 1,
+            "expected_files": 6
+          },
+          "original_purpose": "Move a noninitial file and verify destination bytes and original absence",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-nested-navigation",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 1,
+            "expected_files": 6
+          },
+          "original_purpose": "Navigate two distinct directories and inspect their actual text files",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-long-preview",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 1,
+            "expected_files": 6
+          },
+          "original_purpose": "Scroll a long Unicode text preview using ordinary preview keys",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-empty-directory",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 1,
+            "expected_files": 6
+          },
+          "original_purpose": "Enter a truly empty directory and exit naturally",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-no-match-recovery",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 1,
+            "expected_files": 6
+          },
+          "original_purpose": "Recover from a genuinely empty filter and perform useful selection",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-cancel-create",
+          "oracle_counts": {
+            "absent_paths": 1,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 1,
+            "expected_files": 6
+          },
+          "original_purpose": "Cancel a partially entered creation without creating a destination",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-cancel-rename",
+          "oracle_counts": {
+            "absent_paths": 1,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 1,
+            "expected_files": 6
+          },
+          "original_purpose": "Cancel edited rename input and preserve the original exact bytes",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-overwrite-declined",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 1,
+            "expected_files": 6
+          },
+          "original_purpose": "Decline overwriting an occupied file and preserve its bytes",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-delete-cancelled",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 1,
+            "expected_files": 6
+          },
+          "original_purpose": "Cancel permanent deletion of a synthetic selected file",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-resize-preview",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 0,
+            "expected_directories": 1,
+            "expected_files": 6
+          },
+          "original_purpose": "Resize with observed redraw, scroll new content and return to the beginning",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        }
+      ],
+      "migration_executed": false,
+      "original_scenarios_sha256": "3d5df722bfeb51e6c2c4c1a60144cb281feaeba3df588e18564fc3051a59b14e",
+      "pin": "f220cb6fb1018c7c656077e30b1aefbac136f719",
+      "previously_qualified_hosts": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "project": "yazi",
+      "repository": "sxyazi/yazi",
+      "source_reacquired": false
+    },
+    {
+      "cases": [
+        {
+          "name": "normal-project",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 1,
+            "exact_tree": 1,
+            "expected_directories": 3,
+            "expected_files": 7
+          },
+          "original_purpose": "Create a spaced Unicode file through the ordinary command console and preserve the complete fixture",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-directory",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 2,
+            "exact_tree": 1,
+            "expected_directories": 5,
+            "expected_files": 6
+          },
+          "original_purpose": "Create and enter nested Unicode directories, including a truly empty new leaf",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-rename",
+          "oracle_counts": {
+            "absent_paths": 1,
+            "empty_directories": 1,
+            "exact_tree": 1,
+            "expected_directories": 3,
+            "expected_files": 6
+          },
+          "original_purpose": "Rename a noninitial file and verify original-path absence and exact bytes",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-copy",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 1,
+            "exact_tree": 1,
+            "expected_directories": 3,
+            "expected_files": 7
+          },
+          "original_purpose": "Copy protected multi-line bytes into a nested directory and return to the parent",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-move",
+          "oracle_counts": {
+            "absent_paths": 1,
+            "empty_directories": 1,
+            "exact_tree": 1,
+            "expected_directories": 3,
+            "expected_files": 6
+          },
+          "original_purpose": "Move a noninitial file, inspect its bytes and verify the old path disappears",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-nested-navigation",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 1,
+            "exact_tree": 1,
+            "expected_directories": 3,
+            "expected_files": 6
+          },
+          "original_purpose": "Navigate and return between distinct directories with actual selected-file content",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-long-pager",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 1,
+            "exact_tree": 1,
+            "expected_directories": 3,
+            "expected_files": 6
+          },
+          "original_purpose": "Open the built-in text pager, page through Unicode content, return home and close it",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-empty-directory",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 1,
+            "exact_tree": 1,
+            "expected_directories": 3,
+            "expected_files": 6
+          },
+          "original_purpose": "Enter a genuinely empty directory and quit without manufacturing files",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-empty-filter-recovery",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 1,
+            "exact_tree": 1,
+            "expected_directories": 3,
+            "expected_files": 6
+          },
+          "original_purpose": "Apply a no-match filter stack, clear it, then select a useful existing file",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-cancel-create",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 1,
+            "exact_tree": 1,
+            "expected_directories": 3,
+            "expected_files": 6
+          },
+          "original_purpose": "Cancel a populated create command without altering any fixture entry",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-cancel-rename",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 1,
+            "exact_tree": 1,
+            "expected_directories": 3,
+            "expected_files": 6
+          },
+          "original_purpose": "Cancel a populated rename command without altering any fixture entry",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-occupied-rename",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 1,
+            "exact_tree": 1,
+            "expected_directories": 3,
+            "expected_files": 6
+          },
+          "original_purpose": "Refuse a rename onto a protected existing file while preserving both originals",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-delete-cancelled",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 1,
+            "exact_tree": 1,
+            "expected_directories": 3,
+            "expected_files": 6
+          },
+          "original_purpose": "Decline an actual permanent-deletion confirmation and preserve every file",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-key-prefix-cancel",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 1,
+            "exact_tree": 1,
+            "expected_directories": 3,
+            "expected_files": 6
+          },
+          "original_purpose": "Cancel an incomplete ordinary yank key chain, then perform useful search navigation",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-resize-pager",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 1,
+            "exact_tree": 1,
+            "expected_directories": 3,
+            "expected_files": 6
+          },
+          "original_purpose": "Resize a live built-in pager, observe redraw and scroll before restoring the ordinary view",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-large-directory",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 1,
+            "expected_directories": 0,
+            "expected_files": 200
+          },
+          "original_purpose": "Navigate to the last entry of a 200-file tree, inspect it and return home",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        }
+      ],
+      "migration_executed": false,
+      "original_scenarios_sha256": "3be2f04a0c354cb5522201ac5542fd68933db7d902c61da17d86fc5378d64876",
+      "pin": "46e957af9762dd2fcaabfbef4d3c45c16edd1184",
+      "previously_qualified_hosts": [
+        "linux",
+        "macos"
+      ],
+      "project": "ranger",
+      "repository": "ranger/ranger",
+      "source_reacquired": false
+    },
+    {
+      "cases": [
+        {
+          "name": "normal-project",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 1,
+            "exact_tree": 1,
+            "expected_directories": 3,
+            "expected_files": 8
+          },
+          "original_purpose": "Create an ordinary spaced Unicode file through the public nnn creation prompts",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-directory",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 2,
+            "exact_tree": 1,
+            "expected_directories": 5,
+            "expected_files": 7
+          },
+          "original_purpose": "Create a nested Unicode directory tree and verify its empty leaf",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-rename",
+          "oracle_counts": {
+            "absent_paths": 1,
+            "empty_directories": 1,
+            "exact_tree": 1,
+            "expected_directories": 3,
+            "expected_files": 7
+          },
+          "original_purpose": "Filter a noninitial file, rename it and preserve exact bytes",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-copy",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 1,
+            "exact_tree": 1,
+            "expected_directories": 3,
+            "expected_files": 8
+          },
+          "original_purpose": "Select and copy one file into a nested directory, then return",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-move",
+          "oracle_counts": {
+            "absent_paths": 1,
+            "empty_directories": 1,
+            "exact_tree": 1,
+            "expected_directories": 3,
+            "expected_files": 7
+          },
+          "original_purpose": "Select and move one file into a nested directory, then return",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-context-navigation",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 1,
+            "exact_tree": 1,
+            "expected_directories": 3,
+            "expected_files": 7
+          },
+          "original_purpose": "Maintain distinct nested/root context locations and recover after closing a context",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "normal-multi-selection-copy",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 1,
+            "exact_tree": 1,
+            "expected_directories": 3,
+            "expected_files": 9
+          },
+          "original_purpose": "Accumulate two filtered selections and copy both with exact preserved source/destination bytes",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-empty-directory",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 1,
+            "exact_tree": 1,
+            "expected_directories": 3,
+            "expected_files": 7
+          },
+          "original_purpose": "Enter a genuinely empty directory while preserving all other fixture entries",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-no-match-filter-recovery",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 1,
+            "exact_tree": 1,
+            "expected_directories": 3,
+            "expected_files": 7
+          },
+          "original_purpose": "Reject an unmatched filter suffix, accept subsequent valid typing, then clear and navigate",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-cancel-create",
+          "oracle_counts": {
+            "absent_paths": 1,
+            "empty_directories": 1,
+            "exact_tree": 1,
+            "expected_directories": 3,
+            "expected_files": 7
+          },
+          "original_purpose": "Cancel a populated Unicode creation prompt without creating its path",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-cancel-rename",
+          "oracle_counts": {
+            "absent_paths": 1,
+            "empty_directories": 1,
+            "exact_tree": 1,
+            "expected_directories": 3,
+            "expected_files": 7
+          },
+          "original_purpose": "Cancel a changed rename prompt and preserve the original selected file",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-occupied-rename",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 1,
+            "exact_tree": 1,
+            "expected_directories": 3,
+            "expected_files": 7
+          },
+          "original_purpose": "Refuse overwriting a protected neighbor during rename and preserve both files",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-occupied-create",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 1,
+            "exact_tree": 1,
+            "expected_directories": 3,
+            "expected_files": 7
+          },
+          "original_purpose": "Refuse creation over an existing protected file and preserve its nonempty bytes",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-delete-cancelled",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 1,
+            "exact_tree": 1,
+            "expected_directories": 3,
+            "expected_files": 7
+          },
+          "original_purpose": "Cancel the destructive current/selection chooser before deletion and preserve selected bytes",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-hidden-toggle",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 1,
+            "exact_tree": 1,
+            "expected_directories": 3,
+            "expected_files": 7
+          },
+          "original_purpose": "Reveal a real hidden file, hide it again and preserve its exact contents",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-large-directory",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 1,
+            "expected_directories": 0,
+            "expected_files": 200
+          },
+          "original_purpose": "Navigate to the final entry of a 200-file directory and return home",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        },
+        {
+          "name": "edge-resize-recovery",
+          "oracle_counts": {
+            "absent_paths": 0,
+            "empty_directories": 0,
+            "exact_tree": 1,
+            "expected_directories": 0,
+            "expected_files": 200
+          },
+          "original_purpose": "Resize a scrolled 200-file list, navigate home, restore geometry and return to the last entry",
+          "preparation_status": "Needs public v3 same-execution conversion and fresh native execution; no migration credit.",
+          "source_case_hosts": null
+        }
+      ],
+      "migration_executed": false,
+      "original_scenarios_sha256": "4cc5ceabf4e99f2c066cdb95eecdc31b0427d2ee2d75a412557f663f7d84f901",
+      "pin": "c3e00d99cc83c71a9a0d285669775ae3c82db38e",
+      "previously_qualified_hosts": [
+        "linux",
+        "macos"
+      ],
+      "project": "nnn",
+      "repository": "jarun/nnn",
+      "source_reacquired": false
+    }
+  ],
+  "qualification": "Historical source inventory only. No source acquired, target run, migrated assertion or new admission.",
+  "runner_admission_credit": 0
+}

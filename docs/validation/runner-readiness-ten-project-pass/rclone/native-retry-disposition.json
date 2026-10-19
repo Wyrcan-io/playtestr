@@ -1,0 +1,65 @@
+{
+  "development_admission": false,
+  "final_archive_credit": 0,
+  "linux_route": "Original local-config route reached reviewed ordinary success in three commands/twenty controls, but job cleanup failed; no native cell admission.",
+  "local_build_timeouts": {
+    "b1476e1455bb42b897b9400b706bb754": {
+      "campaign": "runner-readiness-ten-project-pass",
+      "category": "harness_timeout",
+      "cleanup_errors": [],
+      "console_sha256": "251c94a0a7ffcf9e0ff5810a465d11208416dc635add8f320205d4607dfebec3",
+      "event": "finished",
+      "exit_code": null,
+      "harness_cleanup": "harness_process_reaped",
+      "id": "b1476e1455bb42b897b9400b706bb754",
+      "label": "reviewed-native-full-cli-build",
+      "output_bytes": 2320,
+      "phase": "development",
+      "project": "rclone",
+      "schema_version": 1,
+      "seconds": 780.297
+    },
+    "f0d0d87d4b00430fbd952530301572d2": {
+      "campaign": "runner-readiness-ten-project-pass",
+      "category": "harness_timeout",
+      "cleanup_errors": [],
+      "console_sha256": "22da44070a910b68c66aa840295d7bf0cf2e80b17aae1adaffad29ed0c2bc59a",
+      "event": "finished",
+      "exit_code": null,
+      "harness_cleanup": "harness_process_reaped",
+      "id": "f0d0d87d4b00430fbd952530301572d2",
+      "label": "reviewed-native-full-cli-build",
+      "output_bytes": 8756,
+      "phase": "development",
+      "project": "rclone",
+      "schema_version": 1,
+      "seconds": 780.297
+    }
+  },
+  "local_disposition": "No further local build retry planned. Two bounded setup attempts failed; exact same pinned full CLI built natively in 185.1537s Linux and 197.828s Windows. No successful local Rclone runtime claimed.",
+  "original_metadata_sha256": "410e412ee59748fb0cb4c332274cbaa52aa725692216f80ed249ad3d6d0756c4",
+  "original_run": "39275956482",
+  "retention": {
+    "bytes": 8998666,
+    "correction": "Use the already-declared 16 MiB Rclone acquisition member limit for retention too; other projects and 64 MiB expanded-source cap unchanged.",
+    "failed_windows_attempt": "b0c26c61d672418c85373f86a7ec4a6a",
+    "file": "graphics/cover.jpg",
+    "sha256": "745b9a51801f1e68a29b0fd7a68960a424bc66ba228de8c92db93702ef7641fc"
+  },
+  "retry": "Fresh two-host run, original artifacts retained, unchanged exact runner archives/Go source. Build receipts copied before public route/cleanup.",
+  "windows_route": {
+    "alias_review": "Registration declares one required remote option and no Config hook. NewFs is not invoked by configuration; no network service or credentials.",
+    "alias_source_sha256": "cf116eac4d2998055f5e1ed8d3fe0aa69092d7f21c171331be1d21ccaf7a7c88",
+    "corrected_route_controls": 20,
+    "correction": "Use the reviewed alias backend with remote=. for the portable first route; it configures a synthetic local path, has one required remote prompt and no advanced prompt.",
+    "engineering_control_target": "Missed cumulatively; the original failed attempt is not erased. Human usability remains unmeasured.",
+    "explanation": "Source-based inference: local nounc is a basic option only on Windows, so the Linux local-backend prompt sequence is incomplete there.",
+    "failed_capture": "f510dccb7d03482d89ac4638ce34ccab",
+    "observed": "First six controls pass; expected advanced prompt times out; replay/export correctly refuse unresolved failures.",
+    "projected_cumulative_controls": 40,
+    "projected_cumulative_shell_commands": 5,
+    "requested_controls_before_retry": 20,
+    "shell_commands_before_retry": 2,
+    "source_sha256": "27607aeae80a2ea81d43788a9f14e321a19d87a434c09d6317ef639a100eeefc"
+  }
+}

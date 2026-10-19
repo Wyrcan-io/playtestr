@@ -83,6 +83,40 @@ async def node_inventory(label):
     return await runtime_inventory('plop',label)
 
 
+def verify_retained_report_cleanup(root):
+    """Check report cleanup without interpreting declared plain-text snapshots as JSON."""
+    root=Path(root).resolve()
+    documents={};invalid={};snapshots=set()
+    for path in root.rglob('*.json'):
+        if path.stat().st_size>16*1024**2:raise RuntimeError('retained JSON evidence byte bound')
+        try:documents[path]=json.loads(path.read_text(encoding='utf-8-sig'))
+        except (ValueError,UnicodeError) as error:invalid[path]=error
+    for path,data in documents.items():
+        if (not isinstance(data,dict) or data.get('version') not in {1,2,3}
+                or not isinstance(data.get('command'),list) or not isinstance(data.get('steps'),list)):
+            continue
+        base=(path.parent/'snapshots').resolve()
+        base.relative_to(root)
+        for step in data['steps']:
+            if isinstance(step,dict) and isinstance(step.get('snapshot'),str):
+                selected=(base/step['snapshot']).resolve()
+                try:selected.relative_to(base)
+                except ValueError as error:raise RuntimeError('retained snapshot reference escapes its baseline directory') from error
+                snapshots.add(selected)
+    for path,error in invalid.items():
+        if path.resolve() not in snapshots:
+            raise RuntimeError('invalid retained JSON outside declared snapshot: '+str(path.relative_to(root))) from error
+    for path,data in documents.items():
+        if path.resolve() in snapshots:continue
+        if isinstance(data,dict) and data.get('report_version')==3:
+            for result in data['results']:
+                if result['cleanup']['attempted'] and not result['cleanup']['confirmed_exited']:
+                    raise RuntimeError('a retained test has unconfirmed process cleanup')
+                workspace=result.get('workspace') or {}
+                if workspace.get('prepared') and not workspace.get('cleaned'):
+                    raise RuntimeError('a managed workspace remains retained')
+
+
 async def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--prepare-only',action='store_true')
@@ -118,15 +152,7 @@ async def main():
         current=await runtime_inventory(project,'verify-runtime-termination-before-removal')
         if any(baseline.get(pid)!=identity for pid,identity in current.items()):
             raise RuntimeError('new runtime process remains; cleanup unconfirmed, do not remove live state')
-    for report in (RAW/project).rglob('*.json'):
-        data=json.loads(report.read_text(encoding='utf-8-sig'))
-        if isinstance(data,dict) and data.get('report_version')==3:
-            for result in data['results']:
-                if result['cleanup']['attempted'] and not result['cleanup']['confirmed_exited']:
-                    raise RuntimeError('a retained test has unconfirmed process cleanup')
-                workspace=result.get('workspace') or {}
-                if workspace.get('prepared') and not workspace.get('cleaned'):
-                    raise RuntimeError('a managed workspace remains retained')
+    verify_retained_report_cleanup(RAW/project)
     retained=RAW/project/'retained-source';retained.mkdir(exist_ok=False)
     archive=active/'source.tar.gz'
     acquisition=json.loads((active/'acquisition.json').read_text())
@@ -172,7 +198,7 @@ async def main():
             if not parts:continue
             if any(p in {'..','.'} or ':' in p or '\\' in p for p in parts):raise RuntimeError('unsafe retained member')
             if member.isdir():continue
-            if not member.isfile() or member.size>({'rubygems':32,'vis':16}.get(project,8))*1024**2:raise RuntimeError('unsafe retained member type/size')
+            if not member.isfile() or member.size>({'rubygems':32,'vis':16,'rclone':16}.get(project,8))*1024**2:raise RuntimeError('unsafe retained member type/size')
             expanded+=member.size
             if expanded>64*1024**2 or len(manifest)>=10000:raise RuntimeError('restore bounds exceeded')
             value=bundle.extractfile(member).read(member.size+1)

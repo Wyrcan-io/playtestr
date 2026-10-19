@@ -25,11 +25,11 @@ async def main():
     for name, value in seed.items():
         (fixture / name).write_bytes(value)
     newline = b'\r\n' if os.name == 'nt' else b'\n'
-    expected = {**seed, 'rclone.conf': newline.join([b'[demo]', b'type = local', b'', b''])}
+    expected = {**seed, 'rclone.conf': newline.join([b'[demo]', b'type = alias', b'remote = .', b'', b''])}
     def line(value):
         return '/text ' + json.dumps(value + '\r')
     controls = ['/expect No remotes found, make a new one?', line('n'), '/expect name>', line('demo'),
-                '/expect Storage>', line('local'), '/expect Edit advanced config?', line('n'),
+                '/expect Storage>', line('alias'), '/expect remote>', line('.'),
                 '/expect Keep this "demo" remote?', line('y'), '/expect Current remotes:',
                 '/snapshot saved-config.json', line('q'), '/exit 0', '/file rclone.conf', '/file sentinel.bin',
                 '/entries .', '/review', '/replay', '/save']
@@ -37,7 +37,7 @@ async def main():
         raise RuntimeError('first-use control budget changed')
     immutable_json(root / 'intent.json', dict(controls=controls,
         expected_files={n:v.hex() for n,v in expected.items()},
-        scope='Local unencrypted storage config; each single submitted line follows an observed prompt.',
+        scope='Local unencrypted alias to the synthetic current directory; each submitted line follows an observed prompt.',
         handwritten_spec=False, target_build_sha256=sha256(target / 'build.json')))
     binary, frozen, cell = runner()
     env = environment(target)
