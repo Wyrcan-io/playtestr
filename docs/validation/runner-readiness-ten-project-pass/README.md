@@ -1,6 +1,6 @@
 # Runner readiness campaign
 
-Invoked 16 October 2026. Status: **in progress; nine development admissions across eighteen native cells**.
+Invoked 16 October 2026. Status: **in progress; ten development admissions across twenty native cells**.
 
 Base: `deed954a9ed1c05db73ee93cb2fbb84d9271d1e1`, branch
 `work/p0-p2-implementation`. Pre-existing edits: planning index and execution
@@ -20,7 +20,7 @@ Poetry's owned local tree is also removed after verified retention and cleanup.
 RubyGems/Bundler is admitted on Linux/Windows and its owned local tree is removed.
 Microsoft Edit is admitted on Linux/Windows and its owned local tree is removed.
 Vis is admitted on Linux/macOS and its owned local source tree is removed.
-fff is admitted on Linux/macOS and its owned local source tree is removed. Attempted 10; development admitted 9; archive qualified 0;
+fff is admitted on Linux/macOS and its owned local source tree is removed. Attempted 10; development admitted 10; archive qualified 0;
 old projects migrated 0; final runner admissions 0/100; paid-product admissions 0/100;
 final-qualified scenarios, faults, repetitions and native project/host cells all 0.
 Development evidence includes nineteen passing Windows Plop scenarios and three
@@ -42,8 +42,8 @@ and eight selected restoration checks. Expanded evidence briefly exceeded the
 project cap; the breach remains recorded, and retained Bundler evidence is now
 37,003,254 bytes after verified compaction. Whole campaign storage observation
 is 1,199,571,043 bytes, excluding subsequent small records, with no active targets.
-Development cells: 10;
-archive cells: 0. The original Windows F03 alone supplies each project's holdout;
+Development cells: 20;
+archive cells: 0. Each project records its original held-out fault host separately;
 native copies are replicas. Bundler includes Windows; Plop and Poetry retain
 their historical Windows exclusions and first-use/usability limitations.
 Declared work is never execution evidence. Human usability is unmeasured;
