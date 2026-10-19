@@ -4,6 +4,12 @@ on:
     branches: [work/p0-p2-implementation]
     paths: ['.github/workflows/runner-readiness-rclone.yml']
   workflow_dispatch:
+    inputs:
+      phase:
+        type: choice
+        default: first-use
+        options: [first-use, author]
+        description: First route or twenty reviewed public recordings and suite freeze
 permissions:
   contents: read
   actions: read
@@ -20,7 +26,7 @@ concurrency:
 jobs:
   terminal:
     if: github.event_name == 'workflow_dispatch'
-    timeout-minutes: 30
+    timeout-minutes: ${{ inputs.phase == 'author' && 45 || 30 }}
     strategy:
       fail-fast: false
       max-parallel: 2
@@ -56,6 +62,12 @@ jobs:
         run: python scripts/acceptance/readiness_check.py --label rclone-native-reviewed-target-setup --timeout 1200 -- python scripts/acceptance/readiness_rclone_native_prepare.py
       - name: First public recording, explicit review, replay and ordinary test
         run: python scripts/acceptance/readiness_check.py --label rclone-native-first-public-route --timeout 600 -- python scripts/acceptance/readiness_rclone_first_use.py
+      - name: Author twenty declared public workflows and independently check saved bytes
+        if: inputs.phase == 'author'
+        run: python scripts/acceptance/readiness_check.py --label rclone-native-twenty-public-authoring --timeout 1200 -- python scripts/acceptance/readiness_rclone_cases.py
+      - name: Full public directory suite and reviewed contract freeze
+        if: inputs.phase == 'author'
+        run: python scripts/acceptance/readiness_check.py --label rclone-native-twenty-ordinary-freeze --timeout 900 -- python scripts/acceptance/readiness_rclone_freeze.py
       - name: Verify Unix source restoration and runtime termination before removal
         if: always() && steps.prepare.outcome == 'success' && runner.os == 'Linux'
         run: python scripts/acceptance/readiness_check.py --label rclone-native-checked-source-cleanup --timeout 240 -- python scripts/acceptance/readiness_cleanup_plop.py --project rclone

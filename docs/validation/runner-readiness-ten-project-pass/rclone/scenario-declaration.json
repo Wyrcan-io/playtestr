@@ -1,0 +1,1528 @@
+{
+  "edge_cases": 12,
+  "executed": false,
+  "native_profiles": {
+    "linux": [
+      {
+        "actions": [
+          "/expect No remotes found, make a new one?",
+          "/text \"n\\r\"",
+          "/expect name>",
+          "/text \"demo\\r\"",
+          "/expect Storage>",
+          "/text \"local\\r\"",
+          "/expect Edit advanced config?",
+          "/text \"n\\r\"",
+          "/expect Keep this \"demo\" remote?",
+          "/text \"y\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "5b64656d6f5d0a74797065203d206c6f63616c0a0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "linux",
+        "id": "N01",
+        "kind": "normal",
+        "missing": [],
+        "title": "create a local storage configuration"
+      },
+      {
+        "actions": [
+          "/expect No remotes found, make a new one?",
+          "/text \"n\\r\"",
+          "/expect name>",
+          "/text \"demo\\r\"",
+          "/expect Storage>",
+          "/text \"alias\\r\"",
+          "/expect remote>",
+          "/text \".\\r\"",
+          "/expect Keep this \"demo\" remote?",
+          "/text \"y\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "5b64656d6f5d0a74797065203d20616c6961730a72656d6f7465203d202e0a0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "linux",
+        "id": "N02",
+        "kind": "normal",
+        "missing": [],
+        "title": "create an alias for the synthetic local directory"
+      },
+      {
+        "actions": [
+          "/expect Current remotes:",
+          "/text \"r\\r\"",
+          "/expect remote>",
+          "/text \"seed\\r\"",
+          "/expect name>",
+          "/text \"renamed\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "5b72656e616d65645d0a74797065203d206c6f63616c0a0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "5b736565645d0a74797065203d206c6f63616c0a0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "linux",
+        "id": "N03",
+        "kind": "normal",
+        "missing": [],
+        "title": "rename an existing local configuration"
+      },
+      {
+        "actions": [
+          "/expect Current remotes:",
+          "/text \"c\\r\"",
+          "/expect remote>",
+          "/text \"seed\\r\"",
+          "/expect name>",
+          "/text \"backup\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "5b736565645d0a74797065203d206c6f63616c0a0a5b6261636b75705d0a74797065203d206c6f63616c0a0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "5b736565645d0a74797065203d206c6f63616c0a0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "linux",
+        "id": "N04",
+        "kind": "normal",
+        "missing": [],
+        "title": "copy an existing local configuration"
+      },
+      {
+        "actions": [
+          "/expect Current remotes:",
+          "/text \"d\\r\"",
+          "/expect remote>",
+          "/text \"seed\\r\"",
+          "/expect No remotes found, make a new one?",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "5b736565645d0a74797065203d206c6f63616c0a0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "linux",
+        "id": "N05",
+        "kind": "normal",
+        "missing": [],
+        "title": "delete the last configured remote"
+      },
+      {
+        "actions": [
+          "/expect Current remotes:",
+          "/text \"e\\r\"",
+          "/expect remote>",
+          "/text \"seed\\r\"",
+          "/expect remote>",
+          "/text \"new\\r\"",
+          "/expect Keep this \"seed\" remote?",
+          "/text \"y\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "new",
+            "old",
+            "rclone.conf",
+            "sentinel.bin"
+          ],
+          "new": [
+            "keep.txt"
+          ],
+          "old": [
+            "keep.txt"
+          ]
+        },
+        "expected": {
+          "new/keep.txt": "6e65770a",
+          "old/keep.txt": "6f6c640a",
+          "rclone.conf": "5b736565645d0a74797065203d20616c6961730a72656d6f7465203d206e65770a0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "new/keep.txt": "6e65770a",
+          "old/keep.txt": "6f6c640a",
+          "rclone.conf": "5b736565645d0a74797065203d20616c6961730a72656d6f7465203d206f6c640a0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "linux",
+        "id": "N06",
+        "kind": "normal",
+        "missing": [],
+        "title": "change the local path of an existing alias"
+      },
+      {
+        "actions": [
+          "/expect Current remotes:",
+          "/text \"e\\r\"",
+          "/expect remote>",
+          "/text \"seed\\r\"",
+          "/expect Edit advanced config?",
+          "/text \"n\\r\"",
+          "/expect Keep this \"seed\" remote?",
+          "/text \"y\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "5b736565645d0a74797065203d206c6f63616c0a6e6f756e63203d20747275650a0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "5b736565645d0a74797065203d206c6f63616c0a6e6f756e63203d20747275650a0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "linux",
+        "id": "N07",
+        "kind": "normal",
+        "missing": [],
+        "title": "review existing local settings without losing a nondefault option"
+      },
+      {
+        "actions": [
+          "/expect No remotes found, make a new one?",
+          "/text \"n\\r\"",
+          "/expect name>",
+          "/text \"demo\\r\"",
+          "/expect Storage>",
+          "/text \"alias\\r\"",
+          "/expect remote>",
+          "/text \"old\\r\"",
+          "/expect Keep this \"demo\" remote?",
+          "/text \"e\\r\"",
+          "/expect remote>",
+          "/text \"reviewed\\r\"",
+          "/expect Keep this \"demo\" remote?",
+          "/text \"y\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "5b64656d6f5d0a74797065203d20616c6961730a72656d6f7465203d2072657669657765640a0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "linux",
+        "id": "N08",
+        "kind": "normal",
+        "missing": [],
+        "title": "correct a new alias during the review loop before accepting"
+      },
+      {
+        "actions": [
+          "/expect No remotes found, make a new one?",
+          "/text \"n\\r\"",
+          "/expect name>",
+          "/text \"\\r\"",
+          "/expect Can't use empty name.",
+          "/text \"demo\\r\"",
+          "/expect Storage>",
+          "/text \"alias\\r\"",
+          "/expect remote>",
+          "/text \".\\r\"",
+          "/expect Keep this \"demo\" remote?",
+          "/text \"y\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "5b64656d6f5d0a74797065203d20616c6961730a72656d6f7465203d202e0a0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "linux",
+        "id": "E01",
+        "kind": "edge",
+        "missing": [],
+        "title": "reject an empty configuration name before accepting a valid name"
+      },
+      {
+        "actions": [
+          "/expect No remotes found, make a new one?",
+          "/text \"n\\r\"",
+          "/expect name>",
+          "/text \"bad:name\\r\"",
+          "/expect config name contains invalid characters",
+          "/text \"demo\\r\"",
+          "/expect Storage>",
+          "/text \"alias\\r\"",
+          "/expect remote>",
+          "/text \".\\r\"",
+          "/expect Keep this \"demo\" remote?",
+          "/text \"y\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "5b64656d6f5d0a74797065203d20616c6961730a72656d6f7465203d202e0a0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "linux",
+        "id": "E02",
+        "kind": "edge",
+        "missing": [],
+        "title": "reject forbidden colon syntax in a configuration name"
+      },
+      {
+        "actions": [
+          "/expect Current remotes:",
+          "/text \"n\\r\"",
+          "/expect name>",
+          "/text \"seed\\r\"",
+          "/expect Remote \"seed\" already exists.",
+          "/text \"demo\\r\"",
+          "/expect Storage>",
+          "/text \"alias\\r\"",
+          "/expect remote>",
+          "/text \".\\r\"",
+          "/expect Keep this \"demo\" remote?",
+          "/text \"y\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "5b736565645d0a74797065203d206c6f63616c0a0a5b64656d6f5d0a74797065203d20616c6961730a72656d6f7465203d202e0a0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "5b736565645d0a74797065203d206c6f63616c0a0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "linux",
+        "id": "E03",
+        "kind": "edge",
+        "missing": [],
+        "title": "reject a duplicate name and preserve the existing configuration"
+      },
+      {
+        "actions": [
+          "/expect No remotes found, make a new one?",
+          "/text \"n\\r\"",
+          "/expect name>",
+          "/text \"z\\r\"",
+          "/expect Storage>",
+          "/text \"alias\\r\"",
+          "/expect remote>",
+          "/text \".\\r\"",
+          "/expect Keep this \"z\" remote?",
+          "/text \"y\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "5b7a5d0a74797065203d20616c6961730a72656d6f7465203d202e0a0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "linux",
+        "id": "E04",
+        "kind": "edge",
+        "missing": [],
+        "title": "respect the native single-letter drive ambiguity policy"
+      },
+      {
+        "actions": [
+          "/expect No remotes found, make a new one?",
+          "/text \"n\\r\"",
+          "/expect name>",
+          "/text \"caf\\u00e9 \\u96ea\\r\"",
+          "/expect Storage>",
+          "/text \"alias\\r\"",
+          "/expect remote>",
+          "/text \".\\r\"",
+          "/expect Keep this \"caf\u00e9 \u96ea\" remote?",
+          "/text \"y\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "5b636166c3a920e99baa5d0a74797065203d20616c6961730a72656d6f7465203d202e0a0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "linux",
+        "id": "E05",
+        "kind": "edge",
+        "missing": [],
+        "title": "preserve supported Unicode letters in the configuration name"
+      },
+      {
+        "actions": [
+          "/expect No remotes found, make a new one?",
+          "/text \"n\\r\"",
+          "/expect name>",
+          "/text \"  reviewed local  \\r\"",
+          "/expect Storage>",
+          "/text \"alias\\r\"",
+          "/expect remote>",
+          "/text \".\\r\"",
+          "/expect Keep this \"reviewed local\" remote?",
+          "/text \"y\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "5b7265766965776564206c6f63616c5d0a74797065203d20616c6961730a72656d6f7465203d202e0a0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "linux",
+        "id": "E06",
+        "kind": "edge",
+        "missing": [],
+        "title": "trim outer input whitespace while preserving spaces within the name"
+      },
+      {
+        "actions": [
+          "/expect No remotes found, make a new one?",
+          "/text \"n\\r\"",
+          "/expect name>",
+          "/text \"demo\\r\"",
+          "/expect Storage>",
+          "/text \"\\r\"",
+          "/expect This value is required and it has no default.",
+          "/text \"alias\\r\"",
+          "/expect remote>",
+          "/text \".\\r\"",
+          "/expect Keep this \"demo\" remote?",
+          "/text \"y\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "5b64656d6f5d0a74797065203d20616c6961730a72656d6f7465203d202e0a0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "linux",
+        "id": "E07",
+        "kind": "edge",
+        "missing": [],
+        "title": "reject an empty required storage selection"
+      },
+      {
+        "actions": [
+          "/expect No remotes found, make a new one?",
+          "/text \"n\\r\"",
+          "/expect name>",
+          "/text \"demo\\r\"",
+          "/expect Storage>",
+          "/text \"99999\\r\"",
+          "/expect No choices with this number.",
+          "/text \"alias\\r\"",
+          "/expect remote>",
+          "/text \".\\r\"",
+          "/expect Keep this \"demo\" remote?",
+          "/text \"y\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "5b64656d6f5d0a74797065203d20616c6961730a72656d6f7465203d202e0a0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "linux",
+        "id": "E08",
+        "kind": "edge",
+        "missing": [],
+        "title": "reject an out-of-range numeric storage selection"
+      },
+      {
+        "actions": [
+          "/expect No remotes found, make a new one?",
+          "/text \"invalid\\r\"",
+          "/expect This value must be a single character,",
+          "/snapshot invalid-menu.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "linux",
+        "id": "E09",
+        "kind": "edge",
+        "missing": [],
+        "title": "reject a multi-character main-menu command without altering config"
+      },
+      {
+        "actions": [
+          "/expect No remotes found, make a new one?",
+          "/text \"n\\r\"",
+          "/expect name>",
+          "/text \"demo\\r\"",
+          "/expect Storage>",
+          "/text \"alias\\r\"",
+          "/expect remote>",
+          "/text \".\\r\"",
+          "/expect Keep this \"demo\" remote?",
+          "/text \"d\\r\"",
+          "/expect No remotes found, make a new one?",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "linux",
+        "id": "E10",
+        "kind": "edge",
+        "missing": [],
+        "title": "discard a proposed remote at the review confirmation"
+      },
+      {
+        "actions": [
+          "/expect No remotes found, make a new one?",
+          "/text \"n\\r\"",
+          "/expect name>",
+          "/text \"demo\\r\"",
+          "/expect Storage>",
+          "/text \"alias\\r\"",
+          "/expect remote>",
+          "/text \"caf\\u00e9 \\u96ea\\r\"",
+          "/expect Keep this \"demo\" remote?",
+          "/text \"y\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "caf\u00e9 \u96ea",
+            "rclone.conf",
+            "sentinel.bin"
+          ],
+          "caf\u00e9 \u96ea": [
+            "keep.bin"
+          ]
+        },
+        "expected": {
+          "caf\u00e9 \u96ea/keep.bin": "7072657365727665000d0a",
+          "rclone.conf": "5b64656d6f5d0a74797065203d20616c6961730a72656d6f7465203d20636166c3a920e99baa0a0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "caf\u00e9 \u96ea/keep.bin": "7072657365727665000d0a",
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "linux",
+        "id": "E11",
+        "kind": "edge",
+        "missing": [],
+        "title": "preserve a spaced Unicode local alias path and existing binary file"
+      },
+      {
+        "actions": [
+          "/expect No remotes found, make a new one?",
+          "/text \"n\\r\"",
+          "/expect name>",
+          "/text \"caf\\u00e9 \\u96ea\"",
+          "/expect caf\u00e9 \u96ea",
+          "/resize 70 20",
+          "/text \"A\"",
+          "/expect caf\u00e9 \u96eaA",
+          "/resize 100 28",
+          "/text \"B\"",
+          "/expect caf\u00e9 \u96eaAB",
+          "/text \"\\r\"",
+          "/expect Storage>",
+          "/text \"alias\\r\"",
+          "/expect remote>",
+          "/text \".\\r\"",
+          "/expect Keep this \"caf\u00e9 \u96eaAB\" remote?",
+          "/text \"y\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "5b636166c3a920e99baa41425d0a74797065203d20616c6961730a72656d6f7465203d202e0a0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "linux",
+        "id": "E12",
+        "kind": "edge",
+        "missing": [],
+        "title": "resize active Unicode name entry and require fresh post-resize markers"
+      }
+    ],
+    "windows": [
+      {
+        "actions": [
+          "/expect No remotes found, make a new one?",
+          "/text \"n\\r\"",
+          "/expect name>",
+          "/text \"demo\\r\"",
+          "/expect Storage>",
+          "/text \"local\\r\"",
+          "/expect nounc>",
+          "/text \"\\r\"",
+          "/expect Edit advanced config?",
+          "/text \"n\\r\"",
+          "/expect Keep this \"demo\" remote?",
+          "/text \"y\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "5b64656d6f5d0d0a74797065203d206c6f63616c0d0a0d0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "windows",
+        "id": "N01",
+        "kind": "normal",
+        "missing": [],
+        "title": "create a local storage configuration"
+      },
+      {
+        "actions": [
+          "/expect No remotes found, make a new one?",
+          "/text \"n\\r\"",
+          "/expect name>",
+          "/text \"demo\\r\"",
+          "/expect Storage>",
+          "/text \"alias\\r\"",
+          "/expect remote>",
+          "/text \".\\r\"",
+          "/expect Keep this \"demo\" remote?",
+          "/text \"y\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "5b64656d6f5d0d0a74797065203d20616c6961730d0a72656d6f7465203d202e0d0a0d0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "windows",
+        "id": "N02",
+        "kind": "normal",
+        "missing": [],
+        "title": "create an alias for the synthetic local directory"
+      },
+      {
+        "actions": [
+          "/expect Current remotes:",
+          "/text \"r\\r\"",
+          "/expect remote>",
+          "/text \"seed\\r\"",
+          "/expect name>",
+          "/text \"renamed\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "5b72656e616d65645d0d0a74797065203d206c6f63616c0d0a0d0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "5b736565645d0d0a74797065203d206c6f63616c0d0a0d0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "windows",
+        "id": "N03",
+        "kind": "normal",
+        "missing": [],
+        "title": "rename an existing local configuration"
+      },
+      {
+        "actions": [
+          "/expect Current remotes:",
+          "/text \"c\\r\"",
+          "/expect remote>",
+          "/text \"seed\\r\"",
+          "/expect name>",
+          "/text \"backup\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "5b736565645d0d0a74797065203d206c6f63616c0d0a0d0a5b6261636b75705d0d0a74797065203d206c6f63616c0d0a0d0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "5b736565645d0d0a74797065203d206c6f63616c0d0a0d0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "windows",
+        "id": "N04",
+        "kind": "normal",
+        "missing": [],
+        "title": "copy an existing local configuration"
+      },
+      {
+        "actions": [
+          "/expect Current remotes:",
+          "/text \"d\\r\"",
+          "/expect remote>",
+          "/text \"seed\\r\"",
+          "/expect No remotes found, make a new one?",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "5b736565645d0d0a74797065203d206c6f63616c0d0a0d0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "windows",
+        "id": "N05",
+        "kind": "normal",
+        "missing": [],
+        "title": "delete the last configured remote"
+      },
+      {
+        "actions": [
+          "/expect Current remotes:",
+          "/text \"e\\r\"",
+          "/expect remote>",
+          "/text \"seed\\r\"",
+          "/expect remote>",
+          "/text \"new\\r\"",
+          "/expect Keep this \"seed\" remote?",
+          "/text \"y\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "new",
+            "old",
+            "rclone.conf",
+            "sentinel.bin"
+          ],
+          "new": [
+            "keep.txt"
+          ],
+          "old": [
+            "keep.txt"
+          ]
+        },
+        "expected": {
+          "new/keep.txt": "6e65770a",
+          "old/keep.txt": "6f6c640a",
+          "rclone.conf": "5b736565645d0d0a74797065203d20616c6961730d0a72656d6f7465203d206e65770d0a0d0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "new/keep.txt": "6e65770a",
+          "old/keep.txt": "6f6c640a",
+          "rclone.conf": "5b736565645d0d0a74797065203d20616c6961730d0a72656d6f7465203d206f6c640d0a0d0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "windows",
+        "id": "N06",
+        "kind": "normal",
+        "missing": [],
+        "title": "change the local path of an existing alias"
+      },
+      {
+        "actions": [
+          "/expect Current remotes:",
+          "/text \"e\\r\"",
+          "/expect remote>",
+          "/text \"seed\\r\"",
+          "/expect nounc>",
+          "/text \"\\r\"",
+          "/expect Edit advanced config?",
+          "/text \"n\\r\"",
+          "/expect Keep this \"seed\" remote?",
+          "/text \"y\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "5b736565645d0d0a74797065203d206c6f63616c0d0a6e6f756e63203d20747275650d0a0d0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "5b736565645d0d0a74797065203d206c6f63616c0d0a6e6f756e63203d20747275650d0a0d0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "windows",
+        "id": "N07",
+        "kind": "normal",
+        "missing": [],
+        "title": "review existing local settings without losing a nondefault option"
+      },
+      {
+        "actions": [
+          "/expect No remotes found, make a new one?",
+          "/text \"n\\r\"",
+          "/expect name>",
+          "/text \"demo\\r\"",
+          "/expect Storage>",
+          "/text \"alias\\r\"",
+          "/expect remote>",
+          "/text \"old\\r\"",
+          "/expect Keep this \"demo\" remote?",
+          "/text \"e\\r\"",
+          "/expect remote>",
+          "/text \"reviewed\\r\"",
+          "/expect Keep this \"demo\" remote?",
+          "/text \"y\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "5b64656d6f5d0d0a74797065203d20616c6961730d0a72656d6f7465203d2072657669657765640d0a0d0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "windows",
+        "id": "N08",
+        "kind": "normal",
+        "missing": [],
+        "title": "correct a new alias during the review loop before accepting"
+      },
+      {
+        "actions": [
+          "/expect No remotes found, make a new one?",
+          "/text \"n\\r\"",
+          "/expect name>",
+          "/text \"\\r\"",
+          "/expect Can't use empty name.",
+          "/text \"demo\\r\"",
+          "/expect Storage>",
+          "/text \"alias\\r\"",
+          "/expect remote>",
+          "/text \".\\r\"",
+          "/expect Keep this \"demo\" remote?",
+          "/text \"y\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "5b64656d6f5d0d0a74797065203d20616c6961730d0a72656d6f7465203d202e0d0a0d0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "windows",
+        "id": "E01",
+        "kind": "edge",
+        "missing": [],
+        "title": "reject an empty configuration name before accepting a valid name"
+      },
+      {
+        "actions": [
+          "/expect No remotes found, make a new one?",
+          "/text \"n\\r\"",
+          "/expect name>",
+          "/text \"bad:name\\r\"",
+          "/expect config name contains invalid characters",
+          "/text \"demo\\r\"",
+          "/expect Storage>",
+          "/text \"alias\\r\"",
+          "/expect remote>",
+          "/text \".\\r\"",
+          "/expect Keep this \"demo\" remote?",
+          "/text \"y\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "5b64656d6f5d0d0a74797065203d20616c6961730d0a72656d6f7465203d202e0d0a0d0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "windows",
+        "id": "E02",
+        "kind": "edge",
+        "missing": [],
+        "title": "reject forbidden colon syntax in a configuration name"
+      },
+      {
+        "actions": [
+          "/expect Current remotes:",
+          "/text \"n\\r\"",
+          "/expect name>",
+          "/text \"seed\\r\"",
+          "/expect Remote \"seed\" already exists.",
+          "/text \"demo\\r\"",
+          "/expect Storage>",
+          "/text \"alias\\r\"",
+          "/expect remote>",
+          "/text \".\\r\"",
+          "/expect Keep this \"demo\" remote?",
+          "/text \"y\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "5b736565645d0d0a74797065203d206c6f63616c0d0a0d0a5b64656d6f5d0d0a74797065203d20616c6961730d0a72656d6f7465203d202e0d0a0d0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "5b736565645d0d0a74797065203d206c6f63616c0d0a0d0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "windows",
+        "id": "E03",
+        "kind": "edge",
+        "missing": [],
+        "title": "reject a duplicate name and preserve the existing configuration"
+      },
+      {
+        "actions": [
+          "/expect No remotes found, make a new one?",
+          "/text \"n\\r\"",
+          "/expect name>",
+          "/text \"z\\r\"",
+          "/expect confused with a drive letter.",
+          "/text \"reviewed\\r\"",
+          "/expect Storage>",
+          "/text \"alias\\r\"",
+          "/expect remote>",
+          "/text \".\\r\"",
+          "/expect Keep this \"reviewed\" remote?",
+          "/text \"y\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "5b72657669657765645d0d0a74797065203d20616c6961730d0a72656d6f7465203d202e0d0a0d0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "windows",
+        "id": "E04",
+        "kind": "edge",
+        "missing": [],
+        "title": "respect the native single-letter drive ambiguity policy"
+      },
+      {
+        "actions": [
+          "/expect No remotes found, make a new one?",
+          "/text \"n\\r\"",
+          "/expect name>",
+          "/text \"caf\\u00e9 \\u96ea\\r\"",
+          "/expect Storage>",
+          "/text \"alias\\r\"",
+          "/expect remote>",
+          "/text \".\\r\"",
+          "/expect Keep this \"caf\u00e9 \u96ea\" remote?",
+          "/text \"y\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "5b636166c3a920e99baa5d0d0a74797065203d20616c6961730d0a72656d6f7465203d202e0d0a0d0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "windows",
+        "id": "E05",
+        "kind": "edge",
+        "missing": [],
+        "title": "preserve supported Unicode letters in the configuration name"
+      },
+      {
+        "actions": [
+          "/expect No remotes found, make a new one?",
+          "/text \"n\\r\"",
+          "/expect name>",
+          "/text \"  reviewed local  \\r\"",
+          "/expect Storage>",
+          "/text \"alias\\r\"",
+          "/expect remote>",
+          "/text \".\\r\"",
+          "/expect Keep this \"reviewed local\" remote?",
+          "/text \"y\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "5b7265766965776564206c6f63616c5d0d0a74797065203d20616c6961730d0a72656d6f7465203d202e0d0a0d0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "windows",
+        "id": "E06",
+        "kind": "edge",
+        "missing": [],
+        "title": "trim outer input whitespace while preserving spaces within the name"
+      },
+      {
+        "actions": [
+          "/expect No remotes found, make a new one?",
+          "/text \"n\\r\"",
+          "/expect name>",
+          "/text \"demo\\r\"",
+          "/expect Storage>",
+          "/text \"\\r\"",
+          "/expect This value is required and it has no default.",
+          "/text \"alias\\r\"",
+          "/expect remote>",
+          "/text \".\\r\"",
+          "/expect Keep this \"demo\" remote?",
+          "/text \"y\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "5b64656d6f5d0d0a74797065203d20616c6961730d0a72656d6f7465203d202e0d0a0d0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "windows",
+        "id": "E07",
+        "kind": "edge",
+        "missing": [],
+        "title": "reject an empty required storage selection"
+      },
+      {
+        "actions": [
+          "/expect No remotes found, make a new one?",
+          "/text \"n\\r\"",
+          "/expect name>",
+          "/text \"demo\\r\"",
+          "/expect Storage>",
+          "/text \"99999\\r\"",
+          "/expect No choices with this number.",
+          "/text \"alias\\r\"",
+          "/expect remote>",
+          "/text \".\\r\"",
+          "/expect Keep this \"demo\" remote?",
+          "/text \"y\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "5b64656d6f5d0d0a74797065203d20616c6961730d0a72656d6f7465203d202e0d0a0d0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "windows",
+        "id": "E08",
+        "kind": "edge",
+        "missing": [],
+        "title": "reject an out-of-range numeric storage selection"
+      },
+      {
+        "actions": [
+          "/expect No remotes found, make a new one?",
+          "/text \"invalid\\r\"",
+          "/expect This value must be a single character,",
+          "/snapshot invalid-menu.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "windows",
+        "id": "E09",
+        "kind": "edge",
+        "missing": [],
+        "title": "reject a multi-character main-menu command without altering config"
+      },
+      {
+        "actions": [
+          "/expect No remotes found, make a new one?",
+          "/text \"n\\r\"",
+          "/expect name>",
+          "/text \"demo\\r\"",
+          "/expect Storage>",
+          "/text \"alias\\r\"",
+          "/expect remote>",
+          "/text \".\\r\"",
+          "/expect Keep this \"demo\" remote?",
+          "/text \"d\\r\"",
+          "/expect No remotes found, make a new one?",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "windows",
+        "id": "E10",
+        "kind": "edge",
+        "missing": [],
+        "title": "discard a proposed remote at the review confirmation"
+      },
+      {
+        "actions": [
+          "/expect No remotes found, make a new one?",
+          "/text \"n\\r\"",
+          "/expect name>",
+          "/text \"demo\\r\"",
+          "/expect Storage>",
+          "/text \"alias\\r\"",
+          "/expect remote>",
+          "/text \"caf\\u00e9 \\u96ea\\r\"",
+          "/expect Keep this \"demo\" remote?",
+          "/text \"y\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "caf\u00e9 \u96ea",
+            "rclone.conf",
+            "sentinel.bin"
+          ],
+          "caf\u00e9 \u96ea": [
+            "keep.bin"
+          ]
+        },
+        "expected": {
+          "caf\u00e9 \u96ea/keep.bin": "7072657365727665000d0a",
+          "rclone.conf": "5b64656d6f5d0d0a74797065203d20616c6961730d0a72656d6f7465203d20636166c3a920e99baa0d0a0d0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "caf\u00e9 \u96ea/keep.bin": "7072657365727665000d0a",
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "windows",
+        "id": "E11",
+        "kind": "edge",
+        "missing": [],
+        "title": "preserve a spaced Unicode local alias path and existing binary file"
+      },
+      {
+        "actions": [
+          "/expect No remotes found, make a new one?",
+          "/text \"n\\r\"",
+          "/expect name>",
+          "/text \"caf\\u00e9 \\u96ea\"",
+          "/expect caf\u00e9 \u96ea",
+          "/resize 70 20",
+          "/text \"A\"",
+          "/expect caf\u00e9 \u96eaA",
+          "/resize 100 28",
+          "/text \"B\"",
+          "/expect caf\u00e9 \u96eaAB",
+          "/text \"\\r\"",
+          "/expect Storage>",
+          "/text \"alias\\r\"",
+          "/expect remote>",
+          "/text \".\\r\"",
+          "/expect Keep this \"caf\u00e9 \u96eaAB\" remote?",
+          "/text \"y\\r\"",
+          "/expect Current remotes:",
+          "/snapshot final.txt",
+          "/text \"q\\r\"",
+          "/exit 0"
+        ],
+        "entry_sets": {
+          ".": [
+            "rclone.conf",
+            "sentinel.bin"
+          ]
+        },
+        "expected": {
+          "rclone.conf": "5b636166c3a920e99baa41425d0d0a74797065203d20616c6961730d0a72656d6f7465203d202e0d0a0d0a",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "files": {
+          "rclone.conf": "",
+          "sentinel.bin": "7072657365727665006578697374696e670d0a"
+        },
+        "host": "windows",
+        "id": "E12",
+        "kind": "edge",
+        "missing": [],
+        "title": "resize active Unicode name entry and require fresh post-resize markers"
+      }
+    ]
+  },
+  "native_variants": "Windows basic nounc prompt, native CRLF writer and drive-letter rejection; Linux LF and single-letter acceptance. Declared before authoring.",
+  "normal_cases": 8,
+  "scope": "Synthetic local and alias config wizard; no cloud, credentials, mounts or server.",
+  "source_faults_selected": false
+}

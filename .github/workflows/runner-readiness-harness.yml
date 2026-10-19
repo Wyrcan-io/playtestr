@@ -32,6 +32,7 @@ jobs:
       - name: Native evidence, selection and independent archive controls
         shell: bash
         run: |
+          python scripts/acceptance/readiness_check.py --label native-readiness-helper-syntax --timeout 60 -- python -c "import ast,pathlib; paths=list(pathlib.Path('scripts/acceptance').glob('readiness_*.py')); [ast.parse(p.read_text(encoding='utf-8-sig'),filename=str(p)) for p in paths]; print('Parsed',len(paths),'readiness helpers')"
           python scripts/acceptance/readiness_check.py --label native-harness-controls --timeout 120 -- python -m unittest discover -s scripts/acceptance -p 'test_readiness_*.py' -v
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()

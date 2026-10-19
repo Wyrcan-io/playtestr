@@ -34,7 +34,7 @@ async def main():
             if sha256(copy)!=sha256(path):raise RuntimeError('native build receipt copy differs')
             hashes[name]=sha256(copy)
         immutable_json(retained/'index.json',dict(files=hashes,
-            qualification='Actual setup receipts retained even if a later first-route or cleanup stage fails.')))
+            qualification='Actual setup receipts retained even if a later first-route or cleanup stage fails.'))
     print('Reviewed native Rclone ready; runner remains exact frozen archive bytes.')
 
 
