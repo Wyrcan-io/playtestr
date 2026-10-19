@@ -21,23 +21,23 @@ async def main():
     root = RAW / 'rclone/first-use' / uuid.uuid4().hex
     fixture = root / 'fixture'
     fixture.mkdir(parents=True)
-    seed = {'rclone.conf': b'', 'sentinel.bin': b'preserve\x00existing\r\n'}
+    newline = b'\r\n' if os.name == 'nt' else b'\n'
+    seed = {'rclone.conf': newline.join([b'[seed]', b'type = local', b'', b'']),
+            'sentinel.bin': b'preserve\x00existing\r\n'}
     for name, value in seed.items():
         (fixture / name).write_bytes(value)
-    newline = b'\r\n' if os.name == 'nt' else b'\n'
-    expected = {**seed, 'rclone.conf': newline.join([b'[demo]', b'type = alias', b'remote = .', b'', b''])}
+    expected = {**seed, 'rclone.conf': newline.join([b'[reviewed]', b'type = local', b'', b''])}
     def line(value):
         return '/text ' + json.dumps(value + '\r')
-    controls = ['/expect No remotes found, make a new one?', line('n'), '/expect name>', line('demo'),
-                '/expect Storage>', line('alias'), '/expect remote>', line('.'),
-                '/expect Keep this "demo" remote?', line('y'), '/expect Current remotes:',
+    controls = ['/expect Current remotes:', line('r'), '/expect remote>', line('seed'),
+                '/expect name>', line('reviewed'), '/expect ' + 'reviewed'.ljust(20) + ' local',
                 '/snapshot saved-config.json', line('q'), '/exit 0', '/file rclone.conf', '/file sentinel.bin',
                 '/entries .', '/review', '/replay', '/save']
-    if len(controls) != 20:
+    if len(controls) != 16:
         raise RuntimeError('first-use control budget changed')
     immutable_json(root / 'intent.json', dict(controls=controls,
         expected_files={n:v.hex() for n,v in expected.items()},
-        scope='Local unencrypted alias to the synthetic current directory; each submitted line follows an observed prompt.',
+        scope='Rename one existing synthetic local configuration; each submitted line follows an observed prompt.',
         handwritten_spec=False, target_build_sha256=sha256(target / 'build.json')))
     binary, frozen, cell = runner()
     env = environment(target)

@@ -10,10 +10,8 @@ def require(condition, message):
     if not condition:raise RuntimeError(message)
 
 
-def main():
-    parser=argparse.ArgumentParser()
-    parser.add_argument('--run',required=True)
-    args=parser.parse_args()
+def verify_native(run_id,publish=True):
+    args=argparse.Namespace(run=run_id)
     require(args.run.isascii() and args.run.isdecimal(),'invalid native run')
     run=RAW/'native'/args.run
     metadata=load(run/'run-metadata.json')
@@ -90,7 +88,7 @@ def main():
         path=journeys[0]
         journey=load(path)
         package=path.parent
-        require(journey['shell_invocations']==3 and journey['recorder_controls']==20
+        require(journey['shell_invocations']==3 and journey['recorder_controls']==16
                 and not journey['handwritten_playtestr_json'] and journey['runner_sha256']==cell['binary_sha256']
                 and journey['provisional_archive_sha256']==cell['archive_sha256']
                 and journey['target_build_sha256']==sha256(retained/'build.json'),'fresh route budget or identity differs')
@@ -102,22 +100,23 @@ def main():
                 for name in ['rclone.conf','sentinel.bin']:
                     key='artifacts/runner-readiness-ten-project-pass/'+(package/'fixture'/name).relative_to(packet).as_posix()
                     require(files[key]==sha256(package/'fixture'/name),'actual first-route fixture not bound')
-        require((package/'fixture/rclone.conf').read_bytes()==b''
+        newline=b'\r\n' if host=='windows' else b'\n'
+        require((package/'fixture/rclone.conf').read_bytes()==newline.join([b'[seed]',b'type = local',b'',b''])
                 and (package/'fixture/sentinel.bin').read_bytes()==b'preserve\x00existing\r\n','original fixture changed')
         contract=load(package/'spec.json')
         require(sha256(package/'spec.json')==journey['spec_sha256']
                 and contract['command']==['rclone','--config','rclone.conf','config'],'exported command/spec differs')
-        newline=b'\r\n' if host=='windows' else b'\n'
-        expected={'rclone.conf':newline.join([b'[demo]',b'type = alias',b'remote = .',b'',b'']),
+        expected={'rclone.conf':newline.join([b'[reviewed]',b'type = local',b'',b'']),
                   'sentinel.bin':b'preserve\x00existing\r\n'}
         actual={s['state']['path']:base64.b64decode(s['state']['bytes_base64']) for s in contract['steps']
                 if s.get('state',{}).get('kind')=='file'}
         entries=[s['state'] for s in contract['steps'] if s.get('state',{}).get('kind')=='entries']
         require(actual==expected and len(entries)==1 and entries[0]['path']=='.'
-                and entries[0]['entries']==['rclone.conf','sentinel.bin'],'independent exact file/entry oracle differs')
+                and len(entries[0]['entries'])==2 and set(entries[0]['entries'])=={'rclone.conf','sentinel.bin'},
+                'independent exact file/entry oracle differs')
         snapshot=next(s['snapshot'] for s in contract['steps'] if 'snapshot' in s)
         text=(package/'snapshots'/snapshot).read_text(encoding='utf-8')
-        require('Current remotes:' in text and 'demo' in text and 'alias' in text,'live saved-config screen lacks positive evidence')
+        require('Current remotes:' in text and 'reviewed' in text and 'local' in text,'live saved-config screen lacks positive evidence')
         report=load(package/'ordinary-results.json')
         require(report['runner_version']==frozen['version']
                 and report['summary']==dict(total=1,passed=1,failed=0,cancelled=0,not_run=0),'ordinary public report differs')
@@ -144,12 +143,22 @@ def main():
         cells.append(dict(host=host,architecture='amd64',runner_sha256=cell['binary_sha256'],
             archive_sha256=cell['archive_sha256'],target_binary_sha256=build['binary_sha256'],
             journey_sha256=sha256(path),spec_sha256=sha256(package/'spec.json'),cleanup_sha256=sha256(retained/'removed.json')))
-    immutable_json(docs/'rclone'/('first-use-native-'+args.run+'.json'),dict(run=args.run,cells=cells,
-        fresh_route_shell_commands=3,fresh_route_controls=20,
-        cumulative_windows_shell_commands=5,cumulative_windows_requested_controls=40,
+    receipt=dict(run=args.run,cells=cells,
+        fresh_route_shell_commands=3,fresh_route_controls=16,
+        initial_windows_first_use_window=dict(shell_commands=7,requested_controls=56),
+        metric_scope='Fresh route repetitions are recorded per pipeline; initial-window metrics exclude later regression repetitions.',
         engineering_control_target='Missed cumulatively on Windows; original failed first route retained.',
-        human_usability='unmeasured',development_admission=False,final_archive_credit=0))
-    print('Verified real native local-alias first route, same-execution state, compiled identities and cleanup on Linux/Windows.')
+        human_usability='unmeasured',development_admission=False,final_archive_credit=0)
+    if publish:
+        immutable_json(docs/'rclone'/('first-use-native-'+args.run+'.json'),receipt)
+        print('Verified real native local-config rename, same-execution state, compiled identities and cleanup on Linux/Windows.')
+    return receipt
+
+
+def main():
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--run',required=True)
+    verify_native(parser.parse_args().run)
 
 
 if __name__=='__main__':main()

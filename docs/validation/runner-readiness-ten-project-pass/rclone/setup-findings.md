@@ -11,12 +11,15 @@ run `39278090396` remain failed evidence.
   claimed and no further local build retry is planned.
 - The Linux local-config route reached reviewed ordinary success in three
   commands and twenty controls. Windows stopped at the advanced prompt because
-  `nounc` is a basic option only on Windows. The revised portable first route
-  configures an alias to the synthetic current directory. Native line endings
-  and the local-backend prompt difference are declared explicitly.
+  `nounc` is a basic option only on Windows. A subsequent alias route also
+  failed because review missed the shared advanced description option added by
+  backend registration. All creation/edit sequences now include that prompt.
+  The current first route renames an existing synthetic local configuration in
+  sixteen controls. Native line endings and option differences remain explicit.
 - The original Windows attempt requested twenty controls in two commands.
-  A successful revised route would make five commands and forty requested
-  controls cumulatively. The cumulative engineering control target is missed;
+  The later alias attempt adds two commands and twenty controls. A successful
+  three-command rename route would make seven commands and fifty-six controls
+  cumulatively on Windows. Both cumulative engineering targets are missed;
   prepared walkthroughs do not measure human usability.
 - Cleanup incorrectly interpreted a declared plain-text snapshot ending in
   `.json` as JSON report data. The corrected helper recognizes confined snapshot
@@ -31,5 +34,6 @@ run `39278090396` remain failed evidence.
   as a separate bounded attempt before its 41-test suite.
 
 Production Go source and exact provisional runner archives are unchanged.
-Twenty meaningful scenarios have been declared before authoring; target source
+Twenty meaningful scenarios, including missing/wrong-type config, cancellation
+with pre-existing state, and five combined-risk cases, are declared before authoring; target source
 faults remain unselected until a complete reviewed native contract freeze.

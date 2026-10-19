@@ -1,0 +1,33 @@
+{
+  "cause": "Review missed Register appending the shared advanced description option to every backend, including alias.",
+  "cells": [
+    {
+      "build_sha256": "6d6080326fba9d4ab64e526fb42504cc827ba03a72367112379a109765545110",
+      "failed_capture": "f07385f12bb949a7b089babc3a3692f6",
+      "host": "Linux",
+      "source_cleanup_sha256": "2bf1eb4741e1039c3f9f77d5a53dcaa72625d5e414cb17a779250214da07fabc",
+      "target_binary_sha256": "8f85c771d95e22d895e03b84022ba266c8fb89b4ce26f326461987af755b3e84"
+    },
+    {
+      "build_sha256": "6d886622c5c16d0c5b487582588f4c4219c07f4a253b103fda8a0a6f20037b55",
+      "failed_capture": "c7e4a2defd7a42d18e22812b4f20e0d9",
+      "host": "Windows",
+      "source_cleanup_sha256": "8bb925f554e047a8812b63aec3300dc6dbb64315de4bafaa839226efe0a89703",
+      "target_binary_sha256": "717c2ce6d6cd271a26feb7f97140cee882627c0060c9e430f1348315137a7752"
+    }
+  ],
+  "correction": "All alias creation/edit controls now explicitly observe and decline the advanced prompt. A prepared rename workflow provides a useful sixteen-control first route without backend-option configuration.",
+  "development_admission": false,
+  "final_archive_credit": 0,
+  "first_use_accounting": "Initial Linux local-config route succeeded in 3 commands/20 controls. Windows has two failed available-target routes (4 commands/40 controls); a successful 3-command/16-control rename would total 7/56, missing both cumulative engineering targets.",
+  "observed": "Both alias routes reach the remote value, then time out waiting for Keep this remote. Replay/export correctly refuse unresolved controls.",
+  "original_run": "39279953091",
+  "production_go_changed": false,
+  "provisional_archives_changed": false,
+  "scenario_revision": "scenario-declaration-v2.json; still before any twenty-case authoring or source fault selection.",
+  "source": {
+    "path": "fs/registry.go",
+    "pin": "d369079a1448c487d09d85bfe11382e16ea4e345",
+    "sha256": "8195552d980ab945b54bfe26e1d582014deb975e4a5e4c410902b668aff045e4"
+  }
+}

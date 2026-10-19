@@ -11,6 +11,7 @@ from pathlib import Path, PurePosixPath
 import shutil
 import tarfile
 import uuid
+import zipfile
 
 from adversarial_process import close_transport, execute, unix_process_inventory
 from readiness_evidence import Campaign, RAW, ROOT, immutable_json, sha256
@@ -121,11 +122,14 @@ async def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--prepare-only',action='store_true')
     parser.add_argument('--source-only',action='store_true',help='Retain an acquired, never-built local Windows Vis/fff source tree without inventing runtime/build receipts')
+    parser.add_argument('--failed-setup',action='store_true',help='Retain local Windows Rclone source and failed setup evidence without claiming a successful CLI build')
     parser.add_argument('--project',choices=['plop','poetry','rubygems','edit','vis','fff','papis','frogmouth','hygen','rclone'],default='plop')
     args=parser.parse_args()
     if os.name=='nt' and not args.prepare_only:
         raise RuntimeError('use --prepare-only then the checked native PowerShell removal route on Windows')
     project=args.project
+    if args.failed_setup and (os.name!='nt' or project!='rclone' or not args.prepare_only or args.source_only):
+        raise RuntimeError('failed-setup retention requires the checked local Windows Rclone preparation route')
     if args.source_only and (os.name!='nt' or project not in {'vis','fff'} or not args.prepare_only):
         raise RuntimeError('source-only retention applies only to never-built local Windows Vis/fff preparation')
     active=RAW/'active'/project
@@ -138,6 +142,30 @@ async def main():
     repository={'plop':'plopjs/plop','poetry':'python-poetry/poetry','rubygems':'ruby/rubygems','edit':'microsoft/edit','vis':'martanne/vis','fff':'dylanaraps/fff','papis':'papis/papis','frogmouth':'Textualize/frogmouth','hygen':'jondot/hygen','rclone':'rclone/rclone'}[project]
     if marker['workspace']!=str(ROOT) or marker['campaign']!='runner-readiness-ten-project-pass' or marker['project']!=repository:
         raise RuntimeError('cleanup ownership mismatch')
+    failed_setup=None
+    if args.failed_setup:
+        if any((active/name).exists() for name in ['runtime.json','build.json','bin/rclone','bin/rclone.exe']):
+            raise RuntimeError('failed-setup retention refuses successful CLI receipts or a target executable')
+        failures={}
+        for identity in ['b1476e1455bb42b897b9400b706bb754','f0d0d87d4b00430fbd952530301572d2']:
+            path=RAW/'events'/(identity+'-finished.json')
+            row=json.loads(path.read_text())
+            if row['project']!='rclone' or row['category']!='harness_timeout' or row['cleanup_errors']:
+                raise RuntimeError('declared failed local CLI build/cleanup differs')
+            failures[identity]=sha256(path)
+        sdk=json.loads((active/'toolchain/sdk.json').read_text())
+        sdk_archive=active/'toolchain/go1.27.0.windows-amd64.zip'
+        if sdk['version']!='go1.27.0' or sdk['host']!='windows' or sdk['architecture']!='amd64' or sha256(sdk_archive)!=sdk['sha256']:
+            raise RuntimeError('failed setup SDK archive differs')
+        with zipfile.ZipFile(sdk_archive) as bundle:
+            member=bundle.getinfo('go/bin/go.exe')
+            if member.file_size>32*1024**2:raise RuntimeError('SDK compiler member byte bound')
+            compiler_sha=hashlib.sha256(bundle.read(member)).hexdigest()
+        if compiler_sha!=sha256(active/'toolchain/go/bin/go.exe'):
+            raise RuntimeError('owned cache cleanup compiler differs from verified SDK')
+        failed_setup=dict(native_cli_built=False,native_cli_executed=False,compiler_executed=True,
+            compiler_sha256=compiler_sha,sdk_archive_sha256=sdk['sha256'],failed_build_events=failures,
+            qualification='Local setup only. Actual CLI compatibility requires separately verified hosted native evidence.')
     if os.name=='nt':
         proof=json.loads((RAW/project/'local-process-cleanup.json').read_text(encoding='utf-8-sig'))
         age=(datetime.now(timezone.utc)-datetime.fromisoformat(proof['checked_at_utc'].replace('Z','+00:00'))).total_seconds()
@@ -183,7 +211,9 @@ async def main():
         selected={'LICENSE.txt','package.json','yarn.lock','README.md','src/bin.ts','src/ops/add.ts','dist/bin.js','dist/ops/add.js','dist/ops/injector.js'}
     elif project=='rclone':
         selected={'COPYING','go.mod','go.sum','fs/config/ui.go','fs/config/config.go',
-                  'fs/config/configfile/configfile.go','cmd/config/config.go','backend/local/local.go'}
+                  'fs/config/configfile/configfile.go','cmd/config/config.go','backend/local/local.go',
+                  'backend/alias/alias.go','fs/backend_config.go','fs/fspath/path.go',
+                  'fs/driveletter/driveletter.go','fs/driveletter/driveletter_windows.go'}
     elif project=='frogmouth':
         selected={'LICENSE','pyproject.toml','frogmouth/__init__.py','frogmouth/widgets/viewer.py',
                   'frogmouth/widgets/omnibox.py','frogmouth/screens/main.py','frogmouth/data/config.py'}
@@ -210,12 +240,16 @@ async def main():
                 restored=restore/relative;restored.parent.mkdir(parents=True,exist_ok=True);restored.write_bytes(value)
                 if sha256(restored)!=digest:raise RuntimeError('selected restore verification failed')
     if not selected<=manifest.keys():raise RuntimeError('restore coverage missing')
-    records=['task-owned.json','acquisition.json'] if args.source_only else ['task-owned.json','acquisition.json','runtime.json','build.json']
+    records=['task-owned.json','acquisition.json'] if args.source_only or args.failed_setup else ['task-owned.json','acquisition.json','runtime.json','build.json']
     for name in records:
         shutil.copyfile(active/name,retained/name)
     if args.source_only:
         immutable_json(retained/'source-only.json',dict(project=repository,native_local_build_attempted=False,
             native_local_runtime_attempted=False,local_host='Windows',qualification='not attempted; declared runtime hosts Linux/macOS only'))
+    if args.failed_setup:
+        immutable_json(retained/'failed-setup.json',failed_setup)
+        observations=retained/'setup-observations';observations.mkdir()
+        for path in active.glob('build-storage-*.json'):shutil.copyfile(path,observations/path.name)
     if project=='hygen':
         shutil.copyfile(active/'dependencies.json',retained/'dependencies.json')
         shutil.copyfile(active/'tooling/acquisition.json',retained/'package-manager.json')
@@ -234,6 +268,7 @@ async def main():
     if project=='rclone':
         from readiness_build_rclone import environment
         env=environment(active)
+        env.update(GOPROXY='off',GOSUMDB='off')
         for name in ['GOCACHE','GOMODCACHE','GOPATH','GOTMPDIR']:
             Path(env[name]).resolve().relative_to(active.resolve())
         go=active/'toolchain/go/bin'/('go.exe' if os.name=='nt' else 'go')

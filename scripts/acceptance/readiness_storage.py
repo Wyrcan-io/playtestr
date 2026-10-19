@@ -1,7 +1,9 @@
 """Bounded logical-byte storage observation for this campaign's owned roots."""
 import argparse
+import json
 from datetime import datetime,timezone
 import os
+import stat
 from pathlib import Path
 import uuid
 
@@ -9,28 +11,32 @@ from readiness_evidence import RAW,ROOT,immutable_json
 
 
 def measure(root):
-    totals={};count=0;links=[]
-    for directory,dirs,files in os.walk(root,followlinks=False):
-        linked=set()
-        for name in dirs+files:
-            path=Path(directory)/name
-            if path.is_symlink() or getattr(path,'is_junction',lambda:False)():
-                linked.add(name);relative=path.relative_to(root)
-                size=path.lstat().st_size
-                totals[relative.parts[0]]=totals.get(relative.parts[0],0)+size
-                links.append(relative.as_posix())
-                if len(links)>1000:raise RuntimeError('storage link metadata bound')
-        # Retained synthetic link controls are metadata, never traversal roots.
-        # Inventorying them does not authorize their removal or follow targets.
-        dirs[:]=[name for name in dirs if name not in linked]
-        for name in files:
-            if name in linked:continue
-            path=Path(directory)/name;count+=1
-            if count>250000:raise RuntimeError('storage observation count bound')
-            if not path.is_file():raise RuntimeError('special storage observation entry')
-            first=path.relative_to(root).parts[0]
-            totals[first]=totals.get(first,0)+path.stat().st_size
-    return dict(total_bytes=sum(totals.values()),files=count,top_level_bytes=totals,unfollowed_links=links)
+    root=Path(root)
+    if root.is_symlink() or getattr(root,'is_junction',lambda:False)():raise RuntimeError('linked storage observation root')
+    totals={};count=0;links=[];entries=0
+    pending=[(str(root),None)]
+    while pending:
+        directory,top=pending.pop()
+        with os.scandir(directory) as children:
+            for entry in children:
+                entries+=1
+                if entries>500000:raise RuntimeError('storage directory entry bound')
+                info=entry.stat(follow_symlinks=False)
+                first=entry.name if top is None else top
+                linked=(stat.S_ISLNK(info.st_mode) or getattr(info,'st_reparse_tag',0)==
+                        getattr(stat,'IO_REPARSE_TAG_MOUNT_POINT',0xA0000003))
+                if linked:
+                    totals[first]=totals.get(first,0)+info.st_size
+                    links.append(Path(entry.path).relative_to(root).as_posix())
+                    if len(links)>1000:raise RuntimeError('storage link metadata bound')
+                elif stat.S_ISDIR(info.st_mode):
+                    pending.append((entry.path,first))
+                elif stat.S_ISREG(info.st_mode):
+                    count+=1
+                    if count>250000:raise RuntimeError('storage observation count bound')
+                    totals[first]=totals.get(first,0)+info.st_size
+                else:raise RuntimeError('special storage observation entry')
+    return dict(total_bytes=sum(totals.values()),files=count,top_level_bytes=totals,unfollowed_links=sorted(links))
 
 
 def main():
@@ -45,7 +51,18 @@ def main():
     project_bytes=raw['top_level_bytes'].get(args.project,0)
     native_bytes=0;native_runs=[]
     for run in (RAW/'native').iterdir():
-        if run.is_dir() and (any(run.glob('*/runner-readiness-ten-project-pass/'+args.project+'-native-runner.json')) or any(run.glob('*/'+args.project+'-native-runner.json'))):
+        if not run.is_dir():continue
+        attributed=(any(run.glob('*/runner-readiness-ten-project-pass/'+args.project+'-native-runner.json'))
+                    or any(run.glob('*/'+args.project+'-native-runner.json'))
+                    or any(p.is_dir() for p in run.glob('*/'+args.project)))
+        if not attributed:
+            for event in run.glob('*/events/*-started.json'):
+                if event.stat().st_size>65536:raise RuntimeError('storage attribution event byte bound')
+                row=json.loads(event.read_text(encoding='utf-8-sig'))
+                if row.get('project')==args.project or row.get('label','').startswith(args.project+'-native-'):
+                    attributed=True
+                    break
+        if attributed:
             native_bytes+=measure(run)['total_bytes'];native_runs.append(run.name)
     project_bytes+=native_bytes
     record=dict(raw=raw,curated=curated,retained_bytes=retained,selected_project=args.project,
