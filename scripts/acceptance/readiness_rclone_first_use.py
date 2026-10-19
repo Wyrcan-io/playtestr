@@ -24,7 +24,8 @@ async def main():
     seed = {'rclone.conf': b'', 'sentinel.bin': b'preserve\x00existing\r\n'}
     for name, value in seed.items():
         (fixture / name).write_bytes(value)
-    expected = {**seed, 'rclone.conf': b'[demo]\ntype = local\n\n'}
+    newline = b'\r\n' if os.name == 'nt' else b'\n'
+    expected = {**seed, 'rclone.conf': newline.join([b'[demo]', b'type = local', b'', b''])}
     def line(value):
         return '/text ' + json.dumps(value + '\r')
     controls = ['/expect No remotes found, make a new one?', line('n'), '/expect name>', line('demo'),

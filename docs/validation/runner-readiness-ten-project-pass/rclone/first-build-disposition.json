@@ -1,0 +1,44 @@
+{
+  "cause": "Undetermined cold dependency setup timeout; no compiler errors were emitted before the limit.",
+  "counters": "Not a completed target build, first-use attempt or passing qualification.",
+  "dependency_review": {
+    "files": {
+      "LICENSE": "9ff562631a04b8cb1030c53fdf461bd749c9af0655d86e4f17eb270e935a7fe2",
+      "conf.go": "4e8c729c0c17a1d4b6fbcb837979672decba0147c80a5183337a1d3dcd3055e2",
+      "write.go": "84a0f3dbbc3583ca82948c241844259676c1ddaa919ed8250aeb468b48b8970f"
+    },
+    "findings": "SaveConfigData uses spaced equals and a blank line between sections; LineBreak is CRLF on Windows and LF elsewhere. No Rclone override found.",
+    "first_use_change": "Declare native exact expected bytes before any public Rclone recording; no existing expectation updated.",
+    "locked_sum": "h1:rS7O+CmUdli1T+oDm7fYj1MwqNWtEJfNj+FqcUHML8U=",
+    "module": "github.com/unknwon/goconfig",
+    "version": "v1.0.0"
+  },
+  "diagnostic": {
+    "attempt": "a25b87ea771a4612b903f87004bab74e",
+    "checksum": "h1:rS7O+CmUdli1T+oDm7fYj1MwqNWtEJfNj+FqcUHML8U=",
+    "elapsed_seconds": 59.89100000000326,
+    "module": "github.com/unknwon/goconfig",
+    "qualification": "Dependency transport/checksum diagnostic only; original full build timed out.",
+    "version": "v1.0.0"
+  },
+  "first_failed_attempt": "b1476e1455bb42b897b9400b706bb754",
+  "observed_max_active_bytes": 1206810162,
+  "outcome": {
+    "campaign": "runner-readiness-ten-project-pass",
+    "category": "harness_timeout",
+    "cleanup_errors": [],
+    "console_sha256": "251c94a0a7ffcf9e0ff5810a465d11208416dc635add8f320205d4607dfebec3",
+    "event": "finished",
+    "exit_code": null,
+    "harness_cleanup": "harness_process_reaped",
+    "id": "b1476e1455bb42b897b9400b706bb754",
+    "label": "reviewed-native-full-cli-build",
+    "output_bytes": 2320,
+    "phase": "development",
+    "project": "rclone",
+    "schema_version": 1,
+    "seconds": 780.297
+  },
+  "outer_failed_attempt": "8faac0a2987048b2bffd1b11e001f5c5",
+  "resume": "One bounded cached resume, same 780-second command deadline and unchanged original source/locks/SDK/build flags."
+}

@@ -1,10 +1,12 @@
 """Build the pinned real Rclone CLI using an owned SDK and dependency/cache roots."""
 import asyncio
+import argparse
 import json
 import os
 from pathlib import Path
 import platform
 import sys
+import time
 import uuid
 
 from adversarial_process import execute
@@ -32,11 +34,24 @@ def environment(target):
 
 
 async def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--resume', action='store_true')
+    args = parser.parse_args()
     target = RAW / 'active/rclone'
     source = target / 'src'
     owner = json.loads((target / 'task-owned.json').read_text())
     if owner['workspace'] != str(ROOT) or owner['pin'] != PIN or owner['project'] != 'rclone/rclone':
         raise RuntimeError('unowned pinned Rclone target')
+    prior_failures = []
+    if args.resume:
+        for path in (RAW/'events').glob('*-finished.json'):
+            row = json.loads(path.read_text())
+            if (row['project'] == 'rclone' and row['label'] == 'reviewed-native-full-cli-build'
+                    and row['category'] != 'passed'):
+                prior_failures.append(row['id'])
+        if (not prior_failures or not (target/'toolchain/sdk.json').is_file()
+                or any((target/name).exists() for name in ['build.json','runtime.json'])):
+            raise RuntimeError('resume requires preserved failed build and no successful build receipts')
     docs = ROOT / 'docs/validation/runner-readiness-ten-project-pass/rclone'
     review = json.loads((docs / 'source-review.json').read_text(encoding='utf-8-sig'))
     for name, digest in review['reviewed_inputs'].items():
@@ -59,8 +74,11 @@ async def main():
     if native['GOOS'] != host or native['GOARCH'] != arch or native['GOVERSION'] != 'go1.27.0' or native['CGO_ENABLED'] != '0':
         raise RuntimeError('target would not use declared native pure-Go build')
     binary = target / 'bin' / ('rclone.exe' if os.name == 'nt' else 'rclone')
-    binary.parent.mkdir()
+    binary.parent.mkdir(exist_ok=args.resume)
+    if binary.exists():raise RuntimeError('refuse to replace an existing target binary')
     observations = []
+    monitor_started = time.monotonic()
+    last_notice = -60
     operation = asyncio.create_task(execute([go, 'build', '-p', '2', '-mod=readonly', '-trimpath', '-buildvcs=false',
         '-ldflags', '-s -w', '-o', binary, '.'], 'rclone', 'reviewed-native-full-cli-build',
         cwd=source, env=env, timeout=780, campaign=Campaign()))
@@ -68,6 +86,10 @@ async def main():
         while not operation.done():
             size = await asyncio.to_thread(usage, target)
             observations.append(size)
+            elapsed = time.monotonic()-monitor_started
+            if elapsed-last_notice >= 60:
+                print('Rclone build monitor:', round(elapsed), 'seconds;', size, 'active logical bytes', flush=True)
+                last_notice = elapsed
             if size > 3840*1024**2:
                 raise RuntimeError('stop before declared four-GiB active target limit')
             await asyncio.sleep(2)
@@ -98,6 +120,7 @@ async def main():
                    go_mod_sha256=sha256(source / 'go.mod'), go_sum_sha256=sha256(source / 'go.sum'),
                    sdk_sha256=sha256(sdk), compiler_sha256=sha256(go), native_settings=native,
                    build_attempt=build['id'], settings_attempt=settings['id'], version_attempt=version['id'],
+                   resumed_after_failed_attempts=sorted(prior_failures),
                    build_flags=['-p=2', '-mod=readonly', '-trimpath', '-buildvcs=false', '-ldflags=-s -w'],
                    cgo_enabled=False, target_hooks_executed=False, observed_active_bytes=usage(target)))
     print('Pinned native Rclone full CLI built; config wizard only, no cloud/network/mount qualification.')

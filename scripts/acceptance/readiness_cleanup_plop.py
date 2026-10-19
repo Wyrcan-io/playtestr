@@ -205,6 +205,17 @@ async def main():
             if (active/name).is_dir():shutil.copytree(active/name,retained/name)
     immutable_json(retained/'verified-index.json',dict(archive_sha256=sha256(copy),files=manifest,
         selected_restore=sorted(selected),expanded_source_bytes=expanded,process_inventory=current))
+    if project=='rclone':
+        from readiness_build_rclone import environment
+        env=environment(active)
+        for name in ['GOCACHE','GOMODCACHE','GOPATH','GOTMPDIR']:
+            Path(env[name]).resolve().relative_to(active.resolve())
+        go=active/'toolchain/go/bin'/('go.exe' if os.name=='nt' else 'go')
+        cleaned=await execute([go,'clean','-modcache','-cache'],project,'remove-only-owned-go-caches',
+                              cwd=active/'src',env=env,timeout=180,campaign=Campaign())
+        if (active/'gopath/pkg/mod').exists():raise RuntimeError('owned Go module cache remains after native clean')
+        immutable_json(retained/'owned-cache-cleanup.json',dict(attempt=cleaned['id'],
+            cache_roots=['gopath/pkg/mod','go-cache'],global_caches_modified=False))
     # Do not follow package-manager links during either verification or removal.
     entries=0;links=[];external_runtime_links=[]
     for directory,dirs,files in os.walk(active,followlinks=False):
