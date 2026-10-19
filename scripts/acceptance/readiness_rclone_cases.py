@@ -39,8 +39,12 @@ def rows(host=None):
         prompt=('/expect remote>' if previous is None else contextual(
             'Enter a value of type string. Press Enter for the default ('+previous+').',
             'Enter a value of type string. Press Enter for the default ('+previous+').\nremote>'))
-        return [prompt,line(path),'/expect Edit advanced config?',line('n'),
-                '/expect Keep this "'+name+'" remote?',line(answer)]
+        advanced=('/expect Edit advanced config?' if previous is None else contextual(
+            'remote> '+path,'remote> '+path+'\n\nEdit advanced config?\ny) Yes\nn) No (default)\ny/n>'))
+        keep=('/expect Keep this "'+name+'" remote?' if previous is None else contextual(
+            '- remote: '+path,'Configuration complete.\nOptions:\n- type: alias\n- remote: '+path+
+            '\nKeep this "'+name+'" remote?\ny) Yes this is OK (default)\ne) Edit this remote\nd) Delete this remote\ny/e/d>'))
+        return [prompt,line(path),advanced,line('n'),keep,line(answer)]
     def finish(nonempty=True,anchor=None):
         return [anchor or '/expect '+('Current remotes:' if nonempty else 'No remotes found, make a new one?'),
                 '/snapshot final.txt',line('q'),'/exit 0']
@@ -83,7 +87,8 @@ def rows(host=None):
     drive_name='reviewed' if host=='windows' else 'z'
     drive_prefix=[line('z'),'/expect confused with a drive letter.'] if host=='windows' else []
     resize=start()+[line('n'),'/expect name>',text('caf\u00e9 \u96ea'),'/expect caf\u00e9 \u96ea',
-        '/resize 70 20',text('A'),'/expect caf\u00e9 \u96eaA','/resize 100 28',text('B'),
+        '/resize 70 20',*(['/redraw'] if host=='windows' else []),text('A'),'/expect caf\u00e9 \u96eaA',
+        '/resize 100 28',*(['/redraw'] if host=='windows' else []),text('B'),
         '/expect caf\u00e9 \u96eaAB',line(''),'/expect Storage>',line('alias')]+alias_options('caf\u00e9 \u96eaAB')+finish()
     return [
         row('N01','create a local storage configuration',new('demo')+[line('local')]+local_options('demo')+finish(),
