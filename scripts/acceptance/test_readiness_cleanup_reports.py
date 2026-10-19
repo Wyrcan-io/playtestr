@@ -8,6 +8,18 @@ from readiness_evidence import RAW
 
 
 class RetainedCleanupReportTests(unittest.TestCase):
+    def test_explicit_report_selection_does_not_parse_template_json_but_rejects_bad_report(self):
+        RAW.mkdir(parents=True,exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=RAW) as directory:
+            root=Path(directory);report=root/'results.json'
+            (root/'template.json').write_text('{{ intentionally unrendered template }}')
+            report.write_text(json.dumps(dict(report_version=3,results=[dict(
+                cleanup=dict(attempted=True,confirmed_exited=True),workspace=dict(prepared=True,cleaned=True))])))
+            verify_retained_report_cleanup(root,[report])
+            report.write_text('truncated actual report')
+            with self.assertRaisesRegex(RuntimeError,'invalid retained JSON'):
+                verify_retained_report_cleanup(root,[report])
+
     def fixture(self, root, snapshot='saved-config.json'):
         (root/'snapshots').mkdir()
         (root/'spec.json').write_text(json.dumps(dict(version=3, command=['trusted-target'],

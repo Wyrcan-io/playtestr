@@ -186,6 +186,24 @@ class Campaign:
                     if compiler.is_symlink() or getattr(compiler,'is_junction',lambda:False)():raise ValueError('linked Rclone compiler')
                     paths.append(compiler)
                     runtime_executables['go']=sha256(compiler)
+            elif project=='old-cookiecutter':
+                review_path=ROOT/'docs/validation/runner-readiness-ten-project-pass/old-migration/cookiecutter/source-review.json'
+                review=json.loads(review_path.read_text(encoding='utf-8-sig'))
+                paths.append(review_path)
+                paths.extend(target/'src'/name for name in review['reviewed_inputs'])
+                for name in ['wheels.json','runtime-requirements.txt']:
+                    if (target/name).is_file():paths.append(target/name)
+                python=target/'venv'/('Scripts/python.exe' if os.name=='nt' else 'bin/python')
+                if python.is_file():
+                    if python.is_symlink() or getattr(python,'is_junction',lambda:False)():raise ValueError('linked owned Python')
+                    paths.append(python);runtime_executables['python']=sha256(python)
+                launcher=python.parent/('cookiecutter.exe' if os.name=='nt' else 'cookiecutter')
+                if launcher.is_file():paths.append(launcher)
+                sites=([target/'venv/Lib/site-packages'] if os.name=='nt' else list((target/'venv/lib').glob('python*/site-packages')))
+                for site in sites:
+                    if site.exists():
+                        paths.extend(p for p in site.rglob('*') if p.is_file() and
+                            (p.suffix in {'.py','.pyc','.pth','.so','.pyd'} or p.name in {'METADATA','entry_points.txt','RECORD'}))
             elif project=='rubygems':
                 paths.extend(p for p in (target/'src/lib').rglob('*') if p.is_file())
                 paths.extend(p for p in (target/'src/exe').iterdir() if p.is_file())

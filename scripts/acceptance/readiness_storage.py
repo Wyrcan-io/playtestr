@@ -41,7 +41,10 @@ def measure(root):
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--project',required=True);args=parser.parse_args()
-    if args.project not in {'plop','poetry','rubygems','edit','vis','fff','papis','frogmouth','hygen','rclone'}:
+    old=args.project.startswith('old-')
+    old_names={p['project'] for p in json.loads((ROOT/'docs/validation/runner-readiness-ten-project-pass/old-migration-inventory.json').read_text())['projects']}
+    if (old and args.project[4:] not in old_names or not old and
+            args.project not in {'plop','poetry','rubygems','edit','vis','fff','papis','frogmouth','hygen','rclone'}):
         raise RuntimeError('undeclared project storage scope')
     raw=measure(RAW);curated=measure(ROOT/'docs/validation/runner-readiness-ten-project-pass')
     # Prerequisite/build caches count in the six-GiB campaign ceiling. Everything
@@ -49,6 +52,11 @@ def main():
     caches={'active','toolchain','go-cache','gopath','gh-cache','tmp'}
     retained=sum(size for name,size in raw['top_level_bytes'].items() if name not in caches)
     project_bytes=raw['top_level_bytes'].get(args.project,0)
+    migration_bytes=0
+    if old:
+        migration=RAW/'old-migration'/args.project[4:]
+        if migration.exists():migration_bytes=measure(migration)['total_bytes']
+        project_bytes+=migration_bytes
     native_bytes=0;native_runs=[]
     for run in (RAW/'native').iterdir():
         if not run.is_dir():continue
@@ -66,12 +74,13 @@ def main():
             native_bytes+=measure(run)['total_bytes'];native_runs.append(run.name)
     project_bytes+=native_bytes
     record=dict(raw=raw,curated=curated,retained_bytes=retained,selected_project=args.project,
-        selected_project_bytes=project_bytes,attributed_expanded_native_bytes=native_bytes,native_runs=native_runs,
+        selected_project_bytes=project_bytes,selected_project_cap_bytes=(32 if old else 64)*1024**2,
+        old_migration_package_bytes=migration_bytes,attributed_expanded_native_bytes=native_bytes,native_runs=native_runs,
         checked_at_utc=datetime.now(timezone.utc).isoformat(),
         interpretation='Logical file bytes observed before writing this receipt; not allocation, exact peak or an OS quota.',
         active_projects=sorted(p.name for p in (RAW/'active').iterdir()))
     immutable_json(RAW/'storage'/(uuid.uuid4().hex+'.json'),record)
-    if raw['total_bytes']>6*1024**3 or retained>2*1024**3 or curated['total_bytes']>25*1024**2 or project_bytes>64*1024**2:
+    if raw['total_bytes']>6*1024**3 or retained>2*1024**3 or curated['total_bytes']>25*1024**2 or project_bytes>record['selected_project_cap_bytes']:
         raise RuntimeError('declared campaign/retention/curated/project storage cap exceeded; preserve receipt and stop acquisition')
     print('Campaign bytes:',raw['total_bytes'],'retained:',retained,'curated:',curated['total_bytes'],
         'selected project:',project_bytes,'active:',record['active_projects'])

@@ -16,6 +16,8 @@ import zipfile
 from adversarial_process import close_transport, execute, unix_process_inventory
 from readiness_evidence import Campaign, RAW, ROOT, immutable_json, sha256
 
+SCOPED_RUNTIMES={'fff','papis','frogmouth','hygen','rclone','old-cookiecutter'}
+
 
 async def owned_runtime_command(pid,identity):
     """Inspect bounded arguments privately; persist only the ownership decision."""
@@ -49,7 +51,7 @@ async def runtime_inventory(project,label):
     birth=await unix_process_inventory()
     selected={};scope=[]
     ancestors=set();ancestor=os.getpid()
-    if project in {'fff','papis','frogmouth','hygen','rclone'}:
+    if project in SCOPED_RUNTIMES:
         while ancestor in birth and ancestor not in ancestors:
             if len(ancestors)>=64:raise RuntimeError('process ancestor inventory bound')
             ancestors.add(ancestor);ancestor=birth[ancestor][0]
@@ -61,18 +63,19 @@ async def runtime_inventory(project,label):
                        name in {'edit','cargo','rustc','rustdoc','cc','ld','lld','collect2'} if project=='edit' else
                        name in {'vis','make','cc','as','ld','collect2'} or name.startswith(('gcc','clang','cc1','x86_64-linux-gn','aarch64-linux-gn')) if project=='vis' else
                        name in {'bash','sh','fff','cp','mv','rm','mkdir','stty','file','chmod','ln'} if project=='fff' else
-                       name in {'rclone','go','compile','link','asm','cgo'} if project=='rclone' else name.startswith('python'))
+                       name in {'rclone','go','compile','link','asm','cgo'} if project=='rclone' else
+                       name.startswith('python') or name in {'cookiecutter','pip','pip3'} if project=='old-cookiecutter' else name.startswith('python'))
         if len(fields)==2 and runtime_match:
             pid=int(fields[0])
-            if project in {'fff','papis','frogmouth','hygen','rclone'} and pid in ancestors:continue
+            if project in SCOPED_RUNTIMES and pid in ancestors:continue
             if project=='poetry' and pid in {os.getpid(),os.getppid()}:continue
             if pid not in birth:continue
-            if project in {'fff','papis','frogmouth','hygen','rclone'}:
+            if project in SCOPED_RUNTIMES:
                 owned=await owned_runtime_command(pid,birth[pid])
                 scope.append(dict(pid=pid,birth=birth[pid][1],owned_campaign_command=owned))
                 if not owned:continue
             selected[str(pid)]=list(birth[pid])
-    if project in {'fff','papis','frogmouth','hygen','rclone'}:
+    if project in SCOPED_RUNTIMES:
         immutable_json(RAW/project/'runtime-inventories'/(uuid.uuid4().hex+'.json'),
             dict(schema_version=1,label=label,checked_at_utc=datetime.now(timezone.utc).isoformat(),
                  owned_root=str(RAW.resolve()),observations=scope,command_values_persisted=False,
@@ -84,14 +87,24 @@ async def node_inventory(label):
     return await runtime_inventory('plop',label)
 
 
-def verify_retained_report_cleanup(root):
+def verify_retained_report_cleanup(root,report_paths=None):
     """Check report cleanup without interpreting declared plain-text snapshots as JSON."""
     root=Path(root).resolve()
     documents={};invalid={};snapshots=set()
-    for path in root.rglob('*.json'):
+    selected=list(root.rglob('*.json')) if report_paths is None else list(report_paths)
+    if len(selected)>10000:raise RuntimeError('retained report inventory bound')
+    for path in selected:
+        path=Path(path)
+        path.resolve(strict=True).relative_to(root)
+        if path.is_symlink():raise RuntimeError('linked retained report')
         if path.stat().st_size>16*1024**2:raise RuntimeError('retained JSON evidence byte bound')
         try:documents[path]=json.loads(path.read_text(encoding='utf-8-sig'))
         except (ValueError,UnicodeError) as error:invalid[path]=error
+    if report_paths is not None:
+        if not selected:raise RuntimeError('no explicit actual reports')
+        for data in documents.values():
+            if not isinstance(data,dict) or data.get('report_version')!=3 or not isinstance(data.get('results'),list):
+                raise RuntimeError('explicit report is not a machine report')
     for path,data in documents.items():
         if (not isinstance(data,dict) or data.get('version') not in {1,2,3}
                 or not isinstance(data.get('command'),list) or not isinstance(data.get('steps'),list)):
@@ -123,7 +136,7 @@ async def main():
     parser.add_argument('--prepare-only',action='store_true')
     parser.add_argument('--source-only',action='store_true',help='Retain an acquired, never-built local Windows Vis/fff source tree without inventing runtime/build receipts')
     parser.add_argument('--failed-setup',action='store_true',help='Retain local Windows Rclone source and failed setup evidence without claiming a successful CLI build')
-    parser.add_argument('--project',choices=['plop','poetry','rubygems','edit','vis','fff','papis','frogmouth','hygen','rclone'],default='plop')
+    parser.add_argument('--project',choices=['plop','poetry','rubygems','edit','vis','fff','papis','frogmouth','hygen','rclone','old-cookiecutter'],default='plop')
     args=parser.parse_args()
     if os.name=='nt' and not args.prepare_only:
         raise RuntimeError('use --prepare-only then the checked native PowerShell removal route on Windows')
@@ -139,7 +152,7 @@ async def main():
     if active.is_symlink() or active.resolve().parent!=base or not base.is_relative_to(RAW.resolve()):
         raise RuntimeError('unsafe cleanup target')
     marker=json.loads((active/'task-owned.json').read_text())
-    repository={'plop':'plopjs/plop','poetry':'python-poetry/poetry','rubygems':'ruby/rubygems','edit':'microsoft/edit','vis':'martanne/vis','fff':'dylanaraps/fff','papis':'papis/papis','frogmouth':'Textualize/frogmouth','hygen':'jondot/hygen','rclone':'rclone/rclone'}[project]
+    repository={'plop':'plopjs/plop','poetry':'python-poetry/poetry','rubygems':'ruby/rubygems','edit':'microsoft/edit','vis':'martanne/vis','fff':'dylanaraps/fff','papis':'papis/papis','frogmouth':'Textualize/frogmouth','hygen':'jondot/hygen','rclone':'rclone/rclone','old-cookiecutter':'cookiecutter/cookiecutter'}[project]
     if marker['workspace']!=str(ROOT) or marker['campaign']!='runner-readiness-ten-project-pass' or marker['project']!=repository:
         raise RuntimeError('cleanup ownership mismatch')
     failed_setup=None
@@ -181,6 +194,12 @@ async def main():
         if any(baseline.get(pid)!=identity for pid,identity in current.items()):
             raise RuntimeError('new runtime process remains; cleanup unconfirmed, do not remove live state')
     verify_retained_report_cleanup(RAW/project)
+    if project=='old-cookiecutter':
+        base=RAW/'old-migration/cookiecutter'
+        reports=list(base.glob('*/runs/*/results.json'))
+        for filename in ['legacy-terminal-false-green.json','public-state-corruption-rejected.json','public-state-corruption-restored.json']:
+            reports.extend(base.glob('*/corruption/*/'+filename))
+        verify_retained_report_cleanup(base,reports)
     retained=RAW/project/'retained-source';retained.mkdir(exist_ok=False)
     archive=active/'source.tar.gz'
     acquisition=json.loads((active/'acquisition.json').read_text())
@@ -217,17 +236,28 @@ async def main():
     elif project=='frogmouth':
         selected={'LICENSE','pyproject.toml','frogmouth/__init__.py','frogmouth/widgets/viewer.py',
                   'frogmouth/widgets/omnibox.py','frogmouth/screens/main.py','frogmouth/data/config.py'}
+    elif project=='old-cookiecutter':
+        selected={'LICENSE','pyproject.toml','cookiecutter/__init__.py','cookiecutter/__main__.py',
+                  'cookiecutter/cli.py','cookiecutter/generate.py','cookiecutter/hooks.py','cookiecutter/prompt.py'}
     stream_args=dict(name=copy,mode='r:gz')
     if project=='vis':
         from readiness_vis_source import ARCHIVE_SHA256,LINKS,materialize_archive
         if sha256(copy)!=ARCHIVE_SHA256 or acquisition['materialized_links']!=LINKS:raise RuntimeError('vis retained source profile changed')
         stream_args=dict(fileobj=io.BytesIO(materialize_archive(copy.read_bytes(),LINKS)),mode='r:gz')
+    omitted={}
     with tarfile.open(**stream_args) as bundle:
         for member in bundle:
             parts=PurePosixPath(member.name).parts[1:]
             if not parts:continue
             if any(p in {'..','.'} or ':' in p or '\\' in p for p in parts):raise RuntimeError('unsafe retained member')
             if member.isdir():continue
+            relative='/'.join(parts)
+            if project=='old-cookiecutter' and member.issym():
+                reviewed=json.loads((ROOT/'docs/validation/runner-readiness-ten-project-pass/old-migration/cookiecutter/source-acquisition-review.json').read_text())
+                if (sha256(copy)!=reviewed['archive_sha256'] or acquisition['omitted_links']!=reviewed['omitted_links']
+                        or reviewed['omitted_links'].get(relative)!=member.linkname):raise RuntimeError('reviewed documentation link disposition changed')
+                omitted[relative]=member.linkname
+                continue
             if not member.isfile() or member.size>({'rubygems':32,'vis':16,'rclone':16}.get(project,8))*1024**2:raise RuntimeError('unsafe retained member type/size')
             expanded+=member.size
             if expanded>64*1024**2 or len(manifest)>=10000:raise RuntimeError('restore bounds exceeded')
@@ -240,6 +270,7 @@ async def main():
                 restored=restore/relative;restored.parent.mkdir(parents=True,exist_ok=True);restored.write_bytes(value)
                 if sha256(restored)!=digest:raise RuntimeError('selected restore verification failed')
     if not selected<=manifest.keys():raise RuntimeError('restore coverage missing')
+    if project=='old-cookiecutter' and omitted!=acquisition['omitted_links']:raise RuntimeError('omitted documentation link set differs')
     records=['task-owned.json','acquisition.json'] if args.source_only or args.failed_setup else ['task-owned.json','acquisition.json','runtime.json','build.json']
     for name in records:
         shutil.copyfile(active/name,retained/name)
@@ -258,7 +289,7 @@ async def main():
     if project in {'edit','vis'}:
         for name in (['dependencies.json','build-review.json'] if project=='edit' else []):shutil.copyfile(active/name,retained/name)
         if (active/'build-revisions').is_dir():shutil.copytree(active/'build-revisions',retained/'build-revisions')
-    if project in {'papis','frogmouth'}:
+    if project in {'papis','frogmouth','old-cookiecutter'}:
         for name in ['wheels.json']:
             if (active/name).is_file():shutil.copyfile(active/name,retained/name)
         for name in ['wheel-manifests','dependency-review']:

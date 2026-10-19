@@ -19,6 +19,37 @@ def bundle(entries):
 
 
 class AcquisitionTests(unittest.TestCase):
+    def test_explicit_reviewed_documentation_link_omission_keeps_default_strict(self):
+        RAW.mkdir(parents=True,exist_ok=True)
+        output=io.BytesIO()
+        with tarfile.open(fileobj=output,mode='w:gz') as archive:
+            entry=tarfile.TarInfo('repo/README.md');value=b'exact\x00\r\n';entry.size=len(value)
+            archive.addfile(entry,io.BytesIO(value))
+            alias=tarfile.TarInfo('repo/docs/README.md');alias.type=tarfile.SYMTYPE;alias.linkname='../README.md';archive.addfile(alias)
+        data=output.getvalue()
+        with tempfile.TemporaryDirectory(dir=RAW) as folder:
+            destination=Path(folder)/'source'
+            with self.assertRaisesRegex(RuntimeError,'unsupported source entry type'):
+                extract_source(data,destination,expanded_limit=1024,entry_limit=10,member_limit=1024)
+            self.assertFalse(destination.exists())
+            count,size=extract_source(data,destination,expanded_limit=1024,entry_limit=10,member_limit=1024,
+                omitted_links={'docs/README.md':'../README.md'})
+            self.assertEqual((count,size),(1,len(value)))
+            self.assertEqual((destination/'README.md').read_bytes(),value)
+            self.assertFalse((destination/'docs/README.md').exists())
+
+    def test_changed_or_missing_reviewed_link_is_rejected_before_extraction(self):
+        RAW.mkdir(parents=True,exist_ok=True)
+        output=io.BytesIO()
+        with tarfile.open(fileobj=output,mode='w:gz') as archive:
+            alias=tarfile.TarInfo('repo/docs/README.md');alias.type=tarfile.SYMTYPE;alias.linkname='../README.md';archive.addfile(alias)
+        with tempfile.TemporaryDirectory(dir=RAW) as folder:
+            for mapping in [{'docs/README.md':'../changed'}, {'docs/README.md':'../README.md','docs/extra':'../extra'}, {}]:
+                destination=Path(folder)/'source'
+                with self.assertRaises(RuntimeError):
+                    extract_source(output.getvalue(),destination,expanded_limit=1024,entry_limit=10,member_limit=1024,omitted_links=mapping)
+                self.assertFalse(destination.exists())
+
     def test_reviewed_archive_alias_is_materialized_without_host_links(self):
         RAW.mkdir(parents=True,exist_ok=True)
         def linked(target):

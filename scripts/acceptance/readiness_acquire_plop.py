@@ -10,7 +10,7 @@ import urllib.request
 from readiness_evidence import RAW, ROOT, immutable_json, sha256
 
 
-def extract_source(data, source, *, expanded_limit, entry_limit, member_limit):
+def extract_source(data, source, *, expanded_limit, entry_limit, member_limit, omitted_links=None):
     """Validate the entire bounded member plan before creating any output."""
     source=Path(source)
     source.parent.resolve().relative_to(ROOT)
@@ -26,24 +26,31 @@ def extract_source(data, source, *, expanded_limit, entry_limit, member_limit):
         prefixes={PurePosixPath(m.name).parts[0] for m in members}
         if len(prefixes)!=1 or not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._-]{0,200}',next(iter(prefixes))):
             raise RuntimeError('ambiguous or unsafe archive root')
-        plan=[];total=0;seen=set();file_paths=set()
+        plan=[];total=0;seen=set();file_paths=set();omitted={}
         for member in members:
             name=PurePosixPath(member.name);parts=name.parts[1:]
             if name.is_absolute() or any(p in {'','..','.'} or ':' in p or '\\' in p for p in name.parts):
                 raise RuntimeError('unsafe archive path')
-            if member.issym() or member.islnk() or not (member.isfile() or member.isdir()):
-                raise RuntimeError('unsupported source entry type')
             if not parts:
                 if not member.isdir():raise RuntimeError('archive root is not a directory')
                 continue
             key='/'.join(parts).casefold() if os.name=='nt' else '/'.join(parts)
             if key in seen:raise RuntimeError('duplicate source member')
             seen.add(key)
+            if member.issym() and omitted_links is not None and '/'.join(parts) in omitted_links:
+                relative='/'.join(parts)
+                if member.linkname!=omitted_links[relative]:raise RuntimeError('reviewed omitted source link target changed')
+                omitted[relative]=member.linkname
+                file_paths.add(key)
+                continue
+            if member.issym() or member.islnk() or not (member.isfile() or member.isdir()):
+                raise RuntimeError('unsupported source entry type')
             if member.isfile():file_paths.add(key)
             total+=member.size
             if member.size<0 or total>expanded_limit or member.size>member_limit:
                 raise RuntimeError('extracted source byte limit')
             plan.append((member,parts))
+        if omitted_links is not None and omitted!=omitted_links:raise RuntimeError('reviewed omitted source link set changed')
         for _,parts in plan:
             for i in range(1,len(parts)):
                 parent='/'.join(parts[:i]);parent=parent.casefold() if os.name=='nt' else parent
@@ -64,7 +71,7 @@ def extract_source(data, source, *, expanded_limit, entry_limit, member_limit):
 
 
 def acquire(slug, repository, pin, *, archive_limit=8*1024**2, expanded_limit=64*1024**2,
-            entry_limit=10000, member_limit=8*1024**2, resume=False):
+            entry_limit=10000, member_limit=8*1024**2, resume=False, omitted_links=None, expected_archive_sha256=None):
     if not re.fullmatch(r'[a-z][a-z0-9-]{0,63}',slug) or not re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+',repository) or not re.fullmatch(r'[0-9a-f]{40}',pin):
         raise ValueError('invalid pinned source identity')
     active = RAW/'active'
@@ -86,11 +93,13 @@ def acquire(slug, repository, pin, *, archive_limit=8*1024**2, expanded_limit=64
         data=response.read(archive_limit+1)
     if len(data)>archive_limit: raise RuntimeError('source archive exceeds acquisition limit')
     archive=target/'source.tar.gz';archive.write_bytes(data)
+    if expected_archive_sha256 is not None and sha256(archive)!=expected_archive_sha256:
+        raise RuntimeError('source archive differs from reviewed original archive')
     count,total=extract_source(data,target/'src',expanded_limit=expanded_limit,
-                               entry_limit=entry_limit,member_limit=member_limit)
+                               entry_limit=entry_limit,member_limit=member_limit,omitted_links=omitted_links)
     immutable_json(target/'acquisition.json',dict(pin=pin,archive_sha256=sha256(archive),
         compressed_bytes=len(data),extracted_source_bytes=total,entries=count,
-        build_hooks_executed=False))
+        build_hooks_executed=False,omitted_links=omitted_links or {}))
     print('Acquired pinned source only:',target.relative_to(ROOT),'bytes',total,'entries',count)
 
 
