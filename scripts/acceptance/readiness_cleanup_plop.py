@@ -48,7 +48,7 @@ async def runtime_inventory(project,label):
     birth=await unix_process_inventory()
     selected={};scope=[]
     ancestors=set();ancestor=os.getpid()
-    if project in {'fff','papis','frogmouth','hygen'}:
+    if project in {'fff','papis','frogmouth','hygen','rclone'}:
         while ancestor in birth and ancestor not in ancestors:
             if len(ancestors)>=64:raise RuntimeError('process ancestor inventory bound')
             ancestors.add(ancestor);ancestor=birth[ancestor][0]
@@ -59,18 +59,19 @@ async def runtime_inventory(project,label):
                        name.startswith('ruby') or name in {'git','less','diff'} if project=='rubygems' else
                        name in {'edit','cargo','rustc','rustdoc','cc','ld','lld','collect2'} if project=='edit' else
                        name in {'vis','make','cc','as','ld','collect2'} or name.startswith(('gcc','clang','cc1','x86_64-linux-gn','aarch64-linux-gn')) if project=='vis' else
-                       name in {'bash','sh','fff','cp','mv','rm','mkdir','stty','file','chmod','ln'} if project=='fff' else name.startswith('python'))
+                       name in {'bash','sh','fff','cp','mv','rm','mkdir','stty','file','chmod','ln'} if project=='fff' else
+                       name in {'rclone','go','compile','link','asm','cgo'} if project=='rclone' else name.startswith('python'))
         if len(fields)==2 and runtime_match:
             pid=int(fields[0])
-            if project in {'fff','papis','frogmouth','hygen'} and pid in ancestors:continue
+            if project in {'fff','papis','frogmouth','hygen','rclone'} and pid in ancestors:continue
             if project=='poetry' and pid in {os.getpid(),os.getppid()}:continue
             if pid not in birth:continue
-            if project in {'fff','papis','frogmouth','hygen'}:
+            if project in {'fff','papis','frogmouth','hygen','rclone'}:
                 owned=await owned_runtime_command(pid,birth[pid])
                 scope.append(dict(pid=pid,birth=birth[pid][1],owned_campaign_command=owned))
                 if not owned:continue
             selected[str(pid)]=list(birth[pid])
-    if project in {'fff','papis','frogmouth','hygen'}:
+    if project in {'fff','papis','frogmouth','hygen','rclone'}:
         immutable_json(RAW/project/'runtime-inventories'/(uuid.uuid4().hex+'.json'),
             dict(schema_version=1,label=label,checked_at_utc=datetime.now(timezone.utc).isoformat(),
                  owned_root=str(RAW.resolve()),observations=scope,command_values_persisted=False,
@@ -86,7 +87,7 @@ async def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--prepare-only',action='store_true')
     parser.add_argument('--source-only',action='store_true',help='Retain an acquired, never-built local Windows Vis/fff source tree without inventing runtime/build receipts')
-    parser.add_argument('--project',choices=['plop','poetry','rubygems','edit','vis','fff','papis','frogmouth','hygen'],default='plop')
+    parser.add_argument('--project',choices=['plop','poetry','rubygems','edit','vis','fff','papis','frogmouth','hygen','rclone'],default='plop')
     args=parser.parse_args()
     if os.name=='nt' and not args.prepare_only:
         raise RuntimeError('use --prepare-only then the checked native PowerShell removal route on Windows')
@@ -100,7 +101,7 @@ async def main():
     if active.is_symlink() or active.resolve().parent!=base or not base.is_relative_to(RAW.resolve()):
         raise RuntimeError('unsafe cleanup target')
     marker=json.loads((active/'task-owned.json').read_text())
-    repository={'plop':'plopjs/plop','poetry':'python-poetry/poetry','rubygems':'ruby/rubygems','edit':'microsoft/edit','vis':'martanne/vis','fff':'dylanaraps/fff','papis':'papis/papis','frogmouth':'Textualize/frogmouth','hygen':'jondot/hygen'}[project]
+    repository={'plop':'plopjs/plop','poetry':'python-poetry/poetry','rubygems':'ruby/rubygems','edit':'microsoft/edit','vis':'martanne/vis','fff':'dylanaraps/fff','papis':'papis/papis','frogmouth':'Textualize/frogmouth','hygen':'jondot/hygen','rclone':'rclone/rclone'}[project]
     if marker['workspace']!=str(ROOT) or marker['campaign']!='runner-readiness-ten-project-pass' or marker['project']!=repository:
         raise RuntimeError('cleanup ownership mismatch')
     if os.name=='nt':
@@ -154,6 +155,9 @@ async def main():
                   'papis/commands/update.py','papis/tui/picker/__init__.py','papis/tui/picker/options_list.py'}
     elif project=='hygen':
         selected={'LICENSE.txt','package.json','yarn.lock','README.md','src/bin.ts','src/ops/add.ts','dist/bin.js','dist/ops/add.js','dist/ops/injector.js'}
+    elif project=='rclone':
+        selected={'COPYING','go.mod','go.sum','fs/config/ui.go','fs/config/config.go',
+                  'fs/config/configfile/configfile.go','cmd/config/config.go','backend/local/local.go'}
     elif project=='frogmouth':
         selected={'LICENSE','pyproject.toml','frogmouth/__init__.py','frogmouth/widgets/viewer.py',
                   'frogmouth/widgets/omnibox.py','frogmouth/screens/main.py','frogmouth/data/config.py'}
@@ -189,6 +193,8 @@ async def main():
     if project=='hygen':
         shutil.copyfile(active/'dependencies.json',retained/'dependencies.json')
         shutil.copyfile(active/'tooling/acquisition.json',retained/'package-manager.json')
+    if project=='rclone':
+        shutil.copyfile(active/'toolchain/sdk.json',retained/'sdk.json')
     if project in {'edit','vis'}:
         for name in (['dependencies.json','build-review.json'] if project=='edit' else []):shutil.copyfile(active/name,retained/name)
         if (active/'build-revisions').is_dir():shutil.copytree(active/'build-revisions',retained/'build-revisions')

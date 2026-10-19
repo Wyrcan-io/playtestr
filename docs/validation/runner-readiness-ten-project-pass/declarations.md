@@ -215,3 +215,5 @@ all expected bytes and entry sets; original failures remain. Execute exactly the
 twenty public cases plus source-fault replicas, restoration, maintenance and
 checked retention/removal. Core jobs have completed; at most two harness plus
 two project jobs may overlap. No diagnostic job contributes admission credit.
+
+Rclone reserved tenth project: native Linux amd64 and Windows amd64, standard hosted jobs only, maximum two project jobs plus two harness jobs concurrently. First-use workflow ceiling 30 minutes per host (60 project job-minutes); forecast 10-18 minutes per host including cold full-backend Go dependency download/build. Official owned SDK and caches below active/rclone; build stop before 3840 MiB active storage; existing 6 GiB campaign cap unchanged. No dispatch until local public first route passes. Exact private runner archives remain run39147652486/v0.4.0-rc.4; source3d50 unchanged. Local full37 cleanup harness c20ab09db2ec4645ba4be2b945c020bd passes (Unix-only scope skipped on Windows), no new product-control credit.

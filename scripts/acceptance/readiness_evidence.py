@@ -170,6 +170,22 @@ class Campaign:
                     node=Path(runtime['node'])
                     if node.name.lower() not in {'node','node.exe'}:raise ValueError('unexpected Hygen runtime executable')
                     runtime_executables['node']=sha256(node)
+            elif project=='rclone':
+                paths.extend(p for p in (target/'src').rglob('*') if p.is_file())
+                if (target/'toolchain/sdk.json').is_file():paths.append(target/'toolchain/sdk.json')
+                if (target/'build.json').is_file():
+                    build=json.loads((target/'build.json').read_text(encoding='utf-8-sig'))
+                    binary=target/build['binary_relative_path']
+                    binary.resolve(strict=True).relative_to(target.resolve())
+                    if binary.is_symlink() or getattr(binary,'is_junction',lambda:False)():raise ValueError('linked Rclone binary')
+                    paths.append(binary)
+                if (target/'runtime.json').is_file():
+                    runtime=json.loads((target/'runtime.json').read_text(encoding='utf-8-sig'))
+                    compiler=Path(runtime['go'])
+                    compiler.resolve(strict=True).relative_to(target.resolve())
+                    if compiler.is_symlink() or getattr(compiler,'is_junction',lambda:False)():raise ValueError('linked Rclone compiler')
+                    paths.append(compiler)
+                    runtime_executables['go']=sha256(compiler)
             elif project=='rubygems':
                 paths.extend(p for p in (target/'src/lib').rglob('*') if p.is_file())
                 paths.extend(p for p in (target/'src/exe').iterdir() if p.is_file())
