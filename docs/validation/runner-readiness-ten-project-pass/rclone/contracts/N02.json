@@ -1,0 +1,98 @@
+{
+  "version": 3,
+  "name": "Rclone N02: create an alias for the synthetic local directory",
+  "command": [
+    "rclone",
+    "--config",
+    "rclone.conf",
+    "config"
+  ],
+  "workspace": {
+    "fixture": "fixtures/N02",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "No remotes found, make a new one?"
+    },
+    {
+      "text": "n\r"
+    },
+    {
+      "expect": "name>"
+    },
+    {
+      "text": "demo\r"
+    },
+    {
+      "expect": "Storage>"
+    },
+    {
+      "text": "alias\r"
+    },
+    {
+      "expect": "remote>"
+    },
+    {
+      "text": ".\r"
+    },
+    {
+      "expect": "Edit advanced config?"
+    },
+    {
+      "text": "n\r"
+    },
+    {
+      "expect": "Keep this \"demo\" remote?"
+    },
+    {
+      "text": "y\r"
+    },
+    {
+      "expect": "Current remotes:"
+    },
+    {
+      "snapshot": "N02-final.txt"
+    },
+    {
+      "text": "q\r"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "rclone.conf",
+        "kind": "file",
+        "bytes_base64": "W2RlbW9dCnR5cGUgPSBhbGlhcwpyZW1vdGUgPSAuCgo="
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.bin",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "sentinel.bin",
+          "rclone.conf"
+        ]
+      }
+    }
+  ]
+}

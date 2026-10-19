@@ -1,0 +1,104 @@
+{
+  "version": 3,
+  "name": "Rclone E04: respect the native single-letter drive ambiguity policy",
+  "command": [
+    "rclone",
+    "--config",
+    "rclone.conf",
+    "config"
+  ],
+  "workspace": {
+    "fixture": "fixtures/E04",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "No remotes found, make a new one?"
+    },
+    {
+      "text": "n\r"
+    },
+    {
+      "expect": "name>"
+    },
+    {
+      "text": "z\r"
+    },
+    {
+      "expect": "confused with a drive letter."
+    },
+    {
+      "text": "reviewed\r"
+    },
+    {
+      "expect": "Storage>"
+    },
+    {
+      "text": "alias\r"
+    },
+    {
+      "expect": "remote>"
+    },
+    {
+      "text": ".\r"
+    },
+    {
+      "expect": "Edit advanced config?"
+    },
+    {
+      "text": "n\r"
+    },
+    {
+      "expect": "Keep this \"reviewed\" remote?"
+    },
+    {
+      "text": "y\r"
+    },
+    {
+      "expect": "Current remotes:"
+    },
+    {
+      "snapshot": "E04-final.txt"
+    },
+    {
+      "text": "q\r"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "rclone.conf",
+        "kind": "file",
+        "bytes_base64": "W3Jldmlld2VkXQ0KdHlwZSA9IGFsaWFzDQpyZW1vdGUgPSAuDQoNCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.bin",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "rclone.conf",
+          "sentinel.bin"
+        ]
+      }
+    }
+  ]
+}

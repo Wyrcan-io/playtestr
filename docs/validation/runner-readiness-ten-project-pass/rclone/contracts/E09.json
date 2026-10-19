@@ -1,0 +1,71 @@
+{
+  "version": 3,
+  "name": "Rclone E09: reject a directory used as config while preserving its contents",
+  "command": [
+    "rclone",
+    "--config",
+    "rclone.conf",
+    "config"
+  ],
+  "workspace": {
+    "fixture": "fixtures/E09",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Failed to load config file"
+    },
+    {
+      "exit": 1
+    },
+    {
+      "state": {
+        "path": "rclone.conf/keep.bin",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUgZGlyZWN0b3J5IGNoaWxkAA0K"
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.bin",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "rclone.conf",
+        "kind": "directory"
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "sentinel.bin",
+          "rclone.conf"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "rclone.conf",
+        "kind": "entries",
+        "entries": [
+          "keep.bin"
+        ]
+      }
+    }
+  ]
+}

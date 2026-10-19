@@ -1,0 +1,116 @@
+{
+  "version": 3,
+  "name": "Rclone N08: correct a new alias during the review loop before accepting",
+  "command": [
+    "rclone",
+    "--config",
+    "rclone.conf",
+    "config"
+  ],
+  "workspace": {
+    "fixture": "fixtures/N08",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "No remotes found, make a new one?"
+    },
+    {
+      "text": "n\r"
+    },
+    {
+      "expect": "name>"
+    },
+    {
+      "text": "demo\r"
+    },
+    {
+      "expect": "Storage>"
+    },
+    {
+      "text": "alias\r"
+    },
+    {
+      "expect": "remote>"
+    },
+    {
+      "text": "old\r"
+    },
+    {
+      "expect": "Edit advanced config?"
+    },
+    {
+      "text": "n\r"
+    },
+    {
+      "expect": "Keep this \"demo\" remote?"
+    },
+    {
+      "text": "e\r"
+    },
+    {
+      "expect": "Enter a value of type string. Press Enter for the default (old).\nremote>"
+    },
+    {
+      "text": "reviewed\r"
+    },
+    {
+      "expect": "remote> reviewed\n\nEdit advanced config?\ny) Yes\nn) No (default)\ny/n>"
+    },
+    {
+      "text": "n\r"
+    },
+    {
+      "expect": "Configuration complete.\nOptions:\n- type: alias\n- remote: reviewed\nKeep this \"demo\" remote?\ny) Yes this is OK (default)\ne) Edit this remote\nd) Delete this remote\ny/e/d>"
+    },
+    {
+      "text": "y\r"
+    },
+    {
+      "expect": "Current remotes:"
+    },
+    {
+      "snapshot": "N08-final.txt"
+    },
+    {
+      "text": "q\r"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "rclone.conf",
+        "kind": "file",
+        "bytes_base64": "W2RlbW9dCnR5cGUgPSBhbGlhcwpyZW1vdGUgPSByZXZpZXdlZAoK"
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.bin",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "sentinel.bin",
+          "rclone.conf"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "version": 3,
+  "name": "Rclone E11: preserve a spaced Unicode local alias path and existing binary file",
+  "command": [
+    "rclone",
+    "--config",
+    "rclone.conf",
+    "config"
+  ],
+  "workspace": {
+    "fixture": "fixtures/E11",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "No remotes found, make a new one?"
+    },
+    {
+      "text": "n\r"
+    },
+    {
+      "expect": "name>"
+    },
+    {
+      "text": "demo\r"
+    },
+    {
+      "expect": "Storage>"
+    },
+    {
+      "text": "alias\r"
+    },
+    {
+      "expect": "remote>"
+    },
+    {
+      "text": "caf\u00e9 \u96ea\r"
+    },
+    {
+      "expect": "Edit advanced config?"
+    },
+    {
+      "text": "n\r"
+    },
+    {
+      "expect": "Keep this \"demo\" remote?"
+    },
+    {
+      "text": "y\r"
+    },
+    {
+      "expect": "Current remotes:"
+    },
+    {
+      "snapshot": "E11-final.txt"
+    },
+    {
+      "text": "q\r"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "caf\u00e9 \u96ea/keep.bin",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUADQo="
+      }
+    },
+    {
+      "state": {
+        "path": "rclone.conf",
+        "kind": "file",
+        "bytes_base64": "W2RlbW9dCnR5cGUgPSBhbGlhcwpyZW1vdGUgPSBjYWbDqSDpm6oKCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.bin",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "sentinel.bin",
+          "caf\u00e9 \u96ea",
+          "rclone.conf"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "caf\u00e9 \u96ea",
+        "kind": "entries",
+        "entries": [
+          "keep.bin"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "version": 3,
+  "name": "Rclone E03: reject a duplicate name and preserve the existing configuration",
+  "command": [
+    "rclone",
+    "--config",
+    "rclone.conf",
+    "config"
+  ],
+  "workspace": {
+    "fixture": "fixtures/E03",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Current remotes:"
+    },
+    {
+      "text": "n\r"
+    },
+    {
+      "expect": "name>"
+    },
+    {
+      "text": "seed\r"
+    },
+    {
+      "expect": "Remote \"seed\" already exists."
+    },
+    {
+      "text": "demo\r"
+    },
+    {
+      "expect": "Storage>"
+    },
+    {
+      "text": "alias\r"
+    },
+    {
+      "expect": "remote>"
+    },
+    {
+      "text": ".\r"
+    },
+    {
+      "expect": "Edit advanced config?"
+    },
+    {
+      "text": "n\r"
+    },
+    {
+      "expect": "Keep this \"demo\" remote?"
+    },
+    {
+      "text": "y\r"
+    },
+    {
+      "expect": "Current remotes:"
+    },
+    {
+      "snapshot": "E03-final.txt"
+    },
+    {
+      "text": "q\r"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "rclone.conf",
+        "kind": "file",
+        "bytes_base64": "W3NlZWRdDQp0eXBlID0gbG9jYWwNCg0KW2RlbW9dDQp0eXBlID0gYWxpYXMNCnJlbW90ZSA9IC4NCg0K"
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.bin",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "rclone.conf",
+          "sentinel.bin"
+        ]
+      }
+    }
+  ]
+}

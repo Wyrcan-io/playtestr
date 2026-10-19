@@ -1,0 +1,320 @@
+{
+  "all_package_inputs": {
+    "E01.json": "a75f2753c14d4a6517ce54b503f16829d2fbe660a143ab15d023e5cc330e1cad",
+    "E02.json": "f4ebbcec39cbdace3a28806fa0389cae8d43fd31b4e747403ba12c734b726f62",
+    "E03.json": "2bb121603da7fa50a9d3125a973179f54f908d0d4c826805025287033dd39e81",
+    "E04.json": "641a06e6449922ad96b46dd6af898ce0de40f5ac73099347fc38cf5b2ab93d49",
+    "E05.json": "faadd2a508a95173c8779a2ec9520a6a76afa770f8ed1b58c964c57947ca2038",
+    "E06.json": "80ad715546e4a0af93183e81f615a059cd2d151b2a23cfe84a8972c6b8220aae",
+    "E07.json": "b1a178ead51eb2fc653495680f6899506678d06adff846124731a24b5fcea4f5",
+    "E08.json": "281426ff478a65fcebaebdee334f64f514bc9672949e527a33a581f98ea0b865",
+    "E09.json": "adb3b30a2f2be537fc86f86a23fb78838000ccb060d72a34301b808f5387733f",
+    "E10.json": "e49e24f53aa60c7bc1267a43c74aa3f8257e3a409c1a2946a711fda705f3ce35",
+    "E11.json": "d678d44ef77ccfc589939f1fcfcc5594f3bc63e38a051e4f7ae1886101cf05be",
+    "E12.json": "c3ca6bfc7cc4bcc2d2fae29dfef3e8e79a7f7566f02addc3ce27e8182bd181f2",
+    "N01.json": "42826f4d3716034ca6df10d1d97aadd08d4a8acbcbd79c678902b6bc08e5145b",
+    "N02.json": "4ad94625b544c053ac9b483c01f2cc26c90fd70e565006d4d663e941e674a0be",
+    "N03.json": "8d2cadadfb79b1a2f2f4815e2c3459cb1d84cdeb47efe07ee51e9da734f779c1",
+    "N04.json": "f21ed3b56888a790671a06b7c1e69ddbdd45ce4dddab02766c6672beb52e4bff",
+    "N05.json": "47dedd16c2c20dfd2915e6411d099c8857e18e780c88706b218e916ed807c963",
+    "N06.json": "37b0befed59799fa4054dcebdbc35815e47111fa3449fda0b0d600f31466f5a8",
+    "N07.json": "d9d44ab1cdd5622e7576683b8c31d2b1958ff13513063acec8c4dcb01a3112c4",
+    "N08.json": "6a34929ef7a2a091e38863d2d208c09c7245b519a5d81387f96825f15767c2d1",
+    "fixtures/E01/sentinel.bin": "5574a48ed7f590c26d98dd9338a350861821d4cad09d3fce322cc905d6d6fad2",
+    "fixtures/E02/rclone.conf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "fixtures/E02/sentinel.bin": "5574a48ed7f590c26d98dd9338a350861821d4cad09d3fce322cc905d6d6fad2",
+    "fixtures/E03/rclone.conf": "2790b22ca1b8e1ee108a81b7903a701a79a839c7dd16f181f0c8aa822664fe7f",
+    "fixtures/E03/sentinel.bin": "5574a48ed7f590c26d98dd9338a350861821d4cad09d3fce322cc905d6d6fad2",
+    "fixtures/E04/rclone.conf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "fixtures/E04/sentinel.bin": "5574a48ed7f590c26d98dd9338a350861821d4cad09d3fce322cc905d6d6fad2",
+    "fixtures/E05/rclone.conf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "fixtures/E05/sentinel.bin": "5574a48ed7f590c26d98dd9338a350861821d4cad09d3fce322cc905d6d6fad2",
+    "fixtures/E06/rclone.conf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "fixtures/E06/sentinel.bin": "5574a48ed7f590c26d98dd9338a350861821d4cad09d3fce322cc905d6d6fad2",
+    "fixtures/E07/rclone.conf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "fixtures/E07/sentinel.bin": "5574a48ed7f590c26d98dd9338a350861821d4cad09d3fce322cc905d6d6fad2",
+    "fixtures/E08/rclone.conf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "fixtures/E08/sentinel.bin": "5574a48ed7f590c26d98dd9338a350861821d4cad09d3fce322cc905d6d6fad2",
+    "fixtures/E09/rclone.conf/keep.bin": "8ca7fc47d7976711b5c659fe355c991ad06481036685803744ed5ab04fb5f7a3",
+    "fixtures/E09/sentinel.bin": "5574a48ed7f590c26d98dd9338a350861821d4cad09d3fce322cc905d6d6fad2",
+    "fixtures/E10/rclone.conf": "2790b22ca1b8e1ee108a81b7903a701a79a839c7dd16f181f0c8aa822664fe7f",
+    "fixtures/E10/sentinel.bin": "5574a48ed7f590c26d98dd9338a350861821d4cad09d3fce322cc905d6d6fad2",
+    "fixtures/E11/caf\u00e9 \u96ea/keep.bin": "876943894ba70f9b87d6d9c96ad0fb4925dbb9d2195138c2b5f3b019cf5e571b",
+    "fixtures/E11/rclone.conf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "fixtures/E11/sentinel.bin": "5574a48ed7f590c26d98dd9338a350861821d4cad09d3fce322cc905d6d6fad2",
+    "fixtures/E12/rclone.conf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "fixtures/E12/sentinel.bin": "5574a48ed7f590c26d98dd9338a350861821d4cad09d3fce322cc905d6d6fad2",
+    "fixtures/N01/rclone.conf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "fixtures/N01/sentinel.bin": "5574a48ed7f590c26d98dd9338a350861821d4cad09d3fce322cc905d6d6fad2",
+    "fixtures/N02/rclone.conf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "fixtures/N02/sentinel.bin": "5574a48ed7f590c26d98dd9338a350861821d4cad09d3fce322cc905d6d6fad2",
+    "fixtures/N03/rclone.conf": "2790b22ca1b8e1ee108a81b7903a701a79a839c7dd16f181f0c8aa822664fe7f",
+    "fixtures/N03/sentinel.bin": "5574a48ed7f590c26d98dd9338a350861821d4cad09d3fce322cc905d6d6fad2",
+    "fixtures/N04/rclone.conf": "2790b22ca1b8e1ee108a81b7903a701a79a839c7dd16f181f0c8aa822664fe7f",
+    "fixtures/N04/sentinel.bin": "5574a48ed7f590c26d98dd9338a350861821d4cad09d3fce322cc905d6d6fad2",
+    "fixtures/N05/rclone.conf": "2790b22ca1b8e1ee108a81b7903a701a79a839c7dd16f181f0c8aa822664fe7f",
+    "fixtures/N05/sentinel.bin": "5574a48ed7f590c26d98dd9338a350861821d4cad09d3fce322cc905d6d6fad2",
+    "fixtures/N06/new/keep.txt": "7aa7a5359173d05b63cfd682e3c38487f3cb4f7f1d60659fe59fab1505977d4c",
+    "fixtures/N06/old/keep.txt": "01d09d19c2139a46aebfb577780d123d7396e97201bc7ead210a2ebff8239dee",
+    "fixtures/N06/rclone.conf": "029c771199e168d34f7668324361281c5794a49222be9f7d3b605573766c71c4",
+    "fixtures/N06/sentinel.bin": "5574a48ed7f590c26d98dd9338a350861821d4cad09d3fce322cc905d6d6fad2",
+    "fixtures/N07/rclone.conf": "5e9f09d7fb72bfef3657364cfc0c16f25d2d34169445e7dcb61c60904507d531",
+    "fixtures/N07/sentinel.bin": "5574a48ed7f590c26d98dd9338a350861821d4cad09d3fce322cc905d6d6fad2",
+    "fixtures/N08/rclone.conf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "fixtures/N08/sentinel.bin": "5574a48ed7f590c26d98dd9338a350861821d4cad09d3fce322cc905d6d6fad2",
+    "snapshots/E01-final.txt": "1d8de5db80fc48e9054609d0865c4c66b7d082112e74c2a8ac863feea80bb6d4",
+    "snapshots/E02-final.txt": "1d8de5db80fc48e9054609d0865c4c66b7d082112e74c2a8ac863feea80bb6d4",
+    "snapshots/E03-final.txt": "9e35fc60417c7abfef6746fa5576aa2be92c8282b936484f27993c6c3b9b17b7",
+    "snapshots/E04-final.txt": "67f0290be0bdfc00c11f06a862ffababe1239bee389b5f5b00b43df964749818",
+    "snapshots/E05-final.txt": "52cb911e4019f7a1e965a57366fd80efe115288ec2750ed1da889e7b7fde9718",
+    "snapshots/E06-final.txt": "ba2499ded12180584d51e84882580307f6efbc39dca6aede3e2ae5102778c613",
+    "snapshots/E07-final.txt": "1d8de5db80fc48e9054609d0865c4c66b7d082112e74c2a8ac863feea80bb6d4",
+    "snapshots/E08-final.txt": "1d8de5db80fc48e9054609d0865c4c66b7d082112e74c2a8ac863feea80bb6d4",
+    "snapshots/E10-final.txt": "8d35019030fe88afacbce1a86df2db56cebe6621b20dbf07f37c60bff91fad90",
+    "snapshots/E11-final.txt": "8056deda92a93ee6abfa9f8734a55c5e1a481a02077227bd1266539aba503f52",
+    "snapshots/E12-final.txt": "d0efaf3d764e1f16439e02b95db1dbe60f82cdbfb8ec1af7d6073956472a311a",
+    "snapshots/N01-final.txt": "288f792aa24804d348ad9f75683eed44d250cc4b1c2e880422bc5f2783ebecdc",
+    "snapshots/N02-final.txt": "1d8de5db80fc48e9054609d0865c4c66b7d082112e74c2a8ac863feea80bb6d4",
+    "snapshots/N03-final.txt": "9bffa670f7551dcd138625986247084fbbfcaa0a8215c1ab6c70c54afca30777",
+    "snapshots/N04-final.txt": "d3714bc12967c13dcf634b82ddf902641ae147752b78c96971edb0e5d73b044b",
+    "snapshots/N05-final.txt": "b1d6ad6fd0c4cce1c75a4f0e820aedad8857809f0206675e32751a1a162c01e2",
+    "snapshots/N06-final.txt": "049cd8d8897711c84317e4036d9cc795d4d2d3c2fbf2f1130d5876b127da84c9",
+    "snapshots/N07-final.txt": "4c41f968d0d14217280c7f934d577bc16bb5424811435eba68e870136a9a0b6c",
+    "snapshots/N08-final.txt": "908e61f1129e092f27c26428ab30045fc3d5baf76f516eb212325fd0468fea1a"
+  },
+  "approvals": [
+    {
+      "approval_sha256": "6aa94aad06824f2b0e71aa34cab8bb1d269e90d785d99cb8fc2f196ee955f112",
+      "contract_sha256": "42826f4d3716034ca6df10d1d97aadd08d4a8acbcbd79c678902b6bc08e5145b",
+      "exported_spec_sha256": "9ee063504b819841c7a8481d979de97ff3105afae3c98d63d28f66ebfd607c18",
+      "id": "N01",
+      "plan_sha256": "fd6a54a7f78b92793cc4a3b57eca52b64ee5dcd6cb1321e9aea621e2a81d7120",
+      "reference_relocation": {
+        "N01-final.txt": "final.txt"
+      }
+    },
+    {
+      "approval_sha256": "b4b920fc3e7f5a0b06e294bdf50e6bbed913c1988e10f347df5626535714dc5d",
+      "contract_sha256": "4ad94625b544c053ac9b483c01f2cc26c90fd70e565006d4d663e941e674a0be",
+      "exported_spec_sha256": "78e93706451f014491c95693793dd69b249075dad05aabc99adebe4b975e3ef6",
+      "id": "N02",
+      "plan_sha256": "eea0b70d8fde73b8e8c9ec0cfad1d054f235d979400787e12d028514693a8c55",
+      "reference_relocation": {
+        "N02-final.txt": "final.txt"
+      }
+    },
+    {
+      "approval_sha256": "fd210951e6cc4f9d28658a0079dccbef72ebd48c8f0b02d1347d28ce2c8b21b8",
+      "contract_sha256": "8d2cadadfb79b1a2f2f4815e2c3459cb1d84cdeb47efe07ee51e9da734f779c1",
+      "exported_spec_sha256": "69a69d18da30a199fa85af3f49673e60dfc1d72662ca3498d78adbdca28bebf1",
+      "id": "N03",
+      "plan_sha256": "00217799f5a057c2e790e4a8b1c0ca68286c1a500637c8b13763d6ec28d2500d",
+      "reference_relocation": {
+        "N03-final.txt": "final.txt"
+      }
+    },
+    {
+      "approval_sha256": "41a269ff87d52b58ec8ae79f6303b469a6cc5b8fb14641300c9535e066769c98",
+      "contract_sha256": "f21ed3b56888a790671a06b7c1e69ddbdd45ce4dddab02766c6672beb52e4bff",
+      "exported_spec_sha256": "6c4ca8b97aa257dbd1c18fd3bcd9694b4725144f59ad85a0d2a4e68b898c74f1",
+      "id": "N04",
+      "plan_sha256": "7fd498d7b3b125eee44d95b3699ff1150393a67f516364b758f3216a8005da9a",
+      "reference_relocation": {
+        "N04-final.txt": "final.txt"
+      }
+    },
+    {
+      "approval_sha256": "12111f972b1d7183dfc88e3fccaa8e6a6fb884f8973d64c792e6470615693744",
+      "contract_sha256": "47dedd16c2c20dfd2915e6411d099c8857e18e780c88706b218e916ed807c963",
+      "exported_spec_sha256": "1ba2ecd2dd1094a48366b06294017e448cbd66ad32ea77459d1ab2923a840c23",
+      "id": "N05",
+      "plan_sha256": "3bd9e2f384b3c20639ce4e679747ef4ad33ff636e24af5c864e6951e7714824e",
+      "reference_relocation": {
+        "N05-final.txt": "final.txt"
+      }
+    },
+    {
+      "approval_sha256": "a32906d6d44a4a723246cebaba49ae1912d3d981bae2a98c47a58e6226f1ee84",
+      "contract_sha256": "37b0befed59799fa4054dcebdbc35815e47111fa3449fda0b0d600f31466f5a8",
+      "exported_spec_sha256": "c9c469276129f5aa9c9ff4c77bdb6fd190c994772c9af7637cd8097faea4d6c6",
+      "id": "N06",
+      "plan_sha256": "33aff7be200f5d2e92dceca62506608f3ca660f5ea97037c7b099518c41b8013",
+      "reference_relocation": {
+        "N06-final.txt": "final.txt"
+      }
+    },
+    {
+      "approval_sha256": "187a0ba8c081022e5b116fb016778cfae8d328dd0142efdeffc217121615f353",
+      "contract_sha256": "d9d44ab1cdd5622e7576683b8c31d2b1958ff13513063acec8c4dcb01a3112c4",
+      "exported_spec_sha256": "2d4f99018e3682a554104fb9e015b4bbb7f1b164259d915b448b96f36dfc3820",
+      "id": "N07",
+      "plan_sha256": "c3b07ef30a441966616aa44c839dfa48a973221c0c0d1294d9c5396707f05273",
+      "reference_relocation": {
+        "N07-final.txt": "final.txt"
+      }
+    },
+    {
+      "approval_sha256": "6b415ac19bdfeb42b29f9a65f9fd8a940c2f386ea2680200967e4bd19bb8f905",
+      "contract_sha256": "6a34929ef7a2a091e38863d2d208c09c7245b519a5d81387f96825f15767c2d1",
+      "exported_spec_sha256": "3efc43737b42ea4050283e4413705ac96b7eff4db6d7b83508d8d3bce572ce4f",
+      "id": "N08",
+      "plan_sha256": "e5be052f60512fceed33b2b7f884efc793779fcbee404a88f40a91add2476439",
+      "reference_relocation": {
+        "N08-final.txt": "final.txt"
+      }
+    },
+    {
+      "approval_sha256": "586d60a7dce507c1d223e83634759c37e9555429d5df73e7b414c0ac59fa77d8",
+      "contract_sha256": "a75f2753c14d4a6517ce54b503f16829d2fbe660a143ab15d023e5cc330e1cad",
+      "exported_spec_sha256": "631a3d75427e88feded42f8a09bddc8a2e666a19f88ca00c8ca36bdc856f6712",
+      "id": "E01",
+      "plan_sha256": "de2c5d29e0e6a47ec3a5b05da86989e19539325a93fd9690b5c55f7554db47d9",
+      "reference_relocation": {
+        "E01-final.txt": "final.txt"
+      }
+    },
+    {
+      "approval_sha256": "0bedefee1072de4a97e8a12cc382f71818a77d391e87122d59795f1c33de33f9",
+      "contract_sha256": "f4ebbcec39cbdace3a28806fa0389cae8d43fd31b4e747403ba12c734b726f62",
+      "exported_spec_sha256": "5f633e7cab191046b1211bea1b105e2bc9ff48c2501c3e30518b723333ff5464",
+      "id": "E02",
+      "plan_sha256": "cf606ff84432dd0fe1484d3b2fde417a7f62cd50f17ad0cff65fa61b7a9cff15",
+      "reference_relocation": {
+        "E02-final.txt": "final.txt"
+      }
+    },
+    {
+      "approval_sha256": "8f4f0e87d839d8aaa20c44e2793cd392615342cc1dcaece8a8650996a2bc2214",
+      "contract_sha256": "2bb121603da7fa50a9d3125a973179f54f908d0d4c826805025287033dd39e81",
+      "exported_spec_sha256": "f5e2866b4900934225a2f31671d8945ea629f3b23a2f27040a93c703d239d501",
+      "id": "E03",
+      "plan_sha256": "ec539ada34f38dc131ba2acf510e686d70ef7d21ffabb2758833ac555f5e2035",
+      "reference_relocation": {
+        "E03-final.txt": "final.txt"
+      }
+    },
+    {
+      "approval_sha256": "1820b69ae01a13f44f512aadbbcb4977390c1327e8f1bf853189aa2a130cb4b4",
+      "contract_sha256": "641a06e6449922ad96b46dd6af898ce0de40f5ac73099347fc38cf5b2ab93d49",
+      "exported_spec_sha256": "f84303178dd8ba9e12aa0b20c0e6747208e5c2abae2d88acc08c8f4264d35209",
+      "id": "E04",
+      "plan_sha256": "d37aa6b5ba36506005e26a00139d62b745e7c86f9ed2f75cbdb6f50daac3d31d",
+      "reference_relocation": {
+        "E04-final.txt": "final.txt"
+      }
+    },
+    {
+      "approval_sha256": "ef826443dc0656030758c482780d782c29ed7bcae4730e077d471c0caf437fba",
+      "contract_sha256": "faadd2a508a95173c8779a2ec9520a6a76afa770f8ed1b58c964c57947ca2038",
+      "exported_spec_sha256": "7239e3867d273d4156236749b91d0c63920a7d495832a1fe074b3ab6801ebf84",
+      "id": "E05",
+      "plan_sha256": "d239ea29b47bde42742933a6912bfe2b8c853efb3096ab2e12edb440bab9cd60",
+      "reference_relocation": {
+        "E05-final.txt": "final.txt"
+      }
+    },
+    {
+      "approval_sha256": "d6287cd1f6dccdb8c3d8054d8e6ed5082347daba8254f68c5970eacb9a9aa965",
+      "contract_sha256": "80ad715546e4a0af93183e81f615a059cd2d151b2a23cfe84a8972c6b8220aae",
+      "exported_spec_sha256": "548d4420dd9fbf690ba477bec870af9ba207d65af214b7afce6a1901d6722962",
+      "id": "E06",
+      "plan_sha256": "226bbb7f28c40983a4d73af9804209d00bf372c08d0a4b5504bce71c4578a77f",
+      "reference_relocation": {
+        "E06-final.txt": "final.txt"
+      }
+    },
+    {
+      "approval_sha256": "d6169a6e29273d555f05e1d2da7623bd2bc9dcb95b069c6d386f64ed1fde010f",
+      "contract_sha256": "b1a178ead51eb2fc653495680f6899506678d06adff846124731a24b5fcea4f5",
+      "exported_spec_sha256": "1018ea66f0a1ce647cbf3683420f3abfb6dae37cc7ac17ff87f7d85b70d561ce",
+      "id": "E07",
+      "plan_sha256": "8ab0e9420dc57ad03a7d1779839f05b396627d1e5d030437fe54cc322cf8e2bf",
+      "reference_relocation": {
+        "E07-final.txt": "final.txt"
+      }
+    },
+    {
+      "approval_sha256": "6700a0d6163d5dad806f1c287c8003f69d608c49147c1e62de56c86e4f53cbb0",
+      "contract_sha256": "281426ff478a65fcebaebdee334f64f514bc9672949e527a33a581f98ea0b865",
+      "exported_spec_sha256": "552824d371aca734c1ef3ec8af98bb19d9bc26259403cc809070a33bee5308c4",
+      "id": "E08",
+      "plan_sha256": "be7675748f86276b7a562bab944084d7343b8cfd2a43706368d6df6e0c2dbdf2",
+      "reference_relocation": {
+        "E08-final.txt": "final.txt"
+      }
+    },
+    {
+      "approval_sha256": "9f6f1db6c74b8445a7d8a0326ebc3fa6d3baeecb1b7a723c850d2549183f4c24",
+      "contract_sha256": "adb3b30a2f2be537fc86f86a23fb78838000ccb060d72a34301b808f5387733f",
+      "exported_spec_sha256": "0ce3a0f1b58f8786f2c7b52a6fa680a161c658d97440432f3238dcaf00293b13",
+      "id": "E09",
+      "plan_sha256": "8f7367dfb1bbd46f9a0e2c1cd0563ae7febd26713e07376a42b62a3ac9e1ecc6",
+      "reference_relocation": {}
+    },
+    {
+      "approval_sha256": "65c4f0f8391eadaa790979b24c0b40318d8d1ccddabefb151c345137f304f465",
+      "contract_sha256": "e49e24f53aa60c7bc1267a43c74aa3f8257e3a409c1a2946a711fda705f3ce35",
+      "exported_spec_sha256": "8603c6446e8bf8e0c933b3c93a607865b9222b0faedd7827aae85b04a86b419c",
+      "id": "E10",
+      "plan_sha256": "f412fb43ef8130e226c6ce39bb526c1e99a1cd7e78fc6876d0b002dcbc3ca485",
+      "reference_relocation": {
+        "E10-final.txt": "final.txt"
+      }
+    },
+    {
+      "approval_sha256": "1f938ae87c26ef5f9de8c5e01e4522f424490ea49f1228ec6806365529ad32ce",
+      "contract_sha256": "d678d44ef77ccfc589939f1fcfcc5594f3bc63e38a051e4f7ae1886101cf05be",
+      "exported_spec_sha256": "f601cd50349fc291ef8052292074aecc1badd06aba5ded4ed1451f75afe01990",
+      "id": "E11",
+      "plan_sha256": "360d3c618662683c939a9d2086785d44355338d2e6b0ecc471318b34212146b3",
+      "reference_relocation": {
+        "E11-final.txt": "final.txt"
+      }
+    },
+    {
+      "approval_sha256": "59c3dbbb1be436dec4efdac457a50b7c15fed8a14eadbd745a4e59db6156000e",
+      "contract_sha256": "c3ca6bfc7cc4bcc2d2fae29dfef3e8e79a7f7566f02addc3ce27e8182bd181f2",
+      "exported_spec_sha256": "24850c2f9f78d85807baee34caf47611ca8a0048f9821904d5d1f20da386cf3d",
+      "id": "E12",
+      "plan_sha256": "89286ae0ed502ea1162d9b55549df5f7b794817498ad9d13e9cc65907ce5cc42",
+      "reference_relocation": {
+        "E12-final.txt": "final.txt"
+      }
+    }
+  ],
+  "architecture": "amd64",
+  "contracts": {
+    "E01.json": "a75f2753c14d4a6517ce54b503f16829d2fbe660a143ab15d023e5cc330e1cad",
+    "E02.json": "f4ebbcec39cbdace3a28806fa0389cae8d43fd31b4e747403ba12c734b726f62",
+    "E03.json": "2bb121603da7fa50a9d3125a973179f54f908d0d4c826805025287033dd39e81",
+    "E04.json": "641a06e6449922ad96b46dd6af898ce0de40f5ac73099347fc38cf5b2ab93d49",
+    "E05.json": "faadd2a508a95173c8779a2ec9520a6a76afa770f8ed1b58c964c57947ca2038",
+    "E06.json": "80ad715546e4a0af93183e81f615a059cd2d151b2a23cfe84a8972c6b8220aae",
+    "E07.json": "b1a178ead51eb2fc653495680f6899506678d06adff846124731a24b5fcea4f5",
+    "E08.json": "281426ff478a65fcebaebdee334f64f514bc9672949e527a33a581f98ea0b865",
+    "E09.json": "adb3b30a2f2be537fc86f86a23fb78838000ccb060d72a34301b808f5387733f",
+    "E10.json": "e49e24f53aa60c7bc1267a43c74aa3f8257e3a409c1a2946a711fda705f3ce35",
+    "E11.json": "d678d44ef77ccfc589939f1fcfcc5594f3bc63e38a051e4f7ae1886101cf05be",
+    "E12.json": "c3ca6bfc7cc4bcc2d2fae29dfef3e8e79a7f7566f02addc3ce27e8182bd181f2",
+    "N01.json": "42826f4d3716034ca6df10d1d97aadd08d4a8acbcbd79c678902b6bc08e5145b",
+    "N02.json": "4ad94625b544c053ac9b483c01f2cc26c90fd70e565006d4d663e941e674a0be",
+    "N03.json": "8d2cadadfb79b1a2f2f4815e2c3459cb1d84cdeb47efe07ee51e9da734f779c1",
+    "N04.json": "f21ed3b56888a790671a06b7c1e69ddbdd45ce4dddab02766c6672beb52e4bff",
+    "N05.json": "47dedd16c2c20dfd2915e6411d099c8857e18e780c88706b218e916ed807c963",
+    "N06.json": "37b0befed59799fa4054dcebdbc35815e47111fa3449fda0b0d600f31466f5a8",
+    "N07.json": "d9d44ab1cdd5622e7576683b8c31d2b1958ff13513063acec8c4dcb01a3112c4",
+    "N08.json": "6a34929ef7a2a091e38863d2d208c09c7245b519a5d81387f96825f15767c2d1"
+  },
+  "edge_scenarios": 12,
+  "fault_selection": "No source fault selected before this complete twenty-case freeze.",
+  "final_archive_credit": 0,
+  "host": "Linux",
+  "normal_scenarios": 8,
+  "ordinary_parent": "fb2400c135544e33b333c7cd203432c5",
+  "ordinary_report_sha256": "e4dae52055f444704e59f71e41c46d44102443f8dafb968f40baa7c0e2e56c65",
+  "provisional_archive_sha256": "83a054f08c20b809eed708a75e6649889c390882b3f6511d8ebb837eb4d813b9",
+  "runner_sha256": "556d67890bafd8fb0c2c181481c7a3d546173baddcbfd2e4038d3453f182d52a",
+  "schema_version": 1,
+  "source_revision": "3d50d81aae8f1d24f7a718e6e05b39069697b1a6",
+  "target_build_sha256": "5d5dfb97882bb72b3154f61afa72400c8986261a198a15af6217c157c5633e10"
+}

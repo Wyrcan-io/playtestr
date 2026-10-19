@@ -1,0 +1,80 @@
+{
+  "version": 3,
+  "name": "Rclone N03: rename an existing local configuration",
+  "command": [
+    "rclone",
+    "--config",
+    "rclone.conf",
+    "config"
+  ],
+  "workspace": {
+    "fixture": "fixtures/N03",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Current remotes:"
+    },
+    {
+      "text": "r\r"
+    },
+    {
+      "expect": "remote>"
+    },
+    {
+      "text": "seed\r"
+    },
+    {
+      "expect": "name>"
+    },
+    {
+      "text": "renamed\r"
+    },
+    {
+      "expect": "renamed              local"
+    },
+    {
+      "snapshot": "N03-final.txt"
+    },
+    {
+      "text": "q\r"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "rclone.conf",
+        "kind": "file",
+        "bytes_base64": "W3JlbmFtZWRdDQp0eXBlID0gbG9jYWwNCg0K"
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.bin",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "rclone.conf",
+          "sentinel.bin"
+        ]
+      }
+    }
+  ]
+}

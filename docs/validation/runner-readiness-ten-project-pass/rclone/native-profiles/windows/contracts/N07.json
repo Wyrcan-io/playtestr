@@ -1,0 +1,92 @@
+{
+  "version": 3,
+  "name": "Rclone N07: review existing local settings without losing a nondefault option",
+  "command": [
+    "rclone",
+    "--config",
+    "rclone.conf",
+    "config"
+  ],
+  "workspace": {
+    "fixture": "fixtures/N07",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Current remotes:"
+    },
+    {
+      "text": "e\r"
+    },
+    {
+      "expect": "remote>"
+    },
+    {
+      "text": "seed\r"
+    },
+    {
+      "expect": "nounc>"
+    },
+    {
+      "text": "\r"
+    },
+    {
+      "expect": "Edit advanced config?"
+    },
+    {
+      "text": "n\r"
+    },
+    {
+      "expect": "Keep this \"seed\" remote?"
+    },
+    {
+      "text": "y\r"
+    },
+    {
+      "expect": "y/e/d> y\n\nCurrent remotes:\n\nName                 Type\n====                 ====\nseed                 local\n\ne) Edit existing remote\nn) New remote\nd) Delete remote\nr) Rename remote\nc) Copy remote\ns) Set configuration password\nq) Quit config\ne/n/d/r/c/s/q>"
+    },
+    {
+      "snapshot": "N07-final.txt"
+    },
+    {
+      "text": "q\r"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "rclone.conf",
+        "kind": "file",
+        "bytes_base64": "W3NlZWRdDQp0eXBlID0gbG9jYWwNCm5vdW5jID0gdHJ1ZQ0KDQo="
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.bin",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUAZXhpc3RpbmcNCg=="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "rclone.conf",
+          "sentinel.bin"
+        ]
+      }
+    }
+  ]
+}
