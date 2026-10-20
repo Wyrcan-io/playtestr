@@ -26,3 +26,14 @@ reviewed trusted task writes `task-marker.txt` under its managed project.
 No remote template, user configuration or arbitrary extension is tested.
 Public same-execution migration, real writer corruption/recovery, independent
 native audits and checked cleanup remain required before admission.
+
+The first actual Windows suite passed ten of twelve cases; both Git update
+cases exited before their first prompt because the preparation package lacked
+the original synthetic Git repositories (`3810d94cc1dc4fefb72d223b7cb1f1f2`).
+The original archive `synthetic-git-metadata.tar.gz` is hash-checked and its
+130 regular members restored into each fresh execution copy. Four exact local
+Git configurations and sample-only hooks are checked before writing anything.
+Original working files, actions, snapshots and saved-state expectations remain
+unchanged. Two restoration regressions pass, including refusing an existing
+metadata destination before writing other files. The first failed suite stays
+retained and counts in the observed execution denominator.

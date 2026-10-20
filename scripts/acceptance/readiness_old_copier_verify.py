@@ -70,6 +70,10 @@ def audit(base,host,run=None):
     materialized=load(parent/'materialized.json');profile=load(root/'execution-profile.json')
     require(sha256(root/'execution-profile.json')==verified['execution_profile_sha256']
             and profile['original_materialized_sha256']==sha256(parent/'materialized.json'),'actual execution profile differs')
+    from readiness_old_copier_git import metadata
+    expected_git={n:hashlib.sha256(data).hexdigest() for n,data in metadata().items()}
+    require(profile['restored_original_git_metadata']==expected_git,'original synthetic Git metadata differs')
+    for name,digest in expected_git.items():require(sha256(package/name)==digest,'restored Git payload changed')
     for item in materialized['cases']:
         name=item['case'];native=ROOT/item['original_native_spec'];before=load(native);spec=package/(name+'.json');contract=load(spec)
         require(sha256(native)==item['original_native_spec_sha256'],'original native prefix source changed')
