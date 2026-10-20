@@ -250,7 +250,7 @@ async def main():
                   'src/internal/handle_file_operations.go','src/config/fixed_variable.go'}
     elif project=='old-helix':
         selected={'LICENSE','Cargo.toml','Cargo.lock','rust-toolchain.toml','helix-term/build.rs','helix-loader/build.rs',
-                  'helix-term/src/application.rs','helix-term/src/commands/typed.rs','runtime/languages.toml'}
+                  'helix-term/src/application.rs','helix-term/src/commands/typed.rs','languages.toml'}
     stream_args=dict(name=copy,mode='r:gz')
     if project=='vis':
         from readiness_vis_source import ARCHIVE_SHA256,LINKS,materialize_archive
