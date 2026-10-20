@@ -1,4 +1,4 @@
-"""Independently check the actual private Windows archive calibration evidence."""
+"""Independently check the actual private native archive calibration evidence."""
 import argparse
 import base64
 import ctypes
@@ -12,12 +12,16 @@ def require(value,message):
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--id',required=True);args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--id',required=True);parser.add_argument('--series',choices=['provisional-v1','migration-v2'],default='provisional-v1');args=parser.parse_args()
     require(len(args.id)==32 and all(c in '0123456789abcdef' for c in args.id),'invalid calibration id')
     root=RAW/'archive-experience'/args.id
     receipt=load(root/'experience.json');package=root/'relocated caf\u00e9 \u96ea'
-    freeze=load(ROOT/'docs/validation/runner-readiness-ten-project-pass/provisional-candidate-freeze.json')
-    cell=next(c for c in freeze['cells'] if c['host']=='windows')
+    require(receipt.get('series','provisional-v1')==args.series,'archive experience candidate series differs')
+    freeze_name='provisional-candidate-freeze.json' if args.series=='provisional-v1' else 'migration-candidate-freeze.json'
+    freeze=load(ROOT/'docs/validation/runner-readiness-ten-project-pass'/freeze_name)
+    host=receipt.get('host','windows');suffix='.exe' if host=='windows' else ''
+    require(host in {'windows','linux','darwin'},'undeclared native archive host')
+    cell=next(c for c in freeze['cells'] if c['host']==host)
     require(receipt['current_archive_sha256']==cell['archive_sha256']
             and receipt['installed_binary_sha256']['current']==cell['binary_sha256'],'different actual candidate')
     manifests={}
@@ -40,7 +44,7 @@ def main():
     files={s['state']['path']:base64.b64decode(s['state']['bytes_base64']) for s in contract['steps']
            if s.get('state',{}).get('kind')=='file'}
     require(files=={'saved.txt':b'reviewed\n','seed.bin':b'preserve\x00\r\n'},'independent saved-byte oracle differs')
-    target=(package/'target.exe').relative_to(ROOT).as_posix()
+    target=(package/('target'+suffix)).relative_to(ROOT).as_posix()
     cells=[]
     for label,digest in receipt['reports'].items():
         path=package/(label+'.json');report=load(path)
@@ -49,7 +53,7 @@ def main():
         require(report['summary']==dict(total=1,passed=int(not failed),failed=int(failed),cancelled=0,not_run=0)
                 and result['cleanup']['confirmed_exited'] and result['workspace']['cleaned'],'wrong outcome or cleanup')
         mode='screen' if label=='screen-changed' else 'file' if label=='file-changed' else 'good'
-        require(manifests[label][target]==sha256(root/'build'/(mode+'.exe')),'actual launched fixture identity differs')
+        require(manifests[label][target]==sha256(root/'build'/(mode+suffix)),'actual launched fixture identity differs')
         if failed:
             require(result['failure']['category']==('assertion_timeout' if mode=='screen' else 'state_assertion_failure'),
                     'failure did not detect intended behavior')
@@ -57,20 +61,20 @@ def main():
             if 'state' in step:
                 require(step['state']['invocation_id']==result['invocation_id']
                         and step['state']['workspace_id']==result['workspace']['id'],'cross-execution state proof')
-        cells.append(dict(label=label,report_sha256=digest,fixture_binary_sha256=sha256(root/'build'/(mode+'.exe')),
+        cells.append(dict(label=label,report_sha256=digest,fixture_binary_sha256=sha256(root/'build'/(mode+suffix)),
             runner_version=report['runner_version'],status=result['status']))
     require(not (root/'rejected').exists() and receipt['corrupt_archive_rejected_before_extraction'],'corrupt archive extracted')
     require(not any((ROOT/receipt['source_free_path']).iterdir()),'source-free PATH is no longer empty')
     require((package/'previous-report.html').is_file(),'previous report HTML was not generated')
-    immutable_json(ROOT/'docs/validation/runner-readiness-ten-project-pass/archive-experience/windows-provisional.json',
+    immutable_json(ROOT/'docs/validation/runner-readiness-ten-project-pass/archive-experience'/(host+('-provisional.json' if args.series=='provisional-v1' else '-migration-v2.json')),
         dict(experience=args.id,receipt_sha256=sha256(root/'experience.json'),cells=cells,
         current_archive_sha256=cell['archive_sha256'],current_binary_sha256=cell['binary_sha256'],
         old_archive_sha256=receipt['old_archive_sha256'],actual_commands=len(receipt['attempts']),
-        administrator_role_enabled_at_audit=bool(ctypes.windll.shell32.IsUserAnAdmin()),
+        privileged_role_enabled_at_execution=receipt.get('privileged_role_enabled','unmeasured in historical receipt'),
         source_free_execution='Empty PATH and standalone archive package; fixture compiler preparation was separate.',
         historical_failure='dba0c6e85c8d4f17a5f149617d71f07f: helper created its shared owned temp directory twice, corrected before fixture build.',
-        scope='Private provisional Windows archive calibration: Unicode relocation, checksums, screen/file failure and recovery, v2 upgrade/rollback and older report rendering.',
-        limits='No enforced offline-network proof, real-project fault credit, native Unix install coverage or final-archive qualification.',
+        scope='Private native archive calibration: Unicode relocation, checksums, screen/file failure and recovery, v2 upgrade/rollback and older report rendering.',
+        limits='No enforced offline-network proof, real-project fault credit or final-archive qualification. Native coverage is confined to this receipt host.',
         final_archive_credit=0))
     print('Independently verified',len(cells),'archive-driven ordinary outcomes and all actual command identities.')
 

@@ -1,0 +1,134 @@
+{
+  "cells": [
+    {
+      "artifact": "runner-readiness-core-ubuntu-24.04",
+      "checks": {
+        "native-ci-summary-controls": {
+          "attempt": "3e07f1bbbf554ff3ba0d025f4b00fb7a",
+          "console_sha256": "f828b553a6c1c0a0aacb545a2d5913eab9a8568c231765c0931913daf9c1916a",
+          "manifest_sha256": "f6c4a33e7a3386d4aa4c768f59e7136a7a7054c653b14bb521bf63fe89027143"
+        },
+        "native-core-tests": {
+          "attempt": "01c56f68908d456f9afa21fd6cc2c62b",
+          "console_sha256": "f9f551b036973796bcb90a2ceb685ed12d3015b791d0f75c6889a21714d4c84e",
+          "manifest_sha256": "86c7896486cc05f233937842eb063e9ab01571c13e234604d26455035eca6a8b"
+        },
+        "native-evidence-controls": {
+          "attempt": "9aff520d9a664f05aff7b3901a99bcd8",
+          "console_sha256": "928f456a55f5b9991bd02f4aa185bc08aed67d36c0566097bf8441fe53c9d8f7",
+          "manifest_sha256": "f6c4a33e7a3386d4aa4c768f59e7136a7a7054c653b14bb521bf63fe89027143"
+        },
+        "native-public-state-parent": {
+          "attempt": "dc0ed136b7e54db8a07a3fa582f41e6a",
+          "console_sha256": "761f61ee3097199faad3513dac3fb2175754c927b48b295c0f049d0e5b755332",
+          "manifest_sha256": "f6c4a33e7a3386d4aa4c768f59e7136a7a7054c653b14bb521bf63fe89027143"
+        },
+        "native-race": {
+          "attempt": "7b45917e51fb440a9431499bd0cebdde",
+          "console_sha256": "557985f2a7489223e0a228b3a36e1aaa8d9cdb55db359830cafaee6151b509a5",
+          "manifest_sha256": "86c7896486cc05f233937842eb063e9ab01571c13e234604d26455035eca6a8b"
+        },
+        "native-vet": {
+          "attempt": "fe616048513b41b3a576ab81a9a24652",
+          "console_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "manifest_sha256": "86c7896486cc05f233937842eb063e9ab01571c13e234604d26455035eca6a8b"
+        }
+      },
+      "host": "linux"
+    },
+    {
+      "artifact": "runner-readiness-core-macos-15",
+      "checks": {
+        "native-ci-summary-controls": {
+          "attempt": "a0c280eaaa544032b6103c571bc283f2",
+          "console_sha256": "86bf23a8743d7c3e1d111967f6b389821865a284f7e623e6c2e67bce2915ccdf",
+          "manifest_sha256": "872bcaf64b2fc55cf146fe740f692ad1a73c73b7fe465a8a1c549b334a6d1b51"
+        },
+        "native-core-tests": {
+          "attempt": "e059956d6ef84f1c97e9d09a20e2ce77",
+          "console_sha256": "343e71407dd534bb14b7b5baf9a20568384c54a60db42c2bd8183b73ca3f370d",
+          "manifest_sha256": "b362507e96c8eb5956715a63b8993cce76b1f4ad2aa25bd43e1c169769b03a2f"
+        },
+        "native-evidence-controls": {
+          "attempt": "5e0c35d3ad0b4875865bd7e38f50ee20",
+          "console_sha256": "26e464494d21677eb4f2bd7301285355b8f318f18c93163f0fe620d1cf04aa13",
+          "manifest_sha256": "872bcaf64b2fc55cf146fe740f692ad1a73c73b7fe465a8a1c549b334a6d1b51"
+        },
+        "native-public-state-parent": {
+          "attempt": "777d81ead1b14b28bd0aa34654748035",
+          "console_sha256": "039a993e4e27fe67207ac0a65c33751fa6f133b22db001c46831db345dec7b33",
+          "manifest_sha256": "872bcaf64b2fc55cf146fe740f692ad1a73c73b7fe465a8a1c549b334a6d1b51"
+        },
+        "native-race": {
+          "attempt": "76f20fe3606044d8a9416b5e67f02717",
+          "console_sha256": "29e70259a3fe881dd39517e324db2357e8685f99831fafeea930d50a95bc0de4",
+          "manifest_sha256": "b362507e96c8eb5956715a63b8993cce76b1f4ad2aa25bd43e1c169769b03a2f"
+        },
+        "native-vet": {
+          "attempt": "81c1d17da9b04172a51dca78ce3e2fa0",
+          "console_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "manifest_sha256": "b362507e96c8eb5956715a63b8993cce76b1f4ad2aa25bd43e1c169769b03a2f"
+        }
+      },
+      "host": "macos"
+    },
+    {
+      "artifact": "runner-readiness-core-windows-2025",
+      "checks": {
+        "native-ci-summary-controls": {
+          "attempt": "a8935c75feed453e8bcc7285c37333fe",
+          "console_sha256": "284d7d587c954fdb97489045f7c9dbcc11c021d4e7e7486b6ffe9db79eaf47fe",
+          "manifest_sha256": "f51bdac10f7d5d26dad4086c0f649b4628466d1d517c7c3024336670e0800292"
+        },
+        "native-core-tests": {
+          "attempt": "eee48a2f0b7d4791862ec7006caf7c1b",
+          "console_sha256": "217925dae523781e0d3431d6cf76fec64eaa9dfb7f67713785109a953cb13008",
+          "manifest_sha256": "87e87e191d3632cd39109ec4dc015380f0778c9a78a5d50b669b3d7379ec841f"
+        },
+        "native-evidence-controls": {
+          "attempt": "f9071cb8b8514a0f82cd2860c700fa33",
+          "console_sha256": "893c051319005bcb5c479c77838307e49a679ad07adeebd855c958aa496be7e6",
+          "manifest_sha256": "f51bdac10f7d5d26dad4086c0f649b4628466d1d517c7c3024336670e0800292"
+        },
+        "native-public-state-parent": {
+          "attempt": "21e7e17feae640ce80e37307ef4464d3",
+          "console_sha256": "389afa8fa4139f50011d363b667152b6a7f9e8806bdc7268d722bb8cb8f1537d",
+          "manifest_sha256": "f51bdac10f7d5d26dad4086c0f649b4628466d1d517c7c3024336670e0800292"
+        },
+        "native-race": {
+          "attempt": "75b5216c162b40b98fc532e48bbb53f9",
+          "console_sha256": "1b8a986940a41cc47d7451e521ffaebaf3d133596cc441cef1be1e330a39b46a",
+          "manifest_sha256": "87e87e191d3632cd39109ec4dc015380f0778c9a78a5d50b669b3d7379ec841f"
+        },
+        "native-vet": {
+          "attempt": "20b9b0a4b2d64daaa8124e9723009c52",
+          "console_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "manifest_sha256": "87e87e191d3632cd39109ec4dc015380f0778c9a78a5d50b669b3d7379ec841f"
+        }
+      },
+      "host": "windows"
+    }
+  ],
+  "earlier_attempts": [
+    {
+      "path": "artifacts/runner-readiness-ten-project-pass/native/39443018782/run-metadata.json",
+      "sha256": "eb180cee7fec73b22628c98bea37fdb4c9eab127e4a12fda9b3eec6c44353dc2"
+    },
+    {
+      "path": "artifacts/runner-readiness-ten-project-pass/native/39445381629/run-metadata-attempt-1.json",
+      "sha256": "c572761310969b00de443a135521109af8f810006d9da1b81b127393f4799b94"
+    }
+  ],
+  "metadata_sha256": "39f1b7b498aa91f77ab9e6a00b1c32e209b4a39b0eb6af4becfb8619f46eb72d",
+  "native_hosts": [
+    "linux",
+    "macos",
+    "windows"
+  ],
+  "run": "39445381629",
+  "schema_version": 1,
+  "scope": "Actual native tests, vet, race, helper controls and public saved-state journey; expanded checkpoint controls positively observed in ordinary and race output. No project/final-archive credit.",
+  "source_revision": "129b7a45c0006be550f798ce52c2fbbfd327e515",
+  "tooling_revision": "ef98562e54d21acbad4993e08b98e71724dcfeab",
+  "verified_success": true
+}

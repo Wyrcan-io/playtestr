@@ -64,6 +64,8 @@ def main():
     immutable_json(ROOT/'docs/validation/runner-readiness-ten-project-pass/native-core-129b7a4.json',dict(
         schema_version=1,source_revision=MIGRATION_SOURCE,tooling_revision=metadata['headSha'],run=run,metadata_sha256=sha256(root/'run-metadata.json'),
         native_hosts=['linux','macos','windows'],cells=cells,verified_success=True,
+        earlier_attempts=[dict(path=p.relative_to(ROOT).as_posix(),sha256=sha256(p)) for p in [
+            RAW/'native/39443018782/run-metadata.json',root/'run-metadata-attempt-1.json'] if p.is_file()],
         scope='Actual native tests, vet, race, helper controls and public saved-state journey; expanded checkpoint controls positively observed in ordinary and race output. No project/final-archive credit.'))
     print('Three native core cells independently verified for migration repair.')
 

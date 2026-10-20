@@ -67,3 +67,6 @@ E-10/E-11 resolution: Papis fresh native 39099744836 verifies all twenty frozen 
 
 
 R3-12 validation update: local full Go tests061c2d230bed4a758a47af9eb6be14d6, vet909780a8b57243e7afc9e042fbddf7ab, racec8663812a23c4b05bdf654b7350b2a20 and both manual menu examples3731f901cd9e4f60bf89f77ae0574e03 pass. Native39443018782 ordinary/vet/race/public journey passes on all three hosts; Windows wholejob fails helper PowerShell startup at20s (af781478f19d48eab085573fab8dd39a). Test-only60s allowance passes focused actual refusal/removal controlcc8463562a80438a8387bf854badbfe1; wholejob revalidation remains required. No native candidate freeze or Broot runtime credit yet.
+
+
+R3-12 native completion: independently verifieda05b99f53d2c4e2fba984a3f3df17ef0 binds all three actual native cells in39445381629 to exact Go source129b7a4, including ordinary/race527-check controls, vet, helper and public state journey. Prior Windows test-only timeout and provider prelaunch Mac cancellation are retained with complete retry history. New candidate archive build/freeze and original Broot execution remain pending. Declared8s/2-worker parser property run9e6d9e887027497a82aa814b9b41305a passed55,488 executions; complete initial/final corpus and source hash retained under ownedRAW/fuzz-state-129b7a4. No application/final-archive credit.
