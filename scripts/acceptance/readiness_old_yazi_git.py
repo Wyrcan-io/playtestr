@@ -12,8 +12,10 @@ from readiness_evidence import Campaign, sha256
 def license_link(path,checkout):
     allowed={name+'/LICENSE' for name in ['ratatui','ratatui-core','ratatui-crossterm',
         'ratatui-termion','ratatui-termwiz','ratatui-widgets']}
-    if (not path.is_symlink() or path.relative_to(checkout).as_posix() not in allowed
-            or os.readlink(path)!='../LICENSE'):
+    if not path.is_symlink():raise RuntimeError('unreviewed Git dependency link')
+    literal=os.readlink(path)
+    if os.name=='nt':literal=literal.replace('\\','/')
+    if (path.relative_to(checkout).as_posix() not in allowed or literal!='../LICENSE'):
         raise RuntimeError('unreviewed Git dependency link')
     destination=checkout/'LICENSE'
     if destination.is_symlink() or not destination.is_file() or path.resolve(strict=True)!=destination.resolve(strict=True):

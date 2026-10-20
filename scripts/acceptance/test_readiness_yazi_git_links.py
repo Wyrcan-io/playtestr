@@ -11,17 +11,17 @@ class LicenseLinks(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             root=Path(folder);(root/'LICENSE').write_bytes(b'reviewed license')
             package=root/'ratatui-core';package.mkdir();link=package/'LICENSE'
-            try:link.symlink_to('../LICENSE')
+            try:link.symlink_to(Path('../LICENSE'))
             except OSError as error:self.skipTest('native link prerequisite unavailable: '+str(error))
             self.assertEqual(license_link(link,root),b'../LICENSE')
-            link.unlink();(root/'other').write_bytes(b'owned canary');link.symlink_to('../other')
+            link.unlink();(root/'other').write_bytes(b'owned canary');link.symlink_to(Path('../other'))
             with self.assertRaisesRegex(RuntimeError,'unreviewed'):license_link(link,root)
 
     def test_unlisted_link_is_refused(self):
         with tempfile.TemporaryDirectory() as folder:
             root=Path(folder);(root/'LICENSE').write_bytes(b'reviewed license')
             package=root/'unlisted';package.mkdir();link=package/'LICENSE'
-            try:link.symlink_to('../LICENSE')
+            try:link.symlink_to(Path('../LICENSE'))
             except OSError as error:self.skipTest('native link prerequisite unavailable: '+str(error))
             with self.assertRaisesRegex(RuntimeError,'unreviewed'):license_link(link,root)
 
