@@ -205,7 +205,7 @@ class Campaign:
                 binary=target/'bin'/('hx.exe' if os.name=='nt' else 'hx')
                 if binary.is_file():paths.append(binary)
                 paths.extend(p for p in (target/'bin/runtime').rglob('*') if p.is_file())
-            elif project in {'old-lf','old-superfile'}:
+            elif project in {'old-lf','old-superfile','old-glow'}:
                 original_project=project.removeprefix('old-')
                 review_path=ROOT/'docs/validation/runner-readiness-ten-project-pass/old-migration'/original_project/'source-review.json'
                 review=json.loads(review_path.read_text(encoding='utf-8-sig'))

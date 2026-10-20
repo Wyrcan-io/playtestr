@@ -15,7 +15,7 @@ from readiness_new_control_matrix import read_json as load
 
 
 async def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--project',choices=['lf','superfile'],required=True)
+    parser=argparse.ArgumentParser();parser.add_argument('--project',choices=['lf','superfile','glow'],required=True)
     parser.add_argument('--resume-after');args=parser.parse_args()
     project=args.project;slug='old-'+project;target=RAW/'active'/slug;source=target/'src'
     docs=ROOT/'docs/validation/runner-readiness-ten-project-pass/old-migration'/project
@@ -30,6 +30,7 @@ async def main():
     original=next(p for p in inventory['projects'] if p['project']==project)
     if host_name not in original['previously_qualified_hosts']:raise RuntimeError('undeclared original native build host')
     env=environment(target)
+    if project=='glow':env.update(TERM='screen-256color',GLAMOUR_STYLE='dark',GLOW_TEXT_SIZING='off')
     if os.name=='nt':env['USERNAME']='synthetic-maintainer'
     if args.resume_after:
         if not re.fullmatch('[0-9a-f]{32}',args.resume_after):raise RuntimeError('invalid setup failure identity')

@@ -1,4 +1,4 @@
-param([ValidateSet('plop','poetry','rubygems','edit','vis','fff','papis','frogmouth','hygen','rclone','old-cookiecutter','old-copier','old-lf','old-superfile','old-helix')][string]$Project)
+param([ValidateSet('plop','poetry','rubygems','edit','vis','fff','papis','frogmouth','hygen','rclone','old-cookiecutter','old-copier','old-lf','old-superfile','old-helix','old-glow')][string]$Project)
 $ErrorActionPreference = 'Stop'
 $workspace = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..')).TrimEnd('\')
 $campaign = Join-Path $workspace 'artifacts\runner-readiness-ten-project-pass'
@@ -12,8 +12,8 @@ $filter = if ($Project -in @('plop','hygen')) { "Name='node.exe'" } elseif ($Pro
     "Name='ruby.exe' OR Name='rubyw.exe' OR Name='git.exe' OR Name='less.exe' OR Name='diff.exe'"
 } elseif ($Project -eq 'edit') {
     "Name='edit.exe' OR Name='cargo.exe' OR Name='rustc.exe' OR Name='rustdoc.exe' OR Name='link.exe' OR Name='rc.exe' OR Name='cl.exe'"
-} elseif ($Project -in @('rclone','old-lf','old-superfile')) {
-    "Name='rclone.exe' OR Name='lf.exe' OR Name='superfile.exe' OR Name='go.exe' OR Name='compile.exe' OR Name='link.exe' OR Name='asm.exe' OR Name='cgo.exe'"
+} elseif ($Project -in @('rclone','old-lf','old-superfile','old-glow')) {
+    "Name='rclone.exe' OR Name='lf.exe' OR Name='superfile.exe' OR Name='glow.exe' OR Name='go.exe' OR Name='compile.exe' OR Name='link.exe' OR Name='asm.exe' OR Name='cgo.exe'"
 } elseif ($Project -eq 'vis') {
     "Name='vis.exe' OR Name='gcc.exe' OR Name='clang.exe' OR Name='cc1.exe' OR Name='make.exe' OR Name='ld.exe'"
 } elseif ($Project -eq 'fff') { "Name='bash.exe' OR Name='sh.exe' OR Name='cp.exe' OR Name='mv.exe' OR Name='rm.exe' OR Name='mkdir.exe'" } else { "Name='python.exe' OR Name='pythonw.exe' OR Name='poetry.exe' OR Name='papis.exe' OR Name='frogmouth.exe' OR Name='pip.exe'" }
