@@ -1,5 +1,6 @@
 """Bind Yazi's scoped pre-build hook review to locked registry and Git bytes."""
 from pathlib import Path
+import hashlib
 
 from readiness_evidence import RAW, ROOT, immutable_json, sha256
 from readiness_new_control_matrix import read_json as load
@@ -24,7 +25,12 @@ def verify(target, receipt, review=None):
     if len(git['checkouts'])!=1 or git['checkouts'][0]['commit']!='dde5e05eccfe5b7cb7712b4bdf76edd0c2cd1f25':
         raise RuntimeError('different original Yazi Git dependency')
     for name,row in git['files'].items():
-        if sha256(target/name)!=row['sha256']:
+        path=target/name
+        if path.is_symlink():
+            from readiness_old_yazi_git import license_link
+            digest=hashlib.sha256(license_link(path,target/git['checkouts'][0]['root'])).hexdigest()
+        else:digest=sha256(path)
+        if digest!=row['sha256']:
             raise RuntimeError('Yazi locked Git dependency bytes changed')
     if review is not None:
         expected=review['git_dependency_files']

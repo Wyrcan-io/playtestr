@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "first_failure_run": "39490837810",
+  "first_failure_scope": "Both Linux/macOS prerequisites refused a Git dependency symlink before target compilation or scenario execution.",
+  "git_commit": "dde5e05eccfe5b7cb7712b4bdf76edd0c2cd1f25",
+  "git_tree_mode": "120000",
+  "git_blob": "ea5b60640b01f74e295037aa8a6b7d4ea278a739",
+  "paths": ["ratatui-core/LICENSE", "ratatui-crossterm/LICENSE", "ratatui-termion/LICENSE", "ratatui-termwiz/LICENSE", "ratatui-widgets/LICENSE", "ratatui/LICENSE"],
+  "literal_target": "../LICENSE",
+  "review": "Actual pinned Git tree lists six package license convenience links. Windows Cargo checkout contains regular literal-target stubs; Unix checkout contains symlinks. Record literal Git link text without reading through links, and separately bind the regular root LICENSE file. Require exact listed paths/target, refuse redirected root license or junctions. All compiler source bytes and original review catalog remain unchanged.",
+  "qualification_credit": 0
+}

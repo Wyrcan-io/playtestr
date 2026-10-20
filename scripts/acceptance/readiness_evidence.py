@@ -90,6 +90,7 @@ class Campaign:
         paths.extend((ROOT/'schema').glob('*.json'))
         directories=[]
         runtime_executables={}
+        input_links={}
         values=list(map(str,argv))
         if len(values)>1 and values[1]=='record' and '--output' in values and '--fixture' in values:
             output=Path(values[values.index('--output')+1])
@@ -210,6 +211,14 @@ class Campaign:
                         for name,row in dependencies.get('git_dependency',{}).get('files',{}).items():
                             dependency=target/name
                             dependency.resolve(strict=True).relative_to(target.resolve(strict=True))
+                            if dependency.is_symlink():
+                                from readiness_old_yazi_git import license_link
+                                checkout=target/dependencies['git_dependency']['checkouts'][0]['root']
+                                payload=license_link(dependency,checkout)
+                                if hashlib.sha256(payload).hexdigest()!=row['sha256']:
+                                    raise ValueError('locked Yazi Git license link changed')
+                                input_links[dependency.relative_to(ROOT).as_posix()]=dict(target='../LICENSE',sha256=row['sha256'])
+                                continue
                             if sha256(dependency)!=row['sha256']:
                                 raise ValueError('locked Yazi Git dependency source changed')
                             paths.append(dependency)
@@ -284,6 +293,7 @@ class Campaign:
                     'fixture_directories':sorted(set(directories)),
                     'files': {p.relative_to(ROOT).as_posix(): sha256(p) for p in sorted(set(paths))}}
         if runtime_executables:identity['runtime_executables']=runtime_executables
+        if input_links:identity['input_links']=input_links
         data = (json.dumps(identity, sort_keys=True, ensure_ascii=True, indent=2)+'\n').encode()
         digest = hashlib.sha256(data).hexdigest()
         path = self.raw/'identities'/(digest+'.json')
