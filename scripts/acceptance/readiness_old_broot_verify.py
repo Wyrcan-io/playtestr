@@ -84,9 +84,9 @@ def audit(base,host,run=None):
     for item in materialized['cases']:
         name=item['case'];native=ROOT/item['original_native_spec'];before=load(native);spec=package/(name+'.json');contract=load(spec)
         require(sha256(native)==item['original_native_spec_sha256'],'original native prefix source changed')
-        expected=dict(before,version=3,steps=contract['steps']);prefix=[dict(step) for step in before['steps']]
+        expected=dict(before,version=3,steps=contract['steps']);expected_steps=[dict(step) for step in before['steps']]
         if name==variant_review['case']:
-            prefix[variant_review['step']-1]={'snapshot':variant_review['variant_snapshot']}
+            expected_steps[variant_review['step']-1]={'snapshot':variant_review['variant_snapshot']}
             changes=[r for r in profile['changes'] if r['spec']==spec.name]
             variant=package/'snapshots'/variant_review['variant_snapshot']
             require(len(changes)==1 and changes[0]['prepared_sha256']==materialized['all_package_inputs'][spec.name]
@@ -95,7 +95,7 @@ def audit(base,host,run=None):
                     and changes[0]['original_snapshot_sha256']==variant_review['original_snapshot_sha256']
                     and changes[0]['variant_snapshot_sha256']==sha256(variant)
                     and load(variant)==variant_review['expected_snapshot'],'context variant exceeds the reviewed exact snapshot')
-        require(contract==expected and contract['steps'][:len(before['steps'])]==prefix,'original native contract/prefix changed')
+        require(contract==expected and contract['steps'][:len(before['steps'])]==expected_steps,'original native contract/prefix changed')
         model_states(cases[name],contract['steps'][len(before['steps']):])
         for step in before['steps']:
             if 'snapshot' in step:

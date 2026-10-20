@@ -31,6 +31,11 @@ def main():
             and receipt['installed_binary_sha256']['current']==cell['binary_sha256'],'different actual candidate')
     previous=next(c for c in load(ROOT/'release/e5-candidate-manifest.json')
                   if c['host']['runner_os']=={'windows':'Windows','linux':'Linux','darwin':'macOS'}[host])
+    if receipt.get('previous_series','e5-rc2')=='provisional-v1':
+        previous_freeze=load(ROOT/'docs/validation/runner-readiness-ten-project-pass/provisional-candidate-freeze.json')
+        previous_cell=next(c for c in previous_freeze['cells'] if c['host']==host and c['architecture']==cell['architecture'])
+        previous=dict(archive_sha256=previous_cell['archive_sha256'],executable_sha256=previous_cell['binary_sha256'],version=previous_freeze['version'])
+    else:require(receipt.get('previous_series','e5-rc2')=='e5-rc2','unknown previous archive generation')
     require(receipt['old_archive_sha256']==previous['archive_sha256'],'different rollback archive')
     installed={name:root/(folder+' caf\u00e9 \u96ea')/('playtestr'+suffix)
                for name,folder in [('previous','old'),('current','upgrade'),('rollback','rollback')]}
@@ -103,7 +108,13 @@ def main():
             runner_version=report['runner_version'],status=result['status']))
     require(not (root/'rejected').exists() and receipt['corrupt_archive_rejected_before_extraction'],'corrupt archive extracted')
     source_free=receipt['source_free_path'].replace('\\','/')
-    require(source_free==key(root/'empty-path') and not any((root/'empty-path').iterdir()),'source-free PATH is no longer empty')
+    require(source_free==key(root/'empty-path'),'source-free PATH identity differs')
+    if (root/'empty-path').exists():
+        require(not any((root/'empty-path').iterdir()),'source-free PATH is no longer empty')
+    else:
+        require(args.packet is not None and receipt.get('artifact_empty_directories')==['empty-path']
+                and receipt.get('source_free_directory_entries')==[],
+                'missing source-free directory lacks an explicit empty-directory transfer declaration')
     require((package/'previous-report.html').is_file(),'previous report HTML was not generated')
     if not args.check_only:
         immutable_json(ROOT/'docs/validation/runner-readiness-ten-project-pass/archive-experience'/(host+('-provisional.json' if args.series=='provisional-v1' else '-migration-v2.json')),

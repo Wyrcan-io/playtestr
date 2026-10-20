@@ -58,6 +58,7 @@ def extract(archive,expected,output):
 
 async def main():
     parser=argparse.ArgumentParser();parser.add_argument('--series',choices=['provisional-v1','migration-v2'],default='provisional-v1')
+    parser.add_argument('--previous-series',choices=['e5-rc2','provisional-v1'],default='e5-rc2')
     parser.add_argument('--archive',type=Path);parser.add_argument('--previous-archive',type=Path);args=parser.parse_args()
     host={'Windows':'windows','Linux':'linux','Darwin':'darwin'}.get(platform.system())
     require(host is not None,'undeclared native archive host')
@@ -66,7 +67,7 @@ async def main():
     root.mkdir(parents=True)
     empty=root/'empty-path';empty.mkdir()
     env={k:os.environ[k] for k in ['SYSTEMROOT','WINDIR','COMSPEC','PATHEXT'] if k in os.environ}
-    env.update(PATH=str(empty),TEMP=str(RAW/'tmp'),TMP=str(RAW/'tmp'))
+    env.update(PATH=str(empty),TEMP=str(RAW/'tmp'),TMP=str(RAW/'tmp'),TMPDIR=str(RAW/'tmp'))
     freeze_name='provisional-candidate-freeze.json' if args.series=='provisional-v1' else 'migration-candidate-freeze.json'
     freeze=load(ROOT/'docs/validation/runner-readiness-ten-project-pass'/freeze_name)
     current=next(c for c in freeze['cells'] if c['host']==host)
@@ -74,6 +75,11 @@ async def main():
     old=next(c for c in manifest if c['host']['runner_os']=={'windows':'Windows','linux':'Linux','darwin':'macOS'}[host])
     previous=dict(archive_sha256=old['archive_sha256'],binary_sha256=old['executable_sha256'])
     old_archive=ROOT/'artifacts/e5-candidate-36329978517'/('playtestr-'+host+'-'+('arm64' if host=='darwin' else 'amd64'))/old['archive']
+    if args.previous_series=='provisional-v1':
+        previous_freeze=load(ROOT/'docs/validation/runner-readiness-ten-project-pass/provisional-candidate-freeze.json')
+        previous_cell=next(c for c in previous_freeze['cells'] if c['host']==host and c['architecture']==current['architecture'])
+        previous=dict(archive_sha256=previous_cell['archive_sha256'],binary_sha256=previous_cell['binary_sha256'])
+        old=dict(version=previous_freeze['version']);old_archive=ROOT/previous_cell['archive_local_only']
     current_archive=ROOT/current['archive_local_only']
     for option,name in [(args.archive,'current'),(args.previous_archive,'previous')]:
         if option is None:continue
@@ -164,7 +170,9 @@ async def main():
     await test('rollback-v2',installed['rollback'],legacy_path,0)
     await call('current-reads-previous-report',[binary,'report','--input',old_report,'--evidence-root',package,
         '--output',package/'previous-report.html'])
-    immutable_json(root/'experience.json',dict(series=args.series,host=host,architecture=current['architecture'],privileged_role_enabled=(bool(ctypes.windll.shell32.IsUserAnAdmin()) if os.name=='nt' else os.geteuid()==0),attempts=attempts,reports=reports,source_free_path=str(empty.relative_to(ROOT)),
+    require(not any(empty.iterdir()),'source-free executable search directory changed')
+    immutable_json(root/'experience.json',dict(series=args.series,previous_series=args.previous_series,host=host,architecture=current['architecture'],privileged_role_enabled=(bool(ctypes.windll.shell32.IsUserAnAdmin()) if os.name=='nt' else os.geteuid()==0),attempts=attempts,reports=reports,source_free_path=str(empty.relative_to(ROOT)),
+        artifact_empty_directories=['empty-path'],source_free_directory_entries=[],
         installed_binary_sha256={n:sha256(p) for n,p in installed.items()},current_archive_sha256=sha256(current_archive),
         old_archive_sha256=sha256(old_archive),fixture_source_sha256=sha256(source),compiler_sha256=sha256(compiler),
         spec_sha256=approved,baseline_sha256=baseline,corrupt_archive_rejected_before_extraction=True,

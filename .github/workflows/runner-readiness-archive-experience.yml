@@ -1,0 +1,89 @@
+name: Runner readiness native archive experience
+on:
+  push:
+    branches: [work/p0-p2-implementation]
+    paths: ['.github/workflows/runner-readiness-archive-experience.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: playtestr-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONIOENCODING: utf-8
+  GOTOOLCHAIN: local
+  TEMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+  TMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+  TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+  RUNNER_TEMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+jobs:
+  native-archive:
+    if: github.event_name == 'workflow_dispatch'
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            target: linux-amd64
+            archive_target: linux_amd64
+          - os: macos-15
+            target: darwin-arm64
+            archive_target: darwin_arm64
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+      - name: Prepare owned fixture compiler and temporary paths
+        run: |
+          campaign="$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass"
+          mkdir -p "$campaign/tmp"
+          export TEMP="$campaign/tmp" TMP="$campaign/tmp" TMPDIR="$campaign/tmp" GOTMPDIR="$campaign/tmp"
+          for name in TEMP TMP TMPDIR GOTMPDIR; do
+            printf '%s=%s\n' "$name" "${!name}" >> "$GITHUB_ENV"
+          done
+          python3 scripts/acceptance/readiness_check.py --label archive-fixture-sdk-preparation --timeout 360 -- python3 scripts/acceptance/readiness_bootstrap_go.py
+      - name: Download exact frozen current private native archive
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          github-token: ${{ github.token }}
+          repository: Wyrcan-io/playtestr
+          run-id: 39450029736
+          name: private-candidate-${{ runner.os }}
+          path: artifacts/runner-readiness-ten-project-pass/current-archive-download
+      - name: Download exact frozen previous private native archive
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          github-token: ${{ github.token }}
+          repository: Wyrcan-io/playtestr
+          run-id: 39147652486
+          name: private-candidate-${{ runner.os }}
+          path: artifacts/runner-readiness-ten-project-pass/previous-archive-download
+      - name: Source-free install, record, failure/recovery and private upgrade/rollback
+        run: |
+          python3 scripts/acceptance/readiness_check.py --label native-private-archive-experience --timeout 360 -- python3 scripts/acceptance/readiness_windows_archive_experience.py --series migration-v2 --previous-series provisional-v1 --archive artifacts/runner-readiness-ten-project-pass/current-archive-download/candidate-packages/migration-v2/${{ matrix.target }}/dist/playtestr_0.4.0-rc.5_${{ matrix.archive_target }}.tar.gz --previous-archive artifacts/runner-readiness-ten-project-pass/previous-archive-download/candidate-packages/provisional-v1/${{ matrix.target }}/dist/playtestr_0.4.0-rc.4_${{ matrix.archive_target }}.tar.gz
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: native-archive-experience-${{ runner.os }}
+          path: |
+            artifacts/runner-readiness-ten-project-pass/events/
+            artifacts/runner-readiness-ten-project-pass/identities/
+            artifacts/runner-readiness-ten-project-pass/core/
+            artifacts/runner-readiness-ten-project-pass/archive-experience/
+            artifacts/runner-readiness-ten-project-pass/toolchain/sdk.json
+            !artifacts/runner-readiness-ten-project-pass/archive-experience/**/build/cache/**
+            !artifacts/runner-readiness-ten-project-pass/archive-experience/**/build/gopath/**
+            !artifacts/runner-readiness-ten-project-pass/archive-experience/**/build/modules/**
+            !artifacts/runner-readiness-ten-project-pass/archive-experience/**/build/tmp/**
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
