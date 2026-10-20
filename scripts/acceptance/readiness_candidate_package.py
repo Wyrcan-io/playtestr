@@ -100,14 +100,14 @@ async def main():
     if sha256(released)!=sha256(binary):raise RuntimeError('extracted runner bytes differ')
     for name in ['LICENSE','README.md','THIRD_PARTY_NOTICES.md']:
         if sha256(extracted/base/name)!=inputs[name]:raise RuntimeError('packaged documentation differs')
-    version=await run([released,'--version'],'extracted-version')
-    if version['output'].strip()!='playtestr '+version:raise RuntimeError('private archive version differs')
+    version_result=await run([released,'--version'],'extracted-version')
+    if version_result['output'].strip()!='playtestr '+version:raise RuntimeError('private archive version differs')
     await run([released,'--help'],'extracted-help')
     if inputs!={n:sha256(checkout/n) for n in names}:raise RuntimeError('candidate source inputs changed during build')
     immutable_json(root/'candidate.json',dict(schema_version=1,series=args.series,version=version,source_revision=source,host=host,architecture=arch,
         source_qualification_index_sha256=sha256(qualification),**{("eighth_admission_sha256" if args.series=="provisional-v1" else "migration_admission_ledger_sha256"):sha256(admission)},source_inputs=inputs,compiler_sha256=sha256(tool),sdk=sdk['output'].strip(),sdk_settings=native,sdk_attempt=sdk['id'],settings_attempt=settings['id'],binary_sha256=sha256(binary),extracted_binary_sha256=sha256(released),
         archive=archive.relative_to(ROOT).as_posix(),archive_sha256=sha256(archive),archive_bytes=archive.stat().st_size,archive_members=members,
-        build_attempt=build['id'],version_attempt=version['id'],ledger_sha256=sha256(docs/'candidates.json'),project_qualification=False,
+        build_attempt=build['id'],version_attempt=version_result['id'],ledger_sha256=sha256(docs/'candidates.json'),project_qualification=False,
         freeze=('Private provisional archive before reserved projects nine/ten.' if args.series=='provisional-v1' else 'Private migration repair after holdouts were consumed; no fresh holdout claim.')+' No release/tag/publication authorized; final qualification remains separate.'))
     print('Private native provisional archive inspected:',archive.relative_to(ROOT),sha256(archive))
 
