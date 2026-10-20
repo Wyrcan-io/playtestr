@@ -16,8 +16,21 @@ shared server; openers, editors, custom shell commands and user files are exclud
 The original unselected `charlie.txt` copy corruption will be rebuilt in the
 real target: the selected preview and terminal-only contract must still pass,
 the public state assertion must reject the wrong bytes in that same execution,
-and exact source plus reproducible compiled-binary restoration must pass the
-unchanged contract. No migration admission or final-archive credit is yet recorded.
+and exact source plus reproducible compiled-binary restoration pass the
+unchanged contract on local Windows and native Linux run `39382652107`.
+All twelve original cases pass on each host. Independent
+[Windows](verified-windows.json) and [Linux](verified-linux.json) audits bind
+actual public invocations, original native prefixes, saved-state expectations,
+compiler/source/compiled-binary identities and cleanup.
+The [admission](migration-admission.json) records twelve canonical scenarios,
+two native cells, 24 primary and six calibration executions. No new-project or
+final-archive credit is added. All thirty ordinary executions are accounted for;
+the earlier failed setup probe is retained separately.
+
+Owned source, native SDK and build caches are removed after source archive,
+selected restoration and process checks. The Linux packet retains all 526
+logical files in a verified 635,342-byte compressed archive; its expanded copy
+is removed. Bulk evidence is local-only under the ignored campaign artifact root.
 
 The first local build compiled successfully, but its version probe panicked
 because Windows requires `USERNAME` during target initialization
