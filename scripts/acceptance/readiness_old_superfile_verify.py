@@ -17,7 +17,7 @@ from readiness_old_cookiecutter_verify import model_states
 
 
 def canonical_archive(target,review,root=RAW,project='superfile'):
-    require(project in {'superfile','helix','glow','broot'},'undeclared canonical source project')
+    require(project in {'superfile','helix','glow','broot','yazi'},'undeclared canonical source project')
     relative='old-'+project+'/retained-source/source.tar.gz'
     canonical=root/relative
     reference=load(target/'build-receipts/canonical-source-reference.json')

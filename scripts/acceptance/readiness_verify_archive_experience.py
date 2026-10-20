@@ -29,6 +29,16 @@ def main():
     cell=next(c for c in freeze['cells'] if c['host']==host)
     require(receipt['current_archive_sha256']==cell['archive_sha256']
             and receipt['installed_binary_sha256']['current']==cell['binary_sha256'],'different actual candidate')
+    canonical=ROOT/cell['archive_local_only'];corrupt=root/'corrupt.zip'
+    require(canonical.stat().st_size==cell['archive_bytes'] and sha256(canonical)==cell['archive_sha256']
+            and corrupt.is_file() and corrupt.stat().st_size==cell['archive_bytes'],
+            'canonical or corrupt checksum-control archive missing or changed')
+    original_bytes=canonical.read_bytes();corrupt_bytes=corrupt.read_bytes()
+    require(corrupt_bytes[0]==original_bytes[0]^1 and corrupt_bytes[1:]==original_bytes[1:],
+            'checksum-control payload is not the declared single-bit corruption')
+    require(sha256(root/'build/main.go')==receipt['fixture_source_sha256']
+            ==sha256(ROOT/'scripts/acceptance/readiness_archive_fixture.go.txt'),
+            'preserved fixture source differs')
     previous=next(c for c in load(ROOT/'release/e5-candidate-manifest.json')
                   if c['host']['runner_os']=={'windows':'Windows','linux':'Linux','darwin':'macOS'}[host])
     if receipt.get('previous_series','e5-rc2')=='provisional-v1':

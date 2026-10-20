@@ -12,11 +12,14 @@ from readiness_old_helix_environment import environment
 
 
 async def fetch(cargo,compiler,env,targets,project='helix'):
-    if project not in {'helix','broot'}:raise RuntimeError('undeclared original Rust dependency scope')
+    if project not in {'helix','broot','yazi'}:raise RuntimeError('undeclared original Rust dependency scope')
     target=RAW/'active'/('old-'+project);source=target/'src';lock=source/'Cargo.lock'
     before=sha256(lock);packages=tomllib.loads(lock.read_text())['package']
-    expected={p['name']+'-'+p['version']+'.crate':p['checksum'] for p in packages if p.get('source')}
-    if any(p.get('source') not in {None,'registry+https://github.com/rust-lang/crates.io-index'} for p in packages):
+    registry='registry+https://github.com/rust-lang/crates.io-index'
+    expected={p['name']+'-'+p['version']+'.crate':p['checksum'] for p in packages if p.get('source')==registry}
+    git_sources={p['source'] for p in packages if p.get('source','').startswith('git+')}
+    allowed_git=set(load(target/'source-review.json')['locked_git_sources']) if project=='yazi' else set()
+    if git_sources!=allowed_git or any(p.get('source') not in {None,registry,*allowed_git} for p in packages):
         raise RuntimeError('unreviewed Cargo dependency source')
     calls=[]
     for triple in targets:
@@ -48,7 +51,11 @@ async def fetch(cargo,compiler,env,targets,project='helix'):
         hook.resolve(strict=True).relative_to(manifest.parent.resolve())
         if hook.stat().st_size>128*1024:raise RuntimeError('dependency hook review bound')
         hooks[manifest.parent.name+'/'+hook.relative_to(manifest.parent).as_posix()]=sha256(hook)
-    return dict(lock_sha256=before,files=files,build_hooks=hooks,fetch_attempts=calls,
+    git_dependency={}
+    if git_sources:
+        from readiness_old_yazi_git import inspect
+        git_dependency=await inspect(target,git_sources,env);hooks.update(git_dependency['build_hooks'])
+    return dict(lock_sha256=before,files=files,build_hooks=hooks,fetch_attempts=calls,git_dependency=git_dependency,
         cargo_path=str(cargo),cargo_sha256=sha256(cargo),rustc_path=str(compiler),rustc_sha256=sha256(compiler),
         targets=targets,build_hooks_executed=False)
 

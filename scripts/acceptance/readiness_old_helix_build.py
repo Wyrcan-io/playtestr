@@ -14,7 +14,7 @@ from readiness_old_helix_environment import environment
 
 
 async def run(label,argv,env,timeout=120,expected=0,project='helix'):
-    if project not in {'helix','broot'}:raise RuntimeError('undeclared original Rust command scope')
+    if project not in {'helix','broot','yazi'}:raise RuntimeError('undeclared original Rust command scope')
     target=RAW/'active'/('old-'+project);sizes=[]
     operation=asyncio.create_task(execute(argv,'old-'+project,label,cwd=target/'src',env=env,
         timeout=timeout,expected=expected,campaign=Campaign()))
@@ -47,17 +47,19 @@ def build_environment(project='helix'):
 
 async def compile_target(label,*,clean=False,project='helix'):
     target,runtime,cargo,env=build_environment(project);triple=runtime['native_triple']
-    package,binary_name={'helix':('helix-term','hx'),'broot':('broot','broot')}[project]
+    package,binary_name={'helix':('helix-term','hx'),'broot':('broot','broot'),'yazi':('yazi-fm','yazi')}[project]
+    profile='release-windows' if project=='yazi' and os.name=='nt' else 'release'
     if clean:
-        cleared=await run(label+'-invalidate-'+package,[cargo,'clean','--locked','--offline','--profile','release',
-            '--target',triple,'-p',package],env,120,project=project)
-        count=re.search(r'Removed\s+([0-9]+)\s+files?',cleared['output'])
-        if count is None or int(count.group(1))==0:raise RuntimeError('compiled package invalidation lacks positive evidence')
-    command=[cargo,'rustc' if os.name=='nt' else 'build','--locked','--offline','--profile','release',
+        for affected in (['yazi-fs',package] if project=='yazi' else [package]):
+            cleared=await run(label+'-invalidate-'+affected,[cargo,'clean','--locked','--offline','--profile',profile,
+                '--target',triple,'-p',affected],env,120,project=project)
+            count=re.search(r'Removed\s+([0-9]+)\s+files?',cleared['output'])
+            if count is None or int(count.group(1))==0:raise RuntimeError('compiled package invalidation lacks positive evidence')
+    command=[cargo,'rustc' if os.name=='nt' else 'build','--locked','--offline','--profile',profile,
         '--target',triple,'-p',package,'--bin',binary_name]
     if os.name=='nt':command+=['--','-C','link-arg=/Brepro']
     result=await run(label,command,env,900,project=project)
-    built=target/'cargo-target'/triple/'release'/(binary_name+('.exe' if os.name=='nt' else ''))
+    built=target/'cargo-target'/triple/profile/(binary_name+('.exe' if os.name=='nt' else ''))
     binary=target/'bin'/built.name;binary.parent.mkdir(exist_ok=True);shutil.copyfile(built,binary)
     if os.name!='nt':binary.chmod(0o755)
     return result,binary

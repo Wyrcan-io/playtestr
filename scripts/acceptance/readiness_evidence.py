@@ -186,7 +186,7 @@ class Campaign:
                     if compiler.is_symlink() or getattr(compiler,'is_junction',lambda:False)():raise ValueError('linked Rclone compiler')
                     paths.append(compiler)
                     runtime_executables['go']=sha256(compiler)
-            elif project in {'old-helix','old-broot'}:
+            elif project in {'old-helix','old-broot','old-yazi'}:
                 review_path=ROOT/'docs/validation/runner-readiness-ten-project-pass/old-migration'/project.removeprefix('old-')/'source-review.json'
                 review=json.loads(review_path.read_text(encoding='utf-8-sig'))
                 paths.append(review_path)
@@ -202,7 +202,18 @@ class Campaign:
                             raise ValueError('undeclared external Rust prerequisite')
                         runtime_executables[key]=sha256(tool)
                 paths.extend(p for p in (target/'cargo-home/registry/cache').rglob('*.crate') if p.is_file())
-                binary_name='hx' if project=='old-helix' else 'broot'
+                if project=='old-yazi':
+                    receipt=next((target/name for name in ['dependencies.json','dependency-fetch-review.json']
+                                  if (target/name).is_file()),None)
+                    if receipt is not None:
+                        dependencies=json.loads(receipt.read_text(encoding='utf-8-sig'))
+                        for name,row in dependencies.get('git_dependency',{}).get('files',{}).items():
+                            dependency=target/name
+                            dependency.resolve(strict=True).relative_to(target.resolve(strict=True))
+                            if sha256(dependency)!=row['sha256']:
+                                raise ValueError('locked Yazi Git dependency source changed')
+                            paths.append(dependency)
+                binary_name={'old-helix':'hx','old-broot':'broot','old-yazi':'yazi'}[project]
                 binary=target/'bin'/(binary_name+('.exe' if os.name=='nt' else ''))
                 if binary.is_file():paths.append(binary)
                 paths.extend(p for p in (target/'bin/runtime').rglob('*') if p.is_file())
