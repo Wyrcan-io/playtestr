@@ -1,0 +1,91 @@
+name: Runner readiness original Ranger migration
+on:
+  push:
+    branches: [work/p0-p2-implementation]
+    paths: ['.github/workflows/runner-readiness-old-ranger.yml']
+  workflow_dispatch:
+    inputs:
+      candidate_run:
+        description: Independently frozen migration-v2 candidate run
+        required: true
+        type: string
+permissions:
+  contents: read
+  actions: read
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONIOENCODING: utf-8
+  TEMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+  TMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+  TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+  RUNNER_TEMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+concurrency:
+  group: playtestr-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  original-native:
+    if: github.event_name == 'workflow_dispatch'
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            host: linux
+            target: linux-amd64
+            archive_target: linux_amd64
+          - os: macos-15
+            host: macos
+            target: darwin-arm64
+            archive_target: darwin_arm64
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+      - name: Prepare owned temporary paths
+        run: mkdir -p "$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass/tmp"
+      - name: Download exact frozen native private archive
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          github-token: ${{ github.token }}
+          repository: Wyrcan-io/playtestr
+          run-id: ${{ inputs.candidate_run }}
+          name: private-candidate-${{ runner.os }}
+          path: artifacts/runner-readiness-ten-project-pass/provisional-download
+      - name: Install exact frozen private runner without rebuilding
+        run: |
+          python3 scripts/acceptance/readiness_check.py --label old-ranger-exact-private-install --timeout 120 -- python3 scripts/acceptance/readiness_install_provisional.py --series migration-v2 --archive artifacts/runner-readiness-ten-project-pass/provisional-download/candidate-packages/migration-v2/${{ matrix.target }}/dist/playtestr_0.4.0-rc.5_${{ matrix.archive_target }}.tar.gz
+      - name: Prepare reviewed original source launcher and owned Python/curses
+        id: build
+        run: python3 scripts/acceptance/readiness_check.py --label old-ranger-native-reviewed-prepare --timeout 600 -- python3 scripts/acceptance/readiness_old_ranger_native_prepare.py
+      - name: Materialize original native prefixes and public saved-state assertions
+        run: python3 scripts/acceptance/readiness_check.py --label old-ranger-native-materialize --timeout 120 -- python3 scripts/acceptance/readiness_old_migration_materialize.py --project ranger --host ${{ matrix.host }}
+      - name: Run all sixteen original native scenarios with same-execution state proof
+        run: python3 scripts/acceptance/readiness_check.py --label old-ranger-native-sixteen-public-migration --timeout 900 -- python3 scripts/acceptance/readiness_old_ranger_test.py
+      - name: Real saved corruption, legacy false green, public rejection and exact recovery
+        run: python3 scripts/acceptance/readiness_check.py --label old-ranger-native-real-corruption-recovery --timeout 360 -- python3 scripts/acceptance/readiness_old_ranger_corruption.py
+      - name: Verify runtime termination, original source restoration and checked removal
+        if: always() && steps.build.outcome == 'success'
+        run: python3 scripts/acceptance/readiness_check.py --label old-ranger-native-checked-cleanup --timeout 240 -- python3 scripts/acceptance/readiness_cleanup_plop.py --project old-ranger
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: old-ranger-${{ runner.os }}
+          path: |
+            artifacts/runner-readiness-ten-project-pass/events/
+            artifacts/runner-readiness-ten-project-pass/identities/
+            artifacts/runner-readiness-ten-project-pass/core/
+            artifacts/runner-readiness-ten-project-pass/old-ranger/
+            artifacts/runner-readiness-ten-project-pass/old-migration/ranger/
+            artifacts/runner-readiness-ten-project-pass/old-ranger-runtime-baseline.json
+            artifacts/runner-readiness-ten-project-pass/private-install/migration-v2/*/installation.json
+            !artifacts/runner-readiness-ten-project-pass/old-ranger/**/source.tar.gz
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14

@@ -25,7 +25,13 @@ def main():
              if args.project=='copier' else
              {'website/src/content/docs/notice.md':'../../../../NOTICE.md'}
              if args.project=='superfile' else
-             {'contrib/themes':'../runtime/themes'} if args.project=='helix' else None)
+             {'contrib/themes':'../runtime/themes'} if args.project=='helix' else
+             {'doc/config/colorschemes/'+name+'.py':'../../../ranger/colorschemes/'+name+'.py'
+              for name in ['default','jungle','snow']} | {
+                 'doc/config/commands.py':'../../ranger/config/commands.py',
+                 'doc/config/rc.conf':'../../ranger/config/rc.conf',
+                 'doc/config/rifle.conf':'../../ranger/config/rifle.conf',
+                 'doc/config/scope.sh':'../../ranger/data/scope.sh'} if args.project=='ranger' else None)
     expected=None
     if omitted:
         reviewed=load(docs/'old-migration'/args.project/'source-acquisition-review.json')

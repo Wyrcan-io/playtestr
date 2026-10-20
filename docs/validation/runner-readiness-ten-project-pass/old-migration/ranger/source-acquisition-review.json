@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "repository": "ranger/ranger",
+  "pin": "46e957af9762dd2fcaabfbef4d3c45c16edd1184",
+  "archive_sha256": "eb05347c0689bf8b340be1adc31bd582c9354a728a97d8ecc9f199441a2daca6",
+  "compressed_bytes": 313689,
+  "omitted_links": {
+    "doc/config/colorschemes/default.py": "../../../ranger/colorschemes/default.py",
+    "doc/config/colorschemes/jungle.py": "../../../ranger/colorschemes/jungle.py",
+    "doc/config/colorschemes/snow.py": "../../../ranger/colorschemes/snow.py",
+    "doc/config/commands.py": "../../ranger/config/commands.py",
+    "doc/config/rc.conf": "../../ranger/config/rc.conf",
+    "doc/config/rifle.conf": "../../ranger/config/rifle.conf",
+    "doc/config/scope.sh": "../../ranger/data/scope.sh"
+  },
+  "review": "Seven documentation convenience aliases point to regular configuration/color-scheme files within the same pinned source archive. Omit only these exact aliases, preserving every regular source file including all actual runtime configuration and modules. Never follow a host filesystem link during extraction. No hook or Ranger runtime has executed.",
+  "first_failure": "f1e0574f96e3404991196841c74298b1"
+}

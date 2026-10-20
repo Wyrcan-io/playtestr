@@ -226,6 +226,21 @@ class Campaign:
                 binary=target/'bin'/(binary_name+('.exe' if os.name=='nt' else ''))
                 if binary.is_file():paths.append(binary)
                 paths.extend(p for p in (target/'bin/runtime').rglob('*') if p.is_file())
+            elif project=='old-ranger':
+                review_path=ROOT/'docs/validation/runner-readiness-ten-project-pass/old-migration/ranger/source-review.json'
+                review=json.loads(review_path.read_text(encoding='utf-8-sig'));paths.append(review_path)
+                paths.extend(target/'src'/name for name in review['reviewed_inputs'])
+                launcher=target/'bin/ranger'
+                if launcher.is_file():paths.append(launcher)
+                if (target/'runtime.json').is_file():
+                    runtime=json.loads((target/'runtime.json').read_text(encoding='utf-8-sig'))
+                    for name,field in [('python','python_path'),('curses','curses_path'),('curses-extension','curses_extension_path')]:
+                        tool=Path(runtime[field]);resolved=tool.resolve(strict=True)
+                        if name=='python':
+                            resolved.relative_to(target.resolve(strict=True))
+                            if tool.is_symlink():raise ValueError('linked private Ranger interpreter')
+                            paths.append(tool)
+                        runtime_executables[name]=sha256(tool)
             elif project in {'old-lf','old-superfile','old-glow'}:
                 original_project=project.removeprefix('old-')
                 review_path=ROOT/'docs/validation/runner-readiness-ten-project-pass/old-migration'/original_project/'source-review.json'

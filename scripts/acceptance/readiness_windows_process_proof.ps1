@@ -1,4 +1,4 @@
-param([ValidateSet('plop','poetry','rubygems','edit','vis','fff','papis','frogmouth','hygen','rclone','old-cookiecutter','old-copier','old-lf','old-superfile','old-helix','old-glow','old-broot','old-yazi')][string]$Project)
+param([ValidateSet('plop','poetry','rubygems','edit','vis','fff','papis','frogmouth','hygen','rclone','old-cookiecutter','old-copier','old-lf','old-superfile','old-helix','old-glow','old-broot','old-yazi','old-ranger')][string]$Project)
 $ErrorActionPreference = 'Stop'
 $workspace = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..')).TrimEnd('\')
 $campaign = Join-Path $workspace 'artifacts\runner-readiness-ten-project-pass'
