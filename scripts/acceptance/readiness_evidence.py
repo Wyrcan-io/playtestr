@@ -186,6 +186,18 @@ class Campaign:
                     if compiler.is_symlink() or getattr(compiler,'is_junction',lambda:False)():raise ValueError('linked Rclone compiler')
                     paths.append(compiler)
                     runtime_executables['go']=sha256(compiler)
+            elif project=='old-lf':
+                review_path=ROOT/'docs/validation/runner-readiness-ten-project-pass/old-migration/lf/source-review.json'
+                review=json.loads(review_path.read_text(encoding='utf-8-sig'))
+                paths.append(review_path)
+                paths.extend(target/'src'/name for name in review['reviewed_inputs'])
+                for name in ['toolchain/sdk.json','build.json','runtime.json']:
+                    if (target/name).is_file():paths.append(target/name)
+                compiler=target/'toolchain/go/bin'/('go.exe' if os.name=='nt' else 'go')
+                if compiler.is_file():
+                    paths.append(compiler);runtime_executables['go']=sha256(compiler)
+                binary=target/'bin'/('lf.exe' if os.name=='nt' else 'lf')
+                if binary.is_file():paths.append(binary)
             elif project in {'old-cookiecutter','old-copier'}:
                 original_project=project.removeprefix('old-')
                 review_path=ROOT/'docs/validation/runner-readiness-ten-project-pass/old-migration'/original_project/'source-review.json'
