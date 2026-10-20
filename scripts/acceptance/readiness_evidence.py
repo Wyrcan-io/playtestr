@@ -226,6 +226,15 @@ class Campaign:
                 binary=target/'bin'/(binary_name+('.exe' if os.name=='nt' else ''))
                 if binary.is_file():paths.append(binary)
                 paths.extend(p for p in (target/'bin/runtime').rglob('*') if p.is_file())
+            elif project=='old-nnn':
+                review_path=ROOT/'docs/validation/runner-readiness-ten-project-pass/old-migration/nnn/source-review.json'
+                review=json.loads(review_path.read_text(encoding='utf-8-sig'));paths.append(review_path)
+                paths.extend(target/'src'/name for name in review['reviewed_inputs'])
+                binary=target/'bin/nnn'
+                if binary.is_file():paths.append(binary)
+                if (target/'runtime.json').is_file():
+                    runtime=json.loads((target/'runtime.json').read_text(encoding='utf-8-sig'))
+                    for name,row in runtime['tools'].items():runtime_executables[name]=sha256(Path(row['path']))
             elif project=='old-ranger':
                 review_path=ROOT/'docs/validation/runner-readiness-ten-project-pass/old-migration/ranger/source-review.json'
                 review=json.loads(review_path.read_text(encoding='utf-8-sig'));paths.append(review_path)
