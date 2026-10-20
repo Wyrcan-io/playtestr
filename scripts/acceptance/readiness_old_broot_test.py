@@ -24,9 +24,18 @@ async def main():
     if build['pin']!=materialized['pin']:raise RuntimeError('wrong original target pin')
     root=parent/'runs'/uuid.uuid4().hex;root.mkdir(parents=True)
     package=root/'contracts';shutil.copytree(source,package)
+    changes=[]
+    for row in materialized['cases']:
+        path=package/(row['case']+'.json');before=sha256(path);contract=load(path)
+        if 'GIT_CEILING_DIRECTORIES' in contract.get('inherit_env',[]) or 'GIT_CEILING_DIRECTORIES' in contract.get('env',{}):
+            raise RuntimeError('original contract already declares a different Git boundary')
+        contract['inherit_env']=[*contract.get('inherit_env',[]),'GIT_CEILING_DIRECTORIES']
+        path.write_text(json.dumps(contract,indent=2)+'\n',encoding='utf-8',newline='\n')
+        changes.append(dict(spec=path.name,prepared_sha256=before,executed_sha256=sha256(path),
+            added_inherited_name='GIT_CEILING_DIRECTORIES'))
     immutable_json(root/'execution-profile.json',dict(original_materialized_sha256=sha256(parent/'materialized.json'),
-        target_build_sha256=sha256(target/'build.json'),changes=[],
-        operational_change='Exact prepared public v3 native contracts; no execution-time contract changes.'))
+        target_build_sha256=sha256(target/'build.json'),changes=changes,
+        operational_change='Explicitly inherit the caller-defined owned Git discovery ceiling. Owned temporary workspaces sit beneath the Playtestr checkout; this preserves the original fixture-local Git context without changing any action, fixture, baseline or state expectation.'))
     binary,candidate,cell=runner('migration-v2');env=environment()
     specs=[(package/(row['case']+'.json')).relative_to(ROOT) for row in materialized['cases']]
     listing=await execute([binary,'test','--list',*specs],'old-broot','migration-public-native-selection',
@@ -36,7 +45,7 @@ async def main():
     report=root/'results.json'
     result=await execute([sys.executable,'scripts/acceptance/readiness_public_suite.py','--project','old-broot',
         '--selection',selection.relative_to(ROOT),'--',binary,'test','--report',report.relative_to(ROOT),
-        '--artifacts-dir',(root/'evidence').relative_to(ROOT),*specs],'old-broot','migration-original-twelve-suite-parent',
+        '--artifacts-dir',(root/'evidence').relative_to(ROOT),*specs],'old-broot','migration-original-thirteen-suite-parent',
         env=env,timeout=600,campaign=Campaign())
     outcome=load(report)
     if outcome['runner_version']!=candidate['version'] or outcome['summary']!=dict(total=13,passed=13,failed=0,cancelled=0,not_run=0):

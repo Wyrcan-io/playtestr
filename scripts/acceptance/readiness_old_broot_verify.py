@@ -78,11 +78,17 @@ def audit(base,host,run=None):
     materialized=load(parent/'materialized.json');profile=load(root/'execution-profile.json')
     require(sha256(root/'execution-profile.json')==verified['execution_profile_sha256']
             and profile['original_materialized_sha256']==sha256(parent/'materialized.json'),'actual execution profile differs')
+    require(len(profile['changes'])==13,'missing explicit fixture Git boundary dispositions')
     for item in materialized['cases']:
         name=item['case'];native=ROOT/item['original_native_spec'];before=load(native);spec=package/(name+'.json');contract=load(spec)
         require(sha256(native)==item['original_native_spec_sha256'],'original native prefix source changed')
-        expected=dict(before,version=3,steps=contract['steps'])
+        expected=dict(before,version=3,steps=contract['steps'],
+                      inherit_env=[*before.get('inherit_env',[]),'GIT_CEILING_DIRECTORIES'])
         require(contract==expected and contract['steps'][:len(before['steps'])]==before['steps'],'original native contract/prefix changed')
+        changes=[r for r in profile['changes'] if r['spec']==spec.name]
+        require(len(changes)==1 and changes[0]['added_inherited_name']=='GIT_CEILING_DIRECTORIES'
+                and changes[0]['prepared_sha256']==materialized['all_package_inputs'][spec.name]
+                and changes[0]['executed_sha256']==sha256(spec),'Git boundary change exceeds declared environment profile')
         model_states(cases[name],contract['steps'][len(before['steps']):])
         for step in before['steps']:
             if 'snapshot' in step:

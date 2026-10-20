@@ -57,7 +57,8 @@ def extract(archive,expected,output):
 
 
 async def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--series',choices=['provisional-v1','migration-v2'],default='provisional-v1');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--series',choices=['provisional-v1','migration-v2'],default='provisional-v1')
+    parser.add_argument('--archive',type=Path);parser.add_argument('--previous-archive',type=Path);args=parser.parse_args()
     host={'Windows':'windows','Linux':'linux','Darwin':'darwin'}.get(platform.system())
     require(host is not None,'undeclared native archive host')
     suffix='.exe' if os.name=='nt' else ''
@@ -74,6 +75,18 @@ async def main():
     previous=dict(archive_sha256=old['archive_sha256'],binary_sha256=old['executable_sha256'])
     old_archive=ROOT/'artifacts/e5-candidate-36329978517'/('playtestr-'+host+'-'+('arm64' if host=='darwin' else 'amd64'))/old['archive']
     current_archive=ROOT/current['archive_local_only']
+    for option,name in [(args.archive,'current'),(args.previous_archive,'previous')]:
+        if option is None:continue
+        path=option if option.is_absolute() else ROOT/option
+        require('..' not in path.parts,'archive override traversal')
+        path.relative_to(RAW)
+        path.resolve(strict=True).relative_to(RAW.resolve(strict=True))
+        cursor=path
+        while cursor!=RAW:
+            require(not cursor.is_symlink() and not getattr(cursor,'is_junction',lambda:False)(),'linked archive override')
+            cursor=cursor.parent
+        if name=='current':current_archive=path
+        else:old_archive=path
     installed={
         'previous':extract(old_archive,previous,root/'old caf\u00e9 \u96ea'),
         'current':extract(current_archive,current,root/'upgrade caf\u00e9 \u96ea'),

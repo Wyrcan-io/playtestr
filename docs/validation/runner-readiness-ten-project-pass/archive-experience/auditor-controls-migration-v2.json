@@ -1,0 +1,60 @@
+{
+  "controls": {
+    "checks": {
+      "actual-installed-binary": {
+        "attempt": "da75c35bba3441368735ce9f01428dce",
+        "console_sha256": "588d324136478caee6cc32064a8fcb5834fa79dd6597d51b33fb28458bfbac2a",
+        "reason": "actual source-free installed package differs"
+      },
+      "candidate-archive-identity": {
+        "attempt": "ae591990c3e84a1ca06a885a63206631",
+        "console_sha256": "2bf4f1b9d7e4411bb42202357236d144eadabe643e20df3c32038801c2f05a1b",
+        "reason": "different actual candidate"
+      },
+      "changed-console": {
+        "attempt": "e8f301b3df1e4d7cac94a4250c9dd43b",
+        "console_sha256": "e32fb5bb695469fb0423f74746ddaa1de4c7f5272b4edba78eeae96289d60553",
+        "reason": "changed command output"
+      },
+      "coherently-rehashed-cross-workspace-state": {
+        "attempt": "1819e243f1aa4a2ca072c134f9e9a08f",
+        "console_sha256": "6a8f73b07513caec8eb9bee4bce47bc3646a11a8c8184f2f226166a71e92baaf",
+        "reason": "cross-execution state proof"
+      },
+      "coherently-rehashed-wrong-runner": {
+        "attempt": "b2382eed9f8247f0ae1ba8cbe9ac8592",
+        "console_sha256": "2ca1b2db8d64291269b3df80014134b3ab4e7cfd0addffbc5c0656fc27068de8",
+        "reason": "actual executed archive binary differs"
+      },
+      "false-command-exit": {
+        "attempt": "37d10152a0134a749ee217701ce7592f",
+        "console_sha256": "192cf295134056989094a2511d4bf9a18b4a056d8adbe98fbdb6783f2a9bb538",
+        "reason": "calibration child outcome/cleanup differs"
+      },
+      "missing-command": {
+        "attempt": "844373ddbeb74933bec021ef29fd0f46",
+        "console_sha256": "d7ec233f51f64dbefbbeb1d408516de39552f6e5ad9d91bb5367d590ccc376d9",
+        "reason": "missing or unexpected archive journey commands"
+      },
+      "nonempty-source-free-path": {
+        "attempt": "2fcad2b86e86446a9f1fefa80751a8a0",
+        "console_sha256": "9e5532cff496b5992e3ff7ffbef673507d12214b63d112238741ba5a7f30e824",
+        "reason": "source-free PATH is no longer empty"
+      },
+      "wrong-rollback-archive": {
+        "attempt": "34be8523fb2247a3900e18c3bffba79a",
+        "console_sha256": "21e5efd74b2d2404068d8516bf8fdfa024b8ca403d2e6a8f228057236b3415ac",
+        "reason": "different rollback archive"
+      }
+    },
+    "negative_controls": 9,
+    "scope": "Actual specific auditor refusal reasons independently verified, not arbitrary nonzero exits. Intermediate archive evidence only; final matrix audit remains open.",
+    "verified_sha256": "8828a6b16edd5ae395336b9218c9ab90fea1b6fe9d1c7913d54bfb01adcb7e1d"
+  },
+  "declared_sha256": "2cf989befff04785218f62473249d2da486ea03e62b87733176ca0b3cd5ff760",
+  "experience": "24bdb978ea454fff8efe67cdae9eb01d",
+  "final_archive_credit": 0,
+  "refusal_proof_sha256": "e8189cc7e8faac54e9c0c468e577d68e93a087c9489d10cafb34578230b39f71",
+  "scope": "Nine tampered copies of actual intermediate rc.5 Windows archive evidence are rejected for the intended reasons; original and restored copy remain unchanged. No final project-matrix/auditor completion credit and no original 33-control inflation.",
+  "verified_sha256": "8828a6b16edd5ae395336b9218c9ab90fea1b6fe9d1c7913d54bfb01adcb7e1d"
+}

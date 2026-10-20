@@ -1,0 +1,45 @@
+{
+  "cells": [
+    {
+      "all_managed_cleanup_confirmed": true,
+      "failed_case": "edge-empty-directory",
+      "failure": "snapshot_mismatch",
+      "generation": 1,
+      "host": "linux",
+      "large_tree_state_checks": 527,
+      "large_tree_steps": 535,
+      "report": "native/39450771993/old-broot-Linux/old-migration/broot/linux/runs/32ae2aa78a284a78a015bcfd0b112f11/results.json",
+      "report_sha256": "c333065d7214f8dc190676989e9b76e6d235bdc331a8d170be734066ce0fb5ba",
+      "summary": {
+        "cancelled": 0,
+        "failed": 1,
+        "not_run": 0,
+        "passed": 12,
+        "total": 13
+      }
+    },
+    {
+      "all_managed_cleanup_confirmed": true,
+      "failed_case": "edge-empty-directory",
+      "failure": "snapshot_mismatch",
+      "generation": 2,
+      "host": "macos",
+      "large_tree_state_checks": 527,
+      "large_tree_steps": 535,
+      "report": "native/39450771993/old-broot-macOS/old-migration/broot/macos/runs/a61a3800d14e4a1587b70354dd12eee6/results.json",
+      "report_sha256": "9f9c1fa970447aa6ce59bba60d3e98fc24d2a89bc6538b0af7c029595c956192",
+      "summary": {
+        "cancelled": 0,
+        "failed": 1,
+        "not_run": 0,
+        "passed": 12,
+        "total": 13
+      }
+    }
+  ],
+  "final_archive_credit": 0,
+  "migration_credit": 0,
+  "observed_ordinary_executions": 26,
+  "run": "39450771993",
+  "scope": "Both original native suites preserve the expected empty-directory snapshot and fail its newly visible alt-g Git hint; all other cases including the full large-tree checkpoint pass. No corruption calibration ran. Original source/runtime cleanup and retained evidence remain required separately."
+}
