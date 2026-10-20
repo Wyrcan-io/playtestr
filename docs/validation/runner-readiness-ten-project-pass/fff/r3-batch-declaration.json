@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "incident": "Linux E03 cancel-rename in 39146617427",
+  "target_pin": "6f2dc6f3a003d24e8b3fd48b046241b486022ad5",
+  "candidate_series": "migration-v2",
+  "candidate_run": "39450029736",
+  "host": "ubuntu-24.04 Linux amd64",
+  "batches": [
+    {"number": 1, "seed": 2026102101, "attempts": 50, "variation": "Unchanged reviewed E03, ordinary execution, fresh managed workspace per invocation."},
+    {"number": 2, "seed": 2026102102, "attempts": 50, "variation": "Same unchanged E03; attempts 0,10,20,30,40 add the existing owned two-second 8-MiB SHA256 worker."},
+    {"number": 3, "seed": 2026102103, "attempts": 50, "variation": "Same package bytes relocated to an owned path containing spaces and Unicode; fresh managed workspace per invocation."}
+  ],
+  "per_attempt_outer_seconds": 130,
+  "investigation_outer_seconds": 1200,
+  "limits": "Stop on missing/incomplete evidence, unconfirmed process/workspace cleanup or the enclosing deadline. Record partial batches honestly. No product deadline, target source, action, expectation or input timing changes; no automatic retry of failed attempts.",
+  "native_application_jobs_max": 1,
+  "owned_applications_per_job": 1,
+  "retained_project_cap_bytes": 67108864,
+  "execution_policy": "Run after the active Yazi application jobs finish, before another target acquisition. Source preparation, public attempts, failure evidence and checked cleanup stay in the job-owned checkout.",
+  "disposition_policy": "Retain the original failed run and all new attempts. Zero observed recurrences permits only a bounded unreproduced-risk disposition for this exact host/contract/candidate, never a zero-flake claim.",
+  "final_archive_credit": 0
+}
