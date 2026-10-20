@@ -7,7 +7,7 @@ from readiness_new_control_matrix import read_json as load
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--project',choices=['lf'],required=True);args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--project',choices=['lf','superfile'],required=True);args=parser.parse_args()
     target=RAW/'active'/('old-'+args.project)
     owner=load(target/'task-owned.json')
     review=load(ROOT/'docs/validation/runner-readiness-ten-project-pass/old-migration'/args.project/'source-review.json')

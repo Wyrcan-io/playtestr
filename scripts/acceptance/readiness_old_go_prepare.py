@@ -15,7 +15,7 @@ from readiness_new_control_matrix import read_json as load
 
 
 async def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--project',choices=['lf'],required=True)
+    parser=argparse.ArgumentParser();parser.add_argument('--project',choices=['lf','superfile'],required=True)
     parser.add_argument('--resume-after');args=parser.parse_args()
     project=args.project;slug='old-'+project;target=RAW/'active'/slug;source=target/'src'
     docs=ROOT/'docs/validation/runner-readiness-ten-project-pass/old-migration'/project
@@ -25,6 +25,10 @@ async def main():
     for name,digest in review['reviewed_inputs'].items():
         if sha256(source/name)!=digest:raise RuntimeError('original reviewed source changed')
     if (target/'build.json').exists():raise RuntimeError('refuse existing completed build')
+    host_name={'Windows':'windows','Linux':'linux','Darwin':'macos'}[platform.system()]
+    inventory=load(ROOT/'docs/validation/runner-readiness-ten-project-pass/old-migration-inventory.json')
+    original=next(p for p in inventory['projects'] if p['project']==project)
+    if host_name not in original['previously_qualified_hosts']:raise RuntimeError('undeclared original native build host')
     env=environment(target)
     if os.name=='nt':env['USERNAME']='synthetic-maintainer'
     if args.resume_after:
@@ -64,7 +68,7 @@ async def main():
         immutable_json(target/('build-storage-'+uuid.uuid4().hex+'.json'),dict(observed_bytes=sizes,scope='Periodic logical bytes, not exact peak or quota.'))
     for name,digest in review['reviewed_inputs'].items():
         if sha256(source/name)!=digest:raise RuntimeError('build changed reviewed source')
-    version=await run('migration-original-built-cli-version',[binary,'-version'],30)
+    version=await run('migration-original-built-cli-version',[binary,*review.get('version_arguments',['-version'])],30)
     immutable_json(target/'runtime.json',dict(go=str(go),compiler_sha256=sha256(go),sdk_sha256=sha256(sdk),
         native_settings=native,version_attempt=version['id'],installed_globally=False))
     immutable_json(target/'build.json',dict(pin=review['pin'],binary_relative_path=binary.relative_to(target).as_posix(),
