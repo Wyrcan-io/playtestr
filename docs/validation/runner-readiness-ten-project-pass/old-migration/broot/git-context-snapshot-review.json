@@ -1,0 +1,27 @@
+{
+  "case": "edge-empty-directory",
+  "derivation": "Pinned closest_repo_dir scans Path parents for .git existence without a ceiling. browser_state sets in_git_repo from that result. standard_status adds the Git hint between help and search, and the pinned default verb binding is alt-g. At width100 all four hints fit. Only this conditional help clause is added; original selected rows, footer, fixture/action ordering and every state expectation remain intact. Expected text is authored from the original reviewed snapshot and these source branches, not copied from failed output.",
+  "expected_snapshot": {
+    "first_row": 29,
+    "last_row": 30,
+    "snapshot_version": 1,
+    "text": " Hit enter to go up, ? for help, alt-g for git status, or a few letters to search\n                                                                                         h:n  gi:y\n"
+  },
+  "final_archive_credit": 0,
+  "first_native_run": "39450771993",
+  "ineffective_ceiling_native_run": "39454459624",
+  "original_snapshot": "edge-empty-directory.rows.json",
+  "original_snapshot_sha256": "4272c9de8350e89069015a7c0854342ea70bf7d54a1cf1b207517d8f32e2a1b4",
+  "qualification": "declared before new execution",
+  "schema_version": 1,
+  "scope": "Explicit parent-checkout context variant of the original empty-directory workflow. The original no-Git-parent snapshot remains preserved and is not claimed revalidated inside this checkout-owned temporary namespace. No blanket Git isolation claim, target patch, public runner exception or automatic snapshot acceptance.",
+  "source_oracle": {
+    "src/app/standard_status.rs": "49a29ea7cf566ecaab89f67cd0a19fcc36b24fe4332c377385753148126849cf",
+    "src/browser/browser_state.rs": "0a9f8c644cda594f73fdd3878d6bf80d79b28d29947cc4255ae378bdcefb8544",
+    "src/git/mod.rs": "8166c89cc3628f9a04bb797cc2494399a804799fd3cf37bab7ea8b75ad37c9a0",
+    "src/verb/verb_store.rs": "637dcb720610071291f1340b9d866680a21804cee97d7aae666cd9421d4ced81"
+  },
+  "step": 6,
+  "supersedes_profile": "Explicit inherited Git ceiling was a valid Git CLI control but did not affect this Broot help implementation; both native attempts remain failures.",
+  "variant_snapshot": "edge-empty-directory.git-context.rows.json"
+}

@@ -24,18 +24,22 @@ async def main():
     if build['pin']!=materialized['pin']:raise RuntimeError('wrong original target pin')
     root=parent/'runs'/uuid.uuid4().hex;root.mkdir(parents=True)
     package=root/'contracts';shutil.copytree(source,package)
-    changes=[]
-    for row in materialized['cases']:
-        path=package/(row['case']+'.json');before=sha256(path);contract=load(path)
-        if 'GIT_CEILING_DIRECTORIES' in contract.get('inherit_env',[]) or 'GIT_CEILING_DIRECTORIES' in contract.get('env',{}):
-            raise RuntimeError('original contract already declares a different Git boundary')
-        contract['inherit_env']=[*contract.get('inherit_env',[]),'GIT_CEILING_DIRECTORIES']
-        path.write_text(json.dumps(contract,indent=2)+'\n',encoding='utf-8',newline='\n')
-        changes.append(dict(spec=path.name,prepared_sha256=before,executed_sha256=sha256(path),
-            added_inherited_name='GIT_CEILING_DIRECTORIES'))
+    review=load(ROOT/'docs/validation/runner-readiness-ten-project-pass/old-migration/broot/git-context-snapshot-review.json')
+    if not (ROOT/'.git').exists():raise RuntimeError('declared parent-checkout context is absent')
+    path=package/(review['case']+'.json');before=sha256(path);contract=load(path)
+    original_snapshot=package/'snapshots'/review['original_snapshot']
+    if (sha256(original_snapshot)!=review['original_snapshot_sha256']
+            or contract['steps'][review['step']-1]!={'snapshot':review['original_snapshot']}):
+        raise RuntimeError('original empty-directory checkpoint changed')
+    variant=package/'snapshots'/review['variant_snapshot'];immutable_json(variant,review['expected_snapshot'])
+    contract['steps'][review['step']-1]={'snapshot':review['variant_snapshot']}
+    path.write_text(json.dumps(contract,indent=2)+'\n',encoding='utf-8',newline='\n')
+    changes=[dict(spec=path.name,prepared_sha256=before,executed_sha256=sha256(path),
+        original_snapshot_sha256=sha256(original_snapshot),variant_snapshot_sha256=sha256(variant),
+        review_sha256=sha256(ROOT/'docs/validation/runner-readiness-ten-project-pass/old-migration/broot/git-context-snapshot-review.json'))]
     immutable_json(root/'execution-profile.json',dict(original_materialized_sha256=sha256(parent/'materialized.json'),
         target_build_sha256=sha256(target/'build.json'),changes=changes,
-        operational_change='Explicitly inherit the caller-defined owned Git discovery ceiling. Owned temporary workspaces sit beneath the Playtestr checkout; this preserves the original fixture-local Git context without changing any action, fixture, baseline or state expectation.'))
+        operational_change='One source-reviewed exact Git-parent help snapshot variant; original baseline retained. All remaining actions, fixtures and state expectations unchanged. No inherited-environment workaround.'))
     binary,candidate,cell=runner('migration-v2');env=environment()
     specs=[(package/(row['case']+'.json')).relative_to(ROOT) for row in materialized['cases']]
     listing=await execute([binary,'test','--list',*specs],'old-broot','migration-public-native-selection',

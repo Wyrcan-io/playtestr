@@ -78,17 +78,24 @@ def audit(base,host,run=None):
     materialized=load(parent/'materialized.json');profile=load(root/'execution-profile.json')
     require(sha256(root/'execution-profile.json')==verified['execution_profile_sha256']
             and profile['original_materialized_sha256']==sha256(parent/'materialized.json'),'actual execution profile differs')
-    require(len(profile['changes'])==13,'missing explicit fixture Git boundary dispositions')
+    variant_review=load(docs/'git-context-snapshot-review.json')
+    require(len(profile['changes'])==1 and all(review['reviewed_inputs'][n]==h for n,h in variant_review['source_oracle'].items()),
+            'missing or changed source-reviewed Git-context snapshot disposition')
     for item in materialized['cases']:
         name=item['case'];native=ROOT/item['original_native_spec'];before=load(native);spec=package/(name+'.json');contract=load(spec)
         require(sha256(native)==item['original_native_spec_sha256'],'original native prefix source changed')
-        expected=dict(before,version=3,steps=contract['steps'],
-                      inherit_env=[*before.get('inherit_env',[]),'GIT_CEILING_DIRECTORIES'])
-        require(contract==expected and contract['steps'][:len(before['steps'])]==before['steps'],'original native contract/prefix changed')
-        changes=[r for r in profile['changes'] if r['spec']==spec.name]
-        require(len(changes)==1 and changes[0]['added_inherited_name']=='GIT_CEILING_DIRECTORIES'
-                and changes[0]['prepared_sha256']==materialized['all_package_inputs'][spec.name]
-                and changes[0]['executed_sha256']==sha256(spec),'Git boundary change exceeds declared environment profile')
+        expected=dict(before,version=3,steps=contract['steps']);prefix=[dict(step) for step in before['steps']]
+        if name==variant_review['case']:
+            prefix[variant_review['step']-1]={'snapshot':variant_review['variant_snapshot']}
+            changes=[r for r in profile['changes'] if r['spec']==spec.name]
+            variant=package/'snapshots'/variant_review['variant_snapshot']
+            require(len(changes)==1 and changes[0]['prepared_sha256']==materialized['all_package_inputs'][spec.name]
+                    and changes[0]['executed_sha256']==sha256(spec)
+                    and changes[0]['review_sha256']==sha256(docs/'git-context-snapshot-review.json')
+                    and changes[0]['original_snapshot_sha256']==variant_review['original_snapshot_sha256']
+                    and changes[0]['variant_snapshot_sha256']==sha256(variant)
+                    and load(variant)==variant_review['expected_snapshot'],'context variant exceeds the reviewed exact snapshot')
+        require(contract==expected and contract['steps'][:len(before['steps'])]==prefix,'original native contract/prefix changed')
         model_states(cases[name],contract['steps'][len(before['steps']):])
         for step in before['steps']:
             if 'snapshot' in step:
@@ -105,6 +112,12 @@ def audit(base,host,run=None):
     files,_=witness(ids[0])
     for path in package.rglob('*'):
         if path.is_file():
+            if path==package/'snapshots'/variant_review['original_snapshot']:
+                # This preserved original is a review reference, not the
+                # selected baseline in the declared checkout-context run.
+                require(sha256(path)==variant_review['original_snapshot_sha256'],
+                        'preserved original context baseline changed')
+                continue
             key='artifacts/runner-readiness-ten-project-pass/'+path.relative_to(base).as_posix()
             require(files[key]==sha256(path),'actual public suite input not bound')
     controls=list((parent/'corruption').glob('*/verified.json'));require(len(controls)==1,'missing actual corruption/recovery proof')
@@ -146,9 +159,11 @@ def audit(base,host,run=None):
     require({n:r['sha256'] for n,r in index['files'].items()}==review['reviewed_inputs'],'retained original source catalog differs')
     for name in index['selected_restore']:require(sha256(retained/'selected-restore'/name)==index['files'][name]['sha256'],'selected source restoration differs')
     return dict(project='broot',host=host,run=run,scenarios=13,runner_sha256=cell['binary_sha256'],
+        context_variant_review_sha256=sha256(docs/'git-context-snapshot-review.json'),
+        preserved_reference_snapshot_sha256=variant_review['original_snapshot_sha256'],
         provisional_archive_sha256=cell['archive_sha256'],canonical_source_sha256=sha256(canonical),target_pin=review['pin'],full_suite_sha256=sha256(root/'results.json'),
         corruption_sha256=sha256(controls[0]),cleanup_sha256=sha256(retained/'removed.json'),
-        scope='Original native case actions and exact baselines plus public same-execution saved outcomes; actual writer corruption and exact restoration.',
+        scope='Original useful native workflows and public same-execution saved outcomes; one source-reviewed exact help snapshot variant for the checkout-parent context, original no-Git-parent baseline preserved. Actual writer corruption and exact restoration.',
         new_project_credit=0,final_archive_credit=0)
 
 

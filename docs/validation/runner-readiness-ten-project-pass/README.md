@@ -2,6 +2,8 @@
 
 Invoked 16 October 2026. Status: **in progress; ten development admissions across twenty native cells**.
 
+Current private source is `129b7a4`; [rc.5 native archives](migration-candidate-freeze.json) are independently frozen after actual three-host tests/vet/race. [All 88 historical declarations](old-control-matrix-revision-3.json) remain accounted for: 87 pass, and the hosted short-path-alias path remains explicitly unqualified. [The 33 new whole controls](new-control-development-evidence-revision-13.json) bind current native outcomes. Old migrations remain six; Broot has two retained 12/13 series per host and a newly declared [source-reviewed Git-context variant](old-migration/broot/git-context-snapshot-review.json), with fresh full qualification pending. [Windows rc.5 archive calibration](archive-experience/windows-migration-v2.json) verifies 19 commands/eight outcomes and [nine specific tamper refusals](archive-experience/auditor-controls-migration-v2.json); native Unix/offline/final-matrix gates remain open. All final archive and paid-product counts remain zero.
+
 Base: `deed954a9ed1c05db73ee93cb2fbb84d9271d1e1`, branch
 `work/p0-p2-implementation`. Pre-existing edits: planning index and execution
 prompt; preserve both. Source commands exceed published archive capabilities.

@@ -24,7 +24,7 @@ def main():
     require(load(retained/'source-only.json')['native_local_runtime_attempted'] is False,'local source-only scope differs')
     require(all(c['canonical_source_sha256']==sha256(retained/'source.tar.gz') for c in cells),'native canonical source reference differs')
     inventory=[];observed=0;archives=[]
-    for generation in [1,2,3,4]:
+    for generation in [1,2,3,4,5,6]:
         root=RAW/'old-broot'/('retained-native-v'+str(generation))
         index=load(root/'index.json',maximum=4*1024**2);checked=load(root/'verified.json');removed=load(root/'expanded-removed.json')
         require(sha256(root/'index.json')==checked['index_sha256'] and sha256(root/'packets.tar.gz')==index['archive_sha256']
@@ -44,7 +44,7 @@ def main():
             for key in ['full_suite_sha256','corruption_sha256','cleanup_sha256']:
                 require(any(n.startswith(prefix) and r['sha256']==cell[key] for i in inventory for n,r in i['files'].items()),
                         'audited native migration payload not retained')
-    require(observed==58,'actual original/failed-cleanup/repaired attempt accounting differs')
+    require(observed==84,'actual original/failed-cleanup/repaired attempt accounting differs')
     status_path=campaign/'old-migration-status.json'
     status=load(status_path) if status_path.exists() else dict(schema_version=1,migrated_projects=0,canonical_scenarios=0,
         native_cells=0,qualified_primary_executions=0,qualified_calibration_executions=0,observed_ordinary_executions=0,projects=[])
@@ -52,7 +52,7 @@ def main():
     receipt=dict(project='broot',pin=review['pin'],cells=cells,canonical_scenarios=13,qualified_primary_executions=26,
         qualified_calibration_executions=6,observed_ordinary_executions=observed,
         retained_archives=archives,
-        scope='All original representable native cases plus real saved corruption, terminal-only calibration and exact recovery. Hosted Linux and macOS independently audited with checked cleanup; local Windows source-only review earns no runtime credit.',
+        scope='Thirteen original useful workflows with public saved outcomes, real copy corruption, terminal-only calibration and exact recovery. Empty-directory help uses the declared source-reviewed checkout-parent context variant; its original no-Git-parent snapshot remains historical. Hosted Linux/macOS independently audited with checked cleanup; local Windows source-only review earns no target runtime credit.',
         new_project_credit=0,final_runner_credit=0,final_archive_credit=0)
     immutable_json(docs/'migration-admission.json',receipt)
     status['migrated_projects']+=1;status['canonical_scenarios']+=13;status['native_cells']+=2

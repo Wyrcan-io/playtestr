@@ -1,18 +1,28 @@
 """Bind all 88 historical control declarations to current immutable native events."""
+import argparse
 import hashlib
 import json
 from pathlib import Path
 
 from readiness_evidence import ROOT, RAW, immutable_json, sha256
+from readiness_new_control_matrix import packet_file
 
 
 def main():
+    parser=argparse.ArgumentParser();parser.add_argument('--run',default='38950594057')
+    parser.add_argument('--output',type=Path,default=ROOT/'docs/validation/runner-readiness-ten-project-pass/old-control-matrix.json')
+    args=parser.parse_args()
+    if not args.run.isascii() or not args.run.isdecimal():raise RuntimeError('invalid native core run')
+    output=args.output.resolve();output.relative_to(ROOT/'docs/validation/runner-readiness-ten-project-pass')
     historical=ROOT/'docs/validation/ten-new-project-adversarial-pass/coverage-matrix.json'
     original=json.loads(historical.read_text())
     if len(original['controls'])!=88:raise RuntimeError('historical control scope changed')
-    native=RAW/'native/38950594057'
+    native=RAW/'native'/args.run
+    metadata=json.loads((native/'run-metadata.json').read_text(encoding='utf-8-sig'))
+    if metadata['status']!='completed' or metadata['conclusion']!='success' or len(metadata['jobs'])!=3 or any(j['status']!='completed' or j['conclusion']!='success' for j in metadata['jobs']):
+        raise RuntimeError('three actually successful native core jobs required')
     evidence={}
-    for host in native.iterdir():
+    for host in (p for p in native.iterdir() if p.is_dir()):
         events=host/'events'
         identities=host/'identities'
         observations={}
@@ -27,8 +37,11 @@ def main():
             attempt=console.parent.name
             identified=json.loads((events/(attempt+'-identified.json')).read_text())
             finished=json.loads((events/(attempt+'-finished.json')).read_text())
-            if finished['category']!='passed':raise RuntimeError('failed parent cannot qualify controls')
-            manifest=host/identified['identity']['manifest'].replace('\\','/')
+            launched=json.loads((events/(attempt+'-launched.json')).read_text())
+            if finished['category']!='passed' or finished['exit_code']!=0 or launched['id']!=attempt or finished['harness_cleanup']!='harness_process_reaped' or finished['cleanup_errors']:
+                raise RuntimeError('failed or unconfirmed parent cannot qualify controls')
+            if sha256(console)!=finished['console_sha256']:raise RuntimeError('native control console changed')
+            manifest=packet_file(host,identified['identity']['manifest'].replace('\\','/'),2*1024**2)
             if sha256(manifest)!=identified['identity']['sha256']:raise RuntimeError('identity manifest digest mismatch')
             files=json.loads(manifest.read_text())['files']
             for record in records:
@@ -53,18 +66,18 @@ def main():
                 actual=observation['files'].get(old['source'])
                 if actual not in hashes:raise RuntimeError('control source mismatch: '+old['id'])
                 row['evidence'].append(dict(host=host,action=observation['action'],
-                    run='38950594057',attempt=observation['attempt'],console_sha256=observation['console_sha256'],
+                    run=args.run,attempt=observation['attempt'],console_sha256=observation['console_sha256'],
                     identity_sha256=observation['manifest_sha256'],actual_test_file_sha256=actual))
         actions={item['action'] for item in row['evidence']}
         row['status']='development-executed' if actions=={'pass'} else 'explicit-unqualified-skip'
         if old['id']=='windows-workspace-long-path':
             row['disposition']='Hosted filesystem did not expose a short temporary-path alias; actual skip retained. Existing compact-path and bounded installer controls do not substitute for this exact path. Unqualified capability, no alias/host setting changes.'
         controls.append(row)
-    output=ROOT/'docs/validation/runner-readiness-ten-project-pass/old-control-matrix.json'
     immutable_json(output,dict(schema_version=1,historical_matrix_sha256=sha256(historical),controls=controls,
+        native_run=args.run,native_metadata_sha256=sha256(native/'run-metadata.json'),
         count=88,whole_controls_with_passing_applicable_evidence=sum(c['status']=='development-executed' for c in controls),
         claim='Current source development evidence only; one real short-alias skip remains unqualified. Final candidate controls must execute again.'))
-    print('Preserved all 88 declarations: 87 have passing applicable native evidence; one explicit short-alias skip.')
+    print('Preserved all 88 declarations:',sum(c['status']=='development-executed' for c in controls),'have passing applicable native evidence; explicit skips remain unqualified.')
 
 
 if __name__=='__main__':main()
