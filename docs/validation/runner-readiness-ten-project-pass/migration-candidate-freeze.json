@@ -1,0 +1,76 @@
+{
+  "cells": [
+    {
+      "architecture": "amd64",
+      "archive_bytes": 1988866,
+      "archive_local_only": "artifacts/runner-readiness-ten-project-pass/native/39450029736/private-candidate-Linux/candidate-packages/migration-v2/linux-amd64/dist/playtestr_0.4.0-rc.5_linux_amd64.tar.gz",
+      "archive_sha256": "25787c3ce657e61cfe36fc0687367856326da0e661820796acefbf5bb5aa410f",
+      "artifact": "private-candidate-Linux",
+      "binary_sha256": "8112eddbaa23dfbd3783cf32718f0ed64d1ad2572d84e7bddcefb892d316bdfa",
+      "candidate_manifest_sha256": "4d993e38d2dd1aa91bd1f78873d77ec7ab6e939b4f05529d60d1869a7877db13",
+      "command_attempts": {
+        "extracted-help": "326199db9cb244018264cd556121e266",
+        "extracted-version": "135a09112b1e4371bb72d79f8e05c9d3",
+        "native-build": "8518c75984ca46bea0d63b819e88f6a4",
+        "native-package": "70f1ac530fbb4c07b6069f6de11ac1bb",
+        "native-sdk-settings": "503e492748764d97928605b82e3c2866",
+        "sdk-version": "6627ab13a0984d2199f9c35e1a38ff22"
+      },
+      "host": "linux"
+    },
+    {
+      "architecture": "arm64",
+      "archive_bytes": 1855160,
+      "archive_local_only": "artifacts/runner-readiness-ten-project-pass/native/39450029736/private-candidate-macOS/candidate-packages/migration-v2/darwin-arm64/dist/playtestr_0.4.0-rc.5_darwin_arm64.tar.gz",
+      "archive_sha256": "6737f822fbfbc2d61746493e82faaffaa66cf9e900b29f5c3e7e4c3bed6144ef",
+      "artifact": "private-candidate-macOS",
+      "binary_sha256": "d3d1f8fcce15b31046f315d0456cae615c94133ef154e8e6877bbe27b83a2908",
+      "candidate_manifest_sha256": "f09515103d61164ff218d11abe55416883ac4cff8f3daea3fbab8b11c2c36849",
+      "command_attempts": {
+        "extracted-help": "05928df034304d68be1ad5cbf9c18cbb",
+        "extracted-version": "13f0395b334a456bba38786cdf2bb40d",
+        "native-build": "fcd0ef60fe3f4dcaa129cdccc9b15e99",
+        "native-package": "21bf492421a449a08c1d26c2c90f7aef",
+        "native-sdk-settings": "498bccb88e1347e99e7ab118df6aab57",
+        "sdk-version": "81aa5bb4bd3247528852241a9920cb7b"
+      },
+      "host": "darwin"
+    },
+    {
+      "architecture": "amd64",
+      "archive_bytes": 2152865,
+      "archive_local_only": "artifacts/runner-readiness-ten-project-pass/native/39450029736/private-candidate-Windows/candidate-packages/migration-v2/windows-amd64/dist/playtestr_0.4.0-rc.5_windows_amd64.zip",
+      "archive_sha256": "40e7e124260c96f8fdff6a63ae5e0e7cfcb7a3c3a3f838207447a0742059abad",
+      "artifact": "private-candidate-Windows",
+      "binary_sha256": "6d816ac1acd55fe5b7595b1cb47b14e626e3ba1bd5821a5bdbede50ab3abcd26",
+      "candidate_manifest_sha256": "95757ba68a34c850f7ebc4cbdd7519362a586ab4accffa2635a097804dc3c2f7",
+      "command_attempts": {
+        "extracted-help": "0291b6f32e8e425dad31eca9bc31c67f",
+        "extracted-version": "cd4df08c6cf2482884119f03f70515eb",
+        "native-build": "52efaaed4f964bfda1db7e9a660fcc4a",
+        "native-package": "3bbdd8a521014f1c9bbe230a4e299bb5",
+        "native-sdk-settings": "7c7420886f7c481d9ba5dfb9ce47d758",
+        "sdk-version": "6db27511b020431aa7b9e3a3e5857b48"
+      },
+      "host": "windows"
+    }
+  ],
+  "earlier_preparation_attempts": [
+    {
+      "disposition": "Native private binaries/archives built, but helper receipt generation failed from version/result variable collision. No frozen archive or final credit.",
+      "metadata_sha256": "644d2f7e5d1bbdb70e88114d4a57d38f6ad7b15b92a7e7f1791d38c0735b45c9",
+      "run": "39449399191"
+    }
+  ],
+  "final_archive_credit": 0,
+  "project_admissions_at_freeze": 10,
+  "published": false,
+  "reserved_projects_untouched": false,
+  "residual": "fff original Linux exit timeout remains unresolved; provisional builds do not establish stable qualification.",
+  "run": "39450029736",
+  "schema_version": 1,
+  "series": "migration-v2",
+  "source_revision": "129b7a45c0006be550f798ce52c2fbbfd327e515",
+  "tooling_commit": "dd6e18ec38dab9bff549d6a6e9b18019f9aa5c86",
+  "version": "v0.4.0-rc.5"
+}

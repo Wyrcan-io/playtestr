@@ -156,6 +156,10 @@ def main():
                    dict(schema_version=1, run=args.run, tooling_commit=metadata['headSha'],
                         source_revision=SOURCE, version=VERSION, cells=cells,
                         series=args.series, project_admissions_at_freeze=(8 if args.series=='provisional-v1' else 10), reserved_projects_untouched=(args.series=='provisional-v1'),
+                        earlier_preparation_attempts=([dict(run='39449399191',
+                            metadata_sha256=sha256(RAW/'native/39449399191/run-metadata.json'),
+                            disposition='Native private binaries/archives built, but helper receipt generation failed from version/result variable collision. No frozen archive or final credit.')]
+                            if args.series=='migration-v2' else []),
                         final_archive_credit=0, published=False,
                         residual='fff original Linux exit timeout remains unresolved; provisional builds do not establish stable qualification.'))
     print('Three exact native private archives independently verified:',args.series)
