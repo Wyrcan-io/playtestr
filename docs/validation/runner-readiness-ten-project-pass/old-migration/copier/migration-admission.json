@@ -1,0 +1,52 @@
+{
+  "canonical_scenarios": 12,
+  "cells": [
+    {
+      "cleanup_sha256": "26d1295f18813359893ec43bd6c0953bb50898ea626a1494baed6f2fcb2948c2",
+      "corruption_sha256": "239e967a13e2aaaf0b098457f421f3943a910e8d9de9fbb5217e4291d721c0a5",
+      "final_archive_credit": 0,
+      "full_suite_sha256": "e0fb3eb1f03c1ce302bedffbb81b9052b4ecce300bd18e9db5f9de740206fa4d",
+      "host": "windows",
+      "new_project_credit": 0,
+      "project": "copier",
+      "provisional_archive_sha256": "797b9f263aabd5924ff72995353823c0ee70403cb3b56416e8a52465dcca9ac6",
+      "run": null,
+      "runner_sha256": "a7f15c16945b8c5feb017101436d0b5ea072e5d4721f36127e3198802a4f559c",
+      "scenarios": 12,
+      "scope": "Original native case actions and exact baselines plus public same-execution saved outcomes; actual writer corruption and exact restoration.",
+      "target_pin": "04a8619f3b083bc278b70e556bd085551a2b3f79"
+    },
+    {
+      "cleanup_sha256": "f225fc2d5ddfa5bd5983aee3ca5ae76f487b2ef1450066c0907964f2559d73dd",
+      "corruption_sha256": "5a61ef23fe5121079e12d055b29c98b163baf6a853404f6b3653381f103a5830",
+      "final_archive_credit": 0,
+      "full_suite_sha256": "a3f9be933414dd0a399ffb4675988b52b8ee917459c1ef719aa642cee1afd5b1",
+      "host": "linux",
+      "new_project_credit": 0,
+      "project": "copier",
+      "provisional_archive_sha256": "83a054f08c20b809eed708a75e6649889c390882b3f6511d8ebb837eb4d813b9",
+      "run": "39381485547",
+      "runner_sha256": "556d67890bafd8fb0c2c181481c7a3d546173baddcbfd2e4038d3453f182d52a",
+      "scenarios": 12,
+      "scope": "Original native case actions and exact baselines plus public same-execution saved outcomes; actual writer corruption and exact restoration.",
+      "target_pin": "04a8619f3b083bc278b70e556bd085551a2b3f79"
+    }
+  ],
+  "final_archive_credit": 0,
+  "final_runner_credit": 0,
+  "new_project_credit": 0,
+  "observed_ordinary_executions": 42,
+  "pin": "04a8619f3b083bc278b70e556bd085551a2b3f79",
+  "prior_failed_fixture_suite": "99ac90e8a7694998a7d05c2bb931e147",
+  "project": "copier",
+  "qualified_calibration_executions": 6,
+  "qualified_primary_executions": 24,
+  "retained_archives": [
+    {
+      "archive_sha256": "ae0dd512dbaa030e8378b7ff467981a9f818a08a8f6387c6e9b2117e4758a834",
+      "generation": 1,
+      "index_sha256": "328e31f1628efb42bd4ec13cc28d778028a7ab842b9e1b6c39642f31fb4ca44f"
+    }
+  ],
+  "scope": "All original representable native cases plus real saved corruption, terminal-only calibration and exact recovery. Local Windows and hosted Linux independently audited with checked cleanup."
+}

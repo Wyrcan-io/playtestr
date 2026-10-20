@@ -24,8 +24,22 @@ files remain unchanged; an actual module/CLI probe must still verify installatio
 Only original local synthetic templates and Git fixtures are in scope. The one
 reviewed trusted task writes `task-marker.txt` under its managed project.
 No remote template, user configuration or arbitrary extension is tested.
-Public same-execution migration, real writer corruption/recovery, independent
-native audits and checked cleanup remain required before admission.
+All twelve original scenarios now pass with public same-execution assertions
+on local Windows and hosted Linux run `39381485547`. The actual source writer
+corruption preserves passing screen/exit evidence under the legacy contract,
+fails the v3 saved-byte assertion and passes after exact source restoration.
+Independent [Windows](verified-windows.json) and [Linux](verified-linux.json)
+audits bind actual commands, original source/fixtures, runner and cleanup.
+The [admission](migration-admission.json) records twelve canonical scenarios,
+two native cells, 24 qualified primary and six calibration executions.
+All 42 observed ordinary executions include the original incomplete-fixture
+Windows suite. No new-project or final-archive credit is added.
+
+Owned local source and venv are removed after full source archive verification
+and selected restoration checks. The native packet retains all 682 logical
+files in a verified 2,640,383-byte compressed archive, with selected restoration;
+its expanded copy is removed. Bulk evidence is local-only under the ignored
+campaign artifact root, with no dependence on a future remote artifact download.
 
 The first actual Windows suite passed ten of twelve cases; both Git update
 cases exited before their first prompt because the preparation package lacked
