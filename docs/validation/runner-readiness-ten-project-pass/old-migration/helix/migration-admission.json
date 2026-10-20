@@ -1,0 +1,59 @@
+{
+  "canonical_scenarios": 12,
+  "cells": [
+    {
+      "canonical_source_sha256": "f08222131f497dc86b432ed4443d4a5d2eca8d240e20e02870e6a191b4498820",
+      "cleanup_sha256": "f6a540543c0e6f542b5f6d92332ff525719d3b27c545da949f7c99353c465caf",
+      "corruption_sha256": "a5504e67a4cf509338584668ea2cba9c99e51d305cdce2ef2721a9e0bbbd6b2f",
+      "final_archive_credit": 0,
+      "full_suite_sha256": "6ac39304b8efd9e2126da4a30452d4c58422a5e4c604f7c2686d5fac7fe38a8d",
+      "host": "windows",
+      "new_project_credit": 0,
+      "project": "helix",
+      "provisional_archive_sha256": "797b9f263aabd5924ff72995353823c0ee70403cb3b56416e8a52465dcca9ac6",
+      "run": null,
+      "runner_sha256": "a7f15c16945b8c5feb017101436d0b5ea072e5d4721f36127e3198802a4f559c",
+      "scenarios": 12,
+      "scope": "Original native case actions and exact baselines plus public same-execution saved outcomes; actual writer corruption and exact restoration.",
+      "target_pin": "ba40e547426b0f9896c8bdc699a4ab11f2b37dbc"
+    },
+    {
+      "canonical_source_sha256": "f08222131f497dc86b432ed4443d4a5d2eca8d240e20e02870e6a191b4498820",
+      "cleanup_sha256": "9d5618851bc980bea736b5be4b6f599f3afb79563d7698d1e81ca223bddabfac",
+      "corruption_sha256": "d16ad17115a37ece770fcec13b9be9a94701b132a6834d210500ee4a7a9cca12",
+      "final_archive_credit": 0,
+      "full_suite_sha256": "38f8a631c69af9cd7c0713d90e79535f3187ad66fae4b5f8c387077422273d79",
+      "host": "linux",
+      "new_project_credit": 0,
+      "project": "helix",
+      "provisional_archive_sha256": "83a054f08c20b809eed708a75e6649889c390882b3f6511d8ebb837eb4d813b9",
+      "run": "39388692279",
+      "runner_sha256": "556d67890bafd8fb0c2c181481c7a3d546173baddcbfd2e4038d3453f182d52a",
+      "scenarios": 12,
+      "scope": "Original native case actions and exact baselines plus public same-execution saved outcomes; actual writer corruption and exact restoration.",
+      "target_pin": "ba40e547426b0f9896c8bdc699a4ab11f2b37dbc"
+    }
+  ],
+  "final_archive_credit": 0,
+  "final_runner_credit": 0,
+  "new_project_credit": 0,
+  "observed_ordinary_executions": 45,
+  "pin": "ba40e547426b0f9896c8bdc699a4ab11f2b37dbc",
+  "prior_failed_cleanup_run": "39387000199",
+  "project": "helix",
+  "qualified_calibration_executions": 6,
+  "qualified_primary_executions": 24,
+  "retained_archives": [
+    {
+      "archive_sha256": "b8645d2c488a40ac79a039f5d36a583750b7d793d244b21904b89821872f3ac7",
+      "generation": 1,
+      "index_sha256": "6d762bfcf4906e17a1b7a6901e222d536962fe90c3c787848c290c8120c81469"
+    },
+    {
+      "archive_sha256": "6a3103c3155aa890b530efbfc4562f1727a3ee916364298009214d5eb87d826c",
+      "generation": 2,
+      "index_sha256": "7460766e277e34d40f82d44a6e86ad802db5e5dbbf9687db3d9aba8edf074a63"
+    }
+  ],
+  "scope": "All original representable native cases plus real saved corruption, terminal-only calibration and exact recovery. Local Windows and hosted Linux independently audited with checked cleanup."
+}

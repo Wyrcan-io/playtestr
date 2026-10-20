@@ -32,9 +32,24 @@ version matches exactly; otherwise native setup installs the pinned toolchain
 only into owned directories. New homes, caches, build output and temporary files
 stay inside this campaign. The owned active stop is 3 GiB, below the 4 GiB ceiling.
 
-Windows compilation is in progress using the existing exact compiler. Standard
-hosted Linux validation is prepared with one job, a 45-minute maximum and an
-expected 10–20 native minutes including cold build and fault rebuilds. Aggregate
-application/harness job concurrency stays at four or fewer. No target qualification
-or migration admission is recorded yet. All old-project checks remain separate
-from new-project and final-archive credit.
+Local Windows and hosted Linux run `39388692279` now pass all twelve original
+scenarios and the real compiled save corruption: the terminal-only contract
+passes the wrong saved bytes, the public v3 assertion rejects them in that same
+execution, and exact source plus compiled-binary restoration passes unchanged
+expectations. Independent [Windows](verified-windows.json) and
+[Linux](verified-linux.json) audits bind actual public commands, compiler/Cargo
+hashes, original runtime resources, invocation/workspace identity and cleanup.
+
+The [admission](migration-admission.json) records twelve canonical scenarios,
+two native cells, 24 qualified primary and six calibration executions. All 45
+observed ordinary executions retain the first Linux run whose tests passed but
+source retention correctly refused the checklist's wrong resource path; see
+[its disposition](first-native-disposition.md). No earlier failure is erased.
+
+Owned local source, build output and dependency caches are removed; the installed
+compiler is preserved. Both native packets are locally retained in verified
+compressed archives (2,185,865 first-run bytes; 2,372,894 corrected-run bytes),
+with selected restoration and explicit canonical-source checks. Expanded copies
+are removed. The selected project retains 9,157,433 bytes, under its 32 MiB cap.
+Campaign harness runs are serialized with at most two jobs alongside at most
+two application jobs. New-project and final-archive credit remain zero here.
