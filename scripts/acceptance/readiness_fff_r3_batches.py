@@ -42,11 +42,16 @@ async def main():
                     'fff','r3-E03-batch-'+str(batch['number'])+'-attempt-'+str(number),
                     env=env,timeout=130,load=loaded,campaign=Campaign())
                 child=attempt['id']
-            except RuntimeError:
+            except RuntimeError as error:
                 # Preserve failures and continue only with a complete public
                 # report and positively confirmed target/workspace cleanup.
                 if not report.is_file():raise
-                child=None
+                child=getattr(error,'evidence_id',None)
+                if child is None:raise
+            finished=load(RAW/'events'/(child+'-finished.json'))
+            if (finished['category'] not in {'passed','exit_mismatch'} or finished['exit_code'] not in {0,1}
+                    or finished['harness_cleanup']!='harness_process_reaped' or finished['cleanup_errors']):
+                raise RuntimeError('incident command or controlled worker cleanup is unconfirmed')
             value=load(report);result=value['results'][0]
             if (value['runner_version']!=candidate['version'] or value['summary']['total']!=1
                     or not result['cleanup']['confirmed_exited'] or not result['workspace']['cleaned']):
@@ -58,7 +63,7 @@ async def main():
                         or step['state']['workspace_id']!=result['workspace']['id']):
                     raise RuntimeError('incident state belongs to another execution')
             row=dict(number=number,report=report.relative_to(ROOT).as_posix(),report_sha256=sha256(report),
-                status=result['status'],failure=result.get('failure'),successful_command=child)
+                status=result['status'],failure=result.get('failure'),command_attempt=child)
             immutable_json(folder/(identity+'-observed.json'),row);rows.append(row)
             print('R3 batch',batch['number'],'attempt',number,result['status'],flush=True)
         immutable_json(folder/'complete.json',dict(attempts=rows,observed=50,
