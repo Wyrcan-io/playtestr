@@ -9,6 +9,9 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  group: playtestr-runner-readiness-harness
+  cancel-in-progress: false
 env:
   PYTHONDONTWRITEBYTECODE: '1'
   PYTHONIOENCODING: utf-8
