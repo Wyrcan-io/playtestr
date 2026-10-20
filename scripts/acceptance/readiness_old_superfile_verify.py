@@ -16,10 +16,12 @@ def require(value,message):
 from readiness_old_cookiecutter_verify import model_states
 
 
-def canonical_archive(target,review,root=RAW):
-    canonical=root/'old-superfile/retained-source/source.tar.gz'
+def canonical_archive(target,review,root=RAW,project='superfile'):
+    require(project in {'superfile','helix'},'undeclared canonical source project')
+    relative='old-'+project+'/retained-source/source.tar.gz'
+    canonical=root/relative
     reference=load(target/'build-receipts/canonical-source-reference.json')
-    require(reference['canonical_campaign_path']=='old-superfile/retained-source/source.tar.gz',
+    require(reference['canonical_campaign_path']==relative,
             'canonical source reference path differs')
     require(canonical.is_file() and canonical.stat().st_size<=24*1024**2,'canonical source archive missing or oversized')
     canonical.resolve(strict=True).relative_to(root.resolve(strict=True))
