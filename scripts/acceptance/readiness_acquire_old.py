@@ -24,7 +24,8 @@ def main():
               'docs/index.md':'../README.md','tests/demo/symlink.txt':'aaaa.txt'}
              if args.project=='copier' else
              {'website/src/content/docs/notice.md':'../../../../NOTICE.md'}
-             if args.project=='superfile' else None)
+             if args.project=='superfile' else
+             {'contrib/themes':'../runtime/themes'} if args.project=='helix' else None)
     expected=None
     if omitted:
         reviewed=load(docs/'old-migration'/args.project/'source-acquisition-review.json')

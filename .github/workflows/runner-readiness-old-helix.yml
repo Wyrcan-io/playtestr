@@ -1,0 +1,76 @@
+name: Runner readiness original Helix migration
+on:
+  push:
+    branches: [work/p0-p2-implementation]
+    paths: ['.github/workflows/runner-readiness-old-helix.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONIOENCODING: utf-8
+  TEMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+  TMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+  TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+  RUNNER_TEMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+concurrency:
+  group: playtestr-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  original-linux:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+      - name: Prepare owned temporary paths
+        run: mkdir -p "$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass/tmp"
+      - name: Download exact frozen native private archive
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          github-token: ${{ github.token }}
+          repository: Wyrcan-io/playtestr
+          run-id: 39147652486
+          name: private-candidate-Linux
+          path: artifacts/runner-readiness-ten-project-pass/provisional-download
+      - name: Install exact frozen private runner without rebuilding
+        run: |
+          python3 scripts/acceptance/readiness_check.py --label old-helix-exact-private-install --timeout 120 -- python3 scripts/acceptance/readiness_install_provisional.py --archive artifacts/runner-readiness-ten-project-pass/provisional-download/candidate-packages/provisional-v1/linux-amd64/dist/playtestr_0.4.0-rc.4_linux_amd64.tar.gz
+      - name: Reacquire and build reviewed original target with owned prerequisites
+        id: prepare
+        run: python3 scripts/acceptance/readiness_check.py --label old-helix-native-reviewed-prepare --timeout 1200 -- python3 scripts/acceptance/readiness_old_helix_native_prepare.py
+      - name: Build reviewed original target with locked offline dependencies
+        id: build
+        run: python3 scripts/acceptance/readiness_check.py --label old-helix-native-reviewed-build --timeout 1100 -- python3 scripts/acceptance/readiness_old_helix_build.py
+      - name: Materialize original native prefixes and public saved-state assertions
+        run: python3 scripts/acceptance/readiness_check.py --label old-helix-native-materialize --timeout 120 -- python3 scripts/acceptance/readiness_old_migration_materialize.py --project helix --host linux
+      - name: Run all twelve original native scenarios with same-execution state proof
+        run: python3 scripts/acceptance/readiness_check.py --label old-helix-native-twelve-public-migration --timeout 900 -- python3 scripts/acceptance/readiness_old_helix_test.py
+      - name: Real saved corruption, legacy false green, public rejection and exact recovery
+        run: python3 scripts/acceptance/readiness_check.py --label old-helix-native-real-corruption-recovery --timeout 1100 -- python3 scripts/acceptance/readiness_old_helix_corruption.py
+      - name: Verify runtime termination, original source restoration and checked removal
+        if: always() && steps.build.outcome == 'success'
+        run: python3 scripts/acceptance/readiness_check.py --label old-helix-native-checked-cleanup --timeout 240 -- python3 scripts/acceptance/readiness_cleanup_plop.py --project old-helix
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: old-helix-Linux
+          path: |
+            artifacts/runner-readiness-ten-project-pass/events/
+            artifacts/runner-readiness-ten-project-pass/identities/
+            artifacts/runner-readiness-ten-project-pass/core/
+            artifacts/runner-readiness-ten-project-pass/old-helix/
+            artifacts/runner-readiness-ten-project-pass/old-migration/helix/
+            artifacts/runner-readiness-ten-project-pass/old-helix-runtime-baseline.json
+            artifacts/runner-readiness-ten-project-pass/private-install/provisional-v1/*/installation.json
+            !artifacts/runner-readiness-ten-project-pass/old-helix/**/source.tar.gz
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14

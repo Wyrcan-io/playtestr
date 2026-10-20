@@ -186,6 +186,25 @@ class Campaign:
                     if compiler.is_symlink() or getattr(compiler,'is_junction',lambda:False)():raise ValueError('linked Rclone compiler')
                     paths.append(compiler)
                     runtime_executables['go']=sha256(compiler)
+            elif project=='old-helix':
+                review_path=ROOT/'docs/validation/runner-readiness-ten-project-pass/old-migration/helix/source-review.json'
+                review=json.loads(review_path.read_text(encoding='utf-8-sig'))
+                paths.append(review_path)
+                paths.extend(target/'src'/name for name in review['reviewed_inputs'])
+                for name in ['dependency-fetch-review.json','dependencies.json','toolchain.json']:
+                    if (target/name).is_file():paths.append(target/name)
+                if (target/'runtime.json').is_file():
+                    runtime=json.loads((target/'runtime.json').read_text())
+                    for key,field in [('rustc','rustc_path'),('cargo','cargo_path')]:
+                        tool=Path(runtime[field]);resolved=tool.resolve(strict=True)
+                        if resolved.is_relative_to(ROOT):paths.append(tool)
+                        elif runtime.get('read_only_installed_prerequisites') is not True:
+                            raise ValueError('undeclared external Rust prerequisite')
+                        runtime_executables[key]=sha256(tool)
+                paths.extend(p for p in (target/'cargo-home/registry/cache').rglob('*.crate') if p.is_file())
+                binary=target/'bin'/('hx.exe' if os.name=='nt' else 'hx')
+                if binary.is_file():paths.append(binary)
+                paths.extend(p for p in (target/'bin/runtime').rglob('*') if p.is_file())
             elif project in {'old-lf','old-superfile'}:
                 original_project=project.removeprefix('old-')
                 review_path=ROOT/'docs/validation/runner-readiness-ten-project-pass/old-migration'/original_project/'source-review.json'
