@@ -2,7 +2,7 @@
 
 Invoked 16 October 2026. Status: **in progress; ten development admissions across twenty native cells**.
 
-Current private source is `129b7a4`; [rc.5 native archives](migration-candidate-freeze.json) are independently frozen after actual three-host tests/vet/race. [All 88 historical declarations](old-control-matrix-revision-3.json) remain accounted for: 87 pass, and the hosted short-path-alias path remains explicitly unqualified. [The 33 new whole controls](new-control-development-evidence-revision-13.json) bind current native outcomes. Old migrations remain six; Broot has two retained 12/13 series per host and a newly declared [source-reviewed Git-context variant](old-migration/broot/git-context-snapshot-review.json), with fresh full qualification pending. [Windows rc.5 archive calibration](archive-experience/windows-migration-v2.json) verifies 19 commands/eight outcomes and [nine specific tamper refusals](archive-experience/auditor-controls-migration-v2.json); native Unix/offline/final-matrix gates remain open. All final archive and paid-product counts remain zero.
+Current private source is `129b7a4`; [rc.5 native archives](migration-candidate-freeze.json) are independently frozen after actual three-host tests/vet/race. [All 88 historical declarations](old-control-matrix-revision-3.json) remain accounted for: 87 pass, and the hosted short-path-alias path remains explicitly unqualified. [The 33 new whole controls](new-control-development-evidence-revision-13.json) bind current native outcomes. Old migrations are seven; Broot retains both earlier 12/13 series per host and qualifies its [source-reviewed Git-context variant](old-migration/broot/git-context-snapshot-review.json), with complete fresh native suites, compiled corruption/recovery and independent audit. [Windows rc.5 archive calibration](archive-experience/windows-migration-v2.json) verifies 19 commands/eight outcomes and [nine specific tamper refusals](archive-experience/auditor-controls-migration-v2.json); native Unix/offline/final-matrix gates remain open. All final archive and paid-product counts remain zero.
 
 Base: `deed954a9ed1c05db73ee93cb2fbb84d9271d1e1`, branch
 `work/p0-p2-implementation`. Pre-existing edits: planning index and execution
@@ -23,7 +23,7 @@ RubyGems/Bundler is admitted on Linux/Windows and its owned local tree is remove
 Microsoft Edit is admitted on Linux/Windows and its owned local tree is removed.
 Vis is admitted on Linux/macOS and its owned local source tree is removed.
 fff is admitted on Linux/macOS and its owned local source tree is removed. Attempted 10; development admitted 10; archive qualified 0;
-old projects migrated 6; final runner admissions 0/100; paid-product admissions 0/100;
+old projects migrated 7; final runner admissions 0/100; paid-product admissions 0/100;
 final-qualified scenarios, faults, repetitions and native project/host cells all 0.
 Development evidence includes nineteen passing Windows Plop scenarios and three
 detected real source faults with exact restoration. The repeated-resize case

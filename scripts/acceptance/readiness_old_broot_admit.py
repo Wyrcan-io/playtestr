@@ -60,7 +60,7 @@ def main():
     status['projects'].append(dict(project='broot',receipt_sha256=sha256(docs/'migration-admission.json')))
     if status_path.exists():status_path.write_text(json.dumps(status,indent=2)+'\n',encoding='utf-8',newline='\n')
     else:immutable_json(status_path,status)
-    print('Original broot migration complete: one old project, twelve canonical cases, two native cells; new/final credit remains zero.')
+    print('Original broot migration complete: one old project, thirteen canonical cases, two native cells; new/final credit remains zero.')
 
 
 if __name__=='__main__':main()
