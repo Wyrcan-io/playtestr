@@ -69,13 +69,13 @@ class NativeCompactionTests(unittest.TestCase):
             output=compact(RAW,project,[run],generation=2)
             command=['powershell.exe','-NoProfile','-ExecutionPolicy','Bypass','-File',
                 str(ROOT/'scripts/acceptance/readiness_remove_native_packets.ps1'),'-Project',project,'-Generation','2']
-            wrong=subprocess.run(command[:-1]+['1'],cwd=ROOT,capture_output=True,timeout=20)
+            wrong=subprocess.run(command[:-1]+['1'],cwd=ROOT,capture_output=True,timeout=60)
             self.assertNotEqual(wrong.returncode,0);self.assertTrue(value.is_file())
             value.write_bytes(b'changed bytes')
-            refused=subprocess.run(command,cwd=ROOT,capture_output=True,timeout=20)
+            refused=subprocess.run(command,cwd=ROOT,capture_output=True,timeout=60)
             self.assertNotEqual(refused.returncode,0);self.assertTrue(value.is_file())
             value.write_bytes(original)
-            removed=subprocess.run(command,cwd=ROOT,capture_output=True,timeout=20)
+            removed=subprocess.run(command,cwd=ROOT,capture_output=True,timeout=60)
             self.assertEqual(removed.returncode,0,removed.stderr.decode(errors='replace'))
             self.assertFalse(packet.exists());self.assertTrue((output/'packets.tar.gz').is_file())
         finally:

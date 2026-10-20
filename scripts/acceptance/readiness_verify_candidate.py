@@ -5,7 +5,7 @@ import subprocess
 import tarfile
 import zipfile
 
-from readiness_candidate_package import SOURCE, VERSION
+from readiness_candidate_package import SOURCE as HISTORICAL_SOURCE, VERSION as HISTORICAL_VERSION, MIGRATION_SOURCE, MIGRATION_VERSION
 from readiness_evidence import Campaign, RAW, ROOT, immutable_json, sha256
 from readiness_new_control_matrix import packet_file, read_json as load
 
@@ -18,7 +18,11 @@ def require(condition, message):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--run', required=True)
+    parser.add_argument('--series', choices=['provisional-v1','migration-v2'], default='provisional-v1')
     args = parser.parse_args()
+    SOURCE, VERSION = (HISTORICAL_SOURCE, HISTORICAL_VERSION) if args.series=='provisional-v1' else (MIGRATION_SOURCE, MIGRATION_VERSION)
+    qualification_name = 'earlier-project-requalification-retention-3d50d81.json' if args.series=='provisional-v1' else 'native-core-129b7a4.json'
+    admission_name = 'frogmouth/development-admission.json' if args.series=='provisional-v1' else 'old-migration-status.json'
     require(args.run.isascii() and args.run.isdecimal(), 'invalid candidate run')
     run = RAW / 'native' / args.run
     metadata = load(run / 'run-metadata.json')
@@ -28,10 +32,15 @@ def main():
             'three successful native candidate jobs required')
     docs = ROOT / 'docs/validation/runner-readiness-ten-project-pass'
     ledger = load(docs / 'candidates.json')
-    require(ledger['development_admissions'] == 8, 'eight-project freeze boundary changed')
-    for repo, status in [('jondot/hygen', 'provisional-holdout-9'), ('rclone/rclone', 'provisional-holdout-10')]:
-        require(next(r for r in ledger['rows'] if r['repository'] == repo)['status'] == status,
-                'reserved transfer target was already consumed')
+    if args.series=='provisional-v1':
+        require(ledger['development_admissions'] == 8, 'eight-project freeze boundary changed')
+        for repo, status in [('jondot/hygen', 'provisional-holdout-9'), ('rclone/rclone', 'provisional-holdout-10')]:
+            require(next(r for r in ledger['rows'] if r['repository'] == repo)['status'] == status,
+                    'reserved transfer target was already consumed')
+    else:
+        require(ledger['development_admissions']==10, 'ten historical admissions required')
+        core=load(docs / qualification_name)
+        require(core['source_revision']==SOURCE and str(core['run']).isdecimal() and core['native_hosts']==['linux','macos','windows'] and core['verified_success'], 'source-matched native core proof required')
     tracked = subprocess.check_output(['git', 'ls-tree', '-r', '--name-only', SOURCE], cwd=ROOT,
                                       text=True, timeout=15).splitlines()
     names = {n for n in tracked if n.endswith('.go') or n in
@@ -47,7 +56,7 @@ def main():
     cells = []
     for artifact, host in [('Linux', 'linux'), ('macOS', 'darwin'), ('Windows', 'windows')]:
         packet = run / ('private-candidate-' + artifact)
-        manifests = list((packet / 'candidate-packages/provisional-v1').glob('*/candidate.json'))
+        manifests = list((packet / 'candidate-packages' / args.series).glob('*/candidate.json'))
         require(len(manifests) == 1, 'ambiguous native package manifest')
         manifest = manifests[0]
         value = load(manifest)
@@ -56,8 +65,8 @@ def main():
                 and value['host'] == host and arch in {'amd64', 'arm64'}
                 and value['sdk_settings'] == dict(GOOS=host, GOARCH=arch, GOVERSION='go1.25.0')
                 and value['ledger_sha256'] == sha256(docs / 'candidates.json')
-                and value['source_qualification_index_sha256'] == sha256(docs / 'earlier-project-requalification-retention-3d50d81.json')
-                and value['eighth_admission_sha256'] == sha256(docs / 'frogmouth/development-admission.json'),
+                and value['source_qualification_index_sha256'] == sha256(docs / qualification_name)
+                and value['eighth_admission_sha256' if args.series=='provisional-v1' else 'migration_admission_ledger_sha256'] == sha256(docs / admission_name),
                 'wrong native source, compiler settings or qualification gate')
         require(set(value['source_inputs']) == names
                 and all(digest in expected[name] for name, digest in value['source_inputs'].items()),
@@ -102,7 +111,7 @@ def main():
             witnessed[label] = key
         require(witnessed['native-build'] == value['build_attempt']
                 and witnessed['extracted-version'] == value['version_attempt'], 'package attempt identity changed')
-        archive_reference = 'candidate-packages/provisional-v1/' + host + '-' + arch + '/dist/'
+        archive_reference = 'candidate-packages/' + args.series + '/' + host + '-' + arch + '/dist/'
         archive_reference += 'playtestr_' + VERSION.removeprefix('v') + '_' + host + '_' + arch
         archive_reference += '.zip' if host == 'windows' else '.tar.gz'
         require(value['archive'] == 'artifacts/runner-readiness-ten-project-pass/' + archive_reference,
@@ -143,13 +152,13 @@ def main():
                           archive_local_only=archive.relative_to(ROOT).as_posix(), archive_sha256=sha256(archive),
                           archive_bytes=archive.stat().st_size, binary_sha256=value['binary_sha256'],
                           candidate_manifest_sha256=sha256(manifest), command_attempts=witnessed))
-    immutable_json(docs / 'provisional-candidate-freeze.json',
+    immutable_json(docs / ('provisional-candidate-freeze.json' if args.series=='provisional-v1' else 'migration-candidate-freeze.json'),
                    dict(schema_version=1, run=args.run, tooling_commit=metadata['headSha'],
                         source_revision=SOURCE, version=VERSION, cells=cells,
-                        project_admissions_at_freeze=8, reserved_projects_untouched=True,
+                        series=args.series, project_admissions_at_freeze=(8 if args.series=='provisional-v1' else 10), reserved_projects_untouched=(args.series=='provisional-v1'),
                         final_archive_credit=0, published=False,
                         residual='fff original Linux exit timeout remains unresolved; provisional builds do not establish stable qualification.'))
-    print('Three exact native private archives independently verified and frozen before reserved transfer.')
+    print('Three exact native private archives independently verified:',args.series)
 
 
 if __name__ == '__main__':

@@ -13,9 +13,10 @@ from readiness_new_control_matrix import read_json as load
 from readiness_old_helix_environment import environment
 
 
-async def run(label,argv,env,timeout=120,expected=0):
-    target=RAW/'active/old-helix';sizes=[]
-    operation=asyncio.create_task(execute(argv,'old-helix',label,cwd=target/'src',env=env,
+async def run(label,argv,env,timeout=120,expected=0,project='helix'):
+    if project not in {'helix','broot'}:raise RuntimeError('undeclared original Rust command scope')
+    target=RAW/'active'/('old-'+project);sizes=[]
+    operation=asyncio.create_task(execute(argv,'old-'+project,label,cwd=target/'src',env=env,
         timeout=timeout,expected=expected,campaign=Campaign()))
     try:
         while not operation.done():
@@ -32,8 +33,8 @@ async def run(label,argv,env,timeout=120,expected=0):
             scope='Periodic owned logical bytes, not exact peak or OS quota.'))
 
 
-def build_environment():
-    target=RAW/'active/old-helix';runtime=load(target/'runtime.json');env=environment()
+def build_environment(project='helix'):
+    target=RAW/'active'/('old-'+project);runtime=load(target/'runtime.json');env=environment(project)
     compiler=Path(runtime['rustc_path']);cargo=Path(runtime['cargo_path'])
     if sha256(compiler)!=runtime['rustc_sha256'] or sha256(cargo)!=runtime['cargo_sha256']:
         raise RuntimeError('actual Rust/Cargo prerequisite changed')
@@ -44,18 +45,19 @@ def build_environment():
     return target,runtime,cargo,env
 
 
-async def compile_target(label,*,clean=False):
-    target,runtime,cargo,env=build_environment();triple=runtime['native_triple']
+async def compile_target(label,*,clean=False,project='helix'):
+    target,runtime,cargo,env=build_environment(project);triple=runtime['native_triple']
+    package,binary_name={'helix':('helix-term','hx'),'broot':('broot','broot')}[project]
     if clean:
-        cleared=await run(label+'-invalidate-helix-term',[cargo,'clean','--locked','--offline','--profile','release',
-            '--target',triple,'-p','helix-term'],env,120)
+        cleared=await run(label+'-invalidate-'+package,[cargo,'clean','--locked','--offline','--profile','release',
+            '--target',triple,'-p',package],env,120,project=project)
         count=re.search(r'Removed\s+([0-9]+)\s+files?',cleared['output'])
         if count is None or int(count.group(1))==0:raise RuntimeError('compiled package invalidation lacks positive evidence')
     command=[cargo,'rustc' if os.name=='nt' else 'build','--locked','--offline','--profile','release',
-        '--target',triple,'-p','helix-term','--bin','hx']
+        '--target',triple,'-p',package,'--bin',binary_name]
     if os.name=='nt':command+=['--','-C','link-arg=/Brepro']
-    result=await run(label,command,env,900)
-    built=target/'cargo-target'/triple/'release'/('hx.exe' if os.name=='nt' else 'hx')
+    result=await run(label,command,env,900,project=project)
+    built=target/'cargo-target'/triple/'release'/(binary_name+('.exe' if os.name=='nt' else ''))
     binary=target/'bin'/built.name;binary.parent.mkdir(exist_ok=True);shutil.copyfile(built,binary)
     if os.name!='nt':binary.chmod(0o755)
     return result,binary

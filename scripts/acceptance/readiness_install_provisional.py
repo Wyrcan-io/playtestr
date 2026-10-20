@@ -15,10 +15,12 @@ from readiness_new_control_matrix import read_json as load
 async def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--archive', type=Path, help='Owned native Actions download; defaults to local frozen archive')
+    parser.add_argument('--series',choices=['provisional-v1','migration-v2'],default='provisional-v1')
     args = parser.parse_args()
     host = {'Linux': 'linux', 'Darwin': 'darwin', 'Windows': 'windows'}[platform.system()]
     arch = {'x86_64': 'amd64', 'amd64': 'amd64', 'arm64': 'arm64', 'aarch64': 'arm64'}[platform.machine().lower()]
-    freeze = load(ROOT / 'docs/validation/runner-readiness-ten-project-pass/provisional-candidate-freeze.json')
+    freeze_name='provisional-candidate-freeze.json' if args.series=='provisional-v1' else 'migration-candidate-freeze.json'
+    freeze = load(ROOT / 'docs/validation/runner-readiness-ten-project-pass' / freeze_name)
     cell = next(row for row in freeze['cells'] if row['host'] == host and row['architecture'] == arch)
     archive = args.archive or ROOT / cell['archive_local_only']
     archive = archive if archive.is_absolute() else ROOT / archive
@@ -36,7 +38,7 @@ async def main():
     base = 'playtestr_' + freeze['version'].removeprefix('v') + '_' + host + '_' + arch
     binary_name = 'playtestr' + ('.exe' if os.name == 'nt' else '')
     expected = {base + '/' + name for name in [binary_name, 'LICENSE', 'README.md', 'THIRD_PARTY_NOTICES.md']}
-    root = RAW / 'private-install/provisional-v1' / (host + '-' + arch)
+    root = RAW / 'private-install' / args.series / (host + '-' + arch)
     current = root.parent
     while current != RAW:
         if current.is_symlink() or getattr(current, 'is_junction', lambda: False)():

@@ -11,8 +11,9 @@ from readiness_new_control_matrix import read_json as load
 from readiness_old_helix_environment import environment
 
 
-async def fetch(cargo,compiler,env,targets):
-    target=RAW/'active/old-helix';source=target/'src';lock=source/'Cargo.lock'
+async def fetch(cargo,compiler,env,targets,project='helix'):
+    if project not in {'helix','broot'}:raise RuntimeError('undeclared original Rust dependency scope')
+    target=RAW/'active'/('old-'+project);source=target/'src';lock=source/'Cargo.lock'
     before=sha256(lock);packages=tomllib.loads(lock.read_text())['package']
     expected={p['name']+'-'+p['version']+'.crate':p['checksum'] for p in packages if p.get('source')}
     if any(p.get('source') not in {None,'registry+https://github.com/rust-lang/crates.io-index'} for p in packages):
@@ -20,7 +21,7 @@ async def fetch(cargo,compiler,env,targets):
     calls=[]
     for triple in targets:
         operation=asyncio.create_task(execute([cargo,'fetch','--manifest-path',source/'Cargo.toml','--locked','--target',triple],
-            'old-helix','migration-owned-locked-fetch-'+triple,cwd=source,env=env,timeout=300,campaign=Campaign()))
+            'old-'+project,'migration-owned-locked-fetch-'+triple,cwd=source,env=env,timeout=300,campaign=Campaign()))
         try:
             while not operation.done():
                 if await asyncio.to_thread(usage,target)>3*1024**3:raise RuntimeError('owned Rust fetch storage stop')

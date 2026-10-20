@@ -1,4 +1,4 @@
-param([ValidateSet('plop','poetry','rubygems','edit','vis','fff','papis','frogmouth','hygen','rclone','old-cookiecutter','old-copier','old-lf','old-superfile','old-helix','old-glow')][string]$Project = 'plop')
+param([ValidateSet('plop','poetry','rubygems','edit','vis','fff','papis','frogmouth','hygen','rclone','old-cookiecutter','old-copier','old-lf','old-superfile','old-helix','old-glow','old-broot')][string]$Project = 'plop')
 $ErrorActionPreference = 'Stop'
 $workspace = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..')).TrimEnd('\')
 $campaign = Join-Path $workspace 'artifacts\runner-readiness-ten-project-pass'
@@ -17,8 +17,8 @@ foreach ($ancestor in @((Join-Path $workspace 'artifacts'), $campaign, (Join-Pat
     }
 }
 $marker = Get-Content -LiteralPath (Join-Path $active 'task-owned.json') -Raw | ConvertFrom-Json
-$repository = @{plop='plopjs/plop';poetry='python-poetry/poetry';rubygems='ruby/rubygems';edit='microsoft/edit';vis='martanne/vis';fff='dylanaraps/fff';papis='papis/papis';frogmouth='Textualize/frogmouth';hygen='jondot/hygen';rclone='rclone/rclone';'old-cookiecutter'='cookiecutter/cookiecutter';'old-copier'='copier-org/copier';'old-lf'='gokcehan/lf';'old-superfile'='yorukot/superfile';'old-helix'='helix-editor/helix';'old-glow'='charmbracelet/glow'}[$Project]
-$pin = @{plop='0c90e7ef93ffa5f40b10fe8f53d3cc23adee5a8e';poetry='38a86661d2ae58694c76d0bb4e628e1400d6dc6f';rubygems='f033df93676007227d1ae0bd7326008e6396b3e9';edit='cb6de0a8966aecd01d19a3541dab1829d0e679ca';vis='10b630af09404cf2c887e2d7e6e24ecda9d05ea7';fff='6f2dc6f3a003d24e8b3fd48b046241b486022ad5';papis='c744b5efe9b307b9664f3e96c154cb620e140a8f';frogmouth='15c3e85a6e84b2e4a6845723acf12beb54c81eb2';hygen='26f76d8dede565b2bf38d0b9e9f3009ee2c8f9ae';rclone='d369079a1448c487d09d85bfe11382e16ea4e345';'old-cookiecutter'='c88fbe921c97c58b65f1883ba90a0ab53cc91b34';'old-copier'='04a8619f3b083bc278b70e556bd085551a2b3f79';'old-lf'='5d3c7b702515dfb72d8d496673fa1c4144d1dbed';'old-superfile'='66fe169b87021f7424522ed5aadd711c5676601e';'old-helix'='ba40e547426b0f9896c8bdc699a4ab11f2b37dbc';'old-glow'='8b0600fa445535b9c53194c0d4f7fe3cf700ef3e'}[$Project]
+$repository = @{plop='plopjs/plop';poetry='python-poetry/poetry';rubygems='ruby/rubygems';edit='microsoft/edit';vis='martanne/vis';fff='dylanaraps/fff';papis='papis/papis';frogmouth='Textualize/frogmouth';hygen='jondot/hygen';rclone='rclone/rclone';'old-cookiecutter'='cookiecutter/cookiecutter';'old-copier'='copier-org/copier';'old-lf'='gokcehan/lf';'old-superfile'='yorukot/superfile';'old-helix'='helix-editor/helix';'old-glow'='charmbracelet/glow';'old-broot'='Canop/broot'}[$Project]
+$pin = @{plop='0c90e7ef93ffa5f40b10fe8f53d3cc23adee5a8e';poetry='38a86661d2ae58694c76d0bb4e628e1400d6dc6f';rubygems='f033df93676007227d1ae0bd7326008e6396b3e9';edit='cb6de0a8966aecd01d19a3541dab1829d0e679ca';vis='10b630af09404cf2c887e2d7e6e24ecda9d05ea7';fff='6f2dc6f3a003d24e8b3fd48b046241b486022ad5';papis='c744b5efe9b307b9664f3e96c154cb620e140a8f';frogmouth='15c3e85a6e84b2e4a6845723acf12beb54c81eb2';hygen='26f76d8dede565b2bf38d0b9e9f3009ee2c8f9ae';rclone='d369079a1448c487d09d85bfe11382e16ea4e345';'old-cookiecutter'='c88fbe921c97c58b65f1883ba90a0ab53cc91b34';'old-copier'='04a8619f3b083bc278b70e556bd085551a2b3f79';'old-lf'='5d3c7b702515dfb72d8d496673fa1c4144d1dbed';'old-superfile'='66fe169b87021f7424522ed5aadd711c5676601e';'old-helix'='ba40e547426b0f9896c8bdc699a4ab11f2b37dbc';'old-glow'='8b0600fa445535b9c53194c0d4f7fe3cf700ef3e';'old-broot'='41cb4c78d9d7736dfe83c65f8a393fc962e50662'}[$Project]
 if ($marker.workspace -ne $workspace -or $marker.project -ne $repository -or
     $marker.campaign -ne 'runner-readiness-ten-project-pass' -or
     $marker.pin -ne $pin) { throw 'Ownership mismatch' }
@@ -37,7 +37,7 @@ $filter = if ($Project -in @('plop','hygen')) { "Name='node.exe'" } elseif ($Pro
 if ($Project -in @('rclone','old-lf','old-superfile','old-glow')) {
     $filter = "Name='rclone.exe' OR Name='lf.exe' OR Name='superfile.exe' OR Name='glow.exe' OR Name='go.exe' OR Name='compile.exe' OR Name='link.exe' OR Name='asm.exe' OR Name='cgo.exe'"
 }
-if ($Project -eq 'old-helix') { $filter += " OR Name='hx.exe' OR Name='rustc.exe' OR Name='cargo.exe' OR Name='rustup.exe' OR Name='link.exe' OR Name='cl.exe' OR Name='rc.exe'" }
+if ($Project -in @('old-helix','old-broot')) { $filter += " OR Name='hx.exe' OR Name='broot.exe' OR Name='rustc.exe' OR Name='cargo.exe' OR Name='rustup.exe' OR Name='link.exe' OR Name='cl.exe' OR Name='rc.exe'" }
 if ($Project -eq 'old-cookiecutter') { $filter += " OR Name='cookiecutter.exe'" }
 if ($Project -eq 'old-copier') { $filter += " OR Name='copier.exe' OR Name='git.exe' OR Name='less.exe' OR Name='diff.exe'" }
 $nodes = @(Get-CimInstance Win32_Process -Filter $filter | Where-Object {

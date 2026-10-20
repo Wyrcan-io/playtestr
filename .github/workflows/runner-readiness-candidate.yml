@@ -7,7 +7,7 @@ on:
 permissions:
   contents: read
 env:
-  SOURCE_REVISION: 3d50d81aae8f1d24f7a718e6e05b39069697b1a6
+  SOURCE_REVISION: 129b7a45c0006be550f798ce52c2fbbfd327e515
   PYTHONDONTWRITEBYTECODE: '1'
   PYTHONIOENCODING: utf-8
   GOTOOLCHAIN: local
@@ -35,7 +35,7 @@ jobs:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
           repository: Wyrcan-io/playtestr
-          ref: 3d50d81aae8f1d24f7a718e6e05b39069697b1a6
+          ref: 129b7a45c0006be550f798ce52c2fbbfd327e515
           path: .playtestr-tooling
           persist-credentials: false
           set-safe-directory: false
@@ -50,8 +50,8 @@ jobs:
           done
           python scripts/acceptance/readiness_check.py --label candidate-native-sdk --timeout 360 -- python scripts/acceptance/readiness_bootstrap_go.py
           echo "$campaign/toolchain/go/bin" >> "$GITHUB_PATH"
-      - name: Build and verify exact private native archive after eight admissions
-        run: python scripts/acceptance/readiness_check.py --label provisional-private-native-package --timeout 600 -- python scripts/acceptance/readiness_candidate_package.py --series provisional-v1
+      - name: Build and verify exact private native archive after native migration repair validation
+        run: python scripts/acceptance/readiness_check.py --label provisional-private-native-package --timeout 600 -- python scripts/acceptance/readiness_candidate_package.py --series migration-v2
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
@@ -60,8 +60,8 @@ jobs:
             artifacts/runner-readiness-ten-project-pass/events/
             artifacts/runner-readiness-ten-project-pass/identities/
             artifacts/runner-readiness-ten-project-pass/core/
-            artifacts/runner-readiness-ten-project-pass/candidate-packages/provisional-v1/*/dist/
-            artifacts/runner-readiness-ten-project-pass/candidate-packages/provisional-v1/*/candidate.json
+            artifacts/runner-readiness-ten-project-pass/candidate-packages/migration-v2/*/dist/
+            artifacts/runner-readiness-ten-project-pass/candidate-packages/migration-v2/*/candidate.json
             artifacts/runner-readiness-ten-project-pass/toolchain/sdk.json
           include-hidden-files: true
           if-no-files-found: error

@@ -14,6 +14,8 @@ from readiness_evidence import Campaign,RAW,ROOT,immutable_json,sha256
 
 SOURCE='3d50d81aae8f1d24f7a718e6e05b39069697b1a6'
 VERSION='v0.4.0-rc.4'
+MIGRATION_SOURCE='129b7a45c0006be550f798ce52c2fbbfd327e515'
+MIGRATION_VERSION='v0.4.0-rc.5'
 
 
 class SourceCampaign(Campaign):
@@ -26,24 +28,34 @@ class SourceCampaign(Campaign):
 
 
 async def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--series',choices=['provisional-v1'],required=True);args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--series',choices=['provisional-v1','migration-v2'],required=True);args=parser.parse_args()
     docs=ROOT/'docs/validation/runner-readiness-ten-project-pass'
     ledger=json.loads((docs/'candidates.json').read_text(encoding='utf-8-sig'))
-    if ledger['development_admissions']!=8:raise RuntimeError('provisional freeze requires eight completed development admissions')
-    for repo,status in [('jondot/hygen','provisional-holdout-9'),('rclone/rclone','provisional-holdout-10')]:
-        if next(r for r in ledger['rows'] if r['repository']==repo)['status']!=status:raise RuntimeError('reserved transfer target was already consumed')
-    qualification=docs/'earlier-project-requalification-retention-3d50d81.json'
-    current=json.loads(qualification.read_text(encoding='utf-8-sig'))
-    if current['runner_source']!=SOURCE or len(current['projects'])!=7 or {r['project'] for r in current['projects']}!={'plop','poetry','rubygems','edit','vis','fff','papis'}:raise RuntimeError('seven earlier projects lack current-source requalification')
-    for row in current['projects']:
-        receipt=docs/row['project']/'requalification-3d50d81.json'
-        value=json.loads(receipt.read_text(encoding='utf-8-sig'))
-        if sha256(receipt)!=row['requalification_sha256'] or value['runner_source']!=SOURCE or value['cells']!=row['cells']:raise RuntimeError('current-source project verification changed')
-    if len(current['residuals'])!=1 or current['residuals'][0]['project']!='fff' or sha256(docs/'fff/current-source-cancel-investigation.json')!=current['residuals'][0]['investigation_sha256']:raise RuntimeError('first failed fff series disposition is missing or changed')
-    admission=docs/'frogmouth/development-admission.json'
-    if json.loads(admission.read_text(encoding='utf-8-sig'))['runner_source']!=SOURCE:raise RuntimeError('eighth admission uses stale source')
+    source,version=SOURCE,VERSION
+    if args.series=='provisional-v1':
+        if ledger['development_admissions']!=8:raise RuntimeError('provisional freeze requires eight completed development admissions')
+        for repo,status in [('jondot/hygen','provisional-holdout-9'),('rclone/rclone','provisional-holdout-10')]:
+            if next(r for r in ledger['rows'] if r['repository']==repo)['status']!=status:raise RuntimeError('reserved transfer target was already consumed')
+        qualification=docs/'earlier-project-requalification-retention-3d50d81.json'
+        current=json.loads(qualification.read_text(encoding='utf-8-sig'))
+        if current['runner_source']!=SOURCE or len(current['projects'])!=7 or {r['project'] for r in current['projects']}!={'plop','poetry','rubygems','edit','vis','fff','papis'}:raise RuntimeError('seven earlier projects lack current-source requalification')
+        for row in current['projects']:
+            receipt=docs/row['project']/'requalification-3d50d81.json'
+            value=json.loads(receipt.read_text(encoding='utf-8-sig'))
+            if sha256(receipt)!=row['requalification_sha256'] or value['runner_source']!=SOURCE or value['cells']!=row['cells']:raise RuntimeError('current-source project verification changed')
+        if len(current['residuals'])!=1 or current['residuals'][0]['project']!='fff' or sha256(docs/'fff/current-source-cancel-investigation.json')!=current['residuals'][0]['investigation_sha256']:raise RuntimeError('first failed fff series disposition is missing or changed')
+        admission=docs/'frogmouth/development-admission.json'
+        if json.loads(admission.read_text(encoding='utf-8-sig'))['runner_source']!=SOURCE:raise RuntimeError('eighth admission uses stale source')
+    else:
+        source,version=MIGRATION_SOURCE,MIGRATION_VERSION
+        if ledger['development_admissions']!=10:raise RuntimeError('migration repair requires ten historical development admissions')
+        qualification=docs/'native-core-129b7a4.json'
+        current=json.loads(qualification.read_text(encoding='utf-8-sig'))
+        if current['source_revision']!=source or not str(current['run']).isdecimal() or current['native_hosts']!=['linux','macos','windows'] or not current['verified_success']:
+            raise RuntimeError('migration candidate requires successful source-matched native core evidence')
+        admission=docs/'old-migration-status.json'
     checkout=ROOT/'.playtestr-tooling'
-    if subprocess.check_output(['git','-C',str(checkout),'rev-parse','HEAD'],text=True,timeout=15).strip()!=SOURCE:raise RuntimeError('candidate source checkout differs')
+    if subprocess.check_output(['git','-C',str(checkout),'rev-parse','HEAD'],text=True,timeout=15).strip()!=source:raise RuntimeError('candidate source checkout differs')
     host={'Linux':'linux','Darwin':'darwin','Windows':'windows'}[platform.system()]
     arch={'x86_64':'amd64','amd64':'amd64','arm64':'arm64','aarch64':'arm64'}[platform.machine().lower()]
     root=RAW/'candidate-packages'/args.series/(host+'-'+arch);root.mkdir(parents=True,exist_ok=False)
@@ -58,9 +70,9 @@ async def main():
     settings=await run([tool,'env','-json','GOOS','GOARCH','GOVERSION'],'native-sdk-settings')
     native=json.loads(settings['output'])
     if native['GOOS']!=host or native['GOARCH']!=arch:raise RuntimeError('candidate build would not be native to this host architecture')
-    build=await run([tool,'build','-trimpath','-buildvcs=false','-ldflags','-s -w -X github.com/Wyrcan-io/playtestr/internal/buildinfo.Version='+VERSION,'-o',binary,'./cmd/playtestr'],'native-build')
-    await run([tool,'run','./cmd/package-release','-binary',binary,'-version',VERSION,'-os',host,'-arch',arch,'-out',root/'dist'],'native-package')
-    base='playtestr_'+VERSION.removeprefix('v')+'_'+host+'_'+arch
+    build=await run([tool,'build','-trimpath','-buildvcs=false','-ldflags','-s -w -X github.com/Wyrcan-io/playtestr/internal/buildinfo.Version='+version,'-o',binary,'./cmd/playtestr'],'native-build')
+    await run([tool,'run','./cmd/package-release','-binary',binary,'-version',version,'-os',host,'-arch',arch,'-out',root/'dist'],'native-package')
+    base='playtestr_'+version.removeprefix('v')+'_'+host+'_'+arch
     archive=root/'dist'/(base+('.zip' if os.name=='nt' else '.tar.gz'))
     if archive.stat().st_size>32*1024**2:raise RuntimeError('private archive bound')
     checksum=archive.with_name(archive.name+'.sha256').read_text().strip()
@@ -89,14 +101,14 @@ async def main():
     for name in ['LICENSE','README.md','THIRD_PARTY_NOTICES.md']:
         if sha256(extracted/base/name)!=inputs[name]:raise RuntimeError('packaged documentation differs')
     version=await run([released,'--version'],'extracted-version')
-    if version['output'].strip()!='playtestr '+VERSION:raise RuntimeError('private archive version differs')
+    if version['output'].strip()!='playtestr '+version:raise RuntimeError('private archive version differs')
     await run([released,'--help'],'extracted-help')
     if inputs!={n:sha256(checkout/n) for n in names}:raise RuntimeError('candidate source inputs changed during build')
-    immutable_json(root/'candidate.json',dict(schema_version=1,series=args.series,version=VERSION,source_revision=SOURCE,host=host,architecture=arch,
-        source_qualification_index_sha256=sha256(qualification),eighth_admission_sha256=sha256(admission),source_inputs=inputs,compiler_sha256=sha256(tool),sdk=sdk['output'].strip(),sdk_settings=native,sdk_attempt=sdk['id'],settings_attempt=settings['id'],binary_sha256=sha256(binary),extracted_binary_sha256=sha256(released),
+    immutable_json(root/'candidate.json',dict(schema_version=1,series=args.series,version=version,source_revision=source,host=host,architecture=arch,
+        source_qualification_index_sha256=sha256(qualification),**{("eighth_admission_sha256" if args.series=="provisional-v1" else "migration_admission_ledger_sha256"):sha256(admission)},source_inputs=inputs,compiler_sha256=sha256(tool),sdk=sdk['output'].strip(),sdk_settings=native,sdk_attempt=sdk['id'],settings_attempt=settings['id'],binary_sha256=sha256(binary),extracted_binary_sha256=sha256(released),
         archive=archive.relative_to(ROOT).as_posix(),archive_sha256=sha256(archive),archive_bytes=archive.stat().st_size,archive_members=members,
         build_attempt=build['id'],version_attempt=version['id'],ledger_sha256=sha256(docs/'candidates.json'),project_qualification=False,
-        freeze='Private provisional archive before reserved projects nine/ten. No release/tag/publication authorized; final qualification remains separate.'))
+        freeze=('Private provisional archive before reserved projects nine/ten.' if args.series=='provisional-v1' else 'Private migration repair after holdouts were consumed; no fresh holdout claim.')+' No release/tag/publication authorized; final qualification remains separate.'))
     print('Private native provisional archive inspected:',archive.relative_to(ROOT),sha256(archive))
 
 

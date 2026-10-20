@@ -12,12 +12,14 @@ from readiness_evidence import Campaign, RAW, ROOT, immutable_json, sha256
 from readiness_new_control_matrix import read_json as load
 
 
-def runner():
+def runner(series='provisional-v1'):
+    if series not in {'provisional-v1','migration-v2'}:raise RuntimeError('unknown private candidate series')
     host = {'Linux': 'linux', 'Darwin': 'darwin', 'Windows': 'windows'}[platform.system()]
     arch = {'x86_64': 'amd64', 'amd64': 'amd64', 'aarch64': 'arm64', 'arm64': 'arm64'}[platform.machine().lower()]
-    frozen = load(ROOT / 'docs/validation/runner-readiness-ten-project-pass/provisional-candidate-freeze.json')
+    freeze_name='provisional-candidate-freeze.json' if series=='provisional-v1' else 'migration-candidate-freeze.json'
+    frozen = load(ROOT / 'docs/validation/runner-readiness-ten-project-pass' / freeze_name)
     cell = next(r for r in frozen['cells'] if r['host'] == host and r['architecture'] == arch)
-    installed = load(RAW / 'private-install/provisional-v1' / (host + '-' + arch) / 'installation.json')
+    installed = load(RAW / 'private-install' / series / (host + '-' + arch) / 'installation.json')
     binary = ROOT / installed['binary']
     if installed['archive_sha256'] != cell['archive_sha256'] or sha256(binary) != cell['binary_sha256']:
         raise RuntimeError('first use must execute exact provisional archive bytes')

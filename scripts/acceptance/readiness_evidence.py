@@ -186,8 +186,8 @@ class Campaign:
                     if compiler.is_symlink() or getattr(compiler,'is_junction',lambda:False)():raise ValueError('linked Rclone compiler')
                     paths.append(compiler)
                     runtime_executables['go']=sha256(compiler)
-            elif project=='old-helix':
-                review_path=ROOT/'docs/validation/runner-readiness-ten-project-pass/old-migration/helix/source-review.json'
+            elif project in {'old-helix','old-broot'}:
+                review_path=ROOT/'docs/validation/runner-readiness-ten-project-pass/old-migration'/project.removeprefix('old-')/'source-review.json'
                 review=json.loads(review_path.read_text(encoding='utf-8-sig'))
                 paths.append(review_path)
                 paths.extend(target/'src'/name for name in review['reviewed_inputs'])
@@ -202,7 +202,8 @@ class Campaign:
                             raise ValueError('undeclared external Rust prerequisite')
                         runtime_executables[key]=sha256(tool)
                 paths.extend(p for p in (target/'cargo-home/registry/cache').rglob('*.crate') if p.is_file())
-                binary=target/'bin'/('hx.exe' if os.name=='nt' else 'hx')
+                binary_name='hx' if project=='old-helix' else 'broot'
+                binary=target/'bin'/(binary_name+('.exe' if os.name=='nt' else ''))
                 if binary.is_file():paths.append(binary)
                 paths.extend(p for p in (target/'bin/runtime').rglob('*') if p.is_file())
             elif project in {'old-lf','old-superfile','old-glow'}:
