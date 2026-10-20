@@ -1,0 +1,58 @@
+{
+  "canonical_scenarios": 16,
+  "cells": [
+    {
+      "canonical_source_sha256": "eb05347c0689bf8b340be1adc31bd582c9354a728a97d8ecc9f199441a2daca6",
+      "cleanup_sha256": "89b404e44b2db9aab0cabce646ad4c63aef52ae5107982de2faf366f80592633",
+      "corruption_sha256": "66cba55ab91825336dd891f269d34356a747a114bc0d6de8a0f2fdffbbf8c5cb",
+      "final_archive_credit": 0,
+      "full_suite_sha256": "5ad82f8bbd818e7a4faf748f6c683eb694d20de267850c7bbf38986689949e92",
+      "host": "linux",
+      "new_project_credit": 0,
+      "project": "ranger",
+      "provisional_archive_sha256": "25787c3ce657e61cfe36fc0687367856326da0e661820796acefbf5bb5aa410f",
+      "run": "39500082443",
+      "runner_sha256": "8112eddbaa23dfbd3783cf32718f0ed64d1ad2572d84e7bddcefb892d316bdfa",
+      "scenarios": 16,
+      "scope": "Original native case actions and exact baselines plus public same-execution saved outcomes; actual writer corruption and exact restoration.",
+      "target_pin": "46e957af9762dd2fcaabfbef4d3c45c16edd1184"
+    },
+    {
+      "canonical_source_sha256": "eb05347c0689bf8b340be1adc31bd582c9354a728a97d8ecc9f199441a2daca6",
+      "cleanup_sha256": "89b404e44b2db9aab0cabce646ad4c63aef52ae5107982de2faf366f80592633",
+      "corruption_sha256": "73c24a96dfb56a0ae675fdedbfc4d3162fc1d65fef835f0008d185b88f2c56fa",
+      "final_archive_credit": 0,
+      "full_suite_sha256": "4460c34280f099023744db1243f7a0d27129f6760801611109035cbb94fa7a15",
+      "host": "macos",
+      "new_project_credit": 0,
+      "project": "ranger",
+      "provisional_archive_sha256": "6737f822fbfbc2d61746493e82faaffaa66cf9e900b29f5c3e7e4c3bed6144ef",
+      "run": "39500082443",
+      "runner_sha256": "d3d1f8fcce15b31046f315d0456cae615c94133ef154e8e6877bbe27b83a2908",
+      "scenarios": 16,
+      "scope": "Original native case actions and exact baselines plus public same-execution saved outcomes; actual writer corruption and exact restoration.",
+      "target_pin": "46e957af9762dd2fcaabfbef4d3c45c16edd1184"
+    }
+  ],
+  "final_archive_credit": 0,
+  "final_runner_credit": 0,
+  "new_project_credit": 0,
+  "observed_ordinary_executions": 38,
+  "pin": "46e957af9762dd2fcaabfbef4d3c45c16edd1184",
+  "project": "ranger",
+  "qualified_calibration_executions": 6,
+  "qualified_primary_executions": 32,
+  "retained_archives": [
+    {
+      "archive_sha256": "8e7f4d6539137d57bce4d2aac11a7d5dc8f3a8a68e1615a4f6bc7b71c7e4b983",
+      "generation": 1,
+      "index_sha256": "181c19524fa4d0d679742a50c77194e2bcd2ed2bc779e3e237819dfdffad44c8"
+    },
+    {
+      "archive_sha256": "3c854877245af7043b9582364a5d9c044760024f7d66a25ff1d1d6186402a9b7",
+      "generation": 2,
+      "index_sha256": "61fd37feda6508de41116626b3ea40eb6454a94a57e3b478ad873216f70f80ef"
+    }
+  ],
+  "scope": "Sixteen original native workflows with unchanged terminal prefixes and reviewed snapshots, public same-execution saved outcomes, actual interpreted copy corruption, terminal-only false green and exact Python source recovery. Native interpreter/curses and the transparent launcher are independently bound; no compilation is claimed. Both hosts have checked runtime/source removal; Windows preparation is source-only."
+}
