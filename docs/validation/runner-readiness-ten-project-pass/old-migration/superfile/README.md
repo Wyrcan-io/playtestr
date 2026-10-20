@@ -33,5 +33,19 @@ verify that explicit local canonical reference; a missing or mismatched archive
 cannot earn credit. Native packets will be retrieved, audited, compacted and
 removed one host at a time under the unchanged storage cap.
 
-Native execution, independent audits and admission remain open. New-project and
+Native run `39384177500` passed all twelve original cases on Linux amd64 and
+macOS arm64, including actual compiled copy corruption, terminal-only false
+green calibration, same-run saved-byte rejection, exact source/compiled-binary
+restoration and checked source/SDK/cache cleanup. Independent
+[Linux](verified-linux.json) and [macOS](verified-macos.json) audits passed.
+The first macOS audit refused the `macos` versus frozen `darwin` host label;
+correcting that explicit mapping required no target rerun.
+
+The [admission](migration-admission.json) records twelve canonical scenarios,
+two native cells, 24 primary and six calibration executions. Both native packets
+retain all 387 logical files each in separately verified compressed archives
+(648,574 Linux bytes; 659,048 macOS bytes), with selected restoration checks.
+Expanded packets are removed. The canonical source reference remains present
+and hash-verified; the complete selected project retains 20,043,749 bytes,
+under the unchanged 32 MiB cap. No owned target remains. New-project and
 final-archive credit remain zero for this old-project work.

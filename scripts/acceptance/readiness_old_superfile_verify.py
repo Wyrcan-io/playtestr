@@ -34,7 +34,7 @@ def canonical_archive(target,review,root=RAW):
 def audit(base,host,run=None):
     docs=ROOT/'docs/validation/runner-readiness-ten-project-pass/old-migration/superfile'
     review=load(docs/'source-review.json');frozen=load(docs.parents[1]/'provisional-candidate-freeze.json')
-    cell=next(c for c in frozen['cells'] if c['host']==host)
+    cell=next(c for c in frozen['cells'] if c['host']==('darwin' if host=='macos' else host))
     old=ROOT/'docs/validation/ten-new-project-adversarial-pass/superfile'
     inventory=load(docs.parents[1]/'old-migration-inventory.json')
     original=next(p for p in inventory['projects'] if p['project']=='superfile')

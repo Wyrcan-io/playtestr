@@ -21,7 +21,7 @@ RubyGems/Bundler is admitted on Linux/Windows and its owned local tree is remove
 Microsoft Edit is admitted on Linux/Windows and its owned local tree is removed.
 Vis is admitted on Linux/macOS and its owned local source tree is removed.
 fff is admitted on Linux/macOS and its owned local source tree is removed. Attempted 10; development admitted 10; archive qualified 0;
-old projects migrated 3; final runner admissions 0/100; paid-product admissions 0/100;
+old projects migrated 4; final runner admissions 0/100; paid-product admissions 0/100;
 final-qualified scenarios, faults, repetitions and native project/host cells all 0.
 Development evidence includes nineteen passing Windows Plop scenarios and three
 detected real source faults with exact restoration. The repeated-resize case

@@ -1,0 +1,58 @@
+{
+  "canonical_scenarios": 12,
+  "cells": [
+    {
+      "canonical_source_sha256": "48783db60921e7a86ddfa524343ac3bece6b44bc11cfebc5be4828219ce72e28",
+      "cleanup_sha256": "0949747cf681610b2cdea10bcc43cd5ba2b3a0237734862e94e4768ea0fecdab",
+      "corruption_sha256": "d9b771a433c8fbdd2efb633492146a82017d1543732cbef4f3eee2d4b0bfb7e3",
+      "final_archive_credit": 0,
+      "full_suite_sha256": "077d9239a08a4a89054118669e188352c0aa24e10215135dcc8c231c95450045",
+      "host": "linux",
+      "new_project_credit": 0,
+      "project": "superfile",
+      "provisional_archive_sha256": "83a054f08c20b809eed708a75e6649889c390882b3f6511d8ebb837eb4d813b9",
+      "run": "39384177500",
+      "runner_sha256": "556d67890bafd8fb0c2c181481c7a3d546173baddcbfd2e4038d3453f182d52a",
+      "scenarios": 12,
+      "scope": "Original native case actions and exact baselines plus public same-execution saved outcomes; actual writer corruption and exact restoration.",
+      "target_pin": "66fe169b87021f7424522ed5aadd711c5676601e"
+    },
+    {
+      "canonical_source_sha256": "48783db60921e7a86ddfa524343ac3bece6b44bc11cfebc5be4828219ce72e28",
+      "cleanup_sha256": "0949747cf681610b2cdea10bcc43cd5ba2b3a0237734862e94e4768ea0fecdab",
+      "corruption_sha256": "56a92860d613eeb91f3bbc81e2257660c26268da0055f5741c0d71a6a9cf727b",
+      "final_archive_credit": 0,
+      "full_suite_sha256": "00d2ac819b6eb9147f69981599e709d098abb10ecbd28fb62bacc6e0084f68c0",
+      "host": "macos",
+      "new_project_credit": 0,
+      "project": "superfile",
+      "provisional_archive_sha256": "b3f5dd0956fddca62dd318b23aa44f69f745d2c42586d5d3745202f2966d0d2b",
+      "run": "39384177500",
+      "runner_sha256": "4937f01eafd59414b55b0c559b13300d0e81be911cf8a5ff784a953aed7b4d22",
+      "scenarios": 12,
+      "scope": "Original native case actions and exact baselines plus public same-execution saved outcomes; actual writer corruption and exact restoration.",
+      "target_pin": "66fe169b87021f7424522ed5aadd711c5676601e"
+    }
+  ],
+  "final_archive_credit": 0,
+  "final_runner_credit": 0,
+  "new_project_credit": 0,
+  "observed_ordinary_executions": 30,
+  "pin": "66fe169b87021f7424522ed5aadd711c5676601e",
+  "project": "superfile",
+  "qualified_calibration_executions": 6,
+  "qualified_primary_executions": 24,
+  "retained_archives": [
+    {
+      "archive_sha256": "f1bd773dad9ad0f3a9c94d37d1bed53a5c51aef3b9743865987f9c7fbffcfdd7",
+      "generation": 1,
+      "index_sha256": "3a077e0db0b966ee2304c40882c10d9cac62c662e8578ff3b85b993211bdb513"
+    },
+    {
+      "archive_sha256": "4dca2c8da32e3f90b7dfb665986aedbf6ef358bfe4c70b5a65decb85f1fd4777",
+      "generation": 2,
+      "index_sha256": "bd1caee11cc017620c9ecd9a177ff2bd98434bfaa9a80cb746861548a942ed38"
+    }
+  ],
+  "scope": "All original representable native cases plus real saved corruption, terminal-only calibration and exact recovery. Hosted Linux and macOS independently audited with checked cleanup; local Windows source-only review earns no runtime credit."
+}
