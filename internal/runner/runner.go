@@ -214,7 +214,7 @@ func decodeSpec(data []byte, path string) (Spec, error) {
 	seenSnapshots := make(map[string]struct{})
 	expectedAt := make(map[string]int)
 	lastTransition := -1
-	stateCount, stateBytes := 0, 0
+	stateBytes := 0
 	for i, step := range spec.Steps {
 		actions := 0
 		if step.State != nil {
@@ -229,10 +229,9 @@ func decodeSpec(data []byte, path string) (Spec, error) {
 			if err != nil {
 				return spec, fmt.Errorf("step %d state: %w", i+1, err)
 			}
-			stateCount++
 			stateBytes += n
-			if stateCount > 100 || stateBytes > 512*1024 {
-				return spec, fmt.Errorf("state assertions exceed count or aggregate byte limit")
+			if stateBytes > 512*1024 {
+				return spec, fmt.Errorf("state assertions exceed aggregate byte limit")
 			}
 		}
 		for _, value := range []string{step.Key, step.Text, step.Expect, step.ExpectNot, step.Snapshot} {

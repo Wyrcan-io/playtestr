@@ -25,7 +25,8 @@ concurrent same-size writes cannot provide durability or complete race freedom.
 Observation occurs once at the declared step, before cleanup. Authors must
 first checkpoint completion or declare an exact exit. State assertions do not
 poll or establish terminal readiness. Reads check cancellation and existing
-output/exit failure boundaries. Limit 100 assertions, 64 KiB per selected file,
+output/exit failure boundaries. State actions share the existing 1,000-total-step
+limit with terminal actions. Limit 64 KiB per selected file,
 512 KiB expected aggregate, 256 immediate entries and 32 components per path.
 No recursive traversal. Changed identity/metadata during reads fails closed.
 
@@ -40,3 +41,14 @@ Generic snapshot updates cannot approve state expectations. Inline expectations
 use the recorder's existing spec-last export transaction and bounds; crash
 durability is not promised. Native permission/link/replacement tests remain
 required before compatibility qualification.
+
+20 October update: the original Broot large-tree case needs 527 ordered state
+checks but only 15,192 expected bytes. The private rc.4 runner rejected it before
+launch, and parser/real-PTY regressions fail on that limit. Remove the separate
+100-state ceiling while retaining the existing 1,000-total-step ceiling, 512 KiB
+aggregate expected-byte budget, per-file/path/entry bounds and all deadlines.
+This expands accepted v3 inputs without changing assertion semantics or report
+formats. Older private rc.4 binaries still reject these larger contracts;
+their bytes and evidence remain unchanged. Rebuild native candidate archives
+and bind later qualification to the new bytes. The original fixture and every
+state expectation remain intact rather than splitting them across executions.

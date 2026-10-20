@@ -12,6 +12,70 @@ import (
 	"testing"
 )
 
+func TestStateContractLargeManagedCheckpoint(t *testing.T) {
+	spec := Spec{Version: 3, Command: []string{"must-not-launch"}, Workspace: &WorkspaceSpec{Fixture: "fixture"}, Steps: []Step{{Expect: "ready"}}}
+	for i := 0; i < 527; i++ {
+		a := fileState(fmt.Sprintf("tree/file-%03d.txt", i), []byte(fmt.Sprintf("reviewed file %d\n", i)))
+		spec.Steps = append(spec.Steps, Step{State: &a})
+	}
+	data, err := json.Marshal(spec)
+	if err != nil {
+		t.Fatal(err)
+	}
+	parsed, err := decodeSpec(data, "large-checkpoint.json")
+	if err != nil {
+		t.Fatalf("bounded original large-tree checkpoint rejected: %v", err)
+	}
+	if len(parsed.Steps) != 528 {
+		t.Fatalf("state assertions were dropped: %d steps", len(parsed.Steps))
+	}
+}
+
+func TestStateLargeSameExecutionCheckpoint(t *testing.T) {
+	root := t.TempDir()
+	if err := os.Mkdir(filepath.Join(root, "fixture"), 0700); err != nil {
+		t.Fatal(err)
+	}
+	spec := validWorkspaceSpec("state-save-many")
+	spec.Version = StateSpecVersion
+	spec.TimeoutMS, spec.RunTimeoutMS = 20000, 60000
+	spec.Steps = []Step{{Expect: "Saved 527 files successfully"}, {Exit: intPointer(0)}}
+	for i := 0; i < 527; i++ {
+		a := fileState(fmt.Sprintf("file-%03d.bin", i), []byte(fmt.Sprintf("reviewed file %d\n", i)))
+		spec.Steps = append(spec.Steps, Step{State: &a})
+	}
+	seen := make(map[string]bool)
+	for _, corrupt := range []bool{false, true, false} {
+		if corrupt {
+			spec.Env["PLAYTESTR_CORRUPT_STATE"] = "1"
+		} else {
+			delete(spec.Env, "PLAYTESTR_CORRUPT_STATE")
+		}
+		result := RunDetailedContext(context.Background(), writeWorkspaceSpecAt(t, root, spec), RunOptions{}, io.Discard)
+		if corrupt {
+			if result.Failure == nil || result.Failure.Category != FailureState || result.Steps[len(result.Steps)-1].Status != "failed" {
+				t.Fatalf("last-file corruption not detected: %+v %v", result, result.Err())
+			}
+			for _, step := range result.Steps[:len(result.Steps)-1] {
+				if step.Status != "passed" {
+					t.Fatalf("earlier checkpoint failed: %+v", step)
+				}
+			}
+		} else if result.Err() != nil {
+			t.Fatal(result.Err())
+		}
+		if result.Workspace == nil || !result.Workspace.Cleaned || !result.Cleanup.ConfirmedExited || result.InvocationID == "" || seen[result.InvocationID] {
+			t.Fatalf("large checkpoint identity/cleanup incomplete: %+v", result)
+		}
+		seen[result.InvocationID] = true
+		for _, step := range result.Steps[2:] {
+			if step.State == nil || step.State.InvocationID != result.InvocationID || step.State.WorkspaceID != result.Workspace.ID {
+				t.Fatal("large checkpoint came from another execution")
+			}
+		}
+	}
+}
+
 func TestStateContractRejectsBeforeLaunch(t *testing.T) {
 	for _, test := range []struct {
 		name   string
@@ -24,8 +88,8 @@ func TestStateContractRejectsBeforeLaunch(t *testing.T) {
 		{"mixed-expectations", func(s *Spec) { entries := []string{}; s.Steps[1].State.Entries = &entries }},
 		{"missing-entry-set", func(s *Spec) { s.Steps[1].State = &StateAssertion{Path: ".", Kind: "entries"} }},
 		{"unknown-kind", func(s *Spec) { s.Steps[1].State.Kind = "database" }},
-		{"too-many-assertions", func(s *Spec) {
-			for i := 0; i < 100; i++ {
+		{"too-many-total-steps-with-state", func(s *Spec) {
+			for i := 0; i < maxSpecSteps; i++ {
 				s.Steps = append(s.Steps, s.Steps[1])
 			}
 		}},

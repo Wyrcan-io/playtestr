@@ -397,6 +397,18 @@ func TestHelperProcess(t *testing.T) {
 		}
 		fmt.Print("Saved successfully\r\n")
 		os.Exit(0)
+	case "state-save-many":
+		for i := 0; i < 527; i++ {
+			payload := fmt.Sprintf("reviewed file %d\n", i)
+			if i == 526 && os.Getenv("PLAYTESTR_CORRUPT_STATE") == "1" {
+				payload = fmt.Sprintf("corrupt! file %d\n", i)
+			}
+			if err := os.WriteFile(fmt.Sprintf("file-%03d.bin", i), []byte(payload), 0600); err != nil {
+				os.Exit(9)
+			}
+		}
+		fmt.Print("Saved 527 files successfully\r\n")
+		os.Exit(0)
 	case "exit-zero":
 		fmt.Print("finished cleanly\r\n")
 		if marker := os.Getenv("PLAYTESTR_OUTPUT_MARKER"); marker != "" {

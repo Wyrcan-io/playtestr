@@ -109,6 +109,7 @@
     },
     "steps": {
       "type": "array",
+      "description": "At most 1000 ordered terminal/state actions in total. Aggregate expected state bytes remain bounded by the runner.",
       "minItems": 1,
       "maxItems": 1000,
       "items": {

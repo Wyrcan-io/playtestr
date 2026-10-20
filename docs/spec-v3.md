@@ -40,10 +40,16 @@ cleanup; it never polls. If the target has exited, declare the exact exit before
 checking state. A state check does not establish readiness for a screen snapshot.
 Use a meaningful completion checkpoint to avoid inspecting an unfinished write.
 
-Bounds: 100 state steps, 64 KiB per selected expected/observed file, 512 KiB of
+Bounds: 1,000 total steps including state actions, 64 KiB per selected expected/observed file, 512 KiB of
 aggregate expected bytes, 256 immediate directory entries, 32 path components,
 and the ordinary step/run deadlines. Reads check cancellation between chunks.
 No arbitrary shell hooks or application adapters execute assertions.
+
+Earlier private rc.4 candidates have a separate 100-state limit and reject
+larger v3 contracts before launch. The current source uses the shared total-step
+limit; byte, path, entry and deadline bounds are unchanged. Existing small
+examples retain their behavior. Rebuild the runner before migrating a larger
+checkpoint; do not split one execution's expected files across separate replays.
 
 The runner uses rooted filesystem access and checks types/identities before and
 after observation. Unix file opens also refuse final symlinks and use nonblocking
