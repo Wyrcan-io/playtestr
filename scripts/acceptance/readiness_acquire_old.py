@@ -16,7 +16,10 @@ def main():
     if len(selected)!=1:raise RuntimeError('undeclared original project')
     project=selected[0]
     omitted=({'docs/'+name:'../'+name for name in ['AUTHORS.md','CODE_OF_CONDUCT.md','CONTRIBUTING.md','README.md']}
-             if args.project=='cookiecutter' else None)
+             if args.project=='cookiecutter' else
+             {'docs/changelog.md':'../CHANGELOG.md','docs/contributing.md':'../CONTRIBUTING.md',
+              'docs/index.md':'../README.md','tests/demo/symlink.txt':'aaaa.txt'}
+             if args.project=='copier' else None)
     expected=None
     if omitted:
         reviewed=load(docs/'old-migration'/args.project/'source-acquisition-review.json')

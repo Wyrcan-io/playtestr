@@ -1,0 +1,12 @@
+{
+  "archive_sha256": "7eba0760ee0075bb77a754fff5d708be6fb32f56ee9e80f608402cb268bcdd0d",
+  "omitted_links": {
+    "docs/changelog.md": "../CHANGELOG.md",
+    "docs/contributing.md": "../CONTRIBUTING.md",
+    "docs/index.md": "../README.md",
+    "tests/demo/symlink.txt": "aaaa.txt"
+  },
+  "pin": "04a8619f3b083bc278b70e556bd085551a2b3f79",
+  "repository": "copier-org/copier",
+  "scope": "Omit exactly three documentation aliases and one upstream test-only symlink. No runtime source links. Preserve archive and link metadata; do not create or follow links. Original campaign synthetic fixtures are independent of upstream tests/demo."
+}

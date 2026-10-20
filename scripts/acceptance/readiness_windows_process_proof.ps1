@@ -1,4 +1,4 @@
-param([ValidateSet('plop','poetry','rubygems','edit','vis','fff','papis','frogmouth','hygen','rclone','old-cookiecutter')][string]$Project)
+param([ValidateSet('plop','poetry','rubygems','edit','vis','fff','papis','frogmouth','hygen','rclone','old-cookiecutter','old-copier')][string]$Project)
 $ErrorActionPreference = 'Stop'
 $workspace = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..')).TrimEnd('\')
 $campaign = Join-Path $workspace 'artifacts\runner-readiness-ten-project-pass'
@@ -18,6 +18,7 @@ $filter = if ($Project -in @('plop','hygen')) { "Name='node.exe'" } elseif ($Pro
     "Name='vis.exe' OR Name='gcc.exe' OR Name='clang.exe' OR Name='cc1.exe' OR Name='make.exe' OR Name='ld.exe'"
 } elseif ($Project -eq 'fff') { "Name='bash.exe' OR Name='sh.exe' OR Name='cp.exe' OR Name='mv.exe' OR Name='rm.exe' OR Name='mkdir.exe'" } else { "Name='python.exe' OR Name='pythonw.exe' OR Name='poetry.exe' OR Name='papis.exe' OR Name='frogmouth.exe' OR Name='pip.exe'" }
 if ($Project -eq 'old-cookiecutter') { $filter += " OR Name='cookiecutter.exe'" }
+if ($Project -eq 'old-copier') { $filter += " OR Name='copier.exe' OR Name='git.exe' OR Name='less.exe' OR Name='diff.exe'" }
 $matching = @(Get-CimInstance Win32_Process -Filter $filter | Where-Object {
     $_.CommandLine -and ($_.CommandLine.IndexOf($active, [StringComparison]::OrdinalIgnoreCase) -ge 0 -or
     $_.CommandLine.IndexOf($active.Replace('\','/'), [StringComparison]::OrdinalIgnoreCase) -ge 0)

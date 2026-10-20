@@ -186,8 +186,9 @@ class Campaign:
                     if compiler.is_symlink() or getattr(compiler,'is_junction',lambda:False)():raise ValueError('linked Rclone compiler')
                     paths.append(compiler)
                     runtime_executables['go']=sha256(compiler)
-            elif project=='old-cookiecutter':
-                review_path=ROOT/'docs/validation/runner-readiness-ten-project-pass/old-migration/cookiecutter/source-review.json'
+            elif project in {'old-cookiecutter','old-copier'}:
+                original_project=project.removeprefix('old-')
+                review_path=ROOT/'docs/validation/runner-readiness-ten-project-pass/old-migration'/original_project/'source-review.json'
                 review=json.loads(review_path.read_text(encoding='utf-8-sig'))
                 paths.append(review_path)
                 paths.extend(target/'src'/name for name in review['reviewed_inputs'])
@@ -197,7 +198,7 @@ class Campaign:
                 if python.is_file():
                     if python.is_symlink() or getattr(python,'is_junction',lambda:False)():raise ValueError('linked owned Python')
                     paths.append(python);runtime_executables['python']=sha256(python)
-                launcher=python.parent/('cookiecutter.exe' if os.name=='nt' else 'cookiecutter')
+                launcher=python.parent/(original_project+'.exe' if os.name=='nt' else original_project)
                 if launcher.is_file():paths.append(launcher)
                 sites=([target/'venv/Lib/site-packages'] if os.name=='nt' else list((target/'venv/lib').glob('python*/site-packages')))
                 for site in sites:

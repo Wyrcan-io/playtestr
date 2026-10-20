@@ -1,4 +1,4 @@
-param([ValidateSet('plop','poetry','rubygems','edit','vis','fff','papis','frogmouth','hygen','rclone','old-cookiecutter')][string]$Project = 'plop')
+param([ValidateSet('plop','poetry','rubygems','edit','vis','fff','papis','frogmouth','hygen','rclone','old-cookiecutter','old-copier')][string]$Project = 'plop')
 $ErrorActionPreference = 'Stop'
 $workspace = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..')).TrimEnd('\')
 $campaign = Join-Path $workspace 'artifacts\runner-readiness-ten-project-pass'
@@ -17,8 +17,8 @@ foreach ($ancestor in @((Join-Path $workspace 'artifacts'), $campaign, (Join-Pat
     }
 }
 $marker = Get-Content -LiteralPath (Join-Path $active 'task-owned.json') -Raw | ConvertFrom-Json
-$repository = @{plop='plopjs/plop';poetry='python-poetry/poetry';rubygems='ruby/rubygems';edit='microsoft/edit';vis='martanne/vis';fff='dylanaraps/fff';papis='papis/papis';frogmouth='Textualize/frogmouth';hygen='jondot/hygen';rclone='rclone/rclone';'old-cookiecutter'='cookiecutter/cookiecutter'}[$Project]
-$pin = @{plop='0c90e7ef93ffa5f40b10fe8f53d3cc23adee5a8e';poetry='38a86661d2ae58694c76d0bb4e628e1400d6dc6f';rubygems='f033df93676007227d1ae0bd7326008e6396b3e9';edit='cb6de0a8966aecd01d19a3541dab1829d0e679ca';vis='10b630af09404cf2c887e2d7e6e24ecda9d05ea7';fff='6f2dc6f3a003d24e8b3fd48b046241b486022ad5';papis='c744b5efe9b307b9664f3e96c154cb620e140a8f';frogmouth='15c3e85a6e84b2e4a6845723acf12beb54c81eb2';hygen='26f76d8dede565b2bf38d0b9e9f3009ee2c8f9ae';rclone='d369079a1448c487d09d85bfe11382e16ea4e345';'old-cookiecutter'='c88fbe921c97c58b65f1883ba90a0ab53cc91b34'}[$Project]
+$repository = @{plop='plopjs/plop';poetry='python-poetry/poetry';rubygems='ruby/rubygems';edit='microsoft/edit';vis='martanne/vis';fff='dylanaraps/fff';papis='papis/papis';frogmouth='Textualize/frogmouth';hygen='jondot/hygen';rclone='rclone/rclone';'old-cookiecutter'='cookiecutter/cookiecutter';'old-copier'='copier-org/copier'}[$Project]
+$pin = @{plop='0c90e7ef93ffa5f40b10fe8f53d3cc23adee5a8e';poetry='38a86661d2ae58694c76d0bb4e628e1400d6dc6f';rubygems='f033df93676007227d1ae0bd7326008e6396b3e9';edit='cb6de0a8966aecd01d19a3541dab1829d0e679ca';vis='10b630af09404cf2c887e2d7e6e24ecda9d05ea7';fff='6f2dc6f3a003d24e8b3fd48b046241b486022ad5';papis='c744b5efe9b307b9664f3e96c154cb620e140a8f';frogmouth='15c3e85a6e84b2e4a6845723acf12beb54c81eb2';hygen='26f76d8dede565b2bf38d0b9e9f3009ee2c8f9ae';rclone='d369079a1448c487d09d85bfe11382e16ea4e345';'old-cookiecutter'='c88fbe921c97c58b65f1883ba90a0ab53cc91b34';'old-copier'='04a8619f3b083bc278b70e556bd085551a2b3f79'}[$Project]
 if ($marker.workspace -ne $workspace -or $marker.project -ne $repository -or
     $marker.campaign -ne 'runner-readiness-ten-project-pass' -or
     $marker.pin -ne $pin) { throw 'Ownership mismatch' }
@@ -38,6 +38,7 @@ if ($Project -eq 'rclone') {
     $filter = "Name='rclone.exe' OR Name='go.exe' OR Name='compile.exe' OR Name='link.exe' OR Name='asm.exe' OR Name='cgo.exe'"
 }
 if ($Project -eq 'old-cookiecutter') { $filter += " OR Name='cookiecutter.exe'" }
+if ($Project -eq 'old-copier') { $filter += " OR Name='copier.exe' OR Name='git.exe' OR Name='less.exe' OR Name='diff.exe'" }
 $nodes = @(Get-CimInstance Win32_Process -Filter $filter | Where-Object {
     $_.CommandLine -and ($_.CommandLine.IndexOf($active, [StringComparison]::OrdinalIgnoreCase) -ge 0 -or
     $_.CommandLine.IndexOf($active.Replace('\','/'), [StringComparison]::OrdinalIgnoreCase) -ge 0)

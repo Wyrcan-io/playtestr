@@ -16,7 +16,7 @@ import zipfile
 from adversarial_process import close_transport, execute, unix_process_inventory
 from readiness_evidence import Campaign, RAW, ROOT, immutable_json, sha256
 
-SCOPED_RUNTIMES={'fff','papis','frogmouth','hygen','rclone','old-cookiecutter'}
+SCOPED_RUNTIMES={'fff','papis','frogmouth','hygen','rclone','old-cookiecutter','old-copier'}
 
 
 async def owned_runtime_command(pid,identity):
@@ -64,7 +64,7 @@ async def runtime_inventory(project,label):
                        name in {'vis','make','cc','as','ld','collect2'} or name.startswith(('gcc','clang','cc1','x86_64-linux-gn','aarch64-linux-gn')) if project=='vis' else
                        name in {'bash','sh','fff','cp','mv','rm','mkdir','stty','file','chmod','ln'} if project=='fff' else
                        name in {'rclone','go','compile','link','asm','cgo'} if project=='rclone' else
-                       name.startswith('python') or name in {'cookiecutter','pip','pip3'} if project=='old-cookiecutter' else name.startswith('python'))
+                       name.startswith('python') or name in {'cookiecutter','copier','pip','pip3','git','less','diff'} if project in {'old-cookiecutter','old-copier'} else name.startswith('python'))
         if len(fields)==2 and runtime_match:
             pid=int(fields[0])
             if project in SCOPED_RUNTIMES and pid in ancestors:continue
@@ -136,7 +136,7 @@ async def main():
     parser.add_argument('--prepare-only',action='store_true')
     parser.add_argument('--source-only',action='store_true',help='Retain an acquired, never-built local Windows Vis/fff source tree without inventing runtime/build receipts')
     parser.add_argument('--failed-setup',action='store_true',help='Retain local Windows Rclone source and failed setup evidence without claiming a successful CLI build')
-    parser.add_argument('--project',choices=['plop','poetry','rubygems','edit','vis','fff','papis','frogmouth','hygen','rclone','old-cookiecutter'],default='plop')
+    parser.add_argument('--project',choices=['plop','poetry','rubygems','edit','vis','fff','papis','frogmouth','hygen','rclone','old-cookiecutter','old-copier'],default='plop')
     args=parser.parse_args()
     if os.name=='nt' and not args.prepare_only:
         raise RuntimeError('use --prepare-only then the checked native PowerShell removal route on Windows')
@@ -152,7 +152,7 @@ async def main():
     if active.is_symlink() or active.resolve().parent!=base or not base.is_relative_to(RAW.resolve()):
         raise RuntimeError('unsafe cleanup target')
     marker=json.loads((active/'task-owned.json').read_text())
-    repository={'plop':'plopjs/plop','poetry':'python-poetry/poetry','rubygems':'ruby/rubygems','edit':'microsoft/edit','vis':'martanne/vis','fff':'dylanaraps/fff','papis':'papis/papis','frogmouth':'Textualize/frogmouth','hygen':'jondot/hygen','rclone':'rclone/rclone','old-cookiecutter':'cookiecutter/cookiecutter'}[project]
+    repository={'plop':'plopjs/plop','poetry':'python-poetry/poetry','rubygems':'ruby/rubygems','edit':'microsoft/edit','vis':'martanne/vis','fff':'dylanaraps/fff','papis':'papis/papis','frogmouth':'Textualize/frogmouth','hygen':'jondot/hygen','rclone':'rclone/rclone','old-cookiecutter':'cookiecutter/cookiecutter','old-copier':'copier-org/copier'}[project]
     if marker['workspace']!=str(ROOT) or marker['campaign']!='runner-readiness-ten-project-pass' or marker['project']!=repository:
         raise RuntimeError('cleanup ownership mismatch')
     failed_setup=None
@@ -194,8 +194,8 @@ async def main():
         if any(baseline.get(pid)!=identity for pid,identity in current.items()):
             raise RuntimeError('new runtime process remains; cleanup unconfirmed, do not remove live state')
     verify_retained_report_cleanup(RAW/project)
-    if project=='old-cookiecutter':
-        base=RAW/'old-migration/cookiecutter'
+    if project in {'old-cookiecutter','old-copier'}:
+        base=RAW/'old-migration'/project.removeprefix('old-')
         reports=list(base.glob('*/runs/*/results.json'))
         for filename in ['legacy-terminal-false-green.json','public-state-corruption-rejected.json','public-state-corruption-restored.json']:
             reports.extend(base.glob('*/corruption/*/'+filename))
@@ -239,6 +239,9 @@ async def main():
     elif project=='old-cookiecutter':
         selected={'LICENSE','pyproject.toml','cookiecutter/__init__.py','cookiecutter/__main__.py',
                   'cookiecutter/cli.py','cookiecutter/generate.py','cookiecutter/hooks.py','cookiecutter/prompt.py'}
+    elif project=='old-copier':
+        selected={'LICENSE','pyproject.toml','copier/__init__.py','copier/__main__.py',
+                  'copier/_cli.py','copier/_main.py','copier/_template.py','copier/_vcs.py'}
     stream_args=dict(name=copy,mode='r:gz')
     if project=='vis':
         from readiness_vis_source import ARCHIVE_SHA256,LINKS,materialize_archive
@@ -252,8 +255,8 @@ async def main():
             if any(p in {'..','.'} or ':' in p or '\\' in p for p in parts):raise RuntimeError('unsafe retained member')
             if member.isdir():continue
             relative='/'.join(parts)
-            if project=='old-cookiecutter' and member.issym():
-                reviewed=json.loads((ROOT/'docs/validation/runner-readiness-ten-project-pass/old-migration/cookiecutter/source-acquisition-review.json').read_text())
+            if project in {'old-cookiecutter','old-copier'} and member.issym():
+                reviewed=json.loads((ROOT/'docs/validation/runner-readiness-ten-project-pass/old-migration'/project.removeprefix('old-')/'source-acquisition-review.json').read_text())
                 if (sha256(copy)!=reviewed['archive_sha256'] or acquisition['omitted_links']!=reviewed['omitted_links']
                         or reviewed['omitted_links'].get(relative)!=member.linkname):raise RuntimeError('reviewed documentation link disposition changed')
                 omitted[relative]=member.linkname
@@ -270,7 +273,7 @@ async def main():
                 restored=restore/relative;restored.parent.mkdir(parents=True,exist_ok=True);restored.write_bytes(value)
                 if sha256(restored)!=digest:raise RuntimeError('selected restore verification failed')
     if not selected<=manifest.keys():raise RuntimeError('restore coverage missing')
-    if project=='old-cookiecutter' and omitted!=acquisition['omitted_links']:raise RuntimeError('omitted documentation link set differs')
+    if project in {'old-cookiecutter','old-copier'} and omitted!=acquisition['omitted_links']:raise RuntimeError('omitted documentation link set differs')
     records=['task-owned.json','acquisition.json'] if args.source_only or args.failed_setup else ['task-owned.json','acquisition.json','runtime.json','build.json']
     for name in records:
         shutil.copyfile(active/name,retained/name)
@@ -289,7 +292,7 @@ async def main():
     if project in {'edit','vis'}:
         for name in (['dependencies.json','build-review.json'] if project=='edit' else []):shutil.copyfile(active/name,retained/name)
         if (active/'build-revisions').is_dir():shutil.copytree(active/'build-revisions',retained/'build-revisions')
-    if project in {'papis','frogmouth','old-cookiecutter'}:
+    if project in {'papis','frogmouth','old-cookiecutter','old-copier'}:
         for name in ['wheels.json']:
             if (active/name).is_file():shutil.copyfile(active/name,retained/name)
         for name in ['wheel-manifests','dependency-review']:
