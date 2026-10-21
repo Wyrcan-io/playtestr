@@ -4,16 +4,18 @@ import json
 import os
 from pathlib import Path
 import shutil
-from readiness_evidence import RAW, immutable_json, sha256
+from readiness_evidence import RAW, ROOT, immutable_json, sha256
 from readiness_rubygems_cases import PACKAGE, rows
 from readiness_rubygems_faults import contract_names
 
 WINDOWS=os.name=='nt'
 
 
-def main(target=None):
+def main(target=None,*,windows=None,installed_ruby_executable=None):
+    windows=WINDOWS if windows is None else windows
     target=Path(target).resolve() if target else RAW/'rubygems/host-contracts'
-    target.resolve().relative_to((RAW/'rubygems').resolve())
+    allowed=[(RAW/'rubygems').resolve(),(ROOT/'docs/validation/runner-readiness-ten-project-pass/rubygems/final-native-profiles').resolve()]
+    if not any(target.resolve().is_relative_to(root) for root in allowed):raise RuntimeError('profile escapes owned authoring roots')
     target.mkdir(parents=True,exist_ok=False)
     by_name={r[1]:r[0] for r in rows()}
     by_name.update({'normal-gem.json':'N01','normal-extension.json':'N02','normal-build-gem.json':'N03'})
@@ -30,15 +32,15 @@ def main(target=None):
             spec['env']['BUNDLE_FORCE_RUBY_PLATFORM']='true'
             i=spec['command'].index('--remove-platform');del spec['command'][i:i+2]
             differences.append('documented portable Ruby platform locking; avoid observed native add/remove duplicate-platform defect')
-        if WINDOWS:
+        if windows:
             if 'SystemDrive' not in spec['inherit_env']:spec['inherit_env'].append('SystemDrive')
             differences.append('explicit SystemDrive required by the owned Windows Ruby runtime system directory expansion')
         else:
-            spec['env']['GEMRC']=os.devnull;spec['env']['GIT_CONFIG_GLOBAL']=os.devnull
+            spec['env']['GEMRC']='/dev/null';spec['env']['GIT_CONFIG_GLOBAL']='/dev/null'
             spec['inherit_env']=[k for k in spec['inherit_env'] if k!='SystemDrive']
             differences.append('native null device and POSIX Ruby has no Windows SystemDrive prerequisite')
-            runtime=json.loads((RAW/'active/rubygems/runtime.json').read_text())
-            spec['command'][0]=runtime['installed_ruby_executable']
+            runtime=json.loads((RAW/'active/rubygems/runtime.json').read_text()) if installed_ruby_executable is None else None
+            spec['command'][0]=installed_ruby_executable if installed_ruby_executable is not None else runtime['installed_ruby_executable']
             differences.append('explicit resolved installed Ruby executable; context correctly refuses the symlink alias')
             if identity=='N01':
                 spec['env']['NO_COLOR']='1'

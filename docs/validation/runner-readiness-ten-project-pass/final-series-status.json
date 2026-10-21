@@ -1,11 +1,11 @@
 {
-  "attempted_projects": 4,
+  "attempted_projects": 5,
   "final_archive_qualified_projects": 0,
   "final_runner_admissions": 0,
-  "observed_ordinary_executions": 2614,
+  "observed_ordinary_executions": 3094,
   "observed_ordinary_failed": 2,
-  "observed_ordinary_passed": 2612,
-  "observed_public_calibration_executions": 90,
+  "observed_ordinary_passed": 3092,
+  "observed_public_calibration_executions": 108,
   "paid_launch_admissions": 0,
   "projects": [
     {
@@ -68,12 +68,24 @@
           "status": "independently-verified"
         }
       ]
+    },
+    {
+      "project": "poetry",
+      "series": [
+        {
+          "ordinary_observed": 480,
+          "ordinary_passed": 480,
+          "receipt_sha256": "8ee76016661cfbc30b130492a6867e37d6471c56a5a9b0374b3167ebe25f71fa",
+          "run": "39674788987",
+          "status": "independently-verified"
+        }
+      ]
     }
   ],
   "schema_version": 1,
   "scope": "Observed ordinary outcomes remain separate from public fault/calibration calls. Verified project series are intermediate; global final controls, matrix and packaging gates still required.",
-  "verified_calibration_executions": 72,
-  "verified_ordinary_executions": 1920,
-  "verified_series_cells": 8,
-  "verified_series_projects": 4
+  "verified_calibration_executions": 90,
+  "verified_ordinary_executions": 2400,
+  "verified_series_cells": 10,
+  "verified_series_projects": 5
 }

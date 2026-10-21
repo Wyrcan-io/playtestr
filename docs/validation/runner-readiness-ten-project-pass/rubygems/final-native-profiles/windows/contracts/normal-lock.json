@@ -1,0 +1,66 @@
+{
+  "version": 3,
+  "name": "Bundler N06",
+  "command": [
+    "ruby",
+    "-EUTF-8",
+    "-S",
+    "bundle",
+    "lock",
+    "--local",
+    "--add-platform",
+    "ruby"
+  ],
+  "workspace": {
+    "fixture": "project-fixture",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "BUNDLE_DISABLE_VERSION_CHECK": "true",
+    "BUNDLE_USER_CONFIG": ".bundle-user-config",
+    "BUNDLE_VERSION": "system",
+    "GEMRC": "nul",
+    "GIT_CONFIG_GLOBAL": "nul",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "BUNDLE_FORCE_RUBY_PLATFORM": "true"
+  },
+  "inherit_env": [
+    "RUBYLIB",
+    "SystemDrive"
+  ],
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Writing lockfile"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "Gemfile.lock",
+        "kind": "file",
+        "bytes_base64": "R0VNCiAgc3BlY3M6CgpQTEFURk9STVMKICBydWJ5CgpERVBFTkRFTkNJRVMKCkNIRUNLU1VNUwoKQlVORExFRCBXSVRICiAgNC4xLjAuYmV0YTIK"
+      }
+    },
+    {
+      "state": {
+        "path": "Gemfile",
+        "kind": "file",
+        "bytes_base64": "IyByZXZpZXdlZCBkZXBlbmRlbmN5LWZyZWUgcHJvamVjdAo="
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    }
+  ]
+}

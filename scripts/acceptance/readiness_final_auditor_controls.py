@@ -2,6 +2,7 @@
 import argparse
 import asyncio
 import json
+import os
 import shutil
 import sys
 import uuid
@@ -33,6 +34,7 @@ async def main():
         scope='Real completed final packet, one owned copy restored byte-for-byte between controls; originals never changed. Per-cell auditor controls, not a declaration of completed global matrix gates.'))
     shutil.copytree(packet,copy/'final-plop-Linux');shutil.copyfile(source/'run-metadata.json',copy/'run-metadata.json')
     copied=copy/'final-plop-Linux';baseline,_=inventory(copy)
+    immutable_json(root/'payload-index.json',dict(files=baseline))
     argv=[sys.executable,ROOT/'scripts/acceptance/readiness_final_plop_verify.py','--run',args.run,'--host','linux',
         '--packet-root',copy,'--check-only']
     positive=await execute(argv,'core','actual-final-auditor-positive-copy',timeout=90,campaign=Campaign())
@@ -96,7 +98,12 @@ async def main():
     require(inventory(packet)[0]==canonical and inventory(copy)[0]==baseline,'original/restored packet changed')
     target=copy.resolve(strict=True);owned=(RAW/'final-auditor-controls').resolve(strict=True)
     target.relative_to(owned);require(target==root.resolve(strict=True)/'payload' and target.is_relative_to(ROOT.resolve()),'unsafe auditor copy removal')
-    shutil.rmtree(target);require(not target.exists(),'owned auditor copy remains')
+    if os.name=='nt':
+        await execute(['powershell.exe','-NoProfile','-ExecutionPolicy','Bypass','-File',
+            ROOT/'scripts/acceptance/readiness_remove_auditor_copy.ps1','-ControlId',root.name],
+            'core','actual-final-auditor-native-copy-removal',timeout=120,campaign=Campaign())
+    else:shutil.rmtree(target)
+    require(not target.exists(),'owned auditor copy remains')
     receipt=dict(run=args.run,host='linux',project='plop',controls=results,positive_attempt=positive['id'],
         restored_positive_attempt=recovered['id'],original_packet_unchanged=True,owned_copy_removed=True,
         scope='Twelve specific refusals against a real final native packet, including rebound provenance and report identities. Global matrix gates remain open.',final_archive_credit=0)

@@ -15,7 +15,7 @@ from readiness_new_control_matrix import read_json as load
 
 async def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument('--project',choices=['fff','hygen','rclone','plop','poetry'],default='fff')
+    parser.add_argument('--project',choices=['fff','hygen','rclone','plop','poetry','rubygems'],default='fff')
     parser.add_argument('--batch',type=int,choices=range(12))
     parser.add_argument('--declaration',choices=['final-series-declaration.json','final-series-declaration-v2.json'],default='final-series-declaration.json')
     args=parser.parse_args()
@@ -33,10 +33,13 @@ async def main():
             env=dict(os.environ);env['PATH']=str(RAW/'active/poetry/venv/bin')+os.pathsep+env['PATH']
             env['PYTHONDONTWRITEBYTECODE']='1'
             return env
+    elif project=='rubygems':
+        from readiness_rubygems_cases import environment as target_environment
     else:
         target_environment=environment
     host={'Linux':'linux','Darwin':'macos','Windows':'windows'}.get(platform.system())
-    if not host or (project=='rclone' and host=='macos') or (project!='rclone' and host=='windows'):
+    windows_projects={'rclone','rubygems'}
+    if not host or (project in windows_projects and host=='macos') or (project not in windows_projects and host=='windows'):
         raise RuntimeError('undeclared final native project/host')
     docs=ROOT/'docs/validation/runner-readiness-ten-project-pass'
     declaration=load(docs/project/args.declaration)
@@ -46,6 +49,7 @@ async def main():
     source=RAW/project/'host-contracts'
     profile=docs/project/('native-profiles/'+host if host!='linux' else '.')
     if project in {'plop','poetry'}:profile=docs/project/'final-native-profile'
+    if project=='rubygems':profile=docs/project/'final-native-profiles'/host
     freeze=load(profile/'reviewed-contract-freeze.json')
     if args.batch is None and not source.exists():
         shutil.copytree(profile/'contracts',source)

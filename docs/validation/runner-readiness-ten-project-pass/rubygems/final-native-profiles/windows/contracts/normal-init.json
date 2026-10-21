@@ -1,0 +1,55 @@
+{
+  "version": 3,
+  "name": "Bundler N08",
+  "command": [
+    "ruby",
+    "-EUTF-8",
+    "-S",
+    "bundle",
+    "init"
+  ],
+  "workspace": {
+    "fixture": "fixture",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "BUNDLE_DISABLE_VERSION_CHECK": "true",
+    "BUNDLE_USER_CONFIG": ".bundle-user-config",
+    "BUNDLE_VERSION": "system",
+    "GEMRC": "nul",
+    "GIT_CONFIG_GLOBAL": "nul",
+    "GIT_CONFIG_NOSYSTEM": "1"
+  },
+  "inherit_env": [
+    "RUBYLIB",
+    "SystemDrive"
+  ],
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Writing new Gemfile"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "Gemfile",
+        "kind": "file",
+        "bytes_base64": "IyBmcm96ZW5fc3RyaW5nX2xpdGVyYWw6IHRydWUKCnNvdXJjZSAiaHR0cHM6Ly9ydWJ5Z2Vtcy5vcmciCgojIGdlbSAicmFpbHMiCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    }
+  ]
+}

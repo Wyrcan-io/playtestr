@@ -1,0 +1,177 @@
+{
+  "batches": [
+    {
+      "contention": false,
+      "input_chunks": 0,
+      "number": 0,
+      "package_directory": "contracts",
+      "variation": "ordinary after cold owned target setup"
+    },
+    {
+      "contention": false,
+      "input_chunks": 0,
+      "number": 1,
+      "package_directory": "contracts",
+      "variation": "ordinary with warm owned target setup; fresh process/workspace"
+    },
+    {
+      "contention": false,
+      "input_chunks": 0,
+      "number": 2,
+      "package_directory": "contracts",
+      "variation": "ordinary with warm owned target setup; fresh process/workspace"
+    },
+    {
+      "contention": false,
+      "input_chunks": 0,
+      "number": 3,
+      "package_directory": "contracts",
+      "variation": "ordinary with warm owned target setup; fresh process/workspace"
+    },
+    {
+      "contention": false,
+      "input_chunks": 0,
+      "number": 4,
+      "package_directory": "relocated caf\u00e9 \u96ea",
+      "variation": "Unicode and spaces package relocation"
+    },
+    {
+      "contention": false,
+      "input_chunks": 0,
+      "number": 5,
+      "package_directory": "owned path variant/contracts",
+      "variation": "nested ASCII spaces package relocation"
+    },
+    {
+      "contention": false,
+      "input_chunks": 1,
+      "number": 6,
+      "package_directory": "contracts",
+      "variation": "One-codepoint printable field insertion after declared native prompt; command/control groups including all DEL bytes remain whole"
+    },
+    {
+      "contention": false,
+      "input_chunks": 2,
+      "number": 7,
+      "package_directory": "contracts",
+      "variation": "Two-codepoint printable field insertion after declared native prompt; command/control groups remain whole"
+    },
+    {
+      "contention": true,
+      "input_chunks": 0,
+      "number": 8,
+      "package_directory": "contracts",
+      "variation": "owned two-second eight-MiB hashing worker near each launch"
+    },
+    {
+      "contention": true,
+      "input_chunks": 0,
+      "number": 9,
+      "package_directory": "contracts",
+      "variation": "owned two-second eight-MiB hashing worker near each launch"
+    },
+    {
+      "contention": false,
+      "input_chunks": 0,
+      "number": 10,
+      "package_directory": "contracts",
+      "variation": "repeat original supported boundary with fresh process/workspace"
+    },
+    {
+      "contention": false,
+      "input_chunks": 0,
+      "number": 11,
+      "package_directory": "contracts",
+      "variation": "repeat original supported boundary with fresh process/workspace"
+    }
+  ],
+  "candidate_freeze_sha256": "615faddcc71df0a9c5accc5eb99ccd5592d12a18bebf38f4a243d141d11d2ad6",
+  "candidate_run": "39450029736",
+  "final_qualification_credit": 0,
+  "hosts": [
+    "linux-amd64",
+    "windows-amd64"
+  ],
+  "identity_catalogs": {
+    "enabled": true,
+    "historical_max_manifest_bytes": 136461,
+    "mode": "Every actual input is rehashed before launch. Intern complete content-addressed core/target file maps; each actual event retains self-contained catalog references. Changes produce fresh catalogs; no hash caching or cap increase.",
+    "prior_retained_project_bytes": 46598368,
+    "project_cap_bytes": 67108864,
+    "scopes": [
+      "core",
+      "target"
+    ],
+    "unshared_240_identity_forecast_bytes": 32750640
+  },
+  "planned_ordinary_per_host": 240,
+  "planned_ordinary_total": 480,
+  "prior_project_boundary": "Poetry final Linux ordinary/fault/cleanup job succeeded; macOS final series underway. Four earlier final series independently verified.",
+  "project": "rubygems",
+  "resources": {
+    "forecast_job_minutes": 30,
+    "harness_jobs_max": 2,
+    "job_timeout_minutes": 45,
+    "native_jobs": 2,
+    "scenario_concurrency_per_host": 1,
+    "scenario_parent_seconds": 130,
+    "total_concurrent_jobs_max": 4,
+    "worker_bytes": 8388608,
+    "worker_seconds": 2
+  },
+  "revision": 1,
+  "scenarios_per_batch": 20,
+  "schema_version": 1,
+  "scope": "Exact existing rc.5 archives; twelve fresh executions per twenty reviewed native Bundler cases per host. All state/artifact/screen oracles and deadlines unchanged; printable responses only segmented. Actual source faults, exact restoration, native audit and cleanup required.",
+  "segmented_text_steps_by_host": {
+    "linux": {
+      "edge-build-missing.json": [],
+      "edge-conflicting-policy.json": [],
+      "edge-decline-overwrite.json": [],
+      "edge-init-existing.json": [],
+      "edge-interrupt.json": [],
+      "edge-invalid-name.json": [],
+      "edge-malformed-manifest.json": [],
+      "edge-missing-dependency.json": [],
+      "edge-print-lock.json": [],
+      "edge-resize-collision.json": [],
+      "edge-unicode-namespace.json": [],
+      "edge-wrong-type.json": [],
+      "normal-build-gem.json": [],
+      "normal-check.json": [],
+      "normal-extension.json": [],
+      "normal-gem.json": [
+        2
+      ],
+      "normal-init.json": [],
+      "normal-lock.json": [],
+      "normal-set-path.json": [],
+      "normal-unset-path.json": []
+    },
+    "windows": {
+      "edge-build-missing.json": [],
+      "edge-conflicting-policy.json": [],
+      "edge-decline-overwrite.json": [],
+      "edge-init-existing.json": [],
+      "edge-interrupt.json": [],
+      "edge-invalid-name.json": [],
+      "edge-malformed-manifest.json": [],
+      "edge-missing-dependency.json": [],
+      "edge-print-lock.json": [],
+      "edge-resize-collision.json": [],
+      "edge-unicode-namespace.json": [],
+      "edge-wrong-type.json": [],
+      "normal-build-gem.json": [],
+      "normal-check.json": [],
+      "normal-extension.json": [],
+      "normal-gem.json": [
+        2
+      ],
+      "normal-init.json": [],
+      "normal-lock.json": [],
+      "normal-set-path.json": [],
+      "normal-unset-path.json": []
+    }
+  },
+  "source_changes": false
+}

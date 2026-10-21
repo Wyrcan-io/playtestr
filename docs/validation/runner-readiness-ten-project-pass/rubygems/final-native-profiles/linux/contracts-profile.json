@@ -1,0 +1,214 @@
+{
+  "contracts": [
+    {
+      "authored_sha256": "6385af7552578b7e66c83f7bc711467476393f86dbd52c1644925d92cbdfcf89",
+      "differences": [
+        "native null device and POSIX Ruby has no Windows SystemDrive prerequisite",
+        "explicit resolved installed Ruby executable; context correctly refuses the symlink alias",
+        "explicit no-color prompt: native EditLine itself strips ESC and emits literal CSI suffixes",
+        "new selected Bundler preferences use native LF"
+      ],
+      "id": "N01",
+      "source_sha256": "3d0d354d546cfdfd364a2f466301bf1f16c472a7c779c31a053c510f485e51c1",
+      "spec": "normal-gem.json"
+    },
+    {
+      "authored_sha256": "109138659696428a5dabe7c11475e8b74b7a584a6fcbfed4c58d672f6e4a02b7",
+      "differences": [
+        "native null device and POSIX Ruby has no Windows SystemDrive prerequisite",
+        "explicit resolved installed Ruby executable; context correctly refuses the symlink alias"
+      ],
+      "id": "N02",
+      "source_sha256": "2a0f34882bb86666ffeceb2cabb1703af4db337c0ee24b1f8d473f5a83138ad9",
+      "spec": "normal-extension.json"
+    },
+    {
+      "authored_sha256": "95f0021205ba1bf45d21753b948ede33ad130f488392cc62543d24ca9257fa5b",
+      "differences": [
+        "native null device and POSIX Ruby has no Windows SystemDrive prerequisite",
+        "explicit resolved installed Ruby executable; context correctly refuses the symlink alias"
+      ],
+      "id": "N03",
+      "source_sha256": "84229686c85021490059458e5d9550cd787d580ab50ce7f3c94fadc7a125b56b",
+      "spec": "normal-build-gem.json"
+    },
+    {
+      "authored_sha256": "d44f6355de0b00f758855519ab67225e7756577f5e1fd2feb6de6aa7260658ef",
+      "differences": [
+        "native null device and POSIX Ruby has no Windows SystemDrive prerequisite",
+        "explicit resolved installed Ruby executable; context correctly refuses the symlink alias",
+        "new native YAML file uses LF, existing reviewed LF fixtures unchanged"
+      ],
+      "id": "N04",
+      "source_sha256": "eb29456823669821abae72db52cfb1a518a69c3720a8f51137267bb7cbd7c57b",
+      "spec": "normal-set-path.json"
+    },
+    {
+      "authored_sha256": "5a88a3af76eebacecf04fd47c29238718518dd4e9eabb045f8130b833513978f",
+      "differences": [
+        "native null device and POSIX Ruby has no Windows SystemDrive prerequisite",
+        "explicit resolved installed Ruby executable; context correctly refuses the symlink alias",
+        "new native YAML file uses LF, existing reviewed LF fixtures unchanged"
+      ],
+      "id": "N05",
+      "source_sha256": "61e90e9451b748735fa8ec88adb5836a35a75363ec510ff690b78fe97e360d7c",
+      "spec": "normal-unset-path.json"
+    },
+    {
+      "authored_sha256": "c1c611bab5a25694430d01b459e95c7c763927840b523e4f0cce4b50dce56eff",
+      "differences": [
+        "documented portable Ruby platform locking; avoid observed native add/remove duplicate-platform defect",
+        "native null device and POSIX Ruby has no Windows SystemDrive prerequisite",
+        "explicit resolved installed Ruby executable; context correctly refuses the symlink alias"
+      ],
+      "id": "N06",
+      "source_sha256": "b3ddf0368535478374d255a6fb21bcefc24c015449710432bfe630fdc858aa33",
+      "spec": "normal-lock.json"
+    },
+    {
+      "authored_sha256": "60b9c79628d57404da0128cda800bf848432129e0c920c94119c45974a300f29",
+      "differences": [
+        "native null device and POSIX Ruby has no Windows SystemDrive prerequisite",
+        "explicit resolved installed Ruby executable; context correctly refuses the symlink alias"
+      ],
+      "id": "N07",
+      "source_sha256": "24304111cb5fc4c06ea241786aec560415df8110b7484e209d13edadef428254",
+      "spec": "normal-check.json"
+    },
+    {
+      "authored_sha256": "e515bf1c1a571f4120f76aa9db52655e4d00dd588a38a38f4fc852a7f037825d",
+      "differences": [
+        "native null device and POSIX Ruby has no Windows SystemDrive prerequisite",
+        "explicit resolved installed Ruby executable; context correctly refuses the symlink alias"
+      ],
+      "id": "N08",
+      "source_sha256": "efbec1930bb94d7f0e1024f37a6e864fa8931dec034bb6f938f7d8e4dcd1026e",
+      "spec": "normal-init.json"
+    },
+    {
+      "authored_sha256": "ef699ac90dedb3dfbfca0f6a61ed67dc8873b622eb8e644248ee8bfe30f5a136",
+      "differences": [
+        "native null device and POSIX Ruby has no Windows SystemDrive prerequisite",
+        "explicit resolved installed Ruby executable; context correctly refuses the symlink alias"
+      ],
+      "id": "E01",
+      "source_sha256": "f9e4e6cb0ca627265f5843afe41035fb36738eb98b87a8a99d68210b35081500",
+      "spec": "edge-invalid-name.json"
+    },
+    {
+      "authored_sha256": "3a89afbb42664fc866d3571073c64d16cb50e626c5ed291d99210418070767fa",
+      "differences": [
+        "native null device and POSIX Ruby has no Windows SystemDrive prerequisite",
+        "explicit resolved installed Ruby executable; context correctly refuses the symlink alias",
+        "new selected Bundler preferences use native LF"
+      ],
+      "id": "E02",
+      "source_sha256": "75ff7b6f81c421cdac98b66866e4494a039dabcad68d5ff0e593fc56ff94863d",
+      "spec": "edge-decline-overwrite.json"
+    },
+    {
+      "authored_sha256": "fd18e690fbb102892f48cabce9c0fa47051c3a0555e49173ed74a57ea109a5da",
+      "differences": [
+        "native null device and POSIX Ruby has no Windows SystemDrive prerequisite",
+        "explicit resolved installed Ruby executable; context correctly refuses the symlink alias"
+      ],
+      "id": "E03",
+      "source_sha256": "a8d5e030083df66c94d21087e7573b5706e7be571abd12302e819428473a5b29",
+      "spec": "edge-interrupt.json"
+    },
+    {
+      "authored_sha256": "c69e5293141d037a6572d45932c17428f3004433435fd5e6a3bb7343741dec68",
+      "differences": [
+        "native null device and POSIX Ruby has no Windows SystemDrive prerequisite",
+        "explicit resolved installed Ruby executable; context correctly refuses the symlink alias"
+      ],
+      "id": "E04",
+      "source_sha256": "51a503aa657adf8def7d15317f082858b7213626a799ffe6eb2be060411bb3ff",
+      "spec": "edge-wrong-type.json"
+    },
+    {
+      "authored_sha256": "3ea62933bb6b2ba022f857c10d44885885230fe00ddace8c76d96d4c2b3a72eb",
+      "differences": [
+        "native null device and POSIX Ruby has no Windows SystemDrive prerequisite",
+        "explicit resolved installed Ruby executable; context correctly refuses the symlink alias",
+        "new selected Bundler preferences use native LF"
+      ],
+      "id": "E05",
+      "source_sha256": "8f545c895169423cfefcff7c18256ff261688f4f8ad16c3e6346f9bb7bcaf654",
+      "spec": "edge-resize-collision.json"
+    },
+    {
+      "authored_sha256": "9ca8bacd483710d81f2da736d6a892eadecb25923a97dc2de14ee08ab7b2c948",
+      "differences": [
+        "native null device and POSIX Ruby has no Windows SystemDrive prerequisite",
+        "explicit resolved installed Ruby executable; context correctly refuses the symlink alias"
+      ],
+      "id": "E06",
+      "source_sha256": "b3d9efae042bc63abc08919e492d1782c034e233700893c98cb6475bafe745ac",
+      "spec": "edge-unicode-namespace.json"
+    },
+    {
+      "authored_sha256": "9b04e03e7453495c6871056d4f1b9e60dec3b52aca6718a13b813ade45f58c26",
+      "differences": [
+        "native null device and POSIX Ruby has no Windows SystemDrive prerequisite",
+        "explicit resolved installed Ruby executable; context correctly refuses the symlink alias"
+      ],
+      "id": "E07",
+      "source_sha256": "ed3096095e61398b854df678b83a012e9030f6f8fb1806fce2c7b3f8cf586f24",
+      "spec": "edge-missing-dependency.json"
+    },
+    {
+      "authored_sha256": "f12858b4ac7a2886feb330c7e55c592552136a518eec6f61e2abea280c596ec8",
+      "differences": [
+        "native null device and POSIX Ruby has no Windows SystemDrive prerequisite",
+        "explicit resolved installed Ruby executable; context correctly refuses the symlink alias"
+      ],
+      "id": "E08",
+      "source_sha256": "0d820bbeee7ba1480342850ebe8e7ceebac04f3bd7b5edfbfcfabc9a024b5b6f",
+      "spec": "edge-malformed-manifest.json"
+    },
+    {
+      "authored_sha256": "a399e360a5c5b6e4d38956b0f82988f5cbf14d66386e3c7a3e4d8cb34a93551e",
+      "differences": [
+        "native null device and POSIX Ruby has no Windows SystemDrive prerequisite",
+        "explicit resolved installed Ruby executable; context correctly refuses the symlink alias"
+      ],
+      "id": "E09",
+      "source_sha256": "729329df9c3a7bcbf23081e888a447118c98eac35684243d6185276df29f4c3f",
+      "spec": "edge-init-existing.json"
+    },
+    {
+      "authored_sha256": "7a25143084d9e6fcddd6023f447d6f3817ccb7f910a313e12078de610a9928fd",
+      "differences": [
+        "native null device and POSIX Ruby has no Windows SystemDrive prerequisite",
+        "explicit resolved installed Ruby executable; context correctly refuses the symlink alias"
+      ],
+      "id": "E10",
+      "source_sha256": "6aa1c3287f676744d97737aa06574576fac884a0977274e19a418662e7582e4b",
+      "spec": "edge-conflicting-policy.json"
+    },
+    {
+      "authored_sha256": "aa2b82ce4dc3120942cfed6911c07eee1ee2db36343a4ec9ef47b7e610428b26",
+      "differences": [
+        "native null device and POSIX Ruby has no Windows SystemDrive prerequisite",
+        "explicit resolved installed Ruby executable; context correctly refuses the symlink alias"
+      ],
+      "id": "E11",
+      "source_sha256": "fa0bdbfb3ac29bb45af563ba37ac5cdb7fd0cbf23c99593364225a7b1977c7f9",
+      "spec": "edge-print-lock.json"
+    },
+    {
+      "authored_sha256": "a19408e412ea0a30ccf20435813a5be9b23032a5d6c12c131e31293784eb9b39",
+      "differences": [
+        "native null device and POSIX Ruby has no Windows SystemDrive prerequisite",
+        "explicit resolved installed Ruby executable; context correctly refuses the symlink alias"
+      ],
+      "id": "E12",
+      "source_sha256": "fa7679d1f61996254ea3f2ba08ae4c5c7ff33dadd755fb0e952970d7277ecd83",
+      "spec": "edge-build-missing.json"
+    }
+  ],
+  "qualification": "authored; execution pending",
+  "resize": "actual Git/less diff child; quiet collision resize remains excluded",
+  "source_freeze_sha256": "caf3c24bc8069d22282e214c4475a5a47cd5611dfdf9fd4cdd16c1a27df52f09"
+}

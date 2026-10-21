@@ -1,0 +1,64 @@
+{
+  "version": 3,
+  "name": "Bundler E06",
+  "command": [
+    "ruby",
+    "-EUTF-8",
+    "-S",
+    "bundle",
+    "gem",
+    "caf\u00e9 space/company-atlas",
+    "--no-git",
+    "--no-bundle",
+    "--no-ci",
+    "--no-mit",
+    "--no-coc",
+    "--no-changelog",
+    "--no-linter",
+    "--test=rspec"
+  ],
+  "workspace": {
+    "fixture": "fixture",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "BUNDLE_DISABLE_VERSION_CHECK": "true",
+    "BUNDLE_USER_CONFIG": ".bundle-user-config",
+    "BUNDLE_VERSION": "system",
+    "GEMRC": "nul",
+    "GIT_CONFIG_GLOBAL": "nul",
+    "GIT_CONFIG_NOSYSTEM": "1"
+  },
+  "inherit_env": [
+    "RUBYLIB",
+    "SystemDrive"
+  ],
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Gem 'company-atlas' was successfully created."
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "caf\u00e9 space/company-atlas/lib/company/atlas/version.rb",
+        "kind": "file",
+        "bytes_base64": "IyBmcm96ZW5fc3RyaW5nX2xpdGVyYWw6IHRydWUKCm1vZHVsZSBDb21wYW55CiAgbW9kdWxlIEF0bGFzCiAgICBWRVJTSU9OID0gIjAuMS4wIgogIGVuZAplbmQK"
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    }
+  ]
+}

@@ -1,0 +1,153 @@
+{
+  "version": 3,
+  "name": "Bundler E02",
+  "command": [
+    "ruby",
+    "-EUTF-8",
+    "-S",
+    "bundle",
+    "gem",
+    "atlas",
+    "--no-git",
+    "--no-bundle",
+    "--no-ci",
+    "--no-mit",
+    "--no-coc",
+    "--no-changelog",
+    "--no-linter",
+    "--test=rspec"
+  ],
+  "workspace": {
+    "fixture": "collision-fixture",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "BUNDLE_DISABLE_VERSION_CHECK": "true",
+    "BUNDLE_USER_CONFIG": ".bundle-user-config",
+    "BUNDLE_VERSION": "system",
+    "GEMRC": "nul",
+    "GIT_CONFIG_GLOBAL": "nul",
+    "GIT_CONFIG_NOSYSTEM": "1"
+  },
+  "inherit_env": [
+    "RUBYLIB",
+    "SystemDrive"
+  ],
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Overwrite"
+    },
+    {
+      "text": "n"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Gem 'atlas' was successfully created."
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "atlas/Gemfile",
+        "kind": "file",
+        "bytes_base64": "IyBwcmVzZXJ2ZSBvcmlnaW5hbCBHZW1maWxlCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "atlas/atlas.gemspec",
+        "kind": "file",
+        "bytes_base64": "IyBmcm96ZW5fc3RyaW5nX2xpdGVyYWw6IHRydWUKCnJlcXVpcmVfcmVsYXRpdmUgImxpYi9hdGxhcy92ZXJzaW9uIgoKR2VtOjpTcGVjaWZpY2F0aW9uLm5ldyBkbyB8c3BlY3wKICBzcGVjLm5hbWUgPSAiYXRsYXMiCiAgc3BlYy52ZXJzaW9uID0gQXRsYXM6OlZFUlNJT04KICBzcGVjLmF1dGhvcnMgPSBbIlRPRE86IFdyaXRlIHlvdXIgbmFtZSJdCiAgc3BlYy5lbWFpbCA9IFsiVE9ETzogV3JpdGUgeW91ciBlbWFpbCBhZGRyZXNzIl0KCiAgc3BlYy5zdW1tYXJ5ID0gIlRPRE86IFdyaXRlIGEgc2hvcnQgc3VtbWFyeSwgYmVjYXVzZSBSdWJ5R2VtcyByZXF1aXJlcyBvbmUuIgogIHNwZWMuZGVzY3JpcHRpb24gPSAiVE9ETzogV3JpdGUgYSBsb25nZXIgZGVzY3JpcHRpb24gb3IgZGVsZXRlIHRoaXMgbGluZS4iCiAgc3BlYy5ob21lcGFnZSA9ICJUT0RPOiBQdXQgeW91ciBnZW0ncyB3ZWJzaXRlIG9yIHB1YmxpYyByZXBvIFVSTCBoZXJlLiIKICBzcGVjLnJlcXVpcmVkX3J1YnlfdmVyc2lvbiA9ICI+PSAzLjIuMCIKICBzcGVjLm1ldGFkYXRhWyJhbGxvd2VkX3B1c2hfaG9zdCJdID0gIlRPRE86IFNldCB0byB5b3VyIGdlbSBzZXJ2ZXIgJ2h0dHBzOi8vZXhhbXBsZS5jb20nIgogIHNwZWMubWV0YWRhdGFbImhvbWVwYWdlX3VyaSJdID0gc3BlYy5ob21lcGFnZQogIHNwZWMubWV0YWRhdGFbInNvdXJjZV9jb2RlX3VyaSJdID0gIlRPRE86IFB1dCB5b3VyIGdlbSdzIHB1YmxpYyByZXBvIFVSTCBoZXJlLiIKCiAgIyBVbmNvbW1lbnQgdGhlIGxpbmUgYmVsb3cgdG8gcmVxdWlyZSBNRkEgZm9yIGdlbSBwdXNoZXMuCiAgIyBUaGlzIGhlbHBzIHByb3RlY3QgeW91ciBnZW0gZnJvbSBzdXBwbHkgY2hhaW4gYXR0YWNrcyBieSBlbnN1cmluZwogICMgbm8gb25lIGNhbiBwdWJsaXNoIGEgbmV3IHZlcnNpb24gd2l0aG91dCBtdWx0aS1mYWN0b3IgYXV0aGVudGljYXRpb24uCiAgIyBTZWU6IGh0dHBzOi8vZ3VpZGVzLnJ1YnlnZW1zLm9yZy9tZmEtcmVxdWlyZW1lbnQtb3B0LWluLwogICMgc3BlYy5tZXRhZGF0YVsicnVieWdlbXNfbWZhX3JlcXVpcmVkIl0gPSAidHJ1ZSIKCiAgIyBTcGVjaWZ5IHdoaWNoIGZpbGVzIHNob3VsZCBiZSBhZGRlZCB0byB0aGUgZ2VtIHdoZW4gaXQgaXMgcmVsZWFzZWQuCiAgIyBUaGUgYGdpdCBscy1maWxlcyAtemAgbG9hZHMgdGhlIGZpbGVzIGluIHRoZSBSdWJ5R2VtIHRoYXQgaGF2ZSBiZWVuIGFkZGVkIGludG8gZ2l0LgogIGdlbXNwZWMgPSBGaWxlLmJhc2VuYW1lKF9fRklMRV9fKQogIHNwZWMuZmlsZXMgPSBJTy5wb3Blbigld1tnaXQgbHMtZmlsZXMgLXpdLCBjaGRpcjogX19kaXJfXywgZXJyOiBJTzo6TlVMTCkgZG8gfGxzfAogICAgbHMucmVhZGxpbmVzKCJceDAiLCBjaG9tcDogdHJ1ZSkucmVqZWN0IGRvIHxmfAogICAgICAoZiA9PSBnZW1zcGVjKSB8fAogICAgICAgIGYuc3RhcnRfd2l0aD8oKiV3W2Jpbi8gR2VtZmlsZSAucnNwZWMgc3BlYy9dKQogICAgZW5kCiAgZW5kCiAgc3BlYy5iaW5kaXIgPSAiZXhlIgogIHNwZWMuZXhlY3V0YWJsZXMgPSBzcGVjLmZpbGVzLmdyZXAoJXJ7XEFleGUvfSkgeyB8ZnwgRmlsZS5iYXNlbmFtZShmKSB9CiAgc3BlYy5yZXF1aXJlX3BhdGhzID0gWyJsaWIiXQoKICAjIFVuY29tbWVudCB0byByZWdpc3RlciBhIG5ldyBkZXBlbmRlbmN5IG9mIHlvdXIgZ2VtCiAgIyBzcGVjLmFkZF9kZXBlbmRlbmN5ICJleGFtcGxlLWdlbSIsICI+PSAxLjAiCgogICMgRm9yIG1vcmUgaW5mb3JtYXRpb24gYW5kIGV4YW1wbGVzIGFib3V0IG1ha2luZyBhIG5ldyBnZW0sIGNoZWNrIG91dCBvdXIKICAjIGd1aWRlIGF0OiBodHRwczovL2d1aWRlcy5ydWJ5Z2Vtcy5vcmcvbWFrZS15b3VyLW93bi1nZW0vCmVuZAo="
+      }
+    },
+    {
+      "state": {
+        "path": "atlas/lib/atlas.rb",
+        "kind": "file",
+        "bytes_base64": "IyBmcm96ZW5fc3RyaW5nX2xpdGVyYWw6IHRydWUKCnJlcXVpcmVfcmVsYXRpdmUgImF0bGFzL3ZlcnNpb24iCgptb2R1bGUgQXRsYXMKICBjbGFzcyBFcnJvciA8IFN0YW5kYXJkRXJyb3I7IGVuZAogICMgWW91ciBjb2RlIGdvZXMgaGVyZS4uLgplbmQK"
+      }
+    },
+    {
+      "state": {
+        "path": "atlas/lib/atlas/version.rb",
+        "kind": "file",
+        "bytes_base64": "IyBmcm96ZW5fc3RyaW5nX2xpdGVyYWw6IHRydWUKCm1vZHVsZSBBdGxhcwogIFZFUlNJT04gPSAiMC4xLjAiCmVuZAo="
+      }
+    },
+    {
+      "state": {
+        "path": "atlas/Rakefile",
+        "kind": "file",
+        "bytes_base64": "IyBmcm96ZW5fc3RyaW5nX2xpdGVyYWw6IHRydWUKCnJlcXVpcmUgImJ1bmRsZXIvZ2VtX3Rhc2tzIgpyZXF1aXJlICJyc3BlYy9jb3JlL3Jha2VfdGFzayIKClJTcGVjOjpDb3JlOjpSYWtlVGFzay5uZXcoOnNwZWMpCgp0YXNrIGRlZmF1bHQ6IDpzcGVjCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "atlas/spec/atlas_spec.rb",
+        "kind": "file",
+        "bytes_base64": "IyBmcm96ZW5fc3RyaW5nX2xpdGVyYWw6IHRydWUKClJTcGVjLmRlc2NyaWJlIEF0bGFzIGRvCiAgaXQgImhhcyBhIHZlcnNpb24gbnVtYmVyIiBkbwogICAgZXhwZWN0KEF0bGFzOjpWRVJTSU9OKS5ub3RfdG8gYmUgbmlsCiAgZW5kCgogIGl0ICJkb2VzIHNvbWV0aGluZyB1c2VmdWwiIGRvCiAgICBleHBlY3QoZmFsc2UpLnRvIGVxKHRydWUpCiAgZW5kCmVuZAo="
+      }
+    },
+    {
+      "state": {
+        "path": ".bundle-user-config",
+        "kind": "file",
+        "bytes_base64": "LS0tDQpCVU5ETEVfR0VNX19URVNUOiByc3BlYw0K"
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          ".bundle-user-config",
+          "atlas",
+          "sentinel.txt"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "atlas",
+        "kind": "entries",
+        "entries": [
+          ".rspec",
+          "atlas.gemspec",
+          "bin",
+          "Gemfile",
+          "lib",
+          "Rakefile",
+          "README.md",
+          "sig",
+          "spec"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "atlas/lib",
+        "kind": "entries",
+        "entries": [
+          "atlas",
+          "atlas.rb"
+        ]
+      }
+    }
+  ]
+}
