@@ -63,7 +63,7 @@ class Campaign:
         if self.phase not in {'development','final-archive'}:
             raise ValueError('undeclared evidence phase')
         self.catalog_project=catalog_project or os.environ.get('READINESS_IDENTITY_CATALOG_PROJECT','')
-        if self.catalog_project not in {'','rclone','hygen','rubygems'}:
+        if self.catalog_project not in {'','rclone','hygen','rubygems','edit'}:
             raise ValueError('undeclared identity catalog project')
         self.raw = Path(raw).resolve()
         self.raw.relative_to(ROOT)
@@ -318,6 +318,15 @@ class Campaign:
                 paths.extend(p for p in (target/'src').rglob('*') if p.is_file() and
                     (p.suffix in {'.rs','.toml','.lock','.rc','.manifest'} or p.name=='LICENSE'))
                 if (target/'dependencies.json').is_file():paths.append(target/'dependencies.json')
+                if (target/'runtime.json').is_file():
+                    runtime=json.loads((target/'runtime.json').read_text(encoding='utf-8-sig'))
+                    for name in ['rustc','cargo']:
+                        tool=Path(runtime[name+'_path'])
+                        if sha256(tool)!=runtime[name+'_sha256']:raise ValueError('actual installed editor compiler changed')
+                        runtime_executables[name]=runtime[name+'_sha256']
+                    for name,digest in runtime['read_only_installed_prerequisites'].items():
+                        if sha256(Path(name))!=digest:raise ValueError('actual installed editor native prerequisite changed')
+                        runtime_executables[Path(name).name]=digest
                 if (target/'build.json').is_file():
                     build=json.loads((target/'build.json').read_text())
                     binary=target/build['binary_relative_path']

@@ -1,0 +1,78 @@
+{
+  "version": 3,
+  "name": "Edit N06: join adjacent lines without losing remaining text",
+  "command": [
+    "edit",
+    "note.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures/N06",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "inherit_env": [
+    "SystemDrive"
+  ],
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "beta"
+    },
+    {
+      "key": "ArrowDown"
+    },
+    {
+      "key": "Home"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "expect": "alpha beta"
+    },
+    {
+      "expect": "*"
+    },
+    {
+      "key": "CtrlS"
+    },
+    {
+      "expect_not": "*"
+    },
+    {
+      "key": "CtrlQ"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "note.txt",
+        "kind": "file",
+        "bytes_base64": "YWxwaGEgYmV0YQo="
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "note.txt",
+          "sentinel.txt"
+        ]
+      }
+    }
+  ]
+}

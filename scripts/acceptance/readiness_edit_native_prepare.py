@@ -1,5 +1,6 @@
 """Native owned editor setup, frozen portable profile and runtime identities."""
 import asyncio
+import argparse
 import json
 import os
 from pathlib import Path
@@ -27,11 +28,13 @@ def runtime_receipt():
 
 
 async def main():
+    parser=argparse.ArgumentParser();parser.add_argument('--target-only',action='store_true');args=parser.parse_args()
     candidate=ROOT/'.playtestr-bin'/('playtestr.exe' if os.name=='nt' else 'playtestr')
-    binary=RAW/'bin'/candidate.name;binary.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(candidate,binary)
-    if os.name!='nt':binary.chmod(0o755)
-    immutable_json(RAW/'edit-native-runner.json',dict(source_revision=os.environ.get('SOURCE_REVISION','e7b5f29e575e44babe7fdaa2e83e55b62d318305'),
-        candidate_sha256=sha256(candidate),copied_sha256=sha256(binary)))
+    if not args.target_only:
+        binary=RAW/'bin'/candidate.name;binary.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(candidate,binary)
+        if os.name!='nt':binary.chmod(0o755)
+        immutable_json(RAW/'edit-native-runner.json',dict(source_revision=os.environ.get('SOURCE_REVISION','e7b5f29e575e44babe7fdaa2e83e55b62d318305'),
+            candidate_sha256=sha256(candidate),copied_sha256=sha256(binary)))
     if os.name!='nt':
         immutable_json(RAW/'edit-runtime-baseline.json',await runtime_inventory('edit','runtime-baseline-before-acquisition'))
     for script,label,timeout in [('readiness_acquire_edit.py','native-pinned-editor-acquisition',180),

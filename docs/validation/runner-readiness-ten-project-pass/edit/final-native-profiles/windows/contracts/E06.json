@@ -1,0 +1,75 @@
+{
+  "version": 3,
+  "name": "Edit E06: preserve CRLF while editing one line",
+  "command": [
+    "edit",
+    "note.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures/E06",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "inherit_env": [
+    "SystemDrive"
+  ],
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "first"
+    },
+    {
+      "key": "End"
+    },
+    {
+      "text": "!"
+    },
+    {
+      "expect": "first!"
+    },
+    {
+      "expect": "*"
+    },
+    {
+      "key": "CtrlS"
+    },
+    {
+      "expect_not": "*"
+    },
+    {
+      "key": "CtrlQ"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "note.txt",
+        "kind": "file",
+        "bytes_base64": "Zmlyc3QhDQpzZWNvbmQNCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "note.txt",
+          "sentinel.txt"
+        ]
+      }
+    }
+  ]
+}

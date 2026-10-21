@@ -1,11 +1,11 @@
 {
-  "attempted_projects": 5,
+  "attempted_projects": 6,
   "final_archive_qualified_projects": 0,
   "final_runner_admissions": 0,
-  "observed_ordinary_executions": 3094,
+  "observed_ordinary_executions": 3574,
   "observed_ordinary_failed": 2,
-  "observed_ordinary_passed": 3092,
-  "observed_public_calibration_executions": 108,
+  "observed_ordinary_passed": 3572,
+  "observed_public_calibration_executions": 126,
   "paid_launch_admissions": 0,
   "projects": [
     {
@@ -80,12 +80,24 @@
           "status": "independently-verified"
         }
       ]
+    },
+    {
+      "project": "rubygems",
+      "series": [
+        {
+          "ordinary_observed": 480,
+          "ordinary_passed": 480,
+          "receipt_sha256": "68770ae12f23eaceef2c547549ff29d4fed7e3302c4093106e3901cd12f7aaa4",
+          "run": "39676446199",
+          "status": "independently-verified"
+        }
+      ]
     }
   ],
   "schema_version": 1,
   "scope": "Observed ordinary outcomes remain separate from public fault/calibration calls. Verified project series are intermediate; global final controls, matrix and packaging gates still required.",
-  "verified_calibration_executions": 90,
-  "verified_ordinary_executions": 2400,
-  "verified_series_cells": 10,
-  "verified_series_projects": 5
+  "verified_calibration_executions": 108,
+  "verified_ordinary_executions": 2880,
+  "verified_series_cells": 12,
+  "verified_series_projects": 6
 }

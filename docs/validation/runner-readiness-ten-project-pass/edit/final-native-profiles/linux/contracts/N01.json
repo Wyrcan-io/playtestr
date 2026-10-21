@@ -1,0 +1,75 @@
+{
+  "version": 3,
+  "name": "Edit N01: append and save an existing text file",
+  "command": [
+    "edit",
+    "note.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures/N01",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "reviewed seed"
+    },
+    {
+      "key": "End"
+    },
+    {
+      "text": " + tested"
+    },
+    {
+      "expect": "reviewed seed + tested"
+    },
+    {
+      "expect": "*"
+    },
+    {
+      "key": "CtrlS"
+    },
+    {
+      "expect_not": "*"
+    },
+    {
+      "snapshot": "N01.txt"
+    },
+    {
+      "key": "CtrlQ"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "note.txt",
+        "kind": "file",
+        "bytes_base64": "cmV2aWV3ZWQgc2VlZCArIHRlc3RlZAo="
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "note.txt",
+          "sentinel.txt"
+        ]
+      }
+    }
+  ]
+}

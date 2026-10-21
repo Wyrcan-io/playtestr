@@ -32,6 +32,13 @@ def verify_batches(packet,docs,profile,host,candidate,cell,installed,build,event
             if 'state' in step:require(step['state']['invocation_id']==row['invocation_id']
                 and step['state']['workspace_id']==row['workspace']['id'],'cross-execution state')
     def bind_inputs(files,current,contract,name,inputs):
+        fixture=contract['workspace']['fixture'].rstrip('/')+'/'
+        fixture_prefix='artifacts/runner-readiness-ten-project-pass/'+current.relative_to(packet).as_posix()+'/'+fixture
+        expected_fixture={
+            'artifacts/runner-readiness-ten-project-pass/'+(current/relative).relative_to(packet).as_posix():digest
+            for relative,digest in inputs.items() if relative.startswith(fixture)}
+        require({n:d for n,d in files.items() if n.startswith(fixture_prefix)}==expected_fixture,
+            'actual selected fixture file set differs')
         for relative,digest in inputs.items():
             selected=(relative==name or relative.startswith(contract['workspace']['fixture'].rstrip('/')+'/')
                 or any(s.get('snapshot')==relative.removeprefix('snapshots/') for s in contract['steps']))

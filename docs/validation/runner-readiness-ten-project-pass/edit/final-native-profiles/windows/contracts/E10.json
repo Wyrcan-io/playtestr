@@ -1,0 +1,102 @@
+{
+  "version": 3,
+  "name": "Edit E10: reject invalid go-to input and recover with a valid position",
+  "command": [
+    "edit",
+    "note.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures/E10",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "inherit_env": [
+    "SystemDrive"
+  ],
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "second"
+    },
+    {
+      "key": "CtrlG"
+    },
+    {
+      "expect": "Go to Line"
+    },
+    {
+      "text": "invalid-line"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "invalid-line"
+    },
+    {
+      "expect": "Go to Line"
+    },
+    {
+      "key": "CtrlA"
+    },
+    {
+      "text": "2:1"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "Go to Line"
+    },
+    {
+      "text": "fixed "
+    },
+    {
+      "expect": "fixed second"
+    },
+    {
+      "expect": "*"
+    },
+    {
+      "key": "CtrlS"
+    },
+    {
+      "expect_not": "*"
+    },
+    {
+      "key": "CtrlQ"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "note.txt",
+        "kind": "file",
+        "bytes_base64": "Zmlyc3QKZml4ZWQgc2Vjb25kCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "note.txt",
+          "sentinel.txt"
+        ]
+      }
+    }
+  ]
+}

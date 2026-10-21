@@ -1,0 +1,69 @@
+{
+  "version": 3,
+  "name": "Edit E01: discard dirty changes and preserve original bytes",
+  "command": [
+    "edit",
+    "note.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures/E01",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "reviewed seed"
+    },
+    {
+      "key": "End"
+    },
+    {
+      "text": " not saved"
+    },
+    {
+      "expect": "reviewed seed not saved"
+    },
+    {
+      "key": "CtrlQ"
+    },
+    {
+      "expect": "Unsaved Changes"
+    },
+    {
+      "text": "n"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "note.txt",
+        "kind": "file",
+        "bytes_base64": "cmV2aWV3ZWQgc2VlZAo="
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "note.txt",
+          "sentinel.txt"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "version": 3,
+  "name": "Edit E03: abandon a new document without creating its path",
+  "command": [
+    "edit",
+    "abandon.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures/E03",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "abandon.txt"
+    },
+    {
+      "text": "will not persist"
+    },
+    {
+      "expect": "will not persist"
+    },
+    {
+      "key": "CtrlQ"
+    },
+    {
+      "expect": "Unsaved Changes"
+    },
+    {
+      "text": "n"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    },
+    {
+      "state": {
+        "path": "abandon.txt",
+        "kind": "absent"
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "sentinel.txt"
+        ]
+      }
+    }
+  ]
+}

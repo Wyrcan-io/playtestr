@@ -1,0 +1,69 @@
+{
+  "version": 3,
+  "name": "Edit N02: create a named new document",
+  "command": [
+    "edit",
+    "new-note.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures/N02",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "new-note.txt"
+    },
+    {
+      "text": "fresh document"
+    },
+    {
+      "expect": "fresh document"
+    },
+    {
+      "expect": "*"
+    },
+    {
+      "key": "CtrlS"
+    },
+    {
+      "expect_not": "*"
+    },
+    {
+      "key": "CtrlQ"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "new-note.txt",
+        "kind": "file",
+        "bytes_base64": "ZnJlc2ggZG9jdW1lbnQK"
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "new-note.txt",
+          "sentinel.txt"
+        ]
+      }
+    }
+  ]
+}

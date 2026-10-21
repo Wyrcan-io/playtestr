@@ -1,0 +1,73 @@
+{
+  "version": 3,
+  "name": "Edit E11: open a leading-dash filename using the option terminator",
+  "command": [
+    "edit",
+    "--",
+    "-draft.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures/E11",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "draft contents"
+    },
+    {
+      "key": "End"
+    },
+    {
+      "text": "!"
+    },
+    {
+      "expect": "draft contents!"
+    },
+    {
+      "expect": "*"
+    },
+    {
+      "key": "CtrlS"
+    },
+    {
+      "expect_not": "*"
+    },
+    {
+      "key": "CtrlQ"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "-draft.txt",
+        "kind": "file",
+        "bytes_base64": "ZHJhZnQgY29udGVudHMhCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "-draft.txt",
+          "sentinel.txt"
+        ]
+      }
+    }
+  ]
+}
