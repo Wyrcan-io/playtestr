@@ -1,0 +1,294 @@
+{
+  "batches": [
+    {
+      "contention": false,
+      "input_chunks": 0,
+      "number": 0,
+      "package_directory": "contracts",
+      "variation": "ordinary after cold owned target setup"
+    },
+    {
+      "contention": false,
+      "input_chunks": 0,
+      "number": 1,
+      "package_directory": "contracts",
+      "variation": "ordinary with warm owned target setup; fresh process/workspace"
+    },
+    {
+      "contention": false,
+      "input_chunks": 0,
+      "number": 2,
+      "package_directory": "contracts",
+      "variation": "ordinary with warm owned target setup; fresh process/workspace"
+    },
+    {
+      "contention": false,
+      "input_chunks": 0,
+      "number": 3,
+      "package_directory": "contracts",
+      "variation": "ordinary with warm owned target setup; fresh process/workspace"
+    },
+    {
+      "contention": false,
+      "input_chunks": 0,
+      "number": 4,
+      "package_directory": "relocated caf\u00e9 \u96ea",
+      "variation": "Unicode and spaces package relocation"
+    },
+    {
+      "contention": false,
+      "input_chunks": 0,
+      "number": 5,
+      "package_directory": "owned path variant/contracts",
+      "variation": "nested ASCII spaces package relocation"
+    },
+    {
+      "contention": false,
+      "input_chunks": 1,
+      "number": 6,
+      "package_directory": "contracts",
+      "variation": "One-codepoint printable field insertion after declared native prompt; command/control groups including all DEL bytes remain whole"
+    },
+    {
+      "contention": false,
+      "input_chunks": 2,
+      "number": 7,
+      "package_directory": "contracts",
+      "variation": "Two-codepoint printable field insertion after declared native prompt; command/control groups remain whole"
+    },
+    {
+      "contention": true,
+      "input_chunks": 0,
+      "number": 8,
+      "package_directory": "contracts",
+      "variation": "owned two-second eight-MiB hashing worker near each launch"
+    },
+    {
+      "contention": true,
+      "input_chunks": 0,
+      "number": 9,
+      "package_directory": "contracts",
+      "variation": "owned two-second eight-MiB hashing worker near each launch"
+    },
+    {
+      "contention": false,
+      "input_chunks": 0,
+      "number": 10,
+      "package_directory": "contracts",
+      "variation": "repeat original supported boundary with fresh process/workspace"
+    },
+    {
+      "contention": false,
+      "input_chunks": 0,
+      "number": 11,
+      "package_directory": "contracts",
+      "variation": "repeat original supported boundary with fresh process/workspace"
+    }
+  ],
+  "candidate_freeze_sha256": "615faddcc71df0a9c5accc5eb99ccd5592d12a18bebf38f4a243d141d11d2ad6",
+  "candidate_run": "39450029736",
+  "fault_selection": {
+    "ids": [
+      "F01",
+      "F02",
+      "F04"
+    ],
+    "original_heldout": false,
+    "review_sha256": "00c50a64fb2232c47c9685acafb1ce3d2f059e6238c58f954a74167bc718f688",
+    "revision": 2,
+    "scope": "Fresh selection replicas; original historical F03 miss and later original F04 consumption remain retained, never relabeled as untouched holdout.",
+    "selection_sha256": "26e5a1a60c6605819565fbf595a27918281bd97cf0d0b7b8b4074cfd5b1d1e08"
+  },
+  "final_qualification_credit": 0,
+  "hosts": [
+    "linux-amd64",
+    "windows-amd64"
+  ],
+  "identity_catalogs": {
+    "enabled": true,
+    "historical_max_manifest_bytes": 53945,
+    "mode": "Fresh rehash of actual source/runtime/selected inputs before every launch, with complete self-contained content-addressed file maps. No hash caching, missing dictionary or limit increase.",
+    "project_cap_bytes": 67108864,
+    "scopes": [
+      "core",
+      "target"
+    ],
+    "unshared_240_identity_forecast_bytes": 12946800
+  },
+  "planned_ordinary_per_host": 240,
+  "planned_ordinary_total": 480,
+  "prior_project_boundary": "Edit final native twelve-batch series running; six earlier final series independently verified and retained.",
+  "project": "frogmouth",
+  "resources": {
+    "forecast_job_minutes": 30,
+    "harness_jobs_max": 2,
+    "job_timeout_minutes": 45,
+    "native_jobs": 2,
+    "scenario_concurrency_per_host": 1,
+    "scenario_parent_seconds": 130,
+    "total_concurrent_jobs_max": 4,
+    "worker_bytes": 8388608,
+    "worker_seconds": 2
+  },
+  "revision": 1,
+  "scenarios_per_batch": 20,
+  "schema_version": 1,
+  "scope": "Exact existing rc.5 archives; twelve fresh executions per twenty unchanged reviewed native Frogmouth contracts per host. Printable address/prompt responses only segmented; control bytes remain whole, all source-preservation/screen/state oracles and deadlines unchanged. Actual fresh F01/F02/F04 source fault replicas, exact restoration, full independent native audit and cleanup required.",
+  "segmented_text_steps_by_host": {
+    "linux": {
+      "E01.json": [
+        6,
+        10,
+        20,
+        24
+      ],
+      "E02.json": [
+        6,
+        10
+      ],
+      "E03.json": [
+        6,
+        10
+      ],
+      "E04.json": [
+        6,
+        10
+      ],
+      "E05.json": [
+        6,
+        10
+      ],
+      "E06.json": [
+        6,
+        10
+      ],
+      "E07.json": [
+        6,
+        10
+      ],
+      "E08.json": [
+        6,
+        10
+      ],
+      "E09.json": [
+        6,
+        10
+      ],
+      "E10.json": [
+        6,
+        10
+      ],
+      "E11.json": [
+        6,
+        10
+      ],
+      "E12.json": [
+        6,
+        10
+      ],
+      "N01.json": [
+        6,
+        10
+      ],
+      "N02.json": [],
+      "N03.json": [
+        6,
+        10
+      ],
+      "N04.json": [
+        6,
+        10
+      ],
+      "N05.json": [
+        6,
+        10,
+        20,
+        24
+      ],
+      "N06.json": [
+        6,
+        10
+      ],
+      "N07.json": [],
+      "N08.json": []
+    },
+    "windows": {
+      "E01.json": [
+        6,
+        10,
+        20,
+        24
+      ],
+      "E02.json": [
+        6,
+        10
+      ],
+      "E03.json": [
+        6,
+        10
+      ],
+      "E04.json": [
+        6,
+        10
+      ],
+      "E05.json": [
+        6,
+        10
+      ],
+      "E06.json": [
+        6,
+        10
+      ],
+      "E07.json": [
+        6,
+        10
+      ],
+      "E08.json": [
+        6,
+        10
+      ],
+      "E09.json": [
+        6,
+        10
+      ],
+      "E10.json": [
+        6,
+        10
+      ],
+      "E11.json": [
+        6,
+        10
+      ],
+      "E12.json": [
+        6,
+        10
+      ],
+      "N01.json": [
+        6,
+        10
+      ],
+      "N02.json": [],
+      "N03.json": [
+        6,
+        10
+      ],
+      "N04.json": [
+        6,
+        10
+      ],
+      "N05.json": [
+        6,
+        10,
+        20,
+        24
+      ],
+      "N06.json": [
+        6,
+        10
+      ],
+      "N07.json": [],
+      "N08.json": []
+    }
+  },
+  "source_changes": false
+}

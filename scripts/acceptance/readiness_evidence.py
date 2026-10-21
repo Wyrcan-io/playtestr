@@ -63,7 +63,7 @@ class Campaign:
         if self.phase not in {'development','final-archive'}:
             raise ValueError('undeclared evidence phase')
         self.catalog_project=catalog_project or os.environ.get('READINESS_IDENTITY_CATALOG_PROJECT','')
-        if self.catalog_project not in {'','rclone','hygen','rubygems','edit'}:
+        if self.catalog_project not in {'','rclone','hygen','rubygems','edit','frogmouth'}:
             raise ValueError('undeclared identity catalog project')
         self.raw = Path(raw).resolve()
         self.raw.relative_to(ROOT)
@@ -169,7 +169,9 @@ class Campaign:
                     runtime=json.loads((target/'runtime.json').read_text(encoding='utf-8-sig'))
                     interpreter=Path(runtime['python'])
                     interpreter.resolve(strict=True).relative_to(target.resolve())
+                    if sha256(interpreter)!=runtime['python_sha256']:raise ValueError('actual owned Python prerequisite changed')
                     paths.append(interpreter)
+                    runtime_executables['python']=runtime['python_sha256']
                     launcher=interpreter.parent/(project+'.exe' if os.name=='nt' else project)
                     if launcher.is_file():
                         launcher.resolve(strict=True).relative_to(target.resolve())

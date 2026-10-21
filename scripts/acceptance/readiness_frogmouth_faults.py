@@ -22,6 +22,7 @@ async def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--original-heldout', action='store_true')
     parser.add_argument('--selection',choices=['original','fresh'],default='fresh')
+    parser.add_argument('--series',choices=['migration-v2'])
     args = parser.parse_args()
     if platform.system() not in {'Linux', 'Windows'}:
         raise RuntimeError('undeclared frogmouth native host')
@@ -53,7 +54,11 @@ async def main():
     python = Path(runtime['python'])
     if sha256(python) != runtime['python_sha256']:
         raise RuntimeError('installed interpreter changed')
-    runner=select_runner()
+    if args.series:
+        from readiness_hygen_first_use import runner as private_runner
+        runner,candidate,_=private_runner(args.series);expected_version=candidate['version']
+    else:
+        runner=select_runner();expected_version='source-'+os.environ.get('SOURCE_REVISION',SOURCE)
 
     async def validate(label):
         validation_env=environment()
@@ -75,7 +80,7 @@ async def main():
             (package/fault['spec']).relative_to(ROOT)], 'frogmouth', fault['id']+'-'+phase,
             env=environment(), expected=expected, timeout=150, campaign=Campaign())
         evidence=load(report)
-        if evidence['runner_version']!='source-'+os.environ.get('SOURCE_REVISION',SOURCE):
+        if evidence['runner_version']!=expected_version:
             raise RuntimeError('fault runner is not the exact declared source candidate')
         outcome = evidence['results'][0]
         if not outcome['cleanup']['confirmed_exited'] or not outcome['workspace']['cleaned']:

@@ -9,7 +9,7 @@ import unittest
 from unittest import mock
 import uuid
 
-from readiness_evidence import Campaign, RAW, ROOT, immutable_json
+from readiness_evidence import Campaign, RAW, ROOT, immutable_json, sha256
 
 
 class EvidenceTests(unittest.TestCase):
@@ -179,10 +179,11 @@ class EvidenceTests(unittest.TestCase):
         self.assertEqual(before,self.campaign.identity('papis',['not-launched']))
         interpreter=target/'venv/python.runtime';interpreter.parent.mkdir()
         interpreter.write_bytes(b'reviewed interpreter bytes')
-        (target/'runtime.json').write_text(json.dumps({'python':str(interpreter)}))
+        (target/'runtime.json').write_text(json.dumps({'python':str(interpreter),'python_sha256':sha256(interpreter)}))
         before=self.campaign.identity('papis',['not-launched'])
         interpreter.write_bytes(b'changed interpreter bytes')
-        self.assertNotEqual(before,self.campaign.identity('papis',['not-launched']))
+        with self.assertRaisesRegex(ValueError,'actual owned Python prerequisite changed'):
+            self.campaign.identity('papis',['not-launched'])
         interpreter.write_bytes(b'reviewed interpreter bytes')
         self.assertEqual(before,self.campaign.identity('papis',['not-launched']))
 
@@ -195,11 +196,14 @@ class EvidenceTests(unittest.TestCase):
         interpreter=target/'venv/bin/python';interpreter.parent.mkdir(parents=True);interpreter.write_bytes(b'reviewed runtime')
         import os
         launcher=interpreter.parent/('frogmouth.exe' if os.name=='nt' else 'frogmouth');launcher.write_bytes(b'reviewed launcher')
-        (target/'runtime.json').write_text(json.dumps({'python':str(interpreter)}))
+        (target/'runtime.json').write_text(json.dumps({'python':str(interpreter),'python_sha256':sha256(interpreter)}))
         before=self.campaign.identity('frogmouth',['not-launched'])
         for path in [source,interpreter,launcher]:
             original=path.read_bytes();path.write_bytes(b'changed bytes')
-            self.assertNotEqual(before,self.campaign.identity('frogmouth',['not-launched']),str(path))
+            if path==interpreter:
+                with self.assertRaisesRegex(ValueError,'actual owned Python prerequisite changed'):
+                    self.campaign.identity('frogmouth',['not-launched'])
+            else:self.assertNotEqual(before,self.campaign.identity('frogmouth',['not-launched']),str(path))
             path.write_bytes(original)
             self.assertEqual(before,self.campaign.identity('frogmouth',['not-launched']))
 
