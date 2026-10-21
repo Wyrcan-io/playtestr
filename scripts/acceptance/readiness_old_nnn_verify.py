@@ -82,7 +82,7 @@ def audit(base,host,run=None):
     header=load(docs/'owned-path-header-review.json')
     require(profile['header_review_sha256']==sha256(docs/'owned-path-header-review.json')
             and all(review['reviewed_inputs'][n]==h for n,h in header['source_oracle'].items())
-            and len(header['entries'])==10 and len(profile['changes'])==7,
+            and len(header['entries'])==14 and len(profile['changes'])==7,
             'missing or changed source-reviewed long-path header profile')
     for item in materialized['cases']:
         name=item['case'];native=ROOT/item['original_native_spec'];before=load(native);spec=package/(name+'.json');contract=load(spec)
@@ -90,13 +90,13 @@ def audit(base,host,run=None):
         expected=dict(before,version=3,steps=contract['steps']);expected_steps=[dict(step) for step in before['steps']]
         entries=[e for e in header['entries'] if e['spec']==spec.name]
         for entry in entries:
-            require(expected_steps[entry['step']-1]=={'expect':entry['original_expect']}
+            require(expected_steps[entry['step']-1]=={entry['action']:entry['original_expect']}
                     and materialized['all_package_inputs'][spec.name]==entry['prepared_spec_sha256'][host],
                     'original header checkpoint differs from source-reviewed declaration')
             parts=entry['original_expect'][1:].split('/')
             require(entry['context_expect']=='/'+'/'.join(p[0] for p in parts[:-1])+'/'+parts[-1],
                     'declared anchor does not implement pinned parent abbreviation')
-            expected_steps[entry['step']-1]={'expect':entry['context_expect']}
+            expected_steps[entry['step']-1]={entry['action']:entry['context_expect']}
         if entries:
             records=[r for r in profile['changes'] if r['spec']==spec.name]
             require(len(records)==1 and records[0]==dict(spec=spec.name,prepared_sha256=materialized['all_package_inputs'][spec.name],
@@ -162,7 +162,7 @@ def audit(base,host,run=None):
         header_context_review_sha256=sha256(docs/'owned-path-header-review.json'),
         provisional_archive_sha256=cell['archive_sha256'],canonical_source_sha256=sha256(canonical),target_pin=review['pin'],full_suite_sha256=sha256(root/'results.json'),
         corruption_sha256=sha256(controls[0]),cleanup_sha256=sha256(retained/'removed.json'),
-        scope='Original native workflows, unchanged snapshots/fixtures/saved-state expectations, and ten source-reviewed positive header anchors for the long owned pathname context. Original unabbreviated header anchors remain preserved and unqualified in this namespace. Actual compiled writer corruption and exact restoration.',
+        scope='Original native workflows, unchanged snapshots/fixtures/saved-state expectations, and fourteen source-reviewed paired header anchors for the long owned pathname context. Original unabbreviated header anchors remain preserved and unqualified in this namespace. Actual compiled writer corruption and exact restoration.',
         new_project_credit=0,final_archive_credit=0)
 
 
