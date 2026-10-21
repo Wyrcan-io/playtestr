@@ -1,0 +1,68 @@
+{
+  "version": 3,
+  "name": "Plop E02",
+  "command": [
+    "plop",
+    "--no-progress",
+    "--plopfile",
+    "extended.cjs",
+    "collision"
+  ],
+  "workspace": {
+    "fixture": "fixture",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Collision attempt name"
+    },
+    {
+      "text": "alpha"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "File already exists"
+    },
+    {
+      "exit": 1
+    },
+    {
+      "state": {
+        "path": "existing.txt",
+        "kind": "file",
+        "bytes_base64": "cmV2aWV3ZWQgZXhpc3RpbmcgYnl0ZXMK"
+      }
+    },
+    {
+      "state": {
+        "path": "out",
+        "kind": "absent"
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "blocked",
+          "collision.txt",
+          "existing.txt",
+          "extended.cjs",
+          "plopfile.cjs",
+          "registry.txt",
+          "templates",
+          "unique-registry.txt",
+          "version.txt"
+        ]
+      }
+    }
+  ]
+}

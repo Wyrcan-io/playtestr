@@ -4,6 +4,7 @@ import json
 import os
 from pathlib import Path
 import platform
+import shutil
 import uuid
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -144,6 +145,12 @@ class Campaign:
                 paths.extend((target/'src/packages/node-plop/src').rglob('*.js'))
                 paths=[p for p in paths if 'node_modules' not in p.relative_to(ROOT).parts]
                 paths.append(target/'src/yarn.lock')
+                if (target/'runtime.json').is_file():
+                    runtime=json.loads((target/'runtime.json').read_text(encoding='utf-8-sig'))
+                    node=shutil.which(runtime['executable'])
+                    if not node or sha256(Path(node).resolve())!=runtime['sha256']:
+                        raise ValueError('actual installed Plop Node prerequisite changed')
+                    runtime_executables['node']=runtime['sha256']
             elif project=='poetry':
                 paths.extend((target/'src/src/poetry').rglob('*.py'))
                 paths.extend([target/'src/pyproject.toml',target/'src/poetry.lock'])

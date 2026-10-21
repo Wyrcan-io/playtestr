@@ -1,0 +1,71 @@
+{
+  "version": 3,
+  "name": "Plop N02",
+  "command": [
+    "plop",
+    "--no-progress",
+    "--plopfile",
+    "extended.cjs",
+    "module"
+  ],
+  "workspace": {
+    "fixture": "fixture",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Module name"
+    },
+    {
+      "text": "atlas"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "2 files added"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "modules/atlas/index.txt",
+        "kind": "file",
+        "bytes_base64": "bW9kdWxlPWF0bGFzCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "modules/atlas/nested/readme.txt",
+        "kind": "file",
+        "bytes_base64": "bmVzdGVkPWF0bGFzCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "modules/atlas",
+        "kind": "entries",
+        "entries": [
+          "index.txt",
+          "nested"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "modules/atlas/nested",
+        "kind": "entries",
+        "entries": [
+          "readme.txt"
+        ]
+      }
+    }
+  ]
+}

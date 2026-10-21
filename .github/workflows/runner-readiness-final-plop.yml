@@ -1,0 +1,109 @@
+name: Runner readiness final Plop archive matrix
+on:
+  push:
+    branches: [work/p0-p2-implementation]
+    paths: ['.github/workflows/runner-readiness-final-plop.yml']
+  workflow_dispatch:
+    inputs:
+      candidate_run:
+        required: true
+        type: string
+        description: Exact frozen migration-v2 private candidate run
+permissions:
+  contents: read
+  actions: read
+env:
+  READINESS_EVIDENCE_PHASE: final-archive
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONIOENCODING: utf-8
+  TEMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+  TMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+  TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+  RUNNER_TEMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+concurrency:
+  group: playtestr-final-plop
+  cancel-in-progress: false
+jobs:
+  native-final:
+    if: github.event_name == 'workflow_dispatch'
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            target: linux-amd64
+            archive_target: linux_amd64
+          - os: macos-15
+            target: darwin-arm64
+            archive_target: darwin_arm64
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+      - name: Prepare owned temporary paths
+        run: mkdir -p "$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass/tmp"
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          github-token: ${{ github.token }}
+          repository: Wyrcan-io/playtestr
+          run-id: ${{ inputs.candidate_run }}
+          name: private-candidate-${{ runner.os }}
+          path: artifacts/runner-readiness-ten-project-pass/provisional-download
+      - name: Install exact frozen archive without a runner rebuild
+        run: python3 scripts/acceptance/readiness_check.py --label final-plop-exact-private-install --timeout 120 -- python3 scripts/acceptance/readiness_install_provisional.py --series migration-v2 --archive artifacts/runner-readiness-ten-project-pass/provisional-download/candidate-packages/migration-v2/${{ matrix.target }}/dist/playtestr_0.4.0-rc.5_${{ matrix.archive_target }}.tar.gz
+      - name: Prepare pinned JavaScript target with immutable reviewed Yarn workspace and unchanged POSIX profile
+        id: prepare
+        run: python3 scripts/acceptance/readiness_check.py --label final-plop-reviewed-target-prepare --timeout 1200 -- python3 scripts/acceptance/readiness_plop_native_prepare.py --target-only
+      - name: Freeze exact archive identities and all twelve declared native packages
+        run: python3 scripts/acceptance/readiness_check.py --label final-plop-prepared-series --timeout 120 -- python3 scripts/acceptance/readiness_final_fff.py --project plop --declaration final-series-declaration.json
+      - name: Final fresh-state batch 1 of twelve
+        run: python3 scripts/acceptance/readiness_check.py --label final-plop-batch-0 --timeout 1200 -- python3 scripts/acceptance/readiness_final_fff.py --project plop --declaration final-series-declaration.json --batch 0
+      - name: Final fresh-state batch 2 of twelve
+        run: python3 scripts/acceptance/readiness_check.py --label final-plop-batch-1 --timeout 1200 -- python3 scripts/acceptance/readiness_final_fff.py --project plop --declaration final-series-declaration.json --batch 1
+      - name: Final fresh-state batch 3 of twelve
+        run: python3 scripts/acceptance/readiness_check.py --label final-plop-batch-2 --timeout 1200 -- python3 scripts/acceptance/readiness_final_fff.py --project plop --declaration final-series-declaration.json --batch 2
+      - name: Final fresh-state batch 4 of twelve
+        run: python3 scripts/acceptance/readiness_check.py --label final-plop-batch-3 --timeout 1200 -- python3 scripts/acceptance/readiness_final_fff.py --project plop --declaration final-series-declaration.json --batch 3
+      - name: Final fresh-state batch 5 of twelve
+        run: python3 scripts/acceptance/readiness_check.py --label final-plop-batch-4 --timeout 1200 -- python3 scripts/acceptance/readiness_final_fff.py --project plop --declaration final-series-declaration.json --batch 4
+      - name: Final fresh-state batch 6 of twelve
+        run: python3 scripts/acceptance/readiness_check.py --label final-plop-batch-5 --timeout 1200 -- python3 scripts/acceptance/readiness_final_fff.py --project plop --declaration final-series-declaration.json --batch 5
+      - name: Final fresh-state batch 7 of twelve
+        run: python3 scripts/acceptance/readiness_check.py --label final-plop-batch-6 --timeout 1200 -- python3 scripts/acceptance/readiness_final_fff.py --project plop --declaration final-series-declaration.json --batch 6
+      - name: Final fresh-state batch 8 of twelve
+        run: python3 scripts/acceptance/readiness_check.py --label final-plop-batch-7 --timeout 1200 -- python3 scripts/acceptance/readiness_final_fff.py --project plop --declaration final-series-declaration.json --batch 7
+      - name: Final fresh-state batch 9 of twelve
+        run: python3 scripts/acceptance/readiness_check.py --label final-plop-batch-8 --timeout 1200 -- python3 scripts/acceptance/readiness_final_fff.py --project plop --declaration final-series-declaration.json --batch 8
+      - name: Final fresh-state batch 10 of twelve
+        run: python3 scripts/acceptance/readiness_check.py --label final-plop-batch-9 --timeout 1200 -- python3 scripts/acceptance/readiness_final_fff.py --project plop --declaration final-series-declaration.json --batch 9
+      - name: Final fresh-state batch 11 of twelve
+        run: python3 scripts/acceptance/readiness_check.py --label final-plop-batch-10 --timeout 1200 -- python3 scripts/acceptance/readiness_final_fff.py --project plop --declaration final-series-declaration.json --batch 10
+      - name: Final fresh-state batch 12 of twelve
+        run: python3 scripts/acceptance/readiness_check.py --label final-plop-batch-11 --timeout 1200 -- python3 scripts/acceptance/readiness_final_fff.py --project plop --declaration final-series-declaration.json --batch 11
+      - name: Three actual source faults with exact restoration on the final archive
+        run: python3 scripts/acceptance/readiness_check.py --label final-plop-real-faults-restoration --timeout 900 -- python3 scripts/acceptance/readiness_plop_faults.py --package artifacts/runner-readiness-ten-project-pass/plop/host-contracts
+      - name: Verify target termination and remove only owned source/runtime
+        if: always() && steps.prepare.outcome == 'success'
+        run: python3 scripts/acceptance/readiness_check.py --label final-plop-checked-cleanup --timeout 180 -- python3 scripts/acceptance/readiness_cleanup_plop.py --project plop
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: final-plop-${{ runner.os }}
+          path: |
+            artifacts/runner-readiness-ten-project-pass/events/
+            artifacts/runner-readiness-ten-project-pass/identities/
+            artifacts/runner-readiness-ten-project-pass/core/
+            artifacts/runner-readiness-ten-project-pass/plop/
+            artifacts/runner-readiness-ten-project-pass/plop-node-baseline.json
+            artifacts/runner-readiness-ten-project-pass/private-install/migration-v2/*/installation.json
+            !artifacts/runner-readiness-ten-project-pass/plop/retained-source/source.tar.gz
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14

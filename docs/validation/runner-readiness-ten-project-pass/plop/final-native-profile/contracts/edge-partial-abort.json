@@ -1,0 +1,58 @@
+{
+  "version": 3,
+  "name": "Plop E11",
+  "command": [
+    "plop",
+    "--no-progress",
+    "--plopfile",
+    "extended.cjs",
+    "partial-abort"
+  ],
+  "workspace": {
+    "fixture": "fixture",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Partial generation name"
+    },
+    {
+      "text": "delta"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Aborted due to previous action failure"
+    },
+    {
+      "exit": 1
+    },
+    {
+      "state": {
+        "path": "partial.txt",
+        "kind": "file",
+        "bytes_base64": "Zmlyc3Q9ZGVsdGEK"
+      }
+    },
+    {
+      "state": {
+        "path": "collision.txt",
+        "kind": "file",
+        "bytes_base64": "cmV2aWV3ZWQgY29sbGlzaW9uIGJ5dGVzCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "never-created.txt",
+        "kind": "absent"
+      }
+    }
+  ]
+}

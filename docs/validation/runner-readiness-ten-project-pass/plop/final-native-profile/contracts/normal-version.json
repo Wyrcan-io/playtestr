@@ -1,0 +1,45 @@
+{
+  "version": 3,
+  "name": "Plop N04",
+  "command": [
+    "plop",
+    "--no-progress",
+    "--plopfile",
+    "extended.cjs",
+    "version"
+  ],
+  "workspace": {
+    "fixture": "fixture",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Replacement version"
+    },
+    {
+      "text": "2"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "version.txt"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "version.txt",
+        "kind": "file",
+        "bytes_base64": "cHJlZml4PXByZXNlcnZlCnZlcnNpb249MgpzdWZmaXg9cHJlc2VydmUK"
+      }
+    }
+  ]
+}

@@ -2,6 +2,7 @@
 import argparse
 import asyncio
 import json
+import os
 import platform
 import shutil
 
@@ -14,7 +15,7 @@ from readiness_new_control_matrix import read_json as load
 
 async def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument('--project',choices=['fff','hygen','rclone'],default='fff')
+    parser.add_argument('--project',choices=['fff','hygen','rclone','plop'],default='fff')
     parser.add_argument('--batch',type=int,choices=range(12))
     parser.add_argument('--declaration',choices=['final-series-declaration.json','final-series-declaration-v2.json'],default='final-series-declaration.json')
     args=parser.parse_args()
@@ -23,6 +24,10 @@ async def main():
         from readiness_hygen_first_use import environment as target_environment
     elif project=='rclone':
         from readiness_rclone_native_contracts import target_environment
+    elif project=='plop':
+        def target_environment():
+            env=dict(os.environ);env['PATH']=str(RAW/'active/plop/bin')+os.pathsep+env['PATH']
+            return env
     else:
         target_environment=environment
     host={'Linux':'linux','Darwin':'macos','Windows':'windows'}.get(platform.system())
@@ -35,6 +40,7 @@ async def main():
         raise RuntimeError('predeclared exact final candidate differs')
     source=RAW/project/'host-contracts'
     profile=docs/project/('native-profiles/'+host if host!='linux' else '.')
+    if project=='plop':profile=docs/project/'final-native-profile'
     freeze=load(profile/'reviewed-contract-freeze.json')
     if args.batch is None and not source.exists():
         shutil.copytree(profile/'contracts',source)

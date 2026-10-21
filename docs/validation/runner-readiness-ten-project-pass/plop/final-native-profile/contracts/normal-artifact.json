@@ -1,0 +1,55 @@
+{
+  "version": 3,
+  "name": "recorded interaction",
+  "command": [
+    "plop",
+    "--no-progress"
+  ],
+  "workspace": {
+    "fixture": "fixture",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Artifact name"
+    },
+    {
+      "text": "alpha"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "alpha.txt"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "snapshot": "normal-artifact.txt"
+    },
+    {
+      "state": {
+        "path": "out/alpha.txt",
+        "kind": "file",
+        "bytes_base64": "bmFtZT1hbHBoYQo="
+      }
+    },
+    {
+      "state": {
+        "path": "out",
+        "kind": "entries",
+        "entries": [
+          "alpha.txt"
+        ]
+      }
+    }
+  ]
+}

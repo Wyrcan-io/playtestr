@@ -1,0 +1,58 @@
+{
+  "version": 3,
+  "name": "Plop E01",
+  "command": [
+    "plop",
+    "--no-progress",
+    "artifact"
+  ],
+  "workspace": {
+    "fixture": "fixture",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Artifact name"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Enter a nonempty artifact name"
+    },
+    {
+      "text": "fixed"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "fixed.txt"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "out/fixed.txt",
+        "kind": "file",
+        "bytes_base64": "bmFtZT1maXhlZAo="
+      }
+    },
+    {
+      "state": {
+        "path": "out",
+        "kind": "entries",
+        "entries": [
+          "fixed.txt"
+        ]
+      }
+    }
+  ]
+}

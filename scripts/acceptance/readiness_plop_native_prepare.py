@@ -1,5 +1,6 @@
 """Reviewed native Plop setup; all writes below the job's campaign root."""
 import asyncio
+import argparse
 import json
 import os
 from pathlib import Path
@@ -12,6 +13,7 @@ from readiness_cleanup_plop import node_inventory
 
 
 async def main():
+    parser=argparse.ArgumentParser();parser.add_argument('--target-only',action='store_true');args=parser.parse_args()
     campaign=Campaign()
     env=dict(os.environ)
     for name,folder in [('TEMP','tmp'),('TMP','tmp'),('TMPDIR','tmp'),('GOCACHE','go-cache'),
@@ -20,12 +22,13 @@ async def main():
     async def run(argv,label,timeout=120):
         return await execute(argv,'plop',label,env=env,timeout=timeout,campaign=campaign)
     candidate=ROOT/'.playtestr-bin'/('playtestr.exe' if os.name=='nt' else 'playtestr')
-    if not candidate.is_file():raise RuntimeError('generated workflow source candidate is missing')
-    binary=RAW/'bin'/candidate.name;binary.parent.mkdir(parents=True,exist_ok=True)
-    shutil.copyfile(candidate,binary)
-    if os.name!='nt':binary.chmod(0o755)
-    immutable_json(RAW/'plop-native-runner.json',dict(source_revision=os.environ['SOURCE_REVISION'],
-        candidate_sha256=sha256(candidate),copied_sha256=sha256(binary)))
+    if not args.target_only:
+        if not candidate.is_file():raise RuntimeError('generated workflow source candidate is missing')
+        binary=RAW/'bin'/candidate.name;binary.parent.mkdir(parents=True,exist_ok=True)
+        shutil.copyfile(candidate,binary)
+        if os.name!='nt':binary.chmod(0o755)
+        immutable_json(RAW/'plop-native-runner.json',dict(source_revision=os.environ['SOURCE_REVISION'],
+            candidate_sha256=sha256(candidate),copied_sha256=sha256(binary)))
     if os.name!='nt':
         immutable_json(RAW/'plop-node-baseline.json',await node_inventory('node-process-baseline-before-acquisition'))
     await run(['python3','scripts/acceptance/readiness_acquire_plop.py'],'native-reviewed-acquisition',timeout=120)

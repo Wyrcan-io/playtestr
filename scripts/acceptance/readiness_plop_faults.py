@@ -112,7 +112,7 @@ async def main():
                      rejection=observed['failure']['category'],cleanup_confirmed=True)
         immutable_json(folder/(identity+'-receipt.json'),receipt);receipts.append(receipt)
         print(identity,'detected and exactly restored',flush=True)
-    immutable_json(folder/'summary.json',dict(faults=receipts,project_admitted=False,phase='development'))
+    immutable_json(folder/'summary.json',dict(faults=receipts,project_admitted=False,phase=campaign.phase))
     print('Fault packet:',folder.relative_to(ROOT))
 
 
