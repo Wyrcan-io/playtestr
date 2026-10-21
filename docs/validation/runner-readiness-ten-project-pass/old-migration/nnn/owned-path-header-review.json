@@ -1,0 +1,115 @@
+{
+  "derivation": "When the absolute path byte length plus16 exceeds ncols, pinned redraw prints each parent component as slash plus its first byte, then prints the last component in full within remaining columns. With the long owned campaign TMPDIR, width100 and fixture outside temporary HOME, the ten declared anchors use /f/nested, /f/empty, /f/created caf\u00e9 and /f/c/sub. These ASCII-first parent abbreviations are derived from original expectations and pinned code, never copied from failed output.",
+  "entries": [
+    {
+      "context_expect": "/f/empty",
+      "original_expect": "/fixture/empty",
+      "prepared_spec_sha256": {
+        "linux": "c1d6cd2288ce05b9670ac0fed85bb5c25a9d441806867b29fd48fec15b21d8ae",
+        "macos": "d7d8f187f5c4eb8e457bd7f1f0b4f76b8246c827a682805643f35d9b8e852358"
+      },
+      "spec": "edge-empty-directory.json",
+      "step": 12
+    },
+    {
+      "context_expect": "/f/nested",
+      "original_expect": "/fixture/nested",
+      "prepared_spec_sha256": {
+        "linux": "8c66f08f645db7745d1185be93fe4f607077ddd8eb492e88b7ebf7d589846906",
+        "macos": "456e6f7300d86f4c7725158d345c9557a795000fa753f716600241f77e0141a9"
+      },
+      "spec": "edge-no-match-filter-recovery.json",
+      "step": 22
+    },
+    {
+      "context_expect": "/f/nested",
+      "original_expect": "/fixture/nested",
+      "prepared_spec_sha256": {
+        "linux": "6cc31c25f3814f19df5ac659e4301601828175df2e8b6e388c7ab451734b040e",
+        "macos": "a7477ad0866dbfd543e327dedb6bda7e3a383d402087504ba12c26d9a0fbaf49"
+      },
+      "spec": "normal-context-navigation.json",
+      "step": 12
+    },
+    {
+      "context_expect": "/f/nested",
+      "original_expect": "/fixture/nested",
+      "prepared_spec_sha256": {
+        "linux": "6cc31c25f3814f19df5ac659e4301601828175df2e8b6e388c7ab451734b040e",
+        "macos": "a7477ad0866dbfd543e327dedb6bda7e3a383d402087504ba12c26d9a0fbaf49"
+      },
+      "spec": "normal-context-navigation.json",
+      "step": 19
+    },
+    {
+      "context_expect": "/f/nested",
+      "original_expect": "/fixture/nested",
+      "prepared_spec_sha256": {
+        "linux": "6cc31c25f3814f19df5ac659e4301601828175df2e8b6e388c7ab451734b040e",
+        "macos": "a7477ad0866dbfd543e327dedb6bda7e3a383d402087504ba12c26d9a0fbaf49"
+      },
+      "spec": "normal-context-navigation.json",
+      "step": 26
+    },
+    {
+      "context_expect": "/f/nested",
+      "original_expect": "/fixture/nested",
+      "prepared_spec_sha256": {
+        "linux": "b000e4f4486111f05d3542029b2e0e381161407f248b7d66a3d0affc7c0aa968",
+        "macos": "fa42f72069b57794cbce584cfb0509eeb6821d67de35681f8bb22bb1b90b9310"
+      },
+      "spec": "normal-copy.json",
+      "step": 24
+    },
+    {
+      "context_expect": "/f/created caf\u00e9",
+      "original_expect": "/fixture/created caf\u00e9",
+      "prepared_spec_sha256": {
+        "linux": "832f1c662ef21351f5d650c9193cef798d6682775b53dd90faae841b1429301f",
+        "macos": "d22771282f84a02148ba55734defa9ad3010f58f44825b8955d87a95fa985649"
+      },
+      "spec": "normal-directory.json",
+      "step": 13
+    },
+    {
+      "context_expect": "/f/c/sub",
+      "original_expect": "/fixture/created caf\u00e9/sub",
+      "prepared_spec_sha256": {
+        "linux": "832f1c662ef21351f5d650c9193cef798d6682775b53dd90faae841b1429301f",
+        "macos": "d22771282f84a02148ba55734defa9ad3010f58f44825b8955d87a95fa985649"
+      },
+      "spec": "normal-directory.json",
+      "step": 17
+    },
+    {
+      "context_expect": "/f/nested",
+      "original_expect": "/fixture/nested",
+      "prepared_spec_sha256": {
+        "linux": "dd7feb479211b4279e814245f6aa95e37c67bf96490f319dd07382aac4888d0f",
+        "macos": "24cdbdbe2dd717989af60567a5420e6d9d9ece0a15301c1a2d0f7209e7c9b53f"
+      },
+      "spec": "normal-move.json",
+      "step": 24
+    },
+    {
+      "context_expect": "/f/nested",
+      "original_expect": "/fixture/nested",
+      "prepared_spec_sha256": {
+        "linux": "6e4dd161b0e9692bda6a60bd6fed46a5db406d77f58479c52f4e7bc206179573",
+        "macos": "52238802eb23399664ff4abe7a18cfc3bd6d046044054409054a930b86c862ab"
+      },
+      "spec": "normal-multi-selection-copy.json",
+      "step": 36
+    }
+  ],
+  "final_archive_credit": 0,
+  "first_native_run": "39502387791",
+  "pin": "c3e00d99cc83c71a9a0d285669775ae3c82db38e",
+  "qualification": "Declared before the next native series; zero migration/final credit until actual execution and independent audit.",
+  "schema_version": 1,
+  "scope": "Only ten positive header anchors in seven execution-copy contracts change. Original prepared contracts, all snapshots, fixtures, actions, state expectations and deadlines remain unchanged. Original unabbreviated header anchors remain historical and unqualified in this long checkout-owned temporary namespace. No target patch, runner exception, path shortening outside the workspace, timing padding or automatic baseline update.",
+  "source_branch": "redraw() Print path branch, src/nnn.c lines8494-8528; CTX_MAX=8 and MIN_DISPLAY_COL=16",
+  "source_oracle": {
+    "src/nnn.c": "35374230818a664ccb54585b1dbac3be7ce04f42b620b15d07043160025d8c0d"
+  }
+}

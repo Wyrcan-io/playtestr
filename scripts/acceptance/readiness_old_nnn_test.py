@@ -2,6 +2,7 @@
 import asyncio
 import json
 import platform
+from pathlib import Path
 import shutil
 import sys
 import uuid
@@ -24,10 +25,33 @@ async def main():
     if build['pin']!=materialized['pin']:raise RuntimeError('wrong original target pin')
     root=parent/'runs'/uuid.uuid4().hex;root.mkdir(parents=True)
     package=root/'contracts';shutil.copytree(source,package)
+    header=load(ROOT/'docs/validation/runner-readiness-ten-project-pass/old-migration/nnn/owned-path-header-review.json')
+    source_review=load(ROOT/'docs/validation/runner-readiness-ten-project-pass/old-migration/nnn/source-review.json')
+    if any(source_review['reviewed_inputs'][name]!=digest for name,digest in header['source_oracle'].items()):
+        raise RuntimeError('reviewed path abbreviation source changed')
+    env=environment();tempbase=Path(env['TMPDIR']).resolve(strict=True)
+    if len(str(tempbase/'workspace'/'fixture').encode('utf-8'))+16<=100:
+        raise RuntimeError('declared long-path header context is absent')
+    if (len(tempbase.parts)+3)*2+16+max(len(e['context_expect'].split('/')[-1].encode('utf-8')) for e in header['entries'])>100:
+        raise RuntimeError('declared context may truncate the final path component')
+    changes=[]
+    for name in sorted({e['spec'] for e in header['entries']}):
+        path=package/name;prepared=sha256(path);contract=load(path)
+        entries=[e for e in header['entries'] if e['spec']==name]
+        if contract['width']!=100 or contract['workspace']['home']!='temporary':
+            raise RuntimeError('undeclared path/header viewport or home context')
+        for entry in entries:
+            if (prepared!=entry['prepared_spec_sha256'][host]
+                    or contract['steps'][entry['step']-1]!={'expect':entry['original_expect']}):
+                raise RuntimeError('original reviewed path checkpoint changed')
+            contract['steps'][entry['step']-1]={'expect':entry['context_expect']}
+        path.write_text(json.dumps(contract,indent=2)+'\n',encoding='utf-8',newline='\n')
+        changes.append(dict(spec=name,prepared_sha256=prepared,executed_sha256=sha256(path),steps=[e['step'] for e in entries]))
     immutable_json(root/'execution-profile.json',dict(original_materialized_sha256=sha256(parent/'materialized.json'),
-        target_build_sha256=sha256(target/'build.json'),changes=[],
-        operational_change='Exact prepared public v3 native contracts; no execution-time contract changes.'))
-    binary,candidate,cell=runner('migration-v2');env=environment()
+        target_build_sha256=sha256(target/'build.json'),changes=changes,
+        header_review_sha256=sha256(ROOT/'docs/validation/runner-readiness-ten-project-pass/old-migration/nnn/owned-path-header-review.json'),
+        operational_change='Ten source-reviewed positive path-header anchors reflect long owned pathname abbreviation. All original snapshots, fixtures, remaining actions and saved-state expectations unchanged.'))
+    binary,candidate,cell=runner('migration-v2')
     specs=[(package/(row['case']+'.json')).relative_to(ROOT) for row in materialized['cases']]
     listing=await execute([binary,'test','--list',*specs],'old-nnn','migration-public-native-selection',
         env=env,timeout=30,campaign=Campaign())
