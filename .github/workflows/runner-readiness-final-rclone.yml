@@ -1,0 +1,118 @@
+name: Runner readiness final Rclone archive matrix
+on:
+  push:
+    branches: [work/p0-p2-implementation]
+    paths: ['.github/workflows/runner-readiness-final-rclone.yml']
+  workflow_dispatch:
+    inputs:
+      candidate_run:
+        required: true
+        type: string
+        description: Exact frozen migration-v2 private candidate run
+permissions:
+  contents: read
+  actions: read
+env:
+  READINESS_EVIDENCE_PHASE: final-archive
+  READINESS_IDENTITY_CATALOG_PROJECT: rclone
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONIOENCODING: utf-8
+  TEMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+  TMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+  TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+  RUNNER_TEMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+concurrency:
+  group: playtestr-final-rclone
+  cancel-in-progress: false
+jobs:
+  native-final:
+    if: github.event_name == 'workflow_dispatch'
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            target: linux-amd64
+            archive_target: linux_amd64
+            extension: tar.gz
+          - os: windows-2025
+            target: windows-amd64
+            archive_target: windows_amd64
+            extension: zip
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+      - name: Prepare owned temporary paths
+        run: mkdir -p "$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass/tmp"
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          github-token: ${{ github.token }}
+          repository: Wyrcan-io/playtestr
+          run-id: ${{ inputs.candidate_run }}
+          name: private-candidate-${{ runner.os }}
+          path: artifacts/runner-readiness-ten-project-pass/provisional-download
+      - name: Install exact frozen archive without a runner rebuild
+        run: python scripts/acceptance/readiness_check.py --label final-rclone-exact-private-install --timeout 120 -- python scripts/acceptance/readiness_install_provisional.py --series migration-v2 --archive artifacts/runner-readiness-ten-project-pass/provisional-download/candidate-packages/migration-v2/${{ matrix.target }}/dist/playtestr_0.4.0-rc.5_${{ matrix.archive_target }}.${{ matrix.extension }}
+      - name: Prepare pinned Go target with reviewed owned SDK/dependencies
+        id: prepare
+        run: python scripts/acceptance/readiness_check.py --label final-rclone-reviewed-target-prepare --timeout 1200 -- python scripts/acceptance/readiness_rclone_native_prepare.py
+      - name: Freeze exact archive identities and all twelve declared native packages
+        run: python scripts/acceptance/readiness_check.py --label final-rclone-prepared-series --timeout 120 -- python scripts/acceptance/readiness_final_fff.py --project rclone
+      - name: Final fresh-state batch 1 of twelve
+        run: python scripts/acceptance/readiness_check.py --label final-rclone-batch-0 --timeout 1200 -- python scripts/acceptance/readiness_final_fff.py --project rclone --batch 0
+      - name: Final fresh-state batch 2 of twelve
+        run: python scripts/acceptance/readiness_check.py --label final-rclone-batch-1 --timeout 1200 -- python scripts/acceptance/readiness_final_fff.py --project rclone --batch 1
+      - name: Final fresh-state batch 3 of twelve
+        run: python scripts/acceptance/readiness_check.py --label final-rclone-batch-2 --timeout 1200 -- python scripts/acceptance/readiness_final_fff.py --project rclone --batch 2
+      - name: Final fresh-state batch 4 of twelve
+        run: python scripts/acceptance/readiness_check.py --label final-rclone-batch-3 --timeout 1200 -- python scripts/acceptance/readiness_final_fff.py --project rclone --batch 3
+      - name: Final fresh-state batch 5 of twelve
+        run: python scripts/acceptance/readiness_check.py --label final-rclone-batch-4 --timeout 1200 -- python scripts/acceptance/readiness_final_fff.py --project rclone --batch 4
+      - name: Final fresh-state batch 6 of twelve
+        run: python scripts/acceptance/readiness_check.py --label final-rclone-batch-5 --timeout 1200 -- python scripts/acceptance/readiness_final_fff.py --project rclone --batch 5
+      - name: Final fresh-state batch 7 of twelve
+        run: python scripts/acceptance/readiness_check.py --label final-rclone-batch-6 --timeout 1200 -- python scripts/acceptance/readiness_final_fff.py --project rclone --batch 6
+      - name: Final fresh-state batch 8 of twelve
+        run: python scripts/acceptance/readiness_check.py --label final-rclone-batch-7 --timeout 1200 -- python scripts/acceptance/readiness_final_fff.py --project rclone --batch 7
+      - name: Final fresh-state batch 9 of twelve
+        run: python scripts/acceptance/readiness_check.py --label final-rclone-batch-8 --timeout 1200 -- python scripts/acceptance/readiness_final_fff.py --project rclone --batch 8
+      - name: Final fresh-state batch 10 of twelve
+        run: python scripts/acceptance/readiness_check.py --label final-rclone-batch-9 --timeout 1200 -- python scripts/acceptance/readiness_final_fff.py --project rclone --batch 9
+      - name: Final fresh-state batch 11 of twelve
+        run: python scripts/acceptance/readiness_check.py --label final-rclone-batch-10 --timeout 1200 -- python scripts/acceptance/readiness_final_fff.py --project rclone --batch 10
+      - name: Final fresh-state batch 12 of twelve
+        run: python scripts/acceptance/readiness_check.py --label final-rclone-batch-11 --timeout 1200 -- python scripts/acceptance/readiness_final_fff.py --project rclone --batch 11
+      - name: Three actual source faults with exact restoration on the final archive
+        run: python scripts/acceptance/readiness_check.py --label final-rclone-real-faults-restoration --timeout 1200 -- python scripts/acceptance/readiness_rclone_faults.py --series migration-v2
+      - name: Verify Unix source restoration and runtime termination before removal
+        if: always() && steps.prepare.outcome == 'success' && runner.os == 'Linux'
+        run: python scripts/acceptance/readiness_check.py --label rclone-native-checked-source-cleanup --timeout 240 -- python scripts/acceptance/readiness_cleanup_plop.py --project rclone
+      - name: Verify Windows source restoration and runtime termination before removal
+        if: always() && steps.prepare.outcome == 'success' && runner.os == 'Windows'
+        run: |
+          python scripts/acceptance/readiness_check.py --label rclone-native-process-proof --timeout 60 -- powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/acceptance/readiness_windows_process_proof.ps1 -Project rclone
+          python scripts/acceptance/readiness_check.py --label rclone-native-source-retention --timeout 240 -- python scripts/acceptance/readiness_cleanup_plop.py --project rclone --prepare-only
+          python scripts/acceptance/readiness_check.py --label rclone-native-checked-source-removal --timeout 180 -- powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/acceptance/readiness_remove_plop.ps1 -Project rclone
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: final-rclone-${{ runner.os }}
+          path: |
+            artifacts/runner-readiness-ten-project-pass/events/
+            artifacts/runner-readiness-ten-project-pass/identities/
+            artifacts/runner-readiness-ten-project-pass/core/
+            artifacts/runner-readiness-ten-project-pass/rclone/
+            artifacts/runner-readiness-ten-project-pass/rclone-runtime-baseline.json
+            artifacts/runner-readiness-ten-project-pass/private-install/migration-v2/*/installation.json
+            !artifacts/runner-readiness-ten-project-pass/rclone/retained-source/source.tar.gz
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14

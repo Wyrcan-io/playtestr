@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest import mock
 import uuid
 
 from readiness_evidence import Campaign, RAW, immutable_json
@@ -14,6 +15,18 @@ class EvidenceTests(unittest.TestCase):
         self.folder = tempfile.TemporaryDirectory(dir=RAW)
         self.addCleanup(self.folder.cleanup)
         self.campaign = Campaign(Path(self.folder.name))
+
+    def test_declared_series_phase_survives_all_immutable_events(self):
+        with mock.patch.dict('os.environ', {'READINESS_EVIDENCE_PHASE':'final-archive'}):
+            for explicit, expected in [(None,'final-archive'),('development','development')]:
+                with self.subTest(phase=expected):
+                    campaign=Campaign(Path(self.folder.name)/expected,phase=explicit)
+                    identity=uuid.uuid4().hex
+                    for event in ['started','identified','launched','finished']:
+                        campaign.append(dict(id=identity,event=event,project='fixture',label='phase-control'))
+                    self.assertEqual({row['phase'] for row in campaign.attempts()[identity].values()}, {expected})
+        with self.assertRaisesRegex(ValueError,'undeclared evidence phase'):
+            Campaign(Path(self.folder.name)/'invalid-phase',phase='qualified-without-evidence')
 
     def test_concurrent_exclusive_events(self):
         def write(_):

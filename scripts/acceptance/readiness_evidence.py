@@ -57,7 +57,13 @@ def fixture_inputs(base,relative):
 
 
 class Campaign:
-    def __init__(self, raw=RAW):
+    def __init__(self, raw=RAW, *, phase=None, catalog_project=None):
+        self.phase=phase or os.environ.get('READINESS_EVIDENCE_PHASE','development')
+        if self.phase not in {'development','final-archive'}:
+            raise ValueError('undeclared evidence phase')
+        self.catalog_project=catalog_project or os.environ.get('READINESS_IDENTITY_CATALOG_PROJECT','')
+        if self.catalog_project not in {'','rclone','hygen'}:
+            raise ValueError('undeclared identity catalog project')
         self.raw = Path(raw).resolve()
         self.raw.relative_to(ROOT)
         self.raw.mkdir(parents=True, exist_ok=True)
@@ -79,7 +85,7 @@ class Campaign:
             raise ValueError('invalid attempt id')
         if row['event'] not in {'started', 'identified', 'launched', 'finished'}:
             raise ValueError('invalid event')
-        row = dict(row, schema_version=1, campaign='runner-readiness-ten-project-pass',phase='development')
+        row = dict(row, schema_version=1, campaign='runner-readiness-ten-project-pass',phase=self.phase)
         immutable_json(self.raw/'events'/(row['id']+'-'+row['event']+'.json'), row)
 
     def identity(self, project, argv):
@@ -318,6 +324,27 @@ class Campaign:
                     'files': {p.relative_to(ROOT).as_posix(): sha256(p) for p in sorted(set(paths))}}
         if runtime_executables:identity['runtime_executables']=runtime_executables
         if input_links:identity['input_links']=input_links
+        if self.catalog_project==project:
+            # Hash all actual files above before interning any shared catalog.
+            # The catalog is content-addressed evidence, never a hash cache.
+            references=[]
+            target_prefix=target.relative_to(ROOT).as_posix()+'/'
+            for scope in ['core','target']:
+                selected={n:h for n,h in identity['files'].items() if
+                    (scope=='core' and (n.startswith(('scripts/','schema/')) or n in {'go.mod','go.sum'})) or
+                    (scope=='target' and n.startswith(target_prefix))}
+                if not selected:continue
+                payload=(json.dumps(dict(schema_version=1,files=selected),sort_keys=True,ensure_ascii=True,indent=2)+'\n').encode()
+                catalog_hash=hashlib.sha256(payload).hexdigest()
+                catalog=self.raw/'identities/catalogs'/(catalog_hash+'.json')
+                try:
+                    immutable_json(catalog,dict(schema_version=1,files=selected))
+                except FileExistsError:
+                    if catalog.read_bytes()!=payload:raise ValueError('identity catalog collision')
+                references.append(dict(scope=scope,manifest=catalog.relative_to(self.raw).as_posix(),sha256=catalog_hash))
+                for name in selected:del identity['files'][name]
+            identity['schema_version']=2
+            identity['file_catalogs']=references
         data = (json.dumps(identity, sort_keys=True, ensure_ascii=True, indent=2)+'\n').encode()
         digest = hashlib.sha256(data).hexdigest()
         path = self.raw/'identities'/(digest+'.json')

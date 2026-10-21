@@ -14,38 +14,43 @@ from readiness_new_control_matrix import read_json as load
 
 async def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument('--project',choices=['fff','hygen'],default='fff')
+    parser.add_argument('--project',choices=['fff','hygen','rclone'],default='fff')
     parser.add_argument('--batch',type=int,choices=range(12))
+    parser.add_argument('--declaration',choices=['final-series-declaration.json','final-series-declaration-v2.json'],default='final-series-declaration.json')
     args=parser.parse_args()
     project=args.project
     if project=='hygen':
         from readiness_hygen_first_use import environment as target_environment
+    elif project=='rclone':
+        from readiness_rclone_native_contracts import target_environment
     else:
         target_environment=environment
-    host={'Linux':'linux','Darwin':'macos'}.get(platform.system())
-    if not host:
-        raise RuntimeError('undeclared final fff native host')
+    host={'Linux':'linux','Darwin':'macos','Windows':'windows'}.get(platform.system())
+    if not host or (project=='rclone' and host=='macos') or (project!='rclone' and host=='windows'):
+        raise RuntimeError('undeclared final native project/host')
     docs=ROOT/'docs/validation/runner-readiness-ten-project-pass'
-    declaration=load(docs/project/'final-series-declaration.json')
+    declaration=load(docs/project/args.declaration)
     binary,candidate,cell=runner('migration-v2')
     if sha256(docs/'migration-candidate-freeze.json')!=declaration['candidate_freeze_sha256']:
         raise RuntimeError('predeclared exact final candidate differs')
     source=RAW/project/'host-contracts'
-    profile=docs/project/('native-profiles/macos' if host=='macos' else '.')
+    profile=docs/project/('native-profiles/'+host if host!='linux' else '.')
     freeze=load(profile/'reviewed-contract-freeze.json')
+    if args.batch is None and not source.exists():
+        shutil.copytree(profile/'contracts',source)
     if {p.relative_to(source).as_posix():sha256(p) for p in source.rglob('*') if p.is_file()}!=freeze['all_package_inputs']:
         raise RuntimeError('reviewed native package changed')
     root=RAW/project/'final-series'
     if args.batch is None:
         root.mkdir()
         build=load(RAW/'active'/project/'build.json')
-        immutable_json(root/'intent.json',dict(declaration_sha256=sha256(docs/project/'final-series-declaration.json'),
+        immutable_json(root/'intent.json',dict(declaration_file=args.declaration,declaration_sha256=sha256(docs/project/args.declaration),
             host=host,runner_sha256=cell['binary_sha256'],archive_sha256=cell['archive_sha256'],
             target_build_sha256=sha256(RAW/'active'/project/'build.json'),target_pin=build['pin'],
             canonical_package_inputs=freeze['all_package_inputs'],planned_batches=12,planned_scenarios_per_batch=20,
             final_archive_credit=0,scope='Prelaunch intent only; full native/fault/cleanup/auditor gates required.'))
         # Existing fault helpers consume this exact byte-for-byte archive copy.
-        alias=RAW/'bin/playtestr'
+        alias=RAW/'bin'/('playtestr.exe' if host=='windows' else 'playtestr')
         alias.parent.mkdir(exist_ok=True)
         shutil.copyfile(binary,alias)
         alias.chmod(0o755)

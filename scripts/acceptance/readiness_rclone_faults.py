@@ -19,7 +19,8 @@ def require(value,message):
 
 
 async def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--original-heldout',action='store_true');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--original-heldout',action='store_true')
+    parser.add_argument('--series',choices=['provisional-v1','migration-v2'],default='provisional-v1');args=parser.parse_args()
     docs=ROOT/'docs/validation/runner-readiness-ten-project-pass/rclone'
     selection=load(docs/'fault-selection.json')
     require(selection['frozen_contract_sha256']==sha256(docs/'reviewed-contract-freeze.json'), 'fault freeze differs')
@@ -37,7 +38,7 @@ async def main():
     require(sha256(compiler)==build['compiler_sha256']==runtime['compiler_sha256'],'owned compiler differs')
     original_binary=sha256(executable)
     require(original_binary==build['binary_sha256'],'initial compiled executable differs')
-    env=target_environment();binary,candidate,cell=runner()
+    env=target_environment();binary,candidate,cell=runner(args.series)
     root=RAW/'rclone/faults'/uuid.uuid4().hex;root.mkdir(parents=True)
     immutable_json(root/'selected-faults.json',dict(fault_selection_sha256=sha256(docs/'fault-selection.json'),
         native_freeze_sha256=sha256(profile/'reviewed-contract-freeze.json'),original_heldout=args.original_heldout,
