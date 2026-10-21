@@ -71,8 +71,10 @@ async def main():
                 after=dict(before)
                 if batch['input_chunks']:
                     steps=[]
-                    for step in before['steps']:
-                        if set(step)=={'text'} and len(step['text'])>batch['input_chunks']:
+                    allowed=declaration.get('segmented_text_steps_by_host',{}).get(host,{}).get(name)
+                    for step_number,step in enumerate(before['steps'],1):
+                        if (set(step)=={'text'} and len(step['text'])>batch['input_chunks']
+                                and (allowed is None or step_number in allowed)):
                             text=step['text'];size=batch['input_chunks']
                             steps.extend({'text':text[i:i+size]} for i in range(0,len(text),size))
                         else:

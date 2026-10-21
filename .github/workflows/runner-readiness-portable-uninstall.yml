@@ -1,0 +1,75 @@
+name: Runner readiness native portable archive uninstall
+on:
+  push:
+    branches: [work/p0-p2-implementation]
+    paths: ['.github/workflows/runner-readiness-portable-uninstall.yml']
+  workflow_dispatch:
+    inputs:
+      candidate_run:
+        description: Independently frozen migration-v2 candidate run
+        required: true
+        type: string
+permissions:
+  contents: read
+  actions: read
+env:
+  READINESS_EVIDENCE_PHASE: final-archive
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONIOENCODING: utf-8
+  TEMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+  TMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+  TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+  RUNNER_TEMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+concurrency:
+  group: playtestr-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  native-portable:
+    if: github.event_name == 'workflow_dispatch'
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            host: linux
+            target: linux-amd64
+            archive_target: linux_amd64
+          - os: macos-15
+            host: macos
+            target: darwin-arm64
+            archive_target: darwin_arm64
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+      - name: Prepare owned temporary paths
+        run: mkdir -p "$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass/tmp"
+      - name: Download exact frozen native private archive
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          github-token: ${{ github.token }}
+          repository: Wyrcan-io/playtestr
+          run-id: ${{ inputs.candidate_run }}
+          name: private-candidate-${{ runner.os }}
+          path: artifacts/runner-readiness-ten-project-pass/provisional-download
+      - name: Verify native Unicode portable install, launch and checked uninstall
+        run: python3 scripts/acceptance/readiness_check.py --label current-native-portable-uninstall --timeout 90 -- python3 scripts/acceptance/readiness_current_archive_uninstall.py --archive artifacts/runner-readiness-ten-project-pass/provisional-download/candidate-packages/migration-v2/${{ matrix.target }}/dist/playtestr_0.4.0-rc.5_${{ matrix.archive_target }}.tar.gz
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: portable-uninstall-${{ runner.os }}
+          path: |
+            artifacts/runner-readiness-ten-project-pass/events/
+            artifacts/runner-readiness-ten-project-pass/identities/
+            artifacts/runner-readiness-ten-project-pass/core/
+            artifacts/runner-readiness-ten-project-pass/portable-uninstall/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14

@@ -1,0 +1,35 @@
+{
+  "archive_sha256": "40e7e124260c96f8fdff6a63ae5e0e7cfcb7a3c3a3f838207447a0742059abad",
+  "control": "ea20417e091b4210baa4ea5079baca33",
+  "declaration_sha256": "4452c923880bd2ab8c2b5aaec3b1e8a7ab1ecafe2af8b950a345c901914a2c67",
+  "final_archive_credit": 0,
+  "observations": [
+    {
+      "attempt": "3ff272eb4e794de5a62b736437ba10d8",
+      "label": "supported-before",
+      "report_sha256": "f34b777fe8801df29fceaf9a8ef20bb314418819f9213bd1e3b4f35dd258607a",
+      "status": "passed",
+      "target_marker_observed": true
+    },
+    {
+      "attempt": "d7cf460bab0743f2a9dd9d761164141b",
+      "label": "unsupported-refused",
+      "report_sha256": "8a51da757fb34d1c1a7494e191ba04b86a3888ed94833d9aba10c672e94c23f0",
+      "status": "failed",
+      "target_marker_observed": false
+    },
+    {
+      "attempt": "7fac6ad653c446ec98a39e8d9e7ebd17",
+      "label": "supported-after",
+      "report_sha256": "9973456cf867a309249a0220dc06bcdf6cb813d66a8b70d25da0f23c503e6805",
+      "status": "passed",
+      "target_marker_observed": true
+    }
+  ],
+  "positive_target_launches": 2,
+  "project_scenario_credit": 0,
+  "proof_sha256": "38ebae6b43e5b3c8ebbacad95dc8de33fab4a0c0c219d345009e2627d7d063eb",
+  "runner_sha256": "6d816ac1acd55fe5b7595b1cb47b14e626e3ba1bd5821a5bdbede50ab3abcd26",
+  "scope": "Actual version999 refusal before target entry, bracketed by two real successful launches of the identical target command under version3.",
+  "unsupported_refusals": 1
+}

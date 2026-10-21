@@ -1,12 +1,15 @@
 import concurrent.futures
+import asyncio
 import json
+import os
 from pathlib import Path
 import tempfile
+import sys
 import unittest
 from unittest import mock
 import uuid
 
-from readiness_evidence import Campaign, RAW, immutable_json
+from readiness_evidence import Campaign, RAW, ROOT, immutable_json
 
 
 class EvidenceTests(unittest.TestCase):
@@ -27,6 +30,17 @@ class EvidenceTests(unittest.TestCase):
                     self.assertEqual({row['phase'] for row in campaign.attempts()[identity].values()}, {expected})
         with self.assertRaisesRegex(ValueError,'undeclared evidence phase'):
             Campaign(Path(self.folder.name)/'invalid-phase',phase='qualified-without-evidence')
+
+    def test_restricted_child_validation_helper_retains_declared_phase(self):
+        from adversarial_process import execute
+        parent=Campaign(Path(self.folder.name)/'parent',phase='final-archive',catalog_project='hygen')
+        env={k:v for k,v in os.environ.items() if k.upper() in {'SYSTEMROOT','WINDIR'}}
+        env.update(PYTHONDONTWRITEBYTECODE='1',PYTHONPATH=str(ROOT/'scripts/acceptance'))
+        result=asyncio.run(execute([sys.executable,ROOT/'scripts/acceptance/readiness_phase_probe.py',
+            Path(self.folder.name)/'child'],'core','restricted-child-evidence-phase',env=env,
+            timeout=30,campaign=parent))
+        self.assertEqual(json.loads(result['output']),dict(phase='final-archive',catalog_project='hygen'))
+        self.assertNotIn('READINESS_EVIDENCE_PHASE',env)
 
     def test_concurrent_exclusive_events(self):
         def write(_):

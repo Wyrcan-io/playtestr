@@ -1,0 +1,48 @@
+{
+  "attempted_projects": 2,
+  "final_archive_qualified_projects": 0,
+  "final_runner_admissions": 0,
+  "observed_ordinary_executions": 1174,
+  "observed_ordinary_failed": 2,
+  "observed_ordinary_passed": 1172,
+  "observed_public_calibration_executions": 36,
+  "paid_launch_admissions": 0,
+  "projects": [
+    {
+      "project": "fff",
+      "series": [
+        {
+          "ordinary_failed": 2,
+          "ordinary_observed": 214,
+          "ordinary_passed": 212,
+          "run": "39562308064",
+          "status": "rejected"
+        }
+      ]
+    },
+    {
+      "project": "hygen",
+      "series": [
+        {
+          "ordinary_observed": 480,
+          "ordinary_passed": 480,
+          "run": "39563791550",
+          "status": "metadata-unqualified"
+        },
+        {
+          "ordinary_observed": 480,
+          "ordinary_passed": 480,
+          "receipt_sha256": "20daa69b25b6b9e241e7a03f8ce03ca7b9d83de60fa15ce27b947948e99bd49f",
+          "run": "39568603566",
+          "status": "independently-verified"
+        }
+      ]
+    }
+  ],
+  "schema_version": 1,
+  "scope": "Observed ordinary outcomes remain separate from public fault/calibration calls. Verified project series are intermediate; global final controls, matrix and packaging gates still required.",
+  "verified_calibration_executions": 18,
+  "verified_ordinary_executions": 480,
+  "verified_series_cells": 2,
+  "verified_series_projects": 1
+}

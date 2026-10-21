@@ -287,6 +287,21 @@ async def execute(argv,project,label,*,cwd=ROOT,env=None,input=None,timeout=120,
     # A new campaign supplies its own immutable records and canonical identities;
     # historical callers retain their original paths and accounting unchanged.
     raw_root=RAW if campaign is None else campaign.raw
+    if campaign is not None and getattr(campaign,'phase',None) and argv and Path(str(argv[0])).name.lower().startswith('python'):
+        # A clean target environment must not reset the journal context when a
+        # repository validation helper launches another validation helper.
+        # These two explicit metadata enums are never added to non-helper apps.
+        helper_root=ROOT/'scripts/acceptance'
+        for argument in argv[1:4]:
+            helper=Path(str(argument))
+            if not helper.is_absolute():helper=ROOT/helper
+            try:is_helper=helper.suffix=='.py' and helper.resolve().is_relative_to(helper_root.resolve())
+            except (OSError,ValueError):is_helper=False
+            if is_helper:
+                env=dict(os.environ if env is None else env)
+                env['READINESS_EVIDENCE_PHASE']=campaign.phase
+                env['READINESS_IDENTITY_CATALOG_PROJECT']=getattr(campaign,'catalog_project','')
+                break
     emit=append if campaign is None else campaign.append
     identify=contract_identity if campaign is None else campaign.identity
     run_id=uuid.uuid4().hex
