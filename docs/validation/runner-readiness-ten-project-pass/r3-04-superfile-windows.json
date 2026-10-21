@@ -1,0 +1,70 @@
+{
+  "cleanup_sha256": "2c581eb104a35da594b001c4f252fa40dbbea776700b3b67c79ee5b11f6fc836",
+  "diagnostic_binary_sha256": "fa94580e1176b588e3b50f747938a8213d71b8775b99bca924507c5d1d7a268d",
+  "direct_startup_probe": {
+    "attempt": "69cbcfd650b74f87a274f60281cbd4bc",
+    "exit_code": 0,
+    "expected_exit": 66,
+    "result": "not reproduced; original failed expected66 experiment preserved"
+  },
+  "disposition": "Reproduced concurrent upstream Windows terminal input buffer access: ultraviolet serializeWin32InputRecords at terminal_reader_windows.go:180 versus StreamEvents at terminal_reader.go:201. Both bounded real-PTY attempts exited66; the second preserves a complete actual race log. Original target source unmodified; only diagnostic -race instrumentation, absolute executable selection and GORACE logging added. No upstream repair or Windows application qualification is claimed. A direct version probe did not reproduce; no historical unlogged branch is explained.",
+  "final_archive_credit": 0,
+  "logged_probe": {
+    "attempt": "feeceea4f1214cf4a7b17efefb40fcfd",
+    "cleanup": {
+      "attempted": true,
+      "confirmed_exited": true,
+      "forced": false,
+      "graceful": true,
+      "mechanism": "windows-job-object"
+    },
+    "race_logs": [
+      {
+        "path": "captured-.diagnostic-race-log.8000",
+        "sha256": "a10a3aadd66ccd7ece6899cf8724845c821f832adbe024084dfc0334a78c31ac"
+      }
+    ],
+    "repetition": 0,
+    "report_sha256": "32a3ec81617c9644b6b36564790538b03585a36c8cad8364dfbfc4b9b473ff38",
+    "status": "failed",
+    "workspace": {
+      "attempted": true,
+      "cleaned": false,
+      "cleanup_attempted": false,
+      "fixture": "fixtures",
+      "prepared": true,
+      "retained": true,
+      "retained_path": "C:\\Users\\abhir\\OneDrive\\Documents\\playtestr\\artifacts\\runner-readiness-ten-project-pass\\active\\r3-windows-superfile\\tmp\\playtestr-workspace-1493441962"
+    }
+  },
+  "ordinary_probe": [
+    {
+      "attempt": "7930a88495784b47abbbf123b0141bed",
+      "cleanup": {
+        "attempted": true,
+        "confirmed_exited": true,
+        "forced": false,
+        "graceful": true,
+        "mechanism": "windows-job-object"
+      },
+      "repetition": 0,
+      "report_sha256": "ad2d3bb32bd0c6948c6a6f388a2036a371bbf302af331cb5283fc57301967557",
+      "status": "failed",
+      "workspace": {
+        "attempted": true,
+        "cleaned": true,
+        "cleanup_attempted": true,
+        "fixture": "fixtures",
+        "prepared": true,
+        "retained": false
+      }
+    }
+  ],
+  "original_spec_sha256": "440a75c5f83423617b2340b7d3b482666300572d3a63b8ebf318b9eb01b72876",
+  "pin": "66fe169b87021f7424522ed5aadd711c5676601e",
+  "project": "superfile",
+  "race_log_sha256": "a10a3aadd66ccd7ece6899cf8724845c821f832adbe024084dfc0334a78c31ac",
+  "retention_index_sha256": "54de43f9b24223fcb6c659d8de999f7aefe7779afdb786fde68a00aa8189bc0d",
+  "runner_sha256": "6d816ac1acd55fe5b7595b1cb47b14e626e3ba1bd5821a5bdbede50ab3abcd26",
+  "windows_application_admission": 0
+}

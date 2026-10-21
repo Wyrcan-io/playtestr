@@ -1,7 +1,13 @@
 # Declared historical investigations
 
-No investigation below has executed in this campaign yet. Existing full core
-passes do not substitute for these declared repeated incident experiments.
+The bounded development investigations below have executed. Results are recorded in
+[the native disposition](historical-disposition-development.json) and
+[the hosted Windows disposition](historical-windows-hosted-development.json):
+150 local Windows wizard attempts, a separate 150 hosted Windows wizard attempts
+(run `39006031018`), and 150 macOS attempts for each of R3-02 and R3-03
+(run `38957542544`). These current-control observations do not establish the
+unlogged causes of the original incidents or final-archive qualification.
+The procedure below is the declaration used for those runs.
 The earlier curated failure summaries remain available; the former large raw
 tree has not been expanded. Missing internal observations cannot be recreated
 by interpreting a later passing run.
@@ -46,3 +52,9 @@ Prepared workflow `runner-readiness-historical.yml` has two standard native jobs
 maximum two concurrent. Dispatch after the two corrective Poetry jobs settle;
 with any remaining core jobs, never exceed four concurrent jobs. Additional
 ceiling: 50 job-minutes; forecast 10-15. No paid runner or release activity.
+
+The separate fff investigation completed 150 unchanged attempts across three
+50-attempt batches with no reproduced failure. Its original timeout remains
+unexplained; see [the bounded disposition](fff/r3-batch-disposition.md).
+R3-04 Windows Superfile/Glow reproduction and R3-07 snapshot rename investigation
+remain separate gates; these passes supply no Windows application admission.
