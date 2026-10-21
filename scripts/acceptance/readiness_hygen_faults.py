@@ -23,6 +23,7 @@ def require(condition, message):
 async def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--original-heldout', action='store_true')
+    parser.add_argument('--series', choices=['provisional-v1','migration-v2'], default='provisional-v1')
     parser.add_argument('--local-exploratory', action='store_true')
     parser.add_argument('--fault', action='append', choices=['F01', 'F02', 'F03'])
     args = parser.parse_args()
@@ -59,7 +60,7 @@ async def main():
     runtime = load(active / 'runtime.json')
     node = Path(runtime['node'])
     require(sha256(node) == runtime['node_sha256'], 'actual Node executable changed')
-    binary, candidate, cell = runner()
+    binary, candidate, cell = runner(args.series)
 
     async def validate(label, source):
         env = validation_environment(active)

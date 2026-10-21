@@ -1,0 +1,86 @@
+{
+  "diagnostic_binary_sha256": "8849e5423a13f1f9edc306b19253c51c302e8cd3326c87fb8e9502e790cfc771",
+  "disposition": "Original pinned Glow Windows input race reproduced in ultraviolet serializeWin32InputRecords versus StreamEvents. Initial terminal race probe failed exit66. Separate logged diagnosis passed once, then failed with a complete actual race report. One pass does not qualify this path; target source unmodified, race instrumentation and scoped logging only. Cleanup/removal is a separate receipt.",
+  "final_archive_credit": 0,
+  "logged_probes": [
+    {
+      "attempt": "67d8167b9e6b402bb063e6957f7aff96",
+      "cleanup": {
+        "attempted": true,
+        "confirmed_exited": true,
+        "forced": false,
+        "graceful": true,
+        "mechanism": "windows-job-object"
+      },
+      "repetition": 0,
+      "report_sha256": "1a29278420e18c1ff3394dba03e242bdcab34fc9644290d288854f6c6945b111",
+      "status": "passed",
+      "workspace": {
+        "attempted": true,
+        "cleaned": true,
+        "cleanup_attempted": true,
+        "fixture": "fixtures",
+        "prepared": true,
+        "retained": false
+      }
+    },
+    {
+      "attempt": "abbff3ead85649c89ceb8dbfa7b900bc",
+      "cleanup": {
+        "attempted": true,
+        "confirmed_exited": true,
+        "forced": false,
+        "graceful": true,
+        "mechanism": "windows-job-object"
+      },
+      "race_logs": [
+        {
+          "path": "captured-.diagnostic-race-log.7456",
+          "sha256": "90f4a3c3c6c754b820dca265377d2adb0e0ffa077519618f2a366eb294c74885"
+        }
+      ],
+      "repetition": 1,
+      "report_sha256": "8771c3995be735a1c108ddd5eda61075cff7949dc9ffbbbc9e49f76c30c84b41",
+      "status": "failed",
+      "workspace": {
+        "attempted": true,
+        "cleaned": false,
+        "cleanup_attempted": false,
+        "fixture": "fixtures",
+        "prepared": true,
+        "retained": true,
+        "retained_path": "C:\\Users\\abhir\\OneDrive\\Documents\\playtestr\\artifacts\\runner-readiness-ten-project-pass\\active\\r3-windows-glow\\tmp\\playtestr-workspace-2290108850"
+      }
+    }
+  ],
+  "ordinary_probe": [
+    {
+      "attempt": "131705e5d0c44b21a153d95b89b1885c",
+      "cleanup": {
+        "attempted": true,
+        "confirmed_exited": true,
+        "forced": false,
+        "graceful": true,
+        "mechanism": "windows-job-object"
+      },
+      "repetition": 0,
+      "report_sha256": "11e739905da7a05e2197bfe73c44c2bd2b287fc3943ee948a37175184fa31e85",
+      "status": "failed",
+      "workspace": {
+        "attempted": true,
+        "cleaned": true,
+        "cleanup_attempted": true,
+        "fixture": "fixtures",
+        "prepared": true,
+        "retained": false
+      }
+    }
+  ],
+  "original_spec_sha256": "a6f86e99496f21fa56e4b1083649807624412933befcadca321f747f85d36638",
+  "pin": "8b0600fa445535b9c53194c0d4f7fe3cf700ef3e",
+  "project": "glow",
+  "race_log_sha256": "90f4a3c3c6c754b820dca265377d2adb0e0ffa077519618f2a366eb294c74885",
+  "retention_index_sha256": "1b0685b2802635e59e3c7201b36f41e529c8f1c01b47a9366ff302d45abff7f3",
+  "runner_sha256": "6d816ac1acd55fe5b7595b1cb47b14e626e3ba1bd5821a5bdbede50ab3abcd26",
+  "windows_application_admission": 0
+}

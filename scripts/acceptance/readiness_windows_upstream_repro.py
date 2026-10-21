@@ -140,7 +140,7 @@ async def main():
     records = []
     if args.phase == 'logged':
         immutable_json(target/'logged-declaration.json', dict(
-            attempts=3, reason='Separate bounded log-capture diagnosis after the initial terminal viewport retained only the tail of a race stack. Direct version probe did not reproduce (exit0); it remains a failed expected66 experiment.',
+            attempts=3, reason='Separate bounded log-capture diagnosis after the initial terminal viewport retained only the tail of a race stack. Any independent direct version probe has its own retained outcome and supplies no input-path qualification.',
             variation='GORACE writes a relative log in the owned managed fixture; retain failed workspace explicitly for evidence. Original actions and deadlines unchanged.',
             no_qualification_credit=True))
     for repetition in range(3 if args.phase == 'logged' else 10):
