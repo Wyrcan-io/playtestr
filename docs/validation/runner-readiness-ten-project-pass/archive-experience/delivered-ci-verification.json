@@ -1,0 +1,27 @@
+{
+  "actual_faults": 1,
+  "final_archive_credit": 0,
+  "real_pr_event_proven": false,
+  "runner_sha256": "11bc8c45c260c0fc4708da324ffb4b750ba452b148e09c8541ddfd7b1c5ec720",
+  "scope": "Actual public generated CI success, compiled saved-extra fault rejected in the same execution after passing screens/exact files/exit0, and clean recovery; all three provider outcomes, context, artifacts, real source/compiler identities, exact restoration and owned target removal independently verified. The two prior prelaunch setup failures remain separate and unqualified. Dispatch controls do not prove real PR event behavior.",
+  "sequence": [
+    {
+      "mode": "success",
+      "receipt_sha256": "6376ce19d6eb10f01d3675aa3a616fe9a51c9c969f6f8f52c3860cb272967234",
+      "run": "39671661102"
+    },
+    {
+      "mode": "corruption",
+      "receipt_sha256": "090680b383bbb69de75801b45ab5491d6e2c4f877af00b8abab6e797ca95bdc6",
+      "run": "39672314618"
+    },
+    {
+      "mode": "recovery",
+      "receipt_sha256": "ced6d252d934449adc63bca9905154458069d88fcf9db08f634f86de90b13d6a",
+      "run": "39672972078"
+    }
+  ],
+  "source_revision": "129b7a45c0006be550f798ce52c2fbbfd327e515",
+  "unique_public_invocations": 3,
+  "verified_public_outcomes": 3
+}

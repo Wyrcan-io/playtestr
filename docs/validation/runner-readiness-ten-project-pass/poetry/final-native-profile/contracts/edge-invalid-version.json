@@ -1,0 +1,49 @@
+{
+  "version": 3,
+  "env": {
+    "GIT_CONFIG_GLOBAL": "/dev/null",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "POETRY_KEYRING_ENABLED": "false",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONNOUSERSITE": "1"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "name": "Poetry E07",
+  "command": [
+    "poetry",
+    "--no-plugins",
+    "version",
+    "definitely-invalid-version"
+  ],
+  "workspace": {
+    "fixture": "project-fixture",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "steps": [
+    {
+      "expect": "Invalid PEP 440 version"
+    },
+    {
+      "exit": 1
+    },
+    {
+      "state": {
+        "path": "pyproject.toml",
+        "kind": "file",
+        "bytes_base64": "IyBwcmVzZXJ2ZSB0aGlzIHJldmlld2VkIGNvbW1lbnQKW3Byb2plY3RdCm5hbWUgPSAiZml4dHVyZS1hcHAiCnZlcnNpb24gPSAiMS4yLjMiCmRlc2NyaXB0aW9uID0gIlJldmlld2VkIGxvY2FsIGZpeHR1cmUiCnJlcXVpcmVzLXB5dGhvbiA9ICI+PTMuMTAiCnJlYWRtZSA9ICJSRUFETUUubWQiCmF1dGhvcnMgPSBbe25hbWUgPSAiRml4dHVyZSBBdXRob3IiLCBlbWFpbCA9ICJhdXRob3JAZXhhbXBsZS5pbnZhbGlkIn1dCmRlcGVuZGVuY2llcyA9IFtdCgpbYnVpbGQtc3lzdGVtXQpyZXF1aXJlcyA9IFsicG9ldHJ5LWNvcmU+PTIuMC4wLDwzLjAuMCJdCmJ1aWxkLWJhY2tlbmQgPSAicG9ldHJ5LmNvcmUubWFzb25yeS5hcGkiCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    }
+  ]
+}

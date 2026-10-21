@@ -1,0 +1,143 @@
+{
+  "version": 3,
+  "env": {
+    "GIT_CONFIG_GLOBAL": "/dev/null",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "POETRY_KEYRING_ENABLED": "false",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONNOUSERSITE": "1"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "name": "Poetry N02",
+  "command": [
+    "poetry",
+    "--no-plugins",
+    "new",
+    "--interactive",
+    "--name",
+    "company.service",
+    "--description",
+    "Fixture project",
+    "--author",
+    "Fixture Author <author@example.invalid>",
+    "--python",
+    ">=3.10",
+    "--license",
+    "MIT",
+    "nested/atlas"
+  ],
+  "workspace": {
+    "fixture": "fixture",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "steps": [
+    {
+      "expect": "Version ["
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Author ["
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Would you like to define your main dependencies interactively?"
+    },
+    {
+      "text": "n"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Would you like to define your development dependencies interactively?"
+    },
+    {
+      "text": "n"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Do you confirm generation?"
+    },
+    {
+      "text": "yes"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Created package company.service"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "nested/atlas/pyproject.toml",
+        "kind": "file",
+        "bytes_base64": "W3Byb2plY3RdCm5hbWUgPSAiY29tcGFueS1zZXJ2aWNlIgp2ZXJzaW9uID0gIjAuMS4wIgpkZXNjcmlwdGlvbiA9ICJGaXh0dXJlIHByb2plY3QiCmF1dGhvcnMgPSBbCiAgICB7bmFtZSA9ICJGaXh0dXJlIEF1dGhvciIsZW1haWwgPSAiYXV0aG9yQGV4YW1wbGUuaW52YWxpZCJ9Cl0KbGljZW5zZSA9ICJNSVQiCnJlYWRtZSA9ICJSRUFETUUubWQiCnJlcXVpcmVzLXB5dGhvbiA9ICI+PTMuMTAiCmRlcGVuZGVuY2llcyA9IFsKXQoKW3Rvb2wucG9ldHJ5XQpwYWNrYWdlcyA9IFt7aW5jbHVkZSA9ICJjb21wYW55IiwgZnJvbSA9ICJzcmMifV0KCltidWlsZC1zeXN0ZW1dCnJlcXVpcmVzID0gWyJwb2V0cnktY29yZT49Mi4wLjAsPDMuMC4wIl0KYnVpbGQtYmFja2VuZCA9ICJwb2V0cnkuY29yZS5tYXNvbnJ5LmFwaSIK"
+      }
+    },
+    {
+      "state": {
+        "path": "nested/atlas",
+        "kind": "entries",
+        "entries": [
+          "README.md",
+          "pyproject.toml",
+          "src",
+          "tests"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "nested/atlas/src",
+        "kind": "entries",
+        "entries": [
+          "company"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "nested/atlas/src/company",
+        "kind": "entries",
+        "entries": [
+          "service"
+        ]
+      }
+    },
+    {
+      "state": {
+        "path": "nested/atlas/src/company/service/__init__.py",
+        "kind": "file",
+        "bytes_base64": ""
+      }
+    },
+    {
+      "state": {
+        "path": "nested/atlas/tests/__init__.py",
+        "kind": "file",
+        "bytes_base64": ""
+      }
+    },
+    {
+      "state": {
+        "path": "nested/atlas/README.md",
+        "kind": "file",
+        "bytes_base64": ""
+      }
+    }
+  ]
+}

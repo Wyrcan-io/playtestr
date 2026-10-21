@@ -155,6 +155,13 @@ class Campaign:
                 paths.extend((target/'src/src/poetry').rglob('*.py'))
                 paths.extend([target/'src/pyproject.toml',target/'src/poetry.lock'])
                 if (target/'wheels.json').is_file():paths.append(target/'wheels.json')
+                if (target/'runtime.json').is_file():
+                    runtime=json.loads((target/'runtime.json').read_text(encoding='utf-8-sig'))
+                    interpreter=Path(runtime['python'])
+                    interpreter.resolve(strict=True).relative_to(target.resolve())
+                    if interpreter.is_symlink() or sha256(interpreter)!=runtime['python_sha256']:
+                        raise ValueError('actual owned Poetry Python prerequisite changed')
+                    paths.append(interpreter);runtime_executables['python']=runtime['python_sha256']
             elif project in {'papis','frogmouth'}:
                 paths.extend((target/'src'/project).rglob('*.py'))
                 paths.append(target/'src/pyproject.toml')

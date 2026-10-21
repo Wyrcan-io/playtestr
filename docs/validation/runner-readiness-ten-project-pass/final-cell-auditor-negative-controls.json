@@ -1,0 +1,73 @@
+{
+  "controls": [
+    {
+      "attempt": "68d1ba771f80400abfa38a1a96ebb7cb",
+      "control": "missing-launch",
+      "specific_refusal": "missing launch witness"
+    },
+    {
+      "attempt": "6183addc7c2d45eea533e86c5f726ce3",
+      "control": "wrong-archive",
+      "specific_refusal": "different native private archive"
+    },
+    {
+      "attempt": "82f674dcf19a4f64957a9548f5069e29",
+      "control": "wrong-executed-runner",
+      "specific_refusal": "actual exact archive differs"
+    },
+    {
+      "attempt": "a505f7ba6ed24314b948fc554ccd38f3",
+      "control": "missing-report",
+      "specific_refusal": "No such file or directory"
+    },
+    {
+      "attempt": "bfc7d3779da54fbbaac65ad144f8b628",
+      "control": "duplicate-invocation",
+      "specific_refusal": "reused invocation/workspace"
+    },
+    {
+      "attempt": "b0f8d51f1d8240f49e2f0df98c846afb",
+      "control": "unconfirmed-cleanup",
+      "specific_refusal": "actual result/cleanup differs"
+    },
+    {
+      "attempt": "eb8e98dd9cdc4a959bbb32d739ccb510",
+      "control": "cross-execution-state",
+      "specific_refusal": "cross-execution state"
+    },
+    {
+      "attempt": "16abf8ab42ad41089d1025c7605e5c0b",
+      "control": "wrong-fixture",
+      "specific_refusal": "native canonical input changed"
+    },
+    {
+      "attempt": "6984cdec7df9437f92d7dc0d36117bc7",
+      "control": "wrong-target-source",
+      "specific_refusal": "actual interpreted source/lock differs"
+    },
+    {
+      "attempt": "11aedc59bbc74d36b6b47a9da49832a0",
+      "control": "missing-source-faults",
+      "specific_refusal": "ambiguous source fault batch"
+    },
+    {
+      "attempt": "263db9a0e98549768fd275bdcd40da9e",
+      "control": "missing-positive-step",
+      "specific_refusal": "incomplete positive evidence"
+    },
+    {
+      "attempt": "4d7a589348124faf8e5c9fcdeb09b6fc",
+      "control": "wrong-phase",
+      "specific_refusal": "missing final-phase launch"
+    }
+  ],
+  "final_archive_credit": 0,
+  "host": "linux",
+  "original_packet_unchanged": true,
+  "owned_copy_removed": true,
+  "positive_attempt": "ef6846fffd53413784bc87d448a0aae3",
+  "project": "plop",
+  "restored_positive_attempt": "fb8fad872e2d40499520efae295fa9e9",
+  "run": "39672351954",
+  "scope": "Twelve specific refusals against a real final native packet, including rebound provenance and report identities. Global matrix gates remain open."
+}

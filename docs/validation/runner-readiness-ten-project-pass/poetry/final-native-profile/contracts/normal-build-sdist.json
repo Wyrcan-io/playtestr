@@ -1,0 +1,61 @@
+{
+  "version": 3,
+  "name": "recorded interaction",
+  "command": [
+    "poetry",
+    "--no-plugins",
+    "build",
+    "--format",
+    "sdist",
+    "--output",
+    "dist",
+    "--no-interaction"
+  ],
+  "workspace": {
+    "fixture": "project-fixture",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "GIT_CONFIG_GLOBAL": "/dev/null",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "PIP_NO_INDEX": "1",
+    "POETRY_KEYRING_ENABLED": "false",
+    "POETRY_VIRTUALENVS_CREATE": "false",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "SOURCE_DATE_EPOCH": "946684800"
+  },
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Building sdist"
+    },
+    {
+      "expect": "Built fixture_app-1.2.3.tar.gz"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "dist/fixture_app-1.2.3.tar.gz",
+        "kind": "file",
+        "bytes_base64": "H4sICIBDbTgC/2ZpeHR1cmVfYXBwLTEuMi4zLnRhcgDtl21P2zAQx/van8LK3hKTpxYpGmiIh2naYBWb9gZVlUmuxSNOPMcpjdC++5ykFFaQpiJWber93rg93/lc9f6Xy0TMTaVhzJVyfRawcPfi5PD47ITJtPdaeJZBFLWrZXX1vMDveXteGAaRP2jsfhCEUY96vQ1QlYZre5XednIBMwG3kFLFkxs+BdJDtonJE/0/suyOxyIXZjxmqv6r+g9W9N+P/D7qfxO8ofq+A5RFpRNsANuuf1UrXXyHxDBTyGwTz/9+NFjRf7jnof43pH+loQQ9A2quRfnQDZJCSsgNuVxUw4jkXALdp86iZFxbMg6ZgS5FkTf2tnwckkKZaKHMwrocMLIi4RldBDtEw49K2NSuqs1153qwHzLfa7Z42qVazqIO4ZV106W1Xt7d3+S0O4wetnvODgXJRdbsdN7vYM6lyoCJfMYzkTo/R/Z6CvIU8kRAe9iIkMurSmSpW9alATla3qzZdVQBRtduUmg42A+Yx7ydt2GzOCPShV3Zwcme2GTtnFnjzCQvi9x+4Uo45H/S//Dje/fD+enn18vxB/37vu+tzv9eP0D9b4IzMDzlhrvfOiHHNGARObcCi+kjoZPldlsk5EslJdd1TJ+XN+kUGdPfFbowu61MY/q8SMnFfWcYtp0hpl1fIEcZL0sxEWDPHepiqrmUIp/STzyfVvbVhcbW3jUT+ylc1/8FKZjvrx8SrB/ygt8SrR/SJ8cPrds9KnJj+7/7tVa2FAzMza79x2/S4jYn5MlbI06NCIIgCIIgCIIgCIIgCIIgCPIP8Qvs02deACgAAA=="
+      }
+    },
+    {
+      "state": {
+        "path": "dist",
+        "kind": "entries",
+        "entries": [
+          "fixture_app-1.2.3.tar.gz"
+        ]
+      }
+    }
+  ]
+}

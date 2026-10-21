@@ -1,0 +1,27 @@
+
+Version [0.1.0]:
+Author [Fixture Author <author@example.invalid>, n to skip]:
+
+Would you like to define your main dependencies interactively? (yes/no) [yes] n
+Would you like to define your development dependencies interactively? (yes/no) [yes] n
+Generated file
+
+[project]
+name = "atlas"
+version = "0.1.0"
+description = "Fixture project"
+authors = [
+    {name = "Fixture Author",email = "author@example.invalid"}
+]
+license = "MIT"
+requires-python = ">=3.10"
+dependencies = [
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+Do you confirm generation? (yes/no) [yes] yes

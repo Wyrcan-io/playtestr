@@ -9,8 +9,9 @@ from readiness_poetry_cases import PACKAGE, rows
 from readiness_poetry_archive_oracle import reviewed_archive
 
 
-def main():
-    target=RAW/'poetry/host-contracts'
+def main(*,target=None,windows=None):
+    windows=os.name=='nt' if windows is None else windows
+    target=RAW/'poetry/host-contracts' if target is None else target
     target.mkdir(parents=True,exist_ok=False)
     contracts=[('N01','normal-init.json'),('N08','normal-build-sdist.json')]+[(r[0],r[1]) for r in rows()]
     folders={'snapshots'}
@@ -22,8 +23,8 @@ def main():
     for identity,name in contracts:
         source=PACKAGE/name;spec=json.loads(source.read_text())
         differences=[]
-        if os.name!='nt':
-            spec['env']['GIT_CONFIG_GLOBAL']=os.devnull
+        if not windows:
+            spec['env']['GIT_CONFIG_GLOBAL']='/dev/null'
             differences.append('native null-device name for isolated synthetic Git configuration')
             # Only newly generated text uses native newline defaults. Existing
             # LF fixtures and their edits preserve the original reviewed bytes.

@@ -1,0 +1,113 @@
+{
+  "version": 3,
+  "env": {
+    "GIT_CONFIG_GLOBAL": "/dev/null",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "POETRY_KEYRING_ENABLED": "false",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONNOUSERSITE": "1"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "name": "Poetry E05",
+  "command": [
+    "poetry",
+    "--no-plugins",
+    "init",
+    "--name",
+    "atlas",
+    "--author",
+    "Fixture Author <author@example.invalid>",
+    "--python",
+    ">=3.10",
+    "--license",
+    "MIT"
+  ],
+  "workspace": {
+    "fixture": "fixture",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "steps": [
+    {
+      "expect": "Version ["
+    },
+    {
+      "resize": {
+        "width": 80,
+        "height": 20
+      }
+    },
+    {
+      "resize": {
+        "width": 100,
+        "height": 28
+      }
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Description ["
+    },
+    {
+      "text": "Reviewed long description wide content wide content wide content wide content wide content wide content wide content wide content wide content wide content wide content wide content wide content wide content wide content wide content wide content wide content wide content wide content"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Author ["
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Would you like to define your main dependencies interactively?"
+    },
+    {
+      "text": "n"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Would you like to define your development dependencies interactively?"
+    },
+    {
+      "text": "n"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Do you confirm generation?"
+    },
+    {
+      "text": "yes"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "pyproject.toml",
+        "kind": "file",
+        "bytes_base64": "W3Byb2plY3RdCm5hbWUgPSAiYXRsYXMiCnZlcnNpb24gPSAiMC4xLjAiCmRlc2NyaXB0aW9uID0gIlJldmlld2VkIGxvbmcgZGVzY3JpcHRpb24gd2lkZSBjb250ZW50IHdpZGUgY29udGVudCB3aWRlIGNvbnRlbnQgd2lkZSBjb250ZW50IHdpZGUgY29udGVudCB3aWRlIGNvbnRlbnQgd2lkZSBjb250ZW50IHdpZGUgY29udGVudCB3aWRlIGNvbnRlbnQgd2lkZSBjb250ZW50IHdpZGUgY29udGVudCB3aWRlIGNvbnRlbnQgd2lkZSBjb250ZW50IHdpZGUgY29udGVudCB3aWRlIGNvbnRlbnQgd2lkZSBjb250ZW50IHdpZGUgY29udGVudCB3aWRlIGNvbnRlbnQgd2lkZSBjb250ZW50IHdpZGUgY29udGVudCIKYXV0aG9ycyA9IFsKICAgIHtuYW1lID0gIkZpeHR1cmUgQXV0aG9yIixlbWFpbCA9ICJhdXRob3JAZXhhbXBsZS5pbnZhbGlkIn0KXQpsaWNlbnNlID0gIk1JVCIKcmVxdWlyZXMtcHl0aG9uID0gIj49My4xMCIKZGVwZW5kZW5jaWVzID0gWwpdCgoKW2J1aWxkLXN5c3RlbV0KcmVxdWlyZXMgPSBbInBvZXRyeS1jb3JlPj0yLjAuMCw8My4wLjAiXQpidWlsZC1iYWNrZW5kID0gInBvZXRyeS5jb3JlLm1hc29ucnkuYXBpIgo="
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    }
+  ]
+}
