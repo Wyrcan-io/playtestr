@@ -72,6 +72,10 @@ jobs:
           persist-credentials: false
           set-safe-directory: false
           clean: false
+      - name: Restore owned cache directories after initial checkout initialization
+        run: |
+          owned="$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass"
+          mkdir -p "$owned/ci/home" "$owned/ci/cache" "$owned/ci/tmp" "$owned/ci/tool-cache" "$owned/ci/go-cache" "$owned/ci/gopath/pkg/mod" "$owned/ci/pip-cache" "$owned/ci/python-user" artifacts/playtestr
       - name: Verify official Go 1.25 SDK in the owned checkout using installed Python
         run: |
           python3 scripts/acceptance/readiness_check.py --label delivered-ci-owned-runner-sdk --timeout 360 -- python3 scripts/acceptance/readiness_bootstrap_go.py
