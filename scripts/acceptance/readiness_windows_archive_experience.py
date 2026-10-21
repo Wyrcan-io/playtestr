@@ -59,7 +59,8 @@ def extract(archive,expected,output):
 async def main():
     parser=argparse.ArgumentParser();parser.add_argument('--series',choices=['provisional-v1','migration-v2'],default='provisional-v1')
     parser.add_argument('--previous-series',choices=['e5-rc2','provisional-v1'],default='e5-rc2')
-    parser.add_argument('--archive',type=Path);parser.add_argument('--previous-archive',type=Path);args=parser.parse_args()
+    parser.add_argument('--archive',type=Path);parser.add_argument('--previous-archive',type=Path)
+    parser.add_argument('--socket-guard',type=Path);args=parser.parse_args()
     host={'Windows':'windows','Linux':'linux','Darwin':'darwin'}.get(platform.system())
     require(host is not None,'undeclared native archive host')
     suffix='.exe' if os.name=='nt' else ''
@@ -99,9 +100,27 @@ async def main():
         'rollback':extract(old_archive,previous,root/'rollback caf\u00e9 \u96ea'),
     }
     attempts={}
+    guard_receipts={}
+    if args.socket_guard:
+        require(host=='linux' and current['architecture']=='amd64','socket filter is declared Linux amd64 only')
+        args.socket_guard=args.socket_guard.resolve(strict=True)
+        args.socket_guard.relative_to(RAW.resolve(strict=True))
     async def call(label,argv,expected=0,cwd=None,stdin=None,build_env=None):
+        campaign=Campaign()
+        if args.socket_guard and Path(argv[0]) in installed.values():
+            guard_receipt=root/(label+'-socket-policy.json')
+            argv=[args.socket_guard,'--root',RAW,'--receipt',guard_receipt,'--',*argv]
+            guard_receipts[label]=guard_receipt.relative_to(ROOT).as_posix()
+            class GuardedCampaign(Campaign):
+                def identity(self,project,command):
+                    require(command[:6]==[args.socket_guard,'--root',RAW,'--receipt',guard_receipt,'--'],
+                            'guard command prefix differs')
+                    # Keep recorder fixture identity selection on the actual
+                    # public argv, with the executed launcher additionally bound.
+                    return super().identity(project,[*command[6:],command[0]])
+            campaign=GuardedCampaign()
         result=await execute(argv,'core','archive-experience-'+label,env=build_env or env,
-            cwd=cwd or root,input=stdin,expected=expected,timeout=90,campaign=Campaign())
+            cwd=cwd or root,input=stdin,expected=expected,timeout=90,campaign=campaign)
         attempts[label]=result['id']
         return result
     for name,binary in installed.items():
@@ -178,6 +197,8 @@ async def main():
         spec_sha256=approved,baseline_sha256=baseline,corrupt_archive_rejected_before_extraction=True,
         scope='Private native archive calibration; source-free execution has an empty PATH and only installed files in the initial package. Fixture builds are separate engineering preparation.',
         limits='No OS network isolation claim, real-project fault credit, final-archive qualification, paid launch or human-usability credit. Explicit side-by-side private upgrade/rollback; no global installation.',
+        socket_guard=(dict(binary=args.socket_guard.relative_to(ROOT).as_posix(),sha256=sha256(args.socket_guard),receipts=guard_receipts,
+            scope='Applied process-scoped socket/socketpair/connect refusal for each public CLI command and descendants. Fixture compilation is separate; no host firewall or OS-level network isolation claim.') if args.socket_guard else None),
         final_archive_credit=0))
     print('Private native source-free version/help, Unicode relocation, corruption rejection, controlled failure/recovery and v2 upgrade/rollback calibrated:',root)
 

@@ -14,7 +14,8 @@ def require(value,message):
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--id',required=True);parser.add_argument('--series',choices=['provisional-v1','migration-v2'],default='provisional-v1')
-    parser.add_argument('--packet',type=Path);parser.add_argument('--check-only',action='store_true');args=parser.parse_args()
+    parser.add_argument('--packet',type=Path);parser.add_argument('--check-only',action='store_true')
+    parser.add_argument('--canonical-archive',type=Path);args=parser.parse_args()
     require(len(args.id)==32 and all(c in '0123456789abcdef' for c in args.id),'invalid calibration id')
     base=args.packet.resolve(strict=True) if args.packet else RAW
     base.relative_to(RAW.resolve(strict=True))
@@ -30,6 +31,9 @@ def main():
     require(receipt['current_archive_sha256']==cell['archive_sha256']
             and receipt['installed_binary_sha256']['current']==cell['binary_sha256'],'different actual candidate')
     canonical=ROOT/cell['archive_local_only'];corrupt=root/'corrupt.zip'
+    if args.canonical_archive:
+        canonical=args.canonical_archive.resolve(strict=True)
+        canonical.relative_to(RAW.resolve(strict=True))
     require(canonical.stat().st_size==cell['archive_bytes'] and sha256(canonical)==cell['archive_sha256']
             and corrupt.is_file() and corrupt.stat().st_size==cell['archive_bytes'],
             'canonical or corrupt checksum-control archive missing or changed')
