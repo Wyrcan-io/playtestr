@@ -166,11 +166,13 @@
   "source_oracle": {
     "src/nnn.c": "35374230818a664ccb54585b1dbac3be7ce04f42b620b15d07043160025d8c0d"
   },
-  "revision": 2,
+  "revision": 3,
   "superseded_native_run": "39559099229",
   "viewport_by_host": {
     "linux": 100,
     "macos": 160
   },
-  "revision_reason": "The first variant kept four negative anchors referring to text no longer positively observed, so three Linux specs were correctly rejected before launch. macOS original contracts use width160 and were refused by the width100 harness guard before launch. Revise both paired observations and use original host geometry; no deadline or snapshot change."
+  "revision_reason": "The first variant kept four negative anchors referring to text no longer positively observed, so three Linux specs were correctly rejected before launch. macOS original contracts use width160 and were refused by the width100 harness guard before launch. Revise both paired observations and use original host geometry; no deadline or snapshot change.",
+  "required_owned_temporary_subdirectory": "active/old-nnn/tmp/owned-header-context",
+  "temporary_context_reason": "Original macOS width160 can straddle abbreviation depending on generated workspace suffix and final component length. Use an explicit owned temporary subdirectory to guarantee the reviewed abbreviation before any launch, preserving original viewport/actions/fixtures/snapshots. Guard uses the actual runner playtestr-workspace- prefix and a one-digit lower bound. No outside-workspace path or symlink."
 }

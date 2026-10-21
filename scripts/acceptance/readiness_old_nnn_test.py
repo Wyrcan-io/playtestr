@@ -31,7 +31,7 @@ async def main():
         raise RuntimeError('reviewed path abbreviation source changed')
     width=header['viewport_by_host'][host]
     env=environment();tempbase=Path(env['TMPDIR']).resolve(strict=True)
-    if len(str(tempbase/'workspace'/'fixture').encode('utf-8'))+16<=width:
+    if len(str(tempbase/'playtestr-workspace-0'/'fixture').encode('utf-8'))+16<=width:
         raise RuntimeError('declared long-path header context is absent')
     if (len(tempbase.parts)+3)*2+16+max(len(e['context_expect'].split('/')[-1].encode('utf-8')) for e in header['entries'])>width:
         raise RuntimeError('declared context may truncate the final path component')
