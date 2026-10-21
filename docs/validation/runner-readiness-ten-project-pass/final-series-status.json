@@ -1,11 +1,13 @@
 {
-  "attempted_projects": 7,
+  "attempted_projects": 8,
   "final_archive_qualified_projects": 0,
   "final_runner_admissions": 0,
-  "observed_ordinary_executions": 4054,
+  "observed_ordinary_cancelled": 1,
+  "observed_ordinary_executions": 4474,
   "observed_ordinary_failed": 2,
-  "observed_ordinary_passed": 4052,
-  "observed_public_calibration_executions": 144,
+  "observed_ordinary_passed": 4471,
+  "observed_ordinary_unreported": 0,
+  "observed_public_calibration_executions": 153,
   "paid_launch_admissions": 0,
   "projects": [
     {
@@ -102,6 +104,21 @@
           "receipt_sha256": "5c08f6c81226c14513ee65c0396bb4b2967627e91ed1af530dd65c43d82d0760",
           "run": "39678379929",
           "status": "independently-verified"
+        }
+      ]
+    },
+    {
+      "project": "frogmouth",
+      "series": [
+        {
+          "ordinary_cancelled": 1,
+          "ordinary_failed": 0,
+          "ordinary_observed": 420,
+          "ordinary_passed": 419,
+          "ordinary_unreported": 0,
+          "receipt_sha256": "1992a9607b068e4d7cafb0b5aafb6a1cfb88c7500380db4bf5b1da8e88543689",
+          "run": "39680492184",
+          "status": "cancelled-harness-profile"
         }
       ]
     }

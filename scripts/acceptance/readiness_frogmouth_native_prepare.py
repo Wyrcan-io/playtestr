@@ -13,7 +13,9 @@ from readiness_frogmouth_first_use import SOURCE
 
 
 async def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--target-only',action='store_true');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--target-only',action='store_true')
+    parser.add_argument('--no-path-export',action='store_true');args=parser.parse_args()
+    if args.no_path_export and not args.target_only:parser.error('--no-path-export requires --target-only')
     if not args.target_only:
         candidate=ROOT/'.playtestr-bin'/('playtestr.exe' if os.name=='nt' else 'playtestr')
         binary=RAW/'bin'/candidate.name;binary.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(candidate,binary)
@@ -24,8 +26,9 @@ async def main():
         await execute([sys.executable,'scripts/acceptance/'+script],'frogmouth',label,timeout=timeout,campaign=Campaign())
     if args.target_only:
         await execute([sys.executable,'scripts/acceptance/readiness_frogmouth_native_contracts.py','--prepare-only'],'frogmouth','prepare-generated-contracts',timeout=30,campaign=Campaign())
-        with Path(os.environ['GITHUB_PATH']).open('a',encoding='utf-8') as output:
-            output.write(str(RAW/'active/frogmouth/venv'/('Scripts' if os.name=='nt' else 'bin'))+'\n')
+        if not args.no_path_export:
+            with Path(os.environ['GITHUB_PATH']).open('a',encoding='utf-8') as output:
+                output.write(str(RAW/'active/frogmouth/venv'/('Scripts' if os.name=='nt' else 'bin'))+'\n')
         with Path(os.environ['GITHUB_ENV']).open('a',encoding='utf-8') as output:
             output.write('FROGMOUTH_BOOTSTRAP_PYTHON='+sys.executable+'\n')
 

@@ -9,14 +9,15 @@ def require(value,message):
     if not value:raise RuntimeError(message)
 
 
-def verify_batches(packet,docs,profile,host,candidate,cell,installed,build,events,witness):
+def verify_batches(packet,docs,profile,host,candidate,cell,installed,build,events,witness,*,declaration_file='final-series-declaration.json'):
+    require(declaration_file in {'final-series-declaration.json','final-series-declaration-v2.json'},'undeclared final schedule file')
     project=docs.name;target=packet/project;package=target/'host-contracts'
     frozen=load(profile/'reviewed-contract-freeze.json')
     require(len(frozen['contracts'])==20,'twenty canonical cases required')
     for name,digest in frozen['all_package_inputs'].items():require(sha256(package/name)==digest,'native canonical input changed')
-    final=target/'final-series';intent=load(final/'intent.json');declaration=load(docs/'final-series-declaration.json')
-    require(intent['host']==host and intent['declaration_file']=='final-series-declaration.json'
-        and intent['declaration_sha256']==sha256(docs/'final-series-declaration.json')
+    final=target/'final-series';intent=load(final/'intent.json');declaration=load(docs/declaration_file)
+    require(intent['host']==host and intent['declaration_file']==declaration_file
+        and intent['declaration_sha256']==sha256(docs/declaration_file)
         and declaration['candidate_freeze_sha256']==sha256(docs.parent/'migration-candidate-freeze.json')
         and intent['runner_sha256']==cell['binary_sha256'] and intent['archive_sha256']==cell['archive_sha256']
         and intent['target_build_sha256']==sha256(target/'retained-source/build.json') and intent['target_pin']==build['pin']

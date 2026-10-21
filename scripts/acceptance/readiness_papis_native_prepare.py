@@ -12,7 +12,9 @@ from readiness_evidence import Campaign, RAW, ROOT, immutable_json, sha256
 
 
 async def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--target-only',action='store_true');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--target-only',action='store_true')
+    parser.add_argument('--no-path-export',action='store_true');args=parser.parse_args()
+    if args.no_path_export and not args.target_only:parser.error('--no-path-export requires --target-only')
     if not args.target_only:
         candidate=ROOT/'.playtestr-bin'/('playtestr.exe' if os.name=='nt' else 'playtestr')
         binary=RAW/'bin'/candidate.name;binary.parent.mkdir(parents=True,exist_ok=True)
@@ -31,8 +33,9 @@ async def main():
     if args.target_only:
         await execute([sys.executable,'scripts/acceptance/readiness_papis_native_contracts.py','--prepare-only'],
             'papis','prepare-exact-generated-workflow-contracts',timeout=30,campaign=Campaign())
-        with Path(os.environ['GITHUB_PATH']).open('a',encoding='utf-8') as output:
-            output.write(str(RAW/'active/papis/venv'/('Scripts' if os.name=='nt' else 'bin'))+'\n')
+        if not args.no_path_export:
+            with Path(os.environ['GITHUB_PATH']).open('a',encoding='utf-8') as output:
+                output.write(str(RAW/'active/papis/venv'/('Scripts' if os.name=='nt' else 'bin'))+'\n')
         with Path(os.environ['GITHUB_ENV']).open('a',encoding='utf-8') as output:
             output.write('PAPIS_BOOTSTRAP_PYTHON='+sys.executable+'\n')
 
