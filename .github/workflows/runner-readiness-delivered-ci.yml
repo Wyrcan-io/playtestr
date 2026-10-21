@@ -29,8 +29,6 @@ env:
   TEMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/ci/tmp
   TMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/ci/tmp
   TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/ci/tmp
-  RUNNER_TEMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/ci/tmp
-  RUNNER_TOOL_CACHE: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/ci/tool-cache
   GOCACHE: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/ci/go-cache
   GOPATH: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/ci/gopath
   GOMODCACHE: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/ci/gopath/pkg/mod
@@ -60,8 +58,6 @@ jobs:
       - name: Prepare campaign-owned caches before checkout and SDK actions
         run: |
           owned="$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass"
-          test "$RUNNER_TEMP" = "$owned/ci/tmp"
-          test "$RUNNER_TOOL_CACHE" = "$owned/ci/tool-cache"
           mkdir -p "$owned/ci/home" "$owned/ci/cache" "$owned/ci/tmp" "$owned/ci/tool-cache" "$owned/ci/go-cache" "$owned/ci/gopath/pkg/mod" "$owned/ci/pip-cache" "$owned/ci/python-user"
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
@@ -76,13 +72,10 @@ jobs:
           persist-credentials: false
           set-safe-directory: false
           clean: false
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
-        with:
-          go-version-file: .playtestr-tooling/go.mod
-          cache: false
-      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
-        with:
-          python-version: '3.12'
+      - name: Verify official Go 1.25 SDK in the owned checkout using installed Python
+        run: |
+          python3 scripts/acceptance/readiness_check.py --label delivered-ci-owned-runner-sdk --timeout 360 -- python3 scripts/acceptance/readiness_bootstrap_go.py
+          echo "$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass/toolchain/go/bin" >> "$GITHUB_PATH"
       - name: Build exact candidate runner
         id: setup
         env:
