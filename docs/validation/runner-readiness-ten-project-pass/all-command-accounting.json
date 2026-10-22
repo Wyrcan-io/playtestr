@@ -1,0 +1,487 @@
+{
+  "command_inventory_local_only": "artifacts/runner-readiness-ten-project-pass/closing-journal/3d9528c916c84a3d83b2c854c9b16f4c/commands.json",
+  "command_inventory_sha256": "03743e10d276ccbc733e2699a0578529d023103615a077813f62b2ff683674f4",
+  "duplicate_event_copies_merged": 0,
+  "finished_commands": 17988,
+  "harness_cleanup": [
+    {
+      "commands": 1,
+      "has_cleanup_errors": true,
+      "outcome": "harness_cleanup_unconfirmed"
+    },
+    {
+      "commands": 17986,
+      "has_cleanup_errors": false,
+      "outcome": "harness_process_reaped"
+    },
+    {
+      "commands": 1,
+      "has_cleanup_errors": false,
+      "outcome": "not_started"
+    }
+  ],
+  "incomplete_commands": [
+    {
+      "disposition": "Retained unfinished command envelope; no successful completion credit. This may be the currently running closing auditor or an interrupted historical attempt.",
+      "events": [
+        "identified",
+        "launched",
+        "started"
+      ],
+      "id": "5a47d59fc50640af99764fa4a3901b20",
+      "label": "closing-deduplicated-command-journal",
+      "project": "core"
+    }
+  ],
+  "outcomes": [
+    {
+      "category": "exit_mismatch",
+      "commands": 226,
+      "phase": "development",
+      "project": "core"
+    },
+    {
+      "category": "harness_error",
+      "commands": 1,
+      "phase": "development",
+      "project": "core"
+    },
+    {
+      "category": "harness_timeout",
+      "commands": 3,
+      "phase": "development",
+      "project": "core"
+    },
+    {
+      "category": "passed",
+      "commands": 2678,
+      "phase": "development",
+      "project": "core"
+    },
+    {
+      "category": "exit_mismatch",
+      "commands": 9,
+      "phase": "development",
+      "project": "edit"
+    },
+    {
+      "category": "passed",
+      "commands": 585,
+      "phase": "development",
+      "project": "edit"
+    },
+    {
+      "category": "diagnostic_observation",
+      "commands": 52,
+      "phase": "development",
+      "project": "fff"
+    },
+    {
+      "category": "exit_mismatch",
+      "commands": 19,
+      "phase": "development",
+      "project": "fff"
+    },
+    {
+      "category": "passed",
+      "commands": 1398,
+      "phase": "development",
+      "project": "fff"
+    },
+    {
+      "category": "exit_mismatch",
+      "commands": 14,
+      "phase": "development",
+      "project": "frogmouth"
+    },
+    {
+      "category": "passed",
+      "commands": 741,
+      "phase": "development",
+      "project": "frogmouth"
+    },
+    {
+      "category": "passed",
+      "commands": 6,
+      "phase": "development",
+      "project": "historical-macos"
+    },
+    {
+      "category": "passed",
+      "commands": 300,
+      "phase": "development",
+      "project": "historical-wizard"
+    },
+    {
+      "category": "exit_mismatch",
+      "commands": 7,
+      "phase": "development",
+      "project": "hygen"
+    },
+    {
+      "category": "harness_timeout",
+      "commands": 1,
+      "phase": "development",
+      "project": "hygen"
+    },
+    {
+      "category": "passed",
+      "commands": 956,
+      "phase": "development",
+      "project": "hygen"
+    },
+    {
+      "category": "exit_mismatch",
+      "commands": 8,
+      "phase": "development",
+      "project": "old-broot"
+    },
+    {
+      "category": "passed",
+      "commands": 88,
+      "phase": "development",
+      "project": "old-broot"
+    },
+    {
+      "category": "passed",
+      "commands": 48,
+      "phase": "development",
+      "project": "old-cookiecutter"
+    },
+    {
+      "category": "exit_mismatch",
+      "commands": 3,
+      "phase": "development",
+      "project": "old-copier"
+    },
+    {
+      "category": "passed",
+      "commands": 33,
+      "phase": "development",
+      "project": "old-copier"
+    },
+    {
+      "category": "passed",
+      "commands": 34,
+      "phase": "development",
+      "project": "old-glow"
+    },
+    {
+      "category": "passed",
+      "commands": 58,
+      "phase": "development",
+      "project": "old-helix"
+    },
+    {
+      "category": "exit_mismatch",
+      "commands": 1,
+      "phase": "development",
+      "project": "old-lf"
+    },
+    {
+      "category": "passed",
+      "commands": 32,
+      "phase": "development",
+      "project": "old-lf"
+    },
+    {
+      "category": "exit_mismatch",
+      "commands": 6,
+      "phase": "development",
+      "project": "old-nnn"
+    },
+    {
+      "category": "passed",
+      "commands": 99,
+      "phase": "development",
+      "project": "old-nnn"
+    },
+    {
+      "category": "passed",
+      "commands": 24,
+      "phase": "development",
+      "project": "old-ranger"
+    },
+    {
+      "category": "passed",
+      "commands": 34,
+      "phase": "development",
+      "project": "old-superfile"
+    },
+    {
+      "category": "harness_timeout",
+      "commands": 1,
+      "phase": "development",
+      "project": "old-yazi"
+    },
+    {
+      "category": "passed",
+      "commands": 97,
+      "phase": "development",
+      "project": "old-yazi"
+    },
+    {
+      "category": "exit_mismatch",
+      "commands": 15,
+      "phase": "development",
+      "project": "papis"
+    },
+    {
+      "category": "passed",
+      "commands": 625,
+      "phase": "development",
+      "project": "papis"
+    },
+    {
+      "category": "exit_mismatch",
+      "commands": 6,
+      "phase": "development",
+      "project": "plop"
+    },
+    {
+      "category": "passed",
+      "commands": 376,
+      "phase": "development",
+      "project": "plop"
+    },
+    {
+      "category": "exit_mismatch",
+      "commands": 7,
+      "phase": "development",
+      "project": "poetry"
+    },
+    {
+      "category": "passed",
+      "commands": 367,
+      "phase": "development",
+      "project": "poetry"
+    },
+    {
+      "category": "exit_mismatch",
+      "commands": 2,
+      "phase": "development",
+      "project": "r3-windows-glow"
+    },
+    {
+      "category": "passed",
+      "commands": 4,
+      "phase": "development",
+      "project": "r3-windows-glow"
+    },
+    {
+      "category": "exit_mismatch",
+      "commands": 3,
+      "phase": "development",
+      "project": "r3-windows-superfile"
+    },
+    {
+      "category": "passed",
+      "commands": 3,
+      "phase": "development",
+      "project": "r3-windows-superfile"
+    },
+    {
+      "category": "exit_mismatch",
+      "commands": 15,
+      "phase": "development",
+      "project": "rclone"
+    },
+    {
+      "category": "harness_timeout",
+      "commands": 2,
+      "phase": "development",
+      "project": "rclone"
+    },
+    {
+      "category": "passed",
+      "commands": 550,
+      "phase": "development",
+      "project": "rclone"
+    },
+    {
+      "category": "exit_mismatch",
+      "commands": 33,
+      "phase": "development",
+      "project": "rubygems"
+    },
+    {
+      "category": "harness_output_limit",
+      "commands": 1,
+      "phase": "development",
+      "project": "rubygems"
+    },
+    {
+      "category": "passed",
+      "commands": 419,
+      "phase": "development",
+      "project": "rubygems"
+    },
+    {
+      "category": "passed",
+      "commands": 585,
+      "phase": "development",
+      "project": "state-calibration"
+    },
+    {
+      "category": "exit_mismatch",
+      "commands": 12,
+      "phase": "development",
+      "project": "vis"
+    },
+    {
+      "category": "passed",
+      "commands": 660,
+      "phase": "development",
+      "project": "vis"
+    },
+    {
+      "category": "exit_mismatch",
+      "commands": 3,
+      "phase": "final-archive",
+      "project": "core"
+    },
+    {
+      "category": "passed",
+      "commands": 697,
+      "phase": "final-archive",
+      "project": "core"
+    },
+    {
+      "category": "passed",
+      "commands": 552,
+      "phase": "final-archive",
+      "project": "edit"
+    },
+    {
+      "category": "passed",
+      "commands": 538,
+      "phase": "final-archive",
+      "project": "fff"
+    },
+    {
+      "category": "exit_mismatch",
+      "commands": 1,
+      "phase": "final-archive",
+      "project": "frogmouth"
+    },
+    {
+      "category": "passed",
+      "commands": 998,
+      "phase": "final-archive",
+      "project": "frogmouth"
+    },
+    {
+      "category": "passed",
+      "commands": 536,
+      "phase": "final-archive",
+      "project": "hygen"
+    },
+    {
+      "category": "passed",
+      "commands": 32,
+      "phase": "final-archive",
+      "project": "old-cookiecutter"
+    },
+    {
+      "category": "passed",
+      "commands": 32,
+      "phase": "final-archive",
+      "project": "old-copier"
+    },
+    {
+      "category": "passed",
+      "commands": 34,
+      "phase": "final-archive",
+      "project": "old-glow"
+    },
+    {
+      "category": "passed",
+      "commands": 38,
+      "phase": "final-archive",
+      "project": "old-helix"
+    },
+    {
+      "category": "passed",
+      "commands": 32,
+      "phase": "final-archive",
+      "project": "old-lf"
+    },
+    {
+      "category": "passed",
+      "commands": 34,
+      "phase": "final-archive",
+      "project": "old-superfile"
+    },
+    {
+      "category": "passed",
+      "commands": 560,
+      "phase": "final-archive",
+      "project": "papis"
+    },
+    {
+      "category": "passed",
+      "commands": 510,
+      "phase": "final-archive",
+      "project": "plop"
+    },
+    {
+      "category": "passed",
+      "commands": 516,
+      "phase": "final-archive",
+      "project": "poetry"
+    },
+    {
+      "category": "passed",
+      "commands": 538,
+      "phase": "final-archive",
+      "project": "rclone"
+    },
+    {
+      "category": "passed",
+      "commands": 509,
+      "phase": "final-archive",
+      "project": "rubygems"
+    },
+    {
+      "category": "passed",
+      "commands": 552,
+      "phase": "final-archive",
+      "project": "vis"
+    },
+    {
+      "category": "exit_mismatch",
+      "commands": 1,
+      "phase": "unspecified",
+      "project": "core"
+    },
+    {
+      "category": "passed",
+      "commands": 13,
+      "phase": "unspecified",
+      "project": "core"
+    },
+    {
+      "category": "exit_mismatch",
+      "commands": 1,
+      "phase": "unspecified",
+      "project": "plop"
+    },
+    {
+      "category": "passed",
+      "commands": 1,
+      "phase": "unspecified",
+      "project": "plop"
+    },
+    {
+      "category": "passed",
+      "commands": 13,
+      "phase": "unspecified",
+      "project": "state-calibration"
+    }
+  ],
+  "retained_packet_archives": 113,
+  "retained_sources_local_only": "artifacts/runner-readiness-ten-project-pass/closing-journal/3d9528c916c84a3d83b2c854c9b16f4c/sources.json",
+  "retained_sources_sha256": "552520a64cf60b8cb6179d77323d723c1a55fab5c4bfa365dace28d6df3bfae2",
+  "scope": "Deduplicated actual command envelopes, including setup/build/authoring/harness and failed commands, from current local events and self-contained retained hosted packets. Commands are not scenarios or project admissions. Final series, old-migration report outcomes and bounded R3 repetitions have separate nonoverlapping denominators. Repeated identical event copies add no credit. This is a point-in-time observation; later closing commands are not backfilled.",
+  "unique_command_ids": 17989
+}

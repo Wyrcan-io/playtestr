@@ -1,0 +1,652 @@
+{
+  "counts": {
+    "calibration": 108,
+    "ordinary": 565,
+    "prelaunch-invalid": 3
+  },
+  "original_actual_calibration": 72,
+  "original_actual_ordinary": 425,
+  "original_mixed_legacy_counter": 500,
+  "original_prelaunch_invalid": 3,
+  "reports": {
+    "old-migration/broot/linux/corruption/46fa9d598f6641aa93994744403fd76e/legacy-terminal-false-green.json": {
+      "sha256": "88e0e52da475a08177c3a185ed7248b46a5f59a2d87bfffafb0e5e6a459bb98b",
+      "total": 1
+    },
+    "old-migration/broot/linux/corruption/46fa9d598f6641aa93994744403fd76e/public-state-corruption-rejected.json": {
+      "sha256": "a25d6806267214a5c9f3bdbf965304d4d6b68ec1eaa01e5e0ae0c55526d22ef2",
+      "total": 1
+    },
+    "old-migration/broot/linux/corruption/46fa9d598f6641aa93994744403fd76e/public-state-corruption-restored.json": {
+      "sha256": "a2c58a3bebb10202415ea98a7488552f892a87795f9c5aff6254d0ef0fc21ab2",
+      "total": 1
+    },
+    "old-migration/broot/linux/runs/32ae2aa78a284a78a015bcfd0b112f11/results.json": {
+      "sha256": "c333065d7214f8dc190676989e9b76e6d235bdc331a8d170be734066ce0fb5ba",
+      "total": 13
+    },
+    "old-migration/broot/linux/runs/a8c389e74b264c3388c37dfdf0c7e1af/results.json": {
+      "sha256": "d835a7dfd24c0ce07dca9c68c24debfebdcd99f91940813648cce6567e8bfd04",
+      "total": 13
+    },
+    "old-migration/broot/linux/runs/b27fab292ba04b91a318c7dcfa079806/results.json": {
+      "sha256": "8bf80a11535a64b23ccb15e233c718fc276ece828133bf2e193e0b95fe558c4a",
+      "total": 13
+    },
+    "old-migration/broot/macos/corruption/d65d93f0ece2417c944304a4cf0f9344/legacy-terminal-false-green.json": {
+      "sha256": "c329f985730ac83f7b0b506264ed44cc3c1172f64bdcd91b56a837b89a2a9525",
+      "total": 1
+    },
+    "old-migration/broot/macos/corruption/d65d93f0ece2417c944304a4cf0f9344/public-state-corruption-rejected.json": {
+      "sha256": "0d2ed1bd1f8b0a243933366a53f25e73f2f1951484587ea2007b751e07d6ba90",
+      "total": 1
+    },
+    "old-migration/broot/macos/corruption/d65d93f0ece2417c944304a4cf0f9344/public-state-corruption-restored.json": {
+      "sha256": "c63212274753a3dd4be08de49ad5898984d14614219c8e159bc657e44a39bb5d",
+      "total": 1
+    },
+    "old-migration/broot/macos/runs/212f674faa274f0d8719cd6e7b448efa/results.json": {
+      "sha256": "b779e9f5cafae9bff3e7481152794232caa432da8932d2f0798deebea75eb3e9",
+      "total": 13
+    },
+    "old-migration/broot/macos/runs/31b649a2923e4d63bbabfe9dac346c32/results.json": {
+      "sha256": "f8be2facffcc67cb607f912665367229e364a7d4acac13c23276f71d16ce8970",
+      "total": 13
+    },
+    "old-migration/broot/macos/runs/a61a3800d14e4a1587b70354dd12eee6/results.json": {
+      "sha256": "9f9c1fa970447aa6ce59bba60d3e98fc24d2a89bc6538b0af7c029595c956192",
+      "total": 13
+    },
+    "old-migration/cookiecutter/linux/corruption/13cf7b68975d4da0887c6e697834d6dc/legacy-terminal-false-green.json": {
+      "sha256": "6e3eb547a0198701a9a9f5df66e5e93313cf30aecf257b9fa8d1cfcb126f5796",
+      "total": 1
+    },
+    "old-migration/cookiecutter/linux/corruption/13cf7b68975d4da0887c6e697834d6dc/public-state-corruption-rejected.json": {
+      "sha256": "8d420a496bead32dd2189157aa013cdfe5a5f23245b8564e5a8e3c718202a2a9",
+      "total": 1
+    },
+    "old-migration/cookiecutter/linux/corruption/13cf7b68975d4da0887c6e697834d6dc/public-state-corruption-restored.json": {
+      "sha256": "7dd9a9b27b692c135adcc0dfa097adccf029826cd1661fb712d5eac5937f9b52",
+      "total": 1
+    },
+    "old-migration/cookiecutter/linux/corruption/680e85dcdd22478db680b5d452801b60/legacy-terminal-false-green.json": {
+      "sha256": "450544f82c8b0b24f35c8d11ad2e750d37e1739d6f0f85ba2091f5225745241d",
+      "total": 1
+    },
+    "old-migration/cookiecutter/linux/corruption/680e85dcdd22478db680b5d452801b60/public-state-corruption-rejected.json": {
+      "sha256": "5ff9d236e0d365bfdae15d1717fb67c3e975e699ff35432accda6f3d99f8a1e6",
+      "total": 1
+    },
+    "old-migration/cookiecutter/linux/corruption/680e85dcdd22478db680b5d452801b60/public-state-corruption-restored.json": {
+      "sha256": "9220f0a8a6064f1968afe5e6a0775bc8d4d3526549e7f73ebad984f04fdcbc0d",
+      "total": 1
+    },
+    "old-migration/cookiecutter/linux/corruption/82f6920433594030bd161d7f66f6d5e4/legacy-terminal-false-green.json": {
+      "sha256": "3ea2e560c0f4bd689e8c66f99224ab298c3bd9f09f01f0216bbfe88dcfbd622c",
+      "total": 1
+    },
+    "old-migration/cookiecutter/linux/corruption/82f6920433594030bd161d7f66f6d5e4/public-state-corruption-rejected.json": {
+      "sha256": "f5a839423958a822c4bbca801aa5366d79a55e4c641533d8832331bbd7c3b1da",
+      "total": 1
+    },
+    "old-migration/cookiecutter/linux/corruption/82f6920433594030bd161d7f66f6d5e4/public-state-corruption-restored.json": {
+      "sha256": "d368d345bd25970c8e2292b56797201696dd645fb71bbe5484ae75c809530f59",
+      "total": 1
+    },
+    "old-migration/cookiecutter/linux/runs/12cfa8edab604d68b942b59198ce042f/results.json": {
+      "sha256": "fe96e11aa16d95aa65cfd8d8738dc57c70be5e95ce344b63d5a5b301381ad32a",
+      "total": 10
+    },
+    "old-migration/cookiecutter/linux/runs/c8c5d9dd3ea64826ba238e17e152cde2/results.json": {
+      "sha256": "62d369a2226a40a578e4c64e4af4e1f655f53a1cd8c0132a294a67e197c9bbdd",
+      "total": 10
+    },
+    "old-migration/cookiecutter/linux/runs/e895b29288664de2bfed13ca9fa1ffdd/results.json": {
+      "sha256": "652293d50c27ba93bd330eb9c15478829596364af0d2bc12773d3e61bdadb7b0",
+      "total": 10
+    },
+    "old-migration/cookiecutter/windows/corruption/86c1ad871a244cecbd0994122e86898f/legacy-terminal-false-green.json": {
+      "sha256": "441e6d311035cd484a6f28ffbae2f2aab50117191ba962b2d16ba27aa878314d",
+      "total": 1
+    },
+    "old-migration/cookiecutter/windows/corruption/86c1ad871a244cecbd0994122e86898f/public-state-corruption-rejected.json": {
+      "sha256": "aa95190635ea5480103a5657ccdcf2e6520fa607fe3ab0283bdb4033dc866d0a",
+      "total": 1
+    },
+    "old-migration/cookiecutter/windows/corruption/86c1ad871a244cecbd0994122e86898f/public-state-corruption-restored.json": {
+      "sha256": "3db7120c2bdb11c46e10f3db9b23e9e05e1844de36d0651d03c37334b14af38a",
+      "total": 1
+    },
+    "old-migration/cookiecutter/windows/corruption/c55f1c6100ae436595591be008547adb/legacy-terminal-false-green.json": {
+      "sha256": "b5ca8724d1e7779173cfa7d5e4a8b8dcac8605a057cef7f6e75172abe515824a",
+      "total": 1
+    },
+    "old-migration/cookiecutter/windows/corruption/c55f1c6100ae436595591be008547adb/public-state-corruption-rejected.json": {
+      "sha256": "5ae6956198b5148e56c2c87adce63023423c215ca0eb9f2d5e585e553ee1e7a7",
+      "total": 1
+    },
+    "old-migration/cookiecutter/windows/corruption/c55f1c6100ae436595591be008547adb/public-state-corruption-restored.json": {
+      "sha256": "bb1f6b486e4509fd79d718fb0db999d57fd8cc8492442e6be484943c13939bdf",
+      "total": 1
+    },
+    "old-migration/cookiecutter/windows/runs/7f590690b3f8439d80836efd75bf0a89/results.json": {
+      "sha256": "9a87ed586d5776105cc3a6bf61bb332bdf6129fa53eb536b56ca3f7ac1f8c9d5",
+      "total": 10
+    },
+    "old-migration/cookiecutter/windows/runs/82a73e35317b419294bc99728d4fa2f1/results.json": {
+      "sha256": "c98cd90d9f9a9a9f83d4c0d90cf2165bce540ae7c3c6ee20e40c4f8e57e24683",
+      "total": 10
+    },
+    "old-migration/copier/linux/corruption/573d21f7f6ba4a74899e3c1bc064742a/legacy-terminal-false-green.json": {
+      "sha256": "0c9f9d93ab103e030d83c78b30da42406f70bb75a9beb827706b5526f84975e8",
+      "total": 1
+    },
+    "old-migration/copier/linux/corruption/573d21f7f6ba4a74899e3c1bc064742a/public-state-corruption-rejected.json": {
+      "sha256": "1c8a44bf2c6f03d618addf54abe2f1c6ff525f464066dd1bfeb6aa95b521969f",
+      "total": 1
+    },
+    "old-migration/copier/linux/corruption/573d21f7f6ba4a74899e3c1bc064742a/public-state-corruption-restored.json": {
+      "sha256": "a99bb7cac77623b7b66282f6d8016df3b8569c41f6902b5303cd5205821642de",
+      "total": 1
+    },
+    "old-migration/copier/linux/corruption/7ce27110f2f243eca1148217c5707b9f/legacy-terminal-false-green.json": {
+      "sha256": "4c6ddde3b12df6b64cfe3ffe0fabb9671faee29b7d362df99c42ba8359757a79",
+      "total": 1
+    },
+    "old-migration/copier/linux/corruption/7ce27110f2f243eca1148217c5707b9f/public-state-corruption-rejected.json": {
+      "sha256": "b0ccbfa4d796bcfec9609d716a705b5c1b9da387365f57bb0cb89df360b6a35c",
+      "total": 1
+    },
+    "old-migration/copier/linux/corruption/7ce27110f2f243eca1148217c5707b9f/public-state-corruption-restored.json": {
+      "sha256": "cb10d54e3f9a9a238d68e87ac413ad68e992f5c99660fffbcb4e016d7db03161",
+      "total": 1
+    },
+    "old-migration/copier/linux/runs/3b332ca42df04b75b60d416792ee91d4/results.json": {
+      "sha256": "01840b48a5822d2d6091bba0d424e5485eb1cb0e87ed0a2c6e3b7d97241a4c19",
+      "total": 12
+    },
+    "old-migration/copier/linux/runs/cde243b6586b4532b412e6b61537efe3/results.json": {
+      "sha256": "a3f9be933414dd0a399ffb4675988b52b8ee917459c1ef719aa642cee1afd5b1",
+      "total": 12
+    },
+    "old-migration/copier/windows/corruption/22c12b142d474cbea2685b6cc6d8b968/legacy-terminal-false-green.json": {
+      "sha256": "64e33dc183d65e1c13bbb047080efbf47f7c30e5c3dd28ff76681c8db1172893",
+      "total": 1
+    },
+    "old-migration/copier/windows/corruption/22c12b142d474cbea2685b6cc6d8b968/public-state-corruption-rejected.json": {
+      "sha256": "5c889c2e20fbf05351bf5b405a4faf5bd412a9765e127a58e58fe3332e51aaf9",
+      "total": 1
+    },
+    "old-migration/copier/windows/corruption/22c12b142d474cbea2685b6cc6d8b968/public-state-corruption-restored.json": {
+      "sha256": "a83cc8c22bd64eef44fc85987e6ea4a39f32c2cdb2d9751f89e0a05693d749a1",
+      "total": 1
+    },
+    "old-migration/copier/windows/corruption/98e57064c718403588743f9f73b4aa70/legacy-terminal-false-green.json": {
+      "sha256": "1af51e0321a8ea215e4c2edb73baeb865097267ffd3e0094cf208479b2ec2c9f",
+      "total": 1
+    },
+    "old-migration/copier/windows/corruption/98e57064c718403588743f9f73b4aa70/public-state-corruption-rejected.json": {
+      "sha256": "5e81fbc863d16569e2eb611555898a0fcf3606e7922338d2eaa85d2301565b44",
+      "total": 1
+    },
+    "old-migration/copier/windows/corruption/98e57064c718403588743f9f73b4aa70/public-state-corruption-restored.json": {
+      "sha256": "eefc45ff6c0ec01899b71f45e11e70627f20dda42d08314a1b8e8c65c787d481",
+      "total": 1
+    },
+    "old-migration/copier/windows/runs/895d2ad4ae2f445382a2f9b9792a41a3/results.json": {
+      "sha256": "e0fb3eb1f03c1ce302bedffbb81b9052b4ecce300bd18e9db5f9de740206fa4d",
+      "total": 12
+    },
+    "old-migration/copier/windows/runs/99ac90e8a7694998a7d05c2bb931e147/results.json": {
+      "sha256": "5f9c7de487c041899ffbedec77f061617189b1928c5a97ce78db2e315a7186d8",
+      "total": 12
+    },
+    "old-migration/copier/windows/runs/eddd0a3489104474b3ea105d02080288/results.json": {
+      "sha256": "54d9f43afa6ae0301983ef01cad0b05f3f2a4c9e858bc6117c8a8a5289998d44",
+      "total": 12
+    },
+    "old-migration/glow/linux/corruption/3f7bb2add4bb4f0b80bb764caf3bc016/legacy-terminal-false-green.json": {
+      "sha256": "c94f261c4eac7a2b10418c9ad7056b2b59056f7b908d24676d24846eb5734e86",
+      "total": 1
+    },
+    "old-migration/glow/linux/corruption/3f7bb2add4bb4f0b80bb764caf3bc016/public-state-corruption-rejected.json": {
+      "sha256": "333acdea83b063a595327671dd63836ce6a9001354d080ec06a28a41591ca3b9",
+      "total": 1
+    },
+    "old-migration/glow/linux/corruption/3f7bb2add4bb4f0b80bb764caf3bc016/public-state-corruption-restored.json": {
+      "sha256": "7b8d7cdff9c710ef40c0c786f33318d5e02dbc49e135f6d8ae4d96a2ee24b5e6",
+      "total": 1
+    },
+    "old-migration/glow/linux/corruption/cc8de5c48314413bbde03044d42403c9/legacy-terminal-false-green.json": {
+      "sha256": "6c3caba624d2236a3cc9cf8e355c37289e622297e466847a5bd6b10e45895633",
+      "total": 1
+    },
+    "old-migration/glow/linux/corruption/cc8de5c48314413bbde03044d42403c9/public-state-corruption-rejected.json": {
+      "sha256": "2a3622dfda6d31f70957de3bf76d8aa00d7d4439852e59c9a04f9d77addf211a",
+      "total": 1
+    },
+    "old-migration/glow/linux/corruption/cc8de5c48314413bbde03044d42403c9/public-state-corruption-restored.json": {
+      "sha256": "6971f93395052551dc3dce1789408a9b21ff8d9d56fc746f44de14f2060bd09f",
+      "total": 1
+    },
+    "old-migration/glow/linux/runs/217127a1542744bd8ec5cd76d1f66ca9/results.json": {
+      "sha256": "39918caac3577fb12369e7b4649c889077d6ca988a5af716234c6655294a573f",
+      "total": 12
+    },
+    "old-migration/glow/linux/runs/f82b9be798c2473ba9571a5087dfe2d9/results.json": {
+      "sha256": "c20c3ac6a7ae1d61759e7c6a8fdb4e5af542aa80afbc3e6f0e700f3f73953830",
+      "total": 12
+    },
+    "old-migration/glow/macos/corruption/752cab93ff174ddea56818faff73c96f/legacy-terminal-false-green.json": {
+      "sha256": "fbb1d04ebc14fe4a5dda9e447d539090e273353472245d1e28ce88f8722257a7",
+      "total": 1
+    },
+    "old-migration/glow/macos/corruption/752cab93ff174ddea56818faff73c96f/public-state-corruption-rejected.json": {
+      "sha256": "557720a5422dcfa0f40ae7807913970caca7266ced6f311e8ca301afab965cdb",
+      "total": 1
+    },
+    "old-migration/glow/macos/corruption/752cab93ff174ddea56818faff73c96f/public-state-corruption-restored.json": {
+      "sha256": "9c4ff28dd2dc6be9bc85693d396d09ef9c965c147be14824c751cefa4c576652",
+      "total": 1
+    },
+    "old-migration/glow/macos/corruption/eefc46dd14ee42f689f65e47eab32a97/legacy-terminal-false-green.json": {
+      "sha256": "4f1926a41fd948b451625dbaa60459053591a7ba517806b3c3d6be4bed937f79",
+      "total": 1
+    },
+    "old-migration/glow/macos/corruption/eefc46dd14ee42f689f65e47eab32a97/public-state-corruption-rejected.json": {
+      "sha256": "196e810552fc5a0233a2708b893dc84e7e49e7d42f1496293937f0e551fdd81f",
+      "total": 1
+    },
+    "old-migration/glow/macos/corruption/eefc46dd14ee42f689f65e47eab32a97/public-state-corruption-restored.json": {
+      "sha256": "5981c8a9ded51d0a7d894d670c5309b8509222054b46716269bb27af823bbf1f",
+      "total": 1
+    },
+    "old-migration/glow/macos/runs/56d75c281661462da0ad59bfff8c8a92/results.json": {
+      "sha256": "f71f6fd481bc3f9b6027ea30a0a124f8e90654398c45fc2f257ce02641f55398",
+      "total": 12
+    },
+    "old-migration/glow/macos/runs/570c75904de047328d1637009e395d44/results.json": {
+      "sha256": "13ee6cf0ead87eb279d2a559d8beb24144c29219287e1466d0ec7b812809127a",
+      "total": 12
+    },
+    "old-migration/helix/linux/corruption/1d707c34a805400ebdb7b1a0822e8dfb/legacy-terminal-false-green.json": {
+      "sha256": "dcde86f323108821400e5d45ad4185c579d7f2f37701f8890a01315b40ffcc49",
+      "total": 1
+    },
+    "old-migration/helix/linux/corruption/1d707c34a805400ebdb7b1a0822e8dfb/public-state-corruption-rejected.json": {
+      "sha256": "f4764423bd1a75cc10a70b0324eda520335a65e8cfbf7ebd53592c005e5f6fc4",
+      "total": 1
+    },
+    "old-migration/helix/linux/corruption/1d707c34a805400ebdb7b1a0822e8dfb/public-state-corruption-restored.json": {
+      "sha256": "d111a02b0acde8a7241df77f97a4e255892ad4a6730a4249069e9c5073ca18f5",
+      "total": 1
+    },
+    "old-migration/helix/linux/corruption/60a1457d97d147a08c98d4328b9db8df/legacy-terminal-false-green.json": {
+      "sha256": "990b1a75c84714b8a003a865b4fce05ce5e7e93d34acb11e9f6bf92487125435",
+      "total": 1
+    },
+    "old-migration/helix/linux/corruption/60a1457d97d147a08c98d4328b9db8df/public-state-corruption-rejected.json": {
+      "sha256": "1fb68b3377a3419d400c228fcb1ba8bcb8ef05a337c2c7ffb32d5272b32f0c7c",
+      "total": 1
+    },
+    "old-migration/helix/linux/corruption/60a1457d97d147a08c98d4328b9db8df/public-state-corruption-restored.json": {
+      "sha256": "17eae42bd2022436388532522e9c1f3bcacd815fff5c93def6e42ce5b67c479b",
+      "total": 1
+    },
+    "old-migration/helix/linux/corruption/bb33de3222a04e77a4bde42412db1337/legacy-terminal-false-green.json": {
+      "sha256": "02476ed9c18e9f6ce830c2065afceef32d32fc53ba27537fb90f356cb8af475e",
+      "total": 1
+    },
+    "old-migration/helix/linux/corruption/bb33de3222a04e77a4bde42412db1337/public-state-corruption-rejected.json": {
+      "sha256": "15fdc5f68046bfeb9d713d820a6fc70c4386f0a7990510d4215da4bf9b7e5d56",
+      "total": 1
+    },
+    "old-migration/helix/linux/corruption/bb33de3222a04e77a4bde42412db1337/public-state-corruption-restored.json": {
+      "sha256": "30fac78f562359eb366df58fb0df8473522044b7652a4dccb336348b69d1aed3",
+      "total": 1
+    },
+    "old-migration/helix/linux/runs/382e4d39a3b846418c8c1f14022684ef/results.json": {
+      "sha256": "4665cdb824f488fd888b9c153ab93f43521d1c006433c6cdd22b0820e677ef8d",
+      "total": 12
+    },
+    "old-migration/helix/linux/runs/d4acc42947d2486dae210a12c8a9893a/results.json": {
+      "sha256": "38f8a631c69af9cd7c0713d90e79535f3187ad66fae4b5f8c387077422273d79",
+      "total": 12
+    },
+    "old-migration/helix/linux/runs/e5af0d225c5748fda44432f6089c3d1f/results.json": {
+      "sha256": "a3014517bc41a97c02614637ee9c0f86d49ea3c489a644c9766b43ec9075f062",
+      "total": 12
+    },
+    "old-migration/helix/windows/corruption/4dfddb61dd844742b64fcb87cef72588/legacy-terminal-false-green.json": {
+      "sha256": "063b74422ed4adc01bb09ce1714d459252bb9fea2c0b64016228e51d7a33a672",
+      "total": 1
+    },
+    "old-migration/helix/windows/corruption/4dfddb61dd844742b64fcb87cef72588/public-state-corruption-rejected.json": {
+      "sha256": "2e56194bcdb42d58b341531e3dc56a3e96720286b6dcb613a711014e9b00a616",
+      "total": 1
+    },
+    "old-migration/helix/windows/corruption/4dfddb61dd844742b64fcb87cef72588/public-state-corruption-restored.json": {
+      "sha256": "6140e2c6a6344ca9b6b885eec896549fd51c4ca5079c0dd48c5c7b9c393cf68b",
+      "total": 1
+    },
+    "old-migration/helix/windows/corruption/690d6b8ecfb64856865ec120d666c44b/legacy-terminal-false-green.json": {
+      "sha256": "2d20954c099a4440a37c9c27297b93865d775f53b186e50ca26d5ccfe0e34014",
+      "total": 1
+    },
+    "old-migration/helix/windows/corruption/690d6b8ecfb64856865ec120d666c44b/public-state-corruption-rejected.json": {
+      "sha256": "17f94b736bafd64632cf534415f39ec8f4dffbf867164f9a3f961b62be073061",
+      "total": 1
+    },
+    "old-migration/helix/windows/corruption/690d6b8ecfb64856865ec120d666c44b/public-state-corruption-restored.json": {
+      "sha256": "8b6f103dd886d2e93071cfbb59cd1f9364f2bce6adf111c99b3f1b71c5775b71",
+      "total": 1
+    },
+    "old-migration/helix/windows/runs/45855f0e65fa4fd395e14e0cadf53bf6/results.json": {
+      "sha256": "11e159e6297a655fff6eaddb4c91a7905043cb18f7f71945a7b0b97c8b5fd4fb",
+      "total": 12
+    },
+    "old-migration/helix/windows/runs/476f4161a0604328852400bba26ab8c3/results.json": {
+      "sha256": "6ac39304b8efd9e2126da4a30452d4c58422a5e4c604f7c2686d5fac7fe38a8d",
+      "total": 12
+    },
+    "old-migration/lf/linux/corruption/0ffccdba3b254ddfb795562187bbd408/legacy-terminal-false-green.json": {
+      "sha256": "137a816aac2a23c3755acc58064025c9afaa8dec080c17a6e04cd6d44f572c83",
+      "total": 1
+    },
+    "old-migration/lf/linux/corruption/0ffccdba3b254ddfb795562187bbd408/public-state-corruption-rejected.json": {
+      "sha256": "bd8b423cf6291a83b89b4d1e5b5f46f5e521a6a0c8e618baa6dd3cedf646ab21",
+      "total": 1
+    },
+    "old-migration/lf/linux/corruption/0ffccdba3b254ddfb795562187bbd408/public-state-corruption-restored.json": {
+      "sha256": "a1b5714ca8f8129df9c38d3974e5c8197d3ef1c2de076fd5b89e02dc42840079",
+      "total": 1
+    },
+    "old-migration/lf/linux/corruption/c4e6cae22c5640e095e4c558fe1a6353/legacy-terminal-false-green.json": {
+      "sha256": "785c72ea148291709967ee9c6d80e2df0d3f10eacab01ba1aa0fc5fdd8f7b5c1",
+      "total": 1
+    },
+    "old-migration/lf/linux/corruption/c4e6cae22c5640e095e4c558fe1a6353/public-state-corruption-rejected.json": {
+      "sha256": "e428cefad1e42ecaa0e47d586bc5c203755cd046cc1b8862fbb5942a5f828ec5",
+      "total": 1
+    },
+    "old-migration/lf/linux/corruption/c4e6cae22c5640e095e4c558fe1a6353/public-state-corruption-restored.json": {
+      "sha256": "f1b405b2f4fbcfc5eef8da9568adf9f2c147c2fa253652369434a84b99be9ab9",
+      "total": 1
+    },
+    "old-migration/lf/linux/runs/47742234b8ef4385a73b546f1fdd66d6/results.json": {
+      "sha256": "a725fca9a65ec36481da6870f2cf306c1a4acd58b21a1f18e691e597984479f6",
+      "total": 12
+    },
+    "old-migration/lf/linux/runs/dc64da022ac04107a3a6ff14d0c5f60f/results.json": {
+      "sha256": "ab526a756250a44a02b59547dd584a0cda5a6d6bedb43367a1ecee9edd4e67de",
+      "total": 12
+    },
+    "old-migration/lf/windows/corruption/45217f3f45084cf0a331efef0670ea61/legacy-terminal-false-green.json": {
+      "sha256": "6b501ec1bfe639949aa552c73f8f3d524eee7f773ac6d36fd32ab26e957fd5d1",
+      "total": 1
+    },
+    "old-migration/lf/windows/corruption/45217f3f45084cf0a331efef0670ea61/public-state-corruption-rejected.json": {
+      "sha256": "73a77299bdc92ba96796ca21396f4e0f97e1a4a326f8adcef23709d93107769c",
+      "total": 1
+    },
+    "old-migration/lf/windows/corruption/45217f3f45084cf0a331efef0670ea61/public-state-corruption-restored.json": {
+      "sha256": "5ffde580611a8e42ecc3ca919ade5089df55ca7351ed755f91797ec6a05aae30",
+      "total": 1
+    },
+    "old-migration/lf/windows/corruption/a92191d5049241c2a562a2582d2544a3/legacy-terminal-false-green.json": {
+      "sha256": "d149b53ed6e56d5025020d764b5f6efcd3bc344239cf5627715a06b76dacfc40",
+      "total": 1
+    },
+    "old-migration/lf/windows/corruption/a92191d5049241c2a562a2582d2544a3/public-state-corruption-rejected.json": {
+      "sha256": "630ece3355bd0988fc77f39044bc6672bb3e5dae892a37d53183aa7e1f89a106",
+      "total": 1
+    },
+    "old-migration/lf/windows/corruption/a92191d5049241c2a562a2582d2544a3/public-state-corruption-restored.json": {
+      "sha256": "c03909a7b8ab2c7bba00e93e7563c554a99e6f8e77887923345b0d2e35d713ae",
+      "total": 1
+    },
+    "old-migration/lf/windows/runs/2edff48055a84f83aa48300f9c24fffc/results.json": {
+      "sha256": "c952b73063323aa4789a38f43d4e813ac4695153167f78083d4e5de731a2838c",
+      "total": 12
+    },
+    "old-migration/lf/windows/runs/9b5a954872a044a7bc4b9d0a7e8d3a1a/results.json": {
+      "sha256": "072b2a797a11d5a69fc43756c37be0bdbe231747bf4bc674e86401ee6e886eea",
+      "total": 12
+    },
+    "old-migration/nnn/linux/corruption/123fddc850544e49a844b2b9e433cb49/legacy-terminal-false-green.json": {
+      "sha256": "0bc89364e0d8dcec12c3d89aafd30be2b282cdd143e203eaefe61d548f882e3f",
+      "total": 1
+    },
+    "old-migration/nnn/linux/corruption/123fddc850544e49a844b2b9e433cb49/public-state-corruption-rejected.json": {
+      "sha256": "91b267317beb6e5e4ed167ee5b3f65c4ca5908fb5199c3a1916c647d8c30ba98",
+      "total": 1
+    },
+    "old-migration/nnn/linux/corruption/123fddc850544e49a844b2b9e433cb49/public-state-corruption-restored.json": {
+      "sha256": "17e823add5c1c2c3e410f877f131512e289c083b0bd3cd5e17a5ba70e4a8d54d",
+      "total": 1
+    },
+    "old-migration/nnn/linux/corruption/b520bd78d17c4ed39dbd2f2609199bba/legacy-terminal-false-green.json": {
+      "sha256": "e38c00944e4eca7dae242caea8ba539f7b1b625e597dbcc76bd31aa2b7b02527",
+      "total": 1
+    },
+    "old-migration/nnn/linux/corruption/b520bd78d17c4ed39dbd2f2609199bba/public-state-corruption-rejected.json": {
+      "sha256": "322f1de6e364d661d59e7a0a57e6af32913a234b46271fa4111c28c9d97a8d56",
+      "total": 1
+    },
+    "old-migration/nnn/linux/corruption/b520bd78d17c4ed39dbd2f2609199bba/public-state-corruption-restored.json": {
+      "sha256": "7b3af41294aff77826e402e76c1efeb453cfc0ab2fa151683b18f5278e5f301f",
+      "total": 1
+    },
+    "old-migration/nnn/linux/runs/21fdf2941613493ea614ad6a1434c79b/results.json": {
+      "sha256": "72f37f64a88a9fa27e70cae81e3dbd15e685da7bb79acf8dd97cef762a8f8496",
+      "total": 17
+    },
+    "old-migration/nnn/linux/runs/559fe059d60444fb8239ed9099f1517e/results.json": {
+      "sha256": "33de2af3129fcd41bddf4ea702ec655dba63a76970a036c1e4980c70a17fa9a6",
+      "total": 17
+    },
+    "old-migration/nnn/linux/runs/b39f30b45c9e4d3184c143216acf2958/results.json": {
+      "sha256": "4690fbbca708a7dad803fc03c4cb68b74e742c6a2ff5bbb54b9d8c7c0889f252",
+      "total": 17
+    },
+    "old-migration/nnn/linux/runs/d3912cb5e3a0469392dcc6cf145d67c4/results.json": {
+      "sha256": "35d4148e3f87e61e702f9dea3a672f0bca58fd033fb4b43ba723f8672bf3b4dd",
+      "total": 17
+    },
+    "old-migration/nnn/macos/corruption/b9fd80e8db0a42d59dd1f306be078899/legacy-terminal-false-green.json": {
+      "sha256": "f24ec578bc54d8b6665be4bbda4f2a2e05dd8fc956d772435f421c10eae8fcde",
+      "total": 1
+    },
+    "old-migration/nnn/macos/corruption/b9fd80e8db0a42d59dd1f306be078899/public-state-corruption-rejected.json": {
+      "sha256": "6fb26dc0679517a94107f018d0b74ff69ce1d1269e30a61deb7ebcd6bca0df7f",
+      "total": 1
+    },
+    "old-migration/nnn/macos/corruption/b9fd80e8db0a42d59dd1f306be078899/public-state-corruption-restored.json": {
+      "sha256": "a8a0013bb6b871ef7bb3b6b681e029a4185c7fdfae9f7523a29fa8f571ab1c49",
+      "total": 1
+    },
+    "old-migration/nnn/macos/runs/743b7d1af43d4da8b60fa2a97060d4e4/results.json": {
+      "sha256": "ed03fb916d3f4a95ffc2da0ad34fc3b00cbf3b6d83a9945fe9e9e68d7ae18142",
+      "total": 17
+    },
+    "old-migration/nnn/macos/runs/a51441b1cd074e5480c5875a067c520e/results.json": {
+      "sha256": "7da3ef623de90ed8148b1a612d93cfcbdd6ea92325d9008c7905ad8320538552",
+      "total": 17
+    },
+    "old-migration/ranger/linux/corruption/ef42fd21a31249569b245870a13684a2/legacy-terminal-false-green.json": {
+      "sha256": "7c01f9d6ebcd4aed930cd5a64804a4cce2224bd9e836cdcfa3134c523ddf5e27",
+      "total": 1
+    },
+    "old-migration/ranger/linux/corruption/ef42fd21a31249569b245870a13684a2/public-state-corruption-rejected.json": {
+      "sha256": "2907b17e2d11f3aa42b444698f7c142da83885051def09fd6f19f31927b958b5",
+      "total": 1
+    },
+    "old-migration/ranger/linux/corruption/ef42fd21a31249569b245870a13684a2/public-state-corruption-restored.json": {
+      "sha256": "0568ae8728dd8553a0ab87735fc7b19182e3e14c77cdc8ab12ab59e7422fdf65",
+      "total": 1
+    },
+    "old-migration/ranger/linux/runs/1fc1e3961c324604819f7fd6033c0bfe/results.json": {
+      "sha256": "5ad82f8bbd818e7a4faf748f6c683eb694d20de267850c7bbf38986689949e92",
+      "total": 16
+    },
+    "old-migration/ranger/macos/corruption/10a07c63aa1c480f834cf95601eeea76/legacy-terminal-false-green.json": {
+      "sha256": "3ea0006b75342515cffe3b261b28fb6be2598e7ac8813045295b3747d395f80f",
+      "total": 1
+    },
+    "old-migration/ranger/macos/corruption/10a07c63aa1c480f834cf95601eeea76/public-state-corruption-rejected.json": {
+      "sha256": "e4782e31b7beb2943f708cd26103034a2b486d894584eb8ed369a3d5441f5bf1",
+      "total": 1
+    },
+    "old-migration/ranger/macos/corruption/10a07c63aa1c480f834cf95601eeea76/public-state-corruption-restored.json": {
+      "sha256": "38a50258c1315030aca1ac687dd85e9e6eff0cadb25fa3242a7abe5085ebdba5",
+      "total": 1
+    },
+    "old-migration/ranger/macos/runs/bec29c4bb45c4bfc9d106fa786fe9842/results.json": {
+      "sha256": "4460c34280f099023744db1243f7a0d27129f6760801611109035cbb94fa7a15",
+      "total": 16
+    },
+    "old-migration/superfile/linux/corruption/b2e2df9330aa462394b9a38ee5f3dad3/legacy-terminal-false-green.json": {
+      "sha256": "59bff051359f28349c8171686ea07c2d97eb71c5c72cea8b89530f6c70338118",
+      "total": 1
+    },
+    "old-migration/superfile/linux/corruption/b2e2df9330aa462394b9a38ee5f3dad3/public-state-corruption-rejected.json": {
+      "sha256": "5dbee2e507dfb95245a4f4003c608e8c693663ba2d6b15193b7208681d505f1c",
+      "total": 1
+    },
+    "old-migration/superfile/linux/corruption/b2e2df9330aa462394b9a38ee5f3dad3/public-state-corruption-restored.json": {
+      "sha256": "3246e833f75d4aabb84592c8bc854008b2ec6ac1317f6c94a9bf8ae976e96f8a",
+      "total": 1
+    },
+    "old-migration/superfile/linux/corruption/b586ffcdb70242bbb9bf411c641d2084/legacy-terminal-false-green.json": {
+      "sha256": "6f2a083eae9da218a54d127e9d05e78fbcd65817ad907d0a6a93757ab7fd756c",
+      "total": 1
+    },
+    "old-migration/superfile/linux/corruption/b586ffcdb70242bbb9bf411c641d2084/public-state-corruption-rejected.json": {
+      "sha256": "f75e261b4b17841f658a8d46b3b653f869359b4d6b32ec64aa02f05b3058c66a",
+      "total": 1
+    },
+    "old-migration/superfile/linux/corruption/b586ffcdb70242bbb9bf411c641d2084/public-state-corruption-restored.json": {
+      "sha256": "c5ad1dc9197b5feeb188624ada07c529193793be6f14c9a0b203e6e1042d91f0",
+      "total": 1
+    },
+    "old-migration/superfile/linux/runs/04e77283706742fc8e2322d197680cdc/results.json": {
+      "sha256": "077d9239a08a4a89054118669e188352c0aa24e10215135dcc8c231c95450045",
+      "total": 12
+    },
+    "old-migration/superfile/linux/runs/4d2b924f0d504f5894a3ffb2cbaad7a6/results.json": {
+      "sha256": "54b12e7f0e72fd038516e19430d143adee538de0a59304f88981d1c7a1626f46",
+      "total": 12
+    },
+    "old-migration/superfile/macos/corruption/019ebe94c29c49aab94ad51547d1cc1d/legacy-terminal-false-green.json": {
+      "sha256": "681df613494d295f97b29b2a6d48650ca146205308d46d3a880670ea0405c9bb",
+      "total": 1
+    },
+    "old-migration/superfile/macos/corruption/019ebe94c29c49aab94ad51547d1cc1d/public-state-corruption-rejected.json": {
+      "sha256": "b72fdfb4259b3be38067fa65a590c9dbf8eff544335c7e5fa5ea7e63673fc18c",
+      "total": 1
+    },
+    "old-migration/superfile/macos/corruption/019ebe94c29c49aab94ad51547d1cc1d/public-state-corruption-restored.json": {
+      "sha256": "d5bd86706ac513d66c7de234fcf19659db8558b4ec1923f9507348e9e328a1f0",
+      "total": 1
+    },
+    "old-migration/superfile/macos/corruption/4bda973b3f284fb9a819aa7d4a19a5a5/legacy-terminal-false-green.json": {
+      "sha256": "e0a0423e2c009b8cc0bb304def473ab9375ccea8d1768480caf393c9b9fb5132",
+      "total": 1
+    },
+    "old-migration/superfile/macos/corruption/4bda973b3f284fb9a819aa7d4a19a5a5/public-state-corruption-rejected.json": {
+      "sha256": "ce432927f3bb97600853fde029ca8222517d5002a5432291d843cd73df18b4a0",
+      "total": 1
+    },
+    "old-migration/superfile/macos/corruption/4bda973b3f284fb9a819aa7d4a19a5a5/public-state-corruption-restored.json": {
+      "sha256": "906a6e17010e0c38a43bc18184e225fde2aa140a9882ebd43f5e34e5b491a6bb",
+      "total": 1
+    },
+    "old-migration/superfile/macos/runs/1e8c6bb6d9dd4a87be4caceb8a5e7fc5/results.json": {
+      "sha256": "00d2ac819b6eb9147f69981599e709d098abb10ecbd28fb62bacc6e0084f68c0",
+      "total": 12
+    },
+    "old-migration/superfile/macos/runs/8c7fadf417884b3c83e0583aed2268f9/results.json": {
+      "sha256": "65c924265b206fbd5afed68d0454b4da8ef2ea40f80e09fe2668aba8f8caf27f",
+      "total": 12
+    },
+    "old-migration/yazi/linux/corruption/0c355072de44448b98a50aef5c7797ae/legacy-terminal-false-green.json": {
+      "sha256": "7250c4880dfd59e59ba4e0e892e8e4a8fce2c2c2a49acf65da8c50327dd9d662",
+      "total": 1
+    },
+    "old-migration/yazi/linux/corruption/0c355072de44448b98a50aef5c7797ae/public-state-corruption-rejected.json": {
+      "sha256": "49cff02d0847463ff11712859471d1643430a253e40c519247e2b483d867ca16",
+      "total": 1
+    },
+    "old-migration/yazi/linux/corruption/0c355072de44448b98a50aef5c7797ae/public-state-corruption-restored.json": {
+      "sha256": "5b508fbd31071cd2a57c899fad980249054338c51f302989f9d3627b0de13c71",
+      "total": 1
+    },
+    "old-migration/yazi/linux/runs/3e9fec2188564b6f8263b95fcbf139d2/results.json": {
+      "sha256": "0ac56bb89546b9d6e2469ddd32830eb9a960596c67a526ecd0688ba3fd8d4704",
+      "total": 14
+    },
+    "old-migration/yazi/macos/corruption/fbe155f199114c8085d730aa35f96a4c/legacy-terminal-false-green.json": {
+      "sha256": "b14aaff904119c984ccf067271f9befa2c4ebd8e08bcd182b2d8aca2b08da82b",
+      "total": 1
+    },
+    "old-migration/yazi/macos/corruption/fbe155f199114c8085d730aa35f96a4c/public-state-corruption-rejected.json": {
+      "sha256": "860b70d5d1a8190d6d2ce49e0747f87129ebd99b3ebec8852cf06e768402284a",
+      "total": 1
+    },
+    "old-migration/yazi/macos/corruption/fbe155f199114c8085d730aa35f96a4c/public-state-corruption-restored.json": {
+      "sha256": "5fbcb897170f8f445fa84e4c1160fd92539c814bfe192dc9c85561738a39a2b0",
+      "total": 1
+    },
+    "old-migration/yazi/macos/runs/c93a0de5018a4b7581aec4a5d052b4c6/results.json": {
+      "sha256": "fc8d2ef8911d538a8aedb8be93f714df0b89b1306f40813a85257bf46e0c71ac",
+      "total": 14
+    },
+    "old-migration/yazi/windows/corruption/5074862fa7e04a7abe20d8f89c1ae7b7/legacy-terminal-false-green.json": {
+      "sha256": "a0da473e17f885d77c0167c2e6a942630259dd35a9cdd5277e3b2f30594d60df",
+      "total": 1
+    },
+    "old-migration/yazi/windows/corruption/5074862fa7e04a7abe20d8f89c1ae7b7/public-state-corruption-rejected.json": {
+      "sha256": "63be1d8ce90e5a429ceda106eb4f3e289a705037e08b10da08fe01b4ccb04eff",
+      "total": 1
+    },
+    "old-migration/yazi/windows/corruption/5074862fa7e04a7abe20d8f89c1ae7b7/public-state-corruption-restored.json": {
+      "sha256": "d040ca7818ccb1075a058bf84a59f70e20c2f89409d850f24e1bc6111bf743d7",
+      "total": 1
+    },
+    "old-migration/yazi/windows/runs/37fbf269efdd432f816b66a238bfcd53/results.json": {
+      "sha256": "ea37d954575b638118eb64812bcc95490902e90e1db6829356074f2d483cd5e4",
+      "total": 14
+    }
+  },
+  "scope": "Actual original and six fresh old-migration report rows, deduplicated by unique run-path identity. The old field named observed_ordinary_executions includes calibration and invalid-spec outcomes. Final qualified 274 primary/63 calibration is a subset and is not added to these all-attempt totals. Setup/authoring/build commands are in the separate command journal.",
+  "six_fresh_calibration": 36,
+  "six_fresh_primary": 140,
+  "statuses": [
+    {
+      "category": "calibration",
+      "outcomes": 36,
+      "status": "failed"
+    },
+    {
+      "category": "calibration",
+      "outcomes": 72,
+      "status": "passed"
+    },
+    {
+      "category": "ordinary",
+      "outcomes": 20,
+      "status": "failed"
+    },
+    {
+      "category": "ordinary",
+      "outcomes": 545,
+      "status": "passed"
+    },
+    {
+      "category": "prelaunch-invalid",
+      "outcomes": 3,
+      "status": "failed"
+    }
+  ],
+  "total_selected_outcomes": 676
+}

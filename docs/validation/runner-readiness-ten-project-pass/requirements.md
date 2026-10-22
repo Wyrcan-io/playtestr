@@ -1,7 +1,29 @@
 # Requirements and findings
 
-Each row retains severity, first evidence, affected boundary, acceptance,
-disposition and requalification impact. All begin open.
+Each historical row retains severity, first evidence, affected boundary,
+acceptance, disposition and requalification impact. The current closing
+dispositions below supersede earlier progress wording without erasing failures.
+
+| IDs | Current disposition and evidence |
+| --- | --- |
+| R1-01, R1-02 | Public v3 same-execution bytes/types/absence/directories/entry sets qualified on exact rc.5; [public controls](control-applicability.md), 200 final scenarios and ten migrated old suites. |
+| R1-03, R1-04 | Capture/review/fresh replay/export and selective maintenance exercised in three native archive journeys and project packages. Both recorder false greens are refused in the installed archive. Unrelated approved expectations remain covered by source-level regression tests. |
+| R3-01, R3-02, R3-03 | Bounded historical investigations complete with unresolved original causes. Current green repetitions establish only their recorded scope. [Residuals](limitations.md). |
+| R3-04, CI-02 | Superfile/Glow Windows upstream races and hosted short-path alias remain explicitly unqualified. Actual successful local alias evidence does not transfer to hosted filesystem behavior. |
+| R3-05, R3-06, R3-08, R3-09, R3-10, R3-11, R3-12 | General signal, resize, interrupt inheritance, terminal reply, discovery, final-screen and step-budget repairs requalified on exact production source through [three-native ordinary/vet/race checks](native-core-129b7a4.json) and affected exact-archive project paths. |
+| R3-07 | Historical Windows maintenance rename access-denied recurred; no established cause or claimed fix. Later complete fresh tests pass. Residual retained, rather than relabelled as a successful repair. |
+| R4-01 | Ten new projects, 200 scenarios, 31 actual source faults, 20 cells, 4,800 final ordinary and 186 calibration executions. [Actual global audit](final-matrix-audit.json) rejects eleven evidence corruptions. |
+| R4-02 | [All ten old migrations](closing-old-archive-audit.json) bind exact rc.5, 130 canonical cases, 274 primary and 63 calibrations across 21 cells. Six fresh rechecks replace earlier rc.4 qualification. |
+| R5-01 | [Native installation/migration](archive-experience/README.md), exact frozen archives, actual public controls, portable removal, Linux process-scoped offline execution and delivered CI triplet complete within their stated boundaries. Public release remains unauthorized. |
+| E-01 through E-18 | Findings and original unsuccessful attempts retained below. Ledger/identity/selection/compaction/cleanup changes have actual native harness evidence; [control scope](control-applicability.md) separates those from shipped code. Early external module-cache write, temporary project storage breach, incomplete earlier provenance/cleanup and PowerShell cache ownership deviation remain historical policy failures. Later qualified series have complete identities and cleanup. |
+| U-01, R2-FOCUS | [Prepared agent counts](usability-assessment.md) measured, including initial misses; focus checkpoints and recorder refusal improve the exercised route. Five unused participant sheets prepared. Human beginner usability remains unmeasured. |
+| C-01, S-01 | Exact [native compatibility](native-compatibility.md), trusted-target and explicit data-capture boundary documented. Unsupported paths and general isolation remain outside claims. |
+| CI-01, CI-03 | Corrected target wiring and actual delivered free-CI triplet verified. Earlier wrong target execution and unconfirmed cleanup retain zero new credit. No real PR event or commercial journey is inferred. |
+
+The [final report](final-report.md) and [campaign admission](campaign-admission.json)
+give the overall engineering disposition. The rows below are chronological
+first-evidence and implementation records; their earlier “pending” statements
+are not current gate status.
 
 | ID | Behavior / severity / first evidence | Acceptance and affected layers | Status |
 | --- | --- | --- | --- |

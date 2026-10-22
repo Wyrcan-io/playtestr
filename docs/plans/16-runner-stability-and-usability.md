@@ -4,6 +4,37 @@ Planning decision: **16 October 2026**. The user moved runner stability, useful 
 
 Current baseline: source candidate `74f80f2`, with runner inputs qualified at `5f8867a`. The [latest engineering report](../validation/ten-new-project-adversarial-pass/final-report.md) covers ten projects, 130 scenarios and 21 project/host pairs. Its saved-state probes and prepared authoring measurements retain their original limits. Existing published archives do not contain all current-source features.
 
+## First-batch execution update: 22 October 2026
+
+The [invoked ten-project prompt](runner-readiness-ten-project-execution-prompt.md)
+produced public v3 same-execution saved-state assertions, recorder false-green
+refusal and general lifecycle/terminal repairs. The [engineering report](../validation/runner-readiness-ten-project-pass/final-report.md)
+and [closing receipt](../validation/runner-readiness-ten-project-pass/campaign-admission.json)
+bind the private rc.5 source, exact native archives and deduplicated admissions.
+The batch has 200 distinct new scenarios, 4,800 final ordinary executions, 186
+fault calibrations and 20 project/host cells; ten old migrations have separate
+counts. Historical baseline statements below remain planning context.
+
+Recorded engineering effort spans 16-22 October. A point-in-time command journal
+contains 17,989 unique command IDs and 120,276.206 recorded command-seconds
+(33.41 summed command-hours), including parallel hosted jobs, builds, failures
+and validation. This is neither elapsed wall time nor human labor. Prepared
+agent command/control counts are measured; real beginner performance is not.
+
+| Next cumulative runner gate | Additional independent projects | Required reassessment |
+| --- | --- | --- |
+| 30 | 20 after this ten-project batch | Choose new risk/framework/runtime combinations, repeat authoring assessment and qualify exact candidate inputs. |
+| 60 | 30 after the 30 gate | Revisit accumulated defects, excluded paths, evidence/storage capacity and prior-case requalification. |
+| 80 | 20 after the 60 gate | Review residual reliability and compatibility claims; arrange a real participant study only with its own outreach authorization. |
+| 100 | 20 after the 80 gate | Deduplicate all projects; run the complete affected matrix and final distribution/documentation gate before any stable-release decision. |
+
+R0/R1 and the scoped engineering R2/R3 work are delivered for this batch;
+bounded unknown historical causes remain explicit residuals. Human R2 is
+unmeasured. Only the first R4 batch and its private R5 archive qualification are
+covered. Entire R4/final 100-project R5, paid-product admissions and commercial
+readiness remain open. This update does not invoke another campaign or authorize
+publication, paid integration or outreach.
+
 ## Order and scope
 
 Work in this order:

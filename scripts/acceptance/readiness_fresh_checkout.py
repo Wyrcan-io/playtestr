@@ -14,7 +14,7 @@ from readiness_evidence import Campaign, RAW, ROOT, immutable_json, sha256
 
 async def main():
     if os.name!='nt':raise RuntimeError('this local checkout verification is declared Windows only')
-    parser=argparse.ArgumentParser();parser.add_argument('--resume');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--resume');parser.add_argument('--public-only',action='store_true');args=parser.parse_args()
     if args.resume and not re.fullmatch('[0-9a-f]{32}',args.resume):raise RuntimeError('invalid fresh checkout owner')
     identity=args.resume or uuid.uuid4().hex;parent=RAW/'fresh-checkout'/identity
     if not args.resume:parent.mkdir(parents=True)
@@ -56,12 +56,13 @@ async def main():
     current=await run('revision',['git','rev-parse','HEAD']);revision=current['output'].strip()
     if args.resume:
         intent=json.loads((parent/'intent.json').read_text(encoding='utf-8-sig'))
-        if intent['id']!=identity or intent['revision']!=revision or intent['source']!=str(ROOT):raise RuntimeError('resumed checkout ownership/source differs')
+        if intent['id']!=identity or intent['revision']!=revision or intent['source']!=str(ROOT) or intent.get('public_only',False)!=args.public_only:raise RuntimeError('resumed checkout ownership/source differs')
         remote=await run('resumed-remote',['git','-C',checkout,'remote','get-url','origin'])
         if remote['output'].strip()!='https://github.com/Wyrcan-io/playtestr.git':raise RuntimeError('resumed clone source differs')
     else:
         immutable_json(parent/'intent.json',dict(id=identity,revision=revision,source=str(ROOT),
-            scope='Actual shallow approved GitHub branch clone and checkout; exact tracked campaign bytes/modes, empty ignored history, uncached ordinary Go tests/vet and public examples. No global installs or modifications.'))
+            public_only=args.public_only,
+            scope='Actual shallow approved GitHub branch clone and checkout; exact tracked campaign bytes/modes and empty ignored history. Default also runs uncached Go tests/vet/examples; explicit public-only supplement does not claim those checks. No global installs or modifications.'))
         await run('clone',['git','clone','--depth','1','--single-branch','--branch','work/p0-p2-implementation',
             '--no-checkout','https://github.com/Wyrcan-io/playtestr.git',checkout],timeout=180)
     for path in [checkout,checkout/'.git']:
@@ -84,11 +85,14 @@ async def main():
     if (checkout/'artifacts/runner-readiness-ten-project-pass').exists():raise RuntimeError('fresh checkout unexpectedly includes ignored campaign evidence')
     sdk=RAW/'toolchain/go/bin/go.exe'
     if not sdk.is_file():raise RuntimeError('existing owned Go prerequisite missing')
-    await run('go-test',[sdk,'test','-count=1','./...'],cwd=checkout,timeout=1200)
-    await run('go-vet',[sdk,'vet','./...'],cwd=checkout,timeout=300)
-    (checkout/'bin').mkdir(exist_ok=True)
-    await run('demo-build',[sdk,'build','-o','bin/demo.exe','./cmd/demo'],cwd=checkout,timeout=120)
-    await run('public-examples',[sdk,'run','./cmd/playtestr','test','examples/menu.json','examples/menu-exit.json'],cwd=checkout,timeout=180)
+    if args.public_only:
+        await run('unchanged-production',['git','diff','--exit-code','129b7a45c0006be550f798ce52c2fbbfd327e515','--','*.go','go.mod','go.sum'])
+    else:
+        await run('go-test',[sdk,'test','-count=1','./...'],cwd=checkout,timeout=1200)
+        await run('go-vet',[sdk,'vet','./...'],cwd=checkout,timeout=300)
+        (checkout/'bin').mkdir(exist_ok=True)
+        await run('demo-build',[sdk,'build','-o','bin/demo.exe','./cmd/demo'],cwd=checkout,timeout=120)
+        await run('public-examples',[sdk,'run','./cmd/playtestr','test','examples/menu.json','examples/menu-exit.json'],cwd=checkout,timeout=180)
     files={};size=0
     for path in (parent/'payload').rglob('*'):
         if path.is_symlink() or getattr(path,'is_junction',lambda:False)():raise RuntimeError('linked fresh checkout removal member')
@@ -101,10 +105,12 @@ async def main():
         ROOT/'scripts/acceptance/readiness_remove_fresh_checkout.ps1','-CheckoutId',identity],timeout=300)
     if (parent/'payload').exists():raise RuntimeError('fresh checkout remains after native removal')
     receipt=dict(id=identity,revision=revision,resumed_setup=bool(args.resume),public_files=len(public),public_bytes=total,go_sha256=sha256(sdk),
-        calls=calls,payload_index_sha256=sha256(parent/'payload-index.json'),removed=True,
-        scope='Actual Windows fresh Git checkout; all tracked Git blob/mode entries and campaign public bytes exact, no ignored history, uncached ordinary tests/vet and manual examples pass. Windows executable-bit semantics are not Unix filesystem execution evidence. Owned checkout/cache removed through native PowerShell after complete hash verification.')
+        calls=calls,payload_index_sha256=sha256(parent/'payload-index.json'),removed=True,public_only=args.public_only,
+        scope=('Actual Windows fresh Git checkout; all tracked Git blob/mode entries and campaign public bytes exact, no ignored history. '
+            +('Explicit public-only supplement: production Go/module bytes unchanged; tests/vet/examples are qualified by the earlier full fresh-checkout receipt and were not repeated here. ' if args.public_only else 'Uncached ordinary tests/vet and manual examples pass. ')
+            +'Windows executable-bit semantics are not Unix filesystem execution evidence. Owned checkout/cache removed through native PowerShell after complete hash verification.'))
     immutable_json(parent/'verified.json',receipt)
-    immutable_json(ROOT/'docs/validation/runner-readiness-ten-project-pass/fresh-checkout-verification.json',receipt)
+    immutable_json(ROOT/('docs/validation/runner-readiness-ten-project-pass/'+('fresh-public-closing.json' if args.public_only else 'fresh-checkout-verification.json')),receipt)
     print('Fresh actual checkout, uncached tests, public bytes/modes and checked removal verified.')
 
 

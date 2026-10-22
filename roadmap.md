@@ -4,7 +4,11 @@ Planning baseline: **6 October 2026**. Execution update: **7 October 2026**, P0â
 
 ## Current priority: runner readiness before paid integration
 
-User direction, 16 October 2026: defer P3/P4 until the local/free-CI runner has public same-execution saved-state checks, a simple documented user journey, bounded compatibility, investigated reliability risks and a separately qualified 100-project runner campaign. [Runner stability and usability plan](docs/plans/16-runner-stability-and-usability.md) defines R0-R5 and their acceptance. This is a planning change, not an implementation or launch claim. Its runner counter starts at 0/100 under the expanded contract; historical engineering evidence remains intact. The paid-product campaign remains a separate 0/100 gate.
+User direction, 16 October 2026: defer P3/P4 until the local/free-CI runner has public same-execution saved-state checks, a simple documented user journey, bounded compatibility, investigated reliability risks and a separately qualified 100-project runner campaign. [Runner stability and usability plan](docs/plans/16-runner-stability-and-usability.md) defines R0-R5 and their acceptance.
+
+Execution update, 22 October 2026: the invoked first ten-project runner batch implemented public v3 saved-state assertions and recorder safeguards. Exact private rc.5 archives passed 200 scenarios, 4,800 ordinary executions and 186 fault calibrations across 20 native cells; ten old suites were also migrated and requalified. The [engineering report](docs/validation/runner-readiness-ten-project-pass/final-report.md) and [closing admission receipt](docs/validation/runner-readiness-ten-project-pass/campaign-admission.json) define the precise qualified boundary and current runner counter. Old migrations and repeated scenarios add no new-project credit. Human beginner usability remains unmeasured, the candidate is unpublished, and the paid-product counter remains 0/100.
+
+The next authorized batch should progress to 30 distinct runner admissions, then 60, 80 and 100, with new projects, risks and frozen-source requalification at every stage. This batch does not complete all of R4 or final 100-project R5. P3/P4, release, paid infrastructure and outreach remain deferred.
 
 ## Direction
 
