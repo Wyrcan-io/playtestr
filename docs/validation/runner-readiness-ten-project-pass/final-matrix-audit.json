@@ -1,0 +1,68 @@
+{
+  "actual_model_sha256": "1898325a243cafcda96c3bdf73b3cf4a0f8c7949b99db2d6d62620abe11842e0",
+  "calibration_executions": 186,
+  "candidate_freeze_sha256": "615faddcc71df0a9c5accc5eb99ccd5592d12a18bebf38f4a243d141d11d2ad6",
+  "controls": [
+    {
+      "control": "missing-run",
+      "reason": "missing actual native run",
+      "refused": true
+    },
+    {
+      "control": "wrong-binary",
+      "reason": "wrong final archive/binary",
+      "refused": true
+    },
+    {
+      "control": "duplicated-project",
+      "reason": "duplicated/missing global project",
+      "refused": true
+    },
+    {
+      "control": "mismatched-contract",
+      "reason": "mismatched executed contract",
+      "refused": true
+    },
+    {
+      "control": "absent-fault-restoration",
+      "reason": "absent fault restoration",
+      "refused": true
+    },
+    {
+      "control": "cross-execution-state",
+      "reason": "state from another invocation",
+      "refused": true
+    },
+    {
+      "control": "partial-host-series",
+      "reason": "partial ordinary host series",
+      "refused": true
+    },
+    {
+      "control": "missing-first-failure",
+      "reason": "missing original first failure",
+      "refused": true
+    },
+    {
+      "control": "unsafe-native-cleanup",
+      "reason": "unsafe native source/runtime cleanup",
+      "refused": true
+    },
+    {
+      "control": "unconfirmed-process-cleanup",
+      "reason": "incomplete/unsafe actual cleanup",
+      "refused": true
+    },
+    {
+      "control": "missing-native-host",
+      "reason": "missing required native host",
+      "refused": true
+    }
+  ],
+  "native_cells": 20,
+  "ordinary_executions": 4800,
+  "overall_final_admissions": 0,
+  "paid_launch_admissions": 0,
+  "projects": 10,
+  "scope": "Actual retained complete ten-project final report bytes, captured launch plans, native source-fault/restoration reports and cleanup rechecked from self-contained verified packet archives. Eleven independent synthetic semantic corruptions of that complete actual model refused; actual model restored unchanged. Individual cell audits bind full source/runtime/fixture identities. Original failures remain separate. Old-project final rechecks and final packaging/documentation gates remain separate; no overall admission from this audit."
+}

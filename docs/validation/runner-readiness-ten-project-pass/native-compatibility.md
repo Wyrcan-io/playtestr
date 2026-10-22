@@ -1,4 +1,42 @@
-# Native development compatibility boundary
+# Native compatibility boundary
+
+Frozen production source is `129b7a45c0006be550f798ce52c2fbbfd327e515`.
+[Current native core evidence](native-core-129b7a4.json), run `39445381629`,
+verifies ordinary tests, vet, race checks and public state journeys on Linux
+amd64, macOS arm64 and Windows amd64. The private rc.5 packages were built once
+and checksummed in [the candidate freeze](migration-candidate-freeze.json).
+
+The [complete final matrix audit](final-matrix-audit.json) checks the following
+actual archive executions. Every cell contains all twenty reviewed scenarios,
+twelve fresh executions per scenario, actual source faults/restoration and
+checked cleanup. Each ordinary cell supplies 240 passes. Papis supplies twelve
+calibration executions per cell; every other project supplies nine.
+
+| Project | Linux amd64 | Other native archive cell | Actual successful run |
+| --- | --- | --- | --- |
+| fff | Verified | macOS arm64 verified | 39575015155 |
+| Hygen | Verified | macOS arm64 verified | 39568603566 |
+| Rclone | Verified | Windows amd64 verified | 39577934986 |
+| Plop | Verified | macOS arm64 verified | 39672351954 |
+| Poetry | Verified | macOS arm64 verified | 39674788987 |
+| RubyGems/Bundler | Verified | Windows amd64 verified | 39676446199 |
+| Edit | Verified | Windows amd64 verified | 39678379929 |
+| Frogmouth | Verified | Windows amd64 verified | 39683340411 |
+| Papis | Verified | Windows amd64 verified | 39735220618 |
+| Vis | Verified | macOS arm64 verified | 39736647268 |
+
+This verifies twenty declared project/host cells, not arbitrary terminal or
+framework compatibility. Frozen profile differences are explicit: selected
+POSIX line endings/environment paths, macOS Vis locale, and unchanged control
+groups during text segmentation. Original FFF quit timeouts remain unexplained;
+later passes do not demonstrate zero flakiness. Superfile/Glow Windows input
+races remain excluded, as do historical Windows Plop/Poetry quiet-redraw paths.
+Native rc.5 [archive experiences](archive-experience/README.md) and
+[old-project final rechecks](final-old-migration-status.json) have separate scope.
+
+The following table preserves earlier source-development evidence and its
+original applicability; the final archive table above supplies current project
+series identities. Earlier source hashes are historical.
 
 This table describes current source development evidence, not a published
 archive or a final qualification claim. Production runner source is now
