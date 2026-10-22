@@ -1,0 +1,245 @@
+{
+  "batches": [
+    {
+      "contention": false,
+      "input_chunks": 0,
+      "number": 0,
+      "package_directory": "contracts",
+      "variation": "ordinary after cold owned target setup"
+    },
+    {
+      "contention": false,
+      "input_chunks": 0,
+      "number": 1,
+      "package_directory": "contracts",
+      "variation": "ordinary with warm owned target setup; fresh process/workspace"
+    },
+    {
+      "contention": false,
+      "input_chunks": 0,
+      "number": 2,
+      "package_directory": "contracts",
+      "variation": "ordinary with warm owned target setup; fresh process/workspace"
+    },
+    {
+      "contention": false,
+      "input_chunks": 0,
+      "number": 3,
+      "package_directory": "contracts",
+      "variation": "ordinary with warm owned target setup; fresh process/workspace"
+    },
+    {
+      "contention": false,
+      "input_chunks": 0,
+      "number": 4,
+      "package_directory": "relocated caf\u00e9 \u96ea",
+      "variation": "Unicode and spaces package relocation"
+    },
+    {
+      "contention": false,
+      "input_chunks": 0,
+      "number": 5,
+      "package_directory": "owned path variant/contracts",
+      "variation": "nested ASCII spaces package relocation"
+    },
+    {
+      "contention": false,
+      "input_chunks": 1,
+      "number": 6,
+      "package_directory": "contracts",
+      "variation": "One-codepoint printable field insertion after declared native prompt; command/control groups including all DEL bytes remain whole"
+    },
+    {
+      "contention": false,
+      "input_chunks": 2,
+      "number": 7,
+      "package_directory": "contracts",
+      "variation": "Two-codepoint printable field insertion after declared native prompt; command/control groups remain whole"
+    },
+    {
+      "contention": true,
+      "input_chunks": 0,
+      "number": 8,
+      "package_directory": "contracts",
+      "variation": "owned two-second eight-MiB hashing worker near each launch"
+    },
+    {
+      "contention": true,
+      "input_chunks": 0,
+      "number": 9,
+      "package_directory": "contracts",
+      "variation": "owned two-second eight-MiB hashing worker near each launch"
+    },
+    {
+      "contention": false,
+      "input_chunks": 0,
+      "number": 10,
+      "package_directory": "contracts",
+      "variation": "repeat original supported boundary with fresh process/workspace"
+    },
+    {
+      "contention": false,
+      "input_chunks": 0,
+      "number": 11,
+      "package_directory": "contracts",
+      "variation": "repeat original supported boundary with fresh process/workspace"
+    }
+  ],
+  "candidate_freeze_sha256": "615faddcc71df0a9c5accc5eb99ccd5592d12a18bebf38f4a243d141d11d2ad6",
+  "candidate_run": "39450029736",
+  "fault_selection": {
+    "ids": [
+      "F01",
+      "F02",
+      "F03"
+    ],
+    "original_heldout": false,
+    "public_calibration_per_host": 9,
+    "scope": "Replicas of three reviewed actual C source faults; original heldout remains separately retained.",
+    "selection_sha256": "6477028337f2968ac29fa0d4d3fbb1fe5baf9ab4b05296d991c53374ba414c87"
+  },
+  "final_qualification_credit": 0,
+  "hosts": [
+    "linux-amd64",
+    "darwin-arm64"
+  ],
+  "identity_catalogs": {
+    "enabled": true,
+    "historical_max_manifest_bytes": 52727,
+    "mode": "Fresh rehash of complete selected C/header/configuration inputs, actual target and installed compiler/make before each launch; complete content-addressed maps, no hash caching or limit increase.",
+    "project_cap_bytes": 67108864,
+    "scopes": [
+      "core",
+      "target"
+    ],
+    "unshared_240_identity_forecast_bytes": 12654480
+  },
+  "planned_ordinary_per_host": 240,
+  "planned_ordinary_total": 480,
+  "prior_project_boundary": "Eight final series independently verified; Papis final native series dispatched as run39735220618. Vis acquisition/execution remains sequential after Papis qualification.",
+  "project": "vis",
+  "resources": {
+    "forecast_job_minutes": 30,
+    "harness_jobs_max": 2,
+    "job_timeout_minutes": 45,
+    "native_jobs": 2,
+    "scenario_concurrency_per_host": 1,
+    "scenario_parent_seconds": 130,
+    "total_concurrent_jobs_max": 4,
+    "worker_bytes": 8388608,
+    "worker_seconds": 2
+  },
+  "revision": 1,
+  "scenarios_per_batch": 20,
+  "schema_version": 1,
+  "scope": "Exact existing rc.5 archives; twelve fresh executions per twenty unchanged reviewed native Vis contracts per host. Existing macOS en_US.UTF-8 locale adaptation only. Segment insertion text only after positive INSERT; preserve modal key groups and command lines. Three real rebuilt C source faults, exact restoration, independent audit and checked cleanup required.",
+  "segmented_text_steps_by_host": {
+    "linux": {
+      "E01.json": [
+        4
+      ],
+      "E02.json": [
+        4,
+        12
+      ],
+      "E03.json": [
+        4
+      ],
+      "E04.json": [],
+      "E05.json": [
+        4
+      ],
+      "E06.json": [],
+      "E07.json": [],
+      "E08.json": [
+        4,
+        11,
+        19
+      ],
+      "E09.json": [
+        11
+      ],
+      "E10.json": [
+        4,
+        13
+      ],
+      "E11.json": [],
+      "E12.json": [],
+      "N01.json": [
+        4
+      ],
+      "N02.json": [
+        4
+      ],
+      "N03.json": [
+        4
+      ],
+      "N04.json": [
+        4
+      ],
+      "N05.json": [],
+      "N06.json": [],
+      "N07.json": [
+        4,
+        17
+      ],
+      "N08.json": [
+        6
+      ]
+    },
+    "macos": {
+      "E01.json": [
+        4
+      ],
+      "E02.json": [
+        4,
+        12
+      ],
+      "E03.json": [
+        4
+      ],
+      "E04.json": [],
+      "E05.json": [
+        4
+      ],
+      "E06.json": [],
+      "E07.json": [],
+      "E08.json": [
+        4,
+        11,
+        19
+      ],
+      "E09.json": [
+        11
+      ],
+      "E10.json": [
+        4,
+        13
+      ],
+      "E11.json": [],
+      "E12.json": [],
+      "N01.json": [
+        4
+      ],
+      "N02.json": [
+        4
+      ],
+      "N03.json": [
+        4
+      ],
+      "N04.json": [
+        4
+      ],
+      "N05.json": [],
+      "N06.json": [],
+      "N07.json": [
+        4,
+        17
+      ],
+      "N08.json": [
+        6
+      ]
+    }
+  },
+  "source_changes": false
+}

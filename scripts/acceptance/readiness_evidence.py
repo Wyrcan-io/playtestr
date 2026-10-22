@@ -63,7 +63,7 @@ class Campaign:
         if self.phase not in {'development','final-archive'}:
             raise ValueError('undeclared evidence phase')
         self.catalog_project=catalog_project or os.environ.get('READINESS_IDENTITY_CATALOG_PROJECT','')
-        if self.catalog_project not in {'','rclone','hygen','rubygems','edit','frogmouth','papis'}:
+        if self.catalog_project not in {'','rclone','hygen','rubygems','edit','frogmouth','papis','vis'}:
             raise ValueError('undeclared identity catalog project')
         self.raw = Path(raw).resolve()
         self.raw.relative_to(ROOT)
@@ -343,6 +343,12 @@ class Campaign:
                         source.resolve(strict=True).relative_to(target.resolve())
                         paths.append(source)
             elif project=='vis':
+                if (target/'runtime.json').is_file():
+                    runtime=json.loads((target/'runtime.json').read_text())
+                    for name in ['compiler','make']:
+                        tool=Path(runtime[name+'_path'])
+                        if sha256(tool)!=runtime[name+'_sha256']:raise ValueError('actual native C build tool changed')
+                        runtime_executables[name]=runtime[name+'_sha256']
                 paths.extend(p for p in (target/'src').rglob('*') if p.is_file() and
                     (p.suffix in {'.c','.h','.inc','.mk'} or p.name in {'configure','Makefile','LICENSE'}))
                 if (target/'build.json').is_file():

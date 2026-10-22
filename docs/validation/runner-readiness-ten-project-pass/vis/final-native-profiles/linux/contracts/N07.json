@@ -1,0 +1,138 @@
+{
+  "version": 3,
+  "name": "Vis N07: save two files across an explicit buffer switch",
+  "command": [
+    "vis",
+    "alpha.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures/N07",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "LC_ALL": "C.UTF-8",
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "alpha document"
+    },
+    {
+      "text": "A"
+    },
+    {
+      "expect": "INSERT"
+    },
+    {
+      "text": " + checked"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "INSERT"
+    },
+    {
+      "expect": "alpha document + checked"
+    },
+    {
+      "expect": "[+]"
+    },
+    {
+      "text": ":w"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "[+]"
+    },
+    {
+      "text": ":e beta.txt"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "beta document"
+    },
+    {
+      "text": "A"
+    },
+    {
+      "expect": "INSERT"
+    },
+    {
+      "text": " + checked"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "INSERT"
+    },
+    {
+      "expect": "beta document + checked"
+    },
+    {
+      "expect": "[+]"
+    },
+    {
+      "text": ":w"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "[+]"
+    },
+    {
+      "text": ":q"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "alpha.txt",
+        "kind": "file",
+        "bytes_base64": "YWxwaGEgZG9jdW1lbnQgKyBjaGVja2VkCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "beta.txt",
+        "kind": "file",
+        "bytes_base64": "YmV0YSBkb2N1bWVudCArIGNoZWNrZWQK"
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "alpha.txt",
+          "beta.txt",
+          "sentinel.txt"
+        ]
+      }
+    }
+  ]
+}

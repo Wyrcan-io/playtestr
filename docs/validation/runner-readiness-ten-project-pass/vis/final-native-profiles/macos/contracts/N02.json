@@ -1,0 +1,91 @@
+{
+  "version": 3,
+  "name": "Vis N02: create a named document without a final newline",
+  "command": [
+    "vis",
+    "new-note.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures/N02",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "LC_ALL": "en_US.UTF-8",
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 28,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "new-note.txt"
+    },
+    {
+      "text": "i"
+    },
+    {
+      "expect": "INSERT"
+    },
+    {
+      "text": "fresh document"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "INSERT"
+    },
+    {
+      "expect": "fresh document"
+    },
+    {
+      "expect": "[+]"
+    },
+    {
+      "text": ":w"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "[+]"
+    },
+    {
+      "text": ":q"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "new-note.txt",
+        "kind": "file",
+        "bytes_base64": "ZnJlc2ggZG9jdW1lbnQ="
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUgcmV2aWV3ZWQgZXhpc3Rpbmcgd29yawo="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "new-note.txt",
+          "sentinel.txt"
+        ]
+      }
+    }
+  ]
+}
