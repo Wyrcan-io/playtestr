@@ -34,13 +34,14 @@ def main():
     selected={n:d for n,d in source.items() if Path(n).suffix in {'.c','.h','.inc','.mk'} or Path(n).name in {'configure','Makefile','LICENSE'}}
     selected.update({'config.mk':build['config_mk_sha256'],'config.h':build['config_h_sha256']})
     ledger=object.__new__(Campaign);ledger.raw=packet;events=ledger.attempts()
-    def witness(identity,expected=0,source_override=None,compiled=None,public=False,alias=False):
+    def witness(identity,expected=0,source_override=None,compiled=None,public=False,alias=False,generated_header=True):
         event=events[identity];end=event['finished']
         require(all(e['phase']=='final-archive' for e in event.values()) and 'launched' in event,'missing final-phase launch')
         require(event['started']['expected_exit']==expected and end['category']=='passed' and end['exit_code']==expected
             and end['harness_cleanup']=='harness_process_reaped' and not end['cleanup_errors'],'actual command outcome/cleanup differs')
         require(sha256(packet/event['started']['project']/identity/'console.log')==end['console_sha256'],'changed actual output')
         manifest=load_manifest(packet,event['identified']['identity']);files=manifest['files'];expected_source=dict(selected)
+        if not generated_header:expected_source.pop('config.h')
         if source_override:expected_source[source_override[0]]=source_override[1]
         observed={n[len(prefix+'src/'):]:d for n,d in files.items() if n.startswith(prefix+'src/') and n!=target_key}
         require(observed==expected_source,'actual complete C/header/configuration input map differs')
@@ -49,7 +50,7 @@ def main():
         if compiled:require(files[target_key]==compiled,'actual compiled target differs')
         if public:require(files[prefix.replace('active/vis/','bin/playtestr') if alias else installed['binary']]==cell['binary_sha256'],'actual exact runner archive differs')
         return files
-    witness(build['build_attempt']);witness(build['version_attempt'],compiled=build['binary_sha256'])
+    witness(build['build_attempt'],generated_header=False);witness(build['version_attempt'],compiled=build['binary_sha256'])
     declaration=load(docs/'final-series-declaration.json');frozen=load(profile/'reviewed-contract-freeze.json')
     for name,indices in declaration['segmented_text_steps_by_host'][host].items():
         original=load(profile/'contracts'/name)
