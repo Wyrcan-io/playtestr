@@ -39,6 +39,9 @@ def main():
     prefix='artifacts/runner-readiness-next-twenty-project-pass'
     workflow='''name: Next twenty jrnl exact archive series
 on:
+  push:
+    branches: [work/p0-p2-implementation]
+    paths: ['.github/workflows/runner-readiness-next20-jrnl.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -59,6 +62,7 @@ env:
   GIT_CONFIG_VALUE_0: 'true'
 jobs:
   native-final:
+    if: github.event_name == 'workflow_dispatch'
     timeout-minutes: 40
     strategy:
       fail-fast: false
