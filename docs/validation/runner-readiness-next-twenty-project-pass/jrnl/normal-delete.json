@@ -1,0 +1,68 @@
+{
+  "version": 3,
+  "name": "recorded interaction",
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/jrnl/venv/Scripts/python.exe",
+    "-B",
+    "-m",
+    "jrnl",
+    "--config-file",
+    "config.yaml",
+    "-contains",
+    "alpha",
+    "--delete"
+  ],
+  "workspace": {
+    "fixture": "fixture",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHON_KEYRING_BACKEND": "keyring.backends.null.Keyring"
+  },
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Delete entry"
+    },
+    {
+      "text": "y"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "1 entry deleted"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "snapshot": "normal-delete.txt"
+    },
+    {
+      "state": {
+        "path": "journal.txt",
+        "kind": "file",
+        "bytes_base64": "WzIwMjAtMDEtMDIgMTA6MTVdIGJldGEgcmV0YWluZWQuClNlY29uZCBib2R5Lgo="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "config.yaml",
+          "journal.txt"
+        ]
+      }
+    }
+  ]
+}
