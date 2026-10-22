@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "first-target-native-series-prepared",
+  "status": "first-target-native-evidence-audited",
   "historical_admissions": 10,
   "current_candidate_original_ten": 10,
   "new_project_admissions": 0,
@@ -18,17 +18,27 @@
       "id": "jrnl",
       "repository": "jrnl-org/jrnl",
       "pin": "90de4948d79a4fca8c7238dd2487b599f458c903",
-      "status": "twenty-development-cases-three-real-faults-maintenance-passed-native-pending",
+      "status": "native-linux-windows-audited-admission-pending",
       "development_selected_scenarios_passed": 20,
       "development_ordinary_attempts": 40,
       "development_ordinary_passed": 36,
       "development_ordinary_failed": 4,
       "development_real_faults": 3,
       "development_fault_matrix_calibrations": 9,
-      "planned_hosts": ["linux", "windows"],
+      "planned_hosts": [
+        "linux",
+        "windows"
+      ],
       "admitted": false,
       "qualified_scenarios": 0,
-      "qualified_native_cells": 0
+      "qualified_native_cells": 0,
+      "native_run": "39797356210",
+      "native_source": "2d25f716fee8ff120941196f10e6aa343d130a37",
+      "audited_native_cells": 2,
+      "audited_ordinary_executions": 480,
+      "audited_calibration_executions": 18
     }
-  ]
+  ],
+  "observed_audited_ordinary_executions": 480,
+  "observed_audited_calibration_executions": 18
 }

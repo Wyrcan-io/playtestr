@@ -107,3 +107,26 @@ native series, retain/remove one packet at a time and checked-clean local source
 before any second application. New project admissions and final counts remain zero.
 Do not execute the old closing script, redownload completed native packets, reset
 the branch or remove old evidence. New helper namespace is `next20_*.py`.
+
+
+Native update: actual jrnl run `39797356210` at `2d25f71` passed Linux and
+Windows: 480 ordinary / 18 calibration observations. Each complete packet was
+independently audited from the indexed compressed payload, then its exact
+expanded download was removed. Generations jrnl v1/v2 retain 16,213,493 and
+14,970,401 archive bytes. Positive audit wrappers `6ad7ad0e18b040e5b6152a025b39b3c1`
+and `12391a8784154997b9107fc72f9ef2e5`; checked expanded removals
+`a209f65968a7452f88aeb1dad61094a9` and `2547585328e04781b3cdd3d845327f85`.
+Local source/runtime still active; admission remains zero until remaining gates.
+
+Helper run `39797324715` passed Linux/macOS but failed Windows: actual retained
+console confirms the first native removal-guard subprocess exceeded its 30-second
+instrumented deadline (6 tests: 5 passed / 1 error). Failed packet retained in
+harness generation 4 (79,643 archive bytes), expansion checked-removed. This is
+not an application failure. Raise only test subprocess allowance to 90 seconds
+and outer suite to 240, retaining the 5-minute hosted job cap. No target deadline
+changes. Failure output was hidden by the wrapper; a before-fix regression failed
+and after-fix all seven local controls passed (`cf95c7b970e149999f476e642d3a2df6`).
+Wrapper now prints the bounded retained console on error. Updated exact helper
+source requires a new three-host run. Next: commit/push these scoped changes,
+audit fresh helper jobs, complete independent negative controls and delivered-CI
+jrnl success/fault/recovery, then checked-clean local source before project two.

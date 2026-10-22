@@ -36,7 +36,7 @@ jobs:
         shell: bash
         run: |
           python -B scripts/acceptance/next20_check.py --label native-next20-syntax --timeout 60 -- python -B -c "import ast,pathlib; files=list(pathlib.Path('scripts/acceptance').glob('next20_*.py')); [ast.parse(p.read_text(encoding='utf-8-sig'),filename=str(p)) for p in files]; print('Parsed',len(files),'next20 helpers')"
-          python -B scripts/acceptance/next20_check.py --label native-next20-command-controls --timeout 90 -- python -B -m unittest discover -s scripts/acceptance -p 'test_next20_*.py' -v
+          python -B scripts/acceptance/next20_check.py --label native-next20-command-controls --timeout 240 -- python -B -m unittest discover -s scripts/acceptance -p 'test_next20_*.py' -v
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:

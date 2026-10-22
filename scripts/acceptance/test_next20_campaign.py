@@ -80,6 +80,18 @@ class NextCampaignTests(unittest.TestCase):
         self.assertEqual(finish['category'],'harness_timeout')
         self.assertEqual(finish['harness_cleanup'],'harness_process_reaped')
 
+    def test_failed_engineering_command_exposes_its_retained_console(self):
+        marker='synthetic-failed-command-output-visible'
+        async def check():
+            return await execute([sys.executable,'-B',ROOT/'scripts/acceptance/next20_check.py',
+                '--label','failed-console-regression-'+uuid.uuid4().hex,'--timeout','15','--',
+                sys.executable,'-B','-c','import sys; print('+repr(marker)+'); sys.exit(3)'],
+                'core','failed-console-visibility-control',cwd=ROOT,env=owned_environment(),timeout=30,
+                expected=1,campaign=self.campaign)
+        result=asyncio.run(check())
+        self.assertIn(marker,result['output'])
+        self.assertIn('expected exit 0, got 3',result['output'])
+
     @unittest.skipUnless(os.name=='nt','native Windows checked target removal control')
     def test_native_target_removal_refuses_changed_payload_then_removes_exact_owned_fixture(self):
         # This is an actual native filesystem/process-observer guard control,
@@ -99,7 +111,7 @@ class NextCampaignTests(unittest.TestCase):
         original=data.read_bytes();data.write_bytes(b'unknown changed payload\n')
         async def run(expected,label):
             return await execute(['powershell.exe','-NoProfile','-ExecutionPolicy','Bypass','-File',script,
-                '-Project','jrnl'],'core',label,cwd=ROOT,env=owned_environment(),timeout=30,
+                '-Project','jrnl'],'core',label,cwd=ROOT,env=owned_environment(),timeout=90,
                 expected=expected,campaign=self.campaign)
         rejected=asyncio.run(run(1,'native-removal-changed-payload-refusal'))
         self.assertTrue(target.is_dir());self.assertIn('changed after checked retention',rejected['output'])

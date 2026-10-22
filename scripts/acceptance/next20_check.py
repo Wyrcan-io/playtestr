@@ -120,9 +120,22 @@ def main():
         argv = argv[1:]
     if not argv or not 1 <= args.timeout <= 1200:
         parser.error('command and bounded timeout required')
-    result = asyncio.run(execute(argv, 'core', args.label, cwd=ROOT,
-                                env=owned_environment(), timeout=args.timeout,
-                                expected=args.expected, campaign=NextCampaign()))
+    try:
+        result = asyncio.run(execute(argv, 'core', args.label, cwd=ROOT,
+                                    env=owned_environment(), timeout=args.timeout,
+                                    expected=args.expected, campaign=NextCampaign()))
+    except Exception as error:
+        directory=getattr(error,'evidence_directory',None)
+        if directory:
+            path=Path(directory).resolve(strict=True)
+            path.relative_to(RAW.resolve())
+            console=path/'console.log'
+            if console.is_file():
+                with console.open('rb') as stream:
+                    stream.seek(max(0,console.stat().st_size-12000))
+                    print(stream.read(12000).decode('utf-8',errors='replace'),flush=True)
+            print('Evidence:',path.relative_to(ROOT),flush=True)
+        raise
     print(result['output'][-12000:])
     print('Evidence:', result['directory'].relative_to(ROOT))
 

@@ -1,5 +1,6 @@
 """Audit actual native helper events, tested source and five named test outcomes."""
 import argparse
+import ast
 import hashlib
 import json
 import subprocess
@@ -11,8 +12,14 @@ from readiness_compact_native import compact
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('host',choices=['ubuntu-24.04','macos-15','windows-2025'])
-    parser.add_argument('--generation',type=int,required=True);args=parser.parse_args()
-    run='39789582365';revision='406169061ffb022c0fd0a4b1f99309836b6a96b1'
+    parser.add_argument('--generation',type=int,required=True)
+    parser.add_argument('--run',default='39789582365')
+    parser.add_argument('--revision',default='406169061ffb022c0fd0a4b1f99309836b6a96b1')
+    args=parser.parse_args();run=args.run;revision=args.revision
+    if not run.isascii() or not run.isdecimal() or len(revision)!=40 or any(c not in '0123456789abcdef' for c in revision):
+        raise ValueError('invalid explicit native run/source revision')
+    test_source=subprocess.check_output(['git','show',revision+':scripts/acceptance/test_next20_campaign.py'])
+    test_names=[node.name for node in ast.walk(ast.parse(test_source.decode('utf-8'))) if isinstance(node,ast.FunctionDef) and node.name.startswith('test_')]
     root=RAW/'native'/run/('next20-harness-'+args.host)
     attempts={}
     for path in (root/'events').glob('*.json'):
@@ -38,14 +45,17 @@ def main():
             source_bindings[name]=identity['files'][name]
         output=console.read_text(encoding='utf-8')
         if started['label']=='native-next20-command-controls':
-            tests=['test_actual_success_and_expected_nonzero_keep_distinct_execution_ids',
-                'test_actual_target_source_change_gets_new_prelaunch_identity',
-                'test_actual_timeout_is_failed_and_process_is_reaped',
-                'test_exclusive_events_have_new_campaign_without_changing_historical_default',
-                'test_rejects_cross_campaign_destination']
-            if any(not any(line.startswith(test+' ') and line.endswith(' ... ok') for line in output.splitlines()) for test in tests):
-                raise ValueError('missing named native positive test')
-            if 'Ran 5 tests' not in output or '\nOK\n' not in output.replace('\r\n','\n') or 'skipped' in output:
+            skipped=[];passed=[]
+            for test in test_names:
+                lines=[line for line in output.splitlines() if line.startswith(test+' ')]
+                if len(lines)!=1:raise ValueError('missing/duplicated named native test outcome')
+                if lines[0].endswith(' ... ok'):passed.append(test)
+                elif (args.host!='windows-2025' and test=='test_native_target_removal_refuses_changed_payload_then_removes_exact_owned_fixture'
+                      and lines[0].endswith(" ... skipped 'native Windows checked target removal control'")):
+                    skipped.append(dict(test=test,reason='native Windows checked target removal control'))
+                else:raise ValueError('unexpected native failure/skip')
+            normalized=output.replace('\r\n','\n')
+            if f'Ran {len(test_names)} tests' not in output or not any(line=='OK' or line==f'OK (skipped={len(skipped)})' for line in normalized.splitlines()):
                 raise ValueError('partial/skipped native controls')
         else:
             if started['label']!='native-next20-syntax' or 'Parsed' not in output:raise ValueError('missing native syntax check')
@@ -53,12 +63,32 @@ def main():
                            identity_sha256=sha256(manifest),source_bindings=source_bindings))
     (RAW/'harness').mkdir(exist_ok=True)
     retained=compact(RAW,'harness',[run],generation=args.generation)
+    if args.host=='windows-2025' and 'test_native_target_removal_refuses_changed_payload_then_removes_exact_owned_fixture' in test_names:
+        matches=[]
+        expected_blob=subprocess.check_output(['git','show',revision+':scripts/acceptance/next20_remove_target.ps1'])
+        expected_hashes={hashlib.sha256(expected_blob).hexdigest(),hashlib.sha256(expected_blob.replace(b'\r\n',b'\n').replace(b'\n',b'\r\n')).hexdigest()}
+        for path in (root/'control-tests').rglob('*-identified.json'):
+            event=json.loads(path.read_text());events=path.parent;eid=event['id']
+            started=json.loads((events/(eid+'-started.json')).read_text())
+            if not started['label'].startswith('native-removal-'):continue
+            control_root=events.parent;manifest=control_root/event['identity']['manifest']
+            if sha256(manifest)!=event['identity']['sha256']:raise ValueError('changed actual native removal identity')
+            value=json.loads(manifest.read_text())
+            sources=[h for n,h in value['files'].items() if n.endswith('fixture-workspace/scripts/acceptance/next20_remove_target.ps1')]
+            if len(sources)!=1 or sources[0] not in expected_hashes:raise ValueError('stale native checked-removal subprocess source')
+            finished=json.loads((events/(eid+'-finished.json')).read_text())
+            if finished['category']!='passed' or finished['harness_cleanup']!='harness_process_reaped':raise ValueError('incomplete actual native guard command')
+            matches.append(dict(label=started['label'],source_sha256=sources[0],attempt=eid))
+        if len(matches)!=2:raise ValueError('missing real changed-payload refusal and exact removal executions')
+    else:matches=[]
     receipt=dict(schema_version=1,run=run,host=args.host,tooling_revision=revision,checks=checks,
-        named_controls_passed=5,source_syntax_scope='Only helpers present at recorded tested revision',
+        named_controls_passed=len(passed),tests_discovered=len(test_names),skips=skipped,native_removal_commands=matches,
+        source_syntax_scope='Only helpers present at recorded tested revision',
         archive_sha256=sha256(retained/'packets.tar.gz'),index_sha256=sha256(retained/'index.json'),
         retained_generation=args.generation,expanded_removal_confirmed=False,new_project_credit=0,
         scope='Actual source/event/positive-console proof for five new helper controls. No application or archive-product-control reexecution credit.')
-    immutable_json(DOC/('harness-'+args.host+'.json'),receipt)
+    name=('harness-'+args.host+'.json') if run=='39789582365' else ('harness-'+run+'-'+args.host+'.json')
+    immutable_json(DOC/name,receipt)
     print('Verified actual',args.host,'native helper controls and retained packet; checked expanded removal still required.')
 
 
