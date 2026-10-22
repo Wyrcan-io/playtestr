@@ -111,7 +111,8 @@ async def main():
             +'Windows executable-bit semantics are not Unix filesystem execution evidence. Owned checkout/cache removed through native PowerShell after complete hash verification.'))
     immutable_json(parent/'verified.json',receipt)
     immutable_json(ROOT/('docs/validation/runner-readiness-ten-project-pass/'+('fresh-public-closing.json' if args.public_only else 'fresh-checkout-verification.json')),receipt)
-    print('Fresh actual checkout, uncached tests, public bytes/modes and checked removal verified.')
+    print('Fresh public bytes/modes, unchanged production and checked removal verified.' if args.public_only
+        else 'Fresh actual checkout, uncached tests, public bytes/modes and checked removal verified.')
 
 
 if __name__=='__main__':asyncio.run(main())

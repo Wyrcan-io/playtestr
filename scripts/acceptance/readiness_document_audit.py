@@ -10,7 +10,7 @@ from readiness_evidence import ROOT, immutable_json, sha256
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--output',choices=['document-audit.json','closing-document-audit.json'],default='document-audit.json');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--output',choices=['document-audit.json','closing-document-audit.json','closing-document-audit-v2.json'],default='document-audit.json');args=parser.parse_args()
     tracked=subprocess.run(['git','-c','core.quotePath=false','ls-files','-z'],cwd=ROOT,check=True,stdout=subprocess.PIPE).stdout.decode().split('\x00')
     files={n for n in tracked if n}
     # Staging the reviewable closing documents makes their public link targets

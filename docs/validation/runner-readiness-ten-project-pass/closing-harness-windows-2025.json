@@ -1,0 +1,130 @@
+{
+  "checks": [
+    {
+      "attempt": "365fc42d054041608d1a570619296e2b",
+      "console_sha256": "5288d899deed8d8bf6a31a47f4f028eacbbddab998892e6e6d5f97e386200a16",
+      "label": "native-readiness-helper-syntax"
+    },
+    {
+      "attempt": "c6f829c9547c4ac393ce1465c963314a",
+      "console_sha256": "64c090917ea0608359e1d5b2ed6cae42a641569fa8d9ee0450aeff349f704f15",
+      "label": "native-harness-controls",
+      "manifest_sha256": "ce3a2e561ff0926952b67d24dab39317d03e590bcefa92a941998a3eeedafef4",
+      "passed": 63,
+      "platform_prerequisite_skips": [
+        {
+          "reason": "'Unix process command ownership uses native ps'",
+          "test": "test_owned_bash_is_reported_and_unrelated_bash_is_ignored (test_readiness_runtime_scope.NativeRuntimeScopeTests.test_owned_bash_is_reported_and_unrelated_bash_is_ignored)"
+        }
+      ],
+      "tests_discovered": 64
+    }
+  ],
+  "current_whole_harness_control_proofs": [
+    {
+      "attempt": "c6f829c9547c4ac393ce1465c963314a",
+      "console_sha256": "64c090917ea0608359e1d5b2ed6cae42a641569fa8d9ee0450aeff349f704f15",
+      "id": "ledger-concurrent",
+      "manifest_sha256": "ce3a2e561ff0926952b67d24dab39317d03e590bcefa92a941998a3eeedafef4",
+      "native_source_sha256": "630267212bcb5c62def278e7949f656144bab17e653610241065f31dc71b91a8",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "test": "EvidenceTests.test_concurrent_exclusive_events"
+    },
+    {
+      "attempt": "c6f829c9547c4ac393ce1465c963314a",
+      "console_sha256": "64c090917ea0608359e1d5b2ed6cae42a641569fa8d9ee0450aeff349f704f15",
+      "id": "ledger-no-overwrite",
+      "manifest_sha256": "ce3a2e561ff0926952b67d24dab39317d03e590bcefa92a941998a3eeedafef4",
+      "native_source_sha256": "630267212bcb5c62def278e7949f656144bab17e653610241065f31dc71b91a8",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "test": "EvidenceTests.test_duplicate_cannot_overwrite_failure"
+    },
+    {
+      "attempt": "c6f829c9547c4ac393ce1465c963314a",
+      "console_sha256": "64c090917ea0608359e1d5b2ed6cae42a641569fa8d9ee0450aeff349f704f15",
+      "id": "ledger-interrupted",
+      "manifest_sha256": "ce3a2e561ff0926952b67d24dab39317d03e590bcefa92a941998a3eeedafef4",
+      "native_source_sha256": "630267212bcb5c62def278e7949f656144bab17e653610241065f31dc71b91a8",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "test": "EvidenceTests.test_interrupted_and_malformed_records_reject"
+    },
+    {
+      "attempt": "c6f829c9547c4ac393ce1465c963314a",
+      "console_sha256": "64c090917ea0608359e1d5b2ed6cae42a641569fa8d9ee0450aeff349f704f15",
+      "id": "ledger-unfinished",
+      "manifest_sha256": "ce3a2e561ff0926952b67d24dab39317d03e590bcefa92a941998a3eeedafef4",
+      "native_source_sha256": "630267212bcb5c62def278e7949f656144bab17e653610241065f31dc71b91a8",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "test": "EvidenceTests.test_started_without_outcome_rejects"
+    },
+    {
+      "attempt": "c6f829c9547c4ac393ce1465c963314a",
+      "console_sha256": "64c090917ea0608359e1d5b2ed6cae42a641569fa8d9ee0450aeff349f704f15",
+      "id": "owned-go-boundary",
+      "manifest_sha256": "ce3a2e561ff0926952b67d24dab39317d03e590bcefa92a941998a3eeedafef4",
+      "native_source_sha256": "630267212bcb5c62def278e7949f656144bab17e653610241065f31dc71b91a8",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "test": "EvidenceTests.test_downloaded_go_sources_have_module_boundary"
+    },
+    {
+      "attempt": "c6f829c9547c4ac393ce1465c963314a",
+      "console_sha256": "64c090917ea0608359e1d5b2ed6cae42a641569fa8d9ee0450aeff349f704f15",
+      "id": "ledger-prelaunch-failure",
+      "manifest_sha256": "ce3a2e561ff0926952b67d24dab39317d03e590bcefa92a941998a3eeedafef4",
+      "native_source_sha256": "630267212bcb5c62def278e7949f656144bab17e653610241065f31dc71b91a8",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "test": "EvidenceTests.test_rejected_prelaunch_identity_is_accounted_without_credit"
+    },
+    {
+      "attempt": "c6f829c9547c4ac393ce1465c963314a",
+      "console_sha256": "64c090917ea0608359e1d5b2ed6cae42a641569fa8d9ee0450aeff349f704f15",
+      "id": "ledger-false-success",
+      "manifest_sha256": "ce3a2e561ff0926952b67d24dab39317d03e590bcefa92a941998a3eeedafef4",
+      "native_source_sha256": "630267212bcb5c62def278e7949f656144bab17e653610241065f31dc71b91a8",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "test": "EvidenceTests.test_success_without_prelaunch_identity_rejects"
+    },
+    {
+      "attempt": "c6f829c9547c4ac393ce1465c963314a",
+      "console_sha256": "64c090917ea0608359e1d5b2ed6cae42a641569fa8d9ee0450aeff349f704f15",
+      "id": "editable-source-identity",
+      "manifest_sha256": "ce3a2e561ff0926952b67d24dab39317d03e590bcefa92a941998a3eeedafef4",
+      "native_source_sha256": "630267212bcb5c62def278e7949f656144bab17e653610241065f31dc71b91a8",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "test": "EvidenceTests.test_editable_target_mutation_changes_prelaunch_identity"
+    },
+    {
+      "attempt": "c6f829c9547c4ac393ce1465c963314a",
+      "console_sha256": "64c090917ea0608359e1d5b2ed6cae42a641569fa8d9ee0450aeff349f704f15",
+      "id": "selection-contract-coverage",
+      "manifest_sha256": "ce3a2e561ff0926952b67d24dab39317d03e590bcefa92a941998a3eeedafef4",
+      "native_source_sha256": "720095da327292f5fecc9c0edee930341b954272ce614e7e8915d11d0e3ed558",
+      "source": "scripts/acceptance/test_readiness_public_suite.py",
+      "test": "PublicSelectionTests.test_selection_directory_does_not_omit_contracts"
+    },
+    {
+      "attempt": "c6f829c9547c4ac393ce1465c963314a",
+      "console_sha256": "64c090917ea0608359e1d5b2ed6cae42a641569fa8d9ee0450aeff349f704f15",
+      "id": "selection-invalid",
+      "manifest_sha256": "ce3a2e561ff0926952b67d24dab39317d03e590bcefa92a941998a3eeedafef4",
+      "native_source_sha256": "720095da327292f5fecc9c0edee930341b954272ce614e7e8915d11d0e3ed558",
+      "source": "scripts/acceptance/test_readiness_public_suite.py",
+      "test": "PublicSelectionTests.test_bad_and_duplicate_selection_rejects_before_launch"
+    },
+    {
+      "attempt": "c6f829c9547c4ac393ce1465c963314a",
+      "console_sha256": "64c090917ea0608359e1d5b2ed6cae42a641569fa8d9ee0450aeff349f704f15",
+      "id": "selection-receipt-exclusion",
+      "manifest_sha256": "ce3a2e561ff0926952b67d24dab39317d03e590bcefa92a941998a3eeedafef4",
+      "native_source_sha256": "56313552c553720e42b509ec1531acc908f473c53e89fb3e5da2d4b84c1cc362",
+      "source": "scripts/acceptance/test_readiness_poetry_profiles.py",
+      "test": "PoetryProfileTests.test_native_selection_excludes_fault_receipts"
+    }
+  ],
+  "host": "windows-2025",
+  "metadata_sha256": "0b7712995be52f6912e092b53eba2226d5a48aab9e2507d69cb0c1a489c5e382",
+  "product_control_credit": 0,
+  "run": "39748314247",
+  "scope": "Actual native helper syntax and whole harness tests; each prerequisite skip is reported explicitly. No application scenario, new whole product control or archive invocation credit.",
+  "source": "edad87c190c4370865c2dfcf448e13e11a71a64e"
+}

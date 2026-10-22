@@ -44,7 +44,7 @@ To build the current development version with Go 1.25 or newer, use the [source 
 
 The current source candidate adds an offline [guided recorder](docs/recording.md) and a [PR workflow generator](docs/generated-workflows.md). These commands are not in the existing published archives. Record a trusted interaction, choose checkpoints, review/replay, then export ordinary editable tests. Basic local and GitHub CI use needs no account or paid service.
 
-The runner-readiness source candidate adds [spec v3 saved-state checks](docs/spec-v3.md): record `/file result.txt` to review exact bytes from the current managed workspace, then replay and export. A success screen can pass while this file check fails. Existing published archives do not support spec v3; its broader project/native qualification remains [in progress](docs/validation/runner-readiness-ten-project-pass/README.md).
+The runner-readiness source candidate adds [spec v3 saved-state checks](docs/spec-v3.md): record `/file result.txt` to review exact bytes from the current managed workspace, then replay and export. A success screen can pass while this file check fails. The unpublished rc.5 candidate has [ten verified native project series](docs/validation/runner-readiness-ten-project-pass/final-report.md); the [closing receipt](docs/validation/runner-readiness-ten-project-pass/campaign-admission.json) defines its scoped qualification. Existing published archives do not support spec v3. Human usability and the remaining 100-project program have separate gates.
 
 ## Write a test
 

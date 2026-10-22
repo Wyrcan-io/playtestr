@@ -4,7 +4,7 @@ import re
 
 from readiness_evidence import RAW, ROOT, immutable_json, sha256
 from readiness_final_batch_verify import require
-from readiness_new_control_matrix import packet_file, read_json as load
+from readiness_new_control_matrix import canonical_hashes, packet_file, read_json as load
 
 
 def main():
@@ -16,7 +16,7 @@ def main():
         and {j['name'] for j in metadata['jobs']}=={'native-harness ('+h+')' for h in ['ubuntu-24.04','macos-15','windows-2025']}
         and all(j['status']=='completed' and j['conclusion']=='success' for j in metadata['jobs']),
         'complete native harness matrix required')
-    base=parent/('runner-readiness-harness-'+args.host);checks=[]
+    base=parent/('runner-readiness-harness-'+args.host);checks=[];proofs=[]
     for label in ['native-readiness-helper-syntax','native-harness-controls']:
         found=[p for p in (base/'events').glob('*-finished.json') if load(p)['label']==label]
         require(len(found)==1,'missing/duplicate native harness check')
@@ -35,10 +35,20 @@ def main():
             item.update(tests_discovered=64,platform_prerequisite_skips=[dict(test=t,reason=r) for t,r in skips],
                 passed=64-len(skips),manifest_sha256=sha256(manifest))
             require('test_compiled_app_source_lock_compiler_and_binary_are_bound' in output,'native provenance regression absent')
+            controls=load(ROOT/'docs/validation/runner-readiness-ten-project-pass/new-control-development-evidence-revision-13.json')['controls']
+            files=load(manifest)['files']
+            for control in controls:
+                if not control['source'].startswith('scripts/acceptance/test_readiness_'):continue
+                matched=[line for line in output.splitlines() if re.search(r'\([^)]*\.'+re.escape(control['test'])+r'\) \.\.\. ok$',line)]
+                require(len(matched)==1 and files.get(control['source']) in canonical_hashes(ROOT/control['source']),
+                    'actual current whole harness control missing: '+control['id'])
+                proofs.append(dict(id=control['id'],source=control['source'],native_source_sha256=files[control['source']],
+                    test=control['test'],attempt=identity,manifest_sha256=sha256(manifest),console_sha256=sha256(log)))
         else:require(re.search(r'Parsed [0-9]+ readiness helpers',output),'missing native syntax evidence')
         checks.append(item)
     immutable_json(ROOT/('docs/validation/runner-readiness-ten-project-pass/closing-harness-'+args.host+'.json'),
         dict(run=args.run,source=args.source,host=args.host,metadata_sha256=sha256(parent/'run-metadata.json'),checks=checks,
+            current_whole_harness_control_proofs=proofs,
             product_control_credit=0,scope='Actual native helper syntax and whole harness tests; each prerequisite skip is reported explicitly. No application scenario, new whole product control or archive invocation credit.'))
     print('Verified actual closing native harness:',args.host)
 

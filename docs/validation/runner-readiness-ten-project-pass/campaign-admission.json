@@ -1,6 +1,434 @@
 {
-  "status": "pending closing validation",
-  "final_runner_admissions": 0,
+  "applicable_historical_passes": 87,
+  "closing_storage_bytes": {
+    "curated": 11632881,
+    "raw": 1908684542,
+    "retained": 989740047
+  },
+  "control_retention": [
+    {
+      "archive_sha256": "d793f9f73455d9621e40c101bb43f8a2ae2e3c5cd6de6c5e4c24248402b19c70",
+      "host": "linux",
+      "index_sha256": "01d3a79b1a62d26c849eb96e9f685d424bbbc6794ce41258656bfdbc2e8704ad"
+    },
+    {
+      "archive_sha256": "401519bc4b5f8a2ea99d107858ff2339d53cfc178f891a91f8c592eb01da0295",
+      "host": "macos",
+      "index_sha256": "41dd810da3fa63c73c7cb9004a5eacaa1924be03c2451df112b6da92a1659fee"
+    },
+    {
+      "archive_sha256": "1492bf93cff2733f1d756920eff2657738a90ef7ec0d0704912ffa666c0bf814",
+      "host": "windows",
+      "index_sha256": "b2a5de8aff67751e67f26deaea0aa82c14a02df250a79a9b3cab2f134276509a"
+    }
+  ],
+  "final_archive_qualified_projects": 10,
+  "final_calibration_executions": 186,
+  "final_canonical_scenarios": 200,
+  "final_ordinary_executions": 4800,
+  "final_runner_admissions": 10,
+  "harness_retention": [
+    {
+      "archive_sha256": "a31e6ef4782137d6397887b7570226f82894ee273f736ba82736fd51cdaba7a4",
+      "current_python_dependency_files_verified": 49,
+      "host": "ubuntu-24.04",
+      "index_sha256": "8056dc8f69077f4145147ba061cbaaca14e8d9b3f70d1395319ca54aa8e0e512"
+    },
+    {
+      "archive_sha256": "fdd34ca6ded0ae6fc51f43d03a490ce611dd1079234a66965c166d517e302da1",
+      "current_python_dependency_files_verified": 49,
+      "host": "macos-15",
+      "index_sha256": "60d58c44aef9aee27c42d4fe30a50adb5a5db63177e83e1b4e4b73561c144bfd"
+    },
+    {
+      "archive_sha256": "6f5dcbeb8c79fa7828a3558e486adaf7b8710d3a5669cc3cf14fe2c87f26d63a",
+      "current_python_dependency_files_verified": 49,
+      "host": "windows-2025",
+      "index_sha256": "a9e96afc9d965ad35311f5daebae473376edd73e9aadc7e6f506d407b4fd3e2f"
+    }
+  ],
+  "harness_run": "39748314247",
+  "historical_whole_controls": 88,
+  "human_participants": 0,
+  "human_usability": "unmeasured",
+  "native_cells": 20,
+  "new_projects": [
+    "fff",
+    "hygen",
+    "rclone",
+    "plop",
+    "poetry",
+    "rubygems",
+    "edit",
+    "frogmouth",
+    "papis",
+    "vis"
+  ],
+  "new_whole_controls": 33,
+  "old_calibration_executions": 63,
+  "old_canonical_scenarios": 130,
+  "old_migration_new_project_credit": 0,
+  "old_native_cells": 21,
+  "old_primary_executions": 274,
+  "old_projects_migrated": 10,
+  "paid_integration_started": false,
   "paid_launch_admissions": 0,
-  "scope": "Prepared local closing receipt; no admission until actual closing checks replace this pending record."
+  "public_archive_control_reexecutions": 105,
+  "published": false,
+  "real_target_faults": 31,
+  "refreshed_whole_harness_controls": [
+    {
+      "actual_current_proofs": [
+        {
+          "attempt": "a3f8d504c178408388c8214e81c9c7a9",
+          "console_sha256": "e749fe6d5077a29b14d221b5f7b140bc53908b1366f883aa0be057dd87740b2b",
+          "host": "ubuntu-24.04",
+          "id": "ledger-concurrent",
+          "manifest_sha256": "68760b5e2e3d818ddb35c8ae6e0b4c92c007388b8b934a2dad8f19c8f7dad885",
+          "native_source_sha256": "c33796a69e39acbea0b3516c217fbe900242e3e9bfeceabbcc17d18f223e9516",
+          "run": "39748314247",
+          "source": "scripts/acceptance/test_readiness_evidence.py",
+          "test": "EvidenceTests.test_concurrent_exclusive_events"
+        },
+        {
+          "attempt": "2e91834036454b28bd531a51e2ca7bc4",
+          "console_sha256": "a454496c1b7811212a1f3391e1cc12050131548386120b379022fdfd0f72fc35",
+          "host": "macos-15",
+          "id": "ledger-concurrent",
+          "manifest_sha256": "d7d59ccaeba6af95372f024172bb2078efb700542a9731e1349de9901eb2fd4c",
+          "native_source_sha256": "c33796a69e39acbea0b3516c217fbe900242e3e9bfeceabbcc17d18f223e9516",
+          "run": "39748314247",
+          "source": "scripts/acceptance/test_readiness_evidence.py",
+          "test": "EvidenceTests.test_concurrent_exclusive_events"
+        },
+        {
+          "attempt": "c6f829c9547c4ac393ce1465c963314a",
+          "console_sha256": "64c090917ea0608359e1d5b2ed6cae42a641569fa8d9ee0450aeff349f704f15",
+          "host": "windows-2025",
+          "id": "ledger-concurrent",
+          "manifest_sha256": "ce3a2e561ff0926952b67d24dab39317d03e590bcefa92a941998a3eeedafef4",
+          "native_source_sha256": "630267212bcb5c62def278e7949f656144bab17e653610241065f31dc71b91a8",
+          "run": "39748314247",
+          "source": "scripts/acceptance/test_readiness_evidence.py",
+          "test": "EvidenceTests.test_concurrent_exclusive_events"
+        }
+      ],
+      "id": "ledger-concurrent",
+      "previous_source_sha256": "b903ff189cfa846a102ccc5ae7ef3f9da348ed0906991128070e7b461c250e21"
+    },
+    {
+      "actual_current_proofs": [
+        {
+          "attempt": "a3f8d504c178408388c8214e81c9c7a9",
+          "console_sha256": "e749fe6d5077a29b14d221b5f7b140bc53908b1366f883aa0be057dd87740b2b",
+          "host": "ubuntu-24.04",
+          "id": "ledger-no-overwrite",
+          "manifest_sha256": "68760b5e2e3d818ddb35c8ae6e0b4c92c007388b8b934a2dad8f19c8f7dad885",
+          "native_source_sha256": "c33796a69e39acbea0b3516c217fbe900242e3e9bfeceabbcc17d18f223e9516",
+          "run": "39748314247",
+          "source": "scripts/acceptance/test_readiness_evidence.py",
+          "test": "EvidenceTests.test_duplicate_cannot_overwrite_failure"
+        },
+        {
+          "attempt": "2e91834036454b28bd531a51e2ca7bc4",
+          "console_sha256": "a454496c1b7811212a1f3391e1cc12050131548386120b379022fdfd0f72fc35",
+          "host": "macos-15",
+          "id": "ledger-no-overwrite",
+          "manifest_sha256": "d7d59ccaeba6af95372f024172bb2078efb700542a9731e1349de9901eb2fd4c",
+          "native_source_sha256": "c33796a69e39acbea0b3516c217fbe900242e3e9bfeceabbcc17d18f223e9516",
+          "run": "39748314247",
+          "source": "scripts/acceptance/test_readiness_evidence.py",
+          "test": "EvidenceTests.test_duplicate_cannot_overwrite_failure"
+        },
+        {
+          "attempt": "c6f829c9547c4ac393ce1465c963314a",
+          "console_sha256": "64c090917ea0608359e1d5b2ed6cae42a641569fa8d9ee0450aeff349f704f15",
+          "host": "windows-2025",
+          "id": "ledger-no-overwrite",
+          "manifest_sha256": "ce3a2e561ff0926952b67d24dab39317d03e590bcefa92a941998a3eeedafef4",
+          "native_source_sha256": "630267212bcb5c62def278e7949f656144bab17e653610241065f31dc71b91a8",
+          "run": "39748314247",
+          "source": "scripts/acceptance/test_readiness_evidence.py",
+          "test": "EvidenceTests.test_duplicate_cannot_overwrite_failure"
+        }
+      ],
+      "id": "ledger-no-overwrite",
+      "previous_source_sha256": "b903ff189cfa846a102ccc5ae7ef3f9da348ed0906991128070e7b461c250e21"
+    },
+    {
+      "actual_current_proofs": [
+        {
+          "attempt": "a3f8d504c178408388c8214e81c9c7a9",
+          "console_sha256": "e749fe6d5077a29b14d221b5f7b140bc53908b1366f883aa0be057dd87740b2b",
+          "host": "ubuntu-24.04",
+          "id": "ledger-interrupted",
+          "manifest_sha256": "68760b5e2e3d818ddb35c8ae6e0b4c92c007388b8b934a2dad8f19c8f7dad885",
+          "native_source_sha256": "c33796a69e39acbea0b3516c217fbe900242e3e9bfeceabbcc17d18f223e9516",
+          "run": "39748314247",
+          "source": "scripts/acceptance/test_readiness_evidence.py",
+          "test": "EvidenceTests.test_interrupted_and_malformed_records_reject"
+        },
+        {
+          "attempt": "2e91834036454b28bd531a51e2ca7bc4",
+          "console_sha256": "a454496c1b7811212a1f3391e1cc12050131548386120b379022fdfd0f72fc35",
+          "host": "macos-15",
+          "id": "ledger-interrupted",
+          "manifest_sha256": "d7d59ccaeba6af95372f024172bb2078efb700542a9731e1349de9901eb2fd4c",
+          "native_source_sha256": "c33796a69e39acbea0b3516c217fbe900242e3e9bfeceabbcc17d18f223e9516",
+          "run": "39748314247",
+          "source": "scripts/acceptance/test_readiness_evidence.py",
+          "test": "EvidenceTests.test_interrupted_and_malformed_records_reject"
+        },
+        {
+          "attempt": "c6f829c9547c4ac393ce1465c963314a",
+          "console_sha256": "64c090917ea0608359e1d5b2ed6cae42a641569fa8d9ee0450aeff349f704f15",
+          "host": "windows-2025",
+          "id": "ledger-interrupted",
+          "manifest_sha256": "ce3a2e561ff0926952b67d24dab39317d03e590bcefa92a941998a3eeedafef4",
+          "native_source_sha256": "630267212bcb5c62def278e7949f656144bab17e653610241065f31dc71b91a8",
+          "run": "39748314247",
+          "source": "scripts/acceptance/test_readiness_evidence.py",
+          "test": "EvidenceTests.test_interrupted_and_malformed_records_reject"
+        }
+      ],
+      "id": "ledger-interrupted",
+      "previous_source_sha256": "b903ff189cfa846a102ccc5ae7ef3f9da348ed0906991128070e7b461c250e21"
+    },
+    {
+      "actual_current_proofs": [
+        {
+          "attempt": "a3f8d504c178408388c8214e81c9c7a9",
+          "console_sha256": "e749fe6d5077a29b14d221b5f7b140bc53908b1366f883aa0be057dd87740b2b",
+          "host": "ubuntu-24.04",
+          "id": "ledger-unfinished",
+          "manifest_sha256": "68760b5e2e3d818ddb35c8ae6e0b4c92c007388b8b934a2dad8f19c8f7dad885",
+          "native_source_sha256": "c33796a69e39acbea0b3516c217fbe900242e3e9bfeceabbcc17d18f223e9516",
+          "run": "39748314247",
+          "source": "scripts/acceptance/test_readiness_evidence.py",
+          "test": "EvidenceTests.test_started_without_outcome_rejects"
+        },
+        {
+          "attempt": "2e91834036454b28bd531a51e2ca7bc4",
+          "console_sha256": "a454496c1b7811212a1f3391e1cc12050131548386120b379022fdfd0f72fc35",
+          "host": "macos-15",
+          "id": "ledger-unfinished",
+          "manifest_sha256": "d7d59ccaeba6af95372f024172bb2078efb700542a9731e1349de9901eb2fd4c",
+          "native_source_sha256": "c33796a69e39acbea0b3516c217fbe900242e3e9bfeceabbcc17d18f223e9516",
+          "run": "39748314247",
+          "source": "scripts/acceptance/test_readiness_evidence.py",
+          "test": "EvidenceTests.test_started_without_outcome_rejects"
+        },
+        {
+          "attempt": "c6f829c9547c4ac393ce1465c963314a",
+          "console_sha256": "64c090917ea0608359e1d5b2ed6cae42a641569fa8d9ee0450aeff349f704f15",
+          "host": "windows-2025",
+          "id": "ledger-unfinished",
+          "manifest_sha256": "ce3a2e561ff0926952b67d24dab39317d03e590bcefa92a941998a3eeedafef4",
+          "native_source_sha256": "630267212bcb5c62def278e7949f656144bab17e653610241065f31dc71b91a8",
+          "run": "39748314247",
+          "source": "scripts/acceptance/test_readiness_evidence.py",
+          "test": "EvidenceTests.test_started_without_outcome_rejects"
+        }
+      ],
+      "id": "ledger-unfinished",
+      "previous_source_sha256": "b903ff189cfa846a102ccc5ae7ef3f9da348ed0906991128070e7b461c250e21"
+    },
+    {
+      "actual_current_proofs": [
+        {
+          "attempt": "a3f8d504c178408388c8214e81c9c7a9",
+          "console_sha256": "e749fe6d5077a29b14d221b5f7b140bc53908b1366f883aa0be057dd87740b2b",
+          "host": "ubuntu-24.04",
+          "id": "owned-go-boundary",
+          "manifest_sha256": "68760b5e2e3d818ddb35c8ae6e0b4c92c007388b8b934a2dad8f19c8f7dad885",
+          "native_source_sha256": "c33796a69e39acbea0b3516c217fbe900242e3e9bfeceabbcc17d18f223e9516",
+          "run": "39748314247",
+          "source": "scripts/acceptance/test_readiness_evidence.py",
+          "test": "EvidenceTests.test_downloaded_go_sources_have_module_boundary"
+        },
+        {
+          "attempt": "2e91834036454b28bd531a51e2ca7bc4",
+          "console_sha256": "a454496c1b7811212a1f3391e1cc12050131548386120b379022fdfd0f72fc35",
+          "host": "macos-15",
+          "id": "owned-go-boundary",
+          "manifest_sha256": "d7d59ccaeba6af95372f024172bb2078efb700542a9731e1349de9901eb2fd4c",
+          "native_source_sha256": "c33796a69e39acbea0b3516c217fbe900242e3e9bfeceabbcc17d18f223e9516",
+          "run": "39748314247",
+          "source": "scripts/acceptance/test_readiness_evidence.py",
+          "test": "EvidenceTests.test_downloaded_go_sources_have_module_boundary"
+        },
+        {
+          "attempt": "c6f829c9547c4ac393ce1465c963314a",
+          "console_sha256": "64c090917ea0608359e1d5b2ed6cae42a641569fa8d9ee0450aeff349f704f15",
+          "host": "windows-2025",
+          "id": "owned-go-boundary",
+          "manifest_sha256": "ce3a2e561ff0926952b67d24dab39317d03e590bcefa92a941998a3eeedafef4",
+          "native_source_sha256": "630267212bcb5c62def278e7949f656144bab17e653610241065f31dc71b91a8",
+          "run": "39748314247",
+          "source": "scripts/acceptance/test_readiness_evidence.py",
+          "test": "EvidenceTests.test_downloaded_go_sources_have_module_boundary"
+        }
+      ],
+      "id": "owned-go-boundary",
+      "previous_source_sha256": "b903ff189cfa846a102ccc5ae7ef3f9da348ed0906991128070e7b461c250e21"
+    },
+    {
+      "actual_current_proofs": [
+        {
+          "attempt": "a3f8d504c178408388c8214e81c9c7a9",
+          "console_sha256": "e749fe6d5077a29b14d221b5f7b140bc53908b1366f883aa0be057dd87740b2b",
+          "host": "ubuntu-24.04",
+          "id": "ledger-prelaunch-failure",
+          "manifest_sha256": "68760b5e2e3d818ddb35c8ae6e0b4c92c007388b8b934a2dad8f19c8f7dad885",
+          "native_source_sha256": "c33796a69e39acbea0b3516c217fbe900242e3e9bfeceabbcc17d18f223e9516",
+          "run": "39748314247",
+          "source": "scripts/acceptance/test_readiness_evidence.py",
+          "test": "EvidenceTests.test_rejected_prelaunch_identity_is_accounted_without_credit"
+        },
+        {
+          "attempt": "2e91834036454b28bd531a51e2ca7bc4",
+          "console_sha256": "a454496c1b7811212a1f3391e1cc12050131548386120b379022fdfd0f72fc35",
+          "host": "macos-15",
+          "id": "ledger-prelaunch-failure",
+          "manifest_sha256": "d7d59ccaeba6af95372f024172bb2078efb700542a9731e1349de9901eb2fd4c",
+          "native_source_sha256": "c33796a69e39acbea0b3516c217fbe900242e3e9bfeceabbcc17d18f223e9516",
+          "run": "39748314247",
+          "source": "scripts/acceptance/test_readiness_evidence.py",
+          "test": "EvidenceTests.test_rejected_prelaunch_identity_is_accounted_without_credit"
+        },
+        {
+          "attempt": "c6f829c9547c4ac393ce1465c963314a",
+          "console_sha256": "64c090917ea0608359e1d5b2ed6cae42a641569fa8d9ee0450aeff349f704f15",
+          "host": "windows-2025",
+          "id": "ledger-prelaunch-failure",
+          "manifest_sha256": "ce3a2e561ff0926952b67d24dab39317d03e590bcefa92a941998a3eeedafef4",
+          "native_source_sha256": "630267212bcb5c62def278e7949f656144bab17e653610241065f31dc71b91a8",
+          "run": "39748314247",
+          "source": "scripts/acceptance/test_readiness_evidence.py",
+          "test": "EvidenceTests.test_rejected_prelaunch_identity_is_accounted_without_credit"
+        }
+      ],
+      "id": "ledger-prelaunch-failure",
+      "previous_source_sha256": "b903ff189cfa846a102ccc5ae7ef3f9da348ed0906991128070e7b461c250e21"
+    },
+    {
+      "actual_current_proofs": [
+        {
+          "attempt": "a3f8d504c178408388c8214e81c9c7a9",
+          "console_sha256": "e749fe6d5077a29b14d221b5f7b140bc53908b1366f883aa0be057dd87740b2b",
+          "host": "ubuntu-24.04",
+          "id": "ledger-false-success",
+          "manifest_sha256": "68760b5e2e3d818ddb35c8ae6e0b4c92c007388b8b934a2dad8f19c8f7dad885",
+          "native_source_sha256": "c33796a69e39acbea0b3516c217fbe900242e3e9bfeceabbcc17d18f223e9516",
+          "run": "39748314247",
+          "source": "scripts/acceptance/test_readiness_evidence.py",
+          "test": "EvidenceTests.test_success_without_prelaunch_identity_rejects"
+        },
+        {
+          "attempt": "2e91834036454b28bd531a51e2ca7bc4",
+          "console_sha256": "a454496c1b7811212a1f3391e1cc12050131548386120b379022fdfd0f72fc35",
+          "host": "macos-15",
+          "id": "ledger-false-success",
+          "manifest_sha256": "d7d59ccaeba6af95372f024172bb2078efb700542a9731e1349de9901eb2fd4c",
+          "native_source_sha256": "c33796a69e39acbea0b3516c217fbe900242e3e9bfeceabbcc17d18f223e9516",
+          "run": "39748314247",
+          "source": "scripts/acceptance/test_readiness_evidence.py",
+          "test": "EvidenceTests.test_success_without_prelaunch_identity_rejects"
+        },
+        {
+          "attempt": "c6f829c9547c4ac393ce1465c963314a",
+          "console_sha256": "64c090917ea0608359e1d5b2ed6cae42a641569fa8d9ee0450aeff349f704f15",
+          "host": "windows-2025",
+          "id": "ledger-false-success",
+          "manifest_sha256": "ce3a2e561ff0926952b67d24dab39317d03e590bcefa92a941998a3eeedafef4",
+          "native_source_sha256": "630267212bcb5c62def278e7949f656144bab17e653610241065f31dc71b91a8",
+          "run": "39748314247",
+          "source": "scripts/acceptance/test_readiness_evidence.py",
+          "test": "EvidenceTests.test_success_without_prelaunch_identity_rejects"
+        }
+      ],
+      "id": "ledger-false-success",
+      "previous_source_sha256": "b903ff189cfa846a102ccc5ae7ef3f9da348ed0906991128070e7b461c250e21"
+    },
+    {
+      "actual_current_proofs": [
+        {
+          "attempt": "a3f8d504c178408388c8214e81c9c7a9",
+          "console_sha256": "e749fe6d5077a29b14d221b5f7b140bc53908b1366f883aa0be057dd87740b2b",
+          "host": "ubuntu-24.04",
+          "id": "editable-source-identity",
+          "manifest_sha256": "68760b5e2e3d818ddb35c8ae6e0b4c92c007388b8b934a2dad8f19c8f7dad885",
+          "native_source_sha256": "c33796a69e39acbea0b3516c217fbe900242e3e9bfeceabbcc17d18f223e9516",
+          "run": "39748314247",
+          "source": "scripts/acceptance/test_readiness_evidence.py",
+          "test": "EvidenceTests.test_editable_target_mutation_changes_prelaunch_identity"
+        },
+        {
+          "attempt": "2e91834036454b28bd531a51e2ca7bc4",
+          "console_sha256": "a454496c1b7811212a1f3391e1cc12050131548386120b379022fdfd0f72fc35",
+          "host": "macos-15",
+          "id": "editable-source-identity",
+          "manifest_sha256": "d7d59ccaeba6af95372f024172bb2078efb700542a9731e1349de9901eb2fd4c",
+          "native_source_sha256": "c33796a69e39acbea0b3516c217fbe900242e3e9bfeceabbcc17d18f223e9516",
+          "run": "39748314247",
+          "source": "scripts/acceptance/test_readiness_evidence.py",
+          "test": "EvidenceTests.test_editable_target_mutation_changes_prelaunch_identity"
+        },
+        {
+          "attempt": "c6f829c9547c4ac393ce1465c963314a",
+          "console_sha256": "64c090917ea0608359e1d5b2ed6cae42a641569fa8d9ee0450aeff349f704f15",
+          "host": "windows-2025",
+          "id": "editable-source-identity",
+          "manifest_sha256": "ce3a2e561ff0926952b67d24dab39317d03e590bcefa92a941998a3eeedafef4",
+          "native_source_sha256": "630267212bcb5c62def278e7949f656144bab17e653610241065f31dc71b91a8",
+          "run": "39748314247",
+          "source": "scripts/acceptance/test_readiness_evidence.py",
+          "test": "EvidenceTests.test_editable_target_mutation_changes_prelaunch_identity"
+        }
+      ],
+      "id": "editable-source-identity",
+      "previous_source_sha256": "b903ff189cfa846a102ccc5ae7ef3f9da348ed0906991128070e7b461c250e21"
+    }
+  ],
+  "remaining_runner_projects": 90,
+  "runner_program_target": 100,
+  "scope": "First ten new independently maintained projects under expanded deterministic runner contract. Old migrations, host copies, repetitions, harness checks and bounded R3 investigations do not inflate breadth. Historical unexplained failures and exclusions remain explicit residual risks, not causal repairs. Source-only internal controls remain source-only. Entire 100-project R4/final R5, human beginner readiness, public publication and commercial launch remain separate open gates.",
+  "source_revision": "129b7a45c0006be550f798ce52c2fbbfd327e515",
+  "stable_release_qualified": false,
+  "status": "engineering batch complete within recorded boundary",
+  "subjects": {
+    "all-command-accounting.json": "af0dd52ed6a4b46524d131f56b7c6a9f9477e8f5d56ed9aa0181717aa87da33a",
+    "all-old-attempt-accounting.json": "2a7174e0e53c9d8480ef5819fe3122432f1fdac6b260b0828859c4e917fe16fe",
+    "archive-controls-verified-linux.json": "1df01393631225c7ee7bc78fe4e32809cc8b260a1f10edc10e4ea8038c7a7382",
+    "archive-controls-verified-macos.json": "55c27b3810ae426f8523018387f3b7ad940ce116a27880342c364dbb7b349c52",
+    "archive-controls-verified-windows.json": "da1e28ee8e1d0430721a14bf8f39d3c42fbed3f9969c7f78d715321b16a0eedf",
+    "archive-experience/darwin-migration-v2.json": "a548426541c6ab3cb8f55a562bf3e564b1ad348c9f610b6c5bd2e464809ea6d7",
+    "archive-experience/darwin-portable-uninstall.json": "200a7b4bd8913bae5c7473beda6f70593d5c73fba22fe0b84a718431c539ec51",
+    "archive-experience/delivered-ci-verification.json": "9f9311d7bdb5a74cc919d77815ed721427afcf0af46aae7ee92a6c4ad617ce14",
+    "archive-experience/linux-migration-v2.json": "d29c92c21f707c09f7264d66615fa3270aa3184195c6d2f93d92aa52f72d3f40",
+    "archive-experience/linux-portable-uninstall.json": "56f01528ea42a2521ef995e51310f2b1eb0ee57526113174c4dc6ba1593bb6c6",
+    "archive-experience/linux-process-offline.json": "f5f2d51f8bc1625d6f2c716fef0cbab53e9b54668e1aef2a713f66e75fc4ba59",
+    "archive-experience/windows-migration-v2.json": "98eeb4b048f4b272bef3f1681ad0ab53a89367beab45e81a7d6affdaf818a9d5",
+    "archive-experience/windows-portable-uninstall.json": "7bb703b35aca8b9a6dccf9e8b5b787ed0be65a5669932d639e47d9c8a1351cb3",
+    "closing-document-audit-v2.json": "857aeba7ad1b249f6610158d066e742ec4776d0db6f751af76439b87db162266",
+    "closing-harness-macos-15.json": "9b8f5ce15fd69b9a5d2471477c35d1242ffdd266109eb09d805bb96ff0a7c823",
+    "closing-harness-ubuntu-24.04.json": "a7a606ff04cff095a5f9d0388080317ff4ea2fae7f6a17c7180b5108cd839ca4",
+    "closing-harness-windows-2025.json": "a311b358695452d8c34cf78ceb0e8e499c13f557fd466ea740f2daa6d0279ddf",
+    "closing-old-archive-audit.json": "9e9888b1be91edda8e9175d517c8375a3b6e735fe590aedf3cec983b6aae2ebb",
+    "closing-storage.json": "ecd414f05cec33e1c5e20f08e430e908894172de17b861f63072b70e295815cc",
+    "control-applicability.md": "2058788a3a76ca6b0df76258ba5209a936daff3c0f4ad84e6c5328ef7f3ac4ab",
+    "final-matrix-audit.json": "2ae720610bed4d2637235a25b9f7fb93f2be8412f21a836c590c19eb6be5c076",
+    "final-report.md": "2ca7369a2f8c8a79047b23703415a45d410470241ca98cc15db141afab58969e",
+    "fresh-checkout-verification.json": "07ddd9519245193c1ba5c07b81e5fcf905a695205692a9f1b0203805caf68c5b",
+    "fresh-public-closing.json": "f75e1dbfc23758467c8f40392d8212ab966f3c5e41ceba0a0eeafd16099fa61d",
+    "human-study.md": "cccea133a4e90fb614dfccf5408d182d94dfcb93ee78587b3f1ba21be254b916",
+    "limitations.md": "8ae4f1a89cff18a1f97a18a567db07cc599ae8a8acb93ed1007a4c66f7a030e4",
+    "migration-candidate-freeze.json": "615faddcc71df0a9c5accc5eb99ccd5592d12a18bebf38f4a243d141d11d2ad6",
+    "native-core-129b7a4.json": "daf78aee5deebc3f1d4139e0a80b1f9cdc6dbe687a6ace5ddccf4e7dc735483d",
+    "new-control-development-evidence-revision-13.json": "938f1f1acf65137c8eeed69c569dc606d446f80f00a01a96447be38cf1121df6",
+    "old-control-matrix-revision-3.json": "0228638e960ad6f4e62b81dc0347c708e1aeb91d752deddf57df96730af60fe6",
+    "shell-cache-ownership-verification.json": "17ce0db9254307fa4dd12ec2fc787ea978b028b5e4291ac437ab832c0b1f18b7",
+    "usability-assessment.md": "a1765cf5d0cc809004277a4f5e48024dc8d7662fb2dea7297a91ec2f17de7ddd"
+  },
+  "version": "v0.4.0-rc.5"
 }

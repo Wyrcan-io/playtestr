@@ -84,6 +84,15 @@ and documentation edits do not rebuild or change the candidate. Evidence and
 workflow checks, public links and final storage observations are bound in the
 closing receipt.
 
+The completed three-host harness run `39748314247` supplies actual current
+whole-test source identities, including eight refreshed harness-control bindings.
+Its tested local Python dependency closure and PowerShell subprocess inputs are
+checked against current files. A later duplicate run `39751777342` passed Linux
+and Windows, but its macOS job was provider-cancelled before any steps after a
+queue delay. That partial matrix is retained with zero qualification credit.
+New closing auditors were independently exercised locally against actual packets;
+the earlier native syntax check is not relabelled as execution of later auditors.
+
 The prepared authoring route typically uses three Playtestr invocations with
 11-20 controls. Cumulative initial Plop, Poetry and Rclone attempts missed the
 stated target and remain recorded. General recorder refusal and diagnosis changes

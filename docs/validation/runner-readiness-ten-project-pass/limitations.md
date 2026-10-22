@@ -48,6 +48,12 @@ zero. Publication, outreach and new pull requests were not performed.
   audit does not retrospectively repair them. Edit Windows rebuild bytes differed;
   source restoration and each executed binary were independently identified,
   without a Windows byte-reproducibility claim.
+- A duplicate closing harness run passed Linux/Windows but its macOS job was
+  provider-cancelled without running steps. Its partial packets are preserved
+  with zero matrix credit. The completed earlier three-host harness is used
+  only after matching its actual tested source/dependency inputs to current
+  files. New later audit-tool code is not claimed to have run on that earlier
+  macOS job.
 
 Raw packets and complete attempt inventories live under the ignored local-only
 `artifacts/runner-readiness-ten-project-pass/` root. Public receipts identify their

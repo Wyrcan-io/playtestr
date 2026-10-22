@@ -1,0 +1,134 @@
+{
+  "checks": [
+    {
+      "attempt": "d3eb10b4bcbf4be39f87e8a831d6e4d7",
+      "console_sha256": "3ec3314cb85857822bda191cf4cac5f1d66f3e633bb23d4903286f2c76cfce0b",
+      "label": "native-readiness-helper-syntax"
+    },
+    {
+      "attempt": "2e91834036454b28bd531a51e2ca7bc4",
+      "console_sha256": "a454496c1b7811212a1f3391e1cc12050131548386120b379022fdfd0f72fc35",
+      "label": "native-harness-controls",
+      "manifest_sha256": "d7d59ccaeba6af95372f024172bb2078efb700542a9731e1349de9901eb2fd4c",
+      "passed": 62,
+      "platform_prerequisite_skips": [
+        {
+          "reason": "'native checked removal is Windows only'",
+          "test": "test_native_removal_refuses_changed_payload_then_removes_exact_packet (test_readiness_compaction.NativeCompactionTests.test_native_removal_refuses_changed_payload_then_removes_exact_packet)"
+        },
+        {
+          "reason": "'native PowerShell cleanup is Windows only'",
+          "test": "test_changed_marker_refuses_then_exact_owned_workspace_is_removed (test_readiness_diagnostic_cleanup.DiagnosticCleanupTests.test_changed_marker_refuses_then_exact_owned_workspace_is_removed)"
+        }
+      ],
+      "tests_discovered": 64
+    }
+  ],
+  "current_whole_harness_control_proofs": [
+    {
+      "attempt": "2e91834036454b28bd531a51e2ca7bc4",
+      "console_sha256": "a454496c1b7811212a1f3391e1cc12050131548386120b379022fdfd0f72fc35",
+      "id": "ledger-concurrent",
+      "manifest_sha256": "d7d59ccaeba6af95372f024172bb2078efb700542a9731e1349de9901eb2fd4c",
+      "native_source_sha256": "c33796a69e39acbea0b3516c217fbe900242e3e9bfeceabbcc17d18f223e9516",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "test": "EvidenceTests.test_concurrent_exclusive_events"
+    },
+    {
+      "attempt": "2e91834036454b28bd531a51e2ca7bc4",
+      "console_sha256": "a454496c1b7811212a1f3391e1cc12050131548386120b379022fdfd0f72fc35",
+      "id": "ledger-no-overwrite",
+      "manifest_sha256": "d7d59ccaeba6af95372f024172bb2078efb700542a9731e1349de9901eb2fd4c",
+      "native_source_sha256": "c33796a69e39acbea0b3516c217fbe900242e3e9bfeceabbcc17d18f223e9516",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "test": "EvidenceTests.test_duplicate_cannot_overwrite_failure"
+    },
+    {
+      "attempt": "2e91834036454b28bd531a51e2ca7bc4",
+      "console_sha256": "a454496c1b7811212a1f3391e1cc12050131548386120b379022fdfd0f72fc35",
+      "id": "ledger-interrupted",
+      "manifest_sha256": "d7d59ccaeba6af95372f024172bb2078efb700542a9731e1349de9901eb2fd4c",
+      "native_source_sha256": "c33796a69e39acbea0b3516c217fbe900242e3e9bfeceabbcc17d18f223e9516",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "test": "EvidenceTests.test_interrupted_and_malformed_records_reject"
+    },
+    {
+      "attempt": "2e91834036454b28bd531a51e2ca7bc4",
+      "console_sha256": "a454496c1b7811212a1f3391e1cc12050131548386120b379022fdfd0f72fc35",
+      "id": "ledger-unfinished",
+      "manifest_sha256": "d7d59ccaeba6af95372f024172bb2078efb700542a9731e1349de9901eb2fd4c",
+      "native_source_sha256": "c33796a69e39acbea0b3516c217fbe900242e3e9bfeceabbcc17d18f223e9516",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "test": "EvidenceTests.test_started_without_outcome_rejects"
+    },
+    {
+      "attempt": "2e91834036454b28bd531a51e2ca7bc4",
+      "console_sha256": "a454496c1b7811212a1f3391e1cc12050131548386120b379022fdfd0f72fc35",
+      "id": "owned-go-boundary",
+      "manifest_sha256": "d7d59ccaeba6af95372f024172bb2078efb700542a9731e1349de9901eb2fd4c",
+      "native_source_sha256": "c33796a69e39acbea0b3516c217fbe900242e3e9bfeceabbcc17d18f223e9516",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "test": "EvidenceTests.test_downloaded_go_sources_have_module_boundary"
+    },
+    {
+      "attempt": "2e91834036454b28bd531a51e2ca7bc4",
+      "console_sha256": "a454496c1b7811212a1f3391e1cc12050131548386120b379022fdfd0f72fc35",
+      "id": "ledger-prelaunch-failure",
+      "manifest_sha256": "d7d59ccaeba6af95372f024172bb2078efb700542a9731e1349de9901eb2fd4c",
+      "native_source_sha256": "c33796a69e39acbea0b3516c217fbe900242e3e9bfeceabbcc17d18f223e9516",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "test": "EvidenceTests.test_rejected_prelaunch_identity_is_accounted_without_credit"
+    },
+    {
+      "attempt": "2e91834036454b28bd531a51e2ca7bc4",
+      "console_sha256": "a454496c1b7811212a1f3391e1cc12050131548386120b379022fdfd0f72fc35",
+      "id": "ledger-false-success",
+      "manifest_sha256": "d7d59ccaeba6af95372f024172bb2078efb700542a9731e1349de9901eb2fd4c",
+      "native_source_sha256": "c33796a69e39acbea0b3516c217fbe900242e3e9bfeceabbcc17d18f223e9516",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "test": "EvidenceTests.test_success_without_prelaunch_identity_rejects"
+    },
+    {
+      "attempt": "2e91834036454b28bd531a51e2ca7bc4",
+      "console_sha256": "a454496c1b7811212a1f3391e1cc12050131548386120b379022fdfd0f72fc35",
+      "id": "editable-source-identity",
+      "manifest_sha256": "d7d59ccaeba6af95372f024172bb2078efb700542a9731e1349de9901eb2fd4c",
+      "native_source_sha256": "c33796a69e39acbea0b3516c217fbe900242e3e9bfeceabbcc17d18f223e9516",
+      "source": "scripts/acceptance/test_readiness_evidence.py",
+      "test": "EvidenceTests.test_editable_target_mutation_changes_prelaunch_identity"
+    },
+    {
+      "attempt": "2e91834036454b28bd531a51e2ca7bc4",
+      "console_sha256": "a454496c1b7811212a1f3391e1cc12050131548386120b379022fdfd0f72fc35",
+      "id": "selection-contract-coverage",
+      "manifest_sha256": "d7d59ccaeba6af95372f024172bb2078efb700542a9731e1349de9901eb2fd4c",
+      "native_source_sha256": "3aac221ad92ed14f24a6353c1954d8bce2dc040681b19ef28e4e4967e35ae480",
+      "source": "scripts/acceptance/test_readiness_public_suite.py",
+      "test": "PublicSelectionTests.test_selection_directory_does_not_omit_contracts"
+    },
+    {
+      "attempt": "2e91834036454b28bd531a51e2ca7bc4",
+      "console_sha256": "a454496c1b7811212a1f3391e1cc12050131548386120b379022fdfd0f72fc35",
+      "id": "selection-invalid",
+      "manifest_sha256": "d7d59ccaeba6af95372f024172bb2078efb700542a9731e1349de9901eb2fd4c",
+      "native_source_sha256": "3aac221ad92ed14f24a6353c1954d8bce2dc040681b19ef28e4e4967e35ae480",
+      "source": "scripts/acceptance/test_readiness_public_suite.py",
+      "test": "PublicSelectionTests.test_bad_and_duplicate_selection_rejects_before_launch"
+    },
+    {
+      "attempt": "2e91834036454b28bd531a51e2ca7bc4",
+      "console_sha256": "a454496c1b7811212a1f3391e1cc12050131548386120b379022fdfd0f72fc35",
+      "id": "selection-receipt-exclusion",
+      "manifest_sha256": "d7d59ccaeba6af95372f024172bb2078efb700542a9731e1349de9901eb2fd4c",
+      "native_source_sha256": "a5cca92238e421c1a5dea009c60df62d0c764146ef00f3f8d76d9d8942647fac",
+      "source": "scripts/acceptance/test_readiness_poetry_profiles.py",
+      "test": "PoetryProfileTests.test_native_selection_excludes_fault_receipts"
+    }
+  ],
+  "host": "macos-15",
+  "metadata_sha256": "0b7712995be52f6912e092b53eba2226d5a48aab9e2507d69cb0c1a489c5e382",
+  "product_control_credit": 0,
+  "run": "39748314247",
+  "scope": "Actual native helper syntax and whole harness tests; each prerequisite skip is reported explicitly. No application scenario, new whole product control or archive invocation credit.",
+  "source": "edad87c190c4370865c2dfcf448e13e11a71a64e"
+}
