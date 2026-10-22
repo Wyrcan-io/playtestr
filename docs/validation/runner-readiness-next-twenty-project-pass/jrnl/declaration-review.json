@@ -1,0 +1,21 @@
+{
+  "changes": [
+    {
+      "after_sha256": "5eb7e0be5f16f4ce07a6279af20de1a7d13b18988c462b0ce9520e1f2b483bea",
+      "before_sha256": "877b1a2341091bbf51932ba07133cd08b5dbe96e7f4ac13afcb7d326f4c32d81",
+      "previously_executed": false,
+      "reason": "Pinned MsgText.KeyboardInterruptMsg renders Aborted by user, not the internal enum name.",
+      "spec": "edge-interrupted-multi.json"
+    },
+    {
+      "after_sha256": "32da90dab32928e8e1e227c7b9d07760254199052d583d88ba97d4dca3f78e33",
+      "before_sha256": "0c7741da1e52b5fc51b5de74728d89fe3fed1ca5f3c552df3dfef9b5839f304d",
+      "previously_executed": false,
+      "reason": "Source explicitly supports directory journals. The actual wrong-type refusal belongs to the configuration file, whose reader requires a regular file.",
+      "spec": "edge-wrong-type.json"
+    }
+  ],
+  "preserved_original_local_only": "artifacts/runner-readiness-next-twenty-project-pass/jrnl/declaration-review/",
+  "schema_version": 1,
+  "source": "Pinned target source inspection before first twenty-case execution; no observed failures or project credit."
+}

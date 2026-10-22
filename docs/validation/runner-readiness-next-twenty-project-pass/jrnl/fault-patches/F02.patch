@@ -1,0 +1,8 @@
+--- a/jrnl/main.py
++++ b/jrnl/main.py
+@@ -85,4 +85,4 @@
+         )
+ 
+     # This should be the only exit point
+-    return status_code
++    return 7 if status_code is None else status_code

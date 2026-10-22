@@ -1,0 +1,54 @@
+{
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/jrnl/venv/Scripts/python.exe",
+    "-B",
+    "-m",
+    "jrnl",
+    "--config-file",
+    "config.yaml",
+    "--delete"
+  ],
+  "env": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHON_KEYRING_BACKEND": "keyring.backends.null.Keyring"
+  },
+  "height": 24,
+  "max_output_bytes": 2000000,
+  "name": "Handle empty journal without fabricating a deletion",
+  "run_timeout_ms": 120000,
+  "steps": [
+    {
+      "expect": "No entries to delete, because the search returned no results"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "",
+        "kind": "file",
+        "path": "journal.txt"
+      }
+    },
+    {
+      "state": {
+        "entries": [
+          "config.yaml",
+          "journal.txt"
+        ],
+        "kind": "entries",
+        "path": "."
+      }
+    }
+  ],
+  "timeout_ms": 10000,
+  "version": 3,
+  "width": 80,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/e01",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

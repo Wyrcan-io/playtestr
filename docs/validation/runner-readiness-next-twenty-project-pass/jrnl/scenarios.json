@@ -1,0 +1,422 @@
+{
+  "all_scenarios_qualified": false,
+  "cases": [
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N01",
+      "initial_fixture": "fixture",
+      "kind": "normal",
+      "oracle": "Recorder output independently checked against manually reviewed beta bytes",
+      "risk": "Selective destructive action with exact retained data",
+      "spec": "normal-delete.json",
+      "spec_sha256": "284105762943b46bf570ac46ad4bc7d5454ba6ca8d0d77f6084d36003b6a8dcf",
+      "task": "Delete only alpha and preserve beta",
+      "width": 80
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N02",
+      "initial_fixture": "fixtures/n02",
+      "kind": "normal",
+      "oracle": "Independently declared exact synthetic journal bytes, positive target result and same-execution state before cleanup",
+      "risk": "Explicit negative confirmation",
+      "spec": "normal-keep.json",
+      "spec_sha256": "6c7b7a2923af8251defbe346549443ab3eeceb127bae16b1da555003926b1bff",
+      "task": "Decline deletion and preserve all original bytes",
+      "width": 80
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N03",
+      "initial_fixture": "fixtures/n03",
+      "kind": "normal",
+      "oracle": "Independently declared exact synthetic journal bytes, positive target result and same-execution state before cleanup",
+      "risk": "Distinct prompt-to-entry association",
+      "spec": "normal-selective.json",
+      "spec_sha256": "bcc95ed12d6b12b39d7185829ca341b4eb888b900c4872acb1daa89b3f87d098",
+      "task": "Delete alpha but keep beta in a multi-entry session",
+      "width": 80
+    },
+    {
+      "combined_risks": [],
+      "excluded_prior_workflow": "normal-retime.json remains an observed target storage-order failure",
+      "expected_exit": 0,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N04",
+      "initial_fixture": "fixtures/n04",
+      "kind": "normal",
+      "oracle": "Independently declared exact synthetic journal bytes, positive target result and same-execution state before cleanup",
+      "risk": "Exact timestamp change without crossing existing entry order",
+      "spec": "normal-retime-in-order.json",
+      "spec_sha256": "208fc6b8f6a865e924976cacf83c8a7dde881071bea46ac3c2d5a7b383ccbcf9",
+      "task": "Retime alpha within its original chronological position and preserve beta",
+      "width": 80
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N05",
+      "initial_fixture": "fixtures/n05",
+      "kind": "normal",
+      "oracle": "Independently declared exact synthetic journal bytes, positive target result and same-execution state before cleanup",
+      "risk": "Negative timestamp confirmation",
+      "spec": "normal-keep-time.json",
+      "spec_sha256": "1e2184dc1c0a65034fed7fd19ec95a22b4d5ad01e8a591296c542adc4016aeb9",
+      "task": "Decline timestamp update without changing journal",
+      "width": 80
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N06",
+      "initial_fixture": "fixtures/n06",
+      "kind": "normal",
+      "oracle": "Independently declared exact synthetic journal bytes, positive target result and same-execution state before cleanup",
+      "risk": "Multiline stdin and native EOF",
+      "spec": "normal-compose.json",
+      "spec_sha256": "8932ba9f68f8a0efbe7bf2993666d16a69b0b42108c23487ab83f97d418ad4a8",
+      "task": "Compose a dated new entry interactively and persist it",
+      "width": 80
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N07",
+      "initial_fixture": "fixtures/n07",
+      "kind": "normal",
+      "oracle": "Independently declared exact synthetic journal bytes, positive target result and same-execution state before cleanup",
+      "risk": "Journal namespace isolation",
+      "spec": "normal-named-journal.json",
+      "spec_sha256": "65db2756bd8b22d2c054bf56c0005ab3c9fa1b3648ee202988f02fef7abcbdca",
+      "task": "Delete from named work journal while preserving default",
+      "width": 80
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N08",
+      "initial_fixture": "fixtures/n08",
+      "kind": "normal",
+      "oracle": "Independently declared exact synthetic journal bytes, positive target result and same-execution state before cleanup",
+      "risk": "Starred semantic subset",
+      "spec": "normal-starred.json",
+      "spec_sha256": "a577f2542062d8c8e4636a6461ce5e83273a1ed97fa72666c16fbc8af3335536",
+      "task": "Delete starred entry and preserve unstarred data",
+      "width": 80
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E01",
+      "initial_fixture": "fixtures/e01",
+      "kind": "edge",
+      "oracle": "Independently declared exact synthetic journal bytes, positive target result and same-execution state before cleanup",
+      "risk": "Zero-entry boundary",
+      "spec": "edge-empty.json",
+      "spec_sha256": "3af7e4cd899b983b060279288df8aef0b1f7b6ffc1eeb151fa3ba34453bc28e1",
+      "task": "Handle empty journal without fabricating a deletion",
+      "width": 80
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E02",
+      "initial_fixture": "fixtures/e02",
+      "kind": "edge",
+      "oracle": "Independently declared exact synthetic journal bytes, positive target result and same-execution state before cleanup",
+      "risk": "No-match destructive search",
+      "spec": "edge-no-match.json",
+      "spec_sha256": "bf2c11707b40c1ede0949caf70c8d75afa60084dc972a4657ec7c6f30a399c08",
+      "task": "Preserve nonempty journal when date search finds nothing",
+      "width": 80
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E03",
+      "initial_fixture": "fixtures/e03",
+      "kind": "edge",
+      "oracle": "Independently declared exact synthetic journal bytes, positive target result and same-execution state before cleanup",
+      "risk": "Invalid destructive answer defaults to no",
+      "spec": "edge-invalid-confirm.json",
+      "spec_sha256": "8feb72329a85cbc41bd6513aa4f230de31e5092aa4c35fbb1b29044a8f7f1777",
+      "task": "Reject non-yes confirmation through safe default",
+      "width": 80
+    },
+    {
+      "combined_risks": [
+        "partial destructive choice",
+        "interruption",
+        "original state preservation"
+      ],
+      "expected_exit": 1,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E04",
+      "initial_fixture": "fixtures/e04",
+      "kind": "edge",
+      "oracle": "Independently declared exact synthetic journal bytes, positive target result and same-execution state before cleanup",
+      "risk": "Partial destructive operation interrupted",
+      "spec": "edge-interrupted-multi.json",
+      "spec_sha256": "5eb7e0be5f16f4ce07a6279af20de1a7d13b18988c462b0ce9520e1f2b483bea",
+      "task": "Cancel after choosing one deletion before final confirmation",
+      "width": 80
+    },
+    {
+      "combined_risks": [
+        "duplicate labels",
+        "date filtering",
+        "exact retained body"
+      ],
+      "expected_exit": 0,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E05",
+      "initial_fixture": "fixtures/e05",
+      "kind": "edge",
+      "oracle": "Independently declared exact synthetic journal bytes, positive target result and same-execution state before cleanup",
+      "risk": "Ambiguous labels separated by date and body",
+      "spec": "edge-duplicate-labels.json",
+      "spec_sha256": "5522acb98d025084aebc7cf1042f2da244cc35058fa6599f6b445ca249ef1589",
+      "task": "Delete dated duplicate title without deleting the other entry",
+      "width": 80
+    },
+    {
+      "combined_risks": [
+        "Unicode title",
+        "spaced Unicode config path",
+        "exact Unicode state path"
+      ],
+      "expected_exit": 0,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E06",
+      "initial_fixture": "fixtures/e06",
+      "kind": "edge",
+      "oracle": "Independently declared exact synthetic journal bytes, positive target result and same-execution state before cleanup",
+      "risk": "Unicode input/data/path portability",
+      "spec": "edge-unicode-path.json",
+      "spec_sha256": "8b9d9e863faffb96bd7bc6e269b5dd93d7f4f3d5f4fbe96a497a382b26f9bfc6",
+      "task": "Delete Unicode entry through spaced Unicode configuration and journal paths",
+      "width": 80
+    },
+    {
+      "combined_risks": [
+        "small viewport",
+        "resize during confirmation",
+        "exact selected deletion"
+      ],
+      "expected_exit": 0,
+      "height": 12,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E07",
+      "initial_fixture": "fixtures/e07",
+      "kind": "edge",
+      "oracle": "Independently declared exact synthetic journal bytes, positive target result and same-execution state before cleanup",
+      "risk": "Quiet resize while awaiting destructive input",
+      "spec": "edge-resize-confirm.json",
+      "spec_sha256": "74b7bcff0485e7d598ef68643fbf55f759c0f78d9a60cbf16ce4dc27a9735a20",
+      "task": "Resize a small confirmation viewport then delete the intended entry",
+      "width": 40
+    },
+    {
+      "combined_risks": [
+        "long wrapped title",
+        "backspace correction",
+        "correct persisted selection"
+      ],
+      "expected_exit": 0,
+      "height": 16,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E08",
+      "initial_fixture": "fixtures/e08",
+      "kind": "edge",
+      "oracle": "Independently declared exact synthetic journal bytes, positive target result and same-execution state before cleanup",
+      "risk": "Wrapped prompt and actual line editing",
+      "spec": "edge-wrapped-correction.json",
+      "spec_sha256": "a727532e106af07996aee299dc8f82710c1169b03c8a8e9c420db89cf939eb65",
+      "task": "Correct a typed no answer before confirming a wrapped entry",
+      "width": 50
+    },
+    {
+      "combined_risks": [
+        "overlapping tags",
+        "strict intersection",
+        "unselected data preservation"
+      ],
+      "expected_exit": 0,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E09",
+      "initial_fixture": "fixtures/e09",
+      "kind": "edge",
+      "oracle": "Independently declared exact synthetic journal bytes, positive target result and same-execution state before cleanup",
+      "risk": "AND versus OR false-positive risk",
+      "spec": "edge-tag-intersection.json",
+      "spec_sha256": "21b5cbf2249682a441c504d1949b7fbcbaed867e427751f93159df4c5fa15e64",
+      "task": "Delete only entry matching both tags and keep partial match",
+      "width": 80
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 1,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E10",
+      "initial_fixture": "fixtures/e10",
+      "kind": "edge",
+      "oracle": "Independently declared exact synthetic journal bytes, positive target result and same-execution state before cleanup",
+      "risk": "Owned invalid configuration",
+      "spec": "edge-malformed-config.json",
+      "spec_sha256": "c4400cb18d281154b1665ad9a7a4b9bea52415bf285f0bae4b404507fc17d3a0",
+      "task": "Refuse malformed configuration without damaging existing journal",
+      "width": 80
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 1,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E11",
+      "initial_fixture": "fixtures/e11-config-dir",
+      "kind": "edge",
+      "oracle": "Independently declared exact synthetic journal bytes, positive target result and same-execution state before cleanup",
+      "risk": "Directory where configuration file is required",
+      "spec": "edge-wrong-type.json",
+      "spec_sha256": "32da90dab32928e8e1e227c7b9d07760254199052d583d88ba97d4dca3f78e33",
+      "task": "Refuse a directory supplied as the configuration file and preserve journal",
+      "width": 80
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 1,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E12",
+      "initial_fixture": "fixtures/e12",
+      "kind": "edge",
+      "oracle": "Independently declared exact synthetic journal bytes, positive target result and same-execution state before cleanup",
+      "risk": "Unavailable editor configuration",
+      "spec": "edge-no-editor.json",
+      "spec_sha256": "74f2ded5b05507c752a83f968a9d469b79d364e9934a57b9ad1a3d6d37f20279",
+      "task": "Refuse selected editing without an editor and preserve bytes",
+      "width": 80
+    }
+  ],
+  "development_revision": 3,
+  "edge": 12,
+  "limits": {
+    "output_bytes": 2000000,
+    "scenario_seconds": 120,
+    "step_seconds": 10,
+    "workspace_bytes": 67108864
+  },
+  "native_profiles": {
+    "linux": "Copied venv bin/python; CtrlD for interactive EOF. Exact journal bytes remain LF on both.",
+    "windows": "Copied venv Scripts/python.exe; CtrlZ then Enter for interactive EOF"
+  },
+  "normal": 8,
+  "project": "jrnl",
+  "real_faults_selected_after_freeze": 0,
+  "schema_version": 1,
+  "source_pin": "90de4948d79a4fca8c7238dd2487b599f458c903",
+  "status": "development-declaration-not-final-freeze",
+  "variation_schedule": [
+    "ordinary-cold-1",
+    "ordinary-warm-1",
+    "ordinary-cold-2",
+    "ordinary-warm-2",
+    "viewport-small",
+    "spaced-unicode-path",
+    "ordinary-input",
+    "segmented-printable-input",
+    "bounded-contention-1",
+    "bounded-contention-2",
+    "highest-risk-boundary-1",
+    "highest-risk-boundary-2"
+  ]
+}

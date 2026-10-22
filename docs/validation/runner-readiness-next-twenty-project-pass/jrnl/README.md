@@ -2,6 +2,38 @@
 
 Status: first Windows public authoring route passed; no project admission yet.
 
+Development now has twenty passing selected scenarios after a preserved initial
+16-pass/four-failure series. [Dispositions](first-development-disposition.json)
+separate three incorrect completion-message assumptions from an independently
+reproduced upstream storage-order limitation. Retiming an entry across another
+entry does not reorder the stored file immediately. That original failed workflow
+remains excluded; the selected normal retime checks a change within the original
+chronological position. The runner correctly rejected the original wrong bytes.
+No target or runner repair is claimed for that upstream limitation.
+
+All [twenty reviewed contracts](scenarios.json), 62 input files and directories
+were [frozen](development-test-freeze.json) before the three concrete source
+mutations were selected. The [faults](fault-declaration.json) changed the actual
+confirmation prompt, success exit status and retained journal bytes. Nine local
+baseline/mutated/restored calibrations passed their expected outcomes, including
+saved corruption rejected only after successful terminal and exit steps.
+Exact target source restoration was checked after each fault.
+
+The public maintenance route separately diagnosed a real source corruption with
+two commands, rendered its offline HTML, updated just the selected file
+expectation, cancelled a later update without changing approved bytes, rerecorded
+a suffix, and replayed byte-identical specs from a spaced/Unicode sibling path.
+Human timing remains unmeasured. A generated workflow was retained as preparation;
+its initial source revision predates the native helper and its Linux suite path
+needs explicit correction before dispatch. It has zero delivered-CI credit.
+
+The [native series declaration](final-series-declaration.json) prepares twenty
+cases × twelve fresh executions on Linux and Windows, plus the real faults on
+each exact rc.5 archive. Native runtime/EOF differences are explicit. The
+[dependency lock](native-runtime-lock.json) and [complete pinned source map](source-provenance.json)
+bind inputs before native preparation. Final runs, independent audit, bounded
+retention and local/hosted source removal still must pass before admission.
+
 The [first public route](first-use.json) used the exact rc.5 Windows archive:
 three Playtestr invocations, eleven recorder controls, no handwritten Playtestr
 JSON. It selected the alpha entry for deletion, retained beta's independently

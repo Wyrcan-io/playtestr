@@ -1,0 +1,71 @@
+{
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/jrnl/venv/Scripts/python.exe",
+    "-B",
+    "-m",
+    "jrnl",
+    "--config-file",
+    "config.yaml",
+    "-contains",
+    "alpha",
+    "--delete"
+  ],
+  "env": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHON_KEYRING_BACKEND": "keyring.backends.null.Keyring"
+  },
+  "height": 16,
+  "max_output_bytes": 2000000,
+  "name": "Correct a typed no answer before confirming a wrapped entry",
+  "run_timeout_ms": 120000,
+  "steps": [
+    {
+      "expect": "Delete entry"
+    },
+    {
+      "text": "n"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "text": "y"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "1 entry deleted"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "WzIwMjAtMDEtMDIgMTA6MTVdIGJldGEgcmV0YWluZWQuClNlY29uZCBib2R5Lgo=",
+        "kind": "file",
+        "path": "journal.txt"
+      }
+    },
+    {
+      "state": {
+        "entries": [
+          "config.yaml",
+          "journal.txt"
+        ],
+        "kind": "entries",
+        "path": "."
+      }
+    }
+  ],
+  "timeout_ms": 10000,
+  "version": 3,
+  "width": 50,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/e08",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

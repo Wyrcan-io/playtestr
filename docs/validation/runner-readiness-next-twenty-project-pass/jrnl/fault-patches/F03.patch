@@ -1,0 +1,11 @@
+--- a/jrnl/journals/Journal.py
++++ b/jrnl/journals/Journal.py
+@@ -253,7 +253,7 @@
+             return f.read()
+ 
+     def _store(self, filename: str, text: bytes) -> None:
+-        atomic_write(filename, text)
++        atomic_write(filename, text.replace(b"Second body.", b"Second bodX.", 1))
+ 
+     def _parse(self, journal_txt: str) -> list[Entry]:
+         """Parses a journal that's stored in a string and returns a list of entries"""

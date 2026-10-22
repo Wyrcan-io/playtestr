@@ -1,6 +1,9 @@
 """Campaign root separation and actual bounded command outcome controls."""
 import asyncio
 import json
+import os
+from pathlib import Path
+import shutil
 import sys
 import unittest
 import uuid
@@ -9,6 +12,7 @@ sys.dont_write_bytecode=True
 from adversarial_process import execute
 from next20_check import NAME, RAW, ROOT, NextCampaign, owned_environment
 from readiness_evidence import Campaign, RAW as ORIGINAL_RAW
+from readiness_evidence import immutable_json,sha256
 
 
 class NextCampaignTests(unittest.TestCase):
@@ -75,6 +79,34 @@ class NextCampaignTests(unittest.TestCase):
         finish=next(iter(rows.values()))['finished']
         self.assertEqual(finish['category'],'harness_timeout')
         self.assertEqual(finish['harness_cleanup'],'harness_process_reaped')
+
+    @unittest.skipUnless(os.name=='nt','native Windows checked target removal control')
+    def test_native_target_removal_refuses_changed_payload_then_removes_exact_owned_fixture(self):
+        # This is an actual native filesystem/process-observer guard control,
+        # not target restoration or application compatibility evidence.
+        workspace=self.root/'fixture-workspace'
+        script=workspace/'scripts/acceptance/next20_remove_target.ps1'
+        script.parent.mkdir(parents=True)
+        shutil.copyfile(ROOT/'scripts/acceptance/next20_remove_target.ps1',script)
+        raw=workspace/'artifacts'/NAME;target=raw/'active/jrnl';target.mkdir(parents=True)
+        marker=target/'task-owned.json';marker.write_bytes(b'{"project":"synthetic-cleanup-control"}\n')
+        data=target/'payload.txt';data.write_bytes(b'approved owned payload\n')
+        retained=raw/'jrnl/retained-source';retained.mkdir(parents=True)
+        record=dict(owned_target=str(target),source_restored_exact=True,owner_sha256=sha256(marker),
+            files={p.name:dict(bytes=p.stat().st_size,sha256=sha256(p)) for p in [marker,data]},owned_links={})
+        immutable_json(retained/'cleanup-inventory.json',record)
+        immutable_json(retained/'prepared.json',dict(cleanup_inventory_sha256=sha256(retained/'cleanup-inventory.json')))
+        original=data.read_bytes();data.write_bytes(b'unknown changed payload\n')
+        async def run(expected,label):
+            return await execute(['powershell.exe','-NoProfile','-ExecutionPolicy','Bypass','-File',script,
+                '-Project','jrnl'],'core',label,cwd=ROOT,env=owned_environment(),timeout=30,
+                expected=expected,campaign=self.campaign)
+        rejected=asyncio.run(run(1,'native-removal-changed-payload-refusal'))
+        self.assertTrue(target.is_dir());self.assertIn('changed after checked retention',rejected['output'])
+        data.write_bytes(original)
+        asyncio.run(run(0,'native-removal-exact-owned-fixture'))
+        self.assertFalse(target.exists())
+        self.assertTrue(json.loads((retained/'removed.json').read_text(encoding='utf-8-sig'))['removed'])
 
 
 if __name__=='__main__':unittest.main()

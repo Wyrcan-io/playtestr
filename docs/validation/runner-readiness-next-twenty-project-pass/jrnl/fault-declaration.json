@@ -1,0 +1,31 @@
+{
+  "exposure": "Target source was reviewed for normal behavior. These concrete source edits were selected after twenty tests and positive development evidence were frozen; no independent human or untouched-source claim.",
+  "faults": [
+    {
+      "after": "Discard entry",
+      "before": "Delete entry",
+      "category": "assertion_timeout",
+      "id": "F01",
+      "meaning": "Incorrect destructive confirmation screen prevents the reviewed interaction",
+      "path": "jrnl/messages/MsgText.py"
+    },
+    {
+      "after": "    return 7 if status_code is None else status_code\n",
+      "before": "    return status_code\n",
+      "category": "unexpected_exit",
+      "id": "F02",
+      "meaning": "Successful deletion incorrectly exits 7 instead of 0",
+      "path": "jrnl/main.py"
+    },
+    {
+      "after": "        atomic_write(filename, text.replace(b\"Second body.\", b\"Second bodX.\", 1))\n",
+      "before": "        atomic_write(filename, text)\n",
+      "category": "state_assertion_failure",
+      "id": "F03",
+      "meaning": "Same-size retained journal corruption after unchanged successful terminal summary and exit",
+      "path": "jrnl/journals/Journal.py"
+    }
+  ],
+  "schema_version": 1,
+  "selected_after_freeze_sha256": "a38e441f40ecef307287b01659fd863e9ed78e79b09fb1a7ab58f975b7e8a1d5"
+}

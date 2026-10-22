@@ -1,0 +1,138 @@
+name: Next twenty jrnl exact archive series
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: playtestr-next20-jrnl
+  cancel-in-progress: false
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONIOENCODING: utf-8
+  TEMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+  TMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+  TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+  RUNNER_TEMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+  PSModuleAnalysisCachePath: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/shell-cache/module-analysis
+  GIT_CONFIG_COUNT: '1'
+  GIT_CONFIG_KEY_0: core.longpaths
+  GIT_CONFIG_VALUE_0: 'true'
+jobs:
+  native-final:
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            host: linux
+            target: linux-amd64
+            archive_target: linux_amd64
+            extension: tar.gz
+          - os: windows-2025
+            host: windows
+            target: windows-amd64
+            archive_target: windows_amd64
+            extension: zip
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+      - name: Create owned temporary/cache paths
+        run: mkdir -p "$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/tmp" "$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/shell-cache"
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          github-token: ${{ github.token }}
+          repository: Wyrcan-io/playtestr
+          run-id: 39450029736
+          name: private-candidate-${{ runner.os }}
+          path: artifacts/runner-readiness-next-twenty-project-pass/candidate-download
+      - name: Verify and install exact frozen private archive
+        run: python -B scripts/acceptance/next20_check.py --label native-jrnl-exact-archive-install --timeout 90 -- python -B scripts/acceptance/next20_candidate_install.py --archive artifacts/runner-readiness-next-twenty-project-pass/candidate-download/candidate-packages/migration-v2/${{ matrix.target }}/dist/playtestr_0.4.0-rc.5_${{ matrix.archive_target }}.${{ matrix.extension }}
+      - name: Prepare reviewed pinned target with owned runtime and exact native contracts
+        id: prepare
+        run: python -B scripts/acceptance/next20_check.py --label native-jrnl-reviewed-target-preparation --timeout 1200 -- python -B scripts/acceptance/next20_jrnl_native_prepare.py
+      - name: Final fresh-state batch 1 of twelve
+        env:
+          READINESS_EVIDENCE_PHASE: final-archive
+        run: python -B scripts/acceptance/next20_check.py --label native-jrnl-final-batch-0 --timeout 900 -- python -B scripts/acceptance/next20_jrnl_final.py --batch 0
+      - name: Final fresh-state batch 2 of twelve
+        env:
+          READINESS_EVIDENCE_PHASE: final-archive
+        run: python -B scripts/acceptance/next20_check.py --label native-jrnl-final-batch-1 --timeout 900 -- python -B scripts/acceptance/next20_jrnl_final.py --batch 1
+      - name: Final fresh-state batch 3 of twelve
+        env:
+          READINESS_EVIDENCE_PHASE: final-archive
+        run: python -B scripts/acceptance/next20_check.py --label native-jrnl-final-batch-2 --timeout 900 -- python -B scripts/acceptance/next20_jrnl_final.py --batch 2
+      - name: Final fresh-state batch 4 of twelve
+        env:
+          READINESS_EVIDENCE_PHASE: final-archive
+        run: python -B scripts/acceptance/next20_check.py --label native-jrnl-final-batch-3 --timeout 900 -- python -B scripts/acceptance/next20_jrnl_final.py --batch 3
+      - name: Final fresh-state batch 5 of twelve
+        env:
+          READINESS_EVIDENCE_PHASE: final-archive
+        run: python -B scripts/acceptance/next20_check.py --label native-jrnl-final-batch-4 --timeout 900 -- python -B scripts/acceptance/next20_jrnl_final.py --batch 4
+      - name: Final fresh-state batch 6 of twelve
+        env:
+          READINESS_EVIDENCE_PHASE: final-archive
+        run: python -B scripts/acceptance/next20_check.py --label native-jrnl-final-batch-5 --timeout 900 -- python -B scripts/acceptance/next20_jrnl_final.py --batch 5
+      - name: Final fresh-state batch 7 of twelve
+        env:
+          READINESS_EVIDENCE_PHASE: final-archive
+        run: python -B scripts/acceptance/next20_check.py --label native-jrnl-final-batch-6 --timeout 900 -- python -B scripts/acceptance/next20_jrnl_final.py --batch 6
+      - name: Final fresh-state batch 8 of twelve
+        env:
+          READINESS_EVIDENCE_PHASE: final-archive
+        run: python -B scripts/acceptance/next20_check.py --label native-jrnl-final-batch-7 --timeout 900 -- python -B scripts/acceptance/next20_jrnl_final.py --batch 7
+      - name: Final fresh-state batch 9 of twelve
+        env:
+          READINESS_EVIDENCE_PHASE: final-archive
+        run: python -B scripts/acceptance/next20_check.py --label native-jrnl-final-batch-8 --timeout 900 -- python -B scripts/acceptance/next20_jrnl_final.py --batch 8
+      - name: Final fresh-state batch 10 of twelve
+        env:
+          READINESS_EVIDENCE_PHASE: final-archive
+        run: python -B scripts/acceptance/next20_check.py --label native-jrnl-final-batch-9 --timeout 900 -- python -B scripts/acceptance/next20_jrnl_final.py --batch 9
+      - name: Final fresh-state batch 11 of twelve
+        env:
+          READINESS_EVIDENCE_PHASE: final-archive
+        run: python -B scripts/acceptance/next20_check.py --label native-jrnl-final-batch-10 --timeout 900 -- python -B scripts/acceptance/next20_jrnl_final.py --batch 10
+      - name: Final fresh-state batch 12 of twelve
+        env:
+          READINESS_EVIDENCE_PHASE: final-archive
+        run: python -B scripts/acceptance/next20_check.py --label native-jrnl-final-batch-11 --timeout 900 -- python -B scripts/acceptance/next20_jrnl_final.py --batch 11
+      - name: Three actual source faults and unchanged-contract recovery
+        env:
+          READINESS_EVIDENCE_PHASE: final-archive
+        run: python -B scripts/acceptance/next20_check.py --label native-jrnl-real-fault-restoration --timeout 900 -- python -B scripts/acceptance/next20_jrnl_faults.py --package artifacts/runner-readiness-next-twenty-project-pass/jrnl/host-contracts
+      - name: Windows target PID and birth proof
+        if: always() && steps.prepare.outcome == 'success' && runner.os == 'Windows'
+        run: python -B scripts/acceptance/next20_check.py --label native-jrnl-owned-process-proof --timeout 90 -- powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/acceptance/next20_target_process_proof.ps1 -Project jrnl
+      - name: Retain source provenance and prepare native Windows removal
+        if: always() && steps.prepare.outcome == 'success' && runner.os == 'Windows'
+        run: python -B scripts/acceptance/next20_check.py --label native-jrnl-source-retention --timeout 180 -- python -B scripts/acceptance/next20_target_cleanup.py --project jrnl --prepare-only
+      - name: Checked Windows source and runtime removal
+        if: always() && steps.prepare.outcome == 'success' && runner.os == 'Windows'
+        run: python -B scripts/acceptance/next20_check.py --label native-jrnl-source-runtime-removal --timeout 180 -- powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/acceptance/next20_remove_target.ps1 -Project jrnl
+      - name: Checked Unix source and runtime removal
+        if: always() && steps.prepare.outcome == 'success' && runner.os != 'Windows'
+        run: python -B scripts/acceptance/next20_check.py --label native-jrnl-source-runtime-removal --timeout 180 -- python -B scripts/acceptance/next20_target_cleanup.py --project jrnl
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: next20-jrnl-${{ runner.os }}
+          path: |
+            artifacts/runner-readiness-next-twenty-project-pass/events/
+            artifacts/runner-readiness-next-twenty-project-pass/identities/
+            artifacts/runner-readiness-next-twenty-project-pass/core/
+            artifacts/runner-readiness-next-twenty-project-pass/jrnl/
+            artifacts/runner-readiness-next-twenty-project-pass/candidate/*/installed.json
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14

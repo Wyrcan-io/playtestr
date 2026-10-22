@@ -1,0 +1,45 @@
+{
+  "changes": [
+    {
+      "case": "N04",
+      "new_sha256": "208fc6b8f6a865e924976cacf83c8a7dde881071bea46ac3c2d5a7b383ccbcf9",
+      "original_sha256": "4680825cfec7facdb4eb0133cef2a887341e136933f40bdb30d87ddeb68f90a2",
+      "original_spec": "normal-retime.json",
+      "reason": "Independent CLI reproduced an upstream storage-order gap when retiming across entries. Original reorder contract remains failed/excluded; replacement tests only a supported chronology-preserving retime, with exact timestamp and unrelated bytes still checked.",
+      "replacement_spec": "normal-retime-in-order.json"
+    },
+    {
+      "case": "N06",
+      "new_sha256": "8932ba9f68f8a0efbe7bf2993666d16a69b0b42108c23487ab83f97d418ad4a8",
+      "original_sha256": "5616780e101146a668eacd4c483c8f21a812fd4c9a61563a6ea9df84a3ebe16b",
+      "original_spec": "normal-compose.json",
+      "reason": "Target source intentionally prints no default-journal append completion banner. Exact natural exit is the positive completion witness, followed by unchanged exact same-execution saved bytes; quiet output is not treated as success.",
+      "replacement_spec": "normal-compose.json"
+    },
+    {
+      "case": "E01",
+      "new_sha256": "3af7e4cd899b983b060279288df8aef0b1f7b6ffc1eeb151fa3ba34453bc28e1",
+      "original_sha256": "ac7569a58d16afd5169386d523a26737267ca3e48e509ed44bbb31f2d0fd3ce1",
+      "original_spec": "edge-empty.json",
+      "reason": "Actual selected delete branch emits NothingToDelete rather than the generic NoEntriesFound string; journal bytes and expected exit remain unchanged.",
+      "replacement_spec": "edge-empty.json"
+    },
+    {
+      "case": "E02",
+      "new_sha256": "bf2c11707b40c1ede0949caf70c8d75afa60084dc972a4657ec7c6f30a399c08",
+      "original_sha256": "151edf39cbae9b92ff2b0a5cdfde70bc3acdb543665e998300fd3535c4c53f56",
+      "original_spec": "edge-no-match.json",
+      "reason": "Actual selected delete branch emits NothingToDelete rather than the generic NoEntriesFound string; journal bytes and expected exit remain unchanged.",
+      "replacement_spec": "edge-no-match.json"
+    }
+  ],
+  "failed": 4,
+  "failed_attempts_preserved": true,
+  "final_ordinary_credit": 0,
+  "initial_series": "47a0241f55c547e0a4694c5feca4e6f6",
+  "ordinary_development_attempts": 20,
+  "passed": 16,
+  "runner_repairs": 0,
+  "schema_version": 1,
+  "target_limit": "Stored chronological ordering after a date-crossing retime remains excluded, not fixed."
+}

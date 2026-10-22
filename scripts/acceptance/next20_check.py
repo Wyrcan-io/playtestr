@@ -22,7 +22,7 @@ DOC = ROOT / 'docs/validation' / NAME
 
 
 class NextCampaign(Campaign):
-    def __init__(self, raw=RAW, *, phase='development'):
+    def __init__(self, raw=RAW, *, phase=None):
         selected = raw.resolve()
         selected.relative_to(RAW.resolve())
         super().__init__(selected, phase=phase)
@@ -46,7 +46,7 @@ class NextCampaign(Campaign):
         if target.is_symlink() or getattr(target,'is_junction',lambda:False)():
             raise ValueError('linked target identity root')
         files={}
-        for name in ['task-owned.json','acquisition.json','runtime.json','build.json','wheels.json','dependency-review.json']:
+        for name in ['task-owned.json','acquisition.json','runtime.json','build.json','wheels.json','dependency-review.json','launch-runtime-catalog.json']:
             path=target/name
             if path.is_file():files[path.relative_to(ROOT).as_posix()]=sha256(path)
         source=target/'src'

@@ -1,0 +1,55 @@
+{
+  "common_windows_wheels_sha256": "a8950452ee288cd2db4c6ee6d41801392e04d6cabbe02d3f2f6076c5de6b408f",
+  "linux_additions": [
+    {
+      "license": "BSD-3-Clause",
+      "local_review": "active/jrnl/linux-dependency-review/secretstorage-3.5.0-py3-none-any.review.json",
+      "name": "SecretStorage",
+      "sha256": "0ce65888c0725fcb2c5bc0fdb8e5438eece02c523557ea40ce0703c266248137",
+      "startup_hooks": false,
+      "url": "https://files.pythonhosted.org/packages/b7/46/f5af3402b579fd5e11573ce652019a67074317e18c1935cc0b4ba9b35552/secretstorage-3.5.0-py3-none-any.whl",
+      "version": "3.5.0"
+    },
+    {
+      "license": "MIT",
+      "local_review": "active/jrnl/linux-dependency-review/jeepney-0.9.0-py3-none-any.review.json",
+      "name": "jeepney",
+      "sha256": "97e5714520c16fc0a45695e5365a2e11b81ea79bba796e26f9f1d178cb182683",
+      "startup_hooks": false,
+      "url": "https://files.pythonhosted.org/packages/b2/a3/e137168c9c44d18eff0376253da9f1e9234d0239e0ee230d2fee6cea8e55/jeepney-0.9.0-py3-none-any.whl",
+      "version": "0.9.0"
+    }
+  ],
+  "linux_runtime_policy": "Null keyring backend; no inherited DBUS address or encryption; SecretStorage/jeepney service-opening functions are never called by the synthetic unencrypted journal route.",
+  "proposed_lock_sha256": "232c0a4146f5e6a5b2baa496720b8dca017303751263e98aab4a61ba443cc72b",
+  "reviewed_linux_additions": true,
+  "schema_version": 1,
+  "scope": "Pinned versions across Python 3.12 native hosts; foreign native wheel bytes must be checked against primary release digests and inventoried before installation. No target runtime/network operation approved by metadata alone.",
+  "versions": {
+    "cffi": "2.1.1",
+    "colorama": "0.4.6",
+    "cryptography": "50.0.2",
+    "jaraco.classes": "3.4.0",
+    "jaraco.context": "6.1.2",
+    "jaraco.functools": "4.6.0",
+    "jeepney": "0.9.0",
+    "keyring": "25.7.0",
+    "markdown-it-py": "4.2.0",
+    "mdurl": "0.1.2",
+    "more-itertools": "11.2.1",
+    "parsedatetime": "2.6",
+    "poetry-core": "2.5.0",
+    "pycparser": "3.11",
+    "pygments": "2.21.0",
+    "python-dateutil": "2.9.0.post0",
+    "pywin32-ctypes": "0.2.3",
+    "pyxdg": "0.28",
+    "rich": "15.0.0",
+    "ruamel.yaml": "0.19.1",
+    "ruamel.yaml.clib": "0.2.15",
+    "secretstorage": "3.5.0",
+    "six": "1.17.0",
+    "tzdata": "2026.5",
+    "tzlocal": "5.4.5"
+  }
+}

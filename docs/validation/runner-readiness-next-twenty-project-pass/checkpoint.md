@@ -54,12 +54,56 @@ deadline changes. Workflow lint passed in `299c422bd14f4fcd90f7832a71a63674`.
 New workflow ceiling/estimate is declared before first push. No hosted result
 or project/native-cell admission is yet claimed.
 
-Next: declare all twenty useful jrnl scenarios and combined-risk table, then
-diagnosis, selected maintenance and relocation. Commit/push scoped harness/docs
-under existing authorization and verify actual native helper jobs while
-continuing this one target. Record source/runtime and dependency identity before
-useful launches; complete scenarios, faults, native qualification, retention and
-cleanup before another application. Exact-byte campaign assets are now protected
-by `.gitattributes`; do not normalize fixture/oracle bytes during native checkout.
+Current commit/push: `406169061ffb022c0fd0a4b1f99309836b6a96b1` pushed to the
+authorized branch. Its initial native helper run `39789582365` succeeded on all
+three hosts. Actual events, five positive named tests, source identities,
+complete archive payloads and selected restores were independently checked;
+expanded packets were removed with native checked PowerShell. Retained harness
+generations 1/2/3 are Linux/macOS/Windows: 47,500 / 47,142 / 46,830 bytes. Do not
+download those completed packets again. These are five helper controls at that
+revision, not application or archive-product-control credit. The latest helper
+and test edits require a new source-matched harness run.
+
+Selected jrnl development cases: first full series
+`47a0241f55c547e0a4694c5feca4e6f6` had 16 passes/four failures. Replacement
+`39f35ad700594698a29d6b6aa3466b77` passed all twenty, wrapper
+`9bfa63185f5b4734ba64dfefa1157491`. All forty remain in development accounting.
+Original N04 exposed real target storage ordering after date-crossing retime;
+direct CLI reduction `c045897150724ae1b8d61446951f6009` reproduced it.
+That workflow stays failed/excluded. The selected N04 changes time without
+crossing another entry; no rebaseline of the wrong ordering is claimed. N06's
+default-journal append is deliberately silent, so positive exit plus unchanged
+exact saved bytes replaces the nonexistent banner. Empty-delete anchors were
+corrected to the actual branch message. Original failed specs/reports survive.
+
+`jrnl/development-test-freeze.json` binds 20 selected cases and 62 exact files.
+Actual source faults ran after freeze in
+`jrnl/faults/4c143e1617e6495cbb8d47a65dba4180/`: F01 prompt assertion timeout,
+F02 wrong exit, F03 same-size saved corruption behind passing screen/exit.
+All nine baseline/mutated/restored calibrations passed expected outcomes and
+source was exactly restored, wrapper `a93e9042ee03427daa7edb9c4a0c7992`.
+
+Actual public diagnosis, selected/cancelled updates, suffix rerecord and unchanged
+spaced/Unicode relocation passed, wrapper `74381ceba2db47bb830154bd4249df00`;
+raw journey `jrnl/maintenance-66622571feed43e6a8aafc3801566720/journey.json`.
+Its generated private workflow is not dispatched: source revision/suite path
+must be corrected after the new native helper is committed. No delivered-CI credit.
+
+Current local native helper controls: six passed including actual changed-payload
+removal refusal then exact-owned removal, `a793716b7aca4309b50a5071f1ed43af`.
+The new jrnl exact-archive workflow lint passed `94915a12c3dc46dbbb51a509fa291835`.
+Final series/workflow prepared, not yet dispatched: twelve frozen batches/cell,
+Linux/Windows, 480 ordinary and 18 required calibration outcomes. Two 40-minute
+target jobs, max two concurrent, estimated 8/12 native minutes; next push also
+triggers bounded helper validation. Existing candidate artifacts are available,
+unexpired, exact source run `39450029736`, checked in `e06f6d2de2284bf2af5f167fa6156e03`.
+
+Next: commit/push the prepared native workflow/helpers/contracts, inspect actual
+new helper jobs and dispatch the jrnl workflow. Its preparation uses installed
+read-only Python 3.12 and owned venvs/caches; exact native wheels are verified
+against primary release hashes before offline installation. Keep local target
+active for diagnosis while the same project runs remotely. Complete/audit its
+native series, retain/remove one packet at a time and checked-clean local source
+before any second application. New project admissions and final counts remain zero.
 Do not execute the old closing script, redownload completed native packets, reset
 the branch or remove old evidence. New helper namespace is `next20_*.py`.

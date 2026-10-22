@@ -1,0 +1,65 @@
+{
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/jrnl/venv/Scripts/python.exe",
+    "-B",
+    "-m",
+    "jrnl",
+    "--config-file",
+    "config.yaml",
+    "-on",
+    "2020-01-02",
+    "--delete"
+  ],
+  "env": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHON_KEYRING_BACKEND": "keyring.backends.null.Keyring"
+  },
+  "height": 24,
+  "max_output_bytes": 2000000,
+  "name": "Delete dated duplicate title without deleting the other entry",
+  "run_timeout_ms": 120000,
+  "steps": [
+    {
+      "expect": "2020-01-02 10:15"
+    },
+    {
+      "text": "y"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "1 entry deleted"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "WzIwMjAtMDEtMDEgMDk6MDBdIHNhbWUgbWVzc2FnZS4KRmlyc3QgYm9keS4K",
+        "kind": "file",
+        "path": "journal.txt"
+      }
+    },
+    {
+      "state": {
+        "entries": [
+          "config.yaml",
+          "journal.txt"
+        ],
+        "kind": "entries",
+        "path": "."
+      }
+    }
+  ],
+  "timeout_ms": 10000,
+  "version": 3,
+  "width": 80,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/e05",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

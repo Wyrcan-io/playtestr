@@ -1,0 +1,72 @@
+{
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/jrnl/venv/Scripts/python.exe",
+    "-B",
+    "-m",
+    "jrnl",
+    "--config-file",
+    "config.yaml",
+    "work",
+    "--delete"
+  ],
+  "env": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHON_KEYRING_BACKEND": "keyring.backends.null.Keyring"
+  },
+  "height": 24,
+  "max_output_bytes": 2000000,
+  "name": "Delete from named work journal while preserving default",
+  "run_timeout_ms": 120000,
+  "steps": [
+    {
+      "expect": "work important."
+    },
+    {
+      "text": "y"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "1 entry deleted"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "WzIwMjAtMDEtMDEgMDk6MDBdIGFscGhhIHJlYWR5LgpGaXJzdCBib2R5LgoKWzIwMjAtMDEtMDIgMTA6MTVdIGJldGEgcmV0YWluZWQuClNlY29uZCBib2R5Lgo=",
+        "kind": "file",
+        "path": "journal.txt"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "",
+        "kind": "file",
+        "path": "work.txt"
+      }
+    },
+    {
+      "state": {
+        "entries": [
+          "config.yaml",
+          "journal.txt",
+          "work.txt"
+        ],
+        "kind": "entries",
+        "path": "."
+      }
+    }
+  ],
+  "timeout_ms": 10000,
+  "version": 3,
+  "width": 80,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/n07",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

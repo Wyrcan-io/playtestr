@@ -1,0 +1,66 @@
+{
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/jrnl/venv/Scripts/python.exe",
+    "-B",
+    "-m",
+    "jrnl",
+    "--config-file",
+    "config.yaml",
+    "-contains",
+    "alpha",
+    "--change-time",
+    "2030-02-03 04:05"
+  ],
+  "env": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHON_KEYRING_BACKEND": "keyring.backends.null.Keyring"
+  },
+  "height": 24,
+  "max_output_bytes": 2000000,
+  "name": "Decline timestamp update without changing journal",
+  "run_timeout_ms": 120000,
+  "steps": [
+    {
+      "expect": "Change time for"
+    },
+    {
+      "text": "n"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "No edits to save, because nothing was changed"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "WzIwMjAtMDEtMDEgMDk6MDBdIGFscGhhIHJlYWR5LgpGaXJzdCBib2R5LgoKWzIwMjAtMDEtMDIgMTA6MTVdIGJldGEgcmV0YWluZWQuClNlY29uZCBib2R5Lgo=",
+        "kind": "file",
+        "path": "journal.txt"
+      }
+    },
+    {
+      "state": {
+        "entries": [
+          "config.yaml",
+          "journal.txt"
+        ],
+        "kind": "entries",
+        "path": "."
+      }
+    }
+  ],
+  "timeout_ms": 10000,
+  "version": 3,
+  "width": 80,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/n05",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

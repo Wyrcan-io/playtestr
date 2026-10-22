@@ -19,10 +19,10 @@ def main():
     rows=json.loads((DOC/'screening-decisions.json').read_text())['rows']
     row=next(r for r in rows if r.get('repository')==selected['repository'])
     old=ROOT/'artifacts/runner-readiness-ten-project-pass'
-    if any((old/'active').iterdir()):raise ValueError('original campaign has an active target')
+    if (old/'active').exists() and any((old/'active').iterdir()):raise ValueError('original campaign has an active target')
     active=RAW/'active';active.mkdir(exist_ok=True)
     if any(active.iterdir()):raise ValueError('active target already exists; resume/clean it before acquisition')
-    before=measure(RAW);old_size=measure(old)['total_bytes']
+    before=measure(RAW);old_size=measure(old)['total_bytes'] if old.exists() else 0
     if before['total_bytes']+64*1024**2>4*1024**3 or before['total_bytes']+old_size+64*1024**2>6*1024**3:
         raise ValueError('insufficient declared acquisition headroom')
     target=active/args.project;target.mkdir()
