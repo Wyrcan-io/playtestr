@@ -5,6 +5,7 @@ import hashlib
 import platform
 import shutil
 import uuid
+import argparse
 import asyncio
 
 from adversarial_process import execute
@@ -19,6 +20,8 @@ def require(value,message):
 
 
 async def main():
+    parser=argparse.ArgumentParser();parser.add_argument('--series',choices=['provisional-v1','migration-v2'],default='provisional-v1')
+    args=parser.parse_args()
     host={'Windows':'windows','Linux':'linux'}.get(platform.system());require(host,'undeclared native Cookiecutter host')
     parent=RAW/'old-migration/cookiecutter'/host
     runs=[p for p in (parent/'runs').glob('*/verified.json') if load(p)['cases']==10]
@@ -42,7 +45,7 @@ async def main():
         mutated_source_sha256=hashlib.sha256(mutated).hexdigest(),original_native_suite_sha256=sha256(runs[0]),
         approved_package_inputs=approved,legacy_scope='Original terminal/exit prefix only; no public saved-state assertions.',
         expected_migrated_category='state_assertion_failure',new_project_fault_credit=0))
-    binary,candidate,cell=runner();calls={}
+    binary,candidate,cell=runner(args.series);calls={}
     async def test(label,path,expected):
         report=root/(label+'.json')
         result=await execute([binary,'test','--report',report.relative_to(ROOT),'--artifacts-dir',

@@ -36,9 +36,10 @@ def model_states(case,steps):
     require(len(states)==len(files)+len(missing)+len(directories)+len(entries),'unknown/duplicate saved-state action')
 
 
-def audit(base,host,run=None):
+def audit(base,host,run=None,series='provisional-v1'):
     docs=ROOT/'docs/validation/runner-readiness-ten-project-pass/old-migration/cookiecutter'
-    review=load(docs/'source-review.json');frozen=load(docs.parents[1]/'provisional-candidate-freeze.json')
+    require(series in {'provisional-v1','migration-v2'},'undeclared private candidate series')
+    review=load(docs/'source-review.json');frozen=load(docs.parents[1]/('migration-candidate-freeze.json' if series=='migration-v2' else 'provisional-candidate-freeze.json'))
     cell=next(c for c in frozen['cells'] if c['host']==host)
     old=ROOT/'docs/validation/ten-new-project-adversarial-pass/cookiecutter'
     inventory=load(docs.parents[1]/'old-migration-inventory.json')
@@ -50,12 +51,13 @@ def audit(base,host,run=None):
     require(build['pin']==runtime['source_pin']==review['pin']==original['pin']
             and acquisition['archive_sha256']==review['archive_sha256']==sha256(retained/'source.tar.gz'),
             'actual original target/source identity differs')
-    installed=load(base/('private-install/provisional-v1/'+host+'-amd64/installation.json'))
+    installed=load(base/('private-install/'+series+'/'+host+'-amd64/installation.json'))
     require(installed['binary_sha256']==cell['binary_sha256'] and installed['archive_sha256']==cell['archive_sha256'],'actual frozen runner/archive differs')
     prefix='artifacts/runner-readiness-ten-project-pass/active/old-cookiecutter/'
     python=prefix+('venv/Scripts/python.exe' if host=='windows' else 'venv/bin/python')
     def witness(identity,expected=0,mutated=None,runner=True):
         events={kind:load(base/'events'/(identity+'-'+kind+'.json')) for kind in ['started','identified','launched','finished']}
+        if series=='migration-v2':require(all(e['phase']=='final-archive' for e in events.values()),'nonfinal migration event')
         require(all(r['id']==identity and r['event']==k and r['project']=='old-cookiecutter' for k,r in events.items()),'command event identity differs')
         finished=events['finished']
         require(events['started']['expected_exit']==expected and finished['category']=='passed' and finished['exit_code']==expected

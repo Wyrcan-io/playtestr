@@ -1,0 +1,94 @@
+name: Runner readiness final original copier migration
+on:
+  push:
+    branches: [work/p0-p2-implementation]
+    paths: ['.github/workflows/runner-readiness-final-old-copier.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+env:
+  READINESS_EVIDENCE_PHASE: final-archive
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONIOENCODING: utf-8
+  TEMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+  TMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+  TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+  RUNNER_TEMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+concurrency:
+  group: playtestr-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  original-native:
+    if: github.event_name == 'workflow_dispatch'
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            host: linux
+            target: linux-amd64
+            archive_target: linux_amd64
+            extension: tar.gz
+          - os: windows-2025
+            host: windows
+            target: windows-amd64
+            archive_target: windows_amd64
+            extension: zip
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+      - name: Prepare owned temporary paths
+        run: mkdir -p "$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass/tmp"
+      - name: Download exact frozen native private archive
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          github-token: ${{ github.token }}
+          repository: Wyrcan-io/playtestr
+          run-id: 39450029736
+          name: private-candidate-${{ runner.os }}
+          path: artifacts/runner-readiness-ten-project-pass/provisional-download
+      - name: Install exact frozen private runner without rebuilding
+        run: |
+          python scripts/acceptance/readiness_check.py --label old-copier-exact-private-install --timeout 120 -- python scripts/acceptance/readiness_install_provisional.py --series migration-v2 --archive artifacts/runner-readiness-ten-project-pass/provisional-download/candidate-packages/migration-v2/${{ matrix.target }}/dist/playtestr_0.4.0-rc.5_${{ matrix.archive_target }}.${{ matrix.extension }}
+      - name: Reacquire and build reviewed original target with owned prerequisites
+        id: prepare
+        run: python scripts/acceptance/readiness_check.py --label old-copier-native-reviewed-prepare --timeout 1200 -- python scripts/acceptance/readiness_old_copier_native_prepare.py
+      - name: Materialize original native prefixes and public saved-state assertions
+        run: python scripts/acceptance/readiness_check.py --label old-copier-native-materialize --timeout 120 -- python scripts/acceptance/readiness_old_migration_materialize.py --project copier --host ${{ matrix.host }}
+      - name: Run all twelve original native scenarios with same-execution state proof
+        run: python scripts/acceptance/readiness_check.py --label old-copier-native-twelve-public-migration --timeout 900 -- python scripts/acceptance/readiness_old_copier_test.py --series migration-v2
+      - name: Real saved corruption, legacy false green, public rejection and exact recovery
+        run: python scripts/acceptance/readiness_check.py --label old-copier-native-real-corruption-recovery --timeout 600 -- python scripts/acceptance/readiness_old_copier_corruption.py --series migration-v2
+      - name: Verify runtime termination, original source restoration and checked removal
+        if: always() && steps.prepare.outcome == 'success' && runner.os != 'Windows'
+        run: python scripts/acceptance/readiness_check.py --label old-copier-native-checked-cleanup --timeout 240 -- python scripts/acceptance/readiness_cleanup_plop.py --project old-copier
+      - name: Verify Windows source restoration and checked native removal
+        if: always() && steps.prepare.outcome == 'success' && runner.os == 'Windows'
+        run: |
+          python scripts/acceptance/readiness_check.py --label old-copier-native-process-proof --timeout 60 -- powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/acceptance/readiness_windows_process_proof.ps1 -Project old-copier
+          python scripts/acceptance/readiness_check.py --label old-copier-native-source-retention --timeout 240 -- python scripts/acceptance/readiness_cleanup_plop.py --project old-copier --prepare-only
+          python scripts/acceptance/readiness_check.py --label old-copier-native-source-removal --timeout 180 -- powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/acceptance/readiness_remove_plop.ps1 -Project old-copier
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: old-copier-${{ runner.os }}
+          path: |
+            artifacts/runner-readiness-ten-project-pass/events/
+            artifacts/runner-readiness-ten-project-pass/identities/
+            artifacts/runner-readiness-ten-project-pass/core/
+            artifacts/runner-readiness-ten-project-pass/old-copier/
+            artifacts/runner-readiness-ten-project-pass/old-migration/copier/
+            artifacts/runner-readiness-ten-project-pass/old-copier-runtime-baseline.json
+            artifacts/runner-readiness-ten-project-pass/private-install/migration-v2/*/installation.json
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14

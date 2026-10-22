@@ -5,6 +5,7 @@ import hashlib
 import platform
 import shutil
 import uuid
+import argparse
 import asyncio
 
 from adversarial_process import execute
@@ -19,6 +20,8 @@ def require(value,message):
 
 
 async def main():
+    parser=argparse.ArgumentParser();parser.add_argument('--series',choices=['provisional-v1','migration-v2'],default='provisional-v1')
+    args=parser.parse_args()
     host={'Linux':'linux','Darwin':'macos'}.get(platform.system());require(host,'undeclared native superfile host')
     parent=RAW/'old-migration/superfile'/host
     runs=[p for p in (parent/'runs').glob('*/verified.json') if load(p)['cases']==12]
@@ -45,7 +48,7 @@ async def main():
         mutated_source_sha256=hashlib.sha256(mutated).hexdigest(),original_native_suite_sha256=sha256(runs[0]),
         approved_package_inputs=approved,legacy_scope='Original terminal/exit prefix only; no public saved-state assertions.',
         expected_migrated_category='state_assertion_failure',new_project_fault_credit=0))
-    binary,candidate,cell=runner();calls={};builds={}
+    binary,candidate,cell=runner(args.series);calls={};builds={}
     build=load(target/'build.json');runtime=load(target/'runtime.json')
     target_binary=target/build['binary_relative_path'];original_binary=sha256(target_binary)
     require(original_binary==build['binary_sha256'],'original binary changed before corruption')

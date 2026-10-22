@@ -99,7 +99,7 @@ def main():
         require(not receipt['held_out'] and receipt['restored_exact']
             and all(receipt[k]==original[k] for k in ['id','path','spec','before','after','category'])
             and all(receipt[k]==reviewed[k] for k in ['path','mutated_source_sha256','original_source_sha256'])
-            and receipt['original_source_sha256']==review['reviewed_inputs'][receipt['path']],'reviewed actual source fault differs')
+            and receipt['original_source_sha256']==full_source[receipt['path']],'reviewed actual source fault differs')
         for key,digest in [('mutation_validation',receipt['mutated_source_sha256']),('restored_validation',receipt['original_source_sha256'])]:
             validation=receipt[key]
             require(validation['source_sha256']==digest and validation['interpreter_sha256']==runtime['python_sha256'],'source syntax/version identity differs')

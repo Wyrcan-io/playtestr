@@ -1,4 +1,4 @@
-"""Prepare the original Linux Rust prerequisites and reviewed dependency set."""
+"""Prepare original native Rust prerequisites and reviewed dependency set."""
 import asyncio
 import os
 from pathlib import Path
@@ -15,16 +15,17 @@ from readiness_old_helix_fetch_review import fetch
 
 
 async def main():
-    if os.name=='nt':raise RuntimeError('this native prerequisite route is declared Linux only')
-    immutable_json(RAW/'old-helix-runtime-baseline.json',await runtime_inventory('old-helix','migration-owned-runtime-baseline'))
+    if os.name!='nt':
+        immutable_json(RAW/'old-helix-runtime-baseline.json',await runtime_inventory('old-helix','migration-owned-runtime-baseline'))
     await execute([sys.executable,ROOT/'scripts/acceptance/readiness_acquire_old.py','--project','helix'],
         'old-helix','migration-original-pinned-source-acquisition',timeout=180,campaign=Campaign())
-    target=RAW/'active/old-helix';env=environment();triple='x86_64-unknown-linux-gnu'
+    target=RAW/'active/old-helix';env=environment();triple='x86_64-pc-windows-msvc' if os.name=='nt' else 'x86_64-unknown-linux-gnu'
+    executable_suffix='.exe' if os.name=='nt' else ''
     roots=[Path.home()/'.rustup']
     if os.environ.get('RUSTUP_HOME'):roots.insert(0,Path(os.environ['RUSTUP_HOME']))
     compiler=None;read_only=False;version=None
     for root in roots:
-        candidate=root/'toolchains'/('stable-'+triple)/'bin/rustc'
+        candidate=root/'toolchains'/('stable-'+triple)/('bin/rustc'+executable_suffix)
         if not candidate.is_file():continue
         checked=await run('migration-installed-rust-version-selection',[candidate,'-Vv'],env,30)
         if 'release: 1.97.1' in checked['output'] and 'host: '+triple in checked['output']:
@@ -34,15 +35,15 @@ async def main():
         if rustup is None:raise RuntimeError('read-only installed Rustup prerequisite missing')
         await run('migration-owned-exact-rust-toolchain',[rustup,'toolchain','install','1.97.1',
             '--profile','minimal','--no-self-update'],env,600)
-        compiler=target/'rustup-home/toolchains'/('1.97.1-'+triple)/'bin/rustc'
+        compiler=target/'rustup-home/toolchains'/('1.97.1-'+triple)/('bin/rustc'+executable_suffix)
         version=await run('migration-owned-exact-rust-identity',[compiler,'-Vv'],env,30)
         if 'release: 1.97.1' not in version['output'] or 'host: '+triple not in version['output']:
             raise RuntimeError('owned compiler differs from original native Rust profile')
-    cargo=compiler.with_name('cargo')
+    cargo=compiler.with_name('cargo'+executable_suffix)
     immutable_json(target/'runtime.json',dict(rustc_path=str(compiler),rustc_sha256=sha256(compiler),
         cargo_path=str(cargo),cargo_sha256=sha256(cargo),native_triple=triple,
         read_only_installed_prerequisites=read_only,installed_globally=False,rust_version_attempt=version['id']))
-    env.update(RUSTC=str(compiler),RUSTDOC=str(compiler.with_name('rustdoc')))
+    env.update(RUSTC=str(compiler),RUSTDOC=str(compiler.with_name('rustdoc'+executable_suffix)))
     env['PATH']=str(compiler.parent)+os.pathsep+env['PATH']
     dependencies=await fetch(cargo,compiler,env,[triple]);immutable_json(target/'dependencies.json',dependencies)
     hooks=load(ROOT/'docs/validation/runner-readiness-ten-project-pass/old-migration/helix/dependency-hook-review.json')

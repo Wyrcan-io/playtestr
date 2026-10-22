@@ -1,4 +1,5 @@
 """Run preserved original native Copier cases with public v3 state proof."""
+import argparse
 import asyncio
 import json
 import platform
@@ -14,6 +15,8 @@ from readiness_old_copier_prepare import environment
 
 
 async def main():
+    parser=argparse.ArgumentParser();parser.add_argument('--series',choices=['provisional-v1','migration-v2'],default='provisional-v1')
+    args=parser.parse_args()
     host={'Windows':'windows','Linux':'linux'}.get(platform.system())
     if host is None:raise RuntimeError('undeclared original Copier native host')
     parent=RAW/'old-migration/copier'/host
@@ -38,7 +41,7 @@ async def main():
     immutable_json(root/'execution-profile.json',dict(original_materialized_sha256=sha256(parent/'materialized.json'),
         target_build_sha256=sha256(target/'build.json'),changes=changes,restored_original_git_metadata=restored_git,
         operational_change='Explicit PYTHONDONTWRITEBYTECODE=1 prevents target imports writing to installed base-Python paths. Original commands, input/screen/exit steps, fixture/snapshot bytes and saved-state expectations remain unchanged.'))
-    binary,candidate,cell=runner();env=environment()
+    binary,candidate,cell=runner(args.series);env=environment()
     specs=[(package/(row['case']+'.json')).relative_to(ROOT) for row in materialized['cases']]
     listing=await execute([binary,'test','--list',*specs],'old-copier','migration-public-native-selection',
         env=env,timeout=30,campaign=Campaign())

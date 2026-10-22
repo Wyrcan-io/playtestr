@@ -1,13 +1,13 @@
 {
-  "attempted_projects": 8,
+  "attempted_projects": 9,
   "final_archive_qualified_projects": 0,
   "final_runner_admissions": 0,
   "observed_ordinary_cancelled": 1,
-  "observed_ordinary_executions": 4954,
+  "observed_ordinary_executions": 5434,
   "observed_ordinary_failed": 2,
-  "observed_ordinary_passed": 4951,
+  "observed_ordinary_passed": 5431,
   "observed_ordinary_unreported": 0,
-  "observed_public_calibration_executions": 171,
+  "observed_public_calibration_executions": 195,
   "paid_launch_admissions": 0,
   "projects": [
     {
@@ -128,12 +128,24 @@
           "status": "independently-verified"
         }
       ]
+    },
+    {
+      "project": "papis",
+      "series": [
+        {
+          "ordinary_observed": 480,
+          "ordinary_passed": 480,
+          "receipt_sha256": "78f699966ddf94e14e2c424ba2e116ec0bc6b1677d2b5956cbae3df6c5e1c5a0",
+          "run": "39735220618",
+          "status": "independently-verified"
+        }
+      ]
     }
   ],
   "schema_version": 1,
   "scope": "Observed ordinary outcomes remain separate from public fault/calibration calls. Verified project series are intermediate; global final controls, matrix and packaging gates still required.",
-  "verified_calibration_executions": 144,
-  "verified_ordinary_executions": 3840,
-  "verified_series_cells": 16,
-  "verified_series_projects": 8
+  "verified_calibration_executions": 168,
+  "verified_ordinary_executions": 4320,
+  "verified_series_cells": 18,
+  "verified_series_projects": 9
 }
