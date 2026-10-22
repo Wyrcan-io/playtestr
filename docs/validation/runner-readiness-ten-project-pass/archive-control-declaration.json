@@ -1,0 +1,326 @@
+{
+  "candidate_freeze_sha256": "615faddcc71df0a9c5accc5eb99ccd5592d12a18bebf38f4a243d141d11d2ad6",
+  "cases": [
+    {
+      "category": null,
+      "definition_sha256": "955c96926f55e8e2834979dfa03525007fec61b8663d711418d7e8c8aeeeae8c",
+      "fixture_bytes": 0,
+      "fixture_files": 0,
+      "id": "dynamic-binary-unicode",
+      "mode": "saved-state",
+      "state_steps": 1
+    },
+    {
+      "category": "state_assertion_failure",
+      "definition_sha256": "bb78ee9cf881145b77c4033163eb2b441eab0a94ffbfa920cd67dce9147bf802",
+      "fixture_bytes": 0,
+      "fixture_files": 0,
+      "id": "dynamic-wrong-bytes",
+      "mode": "saved-state",
+      "state_steps": 1
+    },
+    {
+      "category": null,
+      "definition_sha256": "be63c97a3686e0df5eeba562fa054ef84bfbb8df21d86a075bec6efa0d9efa26",
+      "fixture_bytes": 0,
+      "fixture_files": 0,
+      "id": "absence",
+      "mode": "input",
+      "state_steps": 1
+    },
+    {
+      "category": "state_assertion_failure",
+      "definition_sha256": "a5f09fd4c46408d6f7ae52ec08535f1e3a9de58a1b025c5db79a4757ce447d50",
+      "fixture_bytes": 1,
+      "fixture_files": 1,
+      "id": "absence-existing",
+      "mode": "input",
+      "state_steps": 1
+    },
+    {
+      "category": null,
+      "definition_sha256": "7f610c696712b07b4f072c535166882482a900d30bd2637187434c57ce4b69b3",
+      "fixture_bytes": 0,
+      "fixture_files": 0,
+      "id": "directory",
+      "mode": "input",
+      "state_steps": 1
+    },
+    {
+      "category": "state_assertion_failure",
+      "definition_sha256": "c564f752309ebb86d438277d3000d6b213580fff11db06c9c74b5a202dde0046",
+      "fixture_bytes": 1,
+      "fixture_files": 1,
+      "id": "directory-wrong-type",
+      "mode": "input",
+      "state_steps": 1
+    },
+    {
+      "category": null,
+      "definition_sha256": "751e9508e5b0398736f751972853367b4b50bd2fe69ecbe25e62143d4e64e912",
+      "fixture_bytes": 0,
+      "fixture_files": 0,
+      "id": "empty-directory",
+      "mode": "input",
+      "state_steps": 1
+    },
+    {
+      "category": "state_assertion_failure",
+      "definition_sha256": "52bbf31ca1d680d5342805d325f5e06ed3cdeacab02b4a7bf551baece1e4c7cc",
+      "fixture_bytes": 1,
+      "fixture_files": 1,
+      "id": "nonempty-directory",
+      "mode": "input",
+      "state_steps": 1
+    },
+    {
+      "category": null,
+      "definition_sha256": "63f493515d599fce53dd3d7149410dd27a89ebd084b4d0c753316cd3ba6ac5a9",
+      "fixture_bytes": 2,
+      "fixture_files": 2,
+      "id": "exact-entries",
+      "mode": "input",
+      "state_steps": 1
+    },
+    {
+      "category": "state_assertion_failure",
+      "definition_sha256": "e938c7b991379d23fd6b6b38813f891589c98ca0fea34b197b8e05cd7785a038",
+      "fixture_bytes": 2,
+      "fixture_files": 2,
+      "id": "extra-entry",
+      "mode": "input",
+      "state_steps": 1
+    },
+    {
+      "category": "state_assertion_failure",
+      "definition_sha256": "66c1b4b036eb06597b9fb11bd5c8f87b9205c0254e7a98ddc3ab5f2b682ec058",
+      "fixture_bytes": 1,
+      "fixture_files": 1,
+      "id": "missing-entry",
+      "mode": "input",
+      "state_steps": 1
+    },
+    {
+      "category": null,
+      "definition_sha256": "6b45b3c45cb615c2fc3f38c2e0eaf5e33a193b6c3eda1e9bc10adace693e2283",
+      "fixture_bytes": 0,
+      "fixture_files": 1,
+      "id": "empty-file",
+      "mode": "input",
+      "state_steps": 1
+    },
+    {
+      "category": null,
+      "definition_sha256": "06a27d7d7bdeb4d6059d69798758740d4fd3a5adcae542c72370f863ccc15cf2",
+      "fixture_bytes": 65536,
+      "fixture_files": 1,
+      "id": "file-64k",
+      "mode": "input",
+      "state_steps": 1
+    },
+    {
+      "category": "state_assertion_failure",
+      "definition_sha256": "4ff63a3315fa8b694466d1b724942094451ab804e81b1342745856673fb0bfa0",
+      "fixture_bytes": 65537,
+      "fixture_files": 1,
+      "id": "observed-file-over-limit",
+      "mode": "input",
+      "state_steps": 1
+    },
+    {
+      "category": null,
+      "definition_sha256": "c91d7f459bf66b0e6a5d3ff33b0ea357d7927b07a18c0e71835a19d82624eff0",
+      "fixture_bytes": 524288,
+      "fixture_files": 8,
+      "id": "aggregate-512k",
+      "mode": "input",
+      "state_steps": 8
+    },
+    {
+      "category": "invalid_spec",
+      "definition_sha256": "2eb36b1e1fd149784a2278da702cb83827b524fcc87d7681facfdd45c7281f4c",
+      "fixture_bytes": 589824,
+      "fixture_files": 9,
+      "id": "expected-aggregate-over-limit",
+      "mode": "input",
+      "state_steps": 9
+    },
+    {
+      "category": null,
+      "definition_sha256": "7ca9db80846396d6108924ab1ba6836303400a7be4250d02e6a80a9fc0a2af2d",
+      "fixture_bytes": 0,
+      "fixture_files": 256,
+      "id": "entries-256",
+      "mode": "input",
+      "state_steps": 1
+    },
+    {
+      "category": "state_assertion_failure",
+      "definition_sha256": "eae41cd197d9463dd9b44054c200c71a2b0b35ddbb84789d13ccf5d1c000b8e6",
+      "fixture_bytes": 0,
+      "fixture_files": 257,
+      "id": "observed-entries-over-limit",
+      "mode": "input",
+      "state_steps": 1
+    },
+    {
+      "category": "invalid_spec",
+      "definition_sha256": "7a31a9b3742c918929259adff38ed1b2c2dd243f055b41bb78681661889ceee7",
+      "fixture_bytes": 0,
+      "fixture_files": 0,
+      "id": "expected-entries-over-limit",
+      "mode": "input",
+      "state_steps": 1
+    },
+    {
+      "category": "invalid_spec",
+      "definition_sha256": "8ee0184c68507f157ac9209faafb59aab3daea249f8ab48e7e8b3487a13a306f",
+      "fixture_bytes": 0,
+      "fixture_files": 0,
+      "id": "traversal-refused",
+      "mode": "input",
+      "state_steps": 1
+    },
+    {
+      "category": "invalid_spec",
+      "definition_sha256": "68eeede087416943adab0be03720fc8496722ce6e7d7d11141e1495b6d0bd840",
+      "fixture_bytes": 0,
+      "fixture_files": 0,
+      "id": "expected-file-over-limit",
+      "mode": "input",
+      "state_steps": 1
+    },
+    {
+      "category": null,
+      "definition_sha256": "9fd02efd72d8c694fe7b58952677c20930a96c95f30cc578126eef6d66940e9d",
+      "fixture_bytes": 1,
+      "fixture_files": 1,
+      "id": "total-1000-steps",
+      "mode": "input",
+      "state_steps": 996
+    },
+    {
+      "category": "invalid_spec",
+      "definition_sha256": "fa62354aedc201be06e0cba1d7b93aba97664f56f99e3eecb86e6ec8b5589567",
+      "fixture_bytes": 1,
+      "fixture_files": 1,
+      "id": "total-1001-steps",
+      "mode": "input",
+      "state_steps": 997
+    },
+    {
+      "category": "invalid_spec",
+      "definition_sha256": "229c30d614e4f4b234f5866d82d914576fd11bcea480d3897494cbf60c1dd794",
+      "fixture_bytes": 0,
+      "fixture_files": 0,
+      "id": "unsupported-format",
+      "mode": "input",
+      "state_steps": 0
+    },
+    {
+      "category": "invalid_spec",
+      "definition_sha256": "dde7d433a88f8dc68c37026a675044a35a6787c78d0b418ac0b9860b5d295fab",
+      "fixture_bytes": 0,
+      "fixture_files": 0,
+      "id": "old-format-state",
+      "mode": "input",
+      "state_steps": 1
+    },
+    {
+      "category": "output_limit",
+      "definition_sha256": "af623d970193adecc3a9e8df646b06a2b8539fb8bb872b845543c4e51a72f508",
+      "fixture_bytes": 0,
+      "fixture_files": 0,
+      "id": "output-flood",
+      "mode": "flood",
+      "state_steps": 0
+    },
+    {
+      "category": "assertion_timeout",
+      "definition_sha256": "6a71c3643f47b0f1ce8f603b70840336c9d67270be39d6fe673f79cd3acc7b39",
+      "fixture_bytes": 0,
+      "fixture_files": 0,
+      "id": "assertion-timeout",
+      "mode": "hang",
+      "state_steps": 0
+    },
+    {
+      "category": "run_timeout",
+      "definition_sha256": "0533dfef0355cd8dfcbb4babcb3fcc261e7ae7b2e7bb9e399317f9cbcc425731",
+      "fixture_bytes": 0,
+      "fixture_files": 0,
+      "id": "whole-run-timeout",
+      "mode": "hang",
+      "state_steps": 0
+    },
+    {
+      "category": "assertion_timeout",
+      "definition_sha256": "c12345721ea161e6af844ac93861486535b21994220f670147cb2fd2b561c3d6",
+      "fixture_bytes": 0,
+      "fixture_files": 0,
+      "id": "descendant-timeout-cleanup",
+      "mode": "child",
+      "state_steps": 0
+    },
+    {
+      "category": "unexpected_exit",
+      "definition_sha256": "8a7708f68b98965dfd87799ab5e89d922b7844f0adf72843b015efb3f4d207c2",
+      "fixture_bytes": 0,
+      "fixture_files": 0,
+      "id": "unexpected-exit",
+      "mode": "unknown-control-mode",
+      "state_steps": 0
+    },
+    {
+      "category": null,
+      "definition_sha256": "49577ad211bffb5c149ff6ba68bed92b9ad69a45e2b2a5fbe68f602c606b1db3",
+      "fixture_bytes": 0,
+      "fixture_files": 0,
+      "id": "expected-nonzero-exit",
+      "mode": "unknown-control-mode",
+      "state_steps": 0
+    },
+    {
+      "category": null,
+      "definition_sha256": "dd76cb32ccdfa40f15e05cdd102e30c3395db3aebcbe0bde145769517076ec6a",
+      "fixture_bytes": 0,
+      "fixture_files": 0,
+      "id": "rendered-alternate-unicode",
+      "mode": "screen",
+      "state_steps": 0
+    },
+    {
+      "category": null,
+      "definition_sha256": "da5d7bcec0886eb8f8a175b98ae7db654e4aa24a301af5ed688509a2c506108a",
+      "fixture_bytes": 0,
+      "fixture_files": 0,
+      "id": "controlled-resize",
+      "mode": "resize",
+      "state_steps": 0
+    }
+  ],
+  "fixture_source_lf_sha256": "f17ba7a5aad0a50ddfef0f265fc63d8a4a6fec72acc515cb4de7aabeb8799db7",
+  "hosts": [
+    "linux-amd64",
+    "darwin-arm64",
+    "windows-amd64"
+  ],
+  "policy": "Install exact frozen rc.5; build only the existing trusted synthetic target. Run after the bounded original-context FFF E11 application investigation. At most two native jobs and one public invocation per host. Keep unit/race-only and harness controls separate; no new unique-control/project/fault/repetition credit.",
+  "public_control_reexecutions_per_host": 35,
+  "recorder_controls": [
+    "recorder-rejected-capture",
+    "recorder-input-only"
+  ],
+  "resource_bounds": {
+    "artifact_retention_days": 14,
+    "fixture_build_seconds": 180,
+    "hang_step_seconds": 1,
+    "max_concurrent_native_jobs": 2,
+    "native_job_minutes": 20,
+    "native_jobs": 3,
+    "outer_per_command_seconds": 30,
+    "scenario_seconds": 15
+  },
+  "scope": "Public archive reexecutions: same-execution exact bytes/types/directories/entry sets, exact and exceeded file/aggregate/entry/step bounds, prelaunch validation, supported/nonzero exits, flood/deadlines/descendant termination, rendered alternate Unicode, controlled resize, recorder rejected-capture/input-only false-green refusal. Existing source-only internal fault injection and harness controls remain source-level evidence.",
+  "source_comparison": "Only source-code checkout CRLF/LF comparison uses canonical LF. Actual source/compiler/fixture binary bytes are independently hashed natively; every contract, fixture and state expectation retains exact bytes."
+}

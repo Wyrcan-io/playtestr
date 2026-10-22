@@ -1,0 +1,84 @@
+name: Runner readiness exact archive public controls
+on:
+  push:
+    branches: [work/p0-p2-implementation]
+    paths: ['.github/workflows/runner-readiness-archive-controls.yml']
+  workflow_dispatch:
+    inputs:
+      candidate_run:
+        required: true
+        type: string
+        description: Exact frozen migration-v2 private candidate run
+permissions:
+  contents: read
+  actions: read
+env:
+  READINESS_EVIDENCE_PHASE: final-archive
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONIOENCODING: utf-8
+  TEMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+  TMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+  TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+  RUNNER_TEMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+concurrency:
+  group: playtestr-archive-controls
+  cancel-in-progress: false
+jobs:
+  native-final:
+    if: github.event_name == 'workflow_dispatch'
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            target: linux-amd64
+            archive_target: linux_amd64
+            extension: tar.gz
+          - os: macos-15
+            target: darwin-arm64
+            archive_target: darwin_arm64
+            extension: tar.gz
+          - os: windows-2025
+            target: windows-amd64
+            archive_target: windows_amd64
+            extension: zip
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+      - name: Prepare owned temporary paths
+        run: mkdir -p "$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass/tmp"
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          github-token: ${{ github.token }}
+          repository: Wyrcan-io/playtestr
+          run-id: ${{ inputs.candidate_run }}
+          name: private-candidate-${{ runner.os }}
+          path: artifacts/runner-readiness-ten-project-pass/provisional-download
+      - name: Install exact frozen archive without a runner rebuild
+        run: python scripts/acceptance/readiness_check.py --label archive-controls-exact-private-install --timeout 120 -- python scripts/acceptance/readiness_install_provisional.py --series migration-v2 --archive artifacts/runner-readiness-ten-project-pass/provisional-download/candidate-packages/migration-v2/${{ matrix.target }}/dist/playtestr_0.4.0-rc.5_${{ matrix.archive_target }}.${{ matrix.extension }}
+      - name: Prepare owned compiler only for synthetic target
+        run: python scripts/acceptance/readiness_check.py --label archive-controls-owned-sdk --timeout 360 -- python scripts/acceptance/readiness_bootstrap_go.py
+      - name: Reexecute public controls through the exact installed archive
+        run: python scripts/acceptance/readiness_check.py --label archive-controls-public-native --timeout 600 -- python scripts/acceptance/readiness_archive_controls.py
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: archive-controls-${{ runner.os }}
+          path: |
+            artifacts/runner-readiness-ten-project-pass/events/
+            artifacts/runner-readiness-ten-project-pass/identities/
+            artifacts/runner-readiness-ten-project-pass/core/
+            artifacts/runner-readiness-ten-project-pass/product-controls/
+            artifacts/runner-readiness-ten-project-pass/private-install/migration-v2/*/installation.json
+            artifacts/runner-readiness-ten-project-pass/toolchain/sdk.json
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
