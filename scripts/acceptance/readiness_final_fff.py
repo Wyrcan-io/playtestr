@@ -15,7 +15,7 @@ from readiness_new_control_matrix import read_json as load
 
 async def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument('--project',choices=['fff','hygen','rclone','plop','poetry','rubygems','edit','frogmouth'],default='fff')
+    parser.add_argument('--project',choices=['fff','hygen','rclone','plop','poetry','rubygems','edit','frogmouth','papis'],default='fff')
     parser.add_argument('--batch',type=int,choices=range(12))
     parser.add_argument('--declaration',choices=['final-series-declaration.json','final-series-declaration-v2.json'],default='final-series-declaration.json')
     args=parser.parse_args()
@@ -39,10 +39,12 @@ async def main():
         from readiness_edit_cases import environment as target_environment
     elif project=='frogmouth':
         from readiness_frogmouth_first_use import environment as target_environment
+    elif project=='papis':
+        from readiness_papis_first_use import environment as target_environment
     else:
         target_environment=environment
     host={'Linux':'linux','Darwin':'macos','Windows':'windows'}.get(platform.system())
-    windows_projects={'rclone','rubygems','edit','frogmouth'}
+    windows_projects={'rclone','rubygems','edit','frogmouth','papis'}
     if not host or (project in windows_projects and host=='macos') or (project not in windows_projects and host=='windows'):
         raise RuntimeError('undeclared final native project/host')
     docs=ROOT/'docs/validation/runner-readiness-ten-project-pass'

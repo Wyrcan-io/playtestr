@@ -63,7 +63,7 @@ class Campaign:
         if self.phase not in {'development','final-archive'}:
             raise ValueError('undeclared evidence phase')
         self.catalog_project=catalog_project or os.environ.get('READINESS_IDENTITY_CATALOG_PROJECT','')
-        if self.catalog_project not in {'','rclone','hygen','rubygems','edit','frogmouth'}:
+        if self.catalog_project not in {'','rclone','hygen','rubygems','edit','frogmouth','papis'}:
             raise ValueError('undeclared identity catalog project')
         self.raw = Path(raw).resolve()
         self.raw.relative_to(ROOT)

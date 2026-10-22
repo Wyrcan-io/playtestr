@@ -15,11 +15,12 @@ def main():
     require(args.run.isascii() and args.run.isdecimal() and 1<=args.generations<=100,'invalid retention scope')
     docs=ROOT/'docs/validation/runner-readiness-ten-project-pass';project=docs/args.project
     hosts=['linux','windows'] if args.project in {'rubygems','edit','frogmouth','papis'} else ['linux','macos']
+    expected_calibration=12 if args.project=='papis' else 9
     audits={};values={}
     for host in hosts:
         path=project/('final-verified-'+host+'.json');value=load(path)
         require(value['run']==args.run and value['host']==host and value['ordinary_executions']==240
-            and value['calibration_executions']==9,'incomplete independent native audit')
+            and value['calibration_executions']==expected_calibration,'incomplete independent native audit')
         audits[host]=sha256(path);values[host]=value
     review=load(project/'source-review.json');canonical=RAW/args.project/'retained-source'
     require(sha256(canonical/'source.tar.gz')==review['archive_sha256'],'canonical source archive changed')
@@ -43,7 +44,7 @@ def main():
                 for name,record in index['files'].items()),'actual audited faults/cleanup not retained')
     path=project/'final-series-verification.json'
     immutable_json(path,dict(run=args.run,canonical_scenarios=20,audits=audits,retained_archives=archives,
-        verified_ordinary_executions=480,verified_calibration_executions=18,verified_native_cells=2,
+        verified_ordinary_executions=480,verified_calibration_executions=expected_calibration*2,verified_native_cells=2,
         final_archive_qualified_projects=0,paid_launch_admissions=0,
         scope='Both exact-archive native twelve-by-twenty series and actual source faults/restoration independently audited; complete historical and final packet inventories reverified, selected evidence restored, expanded packets removed. Overall final matrix/control gates remain separate.'))
     status_path=docs/'final-series-status.json';status=load(status_path)
@@ -55,7 +56,7 @@ def main():
     current['series'].append(dict(run=args.run,status='independently-verified',ordinary_observed=480,ordinary_passed=480,
         receipt_sha256=sha256(path)))
     for key,amount in dict(observed_ordinary_executions=480,observed_ordinary_passed=480,
-        observed_public_calibration_executions=18,verified_calibration_executions=18,
+        observed_public_calibration_executions=expected_calibration*2,verified_calibration_executions=expected_calibration*2,
         verified_ordinary_executions=480,verified_series_cells=2,verified_series_projects=1).items():status[key]+=amount
     status_path.write_text(json.dumps(status,indent=2,sort_keys=True)+'\n',encoding='utf-8',newline='\n')
     print('Verified final native series and complete retention:',args.project,'; overall final admission remains separate.')
