@@ -1,0 +1,70 @@
+name: Runner readiness bounded original fff E11 incident
+on:
+  push:
+    branches: [work/p0-p2-implementation]
+    paths: ['.github/workflows/runner-readiness-fff-e11-r3.yml']
+  workflow_dispatch:
+    inputs:
+      candidate_run:
+        required: true
+        type: string
+        description: Exact frozen migration-v2 private candidate run
+permissions:
+  contents: read
+  actions: read
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONIOENCODING: utf-8
+  TEMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+  TMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+  TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+  RUNNER_TEMP: ${{ github.workspace }}/artifacts/runner-readiness-ten-project-pass/tmp
+concurrency:
+  group: playtestr-fff-e11-r3-batches
+  cancel-in-progress: false
+jobs:
+  linux-incident:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+      - name: Prepare owned temporary paths
+        run: mkdir -p "$GITHUB_WORKSPACE/artifacts/runner-readiness-ten-project-pass/tmp"
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          github-token: ${{ github.token }}
+          repository: Wyrcan-io/playtestr
+          run-id: ${{ inputs.candidate_run }}
+          name: private-candidate-Linux
+          path: artifacts/runner-readiness-ten-project-pass/provisional-download
+      - name: Install exact frozen archive without a runner rebuild
+        run: python3 scripts/acceptance/readiness_check.py --label fff-r3-exact-private-install --timeout 120 -- python3 scripts/acceptance/readiness_install_provisional.py --series migration-v2 --archive artifacts/runner-readiness-ten-project-pass/provisional-download/candidate-packages/migration-v2/linux-amd64/dist/playtestr_0.4.0-rc.5_linux_amd64.tar.gz
+      - name: Prepare original reviewed Bash target and unchanged native contracts
+        id: prepare
+        run: python3 scripts/acceptance/readiness_check.py --label fff-r3-reviewed-target-prepare --timeout 600 -- python3 scripts/acceptance/readiness_fff_native_prepare.py --target-only
+      - name: Three predeclared fifty-attempt incident batches
+        run: python3 scripts/acceptance/readiness_check.py --label fff-r3-three-fifty-attempt-batches --timeout 1200 -- python3 scripts/acceptance/readiness_fff_r3_batches.py --case E11
+      - name: Verify target termination and remove only owned source/runtime
+        if: always() && steps.prepare.outcome == 'success'
+        run: python3 scripts/acceptance/readiness_check.py --label fff-r3-checked-cleanup --timeout 180 -- python3 scripts/acceptance/readiness_cleanup_plop.py --project fff
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: fff-r3-e11-Linux
+          path: |
+            artifacts/runner-readiness-ten-project-pass/events/
+            artifacts/runner-readiness-ten-project-pass/identities/
+            artifacts/runner-readiness-ten-project-pass/core/
+            artifacts/runner-readiness-ten-project-pass/fff/
+            artifacts/runner-readiness-ten-project-pass/fff-runtime-baseline.json
+            artifacts/runner-readiness-ten-project-pass/private-install/migration-v2/linux-amd64/installation.json
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14

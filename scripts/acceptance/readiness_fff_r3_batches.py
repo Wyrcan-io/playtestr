@@ -1,5 +1,6 @@
 """Run three declared bounded batches of the unchanged intermittent fff case."""
 import asyncio
+import argparse
 import platform
 import shutil
 import uuid
@@ -13,33 +14,39 @@ from readiness_new_control_matrix import read_json as load
 
 async def main():
     if platform.system()!='Linux':raise RuntimeError('the incident reproduction profile is native Linux only')
+    parser=argparse.ArgumentParser();parser.add_argument('--case',choices=['E03','E11'],default='E03');args=parser.parse_args()
+    case=args.case;declaration_name='r3-e11-batch-declaration.json' if case=='E11' else 'r3-batch-declaration.json'
     docs=ROOT/'docs/validation/runner-readiness-ten-project-pass/fff'
-    declaration=load(docs/'r3-batch-declaration.json')
+    declaration=load(docs/declaration_name)
     source=RAW/'fff/host-contracts';freeze=load(docs/'reviewed-contract-freeze.json')
     if {p.relative_to(source).as_posix():sha256(p) for p in source.rglob('*') if p.is_file()}!=freeze['all_package_inputs']:
         raise RuntimeError('original reviewed fff package changed before investigation')
     binary,candidate,cell=runner('migration-v2');env=environment()
-    root=RAW/'fff/r3-batches'/uuid.uuid4().hex;root.mkdir(parents=True)
-    immutable_json(root/'intent.json',dict(declaration_sha256=sha256(docs/'r3-batch-declaration.json'),
+    root=RAW/('fff/r3-e11-batches' if case=='E11' else 'fff/r3-batches')/uuid.uuid4().hex;root.mkdir(parents=True)
+    immutable_json(root/'intent.json',dict(declaration_sha256=sha256(docs/declaration_name),
         candidate_version=candidate['version'],runner_sha256=cell['binary_sha256'],
-        archive_sha256=cell['archive_sha256'],contract_sha256=sha256(source/'E03.json'),
+        archive_sha256=cell['archive_sha256'],contract_sha256=sha256(source/(case+'.json')),
         canonical_package_inputs=freeze['all_package_inputs'],planned_attempts=150,final_archive_credit=0))
+    exact=None
+    if case=='E11':
+        exact=RAW/'fff/final-series/4'/declaration['package_directory']
+        exact.parent.mkdir(parents=True);shutil.copytree(source,exact)
     for batch in declaration['batches']:
         folder=root/('batch-'+str(batch['number']));folder.mkdir()
-        package=folder/('relocated caf\u00e9 \u96ea' if batch['number']==3 else 'contracts')
-        shutil.copytree(source,package)
+        package=exact or folder/('relocated caf\u00e9 \u96ea' if batch['number']==3 else 'contracts')
+        if exact is None:shutil.copytree(source,package)
         if {p.relative_to(package).as_posix():sha256(p) for p in package.rglob('*') if p.is_file()}!=freeze['all_package_inputs']:
             raise RuntimeError('batch relocation changed approved inputs')
         rows=[]
         for number in range(50):
             identity=uuid.uuid4().hex;report=folder/(identity+'.json')
-            loaded=batch['number']==2 and number%10==0
+            loaded=case=='E03' and batch['number']==2 and number%10==0
             immutable_json(folder/(identity+'-planned.json'),dict(batch=batch['number'],number=number,
-                seed=batch['seed'],controlled_two_second_worker=loaded,contract_sha256=sha256(package/'E03.json')))
+                seed=batch['seed'],controlled_two_second_worker=loaded,contract_sha256=sha256(package/(case+'.json'))))
             try:
                 attempt=await execute([binary,'test','--report',report.relative_to(ROOT),'--artifacts-dir',
-                    (folder/(identity+'-evidence')).relative_to(ROOT),(package/'E03.json').relative_to(ROOT)],
-                    'fff','r3-E03-batch-'+str(batch['number'])+'-attempt-'+str(number),
+                    (folder/(identity+'-evidence')).relative_to(ROOT),(package/(case+'.json')).relative_to(ROOT)],
+                    'fff','r3-'+case+'-batch-'+str(batch['number'])+'-attempt-'+str(number),
                     env=env,timeout=130,load=loaded,campaign=Campaign())
                 child=attempt['id']
             except RuntimeError as error:

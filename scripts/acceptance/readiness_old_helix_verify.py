@@ -28,7 +28,7 @@ def audit(base,host,run=None,series='provisional-v1'):
     cases={c['name']:c for c in load(old/'scenarios.json')['cases']}
     target=base/'old-helix';retained=target/'retained-source'
     build=load(retained/'build.json');runtime=load(retained/'runtime.json');acquisition=load(retained/'acquisition.json')
-    if host=='linux':
+    if host=='linux' or series=='migration-v2':
         from readiness_old_superfile_verify import canonical_archive
         canonical=canonical_archive(target,review,project='helix')
     else:canonical=retained/'source.tar.gz'

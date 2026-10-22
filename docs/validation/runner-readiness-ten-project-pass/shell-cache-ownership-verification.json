@@ -1,0 +1,22 @@
+{
+  "controls": [
+    {
+      "attempt": "a5ebc26ca7db41a7a2d4a3e18793d0ae",
+      "cache_bytes": 8246,
+      "cache_sha256": "911e5ea4a1f8181a790bafee081a67680e3f22e9b02ab816436be2289d5c4cc2",
+      "profile": "removed-owned-appdata-default-v2"
+    },
+    {
+      "attempt": "ffba6972590f461f9dfc25991016596e",
+      "cache_bytes": 8246,
+      "cache_sha256": "911e5ea4a1f8181a790bafee081a67680e3f22e9b02ab816436be2289d5c4cc2",
+      "profile": "explicit-owned-cache-v2"
+    }
+  ],
+  "id": "3508ab25198a453fa5a51d1fd4ed0a95",
+  "original_removal_attempt": null,
+  "original_removal_receipt_sha256": "91251b04d34f8e00a6e89d27306810b187493182d679160af9906a0ad9ef519e",
+  "original_sha256": "911e5ea4a1f8181a790bafee081a67680e3f22e9b02ab816436be2289d5c4cc2",
+  "primary_documentation": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_windows_powershell_5.1?view=powershell-5.1",
+  "scope": "Original task-created root cache retained and native removed. Controlled removal of owned home/appdata reproduces relative cwd cache publication; explicit pre-start PSModuleAnalysisCachePath positively publishes only to owned absolute cache after payload removal. This demonstrates the fallback and prevention, not retrospective proof of the original background write ordering. Initial broad module-enumeration control timed out and remains separately retained. No Go/archive changes or product-control credit."
+}
