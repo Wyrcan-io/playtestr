@@ -24,13 +24,16 @@ def main():
     attempts={}
     for path in (root/'events').glob('*.json'):
         value=json.loads(path.read_text());attempts.setdefault(value['id'],{})[value['event']]=value
-    if len(attempts)!=2:raise ValueError('missing/extra native top-level checks')
+    console_control='test_failed_engineering_command_exposes_its_retained_console' in test_names
+    if len(attempts)!=(3 if console_control else 2):raise ValueError('missing/extra native top-level checks')
     checks=[]
     for eid,events in attempts.items():
         if set(events)!={'started','identified','launched','finished'}:raise ValueError('incomplete native command')
         if any(e['campaign']!=NAME for e in events.values()):raise ValueError('cross-campaign native event')
         started=events['started'];finish=events['finished']
-        if started['ci_run_id']!=run or finish['category']!='passed' or finish['exit_code']!=0 or finish['harness_cleanup']!='harness_process_reaped':
+        intentional_failure=console_control and started['label'].startswith('failed-console-regression-')
+        category,code=('exit_mismatch',3) if intentional_failure else ('passed',0)
+        if started['ci_run_id']!=run or finish['category']!=category or finish['exit_code']!=code or finish['harness_cleanup']!='harness_process_reaped':
             raise ValueError('nonqualifying native outcome/cleanup')
         console=root/'core'/eid/'console.log'
         if sha256(console)!=finish['console_sha256']:raise ValueError('changed actual native console')
@@ -57,9 +60,11 @@ def main():
             normalized=output.replace('\r\n','\n')
             if f'Ran {len(test_names)} tests' not in output or not any(line=='OK' or line==f'OK (skipped={len(skipped)})' for line in normalized.splitlines()):
                 raise ValueError('partial/skipped native controls')
+        elif intentional_failure:
+            if output.strip()!='synthetic-failed-command-output-visible':raise ValueError('wrong deliberate failed-command console')
         else:
             if started['label']!='native-next20-syntax' or 'Parsed' not in output:raise ValueError('missing native syntax check')
-        checks.append(dict(label=started['label'],attempt=eid,console_sha256=sha256(console),
+        checks.append(dict(label=started['label'],attempt=eid,intentional_failure_control=intentional_failure,console_sha256=sha256(console),
                            identity_sha256=sha256(manifest),source_bindings=source_bindings))
     (RAW/'harness').mkdir(exist_ok=True)
     retained=compact(RAW,'harness',[run],generation=args.generation)

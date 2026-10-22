@@ -130,3 +130,31 @@ Wrapper now prints the bounded retained console on error. Updated exact helper
 source requires a new three-host run. Next: commit/push these scoped changes,
 audit fresh helper jobs, complete independent negative controls and delivered-CI
 jrnl success/fault/recovery, then checked-clean local source before project two.
+
+
+Revised helper source `294d6e42f6c0965a4e090aa11835941984d32a0a` passed
+actual run `39803376930` on all three native hosts: seven named controls,
+Windows removal guard applicable only on Windows (explicit Unix skip). Each
+packet independently audited, retained in harness generations 5/6/7, and
+checked-expanded-removed. Auditor explicitly accounts for the regression's
+intentional failed child (exit 3), rather than erasing it or counting it as a
+failed application. Actual unchanged-source Linux/macOS seven-test runs have
+six passes and one platform skip; Windows has seven passes.
+
+Complete actual jrnl model corruption controls rejected 12 altered copies on
+each native cell (24); original positive models remained valid. This is scoped
+cell-model coverage, not full campaign twelve-class closure. Wrapper
+`8b0898ea58ac41c3910efecec865194d`. Local exact source restoration and 58
+reported cleanups were checked before provenance retention; process proof
+`3806413cb6ba413789bd8c6d1e26b5df`, preparation
+`61e561ec9ef04e68aea6d06547a8a016`, native checked removal
+`829388262f1d47ac809c6b46fc030101`. Local active/jrnl is absent.
+
+Corrected public generated workflow is retained as jrnl/delivered-generated.yml
+under raw evidence. Its actual generation wrapper `ed79da4a170540a19054642690dd2cdf`.
+Explicit manual-dispatch adaptation declares baseline/fault/recovered modes and
+source/private-archive routes, with generated test/report/context/summary steps
+unchanged, source revision 294d6e4. Six sequential two-host runs are planned,
+max two target jobs; budgets/explicit changes in delivered-ci-declaration and
+amendment. Lint passed `1a2ccf3b6fd6450b822c9ad60e581dfc`. Not dispatched yet;
+no delivered-CI or project-admission credit. No real PR/fork/release authorized.
