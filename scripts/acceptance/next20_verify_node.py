@@ -61,14 +61,15 @@ def dependencies(get, raw, hash_of, host, provenance):
         lock_name = 'cz-cli/retained-source/npm-installed-locks/'+scope+'.json'
         installed = get(lock_name)
         require(hash_of(lock_name) == fetched['installed_files'][scope]['node_modules/.package-lock.json'], 'installed Node lock byte mismatch')
-        require(set(installed['packages']) == set(selected), 'installed Node closure differs from canonical lock')
+        os_name = 'win32' if host == 'windows' else host
+        excluded={n for n,r in selected.items() if r.get('optional') and r.get('os') and os_name not in r['os']}
+        require(not (set(installed['packages'])-set(selected)) and not (set(selected)-set(installed['packages'])-excluded), 'installed Node closure differs from canonical lock')
         expected = {}
         # Outer packages precede nested physical dependencies, which replace
         # files only at their exact canonical physical node_modules paths.
         for name, row in sorted(selected.items(), key=lambda item:(item[0].count('/'),item[0])):
-            actual = installed['packages'][name]
-            require(actual['version'] == row['version'] and actual.get('integrity') == row.get('integrity') and actual.get('resolved') == row.get('resolved'), 'installed Node package provenance differs')
-            os_name = 'win32' if host == 'windows' else host
+            actual = installed['packages'].get(name)
+            if actual is not None:require(actual['version'] == row['version'] and actual.get('integrity') == row.get('integrity') and actual.get('resolved') == row.get('resolved'), 'installed Node package provenance differs')
             if row.get('optional') and row.get('os') and os_name not in row['os']:
                 require(not any(n.startswith(name+'/') for n in fetched['installed_files'][scope]), 'OS-excluded optional package installed')
                 continue
@@ -182,6 +183,41 @@ def main():
         try:compiled_payloads(changed,code_raw,proof['compiled_files'])
         except ValueError as error:controls.append(dict(control='changed-compiled-module-hash',rejected=True,reason=str(error)))
         else:raise ValueError('Altered actual compiled module accepted')
+        # npm releases differ in whether an OS-excluded optional package has
+        # a hidden-lock row. Exercise both representations using the same
+        # actually installed module bytes; never permit a required omission.
+        source=tar_files(raw('cz-cli/retained-source/source.tar.gz'))
+        canonical=json.loads(source['package-lock.json'])['packages']
+        modified_locks={};modified_hashes={}
+        platform='win32' if os.name=='nt' else 'linux'
+        for scope in ['app','build-toolchain']:
+            reference='cz-cli/retained-source/npm-installed-locks/'+scope+'.json'
+            value=copy.deepcopy(get(reference))
+            for package in list(value['packages']):
+                row=canonical[package]
+                if row.get('optional') and row.get('os') and platform not in row['os']:del value['packages'][package]
+            modified_locks[reference]=value
+            modified_hashes[reference]=digest((json.dumps(value,sort_keys=True,ensure_ascii=True,indent=2)+'\n').encode())
+        def profile_get(relative):
+            if relative in modified_locks:return modified_locks[relative]
+            value=get(relative)
+            if relative.endswith('/dependency-fetch.json'):
+                value=copy.deepcopy(value)
+                for scope in ['app','build-toolchain']:
+                    value['installed_files'][scope]['node_modules/.package-lock.json']=modified_hashes['cz-cli/retained-source/npm-installed-locks/'+scope+'.json']
+            if relative.endswith('/installed-inventory.json'):
+                value=copy.deepcopy(value)
+                value['files']['node_modules/.package-lock.json']=modified_hashes['cz-cli/retained-source/npm-installed-locks/app.json']
+            return value
+        def profile_hash(relative):return modified_hashes[relative] if relative in modified_hashes else hash_of(relative)
+        dependencies(profile_get,raw,profile_hash,'windows' if os.name=='nt' else 'linux',provenance)
+        controls.append(dict(control='OS-excluded-optional-hidden-lock-omission',accepted=True,scope='In-memory alternate npm lock representation, unchanged actual installed packages; no native execution credit.'))
+        reference='cz-cli/retained-source/npm-installed-locks/app.json'
+        del modified_locks[reference]['packages']['node_modules/cz-conventional-changelog']
+        modified_hashes[reference]=digest((json.dumps(modified_locks[reference],sort_keys=True,ensure_ascii=True,indent=2)+'\n').encode())
+        try:dependencies(profile_get,raw,profile_hash,'windows' if os.name=='nt' else 'linux',provenance)
+        except ValueError as error:controls.append(dict(control='missing-required-installed-package',rejected=True,reason=str(error)))
+        else:raise ValueError('Missing required Node dependency accepted')
     destination = RAW/'cz-cli/dependency-audits'/uuid.uuid4().hex
     immutable_json(destination/'verified.json', dict(schema_version=1,
         scopes={k:len(v) for k,v in result.items()}, controls=controls,source_provenance_sha256=sha256(DOC/'cz-cli/source-provenance.json'),

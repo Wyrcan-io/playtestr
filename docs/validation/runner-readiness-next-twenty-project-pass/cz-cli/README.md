@@ -58,3 +58,10 @@ The corrected journey moved that explicitly intended formatting change after
 trimming and verified selected/cancelled approval, suffix snapshot pruning and
 unchanged Unicode relocation. Native matrix, independent audit, checked retention
 and cleanup remain required. Overall campaign remains2new admissions,12/100.
+
+The first hosted matrix stopped in both setup guards before any application
+execution. Its [disposition](first-native-setup-disposition.json) preserves that
+run and declaration. A replacement complete series permits omission only of
+canonical optional packages explicitly excluded on the actual OS; required
+packages and exact installed bytes remain mandatory. The replacement has no
+native coverage credit until its actual results are audited.

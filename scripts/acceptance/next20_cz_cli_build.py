@@ -31,14 +31,21 @@ async def main():
     for label,folder,roots in [('build-toolchain',builder,BUILD_ROOTS),('app',app,list(metadata['dependencies']))]:
         expected=closure(canonical['packages'],['node_modules/'+name for name in roots])
         installed=json.loads((folder/'node_modules/.package-lock.json').read_text(encoding='utf-8'))['packages']
-        if set(installed)!=set(expected):raise ValueError('Installed dependency physical set differs from canonical closure: '+label)
-        for name,row in installed.items():
+        current='win32' if os.name=='nt' else 'linux'
+        excluded={n for n,r in expected.items() if r.get('optional') and r.get('os') and current not in r['os']}
+        if set(installed)-set(expected) or set(expected)-set(installed)-excluded:
+            raise ValueError('Installed dependency physical set differs from canonical closure: '+label+' missing='+str(sorted(set(expected)-set(installed)))+' extra='+str(sorted(set(installed)-set(expected))))
+        for name,row in expected.items():
+            if name not in installed:
+                if (folder/name).exists():raise ValueError('OS-excluded package exists despite missing lock entry: '+name)
+                package_reviews.append(dict(scope=label,path=name,skip='upstream optional OS restriction',platforms=row['os']))
+                continue
+            row=installed[name]
             if row['version']!=expected[name]['version'] or row.get('integrity')!=expected[name].get('integrity'):
                 raise ValueError('Installed lock version/integrity differs: '+name)
             package=folder/name/'package.json'
             if not package.is_file():
                 declared_os=expected[name].get('os',[])
-                current='win32' if os.name=='nt' else 'linux'
                 if not expected[name].get('optional') or not declared_os or current in declared_os:
                     raise ValueError('Required installed package absent: '+name)
                 package_reviews.append(dict(scope=label,path=name,skip='upstream optional OS restriction',platforms=declared_os))

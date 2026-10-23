@@ -5,7 +5,7 @@ import hashlib
 import json
 import uuid
 
-from next20_check import RAW
+from next20_check import RAW,DOC
 from next20_verify_jrnl import build_model, validate
 from readiness_evidence import immutable_json, sha256
 
@@ -22,7 +22,9 @@ def main():
     destination=RAW/args.project/'audit-controls'/uuid.uuid4().hex
     destination.mkdir(parents=True)
     observations=[]
-    for host,generation in [('linux',1),('windows',2)]:
+    declaration=json.loads((DOC/args.project/'final-series-declaration.json').read_text(encoding='utf-8'))
+    generations=declaration.get('retained_generations',dict(linux=1,windows=2))
+    for host,generation in generations.items():
         model,index=build_model(RAW/args.project/('retained-native-v'+str(generation)),args.run,host,args.project)
         counts=validate(model)
         positive=destination/(host+'-actual-model.json');immutable_json(positive,model)

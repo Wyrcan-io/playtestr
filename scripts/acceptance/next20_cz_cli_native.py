@@ -25,6 +25,13 @@ async def main():
         raise ValueError('Native acquired source differs from all reviewed pinned Git blobs')
     await run('next20_cz_cli_lock.py','--verify-declaration')
     await run('next20_cz_cli_setup.py')
+    # Preserve bounded actual setup metadata even if the subsequent build guard
+    # refuses it. No active executable, npm cache or installed tree is copied.
+    setup=RAW/project/'native-setup';setup.mkdir(parents=True)
+    for name in ['task-owned.json','acquisition.json','dependency-fetch.json','node-prerequisite.json','build-lock-derivation.json']:
+        shutil.copyfile(target/name,setup/name)
+        if sha256(target/name)!=sha256(setup/name):raise ValueError('Native setup metadata copy differs')
+    shutil.copytree(target/'npm-installed-locks',setup/'npm-installed-locks')
     await run('next20_cz_cli_build.py','--native-review')
     runtime=json.loads((target/'runtime.json').read_text(encoding='utf-8'));node=runtime['node']
     host='windows' if os.name=='nt' else 'linux'

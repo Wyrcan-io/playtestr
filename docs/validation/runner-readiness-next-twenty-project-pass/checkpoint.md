@@ -558,3 +558,39 @@ Exact fixture Git unmaterialization passed 72a6d9ded6d244629577e6177d93deca,
 including the frozen wrong-type COMMIT_EDITMSG directory. Next: verify staged
 97 inputs, restore synthetic metadata, push, check source-matched hosted harness
 and dispatch native series. Current campaign remains two admitted of twenty.
+
+Committed/pushed 3643f67b1b89e7de46fd15cec3dd71e4e9ced84c. Exact staged
+97 inputs pass e631a7ee088a4001a9f6a82b8999827e; metadata restored6bddf6574ca0437881b11ba6027f0d27.
+Older jrnl positives and24 corruptions remain valid e345b752266545289eeb43454f548924.
+Source-matched hosted harness40025550865 actually succeeded all three hosts:
+Linux9pass/1Windows-only skip, Mac9pass/1skip, Windows10pass. Actual packets audited
+as harness retained-v11/Linux152350B, v12/Mac152913B, v13/Win185018B; all three
+expanded packets removed with full archive/inventory verification. Their curated
+source/event receipts are harness-40025550865-*.json.
+
+First cz-cli native matrix40025853402 failed both setup reviews at hidden-lock
+physical-set equality before compilation/application execution. Zero ordinary or
+calibration credit. Original logs/identities/provider metadata retained in cz-cli
+v1/Linux131739B andv2/Win131809B, expansions checked/removed. The original guard
+did not print the missing names: do not claim direct observation of fsevents.
+Canonical optional-OS lock omission is a source-grounded compatible npm profile;
+the new guard permits ONLY that explicitly excluded optional set, logs remaining
+differences, preserves every required package and still verifies all actual bytes.
+Native metadata now captured before review for subsequent diagnosis. Local full
+package reconstruction and four corruption checks plus alternate optional-lock
+positive/required-omission negative pass f6ac2d82e312476895d7b93cefe91637. First
+alternate representation control f9941a116c47413090f4c371d0afb728 was correctly
+refused because its companion inventory lock hash was stale; fixed in-memory
+profile updates both references. Native revision-declaration first read of a PS
+BOM receipt failed9469186010ca4986b3ff4147a8b92547 before mutation; UTF8-sig retry
+04476d83fdaf41d79567b5ece2e0888f preserved original declaration and wrote revision2.
+Planned replacement retained generations3/Linux,4/Windows. No contracts changed.
+Ten native Windows harness controls pass1d8434876b0640478109a083ba042be5.
+
+Combined fresh storage6c00edb6b6044849a3506c253b7507c3: new401843646B,
+combined2310552218B, combined retained1166385550B, cz-cli7282468B,
+new curated864159B/combined12520403B; allcaps pass, sole active targetcz-cli.
+New reusable next20_storage.py checks these caps before receipt creation.
+Current2/20 new,12/100. Next: push scoped setup fix/revision, source-matched harness,
+dispatch fresh full native matrix; independent Node actual-packet audit still
+untested until a complete qualifying packet exists. No project4 acquisition yet.
