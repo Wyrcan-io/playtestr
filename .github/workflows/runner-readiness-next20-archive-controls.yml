@@ -1,0 +1,82 @@
+name: Next twenty exact archive public controls
+on:
+  push:
+    branches: [work/p0-p2-implementation]
+    paths: ['.github/workflows/runner-readiness-next20-archive-controls.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: playtestr-next20-archive-controls
+  cancel-in-progress: false
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONIOENCODING: utf-8
+  TEMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+  TMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+  TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+  RUNNER_TEMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+  PSModuleAnalysisCachePath: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/shell-cache/module-analysis
+  GIT_CONFIG_COUNT: '1'
+  GIT_CONFIG_KEY_0: core.longpaths
+  GIT_CONFIG_VALUE_0: 'true'
+jobs:
+  native-final:
+    if: github.event_name == 'workflow_dispatch'
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            host: linux
+            target: linux-amd64
+            archive_target: linux_amd64
+            extension: tar.gz
+          - os: macos-15
+            host: darwin
+            target: darwin-arm64
+            archive_target: darwin_arm64
+            extension: tar.gz
+          - os: windows-2025
+            host: windows
+            target: windows-amd64
+            archive_target: windows_amd64
+            extension: zip
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+      - name: Create owned temporary/cache paths
+        run: mkdir -p "$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/tmp" "$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/shell-cache"
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          github-token: ${{ github.token }}
+          repository: Wyrcan-io/playtestr
+          run-id: 39450029736
+          name: private-candidate-${{ runner.os }}
+          path: artifacts/runner-readiness-next-twenty-project-pass/candidate-download
+      - name: Verify and install exact frozen private archive
+        run: python -B scripts/acceptance/next20_check.py --label native-next20-controls-exact-archive-install --timeout 90 -- python -B scripts/acceptance/next20_candidate_install.py --archive artifacts/runner-readiness-next-twenty-project-pass/candidate-download/candidate-packages/migration-v2/${{ matrix.target }}/dist/playtestr_0.4.0-rc.5_${{ matrix.archive_target }}.${{ matrix.extension }}
+      - name: Reexecute inherited public controls through exact native archive
+        run: python -B scripts/acceptance/next20_check.py --label next20-public-archive-controls-native --timeout 600 -- python -B scripts/acceptance/next20_archive_controls.py
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: next20-archive-controls-${{ runner.os }}
+          path: |
+            artifacts/runner-readiness-next-twenty-project-pass/events/
+            artifacts/runner-readiness-next-twenty-project-pass/identities/
+            artifacts/runner-readiness-next-twenty-project-pass/core/
+            artifacts/runner-readiness-next-twenty-project-pass/product-controls/
+            artifacts/runner-readiness-next-twenty-project-pass/candidate/*/installed.json
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14

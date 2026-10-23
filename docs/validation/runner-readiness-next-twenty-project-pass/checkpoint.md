@@ -158,3 +158,37 @@ unchanged, source revision 294d6e4. Six sequential two-host runs are planned,
 max two target jobs; budgets/explicit changes in delivered-ci-declaration and
 amendment. Lint passed `1a2ccf3b6fd6450b822c9ad60e581dfc`. Not dispatched yet;
 no delivered-CI or project-admission credit. No real PR/fork/release authorized.
+
+
+23 October resume: HEAD/pushed `95e460802c8c6f535bd5581264ff5ee1e5342234`.
+Generated jrnl source-route actual provider triplet: baseline `39804891072`
+success, F03 real-fault `39805575621` failure as required, restored recovery
+`39806111692` success. Both hosts independently audited and archived in jrnl
+v3..v8, every expansion checked-removed. Source-built runner revision is
+294d6e4; report/context distinguish this from archive qualification. One first
+Windows CI audit failed on native backslash metadata path spelling; comparison
+now handles separators only; exact fixture/spec/oracle bytes were never changed.
+
+Exact private-archive baseline `39806802039` passed both hosts; independent
+actual archive/context/runtime/report/removal audits retained in jrnl v9/v10,
+expansions checked-removed. Private real-fault `39807440817` completed failure,
+not audited yet. Final restored private recovery `39970532410` dispatched at
+same workflow checkout 95e4608, currently monitor. Next retrieve fault and recovery
+one host at a time; use CI auditor generations 11..14 and checked remove.
+No target local runtime active; no new application acquired; admissions remain 0.
+
+Local public 35-control first series `45a7e101723b43d39f3daea03effb9fd` had
+all expected product responses but independent audit found missing prelaunch
+fixture source binding (PATH go.EXE spelling). Preserve as unqualified initial
+series. Explicit compiler/source binding added only in new archive-control
+adapter, no historical default changes. Full replacement
+`7ff6cb3ff6da4bcfbe2068c5f16a7ce4` passed 35 and independent audit wrapper
+`c2ac883e568d4f78ab278c7dfda30e4f`; fixture removed. Fresh native 3-host controls
+workflow prepared/linted; must commit/push and dispatch after automatic helper
+jobs finish (max two target plus two harness jobs). Predeclared public control
+budgets and first disposition are in archive-control-reexecution-declaration.
+
+Automatic approval reviewer previously refused the next preflight due service
+usage limit, before execution; no bypass. On this resume the exact required
+operations were available again. Failed native action was reexecuted only after
+service restoration. Source/push/workflow authorization remains recorded.
