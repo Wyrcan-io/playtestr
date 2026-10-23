@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
-  "status": "one-new-project-admitted-second-source-review",
+  "status": "two-new-projects-admitted-third-source-review",
   "historical_admissions": 10,
   "current_candidate_original_ten": 10,
-  "new_project_admissions": 1,
+  "new_project_admissions": 2,
   "new_project_target": 20,
-  "ordinary_executions": 480,
-  "calibration_executions": 18,
-  "canonical_scenarios": 20,
-  "native_cells": 2,
-  "real_target_faults": 3,
+  "ordinary_executions": 960,
+  "calibration_executions": 36,
+  "canonical_scenarios": 40,
+  "native_cells": 4,
+  "real_target_faults": 6,
   "human_participants": 0,
   "human_usability": "unmeasured",
   "paid_admissions": 0,
@@ -44,10 +44,10 @@
       "id": "commitizen-python",
       "repository": "commitizen-tools/commitizen",
       "pin": "b78d581f7e3089fa40bcd4794591fd56b43b671a",
-      "status": "local-package-passed-native-series-prepared",
-      "admitted": false,
-      "qualified_scenarios": 0,
-      "qualified_native_cells": 0,
+      "status": "admitted",
+      "admitted": true,
+      "qualified_scenarios": 20,
+      "qualified_native_cells": 2,
       "planned_hosts": [
         "linux",
         "windows"
@@ -66,9 +66,22 @@
       "repaired_public_controls": 20,
       "maintenance": "corrected complete journey passed; original suffix operator mistake retained",
       "planned_native_ordinary": 480,
-      "planned_native_calibrations": 20
+      "planned_native_calibrations": 20,
+      "observed_audited_native_ordinary": 480,
+      "observed_audited_native_mandatory_calibrations": 18,
+      "observed_audited_native_terminal_only_probes": 2,
+      "native_run": "39984863257",
+      "local_target_absent": true,
+      "native_source": "384d297d113e9e96a1612d00cd2f109010805514",
+      "audited_native_cells": 2,
+      "audited_ordinary_executions": 480,
+      "audited_calibration_executions": 18,
+      "additional_terminal_only_probes": 2,
+      "admission": "commitizen-python/admission.json",
+      "delivered_ci_observations": 12
     }
   ],
-  "observed_audited_ordinary_executions": 480,
-  "observed_audited_calibration_executions": 18
+  "observed_audited_ordinary_executions": 960,
+  "observed_audited_calibration_executions": 36,
+  "additional_terminal_only_probes": 2
 }

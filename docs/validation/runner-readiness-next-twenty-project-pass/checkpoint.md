@@ -343,3 +343,60 @@ as jrnl, declaration b3a576188cf64a719e499e539d3fbc7e. Shared helpers preserve
 jrnl defaults; new wrappers use explicit second project. Existing9 lifecycle/
 cleanup controls passed b9ae972187a44045a0b448cbfd358744. No delivered Commitizen
 runs dispatched yet. Do not start two new target jobs while Linux matrix active.
+
+
+Commitizen native matrix39984863257 completed successfully. Both cells independently
+audited against exact primary PyPI release inventories, all source/runtime/fixture/
+empty-directory identities,250 outcomes each and real restoration/cleanup. Retained
+v1Linux12,587,550B/v2Windows11,432,514B; expansions checked-removed. Windows auditor
+first used ambient cp1252 for retained UTF-8 primary JSON, e10b2669773045b498a78e65c2d3496d;
+explicit UTF-8 fixed decoding, unchanged packet then passed1a508477.../c1f535c7....
+24 actual complete-model corruptions rejected e9627af919894ae698289a5a79175a04.
+Local source/953 installed-file inventory retained,66 reports confirmed cleanup;
+process proof da524922..., prepared b0e6594b..., checked native removal cf09e3d8....
+No active local target. Do not acquireproject3 before completeproject2 admission.
+
+Source-built generated-CI triplet at575d100816fcb291dd55d1ec9ac28a2fc3ad5419:
+baseline39988763512 success, real F03 fault39989046323 failure as required,
+recovery39989561306 success. All six actual host observations independently audited,
+retained Commitizen v3-v8, expansions removed. First recovery dispatch HTTP500
+(e556cb3d971547849bab3d75b1b3c38f); provider run-list proved no new run, then
+one successful retry3cb626689283476c95af73389a9d5855. No hidden target retry.
+Private-archive baseline39990093536 running; then fault/recovery required.
+New one-host collector refuses any existing native expansion/retention generation,
+then downloads exact public+provenance artifacts, audits, compacts and native-removes.
+Admission local/native-only preflight52524df2671140f889118e5368de545a passed;
+that mode returns without writing admission. Project bytes38,857,901 at this point.
+
+Source recovery native v7/v8 archived/audited/removed. Private baseline39990093536
+Linux already success, Windows ordinary test passed and source cleanup in progress
+since16:51:47UTC at last provider observationacf8dd755edd48f3bb5e28e4d147cc6d.
+Do not claim whole run or dispatch two more target jobs until actual completion.
+Native matrix completed at16:40:14UTC, Linux27m30s/Windows9m9s provider job wall
+intervals, versus predeclared40min/job hard bounds. Final ordinary480, mandatory
+calibration18 and separately counted terminal-only2. Project admission stillpending.
+
+
+Private-archive generated-CI triplet at575d1008 completed: baseline39990093536
+success; realF03 fault39990643905 failure asrequired; recovery39991061884 success.
+Native v9/v10 baseline and v11/v12 fault actual host packets independently audited
+and expansions removed. v13/v14 recovery collection pending/inprogress. All six
+runs retain distinct source-built versus exactarchive identities. No realPR/fork.
+Shared helper native run39988238750 at575d1008 independently audited/retained:
+harnessv8Linux99,231B/v9Mac99,365B/v10Win130,520B, expansions removed. Each nine
+tests discovered; Unix one explicit Windows-removal skip, Windows nine executed.
+Receipt's historical generic scope sentence still says five; numeric named/test
+fields and actual consoles give current9. Do not inflate host copies into27unique.
+
+
+Commitizen ADMITTED c28f6625cfdf430883fd04a62b99d94e: complete local public
+journeys, both actual native models, reconstructed24 rejected alterations,
+all12 archived CI observations, restoration/native process proof/removal and
+retention gate passed. Admission binds actual subjects; no human/paid credit.
+Current2new,12/100;40scenarios/4cells/960ordinary/36mandatory calibrations plus2
+separate terminal-only probes,6real faults. AllCommitizen native expansions and
+local target absent. Proceed to third selected cz-cli pinned1a8c49c02c9d52d1b4ef8cdabefb538088ddea03;
+source-only acquisition/review first, no target hooks before approval. Full20 gate,
+whole121 source/applicability audit, freshcheckout, global12class corruption gate,
+late transfer, finalallattempts/storage/docs closure still pending. No product
+source change/candidate replacement: exactrc.5 production129b7a4 unchanged.

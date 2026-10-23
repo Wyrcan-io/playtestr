@@ -1,0 +1,63 @@
+{
+  "archive_sha256": "197d5fba07f8c16039c187148b4d2723525fd3e58f2009fef127c1b319a9dc56",
+  "checks": [
+    {
+      "attempt": "83251af890a147a3857d12c7d6d7aa4b",
+      "console_sha256": "952d89dcd49cae7e72108ac80949b6bf9331649df5c8f4b2f0fe7c2a7db6fba7",
+      "identity_sha256": "04c91eb6cda2ce3573991370e223a8e0876a193ec0cfd9bfe1e754727ef47a88",
+      "intentional_failure_control": false,
+      "label": "native-next20-command-controls",
+      "source_bindings": {
+        "scripts/acceptance/adversarial_process.py": "99a0e2638a4da25bf69c1e634021dd034cb6d4232d822c8c51b23c137e9a89b6",
+        "scripts/acceptance/next20_check.py": "3d3528f30434510bd716a2e9a18b93a8112be43ac555ed6bf0ea4201af564142",
+        "scripts/acceptance/readiness_evidence.py": "a8f4f208b2e37501bf0faabb4d50031a5f7e6e288fbb6fe0abfabc00045f0fce",
+        "scripts/acceptance/test_next20_campaign.py": "78d403a3387eb047039501a7b44f108d72c4b89689050ee135a213169f27e0d3"
+      }
+    },
+    {
+      "attempt": "8a76e777646846e3963c37e3915959a0",
+      "console_sha256": "ffb37d2506789959e529ebde88b4dfc2392279d5a8bb76c44b2bd2fa6aea1165",
+      "identity_sha256": "04c91eb6cda2ce3573991370e223a8e0876a193ec0cfd9bfe1e754727ef47a88",
+      "intentional_failure_control": true,
+      "label": "failed-console-regression-e0fdcf264c904edab8b88aad2dcef4b9",
+      "source_bindings": {
+        "scripts/acceptance/adversarial_process.py": "99a0e2638a4da25bf69c1e634021dd034cb6d4232d822c8c51b23c137e9a89b6",
+        "scripts/acceptance/next20_check.py": "3d3528f30434510bd716a2e9a18b93a8112be43ac555ed6bf0ea4201af564142",
+        "scripts/acceptance/readiness_evidence.py": "a8f4f208b2e37501bf0faabb4d50031a5f7e6e288fbb6fe0abfabc00045f0fce",
+        "scripts/acceptance/test_next20_campaign.py": "78d403a3387eb047039501a7b44f108d72c4b89689050ee135a213169f27e0d3"
+      }
+    },
+    {
+      "attempt": "bea363902b704bdb8a63c2a3cd224a63",
+      "console_sha256": "558ff988915502d0107a2392c646748b444a0108201ee98b31fcbafa4a4d5483",
+      "identity_sha256": "04c91eb6cda2ce3573991370e223a8e0876a193ec0cfd9bfe1e754727ef47a88",
+      "intentional_failure_control": false,
+      "label": "native-next20-syntax",
+      "source_bindings": {
+        "scripts/acceptance/adversarial_process.py": "99a0e2638a4da25bf69c1e634021dd034cb6d4232d822c8c51b23c137e9a89b6",
+        "scripts/acceptance/next20_check.py": "3d3528f30434510bd716a2e9a18b93a8112be43ac555ed6bf0ea4201af564142",
+        "scripts/acceptance/readiness_evidence.py": "a8f4f208b2e37501bf0faabb4d50031a5f7e6e288fbb6fe0abfabc00045f0fce",
+        "scripts/acceptance/test_next20_campaign.py": "78d403a3387eb047039501a7b44f108d72c4b89689050ee135a213169f27e0d3"
+      }
+    }
+  ],
+  "expanded_removal_confirmed": false,
+  "host": "ubuntu-24.04",
+  "index_sha256": "099c956a99a4106d60cfa54932c67b0a09f81696fd3f485facf130d6d3ac9aa9",
+  "named_controls_passed": 8,
+  "native_removal_commands": [],
+  "new_project_credit": 0,
+  "retained_generation": 8,
+  "run": "39988238750",
+  "schema_version": 1,
+  "scope": "Actual source/event/positive-console proof for five new helper controls. No application or archive-product-control reexecution credit.",
+  "skips": [
+    {
+      "reason": "native Windows checked target removal control",
+      "test": "test_native_target_removal_refuses_changed_payload_then_removes_exact_owned_fixture"
+    }
+  ],
+  "source_syntax_scope": "Only helpers present at recorded tested revision",
+  "tests_discovered": 9,
+  "tooling_revision": "575d100816fcb291dd55d1ec9ac28a2fc3ad5419"
+}

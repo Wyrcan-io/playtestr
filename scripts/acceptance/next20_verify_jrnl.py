@@ -141,6 +141,23 @@ def build_model(retained,run,host,project='jrnl'):
     require(digest(project+'/retained-source/source.tar.gz')==acquisition['archive_sha256'],'retained canonical source archive changed')
     wheels=get(project+'/retained-source/wheels.json')
     for name,row in wheels.items():require(digest(project+'/retained-source/wheels/'+name)==row['sha256'],'missing/changed retained actual dependency wheel')
+    if project=='commitizen-python':
+        # Check foreign-platform wheel hashes against the already-reviewed full
+        # primary release inventories, independently of native self-receipts.
+        review=json.loads((DOC/project/'source-review.json').read_text())
+        local=RAW/project/'retained-source'
+        if not local.exists():local=RAW/'active'/project
+        approved={}
+        for dependency in review['dependencies']:
+            primary=local/'dependency-review/primary'/(dependency['wheel']+'.json')
+            require(primary.is_file() and sha256(primary)==dependency['primary_metadata_sha256'],'reviewed primary dependency inventory missing/changed')
+            metadata=json.loads(primary.read_text(encoding='utf-8'))
+            for distribution in metadata['urls']:
+                if distribution['packagetype']=='bdist_wheel':
+                    approved[distribution['filename']]=(distribution['digests']['sha256'],distribution['url'])
+        require(len(wheels)==len(review['dependencies']),'native dependency set differs from reviewed project')
+        for name,row in wheels.items():
+            require(approved.get(name)==(row['sha256'],row['url']),'native wheel absent from independently reviewed primary release')
     require(runtime['installed_inventory_sha256']==digest(project+'/retained-source/installed-inventory.json'),'retained runtime dependency identity mismatch')
     host_cases=get(project+'/host-contracts/scenarios.json')['cases']
     native_python=str(pure(runtime['python']).relative_to(pure(owner['workspace']))).replace('\\','/')
