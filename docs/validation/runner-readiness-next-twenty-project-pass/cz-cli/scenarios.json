@@ -1,0 +1,338 @@
+{
+  "cases": [
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N01",
+      "initial_fixture": "fixture",
+      "kind": "normal",
+      "risk": "Exact message and public authoring",
+      "spec": "normal-message.json",
+      "spec_sha256": "0ef1b639d0f687fcb5e31a9d3a30c87fe8a872b52e51bdaac809ccb59dfb5071",
+      "task": "Capture a new feature message through public authoring"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N02",
+      "initial_fixture": "fixture",
+      "kind": "normal",
+      "risk": "Exact message and approved rendered screen",
+      "spec": "normal-fix.json",
+      "spec_sha256": "6d4a3cc7152cc21ff55d499b4e5ed523b93b78235a766ea9f0faa22bd6af2c1f",
+      "task": "Select fix classification and compare the approved terminal screen"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N03",
+      "initial_fixture": "fixtures/n03",
+      "kind": "normal",
+      "risk": "scope trimming and lowercasing",
+      "spec": "n03.json",
+      "spec_sha256": "5d5fac662d0993244fbebe46b7a0a3687560c1e95e392b21385708e60aee79a6",
+      "task": "Normalize a scoped feature message"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N04",
+      "initial_fixture": "fixtures/n04",
+      "kind": "normal",
+      "risk": "exact blank-line body separation",
+      "spec": "n04.json",
+      "spec_sha256": "ac74e67a0473daf52a3bf9dedea200f9cf023c7a2b5e8b6683fc0b12e2bc18ac",
+      "task": "Include a descriptive message body"
+    },
+    {
+      "combined_risks": [
+        "conditional prompt",
+        "saved body",
+        "prefix normalization"
+      ],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N05",
+      "initial_fixture": "fixtures/n05",
+      "kind": "normal",
+      "risk": "conditional questions and one breaking prefix",
+      "spec": "n05.json",
+      "spec_sha256": "d51d7a4f07dddc2d28f341f7ae7b9f6af51f38d16c46edfc649dbd17179eef89",
+      "task": "Document a breaking change with its body"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N06",
+      "initial_fixture": "fixtures/n06",
+      "kind": "normal",
+      "risk": "conditional reference question and exact footer",
+      "spec": "n06.json",
+      "spec_sha256": "757c7b8a1810e6fee9803c4bec75ec4f0bebc7c09b93094e6f4ce3f103eb5fc0",
+      "task": "Include synthetic issue references with a body"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N07",
+      "initial_fixture": "fixtures/n07",
+      "kind": "normal",
+      "risk": "default type, scope and subject filtering",
+      "spec": "n07.json",
+      "spec_sha256": "c1463b8d2ee91d7602e36b13e0e0bb89fe543eacb0af80a68f779708ea2857a2",
+      "task": "Use reviewed team defaults from the local configuration"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N08",
+      "initial_fixture": "fixtures/n08",
+      "kind": "normal",
+      "risk": "configured word wrapping and exact preserved message",
+      "spec": "n08.json",
+      "spec_sha256": "4e813803a013e6029d6ce827f778f8777737dc77872e00bd1e1f00bf8a42d718",
+      "task": "Wrap a descriptive body at the configured line width"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 1,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E01",
+      "initial_fixture": "fixtures/e01",
+      "kind": "edge",
+      "risk": "early interrupt leaves no message",
+      "spec": "e01.json",
+      "spec_sha256": "1e606e4beb80c097f225174fb81d4daeddb07c5971632e8cfa7619b885cccb86",
+      "task": "Cancel before choosing a message type"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 1,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E02",
+      "initial_fixture": "fixtures/e02",
+      "kind": "edge",
+      "risk": "late interrupt leaves no partial message",
+      "spec": "e02.json",
+      "spec_sha256": "42b2724813414686c660cc269cf1f0cc547874202c68f584eb1b6b0599dfc41c",
+      "task": "Cancel at the final issue question"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E03",
+      "initial_fixture": "fixtures/e03",
+      "kind": "edge",
+      "risk": "positive validation evidence followed by saved recovery",
+      "spec": "e03.json",
+      "spec_sha256": "0a9e89755ef00256564a74faeca4f104909757eb44df151642553c552bf07eff",
+      "task": "Recover from a required-subject validation error"
+    },
+    {
+      "combined_risks": [
+        "validation failure",
+        "bounded editing",
+        "configured length",
+        "saved state"
+      ],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E04",
+      "initial_fixture": "fixtures/e04",
+      "kind": "edge",
+      "risk": "length validation, repeated editing and exact recovery",
+      "spec": "e04.json",
+      "spec_sha256": "3d1951f3f5f51389cd43157e72ad552b123b4542770bc9e2c8a49bfb0e547885",
+      "task": "Correct a subject that exceeds the configured header limit"
+    },
+    {
+      "combined_risks": [
+        "Unicode width",
+        "scope normalization",
+        "UTF-8 message",
+        "exact entries"
+      ],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E05",
+      "initial_fixture": "fixtures/e05",
+      "kind": "edge",
+      "risk": "Unicode input, normalization and UTF-8 file bytes",
+      "spec": "e05.json",
+      "spec_sha256": "07a67258921ab91400bc207bd107510753c11fff22b913f7e8658591bd10a7ff",
+      "task": "Preserve a Unicode scope and subject"
+    },
+    {
+      "combined_risks": [
+        "literal punctuation",
+        "file bytes",
+        "no extra files"
+      ],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E06",
+      "initial_fixture": "fixtures/e06",
+      "kind": "edge",
+      "risk": "message data cannot become a command or extra file",
+      "spec": "e06.json",
+      "spec_sha256": "26fc581f2fda3496c63eb50bb000841fb501a46ed6d2a0cbcab6644b19858085",
+      "task": "Keep shell-looking message punctuation literal"
+    },
+    {
+      "combined_risks": [
+        "input correction",
+        "wrapped input",
+        "resize/redraw",
+        "saved message"
+      ],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E07",
+      "initial_fixture": "fixtures/e07",
+      "kind": "edge",
+      "risk": "editable wrapped input, redraw and exact saved recovery",
+      "spec": "e07.json",
+      "spec_sha256": "a694e7c0e331cc45027e9a24f47c117b5b4b6b3cfa981fc3309b5f5b14e7eaa7",
+      "task": "Correct a wrapped subject while resizing the viewport"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E08",
+      "initial_fixture": "fixtures/e08",
+      "kind": "edge",
+      "risk": "short readiness anchors and saved message at45x12",
+      "spec": "e08.json",
+      "spec_sha256": "6de1c0d862f4bf185d4eca027e66393259e33136b64ea60dfebfb3835a9b7aac",
+      "task": "Complete the message on a small viewport"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 1,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E09",
+      "initial_fixture": "fixtures/e09",
+      "kind": "edge",
+      "risk": "bounded parse error preserves all fixture data",
+      "spec": "e09.json",
+      "spec_sha256": "8cf2048b65be3b0c5654adb89b525b91498ed8bfd3ce8e58651b4978aa8df50f",
+      "task": "Reject malformed local adapter configuration"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 1,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E10",
+      "initial_fixture": "fixtures/e10",
+      "kind": "edge",
+      "risk": "explicit adapter-resolution failure and unchanged files",
+      "spec": "e10.json",
+      "spec_sha256": "59cc61824a4e3a7dc6aa31e12e17b3132f7e03bea383cc8526eb0bb9a3cceba1",
+      "task": "Reject an unresolved configured adapter"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 1,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E11",
+      "initial_fixture": "fixtures/e11",
+      "kind": "edge",
+      "risk": "staging precondition fails before writing a message",
+      "spec": "e11.json",
+      "spec_sha256": "f2c6873af1a4bc2a494acd0385611809207663921fb27959db942ad43ae52aea",
+      "task": "Explain an empty staging area when allow-empty is absent"
+    },
+    {
+      "combined_risks": [
+        "completed prompt flow",
+        "late filesystem failure",
+        "wrong type preserved",
+        "nonzero exit"
+      ],
+      "expected_exit": 1,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E12",
+      "initial_fixture": "fixtures/e12",
+      "kind": "edge",
+      "risk": "complete prompts then exact write-type failure with cleanup",
+      "spec": "e12.json",
+      "spec_sha256": "615120fc29fab05170d4933b2d0a66fb86261f27c2ba50cfe7dbf0de0b729871",
+      "task": "Reject a directory at the message-file destination"
+    }
+  ],
+  "development_revision": 2,
+  "edge": 12,
+  "normal": 8,
+  "project": "cz-cli",
+  "schema_version": 1,
+  "scope": "Actual pinned CLI and standard locked adapter, trusted synthetic hook-mode messages; no commits/hooks/tags/services. First development attempts must all be retained."
+}

@@ -74,7 +74,8 @@ def main():
             matching_live_processes=[],scope='Bounded native process arguments and all runner descendant-cleanup reports; no global argument inventory persisted.'))
     retained=RAW/args.project/'retained-source';retained.mkdir()
     names=['source.tar.gz','task-owned.json','acquisition.json','runtime.json','build.json','wheels.json',
-           'dependency-review.json','installed-inventory.json','install-approval.json','requirements.txt','constraints.txt','launch-runtime-catalog.json']
+           'dependency-review.json','installed-inventory.json','install-approval.json','requirements.txt','constraints.txt','launch-runtime-catalog.json',
+           'node-prerequisite.json','dependency-fetch.json','build-lock-derivation.json','build-planned.json']
     copied={}
     for name in names:
         source_file=target/name
@@ -82,7 +83,7 @@ def main():
             destination=retained/name;shutil.copyfile(source_file,destination)
             if sha256(source_file)!=sha256(destination):raise ValueError('retained source provenance copy mismatch')
             copied[name]=sha256(destination)
-    for name in ['dependency-review','linux-dependency-review','wheels']:
+    for name in ['dependency-review','linux-dependency-review','wheels','npm-cache','npm-installed-locks']:
         directory=target/name
         if directory.is_dir():
             destination=retained/name

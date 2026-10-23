@@ -1,0 +1,127 @@
+{
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/cz-cli/node/node.exe",
+    "-e",
+    "const p=require('path');const e=p.resolve(p.dirname(process.execPath),'../app-v2/bin/git-cz');process.argv.splice(1,0,e);require(e);",
+    "--",
+    "--hook",
+    "--allow-empty"
+  ],
+  "env": {
+    "GIT_CONFIG_GLOBAL": "nul",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_TERMINAL_PROMPT": "0",
+    "PATH": "C:\\Program Files\\Git\\cmd;C:\\WINDOWS\\System32",
+    "TZ": "UTC"
+  },
+  "height": 32,
+  "inherit_env": [
+    "SYSTEMROOT",
+    "WINDIR"
+  ],
+  "max_output_bytes": 2000000,
+  "name": "Cancel at the final issue question",
+  "run_timeout_ms": 120000,
+  "steps": [
+    {
+      "expect": "cz-cli@0.0.3"
+    },
+    {
+      "expect": "Select the type"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "What is the scope"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "imperative tense"
+    },
+    {
+      "text": "Add a synthetic entry."
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Provide a longer description"
+    },
+    {
+      "text": "Explain the synthetic change."
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Are there any breaking changes?"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "open issues?"
+    },
+    {
+      "key": "CtrlC"
+    },
+    {
+      "exit": 1
+    },
+    {
+      "state": {
+        "kind": "absent",
+        "path": ".git/COMMIT_EDITMSG"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "eyJwYXRoIjoiY3otY29udmVudGlvbmFsLWNoYW5nZWxvZyJ9Cg==",
+        "kind": "file",
+        "path": ".czrc"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "VW5yZWxhdGVkIHN5bnRoZXRpYyBmaWxlIG11c3QgcmVtYWluIHVuY2hhbmdlZC4K",
+        "kind": "file",
+        "path": "sentinel.txt"
+      }
+    },
+    {
+      "state": {
+        "entries": [
+          "config",
+          "HEAD",
+          "objects",
+          "refs"
+        ],
+        "kind": "entries",
+        "path": ".git"
+      }
+    },
+    {
+      "state": {
+        "entries": [
+          ".czrc",
+          ".git",
+          "sentinel.txt"
+        ],
+        "kind": "entries",
+        "path": "."
+      }
+    }
+  ],
+  "timeout_ms": 10000,
+  "version": 3,
+  "width": 120,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/e02",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

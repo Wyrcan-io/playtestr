@@ -16,7 +16,7 @@ def encoded(value):
 
 def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument('project',choices=['commitizen-python'])
+    parser.add_argument('project',choices=['commitizen-python','cz-cli'])
     parser.add_argument('--run',required=True)
     args=parser.parse_args()
     destination=RAW/args.project/'audit-controls'/uuid.uuid4().hex

@@ -9,7 +9,7 @@ from readiness_evidence import immutable_json, sha256
 
 def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument('project',choices=['jrnl','commitizen-python'])
+    parser.add_argument('project',choices=['jrnl','commitizen-python','cz-cli'])
     parser.add_argument('--run',required=True)
     parser.add_argument('--host',choices=['linux','windows'],required=True)
     parser.add_argument('--generation',type=int,required=True)

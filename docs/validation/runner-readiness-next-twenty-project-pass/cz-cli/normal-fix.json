@@ -1,0 +1,107 @@
+{
+  "version": 3,
+  "name": "recorded interaction",
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/cz-cli/node/node.exe",
+    "-e",
+    "const p=require('path');const e=p.resolve(p.dirname(process.execPath),'../app-v2/bin/git-cz');process.argv.splice(1,0,e);require(e);",
+    "--",
+    "--hook",
+    "--allow-empty"
+  ],
+  "workspace": {
+    "fixture": "fixture",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "GIT_CONFIG_GLOBAL": "nul",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_TERMINAL_PROMPT": "0",
+    "PATH": "C:\\Program Files\\Git\\cmd;C:\\WINDOWS\\System32",
+    "TZ": "UTC"
+  },
+  "inherit_env": [
+    "SYSTEMROOT",
+    "WINDIR"
+  ],
+  "width": 120,
+  "height": 32,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "cz-cli@0.0.3"
+    },
+    {
+      "expect": "Select the type of change"
+    },
+    {
+      "key": "ArrowDown"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "What is the scope"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Write a short, imperative tense description"
+    },
+    {
+      "text": "Add a synthetic entry."
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Provide a longer description"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Are there any breaking changes?"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Does this change affect any open issues?"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "snapshot": "normal-fix.txt"
+    },
+    {
+      "state": {
+        "path": ".git/COMMIT_EDITMSG",
+        "kind": "file",
+        "bytes_base64": "Zml4OiBhZGQgYSBzeW50aGV0aWMgZW50cnk="
+      }
+    },
+    {
+      "state": {
+        "path": ".git",
+        "kind": "entries",
+        "entries": [
+          "COMMIT_EDITMSG",
+          "config",
+          "HEAD",
+          "objects",
+          "refs"
+        ]
+      }
+    }
+  ]
+}

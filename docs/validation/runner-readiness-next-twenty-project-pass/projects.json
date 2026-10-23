@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "two-new-projects-admitted-third-source-review",
+  "status": "two-new-projects-admitted-third-local-qualification",
   "historical_admissions": 10,
   "current_candidate_original_ten": 10,
   "new_project_admissions": 2,
@@ -79,6 +79,29 @@
       "additional_terminal_only_probes": 2,
       "admission": "commitizen-python/admission.json",
       "delivered_ci_observations": 12
+    },
+    {
+      "id": "cz-cli",
+      "repository": "commitizen/cz-cli",
+      "pin": "1a8c49c02c9d52d1b4ef8cdabefb538088ddea03",
+      "status": "local-frozen-faults-passed-maintenance-active-not-admitted",
+      "admitted": false,
+      "planned_hosts": [
+        "linux",
+        "windows"
+      ],
+      "source_blobs_verified": 74,
+      "first_use_commands": 3,
+      "first_use_controls": 20,
+      "technical_snapshot_commands": 3,
+      "technical_snapshot_controls": 22,
+      "development_selected_scenarios_passed": 20,
+      "development_ordinary_attempts": 40,
+      "development_ordinary_passed": 37,
+      "development_ordinary_failed": 3,
+      "development_real_faults": 3,
+      "development_fault_matrix_calibrations": 10,
+      "qualified_native_cells": 0
     }
   ],
   "observed_audited_ordinary_executions": 960,

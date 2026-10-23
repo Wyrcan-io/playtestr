@@ -13,10 +13,18 @@ async def main(project='jrnl'):
     package=DOC/project;target=RAW/'active'/project;campaign=NextCampaign()
     declaration=json.loads((package/'scenarios.json').read_text())
     env=environment(target)
-    inventory=json.loads((target/'installed-inventory.json').read_text())['files']
+    installed=json.loads((target/'installed-inventory.json').read_text());inventory=installed['files']
+    runtime_root=ROOT/installed['runtime_root'] if 'runtime_root' in installed else target/'venv'
+    runtime_root.resolve(strict=True).relative_to(target.resolve(strict=True))
+    catalog_path=target/'launch-runtime-catalog.json'
     def dependencies():
         for name,digest in inventory.items():
-            if sha256(target/'venv'/name)!=digest:raise ValueError('installed dependencies changed: '+name)
+            if sha256(runtime_root/name)!=digest:raise ValueError('installed dependencies changed: '+name)
+        if 'runtime_root' in installed:
+            catalog=json.loads(catalog_path.read_text())
+            if ROOT/catalog['runtime_root']!=runtime_root:raise ValueError('Actual compiled runtime root differs')
+            for name,digest in catalog['files'].items():
+                if sha256(runtime_root/name)!=digest:raise ValueError('compiled/runtime dependency changed: '+name)
     dependencies()
     root=RAW/project/'development'/uuid.uuid4().hex;root.mkdir(parents=True)
     runner=RAW/'candidate/windows/playtestr.exe'

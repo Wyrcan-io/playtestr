@@ -1,0 +1,38 @@
+{
+  "changes": [
+    {
+      "actual_report_sha256": "d71a23c50b71d8c09fb7217c6f0c4f3264a66883817ce3a8138533bc24858f63",
+      "case": "E01",
+      "original_screen_sha256": "8b016dc455c80122b1a552015a534fc70616f8da52fb95e757f5efb6e5e556d4",
+      "original_sha256": "0842f5fbac743b5a590f3a5cde5d44cd03b4bb1bd29e6bab49187bad2456d7b5",
+      "reason": "Actual Windows Inquirer interruption exits1, not the predicted130. Preserve first failure. Require the exact observed nonzero1, prior positive prompt/input evidence, absent message and all unchanged fixture state. Unix planned130 follows Inquirer self-SIGINT and runner signal normalization; native execution must verify that path separately.",
+      "replacement_sha256": "1e606e4beb80c097f225174fb81d4daeddb07c5971632e8cfa7619b885cccb86"
+    },
+    {
+      "actual_report_sha256": "d040bc2b26497702faf0d1e675882d6c311205e54277f28a1e47d5fe07d3f1ac",
+      "case": "E02",
+      "original_screen_sha256": "76f52c793a0e88cb8701010909cc83f5c0154099bf2910385af2bc6fe569b2a6",
+      "original_sha256": "42c33c96c18e40c1713320520c69046a0fbfed2dd75083173ebb9734f47e5049",
+      "reason": "Actual Windows Inquirer interruption exits1, not the predicted130. Preserve first failure. Require the exact observed nonzero1, prior positive prompt/input evidence, absent message and all unchanged fixture state. Unix planned130 follows Inquirer self-SIGINT and runner signal normalization; native execution must verify that path separately.",
+      "replacement_sha256": "42b2724813414686c660cc269cf1f0cc547874202c68f584eb1b6b0599dfc41c"
+    },
+    {
+      "actual_report_sha256": "87f7244c63959851855fe2ad94f691a5c4afb3369dadf4a55c121ea0dfef30de",
+      "case": "E07",
+      "original_screen_sha256": "ef0ba5a374d088f16887f7f6e420cf64c55bfdaa7c99c0a02525d52bd33add04",
+      "original_sha256": "c111df27997e51688c3d8aad29c87dfac724b93228288000dae23add953da9f2",
+      "reason": "Actual40-column final prompt wraps between open and issues. Use the intact unique Does this change affect label. Keep the exact input, correction, resize dimensions, exit and all saved-file/fixture oracles unchanged.",
+      "replacement_sha256": "a694e7c0e331cc45027e9a24f47c117b5b4b6b3cfa981fc3309b5f5b14e7eaa7"
+    }
+  ],
+  "failed": 3,
+  "failed_attempts_preserved": true,
+  "final_ordinary_credit": 0,
+  "initial_series": "0d34272bfcb3437e9b5ef6974731c970",
+  "ordinary_development_attempts": 20,
+  "original_inputs": "artifacts/runner-readiness-next-twenty-project-pass/cz-cli/development/0d34272bfcb3437e9b5ef6974731c970/original-inputs",
+  "passed": 17,
+  "runner_repairs": 0,
+  "schema_version": 1,
+  "target_observation": "Windows self-interruption code1 is platform behavior; not a passing cancellation until exact code and absence/preservation checks actually pass."
+}

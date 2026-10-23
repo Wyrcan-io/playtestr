@@ -1,0 +1,11 @@
+--- a/src/cli/strategies/git-cz.js
++++ b/src/cli/strategies/git-cz.js
+@@ -55,7 +55,7 @@
+     // OH GOD IM SORRY FOR THIS SECTION
+     let adapterPackageJson = getParsedPackageJsonFromPath(resolvedAdapterRootPath);
+     let cliPackageJson = getParsedPackageJsonFromPath(environment.cliPath);
+-    console.log(`cz-cli@${cliPackageJson.version}, ${adapterPackageJson.name}@${adapterPackageJson.version}\n`);
++    console.log(`cz-err@${cliPackageJson.version}, ${adapterPackageJson.name}@${adapterPackageJson.version}\n`);
+     commit(inquirer, getGitRootPath(), prompter, {
+       args: parsedGitCzArgs,
+       disableAppendPaths: true,

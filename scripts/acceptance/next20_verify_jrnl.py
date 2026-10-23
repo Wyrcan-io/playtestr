@@ -24,19 +24,43 @@ def json_payloads(retained,index):
     wanted={}
     for name,row in index['files'].items():
         if name.endswith('.json'):
-            require(row['bytes']<=4*1024**2,'audit JSON file bound')
+            bound=16*1024**2 if name.endswith('/retained-source/cleanup-inventory.json') else 4*1024**2
+            require(row['bytes']<=bound,'audit JSON file bound')
             wanted.setdefault(row.get('member',name),[]).append(name)
     result={}
     with tarfile.open(retained/'packets.tar.gz','r|gz') as archive:
         for member in archive:
             if member.name not in wanted:continue
-            require(member.isfile() and member.size<=4*1024**2,'unsafe actual JSON payload')
-            data=archive.extractfile(member).read(4*1024**2+1)
+            bound=max(16*1024**2 if n.endswith('/retained-source/cleanup-inventory.json') else 4*1024**2 for n in wanted[member.name])
+            require(member.isfile() and member.size<=bound,'unsafe actual JSON payload')
+            data=archive.extractfile(member).read(bound+1)
             for name in wanted[member.name]:
                 row=index['files'][name]
                 require(len(data)==row['bytes'] and hashlib.sha256(data).hexdigest()==row['sha256'],'changed actual JSON payload')
                 result[name]=json.loads(data.decode('utf-8-sig'))
     require(set(result)=={n for names in wanted.values() for n in names},'missing actual JSON payload')
+    return result
+
+
+def byte_payloads(retained,index):
+    """Bounded non-JSON payloads for independently checking actual compiled code."""
+    wanted={}
+    for name,row in index['files'].items():
+        if not name.endswith('.json'):
+            require(row['bytes']<=16*1024**2,'audit binary/text file bound')
+            wanted.setdefault(row.get('member',name),[]).append(name)
+    result={};total=0
+    with tarfile.open(retained/'packets.tar.gz','r|gz') as archive:
+        for member in archive:
+            if member.name not in wanted:continue
+            require(member.isfile() and member.size<=16*1024**2,'unsafe actual code/cache payload')
+            data=archive.extractfile(member).read(16*1024**2+1);total+=len(data)
+            require(total<=64*1024**2,'compiled audit payload memory bound')
+            for name in wanted[member.name]:
+                row=index['files'][name]
+                require(len(data)==row['bytes'] and hashlib.sha256(data).hexdigest()==row['sha256'],'changed actual code/cache payload')
+                result[name]=data
+    require(set(result)=={n for names in wanted.values() for n in names},'missing actual code/cache payload')
     return result
 
 
@@ -51,6 +75,8 @@ def build_model(retained,run,host,project='jrnl'):
     require(sha256(retained/'packets.tar.gz')==index['archive_sha256'],'retained native archive changed')
     verify(retained/'packets.tar.gz',index['files'])
     payloads=json_payloads(retained,index)
+    node=project=='cz-cli'
+    binary_payloads=byte_payloads(retained,index) if node else {}
     artifact='next20-'+project+'-'+('Windows' if host=='windows' else 'Linux')
     prefix='native/'+run+'/'+artifact+'/'
     metadata=payloads['native/'+run+'/run-metadata.json']
@@ -71,11 +97,16 @@ def build_model(retained,run,host,project='jrnl'):
         name=path(relative);require(name in payloads,'actual packet JSON omitted: '+relative)
         return payloads[name]
     def digest(relative):return index['files'][path(relative)]['sha256']
-    def command(eid):
+    def raw(relative):
+        if relative is None:return binary_payloads
+        require(path(relative) in binary_payloads,'actual Node bytes omitted: '+relative)
+        return binary_payloads[path(relative)]
+    def command(eid,compiler=False):
         events={event:get('events/'+eid+'-'+event+'.json') for event in ['started','identified','launched','finished']}
         require(all(e['campaign']==NAME and e['id']==eid for e in events.values()),'cross-campaign command identity')
         started=events['started'];finish=events['finished']
         require(started['ci_run_id']==run and finish['category']=='passed' and finish['harness_cleanup']=='harness_process_reaped','failed/incomplete actual command')
+        if node:require(digest(project+'/'+eid+'/console.log')==finish['console_sha256'],'actual Node execution console changed')
         def manifest(reference):
             relative=reference['manifest'].replace('\\','/')
             require(not relative.startswith('/') and '..' not in relative.split('/'),'unsafe actual manifest reference')
@@ -96,11 +127,11 @@ def build_model(retained,run,host,project='jrnl'):
                      'scripts/acceptance/readiness_evidence.py']:
             require(base['files'].get(name) in source_hashes(revision,name),'stale actual native helper source')
         ordinary=started['label'].startswith('final-batch-')
-        helpers=(['next20_jrnl_final.py'] if ordinary else ['next20_jrnl_faults.py']) if project=='jrnl' else (['next20_final.py','next20_jrnl_final.py'] if ordinary else ['next20_python_faults.py'])
+        helpers=(['next20_cz_cli_rebuild.py','next20_compiled_payloads.py'] if started['label'].startswith('source-fault-compile-') else ['next20_cz_cli_build.py','next20_compiled_payloads.py']) if compiler else ((['next20_jrnl_final.py'] if ordinary else ['next20_jrnl_faults.py']) if project=='jrnl' else (['next20_final.py','next20_jrnl_final.py'] if ordinary else ['next20_python_faults.py']))
         for name in helpers:
             helper='scripts/acceptance/'+name
             require(base['files'].get(helper) in source_hashes(revision,helper),'stale actual ordinary/fault execution helper')
-        require(base['files'].get('artifacts/'+NAME+'/candidate/'+host+'/playtestr'+('.exe' if host=='windows' else ''))==expected['binary_sha256'],'actual launched runner executable mismatch')
+        if not compiler:require(base['files'].get('artifacts/'+NAME+'/candidate/'+host+'/playtestr'+('.exe' if host=='windows' else ''))==expected['binary_sha256'],'actual launched runner executable mismatch')
         actual_source={name.split('/src/',1)[1]:value for name,value in target['files'].items() if '/active/'+project+'/src/' in name}
         require(set(actual_source)==set(provenance['files']),'actual target source identity coverage incomplete')
         require(target['files'].get('artifacts/'+NAME+'/active/'+project+'/task-owned.json')==digest(project+'/retained-source/task-owned.json'),'retained source ownership not bound at actual launch')
@@ -139,7 +170,7 @@ def build_model(retained,run,host,project='jrnl'):
     acquisition=get(project+'/retained-source/acquisition.json')
     require(acquisition['source_files']==provenance['files'],'retained source provenance differs')
     require(digest(project+'/retained-source/source.tar.gz')==acquisition['archive_sha256'],'retained canonical source archive changed')
-    wheels=get(project+'/retained-source/wheels.json')
+    wheels={} if node else get(project+'/retained-source/wheels.json')
     for name,row in wheels.items():require(digest(project+'/retained-source/wheels/'+name)==row['sha256'],'missing/changed retained actual dependency wheel')
     if project=='commitizen-python':
         # Check foreign-platform wheel hashes against the already-reviewed full
@@ -159,12 +190,57 @@ def build_model(retained,run,host,project='jrnl'):
         for name,row in wheels.items():
             require(approved.get(name)==(row['sha256'],row['url']),'native wheel absent from independently reviewed primary release')
     require(runtime['installed_inventory_sha256']==digest(project+'/retained-source/installed-inventory.json'),'retained runtime dependency identity mismatch')
+    execution_files=inventory['files']
+    if node:
+        from next20_verify_node import dependencies,compiled_payloads,host_contract
+        reconstructed=dependencies(get,raw,digest,host,provenance)
+        build=get(project+'/retained-source/build.json')
+        require(build['pin']==runtime['source_pin']==provenance['pin'] and build['runtime_sha256']==digest(project+'/retained-source/runtime.json'),'compiled target pin/runtime binding differs')
+        require(build['source_inputs']=={n:v for n,v in provenance['files'].items() if n.startswith('src/')},'initial compiled source inputs differ')
+        names={'dist/'+n.removeprefix('src/') for n in provenance['files'] if n.startswith('src/') and n.endswith('.js')}
+        compiled_payloads(build,raw,names)
+        execution_files={**inventory['files'],**build['compiled_files']}
+        prerequisite=get(project+'/retained-source/node-prerequisite.json')
+        require(runtime['kind']=='node' and runtime['node_sha256']==prerequisite['node_sha256']==prerequisite['base_node_sha256'],'owned Node prerequisite copy differs')
+        require(runtime['prerequisite_sha256']==digest(project+'/retained-source/node-prerequisite.json') and int(prerequisite['version'].lstrip('v').split('.')[0])>=18,'Node prerequisite/version unbound')
+        require(not cleanup['owned_links'],'unexpected Node runtime links')
+        restored_source={n.removeprefix('src/'):v['sha256'] for n,v in cleanup['files'].items() if n.startswith('src/')}
+        require(restored_source==provenance['files'],'actual cleanup source bytes not restored')
+        for scope,files in reconstructed.items():
+            folder=runtime['app_relative_path'] if scope=='app' else scope
+            for name,value in files.items():require(cleanup['files'][folder+'/'+name]['sha256']==value,'Node compiler/runtime package changed before cleanup')
+        require(cleanup['files']['node/'+('node.exe' if host=='windows' else 'node')]['sha256']==runtime['node_sha256'],'owned Node executable changed before cleanup')
+        def runner_plan(planned,spec_relative,report_relative,evidence_relative,expected_exit):
+            argv=planned['command']
+            require(len(argv)==7 and argv[1]=='test' and argv[2]=='--report' and argv[4]=='--artifacts-dir','undeclared Node runner command flags')
+            expected_runner=pure(owner['workspace'])/'artifacts'/NAME/'candidate'/host/('playtestr.exe' if host=='windows' else 'playtestr')
+            require(pure(argv[0])==expected_runner and pure(planned['cwd'])==pure(owner['workspace']),'Node runner executable/cwd plan differs')
+            for actual,wanted in [(argv[3],report_relative),(argv[5],evidence_relative),(argv[6],spec_relative)]:
+                require(pure(actual)==pure('artifacts/'+NAME+'/'+wanted),'Node runner report/evidence/spec command differs')
+            require(planned['expected_runner_exit']==expected_exit,'Node runner expected exit plan differs')
+        def check_build(proof,receipt_relative,expected_source,initial=False):
+            planned_relative=posixpath.dirname(receipt_relative)+('/build-planned.json' if initial else '/planned.json')
+            planned=get(planned_relative)
+            require(proof['planned_sha256']==digest(planned_relative),'changed compiled build command plan')
+            require(planned['source_inputs']==expected_source,'compiler planned source differs')
+            launch=command(proof['attempt'],compiler=True)
+            require(launch['source']==expected_source,'compiler did not launch with declared actual source')
+            root=pure(expected_target);builder=root/'build-toolchain';app=root/runtime['app_relative_path']
+            expected_command=[runtime['node'],str(builder/'node_modules/@babel/cli/bin/babel.js'),str(root/'src'/'src'),'--out-dir',str(app/'dist'),'--config-file',str(builder/'babel.config.js'),'--no-babelrc']
+            require(planned['command']==expected_command and pure(planned['cwd'])==builder,'undeclared actual Node compiler command')
+            require(planned['node_sha256']==runtime['node_sha256'] and planned['babel_cli_sha256']==reconstructed['build-toolchain']['node_modules/@babel/cli/bin/babel.js'] and planned['build_config_sha256']==provenance['files']['babel.config.js'],'compiler executable/config hash differs')
+            require(launch['base']['files'].get(str(pure(runtime['node']).relative_to(pure(owner['workspace']))).replace('\\','/'))==runtime['node_sha256'],'compiler actual Node executable unbound')
+            compiled_payloads(proof,raw,names)
+            require('Successfully compiled' in raw('cz-cli/'+proof['attempt']+'/console.log').decode('utf-8'),'compiler lacks positive complete output')
+            return launch
+        check_build(build,project+'/retained-source/build.json',provenance['files'],initial=True)
     host_cases=get(project+'/host-contracts/scenarios.json')['cases']
-    native_python=str(pure(runtime['python']).relative_to(pure(owner['workspace']))).replace('\\','/')
+    native_python=str(pure(runtime['node' if node else 'python']).relative_to(pure(owner['workspace']))).replace('\\','/')
     for case in canonical['cases']:
         native_base=get(project+'/host-contracts/'+case['spec'])
         reviewed=json.loads((DOC/project/case['spec']).read_text(encoding='utf-8'))
         reviewed['command'][0]=posixpath.relpath(native_python,'artifacts/'+NAME+'/'+project+'/host-contracts')
+        if node:reviewed=host_contract(reviewed,runtime,host)
         if project=='jrnl' and host=='linux' and case['id']=='N06':
             position=next(i for i,s in enumerate(reviewed['steps']) if s.get('key')=='CtrlZ')
             require(reviewed['steps'][position+1]=={'key':'Enter'},'canonical EOF group changed')
@@ -188,11 +264,20 @@ def build_model(retained,run,host,project='jrnl'):
         return dict(invocation=row['invocation_id'],workspace=row['workspace']['id'],status=row['status'],
             cleaned=row['workspace']['cleaned'],confirmed_exited=row['cleanup']['confirmed_exited'],
             category=row.get('failure',{}).get('category'),steps=[dict(action=s['action'],status=s['status'],state=s.get('state')) for s in row['steps']])
+    def states_match(actual,contract):
+        if not node:return
+        for observed,expected_step in zip(actual['steps'],contract['steps']):
+            if 'state' not in expected_step:continue
+            state=observed['state'];expected_state=expected_step['state']
+            if observed['status']=='not_run':require(state is None,'unexecuted state has evidence');continue
+            require(state is not None and state['path']==expected_state['path'] and state['kind']==expected_state['kind'],'state evidence differs from declared predicate')
+            require(state['outcome']==('matched' if observed['status']=='passed' else 'rejected'),'state predicate evidence outcome differs')
     for batch in range(12):
         summary=get(f'{project}/final-series/{batch}/summary.json');prepared=get(f'{project}/final-series/{batch}/prepared.json')
         catalog=get(f'{project}/final-series/{batch}/runtime-catalog.json')
-        require(catalog['files']==inventory['files'],'actual executed runtime dependency bytes differ')
-        require(catalog['executable']==prepared['actual_python'] and catalog['executable_sha256']==runtime['python_sha256'],'wrong copied/normal interpreter')
+        require(catalog['files']==execution_files,'actual executed runtime dependency bytes differ')
+        actual_executable=prepared['actual_executable' if node else 'actual_python']
+        require(catalog['executable']==actual_executable and catalog['executable_sha256']==runtime['node_sha256' if node else 'python_sha256'],'wrong copied/normal interpreter')
         require(prepared['actual_runtime_catalog_sha256']==digest(f'{project}/final-series/{batch}/runtime-catalog.json'),'stale actual runtime catalog')
         runtime_relative=catalog['runtime_root'].split('/active/'+project+'/',1)[1]
         for name,value in catalog['files'].items():
@@ -210,7 +295,7 @@ def build_model(retained,run,host,project='jrnl'):
             require(launch['events']['started']['phase']=='final-archive','wrong-phase ordinary execution')
             require(launch['source']==provenance['files'],'ordinary run used mutated/wrong target source')
             require(launch['base']['files'].get(planned['spec'])==planned['spec_sha256'],'prelaunch actual contract identity missing')
-            require(launch['base']['files'].get(prepared['actual_python'])==runtime['python_sha256'],'actual target executable not bound at launch')
+            require(launch['base']['files'].get(actual_executable)==runtime['node_sha256' if node else 'python_sha256'],'actual target executable not bound at launch')
             require(launch['target']['files'].get('artifacts/'+NAME+'/active/'+project+'/launch-runtime-catalog.json')==prepared['actual_runtime_catalog_sha256'],'actual runtime catalog missing from prelaunch identity')
             actual=normalize(report)
             require(actual['invocation']==observation['invocation'],'observed report from another invocation')
@@ -218,7 +303,13 @@ def build_model(retained,run,host,project='jrnl'):
             # Fixture and approved expectation data stay exact on every variant.
             native_base=get(project+'/host-contracts/'+case['spec'])
             expected_spec=copy.deepcopy(native_base)
-            expected_spec['command'][0]=posixpath.relpath(prepared['actual_python'],posixpath.dirname(planned['spec']))
+            expected_spec['command'][0]=posixpath.relpath(actual_executable,posixpath.dirname(planned['spec']))
+            if node:
+                expected_runtime=('app-pair-'+str(batch//2)) if batch<4 else runtime['app_relative_path']
+                require(runtime_relative==expected_runtime,'wrong declared cold/warm Node runtime copy')
+                expected_spec['command'][2]=expected_spec['command'][2].replace('../'+runtime['app_relative_path']+'/'+runtime['entrypoint'],'../'+expected_runtime+'/'+runtime['entrypoint'])
+                require(planned['schema_version']==2,'Node ordinary command plan missing')
+                runner_plan(planned,package+'/'+case['spec'],f'{project}/final-series/{batch}/{cid}.report.json',f'{project}/final-series/{batch}/evidence',0)
             if batch==4:expected_spec.update(width=expected_spec['width']+10,height=expected_spec['height']+2)
             if batch==7:
                 steps=[]
@@ -230,6 +321,7 @@ def build_model(retained,run,host,project='jrnl'):
             if batch==10 and cid=='N01':expected_spec['height']=12
             if batch==11:expected_spec['startup_timeout_ms']=2000
             require(spec==expected_spec,'undeclared final variant/oracle change')
+            states_match(actual,spec)
             frozen=json.loads((DOC/project/'development-test-freeze.json').read_text())
             fixture_prefix='artifacts/'+NAME+'/'+package+'/'+case['initial_fixture']
             expected_files={'artifacts/'+NAME+'/'+package+'/'+name:value for name,value in frozen['inputs'].items() if name.startswith(case['initial_fixture']+'/')}
@@ -275,6 +367,20 @@ def build_model(retained,run,host,project='jrnl'):
             expected_source=dict(provenance['files'])
             if outcome['phase'] in {'mutated','terminal-only'}:expected_source[fault['source']]=fault['mutated_sha256']
             require(launch['source']==expected_source,'actual source mutation/restoration not bound to named invocation')
+            if node:
+                proof=outcome['compiled_build'];receipt=proof['compiled_receipt'].removeprefix('artifacts/'+NAME+'/')
+                require(digest(receipt)==proof['compiled_receipt_sha256'],'compiled source fault receipt changed')
+                compiled=get(receipt)
+                require(compiled['source_inputs']==expected_source and compiled['compiled_files']==proof['compiled_files'] and compiled['compiled_payloads']==proof['compiled_payloads'],'compiled source fault proof differs')
+                check_build(compiled,receipt,expected_source)
+                if outcome['phase'] in {'baseline','restored'}:require(compiled['compiled_files']==build['compiled_files'],'source restoration failed to restore actual compiled bytes')
+                catalog_relative=outcome['runtime_catalog'].removeprefix('artifacts/'+NAME+'/')
+                catalog=get(catalog_relative)
+                require(digest(catalog_relative)==outcome['actual_runtime_catalog_sha256']==proof['catalog_sha256'],'actual compiled calibration catalog changed')
+                require(catalog['files']=={**inventory['files'],**compiled['compiled_files']} and catalog['executable']==native_python and catalog['executable_sha256']==runtime['node_sha256'],'actual compiled calibration dependency/executable set differs')
+                require(launch['target']['files'].get('artifacts/'+NAME+'/active/'+project+'/launch-runtime-catalog.json')==digest(catalog_relative),'actual compiled calibration catalog absent at launch')
+                planned_relative=posixpath.dirname(relative)+'/'+fault['id']+'-'+outcome['phase']+'-planned.json'
+                require(digest(planned_relative)==outcome['planned_sha256'] and get(planned_relative)['compiled_build']==proof,'compiled calibration command plan differs')
             primary=json.loads((DOC/project/'fault-declaration.json').read_text()).get('primary_spec','normal-delete.json')
             selected=project+'/host-contracts/'+primary
             expected_contract=get(selected)
@@ -292,11 +398,14 @@ def build_model(retained,run,host,project='jrnl'):
                     if name.startswith(fixture+'/'):require(digest(derived+'/fixture/'+name.removeprefix(fixture+'/'))==value,'terminal-only fixture differs from approved real input')
                 selected=derived+'/spec.json';expected_contract=actual_spec
             require(launch['base']['files'].get('artifacts/'+NAME+'/'+selected)==digest(selected),'actual calibration did not launch the unchanged declared contract')
+            if node:
+                runner_plan(get(planned_relative),selected,relative,relative.removesuffix('.json')+'-evidence',1 if outcome['phase']=='mutated' else 0)
             report_spec=pure(report['results'][0]['spec_path'])
             logical=str(report_spec.relative_to(pure(owner['workspace']))) if report_spec.is_absolute() else str(report_spec)
             require(logical.replace('\\','/')=='artifacts/'+NAME+'/'+selected,'calibration report belongs to another contract')
             actual=normalize(report);actual.update(phase=outcome['phase'],expected_category=next(f['category'] for f in json.loads((DOC/project/'fault-declaration.json').read_text())['faults'] if f['id']==fault['id']))
             require([s['action'] for s in actual['steps']]==[next(iter(s)) for s in expected_contract['steps']],'actual calibration step sequence differs')
+            states_match(actual,expected_contract)
             outcomes.append(actual)
         model['faults'].append(dict(id=fault['id'],restored_exact=True,outcomes=outcomes))
     return model,index
@@ -304,7 +413,7 @@ def build_model(retained,run,host,project='jrnl'):
 
 def validate(model):
     project=model['project']
-    require(project in {'jrnl','commitizen-python'} and model['host'] in {'linux','windows'},'missing/canonical native project identity')
+    require(project in {'jrnl','commitizen-python','cz-cli'} and model['host'] in {'linux','windows'},'missing/canonical native project identity')
     require(model['cleanup']['removed'] and model['cleanup']['source_restored'] and model['cleanup']['process_confirmed'],'unsafe/unconfirmed target cleanup')
     pure=PureWindowsPath if model['host']=='windows' else PurePosixPath
     require(tuple(pure(model['cleanup']['target_root']).parts[-4:])==('artifacts',NAME,'active',project),'unsafe actual target removal root')
@@ -341,7 +450,7 @@ def validate(model):
     require(len(model['faults'])==3 and {f['id'] for f in model['faults']}=={'F01','F02','F03'},'missing real source fault')
     for fault in model['faults']:
         phases={'baseline','mutated','restored'}
-        if project=='commitizen-python' and fault['id']=='F03':phases.add('terminal-only')
+        if project in {'commitizen-python','cz-cli'} and fault['id']=='F03':phases.add('terminal-only')
         require(fault['restored_exact'] and len(fault['outcomes'])==len(phases) and {o['phase'] for o in fault['outcomes']}==phases,'missing source restoration phase')
         for row in fault['outcomes']:
             outcome(row,'failed' if row['phase']=='mutated' else 'passed')
@@ -350,7 +459,7 @@ def validate(model):
                 if fault['id']=='F03':
                     index=next(i for i,s in enumerate(row['steps']) if s['action']=='state')
                     require(all(s['status']=='passed' for s in row['steps'][:index]),'saved corruption failed before terminal/exit completion')
-    return dict(ordinary=240,calibrations=10 if project=='commitizen-python' else 9,cases=20,real_faults=3,native_cells=1)
+    return dict(ordinary=240,calibrations=10 if project in {'commitizen-python','cz-cli'} else 9,cases=20,real_faults=3,native_cells=1)
 
 
 def main():

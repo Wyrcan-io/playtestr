@@ -1,0 +1,11 @@
+--- a/src/cli/strategies/git-cz.js
++++ b/src/cli/strategies/git-cz.js
+@@ -67,7 +67,7 @@
+       if (error) {
+         throw error;
+       }
+-      process.exit(0);
++      process.exit(7);
+     });
+   }, shouldStageAllFiles);
+ 

@@ -1,0 +1,53 @@
+{
+  "active_stop_threshold_bytes": 536870912,
+  "approved_for_backend_execution": false,
+  "approved_for_hook_disabled_dependency_fetch": true,
+  "build": "Explicit reviewed Babel CLI with unchanged canonical Babel configuration, no package prepare hook or release task",
+  "build_deadline_seconds": 1200,
+  "category_identity": "commitizen/cz-cli and commitizen-tools/commitizen are independently maintained different language implementations, not forks or separate commands of one repository. Conceptual naming overlap supplies no additional shared-case credit.",
+  "execution_scope": "Trusted synthetic configuration/message fixtures only; no npm init/install adapter mode, commit hooks, real repositories, commits, tags, pushes or services in target tests.",
+  "first_use_budget": {
+    "handwritten_playtestr_json": false,
+    "recorder_controls": 20,
+    "shell_invocations": 5
+  },
+  "first_workflow": "Documented git-cz --hook --allow-empty writes a conventional commit message into an owned synthetic Git fixture without creating a commit. Standard upstream cz-conventional-changelog adapter only.",
+  "hooks_suppressed": [
+    "root prepare",
+    "ghooks install (excluded)",
+    "fsevents install (optional platform package, never executed)"
+  ],
+  "install": "npm ci --ignore-scripts --bin-links=false --no-audit --no-fund, owned caches/homes/config/prefix; canonical production lock and exact derived Babel-only lock",
+  "license": "MIT",
+  "node_requirement": ">=18; use installed read-only prerequisite and hash-verified owned executable copy",
+  "pin": "1a8c49c02c9d52d1b4ef8cdabefb538088ddea03",
+  "project_retained_cap_bytes": 67108864,
+  "repository": "commitizen/cz-cli",
+  "retention_forecast": "Retain canonical source, exact locks, primary integrity records and owned npm cache tarballs; runtime/build catalogs. Do not retain copied Node binary or expanded node_modules after qualification.",
+  "reviewed_source": {
+    "LICENSE": "62b9b932cf5effd097de675f6604f05dc1fa57553ad5e25381563c0cd9a922b4",
+    "babel.config.js": "2dbf68337d1cf848323af9e433e8c103ad282a3cb8d9e8f46a860eac1ba6c519",
+    "bin/commitizen": "29ef03c86425f8be5e828e5b44d0e7d8b451c98191e650c8e2a7658a26a94cc0",
+    "bin/commitizen.js": "e939c22e6b4417419d8443a92a29f56772134d693c8c0db3d4405ac9608dc4ac",
+    "bin/git-cz": "154134dd45acd17ec5a946ffe467bb41f486ec08a2f5199d531fc62ecd970901",
+    "bin/git-cz.js": "0c5a57286aa167e255d9733cd100a7dced51ec70b16bd82cbd400c53cf86aac5",
+    "package-lock.json": "fba4a9051c436a8352c27239cad3c856fa963c31591e62f39d2ef43796daf2e1",
+    "package.json": "46ee79cb92b6ffc0b183ffb83b486ef6aff225712e7c90b35bffa568b9f817e6",
+    "src/cli/git-cz.js": "74c91e3ce4e4588f72efe53fa0f9fc27e4b4611607b815638f56620cafd50582",
+    "src/cli/parsers/commitizen.js": "48c20975e6595eacd7de67594847fb2e4c29deaea0c1b2b872129cc790014d44",
+    "src/cli/strategies/git-cz.js": "e9feda25f7b37e0bea290bc4b7bb186d4d303816a11fecf1b4ff779c5066639c",
+    "src/commitizen/adapter.js": "8a7d21b21f9804b182c6fa976745d21675b55e0c8595791cc05ba9136adbea24",
+    "src/commitizen/cache.js": "d7b8608e38875ab4759b6090d7dee5235523b7160ef58d406616163375576957",
+    "src/commitizen/commit.js": "67608f9365878017ac4f0d812ddeb0e0dd65507e24962d0fd6f6812dc1eda2bc",
+    "src/commitizen/configLoader.js": "a689a16485d35ec7c7661f8b1e5159272fb6b619fb44c6a18fc3c5eff17bc228",
+    "src/commitizen/staging.js": "9370cd9baa0dfd8c1c40c1733eadd8ec7d38adde0c673cc79096902b4f661ed3",
+    "src/configLoader/getContent.js": "19d2844d7b23db202e03806f93975260fc598a03cfe0d93e5115f972f9d3f871",
+    "src/configLoader/loader.js": "fcab3863e2df56be4aa82aff85db0c04798c219772a1c36e677572a2512d2552",
+    "src/git/commit.js": "72a67eab70475fb12caf4e8cefccb535530b4ee567c702cfb0534debdf95bc38"
+  },
+  "scenario_deadline_seconds": 120,
+  "schema_version": 1,
+  "source_provenance_sha256": "f766b2d5c0d6b77e9d2f1db3251804c442bebcce28b6c060f952274e1f329bc4",
+  "source_version": "0.0.3",
+  "step_deadline_seconds": 10
+}

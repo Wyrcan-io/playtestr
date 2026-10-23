@@ -1,0 +1,104 @@
+{
+  "additional_terminal_only_calibrations": 2,
+  "authoring": "Public first3invocations/20controls; separate fix+snapshot technical3/22. Prepared familiar operator, no human beginner measurement.",
+  "batches": [
+    {
+      "id": 0,
+      "name": "ordinary-cold-1",
+      "runtime": "new verified owned app-pair-0; first logical use; exact owned Node interpreter reused"
+    },
+    {
+      "id": 1,
+      "name": "ordinary-warm-1",
+      "runtime": "reuse exact app-pair-0; exact owned Node interpreter reused"
+    },
+    {
+      "id": 2,
+      "name": "ordinary-cold-2",
+      "runtime": "new verified owned app-pair-1; first logical use; exact owned Node interpreter reused"
+    },
+    {
+      "id": 3,
+      "name": "ordinary-warm-2",
+      "runtime": "reuse exact app-pair-1; exact owned Node interpreter reused"
+    },
+    {
+      "change": "initial width +10, height +2; all reviewed saved bytes unchanged",
+      "id": 4,
+      "name": "viewport"
+    },
+    {
+      "change": "package relocated to relative path containing caf\u00e9 \u96ea; explicit relative executable rebinding",
+      "id": 5,
+      "name": "spaced-unicode-path"
+    },
+    {
+      "change": "original supported actions and positive checkpoints",
+      "id": 6,
+      "name": "ordinary-input-readiness"
+    },
+    {
+      "change": "split printable text into three-codepoint groups; key/control groups remain atomic",
+      "id": 7,
+      "name": "segmented-printable-input"
+    },
+    {
+      "change": "owned 2-second 8-MiB SHA256 worker during each invocation",
+      "id": 8,
+      "name": "bounded-contention-1"
+    },
+    {
+      "change": "second distinct execution under the same bounded owned worker schedule",
+      "id": 9,
+      "name": "bounded-contention-2"
+    },
+    {
+      "change": "N01 viewport height 12; remaining dedicated edge boundaries preserved unchanged",
+      "id": 10,
+      "name": "highest-risk-small-completion"
+    },
+    {
+      "change": "explicit 2000ms startup limit; ordinary step/run budgets unchanged",
+      "id": 11,
+      "name": "highest-risk-startup-boundary"
+    }
+  ],
+  "calibration_required": 20,
+  "candidate": "unchanged exact v0.4.0-rc.5 archives from 39450029736",
+  "canonical_test_freeze_sha256": "9ca5455e5bec85543c7870f0fdbec65fd01d7758d868828814b098326f38afe3",
+  "cold_scope": "Two newly materialized hash-verified app/module/compiled-code copies, each followed by a warm reuse. Same exact owned Node executable; no OS-cache eviction claim.",
+  "dispatch_budget": {
+    "build_deadline_seconds": 1200,
+    "cleanup": "Native Windows full inventory/removal helper capped900s; Unix retention/removal300s. Product deadlines unchanged.",
+    "estimated_minutes": {
+      "linux": 30,
+      "windows": 20
+    },
+    "job_deadline_minutes": 50,
+    "max_simultaneous_target_jobs": 2,
+    "scenario_deadline_seconds": 120,
+    "standard_jobs": 2,
+    "step_deadline_seconds": 10,
+    "total_job_minute_ceiling": 100
+  },
+  "edge": 12,
+  "failure_policy": "No automatic per-case retry. Any red/partial final batch rejects the affected native series; retain all first attempts and declare a replacement after diagnosis.",
+  "hosts": [
+    "linux",
+    "windows"
+  ],
+  "native_runtime_lock_sha256": "d443a0dbdb4856c1146d4f14ea05fdc99a1b00dc29450b15c632b0b36a437238",
+  "new_project_admissions": 0,
+  "normal": 8,
+  "ordinary_required": 480,
+  "original_first_development_failures": "First17pass/3fail preserved; two observed Windows interruption codes and one intact wrapped-label anchor corrected. Complete replacement20passed. All40 development observations excluded from final repetition credit.",
+  "project": "cz-cli",
+  "real_source_faults": 3,
+  "repetitions_per_cell": 12,
+  "required_three_phase_calibrations": 18,
+  "revision": 1,
+  "runtime_kind": "node",
+  "scenarios_per_cell": 20,
+  "schema_version": 1,
+  "transfer_scope": "Source and three compiled mutations already exposed locally; not untouched-source/human transfer."
+}

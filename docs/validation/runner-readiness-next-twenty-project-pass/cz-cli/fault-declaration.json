@@ -1,0 +1,37 @@
+{
+  "additional_terminal_only_calibrations_per_host": 1,
+  "compilation": "Each source variant is explicitly rebuilt with the reviewed locked Babel closure. Baseline/restored compiled bytes must equal the original actual build. Actual compiled runtime catalog is retained and bound before each calibration.",
+  "exposure": "Ordinary source/workflows and first development misses already known to the prepared operator. Concrete source edits declared after all twenty successful cases and97 exact inputs were frozen. No blind or human/untouched-source claim.",
+  "faults": [
+    {
+      "after": "console.log(`cz-err@",
+      "before": "console.log(`cz-cli@",
+      "category": "assertion_timeout",
+      "id": "F01",
+      "meaning": "Actual version/readiness banner changes before the first approved ready/input step.",
+      "path": "src/cli/strategies/git-cz.js"
+    },
+    {
+      "after": "process.exit(7);",
+      "before": "process.exit(0);",
+      "category": "unexpected_exit",
+      "id": "F02",
+      "meaning": "Successful completed message flow incorrectly returns7 instead of0.",
+      "path": "src/cli/strategies/git-cz.js"
+    },
+    {
+      "after": "const fd = openSync(commitFilePath, 'w');\n      message = message.replace('feat:', 'feax:');",
+      "before": "const fd = openSync(commitFilePath, 'w');",
+      "category": "state_assertion_failure",
+      "id": "F03",
+      "meaning": "Same-size saved conventional-message prefix corruption after unchanged prompts and natural completion.",
+      "path": "src/git/commit.js",
+      "terminal_only_probe": true
+    }
+  ],
+  "primary_spec": "normal-message.json",
+  "project": "cz-cli",
+  "required_calibrations_per_host": 9,
+  "schema_version": 1,
+  "selected_after_freeze_sha256": "9ca5455e5bec85543c7870f0fdbec65fd01d7758d868828814b098326f38afe3"
+}

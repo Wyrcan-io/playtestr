@@ -3,6 +3,9 @@ $ErrorActionPreference='Stop'
 $workspace=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
 $package=Join-Path $workspace ('docs\validation\runner-readiness-next-twenty-project-pass\'+$Project)
 $declaration=Get-Content -LiteralPath (Join-Path $package 'fixture-git.json') -Raw | ConvertFrom-Json
+$freezePath=Join-Path $package 'development-test-freeze.json'
+$frozen=$null
+if(Test-Path -LiteralPath $freezePath){$frozen=Get-Content -LiteralPath $freezePath -Raw | ConvertFrom-Json}
 $fixtureRoots=@('fixture')
 if($null -ne $declaration.fixture_roots){$fixtureRoots=@($declaration.fixture_roots)}
 foreach($relative in $fixtureRoots){
@@ -18,12 +21,17 @@ foreach($relative in $fixtureRoots){
         $ancestor=[IO.Path]::GetDirectoryName($ancestor)
     }
     $actual=@{};$directories=@{};$pending=[Collections.Generic.Queue[string]]::new();$pending.Enqueue($target)
+    $allowedDirectories=@($declaration.directories)
+    # A declared wrong-type test may contain this exact empty directory. No
+    # additional Git files, hooks or arbitrary directories become acceptable.
+    if($null -ne $frozen -and $frozen.status -eq 'frozen-before-fault-selection' -and
+        ($relative+'/.git/COMMIT_EDITMSG') -in @($frozen.directories)){$allowedDirectories+=@('COMMIT_EDITMSG')}
     while($pending.Count){
         foreach($entry in Get-ChildItem -LiteralPath $pending.Dequeue() -Force){
             if($entry.Attributes -band [IO.FileAttributes]::ReparsePoint){throw 'Linked fixture Git entry'}
             $name=$entry.FullName.Substring($target.Length+1).Replace('\','/')
             if($entry.PSIsContainer){
-                if($name -notin @($declaration.directories)){throw 'Unknown fixture Git directory'}
+                if($name -notin $allowedDirectories){throw 'Unknown fixture Git directory'}
                 $directories[$name]=$true;$pending.Enqueue($entry.FullName);continue
             }
             $encoded=$declaration.files.PSObject.Properties[$name].Value
@@ -35,7 +43,7 @@ foreach($relative in $fixtureRoots){
             $actual[$name]=$true
         }
     }
-    if($actual.Count -ne @($declaration.files.PSObject.Properties).Count -or $directories.Count -ne @($declaration.directories).Count){throw 'Fixture Git inventory incomplete'}
+    if($actual.Count -ne @($declaration.files.PSObject.Properties).Count -or $directories.Count -ne $allowedDirectories.Count){throw 'Fixture Git inventory incomplete'}
     Remove-Item -LiteralPath $target -Recurse -Force
     if(Test-Path -LiteralPath $target){throw 'Declared Git fixture metadata remains'}
 }

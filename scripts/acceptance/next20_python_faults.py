@@ -1,4 +1,4 @@
-"""Run declared actual Python source faults against frozen reviewed contracts."""
+"""Run declared actual source faults against frozen reviewed contracts."""
 import argparse
 import asyncio
 import copy
@@ -20,6 +20,8 @@ async def main():
     parser=argparse.ArgumentParser();parser.add_argument('project');parser.add_argument('--package',type=Path);args=parser.parse_args()
     canonical=DOC/args.project;package=(args.package or canonical).resolve();package.relative_to(ROOT)
     target=RAW/'active'/args.project
+    compiled=args.project=='cz-cli'
+    provenance=json.loads((canonical/'source-provenance.json').read_text()) if compiled else None
     if json.loads((target/'task-owned.json').read_text())['slug']!=args.project:raise ValueError('wrong active source fault target')
     declaration=json.loads((canonical/'fault-declaration.json').read_text());frozen=json.loads((package/'development-test-freeze.json').read_text())
     if declaration['selected_after_freeze_sha256']!=sha256(canonical/'development-test-freeze.json'):raise ValueError('source faults were not selected after this canonical freeze')
@@ -30,7 +32,7 @@ async def main():
         actual_test_freeze_sha256=sha256(package/'development-test-freeze.json'),declaration=declaration))
     host='windows' if os.name=='nt' else 'linux';runner=RAW/'candidate'/host/('playtestr.exe' if os.name=='nt' else 'playtestr')
     env=environment(target);campaign=NextCampaign();observations=[]
-    async def run(fault,phase):
+    async def run(fault,phase,build_proof=None):
         for name,digest in frozen['inputs'].items():
             if sha256(package/name)!=digest:raise ValueError('frozen contract/input changed before source calibration')
         selected=package/declaration['primary_spec']
@@ -39,15 +41,27 @@ async def main():
             spec=json.loads(selected.read_text());source_fixture=package/spec['workspace']['fixture']
             shutil.copytree(source_fixture,derived/'fixture')
             spec['workspace']['fixture']='fixture'
-            spec['command'][0]=os.path.relpath(json.loads((target/'runtime.json').read_text())['python'],derived).replace('\\','/')
+            runtime=json.loads((target/'runtime.json').read_text())
+            spec['command'][0]=os.path.relpath(runtime[runtime.get('kind','python')],derived).replace('\\','/')
             spec['steps']=[s for s in spec['steps'] if 'state' not in s]
             immutable_json(derived/'spec.json',spec)
             immutable_json(derived/'derivation.json',dict(original_spec_sha256=sha256(selected),
                 scope='Different deliberately terminal-only contract; state oracles removed only for this labeled calibration, zero ordinary credit.'))
             selected=derived/'spec.json'
+        if compiled:
+            saved=ROOT/build_proof['catalog_path']
+            saved.resolve().relative_to(RAW/args.project/'runtime-catalogs')
+            from next20_catalog_store import catalog_bytes
+            catalog_bytes(saved,build_proof['catalog_sha256'])
+            if sha256(target/'launch-runtime-catalog.json')!=build_proof['catalog_sha256']:raise ValueError('Actual compiled runtime catalog changed before test')
         report=root/(fault['id']+'-'+phase+'.json')
-        result=await execute([runner,'test','--report',report.relative_to(ROOT),'--artifacts-dir',
-            (root/(fault['id']+'-'+phase+'-evidence')).relative_to(ROOT),selected.relative_to(ROOT)],
+        command=[runner,'test','--report',report.relative_to(ROOT),'--artifacts-dir',
+            (root/(fault['id']+'-'+phase+'-evidence')).relative_to(ROOT),selected.relative_to(ROOT)]
+        if compiled:
+            planned=root/(fault['id']+'-'+phase+'-planned.json')
+            immutable_json(planned,dict(schema_version=1,command=list(map(str,command)),cwd=str(ROOT),
+                spec_sha256=sha256(selected),compiled_build=build_proof,expected_runner_exit=1 if phase=='mutated' else 0))
+        result=await execute(command,
             args.project,'source-fault-'+fault['id']+'-'+phase,cwd=ROOT,env=env,timeout=140,
             expected=1 if phase=='mutated' else 0,campaign=campaign)
         row=json.loads(report.read_text())['results'][0]
@@ -62,7 +76,8 @@ async def main():
         elif row['status']!='passed' or any(s['status']!='passed' for s in row['steps']):raise ValueError('nonpositive pristine/recovery/terminal-only calibration')
         return dict(phase=phase,attempt=result['id'],report=report.relative_to(ROOT).as_posix(),
             report_sha256=sha256(report),spec_sha256=sha256(selected),status=row['status'],category=category,
-            invocation=row['invocation_id'],target_cleanup=True,workspace_cleanup=True,ordinary_credit=0)
+            invocation=row['invocation_id'],target_cleanup=True,workspace_cleanup=True,ordinary_credit=0,
+            **(dict(compiled_build=build_proof,actual_runtime_catalog_sha256=build_proof['catalog_sha256'],runtime_catalog=saved.relative_to(ROOT).as_posix(),planned_sha256=sha256(planned)) if compiled else {}))
     for fault in faults:
         path=target/'src'/fault['path'];path.resolve(strict=True).relative_to((target/'src').resolve())
         original=path.read_bytes();before=fault['before'].encode();after=fault['after'].encode()
@@ -75,15 +90,27 @@ async def main():
             if patch_path.read_text(encoding='utf-8')!=patch:raise ValueError('declared source patch changed')
         else:
             with patch_path.open('x',encoding='utf-8',newline='\n') as stream:stream.write(patch)
-        phases=[await run(fault,'baseline')]
+        async def build_variant(phase):
+            if not compiled:return None
+            from next20_cz_cli_rebuild import rebuild
+            expected=dict(provenance['files'])
+            expected[fault['path']]=hashlib.sha256(mutated if phase=='mutated' else original).hexdigest()
+            proof=await rebuild(expected,'source-fault-compile-'+fault['id']+'-'+phase)
+            if phase!='mutated' and proof['compiled_files']!=json.loads((target/'build.json').read_text())['compiled_files']:
+                raise ValueError('Restored/pristine compilation differs from original actual built bytes')
+            return proof
+        baseline_build=await build_variant('baseline')
+        phases=[await run(fault,'baseline',baseline_build)]
         try:
             path.write_bytes(mutated);mutated_sha256=sha256(path)
-            phases.append(await run(fault,'mutated'))
-            if fault.get('terminal_only_probe'):phases.append(await run(fault,'terminal-only'))
+            mutated_build=await build_variant('mutated')
+            phases.append(await run(fault,'mutated',mutated_build))
+            if fault.get('terminal_only_probe'):phases.append(await run(fault,'terminal-only',mutated_build))
         finally:
             path.write_bytes(original)
             if path.read_bytes()!=original:raise ValueError('source exact restoration failed')
-        phases.append(await run(fault,'restored'))
+            restored_build=await build_variant('restored')
+        phases.append(await run(fault,'restored',restored_build))
         observations.append(dict(id=fault['id'],source=fault['path'],original_sha256=hashlib.sha256(original).hexdigest(),
             mutated_sha256=mutated_sha256,restored_sha256=sha256(path),restored_exact=True,
             patch_sha256=sha256(patch_path),outcomes=phases))
@@ -92,7 +119,7 @@ async def main():
         runner_sha256=sha256(runner),test_freeze_sha256=sha256(package/'development-test-freeze.json'),
         real_faults=3,calibrations=sum(len(f['outcomes']) for f in observations),ordinary_credit=0,
         terminal_only_scope='Explicitly different contract demonstrates false green; not an ordinary final execution.',
-        build_scope='Editable interpreted source with actual prelaunch source/runtime/dependency identities; no compiled rebuild.'))
+        build_scope='Actual declared Babel source rebuilds with exact copied Node, locked compiler/runtime inventories and original compiled-byte restoration.' if compiled else 'Editable interpreted source with actual prelaunch source/runtime/dependency identities; no compiled rebuild.'))
     print('Verified real source mutations, genuine restored recoveries and separately labeled terminal-only probe. No project admission.')
 
 

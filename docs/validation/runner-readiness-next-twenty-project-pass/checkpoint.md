@@ -400,3 +400,161 @@ source-only acquisition/review first, no target hooks before approval. Full20 ga
 whole121 source/applicability audit, freshcheckout, global12class corruption gate,
 late transfer, finalallattempts/storage/docs closure still pending. No product
 source change/candidate replacement: exactrc.5 production129b7a4 unchanged.
+
+
+24 October client-date continuation: commit91a55e81 (full hash viaGit) pushed
+second admission. Thirdtarget cz-cli acquiredsource-only79fa593889e84919ae375882eb2da9c8:
+pin1a8c49c02c9d52d1b4ef8cdabefb538088ddea03,93archive entries/74exactGitblobs,
+1,015,841expandedbytes. Completeprimarytree verified80e76acad2624fcca4fdada5c669a847.
+Source packageversion0.0.3, MIT; standard cz-conventional-changelog3.3.0 adapter.
+Its natural locked runtime includes commitizen4.2.4 for adapter config loading;
+actual tested entry remains rebuilt pinned app/bin/git-cz, not that dependency CLI.
+
+Derived exact locked Babel-only closure200 of1045nonroot packages. Initial helper
+unnecessarily allowedonlySHA512,42c8e5bf7ad54602a7c59765ee1fb0b1; tenupstream
+SHA1SRI entries are legitimate old lock data, allversions/URLs/integrities retained
+unchanged with decoded-length checks. Replacement5d7bf1fd9f9243c7bdc9b9373760ae94.
+No hook/backend execution during lock/source checks. Initial npmfetch
+7a1701d9dbf448af9179e56afd6fb40b: builder installpassed a865d26c26a043dcbbb1e534bc2c5f48;
+runtime installer a0b9544410fe4a1482af1d8de48cc91a cancelled/reaped when strictstorage
+scanner raced npm replacing a directory. Original partial app retained, no target
+execution. Fixed periodic observation byreusing existing race-tolerant usage();
+exactpost-install inventories staystrict. Explicitfresh app-v2 offlineinstall,
+17a9abc27c58425b829c7a022450c0e9, reusescompletedbuilder/ownedcache, allhooks disabled.
+First observedmax136,505,801B, under512MiBstop. Read-only installedNode24.7.0/npm11.5.1;
+ownedNodecopy SHA c1b274a8d0a23e060fc42ce71c3cdfa1569b83d91ba82cc59fa907da97a425e9.
+Current app8857immutablefiles,29compiledJS modules; builder3563files. npmcache671files
+8,246,877B. No globalinstall. Explicitreview/build f42516bffad0446baf1368d10dfeebb1.
+
+NextCampaign Python-only runtimecatalog KeyError reproduced60d7d1c565ae432ea44a8af008924c7a;
+generalized ownedNode identity keeps Pythondefault; changedbinaryrefusesprelaunch.
+Tenexisting/new localcontrols passed dee4dba106134a4db301a771cde2b5d7. No native10control
+run yet; source-matched9-control run575d1008 is earlier scope. Currenthelpers uncommitted.
+
+Real public cz-cli first8b75177ca27e4f2a9d9755c6c8560e6b:3shellcalls/20controls,
+exact feat message and managedGitentryset. Sameprocess standard binentry is loaded
+relative to ownedNode process.execPath with normalargv; exportedcommandhas no personal
+absolute path. Synthetic emptyGitboundary and .czrc only, --hook --allow-empty writes
+.git/COMMIT_EDITMSG; no commits/hooks/tags/services. Distinct fix+snapshot technical
+route dc9757427e844e69adcb9afbf9c1c799 passed3/22, no first-use credit.
+
+First20case series0d34272bfcb3437e9b5ef6974731c970/ef5c1bce75884861be50d2168f4ff21a
+17pass3fail. E01/E02 actualWindowsInquirer selfSIGINT code1, predicted130; E07 final
+readiness open issues splitacross40columns. Alloriginal20contracts, fixtures/snapshot
+and three screens copied toseries/original-inputs. Explicitdisposition56cf2f2962644e95a3645285633951c0:
+Windows exactcancel1 with absentfile/unchangedfixtures; E07 intactunique Does this change
+affect anchor, allinput/resize/fileexpectations unchanged. PlannedUnixcancel130 follows
+sourceInquirer selfSIGINT+runnerprocess_unix normalization; nativepath NOTyetexecuted.
+Replacement563b46e7d2a1459c8d5f7c262da12527 passed20/20,75ad8c84eb254399821aff7c3859fd45.
+97exactinputs+directories frozen62b547d9d761498ebc5fdc18915123c7 beforeconcretefaultdecl.
+
+Three actualsourcefault calibrations passed41c792a7ffce461683e08ee4d6de1fbc,
+raw faults/3bdec96f6f2346b494c2a629ca4bfeb5: F01readinessbanner, F02exit7,
+F03same-size feat->feax messageprefix.9required+1labeledterminalonly=falsegreen.
+Eachphase genuinelyBabelrebuilt; originalsource/compiledbytes restoredexactly.
+No finalnative/admission credit. Localprojectraw22,984,604B atthatpoint.
+Compiledcatalog storage nowcontentaddressed for subsequent rebuilds toavoidduplicates;
+olderlocalcalibration fullcatalogsnapshots remainactual immutableattemptschema.
+Bothschemas mustbeexplicitlyaudited; do not erase oldcopies/receipts.
+
+ACTIVE at checkpoint: public maintenance helper process session5369, outerlabel
+cz-cli-public-diagnosis-maintenance-suffix-relocation, runs sourcevariants/rebuilds
+and finallyrestoresoriginalsource+compiledbytes. Do not edit imported helper files
+or acquireanother target while it runs. Aftercompletion inspect actual outcome.
+Then prepare nativeNode runtimeprofile/final matrix/auditor and generatedworkflow,
+checked fixtureGit unmaterialization beforestaging. E12 .git/COMMIT_EDITMSG is declared
+emptydirectory: PS unmaterializer must explicitly permit that frozenemptydirectory
+without accepting unknownGit files/hooks. Need retainnpmcache/rebuild/source metadata
+atcleanup. Native clone runtimefiles~33k makes cleanupJSON exceedold4MiBauditbound;
+allowonlydeclared cleanupinventory up to16MiB ifactualneeded. Keep16MiBarchive,
+64MiBallgenerationproject cap. Planned local runtimecatalog compaction mayberequired
+before2nativepackets: current fullcatalog duplicates cost~20MB; preserveexactlogical
+paths/hashes/one-levelaliases beforechecked literalfile removal, nofake native paths.
+
+Originaltwoadmitted projects remain unchanged. Overall2new/20,12/100. Third no native
+credit yet. Fullcampaignstillrequires remaining17projects plus globalwholecontrol,
+freshcheckout,twelveglobalcorruptionclasses,late-transfer,all-attempt/storageclosure.
+
+
+Maintenance first10cab52ea4744e16a1eefb77e6fbc5cd failed because my intendednewline
+was appendedbefore dedent(), which trims it. Actual unchangedmessagecorrectlypassed
+runner0; wrapperhadexpected1. Real diagnosticF03/test+HTML and originalrecoverypassed.
+Firstpartialroot and report arebound maintenance-first-disposition.json; source and
+compiledbytes restored in finally. Corrected formatter insertsnewline afterdedent.
+ACTIVE replacement session56897, labelcz-cli-complete-maintenance-after-effective-format-variant.
+Wait/inspect it; do not claim success yet. Afterward localruntimecatalog compaction
+can save~20MB exactduplicate metadata beforelocal source/cache retention and2native
+packets. Keep all originalphase schemas/receipts; use verified content aliases or
+self-contained archive before any literal-file removal. Native targetsetup/profile,
+finalmatrix, exactcompiledauditor and workflow generation remain unimplemented.
+
+
+Corrected maintenance PASSED ca310486cc1a4269917c59b0753f6f26,
+raw maintenance-a040aa77eed640b59f8366b42434a2fa/journey.json. Actualselected/cancelled
+fileapproval, suffixCtrlC code1 andsnapshotpruning, unchangedcafé/雪 relocation;
+originalsource+compiledbytes restored in finally. Firstineffectivepre-dedent variant
+10cab52e... remainsfailedasoperatorassumption, notreportedproductfalsepass.
+
+Localcatalog retention:71a33088cd084d7a8ec78c376e3d9e9d compacted24logicalruntime
+catalogpaths/7exactphysicalpayloads,28,311,648expandedB to2,756,345Barchive plus
+selectedrestore. Checkedliteral-file removal9f06eff2bc1d483d885a55702624c156;
+all24 originalpaths readbackbyte-exact via archive e444ad3af3424ccaa8e16d5cc5fb8f77.
+RAW/cz-cli/retained-catalogs-v1 index/alias mapping retains everyoriginalcatalog;
+reports/events/source receipts untouched. next20_catalog_store.catalog_bytes handles
+physical or verifiedretaineddata includingselectedrestorevalidation. Rebuildhelper
+usescontentaddressed catalogs without re-expanding archived originals. Oldlocal
+faultphases havefullcataloglogicalpaths, newerproofs havecatalog_path references;
+auditor mustexplicitly resolve both. Do not naivelyread removedlogicalfiles.
+
+Exactcode byte supplement4c26c08a762c41ff90c4b8645da7c08f capturedoriginal29modules
+and three earliermutant variants matchingALL originallyrecorded compiled hashes.
+No scenario/test reruns; zeroordinary/native/calibration credit. Originalsource and
+compiledbytes restored. Payloads underRAW/cz-cli/compiled-payloads and supplemental
+receipt compiled-byte-supplement.json. Copied originalinstalled npmhiddenlocks only
+after verifyingtheir hashes againstthe originaldependency-fetch manifest. Future
+native setup/build/rebuild now retainsinstalledlocks and actualcompiledpayloadbytes
+atcapturetime, not just hashes. Originallocalbuild.json remainsunchanged.
+
+Tenhelpercontrols pass3267c2235b0a4504abf5e33ad197cc85, includinglegacyPythondefault
+andNode executable mutation rejection. NewNodehelpers JSONreads explicitlyUTF8.
+Sharedfinal helper now supports declaredNode appcold/warm clones inadditionto
+unchangedPythonvenv defaults; Nodeprepared schema2 actual_executable vslegacy
+schema1 actual_python. NewNodekind notyetnativeexecuted. Nativepreparer
+next20_cz_cli_native.py acquires/verifies74blobs,derivesexact200buildlock, hooks-off
+npmsetup/explicitBabelbuild, comparesreviewedpackage metadata (order-independent),
+reconstructs97inputs anddeclaresNodeentry-path/Git-env/Unixcancel130profile.
+Lock--verify-declaration andbuild--native-review avoidrewriting curatedlocalreviews.
+Genericcleanup nowretainsNodeprerequisites/dependency-fetch/NPMcache/installedlocks.
+PSfixtureunmaterializer permits ONLY the frozenextraCOMMIT_EDITMSG emptydirectory,
+withallunknownGitfiles/hooks stillrejected. Not yetexecutedagainstthirdfixture.
+
+NO activehelperprocess atthis checkpoint (supplement17430 completed). cz-cli target
+remainsactive, fullyrestored; no otherapp may beacquired. Outstanding: create/lint
+Nodefinalseries workflow/declaration; extendactualretainedpacket auditor forcompiled
+Node/NPMcache+payload+runtimeclone proofs (donot justset verifiedflags); Gitstage
+verify97 exactinputs using59normalfiles +38reconstructedGitfiles, restoremetadata;
+commit/pushcurrenthelpers+fixturedata, waitactualsource-matched10controlharness,
+dispatch/monitor2native jobs. Nodeprofiles mightfail: preservefirstseries, do not
+claimLinux130beforeactualrun. Retrieveonehostpacket,compact/audit/remove beforeother.
+Need independentlocal/native/admission auditor, actualtampercontrols, localchecked
+source/process/cache retention/removal. Thirdgeneratedworkflow publiccontract also
+required; two differentnewcategories’ actualCItriplets alreadycomplete viajrnl+Python
+Commitizen so no thirdsix-runtriplet needed. Current2new/20,12/100; third notadmitted.
+
+Resume 24 October: compiled Node auditor now reconstructs all 3,563 compiler and
+8,857 app files from the actual SRI-checked retained npm cache packages and the
+canonical source archive. Positive local proof ade783443f5142c1a34cdea90de1850e;
+four actual-evidence corruption controls pass 0751645ffb17435ca70297fbb543be5e
+(source lock, installed module, missing registry payloads, compiled module hash).
+No native admission credit. Shared packet auditor now has explicit Node build,
+compiled payload, runtime copy, host-contract and state predicate checks; its first
+complete actual native packet audit is still pending. Older Python paths retained.
+
+Ten harness controls pass aeeb9d95c3fc4815b80ac55f9b64b5b6 with actual native
+Windows process inspection. Earlier sandbox-only attempt 06eac32223c94ac0848e80458edd53d5
+failed two cleanup controls because CIM access was denied; retained unchanged.
+Both native/generated cz-cli workflows lint 8cadce66e93e4272931d396e52f97f67.
+Exact fixture Git unmaterialization passed 72a6d9ded6d244629577e6177d93deca,
+including the frozen wrong-type COMMIT_EDITMSG directory. Next: verify staged
+97 inputs, restore synthetic metadata, push, check source-matched hosted harness
+and dispatch native series. Current campaign remains two admitted of twenty.

@@ -65,10 +65,13 @@ class NextCampaign(Campaign):
         runtime=target/'runtime.json'
         if runtime.is_file():
             value=json.loads(runtime.read_text())
-            python=Path(value['python'])
-            python.resolve(strict=True).relative_to(target)
-            if sha256(python)!=value['python_sha256']:raise ValueError('actual Python executable changed')
-            files[python.relative_to(ROOT).as_posix()]=value['python_sha256']
+            kind=value.get('kind','python')
+            if kind not in {'python','node'}:raise ValueError('unreviewed runtime executable kind')
+            executable=Path(value[kind])
+            executable.resolve(strict=True).relative_to(target)
+            if executable.is_symlink() or getattr(executable,'is_junction',lambda:False)():raise ValueError('linked runtime executable')
+            if sha256(executable)!=value[kind+'_sha256']:raise ValueError('actual owned '+kind+' executable changed')
+            files[executable.relative_to(ROOT).as_posix()]=value[kind+'_sha256']
         catalog=dict(schema_version=1,project=project,files=files,
             dependency_scope='Installed dependency inventory must additionally be verified before/after each batch; no summary-only runtime credit')
         encoded=(json.dumps(catalog,sort_keys=True,ensure_ascii=True,indent=2)+'\n').encode()

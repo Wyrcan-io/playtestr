@@ -73,6 +73,26 @@ class NextCampaignTests(unittest.TestCase):
         import hashlib
         self.assertEqual(catalog['files'][path.relative_to(ROOT).as_posix()],hashlib.sha256(path.read_bytes()).hexdigest())
 
+    def test_owned_node_runtime_catalog_rejects_changed_executable(self):
+        # Identity-only synthetic bytes; this does not claim Node execution.
+        legacy=self.root/'active/python-control';legacy.mkdir(parents=True)
+        python=legacy/'python.exe';python.write_bytes(b'synthetic legacy identity\n')
+        immutable_json(legacy/'runtime.json',dict(python=str(python),python_sha256=sha256(python)))
+        old=self.campaign.identity('python-control',[sys.executable,'-B','-c','pass'])
+        old_manifest=json.loads((self.root/old['manifest']).read_text())
+        old_catalog=json.loads((self.root/old_manifest['target_catalog']['manifest']).read_text())
+        self.assertEqual(old_catalog['files'][python.relative_to(ROOT).as_posix()],sha256(python))
+        target=self.root/'active/runtime-control';target.mkdir(parents=True)
+        executable=target/'node.exe';executable.write_bytes(b'synthetic runtime identity\n')
+        immutable_json(target/'runtime.json',dict(kind='node',node=str(executable),node_sha256=sha256(executable)))
+        reference=self.campaign.identity('runtime-control',[sys.executable,'-B','-c','pass'])
+        manifest=json.loads((self.root/reference['manifest']).read_text())
+        catalog=json.loads((self.root/manifest['target_catalog']['manifest']).read_text())
+        self.assertEqual(catalog['files'][executable.relative_to(ROOT).as_posix()],sha256(executable))
+        executable.write_bytes(b'changed synthetic runtime\n')
+        with self.assertRaisesRegex(ValueError,'executable changed'):
+            self.campaign.identity('runtime-control',[sys.executable,'-B','-c','pass'])
+
     def test_actual_success_and_expected_nonzero_keep_distinct_execution_ids(self):
         async def check():
             first=await execute([sys.executable,'-B','-c','print("positive child output")'],

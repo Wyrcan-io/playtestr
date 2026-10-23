@@ -1,0 +1,141 @@
+{
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/cz-cli/node/node.exe",
+    "-e",
+    "const p=require('path');const e=p.resolve(p.dirname(process.execPath),'../app-v2/bin/git-cz');process.argv.splice(1,0,e);require(e);",
+    "--",
+    "--hook",
+    "--allow-empty"
+  ],
+  "env": {
+    "GIT_CONFIG_GLOBAL": "nul",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_TERMINAL_PROMPT": "0",
+    "PATH": "C:\\Program Files\\Git\\cmd;C:\\WINDOWS\\System32",
+    "TZ": "UTC"
+  },
+  "height": 22,
+  "inherit_env": [
+    "SYSTEMROOT",
+    "WINDIR"
+  ],
+  "max_output_bytes": 2000000,
+  "name": "Correct a wrapped subject while resizing the viewport",
+  "run_timeout_ms": 120000,
+  "steps": [
+    {
+      "expect": "cz-cli@0.0.3"
+    },
+    {
+      "expect": "Select the type"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "What is the scope"
+    },
+    {
+      "text": "API"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "imperative tense"
+    },
+    {
+      "text": "Document the synthetic configuration behavior across the narrow viewport.X"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "resize": {
+        "height": 16,
+        "width": 40
+      }
+    },
+    {
+      "expect": "imperative tense"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Provide a longer description"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Are there any breaking changes?"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Does this change affect"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "ZmVhdChhcGkpOiBkb2N1bWVudCB0aGUgc3ludGhldGljIGNvbmZpZ3VyYXRpb24gYmVoYXZpb3IgYWNyb3NzIHRoZSBuYXJyb3cgdmlld3BvcnQ=",
+        "kind": "file",
+        "path": ".git/COMMIT_EDITMSG"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "eyJwYXRoIjoiY3otY29udmVudGlvbmFsLWNoYW5nZWxvZyJ9Cg==",
+        "kind": "file",
+        "path": ".czrc"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "VW5yZWxhdGVkIHN5bnRoZXRpYyBmaWxlIG11c3QgcmVtYWluIHVuY2hhbmdlZC4K",
+        "kind": "file",
+        "path": "sentinel.txt"
+      }
+    },
+    {
+      "state": {
+        "entries": [
+          "COMMIT_EDITMSG",
+          "config",
+          "HEAD",
+          "objects",
+          "refs"
+        ],
+        "kind": "entries",
+        "path": ".git"
+      }
+    },
+    {
+      "state": {
+        "entries": [
+          ".czrc",
+          ".git",
+          "sentinel.txt"
+        ],
+        "kind": "entries",
+        "path": "."
+      }
+    }
+  ],
+  "timeout_ms": 10000,
+  "version": 3,
+  "width": 90,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/e07",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

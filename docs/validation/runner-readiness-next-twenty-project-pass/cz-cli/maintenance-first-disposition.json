@@ -1,0 +1,11 @@
+{
+  "actual_report_sha256": "600c3660dabe711907e93d0104f152fb7b5ca0a5a57368d2bf1e9eefe5541881",
+  "actual_status": "passed",
+  "expected_by_mistake": "state_assertion_failure",
+  "original_outer_attempt": "10cab52ea4744e16a1eefb77e6fbc5cd",
+  "partial_root": "maintenance-ad1912ed156f47cca8800bfadd2ac12e",
+  "reason": "The intended source variant appended newlines before dedent(message), which deliberately trims them. Actual saved bytes remained unchanged, so the runner correctly passed. This is an ineffective operator variant, not a false pass or product repair.",
+  "repair": "Apply the declared intended newline after dedent, rerun the complete public maintenance journey, retain this partial attempt and its real diagnostic/recovery reports.",
+  "schema_version": 1,
+  "source_restored_in_finally": true
+}
