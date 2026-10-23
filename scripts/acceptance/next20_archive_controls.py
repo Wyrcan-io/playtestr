@@ -47,14 +47,26 @@ async def main():
     root=RAW/'product-controls'/uuid.uuid4().hex;root.mkdir(parents=True)
     suffix='.exe' if os.name=='nt' else '';fixture=root/'bin'/('fixture'+suffix);fixture.parent.mkdir()
     compiler=shutil.which('go')
-    if compiler is None:raise ValueError('Installed read-only Go prerequisite missing')
     # Windows PATH discovery preserves an uppercase .EXE spelling. The inherited
     # prelaunch source selector recognizes the canonical Go executable basename.
     # Resolve the same file with that spelling; do not alter historical defaults.
-    if os.name=='nt':compiler=str(Path(compiler).with_name('go.exe'))
+    if compiler and os.name=='nt':compiler=str(Path(compiler).with_name('go.exe'))
     env=owned_environment();env['GOTOOLCHAIN']='local';campaign=ArchiveControlCampaign(phase='final-archive')
     async def run(argv,label,expected=0,input=None,timeout=30):
         return await execute(argv,'core',label,cwd=ROOT,env=env,timeout=timeout,expected=expected,input=input,campaign=campaign)
+    probe=None;minor=None
+    if compiler:
+        probe=await run([compiler,'version'],'archive-controls-installed-compiler-version')
+        version=re.search(r'go version go1\.(\d+)',probe['output'])
+        if version is None:raise ValueError('Unrecognized installed Go compiler prerequisite')
+        minor=int(version.group(1))
+    if minor is None or minor<25:
+        from readiness_bootstrap_go import main as bootstrap
+        bootstrap(owned=RAW/'toolchain')
+        compiler=str(RAW/'toolchain/go/bin'/('go.exe' if os.name=='nt' else 'go'))
+    immutable_json(root/'compiler-prerequisite.json',dict(installed_probe_attempt=probe['id'] if probe else None,
+        installed_go_minor=minor,selected_compiler=str(compiler),selected_compiler_sha256=sha256(compiler),
+        owned_sdk_used=minor is None or minor<25))
     built=await run([compiler,'build','-buildvcs=false','-o',fixture,'./cmd/fixture'],'archive-controls-fixture-build',timeout=180)
     build=dict(fixture_relative_path=fixture.relative_to(ROOT).as_posix(),fixture_sha256=sha256(fixture),
         fixture_source_sha256=sha256(ROOT/'cmd/fixture/main.go'),compiler_sha256=sha256(compiler),

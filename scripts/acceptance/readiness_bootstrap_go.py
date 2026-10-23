@@ -9,18 +9,23 @@ import time
 import urllib.request
 import zipfile
 
-from readiness_evidence import RAW, immutable_json
+from readiness_evidence import RAW, ROOT, immutable_json
 
 VERSION='go1.25.0'
 
 
-def main():
+def main(*, owned=None):
     host={'Linux':'linux','Darwin':'darwin','Windows':'windows'}[platform.system()]
     machine=platform.machine().lower()
     arch={'x86_64':'amd64','amd64':'amd64','arm64':'arm64','aarch64':'arm64'}[machine]
     extension='.zip' if host=='windows' else '.tar.gz'
     name=f'{VERSION}.{host}-{arch}{extension}'
-    owned=RAW/'toolchain'
+    owned=RAW/'toolchain' if owned is None else Path(owned)
+    owned=owned.resolve()
+    owned.relative_to((ROOT/'artifacts').resolve())
+    for parent in [owned,*owned.parents]:
+        if parent==ROOT:break
+        if parent.is_symlink() or getattr(parent,'is_junction',lambda:False)():raise RuntimeError('linked owned SDK ancestor')
     owned.mkdir(parents=True,exist_ok=True)
     if (owned/'go').exists():raise RuntimeError('refuse to overwrite an existing SDK')
     started=time.monotonic()

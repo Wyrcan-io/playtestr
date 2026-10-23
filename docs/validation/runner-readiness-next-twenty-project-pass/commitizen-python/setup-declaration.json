@@ -1,0 +1,47 @@
+{
+  "authoring_window": {
+    "handwritten_json": false,
+    "max_playtestr_invocations": 5,
+    "max_recorder_controls": 20,
+    "planned_controls": 20
+  },
+  "backend": "uv_build",
+  "backend_scope": "Standard declared uv_build PEP517/660 backend; inspected shim invokes the exact hash-bound uv-build executable. Offline no-deps editable installation; official wheel hashes checked before executing backend.",
+  "execution_scope": "Only synthetic project configuration through cz init; explicitly owned empty Git boundary, no real repository, commit/tag/push, pre-commit installation, user hooks or external services. Clean venv exposes only reviewed builtin entry points.",
+  "human_participants": 0,
+  "license": "MIT",
+  "module": "commitizen",
+  "pin": "b78d581f7e3089fa40bcd4794591fd56b43b671a",
+  "planned_hosts": [
+    "linux",
+    "windows"
+  ],
+  "repository": "commitizen-tools/commitizen",
+  "resource_forecast": {
+    "output_bytes": 4194304,
+    "retained_project_bytes": 67108864,
+    "runtime_bytes": 268435456,
+    "scenario_seconds": 120,
+    "setup_seconds": 1200,
+    "source_bytes": 4194304,
+    "step_seconds": 10
+  },
+  "reviewed_source": [
+    "pyproject.toml",
+    "LICENSE",
+    "commitizen/__main__.py",
+    "commitizen/cli.py",
+    "commitizen/commands/init.py",
+    "commitizen/config/factory.py",
+    "commitizen/config/toml_config.py",
+    "commitizen/config/json_config.py",
+    "commitizen/config/yaml_config.py",
+    "commitizen/config/base_config.py",
+    "commitizen/defaults.py",
+    "commitizen/project_info.py",
+    "commitizen/git.py",
+    "commitizen/cmd.py",
+    "commitizen/cz/__init__.py"
+  ],
+  "schema_version": 1
+}

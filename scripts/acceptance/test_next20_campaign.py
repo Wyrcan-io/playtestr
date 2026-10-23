@@ -20,6 +20,31 @@ class NextCampaignTests(unittest.TestCase):
         self.root=RAW/'control-tests'/uuid.uuid4().hex
         self.campaign=NextCampaign(self.root)
 
+    def test_uppercase_compiler_identity_binds_actual_source_and_tool_bytes(self):
+        from next20_archive_controls import ArchiveControlCampaign
+        compiler=self.root/'compiler/go.EXE';compiler.parent.mkdir(parents=True)
+        compiler.write_bytes(b'synthetic identity-only compiler control\n')
+        campaign=ArchiveControlCampaign(self.root)
+        reference=campaign.identity('core',[compiler,'version'])
+        value=json.loads((self.root/reference['manifest']).read_text())
+        self.assertEqual(value['runtime_executables']['go'],sha256(compiler))
+        self.assertEqual(value['files']['cmd/fixture/main.go'],sha256(ROOT/'cmd/fixture/main.go'))
+        self.assertEqual(value['read_only_compiler_path'],str(compiler.resolve()))
+
+    def test_sdk_root_argument_preserves_default_and_uses_explicit_owned_root(self):
+        from unittest.mock import patch
+        import readiness_bootstrap_go as bootstrap
+        class StopBeforeNetwork(Exception):pass
+        historical_root=bootstrap.RAW
+        default_root=self.root/'default-campaign'
+        explicit=self.root/'explicit-campaign/toolchain'
+        with patch.object(bootstrap,'RAW',default_root),patch.object(bootstrap.urllib.request,'urlopen',side_effect=StopBeforeNetwork):
+            with self.assertRaises(StopBeforeNetwork):bootstrap.main()
+            self.assertTrue((default_root/'toolchain').is_dir())
+            with self.assertRaises(StopBeforeNetwork):bootstrap.main(owned=explicit)
+            self.assertTrue(explicit.is_dir())
+        self.assertEqual(bootstrap.RAW,historical_root)
+
     def test_exclusive_events_have_new_campaign_without_changing_historical_default(self):
         self.assertNotEqual(RAW,ORIGINAL_RAW)
         self.assertEqual(Campaign.__init__.__defaults__,(ORIGINAL_RAW,))

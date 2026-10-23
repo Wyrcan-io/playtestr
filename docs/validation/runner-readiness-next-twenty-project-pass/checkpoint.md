@@ -192,3 +192,62 @@ Automatic approval reviewer previously refused the next preflight due service
 usage limit, before execution; no bypass. On this resume the exact required
 operations were available again. Failed native action was reexecuted only after
 service restoration. Source/push/workflow authorization remains recorded.
+
+
+jrnl admission passed actual full-package audit `34ba435bbd964b87b4c746f14e5ef925`:
+1/20 new, cumulative 11/100; qualified 20 scenarios/2 cells/480 ordinary/18
+calibrations/3 real faults, plus twelve separate delivered-CI observations.
+All jrnl fourteen native generations retained, audited and expanded-removed;
+project bytes remain under 64 MiB. Original four development failures explicitly
+remain exit_mismatch/1, rather than being relabelled as passed expected failures.
+A first admission auditor mistake demanding all historical commands pass is
+retained (`aa45b4aea85e450eb31c102fe2b6f746`) before the corrected audit.
+
+Public controls native run `39971493451` failed before target tests: Linux/Windows
+default Go is 1.24.13; macOS has no Go on PATH. Exact archive installation passed.
+All first packets retained in product-controls generations 1/2/3, checked-expanded
+removed. Adapter now probes existing compiler and falls back only if absent/old
+to checksum-verified Go1.25.0 in new RAW/toolchain. Shared bootstrap gains an
+explicit owned root while preserving its historical default. Nine local helper
+controls passed including real metadata identity and root-default regression,
+`ba735e8c752543e38c0968d104c5d772`. No global SDK install authorized/performed.
+Commit/push new source, wait actual helper jobs, dispatch declared replacement.
+
+Second source acquired: commitizen-tools/commitizen at b78d581f7e3089fa40bcd4794591fd56b43b671a,
+439 files/2,796,139 bytes; wrapper `b071f86fd64245f6b6d3633cca1d1552`.
+Owned active/commitizen-python only. No target installed/executed yet.
+Wheel-only fetch stopped at reviewed-script guard for declared uv_build's
+uv-build.exe (`783e268faed949b4b572873724415dfb`). Inspected its standard PEP517/660
+shim and exact binary wheel metadata, allowed only its explicit offline backend
+script hash, resumed existing wheel review without redownload (`e71c202dbf9445f8af59e240267a314b`).
+16 wheels downloaded; primary PyPI digest/tree/source review still before install.
+Generic Python setup now supports project-specific module/version and explicit
+review-only resume; historical jrnl profile remains. Fetch guard failure is setup,
+not product failure or an authoring window. Planned first-use cz init: seven
+ready prompt/default Enter pairs plus completion, exact exit, file/review/replay/save
+=20 controls; no handwritten Playtestr JSON. Git boundary/hook exclusions explicit.
+
+
+Commitizen setup completed. Correction: acquisition's 439 count is archive entries,
+including directories; actual independently verified regular Git blobs are 398,
+wrapper `114057cff41e4c389a33f852d5425d50`, plus 16 primary PyPI digests.
+Offline install succeeded; initial version check wrongly used unsupported --version
+(exit13), preserved `2d5084bb00024363819922ffcc54e78f`. Verified the existing
+unchanged runtime instead of reinstalling, using documented `version --commitizen`,
+`6319c052e0744e1bb719f997f37f86b4`, actual4.19.2. No authoring counts hidden.
+Editable commitizen.pth contains only the owned pinned source path.
+
+First measured public record/review/replay/export/ordinary-test route passed:
+`a04c72236ce84214a9bdf2c2acea717e`, three Playtestr invocations/twenty controls,
+exact independently derived default .cz.toml, positive completion/exit and cleanup.
+No handwritten Playtestr JSON. first-use.json records actual named IDs/hashes.
+Explicit hidden minimal Git boundary reconstruction `next20_fixture_git.py` uses
+fixture-git.json bytes/directories, verified `308bc62667dd49bf83b71828855924de`.
+Stage explicit fixture/sentinel.txt only; never stage the nested .git directory.
+Next declare twenty useful cases and build shared native profiles; freeze before
+three real source mutations. Only Commitizen active, jrnl target absent.
+
+Before next native public-control replacement: commit SDK fallback repair and
+nine-test source; wait actual new helper matrix, then dispatch the predeclared
+three-host controls. First failed packets are retained under product-controls
+v1/v2/v3 and expansions removed. No native 105-control success credit yet.
