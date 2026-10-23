@@ -1,0 +1,11 @@
+--- a/commitizen/commands/init.py
++++ b/commitizen/commands/init.py
+@@ -198,7 +198,7 @@
+ 
+     def _ask_config_path(self) -> Path:
+         filename: str = questionary.select(
+-            "Please choose a supported config file: ",
++            "Please choose a broken config file: ",
+             choices=CONFIG_FILES,
+             default=project_info.get_default_config_filename(),
+             style=self.cz.style,

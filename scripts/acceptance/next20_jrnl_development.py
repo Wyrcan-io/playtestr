@@ -9,8 +9,8 @@ from next20_python_setup import environment
 from readiness_evidence import immutable_json,sha256
 
 
-async def main():
-    package=DOC/'jrnl';target=RAW/'active/jrnl';campaign=NextCampaign()
+async def main(project='jrnl'):
+    package=DOC/project;target=RAW/'active'/project;campaign=NextCampaign()
     declaration=json.loads((package/'scenarios.json').read_text())
     env=environment(target)
     inventory=json.loads((target/'installed-inventory.json').read_text())['files']
@@ -18,19 +18,19 @@ async def main():
         for name,digest in inventory.items():
             if sha256(target/'venv'/name)!=digest:raise ValueError('installed dependencies changed: '+name)
     dependencies()
-    root=RAW/'jrnl/development'/uuid.uuid4().hex;root.mkdir(parents=True)
+    root=RAW/project/'development'/uuid.uuid4().hex;root.mkdir(parents=True)
     runner=RAW/'candidate/windows/playtestr.exe'
     results=[]
     for case in declaration['cases']:
         spec=package/case['spec']
         if sha256(spec)!=case['spec_sha256']:raise ValueError('undeclared development contract change')
         report=root/(case['id']+'.report.json')
-        planned=dict(project='jrnl',case=case['id'],phase='development',spec=spec.relative_to(ROOT).as_posix(),
+        planned=dict(project=project,case=case['id'],phase='development',spec=spec.relative_to(ROOT).as_posix(),
             spec_sha256=sha256(spec),runner_sha256=sha256(runner),runtime_sha256=sha256(target/'runtime.json'),
             source_build_sha256=sha256(target/'build.json'),expected_runner_exit=0)
         immutable_json(root/(case['id']+'.planned.json'),planned)
         try:
-            result=await execute([runner,'test','--report',report,spec],'jrnl','development-'+case['id'],
+            result=await execute([runner,'test','--report',report,spec],project,'development-'+case['id'],
                 cwd=ROOT,env=env,timeout=140,campaign=campaign)
             eid=result['id']
         except RuntimeError as error:

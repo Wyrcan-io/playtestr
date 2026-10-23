@@ -28,17 +28,17 @@ def primary_json(url):
     return json.loads(data)
 
 
-async def main():
+async def main(project='jrnl'):
     if platform.system() not in {'Linux','Windows'}:raise ValueError('undeclared jrnl native host')
     host='windows' if os.name=='nt' else 'linux'
-    package=DOC/'jrnl';target=RAW/'active/jrnl';campaign=NextCampaign()
+    package=DOC/project;target=RAW/'active'/project;campaign=NextCampaign()
     lock=json.loads((package/'native-runtime-lock.json').read_text())
-    if not lock['reviewed_linux_additions']:raise ValueError('Linux dependency review absent')
+    if project=='jrnl' and not lock['reviewed_linux_additions']:raise ValueError('Linux dependency review absent')
     if target.exists():raise ValueError('target already active; do not overwrite or repeat native preparation')
     # The source acquirer owns its path/pin/entry/byte checks and runs no hooks.
     previous=sys.argv
     try:
-        sys.argv=['next20_acquire.py','jrnl'];acquire_main()
+        sys.argv=['next20_acquire.py',project];acquire_main()
     finally:sys.argv=previous
     marker=json.loads((target/'task-owned.json').read_text());source=target/'src'
     provenance=json.loads((package/'source-provenance.json').read_text())
@@ -50,7 +50,7 @@ async def main():
         if sha256(source/name)!=digest:raise ValueError('reviewed target source/backend changed: '+name)
     env=environment(target)
     async def run(argv,label):
-        return await execute(argv,'jrnl',label,cwd=source,env=env,timeout=600,campaign=campaign)
+        return await execute(argv,project,label,cwd=source,env=env,timeout=600,campaign=campaign)
     candidates=[]
     if sys.version_info[:2]==(3,12):candidates.append(Path(sys.executable))
     if os.environ.get('Python3_12_ROOT_DIR'):
@@ -80,22 +80,35 @@ async def main():
         with zipfile.ZipFile(path) as archive:
             infos=archive.infolist()
             if len(infos)>10000 or sum(i.file_size for i in infos)>128*1024**2:raise ValueError('native wheel expanded bound')
-            if any(i.filename.endswith('.pth') or '.data/scripts/' in i.filename for i in infos):raise ValueError('new native wheel startup hook')
+            if any(i.filename.endswith('.pth') for i in infos):raise ValueError('new native wheel startup hook')
+            scripts={i.filename:hashlib.sha256(archive.read(i)).hexdigest() for i in infos if '.data/scripts/' in i.filename}
+            if scripts:
+                approved=lock.get('backend_script')
+                suffix='.exe' if os.name=='nt' else ''
+                if not approved or len(scripts)!=1 or not next(iter(scripts)).endswith('/'+approved['name']+suffix):
+                    raise ValueError('new native wheel script not reviewed')
+                if hashlib.sha256(archive.read(approved['shim_file'])).hexdigest()!=approved['shim_sha256']:
+                    raise ValueError('native backend Python shim differs from reviewed source')
             names=[i.filename for i in infos if i.filename.endswith('.dist-info/METADATA')]
             if len(names)!=1:raise ValueError('native wheel metadata coverage')
             data=archive.read(names[0]);info=BytesParser().parsebytes(data)
         name=info['Name'].lower().replace('_','-');version=info['Version']
         if lock['versions'].get(name)!=version:raise ValueError('unreviewed native dependency version: '+name)
+        if scripts:
+            approved=lock['backend_script'];suffix='.exe' if os.name=='nt' else ''
+            if name!=approved['distribution'] or set(scripts)!={name.replace('-','_')+'-'+version+'.data/scripts/'+approved['name']+suffix}:
+                raise ValueError('native backend executable distribution/path differs from reviewed package')
         # Bind native extension wheel bytes independently to the primary release,
         # rather than trusting a filename or a locally calculated digest alone.
         primary=primary_json('https://pypi.org/pypi/'+name+'/'+version+'/json')
         matched=[r for r in primary['urls'] if r['filename']==path.name and r['digests']['sha256']==sha256(path)]
         if len(matched)!=1:raise ValueError('native wheel absent from primary release digest inventory')
         wheel_inventory[path.name]=dict(bytes=path.stat().st_size,sha256=sha256(path),url=matched[0]['url'])
-        wheel_reviews.append(dict(name=name,version=version,metadata_sha256=hashlib.sha256(data).hexdigest(),startup_hooks=False))
+        wheel_reviews.append(dict(name=name,version=version,metadata_sha256=hashlib.sha256(data).hexdigest(),startup_hooks=False,reviewed_scripts=scripts))
     immutable_json(target/'wheels.json',wheel_inventory)
     immutable_json(target/'dependency-review.json',dict(approved=True,reviewed_version_lock_sha256=sha256(package/'native-runtime-lock.json'),
-        wheels=wheel_reviews,scope='Frozen reviewed versions, primary release wheel digests, no source distributions/startup hooks; null keyring and synthetic unencrypted journal only.'))
+        wheels=wheel_reviews,scope='Frozen reviewed versions, primary release wheel digests, no source distributions/startup hooks; only declared synthetic project interactions.'))
+    if project!='jrnl':env['PATH']=str(python.parent)+os.pathsep+env['PATH']
     await run([python,'-B','-m','pip','install','--no-index','--find-links',wheels,'--only-binary=:all:',
         '--constraint',constraints,'-r',requirements],'native-offline-reviewed-dependencies')
     await run([python,'-B','-m','pip','install','--no-index','--no-deps','--no-build-isolation',
@@ -108,15 +121,19 @@ async def main():
     immutable_json(target/'runtime.json',dict(python=str(python),python_sha256=sha256(python),
         base_python=str(base_python),base_python_sha256=sha256(base_python),source_pin=marker['pin'],
         installed_inventory_sha256=sha256(target/'installed-inventory.json')))
-    version=await run([python,'-B','-m','jrnl','--version'],'native-built-target-version')
-    if 'jrnl v4.6' not in version['output']:raise ValueError('native target version mismatch')
+    module=lock.get('module','jrnl');version_args=lock.get('version_args',['--version'])
+    version=await run([python,'-B','-m',module,*version_args],'native-built-target-version')
+    if lock.get('expected_version','jrnl v4.6') not in version['output']:raise ValueError('native target version mismatch')
     immutable_json(target/'build.json',dict(pin=marker['pin'],source_editable=True,source_pyproject_sha256=sha256(source/'pyproject.toml'),
         wheels_sha256=sha256(target/'wheels.json'),runtime_sha256=sha256(target/'runtime.json'),version_attempt=version['id'],
         observed_target_bytes=measure(target)['total_bytes']))
     if measure(target)['total_bytes']>256*1024**2:raise ValueError('native runtime forecast exceeded')
     # Copy reviewed inputs only. A native argv/EOF profile is explicit, with the
     # canonical spec, actual native spec and every exact fixture byte bound.
-    contracts=RAW/'jrnl/host-contracts';contracts.mkdir(parents=True)
+    if (package/'fixture-git.json').is_file():
+        from next20_fixture_git import reconstruct
+        reconstruct(package)
+    contracts=RAW/project/'host-contracts';contracts.mkdir(parents=True)
     declaration=json.loads((package/'scenarios.json').read_text());canonical=json.loads((package/'development-test-freeze.json').read_text())
     for name,digest in canonical['inputs'].items():
         path=package/name
@@ -128,22 +145,24 @@ async def main():
     for case in declaration['cases']:
         spec=json.loads((package/case['spec']).read_text())
         spec['command'][0]=os.path.relpath(python,contracts).replace('\\','/')
-        if host=='linux' and case['id']=='N06':
+        if project=='jrnl' and host=='linux' and case['id']=='N06':
             steps=spec['steps'];index=next(i for i,s in enumerate(steps) if s.get('key')=='CtrlZ')
             if steps[index+1]!={'key':'Enter'}:raise ValueError('native EOF control group changed')
             spec['steps']=steps[:index]+[{'key':'CtrlD'}]+steps[index+2:]
+        if project=='commitizen-python' and host=='linux':
+            spec['env']['PATH']='/usr/bin:/bin';spec['env']['GIT_CONFIG_GLOBAL']='/dev/null'
         immutable_json(contracts/case['spec'],spec)
         cases.append(dict(case,canonical_sha256=case['spec_sha256'],spec_sha256=sha256(contracts/case['spec'])))
     declaration['cases']=cases;declaration['host']=host
     immutable_json(contracts/'scenarios.json',declaration)
     frozen_files={p.relative_to(contracts).as_posix():sha256(p) for p in contracts.rglob('*') if p.is_file()}
     immutable_json(contracts/'development-test-freeze.json',dict(canonical_freeze_sha256=sha256(package/'development-test-freeze.json'),
-        inputs=frozen_files,profile='Native copied Python path; Unix N06 EOF CtrlD replaces the documented Windows CtrlZ+Enter group. All semantic saved bytes and other actions unchanged.'))
-    immutable_json(RAW/'jrnl/native-prepared.json',dict(schema_version=1,host=host,pin=marker['pin'],
+        inputs=frozen_files,profile=lock.get('native_profile','Native copied Python path; Unix N06 EOF CtrlD replaces the documented Windows CtrlZ+Enter group. All semantic saved bytes and other actions unchanged.')))
+    immutable_json(RAW/project/'native-prepared.json',dict(schema_version=1,host=host,pin=marker['pin'],
         target_archive_sha256=sha256(target/'source.tar.gz'),runtime_sha256=sha256(target/'runtime.json'),
         build_sha256=sha256(target/'build.json'),host_contract_freeze_sha256=sha256(contracts/'development-test-freeze.json'),
         target_bytes=measure(target)['total_bytes'],new_project_admissions=0))
-    print('Prepared reviewed native jrnl runtime and exact host profile:',host,'twenty cases; no execution/admission credit.')
+    print('Prepared reviewed native',project,'runtime and exact host profile:',host,'twenty cases; no execution/admission credit.')
 
 
 if __name__=='__main__':asyncio.run(main())

@@ -3,6 +3,7 @@ import argparse
 from datetime import datetime,timezone
 import json
 import os
+import re
 from pathlib import Path
 import shutil
 import subprocess
@@ -34,8 +35,9 @@ def target_inventory(target):
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--project',choices=['jrnl'],required=True)
+    parser=argparse.ArgumentParser();parser.add_argument('--project',required=True)
     parser.add_argument('--prepare-only',action='store_true');args=parser.parse_args()
+    if not re.fullmatch('[a-z][a-z0-9-]{0,63}',args.project):raise ValueError('unsafe target cleanup slug')
     target=RAW/'active'/args.project
     target.resolve(strict=True).relative_to(RAW/'active')
     for ancestor in [ROOT/'artifacts',RAW,RAW/'active',target]:

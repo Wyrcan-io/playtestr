@@ -1,4 +1,4 @@
-param([Parameter(Mandatory=$true)][ValidateSet('jrnl')][string]$Project)
+param([Parameter(Mandatory=$true)][ValidatePattern('^[a-z][a-z0-9-]{0,63}$')][string]$Project)
 $ErrorActionPreference='Stop'
 $workspace=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
 $campaign=Join-Path $workspace 'artifacts\runner-readiness-next-twenty-project-pass'

@@ -14,17 +14,19 @@ from next20_python_setup import environment
 from readiness_evidence import immutable_json,sha256
 
 
-async def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--batch',type=int,required=True);args=parser.parse_args()
+async def main(project='jrnl',batch=None):
+    if batch is None:
+        parser=argparse.ArgumentParser();parser.add_argument('--batch',type=int,required=True);args=parser.parse_args()
+    else:args=argparse.Namespace(batch=batch)
     if not 0<=args.batch<12:raise ValueError('undeclared final batch')
     host='windows' if os.name=='nt' else 'linux'
-    declaration=json.loads((DOC/'jrnl/final-series-declaration.json').read_text())
+    declaration=json.loads((DOC/project/'final-series-declaration.json').read_text())
     if host not in declaration['hosts']:raise ValueError('undeclared host')
-    root=RAW/'jrnl/final-series'/str(args.batch)
+    root=RAW/project/'final-series'/str(args.batch)
     root.mkdir(parents=True,exist_ok=False)
-    canonical=RAW/'jrnl/host-contracts';package=root/('relocated café 雪' if args.batch==5 else 'contracts')
+    canonical=RAW/project/'host-contracts';package=root/('relocated café 雪' if args.batch==5 else 'contracts')
     shutil.copytree(canonical,package)
-    source=RAW/'active/jrnl';runtime=json.loads((source/'runtime.json').read_text());python=Path(runtime['python'])
+    source=RAW/'active'/project;runtime=json.loads((source/'runtime.json').read_text());python=Path(runtime['python'])
     inventory=json.loads((source/'installed-inventory.json').read_text())['files']
     def dependencies():
         for name,digest in inventory.items():
@@ -77,7 +79,7 @@ async def main():
     if sha256(runner)!=install['binary_sha256']:raise ValueError('wrong final archive binary')
     env=environment(source);campaign=NextCampaign(phase='final-archive')
     immutable_json(root/'prepared.json',dict(schema_version=1,host=host,batch=args.batch,
-        declaration_sha256=sha256(DOC/'jrnl/final-series-declaration.json'),changes=changes,
+        declaration_sha256=sha256(DOC/project/'final-series-declaration.json'),changes=changes,
         runner_sha256=sha256(runner),archive_sha256=install['archive_sha256'],
         actual_python=python.relative_to(ROOT).as_posix(),actual_python_sha256=sha256(python),
         actual_runtime_catalog_sha256=sha256(root/'runtime-catalog.json'),
@@ -93,7 +95,7 @@ async def main():
         # No per-case retries: any failure rejects this series, with all existing
         # attempts preserved. Replacement requires an explicit new declaration.
         result=await execute([runner,'test','--report',report.relative_to(ROOT),'--artifacts-dir',
-            (root/'evidence').relative_to(ROOT),spec.relative_to(ROOT)],'jrnl','final-batch-'+str(args.batch)+'-'+case['id'],
+            (root/'evidence').relative_to(ROOT),spec.relative_to(ROOT)],project,'final-batch-'+str(args.batch)+'-'+case['id'],
             cwd=ROOT,env=env,timeout=140,load=args.batch in {8,9},campaign=campaign)
         row=json.loads(report.read_text())['results'][0]
         if row['status']!='passed' or any(s['status']!='passed' for s in row['steps']):raise ValueError('nonpositive final steps')

@@ -1,0 +1,73 @@
+{
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/commitizen-python/venv/Scripts/python.exe",
+    "-B",
+    "-m",
+    "commitizen",
+    "init"
+  ],
+  "env": {
+    "GIT_CONFIG_GLOBAL": "nul",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_TERMINAL_PROMPT": "0",
+    "PATH": "C:\\Program Files\\Git\\cmd;C:\\WINDOWS\\System32",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHONNOUSERSITE": "1",
+    "TZ": "UTC"
+  },
+  "height": 32,
+  "inherit_env": [
+    "SYSTEMROOT",
+    "WINDIR"
+  ],
+  "max_output_bytes": 2000000,
+  "name": "Cancel before choosing a configuration file",
+  "run_timeout_ms": 120000,
+  "steps": [
+    {
+      "expect": "supported config file:"
+    },
+    {
+      "key": "CtrlC"
+    },
+    {
+      "expect": "Stopped by user"
+    },
+    {
+      "exit": 25
+    },
+    {
+      "state": {
+        "kind": "absent",
+        "path": ".cz.toml"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "VW5yZWxhdGVkIHN5bnRoZXRpYyBwcm9qZWN0IGZpbGUgc3RheXMgdW5jaGFuZ2VkLgo=",
+        "kind": "file",
+        "path": "sentinel.txt"
+      }
+    },
+    {
+      "state": {
+        "entries": [
+          ".git",
+          "sentinel.txt"
+        ],
+        "kind": "entries",
+        "path": "."
+      }
+    }
+  ],
+  "timeout_ms": 10000,
+  "version": 3,
+  "width": 120,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/e01",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

@@ -5,10 +5,10 @@ from next20_check import DOC,RAW,ROOT
 from readiness_evidence import immutable_json,sha256
 
 
-def main():
-    package=DOC/'jrnl';declaration=json.loads((package/'scenarios.json').read_text())
+def main(project='jrnl',exposure=None):
+    package=DOC/project;declaration=json.loads((package/'scenarios.json').read_text())
     summaries=[]
-    for path in (RAW/'jrnl/development').glob('*/summary.json'):
+    for path in (RAW/project/'development').glob('*/summary.json'):
         value=json.loads(path.read_text())
         if value['passed']==20 and value['failed']==0 and value['declaration_sha256']==sha256(package/'scenarios.json'):
             summaries.append(path)
@@ -29,7 +29,7 @@ def main():
         scenarios_sha256=sha256(package/'scenarios.json'),inputs=inputs,directories=sorted(set(directories)),
         positive_development_summary=summaries[0].relative_to(ROOT).as_posix(),positive_summary_sha256=sha256(summaries[0]),
         ordinary_development_cases=20,final_ordinary_credit=0,
-        exposure='Normal target source/docs and three earlier failed oracle/message assumptions plus the retained upstream reorder limitation are already known. No source mutation has yet been applied.'))
+        exposure=exposure or 'Normal target source/docs and three earlier failed oracle/message assumptions plus the retained upstream reorder limitation are already known. No source mutation has yet been applied.'))
     print('Froze twenty current reviewed contracts and',len(inputs),'exact files before source-fault selection.')
 
 

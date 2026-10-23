@@ -1,0 +1,36 @@
+{
+  "additional_terminal_only_calibrations_per_host": 1,
+  "exposure": "Source and ordinary workflows exposed; concrete edits selected only after twenty successful cases were frozen. Not human/untouched-source transfer.",
+  "faults": [
+    {
+      "after": "\"Please choose a broken config file: \"",
+      "before": "\"Please choose a supported config file: \"",
+      "category": "assertion_timeout",
+      "id": "F01",
+      "meaning": "Incorrect initial prompt prevents approved ready/input sequence.",
+      "path": "commitizen/commands/init.py"
+    },
+    {
+      "after": "        out.success(\"Configuration complete \ud83d\ude80\")\n        raise SystemExit(7)\n",
+      "before": "        out.success(\"Configuration complete \ud83d\ude80\")\n",
+      "category": "unexpected_exit",
+      "id": "F02",
+      "meaning": "Successful saved configuration incorrectly exits7 after normal completion.",
+      "path": "commitizen/commands/init.py"
+    },
+    {
+      "after": "config_doc[\"tool\"][\"commitizen\"][key] = \"$versioX\" if key == \"tag_format\" else value",
+      "before": "config_doc[\"tool\"][\"commitizen\"][key] = value",
+      "category": "state_assertion_failure",
+      "id": "F03",
+      "meaning": "Same-size wrong saved tag template after successful prompt completion and zero exit.",
+      "path": "commitizen/config/toml_config.py",
+      "terminal_only_probe": true
+    }
+  ],
+  "primary_spec": "normal-init-portable.json",
+  "project": "commitizen-python",
+  "required_calibrations_per_host": 9,
+  "schema_version": 1,
+  "selected_after_freeze_sha256": "d21a478aa929e4a922736561ddd7488954c223870c7920ddca7827fc6791dea3"
+}

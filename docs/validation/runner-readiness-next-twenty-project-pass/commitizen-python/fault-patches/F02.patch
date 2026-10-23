@@ -1,0 +1,10 @@
+--- a/commitizen/commands/init.py
++++ b/commitizen/commands/init.py
+@@ -153,6 +153,7 @@
+         out.write("\nYou can bump the version running:\n")
+         out.info("\tcz bump\n")
+         out.success("Configuration complete 🚀")
++        raise SystemExit(7)
+ 
+     def _ask_hook_types(self) -> list[str] | None:
+         """Ask which pre-commit hook types to install.

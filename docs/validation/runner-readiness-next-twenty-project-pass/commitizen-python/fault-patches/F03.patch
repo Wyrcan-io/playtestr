@@ -1,0 +1,11 @@
+--- a/commitizen/config/toml_config.py
++++ b/commitizen/config/toml_config.py
+@@ -46,7 +46,7 @@
+     def set_key(self, key: str, value: object) -> Self:
+         config_doc = parse(self.path.read_bytes())
+ 
+-        config_doc["tool"]["commitizen"][key] = value  # type: ignore[index]
++        config_doc["tool"]["commitizen"][key] = "$versioX" if key == "tag_format" else value  # type: ignore[index]
+         self.path.write_bytes(config_doc.as_string().encode(self._settings["encoding"]))
+ 
+         return self

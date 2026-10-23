@@ -1,0 +1,348 @@
+{
+  "all_scenarios_qualified": false,
+  "cases": [
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N01",
+      "initial_fixture": "fixture",
+      "kind": "normal",
+      "risk": "Exact saved defaults and public authoring",
+      "spec": "normal-init-portable.json",
+      "spec_sha256": "ecb61efca981b725a5213b9edf34e73bdf4239fbeebdbfac47d321e8bd9b34ed",
+      "task": "Create default hidden TOML configuration"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N02",
+      "initial_fixture": "fixture",
+      "kind": "normal",
+      "risk": "Exact saved defaults and reviewed screen",
+      "spec": "normal-plain-toml.json",
+      "spec_sha256": "7d06262538ccef304adb362ea30cf2101e28bf72d82a87c468be78ae703eee94",
+      "task": "Choose plain TOML filename and approve final rendered screen"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N03",
+      "initial_fixture": "fixtures/n03",
+      "kind": "normal",
+      "risk": "Different supported serialization",
+      "spec": "n03.json",
+      "spec_sha256": "8cfca125e00494fc8c1db88872d8a5012d46c63c70fd3af7166abcd001658eb9",
+      "task": "Create JSON configuration with exact ordered defaults"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N04",
+      "initial_fixture": "fixtures/n04",
+      "kind": "normal",
+      "risk": "Different supported serialization",
+      "spec": "n04.json",
+      "spec_sha256": "086ac9e574dce6f9d49f2a923ca160281af74d5af4beb83435ca071ac3dea830",
+      "task": "Create YAML configuration with exact defaults"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N05",
+      "initial_fixture": "fixtures/n05",
+      "kind": "normal",
+      "risk": "Associate selected convention with saved name",
+      "spec": "n05.json",
+      "spec_sha256": "4d11662813e5a0bf9f9122ae219b9ee61f2caa33f6e671342988b9c230ab676c",
+      "task": "Choose Jira commit convention and persist it"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N06",
+      "initial_fixture": "fixtures/n06",
+      "kind": "normal",
+      "risk": "Explicit negative confirmation omits enabled setting",
+      "spec": "n06.json",
+      "spec_sha256": "e99160df0f8166265881e60bd06fc8429e4319b4faea469c0cdca3d0c74c15a9",
+      "task": "Opt out of automatic changelog generation"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N07",
+      "initial_fixture": "fixtures/n07",
+      "kind": "normal",
+      "risk": "Explicit negative confirmation preserves other defaults",
+      "spec": "n07.json",
+      "spec_sha256": "c161edd350c592d3f400a7f5fa741a3e048024a63ba93df5522ba85d0cdf1f09",
+      "task": "Opt out of keeping major version zero"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N08",
+      "initial_fixture": "fixtures/n08",
+      "kind": "normal",
+      "risk": "Text input is persisted exactly",
+      "spec": "n08.json",
+      "spec_sha256": "e87cb9feadd88bede4290b95f054b5c561573d74a0e28a72bedb6bf5a9a1950b",
+      "task": "Save a custom release tag format"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 25,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E01",
+      "initial_fixture": "fixtures/e01",
+      "kind": "edge",
+      "risk": "Cancellation without partial creation",
+      "spec": "e01.json",
+      "spec_sha256": "a19ee5a3f6ecad2aff7ae0fbf3ead1dd0c1175bf06a671d721a75cabf978eb26",
+      "task": "Cancel before choosing a configuration file"
+    },
+    {
+      "combined_risks": [
+        "multi-step selection",
+        "cancellation",
+        "absence"
+      ],
+      "expected_exit": 25,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E02",
+      "initial_fixture": "fixtures/e02",
+      "kind": "edge",
+      "risk": "Prior prompt progress must not create a partial file",
+      "spec": "e02.json",
+      "spec_sha256": "451ec24f10fea561a7dab0730a1514e4ba3710b603f46bdb3c9ead5cec4286bf",
+      "task": "Cancel after selecting filename, convention and provider"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E03",
+      "initial_fixture": "fixtures/e03",
+      "kind": "edge",
+      "risk": "Existing project must not be silently reinitialized",
+      "spec": "e03.json",
+      "spec_sha256": "b9dd3ef77593f96db247a63878e363b8d4ee603acc8c720cb260b06d2838db45",
+      "task": "Preserve an existing valid configuration"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 19,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E04",
+      "initial_fixture": "fixtures/e04",
+      "kind": "edge",
+      "risk": "Pre-interaction validation and exact failure exit",
+      "spec": "e04.json",
+      "spec_sha256": "16954500f7704ba8eed7c1745c5ae06fbb5c8dcf8811a2742493281df00593bd",
+      "task": "Reject malformed existing TOML without rewriting it"
+    },
+    {
+      "combined_risks": [
+        "interactive success path",
+        "wrong output type",
+        "preservation"
+      ],
+      "expected_exit": 1,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E05",
+      "initial_fixture": "fixtures/e05",
+      "kind": "edge",
+      "risk": "Wrong type survives failed completion",
+      "spec": "e05.json",
+      "spec_sha256": "ec3198ae1f46dd9d9b2d007404af9764c35adb2a5a2dfe7664e5f3b5abda026a",
+      "task": "Refuse writing a configuration where a directory exists"
+    },
+    {
+      "combined_risks": [
+        "Unicode text",
+        "template punctuation",
+        "saved UTF-8"
+      ],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E06",
+      "initial_fixture": "fixtures/e06",
+      "kind": "edge",
+      "risk": "UTF-8 input/rendering/saved bytes",
+      "spec": "e06.json",
+      "spec_sha256": "b0859212b4a44292ed6725f183754d8387236908f5bac541b0632a7a9a4c52a2",
+      "task": "Persist Unicode version-format input exactly"
+    },
+    {
+      "combined_risks": [
+        "wrapped input",
+        "Backspace correction",
+        "resize",
+        "saved exact value"
+      ],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E07",
+      "initial_fixture": "fixtures/e07",
+      "kind": "edge",
+      "risk": "Backspace and resize preserve the intended value",
+      "spec": "e07.json",
+      "spec_sha256": "4531b7a6fcc2cae5af17cae384ab370511a272068f4ea766fe799ad53d68e0b6",
+      "task": "Correct wrapped long input and resize before accepting it"
+    },
+    {
+      "combined_risks": [
+        "small viewport",
+        "wrapped prompts",
+        "saved defaults"
+      ],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E08",
+      "initial_fixture": "fixtures/e08",
+      "kind": "edge",
+      "risk": "Wrapped questionary prompts retain selection",
+      "spec": "e08.json",
+      "spec_sha256": "b30f9b8e6d88749938c538add7b6c5ac795529f67d772a96ce5d8af466b252d5",
+      "task": "Initialize correctly in a small terminal viewport"
+    },
+    {
+      "combined_risks": [
+        "existing metadata",
+        "automatic provider choice",
+        "exact preservation"
+      ],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E09",
+      "initial_fixture": "fixtures/e09",
+      "kind": "edge",
+      "risk": "Preserve unrelated project fields and choose detected provider",
+      "spec": "e09.json",
+      "spec_sha256": "5608b43a69173687a99e1c0768a11f0eda80c5a7d27efcb16bc41a9c56fa64f0",
+      "task": "Add Commitizen settings to existing project metadata"
+    },
+    {
+      "combined_risks": [
+        "literal punctuation",
+        "non-execution",
+        "exact entry set"
+      ],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E10",
+      "initial_fixture": "fixtures/e10",
+      "kind": "edge",
+      "risk": "Input punctuation must not create another file",
+      "spec": "e10.json",
+      "spec_sha256": "fbec4fb78b4f40c31edaeaeb695184db032f491fb77af99b1904acf81fab6d51",
+      "task": "Keep shell-looking tag-format text as saved data"
+    },
+    {
+      "combined_risks": [
+        "custom input",
+        "late cancellation",
+        "absence"
+      ],
+      "expected_exit": 25,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E11",
+      "initial_fixture": "fixtures/e11",
+      "kind": "edge",
+      "risk": "No partially accepted configuration survives",
+      "spec": "e11.json",
+      "spec_sha256": "c470243a87320320ca71a064ad04786af870c1f741f29d69e3072085770a1c6b",
+      "task": "Cancel at the final confirmation after custom text"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 1,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E12",
+      "initial_fixture": "fixtures/e12",
+      "kind": "edge",
+      "risk": "Visible setup error with exact nonzero exit",
+      "spec": "e12.json",
+      "spec_sha256": "77e68cdfe6c5017bf49f13062ee7e7cd855b4accdd8a60412c1919ea41acc8dd",
+      "task": "Reject an unavailable configured convention without changes"
+    }
+  ],
+  "development_revision": 3,
+  "edge": 12,
+  "exact_oracle": "Independently declared complete configuration bytes, sentinel preservation and exact entry sets; no target writer used to calculate expected state.",
+  "initial_route": "Original three/twenty local route preserved; selected portable route remeasured separately three/twenty after removing unnecessary personal venv PATH.",
+  "normal": 8,
+  "project": "commitizen-python",
+  "real_faults_selected_after_freeze": 0,
+  "schema_version": 1,
+  "source_pin": "b78d581f7e3089fa40bcd4794591fd56b43b671a",
+  "preexecution_review": "At width40, the full version-format label crosses the viewport boundary. Use its unique visible correct-version anchor; all key actions and exact saved bytes unchanged. Original unexecuted declarations retained."
+}

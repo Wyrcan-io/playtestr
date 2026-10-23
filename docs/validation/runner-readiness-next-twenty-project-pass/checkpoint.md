@@ -251,3 +251,66 @@ Before next native public-control replacement: commit SDK fallback repair and
 nine-test source; wait actual new helper matrix, then dispatch the predeclared
 three-host controls. First failed packets are retained under product-controls
 v1/v2/v3 and expansions removed. No native 105-control success credit yet.
+
+
+Shared public-control current run `39976090337` passed all three native hosts.
+All 105 actual reports/launch/compiler/source identities, oracles, provider jobs
+and cleanup independently audited and archived in product-controls v4/v5/v6;
+all expanded downloads removed. Current receipt archive-controls-current-native.json.
+Retained first failed run39971493451 in v1/v2/v3. Auditor initially compared native
+source code to local checkout bytes; corrected source-only Git LF/CRLF comparisons
+at actual17a2ba8. Fixtures/oracles/reports remain exact bytes, never normalized.
+
+Commitizen corrected portable public route3/20 passed `416e9f93da424184ac6f8d16e3843115`.
+Original local first spec retains its unnecessary personal venv PATH and is not
+called portable; both original and repaired measurements preserved. Distinct
+plain-name TOML + snapshot technical route3/22 passed
+`36a034ad91fd4defa54e4914cd3ffddf` (not first-use credit).
+
+Twenty Commitizen cases declared after public use. First actual series
+`861e63b9a8f642e0becc0d5b983215e3` passed18/failed2 (E07/E08 at width40
+supported-config label's wrapped colon). All first specs/declaration/screens
+retained in that series original-inputs; disposition doc records exact hashes.
+Replacement series `29c098f8da174793ba75a16f20114ec3` passed20/20,
+`eb3ff06309cd4f1e8b5024195c3f59c0`. No final credit for either series.
+Freeze82 exact inputs/directories before faults,
+`01f3022fb9a54135bfe76968f316f043`.
+
+Concrete faults then selected: initial prompt wrong, success incorrectly exits7,
+same-size saved tag format corruption. Full baseline/mutated/restored phases
+passed expected outcomes; F03 additionally demonstrates a different terminal-only
+contract passing with the same faulty source. Ten local calibration observations,
+raw faults/aabe54da4d0c42d08548af6742b6d698; wrapper
+`43191fdd78154a8a89121f92b0e8970b`. All source restored exactly.
+
+Complete public maintenance first reached successful diagnosis, selected update
+and cancellation but suffix export correctly refused my /absent misuse; /missing
+is the documented filesystem control. Original failure retained and disposition
+published. Corrected whole journey passed `5d14cca5278444f6ba3133dbfe079f27`,
+raw maintenance-935afc6c2158425cacc61070ddd8dee3: diagnosis2 commands,
+selected-state update on an explicitly intended neutral TOML comment preserves
+all settings/snapshot, cancelled approval unchanged, suffix CtrlC/exit25/absence
+prunes discarded success screenshot, both tests relocated unchanged to caf??.
+This synthetic formatting variant is not upstream release/final source. Finally
+restored original source; actual source/inventory must remain original before final.
+
+Native Commitizen series prepared/linted: exact rc.5 Linux/Windows,12 batches,
+480 ordinary +20 calibrations (18 mandatory plus2 labeled terminal-only).
+Common helper functions now parameterized with preserved jrnl defaults:
+Python preparation/final/development/freeze; generic source-fault driver; owned
+cleanup accepts validated slugs with unchanged marker/inventory/reparse guards.
+Nine local helper controls still pass with the new native removal script.
+Native runtime lock pins16 dependency versions; uv-build binary primary digest and
+shared Python shim must be verified before offline execution. Native Linux profile
+changes only explicit Python path, Git PATH/devnull; exact fixture/oracle/snapshot
+bytes unchanged. No native Commitizen workflow dispatched yet.
+
+Next: unmaterialize only declared fixture .git metadata with the checked native
+PS helper before staging ordinary fixture files (Git silently skips files beneath
+an embedded repo). Stage/verify all canonical82 inputs or their explicit hidden/
+empty-directory reconstruction declarations. Restore metadata afterward before
+local tests. Commit/push the shared helper/matrix changes; wait actual source-
+matched helper run, dispatch runner-readiness-next20-commitizen-python.yml.
+Native artifact names next20-commitizen-python-Linux/Windows. One project active:
+local active/commitizen-python source/runtime; do not acquire project3 until native
+qualification, required CI, retention and checked target cleanup complete.
