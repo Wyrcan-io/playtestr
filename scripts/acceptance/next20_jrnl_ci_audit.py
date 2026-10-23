@@ -13,14 +13,16 @@ from readiness_compact_native import compact, verify
 from readiness_evidence import immutable_json, sha256
 
 
-async def main():
+async def main(project='jrnl'):
+    if project not in {'jrnl','commitizen-python'}:raise ValueError('Undeclared CI project')
+    spec_name=json.loads((DOC/project/'fault-declaration.json').read_text()).get('primary_spec','normal-delete.json')
     parser=argparse.ArgumentParser();parser.add_argument('--run',required=True)
     parser.add_argument('--host',choices=['linux','windows'],required=True)
     parser.add_argument('--mode',choices=['baseline','fault','recovered'],required=True)
     parser.add_argument('--route',choices=['source','private-archive'],required=True)
     parser.add_argument('--generation',type=int,required=True);args=parser.parse_args()
     root=RAW/'native'/args.run;label='Linux' if args.host=='linux' else 'Windows'
-    public=root/('playtestr-'+label);base=root/('next20-jrnl-delivered-'+label)
+    public=root/('playtestr-'+label);base=root/('next20-'+project+'-delivered-'+label)
     def load(path):return json.loads(path.read_text(encoding='utf-8-sig'))
     metadata_path=root/'run-metadata.json'
     if not metadata_path.exists():
@@ -40,30 +42,32 @@ async def main():
     require(steps.get('Test recorded interactions')==expected,'wrong generated test exit mapping')
     require(sum(s['conclusion']=='success' and s['name'].startswith('Run actions/upload-artifact@') for s in job['steps'])==2,'missing actual report/provenance uploads')
     context=load(public/'context.json');report=load(public/'results.json')
-    prepared=load(base/'jrnl/delivered-ci/prepared.json');restored=load(base/'jrnl/delivered-ci/restored.json')
+    prepared=load(base/project/'delivered-ci/prepared.json');restored=load(base/project/'delivered-ci/restored.json')
     require(context['event']=='workflow_dispatch' and context['run_id']==prepared['ci_run_id']==args.run and context['tested_sha']==metadata['headSha'],'CI context/provider identity mismatch')
     require(prepared['mode']==restored['mode']==args.mode and prepared['route']==restored['route']==args.route,'wrong explicit CI route/phase')
     require(context['runner_sha256']==prepared['runner_sha256'],'actual CI runner changed')
-    selected='artifacts/'+NAME+'/jrnl/host-contracts/normal-delete.json'
+    selected='artifacts/'+NAME+'/'+project+'/host-contracts/'+spec_name
     require(context['selected_specs']==[selected] and len(report['results'])==1,'generated CI selected wrong suite')
-    package=base/'jrnl/host-contracts';spec=load(package/'normal-delete.json')
-    canonical=load(DOC/'jrnl/normal-delete.json');canonical['command'][0]=spec['command'][0]
+    package=base/project/'host-contracts';spec=load(package/spec_name)
+    canonical=load(DOC/project/spec_name);canonical['command'][0]=spec['command'][0]
+    if project=='commitizen-python' and args.host=='linux':
+        canonical['env']['PATH']='/usr/bin:/bin';canonical['env']['GIT_CONFIG_GLOBAL']='/dev/null'
     require(spec==canonical,'CI changed the reviewed interaction or oracle')
-    require(sha256(package/'normal-delete.json')==prepared['spec_sha256'],'CI executed spec changed')
+    require(sha256(package/spec_name)==prepared['spec_sha256'],'CI executed spec changed')
     for name,digest in context['contract_files'].items():
         prefix='artifacts/'+NAME+'/'
         require(name.startswith(prefix),'CI contract escapes campaign')
         relative=name.removeprefix(prefix);path=base/relative
         require('..' not in PurePosixPath(relative).parts and sha256(path)==digest,'CI context contract bytes mismatch')
-        if not name.endswith('/normal-delete.json'):
-            require(sha256(DOC/'jrnl'/relative.removeprefix('jrnl/host-contracts/'))==digest,'CI fixture/snapshot not canonical')
-    retained=base/'jrnl/retained-source';runtime=load(retained/'runtime.json');inventory=load(retained/'installed-inventory.json')
+        if not name.endswith('/'+spec_name):
+            require(sha256(DOC/project/relative.removeprefix(project+'/host-contracts/'))==digest,'CI fixture/snapshot not canonical')
+    retained=base/project/'retained-source';runtime=load(retained/'runtime.json');inventory=load(retained/'installed-inventory.json')
     require(sha256(retained/'runtime.json')==prepared['runtime_sha256'] and sha256(retained/'installed-inventory.json')==prepared['installed_inventory_sha256']==runtime['installed_inventory_sha256'],'actual installed runtime inventory changed')
     require(list(context['target_binaries'].values())==[runtime['python_sha256']],'actual CI target executable not bound')
-    provenance=load(DOC/'jrnl/source-provenance.json');fault=load(DOC/'jrnl/fault-declaration.json')['faults'][2]
+    provenance=load(DOC/project/'source-provenance.json');fault=load(DOC/project/'fault-declaration.json')['faults'][2]
     expected_source=dict(provenance['files'])
     if args.mode=='fault':
-        with tarfile.open(RAW/'jrnl/retained-source/source.tar.gz','r:gz') as archive:
+        with tarfile.open(RAW/project/'retained-source/source.tar.gz','r:gz') as archive:
             entries=[m for m in archive if m.isfile() and m.name.endswith('/'+fault['path'])]
             require(len(entries)==1 and entries[0].size<1024**2,'canonical source fault member missing/ambiguous')
             original=archive.extractfile(entries[0]).read(1024**2)
@@ -80,16 +84,16 @@ async def main():
         require(row['failure']['category']=='state_assertion_failure' and all(s['status']=='passed' for s in row['steps'][:index]),'saved corruption rejected before successful terminal/exit')
         require('state_assertion_failure' in (public/'report.html').read_text(encoding='utf-8'),'missing rendered CI diagnosis')
     else:require(len(row['steps'])==len(spec['steps']) and all(s['status']=='passed' for s in row['steps']),'missing positive CI steps')
-    cleanup=load(retained/'cleanup-inventory.json');removed=load(retained/'removed.json');process=load(base/'jrnl/process-proof.json')
+    cleanup=load(retained/'cleanup-inventory.json');removed=load(retained/'removed.json');process=load(base/project/'process-proof.json')
     require(restored['source_restored_exact'] and restored['target_absent'] and restored['source_sha256']==provenance['files'][fault['path']],'missing actual exact CI recovery/removal')
-    require(restored['report_sha256']==sha256(public/'results.json')==sha256(base/'jrnl/delivered-ci/results.json'),'CI cleanup used another report')
-    require(removed['removed'] and removed['source_restored_exact'] and removed['owned_relative_path']=='active/jrnl' and removed['cleanup_inventory_sha256']==sha256(retained/'cleanup-inventory.json'),'unsafe/unbound actual native source removal')
-    require(process['confirmed_no_matching_live_processes'] and not process['matching_live_processes'] and cleanup['process_proof_sha256']==sha256(base/'jrnl/process-proof.json'),'unconfirmed owned CI processes')
+    require(restored['report_sha256']==sha256(public/'results.json')==sha256(base/project/'delivered-ci/results.json'),'CI cleanup used another report')
+    require(removed['removed'] and removed['source_restored_exact'] and removed['owned_relative_path']=='active/'+project and removed['cleanup_inventory_sha256']==sha256(retained/'cleanup-inventory.json'),'unsafe/unbound actual native source removal')
+    require(process['confirmed_no_matching_live_processes'] and not process['matching_live_processes'] and cleanup['process_proof_sha256']==sha256(base/project/'process-proof.json'),'unconfirmed owned CI processes')
     PathType=PureWindowsPath if args.host=='windows' else PurePosixPath
-    require(tuple(PathType(cleanup['owned_target']).parts[-4:])==('artifacts',NAME,'active','jrnl'),'unsafe cleanup target')
+    require(tuple(PathType(cleanup['owned_target']).parts[-4:])==('artifacts',NAME,'active',project),'unsafe cleanup target')
     for name,digest in inventory['files'].items():require(cleanup['files']['venv/'+name]['sha256']==digest,'CI installed module changed before removal')
     for name,digest in provenance['files'].items():require(cleanup['files']['src/'+name]['sha256']==digest,'CI source not exactly restored before removal')
-    native=RAW/'jrnl'/('retained-native-v1' if args.host=='linux' else 'retained-native-v2')
+    native=RAW/project/('retained-native-v1' if args.host=='linux' else 'retained-native-v2')
     native_index=load(native/'index.json');verify(native/'packets.tar.gz',native_index['files'])
     native_payloads={r['sha256'] for r in native_index['files'].values()}
     for name,digest in cleanup['retained'].items():
@@ -109,14 +113,17 @@ async def main():
         if 'base' in identity:
             reference=identity['base'];manifest=base/reference['manifest']
             require(sha256(manifest)==reference['sha256'],'changed CI base identity');identity=load(manifest)
-        require(identity['files']['scripts/acceptance/next20_jrnl_ci.py'] in source_hashes(metadata['headSha'],'scripts/acceptance/next20_jrnl_ci.py'),'stale CI preparation/removal source')
-    output=compact(RAW,'jrnl',[args.run],generation=args.generation)
+        helpers=['next20_jrnl_ci.py']+(['next20_python_ci.py'] if project!='jrnl' else [])
+        for helper in helpers:
+            name='scripts/acceptance/'+helper
+            require(identity['files'][name] in source_hashes(metadata['headSha'],name),'stale CI preparation/removal source')
+    output=compact(RAW,project,[args.run],generation=args.generation)
     immutable_json(output/'delivered-ci-audit.json',dict(schema_version=1,run=args.run,host=args.host,mode=args.mode,route=args.route,
         archive_sha256=sha256(output/'packets.tar.gz'),index_sha256=sha256(output/'index.json'),
         provider_job=job['databaseId'],context_sha256=sha256(public/'context.json'),report_sha256=sha256(public/'results.json'),
         runner_sha256=context['runner_sha256'],invocation=row['invocation_id'],source_restored=True,target_removed=True,
         native_dependency_index_sha256=sha256(native/'index.json'),new_project_credit=0))
-    print('Independently audited generated jrnl CI:',args.run,args.host,args.mode,args.route,'; checked expansion removal still required.')
+    print('Independently audited generated '+project+' CI:',args.run,args.host,args.mode,args.route,'; checked expansion removal still required.')
 
 
 if __name__=='__main__':asyncio.run(main())

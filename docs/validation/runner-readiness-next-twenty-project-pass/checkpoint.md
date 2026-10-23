@@ -314,3 +314,32 @@ matched helper run, dispatch runner-readiness-next20-commitizen-python.yml.
 Native artifact names next20-commitizen-python-Linux/Windows. One project active:
 local active/commitizen-python source/runtime; do not acquire project3 until native
 qualification, required CI, retention and checked target cleanup complete.
+
+
+Continuation 23 October: pushed native preparation at384d297d113e9e96a1612d00cd2f109010805514,
+all82 canonical inputs staged/verified (44 ordinary plus38 reconstructed Git files).
+Dispatched39984863257: Windows successful including240 ordinary,10 calibration,
+source restoration/process proof/removal/upload; Linux running batch11 at last actual
+status8efc882f18104fd8ac82917b9ef9b8cc. No Commitizen admission yet.
+Native helper run39984472092 successful9 controls/host; latest packets not yet audited.
+
+Auditor revalidation temporarily duplicated27 exact derivative model JSON files,
+11,649,288B. Conservative jrnl project storage briefly74,693,816B, exceeding64MiB;
+this was a real resource exception, not a peak-compliance pass. Checked native
+helper removed only byte-identical duplicate generation c21bad69bae74939b86889455dc69b22,
+retaining original a89abf5c8aaa4ae3944ba9573d79d076 and full alias receipt/attempts.
+Removal775af7b67027481b9767c85423288502; after dedup jrnl63,057,891B.
+Revalidation now reuses exact original models and writes only small results to
+harness/audit-regressions, refusing changed/multiple model generations.
+Strengthened audit first rejected the documented Linux N06 EOF translation in
+normalized validation8776a53b24294620ac65fe811fdca602; fixed explicit same native
+CtrlD replacement already independently enforced against executed contracts.
+Revalidation4517219934f642729aa036177ff0b70b accepts both actual complete jrnl
+cells and rejects all24 altered models. No new target/application executions.
+
+Prepared Commitizen second-category public-generated CI contract via frozen binary,
+e2f34b690f534ba1aadfbbc9d402ffe7; adapted same manual inputs/checked restoration
+as jrnl, declaration b3a576188cf64a719e499e539d3fbc7e. Shared helpers preserve
+jrnl defaults; new wrappers use explicit second project. Existing9 lifecycle/
+cleanup controls passed b9ae972187a44045a0b448cbfd358744. No delivered Commitizen
+runs dispatched yet. Do not start two new target jobs while Linux matrix active.

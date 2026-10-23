@@ -2,6 +2,7 @@
 import argparse
 import copy
 import hashlib
+import io
 from functools import lru_cache
 import json
 import posixpath
@@ -45,12 +46,12 @@ def source_hashes(revision,name):
     return {hashlib.sha256(blob).hexdigest(),hashlib.sha256(blob.replace(b'\r\n',b'\n').replace(b'\n',b'\r\n')).hexdigest()}
 
 
-def build_model(retained,run,host):
+def build_model(retained,run,host,project='jrnl'):
     index=json.loads((retained/'index.json').read_text(encoding='utf-8'))
     require(sha256(retained/'packets.tar.gz')==index['archive_sha256'],'retained native archive changed')
     verify(retained/'packets.tar.gz',index['files'])
     payloads=json_payloads(retained,index)
-    artifact='next20-jrnl-'+('Windows' if host=='windows' else 'Linux')
+    artifact='next20-'+project+'-'+('Windows' if host=='windows' else 'Linux')
     prefix='native/'+run+'/'+artifact+'/'
     metadata=payloads['native/'+run+'/run-metadata.json']
     require(str(metadata['databaseId'])==run,'wrong provider run')
@@ -62,9 +63,9 @@ def build_model(retained,run,host):
     revision=metadata['headSha']
     candidate=json.loads((ROOT/'docs/validation/runner-readiness-ten-project-pass/migration-candidate-freeze.json').read_text())
     expected=next(c for c in candidate['cells'] if c['host']==host)
-    declaration=json.loads((DOC/'jrnl/final-series-declaration.json').read_text())
-    canonical=json.loads((DOC/'jrnl/scenarios.json').read_text())
-    provenance=json.loads((DOC/'jrnl/source-provenance.json').read_text())
+    declaration=json.loads((DOC/project/'final-series-declaration.json').read_text())
+    canonical=json.loads((DOC/project/'scenarios.json').read_text())
+    provenance=json.loads((DOC/project/'source-provenance.json').read_text())
     def path(relative):return prefix+relative
     def get(relative):
         name=path(relative);require(name in payloads,'actual packet JSON omitted: '+relative)
@@ -94,18 +95,22 @@ def build_model(retained,run,host):
         for name in ['scripts/acceptance/next20_check.py','scripts/acceptance/adversarial_process.py',
                      'scripts/acceptance/readiness_evidence.py']:
             require(base['files'].get(name) in source_hashes(revision,name),'stale actual native helper source')
-        helper='scripts/acceptance/'+('next20_jrnl_final.py' if started['label'].startswith('final-batch-') else 'next20_jrnl_faults.py')
-        require(base['files'].get(helper) in source_hashes(revision,helper),'stale actual ordinary/fault execution helper')
+        ordinary=started['label'].startswith('final-batch-')
+        helpers=(['next20_jrnl_final.py'] if ordinary else ['next20_jrnl_faults.py']) if project=='jrnl' else (['next20_final.py','next20_jrnl_final.py'] if ordinary else ['next20_python_faults.py'])
+        for name in helpers:
+            helper='scripts/acceptance/'+name
+            require(base['files'].get(helper) in source_hashes(revision,helper),'stale actual ordinary/fault execution helper')
         require(base['files'].get('artifacts/'+NAME+'/candidate/'+host+'/playtestr'+('.exe' if host=='windows' else ''))==expected['binary_sha256'],'actual launched runner executable mismatch')
-        actual_source={name.split('/src/',1)[1]:value for name,value in target['files'].items() if '/active/jrnl/src/' in name}
+        actual_source={name.split('/src/',1)[1]:value for name,value in target['files'].items() if '/active/'+project+'/src/' in name}
         require(set(actual_source)==set(provenance['files']),'actual target source identity coverage incomplete')
+        require(target['files'].get('artifacts/'+NAME+'/active/'+project+'/task-owned.json')==digest(project+'/retained-source/task-owned.json'),'retained source ownership not bound at actual launch')
         return dict(events=events,base=base,target=target,source=actual_source)
-    runtime=get('jrnl/retained-source/runtime.json')
-    inventory=get('jrnl/retained-source/installed-inventory.json')
-    cleanup=get('jrnl/retained-source/cleanup-inventory.json')
-    removed=get('jrnl/retained-source/removed.json')
-    owner=get('jrnl/retained-source/task-owned.json')
-    process=get('jrnl/process-proof.json')
+    runtime=get(project+'/retained-source/runtime.json')
+    inventory=get(project+'/retained-source/installed-inventory.json')
+    cleanup=get(project+'/retained-source/cleanup-inventory.json')
+    removed=get(project+'/retained-source/removed.json')
+    owner=get(project+'/retained-source/task-owned.json')
+    process=get(project+'/process-proof.json')
     def core_operation(label,helper):
         candidates=[(n,v) for n,v in payloads.items() if n.startswith(prefix+'events/') and n.endswith('-started.json') and v.get('label')==label]
         require(len(candidates)==1,'missing/duplicate actual native cleanup operation')
@@ -117,43 +122,45 @@ def build_model(retained,run,host):
         require(identity['files'].get(helper) in source_hashes(revision,helper),'stale native cleanup subprocess source')
         require(finish['category']=='passed' and finish['exit_code']==0 and finish['harness_cleanup']=='harness_process_reaped','native cleanup operation did not complete successfully')
         require(index['files'][path('core/'+eid+'/console.log')]['sha256']==finish['console_sha256'],'changed actual native cleanup console')
-    core_operation('native-jrnl-source-runtime-removal','scripts/acceptance/'+('next20_remove_target.ps1' if host=='windows' else 'next20_target_cleanup.py'))
-    if host=='windows':core_operation('native-jrnl-owned-process-proof','scripts/acceptance/next20_target_process_proof.ps1')
-    require(owner['pin']==provenance['pin'] and owner['campaign']==NAME and owner['slug']=='jrnl','wrong actual target ownership/pin')
+    core_operation('native-'+project+'-source-runtime-removal','scripts/acceptance/'+('next20_remove_target.ps1' if host=='windows' else 'next20_target_cleanup.py'))
+    if host=='windows':core_operation('native-'+project+'-owned-process-proof','scripts/acceptance/next20_target_process_proof.ps1')
+    require(owner['pin']==provenance['pin'] and owner['campaign']==NAME and owner['slug']==project,'wrong actual target ownership/pin')
     pure=PureWindowsPath if host=='windows' else PurePosixPath
-    expected_target=str(pure(owner['workspace'])/'artifacts'/NAME/'active/jrnl')
+    expected_target=str(pure(owner['workspace'])/'artifacts'/NAME/'active'/project)
     require(pure(cleanup['owned_target'])==pure(expected_target)==pure(process['owned_target']),'unsafe or mismatched cleanup root')
     require(pure(owner['workspace']).name=='playtestr','unexpected native checkout ownership root')
     require(process['confirmed_no_matching_live_processes'] and not process['matching_live_processes'],'unconfirmed native process termination')
-    require(removed['removed'] and removed['owned_relative_path']=='active/jrnl' and removed['source_restored_exact'] and cleanup['source_restored_exact'],'missing exact restored source/runtime removal')
-    require(removed['cleanup_inventory_sha256']==digest('jrnl/retained-source/cleanup-inventory.json'),'cleanup inventory changed')
-    require(cleanup['process_proof_sha256']==digest('jrnl/process-proof.json'),'native process proof changed')
-    require(cleanup['actual_reports_with_confirmed_cleanup']==249,'target cleanup did not account for all actual final reports')
+    require(removed['removed'] and removed['owned_relative_path']=='active/'+project and removed['source_restored_exact'] and cleanup['source_restored_exact'],'missing exact restored source/runtime removal')
+    require(removed['cleanup_inventory_sha256']==digest(project+'/retained-source/cleanup-inventory.json'),'cleanup inventory changed')
+    require(cleanup['process_proof_sha256']==digest(project+'/process-proof.json'),'native process proof changed')
+    require(cleanup['actual_reports_with_confirmed_cleanup']==240+declaration['calibration_required']//len(declaration['hosts']),'target cleanup did not account for all actual final reports')
     for name,target in cleanup['owned_links'].items():
         require(host=='linux' and name in {'venv/lib64','venv-pair-0/lib64','venv-pair-1/lib64'} and target=='lib','unsafe runtime cleanup link')
-    acquisition=get('jrnl/retained-source/acquisition.json')
+    acquisition=get(project+'/retained-source/acquisition.json')
     require(acquisition['source_files']==provenance['files'],'retained source provenance differs')
-    require(digest('jrnl/retained-source/source.tar.gz')==acquisition['archive_sha256'],'retained canonical source archive changed')
-    wheels=get('jrnl/retained-source/wheels.json')
-    for name,row in wheels.items():require(digest('jrnl/retained-source/wheels/'+name)==row['sha256'],'missing/changed retained actual dependency wheel')
-    require(runtime['installed_inventory_sha256']==digest('jrnl/retained-source/installed-inventory.json'),'retained runtime dependency identity mismatch')
-    host_cases=get('jrnl/host-contracts/scenarios.json')['cases']
+    require(digest(project+'/retained-source/source.tar.gz')==acquisition['archive_sha256'],'retained canonical source archive changed')
+    wheels=get(project+'/retained-source/wheels.json')
+    for name,row in wheels.items():require(digest(project+'/retained-source/wheels/'+name)==row['sha256'],'missing/changed retained actual dependency wheel')
+    require(runtime['installed_inventory_sha256']==digest(project+'/retained-source/installed-inventory.json'),'retained runtime dependency identity mismatch')
+    host_cases=get(project+'/host-contracts/scenarios.json')['cases']
     native_python=str(pure(runtime['python']).relative_to(pure(owner['workspace']))).replace('\\','/')
     for case in canonical['cases']:
-        native_base=get('jrnl/host-contracts/'+case['spec'])
-        reviewed=json.loads((DOC/'jrnl'/case['spec']).read_text(encoding='utf-8'))
-        reviewed['command'][0]=posixpath.relpath(native_python,'artifacts/'+NAME+'/jrnl/host-contracts')
-        if host=='linux' and case['id']=='N06':
+        native_base=get(project+'/host-contracts/'+case['spec'])
+        reviewed=json.loads((DOC/project/case['spec']).read_text(encoding='utf-8'))
+        reviewed['command'][0]=posixpath.relpath(native_python,'artifacts/'+NAME+'/'+project+'/host-contracts')
+        if project=='jrnl' and host=='linux' and case['id']=='N06':
             position=next(i for i,s in enumerate(reviewed['steps']) if s.get('key')=='CtrlZ')
             require(reviewed['steps'][position+1]=={'key':'Enter'},'canonical EOF group changed')
             reviewed['steps']=reviewed['steps'][:position]+[{'key':'CtrlD'}]+reviewed['steps'][position+2:]
+        if project=='commitizen-python' and host=='linux':
+            reviewed['env']['PATH']='/usr/bin:/bin';reviewed['env']['GIT_CONFIG_GLOBAL']='/dev/null'
         require(native_base==reviewed,'native base silently changed canonical semantics/oracles')
         declared=next(c for c in host_cases if c['id']==case['id'])
-        require(declared['canonical_sha256']==case['spec_sha256'] and declared['spec_sha256']==digest('jrnl/host-contracts/'+case['spec']),'stale canonical/native base contract binding')
-    model=dict(project='jrnl',host=host,run=run,revision=revision,provider_job=jobs[0]['databaseId'],
+        require(declared['canonical_sha256']==case['spec_sha256'] and declared['spec_sha256']==digest(project+'/host-contracts/'+case['spec']),'stale canonical/native base contract binding')
+    model=dict(project=project,host=host,run=run,revision=revision,provider_job=jobs[0]['databaseId'],
         runner_sha256=expected['binary_sha256'],archive_sha256=expected['archive_sha256'],ordinary=[],faults=[],
         cleanup=dict(removed=True,source_restored=True,target_root=expected_target,process_confirmed=True),
-        canonical_cases=[c['id'] for c in canonical['cases']],first_development_disposition_sha256=sha256(DOC/'jrnl/first-development-disposition.json'))
+        canonical_cases=[c['id'] for c in canonical['cases']],first_development_disposition_sha256=sha256(DOC/project/'first-development-disposition.json'))
     seen=set()
     def normalize(report):
         require(report['report_version']==3 and report['runner_version']=='v0.4.0-rc.5' and report['os']==host and report['arch']=='amd64','wrong actual native runner/report identity')
@@ -165,34 +172,34 @@ def build_model(retained,run,host):
             cleaned=row['workspace']['cleaned'],confirmed_exited=row['cleanup']['confirmed_exited'],
             category=row.get('failure',{}).get('category'),steps=[dict(action=s['action'],status=s['status'],state=s.get('state')) for s in row['steps']])
     for batch in range(12):
-        summary=get(f'jrnl/final-series/{batch}/summary.json');prepared=get(f'jrnl/final-series/{batch}/prepared.json')
-        catalog=get(f'jrnl/final-series/{batch}/runtime-catalog.json')
+        summary=get(f'{project}/final-series/{batch}/summary.json');prepared=get(f'{project}/final-series/{batch}/prepared.json')
+        catalog=get(f'{project}/final-series/{batch}/runtime-catalog.json')
         require(catalog['files']==inventory['files'],'actual executed runtime dependency bytes differ')
         require(catalog['executable']==prepared['actual_python'] and catalog['executable_sha256']==runtime['python_sha256'],'wrong copied/normal interpreter')
-        require(prepared['actual_runtime_catalog_sha256']==digest(f'jrnl/final-series/{batch}/runtime-catalog.json'),'stale actual runtime catalog')
-        runtime_relative=catalog['runtime_root'].split('/active/jrnl/',1)[1]
+        require(prepared['actual_runtime_catalog_sha256']==digest(f'{project}/final-series/{batch}/runtime-catalog.json'),'stale actual runtime catalog')
+        runtime_relative=catalog['runtime_root'].split('/active/'+project+'/',1)[1]
         for name,value in catalog['files'].items():
             require(cleanup['files'][runtime_relative+'/'+name]['sha256']==value,'runtime changed between actual launch and cleanup')
         require(len(summary['observations'])==20 and summary['batch']==batch,'partial native batch summary')
-        package=f'jrnl/final-series/{batch}/'+('relocated café 雪' if batch==5 else 'contracts')
+        package=f'{project}/final-series/{batch}/'+('relocated café 雪' if batch==5 else 'contracts')
         for observation in summary['observations']:
             cid=observation['case'];case=next(c for c in canonical['cases'] if c['id']==cid)
-            planned=get(f'jrnl/final-series/{batch}/{cid}.planned.json')
+            planned=get(f'{project}/final-series/{batch}/{cid}.planned.json')
             spec=get(package+'/'+case['spec'])
-            report=get(f'jrnl/final-series/{batch}/{cid}.report.json')
+            report=get(f'{project}/final-series/{batch}/{cid}.report.json')
             require(digest(package+'/'+case['spec'])==planned['spec_sha256']==observation['spec_sha256'],'actual executed spec mismatch')
-            require(digest(f'jrnl/final-series/{batch}/{cid}.report.json')==observation['report_sha256'],'actual report reference changed')
+            require(digest(f'{project}/final-series/{batch}/{cid}.report.json')==observation['report_sha256'],'actual report reference changed')
             launch=command(observation['attempt'])
             require(launch['events']['started']['phase']=='final-archive','wrong-phase ordinary execution')
             require(launch['source']==provenance['files'],'ordinary run used mutated/wrong target source')
             require(launch['base']['files'].get(planned['spec'])==planned['spec_sha256'],'prelaunch actual contract identity missing')
             require(launch['base']['files'].get(prepared['actual_python'])==runtime['python_sha256'],'actual target executable not bound at launch')
-            require(launch['target']['files'].get('artifacts/'+NAME+'/active/jrnl/launch-runtime-catalog.json')==prepared['actual_runtime_catalog_sha256'],'actual runtime catalog missing from prelaunch identity')
+            require(launch['target']['files'].get('artifacts/'+NAME+'/active/'+project+'/launch-runtime-catalog.json')==prepared['actual_runtime_catalog_sha256'],'actual runtime catalog missing from prelaunch identity')
             actual=normalize(report)
             require(actual['invocation']==observation['invocation'],'observed report from another invocation')
             require(len(actual['steps'])==len(spec['steps']) and [s['action'] for s in actual['steps']]==[next(iter(s)) for s in spec['steps']],'actual positive step sequence differs')
             # Fixture and approved expectation data stay exact on every variant.
-            native_base=get('jrnl/host-contracts/'+case['spec'])
+            native_base=get(project+'/host-contracts/'+case['spec'])
             expected_spec=copy.deepcopy(native_base)
             expected_spec['command'][0]=posixpath.relpath(prepared['actual_python'],posixpath.dirname(planned['spec']))
             if batch==4:expected_spec.update(width=expected_spec['width']+10,height=expected_spec['height']+2)
@@ -206,39 +213,87 @@ def build_model(retained,run,host):
             if batch==10 and cid=='N01':expected_spec['height']=12
             if batch==11:expected_spec['startup_timeout_ms']=2000
             require(spec==expected_spec,'undeclared final variant/oracle change')
-            frozen=json.loads((DOC/'jrnl/development-test-freeze.json').read_text())
+            frozen=json.loads((DOC/project/'development-test-freeze.json').read_text())
+            fixture_prefix='artifacts/'+NAME+'/'+package+'/'+case['initial_fixture']
+            expected_files={'artifacts/'+NAME+'/'+package+'/'+name:value for name,value in frozen['inputs'].items() if name.startswith(case['initial_fixture']+'/')}
+            observed_files={name:value for name,value in launch['base']['files'].items() if name.startswith(fixture_prefix+'/')}
+            require(observed_files==expected_files,'actual prelaunch fixture has missing/extra/changed input files')
+            expected_dirs={'artifacts/'+NAME+'/'+package+'/'+name for name in frozen['directories'] if name==case['initial_fixture'] or name.startswith(case['initial_fixture']+'/')}
+            observed_dirs={name.replace('\\','/') for name in launch['base']['fixture_directories'] if name.replace('\\','/')==fixture_prefix or name.replace('\\','/').startswith(fixture_prefix+'/')}
+            require(observed_dirs==expected_dirs,'actual prelaunch empty fixture directory proof differs')
             for name,value in frozen['inputs'].items():
                 if name.startswith(case['initial_fixture']+'/') or name.startswith('snapshots/') and any(s.get('snapshot')==name.removeprefix('snapshots/') for s in spec['steps']):
                     require(digest(package+'/'+name)==value,'actual fixture/snapshot byte mismatch')
+                    require(launch['base']['files'].get('artifacts/'+NAME+'/'+package+'/'+name)==value,'actual prelaunch fixture/snapshot not bound')
             actual.update(batch=batch,case=cid,spec_sha256=planned['spec_sha256'],runner_sha256=planned['runner_sha256'],
                 archive_sha256=planned['archive_sha256'],phase=planned['phase'])
             model['ordinary'].append(actual)
-    summaries=[(n,v) for n,v in payloads.items() if n.startswith(prefix+'jrnl/faults/') and n.endswith('/summary.json')]
+    summaries=[(n,v) for n,v in payloads.items() if n.startswith(prefix+project+'/faults/') and n.endswith('/summary.json')]
     require(len(summaries)==1,'missing/ambiguous actual source fault matrix')
     name,summary=summaries[0]
     require(summary['phase']=='final-archive' and len(summary['faults'])==3,'wrong-phase/incomplete actual source faults')
     for fault in summary['faults']:
         require(fault['original_sha256']==fault['restored_sha256']==provenance['files'][fault['source']] and fault['restored_exact'],'missing exact actual fault restoration')
+        declared_fault=next(f for f in json.loads((DOC/project/'fault-declaration.json').read_text())['faults'] if f['id']==fault['id'])
+        reference=path(project+'/retained-source/source.tar.gz');source_row=index['files'][reference]
+        with tarfile.open(retained/'packets.tar.gz','r:gz') as bundle:
+            source_bytes=bundle.extractfile(source_row.get('member',reference)).read(8*1024**2+1)
+        require(len(source_bytes)<=8*1024**2 and hashlib.sha256(source_bytes).hexdigest()==source_row['sha256'],'canonical source archive bound/hash mismatch')
+        original=None;entries=expanded=0
+        with tarfile.open(fileobj=io.BytesIO(source_bytes),mode='r:gz') as source_tar:
+            for member in source_tar:
+                entries+=1;expanded+=member.size
+                require(entries<=10000 and expanded<=64*1024**2,'canonical source archive expansion bound')
+                if member.isfile() and member.name.endswith('/'+fault['source']):
+                    require(original is None and member.size<=4*1024**2,'ambiguous/oversized declared fault source')
+                    original=source_tar.extractfile(member).read(4*1024**2+1)
+        require(original is not None and hashlib.sha256(original).hexdigest()==provenance['files'][fault['source']],'actual declared mutation source not canonical')
+        before=declared_fault['before'].encode();after=declared_fault['after'].encode()
+        require(original.count(before)==1 and hashlib.sha256(original.replace(before,after)).hexdigest()==fault['mutated_sha256'],'actual source mutation differs from declared real fault')
         outcomes=[]
         for outcome in fault['outcomes']:
             relative=outcome['report'].removeprefix('artifacts/'+NAME+'/')
             report=get(relative);require(digest(relative)==outcome['report_sha256'],'source fault report changed')
             launch=command(outcome['attempt'])
             expected_source=dict(provenance['files'])
-            if outcome['phase']=='mutated':expected_source[fault['source']]=fault['mutated_sha256']
+            if outcome['phase'] in {'mutated','terminal-only'}:expected_source[fault['source']]=fault['mutated_sha256']
             require(launch['source']==expected_source,'actual source mutation/restoration not bound to named invocation')
-            actual=normalize(report);actual.update(phase=outcome['phase'],expected_category=next(f['category'] for f in json.loads((DOC/'jrnl/fault-declaration.json').read_text())['faults'] if f['id']==fault['id']))
+            primary=json.loads((DOC/project/'fault-declaration.json').read_text()).get('primary_spec','normal-delete.json')
+            selected=project+'/host-contracts/'+primary
+            expected_contract=get(selected)
+            if outcome['phase']=='terminal-only':
+                require(project!='jrnl' and declared_fault.get('terminal_only_probe'),'undeclared terminal-only calibration')
+                derived=posixpath.dirname(relative)+'/terminal-only';actual_spec=get(derived+'/spec.json')
+                expected_spec=copy.deepcopy(get(project+'/host-contracts/'+json.loads((DOC/project/'fault-declaration.json').read_text())['primary_spec']))
+                fixture=expected_spec['workspace']['fixture'];expected_spec['workspace']['fixture']='fixture'
+                expected_spec['command'][0]=posixpath.relpath(native_python,'artifacts/'+NAME+'/'+derived)
+                expected_spec['steps']=[s for s in expected_spec['steps'] if 'state' not in s]
+                require(actual_spec==expected_spec and digest(derived+'/spec.json')==outcome['spec_sha256'],'terminal-only contract changed more than declared state omission/path rebinding')
+                require(launch['base']['files'].get('artifacts/'+NAME+'/'+derived+'/spec.json')==outcome['spec_sha256'],'terminal-only contract not bound at launch')
+                frozen=get(project+'/host-contracts/development-test-freeze.json')
+                for name,value in frozen['inputs'].items():
+                    if name.startswith(fixture+'/'):require(digest(derived+'/fixture/'+name.removeprefix(fixture+'/'))==value,'terminal-only fixture differs from approved real input')
+                selected=derived+'/spec.json';expected_contract=actual_spec
+            require(launch['base']['files'].get('artifacts/'+NAME+'/'+selected)==digest(selected),'actual calibration did not launch the unchanged declared contract')
+            report_spec=pure(report['results'][0]['spec_path'])
+            logical=str(report_spec.relative_to(pure(owner['workspace']))) if report_spec.is_absolute() else str(report_spec)
+            require(logical.replace('\\','/')=='artifacts/'+NAME+'/'+selected,'calibration report belongs to another contract')
+            actual=normalize(report);actual.update(phase=outcome['phase'],expected_category=next(f['category'] for f in json.loads((DOC/project/'fault-declaration.json').read_text())['faults'] if f['id']==fault['id']))
+            require([s['action'] for s in actual['steps']]==[next(iter(s)) for s in expected_contract['steps']],'actual calibration step sequence differs')
             outcomes.append(actual)
         model['faults'].append(dict(id=fault['id'],restored_exact=True,outcomes=outcomes))
     return model,index
 
 
 def validate(model):
-    require(model['project']=='jrnl' and model['host'] in {'linux','windows'},'missing/canonical native project identity')
+    project=model['project']
+    require(project in {'jrnl','commitizen-python'} and model['host'] in {'linux','windows'},'missing/canonical native project identity')
     require(model['cleanup']['removed'] and model['cleanup']['source_restored'] and model['cleanup']['process_confirmed'],'unsafe/unconfirmed target cleanup')
+    pure=PureWindowsPath if model['host']=='windows' else PurePosixPath
+    require(tuple(pure(model['cleanup']['target_root']).parts[-4:])==('artifacts',NAME,'active',project),'unsafe actual target removal root')
     require(len(model['ordinary'])==240 and {r['case'] for r in model['ordinary']}==set(model['canonical_cases']),'partial ordinary native series')
     require(len(model['canonical_cases'])==20,'missing canonical scenarios')
-    require(model['first_development_disposition_sha256']==sha256(DOC/'jrnl/first-development-disposition.json'),'missing original first-failure disposition')
+    require(model['first_development_disposition_sha256']==sha256(DOC/project/'first-development-disposition.json'),'missing original first-failure disposition')
     seen=set()
     def outcome(row,status):
         require(row['status']==status and row['cleaned'] and row['confirmed_exited'],'failed or unclean actual execution')
@@ -253,9 +308,24 @@ def validate(model):
     for row in model['ordinary']:
         require(row['phase']=='final-archive' and row['runner_sha256']==model['runner_sha256'] and row['archive_sha256']==model['archive_sha256'],'wrong phase or mixed final candidate')
         outcome(row,'passed')
+        cases=json.loads((DOC/project/'scenarios.json').read_text())['cases']
+        case=next(c for c in cases if c['id']==row['case']);steps=json.loads((DOC/project/case['spec']).read_text())['steps']
+        if project=='jrnl' and model['host']=='linux' and row['case']=='N06':
+            position=next(i for i,s in enumerate(steps) if s.get('key')=='CtrlZ')
+            require(steps[position+1]=={'key':'Enter'},'canonical EOF group changed')
+            steps=steps[:position]+[{'key':'CtrlD'}]+steps[position+2:]
+        if row['batch']==7:
+            expanded=[]
+            for step in steps:
+                count=(len(step['text'])+2)//3 if set(step)=={'text'} and len(step['text'])>1 and all(ord(c)>=32 and ord(c)!=127 for c in step['text']) else 1
+                expanded.extend([step]*count)
+            steps=expanded
+        require([s['action'] for s in row['steps']]==[next(iter(s)) for s in steps],'missing/changed positive action sequence')
     require(len(model['faults'])==3 and {f['id'] for f in model['faults']}=={'F01','F02','F03'},'missing real source fault')
     for fault in model['faults']:
-        require(fault['restored_exact'] and len(fault['outcomes'])==3 and {o['phase'] for o in fault['outcomes']}=={'baseline','mutated','restored'},'missing source restoration phase')
+        phases={'baseline','mutated','restored'}
+        if project=='commitizen-python' and fault['id']=='F03':phases.add('terminal-only')
+        require(fault['restored_exact'] and len(fault['outcomes'])==len(phases) and {o['phase'] for o in fault['outcomes']}==phases,'missing source restoration phase')
         for row in fault['outcomes']:
             outcome(row,'failed' if row['phase']=='mutated' else 'passed')
             if row['phase']=='mutated':
@@ -263,7 +333,7 @@ def validate(model):
                 if fault['id']=='F03':
                     index=next(i for i,s in enumerate(row['steps']) if s['action']=='state')
                     require(all(s['status']=='passed' for s in row['steps'][:index]),'saved corruption failed before terminal/exit completion')
-    return dict(ordinary=240,calibrations=9,cases=20,real_faults=3,native_cells=1)
+    return dict(ordinary=240,calibrations=10 if project=='commitizen-python' else 9,cases=20,real_faults=3,native_cells=1)
 
 
 def main():

@@ -12,19 +12,20 @@ from next20_jrnl_native_prepare import main as prepare
 from readiness_evidence import immutable_json, sha256
 
 
-async def main():
+async def main(project='jrnl'):
+    if project not in {'jrnl','commitizen-python'}:raise ValueError('Undeclared CI project')
     parser=argparse.ArgumentParser();parser.add_argument('stage',choices=['prepare','cleanup'])
     args=parser.parse_args()
     mode=os.environ.get('JRNLCI_MODE');route=os.environ.get('JRNLCI_ROUTE')
     if mode not in {'baseline','fault','recovered'} or route not in {'source','private-archive'}:
         raise ValueError('Explicit declared delivered-CI mode/route required')
-    target=RAW/'active/jrnl';evidence=RAW/'jrnl/delivered-ci';evidence.mkdir(parents=True,exist_ok=True)
-    fault=json.loads((DOC/'jrnl/fault-declaration.json').read_text())['faults'][2]
+    target=RAW/'active'/project;evidence=RAW/project/'delivered-ci';evidence.mkdir(parents=True,exist_ok=True)
+    fault=json.loads((DOC/project/'fault-declaration.json').read_text())['faults'][2]
     source=target/'src'/fault['path'];campaign=NextCampaign()
     async def run(argv,label,timeout=180):
-        return await execute(argv,'jrnl',label,cwd=ROOT,env=owned_environment(),timeout=timeout,campaign=campaign)
+        return await execute(argv,project,label,cwd=ROOT,env=owned_environment(),timeout=timeout,campaign=campaign)
     if args.stage=='prepare':
-        await prepare()
+        await prepare(project)
         original=source.read_bytes()
         if original.count(fault['before'].encode())!=1:raise ValueError('CI source mutation anchor mismatch')
         if mode=='fault':source.write_bytes(original.replace(fault['before'].encode(),fault['after'].encode()))
@@ -46,7 +47,7 @@ async def main():
             source_executed_sha256=sha256(source),runner_sha256=sha256(runner),
             source_files={p.relative_to(target/'src').as_posix():sha256(p) for p in (target/'src').rglob('*') if p.is_file()},
             runtime_sha256=sha256(target/'runtime.json'),installed_inventory_sha256=sha256(target/'installed-inventory.json'),
-            spec_sha256=sha256(RAW/'jrnl/host-contracts/normal-delete.json'),new_project_credit=0))
+            spec_sha256=sha256(RAW/project/'host-contracts'/json.loads((DOC/project/'fault-declaration.json').read_text()).get('primary_spec','normal-delete.json')),new_project_credit=0))
     else:
         record=json.loads((evidence/'prepared.json').read_text())
         if sha256(source)!=record['source_executed_sha256']:raise ValueError('Executed CI source changed before restoration')
@@ -66,13 +67,13 @@ async def main():
         shutil.copyfile(report,evidence/'results.json')
         if os.name=='nt':
             await run(['powershell.exe','-NoProfile','-ExecutionPolicy','Bypass','-File',
-                ROOT/'scripts/acceptance/next20_target_process_proof.ps1','-Project','jrnl'],'delivered-native-process-proof',120)
-        argv=[sys.executable,'-B',ROOT/'scripts/acceptance/next20_target_cleanup.py','--project','jrnl']
+                ROOT/'scripts/acceptance/next20_target_process_proof.ps1','-Project',project],'delivered-native-process-proof',120)
+        argv=[sys.executable,'-B',ROOT/'scripts/acceptance/next20_target_cleanup.py','--project',project]
         if os.name=='nt':argv+=['--prepare-only']
         await run(argv,'delivered-retain-restored-source',240)
         if os.name=='nt':
             await run(['powershell.exe','-NoProfile','-ExecutionPolicy','Bypass','-File',
-                ROOT/'scripts/acceptance/next20_remove_target.ps1','-Project','jrnl'],'delivered-checked-source-removal',240)
+                ROOT/'scripts/acceptance/next20_remove_target.ps1','-Project',project],'delivered-checked-source-removal',240)
         immutable_json(evidence/'restored.json',dict(schema_version=1,source_restored_exact=True,
             source_sha256=record['source_original_sha256'],target_absent=not target.exists(),
             report_sha256=sha256(report),mode=mode,route=route))

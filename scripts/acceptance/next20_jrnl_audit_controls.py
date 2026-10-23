@@ -1,5 +1,6 @@
 """Challenge complete actual jrnl cell models; no campaign breadth credit."""
 import copy
+import json
 import uuid
 
 from next20_check import RAW
@@ -8,14 +9,23 @@ from readiness_evidence import immutable_json, sha256
 
 
 def main():
-    destination=RAW/'jrnl/audit-controls'/uuid.uuid4().hex
+    existing=[p for p in (RAW/'jrnl/audit-controls').glob('*') if p.is_dir() and (p/'results.json').is_file()]
+    if len(existing)>1:raise ValueError('multiple model generations require explicit disposition before revalidation')
+    reusable=existing[0] if existing else None
+    destination=(RAW/'harness/audit-regressions' if reusable else RAW/'jrnl/audit-controls')/uuid.uuid4().hex
     destination.mkdir(parents=True)
+    def model_file(name,value):
+        if reusable:
+            path=reusable/name
+            if json.loads(path.read_text())!=value:raise ValueError('actual normalized model changed; declare a new bounded model generation')
+            return path
+        path=destination/name;immutable_json(path,value);return path
     observations=[]
     for host,generation in [('linux',1),('windows',2)]:
         retained=RAW/'jrnl'/('retained-native-v'+str(generation))
         model,index=build_model(retained,'39797356210',host)
         validate(model)
-        positive=destination/(host+'-actual-model.json');immutable_json(positive,model)
+        positive=model_file(host+'-actual-model.json',model)
         changes=[
             ('missing-case',lambda m:m['ordinary'].pop()),
             ('wrong-phase',lambda m:m['ordinary'][0].update(phase='development')),
@@ -32,7 +42,7 @@ def main():
         ]
         for name,change in changes:
             altered=copy.deepcopy(model);change(altered)
-            path=destination/(host+'-'+name+'.json');immutable_json(path,altered)
+            path=model_file(host+'-'+name+'.json',altered)
             try:validate(altered)
             except ValueError as error:
                 observations.append(dict(host=host,control=name,rejected=True,reason=str(error),

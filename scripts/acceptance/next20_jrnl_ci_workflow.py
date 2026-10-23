@@ -3,8 +3,9 @@ from next20_check import RAW, ROOT, DOC
 from readiness_evidence import immutable_json, sha256
 
 
-def main():
-    generated=RAW/'jrnl/delivered-generated.yml'
+def main(project='jrnl'):
+    if project not in {'jrnl','commitizen-python'}:raise ValueError('Undeclared CI project')
+    generated=RAW/project/'delivered-generated.yml'
     text=generated.read_text(encoding='utf-8')
     text=text.replace('name: Playtestr recorded regression','name: Next twenty jrnl delivered CI',1)
     text=text.replace('  workflow_dispatch:\n','''  push:
@@ -57,9 +58,11 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 '''
-    workflow=ROOT/'.github/workflows/runner-readiness-next20-jrnl-delivered.yml'
+    if project!='jrnl':
+        text=text.replace('jrnl',project).replace('next20_commitizen-python_ci.py','next20_python_ci.py')
+    workflow=ROOT/('.github/workflows/runner-readiness-next20-'+project+'-delivered.yml')
     with workflow.open('x',encoding='utf-8',newline='\n') as stream:stream.write(text)
-    immutable_json(DOC/'jrnl/delivered-ci-declaration.json',dict(schema_version=1,
+    immutable_json(DOC/project/'delivered-ci-declaration.json',dict(schema_version=1,
         generated_workflow_sha256=sha256(generated),dispatched_workflow_sha256=sha256(workflow),
         source_revision='294d6e42f6c0965a4e090aa11835941984d32a0a',
         modes=['baseline','fault','recovered'],routes=['source','private-archive'],
