@@ -27,7 +27,12 @@ def main():
     for host,generation in generations.items():
         model,index=build_model(RAW/args.project/('retained-native-v'+str(generation)),args.run,host,args.project)
         counts=validate(model)
-        positive=destination/(host+'-actual-model.json');immutable_json(positive,model)
+        if args.project=='cz-cli':
+            matches=[p for p in (RAW/args.project/'audits').glob('*/actual-model.json') if json.loads(p.read_text(encoding='utf-8'))==model]
+            if len(matches)!=1:raise ValueError('actual cell model requires one existing independently audited payload')
+            positive=matches[0];positive_reference=positive.relative_to(RAW).as_posix()
+        else:
+            positive=destination/(host+'-actual-model.json');immutable_json(positive,model);positive_reference=positive.name
         state=next(i for i,s in enumerate(model['ordinary'][0]['steps']) if s['state'])
         patches=[
             ('missing-case',['ordinary'],model['ordinary'][:-1]),
@@ -53,7 +58,8 @@ def main():
             try:validate(altered)
             except ValueError as error:
                 observations.append(dict(host=host,control=name,rejected=True,reason=str(error),
-                    positive_model=positive.name,positive_model_sha256=sha256(positive),
+                    positive_model=positive_reference,positive_model_sha256=sha256(positive),
+                    **(dict(positive_model_root='campaign') if args.project=='cz-cli' else {}),
                     mutation=patch,altered_canonical_json_sha256=hashlib.sha256(encoded(altered)).hexdigest()))
             else:raise ValueError('Altered complete actual cell was accepted: '+host+' '+name)
         if validate(model)!=counts:raise ValueError('Unchanged actual positive lost qualification')

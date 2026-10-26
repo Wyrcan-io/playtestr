@@ -75,7 +75,8 @@ def verify(archive,files):
             if total>256*1024**2:raise ValueError('archive stream bound')
 
 
-def compact(root,project,runs,max_file_bytes=4*1024**2,*,generation=1):
+def compact(root,project,runs,max_file_bytes=4*1024**2,*,generation=1,max_archive_bytes=16*1024**2):
+    if max_archive_bytes not in {16*1024**2,24*1024**2}:raise ValueError('unreviewed compressed evidence bound')
     if not re.fullmatch(r'[a-z][a-z0-9-]{0,63}',project) or len(set(runs))!=len(runs) or not 1<=generation<=1000:raise ValueError('invalid compaction scope')
     for ancestor in [root,root/project]:
         if ancestor.is_symlink() or getattr(ancestor,'is_junction',lambda:False)():raise ValueError('linked compaction destination')
@@ -97,9 +98,9 @@ def compact(root,project,runs,max_file_bytes=4*1024**2,*,generation=1):
                     if sha256(path)!=record['sha256']:raise ValueError('source evidence changed')
                     member=tarfile.TarInfo(relative);member.size=record['bytes'];member.mode=0o644
                     with path.open('rb') as source:target.addfile(member,source)
-                    if destination.tell()>16*1024**2:raise ValueError('compressed evidence bound')
+                    if destination.tell()>max_archive_bytes:raise ValueError('compressed evidence bound')
         destination.flush();os.fsync(destination.fileno())
-    if archive.stat().st_size>16*1024**2:raise ValueError('compressed evidence bound')
+    if archive.stat().st_size>max_archive_bytes:raise ValueError('compressed evidence bound')
     verify(archive,files)
     selected=[]
     for run in runs:
@@ -116,6 +117,7 @@ def compact(root,project,runs,max_file_bytes=4*1024**2,*,generation=1):
     immutable_json(index,dict(schema_version=2,project=project,generation=generation,runs=runs,files=files,expanded_bytes=total,
         unique_payloads=len(members),
         archive_sha256=sha256(archive),archive_bytes=archive.stat().st_size,selected_restore=selected,max_file_bytes=max_file_bytes,
+        **(dict(max_archive_bytes=max_archive_bytes) if max_archive_bytes!=16*1024**2 else {}),
         scope='Every logical path/hash retained; identical bytes alias one verified in-archive member. No external dictionary or remote-only reference.'))
     immutable_json(output/'verified.json',dict(index_sha256=sha256(index),archive_sha256=sha256(archive),
         members_verified=len(files),physical_members_verified=len(members),selected_restore_verified=len(selected),expanded_removal_performed=False))

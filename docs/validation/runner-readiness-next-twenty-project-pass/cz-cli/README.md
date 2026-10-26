@@ -1,4 +1,12 @@
-# cz-cli: local qualification in progress
+# cz-cli: engineering admission
+
+The [admission](admission.json) verifies 480 ordinary native checks, 18 mandatory
+calibrations, two separate terminal-only probes, 63 local reports and 24 actual
+cell-model corruption controls. Linux and Windows run40026867471 passed on source
+`d9117f3c4f04a880834617987601c4b61a1202cd`; actual Node versions were22.23.3 and
+22.23.4 respectively, with npm10.9.9. Local and native source/runtime roots and
+expanded packets were checked and removed. The prepared generated-CI template
+adds no executed-CI credit. The historical observations below remain preserved.
 
 Canonical `commitizen/cz-cli`, MIT, pinned
 `1a8c49c02c9d52d1b4ef8cdabefb538088ddea03`. All74 source blobs match the
@@ -57,11 +65,12 @@ attempt is retained in the [maintenance disposition](maintenance-first-dispositi
 The corrected journey moved that explicitly intended formatting change after
 trimming and verified selected/cancelled approval, suffix snapshot pruning and
 unchanged Unicode relocation. Native matrix, independent audit, checked retention
-and cleanup remain required. Overall campaign remains2new admissions,12/100.
+and cleanup subsequently passed. Overall campaign has3new admissions,13/100.
 
 The first hosted matrix stopped in both setup guards before any application
 execution. Its [disposition](first-native-setup-disposition.json) preserves that
 run and declaration. A replacement complete series permits omission only of
 canonical optional packages explicitly excluded on the actual OS; required
 packages and exact installed bytes remain mandatory. The replacement has no
-native coverage credit until its actual results are audited.
+native coverage credit until its actual results are audited; the replacement
+subsequently passed the full admission above.

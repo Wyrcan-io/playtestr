@@ -218,6 +218,7 @@ def build_model(retained,run,host,project='jrnl'):
             for actual,wanted in [(argv[3],report_relative),(argv[5],evidence_relative),(argv[6],spec_relative)]:
                 require(pure(actual)==pure('artifacts/'+NAME+'/'+wanted),'Node runner report/evidence/spec command differs')
             require(planned['expected_runner_exit']==expected_exit,'Node runner expected exit plan differs')
+            require(planned['spec_sha256']==digest(spec_relative),'Node runner command planned another spec hash')
         def check_build(proof,receipt_relative,expected_source,initial=False):
             planned_relative=posixpath.dirname(receipt_relative)+('/build-planned.json' if initial else '/planned.json')
             planned=get(planned_relative)
@@ -283,6 +284,7 @@ def build_model(retained,run,host,project='jrnl'):
         for name,value in catalog['files'].items():
             require(cleanup['files'][runtime_relative+'/'+name]['sha256']==value,'runtime changed between actual launch and cleanup')
         require(len(summary['observations'])==20 and summary['batch']==batch,'partial native batch summary')
+        if node:require(prepared['declaration_sha256']==sha256(DOC/project/'final-series-declaration.json') and prepared['runtime_kind']=='node','Node series declaration/runtime kind changed')
         package=f'{project}/final-series/{batch}/'+('relocated café 雪' if batch==5 else 'contracts')
         for observation in summary['observations']:
             cid=observation['case'];case=next(c for c in canonical['cases'] if c['id']==cid)
@@ -377,6 +379,7 @@ def build_model(retained,run,host,project='jrnl'):
                 catalog_relative=outcome['runtime_catalog'].removeprefix('artifacts/'+NAME+'/')
                 catalog=get(catalog_relative)
                 require(digest(catalog_relative)==outcome['actual_runtime_catalog_sha256']==proof['catalog_sha256'],'actual compiled calibration catalog changed')
+                require(compiled['actual_runtime_catalog_sha256']==proof['catalog_sha256'] and compiled['runtime_catalog']==proof['catalog_path'],'compiler output/catalog receipt differs')
                 require(catalog['files']=={**inventory['files'],**compiled['compiled_files']} and catalog['executable']==native_python and catalog['executable_sha256']==runtime['node_sha256'],'actual compiled calibration dependency/executable set differs')
                 require(launch['target']['files'].get('artifacts/'+NAME+'/active/'+project+'/launch-runtime-catalog.json')==digest(catalog_relative),'actual compiled calibration catalog absent at launch')
                 planned_relative=posixpath.dirname(relative)+'/'+fault['id']+'-'+outcome['phase']+'-planned.json'

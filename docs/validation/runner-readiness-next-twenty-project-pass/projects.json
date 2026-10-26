@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
-  "status": "two-new-projects-admitted-third-local-qualification",
+  "status": "new-project-admissions-in-progress",
   "historical_admissions": 10,
   "current_candidate_original_ten": 10,
-  "new_project_admissions": 2,
+  "new_project_admissions": 3,
   "new_project_target": 20,
-  "ordinary_executions": 960,
-  "calibration_executions": 36,
-  "canonical_scenarios": 40,
-  "native_cells": 4,
-  "real_target_faults": 6,
+  "ordinary_executions": 1440,
+  "calibration_executions": 54,
+  "canonical_scenarios": 60,
+  "native_cells": 6,
+  "real_target_faults": 9,
   "human_participants": 0,
   "human_usability": "unmeasured",
   "paid_admissions": 0,
@@ -84,8 +84,8 @@
       "id": "cz-cli",
       "repository": "commitizen/cz-cli",
       "pin": "1a8c49c02c9d52d1b4ef8cdabefb538088ddea03",
-      "status": "local-frozen-faults-passed-maintenance-active-not-admitted",
-      "admitted": false,
+      "status": "admitted",
+      "admitted": true,
       "planned_hosts": [
         "linux",
         "windows"
@@ -101,10 +101,21 @@
       "development_ordinary_failed": 3,
       "development_real_faults": 3,
       "development_fault_matrix_calibrations": 10,
-      "qualified_native_cells": 0
+      "qualified_native_cells": 2,
+      "qualified_scenarios": 20,
+      "native_run": "40026867471",
+      "native_source": "d9117f3c4f04a880834617987601c4b61a1202cd",
+      "audited_native_cells": 2,
+      "audited_ordinary_executions": 480,
+      "audited_calibration_executions": 18,
+      "additional_terminal_only_probes": 2,
+      "local_target_absent": true,
+      "maintenance": "Actual diagnosis, selected/cancelled approval, suffix pruning and byte-identical relocation passed; first attempts preserved.",
+      "admission": "cz-cli/admission.json",
+      "delivered_ci_observations": 0
     }
   ],
-  "observed_audited_ordinary_executions": 960,
-  "observed_audited_calibration_executions": 36,
-  "additional_terminal_only_probes": 2
+  "observed_audited_ordinary_executions": 1440,
+  "observed_audited_calibration_executions": 54,
+  "additional_terminal_only_probes": 4
 }

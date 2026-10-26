@@ -594,3 +594,84 @@ New reusable next20_storage.py checks these caps before receipt creation.
 Current2/20 new,12/100. Next: push scoped setup fix/revision, source-matched harness,
 dispatch fresh full native matrix; independent Node actual-packet audit still
 untested until a complete qualifying packet exists. No project4 acquisition yet.
+
+Resume after third admission: cz-cli is ADMITTED, actual closure command
+069591060c1940b3a857d7297ced5191. Ledger promotion8c1cef257c4c472685eafe65415d93e0
+records3/20 new,13/100 cumulative;60cases,6cells,1440 ordinary,54 mandatory
+calibrations and4 separate terminal-only probes. No fourth app acquired yet.
+
+Replacement native40026867471 at d9117f3c4f04a880834617987601c4b61a1202cd
+actually succeeded both hosts. Linux independent auditfb062902962e4477a1e88c043dc25274,
+Windows471e1aca5de64e009f73d3d7153ed857; each240 ordinary/10 calibration observations.
+Retained cz-cli v3/Linux19282090B SHA2638e22561fa23b33c30408ec42bcb110fa7810aa859f3e6e4047c87f49d2708;
+v4/Win19345793B SHAf84d2499df09945fd3e29b6e572785c26b36cd48cba0550b81bb46fdd2f707b6.
+Actual Node22.23.3/Linux,22.23.4/Win, npm10.9.9. All expanded packets removed:
+a7ec84f0b9d240af9ec3d7e33db55063/Linux,e34f0615541b46419ff7b23c85bb4b6e/Win.
+Current source-matched ten-control harness40026665868 passed all3hosts and was
+independently audited/compacted/removed as harnessv14/Linux153802B,v15/Mac153138B,
+v16/Win185705B. Do not download these completed packets again.
+
+Local process proof5c48b7099eb34c7d81cbda881c6c0a6f; retention9a48e3f103514208bf09d854915f3904
+captured23132files/162062885B and63 confirmed report cleanups. Native checked local
+removal7203b8886dd14944b0d777bcdd486f4c completed. New LocalAudit helpers verify
+all63reports, both complete development series, old compiled mutation catalogs,
+three source rebuild faults/late exact-byte supplement and original partial plus
+corrected complete maintenance. The first61-report intermediate audit remains zero
+admission; closure includes the two initially omitted partial diagnostic/recovery
+reports. Early local audits refused incomplete retention, adjacent public screens
+outside the overly narrow raw-only assumption, and incomplete partial command
+selection. The final audit binds original partial command IDs and all63reports.
+Successful complete local auditf45238e082ce4c4b877eab43d49aa11c; later alias-aware
+closure reruns also passed. Original helper hash epochs are preserved, not claimed
+to equal later committed native helpers.
+
+Retention correction: Linux host download was60489146 expanded bytes. The original
+16MiB compactor refused at16800892B before publishing an index. That stopped
+archive was preserved under compaction-attempts/linux-limit16-first. The shared
+compactor now has an explicit24MiB option, preserving its historical16MiB default;
+only cz-cli's adapter chooses24. Actual deterministic/default/unapproved-limit
+controls8155084479a841f982ed6354138433b9 passed. No Go/runner changes.
+Complete Linux compaction492a44576bc2418383d555027119e830 then passed independent
+audit. Original stopped gzip bytes were reproduced exactly from the first3149
+physical members of the complete packet, including exception-close tar semantics:
+a26b7aa6d69c40339157c6c7ce83e3d0. A normal-footer reconstruction first refused
+ac794659607b4eb590d01bcc45a6f247. Duplicate stopped payload removal1af9569fd03a4b689d8e9a15f8649afe
+retains every failure event/hash and byte-exact reconstruction recipe. Actual
+post-removal readback8249a24e7a174754bfd2512752bf02f2 recovered all16800892bytes.
+
+Four exact repeated catalog payloads4718608B were verified against the unchanged
+original catalog archive25320d96c0ae4fdea3b652eaf7075075 and literally removed
+4ce3f20cd1554ab0af1383a9ea9b50f6. Immutable duplicate-aliases.json maps each new
+logical path directly to an original index entry; selected restore was verified
+before removal. catalog_bytes now reads these paths and accepts the checked
+removed selected-copy proof. The first final admission2c521a56ae9d42dcaf39abfd1da47be0
+correctly refused a reader fallback that used the new logical name instead of the
+canonical archive name; one-line fix followed by full successful closure069591.
+Original catalog index/archive and all source/report/oracle bytes remain exact.
+
+Windows first download e537007c40af4ccd845df46470583cfc timed out180s, was reaped
+with no cleanup errors, and created no host directory. Primary API reported an
+available25903955B artifact. Its bounded300s retry1e8e7a7e2f33487aa00b6dfff432c7c4
+completed; no native tests rerun. A premature metadata-only compaction957c6bf2a737473f97d30106e34f3a6f
+while that transfer was pending was preserved as compaction-attempts/windows-metadata-only
+by7e74d019b4694b0d98881308f54add7b; zero application credit. The adapter now refuses
+a metadata-only run root. Full completed Windows compaction79917092cd6048fe90ff12f62d899607
+and audit subsequently passed. Actual native model24 corruption checks67971016fafd4586b17991587b3b8172
+all rejected, unchanged positives qualified; controls reuse exact audited model
+files instead of storing duplicate full models.
+
+Last pre-admission fresh storage2e760d63227a4e1eb445448296bb95bc: new311504795B,
+combined2220213367B, retained combined1226828567B, cz-cli63701302B (below64MiB),
+new curated895119B/combined12551363B, active[]. Temporary expanded download windows
+are raw storage, separately bounded; conservative per-project attribution during
+those windows would include expanded plus retained copies. No claim of exact peak.
+Final closure added a small local-audit receipt/admission afterward. New compactor
+default16 preserved; old-control applicability must account for this additional
+source-only helper change alongside readiness_bootstrap_go.py at final121 closure.
+
+NEXT: save/push third closure and current helper/docs changes, acquire selected
+yo (yeoman/yo pin2ee5e3441d99d500170be7c661d0a401ac0bb97c), verify primary source,
+review actual hooks/CLI/generator workflow before installation/execution. Do not
+reacquire or rerun completed cz-cli packets. Whole121 applicability, fresh checkout,
+global12 corruption classes, all-attempt cutoff/storage and late16+4 transfer remain
+pending. Human0/unmeasured, paid0; candidate/source remain exact rc.5/129b7a4.
