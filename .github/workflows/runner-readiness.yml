@@ -24,6 +24,9 @@ env:
 
 jobs:
   native-core:
+    # The active next-twenty campaign uses the fixed-source replacement workflow.
+    # Keep this historical namespace available for explicit investigations.
+    if: github.event_name == 'workflow_dispatch'
     timeout-minutes: 25
     strategy:
       fail-fast: false

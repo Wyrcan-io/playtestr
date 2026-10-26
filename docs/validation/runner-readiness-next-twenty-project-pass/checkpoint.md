@@ -1411,3 +1411,40 @@ sessions are complete. Next push includes production515ffc36 and qualification
 workflow; monitor real provider runs, retrieve/audit one host packet at a time.
 Do not rebuild rc.5, overwrite installed/freeze receipts, relabel old project runs,
 change late-transfer exposure, publish a release, or stop at this milestone.
+
+
+### Push and automatic-workflow concurrency deviation
+
+Repair515ffc36 and qualification workflow commit
+`a51d64ff9dc71185b7fc259712e5d9f06632065d` are pushed. Automatic harness
+`40418274760` at a51d64ff succeeded on all three hosts (20 controls; packet
+retention still pending as v35-v37). Provider readback
+`89a816bf321a42e39f2dd1d96a461976` preserves actual jobs/steps/times.
+
+The Go-source push also unexpectedly triggered legacy Runner readiness core
+`40418274509`, using its separate first-campaign namespace. Its automatic
+execution overlapped the new harness: provider execution intervals show peak4
+harness jobs (Linux/macOS from both workflows), then3 while Windows harness ran.
+This breached the declared two-job ceiling; do not claim the entire push stayed
+within it. No paid runner or budget purchase occurred. First direct cancellation
+returned HTTP500 (preserved as a tool observation; not a quota/permission refusal).
+Readback `4c5a93ffcd154827acdd8c9e172fd33b` confirmed still active; wrapped retry
+`40aa31b6eee84396bff3c78d707574ca` was accepted. Final readback
+`0a38645e414947a3b85faed409855987` confirms cancelled: Windows had NO steps;
+Linux/macOS core steps cancelled and their always-upload steps succeeded.
+Actual job starts/ends: Linux23:13:38..23:16:24UTC, macOS23:13:40..23:16:28UTC;
+harness Linux23:13:39..23:13:53UTC, macOS23:13:40..23:13:55UTC,
+Windows23:13:57..23:16:15UTC. These are provider UTC, not local dates.
+
+Retain both partial legacy-core host packets in the NEW campaign namespace,
+without rewriting their original first-campaign evidence schema/identities.
+The cancelled run supplies zero completed native-core/project qualification;
+Windows's absent packet is a verified unexecuted provider cell. Preserve original
+partial command events and any unconfirmed cleanup rather than inventing success.
+No active provider jobs remain from these two runs. The next production-source
+candidate workflow may now be dispatched after committing a preventive gate.
+Legacy runner-readiness.yml now runs only on explicit workflow_dispatch; ordinary
+Terminal tests remain unchanged for other branches/PRs. This prevents future
+campaign pushes from automatically duplicating the pinned replacement pipeline.
+Record the resource exception in final budget/accounting, and keep future actual
+native jobs at maximum2. The private candidate workflow has not yet been run.
