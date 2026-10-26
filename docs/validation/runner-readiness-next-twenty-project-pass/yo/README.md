@@ -68,9 +68,25 @@ archive; only verified duplicates were removed. Six local runtime catalogs
 were retained as12,499,326 expanded bytes in a4,062,652-byte archive and verified
 before duplicate removal.
 
-Native qualification remains pending. The declared Linux profile changes one
-logged path separator and predicts native interruption130; these require actual
-host execution. The complete two-host workflow and its12 fresh batches per cell
-are prepared, with native cleanup and24MiB per-packet compaction bounds. The
-64MiB all-generation project gate remains mandatory before admission; retained
-duplicate consolidation may still be needed. Human usability is unmeasured.
+All60 local launched reports and the separately accounted sandbox denial have
+been independently audited. Exact native PID/birth proof and checked removal
+confirmed that the local source/runtime is absent. Extra catalog duplicates were
+removed only after exact archive alias verification.
+
+The first native series is rejected and retained: Linux passed its first10 cases,
+then actual cancellation1 disproved the predicted130 profile. Windows115 passed
+reports and one cancelled report remain preserved. Cleanup's report discovery
+also tried to parse deliberately malformed fixture input. The corrected helper
+excludes named fixture trees from report parsing while retaining their exact
+bytes/hash coverage; malformed actual report JSON still fails closed. No native
+qualification credit is assigned to this series.
+
+A complete fresh revision2 keeps canonical cancellation1 and the declared single
+Linux logged path separator change. It references canonical SRI package source
+retained once locally:497 payloads/10,005,836 bytes, all mandatory for audit. Each
+native duplicate is removed only after exact equality and checked target cleanup;
+its reference binds the full native cleanup inventory and canonical descriptor.
+Missing or changed retained source rejects audit. All14 native harness controls
+passed, including corrupted-source refusal. The64MiB all-generation project gate
+still includes this canonical source and every original failed packet. Human
+usability remains unmeasured; native qualification is pending.

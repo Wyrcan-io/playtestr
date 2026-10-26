@@ -80,10 +80,6 @@ def host_contract(spec, runtime, host):
     require(result['command'][2].count('../runtime/app/lib/cli.js')==1,'yo standard entry route changed')
     if host=='linux':
         result['env']['GIT_CONFIG_GLOBAL']='/dev/null';result['inherit_env']=[]
-        if any(s.get('key')=='CtrlC' for s in result['steps']):
-            for step in result['steps']:
-                if 'exit' in step:
-                    require(step['exit']==1,'yo canonical Windows interrupt differs');step['exit']=130
     return result
 
 

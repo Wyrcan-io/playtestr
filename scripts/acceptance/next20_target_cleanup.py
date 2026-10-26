@@ -35,10 +35,22 @@ def target_inventory(target, max_files=40000):
     return dict(files=files,owned_links=links,total_bytes=total)
 
 
+def report_documents(project_root):
+    """Read report-shaped documents outside the declared fixture input trees."""
+    for path in project_root.rglob('*.json'):
+        if {'fixture','fixtures'} & set(path.relative_to(project_root).parts[:-1]):continue
+        if path.stat().st_size>4*1024**2:continue
+        data=json.loads(path.read_text(encoding='utf-8-sig'))
+        if isinstance(data,dict) and 'runner_version' in data and isinstance(data.get('results'),list):yield path,data
+
+
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--project',required=True)
     parser.add_argument('--prepare-only',action='store_true')
-    parser.add_argument('--max-files',type=int,choices=[40000,60000],default=40000);args=parser.parse_args()
+    parser.add_argument('--max-files',type=int,choices=[40000,60000],default=40000)
+    parser.add_argument('--unlaunched-report-sha256',action='append',default=[]);args=parser.parse_args()
+    if len(args.unlaunched_report_sha256)>4 or len(set(args.unlaunched_report_sha256))!=len(args.unlaunched_report_sha256) or any(not re.fullmatch('[0-9a-f]{64}',v) for v in args.unlaunched_report_sha256):
+        raise ValueError('Explicit unlaunched report digest bound')
     if not re.fullmatch('[a-z][a-z0-9-]{0,63}',args.project):raise ValueError('unsafe target cleanup slug')
     target=RAW/'active'/args.project
     target.resolve(strict=True).relative_to(RAW/'active')
@@ -50,16 +62,26 @@ def main():
     source=target/'src'
     actual={p.relative_to(source).as_posix():sha256(p) for p in source.rglob('*') if p.is_file()}
     if actual!=acquisition['source_files']:raise ValueError('target source not exactly restored; retain it for investigation')
-    reports=0
-    for path in (RAW/args.project).rglob('*.json'):
-        if path.stat().st_size>4*1024**2:continue
-        data=json.loads(path.read_text(encoding='utf-8-sig'))
-        if not isinstance(data,dict) or 'runner_version' not in data or not isinstance(data.get('results'),list):continue
+    reports=0;unlaunched=[]
+    for path,data in report_documents(RAW/args.project):
         for row in data['results']:
+            if sha256(path) in args.unlaunched_report_sha256:
+                if not (os.name=='nt' and len(data['results'])==1 and
+                    row.get('failure')==dict(category='workspace_setup_failure',message='workspace setup failed: expand native workspace path: Access is denied.') and
+                    row.get('target')==dict(exited=False) and not row.get('invocation_id') and
+                    row.get('cleanup',{}).get('attempted') is False and
+                    row.get('workspace',{}).get('prepared') is False and not row['workspace'].get('root') and not row['workspace'].get('id') and
+                    row['workspace'].get('cleanup_attempted') is False and not row.get('evidence') and
+                    all(s.get('status')=='not_run' for s in row['steps'])):
+                    raise ValueError('Explicit unlaunched report contains launched/partially prepared state')
+                unlaunched.append(dict(report=path.relative_to(ROOT).as_posix(),sha256=sha256(path),
+                    category='workspace_setup_failure',target_launched=False,workspace_prepared=False,cleanup_credit=0))
+                continue
             if not row.get('cleanup',{}).get('confirmed_exited') or not row.get('workspace',{}).get('cleaned'):
                 raise ValueError('unconfirmed target/workspace report prevents source/runtime deletion')
             reports+=1
     if reports==0:raise ValueError('no actual target report cleanup proof')
+    if {r['sha256'] for r in unlaunched}!=set(args.unlaunched_report_sha256):raise ValueError('Explicit unlaunched report not found exactly')
     if os.name=='nt':
         proof_path=RAW/args.project/'process-proof.json'
         proof=json.loads(proof_path.read_text(encoding='utf-8-sig'))
@@ -99,7 +121,8 @@ def main():
     if args.max_files!=40000:inventory['max_files']=args.max_files
     immutable_json(retained/'cleanup-inventory.json',dict(schema_version=1,project=args.project,owned_target=str(target),
         owner_sha256=sha256(target/'task-owned.json'),process_proof_sha256=sha256(proof_path),
-        actual_reports_with_confirmed_cleanup=reports,source_restored_exact=True,retained=copied,**inventory))
+        actual_reports_with_confirmed_cleanup=reports,source_restored_exact=True,retained=copied,
+        **(dict(unlaunched_setup_reports=unlaunched) if unlaunched else {}),**inventory))
     immutable_json(retained/'prepared.json',dict(schema_version=1,cleanup_inventory_sha256=sha256(retained/'cleanup-inventory.json'),
         process_proof_sha256=sha256(proof_path),source_archive_sha256=sha256(retained/'source.tar.gz'),
         source_restored_exact=True,removed=False))

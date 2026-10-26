@@ -1,4 +1,5 @@
 """Prove newly repeated local catalogs are byte-exact existing archive members."""
+import argparse
 import json
 
 from next20_check import RAW
@@ -7,12 +8,14 @@ from readiness_evidence import immutable_json, sha256
 
 
 def main():
-    retained=RAW/'cz-cli/retained-catalogs-v1'
+    parser=argparse.ArgumentParser();parser.add_argument('project',nargs='?',choices=['cz-cli','yo'],default='cz-cli');args=parser.parse_args()
+    project_root=RAW/args.project
+    retained=project_root/'retained-catalogs-v1'
     index=json.loads((retained/'index.json').read_text(encoding='utf-8'))
     aliases={};files={}
-    paths=[*sorted((RAW/'cz-cli/runtime-catalogs').glob('*.json')),RAW/'cz-cli/retained-source/launch-runtime-catalog.json']
+    paths=[*sorted((project_root/'runtime-catalogs').glob('*.json')),project_root/'retained-source/launch-runtime-catalog.json']
     for path in paths:
-        path.resolve(strict=True).relative_to(RAW/'cz-cli')
+        path.resolve(strict=True).relative_to(project_root)
         if path.is_symlink():raise ValueError('linked repeated catalog')
         digest=sha256(path);size=path.stat().st_size
         matches=[name for name,row in index['files'].items() if (row['sha256'],row['bytes'])==(digest,size)]

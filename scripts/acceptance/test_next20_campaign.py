@@ -20,6 +20,54 @@ class NextCampaignTests(unittest.TestCase):
         self.root=RAW/'control-tests'/uuid.uuid4().hex
         self.campaign=NextCampaign(self.root)
 
+    def test_malformed_fixture_is_retained_but_corrupt_report_still_refused(self):
+        import io
+        import tarfile
+        from next20_target_cleanup import report_documents
+        from next20_verify_jrnl import json_payloads
+        from readiness_compact_native import verify
+        fixture=self.root/'fixture/.yo-rc.json';fixture.parent.mkdir(parents=True)
+        fixture.write_bytes(b'{invalid json\n')
+        report=self.root/'E12.report.json'
+        report.write_bytes(b'{"runner_version":"synthetic-control","results":[]}\n')
+        self.assertEqual([p for p,_ in report_documents(self.root)],[report])
+        names={'native/123/yo/host-contracts/fixtures/e12/.yo-rc.json':fixture.read_bytes(),
+               'native/123/yo/final-series/0/E12.report.json':report.read_bytes()}
+        import hashlib
+        files={n:dict(bytes=len(data),sha256=hashlib.sha256(data).hexdigest()) for n,data in names.items()}
+        archive=self.root/'packets.tar.gz'
+        with tarfile.open(archive,'w:gz') as bundle:
+            for name,data in names.items():
+                member=tarfile.TarInfo(name);member.size=len(data);bundle.addfile(member,io.BytesIO(data))
+        verify(archive,files)
+        parsed=json_payloads(self.root,dict(files=files))
+        self.assertEqual(set(parsed),{'native/123/yo/final-series/0/E12.report.json'})
+        self.assertEqual(fixture.read_bytes(),b'{invalid json\n')
+        report.write_bytes(b'{invalid report\n')
+        with self.assertRaises(json.JSONDecodeError):list(report_documents(self.root))
+
+    def test_registry_reference_refuses_changed_bytes_before_duplicate_removal(self):
+        import gzip
+        from unittest.mock import patch
+        import next20_yo_registry_reference as registry
+        raw=self.root/'raw';doc=self.root/'docs';retained=raw/'yo/retained-source'
+        cache=retained/'npm-cache';payload=cache/'_cacache/content-v2/sha512/aa/bb/payload'
+        payload.parent.mkdir(parents=True);original=gzip.compress(b'synthetic package source control',mtime=0)
+        payload.write_bytes(original);relative=payload.relative_to(cache).as_posix()
+        row=dict(bytes=len(original),sha256=sha256(payload));files={relative:row}
+        (doc/'yo').mkdir(parents=True)
+        immutable_json(doc/'yo/registry-payloads.json',dict(files=files,total_bytes=len(original)))
+        immutable_json(retained/'cleanup-inventory.json',dict(files={'npm-cache/'+relative:row},retained={'npm-cache/'+relative:row['sha256']}))
+        immutable_json(retained/'removed.json',dict(removed=True,cleanup_inventory_sha256=sha256(retained/'cleanup-inventory.json')))
+        with patch.object(registry,'RAW',raw),patch.object(registry,'DOC',doc),patch.object(sys,'argv',['registry-reference-control']):
+            payload.write_bytes(gzip.compress(b'changed synthetic source',mtime=0))
+            with self.assertRaisesRegex(ValueError,'differ from retained canonical'):registry.main()
+            self.assertTrue(payload.is_file());self.assertFalse((retained/'registry-source-reference.json').exists())
+            payload.write_bytes(original);registry.main()
+            self.assertFalse(payload.exists())
+            reference=json.loads((retained/'registry-source-reference.json').read_text())
+            self.assertEqual(reference['files'],files)
+
     def test_cleanup_inventory_default_and_explicit_large_tree_bound(self):
         from types import SimpleNamespace
         from unittest.mock import patch

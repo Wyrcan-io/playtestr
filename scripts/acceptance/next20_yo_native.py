@@ -46,12 +46,6 @@ async def main():
         if spec['command'][2].count('../runtime/app/lib/cli.js')!=1:raise ValueError('Reviewed actual same-process yo entry routing changed')
         if host=='linux':
             spec['env']['GIT_CONFIG_GLOBAL']='/dev/null';spec['inherit_env']=[]
-            if case['id'] in {'E03','E04'}:
-                for step in spec['steps']:
-                    if 'exit' in step:
-                        if step['exit']!=1:raise ValueError('Original Windows interrupt code differs')
-                        step['exit']=130
-                native_case['expected_exit']=130
         immutable_json(contracts/case['spec'],spec)
         cases.append(dict(native_case,canonical_sha256=case['spec_sha256'],spec_sha256=sha256(contracts/case['spec'])))
     declaration['cases']=cases;declaration['host']=host
@@ -59,7 +53,7 @@ async def main():
     immutable_json(contracts/'development-test-freeze.json',dict(canonical_freeze_sha256=sha256(package/'development-test-freeze.json'),
         inputs={p.relative_to(contracts).as_posix():sha256(p) for p in contracts.rglob('*') if p.is_file()},
         directories=frozen['directories'],changes=changes,
-        profile='Exact native owned Node path. Linux devnull/empty Windows inheritance, predicted native self-SIGINT130, and one declared logged file path separator. No other screen/file-oracle edits; actual native execution required.'))
+        profile='Exact native owned Node path. Linux devnull/empty Windows inheritance and one declared logged file path separator. Cancellation retains canonical exact1: actual first Linux E03 exited1 through yo error handling. All original inputs/state predicates unchanged; actual complete native execution still required.'))
     immutable_json(RAW/'yo/native-prepared.json',dict(schema_version=1,host=host,pin=runtime['source_pin'],
         target_archive_sha256=sha256(target/'source.tar.gz'),runtime_sha256=sha256(target/'runtime.json'),
         build_sha256=sha256(target/'build.json'),host_contract_freeze_sha256=sha256(contracts/'development-test-freeze.json'),

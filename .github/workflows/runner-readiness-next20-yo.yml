@@ -125,11 +125,16 @@ jobs:
         if: always() && steps.prepare.outcome == 'success' && runner.os == 'Windows'
         run: python -B scripts/acceptance/next20_check.py --label native-yo-source-retention --timeout 600 -- python -B scripts/acceptance/next20_target_cleanup.py --project yo --max-files 60000 --prepare-only
       - name: Checked Windows source and runtime removal
+        id: clean_windows
         if: always() && steps.prepare.outcome == 'success' && runner.os == 'Windows'
         run: python -B scripts/acceptance/next20_check.py --label native-yo-source-runtime-removal --timeout 900 -- powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/acceptance/next20_remove_target.ps1 -Project yo -MaxFiles 60000
       - name: Checked Unix source and runtime removal
+        id: clean_unix
         if: always() && steps.prepare.outcome == 'success' && runner.os != 'Windows'
         run: python -B scripts/acceptance/next20_check.py --label native-yo-source-runtime-removal --timeout 600 -- python -B scripts/acceptance/next20_target_cleanup.py --project yo --max-files 60000
+      - name: Canonical registry source duplicate reference
+        if: always() && (steps.clean_windows.outcome == 'success' || steps.clean_unix.outcome == 'success')
+        run: python -B scripts/acceptance/next20_check.py --label native-yo-canonical-registry-source-reference --timeout 120 -- python -B scripts/acceptance/next20_yo_registry_reference.py
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:

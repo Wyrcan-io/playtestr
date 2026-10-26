@@ -23,7 +23,7 @@ def require(value,message):
 def json_payloads(retained,index):
     wanted={}
     for name,row in index['files'].items():
-        if name.endswith('.json'):
+        if name.endswith('.json') and not ({'fixture','fixtures'} & set(name.split('/')[:-1])):
             bound=16*1024**2 if name.endswith('/retained-source/cleanup-inventory.json') else 4*1024**2
             require(row['bytes']<=bound,'audit JSON file bound')
             wanted.setdefault(row.get('member',name),[]).append(name)
@@ -78,6 +78,7 @@ def build_model(retained,run,host,project='jrnl'):
     copied=project=='yo'
     node=project in {'cz-cli','yo'}
     binary_payloads=byte_payloads(retained,index) if node else {}
+    canonical_cache={}
     artifact='next20-'+project+'-'+('Windows' if host=='windows' else 'Linux')
     prefix='native/'+run+'/'+artifact+'/'
     metadata=payloads['native/'+run+'/run-metadata.json']
@@ -99,7 +100,7 @@ def build_model(retained,run,host,project='jrnl'):
         return payloads[name]
     def digest(relative):return index['files'][path(relative)]['sha256']
     def raw(relative):
-        if relative is None:return binary_payloads
+        if relative is None:return {**binary_payloads,**canonical_cache}
         require(path(relative) in binary_payloads,'actual Node bytes omitted: '+relative)
         return binary_payloads[path(relative)]
     def command(eid,compiler=False):
@@ -141,6 +142,18 @@ def build_model(retained,run,host,project='jrnl'):
     runtime=get(project+'/retained-source/runtime.json')
     inventory=get(project+'/retained-source/installed-inventory.json')
     cleanup=get(project+'/retained-source/cleanup-inventory.json')
+    if copied:
+        from next20_yo_registry_reference import canonical_payloads
+        registry=get('yo/retained-source/registry-source-reference.json')
+        approved=json.loads((DOC/'yo/registry-payloads.json').read_text())
+        require(declaration['canonical_registry_source']['declaration_sha256']==sha256(DOC/'yo/registry-payloads.json'),'native final series canonical registry dependency changed')
+        require(steps.get('Canonical registry source duplicate reference')=='success','native canonical source reference step incomplete')
+        require(registry['canonical_declaration_sha256']==sha256(DOC/'yo/registry-payloads.json') and registry['files']==approved['files'] and registry['total_bytes']==approved['total_bytes'],'native canonical registry source reference differs')
+        require(registry['native_cleanup_inventory_sha256']==digest('yo/retained-source/cleanup-inventory.json'),'native registry source not bound by actual cleanup')
+        for name,row in approved['files'].items():
+            require(cleanup['files']['npm-cache/'+name]==row and cleanup['retained']['npm-cache/'+name]==row['sha256'],'actual native package source differs from retained canonical bytes')
+        canonical_cache={prefix+n:v for n,v in canonical_payloads().items()}
+        require(not any(n.startswith(prefix+'yo/retained-source/npm-cache/') for n in index['files']),'unexpected native canonical source duplicate remains')
     removed=get(project+'/retained-source/removed.json')
     owner=get(project+'/retained-source/task-owned.json')
     process=get(project+'/process-proof.json')
@@ -262,6 +275,7 @@ def build_model(retained,run,host,project='jrnl'):
         runner_sha256=expected['binary_sha256'],archive_sha256=expected['archive_sha256'],ordinary=[],faults=[],
         cleanup=dict(removed=True,source_restored=True,target_root=expected_target,process_confirmed=True),
         canonical_cases=[c['id'] for c in canonical['cases']],first_development_disposition_sha256=sha256(DOC/project/'first-development-disposition.json'))
+    if copied:model['canonical_registry_declaration_sha256']=sha256(DOC/'yo/registry-payloads.json')
     seen=set()
     def normalize(report):
         require(report['report_version']==3 and report['runner_version']=='v0.4.0-rc.5' and report['os']==host and report['arch']=='amd64','wrong actual native runner/report identity')
@@ -438,6 +452,7 @@ def build_model(retained,run,host,project='jrnl'):
 
 def validate(model):
     project=model['project']
+    if project=='yo':require(model.get('canonical_registry_declaration_sha256')==sha256(DOC/'yo/registry-payloads.json'),'missing/changed canonical registry source dependency')
     require(project in {'jrnl','commitizen-python','cz-cli','yo'} and model['host'] in {'linux','windows'},'missing/canonical native project identity')
     require(model['cleanup']['removed'] and model['cleanup']['source_restored'] and model['cleanup']['process_confirmed'],'unsafe/unconfirmed target cleanup')
     pure=PureWindowsPath if model['host']=='windows' else PurePosixPath

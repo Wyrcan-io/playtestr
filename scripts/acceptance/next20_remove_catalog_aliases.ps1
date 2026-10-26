@@ -1,7 +1,8 @@
+param([ValidateSet('cz-cli','yo')][string]$Project='cz-cli')
 $ErrorActionPreference='Stop'
 $workspace=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
 $campaign=Join-Path $workspace 'artifacts\runner-readiness-next-twenty-project-pass'
-$retained=Join-Path $campaign 'cz-cli\retained-catalogs-v1'
+$retained=Join-Path $campaign ($Project+'\retained-catalogs-v1')
 $proofPath=Join-Path $retained 'duplicate-aliases.json'
 $proof=Get-Content -LiteralPath $proofPath -Raw | ConvertFrom-Json
 if((Get-FileHash -LiteralPath (Join-Path $retained 'index.json') -Algorithm SHA256).Hash.ToLowerInvariant() -ne $proof.original_index_sha256 -or
@@ -9,9 +10,10 @@ if((Get-FileHash -LiteralPath (Join-Path $retained 'index.json') -Algorithm SHA2
 $paths=@()
 foreach($property in $proof.files.PSObject.Properties){
     $relative=$property.Name
-    if($relative -notmatch '^cz-cli/(runtime-catalogs/[0-9a-f]{64}\.json|retained-source/launch-runtime-catalog\.json|retained-catalogs-v1/selected-restore\.json)$'){throw 'Unapproved duplicate alias path'}
+    $pattern='^'+[Regex]::Escape($Project)+'/(runtime-catalogs/[0-9a-f]{64}\.json|retained-source/launch-runtime-catalog\.json|retained-catalogs-v1/selected-restore\.json)$'
+    if($relative -notmatch $pattern){throw 'Unapproved duplicate alias path'}
     $expected=[IO.Path]::GetFullPath((Join-Path $campaign $relative))
-    if(-not $expected.StartsWith($campaign+'\cz-cli\',[StringComparison]::OrdinalIgnoreCase) -or (Resolve-Path -LiteralPath $expected).ProviderPath -ne $expected){throw 'Duplicate alias escapes owned project'}
+    if(-not $expected.StartsWith($campaign+'\'+$Project+'\',[StringComparison]::OrdinalIgnoreCase) -or (Resolve-Path -LiteralPath $expected).ProviderPath -ne $expected){throw 'Duplicate alias escapes owned project'}
     $ancestor=$expected
     while($ancestor -ne $workspace){
         if((Get-Item -LiteralPath $ancestor -Force).Attributes -band [IO.FileAttributes]::ReparsePoint){throw 'Linked duplicate alias ancestor'}
@@ -21,7 +23,9 @@ foreach($property in $proof.files.PSObject.Properties){
        (Get-FileHash -LiteralPath $expected -Algorithm SHA256).Hash.ToLowerInvariant() -ne $property.Value.sha256){throw 'Duplicate alias bytes changed'}
     $paths+=@($expected)
 }
-if($paths.Count -ne 4){throw 'Unexpected exact duplicate count'}
+$expectedCount=4
+if($Project -eq 'yo'){$expectedCount=2}
+if($paths.Count -ne $expectedCount){throw 'Unexpected exact duplicate count'}
 $receipt=Join-Path $retained 'duplicate-aliases-removed.json'
 if(Test-Path -LiteralPath $receipt){throw 'Preserve existing duplicate removal proof'}
 foreach($path in $paths){Remove-Item -LiteralPath $path -Force;if(Test-Path -LiteralPath $path){throw 'Exact duplicate remains'}}
@@ -29,4 +33,4 @@ foreach($path in $paths){Remove-Item -LiteralPath $path -Force;if(Test-Path -Lit
   aliases_sha256=(Get-FileHash -LiteralPath $proofPath -Algorithm SHA256).Hash.ToLowerInvariant();
   original_index_sha256=$proof.original_index_sha256;selected_restore_sha256=$proof.selected_restore_sha256;
   checked_at_utc=[DateTime]::UtcNow.ToString('o')} | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $receipt -Encoding UTF8
-Write-Output 'Removed only four exact catalog duplicates against the unchanged verified archive; all original logical bytes remain readable.'
+Write-Output ('Removed only '+$paths.Count+' exact catalog duplicates against the unchanged verified archive; all original logical bytes remain readable.')

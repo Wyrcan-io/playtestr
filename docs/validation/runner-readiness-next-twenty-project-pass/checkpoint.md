@@ -852,3 +852,95 @@ cleanup +independent localaudit and aggregate resource plan. Retrieve/audit/
 compact/remove ONE hostpacket at a time, no dependent transfer while pending.
 No new app until yo admitted or properly rejected/cleaned. Wholecampaign remains
 incomplete: continue after fourth and throughtwenty, no early final response.
+
+LATEST2026-10-26: local yo work committed/pushed1199115ba469506034e27177a80face43eb192b2.
+All87committedGit inputblobs independentlymatched localfreeze. Nativefirstdispatch
+40301653366 (666958a76b114e37827555e99928159f) REJECTED, finalproviderstatuscancelled.
+Linuxjob121500749054 first10casespass, thenE03 prompt/keypositive but targetexit1
+insteadpredicted130; all11individualreport cleanupsconfirmed. NativeN02Linux
+snapshotpassed with exactsingle declared pathseparatorchange. Complete Linux
+joblog retainedcore32f892c55cb54f7f8db5e1459ca5ac77. gh run --log-failed refused
+whileotherjoblive; directghapi required--allow-escape-sequences. These failed
+read-only attempts are retained. WrongWindowsPowerShelljqquoting f6b67803...
+also retained; simple singlequotedjq works.
+
+Same pinned yo catches prompt cancellation and exits1; do not reuse historical
+CZself-SIGINT130 profile. yo_native/verify_yo nowKEEP canonical1, all87canonical
+spec/fixture bytes unchanged. Reportdiscovery/packetJSONloader also misparsed
+intentionalfixture `.yo-rc.json` and conflicting project.json. Newreport_documents
+excludes only namedfixture/fixtures inputtrees from JSON report parsing, keeps
+all fixture bytes indexed/verified, and invalidactualreport JSON remainsfatal.
+NativeWindows job121500748780 was cancelled e4f324fdf4f04cdea62e2a27b76d7c15 to
+avoid continuing a rejectedsource. Finalpacket has116reports:115passed+1cancelled,
+not116passes. Both firstnativecells haveZEROqualificationcredit; no full native
+source/runtime cleanupclaim because oldhelperfailed beforethat.
+
+Retained failedLinuxv1:356logical/230physical/3529414expanded/1127875archiveB,
+compact0392d7d97d7c41aeb39b16981df721fd, actualrejectedaudit2cc4654e58b044b1bf51119f50636cb6,
+checkedexpandedremoveb04efc8e6b614863a477d238e9519a85. Failed/cancelledWindowsv2:
+1802logical/1288physical/22744751expanded/5405351archiveB, transfer8954c67fc6024ce082156b9d461e035e
+(session97407complete),compact532e6e037c124255aff7dd6ac332d127,actualauditc14760bc8ed0435ca1f69aea981cbe1e,
+expandedremove013188f9886c4bf5a509830aefd8678c. Both rootexpansionsabsent. Do not
+redownload these. Their source119... declaration preserved asfinal-series-declaration-v1.json.
+first-native-disposition.json +fresh finaldeclarationrevision2 (533e669d89bc44bc8d6c7e9a42513440)
+plan qualified nativegenerations3Linux/4Windows, samecandidate/20cases/12batches.
+
+LOCAL SOURCE/RUNTIME NOW ABSENT; do not reacquire or rerunpublic authoring/setup.
+Original sandboxN01report pathdevelopment/9eabb3e22270434b9f81ca34c929f255/N01.report.json,
+SHAf9f0bd4a7245ad89d99186eb92f0a233b550cc108376ed8cfc04927cb66f83ff explicitly
+audited4a39a7fb0cb844a495171349d4d4bdf7: noinvocation/preparedworkspace/targetlaunch,
+allstepsnotrun. DOCyo/sandbox-prelaunch-disposition.json; zero cleanup/ordinarycredit.
+Genericcleanup accepts bounded explicit--unlaunched-report-sha256 ONLYfor exact
+Windows expand-native-path Accessdenied/no-launched-state shape; defaultstill
+rejects. Firstretention70b3882c41054e33abce72a813262c84 failed on fixtureJSON BEFORE
+copy; correctedfullretention5897306f0630468ca5ad1ca9232c1da3 captured60confirmed
+launchedreports plus1separateunlaunchedreport,17499files/178498162B ownedtree.
+NativePIDproofe0f67a7a1801430cb028d7f8c9211b2e, exactcheckedlocalremoval2a7b6a6828d941e5b874d66fedb72b25.
+Independentcomplete localreportaudit ed7f96ec59314cc2a6f42bd4afff3cc0 then expanded
+actualmaintenance-sourcevariants/npmmetadata fullreadback08a5723250ac4ca8a108452550e30551
+bothpassed; rawyo/local-audits have immutable subjects. No localnative credit.
+
+Resource:43,031,981B YOafterfirstfailedpackets/localretention, beforelastcatalog
+dedup. Two additionalexactcatalogduplicates4166442B (retainedlaunchcatalog and
+selectedrestore) proven6cfee8d1e8a54f699ef72a063f540bb0, checkedremoved9e9298edccdd4f92a7ed058af50a5805.
+Catalogalias helpers nowexplicit yo support, defaultCZ behavior unchanged. Use
+catalog_bytes; missingphysicalselectedrestore is backed by duplicatealiasremoval
+receipt and originalarchive. No original archive/index modifications.
+
+Fresh native2hostpackets would otherwise repeat~10MB canonical NPM source each,
+so DOCyo/registry-payloads.json declares497actualSRIverifiedgzip payloads10005836B
+retainedONCEatRAWyo/retained-source/npm-cache; declaration86099b546e4d4d91a5b59c12039ad964.
+This is retained local canonicalSOURCE dependency allowed by prompt§18, counted
+inproject64MiB closure, NOT remote-only dictionary or omittedsource. Native
+next20_yo_registry_reference.py runs ONLY after checkednativefullsource/runtime
+removal: matcheverycachebyte/size/hash to approveddescriptor and actual native
+cleanup.files+retained maps; record registry-source-reference.json bound to
+nativecleanupinventory+canonicaldescriptor; unlinkonlyexactduplicategzipfiles.
+Nativearchives explicitly dependonthat local canonicalsource. Auditor requires
+providerreference-step success, exactdescriptor in finalseriesdeclaration,
+actualnativecleanup payload hashes, no unexpected archivedcacheduplicates, and
+loads/rechecksall497mandatory local payloads beforeindependentSRI/module
+reconstruction. Missing/changed sourcefails. Not eachindividualnativearchive
+standalone; completePROJECTclosure is self-contained. Bothqualifiedhostsource
+references need finaladmission dependency/subjects accounting.
+
+Nativeworkflow adds clean_windows/clean_unix IDs and source-reference step
+always ONLYif eithercheckedcleanupoutcome success; preserve fullcache on cleanup
+failure. Finalsource/toolchanges arecurrentlyUNCOMMITTED after119..., pending
+commit/push/dispatch freshrevision2. Newpreflight--retained verifies original
+sourcearchive+cleanup inventories and absence; never recreatesactive target.
+Latest retainedpreflight fa064eb74b3d4859a82f4590b88be65f parsed107helpers andall87inputs.
+13actualnativeharnesscontrols f2961490d9e943d29b958754a22846db passed including
+fixturemalformed/reportmalformed distinction; expanded14 with canonicalpackage
+changedbytesrefusal/exactduplicateremoval passed7bca401e46a64005a768af29325f71c8.
+OldbothCZnativeactualmodels reaudited unchanged448c2cb0a30340388f1ba61f0ca604b8.
+
+NEXT: commit/push currenttestedrevision2, dispatchnativeyo again. While running,
+rerunlocalretainedaudit aftercatalogaliases and currentstorage; addsource-ref
+corruptionguard/final dependency subjects asneeded. Collect eachqualifiedhost
+ONEatATIME, metadata ->compact ->fullbuild_modelaudit ->checkedremove; usev3/v4.
+All1440qualifiedordinary/54mandatorycal/9fault/3newadmissionsstayunchangeduntil
+actualfourthadmission. Need eventualyo_admission.py, accurate ledger,14hosted
+harness-source generationaudit. Thenproject5cargo-generate, throughall20. Never
+finish at fourth orsend intermediate final response. Prior wholecampaign final
+121controls/freshcheckout/negativecutoffs/storage/late16+4 work stillpending.
