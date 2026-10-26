@@ -27,12 +27,12 @@ async def main(project='jrnl',batch=None):
     canonical=RAW/project/'host-contracts';package=root/('relocated café 雪' if args.batch==5 else 'contracts')
     shutil.copytree(canonical,package)
     source=RAW/'active'/project;runtime=json.loads((source/'runtime.json').read_text());kind=runtime.get('kind','python')
-    if kind not in {'python','node'}:raise ValueError('Undeclared final runtime kind')
+    if kind not in {'python','node','native'}:raise ValueError('Undeclared final runtime kind')
     python=Path(runtime[kind]);executable_sha256=runtime[kind+'_sha256']
     installed=json.loads((source/'installed-inventory.json').read_text());inventory=installed['files']
-    original_runtime=ROOT/installed['runtime_root'] if kind=='node' else source/'venv'
+    original_runtime=ROOT/installed['runtime_root'] if kind!='python' else source/'venv'
     original_runtime.resolve(strict=True).relative_to(source.resolve(strict=True))
-    if kind=='node':inventory={**inventory,**json.loads((source/'build.json').read_text())['compiled_files']}
+    if kind!='python':inventory={**inventory,**json.loads((source/'build.json').read_text())['compiled_files']}
     def dependencies():
         for name,digest in inventory.items():
             if sha256(original_runtime/name)!=digest:raise ValueError('native installed/compiled dependency changed: '+name)
@@ -40,16 +40,17 @@ async def main(project='jrnl',batch=None):
     # Cold means a newly materialized, hash-verified runtime copy, followed by
     # reuse in its paired warm batch. It does not claim a flushed OS file cache.
     if args.batch in {0,2}:
-        clone=source/(('app-pair-' if kind=='node' else 'venv-pair-')+str(args.batch//2))
+        clone=source/(('venv-pair-' if kind=='python' else 'app-pair-')+str(args.batch//2))
         shutil.copytree(original_runtime,clone,symlinks=kind=='python')
         for name,digest in inventory.items():
             if sha256(clone/name)!=digest:raise ValueError('fresh runtime copy mismatch')
         immutable_json(clone/'copy-identity.json',dict(source_inventory_sha256=sha256(source/'installed-inventory.json'),
             source_relative_path=original_runtime.relative_to(source).as_posix(),cold_scope='First use of a newly materialized verified runtime, not OS-cache eviction'))
     if args.batch<4:
-        clone=source/(('app-pair-' if kind=='node' else 'venv-pair-')+str(args.batch//2))
+        clone=source/(('venv-pair-' if kind=='python' else 'app-pair-')+str(args.batch//2))
         if not clone.exists():raise ValueError('warm repetition missing preceding cold runtime preparation')
         if kind=='python':python=clone/('Scripts/python.exe' if os.name=='nt' else 'bin/python')
+        elif kind=='native':python=clone/python.name
         if sha256(python)!=executable_sha256:raise ValueError('actual executed interpreter differs')
         for name,digest in inventory.items():
             if sha256(clone/name)!=digest:raise ValueError('actual copied dependency changed: '+name)
@@ -87,11 +88,11 @@ async def main(project='jrnl',batch=None):
     install=json.loads((runner.parent/'installed.json').read_text())
     if sha256(runner)!=install['binary_sha256']:raise ValueError('wrong final archive binary')
     env=environment(source);campaign=NextCampaign(phase='final-archive')
-    immutable_json(root/'prepared.json',dict(schema_version=2 if kind=='node' else 1,host=host,batch=args.batch,
+    immutable_json(root/'prepared.json',dict(schema_version=2 if kind!='python' else 1,host=host,batch=args.batch,
         declaration_sha256=sha256(DOC/project/'final-series-declaration.json'),changes=changes,
         runner_sha256=sha256(runner),archive_sha256=install['archive_sha256'],
         **(dict(actual_executable=python.relative_to(ROOT).as_posix(),actual_executable_sha256=sha256(python),runtime_kind=kind)
-           if kind=='node' else dict(actual_python=python.relative_to(ROOT).as_posix(),actual_python_sha256=sha256(python))),
+           if kind!='python' else dict(actual_python=python.relative_to(ROOT).as_posix(),actual_python_sha256=sha256(python))),
         actual_runtime_catalog_sha256=sha256(root/'runtime-catalog.json'),
         installed_inventory_sha256=sha256(source/'installed-inventory.json')))
     observations=[]
@@ -103,7 +104,7 @@ async def main(project='jrnl',batch=None):
             variation=declaration['batches'][args.batch],expected_runner_exit=0)
         command=[runner,'test','--report',report.relative_to(ROOT),'--artifacts-dir',
             (root/'evidence').relative_to(ROOT),spec.relative_to(ROOT)]
-        if kind=='node':planned.update(schema_version=2,command=list(map(str,command)),cwd=str(ROOT))
+        if kind!='python':planned.update(schema_version=2,command=list(map(str,command)),cwd=str(ROOT))
         immutable_json(root/(case['id']+'.planned.json'),planned)
         # No per-case retries: any failure rejects this series, with all existing
         # attempts preserved. Replacement requires an explicit new declaration.

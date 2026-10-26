@@ -46,7 +46,8 @@ class NextCampaign(Campaign):
         if target.is_symlink() or getattr(target,'is_junction',lambda:False)():
             raise ValueError('linked target identity root')
         files={}
-        for name in ['task-owned.json','acquisition.json','runtime.json','build.json','wheels.json','dependency-review.json','launch-runtime-catalog.json']:
+        for name in ['task-owned.json','acquisition.json','runtime.json','build.json','wheels.json','dependency-review.json','launch-runtime-catalog.json',
+                     'dependency-fetch-review.json','dependency-source-catalog.json','short-cache-reference.json']:
             path=target/name
             if path.is_file():files[path.relative_to(ROOT).as_posix()]=sha256(path)
         source=target/'src'
@@ -66,11 +67,17 @@ class NextCampaign(Campaign):
         if runtime.is_file():
             value=json.loads(runtime.read_text())
             kind=value.get('kind','python')
-            if kind not in {'python','node'}:raise ValueError('unreviewed runtime executable kind')
+            if kind not in {'python','node','native'}:raise ValueError('unreviewed runtime executable kind')
             executable=Path(value[kind])
             executable.resolve(strict=True).relative_to(target)
             if executable.is_symlink() or getattr(executable,'is_junction',lambda:False)():raise ValueError('linked runtime executable')
             if sha256(executable)!=value[kind+'_sha256']:raise ValueError('actual owned '+kind+' executable changed')
+            if kind=='native':
+                build=json.loads((target/'build.json').read_text())
+                if (build['binary_sha256']!=value['native_sha256'] or
+                    target/build['binary_relative_path']!=executable or
+                    build['runtime_kind']!='native'):
+                    raise ValueError('compiled native runtime lacks matching build provenance')
             files[executable.relative_to(ROOT).as_posix()]=value[kind+'_sha256']
         catalog=dict(schema_version=1,project=project,files=files,
             dependency_scope='Installed dependency inventory must additionally be verified before/after each batch; no summary-only runtime credit')

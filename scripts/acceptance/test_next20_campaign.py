@@ -20,6 +20,45 @@ class NextCampaignTests(unittest.TestCase):
         self.root=RAW/'control-tests'/uuid.uuid4().hex
         self.campaign=NextCampaign(self.root)
 
+    def test_native_runtime_requires_matching_build_and_rejects_changed_binary(self):
+        target=self.root/'active/native-control';binary=target/'bin/target.exe'
+        binary.parent.mkdir(parents=True);binary.write_bytes(b'compiled native control bytes')
+        digest=sha256(binary)
+        immutable_json(target/'runtime.json',dict(kind='native',native=str(binary),native_sha256=digest))
+        with self.assertRaises(FileNotFoundError):self.campaign.identity('native-control',[binary])
+        build=target/'build.json'
+        immutable_json(build,dict(runtime_kind='native',binary_sha256=digest,binary_relative_path='bin/target.exe'))
+        self.campaign.identity('native-control',[binary])
+        binary.write_bytes(b'changed native control bytes')
+        with self.assertRaisesRegex(ValueError,'executable changed'):
+            self.campaign.identity('native-control',[binary])
+        # A matching runtime hash still cannot hide a different compiled build.
+        runtime=json.loads((target/'runtime.json').read_text());runtime['native_sha256']=sha256(binary)
+        (target/'runtime.json').write_text(json.dumps(runtime))
+        with self.assertRaisesRegex(ValueError,'matching build provenance'):
+            self.campaign.identity('native-control',[binary])
+
+    def test_short_compiler_cache_preserves_bytes_and_refuses_changed_copy(self):
+        from unittest.mock import patch
+        import next20_rust_fetch as rust
+        target=self.root/'active/cargo-generate'
+        source=target/'cargo-home/registry/src/registry/control-1.0/build.rs'
+        archive=target/'cargo-home/registry/cache/registry/control-1.0.crate'
+        source.parent.mkdir(parents=True);archive.parent.mkdir(parents=True)
+        source.write_bytes(b'fn main() {}\n');archive.write_bytes(b'synthetic archive identity control')
+        catalog=dict(files={source.relative_to(target).as_posix():sha256(source)})
+        immutable_json(target/'dependency-source-catalog.json',catalog)
+        dependencies=dict(files={archive.relative_to(target).as_posix():dict(sha256=sha256(archive))})
+        with patch.object(rust,'RAW',self.root):
+            copied=rust.materialize_short_cache(target,dependencies,catalog)
+            actual=copied/'registry/src/registry/control-1.0/build.rs'
+            self.assertEqual(actual.read_bytes(),source.read_bytes())
+            self.assertEqual(rust.materialize_short_cache(target,dependencies,catalog),copied)
+            actual.write_bytes(b'changed source after review')
+            with self.assertRaisesRegex(ValueError,'short cache changed'):
+                rust.materialize_short_cache(target,dependencies,catalog)
+            self.assertEqual(actual.read_bytes(),b'changed source after review')
+
     def test_malformed_fixture_is_retained_but_corrupt_report_still_refused(self):
         import io
         import tarfile

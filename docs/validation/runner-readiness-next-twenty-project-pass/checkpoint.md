@@ -1132,3 +1132,120 @@ No additionalagents authorized. No newgoal/task/release/outreach/PR mutation.
 Do not stop at4. Fulltarget20new/30total, global121/oldmigration/freshcheckout/
 late16+4 andallattemptcutoffs stillrequired. Usercontinue meansquota restored;
 neverask quotaquestionagain. Continueautonomously.
+
+
+## 27 October: yo committed; cargo-generate source and dependency review
+
+Completed yo admission is committed and pushed as
+`1dc3f72ea57e8970948ea09d4de15edb811ec13f`; branch remains
+`work/p0-p2-implementation`. Four new admissions / fourteen cumulative remain the
+actual credit. Automatically triggered harness run `40382052838` succeeded on
+all three hosts with 18 controls (two Windows-only skips on Unix). Each packet
+was independently source-audited, retained and checked-removed sequentially:
+v29 Linux `2c765410224c4f668b3e597108fc9457`, v30 macOS
+`f8967738098748b5af2c39e4b83ba162`, v31 Windows
+`281efce9d8bd480ba345399fea8efe6a`. No expanded native packet remains.
+
+Project five cargo-generate is now the sole active upstream at
+`artifacts/runner-readiness-next-twenty-project-pass/active/cargo-generate`.
+Source-only acquisition `fa51ca5458924a7ba1ca88539a3d76de` pinned
+`9c0c27568113cfc9caefac50336b5d4b92c055a9`, 202 archive entries / 1,182,920
+expanded bytes. Primary tree verification `b32d1654013b4f73b4291ec7bd744994`
+verified all 167 Git blobs. Source/license/build boundary review
+`97b11c2ddef64568ae81147eb3605d5c` is preserved in this project's tracked package.
+
+Locked dependency source fetch `14418d4c2cae4bca84594b582879a832` completed:
+369 archives / 48,462,235 compressed bytes; 49 hooks identified; no build hooks
+or target code executed during fetch. Exact payload/hook review
+`789f954c00e247789cb156f63266040e` independently compared 16,222 unpacked files
+against every archive member and bound all hook hashes. Registry source catalog
+and fetch receipt remain inside the active owned tree. Do not fetch again.
+
+Offline default-feature native compilation is active under exec session 36178
+(outer label `cargo-generate-reviewed-offline-native-build`, helper
+`next20_cargo_build.py`). It uses installed read-only Rust 1.97.1 and MSVC;
+all homes, registry/compiler caches and temporary/build output are owned. Two
+jobs, no LTO/debug/incremental, 1,100-second compile and 1,200-second outer bound,
+3 GiB sampled new-raw stop. Before any resumed build, collect that session's
+completion and inspect retained events/build.json; never launch a duplicate.
+Storage observation `c08f468384cc44b1a51a92a34f3b6385` passed all caps:
+new raw 1,395,874,343, combined raw 3,304,582,915, combined retained
+1,298,759,668 bytes; sole active target cargo-generate. Samples are not exact peaks.
+
+Shared identity adapter now supports a compiled native runtime only with a
+matching actual executable hash and build provenance. Corruption control
+`9e0752f5274c410794f0556d1c2557db` passed missing-build, changed executable and
+mismatched-build rejection. Shared final-series adapter can copy/select native
+binary runtimes while preserving Python/Node routes. Full harness regression
+is active in exec session 5980; collect it before claiming completion. These
+changes were made after the pushed 18-control harness revision and need their
+own source-matched hosted evidence later.
+
+First public route helper `next20_cargo_first_use.py` is prepared but NOT RUN.
+It creates only synthetic upstream-template inputs before public recording;
+no handwritten Playtestr test is supplied. After actual build/version success,
+run it through next20_check with native cleanup authorization, inspect the
+first outcome, then proceed to twenty useful scenarios. Do not claim project
+five, first-use, faults or native cells before their actual evidence exists.
+Keep all original failures, the already qualified four projects and unchanged
+rc.5 candidate bytes. Continue through all twenty and global closure.
+
+
+### cargo-generate first compile failure and bounded path correction
+
+Sessions 36178 and 5980 have completed. All 19 shared harness controls passed
+(`aa98e4765da8430e8fb81df13cafb2cf`). The first offline compile failed with
+exit 101 after 204.906 seconds: inner attempt `888f28d071ad4225a1940766d43340a0`,
+outer `fa36d8305cf5492c844611c688005b8d`; output 346,950 bytes, process reaped,
+cleanup_errors empty. Preserve the full original AWS-LC compiler log. MSVC
+reported two missing relative includes. Both exact headers exist in the
+independently archive-verified tree: md32_common.h has a 238-character absolute
+path and rej_uniform_table.c has a 268-character absolute path. Native 8.3
+spelling of the exact same AWS-LC directory reduces those lengths to 167/197.
+No target application scenario ran and no runner defect is inferred.
+
+A fresh bounded retry is now active in exec session **51977**, outer label
+`cargo-generate-offline-build-short-owned-paths`. Same source/lock/default
+features; only exact-owned-path spellings for CARGO_HOME, CARGO_TARGET_DIR,
+TEMP/TMP/TMPDIR and compile cwd use native GetShortPathNameW. The helper resolves
+each spelling back to the identical owned root before use. No source patch,
+registry/global path setting, directory move or outside-workspace write occurred.
+Collect this session before any further compile. Previous build and failure
+remain intact; no first-use or native application qualification yet.
+
+
+### Physical short-cache build (current)
+
+Session 51977 finished with the same two AWS-LC include errors: inner
+`82b607164dca4e0795d39314bdf48f5a`, outer
+`3ee8faadb68146eaa3f2e0fe6d7e336e`. Spelling-only correction did not solve it;
+retain both failed logs and do not report an application scenario failure.
+Current compile is exec session **51781**, outer label
+`cargo-generate-offline-build-physical-short-cache`. The original source/cache
+remain unchanged. `next20_rust_fetch.materialize_short_cache` made an exact
+verified copy of the already reviewed registry tree under new owned **RAW/r**
+(physical root length 97 characters versus original home length 128).
+`RAW/r/task-owned.json` and `materialized.json`, plus active target's
+`short-cache-reference.json`, bind owner and every actual source/archive hash.
+No further acquisition or source patch. This is the same external application,
+not a second active upstream. RAW/r must be retained/audited as needed and
+checked-removed before advancing to the next application; do not leave it as an
+unaccounted cache. It is currently conservatively included in retained storage.
+
+Copy-corruption control `1c6b02e311af4301990e15b5e4ff8bd4` passed and preserved
+changed data on refusal. Twenty total harness controls now exist; the prior
+complete run covered 19 and only this new control ran separately afterward.
+Latest storage `e67db3ceb3184e5bbfcb3da70aa02f5d` passed: new raw
+1,867,202,502, combined raw 3,775,911,074, combined retained 1,679,179,181 bytes.
+All figures are point observations, not exact peaks. Full build/first-use still
+pending; no new admission credit. Public-route helper currently declares three
+shell calls and twenty controls, including a stable pre-completion prompt
+snapshot; independent exact output file/sentinel checks and generated entries.
+
+
+Full twenty-control local harness run `ce6f68ada37342039ebe31878299fa57`
+passed in 20.578 seconds. Physical short-cache build outer attempt is
+`0daac04084d846039b3ccb5385f6b11a` (session 51781), currently preparing/checking
+its cache before any new compiler-launch event. Do not mistake setup progress
+for a successful executable. First-use helper is still unexecuted. The current
+progress commit intentionally preserves this pending state and both failures.
