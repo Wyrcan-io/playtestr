@@ -1,4 +1,5 @@
-param([Parameter(Mandatory=$true)][ValidatePattern('^[a-z][a-z0-9-]{0,63}$')][string]$Project)
+param([Parameter(Mandatory=$true)][ValidatePattern('^[a-z][a-z0-9-]{0,63}$')][string]$Project,
+    [ValidateSet(40000,60000)][int]$MaxFiles=40000)
 $ErrorActionPreference='Stop'
 $workspace=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
 $campaign=Join-Path $workspace 'artifacts\runner-readiness-next-twenty-project-pass'
@@ -13,6 +14,9 @@ $prepared=Get-Content -LiteralPath (Join-Path $retained 'prepared.json') -Raw | 
 $indexPath=Join-Path $retained 'cleanup-inventory.json'
 if ((Get-FileHash -LiteralPath $indexPath -Algorithm SHA256).Hash.ToLowerInvariant() -ne $prepared.cleanup_inventory_sha256) { throw 'Target cleanup inventory changed' }
 $index=Get-Content -LiteralPath $indexPath -Raw | ConvertFrom-Json
+$declaredMaxFiles=40000
+if ($null -ne $index.PSObject.Properties['max_files']) {$declaredMaxFiles=[int]$index.max_files}
+if ($declaredMaxFiles -ne $MaxFiles) {throw 'Target cleanup bound differs from prepared inventory'}
 if ($index.owned_target -ne $target -or -not $index.source_restored_exact) { throw 'Target ownership/restoration mismatch' }
 $ownerPath=Join-Path $target 'task-owned.json'
 if ((Get-FileHash -LiteralPath $ownerPath -Algorithm SHA256).Hash.ToLowerInvariant() -ne $index.owner_sha256) { throw 'Target ownership marker changed' }
@@ -21,7 +25,7 @@ while($pending.Count) {
     foreach($entry in Get-ChildItem -LiteralPath $pending.Dequeue() -Force) {
         if ($entry.Attributes -band [IO.FileAttributes]::ReparsePoint) { throw 'Unknown target link/reparse point' }
         if ($entry.PSIsContainer) {$pending.Enqueue($entry.FullName);continue}
-        if ($actual.Count -ge 40000) { throw 'Target cleanup file bound' }
+        if ($actual.Count -ge $MaxFiles) { throw 'Target cleanup file bound' }
         $relative=$entry.FullName.Substring($target.Length+1).Replace('\','/')
         $record=$index.files.PSObject.Properties[$relative].Value
         if ($null -eq $record -or $entry.Length -ne $record.bytes -or

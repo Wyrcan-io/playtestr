@@ -1,0 +1,55 @@
+{
+  "all_lifecycle_hooks_disabled": true,
+  "approved_for": "Owned Node/npm prerequisite execution and package-lock-only resolution, then hooks-disabled dependency fetch. Target/framework execution requires installed source/metadata review.",
+  "bin_links_disabled": true,
+  "canonical_root_scripts": {
+    "coverage": "c8 report --reporter=text-lcov | coveralls",
+    "postinstall": "yodoctor",
+    "postupdate": "yodoctor",
+    "pretest": "xo",
+    "test": "c8 esmocha"
+  },
+  "canonical_runtime_packages": 519,
+  "canonical_source_files": 48,
+  "documentation": [
+    "https://yeoman.io/authoring/",
+    "https://yeoman.io/authoring/user-interactions.html"
+  ],
+  "guardrails": {
+    "active_stop_bytes": 536870912,
+    "global_install": false,
+    "setup_execution_budget_seconds": 1200
+  },
+  "new_project_admissions": 0,
+  "pin": "2ee5e3441d99d500170be7c661d0a401ac0bb97c",
+  "plugin_framework": {
+    "compatibility": "Published source requires Environment>=4.0.0-rc.0; pinned yo uses6.0.1. No version-check bypass. Actual execution still required.",
+    "engine": {
+      "node": "^22.18.0 || >=24.11.0"
+    },
+    "integrity": "sha512-Fhs5a10HofaiJEai1dRuFiWbqiLX0njzXlkBsExnQSCsHdu2FHsSa9tBvT86nRkcR/XgRHq4Z/1Qe/5kmaN+zg==",
+    "license": "BSD-2-Clause",
+    "package": "yeoman-generator",
+    "primary_metadata_sha256": "2bddd4432c18d5ba5037f2a0b0ed8ed0642699ececf308d911411544a46da084",
+    "source_archive_sha256": "3ebfe9b2199cf6f972fc417f12c5a57ca76af8401cfdc552dca8ccd5423a6b7d",
+    "source_reviewed": [
+      "dist/index.js",
+      "dist/generator.js",
+      "dist/constants.js",
+      "dist/actions/lifecycle.js",
+      "package.json"
+    ],
+    "version": "10.2.1"
+  },
+  "prerequisite": {
+    "checksum_manifest_sha256": "c90c3f1478fda8308b22cc1a1b0dc536169196444e67ee8b5c582fd351d02bce",
+    "node_sha256": "dccc52de28d8df2ee22d2062424f8c563070d95d8ad70c54c4bf01d590dec14f",
+    "npm_cli_sha256": "3ce7cba6f5128dd5f54c98b6a5036b0f850496878cc2e21044b675fe3c594e3e",
+    "official_archive_sha256": "cbc74b5e0982c9dbb41525fd8fb5dcd32fbee237863f7829072f4639a1ce5f20",
+    "version": "v22.23.4"
+  },
+  "project": "yo",
+  "schema_version": 1,
+  "source_provenance_sha256": "4c6b0021bd056732a952e33011683f0809751c1145efdc2ed102e79a1345d2d6",
+  "workload": "Documented local generator path; synthetic project label/language/README prompts and saved files through real Generator APIs. No fake adapter, mocked environment, package installation by generators, commits or external services."
+}

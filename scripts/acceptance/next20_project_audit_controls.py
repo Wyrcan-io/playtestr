@@ -16,7 +16,7 @@ def encoded(value):
 
 def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument('project',choices=['commitizen-python','cz-cli'])
+    parser.add_argument('project',choices=['commitizen-python','cz-cli','yo'])
     parser.add_argument('--run',required=True)
     args=parser.parse_args()
     destination=RAW/args.project/'audit-controls'/uuid.uuid4().hex
@@ -27,7 +27,7 @@ def main():
     for host,generation in generations.items():
         model,index=build_model(RAW/args.project/('retained-native-v'+str(generation)),args.run,host,args.project)
         counts=validate(model)
-        if args.project=='cz-cli':
+        if args.project in {'cz-cli','yo'}:
             matches=[p for p in (RAW/args.project/'audits').glob('*/actual-model.json') if json.loads(p.read_text(encoding='utf-8'))==model]
             if len(matches)!=1:raise ValueError('actual cell model requires one existing independently audited payload')
             positive=matches[0];positive_reference=positive.relative_to(RAW).as_posix()
@@ -59,7 +59,7 @@ def main():
             except ValueError as error:
                 observations.append(dict(host=host,control=name,rejected=True,reason=str(error),
                     positive_model=positive_reference,positive_model_sha256=sha256(positive),
-                    **(dict(positive_model_root='campaign') if args.project=='cz-cli' else {}),
+                    **(dict(positive_model_root='campaign') if args.project in {'cz-cli','yo'} else {}),
                     mutation=patch,altered_canonical_json_sha256=hashlib.sha256(encoded(altered)).hexdigest()))
             else:raise ValueError('Altered complete actual cell was accepted: '+host+' '+name)
         if validate(model)!=counts:raise ValueError('Unchanged actual positive lost qualification')

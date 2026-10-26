@@ -1,0 +1,105 @@
+{
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/yo/node/node.exe",
+    "-e",
+    "const p=require('node:path'),{pathToFileURL}=require('node:url');const e=p.resolve(p.dirname(process.execPath),'../runtime/app/lib/cli.js');process.argv.splice(1,0,e);import(pathToFileURL(e).href);",
+    "--",
+    "./generator",
+    "--local-only",
+    "--skip-install",
+    "--skip-cache",
+    "--no-color"
+  ],
+  "env": {
+    "GIT_CONFIG_GLOBAL": "nul",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_TERMINAL_PROMPT": "0",
+    "NO_COLOR": "1",
+    "NO_UPDATE_NOTIFIER": "1",
+    "TZ": "UTC"
+  },
+  "height": 32,
+  "inherit_env": [
+    "SYSTEMROOT",
+    "WINDIR"
+  ],
+  "max_output_bytes": 2000000,
+  "name": "E05 Resize during Unicode input and decline README",
+  "run_timeout_ms": 120000,
+  "steps": [
+    {
+      "expect": "Project label"
+    },
+    {
+      "text": "Synthetic caf\u00e9 \u6771\u4eac"
+    },
+    {
+      "resize": {
+        "height": 24,
+        "width": 72
+      }
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Project language"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Include README"
+    },
+    {
+      "text": "n"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Scaffold complete"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "ewogICJsYWJlbCI6ICJTeW50aGV0aWMgY2Fmw6kg5p2x5LqsIiwKICAibGFuZ3VhZ2UiOiAiVHlwZVNjcmlwdCIKfQo=",
+        "kind": "file",
+        "path": "output/project.json"
+      }
+    },
+    {
+      "state": {
+        "kind": "absent",
+        "path": "output/README.md"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "VW5yZWxhdGVkIHN5bnRoZXRpYyBpbnB1dCBtdXN0IHJlbWFpbiB1bmNoYW5nZWQuCg==",
+        "kind": "file",
+        "path": "sentinel.txt"
+      }
+    },
+    {
+      "state": {
+        "entries": [
+          "project.json"
+        ],
+        "kind": "entries",
+        "path": "output"
+      }
+    }
+  ],
+  "timeout_ms": 10000,
+  "version": 3,
+  "width": 48,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/e05",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

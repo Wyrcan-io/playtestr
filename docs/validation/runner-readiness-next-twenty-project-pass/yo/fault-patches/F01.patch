@@ -1,0 +1,11 @@
+--- a/lib/cli.js
++++ b/lib/cli.js
+@@ -172,7 +172,7 @@
+   for (const generator of cli) {
+     try {
+       // eslint-disable-next-line no-await-in-loop
+-      await env.run(generator.args, generator.opts);
++      await new Promise(() => { setInterval(() => {}, 1000); });
+     } catch (error) {
+       onError(error);
+     }

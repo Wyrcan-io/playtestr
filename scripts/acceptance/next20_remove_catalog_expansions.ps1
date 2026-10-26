@@ -1,4 +1,4 @@
-param([Parameter(Mandatory=$true)][ValidateSet('cz-cli')][string]$Project)
+param([Parameter(Mandatory=$true)][ValidateSet('cz-cli','yo')][string]$Project)
 $ErrorActionPreference='Stop'
 $workspace=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
 $campaign=Join-Path $workspace 'artifacts\runner-readiness-next-twenty-project-pass'
@@ -12,7 +12,9 @@ foreach($path in @($campaign,$projectRoot,$retained,$indexPath,(Join-Path $retai
 $verified=Get-Content -LiteralPath (Join-Path $retained 'verified.json') -Raw | ConvertFrom-Json
 if((Get-FileHash -LiteralPath $indexPath -Algorithm SHA256).Hash.ToLowerInvariant() -ne $verified.index_sha256){throw 'Changed catalog index'}
 $index=Get-Content -LiteralPath $indexPath -Raw | ConvertFrom-Json
-if($index.kind -ne 'local-compiled-runtime-catalogs' -or $index.project -ne $Project -or
+$expectedKind='local-compiled-runtime-catalogs'
+if($Project -eq 'yo'){$expectedKind='local-interpreted-runtime-catalogs'}
+if($index.kind -ne $expectedKind -or $index.project -ne $Project -or
     (Get-FileHash -LiteralPath (Join-Path $retained 'packets.tar.gz') -Algorithm SHA256).Hash.ToLowerInvariant() -ne $index.archive_sha256){throw 'Changed/foreign catalog archive'}
 $targets=@()
 foreach($entry in $index.files.PSObject.Properties){

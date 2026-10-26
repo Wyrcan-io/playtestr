@@ -675,3 +675,180 @@ review actual hooks/CLI/generator workflow before installation/execution. Do not
 reacquire or rerun completed cz-cli packets. Whole121 applicability, fresh checkout,
 global12 corruption classes, all-attempt cutoff/storage and late16+4 transfer remain
 pending. Human0/unmeasured, paid0; candidate/source remain exact rc.5/129b7a4.
+
+26 October continuation: third closure committed/pushed0a280a40 (full SHA via git).
+Latest local source syntax52fc573fbcd445d0a5784273f7575337 parsed81helpers; native
+Windows ten controlsd4ef2c0df373459ba332edfd3627f3ad passed. All3admissions durable.
+
+FOURTH APP ACTIVE: yo, selected yeoman/yo pin2ee5e3441d99d500170be7c661d0a401ac0bb97c.
+Source-only acquisition8ab2f31d11e1496bab6487eef16b05e0:54archive entries,690913expandedB.
+Primary Git verificationaf9a817eeac74605af8719f1e889cdbe verified48regular blobs.
+Reviewed canonical package7.0.1, BSD2, ESM entrylib/cli.js; root postinstall/postupdate
+yodoctor hooks deliberately disabled. Production closure519physical packages,
+no OS/development-only rows. No global SDK/package changes.
+
+Official local-generator docs were read at https://yeoman.io/authoring/ and
+/authoring/user-interactions.html. Plugin fixtures are standard local generator
+inputs through real framework APIs, analogous to Plop templates, not mocked CLIs.
+Official framework primary source10.2.1 acquired97cea32ffe27408b8844d6349b55f3c0;
+9.0.0 also source-only researchb0325fcc4913485f9bfaff614a32a4a6 (never installed).
+Both require Node^22.18 or>=24.11, so installed local24.7 does not qualify. Owned
+SDK22.23.4 acquisition7cb4273401304ddaaa1d8f8754ebf675 verified official Node
+SHASUMS256,2032files/99119403expandedB. Node SHA dccc52de28d8df2ee22d2062424f8c563070d95d8ad70c54c4bf01d590dec14f
+exactly matches prior actual native Windows22.23.4. Shared prerequisite retained
+under RAW/toolchain/node-sdk/node-v22.23.4-win-x64; no execution until explicit
+yo setup declaration. Native hosts can record their actual compatible installed
+22.x copies rather than downloading this Windows prerequisite.
+
+New reusable registry-review and checksum SDK helpers preserve source-only data;
+yo setup/review helpers are uncommitted. Setup lock-only1ae30429afa14d22ba1a43d4107d5307
+used owned Node/npm with hooks/binlinks/engine guard; froze official framework
+10.2.1 plus97packages to DOC/yo/generator-package-lock.json. No root/dev hooks.
+Fetchf3eea45ff9244bdfa8e8a25f0115b598 installed canonical yo519 and framework97
+with all hooks disabled. Runtime app is a byte-exact copy of original lib and
+package metadata; no compiler or source transformation. Framework official
+published dist is checked against primary registry integrity.
+
+First installed-byte review0abddd1184494738a7b18fccad4a5fb0 refused six path-set
+differences before target execution. Actual owned npm/pacote and tar source shows
+relative ./ normalization, .gitignore->.npmignore handling and serialized Windows
+case-insensitive extraction. New pure npm_payloads projector reproduces those
+rules without changing bytes; records every path projection per package. A
+locutus Go strings/index.js vs Index.js archive collision leaves the latter on
+Windows; not a broad compatibility claim for that indirect API. All616physical
+packages/15608runtime files then matched exactly01026b2f980547389fd08d319c362f1a.
+DOC/yo/source-review.json approves only the declared synthetic local-generator
+workflow, no external services/package installation or mocked adapters.
+
+PUBLIC FIRST USE COMPLETE: first wrapper793f91307ade4cd5b0a09478d0b6ee71 failed
+only after successful recorder export because it compared entry arrays in order.
+Public entries contract sorts both sides; independent file bytes were already
+correct. Preserve that failure, original first-use plan and unchanged exported
+normal-project.json. Resume helper--resume-export fixed only comparison and ran
+the remaining third public commandfb66aaa796aa4f74bd3c9adfab0065e6. Actual public
+version82d1b5f5ed0d4ab8ab5bbd40f11bc3f1,record0d6cd02c15564e23a4ec53bc2f715b42,
+ordinaryf0dee4d36e2941a7846ab69b2a9ac66f:3commands/16controls, exact intended JSON,
+README, unchanged sentinel, output entry set and actual cleanup all positive.
+No handwritten spec JSON. Original wrapper disposition saved separately.
+
+Separate public JavaScript/declined-README/snapshot route78426883655a46a88a5b1ed7f8d74946
+passed3commands/19controls. DOC/yo/normal-javascript.json and snapshotjavascript-complete.txt.
+Snapshot includes actual list-prompt deprecation warning, Unicode ticks and
+Windows `create output\project.json`; derive any Linux console-path expectation
+explicitly from source before native qualification. Do not normalize oracle bytes
+silently or claim cross-platform support before actual native execution.
+
+Measured active yo222236273B/17499files: runtime64674892B/15608files,
+owned Node87034184B, npm-cache61089966B. Cache content:497actual package gzip
+payloads10005836B plus103public registry metadata payloads50150501B; SDK is
+separate shared prerequisite. One active app only; no target processes left by
+completed public reports. No yo development series/freeze/fault/maintenance/native
+qualification yet. Admission count stays3/20 (13/100), not4.
+
+NEXT: make20scenarios using actual first routes (8normal12edge, >=4combined), run
+complete first development, preserve failures, freeze only after complete pass.
+Then real yo source faults and public maintenance. Runtime15608files*3cold/warm
+copies exceed historical40000 cleanup inventory bound: add explicit bounded
+60000 option to both Python inventory and PS exact removal before native clones.
+Retain/compact local registry metadata and consider one self-contained combined
+two-host archive deduplicating common npm payloads if needed for64MiB/all-generation
+gate; never drop original attempts or use external-only dictionaries. Current
+helpers assume compiled cz-cli for Node audits/fault rebuilds: yo is copied
+interpreted ESM; add honest source-copy variant proofs, no compiler claim. New
+native profile/workflow/auditor still required; do not dispatch cz-cli workflow
+for yo. Local SDK and runtime ready; continue, do not reacquire/reinstall them.
+
+2026-10-26 continuation: yo LOCAL COMPLETE, native not yet dispatched at this
+checkpoint. Counts remain3/20 new,13/100 cumulative; no fourth admission.
+Declared20cases169f740819174e58b21b42fc3c37b764. Initial sandbox development
+20470f4fcb1746f3b1b2284468f264d4 stopped atN01 workspace_setup_failure before
+target launch: expand native workspace path Access is denied. Report has no
+invocation/workspace root and no attempted target cleanup. Must explicitly
+account for this unlaunched report during local retention/audit; generic cleanup
+currently refuses it. Do not pretend it has confirmed target cleanup.
+Native retry160c9db32fad4fa09a4e6976ed36bf99 completed18pass/2fail. E11 predicted
+ENOTDIR but actual mem-fs says `is not a directory`; E12 predicted Unexpected
+but actual Node says `Could not parse JSON in file:`. Both actual target exits1,
+all cleanup confirmed. Original complete inputs/specs/fixture/screens preserved
+underRAW/yo/development-inputs-v1 with exact index before changes73ebffbe9ac3473fa8d091451dcd4e6e.
+Only those two anchors revised, exact exits/state oracles unchanged. Full revised
+20/20 passed3abb1b75a54642b1bc3c95c4c942df53. Freeze87filesde14df70d15748529b08894656e34c52.
+
+Actual lib/cli.js faults declared afterfreeze5a8a802f304f46d69c63a9963dde194a:
+unique `await env.run(generator.args, generator.opts);` dispatch blocked with a
+live interval, completed run exits7, and same-size JSON label notes->notex after
+unchanged terminal completion. Full source/runtime copy calibrations passed
+99c1c1e0190944c9821362ad1267f26e:3 realfaults,9 mandatoryobservations plus1separate
+terminal-only falsegreen probe,0nativecredit. No compiler: newyo_assemble copies
+every declaredlib module byte exactly, verifies complete source/dependency/Node
+inventories, retains source payloads +actual catalogs before each launch. Shared
+python_faults adds explicit yo copied-source branch; historical Python/Babel
+defaults retained. Originalsource/runtime restored.
+
+Public maintenance5ade27dab4c94c97830f69b12c7e28a1 passed:2-command diagnosis and
+offlineHTML, selected JSON extra-LF approval only, cancelled doubleLF preserves
+reviewed bytes, suffix rerecordCtrlC discards all completionEnter/snapshot,
+byte-identical maintained/suffix contracts at actual `relocated café 雪` path.
+Finally source/runtime restored. Independent separate npm auditor reconstructed
+all15608 actual local runtime files and rejected changedlock/module/missingcache
+controls0c70d38089c84375aeb45ea82220e6de. Newnext20_verify_yo models npm paths
+independently; native packet auditor now supports copiedESM proof branch plus
+explicit Linux one-path-separator snapshot expectation. Both old cz-cli native
+cells reconstructed by current auditor with byte-identical original models
+c5b8ad5eee08436e9031f879d30e8751; no duplicate full models created.
+
+Explicit60000-file cleanup option added to Python inventory/nativePS removal;
+default40000 unchanged. Fixes Python off-by-one refusal to match exact bound.
+11 native harness checksff4e5621ceb545fbadd8cc42ef247aad passed, then expanded
+12 controls including actual explicit-bound/default-mismatch refusal/removal all
+passed17afd58169de41b9bee535bd28e65d84. Earlier sandbox run511d670d2fa84bcdbc758f7423629b65
+had CIM denial and timeout reaping unconfirmed; not product or guard failures.
+Exact synthetic fixture later checked/removedbd938539b0034ce4b104ae859292d395.
+Old timeout test slept20s and is past expiry, but no fresh native PID/birth
+readback of that failed timeout child has yet been recorded; do not claim one.
+
+Local npm nonpackage metadata/log retention804d73f4c0774c07a7429da1f988e435:
+51084130 expanded bytes ->7186474B self-contained archive, every exact member
+readback before literal duplicate unlink. Original gzip package payloads remain
+at original paths. Newcleanup copies npm-metadata-retention and dependency-research.
+Research includes actual source expansions for both frameworkversions; further
+exact archive-backed dedup may be needed for64MiB project ceiling.
+Local6actual runtimecatalogs retained5248fc423c024e9584c64e970b83272c:
+12499326 expanded ->4062652B archive +selectedrestore. Literal expansions removed
+bd6b6ba1ccad4404bf55100f4e9e9a08, all6exactreadbacks38724e5771f54439a69a865724fadb16.
+Catalogstore/compactor/removal now explicitly support yo interpreted kind;
+CZdefaults unchanged. Do not run assembly/fault/maintenance again casually:
+that would rematerialize retained catalog duplicates requiring alias accounting.
+
+Pre-native storage8d595186049f4a6fbe7fc765655d0ed1 beforemetadata/catalog dedup:
+new690226416B,combined2598934988B,combinedretained1248270290B,YO13788274B,
+newcurated1352329B,combinedcurated13008573B; oneactiveyo,allgatespass. Source
+cleanup still pending; retained-cache/source copy adds bytes, so remeasure.
+
+DOCyo now has local-progress.json (bd9ce673dd5c4c2d836a0c8ea076f6c3), first
+developmentdisposition, finalseriesdeclaration487c9e0aaa564efba1eb28d77d532128,
+projectsledger unadmitted fourthrow. Native helpers prepared: yo_native_setup
+reuses installed readonly Node/npm satisfying exactframeworkengine and exact
+frozen97packageframeworklock; yo_review --native-review avoids overwriting local
+curated source-review. yo_native acquiresfresh source, verifies48Gitblobs,
+copies frozencontracts; Linux profile devnull, emptyWindowsinheritance, predicted
+interrupt130 forE03/E04, exactlyone snapshot `create output\\project.json` to
+`create output/project.json`. Actual hosts must verify these predictions.
+Workflow runner-readiness-next20-yo.yml prepared standardLinux/Win,2jobs65min,
+12freshbatches240ordinary/cell,10calobs/cell, compactnpmmetadata,60000-file native
+cleanup, exactcandidate39450029736. Perpacket explicit24MiB bound; perproject
+allgeneration64MiB stillmandatory. Need exact duplicate consolidation or combined
+self-contained retention if actual two-host/local total demands it; never drop
+original attempts or use external-only payload dictionaries.
+
+Preflight330e35696e614f10b329e4b7548f94af caught generated workflow accidentally
+still naming CZ underscore native helper (hyphen replacement did not touch it).
+Fixed workflow and generator BEFORE dispatch. Complete preflight3cd8f5f2e6f3456e9dc4519c303a6ae2
+parsed102helpers,verified87frozeninputs+complete actualsource/runtime+12batches
+and nativebounds. Current source still uncommitted here. NEXT commit/push scoped
+YO/helpers (already authorized), dispatch/monitor standard nativeworkflow; while
+running finish explicit prelaunch-report disposition, local checked retention /
+cleanup +independent localaudit and aggregate resource plan. Retrieve/audit/
+compact/remove ONE hostpacket at a time, no dependent transfer while pending.
+No new app until yo admitted or properly rejected/cleaned. Wholecampaign remains
+incomplete: continue after fourth and throughtwenty, no early final response.

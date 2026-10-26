@@ -17,14 +17,15 @@ def catalog_bytes(path,expected_sha256):
         data=path.read_bytes()
     else:
         project=logical.split('/',1)[0]
-        if project!='cz-cli':raise ValueError('No declared local catalog retention for this project')
+        if project not in {'cz-cli','yo'}:raise ValueError('No declared local catalog retention for this project')
         retained=RAW/project/'retained-catalogs-v1'
         for checked in [retained,retained/'index.json',retained/'verified.json',retained/'packets.tar.gz']:
             checked.resolve(strict=True).relative_to(RAW.resolve())
             if checked.is_symlink() or getattr(checked,'is_junction',lambda:False)():raise ValueError('Linked catalog retention entry')
         index=json.loads((retained/'index.json').read_text(encoding='utf-8'))
         proof=json.loads((retained/'verified.json').read_text(encoding='utf-8'))
-        if index['kind']!='local-compiled-runtime-catalogs' or index['project']!=project or sha256(retained/'index.json')!=proof['index_sha256']:
+        expected_kind='local-interpreted-runtime-catalogs' if project=='yo' else 'local-compiled-runtime-catalogs'
+        if index['kind']!=expected_kind or index['project']!=project or sha256(retained/'index.json')!=proof['index_sha256']:
             raise ValueError('Changed/foreign catalog retention identity')
         if sha256(retained/'packets.tar.gz')!=index['archive_sha256']:raise ValueError('Changed catalog retention payload')
         verify(retained/'packets.tar.gz',index['files'])
@@ -54,7 +55,7 @@ def catalog_bytes(path,expected_sha256):
 if __name__=='__main__':
     import argparse
     from readiness_evidence import immutable_json
-    parser=argparse.ArgumentParser();parser.add_argument('project',choices=['cz-cli']);args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('project',choices=['cz-cli','yo']);args=parser.parse_args()
     retained=RAW/args.project/'retained-catalogs-v1'
     index=json.loads((retained/'index.json').read_text(encoding='utf-8'))
     for name,row in index['files'].items():

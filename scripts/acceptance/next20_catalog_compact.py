@@ -11,7 +11,7 @@ from readiness_evidence import immutable_json,sha256
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('project',choices=['cz-cli']);args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('project',choices=['cz-cli','yo']);args=parser.parse_args()
     root=RAW/args.project;files={};total=0
     pattern=re.compile(re.escape(args.project)+r'/(?:runtime-catalogs/[0-9a-f]{64}\.json|rebuilds/[0-9a-f]{32}/runtime-catalog\.json|faults/[0-9a-f]{32}/F0[123]-(?:baseline|mutated|restored|terminal-only)-runtime-catalog\.json)')
     paths=[*root.glob('runtime-catalogs/*.json'),*root.glob('rebuilds/*/runtime-catalog.json'),*root.glob('faults/*/*-runtime-catalog.json')]
@@ -48,7 +48,7 @@ def main():
         data=stream.extractfile(files[selected].get('member',selected)).read(4*1024**2+1)
     with restore.open('xb') as stream:stream.write(data)
     if sha256(restore)!=files[selected]['sha256']:raise ValueError('Selected catalog restore differs')
-    immutable_json(output/'index.json',dict(schema_version=2,kind='local-compiled-runtime-catalogs',project=args.project,
+    immutable_json(output/'index.json',dict(schema_version=2,kind='local-interpreted-runtime-catalogs' if args.project=='yo' else 'local-compiled-runtime-catalogs',project=args.project,
         files=files,expanded_bytes=total,archive_sha256=sha256(archive),archive_bytes=archive.stat().st_size,
         unique_payloads=len(members),selected_restore=dict(logical_path=selected,path='selected-restore.json',sha256=sha256(restore)),
         scope='Every original local catalog logical path/hash retained; exact bytes share only verified one-level in-archive members. No native execution or project credit.'))

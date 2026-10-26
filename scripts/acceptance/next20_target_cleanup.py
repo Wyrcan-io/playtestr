@@ -13,7 +13,8 @@ from next20_check import NAME,RAW,ROOT
 from readiness_evidence import immutable_json,sha256
 
 
-def target_inventory(target):
+def target_inventory(target, max_files=40000):
+    if max_files not in (40000,60000):raise ValueError('unreviewed cleanup file bound')
     files={};links={};total=0;pending=[target]
     while pending:
         directory=pending.pop()
@@ -28,7 +29,7 @@ def target_inventory(target):
             elif entry.is_dir():pending.append(entry)
             elif entry.is_file():
                 size=entry.stat().st_size;total+=size
-                if len(files)>40000 or size>128*1024**2 or total>1024**3:raise ValueError('cleanup inventory bound')
+                if len(files)>=max_files or size>128*1024**2 or total>1024**3:raise ValueError('cleanup inventory bound')
                 files[relative]=dict(bytes=size,sha256=sha256(entry))
             else:raise ValueError('special cleanup payload')
     return dict(files=files,owned_links=links,total_bytes=total)
@@ -36,7 +37,8 @@ def target_inventory(target):
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--project',required=True)
-    parser.add_argument('--prepare-only',action='store_true');args=parser.parse_args()
+    parser.add_argument('--prepare-only',action='store_true')
+    parser.add_argument('--max-files',type=int,choices=[40000,60000],default=40000);args=parser.parse_args()
     if not re.fullmatch('[a-z][a-z0-9-]{0,63}',args.project):raise ValueError('unsafe target cleanup slug')
     target=RAW/'active'/args.project
     target.resolve(strict=True).relative_to(RAW/'active')
@@ -83,7 +85,7 @@ def main():
             destination=retained/name;shutil.copyfile(source_file,destination)
             if sha256(source_file)!=sha256(destination):raise ValueError('retained source provenance copy mismatch')
             copied[name]=sha256(destination)
-    for name in ['dependency-review','linux-dependency-review','wheels','npm-cache','npm-installed-locks']:
+    for name in ['dependency-review','linux-dependency-review','wheels','npm-cache','npm-installed-locks','dependency-research','npm-metadata-retention']:
         directory=target/name
         if directory.is_dir():
             destination=retained/name
@@ -93,7 +95,8 @@ def main():
                     relative=path.relative_to(retained).as_posix()
                     if sha256(target/relative)!=sha256(path):raise ValueError('retained dependency review/package changed')
                     copied[relative]=sha256(path)
-    inventory=target_inventory(target)
+    inventory=target_inventory(target,max_files=args.max_files)
+    if args.max_files!=40000:inventory['max_files']=args.max_files
     immutable_json(retained/'cleanup-inventory.json',dict(schema_version=1,project=args.project,owned_target=str(target),
         owner_sha256=sha256(target/'task-owned.json'),process_proof_sha256=sha256(proof_path),
         actual_reports_with_confirmed_cleanup=reports,source_restored_exact=True,retained=copied,**inventory))

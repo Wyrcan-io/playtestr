@@ -1,0 +1,101 @@
+{
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/yo/node/node.exe",
+    "-e",
+    "const p=require('node:path'),{pathToFileURL}=require('node:url');const e=p.resolve(p.dirname(process.execPath),'../runtime/app/lib/cli.js');process.argv.splice(1,0,e);import(pathToFileURL(e).href);",
+    "--",
+    "./generator",
+    "--local-only",
+    "--skip-install",
+    "--skip-cache",
+    "--no-color"
+  ],
+  "env": {
+    "GIT_CONFIG_GLOBAL": "nul",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_TERMINAL_PROMPT": "0",
+    "NO_COLOR": "1",
+    "NO_UPDATE_NOTIFIER": "1",
+    "TZ": "UTC"
+  },
+  "height": 32,
+  "inherit_env": [
+    "SYSTEMROOT",
+    "WINDIR"
+  ],
+  "max_output_bytes": 2000000,
+  "name": "E06 Edit long wrapped label before saving",
+  "run_timeout_ms": 120000,
+  "steps": [
+    {
+      "expect": "Project label"
+    },
+    {
+      "text": "Synthetic wrapped wrapped wrapped wrapped wrapped wrapped wrapped wrapped wrapped wrapped wrapped wrappedX"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Project language"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Include README"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Scaffold complete"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "ewogICJsYWJlbCI6ICJTeW50aGV0aWMgd3JhcHBlZCB3cmFwcGVkIHdyYXBwZWQgd3JhcHBlZCB3cmFwcGVkIHdyYXBwZWQgd3JhcHBlZCB3cmFwcGVkIHdyYXBwZWQgd3JhcHBlZCB3cmFwcGVkIHdyYXBwZWQiLAogICJsYW5ndWFnZSI6ICJUeXBlU2NyaXB0Igp9Cg==",
+        "kind": "file",
+        "path": "output/project.json"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "IyBTeW50aGV0aWMgd3JhcHBlZCB3cmFwcGVkIHdyYXBwZWQgd3JhcHBlZCB3cmFwcGVkIHdyYXBwZWQgd3JhcHBlZCB3cmFwcGVkIHdyYXBwZWQgd3JhcHBlZCB3cmFwcGVkIHdyYXBwZWQKCkxhbmd1YWdlOiBUeXBlU2NyaXB0Cg==",
+        "kind": "file",
+        "path": "output/README.md"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "VW5yZWxhdGVkIHN5bnRoZXRpYyBpbnB1dCBtdXN0IHJlbWFpbiB1bmNoYW5nZWQuCg==",
+        "kind": "file",
+        "path": "sentinel.txt"
+      }
+    },
+    {
+      "state": {
+        "entries": [
+          "README.md",
+          "project.json"
+        ],
+        "kind": "entries",
+        "path": "output"
+      }
+    }
+  ],
+  "timeout_ms": 10000,
+  "version": 3,
+  "width": 48,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/e06",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

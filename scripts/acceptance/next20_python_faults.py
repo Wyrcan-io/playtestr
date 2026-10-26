@@ -21,7 +21,9 @@ async def main():
     canonical=DOC/args.project;package=(args.package or canonical).resolve();package.relative_to(ROOT)
     target=RAW/'active'/args.project
     compiled=args.project=='cz-cli'
-    provenance=json.loads((canonical/'source-provenance.json').read_text()) if compiled else None
+    copied=args.project=='yo'
+    assembled=compiled or copied
+    provenance=json.loads((canonical/'source-provenance.json').read_text()) if assembled else None
     if json.loads((target/'task-owned.json').read_text())['slug']!=args.project:raise ValueError('wrong active source fault target')
     declaration=json.loads((canonical/'fault-declaration.json').read_text());frozen=json.loads((package/'development-test-freeze.json').read_text())
     if declaration['selected_after_freeze_sha256']!=sha256(canonical/'development-test-freeze.json'):raise ValueError('source faults were not selected after this canonical freeze')
@@ -48,7 +50,7 @@ async def main():
             immutable_json(derived/'derivation.json',dict(original_spec_sha256=sha256(selected),
                 scope='Different deliberately terminal-only contract; state oracles removed only for this labeled calibration, zero ordinary credit.'))
             selected=derived/'spec.json'
-        if compiled:
+        if assembled:
             saved=ROOT/build_proof['catalog_path']
             saved.resolve().relative_to(RAW/args.project/'runtime-catalogs')
             from next20_catalog_store import catalog_bytes
@@ -57,10 +59,10 @@ async def main():
         report=root/(fault['id']+'-'+phase+'.json')
         command=[runner,'test','--report',report.relative_to(ROOT),'--artifacts-dir',
             (root/(fault['id']+'-'+phase+'-evidence')).relative_to(ROOT),selected.relative_to(ROOT)]
-        if compiled:
+        if assembled:
             planned=root/(fault['id']+'-'+phase+'-planned.json')
             immutable_json(planned,dict(schema_version=1,command=list(map(str,command)),cwd=str(ROOT),
-                spec_sha256=sha256(selected),compiled_build=build_proof,expected_runner_exit=1 if phase=='mutated' else 0))
+                spec_sha256=sha256(selected),**{('source_assembly' if copied else 'compiled_build'):build_proof},expected_runner_exit=1 if phase=='mutated' else 0))
         result=await execute(command,
             args.project,'source-fault-'+fault['id']+'-'+phase,cwd=ROOT,env=env,timeout=140,
             expected=1 if phase=='mutated' else 0,campaign=campaign)
@@ -77,7 +79,7 @@ async def main():
         return dict(phase=phase,attempt=result['id'],report=report.relative_to(ROOT).as_posix(),
             report_sha256=sha256(report),spec_sha256=sha256(selected),status=row['status'],category=category,
             invocation=row['invocation_id'],target_cleanup=True,workspace_cleanup=True,ordinary_credit=0,
-            **(dict(compiled_build=build_proof,actual_runtime_catalog_sha256=build_proof['catalog_sha256'],runtime_catalog=saved.relative_to(ROOT).as_posix(),planned_sha256=sha256(planned)) if compiled else {}))
+            **(dict(**{('source_assembly' if copied else 'compiled_build'):build_proof},actual_runtime_catalog_sha256=build_proof['catalog_sha256'],runtime_catalog=saved.relative_to(ROOT).as_posix(),planned_sha256=sha256(planned)) if assembled else {}))
     for fault in faults:
         path=target/'src'/fault['path'];path.resolve(strict=True).relative_to((target/'src').resolve())
         original=path.read_bytes();before=fault['before'].encode();after=fault['after'].encode()
@@ -91,12 +93,16 @@ async def main():
         else:
             with patch_path.open('x',encoding='utf-8',newline='\n') as stream:stream.write(patch)
         async def build_variant(phase):
-            if not compiled:return None
-            from next20_cz_cli_rebuild import rebuild
+            if not assembled:return None
             expected=dict(provenance['files'])
             expected[fault['path']]=hashlib.sha256(mutated if phase=='mutated' else original).hexdigest()
-            proof=await rebuild(expected,'source-fault-compile-'+fault['id']+'-'+phase)
-            if phase!='mutated' and proof['compiled_files']!=json.loads((target/'build.json').read_text())['compiled_files']:
+            if copied:
+                from next20_yo_assemble import assemble
+                proof=await assemble(expected,'source-fault-copy-'+fault['id']+'-'+phase)
+            else:
+                from next20_cz_cli_rebuild import rebuild
+                proof=await rebuild(expected,'source-fault-compile-'+fault['id']+'-'+phase)
+            if compiled and phase!='mutated' and proof['compiled_files']!=json.loads((target/'build.json').read_text())['compiled_files']:
                 raise ValueError('Restored/pristine compilation differs from original actual built bytes')
             return proof
         baseline_build=await build_variant('baseline')
@@ -119,7 +125,9 @@ async def main():
         runner_sha256=sha256(runner),test_freeze_sha256=sha256(package/'development-test-freeze.json'),
         real_faults=3,calibrations=sum(len(f['outcomes']) for f in observations),ordinary_credit=0,
         terminal_only_scope='Explicitly different contract demonstrates false green; not an ordinary final execution.',
-        build_scope='Actual declared Babel source rebuilds with exact copied Node, locked compiler/runtime inventories and original compiled-byte restoration.' if compiled else 'Editable interpreted source with actual prelaunch source/runtime/dependency identities; no compiled rebuild.'))
+        build_scope=('Actual declared Babel source rebuilds with exact copied Node, locked compiler/runtime inventories and original compiled-byte restoration.' if compiled else
+            'Declared interpreted-source variants copied byte exactly into actual owned runtime; complete dependency/Node/source inventories and retained payloads bound before each launch. No compiler execution.' if copied else
+            'Editable interpreted source with actual prelaunch source/runtime/dependency identities; no compiled rebuild.')))
     print('Verified real source mutations, genuine restored recoveries and separately labeled terminal-only probe. No project admission.')
 
 

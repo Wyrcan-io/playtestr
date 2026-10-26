@@ -1,0 +1,98 @@
+{
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/yo/node/node.exe",
+    "-e",
+    "const p=require('node:path'),{pathToFileURL}=require('node:url');const e=p.resolve(p.dirname(process.execPath),'../runtime/app/lib/cli.js');process.argv.splice(1,0,e);import(pathToFileURL(e).href);",
+    "--",
+    "./generator",
+    "--local-only",
+    "--skip-install",
+    "--skip-cache",
+    "--no-color"
+  ],
+  "env": {
+    "GIT_CONFIG_GLOBAL": "nul",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_TERMINAL_PROMPT": "0",
+    "NO_COLOR": "1",
+    "NO_UPDATE_NOTIFIER": "1",
+    "TZ": "UTC"
+  },
+  "height": 32,
+  "inherit_env": [
+    "SYSTEMROOT",
+    "WINDIR"
+  ],
+  "max_output_bytes": 2000000,
+  "name": "N03 Trim surrounding input whitespace",
+  "run_timeout_ms": 120000,
+  "steps": [
+    {
+      "expect": "Project label"
+    },
+    {
+      "text": "  Synthetic trimmed  "
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Project language"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Include README"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Scaffold complete"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "ewogICJsYWJlbCI6ICJTeW50aGV0aWMgdHJpbW1lZCIsCiAgImxhbmd1YWdlIjogIlR5cGVTY3JpcHQiCn0K",
+        "kind": "file",
+        "path": "output/project.json"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "IyBTeW50aGV0aWMgdHJpbW1lZAoKTGFuZ3VhZ2U6IFR5cGVTY3JpcHQK",
+        "kind": "file",
+        "path": "output/README.md"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "VW5yZWxhdGVkIHN5bnRoZXRpYyBpbnB1dCBtdXN0IHJlbWFpbiB1bmNoYW5nZWQuCg==",
+        "kind": "file",
+        "path": "sentinel.txt"
+      }
+    },
+    {
+      "state": {
+        "entries": [
+          "README.md",
+          "project.json"
+        ],
+        "kind": "entries",
+        "path": "output"
+      }
+    }
+  ],
+  "timeout_ms": 10000,
+  "version": 3,
+  "width": 120,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/n03",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

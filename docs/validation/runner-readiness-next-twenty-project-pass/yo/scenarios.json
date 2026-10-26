@@ -1,0 +1,330 @@
+{
+  "cases": [
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N01",
+      "initial_fixture": "fixture",
+      "kind": "normal",
+      "risk": "Generate TypeScript and README through public authoring",
+      "spec": "normal-project.json",
+      "spec_sha256": "d25fe013d2e7278ddf276f64de8adc355f3c5d1c27f1cf38bf948f6908bdded5",
+      "task": "Generate TypeScript and README through public authoring"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N02",
+      "initial_fixture": "fixture",
+      "kind": "normal",
+      "risk": "Generate JavaScript without README and compare approved screen",
+      "spec": "normal-javascript.json",
+      "spec_sha256": "fba6fd4eab64b0c0b5fc8e4367f67a9a80e78321fdb20e5dbe0fe0acb9dc38f4",
+      "task": "Generate JavaScript without README and compare approved screen"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N03",
+      "initial_fixture": "fixtures/n03",
+      "kind": "normal",
+      "risk": "Trim surrounding input whitespace",
+      "spec": "n03.json",
+      "spec_sha256": "09d546a68fcaff3fd7153dbd43a193124fb0325260708dafe5fe6565e311e03d",
+      "task": "Trim surrounding input whitespace"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N04",
+      "initial_fixture": "fixtures/n04",
+      "kind": "normal",
+      "risk": "Preserve Unicode label in JSON and Markdown",
+      "spec": "n04.json",
+      "spec_sha256": "a36330d75acd92b6eb4145e7e4189abded5b63a9c1b255f34970f51c7c8be80b",
+      "task": "Preserve Unicode label in JSON and Markdown"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N05",
+      "initial_fixture": "fixtures/n05",
+      "kind": "normal",
+      "risk": "Generate JavaScript and README",
+      "spec": "n05.json",
+      "spec_sha256": "898147a348deb9e4f3d04f1d1310f45ccc2e4396929d87b233923a1626c4febd",
+      "task": "Generate JavaScript and README"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N06",
+      "initial_fixture": "fixtures/n06",
+      "kind": "normal",
+      "risk": "Preserve identical existing project and unrelated output",
+      "spec": "n06.json",
+      "spec_sha256": "bafe082b4c9b4458ce0e986668fed732546abad311117426ea1d4d90bdd63f20",
+      "task": "Preserve identical existing project and unrelated output"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N07",
+      "initial_fixture": "fixtures/n07",
+      "kind": "normal",
+      "risk": "Approve replacement of existing project",
+      "spec": "n07.json",
+      "spec_sha256": "a9b445be5b90205953193bc4193e62d27ddcb305ee9e919c01efceaeb017c6c0",
+      "task": "Approve replacement of existing project"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N08",
+      "initial_fixture": "fixtures/n08",
+      "kind": "normal",
+      "risk": "Decline replacement and preserve original project",
+      "spec": "n08.json",
+      "spec_sha256": "d364395ac7ca5efa438e8b1f683c2dd69aac6add77d3f68b4fed69bac50dd954",
+      "task": "Decline replacement and preserve original project"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E01",
+      "initial_fixture": "fixtures/e01",
+      "kind": "edge",
+      "risk": "Recover from empty label validation",
+      "spec": "e01.json",
+      "spec_sha256": "7eb6ece419941c570bb45a04b7b0697ca6f0625385f2e5216835ac4336487714",
+      "task": "Recover from empty label validation"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E02",
+      "initial_fixture": "fixtures/e02",
+      "kind": "edge",
+      "risk": "Recover from whitespace-only validation",
+      "spec": "e02.json",
+      "spec_sha256": "a0a2aef78c10750aa973931f1089837afaa1a03952454e3a9c259747a765b1ca",
+      "task": "Recover from whitespace-only validation"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 1,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E03",
+      "initial_fixture": "fixtures/e03",
+      "kind": "edge",
+      "risk": "Cancel before any answer without writes",
+      "spec": "e03.json",
+      "spec_sha256": "a3cd1028498ecf80e6e6127bf7182b79ae7332fff4ec7fdead306482741e8081",
+      "task": "Cancel before any answer without writes"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 1,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E04",
+      "initial_fixture": "fixtures/e04",
+      "kind": "edge",
+      "risk": "Cancel after label before language answer",
+      "spec": "e04.json",
+      "spec_sha256": "7251b96a2955f191c9be0c49a9ac3e98113ba0cddc10a7dc949356529c3203e1",
+      "task": "Cancel after label before language answer"
+    },
+    {
+      "combined_risks": [
+        "Unicode input",
+        "resize",
+        "declined README"
+      ],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E05",
+      "initial_fixture": "fixtures/e05",
+      "kind": "edge",
+      "risk": "Resize during Unicode input and decline README",
+      "spec": "e05.json",
+      "spec_sha256": "255fcff513f6211b198587743241b6204ab8a434846ede915f4e59141e200303",
+      "task": "Resize during Unicode input and decline README"
+    },
+    {
+      "combined_risks": [
+        "wrapped input",
+        "backspace",
+        "exact saved bytes"
+      ],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E06",
+      "initial_fixture": "fixtures/e06",
+      "kind": "edge",
+      "risk": "Edit long wrapped label before saving",
+      "spec": "e06.json",
+      "spec_sha256": "2a5b602a92598e63ab913957547d0ce9beec71b2f368f1482feb8f420b55cd81",
+      "task": "Edit long wrapped label before saving"
+    },
+    {
+      "combined_risks": [
+        "literal metacharacters",
+        "JSON escaping",
+        "no README"
+      ],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E07",
+      "initial_fixture": "fixtures/e07",
+      "kind": "edge",
+      "risk": "Save shell metacharacters as literal JSON data",
+      "spec": "e07.json",
+      "spec_sha256": "fdc4eaeafd3a594a3af36d6b6c390b53aeefa237e56ff7a90d6af3ae03fd3d81",
+      "task": "Save shell metacharacters as literal JSON data"
+    },
+    {
+      "combined_risks": [
+        "list wrap",
+        "narrow viewport",
+        "saved language"
+      ],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E08",
+      "initial_fixture": "fixtures/e08",
+      "kind": "edge",
+      "risk": "Wrap list selection upward to JavaScript",
+      "spec": "e08.json",
+      "spec_sha256": "4a63068d7e07735f5688558a3d23510fa8d2c9582d9c91c757a5400e51242248",
+      "task": "Wrap list selection upward to JavaScript"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 1,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E09",
+      "initial_fixture": "fixtures/e09",
+      "kind": "edge",
+      "risk": "Abort conflicting write and preserve original bytes",
+      "spec": "e09.json",
+      "spec_sha256": "083aebc8ba88d09bdb6b8a9fb86d3bcdebadf6b6bb76acf31e2c5bffd06f6fc4",
+      "task": "Abort conflicting write and preserve original bytes"
+    },
+    {
+      "combined_risks": [
+        "multiple conflicts",
+        "approve all",
+        "two exact saved files"
+      ],
+      "expected_exit": 0,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E10",
+      "initial_fixture": "fixtures/e10",
+      "kind": "edge",
+      "risk": "Approve all conflicting files with one decision",
+      "spec": "e10.json",
+      "spec_sha256": "498cc54cf44f40c8c61df5012b18431ce95c6f485d2a7e28e7c1349d53827ba0",
+      "task": "Approve all conflicting files with one decision"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 1,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E11",
+      "initial_fixture": "fixtures/e11",
+      "kind": "edge",
+      "risk": "Reject a file occupying the output directory",
+      "spec": "e11.json",
+      "spec_sha256": "e8b7d49f00cca489f4f98ffb0af2207b66f39d287bf56280f0307aec765a7ecb",
+      "task": "Reject a file occupying the output directory"
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 1,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E12",
+      "initial_fixture": "fixtures/e12",
+      "kind": "edge",
+      "risk": "Reject malformed local generator configuration",
+      "spec": "e12.json",
+      "spec_sha256": "9c79802c07b014971b45048e6d7b8156b7abeeeedce15c340c43f4fe29f9493c",
+      "task": "Reject malformed local generator configuration"
+    }
+  ],
+  "development_revision": 2,
+  "edge": 12,
+  "normal": 8,
+  "project": "yo",
+  "schema_version": 1,
+  "scope": "Actual pinned yo and official locked Generator; unchanged trusted local fixture, no installations/services. First predictions retained even on failure."
+}

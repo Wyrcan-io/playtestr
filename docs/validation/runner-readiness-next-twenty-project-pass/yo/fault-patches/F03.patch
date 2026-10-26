@@ -1,0 +1,11 @@
+--- a/lib/cli.js
++++ b/lib/cli.js
+@@ -173,6 +173,8 @@
+     try {
+       // eslint-disable-next-line no-await-in-loop
+       await env.run(generator.args, generator.opts);
++      const saved = path.resolve('output/project.json');
++      fs.writeFileSync(saved, fs.readFileSync(saved, 'utf8').replace('Synthetic notes', 'Synthetic notex'));
+     } catch (error) {
+       onError(error);
+     }

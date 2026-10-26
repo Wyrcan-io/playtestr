@@ -20,6 +20,28 @@ class NextCampaignTests(unittest.TestCase):
         self.root=RAW/'control-tests'/uuid.uuid4().hex
         self.campaign=NextCampaign(self.root)
 
+    def test_cleanup_inventory_default_and_explicit_large_tree_bound(self):
+        from types import SimpleNamespace
+        from unittest.mock import patch
+        from next20_target_cleanup import target_inventory
+        class Entry:
+            name='payload'
+            def __init__(self,index):self.index=index
+            def relative_to(self,root):return Path(str(self.index))
+            def is_symlink(self):return False
+            def is_dir(self):return False
+            def is_file(self):return True
+            def stat(self):return SimpleNamespace(st_size=0)
+        class Tree:
+            def __init__(self,count):self.count=count
+            def iterdir(self):return (Entry(i) for i in range(self.count))
+        with patch('next20_target_cleanup.sha256',return_value='0'*64):
+            self.assertEqual(len(target_inventory(Tree(40000))['files']),40000)
+            with self.assertRaisesRegex(ValueError,'inventory bound'):target_inventory(Tree(40001))
+            self.assertEqual(len(target_inventory(Tree(60000),max_files=60000)['files']),60000)
+            with self.assertRaisesRegex(ValueError,'inventory bound'):target_inventory(Tree(60001),max_files=60000)
+            with self.assertRaisesRegex(ValueError,'unreviewed'):target_inventory(Tree(0),max_files=60001)
+
     def test_uppercase_compiler_identity_binds_actual_source_and_tool_bytes(self):
         from next20_archive_controls import ArchiveControlCampaign
         compiler=self.root/'compiler/go.EXE';compiler.parent.mkdir(parents=True)
@@ -136,6 +158,27 @@ class NextCampaignTests(unittest.TestCase):
         result=asyncio.run(check())
         self.assertIn(marker,result['output'])
         self.assertIn('expected exit 0, got 3',result['output'])
+
+    @unittest.skipUnless(os.name=='nt','native Windows checked target removal control')
+    def test_native_large_cleanup_requires_matching_explicit_bound(self):
+        workspace=self.root/'fixture-workspace'
+        script=workspace/'scripts/acceptance/next20_remove_target.ps1';script.parent.mkdir(parents=True)
+        shutil.copyfile(ROOT/'scripts/acceptance/next20_remove_target.ps1',script)
+        raw=workspace/'artifacts'/NAME;target=raw/'active/yo';target.mkdir(parents=True)
+        marker=target/'task-owned.json';marker.write_bytes(b'{"project":"synthetic-large-cleanup"}\n')
+        retained=raw/'yo/retained-source';retained.mkdir(parents=True)
+        immutable_json(retained/'cleanup-inventory.json',dict(owned_target=str(target),source_restored_exact=True,
+            max_files=60000,owner_sha256=sha256(marker),owned_links={},
+            files={marker.name:dict(bytes=marker.stat().st_size,sha256=sha256(marker))}))
+        immutable_json(retained/'prepared.json',dict(cleanup_inventory_sha256=sha256(retained/'cleanup-inventory.json')))
+        async def run(expected,extra,label):
+            return await execute(['powershell.exe','-NoProfile','-ExecutionPolicy','Bypass','-File',script,
+                '-Project','yo',*extra],'core',label,cwd=ROOT,env=owned_environment(),timeout=90,
+                expected=expected,campaign=self.campaign)
+        refused=asyncio.run(run(1,[],'native-large-cleanup-default-bound-refusal'))
+        self.assertIn('bound differs from prepared inventory',refused['output']);self.assertTrue(target.exists())
+        asyncio.run(run(0,['-MaxFiles','60000'],'native-large-cleanup-explicit-bound'))
+        self.assertFalse(target.exists())
 
     @unittest.skipUnless(os.name=='nt','native Windows checked target removal control')
     def test_native_target_removal_refuses_changed_payload_then_removes_exact_owned_fixture(self):

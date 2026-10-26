@@ -12,7 +12,7 @@ def main():
     if not any(p.is_dir() for p in (RAW/'native'/args.run).iterdir()):
         raise ValueError('No actual host packet directory; wait for artifact retrieval completion before compaction')
     (RAW/args.project).mkdir(exist_ok=True)
-    compact(RAW,args.project,[args.run],args.max_file_mib*1024**2,generation=args.generation,max_archive_bytes=24*1024**2 if args.project=='cz-cli' else 16*1024**2)
+    compact(RAW,args.project,[args.run],args.max_file_mib*1024**2,generation=args.generation,max_archive_bytes=24*1024**2 if args.project in {'cz-cli','yo'} else 16*1024**2)
 
 
 if __name__=='__main__':main()

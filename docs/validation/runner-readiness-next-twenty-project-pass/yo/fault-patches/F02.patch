@@ -1,0 +1,10 @@
+--- a/lib/cli.js
++++ b/lib/cli.js
+@@ -173,6 +173,7 @@
+     try {
+       // eslint-disable-next-line no-await-in-loop
+       await env.run(generator.args, generator.opts);
++      process.exit(7);
+     } catch (error) {
+       onError(error);
+     }

@@ -1,0 +1,105 @@
+{
+  "version": 3,
+  "name": "recorded interaction",
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/yo/node/node.exe",
+    "-e",
+    "const p=require('node:path'),{pathToFileURL}=require('node:url');const e=p.resolve(p.dirname(process.execPath),'../runtime/app/lib/cli.js');process.argv.splice(1,0,e);import(pathToFileURL(e).href);",
+    "--",
+    "./generator",
+    "--local-only",
+    "--skip-install",
+    "--skip-cache",
+    "--no-color"
+  ],
+  "workspace": {
+    "fixture": "fixture",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "GIT_CONFIG_GLOBAL": "nul",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_TERMINAL_PROMPT": "0",
+    "NO_COLOR": "1",
+    "NO_UPDATE_NOTIFIER": "1",
+    "TZ": "UTC"
+  },
+  "inherit_env": [
+    "SYSTEMROOT",
+    "WINDIR"
+  ],
+  "width": 120,
+  "height": 32,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Project label"
+    },
+    {
+      "text": "Synthetic JavaScript"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Project language"
+    },
+    {
+      "key": "ArrowDown"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Include README"
+    },
+    {
+      "text": "n"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Scaffold complete"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "output/project.json",
+        "kind": "file",
+        "bytes_base64": "ewogICJsYWJlbCI6ICJTeW50aGV0aWMgSmF2YVNjcmlwdCIsCiAgImxhbmd1YWdlIjogIkphdmFTY3JpcHQiCn0K"
+      }
+    },
+    {
+      "state": {
+        "path": "output/README.md",
+        "kind": "absent"
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "VW5yZWxhdGVkIHN5bnRoZXRpYyBpbnB1dCBtdXN0IHJlbWFpbiB1bmNoYW5nZWQuCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "output",
+        "kind": "entries",
+        "entries": [
+          "project.json"
+        ]
+      }
+    },
+    {
+      "snapshot": "javascript-complete.txt"
+    }
+  ]
+}
