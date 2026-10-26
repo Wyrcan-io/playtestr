@@ -1,5 +1,8 @@
 name: Next twenty private native-exit replacement candidate
 on:
+  push:
+    branches: [work/p0-p2-implementation]
+    paths: ['.github/workflows/runner-readiness-next20-replacement-candidate.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -25,6 +28,7 @@ env:
   GIT_CONFIG_VALUE_0: 'true'
 jobs:
   native-source-and-package:
+    if: github.event_name == 'workflow_dispatch'
     timeout-minutes: 30
     strategy:
       fail-fast: false
