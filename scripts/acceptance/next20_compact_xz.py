@@ -2,7 +2,7 @@
 import argparse
 import tarfile
 
-from next20_check import RAW
+from next20_check import RAW,ROOT
 from next20_packet_archive import verify
 from readiness_compact_native import inventory,physical_members
 from readiness_evidence import immutable_json,sha256
@@ -12,6 +12,10 @@ def main():
     parser=argparse.ArgumentParser();parser.add_argument('--project',choices=['yo'],required=True)
     parser.add_argument('--run',required=True);parser.add_argument('--generation',type=int,required=True);args=parser.parse_args()
     if not 1<=args.generation<=1000:raise ValueError('Native XZ generation bound')
+    RAW.resolve(strict=True).relative_to(ROOT.resolve(strict=True))
+    for ancestor in [RAW,RAW/args.project]:
+        if ancestor.is_symlink() or getattr(ancestor,'is_junction',lambda:False)():raise ValueError('Linked native XZ output ancestor')
+    (RAW/args.project).resolve(strict=True).relative_to(RAW.resolve(strict=True))
     files,total=inventory(RAW,[args.run],16*1024**2);canonical={}
     for name,row in sorted(files.items()):
         member=canonical.setdefault((row['bytes'],row['sha256']),name)

@@ -6,6 +6,7 @@ import io
 from functools import lru_cache
 import json
 import posixpath
+import re
 from pathlib import PurePosixPath, PureWindowsPath
 import subprocess
 import tarfile
@@ -66,7 +67,7 @@ def byte_payloads(retained,index):
 
 @lru_cache(maxsize=128)
 def source_hashes(revision,name):
-    blob=subprocess.check_output(['git','show',revision+':'+name])
+    blob=subprocess.check_output(['git','show',revision+':'+name],timeout=15)
     return {hashlib.sha256(blob).hexdigest(),hashlib.sha256(blob.replace(b'\r\n',b'\n').replace(b'\n',b'\r\n')).hexdigest()}
 
 
@@ -82,6 +83,7 @@ def cell_declaration(package,closing,run,host,revision):
 
 
 def build_model(retained,run,host,project='jrnl'):
+    require(isinstance(run,str) and re.fullmatch('[0-9]{1,20}',run) and host in {'linux','windows'} and project in {'jrnl','commitizen-python','cz-cli','yo'},'unsafe native cell identity')
     index=json.loads((retained/'index.json').read_text(encoding='utf-8'))
     require(sha256(archive_path(retained,index))==index['archive_sha256'],'retained native archive changed')
     verify(archive_path(retained,index),index['files'])
@@ -100,6 +102,7 @@ def build_model(retained,run,host,project='jrnl'):
     for batch in range(12):require(steps.get(f'Final fresh-state batch {batch+1} of twelve')=='success','missing actual complete final provider batch')
     require(steps.get('Three actual source faults and unchanged-contract recovery')=='success','missing actual source fault provider step')
     revision=metadata['headSha']
+    require(isinstance(revision,str) and re.fullmatch('[0-9a-f]{40}',revision),'invalid native source revision')
     candidate=json.loads((ROOT/'docs/validation/runner-readiness-ten-project-pass/migration-candidate-freeze.json').read_text())
     expected=next(c for c in candidate['cells'] if c['host']==host)
     declaration=json.loads((DOC/project/'final-series-declaration.json').read_text())
@@ -159,7 +162,7 @@ def build_model(retained,run,host,project='jrnl'):
         registry=get('yo/retained-source/registry-source-reference.json')
         approved=json.loads((DOC/'yo/registry-payloads.json').read_text())
         require(declaration['canonical_registry_source']['declaration_sha256']==sha256(DOC/'yo/registry-payloads.json'),'native final series canonical registry dependency changed')
-        deployed_registry=subprocess.check_output(['git','show',revision+':docs/validation/'+NAME+'/yo/registry-payloads.json'])
+        deployed_registry=subprocess.check_output(['git','show',revision+':docs/validation/'+NAME+'/yo/registry-payloads.json'],timeout=15)
         require(hashlib.sha256(deployed_registry).hexdigest()==registry['canonical_declaration_sha256'],'native canonical registry declaration differs from deployed Git source')
         require(steps.get('Canonical registry source duplicate reference')=='success','native canonical source reference step incomplete')
         require(registry['canonical_declaration_sha256']==sha256(DOC/'yo/registry-payloads.json') and registry['files']==approved['files'] and registry['total_bytes']==approved['total_bytes'],'native canonical registry source reference differs')

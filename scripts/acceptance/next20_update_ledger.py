@@ -23,6 +23,7 @@ def main():
         if args.project!='yo' or len(models)!=2 or {m['host'] for m in models}!={'linux','windows'} or actual!=declared:
             raise ValueError('multiple native sources/runs lack exact independently admitted per-cell binding')
     rows[0].update(status='admitted',admitted=True,qualified_scenarios=admission['canonical_scenarios'],
+        native_cells=len(admission['native_cells']),ordinary_executions=admission['ordinary'],calibration_executions=admission['calibrations'],
         qualified_native_cells=len(admission['native_cells']),native_run=None if mixed else next(iter(runs)),native_source=None if mixed else next(iter(revisions)),
         audited_native_cells=len(admission['native_cells']),audited_ordinary_executions=admission['ordinary'],
         audited_calibration_executions=admission['calibrations'],additional_terminal_only_probes=admission.get('additional_terminal_only_probes',0),

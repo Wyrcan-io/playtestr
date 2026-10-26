@@ -1056,3 +1056,79 @@ oldgzipnative test BEFOREexecution; no testcommandwasrun orreceiptgenerated.
 User explicitlyrestoredaccess afterand saidcontinue meansrestored. Retriedsame
 native action with normal review and itpassed64ee...; no approval bypass.
 Latesttaskstill3/20admitted13/100cumulative; no finalresponseuntilwhole20done.
+
+LATEST2026-10-27 CLIENTDATE: YO IS NOW FULLY ADMITTED,4/20 new,14/100 cumulative.
+NativeWindows-onlysource committed/pushedf03de4cc69db968a0ce29fe41c592fe72cf06681.
+Dispatchfd311cc891a2414f860a3e64e24704d3 startedrun40370986997, actually SUCCESS
+all12batches240ordinary +10calobs +PID/source/runtimecleanup +canonical-source
+reference/upload. ActualWindowsNode22.23.4SHA dccc52de.../npm10.9.9.
+Packettransferb3cc257e6ba9425595160b5eafe33062 complete; providermetadata
+d3d956db83794064af65461b1f70390e. QualifiedWindowsv5XZcompact72b9bfcff915430483f92b839b5fd972:
+3656logical/2635physical/71157476expanded/1638476XZB,
+archiveSHAfb69d8f1d9be7fcfd48c42feb6b6bf94fd03624ec99abf35f780b02493732dee.
+FullactualWindowsauditff7fd7a14bae44e9bc009196e468d274 PASSED. ExpandedWindows
+checkedremovedeed9acc5e70e416a9fccc45b0f107eb1. NativefolderEMPTY. ActualLinux
+model remainsoneoriginal,sourcef0addebb/run40305371634/gen3GZIP15216150B/
+SHA7eda531b83360e8d58fe5ee3ad902f18876b63d20e0f29d166ae5b86cebb654d;
+Node22.23.3SHAfde6a4.../npm10.9.9. Do notconflate the2toolingsources/runs.
+
+Actual24cell-modelcorruptions rejected0d8c5ff0366e48fa8e34818bc6804152; positives
+reusedexisting2actualmodels, no duplicatefullmodels. Finaladmissionhelper
+next20_yo_admission.py usesphysical OR verifiedlocalXZmemberbytes forsubjects,
+fullcurrent2hostbuild_model/readback,canonicalSRIpayloadclosure,allfirstfailed
+nativev1/v2/v4,localcatalogaliases,60localreports+separateunlaunchedreport,
+actualnegativepatchreplay and64MiBall-generationbound. Existingclosurepreflight
+43ab706f8d1b4e2cbd6c5cdd5fd8436a passed; deliberatefinaladmit WITHOUTWindowsrun
+e965714181fe4f6f8521a6e63be2955f failedclosedasexpected, noadmissioncreated.
+ActualFULLadmission6b4fc8c47c884d38936c4e17644f34ff succeeded and wrote immutable
+DOCyo/admission.json. Existingimmutableadmission reproduced4165c54b39d948ee8bf6c265decff365
+using --windows-run40370986997 --verify-existing; receiptUNCHANGED. Do NOT rerun
+defaultadmit (wouldattemptoverwrite); use--verify-existing forfullreadback.
+
+Ledgerpromotedf5f32906d5014833b8025199ad2cb017, thenexplicitrow qualifiedcounter
+readback59c57f83f3b044b28563a212b258438a fixedstaleinitialrowzero fields. Top:
+4newadmissions/80canonicalcases/8nativecells/1920ordinary/72mandatorycal/
+12realfaults/6separateprobes. YOrow2nativecells/480ordinary/18mandatorycal,
+native_run/native_source null WITHexplicit2run/sourcearrays +percellrecords;
+no false single-source claim. Currentactualmatrixgeneratedfa4fc5e8ecb34fd48acaf444836234bd:
+Linux4/Windows4/macOS0 actual,20/10/10 planned separately. Source7families etc
+stillPROPOSED until eachproject qualifies. No active source/runtime remains.
+RootREADME andYOREADME nowstateactual4/20/14/100 andcompleteYo, no earlyfinal.
+
+Finalstorage7870766dc1324de5b64473fe2f8d2f5e:YO52510932B<64MiB;
+new516737173,combined2425445745,combinedretained1297017320B,
+curated1611527/combined13267771 beforeadmissionDoc;allcapsPASS,active[]. Earlier
+193b8d5bcb2541be9af62634155ba101 source49,214,720B, notclosingnumber. Newcurated
+admission/currentmatrix add smallbytes; finalnextacquisition guardremeasures.
+
+Hostedharness f03run40370924685 SUCCESSall3hosts(17tests,Unix15pass2explicit
+Windows-onlyskips/Win17pass). All3actualsource-audited,retained/expandedremoved:
+v26Linux f8f6e782c10a4f8b8559fc7810304ec3;
+v27Mac fd7f426e56234c768ae0110a0cb33d52;
+v28Win d8dbf3bfe4534d1c8e0f7e6f99d7da67. No redownloads needed.
+Newlocalscope18nativecontrols4de5a47aaaf447489eacd54332dddb5d passed: added
+resolvedworkspace/cacheancestor guards to registry_source_reference,localrecord
+packet andnativeXZoutput. These latter sourcechanges areAFTERf03 actualhosted
+source; no claimthey werein17hostedtests. Actualnativelegitimateownedpaths /
+payloadproofs unchanged. Newcurrentverify_jrnl also checks runID/host/project and
+40hexproviderhead BEFOREgitshow, andboundsGitreads15s. Defaultoldgzip/CZreadback
+2151...passed;3originalgzipregressions64ee...passed afterquota restoration.
+
+Read-onlynativePIDobservations for3olderunconfirmed adapter-timeoutcontrols
+recorded underRAWharness/timeout-pid-readback:3aa791...(oldPID31476) f7f9f3a307ae49ddbdfb608e8796a2a9;
+bd829...(PID25592) ed0fb629eb774513a97ae899d5a0fa2d;
+0c2b...(PID9112) a0ba6facede740e8931105da6700706a. AlloriginalrecordedPIDabsentor
+provablyreused afteroriginalattempt; zero signals, no unrelatedargumentsstored.
+Original cleanup_unconfirmed events REMAINfailures; this isNOTretroactivewhole
+descendant-cleanup proof. Newscriptnext20_timeout_pid_readback.ps1 sourcebounded
+roots andexplicit3controlids. Globalall-attemptclosure mustretainthesecaveats.
+
+CURRENT: closingYO/docs/ledger/currentmatrix/newadmission/readback/18localguards/
+PIDobserver areUNCOMMITTED afterf03. Commit/pushscopedclosingwork(alreadyauthorized),
+thenIMMEDIATELYacquireproject5cargo-generate source-only usingnext20_acquire.py;
+reviewprimarysource/license/buildhooks/dependencies/toolchain BEFOREexecution.
+VerifycompleteGitblobs vianext20_source_tree.py withdeclaredsource-root asneeded.
+No additionalagents authorized. No newgoal/task/release/outreach/PR mutation.
+Do not stop at4. Fulltarget20new/30total, global121/oldmigration/freshcheckout/
+late16+4 andallattemptcutoffs stillrequired. Usercontinue meansquota restored;
+neverask quotaquestionagain. Continueautonomously.

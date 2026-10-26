@@ -7,6 +7,11 @@ from readiness_evidence import immutable_json, sha256
 
 
 def cache_inventory(root):
+    RAW.resolve(strict=True).relative_to(ROOT.resolve(strict=True))
+    root.resolve(strict=True).relative_to(RAW.resolve(strict=True))
+    for ancestor in [root,*root.parents]:
+        if ancestor.is_symlink() or getattr(ancestor,'is_junction',lambda:False)():raise ValueError('Linked canonical registry ancestor')
+        if ancestor==RAW:break
     files={};total=0
     for path in root.rglob('*'):
         if path.is_symlink() or getattr(path,'is_junction',lambda:False)():raise ValueError('Linked registry cache')

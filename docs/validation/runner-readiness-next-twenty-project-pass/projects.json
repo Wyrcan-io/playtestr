@@ -3,13 +3,13 @@
   "status": "new-project-admissions-in-progress",
   "historical_admissions": 10,
   "current_candidate_original_ten": 10,
-  "new_project_admissions": 3,
+  "new_project_admissions": 4,
   "new_project_target": 20,
-  "ordinary_executions": 1440,
-  "calibration_executions": 54,
-  "canonical_scenarios": 60,
-  "native_cells": 6,
-  "real_target_faults": 9,
+  "ordinary_executions": 1920,
+  "calibration_executions": 72,
+  "canonical_scenarios": 80,
+  "native_cells": 8,
+  "real_target_faults": 12,
   "human_participants": 0,
   "human_usability": "unmeasured",
   "paid_admissions": 0,
@@ -118,24 +118,56 @@
       "id": "yo",
       "repository": "yeoman/yo",
       "pin": "2ee5e3441d99d500170be7c661d0a401ac0bb97c",
-      "status": "local-passed-native-pending",
+      "status": "admitted",
       "development_selected_scenarios_passed": 20,
       "development_ordinary_attempts": 40,
       "development_ordinary_passed": 38,
       "development_ordinary_failed": 2,
       "development_real_faults": 3,
       "development_fault_matrix_calibrations": 9,
-      "additional_terminal_only_probes": 1,
+      "additional_terminal_only_probes": 2,
       "planned_hosts": [
         "linux",
         "windows"
       ],
-      "native_cells": 0,
-      "ordinary_executions": 0,
-      "admitted": false
+      "native_cells": 2,
+      "ordinary_executions": 480,
+      "admitted": true,
+      "qualified_scenarios": 20,
+      "qualified_native_cells": 2,
+      "native_run": null,
+      "native_source": null,
+      "audited_native_cells": 2,
+      "audited_ordinary_executions": 480,
+      "audited_calibration_executions": 18,
+      "local_target_absent": true,
+      "maintenance": "Actual diagnosis, selected/cancelled approval, suffix pruning and byte-identical relocation passed; first attempts preserved.",
+      "admission": "yo/admission.json",
+      "delivered_ci_observations": 0,
+      "native_runs": [
+        "40305371634",
+        "40370986997"
+      ],
+      "native_sources": [
+        "f03de4cc69db968a0ce29fe41c592fe72cf06681",
+        "f0addebb2cdb8082072022b7b99a9fec47cb2641"
+      ],
+      "native_cell_sources": [
+        {
+          "host": "linux",
+          "run": "40305371634",
+          "source_revision": "f0addebb2cdb8082072022b7b99a9fec47cb2641"
+        },
+        {
+          "host": "windows",
+          "run": "40370986997",
+          "source_revision": "f03de4cc69db968a0ce29fe41c592fe72cf06681"
+        }
+      ],
+      "calibration_executions": 18
     }
   ],
-  "observed_audited_ordinary_executions": 1440,
-  "observed_audited_calibration_executions": 54,
-  "additional_terminal_only_probes": 4
+  "observed_audited_ordinary_executions": 1920,
+  "observed_audited_calibration_executions": 72,
+  "additional_terminal_only_probes": 6
 }

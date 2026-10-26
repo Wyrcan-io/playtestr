@@ -1,8 +1,16 @@
-# yo: local qualification in progress
+# yo: admitted on the exact private candidate
 
 Canonical `yeoman/yo`, BSD-2-Clause, pinned to
 `2ee5e3441d99d500170be7c661d0a401ac0bb97c`. All 48 source files match the
-complete primary Git tree. This project is not admitted.
+complete primary Git tree. The [admission](admission.json) records 480 ordinary
+executions,18 required source-fault calibrations and two separate terminal-only
+probes across independently audited Linux and Windows cells on `v0.4.0-rc.5`.
+
+The accepted [Linux job](https://github.com/Wyrcan-io/playtestr/actions/runs/40305371634/job/121513048684)
+uses source `f0addebb`; the accepted [Windows run](https://github.com/Wyrcan-io/playtestr/actions/runs/40370986997)
+uses `f03de4cc`. Each supplied240 ordinary runs and10 calibration observations.
+The earlier whole two-host run failed on Windows; only its successful complete
+Linux cell is carried. All24 actual cell-model corruption controls were rejected.
 
 The tested workflow runs a documented local generator through the unmodified
 yo CLI. The synthetic generator uses the actual official `yeoman-generator`
@@ -61,7 +69,7 @@ auditor reconstructed the15,608 actual runtime files and rejected three altered
 package-evidence controls.
 
 Cleanup now has an explicit60,000-file option while retaining the40,000 default.
-All11 native harness controls passed, including exact boundary checks. Original
+The initial11 native harness controls passed, including exact boundary checks. Original
 sandbox/CIM failures remain retained. Exact non-package npm metadata/log bytes
 were retained as51,084,130 expanded bytes in a7,186,474-byte self-contained
 archive; only verified duplicates were removed. Six local runtime catalogs
@@ -89,7 +97,7 @@ its reference binds the full native cleanup inventory and canonical descriptor.
 Missing or changed retained source rejects audit. All14 native harness controls
 passed, including corrupted-source refusal. The64MiB all-generation project gate
 still includes this canonical source and every original failed packet. Human
-usability remains unmeasured; native qualification is pending.
+usability remains unmeasured. The completed native cells are independently admitted.
 
 Revision2's Linux cell completed and passed independent audit:240 ordinary
 executions, nine required source-fault observations and a separate terminal-only
@@ -100,8 +108,8 @@ timed out before any action. The preceding passing readiness assertion took
 confirmed. This is a retained accurate timeout; the two-second Windows boundary
 is unsupported by this run.
 
-Revision3 carries the exact Linux run/source/declaration and schedules one fresh
-complete Windows cell with a declared five-second startup variant. Normal10s
+Revision3 carries the exact Linux run/source/declaration and completed one fresh
+Windows cell with a declared five-second startup variant. Normal10s
 step and120s run limits, all87 canonical inputs, and runner/target bytes are
 unchanged. Partial Windows repetitions supply no qualification credit.
 
@@ -111,3 +119,11 @@ verification and selected report restoration preceded duplicate removal; a
 genuine complete local audit passed after temporary exact restoration, followed
 by checked removal. The partial Windows packet also uses a new explicitly typed
 XZ generation. Existing gzip generations and their indices are unchanged.
+
+The current18 local native helper controls passed. The committed source's17-test
+suite also passed on actual hosted Linux, macOS and Windows; Unix explicitly
+skipped the two Windows-only removal tests. These are helper controls, separate
+from the application's two native cells. Retained project evidence at admission
+was52,510,932 bytes, below64MiB, with canonical package source counted once and
+every failed or partial generation preserved. No public release or human beginner
+usability claim is made.

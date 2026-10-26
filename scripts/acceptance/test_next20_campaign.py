@@ -120,6 +120,15 @@ class NextCampaignTests(unittest.TestCase):
             altered=copy.deepcopy(current);altered['accepted_prior_cells']['linux'][field]=value
             with self.assertRaises(ValueError):cell_declaration(package,altered,'123','linux','a'*40)
 
+    def test_registry_source_root_cannot_resolve_outside_owned_campaign(self):
+        from unittest.mock import patch
+        import next20_yo_registry_reference as registry
+        raw=self.root/'owned-campaign';raw.mkdir(parents=True)
+        outside=self.root/'outside-cache';outside.mkdir();payload=outside/'untouched';payload.write_bytes(b'owned sibling control\n')
+        with patch.object(registry,'RAW',raw):
+            with self.assertRaises(ValueError):registry.cache_inventory(outside)
+        self.assertEqual(payload.read_bytes(),b'owned sibling control\n')
+
     def test_cleanup_inventory_default_and_explicit_large_tree_bound(self):
         from types import SimpleNamespace
         from unittest.mock import patch

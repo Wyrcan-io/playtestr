@@ -1,0 +1,323 @@
+{
+  "candidate": "unchanged exact v0.4.0-rc.5",
+  "new_project_admissions": 4,
+  "observed_at_utc": "2026-10-26T18:41:52.848226+00:00",
+  "planned_host_cells": {
+    "linux": 20,
+    "macos": 10,
+    "windows": 10
+  },
+  "projects": [
+    {
+      "admission": "jrnl/admission.json",
+      "admission_sha256": "6d305c12a87f30717c9bd9a9bcb72c4b8b47d8c2a4cdbf86868a0219ef4f350a",
+      "admitted": true,
+      "pin": "90de4948d79a4fca8c7238dd2487b599f458c903",
+      "planned_hosts": [
+        "linux",
+        "windows"
+      ],
+      "project": "jrnl",
+      "qualified_native_cells": [
+        {
+          "calibrations_including_probes": 9,
+          "candidate_archive_sha256": "25787c3ce657e61cfe36fc0687367856326da0e661820796acefbf5bb5aa410f",
+          "host": "linux",
+          "native_model": "artifacts/runner-readiness-next-twenty-project-pass/jrnl/audits/205a5482eafa425aa7d5cdd6f5cca17e/actual-model.json",
+          "native_model_sha256": "d93c42ca93daa4f1c001e3f36ce4988edeafeebfc7e12fbf2cb1c695f252be5a",
+          "ordinary": 240,
+          "run": "39797356210",
+          "runner_sha256": "8112eddbaa23dfbd3783cf32718f0ed64d1ad2572d84e7bddcefb892d316bdfa",
+          "tooling_source_revision": "2d25f716fee8ff120941196f10e6aa343d130a37"
+        },
+        {
+          "calibrations_including_probes": 9,
+          "candidate_archive_sha256": "40e7e124260c96f8fdff6a63ae5e0e7cfcb7a3c3a3f838207447a0742059abad",
+          "host": "windows",
+          "native_model": "artifacts/runner-readiness-next-twenty-project-pass/jrnl/audits/d103f984275346c2b6e9ed1acce12483/actual-model.json",
+          "native_model_sha256": "0fe2bca51247038e4f1c0beda2514e7ed7fcdd2a56865511d931f15ac6aa764b",
+          "ordinary": 240,
+          "run": "39797356210",
+          "runner_sha256": "6d816ac1acd55fe5b7595b1cb47b14e626e3ba1bd5821a5bdbede50ab3abcd26",
+          "tooling_source_revision": "2d25f716fee8ff120941196f10e6aa343d130a37"
+        }
+      ],
+      "repository": "jrnl-org/jrnl"
+    },
+    {
+      "admission": "commitizen-python/admission.json",
+      "admission_sha256": "55b1273f59268bb60ec901bec6504e96af964d47f347d9e1016086b66b6f7782",
+      "admitted": true,
+      "pin": "b78d581f7e3089fa40bcd4794591fd56b43b671a",
+      "planned_hosts": [
+        "linux",
+        "windows"
+      ],
+      "project": "commitizen-python",
+      "qualified_native_cells": [
+        {
+          "calibrations_including_probes": 10,
+          "candidate_archive_sha256": "25787c3ce657e61cfe36fc0687367856326da0e661820796acefbf5bb5aa410f",
+          "host": "linux",
+          "native_model": "artifacts/runner-readiness-next-twenty-project-pass/commitizen-python/audits/ce368c5d133a4f4584a7c0f45c7086fb/actual-model.json",
+          "native_model_sha256": "953e9119be8b60ecfc83b89008ed4026abd9affb3a4e19658a6641c24b6f2258",
+          "ordinary": 240,
+          "run": "39984863257",
+          "runner_sha256": "8112eddbaa23dfbd3783cf32718f0ed64d1ad2572d84e7bddcefb892d316bdfa",
+          "tooling_source_revision": "384d297d113e9e96a1612d00cd2f109010805514"
+        },
+        {
+          "calibrations_including_probes": 10,
+          "candidate_archive_sha256": "40e7e124260c96f8fdff6a63ae5e0e7cfcb7a3c3a3f838207447a0742059abad",
+          "host": "windows",
+          "native_model": "artifacts/runner-readiness-next-twenty-project-pass/commitizen-python/audits/cd0645cde3be4273aa354663bd8ef08e/actual-model.json",
+          "native_model_sha256": "1c14d7c6fb22f2fca75eae4d13a4ddd2b8592a41d515632735f212b6dcab7989",
+          "ordinary": 240,
+          "run": "39984863257",
+          "runner_sha256": "6d816ac1acd55fe5b7595b1cb47b14e626e3ba1bd5821a5bdbede50ab3abcd26",
+          "tooling_source_revision": "384d297d113e9e96a1612d00cd2f109010805514"
+        }
+      ],
+      "repository": "commitizen-tools/commitizen"
+    },
+    {
+      "admission": "cz-cli/admission.json",
+      "admission_sha256": "2d099477cd8252d1db948912967a149d346b99d6700a413b02fa3f1eaf494348",
+      "admitted": true,
+      "pin": "1a8c49c02c9d52d1b4ef8cdabefb538088ddea03",
+      "planned_hosts": [
+        "linux",
+        "windows"
+      ],
+      "project": "cz-cli",
+      "qualified_native_cells": [
+        {
+          "calibrations_including_probes": 10,
+          "candidate_archive_sha256": "25787c3ce657e61cfe36fc0687367856326da0e661820796acefbf5bb5aa410f",
+          "host": "linux",
+          "native_model": "artifacts/runner-readiness-next-twenty-project-pass/cz-cli/audits/31861515e3994ee79af6fe90000a55e0/actual-model.json",
+          "native_model_sha256": "478d20870892997e272eb2e0f8b43e268ee8d24c401965d9fb8a76e494197756",
+          "ordinary": 240,
+          "run": "40026867471",
+          "runner_sha256": "8112eddbaa23dfbd3783cf32718f0ed64d1ad2572d84e7bddcefb892d316bdfa",
+          "tooling_source_revision": "d9117f3c4f04a880834617987601c4b61a1202cd"
+        },
+        {
+          "calibrations_including_probes": 10,
+          "candidate_archive_sha256": "40e7e124260c96f8fdff6a63ae5e0e7cfcb7a3c3a3f838207447a0742059abad",
+          "host": "windows",
+          "native_model": "artifacts/runner-readiness-next-twenty-project-pass/cz-cli/audits/66f61745b5504ebab981039b8664ba57/actual-model.json",
+          "native_model_sha256": "1a446f957c5a976fb1773ec91bcf85fc05f579d15eddef4a2139fc919d34713f",
+          "ordinary": 240,
+          "run": "40026867471",
+          "runner_sha256": "6d816ac1acd55fe5b7595b1cb47b14e626e3ba1bd5821a5bdbede50ab3abcd26",
+          "tooling_source_revision": "d9117f3c4f04a880834617987601c4b61a1202cd"
+        }
+      ],
+      "repository": "commitizen/cz-cli"
+    },
+    {
+      "admission": "yo/admission.json",
+      "admission_sha256": "592e2b7e687394c3ea4b47c56b39818fda0e4ed5bb788e7cd4b6b8b97861eea1",
+      "admitted": true,
+      "pin": "2ee5e3441d99d500170be7c661d0a401ac0bb97c",
+      "planned_hosts": [
+        "linux",
+        "windows"
+      ],
+      "project": "yo",
+      "qualified_native_cells": [
+        {
+          "calibrations_including_probes": 10,
+          "candidate_archive_sha256": "25787c3ce657e61cfe36fc0687367856326da0e661820796acefbf5bb5aa410f",
+          "host": "linux",
+          "native_model": "artifacts/runner-readiness-next-twenty-project-pass/yo/audits/493a443eff1546e4b84857c608d689e8/actual-model.json",
+          "native_model_sha256": "e38d0c71e40fbc0d53df57673d833e61692b3aeb0e49bcaaf65570b0754b8e9b",
+          "ordinary": 240,
+          "run": "40305371634",
+          "runner_sha256": "8112eddbaa23dfbd3783cf32718f0ed64d1ad2572d84e7bddcefb892d316bdfa",
+          "tooling_source_revision": "f0addebb2cdb8082072022b7b99a9fec47cb2641"
+        },
+        {
+          "calibrations_including_probes": 10,
+          "candidate_archive_sha256": "40e7e124260c96f8fdff6a63ae5e0e7cfcb7a3c3a3f838207447a0742059abad",
+          "host": "windows",
+          "native_model": "artifacts/runner-readiness-next-twenty-project-pass/yo/audits/2060be2d17bd4c94ac9a1361035a4eb3/actual-model.json",
+          "native_model_sha256": "039b46afb8f1e98e0f67da66a3b96353db2db73dda8194a2eafb6684239663df",
+          "ordinary": 240,
+          "run": "40370986997",
+          "runner_sha256": "6d816ac1acd55fe5b7595b1cb47b14e626e3ba1bd5821a5bdbede50ab3abcd26",
+          "tooling_source_revision": "f03de4cc69db968a0ce29fe41c592fe72cf06681"
+        }
+      ],
+      "repository": "yeoman/yo"
+    },
+    {
+      "admitted": false,
+      "planned_hosts": [
+        "linux",
+        "windows"
+      ],
+      "project": "cargo-generate",
+      "qualified_native_cells": [],
+      "repository": "cargo-generate/cargo-generate"
+    },
+    {
+      "admitted": false,
+      "planned_hosts": [
+        "linux",
+        "windows"
+      ],
+      "project": "pdm",
+      "qualified_native_cells": [],
+      "repository": "pdm-project/pdm"
+    },
+    {
+      "admitted": false,
+      "planned_hosts": [
+        "linux",
+        "windows"
+      ],
+      "project": "peco",
+      "qualified_native_cells": [],
+      "repository": "peco/peco"
+    },
+    {
+      "admitted": false,
+      "planned_hosts": [
+        "linux",
+        "windows"
+      ],
+      "project": "skim",
+      "qualified_native_cells": [],
+      "repository": "skim-rs/skim"
+    },
+    {
+      "admitted": false,
+      "planned_hosts": [
+        "linux",
+        "windows"
+      ],
+      "project": "git-town",
+      "qualified_native_cells": [],
+      "repository": "git-town/git-town"
+    },
+    {
+      "admitted": false,
+      "planned_hosts": [
+        "linux",
+        "windows"
+      ],
+      "project": "dekit",
+      "qualified_native_cells": [],
+      "repository": "pvolok/dekit"
+    },
+    {
+      "admitted": false,
+      "planned_hosts": [
+        "linux",
+        "macos"
+      ],
+      "project": "taskell",
+      "qualified_native_cells": [],
+      "repository": "smallhadroncollider/taskell"
+    },
+    {
+      "admitted": false,
+      "planned_hosts": [
+        "linux",
+        "macos"
+      ],
+      "project": "mg",
+      "qualified_native_cells": [],
+      "repository": "troglobit/mg"
+    },
+    {
+      "admitted": false,
+      "planned_hosts": [
+        "linux",
+        "macos"
+      ],
+      "project": "joe",
+      "qualified_native_cells": [],
+      "repository": "joe-editor/joe"
+    },
+    {
+      "admitted": false,
+      "planned_hosts": [
+        "linux",
+        "macos"
+      ],
+      "project": "pick",
+      "qualified_native_cells": [],
+      "repository": "mptre/pick"
+    },
+    {
+      "admitted": false,
+      "planned_hosts": [
+        "linux",
+        "macos"
+      ],
+      "project": "fzy",
+      "qualified_native_cells": [],
+      "repository": "jhawthorn/fzy"
+    },
+    {
+      "admitted": false,
+      "planned_hosts": [
+        "linux",
+        "macos"
+      ],
+      "project": "percol",
+      "qualified_native_cells": [],
+      "repository": "mooz/percol"
+    },
+    {
+      "admitted": false,
+      "planned_hosts": [
+        "linux",
+        "macos"
+      ],
+      "project": "ne",
+      "qualified_native_cells": [],
+      "repository": "vigna/ne"
+    },
+    {
+      "admitted": false,
+      "planned_hosts": [
+        "linux",
+        "macos"
+      ],
+      "project": "sc-im",
+      "qualified_native_cells": [],
+      "repository": "andmarti1424/sc-im"
+    },
+    {
+      "admitted": false,
+      "planned_hosts": [
+        "linux",
+        "macos"
+      ],
+      "project": "btop",
+      "qualified_native_cells": [],
+      "repository": "aristocratos/btop"
+    },
+    {
+      "admitted": false,
+      "planned_hosts": [
+        "linux",
+        "macos"
+      ],
+      "project": "htop",
+      "qualified_native_cells": [],
+      "repository": "htop-dev/htop"
+    }
+  ],
+  "qualified_host_cells": {
+    "linux": 4,
+    "macos": 0,
+    "windows": 4
+  },
+  "schema_version": 1,
+  "scope": "Actual admitted cells and validated individual models only. Proposed hosts supply no compatibility credit. Earlier partial/failed cells remain in each project disposition. Full final campaign hash closure remains separate."
+}

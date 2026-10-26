@@ -19,9 +19,10 @@ def safe_path(name):
     if not name.startswith('yo/') or len(name)>4096 or any(p in {'','.','..'} or ':' in p or '\\' in p for p in name.split('/')):
         raise ValueError('Unsafe local record path')
     path=RAW/name;path.resolve().relative_to((RAW/'yo').resolve())
+    RAW.resolve().relative_to(ROOT.resolve())
     for ancestor in [path,*path.parents]:
-        if ancestor==RAW:break
         if ancestor.is_symlink() or getattr(ancestor,'is_junction',lambda:False)():raise ValueError('Linked local record path')
+        if ancestor==RAW:break
     return path
 
 
@@ -50,7 +51,8 @@ def load_packet(index_digest,archive_digest):
 
 
 def verified_packet():
-    root=packet_root();proof=json.loads((root/'verified.json').read_text())
+    root=packet_root();safe_path(root.relative_to(RAW).as_posix()+'/verified.json')
+    proof=json.loads((root/'verified.json').read_text())
     if proof['index_sha256']!=sha256(root/'index.json') or proof['archive_sha256']!=sha256(root/'packets.tar.xz'):
         raise ValueError('Local record index/archive changed')
     return load_packet(proof['index_sha256'],proof['archive_sha256'])
