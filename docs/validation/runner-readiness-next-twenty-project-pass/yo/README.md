@@ -90,3 +90,24 @@ Missing or changed retained source rejects audit. All14 native harness controls
 passed, including corrupted-source refusal. The64MiB all-generation project gate
 still includes this canonical source and every original failed packet. Human
 usability remains unmeasured; native qualification is pending.
+
+Revision2's Linux cell completed and passed independent audit:240 ordinary
+executions, nine required source-fault observations and a separate terminal-only
+probe. Its exact model was reproduced after adding explicit carry-forward guards.
+Windows passed220 executions, then the optional two-second first-output variant
+timed out before any action. The preceding passing readiness assertion took
+2,740ms. All221 individual cleanups and full native source/runtime removal were
+confirmed. This is a retained accurate timeout; the two-second Windows boundary
+is unsupported by this run.
+
+Revision3 carries the exact Linux run/source/declaration and schedules one fresh
+complete Windows cell with a declared five-second startup variant. Normal10s
+step and120s run limits, all87 canonical inputs, and runner/target bytes are
+unchanged. Partial Windows repetitions supply no qualification credit.
+
+Local records are retained in a separate explicitly typed XZ packet:498 original
+logical files,10,554,977 expanded bytes,994,528 compressed bytes. Full member
+verification and selected report restoration preceded duplicate removal; a
+genuine complete local audit passed after temporary exact restoration, followed
+by checked removal. The partial Windows packet also uses a new explicitly typed
+XZ generation. Existing gzip generations and their indices are unchanged.

@@ -25,7 +25,8 @@ def main():
     declaration=json.loads((DOC/args.project/'final-series-declaration.json').read_text(encoding='utf-8'))
     generations=declaration.get('retained_generations',dict(linux=1,windows=2))
     for host,generation in generations.items():
-        model,index=build_model(RAW/args.project/('retained-native-v'+str(generation)),args.run,host,args.project)
+        cell_run=declaration.get('accepted_prior_cells',{}).get(host,{}).get('run',args.run)
+        model,index=build_model(RAW/args.project/('retained-native-v'+str(generation)),cell_run,host,args.project)
         counts=validate(model)
         if args.project in {'cz-cli','yo'}:
             matches=[p for p in (RAW/args.project/'audits').glob('*/actual-model.json') if json.loads(p.read_text(encoding='utf-8'))==model]

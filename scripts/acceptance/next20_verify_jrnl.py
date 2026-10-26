@@ -12,7 +12,7 @@ import tarfile
 import uuid
 
 from next20_check import RAW,ROOT,DOC,NAME
-from readiness_compact_native import verify
+from next20_packet_archive import verify,archive_path,tar_mode
 from readiness_evidence import immutable_json,sha256
 
 
@@ -28,7 +28,7 @@ def json_payloads(retained,index):
             require(row['bytes']<=bound,'audit JSON file bound')
             wanted.setdefault(row.get('member',name),[]).append(name)
     result={}
-    with tarfile.open(retained/'packets.tar.gz','r|gz') as archive:
+    with tarfile.open(archive_path(retained,index),tar_mode(index,stream=True)) as archive:
         for member in archive:
             if member.name not in wanted:continue
             bound=max(16*1024**2 if n.endswith('/retained-source/cleanup-inventory.json') else 4*1024**2 for n in wanted[member.name])
@@ -50,7 +50,7 @@ def byte_payloads(retained,index):
             require(row['bytes']<=16*1024**2,'audit binary/text file bound')
             wanted.setdefault(row.get('member',name),[]).append(name)
     result={};total=0
-    with tarfile.open(retained/'packets.tar.gz','r|gz') as archive:
+    with tarfile.open(archive_path(retained,index),tar_mode(index,stream=True)) as archive:
         for member in archive:
             if member.name not in wanted:continue
             require(member.isfile() and member.size<=16*1024**2,'unsafe actual code/cache payload')
@@ -70,10 +70,21 @@ def source_hashes(revision,name):
     return {hashlib.sha256(blob).hexdigest(),hashlib.sha256(blob.replace(b'\r\n',b'\n').replace(b'\n',b'\r\n')).hexdigest()}
 
 
+def cell_declaration(package,closing,run,host,revision):
+    path=package/'final-series-declaration.json'
+    carried=closing.get('accepted_prior_cells',{}).get(host)
+    if not carried:return closing,path
+    require(carried['run']==run and carried['source_revision']==revision,'undeclared carried native cell identity')
+    require(carried['declaration_file']=='final-series-declaration-v2.json','unsafe carried declaration path')
+    path=package/carried['declaration_file']
+    require(sha256(path)==carried['declaration_sha256'],'carried native declaration changed')
+    return json.loads(path.read_text()),path
+
+
 def build_model(retained,run,host,project='jrnl'):
     index=json.loads((retained/'index.json').read_text(encoding='utf-8'))
-    require(sha256(retained/'packets.tar.gz')==index['archive_sha256'],'retained native archive changed')
-    verify(retained/'packets.tar.gz',index['files'])
+    require(sha256(archive_path(retained,index))==index['archive_sha256'],'retained native archive changed')
+    verify(archive_path(retained,index),index['files'])
     payloads=json_payloads(retained,index)
     copied=project=='yo'
     node=project in {'cz-cli','yo'}
@@ -92,6 +103,7 @@ def build_model(retained,run,host,project='jrnl'):
     candidate=json.loads((ROOT/'docs/validation/runner-readiness-ten-project-pass/migration-candidate-freeze.json').read_text())
     expected=next(c for c in candidate['cells'] if c['host']==host)
     declaration=json.loads((DOC/project/'final-series-declaration.json').read_text())
+    declaration,declaration_path=cell_declaration(DOC/project,declaration,run,host,revision)
     canonical=json.loads((DOC/project/'scenarios.json').read_text())
     provenance=json.loads((DOC/project/'source-provenance.json').read_text())
     def path(relative):return prefix+relative
@@ -147,6 +159,8 @@ def build_model(retained,run,host,project='jrnl'):
         registry=get('yo/retained-source/registry-source-reference.json')
         approved=json.loads((DOC/'yo/registry-payloads.json').read_text())
         require(declaration['canonical_registry_source']['declaration_sha256']==sha256(DOC/'yo/registry-payloads.json'),'native final series canonical registry dependency changed')
+        deployed_registry=subprocess.check_output(['git','show',revision+':docs/validation/'+NAME+'/yo/registry-payloads.json'])
+        require(hashlib.sha256(deployed_registry).hexdigest()==registry['canonical_declaration_sha256'],'native canonical registry declaration differs from deployed Git source')
         require(steps.get('Canonical registry source duplicate reference')=='success','native canonical source reference step incomplete')
         require(registry['canonical_declaration_sha256']==sha256(DOC/'yo/registry-payloads.json') and registry['files']==approved['files'] and registry['total_bytes']==approved['total_bytes'],'native canonical registry source reference differs')
         require(registry['native_cleanup_inventory_sha256']==digest('yo/retained-source/cleanup-inventory.json'),'native registry source not bound by actual cleanup')
@@ -169,6 +183,7 @@ def build_model(retained,run,host,project='jrnl'):
         require(finish['category']=='passed' and finish['exit_code']==0 and finish['harness_cleanup']=='harness_process_reaped','native cleanup operation did not complete successfully')
         require(index['files'][path('core/'+eid+'/console.log')]['sha256']==finish['console_sha256'],'changed actual native cleanup console')
     core_operation('native-'+project+'-source-runtime-removal','scripts/acceptance/'+('next20_remove_target.ps1' if host=='windows' else 'next20_target_cleanup.py'))
+    if copied:core_operation('native-yo-canonical-registry-source-reference','scripts/acceptance/next20_yo_registry_reference.py')
     if host=='windows':core_operation('native-'+project+'-owned-process-proof','scripts/acceptance/next20_target_process_proof.ps1')
     require(owner['pin']==provenance['pin'] and owner['campaign']==NAME and owner['slug']==project,'wrong actual target ownership/pin')
     pure=PureWindowsPath if host=='windows' else PurePosixPath
@@ -223,6 +238,10 @@ def build_model(retained,run,host,project='jrnl'):
         prerequisite=get(project+'/retained-source/node-prerequisite.json')
         require(runtime['kind']=='node' and runtime['node_sha256']==prerequisite['node_sha256']==prerequisite['base_node_sha256'],'owned Node prerequisite copy differs')
         require(runtime['prerequisite_sha256']==digest(project+'/retained-source/node-prerequisite.json') and int(prerequisite['version'].lstrip('v').split('.')[0])>=18,'Node prerequisite/version unbound')
+        if copied:
+            version=tuple(map(int,prerequisite['version'].lstrip('v').split('.')))
+            require((version[0]==22 and version>=(22,18,0)) or version>=(24,11,0),'yo actual Node does not satisfy reviewed framework engine')
+            require(cleanup.get('max_files')==60000 and len(cleanup['files'])<=60000,'yo explicit native cleanup file bound differs')
         require(not cleanup['owned_links'],'unexpected Node runtime links')
         restored_source={n.removeprefix('src/'):v['sha256'] for n,v in cleanup['files'].items() if n.startswith('src/')}
         require(restored_source==provenance['files'],'actual cleanup source bytes not restored')
@@ -305,7 +324,7 @@ def build_model(retained,run,host,project='jrnl'):
         for name,value in catalog['files'].items():
             require(cleanup['files'][runtime_relative+'/'+name]['sha256']==value,'runtime changed between actual launch and cleanup')
         require(len(summary['observations'])==20 and summary['batch']==batch,'partial native batch summary')
-        if node:require(prepared['declaration_sha256']==sha256(DOC/project/'final-series-declaration.json') and prepared['runtime_kind']=='node','Node series declaration/runtime kind changed')
+        if node:require(prepared['declaration_sha256']==sha256(declaration_path) and prepared['runtime_kind']=='node','Node series declaration/runtime kind changed')
         package=f'{project}/final-series/{batch}/'+('relocated café 雪' if batch==5 else 'contracts')
         for observation in summary['observations']:
             cid=observation['case'];case=next(c for c in canonical['cases'] if c['id']==cid)
@@ -342,7 +361,7 @@ def build_model(retained,run,host,project='jrnl'):
                     else:steps.append(step)
                 expected_spec['steps']=steps
             if batch==10 and cid=='N01':expected_spec['height']=12
-            if batch==11:expected_spec['startup_timeout_ms']=2000
+            if batch==11:expected_spec['startup_timeout_ms']=declaration.get('startup_timeout_ms_by_host',{}).get(host,2000)
             require(spec==expected_spec,'undeclared final variant/oracle change')
             states_match(actual,spec)
             frozen=json.loads((DOC/project/'development-test-freeze.json').read_text())
@@ -372,7 +391,7 @@ def build_model(retained,run,host,project='jrnl'):
         require(fault['original_sha256']==fault['restored_sha256']==provenance['files'][fault['source']] and fault['restored_exact'],'missing exact actual fault restoration')
         declared_fault=next(f for f in json.loads((DOC/project/'fault-declaration.json').read_text())['faults'] if f['id']==fault['id'])
         reference=path(project+'/retained-source/source.tar.gz');source_row=index['files'][reference]
-        with tarfile.open(retained/'packets.tar.gz','r:gz') as bundle:
+        with tarfile.open(archive_path(retained,index),tar_mode(index)) as bundle:
             source_bytes=bundle.extractfile(source_row.get('member',reference)).read(8*1024**2+1)
         require(len(source_bytes)<=8*1024**2 and hashlib.sha256(source_bytes).hexdigest()==source_row['sha256'],'canonical source archive bound/hash mismatch')
         original=None;entries=expanded=0

@@ -16,13 +16,20 @@ def main():
     if (RAW/'active'/args.project).exists():raise ValueError('local target must be checked/removed before promotion')
     models=[json.loads(p.read_text(encoding='utf-8')) for p in (RAW/args.project/'audits').glob('*/actual-model.json')]
     revisions={m['revision'] for m in models};runs={m['run'] for m in models}
-    if len(revisions)!=1 or len(runs)!=1:raise ValueError('actual native models require one qualified source/run')
+    mixed=len(revisions)!=1 or len(runs)!=1
+    if mixed:
+        declared={(c['host'],c['run'],c['source_revision']) for c in admission['native_cells'] if 'run' in c and 'source_revision' in c}
+        actual={(m['host'],m['run'],m['revision']) for m in models}
+        if args.project!='yo' or len(models)!=2 or {m['host'] for m in models}!={'linux','windows'} or actual!=declared:
+            raise ValueError('multiple native sources/runs lack exact independently admitted per-cell binding')
     rows[0].update(status='admitted',admitted=True,qualified_scenarios=admission['canonical_scenarios'],
-        qualified_native_cells=len(admission['native_cells']),native_run=next(iter(runs)),native_source=next(iter(revisions)),
+        qualified_native_cells=len(admission['native_cells']),native_run=None if mixed else next(iter(runs)),native_source=None if mixed else next(iter(revisions)),
         audited_native_cells=len(admission['native_cells']),audited_ordinary_executions=admission['ordinary'],
         audited_calibration_executions=admission['calibrations'],additional_terminal_only_probes=admission.get('additional_terminal_only_probes',0),
         local_target_absent=True,maintenance='Actual diagnosis, selected/cancelled approval, suffix pruning and byte-identical relocation passed; first attempts preserved.',
         admission=args.project+'/admission.json',delivered_ci_observations=admission.get('delivered_ci_observations',0))
+    if mixed:rows[0].update(native_runs=sorted(runs),native_sources=sorted(revisions),
+        native_cell_sources=[dict(host=m['host'],run=m['run'],source_revision=m['revision']) for m in sorted(models,key=lambda m:m['host'])])
     admitted=[]
     for row in ledger['projects']:
         if row.get('admitted'):

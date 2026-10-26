@@ -944,3 +944,115 @@ actualfourthadmission. Need eventualyo_admission.py, accurate ledger,14hosted
 harness-source generationaudit. Thenproject5cargo-generate, throughall20. Never
 finish at fourth orsend intermediate final response. Prior wholecampaign final
 121controls/freshcheckout/negativecutoffs/storage/late16+4 work stillpending.
+
+LATEST2026-10-26, supersedes nextsteps above: revision2 committed/pushed
+f0addebb2cdb8082072022b7b99a9fec47cb2641; native run40305371634 dispatched
+fd0f909de1f248b39b2dacd71dc15bd5. Linuxjob121513048684 SUCCESS:240ordinary,
+10calobservations(9required+1probe),full source/runtimecleanup,canonical-source
+reference/upload. Transfer4cabd27a702f4d05843edbbaec6ac735 complete. Linuxv3
+gzip retaineda9de9c7733d048bd8a150512227b9692:3644logical/2623physical,
+70846724expanded/15216150archiveB. Fullactualcell auditd843a1183e8d4bc5b71f0c229b4e86bd
+passed; ONE originalactualmodel underRAWyo/audits, do not duplicate it by running
+verify_project again just for readback. ExpandedLinux removeda4f6712feeea412f8df423d20eea2979.
+Linux archivedprovider metadata capturedwhileWindowslive; actualLinuxjob/steps
+complete/success is the proof, not overallrunstatus. Candidate/target unchanged.
+
+Windows SAME revision2run FAILED:11completebatches220passes, batch11N01 optional
+startup_timeout_ms2000 timed out waitingforFIRSTOUTPUT beforeanyaction (allsteps
+notrun). Actualreportduration2184ms, forcedWindowsJobcleanup confirmed. Preceding
+passing batch10N01 readiness assertion2740ms substantiates overly short optional
+variant; product correctly reported failure, no runnerbug/fix. Normal step10s/run120s
+unchanged. All221individualcleanups and full native source/runtime removal,
+registry-source reference and upload succeeded. Sourcefaultstep skipped, so this
+Windows cell hasZEROqualification/calibrationcredit. Completed overallrun40305371634
+is FAILURE becauseWindowsfailed; do not callwholeworkflowgreen.
+Windows transfer8eafa7cfb9224bd685c27bb8a7b992b1 complete; finalfailedprovidermetadata
+74149548f54447efafe0c6ffcf6d9680. NEWexplicitXZ nativev4 retained25294271f4fb4258b4b8a198d8fc4f03:
+3351logical/2335physical/60644997expanded/1600852XZB. Startup-audit7dfe63d415ad498c9381cffe2f666291
+verifies220positive+accuratefailure, actual2scontract and2740ms predecessor,
+221cleanups/provider/nativecleanup. ExpandedWindowsv4 checkedremovedb19c223938b04f31b75e9a2f9b7b6d84.
+
+Windows-only revision3 declareddc31418e50774bba9eb79b4995d2f98a. Preservefull
+final-series-declaration-v2.json SHA0b3b0fffc22943d2cd5eb285cc40f984f998f42e47db8373c124abf043c381f8.
+Currentdeclaration carries EXACT accepted Linux run40305371634/sourcef0addebb /
+generation3 /oldv2declarationsha. FreshWindows usesgeneration5 and5000ms ONLYfor
+the optional finalstartupvariant; all87canonicalinputs, step/runbudgets, actual
+runner/target unchanged. Newworkflow runner-readiness-next20-yo-windows.yml has
+ONE standardWindowsjob/maxparallel1/65min, all12freshbatches+allsourcefaults+
+nativecleanup; no Linuxrerun necessary. RejectedWindowsv4 reports not reused.
+Newcell_declaration selector validates exact carried run/source/olddeclaration
+SHA andsafeoldpath; currentauditor fresh Linuxreadback b7f0b58bf411465ca9b989d17dc33ec5
+reproduced originalactualmodel EXACTLY. Projectauditcontrols now use per-host
+carriedrun. Ledger update supports YO-only multiple source/run cells ONLYwhen
+exactly2actualmodels/uniquehosts match admitted per-cell run/source fields;
+futureYOadmission must include source_revision per nativecell. Existing projects
+remain single-run defaults. Do not claim a single native source/run for YO.
+
+Localretention had to gain headroom WITHOUTdroppingattempts. Newbounded local
+XZpacket compactcae8d5aba30f4119bdb5038e3a63c5a4:498originalfiles10554977expanded
+->994528B packets.tar.xz, underRAWyo/retained-local-v1. Originalreports,
+commandconsoles, sourcecleanup/inventory metadata, previous local-audits etc now
+exist ONLYAS exact indexedmembers; canonicalNPMgzipcache/sourcearchives,
+nativepackets/models andcatalogpacket remainphysical. Original local raw paths
+aremissing BYDESIGN. Do NOT rerun next20_yo_local_audit.py directly. Use
+next20_yo_local_packet.py audit to temporarilyrestore EXACToriginalpaths, execute
+the genuinefullindependentauditor, verifyallrestoredbytes andunlinkonlyexact
+duplicates. Actualrestoredaudit22039d37ea874ba59530d389e266d01f passedall60local
+reports+separateunlaunchedreport; itscheckedreceipt underretained-local-v1/audits.
+Selected genuine report restoredto.bin (not.json, avoids duplicate report scan).
+read_bytes(path) transparentlyreadsphysicalorverifiedlocalmember forfuture
+admission subjecthashclosure. BoundedXZ decode64MiBdict/64MiBstream,32MiBpayload,
+4000files/16MiBfile/8MiBcompressed; linked/escapingpaths/refuses corruption tested.
+Local source/runtime staysABSENT; do not reacquire it.
+
+Nativefuturev4/v5 explicit tar.xz encoding savesretention whilepreserving EVERY
+logicalpayloadbyte. Newnext20_packet_archive.py validates recordedgzip/XZ kinds,
+XZ64MiBdecode memory/256MiBstream/128MiBlogical/16MiBfile/24MiBcompressed caps;
+gzipdelegates unchangedhistoricalverifier. next20_compact_xz.py writes NEWindexed
+XZgenerations, onelevel exactaliases/fullmemberproof/actualreportrestore.bin.
+Oldv1/v2/v3GZIParchives/indices UNCHANGED (no transcoding/retired originals).
+Native JSON/binary/source readers andcheckedPSremove understand explicitencoding.
+Defaultoldgzip source/readback preserved.17nativeharnesscontrols passed
+104078de5f5a4d4ab95a54ff9f2b489f, including validcarriedcells + wrongrun/source/
+SHA/pathrefusals, binarygzip/XZaliaspayloads +badSHA/type, localXZcorruption.
+Original3gzipcompaction regressions passed64ee1db99b334e299bb5d5dde45ed838.
+CurrentoldbothCZactualmodels EXACTreadback passed2151a3d97ff14fbeb77614a9bee30a49
+(priorPTsession40554 no longerexists; readretainedfinish/console, do not rerun).
+
+Actualhostedharness generations ALL9 independentlysource-audited/retained/
+expandedremoved:40290983230 at0a280a40 (10tests) v17Linux/v18Mac/v19Win;
+40301626156 at1199115b (12tests) v20Linux/v21Mac/v22Win;
+40305347313 atf0addebb (14tests) v23Linux/v24Mac/v25Win. Curated
+harness-<run>-<host>.json hold exactnumeric/skips/archiveSHAs. Unix explicit
+Windows-onlyskips:1older/2newer. Harnessauditor now discovers testedsource AST
+imports and verifies theirnativeidentitysourcehashes, permitsonly2known native
+skips, checks4actualnativePSremoval commandswhenlarge-boundtestpresent. Default
+oldsourcevalues unchanged. Nineoldpackets complete; do notredownload. Native
+folder currentlyEMPTY afterv4remove. Newharness_collect enforcesonehostatime.
+
+Resource lastfullobservation4b82e4a3ad3c496c9eae4723786ff952 beforelocalXZ/latest
+nativev3/v4: new497656102/combined2406364674/combinedretained1277936249B;
+YO39138949B,curated1526971/combined13183215;active[];allcaps pass. Remeasure now
+and afterWindowsv5. XZretention should fit64MiB; do not infer measuredsuccess.
+CurrentYOdeclarationr3 corrected COPY-PASTED authoringnarrative CZ3/20+3/22 to
+actualYO3/16+3/19; originalmeasurementreceipts unchanged. Historicalv1/v2 wrong
+narratives preserved, not qualifyingmeasurement; currentreceipts are authoritative.
+
+CURRENT CODE/DECLARATIONr3/WINDOWSWORKFLOW/HARNESSAUDITS ARE UNCOMMITTED afterf0.
+Latestpreflight5443ca71fc8e4a50affd226b8ec06ba6 parsed112helpers,87inputs andbounded
+Windows-onlyworkflow+exactcarriedLinux. Nativeunit17 +oldgzip3 +oldCZ2 +Linux1
+readbacks allpass. Needgitdiffcheck,commit/push(scopedallauthorized),dispatch
+runner-readiness-next20-yo-windows.yml, recordrun/source. Whileit runs prepare
+yo_admission.py, mandatorycanonical dependency/LocalXZmember subject reader,
+actual2cellmatrix controls24 andcurrentstorage. NativeWindowsv5collectmetadata,
+compact via next20_compact_xz.py, fullindependentaudit,checkedremove. Accepted
+Linuxgen3readback only; do notrunverify_project tocreate duplicateactualmodel.
+Thenadmission+ledger honest percell sources,commitpush,continue project5 through20.
+
+USERPREFERENCE nowexplicit: when user saysCONTINUE, treat automaticreview access
+asrestored; NEVER ask quota-restoration question again. Push/commit/workflow auth
+alreadypermanentfortask. Oneautomaticreview service quota rejection blocked
+oldgzipnative test BEFOREexecution; no testcommandwasrun orreceiptgenerated.
+User explicitlyrestoredaccess afterand saidcontinue meansrestored. Retriedsame
+native action with normal review and itpassed64ee...; no approval bypass.
+Latesttaskstill3/20admitted13/100cumulative; no finalresponseuntilwhole20done.

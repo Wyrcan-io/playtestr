@@ -1,0 +1,69 @@
+{
+  "archive_sha256": "d86a69effa01eba9699dcaf5252322e7f43bc05e7351f930c1c4de0f5749c426",
+  "checks": [
+    {
+      "attempt": "1f3aab2294e54469b62b769560e9178e",
+      "console_sha256": "7bfb81b8df8874cd837ca9f558432c7332d93ee58701d39a51c1cff109fd7f99",
+      "identity_sha256": "9cb1f85b719cbecebfc4c4c9e69a0859d883783331695a54c8512fd81854e767",
+      "intentional_failure_control": false,
+      "label": "native-next20-command-controls",
+      "source_bindings": {
+        "scripts/acceptance/adversarial_process.py": "99a0e2638a4da25bf69c1e634021dd034cb6d4232d822c8c51b23c137e9a89b6",
+        "scripts/acceptance/next20_archive_controls.py": "5df96f568aa44f44f7c04e54153c421bc890a1ef379a0a3fab64f46b749a9013",
+        "scripts/acceptance/next20_check.py": "ddeb843a00483612d169aea4449be595c97457a552147217626de516b2db5b18",
+        "scripts/acceptance/readiness_bootstrap_go.py": "826bad7433744bd5c9d865dbcf17fd9483ab1c612973bd47056e7a0990355255",
+        "scripts/acceptance/readiness_evidence.py": "a8f4f208b2e37501bf0faabb4d50031a5f7e6e288fbb6fe0abfabc00045f0fce",
+        "scripts/acceptance/test_next20_campaign.py": "6cbe6e4d35273eb74ce617ef0c4c3dec7e190fa62c5ebcfb91a0d0dd7cef8d5a"
+      }
+    },
+    {
+      "attempt": "3bee0a9abcba4847bdbcc52adc3e4c20",
+      "console_sha256": "ffb37d2506789959e529ebde88b4dfc2392279d5a8bb76c44b2bd2fa6aea1165",
+      "identity_sha256": "9cb1f85b719cbecebfc4c4c9e69a0859d883783331695a54c8512fd81854e767",
+      "intentional_failure_control": true,
+      "label": "failed-console-regression-88de0b289e4e4c4cb9d4fc3fde00efa4",
+      "source_bindings": {
+        "scripts/acceptance/adversarial_process.py": "99a0e2638a4da25bf69c1e634021dd034cb6d4232d822c8c51b23c137e9a89b6",
+        "scripts/acceptance/next20_archive_controls.py": "5df96f568aa44f44f7c04e54153c421bc890a1ef379a0a3fab64f46b749a9013",
+        "scripts/acceptance/next20_check.py": "ddeb843a00483612d169aea4449be595c97457a552147217626de516b2db5b18",
+        "scripts/acceptance/readiness_bootstrap_go.py": "826bad7433744bd5c9d865dbcf17fd9483ab1c612973bd47056e7a0990355255",
+        "scripts/acceptance/readiness_evidence.py": "a8f4f208b2e37501bf0faabb4d50031a5f7e6e288fbb6fe0abfabc00045f0fce",
+        "scripts/acceptance/test_next20_campaign.py": "6cbe6e4d35273eb74ce617ef0c4c3dec7e190fa62c5ebcfb91a0d0dd7cef8d5a"
+      }
+    },
+    {
+      "attempt": "7e621c6f6e884a25a1dd8c74c16c695b",
+      "console_sha256": "05b0fe2cd96d50e64ed55aa319bcff4999dc9065b90420ace387085d6a9422b0",
+      "identity_sha256": "9cb1f85b719cbecebfc4c4c9e69a0859d883783331695a54c8512fd81854e767",
+      "intentional_failure_control": false,
+      "label": "native-next20-syntax",
+      "source_bindings": {
+        "scripts/acceptance/adversarial_process.py": "99a0e2638a4da25bf69c1e634021dd034cb6d4232d822c8c51b23c137e9a89b6",
+        "scripts/acceptance/next20_archive_controls.py": "5df96f568aa44f44f7c04e54153c421bc890a1ef379a0a3fab64f46b749a9013",
+        "scripts/acceptance/next20_check.py": "ddeb843a00483612d169aea4449be595c97457a552147217626de516b2db5b18",
+        "scripts/acceptance/readiness_bootstrap_go.py": "826bad7433744bd5c9d865dbcf17fd9483ab1c612973bd47056e7a0990355255",
+        "scripts/acceptance/readiness_evidence.py": "a8f4f208b2e37501bf0faabb4d50031a5f7e6e288fbb6fe0abfabc00045f0fce",
+        "scripts/acceptance/test_next20_campaign.py": "6cbe6e4d35273eb74ce617ef0c4c3dec7e190fa62c5ebcfb91a0d0dd7cef8d5a"
+      }
+    }
+  ],
+  "expanded_removal_confirmed": false,
+  "host": "macos-15",
+  "index_sha256": "9e29a4273518ad107c856636d1e8b7b8680ab52879aeb3e9a4ec3ad564adbec3",
+  "named_controls_passed": 9,
+  "native_removal_commands": [],
+  "new_project_credit": 0,
+  "retained_generation": 18,
+  "run": "40290983230",
+  "schema_version": 1,
+  "scope": "Actual source/event/positive-console proof for the named native helper controls. No application or archive-product-control reexecution credit.",
+  "skips": [
+    {
+      "reason": "native Windows checked target removal control",
+      "test": "test_native_target_removal_refuses_changed_payload_then_removes_exact_owned_fixture"
+    }
+  ],
+  "source_syntax_scope": "Only helpers present at recorded tested revision",
+  "tests_discovered": 10,
+  "tooling_revision": "0a280a40bc5736c602500f7c5c6d2e23ee518283"
+}

@@ -12,8 +12,13 @@ $indexPath=Join-Path $retained 'index.json'
 $verified=Get-Content -LiteralPath (Join-Path $retained 'verified.json') -Raw | ConvertFrom-Json
 if ((Get-FileHash -LiteralPath $indexPath -Algorithm SHA256).Hash.ToLowerInvariant() -ne $verified.index_sha256) { throw 'Compaction index changed' }
 $index=Get-Content -LiteralPath $indexPath -Raw | ConvertFrom-Json
+$archiveName='packets.tar.gz'
+if ($null -ne $index.PSObject.Properties['compression']) {
+    if ($index.compression -eq 'tar.xz') {$archiveName='packets.tar.xz'}
+    elseif ($index.compression -ne 'tar.gz') {throw 'Unreviewed native packet compression'}
+}
 if ($index.project -ne $Project -or $index.generation -ne $Generation -or
-    (Get-FileHash -LiteralPath (Join-Path $retained 'packets.tar.gz') -Algorithm SHA256).Hash.ToLowerInvariant() -ne $index.archive_sha256) { throw 'Compaction ownership/archive mismatch' }
+    (Get-FileHash -LiteralPath (Join-Path $retained $archiveName) -Algorithm SHA256).Hash.ToLowerInvariant() -ne $index.archive_sha256) { throw 'Compaction ownership/archive mismatch' }
 $actual=@{};$targets=@()
 foreach($run in $index.runs) {
     if ($run -notmatch '^[0-9]{1,20}$') { throw 'Invalid native run' }

@@ -79,7 +79,7 @@ async def main(project='jrnl',batch=None):
                 else:steps.append(step)
             value['steps']=steps
         if args.batch==10 and case['id']=='N01':value['height']=12
-        if args.batch==11:value['startup_timeout_ms']=2000
+        if args.batch==11:value['startup_timeout_ms']=declaration.get('startup_timeout_ms_by_host',{}).get(host,2000)
         before.write_text(json.dumps(value,sort_keys=True,ensure_ascii=True,indent=2)+'\n',encoding='utf-8',newline='\n')
         changes.append(dict(case=case['id'],spec=case['spec'],canonical_sha256=case['canonical_sha256'],
             native_base_sha256=case['spec_sha256'],executed_spec_sha256=sha256(before)))

@@ -68,6 +68,58 @@ class NextCampaignTests(unittest.TestCase):
             reference=json.loads((retained/'registry-source-reference.json').read_text())
             self.assertEqual(reference['files'],files)
 
+    def test_local_xz_packet_preserves_exact_records_and_refuses_corruption(self):
+        from unittest.mock import patch
+        import next20_yo_local_packet as packet
+        raw=self.root/'raw';project=raw/'yo';project.mkdir(parents=True)
+        report=project/'first-ordinary-report.json';report.write_bytes(b'{"synthetic_retention_control":true}\n')
+        payload=project/'notes.txt';payload.write_bytes('synthetic café 雪\n'.encode())
+        canonical=project/'retained-source/npm-cache/payload';canonical.parent.mkdir(parents=True)
+        canonical.write_bytes(b'untouched synthetic canonical source')
+        expected={p.relative_to(raw).as_posix():p.read_bytes() for p in [report,payload]}
+        with patch.object(packet,'RAW',raw):
+            packet.load_packet.cache_clear();packet.compact()
+            index,files=packet.verified_packet()
+            self.assertEqual(files,expected);self.assertFalse(report.exists());self.assertTrue(canonical.exists())
+            self.assertEqual(packet.read_bytes(report),expected[report.relative_to(raw).as_posix()])
+            with self.assertRaisesRegex(ValueError,'Unsafe'):packet.safe_path('yo/../outside.txt')
+            archive=packet.packet_root()/'packets.tar.xz';data=bytearray(archive.read_bytes());data[-8]^=1;archive.write_bytes(data)
+            with self.assertRaisesRegex(ValueError,'index/archive changed'):packet.verified_packet()
+            packet.load_packet.cache_clear()
+
+    def test_native_packet_encodings_preserve_aliases_and_reject_bad_hashes(self):
+        import hashlib
+        import io
+        import tarfile
+        from next20_packet_archive import archive_path,verify,tar_mode
+        root=self.root/'packet-encoding-control';root.mkdir(parents=True)
+        data=b'\x00synthetic exact\r\nbytes\xff'
+        files={'native/123/first.bin':dict(bytes=len(data),sha256=hashlib.sha256(data).hexdigest()),
+               'native/123/alias.bin':dict(bytes=len(data),sha256=hashlib.sha256(data).hexdigest(),member='native/123/first.bin')}
+        for encoding in ['tar.gz','tar.xz']:
+            index=dict(compression=encoding);archive=archive_path(root,index)
+            with tarfile.open(archive,'w:'+('gz' if encoding=='tar.gz' else 'xz')) as bundle:
+                member=tarfile.TarInfo('native/123/first.bin');member.size=len(data);bundle.addfile(member,io.BytesIO(data))
+            verify(archive,files)
+            with tarfile.open(archive,tar_mode(index)) as bundle:self.assertEqual(bundle.extractfile('native/123/first.bin').read(),data)
+            changed={n:dict(row,sha256='0'*64) for n,row in files.items()}
+            with self.assertRaises(ValueError):verify(archive,changed)
+        with self.assertRaisesRegex(ValueError,'compression'):archive_path(root,dict(compression='tar.zip'))
+
+    def test_carried_cell_requires_exact_original_run_source_and_declaration(self):
+        import copy
+        from next20_verify_jrnl import cell_declaration
+        package=self.root/'cell-declaration-control';package.mkdir(parents=True)
+        path=package/'final-series-declaration-v2.json';immutable_json(path,dict(revision=2,hosts=['linux','windows']))
+        current=dict(revision=3,accepted_prior_cells=dict(linux=dict(run='123',source_revision='a'*40,
+            declaration_file=path.name,declaration_sha256=sha256(path))))
+        selected,selected_path=cell_declaration(package,current,'123','linux','a'*40)
+        self.assertEqual(selected['revision'],2);self.assertEqual(selected_path,path)
+        self.assertEqual(cell_declaration(package,current,'456','windows','b'*40)[0],current)
+        for field,value in [('run','999'),('source_revision','b'*40),('declaration_sha256','0'*64),('declaration_file','../outside.json')]:
+            altered=copy.deepcopy(current);altered['accepted_prior_cells']['linux'][field]=value
+            with self.assertRaises(ValueError):cell_declaration(package,altered,'123','linux','a'*40)
+
     def test_cleanup_inventory_default_and_explicit_large_tree_bound(self):
         from types import SimpleNamespace
         from unittest.mock import patch

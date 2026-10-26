@@ -1,6 +1,15 @@
 {
+  "accepted_prior_cells": {
+    "linux": {
+      "declaration_file": "final-series-declaration-v2.json",
+      "declaration_sha256": "0b3b0fffc22943d2cd5eb285cc40f984f998f42e47db8373c124abf043c381f8",
+      "generation": 3,
+      "run": "40305371634",
+      "source_revision": "f0addebb2cdb8082072022b7b99a9fec47cb2641"
+    }
+  },
   "additional_terminal_only_calibrations": 2,
-  "authoring": "Public first3invocations/20controls; separate fix+snapshot technical3/22. Prepared familiar operator, no human beginner measurement.",
+  "authoring": "Public first3invocations/16controls; separate JavaScript+snapshot technical3/19. Prepared familiar operator, no human beginner measurement. Earlier declaration narrative copied incorrect cz-cli control totals; original yo measurement receipts are unchanged.",
   "batches": [
     {
       "id": 0,
@@ -58,7 +67,7 @@
       "name": "highest-risk-small-completion"
     },
     {
-      "change": "explicit 2000ms startup limit; ordinary step/run budgets unchanged",
+      "change": "Explicit startup limit: Linux2000ms in accepted prior cell, Windows5000ms in complete fresh replacement. Ordinary10s step/120s run limits unchanged.",
       "id": 11,
       "name": "highest-risk-startup-boundary"
     }
@@ -77,17 +86,18 @@
     "build_deadline_seconds": 1200,
     "cleanup": "Explicit60000-file bound,128MiB/file,1GiB owned tree; Windows removal900s, native retention600s. Default40000 unchanged. Product deadlines unchanged.",
     "estimated_minutes": {
-      "linux": 40,
       "windows": 35
     },
     "job_deadline_minutes": 65,
-    "max_simultaneous_target_jobs": 2,
+    "max_simultaneous_target_jobs": 1,
     "scenario_deadline_seconds": 120,
-    "standard_jobs": 2,
+    "standard_jobs": 1,
     "step_deadline_seconds": 10,
-    "total_job_minute_ceiling": 130
+    "total_job_minute_ceiling": 65,
+    "carried_linux_new_jobs": 0
   },
   "edge": 12,
+  "evidence_encoding": "Existingv1/v2/v3 gzip archives unchanged. Partialv4 and freshv5 use explicitly recorded self-contained tar.xz with the same logical payload/hash contract and bounded codec memory/stream. Local records use their separately verified bounded XZ packet.",
   "failure_policy": "No automatic per-case retry. Any red/partial final batch rejects the affected native series; retain all first attempts and declare a replacement after diagnosis.",
   "framework_lock_sha256": "63f370171b81b498bab5b8f9ff0fc75deb655974590d7b98e19df51b94f1e80a",
   "hosts": [
@@ -104,17 +114,21 @@
   "real_source_faults": 3,
   "rejected_run": "40301653366",
   "repetitions_per_cell": 12,
-  "replacement_reason": "Complete fresh matrix after two explicit harness/profile corrections; all first rejected/cancelled reports retained, none reused for qualification.",
+  "replacement_reason": "Windows-only full replacement after accurate optional2s startup-variant failure; accepted Linux cell preserved exactly. No partial Windows report reused for qualification.",
   "required_three_phase_calibrations": 18,
   "retained_generations": {
     "linux": 3,
-    "windows": 4
+    "windows": 5
   },
-  "retention_plan": "Retain rejectedv1/v2 plus freshv3/v4, local actual reports and canonical source. Exact local catalog duplicates already aliased to unchanged verified archive. Native package source refers to mandatory retained canonical bytes instead of three duplicate copies. Reobserve all-generation64MiB before admission.",
-  "revision": 2,
+  "retention_plan": "Retain rejectedv1/v2, accepted Linuxv3, partial startup-failed Windowsv4, fresh Windowsv5, local actual records and canonical source. Explicit bounded XZ packets preserve all payload bytes. Canonical package source remains mandatory and counted once. Reobserve all-generation64MiB before admission.",
+  "revision": 3,
   "runtime_kind": "node",
   "scenarios_per_cell": 20,
   "schema_version": 1,
   "source_execution": "Copied interpreted ESM modules, no compiler. Exact Node, canonical SRI packages and actual declared source-copy variants bound before launch.",
+  "startup_timeout_ms_by_host": {
+    "linux": 2000,
+    "windows": 5000
+  },
   "transfer_scope": "Normal workflows and three interpreted-source mutations already exposed locally; no untouched-source or human-transfer claim."
 }

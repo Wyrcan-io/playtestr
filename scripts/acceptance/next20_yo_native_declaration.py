@@ -26,6 +26,7 @@ def main():
     template=json.loads((DOC/'cz-cli/final-series-declaration-v1.json').read_text())
     declaration={key:value for key,value in template.items() if key not in {'native_runtime_lock_sha256'}}
     declaration.update(project='yo',revision=1,canonical_test_freeze_sha256=sha256(package/'development-test-freeze.json'),
+        authoring='Public first3invocations/16controls; separate JavaScript+snapshot technical3/19. Prepared familiar operator, no human beginner measurement.',
         framework_lock_sha256=sha256(package/'generator-package-lock.json'),retained_generations=dict(linux=1,windows=2),
         cold_scope='Two newly materialized verified complete app/framework module trees, each followed by warm reuse. Same exact owned Node executable; no OS-cache eviction claim.',
         original_first_development_failures='Original18pass/2fail and exact inputs/screens retained. Corrected two actual diagnostic text anchors only, then complete20pass replacement. All40 observations excluded from native repetitions. One separate sandbox-denied prelaunch attempt excluded.',

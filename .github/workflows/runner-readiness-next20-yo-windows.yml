@@ -1,0 +1,145 @@
+name: Next twenty yo Windows startup replacement
+on:
+  push:
+    branches: [work/p0-p2-implementation]
+    paths: ['.github/workflows/runner-readiness-next20-yo-windows.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: playtestr-next20-yo-windows
+  cancel-in-progress: false
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONIOENCODING: utf-8
+  TEMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+  TMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+  TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+  RUNNER_TEMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+  PSModuleAnalysisCachePath: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/shell-cache/module-analysis
+  GIT_CONFIG_COUNT: '1'
+  GIT_CONFIG_KEY_0: core.longpaths
+  GIT_CONFIG_VALUE_0: 'true'
+jobs:
+  native-final:
+    if: github.event_name == 'workflow_dispatch'
+    timeout-minutes: 65
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        include:
+          - os: windows-2025
+            host: windows
+            target: windows-amd64
+            archive_target: windows_amd64
+            extension: zip
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+      - name: Create owned temporary/cache paths
+        run: mkdir -p "$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/tmp" "$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/shell-cache"
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          github-token: ${{ github.token }}
+          repository: Wyrcan-io/playtestr
+          run-id: 39450029736
+          name: private-candidate-${{ runner.os }}
+          path: artifacts/runner-readiness-next-twenty-project-pass/candidate-download
+      - name: Verify and install exact frozen private archive
+        run: python -B scripts/acceptance/next20_check.py --label native-yo-exact-archive-install --timeout 90 -- python -B scripts/acceptance/next20_candidate_install.py --archive artifacts/runner-readiness-next-twenty-project-pass/candidate-download/candidate-packages/migration-v2/${{ matrix.target }}/dist/playtestr_0.4.0-rc.5_${{ matrix.archive_target }}.${{ matrix.extension }}
+      - name: Prepare reviewed pinned target with owned runtime and exact native contracts
+        id: prepare
+        run: python -B scripts/acceptance/next20_check.py --label native-yo-reviewed-target-preparation --timeout 1200 -- python -B scripts/acceptance/next20_yo_native.py
+      - name: Final fresh-state batch 1 of twelve
+        env:
+          READINESS_EVIDENCE_PHASE: final-archive
+        run: python -B scripts/acceptance/next20_check.py --label native-yo-final-batch-0 --timeout 900 -- python -B scripts/acceptance/next20_final.py yo --batch 0
+      - name: Final fresh-state batch 2 of twelve
+        env:
+          READINESS_EVIDENCE_PHASE: final-archive
+        run: python -B scripts/acceptance/next20_check.py --label native-yo-final-batch-1 --timeout 900 -- python -B scripts/acceptance/next20_final.py yo --batch 1
+      - name: Final fresh-state batch 3 of twelve
+        env:
+          READINESS_EVIDENCE_PHASE: final-archive
+        run: python -B scripts/acceptance/next20_check.py --label native-yo-final-batch-2 --timeout 900 -- python -B scripts/acceptance/next20_final.py yo --batch 2
+      - name: Final fresh-state batch 4 of twelve
+        env:
+          READINESS_EVIDENCE_PHASE: final-archive
+        run: python -B scripts/acceptance/next20_check.py --label native-yo-final-batch-3 --timeout 900 -- python -B scripts/acceptance/next20_final.py yo --batch 3
+      - name: Final fresh-state batch 5 of twelve
+        env:
+          READINESS_EVIDENCE_PHASE: final-archive
+        run: python -B scripts/acceptance/next20_check.py --label native-yo-final-batch-4 --timeout 900 -- python -B scripts/acceptance/next20_final.py yo --batch 4
+      - name: Final fresh-state batch 6 of twelve
+        env:
+          READINESS_EVIDENCE_PHASE: final-archive
+        run: python -B scripts/acceptance/next20_check.py --label native-yo-final-batch-5 --timeout 900 -- python -B scripts/acceptance/next20_final.py yo --batch 5
+      - name: Final fresh-state batch 7 of twelve
+        env:
+          READINESS_EVIDENCE_PHASE: final-archive
+        run: python -B scripts/acceptance/next20_check.py --label native-yo-final-batch-6 --timeout 900 -- python -B scripts/acceptance/next20_final.py yo --batch 6
+      - name: Final fresh-state batch 8 of twelve
+        env:
+          READINESS_EVIDENCE_PHASE: final-archive
+        run: python -B scripts/acceptance/next20_check.py --label native-yo-final-batch-7 --timeout 900 -- python -B scripts/acceptance/next20_final.py yo --batch 7
+      - name: Final fresh-state batch 9 of twelve
+        env:
+          READINESS_EVIDENCE_PHASE: final-archive
+        run: python -B scripts/acceptance/next20_check.py --label native-yo-final-batch-8 --timeout 900 -- python -B scripts/acceptance/next20_final.py yo --batch 8
+      - name: Final fresh-state batch 10 of twelve
+        env:
+          READINESS_EVIDENCE_PHASE: final-archive
+        run: python -B scripts/acceptance/next20_check.py --label native-yo-final-batch-9 --timeout 900 -- python -B scripts/acceptance/next20_final.py yo --batch 9
+      - name: Final fresh-state batch 11 of twelve
+        env:
+          READINESS_EVIDENCE_PHASE: final-archive
+        run: python -B scripts/acceptance/next20_check.py --label native-yo-final-batch-10 --timeout 900 -- python -B scripts/acceptance/next20_final.py yo --batch 10
+      - name: Final fresh-state batch 12 of twelve
+        env:
+          READINESS_EVIDENCE_PHASE: final-archive
+        run: python -B scripts/acceptance/next20_check.py --label native-yo-final-batch-11 --timeout 900 -- python -B scripts/acceptance/next20_final.py yo --batch 11
+      - name: Three actual source faults and unchanged-contract recovery
+        env:
+          READINESS_EVIDENCE_PHASE: final-archive
+        run: python -B scripts/acceptance/next20_check.py --label native-yo-real-fault-restoration --timeout 900 -- python -B scripts/acceptance/next20_python_faults.py yo --package artifacts/runner-readiness-next-twenty-project-pass/yo/host-contracts
+      - name: Preserve exact npm metadata compactly
+        if: always() && steps.prepare.outcome == 'success'
+        run: python -B scripts/acceptance/next20_check.py --label native-yo-cache-metadata-retention --timeout 120 -- python -B scripts/acceptance/next20_yo_cache_retention.py
+      - name: Windows target PID and birth proof
+        if: always() && steps.prepare.outcome == 'success' && runner.os == 'Windows'
+        run: python -B scripts/acceptance/next20_check.py --label native-yo-owned-process-proof --timeout 90 -- powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/acceptance/next20_target_process_proof.ps1 -Project yo
+      - name: Retain source provenance and prepare native Windows removal
+        if: always() && steps.prepare.outcome == 'success' && runner.os == 'Windows'
+        run: python -B scripts/acceptance/next20_check.py --label native-yo-source-retention --timeout 600 -- python -B scripts/acceptance/next20_target_cleanup.py --project yo --max-files 60000 --prepare-only
+      - name: Checked Windows source and runtime removal
+        id: clean_windows
+        if: always() && steps.prepare.outcome == 'success' && runner.os == 'Windows'
+        run: python -B scripts/acceptance/next20_check.py --label native-yo-source-runtime-removal --timeout 900 -- powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/acceptance/next20_remove_target.ps1 -Project yo -MaxFiles 60000
+      - name: Checked Unix source and runtime removal
+        id: clean_unix
+        if: always() && steps.prepare.outcome == 'success' && runner.os != 'Windows'
+        run: python -B scripts/acceptance/next20_check.py --label native-yo-source-runtime-removal --timeout 600 -- python -B scripts/acceptance/next20_target_cleanup.py --project yo --max-files 60000
+      - name: Canonical registry source duplicate reference
+        if: always() && (steps.clean_windows.outcome == 'success' || steps.clean_unix.outcome == 'success')
+        run: python -B scripts/acceptance/next20_check.py --label native-yo-canonical-registry-source-reference --timeout 120 -- python -B scripts/acceptance/next20_yo_registry_reference.py
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: next20-yo-${{ runner.os }}
+          path: |
+            artifacts/runner-readiness-next-twenty-project-pass/events/
+            artifacts/runner-readiness-next-twenty-project-pass/identities/
+            artifacts/runner-readiness-next-twenty-project-pass/core/
+            artifacts/runner-readiness-next-twenty-project-pass/yo/
+            artifacts/runner-readiness-next-twenty-project-pass/candidate/*/installed.json
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
