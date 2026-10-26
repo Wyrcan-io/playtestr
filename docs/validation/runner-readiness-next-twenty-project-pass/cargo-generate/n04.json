@@ -1,0 +1,103 @@
+{
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/cargo-generate/bin/cargo-generate.exe",
+    "generate",
+    "--path",
+    "template",
+    "--vcs",
+    "none",
+    "--no-workspace",
+    "--name",
+    "named-project"
+  ],
+  "env": {
+    "GIT_CONFIG_GLOBAL": "nul",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "USER": "synthetic",
+    "USERNAME": "synthetic"
+  },
+  "height": 24,
+  "max_output_bytes": 2000000,
+  "name": "Supply project name and answer remaining prompts",
+  "run_timeout_ms": 120000,
+  "steps": [
+    {
+      "expect": "Project owner"
+    },
+    {
+      "text": "Ada"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Project mode"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Include documentation"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "New project created"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "dW5yZWxhdGVkIHN5bnRoZXRpYyBkYXRhCg==",
+        "kind": "file",
+        "path": "sentinel.txt"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "cHJvamVjdD1uYW1lZC1wcm9qZWN0Cm93bmVyPUFkYQptb2RlPWJhc2ljCnJlYWRtZT10cnVlCg==",
+        "kind": "file",
+        "path": "named-project/profile.txt"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "IyBuYW1lZC1wcm9qZWN0CgpPd25lcjogQWRhCk1vZGU6IGJhc2ljCg==",
+        "kind": "file",
+        "path": "named-project/README.md"
+      }
+    },
+    {
+      "state": {
+        "entries": [
+          "README.md",
+          "profile.txt"
+        ],
+        "kind": "entries",
+        "path": "named-project"
+      }
+    },
+    {
+      "state": {
+        "entries": [
+          "named-project",
+          "sentinel.txt",
+          "template"
+        ],
+        "kind": "entries",
+        "path": "."
+      }
+    }
+  ],
+  "timeout_ms": 10000,
+  "version": 3,
+  "width": 80,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/n04",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

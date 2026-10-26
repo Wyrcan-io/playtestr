@@ -13,6 +13,12 @@ decide whether it is correct. `/replay` checks a fresh execution before `/save`.
 Only selected paths are read; state expectations never change under screen
 snapshot `--update`. Existing v1/v2 specs keep their original contract.
 
+With a managed fixture, current source accepts exact unsigned native `/exit`
+values through `4294967295`, including Windows `3221225786` for an unhandled
+control-C termination. Non-fixture v1 recordings retain the `0` through `255`
+range. These wider expectations require the replacement source/private candidate;
+the existing rc.5 archive does not support them. See [spec v3](spec-v3.md).
+
 Failed requested controls remain unresolved until retried successfully or a
 successful fresh `/rerecord`. To intentionally omit failed controls, use
 `/discard-errors`, then review the resulting coverage and replay. A successful

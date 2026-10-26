@@ -1,0 +1,93 @@
+{
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/cargo-generate/bin/cargo-generate.exe",
+    "generate",
+    "--path",
+    "template",
+    "--vcs",
+    "none",
+    "--no-workspace",
+    "--name",
+    "synthetic-notes",
+    "--silent",
+    "--values-file",
+    "values.toml"
+  ],
+  "env": {
+    "GIT_CONFIG_GLOBAL": "nul",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "USER": "synthetic",
+    "USERNAME": "synthetic"
+  },
+  "height": 24,
+  "max_output_bytes": 2000000,
+  "name": "Generate noninteractively from an explicit values file",
+  "run_timeout_ms": 120000,
+  "steps": [
+    {
+      "expect": "New project created"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "dW5yZWxhdGVkIHN5bnRoZXRpYyBkYXRhCg==",
+        "kind": "file",
+        "path": "sentinel.txt"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "W3ZhbHVlc10Kb3duZXI9Ik1pcmEiCm1vZGU9ImV4dGVuZGVkIgpyZWFkbWU9ZmFsc2UK",
+        "kind": "file",
+        "path": "values.toml"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "cHJvamVjdD1zeW50aGV0aWMtbm90ZXMKb3duZXI9TWlyYQptb2RlPWV4dGVuZGVkCnJlYWRtZT1mYWxzZQo=",
+        "kind": "file",
+        "path": "synthetic-notes/profile.txt"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "RG9jdW1lbnRhdGlvbiBkaXNhYmxlZAo=",
+        "kind": "file",
+        "path": "synthetic-notes/README.md"
+      }
+    },
+    {
+      "state": {
+        "entries": [
+          "README.md",
+          "profile.txt"
+        ],
+        "kind": "entries",
+        "path": "synthetic-notes"
+      }
+    },
+    {
+      "state": {
+        "entries": [
+          "sentinel.txt",
+          "synthetic-notes",
+          "template",
+          "values.toml"
+        ],
+        "kind": "entries",
+        "path": "."
+      }
+    }
+  ],
+  "timeout_ms": 10000,
+  "version": 3,
+  "width": 80,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/n06",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

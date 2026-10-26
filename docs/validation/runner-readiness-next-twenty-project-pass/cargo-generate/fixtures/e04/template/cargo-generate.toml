@@ -1,0 +1,18 @@
+[template]
+cargo_generate_version = ">=0.25.0"
+
+[placeholders.owner]
+type = "string"
+prompt = "Project owner"
+regex = "^.{1,80}$"
+
+[placeholders.mode]
+type = "string"
+prompt = "Project mode"
+choices = ["basic", "extended"]
+default = "basic"
+
+[placeholders.readme]
+type = "bool"
+prompt = "Include documentation"
+default = true

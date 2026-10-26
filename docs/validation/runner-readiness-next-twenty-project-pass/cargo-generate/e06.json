@@ -1,0 +1,113 @@
+{
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/cargo-generate/bin/cargo-generate.exe",
+    "generate",
+    "--path",
+    "template",
+    "--vcs",
+    "none",
+    "--no-workspace"
+  ],
+  "env": {
+    "GIT_CONFIG_GLOBAL": "nul",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "USER": "synthetic",
+    "USERNAME": "synthetic"
+  },
+  "height": 16,
+  "max_output_bytes": 2000000,
+  "name": "Wrap a long owner then choose another mode",
+  "run_timeout_ms": 120000,
+  "steps": [
+    {
+      "expect": "Project Name"
+    },
+    {
+      "text": "synthetic-notes"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Project owner"
+    },
+    {
+      "text": "Synthetic owner long label long label long label long label long label"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Project mode"
+    },
+    {
+      "key": "ArrowDown"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Include documentation"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "New project created"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "dW5yZWxhdGVkIHN5bnRoZXRpYyBkYXRhCg==",
+        "kind": "file",
+        "path": "sentinel.txt"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "cHJvamVjdD1zeW50aGV0aWMtbm90ZXMKb3duZXI9U3ludGhldGljIG93bmVyIGxvbmcgbGFiZWwgbG9uZyBsYWJlbCBsb25nIGxhYmVsIGxvbmcgbGFiZWwgbG9uZyBsYWJlbAptb2RlPWV4dGVuZGVkCnJlYWRtZT10cnVlCg==",
+        "kind": "file",
+        "path": "synthetic-notes/profile.txt"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "IyBzeW50aGV0aWMtbm90ZXMKCk93bmVyOiBTeW50aGV0aWMgb3duZXIgbG9uZyBsYWJlbCBsb25nIGxhYmVsIGxvbmcgbGFiZWwgbG9uZyBsYWJlbCBsb25nIGxhYmVsCk1vZGU6IGV4dGVuZGVkCg==",
+        "kind": "file",
+        "path": "synthetic-notes/README.md"
+      }
+    },
+    {
+      "state": {
+        "entries": [
+          "README.md",
+          "profile.txt"
+        ],
+        "kind": "entries",
+        "path": "synthetic-notes"
+      }
+    },
+    {
+      "state": {
+        "entries": [
+          "sentinel.txt",
+          "synthetic-notes",
+          "template"
+        ],
+        "kind": "entries",
+        "path": "."
+      }
+    }
+  ],
+  "timeout_ms": 10000,
+  "version": 3,
+  "width": 40,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/e06",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/cargo-generate/bin/cargo-generate.exe",
+    "generate",
+    "--path",
+    "template",
+    "--vcs",
+    "none",
+    "--no-workspace",
+    "--name",
+    "synthetic-notes"
+  ],
+  "env": {
+    "GIT_CONFIG_GLOBAL": "nul",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "USER": "synthetic",
+    "USERNAME": "synthetic"
+  },
+  "height": 24,
+  "max_output_bytes": 2000000,
+  "name": "Refuse an existing output directory and preserve its contents",
+  "run_timeout_ms": 120000,
+  "steps": [
+    {
+      "expect": "Target directory already exists"
+    },
+    {
+      "exit": 1
+    },
+    {
+      "state": {
+        "bytes_base64": "dW5yZWxhdGVkIHN5bnRoZXRpYyBkYXRhCg==",
+        "kind": "file",
+        "path": "sentinel.txt"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "ZXhpc3Rpbmcgb3duZWQgcHJvamVjdCBtdXN0IHJlbWFpbgo=",
+        "kind": "file",
+        "path": "synthetic-notes/keep.txt"
+      }
+    },
+    {
+      "state": {
+        "entries": [
+          "keep.txt"
+        ],
+        "kind": "entries",
+        "path": "synthetic-notes"
+      }
+    },
+    {
+      "state": {
+        "entries": [
+          "sentinel.txt",
+          "synthetic-notes",
+          "template"
+        ],
+        "kind": "entries",
+        "path": "."
+      }
+    }
+  ],
+  "timeout_ms": 10000,
+  "version": 3,
+  "width": 80,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/e08",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

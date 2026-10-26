@@ -13,8 +13,24 @@ outside this package's scope.
 The source review and dependency hook review are complete. The fetch executed no
 build hooks or target code: 369 archives match Cargo.lock checksums and all 16,222
 unpacked source files match their archive members. The ordinary default-feature
-CLI build uses locked offline dependencies, owned caches and read-only installed
-Rust/MSVC prerequisites. Its actual completion and version check remain pending.
+CLI build succeeded using locked offline dependencies, owned caches and read-only
+Rust/MSVC prerequisites. A physically shorter, independently verified registry
+copy resolved MSVC include failures; both original failures remain retained. The
+version command succeeded; a wrong banner check in the outer helper is separately
+preserved and corrected by readback of the original execution.
 
-No first-use success, scenario, fault, native-cell or project admission is claimed
-yet. The campaign remains at four new admissions. Human usability is unmeasured.
+The repaired public route passed with exact generated-file/sentinel checks,
+three shell calls and twenty recorder controls. The initial missing synthetic
+USERNAME and volatile full-screen snapshot misses remain preserved. Public row
+selection excludes the temporary destination line; no blanket normalization is
+used. Across the initial and repaired windows there were nine Playtestr shell
+calls and 65 requested controls, so this is not an initial usability-target pass.
+
+The first complete development run passed 17/20. Windows Ctrl-C exposed the
+[general native-status defect](../findings/native-windows-exit-status.md).
+An undefined Liquid variable rendered empty; the mistaken error expectation was
+retained and replaced with genuinely malformed syntax. Two separate authoring
+prelaunch refusals (unsupported key and wider exit value) are also preserved.
+No twenty-case freeze, source fault, qualified native cell or project admission
+exists yet. The campaign remains at four new rc.5 admissions. Human usability is
+unmeasured. Continue against the distinct replacement candidate after its build.

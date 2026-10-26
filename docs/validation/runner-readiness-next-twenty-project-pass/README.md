@@ -18,8 +18,12 @@ series remain preserved. Linux and Windows have separately recorded source/run
 identities; the unsupported two-second Windows startup attempt supplies no credit.
 
 The starting repository revision is `46d01dfb3671fd18b73f15261069daa994e9afb8`
-on `work/p0-p2-implementation`. Production source remains `129b7a4`, private
-candidate rc.5. The imported closing admission's 32 subject files and three
+on `work/p0-p2-implementation`. These four admissions and the original-ten
+carry-forward use production `129b7a4`, private candidate rc.5. Current source
+repairs a [native Windows status defect](findings/native-windows-exit-status.md)
+found in project five, cargo-generate. A distinct replacement candidate and
+fresh qualification of the original ten and these four are required; no rc.6
+qualification is claimed. The imported closing admission's 32 subject files and three
 retained native archives passed checksum verification. One initial import-helper
 schema mistake is retained as a failed engineering command, followed by a
 successful corrected invocation. It is not a product failure or project outcome.

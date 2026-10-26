@@ -4,6 +4,11 @@
 
 The canonical JSON Schema is [`schema/playtestr-report-v1.schema.json`](../schema/playtestr-report-v1.schema.json).
 
+The current reader/schema preserves captured native Windows exit statuses up to
+`4294967295`, including unexpected exits. Spec v1 assertions remain limited to
+`0` through `255`. Older HTML readers may reject a wider captured status; see
+the [pending migration](migration-v0.4.0-rc.6.md).
+
 The top level contains `report_version`, `runner_version`, `os`, `arch`, `summary`, and the ordered `results` array. Each result records the spec version and path, initial viewport and successful resizes, per-step action/status/duration, target exit status when known, primary failure, cleanup outcome, and paths to screen or diff evidence. Cleanup and evidence-write failures remain separate from the primary test failure.
 
 Failure categories in version 1 are `invalid_spec`, `launch_failure`, `assertion_timeout`, `run_timeout`, `unexpected_exit`, `snapshot_mismatch`, `output_limit`, `cancelled`, `cleanup_failure`, `artifact_failure`, `snapshot_update_failure`, and `internal_error`.

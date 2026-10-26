@@ -1249,3 +1249,139 @@ passed in 20.578 seconds. Physical short-cache build outer attempt is
 its cache before any new compiler-launch event. Do not mistake setup progress
 for a successful executable. First-use helper is still unexecuted. The current
 progress commit intentionally preserves this pending state and both failures.
+
+
+## 27 October: cargo-generate development and general native-exit repair (LATEST)
+
+Campaign remains four new rc.5 admissions / fourteen historical cumulative.
+Latest pushed HEAD before this repair is
+`fb96aa7e8cb13b56c7e7522fad46c9c1a943042a`. It preserves the reviewed Rust
+preparation and 20 harness controls. Source-matched hosted harness run
+`40386737997` succeeded on all three hosts; packets independently audited and
+checked-removed sequentially: v32 Linux `9909d7b9283c46e080b8abef723dc65f`,
+v33 macOS `8e785ffbaca7439e926abe5a05faed7c`, v34 Windows
+`840ca5f07e794b19ba4c9e7aeb1ab2f8`. All native expansions absent.
+
+Cargo-generate remains the sole active upstream. Do not acquire it again.
+Original active tree plus the exact short registry cache RAW/r remain owned;
+the latter has task-owned.json/materialized.json and an exact active-tree
+short-cache-reference.json. It MUST be checked-removed before the next upstream.
+The physical short cache resolved AWS-LC compilation. Actual compile
+`26a0ba75c7824b62ab07373c032357f8` passed in 625.922 seconds with cleanup/errors
+clear; binary 22,047,232 bytes, SHA
+`a69bf4f976fbb20282212143420379a25ca08a19f065fb015ca92928fbd635db`.
+The third outer build `0daac04084d846039b3ccb5385f6b11a` failed only an incorrect
+banner assertion after successful compilation/version. Actual version attempt
+`e2d589ecdc214bb6a24830eb7da59ae8` exited zero with
+`cargo generate-generate 0.25.1`. `next20_cargo_build.py --verify-built` reused
+that original bound positive execution, verified BOTH original and actual short
+dependency trees, and wrote immutable version/post-build-readback receipts:
+`adc0d5f960e7409a9842a81d7bdea145`. All build sessions 36178/51977/51781 and
+readback session 65858 are complete; do not compile again for setup.
+
+Public authoring: first attempt `a4fe8b2e0d1a4e089a4e0512f32031ee` failed before
+prompts because USERNAME was absent from the explicit environment. Public
+screen diagnostics: outer `f451d611adc24b698f6f23a545476a74` was immediate/empty;
+`8a8c03ffd632408b97846d4ac84210fc` waited for exit and exposed the actual error.
+Explicit synthetic USERNAME/USER repaired startup, but the full-screen snapshot
+replay `5d9eef92a391439898aa61cde5cfe8d5` correctly rejected the changing temporary
+destination path. Exact rejected helper is RAW/cargo-generate/rejected-authoring-v2-helper.py.
+The repaired public route used documented width 120 and snapshot rows 4..9,
+excluding only the volatile destination lines. It passed recording, fresh
+replay/export and ordinary test with independently checked exact profile,
+README and sentinel bytes: outer `c8ca2894d7a54e628bccf0dd9af0d180`.
+`first-use.json` explicitly describes the repaired window (3 shell calls/20
+controls). Initial+repaired windows total nine Playtestr shell calls and 65
+requested controls; initial usability target is a MISS, not a beginner study.
+Human zero/unmeasured; no blanket snapshot normalization or target source patch.
+
+Twenty case declaration `ccf8ebccf9384f3aad2f3285de1e89cf` was executed only
+AFTER that successful public route. First partial development
+`7df7b5002e034415a28e82bc6ca8b116` passed N01 then refused N02's unsupported Down
+key before target/workspace launch. Corrected four cases to documented
+ArrowDown/ArrowUp; exact original package retained under development-inputs-v1,
+receipt `20925e3ed5e648538cfee01d8f7861d9` and tracked disposition.
+First COMPLETE development series
+`6579be4e7db242b3b9ff20d72f2bdcd8` passed 17/20, failed E03/E04/E12; outer
+`566c78c6b61545b3a2359ff181e137e7`. Windows Ctrl-C actually returned unsigned
+native 3221225786, not 1. Undefined Liquid variable expanded empty and exited0;
+E12's mistaken error expectation is preserved, then changed to malformed Liquid
+syntax. Exact prior package/screens retained under development-inputs-v2;
+correction receipt `9d923970021241afa1acad221829f9f5` and tracked disposition.
+Next partial series `992501310db14c729f1ac369160a5518` passed ten cases then
+correctly refused E03's wide native expectation before launch. Outer
+`77c6575ee50040d79f8edd166d811b71`, unlaunched E03 attempt
+`004ea7bfbf684677986bf939772d984b`. All these exec sessions are complete.
+There is NO complete 20/0 freeze, no source mutation/fault declaration, no
+qualified cargo native cell and no fifth admission. Preserve both prelaunch
+refusals separately with zero target cleanup/execution credit; cleanup helper
+needs explicit bounded support for those exact invalid_spec reports later.
+
+### General product repair: a replacement candidate is now REQUIRED
+
+The existing spec parser limited all exit expectations to 0..255. Windows
+retains native DWORD statuses, so Ctrl-C's actual 0xC000013A could not be
+expressed. The HTML reader also rejected an accurately captured wider native
+status, breaking failure evidence. See tracked findings/native-windows-exit-status.md.
+This is not hidden by target replacement or changed interruption cases.
+Production edits now exist: spec v3 accepts 0..4294967295; spec v1/v2 remain
+0..255; all report schemas and HTML preserve the bounded captured native range.
+Native values are neither truncated nor mapped to Unix130. No process-backend,
+PTY, lifecycle, dependency or target-name special case changed. Public contracts,
+recording docs, schema ranges and pending rc.6 migration are updated together.
+
+Before-fix native ConPTY regression failed as expected
+`2d95f0128f8d408a8e2e791a43b4f9a5`; before-fix HTML regression failed
+`7c6ac9cf64034606bdef8665874e7e78`. After-fix native/HTML
+`e929f810e71748dc99f2607a545b9c50` passed; bounds/native/HTML
+`88afaa0afc6a451aac03e692d9878b13` passed. Full Go suite
+`3295052a0d6e483394c6b74875ae9790` passed in192.797sec, vet
+`42ca46bdcc8544ce946b4e310c1ae070` passed. A later focused supplement covering
+current bounds, public recorder no-JSON export/fresh replay/ordinary saved-state
+route and schema preservation passed `9c1d17b5a9894e3eab8e1524784294e5`.
+All Go/vet sessions 73867/94511/94311/23808 are complete. The supplement includes
+test-only additions after the broad run; do not pretend they were in that earlier
+source snapshot. Production code stayed the same across those successful checks.
+
+Next: finish local checks/manual example, commit the repair, run source-matched
+native Linux/macOS/Windows Go checks with the same pinned official SDK, and build
+ONE new private rc.6 archive per platform from a fixed production commit. Retain
+old rc.5 archives/receipts and use a DISTINCT install/freeze namespace. Do NOT
+rerun or overwrite old candidate initializers, install receipts, first-use
+exports, archive identities or admission documents. No rc.6 release/tag/publication.
+Current private qualified candidate is still rc.5; new-source/current-replacement
+qualification is zero until actual new archive evidence exists.
+
+Because production inputs changed, all ten original projects AND these four rc.5
+admissions must be requalified on the new exact archives; old migrations, whole
+121-control applicability plus new regressions, archive controls and both
+source/archive delivered-CI triplets require current-candidate dispositions.
+Do NOT carry old rc.5 counts forward as new-byte execution. The old admissions
+remain historical immutable facts. Finish cargo development/freeze/faults on the
+replacement, then continue all remaining projects through 16+4 and global closure.
+The current executable-selection helpers hardcode RAW/candidate and old freeze;
+introduce explicit versioned selection while preserving old readers/defaults.
+Never overwrite current rc.5 installed.json to make older audits appear current.
+
+Latest storage before Go-cache growth: `a3af7daf06f145d5b253076ae64294cc`:
+new raw2,374,583,981; combined4,283,292,553; retained1,687,539,530; cargo retained
+1,144,382 bytes; all caps passed. RAW/r is conservatively counted in retained
+while expanded; actual compiled tree is active. Re-measure before new downloads.
+
+
+Local manual demo build `d3af9531406a49d4be843d84e8ed0153` and both source-run
+menu examples `271e3ddbac384bc4a5e63902925173d7` passed. Full native Windows
+race run `8aabac475e544964b6f0e04af6d27174` passed across all packages
+(runner298.981sec). It used the same existing project-local winlibs GCC as the
+standard race script but explicit next-campaign caches, not that script's shared
+.cache override. This is actual native race execution, not a missing prerequisite
+or configured-workflow claim. Session99531 is complete.
+Storage `7cd4a133bd2f4ff89397861896eb6101` passed: new2,855,536,523,
+combined4,764,245,095, retained1,689,434,158 bytes, sole activecargo-generate.
+The prepared `next20_replacement_candidate.py` is a separate source/native
+packager: explicit fixed production commit, exact owned official Go1.25.0,
+owned GOROOT/GOENV/GOWORK/homes/cache/temp, same-host source Go/vet/race before
+single archive build, exact four-member extraction/version/help/readback.
+It has not run natively or produced a candidate. Next commit freezes production
+repair inputs; then add the bounded native workflow referencing that exact commit
+and dispatch only after automatic harness jobs finish (global two harness-job cap).

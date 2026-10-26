@@ -1,0 +1,398 @@
+{
+  "cases": [
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N01",
+      "initial_fixture": "fixture",
+      "kind": "normal",
+      "oracle": "Independently declared exact profile/README/sentinel bytes and output entries in the same invocation before cleanup",
+      "risk": "Real prompt-to-Liquid-to-file path with stable prompt snapshot",
+      "spec": "normal-project.json",
+      "spec_sha256": "2126792f9a0297f245d361c051c46471cae1bd67dfad9a050a095c4c31a7d1c6",
+      "task": "Generate a named basic project with documentation",
+      "width": 120
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N02",
+      "initial_fixture": "fixtures/n02",
+      "kind": "normal",
+      "oracle": "Independently declared exact profile/README/sentinel bytes and output entries in the same invocation before cleanup",
+      "risk": "Menu selection must change saved output",
+      "spec": "n02.json",
+      "spec_sha256": "3ed8043d3a8cca80cba24023fccadb4189ab791a320cb2fac153209c4d508f14",
+      "task": "Choose extended mode for another owner",
+      "width": 80
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N03",
+      "initial_fixture": "fixtures/n03",
+      "kind": "normal",
+      "oracle": "Independently declared exact profile/README/sentinel bytes and output entries in the same invocation before cleanup",
+      "risk": "Boolean false must survive into generated files",
+      "spec": "n03.json",
+      "spec_sha256": "ac8768076fb07810ca12f2da2b86c9d710e741d1f0063318c0a6c28d6791a19c",
+      "task": "Explicitly disable documentation",
+      "width": 80
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N04",
+      "initial_fixture": "fixtures/n04",
+      "kind": "normal",
+      "oracle": "Independently declared exact profile/README/sentinel bytes and output entries in the same invocation before cleanup",
+      "risk": "CLI supplied variable skips only its own prompt",
+      "spec": "n04.json",
+      "spec_sha256": "9a57918ea514ce42011272acc400f4a6b8045bad8cbf621c58762b8c57bbcd31",
+      "task": "Supply project name and answer remaining prompts",
+      "width": 80
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N05",
+      "initial_fixture": "fixtures/n05",
+      "kind": "normal",
+      "oracle": "Independently declared exact profile/README/sentinel bytes and output entries in the same invocation before cleanup",
+      "risk": "Provided string and prompted choices agree",
+      "spec": "n05.json",
+      "spec_sha256": "2dcd3feb0b6cd5c4ca064195979f6908ff0c675ed03bc835a5bedb3197ec46f3",
+      "task": "Provide owner through define and choose extended mode",
+      "width": 80
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N06",
+      "initial_fixture": "fixtures/n06",
+      "kind": "normal",
+      "oracle": "Independently declared exact profile/README/sentinel bytes and output entries in the same invocation before cleanup",
+      "risk": "Supported automation route has the same exact saved-state contract",
+      "spec": "n06.json",
+      "spec_sha256": "f0b93ac55cf5dc506b54d2a84f721f41e6872fc1df9ee57408e380db9142cf23",
+      "task": "Generate noninteractively from an explicit values file",
+      "width": 80
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N07",
+      "initial_fixture": "fixtures/n07",
+      "kind": "normal",
+      "oracle": "Independently declared exact profile/README/sentinel bytes and output entries in the same invocation before cleanup",
+      "risk": "Init destination semantics and sentinel preservation",
+      "spec": "n07.json",
+      "spec_sha256": "987d7bdd18571cbafd9a634433dd4b49ffad65e8db1374e43f890ae7d6784e15",
+      "task": "Initialize an existing owned directory and preserve unrelated files",
+      "width": 80
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N08",
+      "initial_fixture": "fixtures/n08",
+      "kind": "normal",
+      "oracle": "Independently declared exact profile/README/sentinel bytes and output entries in the same invocation before cleanup",
+      "risk": "The public suffix precedence replaces the stale plain input",
+      "spec": "n08.json",
+      "spec_sha256": "0aad7b6c609b54e6dbeaea13343f72429475b023ff6f93d9f24a088aed2d032a",
+      "task": "Prefer rendered liquid file over a plain template twin",
+      "width": 80
+    },
+    {
+      "combined_risks": [
+        "invalid input",
+        "prompt reentry",
+        "correct exact generated name"
+      ],
+      "expected_exit": 0,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E01",
+      "initial_fixture": "fixtures/e01",
+      "kind": "edge",
+      "oracle": "Independently declared exact profile/README/sentinel bytes and output entries in the same invocation before cleanup",
+      "risk": "Validation loop must not generate the rejected destination",
+      "spec": "e01.json",
+      "spec_sha256": "c310ad05e1ffceba646be59d91f87e1c94cbeb94d74b67acde1305e7691af528",
+      "task": "Reject an invalid project name then accept a corrected name",
+      "width": 80
+    },
+    {
+      "combined_risks": [
+        "small viewport",
+        "resize while editing",
+        "backspace correction"
+      ],
+      "expected_exit": 0,
+      "height": 12,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E02",
+      "initial_fixture": "fixtures/e02",
+      "kind": "edge",
+      "oracle": "Independently declared exact profile/README/sentinel bytes and output entries in the same invocation before cleanup",
+      "risk": "Actual input editing and resize affect the intended saved value",
+      "spec": "e02.json",
+      "spec_sha256": "c7a120f26e75180344c8c695348decd6d7981d30efb7661e56c4f57b428a8262",
+      "task": "Correct owner text with backspace during a small-view resize",
+      "width": 40
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 3221225786,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E03",
+      "initial_fixture": "fixtures/e03",
+      "kind": "edge",
+      "native_exit_profile": {
+        "linux": 130,
+        "windows": 3221225786
+      },
+      "oracle": "Independently declared exact profile/README/sentinel bytes and output entries in the same invocation before cleanup",
+      "risk": "No generated project after early cancellation",
+      "spec": "e03.json",
+      "spec_sha256": "60d9551edbe826d3fdffba84afca61d67b3915951e51fff21fac0f17cd5ad9e1",
+      "task": "Cancel at the initial project-name prompt",
+      "width": 80
+    },
+    {
+      "combined_risks": [
+        "partial input",
+        "selector interruption",
+        "no completed output"
+      ],
+      "expected_exit": 3221225786,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E04",
+      "initial_fixture": "fixtures/e04",
+      "kind": "edge",
+      "native_exit_profile": {
+        "linux": 130,
+        "windows": 3221225786
+      },
+      "oracle": "Independently declared exact profile/README/sentinel bytes and output entries in the same invocation before cleanup",
+      "risk": "Partial prompt input cannot become a completed project",
+      "spec": "e04.json",
+      "spec_sha256": "7e5bb57d4aee57c09702e1ea34ac2ee68c86233f5ffc37cf0a59a0fc40b11971",
+      "task": "Cancel after owner entry while selecting a mode",
+      "width": 80
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E05",
+      "initial_fixture": "fixtures/e05",
+      "kind": "edge",
+      "oracle": "Independently declared exact profile/README/sentinel bytes and output entries in the same invocation before cleanup",
+      "risk": "UTF-8 data and exact output bytes",
+      "spec": "e05.json",
+      "spec_sha256": "cfd385fdd0c504bfcfbe8e160a6a6daa63c87e378ea5fa9eb4a51acb558759e3",
+      "task": "Preserve a Unicode owner through prompts and Liquid rendering",
+      "width": 80
+    },
+    {
+      "combined_risks": [
+        "wrapped prompt",
+        "long string",
+        "nondefault selector value"
+      ],
+      "expected_exit": 0,
+      "height": 16,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E06",
+      "initial_fixture": "fixtures/e06",
+      "kind": "edge",
+      "oracle": "Independently declared exact profile/README/sentinel bytes and output entries in the same invocation before cleanup",
+      "risk": "Wrapped input and selector navigation retain all owner bytes",
+      "spec": "e06.json",
+      "spec_sha256": "a7a5822080c217397e97b28cfa90952735b384a7ab148769650f791bf12eb78b",
+      "task": "Wrap a long owner then choose another mode",
+      "width": 40
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E07",
+      "initial_fixture": "fixtures/e07",
+      "kind": "edge",
+      "oracle": "Independently declared exact profile/README/sentinel bytes and output entries in the same invocation before cleanup",
+      "risk": "Text input must not execute a shell or alter neighboring data",
+      "spec": "e07.json",
+      "spec_sha256": "e56e39dfae6f5724c52940c7293d12a1f5949e8661bfcac5cf5bc9332a1a3247",
+      "task": "Keep shell metacharacters as literal template data",
+      "width": 80
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 1,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E08",
+      "initial_fixture": "fixtures/e08",
+      "kind": "edge",
+      "oracle": "Independently declared exact profile/README/sentinel bytes and output entries in the same invocation before cleanup",
+      "risk": "Existing destination protection",
+      "spec": "e08.json",
+      "spec_sha256": "e3b998516d3875fd7d07275ba871f7b49fce27e72e0ab8a417bc0cc597b00199",
+      "task": "Refuse an existing output directory and preserve its contents",
+      "width": 80
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 1,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E09",
+      "initial_fixture": "fixtures/e09",
+      "kind": "edge",
+      "oracle": "Independently declared exact profile/README/sentinel bytes and output entries in the same invocation before cleanup",
+      "risk": "Wrong-type source with no generated output",
+      "spec": "e09.json",
+      "spec_sha256": "d08516c9d3d409053d0cab0bc0edc2427fcb87ec0a3e80133143ce5f86121e9b",
+      "task": "Refuse a file as the template root",
+      "width": 80
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 1,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E10",
+      "initial_fixture": "fixtures/e10",
+      "kind": "edge",
+      "oracle": "Independently declared exact profile/README/sentinel bytes and output entries in the same invocation before cleanup",
+      "risk": "Parser failure preserves owned inputs",
+      "spec": "e10.json",
+      "spec_sha256": "d823cf914358b4c4252ade156ecafe70a56ec9873f101df83860ec773afb292d",
+      "task": "Refuse a malformed template configuration without changing its source",
+      "width": 80
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 1,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E11",
+      "initial_fixture": "fixtures/e11",
+      "kind": "edge",
+      "oracle": "Independently declared exact profile/README/sentinel bytes and output entries in the same invocation before cleanup",
+      "risk": "No quiet fallback invents the required owner",
+      "spec": "e11.json",
+      "spec_sha256": "e268a5404d6bd2ebfb5b852a3cda977c1b96178acc8a607e3ff375e99c5b5506",
+      "task": "Refuse silent generation when a required value is missing",
+      "width": 80
+    },
+    {
+      "combined_risks": [
+        "complete user inputs",
+        "rendering failure",
+        "no success output"
+      ],
+      "expected_exit": 1,
+      "height": 24,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E12",
+      "initial_fixture": "fixtures/e12",
+      "kind": "edge",
+      "oracle": "Independently declared exact profile/README/sentinel bytes and output entries in the same invocation before cleanup",
+      "risk": "Rendering failure cannot create a successful destination",
+      "spec": "e12.json",
+      "spec_sha256": "7b682c85daf41cc777ff9d2eae5ecb171fd291561ea90636d181fa3566a977fd",
+      "task": "Refuse malformed Liquid syntax after real prompt completion",
+      "width": 80
+    }
+  ],
+  "edge": 12,
+  "normal": 8,
+  "project": "cargo-generate",
+  "schema_version": 1,
+  "source_pin": "9c0c27568113cfc9caefac50336b5d4b92c055a9",
+  "status": "development-declaration-not-final-freeze"
+}

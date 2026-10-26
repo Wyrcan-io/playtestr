@@ -251,8 +251,14 @@ func decodeSpec(data []byte, path string) (Spec, error) {
 		if actions != 1 {
 			return spec, fmt.Errorf("step %d must have exactly one action", i+1)
 		}
-		if step.Exit != nil && (*step.Exit < 0 || *step.Exit > 255) {
-			return spec, fmt.Errorf("step %d exit code must be between 0 and 255", i+1)
+		if step.Exit != nil {
+			maximum := uint64(255)
+			if spec.Version == StateSpecVersion {
+				maximum = MaxNativeExitCode
+			}
+			if *step.Exit < 0 || uint64(*step.Exit) > maximum {
+				return spec, fmt.Errorf("step %d exit code must be between 0 and %d", i+1, maximum)
+			}
 		}
 		if step.Key != "" {
 			if _, ok := keys[step.Key]; !ok {

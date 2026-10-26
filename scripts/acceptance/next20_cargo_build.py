@@ -1,5 +1,6 @@
 """Build the reviewed locked cargo-generate CLI offline in owned directories."""
 import asyncio
+import argparse
 import json
 import os
 from pathlib import Path
@@ -14,8 +15,9 @@ from readiness_evidence import immutable_json,sha256
 
 
 async def main():
+    parser=argparse.ArgumentParser();parser.add_argument('--verify-built',action='store_true');args=parser.parse_args()
     project='cargo-generate';target=RAW/'active'/project;source=target/'src';package=DOC/project
-    if (target/'build.json').exists():raise ValueError('refuse replacing completed build')
+    if (target/'build.json').exists() and not args.verify_built:raise ValueError('refuse replacing completed build')
     review=json.loads((package/'source-review.json').read_text())
     hooks=json.loads((package/'dependency-hook-review.json').read_text())
     dependencies=json.loads((target/'dependency-fetch-review.json').read_text())
@@ -39,6 +41,44 @@ async def main():
     env['PATH']=str(compiler.parent)+os.pathsep+env['PATH']
     cache=materialize_short_cache(target,dependencies,catalog)
     env['CARGO_HOME']=str(cache)
+    if args.verify_built:
+        if (target/'version-check.json').exists():raise ValueError('preserve completed version check')
+        build=json.loads((target/'build.json').read_text());binary=target/build['binary_relative_path']
+        finished=json.loads((RAW/'events'/(build['build_attempt']+'-finished.json')).read_text())
+        if (sha256(binary)!=build['binary_sha256'] or finished['category']!='passed' or finished['exit_code']!=0
+            or finished['cleanup_errors'] or finished['harness_cleanup']!='harness_process_reaped'):
+            raise ValueError('resume requires actual completed compile and exact executable')
+        matches=[]
+        for path in (RAW/'events').glob('*-finished.json'):
+            row=json.loads(path.read_text())
+            if row['project']==project and row['label']=='actual-built-native-version':matches.append(row)
+        if len(matches)!=1:raise ValueError('resume requires one unambiguous original version execution')
+        version=matches[0];vid=version['id']
+        identified=json.loads((RAW/'events'/(vid+'-identified.json')).read_text())['identity']
+        identity=RAW/identified['manifest']
+        if sha256(identity)!=identified['sha256']:raise ValueError('version identity changed')
+        reference=json.loads(identity.read_text())['target_catalog'];catalog_path=RAW/reference['manifest']
+        if sha256(catalog_path)!=reference['sha256']:raise ValueError('version target catalog changed')
+        bound=json.loads(catalog_path.read_text())['files']
+        if (bound.get(binary.relative_to(ROOT).as_posix())!=build['binary_sha256'] or
+            bound.get((target/'build.json').relative_to(ROOT).as_posix())!=sha256(target/'build.json')):
+            raise ValueError('original version command did not bind this actual compiled executable')
+        console=RAW/project/vid/'console.log'
+        if (version['category']!='passed' or version['exit_code']!=0 or version['cleanup_errors'] or
+            version['harness_cleanup']!='harness_process_reaped' or sha256(console)!=version['console_sha256']):
+            raise ValueError('original version outcome not positive')
+        output=console.read_text(encoding='utf-8-sig').strip()
+        if output!='cargo generate-generate 0.25.1':raise ValueError('unexpected actual Clap subcommand version')
+        immutable_json(target/'post-build-dependency-readback.json',dict(schema_version=1,
+            actual_source_files_verified=len(catalog['files']),actual_registry_archives_verified=len(dependencies['files']),
+            actual_short_materialization_sha256=sha256(cache/'materialized.json'),
+            original_source_catalog_sha256=sha256(target/'dependency-source-catalog.json'),
+            build_sha256=sha256(target/'build.json'),scope='Both original and actual short dependency trees checked after build; no new compile or target execution.'))
+        immutable_json(target/'version-check.json',dict(attempt=vid,binary_sha256=sha256(binary),output=output,
+            build_sha256=sha256(target/'build.json'),
+            disposition='Original successful compile/version retained. The outer helper failed only its incorrect hyphenated banner assertion; readback reuses the actual positive original execution without rerunning or overwriting it.'))
+        print('Verified original successful build/version and both exact dependency trees; no compile or target rerun.')
+        return
     # MSVC's textual relative include resolution can exceed MAX_PATH before
     # normalizing '..', even when the actual header exists. Change only native
     # spelling of these exact owned paths; do not move files or alter sources.
@@ -89,7 +129,7 @@ async def main():
         source_inventory_sha256=sha256(target/'installed-inventory.json')))
     version=await execute([binary,'generate','--version'],project,'actual-built-native-version',
         cwd=source,env=env,timeout=30,campaign=NextCampaign())
-    if 'cargo-generate 0.25.1' not in version['output']:raise ValueError('actual built version differs')
+    if version['output'].strip()!='cargo generate-generate 0.25.1':raise ValueError('actual built version differs')
     immutable_json(target/'version-check.json',dict(attempt=version['id'],binary_sha256=digest,
         output=version['output'],build_sha256=sha256(target/'build.json')))
     print('Built reviewed default-feature native CLI:',digest,'; version and source/dependency readback passed.')

@@ -49,6 +49,25 @@ func TestVersionedSchemaContracts(t *testing.T) {
 	}
 }
 
+func TestNativeExitSchemaRangesPreserveOlderSpecBounds(t *testing.T) {
+	for _, version := range []string{"v1", "v2", "v3"} {
+		spec := readSchema(t, "playtestr-spec-"+version+".schema.json")
+		step := spec["$defs"].(map[string]any)["step"].(map[string]any)
+		maximum := float64(255)
+		if version == "v3" {
+			maximum = 4294967295
+		}
+		if property(t, step, "exit")["maximum"] != maximum || property(t, step, "exit")["minimum"] != float64(0) {
+			t.Fatalf("%s native exit assertion range changed incorrectly", version)
+		}
+		report := readSchema(t, "playtestr-report-"+version+".schema.json")
+		target := report["$defs"].(map[string]any)["target"].(map[string]any)
+		if property(t, target, "exit_code")["maximum"] != float64(4294967295) || property(t, target, "exit_code")["minimum"] != float64(0) {
+			t.Fatalf("%s report cannot preserve the bounded native status", version)
+		}
+	}
+}
+
 func TestSavedStateFormatDoesNotExpandOlderContracts(t *testing.T) {
 	for _, version := range []string{"v1", "v2"} {
 		document := readSchema(t, "playtestr-spec-"+version+".schema.json")

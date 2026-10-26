@@ -5,6 +5,13 @@ In the current source, a Unix signal-terminated target has a normalized
 terminal exit-status convention, not an assertion that the target called
 `exit(130)`. Unknown process-wait failures still have no available exit code.
 
+Known Windows statuses retain the full unsigned native value, up to
+`4294967295`; for example native control-C termination can be `3221225786`.
+The current HTML reader and report v1/v2/v3 schemas accept these captured
+statuses, including an unexpected exit in an older-spec report. Negative values
+and values above the native 32-bit range remain invalid. Older HTML readers may
+reject such reports; see the [pending migration](migration-v0.4.0-rc.6.md).
+
 Source candidate only. A suite containing spec v3 produces report v3; all-v1
 and v1/v2 suites keep their existing formats. The
 [schema](../schema/playtestr-report-v3.schema.json) retains report v2 fields and

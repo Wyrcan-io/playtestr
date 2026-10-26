@@ -14,6 +14,15 @@ an application that deliberately exits with that same integer. Windows retains
 its native process exit-code behavior. Older binaries may report an unavailable
 code for a signal and cannot supply this source capability.
 
+Current source extends v3 `exit` assertions to unsigned native statuses from
+`0` through `4294967295`. On Windows, `{"exit":3221225786}` declares the native
+`0xC000013A` control-C termination status. The runner compares the exact value;
+it does not truncate it or translate it to Unix 130. A program can handle an
+interrupt and return a different status, so observe its actual result first.
+Specs v1/v2 retain their `0` through `255` assertion range. Existing private rc.5
+and older binaries cannot assert these wider v3 values; see the
+[pending migration](migration-v0.4.0-rc.6.md).
+
 ```json
 {"state":{"path":"result.bin","kind":"file","bytes_base64":"AAo="}}
 ```

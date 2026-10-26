@@ -1,5 +1,10 @@
 # Machine report version 2
 
+The current reader/schema preserves captured native Windows exit statuses up to
+`4294967295`, including unexpected exits. Spec v2 assertions remain limited to
+`0` through `255`. Older HTML readers may reject a wider captured status; see
+the [pending migration](migration-v0.4.0-rc.6.md).
+
 When a selected result uses spec v2, `playtestr test --report` writes machine report version 2. Mixed v1/v2 suites also use report v2; each result retains its own `spec_version`. Suites containing only v1 specs continue to write the unchanged [report v1](report-v1.md).
 
 The canonical JSON Schema is [`schema/playtestr-report-v2.schema.json`](../schema/playtestr-report-v2.schema.json). Report v2 retains all v1 fields and adds optional per-result `workspace` metadata plus `workspace_setup_failure` and `workspace_cleanup_failure` categories.

@@ -1,0 +1,119 @@
+{
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/cargo-generate/bin/cargo-generate.exe",
+    "generate",
+    "--path",
+    "template",
+    "--vcs",
+    "none",
+    "--no-workspace"
+  ],
+  "env": {
+    "GIT_CONFIG_GLOBAL": "nul",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "USER": "synthetic",
+    "USERNAME": "synthetic"
+  },
+  "height": 24,
+  "max_output_bytes": 2000000,
+  "name": "Reject an invalid project name then accept a corrected name",
+  "run_timeout_ms": 120000,
+  "steps": [
+    {
+      "expect": "Project Name"
+    },
+    {
+      "text": "1"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "not a valid value for crate_name"
+    },
+    {
+      "text": "synthetic-notes"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Project owner"
+    },
+    {
+      "text": "Ada"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Project mode"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Include documentation"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "New project created"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "dW5yZWxhdGVkIHN5bnRoZXRpYyBkYXRhCg==",
+        "kind": "file",
+        "path": "sentinel.txt"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "cHJvamVjdD1zeW50aGV0aWMtbm90ZXMKb3duZXI9QWRhCm1vZGU9YmFzaWMKcmVhZG1lPXRydWUK",
+        "kind": "file",
+        "path": "synthetic-notes/profile.txt"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "IyBzeW50aGV0aWMtbm90ZXMKCk93bmVyOiBBZGEKTW9kZTogYmFzaWMK",
+        "kind": "file",
+        "path": "synthetic-notes/README.md"
+      }
+    },
+    {
+      "state": {
+        "entries": [
+          "README.md",
+          "profile.txt"
+        ],
+        "kind": "entries",
+        "path": "synthetic-notes"
+      }
+    },
+    {
+      "state": {
+        "entries": [
+          "sentinel.txt",
+          "synthetic-notes",
+          "template"
+        ],
+        "kind": "entries",
+        "path": "."
+      }
+    }
+  ],
+  "timeout_ms": 10000,
+  "version": 3,
+  "width": 80,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/e01",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

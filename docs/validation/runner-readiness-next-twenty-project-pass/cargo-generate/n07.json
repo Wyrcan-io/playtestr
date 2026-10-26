@@ -1,0 +1,95 @@
+{
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/cargo-generate/bin/cargo-generate.exe",
+    "generate",
+    "--path",
+    "template",
+    "--vcs",
+    "none",
+    "--no-workspace",
+    "--init",
+    "--name",
+    "rooted-project"
+  ],
+  "env": {
+    "GIT_CONFIG_GLOBAL": "nul",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "USER": "synthetic",
+    "USERNAME": "synthetic"
+  },
+  "height": 24,
+  "max_output_bytes": 2000000,
+  "name": "Initialize an existing owned directory and preserve unrelated files",
+  "run_timeout_ms": 120000,
+  "steps": [
+    {
+      "expect": "Project owner"
+    },
+    {
+      "text": "Ada"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Project mode"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Include documentation"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "New project created"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "dW5yZWxhdGVkIHN5bnRoZXRpYyBkYXRhCg==",
+        "kind": "file",
+        "path": "sentinel.txt"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "cHJvamVjdD1yb290ZWQtcHJvamVjdApvd25lcj1BZGEKbW9kZT1iYXNpYwpyZWFkbWU9dHJ1ZQo=",
+        "kind": "file",
+        "path": "profile.txt"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "IyByb290ZWQtcHJvamVjdAoKT3duZXI6IEFkYQpNb2RlOiBiYXNpYwo=",
+        "kind": "file",
+        "path": "README.md"
+      }
+    },
+    {
+      "state": {
+        "entries": [
+          "README.md",
+          "profile.txt",
+          "sentinel.txt",
+          "template"
+        ],
+        "kind": "entries",
+        "path": "."
+      }
+    }
+  ],
+  "timeout_ms": 10000,
+  "version": 3,
+  "width": 80,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/n07",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

@@ -263,7 +263,7 @@ func validateHTMLDocument(document Document) error {
 				}
 			}
 		}
-		if result.DurationMS < 0 || result.Target.ExitCode != nil && (*result.Target.ExitCode < 0 || *result.Target.ExitCode > 255) {
+		if result.DurationMS < 0 || result.Target.ExitCode != nil && (*result.Target.ExitCode < 0 || uint64(*result.Target.ExitCode) > runner.MaxNativeExitCode) {
 			return fmt.Errorf("result %q has invalid duration or exit code", result.SpecPath)
 		}
 		if err := validateFailure(result.Failure); err != nil {
