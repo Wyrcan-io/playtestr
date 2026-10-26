@@ -20,8 +20,8 @@ FOCUSED='^(TestExitStatusBoundsBySpecVersion|TestNativeWindowsWideExitStatusAndS
 
 
 class SourceCampaign(NextCampaign):
-    def __init__(self,inputs):
-        super().__init__(phase='replacement-source-core');self.inputs=inputs
+    def __init__(self,inputs,raw=RAW):
+        super().__init__(raw,phase='development');self.inputs=inputs
 
     def identity(self,project,argv):
         return super().identity(project,[*argv,*self.inputs])

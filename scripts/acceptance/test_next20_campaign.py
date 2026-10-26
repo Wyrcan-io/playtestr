@@ -20,6 +20,19 @@ class NextCampaignTests(unittest.TestCase):
         self.root=RAW/'control-tests'/uuid.uuid4().hex
         self.campaign=NextCampaign(self.root)
 
+    def test_replacement_source_campaign_records_supported_phase_without_changing_argv(self):
+        from next20_replacement_candidate import SourceCampaign
+        source=self.root/'source-input.go';source.write_bytes(b'package synthetic\n')
+        campaign=SourceCampaign([source],raw=self.root)
+        self.assertEqual(campaign.phase,'development')
+        result=asyncio.run(execute([sys.executable,'-B','-c','import sys; print(len(sys.argv))'],
+            'core','source-binding-command-control',cwd=ROOT,env=owned_environment(),
+            timeout=10,campaign=campaign))
+        self.assertEqual(result['output'].strip(),'1')
+        identified=json.loads((self.root/'events'/(result['id']+'-identified.json')).read_text())
+        manifest=json.loads((self.root/identified['identity']['manifest']).read_text())
+        self.assertEqual(manifest['files'][source.relative_to(ROOT).as_posix()],sha256(source))
+
     def test_native_runtime_requires_matching_build_and_rejects_changed_binary(self):
         target=self.root/'active/native-control';binary=target/'bin/target.exe'
         binary.parent.mkdir(parents=True);binary.write_bytes(b'compiled native control bytes')
