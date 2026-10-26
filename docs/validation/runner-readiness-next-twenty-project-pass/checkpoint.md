@@ -1385,3 +1385,29 @@ single archive build, exact four-member extraction/version/help/readback.
 It has not run natively or produced a candidate. Next commit freezes production
 repair inputs; then add the bounded native workflow referencing that exact commit
 and dispatch only after automatic harness jobs finish (global two harness-job cap).
+
+
+### Fixed production commit and prepared native workflow
+
+Production repair and current cargo-generate reproducer package are committed as
+`515ffc3612f9bf4c53a4e26f0baafee1c48dcf89`. The distinct replacement workflow
+checks out that exact production commit under owned .candidate-source; the main
+checkout supplies independently recorded qualification/helper source. The pending
+qualification commit adds no Go production change. .candidate-source is ignored
+as an owned source checkout, not an external application installation.
+Workflow runner-readiness-next20-replacement-candidate.yml uses standard
+ubuntu-24.04, macos-15, windows-2025; maximum2 parallel,30min/host,90min total
+ceiling (10min/host estimate), plus the automatic harness ceiling15min.
+Declaration is replacement-candidate-declaration.json. Wait for automatic harness
+completion before dispatching the native candidate workflow to preserve the global
+2-harness-job cap. Source-native core uses full Go tests/vet/race, focused31 native
+regression subcases across5 new families with explicit Windows/Unix applicability,
+then packages one archive per host only after that host's real core success.
+No project credit or final qualification from a configured workflow.
+Lint passed `24a4998108e6481bab97b30370b4a975`; helper syntax passed
+`ead6ebb1f8dd4e5b84779aa33599e783`; invalid revision source guard rejected before
+acquisition `5c4163af6097433793e0b2c4e0a8a21b`. Local race and all earlier
+sessions are complete. Next push includes production515ffc36 and qualification
+workflow; monitor real provider runs, retrieve/audit one host packet at a time.
+Do not rebuild rc.5, overwrite installed/freeze receipts, relabel old project runs,
+change late-transfer exposure, publish a release, or stop at this milestone.

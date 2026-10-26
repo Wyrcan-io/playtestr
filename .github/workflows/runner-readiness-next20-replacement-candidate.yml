@@ -1,0 +1,74 @@
+name: Next twenty private native-exit replacement candidate
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: playtestr-next20-replacement-candidate
+  cancel-in-progress: false
+env:
+  SOURCE_REVISION: 515ffc3612f9bf4c53a4e26f0baafee1c48dcf89
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONIOENCODING: utf-8
+  GOTOOLCHAIN: local
+  TEMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+  TMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+  TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+  GOTMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+  GOCACHE: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/go-cache
+  GOPATH: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/gopath
+  GOMODCACHE: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/gopath/pkg/mod
+  PSModuleAnalysisCachePath: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/shell-cache/module-analysis
+  GIT_CONFIG_COUNT: '1'
+  GIT_CONFIG_KEY_0: core.longpaths
+  GIT_CONFIG_VALUE_0: 'true'
+jobs:
+  native-source-and-package:
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        os: [ubuntu-24.04, macos-15, windows-2025]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          repository: Wyrcan-io/playtestr
+          ref: 515ffc3612f9bf4c53a4e26f0baafee1c48dcf89
+          path: .candidate-source
+          persist-credentials: false
+          set-safe-directory: false
+      - name: Create owned temporary and cache paths
+        run: |
+          root="$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass"
+          mkdir -p "$root/tmp" "$root/go-cache" "$root/gopath" "$root/shell-cache"
+      - name: Acquire and verify owned official native SDK
+        run: python -B scripts/acceptance/next20_check.py --label replacement-owned-native-sdk --timeout 360 -- python -B scripts/acceptance/next20_replacement_candidate.py --source "$SOURCE_REVISION" --stage sdk
+      - name: Run actual native source tests, focused regressions, vet and race
+        run: python -B scripts/acceptance/next20_check.py --label replacement-native-source-core --timeout 1200 -- python -B scripts/acceptance/next20_replacement_candidate.py --source "$SOURCE_REVISION" --stage core
+      - name: Build once and inspect distinct private archive
+        run: python -B scripts/acceptance/next20_check.py --label replacement-native-private-package --timeout 600 -- python -B scripts/acceptance/next20_replacement_candidate.py --source "$SOURCE_REVISION" --stage package
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: next20-private-replacement-${{ runner.os }}
+          path: |
+            artifacts/runner-readiness-next-twenty-project-pass/core/
+            artifacts/runner-readiness-next-twenty-project-pass/events/
+            artifacts/runner-readiness-next-twenty-project-pass/identities/
+            artifacts/runner-readiness-next-twenty-project-pass/replacement-candidate/native-exit-v1/*/native-core.json
+            artifacts/runner-readiness-next-twenty-project-pass/replacement-candidate/native-exit-v1/*/candidate.json
+            artifacts/runner-readiness-next-twenty-project-pass/replacement-candidate/native-exit-v1/*/dist/
+            artifacts/runner-readiness-next-twenty-project-pass/toolchain/sdk.json
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 30
