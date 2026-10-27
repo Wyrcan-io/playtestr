@@ -1,0 +1,40 @@
+{
+  "actual_first_screen_sha256": "8cafb461701d7031aaea92644424be3d993c22dedb8186d16aaa3a9be151e8c1",
+  "canonical_inputs_unchanged": true,
+  "canonical_snapshot_sha256": "c51ca8bcc4b80859eddb2c582a88d7217e252c05ab43d63edeccc4a2f52a5e69",
+  "console_source_sha256": {
+    "unix_term.rs": "2e93cc22a0bcd5b9334c04394597a5ec071cb1a41c4f61f6696027feba37c018",
+    "utils.rs": "40e0ec608e38d91c3b3302784f47d959d210454bc21d3f4bb8c09bc6d2725eb0",
+    "windows_term/mod.rs": "396b33d3744ce8661e04d43de99aa440a1e732a7e6c8d276779b6ab0c3dbddd8"
+  },
+  "disposition": "First19/20 series remains rejected. Rerun all20 after source-matched harness; no per-case automatic retry, old19 transfer, source fault removal or Playtestr archive rebuild.",
+  "final_ordinary_credit": 0,
+  "first_outcome": {
+    "category": "snapshot_mismatch",
+    "failed": 1,
+    "failed_case": "N01",
+    "passed": 19
+  },
+  "first_run": "40462439055",
+  "native_environment": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8"
+  },
+  "native_snapshot": "native-profiles/linux/snapshots/normal-project.rows.json",
+  "native_snapshot_sha256": "ec51876e964c9b42ecc56f7b4f70adcc5a0633b873ac118ba2d8e5661506b66b",
+  "project_credit": 0,
+  "qualification_revision": "bb1fa7aa5bf847de74327ca077e31b7ab87f631e",
+  "replacement_budget": {
+    "aggregate_native_minutes_ceiling": 35,
+    "automatic_push_harness_minutes_ceiling": 15,
+    "first_actual_job_seconds": 286,
+    "first_conservative_minutes": 5,
+    "maximum_parallel_target_jobs": 1,
+    "original_native_minutes_ceiling": 35,
+    "replacement_job_minutes_ceiling": 30
+  },
+  "review": "console0.16.6 chooses emoji on UTF-8 LANG for Unix, and only with WT_SESSION on Windows. The isolated Windows route uses the empty fallback; actual Linux emits the reviewed wrench/shrug glyphs. Exact same six selected rows, project/owner/mode text and menu entries remain asserted. No normalization, row removal, interaction change or saved-state weakening.",
+  "revision": 2,
+  "schema_version": 1,
+  "upstream_emoji_source_sha256": "6f2e6962a9d681579ffb7f2a199920b35edabe46d181cd9ff779f278ad182d40"
+}

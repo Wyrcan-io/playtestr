@@ -1711,3 +1711,61 @@ dictionary against cargo's64MiB cap and aggregate2GiB retained cap; no path-base
 offloading or invented compliance. RAW/r remains owned and must be checked-removed
 before advancing. Source/runtime cleanup and full12-repeat/two-host final series
 remain required, together with actual generated/delivered workflow evidence.
+
+### First Linux native preflight and reviewed exact emoji profile
+
+Native adapter/maintenance commitbb1fa7aa5bf847de74327ca077e31b7ab87f631e was pushed.
+Automatic harness40462088627 passed23 controls on all3 hosts. Retained generations
+50Linux33905167676040e6837e52f992f9c226,51Mac08448ad84e004f849aff335e1aeb7bd5,
+52Windowsc5a79565e5124acaafae3af55aee820b, all checked-removed. Prerequisite success
+66e110bf1c49485ba49c8c423752d521 preceded native dispatcha54d21423d1f4fb2a195ce6e80422b7f.
+Linux run40462439055/job122049959597 completed06:39:55..06:44:41UTC with failure:
+source acquisition/full167-file readback, locked fetch/all reviewed hook/license
+readback, default-feature offline native build and exact executable retention all
+SUCCEEDED. Source/preparation took262s. Actual native target ELFamd64 is25,788,128
+bytes SHAdaa4dd816b3a8fc59b6d99822637d4a41cb787e9c95805588b249b0cfd954803,
+retained binary XZ6,218,524 bytes SHA
+f56424c3384786dffd222fc457975ab10d34d4bbc8205413320f88487e09ed9a.
+Native C compiler explicitly selected/read back /usr/bin/x86_64-linux-gnu-gcc-13;
+actual Rust/cargo/native-host versions and hashes are in the packet.
+
+All20 scenarios actually ran:19 passed; only N01 snapshot_mismatch failed. Both
+real Ctrl-C130 cases, Unicode, malformed-input/error and saved-state cases passed.
+Every target/workspace cleanup confirmed; N01 stopped before later state checks
+and is not credited positive. First failure log004e48540d8f46d48030ddca8db89aac,
+packet retrievalc1a941084b6a4b76955abd669c9808c1. Independent actual source archive,
+ELF/binary archive, build/version commands, all20 spec/report/runtime identities,
+positive steps and cleanup audit1d296e15bfd64d0ea4403b8aafe3ddf8 passed the correct
+failed-series disposition. Cargo retained-native generation1 holds all433 logical
+files (8,236,223 compressed bytes); expansion checked-removed. Zero complete-native,
+final-ordinary/calibration or project credit. No expanded native packet remains.
+
+Root cause is the target's normal platform/locale rendering: locked console0.16.6
+uses WT_SESSION for Windows emoji and UTF-8 LANG for Unix. Exact actual Linux rows
+retain the same project/owner/mode/menu strings but add upstream wrench/shrug
+prefixes. Source/actual-screen review97a19a83afc947edb97d9edc3ab55f3e publishes
+native-linux-profile-review-v2.json and a distinct native-profiles/Linux row snapshot.
+Original Windows snapshot and all105 canonical inputs unchanged. Native row scope
+remains4..9, with every glyph/text asserted; no normalization/filter/removal.
+Explicit native LANG/LC_ALL C.UTF-8 freezes that observed locale. Linux profile
+helper verifies original/native hashes and records the exact snapshot/env delta.
+First rejected19/20 series stays immutable. Replacement preflight will rerun all20,
+with original35-minute native allocation preserved: first286s rounded5min plus
+new30min job ceiling =35min; one standard Linux job, no paid capacity or Playtestr
+archive rebuild. New source-matched automatic harness must finish before dispatch.
+
+The public CLI also generated the actual source-built workflow route
+afc6a8e901db4d78bf10dbb237a7d349 at RAW/cargo-generate/generated-source-workflow.yml,
+using --job-timeout-minutes35 and the existing bounded native preparation helper
+plus generated host contract. Source revisionbb1fa7aa; source CLI and target build
+are separate from frozen archive execution. Actionlint a328a08c80f745e2a96c699f6e3872a5
+passed. This workflow has NOT been dispatched or credited as delivered CI.
+
+Structured105-control readback97400bc81abb4223b8b983680298e82d binds actual retained
+installed/build/result payloads to exact candidate archive/binary hashes separately
+from retention packet hashes. The first readback14579afada954225a20b0f7db9fe9292
+needed UTF-8 BOM handling for existing PowerShell removal receipts; original bytes
+and hashes unchanged. New replacement-public-controls-readback.json is immutable.
+Reviewed-profile workflow lint2fc33d40d5544fa398ee9cdf96da3e05 and146-helper syntax
+9199907f145140d78499b345898284de passed. Next commit/push the reviewed profile,
+wait/retain automatic harness, and dispatch the single replacement native preflight.
