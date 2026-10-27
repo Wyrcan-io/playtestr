@@ -291,7 +291,7 @@ func TestSetupActionAcceptsAggregateReleaseChecksum(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	root := filepath.Join(t.TempDir(), "aggregate checksum installation")
+	root := filepath.Join(installerTempDir(t), "aggregate checksum installation")
 	output := filepath.Join(t.TempDir(), "github-output")
 	pathOutput := filepath.Join(t.TempDir(), "github-path")
 	result := runInstaller(t, "-Version", testVersion, "-InstallRoot", root,
