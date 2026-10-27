@@ -13,8 +13,11 @@ from readiness_evidence import immutable_json,sha256
 
 async def main():
     parser=argparse.ArgumentParser();parser.add_argument('--host',choices=['linux','windows'],required=True)
-    parser.add_argument('--generation',type=int,required=True);args=parser.parse_args()
-    run='40420820491';revision='dbb4d13cafb5ed834410788121ef98ca85937ac7'
+    parser.add_argument('--generation',type=int,required=True)
+    parser.add_argument('--missing-race-compiler',action='store_true');args=parser.parse_args()
+    if args.missing_race_compiler and args.host!='windows':raise ValueError('race prerequisite refusal is Windows-only')
+    run='40424475362' if args.missing_race_compiler else '40420820491'
+    revision='354b837ece1de487c5ca1025b8225a843eaba56c' if args.missing_race_compiler else 'dbb4d13cafb5ed834410788121ef98ca85937ac7'
     root=RAW/'native'/run;artifact='next20-private-replacement-'+('Linux' if args.host=='linux' else 'Windows')
     packet=root/artifact
     if not packet.is_dir() or len(list(root.iterdir()))!=1:raise ValueError('requires exactly one retrieved host packet')
@@ -59,6 +62,12 @@ async def main():
         if labels['replacement-all-go-tests']['category']!='passed':raise ValueError('Linux full Go suite was not positive')
         parent=next(o for o in observed if o['label']=='replacement-native-source-core')
         if 'File name too long' not in (packet/'core'/parent['id']/'console.log').read_text():raise ValueError('Linux root cause differs')
+    if args.missing_race_compiler:
+        for label in ['replacement-all-go-tests','replacement-focused-native-status-controls','replacement-go-vet']:
+            if labels[label]['category']!='passed':raise ValueError('Windows source/focused/vet were not positive')
+        if 'replacement-native-race-tests' in labels:raise ValueError('race command unexpectedly launched')
+        parent=next(o for o in observed if o['label']=='replacement-native-source-core')
+        if 'required read-only native race GCC prerequisite missing' not in (packet/'core'/parent['id']/'console.log').read_text():raise ValueError('Windows race prerequisite refusal differs')
     immutable_json(root/'rejected-core-audit.json',dict(schema_version=1,run=run,host=args.host,
         qualification_revision=revision,provider_job=jobs[0]['databaseId'],original_commands=observed,
         native_core_credits=0,archive_builds=0,project_credits=0,

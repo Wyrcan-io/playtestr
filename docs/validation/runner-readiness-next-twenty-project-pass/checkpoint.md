@@ -1485,3 +1485,56 @@ rerun7d94d94986c34fe8996217052d08011c passed all21 in11.800s. Preserve both.
 Next: prove production-input equivalence, scope workflow retry to Linux/Windows,
 audit macOS packet, wait for automatic harness completion and dispatch two hosts.
 Historical four rc.5 admissions remain historical; current rc.6 project credits0.
+
+### Audited Mac archive, first targeted retry and Windows compiler discovery
+
+Qualification354b837ece1de487c5ca1025b8225a843eaba56c was pushed after local21
+controls passed. Automatic harness40424180533 passed all three hosts and was
+independently audited/retained/checked-removed as harness generations41-43.
+Mac archive audit b30c861769a942de8afa12f47865e86c passed all12 actual command
+streams, exact production/test source inputs, package members, version/help and
+archive hashes. Original packet retained generation6; exact release archive also
+preserved under replacement-archives/native-exit-v1. Actual-packet positive and
+four tamper rejection controls plus restored-positive passed06ca0c5e982e43b3b370f24c7ed735b0.
+The bounded restored control fixture remains owned in control-tests; no rebuild.
+
+Source equivalence declaration replacement-candidate-retry-v3.json proves all
+non-test Go/schema/module/packaged-doc Git blobs identical between515ffc36 and
+24029291cd0221d7611f07d27b464ec0936a815f. Only one installer test fixture differs.
+Conservative native allocation73/90min included first3, second12 and two29min jobs.
+Storage2a1db6d206164e63b919b8014570de51 passed all caps (newraw2,693,318,023;
+combined4,602,026,595; combinedretained1,700,834,028); cargo remains sole active.
+
+After automatic harness success, dispatch5373cb878fae463588030abfc30275d5 started
+Linux/Windows-only run40424475362 at354b837e, source24029291. Linux is running.
+Windows job121926699581 passed full Go, all applicable focused families and vet,
+then helper refused race before launch: it probed only MSYS compiler locations.
+Provider job raw log350fed365a6b4a3c952713c9409e3ba6 records exact refusal; initial
+gh log read debd99b3f84145e78cd630a1b54c7745 refused raw terminal escapes.
+Windows packet retained generation7/e3b418f499a84bef89642e2f7dd7b074 and checked-
+removed. Zero complete native-core/archive credit. Compiler probe now additionally
+checks C:/mingw64/bin/gcc.exe, matching official actions/runner-images installer:
+https://github.com/actions/runner-images/blob/main/images/windows/scripts/build/Install-Mingw64.ps1
+This is a read-only preinstalled tool location; no package install or production change.
+Do not relaunch Linux if its present cell succeeds; preserve Mac archive unchanged.
+
+Local explicit candidate-series selection has separate native-exit-v1 install and
+final-series paths, preserving rc.5 defaults/history. Candidate selection and exact
+invalid_spec prelaunch classification bring the local harness to23 controls;
+31d3f49a8f2a49369ffdd6f548e6ac4d passed all23. Original cargo parser refusals
+N02/e742eb13 and E03/004ea7bf were read back d8d05a4c48ce49ad98b3be756b69cf82:
+runner processes reaped, zero target execution/workspace/cleanup credit, exact
+report hashes retained in invalid-spec-refusal-disposition.json. No blanket waiver.
+New candidate-series helpers and these controls are local pending next scoped push.
+
+Linux job121926699245 subsequently completed successfully at00:13:45UTC. Packet
+download7c3b2d1b1dfb4b8b987397ad9ca8be9b and independent audit126e146408f04e0eabef43339a0c56fb
+verified all12 actual commands and exact production/package bytes; retained as
+replacement-candidate generation8 and checked-removed. Its exact archive is also
+preserved under replacement-archives/native-exit-v1. Do not rebuild Linux or Mac.
+Windows-only declaration replacement-candidate-retry-v4.json was published by
+4d799c20d8b04bf385840888fe3c1cd3 before dispatch: first attempt3min conservative,
+second run12min conservative, third actual482job-seconds rounded9min, plus29min
+Windows retry ceiling =53/90min. Only Windows is to be dispatched after the next
+automatic23-control harness finishes. Source remains24029291; compiler location
+repair is qualification-only. Current rc.6 project credits remain0; campaign open.

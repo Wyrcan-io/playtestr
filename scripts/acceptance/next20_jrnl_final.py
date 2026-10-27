@@ -4,6 +4,7 @@ import asyncio
 import copy
 import json
 import os
+import platform
 from pathlib import Path
 import shutil
 import uuid
@@ -12,17 +13,23 @@ from adversarial_process import execute
 from next20_check import RAW,ROOT,DOC,NextCampaign
 from next20_python_setup import environment
 from readiness_evidence import immutable_json,sha256
+from next20_candidate import executable,SERIES
 
 
-async def main(project='jrnl',batch=None):
+async def main(project='jrnl',batch=None,candidate_series='rc5'):
     if batch is None:
-        parser=argparse.ArgumentParser();parser.add_argument('--batch',type=int,required=True);args=parser.parse_args()
+        parser=argparse.ArgumentParser();parser.add_argument('--batch',type=int,required=True)
+        parser.add_argument('--project',default=project);parser.add_argument('--candidate-series',choices=SERIES,default=candidate_series)
+        args=parser.parse_args();project=args.project;candidate_series=args.candidate_series
     else:args=argparse.Namespace(batch=batch)
+    if not (DOC/project/'source-provenance.json').is_file() or '/' in project or '\\' in project:raise ValueError('undeclared project')
     if not 0<=args.batch<12:raise ValueError('undeclared final batch')
-    host='windows' if os.name=='nt' else 'linux'
-    declaration=json.loads((DOC/project/'final-series-declaration.json').read_text())
+    host={'Windows':'windows','Linux':'linux','Darwin':'darwin'}[platform.system()]
+    suffix='' if candidate_series=='rc5' else '-'+candidate_series
+    declaration_path=DOC/project/('final-series-declaration'+suffix+'.json')
+    declaration=json.loads(declaration_path.read_text())
     if host not in declaration['hosts']:raise ValueError('undeclared host')
-    root=RAW/project/'final-series'/str(args.batch)
+    root=RAW/project/('final-series'+suffix)/str(args.batch)
     root.mkdir(parents=True,exist_ok=False)
     canonical=RAW/project/'host-contracts';package=root/('relocated café 雪' if args.batch==5 else 'contracts')
     shutil.copytree(canonical,package)
@@ -37,17 +44,19 @@ async def main(project='jrnl',batch=None):
         for name,digest in inventory.items():
             if sha256(original_runtime/name)!=digest:raise ValueError('native installed/compiled dependency changed: '+name)
     dependencies()
+    clone_prefix=('venv-pair-' if kind=='python' else 'app-pair-')
+    if suffix:clone_prefix+=candidate_series+'-'
     # Cold means a newly materialized, hash-verified runtime copy, followed by
     # reuse in its paired warm batch. It does not claim a flushed OS file cache.
     if args.batch in {0,2}:
-        clone=source/(('venv-pair-' if kind=='python' else 'app-pair-')+str(args.batch//2))
+        clone=source/(clone_prefix+str(args.batch//2))
         shutil.copytree(original_runtime,clone,symlinks=kind=='python')
         for name,digest in inventory.items():
             if sha256(clone/name)!=digest:raise ValueError('fresh runtime copy mismatch')
         immutable_json(clone/'copy-identity.json',dict(source_inventory_sha256=sha256(source/'installed-inventory.json'),
             source_relative_path=original_runtime.relative_to(source).as_posix(),cold_scope='First use of a newly materialized verified runtime, not OS-cache eviction'))
     if args.batch<4:
-        clone=source/(('venv-pair-' if kind=='python' else 'app-pair-')+str(args.batch//2))
+        clone=source/(clone_prefix+str(args.batch//2))
         if not clone.exists():raise ValueError('warm repetition missing preceding cold runtime preparation')
         if kind=='python':python=clone/('Scripts/python.exe' if os.name=='nt' else 'bin/python')
         elif kind=='native':python=clone/python.name
@@ -84,12 +93,12 @@ async def main(project='jrnl',batch=None):
         before.write_text(json.dumps(value,sort_keys=True,ensure_ascii=True,indent=2)+'\n',encoding='utf-8',newline='\n')
         changes.append(dict(case=case['id'],spec=case['spec'],canonical_sha256=case['canonical_sha256'],
             native_base_sha256=case['spec_sha256'],executed_spec_sha256=sha256(before)))
-    runner=RAW/'candidate'/host/('playtestr.exe' if os.name=='nt' else 'playtestr')
+    runner=executable(candidate_series,host)
     install=json.loads((runner.parent/'installed.json').read_text())
     if sha256(runner)!=install['binary_sha256']:raise ValueError('wrong final archive binary')
     env=environment(source);campaign=NextCampaign(phase='final-archive')
     immutable_json(root/'prepared.json',dict(schema_version=2 if kind!='python' else 1,host=host,batch=args.batch,
-        declaration_sha256=sha256(DOC/project/'final-series-declaration.json'),changes=changes,
+        declaration_sha256=sha256(declaration_path),changes=changes,
         runner_sha256=sha256(runner),archive_sha256=install['archive_sha256'],
         **(dict(actual_executable=python.relative_to(ROOT).as_posix(),actual_executable_sha256=sha256(python),runtime_kind=kind)
            if kind!='python' else dict(actual_python=python.relative_to(ROOT).as_posix(),actual_python_sha256=sha256(python))),

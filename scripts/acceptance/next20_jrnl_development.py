@@ -1,5 +1,6 @@
 """Run each declared jrnl development scenario once and retain every outcome."""
 import asyncio
+import argparse
 import json
 import uuid
 
@@ -7,9 +8,10 @@ from adversarial_process import execute
 from next20_check import RAW,ROOT,DOC,NextCampaign
 from next20_python_setup import environment
 from readiness_evidence import immutable_json,sha256
+from next20_candidate import executable,SERIES
 
 
-async def main(project='jrnl'):
+async def main(project='jrnl',candidate_series='rc5'):
     package=DOC/project;target=RAW/'active'/project;campaign=NextCampaign()
     declaration=json.loads((package/'scenarios.json').read_text())
     env=environment(target)
@@ -27,7 +29,7 @@ async def main(project='jrnl'):
                 if sha256(runtime_root/name)!=digest:raise ValueError('compiled/runtime dependency changed: '+name)
     dependencies()
     root=RAW/project/'development'/uuid.uuid4().hex;root.mkdir(parents=True)
-    runner=RAW/'candidate/windows/playtestr.exe'
+    runner=executable(candidate_series)
     results=[]
     for case in declaration['cases']:
         spec=package/case['spec']
@@ -68,4 +70,9 @@ async def main(project='jrnl'):
     print('All twenty declared development cases passed once; final repetition/fault/native admission remains open.')
 
 
-if __name__=='__main__':asyncio.run(main())
+if __name__=='__main__':
+    parser=argparse.ArgumentParser();parser.add_argument('--project',default='jrnl')
+    parser.add_argument('--candidate-series',choices=SERIES,default='rc5');args=parser.parse_args()
+    if not (DOC/args.project/'source-provenance.json').is_file() or '/' in args.project or '\\' in args.project:
+        raise ValueError('undeclared project')
+    asyncio.run(main(args.project,args.candidate_series))

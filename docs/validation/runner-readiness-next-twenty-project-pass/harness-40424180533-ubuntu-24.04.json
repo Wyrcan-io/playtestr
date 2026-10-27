@@ -1,0 +1,97 @@
+{
+  "archive_sha256": "aaee6c509d800ed55a79a2777ea6bb8d09c7e5ed817ad771e9dfb4a79f9d8f19",
+  "checks": [
+    {
+      "attempt": "038057d0fe2449548d098f924d5c39a2",
+      "console_sha256": "ffb37d2506789959e529ebde88b4dfc2392279d5a8bb76c44b2bd2fa6aea1165",
+      "identity_sha256": "7029926b16239e7dc1e13d48205b0634faae2114930e3d20541d836e4763ccbe",
+      "intentional_failure_control": true,
+      "label": "failed-console-regression-57f92288fb844ec1a06b6318746fac05",
+      "source_bindings": {
+        "scripts/acceptance/adversarial_process.py": "99a0e2638a4da25bf69c1e634021dd034cb6d4232d822c8c51b23c137e9a89b6",
+        "scripts/acceptance/next20_archive_controls.py": "5df96f568aa44f44f7c04e54153c421bc890a1ef379a0a3fab64f46b749a9013",
+        "scripts/acceptance/next20_check.py": "76b70609b854f2d05181c5a85089b089e58bd6ab1bf2097ff0341cf5bf487295",
+        "scripts/acceptance/next20_packet_archive.py": "fd945c91db473f3b0dfb7864aaf104e1a93f36e913becca61631fecda27d6a29",
+        "scripts/acceptance/next20_replacement_candidate.py": "a67251a6565c5aed6f3bcdca1169b0d26209d4b17c80600b9d991405d5f20332",
+        "scripts/acceptance/next20_rust_fetch.py": "48aab550fd6cadabc1ff5783480c8f3b0715dee7d14739d54c7d42fe84e8dde3",
+        "scripts/acceptance/next20_target_cleanup.py": "61d607c552e3df7ecef4d56f2b4700e6a5e786a7d190f76d61c853530cb49e56",
+        "scripts/acceptance/next20_verify_jrnl.py": "133877de8649dd3a78da99c46bff8b6bba51af19688528d3c98a800ec0c5e0ed",
+        "scripts/acceptance/next20_yo_local_packet.py": "fe4d5d9daf4107f985298abd5d0a3aa0d5db1ef95c62016a20c5b1726925529f",
+        "scripts/acceptance/next20_yo_registry_reference.py": "61d9bbe38ab9d8e08264d2c17a821eb25338f73ac3a4869b0f3124f3540eadb8",
+        "scripts/acceptance/readiness_bootstrap_go.py": "826bad7433744bd5c9d865dbcf17fd9483ab1c612973bd47056e7a0990355255",
+        "scripts/acceptance/readiness_compact_native.py": "e0bb5fd80fcb4e342753f9415880ce9c830e2b2c6ad0ea910411e37f71d50062",
+        "scripts/acceptance/readiness_evidence.py": "a8f4f208b2e37501bf0faabb4d50031a5f7e6e288fbb6fe0abfabc00045f0fce",
+        "scripts/acceptance/test_next20_campaign.py": "545c626495b336407d83137a3810fe47c39487f0059f1eff5d78fb1e003f3dd9"
+      }
+    },
+    {
+      "attempt": "2116cf5644f04dafa9a5f9a09ccb4efc",
+      "console_sha256": "26c0ebda559e0b43aefcc95a4d65ba57146e9e06ffc3dfdace4e2aa521574cd8",
+      "identity_sha256": "7029926b16239e7dc1e13d48205b0634faae2114930e3d20541d836e4763ccbe",
+      "intentional_failure_control": false,
+      "label": "native-next20-command-controls",
+      "source_bindings": {
+        "scripts/acceptance/adversarial_process.py": "99a0e2638a4da25bf69c1e634021dd034cb6d4232d822c8c51b23c137e9a89b6",
+        "scripts/acceptance/next20_archive_controls.py": "5df96f568aa44f44f7c04e54153c421bc890a1ef379a0a3fab64f46b749a9013",
+        "scripts/acceptance/next20_check.py": "76b70609b854f2d05181c5a85089b089e58bd6ab1bf2097ff0341cf5bf487295",
+        "scripts/acceptance/next20_packet_archive.py": "fd945c91db473f3b0dfb7864aaf104e1a93f36e913becca61631fecda27d6a29",
+        "scripts/acceptance/next20_replacement_candidate.py": "a67251a6565c5aed6f3bcdca1169b0d26209d4b17c80600b9d991405d5f20332",
+        "scripts/acceptance/next20_rust_fetch.py": "48aab550fd6cadabc1ff5783480c8f3b0715dee7d14739d54c7d42fe84e8dde3",
+        "scripts/acceptance/next20_target_cleanup.py": "61d607c552e3df7ecef4d56f2b4700e6a5e786a7d190f76d61c853530cb49e56",
+        "scripts/acceptance/next20_verify_jrnl.py": "133877de8649dd3a78da99c46bff8b6bba51af19688528d3c98a800ec0c5e0ed",
+        "scripts/acceptance/next20_yo_local_packet.py": "fe4d5d9daf4107f985298abd5d0a3aa0d5db1ef95c62016a20c5b1726925529f",
+        "scripts/acceptance/next20_yo_registry_reference.py": "61d9bbe38ab9d8e08264d2c17a821eb25338f73ac3a4869b0f3124f3540eadb8",
+        "scripts/acceptance/readiness_bootstrap_go.py": "826bad7433744bd5c9d865dbcf17fd9483ab1c612973bd47056e7a0990355255",
+        "scripts/acceptance/readiness_compact_native.py": "e0bb5fd80fcb4e342753f9415880ce9c830e2b2c6ad0ea910411e37f71d50062",
+        "scripts/acceptance/readiness_evidence.py": "a8f4f208b2e37501bf0faabb4d50031a5f7e6e288fbb6fe0abfabc00045f0fce",
+        "scripts/acceptance/test_next20_campaign.py": "545c626495b336407d83137a3810fe47c39487f0059f1eff5d78fb1e003f3dd9"
+      }
+    },
+    {
+      "attempt": "39e48b53d3fc4dbcbd055f2a4aed5836",
+      "console_sha256": "2030df413bb7883be8869460cef7fd5f9acffcb3c8aca798d63011b1d3817274",
+      "identity_sha256": "7029926b16239e7dc1e13d48205b0634faae2114930e3d20541d836e4763ccbe",
+      "intentional_failure_control": false,
+      "label": "native-next20-syntax",
+      "source_bindings": {
+        "scripts/acceptance/adversarial_process.py": "99a0e2638a4da25bf69c1e634021dd034cb6d4232d822c8c51b23c137e9a89b6",
+        "scripts/acceptance/next20_archive_controls.py": "5df96f568aa44f44f7c04e54153c421bc890a1ef379a0a3fab64f46b749a9013",
+        "scripts/acceptance/next20_check.py": "76b70609b854f2d05181c5a85089b089e58bd6ab1bf2097ff0341cf5bf487295",
+        "scripts/acceptance/next20_packet_archive.py": "fd945c91db473f3b0dfb7864aaf104e1a93f36e913becca61631fecda27d6a29",
+        "scripts/acceptance/next20_replacement_candidate.py": "a67251a6565c5aed6f3bcdca1169b0d26209d4b17c80600b9d991405d5f20332",
+        "scripts/acceptance/next20_rust_fetch.py": "48aab550fd6cadabc1ff5783480c8f3b0715dee7d14739d54c7d42fe84e8dde3",
+        "scripts/acceptance/next20_target_cleanup.py": "61d607c552e3df7ecef4d56f2b4700e6a5e786a7d190f76d61c853530cb49e56",
+        "scripts/acceptance/next20_verify_jrnl.py": "133877de8649dd3a78da99c46bff8b6bba51af19688528d3c98a800ec0c5e0ed",
+        "scripts/acceptance/next20_yo_local_packet.py": "fe4d5d9daf4107f985298abd5d0a3aa0d5db1ef95c62016a20c5b1726925529f",
+        "scripts/acceptance/next20_yo_registry_reference.py": "61d9bbe38ab9d8e08264d2c17a821eb25338f73ac3a4869b0f3124f3540eadb8",
+        "scripts/acceptance/readiness_bootstrap_go.py": "826bad7433744bd5c9d865dbcf17fd9483ab1c612973bd47056e7a0990355255",
+        "scripts/acceptance/readiness_compact_native.py": "e0bb5fd80fcb4e342753f9415880ce9c830e2b2c6ad0ea910411e37f71d50062",
+        "scripts/acceptance/readiness_evidence.py": "a8f4f208b2e37501bf0faabb4d50031a5f7e6e288fbb6fe0abfabc00045f0fce",
+        "scripts/acceptance/test_next20_campaign.py": "545c626495b336407d83137a3810fe47c39487f0059f1eff5d78fb1e003f3dd9"
+      }
+    }
+  ],
+  "expanded_removal_confirmed": false,
+  "host": "ubuntu-24.04",
+  "index_sha256": "1a61524e9268b6e5b188cc9edffcd4689f182463b694b48b328c907532dca6db",
+  "named_controls_passed": 19,
+  "native_removal_commands": [],
+  "new_project_credit": 0,
+  "retained_generation": 41,
+  "run": "40424180533",
+  "schema_version": 1,
+  "scope": "Actual source/event/positive-console proof for the named native helper controls. No application or archive-product-control reexecution credit.",
+  "skips": [
+    {
+      "reason": "native Windows checked target removal control",
+      "test": "test_native_large_cleanup_requires_matching_explicit_bound"
+    },
+    {
+      "reason": "native Windows checked target removal control",
+      "test": "test_native_target_removal_refuses_changed_payload_then_removes_exact_owned_fixture"
+    }
+  ],
+  "source_syntax_scope": "Only helpers present at recorded tested revision",
+  "tests_discovered": 21,
+  "tooling_revision": "354b837ece1de487c5ca1025b8225a843eaba56c"
+}

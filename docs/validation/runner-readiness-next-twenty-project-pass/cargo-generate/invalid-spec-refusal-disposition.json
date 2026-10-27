@@ -1,0 +1,34 @@
+{
+  "cleanup_policy": "Only these exact explicitly supplied report hashes may use parser-refusal classification. Any invocation, workspace, executed step, evidence or attempted cleanup rejects that classification. They remain failed authoring/runner attempts with zero target execution/cleanup credit.",
+  "reports": [
+    {
+      "case": "N02",
+      "category": "invalid_spec",
+      "ordinary_execution_credit": 0,
+      "reason": "Original author used unknown Down key spelling; corrected to public ArrowDown with original contract retained.",
+      "report": "artifacts/runner-readiness-next-twenty-project-pass/cargo-generate/development/7df7b5002e034415a28e82bc6ca8b116/N02.report.json",
+      "report_sha256": "25dad95bdc44299ff3c419f0d4321411f9c2d0718333fc2aa5dc2fe18f163e32",
+      "runner_attempt": "e742eb13d0b14e549e9ce6fdf802951f",
+      "runner_process_executed": true,
+      "runner_process_reaped": true,
+      "target_cleanup_credit": 0,
+      "target_launched": false,
+      "workspace_prepared": false
+    },
+    {
+      "case": "E03",
+      "category": "invalid_spec",
+      "ordinary_execution_credit": 0,
+      "reason": "rc.5 rejected the real native Windows cancellation status above255. General specv3 native-status repair and replacement candidate required; cancellation case retained.",
+      "report": "artifacts/runner-readiness-next-twenty-project-pass/cargo-generate/development/992501310db14c729f1ac369160a5518/E03.report.json",
+      "report_sha256": "1a1a3e2bf89145d9a344565d543c98406370fb5b56cf69a404ee8ca1482a2441",
+      "runner_attempt": "004ea7bfbf684677986bf939772d984b",
+      "runner_process_executed": true,
+      "runner_process_reaped": true,
+      "target_cleanup_credit": 0,
+      "target_launched": false,
+      "workspace_prepared": false
+    }
+  ],
+  "schema_version": 1
+}

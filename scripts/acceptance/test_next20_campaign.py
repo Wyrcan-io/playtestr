@@ -20,6 +20,36 @@ class NextCampaignTests(unittest.TestCase):
         self.root=RAW/'control-tests'/uuid.uuid4().hex
         self.campaign=NextCampaign(self.root)
 
+    def test_candidate_series_selects_separate_exact_archive_and_rejects_tampering(self):
+        import next20_candidate as candidate
+        from unittest.mock import patch
+        output=self.root/'candidate-native-exit-v1/windows';output.mkdir(parents=True)
+        binary=output/'playtestr.exe';binary.write_bytes(b'synthetic candidate bytes')
+        digest=sha256(binary);archive_digest='a'*64
+        freeze=self.root/'replacement-candidate-freeze-native-exit-v1.json'
+        immutable_json(freeze,dict(cells=[dict(host='windows',binary_sha256=digest,archive_sha256=archive_digest)]))
+        immutable_json(output/'installed.json',dict(binary_sha256=digest,archive_sha256=archive_digest))
+        with patch.object(candidate,'DOC',self.root),patch.object(candidate,'RAW',self.root):
+            self.assertEqual(candidate.executable('native-exit-v1','windows'),binary)
+            self.assertFalse((self.root/'candidate').exists())
+            binary.write_bytes(b'changed synthetic candidate')
+            with self.assertRaisesRegex(ValueError,'frozen archive'):candidate.executable('native-exit-v1','windows')
+            with self.assertRaisesRegex(ValueError,'undeclared'):candidate.contract('invented','windows')
+
+    def test_invalid_spec_cleanup_classification_refuses_any_launch_or_cleanup_state(self):
+        import copy
+        from next20_target_cleanup import invalid_spec_before_launch
+        row=dict(status='failed',duration_ms=0,viewport=dict(width=0,height=0),target=dict(exited=False),
+            failure=dict(category='invalid_spec',message='test specification is invalid'),
+            cleanup=dict(attempted=False,graceful=False,forced=False,confirmed_exited=False),evidence={})
+        self.assertTrue(invalid_spec_before_launch(dict(results=[row]),row))
+        for key,value in [('invocation_id','observed'),('workspace',dict(prepared=True)),
+            ('evidence',dict(screen='observed')),('steps',[dict(status='passed')]),
+            ('cleanup',dict(attempted=True,graceful=False,forced=False,confirmed_exited=False)),
+            ('target',dict(exited=True)),('duration_ms',1)]:
+            changed=copy.deepcopy(row);changed[key]=value
+            self.assertFalse(invalid_spec_before_launch(dict(results=[changed]),changed),key)
+
     def test_replacement_source_campaign_records_supported_phase_without_changing_argv(self):
         from next20_replacement_candidate import SourceCampaign
         source=self.root/'source-input.go';source.write_bytes(b'package synthetic\n')

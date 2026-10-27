@@ -1,0 +1,30 @@
+{
+  "aggregate_conservative_native_minutes": 53,
+  "compiler_fix": "Also probe read-only preinstalled C:/mingw64/bin/gcc.exe; no compiler download, package installation or production change.",
+  "dispatch_hosts": [
+    "windows-2025"
+  ],
+  "first_attempt_conservative_minutes": 3,
+  "linux_qualification_revision": "354b837ece1de487c5ca1025b8225a843eaba56c",
+  "linux_run": "40424475362",
+  "mac_run": "40420820491",
+  "maximum_parallel_jobs": 2,
+  "original_native_minutes_ceiling": 90,
+  "preserve_existing_linux_archive": true,
+  "preserve_existing_mac_archive": true,
+  "primary_source": "https://github.com/actions/runner-images/blob/main/images/windows/scripts/build/Install-Mingw64.ps1",
+  "project_credits": 0,
+  "publication": false,
+  "rejected_windows_disposition": "Full Go/focused/vet passed; race unlaunched because only MSYS GCC locations were probed; package skipped.",
+  "rejected_windows_job": 121926699581,
+  "schema_version": 1,
+  "second_run_actual_job_seconds": 661.0,
+  "series": "native-exit-v1",
+  "source_equivalence": "replacement-candidate-retry-v3.json",
+  "source_revision": "24029291cd0221d7611f07d27b464ec0936a815f",
+  "status": "declared-before-windows-only-retry",
+  "third_run_actual_job_seconds": 482.0,
+  "unchanged_production_package_git_blobs": true,
+  "version": "v0.4.0-rc.6",
+  "windows_job_minutes_ceiling": 29
+}

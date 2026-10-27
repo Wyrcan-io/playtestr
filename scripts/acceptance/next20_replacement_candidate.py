@@ -97,7 +97,7 @@ async def main():
         await run([tool,'vet','./...'],'go-vet',240)
         race=dict(env,CGO_ENABLED='1')
         if os.name=='nt':
-            options=[Path('C:/msys64/mingw64/bin/gcc.exe'),Path('C:/msys64/ucrt64/bin/gcc.exe')]
+            options=[Path('C:/mingw64/bin/gcc.exe'),Path('C:/msys64/mingw64/bin/gcc.exe'),Path('C:/msys64/ucrt64/bin/gcc.exe')]
             compiler=next((p for p in options if p.is_file()),None)
             if compiler is None:raise ValueError('required read-only native race GCC prerequisite missing')
             race['CC']=str(compiler);race['PATH']=str(compiler.parent)+os.pathsep+race['PATH']

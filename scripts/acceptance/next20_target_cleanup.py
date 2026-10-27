@@ -44,11 +44,25 @@ def report_documents(project_root):
         if isinstance(data,dict) and 'runner_version' in data and isinstance(data.get('results'),list):yield path,data
 
 
+def invalid_spec_before_launch(data,row):
+    """Recognize an explicit parser refusal, with zero process/cleanup credit."""
+    return (len(data.get('results',[]))==1 and row.get('status')=='failed' and
+        row.get('failure')==dict(category='invalid_spec',message='test specification is invalid') and
+        row.get('target')==dict(exited=False) and row.get('duration_ms')==0 and
+        row.get('viewport')==dict(width=0,height=0) and
+        row.get('cleanup')==dict(attempted=False,graceful=False,forced=False,confirmed_exited=False) and
+        not row.get('workspace') and not row.get('invocation_id') and not row.get('evidence') and
+        not row.get('steps'))
+
+
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--project',required=True)
     parser.add_argument('--prepare-only',action='store_true')
     parser.add_argument('--max-files',type=int,choices=[40000,60000],default=40000)
-    parser.add_argument('--unlaunched-report-sha256',action='append',default=[]);args=parser.parse_args()
+    parser.add_argument('--unlaunched-report-sha256',action='append',default=[])
+    parser.add_argument('--invalid-spec-report-sha256',action='append',default=[]);args=parser.parse_args()
+    if len(args.invalid_spec_report_sha256)>4 or len(set(args.invalid_spec_report_sha256))!=len(args.invalid_spec_report_sha256) or any(not re.fullmatch('[0-9a-f]{64}',v) for v in args.invalid_spec_report_sha256):
+        raise ValueError('Explicit invalid-spec report digest bound')
     if len(args.unlaunched_report_sha256)>4 or len(set(args.unlaunched_report_sha256))!=len(args.unlaunched_report_sha256) or any(not re.fullmatch('[0-9a-f]{64}',v) for v in args.unlaunched_report_sha256):
         raise ValueError('Explicit unlaunched report digest bound')
     if not re.fullmatch('[a-z][a-z0-9-]{0,63}',args.project):raise ValueError('unsafe target cleanup slug')
@@ -65,6 +79,11 @@ def main():
     reports=0;unlaunched=[]
     for path,data in report_documents(RAW/args.project):
         for row in data['results']:
+            if sha256(path) in args.invalid_spec_report_sha256:
+                if not invalid_spec_before_launch(data,row):raise ValueError('Explicit invalid-spec report contains launch/cleanup state')
+                unlaunched.append(dict(report=path.relative_to(ROOT).as_posix(),sha256=sha256(path),
+                    category='invalid_spec',target_launched=False,workspace_prepared=False,cleanup_credit=0))
+                continue
             if sha256(path) in args.unlaunched_report_sha256:
                 if not (os.name=='nt' and len(data['results'])==1 and
                     row.get('failure')==dict(category='workspace_setup_failure',message='workspace setup failed: expand native workspace path: Access is denied.') and
@@ -81,7 +100,7 @@ def main():
                 raise ValueError('unconfirmed target/workspace report prevents source/runtime deletion')
             reports+=1
     if reports==0:raise ValueError('no actual target report cleanup proof')
-    if {r['sha256'] for r in unlaunched}!=set(args.unlaunched_report_sha256):raise ValueError('Explicit unlaunched report not found exactly')
+    if {r['sha256'] for r in unlaunched}!=set(args.unlaunched_report_sha256+args.invalid_spec_report_sha256):raise ValueError('Explicit unlaunched report not found exactly')
     if os.name=='nt':
         proof_path=RAW/args.project/'process-proof.json'
         proof=json.loads(proof_path.read_text(encoding='utf-8-sig'))
