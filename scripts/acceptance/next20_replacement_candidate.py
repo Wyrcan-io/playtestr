@@ -24,7 +24,12 @@ class SourceCampaign(NextCampaign):
         super().__init__(raw,phase='development');self.inputs=inputs
 
     def identity(self,project,argv):
-        return super().identity(project,[*argv,*self.inputs])
+        # Go's -run operand is a regexp, never a file input. The shared legacy
+        # collector probes argv as paths; a valid long regexp can exceed the
+        # filesystem's component limit. Keep the actual command unchanged and
+        # bind the regexp through this exact helper source instead.
+        file_argv=[value for i,value in enumerate(argv) if not i or str(argv[i-1])!='-run']
+        return super().identity(project,[*file_argv,*self.inputs])
 
 
 def source_inputs(source,revision):

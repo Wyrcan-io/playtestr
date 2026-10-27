@@ -1447,4 +1447,41 @@ Legacy runner-readiness.yml now runs only on explicit workflow_dispatch; ordinar
 Terminal tests remain unchanged for other branches/PRs. This prevents future
 campaign pushes from automatically duplicating the pinned replacement pipeline.
 Record the resource exception in final budget/accounting, and keep future actual
-native jobs at maximum2. The private candidate workflow has not yet been run.
+native jobs at maximum2. The private candidate workflow had not yet been run at this checkpoint.
+
+### Replacement native attempts and targeted retry (27 October local)
+
+First run40419143483 failed before Go checks on all hosts because the helper
+selected an unsupported journal phase. Original SDK/failed command packets were
+audited, retained as replacement-candidate generations1-3 and checked-removed.
+The helper now uses development with explicit replacement labels. The earlier
+cancelled legacy Linux/macOS packets were also retained in their own namespace.
+
+Second run40420820491 (qualification dbb4d13cafb5ed834410788121ef98ca85937ac7,
+production515ffc3612f9bf4c53a4e26f0baafee1c48dcf89) completed with macOS success
+and Linux/Windows failure. macOS job121914507424 passed source tests, focused
+controls, vet and race, then built one rc.6 archive. Retrieved packet receipt
+aabb8307492448278c2b096b7348d0bd; independent audit/retention pending.
+Keep this exact macOS archive; never rebuild or relabel its source revision.
+Archive SHA132152710ade2c01cac7558f75212121f01af8ab02c5735dc9c7de1c33dbe625,
+binary SHA609b184dac8664050643ec35036c4cffef2137ec778ae4d4678727b119e2fe0f.
+
+Linux full Go tests passed, then identity collection interpreted a long -run
+regexp as a filename and failed with NAME_MAX before focused Go execution.
+Original packet retained generation4 (20f3a15573c043e9a94dfbfafc347943).
+Windows full tests found the aggregate-checksum installer test's incidental
+temporary root too long for native launch. Original failure retained generation5
+(31149cb5a0d34922a193c4c9918e007d). Both expansions were checked-removed.
+No complete Linux/Windows native-core or archive credit from this run.
+
+Test-only commit24029291 changes that one installer fixture to the existing
+installerTempDir helper. No production code change. The source evidence adapter
+now excludes only the -run regexp operand from file probing; actual Go argv and
+the original exact regexp stay unchanged and helper source binds the selection.
+Focused regression66aeeafcb1194d79a8d07dd7b31d7fa1 passed. Full21 controls first
+failed under restricted process permissions (f377f8f19177448e915471c8fb07de57;
+Get-CimInstance access denied / unconfirmed cleanup). Real native permission
+rerun7d94d94986c34fe8996217052d08011c passed all21 in11.800s. Preserve both.
+Next: prove production-input equivalence, scope workflow retry to Linux/Windows,
+audit macOS packet, wait for automatic harness completion and dispatch two hosts.
+Historical four rc.5 admissions remain historical; current rc.6 project credits0.
