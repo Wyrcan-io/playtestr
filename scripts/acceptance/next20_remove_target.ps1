@@ -1,5 +1,6 @@
 param([Parameter(Mandatory=$true)][ValidatePattern('^[a-z][a-z0-9-]{0,63}$')][string]$Project,
-    [ValidateSet(40000,60000)][int]$MaxFiles=40000)
+    [ValidateSet(40000,60000)][int]$MaxFiles=40000,
+    [ValidateSet(1073741824,2147483648)][long]$MaxBytes=1073741824)
 $ErrorActionPreference='Stop'
 $workspace=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
 $campaign=Join-Path $workspace 'artifacts\runner-readiness-next-twenty-project-pass'
@@ -17,15 +18,20 @@ $index=Get-Content -LiteralPath $indexPath -Raw | ConvertFrom-Json
 $declaredMaxFiles=40000
 if ($null -ne $index.PSObject.Properties['max_files']) {$declaredMaxFiles=[int]$index.max_files}
 if ($declaredMaxFiles -ne $MaxFiles) {throw 'Target cleanup bound differs from prepared inventory'}
+$declaredMaxBytes=1073741824
+if ($null -ne $index.PSObject.Properties['max_bytes']) {$declaredMaxBytes=[long]$index.max_bytes}
+if ($declaredMaxBytes -ne $MaxBytes) {throw 'Target cleanup byte bound differs from prepared inventory'}
 if ($index.owned_target -ne $target -or -not $index.source_restored_exact) { throw 'Target ownership/restoration mismatch' }
 $ownerPath=Join-Path $target 'task-owned.json'
 if ((Get-FileHash -LiteralPath $ownerPath -Algorithm SHA256).Hash.ToLowerInvariant() -ne $index.owner_sha256) { throw 'Target ownership marker changed' }
-$actual=@{};$pending=[Collections.Generic.Queue[string]]::new();$pending.Enqueue($target)
+$actual=@{};$totalBytes=[long]0;$pending=[Collections.Generic.Queue[string]]::new();$pending.Enqueue($target)
 while($pending.Count) {
     foreach($entry in Get-ChildItem -LiteralPath $pending.Dequeue() -Force) {
         if ($entry.Attributes -band [IO.FileAttributes]::ReparsePoint) { throw 'Unknown target link/reparse point' }
         if ($entry.PSIsContainer) {$pending.Enqueue($entry.FullName);continue}
         if ($actual.Count -ge $MaxFiles) { throw 'Target cleanup file bound' }
+        $totalBytes+=$entry.Length
+        if ($totalBytes -gt $MaxBytes -or $entry.Length -gt 134217728) {throw 'Target cleanup byte bound'}
         $relative=$entry.FullName.Substring($target.Length+1).Replace('\','/')
         $record=$index.files.PSObject.Properties[$relative].Value
         if ($null -eq $record -or $entry.Length -ne $record.bytes -or

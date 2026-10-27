@@ -13,8 +13,9 @@ from next20_check import NAME,RAW,ROOT
 from readiness_evidence import immutable_json,sha256
 
 
-def target_inventory(target, max_files=40000):
+def target_inventory(target, max_files=40000, max_bytes=1024**3):
     if max_files not in (40000,60000):raise ValueError('unreviewed cleanup file bound')
+    if max_bytes not in (1024**3,2*1024**3):raise ValueError('unreviewed cleanup byte bound')
     files={};links={};total=0;pending=[target]
     while pending:
         directory=pending.pop()
@@ -29,7 +30,7 @@ def target_inventory(target, max_files=40000):
             elif entry.is_dir():pending.append(entry)
             elif entry.is_file():
                 size=entry.stat().st_size;total+=size
-                if len(files)>=max_files or size>128*1024**2 or total>1024**3:raise ValueError('cleanup inventory bound')
+                if len(files)>=max_files or size>128*1024**2 or total>max_bytes:raise ValueError('cleanup inventory bound')
                 files[relative]=dict(bytes=size,sha256=sha256(entry))
             else:raise ValueError('special cleanup payload')
     return dict(files=files,owned_links=links,total_bytes=total)
@@ -59,6 +60,7 @@ def main():
     parser=argparse.ArgumentParser();parser.add_argument('--project',required=True)
     parser.add_argument('--prepare-only',action='store_true')
     parser.add_argument('--max-files',type=int,choices=[40000,60000],default=40000)
+    parser.add_argument('--max-bytes',type=int,choices=[1024**3,2*1024**3],default=1024**3)
     parser.add_argument('--unlaunched-report-sha256',action='append',default=[])
     parser.add_argument('--invalid-spec-report-sha256',action='append',default=[]);args=parser.parse_args()
     if len(args.invalid_spec_report_sha256)>4 or len(set(args.invalid_spec_report_sha256))!=len(args.invalid_spec_report_sha256) or any(not re.fullmatch('[0-9a-f]{64}',v) for v in args.invalid_spec_report_sha256):
@@ -118,7 +120,10 @@ def main():
     retained=RAW/args.project/'retained-source';retained.mkdir()
     names=['source.tar.gz','task-owned.json','acquisition.json','runtime.json','build.json','wheels.json',
            'dependency-review.json','installed-inventory.json','install-approval.json','requirements.txt','constraints.txt','launch-runtime-catalog.json',
-           'node-prerequisite.json','dependency-fetch.json','build-lock-derivation.json','build-planned.json']
+           'node-prerequisite.json','dependency-fetch.json','build-lock-derivation.json','build-planned.json',
+           'dependency-fetch-review.json','dependency-source-catalog.json','native-hook-review.json',
+           'native-c-compiler.json','required-source-dictionary.json','version-check.json','short-cache-reference.json',
+           'post-build-dependency-readback.json']
     copied={}
     for name in names:
         source_file=target/name
@@ -136,8 +141,9 @@ def main():
                     relative=path.relative_to(retained).as_posix()
                     if sha256(target/relative)!=sha256(path):raise ValueError('retained dependency review/package changed')
                     copied[relative]=sha256(path)
-    inventory=target_inventory(target,max_files=args.max_files)
+    inventory=target_inventory(target,max_files=args.max_files,max_bytes=args.max_bytes)
     if args.max_files!=40000:inventory['max_files']=args.max_files
+    if args.max_bytes!=1024**3:inventory['max_bytes']=args.max_bytes
     immutable_json(retained/'cleanup-inventory.json',dict(schema_version=1,project=args.project,owned_target=str(target),
         owner_sha256=sha256(target/'task-owned.json'),process_proof_sha256=sha256(proof_path),
         actual_reports_with_confirmed_cleanup=reports,source_restored_exact=True,retained=copied,

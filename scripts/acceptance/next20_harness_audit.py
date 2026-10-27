@@ -18,8 +18,11 @@ def main():
     args=parser.parse_args();run=args.run;revision=args.revision
     if not run.isascii() or not run.isdecimal() or len(revision)!=40 or any(c not in '0123456789abcdef' for c in revision):
         raise ValueError('invalid explicit native run/source revision')
-    test_source=subprocess.check_output(['git','show',revision+':scripts/acceptance/test_next20_campaign.py'])
-    test_names=[node.name for node in ast.walk(ast.parse(test_source.decode('utf-8'))) if isinstance(node,ast.FunctionDef) and node.name.startswith('test_')]
+    tracked=subprocess.check_output(['git','ls-tree','-r','--name-only',revision,'--','scripts/acceptance']).decode().splitlines()
+    test_paths=[name for name in tracked if name.startswith('scripts/acceptance/test_next20_') and name.endswith('.py')]
+    test_sources={name:subprocess.check_output(['git','show',revision+':'+name]) for name in test_paths}
+    test_names=[node.name for source in test_sources.values() for node in ast.walk(ast.parse(source.decode('utf-8'))) if isinstance(node,ast.FunctionDef) and node.name.startswith('test_')]
+    if not test_names or len(test_names)!=len(set(test_names)):raise ValueError('ambiguous/empty native control names')
     root=RAW/'native'/run/('next20-harness-'+args.host)
     attempts={}
     for path in (root/'events').glob('*.json'):
@@ -40,12 +43,13 @@ def main():
         manifest=root/events['identified']['identity']['manifest']
         if sha256(manifest)!=events['identified']['identity']['sha256']:raise ValueError('native identity mismatch')
         identity=json.loads(manifest.read_text());source_bindings={}
-        names={'scripts/acceptance/test_next20_campaign.py','scripts/acceptance/next20_check.py',
+        names={*test_paths,'scripts/acceptance/next20_check.py',
                'scripts/acceptance/readiness_evidence.py','scripts/acceptance/adversarial_process.py'}
-        for node in ast.walk(ast.parse(test_source.decode('utf-8'))):
-            modules=[node.module] if isinstance(node,ast.ImportFrom) else ([a.name for a in node.names] if isinstance(node,ast.Import) else [])
-            for module in modules:
-                if module and module.startswith(('next20_','readiness_','adversarial_')):names.add('scripts/acceptance/'+module+'.py')
+        for source in test_sources.values():
+            for node in ast.walk(ast.parse(source.decode('utf-8'))):
+                modules=[node.module] if isinstance(node,ast.ImportFrom) else ([a.name for a in node.names] if isinstance(node,ast.Import) else [])
+                for module in modules:
+                    if module and module.startswith(('next20_','readiness_','adversarial_')):names.add('scripts/acceptance/'+module+'.py')
         for name in sorted(names):
             blob=subprocess.check_output(['git','show',revision+':'+name])
             hashes={hashlib.sha256(blob).hexdigest(),hashlib.sha256(blob.replace(b'\r\n',b'\n').replace(b'\n',b'\r\n')).hexdigest()}
@@ -90,6 +94,7 @@ def main():
             if finished['category']!='passed' or finished['harness_cleanup']!='harness_process_reaped':raise ValueError('incomplete actual native guard command')
             matches.append(dict(label=started['label'],source_sha256=sources[0],attempt=eid))
         expected_count=4 if 'test_native_large_cleanup_requires_matching_explicit_bound' in test_names else 2
+        if any(b'native-large-cleanup-default-byte-bound-refusal' in source for source in test_sources.values()):expected_count+=1
         if len(matches)!=expected_count:raise ValueError('missing real changed-payload/bound refusal and exact removal executions')
     else:matches=[]
     receipt=dict(schema_version=1,run=run,host=args.host,tooling_revision=revision,checks=checks,

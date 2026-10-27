@@ -365,7 +365,7 @@ class NextCampaignTests(unittest.TestCase):
         marker=target/'task-owned.json';marker.write_bytes(b'{"project":"synthetic-large-cleanup"}\n')
         retained=raw/'yo/retained-source';retained.mkdir(parents=True)
         immutable_json(retained/'cleanup-inventory.json',dict(owned_target=str(target),source_restored_exact=True,
-            max_files=60000,owner_sha256=sha256(marker),owned_links={},
+            max_files=60000,max_bytes=2*1024**3,owner_sha256=sha256(marker),owned_links={},
             files={marker.name:dict(bytes=marker.stat().st_size,sha256=sha256(marker))}))
         immutable_json(retained/'prepared.json',dict(cleanup_inventory_sha256=sha256(retained/'cleanup-inventory.json')))
         async def run(expected,extra,label):
@@ -374,7 +374,9 @@ class NextCampaignTests(unittest.TestCase):
                 expected=expected,campaign=self.campaign)
         refused=asyncio.run(run(1,[],'native-large-cleanup-default-bound-refusal'))
         self.assertIn('bound differs from prepared inventory',refused['output']);self.assertTrue(target.exists())
-        asyncio.run(run(0,['-MaxFiles','60000'],'native-large-cleanup-explicit-bound'))
+        refused_bytes=asyncio.run(run(1,['-MaxFiles','60000'],'native-large-cleanup-default-byte-bound-refusal'))
+        self.assertIn('byte bound differs from prepared inventory',refused_bytes['output']);self.assertTrue(target.exists())
+        asyncio.run(run(0,['-MaxFiles','60000','-MaxBytes','2147483648'],'native-large-cleanup-explicit-bound'))
         self.assertFalse(target.exists())
 
     @unittest.skipUnless(os.name=='nt','native Windows checked target removal control')

@@ -1817,3 +1817,78 @@ must match baseline for fresh mutation compilation. Final helper syntax
 execute local Windows240 ordinary plus9 fresh calibrations, and implement/dispatch
 the Linux counterpart and audited bounded source/binary retention/cleanup. Then
 finish cargo admission and continue all remaining projects/requalification gates.
+
+Windows final ordinary command ce81f84d621d41298629d8b77be99c4b completed all
+12 batches:240 actual passing final-archive executions, no per-case retries.
+Fresh final calibration ab2a33a531784495a68ff20765812bc0 completed9 baseline/
+mutated/restored probes, detecting all3 real previously compiled source faults;
+original source/executable restored. No Linux final or current admission credit.
+Current bba80ce8 automatic harness40472393558 passed all3 native jobs. Retained,
+independently source-audited and checked-removed generations56Linux/57Mac/58Win:
+2f21d79e13b942dc949cdfbf09025a09,25bb5b728466428d9367e9dd05d21303,
+4f88f615516343669757560cf2aec6bb. No native packet remains expanded.
+
+Retention experiment declared before execution: exact compiled-variant XOR deltas
+require the retained exact baseline binary dictionary;64MiB decoded executable,
+16MiB compressed per variant,64MiB decoder memory. Full actual byte roundtrip
+and wrong/missing dictionary, rehashed truncation/trailing/false target controls
+must pass. Source corpus retains exact decoded inner tar bytes plus every original
+reviewed source byte for341 conservative actual-compiled packages once across hosts.
+Original gzip wrapper hashes remain acquisition provenance, not a reconstructible
+wrapper claim. Existing historical gzip/XZ packets are untouched. New source
+corpus48MiB compressed,256MiB per decoded crate,1GiB aggregate decoded tar bound;
+32MiB encoder dictionary/working memory below512MiB plus at most256MiB source
+buffer;64MiB decoder. No timing run overlaps this compression. Full independent
+source-file/tar/hash readback is required before any cache removal. RAW/r and
+original registry/compiler trees remain present and counted; no deletion yet.
+
+Retention measurements: source-corpus35054d842bc8465c9b3c99b823c1bae3 fully
+roundtripped341 exact decoded crate tars/15,270 source files into22,300,980B.
+Dictionary reference76997e5b325d4ca1b4702e07de9ec0bd and actual original334-
+package compile closure496310915b754aec88c54df0f7b3d9cd passed. Original gzip
+wrapper bytes are explicitly outside the retained source representation claim.
+XOR experiment18953549b8cc4faa9d93cf21883613aa roundtripped actual variants
+but F03 alone cost15,572,584B; solid alternative503eaff71a91457fabf730735cda710b
+retains all4 full actual Windows executables in8,347,148B, independently restored.
+The transient simultaneous representations exceeded the64MiB project package cap:
+observation58b4278c67a24a4489b34127741f0554 saw80,487,248 project bytes;
+other declared aggregate caps passed. Preserve this deviation; no new acquisition
+or target dispatch until exact redundant encodings/cache are checked-removed and
+storage passes again. All original failures, reports, patches and final runs remain.
+
+Full slow duplicate-cache/original-registry verification1eb0172bc9794073bec56f22ef63d901
+completed before its600s ceiling, preparing e97c0b246fdb421ea5fd4a07ed87c667 for
+408,064,980 expendable bytes (owned RAW/r plus redundant XOR payloads/initial
+Windows baseline encoding). Full source/executable corpus and original registry
+verified. Native checked pruning is currently running; do not remove RAW/r or
+those payloads by another route. New prune preparer avoids three repetitive16k-
+file scans by letting native PowerShell compare each actual cache file against
+the frozen known-source inventory; that optimization was not needed/executed
+for the completed full original inventory above.
+
+All26 local helper controls fee45ece8a884801976b7099d8d1e58f passed, including
+wrong baseline/tampered delta and explicit larger cleanup byte-bound refusal.
+Rust cleanup inventory is explicitly capped2GiB/60,000 files when requested;
+default1GiB/40,000 remains. This does not raise campaign storage limits.
+Native final Linux workflow prepared at60min ceiling (estimated18min), one hosted
+target job; actual original source/build,12 batches,3 actual source compiles/9
+calibrations, lossless full executable retention and checked source/runtime cleanup.
+Actionlint fab489e3653b48668088655352ebb10a passed. No dispatch yet.
+
+Independent Windows final report/launch readback2b2693f3b70348cdadcc30abd44e32e2
+passed240/9 after correcting the auditor's initial wrong copied-executable catalog
+lookup (failed auditor cacb519c1eb14cd889cb128234ec525f preserved, not a target
+failure). Stronger canonical native-profile/fixture/snapshot/source/compiler checks
+b5f4bffada2b4d89b51d2af36feb54ff also passed240/9. This is cell readback only;
+retention/cleanup/provider/corruption-control/campaign-admission gates stay open.
+
+Native checked pruning dbdcd261bb1a49528b6dca40797840e5 completed:408,064,980
+redundant bytes removed; RAW/r absent, original target registry retained, full
+source/all4 executable corpus preserved. Post-prune20e5b4550c134681b2629c9af97da380
+passed every storage cap: newraw2,583,052,640;combinedraw4,491,761,212;
+combinedretained1,436,199,362;cargo58,402,329;newcurated2,720,025;
+combinedcurated14,376,269. Earlier transient breach remains recorded. Local
+Windows target source/runtime cleanup and exact local-record compaction are next;
+complete these before retrieving the Linux final packet, to provide enough
+64MiB package headroom for its actual executable corpus and metadata. Do not
+reacquire/rebuild Windows or redownload either retained Linux preflight.
