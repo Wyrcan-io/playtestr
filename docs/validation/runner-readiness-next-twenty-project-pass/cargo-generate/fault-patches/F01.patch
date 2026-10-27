@@ -1,0 +1,11 @@
+--- a/src/interactive.rs
++++ b/src/interactive.rs
+@@ -23,7 +23,7 @@
+     let valid_ident = regex::Regex::new(r"^([a-zA-Z][a-zA-Z0-9_-]+)$")?;
+     let project_var = TemplateSlots {
+         var_name: "crate_name".into(),
+-        prompt: "Project Name".into(),
++        prompt: "Workspace Name".into(),
+         var_info: VarInfo::String {
+             entry: Box::new(StringEntry {
+                 default: None,

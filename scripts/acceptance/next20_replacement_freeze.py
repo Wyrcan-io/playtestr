@@ -21,9 +21,14 @@ def main():
         audit_path=DOC/('replacement-native-'+host+'-'+run+'.json');row=json.loads(audit_path.read_text())
         if row['host']!=host or row['run']!=run or row['source_revision']!=source or row['qualification_revision']!=revision or len(row['commands'])!=12:
             raise ValueError('native cell audit does not bind exact required execution')
+        readback_path=DOC/('replacement-source-readback-'+host+'-'+run+'.json')
+        readback=json.loads(readback_path.read_text())
+        if readback['host']!=host or readback['run']!=run or readback['qualification_revision']!=revision or {c['attempt'] for c in readback['commands']}!={c['id'] for c in row['commands'].values()}:
+            raise ValueError('complete qualification-source readback does not match native commands')
         archive=ROOT/row['archive_local_only'];archive.resolve(strict=True).relative_to((RAW/'replacement-archives/native-exit-v1').resolve(strict=True))
         if sha256(archive)!=row['archive_sha256'] or archive.stat().st_size!=row['archive_bytes']:raise ValueError('audited candidate archive missing/changed')
-        cells.append(dict(row,audit=audit_path.relative_to(ROOT).as_posix(),audit_sha256=sha256(audit_path)))
+        cells.append(dict(row,audit=audit_path.relative_to(ROOT).as_posix(),audit_sha256=sha256(audit_path),
+            qualification_source_readback=readback_path.relative_to(ROOT).as_posix(),qualification_source_readback_sha256=sha256(readback_path)))
     immutable_json(DOC/'replacement-candidate-freeze-native-exit-v1.json',dict(schema_version=1,series='native-exit-v1',version='v0.4.0-rc.6',
         original_production_revision=retry['original_production_revision'],retry_source_revision=retry['retry_source_revision'],
         source_equivalence_declaration=declaration.relative_to(ROOT).as_posix(),source_equivalence_sha256=sha256(declaration),

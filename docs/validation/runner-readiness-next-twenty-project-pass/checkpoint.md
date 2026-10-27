@@ -1538,3 +1538,80 @@ second run12min conservative, third actual482job-seconds rounded9min, plus29min
 Windows retry ceiling =53/90min. Only Windows is to be dispatched after the next
 automatic23-control harness finishes. Source remains24029291; compiler location
 repair is qualification-only. Current rc.6 project credits remain0; campaign open.
+
+Windows compiler-location repair and explicit series helpers are pushed in
+325aac95b7e6fb2987a88e2d2a983bf0c48a15c0. Local23-control complete rerun
+8b29460d9085450dafa2f1bd7a28b55e passed;132 helpers parsed b83736706c744d619f0892b92be80f83.
+Automatic harness40425456608 passed23 controls on all hosts. Packets independently
+audited/retained/checked-removed generations44Linux (5015c48f14ca4ef598161f5f1643c559),
+45Mac (52e7b722c5a34f7e9afc8d3e5cd7b0b4),46Windows (f8058e5e03fe4fffa22104e757003dae).
+After its verified completion61f0e6ebc9ce4be0bd98ca6084c37217, Windows-only dispatch
+6b3534c3fae3470ead30624dde2faeb5 started run40425810038/job121931160451 at325aac95,
+fixed source24029291. At00:27:29UTC its source core remains running; no package yet.
+Do not start another native job or push a new auto-harness while it is active.
+
+Complete qualification-source readbacks also passed on the exact retained Mac
+packet613e8f480e6448138b0fb27fe8ab3931 (562 helper/module/schema Git inputs per
+each12 original commands) and Linux1148ae08aa1e4c0cac392f8eddfa3a54 (566 inputs).
+New replacement_source_readback helper verifies original retained packet hashes,
+logical aliases and exact qualification Git blobs without expanding the packet.
+Freeze helper now requires these source readbacks for all3 cells and accepts
+separate exact Windows/Linux qualification revisions; never relabel old cells.
+
+Local prepared cargo_candidate_authoring helper repeats public record/review/
+replay/export/ordinary using exact new archive into separate versioned generation
+paths; historical first-use misses/counts are untouched. cargo_host_contracts
+requires a completed development-test-freeze and exact compiled native runtime,
+copies frozen fixture/snapshot bytes unchanged, and declares only executable
+relocation/per-host cancellation status. Neither helper has run; syntax passed
+d902119260f946a09eae034551a36cdb. No source faults selected or applied yet.
+Next: monitor Windows; if successful download its sole packet, audit as replacement
+generation9, source-readback, freeze Mac40420820491/Linux40424475362/Windows40425810038
+with revisions dbb4d13c/354b837e/325aac95 respectively. Install --series native-exit-v1,
+run new cargo public authoring and all20 development cases with --candidate-series
+native-exit-v1, then freeze before source-fault selection. Keep continuing all20.
+
+### Exact rc.6 freeze and first positive cargo development boundary
+
+Windows run40425810038 succeeded (00:20:56..00:28:49UTC): full Go suite, focused
+controls, vet and race all passed; archive built once and inspected. Retrieval
+8383eebc4a204d289498379aed6075a2; independent audit7fc20a63099044bca156230da0e26699
+retained generation9 and checked-removed expansion. Windows archive SHA
+0b9f69460ed4dd87c3182c27702f0579bc67e92767010e4ce50d02c0bec82432,
+binary6c80fdbcdd74705b85b2e8aad2f07140f5ff5e8cea80db1d6c24a04d71b23f36.
+Supplemental reader first060ecb9e44cd40f09f2d6cb72004509c needed Windows metadata
+path separators converted to the retained index's POSIX keys; payload bytes were
+never normalized. Dependent freeze9afe757fa38747ea9be0b5b6ac1a2a78 and install
+8678bd53fc04498298311b796c03d7de refused missing proof/freeze; no candidate ran.
+After that narrow reader correction, df10169dd43746d3859b76d730e5bb6a verified570
+qualification helper/module/schema Git inputs for each12 original commands.
+Freeze568db1d376384856ab7e124cfb907bf1 now records all3 exact archives with truthful
+per-cell source/qualification revisions and source-readback hashes. Install
+a063763ab5b741f5928625e4b1f64d85 created separate candidate-native-exit-v1/windows;
+historical rc.5 installation/freeze unchanged. No release/publication.
+
+Cargo candidate public record/review/replay/export plus ordinary test passed
+822bfe474e8f4296bdb0bab0ba294da6 (3 calls/20 controls, generation1 under
+candidate-authoring/native-exit-v1; independently checked profile/README/sentinel
+bytes and generated entries). It is a repeat after exposure, never a new first-
+attempt/beginner claim. All20 development cases then passed87e2d36bcd9d4aaaa42db42465fa05b6,
+including both real Windows Ctrl-C status3221225786 cases. Positive20/0 contract
+freeze a72252ebd2984228ad37fa3815fac7ff binds105 files before source-fault selection.
+Three real upstream source faults selected537b95495b4b44a682fa332f3137451e:
+initial prompt regression; successful generation exits7; rendered-file writer
+changes '=' delimiters to ':' without changing byte length, terminal summary or
+successful exit. Frozen tests/fixtures stay unchanged. Declaration/patches tracked;
+local source-fault helper is running (exec session98951), initially verifying
+original and actual short dependency caches before compilation. No fault outcome
+or mandatory-final calibration credit claimed yet; source/runtime receipts remain
+immutable and separate compiled-variant identities are required.
+
+Prepared explicit candidate-series adaptation of existing public archive-control
+workflow/helpers preserves rc.5 defaults and original35 definitions. Declaration
+e6506c84da8c4cabb4307e5e7a8d60e3 allocates20min/host (60total), estimates2/2/4min,
+max2 harness jobs, plus automatic push harness15min ceiling. Dispatch only after
+next source-matched automatic harness finishes, explicitly candidate_series=
+native-exit-v1. Configuration is not105 successful executions. Actionlint passed
+302cf85d1ca14a3eaa98cf9f7805c476. Remaining cargo faults/maintenance/native series,
+14 historical project requalifications, remaining15 new apps and global closure
+are still open. Current rc.6 project admissions0; continue fully.

@@ -1,0 +1,102 @@
+{
+  "version": 3,
+  "name": "recorded interaction",
+  "command": [
+    "../../../../../../../artifacts/runner-readiness-next-twenty-project-pass/active/cargo-generate/bin/cargo-generate.exe",
+    "generate",
+    "--path",
+    "template",
+    "--vcs",
+    "none",
+    "--no-workspace"
+  ],
+  "workspace": {
+    "fixture": "fixture",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "GIT_CONFIG_GLOBAL": "nul",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "USER": "synthetic",
+    "USERNAME": "synthetic"
+  },
+  "width": 120,
+  "height": 24,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Project Name"
+    },
+    {
+      "text": "synthetic-notes"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Project owner"
+    },
+    {
+      "text": "Ada"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Project mode"
+    },
+    {
+      "snapshot": "normal-project.rows.json"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Include documentation"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "New project created"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "synthetic-notes/profile.txt",
+        "kind": "file",
+        "bytes_base64": "cHJvamVjdD1zeW50aGV0aWMtbm90ZXMKb3duZXI9QWRhCm1vZGU9YmFzaWMKcmVhZG1lPXRydWUK"
+      }
+    },
+    {
+      "state": {
+        "path": "synthetic-notes/README.md",
+        "kind": "file",
+        "bytes_base64": "IyBzeW50aGV0aWMtbm90ZXMKCk93bmVyOiBBZGEKTW9kZTogYmFzaWMK"
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "dW5yZWxhdGVkIHN5bnRoZXRpYyBkYXRhCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "synthetic-notes",
+        "kind": "entries",
+        "entries": [
+          "profile.txt",
+          "README.md"
+        ]
+      }
+    }
+  ]
+}

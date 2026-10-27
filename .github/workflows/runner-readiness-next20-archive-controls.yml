@@ -4,6 +4,12 @@ on:
     branches: [work/p0-p2-implementation]
     paths: ['.github/workflows/runner-readiness-next20-archive-controls.yml']
   workflow_dispatch:
+    inputs:
+      candidate_series:
+        description: Explicit frozen private archive series
+        type: choice
+        default: rc5
+        options: [rc5, native-exit-v1]
 permissions:
   contents: read
   actions: read
@@ -11,6 +17,7 @@ concurrency:
   group: playtestr-next20-archive-controls
   cancel-in-progress: false
 env:
+  CANDIDATE_SERIES: ${{ inputs.candidate_series || 'rc5' }}
   PYTHONDONTWRITEBYTECODE: '1'
   PYTHONIOENCODING: utf-8
   TEMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
@@ -57,16 +64,31 @@ jobs:
       - name: Create owned temporary/cache paths
         run: mkdir -p "$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/tmp" "$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/shell-cache"
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        if: env.CANDIDATE_SERIES == 'rc5'
         with:
           github-token: ${{ github.token }}
           repository: Wyrcan-io/playtestr
           run-id: 39450029736
           name: private-candidate-${{ runner.os }}
           path: artifacts/runner-readiness-next-twenty-project-pass/candidate-download
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        if: env.CANDIDATE_SERIES == 'native-exit-v1'
+        with:
+          github-token: ${{ github.token }}
+          repository: Wyrcan-io/playtestr
+          run-id: ${{ matrix.host == 'darwin' && '40420820491' || matrix.host == 'linux' && '40424475362' || '40425810038' }}
+          name: next20-private-replacement-${{ runner.os }}
+          path: artifacts/runner-readiness-next-twenty-project-pass/candidate-download
       - name: Verify and install exact frozen private archive
-        run: python -B scripts/acceptance/next20_check.py --label native-next20-controls-exact-archive-install --timeout 90 -- python -B scripts/acceptance/next20_candidate_install.py --archive artifacts/runner-readiness-next-twenty-project-pass/candidate-download/candidate-packages/migration-v2/${{ matrix.target }}/dist/playtestr_0.4.0-rc.5_${{ matrix.archive_target }}.${{ matrix.extension }}
+        run: |
+          if [ "$CANDIDATE_SERIES" = "native-exit-v1" ]; then
+            archive="artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v1/${{ matrix.target }}/dist/playtestr_0.4.0-rc.6_${{ matrix.archive_target }}.${{ matrix.extension }}"
+          else
+            archive="artifacts/runner-readiness-next-twenty-project-pass/candidate-download/candidate-packages/migration-v2/${{ matrix.target }}/dist/playtestr_0.4.0-rc.5_${{ matrix.archive_target }}.${{ matrix.extension }}"
+          fi
+          python -B scripts/acceptance/next20_check.py --label native-next20-controls-exact-archive-install --timeout 90 -- python -B scripts/acceptance/next20_candidate_install.py --series "$CANDIDATE_SERIES" --archive "$archive"
       - name: Reexecute inherited public controls through exact native archive
-        run: python -B scripts/acceptance/next20_check.py --label next20-public-archive-controls-native --timeout 600 -- python -B scripts/acceptance/next20_archive_controls.py
+        run: python -B scripts/acceptance/next20_check.py --label next20-public-archive-controls-native --timeout 600 -- python -B scripts/acceptance/next20_archive_controls.py --candidate-series "$CANDIDATE_SERIES"
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
@@ -78,6 +100,7 @@ jobs:
             artifacts/runner-readiness-next-twenty-project-pass/product-controls/
             artifacts/runner-readiness-next-twenty-project-pass/toolchain/sdk.json
             artifacts/runner-readiness-next-twenty-project-pass/candidate/*/installed.json
+            artifacts/runner-readiness-next-twenty-project-pass/candidate-native-exit-v1/*/installed.json
           include-hidden-files: true
           if-no-files-found: error
           retention-days: 14

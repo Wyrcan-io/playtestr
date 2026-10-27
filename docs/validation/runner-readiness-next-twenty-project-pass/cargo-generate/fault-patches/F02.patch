@@ -1,0 +1,11 @@
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -22,7 +22,7 @@
+         generate(args)?;
+     }
+ 
+-    Ok(())
++    std::process::exit(7)
+ }
+ 
+ fn resolve_args() -> cargo_generate::GenerateArgs {

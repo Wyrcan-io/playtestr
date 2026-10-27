@@ -1,5 +1,6 @@
 """Freeze the useful reviewed jrnl development contracts before held-out faults."""
 import json
+import argparse
 
 from next20_check import DOC,RAW,ROOT
 from readiness_evidence import immutable_json,sha256
@@ -33,4 +34,8 @@ def main(project='jrnl',exposure=None):
     print('Froze twenty current reviewed contracts and',len(inputs),'exact files before source-fault selection.')
 
 
-if __name__=='__main__':main()
+if __name__=='__main__':
+    parser=argparse.ArgumentParser();parser.add_argument('--project',default='jrnl');parser.add_argument('--exposure')
+    args=parser.parse_args()
+    if '/' in args.project or '\\' in args.project or not (DOC/args.project/'source-provenance.json').is_file():raise ValueError('undeclared project')
+    main(args.project,args.exposure)

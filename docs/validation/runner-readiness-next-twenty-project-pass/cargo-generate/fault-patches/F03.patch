@@ -1,0 +1,11 @@
+--- a/src/template.rs
++++ b/src/template.rs
+@@ -203,7 +203,7 @@
+                             let relative_path = new_filename.strip_prefix(project_dir)?;
+                             let f = relative_path.display();
+                             fs::create_dir_all(new_filename.parent().unwrap()).unwrap();
+-                            fs::write(new_filename.as_path(), new_contents).with_context(|| {
++                            fs::write(new_filename.as_path(), new_contents.replace('=', ":")).with_context(|| {
+                                 format!(
+                                     "{} {} `{}`",
+                                     emoji::ERROR,

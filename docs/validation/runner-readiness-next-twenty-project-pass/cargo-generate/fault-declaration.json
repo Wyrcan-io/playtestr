@@ -1,0 +1,51 @@
+{
+  "build_policy": "Real locked offline native Rust rebuild per source variant, with reviewed unchanged dependencies. Keep original build/runtime receipts intact. Capture actual mutated executable/source identity separately; unchanged test bytes for baseline, mutated and restored phases.",
+  "expected_local_probes": 9,
+  "exposure": "Known first-use/contract repairs and general runner native-status repair were exposed before the positive freeze. These concrete source edits were selected only after all20 rc.6 Windows development cases passed and105 contract inputs froze. No mutation compiled/applied yet; no independent-human or untouched-source claim.",
+  "faults": [
+    {
+      "after": "prompt: \"Workspace Name\".into(),",
+      "before": "prompt: \"Project Name\".into(),",
+      "category": "assertion_timeout",
+      "id": "F01",
+      "meaning": "Regression in the real initial prompt prevents the frozen public interaction.",
+      "mutated_source_sha256": "0fbb594416a93c2988c69fd328cbb6d801aba45944e3c220c3947bf8d0cb1ca6",
+      "original_source_sha256": "6b955d4725f00955b5f706c30e03a819d2fea09ef6212bddb6c01720bb587c12",
+      "patch_sha256": "49a06c0d727105fcd88ef1364799c224ee0ba852ea9fa2f52c5d021824f7a704",
+      "path": "src/interactive.rs",
+      "spec": "normal-project.json",
+      "spec_sha256": "2126792f9a0297f245d361c051c46471cae1bd67dfad9a050a095c4c31a7d1c6"
+    },
+    {
+      "after": "    std::process::exit(7)\n}\n\nfn resolve_args()",
+      "before": "    Ok(())\n}\n\nfn resolve_args()",
+      "category": "unexpected_exit",
+      "id": "F02",
+      "meaning": "Ordinary completed generation incorrectly returns exit7 after the successful terminal summary.",
+      "mutated_source_sha256": "bb5ad57ba451694acc6951dc410589768d877bc183747d6394d846e3b16bcd10",
+      "original_source_sha256": "87896bb6039c80aae16c248a275318c951ddbbe441ff78202c327dbd8c14c784",
+      "patch_sha256": "b6685f8607cdf9d29107d6264ec20ec3bf20311a82e4630171b7b8005b8c9392",
+      "path": "src/main.rs",
+      "spec": "normal-project.json",
+      "spec_sha256": "2126792f9a0297f245d361c051c46471cae1bd67dfad9a050a095c4c31a7d1c6"
+    },
+    {
+      "after": "fs::write(new_filename.as_path(), new_contents.replace('=', \":\")).with_context",
+      "before": "fs::write(new_filename.as_path(), new_contents).with_context",
+      "category": "state_assertion_failure",
+      "id": "F03",
+      "meaning": "The actual rendered-file writer corrupts equal-sign delimiters without changing saved byte lengths, terminal summary or successful exit. Same-invocation exact saved bytes must reject it.",
+      "mutated_source_sha256": "fc896666fe6638200aec5c20808943e830079c0fee08c2f53f628d8c8513c467",
+      "original_source_sha256": "fed16c772a764c1851224fe5d17bbf66aca0c81f75f07cb4d5be3903108f1ea2",
+      "patch_sha256": "bff23fb5550937fb09c7d0fca07103ba4e1c0dc0f199c93ae74840f27881ac19",
+      "path": "src/template.rs",
+      "spec": "normal-project.json",
+      "spec_sha256": "2126792f9a0297f245d361c051c46471cae1bd67dfad9a050a095c4c31a7d1c6"
+    }
+  ],
+  "mandatory_final_native_calibrations": 18,
+  "project": "cargo-generate",
+  "project_credits": 0,
+  "schema_version": 1,
+  "selected_after_freeze_sha256": "d5a6b16c0fadd73f0809d125f20361c780abb97bd5b2dc275191f72285a1c41a"
+}

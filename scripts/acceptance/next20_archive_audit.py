@@ -12,12 +12,14 @@ from readiness_compact_native import compact
 from readiness_archive_controls import cases, definition_sha256
 from readiness_evidence import immutable_json, sha256
 from next20_verify_jrnl import require, source_hashes
+from next20_candidate import contract,SERIES
 
 
-def audit(base,host,control_id=None,run=None,revision=None):
+def audit(base,host,control_id=None,run=None,revision=None,candidate_series='rc5'):
     def load(path):return json.loads(path.read_text(encoding='utf-8-sig'))
     inherited=ROOT/'docs/validation/runner-readiness-ten-project-pass'
-    freeze=load(inherited/'migration-candidate-freeze.json');cell=next(c for c in freeze['cells'] if c['host']==host)
+    freeze,cell,candidate_directory=contract(candidate_series,host)
+    candidate_relative=candidate_directory.relative_to(RAW).as_posix()
     declaration=load(inherited/'archive-control-declaration.json')
     require([(c['id'],definition_sha256(c)) for c in cases()]==[(c['id'],c['definition_sha256']) for c in declaration['cases']],'changed inherited definitions')
     paths=list((base/'product-controls').glob('*/results.json'))
@@ -28,7 +30,7 @@ def audit(base,host,control_id=None,run=None,revision=None):
     definition='scripts/acceptance/readiness_archive_controls.py'
     definition_hashes=source_hashes(revision,definition) if revision else {sha256(ROOT/definition)}
     require(intent['declaration_sha256']==sha256(inherited/'archive-control-declaration.json') and intent['build_sha256']==sha256(root/'build.json') and intent['definition_source_sha256'] in definition_hashes,'changed actual declaration/source/build')
-    installed=load(base/('candidate/'+host+'/installed.json'))
+    installed=load(base/candidate_relative/'installed.json')
     require(installed['binary_sha256']==cell['binary_sha256'] and installed['archive_sha256']==cell['archive_sha256'],'wrong actual archive install')
     planned=[c['id'] for c in cases()]+declaration['recorder_controls']
     require(intent['planned_cases']==planned==[c['case'] for c in result['controls']],'missing/duplicate control cases')
@@ -49,7 +51,7 @@ def audit(base,host,control_id=None,run=None,revision=None):
                 require(files.get(key) in source_hashes(revision,key),'stale native public-control source: '+name)
         if not fixture:require(identity.get('runtime_executables',{}).get('go')==build['compiler_sha256'],'actual prelaunch compiler identity missing/changed')
         if fixture:
-            require(files.get('artifacts/'+NAME+'/candidate/'+host+'/playtestr'+('.exe' if host=='windows' else ''))==cell['binary_sha256'],'actual launched runner differs')
+            require(files.get('artifacts/'+NAME+'/'+candidate_relative+'/playtestr'+('.exe' if host=='windows' else ''))==cell['binary_sha256'],'actual launched runner differs')
         return files,console.read_text(encoding='utf-8-sig')
     build_files,_=command(build['build_attempt'],'archive-controls-fixture-build',0,False)
     fixture_source_hashes=source_hashes(revision,'cmd/fixture/main.go') if revision else {sha256(ROOT/'cmd/fixture/main.go')}
@@ -103,7 +105,7 @@ def audit(base,host,control_id=None,run=None,revision=None):
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--host',choices=['linux','darwin','windows'],required=True)
     parser.add_argument('--packet');parser.add_argument('--control-id');parser.add_argument('--run')
-    parser.add_argument('--generation',type=int);args=parser.parse_args()
+    parser.add_argument('--generation',type=int);parser.add_argument('--candidate-series',choices=SERIES,default='rc5');args=parser.parse_args()
     metadata=None
     if args.run:
         require(args.run.isascii() and args.run.isdecimal() and args.generation is not None,'explicit safe native run/generation required')
@@ -128,7 +130,8 @@ def main():
         else:immutable_json(packet_metadata,metadata)
     base=RAW/args.packet if args.packet else RAW
     base.resolve(strict=True).relative_to(RAW.resolve())
-    result=audit(base,args.host,args.control_id,args.run,metadata['headSha'] if metadata else None);destination=RAW/'product-control-audits'/uuid.uuid4().hex
+    result=audit(base,args.host,args.control_id,args.run,metadata['headSha'] if metadata else None,args.candidate_series);destination=RAW/'product-control-audits'/uuid.uuid4().hex
+    if args.candidate_series!='rc5':result['candidate_series']=args.candidate_series
     if args.run:
         retained=compact(RAW,'product-controls',[args.run],generation=args.generation)
         result.update(run=args.run,revision=metadata['headSha'],generation=args.generation,

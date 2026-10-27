@@ -1,5 +1,6 @@
 """Reexecute inherited public control definitions in the new evidence namespace."""
 import asyncio
+import argparse
 import copy
 import hashlib
 import json
@@ -14,6 +15,7 @@ from adversarial_process import execute
 from next20_check import RAW, ROOT, NextCampaign, owned_environment
 from readiness_archive_controls import cases, definition_sha256, wait_child_gone
 from readiness_evidence import immutable_json, sha256
+from next20_candidate import contract,executable,SERIES
 
 
 class ArchiveControlCampaign(NextCampaign):
@@ -31,12 +33,12 @@ class ArchiveControlCampaign(NextCampaign):
 
 
 async def main():
+    parser=argparse.ArgumentParser();parser.add_argument('--candidate-series',choices=SERIES,default='rc5');args=parser.parse_args()
     inherited=ROOT/'docs/validation/runner-readiness-ten-project-pass'
     declaration=json.loads((inherited/'archive-control-declaration.json').read_text())
-    freeze=json.loads((inherited/'migration-candidate-freeze.json').read_text())
     host={'Linux':'linux','Darwin':'darwin','Windows':'windows'}[platform.system()]
-    cell=next(c for c in freeze['cells'] if c['host']==host)
-    binary=RAW/'candidate'/host/('playtestr.exe' if os.name=='nt' else 'playtestr')
+    freeze,cell,_=contract(args.candidate_series,host)
+    binary=executable(args.candidate_series,host)
     installed=json.loads((binary.parent/'installed.json').read_text())
     if sha256(binary)!=cell['binary_sha256'] or installed['archive_sha256']!=cell['archive_sha256']:
         raise ValueError('Exact frozen archive installation missing')
@@ -64,6 +66,7 @@ async def main():
         from readiness_bootstrap_go import main as bootstrap
         bootstrap(owned=RAW/'toolchain')
         compiler=str(RAW/'toolchain/go/bin'/('go.exe' if os.name=='nt' else 'go'))
+    if args.candidate_series!='rc5':env['GOROOT']=str(Path(compiler).resolve(strict=True).parent.parent)
     immutable_json(root/'compiler-prerequisite.json',dict(installed_probe_attempt=probe['id'] if probe else None,
         installed_go_minor=minor,selected_compiler=str(compiler),selected_compiler_sha256=sha256(compiler),
         owned_sdk_used=minor is None or minor<25))
