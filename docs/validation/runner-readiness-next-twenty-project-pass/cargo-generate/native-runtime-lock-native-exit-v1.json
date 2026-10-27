@@ -1,0 +1,49 @@
+{
+  "cold_scope": "Two fresh hash-verified executable-directory copies, each followed by warm reuse. No OS-cache eviction or physical-machine cold-start claim.",
+  "dependency_hook_review_sha256": "9c1d1ed82b6798b0adfe498ed6b69c3530ba4f20341da6244e78ad2dc7e4af5c",
+  "linux": {
+    "architecture": "amd64",
+    "build_policy": "Fresh exact pinned source and reviewed locked offline ordinary default-feature CLI; actual Rust/Cargo/native C compiler and build hashes recorded per final cell. Recompile the same declared source mutations against that cell baseline toolchain.",
+    "execution_host": "ubuntu-24.04",
+    "native_profile_review_sha256": "b8a2ffc570e08104022dfa79fbd7643b195028b63d6c51dbf12627b50e9cfbee",
+    "preflight_audit_sha256": "2b22db0b9209d7565dfdbe1cae0a099511f5f13fd2c8e1ed84b5e4670e62a1a9"
+  },
+  "lock_sha256": "28c9bf1297d93982cbbb5f4b6dd0d86661850a02515cd3ce66877e78476a6ce9",
+  "runtime_kind": "native",
+  "schema_version": 1,
+  "source_only_unused_dependencies": "Preserve original fetch/review catalogs; runtime/compiler provenance and actual native executables separately audited.",
+  "source_provenance_sha256": "4238a2fc441ce6a618b8df47bf61ea5b715db5c305cd50a3b2a0658bf07f329c",
+  "source_review_sha256": "cd696e0d35908acaed95896ef5ebd0682b09024e36bfdc12678a68ceec036c38",
+  "windows": {
+    "actual_binary_sha256": "a69bf4f976fbb20282212143420379a25ca08a19f065fb015ca92928fbd635db",
+    "architecture": "amd64",
+    "cargo_sha256": "ddfbad20b31b918d3439d070945ec59bbfe037a6ec0ab5b584459e69c8b37d1b",
+    "compiler_sha256": "cf79cfd77b0a144c56a0a6af6bf10bcdf095a73718cd4bf2b9d4fe2d2cbded55",
+    "execution_host": "Windows-11-10.0.26300-SP0",
+    "final_calibration": "Fresh final-archive baseline/mutated/restored executions using these exact real compiled same-compiler/source variants; no old probe outcome transfer.",
+    "source_build_sha256": "1a9344170d22f68aeb9a5ac37353a05a1700e3cef7436c427042f5e9ca893c4b",
+    "variants": [
+      {
+        "actual_binary_sha256": "b0872b5cbc293916c7281e6b2a5d819b95fce62aa531db11eb8bcd721cf279ca",
+        "compile_receipt": "artifacts/runner-readiness-next-twenty-project-pass/cargo-generate/source-fault-development/v1/F01-compiled.json",
+        "compile_receipt_sha256": "1b38570455e776e61adf13b369496bc59bf1fffd590ac1cdcdd9a1bf45f5c984",
+        "fault": "F01",
+        "original_compile_attempt": "57317c2b17454c3f83102ec39da4e563"
+      },
+      {
+        "actual_binary_sha256": "aa95aff5ee0a5ca884a564ba7449e7b5ea1599192e7795ae30ca8f270b147228",
+        "compile_receipt": "artifacts/runner-readiness-next-twenty-project-pass/cargo-generate/source-fault-development/v1/F02-compiled.json",
+        "compile_receipt_sha256": "ec1927e73da7c1f34148963be586cbddd9f2f19484edcc246e935f84915e2c6c",
+        "fault": "F02",
+        "original_compile_attempt": "0b98c48a280940e1a6cbd3bd5b6b91d3"
+      },
+      {
+        "actual_binary_sha256": "f42e4b8a4a94f36b7fe8849066cebc9faa6f4a2f477ee45d7abcef72e65cf978",
+        "compile_receipt": "artifacts/runner-readiness-next-twenty-project-pass/cargo-generate/source-fault-development/v1/F03-compiled.json",
+        "compile_receipt_sha256": "bb3483337cd7734fcc14c368eaac2ac108e382c82c293f82554faeb475280a27",
+        "fault": "F03",
+        "original_compile_attempt": "76df5231a2c84895b69412207c3c4361"
+      }
+    ]
+  }
+}

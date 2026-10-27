@@ -1,0 +1,102 @@
+{
+  "batches": [
+    {
+      "id": 0,
+      "name": "ordinary-cold-1",
+      "runtime": "new verified owned app-pair-native-exit-v1-0; first logical use"
+    },
+    {
+      "id": 1,
+      "name": "ordinary-warm-1",
+      "runtime": "reuse exact app-pair-native-exit-v1-0"
+    },
+    {
+      "id": 2,
+      "name": "ordinary-cold-2",
+      "runtime": "new verified owned app-pair-native-exit-v1-1; first logical use"
+    },
+    {
+      "id": 3,
+      "name": "ordinary-warm-2",
+      "runtime": "reuse exact app-pair-native-exit-v1-1"
+    },
+    {
+      "change": "initial width +10, height +2; all reviewed saved bytes unchanged",
+      "id": 4,
+      "name": "viewport"
+    },
+    {
+      "change": "package relocated to relative path containing caf\u00e9 \u96ea; explicit relative executable rebinding",
+      "id": 5,
+      "name": "spaced-unicode-path"
+    },
+    {
+      "change": "original supported actions and positive checkpoints",
+      "id": 6,
+      "name": "ordinary-input-readiness"
+    },
+    {
+      "change": "split printable text into three-codepoint groups; key/control groups remain atomic",
+      "id": 7,
+      "name": "segmented-printable-input"
+    },
+    {
+      "change": "owned 2-second 8-MiB SHA256 worker during each invocation",
+      "id": 8,
+      "name": "bounded-contention-1"
+    },
+    {
+      "change": "second distinct execution under the same bounded owned worker schedule",
+      "id": 9,
+      "name": "bounded-contention-2"
+    },
+    {
+      "change": "N01 viewport height 12; remaining dedicated edge boundaries preserved unchanged",
+      "id": 10,
+      "name": "highest-risk-small-completion"
+    },
+    {
+      "change": "explicit 2000ms startup limit; ordinary step/run budgets unchanged",
+      "id": 11,
+      "name": "highest-risk-startup-boundary"
+    }
+  ],
+  "calibration_required": 18,
+  "candidate_freeze_sha256": "24ce7238532b1b6e581142ee98e17a7fe18ea475ec83176e7051986353c80da2",
+  "candidate_series": "native-exit-v1",
+  "canonical_test_freeze_sha256": "d5a6b16c0fadd73f0809d125f20361c780abb97bd5b2dc275191f72285a1c41a",
+  "cold_scope": "Two fresh hash-verified executable-directory copies, each followed by warm reuse. No OS-cache eviction or physical-machine cold-start claim.",
+  "edge": 12,
+  "execution_budget": {
+    "automatic_harness_minutes_ceiling": 15,
+    "estimated_linux_minutes": 18,
+    "linux_acquisition_and_build_ceiling_seconds": 1200,
+    "linux_job_minutes_ceiling": 60,
+    "linux_standard_hosted_jobs": 1,
+    "maximum_simultaneous_target_hosts": 2,
+    "queue_policy": "Inspect at15 queued minutes; one replacement at30 only after termination/completion confirmed. No paid runners or budget changes.",
+    "windows_calibration_command_ceiling_seconds": 600,
+    "windows_native": "Available actual local Windows11 amd64, one scenario at a time; exact installed candidate and existing reviewed real source-built target.",
+    "windows_ordinary_command_ceiling_seconds": 1200
+  },
+  "failure_policy": "No per-case retry. Any failed/partial ordinary batch rejects its affected native series. Preserve it and declare a replacement after diagnosis; do not restart only a failed repetition.",
+  "fault_declaration_sha256": "154633ab0d024cae2d259989b566dda6c96fcf166273019d0b92db2aed0f3dff",
+  "first_linux_preflight": "Original19/20 snapshot failure preserved; reviewed exact emoji profile replacement20/0 passed. Neither preflight supplies final repetition or calibration credit.",
+  "hosts": [
+    "linux",
+    "windows"
+  ],
+  "native_runtime_lock_sha256": "a315670d9ed1d1bcbf064388fffa94c6c433888c20a618dbd60d531ef4b133c9",
+  "normal": 8,
+  "ordinary_required": 480,
+  "project": "cargo-generate",
+  "project_admissions": 0,
+  "real_source_faults": 3,
+  "repetitions_per_cell": 12,
+  "revision": 1,
+  "runtime_kind": "native",
+  "scenarios_per_cell": 20,
+  "schema_version": 1,
+  "transfer_scope": "Source, failures, three mutations and platform emoji behavior already exposed. No untouched-source, human beginner or first-attempt claim.",
+  "windows_profile_sha256": "07dfff626770423e8419a715a49790e351ee9aaaf826ba794ff1eb41fa270e64"
+}

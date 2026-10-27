@@ -1,5 +1,6 @@
 """Audit and retain the original19/20 Linux preflight without granting qualification."""
 import asyncio
+import argparse
 import hashlib
 import json
 import tarfile
@@ -12,15 +13,18 @@ from readiness_evidence import immutable_json,sha256
 
 
 async def main():
-    run='40462439055';revision='bb1fa7aa5bf847de74327ca077e31b7ab87f631e'
+    parser=argparse.ArgumentParser();parser.add_argument('--reviewed-replacement',action='store_true');args=parser.parse_args()
+    run='40467049451' if args.reviewed_replacement else '40462439055'
+    revision='22bb0eb07d226af578496bb97aa0cef15f902279' if args.reviewed_replacement else 'bb1fa7aa5bf847de74327ca077e31b7ab87f631e'
     root=RAW/'native'/run;packet=root/'next20-cargo-linux-preflight';project='cargo-generate'
     if len(list(root.iterdir()))!=1:raise ValueError('audit exactly one original retrieved packet')
     observed=await execute(['gh','run','view',run,'--repo','Wyrcan-io/playtestr','--json','status,conclusion,headSha,jobs'],
         'core','cargo-linux-preflight-original-provider',cwd=ROOT,env=owned_environment(),timeout=60,campaign=NextCampaign())
     provider=json.loads(observed['output'])
-    if provider['headSha']!=revision or provider['status']!='completed' or provider['conclusion']!='failure' or len(provider['jobs'])!=1:raise ValueError('wrong original provider outcome/source')
+    expected_outcome='success' if args.reviewed_replacement else 'failure'
+    if provider['headSha']!=revision or provider['status']!='completed' or provider['conclusion']!=expected_outcome or len(provider['jobs'])!=1:raise ValueError('wrong original provider outcome/source')
     steps={s['name']:s['conclusion'] for s in provider['jobs'][0]['steps']}
-    if steps.get('Acquire, verify reviewed dependencies and compile ordinary CLI within twenty minutes')!='success' or steps.get('Retain exact actual compiled binary and provenance')!='success' or steps.get('Execute all twenty development scenarios on native Linux')!='failure':raise ValueError('original native step outcomes differ')
+    if steps.get('Acquire, verify reviewed dependencies and compile ordinary CLI within twenty minutes')!='success' or steps.get('Retain exact actual compiled binary and provenance')!='success' or steps.get('Execute all twenty development scenarios on native Linux')!=expected_outcome:raise ValueError('original native step outcomes differ')
     target=packet/'active'/project;build=json.loads((target/'build.json').read_text());runtime=json.loads((target/'runtime.json').read_text())
     owner=json.loads((target/'task-owned.json').read_text());prefix='artifacts/'+NAME+'/'
     if owner['workspace']!='/home/runner/work/playtestr/playtestr' or owner['pin']!=json.loads((DOC/project/'source-review.json').read_text())['pin']:raise ValueError('wrong native source owner/pin')
@@ -79,21 +83,25 @@ async def main():
             if member.name=='cargo-generate' and (header[:5]!=b'\x7fELF\x02' or int.from_bytes(header[18:20],'little')!=62 or record['sha256']!=build['binary_sha256']):raise ValueError('packed target is not exact native Linuxamd64 ELF')
             actual_binary[member.name]=record
     if set(actual_binary)!=set(binary_index['files']):raise ValueError('incomplete retained native binary')
+    if args.reviewed_replacement:
+        review=json.loads((DOC/project/'native-linux-profile-review-v2.json').read_text())
+        if sha256(packet/project/'host-contracts/snapshots/normal-project.rows.json')!=review['native_snapshot_sha256']:raise ValueError('actual native snapshot differs from the reviewed exact profile')
     summaries=list((packet/project/'development').glob('*/summary.json'))
     if len(summaries)!=1:raise ValueError('ambiguous original native development series')
     summary=json.loads(summaries[0].read_text());seen=set();results=[]
-    if summary['passed']!=19 or summary['failed']!=1 or len(summary['results'])!=20:raise ValueError('original19/20 outcomes differ')
+    passed=20 if args.reviewed_replacement else 19;failed=0 if args.reviewed_replacement else 1
+    if summary['passed']!=passed or summary['failed']!=failed or len(summary['results'])!=20:raise ValueError('original complete native outcomes differ')
     for case in summary['results']:
         report=packet/case['report'].removeprefix(prefix);data=json.loads(report.read_text());row=data['results'][0]
         if sha256(report)!=case['report_sha256'] or data['runner_version']!='v0.4.0-rc.6' or row['invocation_id'] in seen or not row['cleanup']['confirmed_exited'] or not row['workspace']['cleaned']:raise ValueError('report/version/invocation/target-workspace cleanup differs')
-        seen.add(row['invocation_id']);expected=1 if case['case']=='N01' else 0;rows,base=command(case['attempt'],expected)
+        seen.add(row['invocation_id']);expected=1 if case['case']=='N01' and not args.reviewed_replacement else 0;rows,base=command(case['attempt'],expected)
         plan=json.loads((summaries[0].parent/(case['case']+'.planned.json')).read_text());spec=packet/plan['spec'].removeprefix(prefix)
         if sha256(spec)!=case['spec_sha256'] or sha256(spec)!=plan['spec_sha256'] or plan['runner_sha256']!=candidate['binary_sha256'] or plan['source_build_sha256']!=sha256(target/'build.json'):raise ValueError('actual native spec/build/runner binding differs')
         ref=rows['identified']['identity'];wrapped=json.loads((packet/ref['manifest']).read_text());catalog_ref=wrapped['target_catalog'];catalog=packet/catalog_ref['manifest']
         if sha256(catalog)!=catalog_ref['sha256']:raise ValueError('original native target catalog changed')
         files=json.loads(catalog.read_text())['files']
         if files.get(prefix+'active/'+project+'/bin/cargo-generate')!=build['binary_sha256']:raise ValueError('actually launched target differs from retained compiled binary')
-        if case['case']=='N01':
+        if case['case']=='N01' and not args.reviewed_replacement:
             if row['failure']['category']!='snapshot_mismatch':raise ValueError('first native failure is not preserved snapshot mismatch')
         elif row['status']!='passed' or not all(s['status']=='passed' for s in row['steps']):raise ValueError('missing original positive native steps')
         results.append(dict(case=case['case'],attempt=case['attempt'],status=row['status'],category=row.get('failure',{}).get('category'),report_sha256=sha256(report)))
@@ -101,13 +109,14 @@ async def main():
     receipt=dict(schema_version=1,run=run,qualification_revision=revision,source_pin=owner['pin'],actual_source_files=len(source_members),
         native_source_build=True,target_binary_sha256=build['binary_sha256'],binary_archive_sha256=sha256(binary_archive),
         candidate_archive_sha256=candidate['archive_sha256'],candidate_binary_sha256=candidate['binary_sha256'],results=results,
-        passed=19,failed=1,complete_native_cell_credits=0,final_ordinary_credits=0,project_credits=0,
-        scope='Original failed preflight preserved; real native build and actual19 positive cases are historical observations, not a complete native qualification. Source/runtime filesystem deletion not claimed.')
-    immutable_json(root/'native-preflight-audit.json',receipt);immutable_json(DOC/project/'native-linux-preflight-first-audit.json',receipt)
-    compact(RAW,project,[run],16*1024**2,generation=1)
-    await execute(['powershell.exe','-NoProfile','-ExecutionPolicy','Bypass','-File',ROOT/'scripts/acceptance/next20_remove_native.ps1','-Project',project,'-Generation','1'],
+        passed=passed,failed=failed,complete_native_cell_credits=0,final_ordinary_credits=0,project_credits=0,
+        scope='Reviewed replacement20/20 native development preflight; final12-repeat series/calibrations and checked source/runtime deletion remain open.' if args.reviewed_replacement else 'Original failed preflight preserved; real native build and actual19 positive cases are historical observations, not a complete native qualification. Source/runtime filesystem deletion not claimed.')
+    immutable_json(root/'native-preflight-audit.json',receipt);immutable_json(DOC/project/('native-linux-preflight-reviewed-audit.json' if args.reviewed_replacement else 'native-linux-preflight-first-audit.json'),receipt)
+    generation=2 if args.reviewed_replacement else 1
+    compact(RAW,project,[run],16*1024**2,generation=generation)
+    await execute(['powershell.exe','-NoProfile','-ExecutionPolicy','Bypass','-File',ROOT/'scripts/acceptance/next20_remove_native.ps1','-Project',project,'-Generation',str(generation)],
         'core','remove-audited-first-cargo-linux-preflight',cwd=ROOT,env=owned_environment(),timeout=180,campaign=NextCampaign())
-    print('Audited/retained original Linux native build,19pass/1snapshot failure and all actual target cleanups; zero final/admission credit.')
+    print('Audited/retained actual Linux native build and development outcomes:',passed,'passed,',failed,'failed; zero final/admission credit.')
 
 
 if __name__=='__main__':asyncio.run(main())

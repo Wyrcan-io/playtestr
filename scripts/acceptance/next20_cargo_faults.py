@@ -38,7 +38,9 @@ class NativeFaultCampaign(NextCampaign):
 
 
 async def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--native-final',action='store_true');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--native-final',action='store_true')
+    parser.add_argument('--reuse-compiled',action='store_true');args=parser.parse_args()
+    if args.reuse_compiled and not args.native_final:raise ValueError('compiled-artifact reuse must be declared as a fresh final calibration window')
     phase='final-archive' if args.native_final else 'development'
     project='cargo-generate';package=DOC/project;target=RAW/'active'/project;source=target/'src'
     freeze_path=package/'development-test-freeze.json';freeze=json.loads(freeze_path.read_text())
@@ -74,13 +76,18 @@ async def main():
             if sha256(target/name)!=digest:raise ValueError('reviewed dependency source changed')
         for name,row in dependencies['files'].items():
             if sha256(target/name)!=row['sha256']:raise ValueError('reviewed dependency archive changed')
-    contracts();pristine();dependency_bytes()
+    contracts();pristine()
+    if not args.reuse_compiled:dependency_bytes()
     compiler=Path(build['compiler_path']);cargo=Path(build['cargo_path'])
-    if sha256(compiler)!=build['compiler_sha256'] or sha256(cargo)!=build['cargo_sha256']:raise ValueError('read-only compiler changed')
+    if not args.reuse_compiled and (sha256(compiler)!=build['compiler_sha256'] or sha256(cargo)!=build['cargo_sha256']):raise ValueError('read-only compiler changed')
     env=environment(target);env.update(RUSTC=str(compiler),RUSTDOC=str(compiler.with_name('rustdoc.exe' if os.name=='nt' else 'rustdoc')),
         CARGO_NET_OFFLINE='true',SOURCE_DATE_EPOCH='1793030400')
     env['PATH']=str(compiler.parent)+os.pathsep+env['PATH']
-    if os.name=='nt':
+    if os.name!='nt' and not args.reuse_compiled and 'native_c_compiler_sha256' in build:
+        cc_path=target/'native-c-compiler.json';cc=json.loads(cc_path.read_text())
+        if sha256(cc_path)!=build['native_c_compiler_sha256'] or sha256(Path(cc['path']))!=cc['sha256']:raise ValueError('native calibration C compiler differs from baseline build')
+        env['CC']=cc['path']
+    if os.name=='nt' and not args.reuse_compiled:
         env['CARGO_HOME']=str(materialize_short_cache(target,dependencies,catalog))
         for key in ['CARGO_HOME','CARGO_TARGET_DIR','TEMP','TMP','TMPDIR']:env[key]=short_owned_path(env[key])
     command=[cargo,'rustc','--locked','--offline','--release','--target',build['native_triple'],'--bin','cargo-generate']
@@ -131,30 +138,44 @@ async def main():
         try:
             path.write_bytes(original.replace(fault['before'].encode(),fault['after'].encode()))
             if sha256(path)!=fault['mutated_source_sha256']:raise ValueError('actual upstream mutation differs')
-            compiled=await compile_variant(fault)
             expected=dict(review['reviewed_inputs']);expected[fault['path']]=fault['mutated_source_sha256']
-            if any(sha256(source/name)!=digest for name,digest in expected.items()):raise ValueError('actual compiled source differs from the one declared mutation')
-            output=target/'cargo-target'/build['native_triple']/'release'/binary.name
-            variant=variants/fault['id']/binary.name;variant.parent.mkdir();shutil.copyfile(output,variant)
-            if sha256(variant)!=sha256(output) or sha256(variant)==build['binary_sha256']:raise ValueError('fault did not produce a distinct actual executable')
-            variant_receipt=root/(fault['id']+'-compiled.json')
-            immutable_json(variant_receipt,dict(schema_version=1,fault=fault['id'],compile_attempt=compiled['id'],command=list(map(str,command)),
-                binary=variant.relative_to(ROOT).as_posix(),binary_sha256=sha256(variant),binary_bytes=variant.stat().st_size,
-                compiler_sha256=sha256(compiler),cargo_sha256=sha256(cargo),pristine_build_sha256=sha256(build_path),
-                fault_declaration_sha256=sha256(declaration_path),source_inputs={
-                    (source/name).relative_to(ROOT).as_posix():sha256(source/name) for name in review['reviewed_inputs']},
-                dependency_source_catalog_sha256=sha256(target/'dependency-source-catalog.json'),
-                dependency_fetch_receipt_sha256=sha256(target/'dependency-fetch-review.json')))
+            if args.reuse_compiled:
+                variant_receipt=RAW/project/'source-fault-development/v1'/(fault['id']+'-compiled.json')
+                recorded=json.loads(variant_receipt.read_text());variant=ROOT/recorded['binary']
+                variant.resolve(strict=True).relative_to(target.resolve(strict=True))
+                if recorded['compiler_sha256']!=build['compiler_sha256'] or recorded['cargo_sha256']!=build['cargo_sha256'] or recorded['pristine_build_sha256']!=sha256(build_path) or recorded['fault_declaration_sha256']!=sha256(declaration_path) or sha256(variant)!=recorded['binary_sha256']:
+                    raise ValueError('reused source variant is not the exact recorded same-compiler/base-build artifact')
+                if any(recorded['source_inputs'].get((source/name).relative_to(ROOT).as_posix())!=digest for name,digest in expected.items()):raise ValueError('reused variant does not bind the one declared source mutation')
+                immutable_json(root/(fault['id']+'-reused-compile.json'),dict(original_compile_receipt=variant_receipt.relative_to(ROOT).as_posix(),
+                    original_compile_receipt_sha256=sha256(variant_receipt),actual_binary_sha256=sha256(variant),new_compile=False,new_calibration_execution=True))
+            else:
+                compiled=await compile_variant(fault)
+                if any(sha256(source/name)!=digest for name,digest in expected.items()):raise ValueError('actual compiled source differs from the one declared mutation')
+                output=target/'cargo-target'/build['native_triple']/'release'/binary.name
+                variant=variants/fault['id']/binary.name;variant.parent.mkdir();shutil.copyfile(output,variant)
+                if sha256(variant)!=sha256(output) or sha256(variant)==build['binary_sha256']:raise ValueError('fault did not produce a distinct actual executable')
+                variant_receipt=root/(fault['id']+'-compiled.json')
+                immutable_json(variant_receipt,dict(schema_version=1,fault=fault['id'],compile_attempt=compiled['id'],command=list(map(str,command)),
+                    binary=variant.relative_to(ROOT).as_posix(),binary_sha256=sha256(variant),binary_bytes=variant.stat().st_size,
+                    compiler_sha256=sha256(compiler),cargo_sha256=sha256(cargo),pristine_build_sha256=sha256(build_path),
+                    fault_declaration_sha256=sha256(declaration_path),source_inputs={
+                        (source/name).relative_to(ROOT).as_posix():sha256(source/name) for name in review['reviewed_inputs']},
+                    dependency_source_catalog_sha256=sha256(target/'dependency-source-catalog.json'),
+                    dependency_fetch_receipt_sha256=sha256(target/'dependency-fetch-review.json')))
             shutil.copyfile(variant,binary);rejected=await run_case(fault,'mutated',variant_receipt)
         finally:
             path.write_bytes(original);shutil.copyfile(original_binary,binary);pristine()
         restored=await run_case(fault,'restored');observations.append(dict(fault=fault['id'],baseline=baseline,mutated=rejected,restored=restored,
             compiled_receipt=variant_receipt.relative_to(ROOT).as_posix(),compiled_receipt_sha256=sha256(variant_receipt)))
         immutable_json(root/(fault['id']+'-complete.json'),observations[-1]);print(fault['id'],'baseline passed / compiled mutation rejected / exact restoration passed',flush=True)
-    contracts();pristine();dependency_bytes()
-    if os.name=='nt':materialize_short_cache(target,dependencies,catalog)
+    contracts();pristine()
+    if not args.reuse_compiled:
+        dependency_bytes()
+        if os.name=='nt':materialize_short_cache(target,dependencies,catalog)
     immutable_json(root/'summary.json',dict(schema_version=1,observations=observations,actual_source_faults=3,
         phase=phase,exploratory_executions=0 if args.native_final else 9,
+        reused_exact_compiled_variants=args.reuse_compiled,new_compiles=0 if args.reuse_compiled else 3,
+        dependency_scope='No registry/cache used by direct execution of exact already-compiled variants; original compile provenance retained, no new source-cache byte-check claim.' if args.reuse_compiled else 'Reviewed original and actual native dependency cache bytes verified before/after compilation.',
         final_native_calibration_executions=9 if args.native_final else 0,mandatory_final_native_calibration_credit=0,project_credits=0,
         scope='Actual native calibration triples, pending independent final audit.' if args.native_final else 'Local real source-fault exploration. Exact native final series must repeat the declared calibration triples. Original runtime/build receipts and source/executable bytes restored.'))
     print('Three real source mutations detected by unchanged contracts; pristine source and executable restored.')

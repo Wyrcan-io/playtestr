@@ -1769,3 +1769,51 @@ and hashes unchanged. New replacement-public-controls-readback.json is immutable
 Reviewed-profile workflow lint2fc33d40d5544fa398ee9cdf96da3e05 and146-helper syntax
 9199907f145140d78499b345898284de passed. Next commit/push the reviewed profile,
 wait/retain automatic harness, and dispatch the single replacement native preflight.
+
+### Reviewed Linux20/0 audited and exact final schedule frozen
+
+Reviewed-profile commit22bb0eb07d226af578496bb97aa0cef15f902279 was pushed.
+Automatic harness40466603338 succeeded (confirmation2829a23cb4c8453094a9155863f84e5e).
+Linux harness generation53 collected/checked-removed6341d518f1484bef80ca2bbeb6ae09a6;
+Mac/Windows generations54/55 remain pending collection. Replacement native dispatch
+8d9b0cf1731c427fac6071900d40f58b started40467049451/job122064878197. It succeeded
+07:25:42..07:29:11UTC: full original source/review/build and all20 native cases passed.
+Source/build185s, complete job209s, comfortably within original allocation (first
+286s plus replacement209s; conservative ceilings5+30=35min). Same target ELF SHA
+daa4dd816b3a8fc59b6d99822637d4a41cb787e9c95805588b249b0cfd954803 as first run;
+archive metadata IDs differ, so compiled-binary XZ SHA differs. No Playtestr archive
+rebuilt. Retrievedd1af48b19f6b4c948f309ae80d65df44; independent source/ELF/archive/
+all20-positive spec/report/runtime/cleanup audit29a2ec9fbcba49f1a6fbfd721b823fb6
+retained cargo native generation2 and checked-removed expansion. Still zero final
+cell/repetition/calibration/admission credit; original19/20 remains rejected.
+
+Actual compile-log source-retention plan077a2572ae584e92ab91487c87d0003f identifies
+341/369 registry archives,45,367,455 compressed bytes, in conservative union of
+preserved actual Windows compile attempts and successful native Linux compile.
+Other28 archives are source-only fetch/review history. No deletion by this plan.
+This small reduction means final binary/source corpus retention still needs measured
+lossless compression/deduplication within64MiB. Do not remove first reports/screens/
+source patches or invent retention compliance; RAW/r remains owned and present.
+
+Frozen final schedule6910248fd57140989acb8dc5343bf7d5 declares480 ordinary and18
+new final-archive calibration executions. Windows uses the actually available local
+Windows11 amd64 device, exact installed rc.6 binary, original real Rust1.97 compiled
+target and exact already compiled F01-F03 variants. Fresh final calibration triples
+must execute; old9 exploratory outcomes do not transfer. Variant reuse verifies
+same pristine build/compiler/cargo/source patch metadata and actual binary hashes;
+it claims no new compile/cache-read coverage. Linux uses one standard hosted native
+job/fresh reviewed build and source mutations with the same cell toolchain. This
+avoids an unnecessary second Windows toolchain/corpus and respects native Windows
+availability; no architecture/cross-compile/WSL substitution. Twelve frozen batch
+variants copied from the established schedule (cold/warm logical runtime copies,
+viewport/path, input/readiness, bounded contention, high-risk boundaries); all
+native fixtures, state bytes and reviewed snapshot variants remain fixed.
+Final helper prelaunch binds candidate/freeze/runtime-lock/fault subjects and the
+concrete local Windows profile. New --reuse-compiled native-final mode reexecutes
+the real variants with final-archive phase, preserving immutable old compile
+receipts and exact source/executable restoration. Linux C compiler selection/hash
+must match baseline for fresh mutation compilation. Final helper syntax
+03cabead5825434c8d70ac56b09d1d6a passed. Next commit these concrete final helpers,
+execute local Windows240 ordinary plus9 fresh calibrations, and implement/dispatch
+the Linux counterpart and audited bounded source/binary retention/cleanup. Then
+finish cargo admission and continue all remaining projects/requalification gates.
