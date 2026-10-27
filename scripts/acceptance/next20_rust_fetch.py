@@ -75,7 +75,7 @@ def materialize_short_cache(target,dependencies,catalog):
 
 async def main():
     parser=argparse.ArgumentParser();parser.add_argument('project',choices=['cargo-generate'])
-    args=parser.parse_args();target=RAW/'active'/args.project
+    parser.add_argument('--native-host',action='store_true');args=parser.parse_args();target=RAW/'active'/args.project
     if (target/'dependency-fetch-review.json').exists():raise ValueError('refuse replacing dependency receipt')
     import json
     owner=json.loads((target/'task-owned.json').read_text())
@@ -86,10 +86,12 @@ async def main():
     registry='registry+https://github.com/rust-lang/crates.io-index'
     if any(p.get('source') not in {None,registry} for p in packages):raise ValueError('unreviewed dependency source')
     expected={p['name']+'-'+p['version']+'.crate':p['checksum'] for p in packages if p.get('source')==registry}
-    if os.name!='nt':raise ValueError('local fetch currently uses installed Windows prerequisites')
-    tools=Path.home()/'.rustup/toolchains/stable-x86_64-pc-windows-msvc/bin'
-    compiler=tools/'rustc.exe';cargo=tools/'cargo.exe'
-    env=environment(target);env.update(RUSTC=str(compiler),RUSTDOC=str(tools/'rustdoc.exe'))
+    if os.name!='nt' and not args.native_host:raise ValueError('explicit native-host fetch required outside Windows')
+    triple='x86_64-pc-windows-msvc' if os.name=='nt' else 'x86_64-unknown-linux-gnu'
+    tools=Path.home()/('.rustup/toolchains/stable-'+triple+'/bin');suffix='.exe' if os.name=='nt' else ''
+    compiler=tools/('rustc'+suffix);cargo=tools/('cargo'+suffix)
+    if not compiler.is_file() or not cargo.is_file():raise ValueError('installed read-only stable native Rust prerequisite missing')
+    env=environment(target);env.update(RUSTC=str(compiler),RUSTDOC=str(tools/('rustdoc'+suffix)))
     env['PATH']=str(tools)+os.pathsep+env['PATH']
     attempts=[];samples=[]
     async def run(argv,label,timeout):
@@ -108,7 +110,10 @@ async def main():
                 try:await task
                 except asyncio.CancelledError:pass
     try:
-        for tool in [compiler,cargo]:await run([tool,'-Vv'],'rust-read-only-prerequisite-'+tool.stem,30)
+        for tool in [compiler,cargo]:
+            probe=await run([tool,'-Vv'],'rust-read-only-prerequisite-'+tool.stem,30)
+            if args.native_host and tool==compiler and ('host: '+triple) not in probe['output'].splitlines():
+                raise ValueError('installed Rust compiler is not native for this declared host')
         await run([cargo,'fetch','--locked','--manifest-path',source/'Cargo.toml',
             '--target','x86_64-pc-windows-msvc','--target','x86_64-unknown-linux-gnu'],
             'rust-owned-locked-source-fetch',600)

@@ -11,8 +11,9 @@ from readiness_evidence import immutable_json,sha256
 from next20_candidate import executable,SERIES
 
 
-async def main(project='jrnl',candidate_series='rc5'):
-    package=DOC/project;target=RAW/'active'/project;campaign=NextCampaign()
+async def main(project='jrnl',candidate_series='rc5',host_profile=False):
+    package=RAW/project/'host-contracts' if host_profile else DOC/project
+    target=RAW/'active'/project;campaign=NextCampaign()
     declaration=json.loads((package/'scenarios.json').read_text())
     env=environment(target)
     installed=json.loads((target/'installed-inventory.json').read_text());inventory=installed['files']
@@ -72,7 +73,7 @@ async def main(project='jrnl',candidate_series='rc5'):
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('--project',default='jrnl')
-    parser.add_argument('--candidate-series',choices=SERIES,default='rc5');args=parser.parse_args()
+    parser.add_argument('--candidate-series',choices=SERIES,default='rc5');parser.add_argument('--host-profile',action='store_true');args=parser.parse_args()
     if not (DOC/args.project/'source-provenance.json').is_file() or '/' in args.project or '\\' in args.project:
         raise ValueError('undeclared project')
-    asyncio.run(main(args.project,args.candidate_series))
+    asyncio.run(main(args.project,args.candidate_series,args.host_profile))

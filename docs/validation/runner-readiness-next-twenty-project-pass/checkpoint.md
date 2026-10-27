@@ -1615,3 +1615,99 @@ native-exit-v1. Configuration is not105 successful executions. Actionlint passed
 302cf85d1ca14a3eaa98cf9f7805c476. Remaining cargo faults/maintenance/native series,
 14 historical project requalifications, remaining15 new apps and global closure
 are still open. Current rc.6 project admissions0; continue fully.
+
+### Source faults completed and105 rc.6 public controls independently audited
+
+Candidate freeze, cargo positive contracts and source-fault declarations/helpers
+were pushed in83f8950c9b512da8e19b88ef502dda39d6369f9f. Automatic harness40428155994
+passed all23 controls on all hosts. Retained/checked-removed harness generations
+47Linux627ac7c6d9614bf3922bf3422eec2c12,48Macbb594003ca6d49758d2890b9254090b0,
+49Windows2c2caab028094acea7edc21e62824ad0. Prerequisite completion
+a6b7fbb9b6a04ffd9a88b5c35e9a179e preceded public-control dispatch
+9c8a7e2edaf24be1bf7a0ab2e67172fc/run40428498259 at83f8950c.
+Provider success8ec971e86f0041518bc8c463ed3ae1ca confirms35 controls on each host
+through exact frozen rc.6 archives. Independent audits:
+Linuxc1cd89c985304ef6a6f995fe749f61c2/product-controls generation7, removal
+ed6940a4d3fa4d08a0049facc3e957f0; Mac5f913f6b7bc44e2190cdd6d88cc97f6e/generation8,
+removala926ca9ff9ff42c6ac560b83395c93fd; Windowsa81c02abdbf343da986c12faaaf5b64c/
+generation9, removal75eb3ba00c1745de9024c06ba49a30e2. All105 freshly passed and
+independently audited; zero new application/unique whole-control breadth credit.
+Auditor additionally binds explicit candidate-selector helper for new series.
+First Linux removal tool request was rejected by approval-review quota before
+execution; user's continue restored access and the same authorized action passed.
+No question about quota was asked. No expanded native packet remains.
+
+Real Rust source-fault exploration71641dea7cc64a4bae348313e4917ebb completed all3
+compiled source mutations and9 baseline/mutated/restored probes. Each was caught
+for its declared category; F03's terminal/exit assertions passed before same-run
+saved bytes rejected corruption. Source and original executable restored exactly,
+immutable pristine runtime/build receipts unchanged, original and actual short
+dependency caches checked before/after. First compile57317c2b17454c3f83102ec39da4e563
+took156.703s; initial16k-file cache verification was slow but bounded and made I/O
+progress. Summary RAW/cargo-generate/source-fault-development/v1/summary.json is
+complete. These are9 exploratory executions, zero mandatory final-native calibration
+credit. Variant binaries remain task-owned under active/cargo-generate/fault-builds/v1;
+preserve them until exact-byte retention/cleanup. No source mutation remains active.
+Next: cargo actual-fault HTML diagnosis, selected/cancelled maintenance, suffix
+rerecord and relocation; implement/run native Linux build/profile and12 repetitions
+per native cell plus final calibration triples, independently audit and clean up.
+Then continue remaining projects and14 historical current-candidate requalifications.
+
+### Cargo maintenance complete; bounded native Linux preflight prepared
+
+First maintenance helper b1e2c4868d0f424e8b06d77cc1761d97 failed its HTML export
+because the original source-fault probe used absolute artifact paths. Actual report
+command1d1ec0ac8e7f46bbb7cbff50495b22d6 correctly rejected URI/absolute evidence as
+documented; no HTML-reader relaxation or original-report rewrite. Corrected helper
+captured an additional real F03 compiled mutation with relative report/artifact
+arguments, exact unchanged canonical test, variant/source provenance and immediate
+source/executable restoration. Maintenance bc37973de47f4ca7a5db1e864062e8dc passed:
+actual-fault HTML diagnosis, restored recovery, selected state14 update only,
+cancelled update preserving approved spec/snapshot bytes, owner suffix rerecord
+Ada->Grace with independent profile/README bytes, and identical-byte Unicode
+relocation. Raw journey maintenance-38db8dec0d474f7c9f8eda890ec39c1e/journey.json.
+Canonical105 frozen inputs unchanged; no beginner/first-attempt claim or final credit.
+Local Windows native contract profile e3c820eacd1a4fc69e1f6d2be84a3b32 prepared20
+cases (no execution credit). Storage63be533ef246412ebd5ea431ea85d117 passed:
+newraw2,814,478,384; combined4,723,186,956; combinedretained1,733,776,903;
+cargo remains sole active local target. All real source-fault processes are complete.
+
+Linux native adapter is prepared but unexecuted. Fresh source readback requires
+pre-build/pre-execution state and all canonical upstream files. Source-only Cargo
+fetch identifies read-only native stable Rust paths, verbose versions/hashes and
+native compiler host; native hook readback reconstructs every archive member and
+matches canonical locked licenses and all49 hook bytes. Build remains locked/
+offline/default-feature/two-job with owned homes/cache/temp; Linux identifies and
+explicitly selects the read-only native C compiler. No global SDK install.
+Native profile changes only executable relocation, Git null-device nul->/dev/null,
+and declared Linux cancellation130; no fixture/state/snapshot byte changes.
+The target-preparation helper bounds the entire acquisition/fetch/review/build/
+profile window to1160s, leaving40s cleanup before independent1200s outer deadline.
+The separate native-final fault option records final-archive calibration commands
+against explicit native profiles, with zero credits until independent audit.
+
+Declaration062f45b417fb44ee8dd52906ea8fee7d plans one standard ubuntu24 job,
+35min ceiling/12min estimate plus automatic harness15min;20 development cases,
+zero final/calibration/admission credit. Workflow cargo-linux-preflight is configured
+manual-only after skipped push registration. Wait for the next source-matched
+automatic harness before dispatch. Exact Linux candidate comes from40424475362;
+do not rebuild any Playtestr archive. The preflight preserves the actual compiled
+upstream binary in a bounded16MiB XZ artifact with full streaming roundtrip hashes.
+Positive local Windows pack/readback be70d6d40a064f7dafa613c8d43082d3 preserved
+the actual22,047,232-byte original target in5,757,492 compressed bytes, no rebuild.
+Native fresh-source guard6990b60de4994f37a2487b15ee707c63 rejected the already
+executed local target as intended. Local23 harness controls b8a094f609e949a0815a3f6ab6b832a3
+passed. Syntax143 helpers0fcfe89361f047e28a35898097f2c323; workflow lint
+0545a651fa894fa7bb0ebb55221f286b passed before final preparation-step consolidation.
+Final lint/commit/push and actual native run remain next. Cargo still not admitted.
+
+Rust retention plan: do not retain duplicated49MB fetched caches per host. After
+actual native builds, derive the union of actually compiled package closures from
+compiler dep-info/build receipts, retain exact used locked archives once in a
+verified project source dictionary, and preserve all unused fetch/hash/license/hook
+metadata with explicit source-only/no-execution disposition. Retain exact compiled
+baseline/mutation bytes using bounded solid XZ and verified indices. Count the
+dictionary against cargo's64MiB cap and aggregate2GiB retained cap; no path-based
+offloading or invented compliance. RAW/r remains owned and must be checked-removed
+before advancing. Source/runtime cleanup and full12-repeat/two-host final series
+remain required, together with actual generated/delivered workflow evidence.

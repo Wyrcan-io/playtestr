@@ -15,11 +15,14 @@ from readiness_evidence import immutable_json,sha256
 
 
 async def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--verify-built',action='store_true');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--verify-built',action='store_true')
+    parser.add_argument('--native-build',action='store_true');args=parser.parse_args()
+    if args.verify_built and args.native_build:raise ValueError('legacy version-assertion readback is separate from fresh native build')
     project='cargo-generate';target=RAW/'active'/project;source=target/'src';package=DOC/project
     if (target/'build.json').exists() and not args.verify_built:raise ValueError('refuse replacing completed build')
     review=json.loads((package/'source-review.json').read_text())
-    hooks=json.loads((package/'dependency-hook-review.json').read_text())
+    hook_path=target/'native-hook-review.json' if args.native_build else package/'dependency-hook-review.json'
+    hooks=json.loads(hook_path.read_text())
     dependencies=json.loads((target/'dependency-fetch-review.json').read_text())
     catalog=json.loads((target/'dependency-source-catalog.json').read_text())
     if not hooks['approved'] or hooks['source_catalog_sha256']!=sha256(target/'dependency-source-catalog.json'):
@@ -36,10 +39,22 @@ async def main():
     compiler=Path(dependencies['rustc_path']);cargo=Path(dependencies['cargo_path'])
     if sha256(compiler)!=dependencies['rustc_sha256'] or sha256(cargo)!=dependencies['cargo_sha256']:
         raise ValueError('read-only installed compiler changed')
-    env=environment(target);env.update(RUSTC=str(compiler),RUSTDOC=str(compiler.with_name('rustdoc.exe')),
+    suffix='.exe' if os.name=='nt' else ''
+    env=environment(target);env.update(RUSTC=str(compiler),RUSTDOC=str(compiler.with_name('rustdoc'+suffix)),
         CARGO_NET_OFFLINE='true',SOURCE_DATE_EPOCH='1793030400')
     env['PATH']=str(compiler.parent)+os.pathsep+env['PATH']
-    cache=materialize_short_cache(target,dependencies,catalog)
+    if args.native_build and os.name!='nt':
+        located=shutil.which('cc',path=env['PATH'])
+        if not located:raise ValueError('read-only native C compiler prerequisite missing')
+        native_cc=Path(located).resolve(strict=True);env['CC']=str(native_cc)
+        version=await execute([native_cc,'--version'],project,'native-read-only-c-compiler-version',
+            cwd=source,env=env,timeout=30,campaign=NextCampaign())
+        machine=await execute([native_cc,'-dumpmachine'],project,'native-read-only-c-compiler-target',
+            cwd=source,env=env,timeout=30,campaign=NextCampaign())
+        if machine['output'].strip() not in {'x86_64-linux-gnu','x86_64-pc-linux-gnu','x86_64-unknown-linux-gnu'}:raise ValueError('C compiler is not native for declared Linux host')
+        immutable_json(target/'native-c-compiler.json',dict(path=str(native_cc),sha256=sha256(native_cc),
+            version_attempt=version['id'],target_attempt=machine['id'],target=machine['output'].strip(),explicit_CC=True))
+    cache=materialize_short_cache(target,dependencies,catalog) if os.name=='nt' else target/'cargo-home'
     env['CARGO_HOME']=str(cache)
     if args.verify_built:
         if (target/'version-check.json').exists():raise ValueError('preserve completed version check')
@@ -82,11 +97,13 @@ async def main():
     # MSVC's textual relative include resolution can exceed MAX_PATH before
     # normalizing '..', even when the actual header exists. Change only native
     # spelling of these exact owned paths; do not move files or alter sources.
-    for key in ['CARGO_HOME','CARGO_TARGET_DIR','TEMP','TMP','TMPDIR']:
-        env[key]=short_owned_path(env[key])
-    triple='x86_64-pc-windows-msvc'
+    if os.name=='nt':
+        for key in ['CARGO_HOME','CARGO_TARGET_DIR','TEMP','TMP','TMPDIR']:
+            env[key]=short_owned_path(env[key])
+    triple='x86_64-pc-windows-msvc' if os.name=='nt' else 'x86_64-unknown-linux-gnu'
     command=[cargo,'rustc','--locked','--offline','--release','--target',triple,
-        '--bin','cargo-generate','--','-C','link-arg=/Brepro']
+        '--bin','cargo-generate']
+    if os.name=='nt':command+=['--','-C','link-arg=/Brepro']
     samples=[];task=asyncio.create_task(execute(command,project,'reviewed-default-feature-native-compile',
         cwd=Path(short_owned_path(source)),env=env,timeout=1100,campaign=NextCampaign()))
     try:
@@ -103,21 +120,23 @@ async def main():
         immutable_json(target/('build-storage-'+uuid.uuid4().hex+'.json'),dict(observed_raw_bytes=samples,
             stop_bytes=3*1024**3,scope='Periodic logical samples, not an exact peak or filesystem quota.'))
     verify()
-    built=target/'cargo-target'/triple/'release/cargo-generate.exe'
-    binary=target/'bin/cargo-generate.exe';binary.parent.mkdir(exist_ok=True);shutil.copyfile(built,binary)
+    built=target/'cargo-target'/triple/'release'/('cargo-generate'+suffix)
+    binary=target/'bin'/('cargo-generate'+suffix);binary.parent.mkdir(exist_ok=True);shutil.copyfile(built,binary)
+    if os.name!='nt':binary.chmod(0o755)
     digest=sha256(binary)
     immutable_json(target/'build.json',dict(schema_version=1,runtime_kind='native',
         pin=review['pin'],binary_relative_path=binary.relative_to(target).as_posix(),binary_sha256=digest,
         build_attempt=result['id'],compiler_path=str(compiler),compiler_sha256=sha256(compiler),
         cargo_path=str(cargo),cargo_sha256=sha256(cargo),native_triple=triple,features='default',
         source_review_sha256=sha256(package/'source-review.json'),
-        dependency_hook_review_sha256=sha256(package/'dependency-hook-review.json'),
+        dependency_hook_review_sha256=sha256(hook_path),
         dependency_source_catalog_sha256=sha256(target/'dependency-source-catalog.json'),
-        actual_short_cache_reference_sha256=sha256(target/'short-cache-reference.json'),
+        **(dict(actual_short_cache_reference_sha256=sha256(target/'short-cache-reference.json')) if os.name=='nt' else dict(actual_dependency_cache='cargo-home')),
         dependency_fetch_review_sha256=sha256(target/'dependency-fetch-review.json'),
+        **(dict(native_c_compiler_sha256=sha256(target/'native-c-compiler.json')) if args.native_build and os.name!='nt' else {}),
         compiled_files={binary.name:digest},command=list(map(str,command)),
         owned_native_path_spellings={k:env[k] for k in ['CARGO_HOME','CARGO_TARGET_DIR','TEMP','TMP','TMPDIR']},
-        installed_globally=False,windows_reproducible_link=True))
+        installed_globally=False,windows_reproducible_link=os.name=='nt'))
     immutable_json(target/'runtime.json',dict(schema_version=1,kind='native',native=str(binary),
         native_sha256=digest,native_triple=triple,source_pin=review['pin'],
         build_sha256=sha256(target/'build.json')))

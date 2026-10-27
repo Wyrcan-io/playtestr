@@ -1,5 +1,6 @@
 """Compile actual upstream mutations and test unchanged frozen contracts."""
 import asyncio
+import argparse
 import json
 import os
 from pathlib import Path
@@ -17,8 +18,8 @@ from readiness_build_plop import usage
 
 class NativeFaultCampaign(NextCampaign):
     """Bind a deliberate compiled variant separately from pristine runtime metadata."""
-    def __init__(self,variant,receipt,inputs):
-        super().__init__(phase='development');self.variant=variant;self.receipt=receipt;self.inputs=inputs
+    def __init__(self,variant,receipt,inputs,phase='development'):
+        super().__init__(phase=phase);self.variant=variant;self.receipt=receipt;self.inputs=inputs
 
     def identity(self,project,argv):
         value=json.loads(self.receipt.read_text())
@@ -37,6 +38,8 @@ class NativeFaultCampaign(NextCampaign):
 
 
 async def main():
+    parser=argparse.ArgumentParser();parser.add_argument('--native-final',action='store_true');args=parser.parse_args()
+    phase='final-archive' if args.native_final else 'development'
     project='cargo-generate';package=DOC/project;target=RAW/'active'/project;source=target/'src'
     freeze_path=package/'development-test-freeze.json';freeze=json.loads(freeze_path.read_text())
     declaration_path=package/'fault-declaration.json';declaration=json.loads(declaration_path.read_text())
@@ -45,12 +48,18 @@ async def main():
     runtime_path=target/'runtime.json';runtime=json.loads(runtime_path.read_text());binary=Path(runtime['native'])
     if sha256(binary)!=build['binary_sha256'] or runtime['native_sha256']!=build['binary_sha256']:raise ValueError('pristine native build differs')
     immutable_metadata={p:sha256(p) for p in [build_path,runtime_path,target/'installed-inventory.json']}
-    runner=executable('native-exit-v1');root=RAW/project/'source-fault-development/v1'
+    runner=executable('native-exit-v1')
+    contract_package=RAW/project/'host-contracts' if args.native_final else package
+    root=RAW/project/('source-fault-final-native-exit-v1/v1' if args.native_final else 'source-fault-development/v1')
     if root.exists():raise ValueError('preserve original fault probes; no automatic retries')
-    root.mkdir(parents=True);variants=target/'fault-builds/v1';variants.mkdir(parents=True,exist_ok=False)
+    root.mkdir(parents=True);variants=target/('fault-builds/final-native-exit-v1' if args.native_final else 'fault-builds/v1');variants.mkdir(parents=True,exist_ok=False)
     original_binary=variants/'original'/binary.name;original_binary.parent.mkdir();shutil.copyfile(binary,original_binary)
     if sha256(original_binary)!=build['binary_sha256']:raise ValueError('pristine executable backup differs')
     inputs=[package/name for name in freeze['inputs']]+[declaration_path,freeze_path,build_path,runtime_path]
+    if args.native_final:
+        host_profile=contract_package/'scenarios.json';profile=json.loads(host_profile.read_text())
+        if profile['development_freeze_sha256']!=sha256(freeze_path) or profile['native_binary_sha256']!=build['binary_sha256']:raise ValueError('native calibration profile is not exact frozen/source-built target')
+        inputs.append(host_profile)
     dependencies=json.loads((target/'dependency-fetch-review.json').read_text());catalog=json.loads((target/'dependency-source-catalog.json').read_text())
     def contracts():
         for name,digest in freeze['inputs'].items():
@@ -96,9 +105,13 @@ async def main():
                 stop_bytes=3*1024**3,scope='Periodic logical samples, not exact peak, allocation or quota.'))
     async def run_case(fault,phase,variant_receipt=None):
         contracts();report=root/(fault['id']+'-'+phase+'.report.json')
-        campaign=NativeFaultCampaign(binary,variant_receipt,inputs) if variant_receipt else NextCampaign(phase='development')
-        result=await execute([runner,'test','--report',report,'--artifacts-dir',root/(fault['id']+'-'+phase+'-evidence'),
-            package/fault['spec']],project,'cargo-source-fault-'+fault['id']+'-'+phase,cwd=ROOT,env=target_env,
+        campaign=NativeFaultCampaign(binary,variant_receipt,inputs,phase='final-archive' if args.native_final else 'development') if variant_receipt else NextCampaign(phase='final-archive' if args.native_final else 'development')
+        spec=contract_package/fault['spec']
+        if args.native_final:
+            selected=[c for c in profile['cases'] if c['spec']==fault['spec']]
+            if len(selected)!=1 or selected[0]['spec_sha256']!=sha256(spec) or selected[0]['canonical_sha256']!=fault['spec_sha256']:raise ValueError('native calibration oracle changed')
+        result=await execute([runner,'test','--report',report.relative_to(ROOT),'--artifacts-dir',(root/(fault['id']+'-'+phase+'-evidence')).relative_to(ROOT),
+            spec],project,'cargo-source-fault-'+fault['id']+'-'+phase,cwd=ROOT,env=target_env,
             timeout=140,expected=1 if phase=='mutated' else 0,campaign=campaign)
         data=json.loads(report.read_text());row=data['results'][0];category=row.get('failure',{}).get('category')
         if row['status']!=('failed' if phase=='mutated' else 'passed') or category!=(fault['category'] if phase=='mutated' else None):raise ValueError('source fault outcome differs from declaration')
@@ -141,8 +154,9 @@ async def main():
     contracts();pristine();dependency_bytes()
     if os.name=='nt':materialize_short_cache(target,dependencies,catalog)
     immutable_json(root/'summary.json',dict(schema_version=1,observations=observations,actual_source_faults=3,
-        exploratory_executions=9,mandatory_final_native_calibration_credit=0,project_credits=0,
-        scope='Local real source-fault exploration. Exact native final series must repeat the declared calibration triples. Original runtime/build receipts and source/executable bytes restored.'))
+        phase=phase,exploratory_executions=0 if args.native_final else 9,
+        final_native_calibration_executions=9 if args.native_final else 0,mandatory_final_native_calibration_credit=0,project_credits=0,
+        scope='Actual native calibration triples, pending independent final audit.' if args.native_final else 'Local real source-fault exploration. Exact native final series must repeat the declared calibration triples. Original runtime/build receipts and source/executable bytes restored.'))
     print('Three real source mutations detected by unchanged contracts; pristine source and executable restored.')
 
 

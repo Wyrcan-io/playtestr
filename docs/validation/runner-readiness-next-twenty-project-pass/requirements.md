@@ -3,9 +3,10 @@
 The twenty-project gate remains open. Four new admissions are historical for
 the exact rc.5 candidate. Cargo-generate exposed the native Windows exit-status
 defect and requires rc.6. Current rc.6 project admissions are zero; all original
-ten and the four historical new admissions require requalification. macOS and
-Linux replacement archives passed native checks and independent auditing;
-Windows qualification is in progress. Proposed totals remain requirements.
+ten and the four historical new admissions require requalification. The macOS,
+Linux and Windows replacement archives passed native checks and independent auditing;
+all three exact archives are frozen. All105 public archive controls freshly passed
+on rc.6 and were independently audited. Proposed totals remain requirements.
 
 | ID | Acceptance | Current disposition |
 | --- | --- | --- |

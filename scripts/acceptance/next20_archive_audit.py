@@ -46,7 +46,9 @@ def audit(base,host,control_id=None,run=None,revision=None,candidate_series='rc5
         identity=load(manifest);files=identity['files']
         if run:
             require(events['started']['ci_run_id']==run and str(events['started']['ci_run_attempt'])=='1','wrong actual native run/attempt')
-            for name in ['next20_archive_controls.py','readiness_archive_controls.py','readiness_bootstrap_go.py','next20_check.py','adversarial_process.py','readiness_evidence.py']:
+            helper_names=['next20_archive_controls.py','readiness_archive_controls.py','readiness_bootstrap_go.py','next20_check.py','adversarial_process.py','readiness_evidence.py']
+            if candidate_series!='rc5':helper_names.append('next20_candidate.py')
+            for name in helper_names:
                 key='scripts/acceptance/'+name
                 require(files.get(key) in source_hashes(revision,key),'stale native public-control source: '+name)
         if not fixture:require(identity.get('runtime_executables',{}).get('go')==build['compiler_sha256'],'actual prelaunch compiler identity missing/changed')

@@ -37,6 +37,10 @@ def main():
         spec=package/case['spec'];value=json.loads(spec.read_text());native=copy.deepcopy(case)
         original_command=value['command'][0];value['command'][0]=os.path.relpath(binary,output).replace('\\','/')
         delta=dict(case=case['id'],command_executable_before=original_command,command_executable_after=value['command'][0])
+        if host=='linux':
+            if value.get('env',{}).get('GIT_CONFIG_GLOBAL')!='nul':raise ValueError('canonical Git null-device profile changed')
+            value['env']['GIT_CONFIG_GLOBAL']='/dev/null'
+            delta['git_config_global']=dict(before='nul',after='/dev/null',reason='native null-device spelling; no user Git config inheritance')
         if 'native_exit_profile' in case:
             status=case['native_exit_profile'][host];exits=[s for s in value['steps'] if 'exit' in s]
             if len(exits)!=1:raise ValueError('ambiguous native cancellation expectation')
@@ -47,7 +51,7 @@ def main():
     immutable_json(output/'scenarios.json',dict(declaration,cases=cases,host=host,
         canonical_declaration_sha256=sha256(declaration_path),development_freeze_sha256=sha256(freeze_path),
         native_binary_sha256=sha256(binary),changes=changes,
-        profile_scope='Only executable relocation and explicitly declared per-host native cancellation status. Fixture/state/snapshot bytes, dimensions, interactions and all other assertions unchanged. Actual execution still required.'))
+        profile_scope='Only executable relocation, native Git null-device spelling and explicitly declared per-host native cancellation status. Fixture/state/snapshot bytes, dimensions, interactions and all other assertions unchanged. Actual execution still required.'))
     print('Prepared20 frozen native contracts:',host,'no execution or admission credit')
 
 
