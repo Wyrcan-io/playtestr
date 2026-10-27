@@ -1960,3 +1960,42 @@ also triggers the existing bounded3-host harness (max2 at once,5min each); accou
 its actual duration separately, estimated3min/ceiling15 for this push. No paid
 capacity or per-case automatic retry. New diagnostic workflow/actionlint
 9dbd4c6ce8af41b2970d18ecd74a5214 passed; dispatch remains next after commit.
+
+Committed/pushed0a17989d52214aa83f2efd8c41d6e862e40bddc7 and dispatched
+raw diagnostic40480783047/job122110259349 (21d7a91de13a4068bd8ac3e81acd7242).
+Actual standard Ubuntu job15s, all18 raw probes exited0 and source/runtime payload
+checked-removed. Retrievedb2ce8604d83a498e9ba5fff9a6225845, independent limited
+capture/provider/runtime/output/input readback321d28f8344147ff9b281030473f6589
+retained native generation4:248 logical records,75,732B gzip, expansion removed.
+Do not redownload. All first four writes observed ECHO/ICANON disabled, later
+mode/docs transitions sometimes enabled. Partial lines were NOT reproduced in
+these18 probes, so no root-cause/readiness-remedy/product-change claim follows.
+Raw target PID/birth was not separately persisted in this diagnostic; source
+checks group absence after wait, but this is explicitly not a full lifecycle or
+application-qualification audit. All18 observations have zero final credit.
+
+Current storage316c91fcc04a4a80824b3142e191d4f0 (before tiny diagnostic packet)
+passed: newraw959,592,172;combinedraw2,868,300,744;retained1,434,412,423;
+project54,227,019;newcurated2,759,757;combinedcurated14,416,001;no active target.
+
+Prepared follow-up candidate-trace mode on the same diagnostic workflow: one
+standard Ubuntu job5min, read-only installed strace prerequisite, exact rc.6
+Linux archive and exact already-retained source-built target, unchanged native
+N01. At most20 diagnostic runs, stop at first failed observation; per-command
+15s, aggregate trace8MiB/640files and32 streams per command. Capture actual
+read/write/ioctl syscalls (synthetic owned data only), preserve every diagnostic
+outcome/trace, then check target/workspace and source/runtime cleanup. These
+are development diagnostics, never final repetition retries or replacement
+qualification. Missing strace is a prerequisite refusal, no global installation.
+Actionlint ef7fecddb9964eac9f9a39699fa5f97e passed. Actual first final277s rounds5
+minutes, first diagnostic15s rounds1, next diagnostic ceiling5 leaves49min for
+an explicitly declared complete replacement within original60min native target
+allocation. Next push additionally triggers bounded automatic native helper
+validation (estimated3min/ceiling15;max2 harness jobs). This cost is separate from
+the target allocation and all earlier push costs remain recorded.
+
+README/ledger now explicitly distinguish historical rc.5 four-project/1,920/72
+counts from zero current rc.6 admitted new projects and zero current original-ten
+qualifications. No historical admission receipt edited. Legacy promotion helper
+now refuses mixed/unidentified candidate aggregation; new regression
+bdcc061d7cb741cc8a54551569915ef6 passed. Historical counters remain rc.5 scoped.

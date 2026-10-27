@@ -1,0 +1,265 @@
+{
+  "actual_raw_target_observations": 18,
+  "calibration_credit": 0,
+  "finding": "All18 direct PTY runs completed; first four writes consistently observed ECHO/ICANON disabled, later menu transitions sometimes enabled. Original partial-line failure not reproduced or explained by these observations alone.",
+  "limitations": "The diagnostic source checks process-group absence after wait; raw target PID/birth was not separately persisted. These are diagnostic raw captures, not native qualification or an independent full lifecycle audit. No general input-readiness fix or target-library root-cause claim follows.",
+  "observations": [
+    {
+      "echo_flags_before_writes": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        true
+      ],
+      "mode": "immediate",
+      "number": 0,
+      "raw_sha256": "1ba758f22b37edfbd3a3fec0253513fe11bcc770e59154ace472e0ed5e51e51f",
+      "report_sha256": "7d568ccfc2d93612cda7dcdd932ecb1c13ad9ef0842ee81adb8f71bb80645c0b"
+    },
+    {
+      "echo_flags_before_writes": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true
+      ],
+      "mode": "immediate",
+      "number": 1,
+      "raw_sha256": "9b945f2028b5166e3b3bc0f20e265ecb571132ddaa2e4dd260a35e65975b8a70",
+      "report_sha256": "e1c89a94882d9e826f227183e18d0c0f0f405dbcae9f6325f3f2aa05744423d6"
+    },
+    {
+      "echo_flags_before_writes": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true
+      ],
+      "mode": "immediate",
+      "number": 2,
+      "raw_sha256": "2e42a9f1251432429cc7cbc5fcff41064f003f521ea957d075886b71fc0299c7",
+      "report_sha256": "3024bc21a6665e1b526f77fb86dfb8220b5ddb45bc9f9cb5fde89cdf22bf0a8d"
+    },
+    {
+      "echo_flags_before_writes": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false
+      ],
+      "mode": "immediate",
+      "number": 3,
+      "raw_sha256": "07970d23a94f0250e6ac1754c22401db2a51d451dc79bbdd56b699b9f13d4559",
+      "report_sha256": "e7add1c770ffc67e5e9a0c9ba0b88ea30531ca80a16ab6146a249487dccf10b0"
+    },
+    {
+      "echo_flags_before_writes": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "mode": "immediate",
+      "number": 4,
+      "raw_sha256": "da1c8662746dd5d53cb5fa91aee942b4dedb9dadf9a5f11a4ee7b5c6a5a2e0b0",
+      "report_sha256": "9617bc975fdee3b13c25f10bda8e17abb3b1e39bd643b0822586042b347e4657"
+    },
+    {
+      "echo_flags_before_writes": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false
+      ],
+      "mode": "immediate",
+      "number": 5,
+      "raw_sha256": "cce485f4d45d3a78ab577393e233d34106e2011fed433b30d78a458b7300b102",
+      "report_sha256": "20836cb5cd2e5052d40d127209f92cb5cbea368c48ca972b9f07bcd3946022a8"
+    },
+    {
+      "echo_flags_before_writes": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true
+      ],
+      "mode": "observe-text",
+      "number": 0,
+      "raw_sha256": "c30fb2e6729f08fd9490b903a0645388dbe4387576ba16160aa49ad67684266f",
+      "report_sha256": "143262f3fdd07d05795a8377c227700ed8c699faa5dab203f444715eedfb66f9"
+    },
+    {
+      "echo_flags_before_writes": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true
+      ],
+      "mode": "observe-text",
+      "number": 1,
+      "raw_sha256": "30d3036c222f5aa43fdc1a31f6026160c476bf0e4180ab2bfdbf0a6a40043744",
+      "report_sha256": "24dfbff9b42dae7600d2c5ccc5d6d0a27e63acfe79db10a48f06a2e326cd195e"
+    },
+    {
+      "echo_flags_before_writes": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "mode": "observe-text",
+      "number": 2,
+      "raw_sha256": "b0e571cc551448ec38c6055900c28608b76eb0041e9e4a991e9cf0ed33fd292e",
+      "report_sha256": "3afebc0ed99f1fbf3663508137d9df933a780aada187264efba3e5ce124c8c97"
+    },
+    {
+      "echo_flags_before_writes": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        true
+      ],
+      "mode": "observe-text",
+      "number": 3,
+      "raw_sha256": "b012aab5446f296bda3f020288cfe57b8238f4eb173ecc8dd8807a8826b569c6",
+      "report_sha256": "3ccc8aa98529f5a185ee1cbbd83e76527753c3f39aa1e1361a98a8ebee79568b"
+    },
+    {
+      "echo_flags_before_writes": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true
+      ],
+      "mode": "observe-text",
+      "number": 4,
+      "raw_sha256": "7fa33f8464b00e1042157288e924e5f35a86337707f1e2966291a3703f78b545",
+      "report_sha256": "31d6f262b78110f5b641f321ed0544315f2d2f9249f1a95ab550ebdc34b482a1"
+    },
+    {
+      "echo_flags_before_writes": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        true
+      ],
+      "mode": "observe-text",
+      "number": 5,
+      "raw_sha256": "816eecd8508061f1f3698e83e9c27898126ab0aa853fbbf048ca5143b595f2c3",
+      "report_sha256": "33be40c19d448843d124b2992cc5a5f4323e1ea92effd00b4a4dbc958502ec1a"
+    },
+    {
+      "echo_flags_before_writes": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false
+      ],
+      "mode": "observe-text-and-raw",
+      "number": 0,
+      "raw_sha256": "1044fab4228b317b61a2e89c6e1fcfdbee76551d8d2cd4af1778ff93a1af0f80",
+      "report_sha256": "af79e10822e2b40f37a6fbdea238c927848ef10907cc10d54881802bac4949c8"
+    },
+    {
+      "echo_flags_before_writes": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true
+      ],
+      "mode": "observe-text-and-raw",
+      "number": 1,
+      "raw_sha256": "dd50133febef6b04963354133a5437a9c80bb67c83bb819328c199666d125901",
+      "report_sha256": "82a740cdc2308d078d5097945c473adff21aaafd5e29d936441851c09b4a58b3"
+    },
+    {
+      "echo_flags_before_writes": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true
+      ],
+      "mode": "observe-text-and-raw",
+      "number": 2,
+      "raw_sha256": "3429d53e08af968c79725868255eeba2c968dccd2a44f3f58970a31ef756af39",
+      "report_sha256": "8687565f8db5823e7db00cca10e9aa85ce460677b1d26eb1773f8d55ea3b936e"
+    },
+    {
+      "echo_flags_before_writes": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        true
+      ],
+      "mode": "observe-text-and-raw",
+      "number": 3,
+      "raw_sha256": "74a02520b9b45062d3ffc21c5c7f76be04b34b8abc3ec7b6479e53c305dfb532",
+      "report_sha256": "703fab59b9375ef497d2e725899e08ffdf30be9ef71424e798e811b6d1706dbe"
+    },
+    {
+      "echo_flags_before_writes": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "mode": "observe-text-and-raw",
+      "number": 4,
+      "raw_sha256": "92b52f4f75c71e8d26a0f28dab56e54051fb479fa7d8238863b4ecae7e9060e7",
+      "report_sha256": "fdc794ffcb6f350f0e2b00d7825c876c0a9c8a01f738002bb6ffe49c139b2b72"
+    },
+    {
+      "echo_flags_before_writes": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false
+      ],
+      "mode": "observe-text-and-raw",
+      "number": 5,
+      "raw_sha256": "eedcd6056a0afd6f6e30826cdd36e28bc5f3ab85f7ae66ee41bfc42153c3c689",
+      "report_sha256": "678f3c1acd361c67c9cf601732b3bdb5035af34fa4c23c92f04cc89dc7288557"
+    }
+  ],
+  "ordinary_credit": 0,
+  "project_admissions": 0,
+  "revision": "0a17989d52214aa83f2efd8c41d6e862e40bddc7",
+  "run": "40480783047",
+  "schema_version": 1
+}

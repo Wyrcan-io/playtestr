@@ -86,7 +86,7 @@ def probe(mode,number):
 
 async def main():
     parser=argparse.ArgumentParser();parser.add_argument('--probe',choices=['immediate','observe-text','observe-text-and-raw']);parser.add_argument('--number',type=int)
-    parser.add_argument('--packet',type=Path);args=parser.parse_args()
+    parser.add_argument('--packet',type=Path);parser.add_argument('--prepare-only',action='store_true');args=parser.parse_args()
     if args.probe:
         if args.number not in range(6):raise ValueError('diagnostic repetition bound')
         probe(args.probe,args.number);return
@@ -110,6 +110,8 @@ async def main():
     immutable_json(diagnostic_root/'runtime-reference.json',dict(schema_version=1,original_run='40467049451',
         actual_binary_sha256=sha256(binary),original_binary_archive_sha256=sha256(archive),original_binary_index_sha256=sha256(packed/'compiled-binary-index.json'),
         original_build_sha256=sha256(target/'build.json'),new_compile=False,new_qualification_credit=0))
+    if args.prepare_only:
+        print('Prepared exact already-reviewed native binary for bounded candidate tracing; no new compilation or qualification credit');return
     campaign=NextCampaign(phase='development')
     for mode in ['immediate','observe-text','observe-text-and-raw']:
         for number in range(6):

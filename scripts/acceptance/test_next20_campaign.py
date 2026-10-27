@@ -407,5 +407,14 @@ class NextCampaignTests(unittest.TestCase):
         self.assertFalse(target.exists())
         self.assertTrue(json.loads((retained/'removed.json').read_text(encoding='utf-8-sig'))['removed'])
 
+    def test_admission_counter_refuses_mixed_and_unidentified_candidates(self):
+        from next20_update_ledger import require_counter_candidate
+        old=dict(candidate='v0.4.0-rc.5',ordinary=480)
+        current=dict(candidate='v0.4.0-rc.6',ordinary=480)
+        require_counter_candidate([old],'v0.4.0-rc.5')
+        for admissions in [[old,current],[old],[dict(ordinary=480)]]:
+            with self.assertRaisesRegex(ValueError,'mixed candidate admission credits'):
+                require_counter_candidate(admissions,'v0.4.0-rc.6')
+
 
 if __name__=='__main__':unittest.main()

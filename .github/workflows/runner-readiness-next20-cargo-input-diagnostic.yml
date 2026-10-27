@@ -4,6 +4,11 @@ on:
     branches: [work/p0-p2-implementation]
     paths: ['.github/workflows/runner-readiness-next20-cargo-input-diagnostic.yml']
   workflow_dispatch:
+    inputs:
+      mode:
+        type: choice
+        options: [raw-pty, candidate-trace]
+        default: raw-pty
 permissions:
   contents: read
   actions: read
@@ -36,7 +41,22 @@ jobs:
           name: next20-cargo-linux-preflight
           path: artifacts/runner-readiness-next-twenty-project-pass/diagnostic-native-input
       - name: Capture bounded real PTY input and termios observations
+        if: inputs.mode == 'raw-pty'
         run: python -B scripts/acceptance/next20_check.py --label cargo-native-real-pty-input-diagnosis --timeout 180 -- python -B scripts/acceptance/next20_cargo_input_diagnostic.py --packet artifacts/runner-readiness-next-twenty-project-pass/diagnostic-native-input
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        if: inputs.mode == 'candidate-trace'
+        with:
+          github-token: ${{ github.token }}
+          repository: Wyrcan-io/playtestr
+          run-id: 40424475362
+          name: next20-private-replacement-Linux
+          path: artifacts/runner-readiness-next-twenty-project-pass/candidate-download
+      - name: Install exact frozen archive for actual candidate tracing
+        if: inputs.mode == 'candidate-trace'
+        run: python -B scripts/acceptance/next20_check.py --label cargo-linux-diagnostic-exact-archive --timeout 60 -- python -B scripts/acceptance/next20_candidate_install.py --series native-exit-v1 --archive artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v1/linux-amd64/dist/playtestr_0.4.0-rc.6_linux_amd64.tar.gz
+      - name: Trace actual frozen candidate input and output syscalls
+        if: inputs.mode == 'candidate-trace'
+        run: python -B scripts/acceptance/next20_check.py --label cargo-exact-candidate-pty-input-trace --timeout 240 -- python -B scripts/acceptance/next20_cargo_candidate_input_trace.py --packet artifacts/runner-readiness-next-twenty-project-pass/diagnostic-native-input
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
