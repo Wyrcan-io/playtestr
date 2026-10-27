@@ -1,0 +1,197 @@
+{
+  "actual_binary_sha256": "daa4dd816b3a8fc59b6d99822637d4a41cb787e9c95805588b249b0cfd954803",
+  "actual_source_files": 167,
+  "calibration_credit": 0,
+  "failed_observations": 1,
+  "final_ordinary_credit": 0,
+  "first_failure": {
+    "diff_path": {
+      "logical_path": "artifacts/runner-readiness-next-twenty-project-pass/cargo-generate/final-series-native-exit-v1/1/evidence/20261027T090121Z-3319215213/-pass-cargo-generate-final-series-native-exit-v1-1-contracts-normal-project.json-a021f2e8bd80.diff.txt",
+      "sha256": "f05a8f88f06810bbcb8599c32e97648d933476f8f4dc495ae4ed507d5bcfb232",
+      "text": "--- expected: normal-project.rows.json\n+++ actual: normal-project.rows.json\n@@ -1,6 +1,6 @@\n+-generate/tmp/playtestr-workspace-168343540/fixture/synthetic-notes ...\n \ud83d\udd27   project-name: synthetic-notes ...\n \ud83d\udd27   Generating template ...\n+\ud83e\udd37   Project owner: Ad\n \ud83e\udd37   Project owner: Ada\n ? \ud83e\udd37   Project mode \u203a\n-\u276f basic\n-  extended\n"
+    },
+    "screen_path": {
+      "logical_path": "artifacts/runner-readiness-next-twenty-project-pass/cargo-generate/final-series-native-exit-v1/1/evidence/20261027T090121Z-3319215213/-pass-cargo-generate-final-series-native-exit-v1-1-contracts-normal-project.json-a021f2e8bd80.actual.txt",
+      "sha256": "c000e34ee9afeedf00d593196f4960efad4f12d523424d76d099907e7f9a52f1",
+      "text": "\ud83e\udd37   Project Name: synthetic-\n\ud83e\udd37   Project Name: synthetic-notes\n\ud83d\udd27   Destination: /home/runner/work/playtestr/playtestr/artifacts/runner-readiness-next-twenty-project-pass/active/cargo\n-generate/tmp/playtestr-workspace-168343540/fixture/synthetic-notes ...\n\ud83d\udd27   project-name: synthetic-notes ...\n\ud83d\udd27   Generating template ...\n\ud83e\udd37   Project owner: Ad\n\ud83e\udd37   Project owner: Ada\n? \ud83e\udd37   Project mode \u203a\n\u276f basic\n  extended\n"
+    }
+  },
+  "positive_observations": 20,
+  "project_admissions": 0,
+  "required_already_retained_runtime_archive": "cargo-generate/retained-native-v2/packets.tar.gz",
+  "required_runtime_archive_sha256": "f63ba00d7d6e2efc3db44d5fa99d0115a881d1b7c7089a704456773d67c4f5eb",
+  "results": [
+    {
+      "attempt": "be1a257622954c2c802b4ac8c4fd4e56",
+      "batch": 0,
+      "case": "N01",
+      "category": null,
+      "report_sha256": "17e2ac19e510ff0835c917aff8122b5a82ae79738bce4b9e002afd5ef3ee9505",
+      "status": "passed"
+    },
+    {
+      "attempt": "10850452eb154a79b7a34c6b83130244",
+      "batch": 0,
+      "case": "N02",
+      "category": null,
+      "report_sha256": "0290adefdd46c59ed27802351b6bc5c658f170ed27b470b5425a240c90240cbe",
+      "status": "passed"
+    },
+    {
+      "attempt": "ff1a6c901b7c466cab333c6065223bdb",
+      "batch": 0,
+      "case": "N03",
+      "category": null,
+      "report_sha256": "4f3a385a1ad77caab48d5533572d28767205dbab5d992e24be4fbc3dbcc9eaee",
+      "status": "passed"
+    },
+    {
+      "attempt": "e7c10e6c2b6047fe9439000cd61f3f75",
+      "batch": 0,
+      "case": "N04",
+      "category": null,
+      "report_sha256": "c6fb79cc3a3ef33065a87fe7c2f1278648d25f205a87f313cd7e976b3bfa5b41",
+      "status": "passed"
+    },
+    {
+      "attempt": "0f60cb0ed5ce467aaa066eca44bddf1f",
+      "batch": 0,
+      "case": "N05",
+      "category": null,
+      "report_sha256": "2e5216f1cbb918b2fa7f775d62a1d68285bf8f53fc8c51cd98a440c087cba493",
+      "status": "passed"
+    },
+    {
+      "attempt": "8e85d105cc384e1ea6c152b733bce98a",
+      "batch": 0,
+      "case": "N06",
+      "category": null,
+      "report_sha256": "71f5a622ffbd828bcd99ecd7f3d11a84d4ade5e7d9365d74f2d55c119cc9adb7",
+      "status": "passed"
+    },
+    {
+      "attempt": "3b2120fed3f441f38b8e00e6a2b78394",
+      "batch": 0,
+      "case": "N07",
+      "category": null,
+      "report_sha256": "f8693f09ad5d800c6df256df205fc7ab5b8cb0bd91415ebccf8bffb459b39a45",
+      "status": "passed"
+    },
+    {
+      "attempt": "924869329e5945a6809d66be05f3b4cf",
+      "batch": 0,
+      "case": "N08",
+      "category": null,
+      "report_sha256": "18ed255dacdad0271241951bca29232b1bd274c19716781a3197cbdad45667ad",
+      "status": "passed"
+    },
+    {
+      "attempt": "eb805fb75a4e49cab7570b5dc51738c4",
+      "batch": 0,
+      "case": "E01",
+      "category": null,
+      "report_sha256": "fd066e9004154ae059e10a232f6aced911a3f7e654634ab0cf91d060a3ec7cc0",
+      "status": "passed"
+    },
+    {
+      "attempt": "77a188ee29b54f80b0b4319c97d75f60",
+      "batch": 0,
+      "case": "E02",
+      "category": null,
+      "report_sha256": "9d222bd20742c198dfce58d8d87947a3d8d3a1254fcf6e9fbd6d70c8d343e774",
+      "status": "passed"
+    },
+    {
+      "attempt": "3d6d5d277ff94af2a9ed3633c1f41033",
+      "batch": 0,
+      "case": "E03",
+      "category": null,
+      "report_sha256": "b9155464062d40c06ea260d092c9adfd0be263a72bc9ba2dd7a6c73b5a3b73a4",
+      "status": "passed"
+    },
+    {
+      "attempt": "56818c3568ae4130be3aca3534d778f8",
+      "batch": 0,
+      "case": "E04",
+      "category": null,
+      "report_sha256": "2c41cdee4d4979bb853e437aa92be5e711855ecee1ccd0470378071cb02f642a",
+      "status": "passed"
+    },
+    {
+      "attempt": "b9aa424de9e1469a848941d7e80515cd",
+      "batch": 0,
+      "case": "E05",
+      "category": null,
+      "report_sha256": "458956d4d4b8a1dc5d53a392334388c4960bd27aafdb2cce002b7bfff15f1bde",
+      "status": "passed"
+    },
+    {
+      "attempt": "cb32647197064bebb4591e7824b7b3fe",
+      "batch": 0,
+      "case": "E06",
+      "category": null,
+      "report_sha256": "fb6019173afb7d9ed40f9bd23483e4b6a8f07a50966b5ce41c8e19fa3ddd39e9",
+      "status": "passed"
+    },
+    {
+      "attempt": "b1581039c2dc4471bce338cadfb63918",
+      "batch": 0,
+      "case": "E07",
+      "category": null,
+      "report_sha256": "fffb9f5e55dda1940ccd8efdf1c5bd65ab592c995dd711b43dcbf5ab6e209185",
+      "status": "passed"
+    },
+    {
+      "attempt": "4147c622ac584f4b8b0e2e657d8aa233",
+      "batch": 0,
+      "case": "E08",
+      "category": null,
+      "report_sha256": "242454c3f1971b1f6a3a63888d3d4bb0587794ca5e9825fcae602f65ab37efe1",
+      "status": "passed"
+    },
+    {
+      "attempt": "30aeb6ad79c642dba12c92da73eed123",
+      "batch": 0,
+      "case": "E09",
+      "category": null,
+      "report_sha256": "4d433b6ce890022fcfe340d34955b5a2749ea2592f7bf6e39306a1ed03b16772",
+      "status": "passed"
+    },
+    {
+      "attempt": "ac16cdc1a8154e69ae5be287e50dc7bf",
+      "batch": 0,
+      "case": "E10",
+      "category": null,
+      "report_sha256": "fdbb342648aa2cb0a6a730a4299adce95fc4abbb5e46cdd66f2dbe00ba034171",
+      "status": "passed"
+    },
+    {
+      "attempt": "9f69784d15274f158a7e0f7d2a574380",
+      "batch": 0,
+      "case": "E11",
+      "category": null,
+      "report_sha256": "f13b04d04e42f10c04dec95c1167497264309cbd4783e92fc4afbdb25fa1fdff",
+      "status": "passed"
+    },
+    {
+      "attempt": "c144cb3e4c084c7cb56c6393f456f9d7",
+      "batch": 0,
+      "case": "E12",
+      "category": null,
+      "report_sha256": "bdd66e42ca46aff6f3161b2a0806cedf8c6f9f8b91fbf20d4053c6b59390bde0",
+      "status": "passed"
+    },
+    {
+      "attempt": "31a4878ad794486e95d352e66c98263b",
+      "batch": 1,
+      "case": "N01",
+      "category": "snapshot_mismatch",
+      "report_sha256": "c83bb64f5ff901d34b65da1fdf339e26bf594dea487d8328fefcf2c367272494",
+      "status": "failed"
+    }
+  ],
+  "revision": "2524862c64499db7a182b5c3d9d88690ad186d47",
+  "run": "40477083665",
+  "schema_version": 1,
+  "scope": "Original rejected entire Linux final window. First batch20 passes do not transfer into a replacement. Saved screen shows extra partial-input rows before stable final prompts; root cause still requires diagnosis. No source/runtime filesystem deletion claim for failed hosted job."
+}

@@ -17,7 +17,31 @@ from readiness_evidence import immutable_json,sha256
 
 def audit(root,host,revision,run=None):
     prefix='artifacts/'+NAME+'/';package=DOC/'cargo-generate';project=root/'cargo-generate'
-    def document(path):return json.loads(path.read_text(encoding='utf-8-sig'))
+    retained=None
+    def local_records():
+        nonlocal retained
+        if retained is None:
+            from next20_local_records import read_packet
+            _,retained=read_packet('cargo-generate')
+        return retained
+    def read(path):
+        if path.is_file():return path.read_bytes()
+        if root!=RAW:raise FileNotFoundError(path)
+        name=path.relative_to(RAW).as_posix()
+        records=local_records()
+        if name not in records:raise FileNotFoundError('required actual logical evidence missing: '+name)
+        return records[name]
+    def sha256(path):return hashlib.sha256(read(path)).hexdigest()
+    def document(path):return json.loads(read(path).decode('utf-8-sig'))
+    def available(path):
+        if path.is_file():return True
+        return root==RAW and path.relative_to(RAW).as_posix() in local_records()
+    def files_under(directory):
+        paths={p for p in directory.rglob('*') if p.is_file()}
+        if root==RAW and (project/'retained-local-v1/index.json').is_file():
+            selected=directory.relative_to(RAW).as_posix()+'/'
+            paths.update(RAW/name for name in local_records() if name.startswith(selected))
+        return sorted(paths)
     def located(name):
         name=name.replace('\\','/')
         if name.startswith(prefix):name=name[len(prefix):]
@@ -91,7 +115,7 @@ def audit(root,host,revision,run=None):
             state=step.get('state')
             if state and (state['invocation_id']!=invocation or state['workspace_id']!=row['workspace']['id']):raise ValueError('state borrowed from another invocation/workspace')
         for name in row.get('evidence',{}).values():
-            if isinstance(name,str) and not located(name).is_file():raise ValueError('missing captured failure evidence')
+            if isinstance(name,str) and not available(located(name)):raise ValueError('missing captured failure evidence')
         return row
     ordinary=[]
     for batch in range(12):
@@ -122,8 +146,7 @@ def audit(root,host,revision,run=None):
             initial=value.get('workspace',{}).get('fixture')
             if initial:
                 fixture=spec.parent/initial
-                for initial_file in fixture.rglob('*'):
-                    if not initial_file.is_file():continue
+                for initial_file in files_under(fixture):
                     name=initial_file.relative_to(spec.parent).as_posix();canonical_initial=project/'host-contracts'/name
                     key=prefix+initial_file.relative_to(root).as_posix()
                     if sha256(initial_file)!=sha256(canonical_initial) or base['files'].get(key)!=sha256(initial_file):raise ValueError('actual initial fixture differs from reviewed native fixture')

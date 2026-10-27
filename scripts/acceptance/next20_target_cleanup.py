@@ -59,6 +59,7 @@ def invalid_spec_before_launch(data,row):
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--project',required=True)
     parser.add_argument('--prepare-only',action='store_true')
+    parser.add_argument('--resume-preparation',action='store_true')
     parser.add_argument('--max-files',type=int,choices=[40000,60000],default=40000)
     parser.add_argument('--max-bytes',type=int,choices=[1024**3,2*1024**3],default=1024**3)
     parser.add_argument('--unlaunched-report-sha256',action='append',default=[])
@@ -117,7 +118,10 @@ def main():
         proof_path=RAW/args.project/'process-proof.json'
         immutable_json(proof_path,dict(owned_target=str(target),confirmed_no_matching_live_processes=True,
             matching_live_processes=[],scope='Bounded native process arguments and all runner descendant-cleanup reports; no global argument inventory persisted.'))
-    retained=RAW/args.project/'retained-source';retained.mkdir()
+    retained=RAW/args.project/'retained-source'
+    if args.resume_preparation:
+        if not args.prepare_only or not retained.is_dir() or (retained/'prepared.json').exists() or (retained/'cleanup-inventory.json').exists():raise ValueError('only interrupted pre-inventory preparation may resume explicitly')
+    else:retained.mkdir()
     names=['source.tar.gz','task-owned.json','acquisition.json','runtime.json','build.json','wheels.json',
            'dependency-review.json','installed-inventory.json','install-approval.json','requirements.txt','constraints.txt','launch-runtime-catalog.json',
            'node-prerequisite.json','dependency-fetch.json','build-lock-derivation.json','build-planned.json',
@@ -128,7 +132,10 @@ def main():
     for name in names:
         source_file=target/name
         if source_file.is_file():
-            destination=retained/name;shutil.copyfile(source_file,destination)
+            destination=retained/name
+            if destination.exists():
+                if not args.resume_preparation or destination.is_symlink() or sha256(destination)!=sha256(source_file):raise ValueError('existing retained provenance differs; preserve it')
+            else:shutil.copyfile(source_file,destination)
             if sha256(source_file)!=sha256(destination):raise ValueError('retained source provenance copy mismatch')
             copied[name]=sha256(destination)
     for name in ['dependency-review','linux-dependency-review','wheels','npm-cache','npm-installed-locks','dependency-research','npm-metadata-retention']:
@@ -141,6 +148,7 @@ def main():
                     relative=path.relative_to(retained).as_posix()
                     if sha256(target/relative)!=sha256(path):raise ValueError('retained dependency review/package changed')
                     copied[relative]=sha256(path)
+    if args.resume_preparation and {p.relative_to(retained).as_posix() for p in retained.rglob('*') if p.is_file()}!=set(copied):raise ValueError('unknown interrupted retention payload')
     inventory=target_inventory(target,max_files=args.max_files,max_bytes=args.max_bytes)
     if args.max_files!=40000:inventory['max_files']=args.max_files
     if args.max_bytes!=1024**3:inventory['max_bytes']=args.max_bytes

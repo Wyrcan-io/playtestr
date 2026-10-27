@@ -1892,3 +1892,71 @@ Windows target source/runtime cleanup and exact local-record compaction are next
 complete these before retrieving the Linux final packet, to provide enough
 64MiB package headroom for its actual executable corpus and metadata. Do not
 reacquire/rebuild Windows or redownload either retained Linux preflight.
+
+Committed/pushed2524862c64499db7a182b5c3d9d88690ad186d47. Automatic26-control
+harness40477037285 succeeded; generations59Linux/60Mac/61Win retained and
+checked-removed (194421492a434cbfac29ec744a874afb,
+b00fb2076437427cae5ba07c9447b347,28706a04774049698a35c846bfd71ee0).
+Linux/macOS each correctly skip the2 native-Windows removal controls; Windows
+passes all26. Actual provider durations14s/21s/126s respectively; no blanket
+claim of26 executed passes on each platform.
+
+Windows source/runtime cleanup: process proof cd10eabdad2e4c36a261daaadac49be8;
+first preparation ec4ec85124fc4ee1a4f103ed72e05bee refused a legacy Windows
+INetCache mount point under the owned home. Inspection identified exact
+home/appdata/Local/Microsoft/Windows/INetCache/Content.IE5 -> the same owned
+INetCache/IE directory. First unlink874ee43ea1b9495d8340451b6be046fd correctly
+refused missing PowerShell5.1 LinkType metadata. Native read-only reparse-buffer
+inspection plus nonrecursive DirectoryInfo.Delete ff85f2e2bdb5489789949a5c13a632d8
+unlinked only that mount point, preserving destination bytes. Explicit interrupted
+pre-inventory resume6a21666ca7164747a834809efc02b0e6 preserved prior provenance,
+confirmed319 real target/workspace cleanups and2 exact parser refusals; inventory
+21,367 files/1,621,693,881B. Native checked source/runtime removal
+7d12860c5d004bc5984c518acb7babeb completed. No active local target remains.
+
+Canonical native-v2 source catalog exactly equals local Windows catalog:
+2,921,437B, SHA8e22c22e81ce52dffe428966e96ca55c55a6bea44397e329dd60e8c53e669dea.
+Full native packet + selected catalog verification c16e59b3c4684f49bf6bfa8e5f9c722c
+and native duplicate removal41d9aed0a237462abe3e1082f19aca45 leave an explicit
+mandatory canonical archive/index/member reference. No unlike bytes aliased.
+Local compaction cad4ed682e074411a0e01cf8fd840ae5 retained2,746 original logical
+records/13,912,404B in1,735,988B XZ, fully read back and real first report restored.
+Native42de191394f44b2eaad33c25b70a81d4 removed only exact expanded duplicates.
+Independent240/9 Windows readback8f71b54e57044aa7aa3f06ac45c4f94a passed using
+the lossless local packet. Do not reexpand/reacquire merely to read old evidence;
+next20_local_records.read_packet provides exact original paths/bytes.
+
+First Linux final run40477083665/job122097867131 at source2524862c FAILED after
+its first20-case batch passed; batch1/N01 failed snapshot step8, all earlier steps
+positive and actual target/workspace cleanup confirmed. Actual build again equals
+the already retained native-v2 ELF daa4dd816b3a8fc59b6d99822637d4a41cb787e9c95805588b249b0cfd954803.
+Raw actual screen retains partial-input rows (Project Name: synthetic- and
+Project owner: Ad) above their completed values, shifting the exact six selected
+rows. No snapshot change/normalization, per-case retry, product fix or new source
+fault is justified before diagnosis. No source/runtime filesystem removal claim
+for this failed hosted job. Actual job277s; rounded5min consumed from original60.
+All20 observations receive zero final qualification transfer into any replacement.
+Retrieval05dc2fac904f4f30801ff64f677874df and source/runtime/provider/21-report/
+first-screen audit634348643154416bb56b0eda6ca07a68 retained638 logical files in
+2,074,090B native generation3 and checked-removed expanded packet. Curated
+native-linux-first-final-rejection.json preserves actual screen/diff/outcomes.
+Do not redownload this completed packet. Post-local-compaction/retrieval
+5a9d098324b9400a83b04910005554e1 passed all storage limits, including expanded
+failed packet: newraw963,191,988;combinedraw2,871,900,560;retained1,438,012,239;
+project58,154,111. This predates native generation3 compaction/removal.
+
+Next prepared diagnostic: one standard Ubuntu job,5min ceiling,18 actual raw-PTY
+probes (6 immediate,6 positive full-text observations,6 full-text plus observed
+raw termios state), each target5s/output64KiB with positive owned-process-group
+termination. Reuse exact source-built ELF from original reviewed40467049451
+artifact; no rebuild/cross-compile or product-qualification credit. Explicit same
+TERM=xterm-256color, LANG/LC_ALL=C.UTF-8,120x24 viewport, owned fixture/home/temp.
+Capture actual raw bytes and ECHO/ICANON flags before every write. Source review
+shows console0.16.6 restores original termios after every key, motivating diagnosis,
+but this is not yet proof of the observed root cause. Preserve all outcomes.
+Native first-final277s rounds5min; diagnostic ceiling5 leaves50min for a fully
+declared replacement job within the original60min target ceiling. New source push
+also triggers the existing bounded3-host harness (max2 at once,5min each); account
+its actual duration separately, estimated3min/ceiling15 for this push. No paid
+capacity or per-case automatic retry. New diagnostic workflow/actionlint
+9dbd4c6ce8af41b2970d18ecd74a5214 passed; dispatch remains next after commit.
