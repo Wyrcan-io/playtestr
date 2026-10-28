@@ -2178,3 +2178,98 @@ Storage5b27e2c8c82b4110a4d4c8312fa3e079 after partial disposal passed:
 project58,049,340B;newraw972,785,835;combinedraw2,881,494,407;
 combinedretained1,447,584,154;newcurated2,925,218;combinedcurated14,581,462.
 These are point-in-time logical measurements before later collection logs.
+
+Cargo current-candidate project admission COMPLETE (whole campaign still open):
+Linux40758514842/job123063803006/source2808b670 completed successfully;
+actual native job19:54:39Z-20:08:15Z on28October,816seconds. All240 ordinary
+and9 fresh calibration outcomes passed, all4 native executables retained, actual
+source/runtime removal confirmed. Independent staged readback
+6eabceaf6b6643bbaa1f17ef95ddc8d5 and completed retained readback
+180eb8b34b0249a994a48f85d2c92548 verified the original249 reports, exact
+candidate, native profile4, declared12 variations and source-fault launch identities.
+The failed earlier audit dc639f922250477ca5c394fb0f13b6f4 used a relative virtual
+root with an absolute-path reader; normalizing the root fixed only the auditor.
+
+Original successful provider packet was acquired ONCE by
+ffe409f18b5f458daad093705d98ee59 into bounded RAW/tmp/direct-native-zip staging:
+3,810 logical files/40,736,837B,10,191,704B XZ. Never expand/redownload it.
+Current native generation13 independently retains3,813 records in4,361,848B
+XZ. Actual all4 executable payloads use required physical canonical generation2
+then the current original as a bounded local dictionary for F01/F02/F03; encoded
+sizes1,415,384/3,877/336,158/1,043,811B. Writer/full-restoration
+27499933a5f643b49f2482b925df34d6 and independent native readback above passed.
+All actual executable bytes and all original reports/input/metadata survive.
+Original generated outer/solid compression wrapper bytes are explicitly NOT
+reconstructible; their hashes remain provenance, never unlike-byte aliases.
+
+Independent source-working comparison f0fbb058fc6344efb7e8aa14d37164a0
+compared every original3,810 record and all4 actual executable payloads. Native
+checked retirement ff762bedb2a648299d5dce6180857878 removed only the obsolete
+RAW/tmp generated packet archive, then moved its original index/provider/acquisition/
+verification receipts into counted retained-native-v12 history. Its required current
+representation is13; no source packet deletion before complete byte proof.
+
+Semantic actual-cell challenges cd7b78441a8548de8225bd2e3ebee106 built both
+complete Windows/Linux models from actual reports and rejected12 reconstructible
+corruptions each (24total). Exact compressed model restoration passed; no new
+target runs. Complete actual source/executable closure
+432abef27cf346e690cc5f2bb2d73a1c decoded341 registry tar bodies/15,270 source
+files,167 primary pinned source files per native cell and all8 actual original/fault
+executable payloads, each bound to original compiler/source receipts.
+
+Immutable cargo-generate/admission.json was published locally by
+b5f515b2a2bc4506941d7b487b1422ee: exactrc.6,2native cells,20cases,
+480ordinary/18fresh calibrations,3real faults. Stronger complete existing-admission
+readback c52926a63d7e4a068191ede940c01e8d reproduced all original subjects and
+additionally verified exact runner prelaunch manifests for every actual public/
+maintenance command. Original admission unchanged. Generated free workflow exists
+but has no delivered-CI execution credit. Human0/unmeasured,paid0,unpublished.
+
+Candidate-separated ledger regression106ab3c0f00544968ea9c33bc5d231f8 passed.
+Ledger projection c5d58bea8194454ebae6b508957a0879 preserves the historical
+rc.5 aggregates4/1,920/72 and separately records currentrc.6 admissions1/480/18.
+Distinct new applications with any-candidate admission=5. Original-ten current
+qualification and earlier four rc.6 requalification remain0/open, not inherited.
+Storage69f4a35cc1e9409b9b61ce240e9629e5 passed: Cargo64,735,603B;
+newraw990,575,986;combinedraw2,899,284,558;combinedretained1,457,659,223;
+newcurated3,081,101;combinedcurated14,737,345. This is current compliance,
+not erasure of the previously recorded transient cap breach.
+
+Continue project6 PDM. The ONLY active local external target is source-only
+RAW/active/pdm at201bdc719c15a7c86cc305c0c788fe9cbdef15c3. Acquisition
+c052de07cb4542f4930b878a26ff46a0 retained489 archive entries/4,748,596expanded
+bytes. Primary Git tree verification e4e46002f8144933a0a59ef925f453ed verified
+all402 file blobs; source-provenance.json is tracked metadata, not hook/target
+execution approval. No PDM venv, dependency fetch, build or target run yet.
+Reviewed so far: MITlicense,pyproject.toml,core.py,init.py,template initialization,
+HookManager,project config/Python selection. Normal package backend is pdm.backend
+plus pdm-build-locked; SCM version needs explicit pin-derived build metadata in a
+source archive without .git. Runtime defaults can discover/download Python,
+create venvs, initialize Git and run hooks; restrict chosen synthetic workflow to
+documented built-in/local templates,explicit owned/read-only Python,no Git,
+skip :all hooks,owned homes/caches and no runtime network. Review remaining
+backend/dependency code before execution; do not treat this note as approval.
+
+Do not stop at Cargo. Finish PDM and projects7-20, current-candidate requalification
+of the original ten/four, affected old migrations/whole/public controls, fresh
+delivered source/archive CI triplets, fresh checkout, global all-attempt audit,
+final docs/cleanup/storage and exact closing evidence.
+
+PDM fetch-only continuation: declarationpdm/setup-declaration.json records the
+ordinary pdm.backend/pdm-build-locked inputs, pin-derived private version
+0.0.0+pin.201bdc719c15 (not an upstream release), explicit planned no-network
+synthetic init scope and unchanged64MiB retained cap. Wheel-only fetch
+e7e538c2cc89446aa921f5a0765662e6 created an owned copied Python3.12 venv
+and40 exact wheel inputs; no downloaded dependency, backend or target was installed
+or executed. Main source remains unmodified. Reviewed dependency wheel metadata
+reports no startup hooks; msgpack is the sole native extension. Read actual
+pdm-build-locked backend/plugin: it adds optional locked dependency metadata and
+registers a build command, not a target-init shell hook. Need finish actual backend/
+source review and primary PyPI digest checks before approving offline install.
+Generic Python setup now accepts PDM and explicit declared SCM version/update-check
+environment, correct pdm --version module/banner. Python review preserves and
+verifies an existing immutable complete primary source provenance record instead
+of overwriting the earlier source-tree receipt. Prior jrnl/Commitizen defaults stay.
+Current full40 local helper controls passedf194acb506dc4a91a3acd13f21a1c1d2;
+later small PDM setup/review branches syntax-checked, native source-matched helper
+validation will follow the next push. Cargo source/runtime remains absent.

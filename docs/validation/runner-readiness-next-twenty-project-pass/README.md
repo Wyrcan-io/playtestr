@@ -1,7 +1,7 @@
 # Runner readiness: next twenty projects
 
 Invoked 22 October 2026 under the [execution prompt](../../plans/runner-readiness-next-twenty-project-execution-prompt.md).
-Status: **in progress; four historical rc.5 admissions (14/100 cumulative historical), zero new rc.6 admissions**. The target is twenty new canonical
+Status: **in progress; four historical rc.5 admissions and one new rc.6 admission, spanning five distinct new applications**. The target is twenty new canonical
 applications and a cumulative 30/100 engineering milestone on the candidate actually qualified. The previous ten
 passed an exact-rc.5 carry-forward audit over actual retained evidence; their rc.6 requalification remains open.
 jrnl qualified with 20 scenarios, two native cells, 480 ordinary executions and
@@ -25,10 +25,15 @@ found in project five, cargo-generate. A distinct replacement candidate and
 fresh qualification of the original ten and these four are required. The distinct
 [rc.6 archive freeze](replacement-candidate-freeze-native-exit-v1.json) and
 [105 public-control reexecutions](replacement-public-controls-readback.json) are
-complete. No rc.6 application admission is claimed. Cargo's Windows240/9 final
-readbacks passed; the first Linux final window was
-[rejected and retained](cargo-generate/native-linux-first-final-rejection.json).
-Bounded input diagnostics continue before selecting any remedy or replacement series.
+complete. Cargo's [rc.6 admission](cargo-generate/admission.json) verifies both
+native Windows and Linux cells: 480 ordinary executions, 18 fresh calibrations,
+three real source faults and 24 rejected evidence corruptions. Two rejected Linux
+windows remain retained. Actual syscall diagnosis motivated additive native input
+checkpoints; every original action and oracle remains. Required compiled sources,
+all eight native executable variants, reports and first failures passed complete
+byte readback and current storage caps. Project six, PDM, is now in source review;
+no PDM execution or compatibility credit is claimed. The original ten and four
+earlier projects still need rc.6 qualification; current cumulative 30/100 is open.
 The imported closing admission's 32 subject files and three
 retained native archives passed checksum verification. One initial import-helper
 schema mistake is retained as a failed engineering command, followed by a

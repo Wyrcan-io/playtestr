@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "repository": "pdm-project/pdm",
+  "pin": "201bdc719c15a7c86cc305c0c788fe9cbdef15c3",
+  "license": "MIT",
+  "module": "pdm",
+  "planned_hosts": ["linux", "windows"],
+  "backend": "pdm.backend",
+  "built_source_version": "0.0.0+pin.201bdc719c15",
+  "backend_scope": "Ordinary upstream pdm.backend plus declared pdm-build-locked plugin. Source archive has no .git; explicit PDM_BUILD_SCM_VERSION will identify this exact pin-derived private build, not an upstream release version. Review actual retained backend/plugin code before offline installation. No target execution approval is supplied by this declaration.",
+  "execution_scope": "Proposed trusted synthetic built-in/local init workflow only: explicit owned/read-only Python, documented --no-git and --skip :all, owned empty homes/temp/cache/config, disabled update checks, no external templates, package installation, publishing, credentials, or runtime Python/network acquisition. Verify actual CLI paths before launch. Dependencies/build hooks remain unapproved until their actual source/wheel review completes.",
+  "reviewed_source": [
+    "pyproject.toml", "pdm.lock", "LICENSE", "src/pdm/__version__.py", "src/pdm/__main__.py", "src/pdm/core.py",
+    "src/pdm/termui.py", "src/pdm/cli/commands/init.py", "src/pdm/cli/commands/use.py", "src/pdm/cli/hooks.py",
+    "src/pdm/cli/templates/__init__.py", "src/pdm/cli/actions.py", "src/pdm/project/core.py", "src/pdm/project/config.py",
+    "src/pdm/models/backends.py", "src/pdm/utils.py", "tests/cli/test_init.py"
+  ],
+  "resource_forecast": {
+    "source_bytes": 8388608,
+    "runtime_bytes": 536870912,
+    "retained_project_bytes": 67108864,
+    "setup_seconds": 1200,
+    "scenario_seconds": 120,
+    "step_seconds": 10,
+    "output_bytes": 4194304
+  },
+  "authoring_window": {"handwritten_json": false, "max_playtestr_invocations": 5, "max_recorder_controls": 20},
+  "human_participants": 0,
+  "target_execution_approved": false
+}

@@ -8,7 +8,7 @@ import zipfile
 
 from next20_check import RAW
 from next20_native_zip_packet import retain_zip
-from readiness_compact_native import verify
+from next20_packet_archive import verify
 
 
 class NativeZipTests(unittest.TestCase):
@@ -23,14 +23,14 @@ class NativeZipTests(unittest.TestCase):
 
     def test_direct_zip_preserves_logical_aliases_and_actual_report_restore(self):
         report=b'{"status":"actual synthetic report"}\n'
-        for generation,selected in enumerate(['N01.report.json','report.json'],1):
+        for generation,(selected,compression) in enumerate([(name,encoding) for name in ['N01.report.json','report.json'] for encoding in ['tar.gz','tar.xz']],1):
             payload=self.packet([('app/'+selected,report),('app/copy.json',report),('app/fixture.txt',b'exact fixture\n')])
-            root=self.root/('retained-native-v'+str(generation));index=retain_zip(payload,root,'control-tests','123','synthetic-native',1024**2)
+            root=self.root/('retained-native-v'+str(generation));index=retain_zip(payload,root,'control-tests','123','synthetic-native',1024**2,compression)
             self.assertEqual(len(index['files']),3);self.assertEqual(index['unique_payloads'],2)
             self.assertEqual((root/'selected-restore.bin').read_bytes(),report)
-            verify(root/'packets.tar.gz',index['files'])
+            verify(root/('packets.'+compression),index['files'])
             changed=json.loads(json.dumps(index['files']));next(iter(changed.values()))['sha256']='0'*64
-            with self.assertRaises(ValueError):verify(root/'packets.tar.gz',changed)
+            with self.assertRaises(ValueError):verify(root/('packets.'+compression),changed)
 
     def test_direct_zip_refuses_path_escape_link_duplicate_and_archive_overflow(self):
         link=zipfile.ZipInfo('owned/link');link.create_system=3;link.external_attr=(stat.S_IFLNK|0o777)<<16

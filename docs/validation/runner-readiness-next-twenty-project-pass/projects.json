@@ -5,10 +5,10 @@
   "current_candidate_original_ten": 0,
   "qualification_candidate": "v0.4.0-rc.6",
   "admission_counters_candidate": "v0.4.0-rc.5",
-  "current_candidate_new_project_admissions": 0,
-  "current_candidate_ordinary_executions_qualified": 0,
-  "current_candidate_calibration_executions_qualified": 0,
-  "candidate_scope": "Existing four admitted rows and aggregate execution/scenario/native counters are historical exact-rc.5 evidence. Original ten and four new projects require actual rc.6 requalification. Partial Cargo Windows final readbacks and rejected Linux window do not admit a project.",
+  "current_candidate_new_project_admissions": 1,
+  "current_candidate_ordinary_executions_qualified": 480,
+  "current_candidate_calibration_executions_qualified": 18,
+  "candidate_scope": "Top-level admission aggregates remain historical exact v0.4.0-rc.5. Current v0.4.0-rc.6 counters and every per-project candidate admission are separate explicit projections. Historical admissions transfer no current-candidate credit; original-ten current requalification remains separate.",
   "new_project_admissions": 4,
   "new_project_target": 20,
   "ordinary_executions": 1920,
@@ -24,7 +24,7 @@
       "id": "jrnl",
       "repository": "jrnl-org/jrnl",
       "pin": "90de4948d79a4fca8c7238dd2487b599f458c903",
-      "status": "admitted",
+      "status": "admitted-on-recorded-candidate",
       "development_selected_scenarios_passed": 20,
       "development_ordinary_attempts": 40,
       "development_ordinary_passed": 36,
@@ -44,13 +44,22 @@
       "audited_ordinary_executions": 480,
       "audited_calibration_executions": 18,
       "admission": "jrnl/admission.json",
-      "delivered_ci_observations": 12
+      "delivered_ci_observations": 12,
+      "candidate_admissions": [
+        {
+          "project": "jrnl",
+          "candidate": "v0.4.0-rc.5",
+          "path": "jrnl/admission.json",
+          "sha256": "6d305c12a87f30717c9bd9a9bcb72c4b8b47d8c2a4cdbf86868a0219ef4f350a"
+        }
+      ],
+      "current_candidate_qualified": false
     },
     {
       "id": "commitizen-python",
       "repository": "commitizen-tools/commitizen",
       "pin": "b78d581f7e3089fa40bcd4794591fd56b43b671a",
-      "status": "admitted",
+      "status": "admitted-on-recorded-candidate",
       "admitted": true,
       "qualified_scenarios": 20,
       "qualified_native_cells": 2,
@@ -84,13 +93,22 @@
       "audited_calibration_executions": 18,
       "additional_terminal_only_probes": 2,
       "admission": "commitizen-python/admission.json",
-      "delivered_ci_observations": 12
+      "delivered_ci_observations": 12,
+      "candidate_admissions": [
+        {
+          "project": "commitizen-python",
+          "candidate": "v0.4.0-rc.5",
+          "path": "commitizen-python/admission.json",
+          "sha256": "55b1273f59268bb60ec901bec6504e96af964d47f347d9e1016086b66b6f7782"
+        }
+      ],
+      "current_candidate_qualified": false
     },
     {
       "id": "cz-cli",
       "repository": "commitizen/cz-cli",
       "pin": "1a8c49c02c9d52d1b4ef8cdabefb538088ddea03",
-      "status": "admitted",
+      "status": "admitted-on-recorded-candidate",
       "admitted": true,
       "planned_hosts": [
         "linux",
@@ -118,13 +136,22 @@
       "local_target_absent": true,
       "maintenance": "Actual diagnosis, selected/cancelled approval, suffix pruning and byte-identical relocation passed; first attempts preserved.",
       "admission": "cz-cli/admission.json",
-      "delivered_ci_observations": 0
+      "delivered_ci_observations": 0,
+      "candidate_admissions": [
+        {
+          "project": "cz-cli",
+          "candidate": "v0.4.0-rc.5",
+          "path": "cz-cli/admission.json",
+          "sha256": "2d099477cd8252d1db948912967a149d346b99d6700a413b02fa3f1eaf494348"
+        }
+      ],
+      "current_candidate_qualified": false
     },
     {
       "id": "yo",
       "repository": "yeoman/yo",
       "pin": "2ee5e3441d99d500170be7c661d0a401ac0bb97c",
-      "status": "admitted",
+      "status": "admitted-on-recorded-candidate",
       "development_selected_scenarios_passed": 20,
       "development_ordinary_attempts": 40,
       "development_ordinary_passed": 38,
@@ -170,10 +197,93 @@
           "source_revision": "f03de4cc69db968a0ce29fe41c592fe72cf06681"
         }
       ],
-      "calibration_executions": 18
+      "calibration_executions": 18,
+      "candidate_admissions": [
+        {
+          "project": "yo",
+          "candidate": "v0.4.0-rc.5",
+          "path": "yo/admission.json",
+          "sha256": "592e2b7e687394c3ea4b47c56b39818fda0e4ed5bb788e7cd4b6b8b97861eea1"
+        }
+      ],
+      "current_candidate_qualified": false
+    },
+    {
+      "id": "cargo-generate",
+      "repository": "cargo-generate/cargo-generate",
+      "pin": "9c0c27568113cfc9caefac50336b5d4b92c055a9",
+      "planned_hosts": [
+        "linux",
+        "windows"
+      ],
+      "admitted": true,
+      "status": "admitted-on-recorded-candidate",
+      "candidate_admissions": [
+        {
+          "project": "cargo-generate",
+          "candidate": "v0.4.0-rc.6",
+          "path": "cargo-generate/admission.json",
+          "sha256": "a93751afb626ba7025668ded7bf4602e6a37e5be3ef5f80735c013de69b0a59d"
+        }
+      ],
+      "current_candidate_qualified": true
     }
   ],
   "observed_audited_ordinary_executions": 1920,
   "observed_audited_calibration_executions": 72,
-  "additional_terminal_only_probes": 6
+  "additional_terminal_only_probes": 6,
+  "candidate_counters": {
+    "v0.4.0-rc.5": {
+      "projects": 4,
+      "ordinary": 1920,
+      "calibrations": 72,
+      "canonical_scenarios": 80,
+      "native_cells": 8,
+      "real_source_faults": 12
+    },
+    "v0.4.0-rc.6": {
+      "projects": 1,
+      "ordinary": 480,
+      "calibrations": 18,
+      "canonical_scenarios": 20,
+      "native_cells": 2,
+      "real_source_faults": 3
+    }
+  },
+  "admission_subjects": [
+    {
+      "project": "jrnl",
+      "candidate": "v0.4.0-rc.5",
+      "path": "jrnl/admission.json",
+      "sha256": "6d305c12a87f30717c9bd9a9bcb72c4b8b47d8c2a4cdbf86868a0219ef4f350a"
+    },
+    {
+      "project": "commitizen-python",
+      "candidate": "v0.4.0-rc.5",
+      "path": "commitizen-python/admission.json",
+      "sha256": "55b1273f59268bb60ec901bec6504e96af964d47f347d9e1016086b66b6f7782"
+    },
+    {
+      "project": "cz-cli",
+      "candidate": "v0.4.0-rc.5",
+      "path": "cz-cli/admission.json",
+      "sha256": "2d099477cd8252d1db948912967a149d346b99d6700a413b02fa3f1eaf494348"
+    },
+    {
+      "project": "yo",
+      "candidate": "v0.4.0-rc.5",
+      "path": "yo/admission.json",
+      "sha256": "592e2b7e687394c3ea4b47c56b39818fda0e4ed5bb788e7cd4b6b8b97861eea1"
+    },
+    {
+      "project": "cargo-generate",
+      "candidate": "v0.4.0-rc.6",
+      "path": "cargo-generate/admission.json",
+      "sha256": "a93751afb626ba7025668ded7bf4602e6a37e5be3ef5f80735c013de69b0a59d"
+    }
+  ],
+  "distinct_new_projects_with_any_candidate_admission": 5,
+  "current_candidate_canonical_scenarios": 20,
+  "current_candidate_native_cells": 2,
+  "current_candidate_real_source_faults": 3
 }

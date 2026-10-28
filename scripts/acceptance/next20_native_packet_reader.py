@@ -3,6 +3,7 @@ from functools import lru_cache
 import copy
 import hashlib
 import json
+from pathlib import Path
 import re
 import tarfile
 
@@ -27,8 +28,9 @@ def corrected_index(root,index,index_sha):
 
 
 @lru_cache(maxsize=2)
-def _read(project,generation,index_sha,archive_sha,dictionary_identity=None):
-    root=RAW/project/('retained-native-v'+str(generation));index=json.loads((root/'index.json').read_text())
+def _read(project,generation,index_sha,archive_sha,dictionary_identity=None,packet_root=None):
+    root=RAW/project/('retained-native-v'+str(generation)) if packet_root is None else Path(packet_root)
+    index=json.loads((root/'index.json').read_text())
     if sha256(root/'index.json')!=index_sha or index['project']!=project or index['generation']!=generation or len(index['files'])>10000:raise ValueError('native packet index scope/identity differs')
     index,_=corrected_index(root,index,index_sha)
     archive=archive_path(root,index)
@@ -69,13 +71,16 @@ def _read(project,generation,index_sha,archive_sha,dictionary_identity=None):
             data=result[reference['logical_path']]
             if len(data)!=reference['bytes'] or hashlib.sha256(data).hexdigest()!=reference['sha256']:raise ValueError('current actual native build/version metadata differs')
             if name=='build.json' and json.loads(data)['binary_sha256']!=current['sha256']:raise ValueError('current build does not bind retained actual executable')
+    if index.get('solid_runtime_disposition'):
+        from next20_cargo_solid_reference import restore
+        restore(result,index['solid_runtime_disposition'])
     return index,result
 
 
-def read_packet(project,generation):
+def read_packet(project,generation,*,stage=False):
     if '/' in project or '\\' in project or not 1<=generation<=1000:raise ValueError('invalid native reader scope')
-    root=RAW/project/('retained-native-v'+str(generation));root.resolve(strict=True).relative_to(RAW.resolve(strict=True))
-    for ancestor in [root,root.parent,RAW,RAW.parent]:
+    root=(RAW/'tmp/direct-native-zip'/project if stage else RAW/project)/('retained-native-v'+str(generation));root.resolve(strict=True).relative_to(RAW.resolve(strict=True))
+    for ancestor in [root,root.parent,RAW/'tmp/direct-native-zip' if stage else RAW/project,RAW/'tmp' if stage else RAW,RAW,RAW.parent]:
         if ancestor.is_symlink() or getattr(ancestor,'is_junction',lambda:False)():raise ValueError('linked native reader ancestor')
     proof=json.loads((root/'verified.json').read_text());index_sha=sha256(root/'index.json')
     if index_sha!=proof['index_sha256']:raise ValueError('native evidence index changed')
@@ -83,12 +88,13 @@ def read_packet(project,generation):
     if archive_sha!=proof['archive_sha256']:raise ValueError('native evidence archive changed')
     index,correction_sha=corrected_index(root,index,index_sha)
     dictionary_identity=correction_sha
-    if index.get('runtime_frame_disposition'):
-        required=index['runtime_frame_disposition']['required_canonical_runtime'];match=re.fullmatch(re.escape(project)+r'/retained-native-v([0-9]{1,4})/packets\.tar\.gz',required['archive'])
+    disposition=index.get('runtime_frame_disposition') or index.get('solid_runtime_disposition')
+    if disposition:
+        required=disposition['required_canonical_runtime'];match=re.fullmatch(re.escape(project)+r'/retained-native-v([0-9]{1,4})/packets\.tar\.gz',required['archive'])
         if not match or int(match[1])>=generation:raise ValueError('unsafe required native dictionary reference')
         base=RAW/required['archive'];base.resolve(strict=True).relative_to((RAW/project).resolve(strict=True))
         if base.is_symlink() or base.parent.is_symlink() or getattr(base.parent,'is_junction',lambda:False)():raise ValueError('linked native runtime dictionary')
         base_index=sha256(base.parent/'index.json');base_archive=sha256(base)
         if base_index!=required['index_sha256'] or base_archive!=required['archive_sha256']:raise ValueError('required canonical runtime dictionary missing/changed')
         dictionary_identity=base_index+':'+base_archive+':'+str(correction_sha)
-    return _read(project,generation,index_sha,archive_sha,dictionary_identity)
+    return _read(project,generation,index_sha,archive_sha,dictionary_identity,str(root))

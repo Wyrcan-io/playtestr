@@ -56,8 +56,26 @@ the cap; the breach and failed experiments remain recorded. Current Linux packet
 against the required physical packet 2. Its obsolete generated compressed binary
 transport wrapper is not reconstructed; its original hash is provenance only.
 
-The campaign remains at four historical new rc.5 admissions and zero current
-rc.6 project admissions. Human usability remains unmeasured. A current readback
+The third Linux final run, `40758514842` at source `2808b670`, completed all
+240 ordinary executions and nine fresh source-fault calibrations. Independent
+readbacks verified the original reports and the compact retained packet. Both
+native cells now qualify: 480 ordinary executions, 18 calibrations, three distinct
+real source faults and 24 rejected semantic evidence corruptions. The immutable
+[admission](admission.json) records this project's exact rc.6 engineering scope.
+
+The complete source readback restored 341 registry package tar bodies, 15,270
+registry source files, 167 primary source files per host, and all eight actual
+original/fault executable variants. Current Linux generation 13 retains every
+report/input/metadata byte and all four executable payloads through verified
+dictionary encodings requiring physical canonical generation 2. Historical
+generation 12 preserves its original acquisition/index receipts; its obsolete
+generated compression wrapper is explicitly superseded. Current retained storage
+fits the original 64 MiB cap. Earlier failures and the transient cap breach remain
+visible. Generated free workflow execution remains part of the global CI gate.
+
+The campaign has four historical new rc.5 admissions and one current rc.6 project
+admission, spanning five distinct new applications. Earlier projects still need
+current-candidate requalification. Human usability remains unmeasured. A readback
 must validate the recorded runtime catalog appropriate to each execution phase;
 the failed audit that looked for a pristine executable in the base catalog is
 preserved separately from the actual target outcomes.

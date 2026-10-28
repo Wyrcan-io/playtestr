@@ -61,8 +61,12 @@ def main():
         source_blobs_verified=len(actual),dependencies=dependencies,backend=declaration['backend'],
         execution_scope=declaration['execution_scope'],wheel_script_approval_sha256=sha256(target/'wheel-script-approval.json') if (target/'wheel-script-approval.json').exists() else None)
     immutable_json(target/'install-approval.json',approval);immutable_json(DOC/args.project/'source-review.json',approval)
-    immutable_json(DOC/args.project/'source-provenance.json',dict(schema_version=1,pin=marker['pin'],
-        repository=declaration['repository'],files={name:sha256(path) for name,path in actual.items()}))
+    provenance=dict(schema_version=1,pin=marker['pin'],repository=declaration['repository'],files={name:sha256(path) for name,path in actual.items()})
+    provenance_path=DOC/args.project/'source-provenance.json'
+    if provenance_path.exists():
+        existing=json.loads(provenance_path.read_text())
+        if any(existing.get(key)!=provenance[key] for key in ['pin','repository','files']):raise ValueError('previous immutable primary source provenance differs')
+    else:immutable_json(provenance_path,provenance)
     print('Verified complete pinned source:',len(actual),'blobs and',len(dependencies),'primary-release wheel digests. Approved explicit offline owned build.')
 
 

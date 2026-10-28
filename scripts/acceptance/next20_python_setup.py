@@ -31,13 +31,17 @@ def environment(target):
 
 
 async def main():
-    parser=argparse.ArgumentParser();parser.add_argument('project',choices=['jrnl','commitizen-python'])
+    parser=argparse.ArgumentParser();parser.add_argument('project',choices=['jrnl','commitizen-python','pdm'])
     parser.add_argument('stage',choices=['fetch','review','install','verify-installed']);args=parser.parse_args()
     target=RAW/'active'/args.project;source=target/'src'
     marker=json.loads((target/'task-owned.json').read_text())
     if marker['workspace']!=str(ROOT) or marker['campaign']!=NAME:raise ValueError('unowned Python target')
     if measure(target)['total_bytes']>256*1024**2:raise ValueError('initial Python target forecast exceeded')
     env=environment(target);campaign=NextCampaign()
+    declaration=json.loads((DOC/args.project/'setup-declaration.json').read_text()) if args.project=='pdm' else None
+    if declaration:
+        if declaration['pin']!=marker['pin'] or declaration['backend']!='pdm.backend':raise ValueError('PDM source/build declaration differs')
+        env.update(PDM_BUILD_SCM_VERSION=declaration['built_source_version'],PDM_CHECK_UPDATE='false')
     async def run(argv,label):
         return await execute(argv,args.project,label,cwd=source,env=env,timeout=600,campaign=campaign)
     metadata=tomllib.loads((source/'pyproject.toml').read_text(encoding='utf-8'))
@@ -105,10 +109,10 @@ async def main():
                 installed_inventory_sha256=sha256(target/'installed-inventory.json')))
         elif json.loads((target/'installed-inventory.json').read_text())['files']!=installed:
             raise ValueError('previously installed runtime changed; do not reinstall over unknown bytes')
-        module='jrnl' if args.project=='jrnl' else 'commitizen'
-        version_args=['--version'] if args.project=='jrnl' else ['version','--commitizen']
+        module='pdm' if args.project=='pdm' else ('jrnl' if args.project=='jrnl' else 'commitizen')
+        version_args=['--version'] if args.project in {'jrnl','pdm'} else ['version','--commitizen']
         result=await run([python,'-B','-m',module,*version_args],'installed-target-version')
-        expected='jrnl' if args.project=='jrnl' else metadata['project']['version']
+        expected=declaration['built_source_version'] if declaration else ('jrnl' if args.project=='jrnl' else metadata['project']['version'])
         if expected not in result['output'].lower():raise ValueError('installed version missing positive target banner')
         immutable_json(target/'build.json',dict(pin=marker['pin'],source_editable=True,
             source_pyproject_sha256=sha256(source/'pyproject.toml'),wheels_sha256=sha256(target/'wheels.json'),

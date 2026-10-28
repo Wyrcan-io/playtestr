@@ -15,13 +15,13 @@ from next20_check import RAW,ROOT,DOC,NAME
 from readiness_evidence import immutable_json,sha256
 
 
-def audit(root,host,revision,run=None,native_generation=None):
+def audit(root,host,revision,run=None,native_generation=None,staged_packet=False):
     prefix='artifacts/'+NAME+'/';package=DOC/'cargo-generate';project=root/'cargo-generate'
     retained=None;native_records=None
     if native_generation is not None:
         from next20_native_packet_reader import read_packet
-        _,native_records=read_packet('cargo-generate',native_generation)
-        retained_root=RAW/'cargo-generate'/('retained-native-v'+str(native_generation))
+        _,native_records=read_packet('cargo-generate',native_generation,stage=staged_packet)
+        retained_root=(RAW/'tmp/direct-native-zip/cargo-generate' if staged_packet else RAW/'cargo-generate')/('retained-native-v'+str(native_generation))
         provider=json.loads((retained_root/'provider.json').read_text())
         if host!='linux' or provider['headSha']!=revision or provider['status']!='completed' or provider['conclusion']!='success' or len(provider['jobs'])!=1:raise ValueError('required actual native provider/source success missing')
     def local_records():
@@ -259,9 +259,11 @@ def audit(root,host,revision,run=None,native_generation=None):
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--host',choices=['windows','linux'],required=True);parser.add_argument('--root',type=Path,default=RAW)
-    parser.add_argument('--revision',required=True);parser.add_argument('--run');parser.add_argument('--native-generation',type=int);args=parser.parse_args()
-    args.root.resolve(strict=args.native_generation is None).relative_to(RAW.resolve(strict=True))
-    value=audit(args.root,args.host,args.revision,args.run,args.native_generation)
+    parser.add_argument('--revision',required=True);parser.add_argument('--run');parser.add_argument('--native-generation',type=int);parser.add_argument('--staged-packet',action='store_true');args=parser.parse_args()
+    if args.staged_packet and args.native_generation is None:raise ValueError('staged packet requires explicit native generation')
+    args.root=args.root.resolve(strict=args.native_generation is None)
+    args.root.relative_to(RAW.resolve(strict=True))
+    value=audit(args.root,args.host,args.revision,args.run,args.native_generation,args.staged_packet)
     immutable_json(RAW/'cargo-generate'/('final-cell-readback-'+args.host+'-'+uuid.uuid4().hex+'.json'),value)
     print('Actual native final cell readback:',args.host,value['ordinary_readbacks'],'ordinary /',value['calibration_readbacks'],'calibrations; admission closure remains separate')
 
