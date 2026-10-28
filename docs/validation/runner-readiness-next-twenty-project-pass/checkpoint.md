@@ -2049,3 +2049,69 @@ alias-aware retained tar generation, full hashes and selected actual-report
 restoration. Count only actual disk bytes; clamp retained archive/index to measured
 project headroom before writing. Preserve all logical bytes and original failed
 packets. No new source/runtime acquisition locally or late-project exposure.
+
+Committed/pushed fa779f299a61cfb2d9f5cc276a8a61433292eba6; complete replacement
+40746186639/job123020497870 dispatched1b210d23de724143a26d47ebde8b8ccd. Native
+job277s FAILED after49 positive observations: batches0/1 all20, batch2 N01-N08/E01,
+then E02 same-invocation profile-byte failure at step17. All terminal/exit/sentinel
+steps before it passed; rendered owner Adxa, reviewed profile requires Ada. N01
+profile3 passed three batches. No per-case retry or49-pass transfer; window2 is
+rejected in full. Source/runtime filesystem removal skipped after failure; actual
+target/workspace cleanup and wrapper reaping confirmed for all50 executions.
+Failure fallback retained actual compiled binary before upload. Original actual
+ELF is now ea83083a6e67a2110a54f42c13e9690e19d9c2d28f6a6ea996d38eab19c27a28,
+25,787,032B, DIFFERENT from earlier25,788,128B daa4...; never alias these as equal.
+
+Direct bounded ZIP retention5c906c6dfbc2413cb894af45778a93c5 retained source
+native generation6 without disk expansion:1,014 logical files/15,077,508B into
+9,194,896B gzip. Independent source/provider/contracts/reports/phase/invocation/
+state/cleanup audit817d5a2197e646b0ac6108c701c2b937 preserved49/1 rejection in
+native-linux-second-final-rejection.json. Do not redownload or expand generation6.
+Native reader supplies exact logical bytes from verified packet. Storage
+9f9bcc26bd8442b89055fe14f7e72603 passed: newraw973,850,024;combinedraw2,882,558,596;
+retained1,448,648,343;project64,104,858;newcurated2,835,024;combined14,491,268.
+This observation predates failed partial compaction outputs below; no active target.
+
+Measured retention attempts, none grants qualification: exact whole-gzip archive
+COPY/INSERT representations did not fit headroom (d06e7f5cd11a4ece98807bb87443d893,
+722c231354844372b1c44c9a20c95c31; latter7,815,508B). Canonical executable equality
+guard de9552a383974754b41089ce2efaf903 correctly refused unlike ELF aliasing.
+Raw executable XOR0f2363f3ab29434c87450eb727266641 cost15,026,948B; COPY/INSERT
+0e69b6a25b324ff7b834b78caef43cc0 cost4,296,148B and its new representation
+stopped at declared headroom, leaving unusable partial generation7 only.
+Original generation6 and canonical generation2 remained complete/untouched.
+Original/dictionary proof9e76ec47785641f7b2aedcd51c16b4a2 and native checked
+disposal3f4e6f85e9004fe0bb57464d096c08b3 removed ONLY that generated incomplete
+encoding; its failure events/console/disposition remain in generation7.
+Chunk-realigned XOR75739abfb7064e01b180596fb23689cb cost4,008,224B, not selected.
+
+Installed read-only liblzma5.8.1 (Anaconda Library/bin/liblzma.dll SHA
+4826969d1704c8a07764f1772d12b00f7dfcc70f992e43248b04c69f0bd02513) raw LZMA2
+preset-dictionary measurement b56820b56c014173870667ebcea3a190 restored every
+actual newer ELF byte from1,415,384B with old actual ELF as required dictionary.
+Reported encoder memory387,027,467B bounded512MiB; decoder64MiB, raw native
+inputs32MiB. Raw data is NOT labelled .xz. Actual positive plus4 wrong-dictionary/
+truncation/trailing/false-target controls f82d5fcb316a4e36973b4447d0b7eed1 passed.
+No library installation/download/global change; this is private evidence tooling,
+not product behavior or compatibility credit. A subsequent in-project repack
+2fd05c0d132e4b67b16772748ba10164 also stopped at headroom, leaving incomplete
+generation8. Neither generation7 nor8 has a completed index/verified receipt;
+do not treat either as retained packets or delete original generation6.
+
+Next: dispatch bounded exact-candidate E02 syscall trace (same diagnostic workflow,
+selected_case=E02,5min/20 attempts max/stop after first failure/8MiB trace cap;
+no final credit). First final277s + raw15s + N01trace14s + window2 277s round12
+conservative minutes; new diagnostic ceiling5 leaves43min for a fresh full
+replacement within original60. Automatic source-push harness15min ceiling remains
+separate and fully journaled. E02 is unchanged for diagnosis; do not preapply a fix.
+
+Finish retention using a verified alternate working encoding if needed. Prompt
+section17 caps RETAINED evidence64MiB; owned RAW/tmp compaction staging is raw
+working storage, still counted under4GiB/combined6GiB and not a new retained
+packet until checked promotion. Any staged encoding must be complete, fully
+hash/source/runtime-verified and its projected post-promotion retained total must
+fit64MiB before a native checked swap. No remote/off-workspace offload, no evidence
+loss or hidden retained-data exclusion. Preserve old indices/hashes; explicitly
+distinguish obsolete generated compression wrappers from every actual executable,
+metadata/report/contract/screen byte. If a wrapper is superseded, never claim its
+unlike compressed bytes are reconstructible; all inner actual bytes must be.

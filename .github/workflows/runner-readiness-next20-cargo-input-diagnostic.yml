@@ -9,6 +9,10 @@ on:
         type: choice
         options: [raw-pty, candidate-trace]
         default: raw-pty
+      selected_case:
+        type: choice
+        options: [N01, E02]
+        default: N01
 permissions:
   contents: read
   actions: read
@@ -56,7 +60,9 @@ jobs:
         run: python -B scripts/acceptance/next20_check.py --label cargo-linux-diagnostic-exact-archive --timeout 60 -- python -B scripts/acceptance/next20_candidate_install.py --series native-exit-v1 --archive artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v1/linux-amd64/dist/playtestr_0.4.0-rc.6_linux_amd64.tar.gz
       - name: Trace actual frozen candidate input and output syscalls
         if: inputs.mode == 'candidate-trace'
-        run: python -B scripts/acceptance/next20_check.py --label cargo-exact-candidate-pty-input-trace --timeout 240 -- python -B scripts/acceptance/next20_cargo_candidate_input_trace.py --packet artifacts/runner-readiness-next-twenty-project-pass/diagnostic-native-input
+        env:
+          SELECTED_CASE: ${{ inputs.selected_case }}
+        run: python -B scripts/acceptance/next20_check.py --label cargo-exact-candidate-pty-input-trace --timeout 240 -- python -B scripts/acceptance/next20_cargo_candidate_input_trace.py --packet artifacts/runner-readiness-next-twenty-project-pass/diagnostic-native-input --case "$SELECTED_CASE"
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:

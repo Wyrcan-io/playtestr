@@ -14,7 +14,7 @@ from readiness_evidence import immutable_json,sha256
 
 
 async def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--packet',type=Path,required=True);args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--packet',type=Path,required=True);parser.add_argument('--case',choices=['N01','E02'],default='N01');args=parser.parse_args()
     campaign=NextCampaign(phase='development')
     async def command(argv,label,timeout=90):return await execute(argv,'cargo-generate',label,cwd=ROOT,env=owned_environment(),timeout=timeout,campaign=campaign)
     await command([sys.executable,'-B',ROOT/'scripts/acceptance/next20_cargo_input_diagnostic.py','--packet',args.packet,'--prepare-only'],'native-candidate-input-trace-prepare')
@@ -22,13 +22,13 @@ async def main():
     tracer=shutil.which('strace')
     if not tracer:raise ValueError('read-only strace prerequisite missing; no global installation allowed')
     tracer=Path(tracer).resolve(strict=True);runner=executable('native-exit-v1');target=RAW/'active/cargo-generate';binary=target/'bin/cargo-generate'
-    root=RAW/'cargo-generate/candidate-input-trace/v1';root.mkdir(parents=True,exist_ok=False)
+    root=RAW/'cargo-generate/candidate-input-trace'/('v1' if args.case=='N01' else 'v2-e02');root.mkdir(parents=True,exist_ok=False)
     immutable_json(root/'tool-and-runtime.json',dict(schema_version=1,tracer=str(tracer),tracer_sha256=sha256(tracer),
         actual_runner_sha256=sha256(runner),actual_target_sha256=sha256(binary),maximum_executions=20,maximum_trace_bytes=8*1024**2,
-        scope='Actual exact private archive, unchanged native N01 and source-built target. Diagnostic observations only; stop after first failure, no final-series credit.'))
+        selected_case=args.case,scope='Actual exact private archive, unchanged selected native contract and source-built target. Diagnostic observations only; stop after first failure, no final-series credit.'))
     observations=[]
     for number in range(20):
-        folder=root/str(number);folder.mkdir();report=folder/'report.json';spec=RAW/'cargo-generate/host-contracts/normal-project.json'
+        folder=root/str(number);folder.mkdir();report=folder/'report.json';spec=RAW/'cargo-generate/host-contracts'/('normal-project.json' if args.case=='N01' else 'e02.json')
         immutable_json(folder/'planned.json',dict(schema_version=1,number=number,runner_sha256=sha256(runner),target_sha256=sha256(binary),
             spec_sha256=sha256(spec),tracer_sha256=sha256(tracer),timeout_seconds=15,qualification_credit=0))
         argv=[tracer,'-ff','-ttt','-yy','-s','2048','-e','trace=read,write,ioctl','-o',folder/'syscalls',runner,'test',
