@@ -1999,3 +1999,53 @@ counts from zero current rc.6 admitted new projects and zero current original-te
 qualifications. No historical admission receipt edited. Legacy promotion helper
 now refuses mixed/unidentified candidate aggregation; new regression
 bdcc061d7cb741cc8a54551569915ef6 passed. Historical counters remain rc.5 scoped.
+
+Committed/pushed3c18553cf7c650ae947bcaee333c24a40e54caad. Initial diagnostic
+dispatch was rejected before execution by automatic review usage limit; no action
+ran and no bypass. On explicit user continuation the same dispatch succeeded:
+40744103927/job123013208313,09b0609ae1194eb6bf57f272954ed758, actual native
+job14s. The exact rc.6 N01 failed on the first traced diagnostic invocation,
+snapshot_mismatch with retained partial Project owner: Ad row. This successful
+diagnostic job does NOT mean the application test passed. Retrieved once
+7c0734e6a665416987f0495a40f65ff1; independent syscall-causality audit
+9b968efc91c64165a283e317be6ce161 retained native generation5 (164 logical
+records/171,811B) and checked-removed expansion. Do not redownload.
+
+Actual syscall chronology proves the target restored ECHO/ICANON after d;
+runner Enter reached master before the target read/rendered final a; master
+received kernel CRLF before final a and before any target newline write. Source
+console0.16.6 restores original termios after each key. Thus the extra row was
+actual terminal output, not VT parser invention. All target/workspace and traced
+harness cleanup completed; actual target payload was checked-removed. Curated
+native-linux-input-echo-trace-v1.json retains exact ordered trace lines/hashes.
+
+Declared Linux profile3/complete final window2 b7ed7d7ec295489fa62e71543609bbd1
+adds only2 positive full-input expects before existing N01 Enter keys. Exact
+six snapshot rows/bytes, all original state assertions, fields, fixtures, key/text
+values, budgets and other19 cases remain. Canonical105-file freeze and Windows
+profile remain unchanged. No product/target source, terminal mode, input filter,
+sleep, row removal or golden update. Original rejected20/1 window transfers no
+final credit. All240 ordinary and9 final calibration outcomes must run fresh on
+Linux. Native profile builder hash-guards concrete predeclared N01 bytes; parent
+window2 binds replacement/review/base/canonical declarations before launching.
+F03 state checkpoint gains2 preceding checks (native step16); original canonical
+state14 and all existing saved-state oracles unchanged. Source mutation selection
+and all3 exact patches remain historical and unchanged; no holdout claim.
+
+Full29 local controls644ff635d30548fe9ff7e9ea5c415ffe passed, including additive
+oracle-preservation/anchor-refusal and mixed-candidate counter controls. Native
+replacement workflow actionlint4177f23f9bfc4ca39ab87d8f136deb02 passed. New job
+ceiling49min (estimate14); prior target jobs actual277+15+14s, conservative7min,
+combined56min within original60. Max1 target job plus2 harness jobs. On failed
+qualification preserve actual original executable before upload if full variant
+retention did not complete; successful jobs retain all4 binaries only once.
+
+Next commit/push and dispatch the complete Linux replacement. While it runs,
+finish independent final-cell/profile3 audit and bounded native packet collection.
+Final packet expanded metadata may exceed remaining64MiB project headroom:
+do NOT blindly gh-run-download/expand it. Plan bounded ZIP-in-memory acquisition
+(max32MiB compressed ZIP,16MiB/file,128MiB logical payload,10k files), direct
+alias-aware retained tar generation, full hashes and selected actual-report
+restoration. Count only actual disk bytes; clamp retained archive/index to measured
+project headroom before writing. Preserve all logical bytes and original failed
+packets. No new source/runtime acquisition locally or late-project exposure.

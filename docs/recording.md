@@ -49,6 +49,13 @@ Flags explicitly select argv, cwd or fixture/cwd, viewport, environment allowlis
 
 Allow target startup and preparation to reach the actual checkpoint, including subprocess work such as local version-control operations. If capture times out, use `/screen` to inspect what was rendered; measure fresh runs before restarting with a different `--timeout-ms`, and keep the whole-run budget explicit. A progress banner alone does not prove readiness for input.
 
+Sending text proves that the PTY accepted the bytes; the application may still be
+processing them. If a prompt redraws each character or changes terminal input
+modes, capture an `/expect` checkpoint for the complete displayed field before
+sending Enter. This helps keep submission from racing unfinished input rendering.
+Review the resulting screen and saved-state checks together; a matching prompt
+alone does not prove that the submitted value was saved.
+
 `/resize` changes the PTY dimensions; the application processes that change
 asynchronously. Before sending keys whose meaning depends on the new viewport
 (such as scrolling to the bottom), use `/redraw` immediately after `/resize`.

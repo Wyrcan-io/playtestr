@@ -21,7 +21,7 @@ jobs:
   native-final:
     if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-24.04
-    timeout-minutes: 60
+    timeout-minutes: 49
     defaults:
       run:
         shell: bash
@@ -42,15 +42,20 @@ jobs:
       - name: Install exact frozen native Linux archive
         run: python -B scripts/acceptance/next20_check.py --label cargo-linux-final-exact-archive --timeout 90 -- python -B scripts/acceptance/next20_candidate_install.py --series native-exit-v1 --archive artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v1/linux-amd64/dist/playtestr_0.4.0-rc.6_linux_amd64.tar.gz
       - name: Prepare reviewed native target within twenty minutes
-        run: python -B scripts/acceptance/next20_check.py --label cargo-linux-final-native-preparation --timeout 1200 -- python -B scripts/acceptance/next20_cargo_prepare.py
+        id: prepare
+        run: python -B scripts/acceptance/next20_check.py --label cargo-linux-final-native-preparation --timeout 1200 -- python -B scripts/acceptance/next20_cargo_prepare.py --linux-readiness-profile 3
       - name: Bind actual compiled dependencies to required retained source dictionary
         run: python -B scripts/acceptance/next20_check.py --label cargo-linux-final-source-dictionary --timeout 60 -- python -B scripts/acceptance/next20_cargo_source_reference.py
       - name: Execute twelve frozen batches without per-case retries
-        run: python -B scripts/acceptance/next20_check.py --label cargo-linux-final-twelve-native-batches --timeout 1200 -- python -B scripts/acceptance/next20_cargo_final_ordinary.py
+        run: python -B scripts/acceptance/next20_check.py --label cargo-linux-final-twelve-native-batches --timeout 1200 -- python -B scripts/acceptance/next20_cargo_final_ordinary.py --linux-replacement
       - name: Compile real source faults and execute fresh final calibration triples
         run: python -B scripts/acceptance/next20_check.py --label cargo-linux-final-native-calibration-triples --timeout 1200 -- python -B scripts/acceptance/next20_cargo_faults.py --native-final
       - name: Retain all actual native executable bytes and verify full restoration
+        id: solid
         run: python -B scripts/acceptance/next20_check.py --label cargo-linux-final-solid-executables --timeout 600 -- python -B scripts/acceptance/next20_cargo_solid_variants.py
+      - name: Preserve actual original executable if qualification stopped before full variant retention
+        if: failure() && steps.prepare.outcome == 'success' && steps.solid.outcome != 'success'
+        run: python -B scripts/acceptance/next20_check.py --label cargo-linux-rejected-original-binary-retention --timeout 240 -- python -B scripts/acceptance/next20_cargo_preflight_pack.py
       - name: Retain provenance and confirm exact target source runtime removal
         run: python -B scripts/acceptance/next20_check.py --label cargo-linux-final-checked-target-removal --timeout 600 -- python -B scripts/acceptance/next20_target_cleanup.py --project cargo-generate --max-files 60000 --max-bytes 2147483648
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f

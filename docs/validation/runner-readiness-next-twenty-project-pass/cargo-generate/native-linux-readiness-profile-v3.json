@@ -1,0 +1,17 @@
+{
+  "actual_native_N01_sha256": "9b1c083d6e778bcf1f152540ef2e500cb1de9a657ae5175f9c3a5d5b03d4c917",
+  "base_native_profile_review_sha256": "b8a2ffc570e08104022dfa79fbd7643b195028b63d6c51dbf12627b50e9cfbee",
+  "canonical_spec_sha256": "2126792f9a0297f245d361c051c46471cae1bd67dfad9a050a095c4c31a7d1c6",
+  "case": "N01",
+  "evidence_boundary": "Upstream per-key termios restoration and actual echoed CRLF proven in retained trace; checkpoints address observed input consumption. No claim of zero timing failures or fresh holdout exposure.",
+  "host": "linux",
+  "input_echo_trace_sha256": "369f44ceaffbbbb6e6aca09202a1fc357f01b0f547d6a99d10942200ec15b516",
+  "insertions": {
+    "Ada": "Project owner: Ada",
+    "synthetic-notes": "Project Name: synthetic-notes"
+  },
+  "native_snapshot_sha256": "ec51876e964c9b42ecc56f7b4f70adcc5a0633b873ac118ba2d8e5661506b66b",
+  "revision": 3,
+  "schema_version": 1,
+  "scope": "Two additive rendered full-input expects, each immediately before its existing Enter. Same key/text values, exact six selected snapshot rows/bytes, fixtures, saved-state assertions and budgets. No sleeps, input-mode overrides, target/source/product changes, filtering or assertion removal. Original canonical/Windows contract unchanged."
+}

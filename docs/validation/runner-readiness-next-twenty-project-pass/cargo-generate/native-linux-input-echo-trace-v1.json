@@ -1,0 +1,94 @@
+{
+  "causal_sequence": [
+    {
+      "line": "write(4</dev/ptmx<char 5:2 @/dev/pts/0>>, \"Ada\", 3) = 3",
+      "stream": "syscalls.2469",
+      "time": "1793211611.769513"
+    },
+    {
+      "line": "ioctl(0</dev/pts/0<char 136:0>>, TCSETSW, {c_iflag=ICRNL|IXON, c_oflag=NL0|CR0|TAB0|BS0|VT0|FF0|OPOST|ONLCR, c_cflag=B38400|CS8|CREAD, c_lflag=ISIG|ICANON|ECHO|ECHOE|ECHOK|IEXTEN|ECHOCTL|ECHOKE, ...}) = 0",
+      "stream": "syscalls.2473",
+      "time": "1793211611.771027"
+    },
+    {
+      "line": "write(2</dev/pts/0<char 136:0>>, \"d\", 1) = 1",
+      "stream": "syscalls.2473",
+      "time": "1793211611.771158"
+    },
+    {
+      "line": "write(4</dev/ptmx<char 5:2 @/dev/pts/0>>, \"\\r\", 1) = 1",
+      "stream": "syscalls.2476",
+      "time": "1793211611.771501"
+    },
+    {
+      "line": "read(4</dev/ptmx<char 5:2 @/dev/pts/0>>, \"\\r\\n\", 8192) = 2",
+      "stream": "syscalls.2469",
+      "time": "1793211611.771926"
+    },
+    {
+      "line": "write(2</dev/pts/0<char 136:0>>, \"a\", 1) = 1",
+      "stream": "syscalls.2473",
+      "time": "1793211611.772198"
+    }
+  ],
+  "finding": "The target restored ECHO/ICANON between input characters. Runner Enter reached the PTY in that interval; master read a kernel-produced CRLF before the target wrote final a. The rendered Ad row is actual terminal output, not VT parser invention.",
+  "qualification_credit": 0,
+  "remedy": "Add positive full-input rendered checkpoints before Enter for Linux N01, preserving exact snapshot and all saved-state oracles; requalify complete Linux window. No runner/PTY/spec change, byte filtering, row removal or general no-flakiness claim.",
+  "report_sha256": "854c5c4cccd7c7f881656357c94fe1415e3613657d1aee47023940916a4b3c31",
+  "revision": "3c18553cf7c650ae947bcaee333c24a40e54caad",
+  "run": "40744103927",
+  "runner_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a",
+  "schema_version": 1,
+  "screen_sha256": "8399328d9120a1d3f6e9d2934191452ea62c6a49a9fee91e8e2baddc22efbc4f",
+  "source_target_sha256": "daa4dd816b3a8fc59b6d99822637d4a41cb787e9c95805588b249b0cfd954803",
+  "trace_files": {
+    "syscalls.2465": {
+      "bytes": 2507,
+      "sha256": "fee47c884ac85c2c81d305e5706e9efe084309984d9c665117b4185d40a27377"
+    },
+    "syscalls.2466": {
+      "bytes": 40,
+      "sha256": "9c09770178dee369fdf894fff20cc7f78fc28983ab8133d0e410227064537d83"
+    },
+    "syscalls.2467": {
+      "bytes": 40,
+      "sha256": "d9d7ad27ef7176a9545c17f4d1fc05f3e7694d133678ceb5dd71ae1d1713d485"
+    },
+    "syscalls.2468": {
+      "bytes": 313,
+      "sha256": "61baab92ba083954a3d753c1fb2cc2b80df06ce702f940b2d5e9e70945ba0a18"
+    },
+    "syscalls.2469": {
+      "bytes": 13496,
+      "sha256": "589a4983f84309a220bd2df2cf6c82c4d953edf4d9ab97bdeff7010688ef5950"
+    },
+    "syscalls.2470": {
+      "bytes": 40,
+      "sha256": "f64499214d06cfdc08f5b4d0cff8a370d6955b4b8af76a55659db4e6e9c86e46"
+    },
+    "syscalls.2471": {
+      "bytes": 6764,
+      "sha256": "562279c1b1f671866898fe169aa5dc468fe6530afa441901345146228973835e"
+    },
+    "syscalls.2472": {
+      "bytes": 40,
+      "sha256": "4a1b2445373071f13fc68d3d14ba4b35aef9271441b4c1e64b8fb6cb477ed9b8"
+    },
+    "syscalls.2473": {
+      "bytes": 56597,
+      "sha256": "7b82f8a49a487379d1cee88ab1cb6423f7b2e9bde791b1ebb9453f05b9858df9"
+    },
+    "syscalls.2474": {
+      "bytes": 1424,
+      "sha256": "976665eac5cac48a709a2dc536ad67327019d542dc16cda1c154de475b62a3e3"
+    },
+    "syscalls.2475": {
+      "bytes": 476,
+      "sha256": "ad0910b5112e56285602442951688644b0ebe92d88d93539bd2112e25c1a86a8"
+    },
+    "syscalls.2476": {
+      "bytes": 1910,
+      "sha256": "38a84772ebaff184b786eb333f7534975230e90a988bd11259ab5eccdf5aa252"
+    }
+  }
+}
