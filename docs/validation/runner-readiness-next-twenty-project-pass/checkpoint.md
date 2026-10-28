@@ -2115,3 +2115,66 @@ loss or hidden retained-data exclusion. Preserve old indices/hashes; explicitly
 distinguish obsolete generated compression wrappers from every actual executable,
 metadata/report/contract/screen byte. If a wrapper is superseded, never claim its
 unlike compressed bytes are reconstructible; all inner actual bytes must be.
+
+Continuation at source2808b670751e5d1d59bffd3ac2793412667ae6b0:
+window2 substantive payloads are now fully retained in native generation9,
+requiring the unchanged physical canonical generation2. Checked promotion
+d0fc0f32958345c9bed9491b8f6a9d86 superseded only generation6's generated archive;
+its original index remains historical. Generation9's immutable index had two
+wrong dictionary identity fields; versioned reference-correction-v1.json fixes
+only those fields. Independent complete decode ead2923bd4454836b3d79bc4d05170f8
+verified every actual ELF/report/input byte. Do not redownload generation6.
+
+Exact E02 syscall diagnosis40753955125/sourcea5d19d3a stopped after one pass and
+one real saved-state failure. Complete native generation11, independently audited
+6f2af57b031f46b390973b658704618b, proves master DEL arrived while ICANON/ECHOE
+were enabled, never reached target stdin, and the target rendered Adxa. This is
+an upstream input-consumption race, not a claimed VT-parser defect. Generation10
+was an incomplete retention attempt, not a target retry or completed packet.
+
+Third complete Linux final40758514842/job123063803006 dispatched by
+8b37299fb3b2489b8aa52e4bf10c641b at exact pushed source2808b670. At this
+checkpoint it is in preparation; no ordinary/calibration success is inferred.
+Declaration final-linux-replacement-declaration-native-exit-v1-v3.json and
+profile4 add positive input/edit checkpoints, preserving every original action,
+snapshot byte and saved-file oracle. Full240/9 must run afresh. Twelve batches,
+zero per-case retries,43-minute job ceiling, prior conservative13 minutes,
+combined56 within original60. Generic segmented-input checkpoints are opt-in;
+historical Windows behavior is unchanged. Local39 helper regressions passed
+d69aaafcca564698a2a77901e38c3f03 and exact workflow lint passed
+bf9756f8c6ec48b589cb78c7c4c689a8. Hosted helper run40758488170 has successful
+Linux/macOS/Windows jobs; actual packet readbacks still required.
+
+Windows final readback61be76039be542fda030f292176a4903 again verified240/9
+against its original bba80ce8 source. Failed preceding auditor
+eb00cca2f5844f59843c460d956ab0e0 inspected the wrong executable catalog; fixed
+readback uses the target catalog for pristine phases and the explicit fault
+catalog for deliberate mutations. No target rerun or false outcome transfer.
+
+Full payload proof7360010de1454eafa81beb6af31c06ad decoded generations9/11
+before native checked disposal c6534223499c43a1a7f32fcc448acaaa removed ONLY
+incomplete generated files from generations8/10. Their failed-command records
+and disposition/hash receipts remain. Canonical generations1/2 and completed
+generation9/11 payloads are untouched. Before this disposal storage observation
+e50f5dadeb374defa53bb3a58dd4f8f6 passed all caps, project60,703,363B and no
+active local target. Measure again after the new final evidence arrives.
+
+Earlier successful sourcefa779 harness40746163175 independently audited,
+retained and expanded packets checked-removed as generations68/69/70 for
+Linux/macOS/Windows. Previous sourcea5d19 harness40753936193 Linux is retained
+generation71; macOS/Windows collection remains. Four rc.5 new admissions remain
+historical; current rc.6 admissions remain zero. Complete Cargo closure, projects
+6-20, current-candidate original-ten/four requalification and all global gates
+remain authorized and outstanding. Never stop at Cargo or these checkpoints.
+
+Subsequent collection completed: sourcea5d19 harness generations71/72/73 and
+source2808b670 harness generations74/75/76, each Linux/macOS/Windows in order.
+All nine cell packets for the three source revisions above have independent
+source/test readbacks and checked expansion-removal receipts. Source2808b670
+hosted controls ran39 tests per host with explicit platform skips accounted for;
+this is helper validation, not Cargo scenario credit. Linux40758514842 passed
+preparation and source-dictionary binding and entered its fresh twelve batches.
+Storage5b27e2c8c82b4110a4d4c8312fa3e079 after partial disposal passed:
+project58,049,340B;newraw972,785,835;combinedraw2,881,494,407;
+combinedretained1,447,584,154;newcurated2,925,218;combinedcurated14,581,462.
+These are point-in-time logical measurements before later collection logs.
