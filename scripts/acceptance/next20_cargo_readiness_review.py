@@ -21,6 +21,26 @@ def add_readiness(value):
     result['steps']=steps;return result
 
 
+def add_edit_readiness(value):
+    result=copy.deepcopy(value);steps=[];seen=[]
+    for number,step in enumerate(value['steps']):
+        steps.append(copy.deepcopy(step))
+        if step==dict(text='synthetic-notes'):
+            if value['steps'][number+1]!=dict(key='Enter'):raise ValueError('E02 name Enter anchor changed')
+            steps.append(dict(expect='Project Name: synthetic-notes'));seen.append('name')
+        elif step==dict(text='Adx'):
+            if value['steps'][number+1]!=dict(key='Backspace'):raise ValueError('E02 edit anchor changed')
+            steps.append(dict(expect='Project owner: Adx'));seen.append('typed')
+        elif step==dict(key='Backspace'):
+            if number==0 or value['steps'][number-1]!=dict(text='Adx') or value['steps'][number+1]!=dict(text='a'):raise ValueError('E02 Backspace transition changed')
+            steps.extend([dict(expect_not='Project owner: Adx'),dict(expect='Project owner: Ad')]);seen.append('erased')
+        elif step==dict(text='a'):
+            if value['steps'][number+1]!=dict(key='Enter'):raise ValueError('E02 corrected-value Enter changed')
+            steps.append(dict(expect='Project owner: Ada'));seen.append('corrected')
+    if seen!=['name','typed','erased','corrected']:raise ValueError('E02 input readiness anchors missing or duplicated')
+    result['steps']=steps;return result
+
+
 def main():
     package=DOC/'cargo-generate';trace_path=package/'native-linux-input-echo-trace-v1.json';trace=json.loads(trace_path.read_text())
     if trace['run']!='40744103927' or len(trace['causal_sequence'])!=6:raise ValueError('actual diagnosed trace proof required')

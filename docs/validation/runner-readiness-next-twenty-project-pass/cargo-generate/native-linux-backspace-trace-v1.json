@@ -1,0 +1,51 @@
+{
+  "actual_runner_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a",
+  "actual_target_sha256": "daa4dd816b3a8fc59b6d99822637d4a41cb787e9c95805588b249b0cfd954803",
+  "calibration_credit": 0,
+  "causal_sequence": [
+    {
+      "line": "write(4</dev/ptmx<char 5:2 @/dev/pts/0>>, \"Adx\", 3) = 3",
+      "stream": "syscalls.2261",
+      "time": "1793215455.639765"
+    },
+    {
+      "line": "ioctl(0</dev/pts/0<char 136:0>>, TCSETSW, {c_iflag=ICRNL|IXON, c_oflag=NL0|CR0|TAB0|BS0|VT0|FF0|OPOST|ONLCR, c_cflag=B38400|CS8|CREAD, c_lflag=ISIG|ICANON|ECHO|ECHOE|ECHOK|IEXTEN|ECHOCTL|ECHOKE, ...}) = 0",
+      "stream": "syscalls.2265",
+      "time": "1793215455.640035"
+    },
+    {
+      "line": "write(4</dev/ptmx<char 5:2 @/dev/pts/0>>, \"\\177\", 1) = 1",
+      "stream": "syscalls.2261",
+      "time": "1793215455.640293"
+    },
+    {
+      "line": "write(4</dev/ptmx<char 5:2 @/dev/pts/0>>, \"\\r\", 1) = 1",
+      "stream": "syscalls.2267",
+      "time": "1793215455.640918"
+    },
+    {
+      "line": "read(0</dev/pts/0<char 136:0>>, \"x\", 1) = 1",
+      "stream": "syscalls.2265",
+      "time": "1793215455.641182"
+    },
+    {
+      "line": "read(0</dev/pts/0<char 136:0>>, \"a\", 1) = 1",
+      "stream": "syscalls.2265",
+      "time": "1793215455.641655"
+    }
+  ],
+  "diagnostic_observations": 2,
+  "failed": 1,
+  "finding": "Backspace reached the master with ICANON/ECHO/ECHOE enabled before the target finished consuming Adx. No DEL byte reached target stdin; x and then a did. Target rendered Adxa and the saved-state oracle correctly rejected it.",
+  "ordinary_credit": 0,
+  "passed": 1,
+  "project_admissions": 0,
+  "proposed_remedy": "Positive full-input checkpoints before editing/submitting and explicit disappearance plus remaining-text checkpoints after Backspace. Preserve actual key sequence, resize, reviewed saved bytes and all20 cases.",
+  "retained_archive_sha256": "95521796845617a16419178ef56aa3573835e16f054c2abf5ee1c41c0a899964",
+  "retained_generation": 11,
+  "retained_index_sha256": "5b453471b81680922c5aa19cb698d635c609b6b02cb219f2ec9174e0b0e8ef3a",
+  "revision": "a5d19d3a60af784c8a053482bf8b2d55eab54919",
+  "run": "40753955125",
+  "schema_version": 1,
+  "scope": "Same pinned source built in the earlier canonical preflight, exact rc.6 archive, unchanged E02. This diagnostic build is not the newer window2 executable. Source-level input-mode behavior reproduced; no final-series credit or general no-flakiness claim."
+}

@@ -16,7 +16,22 @@ from readiness_evidence import immutable_json,sha256
 from next20_candidate import executable,SERIES
 
 
-async def main(project='jrnl',batch=None,candidate_series='rc5'):
+def segmented_steps(original, readiness=False):
+    """Retain three-codepoint writes, optionally checking declared input consumption."""
+    steps=[]
+    for number,step in enumerate(original):
+        if set(step)=={'text'} and len(step['text'])>1 and all(ord(c)>=32 and ord(c)!=127 for c in step['text']):
+            value=step['text'];following=original[number+1] if number+1<len(original) else {}
+            expected=following.get('expect') if set(following)=={'expect'} else None
+            prefix=expected[:-len(value)] if readiness and isinstance(expected,str) and expected.endswith(value) else None
+            for index in range(0,len(value),3):
+                steps.append({'text':value[index:index+3]})
+                if prefix is not None and index+3<len(value):steps.append({'expect':prefix+value[:index+3]})
+        else:steps.append(copy.deepcopy(step))
+    return steps
+
+
+async def main(project='jrnl',batch=None,candidate_series='rc5',chunk_readiness=False):
     if batch is None:
         parser=argparse.ArgumentParser();parser.add_argument('--batch',type=int,required=True)
         parser.add_argument('--project',default=project);parser.add_argument('--candidate-series',choices=SERIES,default=candidate_series)
@@ -82,12 +97,7 @@ async def main(project='jrnl',batch=None,candidate_series='rc5'):
             value['command'][2]=value['command'][2].replace(old,'../'+actual_runtime.name+'/'+runtime['entrypoint'])
         if args.batch==4:value.update(width=value['width']+10,height=value['height']+2)
         if args.batch==7:
-            steps=[]
-            for step in value['steps']:
-                if set(step)=={'text'} and len(step['text'])>1 and all(ord(c)>=32 and ord(c)!=127 for c in step['text']):
-                    steps.extend({'text':step['text'][i:i+3]} for i in range(0,len(step['text']),3))
-                else:steps.append(step)
-            value['steps']=steps
+            value['steps']=segmented_steps(value['steps'],readiness=chunk_readiness)
         if args.batch==10 and case['id']=='N01':value['height']=12
         if args.batch==11:value['startup_timeout_ms']=declaration.get('startup_timeout_ms_by_host',{}).get(host,2000)
         before.write_text(json.dumps(value,sort_keys=True,ensure_ascii=True,indent=2)+'\n',encoding='utf-8',newline='\n')
@@ -99,6 +109,7 @@ async def main(project='jrnl',batch=None,candidate_series='rc5'):
     env=environment(source);campaign=NextCampaign(phase='final-archive')
     immutable_json(root/'prepared.json',dict(schema_version=2 if kind!='python' else 1,host=host,batch=args.batch,
         declaration_sha256=sha256(declaration_path),changes=changes,
+        **(dict(chunk_readiness=True) if chunk_readiness else {}),
         runner_sha256=sha256(runner),archive_sha256=install['archive_sha256'],
         **(dict(actual_executable=python.relative_to(ROOT).as_posix(),actual_executable_sha256=sha256(python),runtime_kind=kind)
            if kind!='python' else dict(actual_python=python.relative_to(ROOT).as_posix(),actual_python_sha256=sha256(python))),

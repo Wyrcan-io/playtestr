@@ -31,6 +31,33 @@ The first complete development run passed 17/20. Windows Ctrl-C exposed the
 An undefined Liquid variable rendered empty; the mistaken error expectation was
 retained and replaced with genuinely malformed syntax. Two separate authoring
 prelaunch refusals (unsupported key and wider exit value) are also preserved.
-No twenty-case freeze, source fault, qualified native cell or project admission
-exists yet. The campaign remains at four new rc.5 admissions. Human usability is
-unmeasured. Continue against the distinct replacement candidate after its build.
+The subsequent canonical freeze contains twenty cases and three declared real
+source faults. The exact rc.6 archive passed all 240 Windows ordinary executions
+and nine fresh final calibration executions. Windows source/runtime cleanup is
+confirmed; required source and executable bytes remain recoverable in checked
+retained packets. These results do not admit the project without Linux closure.
+
+Linux preflight passed 20/20. Two later complete final windows were rejected at
+20 passes/one failure and 49 passes/one failure respectively. Actual syscall traces
+showed upstream per-key termios restoration: Enter could echo a newline into the
+snapshot, and Backspace could be consumed by the canonical input discipline.
+Both saved failures remain retained. Profile 4 adds rendered input-consumption
+checkpoints to N01 and E02, preserving every original action, exact snapshot and
+saved-file oracle. A separately declared third full window must run all 240
+ordinary executions and nine calibrations afresh; partial windows transfer no
+credit. Segmented typing retains three-codepoint writes with checkpoints derived
+from explicit full-input expectations. No product or upstream source fix is
+claimed for these authoring changes.
+
+Storage history includes a temporary per-project evidence-cap breach during
+compaction experiments. Checked removal of redundant generated encodings restored
+the cap; the breach and failed experiments remain recorded. Current Linux packet
+9 retains every actual executable byte through a verified dictionary encoding
+against the required physical packet 2. Its obsolete generated compressed binary
+transport wrapper is not reconstructed; its original hash is provenance only.
+
+The campaign remains at four historical new rc.5 admissions and zero current
+rc.6 project admissions. Human usability remains unmeasured. A current readback
+must validate the recorded runtime catalog appropriate to each execution phase;
+the failed audit that looked for a pristine executable in the base catalog is
+preserved separately from the actual target outcomes.

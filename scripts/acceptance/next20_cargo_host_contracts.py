@@ -11,7 +11,7 @@ from readiness_evidence import immutable_json,sha256
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--linux-readiness-profile',type=int,choices=[2,3],default=2);args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--linux-readiness-profile',type=int,choices=[2,3,4],default=2);args=parser.parse_args()
     host={'Windows':'windows','Linux':'linux'}[platform.system()]
     if host!='linux' and args.linux_readiness_profile!=2:raise ValueError('Linux-only readiness profile cannot alter Windows inputs')
     project='cargo-generate';package=DOC/project;target=RAW/'active'/project
@@ -44,8 +44,8 @@ def main():
         copied_snapshot.write_bytes(native_snapshot.read_bytes())
         changes.append(dict(path='snapshots/normal-project.rows.json',canonical_sha256=profile['canonical_snapshot_sha256'],
             native_sha256=sha256(copied_snapshot),review_sha256=sha256(profile_path),reason='Exact normal native emoji rendering; identical selected rows and semantic text. No normalization or assertions removed.'))
-    readiness_path=package/'native-linux-readiness-profile-v3.json'
-    readiness=json.loads(readiness_path.read_text()) if args.linux_readiness_profile==3 else None
+    readiness_path=package/('native-linux-readiness-profile-v'+str(args.linux_readiness_profile)+'.json')
+    readiness=json.loads(readiness_path.read_text()) if args.linux_readiness_profile>=3 else None
     if readiness and (readiness['base_native_profile_review_sha256']!=sha256(profile_path) or readiness['native_snapshot_sha256']!=sha256(output/'snapshots/normal-project.rows.json')):raise ValueError('reviewed additive Linux input profile subjects changed')
     for case in declaration['cases']:
         spec=package/case['spec'];value=json.loads(spec.read_text());native=copy.deepcopy(case)
@@ -66,13 +66,18 @@ def main():
             from next20_cargo_readiness_review import add_readiness
             if sha256(spec)!=readiness['canonical_spec_sha256']:raise ValueError('readiness canonical contract changed')
             value=add_readiness(value);delta['additive_readiness_review_sha256']=sha256(readiness_path)
+        if readiness and args.linux_readiness_profile==4 and case['id']=='E02':
+            from next20_cargo_readiness_review import add_edit_readiness
+            if sha256(spec)!=readiness['edit_case']['canonical_spec_sha256']:raise ValueError('editing canonical contract changed')
+            value=add_edit_readiness(value);delta['additive_readiness_review_sha256']=sha256(readiness_path)
         destination=output/case['spec'];immutable_json(destination,value)
         if readiness and case['id']=='N01' and sha256(destination)!=readiness['actual_native_N01_sha256']:raise ValueError('concrete native readiness contract differs from predeclared bytes')
+        if readiness and args.linux_readiness_profile==4 and case['id']=='E02' and sha256(destination)!=readiness['edit_case']['actual_native_spec_sha256']:raise ValueError('concrete native editing contract differs from predeclared bytes')
         native.update(canonical_sha256=sha256(spec),spec_sha256=sha256(destination));cases.append(native);changes.append(delta)
     immutable_json(output/'scenarios.json',dict(declaration,cases=cases,host=host,
         canonical_declaration_sha256=sha256(declaration_path),development_freeze_sha256=sha256(freeze_path),
         native_binary_sha256=sha256(binary),changes=changes,
-        **(dict(native_readiness_review_sha256=sha256(readiness_path),linux_readiness_profile=3) if readiness else {}),
+        **(dict(native_readiness_review_sha256=sha256(readiness_path),linux_readiness_profile=args.linux_readiness_profile) if readiness else {}),
         profile_scope='Explicit executable, Git null-device, UTF-8 locale, native cancellation and reviewed exact Linux emoji snapshot profile. Original canonical inputs, fixtures, saved-state assertions, selected row range and interactions unchanged. Actual execution still required.'))
     print('Prepared20 frozen native contracts:',host,'no execution or admission credit')
 

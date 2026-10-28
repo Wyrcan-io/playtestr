@@ -22,7 +22,7 @@ async def prepare(linux_readiness_profile=2):
 
 
 async def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--linux-readiness-profile',type=int,choices=[2,3],default=2);args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--linux-readiness-profile',type=int,choices=[2,3,4],default=2);args=parser.parse_args()
     # Leave40 seconds for bounded owned-process shutdown before the independent
     # 1200-second outer command deadline. Product scenario deadlines are unchanged.
     await asyncio.wait_for(prepare(args.linux_readiness_profile),timeout=1160)

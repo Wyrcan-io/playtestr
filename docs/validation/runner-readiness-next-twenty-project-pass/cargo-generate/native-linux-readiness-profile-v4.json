@@ -1,0 +1,30 @@
+{
+  "actual_native_N01_sha256": "9b1c083d6e778bcf1f152540ef2e500cb1de9a657ae5175f9c3a5d5b03d4c917",
+  "backspace_trace_sha256": "b40a330aedd2d686d04d2f8c65213b9704143a24f1ce2e67d624ec61cc848412",
+  "base_native_profile_review_sha256": "b8a2ffc570e08104022dfa79fbd7643b195028b63d6c51dbf12627b50e9cfbee",
+  "canonical_spec_sha256": "2126792f9a0297f245d361c051c46471cae1bd67dfad9a050a095c4c31a7d1c6",
+  "case": "N01",
+  "cases": [
+    "N01",
+    "E02"
+  ],
+  "chunk_readiness": true,
+  "edit_case": {
+    "actual_native_spec_sha256": "c28b1859c6d5c648403c62f050043c235a65872c988dd3c5500c0402c67e19f8",
+    "added_checks": 5,
+    "canonical_spec_sha256": "c7a120f26e75180344c8c695348decd6d7981d30efb7661e56c4f57b428a8262",
+    "case": "E02"
+  },
+  "evidence_boundary": "Upstream per-key termios restoration and actual echoed CRLF proven in retained trace; checkpoints address observed input consumption. No claim of zero timing failures or fresh holdout exposure.",
+  "host": "linux",
+  "input_echo_trace_sha256": "369f44ceaffbbbb6e6aca09202a1fc357f01b0f547d6a99d10942200ec15b516",
+  "insertions": {
+    "Ada": "Project owner: Ada",
+    "synthetic-notes": "Project Name: synthetic-notes"
+  },
+  "native_snapshot_sha256": "ec51876e964c9b42ecc56f7b4f70adcc5a0633b873ac118ba2d8e5661506b66b",
+  "prior_readiness_review_sha256": "864af2e77009ec2da5d2d1d21363801ba6f96bbaa6e7204645c7b6077002c485",
+  "revision": 4,
+  "schema_version": 1,
+  "scope": "N01 retains prior2 checks and identical snapshot. E02 adds5 checks around typing/editing/submitting, preserving Backspace, original resize, every original action and all reviewed saved bytes. Segmented variant adds partial-input consumption expects derived from explicit full-input expects. No sleeps, input-mode overrides, core/source changes or assertion removal."
+}
