@@ -34,14 +34,16 @@ def _read(project,generation,index_sha,archive_sha,dictionary_identity=None,pack
     if sha256(root/'index.json')!=index_sha or index['project']!=project or index['generation']!=generation or len(index['files'])>10000:raise ValueError('native packet index scope/identity differs')
     index,_=corrected_index(root,index,index_sha)
     archive=archive_path(root,index)
-    if sha256(archive)!=archive_sha or archive_sha!=index['archive_sha256'] or archive.stat().st_size>16*1024**2:raise ValueError('required retained native archive missing/changed/bound')
+    archive_limit=index.get('max_archive_bytes',16*1024**2);file_limit=index.get('max_file_bytes',16*1024**2)
+    if archive_limit not in {16*1024**2,24*1024**2,48*1024**2} or file_limit not in {4*1024**2,16*1024**2,32*1024**2}:raise ValueError('unreviewed explicit native packet bounds')
+    if sha256(archive)!=archive_sha or archive_sha!=index['archive_sha256'] or archive.stat().st_size>archive_limit:raise ValueError('required retained native archive missing/changed/bound')
     files=index['files'];physical=physical_members(files)
-    if sum(r['bytes'] for r in files.values())>128*1024**2 or any(r['bytes']>16*1024**2 for r in files.values()):raise ValueError('native logical evidence bound')
+    if sum(r['bytes'] for r in files.values())>128*1024**2 or any(r['bytes']>file_limit for r in files.values()):raise ValueError('native logical evidence bound')
     verify(archive,files);payloads={}
     with tarfile.open(archive,tar_mode(index,stream=True)) as stream:
         for member in stream:
             if not member.isfile() or member.name not in physical or member.name in payloads or member.size!=physical[member.name]['bytes']:raise ValueError('native physical member coverage/type differs')
-            data=stream.extractfile(member).read(16*1024**2+1)
+            data=stream.extractfile(member).read(file_limit+1)
             if len(data)!=member.size or hashlib.sha256(data).hexdigest()!=physical[member.name]['sha256']:raise ValueError('native actual retained member bytes differ')
             payloads[member.name]=data
     if set(payloads)!=set(physical):raise ValueError('native evidence omitted physical member')

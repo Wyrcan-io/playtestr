@@ -78,3 +78,13 @@ Three real source edits were detected by unchanged contracts: wrong ready prompt
 wrong successful exit code and wrong persisted build requirement. All three had
 passing baseline and restored runs; all source bytes were restored exactly.
 These9 development calibration executions supply zero final repetition credit.
+
+The [actual Linux development readback](linux-development-readback.json) also
+passed all20 cases on the exact frozen archive: all547 source files, executed
+helper blobs at the provider revision, all48 installed dependency wheels and
+their actual code/startup/script payloads, same-invocation state and checked
+source/runtime removal were verified. Native development evidence is retained
+as417 exact logical files in a mandatory local dictionary packet. Its original
+expanded copy was removed only after full byte comparison and checked promotion.
+This supplies zero final repetition credit; final240+9 executions per host,
+maintenance and the closing admission/audit/cleanup gates remain outstanding.

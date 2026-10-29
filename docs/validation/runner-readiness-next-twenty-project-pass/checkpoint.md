@@ -2851,3 +2851,82 @@ Hatchretained680,041;newcurated4,357,240;combinedcurated16,013,484.
 Next commit/push/dispatch nativeLinux development, independently inspect actual
 all20 outcomes/source/runtime/cleanup and retain them. No Linux compatibility or
 final admission credit yet; continue all remaining campaign work without stopping.
+
+
+Hatch actual Linux development and retention checkpoint (continued29 October):
+Native prep commit b8be5681 (200bb57941bf43fdb61ef044004cbe20), push
+ e70637939b8b48b6956ebf3e459d7693. Initial explicit dispatch7acfc8b6395240f1bad9bb9d4000150f
+failed GitHub404 because brand-new dispatch-only workflow was not registered.
+No target run started. Added exactly the earlier campaign branch/path registration
+trigger, with target job gated workflow_dispatch; lint e33521d7c18e45aa8f2335202584a27c.
+Registration commit0ec1a3772556a61a3ce831b40721b62af5380565
+ d8ae4f70fcc949999a5bc2657fda805d, pushc6ac94e93c3744d1ae98457271f15a52.
+Successful authorized dispatchce1ea9e8461f4feea08ae959c11cbd23 created
+Linux run40925331521/job123629197111/source0ec1a377. Provideractual reports
+all preparation,20 development cases, checked source/runtime cleanup and upload
+success. Provider fullmetadata retained hatch/provider-linux-development-40925331521.json.
+Downloaded ONCE16c193415a964fc8bb0f4bb7f8717c75; no redownload needed.
+Old harnessdc02249f v98Linux9b5c7e841fff413dbe23b24fd34c1d24 fully audited/retained/
+removed. Its v99macOS/v100Windows remain; newer a3021efa/b8be5681 harness artifacts
+also stillneedcollection once provideractual success is verified.
+
+Independent actual Linux readback first5b09d7dc2f7a43afbc9fd783a0b324d8 refused
+helper source hashes because local git archive applied Windows EOL conversion.
+Original reader0d030a38e3acad422a9e8ad432dbdc836182791d1b4ceb44cbbf5973c40fda5b
+retained, matched to prelaunch. Corrected reader uses raw git cat-file --batch
+blobs, no arbitrary output normalization. aafbc05692b04605959575b5078976fa passed:
+all20 actual individual outcomes/reports/positive steps, same-invocation state,
+all547 actual prelaunch source files, every executed helper blob at0ec1a377,
+actual frozen archive/spec/runtime hashes, all48 installed wheel payloads incl
+Python/native code/.pth/ELF script copies, complete installed-vs-removal inventories
+and confirmed remote source/runtime deletion. Actual native wheels33,230,073bytes;
+source.tar.gz5,366,440bytes; whole downloaded packet43,744,448bytes/417logicalfiles.
+This is DEVELOPMENT20/0 only, no final repetitions/native admission. Local Hatch
+source/runtime remains the only active external target; remote runtime is removed.
+
+Retained native development v1 is now MANDATORY standalone dictionary under
+hatch/retained-native-v1,39,877,832gzip bytes. Encoding staged in existing declared
+global raw working namespace tmp/direct-native-zip/hatch before checked native
+expanded removal, then native checked promotion to project retained root. This
+avoids canonical retained + expanded native accumulation; temporary working
+archive can coexist with expanded input, all counts toward global raw budget.
+No claim all same-project transient working bytes stay under64MiB. Explicit
+file32MiB/archive-working48MiB bounds needed for17,333,810-byte uv wheel and
+33,230,073-byte total wheel corpus; old packet defaults16MiB are preserved,
+new index bounds restricted to reviewed discrete values. Project retained cap
+remains64MiB; no source/runner/test outcome normalization or missing bytes.
+Reader handles recorded larger gzip bounds; all original logical paths/hashes
+retained in schema2; ordinary reader read_packet('hatch',1) works after promotion.
+
+Real bounded17MiB deterministic synthetic control f99d9fe1a34046a5bb8456c0720807fb
+proved large archive/member readback, default/unknown bound refusal, actual native
+refusal before removal and on changed input, then exact removal/promotion. First
+control helpera271fec03b303083bdc7ad3fe88c9191a222b17a5b20f0d3c2b082e380ac72e1
+retained before adding post-success hash-checked synthetic scratch cleanup (to
+avoid huge unit fixtures in every future harness artifact). This cleanup applies
+ONLY to deterministic unittest scratch, never application evidence. Original
+first local test retains one17MiB synthetic archive under control-tests; bounded
+but may later be disposed with its exact proof if useful. All54 native helper
+checks c69d1aed79b84bdba6cb8738fd103a54 passed31.535seconds after latest changes.
+Actual417file/full43,744,448-byte staged readbackcd573577de6d48648d8dcae48cf61659;
+checked expanded removal1edfed9eba8c41e58733b4660a8aa397;
+checked native promotion48ee2bee9f9541a7b045ed32a976d5be.
+Do not redownload Linuxdev or delete its canonical v1 dictionary. Additional
+retention declaration records staging classification and unraised project cap.
+
+Postpromotion storagef3848f9b365f46c7bfc76faa8eeeab24 passed allcaps:
+newraw1,396,123,285;combinedraw3,304,831,857;combinedretained1,661,700,075;
+Hatch40,694,768;newcurated4,391,452;combinedcurated16,047,696;onlyHatchactive.
+IMPORTANT future local cleanup: do NOT physically duplicate all Windows common
+wheels/source archive beside39.9MiB canonical Linuxdev. Retain exact byte-identical
+Windows wheel/archive payloads through explicit verified references to mandatory
+native v1, keeping unique Windows uv/zstd/pywin wheels plus metadata. Preserve
+local primary review bodies incl linux-review-inputs nonwheel metadata before
+local deletion. Native1 already contains all48 Linux wheel bodies and source
+archive; localWindows source archive may be byte-identical (verify, neverassume).
+Then final Linux acquisition must stream directly with exact native1 references,
+no expansion beside currentretained payloads. Canonicalnative1 is permanent for
+this project once referenced. Complete first authoring maintenance/HTML/suffix/
+relocation/free-workflow generation, final two240+9cells, full actual audits/
+controls and checked cleanup; admissions remain Cargo1currentrc6. Continue all
+selected7-20/originalten/four/global gates; do not stop at Hatch milestones.

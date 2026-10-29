@@ -1,9 +1,17 @@
 param([Parameter(Mandatory=$true)][ValidatePattern('^[a-z][a-z0-9-]{0,63}$')][string]$Project,
-    [Parameter(Mandatory=$true)][ValidateRange(1,1000)][int]$Generation)
+    [Parameter(Mandatory=$true)][ValidateRange(1,1000)][int]$Generation,
+    [switch]$Staged)
 $ErrorActionPreference='Stop'
 $workspace=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
 $campaign=Join-Path $workspace 'artifacts\runner-readiness-next-twenty-project-pass'
 $retained=Join-Path $campaign ($Project+'\retained-native-v'+$Generation)
+if($Staged){
+    $retained=Join-Path $campaign ('tmp\direct-native-zip\'+$Project+'\retained-native-v'+$Generation)
+    foreach($part in @('tmp','tmp\direct-native-zip',('tmp\direct-native-zip\'+$Project))){
+        $path=Join-Path $campaign $part
+        if((Resolve-Path -LiteralPath $path).ProviderPath -ne $path -or ((Get-Item -LiteralPath $path -Force).Attributes -band [IO.FileAttributes]::ReparsePoint)){throw 'Linked staged retention ancestor'}
+    }
+}
 foreach($path in @((Join-Path $workspace 'artifacts'),$campaign,(Join-Path $campaign 'native'),(Join-Path $campaign $Project),$retained)) {
     $resolved=(Resolve-Path -LiteralPath $path).ProviderPath
     if ($resolved -ne $path -or ((Get-Item -LiteralPath $path -Force).Attributes -band [IO.FileAttributes]::ReparsePoint)) { throw 'Linked or unexpected packet removal ancestor' }
