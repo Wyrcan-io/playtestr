@@ -23,6 +23,12 @@ def candidate_counters(admissions):
 def main():
     ledger_path=DOC/'projects.json';ledger=json.loads(ledger_path.read_text());selection=json.loads((DOC/'selection-declaration.json').read_text())
     metadata={r['id']:r for r in json.loads((DOC/'screening-decisions.json').read_text())['rows'] if r.get('id')}
+    screened=json.loads((DOC/'screening-decisions.json').read_text())['rows']
+    for selected in selection['selected']:
+        if selected['id'] in metadata:continue
+        matches=[r for r in screened if r.get('repository')==selected['repository']]
+        if len(matches)!=1:raise ValueError('selected reserve needs unique original canonical screening identity')
+        metadata[selected['id']]=matches[0]
     rows={r['id']:r for r in ledger['projects']};admissions=[];references=[]
     for selected in selection['selected']:
         project=selected['id'];documents=[]

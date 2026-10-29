@@ -31,11 +31,15 @@ three real source faults and 24 rejected evidence corruptions. Two rejected Linu
 windows remain retained. Actual syscall diagnosis motivated additive native input
 checkpoints; every original action and oracle remains. Required compiled sources,
 all eight native executable variants, reports and first failures passed complete
-byte readback and current storage caps. Project six, PDM, has passed twenty local
-development cases and nine real-source-fault calibration checks on rc.6; its
-[package](pdm/README.md) records the dependency correction, excluded overwrite
-workflow and historical evidence gap. It has no admission or native qualification
-credit. The original ten and four
+byte readback and current storage caps. PDM's [uncredited discovery package](pdm/README.md)
+completed480 final ordinary executions and18 fresh calibrations on rc.6 across
+Linux/Windows, independent byte/model audits and checked cleanup. Three original
+development failure screens were lost by the former harness, so its
+[qualification disposition](pdm/qualification-disposition.json) grants zero
+admission credit. [Hatch replaces its slot](substitution-pdm-hatch-v1.json) from the
+original metadata-only reserves; the20 selected/8 reserve and native/diversity
+allocations remain intact. [Hatch](hatch/README.md) is now in source review.
+The original ten and four
 earlier projects still need rc.6 qualification; current cumulative 30/100 is open.
 The imported closing admission's 32 subject files and three
 retained native archives passed checksum verification. One initial import-helper

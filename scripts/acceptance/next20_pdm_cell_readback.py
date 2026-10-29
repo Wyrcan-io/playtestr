@@ -23,7 +23,7 @@ def require(value,message):
 
 
 def audit(host,revision,window=None,generation=None,run=None):
-    scope='artifacts/'+NAME+'/';package=DOC/'pdm';native=host=='linux';records=None;local_records=None
+    scope='artifacts/'+NAME+'/';package=DOC/'pdm';native=host=='linux';records=None;local_records=None;closed_records={}
     if native:
         require(generation is not None and run is not None and window is None,'explicit native packet required')
         _,records=read_packet('pdm',generation);prefix='native/'+run+'/next20-pdm-linux-final/'
@@ -47,6 +47,12 @@ def audit(host,revision,window=None,generation=None,run=None):
             return records[prefix+relative]
         path=RAW/relative
         if path.is_file():return path.read_bytes()
+        for subset,packet in [('final-series-native-exit-v1-v2','retained-complete-final-v2'),('final-series-native-exit-v1','retained-failed-final-v1')]:
+            if relative.startswith('pdm/'+subset+'/'):
+                from next20_local_records import read_packet as read_local
+                if packet not in closed_records:_,closed_records[packet]=read_local('pdm',packet=packet)
+                require(relative in closed_records[packet],'closed final payload missing')
+                return closed_records[packet][relative]
         if local_records is None:
             from next20_local_records import read_packet as read_local
             _,local_records=read_local('pdm')
@@ -60,7 +66,7 @@ def audit(host,revision,window=None,generation=None,run=None):
     complete=load('pdm/final-execution-summary'+suffix+'.json');plan=load('pdm/final-execution-plan'+suffix+'.json')
     require(complete['plan_sha256']==digest('pdm/final-execution-plan'+suffix+'.json') and complete['declaration_sha256']==sha256(declaration_path),'final plan/declaration differs')
     require(complete['ordinary_executions']==240 and complete['calibrations']==9 and complete['host']==host,'partial final cell')
-    target='pdm/retained-source/' if native or (RAW/'pdm/retained-source/runtime.json').is_file() else 'active/pdm/'
+    target='pdm/retained-source/' if native or not (RAW/'active/pdm').is_dir() else 'active/pdm/'
     runtime=load(target+'runtime.json');inventory=load(target+'installed-inventory.json');owner=load(target+'task-owned.json')
     require(runtime['installed_inventory_sha256']==digest(target+'installed-inventory.json') and plan['runtime_sha256']==digest(target+'runtime.json'),'actual runtime inventory differs')
     pure=PurePosixPath if native else PureWindowsPath

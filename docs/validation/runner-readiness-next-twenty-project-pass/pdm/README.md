@@ -1,6 +1,10 @@
 # PDM development package
 
-Status: development only, **not admitted**. Pinned `pdm-project/pdm` source
+Status: **uncredited engineering discovery; not admitted**. The
+[qualification disposition](qualification-disposition.json) retains all completed
+engineering evidence and the original historical loss. Hatch replaces this
+admission slot under the [explicit substitution](../substitution-pdm-hatch-v1.json).
+Pinned `pdm-project/pdm` source
 `201bdc719c15a7c86cc305c0c788fe9cbdef15c3`, MIT, Rich/argparse prompts.
 The owned editable build identifies itself as `0.0.0+pin.201bdc719c15`, an
 explicit archive-source build version, not an upstream release.
@@ -46,8 +50,10 @@ PDM must not be admitted by silently waiving this gap.
 All 402 primary Git blobs remain unchanged. Three ordinary editable-backend
 generated files are [bound separately](runtime-generated-source.json); they are
 not counted as primary Git blobs. Local-only raw evidence lives under
-`artifacts/runner-readiness-next-twenty-project-pass/pdm/`. Source/runtime remain
-owned under `artifacts/runner-readiness-next-twenty-project-pass/active/pdm/`.
+`artifacts/runner-readiness-next-twenty-project-pass/pdm/`. Source/runtime were
+removed from `artifacts/runner-readiness-next-twenty-project-pass/active/pdm/` after
+exact restoration,633 report cleanup checks and native PID/birth verification.
+Required source archives,reviewed wheels and exact record packets remain retained.
 
 The [first Linux readback](linux-first-development-readback.json) retains18/2.
 Its fast-input public contract needed additive prompt-readiness checkpoints, and
@@ -66,12 +72,15 @@ the documented --build argument and refused before execution. The completed
 window was independently read back and only that final command was repeated.
 The generated workflow is not dispatched and supplies no delivered-CI credit.
 
-The [finite final series](final-series-declaration-native-exit-v1.json) declares
+The [finite final series](final-series-declaration-native-exit-v1.json) and
+[Windows replacement](final-series-declaration-native-exit-v1-v2.json) completed
 480 fresh ordinary and18 calibration executions on exact rc.6 inputs across two
-hosts. Execution and independent audit are separate; no declaration waives the
-historical screen gap or supplies admission credit. Remaining: complete final
-cell executions, actual-evidence audit, historical-gap disposition and checked
-local retention/source/runtime cleanup.
+hosts. Both cells passed independent actual report/launch/source/contract audits,
+all38 selected dependencies per host matched reviewed primary wheel bytes, and
+32 deliberate model corruptions were rejected, including false admission and a
+hidden historical-frame gap. Source/runtime removal and complete retained-record
+restoration passed. This evidence supplies zero admission credit because the
+historical three-screen completeness requirement remains unsatisfied.
 
 Linux completed240 ordinary and9 fresh calibration executions on exact rc.6;
 independent actual-report/launch/source/contract readback and checked native cleanup
@@ -79,8 +88,9 @@ passed. The first Windows window remains [rejected](windows-first-final-rejectio
 226passing reports followed by one first-output timeout at the explicit two-second
 startup boundary. Cleanup succeeded. Fifty separately declared five-second startup
 probes passed; the delay's cause remains unknown. A complete fresh
-[Windows replacement](final-series-declaration-native-exit-v1-v2.json) is in progress
-with that explicit budget. No partial-window or diagnostic qualification credit.
+[Windows replacement](final-series-declaration-native-exit-v1-v2.json) passed all
+240 ordinary and9 fresh calibration checks with that explicit budget. No
+partial-window or diagnostic qualification credit.
 
 An expanded Linux packet temporarily exceeded the per-project retention cap:
 85,668,927bytes against67,108,864. Complete exact-reference compaction and checked

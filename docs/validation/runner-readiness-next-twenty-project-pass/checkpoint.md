@@ -2537,3 +2537,104 @@ No historical lock, remotealert, issue or outreach was changed. Keep the exact
 historical input and this separate risk observation; do not claim that warning
 was fixed by the current runner campaign. Review an explicit patched target
 profile before any future Posting acquisition/execution.
+
+## PDM closed uncredited; Hatch selected and source verified
+
+Latest committed/pushed8454a1f34e873582311afc1ad851411fa0abcf04
+(commit4ec4ac7fa5fd413695633ff6cef40f01,push1117fe21453e414f8ac6a879e7da22fe).
+Windowsv2session84105 FINISHED SUCCESS: wrapper9ccb6194897949788f17f8fd42a2c36d,
+959.078seconds,240ordinary+9freshcalibrations, allsource restored. Independent
+249execution readbackbddbf579150642279c753e1067dd0efe passed before cleanup;
+postremoval03c78a09f9024bd4ab74d446f2011ced and finalretained-readback
+df646fd16d444a1cb4cefd9a6f3ca6be both passed withsource_runtime_removed=true.
+The first postcompaction readerfa8fe5c79023401aa34f779bbd5f457b wrongly selected
+the absentactive runtime because retainedJSON had been compacted; corrected
+detection uses actualactive directory presence and preserved the failed reader
+source7ec517e391bc49e7b2747810004ef756. No target reexecution or outcome change.
+
+Dependency closure9e1c147fc0be443aab790a226936f661 verified all38actualselected
+dependencies/host against42 retained primaryrelease bodies and everyinstalled
+Python/nativeextension payload. Initialauditorf5985ecb4778481ca7231efa819ef34a
+used WindowsCP1252 for one UTF8primaryJSON; source preservedac3f856b4b784b6baa9afc8630db7368,
+fixedUTF8, passed. Passingv2reader source also preservedbfbca8e5d9244655a0b5e4a276996291
+before adding retainedpacket support. Later postremoval/compaction proofs
+56c18ba2ebde45e9b66648d3179dd9e2 and289b276014c64512be97f5c885db54db passed,
+binding bothactualremoval inventories; read-onlySDK/bootstrap remain separately
+identified prerequisites, not a retained fullSDK/security-isolation claim.
+
+Complete Windowsv2window1716files/5,722,592expanded ->141,564XZbytes retained
+asretained-complete-final-v2 (1de3c06eda4d4024b816a0fdaed53688); duplicatefiles
+checkedremoved0097f741faf341ce90871bb30513c0a5. Its console inherited wording
+"rejected" for the complete variant; actual -Complete flag,passedparentwrapper,
+240positive reports and matchingindex identify the successful window. No metadata
+was changed to look passing. Bothclosedpacket namespaces remain mandatory.
+
+NativeWindows PID/birth proof61d0f310487741e5872b1719541cbfc8 found no ownedlive
+process. Sourcecleanup preparatione6a4b106493f4f74beccc72da4f30969 verified405
+primary/generatedsource files and633actualreportdocument target/workspace cleanups,
+including227rejected and240successful final reports streamed fromclosed packets.
+Native removalc0f872bcbc9c42c0a3d00ec2bd6c0297 completed, removingexact21,249files/
+322,156,746bytes afterfullhash/PID/ancestor checks. Source/runtime absent; no live
+target or cleanup session remains. Active directory is now reserved for Hatch.
+
+Localpacket retained-local-v1 preserves1410records/8,401,021expandedbytes ->569,228XZ.
+Firstprepare d61799c7fd654f68b4f7b1e47dafb23c fully encoded/verified but selected
+the legacy first-ordinary-report filename, whilePDMusesordinary-report. Explicit
+resume60e6bae1b57e4479bafe1ae1b475656c byte-compared everyoriginal and completed
+selectedrestore without rewritingarchive/index; native duplicate removal
+3d2dc7a61661469ea89b89a22ebbd186 passed. Required .whl/.gz inputs and bothclosed
+windows/nativepackets remain separate; do not delete or redownload them. New
+loose audit/helper-revision records afterthatcutoff remain separate retaineddelta.
+
+Actualboth249-execution model controls213ff767b4ce45ceb3672921b356ec8b rejected
+all32semantic corruptions, includinghiddenframegap,falseadmission,false-green
+mutation andearlier failure posingassavedcorruption. Results
+RAW/pdm/audit-controls/0ce2204f1edd4e6bbf28061fb45e5830/results.json. Zero newapp,
+scenario,whole-control or admission credit. Focusedclosedreport cleanupcontrol
+a7a43ffb742a4079910a5e6ec88feb48 rejects duplicatephysicalreports,unconfirmed
+retention andescapingnamespaces. Lastfull46controls c847391a40144d04aee4df61e0e94a9e
+passed; newer focusedtest increasescurrent suite to47, fullnative refresh pending.
+
+Currentfinalstorageb8b349c8604547cda7b64931bb2475ea observed noactive target,
+PDM55,098,093bytes;newraw1,106,963,624;combinedraw3,015,672,196;
+combinedretained1,581,761,943;newcurated3,495,112;combinedcurated15,151,356.
+Allcurrentcaps passed; previous85,668,927 PDMtransientbreach remains recorded.
+An automatic approval review timed out before CreateProcess on a read-only
+postremoval audit. One retry in the normalworkspace sandbox succeeded03c78a09;
+no quota question, permission change, unsafe-action inference or target retry.
+
+Strictclosure42d18f5876ca401e92808b275434c59f createdPDMqualification-disposition.json:
+admitted=false despite480ordinary/18freshcalibrations, because3originalfailure
+screens are unavailable. Preserve PDM inattempted denominators and futurejourney
+novelty exclusions. Do not waive the historicalcompleteness gate. Explicit
+substitution-pdm-hatch-v1.json promotes originallymetadata-onlypypa/hatch,
+pinad6d66e7c5dba7deea7601e50072676defae8b3e, samePython/configuration/prompt/
+stateful/Linux+Windowsallocation. Original20selected/8reserves retained: the
+additional originallyscreened chriswalz/bit replenishes the reserve. Gitui was
+checked and remains excluded as an earlier completed identity; it was not selected.
+Historical screening rows unchanged; candidateprojector resolves incomingreserve
+identity by unique canonicalrepository. Fresh projection62ad8fe7afd24b109c27d4341766a1cf
+keeps currentrc6=1/20 (Cargo),480ordinary/18calibrations, distincthistorically
+admittednewapplications5; originalten/fourcurrentrequalification stillopen.
+
+Hatch is now the ONLY active localexternal target: sourceonly acquisition
+12fa458503094f9689182753e68339f5 retained721entries/8,239,971expandedbytes.
+Fullprimarytree9e2adccb45164384a57f0d4d98f3543d verified546fileblobs andmodes.
+No venv,wheel fetch,build or Hatch target execution yet. MIT license; ordinary
+backendhatchling+hatch-vcs generates src/hatch/_version.py, needs explicitprivate
+SCMversion forGitarchive. Reviewed CLI/new/template/config docs sofar: default
+license cachemiss downloadsSPDXtext andsomeoutputs usecurrentUTCyear; choose
+owned documentedlicense-disabledconfig fordeterministic no-networkfirstflow.
+Existing setup.py/cfg migration installssetuptools inatempvenv; exclude that
+route. Review remaining initialization/config/backend/dependency/uv-wheel hooks
+before anyinstall/targetexecution. Reuse currenthelpers with explicit scoped
+parameters preserving historicaldefaults. Latefourmetadatareservations untouched.
+
+Next: full47helperchecks/syntax/docs and scopedcommit/push ofthisclosingincrement,
+then Hatchsetup review and genuinepublicroute/20cases/faultfreeze/nativecells.
+Pending successful oldsourceharness runs40867163929(d1d24ade),40869253251(5ccd20b8)
+stillneed actualonepacketatatimecollection v86–91, plus8454a1f3/newersourceharness.
+Never reacquire Cargo/PDM or retrievecompleted packets for a small report. Finish
+selectedprojects6–20 and originalten/four/currentcandidate/global gates; do notstop.
+
+Follow-up: sandboxed 47-helper run 1b8f1a99af08494692477c75853775a9 retained one timeout-cleanup failure and two native-removal errors. Both removal consoles explicitly report Get-CimInstance Access denied. Native-permission rerun a6844e12218b41d580063a81cd822314 passed all47 in24.086seconds; no test or product deadline weakened. AST parsing separately passed226 helpers/tests. Closed-window cleanup console now says closed window for either declared complete/rejected packet; prior actual console remains unchanged in evidence.

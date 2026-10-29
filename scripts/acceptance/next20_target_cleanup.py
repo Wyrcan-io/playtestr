@@ -1,5 +1,6 @@
 """Retain bounded target provenance, verify source restoration, and prepare cleanup."""
 import argparse
+import hashlib
 from datetime import datetime,timezone
 import json
 import os
@@ -45,6 +46,29 @@ def report_documents(project_root):
         if isinstance(data,dict) and 'runner_version' in data and isinstance(data.get('results'),list):yield path,data
 
 
+def cleanup_reports(project_root,closed_packets=()):
+    """Include explicit fully retained closed windows without recounting copies."""
+    seen=set()
+    for path,data in report_documents(project_root):
+        seen.add(path.relative_to(RAW).as_posix())
+        yield path,data,sha256(path)
+    if len(closed_packets)>4 or len(set(closed_packets))!=len(closed_packets):raise ValueError('closed report packet count/duplicates')
+    for packet in closed_packets:
+        if not re.fullmatch(r'retained-(?:failed|complete)-final-v[1-9][0-9]{0,2}',packet):raise ValueError('unsafe closed report packet')
+        from next20_local_records import read_packet
+        index,payloads=read_packet(project_root.name,packet=packet)
+        root=project_root/packet;removed=json.loads((root/'expanded-removed.json').read_text(encoding='utf-8-sig'))
+        if not removed['all_expanded_removed'] or removed['index_sha256']!=sha256(root/'index.json') or removed['archive_sha256']!=index['archive_sha256']:
+            raise ValueError('closed report packet lacks matching complete retention/removal proof')
+        for name,raw in payloads.items():
+            if not name.endswith('.json') or {'fixture','fixtures'} & set(name.split('/')[:-1]):continue
+            if len(raw)>4*1024**2:continue
+            value=json.loads(raw.decode('utf-8-sig'))
+            if not isinstance(value,dict) or 'runner_version' not in value or not isinstance(value.get('results'),list):continue
+            if name in seen:raise ValueError('closed report has a duplicate physical or retained source')
+            seen.add(name);yield RAW/name,value,hashlib.sha256(raw).hexdigest()
+
+
 def invalid_spec_before_launch(data,row):
     """Recognize an explicit parser refusal, with zero process/cleanup credit."""
     return (len(data.get('results',[]))==1 and row.get('status')=='failed' and
@@ -61,6 +85,7 @@ def main():
     parser.add_argument('--prepare-only',action='store_true')
     parser.add_argument('--resume-preparation',action='store_true')
     parser.add_argument('--generated-source-manifest',type=Path)
+    parser.add_argument('--closed-report-packet',action='append',default=[])
     parser.add_argument('--max-files',type=int,choices=[40000,60000],default=40000)
     parser.add_argument('--max-bytes',type=int,choices=[1024**3,2*1024**3],default=1024**3)
     parser.add_argument('--unlaunched-report-sha256',action='append',default=[])
@@ -91,14 +116,14 @@ def main():
         expected=restored_source_inventory(expected,generated)
     if actual!=expected:raise ValueError('target source not exactly restored; retain it for investigation')
     reports=0;unlaunched=[]
-    for path,data in report_documents(RAW/args.project):
+    for path,data,report_digest in cleanup_reports(RAW/args.project,args.closed_report_packet):
         for row in data['results']:
-            if sha256(path) in args.invalid_spec_report_sha256:
+            if report_digest in args.invalid_spec_report_sha256:
                 if not invalid_spec_before_launch(data,row):raise ValueError('Explicit invalid-spec report contains launch/cleanup state')
-                unlaunched.append(dict(report=path.relative_to(ROOT).as_posix(),sha256=sha256(path),
+                unlaunched.append(dict(report=path.relative_to(ROOT).as_posix(),sha256=report_digest,
                     category='invalid_spec',target_launched=False,workspace_prepared=False,cleanup_credit=0))
                 continue
-            if sha256(path) in args.unlaunched_report_sha256:
+            if report_digest in args.unlaunched_report_sha256:
                 if not (os.name=='nt' and len(data['results'])==1 and
                     row.get('failure')==dict(category='workspace_setup_failure',message='workspace setup failed: expand native workspace path: Access is denied.') and
                     row.get('target')==dict(exited=False) and not row.get('invocation_id') and
@@ -107,7 +132,7 @@ def main():
                     row['workspace'].get('cleanup_attempted') is False and not row.get('evidence') and
                     all(s.get('status')=='not_run' for s in row['steps'])):
                     raise ValueError('Explicit unlaunched report contains launched/partially prepared state')
-                unlaunched.append(dict(report=path.relative_to(ROOT).as_posix(),sha256=sha256(path),
+                unlaunched.append(dict(report=path.relative_to(ROOT).as_posix(),sha256=report_digest,
                     category='workspace_setup_failure',target_launched=False,workspace_prepared=False,cleanup_credit=0))
                 continue
             if not row.get('cleanup',{}).get('confirmed_exited') or not row.get('workspace',{}).get('cleaned'):
@@ -174,6 +199,7 @@ def main():
     immutable_json(retained/'cleanup-inventory.json',dict(schema_version=1,project=args.project,owned_target=str(target),
         owner_sha256=sha256(target/'task-owned.json'),process_proof_sha256=sha256(proof_path),
         actual_reports_with_confirmed_cleanup=reports,source_restored_exact=True,retained=copied,
+        **(dict(closed_report_packets={name:sha256(RAW/args.project/name/'index.json') for name in args.closed_report_packet}) if args.closed_report_packet else {}),
         **(dict(unlaunched_setup_reports=unlaunched) if unlaunched else {}),**inventory))
     immutable_json(retained/'prepared.json',dict(schema_version=1,cleanup_inventory_sha256=sha256(retained/'cleanup-inventory.json'),
         process_proof_sha256=sha256(proof_path),source_archive_sha256=sha256(retained/'source.tar.gz'),

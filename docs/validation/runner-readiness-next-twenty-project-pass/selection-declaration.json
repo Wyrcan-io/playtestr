@@ -41,14 +41,14 @@
   },
   "prompt_proposed": 6,
   "reserves": [
-    "pypa/hatch",
     "denisidoro/navi",
     "kyoheiu/felix",
     "sayanarijit/xplr",
     "antonmedv/walk",
     "Canop/bacon",
     "natecraddock/zf",
-    "git-quick-stats/git-quick-stats"
+    "git-quick-stats/git-quick-stats",
+    "chriswalz/bit"
   ],
   "schema_version": 1,
   "selected": [
@@ -129,10 +129,10 @@
         "linux",
         "windows"
       ],
-      "id": "pdm",
+      "id": "hatch",
       "language_family": "Python",
       "late_transfer": false,
-      "repository": "pdm-project/pdm",
+      "repository": "pypa/hatch",
       "stateful_proposed": true,
       "terminal_family": "Rich/click prompts"
     },
@@ -334,5 +334,8 @@
     }
   ],
   "stateful_proposed": 20,
-  "status": "provisional-before-target-acquisition"
+  "status": "execution-in-progress-after-explicit-reserve-substitution",
+  "substitution_records": [
+    "substitution-pdm-hatch-v1.json"
+  ]
 }

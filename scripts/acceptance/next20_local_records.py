@@ -26,7 +26,7 @@ def safe_path(name,project):
 
 
 def read_packet(project,*,packet='retained-local-v1'):
-    if not re.fullmatch(r'retained-(?:local|failed-final)-v[1-9][0-9]{0,2}',packet):raise ValueError('unsafe local packet namespace')
+    if not re.fullmatch(r'retained-(?:local|failed-final|complete-final)-v[1-9][0-9]{0,2}',packet):raise ValueError('unsafe local packet namespace')
     root=RAW/project/packet;index_path=root/'index.json';index=json.loads(index_path.read_text());archive=root/'packets.tar.xz'
     if index['project']!=project or index['compression']!='tar.xz' or len(index['files'])>4000 or archive.stat().st_size>8*1024**2 or sha256(archive)!=index['archive_sha256']:raise ValueError('local record packet identity/bound differs')
     decoder=lzma.LZMADecompressor(format=lzma.FORMAT_XZ,memlimit=64*1024**2)
@@ -53,8 +53,8 @@ def prepare(project):
     for path in sorted((RAW/project).rglob('*')):
         if not path.is_file():continue
         relative=path.relative_to(RAW/project)
-        if relative.parts[0].startswith(('retained-native-','retained-local-','retained-failed-final-','registry-source-corpus-','native-solid-variants')):continue
-        if relative.parts[0] in {'audits','audit-controls'} or path.suffix in {'.gz','.tgz','.xz'}:continue
+        if relative.parts[0].startswith(('retained-native-','retained-local-','retained-failed-final-','retained-complete-final-','registry-source-corpus-','native-solid-variants')):continue
+        if relative.parts[0] in {'audits','audit-controls'} or path.suffix in {'.gz','.tgz','.xz','.whl'}:continue
         name=path.relative_to(RAW).as_posix();safe_path(name,project);size=path.stat().st_size;total+=size
         if len(files)>=4000 or size>16*1024**2 or total>32*1024**2:raise ValueError('local evidence inventory bound')
         files[name]=dict(bytes=size,sha256=sha256(path))
@@ -68,19 +68,34 @@ def prepare(project):
             with path.open('rb') as payload:stream.addfile(info,payload)
     immutable_json(root/'index.json',dict(schema_version=1,project=project,compression='tar.xz',files=files,archive_sha256=sha256(archive),expanded_bytes=total,
         scope='Exact actual local logical records. Compressed source/executable dictionaries and native packets remain mandatory separate retained dependencies. No application/scenario/admission credit.'))
-    index,payloads=read_packet(project)
-    selected=next(name for name in files if name.endswith('/first-ordinary-report.json'));restore=root/'selected-restore.bin';restore.write_bytes(payloads[selected])
-    if sha256(restore)!=files[selected]['sha256']:raise ValueError('selected actual report restoration differs')
-    immutable_json(root/'prepared.json',dict(schema_version=1,index_sha256=sha256(root/'index.json'),archive_sha256=sha256(archive),
-        selected_restore=dict(logical_path=selected,sha256=sha256(restore)),expanded_removal_confirmed=False))
+    finish_restore(project)
     print('Prepared and fully read back',len(files),'actual local records:',total,'expanded ->',archive.stat().st_size,'XZ bytes; native checked duplicate removal pending')
 
 
+def finish_restore(project):
+    root=RAW/project/'retained-local-v1';archive=root/'packets.tar.xz'
+    if (root/'prepared.json').exists() or (root/'selected-restore.bin').exists():raise ValueError('preserve completed/partial selected restore')
+    index,payloads=read_packet(project);files=index['files']
+    for name,raw in payloads.items():
+        if safe_path(name,project).read_bytes()!=raw:raise ValueError('original local bytes changed before completing retention')
+    preferred=[n for n in files if n.endswith(('/first-ordinary-report.json','/ordinary-report.json'))]
+    candidates=preferred+[n for n in files if n not in preferred and n.endswith(('.report.json','/report.json'))]
+    reports=[n for n in candidates if isinstance((v:=json.loads(payloads[n])),dict) and 'runner_version' in v and isinstance(v.get('results'),list)]
+    if not reports:raise ValueError('no actual selected report in retained local records')
+    selected=reports[0];restore=root/'selected-restore.bin';restore.write_bytes(payloads[selected])
+    if sha256(restore)!=files[selected]['sha256']:raise ValueError('selected actual report restoration differs')
+    immutable_json(root/'prepared.json',dict(schema_version=1,index_sha256=sha256(root/'index.json'),archive_sha256=sha256(archive),
+        selected_restore=dict(logical_path=selected,sha256=sha256(restore)),expanded_removal_confirmed=False))
+    print('Completed full original-byte comparison and selected actual report restore:',len(files),'records; native checked duplicate removal pending')
+
+
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--project',required=True);parser.add_argument('--readback',action='store_true');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--project',required=True);mode=parser.add_mutually_exclusive_group()
+    mode.add_argument('--readback',action='store_true');mode.add_argument('--resume-restore',action='store_true');args=parser.parse_args()
     if not (DOC/args.project/'source-provenance.json').is_file() or '/' in args.project or '\\' in args.project:raise ValueError('undeclared project')
     if args.readback:
         index,files=read_packet(args.project);print('Verified complete retained local packet:',len(files),'exact logical records')
+    elif args.resume_restore:finish_restore(args.project)
     else:prepare(args.project)
 
 

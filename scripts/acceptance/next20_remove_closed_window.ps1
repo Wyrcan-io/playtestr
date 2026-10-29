@@ -1,10 +1,12 @@
-param([Parameter(Mandatory=$true)][ValidateSet('pdm')][string]$Project)
+param([Parameter(Mandatory=$true)][ValidateSet('pdm')][string]$Project,[switch]$Complete)
 $ErrorActionPreference='Stop'
 $workspace=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
 $campaign=Join-Path $workspace 'artifacts\runner-readiness-next-twenty-project-pass'
 $projectRoot=Join-Path $campaign $Project
-$retained=Join-Path $projectRoot 'retained-failed-final-v1'
-$subset=Join-Path $projectRoot 'final-series-native-exit-v1'
+$packetName='retained-failed-final-v1';$subsetName='final-series-native-exit-v1';$expectedCategory='exit_mismatch'
+if($Complete){$packetName='retained-complete-final-v2';$subsetName+='-v2';$expectedCategory='passed'}
+$retained=Join-Path $projectRoot $packetName
+$subset=Join-Path $projectRoot $subsetName
 foreach($path in @((Join-Path $workspace 'artifacts'),$campaign,$projectRoot,$retained,$subset)) {
     if((Resolve-Path -LiteralPath $path).ProviderPath -ne $path -or ((Get-Item -LiteralPath $path -Force).Attributes -band [IO.FileAttributes]::ReparsePoint)){throw 'Unsafe closed-window ancestor'}
 }
@@ -13,12 +15,12 @@ $indexPath=Join-Path $retained 'index.json';$archive=Join-Path $retained 'packet
 if((Get-FileHash -LiteralPath $indexPath -Algorithm SHA256).Hash.ToLowerInvariant() -ne $prepared.index_sha256 -or
    (Get-FileHash -LiteralPath $archive -Algorithm SHA256).Hash.ToLowerInvariant() -ne $prepared.archive_sha256){throw 'Closed-window retained packet changed'}
 $index=Get-Content -LiteralPath $indexPath -Raw | ConvertFrom-Json
-if($index.project -ne $Project -or $index.closed_subset -ne 'final-series-native-exit-v1' -or $index.closed_wrapper -ne $prepared.closed_wrapper -or
+if($index.project -ne $Project -or $index.closed_subset -ne $subsetName -or $index.closed_wrapper -ne $prepared.closed_wrapper -or
    $prepared.closed_subset -ne $index.closed_subset -or $index.closed_wrapper -notmatch '^[0-9a-f]{32}$' -or
    $prepared.files_compared_byte_exact -ne @($index.files.PSObject.Properties).Count -or $prepared.files_compared_byte_exact -gt 4000 -or
    (Get-Item -LiteralPath $archive).Length -gt 8388608){throw 'Closed-window scope/bounds differ'}
 $event=Get-Content -LiteralPath (Join-Path $campaign ('events\'+$index.closed_wrapper+'-finished.json')) -Raw | ConvertFrom-Json
-if($event.category -ne 'exit_mismatch' -or $event.harness_cleanup -ne 'harness_process_reaped' -or @($event.cleanup_errors).Count -ne 0){throw 'Old window is not confirmed closed'}
+if($event.category -ne $expectedCategory -or $event.harness_cleanup -ne 'harness_process_reaped' -or @($event.cleanup_errors).Count -ne 0){throw 'Window is not confirmed closed'}
 if((Get-FileHash -LiteralPath (Join-Path $retained 'selected-restore.bin') -Algorithm SHA256).Hash.ToLowerInvariant() -ne $prepared.selected_restore.sha256){throw 'Original failed report restore changed'}
 $actual=@{};$paths=@();$bytes=[long]0;$pending=[Collections.Generic.Queue[string]]::new();$pending.Enqueue($subset)
 while($pending.Count) {
@@ -43,4 +45,4 @@ foreach($path in $paths){if(Test-Path -LiteralPath $path){throw 'Closed-window d
 @{schema_version=1;all_expanded_removed=$true;files=$paths.Count;expanded_bytes=$bytes;index_sha256=$prepared.index_sha256;
   archive_sha256=$prepared.archive_sha256;closed_wrapper=$index.closed_wrapper;source_runtime_removed=$false;checked_at_utc=[DateTime]::UtcNow.ToString('o')} |
   ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $retained 'expanded-removed.json') -Encoding UTF8
-Write-Output ('Verified and removed '+$paths.Count+' exact duplicates from the closed rejected window; active source/runtime untouched.')
+Write-Output ('Verified and removed '+$paths.Count+' exact duplicates from the closed window; active source/runtime untouched.')
