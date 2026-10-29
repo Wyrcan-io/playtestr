@@ -2638,3 +2638,76 @@ Never reacquire Cargo/PDM or retrievecompleted packets for a small report. Finis
 selectedprojects6–20 and originalten/four/currentcandidate/global gates; do notstop.
 
 Follow-up: sandboxed 47-helper run 1b8f1a99af08494692477c75853775a9 retained one timeout-cleanup failure and two native-removal errors. Both removal consoles explicitly report Get-CimInstance Access denied. Native-permission rerun a6844e12218b41d580063a81cd822314 passed all47 in24.086seconds; no test or product deadline weakened. AST parsing separately passed226 helpers/tests. Closed-window cleanup console now says closed window for either declared complete/rejected packet; prior actual console remains unchanged in evidence.
+
+
+Hatch reviewed setup and first authoring checkpoint (29 October, continued):
+Closure/substitution committed and pushed691db3654d51ca8832feb4e2ab07aaf234439e58;
+commit ae23e890b42f44049a983e9f23458de4, push70f06de13920407fa015599f80e73710.
+Provider reports that source harness40914644274 succeeded, but its artifacts
+still require independent collection. Also source8454 harness40875189456 reports
+success, uncollected. Provider GET retained under hatch/provider-harness-runs-691db365.json.
+GitHub plugin rejected workflow-specific collection URL, accepted actions/runs.
+
+Closed old harness40867163929(d1d24ade) all3 actual cells, retained/removed:
+v86 Linux3cf7908c38914dae9b0b0d4dea9cfb40;
+v87 macOS0bb1553ea5de4fb5bb5dfae1b7711e30;
+v88 Windows3c5c9768ee224d3fb5a40e014f71a20f.
+Closed old harness40869253251(5ccd20b8) all3 actual cells, retained/removed:
+v89 Linuxbe0180558f1a42df97d7fbf653babc58;
+v90 macOS46ef6423cb03489f9df8b81b250cd8ef;
+v91 Windows6317b809708c44979ffc3b0fcd39ee89.
+Do not redownload these completed packets. Next8454 source uses v92-94, then
+691db365 source v95-97, then next source when actually successful.
+
+Hatch wheel-only42 inputs9dfc4899004647758c9a4b480c28ec4c; backend-declared
+editables~=0.3 supplemental7aa56d1e03294ebfb7e1145f91a99cfd retains original
+inventory and separate v2 inventory43. New review reader first31a1765eda8a43699838452a94568c4b
+refused ambiguous metadata because setuptools vendors nested dist-info metadata;
+fixed top-level identity lookup, original remains retained. b9848ba3ac7546ed893042e7b454680e
+verified original42;2a1b3067a7d949ab88be4e234426a889 verified all43 actual primary
+release digests,58,052,033 expanded bytes.42 original compressed25,967,082bytes.
+No wheel code was imported for inspection. Native uv0.13.6 Windows wheel15,334,118
+compressed/33,312,737 expanded; three exact PE scripts. Setuptools84.2.1 carries
+its reviewed distutils-precedence.pth/_distutils_hack. Exact separate approval
+requires matching wheel and all script/startup hashes; defaults still refuse
+unapproved hooks. Two regression cases55bfa4681de349b4a6f06066da5ea5e7 passed.
+Backend/hook binding639a3aa2345842b0aa54fb33c8d16025; actual43-wheel metadata
+94ef38045a784f86b0b2e52eab903031; full546 primary Git blobs and primary-release
+approval1b94ee352bfc4fa5bcc8182b9d9ed52f. Reviewed licenses include MIT/BSD/ISC,
+PSF, Apache, MPL2 pathspec; actual license texts remain in retained wheel bodies.
+
+Offline build d76e1223f90e4198aa1e79ed643bc506 passed:
+Hatch, version0.0.0+pin.ad6d66e7c5db. Version override uses exact global
+SETUPTOOLS_SCM_PRETEND_VERSION because hatch-vcs does not pass dist_name; source
+review confirms pretended version precedes VCS discovery.546 original source
+files unchanged; only src/hatch/_version.py generated, declared separately.
+Editable pth is path-only actual owned source/src. uv installed but not executed;
+no project environment/Python/license downloads/publishing/credentials used.
+
+Initial public route0838339de39949d187fb9473bf185e01 FAILED independent state
+review after version+record/replay/export (2shell/14controls; ordinary notrun).
+Sparse fixture captured empty project and hatch tables despite success text.
+No original artifacts overwritten. Exact initial helper779f1a663a0d05687761ab8625e994ba4a65f539f0f092099084448124a1bc14
+recovered from known edit delta, VERIFIED against original prelaunch identity,
+retained under hatch/helper-source-revisions. This is exact recovered helper
+source, not reconstructed failure-frame evidence. Corrected separate public
+window a53f75c28b4d4d9083bb81da4c322423 uses existing project/version TOML tables,
+same complete expected metadata; all record/review/replay/export/ordinary state,
+exit/snapshot/cleanup passed.3shell/14controls. Cumulative5shell/28controls misses
+initial20-control target; repaired engineering measurement remains separate.
+Source/runtime diagnostic f9c51d0462e445368a63a94b0cba5b8a actually reproduced
+installed tomlkit detached-dict mechanism. An earlier nested shell-quoting command
+was refused by PowerShell parsing before Python launch; corrected file-based
+program passed. Source bug is not a runner fix, added scenario, or artificial
+source mutation. Empty-license template also early-returns before CLI dependency
+and flat-layout metadata setup; broader cases need exact reviewed cache/scope.
+
+Full native49 helper cases f1c3f9999c2643188a91349673abecee passed24.847seconds;
+233 campaign helpers/tests AST parsed afterward. No production Go change.
+Storage c4eb7829258c41818f74003562f4e97e passed all caps with only Hatch active:
+newraw1,271,114,366;combinedraw3,179,822,938;combinedretained1,588,978,366;
+newcurated3,710,240;combinedcurated15,366,484. This was an observation, not peak.
+Current admissions unchanged: Cargo1 currentrc6; five historically admittednew
+identities; PDM uncredited. Next: commit/push this reviewed increment, declare
+Hatch8normal/12edge independent useful cases before faults, complete cells, then
+remainingselected projects and all originalten/four/currentcandidate/global gates.

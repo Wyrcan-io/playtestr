@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "repository": "pypa/hatch",
+  "pin": "ad6d66e7c5dba7deea7601e50072676defae8b3e",
+  "license": "MIT",
+  "backend": "hatchling.build",
+  "planned_hosts": [
+    "linux",
+    "windows"
+  ],
+  "target_execution_approved": false,
+  "installation_approved": false,
+  "dependency_acquisition": "Wheel-only fetch into a copied owned venv; no source distribution, target import or build hook execution. Review exact primary release digests, licenses, hatch-vcs/setuptools-scm version behavior and native uv scripts before installation.",
+  "proposed_workflow": "Explicit owned config with mode local, template license IDs empty and headers false. Interactive new --init on an owned simple pyproject.toml; assert resulting metadata and preserved sentinel/config. Additional ordinary built-in project creation cases may use the same license-disabled configuration after dependency/plugin review.",
+  "excluded_routes": [
+    "setup.py/setup.cfg migration",
+    "external templates or plugins",
+    "environment creation",
+    "Python downloads",
+    "publishing",
+    "credentials",
+    "license downloads",
+    "uv execution"
+  ],
+  "resource_forecast": {
+    "setup_seconds": 1200,
+    "scenario_seconds": 120,
+    "step_seconds": 10,
+    "output_bytes": 4194304,
+    "source_bytes": 12582912,
+    "runtime_bytes": 536870912,
+    "retained_project_bytes": 67108864
+  },
+  "authoring_window": {
+    "handwritten_json": false,
+    "max_playtestr_invocations": 5,
+    "max_recorder_controls": 20
+  },
+  "human_participants": 0,
+  "reviewed_source": [
+    "pyproject.toml",
+    "LICENSE.txt",
+    "src/hatch/cli/__init__.py",
+    "src/hatch/cli/new/__init__.py",
+    "src/hatch/cli/application.py",
+    "src/hatch/project/core.py",
+    "src/hatch/config/user.py",
+    "src/hatch/config/model.py",
+    "src/hatch/template/__init__.py",
+    "src/hatch/template/default.py",
+    "src/hatch/plugin/manager.py"
+  ],
+  "built_source_version": "0.0.0+pin.ad6d66e7c5db",
+  "version_environment": {
+    "SETUPTOOLS_SCM_PRETEND_VERSION": "0.0.0+pin.ad6d66e7c5db"
+  },
+  "execution_scope": "Explicit owned config with mode local, template license IDs empty and headers false. Interactive new --init on an owned simple pyproject.toml; assert resulting metadata and preserved sentinel/config. Additional ordinary built-in project creation cases may use the same license-disabled configuration after dependency/plugin review. No setup.py/cfg migration, external plugins, environment creation, publishing, credentials, Python/license downloads or uv execution."
+}

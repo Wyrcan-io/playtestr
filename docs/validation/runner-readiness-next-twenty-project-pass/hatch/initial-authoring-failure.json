@@ -1,0 +1,61 @@
+{
+  "actual_complete_toml": {
+    "build-system": {
+      "build-backend": "hatchling.build",
+      "requires": [
+        "hatchling"
+      ]
+    },
+    "project": {},
+    "tool": {
+      "hatch": {},
+      "synthetic": {
+        "keep": "alpha"
+      }
+    }
+  },
+  "cumulative_recorder_controls": 28,
+  "cumulative_shell_invocations": 5,
+  "diagnostic_attempt": "1fa9bb17faf54bb38a63bfd667fc39ae",
+  "explanation": "Project.initialize assigns ordinary empty dicts into tomlkit, then mutates the detached Python dict. Existing TOML tables remain attached. Sparse route is unsupported with this pinned source/runtime; no target source patch or weakened state oracle.",
+  "independently_expected_complete_toml": {
+    "build-system": {
+      "build-backend": "hatchling.build",
+      "requires": [
+        "hatchling"
+      ]
+    },
+    "project": {
+      "description": "Synthetic package",
+      "dynamic": [
+        "version"
+      ],
+      "name": "synthetic-notes"
+    },
+    "tool": {
+      "hatch": {
+        "version": {
+          "path": "synthetic_notes/__init__.py"
+        }
+      },
+      "synthetic": {
+        "keep": "alpha"
+      }
+    }
+  },
+  "initial_ordinary_pass": false,
+  "initial_recorder_controls": 14,
+  "initial_shell_invocations": 2,
+  "initial_twenty_control_target_met": false,
+  "original_plan_sha256": "02195435d865e4095405474d5737e05913e43bb07ab5994f3a2e653a67b1b139",
+  "original_spec_sha256": "5c0436c8fad763bc714901ef6f9bde1587d1571aabde3a2133364fef96673e8e",
+  "original_wrapper": "0838339de39949d187fb9473bf185e01",
+  "repaired_receipt_sha256": "a111b706eb2c336f6f666312273b951dcb890583134805da2e8c2190b5b23a38",
+  "repaired_recorder_controls": 14,
+  "repaired_shell_invocations": 3,
+  "schema_version": 1,
+  "scope": "Failed initial usability observation remains failed. Repaired engineering flow passed in an explicitly separate window; no unfamiliar-human or project-admission credit.",
+  "source_file": "src/hatch/project/core.py",
+  "source_sha256": "061be4a1a4efecb77b89b13dcb941daffa584a99d2954f95cce35f25d9a54cfb",
+  "status": "initial-public-route-failed-independent-state-review"
+}

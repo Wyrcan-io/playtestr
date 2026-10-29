@@ -1,0 +1,89 @@
+{
+  "version": 3,
+  "name": "recorded interaction",
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/hatch/venv/Scripts/python.exe",
+    "-B",
+    "-m",
+    "hatch",
+    "--config",
+    "hatch.toml",
+    "--interactive",
+    "new",
+    "--init",
+    "synthetic-notes",
+    "."
+  ],
+  "workspace": {
+    "fixture": "fixture-existing-tables",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHONNOUSERSITE": "1",
+    "PYTHON_KEYRING_BACKEND": "keyring.backends.null.Keyring"
+  },
+  "width": 120,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Description"
+    },
+    {
+      "text": "Synthetic package"
+    },
+    {
+      "expect": "Synthetic package"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Updated: pyproject.toml"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "snapshot": "normal-init-existing-tables.txt"
+    },
+    {
+      "state": {
+        "path": "pyproject.toml",
+        "kind": "file",
+        "bytes_base64": "W2J1aWxkLXN5c3RlbV0NCnJlcXVpcmVzID0gWyJoYXRjaGxpbmciXQ0KYnVpbGQtYmFja2VuZCA9ICJoYXRjaGxpbmcuYnVpbGQiDQoNClt0b29sLnN5bnRoZXRpY10NCmtlZXAgPSAiYWxwaGEiDQoNCltwcm9qZWN0XQ0KbmFtZSA9ICJzeW50aGV0aWMtbm90ZXMiDQpkZXNjcmlwdGlvbiA9ICJTeW50aGV0aWMgcGFja2FnZSINCmR5bmFtaWMgPSBbInZlcnNpb24iXQ0KDQpbdG9vbC5oYXRjaC52ZXJzaW9uXQ0KcGF0aCA9ICJzeW50aGV0aWNfbm90ZXMvX19pbml0X18ucHkiDQo="
+      }
+    },
+    {
+      "state": {
+        "path": "hatch.toml",
+        "kind": "file",
+        "bytes_base64": "bW9kZSA9ICJsb2NhbCIKW3RlbXBsYXRlXQpuYW1lID0gIkFkYSIKZW1haWwgPSAiYWRhQGV4YW1wbGUuaW52YWxpZCIKW3RlbXBsYXRlLmxpY2Vuc2VzXQpoZWFkZXJzID0gZmFsc2UKZGVmYXVsdCA9IFtdCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "dW5yZWxhdGVkIHN5bnRoZXRpYyBkYXRhCg=="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "hatch.toml",
+          "pyproject.toml",
+          "sentinel.txt"
+        ]
+      }
+    }
+  ]
+}

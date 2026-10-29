@@ -1,6 +1,7 @@
 # Hatch source review
 
-Status: source only; no dependency installation, build or target execution yet.
+Status: reviewed offline build and repaired public recorder route passed;
+20-case declaration, faults, native cells and admission remain open.
 The originally screened metadata-only reserve replaces PDM under the
 [explicit substitution](../substitution-pdm-hatch-v1.json); PDM's complete
 engineering observations and historical loss remain separately retained.
@@ -28,4 +29,29 @@ creation, Python downloads and external services require separate source review
 and are not approved by acquiring this source.
 
 Local-only owned source: `artifacts/runner-readiness-next-twenty-project-pass/active/hatch/`.
-No project admission or target execution credit is claimed.
+All43 wheel identities match retained primary PyPI release bodies. Reviewed
+Hatchling/hatch-vcs/setuptools-scm/editables hooks built the owned editable source
+as `0.0.0+pin.ad6d66e7c5db`; all546 primary files are unchanged. Only the
+separately declared generated version module was added, and the editable path
+file contains the owned source directory. Native uv scripts were installed from
+their exact primary wheels; uv execution remains outside this workflow.
+
+The initial public recording exposed a real unsupported sparse-init path: Hatch
+assigns empty Python dictionaries into tomlkit, then changes detached dictionaries,
+leaving empty project tables. The complete independent metadata oracle rejected
+the captured result despite terminal success. Original spec, snapshot, fixture,
+console and prelaunch source identity remain retained. The exact original helper
+bytes were recovered and verified against their original prelaunch SHA256.
+
+The [repaired route](first-use-repaired.json) uses an existing project with the
+relevant TOML tables, preserving the same intended metadata oracle. It passed
+record/review/replay/export/ordinary execution and cleanup in a separate window:
+3 shell invocations and14 recorder controls. The [initial miss](initial-authoring-failure.json)
+remains failed: cumulative5 shell invocations and28 controls exceed the original
+20-control target. These are prepared-agent observations, with zero observed
+human participants and no project/native admission.
+
+Source review also found that disabling all template licenses returns before
+CLI dependencies and flat-layout metadata are initialized. Do not silently bless
+those missing outputs. Broader template cases need a separately reviewed exact
+owned license cache and predeclared complete generated-file expectations.

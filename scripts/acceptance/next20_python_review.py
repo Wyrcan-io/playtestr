@@ -11,10 +11,11 @@ import zipfile
 
 from next20_check import RAW, DOC
 from readiness_evidence import immutable_json, sha256
+from next20_wheel_hooks import reviewed_hooks
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('project');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('project');parser.add_argument('--primary-inputs',action='store_true');args=parser.parse_args()
     declaration_path=DOC/args.project/'setup-declaration.json'
     declaration=json.loads(declaration_path.read_text());target=RAW/'active'/args.project
     target.resolve(strict=True).relative_to((RAW/'active').resolve())
@@ -32,20 +33,34 @@ def main():
     metadata=tomllib.loads((source/'pyproject.toml').read_text())
     if metadata['build-system']['build-backend']!=declaration['backend']:raise ValueError('reviewed build backend changed')
     review=json.loads((target/'dependency-review.json').read_text());inventory=json.loads((target/'wheels.json').read_text())
-    if len(inventory)>64 or set(inventory)!={r['wheel'] for r in review['wheels']} or any(r['startup_hooks'] for r in review['wheels']):
+    if len(inventory)>64 or set(inventory)!={r['wheel'] for r in review['wheels']}:
         raise ValueError('unknown dependency/startup review inputs')
+    approved_path=target/'wheel-script-approval.json'
+    hooks=json.loads(approved_path.read_text()) if approved_path.exists() else {}
+    inputs=target/'wheel-review-inputs'
+    identities=json.loads((inputs/'index-v2.json').read_text()) if args.primary_inputs else None
+    if identities and {r['wheel'] for r in identities['wheels']}!=set(inventory):raise ValueError('primary review inventory differs')
     dependencies=[];primary=target/'dependency-review/primary';primary.mkdir()
     for filename,row in inventory.items():
         wheel=target/'wheels'/filename
         if sha256(wheel)!=row['sha256']:raise ValueError('reviewed dependency bytes changed')
         with zipfile.ZipFile(wheel) as archive:
-            names=[n for n in archive.namelist() if n.endswith('.dist-info/METADATA')]
+            scripts,startup=reviewed_hooks(archive,row['sha256'],hooks.get(filename,{}))
+            previous=next(r for r in review['wheels'] if r['wheel']==filename)
+            if previous.get('reviewed_scripts',{})!=scripts or previous.get('reviewed_startup_hooks',{})!=startup or bool(previous['startup_hooks'])!=bool(startup):raise ValueError('actual hook review differs')
+            names=[n for n in archive.namelist() if n.endswith('.dist-info/METADATA') and len(n.split('/'))==2]
             if len(names)!=1:raise ValueError('ambiguous wheel package metadata')
             info=BytesParser().parsebytes(archive.read(names[0]));name=info['Name'];version=info['Version']
         if not all(re.fullmatch('[A-Za-z0-9_.+-]{1,100}',value) for value in [name,version]):raise ValueError('unsafe package primary lookup')
         url='https://pypi.org/pypi/'+urllib.parse.quote(name,safe='')+'/'+urllib.parse.quote(version,safe='')+'/json'
-        with urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':'Playtestr-validation'}),timeout=30) as response:
-            data=response.read(4*1024**2+1)
+        if identities:
+            identity=next(r for r in identities['wheels'] if r['wheel']==filename)
+            retained_input=inputs/(filename+'.pypi.json')
+            if identity['primary']!=url or identity['primary_metadata_sha256']!=sha256(retained_input):raise ValueError('primary retained identity changed')
+            data=retained_input.read_bytes()
+        else:
+            with urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':'Playtestr-validation'}),timeout=30) as response:
+                data=response.read(4*1024**2+1)
         if len(data)>4*1024**2:raise ValueError('primary release metadata bound')
         release=json.loads(data);matches=[f for f in release['urls'] if f['filename']==filename]
         if len(matches)!=1 or matches[0]['digests']['sha256']!=row['sha256'] or matches[0]['size']!=row['bytes']:
