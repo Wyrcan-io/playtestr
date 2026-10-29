@@ -1,5 +1,8 @@
 name: Next twenty pdm native Linux preflight
 on:
+  push:
+    branches: [work/p0-p2-implementation]
+    paths: ['.github/workflows/runner-readiness-next20-pdm-linux-preflight.yml']
   workflow_dispatch:
 permissions:
   contents: read

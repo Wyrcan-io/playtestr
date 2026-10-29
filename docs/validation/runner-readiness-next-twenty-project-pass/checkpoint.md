@@ -2344,3 +2344,14 @@ serialized fixture-git recipe; native preparation reconstructs them before check
 the freeze. Empty fixture directories likewise reconstruct from frozen directories.
 Push the scoped commit, dispatch the prepared preflight and monitor actual native
 source/results; don't infer platform success from configuration.
+
+Committed/pushedb6ce80d8148c2fade4191cb146d51efbe594c9a2 (commit3583233173254e3aa5d190ac61418921,
+push50ea0cadc9964e778e4615f284fe2c82). Initial dispatch6bb6133afbe840d6824336c83e472d61
+refused404 before launching: a new dispatch-only workflow is not registered on
+GitHub's default branch. Restore the established scoped-push registration trigger;
+the target job still explicitly requires workflow_dispatch and cannot execute on
+push. This is service workflow registration, not target/product failure. Initial
+source harness40865362789 is queued, not yet evidence. The registration correction
+push can trigger one further3host harness triplet (5minuteceil/job,maxparallel2),
+so cumulative two-push harness ceiling30minutes plus the one30minute target job;
+no paid runner or quota change. Preserve both source/run identities.

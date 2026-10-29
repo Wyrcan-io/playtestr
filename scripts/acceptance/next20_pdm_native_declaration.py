@@ -31,8 +31,6 @@ def main():
         scope='Development cross-platform diagnosis only. No final repetitions, admission or missing historical-screen replacement.'))
     workflow=(ROOT/'.github/workflows/runner-readiness-next20-cargo-linux-preflight.yml').read_text()
     workflow=workflow.replace('cargo-generate','pdm').replace('cargo-linux','pdm-linux')
-    start=workflow.index('  push:');end=workflow.index('  workflow_dispatch:',start)
-    workflow=workflow[:start]+workflow[end:]
     start=workflow.index('      - name: Acquire,');end=workflow.index('      - name: Execute all twenty',start)
     workflow=workflow[:start]+'''      - name: Prepare reviewed pinned Python target within twenty minutes
         id: prepare
