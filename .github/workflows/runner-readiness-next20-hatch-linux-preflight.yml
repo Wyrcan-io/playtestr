@@ -1,5 +1,8 @@
 name: Next twenty Hatch native Linux development
 on:
+  push:
+    branches: [work/p0-p2-implementation]
+    paths: ['.github/workflows/runner-readiness-next20-hatch-linux-preflight.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -15,6 +18,7 @@ env:
   TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
 jobs:
   native-development:
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     defaults:
