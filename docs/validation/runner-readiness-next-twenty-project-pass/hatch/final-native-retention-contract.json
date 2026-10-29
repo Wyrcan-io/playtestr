@@ -1,0 +1,23 @@
+{
+  "byte_preservation": "Compare each actual provider ZIP member to standalone canonical bytes before referencing; encode every other member unchanged, then fully restore/compare all logical members against the same in-memory original ZIP.",
+  "canonical_archive_sha256": "16c04b04c3eb8e175f2dd767b81451ad2a0031c3618d13c93cab1961995c7e7f",
+  "canonical_index_sha256": "97753a5963d4629089eb4c71fe38760e1ffb71da1060216e5dd3d5000c98909c",
+  "current_xz_archive_limit_bytes": 25165824,
+  "current_xz_member_limit_bytes": 16777216,
+  "final_execution_declaration_sha256": "9cb2a67617e97feff5b1e5df70348086de3d65ec2a85f4c95381e5a784f87f0a",
+  "mandatory_canonical_generation": 1,
+  "prohibited": [
+    "Final artifact disk expansion beside retained dependencies",
+    "Reference chains",
+    "Remote-only dictionaries",
+    "Changing original reports or helper/source identities",
+    "Counting retention as qualification"
+  ],
+  "project_retained_limit_bytes": 67108864,
+  "provider_logical_limit_bytes": 134217728,
+  "provider_member_limit_bytes": 33554432,
+  "provider_zip_memory_limit_bytes": 67108864,
+  "schema_version": 1,
+  "scope": "Exact schema3 local references plus declared XZ current bytes; original provider ZIP wrapper hash recorded but wrapper itself not claimed retained. Mandatory development packet must remain available.",
+  "writer_headroom": "Minimum of24MiB and actual64MiB project headroom minus2MiB reserved for index/restore/proof; fail before writing outside measured headroom."
+}

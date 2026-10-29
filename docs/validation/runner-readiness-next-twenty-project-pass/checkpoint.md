@@ -2930,3 +2930,62 @@ this project once referenced. Complete first authoring maintenance/HTML/suffix/
 relocation/free-workflow generation, final two240+9cells, full actual audits/
 controls and checked cleanup; admissions remain Cargo1currentrc6. Continue all
 selected7-20/originalten/four/global gates; do not stop at Hatch milestones.
+
+
+Final-window preparation checkpoint (30 October client date):
+Independent Linux readback/retention committed0a4cf8868ac120bd628ac450a880d986a6eea317
+(a03e93cff7f949c1bc1baa5177c5522f), pushed0d3f81b8dfb74c09aa72aa2ec5c43148.
+Hatch public maintenance b71a0eb79c04401b9b6ccde0384c1841 completed13 real commands/
+8 reports, retained at hatch/maintenance-0ef5b48894dc4483a5f1d9a29170a63c/journey.json.
+Actual wrong-build-requirement fault rejected after positive terminal/exit/snapshot;
+offline HTML diagnosis useful within2 commands. Source restored. An explicit
+synthetic TOML-comment variant exercised selected update of ONLY pyproject.toml,
+then cancelled update preserved approved bytes, replay passed, Unicode/spaced
+relocation preserved same spec/snapshot. Source restored again. Fresh /rerecord1
+retained only Description readiness and discarded original text; independently
+verified complete Rerecorded description metadata, ordinary/relocated passes.
+Generated free Linux workflow uses explicit reviewed native build/profile,
+not dispatched/no delivered-CI credit. Lint4303ee0e82c240baaf385098d9f22130 passed.
+
+Windows application profile declared, shared local adapter adds explicit profile
+kind while keeping wizard default strict. Existing reviewed runtime was NOT
+reinstalled. Materializationac30a81fe0b341f4814670a552abb7d4; exact host-profile
+20/0 development5619f6ce50e54d2c9d079823eef5c28f passed. Total dev now80ordinary:
+Windows59pass/1fail across3 windows plus Linux20pass. No final credit.
+Finite final declaration8d259f832dbc461fb7d56e92a24f097f requires12whole20-case
+batches +9 fresh real fault phases PER host =480ordinary/18calibrations. Strict
+2000ms startup boundary on both hosts, no per-case retries. Source mutations,
+source failures, authoring misses already exposed; no untouched/human claim.
+One standard Linux final job45min ceiling, preparation1200/final1200/cleanup180sec;
+local Windows whole-cell command1200sec. Existing harness3jobs5min/maxparallel2.
+Final Linux workflow is separate, branch/path push registration with native job
+explicit-dispatch gated; development workflow unchanged. Lintbc69e5aa486e48878b9662dc2392ca65 passed.
+
+Direct final artifact collector prepared/tested before execution: provider ZIP
+bounded64MiB in memory, member32MiB/logical128MiB, no disk expansion. Every
+byte-identical canonical reference is compared to actual standalone native1
+payload; all other bytes encoded in XZ, current members16MiB/current archive24MiB.
+Actual archive writing also bounded by measured64MiB project headroom minus2MiB
+index/restore reserve. Mandatory native1 index/archive identities bound by
+final-native-retention-contract.json. Full restored payloads compared against the
+same original in-memory provider ZIP; no chained/remote dictionary or qualification
+decision. Source provider ZIP wrapper HASH only, not a claim wrapper bytes retained.
+First small direct-ref regression864935b7a0214d3097c1e79c116a018e passed gzip path;
+original helper50c9bab5a12aa74d2dcc5ad6007e95085c0e6d96597477735656342789239a98
+retained before selected-restore cap/XZ upgrade. Latest XZ roundtrip/refusal
+9d0b121310854ebca25b12543f30fcd6 passed. Complete55 helper checks on final source
+ff0b677607794789aee72be6e483f442 passed33.102seconds;252 helper/tests AST parsed.
+No production Go change or candidate-byte change. No further helper source edits
+while the local final cell runs: all helpers are prelaunch subjects.
+
+Old dc02249f harness40918929921 v99macOS65aac53352e54eafb0223d3d647cfb86 and
+v100Windows3da3ac1b5f6343b5b77621cd5da7eb6d completed/retained/expanded-removed;
+all3 cells now closed, no redownload. Pending next a3021efa/b8be5681/0a4cf886
+native harness runs and upcoming final-protocol source, verify actual provider
+IDs/status then collect one packet at a time, next generations101 onward.
+Hatch project row added as unadmitted development-positive. All counters still
+Cargo1 currentrc6 and5 distinct historically admitted new applications. PDM stays
+uncredited. Next commit/push/dispatch this final source and run fresh Windows cell;
+then independently audit all249 reports per cell, source/runtime/frames, retain
+with exact native1 references and checked cleanup before admission. Continue all
+remaining selected projects/originalten/four/global gates; never stop at milestone.

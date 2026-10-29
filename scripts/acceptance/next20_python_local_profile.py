@@ -7,7 +7,7 @@ import re
 import shutil
 
 from next20_check import DOC, RAW, ROOT
-from next20_python_host_profile import wizard_profile
+from next20_python_host_profile import wizard_profile,application_profile
 from next20_python_runtime import python_runtime_root
 from readiness_evidence import immutable_json, sha256
 
@@ -33,7 +33,12 @@ def main():
     cases=[]
     for case in declaration['cases']:
         spec=json.loads((package/case['spec']).read_text())
-        spec=wizard_profile(spec,dict(case,**value['case_profiles'].get(case['id'],{})),runtime['python'],'windows')
+        if value.get('profile_kind')=='application-generated-text':
+            lock=json.loads((package/'native-runtime-lock.json').read_text())
+            if not lock.get('explicit_python_application_profile'):raise ValueError('application profile not declared by reviewed runtime lock')
+            spec=application_profile(spec,dict(case,**value['case_profiles'].get(case['id'],{})),'windows')
+        elif value.get('profile_kind') is not None:raise ValueError('unknown local Python profile kind')
+        else:spec=wizard_profile(spec,dict(case,**value['case_profiles'].get(case['id'],{})),runtime['python'],'windows')
         spec['command'][0]=os.path.relpath(runtime['python'],contracts).replace('\\','/')
         immutable_json(contracts/case['spec'],spec)
         cases.append(dict(case,canonical_sha256=case['spec_sha256'],spec_sha256=sha256(contracts/case['spec'])))

@@ -275,6 +275,38 @@
       "qualification_disposition": "pdm/qualification-disposition.json",
       "substituted_by": "hatch",
       "source_runtime_removed": true
+    },
+    {
+      "id": "hatch",
+      "repository": "pypa/hatch",
+      "pin": "ad6d66e7c5dba7deea7601e50072676defae8b3e",
+      "status": "two-host-development-passed-final-qualification-open",
+      "planned_hosts": [
+        "linux",
+        "windows"
+      ],
+      "admitted": false,
+      "current_candidate_qualified": false,
+      "qualified_scenarios": 0,
+      "qualified_native_cells": 0,
+      "development_selected_scenarios_passed": 20,
+      "development_ordinary_attempts": 80,
+      "development_ordinary_passed": 79,
+      "development_ordinary_failed": 1,
+      "development_real_faults": 3,
+      "development_fault_matrix_calibrations": 9,
+      "local_development_summaries": {
+        "hatch/development/063806a0a4454213afa82ec56e53424c/summary.json": "08fc3cba3010755aef34423b99727f7b788d46e1b13057446e5c6c6c704f87bd",
+        "hatch/development/941caa8286514d25952c3d5c530afbb3/summary.json": "87aacd63aedb3a07d8b5f155973051e47f509e79c8b880aef1bd6866d793214e",
+        "hatch/development/b51a6d6d31c6477cb651752edfd529a5/summary.json": "8d30890c90ba9f8e3759d96c04ac7d5d0ef4a3de083be12cdcb2ba2363c37a8d"
+      },
+      "native_development_readbacks": {
+        "hatch/linux-development-readback.json": "a71d19e9ce01574ea29f0f9a079f8ac88ec672b9c954bd01de65140ed8d01a0d"
+      },
+      "final_declaration": "hatch/final-series-declaration-native-exit-v1.json",
+      "final_ordinary_executions_qualified": 0,
+      "final_calibrations_qualified": 0,
+      "scope": "Hatch replaces uncredited PDM; original public/development failures remain retained. Development/public/maintenance/fault checks are separate from final repetitions and admission."
     }
   ],
   "observed_audited_ordinary_executions": 1920,
