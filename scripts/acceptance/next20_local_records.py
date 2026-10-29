@@ -8,6 +8,7 @@ import hashlib
 import io
 import json
 import lzma
+import re
 from pathlib import Path
 import tarfile
 
@@ -24,8 +25,9 @@ def safe_path(name,project):
     return path
 
 
-def read_packet(project):
-    root=RAW/project/'retained-local-v1';index_path=root/'index.json';index=json.loads(index_path.read_text());archive=root/'packets.tar.xz'
+def read_packet(project,*,packet='retained-local-v1'):
+    if not re.fullmatch(r'retained-(?:local|failed-final)-v[1-9][0-9]{0,2}',packet):raise ValueError('unsafe local packet namespace')
+    root=RAW/project/packet;index_path=root/'index.json';index=json.loads(index_path.read_text());archive=root/'packets.tar.xz'
     if index['project']!=project or index['compression']!='tar.xz' or len(index['files'])>4000 or archive.stat().st_size>8*1024**2 or sha256(archive)!=index['archive_sha256']:raise ValueError('local record packet identity/bound differs')
     decoder=lzma.LZMADecompressor(format=lzma.FORMAT_XZ,memlimit=64*1024**2)
     expanded=decoder.decompress(archive.read_bytes(),max_length=64*1024**2+1)
@@ -51,7 +53,7 @@ def prepare(project):
     for path in sorted((RAW/project).rglob('*')):
         if not path.is_file():continue
         relative=path.relative_to(RAW/project)
-        if relative.parts[0].startswith(('retained-native-','retained-local-','registry-source-corpus-','native-solid-variants')):continue
+        if relative.parts[0].startswith(('retained-native-','retained-local-','retained-failed-final-','registry-source-corpus-','native-solid-variants')):continue
         if relative.parts[0] in {'audits','audit-controls'} or path.suffix in {'.gz','.tgz','.xz'}:continue
         name=path.relative_to(RAW).as_posix();safe_path(name,project);size=path.stat().st_size;total+=size
         if len(files)>=4000 or size>16*1024**2 or total>32*1024**2:raise ValueError('local evidence inventory bound')

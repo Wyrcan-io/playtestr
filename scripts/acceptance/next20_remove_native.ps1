@@ -20,6 +20,24 @@ if ($null -ne $index.PSObject.Properties['compression']) {
 if ($index.project -ne $Project -or $index.generation -ne $Generation -or
     (Get-FileHash -LiteralPath (Join-Path $retained $archiveName) -Algorithm SHA256).Hash.ToLowerInvariant() -ne $index.archive_sha256) { throw 'Compaction ownership/archive mismatch' }
 $actual=@{};$targets=@()
+$logicalFiles=@{}
+foreach($property in $index.files.PSObject.Properties){$logicalFiles[$property.Name]=$property.Value}
+if($null -ne $index.PSObject.Properties['external_exact_payloads']) {
+    $required=$index.required_canonical_packet
+    if($index.schema_version -ne 3 -or $required.generation -lt 1 -or $required.generation -ge $Generation){throw 'Unsafe canonical exact-payload reference'}
+    $base=Join-Path $campaign ($Project+'\retained-native-v'+$required.generation)
+    if((Resolve-Path -LiteralPath $base).ProviderPath -ne $base -or ((Get-Item -LiteralPath $base -Force).Attributes -band [IO.FileAttributes]::ReparsePoint)){throw 'Linked canonical reference root'}
+    if((Get-FileHash -LiteralPath (Join-Path $base 'index.json') -Algorithm SHA256).Hash.ToLowerInvariant() -ne $required.index_sha256){throw 'Canonical reference index changed'}
+    $baseIndex=Get-Content -LiteralPath (Join-Path $base 'index.json') -Raw | ConvertFrom-Json
+    $baseArchive='packets.tar.gz';if($baseIndex.compression -eq 'tar.xz'){$baseArchive='packets.tar.xz'}
+    if((Get-FileHash -LiteralPath (Join-Path $base $baseArchive) -Algorithm SHA256).Hash.ToLowerInvariant() -ne $required.archive_sha256){throw 'Canonical reference archive changed'}
+    $fullReadback=Get-Content -LiteralPath (Join-Path $retained 'complete-readback.json') -Raw | ConvertFrom-Json
+    if($fullReadback.index_sha256 -ne $verified.index_sha256 -or $fullReadback.members_compared_byte_exact -ne $verified.members_verified){throw 'Complete exact-reference readback missing'}
+    foreach($property in $index.external_exact_payloads.PSObject.Properties){
+        if($logicalFiles.ContainsKey($property.Name)){throw 'Overlapping external/current logical payload'}
+        $logicalFiles[$property.Name]=$property.Value
+    }
+}
 foreach($run in $index.runs) {
     if ($run -notmatch '^[0-9]{1,20}$') { throw 'Invalid native run' }
     $expectedRoot=Join-Path $campaign ('native\'+$run)
@@ -34,14 +52,14 @@ foreach($run in $index.runs) {
             if ($entry.PSIsContainer) { $pending.Enqueue($entry.FullName);continue }
             if ($actual.Count -ge 40000) { throw 'Packet count bound' }
             $relative=$entry.FullName.Substring($campaign.Length+1).Replace('\','/')
-            $expected=$index.files.PSObject.Properties[$relative].Value
+            $expected=$logicalFiles[$relative]
             if ($null -eq $expected -or $entry.Length -ne $expected.bytes -or
                 (Get-FileHash -LiteralPath $entry.FullName -Algorithm SHA256).Hash.ToLowerInvariant() -ne $expected.sha256) { throw 'Expanded packet differs from retained bytes' }
             $actual[$relative]=$true
         }
     }
 }
-if ($actual.Count -ne $verified.members_verified -or $actual.Count -ne @($index.files.PSObject.Properties).Count) { throw 'Incomplete expanded packet inventory' }
+if ($actual.Count -ne $verified.members_verified -or $actual.Count -ne $logicalFiles.Count) { throw 'Incomplete expanded packet inventory' }
 foreach($target in $targets) {
     Remove-Item -LiteralPath $target -Recurse -Force
     if(Test-Path -LiteralPath $target){throw 'Expanded native packet remains'}

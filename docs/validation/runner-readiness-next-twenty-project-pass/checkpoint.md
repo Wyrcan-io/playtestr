@@ -2431,3 +2431,109 @@ Harness40865526506/source422a943f all3actualproviderjobs succeeded; v83Linux
 collection currentlyinprogress (session52008), remainingMac/Win needcollection.
 Laterd1d24ade sourceharness likewise needs actualreadback/retention. No Go source
 changed; archiveinputs remainrc6. Preserve allrejectedwindow and historicalgap scopes.
+
+## PDM final Linux passed; Windows replacement running
+
+Latest committed/pushed5ccd20b8ce38c3496ca5e5095819f1272dcf9e81
+(commit172c850a0c7d466ea46b915696fec7b7,push07d3b319e0b7463eaa2459e8da776c3d).
+Linuxfinal40869293414/job123431925562 on thatsource completed success11:56:52Z
+to12:02:38Z29Oct (346jobseconds). Actual finalstep ran11:57:15Z–12:02:27Z:
+240ordinary+9freshsourcecalibrations, checked source/runtime cleanup passed.
+Declaration/inputs remainrc6; no Go source/binary change. Actualprovider metadata
+retentionea982dca36e1495f8f83e0f019eed803 completed. No further Linux job running.
+
+An expanded final-packet download was a retention-policy mistake. Actual failed
+storage4912d02cd47f481c8bcb94cd68951fbc records PDM85,668,927bytes >67,108,864cap;
+newraw1,337,332,746;combinedraw3,246,041,318;combinedretained1,586,559,091.
+Only project cap failed; no global cap raised or evidence hidden. Stop further
+retrieval until fixed. This deviation remains alongside the earlier Cargo breach.
+
+CompletefinalLinux logicalpacket3703files/48,382,274expandedbytes is now retained
+atRAW/pdm/retained-native-v3,9,563,300newgzipbytes. Exactly1119 payloads reuse
+byte-identical bytes in the mandatory standalone retained-native-v2. Its archive,
+index and all referenced actual bytes are reverified; no network reference or
+delta. All3703original logical files were fully restored and compared byte-for-byte
+(7e0d2826e94940d8a3cbedb3e9c1ad32), then independently restored again including
+actual selected report24edc38e9fce41be92a339215fef7277. New reader refuses escaping,
+overlapping,missing,changed,forward and chained exact references; actualcontrol
+2a23f376fd8d4d5f85856999f3f955ad passed. Do not delete canonicalv2 or download any
+of these completed generations again. Native expandedfinal packet checkedremoved
+835d1d54d2b94785a173ec265cb69315, fullcurrentcapcompliance restored
+63766bc6810e4d7c8c96d81f19ff9872: PDM47,868,630;newraw1,299,901,096;
+combinedraw3,208,609,668;combinedretained1,549,126,907. Logical observation, not peak.
+
+Full independent finalcellreadback548c7325598b44ad9b9a53e066e2157b verified all
+240positive Linux reports, exact canonical/host/12variation contracts,249unique
+actualprelaunch helper/source/runtime/spec identities,3real mutations/restoration,
+402primary+3generatedsource files and checked removal. Receipt under
+RAW/pdm/cell-readbacks/linux-*.json. No projectadmission/historicalgapwaiver.
+
+Original localWindows finalwrapper76fcc374f4674c2b9774aa75f15b3f06/session67673
+FINISHED FAILED after936.422seconds. It produced227reports:226pass,1startupfailure,
+11completebatches plus partialbatch11. N07 in batch11 got no first output within
+the explicit2000ms boundary; all steps notrun, forced WindowsJob cleanup and
+workspace cleanup confirmed. Failedattempt e98dc38d5df4423a9b17c17bd7ce471f;
+originalscreen retained. Cause of startup delay remainsunknown. No claim of
+target readiness after2seconds, runner defect/fix or final qualification credit.
+No finalsource calibrations began in this rejectedwindow.
+
+windows-first-final-rejection.json preserves all227report identities. One finite
+R3startup diagnostic was declared before launch:50fresh N07 executions with an
+explicit5000ms startup budget, same actions/stateoracles, ordinary scheduling,
+no artificialload. All50passed with target/workspace cleanup
+(67962a6ae2ad4e8795920586e2d5310a), RAW/pdm/startup-probe-v1. Zero final/scenario/
+fault/project credit and no causal diagnosis. Optional Windows2secondstartup
+coverage remains unsupported for this environment; product defaults untouched.
+
+The complete rejectedwindow1690files/5,640,158bytes is retained losslessly in
+RAW/pdm/retained-failed-final-v1 (140,004XZbytes, e3f878587b874b37ab05d6c6b9399c50).
+Every file compared byte-exact and actual failedreport restored before native
+checked duplicate removal5bdbb2375dfc4e7aa5d9fa3586d3feac. Original empty directory
+roots remain to prohibit accidental reuse. Read exact original payloads via
+next20_local_records.read_packet('pdm',packet='retained-failed-final-v1'); ordinary
+localpacket defaults unchanged. Do not require now-removed expanded duplicates.
+
+Separatefinaldeclaration-native-exit-v1-v2.json,431b2c43e4c942b09b9540a575a688c4,
+declares a full fresh Windows240+9 at5000ms startup boundary. Linuxoriginaldecl
+and successful execution remain unchanged and independently audited. New generic
+--window v2 namespaces allbatch/contracts/clones/plans/summaries; olddefaults
+unchanged. LocalWindowsreplacement RUNNING session84105, label
+pdm-windows-complete-final-replacement-v2,1200secondceiling/18minuteestimate.
+ActualrootRAW/pdm/final-series-native-exit-v1-v2; planfinal-execution-plan-v2.json.
+Do not launch another series or retry one case. Await/inspect actual full outcome.
+
+Full46helpercontrols d2a2edc0a7f34cadbec8a110325aa3b5 passed after retention changes;
+later replacementnamespace helpers syntax7f81c573821d4db382e9c66ea27f63e0 passed.
+No nextpush yet for these dirty changes; a future scopedpush may trigger3standard
+harnessjobs5minuteceil/maxparallel2 as declared. Harness422source all3cells now
+retained/removed: v83Linuxff215031befd4ecea8b7b5e6a8dce98e,
+v84Mac6f101ef47a594e429646eb574bfcf530,v85Win67ddef7f3926419cb11838960b89dd2a.
+Their curatedreceipts areuntracked. d1d24ade and5ccd20b8 sourceharness triplets
+still need actualcollection/audit/retention; resolve exactrunIDs fromprovider.
+
+Next: finish Windowsv2, independently read actualcell and dependency closure,
+challenge actualmodel, close retained-source/localtargetprocess cleanup and
+historicalframegap disposition. Then projects7-20 and all globalcandidate/current
+originalten/four/migration/whole/deliveredCI/freshcheckout/audit gates. Continue;
+neither a passed cell nor this checkpoint completes the invoked twenty-project task.
+
+Provideridentity5d5be45df09f4ddca43f7c74e53942b9 resolves pending successful harness
+runs:40867163929 atd1d24adeec20f7a66c798bed7747de06353fadf6;40869253251 at
+5ccd20b8ce38c3496ca5e5095819f1272dcf9e81. Need onepacketatatime generations86–91,
+then any later sourcepushtriplet. v80–85 are complete; do not retrieve them again.
+
+Windowsv2 progress observation:9completebatches/180positive reports, no failures
+yet (not a completed window). Active execution source helpers remain byte-frozen
+while the process runs. New audit/retention tooling does not modify those loaded
+helpers. On a future commit, use its matching helper blobs for Windows readback;
+the execution began while those exact helper bytes were dirty, before commit.
+Linux helper source remains exact5ccd20b8 as captured by its provider/launches.
+
+Read-only5bb9e8a2549e429d94096658af4981fe inspected the actual default-branch
+security warning printed on pushes: alert1 names the historical external Posting
+target's scripts/readiness/posting-requirements.txt pin brotli1.2.0, classified
+critical, firstpatched1.2.1. It is not a Go runner dependency or PDM dependency.
+No historical lock, remotealert, issue or outreach was changed. Keep the exact
+historical input and this separate risk observation; do not claim that warning
+was fixed by the current runner campaign. Review an explicit patched target
+profile before any future Posting acquisition/execution.

@@ -72,3 +72,20 @@ hosts. Execution and independent audit are separate; no declaration waives the
 historical screen gap or supplies admission credit. Remaining: complete final
 cell executions, actual-evidence audit, historical-gap disposition and checked
 local retention/source/runtime cleanup.
+
+Linux completed240 ordinary and9 fresh calibration executions on exact rc.6;
+independent actual-report/launch/source/contract readback and checked native cleanup
+passed. The first Windows window remains [rejected](windows-first-final-rejection.json):
+226passing reports followed by one first-output timeout at the explicit two-second
+startup boundary. Cleanup succeeded. Fifty separately declared five-second startup
+probes passed; the delay's cause remains unknown. A complete fresh
+[Windows replacement](final-series-declaration-native-exit-v1-v2.json) is in progress
+with that explicit budget. No partial-window or diagnostic qualification credit.
+
+An expanded Linux packet temporarily exceeded the per-project retention cap:
+85,668,927bytes against67,108,864. Complete exact-reference compaction and checked
+duplicate removal restored current compliance. All3,703 logical payloads remain
+recoverable; the second Linux retained packet is a mandatory local dependency.
+The original227-report Windows window also remains byte-exact in a separate
+compact packet. These are disclosed retention observations and deviations, not
+a claim of continuous cap compliance or complete historical screen retention.

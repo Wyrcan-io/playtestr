@@ -1,8 +1,10 @@
 """Execute a predeclared fresh final PDM cell without per-case retries."""
 import asyncio
+import argparse
 import json
 import os
 import platform
+import re
 import sys
 
 from adversarial_process import execute
@@ -12,8 +14,12 @@ from readiness_evidence import immutable_json, sha256
 
 
 async def main():
+    parser=argparse.ArgumentParser();parser.add_argument('--window');args=parser.parse_args();window=args.window
+    if window is not None and (not re.fullmatch(r'v[1-9][0-9]{0,2}',window) or int(window[1:])<2):raise ValueError('invalid replacement window')
     package=DOC/'pdm';target=RAW/'active/pdm';host={'Windows':'windows','Linux':'linux'}[platform.system()]
-    path=package/'final-series-declaration-native-exit-v1.json';declaration=json.loads(path.read_text())
+    if window and host!='windows':raise ValueError('replacement window is declared for Windows only')
+    suffix='-'+window if window else ''
+    path=package/('final-series-declaration-native-exit-v1'+suffix+'.json');declaration=json.loads(path.read_text())
     contracts=RAW/'pdm/host-contracts';frozen=json.loads((contracts/'development-test-freeze.json').read_text())
     profile=package/('windows-profile-v1.json' if host=='windows' else 'native-profile-v2.json')
     if (declaration['canonical_test_freeze_sha256']!=sha256(package/'development-test-freeze.json') or
@@ -21,17 +27,17 @@ async def main():
         raise ValueError('final host profile is not the declared exact input')
     for name,digest in frozen['inputs'].items():
         if sha256(contracts/name)!=digest:raise ValueError('native input changed before final series')
-    plan=RAW/'pdm/final-execution-plan.json'
+    plan=RAW/'pdm'/('final-execution-plan'+suffix+'.json')
     immutable_json(plan,dict(schema_version=1,host=host,declaration_sha256=sha256(path),runtime_sha256=sha256(target/'runtime.json'),
         build_sha256=sha256(target/'build.json'),native_freeze_sha256=sha256(contracts/'development-test-freeze.json'),
         expected_ordinary=240,expected_calibrations=9,project_admissions=0))
     for batch in range(12):
-        await final_batch('pdm',batch=batch,candidate_series='native-exit-v1')
+        await final_batch('pdm',batch=batch,candidate_series='native-exit-v1',window=window)
         print('Completed fresh final batch',batch+1,'of12;',host,flush=True)
     before=set((RAW/'pdm/faults').glob('*/summary.json'))
     env=owned_environment();env['READINESS_EVIDENCE_PHASE']='final-archive'
     calibration=await execute([sys.executable,'-B',ROOT/'scripts/acceptance/next20_python_faults.py','pdm',
-        '--candidate-series','native-exit-v1','--package',contracts],'pdm','final-pdm-three-real-source-faults',
+        '--candidate-series','native-exit-v1','--package',contracts],'pdm','final-pdm-three-real-source-faults'+suffix,
         cwd=ROOT,env=env,timeout=600,campaign=NextCampaign(phase='final-archive'))
     after=set((RAW/'pdm/faults').glob('*/summary.json'))-before
     if len(after)!=1:raise ValueError('exactly one fresh complete source-fault series required')
@@ -40,8 +46,8 @@ async def main():
     primary=json.loads((package/'source-provenance.json').read_text())['files']
     for name,digest in primary.items():
         if sha256(target/'src'/name)!=digest:raise ValueError('final source restoration differs')
-    summaries=[RAW/'pdm/final-series-native-exit-v1'/str(i)/'summary.json' for i in range(12)]
-    immutable_json(RAW/'pdm/final-execution-summary.json',dict(schema_version=1,host=host,
+    summaries=[RAW/'pdm'/('final-series-native-exit-v1'+suffix)/str(i)/'summary.json' for i in range(12)]
+    immutable_json(RAW/'pdm'/('final-execution-summary'+suffix+'.json'),dict(schema_version=1,host=host,
         plan_sha256=sha256(plan),declaration_sha256=sha256(path),
         batches={p.relative_to(RAW).as_posix():sha256(p) for p in summaries},ordinary_executions=240,
         calibrations=9,calibration_wrapper=calibration['id'],fault_summary=fault_path.relative_to(RAW).as_posix(),

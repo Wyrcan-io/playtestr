@@ -46,6 +46,24 @@ def _read(project,generation,index_sha,archive_sha,dictionary_identity=None,pack
             payloads[member.name]=data
     if set(payloads)!=set(physical):raise ValueError('native evidence omitted physical member')
     result={name:payloads[row.get('member',name)] for name,row in files.items()}
+    external=index.get('external_exact_payloads')
+    if external:
+        required=index['required_canonical_packet']
+        base_generation=required['generation']
+        if type(base_generation)!=int or not 1<=base_generation<generation or len(files)+len(external)>10000:
+            raise ValueError('unsafe external exact-payload packet reference')
+        canonical_index,canonical=read_packet(project,base_generation)
+        if (canonical_index.get('external_exact_payloads') or canonical_index.get('runtime_frame_disposition') or canonical_index.get('solid_runtime_disposition') or
+                canonical_index['archive_sha256']!=required['archive_sha256'] or
+                sha256(RAW/project/('retained-native-v'+str(base_generation))/'index.json')!=required['index_sha256']):
+            raise ValueError('required standalone canonical packet differs or reference chain')
+        for name,row in external.items():
+            if (name in result or name.startswith('/') or any(p in {'','.','..'} or ':' in p or '\\' in p for p in name.split('/')) or
+                    row['canonical_logical_path'] not in canonical):raise ValueError('unsafe/missing external logical payload')
+            data=canonical[row['canonical_logical_path']]
+            if len(data)!=row['bytes'] or hashlib.sha256(data).hexdigest()!=row['sha256']:raise ValueError('external exact bytes differ')
+            result[name]=data
+        if sum(len(data) for data in result.values())>128*1024**2:raise ValueError('restored logical packet byte bound')
     disposition=index.get('runtime_frame_disposition')
     if disposition:
         from next20_native_runtime_reference import binary_bundle
@@ -85,10 +103,20 @@ def read_packet(project,generation,*,stage=False):
     proof=json.loads((root/'verified.json').read_text());index_sha=sha256(root/'index.json')
     if index_sha!=proof['index_sha256']:raise ValueError('native evidence index changed')
     index=json.loads((root/'index.json').read_text());archive=archive_path(root,index);archive_sha=sha256(archive)
+    if archive.is_symlink() or getattr(archive,'is_junction',lambda:False)():raise ValueError('linked retained native archive')
     if archive_sha!=proof['archive_sha256']:raise ValueError('native evidence archive changed')
     index,correction_sha=corrected_index(root,index,index_sha)
     dictionary_identity=correction_sha
     disposition=index.get('runtime_frame_disposition') or index.get('solid_runtime_disposition')
+    if index.get('external_exact_payloads'):
+        required=index['required_canonical_packet'];number=required['generation']
+        if type(number)!=int or not 1<=number<generation:raise ValueError('unsafe external canonical generation')
+        base=RAW/project/('retained-native-v'+str(number));base.resolve(strict=True).relative_to((RAW/project).resolve(strict=True))
+        if base.is_symlink() or getattr(base,'is_junction',lambda:False)():raise ValueError('linked canonical exact-payload root')
+        base_index=json.loads((base/'index.json').read_text());base_archive=archive_path(base,base_index)
+        if sha256(base/'index.json')!=required['index_sha256'] or sha256(base_archive)!=required['archive_sha256']:
+            raise ValueError('required canonical exact-payload packet missing/changed')
+        dictionary_identity=required['index_sha256']+':'+required['archive_sha256']
     if disposition:
         required=disposition['required_canonical_runtime'];match=re.fullmatch(re.escape(project)+r'/retained-native-v([0-9]{1,4})/packets\.tar\.gz',required['archive'])
         if not match or int(match[1])>=generation:raise ValueError('unsafe required native dictionary reference')

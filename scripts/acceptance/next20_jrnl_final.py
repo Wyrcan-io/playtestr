@@ -5,6 +5,7 @@ import copy
 import json
 import os
 import platform
+import re
 from pathlib import Path
 import shutil
 import uuid
@@ -32,16 +33,19 @@ def segmented_steps(original, readiness=False):
     return steps
 
 
-async def main(project='jrnl',batch=None,candidate_series='rc5',chunk_readiness=False):
+async def main(project='jrnl',batch=None,candidate_series='rc5',chunk_readiness=False,window=None):
     if batch is None:
         parser=argparse.ArgumentParser();parser.add_argument('--batch',type=int,required=True)
         parser.add_argument('--project',default=project);parser.add_argument('--candidate-series',choices=SERIES,default=candidate_series)
-        args=parser.parse_args();project=args.project;candidate_series=args.candidate_series
+        parser.add_argument('--window',default=window)
+        args=parser.parse_args();project=args.project;candidate_series=args.candidate_series;window=args.window
     else:args=argparse.Namespace(batch=batch)
     if not (DOC/project/'source-provenance.json').is_file() or '/' in project or '\\' in project:raise ValueError('undeclared project')
     if not 0<=args.batch<12:raise ValueError('undeclared final batch')
+    if window is not None and (not re.fullmatch(r'v[1-9][0-9]{0,2}',window) or int(window[1:])<2):raise ValueError('invalid explicit replacement window')
     host={'Windows':'windows','Linux':'linux','Darwin':'darwin'}[platform.system()]
     suffix='' if candidate_series=='rc5' else '-'+candidate_series
+    if window:suffix+='-'+window
     declaration_path=DOC/project/('final-series-declaration'+suffix+'.json')
     declaration=json.loads(declaration_path.read_text())
     if host not in declaration['hosts']:raise ValueError('undeclared host')
@@ -62,6 +66,7 @@ async def main(project='jrnl',batch=None,candidate_series='rc5',chunk_readiness=
     dependencies()
     clone_prefix=('venv-pair-' if kind=='python' else 'app-pair-')
     if suffix:clone_prefix+=candidate_series+'-'
+    if window:clone_prefix+=window+'-'
     # Cold means a newly materialized, hash-verified runtime copy, followed by
     # reuse in its paired warm batch. It does not claim a flushed OS file cache.
     if args.batch in {0,2}:
