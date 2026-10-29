@@ -3,6 +3,21 @@ import base64
 import copy
 
 
+def application_profile(original,case,host):
+    """Convert only declared generated text; preserve application input/exit semantics."""
+    if host not in {'linux','windows'}:raise ValueError('undeclared application host')
+    value=copy.deepcopy(original)
+    generated=set(case['native_generated_text_paths']);preserved=set(case.get('preserve_generated_newlines',[]))
+    if not preserved<=generated:raise ValueError('newline preservation must name generated paths')
+    if host=='linux':
+        for step in value['steps']:
+            state=step.get('state',{})
+            if state.get('path') in generated-preserved and 'bytes_base64' in state:
+                raw=base64.b64decode(state['bytes_base64'],validate=True)
+                state['bytes_base64']=base64.b64encode(raw.replace(b'\r\n',b'\n')).decode()
+    return value
+
+
 def wizard_profile(original, case, python, host):
     if host not in {'linux','windows'}:raise ValueError('undeclared wizard host')
     value=copy.deepcopy(original);argv=value['command']

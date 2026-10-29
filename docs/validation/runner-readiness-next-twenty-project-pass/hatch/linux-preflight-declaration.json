@@ -1,0 +1,34 @@
+{
+  "budget": {
+    "automatic_harness_jobs": 3,
+    "development_ceiling_seconds": 600,
+    "estimated_target_minutes": 8,
+    "harness_job_ceiling_minutes": 5,
+    "harness_max_parallel": 2,
+    "job_ceiling_minutes": 30,
+    "max_parallel": 1,
+    "preparation_ceiling_seconds": 1200,
+    "standard_hosted": true,
+    "target_jobs": 1
+  },
+  "candidate": "v0.4.0-rc.6",
+  "candidate_series": "native-exit-v1",
+  "canonical_freeze_sha256": "9fbaaebdc1e1dbc6da54a3bfbd85a882c51a3a2e1db786d7a94c20a19bf54854",
+  "development_cases": 20,
+  "host": "ubuntu-24.04",
+  "native_runtime_lock_sha256": "58e380ff7cb5463c19f295c1df0de8cc2b94563ae5151b62c58e2a940917a7ee",
+  "prepublication_forecast_correction": {
+    "original_sha256": "dfffb2ff9609a9b4a655da1b9d779b7e4c12075b8c6143232e0c37ac337ffa63",
+    "reason": "Replace manual sum with actual43-wheel inventory total;134-byte forecast correction before dispatch. No cap or behavior change."
+  },
+  "project_admissions": 0,
+  "retention_forecast": {
+    "linux_additional_reviewed_wheels_bytes": 22952990,
+    "policy": "Retain/compress native development before local source cleanup. Final native download must stream directly to exact deduplicated retention with the development packet as mandatory dictionary; do not expand a final artifact beside retained dependencies.",
+    "project_retained_limit_bytes": 67108864,
+    "windows_reviewed_wheels_bytes": 25972520
+  },
+  "schema_version": 1,
+  "scope": "One native Linux development/cleanup job only. No final repetition, admission, human, security-isolation or uv execution credit. Every actual outcome and artifact still requires independent readback.",
+  "workflow_sha256": "3d6a735026bfb152b384d432dcc87b6150db7df79a4a2287607fde8a30396c4c"
+}

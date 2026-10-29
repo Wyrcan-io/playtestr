@@ -2785,3 +2785,69 @@ generated-text newline conversion. Then verify all20 Linux cases, final240+9 per
 host, independent actual outcome/source/runtime/retention audits and checked
 cleanup before admission. Complete selected7-20 and all originalten/four/global
 gates; currentrc6 admission remains Cargo only. Do not stop at Hatch milestone.
+
+
+Hatch Linux native preparation checkpoint (continued29 October):
+Contracts/fault checkpoint committed a3021efa5599db070c6769c95f626e61a67f04f4
+(c9aa952169634317892876422376c02c), pushed e024d225384c4ea38121e2b2c5037ac5.
+691db365 harness v97Windows f2ca44aabec54801b45479ad5c8fdeb5 completed actual
+audit/retention/checked removal; all3 cells now closed. No pending native expansion.
+Next pending collection: dc02249f harness40918929921 v98Linux/v99macOS/v100Win;
+then a3021efa source automatic harness, then this upcoming source.
+
+Linux wheel input first61abef43a9cf41caa9a5c8c95ecc9476 stopped before wheel
+fetch because canonicalization omitted dots in backports.zstd. Original helper
+7f39d80b44f4c070a6a87152b7fa2d407d7829756de418f77140245eb3b8d7ed retained,
+verified against prelaunch identity. Explicit interrupted-stage --resume reuses
+all completed primary release bodies and selected original latest versions;
+normalization [-_.]+ -> -; no moving-version refetch or overwritten input.
+e9ca00e44e8e4270bbe2a5d0dc87e98b fetched8 exact Linux review wheels totaling
+22,952,990compressed bytes: uv0.13.6(uv+uvx ELF scripts; common Python lookup
+modules byte-identical Windows/Linux), backports.zstd1.8.0, distro1.9.0,
+SecretStorage3.5.0, jeepney0.9.0, cryptography50.0.2, cffi2.1.1, pycparser3.12.
+All match actual primary release filename/digest/size, no startup/customization
+modules among additions. Licenses inspected: Apache/BSD/MIT/MIT-0/PSF as recorded.
+No Linux wheel code installed or executed locally; primary-bound native payloads
+trusted for copying, not a security/isolation/source-built-native claim.
+
+Native lock first2a0e505b5f8d488bb73a9edb2dae8c04 failed CP1252 decoding of UTF8
+PyPI metadata. Original helperdfb1e08c148f041db588a614fa578ec67ff1a3f5769a5ba3a5ce1d221ce8bc84
+retained against prelaunch identity; explicitUTF8 readbackf4747b017aa84d018d594372978942ef
+approved exact48-distribution reachable Linux closure, including marker/Requires-
+Python/specifier checks, fixed URLs/digests, exact uv/setuptools hooks and source
+version/module rules. Windows-only pywin32-ctypes is excluded from installed
+Linux closure; all49 reviewed versions remain in constraints. Additional backend
+editables~=0.3 included explicitly. No future host resolver can choose an
+unreviewed ABI wheel: all48 exact primary download URLs and SHA256 are frozen.
+
+Shared native adapter additive changes preserve old defaults: declared frozen
+wheel downloads with bounded primary-only origins; exact separately reviewed
+startup/scripts; top-level metadata; additional declared build requirements;
+reviewed private-version environment; normalized exact generated-module bytes;
+separate application profile for generated-text-only CRLF->LF, no --python wizard
+argument requirement, no cancellation/EOF/fixture/snapshot rewriting. Existing
+wizard strictness remains unchanged. Cleanup additionally retains optional frozen-
+wheel download receipt.53 full native helper cases61bf702449aa4244b4cf7c0bd6deb785
+passed24.111seconds including new malformed-origin/identity/size/duplicate/bounds
+and generated-only profile controls.244 helpers/tests AST parsed afterward.
+Workflow lint95ca7a78e20e4a8ebd79c2f7168c9c33 passed actionlint1.7.12, shellcheck
+explicitlydisabled as in prior harness (no shellcheck coverage claim).
+
+One dispatch-only Ubuntu24.04 development job prepared, timeout30minutes,
+preparation1200sec/development600sec/cleanup180sec; estimated8targetminutes,
+plus existing3 automatic harness jobs5min/maxparallel2. Frozen rc6Linux archive
+40424475362 reused by exact hash. All20 cases then checked source/runtime removal
+and uploaded evidence; no final repetitions/admission. Declaration's prepublication
+Windows wheel forecast corrected134bytes to actual43-wheel25,972,520 after saving
+original under hatch/preflight-declaration-revision/before.json; no cap changed.
+Total distinct Windows+Linux wheel payloads48,925,510bytes, before compression;
+native development must be retained before local source cleanup. FINAL Linux ZIP
+must stream directly to deduplicated retention referencing mandatory development
+packet, NEVER expand beside already retained dependencies (avoid prior transient
+cap breaches). New forecast does not claim observed peak.
+Storage417517ec5ed144b88aab18fac32809ac passed all caps with onlyHatchactive:
+newraw1,335,254,762;combinedraw3,243,963,334;combinedretained1,600,831,552;
+Hatchretained680,041;newcurated4,357,240;combinedcurated16,013,484.
+Next commit/push/dispatch nativeLinux development, independently inspect actual
+all20 outcomes/source/runtime/cleanup and retain them. No Linux compatibility or
+final admission credit yet; continue all remaining campaign work without stopping.

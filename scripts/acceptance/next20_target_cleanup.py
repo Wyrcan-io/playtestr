@@ -163,7 +163,7 @@ def main():
            'node-prerequisite.json','dependency-fetch.json','build-lock-derivation.json','build-planned.json',
            'dependency-fetch-review.json','dependency-source-catalog.json','native-hook-review.json',
            'native-c-compiler.json','required-source-dictionary.json','version-check.json','short-cache-reference.json',
-           'post-build-dependency-readback.json']
+           'post-build-dependency-readback.json','frozen-wheel-download.json']
     copied={}
     if generated_manifest:
         destination=retained/'generated-source-manifest.json';shutil.copyfile(generated_manifest,destination)

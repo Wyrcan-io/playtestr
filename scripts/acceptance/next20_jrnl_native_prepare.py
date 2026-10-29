@@ -59,7 +59,7 @@ async def main(project='jrnl',profile=None):
     env=environment(target)
     if lock.get('build_environment'):
         declaration=json.loads((package/'setup-declaration.json').read_text())
-        if lock['build_environment']!={'PDM_BUILD_SCM_VERSION':declaration['built_source_version']}:
+        if lock['build_environment']!=declaration.get('version_environment',{'PDM_BUILD_SCM_VERSION':declaration['built_source_version']}):
             raise ValueError('native build environment differs from reviewed setup declaration')
         env.update(lock['build_environment'])
     async def run(argv,label):
@@ -82,32 +82,41 @@ async def main(project='jrnl',profile=None):
     python=venv/('Scripts/python.exe' if os.name=='nt' else 'bin/python')
     metadata=tomllib.loads((source/'pyproject.toml').read_text())
     requirements=target/'requirements.txt';constraints=target/'constraints.txt'
-    requirements.write_text('\n'.join(metadata['project']['dependencies']+metadata['build-system']['requires'])+'\n',encoding='utf-8',newline='\n')
+    requirements.write_text('\n'.join(metadata['project']['dependencies']+metadata['build-system']['requires']+lock.get('additional_build_requirements',[]))+'\n',encoding='utf-8',newline='\n')
     constraints.write_text('\n'.join(name+'=='+version for name,version in sorted(lock['versions'].items()))+'\n',encoding='utf-8',newline='\n')
     wheels=target/'wheels';wheels.mkdir()
-    await run([python,'-B','-m','pip','download','--only-binary=:all:','--dest',wheels,
-        '--constraint',constraints,'-r',requirements],'native-locked-wheel-only-download')
+    if lock.get('frozen_wheel_downloads'):
+        from next20_native_wheels import download_frozen_wheels
+        downloaded=download_frozen_wheels(lock['frozen_wheel_downloads'],wheels)
+        immutable_json(target/'frozen-wheel-download.json',dict(schema_version=1,**downloaded,native_runtime_lock_sha256=sha256(package/'native-runtime-lock.json')))
+    else:
+        await run([python,'-B','-m','pip','download','--only-binary=:all:','--dest',wheels,
+            '--constraint',constraints,'-r',requirements],'native-locked-wheel-only-download')
     wheel_inventory={};wheel_reviews=[]
     for path in sorted(wheels.iterdir()):
         if path.suffix!='.whl' or path.stat().st_size>32*1024**2:raise ValueError('native wheel type/size bound')
         with zipfile.ZipFile(path) as archive:
             infos=archive.infolist()
             if len(infos)>10000 or sum(i.file_size for i in infos)>128*1024**2:raise ValueError('native wheel expanded bound')
-            if any(i.filename.endswith('.pth') for i in infos):raise ValueError('new native wheel startup hook')
             scripts={i.filename:hashlib.sha256(archive.read(i)).hexdigest() for i in infos if '.data/scripts/' in i.filename}
-            if scripts:
+            startup={i.filename:hashlib.sha256(archive.read(i)).hexdigest() for i in infos if i.filename.endswith('.pth')}
+            if lock.get('wheel_hook_approvals') is not None:
+                from next20_wheel_hooks import reviewed_hooks
+                scripts,startup=reviewed_hooks(archive,sha256(path),lock['wheel_hook_approvals'].get(path.name,{}))
+            elif startup:raise ValueError('new native wheel startup hook')
+            elif scripts:
                 approved=lock.get('backend_script')
                 suffix='.exe' if os.name=='nt' else ''
                 if not approved or len(scripts)!=1 or not next(iter(scripts)).endswith('/'+approved['name']+suffix):
                     raise ValueError('new native wheel script not reviewed')
                 if hashlib.sha256(archive.read(approved['shim_file'])).hexdigest()!=approved['shim_sha256']:
                     raise ValueError('native backend Python shim differs from reviewed source')
-            names=[i.filename for i in infos if i.filename.endswith('.dist-info/METADATA')]
+            names=[i.filename for i in infos if i.filename.endswith('.dist-info/METADATA') and len(i.filename.split('/'))==2]
             if len(names)!=1:raise ValueError('native wheel metadata coverage')
             data=archive.read(names[0]);info=BytesParser().parsebytes(data)
-        name=info['Name'].lower().replace('_','-');version=info['Version']
+        name=__import__('re').sub(r'[-_.]+','-',info['Name'].lower()) if lock.get('frozen_wheel_downloads') else info['Name'].lower().replace('_','-');version=info['Version']
         if lock['versions'].get(name)!=version:raise ValueError('unreviewed native dependency version: '+name)
-        if scripts:
+        if scripts and lock.get('wheel_hook_approvals') is None:
             approved=lock['backend_script'];suffix='.exe' if os.name=='nt' else ''
             if name!=approved['distribution'] or set(scripts)!={name.replace('-','_')+'-'+version+'.data/scripts/'+approved['name']+suffix}:
                 raise ValueError('native backend executable distribution/path differs from reviewed package')
@@ -117,10 +126,10 @@ async def main(project='jrnl',profile=None):
         matched=[r for r in primary['urls'] if r['filename']==path.name and r['digests']['sha256']==sha256(path)]
         if len(matched)!=1:raise ValueError('native wheel absent from primary release digest inventory')
         wheel_inventory[path.name]=dict(bytes=path.stat().st_size,sha256=sha256(path),url=matched[0]['url'])
-        wheel_reviews.append(dict(name=name,version=version,metadata_sha256=hashlib.sha256(data).hexdigest(),startup_hooks=False,reviewed_scripts=scripts))
+        wheel_reviews.append(dict(name=name,version=version,metadata_sha256=hashlib.sha256(data).hexdigest(),startup_hooks=bool(startup),reviewed_startup_hooks=startup,reviewed_scripts=scripts))
     immutable_json(target/'wheels.json',wheel_inventory)
     immutable_json(target/'dependency-review.json',dict(approved=True,reviewed_version_lock_sha256=sha256(package/'native-runtime-lock.json'),
-        wheels=wheel_reviews,scope='Frozen reviewed versions, primary release wheel digests, no source distributions/startup hooks; only declared synthetic project interactions.'))
+        wheels=wheel_reviews,scope='Frozen reviewed versions and primary release wheel digests; no source distributions, only explicitly reviewed startup/scripts when declared. Synthetic project interactions only.'))
     if project!='jrnl':env['PATH']=str(python.parent)+os.pathsep+env['PATH']
     await run([python,'-B','-m','pip','install','--no-index','--find-links',wheels,'--only-binary=:all:',
         '--constraint',constraints,'-r',requirements],'native-offline-reviewed-dependencies')
@@ -145,11 +154,15 @@ async def main(project='jrnl',profile=None):
         extra=set(actual)-set(provenance['files'])
         if extra!=set(lock['generated_source_files']) or any(actual[n]!=d for n,d in provenance['files'].items()):
             raise ValueError('unexpected generated native source inventory')
-        allowed={'src/pdm/VERSION':(lock['expected_version']+'\n').encode(),
-            '.pdm-build/.gitignore':('*'+os.linesep).encode(),
-            '.pdm-build/_editable_impl_pdm.pth':str(source/'src').encode()}
-        if extra!=set(allowed) or any((source/n).read_bytes()!=raw for n,raw in allowed.items()):
-            raise ValueError('generated native backend file content differs from declared semantics')
+        if lock.get('generated_source_normalized_sha256'):
+            allowed=lock['generated_source_normalized_sha256']
+            if extra!=set(allowed) or any(hashlib.sha256((source/n).read_bytes().replace(b'\r\n',b'\n')).hexdigest()!=digest for n,digest in allowed.items()):raise ValueError('generated native source module differs from exact reviewed normalized bytes')
+        else:
+            allowed={'src/pdm/VERSION':(lock['expected_version']+'\n').encode(),
+                '.pdm-build/.gitignore':('*'+os.linesep).encode(),
+                '.pdm-build/_editable_impl_pdm.pth':str(source/'src').encode()}
+            if extra!=set(allowed) or any((source/n).read_bytes()!=raw for n,raw in allowed.items()):
+                raise ValueError('generated native backend file content differs from declared semantics')
         immutable_json(RAW/project/'native-generated-source.json',dict(schema_version=1,
             primary_source_provenance_sha256=sha256(package/'source-provenance.json'),
             generated_files={n:dict(sha256=actual[n]) for n in sorted(extra)}))
@@ -174,6 +187,10 @@ async def main(project='jrnl',profile=None):
         if lock.get('explicit_python_wizard_profile'):
             from next20_python_host_profile import wizard_profile
             spec=wizard_profile(spec,dict(case,**overrides.get(case['id'],{})),python,host)
+        if lock.get('explicit_python_application_profile'):
+            if lock.get('explicit_python_wizard_profile'):raise ValueError('conflicting application/wizard profiles')
+            from next20_python_host_profile import application_profile
+            spec=application_profile(spec,dict(case,**overrides.get(case['id'],{})),host)
         if project=='jrnl' and host=='linux' and case['id']=='N06':
             steps=spec['steps'];index=next(i for i,s in enumerate(steps) if s.get('key')=='CtrlZ')
             if steps[index+1]!={'key':'Enter'}:raise ValueError('native EOF control group changed')
