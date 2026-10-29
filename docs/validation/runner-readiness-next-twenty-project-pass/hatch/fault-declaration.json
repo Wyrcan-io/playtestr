@@ -1,0 +1,35 @@
+{
+  "additional_terminal_only_calibrations_per_host": 0,
+  "exposure": "Source and potential fault sites already reviewed; initial authoring/development failures retained. Concrete edits declared after the positive20-case/86-input freeze. No untouched-source, unfamiliar-human or native-transfer claim.",
+  "faults": [
+    {
+      "after": "app.prompt(\"Metadata detail\", default=\"\")",
+      "before": "app.prompt(\"Description\", default=\"\")",
+      "category": "assertion_timeout",
+      "id": "F01",
+      "meaning": "Wrong interactive ready prompt prevents the unchanged approved description workflow.",
+      "path": "src/hatch/cli/new/__init__.py"
+    },
+    {
+      "after": "app.display_success(\"Updated: pyproject.toml\")\n        raise SystemExit(7)",
+      "before": "app.display_success(\"Updated: pyproject.toml\")\n        return",
+      "category": "unexpected_exit",
+      "id": "F02",
+      "meaning": "A completed metadata update prints the normal success checkpoint but incorrectly exits seven.",
+      "path": "src/hatch/cli/new/__init__.py"
+    },
+    {
+      "after": "build_system_config[\"requires\"] = [\"setuptools\"]",
+      "before": "build_system_config[\"requires\"] = [\"hatchling\"]",
+      "category": "state_assertion_failure",
+      "id": "F03",
+      "meaning": "The actual metadata writer saves the wrong build requirement after normal terminal completion, zero exit and matching snapshot.",
+      "path": "src/hatch/project/core.py"
+    }
+  ],
+  "primary_spec": "n01.json",
+  "project": "hatch",
+  "required_calibrations_per_host": 9,
+  "schema_version": 1,
+  "selected_after_freeze_sha256": "9fbaaebdc1e1dbc6da54a3bfbd85a882c51a3a2e1db786d7a94c20a19bf54854"
+}

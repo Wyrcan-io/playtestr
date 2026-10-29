@@ -1,0 +1,82 @@
+{
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/hatch/venv/Scripts/python.exe",
+    "-B",
+    "-m",
+    "hatch",
+    "--config",
+    "hatch.toml",
+    "--cache-dir",
+    "cache",
+    "--interactive",
+    "config",
+    "set",
+    "template.name"
+  ],
+  "env": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHONNOUSERSITE": "1",
+    "PYTHON_KEYRING_BACKEND": "keyring.backends.null.Keyring"
+  },
+  "height": 30,
+  "max_output_bytes": 2000000,
+  "name": "Interactively save an author default",
+  "run_timeout_ms": 120000,
+  "steps": [
+    {
+      "expect": "Value for `template.name`"
+    },
+    {
+      "text": "Grace"
+    },
+    {
+      "expect": "Grace"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "New setting:"
+    },
+    {
+      "expect": "Grace"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "bW9kZSA9ICJsb2NhbCINCnByb2plY3QgPSAiIg0Kc2hlbGwgPSAiIg0KW2RpcnNdDQpwcm9qZWN0ID0gW10NCnB5dGhvbiA9ICJpc29sYXRlZCINCmRhdGEgPSAiZGF0YSINCmNhY2hlID0gImNhY2hlIg0KZW52ID0ge30NCltwcm9qZWN0c10NCltwdWJsaXNoXQ0KW3RlbXBsYXRlXQ0KbmFtZSA9ICJHcmFjZSINCmVtYWlsID0gImFkYUBleGFtcGxlLmludmFsaWQiDQpbdGVtcGxhdGUubGljZW5zZXNdDQpoZWFkZXJzID0gZmFsc2UNCmRlZmF1bHQgPSBbIkFwYWNoZS0yLjAiXQ0KW3RlbXBsYXRlLnBsdWdpbnMuZGVmYXVsdF0NCnRlc3RzID0gZmFsc2UNCmNpID0gZmFsc2UNCnNyYy1sYXlvdXQgPSB0cnVlDQoNClt0ZXJtaW5hbC5zdHlsZXNdDQppbmZvID0gImJvbGQiDQpzdWNjZXNzID0gImJvbGQgY3lhbiINCmVycm9yID0gImJvbGQgcmVkIg0Kd2FybmluZyA9ICJib2xkIHllbGxvdyINCndhaXRpbmcgPSAiYm9sZCBtYWdlbnRhIg0KZGVidWcgPSAiYm9sZCINCnNwaW5uZXIgPSAic2ltcGxlRG90c1Njcm9sbGluZyINCg==",
+        "kind": "file",
+        "path": "hatch.toml"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "dW5yZWxhdGVkIHN5bnRoZXRpYyBkYXRhCg==",
+        "kind": "file",
+        "path": "sentinel.txt"
+      }
+    },
+    {
+      "state": {
+        "entries": [
+          "hatch.toml",
+          "sentinel.txt"
+        ],
+        "kind": "entries",
+        "path": "."
+      }
+    }
+  ],
+  "timeout_ms": 10000,
+  "version": 3,
+  "width": 120,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/n08",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

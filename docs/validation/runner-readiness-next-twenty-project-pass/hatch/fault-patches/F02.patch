@@ -1,0 +1,11 @@
+--- a/src/hatch/cli/new/__init__.py
++++ b/src/hatch/cli/new/__init__.py
+@@ -86,7 +86,7 @@
+     if needs_config_update:
+         app.project.initialize(str(location / "pyproject.toml"), default_config)
+         app.display_success("Updated: pyproject.toml")
+-        return
++        raise SystemExit(7)
+ 
+     template_config = deepcopy(app.config.template.raw_data)
+     if "plugins" in template_config and not template_config["plugins"]:

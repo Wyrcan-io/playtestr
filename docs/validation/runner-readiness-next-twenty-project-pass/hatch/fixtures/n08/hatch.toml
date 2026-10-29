@@ -1,0 +1,29 @@
+mode = "local"
+project = ""
+shell = ""
+[dirs]
+project = []
+python = "isolated"
+data = "data"
+cache = "cache"
+env = {}
+[projects]
+[publish]
+[template]
+name = "Ada"
+email = "ada@example.invalid"
+[template.licenses]
+headers = false
+default = ["Apache-2.0"]
+[template.plugins.default]
+tests = false
+ci = false
+src-layout = true
+[terminal.styles]
+info = "bold"
+success = "bold cyan"
+error = "bold red"
+warning = "bold yellow"
+waiting = "bold magenta"
+debug = "bold"
+spinner = "simpleDotsScrolling"

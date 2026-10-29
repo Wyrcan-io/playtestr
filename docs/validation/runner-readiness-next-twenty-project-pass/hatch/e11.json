@@ -1,0 +1,74 @@
+{
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/hatch/venv/Scripts/python.exe",
+    "-B",
+    "-m",
+    "hatch",
+    "--config",
+    "hatch.toml",
+    "--cache-dir",
+    "cache",
+    "--interactive",
+    "version",
+    "1.0.0"
+  ],
+  "env": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHONNOUSERSITE": "1",
+    "PYTHON_KEYRING_BACKEND": "keyring.backends.null.Keyring"
+  },
+  "height": 30,
+  "max_output_bytes": 2000000,
+  "name": "Refuse static version downgrade",
+  "run_timeout_ms": 120000,
+  "steps": [
+    {
+      "expect": "not higher than the original version"
+    },
+    {
+      "exit": 1
+    },
+    {
+      "state": {
+        "bytes_base64": "bW9kZSA9ICJsb2NhbCIKW3RlbXBsYXRlXQpuYW1lID0gIkFkYSIKZW1haWwgPSAiYWRhQGV4YW1wbGUuaW52YWxpZCIKW3RlbXBsYXRlLmxpY2Vuc2VzXQpoZWFkZXJzID0gZmFsc2UKZGVmYXVsdCA9IFtdCg==",
+        "kind": "file",
+        "path": "hatch.toml"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "dW5yZWxhdGVkIHN5bnRoZXRpYyBkYXRhCg==",
+        "kind": "file",
+        "path": "sentinel.txt"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "W3Byb2plY3RdCm5hbWUgPSAib3duZWQtdmVyc2lvbiIKdmVyc2lvbiA9ICIxLjIuMyIKClt0b29sLnN5bnRoZXRpY10Ka2VlcCA9ICJhbHBoYSIK",
+        "kind": "file",
+        "path": "pyproject.toml"
+      }
+    },
+    {
+      "state": {
+        "entries": [
+          "hatch.toml",
+          "pyproject.toml",
+          "sentinel.txt"
+        ],
+        "kind": "entries",
+        "path": "."
+      }
+    }
+  ],
+  "timeout_ms": 10000,
+  "version": 3,
+  "width": 120,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/e11",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

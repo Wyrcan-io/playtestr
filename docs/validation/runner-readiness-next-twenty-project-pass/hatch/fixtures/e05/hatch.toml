@@ -1,0 +1,11 @@
+mode = "local"
+[template]
+name = 7
+email = "ada@example.invalid"
+[template.licenses]
+headers = false
+default = ["Apache-2.0"]
+[template.plugins.default]
+tests = false
+ci = false
+src-layout = true

@@ -1,0 +1,537 @@
+{
+  "all_scenarios_qualified": false,
+  "cases": [
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 30,
+      "hosts": [
+        "windows",
+        "linux"
+      ],
+      "id": "N01",
+      "initial_fixture": "fixtures/n01",
+      "kind": "normal",
+      "native_generated_text_paths": [
+        "pyproject.toml"
+      ],
+      "oracle": "Complete intended metadata and generated/preserved bytes, all immediate directory entries, positive rendered checkpoints and exact exit. Public base files independently checked before reuse; no target writer executes to calculate expected outcomes.",
+      "risk": [
+        "Hatchling build backend, exact name/description/dynamic version path; preserve sentinel and unrelated tool table"
+      ],
+      "spec": "n01.json",
+      "spec_sha256": "c53de8d58babf5644284b425053a40aa201d64c044ae842c697f975f94cffcb9",
+      "task": "Initialize existing project metadata",
+      "width": 120
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 30,
+      "hosts": [
+        "windows",
+        "linux"
+      ],
+      "id": "N02",
+      "initial_fixture": "fixtures/n02",
+      "kind": "normal",
+      "native_generated_text_paths": [
+        "package/pyproject.toml",
+        "package/README.md",
+        "package/LICENSE.txt",
+        "package/src/synthetic_lib/__about__.py",
+        "package/src/synthetic_lib/__init__.py"
+      ],
+      "oracle": "Complete intended metadata and generated/preserved bytes, all immediate directory entries, positive rendered checkpoints and exact exit. Public base files independently checked before reuse; no target writer executes to calculate expected outcomes.",
+      "risk": [
+        "Complete package metadata, README, exact license, empty package root and version file; no tests/CI files"
+      ],
+      "spec": "n02.json",
+      "spec_sha256": "2dc1553c072b21da7f3b72d47bacc48d88996b1fcbd29058acd3c97ae3cca688",
+      "task": "Generate a src-layout library",
+      "width": 120
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 30,
+      "hosts": [
+        "windows",
+        "linux"
+      ],
+      "id": "N03",
+      "initial_fixture": "fixtures/n03",
+      "kind": "normal",
+      "native_generated_text_paths": [
+        "package/pyproject.toml",
+        "package/README.md",
+        "package/LICENSE.txt",
+        "package/src/synthetic_lib/__about__.py",
+        "package/src/synthetic_lib/__init__.py",
+        "package/src/synthetic_lib/__main__.py",
+        "package/src/synthetic_lib/cli/__init__.py"
+      ],
+      "oracle": "Complete intended metadata and generated/preserved bytes, all immediate directory entries, positive rendered checkpoints and exact exit. Public base files independently checked before reuse; no target writer executes to calculate expected outcomes.",
+      "risk": [
+        "Click dependency, project script mapping, package __main__ and CLI files in addition to complete library outputs"
+      ],
+      "spec": "n03.json",
+      "spec_sha256": "6c161bfdf9adad0a33ec7b8f58945146cc3487b89fd88cc0bbdf830c719df351",
+      "task": "Generate a command-line package",
+      "width": 120
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 30,
+      "hosts": [
+        "windows",
+        "linux"
+      ],
+      "id": "N04",
+      "initial_fixture": "fixtures/n04",
+      "kind": "normal",
+      "native_generated_text_paths": [
+        "package/pyproject.toml",
+        "package/README.md",
+        "package/LICENSE.txt",
+        "package/synthetic_lib/__about__.py",
+        "package/synthetic_lib/__init__.py"
+      ],
+      "oracle": "Complete intended metadata and generated/preserved bytes, all immediate directory entries, positive rendered checkpoints and exact exit. Public base files independently checked before reuse; no target writer executes to calculate expected outcomes.",
+      "risk": [
+        "Package and metadata path at project root, no src directory; correct README/license/metadata"
+      ],
+      "spec": "n04.json",
+      "spec_sha256": "7131e6ea5dc1700215506eb8e1a41a84a1875a9f77dfed73a3489635ebbf24e7",
+      "task": "Generate a flat-layout package",
+      "width": 120
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 30,
+      "hosts": [
+        "windows",
+        "linux"
+      ],
+      "id": "N05",
+      "initial_fixture": "fixtures/n05",
+      "kind": "normal",
+      "native_generated_text_paths": [
+        "package/pyproject.toml",
+        "package/README.md",
+        "package/LICENSE.txt",
+        "package/src/synthetic_lib/__about__.py",
+        "package/src/synthetic_lib/__init__.py",
+        "package/tests/__init__.py"
+      ],
+      "oracle": "Complete intended metadata and generated/preserved bytes, all immediate directory entries, positive rendered checkpoints and exact exit. Public base files independently checked before reuse; no target writer executes to calculate expected outcomes.",
+      "risk": [
+        "Tests package and complete declared type/coverage configuration; correct generated library state"
+      ],
+      "spec": "n05.json",
+      "spec_sha256": "136c056ebaec725e6d1b0a85d87be8f4b54b1639f7421e1a894dfc7825d01b9a",
+      "task": "Generate a tested package",
+      "width": 120
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 30,
+      "hosts": [
+        "windows",
+        "linux"
+      ],
+      "id": "N06",
+      "initial_fixture": "fixtures/n06",
+      "kind": "normal",
+      "native_generated_text_paths": [
+        "package/pyproject.toml",
+        "package/README.md",
+        "package/LICENSE.txt",
+        "package/src/synthetic_lib/__about__.py",
+        "package/src/synthetic_lib/__init__.py",
+        "package/.github/workflows/test.yml"
+      ],
+      "oracle": "Complete intended metadata and generated/preserved bytes, all immediate directory entries, positive rendered checkpoints and exact exit. Public base files independently checked before reuse; no target writer executes to calculate expected outcomes.",
+      "risk": [
+        "Exact generated .github/workflows/test.yml and package files; workflow remains unexecuted"
+      ],
+      "spec": "n06.json",
+      "spec_sha256": "548de1206e45fb86b1b17112322cd2364470dc285cfe90231b3c8b4806780758",
+      "task": "Generate a package with upstream CI configuration",
+      "width": 120
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 30,
+      "hosts": [
+        "windows",
+        "linux"
+      ],
+      "id": "N07",
+      "initial_fixture": "fixtures/n07",
+      "kind": "normal",
+      "native_generated_text_paths": [
+        "pyproject.toml"
+      ],
+      "oracle": "Complete intended metadata and generated/preserved bytes, all immediate directory entries, positive rendered checkpoints and exact exit. Public base files independently checked before reuse; no target writer executes to calculate expected outcomes.",
+      "risk": [
+        "Patch version 1.2.4 persisted with explicit Old/New terminal evidence; no build environment or dependency installation"
+      ],
+      "spec": "n07.json",
+      "spec_sha256": "39e6cfd99ab0d7fff9123a18087b5f589ba13d9b0b59c2374132bd9419b3249d",
+      "task": "Bump an existing static project version",
+      "width": 120
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 30,
+      "hosts": [
+        "windows",
+        "linux"
+      ],
+      "id": "N08",
+      "initial_fixture": "fixtures/n08",
+      "kind": "normal",
+      "native_generated_text_paths": [
+        "hatch.toml"
+      ],
+      "oracle": "Complete intended metadata and generated/preserved bytes, all immediate directory entries, positive rendered checkpoints and exact exit. Public base files independently checked before reuse; no target writer executes to calculate expected outcomes.",
+      "risk": [
+        "Prompted template.name value persists; terminal confirms New setting; unrelated config and sentinel preserved"
+      ],
+      "spec": "n08.json",
+      "spec_sha256": "37b7d92d153b58347cb87074674616c34bacb3d17aaa6ec43bcbe888bf9a9b19",
+      "task": "Interactively save an author default",
+      "width": 120
+    },
+    {
+      "combined_risks": [
+        "duplicate output name",
+        "dirty saved state"
+      ],
+      "expected_exit": 1,
+      "height": 30,
+      "hosts": [
+        "windows",
+        "linux"
+      ],
+      "id": "E01",
+      "initial_fixture": "fixtures/e01",
+      "kind": "edge",
+      "native_generated_text_paths": [],
+      "oracle": "Complete intended metadata and generated/preserved bytes, all immediate directory entries, positive rendered checkpoints and exact exit. Public base files independently checked before reuse; no target writer executes to calculate expected outcomes.",
+      "risk": [
+        "duplicate output name",
+        "dirty saved state"
+      ],
+      "spec": "e01.json",
+      "spec_sha256": "74cee2ef2611150b9308e9ce94b2b3637c7d4bad12613036bc999ec70301f16f",
+      "task": "Refuse occupied generation directory",
+      "width": 120
+    },
+    {
+      "combined_risks": [
+        "wrong resource type",
+        "overwrite prevention"
+      ],
+      "expected_exit": 1,
+      "height": 30,
+      "hosts": [
+        "windows",
+        "linux"
+      ],
+      "id": "E02",
+      "initial_fixture": "fixtures/e02",
+      "kind": "edge",
+      "native_generated_text_paths": [],
+      "oracle": "Complete intended metadata and generated/preserved bytes, all immediate directory entries, positive rendered checkpoints and exact exit. Public base files independently checked before reuse; no target writer executes to calculate expected outcomes.",
+      "risk": [
+        "wrong resource type",
+        "overwrite prevention"
+      ],
+      "spec": "e02.json",
+      "spec_sha256": "1fcd3def12ec955369d02ab60eef285949a1ee896f8f54cc107bd510aa39e787",
+      "task": "Refuse file as generation destination",
+      "width": 120
+    },
+    {
+      "combined_risks": [
+        "missing owned resource",
+        "early exit before readiness"
+      ],
+      "expected_exit": 1,
+      "height": 30,
+      "hosts": [
+        "windows",
+        "linux"
+      ],
+      "id": "E03",
+      "initial_fixture": "fixtures/e03",
+      "kind": "edge",
+      "native_generated_text_paths": [],
+      "oracle": "Complete intended metadata and generated/preserved bytes, all immediate directory entries, positive rendered checkpoints and exact exit. Public base files independently checked before reuse; no target writer executes to calculate expected outcomes.",
+      "risk": [
+        "missing owned resource",
+        "early exit before readiness"
+      ],
+      "spec": "e03.json",
+      "spec_sha256": "c04819c429c8bc256b59156ca888b16e7cfd811df8bcd1069476efc259bfa367",
+      "task": "Refuse missing explicit configuration",
+      "width": 120
+    },
+    {
+      "combined_risks": [
+        "malformed configuration",
+        "no partial generation"
+      ],
+      "expected_exit": 1,
+      "height": 30,
+      "hosts": [
+        "windows",
+        "linux"
+      ],
+      "id": "E04",
+      "initial_fixture": "fixtures/e04",
+      "kind": "edge",
+      "native_generated_text_paths": [],
+      "oracle": "Complete intended metadata and generated/preserved bytes, all immediate directory entries, positive rendered checkpoints and exact exit. Public base files independently checked before reuse; no target writer executes to calculate expected outcomes.",
+      "risk": [
+        "malformed configuration",
+        "no partial generation"
+      ],
+      "spec": "e04.json",
+      "spec_sha256": "4278a130564a7dfab6babafe89f6a45e795f9e7c7f0e471c691d210bcb1f897d",
+      "task": "Refuse invalid configuration mode type",
+      "width": 120
+    },
+    {
+      "combined_risks": [
+        "late validation",
+        "cleanup after interactive input"
+      ],
+      "expected_exit": 1,
+      "height": 30,
+      "hosts": [
+        "windows",
+        "linux"
+      ],
+      "id": "E05",
+      "initial_fixture": "fixtures/e05",
+      "kind": "edge",
+      "native_generated_text_paths": [],
+      "oracle": "Complete intended metadata and generated/preserved bytes, all immediate directory entries, positive rendered checkpoints and exact exit. Public base files independently checked before reuse; no target writer executes to calculate expected outcomes.",
+      "risk": [
+        "late validation",
+        "cleanup after interactive input"
+      ],
+      "spec": "e05.json",
+      "spec_sha256": "db78c8841b9ba1f5e2aeefbfa2eeb9b34cfe15037a00e3048b135d23a640a1f7",
+      "task": "Refuse invalid template author type after input",
+      "width": 120
+    },
+    {
+      "combined_risks": [
+        "cancellation after edit",
+        "pre-existing state preservation"
+      ],
+      "expected_exit": 1,
+      "height": 30,
+      "hosts": [
+        "windows",
+        "linux"
+      ],
+      "id": "E06",
+      "initial_fixture": "fixtures/e06",
+      "kind": "edge",
+      "native_generated_text_paths": [],
+      "oracle": "Complete intended metadata and generated/preserved bytes, all immediate directory entries, positive rendered checkpoints and exact exit. Public base files independently checked before reuse; no target writer executes to calculate expected outcomes.",
+      "risk": [
+        "cancellation after edit",
+        "pre-existing state preservation"
+      ],
+      "spec": "e06.json",
+      "spec_sha256": "2f2e9fe3814693bf0a9114399cfa1bdf0f6804ba4a160a747ef0ee90628d8fb2",
+      "task": "Cancel after editing existing-project description",
+      "width": 120
+    },
+    {
+      "combined_risks": [
+        "small viewport and resize",
+        "wide/combining text",
+        "saved-state correctness"
+      ],
+      "expected_exit": 0,
+      "height": 30,
+      "hosts": [
+        "windows",
+        "linux"
+      ],
+      "id": "E07",
+      "initial_fixture": "fixtures/e07",
+      "kind": "edge",
+      "native_generated_text_paths": [
+        "pyproject.toml"
+      ],
+      "oracle": "Complete intended metadata and generated/preserved bytes, all immediate directory entries, positive rendered checkpoints and exact exit. Public base files independently checked before reuse; no target writer executes to calculate expected outcomes.",
+      "risk": [
+        "small viewport and resize",
+        "wide/combining text",
+        "saved-state correctness"
+      ],
+      "spec": "e07.json",
+      "spec_sha256": "9e688e9109c24ec7838dad879032e5fcc96cc1c4f3853661f5af41db57891c6e",
+      "task": "Resize while entering a Unicode description",
+      "width": 80
+    },
+    {
+      "combined_risks": [
+        "long content",
+        "bounded paste",
+        "saved-byte boundary"
+      ],
+      "expected_exit": 0,
+      "height": 30,
+      "hosts": [
+        "windows",
+        "linux"
+      ],
+      "id": "E08",
+      "initial_fixture": "fixtures/e08",
+      "kind": "edge",
+      "native_generated_text_paths": [
+        "pyproject.toml"
+      ],
+      "oracle": "Complete intended metadata and generated/preserved bytes, all immediate directory entries, positive rendered checkpoints and exact exit. Public base files independently checked before reuse; no target writer executes to calculate expected outcomes.",
+      "risk": [
+        "long content",
+        "bounded paste",
+        "saved-byte boundary"
+      ],
+      "spec": "e08.json",
+      "spec_sha256": "7ffb9e5e3c5f87e765b6a2885dd643a9c81b54cf2db2d8913ca5a6d9a4ca0a86",
+      "task": "Save a wrapped long description",
+      "width": 80
+    },
+    {
+      "combined_risks": [
+        "quote escaping",
+        "exact TOML string persistence"
+      ],
+      "expected_exit": 0,
+      "height": 30,
+      "hosts": [
+        "windows",
+        "linux"
+      ],
+      "id": "E09",
+      "initial_fixture": "fixtures/e09",
+      "kind": "edge",
+      "native_generated_text_paths": [
+        "pyproject.toml"
+      ],
+      "oracle": "Complete intended metadata and generated/preserved bytes, all immediate directory entries, positive rendered checkpoints and exact exit. Public base files independently checked before reuse; no target writer executes to calculate expected outcomes.",
+      "risk": [
+        "quote escaping",
+        "exact TOML string persistence"
+      ],
+      "spec": "e09.json",
+      "spec_sha256": "2e6e8752f3238b3314af4dc5f8ed5fc6cc8b79bc67c332858cd8c932254d85d7",
+      "task": "Save quoted description text",
+      "width": 120
+    },
+    {
+      "combined_risks": [
+        "stale success-looking input",
+        "pre-existing dependency/tool state"
+      ],
+      "expected_exit": 0,
+      "height": 30,
+      "hosts": [
+        "windows",
+        "linux"
+      ],
+      "id": "E10",
+      "initial_fixture": "fixtures/e10",
+      "kind": "edge",
+      "native_generated_text_paths": [
+        "pyproject.toml"
+      ],
+      "oracle": "Complete intended metadata and generated/preserved bytes, all immediate directory entries, positive rendered checkpoints and exact exit. Public base files independently checked before reuse; no target writer executes to calculate expected outcomes.",
+      "risk": [
+        "stale success-looking input",
+        "pre-existing dependency/tool state"
+      ],
+      "spec": "e10.json",
+      "spec_sha256": "6bce290b0c3b1cf3867cab872a2fa7071e4892df0bb19f06597acb0f9936258d",
+      "task": "Preserve existing description and dependency metadata during init",
+      "width": 120
+    },
+    {
+      "combined_risks": [
+        "invalid version transition",
+        "saved-state preservation"
+      ],
+      "expected_exit": 1,
+      "height": 30,
+      "hosts": [
+        "windows",
+        "linux"
+      ],
+      "id": "E11",
+      "initial_fixture": "fixtures/e11",
+      "kind": "edge",
+      "native_generated_text_paths": [],
+      "oracle": "Complete intended metadata and generated/preserved bytes, all immediate directory entries, positive rendered checkpoints and exact exit. Public base files independently checked before reuse; no target writer executes to calculate expected outcomes.",
+      "risk": [
+        "invalid version transition",
+        "saved-state preservation"
+      ],
+      "spec": "e11.json",
+      "spec_sha256": "57fc1fa640b4e4930b988a32d42b61892472381b99f98b6d2d5663ae4f1b554f",
+      "task": "Refuse static version downgrade",
+      "width": 120
+    },
+    {
+      "combined_risks": [
+        "missing project metadata",
+        "exit before state transition"
+      ],
+      "expected_exit": 1,
+      "height": 30,
+      "hosts": [
+        "windows",
+        "linux"
+      ],
+      "id": "E12",
+      "initial_fixture": "fixtures/e12",
+      "kind": "edge",
+      "native_generated_text_paths": [],
+      "oracle": "Complete intended metadata and generated/preserved bytes, all immediate directory entries, positive rendered checkpoints and exact exit. Public base files independently checked before reuse; no target writer executes to calculate expected outcomes.",
+      "risk": [
+        "missing project metadata",
+        "exit before state transition"
+      ],
+      "spec": "e12.json",
+      "spec_sha256": "cb33b0e2b79245a84e8f8f5d61f087f03903d511faf839046e7c38c3fdd17fcd",
+      "task": "Refuse version operation outside a project",
+      "width": 120
+    }
+  ],
+  "development_revision": 2,
+  "edge": 12,
+  "normal": 8,
+  "oracle": "Reviewed independent complete metadata and exact static generated/preserved payloads; all expected file trees fixed before development. Upstream static CI template treated as reviewed data, not executed. No target writer computes expected assertions.",
+  "project": "hatch",
+  "real_faults_selected_after_freeze": 0,
+  "reviewed_revision": "config-writer-byte-revision-v2.json",
+  "scenario_plan_sha256": "2a2d3461c537907fd62c881f0ba841673a7b04d4054318efe1dea0d806246c6c",
+  "schema_version": 1,
+  "source_pin": "ad6d66e7c5dba7deea7601e50072676defae8b3e",
+  "static_ci_source_sha256": "5bdb43149334cf418bf24e76fb3875c74e0598d82ca99d439935978f03c47523",
+  "template_scope_extension_sha256": "3a04c40c97143faaeaa21475834445cba4e6d255bd519f9c61e961e4f50cc516"
+}

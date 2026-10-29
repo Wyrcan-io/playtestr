@@ -2711,3 +2711,77 @@ Current admissions unchanged: Cargo1 currentrc6; five historically admittednew
 identities; PDM uncredited. Next: commit/push this reviewed increment, declare
 Hatch8normal/12edge independent useful cases before faults, complete cells, then
 remainingselected projects and all originalten/four/currentcandidate/global gates.
+
+
+Hatch20-case development/fault checkpoint (continued29 October):
+Reviewed setup/public checkpoint committed dc02249f5614c373b921763d0c8400bb0f602c7a
+(commit1456aeaa278d4ccc980ef1b507732b9e; push76a9bff8e77c4191a3b2784e95d70eed).
+Provider says harness40918929921 fordc02249f succeeded; actual artifacts pending
+collection. Provider metadata retained hatch/provider-harness-runs-dc02249f.json.
+8454 native harness40875189456 all3 now independently audited/retained/removed:
+v92 Linuxb6e414892e434e9097de18fcd0b92fbf;
+v93 macOSaf34003cf28c438499fce0691bf773c2;
+v94 Windowsbdafd2cb94654e87b17a74a91a0d5208.
+691db365 harness40914644274 v95Linux0f77ee130bb24b62bd6cd95414bdd487 and
+v96macOS3627f70d1933460bac6e51ac543f2fcb complete; v97Windows collection pending
+session58338 at this checkpoint. Next dc02249f cells use v98-100. Do notredownload
+completed packets.
+
+Broadened built-in generation review uses exact owned Apache-2.0 text fetched by
+GitHub plugin from SPDXlicense-list-data/text/Apache-2.0.txt?ref=v3.27.0, matching
+packaging26.3 SPDX_VERSION3.27.0. Provider text retained; fixture copy explicitly
+normalizes trailing whitespace to one LF, source-generated output uses the same
+rstrip+LF before native newline conversion. Apache has no runtime year substitution.
+Headers false; cache prepopulated at cache/licenses/Apache-2.0.txt; no target
+network or generated-code/workflow execution. Scope review2c1da649c0f14856ace655a69b0f805a.
+New library public first1cc16f7ed8b641819053150ad7d46333 failed: root--interactive
+only enables prompts globally, while new needs its own --interactive. Target
+completed without Description; recorder correctly refused unmatched input controls,
+replay and export. Console, input, fixture and planned complete outcomes retained;
+original helper5296f572ba619cc637f4fed4e93c59d34ee069b69bead96827b10f997c7c2e73
+copied andverified against prelaunch identity BEFORE edit. Separate generation2
+with explicit new--interactive e35fc26e72364eaba0c02ea9232629b7 passed all complete
+independent TOML, README, license, package files, entries, preserved files, export,
+ordinary replay and cleanup.2shell/20controls, additional learned route only.
+
+Predeclared8normal/12edge task plan; e10f24c14dd04fe4b58c97982f234b23 created20
+complete contracts. Generation CLI/flat/tested/CI each has different meaningful
+saved artifact set, plus init, static version bump, interactive config set.
+CI output treated as reviewed static upstream template data and never executed.
+Edges include duplicate/wrong/missing resources, bad config, late validation,
+post-edit cancel, Unicode+resize, long wrapping+paste, quotes, retained dependency
+metadata, downgrade refusal and missing project. All20 have exact same-invocation
+saved/preserved byte and directory assertions. Four+ genuine paired risks.
+First native Windows development fb9d3263e3ee4074b7f1bf3e7aa5bd23=19pass/1fail,
+all20cleanupconfirmed. N08 failed saved config bytes; source, original report and
+unique actual failure screen retained. Private public /update-state8 diagnostic
+6379533da4cc4205939534489bf58eae captured only a separate copy and showed all
+complete intended config values equal; actual writer inserts ONE blank CRLF line
+before [terminal.styles].636f8366d6ef4e70a5d8829b7951a2b2 revised only this byte
+sequence, backed up old n08/spec declaration, preserved actions, semantics and all
+other assertions. No weakening, target patch or production change.
+Fresh whole20/0 Windows4b7f35d987b242898e65df5753fd983b passed all exact revised
+contracts, including cancel exit1. Generic freeze81c196d74c294d7e9c463187038eb1df
+bound86 files before concrete fault declarationca60ff7ea16f407fa703eb5692e316d0.
+Faults F01Description->Metadata detail, F02updated-success branch exit7,
+F03actual writer build requirement hatchling->setuptools.9 real Windows phases
+9eb03d40808d45b5aac203195a73e951 passed: each pristine/restored positive, mutated
+rejected for assertion_timeout/unexpected_exit/state_assertion_failure respectively.
+F03 normal terminal/exit/snapshot passed before exact wrong-state rejection.
+All546 primary sources plus single generated version restored byte exactly;
+86 frozen inputs unchanged;239 helpers/tests AST parsed after latest additions.
+These are development executions, not final ordinary/calibration/native admission.
+Positive development summary: artifacts/runner-readiness-next-twenty-project-pass/hatch/development/941caa8286514d25952c3d5c530afbb3/summary.json
+Actual nine-phase fault summary: artifacts/runner-readiness-next-twenty-project-pass/hatch/faults/4a51cfd7cb634aeb861cf910b6043df1/summary.json
+
+Next: commit/push this contract/fault increment, review exact Linux-only dependency
+wheels and hooks, prepare one bounded native Linux development job. Existing
+native Python adapter currently assumes PDM-specific build env/generated files
+and a --python wizard argument; extend explicit reviewed profiles while preserving
+old defaults. Hatch needs setuptools exact .pth approval, uv exact native scripts,
+editables build prerequisite, top-level METADATA (not vendored nested metadata),
+private SCM version env, separately bound generated _version.py, and only declared
+generated-text newline conversion. Then verify all20 Linux cases, final240+9 per
+host, independent actual outcome/source/runtime/retention audits and checked
+cleanup before admission. Complete selected7-20 and all originalten/four/global
+gates; currentrc6 admission remains Cargo only. Do not stop at Hatch milestone.

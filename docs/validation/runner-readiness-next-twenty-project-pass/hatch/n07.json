@@ -1,0 +1,77 @@
+{
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/hatch/venv/Scripts/python.exe",
+    "-B",
+    "-m",
+    "hatch",
+    "--config",
+    "hatch.toml",
+    "--cache-dir",
+    "cache",
+    "--interactive",
+    "version",
+    "patch"
+  ],
+  "env": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHONNOUSERSITE": "1",
+    "PYTHON_KEYRING_BACKEND": "keyring.backends.null.Keyring"
+  },
+  "height": 30,
+  "max_output_bytes": 2000000,
+  "name": "Bump an existing static project version",
+  "run_timeout_ms": 120000,
+  "steps": [
+    {
+      "expect": "Old: 1.2.3"
+    },
+    {
+      "expect": "New: 1.2.4"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "bW9kZSA9ICJsb2NhbCIKW3RlbXBsYXRlXQpuYW1lID0gIkFkYSIKZW1haWwgPSAiYWRhQGV4YW1wbGUuaW52YWxpZCIKW3RlbXBsYXRlLmxpY2Vuc2VzXQpoZWFkZXJzID0gZmFsc2UKZGVmYXVsdCA9IFtdCg==",
+        "kind": "file",
+        "path": "hatch.toml"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "dW5yZWxhdGVkIHN5bnRoZXRpYyBkYXRhCg==",
+        "kind": "file",
+        "path": "sentinel.txt"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "W3Byb2plY3RdDQpuYW1lID0gIm93bmVkLXZlcnNpb24iDQp2ZXJzaW9uID0gIjEuMi40Ig0KDQpbdG9vbC5zeW50aGV0aWNdDQprZWVwID0gImFscGhhIg0K",
+        "kind": "file",
+        "path": "pyproject.toml"
+      }
+    },
+    {
+      "state": {
+        "entries": [
+          "hatch.toml",
+          "pyproject.toml",
+          "sentinel.txt"
+        ],
+        "kind": "entries",
+        "path": "."
+      }
+    }
+  ],
+  "timeout_ms": 10000,
+  "version": 3,
+  "width": 120,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/n07",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

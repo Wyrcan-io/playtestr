@@ -1,0 +1,45 @@
+{
+  "approved_scope": [
+    "Copy the exact reviewed Apache-2.0 text to each owned fixture cache/licenses/Apache-2.0.txt. Explicit --cache-dir cache and existing cache hit; no runtime network acquisition.",
+    "Template license headers false and sole Apache-2.0 ID: get_license_text has no date substitution for this license. Never execute generated package/CI files.",
+    "Built-in src/flat library, CLI, tests and CI file generation with explicit owned author/config values. Review independent complete metadata and all relevant file trees before final qualification.",
+    "Static project.version update path only: directly updates TOML via reviewed StandardScheme. Dynamic version/build-environment creation remains excluded.",
+    "Owned interactive config set for nonsensitive author fields with explicitly seeded directories; no publish values, projects outside fixture or file-manager launch."
+  ],
+  "excluded": [
+    "uv execution",
+    "environment creation",
+    "Python acquisition",
+    "publishing",
+    "external plugins/templates",
+    "setuptools migration",
+    "generated workflow dispatch"
+  ],
+  "normalization": "UTF-8 provider text with trailing whitespace removed and exactly one LF. Generated license uses the same upstream rstrip plus LF operation; native text writer may use CRLF.",
+  "owned_cache_file": "template-license-Apache-2.0.txt",
+  "owned_cache_sha256": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff",
+  "packaging_wheel_sha256": "d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c",
+  "pin": "ad6d66e7c5dba7deea7601e50072676defae8b3e",
+  "project_admissions": 0,
+  "provider": "https://api.github.com/repos/spdx/license-list-data/contents/text/Apache-2.0.txt?ref=v3.27.0",
+  "provider_text_sha256": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff",
+  "reviewed_source": {
+    "src/hatch/cli/config/__init__.py": "20c68682884d2b25b40b504f654d4b08be252fc5e1f787309d6916daaca668fd",
+    "src/hatch/cli/new/__init__.py": "e26afd4a2af7a7bc21fa0ba4f4a452fa6fcecb29cb6728ac1c5764780a07ad8d",
+    "src/hatch/cli/version/__init__.py": "ac0b1dcc4afd60110d2af00a2cf3970b25938edd2d5b1e9ae01cc9a37280fdac",
+    "src/hatch/config/model.py": "2b448eafaf8392788c29d433146cfafabe22fb4b19e27a69c85cf3217b7b1ab7",
+    "src/hatch/config/utils.py": "636cc7519e44b8cc6f4c90f5e221d150f6f14471d3e35658bab49210a002e565",
+    "src/hatch/template/__init__.py": "14e5a0003649403292eeabf0e1bb047dfe1cb04c12824700cb8b807c4f162995",
+    "src/hatch/template/default.py": "e09a956ebc56bba9ed2a9e88064d442f195ebf03d486ce26c5a7a9c47218165c",
+    "src/hatch/template/files_default.py": "cae48322009f9e509d9c27d362799ea1323cba900c2122d95986c3c9184f6087",
+    "src/hatch/template/files_feature_ci.py": "5bdb43149334cf418bf24e76fb3875c74e0598d82ca99d439935978f03c47523",
+    "src/hatch/template/files_feature_cli.py": "899fcd0d7777db776a4575dc8f0bf749046c92f77354f90129cfd8845fcf9965",
+    "src/hatch/template/files_feature_tests.py": "c19774a50a409bf40f00ea4c42c13677284e5a405393412a7f3146304858062b"
+  },
+  "scenario_credit": 0,
+  "schema_version": 1,
+  "source_fault_credit": 0,
+  "source_review_sha256": "8654b1020f367ddd2aba0405f78ecafe92b6f4c0190f0d423cff8162c8704721",
+  "spdx_module_sha256": "596ec35e2ca0ebcba9fd8343ff0a51625af548786257815f24b41f7e08613314",
+  "trusted_data_not_executable": true
+}

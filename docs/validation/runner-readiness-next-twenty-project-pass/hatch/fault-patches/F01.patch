@@ -1,0 +1,11 @@
+--- a/src/hatch/cli/new/__init__.py
++++ b/src/hatch/cli/new/__init__.py
+@@ -79,7 +79,7 @@
+     }
+ 
+     if interactive:
+-        default_config["description"] = app.prompt("Description", default="")
++        default_config["description"] = app.prompt("Metadata detail", default="")
+ 
+         app.display_info()
+ 

@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.synthetic]
+keep = "alpha"
+
+[project]
+name = "kept-name"
+description = "Existing description"
+dependencies = ["packaging>=24"]
+dynamic = ["readme"]
+
+[tool.hatch.version]
+path = "legacy.py"
