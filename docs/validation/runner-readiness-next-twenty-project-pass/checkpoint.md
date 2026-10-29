@@ -2355,3 +2355,41 @@ source harness40865362789 is queued, not yet evidence. The registration correcti
 push can trigger one further3host harness triplet (5minuteceil/job,maxparallel2),
 so cumulative two-push harness ceiling30minutes plus the one30minute target job;
 no paid runner or quota change. Preserve both source/run identities.
+
+PDM first actualLinux preflight40865561435/job123419338612/source422a943f1330dab06d1e07fba5a97eaf4b403ab1
+completed18/2; job37seconds, ordinary preparation13seconds. N01 sent subsequent
+inputs before later prompts were emitted; cooked input echo made the eventual
+success phrase wrap across rows, correctly failing the contiguous screen assertion.
+N05 parent pyproject preserves existing CRLF via TOMLFile.write; its blanket LF
+host conversion was wrong. Source unchanged. All20target/workspace cleanup and
+checked native source/runtime removal succeeded. Independent actual readback
+986765a1b7494cc09705476195b96631 verifies all20 original reports/launch catalogs,
+original2screens,actualsourcearchive402blobs,3generatedfiles,exactrc6binary and
+removal inventory. No final/host/admission credit. New explicitnative-profile-v2
+adds5positive prompt waits before existing inputs and preserves the parent CRLF
+expectation; child generated TOML remainsLF. Every original input/oracle/snapshot
+remains, no sleeps/output normalization/target patch. A fresh whole20 native
+development window must execute before any qualification claim.
+
+FirstLinux packetretained-native-v1 includes432logical/371unique files,
+17,667,984expanded ->14,605,540gzip bytes (aa443f0671ea4864b91b844aacba3e82).
+Complete archive/hash verification and selected restore passed; native checked
+expansion removal32013763e937486e80299a7ed62ad469 succeeded. Never download again.
+
+Local public maintenance firstwrapper4de1e2170373416aa179b499875647d2 preserved
+an incorrect inclusive suffix index (/rerecord5 retained Ada, producing AdaGrace),
+not a runner defect. Secondwrapperf5e2bfbdd64845f88d8034e857ef282f correctly uses
+/rerecord4; eight actual diagnosis/maintenance/Unicode-relocation reports completed.
+Workflow generation then refused a missing documented --build argument (exit2,
+attempt6a90d7acc0a0463487ca0689d75415d8), after source restoration. Do not rerun
+the completed maintenance window just for that final command. Completion926fa755e6de4552abf0cc23b86be965
+independently verified all8reports,13 original command events,approved/suffix/
+relocated bytes,snapshot and402 restored source blobs, then executed ONLY the
+corrected workflow-generation command. Completejourney retained at
+RAW/pdm/maintenance-d56a72aaec3746d291d62f4029233898/journey.json. Generated workflow
+is not dispatched/no deliveredCIcredit; original failed window/refusal remain.
+
+Next push/profile2 predeclares one further standardUbuntu30minute target ceiling,
+6minuteestimate,plus3automatic5minute harnessjobs/maxparallel2. No target jobs
+currently running. First two source harness triplets need actualreadback/retention;
+do not infer success from configured checks. Historicalscreen gap still open.

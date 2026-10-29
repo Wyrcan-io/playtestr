@@ -28,11 +28,19 @@ def primary_json(url):
     return json.loads(data)
 
 
-async def main(project='jrnl'):
+async def main(project='jrnl',profile=None):
     if platform.system() not in {'Linux','Windows'}:raise ValueError('undeclared jrnl native host')
     host='windows' if os.name=='nt' else 'linux'
     package=DOC/project;target=RAW/'active'/project;campaign=NextCampaign()
     lock=json.loads((package/'native-runtime-lock.json').read_text())
+    overrides={}
+    if profile:
+        profile=profile.resolve(strict=True);profile.relative_to(package.resolve(strict=True))
+        declared=json.loads(profile.read_text())
+        if (declared['host']!=host or declared['native_runtime_lock_sha256']!=sha256(package/'native-runtime-lock.json') or
+                declared['canonical_freeze_sha256']!=sha256(package/'development-test-freeze.json')):
+            raise ValueError('native profile does not bind declared host/runtime/contracts')
+        overrides=declared['case_profiles']
     if project=='jrnl' and not lock['reviewed_linux_additions']:raise ValueError('Linux dependency review absent')
     if target.exists():raise ValueError('target already active; do not overwrite or repeat native preparation')
     # The source acquirer owns its path/pin/entry/byte checks and runs no hooks.
@@ -165,7 +173,7 @@ async def main(project='jrnl'):
         spec['command'][0]=os.path.relpath(python,contracts).replace('\\','/')
         if lock.get('explicit_python_wizard_profile'):
             from next20_python_host_profile import wizard_profile
-            spec=wizard_profile(spec,case,python,host)
+            spec=wizard_profile(spec,dict(case,**overrides.get(case['id'],{})),python,host)
         if project=='jrnl' and host=='linux' and case['id']=='N06':
             steps=spec['steps'];index=next(i for i,s in enumerate(steps) if s.get('key')=='CtrlZ')
             if steps[index+1]!={'key':'Enter'}:raise ValueError('native EOF control group changed')
@@ -178,7 +186,8 @@ async def main(project='jrnl'):
     immutable_json(contracts/'scenarios.json',declaration)
     frozen_files={p.relative_to(contracts).as_posix():sha256(p) for p in contracts.rglob('*') if p.is_file()}
     immutable_json(contracts/'development-test-freeze.json',dict(canonical_freeze_sha256=sha256(package/'development-test-freeze.json'),
-        inputs=frozen_files,profile=lock.get('native_profile','Native copied Python path; Unix N06 EOF CtrlD replaces the documented Windows CtrlZ+Enter group. All semantic saved bytes and other actions unchanged.')))
+        inputs=frozen_files,**(dict(explicit_profile_sha256=sha256(profile)) if profile else {}),
+        profile=lock.get('native_profile','Native copied Python path; Unix N06 EOF CtrlD replaces the documented Windows CtrlZ+Enter group. All semantic saved bytes and other actions unchanged.')))
     immutable_json(RAW/project/'native-prepared.json',dict(schema_version=1,host=host,pin=marker['pin'],
         target_archive_sha256=sha256(target/'source.tar.gz'),runtime_sha256=sha256(target/'runtime.json'),
         build_sha256=sha256(target/'build.json'),host_contract_freeze_sha256=sha256(contracts/'development-test-freeze.json'),
@@ -188,6 +197,6 @@ async def main(project='jrnl'):
 
 if __name__=='__main__':
     import argparse
-    parser=argparse.ArgumentParser();parser.add_argument('--project',default='jrnl');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--project',default='jrnl');parser.add_argument('--profile',type=Path);args=parser.parse_args()
     if '/' in args.project or '\\' in args.project or not (DOC/args.project/'source-provenance.json').is_file():raise ValueError('undeclared project')
-    asyncio.run(main(args.project))
+    asyncio.run(main(args.project,args.profile))

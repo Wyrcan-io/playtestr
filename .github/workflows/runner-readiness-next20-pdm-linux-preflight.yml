@@ -43,7 +43,7 @@ jobs:
         run: python -B scripts/acceptance/next20_check.py --label pdm-linux-exact-archive --timeout 90 -- python -B scripts/acceptance/next20_candidate_install.py --series native-exit-v1 --archive artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v1/linux-amd64/dist/playtestr_0.4.0-rc.6_linux_amd64.tar.gz
       - name: Prepare reviewed pinned Python target within twenty minutes
         id: prepare
-        run: python -B scripts/acceptance/next20_check.py --label pdm-linux-bounded-native-preparation --timeout 1200 -- python -B scripts/acceptance/next20_jrnl_native_prepare.py --project pdm
+        run: python -B scripts/acceptance/next20_check.py --label pdm-linux-bounded-native-preparation --timeout 1200 -- python -B scripts/acceptance/next20_jrnl_native_prepare.py --project pdm --profile docs/validation/runner-readiness-next-twenty-project-pass/pdm/native-profile-v2.json
       - name: Execute all twenty development scenarios on native Linux
         run: python -B scripts/acceptance/next20_check.py --label pdm-linux-twenty-native-development --timeout 1200 -- python -B scripts/acceptance/next20_jrnl_development.py --project pdm --candidate-series native-exit-v1 --host-profile
       - name: Retain verified sources and dependencies and confirm native cleanup

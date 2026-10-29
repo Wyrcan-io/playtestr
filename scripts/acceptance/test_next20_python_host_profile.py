@@ -5,6 +5,16 @@ from next20_python_host_profile import wizard_profile
 
 
 class PythonWizardProfileTests(unittest.TestCase):
+    def test_explicit_readiness_is_additive_and_existing_file_newlines_survive(self):
+        encoded=base64.b64encode(b'parent\r\n').decode()
+        original=dict(command=['python','--python','python'],env={},steps=[{'key':'Enter'},
+            {'state':{'path':'parent','bytes_base64':encoded}}])
+        case=dict(native_generated_text_paths=['parent'],preserve_generated_newlines=['parent'],
+            readiness_before_step={'1':'Version'})
+        actual=wizard_profile(original,case,'/owned/python','linux')
+        self.assertEqual(actual['steps'],[{'expect':'Version'},*original['steps']])
+        with self.assertRaises(ValueError):wizard_profile(original,dict(case,preserve_generated_newlines=['unknown']),'/owned/python','linux')
+
     def test_native_wizard_changes_only_declared_text_and_controls(self):
         encoded=base64.b64encode(b'owned\r\n').decode()
         value=dict(command=['old','--python','old'],env={'GIT_CONFIG_GLOBAL':'nul'},steps=[

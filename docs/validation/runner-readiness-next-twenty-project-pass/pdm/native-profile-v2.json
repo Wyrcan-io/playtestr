@@ -1,0 +1,41 @@
+{
+  "canonical_freeze_sha256": "c63e3c8dd5dd63c6d40cac91916013991e4445ceff37737a8d46021f844e6b61",
+  "case_profiles": {
+    "N01": {
+      "readiness_before_step": {
+        "3": "Do you want to build this project",
+        "4": "License(SPDX name)",
+        "5": "Author name",
+        "7": "Author email",
+        "9": "Python requires"
+      }
+    },
+    "N05": {
+      "preserve_generated_newlines": [
+        "pyproject.toml"
+      ]
+    }
+  },
+  "first_native_readback_sha256": "62f6e7a88949c8255ce37d001e345ecd647d32399ce5ccb68c0c73b2b311f8d2",
+  "host": "linux",
+  "native_runtime_lock_sha256": "cc367412603c204f4f017558a05b143a911187d5c65e7f3e459ddce5df2b5db4",
+  "next_dispatch_budget": {
+    "automatic_harness_jobs": 3,
+    "estimated_minutes": 6,
+    "harness_job_ceiling_minutes": 5,
+    "harness_max_parallel": 2,
+    "job_ceiling_minutes": 30,
+    "standard_hosted": true,
+    "target_jobs": 1
+  },
+  "project_admissions": 0,
+  "schema_version": 1,
+  "scope": "Add positive prompt readiness before original inputs, preserving every original action and oracle/snapshot. Parent workspace text preserves fixture CRLF on both platforms; only child generated text changes. No source patch, sleeps or output normalization.",
+  "source_proof": {
+    "files": {
+      "src/pdm/project/toml_file.py": "d2b6bad046314bd77352784e6e1ba7ab965370e5e54846246657f3dc23bfc6d1",
+      "src/pdm/project/workspace.py": "2b12238588bb415f89cb731c6a3b120ade95fc25b3997b4a388085a4116f09a7"
+    },
+    "parent_workspace_writer": "src/pdm/project/toml_file.py: TOMLFile.write preserves the existing detected CRLF line separator with newline=\"\"; do not convert the parent expectation. Newly created child TOML remains LF."
+  }
+}
