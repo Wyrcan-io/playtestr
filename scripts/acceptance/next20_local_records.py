@@ -54,6 +54,9 @@ def prepare(project):
         if not path.is_file():continue
         relative=path.relative_to(RAW/project)
         if relative.parts[0].startswith(('retained-native-','retained-local-','retained-failed-final-','retained-complete-final-','registry-source-corpus-','native-solid-variants')):continue
+        # These small manifests are mandatory standalone readers for the separate
+        # retained binary/metadata packets, rather than expanded record copies.
+        if relative.parts[0]=='retained-source' and path.name in {'review-inputs-index.json','canonical-native-references.json'}:continue
         if relative.parts[0] in {'audits','audit-controls'} or path.suffix in {'.gz','.tgz','.xz','.whl'}:continue
         name=path.relative_to(RAW).as_posix();safe_path(name,project);size=path.stat().st_size;total+=size
         if len(files)>=4000 or size>16*1024**2 or total>32*1024**2:raise ValueError('local evidence inventory bound')

@@ -2989,3 +2989,78 @@ uncredited. Next commit/push/dispatch this final source and run fresh Windows ce
 then independently audit all249 reports per cell, source/runtime/frames, retain
 with exact native1 references and checked cleanup before admission. Continue all
 remaining selected projects/originalten/four/global gates; never stop at milestone.
+
+
+## 30 October continuation: Hatch admitted; continue peco and all remaining gates
+
+Execution source010940a5db4e166d72f78641a46334e5ef49f5e7 was committed/pushed
+before both complete final cells. Windows wrapper69b23d73c89741f6802d2ea3001739de
+passed240 ordinary/9 fresh calibrations800.64s. Linux40970185873/job123784699683
+passed on the same source; all prep/final/cleanup/provider steps actual success.
+Direct collector: see immutable event label hatch-linux-final-direct-canonical-reference-retention;
+packet retained-native-v2 fully compared3547 logical files/81,714,347 expandedbytes,
+972 exact references to mandatory standalone native1. Provider ZIP actual SHA256
+b5bf1cca59ddca86e59b00f9b06f4cb3dfc6d89eac39849f85cc71602e7ff8e7 matches
+provider digest; ZIP wrapper itself not retained. Do not redownload/expand.
+
+Independent final cell reader verifies all249 actual outcomes per host, all Git
+helper blobs at0109 (Linux raw LF; Windows explicit EOL variants with exact
+mixed-EOL identities), all546 primary+1 generated sourcefiles, exact mutations
+and restoration, all3 actual runtime roots,43Windows/48Linux installedwheel
+payloads and51 reviewed primaryrelease bodies, precise host/batch variations,
+allpositive steps/same-invocation state,9calibration phases and allfailureframes.
+Post-compaction Windows wrapper4488df4e0ca845dcb0473fac33fc975b and Linux
+8290f35bc0254f5cac543a2e15cce556 passed. Raw latest cell-readbacks receipts remain
+physical; earlier receipts are inside local-v1. First audit failures were audit
+assumptions (mixed EOL/F03 earlier directory state/name shadowing); target/specs
+were not altered. Modelnegative exercise e66be41f74b84ab3a376d027ed558019 exposed
+too-broad F03 condition; actual failed action must now be state after positive
+terminal/exit/snapshot. Fresh32 controls3724eabbea8c4d128c046cb682d57e34 passed;
+post-compaction32controls fecbf3134d95492ebf6b4ff1216d5ade passed.
+
+Checked native processproof8ce84b6a7e204a768e96c7f855b83c3a noownedliveprocess.
+Preparation30cdfab1b9c64c45ad3d8283a53f5920 verified328 actual reportcleanups,
+13,694 ownedfiles/384,648,486bytes and complete primarysource restoration.
+49 exact local source/wheel references verified against native1; uniqueWindows
+wheels remain physical. Reviewed metadata fully roundtripped in882116byteXZ.
+Checked targetremoval6e152fb014ea4117a22c00e0d6b65bfb succeeded; active root absent.
+Windows completefinal1572files/10,142,865bytes->173124XZ, checked expanded removal
+d33dfc96ba41487d9447630b5fe27b54. General local731files/5,521,184bytes->406476XZ,
+checked removal a29050f24a38410fb029ee6f358a1243. Both small reference/metadata
+reader manifests remain physical mandatory dependencies; no referencechains.
+
+Original history c81ed6f4eb2940ec9dfdf8688be4f158 read328 local reports,9original
+failedreportframes,450completed Hatch-labeled commands at explicit cutoff;
+tracked all-attempt-evidence.json. Original sparseinit0838339de39949d187fb9473bf185e01
+and library wrapper1cc16f7ed8b641819053150ad7d46333/target9d31760e68c44e9eac9fa71541676d1a
+remain rejected; originalhelpers retained. Initial20-control target stillFAILED,
+cumulative28controls; repairedexistingtables14controls/3shell and repairedlibrary
+20controls/2shell separate. Maintenance8actualreports/13commands,selected+cancelled
+update,suffixpruning,relocation andlint passed; no generatedworkflow dispatchcredit.
+
+Full57 helpertests d8a32ac468cf432e8517fc25222779c3 failed INSIDE sandbox native
+Get-CimInstance denied and cleanup-unconfirmed; separate native-permitted57tests
+719a3cbe6d7648aa8cb3481246e0198a passed32.164s. Final source57checks
+ac7e8e2d9f7d4b6cb7900c2d710a2724 passed33.392s. Two new codecs have exact roundtrip,
+changed/missing/unsafe reference and corruptedmetadata rejectioncoverage. No Go
+production/candidatebytes changed. New generic options additive; olddefaults preserved.
+
+Storage f76f8e007369449ba69a5cf5c3411c16 passed: Hatch59,367,583bytes;
+newraw1,240,130,805 combinedraw3,148,839,377 combinedretained1,714,929,124;
+newcurated4,751,214 combinedcurated16,407,458; active[], no capfailures.
+Admission762f2b22cb6848c9b66e14e19da2b802 succeeded. Immutable hatch/admission.json
+binds all actual reports/models/frozen docs/retained dependencies. Subsequent README
+status update is narrative and changes none of the frozen execution bytes.
+Ledger currentrc6=2projects960ordinary36calibrations40scenarios4cells6faults;
+historicalrc5 remains4projects1920/72. Six distinct new apps everadmitted.
+PDM remains uncredited despite480/18 complete finalengineering; no freshcredit.
+
+NEXT: commit/push this scoped closure; native57-control workflow actualall3host
+results must be audited. Existing pending harnessruns a30240922707666,b8be40925047649,
+0a4FAILED40929251569(Win240s stagedcontroltimeout, retain fullfailedartifact and
+classify independently; NOT repaired by latergreen),0109409 40970085616(all3success55)
+remain backlog,nextgenerations101+. Do not claim those uncollected artifacts audited.
+Continue peco slot7 sourceonlyacquisition/review next; remaining8-16 then provisional
+freeze before ANY source acquisition/review of17ne18sc-im19btop20htop. Then originalten,
+four priorrc5 currentqualification,whole/regression/oldmigration/deliveredCItriplets,
+freshcheckout,all-attemptcutoff+delta,independentchallenge/globaldocs. Do not stop atHatch.

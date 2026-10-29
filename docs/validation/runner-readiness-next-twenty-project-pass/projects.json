@@ -5,9 +5,9 @@
   "current_candidate_original_ten": 0,
   "qualification_candidate": "v0.4.0-rc.6",
   "admission_counters_candidate": "v0.4.0-rc.5",
-  "current_candidate_new_project_admissions": 1,
-  "current_candidate_ordinary_executions_qualified": 480,
-  "current_candidate_calibration_executions_qualified": 18,
+  "current_candidate_new_project_admissions": 2,
+  "current_candidate_ordinary_executions_qualified": 960,
+  "current_candidate_calibration_executions_qualified": 36,
   "candidate_scope": "Top-level admission aggregates remain historical exact v0.4.0-rc.5. Current v0.4.0-rc.6 counters and every per-project candidate admission are separate explicit projections. Historical admissions transfer no current-candidate credit; original-ten current requalification remains separate.",
   "new_project_admissions": 4,
   "new_project_target": 20,
@@ -280,15 +280,15 @@
       "id": "hatch",
       "repository": "pypa/hatch",
       "pin": "ad6d66e7c5dba7deea7601e50072676defae8b3e",
-      "status": "two-host-development-passed-final-qualification-open",
+      "status": "admitted-on-recorded-candidate",
       "planned_hosts": [
         "linux",
         "windows"
       ],
-      "admitted": false,
-      "current_candidate_qualified": false,
-      "qualified_scenarios": 0,
-      "qualified_native_cells": 0,
+      "admitted": true,
+      "current_candidate_qualified": true,
+      "qualified_scenarios": 20,
+      "qualified_native_cells": 2,
       "development_selected_scenarios_passed": 20,
       "development_ordinary_attempts": 80,
       "development_ordinary_passed": 79,
@@ -306,7 +306,25 @@
       "final_declaration": "hatch/final-series-declaration-native-exit-v1.json",
       "final_ordinary_executions_qualified": 0,
       "final_calibrations_qualified": 0,
-      "scope": "Hatch replaces uncredited PDM; original public/development failures remain retained. Development/public/maintenance/fault checks are separate from final repetitions and admission."
+      "scope": "Hatch replaces uncredited PDM; original public/development failures remain retained. Development/public/maintenance/fault checks are separate from final repetitions and admission.",
+      "native_cells": 2,
+      "ordinary_executions": 480,
+      "calibration_executions": 18,
+      "audited_native_cells": 2,
+      "audited_ordinary_executions": 480,
+      "audited_calibration_executions": 18,
+      "local_target_absent": true,
+      "admission": "hatch/admission.json",
+      "delivered_ci_observations": 0,
+      "initial_usability_target_met": false,
+      "candidate_admissions": [
+        {
+          "project": "hatch",
+          "candidate": "v0.4.0-rc.6",
+          "path": "hatch/admission.json",
+          "sha256": "83d8c07e7a190eb23027026c4337e880cdfde8323849dcbc710f0a679c7ec843"
+        }
+      ]
     }
   ],
   "observed_audited_ordinary_executions": 1920,
@@ -322,12 +340,12 @@
       "real_source_faults": 12
     },
     "v0.4.0-rc.6": {
-      "projects": 1,
-      "ordinary": 480,
-      "calibrations": 18,
-      "canonical_scenarios": 20,
-      "native_cells": 2,
-      "real_source_faults": 3
+      "projects": 2,
+      "ordinary": 960,
+      "calibrations": 36,
+      "canonical_scenarios": 40,
+      "native_cells": 4,
+      "real_source_faults": 6
     }
   },
   "admission_subjects": [
@@ -360,10 +378,16 @@
       "candidate": "v0.4.0-rc.6",
       "path": "cargo-generate/admission.json",
       "sha256": "a93751afb626ba7025668ded7bf4602e6a37e5be3ef5f80735c013de69b0a59d"
+    },
+    {
+      "project": "hatch",
+      "candidate": "v0.4.0-rc.6",
+      "path": "hatch/admission.json",
+      "sha256": "83d8c07e7a190eb23027026c4337e880cdfde8323849dcbc710f0a679c7ec843"
     }
   ],
-  "distinct_new_projects_with_any_candidate_admission": 5,
-  "current_candidate_canonical_scenarios": 20,
-  "current_candidate_native_cells": 2,
-  "current_candidate_real_source_faults": 3
+  "distinct_new_projects_with_any_candidate_admission": 6,
+  "current_candidate_canonical_scenarios": 40,
+  "current_candidate_native_cells": 4,
+  "current_candidate_real_source_faults": 6
 }

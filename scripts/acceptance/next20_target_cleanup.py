@@ -86,6 +86,9 @@ def main():
     parser.add_argument('--resume-preparation',action='store_true')
     parser.add_argument('--generated-source-manifest',type=Path)
     parser.add_argument('--closed-report-packet',action='append',default=[])
+    parser.add_argument('--canonical-native-generation',type=int)
+    parser.add_argument('--retain-review-directory',action='append',choices=['wheel-review-inputs','linux-review-inputs'],default=[])
+    parser.add_argument('--compress-review-metadata',action='store_true')
     parser.add_argument('--max-files',type=int,choices=[40000,60000],default=40000)
     parser.add_argument('--max-bytes',type=int,choices=[1024**3,2*1024**3],default=1024**3)
     parser.add_argument('--unlaunched-report-sha256',action='append',default=[])
@@ -164,7 +167,25 @@ def main():
            'dependency-fetch-review.json','dependency-source-catalog.json','native-hook-review.json',
            'native-c-compiler.json','required-source-dictionary.json','version-check.json','short-cache-reference.json',
            'post-build-dependency-readback.json','frozen-wheel-download.json']
-    copied={}
+    copied={};references={};canonical_records=None;canonical_identity=None;review_payloads={}
+    if args.canonical_native_generation is not None:
+        if not 1<=args.canonical_native_generation<=9999 or args.resume_preparation:raise ValueError('explicit canonical reference generation/resume bound')
+        from next20_local_native_references import canonical,reference_for
+        canonical_identity,canonical_records=canonical(args.project,args.canonical_native_generation)
+    def retain_file(source_file,destination,name):
+        if canonical_records is not None:
+            row=reference_for(name,source_file.read_bytes(),canonical_records)
+            if row is not None:
+                references[name]=row;copied[name]=row['sha256'];return
+        if args.compress_review_metadata and (name.split('/')[0] in {'dependency-review','linux-dependency-review',*args.retain_review_directory} or ('/' not in name and name not in names)):
+            if name.endswith(('.whl','.gz','.xz')):raise ValueError('unreferenced binary in metadata compression input')
+            review_payloads[name]=source_file.read_bytes();copied[name]=sha256(source_file);return
+        destination.parent.mkdir(parents=True,exist_ok=True)
+        if destination.exists():
+            if not args.resume_preparation or destination.is_symlink() or sha256(destination)!=sha256(source_file):raise ValueError('existing retained provenance differs; preserve it')
+        else:shutil.copyfile(source_file,destination)
+        if sha256(source_file)!=sha256(destination):raise ValueError('retained source provenance copy mismatch')
+        copied[name]=sha256(destination)
     if generated_manifest:
         destination=retained/'generated-source-manifest.json';shutil.copyfile(generated_manifest,destination)
         copied[destination.name]=sha256(destination)
@@ -177,21 +198,27 @@ def main():
         source_file=target/name
         if source_file.is_file():
             destination=retained/name
-            if destination.exists():
-                if not args.resume_preparation or destination.is_symlink() or sha256(destination)!=sha256(source_file):raise ValueError('existing retained provenance differs; preserve it')
-            else:shutil.copyfile(source_file,destination)
-            if sha256(source_file)!=sha256(destination):raise ValueError('retained source provenance copy mismatch')
-            copied[name]=sha256(destination)
-    for name in ['dependency-review','linux-dependency-review','wheels','npm-cache','npm-installed-locks','dependency-research','npm-metadata-retention']:
+            retain_file(source_file,destination,name)
+    if args.retain_review_directory:
+        for path in sorted(target.glob('*.json')):
+            if path.name not in copied:retain_file(path,retained/path.name,path.name)
+    for name in ['dependency-review','linux-dependency-review','wheels','npm-cache','npm-installed-locks','dependency-research','npm-metadata-retention',*args.retain_review_directory]:
         directory=target/name
         if directory.is_dir():
             destination=retained/name
-            shutil.copytree(directory,destination)
-            for path in destination.rglob('*'):
+            if destination.exists():raise ValueError('preserve existing retained directory')
+            for path in directory.rglob('*'):
                 if path.is_file():
-                    relative=path.relative_to(retained).as_posix()
-                    if sha256(target/relative)!=sha256(path):raise ValueError('retained dependency review/package changed')
-                    copied[relative]=sha256(path)
+                    relative=path.relative_to(target).as_posix()
+                    retain_file(path,retained/relative,relative)
+    if references:
+        immutable_json(retained/'canonical-native-references.json',dict(schema_version=1,project=args.project,required_canonical_packet=canonical_identity,files=references,
+            scope='Every source archive/wheel reference was compared byte-exact with its original local payload and standalone mandatory retained native packet before cleanup. No remote lookup or reference chain.'))
+        copied['canonical-native-references.json']=sha256(retained/'canonical-native-references.json')
+    if review_payloads:
+        from next20_review_input_packet import write
+        write(retained,review_payloads)
+        for name in ['review-inputs.tar.xz','review-inputs-index.json']:copied[name]=sha256(retained/name)
     if args.resume_preparation and {p.relative_to(retained).as_posix() for p in retained.rglob('*') if p.is_file()}!=set(copied):raise ValueError('unknown interrupted retention payload')
     inventory=target_inventory(target,max_files=args.max_files,max_bytes=args.max_bytes)
     if args.max_files!=40000:inventory['max_files']=args.max_files
@@ -202,7 +229,7 @@ def main():
         **(dict(closed_report_packets={name:sha256(RAW/args.project/name/'index.json') for name in args.closed_report_packet}) if args.closed_report_packet else {}),
         **(dict(unlaunched_setup_reports=unlaunched) if unlaunched else {}),**inventory))
     immutable_json(retained/'prepared.json',dict(schema_version=1,cleanup_inventory_sha256=sha256(retained/'cleanup-inventory.json'),
-        process_proof_sha256=sha256(proof_path),source_archive_sha256=sha256(retained/'source.tar.gz'),
+        process_proof_sha256=sha256(proof_path),source_archive_sha256=sha256(target/'source.tar.gz'),
         source_restored_exact=True,removed=False))
     if not args.prepare_only:
         # One shell/process end-to-end, resolved owned root and complete checked

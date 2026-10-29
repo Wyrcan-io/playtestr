@@ -1,5 +1,89 @@
 {
   "candidate": "unchanged exact v0.4.0-rc.5",
+  "current_candidate_projection": {
+    "candidate": "v0.4.0-rc.6",
+    "new_project_admissions": 2,
+    "projects": [
+      {
+        "admission": "cargo-generate/admission.json",
+        "admission_sha256": "a93751afb626ba7025668ded7bf4602e6a37e5be3ef5f80735c013de69b0a59d",
+        "pin": "9c0c27568113cfc9caefac50336b5d4b92c055a9",
+        "project": "cargo-generate",
+        "qualified_native_cells": [
+          {
+            "actual_model": "cargo-generate/audit-controls/246859d433f04ce882d2cb587dc334df/windows-actual-model.json.xz",
+            "actual_model_sha256": "103f7a040a6a3371f964c96659d173bab399707e0ce2bf78a42c7db6590a2dc7",
+            "actual_target_binary_sha256": "a69bf4f976fbb20282212143420379a25ca08a19f065fb015ca92928fbd635db",
+            "calibrations": 9,
+            "candidate_archive_sha256": "0b9f69460ed4dd87c3182c27702f0579bc67e92767010e4ce50d02c0bec82432",
+            "execution_host": "Windows-11-10.0.26300-SP0",
+            "host": "windows",
+            "ordinary": 240,
+            "run": null,
+            "runner_sha256": "6c80fdbcdd74705b85b2e8aad2f07140f5ff5e8cea80db1d6c24a04d71b23f36",
+            "source_revision": "bba80ce82ca0cb4746ff7dd80ffd43346a7b7171"
+          },
+          {
+            "actual_model": "cargo-generate/audit-controls/246859d433f04ce882d2cb587dc334df/linux-actual-model.json.xz",
+            "actual_model_sha256": "8a8476493b9f1ba6d019aee160231a57e7ec25825af58b48339e2d48257cb652",
+            "actual_target_binary_sha256": "ea83083a6e67a2110a54f42c13e9690e19d9c2d28f6a6ea996d38eab19c27a28",
+            "calibrations": 9,
+            "candidate_archive_sha256": "28ae9f37227bb0f6ba2df031420aa3d027b998e31eab523c4d13cd2816c4af7a",
+            "execution_host": "ubuntu-24.04",
+            "host": "linux",
+            "ordinary": 240,
+            "run": "40758514842",
+            "runner_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a",
+            "source_revision": "2808b670751e5d1d59bffd3ac2793412667ae6b0"
+          }
+        ],
+        "repository": "cargo-generate/cargo-generate"
+      },
+      {
+        "admission": "hatch/admission.json",
+        "admission_sha256": "83d8c07e7a190eb23027026c4337e880cdfde8323849dcbc710f0a679c7ec843",
+        "pin": "ad6d66e7c5dba7deea7601e50072676defae8b3e",
+        "project": "hatch",
+        "qualified_native_cells": [
+          {
+            "actual_model": "hatch/audit-controls/5cf6118374e34ef5b4811fa8bf5a81de/windows-actual-model.json.xz",
+            "actual_model_sha256": "703bfdf9d1256b11d6671d14ad5a9dffe6995f3c95c04a7932dcbdafec2320fd",
+            "actual_readback": "hatch/cell-readbacks/windows-7d95ff8acc244662a3b57e40ad720e77.json",
+            "actual_readback_sha256": "94a622bb8b23214087b5d3b1f0ec901e832b02bf16f98cfc98ae1c6b7a018d89",
+            "calibrations": 9,
+            "candidate_archive_sha256": "0b9f69460ed4dd87c3182c27702f0579bc67e92767010e4ce50d02c0bec82432",
+            "host": "windows",
+            "ordinary": 240,
+            "run": null,
+            "runner_sha256": "6c80fdbcdd74705b85b2e8aad2f07140f5ff5e8cea80db1d6c24a04d71b23f36",
+            "source_revision": "010940a5db4e166d72f78641a46334e5ef49f5e7",
+            "source_runtime_removed": true
+          },
+          {
+            "actual_model": "hatch/audit-controls/5cf6118374e34ef5b4811fa8bf5a81de/linux-actual-model.json.xz",
+            "actual_model_sha256": "9bc172dc11eded2e6c21fe20e10fefdddb816690284628cab7c86e6fcf99ad18",
+            "actual_readback": "hatch/cell-readbacks/linux-229ae5e4a52248eeb9a3e145dcca1250.json",
+            "actual_readback_sha256": "59d39e3a6371dbb7c525f51c8e25172f074d3b6cb0487950da37b5f8d5e8d1e9",
+            "calibrations": 9,
+            "candidate_archive_sha256": "28ae9f37227bb0f6ba2df031420aa3d027b998e31eab523c4d13cd2816c4af7a",
+            "host": "linux",
+            "ordinary": 240,
+            "run": "40970185873",
+            "runner_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a",
+            "source_revision": "010940a5db4e166d72f78641a46334e5ef49f5e7",
+            "source_runtime_removed": true
+          }
+        ],
+        "repository": "pypa/hatch"
+      }
+    ],
+    "qualified_host_cells": {
+      "linux": 2,
+      "macos": 0,
+      "windows": 2
+    },
+    "scope": "Separate exact-candidate projection; existing top-level rc.5 compatibility observations remain historical."
+  },
   "new_project_admissions": 4,
   "observed_at_utc": "2026-10-26T18:41:52.848226+00:00",
   "planned_host_cells": {

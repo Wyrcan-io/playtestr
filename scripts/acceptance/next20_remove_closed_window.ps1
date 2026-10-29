@@ -1,10 +1,14 @@
-param([Parameter(Mandatory=$true)][ValidateSet('pdm')][string]$Project,[switch]$Complete)
+param([Parameter(Mandatory=$true)][ValidateSet('pdm','hatch')][string]$Project,[switch]$Complete)
 $ErrorActionPreference='Stop'
 $workspace=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
 $campaign=Join-Path $workspace 'artifacts\runner-readiness-next-twenty-project-pass'
 $projectRoot=Join-Path $campaign $Project
 $packetName='retained-failed-final-v1';$subsetName='final-series-native-exit-v1';$expectedCategory='exit_mismatch'
 if($Complete){$packetName='retained-complete-final-v2';$subsetName+='-v2';$expectedCategory='passed'}
+if($Project -eq 'hatch') {
+    if(-not $Complete){throw 'Hatch has no rejected final window'}
+    $packetName='retained-complete-final-v1';$subsetName='final-series-native-exit-v1'
+}
 $retained=Join-Path $projectRoot $packetName
 $subset=Join-Path $projectRoot $subsetName
 foreach($path in @((Join-Path $workspace 'artifacts'),$campaign,$projectRoot,$retained,$subset)) {

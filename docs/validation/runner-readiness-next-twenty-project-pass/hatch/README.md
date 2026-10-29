@@ -1,8 +1,6 @@
 # Hatch source review
 
-Status: reviewed offline build and repaired public recorder route passed;
-all20 Windows development cases and three source-fault calibrations passed.
-Final Windows/Linux cells and admission remain open.
+Status: [admitted on exact private rc.6](admission.json):480 ordinary executions,18 fresh source-fault calibrations and two independently audited native Windows/Linux cells. Original public-route failures remain failed; no human/public/paid readiness credit.
 The originally screened metadata-only reserve replaces PDM under the
 [explicit substitution](../substitution-pdm-hatch-v1.json); PDM's complete
 engineering observations and historical loss remain separately retained.
@@ -29,7 +27,7 @@ project-generation scope. External templates/plugins, publishing, environment
 creation, Python downloads and external services require separate source review
 and are not approved by acquiring this source.
 
-Local-only owned source: `artifacts/runner-readiness-next-twenty-project-pass/active/hatch/`.
+The former owned source/runtime root `artifacts/runner-readiness-next-twenty-project-pass/active/hatch/` is checked-removed. Exact source, wheels, generated version module, reviewed primary bodies and all reports remain in verified retained packets.
 All43 wheel identities match retained primary PyPI release bodies. Reviewed
 Hatchling/hatch-vcs/setuptools-scm/editables hooks built the owned editable source
 as `0.0.0+pin.ad6d66e7c5db`; all546 primary files are unchanged. Only the
@@ -86,5 +84,10 @@ their actual code/startup/script payloads, same-invocation state and checked
 source/runtime removal were verified. Native development evidence is retained
 as417 exact logical files in a mandatory local dictionary packet. Its original
 expanded copy was removed only after full byte comparison and checked promotion.
-This supplies zero final repetition credit; final240+9 executions per host,
-maintenance and the closing admission/audit/cleanup gates remain outstanding.
+This development supplies zero final repetition credit. The separately executed final240+9 per host, maintenance and admission are recorded below.
+
+Final qualification completed12 fresh20-case batches and9 real-source calibration phases per host. All498 reports passed independent contract,prelaunch helper/source/runtime,installed dependency payload,positive step,state invocation,failed-frame and cleanup readback. All51 reviewed primary release bodies bind43 Windows/48 Linux installed wheels; all three actual runtime roots per host were checked.32 deliberate semantic corruptions were rejected. The first corruption exercise exposed an overly broad audit condition; the repaired audit requires an actual saved-state failure after positive terminal,exit and snapshot steps. No target or runner oracle was weakened.
+
+Windows checked cleanup verified328 actual local reports and13,694 owned files.49 byte-identical source/wheel payloads reference mandatory standalone native-v1; unique Windows wheels remain physical. Reviewed primary metadata is fully restored from a bounded exact XZ packet. Native final-v2 retains3,547 logical files and972 exact native-v1 references; original provider ZIP digest matches. Windows final-window1,572 files and general731 files were fully byte-compared and their expanded duplicates checked-removed. Post-compaction report audits and all32 model controls passed. Closing observed retained project storage was59,367,583 bytes before closing receipts; all global caps passed and no target remained active.
+
+[All-attempt readback](all-attempt-evidence.json) preserves328 local reports,9 original failed report frames,450 completed labeled commands at its explicit cutoff,and both original public authoring rejections. Subsequent audit commands belong to the campaign closing delta. The initial57-test sandbox invocation could not observe native Windows processes; a separate permission-correct57-test invocation passed. Historical documentation subjects in the immutable admission name their pre-admission narrative bytes; this status update changes no frozen contract or execution identity.

@@ -10,15 +10,19 @@ from readiness_evidence import immutable_json, sha256
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--complete',action='store_true');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--complete',action='store_true');parser.add_argument('--project',choices=['pdm','hatch'],default='pdm');args=parser.parse_args()
     project='pdm';subset='final-series-native-exit-v1';wrapper='76fcc374f4674c2b9774aa75f15b3f06'
     packet='retained-failed-final-v1'
     if args.complete:subset+='-v2';wrapper='9ccb6194897949788f17f8fd42a2c36d';packet='retained-complete-final-v2'
+    summary_name='final-execution-summary-v2.json'
+    if args.project=='hatch':
+        if not args.complete:raise ValueError('Hatch has no rejected final window')
+        project='hatch';subset='final-series-native-exit-v1';wrapper='69b23d73c89741f6802d2ea3001739de';packet='retained-complete-final-v1';summary_name='final-execution-summary.json'
     root=RAW/project/subset;destination=RAW/project/packet
     finished=json.loads((RAW/'events'/(wrapper+'-finished.json')).read_text())
     if finished['category']!=('passed' if args.complete else 'exit_mismatch') or finished['cleanup_errors'] or finished['harness_cleanup']!='harness_process_reaped':raise ValueError('window is not closed')
     if args.complete:
-        completed=json.loads((RAW/project/'final-execution-summary-v2.json').read_text())
+        completed=json.loads((RAW/project/summary_name).read_text())
         if completed['ordinary_executions']!=240 or completed['calibrations']!=9:raise ValueError('complete execution summary required')
         observations=[]
         for path in sorted(root.glob('*/*.report.json')):

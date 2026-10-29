@@ -1,7 +1,7 @@
 # Runner readiness: next twenty projects
 
 Invoked 22 October 2026 under the [execution prompt](../../plans/runner-readiness-next-twenty-project-execution-prompt.md).
-Status: **in progress; four historical rc.5 admissions and one new rc.6 admission, spanning five distinct new applications**. The target is twenty new canonical
+Status: **in progress; four historical rc.5 admissions and two new rc.6 admissions, spanning six distinct new applications**. The target is twenty new canonical
 applications and a cumulative 30/100 engineering milestone on the candidate actually qualified. The previous ten
 passed an exact-rc.5 carry-forward audit over actual retained evidence; their rc.6 requalification remains open.
 jrnl qualified with 20 scenarios, two native cells, 480 ordinary executions and
@@ -38,7 +38,7 @@ development failure screens were lost by the former harness, so its
 [qualification disposition](pdm/qualification-disposition.json) grants zero
 admission credit. [Hatch replaces its slot](substitution-pdm-hatch-v1.json) from the
 original metadata-only reserves; the20 selected/8 reserve and native/diversity
-allocations remain intact. [Hatch](hatch/README.md) is now in source review.
+allocations remain intact. [Hatch](hatch/admission.json) now qualifies on exact rc.6 with480 ordinary executions,18 fresh calibrations,two native cells and32 rejected evidence corruptions. Original public-authoring and development failures remain retained. Its initial20-control usability target remains failed; zero human observations.
 The original ten and four
 earlier projects still need rc.6 qualification; current cumulative 30/100 is open.
 The imported closing admission's 32 subject files and three
