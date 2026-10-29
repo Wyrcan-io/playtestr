@@ -227,6 +227,46 @@
         }
       ],
       "current_candidate_qualified": true
+    },
+    {
+      "id": "pdm",
+      "repository": "pdm-project/pdm",
+      "pin": "201bdc719c15a7c86cc305c0c788fe9cbdef15c3",
+      "status": "development-complete-final-cell-evidence-in-progress-history-gate-open",
+      "planned_hosts": [
+        "linux",
+        "windows"
+      ],
+      "admitted": false,
+      "current_candidate_qualified": false,
+      "qualified_scenarios": 0,
+      "qualified_native_cells": 0,
+      "development_selected_scenarios_passed": 20,
+      "development_ordinary_attempts": 120,
+      "development_ordinary_passed": 110,
+      "development_ordinary_failed": 10,
+      "development_real_faults": 3,
+      "development_fault_matrix_calibrations": 9,
+      "local_development_summaries": {
+        "pdm/development/1486ad5574d54c3fb1aea943b79ca7a0/summary.json": "332e40b8b2d7f65c597c5d4844a8e0c2faeb4a0e66106e060e01ae6000ab6a41",
+        "pdm/development/20a5264753b44291bba88a8f4a50bcfa/summary.json": "7d9a3775b60462e88a679341d5b5d17629e23fbb98f564dd2fff81377efe088a",
+        "pdm/development/a28c9ffbde86479785b01f52c7917e43/summary.json": "466e9fc394e9b4d6391dd15736310979b5bdabd1fd2258d881ed2d761058ec4e",
+        "pdm/development/aa2cbf134ff147d98e5a31dee936d454/summary.json": "5e6de9358655522cbac30bd814f87a1ef9238fe093f066cc0d72c0122225d590"
+      },
+      "native_development_readbacks": {
+        "pdm/linux-first-development-readback.json": "62f6e7a88949c8255ce37d001e345ecd647d32399ce5ccb68c0c73b2b311f8d2",
+        "pdm/linux-second-development-readback.json": "bdc0c8c72d05b814c2140bb421a1ae5409dc72b912b9419ba5eb8df60cb9dd7c"
+      },
+      "historical_evidence_retention_complete": false,
+      "first_failure_frame_loss": [
+        "N02",
+        "N08",
+        "E06"
+      ],
+      "excluded_target_behavior": "Recursive README overwrite leaves old file; supported preserve-existing workflow tested instead.",
+      "final_ordinary_executions_qualified": 0,
+      "final_calibrations_qualified": 0,
+      "scope": "All120development attempts remain separate from final repetitions,authoring,maintenance and source-fault calibrations. Original invalid-backend frame loss remains explicit; no admission waiver."
     }
   ],
   "observed_audited_ordinary_executions": 1920,

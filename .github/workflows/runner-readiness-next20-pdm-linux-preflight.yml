@@ -1,9 +1,15 @@
-name: Next twenty pdm native Linux preflight
+name: Next twenty pdm native Linux validation
 on:
   push:
     branches: [work/p0-p2-implementation]
     paths: ['.github/workflows/runner-readiness-next20-pdm-linux-preflight.yml']
   workflow_dispatch:
+    inputs:
+      stage:
+        description: Explicit development or final evidence window
+        type: choice
+        options: [development, final]
+        default: development
 permissions:
   contents: read
   actions: read
@@ -18,10 +24,10 @@ env:
   TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
   PSModuleAnalysisCachePath: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/shell-cache/module-analysis
 jobs:
-  native-development:
+  native-validation:
     if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    timeout-minutes: 40
     defaults:
       run:
         shell: bash
@@ -45,14 +51,20 @@ jobs:
         id: prepare
         run: python -B scripts/acceptance/next20_check.py --label pdm-linux-bounded-native-preparation --timeout 1200 -- python -B scripts/acceptance/next20_jrnl_native_prepare.py --project pdm --profile docs/validation/runner-readiness-next-twenty-project-pass/pdm/native-profile-v2.json
       - name: Execute all twenty development scenarios on native Linux
+        if: inputs.stage == 'development'
         run: python -B scripts/acceptance/next20_check.py --label pdm-linux-twenty-native-development --timeout 1200 -- python -B scripts/acceptance/next20_jrnl_development.py --project pdm --candidate-series native-exit-v1 --host-profile
+      - name: Execute twelve fresh final batches and three real source faults
+        if: inputs.stage == 'final'
+        env:
+          READINESS_EVIDENCE_PHASE: final-archive
+        run: python -B scripts/acceptance/next20_check.py --label pdm-linux-final-twelve-batches-and-faults --timeout 1200 -- python -B scripts/acceptance/next20_pdm_final_series.py
       - name: Retain verified sources and dependencies and confirm native cleanup
         if: always() && steps.prepare.outcome == 'success'
         run: python -B scripts/acceptance/next20_check.py --label pdm-linux-source-runtime-removal --timeout 180 -- python -B scripts/acceptance/next20_target_cleanup.py --project pdm --generated-source-manifest artifacts/runner-readiness-next-twenty-project-pass/pdm/native-generated-source.json
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
-          name: next20-pdm-linux-preflight
+          name: next20-pdm-linux-${{ inputs.stage }}
           path: |
             artifacts/runner-readiness-next-twenty-project-pass/core/
             artifacts/runner-readiness-next-twenty-project-pass/events/

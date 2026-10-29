@@ -2393,3 +2393,41 @@ Next push/profile2 predeclares one further standardUbuntu30minute target ceiling
 6minuteestimate,plus3automatic5minute harnessjobs/maxparallel2. No target jobs
 currently running. First two source harness triplets need actualreadback/retention;
 do not infer success from configured checks. Historicalscreen gap still open.
+
+SecondLinux40867193964/job123424835672/sourced1d24adeec20f7a66c798bed7747de06353fadf6
+passed20/0, allstepspositive, actualjob40seconds/setup11seconds/cases16seconds.
+Independent2120765054644be18a5388289904c34d additionally derives every executed
+native contract from the canonical contract and explicitprofile2, verifies all
+actualsource/identity/report bytes and checkedremoval. Its full428logical/367unique
+packet17,756,387expanded ->14,637,665gzip retained-native-v2
+(1c5948b8b5804cb19c21f9744b090672); expansioncheckedremoved
+d31d859295994134a4637f9597f035f5. Both Linux generations are complete; never download again.
+
+Windowsprofilev1declaredb2462b36530c41ce912217e7e817168c andmaterialized
+7d39f4ff6e3545c6bc640a4626df2eaf reuse exact existingvenv-v2. Same5readiness
+checks added to N01; all original steps/oracles/bytes retained. Actual20/0
+development74e6e219c3bb475ebeb522dbfabe8a9b passed. Ledgerac06b0af24844656a0f28e5f553c5192
+records all6development windows120attempts/110pass/10fail, not final/admission.
+Current helper45fullcontrols039a641b06d4433ebcce3624ee0583c8 passed; later
+readiness extraction preserves Linux output and applies same explicit semantics
+on Windows (actual20/0 plus3focused controls8988d57994d54e61b66180a968a83812).
+
+Finaldeclaration983def4c556a4f27b3a684349a10ef8e binds exactrc6/profiles/freeze,
+480ordinary/18freshcalibrations planned, no credit or historicalgapwaiver.
+LocalWindows finalwrapper is RUNNING, session67673, label
+pdm-windows-final-twelve-batches-and-fresh-calibrations,1200secondceiling.
+RAW/pdm/final-execution-plan.json and final-series-native-exit-v1 hold actual
+batchprogress; batch0 completed20. Do not launch another Windows series or
+restart existing batch directories. Await completion/inspect exact outcome.
+OneLinuxfinalstandardhostedjob is prepared via workflow stage=final,40minute
+jobceiling/6minuteestimate; new automatic3harnessjobs5minuteceiling/maxparallel2
+are predeclared. Do not dispatch defaultdevelopment accidentally. Native final
+packet will be namednext20-pdm-linux-final; original preflight packets unchanged.
+
+Harness40865362789/sourceb6ce80d8 all3actualcells independently source-audited,
+retained and expansionsremoved: v80Linux564769828f514854a1dd4e64017a9d7d;
+v81Macc7cf1f7fa17844c5a5dbb93c246fb1da;v82Windeaa8034f23041d09031e5d662105eab.
+Harness40865526506/source422a943f all3actualproviderjobs succeeded; v83Linux
+collection currentlyinprogress (session52008), remainingMac/Win needcollection.
+Laterd1d24ade sourceharness likewise needs actualreadback/retention. No Go source
+changed; archiveinputs remainrc6. Preserve allrejectedwindow and historicalgap scopes.

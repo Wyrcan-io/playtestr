@@ -2,7 +2,7 @@
 
 The twenty-project gate remains open. Four new admissions are historical for
 the exact rc.5 candidate. Cargo-generate exposed the native Windows exit-status
-defect and requires rc.6. Current rc.6 project admissions are zero; all original
+defect and now has a complete rc.6 admission. Current rc.6 project admissions are one; all original
 ten and the four historical new admissions require requalification. The macOS,
 Linux and Windows replacement archives passed native checks and independent auditing;
 all three exact archives are frozen. All105 public archive controls freshly passed
@@ -13,16 +13,16 @@ on rc.6 and were independently audited. Proposed totals remain requirements.
 | N20-01 | Verify old closing subjects, candidate archives and original actual matrix | 32 subjects, 3 archives, actual 4,800 ordinary / 186 calibration retained matrix verified |
 | N20-02 | Deduplicate all earlier completed projects; screen â‰¥40; select 20 + 8 reserves | 37 previous canonical identities inventoried; 42 metadata-screened + 4 unavailable; 20 + 8 declared before acquisition |
 | N20-03 | Five language and UI families; â‰¥8 full-screen, â‰¥6 prompt, â‰¥16 stateful; six categories | Provisional seven-language, nine-category allocation; actual useful/native feasibility remains open |
-| N20-04 | Every project public no-JSON first flow, diagnosis, selected maintenance, relocation, generated workflow | Four historical rc.5 packages verified; current-candidate requalification and remaining16 pending. Cargo public first flow passed after preserved repairs; rc.6 repeat prepared |
+| N20-04 | Every project public no-JSON first flow, diagnosis, selected maintenance, relocation, generated workflow | Four historical rc.5 packages verified; Cargo's complete rc.6 public route and maintenance audited. PDM public route/maintenance completed with retained failures; final evidence and historical-screen gate remain open. Remaining projects and earlier current-candidate requalification pending |
 | N20-05 | 400 useful distinct scenarios, â‰¥4 combined risks/project | Not declared |
 | N20-06 | â‰¥60 real target faults, unchanged contracts, source restoration and 360 calibrations | Pending remaining projects/final closure |
 | N20-07 | Exact archive 40-cell, 12-repeat series, 9,600 ordinary executions | Pending remaining projects/final closure |
-| N20-08 | Preserve 88+33 controls, required new repairs and applicable 35 archive controls/host | 105 actual rc.5 public archive executions remain historical; rerun on rc.6 required. Whole121 source/applicability impact audit open. Native-status regressions added; source-matched engineering harness now23 controls |
+| N20-08 | Preserve 88+33 controls, required new repairs and applicable 35 archive controls/host | All105 fresh rc.6 public archive executions independently audited. Whole121 source/applicability impact audit remains open. Native-status regressions added; local helper45 controls passed, with actual native tested-source scope recorded separately per run |
 | N20-09 | Original ten current on exact candidate; affected old migrations | Retained actual matrix proves rc.5 history; all ten require exact rc.6 requalification and affected migrations need current dispositions |
 | N20-10 | Native installation/compatibility, source-free paths, offline scope, two new delivered-CI triplets | Two categories have historical rc.5 source-built/exact-archive generated-CI triplets,24 separately counted host observations; new candidate requires refreshed triplets and distribution closure |
 | N20-11 | Actual evidence auditor and twelve corruption classes |Both admitted projects’ actual cells audited;24 model alterations rejected per project; global12-class closure pending |
-| N20-12 | Actual fresh checkout; Go/vet/race/examples/harness/workflow/docs checks | Local source Go/vet/race/examples passed for repair; native macOS/Linux tests, focused regressions, vet/race passed. Windows full qualification and final fresh-checkout closure remain open |
-| N20-13 | All attempts, cutoff/delta accounting, storage, checked process/source/workspace cleanup | Four historical targets removed; cargo-generate is sole active local target. Failures and native packets retained with checked cleanup. Earlier duplicate-model storage and accidental legacy-workflow concurrency deviations remain recorded in checkpoint |
+| N20-12 | Actual fresh checkout; Go/vet/race/examples/harness/workflow/docs checks | Frozen replacement archives passed exact native qualification on Linux/macOS/Windows. Go/vet/race/examples evidence is source-bound; final delivered-CI and fresh-checkout closure remain open. Helper syntax, workflow lint and native source-matched checks continue per increment |
+| N20-13 | All attempts, cutoff/delta accounting, storage, checked process/source/workspace cleanup | Cargo source/runtime removed and complete payloads audited. PDM is the sole active local target. Both Linux development packets were independently audited, retained and their expansions removed. Three original PDM development screens were overwritten by the legacy harness: reports remain, repair passed, history gate open. Earlier storage/concurrency deviations remain in checkpoint |
 | N20-14 | Five unfamiliar consenting participants if supplied | Zero supplied; unmeasured; engineering continues |
 
 Historical risks retain their [original evidence and dispositions](../runner-readiness-ten-project-pass/limitations.md).

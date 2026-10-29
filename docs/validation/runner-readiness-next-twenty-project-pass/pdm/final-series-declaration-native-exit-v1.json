@@ -1,0 +1,115 @@
+{
+  "batches": [
+    {
+      "id": 0,
+      "name": "ordinary-cold-1",
+      "runtime": "new verified owned venv-pair-0; first logical use"
+    },
+    {
+      "id": 1,
+      "name": "ordinary-warm-1",
+      "runtime": "reuse exact venv-pair-0"
+    },
+    {
+      "id": 2,
+      "name": "ordinary-cold-2",
+      "runtime": "new verified owned venv-pair-1; first logical use"
+    },
+    {
+      "id": 3,
+      "name": "ordinary-warm-2",
+      "runtime": "reuse exact venv-pair-1"
+    },
+    {
+      "change": "initial width +10, height +2; all reviewed saved bytes unchanged",
+      "id": 4,
+      "name": "viewport"
+    },
+    {
+      "change": "package relocated to relative path containing caf\u00e9 \u96ea; explicit relative executable rebinding",
+      "id": 5,
+      "name": "spaced-unicode-path"
+    },
+    {
+      "change": "original supported actions and positive checkpoints",
+      "id": 6,
+      "name": "ordinary-input-readiness"
+    },
+    {
+      "change": "split printable text into three-codepoint groups; key/control groups remain atomic",
+      "id": 7,
+      "name": "segmented-printable-input"
+    },
+    {
+      "change": "owned 2-second 8-MiB SHA256 worker during each invocation",
+      "id": 8,
+      "name": "bounded-contention-1"
+    },
+    {
+      "change": "second distinct execution under the same bounded owned worker schedule",
+      "id": 9,
+      "name": "bounded-contention-2"
+    },
+    {
+      "change": "N01 viewport height 12; remaining dedicated edge boundaries preserved unchanged",
+      "id": 10,
+      "name": "highest-risk-small-completion"
+    },
+    {
+      "change": "explicit 2000ms startup limit; ordinary step/run budgets unchanged",
+      "id": 11,
+      "name": "highest-risk-startup-boundary"
+    }
+  ],
+  "calibration_required": 18,
+  "candidate": "v0.4.0-rc.6",
+  "candidate_freeze_sha256": "24ce7238532b1b6e581142ee98e17a7fe18ea475ec83176e7051986353c80da2",
+  "candidate_series": "native-exit-v1",
+  "canonical_test_freeze_sha256": "c63e3c8dd5dd63c6d40cac91916013991e4445ceff37737a8d46021f844e6b61",
+  "cold_scope": "Two newly copied, hash-verified owned Python runtimes, each followed by warm reuse; no OS-cache or physical-machine cold-start claim.",
+  "edge": 12,
+  "excluded_target_behavior": "Explicit recursive README overwrite failed upstream; revised supported N08 preserves the existing README without overwrite. No overwrite pass claim.",
+  "execution_budget": {
+    "automatic_harness_jobs": 3,
+    "estimated_linux_minutes": 6,
+    "estimated_windows_minutes": 12,
+    "harness_job_ceiling_minutes": 5,
+    "harness_max_parallel": 2,
+    "linux_job_ceiling_minutes": 40,
+    "linux_standard_hosted_jobs": 1,
+    "maximum_target_hosts": 2,
+    "windows_local_command_ceiling_seconds": 1200
+  },
+  "failure_policy": "No automatic per-case retry. Any red/partial final batch rejects the affected native series; retain all first attempts and declare a replacement after diagnosis.",
+  "fault_declaration_sha256": "03f73f0e55c070f36cce77d8c4fbcd0f3f31e299f12ae07fdecd7106e26d4018",
+  "historical_evidence_retention_complete": false,
+  "historical_screen_gap_disposition_sha256": "71d56e3981fb60baf4386e3c61aa245f57c6ea1628f7fcc0e2eeb44abcea8b08",
+  "hosts": [
+    "windows",
+    "linux"
+  ],
+  "linux_profile_sha256": "ba23cbd699ec78cba7acd5505a45050d6be9aa913af484eabcae3a969f8ab8b1",
+  "native_runtime_lock_sha256": "cc367412603c204f4f017558a05b143a911187d5c65e7f3e459ddce5df2b5db4",
+  "normal": 8,
+  "ordinary_required": 480,
+  "positive_linux_readback_sha256": "bdc0c8c72d05b814c2140bb421a1ae5409dc72b912b9419ba5eb8df60cb9dd7c",
+  "positive_windows_development_sha256": "5e6de9358655522cbac30bd814f87a1ef9238fe093f066cc0d72c0122225d590",
+  "project": "pdm",
+  "project_admissions": 0,
+  "real_source_faults": 3,
+  "repetitions_per_cell": 12,
+  "required_three_phase_calibrations": 18,
+  "revision": 1,
+  "scenarios_per_cell": 20,
+  "schema_version": 1,
+  "scope": "Collect exact final-cell evidence independently of the unresolved historical-screen retention gate. This declaration neither admits PDM nor waives a missing original frame.",
+  "storage_forecast": {
+    "additional_linux_packet_ceiling_bytes": 16000000,
+    "current_retained_approx_bytes": 32000000,
+    "local_retention_forecast_bytes": 16000000,
+    "policy": "Measure before cleanup retention; compact shared exact payloads before any cap breach, never delete required first-failure evidence.",
+    "project_cap_bytes": 67108864
+  },
+  "transfer_scope": "Source, original failures and all mutations already exposed; no untouched/human claim. Original reports are not reruns.",
+  "windows_profile_sha256": "1efa351611db5813e594f444cb6efa4ca143e8537ae4ceb5e5c11925d6c76b56"
+}

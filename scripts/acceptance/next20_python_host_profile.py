@@ -26,9 +26,10 @@ def wizard_profile(original, case, python, host):
         if eof:
             if len(eof)!=1 or steps[eof[0]+1]!={'key':'Enter'}:raise ValueError('undeclared EOF group')
             i=eof[0];steps[i:i+2]=[{'key':'CtrlD'}]
-        readiness=case.get('readiness_before_step',{})
-        if any(not str(k).isdigit() or not 1<=int(k)<=len(steps) or not isinstance(v,str) or not v for k,v in readiness.items()):
-            raise ValueError('invalid declared readiness checkpoint')
-        value['steps']=[item for number,step in enumerate(steps,1)
-            for item in ([{'expect':readiness[str(number)]},step] if str(number) in readiness else [step])]
+        value['steps']=steps
+    steps=value['steps'];readiness=case.get('readiness_before_step',{})
+    if any(not str(k).isdigit() or not 1<=int(k)<=len(steps) or not isinstance(v,str) or not v for k,v in readiness.items()):
+        raise ValueError('invalid declared readiness checkpoint')
+    value['steps']=[item for number,step in enumerate(steps,1)
+        for item in ([{'expect':readiness[str(number)]},step] if str(number) in readiness else [step])]
     return value

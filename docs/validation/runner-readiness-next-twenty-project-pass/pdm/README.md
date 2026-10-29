@@ -49,6 +49,26 @@ not counted as primary Git blobs. Local-only raw evidence lives under
 `artifacts/runner-readiness-next-twenty-project-pass/pdm/`. Source/runtime remain
 owned under `artifacts/runner-readiness-next-twenty-project-pass/active/pdm/`.
 
-Remaining: public fault diagnosis/maintenance/relocation/free workflow, fresh
-final repetitions and calibrations on both declared native hosts, independent
-actual-evidence audit, historical-gap disposition and checked retention/cleanup.
+The [first Linux readback](linux-first-development-readback.json) retains18/2.
+Its fast-input public contract needed additive prompt-readiness checkpoints, and
+the workspace parent preserves the existing CRLF separator even on Linux. The
+[second readback](linux-second-development-readback.json) verifies all20 positive
+reports, exact profile-derived contracts, launch identities,402 source blobs and
+checked native source/runtime removal. The matching Windows readiness profile
+also passed20/0. All six development windows total120 attempts:110pass/10fail,
+with zero final repetition or admission credit.
+
+Actual saved-name fault diagnosis and offline HTML, selected/cancelled file
+maintenance, suffix author replacement and unchanged-byte Unicode relocation
+completed. A first suffix command used the wrong inclusive restart boundary and
+is retained; the corrected window passed. Workflow generation initially omitted
+the documented --build argument and refused before execution. The completed
+window was independently read back and only that final command was repeated.
+The generated workflow is not dispatched and supplies no delivered-CI credit.
+
+The [finite final series](final-series-declaration-native-exit-v1.json) declares
+480 fresh ordinary and18 calibration executions on exact rc.6 inputs across two
+hosts. Execution and independent audit are separate; no declaration waives the
+historical screen gap or supplies admission credit. Remaining: complete final
+cell executions, actual-evidence audit, historical-gap disposition and checked
+local retention/source/runtime cleanup.
