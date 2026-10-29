@@ -1,0 +1,39 @@
+{
+  "actual_second_summary": "pdm/development/a28c9ffbde86479785b01f52c7917e43/summary.json",
+  "actual_second_summary_sha256": "466e9fc394e9b4d6391dd15736310979b5bdabd1fd2258d881ed2d761058ec4e",
+  "all_target_and_workspace_cleanup_confirmed": true,
+  "failed": 3,
+  "final_qualification_credit": 0,
+  "findings": [
+    "Distributable TOML output has two blank lines before tool.pdm; independently checked complete metadata is unchanged.",
+    "Rich trims submitted string values; long-input case now omits its accidental trailing space. No output normalization.",
+    "Actual explicit overwrite leaves existing README unchanged. Pinned recursive mirror fails to forward overwrite. This route is excluded,not accepted or patched. N08 now covers the independently meaningful default existing-file-preservation workflow.",
+    "Three earliest backend-error screen files were overwritten by legacy development paths. All original reports/inputs/consoles survive; do not claim those original rendered bytes are retained. Global/original-evidence gate remains open."
+  ],
+  "import_now_passed": true,
+  "original_contracts": "pdm/declaration-review/v4",
+  "passed": 17,
+  "production_or_target_source_changed": false,
+  "revisions": [
+    {
+      "after_sha256": "c4ab86b710e1b44a97d9ef5583ae0a449797d34c65b7c21cda78840ea14b67fb",
+      "before_sha256": "22ec02ee1aa51a7c786e39f4ecde9d73a9dedc845c61765a010a3d50a7909c09",
+      "case": "N02",
+      "diagnostic_sha256": "c8ae63e141e6c01fcadd34d998fd326f80dead1fd17f85bceb22a61ebebd5cd5"
+    },
+    {
+      "after_sha256": "c1ee37c8787273a134564be638f29d03059e88d79036d88648bacb8a5fc0f0e3",
+      "before_sha256": "069374bebc9c9814cbcefd9dc19b95e9ab24246df3092c76b7af4678c014d5da",
+      "case": "N08",
+      "diagnostic_sha256": "bf22ee2655f5ca09b3c85e86c7c0ad97ab87b28f48faa9339579737f60543182"
+    },
+    {
+      "after_sha256": "f841034db830f5b7ffda282178df95b0b8aadb601e483a9db1b3ac0c59e1e8ec",
+      "before_sha256": "ce1002c17c46b6e8544bf2a7f5fa551a6b705f996471f33de61f1ee7e198175b",
+      "case": "E06",
+      "diagnostic_sha256": "16433312d3cbe1767affbfa3ef825e805451b1b38b50d0480e5a020674d079b3"
+    }
+  ],
+  "schema_version": 1,
+  "upstream_template_source_sha256": "ad96e78015a888fccdb024eb18c2d8c392aa12a1e7317b543e4642d06fc4b7c6"
+}

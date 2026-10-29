@@ -6,7 +6,7 @@ from next20_check import DOC,RAW,ROOT
 from readiness_evidence import immutable_json,sha256
 
 
-def main(project='jrnl',exposure=None):
+def main(project='jrnl',exposure=None,extra_inputs=()):
     package=DOC/project;declaration=json.loads((package/'scenarios.json').read_text())
     summaries=[]
     for path in (RAW/project/'development').glob('*/summary.json'):
@@ -26,6 +26,10 @@ def main(project='jrnl',exposure=None):
         for step in json.loads(spec.read_text())['steps']:
             if 'snapshot' in step:
                 path=package/'snapshots'/step['snapshot'];inputs[path.relative_to(package).as_posix()]=sha256(path)
+    for name in extra_inputs:
+        path=(package/name).resolve(strict=True);path.relative_to(package.resolve(strict=True))
+        if not path.is_file():raise ValueError('extra frozen input must be a file')
+        inputs[path.relative_to(package.resolve()).as_posix()]=sha256(path)
     immutable_json(package/'development-test-freeze.json',dict(schema_version=1,status='frozen-before-fault-selection',
         scenarios_sha256=sha256(package/'scenarios.json'),inputs=inputs,directories=sorted(set(directories)),
         positive_development_summary=summaries[0].relative_to(ROOT).as_posix(),positive_summary_sha256=sha256(summaries[0]),
@@ -36,6 +40,7 @@ def main(project='jrnl',exposure=None):
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('--project',default='jrnl');parser.add_argument('--exposure')
+    parser.add_argument('--extra-input',action='append',default=[])
     args=parser.parse_args()
     if '/' in args.project or '\\' in args.project or not (DOC/args.project/'source-provenance.json').is_file():raise ValueError('undeclared project')
-    main(args.project,args.exposure)
+    main(args.project,args.exposure,args.extra_input)

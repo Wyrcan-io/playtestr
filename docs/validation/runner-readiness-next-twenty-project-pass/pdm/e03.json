@@ -1,0 +1,86 @@
+{
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/pdm/venv-v2/Scripts/python.exe",
+    "-B",
+    "-m",
+    "pdm",
+    "init",
+    "--name",
+    "synthetic-notes",
+    "--python",
+    "C:\\Users\\abhir\\OneDrive\\Documents\\playtestr\\artifacts\\runner-readiness-next-twenty-project-pass\\active\\pdm\\venv-v2\\Scripts\\python.exe",
+    "--no-git",
+    "--skip",
+    ":all",
+    "minimal"
+  ],
+  "env": {
+    "GIT_CONFIG_COUNT": "2",
+    "GIT_CONFIG_GLOBAL": "nul",
+    "GIT_CONFIG_KEY_0": "user.name",
+    "GIT_CONFIG_KEY_1": "user.email",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_CONFIG_VALUE_0": "Synthetic User",
+    "GIT_CONFIG_VALUE_1": "synthetic@example.invalid",
+    "PDM_CHECK_UPDATE": "false",
+    "PDM_IGNORE_ACTIVE_VENV": "1",
+    "PDM_USE_VENV": "false",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONIOENCODING": "utf-8"
+  },
+  "height": 12,
+  "max_output_bytes": 2000000,
+  "name": "Cancel the first metadata prompt in a small viewport",
+  "run_timeout_ms": 120000,
+  "steps": [
+    {
+      "expect": "Project version"
+    },
+    {
+      "key": "CtrlC"
+    },
+    {
+      "exit": 3221225786
+    },
+    {
+      "state": {
+        "bytes_base64": "dW5yZWxhdGVkIHN5bnRoZXRpYyBkYXRhCg==",
+        "kind": "file",
+        "path": "sentinel.txt"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "W2NvcmVdCglyZXBvc2l0b3J5Zm9ybWF0dmVyc2lvbiA9IDAKCWJhcmUgPSBmYWxzZQpbdXNlcl0KCW5hbWUgPSBTeW50aGV0aWMgVXNlcgoJZW1haWwgPSBzeW50aGV0aWNAZXhhbXBsZS5pbnZhbGlkCg==",
+        "kind": "file",
+        "path": ".git/config"
+      }
+    },
+    {
+      "state": {
+        "kind": "absent",
+        "path": "pyproject.toml"
+      }
+    },
+    {
+      "state": {
+        "entries": [
+          ".git",
+          ".pdm-python",
+          "sentinel.txt"
+        ],
+        "kind": "entries",
+        "path": "."
+      }
+    }
+  ],
+  "timeout_ms": 10000,
+  "version": 3,
+  "width": 60,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/e03",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

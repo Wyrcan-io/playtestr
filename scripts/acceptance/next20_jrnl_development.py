@@ -9,6 +9,7 @@ from next20_check import RAW,ROOT,DOC,NextCampaign
 from next20_python_setup import environment
 from readiness_evidence import immutable_json,sha256
 from next20_candidate import executable,SERIES
+from next20_python_runtime import python_runtime_root
 
 
 async def main(project='jrnl',candidate_series='rc5',host_profile=False):
@@ -17,7 +18,7 @@ async def main(project='jrnl',candidate_series='rc5',host_profile=False):
     declaration=json.loads((package/'scenarios.json').read_text())
     env=environment(target)
     installed=json.loads((target/'installed-inventory.json').read_text());inventory=installed['files']
-    runtime_root=ROOT/installed['runtime_root'] if 'runtime_root' in installed else target/'venv'
+    runtime_root=ROOT/installed['runtime_root'] if 'runtime_root' in installed else python_runtime_root(target,json.loads((target/'runtime.json').read_text()))
     runtime_root.resolve(strict=True).relative_to(target.resolve(strict=True))
     catalog_path=target/'launch-runtime-catalog.json'
     def dependencies():
@@ -41,7 +42,8 @@ async def main(project='jrnl',candidate_series='rc5',host_profile=False):
             source_build_sha256=sha256(target/'build.json'),expected_runner_exit=0)
         immutable_json(root/(case['id']+'.planned.json'),planned)
         try:
-            result=await execute([runner,'test','--report',report,spec],project,'development-'+case['id'],
+            result=await execute([runner,'test','--report',report.relative_to(ROOT),'--artifacts-dir',
+                (root/'evidence').relative_to(ROOT),spec.relative_to(ROOT)],project,'development-'+case['id'],
                 cwd=ROOT,env=env,timeout=140,campaign=campaign)
             eid=result['id']
         except RuntimeError as error:

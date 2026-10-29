@@ -60,6 +60,7 @@ def main():
     parser=argparse.ArgumentParser();parser.add_argument('--project',required=True)
     parser.add_argument('--prepare-only',action='store_true')
     parser.add_argument('--resume-preparation',action='store_true')
+    parser.add_argument('--generated-source-manifest',type=Path)
     parser.add_argument('--max-files',type=int,choices=[40000,60000],default=40000)
     parser.add_argument('--max-bytes',type=int,choices=[1024**3,2*1024**3],default=1024**3)
     parser.add_argument('--unlaunched-report-sha256',action='append',default=[])
@@ -78,7 +79,17 @@ def main():
     acquisition=json.loads((target/'acquisition.json').read_text())
     source=target/'src'
     actual={p.relative_to(source).as_posix():sha256(p) for p in source.rglob('*') if p.is_file()}
-    if actual!=acquisition['source_files']:raise ValueError('target source not exactly restored; retain it for investigation')
+    expected=acquisition['source_files'];generated={};generated_manifest=None
+    if args.generated_source_manifest:
+        generated_manifest=args.generated_source_manifest.resolve(strict=True);generated_manifest.relative_to(ROOT)
+        value=json.loads(generated_manifest.read_text())
+        provenance=ROOT/'docs/validation'/NAME/args.project/'source-provenance.json'
+        if value['primary_source_provenance_sha256']!=sha256(provenance) or json.loads(provenance.read_text())['files']!=expected:
+            raise ValueError('generated-source declaration does not bind original primary inputs')
+        generated=value['generated_files']
+        from next20_generated_source import restored_source_inventory
+        expected=restored_source_inventory(expected,generated)
+    if actual!=expected:raise ValueError('target source not exactly restored; retain it for investigation')
     reports=0;unlaunched=[]
     for path,data in report_documents(RAW/args.project):
         for row in data['results']:
@@ -129,6 +140,14 @@ def main():
            'native-c-compiler.json','required-source-dictionary.json','version-check.json','short-cache-reference.json',
            'post-build-dependency-readback.json']
     copied={}
+    if generated_manifest:
+        destination=retained/'generated-source-manifest.json';shutil.copyfile(generated_manifest,destination)
+        copied[destination.name]=sha256(destination)
+        for name,row in generated.items():
+            destination=retained/'generated-source'/name;destination.parent.mkdir(parents=True,exist_ok=True)
+            shutil.copyfile(source/name,destination)
+            if sha256(destination)!=row['sha256']:raise ValueError('generated source retention differs')
+            copied[destination.relative_to(retained).as_posix()]=sha256(destination)
     for name in names:
         source_file=target/name
         if source_file.is_file():

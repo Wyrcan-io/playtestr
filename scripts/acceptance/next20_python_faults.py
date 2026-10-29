@@ -14,10 +14,12 @@ from adversarial_process import execute
 from next20_check import RAW, ROOT, DOC, NextCampaign
 from next20_python_setup import environment
 from readiness_evidence import immutable_json, sha256
+from next20_candidate import executable, SERIES
 
 
 async def main():
-    parser=argparse.ArgumentParser();parser.add_argument('project');parser.add_argument('--package',type=Path);args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('project');parser.add_argument('--package',type=Path)
+    parser.add_argument('--candidate-series',choices=SERIES,default='rc5');args=parser.parse_args()
     canonical=DOC/args.project;package=(args.package or canonical).resolve();package.relative_to(ROOT)
     target=RAW/'active'/args.project
     compiled=args.project=='cz-cli'
@@ -32,7 +34,7 @@ async def main():
     root=RAW/args.project/'faults'/uuid.uuid4().hex;root.mkdir(parents=True)
     immutable_json(root/'planned.json',dict(declaration_sha256=sha256(canonical/'fault-declaration.json'),
         actual_test_freeze_sha256=sha256(package/'development-test-freeze.json'),declaration=declaration))
-    host='windows' if os.name=='nt' else 'linux';runner=RAW/'candidate'/host/('playtestr.exe' if os.name=='nt' else 'playtestr')
+    runner=executable(args.candidate_series)
     env=environment(target);campaign=NextCampaign();observations=[]
     async def run(fault,phase,build_proof=None):
         for name,digest in frozen['inputs'].items():
@@ -128,7 +130,7 @@ async def main():
         build_scope=('Actual declared Babel source rebuilds with exact copied Node, locked compiler/runtime inventories and original compiled-byte restoration.' if compiled else
             'Declared interpreted-source variants copied byte exactly into actual owned runtime; complete dependency/Node/source inventories and retained payloads bound before each launch. No compiler execution.' if copied else
             'Editable interpreted source with actual prelaunch source/runtime/dependency identities; no compiled rebuild.')))
-    print('Verified real source mutations, genuine restored recoveries and separately labeled terminal-only probe. No project admission.')
+    print('Verified real source mutations and genuine restored recoveries;',sum(len(f['outcomes']) for f in observations),'calibrations. No project admission.')
 
 
 if __name__=='__main__':asyncio.run(main())

@@ -1,0 +1,7 @@
+--- a/src/pdm/__main__.py
++++ b/src/pdm/__main__.py
+@@ -2,3 +2,4 @@
+ 
+ if __name__ == "__main__":
+     main()
++    raise SystemExit(7)

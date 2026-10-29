@@ -31,8 +31,11 @@ three real source faults and 24 rejected evidence corruptions. Two rejected Linu
 windows remain retained. Actual syscall diagnosis motivated additive native input
 checkpoints; every original action and oracle remains. Required compiled sources,
 all eight native executable variants, reports and first failures passed complete
-byte readback and current storage caps. Project six, PDM, is now in source review;
-no PDM execution or compatibility credit is claimed. The original ten and four
+byte readback and current storage caps. Project six, PDM, has passed twenty local
+development cases and nine real-source-fault calibration checks on rc.6; its
+[package](pdm/README.md) records the dependency correction, excluded overwrite
+workflow and historical evidence gap. It has no admission or native qualification
+credit. The original ten and four
 earlier projects still need rc.6 qualification; current cumulative 30/100 is open.
 The imported closing admission's 32 subject files and three
 retained native archives passed checksum verification. One initial import-helper

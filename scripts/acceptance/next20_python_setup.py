@@ -10,7 +10,7 @@ import zipfile
 
 sys.dont_write_bytecode=True
 from adversarial_process import execute
-from next20_check import NAME,RAW,ROOT,NextCampaign
+from next20_check import NAME,RAW,ROOT,DOC,NextCampaign
 from readiness_evidence import immutable_json,sha256
 from readiness_storage import measure
 
@@ -54,7 +54,15 @@ async def main():
             with requirements.open('x',encoding='utf-8') as stream:
                 stream.write('\n'.join(metadata['project']['dependencies']+metadata['build-system']['requires'])+'\n')
             wheels.mkdir()
-            await run([python,'-B','-m','pip','download','--only-binary=:all:','--dest',wheels,'-r',requirements],
+            constraint_args=[];compatibility_path=DOC/args.project/'runtime-compatibility-v2.json'
+            if args.project=='pdm' and compatibility_path.is_file():
+                compatibility=json.loads(compatibility_path.read_text())
+                if compatibility['source_pin']!=marker['pin'] or compatibility['upstream_lock_sha256']!=sha256(source/'pdm.lock'):raise ValueError('PDM compatibility lock subject changed')
+                constraints=target/'constraints.txt'
+                with constraints.open('x',encoding='utf-8',newline='\n') as stream:
+                    stream.write(''.join(name+'=='+version+'\n' for name,version in compatibility['runtime_constraints'].items()))
+                constraint_args=['--constraint',constraints]
+            await run([python,'-B','-m','pip','download','--only-binary=:all:','--dest',wheels,*constraint_args,'-r',requirements],
                       'wheel-only-dependency-fetch-no-target-hooks')
         elif not python.is_file() or not wheels.is_dir() or not requirements.is_file():
             raise ValueError('incomplete existing wheel-only fetch; inspect before review')

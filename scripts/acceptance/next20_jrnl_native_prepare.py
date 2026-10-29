@@ -49,6 +49,11 @@ async def main(project='jrnl'):
     for name,digest in review['reviewed_source'].items():
         if sha256(source/name)!=digest:raise ValueError('reviewed target source/backend changed: '+name)
     env=environment(target)
+    if lock.get('build_environment'):
+        declaration=json.loads((package/'setup-declaration.json').read_text())
+        if lock['build_environment']!={'PDM_BUILD_SCM_VERSION':declaration['built_source_version']}:
+            raise ValueError('native build environment differs from reviewed setup declaration')
+        env.update(lock['build_environment'])
     async def run(argv,label):
         return await execute(argv,project,label,cwd=source,env=env,timeout=600,campaign=campaign)
     candidates=[]
@@ -127,6 +132,19 @@ async def main(project='jrnl'):
     immutable_json(target/'build.json',dict(pin=marker['pin'],source_editable=True,source_pyproject_sha256=sha256(source/'pyproject.toml'),
         wheels_sha256=sha256(target/'wheels.json'),runtime_sha256=sha256(target/'runtime.json'),version_attempt=version['id'],
         observed_target_bytes=measure(target)['total_bytes']))
+    if lock.get('generated_source_files'):
+        actual={p.relative_to(source).as_posix():sha256(p) for p in source.rglob('*') if p.is_file()}
+        extra=set(actual)-set(provenance['files'])
+        if extra!=set(lock['generated_source_files']) or any(actual[n]!=d for n,d in provenance['files'].items()):
+            raise ValueError('unexpected generated native source inventory')
+        allowed={'src/pdm/VERSION':(lock['expected_version']+'\n').encode(),
+            '.pdm-build/.gitignore':('*'+os.linesep).encode(),
+            '.pdm-build/_editable_impl_pdm.pth':str(source/'src').encode()}
+        if extra!=set(allowed) or any((source/n).read_bytes()!=raw for n,raw in allowed.items()):
+            raise ValueError('generated native backend file content differs from declared semantics')
+        immutable_json(RAW/project/'native-generated-source.json',dict(schema_version=1,
+            primary_source_provenance_sha256=sha256(package/'source-provenance.json'),
+            generated_files={n:dict(sha256=actual[n]) for n in sorted(extra)}))
     if measure(target)['total_bytes']>256*1024**2:raise ValueError('native runtime forecast exceeded')
     # Copy reviewed inputs only. A native argv/EOF profile is explicit, with the
     # canonical spec, actual native spec and every exact fixture byte bound.
@@ -145,6 +163,9 @@ async def main(project='jrnl'):
     for case in declaration['cases']:
         spec=json.loads((package/case['spec']).read_text())
         spec['command'][0]=os.path.relpath(python,contracts).replace('\\','/')
+        if lock.get('explicit_python_wizard_profile'):
+            from next20_python_host_profile import wizard_profile
+            spec=wizard_profile(spec,case,python,host)
         if project=='jrnl' and host=='linux' and case['id']=='N06':
             steps=spec['steps'];index=next(i for i,s in enumerate(steps) if s.get('key')=='CtrlZ')
             if steps[index+1]!={'key':'Enter'}:raise ValueError('native EOF control group changed')
@@ -165,4 +186,8 @@ async def main(project='jrnl'):
     print('Prepared reviewed native',project,'runtime and exact host profile:',host,'twenty cases; no execution/admission credit.')
 
 
-if __name__=='__main__':asyncio.run(main())
+if __name__=='__main__':
+    import argparse
+    parser=argparse.ArgumentParser();parser.add_argument('--project',default='jrnl');args=parser.parse_args()
+    if '/' in args.project or '\\' in args.project or not (DOC/args.project/'source-provenance.json').is_file():raise ValueError('undeclared project')
+    asyncio.run(main(args.project))

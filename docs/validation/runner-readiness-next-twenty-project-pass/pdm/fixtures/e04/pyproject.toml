@@ -1,0 +1,18 @@
+[project]
+name = "old-notes"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    {name = "Ada",email = "ada@example.invalid"},
+]
+dependencies = ["packaging>=22"]
+requires-python = ">=3.10"
+readme = "README.md"
+license = "MIT"
+
+
+[tool.pdm]
+distribution = false
+
+[tool.synthetic]
+marker = "keep"

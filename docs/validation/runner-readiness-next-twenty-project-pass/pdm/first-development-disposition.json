@@ -1,0 +1,41 @@
+{
+  "all20_target_and_workspace_cleanup_confirmed": true,
+  "failed": 5,
+  "first_summary": "pdm/development/1486ad5574d54c3fb1aea943b79ca7a0/summary.json",
+  "first_summary_sha256": "332e40b8b2d7f65c597c5d4844a8e0c2faeb4a0e66106e060e01ae6000ab6a41",
+  "original_inputs_sha256": "106266329cbfd4d75742891b1bbf1b1b47f0a4f1aa5d5f3ae4719099eddd6c3f",
+  "passed": 15,
+  "pending_failure": {
+    "actual_category": "unexpected_exit",
+    "actual_target_error": "TypeError: super(type, obj): obj must be an instance or subtype of type",
+    "case": "N06",
+    "final_credit": 0,
+    "owner": "target/dependency investigation pending actual traceback"
+  },
+  "preserved_original_inputs": "pdm/declaration-review/v1",
+  "revisions": [
+    {
+      "after_sha256": "fdeb833f689c736610c2739707d731bda831ebceb5c1b017cbd49513b0e8efc8",
+      "before_sha256": "52a8cd39b872afd7af2e688d44257b01cbb9899b1fed332b8850728beaf20571",
+      "case": "N02"
+    },
+    {
+      "after_sha256": "127bf36f28446f45a02feb8b4c7b9ca7338c9233d9a281df07fcdecd31914a0f",
+      "before_sha256": "de1587a6f92d420f7ac40ba8523496f2d05fd01b4ac64b0748406069cba79e82",
+      "case": "N04"
+    },
+    {
+      "after_sha256": "4c1c4a04bff4487c1a674f289704098a19a5273eb54218100945715b9b40a489",
+      "before_sha256": "581c9879feed75309004716b63e634a555ad78f5e471979b6b22dc1abbbd6dc3",
+      "case": "N08"
+    },
+    {
+      "after_sha256": "55eed8429a27dae565719627b888344e1b0185a868247f886d3b6f02945638b3",
+      "before_sha256": "4c49f770045f875e2273f1528076be6bead53d276da65a3c3450947a727a0b9f",
+      "case": "E06"
+    }
+  ],
+  "schema_version": 1,
+  "scope": "Four proven case-authoring fixes,not product repairs. No target/source/dependency change or false success for the unresolved import. Original15/5 remains historical.",
+  "source_basis": "Pinned models/backends.py exposes pdm-backend,not pdm. Local template contains only its declared pyproject/README; it supplies no .gitignore. All already-passing file-byte oracles remain exact and unchanged."
+}

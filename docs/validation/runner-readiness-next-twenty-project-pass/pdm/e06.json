@@ -1,0 +1,172 @@
+{
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/pdm/venv-v2/Scripts/python.exe",
+    "-B",
+    "-m",
+    "pdm",
+    "init",
+    "--name",
+    "synthetic-notes",
+    "--python",
+    "C:\\Users\\abhir\\OneDrive\\Documents\\playtestr\\artifacts\\runner-readiness-next-twenty-project-pass\\active\\pdm\\venv-v2\\Scripts\\python.exe",
+    "--no-git",
+    "--skip",
+    ":all",
+    "--backend",
+    "pdm-backend",
+    "default"
+  ],
+  "env": {
+    "GIT_CONFIG_COUNT": "2",
+    "GIT_CONFIG_GLOBAL": "nul",
+    "GIT_CONFIG_KEY_0": "user.name",
+    "GIT_CONFIG_KEY_1": "user.email",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_CONFIG_VALUE_0": "Synthetic User",
+    "GIT_CONFIG_VALUE_1": "synthetic@example.invalid",
+    "PDM_CHECK_UPDATE": "false",
+    "PDM_IGNORE_ACTIVE_VENV": "1",
+    "PDM_USE_VENV": "false",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONIOENCODING": "utf-8"
+  },
+  "height": 30,
+  "max_output_bytes": 2000000,
+  "name": "Enter a long description through narrow and widened viewports",
+  "run_timeout_ms": 120000,
+  "steps": [
+    {
+      "expect": "Project version"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Project description"
+    },
+    {
+      "resize": {
+        "height": 12,
+        "width": 40
+      }
+    },
+    {
+      "text": "Long reviewed description wrapped words wrapped words wrapped words wrapped words wrapped words wrapped words wrapped words wrapped words wrapped words"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "License"
+    },
+    {
+      "resize": {
+        "height": 30,
+        "width": 100
+      }
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Author name"
+    },
+    {
+      "text": "Ada"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Author email"
+    },
+    {
+      "text": "ada@example.invalid"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Python requires"
+    },
+    {
+      "text": ">=3.10"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Project is initialized successfully"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "W3Byb2plY3RdDQpuYW1lID0gInN5bnRoZXRpYy1ub3RlcyINCnZlcnNpb24gPSAiMC4xLjAiDQpkZXNjcmlwdGlvbiA9ICJMb25nIHJldmlld2VkIGRlc2NyaXB0aW9uIHdyYXBwZWQgd29yZHMgd3JhcHBlZCB3b3JkcyB3cmFwcGVkIHdvcmRzIHdyYXBwZWQgd29yZHMgd3JhcHBlZCB3b3JkcyB3cmFwcGVkIHdvcmRzIHdyYXBwZWQgd29yZHMgd3JhcHBlZCB3b3JkcyB3cmFwcGVkIHdvcmRzIg0KYXV0aG9ycyA9IFsNCiAgICB7bmFtZSA9ICJBZGEiLGVtYWlsID0gImFkYUBleGFtcGxlLmludmFsaWQifSwNCl0NCmRlcGVuZGVuY2llcyA9IFtdDQpyZXF1aXJlcy1weXRob24gPSAiPj0zLjEwIg0KcmVhZG1lID0gIlJFQURNRS5tZCINCmxpY2Vuc2UgPSAiTUlUIg0KDQpbYnVpbGQtc3lzdGVtXQ0KcmVxdWlyZXMgPSBbInBkbS1iYWNrZW5kIl0NCmJ1aWxkLWJhY2tlbmQgPSAicGRtLmJhY2tlbmQiDQoNCg0KW3Rvb2wucGRtXQ0KZGlzdHJpYnV0aW9uID0gdHJ1ZQ0K",
+        "kind": "file",
+        "path": "pyproject.toml"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "IyBzeW50aGV0aWMtbm90ZXMNCg==",
+        "kind": "file",
+        "path": "README.md"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "",
+        "kind": "file",
+        "path": "src/synthetic_notes/__init__.py"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "",
+        "kind": "file",
+        "path": "tests/__init__.py"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "dW5yZWxhdGVkIHN5bnRoZXRpYyBkYXRhCg==",
+        "kind": "file",
+        "path": "sentinel.txt"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "W2NvcmVdCglyZXBvc2l0b3J5Zm9ybWF0dmVyc2lvbiA9IDAKCWJhcmUgPSBmYWxzZQpbdXNlcl0KCW5hbWUgPSBTeW50aGV0aWMgVXNlcgoJZW1haWwgPSBzeW50aGV0aWNAZXhhbXBsZS5pbnZhbGlkCg==",
+        "kind": "file",
+        "path": ".git/config"
+      }
+    },
+    {
+      "state": {
+        "entries": [
+          ".git",
+          ".gitignore",
+          ".pdm-python",
+          "README.md",
+          "pyproject.toml",
+          "sentinel.txt",
+          "src",
+          "tests"
+        ],
+        "kind": "entries",
+        "path": "."
+      }
+    }
+  ],
+  "timeout_ms": 10000,
+  "version": 3,
+  "width": 80,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/e06",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

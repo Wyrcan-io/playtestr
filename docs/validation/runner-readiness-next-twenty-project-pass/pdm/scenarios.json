@@ -1,0 +1,484 @@
+{
+  "all_scenarios_qualified": false,
+  "cases": [
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 30,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N01",
+      "initial_fixture": "fixture",
+      "kind": "normal",
+      "native_generated_text_paths": [
+        "pyproject.toml"
+      ],
+      "oracle": "Independently authored exact complete TOML/generated source/readme bytes, initial-file/Git/sentinel preservation and precise directory entries in this invocation.",
+      "risk": "Exact first public TOML and rendered screen",
+      "spec": "normal-minimal-runtime-v2.json",
+      "spec_sha256": "997d2d5d4f65f70ab71ba7cad02d7ce38aa12a474ffb8cf473a0efca3ad0d204",
+      "task": "Create a minimal application through public review/replay/export",
+      "width": 120
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 30,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N02",
+      "initial_fixture": "fixtures/n02",
+      "kind": "normal",
+      "native_generated_text_paths": [
+        "pyproject.toml",
+        "README.md",
+        "src/synthetic_notes/__init__.py",
+        "tests/__init__.py"
+      ],
+      "oracle": "Independently authored exact complete TOML/generated source/readme bytes, initial-file/Git/sentinel preservation and precise directory entries in this invocation.",
+      "risk": "New package tree,README and build metadata",
+      "spec": "n02.json",
+      "spec_sha256": "c4ab86b710e1b44a97d9ef5583ae0a449797d34c65b7c21cda78840ea14b67fb",
+      "task": "Create a distributable source package with the PDM backend",
+      "width": 120
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 30,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N03",
+      "initial_fixture": "fixtures/n03",
+      "kind": "normal",
+      "native_generated_text_paths": [
+        "pyproject.toml"
+      ],
+      "oracle": "Independently authored exact complete TOML/generated source/readme bytes, initial-file/Git/sentinel preservation and precise directory entries in this invocation.",
+      "risk": "Existing project update retains dependencies and unrelated settings",
+      "spec": "n03.json",
+      "spec_sha256": "a69d83774964769f6c087cc1c7e9be8dbd5370d71e4bcc6af3cb170a6405b325",
+      "task": "Update project identity/version while preserving declared dependencies",
+      "width": 120
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 30,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N04",
+      "initial_fixture": "fixtures/n04",
+      "kind": "normal",
+      "native_generated_text_paths": [
+        "pyproject.toml",
+        "README.md"
+      ],
+      "oracle": "Independently authored exact complete TOML/generated source/readme bytes, initial-file/Git/sentinel preservation and precise directory entries in this invocation.",
+      "risk": "Local template merge without Git/network/commands",
+      "spec": "n04.json",
+      "spec_sha256": "2c61447e5e6b7fcb0b84196cd71f2cce29bf36fc477fb8594c71f7a273485703",
+      "task": "Initialize from a reviewed local template and rename its README",
+      "width": 120
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 30,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N05",
+      "initial_fixture": "fixtures/n05",
+      "kind": "normal",
+      "native_generated_text_paths": [
+        "pyproject.toml",
+        "packages/child/pyproject.toml"
+      ],
+      "oracle": "Independently authored exact complete TOML/generated source/readme bytes, initial-file/Git/sentinel preservation and precise directory entries in this invocation.",
+      "risk": "Parent/child writes and inherited Python requirement",
+      "spec": "n05.json",
+      "spec_sha256": "2240a92f8fabe46375cf6f22c5192a692ead11a9103e3092ca64ae438839ccaf",
+      "task": "Create a child project and persist parent workspace membership",
+      "width": 120
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 30,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N06",
+      "initial_fixture": "fixtures/n06",
+      "kind": "normal",
+      "native_generated_text_paths": [
+        "pyproject.toml"
+      ],
+      "oracle": "Independently authored exact complete TOML/generated source/readme bytes, initial-file/Git/sentinel preservation and precise directory entries in this invocation.",
+      "risk": "A second metadata-changing import without package installation",
+      "spec": "n06.json",
+      "spec_sha256": "cb9715d3f8289c4d8be7dab054ce0a8a726a8b0177db29e53a10709b371174f9",
+      "task": "Initialize then import a synthetic requirements file interactively",
+      "width": 120
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 0,
+      "height": 30,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N07",
+      "initial_fixture": "fixtures/n07",
+      "kind": "normal",
+      "native_generated_text_paths": [
+        "pyproject.toml"
+      ],
+      "oracle": "Independently authored exact complete TOML/generated source/readme bytes, initial-file/Git/sentinel preservation and precise directory entries in this invocation.",
+      "risk": "License file representation and unrelated legal bytes remain intact",
+      "spec": "n07.json",
+      "spec_sha256": "ad83113439a73dabb4bf39b7f3ebba48b1fd3ec699283e595b00e3d74eff9189",
+      "task": "Update a project retaining its declared license-file table",
+      "width": 120
+    },
+    {
+      "combined_risks": [],
+      "excluded_original_workflow": "Explicit --overwrite is broken on this pin; original failed case/reports retained and never credited as successful overwrite.",
+      "expected_exit": 0,
+      "height": 30,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "N08",
+      "initial_fixture": "fixtures/n08",
+      "kind": "normal",
+      "native_generated_text_paths": [
+        "pyproject.toml",
+        "src/synthetic_notes/__init__.py",
+        "tests/__init__.py"
+      ],
+      "oracle": "Independently authored exact complete TOML/generated source/readme bytes, initial-file/Git/sentinel preservation and precise directory entries in this invocation.",
+      "risk": "Default non-overwrite branch preserves existing user content while writing new package/source metadata",
+      "spec": "n08.json",
+      "spec_sha256": "c1ee37c8787273a134564be638f29d03059e88d79036d88648bacb8a5fc0f0e3",
+      "task": "Generate a source package while preserving an existing owned README",
+      "width": 120
+    },
+    {
+      "combined_risks": [
+        "invalid-name recovery",
+        "resize",
+        "saved-state"
+      ],
+      "expected_exit": 0,
+      "height": 30,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E01",
+      "initial_fixture": "fixtures/e01",
+      "kind": "edge",
+      "native_generated_text_paths": [
+        "pyproject.toml"
+      ],
+      "oracle": "Independently authored exact complete TOML/generated source/readme bytes, initial-file/Git/sentinel preservation and precise directory entries in this invocation.",
+      "risk": "Validation/re-entry and resize preserve exact metadata",
+      "spec": "e01.json",
+      "spec_sha256": "711b97b1194c4fa85a249dc6ecb028d7a21dad7af38184d36d79a320e3353c22",
+      "task": "Correct an invalid project name across a viewport resize",
+      "width": 120
+    },
+    {
+      "combined_risks": [
+        "invalid-specifier",
+        "existing-state preservation"
+      ],
+      "expected_exit": 1,
+      "height": 30,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E02",
+      "initial_fixture": "fixtures/e02",
+      "kind": "edge",
+      "native_generated_text_paths": [],
+      "oracle": "Independently authored exact complete TOML/generated source/readme bytes, initial-file/Git/sentinel preservation and precise directory entries in this invocation.",
+      "risk": "Late validation preserves prior configuration and sentinel",
+      "spec": "e02.json",
+      "spec_sha256": "716ce689152a793020cac516cfab4913acbd414754ae4e631d1452503d9f3eb1",
+      "task": "Reject an invalid Python requirement without rewriting existing metadata",
+      "width": 120
+    },
+    {
+      "combined_risks": [
+        "interrupt",
+        "small viewport",
+        "absence oracle"
+      ],
+      "expected_exit": 3221225786,
+      "height": 12,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E03",
+      "initial_fixture": "fixtures/e03",
+      "kind": "edge",
+      "native_exit_profile": {
+        "linux": 130,
+        "windows": 3221225786
+      },
+      "native_generated_text_paths": [],
+      "oracle": "Independently authored exact complete TOML/generated source/readme bytes, initial-file/Git/sentinel preservation and precise directory entries in this invocation.",
+      "risk": "Native interrupt before project write",
+      "spec": "e03.json",
+      "spec_sha256": "9d6af66c938a212f68e81a5511074bb77db0d1179756908b3b884f72ff5433d2",
+      "task": "Cancel the first metadata prompt in a small viewport",
+      "width": 60
+    },
+    {
+      "combined_risks": [
+        "late interrupt",
+        "resize",
+        "existing configuration"
+      ],
+      "expected_exit": 3221225786,
+      "height": 30,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E04",
+      "initial_fixture": "fixtures/e04",
+      "kind": "edge",
+      "native_exit_profile": {
+        "linux": 130,
+        "windows": 3221225786
+      },
+      "native_generated_text_paths": [],
+      "oracle": "Independently authored exact complete TOML/generated source/readme bytes, initial-file/Git/sentinel preservation and precise directory entries in this invocation.",
+      "risk": "Interrupt after input/resize does not commit partial metadata",
+      "spec": "e04.json",
+      "spec_sha256": "0fbf3c3382dce289ed0b3a35c77f4d8cad2aa2b63d6e558a9ea7818e8d678e83",
+      "task": "Cancel late in metadata entry while preserving an existing project",
+      "width": 120
+    },
+    {
+      "combined_risks": [
+        "Unicode input",
+        "native text-file bytes"
+      ],
+      "expected_exit": 0,
+      "height": 30,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E05",
+      "initial_fixture": "fixtures/e05",
+      "kind": "edge",
+      "native_generated_text_paths": [
+        "pyproject.toml"
+      ],
+      "oracle": "Independently authored exact complete TOML/generated source/readme bytes, initial-file/Git/sentinel preservation and precise directory entries in this invocation.",
+      "risk": "UTF-8 text input and exact native file bytes",
+      "spec": "e05.json",
+      "spec_sha256": "c8286e21afbe9943c78f9f989b2b1cde3f124ef8f0b70c8d4b2b0280bf0472a8",
+      "task": "Save a Unicode author exactly",
+      "width": 120
+    },
+    {
+      "combined_risks": [
+        "long input",
+        "wrap",
+        "resize",
+        "saved package"
+      ],
+      "expected_exit": 0,
+      "height": 30,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E06",
+      "initial_fixture": "fixtures/e06",
+      "kind": "edge",
+      "native_generated_text_paths": [
+        "pyproject.toml",
+        "README.md",
+        "src/synthetic_notes/__init__.py",
+        "tests/__init__.py"
+      ],
+      "oracle": "Independently authored exact complete TOML/generated source/readme bytes, initial-file/Git/sentinel preservation and precise directory entries in this invocation.",
+      "risk": "Wrapping/resize retains complete input and generated package bytes",
+      "spec": "e06.json",
+      "spec_sha256": "f841034db830f5b7ffda282178df95b0b8aadb601e483a9db1b3ac0c59e1e8ec",
+      "task": "Enter a long description through narrow and widened viewports",
+      "width": 80
+    },
+    {
+      "combined_risks": [
+        "metacharacters",
+        "exact file bytes",
+        "unrelated-file preservation"
+      ],
+      "expected_exit": 0,
+      "height": 30,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E07",
+      "initial_fixture": "fixtures/e07",
+      "kind": "edge",
+      "native_generated_text_paths": [
+        "pyproject.toml"
+      ],
+      "oracle": "Independently authored exact complete TOML/generated source/readme bytes, initial-file/Git/sentinel preservation and precise directory entries in this invocation.",
+      "risk": "Metacharacters never invoke a shell or rewrite unrelated data",
+      "spec": "e07.json",
+      "spec_sha256": "9ca6a36ef75173549cdf7044088846b3dd5d8c1f0c4c9e0f12fb3583eb432a38",
+      "task": "Treat shell-looking author text as literal saved metadata",
+      "width": 120
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 1,
+      "height": 30,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E08",
+      "initial_fixture": "fixtures/e08",
+      "kind": "edge",
+      "native_generated_text_paths": [],
+      "oracle": "Independently authored exact complete TOML/generated source/readme bytes, initial-file/Git/sentinel preservation and precise directory entries in this invocation.",
+      "risk": "Local error after prompts, with no remote fallback",
+      "spec": "e08.json",
+      "spec_sha256": "3aedab20699acd5c383adf07d68a9711c1438baa1c8d335e156ef451e38f0c8f",
+      "task": "Reject a local template without project metadata",
+      "width": 120
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 1,
+      "height": 30,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E09",
+      "initial_fixture": "fixtures/e09",
+      "kind": "edge",
+      "native_generated_text_paths": [],
+      "oracle": "Independently authored exact complete TOML/generated source/readme bytes, initial-file/Git/sentinel preservation and precise directory entries in this invocation.",
+      "risk": "Startup parse failure preserves exact original bytes",
+      "spec": "e09.json",
+      "spec_sha256": "94bdb4e4ce3543a0c7d9f6479c28bcf21468c07976d0ff5ac7b89b11eba832ea",
+      "task": "Reject malformed existing TOML without modifying it",
+      "width": 120
+    },
+    {
+      "combined_risks": [
+        "malformed template",
+        "Unicode input",
+        "no partial output"
+      ],
+      "expected_exit": 1,
+      "height": 30,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E10",
+      "initial_fixture": "fixtures/e10",
+      "kind": "edge",
+      "native_generated_text_paths": [],
+      "oracle": "Independently authored exact complete TOML/generated source/readme bytes, initial-file/Git/sentinel preservation and precise directory entries in this invocation.",
+      "risk": "Parse failure,Unicode and owned template cleanup",
+      "spec": "e10.json",
+      "spec_sha256": "a0d72304d8cff9678ae5545cc8aee6f8e58e8ea25c3a9b74d1c220f6002e8ff0",
+      "task": "Reject malformed local-template TOML after Unicode metadata input",
+      "width": 120
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 1,
+      "height": 30,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E11",
+      "initial_fixture": "fixtures/e11",
+      "kind": "edge",
+      "native_eof_profile": {
+        "linux": [
+          "CtrlD"
+        ],
+        "windows": [
+          "CtrlZ",
+          "Enter"
+        ]
+      },
+      "native_generated_text_paths": [],
+      "oracle": "Independently authored exact complete TOML/generated source/readme bytes, initial-file/Git/sentinel preservation and precise directory entries in this invocation.",
+      "risk": "EOF/error distinction and no project output",
+      "spec": "e11.json",
+      "spec_sha256": "be9cca0d30f2b25463799ba4a86fbeda253dcb78d8958e459c28e592ef652d7e",
+      "task": "Handle native EOF at a live prompt",
+      "width": 120
+    },
+    {
+      "combined_risks": [],
+      "expected_exit": 1,
+      "height": 30,
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "id": "E12",
+      "initial_fixture": "fixtures/e12",
+      "kind": "edge",
+      "native_generated_text_paths": [],
+      "oracle": "Independently authored exact complete TOML/generated source/readme bytes, initial-file/Git/sentinel preservation and precise directory entries in this invocation.",
+      "risk": "Directory collision remains untouched and target exits accurately",
+      "spec": "e12.json",
+      "spec_sha256": "0a8cca543d756920aa3113b39fc36639b3c1bcf64818409fd33f01b7b71888d4",
+      "task": "Reject a directory where pyproject.toml must be a file",
+      "width": 120
+    }
+  ],
+  "development_revision": 4,
+  "edge": 12,
+  "evidence_retention_disposition": "development-evidence-retention-disposition.json",
+  "first_development_disposition": "first-development-disposition.json",
+  "historical_evidence_retention_complete": false,
+  "normal": 8,
+  "oracle": "Complete expected TOML and generated file bytes independently authored from reviewed templates/values; no target writer computes assertions. Original public route remains unchanged. Native newline changes are restricted to each declared generated path.",
+  "pending_import_diagnosis": false,
+  "project": "pdm",
+  "public_current_runtime_requalification": "first-use-runtime-v2.json",
+  "real_faults_selected_after_freeze": 0,
+  "runtime_compatibility_declaration": "runtime-compatibility-v2.json",
+  "runtime_revision": 2,
+  "schema_version": 1,
+  "source_pin": "201bdc719c15a7c86cc305c0c788fe9cbdef15c3",
+  "unsupported_upstream_workflow": "Explicit overwrite recursively drops the overwrite flag; no overwrite compatibility claim."
+}

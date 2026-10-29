@@ -14,6 +14,7 @@ from next20_check import RAW,ROOT,DOC,NextCampaign
 from next20_python_setup import environment
 from readiness_evidence import immutable_json,sha256
 from next20_candidate import executable,SERIES
+from next20_python_runtime import python_runtime_root
 
 
 def segmented_steps(original, readiness=False):
@@ -52,7 +53,7 @@ async def main(project='jrnl',batch=None,candidate_series='rc5',chunk_readiness=
     if kind not in {'python','node','native'}:raise ValueError('Undeclared final runtime kind')
     python=Path(runtime[kind]);executable_sha256=runtime[kind+'_sha256']
     installed=json.loads((source/'installed-inventory.json').read_text());inventory=installed['files']
-    original_runtime=ROOT/installed['runtime_root'] if kind!='python' else source/'venv'
+    original_runtime=ROOT/installed['runtime_root'] if kind!='python' else python_runtime_root(source,runtime)
     original_runtime.resolve(strict=True).relative_to(source.resolve(strict=True))
     if kind!='python':inventory={**inventory,**json.loads((source/'build.json').read_text())['compiled_files']}
     def dependencies():
@@ -91,6 +92,11 @@ async def main(project='jrnl',batch=None,candidate_series='rc5',chunk_readiness=
         before=package/case['spec'];value=json.loads(before.read_text())
         if sha256(canonical/case['spec'])!=case['spec_sha256']:raise ValueError('native base contract changed')
         value['command'][0]=os.path.relpath(python,package).replace('\\','/')
+        if kind=='python' and '--python' in value['command']:
+            index=value['command'].index('--python')+1
+            if Path(value['command'][index]).resolve()!=Path(runtime['python']).resolve():
+                raise ValueError('explicit Python selection differs from declared source runtime')
+            value['command'][index]=str(python)
         if kind=='node':
             old='../'+runtime['app_relative_path']+'/'+runtime['entrypoint']
             if value['command'][2].count(old)!=1:raise ValueError('Canonical Node entry routing changed')

@@ -2273,3 +2273,74 @@ of overwriting the earlier source-tree receipt. Prior jrnl/Commitizen defaults s
 Current full40 local helper controls passedf194acb506dc4a91a3acd13f21a1c1d2;
 later small PDM setup/review branches syntax-checked, native source-matched helper
 validation will follow the next push. Cargo source/runtime remains absent.
+
+## PDM continuation: local supported contracts frozen
+
+Supersedes the earlier source-only status, preserving that historical observation.
+PDM is the only active external target. Offline reviewed installation completed;
+initial unearth0.19/httpx2 requirements-import failure remains preserved. A separate
+venv-v2 uses upstream-lock unearth0.18.2/hishel1.2.1; original venv remains intact.
+Activation12a5becb8b0242bab200ee23c379b089 records both selectors. Current runtime
+SHA3642b0cb0ca0c5a2d2165f622f779103e5e51603f86633c1955c1140427ea4b0;
+buildSHA70cf7959b5b46f0af97fa90886752c2f29b81e5bd9bbdd2db41a52e47f893cbd.
+Public first route9b188e4cc41c4c1391625f19d5b4c116 and compatible-runtime repeat
+d7201bea9d7a440cad3decc47866c49a each passed3commands/20controls, zero human study.
+
+Development windows15/5,17/3 and20/0 remain separate. Latest actual series
+20a5264753b44291bba88a8f4a50bcfa completed all20 with confirmed cleanup,
+wrapper75ba6528f20244ddbd55b3c8451e8cf6. Corrected authored backend flags/root
+entries/TOML blank lines; compatible runtime retains requirements-import workflow.
+Explicit README overwrite is an upstream limitation, failed and excluded; revised
+N08 asserts supported preservation without --overwrite. No target/product patch.
+
+Three first-window invalid-backend screens were overwritten by the legacy shared
+screen path during the second failed window. Original reports/inputs/consoles remain,
+but original frame bytes are unavailable. disposition.json explicitly records this;
+PDM admission remains open, historical_evidence_retention_complete=false. Shared
+development helper now supplies unique --artifacts-dir. Actual real-PTY collision/
+repair control32fcc3411729443da83940ccdc38f569 passed, zero app/whole credit.
+
+Source generated-file audit initially refused hidden .pdm-build files/newline
+assumptions (8f83a7c6423949818e8699bce05157f3,8bdbedbfedae444d8f9cd9c88641b184,
+8bb0c7a021814502b482729ef6158aba). Actual native read inspected all3 generated
+files. Corrected audit28a32c69b2d14b38818a6eaee88fc441 verifies402 primary Git
+blobs unchanged, VERSION with LF, .pdm-build/.gitignore with CRLF and the exact
+owned editable .pth path (no import). runtime-generated-source.json binds these
+separately. Do not repeat the earlier mistaken CRLF VERSION assumption.
+
+Freeze2dd89d67f2d04645a78bbbe21c6fc0af binds98 exact inputs plus directories;
+selectionff57db13f05a4f20aae891bf1684f18a followed it. Three actual source faults
+wrong prompt/unexpected7/wrong saved name completed9 pristine/mutation/restored
+calibrations on rc.6, wrapper32de57ae43c842ccad69d7b2ae6bf1f6. Exact source
+restoration confirmed; no final repetition/admission credit. Candidate-aware shared
+fault helper retains rc.5 default. Native wizard profile preparation is in progress;
+only declared generated text paths may convert CRLF to LF, preserved fixtures must
+retain bytes, explicit --python must bind selected runtime, Unix EOF/cancel explicit.
+
+Storage6514f571578d492fa8fe613dc9efcfbf: newraw1,126,160,224;
+combinedraw3,034,868,796;combinedretained1,472,203,336;PDMretained1,624,211;
+newcurated3,279,986;combinedcurated14,936,230. All current caps passed; logical
+observation, not peak. Historical transient Cargo breach remains recorded.
+
+No PDM native job/final repetition/admission yet. All earlier campaign global
+gates remain open. Continue scoped engineering; do not stop at this checkpoint.
+
+Prepared one explicitly dispatched Linux development preflight (no final credit),
+declarationc320e3aff3be4b88a9fe8ea365388f31. StandardUbuntu24.04,30minutejob
+ceiling,6minuteestimate; automatic3host harnesspushjobs ceiling5each/maxparallel2.
+Exact dependency version lock retains both upstream-lock corrections and primary
+native-wheel digest checks. Generated-source cleanup is explicit and additive;
+the default still refuses any changed/extra source. Pure controls reject overlapping
+primary/generated paths and preserve non-generated file bytes. Full44controls
+passed62449a42fab249ddb4c936ed124e6413; actualworkflow actionlint passed
+97859c891f774c98925d59546a52aa3e. No Go production source changed.
+
+Ordinary git add encountered the synthetic empty .git boundaries; it failed on
+directory staging and silently omitted their child files even when listed. No
+fixture/Git directory was moved or removed. Explicit frozen-blob index staging
+626768e840fd4391a4d5f296301165cc verified all98 current inputs, staged33 ordinary
+fixture blobs and read each back byte-exactly. .git payloads stay solely in the
+serialized fixture-git recipe; native preparation reconstructs them before checking
+the freeze. Empty fixture directories likewise reconstruct from frozen directories.
+Push the scoped commit, dispatch the prepared preflight and monitor actual native
+source/results; don't infer platform success from configuration.

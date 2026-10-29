@@ -1,0 +1,11 @@
+--- a/src/pdm/cli/templates/__init__.py
++++ b/src/pdm/cli/templates/__init__.py
+@@ -170,7 +170,7 @@
+         elif not has_existing_build_system:
+             content.pop("build-system", None)
+         with open(path, "w", encoding="utf-8") as fp:
+-            fp.write(tomlkit.dumps(content))
++            fp.write(tomlkit.dumps(content).replace('name = "synthetic-notes"', 'name = "wrong-notes"', 1))
+ 
+     def _prepare_package_template(self, import_name: str) -> None:
+         files = importlib.resources.files(import_name)

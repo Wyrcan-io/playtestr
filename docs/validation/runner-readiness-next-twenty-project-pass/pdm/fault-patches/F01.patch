@@ -1,0 +1,11 @@
+--- a/src/pdm/cli/commands/init.py
++++ b/src/pdm/cli/commands/init.py
+@@ -165,7 +165,7 @@
+             name = options.name
+         else:
+             name = self.ask_project(project, existing_project.get("name"))
+-        version = self.ask("Project version", options.project_version or existing_project.get("version", "0.1.0"))
++        version = self.ask("Workspace version", options.project_version or existing_project.get("version", "0.1.0"))
+         is_dist = options.dist or bool(options.backend) or bool(existing_settings.get("distribution", False))
+         if not (options.dist or options.backend) and self.interactive:
+             is_dist = termui.confirm(

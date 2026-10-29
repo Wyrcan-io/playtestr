@@ -1,0 +1,119 @@
+{
+  "version": 3,
+  "name": "recorded interaction",
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/pdm/venv-v2/Scripts/python.exe",
+    "-B",
+    "-m",
+    "pdm",
+    "init",
+    "--name",
+    "synthetic-notes",
+    "--python",
+    "C:\\Users\\abhir\\OneDrive\\Documents\\playtestr\\artifacts\\runner-readiness-next-twenty-project-pass\\active\\pdm\\venv-v2\\Scripts\\python.exe",
+    "--no-git",
+    "--skip",
+    ":all",
+    "minimal"
+  ],
+  "workspace": {
+    "fixture": "fixture",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "GIT_CONFIG_COUNT": "2",
+    "GIT_CONFIG_GLOBAL": "nul",
+    "GIT_CONFIG_KEY_0": "user.name",
+    "GIT_CONFIG_KEY_1": "user.email",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_CONFIG_VALUE_0": "Synthetic User",
+    "GIT_CONFIG_VALUE_1": "synthetic@example.invalid",
+    "PDM_CHECK_UPDATE": "false",
+    "PDM_IGNORE_ACTIVE_VENV": "1",
+    "PDM_USE_VENV": "false",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONIOENCODING": "utf-8"
+  },
+  "width": 120,
+  "height": 30,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Project version"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "text": "Ada"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "text": "ada@example.invalid"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "text": "\u003e=3.10"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Project is initialized successfully"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "snapshot": "normal-minimal-runtime-v2.txt"
+    },
+    {
+      "state": {
+        "path": "pyproject.toml",
+        "kind": "file",
+        "bytes_base64": "W3Byb2plY3RdDQpuYW1lID0gInN5bnRoZXRpYy1ub3RlcyINCnZlcnNpb24gPSAiMC4xLjAiDQpkZXNjcmlwdGlvbiA9ICJEZWZhdWx0IHRlbXBsYXRlIGZvciBQRE0gcGFja2FnZSINCmF1dGhvcnMgPSBbDQogICAge25hbWUgPSAiQWRhIixlbWFpbCA9ICJhZGFAZXhhbXBsZS5pbnZhbGlkIn0sDQpdDQpkZXBlbmRlbmNpZXMgPSBbXQ0KcmVxdWlyZXMtcHl0aG9uID0gIj49My4xMCINCnJlYWRtZSA9ICJSRUFETUUubWQiDQpsaWNlbnNlID0gIk1JVCINCg0KDQpbdG9vbC5wZG1dDQpkaXN0cmlidXRpb24gPSBmYWxzZQ0K"
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "dW5yZWxhdGVkIHN5bnRoZXRpYyBkYXRhCg=="
+      }
+    },
+    {
+      "state": {
+        "path": ".git/config",
+        "kind": "file",
+        "bytes_base64": "W2NvcmVdCglyZXBvc2l0b3J5Zm9ybWF0dmVyc2lvbiA9IDAKCWJhcmUgPSBmYWxzZQpbdXNlcl0KCW5hbWUgPSBTeW50aGV0aWMgVXNlcgoJZW1haWwgPSBzeW50aGV0aWNAZXhhbXBsZS5pbnZhbGlkCg=="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          ".git",
+          ".gitignore",
+          ".pdm-python",
+          "pyproject.toml",
+          "sentinel.txt"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "additional_terminal_only_calibrations_per_host": 0,
+  "exposure": "Reviewed source and development failures known; concrete edits selected after the frozen 20/0 development run. Historical screen gap remains open; no admission.",
+  "faults": [
+    {
+      "after": "\"Workspace version\"",
+      "before": "\"Project version\"",
+      "category": "assertion_timeout",
+      "id": "F01",
+      "meaning": "Wrong ready prompt prevents the approved input sequence.",
+      "path": "src/pdm/cli/commands/init.py"
+    },
+    {
+      "after": "    main()\n    raise SystemExit(7)\n",
+      "before": "    main()\n",
+      "category": "unexpected_exit",
+      "id": "F02",
+      "meaning": "Completed successful initialization incorrectly exits seven.",
+      "path": "src/pdm/__main__.py"
+    },
+    {
+      "after": "fp.write(tomlkit.dumps(content).replace('name = \"synthetic-notes\"', 'name = \"wrong-notes\"', 1))",
+      "before": "fp.write(tomlkit.dumps(content))",
+      "category": "state_assertion_failure",
+      "id": "F03",
+      "meaning": "The real TOML writer saves the wrong project name after normal terminal completion and zero exit.",
+      "path": "src/pdm/cli/templates/__init__.py"
+    }
+  ],
+  "primary_spec": "normal-minimal-runtime-v2.json",
+  "project": "pdm",
+  "required_calibrations_per_host": 9,
+  "schema_version": 1,
+  "selected_after_freeze_sha256": "c63e3c8dd5dd63c6d40cac91916013991e4445ceff37737a8d46021f844e6b61"
+}
