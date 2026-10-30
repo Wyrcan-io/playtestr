@@ -3163,3 +3163,79 @@ authorization remains. Continue all remaining14new apps/originalten/four and glo
 checks. Do not end at this or any project milestone.
 
 Update: full fixed-source race744297a6b909455184ac21b10ca4a003 PASSED all packages (runner316.466s,capture3.768s). Native60 helpertests1fe5ea42e8e7494e926179e88b1c9c60 passed39.326s. Final45minworkflow lint5c63743965ea48008c4efddf31f9696a passed. eecd57 Macv1149af18b28687e46e6b5dbe6f8652201c0 retained/expandedremoved; Winv115 stillnext. All execution source and binary restoration remain positive; commit/push Linux preflight now.
+
+
+2026-10-30 continuation: reviewed peco preflight slice COMMITTED/PUSHED at
+baead1b55fc61f5ffbbc959743e7f13bd1d924fc. Commit wrapper818f4d4409354829bff0cb282468da35;
+push eb110fa845e3446fb07da0be2fac6af7. First automatic commit review timed out
+before execution; its permitted one retry succeeded. No production Go change.
+
+Actual GitHub harness run41029750868 at that exact source completed SUCCESS on
+Linux job123976307471,Mac123976307396,Windows123976307539. Read-only connector
+job logs show60tests per host: Linux6.032s/skipped2,Mac4.954s/skipped2,
+Windows231.448s. Full artifact source audits/retention are still pending; these
+provider/log observations DO NOT replace the canonical harness collector.
+Artifact identities pending collection: Linux12964768740 ZIP488808 bytes
+b6074873ddf62e7fbe4fd7731fa6dce9c149e88a56dfa9a7bac02217f8426394;
+Mac12965013050 ZIP488887 bytes
+5f8ca2255a1414b21b91194ac2620d4c41ae18eee940f0b7db287caac9912f51;
+Win12964399981 ZIP682556 bytes
+c565628b442306700a19dcd176aba048aed6298e6f24123dc4cfba78719ca6ef.
+Next canonical generations remain115 for eecd Windows57,116-118 for baead60.
+No115 packet was created: automatic retention review timed out before execution
+and the one retry was rejected because selected review model is at capacity.
+
+Peco Linux workflow registered on push but correctly SKIPPED registration run
+41029750871. Dispatch itself DID NOT EXECUTE: first automatic review timed out;
+one retry rejected capacity. No actual Linux peco run exists yet. Native Windows
+maintenance escalation likewise rejected capacity before execution. Do not bypass
+review, ask quota again, claim these commands ran, or treat existing authorization
+as missing. User has already authorized commit/push/workflows/native checks.
+
+New uncommitted next20_peco_maintenance.py implements actual source-compiled
+selected-output diagnosis,intended/cancelled selective update,suffix rerecord,
+Unicode relocation and public free workflow generation. Three real variants built
+in first SANDBOXED window root peco/maintenance-6fb10b02df5f425090ce5d63fadf3d01,
+outer28b16aca3ecd4a75acb34052114ef11e. First diagnostic report was refused BEFORE
+TARGET LAUNCH by workspace_setup_failure/native path Access is denied. No failed
+terminal frame is expected because no target existed; no mutation-detection or
+cleanup credit. Source121 primary files and ordinary app restored EXACTLY. See
+peco/maintenance-prelaunch-disposition-v1.json. Preserve original3 compiled
+variants/receipts/report; run a separate native-permission window. Cleanup later
+must supply this original report digest via --unlaunched-report-sha256, in addition
+to the2 invalid-spec digests already in development disposition. Existing cleanup
+helper already validates this precise prelaunch refusal; no weakening required.
+
+Before final declaration I independently found N01 status right-alignment in
+pinned layout.go UserPrompt.Draw. Width100 to110 adds exactly10 interior spaces.
+New viewport-snapshot-declaration-v1.json and snapshots/normal-selection-width110.txt
+predeclare exact bytes but mark native validation PENDING. Original85-input freeze
+is untouched. New next20_batch_snapshots.py applies only explicitly hash-reviewed
+snapshots to copied execution packages; shared final helper defaults unchanged.
+Two meaningful pure regression methods pass054dffa21efe4fb8b73510bec8bc8b4d.
+New peco final-series helper prepared but NOT executed and no final declaration
+exists yet; requires Linux actual readback,maintenance,and viewport native probe.
+
+Attempted full62 helper suite in sandbox f7d37083b27b42de84e0cec2f550e3ff FAILED
+3 native checks: timeout-process cleanup unconfirmed and2 checked Windows fixture
+removals returned1. Preserve all originals/control-test directories; do NOT claim
+62-suite pass. Their native full-suite rerun remains required. Prior full60 native
+pass and hosted60 controls remain actual separate evidence. Final pure2 methods
+were rerun after a path-type guard correction. All706 acceptance Python sources
+AST parse. Production diff against515ffc excluding test Go files still EXIT0;
+private rc6 unchanged. Existing full race744297a6 remains successful.
+
+Storage b61a888895df465e9d56e8ee97bdacb7 passed: newraw1553095715,
+combinedraw3461804287,combinedretained1756535560,peco1411139,
+newcurated5254574,combinedcurated16910818. One active target peco; all caps pass.
+No cleanup/admission credit added. Current current-candidate new admissions still
+Cargo+Hatch only (960ordinary/36calibration); six historically admitted new identities.
+Peco slot7 stays unadmitted. Continue all20/global gates after service permits.
+Immediate resume: dispatch baead Linux dev; native maintenance v2; native62 suite;
+collect115 and116-118; exact110-column N01 native probe; Linux dev packet+audit;
+then finite final480/18/audits/modelcontrols/retention/cleanup/admit. Do NOT redo
+Hatch/Cargo/105 public controls/completed harness packets or acquire late four.
+
+Final local preparation: exact original maintenance-v1.py retained under peco/helper-source-revisions before adding explicit compiler/tool/module verification and discarded-snapshot export guard. New maintenance-helper-revision-v2.json binds both source hashes; current helper NOT natively executed. Final/batch-snapshot/maintenance helpers AST valid. No active tool sessions remain; all automatic review failures occurred before execution. Authorization unchanged; blocked actions must use approval review when resumed.
+
+2026-10-30 resumed native access works. Linux dev41040606396 sourcebaead passed preparation,20actual scenarios and corpus,then FAILED checked cleanup on read-only Go module-cache directory unlink. Original complete578logicalfiles/33841436bytes retainednative1 archive24406725bytes by a8cdfec53ee8494aa17a7e53bafdb838. Curated linux-development-cleanup-failure-v1.json preserves failure,0cleanupcredit. New bounded Unix directory permission preparation runs only after process/source/inventory proof and only beneath checked owned root; two real Unix regressions await hosted execution. NativeWindows64 helpertests6eee6fb96a2345e19f6bc7cc082dc81a passed63.709s/skipped2Unix; prior62 a18a83587c3d48ed900261d8fbf80a65 passed42.579s. Harness115eecdWindows closed867000bd94ba44fca8d6408357216a39;116baeadLinux closedaa212fa8854d4e079c63a840f8494f19;117Mac currently running40203. Native maintenancev2 f625430e8d874d49a9cdcf92e840cbcf built3variants but helper variable shadowing raised KeyError before targettests; exact helper-v2 bytes and compile receipts retained. Corrected inner module loop variable; fresh native maintenancev3 running85047. No final credit/admission change. Next commit/push cleanup fix, verify actual Unix controls, dispatch freshLinuxdev source, retain all original failure evidence; then maintenance/viewport/final/audit/cleanup.

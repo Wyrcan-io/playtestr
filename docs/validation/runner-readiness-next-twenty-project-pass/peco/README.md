@@ -63,3 +63,12 @@ to exact original source and executable bytes. All9 calibration phases passed
 as expected. The13 actual linked dependency versions also match reviewed native
 package metadata;26 module go.mod checksums/version bodies were independently
 read back. No final repetition or admission credit is granted yet.
+
+
+The reviewed preflight source is committed and pushed at baead1b5. Linux dispatch
+and native Windows maintenance are pending because automatic approval review
+rejected execution while its selected model was at capacity. A sandboxed
+maintenance window compiled three variants but its first test was refused before
+target launch; source and binary were restored exactly. Its original report and
+variants remain retained. The independently derived 110-column snapshot still
+requires native validation. No final repetition or admission credit has changed.

@@ -7,11 +7,32 @@ import os
 import re
 from pathlib import Path
 import shutil
+import stat
 import subprocess
 import uuid
 
 from next20_check import NAME,RAW,ROOT
 from readiness_evidence import immutable_json,sha256
+
+
+def prepare_native_directory_permissions(target,boundary):
+    """Make checked, owned Unix directories removable without changing files."""
+    if os.name=='nt':raise ValueError('native Unix directory preparation required')
+    target=Path(target);boundary=Path(boundary).resolve(strict=True)
+    resolved=target.resolve(strict=True);resolved.relative_to(boundary)
+    if resolved==boundary or target.is_symlink():raise ValueError('unsafe owned permission root')
+    count=0;changed=0;pending=[target]
+    while pending:
+        directory=pending.pop();count+=1
+        directory.resolve(strict=True).relative_to(resolved)
+        if count>60000 or directory.is_symlink():raise ValueError('owned directory permission boundary')
+        mode=stat.S_IMODE(directory.stat().st_mode)
+        if mode & (stat.S_IWUSR|stat.S_IXUSR)!=(stat.S_IWUSR|stat.S_IXUSR):
+            directory.chmod(mode|stat.S_IWUSR|stat.S_IXUSR);changed+=1
+        for entry in directory.iterdir():
+            if entry.is_symlink():raise ValueError('unreviewed link during owned permission preparation')
+            if entry.is_dir():pending.append(entry)
+    return changed
 
 
 def target_inventory(target, max_files=40000, max_bytes=1024**3):
@@ -236,10 +257,12 @@ def main():
         # One shell/process end-to-end, resolved owned root and complete checked
         # inventory above. Unlink only explicitly reviewed runtime aliases.
         for relative in inventory['owned_links']:(target/relative).unlink()
+        prepared_directories=prepare_native_directory_permissions(target,RAW/'active')
         shutil.rmtree(target)
         if target.exists():raise ValueError('owned source/runtime root remains')
         immutable_json(retained/'removed.json',dict(schema_version=1,removed=True,owned_relative_path='active/'+args.project,
             cleanup_inventory_sha256=sha256(retained/'cleanup-inventory.json'),source_restored_exact=True,
+            native_directory_permissions_prepared=prepared_directories,
             checked_at_utc=datetime.now(timezone.utc).isoformat()))
     print('Verified exact source restoration and',reports,'target/workspace cleanups; retained provenance;',
         'Windows native removal pending' if args.prepare_only else 'owned source/runtime removed')

@@ -17,6 +17,7 @@ from readiness_evidence import immutable_json,sha256
 from next20_candidate import executable,SERIES
 from next20_python_runtime import python_runtime_root
 from next20_startup_profile import tight_startup
+from next20_batch_snapshots import apply as batch_snapshots
 
 
 def segmented_steps(original, readiness=False):
@@ -54,6 +55,7 @@ async def main(project='jrnl',batch=None,candidate_series='rc5',chunk_readiness=
     root.mkdir(parents=True,exist_ok=False)
     canonical=RAW/project/'host-contracts';package=root/('relocated café 雪' if args.batch==5 else 'contracts')
     shutil.copytree(canonical,package)
+    snapshot_changes=batch_snapshots(package,DOC/project,declaration.get('batch_snapshot_profiles',{}),args.batch)
     source=RAW/'active'/project;runtime=json.loads((source/'runtime.json').read_text());kind=runtime.get('kind','python')
     if kind not in {'python','node','native'}:raise ValueError('Undeclared final runtime kind')
     python=Path(runtime[kind]);executable_sha256=runtime[kind+'_sha256']
@@ -121,6 +123,7 @@ async def main(project='jrnl',batch=None,candidate_series='rc5',chunk_readiness=
     env=environment(source);campaign=NextCampaign(phase='final-archive')
     immutable_json(root/'prepared.json',dict(schema_version=2 if kind!='python' else 1,host=host,batch=args.batch,
         declaration_sha256=sha256(declaration_path),changes=changes,
+        **(dict(reviewed_snapshot_changes=snapshot_changes) if snapshot_changes else {}),
         **(dict(chunk_readiness=True) if chunk_readiness else {}),
         runner_sha256=sha256(runner),archive_sha256=install['archive_sha256'],
         **(dict(actual_executable=python.relative_to(ROOT).as_posix(),actual_executable_sha256=sha256(python),runtime_kind=kind)

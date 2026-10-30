@@ -1,0 +1,16 @@
+{
+  "batch": 4,
+  "case": "N01",
+  "derivation": "Pinned UserPrompt.Draw prints query at column0 and places pmsg at width minus its rendered width. The ASCII prompt and exact IgnoreCase count/page message are unchanged; width100 to110 adds exactly10 interior spaces. Selected result line and all saved-file oracles remain exact.",
+  "layout_source_sha256": "4ad8424f306818bf4ac9130feeeb7fa076c305fc90edafcf8758b4436dbbf9b8",
+  "original_snapshot_sha256": "e9b58109a6b6f966fbe3db187d74ef91a506584242ba62221783df050c804a3b",
+  "reviewed_input": "snapshots/normal-selection-width110.txt",
+  "reviewed_sha256": "8cf83f7ace84b6da1fdef019aefacbd6d0ee25f7cb435abcd89e961f4737ccb7",
+  "schema_version": 1,
+  "scope": "Explicit reviewed viewport expectation for execution copy only. No target execution or final credit; requires fresh native validation before final freeze.",
+  "status": "independently-derived-expectation-awaiting-native-validation",
+  "viewport": {
+    "height": 26,
+    "width": 110
+  }
+}
