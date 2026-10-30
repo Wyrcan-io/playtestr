@@ -1,0 +1,26 @@
+{
+  "actual_failed": 3,
+  "actual_passed": 17,
+  "actual_targets": 20,
+  "changes": [
+    {
+      "case": "E06",
+      "original_sha256": "377f1f064ea49baba9e5a97959f3331bd60edfa38e72bbc3b9dad7a392123bba",
+      "revised_sha256": "aee5adc25cb1a3c611b2fdf8a16b46624903d6f5db3e4181607f1e565b23eff4"
+    },
+    {
+      "case": "E07",
+      "original_sha256": "5b4943ca3aeef512f46db64acdfbf1ad634b7288aa623c0dbf9b459399afaf41",
+      "revised_sha256": "7f7e76452ba7f903495132b07b4d3884699448da352a3b707808781677762bcc"
+    },
+    {
+      "case": "E10",
+      "original_sha256": "059acd90b4188104e50450986cece0d11a1881e9d33e1ac22ca3b4d78881a2e7",
+      "revised_sha256": "c53cb10920456dd75dd610e989f04f0db1deea6aa9d16cd03408a377c95bd7d4"
+    }
+  ],
+  "original_wrapper": "be7b725df660447ebaa9ecd98cc59d9b",
+  "schema_version": 1,
+  "scope": "E06/E07 expected error phrases wrapped at100 columns: widen to120 before freeze, preserving complete error and file oracles. Quiet empty-input E10 has an explicit first exact exit1: disable the opt-in output-readiness gate, enforce2000ms for the entire run and first exit step. Tight final profile accepts only this predeclared exact-first-exit shape and refuses longer budgets. Positive target exit,not silence,proves completion. No target/core runner/candidate change; all original failures/frames remain retained. Fresh complete20-case window required.",
+  "summary_sha256": "9a2c3838faccd74d79f4cfa86db0a76cbb37cf3225483ad3f4050c9f99c2e2b0"
+}

@@ -1,0 +1,32 @@
+{
+  "automatic_harness_job_minutes_ceiling": 5,
+  "automatic_harness_jobs": 3,
+  "automatic_harness_max_parallel": 2,
+  "candidate": "v0.4.0-rc.6",
+  "candidate_series": "native-exit-v1",
+  "cleanup_seconds": 180,
+  "development_seconds": 420,
+  "estimated_native_minutes": "4-12 excluding queue",
+  "expected_development_cases": 20,
+  "final_ordinary_credit": 0,
+  "host": "ubuntu-24.04",
+  "max_active_target_bytes": 2147483648,
+  "max_active_target_files": 60000,
+  "new_target_jobs": 1,
+  "preparation_seconds": 1200,
+  "project": "peco",
+  "project_admissions": 0,
+  "provider": "standard GitHub-hosted Actions",
+  "queue_policy": "Inspect actual provider state at bounded intervals; at15 queued minutes inspect service state. No automatic duplicate dispatch; preserve each refusal/failure.",
+  "retention": {
+    "direct_gzip_archive_max_bytes": 50331648,
+    "direct_member_max_bytes": 16777216,
+    "expanded_payload_written": false,
+    "project_retained_max_bytes": 67108864,
+    "provider_zip_max_bytes": 33554432
+  },
+  "retention_seconds": 180,
+  "schema_version": 1,
+  "scope": "One fresh source-reviewed native Go build with official owned Go1.27 SDK,26 exact reviewed module archives,real bounded capture fixture controls,and20 frozen development cases. Full exact module/binary corpus retained before checked source/runtime/SDK/cache removal. No compatibility/final-repetition/admission credit from workflow configuration or dispatch.",
+  "target_job_minutes_ceiling": 30
+}

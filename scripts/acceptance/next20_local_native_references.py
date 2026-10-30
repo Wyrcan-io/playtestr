@@ -9,7 +9,7 @@ from readiness_evidence import sha256
 
 
 def allowed(name):
-    return (name=='source.tar.gz' or name.endswith('.whl')) and not any(p in {'','.','..'} or ':' in p or '\\' in p for p in name.split('/'))
+    return (name=='source.tar.gz' or name.endswith(('.whl','.zip'))) and not any(p in {'','.','..'} or ':' in p or '\\' in p for p in name.split('/'))
 
 
 def canonical(project,generation,required=None):

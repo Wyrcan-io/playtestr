@@ -89,6 +89,7 @@ def main():
     parser.add_argument('--canonical-native-generation',type=int)
     parser.add_argument('--retain-review-directory',action='append',choices=['wheel-review-inputs','linux-review-inputs'],default=[])
     parser.add_argument('--compress-review-metadata',action='store_true')
+    parser.add_argument('--retain-all-provenance-json',action='store_true')
     parser.add_argument('--max-files',type=int,choices=[40000,60000],default=40000)
     parser.add_argument('--max-bytes',type=int,choices=[1024**3,2*1024**3],default=1024**3)
     parser.add_argument('--unlaunched-report-sha256',action='append',default=[])
@@ -199,7 +200,7 @@ def main():
         if source_file.is_file():
             destination=retained/name
             retain_file(source_file,destination,name)
-    if args.retain_review_directory:
+    if args.retain_review_directory or args.retain_all_provenance_json:
         for path in sorted(target.glob('*.json')):
             if path.name not in copied:retain_file(path,retained/path.name,path.name)
     for name in ['dependency-review','linux-dependency-review','wheels','npm-cache','npm-installed-locks','dependency-research','npm-metadata-retention',*args.retain_review_directory]:

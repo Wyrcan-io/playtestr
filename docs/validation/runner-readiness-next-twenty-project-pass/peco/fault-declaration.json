@@ -1,0 +1,42 @@
+{
+  "exposure": "Source reviewed; initial prepared public route positive. Earlier technical argv/schema/positive-absence/wrapped-error/startup-output contract failures retained. Concrete source edits selected only after complete20-case/85-input freeze. No untouched-source or human claim.",
+  "faults": [
+    {
+      "after": "Msg: \"Wrong>\",",
+      "before": "Msg: u.prompt,",
+      "category": "assertion_timeout",
+      "id": "F01",
+      "meaning": "The real prompt renderer draws the wrong readiness/query label; unchanged query checkpoint rejects it.",
+      "mutated_source_sha256": "f7bbd36d5892faa4be8842418d4433a9f03b7884d6acc0a3856285387fb5a015",
+      "original_source_sha256": "4ad8424f306818bf4ac9130feeeb7fa076c305fc90edafcf8758b4436dbbf9b8",
+      "path": "layout.go"
+    },
+    {
+      "after": "case util.IsCollectResultsError(err):\n\t\t\tcli.PrintResults()\n\t\t\treturn 7",
+      "before": "case util.IsCollectResultsError(err):\n\t\t\tcli.PrintResults()\n\t\t\treturn 0",
+      "category": "unexpected_exit",
+      "id": "F02",
+      "meaning": "The actual successful selection branch prints its unchanged result but exits7; capture fixture preserves that exact code.",
+      "mutated_source_sha256": "c15ca710c8d95a3b2d389e12134c6355f6cc6ab430a718fab45057dcbb2560b6",
+      "original_source_sha256": "07f10fe7dea4583261a62baeffde9555017637765c1a1a44eb1ff3a97c05abcc",
+      "path": "cmd/peco/peco.go"
+    },
+    {
+      "after": "buf.WriteString(\"wrong:\" + line.Output())",
+      "before": "buf.WriteString(line.Output())",
+      "category": "state_assertion_failure",
+      "id": "F03",
+      "meaning": "The real selected-output writer emits an incorrect prefix after normal UI/snapshot and zero exit; exact saved stdout rejects it.",
+      "mutated_source_sha256": "07fd0144d0eddc86c450d6d1483621f0c6a287f29d7aeb43a58c349b3149b3f0",
+      "original_source_sha256": "174a177ffa3a975d4f95c6ad13a4d032ba55a16db602a6587a3948c660eae08a",
+      "path": "peco.go"
+    }
+  ],
+  "primary_spec": "normal-selection.json",
+  "project": "peco",
+  "real_source_faults": 3,
+  "required_calibrations_per_host": 9,
+  "schema_version": 1,
+  "scope": "Actual Go source mutations,compiled offline with the reviewed same compiler and unchanged modules/capture helper. Passing baseline,expected mutated rejection and exact source/binary restoration required; no mocked screen or corrupted expectation.",
+  "selected_after_freeze_sha256": "0d039521da4ad40938f86fcdebf8fe383e8ea2e139d0234a491ad5073bd3e168"
+}

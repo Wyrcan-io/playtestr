@@ -1,0 +1,104 @@
+{
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/peco/bin/nativecapture.exe",
+    "--app",
+    "peco.exe",
+    "--output",
+    "selected.txt",
+    "--",
+    "--rcfile",
+    "config.json",
+    "candidates.txt"
+  ],
+  "env": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TERM": "xterm-256color"
+  },
+  "height": 24,
+  "max_output_bytes": 2000000,
+  "name": "Correct an unmatched query with Backspace",
+  "run_timeout_ms": 30000,
+  "startup_timeout_ms": 2000,
+  "steps": [
+    {
+      "expect": "gamma release"
+    },
+    {
+      "expect": "beta draft"
+    },
+    {
+      "text": "betax"
+    },
+    {
+      "expect": "Select> betax"
+    },
+    {
+      "expect_not": "beta draft"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "expect": "Select> beta"
+    },
+    {
+      "expect": "IgnoreCase [1 (1/1)]"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "YWxwaGEgbm90ZXMKYmV0YSBkcmFmdApnYW1tYSByZWxlYXNlCg==",
+        "kind": "file",
+        "path": "candidates.txt"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "ewogICJGaWx0ZXJzIjogWwogICAgIklnbm9yZUNhc2UiLAogICAgIkNhc2VTZW5zaXRpdmUiLAogICAgIlJlZ2V4cCIKICBdLAogICJJbml0aWFsRmlsdGVyIjogIklnbm9yZUNhc2UiLAogICJPbkNhbmNlbCI6ICJlcnJvciIsCiAgIlByb21wdCI6ICJTZWxlY3Q+IiwKICAiUXVlcnlFeGVjdXRpb25EZWxheSI6IDAsCiAgIlN1cHByZXNzU3RhdHVzTXNnIjogdHJ1ZQp9Cg==",
+        "kind": "file",
+        "path": "config.json"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "YmV0YSBkcmFmdAo=",
+        "kind": "file",
+        "path": "selected.txt"
+      }
+    },
+    {
+      "state": {
+        "bytes_base64": "dW5yZWxhdGVkIHN5bnRoZXRpYyBkYXRhCg==",
+        "kind": "file",
+        "path": "sentinel.txt"
+      }
+    },
+    {
+      "state": {
+        "entries": [
+          "candidates.txt",
+          "config.json",
+          "selected.txt",
+          "sentinel.txt"
+        ],
+        "kind": "entries",
+        "path": "."
+      }
+    }
+  ],
+  "timeout_ms": 10000,
+  "version": 3,
+  "width": 100,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/e02",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

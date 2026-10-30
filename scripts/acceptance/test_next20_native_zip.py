@@ -40,5 +40,13 @@ class NativeZipTests(unittest.TestCase):
             with self.assertRaises(ValueError):retain_zip(payload,self.root/('retained-native-v'+str(number)),'control-tests','123','synthetic-native',1024**2)
         with self.assertRaises(ValueError):retain_zip(self.packet([('actual.report.json',b'bounded')]),self.root/'retained-native-v4','control-tests','123','synthetic-native',10)
 
+    def test_explicit_gzip_bounds_are_recorded_and_unsupported_bounds_refused(self):
+        payload=self.packet([('N01.report.json',b'{"status":"actual"}\n')])
+        for generation,limit in [(1,24),(2,48)]:
+            result=retain_zip(payload,self.root/('retained-native-v'+str(generation)),'control-tests','123','synthetic-native',limit*1024**2)
+            self.assertEqual(result['max_archive_bytes'],limit*1024**2)
+        with self.assertRaises(ValueError):retain_zip(payload,self.root/'retained-native-v3','control-tests','123','synthetic-native',49*1024**2)
+        with self.assertRaises(ValueError):retain_zip(payload,self.root/'retained-native-v4','control-tests','123','synthetic-native',48*1024**2,'tar.xz')
+
 
 if __name__=='__main__':unittest.main()

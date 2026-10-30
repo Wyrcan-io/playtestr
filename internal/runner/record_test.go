@@ -170,14 +170,33 @@ func TestRecordingRerecordFreshPrefix(t *testing.T) {
 func TestRecordingCancellationAndFloodStopIdleTargets(t *testing.T) {
 	for _, mode := range []string{"hang", "flood"} {
 		t.Run(mode, func(t *testing.T) {
-			r := newHelperRecording(t, mode, func(s *Spec) { s.RunTimeoutMS = 500; s.MaxOutputBytes = 2048 })
+			helperMode := mode
+			if mode == "flood" {
+				helperMode = "recording-delayed-flood"
+			}
+			r := newHelperRecording(t, helperMode, func(s *Spec) {
+				s.RunTimeoutMS = 500
+				if mode == "flood" {
+					// Instrumented child startup may exceed 500 ms. Give the
+					// real flood time to start; overflow must still wake the
+					// idle operator and retain positive limit evidence.
+					s.RunTimeoutMS = 5000
+				}
+				s.MaxOutputBytes = 2048
+			})
 			select {
 			case <-r.Context().Done():
 			case <-time.After(5 * time.Second):
 				t.Fatal("idle recording unbounded")
 			}
-			if mode == "flood" && !errors.Is(r.InputError(context.Canceled), errOutputLimit) {
-				t.Fatal("idle overflow misclassified as operator cancellation")
+			if mode == "flood" {
+				observation := r.session.observe()
+				if !observation.outputLimitExceeded || observation.outputBytes <= int64(r.spec.MaxOutputBytes) {
+					t.Fatalf("flood never produced overflow evidence: bytes=%d, context=%v", observation.outputBytes, r.Context().Err())
+				}
+				if err := r.InputError(context.Canceled); !errors.Is(err, errOutputLimit) {
+					t.Fatalf("idle overflow cause = %v, want output limit", err)
+				}
 			}
 			if err := r.Close(); err != nil {
 				t.Fatal(err)

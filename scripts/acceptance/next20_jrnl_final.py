@@ -16,6 +16,7 @@ from next20_python_setup import environment
 from readiness_evidence import immutable_json,sha256
 from next20_candidate import executable,SERIES
 from next20_python_runtime import python_runtime_root
+from next20_startup_profile import tight_startup
 
 
 def segmented_steps(original, readiness=False):
@@ -110,7 +111,7 @@ async def main(project='jrnl',batch=None,candidate_series='rc5',chunk_readiness=
         if args.batch==7:
             value['steps']=segmented_steps(value['steps'],readiness=chunk_readiness)
         if args.batch==10 and case['id']=='N01':value['height']=12
-        if args.batch==11:value['startup_timeout_ms']=declaration.get('startup_timeout_ms_by_host',{}).get(host,2000)
+        if args.batch==11:value=tight_startup(value,case,declaration.get('startup_timeout_ms_by_host',{}).get(host,2000))
         before.write_text(json.dumps(value,sort_keys=True,ensure_ascii=True,indent=2)+'\n',encoding='utf-8',newline='\n')
         changes.append(dict(case=case['id'],spec=case['spec'],canonical_sha256=case['canonical_sha256'],
             native_base_sha256=case['spec_sha256'],executed_spec_sha256=sha256(before)))

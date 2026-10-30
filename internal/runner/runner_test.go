@@ -582,7 +582,12 @@ func TestHelperProcess(t *testing.T) {
 		fmt.Print("self running\r\n")
 		time.Sleep(10 * time.Second)
 		os.Exit(0)
-	case "flood", "wide-flood":
+	case "flood", "wide-flood", "recording-delayed-flood":
+		if mode == "recording-delayed-flood" {
+			// Model instrumented process startup exceeding a subsecond test
+			// allowance before the target can produce any overflow evidence.
+			time.Sleep(750 * time.Millisecond)
+		}
 		chunk := strings.Repeat("x", 1024)
 		if mode == "wide-flood" {
 			chunk = strings.Repeat("雪", 1024)

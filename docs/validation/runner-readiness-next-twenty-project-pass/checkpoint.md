@@ -3064,3 +3064,102 @@ Continue peco slot7 sourceonlyacquisition/review next; remaining8-16 then provis
 freeze before ANY source acquisition/review of17ne18sc-im19btop20htop. Then originalten,
 four priorrc5 currentqualification,whole/regression/oldmigration/deliveredCItriplets,
 freshcheckout,all-attemptcutoff+delta,independentchallenge/globaldocs. Do not stop atHatch.
+
+
+## 30 October continuation: peco Windows development/faults complete; Linux preparation next
+
+Hatch closure committed/pushed eecd964dab3aabb6737677551a79cde11dba383e.
+Push2a89429de74c4e7685ef6a45db7bb7b7. Currentrc6 remains2admissions960ordinary36cal;
+historicaldistinct6. Peco unadmitted. New native57-control run40975772313 actually
+succeededall3hosts; artifacts being retained,not yet all closed. No release/outreach.
+
+Peco pin c5bf9a3c098c52f324f46c1d00d0424b982cc9fa (peco/peco,MIT).
+First acquisitiona8bc27c91d7c438e9ed786836e99a7a4 correctly refused AGENTS.md symlink
+before extraction. Reviewed one documentation alias AGENTS.md->CLAUDE.md retained
+in original archive,omitted from execution tree,never followed. Reused original
+archive b0dbe4fcc6454808b18b554b8d3310ed; full Git tree62682ded574242a7a334d887bf270fe6
+verified121 regular primaryblobs plus exact120000 documentationlink. Actual source
+uses tcell/v2 despite old termbox screening label. Latefour sources NOT acquired.
+
+Go fetch a4624027cbd4466c94a90e92c0a5c681 rejected Go's16 new transitive checksum
+lines; actual downloadf3c26dce6f37426ba17482087fcef211 succeeded and is reused.
+Recovery2a1a7d568c5b42a68175023f34782a84 retained original/supplement/helper and
+restored all primary bytes.26modules fetched once. Independent module h1 and
+version metadata readback36fdb437ea04448db4bfc3a8ab9208d7 passed. Original offline
+package inspection8c2dbff1df18468aa4f5d880d1419ee3 failed parent-VCS stamping;
+explicit -buildvcs=false resumea8206728248344e580c571443a475a68 passed202packages/
+223owned compileinputs/13actual dependency modules. Review7f1c1763ae2a4a7f80b995f7a33d580a
+verified26moduleZIP/license inputs and5693installed source members.
+Offline builda9b1e3bac2304ff591b8f3958669a94b used installedGo1.27.0,CGO0,exact
+original go.mod in separate modfile plus retained supplement. All primarysource
+unchanged. Nativecapture helper uses real sibling CLI with attached stdin/UI,
+stdout-to-new-file1MiB bound,exact actual exits and125 on capturefailure. No fake
+output/UI. Real processes success/exit7/flood/path+overwriteguard e53878f8f5554ce483412f391f861b5f
+passed; same fixture also passed race in initialfullracesuite. Actual linked13
+modules match package inputs; Go buildinfo7d1a6645e0964d11b87a1fd7e02c6864 retained.
+Binaryruntime uses nativecapture.exe plus actual peco.exe, both mandatory hashes.
+
+Initial public route29fc1138405844e4981f260aacf61c9a passed on FIRST window:
+3shell16controls,real filter+snapshot,selected stdout,preserved files/entries,
+fresh replay/export/ordinary pass. No manual JSON or human claim.
+Technical first window713b69c092784826a1b249ca7588a6d9 stopped after8actualtargets
+(1pass7fail) plus1invalid-spec refusal. Harness duplicated -- and used {} redraw.
+Original cases/helper/reports/7screens retained; narrowrevision4d37944ce87b4c87a21347bb0d648c79.
+Second d3d91ff9e0884fc1aff0d30ad8b36d94 passed9actual then invalidE02missingprior
+positive assertion. Originalreport/refusal retained; addonlypositive beta draft.
+Third be7b725df660447ebaa9ecd98cc59d9b completed17pass3fail: wrapped E06/E07error
+phrases and E10quietexit with opt-in outputgate. Beforefreeze widen2views120cols;
+E10first exactexit1 now2000ms BOTH whole-run/step,outputgate0. New generic tight
+profile refuses longer quietbudget or non-exitfirststep; no productchange.
+Finalfresh development44122165468e42d5b13f79ae4918d13e passed20/0. Total57actual
+ordinary47pass10fail plus2prelaunchrefusals; all10failureframes retained(including
+blank). Curated development-disposition.json. Startup-profiletest5ae714ad3b334d458dfcc29cb464a9d9 passed.
+85inputs freeze92c7123db02e4f93b2cc180c442ac5c5 before3concrete Go faults.
+Compiled-source triplesc04b0d0f5c9541a2b254cf364455d3af passed9freshphases:
+F01layout promptWrong>,F02main CollectResults exit7,F03PrintResults wrong: prefix.
+All original121sourcefiles and actual ordinary executable restored exactly.
+Mutable app launch is explicitly bound by NativeFaultCampaign compile receipts;
+original build/runtime metadata and capture executable stay immutable.
+
+NativeLinux development workflow and source-only SDK/module/nativeprofile
+helpers prepared. One ubuntu24 job45min ceiling (v2supersedes undispatched30min),
+prep1200/development420/retention180/cleanup180,actualtargetmax60000files2GiB.
+Own officialGo1.27SDK,26exactmodule archives,real capturetests,20frozencases,complete
+module/binary corpus and checked cleanup. DirectnativeZIP bound32MiB,members16,
+explicitgziparchive48,project64; old16MiB defaults unchanged. Workflow lint
+3c514304aa8b4ff6a529931a09b49f5d passed before timeoutbudget-only45min update.
+NOT committed/pushed/dispatched yet. Current Windows target remains active.
+Maintenance,full final480/18,independentreadback/modelcontrols/storage/cleanup
+and admission still required; do NOT grant Peco finalcredit.
+
+Original harnessbacklog now retained/expandedremoved: a30240922707666 Linuxv101
+85a5a9fa4cfe46cb9b87b9ecb94431ec,Macv102816ed9781cb849948451e211288e6c90,Winv103
+3fcb8edb294f4e7fb2228136b4d72611. b8be40925047649 Linuxv104cd4615261fc6477a9108160a2d2d5ff5,
+Macv105e6d79d50ecfd4112897b57565f4500ca,Winv1065608651f0a244e9eb89c2bb7245fa3e3.
+0a440929251569 Linuxv107f121ee6dfab5446a9088e961bcfd2bde,Macv1087dd4db0e03b241d191e10fc680b48d7d.
+FAILED ORIGINALWINDOWS fully retained v10996c370ebe52d4e6fbe2a137e195cce51:
+243logicalfiles19,343,164bytes,largeoriginal nestedpacket17,831,602bytes. Native
+reader fully compares original payloads. OriginalproviderZIP f800bf1d... onlyhash
+retained after verified duplicate removal. Timeout remains FAILED/unresolved;
+last stagedtest does not prove cause. Curated failure receipt marks0credit.
+010940970085616 Linuxv110561ea61b960b4740b331fc71af8eb16e,Macv11142055d4b79fa4b269c30712e97bb4759,
+Winv1124cd7570b2bae4a14a59c728e8c2904c5 allclosed. eecd40975772313 Linuxv113
+8ff2d01e51c7499dab3e7eedf57a6168 closed; Macv114 collection active,Winv115 next.
+Never redownload completed packets. Full current60Python helpertests
+1fe5ea42e8e7494e926179e88b1c9c60 passed39.326sec; archivebounds c58da752700a4a629c0f298c384a9b4a passed.
+
+Fullrepository race0023b92ca35a49e7bd28bc30ce1ea858 FAILED only recorder idleflood
+unit test (new nativecapture racefixture passed). Existing test gave instrumented
+child only500ms to overflow. Test-only delayed750ms helper deterministically
+reproduced beforefix f546b1da4afa47d29c2319ead1c1a6f6. Test allowance now5000ms for
+flood only,hang500 unchanged; requires positive outputlimit flag/bytes and cause.
+Afterfix focused6218fc20d2b14e13a3f29921b37c4a42 passed. NO PRODUCTION RUNNER CHANGE:
+git diff515ffc --go.mod/go.sum/cmd/playtestr/internal excluding *_test.go returned0.
+Beforefix exact two sourcefiles retained RAW/core/recorder-flood-before-fix-source.
+Fullrace rerun is CURRENTLY ACTIVE session92489; poll and inspect before claiming
+racepass. Python60 suite complete. Pending all source commit/push,then dispatch
+Linux development while Windows maintenance continues. Do not ask quota; restored
+authorization remains. Continue all remaining14new apps/originalten/four and global
+checks. Do not end at this or any project milestone.
+
+Update: full fixed-source race744297a6b909455184ac21b10ca4a003 PASSED all packages (runner316.466s,capture3.768s). Native60 helpertests1fe5ea42e8e7494e926179e88b1c9c60 passed39.326s. Final45minworkflow lint5c63743965ea48008c4efddf31f9696a passed. eecd57 Macv1149af18b28687e46e6b5dbe6f8652201c0 retained/expandedremoved; Winv115 stillnext. All execution source and binary restoration remain positive; commit/push Linux preflight now.

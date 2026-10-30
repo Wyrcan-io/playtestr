@@ -1,0 +1,31 @@
+{
+  "allow_module_source_download": true,
+  "allow_target_build": false,
+  "allow_target_execution": false,
+  "build_route": [
+    "go",
+    "build",
+    "-mod=readonly",
+    "-trimpath",
+    "-buildvcs=false",
+    "./cmd/peco"
+  ],
+  "compiler_version": "go1.27.0",
+  "go_mod_sha256": "1f6904751587aad111b7fb90190b2177d3db43db6c36ea3c6079d340d2a6ac9f",
+  "go_sum_sha256": "591f0bd439597c87aff0c9eefdf3d82af2a527f43e0aaa1da0dfc63d6946e620",
+  "license": "MIT",
+  "pin": "c5bf9a3c098c52f324f46c1d00d0424b982cc9fa",
+  "reviewed_runtime_paths": [
+    "peco.go",
+    "action.go",
+    "config/config.go",
+    "screen.go",
+    "screen_inline.go",
+    "filter/external.go",
+    "internal/util/shell_windows.go",
+    "internal/util/shell_unix.go",
+    "cmd/peco/peco.go"
+  ],
+  "schema_version": 1,
+  "scope": "Review-only official compiler settings and Go lock-bound module sources in owned target cache. Actual source uses tcell/v2, despite metadata-era termbox label. Proposed built-in filtering/file input with explicit owned config and captured selected output. No make/goreleaser/go generate, external filters or --exec. Source/dependency review must precede build approval."
+}

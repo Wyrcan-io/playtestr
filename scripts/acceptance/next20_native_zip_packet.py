@@ -48,7 +48,8 @@ def download(command,limit):
 
 
 def retain_zip(payload,output,project,run,artifact,archive_limit,compression='tar.gz',stage=False):
-    if len(payload)>ZIP_LIMIT or not 0<archive_limit<=16*1024**2:raise ValueError('provider ZIP/retained archive bound')
+    if len(payload)>ZIP_LIMIT or not 0<archive_limit<=48*1024**2:raise ValueError('provider ZIP/retained archive bound')
+    if compression=='tar.xz' and archive_limit>24*1024**2:raise ValueError('XZ explicit archive bound exceeds reviewed decoder')
     if compression not in {'tar.gz','tar.xz'}:raise ValueError('unsupported direct packet compression')
     scope=RAW/'tmp/direct-native-zip'/project if stage else RAW/project
     output.resolve().relative_to(scope.resolve())
@@ -76,7 +77,7 @@ def retain_zip(payload,output,project,run,artifact,archive_limit,compression='ta
     if sha256(restore)!=files[selected]['sha256']:raise ValueError('actual selected report restore differs')
     index=dict(schema_version=2,compression=compression,project=project,generation=int(output.name.removeprefix('retained-native-v')),runs=[run],files=files,
         expanded_bytes=total,unique_payloads=len(canonical),archive_sha256=sha256(archive),archive_bytes=archive.stat().st_size,
-        selected_restore=[selected],max_file_bytes=FILE_LIMIT,provider_zip_sha256=hashlib.sha256(payload).hexdigest(),provider_zip_bytes=len(payload),
+        selected_restore=[selected],max_file_bytes=FILE_LIMIT,**(dict(max_archive_bytes=24*1024**2 if archive_limit<=24*1024**2 else 48*1024**2) if archive_limit>16*1024**2 else {}),provider_zip_sha256=hashlib.sha256(payload).hexdigest(),provider_zip_bytes=len(payload),
         scope='Every original provider logical file/hash retained directly from bounded in-memory ZIP; exact aliases stay in-archive. No expanded packet or source payload deletion, no qualification credit.')
     encoded=(json.dumps(index,sort_keys=True,ensure_ascii=True,indent=2)+'\n').encode()
     if len(encoded)>INDEX_LIMIT:raise ValueError('direct retained evidence index bound')
@@ -111,7 +112,8 @@ def retain_members(source,destination,files,canonical,folded,run,artifact):
 async def main():
     parser=argparse.ArgumentParser();parser.add_argument('--project',required=True);parser.add_argument('--run',required=True);parser.add_argument('--revision',required=True)
     parser.add_argument('--artifact',required=True);parser.add_argument('--generation',type=int,required=True)
-    parser.add_argument('--compression',choices=['tar.gz','tar.xz'],default='tar.gz');parser.add_argument('--stage',action='store_true');args=parser.parse_args()
+    parser.add_argument('--compression',choices=['tar.gz','tar.xz'],default='tar.gz');parser.add_argument('--stage',action='store_true')
+    parser.add_argument('--archive-limit-mib',type=int,choices=[16,24,48],default=16);args=parser.parse_args()
     if not re.fullmatch('[a-z][a-z0-9-]{0,63}',args.project) or not (DOC/args.project/'source-provenance.json').is_file() or not re.fullmatch('[0-9]{1,20}',args.run) or not re.fullmatch('[0-9a-f]{40}',args.revision) or not re.fullmatch('[A-Za-z0-9_.-]{1,120}',args.artifact) or not 1<=args.generation<=1000:raise ValueError('invalid exact direct acquisition scope')
     scope=RAW/'tmp/direct-native-zip'/args.project if args.stage else RAW/args.project
     destination=scope/('retained-native-v'+str(args.generation))
@@ -123,12 +125,13 @@ async def main():
     metadata=json.loads(await asyncio.to_thread(download,['gh','api','repos/Wyrcan-io/playtestr/actions/runs/'+args.run+'/artifacts'],1024**2))
     artifacts=[a for a in metadata['artifacts'] if a['name']==args.artifact and not a['expired']]
     if len(artifacts)!=1 or artifacts[0]['size_in_bytes']>ZIP_LIMIT:raise ValueError('missing/ambiguous/oversized current provider artifact')
-    project_size=measure(RAW/args.project)['total_bytes'];headroom=(16*1024**2 if args.stage else 64*1024**2-project_size-INDEX_LIMIT-65536)
+    requested_limit=args.archive_limit_mib*1024**2
+    project_size=measure(RAW/args.project)['total_bytes'];headroom=(requested_limit if args.stage else 64*1024**2-project_size-INDEX_LIMIT-65536)
     if args.stage:
         current=measure(RAW)['total_bytes'];old=measure(ROOT/'artifacts/runner-readiness-ten-project-pass')['total_bytes']
         if current+headroom+INDEX_LIMIT>4*1024**3 or current+old+headroom+INDEX_LIMIT>6*1024**3:raise ValueError('staged packet exceeds raw working storage caps')
         scope.mkdir(parents=True,exist_ok=True)
-    limit=min(16*1024**2,headroom)
+    limit=min(requested_limit,headroom)
     if limit<=0:raise ValueError('insufficient bounded retained project headroom')
     payload=await asyncio.to_thread(download,['gh','api','repos/Wyrcan-io/playtestr/actions/artifacts/'+str(artifacts[0]['id'])+'/zip'],ZIP_LIMIT)
     index=await asyncio.to_thread(retain_zip,payload,destination,args.project,args.run,args.artifact,limit,args.compression,args.stage)

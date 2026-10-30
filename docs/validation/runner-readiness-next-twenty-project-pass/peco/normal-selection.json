@@ -1,0 +1,97 @@
+{
+  "version": 3,
+  "name": "recorded interaction",
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/peco/bin/nativecapture.exe",
+    "--app",
+    "peco.exe",
+    "--output",
+    "selected.txt",
+    "--",
+    "--rcfile",
+    "config.json",
+    "candidates.txt"
+  ],
+  "workspace": {
+    "fixture": "fixture",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TERM": "xterm-256color"
+  },
+  "width": 100,
+  "height": 24,
+  "timeout_ms": 10000,
+  "run_timeout_ms": 120000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "gamma release"
+    },
+    {
+      "expect": "alpha notes"
+    },
+    {
+      "text": "beta"
+    },
+    {
+      "expect": "Select\u003e beta"
+    },
+    {
+      "expect_not": "alpha notes"
+    },
+    {
+      "snapshot": "normal-selection.txt"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "selected.txt",
+        "kind": "file",
+        "bytes_base64": "YmV0YSBkcmFmdAo="
+      }
+    },
+    {
+      "state": {
+        "path": "candidates.txt",
+        "kind": "file",
+        "bytes_base64": "YWxwaGEgbm90ZXMKYmV0YSBkcmFmdApnYW1tYSByZWxlYXNlCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "config.json",
+        "kind": "file",
+        "bytes_base64": "ewogICJGaWx0ZXJzIjogWwogICAgIklnbm9yZUNhc2UiLAogICAgIkNhc2VTZW5zaXRpdmUiLAogICAgIlJlZ2V4cCIKICBdLAogICJJbml0aWFsRmlsdGVyIjogIklnbm9yZUNhc2UiLAogICJPbkNhbmNlbCI6ICJlcnJvciIsCiAgIlByb21wdCI6ICJTZWxlY3Q+IiwKICAiUXVlcnlFeGVjdXRpb25EZWxheSI6IDAsCiAgIlN1cHByZXNzU3RhdHVzTXNnIjogdHJ1ZQp9Cg=="
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "dW5yZWxhdGVkIHN5bnRoZXRpYyBkYXRhCg=="
+      }
+    },
+    {
+      "state": {
+        "path": ".",
+        "kind": "entries",
+        "entries": [
+          "candidates.txt",
+          "config.json",
+          "selected.txt",
+          "sentinel.txt"
+        ]
+      }
+    }
+  ]
+}

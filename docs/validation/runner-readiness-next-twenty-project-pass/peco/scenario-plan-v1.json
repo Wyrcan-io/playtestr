@@ -1,0 +1,192 @@
+{
+  "edge": [
+    {
+      "id": "E01",
+      "risks": [
+        "BMP Unicode/accent/CJK",
+        "Pasted query",
+        "Resize and redraw",
+        "Exact UTF-8 bytes"
+      ],
+      "task": "Preserve Unicode selection through paste and resize"
+    },
+    {
+      "id": "E02",
+      "risks": [
+        "No-match transition",
+        "Native Backspace",
+        "Corrected filter result"
+      ],
+      "task": "Correct an unmatched query with Backspace"
+    },
+    {
+      "id": "E03",
+      "risks": [
+        "Built-in clear selection",
+        "Positive saved-marker disappearance",
+        "Current-line fallback"
+      ],
+      "task": "Clear saved selections and finish on current candidate"
+    },
+    {
+      "id": "E04",
+      "risks": [
+        "Duplicate visible labels",
+        "NUL display/output split",
+        "Initial cursor index"
+      ],
+      "task": "Distinguish duplicate displayed labels from NUL payload identity"
+    },
+    {
+      "id": "E05",
+      "risks": [
+        "Long clipped terminal line",
+        "Narrow viewport",
+        "Full untruncated output bytes"
+      ],
+      "task": "Preserve a clipped long candidate in a small viewport"
+    },
+    {
+      "id": "E06",
+      "risks": [
+        "Setup refusal",
+        "Useful error category",
+        "Empty selected output and preserved inputs"
+      ],
+      "task": "Refuse an unknown configured filter"
+    },
+    {
+      "id": "E07",
+      "risks": [
+        "Configuration parser failure",
+        "Useful error text",
+        "Preserved original invalid input"
+      ],
+      "task": "Reject malformed configuration before interaction"
+    },
+    {
+      "id": "E08",
+      "risks": [
+        "Escape key",
+        "Expected nonzero exit",
+        "No selected output"
+      ],
+      "task": "Cancel with explicit error exit policy"
+    },
+    {
+      "id": "E09",
+      "risks": [
+        "Native CtrlC handling",
+        "CLI overrides error configuration",
+        "Exact zero exit and empty output"
+      ],
+      "task": "Cancel successfully with explicit CLI policy"
+    },
+    {
+      "id": "E10",
+      "risks": [
+        "Empty source",
+        "Early declared nonzero completion",
+        "Positive exit/state evidence without quiet-readiness inference"
+      ],
+      "task": "Exit exactly one on an empty input file"
+    },
+    {
+      "id": "E11",
+      "risks": [
+        "Empty result set",
+        "CtrlU query clear",
+        "Restored result readiness"
+      ],
+      "task": "Recover from no matches and choose a valid candidate"
+    },
+    {
+      "id": "E12",
+      "risks": [
+        "Pagination",
+        "Native Home/End keys",
+        "Resize/redraw",
+        "Current selection marker"
+      ],
+      "task": "Navigate distant pages and retain selection across resize"
+    }
+  ],
+  "faults_declared": false,
+  "normal": [
+    {
+      "id": "N01",
+      "risks": [
+        "Real filter/query rendering",
+        "Reviewed pre-exit snapshot",
+        "Exact selected stdout and unchanged input/config"
+      ],
+      "task": "Filter candidate lines and select beta draft"
+    },
+    {
+      "id": "N02",
+      "risks": [
+        "Custom built-in key binding",
+        "Rendered saved/current selection markers",
+        "Stable multi-selection output order"
+      ],
+      "task": "Select two candidates in input order"
+    },
+    {
+      "id": "N03",
+      "risks": [
+        "CLI/config precedence",
+        "Initial filter completion",
+        "Query and selected output"
+      ],
+      "task": "Use initial CLI query and print it with the result"
+    },
+    {
+      "id": "N04",
+      "risks": [
+        "Case-sensitive filter",
+        "Unicode-safe input routing",
+        "Exact selected identity"
+      ],
+      "task": "Select the case-sensitive uppercase candidate"
+    },
+    {
+      "id": "N05",
+      "risks": [
+        "Built-in regular expression",
+        "Rendered filter readiness",
+        "Selected data integrity"
+      ],
+      "task": "Filter by an anchored regular expression"
+    },
+    {
+      "id": "N06",
+      "risks": [
+        "Filter rotation key",
+        "Two-to-one result transition",
+        "Case-sensitive exact result"
+      ],
+      "task": "Rotate filter semantics without changing the query"
+    },
+    {
+      "id": "N07",
+      "risks": [
+        "YAML configuration",
+        "Bottom-up viewport",
+        "Independent selected-file oracle"
+      ],
+      "task": "Load owned YAML configuration and select in bottom-up layout"
+    },
+    {
+      "id": "N08",
+      "risks": [
+        "Built-in fuzzy filter",
+        "Noncontiguous query semantics",
+        "Exact source-line output"
+      ],
+      "task": "Find a candidate with a fuzzy subsequence"
+    }
+  ],
+  "project": "peco",
+  "schema_version": 1,
+  "scope": "All exact expected file bytes and meaningful actions declared before first20-case development. No target writer computes expected output. Real-source faults declared after positive frozen development."
+}
