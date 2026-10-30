@@ -72,3 +72,12 @@ maintenance window compiled three variants but its first test was refused before
 target launch; source and binary were restored exactly. Its original report and
 variants remain retained. The independently derived 110-column snapshot still
 requires native validation. No final repetition or admission credit has changed.
+
+
+Fresh Linux development now passes all20 cases and checked source/runtime cleanup.
+Both original and fresh native packets have complete independent source/module/
+report/runtime readback. Windows maintenance13 commands and fresh host-profile20
+cases pass; the wider110-column snapshot also matches its independent expectation.
+The finite final480 ordinary/18 calibration declaration is prepared. Final
+repetitions,negative model controls,history audits,retention and Windows cleanup
+still remain; peco is unadmitted.

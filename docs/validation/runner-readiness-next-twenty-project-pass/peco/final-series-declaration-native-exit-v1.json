@@ -1,0 +1,141 @@
+{
+  "authoring": "Initial public recorder3shell/16controls passed; maintenance13shell commands/8reports passed separately. Prepared agent,zero human participants/time unmeasured.",
+  "batch_snapshot_profiles": {
+    "4": {
+      "snapshots/normal-selection.txt": {
+        "original_sha256": "e9b58109a6b6f966fbe3db187d74ef91a506584242ba62221783df050c804a3b",
+        "reviewed_input": "snapshots/normal-selection-width110.txt",
+        "reviewed_sha256": "8cf83f7ace84b6da1fdef019aefacbd6d0ee25f7cb435abcd89e961f4737ccb7"
+      }
+    }
+  },
+  "batches": [
+    {
+      "id": 0,
+      "name": "ordinary-cold-1",
+      "runtime": "new verified owned app-pair-0; first logical use"
+    },
+    {
+      "id": 1,
+      "name": "ordinary-warm-1",
+      "runtime": "reuse exact app-pair-0"
+    },
+    {
+      "id": 2,
+      "name": "ordinary-cold-2",
+      "runtime": "new verified owned app-pair-1; first logical use"
+    },
+    {
+      "id": 3,
+      "name": "ordinary-warm-2",
+      "runtime": "reuse exact app-pair-1"
+    },
+    {
+      "change": "initial width +10, height +2; all reviewed saved bytes unchanged",
+      "id": 4,
+      "name": "viewport"
+    },
+    {
+      "change": "package relocated to relative path containing caf\u00e9 \u96ea; explicit relative executable rebinding",
+      "id": 5,
+      "name": "spaced-unicode-path"
+    },
+    {
+      "change": "original supported actions and positive checkpoints",
+      "id": 6,
+      "name": "ordinary-input-readiness"
+    },
+    {
+      "change": "split printable text into three-codepoint groups; key/control groups remain atomic",
+      "id": 7,
+      "name": "segmented-printable-input"
+    },
+    {
+      "change": "owned 2-second 8-MiB SHA256 worker during each invocation",
+      "id": 8,
+      "name": "bounded-contention-1"
+    },
+    {
+      "change": "second distinct execution under the same bounded owned worker schedule",
+      "id": 9,
+      "name": "bounded-contention-2"
+    },
+    {
+      "change": "N01 viewport height 12; remaining dedicated edge boundaries preserved unchanged",
+      "id": 10,
+      "name": "highest-risk-small-completion"
+    },
+    {
+      "change": "2000ms positive-output startup gate; E10 instead retains exact first-exit1 with startup0 and strict2000ms whole/step budget. No synthetic readiness output.",
+      "id": 11,
+      "name": "highest-risk-startup-boundary"
+    }
+  ],
+  "calibration_required": 18,
+  "candidate": "v0.4.0-rc.6",
+  "candidate_freeze_sha256": "24ce7238532b1b6e581142ee98e17a7fe18ea475ec83176e7051986353c80da2",
+  "candidate_series": "native-exit-v1",
+  "canonical_test_freeze_sha256": "0d039521da4ad40938f86fcdebf8fe383e8ea2e139d0234a491ad5073bd3e168",
+  "cold_scope": "Two fresh hash-verified owned app/capture copies followed by paired reuse. No OS-cache eviction or machine cold-start claim.",
+  "edge": 12,
+  "excluded_behavior": "External filters,--exec,streaming services,network,personal homes and arbitrary terminfo/infocmp fallback are excluded. Actual trusted native peco uses tcell with TERM=xterm-256color and explicit synthetic config.",
+  "execution_budget": {
+    "automatic_harness_push_jobs": 3,
+    "estimated_linux_minutes": 12,
+    "estimated_windows_minutes": 18,
+    "harness_job_ceiling_minutes": 5,
+    "harness_max_parallel": 2,
+    "linux_development_setup_executions": 20,
+    "linux_final_command_ceiling_seconds": 1200,
+    "linux_job_ceiling_minutes": 60,
+    "linux_preparation_command_ceiling_seconds": 1200,
+    "linux_standard_hosted_jobs": 1,
+    "windows_local_command_ceiling_seconds": 1200
+  },
+  "failure_policy": "No automatic per-case retry. Any red or partial final batch rejects that native window; preserve every attempt and declare a new window only after diagnosis.",
+  "fault_declaration_sha256": "4990b28c3826f40ebf4c4a00ffb91e235dd0e6dfa4a01a1746844cbbfa9e12e6",
+  "hosts": [
+    "windows",
+    "linux"
+  ],
+  "maintenance_journey": "artifacts/runner-readiness-next-twenty-project-pass/peco/maintenance-fdb85381c76b421ea90c8ab881c73f2b/journey.json",
+  "maintenance_journey_sha256": "fd5ee4f117860ed8d4144f0882bf2c0d8da91988c187e34dd58e6959903ad95a",
+  "native_module_lock_sha256": "60857228850841fc8bf792adc0cef689b3d93335322194e1a67daa0a03027fe7",
+  "normal": 8,
+  "ordinary_required": 480,
+  "original_failures": [
+    "development-disposition.json",
+    "linux-development-cleanup-failure-v1.json",
+    "maintenance-prelaunch-disposition-v1.json",
+    "maintenance-helper-failure-v2.json"
+  ],
+  "positive_linux_readback_sha256": "f8df27f957086232d409adf622b2aaeda67bd51d4a34476db24ea3c6cee2ab86",
+  "positive_windows_development": "artifacts/runner-readiness-next-twenty-project-pass/peco/development/288ae3b81c6c4843bd9935a7e948ae6c/summary.json",
+  "positive_windows_development_sha256": "00dc79e3e9f15da174cbbd1106060211997f0e248069dbdf82630a4ab97128de",
+  "project": "peco",
+  "project_admissions": 0,
+  "real_source_faults": 3,
+  "repetitions_per_cell": 12,
+  "retention": {
+    "mandatory_standalone_generation": 1,
+    "native_executable_max_logical_bytes": 268435456,
+    "native_executable_max_unique_bytes": 134217728,
+    "native_policy": "Direct original provider ZIP with exact byte-verified references to mandatory standalone native1. Its original cleanup failure remains failed; dictionary use grants no coverage credit.",
+    "project_cap_bytes": 67108864,
+    "standalone_archive_sha256": "68167c3ee46f24ae72eff11f9d910950b14283ede73f502ca4006c2fb4263260",
+    "successful_development_generation": 2,
+    "windows_policy": "All primary,module/archive metadata and all actual app,capture,cold-copy,fault/maintenance executable paths retained. Unique payloads only with byte-exact aliases. Shared module ZIPs may reference mandatory standalone native1."
+  },
+  "revision": 1,
+  "scenarios_per_cell": 20,
+  "schema_version": 1,
+  "scope": "Finite final execution declaration only. All249actual reports per host,source/runtime/helper/byte readback,negative model controls,full history,retention,storage and confirmed cleanup required before admission. Setup20Linux development runs are separate and grant no final credit.",
+  "startup_timeout_ms_by_host": {
+    "linux": 2000,
+    "windows": 2000
+  },
+  "transfer_scope": "All source,dependencies,mutations and both native development windows exposed; no untouched-target/native/human claim.",
+  "viewport_declaration_sha256": "ab608e058aa0570bba7f327abe75c283b7fd5f519911e0f4c1a6b7084bc88fde",
+  "viewport_native_preflight": "artifacts/runner-readiness-next-twenty-project-pass/peco/viewport-preflight-4e55cd4dddfb4a0293bf1671f5fb68bc/summary.json",
+  "viewport_native_preflight_sha256": "43982f6b6ea5e9ee1e758e3322cee411417b9b9bf9538b138e9cdbe61dffab17"
+}

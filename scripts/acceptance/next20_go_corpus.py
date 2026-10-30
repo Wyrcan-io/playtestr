@@ -40,16 +40,21 @@ def main():
     if refs:immutable_json(output/'canonical-native-references.json',dict(schema_version=1,project=project,required_canonical_packet=identity,files=refs,scope='Every referenced source ZIP compared byte-exact with actual original and mandatory standalone native packet. No reference chains or remote reconstruction.'))
     immutable_json(output/'index.json',dict(schema_version=1,project=project,files=files,modules=len(fetch['modules']),exact_native_references=len(refs),
         source_review_sha256=sha256(DOC/project/'dependency-source-review-declaration.json'),scope='All actual acquired module ZIP/go.mod/version bodies and available SumDB proof-cache bytes retained exactly. SDK descriptor only,not full SDK. Native binaries are separate exact solid packet.'))
-    binaries={}
-    for directory in [target/'bin',target/'fault-builds',target/'maintenance-builds']:
+    binaries={};payloads={};logical_bytes=0
+    for directory in [target/'bin',target/'fault-builds',target/'maintenance-builds',*sorted(target.glob('app-pair-*'))]:
         if directory.is_dir():
             for path in sorted(directory.rglob('*')):
                 if not path.is_file() or path.name.endswith(('.json','.go','.txt','.patch')):continue
                 path.resolve(strict=True).relative_to(target.resolve(strict=True));body=path.read_bytes()
                 if not body.startswith((b'MZ',b'\x7fELF')):raise ValueError('unreviewed native binary format')
                 if len(body)>16*1024**2 or len(binaries)>=64:raise ValueError('native binary corpus bound')
-                binaries[path.relative_to(target).as_posix()]=body
-    if not binaries or sum(map(len,binaries.values()))>128*1024**2:raise ValueError('native binary expanded bound')
+                key=(len(body),hashlib.sha256(body).hexdigest());logical_bytes+=len(body)
+                if key in payloads:
+                    if payloads[key]!=body:raise ValueError('same-hash native executable bytes differ')
+                else:payloads[key]=body
+                binaries[path.relative_to(target).as_posix()]=payloads[key]
+    unique_bytes=sum(map(len,payloads.values()))
+    if not binaries or logical_bytes>256*1024**2 or unique_bytes>128*1024**2:raise ValueError('native binary logical/unique expanded bound')
     archive=output/'executables.tar.xz';rows={};unique={}
     with tarfile.open(archive,'w:xz',preset=6) as stream:
         for name,body in binaries.items():
@@ -68,7 +73,7 @@ def main():
             restored[member.name]=stream.extractfile(member).read(16*1024**2+1)
     for name,row in rows.items():
         if restored[row.get('member',name)]!=binaries[name]:raise ValueError('native executable exact full restoration differs')
-    immutable_json(output/'executables-index.json',dict(schema_version=1,project=project,files=rows,archive_sha256=sha256(archive),logical_files=len(rows),unique_payloads=len(unique),all_actual_bytes_compared=True,
+    immutable_json(output/'executables-index.json',dict(schema_version=1,project=project,files=rows,archive_sha256=sha256(archive),logical_files=len(rows),unique_payloads=len(unique),logical_bytes=logical_bytes,unique_payload_bytes=unique_bytes,all_actual_bytes_compared=True,
         scope='Actual primary,capture,fault and intended-maintenance executable bytes,all restored byte-exact. Source/compile receipts identify each role; duplicate logical paths are exact in-archive aliases. No compatibility credit.'))
     print('Retained',len(fetch['modules']),'actual module archives/metadata;',len(refs),'exact native references;',len(binaries),'native executable paths ->',archive.stat().st_size,'XZ bytes. Full byte readback passed.')
 
