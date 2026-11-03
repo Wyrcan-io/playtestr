@@ -47,7 +47,7 @@ jobs:
       - name: Bind actual compiled dependencies to required retained source dictionary
         run: python -B scripts/acceptance/next20_check.py --label cargo-linux-rebuild-source-dictionary --timeout 60 -- python -B scripts/acceptance/next20_cargo_source_reference.py
       - name: Execute only declared fresh normal restored-source rebuild triples
-        run: python -B scripts/acceptance/next20_check.py --label cargo-linux-normal-rebuild-calibration-triples --timeout 1860 -- python -B scripts/acceptance/next20_cargo_rebuild_recovery.py
+        run: python -B scripts/acceptance/next20_check.py --label cargo-linux-normal-rebuild-calibration-triples --timeout 1200 -- python -B scripts/acceptance/next20_cargo_rebuild_recovery.py
       - name: Preserve every actual newly compiled executable
         run: python -B scripts/acceptance/next20_check.py --label cargo-linux-normal-rebuild-image-retention --timeout 300 -- python -B scripts/acceptance/next20_cargo_rebuild_pack.py
       - name: Retain provenance and confirm exact target source runtime removal

@@ -35,7 +35,7 @@ async def main():
         ordinary_credit=0, expected_calibrations=9, expected_normal_restoration_rebuilds=3, project_admissions=0))
     result = await execute([sys.executable, '-B', ROOT / 'scripts/acceptance/next20_cargo_faults.py', '--native-final', '--normal-rebuild-window'],
         'cargo-generate', 'fresh-normal-restored-rust-source-rebuild-triples', cwd=ROOT,
-        env=owned_environment(), timeout=1800, campaign=NextCampaign(phase='final-archive'))
+        env=owned_environment(), timeout=1100, campaign=NextCampaign(phase='final-archive'))
     path = RAW / 'cargo-generate/source-fault-rebuild-recovery-v1/summary.json'
     summary = json.loads(path.read_text())
     if summary['normal_restoration_rebuilds'] != 3 or summary['new_compiles'] != 6 or summary['final_native_calibration_executions'] != 9:
