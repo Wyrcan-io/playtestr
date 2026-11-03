@@ -39,7 +39,9 @@ class NativeFaultCampaign(NextCampaign):
 
 async def main():
     parser=argparse.ArgumentParser();parser.add_argument('--native-final',action='store_true')
-    parser.add_argument('--reuse-compiled',action='store_true');args=parser.parse_args()
+    parser.add_argument('--reuse-compiled',action='store_true')
+    parser.add_argument('--normal-rebuild-window',action='store_true');args=parser.parse_args()
+    if args.normal_rebuild_window and (not args.native_final or args.reuse_compiled):raise ValueError('normal rebuild correction requires native final and fresh actual compiles')
     if args.reuse_compiled and not args.native_final:raise ValueError('compiled-artifact reuse must be declared as a fresh final calibration window')
     phase='final-archive' if args.native_final else 'development'
     project='cargo-generate';package=DOC/project;target=RAW/'active'/project;source=target/'src'
@@ -51,13 +53,18 @@ async def main():
     if sha256(binary)!=build['binary_sha256'] or runtime['native_sha256']!=build['binary_sha256']:raise ValueError('pristine native build differs')
     immutable_metadata={p:sha256(p) for p in [build_path,runtime_path,target/'installed-inventory.json']}
     runner=executable('native-exit-v1')
-    contract_package=RAW/project/'host-contracts' if args.native_final else package
-    root=RAW/project/('source-fault-final-native-exit-v1/v1' if args.native_final else 'source-fault-development/v1')
+    contract_package=RAW/project/('host-contracts-rebuild-v1' if args.normal_rebuild_window else 'host-contracts') if args.native_final else package
+    if args.normal_rebuild_window:
+        correction=package/'rebuild-recovery-declaration-v1.json';declared=json.loads(correction.read_text())
+        if declared['gate_sha256']!=sha256(package/'restoration-rebuild-gate.json') or declared['ordinary_matrix_reused_unchanged']!=480:raise ValueError('undeclared normal rebuild proof correction')
+        if build['binary_sha256']!=declared['original_baseline']['windows' if os.name=='nt' else 'linux']:raise ValueError('original ordinary baseline differs; investigate before calibration')
+    root=RAW/project/('source-fault-rebuild-recovery-v1' if args.normal_rebuild_window else 'source-fault-final-native-exit-v1/v1' if args.native_final else 'source-fault-development/v1')
     if root.exists():raise ValueError('preserve original fault probes; no automatic retries')
-    root.mkdir(parents=True);variants=target/('fault-builds/final-native-exit-v1' if args.native_final else 'fault-builds/v1');variants.mkdir(parents=True,exist_ok=False)
+    root.mkdir(parents=True);variants=target/('fault-builds/rebuild-v1' if args.normal_rebuild_window else 'fault-builds/final-native-exit-v1' if args.native_final else 'fault-builds/v1');variants.mkdir(parents=True,exist_ok=False)
     original_binary=variants/'original'/binary.name;original_binary.parent.mkdir();shutil.copyfile(binary,original_binary)
     if sha256(original_binary)!=build['binary_sha256']:raise ValueError('pristine executable backup differs')
     inputs=[package/name for name in freeze['inputs']]+[declaration_path,freeze_path,build_path,runtime_path]
+    if args.normal_rebuild_window:inputs.append(correction)
     if args.native_final:
         host_profile=contract_package/'scenarios.json';profile=json.loads(host_profile.read_text())
         if profile['development_freeze_sha256']!=sha256(freeze_path) or profile['native_binary_sha256']!=build['binary_sha256']:raise ValueError('native calibration profile is not exact frozen/source-built target')
@@ -77,24 +84,24 @@ async def main():
         for name,row in dependencies['files'].items():
             if sha256(target/name)!=row['sha256']:raise ValueError('reviewed dependency archive changed')
     contracts();pristine()
-    if not args.reuse_compiled:dependency_bytes()
+    dependency_bytes()
     compiler=Path(build['compiler_path']);cargo=Path(build['cargo_path'])
-    if not args.reuse_compiled and (sha256(compiler)!=build['compiler_sha256'] or sha256(cargo)!=build['cargo_sha256']):raise ValueError('read-only compiler changed')
+    if sha256(compiler)!=build['compiler_sha256'] or sha256(cargo)!=build['cargo_sha256']:raise ValueError('read-only compiler changed')
     env=environment(target);env.update(RUSTC=str(compiler),RUSTDOC=str(compiler.with_name('rustdoc.exe' if os.name=='nt' else 'rustdoc')),
         CARGO_NET_OFFLINE='true',SOURCE_DATE_EPOCH='1793030400')
     env['PATH']=str(compiler.parent)+os.pathsep+env['PATH']
-    if os.name!='nt' and not args.reuse_compiled and 'native_c_compiler_sha256' in build:
+    if os.name!='nt' and 'native_c_compiler_sha256' in build:
         cc_path=target/'native-c-compiler.json';cc=json.loads(cc_path.read_text())
         if sha256(cc_path)!=build['native_c_compiler_sha256'] or sha256(Path(cc['path']))!=cc['sha256']:raise ValueError('native calibration C compiler differs from baseline build')
         env['CC']=cc['path']
-    if os.name=='nt' and not args.reuse_compiled:
+    if os.name=='nt':
         env['CARGO_HOME']=str(materialize_short_cache(target,dependencies,catalog))
         for key in ['CARGO_HOME','CARGO_TARGET_DIR','TEMP','TMP','TMPDIR']:env[key]=short_owned_path(env[key])
     command=[cargo,'rustc','--locked','--offline','--release','--target',build['native_triple'],'--bin','cargo-generate']
     if os.name=='nt':command+=['--','-C','link-arg=/Brepro']
     target_env=target_environment(target);observations=[]
-    async def compile_variant(fault):
-        task=asyncio.create_task(execute(command,project,'cargo-real-source-fault-compile-'+fault['id'],
+    async def compile_variant(fault,purpose='mutated'):
+        task=asyncio.create_task(execute(command,project,'cargo-real-source-'+purpose+'-compile-'+fault['id'],
             cwd=Path(short_owned_path(source)),env=env,timeout=1100,campaign=NextCampaign(phase='development')))
         samples=[]
         try:
@@ -108,7 +115,7 @@ async def main():
                 task.cancel()
                 try:await task
                 except asyncio.CancelledError:pass
-            immutable_json(root/(fault['id']+'-build-storage.json'),dict(observed_raw_bytes=samples,
+            immutable_json(root/(fault['id']+'-'+purpose+'-build-storage.json'),dict(observed_raw_bytes=samples,
                 stop_bytes=3*1024**3,scope='Periodic logical samples, not exact peak, allocation or quota.'))
     async def run_case(fault,phase,variant_receipt=None):
         contracts();report=root/(fault['id']+'-'+phase+'.report.json')
@@ -165,17 +172,36 @@ async def main():
             shutil.copyfile(variant,binary);rejected=await run_case(fault,'mutated',variant_receipt)
         finally:
             path.write_bytes(original);shutil.copyfile(original_binary,binary);pristine()
-        restored=await run_case(fault,'restored');observations.append(dict(fault=fault['id'],baseline=baseline,mutated=rejected,restored=restored,
-            compiled_receipt=variant_receipt.relative_to(ROOT).as_posix(),compiled_receipt_sha256=sha256(variant_receipt)))
-        immutable_json(root/(fault['id']+'-complete.json'),observations[-1]);print(fault['id'],'baseline passed / compiled mutation rejected / exact restoration passed',flush=True)
+            rebuilt=await compile_variant(fault,'normal-restored')
+            pristine();dependency_bytes()
+            output=target/'cargo-target'/build['native_triple']/'release'/binary.name
+            recovery=variants/(fault['id']+'-normal-restored')/binary.name;recovery.parent.mkdir();shutil.copyfile(output,recovery)
+            if sha256(recovery)!=sha256(output):raise ValueError('normal restored-source executable copy differs')
+            recovery_receipt=root/(fault['id']+'-normal-restored-compiled.json')
+            immutable_json(recovery_receipt,dict(schema_version=1,fault=fault['id'],purpose='normal-restored-source-rebuild',
+                compile_attempt=rebuilt['id'],command=list(map(str,command)),binary=recovery.relative_to(ROOT).as_posix(),
+                binary_sha256=sha256(recovery),binary_bytes=recovery.stat().st_size,compiler_sha256=sha256(compiler),cargo_sha256=sha256(cargo),
+                pristine_build_sha256=sha256(build_path),fault_declaration_sha256=sha256(declaration_path),
+                source_inputs={(source/name).relative_to(ROOT).as_posix():sha256(source/name) for name in review['reviewed_inputs']},
+                dependency_source_catalog_sha256=sha256(target/'dependency-source-catalog.json'),
+                dependency_fetch_receipt_sha256=sha256(target/'dependency-fetch-review.json'),matches_original=sha256(recovery)==build['binary_sha256']))
+        try:
+            shutil.copyfile(recovery,binary);restored=await run_case(fault,'restored',recovery_receipt)
+        finally:
+            shutil.copyfile(original_binary,binary);pristine()
+        observations.append(dict(fault=fault['id'],baseline=baseline,mutated=rejected,restored=restored,
+            compiled_receipt=variant_receipt.relative_to(ROOT).as_posix(),compiled_receipt_sha256=sha256(variant_receipt),
+            normal_rebuild_recovery_executed=True,normal_rebuild_receipt=recovery_receipt.relative_to(ROOT).as_posix(),
+            normal_rebuild_receipt_sha256=sha256(recovery_receipt)))
+        immutable_json(root/(fault['id']+'-complete.json'),observations[-1]);print(fault['id'],'baseline passed / compiled mutation rejected / normal restored-source rebuild passed',flush=True)
     contracts();pristine()
-    if not args.reuse_compiled:
-        dependency_bytes()
-        if os.name=='nt':materialize_short_cache(target,dependencies,catalog)
+    dependency_bytes()
+    if os.name=='nt':materialize_short_cache(target,dependencies,catalog)
     immutable_json(root/'summary.json',dict(schema_version=1,observations=observations,actual_source_faults=3,
         phase=phase,exploratory_executions=0 if args.native_final else 9,
-        reused_exact_compiled_variants=args.reuse_compiled,new_compiles=0 if args.reuse_compiled else 3,
-        dependency_scope='No registry/cache used by direct execution of exact already-compiled variants; original compile provenance retained, no new source-cache byte-check claim.' if args.reuse_compiled else 'Reviewed original and actual native dependency cache bytes verified before/after compilation.',
+        reused_exact_compiled_variants=args.reuse_compiled,new_compiles=3 if args.reuse_compiled else 6,
+        normal_restoration_rebuilds=3,restoration_method='normal-source-rebuild',
+        dependency_scope='Reviewed original and actual native dependency cache bytes verified before/after normal recovery compilation; reused mutant compile provenance,when explicitly selected,remains separate.',
         final_native_calibration_executions=9 if args.native_final else 0,mandatory_final_native_calibration_credit=0,project_credits=0,
         scope='Actual native calibration triples, pending independent final audit.' if args.native_final else 'Local real source-fault exploration. Exact native final series must repeat the declared calibration triples. Original runtime/build receipts and source/executable bytes restored.'))
     print('Three real source mutations detected by unchanged contracts; pristine source and executable restored.')

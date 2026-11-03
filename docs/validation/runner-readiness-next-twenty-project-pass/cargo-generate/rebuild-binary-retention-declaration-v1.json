@@ -1,0 +1,23 @@
+{
+  "original_full_byte_readback_sha256": "e5f059b0a29c4eccbee864e7e1aab7310fe62b1544eb0dc28808809b9dc3fb1e",
+  "original_images": {
+    "linux": {
+      "F01": "0937c256258da294a17b1481f8e0606536397fa50403094c2471edfbfeee0ab2",
+      "F02": "1f081b152fe0758f4d34ff038c434a52538142bdaa10d1c574c3baf4b2b39198",
+      "F03": "1ea85416b46f23db7a44304e996b6b9c08f48038fbab6cfb7ccb9b17c5a47072",
+      "original": "ea83083a6e67a2110a54f42c13e9690e19d9c2d28f6a6ea996d38eab19c27a28"
+    },
+    "windows": {
+      "F01": "b0872b5cbc293916c7281e6b2a5d819b95fce62aa531db11eb8bcd721cf279ca",
+      "F02": "aa95aff5ee0a5ca884a564ba7449e7b5ea1599192e7795ae30ca8f270b147228",
+      "F03": "f42e4b8a4a94f36b7fe8849066cebc9faa6f4a2f477ee45d7abcef72e65cf978",
+      "original": "a69bf4f976fbb20282212143420379a25ca08a19f065fb015ca92928fbd635db"
+    }
+  },
+  "policy": "Every new actual executable receives either an exact hash-required original image reference or a fully roundtripped bounded raw-LZMA2 delta against the original baseline. All old dictionaries remain mandatory; independent post-retention decoder must compare all six actual images to compiler receipts. No deletion or qualification credit from a reference alone.",
+  "project": "cargo-generate",
+  "recovery_declaration_sha256": "224756c1d279b5ea3795947e26f7feaf915e7ddca8798d3a69c45ed634e63712",
+  "required_linux_dictionary_generation": 13,
+  "required_windows_dictionary": "native-solid-variants/windows",
+  "schema_version": 1
+}

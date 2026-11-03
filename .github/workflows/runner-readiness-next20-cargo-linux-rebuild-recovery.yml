@@ -1,0 +1,69 @@
+name: Next twenty Cargo Linux normal rebuild recovery
+on:
+  push:
+    branches: [work/p0-p2-implementation]
+    paths: ['.github/workflows/runner-readiness-next20-cargo-linux-rebuild-recovery.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: playtestr-next20-cargo-linux-rebuild-recovery
+  cancel-in-progress: false
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONIOENCODING: utf-8
+  TEMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+  TMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+  TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+  PSModuleAnalysisCachePath: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/shell-cache/module-analysis
+jobs:
+  native-final:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+      - name: Create owned temporary and cache paths
+        run: mkdir -p "$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/tmp" "$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/shell-cache"
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          github-token: ${{ github.token }}
+          repository: Wyrcan-io/playtestr
+          run-id: 40424475362
+          name: next20-private-replacement-Linux
+          path: artifacts/runner-readiness-next-twenty-project-pass/candidate-download
+      - name: Install exact frozen native Linux archive
+        run: python -B scripts/acceptance/next20_check.py --label cargo-linux-rebuild-exact-archive --timeout 90 -- python -B scripts/acceptance/next20_candidate_install.py --series native-exit-v1 --archive artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v1/linux-amd64/dist/playtestr_0.4.0-rc.6_linux_amd64.tar.gz
+      - name: Prepare reviewed native target within twenty minutes
+        id: prepare
+        run: python -B scripts/acceptance/next20_check.py --label cargo-linux-rebuild-native-preparation --timeout 1200 -- python -B scripts/acceptance/next20_cargo_prepare.py --linux-readiness-profile 4
+      - name: Bind actual compiled dependencies to required retained source dictionary
+        run: python -B scripts/acceptance/next20_check.py --label cargo-linux-rebuild-source-dictionary --timeout 60 -- python -B scripts/acceptance/next20_cargo_source_reference.py
+      - name: Execute only declared fresh normal restored-source rebuild triples
+        run: python -B scripts/acceptance/next20_check.py --label cargo-linux-normal-rebuild-calibration-triples --timeout 1860 -- python -B scripts/acceptance/next20_cargo_rebuild_recovery.py
+      - name: Preserve every actual newly compiled executable
+        run: python -B scripts/acceptance/next20_check.py --label cargo-linux-normal-rebuild-image-retention --timeout 300 -- python -B scripts/acceptance/next20_cargo_rebuild_pack.py
+      - name: Retain provenance and confirm exact target source runtime removal
+        run: python -B scripts/acceptance/next20_check.py --label cargo-linux-normal-rebuild-checked-removal --timeout 600 -- python -B scripts/acceptance/next20_target_cleanup.py --project cargo-generate --window rebuild-v1 --max-files 60000 --max-bytes 2147483648
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: next20-cargo-linux-rebuild-recovery
+          path: |
+            artifacts/runner-readiness-next-twenty-project-pass/core/
+            artifacts/runner-readiness-next-twenty-project-pass/events/
+            artifacts/runner-readiness-next-twenty-project-pass/identities/
+            artifacts/runner-readiness-next-twenty-project-pass/cargo-generate/
+            artifacts/runner-readiness-next-twenty-project-pass/active/cargo-generate/*.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/cargo-generate/source.tar.gz
+            artifacts/runner-readiness-next-twenty-project-pass/candidate-native-exit-v1/linux/installed.json
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 30
