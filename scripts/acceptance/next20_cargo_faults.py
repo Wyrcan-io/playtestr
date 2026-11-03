@@ -40,7 +40,9 @@ class NativeFaultCampaign(NextCampaign):
 async def main():
     parser=argparse.ArgumentParser();parser.add_argument('--native-final',action='store_true')
     parser.add_argument('--reuse-compiled',action='store_true')
-    parser.add_argument('--normal-rebuild-window',action='store_true');args=parser.parse_args()
+    parser.add_argument('--normal-rebuild-window',action='store_true')
+    parser.add_argument('--normal-rebuild-window-number',type=int,choices=[1,2],default=1);args=parser.parse_args()
+    if args.normal_rebuild_window_number!=1 and (not args.normal_rebuild_window or os.name!='nt'):raise ValueError('replacement window is an explicit Windows rebuild correction only')
     if args.normal_rebuild_window and (not args.native_final or args.reuse_compiled):raise ValueError('normal rebuild correction requires native final and fresh actual compiles')
     if args.reuse_compiled and not args.native_final:raise ValueError('compiled-artifact reuse must be declared as a fresh final calibration window')
     phase='final-archive' if args.native_final else 'development'
@@ -58,13 +60,18 @@ async def main():
         correction=package/'rebuild-recovery-declaration-v1.json';declared=json.loads(correction.read_text())
         if declared['gate_sha256']!=sha256(package/'restoration-rebuild-gate.json') or declared['ordinary_matrix_reused_unchanged']!=480:raise ValueError('undeclared normal rebuild proof correction')
         if build['binary_sha256']!=declared['original_baseline']['windows' if os.name=='nt' else 'linux']:raise ValueError('original ordinary baseline differs; investigate before calibration')
-    root=RAW/project/('source-fault-rebuild-recovery-v1' if args.normal_rebuild_window else 'source-fault-final-native-exit-v1/v1' if args.native_final else 'source-fault-development/v1')
+        if args.normal_rebuild_window_number==2:
+            replacement=package/'rebuild-recovery-replacement-declaration-v2.json';record=json.loads(replacement.read_text())
+            if record['original_recovery_declaration_sha256']!=sha256(correction) or record['preparation_receipt_sha256']!=sha256(RAW/project/'rebuild-preparation-v1/compiled.json'):raise ValueError('replacement rebuild window not bound to original correction and actual separate preparation')
+    window=str(args.normal_rebuild_window_number)
+    root=RAW/project/('source-fault-rebuild-recovery-v'+window if args.normal_rebuild_window else 'source-fault-final-native-exit-v1/v1' if args.native_final else 'source-fault-development/v1')
     if root.exists():raise ValueError('preserve original fault probes; no automatic retries')
-    root.mkdir(parents=True);variants=target/('fault-builds/rebuild-v1' if args.normal_rebuild_window else 'fault-builds/final-native-exit-v1' if args.native_final else 'fault-builds/v1');variants.mkdir(parents=True,exist_ok=False)
+    root.mkdir(parents=True);variants=target/('fault-builds/rebuild-v'+window if args.normal_rebuild_window else 'fault-builds/final-native-exit-v1' if args.native_final else 'fault-builds/v1');variants.mkdir(parents=True,exist_ok=False)
     original_binary=variants/'original'/binary.name;original_binary.parent.mkdir();shutil.copyfile(binary,original_binary)
     if sha256(original_binary)!=build['binary_sha256']:raise ValueError('pristine executable backup differs')
     inputs=[package/name for name in freeze['inputs']]+[declaration_path,freeze_path,build_path,runtime_path]
     if args.normal_rebuild_window:inputs.append(correction)
+    if args.normal_rebuild_window_number==2:inputs.append(replacement)
     if args.native_final:
         host_profile=contract_package/'scenarios.json';profile=json.loads(host_profile.read_text())
         if profile['development_freeze_sha256']!=sha256(freeze_path) or profile['native_binary_sha256']!=build['binary_sha256']:raise ValueError('native calibration profile is not exact frozen/source-built target')

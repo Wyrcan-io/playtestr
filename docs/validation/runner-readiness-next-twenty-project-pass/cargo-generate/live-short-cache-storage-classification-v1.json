@@ -1,0 +1,13 @@
+{
+  "cleanup_requirement": "After target retirement the cache cannot use this classification; checked owned cache removal or ordinary retained counting is mandatory before next target. No historical evidence deletion or cap increase.",
+  "corrected_combined_retained_bytes": 1855531593,
+  "corrected_observation": "0e2378d32ecd48819830c3f014cb5321",
+  "original_failed_observation": "c4ffe1d145294e44ad62740d8dbc3d16",
+  "original_strict_combined_retained_bytes": 2236822989,
+  "policy": "Optional explicit --owned-short-cache-as-active only for the single active Cargo target. Verify nonlinked owned roots,workspace/project/source target/catalog identity,and exact owner/materialization hashes from active short-cache reference. Bound512MiB; include cache in raw and active-target counts. No cached byte becomes qualified evidence. Refuse classification for absent/retired/foreign target or source mutation. Original campaign classification and all failed measurements remain unchanged.",
+  "project": "cargo-generate",
+  "raw_bytes_unchanged_in_classification": true,
+  "schema_version": 1,
+  "semantic_controls": "71a33aa25a22460387d08eb36b84e71c",
+  "source": "scripts/acceptance/next20_storage.py"
+}

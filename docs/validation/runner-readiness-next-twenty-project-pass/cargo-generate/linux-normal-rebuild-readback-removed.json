@@ -1,0 +1,104 @@
+{
+  "actual_compiler_executions_verified": 6,
+  "actual_images_verified": {
+    "F01-mutated": "0937c256258da294a17b1481f8e0606536397fa50403094c2471edfbfeee0ab2",
+    "F01-restored": "ea83083a6e67a2110a54f42c13e9690e19d9c2d28f6a6ea996d38eab19c27a28",
+    "F02-mutated": "1f081b152fe0758f4d34ff038c434a52538142bdaa10d1c574c3baf4b2b39198",
+    "F02-restored": "ea83083a6e67a2110a54f42c13e9690e19d9c2d28f6a6ea996d38eab19c27a28",
+    "F03-mutated": "1ea85416b46f23db7a44304e996b6b9c08f48038fbab6cfb7ccb9b17c5a47072",
+    "F03-restored": "ea83083a6e67a2110a54f42c13e9690e19d9c2d28f6a6ea996d38eab19c27a28"
+  },
+  "actual_phases": [
+    {
+      "fault": "F01",
+      "frame": null,
+      "frame_sha256": null,
+      "invocation": "976e6078ef044b34f2ec1b77271a88f5",
+      "phase": "baseline",
+      "report": "artifacts/runner-readiness-next-twenty-project-pass/cargo-generate/source-fault-rebuild-recovery-v1/F01-baseline.report.json",
+      "report_sha256": "fecdc4b7e9ee62d0cf15cdc5ebbcb72a2d5f183192fffadfb34677046886a04d"
+    },
+    {
+      "fault": "F01",
+      "frame": "artifacts/runner-readiness-next-twenty-project-pass/cargo-generate/source-fault-rebuild-recovery-v1/F01-mutated-evidence/20261103T212545Z-3270308468/twenty-project-pass-cargo-generate-host-contracts-rebuild-v1-normal-project.json-64f2f7d218a2.actual.txt",
+      "frame_sha256": "52507a8991cdf0c24c2bcad8a031236bda531d8dab43cf883240b05be24c3090",
+      "invocation": "90f205b662caa92888f0ec5e7b18ce67",
+      "phase": "mutated",
+      "report": "artifacts/runner-readiness-next-twenty-project-pass/cargo-generate/source-fault-rebuild-recovery-v1/F01-mutated.report.json",
+      "report_sha256": "675f39f7e8147429da741cdb9fd0d55d966cb19594f4771f3c236208917ade26"
+    },
+    {
+      "fault": "F01",
+      "frame": null,
+      "frame_sha256": null,
+      "invocation": "fe8236cbf1a75e324ccd5a7bc723861a",
+      "phase": "restored",
+      "report": "artifacts/runner-readiness-next-twenty-project-pass/cargo-generate/source-fault-rebuild-recovery-v1/F01-restored.report.json",
+      "report_sha256": "7d8a422825e8c9f3511d54031be4d96ed6143ac16a80566efe39605531d9f0f1"
+    },
+    {
+      "fault": "F02",
+      "frame": null,
+      "frame_sha256": null,
+      "invocation": "2e0970e1f9bac05d64c09c79ef124030",
+      "phase": "baseline",
+      "report": "artifacts/runner-readiness-next-twenty-project-pass/cargo-generate/source-fault-rebuild-recovery-v1/F02-baseline.report.json",
+      "report_sha256": "0fc3aba2940bdc011fc5c67924b3d9a9203d8a2f46db394000965578198513f9"
+    },
+    {
+      "fault": "F02",
+      "frame": "artifacts/runner-readiness-next-twenty-project-pass/cargo-generate/source-fault-rebuild-recovery-v1/F02-mutated-evidence/20261103T212644Z-3383918083/twenty-project-pass-cargo-generate-host-contracts-rebuild-v1-normal-project.json-64f2f7d218a2.actual.txt",
+      "frame_sha256": "549b3a55fcf528b8eba980b8348501366e03aa720f9b7ee3c5fcd42eaf6730c1",
+      "invocation": "59f62abb092d86d09ee6bbf339e47c43",
+      "phase": "mutated",
+      "report": "artifacts/runner-readiness-next-twenty-project-pass/cargo-generate/source-fault-rebuild-recovery-v1/F02-mutated.report.json",
+      "report_sha256": "7ea4d9effc022c89d5ace6137639e29ebae63dff1356be4951eae4f4b8c51c83"
+    },
+    {
+      "fault": "F02",
+      "frame": null,
+      "frame_sha256": null,
+      "invocation": "7d622faa3eb6c059027ddc6bbbf45a92",
+      "phase": "restored",
+      "report": "artifacts/runner-readiness-next-twenty-project-pass/cargo-generate/source-fault-rebuild-recovery-v1/F02-restored.report.json",
+      "report_sha256": "ef0f1b7729e9093926e40ee212b41395a4bc200f35ba090b67b2b5f1c6998c7e"
+    },
+    {
+      "fault": "F03",
+      "frame": null,
+      "frame_sha256": null,
+      "invocation": "80d1cbec30ad4d66d37e4938de1d9371",
+      "phase": "baseline",
+      "report": "artifacts/runner-readiness-next-twenty-project-pass/cargo-generate/source-fault-rebuild-recovery-v1/F03-baseline.report.json",
+      "report_sha256": "9b15ed13c612f9dea65a61092d734c09ec7bd5228e63f8595132c160441e8cd3"
+    },
+    {
+      "fault": "F03",
+      "frame": "artifacts/runner-readiness-next-twenty-project-pass/cargo-generate/source-fault-rebuild-recovery-v1/F03-mutated-evidence/20261103T212733Z-1624731645/twenty-project-pass-cargo-generate-host-contracts-rebuild-v1-normal-project.json-64f2f7d218a2.actual.txt",
+      "frame_sha256": "4deea210889bede248de844584d8b86bc11aea7d6270d90a043c821ada3c6510",
+      "invocation": "df0bd6c36f29b876251f761f434b938e",
+      "phase": "mutated",
+      "report": "artifacts/runner-readiness-next-twenty-project-pass/cargo-generate/source-fault-rebuild-recovery-v1/F03-mutated.report.json",
+      "report_sha256": "a7173c77f25f4f2d696c46b41fb723cc496701243b33822e91e0ed969f240c4c"
+    },
+    {
+      "fault": "F03",
+      "frame": null,
+      "frame_sha256": null,
+      "invocation": "f86aea96d54248d2c85da7097117743c",
+      "phase": "restored",
+      "report": "artifacts/runner-readiness-next-twenty-project-pass/cargo-generate/source-fault-rebuild-recovery-v1/F03-restored.report.json",
+      "report_sha256": "789df29f0ade4161ee9f15048abbc08e2ff2af6abfd963529ac9e4549cbfc51f"
+    }
+  ],
+  "calibrations_verified": 9,
+  "host": "linux",
+  "normal_rebuilds_verified": 3,
+  "ordinary_credit": 0,
+  "original_ordinary_unchanged": true,
+  "project": "cargo-generate",
+  "project_admissions": 0,
+  "schema_version": 1,
+  "source_revision": "347b5e153f2a01553dd5b4ec8d0c741d67b4e203",
+  "source_runtime_removed": true
+}
