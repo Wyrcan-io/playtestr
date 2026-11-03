@@ -1,0 +1,132 @@
+{
+  "actual_compiler_executions_verified": 6,
+  "actual_normal_rebuilt_images": [
+    {
+      "fault": "F01",
+      "matches_original": true,
+      "receipt": "artifacts/runner-readiness-next-twenty-project-pass/peco/faults/acda2f8c4cc74849b42ed27c637d577c/F01-normal-restored-compiled.json",
+      "receipt_sha256": "fae30db61391dcd5bff64de95b463401e252b299c9196130ed13b2dc3ec2a5de",
+      "sha256": "2a516f305d8e73f8809a80096dbb7b084fe50d9aeb15da70fa2e43a06c703bec"
+    },
+    {
+      "fault": "F02",
+      "matches_original": true,
+      "receipt": "artifacts/runner-readiness-next-twenty-project-pass/peco/faults/acda2f8c4cc74849b42ed27c637d577c/F02-normal-restored-compiled.json",
+      "receipt_sha256": "8a65fba73a32f8581a602a4560bc0c16a5a0bb18c229ded02a9ca4a5478d1e58",
+      "sha256": "2a516f305d8e73f8809a80096dbb7b084fe50d9aeb15da70fa2e43a06c703bec"
+    },
+    {
+      "fault": "F03",
+      "matches_original": true,
+      "receipt": "artifacts/runner-readiness-next-twenty-project-pass/peco/faults/acda2f8c4cc74849b42ed27c637d577c/F03-normal-restored-compiled.json",
+      "receipt_sha256": "89042715f166202bc627dda73cbd695cabffd71b9cfe19455b9c46c46b6e17a5",
+      "sha256": "2a516f305d8e73f8809a80096dbb7b084fe50d9aeb15da70fa2e43a06c703bec"
+    }
+  ],
+  "actual_phases": [
+    {
+      "actual_binary_sha256": "2a516f305d8e73f8809a80096dbb7b084fe50d9aeb15da70fa2e43a06c703bec",
+      "attempt": "5ba50c1502a542a980e58a4585d0bb24",
+      "fault": "F01",
+      "frame": null,
+      "frame_sha256": null,
+      "invocation": "c8497918f9d9fa933041ae6cea4500af",
+      "phase": "baseline",
+      "report_sha256": "7d436b1fab2c882171cca2740a2a948b54707eaf871dd88c212666c88af0ad0e"
+    },
+    {
+      "actual_binary_sha256": "f3cad6909ac757c92dd91b08222b34db8f1bd919e79628420e96d25271e15fa0",
+      "attempt": "6ff31d1dd14e4f6ca7b89d2311958aab",
+      "fault": "F01",
+      "frame": "artifacts\\runner-readiness-next-twenty-project-pass\\peco\\faults\\acda2f8c4cc74849b42ed27c637d577c\\F01-mutated-evidence\\20261103T203320Z-1865829421\\ss-next-twenty-project-pass-peco-host-contracts-rebuild-v1-normal-selection.json-adb49ccd4e39.actual.txt",
+      "frame_sha256": "781aac0a7f247509315b1e594e34fe6b8210971898b97fc271f9cdc80dd31446",
+      "invocation": "263d0fb9c9fdaba7abedc9ef2a741dca",
+      "phase": "mutated",
+      "report_sha256": "91b6259a0da1ac96d15a088cdc076a748e853a27db843f81883250e2449ce11a"
+    },
+    {
+      "actual_binary_sha256": "2a516f305d8e73f8809a80096dbb7b084fe50d9aeb15da70fa2e43a06c703bec",
+      "attempt": "f22ce6eeff724a549dbcf607826ec06c",
+      "fault": "F01",
+      "frame": null,
+      "frame_sha256": null,
+      "invocation": "116e0c24682d9ad57d23ce9953397c63",
+      "phase": "restored",
+      "report_sha256": "723f0af0e1e1399323568c770221f4a8456c424a96ae9602782edf1ad37939b1"
+    },
+    {
+      "actual_binary_sha256": "2a516f305d8e73f8809a80096dbb7b084fe50d9aeb15da70fa2e43a06c703bec",
+      "attempt": "6e021c9ac2bb4bf8a838b42a199d9a9f",
+      "fault": "F02",
+      "frame": null,
+      "frame_sha256": null,
+      "invocation": "c4031cd76d5504f5a875f7c201b4fa6c",
+      "phase": "baseline",
+      "report_sha256": "ea850a6ce7e98df3acc410175041ff3451d5b09974db9616b3c2133e10524495"
+    },
+    {
+      "actual_binary_sha256": "94c280d750d78600a113668dfdb26410fffd5f445016ab073c2a45e46f7a249c",
+      "attempt": "3fb03bc6b82b49069a8b0b4fdca79d6f",
+      "fault": "F02",
+      "frame": "artifacts\\runner-readiness-next-twenty-project-pass\\peco\\faults\\acda2f8c4cc74849b42ed27c637d577c\\F02-mutated-evidence\\20261103T203356Z-4032253206\\ss-next-twenty-project-pass-peco-host-contracts-rebuild-v1-normal-selection.json-adb49ccd4e39.actual.txt",
+      "frame_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "invocation": "91e58df0a3f5fa75c9a97c12c5cab24d",
+      "phase": "mutated",
+      "report_sha256": "5ab780ee5fb35f5980bdc4a7651c3142ee94d5043dc858ea7d8436129a42e70a"
+    },
+    {
+      "actual_binary_sha256": "2a516f305d8e73f8809a80096dbb7b084fe50d9aeb15da70fa2e43a06c703bec",
+      "attempt": "361ea8707c9e4eb3b18319a103f9be3d",
+      "fault": "F02",
+      "frame": null,
+      "frame_sha256": null,
+      "invocation": "02f13392f5749e65cf7960bfb9eeceec",
+      "phase": "restored",
+      "report_sha256": "97556714e7ed8ce8a145d964e2a28954062bf176a98f7f9a81aef8ff46b3d859"
+    },
+    {
+      "actual_binary_sha256": "2a516f305d8e73f8809a80096dbb7b084fe50d9aeb15da70fa2e43a06c703bec",
+      "attempt": "1864fade132a4c39972a6b815895d16a",
+      "fault": "F03",
+      "frame": null,
+      "frame_sha256": null,
+      "invocation": "72097dfb1e9448ed1ad5c2cf6be08195",
+      "phase": "baseline",
+      "report_sha256": "bd9aa7771b01cb8287a12548b0185fe2d5c2d8a47e1a03c0eec0668ae3edb449"
+    },
+    {
+      "actual_binary_sha256": "47047da529bb74a1ec2753afd9f6d10a6032c87bed76468ebbec7fb15275ca6d",
+      "attempt": "6d8527f226d24592b447ffea6da68afc",
+      "fault": "F03",
+      "frame": "artifacts\\runner-readiness-next-twenty-project-pass\\peco\\faults\\acda2f8c4cc74849b42ed27c637d577c\\F03-mutated-evidence\\20261103T203422Z-2422965476\\ss-next-twenty-project-pass-peco-host-contracts-rebuild-v1-normal-selection.json-adb49ccd4e39.actual.txt",
+      "frame_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "invocation": "64b01adfeada3bb269da8fd2fe124e78",
+      "phase": "mutated",
+      "report_sha256": "8dd471176a539fe413c9d9078cef815ce1ee17a961aba5c9cc55e83ca8f4ab8e"
+    },
+    {
+      "actual_binary_sha256": "2a516f305d8e73f8809a80096dbb7b084fe50d9aeb15da70fa2e43a06c703bec",
+      "attempt": "d35503751a17444b8c9fb6d213a7a838",
+      "fault": "F03",
+      "frame": null,
+      "frame_sha256": null,
+      "invocation": "8af6731ca9be3a9c8ad6c97d2aec8c46",
+      "phase": "restored",
+      "report_sha256": "10a2872825cc8a2434a395118954ab572b486217dd0d56e1cd02e800cd72c293"
+    }
+  ],
+  "calibrations_verified": 9,
+  "declaration_sha256": "3467201e1a03ef10855f62e4d3cb025fba5ecdd64e4fcd238cc6e30a61f7f560",
+  "generation": null,
+  "host": "windows",
+  "normal_rebuilds_verified": 3,
+  "ordinary_credit": 0,
+  "original_ordinary_matrix_unchanged": true,
+  "project": "peco",
+  "project_admissions": 0,
+  "run": null,
+  "schema_version": 1,
+  "source_revision": "ce4012850a43b81fa0968f11cc7f147cd27aa7b2",
+  "source_runtime_removed": false,
+  "summary_sha256": "a921e39d33cd24368fc622052e1c84c049f32742df26ee0bd6c029e2d6f023c9"
+}

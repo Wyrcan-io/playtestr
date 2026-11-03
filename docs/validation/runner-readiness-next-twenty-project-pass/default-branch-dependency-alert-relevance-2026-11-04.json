@@ -1,0 +1,53 @@
+{
+  "alerts": [
+    {
+      "first_patched": "2026.10.18",
+      "manifest": "scripts/readiness/posting-requirements.txt",
+      "number": 7,
+      "package": "certifi",
+      "severity": "critical"
+    },
+    {
+      "first_patched": "1.2.1",
+      "manifest": "scripts/readiness/posting-requirements.txt",
+      "number": 1,
+      "package": "brotli",
+      "severity": "critical"
+    },
+    {
+      "first_patched": "3.1.9",
+      "manifest": "scripts/website/package-lock.json",
+      "number": 2,
+      "package": "fast-uri",
+      "severity": "medium"
+    },
+    {
+      "first_patched": "3.1.9",
+      "manifest": "scripts/website/package-lock.json",
+      "number": 3,
+      "package": "fast-uri",
+      "severity": "medium"
+    },
+    {
+      "first_patched": "3.1.9",
+      "manifest": "scripts/website/package-lock.json",
+      "number": 4,
+      "package": "fast-uri",
+      "severity": "low"
+    },
+    {
+      "first_patched": "3.1.9",
+      "manifest": "scripts/website/package-lock.json",
+      "number": 5,
+      "package": "fast-uri",
+      "severity": "low"
+    }
+  ],
+  "alerts_mutated": false,
+  "disposition": "Alerts remain open and unchanged. Review patched dependencies before executing affected Posting/website profiles. No claim of security/commercial readiness and no unrelated dependency update or outreach.",
+  "observed_on_client_date": "2026-11-04",
+  "project_admissions": 0,
+  "read_only_attempt": "9235c7527726432393f6c4f40120d379",
+  "relevance": "Reported paths are legacy Posting requirements and website-check tooling. No Go module manifest is reported; Peco/Cargo use their separately pinned native dependency inputs. Current Hatch runtime lock contains no certifi/brotli wheel entry. This is manifest/declaration relevance,not a system-wide vulnerability assessment.",
+  "schema_version": 1
+}

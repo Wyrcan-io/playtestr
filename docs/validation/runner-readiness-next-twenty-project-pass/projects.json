@@ -5,9 +5,9 @@
   "current_candidate_original_ten": 0,
   "qualification_candidate": "v0.4.0-rc.6",
   "admission_counters_candidate": "v0.4.0-rc.5",
-  "current_candidate_new_project_admissions": 1,
-  "current_candidate_ordinary_executions_qualified": 480,
-  "current_candidate_calibration_executions_qualified": 18,
+  "current_candidate_new_project_admissions": 2,
+  "current_candidate_ordinary_executions_qualified": 960,
+  "current_candidate_calibration_executions_qualified": 36,
   "candidate_scope": "Top-level admission aggregates remain historical exact v0.4.0-rc.5. Current v0.4.0-rc.6 counters and every per-project candidate admission are separate explicit projections. Historical admissions transfer no current-candidate credit; original-ten current requalification remains separate.",
   "new_project_admissions": 4,
   "new_project_target": 20,
@@ -330,8 +330,8 @@
       "id": "peco",
       "repository": "peco/peco",
       "pin": "c5bf9a3c098c52f324f46c1d00d0424b982cc9fa",
-      "status": "windows-development-and-real-source-calibrations-passed-native-open",
-      "admitted": false,
+      "status": "admitted-on-recorded-candidate",
+      "admitted": true,
       "planned_hosts": [
         "linux",
         "windows"
@@ -351,7 +351,16 @@
       "initial_usability_target_met": true,
       "first_public_shell_invocations": 3,
       "first_public_recorder_controls": 16,
-      "human_participants": 0
+      "human_participants": 0,
+      "candidate_admissions": [
+        {
+          "project": "peco",
+          "candidate": "v0.4.0-rc.6",
+          "path": "peco/admission.json",
+          "sha256": "396484804c7825be1f6483fb19f553f5945cea1fdcda5f75ee339eb1ede40a4e"
+        }
+      ],
+      "current_candidate_qualified": true
     }
   ],
   "observed_audited_ordinary_executions": 1920,
@@ -367,12 +376,12 @@
       "real_source_faults": 12
     },
     "v0.4.0-rc.6": {
-      "projects": 1,
-      "ordinary": 480,
-      "calibrations": 18,
-      "canonical_scenarios": 20,
-      "native_cells": 2,
-      "real_source_faults": 3
+      "projects": 2,
+      "ordinary": 960,
+      "calibrations": 36,
+      "canonical_scenarios": 40,
+      "native_cells": 4,
+      "real_source_faults": 6
     }
   },
   "admission_subjects": [
@@ -411,12 +420,18 @@
       "candidate": "v0.4.0-rc.6",
       "path": "hatch/admission.json",
       "sha256": "83d8c07e7a190eb23027026c4337e880cdfde8323849dcbc710f0a679c7ec843"
+    },
+    {
+      "project": "peco",
+      "candidate": "v0.4.0-rc.6",
+      "path": "peco/admission.json",
+      "sha256": "396484804c7825be1f6483fb19f553f5945cea1fdcda5f75ee339eb1ede40a4e"
     }
   ],
-  "distinct_new_projects_with_any_candidate_admission": 6,
-  "current_candidate_canonical_scenarios": 20,
-  "current_candidate_native_cells": 2,
-  "current_candidate_real_source_faults": 3,
+  "distinct_new_projects_with_any_candidate_admission": 7,
+  "current_candidate_canonical_scenarios": 40,
+  "current_candidate_native_cells": 4,
+  "current_candidate_real_source_faults": 6,
   "recorded_candidate_counters": {
     "v0.4.0-rc.5": {
       "projects": 4,
@@ -427,12 +442,12 @@
       "real_source_faults": 12
     },
     "v0.4.0-rc.6": {
-      "projects": 2,
-      "ordinary": 960,
-      "calibrations": 36,
-      "canonical_scenarios": 40,
-      "native_cells": 4,
-      "real_source_faults": 6
+      "projects": 3,
+      "ordinary": 1440,
+      "calibrations": 54,
+      "canonical_scenarios": 60,
+      "native_cells": 6,
+      "real_source_faults": 9
     }
   },
   "qualification_gates": [
@@ -448,7 +463,9 @@
       "candidate": "v0.4.0-rc.6",
       "gate": "peco/restoration-rebuild-gate.json",
       "gate_sha256": "96f0b79bd6294821586569c83d7b97670cbe62055a72cfba7772b833a86e6c83",
-      "open": true
+      "open": false,
+      "resolution": "peco/restoration-rebuild-resolution.json",
+      "resolution_sha256": "c64eeabd469f50c0b9b31e0465718f2c9a0cca9bb479ab3e59dffae747f6178d"
     }
   ]
 }

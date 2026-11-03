@@ -1,5 +1,6 @@
 """Challenge normalized actual peco cells without granting admission credit."""
 import copy
+import argparse
 import json
 import lzma
 import uuid
@@ -14,6 +15,7 @@ def require(value,message):
 
 
 def main():
+    parser=argparse.ArgumentParser();parser.add_argument('--normal-rebuild',action='store_true');args=parser.parse_args()
     package=DOC/'peco';history=json.loads((package/'all-attempt-evidence.json').read_text())
     require(history['historical_frames_complete'] and len(history['unlaunched_reports'])==3 and len(history['original_failed_report_frames'])>=18,'original failed/refused history incomplete')
     declared={f['id']:f for f in json.loads((package/'fault-declaration.json').read_text())['faults']}
@@ -23,10 +25,15 @@ def main():
     for host in ['windows','linux']:
         e=Evidence(host,'41043810230' if host=='linux' else None,3 if host=='linux' else None)
         target='active/peco/' if host=='windows' and (RAW/'active/peco').is_dir() else 'peco/retained-source/'
-        runtime=e.load(target+'runtime.json');complete=e.load('peco/final-execution-summary.json');faults=e.load(complete['fault_summary'])
+        runtime=e.load(target+'runtime.json');complete=e.load('peco/final-execution-summary.json');fault_reader=e
+        if args.normal_rebuild:
+            fault_reader=Evidence(host,'41713430365' if host=='linux' else None,4 if host=='linux' else None,'next20-peco-linux-rebuild-recovery')
+            correction=fault_reader.load('peco/rebuild-recovery-summary-v1.json');faults=fault_reader.load(correction['fault_summary'])
+            if faults['normal_restoration_rebuilds']!=3:raise ValueError('normal rebuild model requires actual rebuilt recoveries')
+        else:faults=e.load(complete['fault_summary'])
         expected_candidate=next(c for c in candidate['cells'] if c['host']==host)
-        def normalize(report_name,eid,phase,spec):
-            row=e.load(report_name)['results'][0];value=e.load(spec)
+        def normalize(report_name,eid,phase,spec,reader=None):
+            reader=reader or e;row=reader.load(report_name)['results'][0];value=reader.load(spec)
             return dict(attempt=eid,phase=phase,status=row['status'],category=row.get('failure',{}).get('category'),
                 invocation=row['invocation_id'],workspace=row['workspace']['id'],confirmed_exited=row['cleanup']['confirmed_exited'],cleaned=row['workspace']['cleaned'],
                 target_exit=row['target'].get('exit_code'),runner_sha256=expected_candidate['binary_sha256'],
@@ -38,6 +45,7 @@ def main():
             helper_source_revision='4d31e08b3d6da92d94f7eb393b43689fd89bbf25',required_executable_index_sha256=e.sha('peco/go-module-corpus/executables-index.json'),
             historical_frames_complete=True,all_attempt_evidence_sha256=sha256(package/'all-attempt-evidence.json'),first_public_sha256=sha256(package/'first-use.json'),project_admitted=False,
             viewport_declaration_sha256=sha256(package/'viewport-snapshot-declaration-v1.json'),ordinary=[],faults=[])
+        if args.normal_rebuild:model['calibration_helper_revision']='ce4012850a43b81fa0968f11cc7f147cd27aa7b2'
         expected_specs={};expected_states={}
         for batch in range(12):
             folder='peco/final-series-native-exit-v1/'+str(batch)+'/'
@@ -48,14 +56,17 @@ def main():
                 row=normalize(folder+item['case']+'.report.json',item['attempt'],started['phase'],spec)
                 row.update(batch=batch,case=item['case'],spec_sha256=e.sha(spec));model['ordinary'].append(row)
                 expected_specs[(batch,item['case'])]=e.sha(spec);expected_states[(batch,item['case'])]=copy.deepcopy(row['expected_states'])
-        primary='peco/host-contracts/'+json.loads((package/'fault-declaration.json').read_text())['primary_spec']
+        primary='peco/'+('host-contracts-rebuild-v1' if args.normal_rebuild and host=='windows' else 'host-contracts')+'/'+json.loads((package/'fault-declaration.json').read_text())['primary_spec']
         expected_mutants={}
         for fault in faults['faults']:
-            outcomes=[normalize(p['report'],p['attempt'],p['phase'],primary) for p in fault['outcomes']]
+            outcomes=[normalize(p['report'],p['attempt'],p['phase'],primary,fault_reader) for p in fault['outcomes']]
             model['faults'].append(dict(id=fault['id'],original_sha256=fault['original_sha256'],mutated_sha256=fault['mutated_sha256'],restored_sha256=fault['restored_sha256'],restored_exact=fault['restored_exact'],
                 original_binary_sha256=fault['original_binary_sha256'],mutated_binary_sha256=fault['mutated_binary_sha256'],restored_binary_sha256=fault['restored_binary_sha256'],outcomes=outcomes))
+            if args.normal_rebuild:
+                model['faults'][-1].update(normal_rebuild_recovery_executed=fault['normal_rebuild_recovery_executed'],normal_rebuild_receipt_sha256=fault['normal_rebuild_receipt_sha256'])
             expected_mutants[fault['id']]=fault['mutated_binary_sha256']
         baseline={k:copy.deepcopy(v) for k,v in model.items() if k not in {'ordinary','faults'}}
+        rebuild_receipts={f['id']:f.get('normal_rebuild_receipt_sha256') for f in model['faults']}
         canonical={c['id'] for c in json.loads((package/'scenarios.json').read_text())['cases']}
         def validate(value):
             require(all(value[k]==v for k,v in baseline.items()),'wrong project/candidate/runtime/helper/history/payload/viewport identity or false admission')
@@ -83,6 +94,7 @@ def main():
                     outcome(row,'passed')
             for fault in value['faults']:
                 rule=declared[fault['id']]
+                if args.normal_rebuild:require(fault['normal_rebuild_recovery_executed'] and fault['normal_rebuild_receipt_sha256']==rebuild_receipts[fault['id']],'copied image posing as normal rebuilt source recovery')
                 require(fault['restored_exact'] and fault['original_sha256']==fault['restored_sha256']==rule['original_source_sha256'] and fault['mutated_sha256']==rule['mutated_source_sha256'],'source mutation/restoration differs')
                 require(fault['original_binary_sha256']==fault['restored_binary_sha256']==value['app_sha256'] and fault['mutated_binary_sha256']==expected_mutants[fault['id']] and fault['mutated_binary_sha256']!=value['app_sha256'],'fake compiled mutation or executable restoration')
                 require(len(fault['outcomes'])==3 and {r['phase'] for r in fault['outcomes']}=={'baseline','mutated','restored'},'partial actual fault triple')
@@ -106,6 +118,7 @@ def main():
             ('false-green-mutation',['faults',2,'outcomes',1,'status'],'passed'),('earlier-failure-as-state',['faults',2,'outcomes',1,'steps',0,'status'],'failed'),
             ('wrong-app-pair',['app_sha256'],'0'*64),('fake-mutant-executable',['faults',0,'mutated_binary_sha256'],runtime['target_sha256']),
             ('weakened-quiet-budget',['ordinary',quiet,'run_timeout_ms'],10000),('wrong-saved-path',['ordinary',0,'steps',state,'state','path'],'sentinel.txt')]
+        if args.normal_rebuild:patches.append(('copied-image-as-rebuild',['faults',0,'normal_rebuild_recovery_executed'],False))
         controls=[]
         for label,path,replacement in patches:
             changed=copy.deepcopy(model);parent=changed
@@ -118,9 +131,9 @@ def main():
         require(len(encoded)<=8*1024**2,'actual model byte bound');archive=root/(host+'-actual-model.json.xz');archive.write_bytes(lzma.compress(encoded,preset=6))
         require(json.loads(lzma.decompress(archive.read_bytes(),memlimit=64*1024**2))==model,'actual model exact restoration differs')
         cells.append(dict(host=host,counts=counts,model=archive.relative_to(RAW).as_posix(),model_sha256=sha256(archive),controls=controls))
-    immutable_json(root/'results.json',dict(schema_version=1,cells=cells,semantic_corruptions_rejected=40,all_attempt_evidence_sha256=sha256(package/'all-attempt-evidence.json'),project_admissions=0,
+    immutable_json(root/'results.json',dict(schema_version=1,cells=cells,semantic_corruptions_rejected=42 if args.normal_rebuild else 40,normal_rebuild_calibration_model=args.normal_rebuild,all_attempt_evidence_sha256=sha256(package/'all-attempt-evidence.json'),project_admissions=0,
         scope='Two normalized actual249-execution cells,20 corrupted copies rejected per host; positive models restored. Evidence-integrity controls only,no new project/scenario/whole-control credit.'))
-    print('Both actual249-execution models restored;all40 semantic corruptions rejected; no admission.')
+    print('Both actual249-execution models restored;all'+str(42 if args.normal_rebuild else 40)+' semantic corruptions rejected; no admission.')
 
 
 if __name__=='__main__':main()

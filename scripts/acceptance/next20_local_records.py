@@ -57,7 +57,7 @@ def prepare(project):
         # These small manifests are mandatory standalone readers for the separate
         # retained binary/metadata packets, rather than expanded record copies.
         if relative.parts[0] in {'retained-source','retained-source-rebuild-v1'} and path.name in {'review-inputs-index.json','canonical-native-references.json'}:continue
-        if project=='peco' and relative.parts[0]=='execution-helper-source-v1' and path.name=='review-inputs-index.json':continue
+        if project=='peco' and relative.parts[0] in {'execution-helper-source-v1','execution-helper-source-rebuild-v1'} and path.name=='review-inputs-index.json':continue
         if project=='peco' and relative.parts[0] in {'go-module-corpus','go-module-corpus-rebuild-v1'} and path.name in {'index.json','executables-index.json','canonical-native-references.json'}:continue
         if relative.parts[0] in {'audits','audit-controls'} or path.suffix in {'.gz','.tgz','.xz','.whl'}:continue
         name=path.relative_to(RAW).as_posix();safe_path(name,project);size=path.stat().st_size;total+=size

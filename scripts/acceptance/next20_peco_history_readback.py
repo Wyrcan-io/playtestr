@@ -23,7 +23,7 @@ def main():
             require(e.sha(row['report'])==row['sha256'],'original retained report changed')
             if row.get('frame'):require(e.sha(row['frame'])==row['frame_sha256'],'original retained failure frame missing/changed')
         for row in history['commands']:
-            require(sha256(RAW/row['console'])==row['console_sha256'],'original command console changed')
+            require(e.sha(row['console'])==row['console_sha256'],'original command console changed')
         print('Every original local report/frame and completed command console still reads byte-exact after retention.')
         return
     disposition=json.loads((package/'development-disposition.json').read_text())

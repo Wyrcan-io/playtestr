@@ -23,9 +23,10 @@ def hashed(body):return hashlib.sha256(body).hexdigest()
 
 
 class Evidence:
-    def __init__(self,host,run=None,generation=None):
+    def __init__(self,host,run=None,generation=None,artifact='next20-peco-linux-final'):
         self.host=host;self.scope='artifacts/'+NAME+'/';self.cache={}
-        self.prefix='native/'+run+'/next20-peco-linux-final/' if host=='linux' else ''
+        require(artifact in {'next20-peco-linux-final','next20-peco-linux-rebuild-recovery'},'undeclared native evidence artifact')
+        self.prefix='native/'+run+'/'+artifact+'/' if host=='linux' else ''
         self.records=read_packet('peco',generation)[1] if host=='linux' else None
 
     def logical(self,name):
@@ -103,10 +104,11 @@ def audit(host,revision,run=None,generation=None):
         require(catalog['files']==reviewed['files'],'Windows module/primary source bytes differ from reviewed archive bodies')
         actual_inputs=e.load(target+'native-package-inputs.json')
         require(actual_inputs['files']==catalog['actual_native_compile_inputs'] and all(catalog['files'].get(n)==h for n,h in actual_inputs['files'].items()),'Windows native compile inputs differ')
+        removed_inventory=e.load(target+'cleanup-inventory.json') if not target.startswith('active/') else None
         for name,expected in catalog['files'].items():
             if target.startswith('active/'):
                 require(sha256(RAW/'active/peco'/name)==expected,'actual restored Windows source/module bytes differ')
-            else:require(e.load(target+'cleanup-inventory.json')['files'][name]['sha256']==expected,'removed actual source/module differs')
+            else:require(removed_inventory['files'][name]['sha256']==expected,'removed actual source/module differs')
     binary_index=e.load('peco/go-module-corpus/executables-index.json');archive=e.data('peco/go-module-corpus/executables.tar.xz')
     require(hashed(archive)==binary_index['archive_sha256'],'actual retained executable archive differs')
     physical={}
