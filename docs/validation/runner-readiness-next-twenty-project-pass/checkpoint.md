@@ -491,7 +491,7 @@ finalmatrix, exactcompiledauditor and workflow generation remain unimplemented.
 
 Corrected maintenance PASSED ca310486cc1a4269917c59b0753f6f26,
 raw maintenance-a040aa77eed640b59f8366b42434a2fa/journey.json. Actualselected/cancelled
-fileapproval, suffixCtrlC code1 andsnapshotpruning, unchangedcafé/雪 relocation;
+fileapproval, suffixCtrlC code1 andsnapshotpruning, unchangedcafÃ©/é›ª relocation;
 originalsource+compiledbytes restored in finally. Firstineffectivepre-dedent variant
 10cab52e... remainsfailedasoperatorassumption, notreportedproductfalsepass.
 
@@ -538,7 +538,7 @@ dispatch/monitor2native jobs. Nodeprofiles mightfail: preservefirstseries, do no
 claimLinux130beforeactualrun. Retrieveonehostpacket,compact/audit/remove beforeother.
 Need independentlocal/native/admission auditor, actualtampercontrols, localchecked
 source/process/cache retention/removal. Thirdgeneratedworkflow publiccontract also
-required; two differentnewcategories’ actualCItriplets alreadycomplete viajrnl+Python
+required; two differentnewcategoriesâ€™ actualCItriplets alreadycomplete viajrnl+Python
 Commitizen so no thirdsix-runtriplet needed. Current2new/20,12/100; third notadmitted.
 
 Resume 24 October: compiled Node auditor now reconstructs all 3,563 compiler and
@@ -788,7 +788,7 @@ defaults retained. Originalsource/runtime restored.
 Public maintenance5ade27dab4c94c97830f69b12c7e28a1 passed:2-command diagnosis and
 offlineHTML, selected JSON extra-LF approval only, cancelled doubleLF preserves
 reviewed bytes, suffix rerecordCtrlC discards all completionEnter/snapshot,
-byte-identical maintained/suffix contracts at actual `relocated café 雪` path.
+byte-identical maintained/suffix contracts at actual `relocated cafÃ© é›ª` path.
 Finally source/runtime restored. Independent separate npm auditor reconstructed
 all15608 actual local runtime files and rejected changedlock/module/missingcache
 controls0c70d38089c84375aeb45ea82220e6de. Newnext20_verify_yo models npm paths
@@ -910,7 +910,7 @@ receipt and originalarchive. No original archive/index modifications.
 Fresh native2hostpackets would otherwise repeat~10MB canonical NPM source each,
 so DOCyo/registry-payloads.json declares497actualSRIverifiedgzip payloads10005836B
 retainedONCEatRAWyo/retained-source/npm-cache; declaration86099b546e4d4d91a5b59c12039ad964.
-This is retained local canonicalSOURCE dependency allowed by prompt§18, counted
+This is retained local canonicalSOURCE dependency allowed by promptÂ§18, counted
 inproject64MiB closure, NOT remote-only dictionary or omittedsource. Native
 next20_yo_registry_reference.py runs ONLY after checkednativefullsource/runtime
 removal: matcheverycachebyte/size/hash to approveddescriptor and actual native
@@ -2437,7 +2437,7 @@ changed; archiveinputs remainrc6. Preserve allrejectedwindow and historicalgap s
 Latest committed/pushed5ccd20b8ce38c3496ca5e5095819f1272dcf9e81
 (commit172c850a0c7d466ea46b915696fec7b7,push07d3b319e0b7463eaa2459e8da776c3d).
 Linuxfinal40869293414/job123431925562 on thatsource completed success11:56:52Z
-to12:02:38Z29Oct (346jobseconds). Actual finalstep ran11:57:15Z–12:02:27Z:
+to12:02:38Z29Oct (346jobseconds). Actual finalstep ran11:57:15Zâ€“12:02:27Z:
 240ordinary+9freshsourcecalibrations, checked source/runtime cleanup passed.
 Declaration/inputs remainrc6; no Go source/binary change. Actualprovider metadata
 retentionea982dca36e1495f8f83e0f019eed803 completed. No further Linux job running.
@@ -2519,8 +2519,8 @@ neither a passed cell nor this checkpoint completes the invoked twenty-project t
 
 Provideridentity5d5be45df09f4ddca43f7c74e53942b9 resolves pending successful harness
 runs:40867163929 atd1d24adeec20f7a66c798bed7747de06353fadf6;40869253251 at
-5ccd20b8ce38c3496ca5e5095819f1272dcf9e81. Need onepacketatatime generations86–91,
-then any later sourcepushtriplet. v80–85 are complete; do not retrieve them again.
+5ccd20b8ce38c3496ca5e5095819f1272dcf9e81. Need onepacketatatime generations86â€“91,
+then any later sourcepushtriplet. v80â€“85 are complete; do not retrieve them again.
 
 Windowsv2 progress observation:9completebatches/180positive reports, no failures
 yet (not a completed window). Active execution source helpers remain byte-frozen
@@ -2633,9 +2633,9 @@ parameters preserving historicaldefaults. Latefourmetadatareservations untouched
 Next: full47helperchecks/syntax/docs and scopedcommit/push ofthisclosingincrement,
 then Hatchsetup review and genuinepublicroute/20cases/faultfreeze/nativecells.
 Pending successful oldsourceharness runs40867163929(d1d24ade),40869253251(5ccd20b8)
-stillneed actualonepacketatatimecollection v86–91, plus8454a1f3/newersourceharness.
+stillneed actualonepacketatatimecollection v86â€“91, plus8454a1f3/newersourceharness.
 Never reacquire Cargo/PDM or retrievecompleted packets for a small report. Finish
-selectedprojects6–20 and originalten/four/currentcandidate/global gates; do notstop.
+selectedprojects6â€“20 and originalten/four/currentcandidate/global gates; do notstop.
 
 Follow-up: sandboxed 47-helper run 1b8f1a99af08494692477c75853775a9 retained one timeout-cleanup failure and two native-removal errors. Both removal consoles explicitly report Get-CimInstance Access denied. Native-permission rerun a6844e12218b41d580063a81cd822314 passed all47 in24.086seconds; no test or product deadline weakened. AST parsing separately passed226 helpers/tests. Closed-window cleanup console now says closed window for either declared complete/rejected packet; prior actual console remains unchanged in evidence.
 
@@ -3279,3 +3279,14 @@ Windows originalnormalrebuildwindow FAILED: wrapper3f7f406aca974ddf9ed6f30ecce36
 Pre-window2storage c4ffe1d145294e44ad62740d8dbc3d16 FAILED combinedretained2236822989 because RAW/r currentownedMSVCshortcompiler cache classified as retained by strictdefault. No newcalstarted. Explicit --owned-short-cache-as-active now requiresactualsingleactiveCargo owner/sourcecatalog/materialized/refhash identities,nonlinkedroot,max512MiB; samecachebytesremainincludedrawandactivebounds. Historicalclassificationunchanged; absenttargetinvalidatesexceptionandrequirescheckedcachecleanup. Actualforeignworkspace(retainingvalidrefhash) andretiredtarget/changedsourcecontrolstwoPASS71a33aa25a22460387d08eb36b84e71c. Explicitcurrentobservation0e2378d32ecd48819830c3f014cb5321 allcapsPASS:newraw3283657486 combinedraw5192366058 combinedretained1855531593 Cargo65772980,oneactiveCargo. Projectonly1335884bytesheadroom; staged15/16needexactbodyreferences/compactmetadata,no uncompressedretainedduplication. All68nativehelpersnowrunning beforeWindows2sourcecommit/freeze.
 
 All68native helperregressionsf81521c801b849598246f9171ffa3078 PASS23.314s/skipped2Unix; new2livecacheownership/retiredsource controls included. Readycommit/pushcurrentWindowsreplacement2source,retainingLinuxactualsource347withoutrepeat. Explicitowned-activecacheobservationpassed; no capincrease.
+
+Windowsreplacement2 execution NOWACTIVE session34125. Exactsource b6c1855c71d18b3017ca2fce9138e960dbcc9e2b committedd4f4876c3eb04515b887b00f2dfdef3c/pushed025af88e44ce48719b1e2039c86c5a0c afterreviewable68-passsource9f6dc38a. Exact741helperbodies fullycompared: full738-sourcev1dictionary plus7changed/newv2bodies; source-binding bindsbaseindex/archiveandcurrentrevision. Newv2helperpacktiny; no fullsource duplication. FREEZE acceptancehelpersANDGitHEADduringWindowsv2calibration. No newcodeedits/commits untilcommandclosed. PythonRAW/tmp audits/compaction anddatareceipts do not alter frozen executioninputs. Source9f6 andb6 auto68harnessruns needdiscover/retain137onward. No repeatLinuxactual9source347,old480ordinaryacceptedunchanged.
+
+Windowsv2stillACTIVE34125 exactb6c1855c sourcefrozen; initialinputchecksnotyetfirstreport at21:56UTC. Nohelpers/GitHEADeditsuntilclosed. Offlineworkingnative17compactionRAW/tmp/cargo_rebuild_native_compact_v17.py PASSEDd8385f3a979b4589ac2175942fd7ec63: union554actualcancel+successbodies,232directmandatorynative2references,921164XZbytes,indexcea7b95a74a88900259ed5bd87dda1d3436fa9c80d52eeff41ee7d835b109195,archivef643d7484f83be1cbc0b4fed14afc6c315128f78125ae33682d3a3b41947b596;fullbytecompareallstaged15+16. Native17TEMPWORKINGonly; forecast66891965projectbytesleaves216899beforeongoingWinreports/newmetadata. DoNOTpromoteuntilremainingWincorrectionretentionprojectionfits64MiB. NewWinprovenance canuseboundedrawLZMA2dictionaryagainstoriginalWindowsmetadata frommandatoryretained-local-v1,fullbytecomparebeforecheckedsourcecleanup; work outsideprojectretentioninstaging,notuncompressedduplicateinsidecap. Genericpromote_native.ps1 supports onlyold6filegzip/expanded-removal interface; neednarrowcheckedofflineXZ/noexpandedpromotionornewsource17specificPSguard,nofalseexpanded-removalreceipt. ReadLinuxauditorwhile17staged15/16bodiespreserved; no redownloadoriginalproviderpackets. Alloriginal14failedXZ/15savedZIPandindicesstayuntilcompletebytecoverage+checkedworkingretirement. Source9f6auto68harness41725549163SUCCESS,b6run41725777012inprogress;137Linuxcollectoractive(useactualsessionreturned),138Mac139Winthen140-142b6later. Candidatecurrent2Hatch+Peco/Cargoheld.
+
+WINDOWS V2 REJECTED deffd169568f4fd9ad2f92f9c40bf6f5 / inner51df6c8c7a174b1284ca994c53660d6e sourceb6: F01baselinepassed then existing compiler3GiB raw guard rejected3294896704; normal-restored cleanupcompilealso rejected3296074575. Original2storageJSON+allcancelledcommandrecords retained; 0qualifiedcredit. Session34125 CLOSED. Our earlier progress inferred compile activity from missing receipts; actualfinishedinnerconsole51df gives storage stop,not coldcompile delay. PoststopnativePID/birth/rootproofe610ff1878d2404f822d0be546d3a376 passed; exactpreviousPID20020/6076 nowabsent. Allprimarysource167hashesexact.
+Duplicateinputproof49739045831a445e9383ff67f6338b27 fullycompared16591files/301413575bytes originalextractedtargetcacheagainstpreservedactualRAW/r/compiler source,plus3backupaliasesagainstfullretainedoriginalnativeimage. Nativecheckeddisposal791b8e73081c438095a58f5764a726d5 verifiedallhashes/bothsourcecopies/exactancestorpaths/noownedPIDbirththenremoved367555271redundantbytes. Actualcompiler sources,all369originalcratearchives,primarysource,ordinarybin,oldfailureevidencepreserved. New source-cache-duplicate-release-v1.json binds actualcache/sourcecatalog/owner/materialized hashes andrawtmpfullinventory. Originaltarget/cargo-home/registry/src NOWABSENT intentionally; actualcompiledsources RAW/r/registry/src remain required. Existingmaterialize_short_cache workswithvalidexistingcache; doNOTrerunfreshfetch/copybackwhilecompiling.
+Explicitwindow3declared rebuild-recovery-replacement-declaration-v3.json bindsfailedv2/preparation/releaseproof. Compilerstop3GiB unchanged; actualglobalcache/sourcebytes checkedbefore/afterentirecohort,primarybytescheckedaroundall6compiles; removed redundantper-recoverywholecachechecks. Wholecohort30min(1800s) budget,outerengineering1860s,individualcompiler1100s,allproductcasebudgetsunchanged. Genericnext20_check max1200 UNCHANGED,so launchwindow3 through explicit bounded adversarial_process.execute driver1860s,notnext20_check1200outer. Beforecommit/freeze68native suitecurrentrunning(sessionactualtoolID). AST278helpersPASS; strengthenedactualLinux source347cohort/depbindingreauditd336e2b0ca3246109ca6d5663ffcbcae PASS existingreceipt unchanged. Explicitlivecacheclassificationstillowner-gated; currentstorage884de4de2725489f9c2f251eb8a072d8 PASS newraw2932459546 combinedraw4841168118 combinedretained1859939887 Cargo65799183,oneactiveCargo. 3GiBcompilerheadroom288765926 beforeadditionalvariants.
+CurrentGitHEADstillb6,acceptancehelpereditsNOTyetcommitted(window3). Needcommit/push after68pass,captureexact741helperv3 asbase738dictionary+changedbodies,thenFREEZEallacceptancehelpers/HEAD andrunWindowswindow3 via1860driver. Preservev1timeout/v2storage-stop partialwindows;no carriedpartialcredit. Linuxsource3479phase success kept/no rerun. AllremainingCargo proof/audit/retention/cap/checkedcleanup gatesopen,qualificationheldcurrent2Hatch+Peco/historical7. Native17TEMPcompact554logical/232native2refs/921164XZ,forecastonly~217KBremainingprojectretention?Windowsnewmetadata needsexactoldWindowsdictionary-deltas,workinstaging,noexpandedretainedduplication. Source9f6harness137/138/139allclosed e5f2fc5b5380460380040b3cfff9f4ea/b910882f0e6b44ebbed1d601e975f570/0015af35a92c45b29536644c9dabcff9. b6harness41725777012SUCCESS all3;140Linuxec1904b444a14c8aa04b06aadbe4d4d1closed,141Mac/142Winpending.
+
+Current68nativehelpers fcdf2a1428f34403b47022ce3c121fa1 PASS35.701s/skipped2Unix. Actual window3 source verifier uses preservedRAW/r/registry/src and verifiesboth actualcompiler+originaltarget369cratearchives before/afterwindow; validatesnonlinkedresolvedactualsourceroot/recordedreleaseowner/materializedbindings. Avoidsfourredundantfullactualcachehashpasses,eachrestoredprimarysource stillfullychecked. Window3firsttofinalcompilercohort1800seconds,explicitouter1860driver,compiler3GiBstop andproductcasebudgetsunchanged. Source/fallbackhelper editsreadycommit/pushandfreshv3sourcecapture; doNOTusegenericnext20_check1200outerfor30mincohort. Duplicatecleanupactual367555271bytes done791b8e73081c438095a58f5764a726d5; originalsourcearchives/allactualcompilerinputs/currentprimarybin unchanged. NoCargoqualcredit yet.

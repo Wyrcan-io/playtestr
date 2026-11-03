@@ -10,7 +10,7 @@ from readiness_evidence import immutable_json, sha256
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--window',type=int,choices=[1,2],default=1);args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--window',type=int,choices=[1,2,3],default=1);args=parser.parse_args()
     host = 'windows' if os.name == 'nt' else 'linux'
     if args.window!=1 and host!='windows':raise ValueError('replacement image window is Windows-only')
     package = DOC / 'cargo-generate'

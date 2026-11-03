@@ -41,7 +41,7 @@ async def main():
     parser=argparse.ArgumentParser();parser.add_argument('--native-final',action='store_true')
     parser.add_argument('--reuse-compiled',action='store_true')
     parser.add_argument('--normal-rebuild-window',action='store_true')
-    parser.add_argument('--normal-rebuild-window-number',type=int,choices=[1,2],default=1);args=parser.parse_args()
+    parser.add_argument('--normal-rebuild-window-number',type=int,choices=[1,2,3],default=1);args=parser.parse_args()
     if args.normal_rebuild_window_number!=1 and (not args.normal_rebuild_window or os.name!='nt'):raise ValueError('replacement window is an explicit Windows rebuild correction only')
     if args.normal_rebuild_window and (not args.native_final or args.reuse_compiled):raise ValueError('normal rebuild correction requires native final and fresh actual compiles')
     if args.reuse_compiled and not args.native_final:raise ValueError('compiled-artifact reuse must be declared as a fresh final calibration window')
@@ -60,9 +60,10 @@ async def main():
         correction=package/'rebuild-recovery-declaration-v1.json';declared=json.loads(correction.read_text())
         if declared['gate_sha256']!=sha256(package/'restoration-rebuild-gate.json') or declared['ordinary_matrix_reused_unchanged']!=480:raise ValueError('undeclared normal rebuild proof correction')
         if build['binary_sha256']!=declared['original_baseline']['windows' if os.name=='nt' else 'linux']:raise ValueError('original ordinary baseline differs; investigate before calibration')
-        if args.normal_rebuild_window_number==2:
-            replacement=package/'rebuild-recovery-replacement-declaration-v2.json';record=json.loads(replacement.read_text())
+        if args.normal_rebuild_window_number>=2:
+            replacement=package/('rebuild-recovery-replacement-declaration-v'+str(args.normal_rebuild_window_number)+'.json');record=json.loads(replacement.read_text())
             if record['original_recovery_declaration_sha256']!=sha256(correction) or record['preparation_receipt_sha256']!=sha256(RAW/project/'rebuild-preparation-v1/compiled.json'):raise ValueError('replacement rebuild window not bound to original correction and actual separate preparation')
+            if args.normal_rebuild_window_number==3 and record['pruned_duplicate_source_receipt_sha256']!=sha256(RAW/project/'source-cache-duplicate-release-v1.json'):raise ValueError('actual compiler-source binding and duplicate disposal proof differ')
     window=str(args.normal_rebuild_window_number)
     root=RAW/project/('source-fault-rebuild-recovery-v'+window if args.normal_rebuild_window else 'source-fault-final-native-exit-v1/v1' if args.native_final else 'source-fault-development/v1')
     if root.exists():raise ValueError('preserve original fault probes; no automatic retries')
@@ -71,7 +72,7 @@ async def main():
     if sha256(original_binary)!=build['binary_sha256']:raise ValueError('pristine executable backup differs')
     inputs=[package/name for name in freeze['inputs']]+[declaration_path,freeze_path,build_path,runtime_path]
     if args.normal_rebuild_window:inputs.append(correction)
-    if args.normal_rebuild_window_number==2:inputs.append(replacement)
+    if args.normal_rebuild_window_number>=2:inputs.append(replacement)
     if args.native_final:
         host_profile=contract_package/'scenarios.json';profile=json.loads(host_profile.read_text())
         if profile['development_freeze_sha256']!=sha256(freeze_path) or profile['native_binary_sha256']!=build['binary_sha256']:raise ValueError('native calibration profile is not exact frozen/source-built target')
@@ -85,11 +86,34 @@ async def main():
             if sha256(source/name)!=digest:raise ValueError('pristine source restoration differs')
         if sha256(binary)!=build['binary_sha256']:raise ValueError('pristine executable restoration differs')
         if any(sha256(p)!=h for p,h in immutable_metadata.items()):raise ValueError('pristine runtime/build metadata changed')
+    dependency_verifications=[]
+    source_release=RAW/project/'source-cache-duplicate-release-v1.json'
     def dependency_bytes():
+        actual_root=target/'cargo-home/registry/src'
+        if args.normal_rebuild_window_number==3:
+            release=json.loads(source_release.read_text(encoding='utf-8-sig'));cache=RAW/'r'
+            actual_root=cache/'registry/src'
+            if ((target/'cargo-home/registry/src').exists() or not release['duplicate_source_removed'] or not release['actual_compiler_source_preserved'] or
+                release['actual_source_root']!=str(actual_root) or release['source_catalog_sha256']!=sha256(target/'dependency-source-catalog.json') or
+                release['cache_owner_sha256']!=sha256(cache/'task-owned.json') or release['cache_materialized_sha256']!=sha256(cache/'materialized.json')):raise ValueError('actual short-path compiler source binding changed')
+            if actual_root.resolve(strict=True)!=actual_root:raise ValueError('linked actual compiler source root')
+        resolved_actual_root=actual_root.resolve(strict=True)
         for name,digest in catalog['files'].items():
-            if sha256(target/name)!=digest:raise ValueError('reviewed dependency source changed')
+            path=target/name
+            if args.normal_rebuild_window_number==3:
+                prefix='cargo-home/registry/src/'
+                if not name.startswith(prefix):raise ValueError('unexpected compiler-source catalog scope')
+                path=actual_root/name.removeprefix(prefix);path.resolve(strict=True).relative_to(resolved_actual_root)
+            if sha256(path)!=digest:raise ValueError('reviewed actual compiler dependency source changed')
         for name,row in dependencies['files'].items():
             if sha256(target/name)!=row['sha256']:raise ValueError('reviewed dependency archive changed')
+            if args.normal_rebuild_window_number==3:
+                if not name.startswith('cargo-home/registry/cache/'):raise ValueError('unexpected compiler archive scope')
+                actual=RAW/'r'/name.removeprefix('cargo-home/');actual.resolve(strict=True).relative_to((RAW/'r').resolve(strict=True))
+                if sha256(actual)!=row['sha256']:raise ValueError('actual compiler dependency archive changed')
+        dependency_verifications.append(dict(source_files_verified=len(catalog['files']),archives_verified=len(dependencies['files']),
+            actual_source_root=str(actual_root),source_catalog_sha256=sha256(target/'dependency-source-catalog.json'),
+            **(dict(pruned_duplicate_source_receipt_sha256=sha256(source_release),actual_compiler_archives_verified=len(dependencies['files'])) if args.normal_rebuild_window_number==3 else {})))
     contracts();pristine()
     dependency_bytes()
     compiler=Path(build['compiler_path']);cargo=Path(build['cargo_path'])
@@ -102,7 +126,9 @@ async def main():
         if sha256(cc_path)!=build['native_c_compiler_sha256'] or sha256(Path(cc['path']))!=cc['sha256']:raise ValueError('native calibration C compiler differs from baseline build')
         env['CC']=cc['path']
     if os.name=='nt':
-        env['CARGO_HOME']=str(materialize_short_cache(target,dependencies,catalog))
+        # Window3 already verifies this exact owned materialization's source
+        # and archive bytes above and below; do not hash the tree twice again.
+        env['CARGO_HOME']=str(RAW/'r' if args.normal_rebuild_window_number==3 else materialize_short_cache(target,dependencies,catalog))
         for key in ['CARGO_HOME','CARGO_TARGET_DIR','TEMP','TMP','TMPDIR']:env[key]=short_owned_path(env[key])
     command=[cargo,'rustc','--locked','--offline','--release','--target',build['native_triple'],'--bin','cargo-generate']
     if os.name=='nt':command+=['--','-C','link-arg=/Brepro']
@@ -180,7 +206,9 @@ async def main():
         finally:
             path.write_bytes(original);shutil.copyfile(original_binary,binary);pristine()
             rebuilt=await compile_variant(fault,'normal-restored')
-            pristine();dependency_bytes()
+            # Full actual dependency/cache bytes are checked before and after
+            # the complete window. Verify every restored primary source here.
+            pristine()
             output=target/'cargo-target'/build['native_triple']/'release'/binary.name
             recovery=variants/(fault['id']+'-normal-restored')/binary.name;recovery.parent.mkdir();shutil.copyfile(output,recovery)
             if sha256(recovery)!=sha256(output):raise ValueError('normal restored-source executable copy differs')
@@ -203,11 +231,12 @@ async def main():
         immutable_json(root/(fault['id']+'-complete.json'),observations[-1]);print(fault['id'],'baseline passed / compiled mutation rejected / normal restored-source rebuild passed',flush=True)
     contracts();pristine()
     dependency_bytes()
-    if os.name=='nt':materialize_short_cache(target,dependencies,catalog)
+    if os.name=='nt' and args.normal_rebuild_window_number!=3:materialize_short_cache(target,dependencies,catalog)
     immutable_json(root/'summary.json',dict(schema_version=1,observations=observations,actual_source_faults=3,
         phase=phase,exploratory_executions=0 if args.native_final else 9,
         reused_exact_compiled_variants=args.reuse_compiled,new_compiles=3 if args.reuse_compiled else 6,
         normal_restoration_rebuilds=3,restoration_method='normal-source-rebuild',
+        dependency_source_verifications=dependency_verifications,
         dependency_scope='Reviewed original and actual native dependency cache bytes verified before/after normal recovery compilation; reused mutant compile provenance,when explicitly selected,remains separate.',
         final_native_calibration_executions=9 if args.native_final else 0,mandatory_final_native_calibration_credit=0,project_credits=0,
         scope='Actual native calibration triples, pending independent final audit.' if args.native_final else 'Local real source-fault exploration. Exact native final series must repeat the declared calibration triples. Original runtime/build receipts and source/executable bytes restored.'))

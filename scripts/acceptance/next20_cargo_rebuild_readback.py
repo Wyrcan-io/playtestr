@@ -64,8 +64,8 @@ def audit(host, revision, generation=None, staged=False, window=1):
     if host == 'windows':
         base=RAW / 'cargo-generate/execution-helper-source-rebuild-v1'
         actual = review_packet(base)
-        if window==2:
-            delta=RAW/'cargo-generate/execution-helper-source-rebuild-v2'
+        if window>=2:
+            delta=RAW/('cargo-generate/execution-helper-source-rebuild-v'+str(window))
             binding=json.loads((delta/'source-binding.json').read_text())
             require(binding['source_revision']==revision and binding['base_index_sha256']==sha256(base/'review-inputs-index.json') and binding['base_archive_sha256']==sha256(base/'review-inputs.tar.xz'),'required original helper-source dictionary changed')
             actual.update(review_packet(delta))
@@ -96,12 +96,20 @@ def audit(host, revision, generation=None, staged=False, window=1):
     plan = value('cargo-generate/rebuild-recovery-execution-plan-v'+str(window)+'.json')
     require(complete['plan_sha256'] == hashed('cargo-generate/rebuild-recovery-execution-plan-v'+str(window)+'.json') and plan['declaration_sha256'] == sha256(package / 'rebuild-recovery-declaration-v1.json'), 'rebuild plan differs')
     require(complete.get('window',1)==window,'cross-window rebuild summary')
-    if window==2:
-        replacement=package/'rebuild-recovery-replacement-declaration-v2.json'
+    events(complete['execution_wrapper'],0,'final-archive')
+    require(value('events/'+complete['execution_wrapper']+'-started.json')['timeout_seconds']==plan.get('calibration_command_timeout_seconds',1100),'actual compiler-cohort budget differs')
+    if window>=2:
+        replacement=package/('rebuild-recovery-replacement-declaration-v'+str(window)+'.json')
         changed=json.loads(replacement.read_text())
         require(plan['replacement_declaration_sha256']==sha256(replacement) and plan['preparation_receipt_sha256']==changed['preparation_receipt_sha256']==hashed('cargo-generate/rebuild-preparation-v1/compiled.json'),'replacement preparation/declaration binding differs')
     summary = value(complete['fault_summary'])
     require(hashed(complete['fault_summary']) == complete['fault_summary_sha256'] and summary['normal_restoration_rebuilds'] == 3 and summary['new_compiles'] == 6, 'partial normal rebuild summary')
+    if window==3:
+        release='cargo-generate/source-cache-duplicate-release-v1.json'
+        require(changed['pruned_duplicate_source_receipt_sha256']==hashed(release),'actual compiler-source release proof differs')
+        release_record=value(release);catalog=value(target+'dependency-source-catalog.json')
+        checks=summary['dependency_source_verifications']
+        require(len(checks)==2 and all(c['pruned_duplicate_source_receipt_sha256']==hashed(release) and c['source_files_verified']==len(catalog['files']) and c['archives_verified']==c['actual_compiler_archives_verified']==369 and c['actual_source_root']==release_record['actual_source_root'] and c['source_catalog_sha256']==hashed(target+'dependency-source-catalog.json') for c in checks),'actual compiler sources/locked archives not checked before and after full window')
     packed = value('cargo-generate/rebuild-executables-v'+str(window)+'/index.json')
     retention_path = package / 'rebuild-binary-retention-declaration-v1.json'
     retention = json.loads(retention_path.read_text())
@@ -152,6 +160,7 @@ def audit(host, revision, generation=None, staged=False, window=1):
             if stage == 'mutated':
                 expected[scope + 'active/cargo-generate/src/' + rule['path']] = rule['mutated_source_sha256']
             require(receipt['source_inputs'] == expected and receipt['compiler_sha256'] == build['compiler_sha256'] and receipt['cargo_sha256'] == build['cargo_sha256'] and receipt['pristine_build_sha256'] == hashed(target + 'build.json'), 'actual compiler/source binding differs')
+            require(receipt['dependency_source_catalog_sha256']==hashed(target+'dependency-source-catalog.json') and receipt['dependency_fetch_receipt_sha256']==hashed(target+'dependency-fetch-review.json'),'actual compiled dependency source/fetch binding differs')
             command = [build['cargo_path'], 'rustc', '--locked', '--offline', '--release', '--target', build['native_triple'], '--bin', 'cargo-generate']
             if host == 'windows':
                 command += ['--', '-C', 'link-arg=/Brepro']
@@ -211,7 +220,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('host', choices=['windows', 'linux'])
     parser.add_argument('--revision',required=True)
-    parser.add_argument('--window',type=int,choices=[1,2],default=1)
+    parser.add_argument('--window',type=int,choices=[1,2,3],default=1)
     parser.add_argument('--generation', type=int)
     parser.add_argument('--staged', action='store_true')
     parser.add_argument('--verify-existing',action='store_true')

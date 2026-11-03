@@ -12,7 +12,7 @@ from readiness_evidence import immutable_json, sha256
 
 
 async def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--window',type=int,choices=[1,2],default=1);args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--window',type=int,choices=[1,2,3],default=1);args=parser.parse_args()
     host = 'windows' if os.name == 'nt' else 'linux'
     if args.window!=1 and host!='windows':raise ValueError('replacement window is Windows-only')
     package = DOC / 'cargo-generate'
@@ -30,20 +30,22 @@ async def main():
     profile = json.loads((contracts / 'scenarios.json').read_text())
     if profile['native_binary_sha256'] != build['binary_sha256']:
         raise ValueError('correction contract baseline differs')
-    if args.window==2:
-        replacement=package/'rebuild-recovery-replacement-declaration-v2.json';changed=json.loads(replacement.read_text())
+    if args.window>=2:
+        replacement=package/('rebuild-recovery-replacement-declaration-v'+str(args.window)+'.json');changed=json.loads(replacement.read_text())
         if changed['preparation_receipt_sha256']!=sha256(RAW/'cargo-generate/rebuild-preparation-v1/compiled.json'):raise ValueError('replacement preparation binding differs')
+        if args.window==3 and changed['calibration_command_timeout_seconds']!=1800:raise ValueError('declared compiler-cohort budget differs')
     suffix='v'+str(args.window)
     plan = RAW / ('cargo-generate/rebuild-recovery-execution-plan-'+suffix+'.json')
     immutable_json(plan, dict(schema_version=1, host=host, declaration_sha256=sha256(declaration_path),
         binary_retention_declaration_sha256=sha256(package / 'rebuild-binary-retention-declaration-v1.json'),
         actual_baseline_sha256=build['binary_sha256'], build_sha256=sha256(target / 'build.json'),
         runtime_sha256=sha256(target / 'runtime.json'), host_profile_sha256=sha256(contracts / 'scenarios.json'),
-        **(dict(replacement_declaration_sha256=sha256(replacement),preparation_receipt_sha256=changed['preparation_receipt_sha256']) if args.window==2 else {}),
+        calibration_command_timeout_seconds=1800 if args.window==3 else 1100,
+        **(dict(replacement_declaration_sha256=sha256(replacement),preparation_receipt_sha256=changed['preparation_receipt_sha256']) if args.window>=2 else {}),
         ordinary_credit=0, expected_calibrations=9, expected_normal_restoration_rebuilds=3, project_admissions=0))
     result = await execute([sys.executable, '-B', ROOT / 'scripts/acceptance/next20_cargo_faults.py', '--native-final', '--normal-rebuild-window', '--normal-rebuild-window-number',str(args.window)],
         'cargo-generate', 'fresh-normal-restored-rust-source-rebuild-triples', cwd=ROOT,
-        env=owned_environment(), timeout=1100, campaign=NextCampaign(phase='final-archive'))
+        env=owned_environment(), timeout=1800 if args.window==3 else 1100, campaign=NextCampaign(phase='final-archive'))
     path = RAW / ('cargo-generate/source-fault-rebuild-recovery-'+suffix+'/summary.json')
     summary = json.loads(path.read_text())
     if summary['normal_restoration_rebuilds'] != 3 or summary['new_compiles'] != 6 or summary['final_native_calibration_executions'] != 9:
