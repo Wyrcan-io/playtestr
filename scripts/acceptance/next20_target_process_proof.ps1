@@ -1,4 +1,5 @@
-param([Parameter(Mandatory=$true)][ValidatePattern('^[a-z][a-z0-9-]{0,63}$')][string]$Project)
+param([Parameter(Mandatory=$true)][ValidatePattern('^[a-z][a-z0-9-]{0,63}$')][string]$Project,
+    [ValidateSet('rebuild-v1')][string]$Window)
 $ErrorActionPreference='Stop'
 $workspace=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
 $campaign=Join-Path $workspace 'artifacts\runner-readiness-next-twenty-project-pass'
@@ -16,7 +17,9 @@ foreach($candidate in Get-CimInstance Win32_Process) {
 $record=@{project=$Project;owned_target=$target;checked_at_utc=[DateTime]::UtcNow.ToString('o');
     matching_live_processes=$matches;confirmed_no_matching_live_processes=($matches.Count -eq 0);
     scope='Rechecked native PID/birth and owned executable/argument roots; no unrelated process arguments or environment persisted.'}
-$proof=Join-Path $campaign ($Project+'\process-proof.json')
+$proofName='process-proof'
+if ($Window) {$proofName+='-'+$Window}
+$proof=Join-Path $campaign ($Project+'\'+$proofName+'.json')
 if (Test-Path -LiteralPath $proof) { throw 'Preserve existing process proof; do not overwrite' }
 $record | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $proof -Encoding UTF8
 if ($matches.Count) { throw 'Owned target processes remain; no deletion authorized by this proof' }

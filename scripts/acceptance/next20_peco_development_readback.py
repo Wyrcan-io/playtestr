@@ -43,14 +43,15 @@ def git_inputs(revision):
     return result
 
 
-def audit(generation, run, revision, require_removed=True):
+def audit(generation, run, revision, require_removed=True, artifact='next20-peco-linux-development', cleanup_reports=20):
     index, records = read_packet('peco', generation)
     retained = RAW/'peco'/('retained-native-v'+str(generation))
     acquisition = json.loads((retained/'acquisition.json').read_text())
     provider = json.loads((retained/'provider.json').read_text())
     require(acquisition['run']==run and acquisition['revision']==revision and provider['headSha']==revision and provider['status']=='completed', 'provider run/source differs')
     require(provider['conclusion']==('success' if require_removed else 'failure'), 'unexpected original provider conclusion')
-    prefix = 'native/'+run+'/next20-peco-linux-development/'
+    require(artifact in {'next20-peco-linux-development','next20-peco-linux-final'} and cleanup_reports in {20,269}, 'undeclared native input readback scope')
+    prefix = 'native/'+run+'/'+artifact+'/'
     scope = 'artifacts/'+NAME+'/'
     def logical(name):
         name = str(name).replace('\\', '/').removeprefix(scope)
@@ -176,7 +177,7 @@ def audit(generation, run, revision, require_removed=True):
         require({n.removeprefix(scope+'active/peco/src/'):h for n,h in actual.items() if n.startswith(scope+'active/peco/src/')}==primary and actual.get(scope+'active/peco/runtime.json')==sha(target+'runtime.json'), 'actual prelaunch source/runtime differs')
         for name,hashed in build['compiled_files'].items():require(actual.get(scope+'active/peco/bin/'+name)==hashed or load(target+'launch-runtime-catalog.json')['files'].get(name)==hashed, 'actual app/capture catalog differs')
     cleanup = load(target+'cleanup-inventory.json'); proof = load('peco/process-proof.json')
-    require(cleanup['source_restored_exact'] and cleanup['actual_reports_with_confirmed_cleanup']==20 and cleanup['process_proof_sha256']==sha('peco/process-proof.json') and proof['confirmed_no_matching_live_processes'] and not proof['matching_live_processes'], 'original cleanup preparation differs')
+    require(cleanup['source_restored_exact'] and cleanup['actual_reports_with_confirmed_cleanup']==cleanup_reports and cleanup['process_proof_sha256']==sha('peco/process-proof.json') and proof['confirmed_no_matching_live_processes'] and not proof['matching_live_processes'], 'original cleanup preparation differs')
     require({n.removeprefix('src/'):r['sha256'] for n,r in cleanup['files'].items() if n.startswith('src/')}==primary, 'actual cleanup source differs')
     removed = prefix+target+'removed.json' in records
     require(removed==require_removed, 'original source/runtime removal classification differs')

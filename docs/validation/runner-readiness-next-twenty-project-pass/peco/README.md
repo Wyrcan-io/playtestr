@@ -81,3 +81,14 @@ cases pass; the wider110-column snapshot also matches its independent expectatio
 The finite final480 ordinary/18 calibration declaration is prepared. Final
 repetitions,negative model controls,history audits,retention and Windows cleanup
 still remain; peco is unadmitted.
+
+
+The original480ordinary and18calibration executions and their complete readbacks
+remain preserved. Protocol review found that compiled recoveries restored saved
+images instead of normally rebuilding restored source. Peco stays unadmitted;
+Cargo current-candidate qualification is also explicitly held pending the same
+proof correction. Fresh normal-rebuild triples are declared for both Peco hosts.
+Windows inputs have been materialized from retained licensed archives and actual
+original executables. All79original Go graph metadata bodies are now present,
+including27small historical bodies recovered byte-exact from the official proxy.
+The original offline refusal remains recorded. No production runner change.

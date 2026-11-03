@@ -1,0 +1,20 @@
+{
+  "candidate": "v0.4.0-rc.6",
+  "current_candidate_qualification_held": true,
+  "existing_admission_receipts_immutable": true,
+  "existing_calibration_outcomes_preserved": true,
+  "existing_ordinary_outcomes_preserved": true,
+  "product_candidate_changed": false,
+  "project": "cargo-generate",
+  "prompt_sha256": "7336fd86b6e67897b5f71671b3231843254960571f17c6fa1c2a423b42ca05b6",
+  "required_fresh_normal_rebuild_triples_per_host": 3,
+  "required_new_native_hosts": [
+    "windows",
+    "linux"
+  ],
+  "required_source_faults": 3,
+  "requirement": "Section10 requires restoring target source/configuration and rebuilding normally. Prior compiled-target calibration restored saved original executables; actual baseline/mutation detections and exact source restoration remain preserved, but normal rebuilt recovery must additionally qualify.",
+  "schema_version": 1,
+  "scope": "Explicit protocol proof hold,not a product failure. Preserve all original attempts. Add new normal rebuilt recovery evidence and independently audit before closing; no automatic retry or release.",
+  "status": "open-normal-restored-source-rebuild-proof"
+}

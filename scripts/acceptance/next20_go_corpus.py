@@ -14,11 +14,11 @@ from readiness_evidence import immutable_json,sha256
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('project');parser.add_argument('--canonical-native-generation',type=int);args=parser.parse_args();project=args.project
+    parser=argparse.ArgumentParser();parser.add_argument('project');parser.add_argument('--canonical-native-generation',type=int);parser.add_argument('--window',choices=['rebuild-v1']);args=parser.parse_args();project=args.project
     if '/' in project or '\\' in project:raise ValueError('unsafe Go corpus project')
     target=RAW/'active'/project;owner=json.loads((target/'task-owned.json').read_text());fetch=json.loads((target/'module-fetch.json').read_text());review=json.loads((DOC/project/'dependency-source-review-declaration.json').read_text())
     if owner['workspace']!=str(ROOT) or owner['slug']!=project or owner['pin']!=review['pin']:raise ValueError('foreign Go retention source')
-    output=RAW/project/'go-module-corpus';output.mkdir(parents=True,exist_ok=False);files={};refs={};base=None;identity=None
+    output=RAW/project/('go-module-corpus'+('-'+args.window if args.window else ''));output.mkdir(parents=True,exist_ok=False);files={};refs={};base=None;identity=None
     if args.canonical_native_generation is not None:identity,base=canonical(project,args.canonical_native_generation)
     def retain(path,name):
         path.resolve(strict=True).relative_to(target.resolve(strict=True));body=path.read_bytes();row=reference_for(name,body,base) if base is not None else None
@@ -31,6 +31,12 @@ def main():
         if sha256(row['Zip'])!=rule['zip_sha256']:raise ValueError('reviewed Go archive changed before retention')
         prefix=row['Path']+'/@v/'+row['Version']
         for field,suffix in [('Zip','.zip'),('GoMod','.mod'),('Info','.info')]:retain(Path(row[field]),'archives/'+prefix+suffix)
+    graph=target/'gopath/pkg/mod/cache/download';graph_count=0;graph_bytes=0
+    for path in sorted(graph.rglob('*')):
+        if not path.is_file() or path.suffix not in {'.mod','.info'}:continue
+        graph_count+=1;graph_bytes+=path.stat().st_size
+        if graph_count>128 or path.stat().st_size>65536 or graph_bytes>4*1024**2:raise ValueError('Go graph metadata retention bound')
+        retain(path,'graph-metadata/'+path.relative_to(graph).as_posix())
     for cache in [target/'gopath/pkg/sumdb',target/'gopath/pkg/mod/cache/download/sumdb']:
         if cache.is_dir():
             for path in sorted(cache.rglob('*')):

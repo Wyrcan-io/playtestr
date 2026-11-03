@@ -1,0 +1,54 @@
+{
+  "candidate": "v0.4.0-rc.6",
+  "canonical_freeze_sha256": "0d039521da4ad40938f86fcdebf8fe383e8ea2e139d0234a491ad5073bd3e168",
+  "execution_budget": {
+    "calibration_window_seconds": 900,
+    "estimated_linux_minutes": 6,
+    "estimated_windows_minutes": 8,
+    "linux_job_ceiling_minutes": 45,
+    "linux_preparation_seconds": 1200,
+    "linux_standard_hosted_jobs": 1,
+    "windows_whole_command_seconds": 1200
+  },
+  "failure_policy": "Any failed or partial new triple rejects this correction window. Preserve all prior and new attempts; no automatic retries.",
+  "fault_declaration_sha256": "4990b28c3826f40ebf4c4a00ffb91e235dd0e6dfa4a01a1746844cbbfa9e12e6",
+  "gate_sha256": "96f0b79bd6294821586569c83d7b97670cbe62055a72cfba7772b833a86e6c83",
+  "hosts": [
+    "windows",
+    "linux"
+  ],
+  "materialization": "Windows reuses exact retained licensed source/module archives and original executable bytes under a separately recorded materialization. Linux uses fresh pinned review/build preparation. One active owned target at a time.",
+  "ordinary_matrix_reused_unchanged": 480,
+  "original_baseline": {
+    "linux": {
+      "app_sha256": "9271a545d6cd49daefea1d384fe8a27e93cb45cda2c2f360f13d0fb5d540b669",
+      "build_sha256": "12d39376eeced4d4a659420baea6fa527f2a9592a03ef301d5976972026794e3",
+      "capture_sha256": "0d037f0f2c9caeb17bb4e9a517f6ab72c1f2036e162b585ff8fa63fff148c5ce",
+      "compiler_sha256": "1db869c560a193573a71be466a34e0d4abb7792d78165c6102cdda069276a3a8",
+      "runtime_sha256": "2e5caee758781b162a3b597e650344f03b2cee04d44dd8e6c53aa6b09c15f6ee"
+    },
+    "windows": {
+      "app_sha256": "2a516f305d8e73f8809a80096dbb7b084fe50d9aeb15da70fa2e43a06c703bec",
+      "build_sha256": "41ea57933af864eb066dd869db357bdd507c294a3e4dd772be3144151b45c133",
+      "capture_sha256": "c544921f7acd4104c05b2c7c54262314967496d316b93bf545991effa0cd8a6f",
+      "compiler_sha256": "7d828191ba32519a9c9361789ab647486236ed45c660889196c7770a8ff1985c",
+      "runtime_sha256": "887e2561f365a65272fa8d5aa648b97b1a33fef71244290ad45f906e0e097956"
+    }
+  },
+  "original_ordinary_execution_source": "4d31e08b3d6da92d94f7eb393b43689fd89bbf25",
+  "original_ordinary_readback_sha256": {
+    "linux": "e3d9832618de56b9327e23d7437c8ee46c036a591f39b8016b1261ba18b6a1d8",
+    "windows": "aa3f8c73ba36b9905d57e34f223159be1924783d94e028ac7e71a43a1b2aef22"
+  },
+  "prior_exposure": "All three faults and all source/dependencies/ordinary cases already exposed. These correction triples are explicitly repeated training,not new held-out selections. Original after-freeze selection/detection and copied-image recoveries remain retained.",
+  "product_archive_changed": false,
+  "project": "peco",
+  "project_admissions": 0,
+  "qualification_credit_until_audit": 0,
+  "recovery_method": "Each triple uses baseline,actual newly compiled mutation,recovery from restored source compiled through the normal approved Go build command. Retain every actual rebuilt image; compare hashes without assuming reproducibility.",
+  "required_new_calibrations": 18,
+  "required_normal_restoration_rebuilds": 6,
+  "retention_window": "rebuild-v1",
+  "schema_version": 1,
+  "scope": "Restore-rebuild proof supplement only. Original480ordinary results remain unchanged. New18calibration phases replace the copied-image recovery triples for qualification after independent normal-compile/report/runtime readback,retention and checked cleanup. No new breadth or product-candidate change."
+}

@@ -335,12 +335,15 @@ class NextCampaignTests(unittest.TestCase):
         async def check():
             with self.assertRaises(TimeoutError):
                 await execute([sys.executable,'-B','-c','import time; time.sleep(20)'],
-                    'core','adapter-timeout',cwd=ROOT,env=owned_environment(),timeout=1,
+                    'core','adapter-timeout',cwd=ROOT,env=owned_environment(),timeout=5,
                     campaign=self.campaign)
         asyncio.run(check())
         rows=self.campaign.attempts()
         self.assertEqual(len(rows),1)
-        finish=next(iter(rows.values()))['finished']
+        events=next(iter(rows.values()))
+        self.assertIn('launched',events,'source-identity setup exhausted the test allowance before the real timeout child launched')
+        self.assertGreater(events['launched']['pid'],0)
+        finish=events['finished']
         self.assertEqual(finish['category'],'harness_timeout')
         self.assertEqual(finish['harness_cleanup'],'harness_process_reaped')
 

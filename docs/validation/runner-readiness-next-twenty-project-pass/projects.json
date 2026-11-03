@@ -5,9 +5,9 @@
   "current_candidate_original_ten": 0,
   "qualification_candidate": "v0.4.0-rc.6",
   "admission_counters_candidate": "v0.4.0-rc.5",
-  "current_candidate_new_project_admissions": 2,
-  "current_candidate_ordinary_executions_qualified": 960,
-  "current_candidate_calibration_executions_qualified": 36,
+  "current_candidate_new_project_admissions": 1,
+  "current_candidate_ordinary_executions_qualified": 480,
+  "current_candidate_calibration_executions_qualified": 18,
   "candidate_scope": "Top-level admission aggregates remain historical exact v0.4.0-rc.5. Current v0.4.0-rc.6 counters and every per-project candidate admission are separate explicit projections. Historical admissions transfer no current-candidate credit; original-ten current requalification remains separate.",
   "new_project_admissions": 4,
   "new_project_target": 20,
@@ -226,7 +226,7 @@
           "sha256": "a93751afb626ba7025668ded7bf4602e6a37e5be3ef5f80735c013de69b0a59d"
         }
       ],
-      "current_candidate_qualified": true
+      "current_candidate_qualified": false
     },
     {
       "id": "pdm",
@@ -367,12 +367,12 @@
       "real_source_faults": 12
     },
     "v0.4.0-rc.6": {
-      "projects": 2,
-      "ordinary": 960,
-      "calibrations": 36,
-      "canonical_scenarios": 40,
-      "native_cells": 4,
-      "real_source_faults": 6
+      "projects": 1,
+      "ordinary": 480,
+      "calibrations": 18,
+      "canonical_scenarios": 20,
+      "native_cells": 2,
+      "real_source_faults": 3
     }
   },
   "admission_subjects": [
@@ -414,7 +414,41 @@
     }
   ],
   "distinct_new_projects_with_any_candidate_admission": 6,
-  "current_candidate_canonical_scenarios": 40,
-  "current_candidate_native_cells": 4,
-  "current_candidate_real_source_faults": 6
+  "current_candidate_canonical_scenarios": 20,
+  "current_candidate_native_cells": 2,
+  "current_candidate_real_source_faults": 3,
+  "recorded_candidate_counters": {
+    "v0.4.0-rc.5": {
+      "projects": 4,
+      "ordinary": 1920,
+      "calibrations": 72,
+      "canonical_scenarios": 80,
+      "native_cells": 8,
+      "real_source_faults": 12
+    },
+    "v0.4.0-rc.6": {
+      "projects": 2,
+      "ordinary": 960,
+      "calibrations": 36,
+      "canonical_scenarios": 40,
+      "native_cells": 4,
+      "real_source_faults": 6
+    }
+  },
+  "qualification_gates": [
+    {
+      "project": "cargo-generate",
+      "candidate": "v0.4.0-rc.6",
+      "gate": "cargo-generate/restoration-rebuild-gate.json",
+      "gate_sha256": "058177d38d4bce247a8276b6cf71801816812ded2cdefae739532334b568c754",
+      "open": true
+    },
+    {
+      "project": "peco",
+      "candidate": "v0.4.0-rc.6",
+      "gate": "peco/restoration-rebuild-gate.json",
+      "gate_sha256": "96f0b79bd6294821586569c83d7b97670cbe62055a72cfba7772b833a86e6c83",
+      "open": true
+    }
+  ]
 }

@@ -104,6 +104,7 @@ def invalid_spec_before_launch(data,row):
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--project',required=True)
     parser.add_argument('--prepare-only',action='store_true')
+    parser.add_argument('--window',choices=['rebuild-v1'])
     parser.add_argument('--resume-preparation',action='store_true')
     parser.add_argument('--generated-source-manifest',type=Path)
     parser.add_argument('--closed-report-packet',action='append',default=[])
@@ -166,7 +167,7 @@ def main():
     if reports==0:raise ValueError('no actual target report cleanup proof')
     if {r['sha256'] for r in unlaunched}!=set(args.unlaunched_report_sha256+args.invalid_spec_report_sha256):raise ValueError('Explicit unlaunched report not found exactly')
     if os.name=='nt':
-        proof_path=RAW/args.project/'process-proof.json'
+        proof_path=RAW/args.project/('process-proof'+('-'+args.window if args.window else '')+'.json')
         proof=json.loads(proof_path.read_text(encoding='utf-8-sig'))
         if proof['owned_target']!=str(target) or not proof['confirmed_no_matching_live_processes'] or proof['matching_live_processes']:
             raise ValueError('native Windows target process proof missing/failed')
@@ -176,10 +177,10 @@ def main():
         if len(result.stdout)>1024**2:raise ValueError('native process observer bound')
         matching=[line.split(None,1)[0].decode() for line in result.stdout.splitlines() if str(target).encode() in line]
         if matching:raise ValueError('owned target process path remains: '+','.join(matching))
-        proof_path=RAW/args.project/'process-proof.json'
+        proof_path=RAW/args.project/('process-proof'+('-'+args.window if args.window else '')+'.json')
         immutable_json(proof_path,dict(owned_target=str(target),confirmed_no_matching_live_processes=True,
             matching_live_processes=[],scope='Bounded native process arguments and all runner descendant-cleanup reports; no global argument inventory persisted.'))
-    retained=RAW/args.project/'retained-source'
+    retained=RAW/args.project/('retained-source'+('-'+args.window if args.window else ''))
     if args.resume_preparation:
         if not args.prepare_only or not retained.is_dir() or (retained/'prepared.json').exists() or (retained/'cleanup-inventory.json').exists():raise ValueError('only interrupted pre-inventory preparation may resume explicitly')
     else:retained.mkdir()

@@ -1,4 +1,5 @@
 param([Parameter(Mandatory=$true)][ValidatePattern('^[a-z][a-z0-9-]{0,63}$')][string]$Project,
+    [ValidateSet('rebuild-v1')][string]$Window,
     [ValidateSet(40000,60000)][int]$MaxFiles=40000,
     [ValidateSet(1073741824,2147483648)][long]$MaxBytes=1073741824)
 $ErrorActionPreference='Stop'
@@ -10,7 +11,9 @@ if ($target -ne $expected -or -not $target.StartsWith($campaign+'\active\',[Stri
 foreach($path in @((Join-Path $workspace 'artifacts'),$campaign,(Join-Path $campaign 'active'),$target)) {
     if ((Get-Item -LiteralPath $path -Force).Attributes -band [IO.FileAttributes]::ReparsePoint) { throw 'Linked target removal ancestor' }
 }
-$retained=Join-Path $campaign ($Project+'\retained-source')
+$retainedName='retained-source'
+if ($Window) {$retainedName+='-'+$Window}
+$retained=Join-Path $campaign ($Project+'\'+$retainedName)
 $prepared=Get-Content -LiteralPath (Join-Path $retained 'prepared.json') -Raw | ConvertFrom-Json
 $indexPath=Join-Path $retained 'cleanup-inventory.json'
 if ((Get-FileHash -LiteralPath $indexPath -Algorithm SHA256).Hash.ToLowerInvariant() -ne $prepared.cleanup_inventory_sha256) { throw 'Target cleanup inventory changed' }

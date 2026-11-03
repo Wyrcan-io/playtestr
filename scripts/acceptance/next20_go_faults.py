@@ -43,7 +43,7 @@ async def main():
         if sha256(app)!=build['actual_target_sha256']:raise ValueError('ordinary actual target executable not restored exactly')
     contracts();pristine();env=build_environment(target);env.update(GOENV='off',GOPROXY='off',GOSUMDB='off',GONOPROXY='none',GONOSUMDB='none');target_env=target_environment(target);runner=executable('native-exit-v1');faults=[]
     immutable_json(root/'planned.json',dict(schema_version=1,phase=phase,fault_declaration_sha256=sha256(rule_path),actual_test_freeze_sha256=sha256(package/'development-test-freeze.json'),
-        pristine_target_binary_sha256=sha256(app),capture_fixture_sha256=sha256(capture),calibrations=9,scope='Three real source-compiled mutation triples; original source and original compiled executable bytes restored exactly. Restored phases use the original reviewed executable,not a falsely claimed new rebuild.'))
+        pristine_target_binary_sha256=sha256(app),capture_fixture_sha256=sha256(capture),calibrations=9,restoration_method='normal-source-rebuild',scope='Three real source-compiled mutation triples. Each recovery executes a normal rebuild of restored source; every actual rebuilt image is retained. Ordinary baseline image is reinstated after the observed recovery. No assumed binary reproducibility.'))
     async def run_case(fault,stage,receipt=None):
         contracts();spec=package/declaration['primary_spec'];report=root/(fault['id']+'-'+stage+'.report.json')
         actual_files={p.name:sha256(p) for p in app.parent.iterdir() if p.is_file()}
@@ -82,10 +82,26 @@ async def main():
             shutil.copyfile(variant,app);mutated=await run_case(fault,'mutated',receipt)
         finally:
             path.write_bytes(original);shutil.copyfile(original_binary,app);pristine()
-        restored=await run_case(fault,'restored');faults.append(dict(id=fault['id'],source=fault['path'],original_sha256=fault['original_source_sha256'],mutated_sha256=fault['mutated_source_sha256'],restored_sha256=sha256(path),restored_exact=True,
-            original_binary_sha256=build['actual_target_sha256'],mutated_binary_sha256=sha256(variant),restored_binary_sha256=sha256(app),compiled_receipt=receipt.relative_to(ROOT).as_posix(),compiled_receipt_sha256=sha256(receipt),outcomes=[baseline,mutated,restored]))
+            recovery=variants/(fault['id']+'-normal-restored-'+app.name);recovery_receipt=root/(fault['id']+'-normal-restored-compiled.json')
+            command=[fetch['compiler'],'build',*review['build_flags'],'-modfile='+str(target/'build-inputs/pinned.mod'),'-o',str(recovery),review['main_package']]
+            rebuilt=await execute(command,project,'normal-restored-go-source-rebuild-'+fault['id'],cwd=source,env=env,timeout=180,campaign=NextCampaign(phase=phase))
+            source_bytes({})
+            sources={('src/'+name):sha256(source/name) for name in primary}
+            sources.update({name:sha256(target/name) for name in catalog['actual_native_compile_inputs']});sources[capture.relative_to(target).as_posix()]=sha256(capture)
+            immutable_json(recovery_receipt,dict(schema_version=1,purpose='normal-restored-source-rebuild',compile_attempt=rebuilt['id'],command=list(map(str,command)),binary=recovery.relative_to(ROOT).as_posix(),binary_sha256=sha256(recovery),binary_bytes=recovery.stat().st_size,
+                compiler_sha256=build['compiler_sha256'],compiler_tools=build['compiler_tools'],pristine_build_sha256=sha256(target/'build.json'),fault_declaration_sha256=sha256(rule_path),
+                source_inputs={(target/name).relative_to(ROOT).as_posix():d for name,d in sources.items()},dependency_source_catalog_sha256=sha256(target/'dependency-source-catalog.json'),
+                effective_go_mod_sha256=sha256(target/'build-inputs/pinned.mod'),effective_go_sum_sha256=sha256(target/'build-inputs/pinned.sum'),capture_fixture_sha256=sha256(capture)))
+        try:
+            shutil.copyfile(recovery,app);restored=await run_case(fault,'restored',recovery_receipt);recovery_sha=sha256(app)
+        finally:
+            shutil.copyfile(original_binary,app);pristine()
+        faults.append(dict(id=fault['id'],source=fault['path'],original_sha256=fault['original_source_sha256'],mutated_sha256=fault['mutated_source_sha256'],restored_sha256=sha256(path),restored_exact=True,
+            original_binary_sha256=build['actual_target_sha256'],mutated_binary_sha256=sha256(variant),restored_binary_sha256=recovery_sha,compiled_receipt=receipt.relative_to(ROOT).as_posix(),compiled_receipt_sha256=sha256(receipt),
+            normal_rebuild_receipt=recovery_receipt.relative_to(ROOT).as_posix(),normal_rebuild_receipt_sha256=sha256(recovery_receipt),normal_rebuild_attempt=rebuilt['id'],normal_rebuild_recovery_executed=True,
+            rebuilt_binary_matches_baseline=recovery_sha==build['actual_target_sha256'],outcomes=[baseline,mutated,restored]))
         immutable_json(root/(fault['id']+'-complete.json'),faults[-1]);print(fault['id'],'actual baseline passed / compiled source mutation rejected / exact restoration passed',flush=True)
-    contracts();pristine();immutable_json(root/'summary.json',dict(schema_version=1,project=project,phase=phase,real_faults=3,calibrations=9,faults=faults,ordinary_credit=0,project_admissions=0,source_and_binary_restored_exact=True))
+    contracts();pristine();immutable_json(root/'summary.json',dict(schema_version=1,project=project,phase=phase,real_faults=3,calibrations=9,faults=faults,normal_restoration_rebuilds=3,ordinary_credit=0,project_admissions=0,source_and_binary_restored_exact=True))
     print('Three actual Go source faults detected;9fresh calibration phases; complete original source/executable restoration. No admission.')
 
 

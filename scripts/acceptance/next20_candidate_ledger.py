@@ -29,9 +29,22 @@ def main():
         matches=[r for r in screened if r.get('repository')==selected['repository']]
         if len(matches)!=1:raise ValueError('selected reserve needs unique original canonical screening identity')
         metadata[selected['id']]=matches[0]
-    rows={r['id']:r for r in ledger['projects']};admissions=[];references=[]
+    rows={r['id']:r for r in ledger['projects']};admissions=[];references=[];held=set();gates=[]
     for selected in selection['selected']:
         project=selected['id'];documents=[]
+        gate_path=DOC/project/'restoration-rebuild-gate.json';gate_open=False
+        if gate_path.is_file():
+            gate=json.loads(gate_path.read_text());resolution_path=DOC/project/'restoration-rebuild-resolution.json'
+            if gate['project']!=project:raise ValueError('foreign restoration qualification gate')
+            gate_open=True
+            if resolution_path.is_file():
+                resolution=json.loads(resolution_path.read_text())
+                if (resolution['project']!=project or resolution['candidate']!=gate['candidate'] or resolution['gate_sha256']!=sha256(gate_path) or
+                    resolution['status']!='resolved-normal-rebuild' or resolution['qualified_calibrations']!=18 or not resolution['accepted_ordinary_unchanged']):raise ValueError('invalid restored-source rebuild resolution')
+                gate_open=False
+            if gate_open:held.add((gate['candidate'],project))
+            gates.append(dict(project=project,candidate=gate['candidate'],gate=gate_path.relative_to(DOC).as_posix(),gate_sha256=sha256(gate_path),open=gate_open,
+                **(dict(resolution=resolution_path.relative_to(DOC).as_posix(),resolution_sha256=sha256(resolution_path)) if resolution_path.is_file() else {})))
         for path in sorted((DOC/project).glob('admission*.json')):
             document=json.loads(path.read_text())
             if document.get('admitted') is not True:continue
@@ -43,13 +56,14 @@ def main():
         if row is None:
             row=dict(id=project,repository=selected['repository'],pin=metadata[project]['pin'],planned_hosts=selected['hosts']);ledger['projects'].append(row);rows[project]=row
         row.update(admitted=True,status='admitted-on-recorded-candidate',candidate_admissions=[r for r in references if r['project']==project],
-            current_candidate_qualified=any(d['candidate']==ledger['qualification_candidate'] for d in documents))
-    counters=candidate_counters(admissions);current=counters.get(ledger['qualification_candidate'],dict(projects=0,ordinary=0,calibrations=0,canonical_scenarios=0,native_cells=0,real_source_faults=0))
+            current_candidate_qualified=any(d['candidate']==ledger['qualification_candidate'] and (d['candidate'],project) not in held for d in documents))
+    recorded=candidate_counters(admissions)
+    counters=candidate_counters([a for a in admissions if (a['candidate'],a['project']) not in held]);current=counters.get(ledger['qualification_candidate'],dict(projects=0,ordinary=0,calibrations=0,canonical_scenarios=0,native_cells=0,real_source_faults=0))
     historical=counters.get(ledger['admission_counters_candidate'])
     if historical is None:raise ValueError('historical counter candidate disappeared')
     # Existing top-level aggregate fields keep their explicitly labelled candidate.
     if any(ledger[field]!=historical[key] for field,key in [('new_project_admissions','projects'),('ordinary_executions','ordinary'),('calibration_executions','calibrations'),('canonical_scenarios','canonical_scenarios'),('native_cells','native_cells'),('real_target_faults','real_source_faults')]):raise ValueError('historical exact-candidate aggregate changed unexpectedly')
-    ledger.update(candidate_counters=counters,admission_subjects=references,distinct_new_projects_with_any_candidate_admission=len({a['project'] for a in admissions}),
+    ledger.update(candidate_counters=counters,recorded_candidate_counters=recorded,qualification_gates=gates,admission_subjects=references,distinct_new_projects_with_any_candidate_admission=len({a['project'] for a in admissions}),
         current_candidate_new_project_admissions=current['projects'],current_candidate_ordinary_executions_qualified=current['ordinary'],
         current_candidate_calibration_executions_qualified=current['calibrations'],current_candidate_canonical_scenarios=current['canonical_scenarios'],
         current_candidate_native_cells=current['native_cells'],current_candidate_real_source_faults=current['real_source_faults'],

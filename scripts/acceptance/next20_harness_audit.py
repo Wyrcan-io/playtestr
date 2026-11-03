@@ -10,6 +10,16 @@ from readiness_evidence import immutable_json,sha256
 from readiness_compact_native import compact
 
 
+def expected_skip(host,test,line):
+    """Accept only a named control's exact, declared native-platform exclusion."""
+    windows={'test_native_target_removal_refuses_changed_payload_then_removes_exact_owned_fixture','test_native_large_cleanup_requires_matching_explicit_bound'}
+    unix={'test_actual_readonly_module_cache_can_be_removed_after_preparation','test_foreign_root_and_link_are_refused_without_touching_destination'}
+    reason=None
+    if host in {'ubuntu-24.04','macos-15'} and test in windows:reason='native Windows checked target removal control'
+    if host=='windows-2025' and test in unix:reason='native Unix read-only directory permissions'
+    return reason if reason and line.endswith(" ... skipped '"+reason+"'") else None
+
+
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('host',choices=['ubuntu-24.04','macos-15','windows-2025'])
     parser.add_argument('--generation',type=int,required=True)
@@ -62,9 +72,8 @@ def main():
                 lines=[line for line in output.splitlines() if line.startswith(test+' ')]
                 if len(lines)!=1:raise ValueError('missing/duplicated named native test outcome')
                 if lines[0].endswith(' ... ok'):passed.append(test)
-                elif (args.host!='windows-2025' and test in {'test_native_target_removal_refuses_changed_payload_then_removes_exact_owned_fixture','test_native_large_cleanup_requires_matching_explicit_bound'}
-                      and lines[0].endswith(" ... skipped 'native Windows checked target removal control'")):
-                    skipped.append(dict(test=test,reason='native Windows checked target removal control'))
+                elif (reason:=expected_skip(args.host,test,lines[0])):
+                    skipped.append(dict(test=test,reason=reason))
                 else:raise ValueError('unexpected native failure/skip')
             normalized=output.replace('\r\n','\n')
             if f'Ran {len(test_names)} tests' not in output or not any(line=='OK' or line==f'OK (skipped={len(skipped)})' for line in normalized.splitlines()):
