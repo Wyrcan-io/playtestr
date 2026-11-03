@@ -62,7 +62,13 @@ def audit(host, revision, generation=None, staged=False, window=1):
 
     helpers = git_inputs(revision)
     if host == 'windows':
-        actual = review_packet(RAW / 'cargo-generate/execution-helper-source-rebuild-v1')
+        base=RAW / 'cargo-generate/execution-helper-source-rebuild-v1'
+        actual = review_packet(base)
+        if window==2:
+            delta=RAW/'cargo-generate/execution-helper-source-rebuild-v2'
+            binding=json.loads((delta/'source-binding.json').read_text())
+            require(binding['source_revision']==revision and binding['base_index_sha256']==sha256(base/'review-inputs-index.json') and binding['base_archive_sha256']==sha256(base/'review-inputs.tar.xz'),'required original helper-source dictionary changed')
+            actual.update(review_packet(delta))
         for name, expected in list(helpers.items()):
             body = actual[name]
             normal = body.replace(b'\r\n', b'\n')
