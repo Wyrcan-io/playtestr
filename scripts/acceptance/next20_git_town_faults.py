@@ -90,7 +90,9 @@ def verify_source(source, provenance, acquisition, target):
     # Local source archives do not contain .git. Verify every file and the exact
     # archive before using the supported no-VCS stamping build variant.
     archive = target / 'source.tar.gz'
-    if not archive.is_file() or sha256(archive) != acquisition['archive_sha256']:
+    expected_archive_sha256 = (acquisition.get('archive_sha256') or
+                               acquisition.get('source_archive_sha256'))
+    if not archive.is_file() or sha256(archive) != expected_archive_sha256:
         raise ValueError('source archive is absent or differs from the pinned acquisition receipt')
     return dict(source_mode='verified immutable archive without Git metadata', source_commit=None,
                 source_tree_sha256=provenance['primary_tree_sha256'], source_files=len(actual),
@@ -203,16 +205,21 @@ def main():
     provenance = json.loads(provenance_path.read_text(encoding='utf-8'))
     acquisition_path = target / 'acquisition.json'
     acquisition = json.loads(acquisition_path.read_text(encoding='utf-8'))
+    archive_sha256 = (acquisition.get('archive_sha256') or
+                      acquisition.get('source_archive_sha256'))
     if provenance.get('pin') != PIN or not source.is_dir() or source.is_symlink():
         raise ValueError('fault target is not the reviewed immutable Git Town checkout')
     if acquisition.get('pin') != PIN or acquisition.get('repository') != 'git-town/git-town':
         raise ValueError('pinned Git Town acquisition receipt is missing or mismatched')
+    if not isinstance(archive_sha256, str) or len(archive_sha256) != 64 or any(
+            char not in '0123456789abcdef' for char in archive_sha256):
+        raise ValueError('pinned Git Town acquisition receipt has no valid source archive SHA-256')
     try:
         source_identity = verify_source(source, provenance, acquisition, target)
     except Exception as exc:
         refusal = dict(schema_version=1, project=PROJECT, phase='prelaunch-refusal',
             source_pin_expected=PIN, source_provenance_sha256=sha256(provenance_path),
-            source_archive_sha256=acquisition['archive_sha256'], target_process_launched=False,
+            source_archive_sha256=archive_sha256, target_process_launched=False,
             qualification_credit=0, reason=str(exc)[:2048])
         refusal_path = target / ('fault-prelaunch-refusal-' + uuid.uuid4().hex + '.json')
         immutable_json(refusal_path, refusal)
@@ -234,7 +241,7 @@ def main():
             raise ValueError('initial native source build receipt is missing or mismatched')
     started = dict(schema_version=1, project=PROJECT, host=args.host,
         runner_os=platform.system().lower(), runner_arch=platform.machine().lower(),
-        source_pin=PIN, source_archive_sha256=acquisition['archive_sha256'],
+        source_pin=PIN, source_archive_sha256=archive_sha256,
         source_identity=source_identity,
         matrix_id=uuid.uuid4().hex,
         source_provenance_sha256=sha256(provenance_path),
