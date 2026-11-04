@@ -66,9 +66,10 @@ def validate_case_observation(fault, expected_runner_exit, returncode, outcome_s
         return 'target exit and workspace cleanup were not positively confirmed'
     if outcome_status != 'completed':
         return 'harness outcome was not completed'
+    if returncode != expected_runner_exit:
+        return f'runner exited {returncode}, expected {expected_runner_exit}'
     if expected_failure:
-        failure = next((step.get('failure') or {} for step in steps
-                        if step.get('status') != 'passed'), {})
+        failure = target_result.get('failure') or {}
         if (len(failed_steps) != 1 or summary.get('failed') != 1 or
                 summary.get('passed') != 0 or summary.get('total') != 1 or
                 failure.get('category') != fault['expected_failure_category']):
