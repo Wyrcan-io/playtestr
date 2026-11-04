@@ -55,8 +55,20 @@ them against provenance before build.
 
 Catalog v2 preserves all v1 specs and attempts. It declares the isolated Git,
 pager, and terminal environment explicitly because the public runner's default
-allowlist omits those values. Its hosted Linux/Windows run is pending. All hosted
-results remain development evidence only. Final repetitions, three safe source
-faults, calibration, public recorder/maintenance work, current-candidate
-qualification and cleanup audit remain open. Git Town has no admission,
-native-cell, fault-detection or candidate credit.
+allowlist omits those values. Hosted run `41875535290` verified and built the
+source on both hosts. Linux again failed all 20 screen assertions with a blank
+rendered screen, despite a bounded raw PTY probe emitting the expected 195 bytes.
+Windows passed 19/20; N15 exposed a Unicode branch-name/state mismatch. Exact
+job, artifact, probe and failure details are in
+[`hosted-development-attempts-v2.json`](hosted-development-attempts-v2.json).
+An owned native Windows direct-launch diagnostic subsequently created
+`feat-é` and verified the exact UTF-8 `.git/HEAD` bytes with the same pinned
+binary. That narrows the hosted discrepancy to Playtestr launch/environment or
+evidence handling; see
+[`windows-unicode-direct-probe-v1.json`](windows-unicode-direct-probe-v1.json).
+Both failures remain open and require a new catalog version before any revised
+spec runs. All hosted results remain development evidence only. Final
+repetitions, three safe source faults, calibration, public recorder/maintenance
+work, current-candidate qualification and cleanup audit remain open. Git Town
+has no admission, native-cell, fault-detection or candidate credit.
+
