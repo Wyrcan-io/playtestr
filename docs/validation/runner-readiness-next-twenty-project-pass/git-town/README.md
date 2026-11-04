@@ -102,3 +102,14 @@ write. The first run remains preserved with artifacts in
 The injection now detects the DA bytes anywhere in a combined batch; Linux
 ordinary/race checks and the 20-case rerun are pending. No admission or native
 cell credit.
+
+The corrected run `41898559438` passed the runner/VT package suites on Ubuntu
+both ordinarily and with `-race`, then passed all 20 exact v3 cases on both
+Ubuntu 24.04 and Windows 2025. Each logged case completed with runner exit 0;
+the direct PTY diagnostic exited with 195 expected bytes and the controlling-TTY
+diagnostic retained the 12-byte startup query while confirming process-group
+cleanup. Artifacts, per-case report hashes, and the v4 failure are preserved in
+[`hosted-development-attempts-v5.json`](hosted-development-attempts-v5.json).
+This closes Git Town source-development only. Qualification, fault detection,
+public authoring/maintenance, relocation, exact-candidate repetition and cleanup
+audit remain open; no admission or native-cell credit is added.

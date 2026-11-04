@@ -28,3 +28,17 @@ OSC 10. Windows passed all twenty exact cases. Artifacts and dispositions are
 in `hosted-development-attempts-v4.json`. The Unix-only test wrapper was fixed
 to detect the DA response anywhere in the batch. Native Linux ordinary/race
 checks and scenarios remain pending; no credit was added.
+
+
+Corrected run `41898559438` on commit `ad3da7e` passed the full runner and VT
+package suites on native Ubuntu (ordinary and race), ran the bounded direct and
+controlling-TTY probes, and passed all 20 exact v3 cases on both Ubuntu 24.04 and
+Windows 2025. All 40 case runners exited 0; each report SHA is indexed in
+`hosted-development-attempts-v5.json`. The controlling-TTY diagnostic still
+captured Git Town's 12-byte `OSC 11`/`CSI 6 n` wait and confirmed process-group
+cleanup; the runner regression now returns those emulator-generated replies.
+Linux and Windows artifact ZIPs are retained with their digests in the v5
+record. This remains source-development evidence: Git Town has zero project
+qualification, current-candidate or native-cell credit. Fault detection, public
+authoring, maintenance, relocation, repeated candidate series, and final cleanup
+audit remain open.

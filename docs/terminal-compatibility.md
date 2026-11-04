@@ -43,6 +43,9 @@ measured expansion is recorded in the
 Published binaries retain their recorded
 behavior; native ordinary/race source validation passes in
 [run 39039797857](https://github.com/Wyrcan-io/playtestr/actions/runs/39039797857).
+The bounded color/cursor/status reply subset also passed ordinary and race
+runner tests and Git Town's frozen 20-case source-development matrix on Ubuntu
+and Windows in [run 41898559438](https://github.com/Wyrcan-io/playtestr/actions/runs/41898559438).
 Exact candidate archive qualification remains pending. This minimal
 identification is not complete VT102 certification. See the
 [decision and transport bounds](decisions/terminal-primary-device-attributes.md).

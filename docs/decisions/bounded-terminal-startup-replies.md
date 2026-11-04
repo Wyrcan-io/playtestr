@@ -1,6 +1,6 @@
 # Bounded Unix terminal startup replies
 
-Status: implementation prepared; native Linux regression pending.
+Status: native source regression and Git Town development matrix passed; private archives pending.
 
 The Git Town controlling-terminal probe on run `41881662967` captured only
 `OSC 11;?` and `CSI 6 n` before timing out. The same binary completed with
@@ -23,3 +23,12 @@ blocked-writer cleanup tests. The Git Town Linux workflow runs these tests befor
 its frozen 20-case development series. A successful source test and Git Town
 development run will not qualify private archives or another project; the later
 candidate and prior-project gates remain separate.
+
+The bounded bridge and mixed-query test passed ordinary and race package suites
+on Ubuntu 24.04 in run `41898559438`. With the same source and exact v3 spec
+hashes, Git Town passed all 20 frozen development cases on Ubuntu 24.04 and
+Windows 2025. This resolves the measured development mismatch for this source
+candidate; archive validation and the other project gates remain open. The
+earlier transport-error test-injection failure is preserved in
+`hosted-development-attempts-v4.json`; the correction is included in the
+passing run.
