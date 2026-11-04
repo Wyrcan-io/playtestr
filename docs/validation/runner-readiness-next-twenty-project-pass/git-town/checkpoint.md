@@ -18,3 +18,13 @@ PTY path is skipped on Windows. The Git Town workflow runs both ordinary and
 `-race` package suites on native Ubuntu before repeating the 20 cases. Hosted
 Linux validation remains pending; no scenario or qualification credit is
 claimed yet.
+
+
+Run `41897622026` (commit `28b09fd`) is preserved as hosted attempt v4. Ubuntu
+verified the source build and exact catalog but failed before any scenario in
+`TestTerminalReplyTransportErrorIsPreservedWithRealTarget`: its injected PTY
+wrapper looked only for a DA reply at the start of a combined batch, now led by
+OSC 10. Windows passed all twenty exact cases. Artifacts and dispositions are
+in `hosted-development-attempts-v4.json`. The Unix-only test wrapper was fixed
+to detect the DA response anywhere in the batch. Native Linux ordinary/race
+checks and scenarios remain pending; no credit was added.

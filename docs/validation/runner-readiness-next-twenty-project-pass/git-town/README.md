@@ -91,3 +91,14 @@ but its Unix bridge discarded them. A bounded source fix and mixed-query real
 PTY regression are prepared; the next hosted workflow runs ordinary and race
 checks before retrying the frozen cases. Until that run is read back, Git Town
 remains development-only with zero admission or native-cell credit.
+
+
+Hosted follow-up run `41897622026` verified the exact catalog and built the source
+on Ubuntu and Windows. Windows passed all 20 cases. Linux stopped before any
+scenario: the expanded real-PTY regression exposed a stale transport-error test
+injection that checked only a batch prefix while mixed replies now share one
+write. The first run remains preserved with artifacts in
+[`hosted-development-attempts-v4.json`](hosted-development-attempts-v4.json).
+The injection now detects the DA bytes anywhere in a combined batch; Linux
+ordinary/race checks and the 20-case rerun are pending. No admission or native
+cell credit.

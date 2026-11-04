@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "project": "git-town",
+  "workflow": ".github/workflows/runner-readiness-next20-git-town.yml",
+  "commit": "28b09fd2f845ff929333ee38c2a0f3db991a57f8",
+  "scenario_catalog": "scenario-catalog-v3.json",
+  "run_id": 41897622026,
+  "jobs": {
+    "linux": {
+      "job_id": 126811262541,
+      "runner": "ubuntu-24.04",
+      "status": "failed_before_scenarios",
+      "source_build_passed": true,
+      "catalog_bytes_verified_before_build": 20,
+      "ordinary_core_tests": "failed",
+      "race_tests": "skipped",
+      "scenario_attempts": 0,
+      "failure": "TestTerminalReplyTransportErrorIsPreservedWithRealTarget timed out waiting for its injected transport error. The mixed query batch now begins with OSC 10, while the test wrapper only failed writes beginning with the DA reply; the reply batch therefore bypassed the injection.",
+      "artifact": {
+        "id": 13355503526,
+        "bytes": 30582126,
+        "sha256": "ebb2ab254228268cff1d7692e4ce8c57629dc82c4ce28c9269cf2e29b6157e2f"
+      }
+    },
+    "windows": {
+      "job_id": 126811262045,
+      "runner": "windows-2025",
+      "status": "passed",
+      "catalog_bytes_verified_before_build": 20,
+      "scenario_attempts": 20,
+      "passed": 20,
+      "failed": 0,
+      "artifact": {
+        "id": 13355852722,
+        "bytes": 30920069,
+        "sha256": "28ff14a5b0857e738b3a71c344eafc9786de07be144b784c577b04f597d19d3e"
+      }
+    }
+  },
+  "totals": {
+    "hosted_jobs": 2,
+    "scenario_attempts": 20,
+    "passed": 20,
+    "failed": 0,
+    "linux_scenarios_not_run": 20,
+    "scenario_qualification_credit": 0,
+    "native_cell_credit": 0
+  },
+  "disposition": "This run is retained as observed. The Linux source build and exact spec hash gate passed, but the core test gate failed before any Git Town case ran. Windows completed all 20 exact catalog cases. The Unix transport-error test injection now matches the DA sequence anywhere in a combined reply batch; validation is pending on native Linux."
+}

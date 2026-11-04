@@ -149,7 +149,7 @@ func TestTerminalReplyBlockedWriterStopsWithinCleanup(t *testing.T) {
 type primaryReplyWriteFailurePTY struct{ xpty.Pty }
 
 func (p primaryReplyWriteFailurePTY) Write(value []byte) (int, error) {
-	if bytes.HasPrefix(value, []byte("\x1b[?6c")) {
+	if bytes.Contains(value, []byte("\x1b[?6c")) {
 		return 0, io.ErrClosedPipe
 	}
 	return p.Pty.Write(value)
