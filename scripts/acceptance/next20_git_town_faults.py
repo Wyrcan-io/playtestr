@@ -17,7 +17,7 @@ PROJECT = 'git-town'
 PIN = '8d039892574d4852e1843020c31d423234042e78'
 FAULTS = [
     dict(id='F01-parent-output', file='internal/cmd/config/get_parent.go',
-         old=b'fmt.Print(parent)', new=b'fmt.Print(childBranch)',
+         old=b'fmt.Print(parent)', new=b'fmt.Print(parent[:len(parent)-1])',
          spec='N03-read-parent.json', expected_runner_exit=1,
          expected_failure_category='assertion_timeout',
          requirement='The configured parent command must print the configured parent.'),
@@ -203,17 +203,31 @@ def main():
     source = target / 'src'
     provenance_path = DOC / PROJECT / 'source-provenance.json'
     provenance = json.loads(provenance_path.read_text(encoding='utf-8'))
+    declaration_path = DOC / PROJECT / 'fault-declaration-v2.json'
+    declaration = json.loads(declaration_path.read_text(encoding='utf-8'))
     acquisition_path = target / 'acquisition.json'
     acquisition = json.loads(acquisition_path.read_text(encoding='utf-8'))
     archive_sha256 = (acquisition.get('archive_sha256') or
                       acquisition.get('source_archive_sha256'))
     if provenance.get('pin') != PIN or not source.is_dir() or source.is_symlink():
         raise ValueError('fault target is not the reviewed immutable Git Town checkout')
+    if (declaration.get('source_pin') != PIN or
+            declaration.get('scenario_catalog') != 'scenario-catalog-v3.json'):
+        raise ValueError('Git Town fault declaration is not bound to the frozen source/catalog')
     if acquisition.get('pin') != PIN or acquisition.get('repository') != 'git-town/git-town':
         raise ValueError('pinned Git Town acquisition receipt is missing or mismatched')
     if not isinstance(archive_sha256, str) or len(archive_sha256) != 64 or any(
             char not in '0123456789abcdef' for char in archive_sha256):
         raise ValueError('pinned Git Town acquisition receipt has no valid source archive SHA-256')
+    declared_faults = {item.get('id'): item for item in declaration.get('declared_faults', [])}
+    if set(declared_faults) != {fault['id'] for fault in FAULTS}:
+        raise ValueError('Git Town fault helper and reviewed declaration have different fault IDs')
+    for fault in FAULTS:
+        declared = declared_faults[fault['id']]
+        if (declared.get('source_file') != fault['file'] or
+                declared.get('unchanged_spec') != fault['spec'] or
+                declared.get('expected_failure_category') != fault['expected_failure_category']):
+            raise ValueError(f"{fault['id']}: source/spec/category differs from reviewed declaration")
     try:
         source_identity = verify_source(source, provenance, acquisition, target)
     except Exception as exc:
@@ -245,6 +259,8 @@ def main():
         source_identity=source_identity,
         matrix_id=uuid.uuid4().hex,
         source_provenance_sha256=sha256(provenance_path),
+        fault_declaration='git-town/fault-declaration-v2.json',
+        fault_declaration_sha256=sha256(declaration_path),
         scenario_catalog_sha256=sha256(DOC / PROJECT / 'scenario-catalog-v3.json'),
         unchanged_specs=[dict(path=fault['spec'], sha256=sha256(DOC / PROJECT / fault['spec']))
                          for fault in FAULTS],
@@ -310,6 +326,8 @@ def main():
                 restored_executable_sha256=restored_build['executable_sha256']))
         record = dict(schema_version=1, project=PROJECT, host=args.host,
             source_pin=PIN, source_provenance_sha256=sha256(provenance_path),
+            fault_declaration='git-town/fault-declaration-v2.json',
+            fault_declaration_sha256=sha256(declaration_path),
             scenario_catalog_sha256=started['scenario_catalog_sha256'],
             started_sha256=sha256(start_path), faults=results,
             totals=dict(distinct_faults=len(results), phases=len(results) * 3,

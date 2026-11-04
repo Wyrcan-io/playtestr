@@ -116,3 +116,6 @@ audit remain open; no admission or native-cell credit is added.
 
 
 The v5 source-development checkpoint supersedes the earlier pending statements: the Linux runner/VT package checks, race checks, and exact twenty-case source matrix passed. Three genuine source faults are predeclared in [fault-declaration-v1.json](fault-declaration-v1.json); the hosted workflow runs baseline, corrupted, and restored/rebuilt phases on Ubuntu and Windows. Those results and the v5 matrix remain development evidence until independently audited and rerun on the exact final candidate. The public authoring, maintenance, relocation, and final qualification gates remain open.
+
+
+Fault-matrix audit update: three hosted source-fault attempts are retained in [fault-matrix-hosted-attempts-v1.json](fault-matrix-hosted-attempts-v1.json). The first two exposed prelaunch helper defects; the third detected a compile-invalid F01 mutation after 20/20 unchanged public cases passed on Linux and Windows. No source-fault detection credit is claimed. The compile-valid F01 truncation revision is frozen in [fault-declaration-v2.json](fault-declaration-v2.json); the corrected matrix must complete on both hosts before any fault credit.
