@@ -28,9 +28,16 @@ jobs:
         with:
           ref: ${{ github.sha }}
           persist-credentials: false
+      - id: request
+        name: Check for an exact completed-run audit request
+        run: |
+          $request = 'docs/validation/runner-readiness-next-twenty-project-pass/audit-requests/git-town-audit-v13.json'
+          if (Test-Path -LiteralPath $request) { 'ready=true' >> $env:GITHUB_OUTPUT }
+          else { 'ready=false' >> $env:GITHUB_OUTPUT }
       - name: Run bounded ZIP-audit unit checks
         run: python -B scripts/acceptance/test_git_town_artifact_audit.py
       - name: Independently retrieve and audit both original native packets
+        if: steps.request.outputs.ready == 'true'
         run: |
           $output = 'artifacts/runner-readiness-next-twenty-project-pass/audit/git-town'
           New-Item -ItemType Directory -Force -Path $output | Out-Null
@@ -38,7 +45,7 @@ jobs:
             --request docs/validation/runner-readiness-next-twenty-project-pass/audit-requests/git-town-audit-v13.json `
             --output "$output/audit-receipt-v1.json"
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
-        if: always()
+        if: always() && steps.request.outputs.ready == 'true'
         with:
           name: next20-git-town-independent-audit
           path: artifacts/runner-readiness-next-twenty-project-pass/audit/git-town/**
