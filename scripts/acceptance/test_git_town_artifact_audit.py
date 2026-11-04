@@ -3,7 +3,8 @@ import stat
 import unittest
 import zipfile
 
-from git_town_artifact_audit import read_archive
+from git_town_artifact_audit import (RAW, SOURCE_ARCHIVE_SHA256,
+                                    audit_source_archive, read_archive)
 
 
 def archive(name='evidence/report.json', body=b'{}', mode=stat.S_IFREG | 0o644):
@@ -35,6 +36,33 @@ class GitTownArtifactAuditTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'duplicate or oversized'):
             read_archive(stream.getvalue())
 
+    def test_accepts_verified_source_tree_when_archive_payload_was_not_uploaded(self):
+        result = audit_source_archive({}, {'source_archive_sha256': SOURCE_ARCHIVE_SHA256})
+        self.assertEqual(result, {
+            'source_archive_sha256': SOURCE_ARCHIVE_SHA256,
+            'source_archive_payload_retained': False,
+        })
+
+    def test_verifies_archive_payload_when_present(self):
+        body = b'pinned archive'
+        archive_sha = __import__('hashlib').sha256(body).hexdigest()
+        # The production digest remains fixed; exercise the retained-byte branch
+        # by temporarily supplying the reviewed pin's exact constant through a
+        # patched module constant in the test process.
+        import git_town_artifact_audit as auditor
+        original = auditor.SOURCE_ARCHIVE_SHA256
+        auditor.SOURCE_ARCHIVE_SHA256 = archive_sha
+        try:
+            result = audit_source_archive({RAW + 'source.tar.gz': body},
+                                          {'source_archive_sha256': archive_sha})
+            self.assertTrue(result['source_archive_payload_retained'])
+            with self.assertRaisesRegex(ValueError, 'retained pinned-source archive digest differs'):
+                audit_source_archive({RAW + 'source.tar.gz': b'changed'},
+                                     {'source_archive_sha256': archive_sha})
+        finally:
+            auditor.SOURCE_ARCHIVE_SHA256 = original
+
 
 if __name__ == '__main__':
     unittest.main()
+

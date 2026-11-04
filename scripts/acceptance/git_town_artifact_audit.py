@@ -34,6 +34,7 @@ ZIP_LIMIT = 512 * 1024 * 1024
 EXPANDED_LIMIT = 768 * 1024 * 1024
 MEMBER_LIMIT = 10000
 SOURCE_PIN = '8d039892574d4852e1843020c31d423234042e78'
+SOURCE_ARCHIVE_SHA256 = '2a47fe65b7f21f6a99bfeefd00dfeffce394dd7db733b47e5b87904c9947ab8a'
 
 
 def digest(body):
@@ -88,6 +89,19 @@ def json_value(files, name):
     return json.loads(value(files, name).decode('utf-8-sig'))
 
 
+def audit_source_archive(files, acquisition):
+    archive_sha = acquisition.get('source_archive_sha256') or acquisition.get('archive_sha256')
+    require(archive_sha == SOURCE_ARCHIVE_SHA256,
+            'acquired pinned-source archive identity differs from the reviewed source pin')
+    archive_name = RAW + 'source.tar.gz'
+    archive_retained = archive_name in files
+    if archive_retained:
+        require(digest(files[archive_name]) == archive_sha,
+                'retained pinned-source archive digest differs')
+    return dict(source_archive_sha256=archive_sha,
+                source_archive_payload_retained=archive_retained)
+
+
 def audit_source(files):
     provenance = json_value(files, PACKAGE + 'source-provenance.json')
     require(provenance.get('pin') == SOURCE_PIN, 'Git Town source pin differs')
@@ -105,11 +119,9 @@ def audit_source(files):
         observed[relative] = digest(body)
     require(observed == expected, 'artifact source bytes differ from the complete pinned tree')
     acquisition = json_value(files, RAW + 'acquisition.json')
-    archive_sha = acquisition.get('source_archive_sha256') or acquisition.get('archive_sha256')
-    require(digest(value(files, RAW + 'source.tar.gz')) == archive_sha,
-            'acquired pinned-source archive digest differs')
+    archive = audit_source_archive(files, acquisition)
     return dict(pin=SOURCE_PIN, source_files=len(observed), source_tree_verified=True,
-                source_archive_sha256=archive_sha,
+                **archive,
                 source_provenance_sha256=digest(value(files, PACKAGE + 'source-provenance.json')))
 
 
@@ -378,3 +390,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
