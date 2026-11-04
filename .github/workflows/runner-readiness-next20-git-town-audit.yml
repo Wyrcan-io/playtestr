@@ -30,6 +30,7 @@ jobs:
           persist-credentials: false
       - id: request
         name: Check for an exact completed-run audit request
+        shell: pwsh
         run: |
           $request = 'docs/validation/runner-readiness-next-twenty-project-pass/audit-requests/git-town-audit-v13.json'
           if (Test-Path -LiteralPath $request) { 'ready=true' >> $env:GITHUB_OUTPUT }
@@ -52,3 +53,4 @@ jobs:
           include-hidden-files: true
           if-no-files-found: error
           retention-days: 30
+
