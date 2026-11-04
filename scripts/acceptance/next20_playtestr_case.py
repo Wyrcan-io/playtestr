@@ -97,10 +97,17 @@ async def main():
                      attempt_id=getattr(exc, 'evidence_id', None),
                      evidence_directory=str(getattr(exc, 'evidence_directory', '')))
     report_row = json.loads(report.read_text(encoding='utf-8')) if report.is_file() else None
+    failed_console = None
+    if not result and error and error.get('evidence_directory'):
+        console_path = Path(error['evidence_directory']) / 'console.log'
+        if console_path.is_file():
+            with console_path.open('rb') as stream:
+                stream.seek(max(0, console_path.stat().st_size - 16_384))
+                failed_console = stream.read(16_384).decode('utf-8', errors='replace')
     outcome = dict(record, status='completed' if result else 'failed',
                    error=error, runner_attempt_id=result['id'] if result else (error or {}).get('attempt_id'),
                    report_sha256=sha256(report) if report.is_file() else None,
-                   report=report_row, console=result['output'] if result else None)
+                   report=report_row, console=result['output'] if result else failed_console)
     immutable_json(report_root / 'finished.json', outcome)
     if not result:
         raise RuntimeError('Playtestr case failed; see ' + str((report_root/'finished.json').relative_to(ROOT)))

@@ -72,6 +72,8 @@ def main():
                                      step_statuses=[step.get('status') for step in result_record.get('steps', [])],
                                      target_exit=(result_record.get('target') or {}).get('exit_code'),
                                      workspace_cleanup=(result_record.get('workspace') or {}).get('cleaned'),
+                                     case_error=record.get('error'),
+                                     case_console=record.get('console'),
                                      console=console))
             except subprocess.TimeoutExpired as error:
                 outcomes.append(dict(case=case, round=round_number, label=label,
@@ -91,7 +93,8 @@ def main():
     for item in outcomes:
         print(json.dumps({key: item.get(key) for key in (
             'case', 'round', 'status', 'process_exit', 'failure_category',
-            'failure_message', 'step_statuses', 'target_exit', 'workspace_cleanup')},
+            'failure_message', 'step_statuses', 'target_exit', 'workspace_cleanup',
+            'case_error', 'case_console')},
             ensure_ascii=True))
     print(json.dumps(dict(receipt=str(out.relative_to(ROOT)), completed=len(outcomes),
                           passed=passed, failed=len(outcomes) - passed)))
