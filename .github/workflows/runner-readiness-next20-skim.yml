@@ -70,10 +70,11 @@ jobs:
           persist-credentials: false
           set-safe-directory: false
           fetch-depth: 1
-      - name: Reset Windows checkout to exact Git blob bytes
+      - name: Restore and verify canonical Windows source blobs
         if: matrix.host == 'windows'
         run: python -B scripts/acceptance/next20_skim_source_verify.py --normalize-windows-checkout
       - name: Verify exact upstream files before Cargo execution
+        if: matrix.host != 'windows'
         run: python -B scripts/acceptance/next20_skim_source_verify.py
       - name: Download locked Playtestr Go modules into the owned cache
         run: go mod download
