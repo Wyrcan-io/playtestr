@@ -59,11 +59,19 @@ def main():
                                          console=console))
                     continue
                 path, record = match
+                report = record.get('report') or {}
+                result_record = (report.get('results') or [{}])[0]
+                failure = result_record.get('failure') or {}
                 outcomes.append(dict(case=case, round=round_number, label=label,
                                      process_exit=result.returncode, status=record.get('status'),
                                      finished_path=path.relative_to(ROOT).as_posix(),
                                      finished_sha256=sha256(path), report_sha256=record.get('report_sha256'),
                                      target_sha256=record.get('executable_sha256'),
+                                     failure_category=failure.get('category'),
+                                     failure_message=failure.get('message'),
+                                     step_statuses=[step.get('status') for step in result_record.get('steps', [])],
+                                     target_exit=(result_record.get('target') or {}).get('exit_code'),
+                                     workspace_cleanup=(result_record.get('workspace') or {}).get('cleaned'),
                                      console=console))
             except subprocess.TimeoutExpired as error:
                 outcomes.append(dict(case=case, round=round_number, label=label,
@@ -80,6 +88,11 @@ def main():
                    outcomes=outcomes)
     out = RAW / 'active/skim' / f'hosted-{args.host}-rounds-{args.rounds:02d}-{uuid.uuid4().hex}.json'
     immutable_json(out, receipt)
+    for item in outcomes:
+        print(json.dumps({key: item.get(key) for key in (
+            'case', 'round', 'status', 'process_exit', 'failure_category',
+            'failure_message', 'step_statuses', 'target_exit', 'workspace_cleanup')},
+            ensure_ascii=True))
     print(json.dumps(dict(receipt=str(out.relative_to(ROOT)), completed=len(outcomes),
                           passed=passed, failed=len(outcomes) - passed)))
     if len(outcomes) != 20 * args.rounds or passed != len(outcomes):

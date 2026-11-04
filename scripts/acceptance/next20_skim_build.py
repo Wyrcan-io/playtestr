@@ -91,6 +91,19 @@ async def main():
     if os.name != 'nt':
         binary.chmod(0o755)
     digest = sha256(binary)
+    contract_alias = None
+    if os.name != 'nt':
+        # Frozen cross-platform specs use the Windows .exe spelling; ELF does
+        # not require a suffix, so retain a byte-identical executable alias.
+        alias = binary.with_name('sk.exe')
+        if alias.exists():
+            raise ValueError('refuse replacing the Skim cross-platform contract alias')
+        shutil.copyfile(binary, alias)
+        alias.chmod(0o755)
+        if sha256(alias) != digest:
+            raise ValueError('cross-platform contract alias differs from the built ELF')
+        contract_alias = dict(binary_relative_path=alias.relative_to(target).as_posix(),
+                              binary_sha256=digest, byte_identical=True, installed_globally=False)
     if sha256(source / 'Cargo.lock') != lock_hash:
         raise ValueError('Cargo changed the reviewed lockfile')
     immutable_json(target / 'build.json', dict(
@@ -98,6 +111,7 @@ async def main():
         binary_relative_path=binary.relative_to(target).as_posix(), binary_sha256=digest,
         build_attempt=result['id'], compiler_path=str(compiler), compiler_sha256=sha256(compiler),
         cargo_path=str(cargo), cargo_sha256=sha256(cargo), native_triple=triple,
+        contract_alias=contract_alias,
         features=['cli', 'frizbee'], source_review_sha256=sha256(review_path),
         dependency_hook_review_sha256=sha256(hooks_path),
         dependency_fetch_review_sha256=sha256(target / 'dependency-fetch-review.json'),

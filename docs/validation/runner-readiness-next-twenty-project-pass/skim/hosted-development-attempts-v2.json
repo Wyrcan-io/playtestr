@@ -1,0 +1,45 @@
+﻿{
+    "schema_version":  1,
+    "workflow":  ".github/workflows/runner-readiness-next20-skim.yml",
+    "commit":  "2c57fd69f360ef23b0af1c87058966d481117fd8",
+    "run_id":  41805071820,
+    "phase":  "source-development",
+    "windows_job":  {
+                        "job_id":  126489955343,
+                        "runner":  "windows-2025",
+                        "conclusion":  "failure",
+                        "failed_step":  "Verify exact upstream files before Cargo execution",
+                        "artifact_id":  13309203443,
+                        "artifact_bytes":  1765102,
+                        "artifact_sha256":  "4b06c111be75c2fe6756905aa2f8611e545cbc8b7b106675a1c18579b2287d5f",
+                        "artifact_retention_days":  30
+                    },
+    "source_readback":  {
+                            "expected_files":  819,
+                            "checkout_files_in_archive":  820,
+                            "expected_file_hash_mismatches":  816,
+                            "crlf_only_mismatches":  816,
+                            "other_mismatches":  0,
+                            "extra_path":  "CLAUDE.md",
+                            "extra_path_disposition":  "Windows checkout represents the reviewed upstream symlink and the uploader dereferences it; the canonical source verifier handles the symlink before counting files.",
+                            "sample_crlf_prefix_hex":  "2d2d2d0d0a736f757263653a",
+                            "expected_lf_prefix_hex":  "2d2d2d0a736f757263653a"
+                        },
+    "disposition":  "Windows checkout applied CRLF conversion to tracked source even though each changed file normalizes byte-for-byte to the canonical source provenance. Add a Windows-only local core.autocrlf=false plus checkout-index --all --force on the owned pinned clone before exact verification. This resets only the newly acquired owned checkout and does not modify global/user Git configuration. No build hook, target build or target app executed in this job.",
+    "local_download":  {
+                           "path":  "artifacts/runner-readiness-next-twenty-project-pass/tmp/skim-windows-attempt-v2.zip",
+                           "sha256":  "4b06c111be75c2fe6756905aa2f8611e545cbc8b7b106675a1c18579b2287d5f",
+                           "downloaded":  {
+
+                                          },
+                           "inspected":  {
+
+                                         },
+                           "local_copy_removed":  {
+
+                                                  },
+                           "remote_artifact_retained":  {
+
+                                                        }
+                       }
+}

@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "commit": "2c57fd69f360ef23b0af1c87058966d481117fd8",
+  "run_id": 41805071820,
+  "phase": "source-development",
+  "linux": {
+    "job_id": 126489955015,
+    "runner": "ubuntu-24.04",
+    "source_verification": "passed",
+    "go_module_fetch": "passed",
+    "rust_toolchain": "1.97.0 installed under owned path",
+    "locked_dependency_fetch": "passed, checksums verified",
+    "dependency_hook_review": "passed, 53 hooks reviewed before execution",
+    "native_build": "passed, source-pinned feature set cli,frizbee, offline",
+    "case_batch": {
+      "expected": 20,
+      "completed": 20,
+      "wrapper_status": "failed",
+      "passed": 0,
+      "failed": 20,
+      "detail": "Individual finished/report records preserved in the job artifact; first case-category readback pending local artifact inspection."
+    },
+    "artifact_id": 13310040820,
+    "artifact_bytes": 283866528,
+    "artifact_sha256": "91dd4363ea52f1dfdf3e873b17f7133ada1293b71201110f80a1e837f5d95c38",
+    "retention_days": 30
+  },
+  "windows": {
+    "job_id": 126489955343,
+    "runner": "windows-2025",
+    "source_verification": "failed before Go module fetch, compiler install, dependency fetch/build or target run; 816 line-ending mismatches diagnosed in attempt v2 record",
+    "artifact_id": 13309203443,
+    "artifact_bytes": 1765102,
+    "artifact_sha256": "4b06c111be75c2fe6756905aa2f8611e545cbc8b7b106675a1c18579b2287d5f",
+    "retention_days": 30
+  },
+  "disposition": "Linux build and source checks are real successes; 20-case result is 0/20 and receives no scenario/native-cell credit until individual outcomes are audited and corrected. Windows received a pre-build source failure. Preserve both attempts. Linux frozen specifications use bin/sk.exe while the source build emits bin/sk; add a byte-identical .exe alias on Linux. Add per-case category/message/step status to hosted logs and replace broad artifact patterns with an explicit evidence allowlist to prevent cargo-target/cache promotion."
+}

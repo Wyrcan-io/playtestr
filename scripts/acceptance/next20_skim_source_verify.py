@@ -51,8 +51,14 @@ def main():
             if size > 8 * 1024 * 1024 or total > 16 * 1024 * 1024:
                 raise ValueError('hosted Skim source exceeds reviewed size bounds')
             actual[relative] = sha256(path)
-    if actual != provenance['files'] or len(actual) != provenance['source_blobs_verified']:
-        raise ValueError('hosted source files differ from the reviewed primary provenance')
+    expected = provenance['files']
+    missing = sorted(expected.keys() - actual.keys())
+    extra = sorted(actual.keys() - expected.keys())
+    mismatched = sorted(name for name in expected.keys() & actual.keys()
+                        if expected[name] != actual[name])
+    if missing or extra or mismatched or len(actual) != provenance['source_blobs_verified']:
+        raise ValueError('hosted source differs from provenance: missing=' + repr(missing[:5]) +
+                         ', extra=' + repr(extra[:5]) + ', mismatched=' + repr(mismatched[:5]))
     if not args.verify_only:
         project.mkdir(parents=True, exist_ok=True)
         owner = dict(campaign='runner-readiness-next-twenty-project-pass', pin=pin,

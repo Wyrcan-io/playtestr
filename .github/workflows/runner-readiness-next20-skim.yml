@@ -70,6 +70,17 @@ jobs:
           persist-credentials: false
           set-safe-directory: false
           fetch-depth: 1
+      - name: Reset Windows checkout to exact Git blob bytes
+        if: matrix.host == 'windows'
+        run: |
+          $source = Join-Path $env:GITHUB_WORKSPACE 'artifacts/runner-readiness-next-twenty-project-pass/active/skim/src'
+          git -C $source config --local core.autocrlf false
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          git -C $source checkout-index --all --force
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Read back canonical Windows source bytes after checkout reset
+        if: matrix.host == 'windows'
+        run: python -B scripts/acceptance/next20_skim_source_verify.py
       - name: Verify exact upstream files before Cargo execution
         run: python -B scripts/acceptance/next20_skim_source_verify.py
       - name: Download locked Playtestr Go modules into the owned cache
@@ -115,9 +126,20 @@ jobs:
           path: |
             docs/validation/runner-readiness-next-twenty-project-pass/skim/
             artifacts/runner-readiness-next-twenty-project-pass/events/
-            artifacts/runner-readiness-next-twenty-project-pass/active/skim/**
-            !artifacts/runner-readiness-next-twenty-project-pass/active/skim/cargo-target/**
-            !artifacts/runner-readiness-next-twenty-project-pass/active/skim/home/.rustup/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/skim/task-owned.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/skim/source-host-verification.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/skim/dependency-fetch-review.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/skim/dependency-hook-review-host.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/skim/fetch-storage-*.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/skim/build-storage-*.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/skim/build.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/skim/runtime.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/skim/version-check.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/skim/hosted-*.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/skim/bin/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/skim/src/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/skim/case-evidence/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/skim/cargo-home/registry/cache/**/*.crate
             !artifacts/runner-readiness-next-twenty-project-pass/active/skim/src/.git/**
           include-hidden-files: true
           if-no-files-found: error
