@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "workflow": ".github/workflows/runner-readiness-next20-skim.yml",
+  "commit": "4083208479c475d86c4a85380df505cfb69cdd13",
+  "run_id": 41804052677,
+  "phase": "source-development",
+  "result": "both native jobs failed before locked fetch launched; no Skim target built or executed",
+  "jobs": [
+    {
+      "host": "linux",
+      "job_id": 126486574227,
+      "runner": "ubuntu-24.04",
+      "conclusion": "failure",
+      "failed_step": "next20_rust_fetch.py prerequisite compiler identity",
+      "error": "campaign identity scanner refused the exact upstream checkout symlink CLAUDE.md -> AGENTS.md, which the reviewed provenance explicitly omits",
+      "artifact_id": 13309036618,
+      "artifact_bytes": 146387839,
+      "artifact_sha256": "a1c8a20555fe299fd59d47d3e563cc864ed7e940d465aece9dcd935672b6ea24",
+      "retention_days": 30
+    },
+    {
+      "host": "windows",
+      "job_id": 126486575200,
+      "runner": "windows-2025",
+      "conclusion": "failure",
+      "failed_step": "next20_rust_fetch.py prerequisite compiler identity",
+      "error": "same prelaunch identity-guard mismatch on the documented omitted documentation symlink",
+      "artifact_id": 13309465680,
+      "artifact_bytes": 1763979,
+      "artifact_sha256": "3e2980195e4e4d6e600e405ce314887dfec3178601facd3ef1b2836933d999ce",
+      "retention_days": 30
+    }
+  ],
+  "disposition": "Preserve both provider failures and uploaded artifacts. next20_check identity scan now skips Git metadata and permits only the exact omitted link recorded by the source provenance, checking link target/Windows placeholder bytes before exclusion. Rerun source matrix on a new commit; no failure is relabelled as a target result."
+}

@@ -52,8 +52,23 @@ class NextCampaign(Campaign):
             if path.is_file():files[path.relative_to(ROOT).as_posix()]=sha256(path)
         source=target/'src'
         count=0;total=0
+        source_manifest=DOC/project/'source-provenance.json'
+        omitted={}
+        if source_manifest.is_file():
+            omitted=json.loads(source_manifest.read_text(encoding='utf-8')).get('omitted_documentation_links',{})
         if source.exists():
             for path in sorted(source.rglob('*')):
+                relative=path.relative_to(source).as_posix()
+                if '.git' in Path(relative).parts:
+                    continue
+                if relative in omitted:
+                    expected_target=omitted[relative].get('target')
+                    if path.is_symlink():
+                        if path.readlink().as_posix()!=expected_target:
+                            raise ValueError('omitted documentation link target changed: '+relative)
+                    elif path.is_file() and path.read_bytes()!=expected_target.encode('utf-8'):
+                        raise ValueError('omitted documentation link placeholder changed: '+relative)
+                    continue
                 if path.is_symlink() or getattr(path,'is_junction',lambda:False)():
                     raise ValueError('linked actual source identity')
                 if not path.is_file():continue
