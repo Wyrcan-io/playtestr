@@ -36,16 +36,27 @@ final rows. One exploratory loose selector check was rejected after it accepted
 an unselected candidate row; the frozen route requires positive match count,
 exact selection and final snapshot.
 
-This is development evidence against the current Go worktree runner, not against
-the private rc.6 archive. No admission credit is claimed. Linux hosted results,
-repeated final series, current-candidate package installation, three real source
-faults, public first-use/maintenance/relocation, target cleanup, storage closure,
-independent full evidence audit and final candidate gates remain open.
+The hosted source-development run 41810289319 passed the same frozen twenty
+cases on native `ubuntu-24.04` and `windows-2025`: 20/20 on each host, with all
+40 temporary workspaces confirmed cleaned. Both jobs verified the same 819-file
+source provenance, fetched the 357 locked crates, reviewed all 53 build hooks,
+and built Skim 5.8.0 offline with only `cli,frizbee`. Each host used an official
+Go 1.25.0 SDK installed below the campaign-owned root. The per-case reports,
+binary and dependency hashes, SDK receipts and artifact digests are bound in the
+[hosted development readback](hosted-development-readback-v1.json); preceding
+failures and their corrections remain in
+[hosted development attempts v4](hosted-development-attempts-v4.json).
+
+These runs exercise the current source runner, not the private rc.6 archive, and
+receive no candidate admission or native-cell credit. Repeated final series,
+current-candidate package installation, three real source faults, public
+first-use/maintenance/relocation, target cleanup, storage closure, independent
+full evidence audit and final candidate gates remain open.
 
 Two explicit limits stay open. Earlier strict-selection attempts showed that
 ArrowDown and Ctrl-N did not move Skim's highlighted row on local Windows even
 though Playtestr's menu example accepted ArrowDown. The frozen cases avoid
-claiming that directional navigation works. Standard hosted Linux/Windows runs
-must compare the exact Crossterm route before any Windows key-compatibility
-claim. E12 checks screen and exit only; exact NUL output framing still needs a
-separate bounded output capture.
+claiming that directional navigation works. The hosted Linux and Windows source
+runs now pass the frozen matrix, but they do not resolve directional-navigation
+compatibility. E12 checks screen and exit only; exact NUL output framing still
+needs a separate bounded output capture.
