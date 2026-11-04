@@ -20,18 +20,21 @@ FAULTS = [
          old=b'fmt.Print(parent)', new=b'fmt.Print(parent[:len(parent)-1])',
          spec='N03-read-parent.json', expected_runner_exit=1,
          expected_failure_category='unexpected_exit',
+         expected_target_exit_code=0,
          requirement='The configured parent command must print the configured parent.'),
     dict(id='F02-feature-refusal', file='internal/cmd/hack.go',
          old=b'if branchesSnapshot.Branches.HasLocalBranch(targetBranch) {',
          new=b'if !branchesSnapshot.Branches.HasLocalBranch(targetBranch) {',
          spec='N01-hack-feature.json', expected_runner_exit=1,
-         expected_failure_category='assertion_timeout',
+         expected_failure_category='unexpected_exit',
+         expected_target_exit_code=1,
          requirement='Creating a new local branch must create the requested branch.'),
     dict(id='F03-prototype-persistence', file='internal/cmd/prototype.go',
          old=b'gitconfig.SetBranchTypeOverride(repo.Backend, configdomain.BranchTypePrototypeBranch, branchNames...)',
          new=b'gitconfig.SetBranchTypeOverride(repo.Backend, configdomain.BranchTypeFeatureBranch, branchNames...)',
          spec='N06-prototype-existing.json', expected_runner_exit=1,
          expected_failure_category='state_assertion_failure',
+         expected_target_exit_code=0,
          requirement='A prototype classification must persist as prototype in Git config.'),
 ]
 
@@ -191,17 +194,21 @@ def run_case(target, source, fault, phase, expected_exit, binary):
         immutable_json(refusal_path, failed_case)
         raise RuntimeError('mutated source did not create the declared observable failure: ' +
                            json.dumps(failed_case, ensure_ascii=True, sort_keys=True))
-    if fault['id'] == 'F01-parent-output' and expected_failure:
+    if fault['id'] in {'F01-parent-output', 'F02-feature-refusal'} and expected_failure:
         failure_message = result_failure.get('message') or ''
-        if 'process exited with code 0 before assertion matched' not in failure_message:
-            raise RuntimeError('F01 must positively prove Git Town exited zero before N03 matched')
+        expected_exit = fault['expected_target_exit_code']
+        expected_message = f'process exited with code {expected_exit} before assertion matched'
+        if expected_message not in failure_message:
+            raise RuntimeError(f"{fault['id']} must positively prove target exit {expected_exit} before its screen assertion")
     if not expected_failure and (failed_steps or summary.get('passed') != 1 or
-                                 summary.get('failed') != 0 or summary.get('total') != 1):
+                                 summary.get('failed') != 0 or summary.get('total') != 1 or
+                                 target_result.get('exit_code') != fault['expected_target_exit_code']):
         raise RuntimeError('pristine/restored source did not pass its unchanged public contract')
     if fault['id'] == 'F03-prototype-persistence' and expected_failure:
         steps = report_results[0].get('steps', [])
         if (len(steps) != 3 or [step.get('status') for step in steps] !=
-                ['passed', 'passed', 'failed']):
+                ['passed', 'passed', 'failed'] or
+                target_result.get('exit_code') != fault['expected_target_exit_code']):
             raise RuntimeError('saved-state mutation was not rejected after terminal and exit evidence passed')
     return dict(label=label, phase=phase, expected_runner_exit=expected_exit,
         target_exit_code=(report_results[0].get('exit_code') if report_results else None),
@@ -220,7 +227,7 @@ def main():
     source = target / 'src'
     provenance_path = DOC / PROJECT / 'source-provenance.json'
     provenance = json.loads(provenance_path.read_text(encoding='utf-8'))
-    declaration_path = DOC / PROJECT / 'fault-declaration-v3.json'
+    declaration_path = DOC / PROJECT / 'fault-declaration-v4.json'
     declaration = json.loads(declaration_path.read_text(encoding='utf-8'))
     acquisition_path = target / 'acquisition.json'
     acquisition = json.loads(acquisition_path.read_text(encoding='utf-8'))
@@ -276,14 +283,15 @@ def main():
         source_identity=source_identity,
         matrix_id=uuid.uuid4().hex,
         source_provenance_sha256=sha256(provenance_path),
-        fault_declaration='git-town/fault-declaration-v3.json',
+        fault_declaration='git-town/fault-declaration-v4.json',
         fault_declaration_sha256=sha256(declaration_path),
         scenario_catalog_sha256=sha256(DOC / PROJECT / 'scenario-catalog-v3.json'),
         unchanged_specs=[dict(path=fault['spec'], sha256=sha256(DOC / PROJECT / fault['spec']))
                          for fault in FAULTS],
         fault_declarations=[dict(id=f['id'], file=f['file'], requirement=f['requirement'],
                                  expected_runner_exit=f['expected_runner_exit'],
-                                 expected_failure_category=f['expected_failure_category']) for f in FAULTS],
+                                 expected_failure_category=f['expected_failure_category'],
+                                 expected_target_exit_code=f['expected_target_exit_code']) for f in FAULTS],
         status='started; no qualification credit until independent audit')
     start_path = target / ('fault-matrix-started-' + started['matrix_id'] + '.json')
     immutable_json(start_path, started)
@@ -343,7 +351,7 @@ def main():
                 restored_executable_sha256=restored_build['executable_sha256']))
         record = dict(schema_version=1, project=PROJECT, host=args.host,
             source_pin=PIN, source_provenance_sha256=sha256(provenance_path),
-            fault_declaration='git-town/fault-declaration-v3.json',
+            fault_declaration='git-town/fault-declaration-v4.json',
             fault_declaration_sha256=sha256(declaration_path),
             scenario_catalog_sha256=started['scenario_catalog_sha256'],
             started_sha256=sha256(start_path), faults=results,
