@@ -1,0 +1,44 @@
+{
+  "version": 3,
+  "name": "Skim N08 long result line with reviewed wrapped output v3",
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/skim/bin/sk.exe",
+    "--no-sort"
+  ],
+  "workspace": {
+    "fixture": "fixtures/cases/N08",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "SKIM_DEFAULT_COMMAND": "python emit.py"
+  },
+  "inherit_env": [
+    "PATH",
+    "SystemRoot",
+    "COMSPEC"
+  ],
+  "width": 120,
+  "height": 24,
+  "timeout_ms": 10000,
+  "startup_timeout_ms": 15000,
+  "run_timeout_ms": 30000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "text": "TAIL-MARKER"
+    },
+    {
+      "expect": "1/1"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "snapshot": "N08-v3.txt"
+    }
+  ]
+}

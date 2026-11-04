@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "project": "skim",
+  "repository": "https://github.com/skim-rs/skim",
+  "pin": "1ab47f6ba7f1bfc355273bbdd98d4b2056ef95a3",
+  "primary_source_sha256": "56c8513b7aa90f0367669996b6073e6192849f4268e8e302c7ee778835327607",
+  "source_provenance_sha256": "565ef66d739b6a0b8f27c2725923fbddd38ee08ec4ffe11ec1491aa7c090161a",
+  "license": "MIT",
+  "version": "5.8.0",
+  "language": "Rust 2024; minimum Rust 1.91",
+  "application": "Interactive fuzzy selector and command-line filtering utility",
+  "intended_platforms": [
+    "windows-x86_64-msvc",
+    "linux-x86_64-gnu"
+  ],
+  "documented_platform_evidence": [
+    {
+      "path": "README.md",
+      "claim": "The project documents Windows compatibility testing and terminal key behavior."
+    },
+    {
+      "path": ".github/workflows/test.yml",
+      "claim": "Upstream test matrix includes Linux, macOS, and Windows."
+    }
+  ],
+  "declared_cli": {
+    "binary": "sk",
+    "default_features": [
+      "cli",
+      "frizbee",
+      "image",
+      "listen"
+    ],
+    "renderer": "Ratatui with Crossterm"
+  },
+  "safe_execution_boundary": {
+    "stdin": "For interactive PTY cases use Skim documented --interactive --cmd only with literal `python emit.py`; the fixed fixture script writes only case-owned items.txt bytes to stdout and never consumes query text.",
+    "environment": "Owned HOME, configuration, history, cache and temporary paths; scrub inherited SKIM_* and shell variables.",
+    "disabled_features": [
+      "--listen",
+      "--remote",
+      "preview commands",
+      "shell integrations",
+      "IPC",
+      "network access",
+      "user history/configuration",
+      "any command beyond the fixed fixture reader"
+    ],
+    "processes": "Run the pinned sk executable under an owned bounded PTY/process group; the reviewed Python fixture-reader child must exit and be reaped."
+  },
+  "hooks": {
+    "root_build_rs": false,
+    "root_declared_build_script": false,
+    "dependency_build_hooks": "Pending checksum-verified locked source acquisition and individual review.",
+    "executed": false
+  },
+  "source_risks": [
+    "Terminal event and redraw behavior depends on PTY dimensions and key encoding.",
+    "Selection output is written after interactive completion; an empty selection has a distinct exit status.",
+    "Interactive input may use a controlling terminal while candidates come from stdin.",
+    "Windows console and Unix pseudo-terminal behavior differ and require actual native evidence.",
+    "The documented command source can launch a shell; qualification restricts it to the fixed Python fixture reader, while all other command, preview, IPC and history routes are excluded."
+  ],
+  "scope": "Reviewed pinned source and declared a bounded synthetic CLI qualification route. This does not establish runtime behavior, native compatibility, user usability, or project admission."
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "project": "skim",
+  "pin": "1ab47f6ba7f1bfc355273bbdd98d4b2056ef95a3",
+  "source_review_sha256": "27983b63db6853a1dcb4e6c7ab64429c0e77598224025f921ed4bdb1e74e8ed0",
+  "scenario_declaration_sha256": "276fc47368bc975769298883a8ebadbb2c2ba71d5f0040260eb354f14ecec4f6",
+  "build_sha256": "659bcc69dbbda3582beb90a46edb5da20ed701e611a3b52b97d17bd171d7cdf3",
+  "binary_sha256": "c7be41c93ff1811287b0e79e771d9e8cf8b0c064fa3205001f8c8a8cda758a5f",
+  "permitted_source_command": {
+    "cli_flags": [
+      "--interactive",
+      "--cmd"
+    ],
+    "literal_command": "python emit.py",
+    "source": "Case-owned emit.py writes only the bytes of case-owned items.txt to stdout. No input interpolation, shell variables, network, or user files.",
+    "descendants": "The known Python child must terminate under the bounded target command; Playtestr process-tree cleanup and native descendant inventory are retained.",
+    "environment": "Explicit PATH and temporary isolated HOME/TEMP; inherited system-root values only when present. SKIM_* ambient variables are not inherited."
+  },
+  "excluded_routes": [
+    "--listen",
+    "--remote",
+    "preview",
+    "shell integration",
+    "external data commands",
+    "history/config writes",
+    "network"
+  ],
+  "status": "approved for the exact frozen synthetic scenarios only; target is trusted and not sandboxed"
+}

@@ -1,0 +1,409 @@
+{
+  "schema_version": 3,
+  "project": "skim",
+  "pin": "1ab47f6ba7f1bfc355273bbdd98d4b2056ef95a3",
+  "supersedes_sha256": "69019e4784c5f96d572744d211b025954fb9a5751d8984b7521efdba5bd483b7",
+  "source_review_sha256": "da3eeb44db4effd16c6895368c0fc3f3c9e04889adb51434ea0706bfc6c634b6",
+  "execution_route": "Direct pinned sk.exe target in a real PTY with public SKIM_DEFAULT_COMMAND set to the fixed `python emit.py` fixture reader. No wrapper target, --interactive, or --cmd.",
+  "scenario_count": 20,
+  "normal_count": 8,
+  "edge_count": 12,
+  "scenarios": [
+    {
+      "id": "N01",
+      "kind": "normal",
+      "task": "Select a unique startup query result",
+      "fixture": "fixtures/N01",
+      "fixture_files_sha256": {
+        "emit.py": "61829818d3fc8c651af0178a0f99a04888f67662383f6c1d8cf4c8ac235c241b",
+        "items-basic.txt": "4a4f69ffb6a9cc9e71e1176cbbc4ee9dccb62bc177e3575f4a6d5645c87f297d",
+        "items.txt": "4a4f69ffb6a9cc9e71e1176cbbc4ee9dccb62bc177e3575f4a6d5645c87f297d"
+      },
+      "contract": "N01-v2.json",
+      "contract_sha256": "61fe356a58f27b77807c6eeae8687cd70dc0fce37ef0fb67bc256f1196715bc7",
+      "positive_evidence": "Positive match count 1/3, exact row cedar, successful exit and same-run final screen.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "N02",
+      "kind": "normal",
+      "task": "Type a nondefault fuzzy query and accept amber",
+      "fixture": "fixtures/cases/N02",
+      "fixture_files_sha256": {
+        "emit.py": "61829818d3fc8c651af0178a0f99a04888f67662383f6c1d8cf4c8ac235c241b",
+        "items.txt": "4a4f69ffb6a9cc9e71e1176cbbc4ee9dccb62bc177e3575f4a6d5645c87f297d"
+      },
+      "contract": "N02-v2.json",
+      "contract_sha256": "b8f449fe074af1c15c1d0f07274a30eb150ff003c373dc68916cef2f8223bbe4",
+      "positive_evidence": "Positive 1/3 match evidence, exact selected output and exit 0.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "N03",
+      "kind": "normal",
+      "task": "Type a different nondefault query and accept violet",
+      "fixture": "fixtures/cases/N03",
+      "fixture_files_sha256": {
+        "emit.py": "61829818d3fc8c651af0178a0f99a04888f67662383f6c1d8cf4c8ac235c241b",
+        "items.txt": "4a4f69ffb6a9cc9e71e1176cbbc4ee9dccb62bc177e3575f4a6d5645c87f297d"
+      },
+      "contract": "N03-v2.json",
+      "contract_sha256": "7e401fba1b7230d4dc830e4059d348f617b349b1f819ff774052334e2e850560",
+      "positive_evidence": "Positive 1/3 match evidence and exact selected output.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "N04",
+      "kind": "normal",
+      "task": "Select two fuzzy matches in multi mode",
+      "fixture": "fixtures/cases/N04",
+      "fixture_files_sha256": {
+        "emit.py": "61829818d3fc8c651af0178a0f99a04888f67662383f6c1d8cf4c8ac235c241b",
+        "items.txt": "4a4f69ffb6a9cc9e71e1176cbbc4ee9dccb62bc177e3575f4a6d5645c87f297d"
+      },
+      "contract": "N04-v2.json",
+      "contract_sha256": "01206e788a164d0a38c0bb577e5b79e84035557160c0956265555059b628b332",
+      "positive_evidence": "Two-of-three match count, selected count [2], final output contains cedar and amber.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "N05",
+      "kind": "normal",
+      "task": "Retain query text with the selected result",
+      "fixture": "fixtures/cases/N05",
+      "fixture_files_sha256": {
+        "emit.py": "61829818d3fc8c651af0178a0f99a04888f67662383f6c1d8cf4c8ac235c241b",
+        "items.txt": "4a4f69ffb6a9cc9e71e1176cbbc4ee9dccb62bc177e3575f4a6d5645c87f297d"
+      },
+      "contract": "N05-v2.json",
+      "contract_sha256": "974a52e181485ff135976862f51e426f0f4ac69fb4e34e9ceab248d873cd4a42",
+      "positive_evidence": "Final terminal shows the query and selected item in order.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "N06",
+      "kind": "normal",
+      "task": "Search and select a wide/combining Unicode item",
+      "fixture": "fixtures/cases/N06",
+      "fixture_files_sha256": {
+        "emit.py": "61829818d3fc8c651af0178a0f99a04888f67662383f6c1d8cf4c8ac235c241b",
+        "items.txt": "e21ea85818b2e575af854f2c4d09c558dcadeca4e628244fdaca1f363a3dd523"
+      },
+      "contract": "N06-v3.json",
+      "contract_sha256": "54eb5b87c9e5034fa9632ff5e1480500bdf0512672ca5dc3ed3a73c8203b7488",
+      "positive_evidence": "Rendered UTF-8 query and full source line; exit 0.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "N07",
+      "kind": "normal",
+      "task": "Select a fixed nondefault result with explicit no-sort behavior",
+      "fixture": "fixtures/cases/N07",
+      "fixture_files_sha256": {
+        "emit.py": "61829818d3fc8c651af0178a0f99a04888f67662383f6c1d8cf4c8ac235c241b",
+        "items.txt": "4a4f69ffb6a9cc9e71e1176cbbc4ee9dccb62bc177e3575f4a6d5645c87f297d"
+      },
+      "contract": "N07-v2.json",
+      "contract_sha256": "0d1b2fb07decd348d9ed851ca877aeb7ae6fe45009f4b430cac2eaf0a856e49b",
+      "positive_evidence": "Positive count and selected output agree with the declared item.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "N08",
+      "kind": "normal",
+      "task": "Search a long item by its tail marker and accept it",
+      "fixture": "fixtures/cases/N08",
+      "fixture_files_sha256": {
+        "emit.py": "61829818d3fc8c651af0178a0f99a04888f67662383f6c1d8cf4c8ac235c241b",
+        "items.txt": "bd8bf9f61fdfa644e377c3dee62d6dde3fe700ca84c5e9463702752cd68cd1b5"
+      },
+      "contract": "N08-v3.json",
+      "contract_sha256": "b30139b4b54325a1213ff2f1bfc6ce7361c924e09345995c67c696401197f0ee",
+      "positive_evidence": "Unique match count and post-exit tail marker.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "E01",
+      "kind": "edge",
+      "task": "Empty input then safe abort",
+      "fixture": "fixtures/cases/E01",
+      "fixture_files_sha256": {
+        "emit.py": "61829818d3fc8c651af0178a0f99a04888f67662383f6c1d8cf4c8ac235c241b",
+        "items.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "contract": "E01-v2.json",
+      "contract_sha256": "469b71abc7fd73b6e533abe674b19e2da164da3fa26ed73c3c227f2a1448a79a",
+      "positive_evidence": "Visible 0/0 empty state, exit 130 and cleanup.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "E02",
+      "kind": "edge",
+      "task": "No-match search and completion",
+      "fixture": "fixtures/cases/E02",
+      "fixture_files_sha256": {
+        "emit.py": "61829818d3fc8c651af0178a0f99a04888f67662383f6c1d8cf4c8ac235c241b",
+        "items.txt": "4a4f69ffb6a9cc9e71e1176cbbc4ee9dccb62bc177e3575f4a6d5645c87f297d"
+      },
+      "contract": "E02-v2.json",
+      "contract_sha256": "f55befba0d9c7bed3db2532245844b493a0016472640abf004f1c3499a14ae2a",
+      "positive_evidence": "Visible 0/3, empty result and exit 1.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "E03",
+      "kind": "edge",
+      "task": "Unknown CLI option",
+      "fixture": "fixtures/cases/E03",
+      "fixture_files_sha256": {
+        "emit.py": "61829818d3fc8c651af0178a0f99a04888f67662383f6c1d8cf4c8ac235c241b",
+        "items.txt": "4a4f69ffb6a9cc9e71e1176cbbc4ee9dccb62bc177e3575f4a6d5645c87f297d"
+      },
+      "contract": "E03-v2.json",
+      "contract_sha256": "193fcdb0ee2e43ae6a5e224022720d2eba101bae9642b00095008bd8748074ec",
+      "positive_evidence": "Exact parser exit expected; preserve actual startup behavior and diagnostic.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "E04",
+      "kind": "edge",
+      "task": "Negative minimum-height boundary",
+      "fixture": "fixtures/cases/E04",
+      "fixture_files_sha256": {
+        "emit.py": "61829818d3fc8c651af0178a0f99a04888f67662383f6c1d8cf4c8ac235c241b",
+        "items.txt": "4a4f69ffb6a9cc9e71e1176cbbc4ee9dccb62bc177e3575f4a6d5645c87f297d"
+      },
+      "contract": "E04-v2.json",
+      "contract_sha256": "b2a8a62894fac73e484e476686ad04b7a1f231afbbc69a3351da86211f51fc1f",
+      "positive_evidence": "Exact parser exit 2.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "E05",
+      "kind": "edge",
+      "task": "Small 40x8 terminal viewport",
+      "fixture": "fixtures/cases/E05",
+      "fixture_files_sha256": {
+        "emit.py": "61829818d3fc8c651af0178a0f99a04888f67662383f6c1d8cf4c8ac235c241b",
+        "items.txt": "4a4f69ffb6a9cc9e71e1176cbbc4ee9dccb62bc177e3575f4a6d5645c87f297d"
+      },
+      "contract": "E05-v2.json",
+      "contract_sha256": "08ae455152d2faf075805b5fdae9f50c3f7a41bc44fdaadc1e6e2135417e422e",
+      "positive_evidence": "Unique result remains visible and selectable.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "E06",
+      "kind": "edge",
+      "task": "Resize twice during a unique search result",
+      "fixture": "fixtures/cases/E06",
+      "fixture_files_sha256": {
+        "emit.py": "61829818d3fc8c651af0178a0f99a04888f67662383f6c1d8cf4c8ac235c241b",
+        "items.txt": "4a4f69ffb6a9cc9e71e1176cbbc4ee9dccb62bc177e3575f4a6d5645c87f297d"
+      },
+      "contract": "E06-v2.json",
+      "contract_sha256": "c103f714cbd5c122c3168b597023cf196e4880c315878bf84638e77b2f732792",
+      "positive_evidence": "Redraw evidence after each resize and same semantic result afterward.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "E07",
+      "kind": "edge",
+      "task": "Rapidly compose one query from two text controls",
+      "fixture": "fixtures/cases/E07",
+      "fixture_files_sha256": {
+        "emit.py": "61829818d3fc8c651af0178a0f99a04888f67662383f6c1d8cf4c8ac235c241b",
+        "items.txt": "4a4f69ffb6a9cc9e71e1176cbbc4ee9dccb62bc177e3575f4a6d5645c87f297d"
+      },
+      "contract": "E07-v2.json",
+      "contract_sha256": "3e5854ff85937b41da9d160dfc7c245362f17e20c35d763c273402c51bcf2d50",
+      "positive_evidence": "Positive unique result after both input chunks and correct selected output.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "E08",
+      "kind": "edge",
+      "task": "Exact-match mode with a nondefault candidate",
+      "fixture": "fixtures/cases/E08",
+      "fixture_files_sha256": {
+        "emit.py": "61829818d3fc8c651af0178a0f99a04888f67662383f6c1d8cf4c8ac235c241b",
+        "items.txt": "4a4f69ffb6a9cc9e71e1176cbbc4ee9dccb62bc177e3575f4a6d5645c87f297d"
+      },
+      "contract": "E08-v2.json",
+      "contract_sha256": "3b412d4aeb8933fb93bb55809dc839577ae5e741970740f51529416e80ffa8c9",
+      "positive_evidence": "One visible result and exact selected output.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "E09",
+      "kind": "edge",
+      "task": "Unicode query input with a second non-ASCII label",
+      "fixture": "fixtures/cases/E09",
+      "fixture_files_sha256": {
+        "emit.py": "61829818d3fc8c651af0178a0f99a04888f67662383f6c1d8cf4c8ac235c241b",
+        "items.txt": "e21ea85818b2e575af854f2c4d09c558dcadeca4e628244fdaca1f363a3dd523"
+      },
+      "contract": "E09-v3.json",
+      "contract_sha256": "99910adb9a2d7b59f179c9aebb905d750d00a8550ea72691008ffb5aa3ca5504",
+      "positive_evidence": "Correct full UTF-8 candidate and exit 0.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "E10",
+      "kind": "edge",
+      "task": "Search a late item in a 40-row list",
+      "fixture": "fixtures/cases/E10",
+      "fixture_files_sha256": {
+        "emit.py": "61829818d3fc8c651af0178a0f99a04888f67662383f6c1d8cf4c8ac235c241b",
+        "items.txt": "b1e996c78b08a6982aba25a1d87db94ee83173b9d925860689d923b190ea72a0"
+      },
+      "contract": "E10-v2.json",
+      "contract_sha256": "9791480d2e185538401f518d5d7d5413282164e05a64697d1d0da481b5f40527",
+      "positive_evidence": "Positive 1/40 result and exact selected late row.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "E11",
+      "kind": "edge",
+      "task": "Cancel after a valid query edit",
+      "fixture": "fixtures/cases/E11",
+      "fixture_files_sha256": {
+        "emit.py": "61829818d3fc8c651af0178a0f99a04888f67662383f6c1d8cf4c8ac235c241b",
+        "items.txt": "4a4f69ffb6a9cc9e71e1176cbbc4ee9dccb62bc177e3575f4a6d5645c87f297d"
+      },
+      "contract": "E11-v2.json",
+      "contract_sha256": "88a6e904be151c3766e21985763ae635a7107e04c4110ccb8685419301de2a37",
+      "positive_evidence": "Exit 130, no accepted selection, and unchanged fixture bytes.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "E12",
+      "kind": "edge",
+      "task": "Exercise NUL-output mode on a selected item",
+      "fixture": "fixtures/cases/E12",
+      "fixture_files_sha256": {
+        "emit.py": "61829818d3fc8c651af0178a0f99a04888f67662383f6c1d8cf4c8ac235c241b",
+        "items.txt": "4a4f69ffb6a9cc9e71e1176cbbc4ee9dccb62bc177e3575f4a6d5645c87f297d"
+      },
+      "contract": "E12-v2.json",
+      "contract_sha256": "64f0205724403c38743f9dfa61b8ed90f5e7bc05603a15edc250fae09b118051",
+      "positive_evidence": "Screen and exit evidence; raw NUL framing remains unverified on the terminal route.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    }
+  ],
+  "risks_and_boundaries": [
+    {
+      "id": "WIN-NAV-01",
+      "severity": "high",
+      "status": "open",
+      "finding": "On native Windows Playtestr PTY, Enter, Escape, text and CtrlA binding controls are observed; ArrowDown and CtrlN did not move Skim?s highlighted row while the repository menu example passed ArrowDown.",
+      "first_evidence": "Retained N02/N07/E07/E10 strict-selection reports and frames; target and runner identities are hash-bound.",
+      "next_action": "Repeat the same frozen selector case on standard GitHub Windows; compare Linux/macOS; verify exact executed binary and Crossterm input path before assigning cause.",
+      "scope": "Do not claim Windows navigation compatibility until the candidate and exact adapter path pass."
+    },
+    {
+      "id": "OUTPUT-NUL-01",
+      "severity": "medium",
+      "status": "unverified",
+      "finding": "The PTY screen does not prove exact NUL output framing; E12 is only screen/exit coverage.",
+      "next_action": "Add an independently captured bounded filter-mode output check."
+    }
+  ],
+  "risk_pairs": [
+    [
+      "E06",
+      "E09",
+      "Resize while Unicode search is active, then verify the exact result."
+    ],
+    [
+      "E11",
+      "E04",
+      "Abort after editing with a pre-existing unchanged fixture hash."
+    ],
+    [
+      "E05",
+      "E10",
+      "Narrow viewport and late-item search retain a positive visible result."
+    ],
+    [
+      "N04",
+      "E07",
+      "Multi-result selection and rapid input use distinct state transitions."
+    ]
+  ],
+  "limits": {
+    "per_case_timeout_seconds": 30,
+    "max_fixture_bytes": 65536,
+    "max_output_bytes": 1048576,
+    "max_processes": 8,
+    "ordinary_host_cells_required": 20
+  },
+  "status": "frozen before v3 targeted correction attempts; N06/E09 use startup Unicode args because the Windows PTY input path rendered non-ASCII text as question marks; N08 relies on the post-exit snapshot for wrapped long output.",
+  "unicode_findings": [
+    {
+      "host": "windows",
+      "evidence": "The frozen v2 PTY text action for ??/??? produced literal question-mark bytes in the rendered input line and failed its 1/3 match-count assertion.",
+      "next": "Compare startup-query argument and Linux native TTY input; do not count typed-Unicode compatibility until observed."
+    }
+  ]
+}

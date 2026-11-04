@@ -1,0 +1,50 @@
+{
+  "version": 3,
+  "name": "Skim N02 default-command PTY navigation probe",
+  "command": [
+    "C:/Users/abhir/OneDrive/Documents/playtestr/artifacts/runner-readiness-next-twenty-project-pass/active/skim/bin/sk.exe",
+    "--no-sort"
+  ],
+  "workspace": {
+    "fixture": "fixtures/cases/N02",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "inherit_env": [
+    "PATH",
+    "SystemRoot",
+    "COMSPEC"
+  ],
+  "width": 120,
+  "height": 24,
+  "timeout_ms": 10000,
+  "startup_timeout_ms": 15000,
+  "run_timeout_ms": 30000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "> cedar"
+    },
+    {
+      "key": "CtrlN"
+    },
+    {
+      "expect": "> amber"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "expect": "amber"
+    },
+    {
+      "snapshot": "N02.txt"
+    }
+  ],
+  "env": {
+    "SKIM_DEFAULT_COMMAND": "python emit.py"
+  }
+}

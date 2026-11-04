@@ -1,0 +1,42 @@
+{
+  "version": 3,
+  "name": "Skim E09 Unicode startup-query workflow v3",
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/skim/bin/sk.exe",
+    "--no-sort",
+    "--query=???"
+  ],
+  "workspace": {
+    "fixture": "fixtures/cases/E09",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "SKIM_DEFAULT_COMMAND": "python emit.py"
+  },
+  "inherit_env": [
+    "PATH",
+    "SystemRoot",
+    "COMSPEC"
+  ],
+  "width": 120,
+  "height": 24,
+  "timeout_ms": 10000,
+  "startup_timeout_ms": 15000,
+  "run_timeout_ms": 30000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "1/2"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "snapshot": "E09-v3.txt"
+    }
+  ]
+}

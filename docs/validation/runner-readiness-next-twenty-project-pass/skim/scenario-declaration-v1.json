@@ -1,0 +1,434 @@
+{
+  "schema_version": 1,
+  "project": "skim",
+  "pin": "1ab47f6ba7f1bfc355273bbdd98d4b2056ef95a3",
+  "fixture_set": "synthetic-items-v1",
+  "common_preconditions": [
+    "Use only campaign-owned UTF-8 items.txt fixtures and isolated temporary HOME/TEMP.",
+    "Launch the exact pinned sk.exe under a real Playtestr PTY. A bounded stdin adapter passes only fixture bytes to Skim and inherits the PTY for rendered output and keyboard input.",
+    "The adapter invokes the binary directly, without a shell; no --interactive, --cmd, --listen, --remote, preview, shell integration, history, or external target command is used.",
+    "Capture positive rendered readiness, final screen, exact exit status, and process-tree cleanup. Output-byte framing is not inferred from screen text."
+  ],
+  "scenarios": [
+    {
+      "id": "N01",
+      "kind": "normal",
+      "task": "Choose the only exact-query candidate",
+      "fixture": "items-basic.txt",
+      "actions": [
+        "start with query 'cedar'",
+        "Enter"
+      ],
+      "expected_selection": [
+        "cedar"
+      ],
+      "positive_evidence": "Rendered candidate row and exact output file contain cedar; status 0.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "N02",
+      "kind": "normal",
+      "task": "Move off the default row and accept a nondefault result",
+      "fixture": "items-basic.txt",
+      "actions": [
+        "Down",
+        "Enter"
+      ],
+      "expected_selection": [
+        "amber"
+      ],
+      "positive_evidence": "Rendered selection moves to amber and exact output contains amber only.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "N03",
+      "kind": "normal",
+      "task": "Narrow candidates by typing a query, then accept",
+      "fixture": "items-basic.txt",
+      "actions": [
+        "type 'violet'",
+        "Enter"
+      ],
+      "expected_selection": [
+        "violet"
+      ],
+      "positive_evidence": "Query and matching row are visible before accept; output is violet.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "N04",
+      "kind": "normal",
+      "task": "Select two items in multi-select mode",
+      "fixture": "items-basic.txt",
+      "arguments": [
+        "--multi",
+        "--no-sort"
+      ],
+      "actions": [
+        "Tab",
+        "Down",
+        "Tab",
+        "Enter"
+      ],
+      "expected_selection": [
+        "cedar",
+        "amber"
+      ],
+      "positive_evidence": "Both marked rows render selected and output has the two exact lines in input order.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "N05",
+      "kind": "normal",
+      "task": "Preserve the query alongside the chosen item",
+      "fixture": "items-basic.txt",
+      "arguments": [
+        "--print-query"
+      ],
+      "actions": [
+        "type 'violet'",
+        "Enter"
+      ],
+      "expected_final_screen_lines": [
+        "violet",
+        "violet"
+      ],
+      "positive_evidence": "Final terminal output shows the query and selected value in documented order; raw byte framing is separately scoped.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "N06",
+      "kind": "normal",
+      "task": "Find and return a wide and combining Unicode entry",
+      "fixture": "items-unicode.txt",
+      "actions": [
+        "type '東京'",
+        "Enter"
+      ],
+      "expected_selection": [
+        "東京 café"
+      ],
+      "positive_evidence": "Unicode query and full selected source bytes are visible and exact in output.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "N07",
+      "kind": "normal",
+      "task": "Navigate an unsorted candidate list without changing source order",
+      "fixture": "items-basic.txt",
+      "arguments": [
+        "--no-sort"
+      ],
+      "actions": [
+        "Down",
+        "Down",
+        "Enter"
+      ],
+      "expected_selection": [
+        "violet"
+      ],
+      "positive_evidence": "Third input item is selected; exact candidate list remained in its declared order.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "N08",
+      "kind": "normal",
+      "task": "Accept a long candidate and preserve its complete output bytes",
+      "fixture": "items-long.txt",
+      "actions": [
+        "type 'TAIL-MARKER'",
+        "Enter"
+      ],
+      "expected_selection": [
+        "long item ending TAIL-MARKER"
+      ],
+      "positive_evidence": "Visible tail marker identifies the intended row and output retains the full fixture line.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "E01",
+      "kind": "edge",
+      "risk": "Empty data and recovery",
+      "task": "Open selector with empty stdin and exit cleanly",
+      "fixture": "empty.txt",
+      "actions": [
+        "inspect empty-state screen",
+        "Escape"
+      ],
+      "expected_selection": [],
+      "expected_exit": 130,
+      "positive_evidence": "Empty state is visible; abort yields no selection and bounded cleanup.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "E02",
+      "kind": "edge",
+      "risk": "No results and recovery",
+      "task": "Search for absent text and confirm no candidate",
+      "fixture": "items-basic.txt",
+      "actions": [
+        "type 'never-present'",
+        "Enter"
+      ],
+      "expected_selection": [],
+      "expected_exit": 1,
+      "positive_evidence": "No-match state is visible and empty result is distinguished from a selected row.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "E03",
+      "kind": "edge",
+      "risk": "Invalid input and useful correction",
+      "task": "Reject an unknown CLI option before opening the PTY UI",
+      "arguments": [
+        "--definitely-invalid"
+      ],
+      "expected_exit_nonzero": true,
+      "positive_evidence": "Bounded parser diagnostic identifies the unsupported option; no TUI is launched.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "E04",
+      "kind": "edge",
+      "risk": "Boundary input",
+      "task": "Reject an unsupported negative minimum height",
+      "arguments": [
+        "--min-height",
+        "-1"
+      ],
+      "expected_exit_nonzero": true,
+      "positive_evidence": "CLI returns a bounded option error without target data mutation.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "E05",
+      "kind": "edge",
+      "risk": "Small supported viewport",
+      "task": "Choose the unique row in the smallest declared viewport",
+      "fixture": "items-basic.txt",
+      "viewport": {
+        "width": 40,
+        "height": 8
+      },
+      "actions": [
+        "type 'cedar'",
+        "Enter"
+      ],
+      "expected_selection": [
+        "cedar"
+      ],
+      "positive_evidence": "Query, one result, and selected value remain readable after initial draw.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "E06",
+      "kind": "edge",
+      "risk": "Resize and redraw",
+      "task": "Resize during search, then select the intended row",
+      "fixture": "items-basic.txt",
+      "actions": [
+        "type 'vio'",
+        "resize to 50x10",
+        "resize to 100x24",
+        "Enter"
+      ],
+      "expected_selection": [
+        "violet"
+      ],
+      "positive_evidence": "Final screen redraws at the new size and exact selection is violet.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "E07",
+      "kind": "edge",
+      "risk": "Rapid supported input",
+      "task": "Move repeatedly and return to a positive selected row",
+      "fixture": "items-basic.txt",
+      "actions": [
+        "Down x3",
+        "Up",
+        "Enter"
+      ],
+      "expected_selection": [
+        "violet"
+      ],
+      "positive_evidence": "Final highlight and output agree after repeated navigation.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "E08",
+      "kind": "edge",
+      "risk": "Query syntax boundary",
+      "task": "Use the documented exact-search mode and select an exact candidate",
+      "fixture": "items-basic.txt",
+      "arguments": [
+        "--exact"
+      ],
+      "actions": [
+        "type 'amber'",
+        "Enter"
+      ],
+      "expected_selection": [
+        "amber"
+      ],
+      "positive_evidence": "The exact candidate is visible and accepted while fuzzy-only alternatives are excluded.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "E09",
+      "kind": "edge",
+      "risk": "Unicode query input",
+      "task": "Search with non-ASCII input and accept the corresponding item",
+      "fixture": "items-unicode.txt",
+      "actions": [
+        "type '日本語'",
+        "Enter"
+      ],
+      "expected_selection": [
+        "日本語 東京"
+      ],
+      "positive_evidence": "Rendered query and selected UTF-8 line remain exact.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "E10",
+      "kind": "edge",
+      "risk": "Long content and horizontal/vertical visibility",
+      "task": "Navigate a long list and select a late row",
+      "fixture": "items-many.txt",
+      "actions": [
+        "End",
+        "Enter"
+      ],
+      "expected_selection": [
+        "item-039"
+      ],
+      "positive_evidence": "Late row is visible at selection time and exact output is item-039.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "E11",
+      "kind": "edge",
+      "risk": "Cancellation preserves original source",
+      "task": "Cancel after editing the query without accepting a result",
+      "fixture": "items-basic.txt",
+      "actions": [
+        "type 'amber'",
+        "Escape"
+      ],
+      "expected_selection": [],
+      "expected_exit": 130,
+      "positive_evidence": "Abort is shown and output file stays empty; input fixture hash is unchanged.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "E12",
+      "kind": "edge",
+      "risk": "Output framing boundary",
+      "task": "Exercise NUL-separated output mode with a selected item",
+      "fixture": "items-basic.txt",
+      "arguments": [
+        "--print0"
+      ],
+      "actions": [
+        "type 'cedar'",
+        "Enter"
+      ],
+      "expected_selection": [
+        "cedar"
+      ],
+      "positive_evidence": "Rendered selection is cedar and status is 0; exact NUL framing is not inferred from the terminal screen and is measured by a separate filter-mode case.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    }
+  ],
+  "risk_pairs": [
+    [
+      "E06",
+      "E09",
+      "Resize during Unicode search then verify exact source bytes."
+    ],
+    [
+      "E11",
+      "N04",
+      "Cancel a multi-select interaction after one row has been toggled; no selection output may persist."
+    ],
+    [
+      "E05",
+      "E10",
+      "Small viewport with a late long-list selection must preserve visible identity."
+    ],
+    [
+      "N08",
+      "E12",
+      "Long UTF-8 item is emitted with exact NUL framing after selection."
+    ]
+  ],
+  "limits": {
+    "per_case_timeout_seconds": 30,
+    "max_fixture_bytes": 65536,
+    "max_output_bytes": 1048576,
+    "max_processes": 8,
+    "ordinary_host_cells_required": 20
+  },
+  "status": "declared-before-target-execution; CLI/PTY invocation adapter and exact contracts still require review"
+}

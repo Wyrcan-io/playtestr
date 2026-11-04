@@ -71,3 +71,5 @@ Human participants: zero; beginner usability unmeasured. Paid admissions: zero.
 No release, outreach, issues, discussions, PR mutations or paid infrastructure
 are authorized. Existing scoped commits/pushes and standard hosted workflows
 remain authorized. The bounded helper workflow has passed actual native runs. All105 shared public archive controls passed actual three-host reexecution39976090337 and independent audit; retained initial compiler-prerequisite failures remain. These are public-control reexecutions, not105 new whole controls.
+
+Skim has a [reviewed Windows development package](skim/README.md): its frozen 20-case current-source pass is complete, but final candidate admission remains open.

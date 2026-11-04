@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "project": "skim",
+  "pin": "1ab47f6ba7f1bfc355273bbdd98d4b2056ef95a3",
+  "source_review_sha256": "da3eeb44db4effd16c6895368c0fc3f3c9e04889adb51434ea0706bfc6c634b6",
+  "scenario_declaration_sha256": "ed929636172b0c7cb4bded263fb3bb6c44fc667ad677961fd5604aa4e9ada138",
+  "build_sha256": "659bcc69dbbda3582beb90a46edb5da20ed701e611a3b52b97d17bd171d7cdf3",
+  "binary_sha256": "c7be41c93ff1811287b0e79e771d9e8cf8b0c064fa3205001f8c8a8cda758a5f",
+  "adapter_sha256": "5b09851fd57671b416ca212b3d1e95ecde468234c7191d9aa243fd33a27d3b29",
+  "adapter_route": {
+    "argv": [
+      "python",
+      "../../../../scripts/acceptance/skim_stdin_adapter.py",
+      "<declared Skim args>"
+    ],
+    "fixture": "items.txt",
+    "max_input_bytes": 65536,
+    "shell": false,
+    "binary_identity": "Inherited SKIM_TEST_BINARY resolves to the owned active/skim/bin/sk.exe and its SHA matches build.json.",
+    "pty": "Skim inherits adapter stdin-independent stdout/stderr and the controlling terminal; Playtestr sends keys into the same PTY.",
+    "cleanup": "The runner checks the complete target process tree; Skim has no command/preview/IPC features enabled in these cases."
+  },
+  "excluded_routes": [
+    "--interactive",
+    "--cmd",
+    "--listen",
+    "--remote",
+    "preview",
+    "shell integration",
+    "history writes",
+    "network"
+  ],
+  "status": "approved for the exact frozen synthetic PTY cases; the adapter feeds bytes only and does not emulate terminal behavior."
+}

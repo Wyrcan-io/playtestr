@@ -1,0 +1,47 @@
+{
+  "version": 3,
+  "name": "Skim selects a unique query match and emits the exact result",
+  "command": [
+    "python",
+    "skim_stdin_adapter.py",
+    "--no-sort",
+    "--query=cedar"
+  ],
+  "workspace": {
+    "fixture": "fixtures/N01",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "inherit_env": [
+    "PATH",
+    "SystemRoot",
+    "COMSPEC",
+    "SKIM_TEST_BINARY"
+  ],
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 10000,
+  "startup_timeout_ms": 15000,
+  "run_timeout_ms": 30000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "1/3"
+    },
+    {
+      "expect": "cedar"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "expect": "cedar"
+    },
+    {
+      "snapshot": "N01-windows.txt"
+    }
+  ]
+}

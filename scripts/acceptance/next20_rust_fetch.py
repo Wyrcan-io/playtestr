@@ -74,8 +74,8 @@ def materialize_short_cache(target,dependencies,catalog):
 
 
 async def main():
-    parser=argparse.ArgumentParser();parser.add_argument('project',choices=['cargo-generate'])
-    parser.add_argument('--native-host',action='store_true');args=parser.parse_args();target=RAW/'active'/args.project
+    parser=argparse.ArgumentParser();parser.add_argument('project',choices=['cargo-generate','skim'])
+    parser.add_argument('--native-host',action='store_true');parser.add_argument('--toolchain',default='stable');args=parser.parse_args();target=RAW/'active'/args.project
     if (target/'dependency-fetch-review.json').exists():raise ValueError('refuse replacing dependency receipt')
     import json
     owner=json.loads((target/'task-owned.json').read_text())
@@ -88,7 +88,8 @@ async def main():
     expected={p['name']+'-'+p['version']+'.crate':p['checksum'] for p in packages if p.get('source')==registry}
     if os.name!='nt' and not args.native_host:raise ValueError('explicit native-host fetch required outside Windows')
     triple='x86_64-pc-windows-msvc' if os.name=='nt' else 'x86_64-unknown-linux-gnu'
-    tools=Path.home()/('.rustup/toolchains/stable-'+triple+'/bin');suffix='.exe' if os.name=='nt' else ''
+    if not args.toolchain or any(c not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789._-' for c in args.toolchain):raise ValueError('invalid Rust toolchain identifier')
+    tools=Path.home()/('.rustup/toolchains/'+args.toolchain+'-'+triple+'/bin');suffix='.exe' if os.name=='nt' else ''
     compiler=tools/('rustc'+suffix);cargo=tools/('cargo'+suffix)
     if not compiler.is_file() or not cargo.is_file():raise ValueError('installed read-only stable native Rust prerequisite missing')
     env=environment(target);env.update(RUSTC=str(compiler),RUSTDOC=str(tools/('rustdoc'+suffix)))
@@ -132,7 +133,7 @@ async def main():
             hook.resolve(strict=True).relative_to(manifest.parent.resolve())
             if hook.stat().st_size>128*1024:raise ValueError('hook review bound')
             hooks[hook.relative_to(target).as_posix()]=sha256(hook)
-        immutable_json(target/'dependency-fetch-review.json',dict(schema_version=1,
+        immutable_json(target/'dependency-fetch-review.json',dict(schema_version=1,toolchain=args.toolchain,
             lock_sha256=before,files=files,build_hooks=hooks,attempts=attempts,
             rustc_path=str(compiler),rustc_sha256=sha256(compiler),cargo_path=str(cargo),
             cargo_sha256=sha256(cargo),build_hooks_executed=False,target_executed=False,

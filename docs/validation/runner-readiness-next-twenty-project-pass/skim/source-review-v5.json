@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "project": "skim",
+  "repository": "https://github.com/skim-rs/skim",
+  "pin": "1ab47f6ba7f1bfc355273bbdd98d4b2056ef95a3",
+  "primary_source_sha256": "56c8513b7aa90f0367669996b6073e6192849f4268e8e302c7ee778835327607",
+  "source_provenance_sha256": "565ef66d739b6a0b8f27c2725923fbddd38ee08ec4ffe11ec1491aa7c090161a",
+  "license": "MIT",
+  "version": "5.8.0",
+  "language": "Rust 2024; minimum Rust 1.91",
+  "application": "Interactive fuzzy selector and command-line filtering utility",
+  "intended_platforms": [
+    "windows-x86_64-msvc",
+    "linux-x86_64-gnu"
+  ],
+  "documented_platform_evidence": [
+    {
+      "path": "README.md",
+      "claim": "The project documents Windows compatibility testing and terminal key behavior."
+    },
+    {
+      "path": ".github/workflows/test.yml",
+      "claim": "Upstream test matrix includes Linux, macOS, and Windows."
+    }
+  ],
+  "declared_cli": {
+    "binary": "sk",
+    "default_features": [
+      "cli",
+      "frizbee",
+      "image",
+      "listen"
+    ],
+    "renderer": "Ratatui with Crossterm"
+  },
+  "safe_execution_boundary": {
+    "stdin": "The runner launches the pinned sk.exe directly on the PTY. For deterministic fixtures, public SKIM_DEFAULT_COMMAND is set to the fixed case-local command `python emit.py`, which writes only items.txt bytes. No user value is interpolated.",
+    "environment": "Owned HOME, configuration, history, cache and temporary paths; scrub inherited SKIM_* and shell variables.",
+    "disabled_features": [
+      "--interactive",
+      "--cmd",
+      "--listen",
+      "--remote",
+      "preview commands",
+      "shell integrations",
+      "IPC",
+      "user history/configuration",
+      "commands other than the fixed fixture reader"
+    ],
+    "processes": "Skim is the direct PTY target. Its fixed fixture-reader child must exit after emitting bounded local data; Playtestr cleanup must prove the full process tree is stopped."
+  },
+  "hooks": {
+    "root_build_rs": false,
+    "root_declared_build_script": false,
+    "dependency_review": "Reviewed 53 checksum-locked dependency build hooks; see dependency-hook-review-v1.json and active dependency-fetch-review.json.",
+    "executed": "Executed as part of the pinned native Windows build; no target application run preceded dependency-hook review."
+  },
+  "source_risks": [
+    "Terminal event and redraw behavior depends on PTY dimensions and key encoding.",
+    "Selection output is written after interactive completion; an empty selection has a distinct exit status.",
+    "Interactive input may use a controlling terminal while candidates come from stdin.",
+    "Windows console and Unix pseudo-terminal behavior differ and require actual native evidence.",
+    "The normal no-stdin route uses SKIM_DEFAULT_COMMAND and launches a child shell. This campaign restricts it to a fixed Python script that reads only the owned fixture; other command, preview, IPC and history routes are excluded."
+  ],
+  "scope": "Pins reviewed source/build boundary and the explicit feature-restricted route. No project admission is implied.",
+  "supersedes_sha256": "0532b2def3c0abecb4181cd44c92d92d83232efd2317f8cca2c35c2f758c4ec8",
+  "evidence": {
+    "source_review_v4_sha256": "0532b2def3c0abecb4181cd44c92d92d83232efd2317f8cca2c35c2f758c4ec8",
+    "dependency_hook_review_sha256": "2a00d0b75ad3a5948d0b3ef09cba79f60ee081ca1f1066121929dedb4f919d75",
+    "build_receipt_sha256": "659bcc69dbbda3582beb90a46edb5da20ed701e611a3b52b97d17bd171d7cdf3",
+    "windows_frozen20_readback_sha256": "5b5df283eb3154837ecc989f22cd498769d29f2453d81f5832c89cc469b3d14b"
+  }
+}

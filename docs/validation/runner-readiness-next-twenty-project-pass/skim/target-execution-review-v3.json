@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "project": "skim",
+  "pin": "1ab47f6ba7f1bfc355273bbdd98d4b2056ef95a3",
+  "source_review_sha256": "0532b2def3c0abecb4181cd44c92d92d83232efd2317f8cca2c35c2f758c4ec8",
+  "scenario_declaration_sha256": "69019e4784c5f96d572744d211b025954fb9a5751d8984b7521efdba5bd483b7",
+  "build_sha256": "659bcc69dbbda3582beb90a46edb5da20ed701e611a3b52b97d17bd171d7cdf3",
+  "binary_sha256": "c7be41c93ff1811287b0e79e771d9e8cf8b0c064fa3205001f8c8a8cda758a5f",
+  "fixture_reader_sha256": "61829818d3fc8c651af0178a0f99a04888f67662383f6c1d8cf4c8ac235c241b",
+  "route": {
+    "target": "Direct pinned sk executable, no target wrapper.",
+    "input": "Owned workspace contains items.txt; Skim receives SKIM_DEFAULT_COMMAND=python emit.py and reads only these bytes.",
+    "keyboard": "Playtestr sends native inputs to Skim itself in the real PTY.",
+    "environment": [
+      "PATH",
+      "SystemRoot",
+      "COMSPEC"
+    ],
+    "child": "One trusted local Python reader and Skim reader shell, bounded by Playtestr process-tree cleanup."
+  },
+  "excluded": [
+    "--interactive",
+    "--cmd",
+    "--listen",
+    "--remote",
+    "preview",
+    "shell integration",
+    "history writes",
+    "network"
+  ],
+  "status": "approved for the frozen v2 cases. Windows navigation control remains an explicit open native risk pending hosted comparison."
+}

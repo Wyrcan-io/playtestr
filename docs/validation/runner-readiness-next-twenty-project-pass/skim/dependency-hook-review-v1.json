@@ -1,0 +1,346 @@
+{
+  "build_authorization": {
+    "approved": true,
+    "command": "cargo build --release --locked --offline --no-default-features --features cli,frizbee --bin sk",
+    "disabled": [
+      "image",
+      "listen",
+      "preview commands",
+      "external shell commands",
+      "IPC",
+      "network at runtime"
+    ],
+    "features": [
+      "cli",
+      "frizbee"
+    ],
+    "scope": "Compile the pinned target from exact checked source and locked archives; build hooks may write only Cargo-owned OUT_DIR and invoke Rust/C compiler tools."
+  },
+  "dependency_fetch_review_sha256": "1ca8dfa249a0e9b9a31b2a6373089e2581a128452048497e87ce0eb1d066a273",
+  "hook_count": 53,
+  "hooks": [
+    {
+      "disposition": "Inspect Cargo target/features and emit cfg/link metadata; no external service or shell launch.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/alloca-0.4.0/build.rs",
+      "sha256": "6a2de22ffae12c820353fe06fe02e7f8942aae9a53cd2356df0c2caabd63a7fd"
+    },
+    {
+      "disposition": "Run the Cargo-provided Rust compiler for a feature/version probe; generated probe stays under Cargo OUT_DIR.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/anyhow-1.0.104/build.rs",
+      "sha256": "89d1baedcff59822ed692d3a33f131c211a213bdec33c83f68b54110d9c64223"
+    },
+    {
+      "disposition": "Run the Cargo-provided Rust compiler for a feature/version probe; generated probe stays under Cargo OUT_DIR.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/bincode-next-3.1.1/build.rs",
+      "sha256": "564c178a3e91fbb63d271921130f5a5ced825ea5626e6c5ec7f1874a687ef80a"
+    },
+    {
+      "disposition": "Run the Cargo-provided Rust compiler for a feature/version probe; generated probe stays under Cargo OUT_DIR.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/crc32fast-1.5.2/build.rs",
+      "sha256": "deb6052c4a586e8875ef677fe2d9e9dcfafebfa949803455ea8eff6e7dbde436"
+    },
+    {
+      "disposition": "Inspect Cargo target/features and emit cfg/link metadata; no external service or shell launch.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/crossbeam-deque-0.8.8/build.rs",
+      "sha256": "c8c35fc536a2e6481549bc13979293cb51244cd9c72d4ed9e35c22a1d70fa9ae"
+    },
+    {
+      "disposition": "Inspect Cargo target/features and emit cfg/link metadata; no external service or shell launch.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/crossbeam-epoch-0.9.21/build.rs",
+      "sha256": "c8c35fc536a2e6481549bc13979293cb51244cd9c72d4ed9e35c22a1d70fa9ae"
+    },
+    {
+      "disposition": "Inspect Cargo target/features and emit cfg/link metadata; no external service or shell launch.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/crossbeam-utils-0.8.23/build.rs",
+      "sha256": "79cc5363313f77ab76e2de4779e384c672a747fbcd4b96647a79286568714807"
+    },
+    {
+      "disposition": "Read package-owned source or target metadata and emit generated Rust/configuration under Cargo OUT_DIR.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/defmt-1.2.0/build.rs",
+      "sha256": "9477326f9231bbbbb894499e9c3b28f70f06bc37ce08527def13d7fc634db1c7"
+    },
+    {
+      "disposition": "Inspect Cargo target/features and emit cfg/link metadata; no external service or shell launch.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/defmt-macros-1.2.0/build.rs",
+      "sha256": "e95adebcba8785d938de75f1555c0baf2ab7a7bf527c01fb9a5f36380fc4a2aa"
+    },
+    {
+      "disposition": "Run the Cargo-provided Rust compiler for a feature/version probe; generated probe stays under Cargo OUT_DIR.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/eyre-0.6.14/build.rs",
+      "sha256": "85f97f403d25be35c6984f83248795cdd7fa68241a5a6f839216b33570b81469"
+    },
+    {
+      "disposition": "Inspect Cargo target/features and emit cfg/link metadata; no external service or shell launch.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/generic-array-0.14.7/build.rs",
+      "sha256": "08fa30c4a2c1ad24fe5f987e721dfb20131f45ea5b5dc3e836dcf88a8e33248c"
+    },
+    {
+      "disposition": "Run the Cargo-provided Rust compiler for a feature/version probe; generated probe stays under Cargo OUT_DIR.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/getrandom-0.3.4/build.rs",
+      "sha256": "d542c9c3bbc2f64a26c758eac8af16178aab52464bdd8bf0b9a767ba87665021"
+    },
+    {
+      "disposition": "Inspect Cargo target/features and emit cfg/link metadata; no external service or shell launch.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/getrandom-0.4.3/build.rs",
+      "sha256": "662faa06d7b2a9c5bea2c17a127a90e00b9f9b31105b0360da516e47cf816e95"
+    },
+    {
+      "disposition": "Inspect Cargo target/features and emit cfg/link metadata; no external service or shell launch.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/gungraun-0.20.0/build.rs",
+      "sha256": "7ace869e961071c66af052afffa33f3ed8a16ed9ad51e6e89fc93338bb27ac93"
+    },
+    {
+      "disposition": "Inspect Cargo target/features and emit cfg/link metadata; no external service or shell launch.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/gungraun-common-0.1.0/build.rs",
+      "sha256": "00e22d14861d620d744531951581d809911225659bd258831d074f6a46c0eacf"
+    },
+    {
+      "disposition": "Inspect Cargo target/features and emit cfg/link metadata; no external service or shell launch.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/gungraun-macros-0.10.0/build.rs",
+      "sha256": "3f739049433b87bc0bebfa085ec570d28ee005a94f813a890845cf0f423eab76"
+    },
+    {
+      "disposition": "Run the Cargo-provided Rust compiler for a feature/version probe; generated probe stays under Cargo OUT_DIR.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/libc-0.2.191/build.rs",
+      "sha256": "e70593206df4d2a3138eab463567e0ae8f91c1bea565da4ab5370ea8986840ac"
+    },
+    {
+      "disposition": "Inspect Cargo target/features and emit cfg/link metadata; no external service or shell launch.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/libm-0.2.16/build.rs",
+      "sha256": "85dfa93693f40e282ecf2d9a3115280d8f508f056063862add9e529b8143b71b"
+    },
+    {
+      "disposition": "Compile bundled native source with cc into Cargo OUT_DIR; no installer or network hook.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/libmimalloc-sys-0.1.44/build.rs",
+      "sha256": "d6dc5cae370d61d2f42864337075d4454e69ba7c0d2e026b2e285a7d6b280b02"
+    },
+    {
+      "disposition": "Inspect Cargo target/features and emit cfg/link metadata; no external service or shell launch.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/memoffset-0.9.1/build.rs",
+      "sha256": "0ddaae191a4091fe1318177d12244ff0dbabc17a18f25a54059f4badc9a20876"
+    },
+    {
+      "disposition": "Inspect Cargo target/features and emit cfg/link metadata; no external service or shell launch.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.28.0/build.rs",
+      "sha256": "f4b3c533039fe39f167251372b4f378ebef43203654f0ac2340dc0e222206787"
+    },
+    {
+      "disposition": "Inspect Cargo target/features and emit cfg/link metadata; no external service or shell launch.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.29.0/build.rs",
+      "sha256": "7e47b7c39f11b745b4eb3d30560be80247ebaba1342c9ac62c4a8bfdd463e977"
+    },
+    {
+      "disposition": "Inspect Cargo target/features and emit cfg/link metadata; no external service or shell launch.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.31.3/build.rs",
+      "sha256": "b41a7d4331f46c610c5f2bcb151894b5cf49527677d39174223c634c0d7162ed"
+    },
+    {
+      "disposition": "Inspect Cargo target/features and emit cfg/link metadata; no external service or shell launch.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/num-traits-0.2.19/build.rs",
+      "sha256": "d3969209fc1c9d201c66ed11820d0b328600d75b3971f8ceebeab04900bc0587"
+    },
+    {
+      "disposition": "Inspect Cargo target/features and emit cfg/link metadata; no external service or shell launch.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/parking_lot_core-0.9.12/build.rs",
+      "sha256": "3698c936b75f8332d9b6b30a8a6838ea116c1ff0a819a025c9ea9696e4d8ce72"
+    },
+    {
+      "disposition": "Inspect Cargo target/features and emit cfg/link metadata; no external service or shell launch.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/portable-atomic-1.15.0/build.rs",
+      "sha256": "9d0b1e071715580497aadb918d4b3b124ee366ba66f15ac05a3d8045f0bc2cf0"
+    },
+    {
+      "disposition": "Run the Cargo-provided Rust compiler for a feature/version probe; generated probe stays under Cargo OUT_DIR.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/proc-macro2-1.0.107/build.rs",
+      "sha256": "baeb20b52f6b536be8657a566591a507bb2e34a45cf8baa42b135510a0c3c729"
+    },
+    {
+      "disposition": "Compile bundled native source with cc into Cargo OUT_DIR; no installer or network hook.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/psm-0.1.24/build.rs",
+      "sha256": "312beb17f9279b0ea8302fa1974f47cc9aaaa423bf4a027e80dea94da206c11d"
+    },
+    {
+      "disposition": "Read package-owned source or target metadata and emit generated Rust/configuration under Cargo OUT_DIR.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/pulldown-cmark-0.13.4/build.rs",
+      "sha256": "f21fbde26b144bd5c6c54aad655242ecbbac85fdbe567da8f1241492f7c83ece"
+    },
+    {
+      "disposition": "Run the Cargo-provided Rust compiler for a feature/version probe; generated probe stays under Cargo OUT_DIR.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/quote-1.0.47/build.rs",
+      "sha256": "cd6808c02e476b09a520105e2c6f6d325cccb1ecd542cbbcc836a0ae6f6fb0f1"
+    },
+    {
+      "disposition": "Inspect Cargo target/features and emit cfg/link metadata; no external service or shell launch.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/radium-0.7.0/build.rs",
+      "sha256": "198e126042203936db2a99e9440569f3b5ff0f8bd9b3648e3b79807e26a82591"
+    },
+    {
+      "disposition": "Inspect Cargo target/features and emit cfg/link metadata; no external service or shell launch.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/ratatui-image-11.1.0/build.rs",
+      "sha256": "6505e61721d850d430e0e6f10c28591304a5fd1227a9a9ba45c7e823679cdc98"
+    },
+    {
+      "disposition": "Inspect Cargo target/features and emit cfg/link metadata; no external service or shell launch.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/rayon-core-1.13.0/build.rs",
+      "sha256": "fa31cb198b772600d100a7c403ddedccef637d2e6b2da431fa7f02ca41307fc6"
+    },
+    {
+      "disposition": "Run the Cargo-provided Rust compiler for a feature/version probe; generated probe stays under Cargo OUT_DIR.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/ref-cast-1.0.27/build.rs",
+      "sha256": "095bc1870b75dd5c80a68bddaae03d2de9f817e134b026ebf3f63e0ff81cf5ca"
+    },
+    {
+      "disposition": "Run the Cargo-provided Rust compiler for a feature/version probe; generated probe stays under Cargo OUT_DIR.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/rustix-0.38.44/build.rs",
+      "sha256": "7cc60a1a80836bff6c4f82dd938049dcec84736100bb81ebe6ac84513b0f4a45"
+    },
+    {
+      "disposition": "Run the Cargo-provided Rust compiler for a feature/version probe; generated probe stays under Cargo OUT_DIR.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/rustix-1.1.5/build.rs",
+      "sha256": "f7609b919173e7121493266d0f89db724a1e47bb105ebd05397f869639603eec"
+    },
+    {
+      "disposition": "Run the Cargo-provided Rust compiler for a feature/version probe; generated probe stays under Cargo OUT_DIR.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/rustversion-1.0.23/build/build.rs",
+      "sha256": "4438b108d5b198ca43ef0a78509da89861020674abd05166addd1c3058afbfa6"
+    },
+    {
+      "disposition": "Run the Cargo-provided Rust compiler for a feature/version probe; generated probe stays under Cargo OUT_DIR.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/build.rs",
+      "sha256": "e2ea6a7a82f5404c3e28cb055883c737ee7903367a10206fbb47b75c009f0eb3"
+    },
+    {
+      "disposition": "Run the Cargo-provided Rust compiler for a feature/version probe; generated probe stays under Cargo OUT_DIR.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/serde_core-1.0.229/build.rs",
+      "sha256": "7bc6b1eec8913ff4cd8e4b9b92cd04a82a4f38beb30a0b73a64c1e6e49f07b5f"
+    },
+    {
+      "disposition": "Inspect Cargo target/features and emit cfg/link metadata; no external service or shell launch.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/serde_json-1.0.154/build.rs",
+      "sha256": "a681e754be844c7dbef957f5d2d00b01f37c5dca160ef1055a8d8f975697a881"
+    },
+    {
+      "disposition": "Inspect Cargo target/features and emit cfg/link metadata; no external service or shell launch.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/signal-hook-0.3.18/build.rs",
+      "sha256": "3a95a69d2921f1c28922a141a671e23a061f358b6d831350043003e13ef96463"
+    },
+    {
+      "disposition": "Inspect Cargo target/features and emit cfg/link metadata; no external service or shell launch.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/stacker-0.1.25/build.rs",
+      "sha256": "59c0421d7ddee3b574397ebea45d17b2d850539183705e45ea6c816d1d7d698e"
+    },
+    {
+      "disposition": "Run the Cargo-provided Rust compiler for a feature/version probe; generated probe stays under Cargo OUT_DIR.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/syn-1.0.109/build.rs",
+      "sha256": "b815649fd2929d3debd93a58f5da2fb8eba506047a6a5ba538347305828a87b0"
+    },
+    {
+      "disposition": "Read package-owned source or target metadata and emit generated Rust/configuration under Cargo OUT_DIR.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/terminfo-0.9.0/build.rs",
+      "sha256": "727c36d8d6263055409235d672b549202bf2e983d6ae185fe3476fcca87eb790"
+    },
+    {
+      "disposition": "Run the Cargo-provided Rust compiler for a feature/version probe; generated probe stays under Cargo OUT_DIR.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-1.0.69/build.rs",
+      "sha256": "275d0ddbb22d5f015fba360f51a48da10b6309410efe8c6ca678412b1e8c9288"
+    },
+    {
+      "disposition": "Run the Cargo-provided Rust compiler for a feature/version probe; generated probe stays under Cargo OUT_DIR.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.21/build.rs",
+      "sha256": "ccc38283604f99237ad2333bbe395259e29fdf2ff4e04a60a95de9e4499c09a3"
+    },
+    {
+      "disposition": "Run the Cargo-provided Rust compiler for a feature/version probe; generated probe stays under Cargo OUT_DIR.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/typeid-1.0.3/build.rs",
+      "sha256": "688afbcaa398ea159c3481b26d74fde6ce3a675d48364d772557c8e91100de46"
+    },
+    {
+      "disposition": "Inspect Cargo target/features and emit cfg/link metadata; no external service or shell launch.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/winapi-0.3.9/build.rs",
+      "sha256": "fa1782968d33345772093666220c7841c2fb4f6dd32fa47951c68a3a400a1a98"
+    },
+    {
+      "disposition": "Inspect Cargo target/features and emit cfg/link metadata; no external service or shell launch.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/windows_x86_64_gnu-0.52.6/build.rs",
+      "sha256": "6d40bd2c0ed4cbea5126dfcd89d72f229c7d986540cbf0dc34acc1017f1de20f"
+    },
+    {
+      "disposition": "Inspect Cargo target/features and emit cfg/link metadata; no external service or shell launch.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/windows_x86_64_msvc-0.52.6/build.rs",
+      "sha256": "6d40bd2c0ed4cbea5126dfcd89d72f229c7d986540cbf0dc34acc1017f1de20f"
+    },
+    {
+      "disposition": "Inspect Cargo target/features and emit cfg/link metadata; no external service or shell launch.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/winreg-0.10.1/build.rs",
+      "sha256": "3d34e0c23f6c21e6da11fb0fc3aff792b8f30f3ecfbb6b4f536d0a70394e13e7"
+    },
+    {
+      "disposition": "Run the Cargo-provided Rust compiler for a feature/version probe; generated probe stays under Cargo OUT_DIR.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/zerocopy-0.8.63/build.rs",
+      "sha256": "075d31f4f99cf4e42132e9c3652c846de832576e2f18be281b16405235644fcd"
+    },
+    {
+      "disposition": "Run the Cargo-provided Rust compiler for a feature/version probe; generated probe stays under Cargo OUT_DIR.",
+      "executed_during_review": false,
+      "path": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/zmij-1.0.23/build.rs",
+      "sha256": "ad320bc635887879bdbbf1b9322da4a157ec2c5a4243bd7c2cf9b6884a3b2a41"
+    }
+  ],
+  "pin": "1ab47f6ba7f1bfc355273bbdd98d4b2056ef95a3",
+  "policy": "Hash-bound static review of every fetched Cargo dependency build script. No build script was executed during this review.",
+  "project": "skim",
+  "schema_version": 1,
+  "source_review_sha256": "ff2cbe0093fe43df27d79240045c730fac17a66263703947ee9fe541225a30c8"
+}

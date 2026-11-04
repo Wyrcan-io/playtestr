@@ -1,0 +1,51 @@
+{
+  "version": 3,
+  "name": "Skim N02 native Windows shell pipeline probe",
+  "command": [
+    "cmd.exe",
+    "/d",
+    "/s",
+    "/c",
+    "type items.txt | \"%SKIM_TEST_BINARY%\" --no-sort"
+  ],
+  "workspace": {
+    "fixture": "fixtures/cases/N02",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "inherit_env": [
+    "PATH",
+    "SystemRoot",
+    "COMSPEC",
+    "SKIM_TEST_BINARY"
+  ],
+  "width": 120,
+  "height": 24,
+  "timeout_ms": 10000,
+  "startup_timeout_ms": 15000,
+  "run_timeout_ms": 30000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "> cedar"
+    },
+    {
+      "key": "ArrowDown"
+    },
+    {
+      "expect": "> amber"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "expect": "amber"
+    },
+    {
+      "snapshot": "N02.txt"
+    }
+  ]
+}

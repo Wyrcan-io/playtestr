@@ -1,0 +1,53 @@
+{
+  "version": 3,
+  "name": "Skim N04 bounded synthetic workflow",
+  "command": [
+    "python",
+    "skim_stdin_adapter.py",
+    "--no-sort",
+    "--multi"
+  ],
+  "workspace": {
+    "fixture": "fixtures/cases/N04",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "inherit_env": [
+    "PATH",
+    "SystemRoot",
+    "COMSPEC",
+    "SKIM_TEST_BINARY"
+  ],
+  "width": 120,
+  "height": 24,
+  "timeout_ms": 10000,
+  "startup_timeout_ms": 15000,
+  "run_timeout_ms": 30000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "> cedar"
+    },
+    {
+      "key": "Tab"
+    },
+    {
+      "expect": "> amber"
+    },
+    {
+      "key": "Tab"
+    },
+    {
+      "expect": "[2]"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "snapshot": "N04.txt"
+    }
+  ]
+}

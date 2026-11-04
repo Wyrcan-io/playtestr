@@ -1,0 +1,124 @@
+name: Next twenty Skim source-built Linux and Windows development
+on:
+  push:
+    branches: [work/p0-p2-implementation]
+    paths:
+      - '.github/workflows/runner-readiness-next20-skim.yml'
+      - 'scripts/acceptance/next20_skim_*.py'
+      - 'scripts/acceptance/next20_rust_fetch.py'
+      - 'scripts/acceptance/next20_playtestr_case.py'
+      - 'scripts/acceptance/next20_check.py'
+      - 'scripts/acceptance/adversarial_process.py'
+      - 'docs/validation/runner-readiness-next-twenty-project-pass/skim/**'
+      - 'cmd/**'
+      - 'internal/**'
+      - 'go.mod'
+      - 'go.sum'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: playtestr-next20-skim-source-development
+  cancel-in-progress: false
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONIOENCODING: utf-8
+  TEMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+  TMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+  TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+  GOMODCACHE: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/active/skim/go-mod-cache
+  GOCACHE: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/active/skim/home/go-cache
+jobs:
+  source-development:
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        include:
+          - host: linux
+            runs_on: ubuntu-24.04
+            rust_target: x86_64-unknown-linux-gnu
+          - host: windows
+            runs_on: windows-2025
+            rust_target: x86_64-pc-windows-msvc
+    runs-on: ${{ matrix.runs_on }}
+    timeout-minutes: 60
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+      - name: Create campaign-owned paths
+        run: |
+          $root = Join-Path $env:GITHUB_WORKSPACE 'artifacts/runner-readiness-next-twenty-project-pass/active/skim'
+          @($root, (Join-Path $root 'home'), (Join-Path $root 'cargo-home'),
+            (Join-Path $root 'rustup-home'), (Join-Path $root 'cargo-target'),
+            (Join-Path $root 'bin'), (Join-Path $root 'tmp'),
+            (Join-Path $root 'go-mod-cache'),
+            (Join-Path $env:GITHUB_WORKSPACE 'artifacts/runner-readiness-next-twenty-project-pass/tmp')) |
+            ForEach-Object { New-Item -ItemType Directory -Force -Path $_ | Out-Null }
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          repository: skim-rs/skim
+          ref: 1ab47f6ba7f1bfc355273bbdd98d4b2056ef95a3
+          path: artifacts/runner-readiness-next-twenty-project-pass/active/skim/src
+          persist-credentials: false
+          set-safe-directory: false
+          fetch-depth: 1
+      - name: Verify exact upstream files before Cargo execution
+        run: python -B scripts/acceptance/next20_skim_source_verify.py
+      - name: Download locked Playtestr Go modules into the owned cache
+        run: go mod download
+      - name: Install pinned Rust toolchain into campaign-owned paths
+        env:
+          HOME: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/active/skim/home
+          USERPROFILE: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/active/skim/home
+          RUSTUP_HOME: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/active/skim/home/.rustup
+          CARGO_HOME: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/active/skim/cargo-home
+        run: |
+          rustup toolchain install 1.97.0 --profile minimal --target '${{ matrix.rust_target }}'
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          rustc +1.97.0 -Vv
+      - name: Fetch and checksum locked dependencies without executing hooks
+        env:
+          HOME: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/active/skim/home
+          USERPROFILE: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/active/skim/home
+        run: python -B scripts/acceptance/next20_rust_fetch.py skim --native-host --toolchain 1.97.0
+      - name: Review every locked dependency hook before build
+        run: >-
+          python -B scripts/acceptance/next20_skim_hook_review.py
+          --source-review docs/validation/runner-readiness-next-twenty-project-pass/skim/source-review-v1.json
+          --output artifacts/runner-readiness-next-twenty-project-pass/active/skim/dependency-hook-review-host.json
+      - name: Build exact Linux Skim feature set offline
+        if: matrix.host == 'linux'
+        run: >-
+          python -B scripts/acceptance/next20_skim_build.py
+          --source-review docs/validation/runner-readiness-next-twenty-project-pass/skim/source-review-v1.json
+          --hook-review artifacts/runner-readiness-next-twenty-project-pass/active/skim/dependency-hook-review-host.json
+      - name: Build exact Windows Skim feature set offline
+        if: matrix.host == 'windows'
+        run: >-
+          python -B scripts/acceptance/next20_skim_build.py --native-host
+          --source-review docs/validation/runner-readiness-next-twenty-project-pass/skim/source-review-v1.json
+          --hook-review artifacts/runner-readiness-next-twenty-project-pass/active/skim/dependency-hook-review-host.json
+      - name: Run the frozen twenty-case source-development matrix
+        run: python -B scripts/acceptance/next20_skim_hosted_cases.py --host '${{ matrix.host }}' --rounds 1
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: next20-skim-${{ matrix.host }}-source-development
+          path: |
+            docs/validation/runner-readiness-next-twenty-project-pass/skim/
+            artifacts/runner-readiness-next-twenty-project-pass/events/
+            artifacts/runner-readiness-next-twenty-project-pass/active/skim/**
+            !artifacts/runner-readiness-next-twenty-project-pass/active/skim/cargo-target/**
+            !artifacts/runner-readiness-next-twenty-project-pass/active/skim/home/.rustup/**
+            !artifacts/runner-readiness-next-twenty-project-pass/active/skim/src/.git/**
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 30

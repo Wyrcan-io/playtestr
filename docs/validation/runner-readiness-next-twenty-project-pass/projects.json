@@ -361,6 +361,35 @@
         }
       ],
       "current_candidate_qualified": true
+    },
+    {
+      "id": "skim",
+      "repository": "skim-rs/skim",
+      "pin": "1ab47f6ba7f1bfc355273bbdd98d4b2056ef95a3",
+      "status": "development-window20-complete; candidate qualification in progress",
+      "admitted": false,
+      "planned_hosts": [
+        "linux",
+        "windows"
+      ],
+      "development_selected_scenarios_passed": 20,
+      "development_ordinary_attempts": 20,
+      "development_ordinary_passed": 20,
+      "development_ordinary_failed": 0,
+      "development_native_host": "windows-x86_64-msvc",
+      "development_runner": "current-source worktree; not private rc.6 archive",
+      "development_readback": "skim/windows-frozen20-development-readback-v1.json",
+      "development_readback_sha256": "5b5df283eb3154837ecc989f22cd498769d29f2453d81f5832c89cc469b3d14b",
+      "open_risks": [
+        "WIN-NAV-01: Windows ArrowDown/Ctrl-N navigation unresolved",
+        "OUTPUT-NUL-01: exact raw NUL framing unverified"
+      ],
+      "qualified_scenarios": 0,
+      "qualified_native_cells": 0,
+      "audited_ordinary_executions": 0,
+      "audited_calibration_executions": 0,
+      "real_source_faults": 0,
+      "candidate_admissions": []
     }
   ],
   "observed_audited_ordinary_executions": 1920,

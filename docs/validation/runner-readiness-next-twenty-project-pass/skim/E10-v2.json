@@ -1,0 +1,50 @@
+{
+  "version": 3,
+  "name": "Skim E10 frozen direct-PTY scenario v2",
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/skim/bin/sk.exe",
+    "--no-sort"
+  ],
+  "workspace": {
+    "fixture": "fixtures/cases/E10",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "SKIM_DEFAULT_COMMAND": "python emit.py"
+  },
+  "inherit_env": [
+    "PATH",
+    "SystemRoot",
+    "COMSPEC"
+  ],
+  "width": 120,
+  "height": 24,
+  "timeout_ms": 10000,
+  "startup_timeout_ms": 15000,
+  "run_timeout_ms": 30000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "text": "item-039"
+    },
+    {
+      "expect": "1/40"
+    },
+    {
+      "expect": "item-039"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "expect": "item-039"
+    },
+    {
+      "snapshot": "E10-v2.txt"
+    }
+  ]
+}

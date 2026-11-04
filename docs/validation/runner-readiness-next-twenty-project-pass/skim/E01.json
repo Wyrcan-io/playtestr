@@ -1,0 +1,37 @@
+{
+  "version": 3,
+  "name": "Skim E01 bounded synthetic workflow",
+  "command": [
+    "python",
+    "skim_stdin_adapter.py",
+    "--no-sort"
+  ],
+  "workspace": {
+    "fixture": "fixtures/cases/E01",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "inherit_env": [
+    "PATH",
+    "SystemRoot",
+    "COMSPEC",
+    "SKIM_TEST_BINARY"
+  ],
+  "width": 120,
+  "height": 24,
+  "timeout_ms": 10000,
+  "startup_timeout_ms": 15000,
+  "run_timeout_ms": 30000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "0/0"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "exit": 130
+    }
+  ]
+}
