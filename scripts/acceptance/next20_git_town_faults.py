@@ -60,7 +60,7 @@ def validate_case_observation(fault, expected_runner_exit, returncode, outcome_s
     exit_assertions = [step['exit'] for step in contract.get('steps', [])
                        if isinstance(step, dict) and 'exit' in step]
     exit_steps = [step for step in steps if step.get('action') == 'exit']
-    failed_steps = [step for step in steps if step.get('status') != 'passed']
+    failed_steps = [step for step in steps if step.get('status') == 'failed']
     if (target_result.get('cleanup', {}).get('confirmed_exited') is not True or
             target_result.get('workspace', {}).get('cleaned') is not True):
         return 'target exit and workspace cleanup were not positively confirmed'
@@ -70,7 +70,9 @@ def validate_case_observation(fault, expected_runner_exit, returncode, outcome_s
         return f'runner exited {returncode}, expected {expected_runner_exit}'
     if expected_failure:
         failure = target_result.get('failure') or {}
-        if (len(failed_steps) != 1 or summary.get('failed') != 1 or
+        invalid_step_states = [step.get('status') for step in steps
+                               if step.get('status') not in {'passed', 'failed', 'not_run'}]
+        if (len(failed_steps) != 1 or invalid_step_states or summary.get('failed') != 1 or
                 summary.get('passed') != 0 or summary.get('total') != 1 or
                 failure.get('category') != fault['expected_failure_category']):
             return 'mutated source did not create the declared observable failure'
@@ -85,7 +87,8 @@ def validate_case_observation(fault, expected_runner_exit, returncode, outcome_s
                     steps[1].get('action') != 'exit'):
                 return 'saved-state mutation was not rejected after terminal and exit evidence passed'
     else:
-        if (returncode != 0 or failed_steps or summary.get('passed') != 1 or
+        if (returncode != 0 or failed_steps or any(step.get('status') != 'passed' for step in steps) or
+                summary.get('passed') != 1 or
                 summary.get('failed') != 0 or summary.get('total') != 1 or
                 exit_assertions != [0] or len(exit_steps) != 1 or
                 exit_steps[0].get('status') != 'passed'):

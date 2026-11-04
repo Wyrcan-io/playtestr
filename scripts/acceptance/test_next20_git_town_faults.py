@@ -34,6 +34,8 @@ class GitTownFaultValidatorTests(unittest.TestCase):
             dict(action='expect', status='failed', failure=dict(
                 category='unexpected_exit',
                 message='process exited with code 0 before assertion matched')),
+            dict(action='exit', status='not_run'),
+            dict(action='state', status='not_run'),
         ])
         observed['failure'] = dict(category='unexpected_exit',
                                    message='process exited with code 0 before assertion matched')
@@ -46,6 +48,8 @@ class GitTownFaultValidatorTests(unittest.TestCase):
             dict(action='expect', status='failed', failure=dict(
                 category='unexpected_exit',
                 message='process exited with code 1 before assertion matched')),
+            dict(action='exit', status='not_run'),
+            dict(action='state', status='not_run'),
         ])
         observed['failure'] = dict(category='unexpected_exit',
                                    message='process exited with code 1 before assertion matched')
