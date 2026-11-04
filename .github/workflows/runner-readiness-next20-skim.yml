@@ -107,6 +107,9 @@ jobs:
       - name: Detect three source faults
         if: matrix.host == 'windows'
         run: python -B scripts/acceptance/next20_skim_faults.py
+      - name: Bundle source-fault reports and receipts
+        if: always() && matrix.host == 'windows'
+        run: python -B scripts/acceptance/next20_skim_package_faults.py
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
@@ -116,6 +119,7 @@ jobs:
             artifacts/runner-readiness-next-twenty-project-pass/events/
             artifacts/runner-readiness-next-twenty-project-pass/skim/**
             artifacts/runner-readiness-next-twenty-project-pass/active/skim/*.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/skim/fault-matrix-evidence.zip
             artifacts/runner-readiness-next-twenty-project-pass/active/skim/bin/**
             artifacts/runner-readiness-next-twenty-project-pass/active/skim/src/**
             artifacts/runner-readiness-next-twenty-project-pass/active/skim/case-evidence/**
