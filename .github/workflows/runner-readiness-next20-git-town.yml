@@ -88,6 +88,12 @@ jobs:
         run: python -B scripts/acceptance/next20_git_town_prepare.py
       - name: Create and verify the synthetic no-remote repository
         run: python -B scripts/acceptance/next20_git_town_fixture.py
+      - name: Run terminal-query bridge regressions on Linux
+        if: matrix.host == 'linux'
+        run: go test ./internal/runner ./internal/terminal/vt10x
+      - name: Run terminal-query bridge race checks on Linux
+        if: matrix.host == 'linux'
+        run: go test -race ./internal/runner ./internal/terminal/vt10x
       - name: Capture one bounded native Linux PTY startup
         if: matrix.host == 'linux'
         run: python -B scripts/acceptance/next20_git_town_terminal_probe.py

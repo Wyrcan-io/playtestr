@@ -80,3 +80,14 @@ and [`next20_git_town_catalog.py`](../../../../scripts/acceptance/next20_git_tow
 The Linux diagnostic workflow also runs the bounded
 [`next20_git_town_controlling_tty_probe.py`](../../../../scripts/acceptance/next20_git_town_controlling_tty_probe.py)
 and retains its owned evidence directory.
+
+
+The controlling-terminal diagnostic on run `41881662967` narrowed the Linux
+startup wait to the first `OSC 11;?` and `CSI 6 n` exchanges: the raw PTY launch
+without a controlling terminal exited 0 with 195 expected output bytes, while
+the controlling-TTY launch timed out after 12 query bytes and confirmed process
+group cleanup. Playtestr's emulator already creates color and cursor replies,
+but its Unix bridge discarded them. A bounded source fix and mixed-query real
+PTY regression are prepared; the next hosted workflow runs ordinary and race
+checks before retrying the frozen cases. Until that run is read back, Git Town
+remains development-only with zero admission or native-cell credit.
