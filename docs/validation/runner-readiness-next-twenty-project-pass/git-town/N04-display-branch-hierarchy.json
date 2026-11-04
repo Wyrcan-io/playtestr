@@ -1,12 +1,39 @@
 {
   "version": 3,
   "name": "Display the local branch hierarchy",
-  "command": ["git-town", "branch"],
-  "workspace": {"fixture": "fixtures/branch-repo", "cwd": ".", "home": "temporary", "temp": "temporary"},
+  "command": [
+    "git-town",
+    "branch"
+  ],
+  "workspace": {
+    "fixture": "fixtures/branch-repo",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
   "steps": [
-    {"expect": "feat-blue"},
-    {"expect": "main"},
-    {"exit": 0},
-    {"state": {"path": ".git/HEAD", "kind": "file", "bytes_base64": "cmVmOiByZWZzL2hlYWRzL21haW4K"}}
-  ]
+    {
+      "expect": "feat-blue"
+    },
+    {
+      "expect": "main"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": ".git/HEAD",
+        "kind": "file",
+        "bytes_base64": "cmVmOiByZWZzL2hlYWRzL21haW4K"
+      }
+    }
+  ],
+  "env": {
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_TERMINAL_PROMPT": "0",
+    "GIT_PAGER": "cat",
+    "PAGER": "cat",
+    "TERM": "xterm-256color"
+  }
 }

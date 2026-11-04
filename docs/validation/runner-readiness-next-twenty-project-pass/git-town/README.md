@@ -43,7 +43,20 @@ Each scenario starts from a synthetic local repository with no external remote;
 forge tokens and user Git configuration are excluded. Managed workspaces are not
 security sandboxes.
 
-The 20 passes are development evidence only. Final repetitions, hosted Linux and
-Windows cells, three safe source faults, calibration, public recorder/maintenance
-work, current-candidate qualification and cleanup audit remain open. Git Town has
-no admission, native-cell, fault-detection or candidate credit.
+The hosted v1 matrix is preserved in `hosted-development-attempts-v1.json`. Native
+Windows passed all twenty v1 cases twice, with 40 cleaned workspaces and exact
+4,533-file source verification. Six Linux v1 jobs attempted all 120 scenarios;
+all timed out before visible screen text, and their reports confirm process cleanup.
+A separate bounded Linux PTY probe of the same binary emitted 195 bytes containing
+the expected branch result, while Playtestr's rendered screen stayed blank. The
+Linux mismatch remains open. Windows checkout initially converted source line
+endings; restoration now reads raw blobs from the pinned Git archive and verifies
+them against provenance before build.
+
+Catalog v2 preserves all v1 specs and attempts. It declares the isolated Git,
+pager, and terminal environment explicitly because the public runner's default
+allowlist omits those values. Its hosted Linux/Windows run is pending. All hosted
+results remain development evidence only. Final repetitions, three safe source
+faults, calibration, public recorder/maintenance work, current-candidate
+qualification and cleanup audit remain open. Git Town has no admission,
+native-cell, fault-detection or candidate credit.

@@ -422,7 +422,7 @@
       "id": "git-town",
       "repository": "git-town/git-town",
       "pin": "8d039892574d4852e1843020c31d423234042e78",
-      "status": "20-scenario Windows development series passed; hosted native matrix pending",
+      "status": "v1 hosted Windows development passed 20/20 twice; hosted Linux failures preserved; v2 environment revision pending",
       "admitted": false,
       "current_candidate_qualified": false,
       "planned_hosts": [
@@ -432,8 +432,8 @@
       "source_blobs_verified": 4533,
       "source_archive_sha256": "2a47fe65b7f21f6a99bfeefd00dfeffce394dd7db733b47e5b87904c9947ab8a",
       "windows_executable_sha256": "e16a0c20bf8c36ef93e01488f50469ddc793e826d93caf6337a075fe8da2163b",
-      "development_scenario_catalog": "git-town/scenario-catalog-v1.json",
-      "development_scenario_catalog_sha256": "d2096be7478b0b9cf934eb2f64c96297d67e3407a9360f62a6534284d75b7f4f",
+      "development_scenario_catalog": "git-town/scenario-catalog-v2.json",
+      "development_scenario_catalog_sha256": "b18d9db7805431c804735d4e940269d95125437caff7d986b794abf5bf00cb5e",
       "development_readback": "git-town/development-readback-v2.json",
       "development_readback_sha256": "ec1ccc2417d72fbd56d005e13b3852100e314608d6c4087ace4b5c62867f7165",
       "development_attempts": 32,
@@ -446,7 +446,15 @@
       "calibration_executions_qualified": 0,
       "real_source_faults_detected": 0,
       "candidate_admissions": [],
-      "open": "Hosted Linux/Windows matrix, final repetitions, real source faults, calibration, public authoring/maintenance/relocation, cleanup and candidate qualification."
+      "open": "v2 hosted Linux/Windows matrix, final repetitions, real source faults, calibration, public authoring/maintenance/relocation, cleanup and candidate qualification.",
+      "hosted_attempts": "git-town/hosted-development-attempts-v1.json",
+      "hosted_v1_runs": 7,
+      "hosted_linux_attempts": 120,
+      "hosted_linux_passed": 0,
+      "hosted_windows_attempts": 40,
+      "hosted_windows_passed": 40,
+      "hosted_windows_cleaned_workspaces": 40,
+      "hosted_development_qualification_credit": 0
     }
   ],
   "observed_audited_ordinary_executions": 1920,

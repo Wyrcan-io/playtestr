@@ -1,11 +1,39 @@
 {
   "version": 3,
   "name": "Create a feature branch with its reviewed parent",
-  "command": ["git-town", "hack", "--no-sync", "--non-interactive", "feat-red"],
-  "workspace": {"fixture": "fixtures/branch-repo", "cwd": ".", "home": "temporary", "temp": "temporary"},
+  "command": [
+    "git-town",
+    "hack",
+    "--no-sync",
+    "--non-interactive",
+    "feat-red"
+  ],
+  "workspace": {
+    "fixture": "fixtures/branch-repo",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
   "steps": [
-    {"expect": "branch feat-red is now a child of main"},
-    {"exit": 0},
-    {"state": {"path": ".git/HEAD", "kind": "file", "bytes_base64": "cmVmOiByZWZzL2hlYWRzL2ZlYXQtcmVkCg=="}}
-  ]
+    {
+      "expect": "branch feat-red is now a child of main"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": ".git/HEAD",
+        "kind": "file",
+        "bytes_base64": "cmVmOiByZWZzL2hlYWRzL2ZlYXQtcmVkCg=="
+      }
+    }
+  ],
+  "env": {
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_TERMINAL_PROMPT": "0",
+    "GIT_PAGER": "cat",
+    "PAGER": "cat",
+    "TERM": "xterm-256color"
+  }
 }
