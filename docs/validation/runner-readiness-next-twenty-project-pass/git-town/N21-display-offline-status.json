@@ -1,0 +1,11 @@
+{
+  "version": 3,
+  "name": "Display offline mode status from isolated Git configuration",
+  "command": ["git-town", "offline"],
+  "workspace": {"fixture": "fixtures/branch-repo", "cwd": ".", "home": "temporary", "temp": "temporary"},
+  "steps": [
+    {"expect": "no"},
+    {"exit": 0},
+    {"state": {"path": ".git/HEAD", "kind": "file", "bytes_base64": "cmVmOiByZWZzL2hlYWRzL21haW4K"}}
+  ]
+}

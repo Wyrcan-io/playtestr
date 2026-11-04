@@ -1,0 +1,17 @@
+{
+  "version": 3,
+  "name": "Resize the visual selector and cancel without changing HEAD",
+  "command": ["git-town", "switch"],
+  "width": 80,
+  "height": 24,
+  "workspace": {"fixture": "fixtures/branch-repo", "cwd": ".", "home": "temporary", "temp": "temporary"},
+  "steps": [
+    {"expect": "feat-blue"},
+    {"resize": {"width": 60, "height": 18}},
+    {"wait_for_redraw": true},
+    {"expect": "feat-blue"},
+    {"key": "Escape"},
+    {"exit": 0},
+    {"state": {"path": ".git/HEAD", "kind": "file", "bytes_base64": "cmVmOiByZWZzL2hlYWRzL21haW4K"}}
+  ]
+}

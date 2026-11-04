@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "run": "41827379961",
+  "host": "macos-15",
+  "tooling_revision": "47d5ff9bdaabadbf98539a8dce81ecb33fed3012",
+  "job_conclusion": "success",
+  "artifact": {
+    "id": 13320440495,
+    "name": "next20-harness-macos-15.zip",
+    "bytes": 509301,
+    "sha256": "4ead2d1940cdffdb65102f89f3ab5e6df1fcaeaecd53ffd92c0046e1c157fe52",
+    "retained_local_path": "artifacts/runner-readiness-next-twenty-project-pass/retrieved/next20-harness-macos.zip",
+    "expanded_on_disk": false
+  },
+  "checks": [
+    {
+      "label": "native-next20-command-controls",
+      "attempt": "58fa5049238b4226865d66e85bdf198c",
+      "category": "passed",
+      "exit_code": 0,
+      "harness_cleanup": "harness_process_reaped",
+      "console_sha256": "722dba1542816a9bba9a8e0fd62638e1580714098265facaa10691f9b0d96301",
+      "identity_sha256": "c46c81ece16068a113f33955c5a79442fd2bb5ab627c44fd57ef616dce4339e9",
+      "evidence": "68 named tests: 66 passed, 2 explicit host skips"
+    },
+    {
+      "label": "native-next20-syntax",
+      "attempt": "7190923e5ae04cabaccc316b88aac775",
+      "category": "passed",
+      "exit_code": 0,
+      "harness_cleanup": "harness_process_reaped",
+      "console_sha256": "e48c3c93b1b51ce0d1e1f42bb5f4698330908d6cb0b544ec05622cdb190cc4e6",
+      "identity_sha256": "c46c81ece16068a113f33955c5a79442fd2bb5ab627c44fd57ef616dce4339e9",
+      "evidence": "Parsed 288 next20 helper files"
+    },
+    {
+      "label": "failed-console-regression-aaee9a91d3cf44c9affe5ae516a4f808",
+      "attempt": "e6c2cf7717144fa88a418fdb7eacb118",
+      "intentional_failure_control": true,
+      "category": "exit_mismatch",
+      "exit_code": 3,
+      "harness_cleanup": "harness_process_reaped",
+      "console_sha256": "ffb37d2506789959e529ebde88b4dfc2392279d5a8bb76c44b2bd2fa6aea1165",
+      "identity_sha256": "c46c81ece16068a113f33955c5a79442fd2bb5ab627c44fd57ef616dce4339e9",
+      "evidence": "Retained exact expected-failure console"
+    }
+  ],
+  "named_controls_passed": 66,
+  "tests_discovered": 68,
+  "skips": [
+    {
+      "test": "test_native_large_cleanup_requires_matching_explicit_bound (test_next20_campaign.NextCampaignTests.test_native_large_cleanup_requires_matching_explicit_bound)",
+      "reason": "native Windows checked target removal control"
+    },
+    {
+      "test": "test_native_target_removal_refuses_changed_payload_then_removes_exact_owned_fixture (test_next20_campaign.NextCampaignTests.test_native_target_removal_refuses_changed_payload_then_removes_exact_owned_fixture)",
+      "reason": "native Windows checked target removal control"
+    }
+  ],
+  "native_removal_commands": "Present in retained Windows artifact; not counted as project evidence.",
+  "new_project_credit": 0,
+  "expanded_removal_confirmed": null,
+  "scope": "Three-host readiness harness: source-bound helper syntax, named actual-control suite, and retained intentional failure. No application or archive-product-control reexecution credit.",
+  "identity_manifests_verified": [
+    {
+      "path": "identities/c46c81ece16068a113f33955c5a79442fd2bb5ab627c44fd57ef616dce4339e9.json",
+      "sha256": "c46c81ece16068a113f33955c5a79442fd2bb5ab627c44fd57ef616dce4339e9",
+      "file_count": 752,
+      "host": "Darwin",
+      "architecture": "arm64"
+    },
+    {
+      "path": "identities/c46c81ece16068a113f33955c5a79442fd2bb5ab627c44fd57ef616dce4339e9.json",
+      "sha256": "c46c81ece16068a113f33955c5a79442fd2bb5ab627c44fd57ef616dce4339e9",
+      "file_count": 752,
+      "host": "Darwin",
+      "architecture": "arm64"
+    },
+    {
+      "path": "identities/c46c81ece16068a113f33955c5a79442fd2bb5ab627c44fd57ef616dce4339e9.json",
+      "sha256": "c46c81ece16068a113f33955c5a79442fd2bb5ab627c44fd57ef616dce4339e9",
+      "file_count": 752,
+      "host": "Darwin",
+      "architecture": "arm64"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "version": 3,
+  "name": "Create a Unicode feature branch",
+  "command": ["git-town", "hack", "feat-é", "--no-sync", "--non-interactive"],
+  "workspace": {"fixture": "fixtures/branch-repo", "cwd": ".", "home": "temporary", "temp": "temporary"},
+  "steps": [
+    {"expect": "feat-é is now a child of main"},
+    {"exit": 0},
+    {"state": {"path": ".git/HEAD", "kind": "file", "bytes_base64": "cmVmOiByZWZzL2hlYWRzL2ZlYXQtw6kK"}}
+  ]
+}

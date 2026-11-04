@@ -1,0 +1,11 @@
+{
+  "version": 3,
+  "name": "Read a configured branch parent",
+  "command": ["git-town", "config", "get-parent", "feat-blue"],
+  "workspace": {"fixture": "fixtures/branch-repo", "cwd": ".", "home": "temporary", "temp": "temporary"},
+  "steps": [
+    {"expect": "main"},
+    {"exit": 0},
+    {"state": {"path": ".git/HEAD", "kind": "file", "bytes_base64": "cmVmOiByZWZzL2hlYWRzL21haW4K"}}
+  ]
+}

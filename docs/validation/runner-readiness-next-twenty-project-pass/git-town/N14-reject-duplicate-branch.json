@@ -1,0 +1,11 @@
+{
+  "version": 3,
+  "name": "Reject creation of an existing branch and preserve HEAD",
+  "command": ["git-town", "hack", "feat-blue", "--no-sync", "--non-interactive"],
+  "workspace": {"fixture": "fixtures/branch-repo", "cwd": ".", "home": "temporary", "temp": "temporary"},
+  "steps": [
+    {"expect": "already a branch feat-blue"},
+    {"exit": 1},
+    {"state": {"path": ".git/HEAD", "kind": "file", "bytes_base64": "cmVmOiByZWZzL2hlYWRzL21haW4K"}}
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "version": 3,
+  "name": "Create a feature branch with its reviewed parent",
+  "command": ["git-town", "hack", "--no-sync", "--non-interactive", "feat-red"],
+  "workspace": {"fixture": "fixtures/branch-repo", "cwd": ".", "home": "temporary", "temp": "temporary"},
+  "steps": [
+    {"expect": "branch feat-red is now a child of main"},
+    {"exit": 0},
+    {"state": {"path": ".git/HEAD", "kind": "file", "bytes_base64": "cmVmOiByZWZzL2hlYWRzL2ZlYXQtcmVkCg=="}}
+  ]
+}

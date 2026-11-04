@@ -1,0 +1,11 @@
+{
+  "version": 3,
+  "name": "Create a prototype branch without synchronizing",
+  "command": ["git-town", "hack", "proto-green", "--prototype", "--no-sync", "--non-interactive"],
+  "workspace": {"fixture": "fixtures/branch-repo", "cwd": ".", "home": "temporary", "temp": "temporary"},
+  "steps": [
+    {"expect": "proto-green is now a child of main"},
+    {"exit": 0},
+    {"state": {"path": ".git/HEAD", "kind": "file", "bytes_base64": "cmVmOiByZWZzL2hlYWRzL3Byb3RvLWdyZWVuCg=="}}
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "run": "41827379961",
+  "host": "windows-2025",
+  "tooling_revision": "47d5ff9bdaabadbf98539a8dce81ecb33fed3012",
+  "job_conclusion": "success",
+  "artifact": {
+    "id": 13320217338,
+    "name": "next20-harness-windows-2025.zip",
+    "bytes": 710350,
+    "sha256": "47735bf2feed42c92321c7b188e03922c45bcd6ae2f5aa5835b34a0ce29669c4",
+    "retained_local_path": "artifacts/runner-readiness-next-twenty-project-pass/retrieved/next20-harness-windows.zip",
+    "expanded_on_disk": false
+  },
+  "checks": [
+    {
+      "label": "native-next20-syntax",
+      "attempt": "1894ee09075c496787626c6a59c1db98",
+      "category": "passed",
+      "exit_code": 0,
+      "harness_cleanup": "harness_process_reaped",
+      "console_sha256": "97a0f734ae9e76dc265dce764ffe4f36e9dc5f9df2936d31da1937aa9e676baa",
+      "identity_sha256": "c469054ce1bdf95ca23d58ab51c2500cb8d1f2f309c61e57a5b0cc5a65d90472",
+      "evidence": "Parsed 288 next20 helper files"
+    },
+    {
+      "label": "native-next20-command-controls",
+      "attempt": "b08e9fa90f044afebb0bb96689c387de",
+      "category": "passed",
+      "exit_code": 0,
+      "harness_cleanup": "harness_process_reaped",
+      "console_sha256": "fcf7f23874f85576e196f02e5afc4274b2dad2b71a251d8ffd1584d7293b8a2a",
+      "identity_sha256": "c469054ce1bdf95ca23d58ab51c2500cb8d1f2f309c61e57a5b0cc5a65d90472",
+      "evidence": "68 named tests: 66 passed, 2 explicit host skips"
+    },
+    {
+      "label": "failed-console-regression-a0b5d76e703c49429777a4513e7c6c23",
+      "attempt": "c3361219d654423e94a4550b16333391",
+      "intentional_failure_control": true,
+      "category": "exit_mismatch",
+      "exit_code": 3,
+      "harness_cleanup": "harness_process_reaped",
+      "console_sha256": "a3b2fbabca12f9adc943847926c1ba5c9912d11d67fc312a279322e1590498a5",
+      "identity_sha256": "c469054ce1bdf95ca23d58ab51c2500cb8d1f2f309c61e57a5b0cc5a65d90472",
+      "evidence": "Retained exact expected-failure console"
+    }
+  ],
+  "named_controls_passed": 66,
+  "tests_discovered": 68,
+  "skips": [
+    {
+      "test": "test_actual_readonly_module_cache_can_be_removed_after_preparation (test_next20_readonly_cleanup.ReadonlyCleanup.test_actual_readonly_module_cache_can_be_removed_after_preparation)",
+      "reason": "native Unix read-only directory permissions"
+    },
+    {
+      "test": "test_foreign_root_and_link_are_refused_without_touching_destination (test_next20_readonly_cleanup.ReadonlyCleanup.test_foreign_root_and_link_are_refused_without_touching_destination)",
+      "reason": "native Unix read-only directory permissions"
+    }
+  ],
+  "native_removal_commands": "Present in retained Windows artifact; not counted as project evidence.",
+  "new_project_credit": 0,
+  "expanded_removal_confirmed": null,
+  "scope": "Three-host readiness harness: source-bound helper syntax, named actual-control suite, and retained intentional failure. No application or archive-product-control reexecution credit.",
+  "identity_manifests_verified": [
+    {
+      "path": "identities/c469054ce1bdf95ca23d58ab51c2500cb8d1f2f309c61e57a5b0cc5a65d90472.json",
+      "sha256": "c469054ce1bdf95ca23d58ab51c2500cb8d1f2f309c61e57a5b0cc5a65d90472",
+      "file_count": 752,
+      "host": "Windows",
+      "architecture": "AMD64"
+    },
+    {
+      "path": "identities/c469054ce1bdf95ca23d58ab51c2500cb8d1f2f309c61e57a5b0cc5a65d90472.json",
+      "sha256": "c469054ce1bdf95ca23d58ab51c2500cb8d1f2f309c61e57a5b0cc5a65d90472",
+      "file_count": 752,
+      "host": "Windows",
+      "architecture": "AMD64"
+    },
+    {
+      "path": "identities/c469054ce1bdf95ca23d58ab51c2500cb8d1f2f309c61e57a5b0cc5a65d90472.json",
+      "sha256": "c469054ce1bdf95ca23d58ab51c2500cb8d1f2f309c61e57a5b0cc5a65d90472",
+      "file_count": 752,
+      "host": "Windows",
+      "architecture": "AMD64"
+    }
+  ]
+}

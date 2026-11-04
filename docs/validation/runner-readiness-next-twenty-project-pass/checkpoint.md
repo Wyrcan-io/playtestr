@@ -3314,3 +3314,11 @@ Hosted Skim attempt2: run41805071820 Windows job126489955343 failed source verif
 
 
 Hosted Skim attempt2 Linux: source verification, locked fetch, 53-hook review and pinned Linux build all succeeded at run41805071820/job126489955015. The 20-case helper completed all20 but reported0 passing/20 failed; no scenario/native-cell credit. Artifact13310040820 is283,866,528 bytes, digest91dd4363ea52f1dfdf3e873b17f7133ada1293b71201110f80a1e837f5d95c38; preserve cases until per-case failure classifications are read back. Cross-platform specs name `bin/sk.exe` while ELF build emits `bin/sk`, so add a byte-identical Linux alias. Wrapper logs now print per-case category/message/steps; artifact paths narrowed to exact source, case, locked-crate and receipt inputs so target/compiler caches are not uploaded. Windows source CRLF cause/reset remain in attempt v2. Full attempt receipt: skim/hosted-development-attempts-v3.json.
+
+## Project 9: Git Town development checkpoint
+
+Pinned `git-town/git-town` at `8d039892574d4852e1843020c31d423234042e78` (MIT). The 5,504,823-byte source archive and all 4,533 primary Git blobs were verified. Build-hook review excluded upstream Makefile bootstrap/release routes. Native Windows/amd64 Go 1.27.0 built the vendored workspace successfully; executable SHA-256 is `e16a0c20bf8c36ef93e01488f50469ddc793e826d93caf6337a075fe8da2163b`.
+
+Twenty exact public v3 specs are frozen in `git-town/scenario-catalog-v1.json` (8 normal, 12 edge). All twenty passed once on native Windows against a synthetic repository, with same-run terminal/exit/state evidence and workspace cleanup. The 32-attempt readback retains twelve earlier failed attempts as separate outcomes. Two remote-dependent exploratory commands (`observe`, `contribute`) were refused by the intentionally no-remote fixture and excluded from the frozen set.
+
+This is development evidence only. Git Town has zero final-series, native-cell, calibration, fault-detection, current-candidate or admission credit. The new `.github/workflows/runner-readiness-next20-git-town.yml` is prepared for hosted Ubuntu/Windows runs; hosted validation, source faults, public authoring/maintenance/relocation and target cleanup remain open.

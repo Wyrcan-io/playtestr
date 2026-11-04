@@ -1,0 +1,11 @@
+{
+  "version": 3,
+  "name": "Rename a local branch and verify the exact refs directory",
+  "command": ["git-town", "rename", "feat-blue", "feat-green"],
+  "workspace": {"fixture": "fixtures/branch-repo", "cwd": ".", "home": "temporary", "temp": "temporary"},
+  "steps": [
+    {"expect": "feat-blue"},
+    {"exit": 0},
+    {"state": {"path": ".git/refs/heads", "kind": "entries", "entries": ["feat-green", "main"]}}
+  ]
+}

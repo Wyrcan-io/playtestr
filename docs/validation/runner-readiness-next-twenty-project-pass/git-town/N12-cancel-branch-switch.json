@@ -1,0 +1,12 @@
+{
+  "version": 3,
+  "name": "Cancel visual branch selection without changing the current branch",
+  "command": ["git-town", "switch"],
+  "workspace": {"fixture": "fixtures/branch-repo", "cwd": ".", "home": "temporary", "temp": "temporary"},
+  "steps": [
+    {"expect": "feat-blue"},
+    {"key": "Escape"},
+    {"exit": 0},
+    {"state": {"path": ".git/HEAD", "kind": "file", "bytes_base64": "cmVmOiByZWZzL2hlYWRzL21haW4K"}}
+  ]
+}

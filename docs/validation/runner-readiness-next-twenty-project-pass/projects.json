@@ -417,6 +417,36 @@
       "development_fault_matrix": "skim/source-development-readback-v2.json",
       "development_fault_matrix_sha256": "d0889fa6bbe09c5b7427ad9c45771ef73a89436ec0e1fb062b2d3c5ba5cc607b",
       "current_candidate_qualified": false
+    },
+    {
+      "id": "git-town",
+      "repository": "git-town/git-town",
+      "pin": "8d039892574d4852e1843020c31d423234042e78",
+      "status": "20-scenario Windows development series passed; hosted native matrix pending",
+      "admitted": false,
+      "current_candidate_qualified": false,
+      "planned_hosts": [
+        "linux",
+        "windows"
+      ],
+      "source_blobs_verified": 4533,
+      "source_archive_sha256": "2a47fe65b7f21f6a99bfeefd00dfeffce394dd7db733b47e5b87904c9947ab8a",
+      "windows_executable_sha256": "e16a0c20bf8c36ef93e01488f50469ddc793e826d93caf6337a075fe8da2163b",
+      "development_scenario_catalog": "git-town/scenario-catalog-v1.json",
+      "development_scenario_catalog_sha256": "d2096be7478b0b9cf934eb2f64c96297d67e3407a9360f62a6534284d75b7f4f",
+      "development_readback": "git-town/development-readback-v2.json",
+      "development_readback_sha256": "ec1ccc2417d72fbd56d005e13b3852100e314608d6c4087ace4b5c62867f7165",
+      "development_attempts": 32,
+      "development_passed_once": 20,
+      "development_failed_attempts_preserved": 12,
+      "development_native_host": "windows-amd64; local managed-workspace preflight required native access",
+      "qualified_scenarios": 0,
+      "qualified_native_cells": 0,
+      "ordinary_executions_qualified": 0,
+      "calibration_executions_qualified": 0,
+      "real_source_faults_detected": 0,
+      "candidate_admissions": [],
+      "open": "Hosted Linux/Windows matrix, final repetitions, real source faults, calibration, public authoring/maintenance/relocation, cleanup and candidate qualification."
     }
   ],
   "observed_audited_ordinary_executions": 1920,

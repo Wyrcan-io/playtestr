@@ -1,0 +1,12 @@
+{
+  "version": 3,
+  "name": "Filter the visual switcher to feature branches and select one",
+  "command": ["git-town", "switch", "--type", "feature"],
+  "workspace": {"fixture": "fixtures/branch-repo", "cwd": ".", "home": "temporary", "temp": "temporary"},
+  "steps": [
+    {"expect": "feat-blue"},
+    {"key": "Enter"},
+    {"exit": 0},
+    {"state": {"path": ".git/HEAD", "kind": "file", "bytes_base64": "cmVmOiByZWZzL2hlYWRzL2ZlYXQtYmx1ZQo="}}
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "version": 3,
+  "name": "Park an existing feature branch",
+  "command": [
+    "git-town",
+    "park",
+    "feat-blue"
+  ],
+  "workspace": {
+    "fixture": "fixtures/branch-repo",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "steps": [
+    {
+      "expect": "branch feat-blue is now parked"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": ".git/config",
+        "kind": "file",
+        "bytes_base64": "W2NvcmVdCglyZXBvc2l0b3J5Zm9ybWF0dmVyc2lvbiA9IDAKCWZpbGVtb2RlID0gZmFsc2UKCWJhcmUgPSBmYWxzZQoJbG9nYWxscmVmdXBkYXRlcyA9IHRydWUKCXN5bWxpbmtzID0gZmFsc2UKCWlnbm9yZWNhc2UgPSB0cnVlClt1c2VyXQoJbmFtZSA9IENhbXBhaWduIEZpeHR1cmUKCWVtYWlsID0gZml4dHVyZUBleGFtcGxlLmludmFsaWQKW2dpdC10b3duXQoJbWFpbi1icmFuY2ggPSBtYWluCltnaXQtdG93bi1icmFuY2ggImZlYXQtYmx1ZSJdCglwYXJlbnQgPSBtYWluCglicmFuY2h0eXBlID0gcGFya2VkCg=="
+      }
+    }
+  ]
+}

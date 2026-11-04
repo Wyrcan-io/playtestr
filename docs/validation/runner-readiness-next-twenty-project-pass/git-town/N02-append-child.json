@@ -1,0 +1,11 @@
+{
+  "version": 3,
+  "name": "Append a child branch to the current branch",
+  "command": ["git-town", "append", "feat-green", "--no-sync", "--non-interactive"],
+  "workspace": {"fixture": "fixtures/branch-repo", "cwd": ".", "home": "temporary", "temp": "temporary"},
+  "steps": [
+    {"expect": "feat-green is now a child of main"},
+    {"exit": 0},
+    {"state": {"path": ".git/HEAD", "kind": "file", "bytes_base64": "cmVmOiByZWZzL2hlYWRzL2ZlYXQtZ3JlZW4K"}}
+  ]
+}

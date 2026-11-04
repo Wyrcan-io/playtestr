@@ -1,0 +1,11 @@
+{
+  "version": 3,
+  "name": "Create a feature branch with a slash component",
+  "command": ["git-town", "hack", "feat/docs", "--no-sync", "--non-interactive"],
+  "workspace": {"fixture": "fixtures/branch-repo", "cwd": ".", "home": "temporary", "temp": "temporary"},
+  "steps": [
+    {"expect": "feat/docs is now a child of main"},
+    {"exit": 0},
+    {"state": {"path": ".git/HEAD", "kind": "file", "bytes_base64": "cmVmOiByZWZzL2hlYWRzL2ZlYXQvZG9jcwo="}}
+  ]
+}
