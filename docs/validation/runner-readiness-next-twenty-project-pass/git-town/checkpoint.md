@@ -56,3 +56,6 @@ Fault-matrix attempt ledger (all attempts retained; zero fault credit): [fault-m
 
 
 Hosted run 41921911209 on the v2 mutation passed 20/20 ordinary cases per host, then the F01 fault validator refused the corrupted report. The job wrapper did not retain the report category or step statuses, so there is no confirmed fault credit; see the revised attempt ledger. A separate direct run of the same native mutation produced `mai` and exited zero. The next validator revision records full failure details. The local managed-workspace preflight also remains an unlaunched attempt; it is not mixed with target evidence.
+
+
+Run 41924706057 passed all twenty public cases on Linux and Windows and exercised F01. Both native reports show the unchanged N03 assertion detected `mai`; Git Town exited zero and Playtestr correctly recorded `unexpected_exit`, with target termination and workspace cleanup confirmed. The v2 declaration had the wrong category (`assertion_timeout`), so the validator preserved the failure and granted no fault-matrix credit. Declaration v3 preserves the mutation and spec and expects the measured category. Full receipts: [fault-matrix-hosted-attempts-v2.json](fault-matrix-hosted-attempts-v2.json). The two earlier hosted attempt ledgers remain unchanged.

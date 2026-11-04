@@ -19,7 +19,7 @@ FAULTS = [
     dict(id='F01-parent-output', file='internal/cmd/config/get_parent.go',
          old=b'fmt.Print(parent)', new=b'fmt.Print(parent[:len(parent)-1])',
          spec='N03-read-parent.json', expected_runner_exit=1,
-         expected_failure_category='assertion_timeout',
+         expected_failure_category='unexpected_exit',
          requirement='The configured parent command must print the configured parent.'),
     dict(id='F02-feature-refusal', file='internal/cmd/hack.go',
          old=b'if branchesSnapshot.Branches.HasLocalBranch(targetBranch) {',
@@ -191,6 +191,10 @@ def run_case(target, source, fault, phase, expected_exit, binary):
         immutable_json(refusal_path, failed_case)
         raise RuntimeError('mutated source did not create the declared observable failure: ' +
                            json.dumps(failed_case, ensure_ascii=True, sort_keys=True))
+    if fault['id'] == 'F01-parent-output' and expected_failure:
+        failure_message = result_failure.get('message') or ''
+        if 'process exited with code 0 before assertion matched' not in failure_message:
+            raise RuntimeError('F01 must positively prove Git Town exited zero before N03 matched')
     if not expected_failure and (failed_steps or summary.get('passed') != 1 or
                                  summary.get('failed') != 0 or summary.get('total') != 1):
         raise RuntimeError('pristine/restored source did not pass its unchanged public contract')
@@ -216,7 +220,7 @@ def main():
     source = target / 'src'
     provenance_path = DOC / PROJECT / 'source-provenance.json'
     provenance = json.loads(provenance_path.read_text(encoding='utf-8'))
-    declaration_path = DOC / PROJECT / 'fault-declaration-v2.json'
+    declaration_path = DOC / PROJECT / 'fault-declaration-v3.json'
     declaration = json.loads(declaration_path.read_text(encoding='utf-8'))
     acquisition_path = target / 'acquisition.json'
     acquisition = json.loads(acquisition_path.read_text(encoding='utf-8'))
@@ -272,7 +276,7 @@ def main():
         source_identity=source_identity,
         matrix_id=uuid.uuid4().hex,
         source_provenance_sha256=sha256(provenance_path),
-        fault_declaration='git-town/fault-declaration-v2.json',
+        fault_declaration='git-town/fault-declaration-v3.json',
         fault_declaration_sha256=sha256(declaration_path),
         scenario_catalog_sha256=sha256(DOC / PROJECT / 'scenario-catalog-v3.json'),
         unchanged_specs=[dict(path=fault['spec'], sha256=sha256(DOC / PROJECT / fault['spec']))
@@ -339,7 +343,7 @@ def main():
                 restored_executable_sha256=restored_build['executable_sha256']))
         record = dict(schema_version=1, project=PROJECT, host=args.host,
             source_pin=PIN, source_provenance_sha256=sha256(provenance_path),
-            fault_declaration='git-town/fault-declaration-v2.json',
+            fault_declaration='git-town/fault-declaration-v3.json',
             fault_declaration_sha256=sha256(declaration_path),
             scenario_catalog_sha256=started['scenario_catalog_sha256'],
             started_sha256=sha256(start_path), faults=results,
