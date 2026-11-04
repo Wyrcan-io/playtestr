@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "project": "git-town",
+  "attempts": [
+    {
+      "run_id": "41930229763",
+      "head_sha": "fa167686c02f8e458f334745ad4641122145806a",
+      "fault_declaration": "fault-declaration-v4.json",
+      "native_cells": [
+        {
+          "host": "ubuntu-24.04",
+          "job_id": "126924949674",
+          "public_cases_passed": 20,
+          "linux_package_tests": "passed",
+          "linux_race_tests": "passed",
+          "F01": {
+            "pristine_and_corrupted_targets_launched": true,
+            "pristine_contract_passed": true,
+            "corrupted_failure_category": "unexpected_exit",
+            "corrupted_target_exit_code": 0,
+            "cleanup_confirmed": true,
+            "restored_recovery_launched": false,
+            "validator_error": "Later not_run exit and state steps were counted as additional failed steps."
+          },
+          "artifact_id": "13371003305",
+          "artifact_size_bytes": 30723367,
+          "artifact_sha256": "0dac207d426d64b9b24d2ba25f5a64b08b9b9485e074ac4fe6a96da315424538"
+        },
+        {
+          "host": "windows-2025",
+          "job_id": "126924950159",
+          "public_cases_passed": 20,
+          "F01": {
+            "pristine_and_corrupted_targets_launched": true,
+            "pristine_contract_passed": true,
+            "corrupted_failure_category": "unexpected_exit",
+            "corrupted_target_exit_code": 0,
+            "cleanup_confirmed": true,
+            "restored_recovery_launched": false,
+            "validator_error": "Later not_run exit and state steps were counted as additional failed steps."
+          },
+          "artifact_id": "13371966369",
+          "artifact_size_bytes": 30968371,
+          "artifact_sha256": "a28c8496ae677dfd860f24ec5f96c5c0e12839bae17464a75ed65b1861c63878"
+        }
+      ],
+      "qualification_credit": 0,
+      "independent_artifact_audit": "pending"
+    }
+  ],
+  "qualification_credit": 0
+}
