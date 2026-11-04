@@ -54,7 +54,8 @@ def main():
     dirty = run(['git', 'status', '--porcelain=v1', '--untracked-files=no'],
                 cwd=source, env=os.environ).stdout
     if dirty:
-        raise ValueError('Git Town pinned checkout has tracked modifications')
+        raise ValueError('Git Town pinned checkout has tracked modifications: ' +
+                         dirty.decode('utf-8', 'replace')[:4096])
 
     expected = provenance['files']
     actual = {}

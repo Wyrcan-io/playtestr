@@ -112,6 +112,12 @@ async def main():
         report=report_data, console=result['output'] if result else None)
     immutable_json(report_root / 'finished.json', outcome)
     if not result:
+        summary = report_data.get('summary') if isinstance(report_data, dict) else None
+        print('Git Town case failure detail:', json.dumps(dict(
+            label=args.label, error=error, runner_attempt_id=outcome['runner_attempt_id'],
+            report_summary=summary, report_sha256=outcome['report_sha256'],
+            console_tail=(result['output'][-4096:] if result else None)),
+            ensure_ascii=True), flush=True)
         raise RuntimeError('Git Town Playtestr case failed; inspect ' +
                            str((report_root / 'finished.json').relative_to(ROOT)))
     print('Git Town case', args.label, 'runner exit', result['returncode'],
