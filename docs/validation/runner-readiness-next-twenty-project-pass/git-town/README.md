@@ -113,3 +113,6 @@ cleanup. Artifacts, per-case report hashes, and the v4 failure are preserved in
 This closes Git Town source-development only. Qualification, fault detection,
 public authoring/maintenance, relocation, exact-candidate repetition and cleanup
 audit remain open; no admission or native-cell credit is added.
+
+
+The v5 source-development checkpoint supersedes the earlier pending statements: the Linux runner/VT package checks, race checks, and exact twenty-case source matrix passed. Three genuine source faults are predeclared in [fault-declaration-v1.json](fault-declaration-v1.json); the hosted workflow runs baseline, corrupted, and restored/rebuilt phases on Ubuntu and Windows. Those results and the v5 matrix remain development evidence until independently audited and rerun on the exact final candidate. The public authoring, maintenance, relocation, and final qualification gates remain open.

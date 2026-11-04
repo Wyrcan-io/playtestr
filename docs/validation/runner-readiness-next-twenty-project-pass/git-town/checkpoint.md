@@ -42,3 +42,10 @@ record. This remains source-development evidence: Git Town has zero project
 qualification, current-candidate or native-cell credit. Fault detection, public
 authoring, maintenance, relocation, repeated candidate series, and final cleanup
 audit remain open.
+
+
+Three source mutations are predeclared in [fault-declaration-v1.json](fault-declaration-v1.json), with unchanged tests for parent output, feature branch creation, and prototype state persistence. The hosted workflow verifies the pinned source tree before running each baseline, mutation, and restoration phase. It keeps each fault executable separate from the initial runtime and reports the expected failure category; the false-green case must pass terminal and exit assertions before the saved-state assertion fails.
+
+Local harness rehearsals and their exact failures are preserved in [fault-matrix-local-harness-attempt-v1.json](fault-matrix-local-harness-attempt-v1.json). They add no project or fault credit. The local Windows workspace setup did not launch a scenario target, so native hosted execution is required.
+
+Next gates: complete and audit the hosted fault matrix; run the public recorder path without handwritten specs, selected maintenance, Unicode/spaced-path relocation, and delivered free-workflow checks; then complete the exact final-candidate twelve-run cell, calibration, and cleanup audit. No Git Town admission or native-cell credit is claimed yet.

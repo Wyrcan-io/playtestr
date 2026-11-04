@@ -116,6 +116,8 @@ jobs:
             if ($LASTEXITCODE -ne 0) { $failed++ }
           }
           if ($failed -ne 0) { throw "$failed of $($cases.Count) Git Town public specs failed" }
+      - name: Detect three exact pinned-source faults and verify rebuild recovery
+        run: python -B scripts/acceptance/next20_git_town_faults.py --host ${{ matrix.host }}
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
@@ -131,6 +133,12 @@ jobs:
             artifacts/runner-readiness-next-twenty-project-pass/active/git-town/src/**
             artifacts/runner-readiness-next-twenty-project-pass/active/git-town/case-evidence/**
             artifacts/runner-readiness-next-twenty-project-pass/active/git-town/controlling-tty-probe/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/fault-events/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/fault-builds/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/fault-binaries/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/case-evidence/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/fault-matrix-started-*.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/fault-prelaunch-refusal-*.json
             artifacts/runner-readiness-next-twenty-project-pass/git-town/**
           include-hidden-files: true
           if-no-files-found: error

@@ -17,7 +17,7 @@ from readiness_evidence import immutable_json, sha256
 PROJECT = 'git-town'
 
 
-def isolated_env(target):
+def isolated_env(target, executable=None):
     env = {key: value for key, value in os.environ.items()
            if key.upper() in {'PATH', 'PATHEXT', 'SYSTEMROOT', 'WINDIR', 'COMSPEC',
                               'SYSTEMDRIVE', 'PROGRAMFILES', 'PROGRAMFILES(X86)', 'PROGRAMW6432'}}
@@ -45,7 +45,11 @@ def isolated_env(target):
     if not Path(cache).is_dir():
         raise ValueError('pre-existing Go module cache for the Playtestr CLI is unavailable')
     env['GOMODCACHE'] = cache
-    binary = target / 'bin' / ('git-town.exe' if os.name == 'nt' else 'git-town')
+    candidate = Path(executable) if executable else target / 'bin' / ('git-town.exe' if os.name == 'nt' else 'git-town')
+    if candidate.is_symlink() or getattr(candidate, 'is_junction', lambda: False)():
+        raise ValueError('Git Town executable is linked')
+    binary = candidate.resolve(strict=True)
+    binary.relative_to(target.resolve(strict=True))
     if not binary.is_file() or binary.is_symlink():
         raise ValueError('exact reviewed Git Town executable is missing or linked')
     env['PATH'] = str(binary.parent) + os.pathsep + env.get('PATH', '')
@@ -56,6 +60,8 @@ async def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--label', required=True)
     parser.add_argument('--expected-runner-exit', type=int, default=0)
+    parser.add_argument('--phase', default='development')
+    parser.add_argument('--executable')
     parser.add_argument('spec')
     args = parser.parse_args()
     target = RAW / 'active' / PROJECT
@@ -80,7 +86,7 @@ async def main():
                 'bytes': len(payload), 'sha256': hashlib.sha256(payload).hexdigest()}
     if files != manifest['files'] or total != manifest['total_bytes']:
         raise ValueError('Git Town source fixture changed before scenario execution')
-    env, binary = isolated_env(target)
+    env, binary = isolated_env(target, args.executable)
     case_id = uuid.uuid4().hex
     report_root = target / 'case-evidence' / case_id
     report_root.mkdir(parents=True, exist_ok=False)
@@ -100,7 +106,7 @@ async def main():
     try:
         result = await execute(argv, PROJECT, 'playtestr-git-town-' + args.label,
             cwd=ROOT, env=env, timeout=300, expected=args.expected_runner_exit,
-            campaign=NextCampaign(phase='development'), output_cap=2 * 1024 * 1024)
+            campaign=NextCampaign(phase=args.phase), output_cap=2 * 1024 * 1024)
     except Exception as exc:
         error = dict(type=type(exc).__name__, message=str(exc)[:2048],
             attempt_id=getattr(exc, 'evidence_id', None),
