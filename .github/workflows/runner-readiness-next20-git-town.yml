@@ -82,6 +82,8 @@ jobs:
         run: |
           go mod download
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Verify exact frozen Git Town spec bytes before target launch
+        run: python -B scripts/acceptance/next20_git_town_catalog.py docs/validation/runner-readiness-next-twenty-project-pass/git-town/scenario-catalog-v3.json
       - name: Verify and build pinned Git Town
         run: python -B scripts/acceptance/next20_git_town_prepare.py
       - name: Create and verify the synthetic no-remote repository
