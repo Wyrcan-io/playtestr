@@ -3,6 +3,7 @@ import json
 import argparse
 from pathlib import Path
 import subprocess
+import os
 
 from next20_check import RAW, ROOT
 from readiness_evidence import immutable_json, sha256
@@ -12,6 +13,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--verify-only', action='store_true',
                         help='compare an already acquired source tree without writing hosted receipts')
+    parser.add_argument('--normalize-windows-checkout', action='store_true',
+                        help='restore the owned checkout from pinned Git blobs before byte verification')
     args = parser.parse_args()
     project = RAW / 'active' / 'skim'
     source = project / 'src'
@@ -28,6 +31,60 @@ def main():
                                   capture_output=True, text=True, timeout=15).stdout.strip()
         if revision != pin:
             raise ValueError('hosted Skim checkout is not the reviewed immutable commit')
+    if args.normalize_windows_checkout:
+        if os.name != 'nt' or args.verify_only:
+            raise ValueError('Windows checkout normalization requires the pinned hosted Git checkout')
+        tree = subprocess.run(['git', '-C', str(source), 'ls-tree', '-r', '-z', 'HEAD'],
+                              check=True, capture_output=True, timeout=30).stdout
+        entries = {}
+        for record in tree.split(b'\0'):
+            if not record:
+                continue
+            header, raw_path = record.split(b'\t', 1)
+            mode, kind, oid = header.split(b' ', 2)
+            entries[raw_path.decode('utf-8')] = (mode.decode('ascii'), kind.decode('ascii'), oid.decode('ascii'))
+        expected_paths = set(provenance['files']) | set(provenance.get('omitted_documentation_links', {}))
+        if set(entries) != expected_paths:
+            raise ValueError('pinned Git tree path set differs from reviewed provenance')
+        blob_paths = [name for name in sorted(provenance['files'])]
+        batch = subprocess.run(['git', '-C', str(source), 'cat-file', '--batch'],
+                               input=''.join(entries[name][2] + '\n' for name in blob_paths).encode('ascii'),
+                               check=True, capture_output=True, timeout=60).stdout
+        offset = 0
+        restored = 0
+        for name in blob_paths:
+            header_end = batch.find(b'\n', offset)
+            oid, kind, size = batch[offset:header_end].decode('ascii').split(' ')
+            if kind != 'blob':
+                raise ValueError('expected Git blob for ' + name)
+            start = header_end + 1
+            end = start + int(size)
+            data = batch[start:end]
+            offset = end + 1
+            mode, tree_kind, tree_oid = entries[name]
+            if tree_kind != 'blob' or mode not in {'100644', '100755'} or tree_oid != oid:
+                raise ValueError('unexpected Git entry type for ' + name)
+            if sha256_bytes(data) != provenance['files'][name]:
+                raise ValueError('pinned Git blob differs from reviewed archive for ' + name)
+            destination = source.joinpath(*name.split('/'))
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            destination.write_bytes(data)
+            restored += 1
+        for name, row in provenance.get('omitted_documentation_links', {}).items():
+            mode, tree_kind, oid = entries[name]
+            if mode != row.get('git_mode') or tree_kind != 'blob' or oid != row.get('git_blob_sha1'):
+                raise ValueError('documented omission is not the reviewed Git symlink: ' + name)
+            destination = source.joinpath(*name.split('/'))
+            if destination.exists() or destination.is_symlink():
+                target_name = row['target']
+                target_bytes = source.joinpath(*target_name.split('/')).read_bytes()
+                if destination.is_symlink():
+                    if destination.readlink().as_posix() != target_name:
+                        raise ValueError('documented checkout link target changed: ' + name)
+                elif destination.read_bytes() not in {target_bytes, target_name.encode('utf-8'), target_name.replace('/', '\\').encode('utf-8')}:
+                    raise ValueError('documented checkout link placeholder changed: ' + name)
+                destination.unlink()
+        print('Restored', restored, 'pinned Git blobs to canonical bytes.')
     actual = {}
     total = 0
     omitted = provenance.get('omitted_documentation_links', {})

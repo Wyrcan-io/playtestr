@@ -72,15 +72,7 @@ jobs:
           fetch-depth: 1
       - name: Reset Windows checkout to exact Git blob bytes
         if: matrix.host == 'windows'
-        run: |
-          $source = Join-Path $env:GITHUB_WORKSPACE 'artifacts/runner-readiness-next-twenty-project-pass/active/skim/src'
-          git -C $source config --local core.autocrlf false
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          git -C $source checkout-index --all --force
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-      - name: Read back canonical Windows source bytes after checkout reset
-        if: matrix.host == 'windows'
-        run: python -B scripts/acceptance/next20_skim_source_verify.py
+        run: python -B scripts/acceptance/next20_skim_source_verify.py --normalize-windows-checkout
       - name: Verify exact upstream files before Cargo execution
         run: python -B scripts/acceptance/next20_skim_source_verify.py
       - name: Download locked Playtestr Go modules into the owned cache
