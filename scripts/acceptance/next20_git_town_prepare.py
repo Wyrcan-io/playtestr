@@ -5,6 +5,7 @@ from pathlib import Path
 import platform
 import subprocess
 import sys
+import tarfile
 
 from next20_check import DOC, RAW, ROOT
 from readiness_evidence import immutable_json, sha256
@@ -53,6 +54,43 @@ def main():
         raise ValueError('Git Town checkout commit differs from declared immutable pin')
     dirty = run(['git', 'status', '--porcelain=v1', '--untracked-files=no'],
                 cwd=source, env=os.environ).stdout
+    if dirty:
+        if os.name != 'nt':
+            raise ValueError('Git Town pinned checkout has tracked modifications: ' +
+                             dirty.decode('utf-8', 'replace')[:4096])
+        # GitHub's Windows checkout can leave Go files CRLF-converted even
+        # after core.autocrlf is disabled and checkout-index is forced. Restore
+        # the already reviewed commit from Git's archive bytes, writing only
+        # paths declared by the immutable provenance manifest.
+        expected = provenance['files']
+        archive_path = target / 'pinned-source.tar'
+        with archive_path.open('wb') as archive_file:
+            archived = subprocess.run(['git', 'archive', '--format=tar', PIN],
+                cwd=source, env=os.environ, stdout=archive_file,
+                stderr=subprocess.PIPE, timeout=120, check=False)
+        if archived.returncode:
+            archive_path.unlink(missing_ok=True)
+            raise RuntimeError('Git Town canonical source archive failed: ' +
+                archived.stderr[-2048:].decode('utf-8', 'replace'))
+        restored = set()
+        with tarfile.open(archive_path, 'r:') as tar:
+            members = tar.getmembers()
+            if len(members) != len(expected):
+                raise ValueError('Git Town canonical archive member count differs')
+            for member in members:
+                name = Path(member.name).as_posix()
+                if name not in expected or name in restored or not member.isfile():
+                    raise ValueError('Git Town canonical archive contains an unreviewed member: ' + name)
+                payload = tar.extractfile(member).read()
+                destination = source / Path(name)
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                destination.write_bytes(payload)
+                restored.add(name)
+        archive_path.unlink()
+        if restored != set(expected):
+            raise ValueError('Git Town canonical archive did not restore every reviewed source file')
+        dirty = run(['git', 'status', '--porcelain=v1', '--untracked-files=no'],
+                    cwd=source, env=os.environ).stdout
     if dirty:
         raise ValueError('Git Town pinned checkout has tracked modifications: ' +
                          dirty.decode('utf-8', 'replace')[:4096])
