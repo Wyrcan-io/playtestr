@@ -1,0 +1,39 @@
+{
+  "command": [
+    "../../../../artifacts/runner-readiness-next-twenty-project-pass/active/skim-faults/skim-exit-empty-01/bin/sk.exe",
+    "--no-sort",
+    "--query=never-present"
+  ],
+  "env": {
+    "SKIM_DEFAULT_COMMAND": "python emit.py"
+  },
+  "height": 24,
+  "inherit_env": [
+    "PATH",
+    "SystemRoot",
+    "COMSPEC"
+  ],
+  "max_output_bytes": 2000000,
+  "name": "Skim SKIM-EXIT-EMPTY-01 fault-detection case",
+  "run_timeout_ms": 30000,
+  "startup_timeout_ms": 15000,
+  "steps": [
+    {
+      "expect": "0/3"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 1
+    }
+  ],
+  "timeout_ms": 10000,
+  "version": 3,
+  "width": 120,
+  "workspace": {
+    "fixture": "../fixtures/cases/E02",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

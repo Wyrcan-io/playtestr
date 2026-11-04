@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/runner-readiness-next20-skim.yml'
       - 'scripts/acceptance/next20_skim_*.py'
+      - 'scripts/acceptance/next20_skim_faults.py'
       - 'scripts/acceptance/next20_bootstrap_go.py'
       - 'scripts/acceptance/next20_rust_fetch.py'
       - 'scripts/acceptance/next20_playtestr_case.py'
@@ -129,6 +130,9 @@ jobs:
           --hook-review artifacts/runner-readiness-next-twenty-project-pass/active/skim/dependency-hook-review-host.json
       - name: Run the frozen twenty-case source-development matrix
         run: python -B scripts/acceptance/next20_skim_hosted_cases.py --host '${{ matrix.host }}' --rounds 1
+      - name: Require three real Skim source faults detected by frozen public cases
+        if: matrix.host == 'windows'
+        run: python -B scripts/acceptance/next20_skim_faults.py
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
@@ -151,6 +155,7 @@ jobs:
             artifacts/runner-readiness-next-twenty-project-pass/active/skim/bin/**
             artifacts/runner-readiness-next-twenty-project-pass/active/skim/src/**
             artifacts/runner-readiness-next-twenty-project-pass/active/skim/case-evidence/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/skim-*/**
             artifacts/runner-readiness-next-twenty-project-pass/active/skim/cargo-home/registry/cache/**/*.crate
             !artifacts/runner-readiness-next-twenty-project-pass/active/skim/src/.git/**
           include-hidden-files: true
