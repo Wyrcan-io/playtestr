@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/runner-readiness-next20-skim.yml'
       - 'scripts/acceptance/next20_skim_*.py'
+      - 'scripts/acceptance/next20_bootstrap_go.py'
       - 'scripts/acceptance/next20_rust_fetch.py'
       - 'scripts/acceptance/next20_playtestr_case.py'
       - 'scripts/acceptance/next20_check.py'
@@ -27,6 +28,9 @@ env:
   TEMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
   TMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
   TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+  GOENV: off
+  GOWORK: off
+  GOTOOLCHAIN: local
   GOMODCACHE: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/active/skim/go-mod-cache
   GOCACHE: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/active/skim/home/go-cache
 jobs:
@@ -76,6 +80,13 @@ jobs:
       - name: Verify exact upstream files before Cargo execution
         if: matrix.host != 'windows'
         run: python -B scripts/acceptance/next20_skim_source_verify.py
+      - name: Install official Go 1.25.0 inside the owned campaign root
+        run: |
+          python -B scripts/acceptance/next20_bootstrap_go.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $goBin = Join-Path $env:GITHUB_WORKSPACE 'artifacts/runner-readiness-next-twenty-project-pass/active/skim/go-toolchain/go/bin'
+          Add-Content -Path $env:GITHUB_PATH -Value $goBin
+          if ($IsWindows) { & (Join-Path $goBin 'go.exe') version } else { & (Join-Path $goBin 'go') version }
       - name: Download locked Playtestr Go modules into the owned cache
         run: go mod download
       - name: Install pinned Rust toolchain into campaign-owned paths
@@ -122,6 +133,7 @@ jobs:
             artifacts/runner-readiness-next-twenty-project-pass/skim/**
             artifacts/runner-readiness-next-twenty-project-pass/active/skim/task-owned.json
             artifacts/runner-readiness-next-twenty-project-pass/active/skim/source-host-verification.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/skim/go-toolchain/sdk.json
             artifacts/runner-readiness-next-twenty-project-pass/active/skim/dependency-fetch-review.json
             artifacts/runner-readiness-next-twenty-project-pass/active/skim/dependency-hook-review-host.json
             artifacts/runner-readiness-next-twenty-project-pass/active/skim/fetch-storage-*.json
