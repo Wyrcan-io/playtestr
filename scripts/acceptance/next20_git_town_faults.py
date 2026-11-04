@@ -202,8 +202,19 @@ def run_case(target, source, fault, phase, expected_exit, binary):
             raise RuntimeError(f"{fault['id']} must positively prove target exit {expected_exit} before its screen assertion")
     if not expected_failure and (failed_steps or summary.get('passed') != 1 or
                                  summary.get('failed') != 0 or summary.get('total') != 1 or
-                                 target_result.get('exit_code') != fault['expected_target_exit_code']):
-        raise RuntimeError('pristine/restored source did not pass its unchanged public contract')
+                                 target_result.get('exit_code') != 0):
+        failed_case = dict(schema_version=1, project=PROJECT, fault_id=fault['id'],
+            phase=phase, expected_runner_exit=expected_exit, subprocess_exit=result.returncode,
+            outcome_status=outcome.get('status'), summary=summary,
+            failed_steps=failed_steps, target_exit_code=target_result.get('exit_code'),
+            cleanup=target_result.get('cleanup'), workspace=target_result.get('workspace'),
+            report_sha256=outcome.get('report_sha256'),
+            step_results=target_result.get('steps'))
+        refusal_path = target / 'fault-case-validator-observations' / (uuid.uuid4().hex + '.json')
+        refusal_path.parent.mkdir(parents=True, exist_ok=True)
+        immutable_json(refusal_path, failed_case)
+        raise RuntimeError('pristine/restored case did not pass or confirm target exit zero: ' +
+                           json.dumps(failed_case, ensure_ascii=True, sort_keys=True))
     if fault['id'] == 'F03-prototype-persistence' and expected_failure:
         steps = report_results[0].get('steps', [])
         if (len(steps) != 3 or [step.get('status') for step in steps] !=

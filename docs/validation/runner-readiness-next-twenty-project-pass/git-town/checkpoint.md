@@ -62,3 +62,6 @@ Run 41924706057 passed all twenty public cases on Linux and Windows and exercise
 
 
 Hosted run 41925887007 passed the twenty frozen cases on both hosts. F01 now passed all three phases with its v3 measured category. F02's unchanged N01 contract also detected the mutation on both hosts, target exit 1 and cleanup confirmed, but v3 still expected `assertion_timeout`; those failures remain preserved with zero matrix credit. Declaration v4 expects the measured `unexpected_exit` for both F01 and F02 and requires their exact target exit evidence. See [fault-matrix-hosted-attempts-v3.json](fault-matrix-hosted-attempts-v3.json). Local direct F02 output and a second unlaunched local path preflight are separately retained.
+
+
+Run 41927271194 passed the twenty frozen cases on both hosts and validated all F01 phases. It stopped at the F02 pristine baseline because the helper applied the mutated phase's expected exit 1 to the unmutated baseline, which correctly exited zero. F02 corruption did not run in this attempt; no additional fault credit is claimed. The validator now checks pristine/restored target exit 0 independently. Receipts are in [fault-matrix-hosted-attempts-v4.json](fault-matrix-hosted-attempts-v4.json).
