@@ -58,34 +58,43 @@ def write_event(target, event):
 
 
 def verify_source(source, provenance, acquisition, target):
+    actual = {}
+    for path in source.rglob('*'):
+        relative = path.relative_to(source).as_posix()
+        if '.git' in Path(relative).parts:
+            continue
+        if path.is_symlink() or getattr(path, 'is_junction', lambda: False)():
+            raise ValueError('pinned Git Town source tree contains a link')
+        if path.is_file():
+            actual[relative] = sha256(path)
+    if actual != provenance['files']:
+        mismatched = next((name for name in sorted(set(actual) | set(provenance['files']))
+                           if actual.get(name) != provenance['files'].get(name)), 'unknown')
+        raise ValueError('source file bytes differ from complete pinned provenance: ' + mismatched)
+
     git_metadata = source / '.git'
     if git_metadata.is_dir() or git_metadata.is_file():
         git_env = dict(os.environ, GIT_CONFIG_NOSYSTEM='1', GIT_TERMINAL_PROMPT='0')
         commit = run(['git', 'rev-parse', 'HEAD'], cwd=source, env=git_env, timeout=20)
         status = run(['git', 'status', '--porcelain=v1', '--untracked-files=all'],
                      cwd=source, env=git_env, timeout=30)
-        if (commit.returncode != 0 or commit.stdout.decode().strip() != PIN or
-                status.returncode != 0 or status.stdout):
-            raise ValueError('pinned Git Town Git checkout is not at the exact clean source pin')
+        if commit.returncode != 0 or commit.stdout.decode().strip() != PIN or status.returncode != 0:
+            raise ValueError('pinned Git Town Git checkout is not at the exact source commit')
+        status_lines = status.stdout.decode('utf-8', 'replace').splitlines()
         return dict(source_mode='pinned Git checkout', source_commit=PIN,
-                    source_tree_sha256=provenance['primary_tree_sha256'], buildvcs=True)
+                    source_tree_sha256=provenance['primary_tree_sha256'], source_files=len(actual),
+                    buildvcs=True, git_status_entries=len(status_lines),
+                    git_status_sha256=digest_bytes(status.stdout),
+                    git_status_sample=status_lines[:12])
 
     # Local source archives do not contain .git. Verify every file and the exact
     # archive before using the supported no-VCS stamping build variant.
     archive = target / 'source.tar.gz'
     if not archive.is_file() or sha256(archive) != acquisition['archive_sha256']:
         raise ValueError('source archive is absent or differs from the pinned acquisition receipt')
-    actual = {}
-    for path in source.rglob('*'):
-        if path.is_symlink() or getattr(path, 'is_junction', lambda: False)():
-            raise ValueError('pinned Git Town source archive materialization contains a link')
-        if path.is_file():
-            rel = path.relative_to(source).as_posix()
-            actual[rel] = sha256(path)
-    if actual != provenance['files']:
-        raise ValueError('source archive materialization differs from complete pinned provenance')
     return dict(source_mode='verified immutable archive without Git metadata', source_commit=None,
-                source_tree_sha256=provenance['primary_tree_sha256'], buildvcs=False)
+                source_tree_sha256=provenance['primary_tree_sha256'], source_files=len(actual),
+                buildvcs=False)
 
 
 def build(target, source, host, fault_id, phase):
@@ -155,6 +164,12 @@ def run_case(target, source, fault, phase, expected_exit, binary):
                     for x in report_results if x.get('status') != 'passed']
     result_failure = ((report_results[0].get('failure') or {}) if report_results else {})
     expected_failure = expected_exit != 0
+    if len(report_results) != 1:
+        raise RuntimeError('fault case must produce exactly one externally observed target result')
+    target_result = report_results[0]
+    if (target_result.get('cleanup', {}).get('confirmed_exited') is not True or
+            target_result.get('workspace', {}).get('cleaned') is not True):
+        raise RuntimeError('fault case did not positively confirm target exit and workspace cleanup')
     if result.returncode != 0 or outcome.get('status') != 'completed':
         raise RuntimeError('fault case harness invocation failed: ' + result.stderr[-2048:].decode('utf-8', 'replace'))
     if expected_failure and (len(failed_steps) != 1 or summary.get('failed') != 1 or
@@ -162,9 +177,7 @@ def run_case(target, source, fault, phase, expected_exit, binary):
                              result_failure.get('category') != fault['expected_failure_category']):
         raise RuntimeError('mutated source did not create an observable unchanged-contract failure')
     if not expected_failure and (failed_steps or summary.get('passed') != 1 or
-                                 summary.get('failed') != 0 or summary.get('total') != 1 or
-                                 report_results[0].get('cleanup', {}).get('confirmed_exited') is False or
-                                 report_results[0].get('workspace', {}).get('cleaned') is False):
+                                 summary.get('failed') != 0 or summary.get('total') != 1):
         raise RuntimeError('pristine/restored source did not pass its unchanged public contract')
     if fault['id'] == 'F03-prototype-persistence' and expected_failure:
         steps = report_results[0].get('steps', [])
@@ -194,7 +207,16 @@ def main():
         raise ValueError('fault target is not the reviewed immutable Git Town checkout')
     if acquisition.get('pin') != PIN or acquisition.get('repository') != 'git-town/git-town':
         raise ValueError('pinned Git Town acquisition receipt is missing or mismatched')
-    source_identity = verify_source(source, provenance, acquisition, target)
+    try:
+        source_identity = verify_source(source, provenance, acquisition, target)
+    except Exception as exc:
+        refusal = dict(schema_version=1, project=PROJECT, phase='prelaunch-refusal',
+            source_pin_expected=PIN, source_provenance_sha256=sha256(provenance_path),
+            source_archive_sha256=acquisition['archive_sha256'], target_process_launched=False,
+            qualification_credit=0, reason=str(exc)[:2048])
+        refusal_path = target / ('fault-prelaunch-refusal-' + uuid.uuid4().hex + '.json')
+        immutable_json(refusal_path, refusal)
+        raise ValueError('Git Town source fault suite refused before target launch: ' + str(exc)) from exc
     selected_source = {fault['file']: sha256(source / fault['file']) for fault in FAULTS}
     expected_source = {fault['file']: provenance['files'].get(fault['file']) for fault in FAULTS}
     if selected_source != expected_source:
