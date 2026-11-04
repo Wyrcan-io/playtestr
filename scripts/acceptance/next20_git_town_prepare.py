@@ -54,6 +54,7 @@ def main():
         raise ValueError('Git Town checkout commit differs from declared immutable pin')
     dirty = run(['git', 'status', '--porcelain=v1', '--untracked-files=no'],
                 cwd=source, env=os.environ).stdout
+    windows_archive_restore = False
     if dirty:
         if os.name != 'nt':
             raise ValueError('Git Town pinned checkout has tracked modifications: ' +
@@ -95,11 +96,7 @@ def main():
         archive_path.unlink()
         if restored != set(expected):
             raise ValueError('Git Town canonical archive did not restore every reviewed source file')
-        dirty = run(['git', 'status', '--porcelain=v1', '--untracked-files=no'],
-                    cwd=source, env=os.environ).stdout
-    if dirty:
-        raise ValueError('Git Town pinned checkout has tracked modifications: ' +
-                         dirty.decode('utf-8', 'replace')[:4096])
+        windows_archive_restore = True
 
     expected = provenance['files']
     actual = {}
@@ -122,6 +119,7 @@ def main():
         source_archive_sha256='2a47fe65b7f21f6a99bfeefd00dfeffce394dd7db733b47e5b87904c9947ab8a',
         source_provenance_sha256=sha256(provenance_path), source_commit=commit,
         source_files=len(actual), source_tree_sha256=provenance['primary_tree_sha256'],
+        windows_archive_restore=windows_archive_restore,
         network_module_resolution=False, build_hooks_executed=False))
 
     go_version = run(['go', 'version'], cwd=ROOT, env=os.environ, timeout=20).stdout.decode().strip()
