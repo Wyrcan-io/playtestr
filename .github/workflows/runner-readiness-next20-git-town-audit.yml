@@ -39,6 +39,7 @@ jobs:
         run: python -B scripts/acceptance/test_git_town_artifact_audit.py
       - name: Independently retrieve and audit both original native packets
         if: steps.request.outputs.ready == 'true'
+        shell: pwsh
         run: |
           $output = 'artifacts/runner-readiness-next-twenty-project-pass/audit/git-town'
           New-Item -ItemType Directory -Force -Path $output | Out-Null
