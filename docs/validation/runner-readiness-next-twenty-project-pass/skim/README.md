@@ -61,11 +61,12 @@ runs now pass the frozen matrix, but they do not resolve directional-navigation
 compatibility. E12 checks screen and exit only; exact NUL output framing still
 needs a separate bounded output capture.
 
-The 4 November hosted rerun also reproduced a Linux E03 startup failure: Skim's
-unknown-option parser exited with the declared code 2 before emitting terminal
-output, while the generic startup gate required first output before it would
-execute the explicit exit assertion. E03-v3 removes that startup-output gate;
-its exact exit code and owned workspace cleanup are the positive evidence for a
-CLI parser path that never enters terminal mode. Scenario declaration v6 binds
-the replacement contract and keeps the earlier v2 result in the attempt log.
+The 4 November hosted rerun also reproduced Linux E03 and E04 startup failures:
+Skim's invalid-option parser exited with the declared code 2 before emitting
+terminal output, while the generic startup gate required first output before it
+would execute the explicit exit assertion. E03-v3 and E04-v3 remove that
+startup-output gate; each requires its exact exit code and owned-workspace
+cleanup as positive evidence for a CLI parser path that never enters terminal
+mode. Scenario declaration v6 binds both replacement contracts and keeps the
+earlier v2 results in the attempt log.
 
