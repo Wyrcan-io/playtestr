@@ -40,7 +40,7 @@ class GitTownFaultValidatorTests(unittest.TestCase):
         observed['failure'] = dict(category='unexpected_exit',
                                    message='process exited with code 0 before assertion matched')
         self.assertIsNone(validate_case_observation(
-            fault('F01-parent-output'), 1, 1, 'completed',
+            fault('F01-parent-output'), 1, 0, 'completed',
             dict(passed=0, failed=1, total=1), observed, contract()))
 
     def test_f02_requires_unexpected_exit_after_target_one(self):
@@ -54,7 +54,7 @@ class GitTownFaultValidatorTests(unittest.TestCase):
         observed['failure'] = dict(category='unexpected_exit',
                                    message='process exited with code 1 before assertion matched')
         self.assertIsNone(validate_case_observation(
-            fault('F02-feature-refusal', target_exit=1), 1, 1, 'completed',
+            fault('F02-feature-refusal', target_exit=1), 1, 0, 'completed',
             dict(passed=0, failed=1, total=1), observed, contract()))
 
     def test_f03_requires_state_failure_after_passed_exit(self):
@@ -64,14 +64,14 @@ class GitTownFaultValidatorTests(unittest.TestCase):
             dict(action='state', status='failed', failure=dict(category='state_assertion_failure')),
         ])
         self.assertIsNone(validate_case_observation(
-            fault('F03-prototype-persistence', 'state_assertion_failure'), 1, 1,
+            fault('F03-prototype-persistence', 'state_assertion_failure'), 1, 0,
             'completed', dict(passed=0, failed=1, total=1), observed, contract()))
 
     def test_rejects_wrong_fault_category_and_missing_cleanup(self):
         bad_fault = result([dict(action='expect', status='failed', failure=dict(
             category='assertion_timeout', message='timed out'))])
         self.assertIn('declared observable failure', validate_case_observation(
-            fault('F01-parent-output'), 1, 1, 'completed',
+            fault('F01-parent-output'), 1, 0, 'completed',
             dict(passed=0, failed=1, total=1), bad_fault, contract()))
         bad_cleanup = result([dict(action='expect', status='passed'),
                               dict(action='exit', status='passed'),
