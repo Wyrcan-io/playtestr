@@ -86,6 +86,9 @@ jobs:
         run: python -B scripts/acceptance/next20_git_town_prepare.py
       - name: Create and verify the synthetic no-remote repository
         run: python -B scripts/acceptance/next20_git_town_fixture.py
+      - name: Capture one bounded native Linux PTY startup
+        if: matrix.host == 'linux'
+        run: python -B scripts/acceptance/next20_git_town_terminal_probe.py
       - name: Run the twenty frozen public specs once
         run: |
           $cases = @(
