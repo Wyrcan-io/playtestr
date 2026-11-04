@@ -1,9 +1,17 @@
-param([Parameter(Mandatory=$true)][ValidatePattern('^[0-9a-f]{32}$')][string]$Inventory)
+param([Parameter(Mandatory=$true)][ValidatePattern('^[0-9a-f]{32}$')][string]$Inventory,[switch]$Staged)
 $ErrorActionPreference='Stop'
 $workspace=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
 $campaign=Join-Path $workspace 'artifacts\runner-readiness-next-twenty-project-pass'
 $project=Join-Path $campaign 'cargo-generate'
-$recordPath=Join-Path $project ('checked-pruning\'+$Inventory+'.json')
+$recordRoot=if($Staged){Join-Path $campaign 'tmp\cargo-generate-checked-pruning'}else{Join-Path $project 'checked-pruning'}
+if($Staged){
+    if(-not (Test-Path -LiteralPath $recordRoot -PathType Container) -or
+       (Resolve-Path -LiteralPath $recordRoot).ProviderPath -ne $recordRoot -or
+       ((Get-Item -LiteralPath $recordRoot -Force).Attributes -band [IO.FileAttributes]::ReparsePoint)) {throw 'Unsafe staged checked-pruning root'}
+}
+$recordPath=Join-Path $recordRoot ($Inventory+'.json')
+if(-not (Test-Path -LiteralPath $recordPath -PathType Leaf) -or
+   ((Get-Item -LiteralPath $recordPath -Force).Attributes -band [IO.FileAttributes]::ReparsePoint)) {throw 'Missing or linked checked-pruning record'}
 $record=Get-Content -LiteralPath $recordPath -Raw | ConvertFrom-Json
 $cache=Join-Path $campaign 'r'
 $target=Join-Path $campaign 'active\cargo-generate'
@@ -67,6 +75,8 @@ foreach($process in Get-CimInstance Win32_Process) {
         if ($null -ne $current -and $current.CreationDate -eq $process.CreationDate) {throw 'Owned compiler/target PID and birth remains before pruning'}
     }
 }
+$outputRoot=Join-Path $project 'checked-pruning'
+if(-not (Test-Path -LiteralPath $outputRoot -PathType Container)){New-Item -ItemType Directory -Path $outputRoot | Out-Null}
 Remove-Item -LiteralPath $cache -Recurse -Force
 foreach($property in $record.files.PSObject.Properties) {Remove-Item -LiteralPath $actual[$property.Name] -Force}
 if (Test-Path -LiteralPath $cache) {throw 'Redundant short compiler cache remains'}

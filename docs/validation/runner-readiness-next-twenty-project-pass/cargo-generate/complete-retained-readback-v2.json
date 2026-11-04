@@ -1,0 +1,64 @@
+{
+  "actual_compiler_executions_verified": 12,
+  "cache_cleanup": {
+    "cache_absent": true,
+    "inventory_sha256": "195fbcdaee70bc2bf4e29a2225eddf09abbbdf5cda76c776a6c5f663155a4fa1",
+    "removed_bytes": 381483766,
+    "removed_sha256": "075bdad25373d7f456cca0c8aae5435461d05e031ab5335f7a30862eca20e803"
+  },
+  "candidate": "v0.4.0-rc.6",
+  "failed_earlier_windows_preserved": true,
+  "native_hosts": {
+    "linux": {
+      "calibrations": 9,
+      "compiler_executions": 6,
+      "normal_rebuilds": 3,
+      "provider_run_id": "41720880957",
+      "readback_sha256": "29c31f7b5123ad5bd090d5af12f445abeb921ad82b120acfd197bcce1a94fec7",
+      "source_revision": "347b5e153f2a01553dd5b4ec8d0c741d67b4e203"
+    },
+    "windows": {
+      "calibrations": 9,
+      "compiler_executions": 6,
+      "normal_rebuilds": 3,
+      "readback_sha256": "30b668a282345e3940f3e7069f948b6ab39be9a8b86de0dd3a1bb2b5644cd2e1",
+      "source_revision": "31bf0cba7e9b47e5e021650e49342f6344669bfd"
+    }
+  },
+  "new_closed_window_packet": {
+    "archive_sha256": "d1c06303028aa9a0fe17544937d4a8459cd7e87eea8c60e45f132c8fb470dacf",
+    "expanded_bytes": 284053,
+    "full_byte_readback": true,
+    "index_sha256": "28cd67666c0f3a5d1612728147ba459534956eba78de70785737093e478822e0",
+    "records": 93
+  },
+  "normal_rebuilds_verified": 6,
+  "original_admission_sha256": "a93751afb626ba7025668ded7bf4602e6a37e5be3ef5f80735c013de69b0a59d",
+  "original_local_packet": {
+    "archive_sha256": "317c485b1a184ba0e72b84058b6fff499367b3ba702a2d10a8d88f14676a9435",
+    "expanded_bytes": 13912404,
+    "full_byte_readback": true,
+    "index_sha256": "8ed0ed3338de491bd78816b62dd2743451b53c2ea0cc2401ec4f3c81409bf726",
+    "records": 2746
+  },
+  "original_ordinary_executions": 480,
+  "project": "cargo-generate",
+  "qualified_normal_rebuild_calibrations": 18,
+  "schema_version": 1,
+  "scope": "Complete exact readback of original Cargo admission, new Windows/Linux normal-source rebuild cohorts, closed local evidence, and native source/cache cleanup. No ordinary replay and no admission-counter duplication.",
+  "storage": {
+    "combined_curated": 18541589,
+    "combined_raw": 3329002360,
+    "combined_retained": 1865583672,
+    "new_curated": 6885345,
+    "new_raw": 1420293788,
+    "project": 66163341
+  },
+  "storage_observation_sha256": "1f5e84109e42467ba6aab0b2c379911a5d58756a16694e7d0972ba7a5ea0e5c9",
+  "target_cleanup": {
+    "inventory_sha256": "e3a07959e9fbd2727d831ef5c5efe527db2003a82bd48b99cd803acb5e54eb01",
+    "native_processes_absent": true,
+    "removed_sha256": "807d3b143d3aca6db21626347ddeb7d27a2309d9820709b8c8157dcaee3ec6da",
+    "target_absent": true
+  }
+}

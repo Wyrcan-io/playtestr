@@ -7,6 +7,7 @@ import sys
 import tarfile
 
 from next20_check import DOC, RAW, NAME
+from next20_cargo_metadata_dictionary import read as read_metadata
 from next20_cargo_source_corpus import Decoder
 from next20_cargo_solid_reference import restore
 from next20_local_records import read_packet as local_packet
@@ -37,7 +38,12 @@ def audit(host, revision, generation=None, staged=False, window=1):
         require(provider['headSha'] == revision and provider['conclusion'] == 'success' and provider['status'] == 'completed', 'provider source/success differs')
     else:
         records = local_packet('cargo-generate')[1]
+        packet_root = RAW / 'cargo-generate' / 'retained-complete-final-v2'
+        if packet_root.is_dir():
+            from next20_local_records import read_packet as read_local_packet
+            records.update(read_local_packet('cargo-generate', packet='retained-complete-final-v2')[1])
         prefix = ''
+    metadata = None
 
     def logical(name):
         name = name.replace('\\', '/').removeprefix(scope)
@@ -48,6 +54,12 @@ def audit(host, revision, generation=None, staged=False, window=1):
         name = logical(name)
         if host == 'windows' and (RAW / name).is_file():
             return (RAW / name).read_bytes()
+        if host == 'windows' and (RAW / 'tmp/cargo-window3-metadata-v2/index.json').is_file():
+            nonlocal metadata
+            if metadata is None:
+                metadata = read_metadata(RAW / 'tmp/cargo-window3-metadata-v2')
+            if name in metadata:
+                return metadata[name]
         return records[prefix + name]
 
     def value(name):
@@ -210,6 +222,18 @@ def audit(host, revision, generation=None, staged=False, window=1):
     if removed:
         proof = value(target + 'removed.json')
         require(proof['removed'] and proof['cleanup_inventory_sha256'] == hashed(target + 'cleanup-inventory.json'), 'source/runtime removal proof differs')
+        if host == 'windows':
+            cleanup = value(target + 'cleanup-inventory.json')
+            process = value(target + 'process-proof.json')
+            require(cleanup['source_restored_exact'] and cleanup['process_proof_sha256'] == hashed(target + 'process-proof.json') and
+                    process['confirmed_no_matching_live_processes'] and not process['matching_live_processes'], 'native target removal source/process evidence differs')
+            staged_prune = raw(target + 'cache-pruning-inventory.json')
+            prune_reference = value(target + 'cache-pruning-inventory-reference.json')
+            require(digest(staged_prune) == prune_reference['sha256'] and len(staged_prune) == prune_reference['bytes'], 'staged compiler cache inventory changed')
+            prune_proof = value('cargo-generate/checked-pruning/' + prune_reference['identifier'] + '-removed.json')
+            require(prune_proof['inventory_sha256'] == prune_reference['sha256'] and prune_proof['removed_bytes'] > 0 and
+                    prune_proof['confirmed_no_owned_processes'] and prune_proof['original_registry_preserved'] and
+                    prune_proof['source_and_all_executable_bytes_retained'] and not (RAW / 'r').exists(), 'native compiler cache removal proof differs')
     return dict(schema_version=1, project='cargo-generate', host=host, source_revision=revision,
                 calibrations_verified=9, actual_compiler_executions_verified=6, normal_rebuilds_verified=3,
                 actual_images_verified=images, actual_phases=result, source_runtime_removed=removed,

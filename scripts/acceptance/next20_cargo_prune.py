@@ -1,5 +1,6 @@
 """Prepare checked disposal of redundant compiler cache and retention experiments."""
 import hashlib
+import argparse
 import json
 from pathlib import Path
 import tarfile
@@ -13,6 +14,9 @@ from readiness_evidence import immutable_json,sha256
 
 
 def main():
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--staged',action='store_true',help='keep the full checked inventory outside the per-project retention cap')
+    args=parser.parse_args()
     project=RAW/'cargo-generate';target=RAW/'active/cargo-generate'
     runtime=json.loads((target/'runtime.json').read_text());binary=Path(runtime['native'])
     if sha256(binary)!=runtime['native_sha256']:raise ValueError('original executable not restored')
@@ -29,16 +33,24 @@ def main():
         while reader.read(65536):pass
     finally:reader.close()
     if set(restored)!={'original','F01','F02','F03'} or restored['original']!=binary.read_bytes():raise ValueError('incomplete retained executable corpus')
-    delta_root=project/'native-variant-retention/windows';delta_index=json.loads((delta_root/'index.json').read_text());paths=[]
-    for fault,row in delta_index['variants'].items():
-        path=delta_root/row['delta_file']
-        if decode(restored['original'],path.read_bytes(),row)!=restored[fault]:raise ValueError('superseded representation differs from retained actual executable')
-        paths.append(path)
-    baseline=project/'native-preflight/windows';baseline_index=json.loads((baseline/'compiled-binary-index.json').read_text());base_archive=baseline/'compiled-binary.tar.xz'
-    if sha256(base_archive)!=baseline_index['archive_sha256']:raise ValueError('superseded baseline archive changed')
-    with tarfile.open(base_archive,'r:xz') as stream:
-        if stream.extractfile('cargo-generate.exe').read(64*1024**2+1)!=restored['original']:raise ValueError('superseded baseline differs from retained executable')
-    paths.append(base_archive)
+    # Optional superseded forms may already have been checked and removed by a
+    # prior retention pass. Compare and inventory them only when they exist.
+    paths=[];delta_root=project/'native-variant-retention/windows'
+    if (delta_root/'index.json').is_file():
+        delta_index=json.loads((delta_root/'index.json').read_text())
+        for fault,row in delta_index['variants'].items():
+            path=delta_root/row['delta_file']
+            if decode(restored['original'],path.read_bytes(),row)!=restored[fault]:raise ValueError('superseded representation differs from retained actual executable')
+            paths.append(path)
+    elif delta_root.exists() and any(delta_root.rglob('*')):
+        raise ValueError('unindexed superseded executable representation remains')
+    baseline=project/'native-preflight/windows';base_archive=baseline/'compiled-binary.tar.xz'
+    if base_archive.is_file():
+        baseline_index=json.loads((baseline/'compiled-binary-index.json').read_text())
+        if sha256(base_archive)!=baseline_index['archive_sha256']:raise ValueError('superseded baseline archive changed')
+        with tarfile.open(base_archive,'r:xz') as stream:
+            if stream.extractfile('cargo-generate.exe').read(64*1024**2+1)!=restored['original']:raise ValueError('superseded baseline differs from retained executable')
+        paths.append(base_archive)
     corpus=project/'registry-source-corpus-v1';reference=json.loads((DOC/'cargo-generate/registry-source-corpus-reference-v1.json').read_text())
     if sha256(corpus/'sources.tar.xz')!=reference['required_dictionary_archive_sha256'] or sha256(corpus/'index.json')!=reference['required_dictionary_index_sha256']:raise ValueError('required exact source corpus changed')
     cache=RAW/'r';owner=json.loads((cache/'task-owned.json').read_text());materialized=json.loads((cache/'materialized.json').read_text())
@@ -63,12 +75,14 @@ def main():
         files[path.relative_to(ROOT).as_posix()]=dict(bytes=path.stat().st_size,sha256=sha256(path))
     total=sum(r['bytes'] for r in [*files.values(),*cache_files.values()])
     if len(cache_files)>25000 or total>512*1024**2:raise ValueError('disposable representation bound')
-    root=project/'checked-pruning';root.mkdir(exist_ok=True);identifier=uuid.uuid4().hex
+    root=(RAW/'tmp/cargo-generate-checked-pruning') if args.staged else (project/'checked-pruning')
+    root.mkdir(parents=True,exist_ok=True);identifier=uuid.uuid4().hex
     immutable_json(root/(identifier+'.json'),dict(schema_version=1,workspace=str(ROOT),cache_root=str(cache),
         cache_short=short_owned_path(cache),target_root=str(target),target_short=short_owned_path(target),
         cache_files=cache_files,files=files,total_bytes=total,
         required_archive_sha256=sha256(archive),required_archive=str(archive),
         required_source_archive=str(corpus/'sources.tar.xz'),required_source_archive_sha256=sha256(corpus/'sources.tar.xz'),
+        staged_inventory=args.staged,
         scope='Expendable duplicate short compiler cache and superseded experimental encodings only; all exact actual executable/source bytes retained, original registry remains, metadata/first failures/reports untouched.'))
     print('Prepared checked pruning:',identifier,total,'bytes; original registry and full retained source/executable corpus verified')
 

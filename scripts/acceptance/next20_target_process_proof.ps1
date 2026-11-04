@@ -1,5 +1,5 @@
 param([Parameter(Mandatory=$true)][ValidatePattern('^[a-z][a-z0-9-]{0,63}$')][string]$Project,
-    [ValidateSet('rebuild-v1','rebuild-timeout-v1','rebuild-window2-stop-v1')][string]$Window)
+    [ValidateSet('rebuild-v1','rebuild-timeout-v1','rebuild-window2-stop-v1','rebuild-window3')][string]$Window)
 $ErrorActionPreference='Stop'
 $workspace=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
 $campaign=Join-Path $workspace 'artifacts\runner-readiness-next-twenty-project-pass'
