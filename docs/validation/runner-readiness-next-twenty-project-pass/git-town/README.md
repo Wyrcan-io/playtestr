@@ -119,3 +119,6 @@ The v5 source-development checkpoint supersedes the earlier pending statements: 
 
 
 Fault-matrix audit update: three hosted source-fault attempts are retained in [fault-matrix-hosted-attempts-v1.json](fault-matrix-hosted-attempts-v1.json). The first two exposed prelaunch helper defects; the third detected a compile-invalid F01 mutation after 20/20 unchanged public cases passed on Linux and Windows. No source-fault detection credit is claimed. The compile-valid F01 truncation revision is frozen in [fault-declaration-v2.json](fault-declaration-v2.json); the corrected matrix must complete on both hosts before any fault credit.
+
+
+Hosted run 41921911209 on the v2 mutation passed 20/20 ordinary cases per host, then the F01 fault validator refused the corrupted report. The job wrapper did not retain the report category or step statuses, so there is no confirmed fault credit; see the revised attempt ledger. A separate direct run of the same native mutation produced `mai` and exited zero. The next validator revision records full failure details. The local managed-workspace preflight also remains an unlaunched attempt; it is not mixed with target evidence.

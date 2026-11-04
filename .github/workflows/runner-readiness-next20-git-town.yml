@@ -135,11 +135,14 @@ jobs:
             artifacts/runner-readiness-next-twenty-project-pass/active/git-town/controlling-tty-probe/**
             artifacts/runner-readiness-next-twenty-project-pass/active/git-town/fault-events/**
             artifacts/runner-readiness-next-twenty-project-pass/active/git-town/fault-builds/**
-            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/fault-binaries/**
             artifacts/runner-readiness-next-twenty-project-pass/active/git-town/case-evidence/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/fault-case-validator-observations/**
             artifacts/runner-readiness-next-twenty-project-pass/active/git-town/fault-matrix-started-*.json
             artifacts/runner-readiness-next-twenty-project-pass/active/git-town/fault-prelaunch-refusal-*.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/fault-matrix-started.json
+            docs/validation/runner-readiness-next-twenty-project-pass/git-town/fault-matrix-*-v1.json
             artifacts/runner-readiness-next-twenty-project-pass/git-town/**
           include-hidden-files: true
           if-no-files-found: error
           retention-days: 30
+

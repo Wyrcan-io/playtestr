@@ -177,7 +177,20 @@ def run_case(target, source, fault, phase, expected_exit, binary):
     if expected_failure and (len(failed_steps) != 1 or summary.get('failed') != 1 or
                              summary.get('passed') != 0 or summary.get('total') != 1 or
                              result_failure.get('category') != fault['expected_failure_category']):
-        raise RuntimeError('mutated source did not create an observable unchanged-contract failure')
+        failed_case = dict(schema_version=1, project=PROJECT, fault_id=fault['id'],
+            phase=phase, expected_failure_category=fault['expected_failure_category'],
+            observed_failure_category=result_failure.get('category'),
+            subprocess_exit=result.returncode, outcome_status=outcome.get('status'),
+            summary=summary, failed_steps=failed_steps,
+            target_exit_code=target_result.get('exit_code'),
+            cleanup=target_result.get('cleanup'), workspace=target_result.get('workspace'),
+            report_sha256=outcome.get('report_sha256'),
+            step_results=target_result.get('steps'))
+        refusal_path = target / 'fault-case-validator-observations' / (uuid.uuid4().hex + '.json')
+        refusal_path.parent.mkdir(parents=True, exist_ok=True)
+        immutable_json(refusal_path, failed_case)
+        raise RuntimeError('mutated source did not create the declared observable failure: ' +
+                           json.dumps(failed_case, ensure_ascii=True, sort_keys=True))
     if not expected_failure and (failed_steps or summary.get('passed') != 1 or
                                  summary.get('failed') != 0 or summary.get('total') != 1):
         raise RuntimeError('pristine/restored source did not pass its unchanged public contract')

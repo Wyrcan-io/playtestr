@@ -86,6 +86,40 @@
       "diagnosis": "The declared replacement fmt.Print(childBranch) left parent unused, so the mutation did not compile. The source was restored and the unchanged contract recovery ran; the failed corrupted phase earned no fault credit.",
       "credit": 0,
       "independent_artifact_audit": "pending"
+    },
+    {
+      "run_id": "41921911209",
+      "head_sha": "9b36324812c3855ba94e481508061df669988d1b",
+      "fault_declaration": "fault-declaration-v2.json",
+      "native_cells": [
+        {
+          "host": "ubuntu-24.04",
+          "job_id": "126896273288",
+          "result": "20/20 unchanged public cases passed; F01 baseline, corrupted runner invocation, and restored recovery completed, but validation rejected the corrupted report",
+          "specs_passed_before_faults": 20,
+          "artifact_id": "13366454524",
+          "artifact_size_bytes": 76172094,
+          "artifact_sha256": "dd49f67fa50b093a2c46357548425f6878860e5e57fc364d917bbb76b4515a90",
+          "completed_fault_case_runner_invocations": 3,
+          "confirmed_target_launches": 2,
+          "corrupted_target_launch": "unverified until report fields are captured"
+        },
+        {
+          "host": "windows-2025",
+          "job_id": "126896272823",
+          "result": "20/20 unchanged public cases passed; F01 baseline, corrupted runner invocation, and restored recovery completed, but validation rejected the corrupted report",
+          "specs_passed_before_faults": 20,
+          "artifact_id": "13368280383",
+          "artifact_size_bytes": 77225270,
+          "artifact_sha256": "47139dafc70ad41805ab797e455c59f62b0cbf43797fb7af69f711147b2d055d",
+          "completed_fault_case_runner_invocations": 3,
+          "confirmed_target_launches": 2,
+          "corrupted_target_launch": "unverified until report fields are captured"
+        }
+      ],
+      "diagnosis": "The direct native binary built from the same source mutation exits zero and emits mai. The hosted fault helper rejected the corrupted report without retaining whether the case failed at workspace setup or an assertion-category mismatch. No corrupted target launch or fault credit is claimed until the report proves it.",
+      "credit": 0,
+      "independent_artifact_audit": "pending"
     }
   ],
   "qualification_credit": 0
