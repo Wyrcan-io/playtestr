@@ -116,6 +116,8 @@ jobs:
             if ($LASTEXITCODE -ne 0) { $failed++ }
           }
           if ($failed -ne 0) { throw "$failed of $($cases.Count) Git Town public specs failed" }
+      - name: Verify fault-phase report validator cases
+        run: python -B scripts/acceptance/test_next20_git_town_faults.py
       - name: Detect three exact pinned-source faults and verify rebuild recovery
         run: python -B scripts/acceptance/next20_git_town_faults.py --host ${{ matrix.host }}
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
@@ -145,4 +147,3 @@ jobs:
           include-hidden-files: true
           if-no-files-found: error
           retention-days: 30
-

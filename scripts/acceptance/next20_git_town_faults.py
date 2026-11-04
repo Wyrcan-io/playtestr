@@ -52,6 +52,46 @@ def run(argv, *, cwd, env, timeout=300, cap=2 * 1024 * 1024):
     return result
 
 
+def validate_case_observation(fault, expected_runner_exit, returncode, outcome_status,
+                              summary, target_result, contract):
+    """Validate public report evidence without relying on omitted aggregate fields."""
+    expected_failure = expected_runner_exit != 0
+    steps = target_result.get('steps', [])
+    exit_assertions = [step['exit'] for step in contract.get('steps', [])
+                       if isinstance(step, dict) and 'exit' in step]
+    exit_steps = [step for step in steps if step.get('action') == 'exit']
+    failed_steps = [step for step in steps if step.get('status') != 'passed']
+    if (target_result.get('cleanup', {}).get('confirmed_exited') is not True or
+            target_result.get('workspace', {}).get('cleaned') is not True):
+        return 'target exit and workspace cleanup were not positively confirmed'
+    if outcome_status != 'completed':
+        return 'harness outcome was not completed'
+    if expected_failure:
+        failure = next((step.get('failure') or {} for step in steps
+                        if step.get('status') != 'passed'), {})
+        if (len(failed_steps) != 1 or summary.get('failed') != 1 or
+                summary.get('passed') != 0 or summary.get('total') != 1 or
+                failure.get('category') != fault['expected_failure_category']):
+            return 'mutated source did not create the declared observable failure'
+        if fault['id'] in {'F01-parent-output', 'F02-feature-refusal'}:
+            expected_code = fault['expected_target_exit_code']
+            message = failure.get('message') or ''
+            if f'process exited with code {expected_code} before assertion matched' not in message:
+                return f"{fault['id']} did not prove target exit {expected_code} before its screen assertion"
+        if fault['id'] == 'F03-prototype-persistence':
+            if (exit_assertions != [fault['expected_target_exit_code']] or len(steps) != 3 or
+                    [step.get('status') for step in steps] != ['passed', 'passed', 'failed'] or
+                    steps[1].get('action') != 'exit'):
+                return 'saved-state mutation was not rejected after terminal and exit evidence passed'
+    else:
+        if (returncode != 0 or failed_steps or summary.get('passed') != 1 or
+                summary.get('failed') != 0 or summary.get('total') != 1 or
+                exit_assertions != [0] or len(exit_steps) != 1 or
+                exit_steps[0].get('status') != 'passed'):
+            return 'pristine/restored case did not pass or confirm target exit zero'
+    return None
+
+
 def write_event(target, event):
     event_id = uuid.uuid4().hex
     path = target / 'fault-events' / (event_id + '.json')
@@ -168,21 +208,20 @@ def run_case(target, source, fault, phase, expected_exit, binary):
     failed_steps = [dict(name=x.get('name'), status=x.get('status'), failure=x.get('failure'))
                     for x in report_results if x.get('status') != 'passed']
     result_failure = ((report_results[0].get('failure') or {}) if report_results else {})
-    expected_failure = expected_exit != 0
     if len(report_results) != 1:
         raise RuntimeError('fault case must produce exactly one externally observed target result')
     target_result = report_results[0]
-    if (target_result.get('cleanup', {}).get('confirmed_exited') is not True or
-            target_result.get('workspace', {}).get('cleaned') is not True):
-        raise RuntimeError('fault case did not positively confirm target exit and workspace cleanup')
+    contract = json.loads(spec.read_text(encoding='utf-8'))
     if result.returncode != 0 or outcome.get('status') != 'completed':
         raise RuntimeError('fault case harness invocation failed: ' + result.stderr[-2048:].decode('utf-8', 'replace'))
-    if expected_failure and (len(failed_steps) != 1 or summary.get('failed') != 1 or
-                             summary.get('passed') != 0 or summary.get('total') != 1 or
-                             result_failure.get('category') != fault['expected_failure_category']):
+    validation_error = validate_case_observation(
+        fault, expected_exit, result.returncode, outcome.get('status'), summary,
+        target_result, contract)
+    if validation_error:
         failed_case = dict(schema_version=1, project=PROJECT, fault_id=fault['id'],
-            phase=phase, expected_failure_category=fault['expected_failure_category'],
-            observed_failure_category=result_failure.get('category'),
+            phase=phase, expected_runner_exit=expected_exit,
+            expected_failure_category=fault['expected_failure_category'],
+            observed_failure_category=result_failure.get('category'), validator_error=validation_error,
             subprocess_exit=result.returncode, outcome_status=outcome.get('status'),
             summary=summary, failed_steps=failed_steps,
             target_exit_code=target_result.get('exit_code'),
@@ -192,35 +231,8 @@ def run_case(target, source, fault, phase, expected_exit, binary):
         refusal_path = target / 'fault-case-validator-observations' / (uuid.uuid4().hex + '.json')
         refusal_path.parent.mkdir(parents=True, exist_ok=True)
         immutable_json(refusal_path, failed_case)
-        raise RuntimeError('mutated source did not create the declared observable failure: ' +
+        raise RuntimeError(validation_error + ': ' +
                            json.dumps(failed_case, ensure_ascii=True, sort_keys=True))
-    if fault['id'] in {'F01-parent-output', 'F02-feature-refusal'} and expected_failure:
-        failure_message = result_failure.get('message') or ''
-        expected_exit = fault['expected_target_exit_code']
-        expected_message = f'process exited with code {expected_exit} before assertion matched'
-        if expected_message not in failure_message:
-            raise RuntimeError(f"{fault['id']} must positively prove target exit {expected_exit} before its screen assertion")
-    if not expected_failure and (failed_steps or summary.get('passed') != 1 or
-                                 summary.get('failed') != 0 or summary.get('total') != 1 or
-                                 target_result.get('exit_code') != 0):
-        failed_case = dict(schema_version=1, project=PROJECT, fault_id=fault['id'],
-            phase=phase, expected_runner_exit=expected_exit, subprocess_exit=result.returncode,
-            outcome_status=outcome.get('status'), summary=summary,
-            failed_steps=failed_steps, target_exit_code=target_result.get('exit_code'),
-            cleanup=target_result.get('cleanup'), workspace=target_result.get('workspace'),
-            report_sha256=outcome.get('report_sha256'),
-            step_results=target_result.get('steps'))
-        refusal_path = target / 'fault-case-validator-observations' / (uuid.uuid4().hex + '.json')
-        refusal_path.parent.mkdir(parents=True, exist_ok=True)
-        immutable_json(refusal_path, failed_case)
-        raise RuntimeError('pristine/restored case did not pass or confirm target exit zero: ' +
-                           json.dumps(failed_case, ensure_ascii=True, sort_keys=True))
-    if fault['id'] == 'F03-prototype-persistence' and expected_failure:
-        steps = report_results[0].get('steps', [])
-        if (len(steps) != 3 or [step.get('status') for step in steps] !=
-                ['passed', 'passed', 'failed'] or
-                target_result.get('exit_code') != fault['expected_target_exit_code']):
-            raise RuntimeError('saved-state mutation was not rejected after terminal and exit evidence passed')
     return dict(label=label, phase=phase, expected_runner_exit=expected_exit,
         target_exit_code=(report_results[0].get('exit_code') if report_results else None),
         runner_attempt_id=outcome.get('runner_attempt_id'),
@@ -383,4 +395,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

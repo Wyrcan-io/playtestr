@@ -65,3 +65,6 @@ Hosted run 41925887007 passed the twenty frozen cases on both hosts. F01 now pas
 
 
 Run 41927271194 passed the twenty frozen cases on both hosts and validated all F01 phases. It stopped at the F02 pristine baseline because the helper applied the mutated phase's expected exit 1 to the unmutated baseline, which correctly exited zero. F02 corruption did not run in this attempt; no additional fault credit is claimed. The validator now checks pristine/restored target exit 0 independently. Receipts are in [fault-matrix-hosted-attempts-v4.json](fault-matrix-hosted-attempts-v4.json).
+
+
+Hosted run 41928367901 (commit e635afd) passed all 20 frozen public cases on Ubuntu and Windows; Linux runner/VT and race suites also passed. Fault preflight then refused F01 pristine baselines because it treated the aggregate target exit field as authoritative even though the exact exit step passed and the aggregate was null. Neither host reached corrupted source. All run artifacts and the no-credit disposition are preserved in [fault-matrix-hosted-attempts-v5.json](fault-matrix-hosted-attempts-v5.json). The validator now checks frozen exit assertions and same-run passed exit-step evidence; five focused validator cases pass locally. No fault or qualification credit is claimed.
