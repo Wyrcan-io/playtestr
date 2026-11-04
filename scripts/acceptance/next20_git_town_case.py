@@ -117,6 +117,17 @@ async def main():
         failed_results = [dict(name=item.get('name'), status=item.get('status'),
             failure=item.get('failure'), target=item.get('target'), steps=item.get('steps'))
             for item in results if item.get('status') != 'passed']
+        screen_tail = ''
+        if failed_results:
+            raw_screen = ((results[0].get('evidence') or {}).get('screen_path'))
+            if raw_screen:
+                try:
+                    screen_path = Path(raw_screen).resolve(strict=True)
+                    screen_path.relative_to(ROOT)
+                    if screen_path.is_file() and not screen_path.is_symlink():
+                        screen_tail = screen_path.read_bytes()[-4096:].decode('utf-8', 'replace')
+                except (OSError, ValueError):
+                    pass
         evidence_output = ''
         evidence_directory = Path((error or {}).get('evidence_directory', ''))
         console_path = evidence_directory / 'console.log'
@@ -126,7 +137,7 @@ async def main():
             label=args.label, error=error, runner_attempt_id=outcome['runner_attempt_id'],
             report_summary=summary, report_sha256=outcome['report_sha256'],
             report_failures=failed_results,
-            console_tail=evidence_output[-4096:]),
+            screen_tail=screen_tail[-4096:], console_tail=evidence_output[-4096:]),
             ensure_ascii=True), flush=True)
         raise RuntimeError('Git Town Playtestr case failed; inspect ' +
                            str((report_root / 'finished.json').relative_to(ROOT)))

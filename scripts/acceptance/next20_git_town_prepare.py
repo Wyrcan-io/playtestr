@@ -75,9 +75,15 @@ def main():
         restored = set()
         with tarfile.open(archive_path, 'r:') as tar:
             members = tar.getmembers()
-            if len(members) != len(expected):
+            files = [member for member in members if member.isfile()]
+            directories = [member for member in members if member.isdir()]
+            if len(files) != len(expected) or len(files) + len(directories) != len(members):
                 raise ValueError('Git Town canonical archive member count differs')
-            for member in members:
+            for directory in directories:
+                name = Path(directory.name).as_posix().rstrip('/')
+                if not any(path.startswith(name + '/') for path in expected):
+                    raise ValueError('Git Town canonical archive contains an unreviewed directory: ' + name)
+            for member in files:
                 name = Path(member.name).as_posix()
                 if name not in expected or name in restored or not member.isfile():
                     raise ValueError('Git Town canonical archive contains an unreviewed member: ' + name)
