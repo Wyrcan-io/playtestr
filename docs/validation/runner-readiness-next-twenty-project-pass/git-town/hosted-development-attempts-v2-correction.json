@@ -12,7 +12,7 @@
     "hosted_contains_u_fffd": true,
     "hosted_contains_expected_utf8_c3_a9": false
   },
-  "scope": "The hosted Windows N15 failure is a harness publication-integrity failure, not evidence of a Git Town or Playtestr Unicode defect. The other 19 scenario documents were semantically unchanged in inspection, but their raw bytes still failed the catalog pins due to line endings. Their outcome remains failed as observed; no retroactive pass or credit is granted.",
+  "scope": "The hosted Windows N15 failure is a harness publication-integrity failure, not evidence of a Git Town or Playtestr Unicode defect. N01 inspection confirmed semantically identical JSON with changed line endings. The other hosted hashes also failed, but their full byte diffs have not been independently classified; no result is upgraded. Their outcome remains failed as observed; no retroactive pass or credit is granted.",
   "verification_gap": "next20_git_town_case.py parsed scenario JSON but did not compare raw spec bytes to the frozen scenario-catalog SHA-256 before launching targets.",
   "correction": "Publish every frozen scenario from its exact local UTF-8 bytes using the GitHub blob API base64 mode, add a catalog verifier before any target process starts, and preserve this run and its artifacts unchanged.",
   "native_direct_diagnostic": "The same pinned Windows Git Town executable, launched with feat-U+00E9 from a fixture copy and fully temporary user configuration, created the expected UTF-8 .git/HEAD bytes and exited 0. See windows-unicode-direct-probe-v1.json.",

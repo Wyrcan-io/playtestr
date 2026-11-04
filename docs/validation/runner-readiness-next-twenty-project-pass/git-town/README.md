@@ -58,19 +58,17 @@ pager, and terminal environment explicitly because the public runner's default
 allowlist omits those values. Hosted run `41875535290` verified and built the
 source on both hosts. Linux again failed all 20 screen assertions with a blank
 rendered screen, despite a bounded raw PTY probe emitting the expected 195 bytes.
-Windows passed 19/20; N15 failed because the hosted spec blob contained U+FFFD
-in place of U+00E9 and did not match its frozen catalog hash. The pinned Git
-Town executable created the intended UTF-8 branch in a separate owned native
-Windows direct launch. Exact job, artifact, probe and failure details are in
-[`hosted-development-attempts-v2.json`](hosted-development-attempts-v2.json).
-An owned native Windows direct-launch diagnostic subsequently created
-`feat-é` and verified the exact UTF-8 `.git/HEAD` bytes with the same pinned
-binary. That narrows the hosted discrepancy to Playtestr launch/environment or
-evidence handling; see
-[`windows-unicode-direct-probe-v1.json`](windows-unicode-direct-probe-v1.json).
-The Linux runner mismatch remains open. Catalog v3 republishes exact spec bytes
-through base64 and adds a hash gate before target launch; v2 attempts remain
-preserved. All hosted results remain development evidence only. Final
+Windows passed all 20 exact catalog-v3 cases. The earlier v2 Windows 19/20
+result came from a hosted N15 spec blob with U+FFFD instead of U+00E9; the
+direct target probe and exact v3 bytes confirm the pinned app handles the
+intended branch name. See hosted-development-attempts-v2-correction.json.
+Hosted v3 run `41879628387` passed the exact-spec hash gate and all 20
+Windows scenarios. Linux again failed 20/20 first-screen assertions with a
+blank screen and confirmed process cleanup, despite a direct native PTY probe
+capturing 195 expected output bytes and exit 0. Exact attempts and artifacts
+are in [`hosted-development-attempts-v3.json`](hosted-development-attempts-v3.json).
+The Linux launch mismatch remains open. A bounded follow-up probe compares
+PTY startup with and without a controlling terminal before runner changes.
 repetitions, three safe source faults, calibration, public recorder/maintenance
 work, current-candidate qualification and cleanup audit remain open. Git Town
 has no admission, native-cell, fault-detection or candidate credit.
@@ -79,3 +77,6 @@ Catalog v3 retains the intended v2 scenario hashes and adds an exact-byte
 prelaunch verifier. See [`scenario-catalog-v3.json`](scenario-catalog-v3.json),
 [`hosted-development-attempts-v2-correction.json`](hosted-development-attempts-v2-correction.json),
 and [`next20_git_town_catalog.py`](../../../../scripts/acceptance/next20_git_town_catalog.py).
+The Linux diagnostic workflow also runs the bounded
+[`next20_git_town_controlling_tty_probe.py`](../../../../scripts/acceptance/next20_git_town_controlling_tty_probe.py)
+and retains its owned evidence directory.

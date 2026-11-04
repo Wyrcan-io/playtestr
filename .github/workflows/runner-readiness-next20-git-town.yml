@@ -91,6 +91,9 @@ jobs:
       - name: Capture one bounded native Linux PTY startup
         if: matrix.host == 'linux'
         run: python -B scripts/acceptance/next20_git_town_terminal_probe.py
+      - name: Compare startup with a controlling Linux PTY
+        if: matrix.host == 'linux'
+        run: python -B scripts/acceptance/next20_git_town_controlling_tty_probe.py
       - name: Run the twenty frozen public specs once
         run: |
           $cases = @(
@@ -121,6 +124,7 @@ jobs:
             artifacts/runner-readiness-next-twenty-project-pass/active/git-town/bin/**
             artifacts/runner-readiness-next-twenty-project-pass/active/git-town/src/**
             artifacts/runner-readiness-next-twenty-project-pass/active/git-town/case-evidence/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/controlling-tty-probe/**
             artifacts/runner-readiness-next-twenty-project-pass/git-town/**
           include-hidden-files: true
           if-no-files-found: error
