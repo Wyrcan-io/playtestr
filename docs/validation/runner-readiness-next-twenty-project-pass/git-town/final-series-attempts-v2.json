@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "project": "git-town",
+  "attempt": "native-exit-v1-final-series-second-hosted-attempt",
+  "workflow_run": "41954388734",
+  "workflow_commit": "5ec9d275ac2779fd7c800e4ea12590df4a7b3a40",
+  "workflow_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/41954388734",
+  "declaration": "final-series-declaration-native-exit-v2.json",
+  "candidate": "v0.4.0-rc.6",
+  "candidate_series": "native-exit-v1",
+  "candidate_provider_runs": {
+    "linux": "40424475362",
+    "windows": "40425810038"
+  },
+  "observed": {
+    "linux": {
+      "job": "127005674576",
+      "status": "failure",
+      "artifact_id": "13382677077",
+      "artifact_name": "next20-git-town-linux-final-native-exit-v1",
+      "artifact_bytes": 709476,
+      "artifact_sha256": "9bd7655e17a70ad52a7e63c27c8dc171e29b4e9720a05028260e28f47ae3e7ba",
+      "downloaded_files": 196,
+      "downloaded_bytes": 2015724,
+      "downloaded_inventory_sha256": "71adfd235e2fa1879647560464f794a496866432c60cddc0c5c30a9a118439b0",
+      "retained_at": "artifacts/runner-readiness-next-twenty-project-pass/retained/41954388734-linux",
+      "attempt_ids": {
+        "candidate_install": "52ad98fc68af4183a440a2428f17fe63",
+        "pinned_build": "41ce8d08020e476e966031292e7f789e",
+        "fixture": "85ee084b1ad54f44afbffe4104742e8a",
+        "contract_materialization": "74548ccb866d4ede97d01902bb25c977",
+        "final_series_hash_refusal": "prelaunch-harness-hash-mismatch; no candidate test launch",
+        "cleanup": "454d14e30c5243de8c1e61eaa19740c9"
+      }
+    },
+    "windows": {
+      "job": "127005674201",
+      "status": "failure",
+      "artifact_id": "13382443062",
+      "artifact_name": "next20-git-town-windows-final-native-exit-v1",
+      "artifact_bytes": 797862,
+      "artifact_sha256": "49d4deb830b52fb5d66ffce3b6aa22469d4d969b97d153b680665728c4a4c644",
+      "downloaded_files": 210,
+      "downloaded_bytes": 2237288,
+      "downloaded_inventory_sha256": "9bf3641755bde55076bd7cdabcedff1124e7d53e1c0931a55511973df9364bef",
+      "retained_at": "artifacts/runner-readiness-next-twenty-project-pass/retained/41954388734-windows",
+      "attempt_ids": {
+        "candidate_install": "41bab35e9b3243d4b10f667d4e82ce67",
+        "pinned_build": "ccd13b77aa3440b6bcdcd1edc9220cbc",
+        "fixture": "f7083a89673b4490bda40f52745cd9fb",
+        "contract_materialization": "2dc300588d51436fb5bc5b64fc0de9cb",
+        "process_proof": "4aae2ec3b09b40968081a888061575b7",
+        "final_series_hash_refusal": "prelaunch-harness-hash-mismatch; no candidate test launch",
+        "cleanup_preflight": "9756f48dbc89454080754066aef54aae",
+        "cleanup": "e518b3ec28a1499284a2801d27f032ae"
+      }
+    }
+  },
+  "root_cause": {
+    "declared_hash_policy": "Raw file-byte SHA-256 from a Windows checkout",
+    "linux_failure": "scripts/acceptance/readiness_evidence.py differed between the declaration's Windows CRLF bytes and the hosted Linux LF checkout",
+    "windows_failure": ".github/workflows/runner-readiness-next20-git-town-final.yml differed from the declaration bytes after Windows checkout conversion",
+    "result": "final-series harness verification rejected both hosts before candidate scenarios or source-fault phases launched",
+    "downstream_cleanup": "No target reports existed, so report-based cleanup proof refused; explicit source/runtime removal is unverified for this failed attempt"
+  },
+  "counts": {
+    "candidate_ordinary_executions": 0,
+    "candidate_calibrations": 0,
+    "candidate_admissions": 0,
+    "target_process_launches": 0,
+    "checked_source_runtime_removals": 0
+  },
+  "disposition": "Preserve both packets and all setup/build/fixture/prelaunch/cleanup outcomes. Declaration v3 normalizes CRLF to LF for text harness hashes, preserves v1/v2, and requires a new full native run plus independent audit before candidate credit."
+}

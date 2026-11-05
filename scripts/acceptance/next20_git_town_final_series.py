@@ -1,5 +1,6 @@
 """Execute a complete exact-archive Git Town final cell without retries."""
 import asyncio
+import hashlib
 import json
 import platform
 import sys
@@ -11,12 +12,20 @@ from next20_jrnl_final import main as final_batch
 from readiness_evidence import immutable_json, sha256
 
 
+def harness_sha(path):
+    """Hash text harness bytes with CRLF/LF checkout differences normalized."""
+    data = path.read_bytes()
+    if path.suffix.lower() in {'.py', '.ps1', '.yml', '.yaml'}:
+        data = data.replace(b'\r\n', b'\n')
+    return hashlib.sha256(data).hexdigest()
+
+
 async def main():
     package = DOC / 'git-town'
     target = RAW / 'active' / 'git-town'
     contracts = RAW / 'git-town' / 'host-contracts'
     host = {'Windows': 'windows', 'Linux': 'linux'}[platform.system()]
-    declaration_path = package / 'final-series-declaration-native-exit-v2.json'
+    declaration_path = package / 'final-series-declaration-native-exit-v3.json'
     declaration = json.loads(declaration_path.read_text(encoding='utf-8'))
     freeze_path = package / 'development-test-freeze.json'
     frozen = json.loads((contracts / 'development-test-freeze.json').read_text(encoding='utf-8'))
@@ -26,7 +35,7 @@ async def main():
     native_lock = package / 'native-runtime-lock.json'
     candidate = executable('native-exit-v1', host)
     for name, digest in declaration['harness_files'].items():
-        if sha256(ROOT / name) != digest:
+        if harness_sha(ROOT / name) != digest:
             raise ValueError('Git Town final harness changed after its declaration: ' + name)
     if (declaration['canonical_test_freeze_sha256'] != sha256(freeze_path) or
             declaration['native_runtime_lock_sha256'] != sha256(native_lock) or

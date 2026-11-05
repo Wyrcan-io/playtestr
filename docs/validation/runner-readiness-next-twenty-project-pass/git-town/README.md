@@ -134,3 +134,11 @@ audited in [`final-series-attempts-v1.json`](final-series-attempts-v1.json).
 Declaration v2 fixes the wrapper bound while preserving v1 and all failed
 attempts. Git Town remains unadmitted until the fresh exact-candidate series,
 fault recovery, independent audit and checked cleanup pass.
+
+The next run (`41954388734`) reached the final harness verification on both
+hosts, then refused before candidate execution because raw source hashes varied
+with Linux LF and Windows CRLF checkouts. Its complete packets and exact
+failure dispositions are in [`final-series-attempts-v2.json`](final-series-attempts-v2.json).
+Declaration v3 hashes normalized text harness bytes and binds the corrected
+cross-platform policy. Both first attempts remain preserved and receive zero
+candidate credit.

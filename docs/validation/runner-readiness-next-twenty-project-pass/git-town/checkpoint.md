@@ -94,3 +94,17 @@ inventories are recorded in `final-series-attempts-v1.json` and preserved under
 the campaign raw retention root. Immutable declaration v2 sets the wrapper to
 the helper maximum, binds changed harness bytes, and preserves v1. A new full
 Linux/Windows run and independent packet audit are still required.
+
+Second hosted attempt `41954388734` used declaration v2 and the corrected
+1,200-second wrapper bound. Both hosts installed the exact candidate, built the
+pinned application, generated the fixture, and materialized the same frozen
+contracts. The final harness hash check then refused before launching any
+candidate target test: Linux found a raw-byte mismatch in
+`readiness_evidence.py`; Windows found one in the workflow YAML, consistent with
+LF/CRLF checkout conversion. Candidate executions and source-fault phases remain
+zero, and report-based cleanup again could not prove source/runtime removal.
+Windows process proof passed. Packet artifact digests, extracted inventories,
+event identities, and dispositions are in `final-series-attempts-v2.json`.
+Declaration v3 now normalizes line endings for text harness hashes and preserves
+v1/v2 unchanged. The next native run must pass its full declaration gate before
+the exact 12 x 20 series can start.
