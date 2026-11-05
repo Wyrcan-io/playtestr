@@ -119,3 +119,26 @@ preserved in `final-series-attempts-v3.json`. V4 derives hashes from the Git
 index after explicitly staging the final-series consumer and generator, then
 compares normalized working-tree bytes on the runners. The next two-host run is
 the first eligible attempt to start candidate scenarios.
+
+
+Fourth exact-candidate attempt `41956408435` passed the v4 staged-blob hash gate
+and started real RC6 cases. Linux timed out on its first cold N01 checkpoint at
+the default 3,000 ms with an empty captured screen; target process-group and
+workspace cleanup were positively confirmed. Windows passed the first 12
+selected cases, then N15 rejected a saved-state mismatch after the target
+displayed `feat-Ã©` while the frozen state expected `feat-é`. Both host jobs
+failed, no complete batch or candidate credit was earned, and report-based
+target cleanup could not finish because the common cleanup verifier requires
+the pinned `source.tar.gz`, absent from the Git-checkout acquisition path.
+
+The full packets (Linux artifact `13382803190`, Windows artifact `13384125287`)
+and extracted inventories are preserved in
+[`final-series-attempts-v4.json`](final-series-attempts-v4.json) and under the
+raw retained directory named in that record. V5 raises only N01's declared
+checkpoint to 10,000 ms and changes N15 to a Unicode branch-selection scenario
+using a separately seeded local fixture; it does not erase the observed
+Windows command-line conversion failure. V5 is declared to acquire the pinned
+source archive by its existing reviewed SHA-256 and retain it in the cleanup packet.
+The new v5 catalog/freeze and staged-harness declaration remain zero-credit
+until both hosted cells, complete repeated series, source-fault calibration,
+independent audit, and checked source/runtime removal pass.

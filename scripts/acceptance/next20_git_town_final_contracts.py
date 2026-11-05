@@ -1,6 +1,8 @@
 """Materialize the pre-frozen Git Town final host contracts under campaign RAW."""
 import json
+import os
 import shutil
+import subprocess
 
 from next20_check import DOC, RAW, ROOT
 from readiness_evidence import immutable_json, sha256
@@ -11,7 +13,7 @@ PROJECT = 'git-town'
 
 def main():
     package = DOC / PROJECT
-    freeze_path = package / 'development-test-freeze.json'
+    freeze_path = package / 'development-test-freeze-native-exit-v2.json'
     freeze = json.loads(freeze_path.read_text(encoding='utf-8'))
     target = RAW / PROJECT / 'host-contracts'
     if target.exists():
@@ -27,7 +29,7 @@ def main():
         source.resolve(strict=True).relative_to(package.resolve())
         if source.is_symlink() or not source.is_file() or sha256(source) != expected:
             raise ValueError('canonical final input differs from its frozen digest: ' + name)
-        if name.startswith('fixtures/branch-repo/'):
+        if name.startswith(('fixtures/branch-repo/', 'fixtures/branch-repo-unicode/')):
             copied[name] = expected
             continue
         destination = target / name
@@ -69,6 +71,50 @@ def main():
     manifest_copy = target / 'fixture-source.json'
     shutil.copyfile(fixture_manifest_path, manifest_copy)
     dynamic_inputs['fixture-source.json'] = sha256(manifest_copy)
+
+    unicode_fixture = target / 'fixtures' / 'branch-repo-unicode'
+    shutil.copytree(destination_fixture, unicode_fixture, dirs_exist_ok=True)
+    home = target_root / 'home'
+    temp = target_root / 'tmp'
+    isolated_env = {key: value for key, value in os.environ.items()
+                    if key.upper() in {'PATH', 'PATHEXT', 'SYSTEMROOT', 'WINDIR', 'COMSPEC',
+                                       'SYSTEMDRIVE', 'PROGRAMFILES', 'PROGRAMFILES(X86)', 'PROGRAMW6432'}}
+    isolated_env.update(HOME=str(home), USERPROFILE=str(home), APPDATA=str(home / 'appdata'),
+                        LOCALAPPDATA=str(home / 'localappdata'), TEMP=str(temp), TMP=str(temp),
+                        TMPDIR=str(temp), GIT_CONFIG_NOSYSTEM='1', GIT_CONFIG_GLOBAL=os.devnull,
+                        GIT_TERMINAL_PROMPT='0', GIT_AUTHOR_NAME='Campaign Fixture',
+                        GIT_AUTHOR_EMAIL='fixture@example.invalid',
+                        GIT_COMMITTER_NAME='Campaign Fixture',
+                        GIT_COMMITTER_EMAIL='fixture@example.invalid')
+    branch = 'feat-\u00e9'
+    for command in (['git', 'branch', branch],
+                    ['git', 'config', 'git-town-branch.' + branch + '.parent', 'main']):
+        result = subprocess.run(command, cwd=unicode_fixture, env=isolated_env,
+                                capture_output=True, timeout=30, check=False)
+        if result.returncode:
+            raise RuntimeError('Unicode Git Town fixture command failed: ' +
+                               result.stderr[-2048:].decode('utf-8', 'replace'))
+    if (unicode_fixture / '.git' / 'HEAD').read_bytes() != b'ref: refs/heads/main\n':
+        raise ValueError('Unicode Git Town fixture changed its initial HEAD')
+    unicode_files = {}
+    unicode_total = 0
+    for path in sorted(unicode_fixture.rglob('*')):
+        if path.is_symlink() or getattr(path, 'is_junction', lambda: False)():
+            raise ValueError('linked Unicode Git Town fixture member')
+        if path.is_file():
+            relative = path.relative_to(unicode_fixture).as_posix()
+            unicode_files[relative] = dict(bytes=path.stat().st_size, sha256=sha256(path))
+            dynamic_inputs[('fixtures/branch-repo-unicode/' + relative)] = sha256(path)
+            unicode_total += path.stat().st_size
+    if unicode_total > 4 * 1024 * 1024 or len(unicode_files) > 5000:
+        raise ValueError('Unicode Git Town fixture exceeds campaign bounds')
+    unicode_manifest = target / 'fixture-source-unicode.json'
+    immutable_json(unicode_manifest, dict(schema_version=1, project=PROJECT,
+        repository='synthetic local repository with Unicode branch',
+        initial_branch='main', secondary_branch='feat-\u00e9', remote_count=0,
+        files=unicode_files, total_bytes=unicode_total,
+        scope='Per-case Unicode branch-selection fixture; generated from the exact host fixture with local Git only.'))
+    dynamic_inputs['fixture-source-unicode.json'] = sha256(unicode_manifest)
     copied.update(dynamic_inputs)
     immutable_json(target / 'development-test-freeze.json', dict(
         schema_version=1, project=PROJECT,

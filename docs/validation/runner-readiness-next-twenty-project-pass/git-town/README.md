@@ -150,3 +150,16 @@ candidate tests; their artifacts and dispositions are in
 [`final-series-attempts-v3.json`](final-series-attempts-v3.json). Declaration v4
 derives normalized text hashes from staged Git blobs so it binds the exact
 commit contents while ignoring checkout-only CRLF conversion.
+
+The fourth exact-candidate attempt (`41956408435`) passed the declaration gate
+and reached target scenarios. Linux's first cold case exceeded the implicit
+3-second checkpoint before emitting screen bytes; Windows passed twelve cases
+before the Unicode creation case failed its exact `.git/HEAD` state check.
+Both host packets and the two failure dispositions are retained in
+[`final-series-attempts-v4.json`](final-series-attempts-v4.json). The jobs also
+found that the pinned source archive was missing from the checkout-based cleanup
+path, so source/runtime removal was not verified. V5 freezes a 10-second N01
+checkpoint, a separate Unicode switcher case with a host-generated fixture,
+and acquisition/retention of the exact pinned source archive. All attempts
+remain zero-credit until complete native execution, independent audit, and
+checked cleanup pass.

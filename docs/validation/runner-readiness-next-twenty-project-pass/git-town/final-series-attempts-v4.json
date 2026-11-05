@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "project": "git-town",
+  "attempt": "native-exit-v1-final-series-fourth-hosted-attempt",
+  "workflow_run": "41956408435",
+  "workflow_commit": "2c019c28e3f579f86c4da8dfc4b91f9a7dcdb2e7",
+  "workflow_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/41956408435",
+  "declaration": "final-series-declaration-native-exit-v4.json",
+  "candidate": "v0.4.0-rc.6",
+  "candidate_series": "native-exit-v1",
+  "candidate_provider_runs": {"linux": "40424475362", "windows": "40425810038"},
+  "observed": {
+    "linux": {
+      "job": "127012241286",
+      "status": "failure",
+      "artifact_id": "13382803190",
+      "artifact_name": "next20-git-town-linux-final-native-exit-v1",
+      "artifact_bytes": 1689929,
+      "artifact_sha256": "e7bdcdd86a892a3d43c1dcb62e4c90059b1de3628ce09cf3b99fb48b0e1f8e51",
+      "downloaded_files": 139,
+      "downloaded_bytes": 4065203,
+      "downloaded_inventory_sha256": "b09bd0247464a2b5538e1d9410230140defdaf831bf49999291f163b025533af",
+      "retained_at": "artifacts/runner-readiness-next-twenty-project-pass/retained/41956408435-v4/linux",
+      "first_candidate_case": "N01-hack-feature",
+      "first_candidate_attempt": "260aadea675447fa9e8f651b811ae089",
+      "first_failure": "assertion_timeout at the default 3000 ms expect checkpoint; zero screen bytes were captured; runner confirmed Unix process-group termination and workspace cleanup",
+      "cleanup_attempt": "17a6f5dee8e14b978499ad5a4b0b6f3f"
+    },
+    "windows": {
+      "job": "127012241158",
+      "status": "failure",
+      "artifact_id": "13384125287",
+      "artifact_name": "next20-git-town-windows-final-native-exit-v1",
+      "artifact_bytes": 2279279,
+      "artifact_sha256": "01623cf77478e1a24e58d389c9b881241891482786f92598c34cb813e77319a7",
+      "downloaded_files": 260,
+      "downloaded_bytes": 5560314,
+      "downloaded_inventory_sha256": "f64ac76f3e133a65d4f7ed266944a8a6450d183137ca13a53b08321e573e1ec5",
+      "retained_at": "artifacts/runner-readiness-next-twenty-project-pass/retained/41956408435-v4/windows",
+      "first_candidate_case": "N01-hack-feature",
+      "first_failure_case": "N15-create-unicode-branch",
+      "first_failure_attempt": "63f82f17057240099a21f68d164b93bc",
+      "observed_failure": "The target completed with exit zero; the screen showed feat-Ã© while the reviewed state expected refs/heads/feat-é, and the exact .git/HEAD checkpoint rejected the bytes.",
+      "passing_candidate_cases_before_failure": 12,
+      "process_proof_attempt": "af58a84e885a40b8b84a446ef705c9f1",
+      "cleanup_preflight_attempt": "9bcd2871172e4c8ca417163a035ebf42",
+      "cleanup_attempt": "622833a8fddc481684e81a153a76eae1"
+    }
+  },
+  "counts": {
+    "candidate_target_cases_launched": 14,
+    "candidate_target_cases_passed": 12,
+    "candidate_target_cases_failed": 2,
+    "complete_batches": 0,
+    "candidate_ordinary_executions_qualified": 0,
+    "candidate_calibrations": 0,
+    "candidate_admissions": 0,
+    "checked_source_runtime_removals": 0
+  },
+  "root_causes": {
+    "linux": "The first exact-candidate cold Git Town run exceeded the contract's implicit 3000 ms checkpoint before emitting screen bytes. V5 explicitly bounds N01 at 10000 ms; the failed attempt is preserved.",
+    "windows": "The frozen creation case exposed a Windows Unicode argument conversion mismatch in the target path. V5 replaces the creation scenario with a distinct public switcher case that selects a correctly host-seeded Unicode branch and checks the exact ref bytes. The original failure remains preserved.",
+    "cleanup": "Both jobs reached checked cleanup, but the target root did not contain source.tar.gz, which the common retention verifier requires. V5 acquires the exact pinned codeload archive by its reviewed digest and includes the retained source packet in the uploaded evidence."
+  },
+  "disposition": "Preserve both complete host packets. Declaration v5 changes the frozen test set and cleanup provenance path; no v4 ordinary, calibration, native-cell, or admission credit is awarded."
+}
