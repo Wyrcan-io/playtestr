@@ -1,0 +1,49 @@
+{
+  "version": 3,
+  "name": "Seeded wrong branch-selection expectation for diagnosis",
+  "command": [
+    "git-town",
+    "switch",
+    "--type",
+    "feature"
+  ],
+  "workspace": {
+    "fixture": "fixtures/branch-repo",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_PAGER": "cat",
+    "GIT_TERMINAL_PROMPT": "0",
+    "PAGER": "cat",
+    "TERM": "xterm-256color"
+  },
+  "inherit_env": [
+    "PATH"
+  ],
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 300000,
+  "max_output_bytes": 1048576,
+  "steps": [
+    {
+      "expect": "feat-red"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": ".git/HEAD",
+        "kind": "file",
+        "bytes_base64": "cmVmOiByZWZzL2hlYWRzL2ZlYXQtYmx1ZQo="
+      }
+    }
+  ]
+}

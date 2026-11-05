@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "project": "git-town",
+  "candidate": "v0.4.0-rc.6",
+  "seeded_spec": "authoring/diagnosis-seeded-failure-v1.json",
+  "seeded_spec_sha256": "3611f9e2832c7ce94b5482c2cd243c85a4c7a3410056e54dc7892361f5b56cf6",
+  "maintenance_output": "authoring/diagnosis-seeded-v1.json",
+  "maintenance_output_sha256": "539e249c4828f9ad078a2de0741a4e9badc1e033215c3be67962768d0424a04b",
+  "changed_fields": [
+    "steps[0].expect: feat-red -> feat-blue"
+  ],
+  "no_other_spec_field_changes": true,
+  "approved_fixture_manifest_sha256": "8cd8c91ce714fddef1f723d06ae948b28666053ca7a5f8e254195c45457a53c4",
+  "approved_fixture_bytes_unchanged": true,
+  "diagnostic_failure": {
+    "report": "artifacts/runner-readiness-next-twenty-project-pass/active/git-town/diagnosis-seeded-report-v1.json",
+    "report_sha256": "6d5ddc045873b0571685cfd67bc26f66f59a1d67bf669f925138291f74b5ce73",
+    "category": "assertion_timeout",
+    "message": "Seeded wrong branch-selection expectation for diagnosis: step 1: step timed out: context deadline exceeded",
+    "screen_path": "C:\\Users\\abhir\\OneDrive\\Documents\\playtestr\\artifacts\\runner-readiness-next-twenty-project-pass\\active\\git-town\\diagnosis-seeded-artifacts-v1\\20261105T003905Z-136309896\\r-readiness-next-twenty-project-pass-git-town-authoring-diagnosis-seeded-v1.json-005396d2b401.actual.txt",
+    "screen_sha256": "a9cdf52c2bfb6550c40a248ae233144b0741687ccb8ba5b03ec9d1b9a914ac4b",
+    "target_exit_code": 0,
+    "cleanup_confirmed": true,
+    "workspace_cleaned": true
+  },
+  "maintenance_replay": {
+    "report": "artifacts/runner-readiness-next-twenty-project-pass/active/git-town/diagnosis-maintained-report-v1.json",
+    "report_sha256": "c5fed7bb48767f6b80ad46731aa2886ae2d8a9eb7b745f3db1cb8dc89a8188a9",
+    "status": "passed",
+    "passed_steps": 4,
+    "cleanup_confirmed": true,
+    "workspace_cleaned": true
+  },
+  "diagnosis_documented_commands": 2,
+  "next_action": "Use recorder selected-step replacement to change only step 1 expectation to observed feat-blue; replay fresh and save."
+}
