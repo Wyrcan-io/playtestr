@@ -66,12 +66,11 @@
   "generated_free_ci": {
     "workflow": ".github/workflows/runner-readiness-next20-git-town-user-ci.yml",
     "workflow_sha256": "52d38c63f0f97f01861b4a3728f02217affc4b624aa67c7a254ffd19d86fc37b",
-    "source_candidate": "051511594b4937acf9ad48fd415156513edd5995",
     "event": "pull_request, workflow_dispatch, and campaign-branch push",
     "target_checkout": "verified immutable Git Town commit",
     "build_toolchain": "Go 1.27.0 via pinned setup-go action; GOTOOLCHAIN=local; vendored dependencies",
     "suite": "authoring/first-use-git-town.json",
-    "status": "first campaign-push run failed during context capture because frozen helper rejected push; second run queued by workflow/helper correction commit",
+    "status": "passed on hosted Ubuntu push after recording the initial context-rejection failure",
     "adjustment": "Generated workflow go-version-file changed to exact Go 1.27.0 because pinned Git Town requires Go 1.26.9; standard PR/workflow_dispatch structure otherwise kept.",
     "fixture_prepare_and_always_cleanup": {
       "helper": "scripts/acceptance/next20_git_town_authoring_fixture.py",
@@ -103,13 +102,40 @@
         "admission_credit": 0
       },
       {
-        "run_id": "queued-by-next-workflow-commit",
+        "run_id": "41948227863",
         "event": "push",
         "source_revision": "051511594b4937acf9ad48fd415156513edd5995",
         "intended_check": "exact checkout push context manifest and ordinary Git Town authoring test",
-        "admission_credit": 0
+        "admission_credit": 0,
+        "outcome": "passed",
+        "artifact_id": 13378953789
       }
-    ]
+    ],
+    "source_runner_revision": "051511594b4937acf9ad48fd415156513edd5995",
+    "hosted_push_pass": {
+      "run_id": "41948227863",
+      "head_sha": "09db6bd07c3a715ed54e0a9ae051e667e29f11a2",
+      "runner_sha256": "500e0d1959fa409add719e91e848952b84c92a4d7784e28fa8ec1ea18de71616",
+      "artifact_id": 13378953789,
+      "artifact_bytes": 5040,
+      "artifact_sha256": "54f9aeba56d517e923dd6e446d8fa2dc45097aea41811a1ca4e0df30d80d0cd3",
+      "context_manifest_sha256": "77f2477132ef8a2e780c99e9560e484d0e8268888985b6cc0161f0065cabf0ca",
+      "context_event": "push",
+      "context_tested_sha": "09db6bd07c3a715ed54e0a9ae051e667e29f11a2",
+      "report_sha256": "2169d34cf898b1a0fb904917eae7ff912ca4279823ed804cb319710115515643",
+      "summary": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "cancelled": 0,
+        "not_run": 0
+      },
+      "steps_passed": 4,
+      "target_exit_code": 0,
+      "process_cleanup_confirmed": true,
+      "workspace_cleanup_confirmed": true,
+      "admission_credit": 0
+    }
   },
   "human_participants": 0,
   "admission_credit": 0,
