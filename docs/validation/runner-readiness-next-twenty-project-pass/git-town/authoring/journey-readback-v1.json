@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "project": "git-town",
+  "candidate": {
+    "version": "v0.4.0-rc.6",
+    "source_revision": "24029291cd0221d7611f07d27b464ec0936a815f",
+    "runner_binary_sha256": "6c80fdbcdd74705b85b2e8aad2f07140f5ff5e8cea80db1d6c24a04d71b23f36"
+  },
+  "target": {
+    "repository": "git-town/git-town",
+    "pin": "8d039892574d4852e1843020c31d423234042e78",
+    "version": "24.1.0",
+    "windows_binary_sha256": "d66f066651e34e764e6c0cba60b9184a899b5c135b698ddc2944938a32211254",
+    "build": "go build -mod=vendor -trimpath -buildvcs=false",
+    "target_go_version": "1.27.0"
+  },
+  "public_authoring": {
+    "route": "record without prewritten JSON, replay, save, then ordinary test",
+    "spec": "authoring/first-use-git-town.json",
+    "spec_sha256": "7036af42e66482189813449af990adc976e4bd93d3e919ec24bde55ed1228336",
+    "fixture": "authoring/fixtures/branch-repo",
+    "fixture_manifest_sha256": "cc8a533b7b27b86cc857768219a8e3ab1d3a845c43435388e824dd82ff37e655",
+    "command": "git-town switch --type feature",
+    "controls": 7,
+    "commands_to_first_ordinary_pass": 2,
+    "local_windows": {
+      "status": "passed",
+      "report": "artifacts/runner-readiness-next-twenty-project-pass/active/git-town/authoring-first-use-report-v1.json",
+      "report_sha256": "a00836a1b1c6b9d1588e1c32d0ee229b7a645498d20beb13290b7286af3d35fd",
+      "steps": 4,
+      "cleanup_confirmed": true,
+      "workspace_cleaned": true
+    },
+    "initial_spec_sha256": "e6c959482a50633b5443fea51ec6e511b1ccd3245513ef25cb90d99d8aa44d3f",
+    "state_path": ".gitdir/HEAD; captured and maintained via recorder because Git treats the committed gitdir pointer as a file"
+  },
+  "seeded_diagnosis_maintenance": {
+    "readback": "authoring/maintenance-readback-v1.json",
+    "status": "passed",
+    "original_failed_attempt_preserved": true,
+    "only_change": "steps[0].expect: feat-red -> feat-blue",
+    "maintenance_report_sha256": "c5fed7bb48767f6b80ad46731aa2886ae2d8a9eb7b745f3db1cb8dc89a8188a9",
+    "fresh_replay_steps": 4,
+    "cleanup_confirmed": true,
+    "workspace_cleaned": true
+  },
+  "relocation": {
+    "suite": "docs/validation/runner-readiness-next-twenty-project-pass/git-town/authoring/relocated suite/試験/first-use-git-town.json",
+    "spec_sha256": "7036af42e66482189813449af990adc976e4bd93d3e919ec24bde55ed1228336",
+    "manifest": "docs/validation/runner-readiness-next-twenty-project-pass/git-town/authoring/relocated suite/試験/relocation-manifest-v1.json",
+    "manifest_sha256": "ea01bbcf628975123e21f11988d1c955d83f5ec4793eabd7c1a031e9a55cdad9",
+    "copied_fixture_files": 11,
+    "copied_fixture_bytes": 883,
+    "byte_identical": true,
+    "path_tested": "space and Japanese characters",
+    "status": "passed on native Windows/amd64",
+    "report": "artifacts/runner-readiness-next-twenty-project-pass/active/git-town/relocation-report-v1.json",
+    "report_sha256": "ae3423543bc2dfaa81529d82c0a4e16f9140d2090a5af383b7750ab4b3a07156",
+    "steps": 4,
+    "target_exit_code": 0,
+    "cleanup_mechanism": "windows-job-object",
+    "cleanup_confirmed": true,
+    "workspace_cleaned": true,
+    "fixture_template": "fixtures/branch-repo-template"
+  },
+  "generated_free_ci": {
+    "workflow": ".github/workflows/runner-readiness-next20-git-town-user-ci.yml",
+    "workflow_sha256": "af4edc38059673c47acf9ce7ae61fd635367fb715d49e66e633ca24b3fb5470a",
+    "source_candidate": "24029291cd0221d7611f07d27b464ec0936a815f",
+    "event": "workflow_dispatch",
+    "target_checkout": "verified immutable Git Town commit",
+    "build_toolchain": "Go 1.27.0 via pinned setup-go action; GOTOOLCHAIN=local; vendored dependencies",
+    "suite": "authoring/first-use-git-town.json",
+    "status": "prepared; hosted execution pending",
+    "adjustment": "Generated workflow go-version-file changed to exact Go 1.27.0 because pinned Git Town requires Go 1.26.9; standard PR/workflow_dispatch structure otherwise kept.",
+    "fixture_prepare_and_always_cleanup": {
+      "helper": "scripts/acceptance/next20_git_town_authoring_fixture.py",
+      "helper_sha256": "9f7c8fc77ee53715ce4da6fe86e00ddbf60390b9a52a5b2f77f66f35c829a023"
+    }
+  },
+  "human_participants": 0,
+  "admission_credit": 0,
+  "portable_fixture_packaging": {
+    "status": "ordinary Git-tracked template files; exact fixture is materialized by a bounded helper before test and removed after",
+    "template": "authoring/fixtures/branch-repo-template",
+    "template_manifest_sha256": "cc8a533b7b27b86cc857768219a8e3ab1d3a845c43435388e824dd82ff37e655",
+    "template_files": 12,
+    "template_bytes": 899,
+    "git_metadata_directory": ".git-metadata",
+    "git_pointer_file": "git-pointer.txt",
+    "runtime_mapping": {
+      "git-pointer.txt": ".git",
+      ".git-metadata/": " .gitdir/"
+    },
+    "embedded_gitlinks": false,
+    "helper": "scripts/acceptance/next20_git_town_authoring_fixture.py",
+    "helper_sha256": "9f7c8fc77ee53715ce4da6fe86e00ddbf60390b9a52a5b2f77f66f35c829a023"
+  },
+  "portable_fixture_correction": {
+    "attempts_preserved": true,
+    "initial_state_path_failure_reports": [
+      "artifacts/runner-readiness-next-twenty-project-pass/active/git-town/authoring-portable-fixture-report-v1.json",
+      "artifacts/runner-readiness-next-twenty-project-pass/active/git-town/relocation-portable-fixture-report-v1.json"
+    ],
+    "failure_category": "state_assertion_failure",
+    "failure_message": "saved-state checkpoint: wrong ancestor type for .git/HEAD because .git is a portable gitdir pointer file",
+    "target_exit_code": 0,
+    "target_and_workspace_cleanup_confirmed": true,
+    "recorder_maintenance": "selected step 4 replaced with state path .gitdir/HEAD; fresh recorder replay passed 4/4 on both suite paths",
+    "post_correction_reports": [
+      {
+        "path": "artifacts/runner-readiness-next-twenty-project-pass/active/git-town/authoring-portable-fixture-report-v4.json",
+        "sha256": "bc458d996419eab6f937b026da8bd5c4ff151605c8508f0edd61305e93e1be25",
+        "passed_steps": 4,
+        "cleanup_confirmed": true,
+        "workspace_cleaned": true
+      },
+      {
+        "path": "artifacts/runner-readiness-next-twenty-project-pass/active/git-town/relocation-portable-fixture-report-v4.json",
+        "sha256": "aabcf09f01a7ef0ecd901970e18737c88bfb7cbaf523e58b221a968ccf2e2aac",
+        "passed_steps": 4,
+        "cleanup_confirmed": true,
+        "workspace_cleaned": true
+      }
+    ],
+    "owned_temp_descendants_after_runs": 0,
+    "hosted_fixture_setup_helper": {
+      "path": "scripts/acceptance/next20_git_town_authoring_fixture.py",
+      "sha256": "9f7c8fc77ee53715ce4da6fe86e00ddbf60390b9a52a5b2f77f66f35c829a023",
+      "prepare_and_remove_are_manifest_checked": true,
+      "generated_ci_cleanup_runs_always": true
+    }
+  }
+}

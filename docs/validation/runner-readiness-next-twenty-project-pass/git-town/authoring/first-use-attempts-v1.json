@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "project": "git-town",
+  "host": "windows-2025 for campaign native development; local Windows for authoring probe",
+  "candidate": {
+    "version": "v0.4.0-rc.6",
+    "series": "native-exit-v1",
+    "binary_sha256": "6c80fdbcdd74705b85b2e8aad2f07140f5ff5e8cea80db1d6c24a04d71b23f36",
+    "source_revision": "24029291cd0221d7611f07d27b464ec0936a815f"
+  },
+  "target": {
+    "repository": "git-town/git-town",
+    "pin": "8d039892574d4852e1843020c31d423234042e78",
+    "version": "24.1.0",
+    "windows_binary_sha256": "d66f066651e34e764e6c0cba60b9184a899b5c135b698ddc2944938a32211254"
+  },
+  "initial_window": {
+    "status": "failed; initial authoring miss preserved",
+    "human_participant": false,
+    "operator": "Codex agent; assistance is not a beginner study",
+    "attempts": [
+      {
+        "kind": "recorder",
+        "environment": "sandboxed Windows",
+        "result": "refused before target launch because fixture path ../fixtures/branch-repo escaped the declared output-spec root",
+        "output_created": false
+      },
+      {
+        "kind": "recorder",
+        "environment": "sandboxed Windows, fixture copied under output directory",
+        "result": "Access is denied while preparing the owned native workspace; no exported spec",
+        "target_launch": "not established for this recorder attempt"
+      },
+      {
+        "kind": "recorder",
+        "environment": "native Windows",
+        "result": "60-second recording budget expired after capturing expect/key/exit/state and before review/export; raw draft not saved",
+        "command_identity": "absolute target executable path; intentionally abandoned as nonportable",
+        "target_exit_observed": 0,
+        "cleanup": "unconfirmed"
+      },
+      {
+        "kind": "recorder",
+        "environment": "native Windows",
+        "result": "absolute-path draft reviewed then /quit; no export, because it embedded a workspace-specific executable path",
+        "target_exit_observed": 0
+      },
+      {
+        "kind": "ordinary test",
+        "environment": "sandboxed Windows",
+        "result": "workspace_setup_failure: expand native workspace path: Access is denied; all four steps not_run",
+        "reports": [
+          "artifacts/runner-readiness-next-twenty-project-pass/active/git-town/authoring-N19-report-v1.json",
+          "artifacts/runner-readiness-next-twenty-project-pass/active/git-town/authoring-N19-report-v2.json"
+        ]
+      }
+    ]
+  },
+  "repaired_documented_window": {
+    "status": "passed; bounded agent-assisted engineering route",
+    "human_usability": "unmeasured",
+    "target_setup": "prebuilt, pinned source binary and byte-verified synthetic fixture were available before this measurement window",
+    "commands_to_first_ordinary_pass": 2,
+    "maximum_commands": 5,
+    "recorder_controls": 7,
+    "maximum_controls": 20,
+    "controls": [
+      "/expect feat-blue",
+      "/key Enter",
+      "/exit 0",
+      "/file .git/HEAD",
+      "/review",
+      "/replay",
+      "/save"
+    ],
+    "target_invocation": "git-town switch --type feature",
+    "command_is_bare_name": true,
+    "inherited_environment_names": [
+      "PATH"
+    ],
+    "absolute_target_or_home_path_in_spec": false,
+    "spec": "authoring/first-use-git-town.json",
+    "spec_sha256": "e6c959482a50633b5443fea51ec6e511b1ccd3245513ef25cb90d99d8aa44d3f",
+    "fixture_manifest": "authoring/fixture-manifest-v1.json",
+    "fixture_manifest_sha256": "8cd8c91ce714fddef1f723d06ae948b28666053ca7a5f8e254195c45457a53c4",
+    "ordinary_report": "artifacts/runner-readiness-next-twenty-project-pass/active/git-town/authoring-first-use-report-v1.json",
+    "ordinary_report_sha256": "a00836a1b1c6b9d1588e1c32d0ee229b7a645498d20beb13290b7286af3d35fd",
+    "ordinary_report_summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "cancelled": 0,
+      "not_run": 0
+    },
+    "positive_steps": 4,
+    "target_exit_code": 0,
+    "same_invocation_state": "exact .git/HEAD bytes matched ref: refs/heads/feat-blue\n",
+    "target_cleanup_confirmed": true,
+    "workspace_cleaned": true,
+    "owned_temp_root_absent_after_run": true,
+    "observed_target_runtime_ms": 919
+  },
+  "human_participants": 0,
+  "admission_credit": 0,
+  "notes": "The repaired engineering route meets command/control count for the agent-operated window. It is not an unfamiliar-human usability observation and does not erase the initial misses."
+}
