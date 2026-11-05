@@ -44,7 +44,7 @@ jobs:
           $output = 'artifacts/runner-readiness-next-twenty-project-pass/audit/git-town'
           New-Item -ItemType Directory -Force -Path $output | Out-Null
           python -B scripts/acceptance/git_town_artifact_audit.py `
-            --request docs/validation/runner-readiness-next-twenty-project-pass/audit-requests/git-town-audit-v13.json `
+            --request docs/validation/runner-readiness-next-twenty-project-pass/audit-requests/git-town-audit-v14.json `
             --output "$output/audit-receipt-v1.json"
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always() && steps.request.outputs.ready == 'true'
