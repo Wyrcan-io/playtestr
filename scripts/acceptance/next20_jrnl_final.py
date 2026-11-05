@@ -47,7 +47,7 @@ def widen_viewport(spec, width_delta=10, height_delta=2):
 
 
 async def main(project='jrnl',batch=None,candidate_series='rc5',chunk_readiness=False,window=None,
-               startup_timeout_ms_by_host=None):
+               startup_timeout_ms_by_host=None,declaration_path_override=None):
     if batch is None:
         parser=argparse.ArgumentParser();parser.add_argument('--batch',type=int,required=True)
         parser.add_argument('--project',default=project);parser.add_argument('--candidate-series',choices=SERIES,default=candidate_series)
@@ -60,7 +60,8 @@ async def main(project='jrnl',batch=None,candidate_series='rc5',chunk_readiness=
     host={'Windows':'windows','Linux':'linux','Darwin':'darwin'}[platform.system()]
     suffix='' if candidate_series=='rc5' else '-'+candidate_series
     if window:suffix+='-'+window
-    declaration_path=DOC/project/('final-series-declaration'+suffix+'.json')
+    declaration_path=(Path(declaration_path_override) if declaration_path_override else
+        DOC/project/('final-series-declaration'+suffix+'.json'))
     declaration=json.loads(declaration_path.read_text())
     if host not in declaration['hosts']:raise ValueError('undeclared host')
     root=RAW/project/('final-series'+suffix)/str(args.batch)

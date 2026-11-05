@@ -13,6 +13,11 @@ class StartupProfileTests(unittest.TestCase):
         self.assertEqual(startup_deadline('linux', legacy), 2000)
         with self.assertRaisesRegex(ValueError, 'host mapping'):
             startup_deadline('linux', legacy, [5000])
+        self.assertEqual(tight_startup(dict(steps=[dict(expect='ready')], timeout_ms=20000,
+                                             run_timeout_ms=60000), {}, 6000)['startup_timeout_ms'], 6000)
+        with self.assertRaisesRegex(ValueError, 'deadline'):
+            tight_startup(dict(steps=[dict(expect='ready')], timeout_ms=20000,
+                               run_timeout_ms=60000), {}, 6001)
 
     def test_output_gate_default_and_quiet_exact_completion_both_keep_declared_boundary(self):
         ordinary=dict(steps=[dict(expect='ready')],timeout_ms=10000,run_timeout_ms=30000)

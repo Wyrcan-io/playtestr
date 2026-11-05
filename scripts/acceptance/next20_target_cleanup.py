@@ -14,6 +14,14 @@ import uuid
 from next20_check import NAME,RAW,ROOT
 from readiness_evidence import immutable_json,sha256
 
+RETAINABLE_OWNED_EVIDENCE_DIRS=('case-evidence','fault-builds','fault-binaries','fault-events')
+
+
+def validate_retained_owned_directories(values):
+    if (len(values)!=len(set(values)) or any(value not in RETAINABLE_OWNED_EVIDENCE_DIRS for value in values)):
+        raise ValueError('owned evidence retention directory is duplicated or outside the fixed allowlist')
+    return list(values)
+
 
 def source_inventory(source):
     """Hash primary source while excluding checkout metadata and rejecting links."""
@@ -123,6 +131,8 @@ def main():
     parser.add_argument('--closed-report-packet',action='append',default=[])
     parser.add_argument('--canonical-native-generation',type=int)
     parser.add_argument('--retain-review-directory',action='append',choices=['wheel-review-inputs','linux-review-inputs'],default=[])
+    parser.add_argument('--retain-owned-directory',action='append',
+        choices=RETAINABLE_OWNED_EVIDENCE_DIRS,default=[])
     parser.add_argument('--compress-review-metadata',action='store_true')
     parser.add_argument('--retain-all-provenance-json',action='store_true')
     parser.add_argument('--max-files',type=int,choices=[40000,60000],default=40000)
@@ -235,10 +245,11 @@ def main():
         if source_file.is_file():
             destination=retained/name
             retain_file(source_file,destination,name)
-    if args.retain_review_directory or args.retain_all_provenance_json:
+    if args.retain_review_directory or args.retain_owned_directory or args.retain_all_provenance_json:
         for path in sorted(target.glob('*.json')):
             if path.name not in copied:retain_file(path,retained/path.name,path.name)
-    for name in ['dependency-review','linux-dependency-review','wheels','npm-cache','npm-installed-locks','dependency-research','npm-metadata-retention',*args.retain_review_directory]:
+    retained_owned_directories=validate_retained_owned_directories(args.retain_owned_directory)
+    for name in ['dependency-review','linux-dependency-review','wheels','npm-cache','npm-installed-locks','dependency-research','npm-metadata-retention',*args.retain_review_directory,*retained_owned_directories]:
         directory=target/name
         if directory.is_dir():
             destination=retained/name

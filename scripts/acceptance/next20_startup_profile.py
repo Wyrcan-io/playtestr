@@ -13,7 +13,7 @@ def startup_deadline(host, declaration, override=None):
 
 
 def tight_startup(original,case,deadline_ms):
-    if type(deadline_ms)!=int or not 1<=deadline_ms<=5000:raise ValueError('undeclared tight startup deadline')
+    if type(deadline_ms)!=int or not 1<=deadline_ms<=6000:raise ValueError('undeclared tight startup deadline')
     value=copy.deepcopy(original)
     mode=case.get('startup_evidence','terminal-output')
     if mode=='terminal-output':value['startup_timeout_ms']=deadline_ms

@@ -2,7 +2,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from next20_target_cleanup import source_inventory
+from next20_target_cleanup import source_inventory,validate_retained_owned_directories
 
 
 class SourceInventoryTests(unittest.TestCase):
@@ -25,6 +25,15 @@ class SourceInventoryTests(unittest.TestCase):
                 self.skipTest('host does not permit creating a symlink in the test temp directory')
             with self.assertRaises(ValueError):
                 source_inventory(root)
+
+    def test_final_fault_evidence_directories_are_explicitly_retained(self):
+        self.assertEqual(validate_retained_owned_directories(
+            ['case-evidence','fault-builds','fault-binaries','fault-events']),
+            ['case-evidence','fault-builds','fault-binaries','fault-events'])
+        with self.assertRaises(ValueError):
+            validate_retained_owned_directories(['src'])
+        with self.assertRaises(ValueError):
+            validate_retained_owned_directories(['case-evidence','case-evidence'])
 
 
 if __name__=='__main__':

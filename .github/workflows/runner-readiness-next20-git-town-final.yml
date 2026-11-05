@@ -146,13 +146,13 @@ jobs:
         run: python -B scripts/acceptance/next20_check.py --label git-town-final-process-proof --timeout 120 -- powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/acceptance/next20_target_process_proof.ps1 -Project git-town
       - name: Verify source restoration and prepare Windows removal
         if: always() && steps.prepare.outcome == 'success' && matrix.host == 'windows'
-        run: python -B scripts/acceptance/next20_check.py --label git-town-final-cleanup-preflight --timeout 180 -- python -B scripts/acceptance/next20_target_cleanup.py --project git-town --prepare-only
+        run: python -B scripts/acceptance/next20_check.py --label git-town-final-cleanup-preflight --timeout 180 -- python -B scripts/acceptance/next20_target_cleanup.py --project git-town --prepare-only --retain-owned-directory case-evidence --retain-owned-directory fault-builds --retain-owned-directory fault-binaries --retain-owned-directory fault-events
       - name: Remove verified Windows target source and runtime
         if: always() && steps.prepare.outcome == 'success' && matrix.host == 'windows'
         run: python -B scripts/acceptance/next20_check.py --label git-town-final-target-removal --timeout 180 -- powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/acceptance/next20_remove_target.ps1 -Project git-town
       - name: Remove verified Unix target source and runtime
         if: always() && steps.prepare.outcome == 'success' && matrix.host == 'linux'
-        run: python -B scripts/acceptance/next20_check.py --label git-town-final-target-removal --timeout 180 -- python -B scripts/acceptance/next20_target_cleanup.py --project git-town
+        run: python -B scripts/acceptance/next20_check.py --label git-town-final-target-removal --timeout 180 -- python -B scripts/acceptance/next20_target_cleanup.py --project git-town --retain-owned-directory case-evidence --retain-owned-directory fault-builds --retain-owned-directory fault-binaries --retain-owned-directory fault-events
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
@@ -163,6 +163,9 @@ jobs:
             artifacts/runner-readiness-next-twenty-project-pass/core/**
             artifacts/runner-readiness-next-twenty-project-pass/git-town/**
             artifacts/runner-readiness-next-twenty-project-pass/active/git-town/*.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/case-evidence/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/fault-builds/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/fault-binaries/**
             artifacts/runner-readiness-next-twenty-project-pass/git-town/retained-source/**
             artifacts/runner-readiness-next-twenty-project-pass/active/git-town/fault-events/**
             artifacts/runner-readiness-next-twenty-project-pass/candidate-native-exit-v1/${{ matrix.host }}/installed.json
