@@ -123,3 +123,14 @@ Windows. These fault phases and the v5 scenario matrix remain development
 evidence until independently audited and rerun on the exact final candidate.
 The public recorder/maintenance/relocation journey and all final qualification
 gates remain open.
+
+The first exact RC6 final-series workflow, run `41953084178`, installed the
+frozen candidate and built the pinned target on both native hosts. The final
+command was refused before target tests because its 3,300-second wrapper budget
+exceeded the campaign helper's 1,200-second maximum. This is a harness
+configuration failure with zero candidate executions; the dependent report-based
+cleanup proof also could not run. Both first-attempt packets are retained and
+audited in [`final-series-attempts-v1.json`](final-series-attempts-v1.json).
+Declaration v2 fixes the wrapper bound while preserving v1 and all failed
+attempts. Git Town remains unadmitted until the fresh exact-candidate series,
+fault recovery, independent audit and checked cleanup pass.

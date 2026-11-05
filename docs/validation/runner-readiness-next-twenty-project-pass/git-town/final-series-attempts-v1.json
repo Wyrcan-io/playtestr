@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "project": "git-town",
+  "attempt": "native-exit-v1-final-series-first-hosted-attempt",
+  "workflow_run": "41953084178",
+  "workflow_commit": "abed842a527b230aa8d1cd8c5969094bb3567335",
+  "workflow_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/41953084178",
+  "declaration": "final-series-declaration-native-exit-v1.json",
+  "candidate": "v0.4.0-rc.6",
+  "candidate_series": "native-exit-v1",
+  "candidate_provider_runs": {
+    "linux": "40424475362",
+    "windows": "40425810038"
+  },
+  "observed": {
+    "linux": {
+      "job": "127001381642",
+      "status": "failure",
+      "artifact_id": "13381871441",
+      "artifact_name": "next20-git-town-linux-final-native-exit-v1",
+      "artifact_bytes": 699807,
+      "artifact_sha256": "c27fd84e201244bdf9c161b1ded82eed025c49d22f066f4ff062702eb8318be5",
+      "downloaded_files": 188,
+      "downloaded_bytes": 1999195,
+      "downloaded_inventory_sha256": "b1926053f34bc320b8b5d1c42d82d7c49548f3084bfb79272449301456b4eb24",
+      "retained_at": "artifacts/runner-readiness-next-twenty-project-pass/retained/41953084178-linux",
+      "attempt_ids": {
+        "candidate_install": "ad4664bbffe44a7b8280615f73b937be",
+        "pinned_build": "54cc005b8822442e8c511cbd1ccdba08",
+        "fixture": "ceab02c1000445a2865da046899c1fab",
+        "contract_materialization": "e2363362050d4c798ea73153fe931697",
+        "final_command_refusal": "prelaunch-rejected-by-next20_check; no campaign attempt id",
+        "cleanup": "5d07b800c20a471d9ff1a4d0e26474e4"
+      }
+    },
+    "windows": {
+      "job": "127001381514",
+      "status": "failure",
+      "artifact_id": "13382405728",
+      "artifact_name": "next20-git-town-windows-final-native-exit-v1",
+      "artifact_bytes": 788104,
+      "artifact_sha256": "c3c21c2f3c8d23fb6674c207d33edacb16dfda6b8342638337b365659add1722",
+      "downloaded_files": 202,
+      "downloaded_bytes": 2220515,
+      "downloaded_inventory_sha256": "f6cb2672ac78c0e3214bbe55a8bb36f8695f19c41d7ca55d0ed4951d0afc9225",
+      "retained_at": "artifacts/runner-readiness-next-twenty-project-pass/retained/41953084178-windows",
+      "attempt_ids": {
+        "candidate_install": "52fe638d1f284429a49cfd1f5f0e87fa",
+        "pinned_build": "91c756b1e9704106b32e3e3045722f24",
+        "fixture": "8893819d7c984d7fbcf781b4d7d82b7c",
+        "contract_materialization": "78de6e1d3a5542c7a9296048643a8e53",
+        "process_proof": "08543bef38f948f284976e88271b6190",
+        "final_command_refusal": "prelaunch-rejected-by-next20_check; no campaign attempt id",
+        "cleanup_preflight": "b6087515d94a4726a39597c4e6dd64b7",
+        "cleanup": "79f3b060961f4cbb87c006085da942c3"
+      }
+    }
+  },
+  "root_cause": {
+    "declared_wrapper_timeout_seconds": 3300,
+    "next20_check_maximum_seconds": 1200,
+    "result": "next20_check rejected the wrapper invocation before launching next20_git_town_final_series.py; no RC6 target scenario or source-fault phase launched",
+    "downstream_cleanup": "cleanup helper had no target report proving test-session cleanup and refused removal proof; source/runtime removal is therefore unverified for this failed job"
+  },
+  "counts": {
+    "candidate_ordinary_executions": 0,
+    "candidate_calibrations": 0,
+    "candidate_admissions": 0,
+    "target_process_launches": 0,
+    "checked_source_runtime_removals": 0
+  },
+  "disposition": "Preserve both failed hosted packets and all setup/build/fixture/prelaunch/cleanup outcomes. Declaration v2 corrects the bounded wrapper time; require a fresh full native run and independent audit before any candidate credit."
+}

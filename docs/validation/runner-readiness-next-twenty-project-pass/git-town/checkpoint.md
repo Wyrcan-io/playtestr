@@ -78,3 +78,19 @@ These observations are source-development and authored-user-flow evidence only. 
 
 
 Exact-candidate preflight: native Windows local run of v0.4.0-rc.6/N01 (`0e64475632234057b757324f6ede884e`) was refused during workspace setup with `expand native workspace path: Access is denied.` No target process started; the test has zero candidate or project credit. The attempt is preserved in `candidate-smoke-attempts-v1.json`; the declared standard `windows-2025` final cell remains required.
+
+First hosted exact-candidate attempt (5 November 2026): workflow run
+`41953084178` installed the exact frozen RC6 candidate and successfully verified
+and built Git Town, generated the synthetic repository, and materialized the
+frozen host contracts on Linux and Windows. The final-series wrapper was invoked
+with a 3,300-second limit, above `next20_check.py`'s 1,200-second cap, so the
+helper rejected it before launching the final-series program or any candidate
+target scenario. Both jobs correctly remain failed and receive zero candidate
+ordinary, calibration, or admission credit. The downstream cleanup checks also
+failed because no target reports existed for report-based cleanup proof; explicit
+source/runtime removal was not verified for that failed attempt. Hosted process
+proof passed on Windows. Provider artifacts and complete extracted packet
+inventories are recorded in `final-series-attempts-v1.json` and preserved under
+the campaign raw retention root. Immutable declaration v2 sets the wrapper to
+the helper maximum, binds changed harness bytes, and preserves v1. A new full
+Linux/Windows run and independent packet audit are still required.
