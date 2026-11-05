@@ -2,6 +2,16 @@
 import copy
 
 
+def startup_deadline(host, declaration, override=None):
+    """Use an explicit candidate declaration when a shared legacy reader differs."""
+    profile = override
+    if profile is None:
+        profile = declaration.get('startup_timeout_ms_by_host', {})
+    if not isinstance(profile, dict):
+        raise ValueError('startup deadline profile must be a host mapping')
+    return profile.get(host, 2000)
+
+
 def tight_startup(original,case,deadline_ms):
     if type(deadline_ms)!=int or not 1<=deadline_ms<=5000:raise ValueError('undeclared tight startup deadline')
     value=copy.deepcopy(original)

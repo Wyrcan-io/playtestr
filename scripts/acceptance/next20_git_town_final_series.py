@@ -26,7 +26,7 @@ async def main():
     target = RAW / 'active' / 'git-town'
     contracts = RAW / 'git-town' / 'host-contracts'
     host = {'Windows': 'windows', 'Linux': 'linux'}[platform.system()]
-    declaration_path = package / 'final-series-declaration-native-exit-v16.json'
+    declaration_path = package / 'final-series-declaration-native-exit-v17.json'
     declaration = json.loads(declaration_path.read_text(encoding='utf-8'))
     freeze_path = package / 'development-test-freeze-native-exit-v6.json'
     frozen = json.loads((contracts / 'development-test-freeze.json').read_text(encoding='utf-8'))
@@ -77,7 +77,8 @@ async def main():
         host_freeze_sha256=sha256(contracts / 'development-test-freeze.json'),
         expected_ordinary=240, expected_calibrations=9, project_admissions=0))
     for batch in range(12):
-        await final_batch('git-town', batch=batch, candidate_series='native-exit-v1')
+        await final_batch('git-town', batch=batch, candidate_series='native-exit-v1',
+                          startup_timeout_ms_by_host=declaration['startup_timeout_ms_by_host'])
         print('Completed fresh final Git Town batch', batch + 1, 'of 12;', host, flush=True)
     env = owned_environment()
     env['READINESS_EVIDENCE_PHASE'] = 'final-archive'
