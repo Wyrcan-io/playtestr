@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "project": "git-town",
+  "candidate": "v0.4.0-rc.6/native-exit-v1",
+  "declaration": "git-town/final-series-declaration-native-exit-v20.json",
+  "run_id": "41994487910",
+  "head_sha": "2a0dd1be795958857700d843e10c69ef8a2eabb4",
+  "host": "linux",
+  "job_id": "127134262616",
+  "job_conclusion": "success",
+  "artifact": {
+    "id": "13401495592",
+    "name": "next20-git-town-linux-final-native-exit-v1",
+    "bytes": 155560575,
+    "sha256": "50c61463ee6921a989d760c602935c35a1e9763991cdc3fd4f6c9ece0081bbac",
+    "members": 3246,
+    "expanded_bytes": 357109044,
+    "local_archive": "retained/41994487910-v20-linux.zip",
+    "local_inventory": "retained/41994487910-v20-linux.zip.inventory.json",
+    "local_inventory_sha256": "6f52e47cac8f04663c212b484af2233dcc371c10c0d9429fb95b239297078caa"
+  },
+  "ordinary_audit": {
+    "batches": 12,
+    "reports_passed": 240,
+    "expected": 240,
+    "runner_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a",
+    "archive_sha256": "28ae9f37227bb0f6ba2df031420aa3d027b998e31eab523c4d13cd2816c4af7a",
+    "startup_boundary_n01_batch11_ms": 6000,
+    "positive_steps_exits_state_and_cleanup_verified": true
+  },
+  "source_and_fault_audit": {
+    "source_pin": "8d039892574d4852e1843020c31d423234042e78",
+    "source_archive_sha256": "8a674352c53f1487bf46a8594965940ab63851a1b7ec2a8cf5390a7877199c6e",
+    "source_files_verified": 4533,
+    "faults": 3,
+    "phases": 9,
+    "baseline_mutation_restoration_all_verified": true,
+    "fault_matrix_sha256": "81d6a4d12618247ed99a3f4601a58c788e476764b198016c20cf011a97ad5159",
+    "build_receipts": 9,
+    "fault_binaries": 9,
+    "fault_events": 9
+  },
+  "cleanup": {
+    "reports_confirmed": 240,
+    "source_restored_exact": true,
+    "target_removed": true,
+    "owned_processes_remaining": 0,
+    "inventory_sha256": "cca09b7d002d97f0e7d81d8d9085e8674d23e78dabc973400700af5e9d6cc5f0",
+    "target_files": 8831,
+    "target_bytes": 1006189898,
+    "retained_payloads": 66,
+    "retained_case_evidence_files": 30,
+    "bounded_within_40000_files_and_1_gib": true
+  },
+  "qualification_credit": {
+    "ordinary_cells": 1,
+    "ordinary_executions": 240,
+    "calibration_executions": 9,
+    "project_admission": false,
+    "reason": "This host-specific receipt is one independently audited cell; the matching Windows cell and combined audit are recorded in final-series-audit-v20.json."
+  },
+  "audit_method": "Raw ZIP size/SHA and member bounds/path/types checked; all 240 report/contract/runner/archive/exit/steps/state/cleanup bindings recomputed; source manifest and all nine fault report/build/binary/event identities checked; retained payload inventory, process proof and checked removal independently verified."
+}

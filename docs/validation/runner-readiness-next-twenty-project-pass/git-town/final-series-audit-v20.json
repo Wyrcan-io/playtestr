@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "project": "git-town",
+  "candidate": "v0.4.0-rc.6/native-exit-v1",
+  "declaration": "git-town/final-series-declaration-native-exit-v20.json",
+  "run_id": "41994487910",
+  "run_conclusion": "success",
+  "head_sha": "2a0dd1be795958857700d843e10c69ef8a2eabb4",
+  "workflow": "Next twenty Git Town exact archive series",
+  "hosts": [
+    {
+      "host": "linux",
+      "job_id": "127134262616",
+      "conclusion": "success",
+      "artifact_id": "13401495592",
+      "artifact_name": "next20-git-town-linux-final-native-exit-v1",
+      "artifact_bytes": 155560575,
+      "artifact_sha256": "50c61463ee6921a989d760c602935c35a1e9763991cdc3fd4f6c9ece0081bbac",
+      "artifact_members": 3246,
+      "expanded_bytes": 357109044,
+      "candidate_archive_sha256": "28ae9f37227bb0f6ba2df031420aa3d027b998e31eab523c4d13cd2816c4af7a",
+      "runner_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a",
+      "ordinary_batches": 12,
+      "ordinary_passed": 240,
+      "ordinary_expected": 240,
+      "calibrations": 9,
+      "fault_matrix_sha256": "81d6a4d12618247ed99a3f4601a58c788e476764b198016c20cf011a97ad5159",
+      "fault_phases_independently_audited": 9,
+      "source_archive_sha256": "8a674352c53f1487bf46a8594965940ab63851a1b7ec2a8cf5390a7877199c6e",
+      "source_files_verified": 4533,
+      "cleanup_reports_confirmed": 240,
+      "cleanup_inventory_sha256": "cca09b7d002d97f0e7d81d8d9085e8674d23e78dabc973400700af5e9d6cc5f0",
+      "target_files": 8831,
+      "target_bytes": 1006189898,
+      "retained_items": 66,
+      "processes_remaining": 0,
+      "source_restored_exact": true,
+      "target_removed": true,
+      "local_archive": "retained/41994487910-v20-linux.zip",
+      "local_inventory": "retained/41994487910-v20-linux.zip.inventory.json",
+      "local_inventory_sha256": "6f52e47cac8f04663c212b484af2233dcc371c10c0d9429fb95b239297078caa"
+    },
+    {
+      "host": "windows",
+      "job_id": "127134262943",
+      "conclusion": "success",
+      "artifact_id": "13399888991",
+      "artifact_name": "next20-git-town-windows-final-native-exit-v1",
+      "artifact_bytes": 158051230,
+      "artifact_sha256": "84d57fdcbb8aafd87a12dad99244082b24b0fc02005cf1bf1ba4238773902039",
+      "artifact_members": 3258,
+      "expanded_bytes": 362825949,
+      "candidate_archive_sha256": "0b9f69460ed4dd87c3182c27702f0579bc67e92767010e4ce50d02c0bec82432",
+      "runner_sha256": "6c80fdbcdd74705b85b2e8aad2f07140f5ff5e8cea80db1d6c24a04d71b23f36",
+      "ordinary_batches": 12,
+      "ordinary_passed": 240,
+      "ordinary_expected": 240,
+      "calibrations": 9,
+      "fault_matrix_sha256": "248cfcc0678e33b5dfe309ac784c843ccba18df6d2009d4c6c9bcebccdcd7d4e",
+      "fault_phases_independently_audited": 9,
+      "source_archive_sha256": "8a674352c53f1487bf46a8594965940ab63851a1b7ec2a8cf5390a7877199c6e",
+      "source_files_verified": 4533,
+      "cleanup_reports_confirmed": 240,
+      "cleanup_inventory_sha256": "b5f889812cc486ae80f47ea804875ec607882b6a0b2fcab002a3b6e899c16353",
+      "target_files": 8873,
+      "target_bytes": 1018605718,
+      "retained_items": 66,
+      "processes_remaining": 0,
+      "source_restored_exact": true,
+      "target_removed": true,
+      "local_archive": "retained/41994487910-v20-windows.zip",
+      "local_inventory": "retained/41994487910-v20-windows.zip.inventory.json",
+      "local_inventory_sha256": "4cb7ae4152b0b88a43045f3da9b91d9cba82d5a87ae444a248bc45654eadaffa"
+    }
+  ],
+  "ordinary_audit": {
+    "unique_scenarios": 20,
+    "normal": 8,
+    "edge": 12,
+    "native_cells": 2,
+    "ordinary_executions": 480,
+    "all_reports_passed": true,
+    "all_specs_and_reports_hash_bound": true,
+    "same_invocation_state_checks_passed": true,
+    "expected_target_exits_and_cleanup_passed": true,
+    "startup_timeout_ms_by_host": {
+      "linux": 6000,
+      "windows": 2000
+    }
+  },
+  "fault_audit": {
+    "distinct_source_faults": 3,
+    "phases_per_host": 9,
+    "phases_total": 18,
+    "baseline_passes": 6,
+    "mutations_detected": 6,
+    "restored_recovery_passes": 6,
+    "native_build_receipts": 18,
+    "mutated_or_restored_binaries_hash_checked": 18,
+    "fault_events": 18
+  },
+  "candidate_archive_artifacts": {
+    "linux": {
+      "run_id": "40424475362",
+      "artifact_id": "12699660407",
+      "provider_zip_bytes": 2186476,
+      "provider_zip_sha256": "afdec9c875d6a325c991fe234984de26168cbff9cb0c779e7c41620ca004519e",
+      "archive_bytes": 1989127,
+      "archive_sha256": "28ae9f37227bb0f6ba2df031420aa3d027b998e31eab523c4d13cd2816c4af7a",
+      "runner_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a",
+      "local_provider_archive": "retained/12699660407-linux-candidate-artifact.zip",
+      "local_provider_inventory": "retained/12699660407-linux-candidate-artifact.zip.inventory.json",
+      "local_provider_inventory_sha256": "ca038dcfce66dffd67eb777eadfd5ff82b241f6c189ca2961fdf59864dd19990"
+    },
+    "windows": {
+      "run_id": "40425810038",
+      "artifact_id": "12700385963",
+      "provider_zip_bytes": 2347120,
+      "provider_zip_sha256": "2d0bfa082d55929970a4c080a242f79e4afe5954d554e3ec3b4e204c31a493de",
+      "archive_bytes": 2153038,
+      "archive_sha256": "0b9f69460ed4dd87c3182c27702f0579bc67e92767010e4ce50d02c0bec82432",
+      "runner_sha256": "6c80fdbcdd74705b85b2e8aad2f07140f5ff5e8cea80db1d6c24a04d71b23f36",
+      "local_provider_archive": "retained/12700385963-windows-candidate-artifact.zip",
+      "local_provider_inventory": "retained/12700385963-windows-candidate-artifact.zip.inventory.json",
+      "local_provider_inventory_sha256": "3270f4bf7f25aa974d4b24d416961568250f227d8cb33d25840021f005304126"
+    }
+  },
+  "qualification_credit": {
+    "current_candidate_cells": 2,
+    "scenarios": 20,
+    "ordinary_executions": 480,
+    "calibrations": 18,
+    "distinct_real_faults": 3,
+    "project_admission": false,
+    "reason": "Project admission awaits campaign-level model-tamper controls and cross-project ledger reconciliation; all final native host-cell evidence passes."
+  },
+  "audit_method": "Raw artifacts were SHA-256/size checked against GitHub metadata, ZIP members were bounded/path/type screened without blind extraction, and exact runner archives were independently fetched and checked against the freeze. Each ordinary report, planned spec, summary, executed runner/archive, exit, positive steps, same-invocation state and process/workspace cleanup was recomputed. Fault reports, source builds and binaries were independently linked; pinned source archive was checked file-by-file; all retained payload hashes, target inventory bounds, process-tree proofs and removal receipts were checked.",
+  "retention_indexes": [
+    {
+      "archive": "retained/41994487910-v20-linux.zip",
+      "index": "retained/41994487910-v20-linux.zip.inventory.json",
+      "index_sha256": "6f52e47cac8f04663c212b484af2233dcc371c10c0d9429fb95b239297078caa"
+    },
+    {
+      "archive": "retained/41994487910-v20-windows.zip",
+      "index": "retained/41994487910-v20-windows.zip.inventory.json",
+      "index_sha256": "4cb7ae4152b0b88a43045f3da9b91d9cba82d5a87ae444a248bc45654eadaffa"
+    },
+    {
+      "archive": "retained/12699660407-linux-candidate-artifact.zip",
+      "index": "retained/12699660407-linux-candidate-artifact.zip.inventory.json",
+      "index_sha256": "ca038dcfce66dffd67eb777eadfd5ff82b241f6c189ca2961fdf59864dd19990"
+    },
+    {
+      "archive": "retained/12700385963-windows-candidate-artifact.zip",
+      "index": "retained/12700385963-windows-candidate-artifact.zip.inventory.json",
+      "index_sha256": "3270f4bf7f25aa974d4b24d416961568250f227d8cb33d25840021f005304126"
+    }
+  ],
+  "retention_policy": "Original provider ZIPs and candidate archive ZIPs remain self-contained under the ignored local retained namespace; each has a canonical per-member path/size/SHA-256/mode/compression inventory with bounded archive/member/expanded sizes. Selected source, report, runner and cleanup members were read and hash-verified directly from each archive."
+}
