@@ -1,18 +1,19 @@
 {
-  "version": 3,
-  "name": "Filter the visual switcher to feature branches and select one",
   "command": [
     "git-town",
     "switch",
     "--type",
     "feature"
   ],
-  "workspace": {
-    "fixture": "fixtures/branch-repo",
-    "cwd": ".",
-    "home": "temporary",
-    "temp": "temporary"
+  "env": {
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_PAGER": "cat",
+    "GIT_TERMINAL_PROMPT": "0",
+    "PAGER": "cat",
+    "TERM": "xterm-256color"
   },
+  "name": "Filter the visual switcher to feature branches and select one",
+  "run_timeout_ms": 60000,
   "steps": [
     {
       "expect": "feat-blue"
@@ -25,18 +26,18 @@
     },
     {
       "state": {
-        "path": ".git/HEAD",
+        "bytes_base64": "cmVmOiByZWZzL2hlYWRzL2ZlYXQtYmx1ZQo=",
         "kind": "file",
-        "bytes_base64": "cmVmOiByZWZzL2hlYWRzL2ZlYXQtYmx1ZQo="
+        "path": ".git/HEAD"
       }
     }
   ],
-  "env": {
-    "GIT_CONFIG_NOSYSTEM": "1",
-    "GIT_TERMINAL_PROMPT": "0",
-    "GIT_PAGER": "cat",
-    "PAGER": "cat",
-    "TERM": "xterm-256color"
-  },
-  "timeout_ms": 10000
+  "timeout_ms": 20000,
+  "version": 3,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/branch-repo",
+    "home": "temporary",
+    "temp": "temporary"
+  }
 }

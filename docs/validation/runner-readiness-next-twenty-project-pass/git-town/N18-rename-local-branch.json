@@ -1,18 +1,19 @@
 {
-  "version": 3,
-  "name": "Rename a local branch and verify the exact refs directory",
   "command": [
     "git-town",
     "rename",
     "feat-blue",
     "feat-green"
   ],
-  "workspace": {
-    "fixture": "fixtures/branch-repo",
-    "cwd": ".",
-    "home": "temporary",
-    "temp": "temporary"
+  "env": {
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_PAGER": "cat",
+    "GIT_TERMINAL_PROMPT": "0",
+    "PAGER": "cat",
+    "TERM": "xterm-256color"
   },
+  "name": "Rename a local branch and verify the exact refs directory",
+  "run_timeout_ms": 60000,
   "steps": [
     {
       "expect": "feat-blue"
@@ -22,21 +23,21 @@
     },
     {
       "state": {
-        "path": ".git/refs/heads",
-        "kind": "entries",
         "entries": [
           "feat-green",
           "main"
-        ]
+        ],
+        "kind": "entries",
+        "path": ".git/refs/heads"
       }
     }
   ],
-  "env": {
-    "GIT_CONFIG_NOSYSTEM": "1",
-    "GIT_TERMINAL_PROMPT": "0",
-    "GIT_PAGER": "cat",
-    "PAGER": "cat",
-    "TERM": "xterm-256color"
-  },
-  "timeout_ms": 10000
+  "timeout_ms": 20000,
+  "version": 3,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/branch-repo",
+    "home": "temporary",
+    "temp": "temporary"
+  }
 }

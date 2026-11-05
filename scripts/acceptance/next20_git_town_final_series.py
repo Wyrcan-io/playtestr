@@ -25,17 +25,17 @@ async def main():
     target = RAW / 'active' / 'git-town'
     contracts = RAW / 'git-town' / 'host-contracts'
     host = {'Windows': 'windows', 'Linux': 'linux'}[platform.system()]
-    declaration_path = package / 'final-series-declaration-native-exit-v10.json'
+    declaration_path = package / 'final-series-declaration-native-exit-v12.json'
     declaration = json.loads(declaration_path.read_text(encoding='utf-8'))
-    freeze_path = package / 'development-test-freeze-native-exit-v5.json'
+    freeze_path = package / 'development-test-freeze-native-exit-v6.json'
     frozen = json.loads((contracts / 'development-test-freeze.json').read_text(encoding='utf-8'))
     build = json.loads((target / 'build.json').read_text(encoding='utf-8'))
     acquisition = json.loads((target / 'acquisition.json').read_text(encoding='utf-8'))
     runtime = json.loads((target / 'runtime.json').read_text(encoding='utf-8'))
     installed = json.loads((target / 'installed-inventory.json').read_text(encoding='utf-8'))
     native_lock = package / 'native-runtime-lock.json'
-    scenario_catalog = package / 'scenario-catalog-v7.json'
-    fault_declaration = package / 'fault-declaration-v8.json'
+    scenario_catalog = package / 'scenario-catalog-v8.json'
+    fault_declaration = package / 'fault-declaration-v9.json'
     candidate = executable('native-exit-v1', host)
     source_archive = target / 'source.tar.gz'
     if (acquisition.get('source_archive_method') !=

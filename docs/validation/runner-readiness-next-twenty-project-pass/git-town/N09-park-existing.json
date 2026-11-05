@@ -1,17 +1,18 @@
 {
-  "version": 3,
-  "name": "Park an existing feature branch",
   "command": [
     "git-town",
     "park",
     "feat-blue"
   ],
-  "workspace": {
-    "fixture": "fixtures/branch-repo",
-    "cwd": ".",
-    "home": "temporary",
-    "temp": "temporary"
+  "env": {
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_PAGER": "cat",
+    "GIT_TERMINAL_PROMPT": "0",
+    "PAGER": "cat",
+    "TERM": "xterm-256color"
   },
+  "name": "Park an existing feature branch",
+  "run_timeout_ms": 60000,
   "steps": [
     {
       "expect": "branch feat-blue is now parked"
@@ -21,18 +22,18 @@
     },
     {
       "state": {
-        "path": ".git/config",
+        "bytes_base64": "W2NvcmVdCglyZXBvc2l0b3J5Zm9ybWF0dmVyc2lvbiA9IDAKCWZpbGVtb2RlID0gZmFsc2UKCWJhcmUgPSBmYWxzZQoJbG9nYWxscmVmdXBkYXRlcyA9IHRydWUKCXN5bWxpbmtzID0gZmFsc2UKCWlnbm9yZWNhc2UgPSB0cnVlClt1c2VyXQoJbmFtZSA9IENhbXBhaWduIEZpeHR1cmUKCWVtYWlsID0gZml4dHVyZUBleGFtcGxlLmludmFsaWQKW2dpdC10b3duXQoJbWFpbi1icmFuY2ggPSBtYWluCltnaXQtdG93bi1icmFuY2ggImZlYXQtYmx1ZSJdCglwYXJlbnQgPSBtYWluCglicmFuY2h0eXBlID0gcGFya2VkCg==",
         "kind": "file",
-        "bytes_base64": "W2NvcmVdCglyZXBvc2l0b3J5Zm9ybWF0dmVyc2lvbiA9IDAKCWZpbGVtb2RlID0gZmFsc2UKCWJhcmUgPSBmYWxzZQoJbG9nYWxscmVmdXBkYXRlcyA9IHRydWUKCXN5bWxpbmtzID0gZmFsc2UKCWlnbm9yZWNhc2UgPSB0cnVlClt1c2VyXQoJbmFtZSA9IENhbXBhaWduIEZpeHR1cmUKCWVtYWlsID0gZml4dHVyZUBleGFtcGxlLmludmFsaWQKW2dpdC10b3duXQoJbWFpbi1icmFuY2ggPSBtYWluCltnaXQtdG93bi1icmFuY2ggImZlYXQtYmx1ZSJdCglwYXJlbnQgPSBtYWluCglicmFuY2h0eXBlID0gcGFya2VkCg=="
+        "path": ".git/config"
       }
     }
   ],
-  "env": {
-    "GIT_CONFIG_NOSYSTEM": "1",
-    "GIT_TERMINAL_PROMPT": "0",
-    "GIT_PAGER": "cat",
-    "PAGER": "cat",
-    "TERM": "xterm-256color"
-  },
-  "timeout_ms": 10000
+  "timeout_ms": 20000,
+  "version": 3,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/branch-repo",
+    "home": "temporary",
+    "temp": "temporary"
+  }
 }

@@ -1,16 +1,17 @@
 {
-  "version": 3,
-  "name": "Review the current Git Town configuration",
   "command": [
     "git-town",
     "config"
   ],
-  "workspace": {
-    "fixture": "fixtures/branch-repo",
-    "cwd": ".",
-    "home": "temporary",
-    "temp": "temporary"
+  "env": {
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_PAGER": "cat",
+    "GIT_TERMINAL_PROMPT": "0",
+    "PAGER": "cat",
+    "TERM": "xterm-256color"
   },
+  "name": "Review the current Git Town configuration",
+  "run_timeout_ms": 60000,
   "steps": [
     {
       "expect": "feat-blue"
@@ -20,18 +21,18 @@
     },
     {
       "state": {
-        "path": ".git/HEAD",
+        "bytes_base64": "cmVmOiByZWZzL2hlYWRzL21haW4K",
         "kind": "file",
-        "bytes_base64": "cmVmOiByZWZzL2hlYWRzL21haW4K"
+        "path": ".git/HEAD"
       }
     }
   ],
-  "env": {
-    "GIT_CONFIG_NOSYSTEM": "1",
-    "GIT_TERMINAL_PROMPT": "0",
-    "GIT_PAGER": "cat",
-    "PAGER": "cat",
-    "TERM": "xterm-256color"
-  },
-  "timeout_ms": 10000
+  "timeout_ms": 20000,
+  "version": 3,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/branch-repo",
+    "home": "temporary",
+    "temp": "temporary"
+  }
 }

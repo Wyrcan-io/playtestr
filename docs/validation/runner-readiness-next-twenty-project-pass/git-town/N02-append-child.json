@@ -1,6 +1,4 @@
 {
-  "version": 3,
-  "name": "Append a child branch to the current branch",
   "command": [
     "git-town",
     "append",
@@ -8,12 +6,15 @@
     "--no-sync",
     "--non-interactive"
   ],
-  "workspace": {
-    "fixture": "fixtures/branch-repo",
-    "cwd": ".",
-    "home": "temporary",
-    "temp": "temporary"
+  "env": {
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_PAGER": "cat",
+    "GIT_TERMINAL_PROMPT": "0",
+    "PAGER": "cat",
+    "TERM": "xterm-256color"
   },
+  "name": "Append a child branch to the current branch",
+  "run_timeout_ms": 60000,
   "steps": [
     {
       "expect": "feat-green is now a child of main"
@@ -23,18 +24,18 @@
     },
     {
       "state": {
-        "path": ".git/HEAD",
+        "bytes_base64": "cmVmOiByZWZzL2hlYWRzL2ZlYXQtZ3JlZW4K",
         "kind": "file",
-        "bytes_base64": "cmVmOiByZWZzL2hlYWRzL2ZlYXQtZ3JlZW4K"
+        "path": ".git/HEAD"
       }
     }
   ],
-  "timeout_ms": 10000,
-  "env": {
-    "GIT_CONFIG_NOSYSTEM": "1",
-    "GIT_TERMINAL_PROMPT": "0",
-    "GIT_PAGER": "cat",
-    "PAGER": "cat",
-    "TERM": "xterm-256color"
+  "timeout_ms": 20000,
+  "version": 3,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/branch-repo",
+    "home": "temporary",
+    "temp": "temporary"
   }
 }

@@ -220,3 +220,8 @@ Packets and inventories are preserved in
 84 launched cases (83 pass, one fail); no ordinary or calibration qualification
 credit is earned. V10 sets the bounded 10-second step deadline for all frozen
 scenarios and makes the viewport transform honor v3 defaults.
+
+
+Tenth exact-candidate attempt (`41970500610`): Windows completed all 12 batches (240/240 ordinary passes), all nine source-fault phases (three baselines, three detections, three restored recoveries), process proof, source restoration, checked removal, and artifact upload. Linux completed nine full batches (180 passes) and 11 more cases in batch 9 before N14 was cancelled after 3.65 seconds; total 191 passes and one cancelled launch. Both packets and inventories are retained in [`final-series-attempts-v10.json`](final-series-attempts-v10.json). The run adds 432 launches, 431 passing outcomes, and one cancellation. Windows-only execution and fault observations earn zero cell/calibration/admission credit because the complete two-host cell did not finish. V11 widens every case to a 20-second step bound and 60-second process bound; independent audit remains required.
+
+V11 declaration note: the first immutable v11 declaration was superseded before dispatch because its revision-summary labels were inconsistent and its generator bytes changed during correction; no target ran under that declaration. V12 binds corrected labels and final staged harness hashes to the same v8 scenarios, then reruns the complete two-host series.

@@ -215,3 +215,8 @@ adds 84 target launches (83 pass, one fail); Windows's four completed batch
 receipts are retained but no candidate execution credit is qualified. V10
 gives all frozen cases a bounded 10-second deadline and fixes viewport defaults
 to 80 by 24 in the batch transform.
+
+
+Tenth exact-candidate attempt `41970500610`: Windows completed 240/240 cases, all 12 batch receipts, all nine source-fault phases, process proof, and checked source/runtime removal. Linux passed the first nine complete batches and 11 cases in the next batch, then N14 was cancelled after 3.65 seconds with target exit 130; its report and empty screen evidence are retained and workspace/process cleanup passed. Total observed 432 launches: 431 passed, one cancelled; no qualification credit. Both packets and extracted inventory digests are in [`final-series-attempts-v10.json`](final-series-attempts-v10.json). V11 increases public case step/run bounds to 20/60 seconds and declares a fresh complete rerun.
+
+V11 declaration note: the first immutable v11 declaration was superseded before dispatch because its revision-summary labels were inconsistent and its generator bytes changed during correction; no target ran under that declaration. V12 binds corrected labels and final staged harness hashes to the same v8 scenarios, then reruns the complete two-host series.

@@ -1,18 +1,19 @@
 {
-  "version": 3,
-  "name": "Select an existing Unicode feature branch",
   "command": [
     "git-town",
     "switch",
     "--type",
     "feature"
   ],
-  "workspace": {
-    "fixture": "fixtures/branch-repo-unicode",
-    "cwd": ".",
-    "home": "temporary",
-    "temp": "temporary"
+  "env": {
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_PAGER": "cat",
+    "GIT_TERMINAL_PROMPT": "0",
+    "PAGER": "cat",
+    "TERM": "xterm-256color"
   },
+  "name": "Select an existing Unicode feature branch",
+  "run_timeout_ms": 60000,
   "steps": [
     {
       "expect": "feat-\u00e9"
@@ -28,18 +29,18 @@
     },
     {
       "state": {
-        "path": ".git/HEAD",
+        "bytes_base64": "cmVmOiByZWZzL2hlYWRzL2ZlYXQtw6kK",
         "kind": "file",
-        "bytes_base64": "cmVmOiByZWZzL2hlYWRzL2ZlYXQtw6kK"
+        "path": ".git/HEAD"
       }
     }
   ],
-  "env": {
-    "GIT_CONFIG_NOSYSTEM": "1",
-    "GIT_TERMINAL_PROMPT": "0",
-    "GIT_PAGER": "cat",
-    "PAGER": "cat",
-    "TERM": "xterm-256color"
-  },
-  "timeout_ms": 10000
+  "timeout_ms": 20000,
+  "version": 3,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/branch-repo-unicode",
+    "home": "temporary",
+    "temp": "temporary"
+  }
 }

@@ -15,7 +15,7 @@ class GitTownFinalContractTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             target = Path(temporary)
             payload = b'{"cases": [], "schema_version": 1}\n'
-            source = target / 'scenarios-native-exit-v5.json'
+            source = target / 'scenarios-native-exit-v6.json'
             source.write_bytes(payload)
             copied = {source.name: hashlib.sha256(payload).hexdigest()}
 
@@ -28,20 +28,20 @@ class GitTownFinalContractTests(unittest.TestCase):
     def test_scenario_alias_refuses_changed_frozen_source(self):
         with tempfile.TemporaryDirectory() as temporary:
             target = Path(temporary)
-            (target / 'scenarios-native-exit-v5.json').write_bytes(b'{"cases": []}\n')
+            (target / 'scenarios-native-exit-v6.json').write_bytes(b'{"cases": []}\n')
             with self.assertRaisesRegex(ValueError, 'source or alias differs'):
-                materialize_scenario_alias(target, {'scenarios-native-exit-v5.json': '0' * 64})
+                materialize_scenario_alias(target, {'scenarios-native-exit-v6.json': '0' * 64})
             self.assertFalse((target / 'scenarios.json').exists())
 
-    def test_final_fault_declaration_matches_v7_candidate_inputs(self):
+    def test_final_fault_declaration_matches_v8_candidate_inputs(self):
         package = DOC / 'git-town'
         declaration = json.loads(
-            (package / 'fault-declaration-v8.json').read_text(encoding='utf-8'))
+            (package / 'fault-declaration-v9.json').read_text(encoding='utf-8'))
         catalog = json.loads(
-            (package / 'scenario-catalog-v7.json').read_text(encoding='utf-8'))
+            (package / 'scenario-catalog-v8.json').read_text(encoding='utf-8'))
         declared = {item['id']: item for item in declaration['declared_faults']}
         self.assertEqual(declaration['source_pin'], PIN)
-        self.assertEqual(declaration['scenario_catalog'], 'scenario-catalog-v7.json')
+        self.assertEqual(declaration['scenario_catalog'], 'scenario-catalog-v8.json')
         self.assertEqual(set(declared), {fault['id'] for fault in FAULTS})
         for fault in FAULTS:
             self.assertEqual(declared[fault['id']]['unchanged_spec'], fault['spec'])
@@ -50,6 +50,15 @@ class GitTownFinalContractTests(unittest.TestCase):
         catalog_specs = {case['spec']: case['spec_sha256'] for case in catalog['scenarios']}
         for fault in FAULTS:
             self.assertEqual(catalog_specs[fault['spec']], declared[fault['id']]['spec_sha256'])
+
+    def test_frozen_native_cases_have_explicit_process_and_step_bounds(self):
+        package = DOC / 'git-town'
+        catalog = json.loads((package / 'scenario-catalog-v8.json').read_text(encoding='utf-8'))
+        self.assertEqual(len(catalog['scenarios']), 20)
+        for case in catalog['scenarios']:
+            spec = json.loads((package / case['spec']).read_text(encoding='utf-8'))
+            self.assertEqual(spec['timeout_ms'], 20000, case['id'])
+            self.assertEqual(spec['run_timeout_ms'], 60000, case['id'])
 
 
 if __name__ == '__main__':

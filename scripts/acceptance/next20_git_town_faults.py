@@ -263,7 +263,7 @@ def main():
     source = target / 'src'
     provenance_path = DOC / PROJECT / 'source-provenance.json'
     provenance = json.loads(provenance_path.read_text(encoding='utf-8'))
-    declaration_path = DOC / PROJECT / 'fault-declaration-v8.json'
+    declaration_path = DOC / PROJECT / 'fault-declaration-v9.json'
     declaration = json.loads(declaration_path.read_text(encoding='utf-8'))
     acquisition_path = target / 'acquisition.json'
     acquisition = json.loads(acquisition_path.read_text(encoding='utf-8'))
@@ -272,7 +272,7 @@ def main():
     if provenance.get('pin') != PIN or not source.is_dir() or source.is_symlink():
         raise ValueError('fault target is not the reviewed immutable Git Town checkout')
     if (declaration.get('source_pin') != PIN or
-            declaration.get('scenario_catalog') != 'scenario-catalog-v7.json'):
+            declaration.get('scenario_catalog') != 'scenario-catalog-v8.json'):
         raise ValueError('Git Town fault declaration is not bound to the frozen source/catalog')
     if acquisition.get('pin') != PIN or acquisition.get('repository') != 'git-town/git-town':
         raise ValueError('pinned Git Town acquisition receipt is missing or mismatched')
@@ -321,9 +321,9 @@ def main():
         candidate_series=args.candidate_series,
         candidate_runner_sha256=sha256(runner) if runner else None,
         source_provenance_sha256=sha256(provenance_path),
-        fault_declaration='git-town/fault-declaration-v8.json',
+        fault_declaration='git-town/fault-declaration-v9.json',
         fault_declaration_sha256=sha256(declaration_path),
-        scenario_catalog_sha256=sha256(DOC / PROJECT / 'scenario-catalog-v7.json'),
+        scenario_catalog_sha256=sha256(DOC / PROJECT / 'scenario-catalog-v8.json'),
         unchanged_specs=[dict(path=fault['spec'], sha256=sha256(DOC / PROJECT / fault['spec']))
                          for fault in FAULTS],
         fault_declarations=[dict(id=f['id'], file=f['file'], requirement=f['requirement'],
