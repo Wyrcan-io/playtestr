@@ -287,6 +287,8 @@ def curate_packet(files, host, output_path):
             reason = None
             if name.startswith(RAW + 'bin/') or name.startswith(RAW + 'fault-binaries/'):
                 reason = 'binary bytes independently hashed against build and launch receipts'
+            elif name.startswith(RAW + 'src/') and '.git' in PurePosixPath(name[len(RAW + 'src/'):]).parts:
+                reason = 'version-control metadata excluded; canonical source files retained by manifest'
             elif host == 'windows' and name.startswith(RAW + 'src/'):
                 reason = 'canonical source payload retained once in Linux packet'
             elif host == 'windows' and name.startswith(PACKAGE):

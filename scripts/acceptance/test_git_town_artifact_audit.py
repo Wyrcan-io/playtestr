@@ -69,6 +69,7 @@ class GitTownArtifactAuditTests(unittest.TestCase):
     def test_curates_reports_and_deduplicates_source_and_binaries(self):
         files = {
             RAW + 'src/main.go': b'canonical source',
+            RAW + 'src/.git/config': b'version-control metadata',
             RAW + 'bin/git-town': b'checked target binary',
             RAW + 'fault-binaries/F01.exe': b'checked rebuilt binary',
             RAW + 'case-evidence/N01/report.json': b'{"passed":true}',
@@ -82,6 +83,7 @@ class GitTownArtifactAuditTests(unittest.TestCase):
             linux_files = read_archive(Path(linux).read_bytes())
             windows_files = read_archive(Path(windows).read_bytes())
         self.assertIn(RAW + 'src/main.go', linux_files)
+        self.assertNotIn(RAW + 'src/.git/config', linux_files)
         self.assertIn(PACKAGE + 'N01.json', linux_files)
         self.assertIn(RAW + 'case-evidence/N01/report.json', windows_files)
         self.assertNotIn(RAW + 'src/main.go', windows_files)
