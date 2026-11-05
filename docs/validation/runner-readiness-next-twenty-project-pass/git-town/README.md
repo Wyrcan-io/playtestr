@@ -168,3 +168,16 @@ a deterministic archive from the verified pinned checkout and verifies every
 member against the source manifest before continuing. All attempts remain
 zero-credit until complete native execution, independent audit, and checked
 cleanup pass.
+
+The sixth final attempt (`41962045773`) built the pinned source, generated and
+verified the deterministic archive on both hosts, and installed the candidate,
+but the final journal refused before launching any case because its generic
+`scenarios.json` input alias was absent. The archive, source, runtime, and
+candidate evidence are retained in [`final-series-attempts-v6.json`](final-series-attempts-v6.json).
+The separate source-development dispatch (`41962045862`) also stopped before
+target launch because its historical v3 catalog still expected the earlier
+N01 bytes. V7 materializes and hashes the alias from the frozen v2 case list,
+binds final fault calibration to a new declaration for catalog v4. The stale
+source-development push trigger is disabled until its historical v3 contracts
+are re-versioned; manual dispatch remains available but is not evidence of a
+pass. No v6 candidate or cleanup credit is awarded.

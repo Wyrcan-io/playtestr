@@ -1,19 +1,5 @@
 name: Next twenty Git Town native development matrix
 on:
-  push:
-    branches: [work/p0-p2-implementation]
-    paths:
-      - '.github/workflows/runner-readiness-next20-git-town.yml'
-      - 'scripts/acceptance/next20_git_town_*.py'
-      - 'scripts/acceptance/next20_check.py'
-      - 'scripts/acceptance/adversarial_process.py'
-      - 'scripts/acceptance/readiness_evidence.py'
-      - 'scripts/acceptance/readiness_storage.py'
-      - 'docs/validation/runner-readiness-next-twenty-project-pass/git-town/**'
-      - 'cmd/**'
-      - 'internal/**'
-      - 'go.mod'
-      - 'go.sum'
   workflow_dispatch:
 permissions:
   contents: read

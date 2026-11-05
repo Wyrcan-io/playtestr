@@ -11,6 +11,21 @@ from readiness_evidence import immutable_json, sha256
 PROJECT = 'git-town'
 
 
+def materialize_scenario_alias(target, copied):
+    """Expose the frozen public case list under the generic final-journal name."""
+    source = target / 'scenarios-native-exit-v2.json'
+    destination = target / 'scenarios.json'
+    expected = copied.get(source.name)
+    if (not isinstance(expected, str) or source.is_symlink() or not source.is_file() or
+            sha256(source) != expected or destination.exists() or destination.is_symlink()):
+        raise ValueError('Git Town final scenario source or alias differs from the frozen input')
+    shutil.copyfile(source, destination)
+    digest = sha256(destination)
+    if digest != expected:
+        raise ValueError('Git Town final scenario alias bytes differ from their frozen source')
+    copied['scenarios.json'] = digest
+
+
 def main():
     package = DOC / PROJECT
     freeze_path = package / 'development-test-freeze-native-exit-v2.json'
@@ -37,6 +52,7 @@ def main():
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(source, destination)
         copied[name] = sha256(destination)
+    materialize_scenario_alias(target, copied)
     recipe = json.loads((package / 'source-fixture-recipe-v1.json').read_text(encoding='utf-8'))
     target_root = RAW / 'active' / PROJECT
     fixture_manifest_path = target_root / 'fixture-source.json'

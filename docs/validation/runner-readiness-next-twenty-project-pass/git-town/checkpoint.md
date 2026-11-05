@@ -158,3 +158,22 @@ the source provenance manifest, records its generated digest, and adds tests
 for repeatability and partial-output cleanup. The codeload mismatch remains a
 preserved acquisition failure. V6 still has zero candidate credit until the
 full Linux/Windows series and audit complete.
+
+
+Sixth final-series run `41962045773` verified the generated pinned-source
+archive on both native hosts and installed the exact candidate. Before the
+first target case, the final journal failed because
+`next20_jrnl_final.py` reads `host-contracts/scenarios.json` while the v2 freeze
+only materialized `scenarios-native-exit-v2.json`. No final target case or
+fault calibration launched. Cleanup checks could not prove target report
+cleanup, so source/runtime removal is not claimed. Retained host packets are
+recorded in [`final-series-attempts-v6.json`](final-series-attempts-v6.json).
+
+The same push dispatched source-development run `41962045862`; both hosts
+refused before target launch because the source workflow verified catalog v3
+against the revised N01 v2 bytes. This is a separate preflight failure and
+earlier source-development evidence remains tied to the old inputs. V7 adds the
+frozen journal alias and updates the final fault declaration to catalog v4.
+The stale source-development push trigger is disabled until its historical v3
+contracts are re-versioned; its manual workflow dispatch remains available but
+does not establish a passing source-development run.

@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "project": "git-town",
+  "attempt": "native-exit-v1-final-series-sixth-hosted-attempt",
+  "workflow_run": "41962045773",
+  "workflow_commit": "91122fa80b6f9e0ca626fbfe868552c439aeede2",
+  "workflow_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/41962045773",
+  "declaration": "final-series-declaration-native-exit-v6.json",
+  "candidate": "v0.4.0-rc.6",
+  "candidate_series": "native-exit-v1",
+  "candidate_provider_runs": {
+    "linux": "40424475362",
+    "windows": "40425810038"
+  },
+  "observed": {
+    "linux": {
+      "status": "failure",
+      "job": "127030439168",
+      "artifact_id": "13385219866",
+      "artifact_name": "next20-git-town-linux-final-native-exit-v1",
+      "artifact_bytes": 790804,
+      "artifact_sha256": "b9ab67252452b5f8b6e34173c747dded3ba450dfac90e4163daa322e055713d2",
+      "downloaded_files": 282,
+      "downloaded_bytes": 2140984,
+      "downloaded_inventory_sha256": "9d47fc14b2c35bcf8c84c89670cbdaf4b5298468efde023660bf78e9bc873270",
+      "retained_at": "artifacts/runner-readiness-next-twenty-project-pass/retained/41962045773-v6-final/next20-git-town-linux-final-native-exit-v1",
+      "candidate_provider_run": "40424475362",
+      "candidate_installed": true,
+      "source_build_succeeded": true,
+      "source_archive_sha256": "8a674352c53f1487bf46a8594965940ab63851a1b7ec2a8cf5390a7877199c6e",
+      "source_archive_bytes": 5383823,
+      "source_archive_method": "deterministic gzip/PAX archive generated from the verified pinned Git checkout",
+      "candidate_target_cases_launched": 0,
+      "final_journal_error": "missing host-contracts/scenarios.json before batch 1",
+      "target_removal": "failed; target reports absent; source/runtime removal not verified"
+    },
+    "windows": {
+      "status": "failure",
+      "job": "127030438789",
+      "artifact_id": "13385997037",
+      "artifact_name": "next20-git-town-windows-final-native-exit-v1",
+      "artifact_bytes": 879615,
+      "artifact_sha256": "17986a799a0bf5cc5320b259329ff8f412d7dcf0552c0d2e2dbfa48f923e821c",
+      "downloaded_files": 296,
+      "downloaded_bytes": 2363821,
+      "downloaded_inventory_sha256": "59bafdc73bd413a47e6ee301c3daad67f40dcb72f8242d04c2aef3ef585df7e8",
+      "retained_at": "artifacts/runner-readiness-next-twenty-project-pass/retained/41962045773-v6-final/next20-git-town-windows-final-native-exit-v1",
+      "candidate_provider_run": "40425810038",
+      "candidate_installed": true,
+      "source_build_succeeded": true,
+      "source_archive_sha256": "8a674352c53f1487bf46a8594965940ab63851a1b7ec2a8cf5390a7877199c6e",
+      "source_archive_bytes": 5383823,
+      "source_archive_method": "deterministic gzip/PAX archive generated from the verified pinned Git checkout",
+      "candidate_target_cases_launched": 0,
+      "final_journal_error": "missing host-contracts/scenarios.json before batch 1",
+      "target_removal": "failed; target reports absent; source/runtime removal not verified"
+    }
+  },
+  "source_development_run": {
+    "workflow_run": "41962045862",
+    "workflow_commit": "91122fa80b6f9e0ca626fbfe868552c439aeede2",
+    "workflow_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/41962045862",
+    "status": "failure on both hosts before target launch; scenario-catalog-v3 expected earlier N01 bytes",
+    "artifacts": {
+      "linux": {
+        "artifact_id": "13386070715",
+        "artifact_bytes": 15529185,
+        "artifact_sha256": "5742c5c6b9d92dd468c7ad72458e57d89002c248d7630d5f22806ae1bef0e2a0",
+        "files": 4678,
+        "bytes": 37749999,
+        "inventory_sha256": "a9791e2631bb4a766651b6636141c958823de2e9bbb7b9db462b7088745b09bb",
+        "artifact_name": "next20-git-town-linux-development",
+        "retained_at": "artifacts/runner-readiness-next-twenty-project-pass/retained/41962045862-v6-development/next20-git-town-linux-development"
+      },
+      "windows": {
+        "artifact_id": "13386370173",
+        "artifact_bytes": 15549303,
+        "artifact_sha256": "ed4dce7c53e3237884d2fd416b6fff3f73231b83db48164e2022fec0279642b8",
+        "files": 4678,
+        "bytes": 38049411,
+        "inventory_sha256": "698655c9bb8cf2ad59ac939fccc22975da6ad6cf21c1008ce9bd9423165130eb",
+        "artifact_name": "next20-git-town-windows-development",
+        "retained_at": "artifacts/runner-readiness-next-twenty-project-pass/retained/41962045862-v6-development/next20-git-town-windows-development"
+      }
+    }
+  },
+  "root_cause": "Both final native hosts verified the pinned checkout, generated and reopened the deterministic source archive, built Git Town, and installed the frozen candidate. Final journal batch setup then failed before the first target case because the generic scenarios.json alias was absent from materialized host contracts. The separate source-development workflow refused before target launch because its historical v3 catalog expected the earlier N01 contract bytes.",
+  "counts": {
+    "candidate_target_cases_launched": 0,
+    "candidate_ordinary_executions_qualified": 0,
+    "candidate_calibrations": 0,
+    "candidate_admissions": 0,
+    "checked_source_runtime_removals": 0
+  },
+  "disposition": "Retain both final host packets and the separate source-development packets. V7 materializes and hashes the journal scenario alias, updates the final fault declaration to the exact v4 candidate catalog, and narrows source-development workflow triggers to source inputs. No v6 candidate or cleanup credit is awarded."
+}

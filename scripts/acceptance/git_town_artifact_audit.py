@@ -8,6 +8,7 @@ from pathlib import PurePosixPath
 import re
 import stat
 import subprocess
+import tarfile
 import zipfile
 
 
@@ -89,16 +90,55 @@ def json_value(files, name):
     return json.loads(value(files, name).decode('utf-8-sig'))
 
 
-def audit_source_archive(files, acquisition):
+def audit_source_archive(files, acquisition, expected_source=None):
     archive_sha = acquisition.get('source_archive_sha256') or acquisition.get('archive_sha256')
-    require(archive_sha == SOURCE_ARCHIVE_SHA256,
-            'acquired pinned-source archive identity differs from the reviewed source pin')
     archive_name = RAW + 'source.tar.gz'
     archive_retained = archive_name in files
+    method = acquisition.get('source_archive_method')
+    if method is None:
+        require(archive_sha == SOURCE_ARCHIVE_SHA256,
+                'acquired pinned-source archive identity differs from the reviewed source pin')
+    else:
+        require(method == 'deterministic gzip/PAX archive generated from the verified pinned Git checkout',
+                'acquired pinned-source archive method is not recognized')
+        require(isinstance(expected_source, dict) and expected_source,
+                'deterministic source archive audit requires a pinned source manifest')
+        require(archive_retained, 'generated pinned-source archive payload was not retained')
+        require(len(files[archive_name]) == acquisition.get('source_archive_bytes'),
+                'retained generated pinned-source archive size differs')
     if archive_retained:
         require(digest(files[archive_name]) == archive_sha,
                 'retained pinned-source archive digest differs')
+    if method is not None:
+        observed = {}
+        total = 0
+        try:
+            with tarfile.open(fileobj=io.BytesIO(files[archive_name]), mode='r:gz') as bundle:
+                members = bundle.getmembers()
+                require(len(members) == len(expected_source) and len(members) <= 60000,
+                        'generated source archive member count differs')
+                for member in members:
+                    name = member.name
+                    path = PurePosixPath(name)
+                    require(member.isfile() and not path.is_absolute() and '\\' not in name and
+                            all(part not in {'', '.', '..'} for part in name.split('/')) and
+                            name not in observed and name in expected_source and
+                            member.size <= 64 * 1024 * 1024,
+                            'generated source archive has an unsafe, duplicate, or unreviewed member')
+                    total += member.size
+                    require(total <= 128 * 1024 * 1024,
+                            'generated source archive exceeds its declared expanded bound')
+                    stream = bundle.extractfile(member)
+                    content = hashlib.file_digest(stream, 'sha256').hexdigest()
+                    require(content == expected_source[name],
+                            'generated source archive member differs from pinned provenance: ' + name)
+                    observed[name] = content
+        except (tarfile.TarError, OSError) as exc:
+            raise ValueError('generated pinned-source archive could not be safely read') from exc
+        require(observed == expected_source,
+                'generated source archive does not cover the exact pinned source manifest')
     return dict(source_archive_sha256=archive_sha,
+                source_archive_method=method or 'reviewed pinned archive digest',
                 source_archive_payload_retained=archive_retained)
 
 
@@ -119,7 +159,7 @@ def audit_source(files):
         observed[relative] = digest(body)
     require(observed == expected, 'artifact source bytes differ from the complete pinned tree')
     acquisition = json_value(files, RAW + 'acquisition.json')
-    archive = audit_source_archive(files, acquisition)
+    archive = audit_source_archive(files, acquisition, expected)
     return dict(pin=SOURCE_PIN, source_files=len(observed), source_tree_verified=True,
                 **archive,
                 source_provenance_sha256=digest(value(files, PACKAGE + 'source-provenance.json')))
@@ -431,4 +471,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

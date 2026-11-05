@@ -1,4 +1,5 @@
 import io
+import hashlib
 import json
 import os
 import stat
@@ -9,6 +10,7 @@ from pathlib import Path
 
 from git_town_artifact_audit import (PACKAGE, RAW, SOURCE_ARCHIVE_SHA256,
                                     audit_source_archive, curate_packet, read_archive)
+from next20_git_town_prepare import create_source_archive
 
 
 def archive(name='evidence/report.json', body=b'{}', mode=stat.S_IFREG | 0o644):
@@ -44,8 +46,56 @@ class GitTownArtifactAuditTests(unittest.TestCase):
         result = audit_source_archive({}, {'source_archive_sha256': SOURCE_ARCHIVE_SHA256})
         self.assertEqual(result, {
             'source_archive_sha256': SOURCE_ARCHIVE_SHA256,
+            'source_archive_method': 'reviewed pinned archive digest',
             'source_archive_payload_retained': False,
         })
+
+    def test_verifies_generated_archive_against_complete_manifest(self):
+        with tempfile.TemporaryDirectory() as root:
+            source = Path(root) / 'source'
+            target = Path(root) / 'target'
+            source.mkdir()
+            target.mkdir()
+            members = {'README.md': b'Pinned bytes\n', 'internal/main.go': b'package main\n'}
+            expected = {}
+            for name, body in members.items():
+                path = source / name
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(body)
+                expected[name] = hashlib.sha256(body).hexdigest()
+            archive_sha, archive_bytes = create_source_archive(source, expected, target)
+            body = (target / 'source.tar.gz').read_bytes()
+            acquisition = {
+                'source_archive_method': 'deterministic gzip/PAX archive generated from the verified pinned Git checkout',
+                'source_archive_sha256': archive_sha,
+                'source_archive_bytes': archive_bytes,
+            }
+
+            result = audit_source_archive({RAW + 'source.tar.gz': body}, acquisition, expected)
+
+            self.assertTrue(result['source_archive_payload_retained'])
+            self.assertEqual(result['source_archive_sha256'], archive_sha)
+
+    def test_generated_archive_rejects_a_manifest_mismatch(self):
+        with tempfile.TemporaryDirectory() as root:
+            source = Path(root) / 'source'
+            target = Path(root) / 'target'
+            source.mkdir()
+            target.mkdir()
+            body = b'Pinned bytes\n'
+            (source / 'README.md').write_bytes(body)
+            source_hash = hashlib.sha256(body).hexdigest()
+            archive_sha, archive_bytes = create_source_archive(
+                source, {'README.md': source_hash}, target)
+            acquisition = {
+                'source_archive_method': 'deterministic gzip/PAX archive generated from the verified pinned Git checkout',
+                'source_archive_sha256': archive_sha,
+                'source_archive_bytes': archive_bytes,
+            }
+
+            with self.assertRaisesRegex(ValueError, 'member differs from pinned provenance'):
+                audit_source_archive({RAW + 'source.tar.gz': (target / 'source.tar.gz').read_bytes()},
+                                     acquisition, {'README.md': '0' * 64})
 
     def test_verifies_archive_payload_when_present(self):
         body = b'pinned archive'
@@ -96,4 +146,3 @@ class GitTownArtifactAuditTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
