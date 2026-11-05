@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "project": "git-town",
+  "run_id": "41947116665",
+  "expected_head_sha": "6c52fe6deabd74a217599be5a58eee0baf760a2e",
+  "audit_run_id": "41949100190",
+  "audit_run_head_sha": "3521638e4180453fba2cf4a64b9e234bb5da6856",
+  "audit_run_conclusion": "success",
+  "provider_audit_artifact": {
+    "id": 13379482985,
+    "bytes": 8179413,
+    "sha256": "d3290a14c21522bc8d93c1aeb37d7a7e33ebe593ca5019713132b90a98310267"
+  },
+  "provider_packets": [
+    {
+      "host": "linux",
+      "artifact_id": 13373403691,
+      "bytes": 167184094,
+      "sha256": "66f96b44db000e574138d9d3b3992335a057d83a102176c3c59a9675246cd9ed",
+      "source_files_verified": 4533,
+      "public_cases": 20,
+      "fault_phases": 9,
+      "faults_detected": 3,
+      "restoration_rebuilds_passed": 3,
+      "retained_packet_sha256": "d734a444d5ebfb66d0c67b946249292bd4cc0885ac2f4a8cc1ae4037cc7ba95d",
+      "retained_packet_bytes": 9210835
+    },
+    {
+      "host": "windows",
+      "artifact_id": 13373577338,
+      "bytes": 169830019,
+      "sha256": "e6059783c1333352fc85f6b31f4d7e8c94c3befab43b84ad68c82ce53bd5c710",
+      "source_files_verified": 4533,
+      "public_cases": 20,
+      "fault_phases": 9,
+      "faults_detected": 3,
+      "restoration_rebuilds_passed": 3,
+      "retained_packet_sha256": "64f6456c0becf3fd38ebc1772626dfbc669b766383cb5bc2bc9e4d0ee15d9953",
+      "retained_packet_bytes": 402655
+    }
+  ],
+  "same_source_pin_and_archive_provenance": true,
+  "same_frozen_specs": true,
+  "provider_artifact_digest_checked": true,
+  "retained_combined_bytes": 9613490,
+  "project_admissions": 0,
+  "current_candidate_qualification_credit": 0
+}

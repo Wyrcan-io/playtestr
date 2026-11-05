@@ -1,0 +1,170 @@
+name: Next twenty Git Town exact archive series
+on:
+  push:
+    branches: [work/p0-p2-implementation]
+    paths:
+      - '.github/workflows/runner-readiness-next20-git-town-final.yml'
+      - 'scripts/acceptance/next20_git_town_*.py'
+      - 'scripts/acceptance/next20_target_cleanup.py'
+      - 'scripts/acceptance/test_next20_target_cleanup.py'
+      - 'scripts/acceptance/test_next20_git_town_faults.py'
+      - 'scripts/acceptance/test_git_town_artifact_audit.py'
+      - 'scripts/acceptance/next20_jrnl_final.py'
+      - 'scripts/acceptance/next20_candidate*.py'
+      - 'docs/validation/runner-readiness-next-twenty-project-pass/git-town/**'
+      - 'docs/validation/runner-readiness-next-twenty-project-pass/replacement-candidate-freeze-native-exit-v1.json'
+      - 'docs/validation/runner-readiness-next-twenty-project-pass/active-project-index.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: playtestr-next20-git-town-final
+  cancel-in-progress: false
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONIOENCODING: utf-8
+  GOENV: off
+  GOTOOLCHAIN: local
+  GOWORK: off
+  GOMODCACHE: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/active/git-town/go-mod-cache
+  GOCACHE: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/active/git-town/home/go-cache
+  TEMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+  TMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+  TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+jobs:
+  native-final:
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        include:
+          - host: linux
+            runs_on: ubuntu-24.04
+            candidate_run: '40424475362'
+            candidate_artifact: next20-private-replacement-Linux
+            target_arch: linux-amd64
+            expected_archive: playtestr_0.4.0-rc.6_linux_amd64.tar.gz
+          - host: windows
+            runs_on: windows-2025
+            candidate_run: '40425810038'
+            candidate_artifact: next20-private-replacement-Windows
+            target_arch: windows-amd64
+            expected_archive: playtestr_0.4.0-rc.6_windows_amd64.zip
+    runs-on: ${{ matrix.runs_on }}
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+      - name: Create campaign-owned build/cache/tmp roots
+        run: |
+          $base = Join-Path $env:GITHUB_WORKSPACE 'artifacts/runner-readiness-next-twenty-project-pass'
+          @((Join-Path $base 'active/git-town'), (Join-Path $base 'active/git-town/bin'), (Join-Path $base 'active/git-town/home'), (Join-Path $base 'active/git-town/tmp'), (Join-Path $base 'active/git-town/go-mod-cache'), (Join-Path $base 'tmp')) | ForEach-Object { New-Item -ItemType Directory -Force -Path $_ | Out-Null }
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        if: matrix.host == 'linux'
+        with:
+          github-token: ${{ github.token }}
+          repository: Wyrcan-io/playtestr
+          run-id: ${{ matrix.candidate_run }}
+          name: ${{ matrix.candidate_artifact }}
+          path: artifacts/runner-readiness-next-twenty-project-pass/candidate-download
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        if: matrix.host == 'windows'
+        with:
+          github-token: ${{ github.token }}
+          repository: Wyrcan-io/playtestr
+          run-id: ${{ matrix.candidate_run }}
+          name: ${{ matrix.candidate_artifact }}
+          path: artifacts/runner-readiness-next-twenty-project-pass/candidate-download
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          repository: git-town/git-town
+          ref: 8d039892574d4852e1843020c31d423234042e78
+          path: artifacts/runner-readiness-next-twenty-project-pass/active/git-town/src
+          persist-credentials: false
+          set-safe-directory: false
+          fetch-depth: 1
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+        with:
+          go-version: '1.27.0'
+          check-latest: false
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.12'
+      - name: Check Git Town fault, artifact, and source-cleanup validators
+        run: python -B -m unittest test_next20_git_town_faults test_git_town_artifact_audit test_next20_target_cleanup -v
+        working-directory: scripts/acceptance
+      - name: Restore exact pinned Windows source bytes
+        if: matrix.host == 'windows'
+        run: |
+          $source = Join-Path $env:GITHUB_WORKSPACE 'artifacts/runner-readiness-next-twenty-project-pass/active/git-town/src'
+          git -C $source config core.autocrlf false
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          git -C $source checkout-index --all --force
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Download Playtestr Go modules into campaign cache
+        run: |
+          go mod download
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Place and verify the frozen native candidate archive
+        run: |
+          $freeze = Get-Content -Raw 'docs/validation/runner-readiness-next-twenty-project-pass/replacement-candidate-freeze-native-exit-v1.json' | ConvertFrom-Json
+          $cells = @($freeze.cells | Where-Object { $_.host -eq '${{ matrix.host }}' })
+          if ($cells.Count -ne 1) { throw 'Frozen candidate host cell is missing or duplicated' }
+          $relative = $cells[0].archive_local_only
+          if ([IO.Path]::GetFileName($relative) -ne '${{ matrix.expected_archive }}') { throw 'Frozen candidate archive name differs' }
+          $downloads = @(Get-ChildItem -LiteralPath 'artifacts/runner-readiness-next-twenty-project-pass/candidate-download' -File -Recurse | Where-Object { $_.Name -ceq [IO.Path]::GetFileName($relative) })
+          if ($downloads.Count -ne 1) { throw 'Provider artifact does not contain exactly one frozen archive' }
+          $destination = Join-Path $env:GITHUB_WORKSPACE $relative
+          New-Item -ItemType Directory -Force -Path (Split-Path -Parent $destination) | Out-Null
+          Copy-Item -LiteralPath $downloads[0].FullName -Destination $destination
+      - name: Install exact native-exit-v1 candidate archive
+        id: install
+        run: python -B scripts/acceptance/next20_check.py --label git-town-exact-rc6-candidate-install --timeout 120 -- python -B scripts/acceptance/next20_candidate_install.py --series native-exit-v1 --archive artifacts/runner-readiness-next-twenty-project-pass/replacement-archives/native-exit-v1/${{ matrix.expected_archive }}
+      - name: Verify and build pinned Git Town
+        id: prepare
+        run: python -B scripts/acceptance/next20_check.py --label git-town-final-pinned-native-build --timeout 900 -- python -B scripts/acceptance/next20_git_town_prepare.py
+      - name: Create and verify the synthetic no-remote repository
+        run: python -B scripts/acceptance/next20_check.py --label git-town-final-synthetic-fixture --timeout 120 -- python -B scripts/acceptance/next20_git_town_fixture.py
+      - name: Materialize exact frozen host contracts
+        run: python -B scripts/acceptance/next20_check.py --label git-town-final-contract-materialization --timeout 120 -- python -B scripts/acceptance/next20_git_town_final_contracts.py
+      - name: Run final candidate series and source-fault recovery
+        id: final
+        env:
+          READINESS_EVIDENCE_PHASE: final-archive
+        run: python -B scripts/acceptance/next20_check.py --label git-town-exact-rc6-final-series --timeout 3300 -- python -B scripts/acceptance/next20_git_town_final_series.py
+      - name: Verify target process-tree cleanup on Windows
+        if: always() && steps.prepare.outcome == 'success' && matrix.host == 'windows'
+        run: python -B scripts/acceptance/next20_check.py --label git-town-final-process-proof --timeout 120 -- powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/acceptance/next20_target_process_proof.ps1 -Project git-town
+      - name: Verify source restoration and prepare Windows removal
+        if: always() && steps.prepare.outcome == 'success' && matrix.host == 'windows'
+        run: python -B scripts/acceptance/next20_check.py --label git-town-final-cleanup-preflight --timeout 180 -- python -B scripts/acceptance/next20_target_cleanup.py --project git-town --prepare-only
+      - name: Remove verified Windows target source and runtime
+        if: always() && steps.prepare.outcome == 'success' && matrix.host == 'windows'
+        run: python -B scripts/acceptance/next20_check.py --label git-town-final-target-removal --timeout 180 -- powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/acceptance/next20_remove_target.ps1 -Project git-town
+      - name: Remove verified Unix target source and runtime
+        if: always() && steps.prepare.outcome == 'success' && matrix.host == 'linux'
+        run: python -B scripts/acceptance/next20_check.py --label git-town-final-target-removal --timeout 180 -- python -B scripts/acceptance/next20_target_cleanup.py --project git-town
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: next20-git-town-${{ matrix.host }}-final-native-exit-v1
+          path: |
+            artifacts/runner-readiness-next-twenty-project-pass/events/**
+            artifacts/runner-readiness-next-twenty-project-pass/identities/**
+            artifacts/runner-readiness-next-twenty-project-pass/core/**
+            artifacts/runner-readiness-next-twenty-project-pass/git-town/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/*.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/fault-events/**
+            artifacts/runner-readiness-next-twenty-project-pass/candidate-native-exit-v1/${{ matrix.host }}/installed.json
+            docs/validation/runner-readiness-next-twenty-project-pass/git-town/**
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14

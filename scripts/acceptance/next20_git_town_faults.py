@@ -10,6 +10,7 @@ import sys
 import uuid
 
 from next20_check import DOC, RAW, ROOT
+from next20_candidate import executable as candidate_executable
 from readiness_evidence import immutable_json, sha256
 
 
@@ -185,7 +186,7 @@ def build(target, source, host, fault_id, phase):
     return receipt
 
 
-def run_case(target, source, fault, phase, expected_exit, binary):
+def run_case(target, source, fault, phase, expected_exit, binary, runner=None, campaign_phase=None):
     case_helper = ROOT / 'scripts/acceptance/next20_git_town_case.py'
     spec = DOC / PROJECT / fault['spec']
     label = f"{fault['id']}-{phase}-{platform.system().lower()}"
@@ -193,9 +194,11 @@ def run_case(target, source, fault, phase, expected_exit, binary):
                      'corrupted': 'source-fault-corrupted',
                      'restored-recovery': 'source-fault-restored'}[phase]
     argv = [sys.executable, '-B', str(case_helper), '--label', label, '--phase',
-            journal_phase,
+            campaign_phase or journal_phase,
             '--executable', str(binary),
             '--expected-runner-exit', str(expected_exit), str(spec.relative_to(ROOT))]
+    if runner:
+        argv[-1:-1] = ['--runner', str(runner)]
     before = {p.name for p in (target / 'case-evidence').glob('*') if p.is_dir()}
     result = run(argv, cwd=ROOT, env=os.environ, timeout=480)
     after = {p.name for p in (target / 'case-evidence').glob('*') if p.is_dir()}
@@ -249,7 +252,13 @@ def run_case(target, source, fault, phase, expected_exit, binary):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--host', choices=['linux', 'windows'], required=True)
+    parser.add_argument('--final', action='store_true')
+    parser.add_argument('--candidate-series', choices=['native-exit-v1'])
     args = parser.parse_args()
+    if args.final != bool(args.candidate_series):
+        raise ValueError('final source-fault calibration requires the exact declared candidate series')
+    runner = candidate_executable(args.candidate_series, args.host) if args.final else None
+    campaign_phase = 'final-archive' if args.final else None
     target = RAW / 'active' / PROJECT
     source = target / 'src'
     provenance_path = DOC / PROJECT / 'source-provenance.json'
@@ -309,6 +318,8 @@ def main():
         source_pin=PIN, source_archive_sha256=archive_sha256,
         source_identity=source_identity,
         matrix_id=uuid.uuid4().hex,
+        candidate_series=args.candidate_series,
+        candidate_runner_sha256=sha256(runner) if runner else None,
         source_provenance_sha256=sha256(provenance_path),
         fault_declaration='git-town/fault-declaration-v4.json',
         fault_declaration_sha256=sha256(declaration_path),
@@ -334,7 +345,7 @@ def main():
                 raise ValueError(f"{fault['id']}: expected exactly one patch anchor in reviewed source")
             baseline_build = build(target, source, args.host, fault['id'], 'pristine-baseline')
             baseline = run_case(target, source, fault, 'pristine-baseline', 0,
-                                target / baseline_build['executable_relative'])
+                                target / baseline_build['executable_relative'], runner, campaign_phase)
             write_event(target, dict(project=PROJECT, fault_id=fault['id'], phase='pristine-baseline',
                 source_sha256=expected_hash, executable_sha256=baseline_build['executable_sha256'],
                 case=baseline, status='passed'))
@@ -349,7 +360,7 @@ def main():
                     raise ValueError('mutation did not change the selected pinned source file')
                 mutated_build = build(target, source, args.host, fault['id'], 'corrupted')
                 corrupted = run_case(target, source, fault, 'corrupted', fault['expected_runner_exit'],
-                                     target / mutated_build['executable_relative'])
+                                     target / mutated_build['executable_relative'], runner, campaign_phase)
                 write_event(target, dict(project=PROJECT, fault_id=fault['id'], phase='corrupted',
                     baseline_source_sha256=expected_hash, corrupted_source_sha256=mutated_hash,
                     executable_sha256=mutated_build['executable_sha256'], case=corrupted,
@@ -364,7 +375,7 @@ def main():
             verify_source(source, provenance, acquisition, target)
             restored_build = build(target, source, args.host, fault['id'], 'restored-rebuild')
             restored = run_case(target, source, fault, 'restored-recovery', 0,
-                                target / restored_build['executable_relative'])
+                                target / restored_build['executable_relative'], runner, campaign_phase)
             write_event(target, dict(project=PROJECT, fault_id=fault['id'], phase='restored-recovery',
                 source_sha256=restored_hash, executable_sha256=restored_build['executable_sha256'],
                 case=restored, status='exact source restored, rebuilt, and unchanged contract passed'))
@@ -377,6 +388,8 @@ def main():
                 corrupted_executable_sha256=mutated_build['executable_sha256'],
                 restored_executable_sha256=restored_build['executable_sha256']))
         record = dict(schema_version=1, project=PROJECT, host=args.host,
+            phase=campaign_phase or 'source-development', candidate_series=args.candidate_series,
+            candidate_runner_sha256=sha256(runner) if runner else None,
             source_pin=PIN, source_provenance_sha256=sha256(provenance_path),
             fault_declaration='git-town/fault-declaration-v4.json',
             fault_declaration_sha256=sha256(declaration_path),
@@ -387,7 +400,8 @@ def main():
                         restored_recovery_passes=len(results)),
             admission_credit=0,
             disposition='Three source mutations were detected by unchanged public contracts and exactly restored/rebuilt. Independent evidence audit and final-candidate qualification remain required.')
-        out = DOC / PROJECT / f"fault-matrix-{args.host}-v1.json"
+        suffix = '-final-v1' if args.final else '-v1'
+        out = DOC / PROJECT / f"fault-matrix-{args.host}{suffix}.json"
         immutable_json(out, record)
         print('Git Town source fault matrix passed:', args.host, 'faults', len(results),
               'phases', len(results) * 3, 'receipt', out.relative_to(ROOT))

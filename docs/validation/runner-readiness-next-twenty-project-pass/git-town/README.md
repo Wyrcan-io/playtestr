@@ -114,26 +114,12 @@ This closes Git Town source-development only. Qualification, fault detection,
 public authoring/maintenance, relocation, exact-candidate repetition and cleanup
 audit remain open; no admission or native-cell credit is added.
 
-
-The v5 source-development checkpoint supersedes the earlier pending statements: the Linux runner/VT package checks, race checks, and exact twenty-case source matrix passed. Three genuine source faults are predeclared in [fault-declaration-v1.json](fault-declaration-v1.json); the hosted workflow runs baseline, corrupted, and restored/rebuilt phases on Ubuntu and Windows. Those results and the v5 matrix remain development evidence until independently audited and rerun on the exact final candidate. The public authoring, maintenance, relocation, and final qualification gates remain open.
-
-
-Fault-matrix audit update: three hosted source-fault attempts are retained in [fault-matrix-hosted-attempts-v1.json](fault-matrix-hosted-attempts-v1.json). The first two exposed prelaunch helper defects; the third detected a compile-invalid F01 mutation after 20/20 unchanged public cases passed on Linux and Windows. No source-fault detection credit is claimed. The compile-valid F01 truncation revision is frozen in [fault-declaration-v2.json](fault-declaration-v2.json); the corrected matrix must complete on both hosts before any fault credit.
-
-
-Hosted run 41921911209 on the v2 mutation passed 20/20 ordinary cases per host, then the F01 fault validator refused the corrupted report. The job wrapper did not retain the report category or step statuses, so there is no confirmed fault credit; see the revised attempt ledger. A separate direct run of the same native mutation produced `mai` and exited zero. The next validator revision records full failure details. The local managed-workspace preflight also remains an unlaunched attempt; it is not mixed with target evidence.
-
-
-Run 41924706057 passed all twenty public cases on Linux and Windows and exercised F01. Both native reports show the unchanged N03 assertion detected `mai`; Git Town exited zero and Playtestr correctly recorded `unexpected_exit`, with target termination and workspace cleanup confirmed. The v2 declaration had the wrong category (`assertion_timeout`), so the validator preserved the failure and granted no fault-matrix credit. Declaration v3 preserves the mutation and spec and expects the measured category. Full receipts: [fault-matrix-hosted-attempts-v2.json](fault-matrix-hosted-attempts-v2.json). The two earlier hosted attempt ledgers remain unchanged.
-
-
-Hosted run 41925887007 passed the twenty frozen cases on both hosts. F01 now passed all three phases with its v3 measured category. F02's unchanged N01 contract also detected the mutation on both hosts, target exit 1 and cleanup confirmed, but v3 still expected `assertion_timeout`; those failures remain preserved with zero matrix credit. Declaration v4 expects the measured `unexpected_exit` for both F01 and F02 and requires their exact target exit evidence. See [fault-matrix-hosted-attempts-v3.json](fault-matrix-hosted-attempts-v3.json). Local direct F02 output and a second unlaunched local path preflight are separately retained.
-
-
-Run 41927271194 passed the twenty frozen cases on both hosts and validated all F01 phases. It stopped at the F02 pristine baseline because the helper applied the mutated phase's expected exit 1 to the unmutated baseline, which correctly exited zero. F02 corruption did not run in this attempt; no additional fault credit is claimed. The validator now checks pristine/restored target exit 0 independently. Receipts are in [fault-matrix-hosted-attempts-v4.json](fault-matrix-hosted-attempts-v4.json).
-
-
-Hosted run 41928367901 (commit e635afd) passed all 20 frozen public cases on Ubuntu and Windows; Linux runner/VT and race suites also passed. Fault preflight then refused F01 pristine baselines because it treated the aggregate target exit field as authoritative even though the exact exit step passed and the aggregate was null. Neither host reached corrupted source. All run artifacts and the no-credit disposition are preserved in [fault-matrix-hosted-attempts-v5.json](fault-matrix-hosted-attempts-v5.json). The validator now checks frozen exit assertions and same-run passed exit-step evidence; five focused validator cases pass locally. No fault or qualification credit is claimed.
-
-
-Hosted run 41930229763 (commit fa16768) passed the twenty frozen public cases on Ubuntu and Windows; Linux runner/VT ordinary and race suites passed. F01 pristine baseline passed on both hosts, then the unchanged contract detected the mutated parent output as `unexpected_exit` after target exit 0, with process and workspace cleanup confirmed. The helper still rejected the reports because it counted later `not_run` steps as additional failures, so restoration/rebuild did not execute and the complete matrix remains uncredited. Receipts and artifact hashes are in [fault-matrix-hosted-attempts-v6.json](fault-matrix-hosted-attempts-v6.json). The validator now counts only `failed` steps and allows subsequent `not_run` steps while rejecting invalid step states; zero fault credit remains.
+The v5 source-development checkpoint supersedes the earlier pending statements:
+the Linux runner/VT package checks, race checks, and exact twenty-case source
+matrix passed. Three genuine source faults are now predeclared in
+[`fault-declaration-v1.json`](fault-declaration-v1.json), and the hosted workflow
+will test their baseline, corrupted, and restored/rebuilt phases on Ubuntu and
+Windows. These fault phases and the v5 scenario matrix remain development
+evidence until independently audited and rerun on the exact final candidate.
+The public recorder/maintenance/relocation journey and all final qualification
+gates remain open.

@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "project": "git-town",
+  "phase": "source-development",
+  "scenario_catalog": "scenario-catalog-v3.json",
+  "source_identity": {
+    "repository": "git-town/git-town",
+    "pin": "8d039892574d4852e1843020c31d423234042e78",
+    "version": "24.1.0",
+    "files": 4533
+  },
+  "attempts": [
+    {
+      "run_id": "41947116665",
+      "head_sha": "6c52fe6deabd74a217599be5a58eee0baf760a2e",
+      "status": "success",
+      "hosts": [
+        "ubuntu-24.04",
+        "windows-2025"
+      ],
+      "scenarios_per_host": 20,
+      "fault_phases_per_host": 9,
+      "linux_query_bridge": "passed",
+      "linux_race": "passed",
+      "provider_artifacts": [
+        "13378709246",
+        "13379915457"
+      ],
+      "candidate_admission_credit": 0
+    },
+    {
+      "run_id": "41948227877",
+      "head_sha": "09db6bd07c3a715ed54e0a9ae051e667e29f11a2",
+      "status": "success",
+      "hosts": [
+        "ubuntu-24.04",
+        "windows-2025"
+      ],
+      "scenarios_per_host": 20,
+      "provider_artifacts": "recorded in provider run",
+      "candidate_admission_credit": 0
+    },
+    {
+      "run_id": "41948736271",
+      "head_sha": "eea2c83ccbe5ebb99c4da6104a84078d2d2b7004",
+      "status": "audit-workflow-misconfiguration",
+      "request_checked": "git-town-audit-v14.json",
+      "request_executed": "git-town-audit-v13.json",
+      "audited_run": "41935126990",
+      "admission_credit": 0,
+      "preserved_as_failed_audit_attempt": true
+    },
+    {
+      "run_id": "41949100190",
+      "head_sha": "3521638e4180453fba2cf4a64b9e234bb5da6856",
+      "status": "independent-audit-passed",
+      "audited_run": "41947116665",
+      "receipt": "retention-readback-v14.json",
+      "hosts": [
+        "linux",
+        "windows"
+      ],
+      "public_cases": 40,
+      "source_fault_phases": 18,
+      "admission_credit": 0
+    }
+  ],
+  "candidate_qualification_credit": 0,
+  "project_admissions": 0,
+  "disposition": "Two source-development runs passed and the first run was independently audited. This is not exact archived-candidate coverage."
+}

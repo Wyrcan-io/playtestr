@@ -43,31 +43,38 @@ qualification, current-candidate or native-cell credit. Fault detection, public
 authoring, maintenance, relocation, repeated candidate series, and final cleanup
 audit remain open.
 
+Three source mutations are predeclared in
+[`fault-declaration-v1.json`](fault-declaration-v1.json), with unchanged specs
+for parent output, feature branch creation, and prototype state persistence. The
+hosted workflow invokes the bounded mutation/build/detect/restore/rebuild helper
+on both hosts. It verifies the pinned commit and clean source tree before
+building, retains a receipt per phase, restores source even when a corrupted
+phase fails, and grants no credit until hosted outcomes and evidence are audited.
 
-Three source mutations are predeclared in [fault-declaration-v1.json](fault-declaration-v1.json), with unchanged tests for parent output, feature branch creation, and prototype state persistence. The hosted workflow verifies the pinned source tree before running each baseline, mutation, and restoration phase. It keeps each fault executable separate from the initial runtime and reports the expected failure category; the false-green case must pass terminal and exit assertions before the saved-state assertion fails.
+The local rehearsal was refused after discovering the available `src` path was
+not the pinned Git Town checkout; an immutable refusal receipt is retained. An
+earlier helper attempt failed during Go build VCS inspection before any Git Town
+executable ran; it is retained as a harness failure with zero target or
+qualification credit. Neither event changes the successful hosted v5 source
+development evidence.
 
-Local harness rehearsals and their exact failures are preserved in [fault-matrix-local-harness-attempt-v1.json](fault-matrix-local-harness-attempt-v1.json). They add no project or fault credit. The local Windows workspace setup did not launch a scenario target, so native hosted execution is required.
-
-Next gates: complete and audit the hosted fault matrix; run the public recorder path without handwritten specs, selected maintenance, Unicode/spaced-path relocation, and delivered free-workflow checks; then complete the exact final-candidate twelve-run cell, calibration, and cleanup audit. No Git Town admission or native-cell credit is claimed yet.
-
-
-
-Fault-matrix attempt ledger (all attempts retained; zero fault credit): [fault-matrix-hosted-attempts-v1.json](fault-matrix-hosted-attempts-v1.json) records three source-matched Linux/Windows attempts. Run 41918286971 failed the overly strict clean-Git-status preflight after the twenty public cases passed. Run 41919490622 passed the twenty cases but failed on the hosted acquisition receipt's `source_archive_sha256` field name before any fault execution. Run 41920261435 passed the twenty cases on both hosts, then the first corrupted F01 source failed Go compilation because the mutation left `parent` unused; pristine baseline and restored recovery are separate executions, and no corrupted target was launched. None of these failures is overwritten or receives fault credit. A corrected declaration with the compile-valid parent-output truncation mutation is in [fault-declaration-v2.json](fault-declaration-v2.json); corrected hosted execution and independent artifact audit remain pending.
-
-
-Hosted run 41921911209 on the v2 mutation passed 20/20 ordinary cases per host, then the F01 fault validator refused the corrupted report. The job wrapper did not retain the report category or step statuses, so there is no confirmed fault credit; see the revised attempt ledger. A separate direct run of the same native mutation produced `mai` and exited zero. The next validator revision records full failure details. The local managed-workspace preflight also remains an unlaunched attempt; it is not mixed with target evidence.
-
-
-Run 41924706057 passed all twenty public cases on Linux and Windows and exercised F01. Both native reports show the unchanged N03 assertion detected `mai`; Git Town exited zero and Playtestr correctly recorded `unexpected_exit`, with target termination and workspace cleanup confirmed. The v2 declaration had the wrong category (`assertion_timeout`), so the validator preserved the failure and granted no fault-matrix credit. Declaration v3 preserves the mutation and spec and expects the measured category. Full receipts: [fault-matrix-hosted-attempts-v2.json](fault-matrix-hosted-attempts-v2.json). The two earlier hosted attempt ledgers remain unchanged.
-
-
-Hosted run 41925887007 passed the twenty frozen cases on both hosts. F01 now passed all three phases with its v3 measured category. F02's unchanged N01 contract also detected the mutation on both hosts, target exit 1 and cleanup confirmed, but v3 still expected `assertion_timeout`; those failures remain preserved with zero matrix credit. Declaration v4 expects the measured `unexpected_exit` for both F01 and F02 and requires their exact target exit evidence. See [fault-matrix-hosted-attempts-v3.json](fault-matrix-hosted-attempts-v3.json). Local direct F02 output and a second unlaunched local path preflight are separately retained.
-
-
-Run 41927271194 passed the twenty frozen cases on both hosts and validated all F01 phases. It stopped at the F02 pristine baseline because the helper applied the mutated phase's expected exit 1 to the unmutated baseline, which correctly exited zero. F02 corruption did not run in this attempt; no additional fault credit is claimed. The validator now checks pristine/restored target exit 0 independently. Receipts are in [fault-matrix-hosted-attempts-v4.json](fault-matrix-hosted-attempts-v4.json).
+Next Git Town gates: complete and audit the hosted fault matrix; attempt the
+no-handwritten-spec recorder route, selected maintenance, Unicode/spaced-path
+relocation, and free-workflow delivery; then run the twelve-repetition exact
+final-candidate cell and applicable calibration. No project admission, native
+cell, or final-series credit is claimed yet.
 
 
-Hosted run 41928367901 (commit e635afd) passed all 20 frozen public cases on Ubuntu and Windows; Linux runner/VT and race suites also passed. Fault preflight then refused F01 pristine baselines because it treated the aggregate target exit field as authoritative even though the exact exit step passed and the aggregate was null. Neither host reached corrupted source. All run artifacts and the no-credit disposition are preserved in [fault-matrix-hosted-attempts-v5.json](fault-matrix-hosted-attempts-v5.json). The validator now checks frozen exit assertions and same-run passed exit-step evidence; five focused validator cases pass locally. No fault or qualification credit is claimed.
+Git Town source-development and public authoring update (5 November 2026):
+
+- Native source-development run `41947116665` on `6c52fe6deabd74a217599be5a58eee0baf760a2e` passed Ubuntu 24.04 and Windows 2025. Each host verified the 4,533-file exact source pin, built Git Town 24.1.0 with Go 1.27.0/vendored modules, passed all 20 catalog-v3 public scenarios, and passed all nine fault phases (three unchanged-contract mutations and three restored-source rebuild recoveries). Linux query-bridge and race checks passed; the target/process and workspace cleanup checks passed.
+- Independent audit request v14 was executed by run `41949100190` after correcting a workflow path mismatch. It audited run `41947116665`, fetched both original provider artifacts, independently checked 40 public reports and 18 source-fault calibration reports, exact source/spec/executable identities, exits and cleanup, then retained the curated packets. Provider artifact ZIPs were 167,184,094 bytes (Linux) and 169,830,019 bytes (Windows); curated retained packets are 9,210,835 and 402,655 bytes respectively, within the 64 MiB combined cap. Receipt is `retention-readback-v14.json`.
+- A preceding audit workflow attempt (`41948736271`) gated on request v14 but invoked the stale v13 request; its successful output audited run `41935126990`, not the requested run. It is retained as a misconfigured audit attempt and earns no Git Town credit. The corrected run/receipt binds to the requested head.
+- Repeat source-development run `41948227877` on `09db6bd07c3a715ed54e0a9ae051e667e29f11a2` passed both hosts again; it is additional source evidence, not another unique project or final-candidate repetition.
+- The generated public first-use authoring workflow passed run `41948227863` on hosted Ubuntu after the original push-context failure. The corrected helper recorded `event=push`, exact checkout SHA `09db6bd07c3a715ed54e0a9ae051e667e29f11a2`, four passing steps, target exit 0, confirmed process exit and fixture removal. Artifact 13378953789 (5,040 bytes; SHA-256 `54f9aeba56d517e923dd6e446d8fa2dc45097aea41811a1ca4e0df30d80d0cd3`) was downloaded and checked. The prior run `41947116756` remains a failure before test execution, with cleanup successful.
+- The push context fix is bounded to the supported event set (`local`, `push`, `pull_request`, `workflow_dispatch`); push evidence binds the exact `GITHUB_SHA`, and privileged/unknown events remain rejected. Focused helper tests passed 3/3.
+
+These observations are source-development and authored-user-flow evidence only. They do not qualify the exact frozen private candidate, do not complete the 12 x 20 final series, and add no project admission or candidate qualification credit.
 
 
-Hosted run 41930229763 (commit fa16768) passed the twenty frozen public cases on Ubuntu and Windows; Linux runner/VT ordinary and race suites passed. F01 pristine baseline passed on both hosts, then the unchanged contract detected the mutated parent output as `unexpected_exit` after target exit 0, with process and workspace cleanup confirmed. The helper still rejected the reports because it counted later `not_run` steps as additional failures, so restoration/rebuild did not execute and the complete matrix remains uncredited. Receipts and artifact hashes are in [fault-matrix-hosted-attempts-v6.json](fault-matrix-hosted-attempts-v6.json). The validator now counts only `failed` steps and allows subsequent `not_run` steps while rejecting invalid step states; zero fault credit remains.
+Exact-candidate preflight: native Windows local run of v0.4.0-rc.6/N01 (`0e64475632234057b757324f6ede884e`) was refused during workspace setup with `expand native workspace path: Access is denied.` No target process started; the test has zero candidate or project credit. The attempt is preserved in `candidate-smoke-attempts-v1.json`; the declared standard `windows-2025` final cell remains required.

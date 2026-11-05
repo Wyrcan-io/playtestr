@@ -118,7 +118,8 @@ def main():
         repository=REPOSITORY, pin=PIN, acquisition_method='pinned Git checkout',
         source_archive_sha256='2a47fe65b7f21f6a99bfeefd00dfeffce394dd7db733b47e5b87904c9947ab8a',
         source_provenance_sha256=sha256(provenance_path), source_commit=commit,
-        source_files=len(actual), source_tree_sha256=provenance['primary_tree_sha256'],
+        source_files=actual, source_file_count=len(actual),
+        source_tree_sha256=provenance['primary_tree_sha256'],
         windows_archive_restore=windows_archive_restore,
         network_module_resolution=False, build_hooks_executed=False))
 
@@ -149,13 +150,18 @@ def main():
         dependency_mode='pinned go.work workspace vendor only', network_module_resolution='disabled',
         automatic_toolchain_download='disabled', build_hooks_executed=False,
         build_succeeded=True, stdout_tail=result.stdout.decode('utf-8','replace')[-2048:],
-        stderr_tail=result.stderr.decode('utf-8','replace')[-2048:])
+        stderr_tail=result.stderr.decode('utf-8','replace')[-2048:],
+        compiled_files={executable.name: binary_sha})
     immutable_json(target / 'build.json', receipt)
     runtime = dict(schema_version=1, kind='native', project=PROJECT, pin=PIN,
         native=str(executable.resolve()), native_sha256=binary_sha,
         binary=executable.relative_to(target).as_posix(), binary_sha256=binary_sha,
         version='24.1.0')
     immutable_json(target / 'runtime.json', runtime)
+    immutable_json(target / 'installed-inventory.json', dict(schema_version=1,
+        runtime_root=binary_dir.relative_to(ROOT).as_posix(),
+        files={executable.name: binary_sha}, project=PROJECT, pin=PIN,
+        inventory_scope='Native Git Town executable and its runtime payload; no dynamic external runtime dependencies.'))
     print('Verified pinned Git Town source files:', len(actual), 'built:', binary_sha,
           'version:', version)
 

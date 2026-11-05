@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "project": "git-town",
+  "candidate": "v0.4.0-rc.6",
+  "candidate_series": "native-exit-v1",
+  "attempts": [
+    {
+      "attempt_id": "0e64475632234057b757324f6ede884e",
+      "label": "N01-final-candidate-smoke-windows",
+      "host": "native Windows/amd64 local",
+      "candidate_runner_sha256": "6c80fdbcdd74705b85b2e8aad2f07140f5ff5e8cea80db1d6c24a04d71b23f36",
+      "spec": "N01-hack-feature.json",
+      "runner_report_sha256": "092c4f31562ca84098f7f20345ded1eaf522ec03ccc04665cd5a24785d2ece63",
+      "outcome": "workspace_setup_failure_before_target_launch",
+      "message": "expand native workspace path: Access is denied.",
+      "target_started": false,
+      "target_exit_observed": false,
+      "process_cleanup_claimed": false,
+      "workspace_prepared": false,
+      "candidate_or_project_credit": 0,
+      "disposition": "Preserved local path-limit refusal. Run the declared exact series on the standard Windows-hosted runner; do not infer target incompatibility or success."
+    }
+  ],
+  "candidate_qualification_credit": 0,
+  "project_admissions": 0
+}

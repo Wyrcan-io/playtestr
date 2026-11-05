@@ -62,6 +62,7 @@ async def main():
     parser.add_argument('--expected-runner-exit', type=int, default=0)
     parser.add_argument('--phase', default='development')
     parser.add_argument('--executable')
+    parser.add_argument('--runner')
     parser.add_argument('spec')
     args = parser.parse_args()
     target = RAW / 'active' / PROJECT
@@ -92,12 +93,24 @@ async def main():
     report_root.mkdir(parents=True, exist_ok=False)
     report = report_root / 'report.json'
     artifacts = report_root / 'runner-evidence'
-    argv = [shutil.which('go') or 'go', 'run', '-mod=readonly', './cmd/playtestr', 'test',
-            '--artifacts-dir', str(artifacts), '--report', str(report), str(spec)]
+    runner = None
+    if args.runner:
+        from next20_candidate import executable as candidate_executable
+        from next20_candidate import SERIES
+        selected = Path(args.runner).resolve(strict=True)
+        series = 'native-exit-v1'
+        if series not in SERIES or selected != candidate_executable(series, 'windows' if os.name == 'nt' else 'linux').resolve(strict=True):
+            raise ValueError('explicit runner is not the exact installed native candidate for this host')
+        runner = selected
+        argv = [str(runner), 'test', '--artifacts-dir', str(artifacts), '--report', str(report), str(spec)]
+    else:
+        argv = [shutil.which('go') or 'go', 'run', '-mod=readonly', './cmd/playtestr', 'test',
+                '--artifacts-dir', str(artifacts), '--report', str(report), str(spec)]
     started = dict(schema_version=1, project=PROJECT, label=args.label,
         spec=str(spec.relative_to(ROOT)), spec_sha256=sha256(spec),
         fixture_manifest_sha256=sha256(manifest_path),
         executable_sha256=sha256(binary), command=list(map(str, argv)),
+        **(dict(runner_sha256=sha256(runner), runner_path=runner.relative_to(ROOT).as_posix()) if runner else {}),
         host=os.name, expected_runner_exit=args.expected_runner_exit,
         environment_policy='isolated HOME/APPDATA/XDG/Git config; no system/global Git config, forge credentials, or remote')
     immutable_json(report_root / 'started.json', started)

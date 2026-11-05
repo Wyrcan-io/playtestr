@@ -15,6 +15,19 @@ from next20_check import NAME,RAW,ROOT
 from readiness_evidence import immutable_json,sha256
 
 
+def source_inventory(source):
+    """Hash primary source while excluding checkout metadata and rejecting links."""
+    source=Path(source).resolve(strict=True)
+    inventory={}
+    for path in source.rglob('*'):
+        relative=path.relative_to(source)
+        if '.git' in relative.parts:continue
+        if path.is_symlink() or getattr(path,'is_junction',lambda:False)():
+            raise ValueError('linked target source during cleanup verification')
+        if path.is_file():inventory[relative.as_posix()]=sha256(path)
+    return inventory
+
+
 def prepare_native_directory_permissions(target,boundary):
     """Make checked, owned Unix directories removable without changing files."""
     if os.name=='nt':raise ValueError('native Unix directory preparation required')
@@ -129,7 +142,7 @@ def main():
     if owner['workspace']!=str(ROOT) or owner['campaign']!=NAME or owner['slug']!=args.project:raise ValueError('foreign target cleanup marker')
     acquisition=json.loads((target/'acquisition.json').read_text())
     source=target/'src'
-    actual={p.relative_to(source).as_posix():sha256(p) for p in source.rglob('*') if p.is_file()}
+    actual=source_inventory(source)
     expected=acquisition['source_files'];generated={};generated_manifest=None
     if args.generated_source_manifest:
         generated_manifest=args.generated_source_manifest.resolve(strict=True);generated_manifest.relative_to(ROOT)

@@ -3315,6 +3315,24 @@ Hosted Skim attempt2: run41805071820 Windows job126489955343 failed source verif
 
 Hosted Skim attempt2 Linux: source verification, locked fetch, 53-hook review and pinned Linux build all succeeded at run41805071820/job126489955015. The 20-case helper completed all20 but reported0 passing/20 failed; no scenario/native-cell credit. Artifact13310040820 is283,866,528 bytes, digest91dd4363ea52f1dfdf3e873b17f7133ada1293b71201110f80a1e837f5d95c38; preserve cases until per-case failure classifications are read back. Cross-platform specs name `bin/sk.exe` while ELF build emits `bin/sk`, so add a byte-identical Linux alias. Wrapper logs now print per-case category/message/steps; artifact paths narrowed to exact source, case, locked-crate and receipt inputs so target/compiler caches are not uploaded. Windows source CRLF cause/reset remain in attempt v2. Full attempt receipt: skim/hosted-development-attempts-v3.json.
 
+
+4 November continuation: Skim source-development run `41827379783` on commit
+`47d5ff9bdaabadbf98539a8dce81ecb33fed3012` passed 20/20 on native Ubuntu and
+Windows with declaration v6, including E03-v3/E04-v3 exact exit 2 plus cleanup.
+Windows detected all three real source faults, restored the exact 819-file pin,
+and uploaded the 28-member evidence bundle. Linux artifact `13320840276`
+(9,820,031 bytes, SHA-256 `bf4930e47260e336c2f2c37fcf923c52568319cd3c8079a871abb72903a8fd5c`)
+and Windows artifact `13320987802` (75,780,075 bytes, SHA-256
+`e8f70879d212e6c895c409845f5be8c3d7ce1d95191d184306071badcaea834d`) were
+retrieved and audited. The Windows inner archive SHA-256 is
+`c3d513cb8c410920ebc8d3da5d6bf3f742908dd3acd87c6bc80edc3269aa84b1`; all 28
+member sizes/hashes matched. The native-adapter readiness workflow `41827379961`
+passed Ubuntu, macOS and Windows. Durable audit is
+`skim/source-development-readback-v2.json`. Skim admission/current-candidate
+credit remain zero; final candidate series, public journey, maintenance, CI and
+cleanup gates remain open. Proceed to selected project nine, Git Town.
+
+
 ## Project 9: Git Town development checkpoint
 
 Pinned `git-town/git-town` at `8d039892574d4852e1843020c31d423234042e78` (MIT). The 5,504,823-byte source archive and all 4,533 primary Git blobs were verified. Build-hook review excluded upstream Makefile bootstrap/release routes. Native Windows/amd64 Go 1.27.0 built the vendored workspace successfully; executable SHA-256 is `e16a0c20bf8c36ef93e01488f50469ddc793e826d93caf6337a075fe8da2163b`.
@@ -3323,13 +3341,16 @@ Twenty exact public v3 specs are frozen in `git-town/scenario-catalog-v1.json` (
 
 This is development evidence only. Git Town has zero final-series, native-cell, calibration, fault-detection, current-candidate or admission credit. The new `.github/workflows/runner-readiness-next20-git-town.yml` is prepared for hosted Ubuntu/Windows runs; hosted validation, source faults, public authoring/maintenance/relocation and target cleanup remain open.
 
-### Hosted v1 development findings and v2 contract revision
-
-Native Git Town Windows passed the twenty frozen v1 scenarios twice (40/40 combined) with source and per-case workspace cleanup confirmed. Six Linux jobs executed all 120 v1 cases; each failed its first screen expectation at 3 seconds, and the runner recorded a blank screen while cleaning up the child. The separate bounded native Linux PTY probe captured 195 bytes of the expected branch output from the same pinned binary. This isolates a Linux runner/environment path still under investigation; it does not earn Linux compatibility credit. Exact run, job, artifact and per-attempt records are in `git-town/hosted-development-attempts-v1.json`.
-
-Catalog v2 preserves v1 hashes and attempts and explicitly sets the isolated Git configuration, pager, and terminal variables through the public spec environment. Hosted run `41875535290` verified source and built the pinned application on Ubuntu 24.04 and Windows 2025. Linux launched all 20 public cases; all failed their first 3-second screen assertion with a blank rendered screen, although the same run's bounded native PTY probe captured 195 bytes of expected output and exited 0. Windows passed 19/20; N15's Unicode branch name rendered as a replacement character and failed exact `.git/HEAD` bytes. All 40 scenario workspaces were confirmed cleaned. Exact records and artifact digests are in `git-town/hosted-development-attempts-v2.json`; a direct native Windows launch then verified that the pinned target itself creates the exact UTF-8 branch bytes (`windows-unicode-direct-probe-v1.json`). Both Playtestr discrepancies remain unresolved. Git Town still has zero qualification, native-cell, fault-detection, calibration, or candidate-admission credit.
+Catalog v2 hosted development run `41875535290` (commit `ac06f28b5e4e49d3bc01f561af6dcedee49cc0ef`) verified source and built Git Town on Ubuntu 24.04 and Windows 2025. Linux launched all 20 cases; all first screen assertions timed out at 3000 ms with a blank rendered screen, although the same run's bounded PTY probe captured 195 bytes of expected Git Town output and exited 0. Windows passed 19/20; N15's Unicode branch name rendered as a replacement character and failed its exact `.git/HEAD` bytes assertion. All 40 workspaces were cleaned. Artifacts: Linux 13345494552, 30,684,658 bytes, SHA-256 `9c75038f413c6613af6cd1934f260cbfdbcc5fc7d424d0039fa7efbdcb914fe7`; Windows 13346087787, 30,897,994 bytes, SHA-256 `c4c0c939a4c62e0f0ed6efb65ff394e122b734b1b492692323696c6ea28cc754`. See `git-town/hosted-development-attempts-v2.json`. These results add no credit; investigate the Linux terminal path and Unicode mismatch before freezing a third scenario catalog.
 
 
-Git Town v2 artifact audit correction: run 41875535290 launched twenty spec blobs whose raw hashes all missed the frozen catalog. N01 inspection confirmed CRLF bytes where the frozen bytes used LF. N15 additionally contained U+FFFD instead of U+00E9: expected SHA-256 5a41fef5300cb10495729c7b5a3ceb60344da887ada4ccf8777061856a03b865; hosted SHA-256 af2047794e36a0092ceb3e249705a7847a8a8bf6d6e6b037536f31d926e69120. The run remains failed as observed; no result was upgraded. Exact diagnosis is git-town/hosted-development-attempts-v2-correction.json.
+Git Town continuation: run `41881662967` compared raw PTY startup with a true
+controlling terminal. Only `OSC 11;?` and `CSI 6 n` were emitted before the
+controlling-TTY probe timed out; the raw no-controlling-TTY path exited with
+195 output bytes. This exposed a general Unix PTY reply-bridge gap. A bounded
+fix plus real-PTY query/input and race regressions are prepared. Native hosted
+ordinary/race tests and the frozen 20-case rerun remain pending; Git Town has
+zero credit.
 
-Git Town catalog v3, commit 1572d8e, verified all twenty raw spec hashes before build/launch. Run 41879628387 passed 20/20 on Windows with exact specs and failed 20/20 Linux screen assertions; each Linux child tree was confirmed cleaned. The Linux direct PTY probe of the pinned binary still emitted 195 expected bytes and exited 0. Artifacts: Linux 13347619815 (30,678,936 bytes, SHA-256 0463de3165ca99b42039591397fd9f1bea781e2ee7f1b6187ce48dcc930dbd7c), Windows 13348716791 (30,917,154 bytes, SHA-256 9cedf6b854018c1538806a5b9ff0f132cde738f99a0880209ade36eca8e35374). No qualification credit. Next Linux diagnostic compares PTY startup with and without a controlling terminal; workflow retains its bounded owned evidence.
+
+5 November update: Git Town pinned-source development now has two successful hosted Linux/Windows runs (80 total positive source-development cases), with the first run independently audited across 40 reports and 18 fault phases. Its public first-use workflow also passed on hosted Linux. The exact v0.4.0-rc.6 final declaration/workflow is prepared at `git-town/final-series-declaration-native-exit-v1.json`; its twelve 20-case batches and three-phase source faults have not run. The candidate smoke local Windows refusal started no target. Git Town remains unadmitted, with zero exact-candidate series credit.
