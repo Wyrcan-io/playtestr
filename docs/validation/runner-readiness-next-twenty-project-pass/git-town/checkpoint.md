@@ -226,3 +226,6 @@ Eleventh hosted attempt `41974745060` refused before launching any Git Town test
 
 
 Twelfth exact-candidate attempt (`41975837578`): Windows completed 240/240 cases, all nine source-fault phases, and checked cleanup. Linux passed 195 cases; the outer `next20_check.py` deadline fired at exactly 1,200 seconds during N18 in batch 9, cancelling one target case. Its workspace/process cleanup and the host source/runtime removal passed. Both packets and inventory hashes are preserved in [`final-series-attempts-v12.json`](final-series-attempts-v12.json). The run adds 436 target launches (435 pass, one cancelled) and zero candidate credit. V14 raises the bounded outer series deadline to 2,400 seconds and binds the workflow file.
+
+
+Fourteenth hosted workflow `41978773971` refused before target launch on both platforms: the workflow requested 2,400 seconds, but `next20_check.py` still capped its parser at 1,200. Cleanup refused source/runtime deletion without target reports; the runner VMs were ephemeral and ended with their jobs, but no checked removal is claimed. Both packets and inventories are in [`final-series-attempts-v13.json`](final-series-attempts-v13.json). Case totals and qualification credit do not change. V15 raises the adapter's checked maximum to 2,400 seconds and adds numeric-boundary tests.

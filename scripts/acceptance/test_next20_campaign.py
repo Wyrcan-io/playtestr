@@ -1,5 +1,6 @@
 """Campaign root separation and actual bounded command outcome controls."""
 import asyncio
+import argparse
 import json
 import os
 from pathlib import Path
@@ -10,7 +11,8 @@ import uuid
 
 sys.dont_write_bytecode=True
 from adversarial_process import execute
-from next20_check import NAME, RAW, ROOT, NextCampaign, owned_environment
+from next20_check import (MAX_COMMAND_TIMEOUT_SECONDS, NAME, RAW, ROOT, NextCampaign,
+                          bounded_command_timeout, owned_environment)
 from readiness_evidence import Campaign, RAW as ORIGINAL_RAW
 from readiness_evidence import immutable_json,sha256
 
@@ -19,6 +21,11 @@ class NextCampaignTests(unittest.TestCase):
     def setUp(self):
         self.root=RAW/'control-tests'/uuid.uuid4().hex
         self.campaign=NextCampaign(self.root)
+
+    def test_command_timeout_bound_accepts_final_series_and_rejects_excess(self):
+        self.assertEqual(bounded_command_timeout(2400), MAX_COMMAND_TIMEOUT_SECONDS)
+        with self.assertRaisesRegex(argparse.ArgumentTypeError, 'timeout must be between'):
+            bounded_command_timeout(2401)
 
     def test_candidate_series_selects_separate_exact_archive_and_rejects_tampering(self):
         import next20_candidate as candidate

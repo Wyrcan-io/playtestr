@@ -19,6 +19,19 @@ from readiness_evidence import Campaign, ROOT, immutable_json, sha256
 NAME = 'runner-readiness-next-twenty-project-pass'
 RAW = ROOT / 'artifacts' / NAME
 DOC = ROOT / 'docs/validation' / NAME
+MAX_COMMAND_TIMEOUT_SECONDS = 2400
+
+
+def bounded_command_timeout(value):
+    """Accept command deadlines up to the native final-series allowance."""
+    try:
+        value = int(value)
+    except (TypeError, ValueError) as error:
+        raise argparse.ArgumentTypeError('timeout must be an integer') from error
+    if not 1 <= value <= MAX_COMMAND_TIMEOUT_SECONDS:
+        raise argparse.ArgumentTypeError(
+            f'timeout must be between 1 and {MAX_COMMAND_TIMEOUT_SECONDS} seconds')
+    return value
 
 
 class NextCampaign(Campaign):
@@ -136,15 +149,15 @@ def main():
     sys.stdout.reconfigure(encoding='utf-8', errors='replace')
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--label', required=True)
-    parser.add_argument('--timeout', type=int, default=300)
+    parser.add_argument('--timeout', type=bounded_command_timeout, default=300)
     parser.add_argument('--expected', type=int, default=0)
     parser.add_argument('command', nargs=argparse.REMAINDER)
     args = parser.parse_args()
     argv = args.command
     if argv and argv[0] == '--':
         argv = argv[1:]
-    if not argv or not 1 <= args.timeout <= 1200:
-        parser.error('command and bounded timeout required')
+    if not argv:
+        parser.error('command required')
     try:
         result = asyncio.run(execute(argv, 'core', args.label, cwd=ROOT,
                                     env=owned_environment(), timeout=args.timeout,

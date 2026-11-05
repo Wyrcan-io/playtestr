@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "project": "git-town",
+  "attempt": "native-exit-v1-final-series-thirteenth-hosted-attempt-prelaunch-refusal",
+  "workflow_run": "41978773971",
+  "workflow_commit": "a98f99620858ae52961543b342f65689269dfa50",
+  "workflow_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/41978773971",
+  "declaration": "final-series-declaration-native-exit-v14.json",
+  "candidate": "v0.4.0-rc.6",
+  "candidate_series": "native-exit-v1",
+  "observed": {
+    "linux": {
+      "status": "prelaunch timeout argument refused; no target cases launched; source/runtime deletion refused",
+      "job": "127083741352",
+      "artifact_id": "13392478930",
+      "artifact_name": "next20-git-town-linux-final-native-exit-v1",
+      "artifact_bytes": 846687,
+      "artifact_sha256": "a45f673c428b1b771afd9ce9ecc6509fef33830d87dab960f55ad579dd2a3555",
+      "downloaded_files": 253,
+      "downloaded_bytes": 2350102,
+      "downloaded_inventory_sha256": "a0bcf0b9810e16a5b37e98ab5a55b3c1f5fb5c930141ec2a152b79d52872081a",
+      "downloaded_inventory_manifest_sha256": "157fc69c34cf65d0810c812467b48838a766c44eccc62069b24bf421a76c16e6",
+      "inventory_method": "SHA-256 of canonical compact JSON mapping sorted slash-normalized relative paths to SHA-256 file digests",
+      "retained_at": "artifacts/runner-readiness-next-twenty-project-pass/retained/41978773971-v14-prelaunch/next20-git-town-linux-final-native-exit-v1",
+      "prelaunch_failure": "next20_check.py rejected --timeout 2400 because its parser maximum remained 1200 seconds",
+      "target_cases_launched": 0,
+      "cleanup": "Unix source/runtime deletion refused because no target report cleanup proof existed; ephemeral runner teardown followed"
+    },
+    "windows": {
+      "status": "prelaunch timeout argument refused; no target cases launched; source/runtime deletion refused",
+      "job": "127083741140",
+      "artifact_id": "13392494029",
+      "artifact_name": "next20-git-town-windows-final-native-exit-v1",
+      "artifact_bytes": 936794,
+      "artifact_sha256": "77d21c57833415cd539279127e41d18a303f8312980186bfe38565bb2f3fa5f6",
+      "downloaded_files": 267,
+      "downloaded_bytes": 2576648,
+      "downloaded_inventory_sha256": "ac9877b698ab99d6da5ceb2c9835a7137c248b0af94917262fa1b236754cd9fa",
+      "downloaded_inventory_manifest_sha256": "009aea056c6aea49d25cedcd7ed77b7af3956ee0ebd4d3c47edfea24e1faf6d5",
+      "inventory_method": "SHA-256 of canonical compact JSON mapping sorted slash-normalized relative paths to SHA-256 file digests",
+      "retained_at": "artifacts/runner-readiness-next-twenty-project-pass/retained/41978773971-v14-prelaunch/next20-git-town-windows-final-native-exit-v1",
+      "prelaunch_failure": "next20_check.py rejected --timeout 2400 because its parser maximum remained 1200 seconds",
+      "target_cases_launched": 0,
+      "cleanup": "Windows process proof and source deletion were refused because no target report cleanup proof existed; ephemeral runner teardown followed"
+    }
+  },
+  "counts": {
+    "candidate_target_cases_launched": 0,
+    "candidate_target_attempts_passed": 0,
+    "candidate_target_attempts_failed": 0,
+    "candidate_target_attempts_cancelled": 0,
+    "candidate_ordinary_executions_qualified": 0,
+    "candidate_calibrations": 0,
+    "candidate_admissions": 0,
+    "checked_source_runtime_removals": 0,
+    "hosted_prelaunch_workflow_failures": 2
+  },
+  "root_cause": "The workflow correctly requested a 2400-second bound, but next20_check.py hard-coded a 1200-second maximum. Both hosts rejected the command before final-series execution, so no target test case launched. Cleanup then refused source/runtime deletion because no case reports proved workspace/process cleanup. The ephemeral hosted runners ended with the jobs; checked removal was not established.",
+  "disposition": "Preserve the zero-launch workflow and refused cleanups. Candidate case and qualification counters do not change. V15 makes the adapter maximum explicit at 2400 seconds, accepts that boundary, rejects 2401, and binds the adapter/tests/workflow in the final declaration."
+}
