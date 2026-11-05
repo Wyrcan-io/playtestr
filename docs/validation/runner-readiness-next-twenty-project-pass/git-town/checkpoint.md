@@ -142,3 +142,19 @@ source archive by its existing reviewed SHA-256 and retain it in the cleanup pac
 The new v5 catalog/freeze and staged-harness declaration remain zero-credit
 until both hosted cells, complete repeated series, source-fault calibration,
 independent audit, and checked source/runtime removal pass.
+
+
+Fifth exact-candidate attempt `41960284415` installed RC6 and checked out the
+pinned Git Town commit on both hosts, then failed during preparation because
+the downloaded codeload archive bytes did not match the historical reviewed
+archive digest. No Git Town build, candidate scenario, or source-fault phase
+started. Cleanup was skipped because the preparation step failed; no checked
+source/runtime removal is claimed. The provider packets and extracted
+inventories are preserved in [`final-series-attempts-v5.json`](final-series-attempts-v5.json).
+
+V6 constructs a deterministic gzip/PAX archive from the already verified
+4,533-file pinned checkout, reopens it and verifies every member byte against
+the source provenance manifest, records its generated digest, and adds tests
+for repeatability and partial-output cleanup. The codeload mismatch remains a
+preserved acquisition failure. V6 still has zero candidate credit until the
+full Linux/Windows series and audit complete.

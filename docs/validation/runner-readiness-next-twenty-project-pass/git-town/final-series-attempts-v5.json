@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "project": "git-town",
+  "attempt": "native-exit-v1-final-series-fifth-hosted-attempt",
+  "workflow_run": "41960284415",
+  "workflow_commit": "fc8a5f7f4f3cd62e2567b69b8805df203776a316",
+  "workflow_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/41960284415",
+  "declaration": "final-series-declaration-native-exit-v5.json",
+  "candidate": "v0.4.0-rc.6",
+  "candidate_series": "native-exit-v1",
+  "candidate_provider_runs": {"linux": "40424475362", "windows": "40425810038"},
+  "observed": {
+    "linux": {
+      "job": "127024784944",
+      "status": "failure",
+      "artifact_id": "13385271726",
+      "artifact_name": "next20-git-town-linux-final-native-exit-v1",
+      "artifact_bytes": 485361,
+      "artifact_sha256": "0dacf1be727e9cb76c52960a635b6e60db4a490965c0ee9f6a8f3ff57eb78d6f",
+      "downloaded_files": 15,
+      "downloaded_bytes": 196637,
+      "downloaded_inventory_sha256": "0d27c838c3156e87561b3f823814105d5504e889e0853d54dd92c04408724960",
+      "retained_at": "artifacts/runner-readiness-next-twenty-project-pass/retained/41960284415-v5/linux",
+      "candidate_install_attempt": "4058a7ab7ef8433cbabc3c07601ecc09",
+      "prepare_attempt": "04db246f71474a0f9c197109a5976e9c"
+    },
+    "windows": {
+      "job": "127024785406",
+      "status": "failure",
+      "artifact_id": "13385670441",
+      "artifact_name": "next20-git-town-windows-final-native-exit-v1",
+      "artifact_bytes": 485393,
+      "artifact_sha256": "78c6540c18a3236acd82c1410b588c27f9893992feb23d1ef6af7d5e892acac6",
+      "downloaded_files": 15,
+      "downloaded_bytes": 196597,
+      "downloaded_inventory_sha256": "e415d6654420dea4d89e1ae8413cdc894f7503a866cac2be1dc907282e355907",
+      "retained_at": "artifacts/runner-readiness-next-twenty-project-pass/retained/41960284415-v5/windows",
+      "candidate_install_attempt": "46a4a46753ce4d8ba96350fcdb597c44",
+      "prepare_attempt": "94cd1082a7b4420c868272bb50d784ff"
+    }
+  },
+  "root_cause": "Both native hosts checked out the exact pinned Git Town tree and installed the frozen candidate, then stopped during preparation because the downloaded codeload archive bytes did not match the historical reviewed source-archive digest. No target build, candidate scenario, source-fault phase, or cleanup proof ran.",
+  "counts": {
+    "candidate_target_cases_launched": 0,
+    "candidate_ordinary_executions_qualified": 0,
+    "candidate_calibrations": 0,
+    "candidate_admissions": 0,
+    "checked_source_runtime_removals": 0
+  },
+  "disposition": "Preserve both host packets. V6 removes network archive-byte variability by creating a deterministic gzip/PAX source archive from the already hash-verified pinned checkout, reopens and hashes every archive member against the source manifest, records the generated archive digest, and tests the archive writer. No v5 candidate or cleanup credit is awarded."
+}

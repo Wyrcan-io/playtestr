@@ -158,8 +158,13 @@ before the Unicode creation case failed its exact `.git/HEAD` state check.
 Both host packets and the two failure dispositions are retained in
 [`final-series-attempts-v4.json`](final-series-attempts-v4.json). The jobs also
 found that the pinned source archive was missing from the checkout-based cleanup
-path, so source/runtime removal was not verified. V5 freezes a 10-second N01
-checkpoint, a separate Unicode switcher case with a host-generated fixture,
-and acquisition/retention of the exact pinned source archive. All attempts
-remain zero-credit until complete native execution, independent audit, and
-checked cleanup pass.
+path, so source/runtime removal was not verified. V5 froze a 10-second N01
+checkpoint and a separate Unicode switcher case with a host-generated fixture.
+The fifth attempt (`41960284415`) stopped during source preparation on both
+hosts because downloaded codeload bytes differed from the historical archive
+digest. No build or candidate test started; both packets are retained in
+[`final-series-attempts-v5.json`](final-series-attempts-v5.json). V6 generates
+a deterministic archive from the verified pinned checkout and verifies every
+member against the source manifest before continuing. All attempts remain
+zero-credit until complete native execution, independent audit, and checked
+cleanup pass.

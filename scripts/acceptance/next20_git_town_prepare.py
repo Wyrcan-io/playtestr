@@ -1,5 +1,6 @@
 """Verify and build the exact Git Town pin inside the campaign-owned root."""
 import hashlib
+import gzip
 import json
 import os
 from pathlib import Path
@@ -7,7 +8,6 @@ import platform
 import subprocess
 import sys
 import tarfile
-from urllib.request import urlopen
 
 from next20_check import DOC, RAW, ROOT
 from readiness_evidence import immutable_json, sha256
@@ -16,7 +16,6 @@ from readiness_evidence import immutable_json, sha256
 PROJECT = 'git-town'
 REPOSITORY = 'git-town/git-town'
 PIN = '8d039892574d4852e1843020c31d423234042e78'
-SOURCE_ARCHIVE_SHA256 = '2a47fe65b7f21f6a99bfeefd00dfeffce394dd7db733b47e5b87904c9947ab8a'
 
 
 def run(argv, *, cwd, env, timeout=300):
@@ -26,6 +25,74 @@ def run(argv, *, cwd, env, timeout=300):
         raise RuntimeError(f'{argv[0]} exited {result.returncode}: '
                            f'{result.stderr[-4096:].decode("utf-8", "replace")}')
     return result
+
+
+def create_source_archive(source, expected, target):
+    """Create and re-open a bounded deterministic archive of the verified pin."""
+    archive = target / 'source.tar.gz'
+    partial = target / 'source.tar.gz.partial'
+    if archive.exists() or archive.is_symlink() or partial.exists() or partial.is_symlink():
+        raise ValueError('unexpected existing Git Town source archive; preserve it for inspection')
+    source = Path(source).resolve(strict=True)
+    target = Path(target).resolve(strict=True)
+    total = 0
+    count = 0
+    try:
+        with partial.open('xb') as raw:
+            with gzip.GzipFile(filename='', mode='wb', fileobj=raw, mtime=0) as compressed:
+                with tarfile.open(fileobj=compressed, mode='w', format=tarfile.PAX_FORMAT) as bundle:
+                    for name, digest in sorted(expected.items()):
+                        relative = Path(name)
+                        if relative.is_absolute() or '..' in relative.parts or '\\' in name:
+                            raise ValueError('unsafe pinned source archive member')
+                        path = source / relative
+                        if path.is_symlink() or not path.is_file() or sha256(path) != digest:
+                            raise ValueError('source archive input differs from verified pin: ' + name)
+                        size = path.stat().st_size
+                        total += size
+                        count += 1
+                        if count > 60000 or total > 128 * 1024 * 1024:
+                            raise ValueError('Git Town source archive exceeds its declared bound')
+                        member = tarfile.TarInfo(name)
+                        member.size = size
+                        member.mode = 0o644
+                        member.mtime = 0
+                        member.uid = member.gid = 0
+                        member.uname = member.gname = ''
+                        member.type = tarfile.REGTYPE
+                        with path.open('rb') as payload:
+                            bundle.addfile(member, payload)
+            raw.flush()
+            os.fsync(raw.fileno())
+        observed = {}
+        with tarfile.open(partial, mode='r:gz') as bundle:
+            members = bundle.getmembers()
+            if len(members) != len(expected) or len(members) > 60000:
+                raise ValueError('generated Git Town source archive member count differs')
+            for member in members:
+                name = member.name
+                relative = Path(name)
+                if (not member.isfile() or relative.is_absolute() or '..' in relative.parts or
+                        '\\' in name or name in observed or name not in expected or
+                        member.size > 64 * 1024 * 1024):
+                    raise ValueError('unsafe generated Git Town source archive member')
+                stream = bundle.extractfile(member)
+                digest = hashlib.sha256()
+                size = 0
+                while chunk := stream.read(1024 * 1024):
+                    size += len(chunk)
+                    digest.update(chunk)
+                if size != member.size or digest.hexdigest() != expected[name]:
+                    raise ValueError('generated Git Town source archive content differs: ' + name)
+                observed[name] = digest.hexdigest()
+        if observed != expected:
+            raise ValueError('generated Git Town source archive does not cover the exact source manifest')
+        digest = sha256(partial)
+        partial.replace(archive)
+        return digest, archive.stat().st_size
+    except BaseException:
+        partial.unlink(missing_ok=True)
+        raise
 
 
 def main():
@@ -45,35 +112,6 @@ def main():
             raise ValueError('Git Town target ownership differs')
     else:
         immutable_json(marker, ownership)
-
-    source_archive = target / 'source.tar.gz'
-    if source_archive.exists():
-        if source_archive.is_symlink() or sha256(source_archive) != SOURCE_ARCHIVE_SHA256:
-            raise ValueError('Git Town pinned source archive differs from its reviewed digest')
-    else:
-        partial = target / 'source.tar.gz.partial'
-        if partial.exists() or partial.is_symlink():
-            raise ValueError('unexpected partial Git Town source archive; preserve for inspection')
-        digest = hashlib.sha256()
-        total = 0
-        url = f'https://codeload.github.com/{REPOSITORY}/tar.gz/{PIN}'
-        try:
-            with urlopen(url, timeout=60) as response, partial.open('xb') as output:
-                while True:
-                    chunk = response.read(1024 * 1024)
-                    if not chunk:
-                        break
-                    total += len(chunk)
-                    if total > 128 * 1024 * 1024:
-                        raise ValueError('Git Town source archive exceeds its 128 MiB bound')
-                    digest.update(chunk)
-                    output.write(chunk)
-            if digest.hexdigest() != SOURCE_ARCHIVE_SHA256:
-                raise ValueError('downloaded Git Town source archive digest differs')
-            partial.replace(source_archive)
-        except BaseException:
-            partial.unlink(missing_ok=True)
-            raise
 
     provenance_path = DOC / PROJECT / 'source-provenance.json'
     provenance = json.loads(provenance_path.read_text(encoding='utf-8'))
@@ -146,9 +184,11 @@ def main():
         mismatched = next((name for name in sorted(set(actual) | set(expected))
                            if actual.get(name) != expected.get(name)), 'unknown')
         raise ValueError('Git Town source differs from canonical pinned provenance: ' + mismatched)
+    source_archive_sha256, source_archive_bytes = create_source_archive(source, expected, target)
     immutable_json(target / 'acquisition.json', dict(
         repository=REPOSITORY, pin=PIN, acquisition_method='pinned Git checkout',
-        source_archive_sha256=SOURCE_ARCHIVE_SHA256,
+        source_archive_method='deterministic gzip/PAX archive generated from the verified pinned Git checkout',
+        source_archive_sha256=source_archive_sha256, source_archive_bytes=source_archive_bytes,
         source_provenance_sha256=sha256(provenance_path), source_commit=commit,
         source_files=actual, source_file_count=len(actual),
         source_tree_sha256=provenance['primary_tree_sha256'],

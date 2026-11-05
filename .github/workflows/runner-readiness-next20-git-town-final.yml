@@ -99,7 +99,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Check Git Town fault, artifact, and source-cleanup validators
-        run: python -B -m unittest test_next20_git_town_faults test_git_town_artifact_audit test_next20_target_cleanup -v
+        run: python -B -m unittest test_next20_git_town_faults test_git_town_artifact_audit test_next20_target_cleanup test_next20_git_town_prepare -v
         working-directory: scripts/acceptance
       - name: Restore exact pinned Windows source bytes
         if: matrix.host == 'windows'

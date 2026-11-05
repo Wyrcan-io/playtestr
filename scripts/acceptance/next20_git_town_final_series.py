@@ -25,15 +25,22 @@ async def main():
     target = RAW / 'active' / 'git-town'
     contracts = RAW / 'git-town' / 'host-contracts'
     host = {'Windows': 'windows', 'Linux': 'linux'}[platform.system()]
-    declaration_path = package / 'final-series-declaration-native-exit-v5.json'
+    declaration_path = package / 'final-series-declaration-native-exit-v6.json'
     declaration = json.loads(declaration_path.read_text(encoding='utf-8'))
     freeze_path = package / 'development-test-freeze-native-exit-v2.json'
     frozen = json.loads((contracts / 'development-test-freeze.json').read_text(encoding='utf-8'))
     build = json.loads((target / 'build.json').read_text(encoding='utf-8'))
+    acquisition = json.loads((target / 'acquisition.json').read_text(encoding='utf-8'))
     runtime = json.loads((target / 'runtime.json').read_text(encoding='utf-8'))
     installed = json.loads((target / 'installed-inventory.json').read_text(encoding='utf-8'))
     native_lock = package / 'native-runtime-lock.json'
     candidate = executable('native-exit-v1', host)
+    source_archive = target / 'source.tar.gz'
+    if (acquisition.get('source_archive_method') !=
+            'deterministic gzip/PAX archive generated from the verified pinned Git checkout' or
+            sha256(source_archive) != acquisition.get('source_archive_sha256') or
+            source_archive.stat().st_size != acquisition.get('source_archive_bytes')):
+        raise ValueError('final Git Town source archive differs from its verified pinned checkout')
     for name, digest in declaration['harness_files'].items():
         if harness_sha(ROOT / name) != digest:
             raise ValueError('Git Town final harness changed after its declaration: ' + name)
@@ -57,6 +64,7 @@ async def main():
         candidate_sha256=sha256(candidate), candidate_archive_sha256=json.loads(
             (candidate.parent / 'installed.json').read_text(encoding='utf-8'))['archive_sha256'],
         runtime_sha256=sha256(target / 'runtime.json'), build_sha256=sha256(target / 'build.json'),
+        source_archive_sha256=acquisition['source_archive_sha256'],
         installed_inventory_sha256=sha256(target / 'installed-inventory.json'),
         host_freeze_sha256=sha256(contracts / 'development-test-freeze.json'),
         expected_ordinary=240, expected_calibrations=9, project_admissions=0))
