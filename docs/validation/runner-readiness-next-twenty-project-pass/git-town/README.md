@@ -181,3 +181,18 @@ binds final fault calibration to a new declaration for catalog v4. The stale
 source-development push trigger is disabled until its historical v3 contracts
 are re-versioned; manual dispatch remains available but is not evidence of a
 pass. No v6 candidate or cleanup credit is awarded.
+
+The seventh final attempt (`41964820652`) verified the archive, installed RC6,
+and launched 15 cases: 13 passed and two failed. Linux N02 exceeded the implicit
+3-second readiness timeout; Windows N15 showed the Unicode branch but selected
+the default row because the case omitted `Down`. All 13 Windows workspaces were
+cleaned and Linux source/runtime deletion was verified. Windows source/runtime
+removal stopped because the isolated PowerShell environment did not expose
+`Get-FileHash`. The complete host packets and inventories are preserved in
+[`final-series-attempts-v7.json`](final-series-attempts-v7.json). The separate
+three-host readiness harness run (`41964820676`) passed helper checks on Ubuntu,
+Windows and macOS; it does not count as final-series evidence. V8 raises N02's
+bounded timeout to 10 seconds, selects the visible Unicode row, and calculates
+SHA-256 in process during cleanup. The cumulative final-attempt count is 29
+target cases (25 passed, 4 failed); no batch, calibration, or admission credit
+has been earned.

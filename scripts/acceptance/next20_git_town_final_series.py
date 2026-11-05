@@ -25,17 +25,17 @@ async def main():
     target = RAW / 'active' / 'git-town'
     contracts = RAW / 'git-town' / 'host-contracts'
     host = {'Windows': 'windows', 'Linux': 'linux'}[platform.system()]
-    declaration_path = package / 'final-series-declaration-native-exit-v7.json'
+    declaration_path = package / 'final-series-declaration-native-exit-v8.json'
     declaration = json.loads(declaration_path.read_text(encoding='utf-8'))
-    freeze_path = package / 'development-test-freeze-native-exit-v2.json'
+    freeze_path = package / 'development-test-freeze-native-exit-v3.json'
     frozen = json.loads((contracts / 'development-test-freeze.json').read_text(encoding='utf-8'))
     build = json.loads((target / 'build.json').read_text(encoding='utf-8'))
     acquisition = json.loads((target / 'acquisition.json').read_text(encoding='utf-8'))
     runtime = json.loads((target / 'runtime.json').read_text(encoding='utf-8'))
     installed = json.loads((target / 'installed-inventory.json').read_text(encoding='utf-8'))
     native_lock = package / 'native-runtime-lock.json'
-    scenario_catalog = package / 'scenario-catalog-v4.json'
-    fault_declaration = package / 'fault-declaration-v5.json'
+    scenario_catalog = package / 'scenario-catalog-v5.json'
+    fault_declaration = package / 'fault-declaration-v6.json'
     candidate = executable('native-exit-v1', host)
     source_archive = target / 'source.tar.gz'
     if (acquisition.get('source_archive_method') !=
@@ -61,7 +61,7 @@ async def main():
         if sha256(contracts / name) != digest:
             raise ValueError('final host input changed: ' + name)
     scenario_alias = contracts / 'scenarios.json'
-    if (sha256(scenario_alias) != frozen['inputs'].get('scenarios-native-exit-v2.json') or
+    if (sha256(scenario_alias) != frozen['inputs'].get('scenarios-native-exit-v3.json') or
             frozen['inputs'].get('scenarios.json') != sha256(scenario_alias)):
         raise ValueError('final Git Town journal scenario alias differs from the frozen public case list')
     for name, digest in build['compiled_files'].items():

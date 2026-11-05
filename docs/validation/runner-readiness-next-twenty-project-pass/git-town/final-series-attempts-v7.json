@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "project": "git-town",
+  "attempt": "native-exit-v1-final-series-seventh-hosted-attempt",
+  "workflow_run": "41964820652",
+  "workflow_commit": "fd5f39d6",
+  "workflow_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/41964820652",
+  "declaration": "final-series-declaration-native-exit-v7.json",
+  "candidate": "v0.4.0-rc.6",
+  "candidate_series": "native-exit-v1",
+  "observed": {
+    "linux": {
+      "status": "failure after two target launches",
+      "job": "127039289178",
+      "artifact_id": "13386748633",
+      "artifact_name": "next20-git-town-linux-final-native-exit-v1",
+      "artifact_bytes": 6895858,
+      "artifact_sha256": "a37afb7dfcca64c214a84e8be1e0acd98b3fa89fcb1d2f5cabc9bccb5ee6d880",
+      "downloaded_files": 312,
+      "downloaded_bytes": 10308837,
+      "downloaded_inventory_sha256": "ba5603ca6a6afde7551fcae57e24811d8ea0c72b8e85cf95063896ec1f493a23",
+      "retained_at": "artifacts/runner-readiness-next-twenty-project-pass/retained/41964820652-v7-final/next20-git-town-linux-final-native-exit-v1",
+      "source_archive_sha256": "8a674352c53f1487bf46a8594965940ab63851a1b7ec2a8cf5390a7877199c6e",
+      "source_archive_bytes": 5383823,
+      "target_cases_launched": 2,
+      "passed": 1,
+      "failed": 1,
+      "failure": "N02 assertion_timeout at 3000 ms; blank readiness screen; target exit 130; process and workspace cleanup confirmed",
+      "target_removal": "passed; removed.json confirms exact owned target removed and source restored"
+    },
+    "windows": {
+      "status": "failure after thirteen target launches",
+      "job": "127039289370",
+      "artifact_id": "13386234898",
+      "artifact_name": "next20-git-town-windows-final-native-exit-v1",
+      "artifact_bytes": 7664978,
+      "artifact_sha256": "dd1144455bbdfa7e9ffaf35b5dbdc69b2fcb419933dd43e2a41950008b90ccd6",
+      "downloaded_files": 430,
+      "downloaded_bytes": 12312137,
+      "downloaded_inventory_sha256": "9fbb50851d0f4c30f54b4560c432ba7b9d55e3ceafb1aa53a16efd555c2fdbb0",
+      "retained_at": "artifacts/runner-readiness-next-twenty-project-pass/retained/41964820652-v7-final/next20-git-town-windows-final-native-exit-v1",
+      "source_archive_sha256": "8a674352c53f1487bf46a8594965940ab63851a1b7ec2a8cf5390a7877199c6e",
+      "source_archive_bytes": 5383823,
+      "target_cases_launched": 13,
+      "passed": 13,
+      "failed": 2,
+      "failures": [
+        "N15 state_assertion_failure: Enter selected feat-blue; Unicode feat-? required one Down input",
+        "checked source/runtime removal failed because Get-FileHash was not available in the isolated PowerShell child environment"
+      ],
+      "target_workspace_cleanup": "all 13 case workspaces cleaned; source restoration and process proof succeeded"
+    }
+  },
+  "counts": {
+    "candidate_target_cases_launched": 15,
+    "candidate_target_attempts_passed": 13,
+    "candidate_target_attempts_failed": 2,
+    "candidate_complete_batches": 0,
+    "candidate_ordinary_executions_qualified": 0,
+    "candidate_calibrations": 0,
+    "candidate_admissions": 0,
+    "checked_source_runtime_removals": 1
+  },
+  "root_cause": "The first Linux N02 invocation needed more than the implicit 3-second screen-readiness checkpoint. Windows N15 displayed the Unicode branch, but the interactive selector remained on feat-blue because the contract sent Enter without Down. Windows retained all report and case cleanup evidence, but final checked deletion stopped when the isolated PowerShell lacked Get-FileHash. The independently completed readiness harness run 41964820676 passed Ubuntu, Windows and macOS helper checks; it is not final-series evidence.",
+  "disposition": "Preserve both full provider packets and inventories. No complete batch, ordinary execution, calibration, or admission credit. V8 adds a bounded 10-second N02 checkpoint, selects the Unicode row with Down, replaces Get-FileHash with in-process SHA-256, and freezes updated catalog/fault bindings. Independent final packet audit and exact native rerun remain pending."
+}

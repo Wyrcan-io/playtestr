@@ -177,3 +177,19 @@ frozen journal alias and updates the final fault declaration to catalog v4.
 The stale source-development push trigger is disabled until its historical v3
 contracts are re-versioned; its manual workflow dispatch remains available but
 does not establish a passing source-development run.
+
+Seventh candidate attempt `41964820652` launched 15 exact-RC6 cases: 13 passed,
+while Linux N02 timed out at the implicit 3-second checkpoint and Windows N15
+selected `feat-blue` after displaying `feat-é`. Linux checked source/runtime
+removal; Windows confirmed process exit, source restoration, and all 13 case
+workspace cleanups, then its final deletion script failed because
+`Get-FileHash` was unavailable in its isolated PowerShell environment. Both
+full packets and extracted inventories remain under the v7 retained directory
+and are summarized in [`final-series-attempts-v7.json`](final-series-attempts-v7.json).
+The independent three-host helper readiness run `41964820676` passed but is not
+candidate evidence. V8 freezes a 10-second N02 readiness bound, adds `Down` to
+N15, and replaces the missing PowerShell cmdlet with in-process SHA-256. Across
+v4 and v7, 29 target launches produced 25 passes and four failures; no complete
+batch, calibration, or admission credit is claimed. The full 12-batch,
+three-fault exact candidate run, independent audit, and checked cleanup remain
+open.

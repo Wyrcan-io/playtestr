@@ -3,6 +3,12 @@ param([Parameter(Mandatory=$true)][ValidatePattern('^[a-z][a-z0-9-]{0,63}$')][st
     [ValidateSet(40000,60000)][int]$MaxFiles=40000,
     [ValidateSet(1073741824,2147483648)][long]$MaxBytes=1073741824,[switch]$Staged)
 $ErrorActionPreference='Stop'
+function Get-SHA256([string]$Path) {
+    $stream=[IO.File]::OpenRead($Path)
+    $sha=[Security.Cryptography.SHA256]::Create()
+    try { return [BitConverter]::ToString($sha.ComputeHash($stream)).Replace('-','').ToLowerInvariant() }
+    finally { $sha.Dispose(); $stream.Dispose() }
+}
 $workspace=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
 $campaign=Join-Path $workspace 'artifacts\runner-readiness-next-twenty-project-pass'
 $target=(Resolve-Path -LiteralPath (Join-Path $campaign ('active\'+$Project))).ProviderPath
@@ -19,7 +25,7 @@ if($Staged -and ((Resolve-Path -LiteralPath $inventoryRoot).ProviderPath -ne $in
     ((Get-Item -LiteralPath $inventoryRoot -Force).Attributes -band [IO.FileAttributes]::ReparsePoint))) {throw 'Unsafe staged target inventory root'}
 $prepared=Get-Content -LiteralPath (Join-Path $retained 'prepared.json') -Raw | ConvertFrom-Json
 $indexPath=Join-Path $inventoryRoot 'cleanup-inventory.json'
-if ((Get-FileHash -LiteralPath $indexPath -Algorithm SHA256).Hash.ToLowerInvariant() -ne $prepared.cleanup_inventory_sha256) { throw 'Target cleanup inventory changed' }
+if ((Get-SHA256 $indexPath) -ne $prepared.cleanup_inventory_sha256) { throw 'Target cleanup inventory changed' }
 $index=Get-Content -LiteralPath $indexPath -Raw | ConvertFrom-Json
 $declaredMaxFiles=40000
 if ($null -ne $index.PSObject.Properties['max_files']) {$declaredMaxFiles=[int]$index.max_files}
@@ -29,7 +35,7 @@ if ($null -ne $index.PSObject.Properties['max_bytes']) {$declaredMaxBytes=[long]
 if ($declaredMaxBytes -ne $MaxBytes) {throw 'Target cleanup byte bound differs from prepared inventory'}
 if ($index.owned_target -ne $target -or -not $index.source_restored_exact) { throw 'Target ownership/restoration mismatch' }
 $ownerPath=Join-Path $target 'task-owned.json'
-if ((Get-FileHash -LiteralPath $ownerPath -Algorithm SHA256).Hash.ToLowerInvariant() -ne $index.owner_sha256) { throw 'Target ownership marker changed' }
+if ((Get-SHA256 $ownerPath) -ne $index.owner_sha256) { throw 'Target ownership marker changed' }
 $actual=@{};$actualLinks=@{};$totalBytes=[long]0;$pending=[Collections.Generic.Queue[string]]::new();$pending.Enqueue($target)
 while($pending.Count) {
     foreach($entry in Get-ChildItem -LiteralPath $pending.Dequeue() -Force) {
@@ -56,7 +62,7 @@ while($pending.Count) {
         $relative=$entry.FullName.Substring($target.Length+1).Replace('\','/')
         $record=$index.files.PSObject.Properties[$relative].Value
         if ($null -eq $record -or $entry.Length -ne $record.bytes -or
-            (Get-FileHash -LiteralPath $entry.FullName -Algorithm SHA256).Hash.ToLowerInvariant() -ne $record.sha256) { throw 'Target payload changed after checked retention' }
+            (Get-SHA256 $entry.FullName) -ne $record.sha256) { throw 'Target payload changed after checked retention' }
         $actual[$relative]=$true
     }
 }

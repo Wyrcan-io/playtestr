@@ -1,0 +1,1 @@
+Synthetic Git Town repository.

@@ -1,0 +1,88 @@
+"""Freeze Git Town v5 final cases after the v7 first-batch observations."""
+import hashlib
+import json
+import subprocess
+
+from next20_check import DOC, ROOT
+from readiness_evidence import immutable_json, sha256
+
+
+def staged_sha(name):
+    result = subprocess.run(['git', 'show', ':' + name], cwd=ROOT,
+                            capture_output=True, check=False)
+    if result.returncode:
+        raise RuntimeError('final contract input is not staged: ' + name)
+    data = result.stdout
+    if hashlib.sha256(data).hexdigest() != sha256(ROOT / name):
+        raise ValueError('final contract worktree input differs from its staged blob: ' + name)
+    return hashlib.sha256(data).hexdigest()
+
+
+def freeze(path, value):
+    if path.exists():
+        if path.is_symlink() or json.loads(path.read_text(encoding='utf-8')) != value:
+            raise ValueError('existing immutable contract differs; preserve it: ' + str(path))
+        return
+    immutable_json(path, value)
+
+
+def main():
+    package = DOC / 'git-town'
+    previous_catalog_path = package / 'scenario-catalog-v4.json'
+    catalog = json.loads(previous_catalog_path.read_text(encoding='utf-8'))
+    catalog['revision'] = 5
+    catalog['supersedes'] = previous_catalog_path.name
+    catalog['previous_catalog'] = previous_catalog_path.name
+    catalog['previous_catalog_sha256'] = sha256(previous_catalog_path)
+    catalog['revision_reason'] = (
+        'Final candidate attempt 41964820652 passed N01 on Linux and then N02 timed out at its implicit 3-second readiness bound with no output. On Windows the new Unicode switcher checkpoint displayed feat-é, but Enter selected the default feat-blue row. N02 now declares a 10-second bounded readiness checkpoint; N15 moves once from the default row to the visible Unicode row before Enter. The first v4 attempt remains preserved with zero batch credit.')
+    for row in catalog['scenarios']:
+        row['spec_sha256'] = staged_sha('docs/validation/runner-readiness-next-twenty-project-pass/git-town/' + row['spec'])
+    catalog_path = package / 'scenario-catalog-v5.json'
+    freeze(catalog_path, catalog)
+
+    cases = [dict(id=row['id'], spec=row['spec'], spec_sha256=row['spec_sha256'],
+                  canonical_sha256=row['spec_sha256']) for row in catalog['scenarios']]
+    scenarios_path = package / 'scenarios-native-exit-v3.json'
+    freeze(scenarios_path, dict(schema_version=1, project='git-town',
+        source_catalog=catalog_path.name, source_catalog_sha256=sha256(catalog_path),
+        cases=cases))
+    inputs = {row['spec']: row['spec_sha256'] for row in catalog['scenarios']}
+    prior_freeze = json.loads((package / 'development-test-freeze-native-exit-v2.json').read_text(encoding='utf-8'))
+    for name in ('fixtures/branch-repo/README.md', 'fixtures/branch-repo-unicode/README.md',
+                 'source-fixture-recipe-v2.json'):
+        digest = sha256(package / name)
+        if name.startswith('fixtures/'):
+            if prior_freeze['inputs'].get(name) != digest:
+                raise ValueError('fixture seed differs from the prior immutable freeze: ' + name)
+        else:
+            staged_sha('docs/validation/runner-readiness-next-twenty-project-pass/git-town/' + name)
+        inputs[name] = digest
+    inputs[scenarios_path.name] = sha256(scenarios_path)
+    freeze(package / 'development-test-freeze-native-exit-v3.json', dict(
+        schema_version=1, project='git-town', status='frozen-for-private-candidate-series-v3',
+        inputs=dict(sorted(inputs.items())),
+        directories=['fixtures/branch-repo', 'fixtures/branch-repo-unicode'],
+        scenarios_sha256=sha256(scenarios_path), scenario_catalog_sha256=sha256(catalog_path),
+        fixture_manifest_sha256=sha256(package / 'source-fixture-recipe-v2.json'),
+        positive_development_summary=dict(
+            source_development_run='41947116665', independent_audit_run='41949100190',
+            source_pin='8d039892574d4852e1843020c31d423234042e78', source_files=4533,
+            unchanged_case_specs=18, revised_final_specs=2,
+            scope='Historical source-development evidence applies to earlier contracts only; the v5 N02/N15 timing and selection corrections require exact-candidate execution.'),
+        final_ordinary_credit=0))
+
+    prior_fault_path = package / 'fault-declaration-v5.json'
+    fault = json.loads(prior_fault_path.read_text(encoding='utf-8'))
+    fault['supersedes_for_future_execution'] = prior_fault_path.name
+    fault['scenario_catalog'] = catalog_path.name
+    fault['revision_reason'] = (
+        'The exact-candidate case catalog advances to v5 for N02 readiness and Unicode-row selection. The three independent source faults still use unchanged N01, N03 and N06 specs with the same reviewed expectations.')
+    fault['execution_status'] = 'declaration only; hosted v5 final source-fault execution and independent audit pending'
+    fault['admission_credit'] = 0
+    freeze(package / 'fault-declaration-v6.json', fault)
+    print('Frozen Git Town catalog v5, final input freeze v3, and fault declaration v6; zero admission credit.')
+
+
+if __name__ == '__main__':
+    main()
