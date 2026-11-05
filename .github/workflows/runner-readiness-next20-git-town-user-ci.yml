@@ -5,6 +5,7 @@ on:
     branches: [work/p0-p2-implementation]
     paths:
       - '.github/workflows/runner-readiness-next20-git-town-user-ci.yml'
+      - 'scripts/ci/**'
       - 'scripts/acceptance/next20_git_town_authoring_fixture.py'
       - 'docs/validation/runner-readiness-next-twenty-project-pass/git-town/authoring/**'
   pull_request:
@@ -34,7 +35,7 @@ jobs:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
           repository: Wyrcan-io/playtestr
-          ref: '24029291cd0221d7611f07d27b464ec0936a815f'
+          ref: '051511594b4937acf9ad48fd415156513edd5995'
           path: .playtestr-tooling
           persist-credentials: false
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
@@ -48,7 +49,7 @@ jobs:
       - name: Build exact candidate runner
         id: setup
         env:
-          SOURCE_REVISION: '24029291cd0221d7611f07d27b464ec0936a815f'
+          SOURCE_REVISION: '051511594b4937acf9ad48fd415156513edd5995'
         run: |
           mkdir -p .playtestr-bin
           ext=''
