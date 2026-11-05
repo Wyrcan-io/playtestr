@@ -1,0 +1,58 @@
+{
+  "admission_credit": 0,
+  "declared_faults": [
+    {
+      "expected_failure": "The configured parent `main` is truncated to `mai`; Git Town exits zero before the unchanged screen assertion for `main` can match.",
+      "expected_failure_category": "unexpected_exit",
+      "expected_target_exit_code": 0,
+      "id": "F01-parent-output",
+      "independent_requirement": "The configured parent command prints the complete actual configured parent.",
+      "mutation": "Replace fmt.Print(parent) with fmt.Print(parent[:len(parent)-1]).",
+      "source_blob_sha": "4b938d6606e48389ae68e936d2e6eaa96746a08d",
+      "source_file": "internal/cmd/config/get_parent.go",
+      "spec_sha256": "21c3198316305ebb4a5eb32eec2cb95cd06fdf619a85960e5cd6d7b07e08c932",
+      "unchanged_spec": "N03-read-parent.json"
+    },
+    {
+      "expected_failure": "Creating a new feature branch is incorrectly refused as already present, and Git Town exits one before the unchanged screen assertion.",
+      "expected_failure_category": "unexpected_exit",
+      "expected_target_exit_code": 1,
+      "id": "F02-feature-refusal",
+      "independent_requirement": "Creating a new local feature branch creates the requested ref and checks it out.",
+      "mutation": "Invert the local branch already-exists condition in determineHackData.",
+      "source_blob_sha": "3e87d207f5a59ab1ed5c8bdcd21ac881c5256c48",
+      "source_file": "internal/cmd/hack.go",
+      "spec_sha256": "6435c67de7dee7795e21124210bcae2b021d9e36b097ce5940bbad6eeb7e498f",
+      "unchanged_spec": "N01-hack-feature.json"
+    },
+    {
+      "expected_failure": "The terminal confirmation and target exit pass, but the same-run exact .git/config state assertion rejects the wrong saved branch type.",
+      "expected_failure_category": "state_assertion_failure",
+      "expected_target_exit_code": 0,
+      "id": "F03-prototype-persistence",
+      "independent_requirement": "Marking an existing branch as prototype persists the prototype type in local Git configuration.",
+      "mutation": "Persist BranchTypeFeatureBranch in place of BranchTypePrototypeBranch.",
+      "source_blob_sha": "d6401d4afe2a579cd2b01fd31511de33cbb21562",
+      "source_file": "internal/cmd/prototype.go",
+      "spec_sha256": "07b853ca52b5e737956b1f5f525cf35f034197cf3bd6bf72b5567e180f661700",
+      "unchanged_spec": "N06-prototype-existing.json"
+    }
+  ],
+  "execution_status": "declaration only; hosted v6 final source-fault execution and independent audit pending",
+  "native_hosts": [
+    "linux-x86_64",
+    "windows-amd64"
+  ],
+  "project": "git-town",
+  "required_phases_per_fault": [
+    "pristine source and passing unchanged public contract",
+    "single source mutation, normal native rebuild, and detected unchanged-contract failure in the explicitly frozen category",
+    "exact source restoration, complete pinned-file verification, normal native rebuild, and passing recovery"
+  ],
+  "revision_reason": "The exact-candidate case catalog advances to v6 for N03 readiness and Unicode key-name corrections. The three independent source faults still use the same reviewed public scenarios; their frozen spec hashes are updated to the exact new catalog bytes.",
+  "scenario_catalog": "scenario-catalog-v6.json",
+  "schema_version": 1,
+  "source_pin": "8d039892574d4852e1843020c31d423234042e78",
+  "source_repository": "git-town/git-town",
+  "supersedes_for_future_execution": "fault-declaration-v6.json"
+}

@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "project": "git-town",
+  "attempt": "native-exit-v1-final-series-eighth-hosted-attempt",
+  "workflow_run": "41967210773",
+  "workflow_commit": "855d93cfffcf0fd8a692cbad5022591437322d60",
+  "workflow_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/41967210773",
+  "declaration": "final-series-declaration-native-exit-v8.json",
+  "candidate": "v0.4.0-rc.6",
+  "candidate_series": "native-exit-v1",
+  "observed": {
+    "linux": {
+      "status": "failure after three target launches",
+      "job": "127046867464",
+      "artifact_id": "13388330761",
+      "artifact_name": "next20-git-town-linux-final-native-exit-v1",
+      "artifact_bytes": 6954914,
+      "artifact_sha256": "d06e7dd7c7d2c2b4238cc0dffce9e99d4e95a4d0ca9be85b3772ce1464370fc4",
+      "downloaded_files": 327,
+      "downloaded_bytes": 10460412,
+      "downloaded_inventory_sha256": "2707c90702b15f826a7685738a88651582010490d5a6f2e62e5e5a15ef3bbc50",
+      "retained_at": "artifacts/runner-readiness-next-twenty-project-pass/retained/41967210773-v8-final/next20-git-town-linux-final-native-exit-v1",
+      "source_archive_sha256": "8a674352c53f1487bf46a8594965940ab63851a1b7ec2a8cf5390a7877199c6e",
+      "target_cases_launched": 3,
+      "passed": 2,
+      "failed": 1,
+      "failure": "N03 assertion_timeout at 3000 ms; target exited 130; process and workspace cleanup confirmed",
+      "target_removal": "passed; checked Unix source/runtime removal completed"
+    },
+    "windows": {
+      "status": "14 target cases passed; N15 rejected before launch as invalid_spec",
+      "job": "127046867203",
+      "artifact_id": "13387863479",
+      "artifact_name": "next20-git-town-windows-final-native-exit-v1",
+      "artifact_bytes": 1675415,
+      "artifact_sha256": "3148dbb84e15c2cc9e8189908b092f8a4e989d071b03fd21a73c462ab9f5d23b",
+      "downloaded_files": 427,
+      "downloaded_bytes": 4761516,
+      "downloaded_inventory_sha256": "614dc7b62cd9c1707325de8a9be938dcc1c1614228084101bbd9282396d9bb26",
+      "retained_at": "artifacts/runner-readiness-next-twenty-project-pass/retained/41967210773-v8-final/next20-git-town-windows-final-native-exit-v1",
+      "source_archive_sha256": "8a674352c53f1487bf46a8594965940ab63851a1b7ec2a8cf5390a7877199c6e",
+      "target_cases_launched": 14,
+      "passed": 14,
+      "failed": 0,
+      "prelaunch_report": "N15 invalid_spec: public key Down is unsupported; no target launch or cleanup evidence for this report",
+      "target_workspace_cleanup": "all 14 launched case workspaces cleaned; process proof succeeded",
+      "target_removal": "safely refused because the invalid-spec report lacked positive target/workspace cleanup evidence; removal not verified"
+    }
+  },
+  "counts": {
+    "candidate_target_cases_launched": 17,
+    "candidate_target_attempts_passed": 16,
+    "candidate_target_attempts_failed": 1,
+    "prelaunch_invalid_spec_reports": 1,
+    "candidate_complete_batches": 0,
+    "candidate_ordinary_executions_qualified": 0,
+    "candidate_calibrations": 0,
+    "candidate_admissions": 0,
+    "checked_source_runtime_removals": 1
+  },
+  "root_cause": "The N02 10-second timeout passed on both hosts. Linux N03 still used the implicit 3-second timeout and failed to emit its checkpoint in time. Windows cases N01-N14 passed, but N15 did not launch because Down is not a valid public key token; the supported token is ArrowDown. The cleanup verifier properly refused to claim complete deletion from a packet containing an invalid-spec report without cleanup confirmation. The workflow run failed on both hosts before any complete batch or fault calibration.",
+  "disposition": "Preserve both full provider packets and extracted inventories. The v8 attempt earns 16 passing target attempts and one failed target attempt, but no batch, calibration or admission credit. V9 sets N03 to a bounded 10-second readiness timeout and changes N15 to ArrowDown; it advances the exact case catalog, host freeze, fault declaration and harness declaration. Windows checked source/runtime removal remains unverified for this attempt."
+}

@@ -193,3 +193,14 @@ v4 and v7, 29 target launches produced 25 passes and four failures; no complete
 batch, calibration, or admission credit is claimed. The full 12-batch,
 three-fault exact candidate run, independent audit, and checked cleanup remain
 open.
+
+Eighth final attempt `41967210773` passed 16 of 17 launched target cases across
+Linux and Windows. Linux N03 timed out at its implicit 3-second checkpoint;
+Windows N01-N14 passed, while N15 was refused as an invalid spec because `Down`
+is not a valid key name. Linux source/runtime deletion passed. Windows retained
+the owned source because the cleanup validator refused the unconfirmed
+invalid-spec report. Both packets and inventories are preserved in
+[`final-series-attempts-v8.json`](final-series-attempts-v8.json). Cumulative v4,
+v7 and v8 observations are 46 launched target cases (41 pass, five fail), with
+zero complete batches or candidate credit. V9 sets N03's readiness bound to
+10 seconds and uses supported `ArrowDown` for N15.

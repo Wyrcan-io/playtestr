@@ -196,3 +196,15 @@ bounded timeout to 10 seconds, selects the visible Unicode row, and calculates
 SHA-256 in process during cleanup. The cumulative final-attempt count is 29
 target cases (25 passed, 4 failed); no batch, calibration, or admission credit
 has been earned.
+
+The eighth exact-candidate attempt (`41967210773`) passed N02 on both hosts
+and retained its v8 failure artifacts. Linux passed N01 and N02, then N03 hit
+the implicit 3-second readiness limit. Windows passed fourteen launched cases,
+but N15 was rejected before launch because `Down` is not a supported key name;
+the contract needs `ArrowDown`. Linux checked source/runtime removal. Windows
+cleanup correctly refused to delete the owned source after the invalid-spec
+report lacked positive cleanup evidence. The provider packets and extracted
+inventories are in [`final-series-attempts-v8.json`](final-series-attempts-v8.json).
+Across v4, v7 and v8, 46 target cases were launched: 41 passed and five failed.
+No complete batch, calibration or candidate admission credit is earned. V9
+freezes the 10-second N03 checkpoint and supported N15 key name.
