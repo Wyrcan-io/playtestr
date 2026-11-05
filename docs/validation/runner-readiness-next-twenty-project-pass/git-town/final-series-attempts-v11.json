@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "project": "git-town",
+  "attempt": "native-exit-v1-final-series-eleventh-hosted-attempt-prelaunch-refusal",
+  "workflow_run": "41974745060",
+  "workflow_commit": "a66309c698e3b8d01a3312e8066ffa334b08f02b",
+  "workflow_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/41974745060",
+  "declaration": "final-series-declaration-native-exit-v12.json",
+  "candidate": "v0.4.0-rc.6",
+  "candidate_series": "native-exit-v1",
+  "observed": {
+    "windows": {
+      "status": "prelaunch alias validation failed; no target cases launched; checked deletion refused",
+      "job": "127070879669",
+      "artifact_id": "13391965301",
+      "artifact_name": "next20-git-town-windows-final-native-exit-v1",
+      "artifact_bytes": 924427,
+      "artifact_sha256": "2f9dc6a4d46a037de790301583f561a12aecfd2d61f37eb55a56346f8f568480",
+      "downloaded_files": 269,
+      "downloaded_bytes": 2541791,
+      "downloaded_inventory_sha256": "2b05116b48701b4d8d836451febda23ef835e0b1b4be6db31accaf5d10960889",
+      "downloaded_inventory_manifest_sha256": "7e45affe94c93224c0d658b13e898e1770221c4ff54a4c24955394260fb591c6",
+      "inventory_method": "SHA-256 of canonical compact JSON mapping sorted slash-normalized relative paths to SHA-256 file digests",
+      "retained_at": "artifacts/runner-readiness-next-twenty-project-pass/retained/41974745060-v12-prelaunch/next20-git-town-windows-final-native-exit-v1",
+      "prelaunch_failure": "final Git Town journal scenario alias differs from the frozen public case list; final series still expected v5 alias after freeze v6",
+      "target_cases_launched": 0,
+      "cleanup": "Windows process proof found no matching live target processes; source/runtime removal refused because no target-report cleanup proof existed; hosted runner teardown followed job completion"
+    },
+    "linux": {
+      "status": "prelaunch alias validation failed; no target cases launched; checked deletion refused",
+      "job": "127070880007",
+      "artifact_id": "13391381151",
+      "artifact_name": "next20-git-town-linux-final-native-exit-v1",
+      "artifact_bytes": 834505,
+      "artifact_sha256": "b57fa204800787ef91d30d2b9e0c7fe1a12a8b57d573b3bd77caf73b8a3667a8",
+      "downloaded_files": 255,
+      "downloaded_bytes": 2315806,
+      "downloaded_inventory_sha256": "6bf4e8fe0d2fe5e593e020948a96959f84de1c21a60d35039f3bd7af97f93bb8",
+      "downloaded_inventory_manifest_sha256": "8fddab27ec34759b6c7549418ce7140616088784a209304c965a68a01427bfd9",
+      "inventory_method": "SHA-256 of canonical compact JSON mapping sorted slash-normalized relative paths to SHA-256 file digests",
+      "retained_at": "artifacts/runner-readiness-next-twenty-project-pass/retained/41974745060-v12-prelaunch/next20-git-town-linux-final-native-exit-v1",
+      "prelaunch_failure": "final Git Town journal scenario alias differs from the frozen public case list; final series still expected v5 alias after freeze v6",
+      "target_cases_launched": 0,
+      "cleanup": "Source/runtime deletion refused because no target-report cleanup proof existed; hosted runner teardown followed job completion"
+    }
+  },
+  "counts": {
+    "candidate_target_cases_launched": 0,
+    "candidate_target_attempts_passed": 0,
+    "candidate_target_attempts_failed": 0,
+    "candidate_target_attempts_cancelled": 0,
+    "candidate_ordinary_executions_qualified": 0,
+    "candidate_calibrations": 0,
+    "candidate_admissions": 0,
+    "checked_source_runtime_removals": 0,
+    "hosted_prelaunch_workflow_failures": 2
+  },
+  "root_cause": "The frozen contract and host alias correctly advanced to scenarios-native-exit-v6.json, but next20_git_town_final_series.py still looked up scenarios-native-exit-v5.json in the frozen inputs. Both final-series scripts failed before creating the final execution plan or launching any Git Town target case. The cleanup validator then refused deletion on both hosts because it requires at least one actual target report with confirmed workspace cleanup; Windows separately confirmed no matching live target process. Runner teardown ended the ephemeral hosted environments, but checked source/runtime removal was not proven.",
+  "disposition": "Preserve the zero-launch workflow and cleanup refusals; no target-case counters or qualification credit change. V13 uses one tested scenario-alias validator in both materialization and final-series preflight, and adds regression coverage for stale-version rejection. Continue using fresh hosted runners; do not claim cleanup success for this attempt."
+}

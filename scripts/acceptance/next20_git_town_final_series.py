@@ -9,6 +9,7 @@ from adversarial_process import execute
 from next20_candidate import executable
 from next20_check import DOC, RAW, ROOT, NextCampaign, owned_environment
 from next20_jrnl_final import main as final_batch
+from next20_git_town_final_contracts import validate_scenario_alias
 from readiness_evidence import immutable_json, sha256
 
 
@@ -25,7 +26,7 @@ async def main():
     target = RAW / 'active' / 'git-town'
     contracts = RAW / 'git-town' / 'host-contracts'
     host = {'Windows': 'windows', 'Linux': 'linux'}[platform.system()]
-    declaration_path = package / 'final-series-declaration-native-exit-v12.json'
+    declaration_path = package / 'final-series-declaration-native-exit-v13.json'
     declaration = json.loads(declaration_path.read_text(encoding='utf-8'))
     freeze_path = package / 'development-test-freeze-native-exit-v6.json'
     frozen = json.loads((contracts / 'development-test-freeze.json').read_text(encoding='utf-8'))
@@ -61,9 +62,7 @@ async def main():
         if sha256(contracts / name) != digest:
             raise ValueError('final host input changed: ' + name)
     scenario_alias = contracts / 'scenarios.json'
-    if (sha256(scenario_alias) != frozen['inputs'].get('scenarios-native-exit-v5.json') or
-            frozen['inputs'].get('scenarios.json') != sha256(scenario_alias)):
-        raise ValueError('final Git Town journal scenario alias differs from the frozen public case list')
+    validate_scenario_alias('scenarios-native-exit-v6.json', scenario_alias, frozen['inputs'])
     for name, digest in build['compiled_files'].items():
         if sha256((target / 'bin' / name)) != digest:
             raise ValueError('native target runtime differs from its source build receipt: ' + name)

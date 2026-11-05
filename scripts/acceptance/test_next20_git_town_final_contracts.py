@@ -7,7 +7,7 @@ from pathlib import Path
 
 from next20_check import DOC
 from next20_git_town_faults import FAULTS, PIN
-from next20_git_town_final_contracts import materialize_scenario_alias
+from next20_git_town_final_contracts import materialize_scenario_alias, validate_scenario_alias
 
 
 class GitTownFinalContractTests(unittest.TestCase):
@@ -32,6 +32,18 @@ class GitTownFinalContractTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'source or alias differs'):
                 materialize_scenario_alias(target, {'scenarios-native-exit-v6.json': '0' * 64})
             self.assertFalse((target / 'scenarios.json').exists())
+
+    def test_final_journal_alias_requires_the_current_frozen_scenario_version(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            target = Path(temporary)
+            alias = target / 'scenarios.json'
+            payload = b'{"cases": [], "schema_version": 1}\n'
+            alias.write_bytes(payload)
+            digest = hashlib.sha256(payload).hexdigest()
+            frozen = {'scenarios-native-exit-v6.json': digest, 'scenarios.json': digest}
+            self.assertEqual(validate_scenario_alias('scenarios-native-exit-v6.json', alias, frozen), digest)
+            with self.assertRaisesRegex(ValueError, 'alias differs'):
+                validate_scenario_alias('scenarios-native-exit-v5.json', alias, frozen)
 
     def test_final_fault_declaration_matches_v8_candidate_inputs(self):
         package = DOC / 'git-town'

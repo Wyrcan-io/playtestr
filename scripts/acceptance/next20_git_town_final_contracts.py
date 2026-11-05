@@ -11,6 +11,15 @@ from readiness_evidence import immutable_json, sha256
 PROJECT = 'git-town'
 
 
+def validate_scenario_alias(source_name, alias_path, frozen_inputs):
+    """Require the exact frozen scenario source and journal alias digest."""
+    expected = frozen_inputs.get(source_name)
+    actual = sha256(alias_path)
+    if not isinstance(expected, str) or actual != expected or frozen_inputs.get('scenarios.json') != actual:
+        raise ValueError('Git Town final scenario alias differs from the frozen public case list')
+    return actual
+
+
 def materialize_scenario_alias(target, copied):
     """Expose the frozen public case list under the generic final-journal name."""
     source = target / 'scenarios-native-exit-v6.json'
@@ -24,6 +33,7 @@ def materialize_scenario_alias(target, copied):
     if digest != expected:
         raise ValueError('Git Town final scenario alias bytes differ from their frozen source')
     copied['scenarios.json'] = digest
+    validate_scenario_alias(source.name, destination, copied)
 
 
 def main():
