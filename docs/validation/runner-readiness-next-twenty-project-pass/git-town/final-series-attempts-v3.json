@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "project": "git-town",
+  "attempt": "native-exit-v1-final-series-third-hosted-attempt",
+  "workflow_run": "41955366681",
+  "workflow_commit": "6112fbcee26be001de9cafa4c804c0409b65cd51",
+  "workflow_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/41955366681",
+  "declaration": "final-series-declaration-native-exit-v3.json",
+  "candidate": "v0.4.0-rc.6",
+  "candidate_series": "native-exit-v1",
+  "candidate_provider_runs": {"linux": "40424475362", "windows": "40425810038"},
+  "observed": {
+    "linux": {
+      "job": "127008880373", "status": "failure",
+      "artifact_id": "13383195474", "artifact_name": "next20-git-town-linux-final-native-exit-v1",
+      "artifact_bytes": 715667, "artifact_sha256": "a79345aefce8be0457f43bc4f6ffbd14f0fa9bb1d42eac3f7a74e6efc15020f9",
+      "downloaded_files": 198, "downloaded_bytes": 2029270,
+      "downloaded_inventory_sha256": "5e845369e57fb2f1b61244b374eab490fa44e267e5b00d93ef03e6d80b5e58f7",
+      "retained_at": "artifacts/runner-readiness-next-twenty-project-pass/retained/41955366681-linux",
+      "attempt_ids": {
+        "candidate_install": "1b325e01e19e45ea99df448933b41cd5",
+        "pinned_build": "1b10e6c3bdeb4e97bb77f84207b874d2",
+        "fixture": "d6607731a0614bdca8b3c28ccfd720c0",
+        "contract_materialization": "052ea960587e4bfaba9ed17965d26dcc",
+        "final_series_hash_refusal": "5858bda653984ba88af8d890eed4eeeb",
+        "cleanup": "2b88ce3b70054b9c935188f172da8e04"
+      }
+    },
+    "windows": {
+      "job": "127008880293", "status": "failure",
+      "artifact_id": "13383105829", "artifact_name": "next20-git-town-windows-final-native-exit-v1",
+      "artifact_bytes": 804150, "artifact_sha256": "04c9e58e6e1afe74e8fc50c005d951c7884332217b3c6d0e4f44b3505542f735",
+      "downloaded_files": 212, "downloaded_bytes": 2251086,
+      "downloaded_inventory_sha256": "16e09070c45cb3a98f296d3be7bf312995ec3d545ef42ddb4ed7158bfb7ef2f2",
+      "retained_at": "artifacts/runner-readiness-next-twenty-project-pass/retained/41955366681-windows",
+      "attempt_ids": {
+        "candidate_install": "12031861eb1e4b4ebf79ecdbf811ed4b",
+        "pinned_build": "6057cb377c61420fac974024dc7c6c65",
+        "fixture": "fc7f6b0240094013a333069371ae9700",
+        "contract_materialization": "c7cac4a7062547f99912914a208bff0b",
+        "process_proof": "f2b420a48abb4d4f83ad93a8aaa5440a",
+        "final_series_hash_refusal": "b6a3d5d9e8c945e2b7d234eb1a4692bc",
+        "cleanup_preflight": "f48196975f804860bf4d22d90002c785",
+        "cleanup": "7a4bfad1f1c14bf9a8a1e287bbb22585"
+      }
+    }
+  },
+  "root_cause": {
+    "declared_hash_policy": "Line-ending-normalized hashes calculated from local worktree files",
+    "first_mismatch": "scripts/acceptance/readiness_evidence.py was modified locally but the modification was not part of workflow commit 6112fbce; CI checked out the committed source",
+    "result": "Both final harness checks refused before candidate target scenarios or source-fault phases launched",
+    "downstream_cleanup": "No target reports existed; report-based cleanup proof refused and source/runtime removal was not verified"
+  },
+  "counts": {"candidate_ordinary_executions": 0, "candidate_calibrations": 0, "candidate_admissions": 0, "target_process_launches": 0, "checked_source_runtime_removals": 0},
+  "disposition": "Preserve both packets. Declaration v4 calculates normalized text hashes from staged Git index blobs, binding the exact files in the next commit. A new full run and independent audit remain required before candidate credit."
+}

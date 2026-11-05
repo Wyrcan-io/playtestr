@@ -108,3 +108,14 @@ event identities, and dispositions are in `final-series-attempts-v2.json`.
 Declaration v3 now normalizes line endings for text harness hashes and preserves
 v1/v2 unchanged. The next native run must pass its full declaration gate before
 the exact 12 x 20 series can start.
+
+Third attempt `41955366681` confirmed the LF/CRLF normalization but exposed a
+separate declaration-input error: v3 hashed the dirty local `readiness_evidence.py`
+while the workflow checked out the committed blob. Both native cells refused at
+the final harness gate; candidate ordinary/calibration launches remain zero.
+Windows process proof passed; cleanup could not use report-based proof because
+there were no target reports. Full packet inventories and attempt IDs are
+preserved in `final-series-attempts-v3.json`. V4 derives hashes from the Git
+index after explicitly staging the final-series consumer and generator, then
+compares normalized working-tree bytes on the runners. The next two-host run is
+the first eligible attempt to start candidate scenarios.

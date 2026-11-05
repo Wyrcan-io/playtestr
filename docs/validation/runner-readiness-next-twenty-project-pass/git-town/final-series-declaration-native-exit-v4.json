@@ -1,0 +1,149 @@
+{
+  "batches": [
+    {
+      "id": 0,
+      "name": "ordinary-cold-1",
+      "runtime": "new verified owned binary copy; first logical use"
+    },
+    {
+      "id": 1,
+      "name": "ordinary-warm-1",
+      "runtime": "reuse exact binary copy from batch 0"
+    },
+    {
+      "id": 2,
+      "name": "ordinary-cold-2",
+      "runtime": "second independently verified owned binary copy"
+    },
+    {
+      "id": 3,
+      "name": "ordinary-warm-2",
+      "runtime": "reuse exact binary copy from batch 2"
+    },
+    {
+      "change": "width +10 and height +2; frozen state bytes retained",
+      "id": 4,
+      "name": "viewport"
+    },
+    {
+      "change": "contracts relocated under a relative path with spaces and Unicode",
+      "id": 5,
+      "name": "spaced-unicode-path"
+    },
+    {
+      "change": "same frozen supported actions and positive checkpoints",
+      "id": 6,
+      "name": "ordinary-input-readiness"
+    },
+    {
+      "change": "printable input sent in three-codepoint groups",
+      "id": 7,
+      "name": "segmented-printable-input"
+    },
+    {
+      "change": "first bounded owned CPU and memory contention window",
+      "id": 8,
+      "name": "bounded-contention-1"
+    },
+    {
+      "change": "second independent bounded contention window",
+      "id": 9,
+      "name": "bounded-contention-2"
+    },
+    {
+      "change": "N01 viewport height 12; all other contracts unchanged",
+      "id": 10,
+      "name": "highest-risk-small-completion"
+    },
+    {
+      "change": "2000 ms declared startup boundary; ordinary budgets unchanged",
+      "id": 11,
+      "name": "highest-risk-startup-boundary"
+    }
+  ],
+  "calibration_required": 18,
+  "candidate": "v0.4.0-rc.6",
+  "candidate_freeze_sha256": "24ce7238532b1b6e581142ee98e17a7fe18ea475ec83176e7051986353c80da2",
+  "candidate_provider_runs": {
+    "linux": "40424475362",
+    "windows": "40425810038"
+  },
+  "candidate_series": "native-exit-v1",
+  "canonical_test_freeze_sha256": "ec53408e4d3a4114345459fa84146153814d826a90e944fecb40a416c550e1c9",
+  "cold_scope": "Two newly materialized and hash-verified target executable copies followed by paired reuse; no claim of OS page-cache eviction.",
+  "edge": 12,
+  "execution_budget": {
+    "hosted_jobs": 2,
+    "job_ceiling_minutes": 60,
+    "max_parallel": 2,
+    "paid_runner_budget_changes": 0,
+    "total_job_minute_ceiling": 120
+  },
+  "failure_policy": "No per-case retry. Any failed report, timeout, exit, cleanup, hash or series completeness check invalidates the host cell; retain attempts and require a declared replacement.",
+  "fault_declaration_sha256": "3202e4700a320782540c10f7a0a188beb9d6205f8106b93dc70fba6552e93d03",
+  "harness_files": {
+    ".github/workflows/runner-readiness-next20-git-town-final.yml": "a8425c47c6191e027ae15a9bb3c57f496d30baa6cc30db1182dfb21d538c447a",
+    "scripts/acceptance/adversarial_process.py": "99a0e2638a4da25bf69c1e634021dd034cb6d4232d822c8c51b23c137e9a89b6",
+    "scripts/acceptance/next20_batch_snapshots.py": "35650e4f2120c5e2466114d76c302fb54c4974a36cda81de550262a2fe0a4c15",
+    "scripts/acceptance/next20_candidate.py": "cccfecf50fd0d0a6046d52b38813b50cbb4d9f518c14c5d8543189ebf13add01",
+    "scripts/acceptance/next20_candidate_install.py": "873ae99c60863f45fe272aa72c7bb18bf557b65fa382e4d3aaee20d19ff6ecd9",
+    "scripts/acceptance/next20_check.py": "e6a7c2534e28b865af163a7792ae0be043d299a81bda7f2d3093d90ea25ee7ff",
+    "scripts/acceptance/next20_git_town_case.py": "638100ce888a9176c8d9b085e6f106da305eaf4ab7ec643aa5f0cbbaf06dc694",
+    "scripts/acceptance/next20_git_town_faults.py": "d6cd2c10aedd1428e9b42a167ff89801f58e4e0ce247958f57c5bc7013023d2a",
+    "scripts/acceptance/next20_git_town_final_contracts.py": "796c78442ccaac43e69434bd286c000ac393c04e7b10382a4af1219e94dfa54b",
+    "scripts/acceptance/next20_git_town_final_declare_v2.py": "771a3610a58d1c5678a2682b966312e94222b34b25dd3ccfd6dbf02123d9b693",
+    "scripts/acceptance/next20_git_town_final_declare_v3.py": "3701c6fd592013b20de01d8c1447503ee2517efc8a6a7dd779ef33d6d914fc89",
+    "scripts/acceptance/next20_git_town_final_declare_v4.py": "662de78b61e45f96c895e06c2b00b64c6b865e84bd5b5d60d7de3ddb20bf65d8",
+    "scripts/acceptance/next20_git_town_final_series.py": "aca5c3a9fc4b19541e2081c36c988cb441e390f20d0ee592ec95cb555fe9b8ec",
+    "scripts/acceptance/next20_git_town_fixture.py": "70c357397b6355ccb38c0e4b6a9b33e57d2469b7d22c3a8d95a6e54856b7c246",
+    "scripts/acceptance/next20_git_town_prepare.py": "2ec4e32c073ab12b48ef8dae8e822da2790603d5d2acd84fc788ef611b6b9973",
+    "scripts/acceptance/next20_jrnl_final.py": "cd19de5a38aed067b179390e0ffe06dcf2801b8e2a0dcfad782e474843eabd41",
+    "scripts/acceptance/next20_python_runtime.py": "0ae70fd7dd92629872e8d78ac4680d058db460ad5f94a22b0741103ef74a798a",
+    "scripts/acceptance/next20_remove_target.ps1": "3b863ecbd1cd2083d6c93fec44c1c714b7817f12af93424c72d1ab8728e403d7",
+    "scripts/acceptance/next20_target_cleanup.py": "6ed4b967219353f6d219599f5ec5f9d82a50adc62f1df6e66c261ada0b16d9e0",
+    "scripts/acceptance/next20_target_process_proof.ps1": "7f3de8026098f2246f4fb81f6fb6dd0d29e1b5a1c8cdbf85f2da423a3046b022",
+    "scripts/acceptance/readiness_evidence.py": "a8d390b45eb81ef4d7d207ef8ae3db036cc7667e265f2adec3e47b1222df57c3",
+    "scripts/acceptance/test_git_town_artifact_audit.py": "3fcf056eb259912ecffc3ba3e1fbaabfe44a87e0f062b6112a11e38583b185b4",
+    "scripts/acceptance/test_next20_git_town_faults.py": "fdc893c16c5632b2548be049a3b737cd088fe83b9ecdc1f44cc04a132938a6ac",
+    "scripts/acceptance/test_next20_target_cleanup.py": "ea66d501c0068eedb35ac78fe2c36da7a965722bee92bb8a93964c549d8006d3"
+  },
+  "harness_hash_policy": "Hash staged Git index blob bytes; for .py, .ps1, .yml and .yaml normalize CRLF to LF before SHA-256. Runtime worktree files are normalized identically before comparison.",
+  "hosts": [
+    "linux",
+    "windows"
+  ],
+  "independent_source_development_audit": "retention-readback-v14.json",
+  "independent_source_development_audit_sha256": "743faa7a522a065d666740bb0bd9bc57cb8267e7417257736602daba998ec083",
+  "native_runtime_lock_sha256": "e1ccc06401c40fcb8a40051bf14da5ea8bc71b328fbbe1a6127214856d6683e2",
+  "normal": 8,
+  "ordinary_required": 480,
+  "original_failures": "Preserve all v1/v2 hosted startup and Unicode failures plus the v3 Linux PTY bridge failure; catalog v3/source development then passed and was independently audited. A native local Windows exact-candidate preflight was refused before target launch because the deep workspace path returned Access is denied; standard hosted Windows is the declared final host.",
+  "project": "git-town",
+  "project_admissions": 0,
+  "real_source_faults": 3,
+  "repetitions_per_cell": 12,
+  "required_three_phase_calibrations": 18,
+  "retention": {
+    "native_binary_payload_policy": "Retain exact original candidate reference and byte hash; never duplicate full provider archives.",
+    "per_project_cap_bytes": 67108864,
+    "source_payload_retained_once": true
+  },
+  "revision": 4,
+  "scenario_catalog_sha256": "b29aafc6163d34f2b26f0b84fd88f4e20c67efba6f751916d81fe8e907c3855d",
+  "scenarios_per_cell": 20,
+  "schema_version": 1,
+  "scope": "Exact v0.4.0-rc.6 native-exit-v1 final execution only. Independent report/fault/source/runtime audit, old-project requalification, retention and confirmed cleanup remain required before admission.",
+  "source_pin": "8d039892574d4852e1843020c31d423234042e78",
+  "source_provenance_sha256": "03426cd17666f72b972a6589a09a34e071fdb9639b1b3da4efe433aa4c3d2f50",
+  "startup_timeout_ms_by_host": {
+    "linux": 2000,
+    "windows": 2000
+  },
+  "supersedes": {
+    "path": "final-series-declaration-native-exit-v3.json",
+    "reason": "Hosted attempt 41955366681 found that v3 was generated from a modified local readiness_evidence.py not present in the pushed commit. V4 hashes the staged Git index blobs, normalizing CRLF/LF only for text harness files, so the declaration binds the exact source CI checks out.",
+    "sha256": "612c03d935bd4050827e3f11538f177d0ae4fd45e792891a34b0ac9398a46d98"
+  },
+  "transfer_scope": "Pinned source and three faults already exposed on Linux and Windows; final-candidate observations remain separately required.",
+  "wrapper_timeout_seconds": 1200
+}

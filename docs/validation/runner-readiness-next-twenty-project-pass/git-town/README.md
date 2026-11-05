@@ -142,3 +142,11 @@ failure dispositions are in [`final-series-attempts-v2.json`](final-series-attem
 Declaration v3 hashes normalized text harness bytes and binds the corrected
 cross-platform policy. Both first attempts remain preserved and receive zero
 candidate credit.
+
+The third attempt (`41955366681`) passed the corrected timeout gate, then found
+that v3 hashes were generated from a modified local `readiness_evidence.py` that
+was not present in the pushed commit. Both hosts rejected that mismatch before
+candidate tests; their artifacts and dispositions are in
+[`final-series-attempts-v3.json`](final-series-attempts-v3.json). Declaration v4
+derives normalized text hashes from staged Git blobs so it binds the exact
+commit contents while ignoring checkout-only CRLF conversion.

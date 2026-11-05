@@ -25,7 +25,7 @@ async def main():
     target = RAW / 'active' / 'git-town'
     contracts = RAW / 'git-town' / 'host-contracts'
     host = {'Windows': 'windows', 'Linux': 'linux'}[platform.system()]
-    declaration_path = package / 'final-series-declaration-native-exit-v3.json'
+    declaration_path = package / 'final-series-declaration-native-exit-v4.json'
     declaration = json.loads(declaration_path.read_text(encoding='utf-8'))
     freeze_path = package / 'development-test-freeze.json'
     frozen = json.loads((contracts / 'development-test-freeze.json').read_text(encoding='utf-8'))
