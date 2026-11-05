@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "project": "git-town",
+  "provider_run_id": 41935126990,
+  "independent_audit_run_id": 41939866635,
+  "independent_audit_job_id": 126957615514,
+  "outer_audit_artifact_id": 13376365633,
+  "outer_audit_artifact_bytes": 8154151,
+  "outer_audit_artifact_sha256": "71d64b125459b1e552a1bd510125c06052af51021960982b54caeef4e34d6b5f",
+  "local_outer_path": "artifacts/runner-readiness-next-twenty-project-pass/retained/git-town/v13/curated-audit-v15.zip",
+  "native_cells": [
+    {
+      "host": "linux",
+      "retained_packet_sha256": "407602b4f085d7bd605b55cd226fbda095051d409bba9e8fea92a878b6de0a86",
+      "retained_packet_bytes": 9174309,
+      "indexed_members": 4801,
+      "retained_members": 4765,
+      "source_file_payloads": 4533,
+      "public_reports_selected_restored": 20,
+      "public_cases": 20,
+      "audited_fault_phases": 9,
+      "fault_cleanup_confirmed": 9
+    },
+    {
+      "host": "windows",
+      "retained_packet_sha256": "ba1aed03da59287c5ab7125f30c643a40758c9e62ebd835291c3f28d0d4b9e0e",
+      "retained_packet_bytes": 401651,
+      "indexed_members": 4785,
+      "retained_members": 143,
+      "source_file_payloads": 0,
+      "public_reports_selected_restored": 20,
+      "public_cases": 20,
+      "audited_fault_phases": 9,
+      "fault_cleanup_confirmed": 9
+    }
+  ],
+  "combined_curated_bytes": 9575960,
+  "project_retention_cap_bytes": 67108864,
+  "project_retention_cap_passed": true,
+  "source_files_retained_once": true,
+  "original_provider_packets_sha256_verified": {
+    "linux": "66f96b44db000e574138d9d3b3992335a057d83a102176c3c59a9675246cd9ed",
+    "windows": "e6059783c1333352fc85f6b31f4d7e8c94c3befab43b84ad68c82ce53bd5c710"
+  },
+  "retained_payload_physical_bytes": 8154151,
+  "retained_packet_logical_bytes": 9575960,
+  "prior_retention_attempts": [
+    {
+      "audit_workflow_run_id": 41939215150,
+      "artifact_id": 13375373661,
+      "artifact_sha256": "c4d28b8a2bbfc4c66913d99cea06f68523f0131ebd70ff63e5db85a3516c6aed",
+      "bytes": 14764743,
+      "disposition": "local selected-restore check rejected curation v1 because it retained 26 .git metadata members beyond the canonical 4,533 source files; preserved as a failed retention attempt, then corrected and reaudited in run 41939866635"
+    }
+  ],
+  "checked_temporary_cleanup": {
+    "method": "Windows PowerShell -LiteralPath in one shell; workspace root and ancestry checked for reparse points; exact byte counts and SHA-256 verified before removal; post-removal absence verified",
+    "removed": [
+      {
+        "path": "artifacts/runner-readiness-next-twenty-project-pass/retained/git-town/v13/linux-v13.zip",
+        "bytes": 167184094,
+        "sha256": "66f96b44db000e574138d9d3b3992335a057d83a102176c3c59a9675246cd9ed",
+        "absent_after_removal": true
+      },
+      {
+        "path": "artifacts/runner-readiness-next-twenty-project-pass/retained/git-town/v13/windows-v13.zip",
+        "bytes": 169830019,
+        "sha256": "e6059783c1333352fc85f6b31f4d7e8c94c3befab43b84ad68c82ce53bd5c710",
+        "absent_after_removal": true
+      },
+      {
+        "path": "artifacts/runner-readiness-next-twenty-project-pass/retained/git-town/v13/curated-audit-v14.zip",
+        "bytes": 14764743,
+        "sha256": "c4d28b8a2bbfc4c66913d99cea06f68523f0131ebd70ff63e5db85a3516c6aed",
+        "absent_after_removal": true
+      }
+    ]
+  }
+}
+
