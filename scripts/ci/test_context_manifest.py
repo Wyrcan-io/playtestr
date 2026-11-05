@@ -32,6 +32,23 @@ class ContextTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 create(path, path, {}, {}, "a" * 40, path.parent)
 
+    def test_push_uses_exact_checkout_identity(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve()
+            (root / "target").write_bytes(b"target")
+            (root / "spec.json").write_text(json.dumps(dict(command=["./target"], steps=[{"expect": "ready"}])))
+            (root / "selected.txt").write_text("Selected 1 specs:\nspec.json\n")
+            revision = "c" * 40
+            env = {"GITHUB_EVENT_NAME": "push", "GITHUB_SHA": revision}
+            manifest = json.loads(create(root / "selected.txt", root / "target", {}, env, revision, root))
+            self.assertEqual(manifest["event"], "push")
+            self.assertEqual(manifest["checkout_strategy"], "exact-checkout")
+            self.assertIsNone(manifest["head_sha"])
+            self.assertIsNone(manifest["base_sha"])
+            env["GITHUB_SHA"] = "d" * 40
+            with self.assertRaises(ValueError):
+                create(root / "selected.txt", root / "target", {}, env, revision, root)
+
 
 if __name__ == "__main__":
     unittest.main()

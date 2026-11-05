@@ -121,6 +121,8 @@ Evidence presence checks resolve references from the invocation working director
 
 Fork PR execution uses `pull_request`, `contents: read`, and no target secrets or write credentials. Test only targets you have reviewed and trust; Playtestr is not an execution sandbox. Do not move PR-head execution into privileged `pull_request_target` merely to post comments. This example produces an Actions summary, not a PR comment or hosted bot. [GitHub summary behavior](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands#adding-a-job-summary), [fork/privileged-event behavior](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#pull_request_target), and [artifact retrieval](https://docs.github.com/en/actions/tutorials/store-and-share-data) describe the platform boundaries.
 
+The repository context manifest helper accepts local runs, `push`, `pull_request`, and `workflow_dispatch`. Push and manually dispatched runs bind evidence to the exact checked-out `GITHUB_SHA`; pull requests additionally require valid head and base revisions and are marked as GitHub merge checkouts. Privileged or unknown events are rejected.
+
 ## Local verification and removal
 
 From a repository checkout with Go, Python and an installed exact rc.3 runner:

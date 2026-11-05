@@ -34,7 +34,7 @@ def create(selection, runner, event, env, tested, root):
     if not SHA.fullmatch(tested):
         raise ValueError("invalid tested revision")
     trigger = env.get("GITHUB_EVENT_NAME", "local")
-    if trigger not in ("local", "pull_request", "workflow_dispatch"):
+    if trigger not in ("local", "push", "pull_request", "workflow_dispatch"):
         raise ValueError("unsupported workflow event")
     pr = event.get("pull_request", {})
     head, base = pr.get("head", {}).get("sha"), pr.get("base", {}).get("sha")
