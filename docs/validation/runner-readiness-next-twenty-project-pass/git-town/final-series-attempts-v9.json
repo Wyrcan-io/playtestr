@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "project": "git-town",
+  "attempt": "native-exit-v1-final-series-ninth-hosted-attempt",
+  "workflow_run": "41968702601",
+  "workflow_commit": "c72320c2e73dcc80eb5df116a12f154dc6fd9e25",
+  "workflow_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/41968702601",
+  "declaration": "final-series-declaration-native-exit-v9.json",
+  "candidate": "v0.4.0-rc.6",
+  "candidate_series": "native-exit-v1",
+  "observed": {
+    "linux": {
+      "status": "failure in batch 0 after four target launches",
+      "job": "127051630097",
+      "artifact_id": "13388099798",
+      "artifact_name": "next20-git-town-linux-final-native-exit-v1",
+      "artifact_bytes": 7013848,
+      "artifact_sha256": "169b647f4544a920cf207fb7031abf71248dfbde3104670d9689c7bd4388df42",
+      "downloaded_files": 342,
+      "downloaded_bytes": 10612476,
+      "downloaded_inventory_sha256": "081797c425f089a3d1ea490ea2d058631a9741e37753cc614477df87a114ef91",
+      "retained_at": "artifacts/runner-readiness-next-twenty-project-pass/retained/41968702601-v9-final/next20-git-town-linux-final-native-exit-v1",
+      "source_archive_sha256": "8a674352c53f1487bf46a8594965940ab63851a1b7ec2a8cf5390a7877199c6e",
+      "target_cases_launched": 4,
+      "passed": 3,
+      "failed": 1,
+      "failure": "N04 assertion_timeout at the implicit 3000 ms checkpoint; target exited 130; target and workspace cleanup confirmed",
+      "complete_batches": 0,
+      "target_removal": "passed; exact Unix source/runtime removal confirmed"
+    },
+    "windows": {
+      "status": "failure in batch 4 after four complete batches",
+      "job": "127051630450",
+      "artifact_id": "13389002233",
+      "artifact_name": "next20-git-town-windows-final-native-exit-v1",
+      "artifact_bytes": 10733557,
+      "artifact_sha256": "4b86e9dce21ffd1d9aa794f8ad9adf01de1580f0443665ac1f7323aa8cd9f0e8",
+      "downloaded_files": 1264,
+      "downloaded_bytes": 20251588,
+      "downloaded_inventory_sha256": "a629e0fc33498b3f4e0677cd6df38927b80226b1255e0af755947c64e8f7f3ca",
+      "retained_at": "artifacts/runner-readiness-next-twenty-project-pass/retained/41968702601-v9-final/next20-git-town-windows-final-native-exit-v1",
+      "source_archive_sha256": "8a674352c53f1487bf46a8594965940ab63851a1b7ec2a8cf5390a7877199c6e",
+      "target_cases_launched": 80,
+      "passed": 80,
+      "failed": 0,
+      "complete_batches": 4,
+      "failure": "After batch 3 (80/80 passed), batch 4 harness transform raised KeyError width because v3 specs omit optional dimensions; no batch-4 target cases launched",
+      "target_removal": "passed; exact Windows source/runtime deletion receipt confirmed"
+    }
+  },
+  "counts": {
+    "candidate_target_cases_launched": 84,
+    "candidate_target_attempts_passed": 83,
+    "candidate_target_attempts_failed": 1,
+    "provider_completed_batches": 4,
+    "candidate_ordinary_executions_qualified": 0,
+    "candidate_calibrations": 0,
+    "candidate_admissions": 0,
+    "checked_source_runtime_removals": 2
+  },
+  "root_cause": "N02, N03 and N15 corrections passed. Linux N04 then timed out at its implicit 3-second screen checkpoint. Windows passed all 20 cases in batches 0-3, including N15 and N04, then the generic viewport transform for batch 4 assumed explicit top-level width/height although omitted v3 values default to 80x24. The transform raised KeyError before any batch-4 target launch. Both hosts restored source/runtime and completed checked removal. No complete candidate cell or fault calibration ran.",
+  "disposition": "Preserve both provider packets and inventories. Count the four completed Windows batch receipts as execution observations only; no ordinary or calibration qualification/admission credit. V10 gives every frozen scenario a bounded 10-second step deadline and makes the viewport transform use v3 defaults for omitted dimensions, with regression coverage. The v9 failures remain zero candidate credit."
+}

@@ -204,3 +204,14 @@ invalid-spec report. Both packets and inventories are preserved in
 v7 and v8 observations are 46 launched target cases (41 pass, five fail), with
 zero complete batches or candidate credit. V9 sets N03's readiness bound to
 10 seconds and uses supported `ArrowDown` for N15.
+
+Ninth final attempt `41968702601`: Linux passed N01-N03 then N04 timed out at
+3 seconds. Windows passed four complete 20-case batches (80/80) and stopped
+before batch 5 when the viewport transformer raised `KeyError: width` on v3
+specs that omit optional dimensions. Both host jobs restored source and
+runtime and verified exact removal. The host packets and full inventories are
+in [`final-series-attempts-v9.json`](final-series-attempts-v9.json). This run
+adds 84 target launches (83 pass, one fail); Windows's four completed batch
+receipts are retained but no candidate execution credit is qualified. V10
+gives all frozen cases a bounded 10-second deadline and fixes viewport defaults
+to 80 by 24 in the batch transform.

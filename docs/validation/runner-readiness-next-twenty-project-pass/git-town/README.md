@@ -208,3 +208,15 @@ inventories are in [`final-series-attempts-v8.json`](final-series-attempts-v8.js
 Across v4, v7 and v8, 46 target cases were launched: 41 passed and five failed.
 No complete batch, calibration or candidate admission credit is earned. V9
 freezes the 10-second N03 checkpoint and supported N15 key name.
+
+The ninth exact-candidate attempt (`41968702601`) confirmed those corrections:
+Windows passed 80 cases across four complete batches, including N04 and Unicode
+selection. Linux passed N01-N03, then N04 timed out at its implicit 3-second
+readiness bound. Windows stopped before batch 5 because the general viewport
+transform assumed explicit `width` and `height`; v3 defaults these omitted
+fields to 80 by 24. Both hosts restored and removed the owned source/runtime.
+Packets and inventories are preserved in
+[`final-series-attempts-v9.json`](final-series-attempts-v9.json). The run adds
+84 launched cases (83 pass, one fail); no ordinary or calibration qualification
+credit is earned. V10 sets the bounded 10-second step deadline for all frozen
+scenarios and makes the viewport transform honor v3 defaults.

@@ -35,6 +35,17 @@ def segmented_steps(original, readiness=False):
     return steps
 
 
+def widen_viewport(spec, width_delta=10, height_delta=2):
+    """Resize a valid public spec, honoring its documented default dimensions."""
+    width = spec.get('width', 80)
+    height = spec.get('height', 24)
+    if (type(width) is not int or type(height) is not int or width < 1 or height < 1):
+        raise ValueError('viewport dimensions must be positive integers')
+    spec['width'] = width + width_delta
+    spec['height'] = height + height_delta
+    return spec
+
+
 async def main(project='jrnl',batch=None,candidate_series='rc5',chunk_readiness=False,window=None):
     if batch is None:
         parser=argparse.ArgumentParser();parser.add_argument('--batch',type=int,required=True)
@@ -109,7 +120,7 @@ async def main(project='jrnl',batch=None,candidate_series='rc5',chunk_readiness=
             old='../'+runtime['app_relative_path']+'/'+runtime['entrypoint']
             if value['command'][2].count(old)!=1:raise ValueError('Canonical Node entry routing changed')
             value['command'][2]=value['command'][2].replace(old,'../'+actual_runtime.name+'/'+runtime['entrypoint'])
-        if args.batch==4:value.update(width=value['width']+10,height=value['height']+2)
+        if args.batch==4:widen_viewport(value)
         if args.batch==7:
             value['steps']=segmented_steps(value['steps'],readiness=chunk_readiness)
         if args.batch==10 and case['id']=='N01':value['height']=12

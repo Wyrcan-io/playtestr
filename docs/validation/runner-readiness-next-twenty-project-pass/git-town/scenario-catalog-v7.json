@@ -1,0 +1,286 @@
+{
+  "catalog_version": 3,
+  "declared_distinct_scenarios": 20,
+  "edge_count": 12,
+  "excluded_exploratory_specs": [
+    "N08-observe-existing.json",
+    "N10-contribute-existing.json"
+  ],
+  "fixture_manifest_sha256": "6f578430084c1a554d2e5bfcea8d08f92110cbc65deb9563500fcbdb426295ba",
+  "freeze_scope": "These exact 20 public v3 specs. Later edits require a new version and preserve all first attempts.",
+  "minimum_edge": 12,
+  "minimum_normal": 8,
+  "normal_count": 8,
+  "previous_catalog": "scenario-catalog-v6.json",
+  "previous_catalog_sha256": "f773c6a76ade58168323546ffbcfd4fa4c52d85a16fc3ef254610fc13437e594",
+  "project": "git-town",
+  "revision": 7,
+  "revision_reason": "Final candidate attempt 41968702601 passed the v8 N03 and N15 corrections. Linux then timed out on N04 at the implicit 3-second bound; Windows passed 80 cases in four complete batches before the v3 viewport transform raised KeyError because width and height were omitted and should default to 80x24. All twenty frozen cases now declare a bounded 10-second step timeout, and the batch viewport transform uses public defaults. The v9 attempt remains preserved with zero candidate credit.",
+  "scenarios": [
+    {
+      "class": "normal",
+      "host_scope": [
+        "linux",
+        "windows"
+      ],
+      "id": "N01-hack-feature",
+      "positive_evidence": "New child branch and same-run HEAD transition.",
+      "precondition": "Fresh copy of the pinned synthetic local repository fixture; no external remote or forge credentials.",
+      "spec": "N01-hack-feature.json",
+      "spec_sha256": "6435c67de7dee7795e21124210bcae2b021d9e36b097ce5940bbad6eeb7e498f",
+      "user_task": "Create a feature branch with a reviewed main parent."
+    },
+    {
+      "class": "normal",
+      "host_scope": [
+        "linux",
+        "windows"
+      ],
+      "id": "N02-append-child",
+      "positive_evidence": "User-visible child relationship and exact HEAD.",
+      "precondition": "Fresh copy of the pinned synthetic local repository fixture; no external remote or forge credentials.",
+      "spec": "N02-append-child.json",
+      "spec_sha256": "efe5ccb635b0a75e98889be4e735db1c0293013ebe0a1833ef0f95afbd08b04b",
+      "user_task": "Append a child to the current branch."
+    },
+    {
+      "class": "normal",
+      "host_scope": [
+        "linux",
+        "windows"
+      ],
+      "id": "N03-read-parent",
+      "positive_evidence": "Positive terminal evidence and unchanged HEAD.",
+      "precondition": "Fresh copy of the pinned synthetic local repository fixture; no external remote or forge credentials.",
+      "spec": "N03-read-parent.json",
+      "spec_sha256": "21c3198316305ebb4a5eb32eec2cb95cd06fdf619a85960e5cd6d7b07e08c932",
+      "user_task": "Read the configured parent relationship."
+    },
+    {
+      "class": "normal",
+      "host_scope": [
+        "linux",
+        "windows"
+      ],
+      "id": "N04-display-branch-hierarchy",
+      "positive_evidence": "Visible local branch names and unchanged HEAD.",
+      "precondition": "Fresh copy of the pinned synthetic local repository fixture; no external remote or forge credentials.",
+      "spec": "N04-display-branch-hierarchy.json",
+      "spec_sha256": "058a5192e204fa1f9dd231dcfdd43f0daf0fd0d0b6ea4102cbb016616053fb29",
+      "user_task": "Review local branch hierarchy."
+    },
+    {
+      "class": "normal",
+      "host_scope": [
+        "linux",
+        "windows"
+      ],
+      "id": "N05-hack-prototype",
+      "positive_evidence": "Creation message and exact new HEAD.",
+      "precondition": "Fresh copy of the pinned synthetic local repository fixture; no external remote or forge credentials.",
+      "spec": "N05-hack-prototype.json",
+      "spec_sha256": "b98a178212f7b6419620e0a15d58514187747c1f063dab25958629ab3a7eb25a",
+      "user_task": "Create a local-only prototype child branch."
+    },
+    {
+      "class": "edge",
+      "host_scope": [
+        "linux",
+        "windows"
+      ],
+      "id": "N06-prototype-existing",
+      "positive_evidence": "Terminal status plus exact .git/config bytes.",
+      "precondition": "Fresh copy of the pinned synthetic local repository fixture; no external remote or forge credentials.",
+      "spec": "N06-prototype-existing.json",
+      "spec_sha256": "8c551eca114d4813f52494a9c6fa016c007109b5c6872a994f5360b082f6c07d",
+      "user_task": "Change an existing branch classification and persist the prototype override."
+    },
+    {
+      "class": "normal",
+      "host_scope": [
+        "linux",
+        "windows"
+      ],
+      "id": "N07-feature-existing",
+      "positive_evidence": "Terminal status plus exact .git/config bytes.",
+      "precondition": "Fresh copy of the pinned synthetic local repository fixture; no external remote or forge credentials.",
+      "spec": "N07-feature-existing.json",
+      "spec_sha256": "f239c28f2bef8fa0928d35a57b8a6478e29a99e0d1fdfc8bddd54f4aa17e7da5",
+      "user_task": "Classify an existing branch as a feature."
+    },
+    {
+      "class": "edge",
+      "host_scope": [
+        "linux",
+        "windows"
+      ],
+      "id": "N09-park-existing",
+      "positive_evidence": "Terminal status plus exact .git/config bytes.",
+      "precondition": "Fresh copy of the pinned synthetic local repository fixture; no external remote or forge credentials.",
+      "spec": "N09-park-existing.json",
+      "spec_sha256": "bef3d3a76d99b03731b4a1eeefbbd0f3be3efed294cbf27ce1cad6ba1d7a9aa8",
+      "user_task": "Park a branch and persist the parked classification."
+    },
+    {
+      "class": "normal",
+      "host_scope": [
+        "linux",
+        "windows"
+      ],
+      "id": "N11-switch-to-feature",
+      "positive_evidence": "ArrowDown/Enter transition and exact HEAD.",
+      "precondition": "Fresh copy of the pinned synthetic local repository fixture; no external remote or forge credentials.",
+      "spec": "N11-switch-to-feature.json",
+      "spec_sha256": "05582660a40f806a91cdbf1555be54f22c6e75c649783c090a7156f9d44732e3",
+      "user_task": "Select a branch in the visual selector."
+    },
+    {
+      "class": "edge",
+      "host_scope": [
+        "linux",
+        "windows"
+      ],
+      "id": "N12-cancel-branch-switch",
+      "positive_evidence": "Escape then exact HEAD.",
+      "precondition": "Fresh copy of the pinned synthetic local repository fixture; no external remote or forge credentials.",
+      "spec": "N12-cancel-branch-switch.json",
+      "spec_sha256": "ab9c36477e78e976fb7afd622f49cf1879c2c126bdd3bc1d0ea21ddc0f78d1fe",
+      "user_task": "Cancel selection and prove the current branch remains unchanged."
+    },
+    {
+      "class": "edge",
+      "host_scope": [
+        "linux",
+        "windows"
+      ],
+      "id": "N13-reject-invalid-branch-name",
+      "positive_evidence": "Exact exit 1, diagnostic and HEAD.",
+      "precondition": "Fresh copy of the pinned synthetic local repository fixture; no external remote or forge credentials.",
+      "spec": "N13-reject-invalid-branch-name.json",
+      "spec_sha256": "262668c042f3debaa2115f8675500746339e202c3c147443c8c732d1b302b0ed",
+      "user_task": "Reject an invalid ref name and leave the current branch unchanged."
+    },
+    {
+      "class": "edge",
+      "host_scope": [
+        "linux",
+        "windows"
+      ],
+      "id": "N14-reject-duplicate-branch",
+      "positive_evidence": "Exact exit 1, diagnostic and HEAD.",
+      "precondition": "Fresh copy of the pinned synthetic local repository fixture; no external remote or forge credentials.",
+      "spec": "N14-reject-duplicate-branch.json",
+      "spec_sha256": "838bb3b29601dc81ea87ee22c6f451ea06575431e97e460f8d6aba3e81eb6389",
+      "user_task": "Reject creating an existing branch without moving HEAD."
+    },
+    {
+      "class": "edge",
+      "host_scope": [
+        "linux",
+        "windows"
+      ],
+      "id": "N15-select-unicode-branch",
+      "positive_evidence": "UTF-8 terminal text and HEAD bytes.",
+      "precondition": "Fresh copy of a pinned synthetic local repository with a host-generated Unicode feature branch; no remote or credentials.",
+      "spec": "N15-select-unicode-branch.json",
+      "spec_sha256": "889491489b812b2fcae23ca8b3f496f0c412068197cdab8af60969c4d818f6e1",
+      "user_task": "Select a Unicode feature branch from the full-screen switcher."
+    },
+    {
+      "class": "edge",
+      "host_scope": [
+        "linux",
+        "windows"
+      ],
+      "id": "N16-create-nested-branch",
+      "positive_evidence": "Nested ref path and exact HEAD.",
+      "precondition": "Fresh copy of the pinned synthetic local repository fixture; no external remote or forge credentials.",
+      "spec": "N16-create-nested-branch.json",
+      "spec_sha256": "1e75ab30d4e2858bbde8d7c933170d1b8893d0191ac3dd15280cbd5bfd07cc8d",
+      "user_task": "Create a slash-qualified branch name."
+    },
+    {
+      "class": "edge",
+      "host_scope": [
+        "linux",
+        "windows"
+      ],
+      "id": "N17-resize-cancel-selector",
+      "positive_evidence": "Rendered post-resize anchor and unchanged HEAD.",
+      "precondition": "Fresh copy of the pinned synthetic local repository fixture; no external remote or forge credentials.",
+      "spec": "N17-resize-cancel-selector.json",
+      "spec_sha256": "a27e04874816dbe51162f6a56f4bbad174f2c16f2d653c9c6581cf0a34e621c4",
+      "user_task": "Resize during interactive selection, wait for redraw, then cancel."
+    },
+    {
+      "class": "normal",
+      "host_scope": [
+        "linux",
+        "windows"
+      ],
+      "id": "N18-rename-local-branch",
+      "positive_evidence": "Rename command output and exact refs/heads entries.",
+      "precondition": "Fresh copy of the pinned synthetic local repository fixture; no external remote or forge credentials.",
+      "spec": "N18-rename-local-branch.json",
+      "spec_sha256": "8ba0ae67de62687f8d319b1a21ecd433d4a75e3961a7723881ad9b9ad6f4d30b",
+      "user_task": "Rename a local branch and verify ref directory entries."
+    },
+    {
+      "class": "edge",
+      "host_scope": [
+        "linux",
+        "windows"
+      ],
+      "id": "N19-filter-and-select-feature",
+      "positive_evidence": "Type-filtered screen and exact HEAD.",
+      "precondition": "Fresh copy of the pinned synthetic local repository fixture; no external remote or forge credentials.",
+      "spec": "N19-filter-and-select-feature.json",
+      "spec_sha256": "8e30ab656fe8adfd2756d464f1715b629d08d72ce86e703869d6e14d5e3e4761",
+      "user_task": "Filter branch selection by type and choose the matching branch."
+    },
+    {
+      "class": "edge",
+      "host_scope": [
+        "linux",
+        "windows"
+      ],
+      "id": "N20-empty-filtered-switcher",
+      "positive_evidence": "Exact exit 1, empty-result message and HEAD.",
+      "precondition": "Fresh copy of the pinned synthetic local repository fixture; no external remote or forge credentials.",
+      "spec": "N20-empty-filtered-switcher.json",
+      "spec_sha256": "0f86e5171a8e68264faa581f845ac90245c1d2ae81ea9539753ba9d8ca4e27c5",
+      "user_task": "Report no observed branches and preserve current state."
+    },
+    {
+      "class": "edge",
+      "host_scope": [
+        "linux",
+        "windows"
+      ],
+      "id": "N21-display-offline-status",
+      "positive_evidence": "Visible \"no\" plus unchanged repository HEAD.",
+      "precondition": "Fresh copy of the pinned synthetic local repository fixture; no external remote or forge credentials.",
+      "spec": "N21-display-offline-status.json",
+      "spec_sha256": "a51f95c5a42c6fe81b6058845042b150e5b15544e3b259ec224ec07c7ca5bb5a",
+      "user_task": "Read offline mode from isolated temporary configuration."
+    },
+    {
+      "class": "edge",
+      "host_scope": [
+        "linux",
+        "windows"
+      ],
+      "id": "N22-review-configuration",
+      "positive_evidence": "Visible feature branch and unchanged HEAD.",
+      "precondition": "Fresh copy of the pinned synthetic local repository fixture; no external remote or forge credentials.",
+      "spec": "N22-review-configuration.json",
+      "spec_sha256": "11d276b9eb8667f40025a61e44559b85db1f6bb2b7947914bd91d586c7dbf8ee",
+      "user_task": "Review the long configuration/branch hierarchy view."
+    }
+  ],
+  "schema_version": 1,
+  "source_archive_sha256": "2a47fe65b7f21f6a99bfeefd00dfeffce394dd7db733b47e5b87904c9947ab8a",
+  "status": "development-scenario-freeze-v1",
+  "supersedes": "scenario-catalog-v6.json",
+  "target_pin": "8d039892574d4852e1843020c31d423234042e78"
+}

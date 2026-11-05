@@ -7,6 +7,7 @@ on:
       - 'scripts/acceptance/next20_git_town_*.py'
       - 'scripts/acceptance/next20_target_cleanup.py'
       - 'scripts/acceptance/test_next20_target_cleanup.py'
+      - 'scripts/acceptance/test_next20_final_batch_transform.py'
       - 'scripts/acceptance/test_next20_git_town_faults.py'
       - 'scripts/acceptance/test_git_town_artifact_audit.py'
       - 'scripts/acceptance/next20_jrnl_final.py'
@@ -99,7 +100,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Check Git Town fault, artifact, and source-cleanup validators
-        run: python -B -m unittest test_next20_git_town_faults test_git_town_artifact_audit test_next20_target_cleanup test_next20_git_town_prepare test_next20_git_town_final_contracts -v
+        run: python -B -m unittest test_next20_git_town_faults test_git_town_artifact_audit test_next20_target_cleanup test_next20_git_town_prepare test_next20_git_town_final_contracts test_next20_final_batch_transform -v
         working-directory: scripts/acceptance
       - name: Restore exact pinned Windows source bytes
         if: matrix.host == 'windows'

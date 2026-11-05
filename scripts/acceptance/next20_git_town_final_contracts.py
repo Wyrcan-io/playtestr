@@ -13,7 +13,7 @@ PROJECT = 'git-town'
 
 def materialize_scenario_alias(target, copied):
     """Expose the frozen public case list under the generic final-journal name."""
-    source = target / 'scenarios-native-exit-v4.json'
+    source = target / 'scenarios-native-exit-v5.json'
     destination = target / 'scenarios.json'
     expected = copied.get(source.name)
     if (not isinstance(expected, str) or source.is_symlink() or not source.is_file() or
@@ -28,7 +28,7 @@ def materialize_scenario_alias(target, copied):
 
 def main():
     package = DOC / PROJECT
-    freeze_path = package / 'development-test-freeze-native-exit-v4.json'
+    freeze_path = package / 'development-test-freeze-native-exit-v5.json'
     freeze = json.loads(freeze_path.read_text(encoding='utf-8'))
     target = RAW / PROJECT / 'host-contracts'
     if target.exists():
