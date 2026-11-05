@@ -1,0 +1,281 @@
+{
+  "schema_version": 1,
+  "project": "git-town",
+  "workflow": ".github/workflows/runner-readiness-next20-git-town.yml",
+  "commit": "ad3da7eb195ba2fa0cd58c39e8e727ea551f09e4",
+  "scenario_catalog": "scenario-catalog-v3.json",
+  "run_id": 41898559438,
+  "results": {
+    "linux": {
+      "job_id": 126814520009,
+      "runner": "ubuntu-24.04",
+      "status": "passed",
+      "source_verified": true,
+      "catalog_bytes_verified_before_build": 20,
+      "native_build_passed": true,
+      "ordinary_tests": {
+        "status": "passed",
+        "runner_seconds": 68.218,
+        "vt_seconds": 0.012
+      },
+      "race_tests": {
+        "status": "passed",
+        "runner_seconds": 189.057,
+        "vt_seconds": 1.051
+      },
+      "direct_pty_probe": {
+        "status": "exited",
+        "exit_code": 0,
+        "output_bytes": 195,
+        "output_sha256": "7f0966256cf4de74806dfecb954cc88fcb2b5a8f55b8e077b47c18c2c7c6bf01"
+      },
+      "controlling_tty_probe": {
+        "status": "timed-out-as-diagnostic",
+        "output_bytes": 12,
+        "output_sha256": "85d24b5c8cb0a4f17dedd7d6c92d8c3df1e17d378d7187bcda5b90f7cbb3aa86",
+        "output_escaped": "\\u001b]11;?\\u001b\\\\\\u001b[6n",
+        "process_group_absent": true
+      },
+      "scenario_attempts": 20,
+      "passed": 20,
+      "failed": 0,
+      "case_reports": [
+        {
+          "label": "N01-hack-feature-linux-development",
+          "runner_exit": 0,
+          "report_sha256": "7c2c16d0c4f6ab2e92567d59562ad306e679be6cf70031eb3658e3c6b2953c4a"
+        },
+        {
+          "label": "N02-append-child-linux-development",
+          "runner_exit": 0,
+          "report_sha256": "aa1e5b11b70e6e66210331239563a48a5aa28eecc65f071600419ea42ef4fe50"
+        },
+        {
+          "label": "N03-read-parent-linux-development",
+          "runner_exit": 0,
+          "report_sha256": "825ff17fccb1933e568553c3e7dbe7ecbd3c2aa44cbaf0f88aeeacbd821581c1"
+        },
+        {
+          "label": "N04-display-branch-hierarchy-linux-development",
+          "runner_exit": 0,
+          "report_sha256": "e47fc64a225ffaf9dc42522b38219b28bdf72358c71a9638b5d920031b5bcfd8"
+        },
+        {
+          "label": "N05-hack-prototype-linux-development",
+          "runner_exit": 0,
+          "report_sha256": "bea7ac26c61ab45761cf03d1b1f9ce936b7f857f259ff2377dfb6c3bee442995"
+        },
+        {
+          "label": "N06-prototype-existing-linux-development",
+          "runner_exit": 0,
+          "report_sha256": "49ef632b5c2e40b841d4320e520fb0aea054284b1e8e2445a95d691a3496790e"
+        },
+        {
+          "label": "N07-feature-existing-linux-development",
+          "runner_exit": 0,
+          "report_sha256": "1e5de42d344bea7a5e87610928af2908dc367813fbbbd5bcc27468fe035213b0"
+        },
+        {
+          "label": "N09-park-existing-linux-development",
+          "runner_exit": 0,
+          "report_sha256": "f00229e189b0dfb47fb9102586449f5ee093f24e94ca42a6b8e09eed8d2e54b8"
+        },
+        {
+          "label": "N11-switch-to-feature-linux-development",
+          "runner_exit": 0,
+          "report_sha256": "de0c1fd0ebf6a64704b3c8e55b25b9b528528a690d2aedfeafd63674ef94301b"
+        },
+        {
+          "label": "N12-cancel-branch-switch-linux-development",
+          "runner_exit": 0,
+          "report_sha256": "7eeb16f2b118d6b15b6e6712c3baf8fd9c0a83bcc283145d629cfe57dbfed0d5"
+        },
+        {
+          "label": "N13-reject-invalid-branch-name-linux-development",
+          "runner_exit": 0,
+          "report_sha256": "b60709c2f28ca10114b47ede7f6fbd28eb7d68ded10c36e387be56a2e7968f6c"
+        },
+        {
+          "label": "N14-reject-duplicate-branch-linux-development",
+          "runner_exit": 0,
+          "report_sha256": "8f21852dd1f6ff8296226dcb567f9eafb03b48791312a0107e6d08d59bf58259"
+        },
+        {
+          "label": "N15-create-unicode-branch-linux-development",
+          "runner_exit": 0,
+          "report_sha256": "a7a4bf010afb5f96d865094fd0a24cead868a1214d4503561f4879ce5fa96c0c"
+        },
+        {
+          "label": "N16-create-nested-branch-linux-development",
+          "runner_exit": 0,
+          "report_sha256": "0d08f3e1eb643b31baeef03b249531e940dc06857fffd620d40b2130c8f6becc"
+        },
+        {
+          "label": "N17-resize-cancel-selector-linux-development",
+          "runner_exit": 0,
+          "report_sha256": "5d8c81f44a2ecb4ea2f5fa68115fe0ff55edf6e39c6b9792464dfa3bb1923209"
+        },
+        {
+          "label": "N18-rename-local-branch-linux-development",
+          "runner_exit": 0,
+          "report_sha256": "032450b968f5ac93f91a8d71084a852375bf780add1cceff198d6b94d8b0f060"
+        },
+        {
+          "label": "N19-filter-and-select-feature-linux-development",
+          "runner_exit": 0,
+          "report_sha256": "2a48a33b00a8492cf0732d8bb775376318e2b0e0a0b69c0c1f0f761a016eac6d"
+        },
+        {
+          "label": "N20-empty-filtered-switcher-linux-development",
+          "runner_exit": 0,
+          "report_sha256": "fbc656f829651c3be87c86059f056e97970a5b1900e5318d757555acdac3c06a"
+        },
+        {
+          "label": "N21-display-offline-status-linux-development",
+          "runner_exit": 0,
+          "report_sha256": "775a13482a0b4321450fad51f80c7c5f4293e2183d2b13bac6491613f8984f7a"
+        },
+        {
+          "label": "N22-review-configuration-linux-development",
+          "runner_exit": 0,
+          "report_sha256": "5c6c80ecb48088e843584175a41122769248e553947bba72603fd41877609a96"
+        }
+      ],
+      "artifact": {
+        "id": 13356003854,
+        "bytes": 30660730,
+        "sha256": "b5cceb965c292faa3568d0cae86d564efc1b01f598144e0e2237e72d25670a75"
+      }
+    },
+    "windows": {
+      "job_id": 126814519136,
+      "runner": "windows-2025",
+      "status": "passed",
+      "source_verified": true,
+      "catalog_bytes_verified_before_build": 20,
+      "native_build_passed": true,
+      "scenario_attempts": 20,
+      "passed": 20,
+      "failed": 0,
+      "case_reports": [
+        {
+          "label": "N01-hack-feature-windows-development",
+          "runner_exit": 0,
+          "report_sha256": "b206469d61dea15d6ad7394efbc01e44fd01f90b0c49fe7d799ca9c1d627aee4"
+        },
+        {
+          "label": "N02-append-child-windows-development",
+          "runner_exit": 0,
+          "report_sha256": "0936c881c659aa628bf8843b4ddd01428afe2285908954b62aa063a294224110"
+        },
+        {
+          "label": "N03-read-parent-windows-development",
+          "runner_exit": 0,
+          "report_sha256": "c486a71d72d8938a126f7a57c465d0365636171148cb7df217b52033eac8d57c"
+        },
+        {
+          "label": "N04-display-branch-hierarchy-windows-development",
+          "runner_exit": 0,
+          "report_sha256": "80c0a9de6c20e43a30bccd8cc520f806a2a59167252f23ad2011aa15699c1d7e"
+        },
+        {
+          "label": "N05-hack-prototype-windows-development",
+          "runner_exit": 0,
+          "report_sha256": "9ab650e82520d7de6b1129226d3012a07d2c0a8b521dab52759faa339bbdfcfe"
+        },
+        {
+          "label": "N06-prototype-existing-windows-development",
+          "runner_exit": 0,
+          "report_sha256": "b8b6d3cb611994655e29c14db756b911ad481c49f4b94c102b900a29df916cb7"
+        },
+        {
+          "label": "N07-feature-existing-windows-development",
+          "runner_exit": 0,
+          "report_sha256": "798a6517d819b371f58e4377eff66fedd4053155fa61f75faabc9d8d1a874953"
+        },
+        {
+          "label": "N09-park-existing-windows-development",
+          "runner_exit": 0,
+          "report_sha256": "dc41ba4fb1d16e25c593d21f938610da32353821e242333e7a86c56b0a1985bb"
+        },
+        {
+          "label": "N11-switch-to-feature-windows-development",
+          "runner_exit": 0,
+          "report_sha256": "2c977737ab20968d3ac2678c88cefab552ebf8faf999aa254088f1c304b5b2ae"
+        },
+        {
+          "label": "N12-cancel-branch-switch-windows-development",
+          "runner_exit": 0,
+          "report_sha256": "f6e4ad686129baa85d87eee57b4ad5a30ce4672979691fde497098790d6f0a3b"
+        },
+        {
+          "label": "N13-reject-invalid-branch-name-windows-development",
+          "runner_exit": 0,
+          "report_sha256": "8e7bc752039cccbda62f199f1c829276cc5f674b86e4539e58a0e80b0f66f4a2"
+        },
+        {
+          "label": "N14-reject-duplicate-branch-windows-development",
+          "runner_exit": 0,
+          "report_sha256": "71e6e9ef06af3d8fa4cc50a2e76c2555911c6ebbbb4646e413a06cfa1364bbc9"
+        },
+        {
+          "label": "N15-create-unicode-branch-windows-development",
+          "runner_exit": 0,
+          "report_sha256": "87cb92ce529567d08432c11a4e825dd14b4c3d3e17c4d3ac65c6561e0fef822b"
+        },
+        {
+          "label": "N16-create-nested-branch-windows-development",
+          "runner_exit": 0,
+          "report_sha256": "eeed5325f6600e927870e96d49c4bc4313b2bc66343f46130595498ca577b360"
+        },
+        {
+          "label": "N17-resize-cancel-selector-windows-development",
+          "runner_exit": 0,
+          "report_sha256": "7034a68ae112536efb0ef0045bd8a60bec883352ab33a2a4aa572d563f455c9c"
+        },
+        {
+          "label": "N18-rename-local-branch-windows-development",
+          "runner_exit": 0,
+          "report_sha256": "9bc13128dc4e81e6d9b80f41a9e6ba2e708ca7e7381963b3531cfee165374353"
+        },
+        {
+          "label": "N19-filter-and-select-feature-windows-development",
+          "runner_exit": 0,
+          "report_sha256": "629d320e31b0376224f1458ada379429fa4ef808545dff20b55846ac5eefca71"
+        },
+        {
+          "label": "N20-empty-filtered-switcher-windows-development",
+          "runner_exit": 0,
+          "report_sha256": "fc1b79499c282cfe643e7b080866adbe5af4b3e9391b487809b404aac048bb4d"
+        },
+        {
+          "label": "N21-display-offline-status-windows-development",
+          "runner_exit": 0,
+          "report_sha256": "e8bd22ffde6c7116295114150881210ec6fa47c9613d9a7faa1796223c37363d"
+        },
+        {
+          "label": "N22-review-configuration-windows-development",
+          "runner_exit": 0,
+          "report_sha256": "da25696ae25f2b7846de3f530e28f472db81e7669ae34ff5db004808a06c62a7"
+        }
+      ],
+      "artifact": {
+        "id": 13356243883,
+        "bytes": 30920390,
+        "sha256": "e53fa71ccc740a0d51f72e6a193759deb5a4e8fb4ab0962f3a68bf5123960630"
+      }
+    }
+  },
+  "totals": {
+    "hosted_jobs": 2,
+    "ordinary_core_tests": 1,
+    "race_core_tests": 1,
+    "scenario_attempts": 40,
+    "passed": 40,
+    "failed": 0,
+    "confirmed_scenario_workspaces_cleaned": 40,
+    "scenario_qualification_credit": 0,
+    "native_cell_credit": 0
+  },
+  "disposition": "The bounded Unix reply bridge unblocked the exact frozen Git Town v3 cases on native Ubuntu. Native Windows remained green. This is source-development evidence only: no final-series, calibration, fault-detection, current-candidate, native-cell or admission credit."
+}

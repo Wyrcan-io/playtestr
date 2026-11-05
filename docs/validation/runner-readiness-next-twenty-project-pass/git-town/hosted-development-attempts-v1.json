@@ -1,0 +1,296 @@
+{
+  "schema_version": 1,
+  "project": "git-town",
+  "workflow": ".github/workflows/runner-readiness-next20-git-town.yml",
+  "source_pin": "8d039892574d4852e1843020c31d423234042e78",
+  "scenario_catalog": "scenario-catalog-v1.json",
+  "attempt_runs": [
+    {
+      "run_id": 41866917481,
+      "commit": "1cb704ecdf6a784d81e38e8a6ddac986dfe45cc6",
+      "phase": "source-development",
+      "linux": {
+        "job_id": 126703351944,
+        "runner": "ubuntu-24.04",
+        "status": "failed-prelaunch",
+        "target_launches": 0,
+        "diagnostic": "Git Town preparation helper was absent from the commit tree; no build or target launch."
+      },
+      "windows": {
+        "job_id": 126703351799,
+        "runner": "windows-2025",
+        "status": "failed-prelaunch",
+        "target_launches": 0,
+        "diagnostic": "Git Town preparation helper was absent from the commit tree; no build or target launch."
+      },
+      "artifacts": [
+        {
+          "id": 13343085842,
+          "host": "linux",
+          "bytes": 15380224,
+          "sha256": "b85bb695f0abca7285d99e2ab5dc24b1abd2ed7f3321a87ce87c79d977bc7d80"
+        },
+        {
+          "id": 13341144759,
+          "host": "windows",
+          "bytes": 15422988,
+          "sha256": "f2c35b6437d75195705db9b6fe6ac7927abe1d0734469996d22866cf88870b26"
+        }
+      ]
+    },
+    {
+      "run_id": 41867734819,
+      "commit": "fb7a7f5ad5eb4e0b1485eb15ffbe2f8ee9e52c1b",
+      "phase": "source-development",
+      "linux": {
+        "job_id": 126706258533,
+        "runner": "ubuntu-24.04",
+        "status": "failed",
+        "target_launches": 20,
+        "passed": 0,
+        "failed": 20,
+        "failure_category": "assertion_timeout",
+        "diagnostic": "All twenty first-step screen expectations timed out at 3000 ms; targets exited 130 after runner cancellation. No passing credit."
+      },
+      "windows": {
+        "job_id": 126706259172,
+        "runner": "windows-2025",
+        "status": "failed-prelaunch",
+        "target_launches": 0,
+        "diagnostic": "Pinned checkout had tracked CRLF modifications before source verification/build."
+      },
+      "artifacts": [
+        {
+          "id": 13342224368,
+          "host": "linux",
+          "bytes": 30676547,
+          "sha256": "2d26f580dea498f4a7770c4b86834631825c0eb5dbbd004764ca5bf28c52a7a1"
+        },
+        {
+          "id": 13342259034,
+          "host": "windows",
+          "bytes": 15425726,
+          "sha256": "04a72d357c3ee4cdfd809251b5420522bb6010c8712db3756da36d01658710f0"
+        }
+      ]
+    },
+    {
+      "run_id": 41869043218,
+      "commit": "6175b23ec35585f15a91fa7c115a300fc27cac45",
+      "phase": "source-development",
+      "linux": {
+        "job_id": 126710750692,
+        "runner": "ubuntu-24.04",
+        "status": "failed",
+        "target_launches": 20,
+        "passed": 0,
+        "failed": 20,
+        "failure_category": "assertion_timeout",
+        "diagnostic": "All twenty first-step screen expectations timed out at 3000 ms; targets exited 130 after runner cancellation."
+      },
+      "windows": {
+        "job_id": 126710751038,
+        "runner": "windows-2025",
+        "status": "failed-prelaunch",
+        "target_launches": 0,
+        "diagnostic": "Pinned checkout remained modified after the checkout-index reset; exact changed paths were preserved in the job artifact."
+      },
+      "artifacts": [
+        {
+          "id": 13343198069,
+          "host": "linux",
+          "bytes": 30676485,
+          "sha256": "e5f1fe091b9aeb8afd8d9af5db90a415d64929afb72dc2499ef80da8023aea13"
+        },
+        {
+          "id": 13344815456,
+          "host": "windows",
+          "bytes": 15394145,
+          "sha256": "091887e641c9a0bd30b2b9d22acd0a597d132fa962ec28bb3014fed43d17aba3"
+        }
+      ]
+    },
+    {
+      "run_id": 41870160350,
+      "commit": "5e2b012385762d56e63de5f950e522c5cb6b00a3",
+      "phase": "source-development",
+      "linux": {
+        "job_id": 126714720350,
+        "runner": "ubuntu-24.04",
+        "status": "failed",
+        "target_launches": 20,
+        "passed": 0,
+        "failed": 20,
+        "failure_category": "assertion_timeout",
+        "diagnostic": "All twenty first-step screen expectations timed out at 3000 ms; targets exited 130."
+      },
+      "windows": {
+        "job_id": 126714720777,
+        "runner": "windows-2025",
+        "status": "failed-prelaunch",
+        "target_launches": 0,
+        "diagnostic": "Canonical Git archive included directory entries; the helper treated these as unexpected archive members and stopped before build."
+      },
+      "artifacts": [
+        {
+          "id": 13344361553,
+          "host": "linux",
+          "bytes": 30661298,
+          "sha256": "fb5cacb3d78a736f40bb92cd80bbd03e77276527852c6e834ec30f2b21e1a314"
+        },
+        {
+          "id": 13343538446,
+          "host": "windows",
+          "bytes": 15400719,
+          "sha256": "ee8e2464083214e9405e980fd78ea10de3d56abe052e4469485b11783c0948f9"
+        }
+      ]
+    },
+    {
+      "run_id": 41871007152,
+      "commit": "c7e144070b717c3d48e0b6e97a676ceb0acaf3d6",
+      "phase": "source-development",
+      "linux": {
+        "job_id": 126717724065,
+        "runner": "ubuntu-24.04",
+        "status": "failed",
+        "target_launches": 20,
+        "passed": 0,
+        "failed": 20,
+        "failure_category": "assertion_timeout",
+        "diagnostic": "All twenty first-step screen expectations timed out at 3000 ms; rendered screen remained blank."
+      },
+      "windows": {
+        "job_id": 126717723753,
+        "runner": "windows-2025",
+        "status": "failed-prelaunch",
+        "target_launches": 0,
+        "diagnostic": "Exact pinned archive bytes were restored, but Git status remained modified under Windows checkout filtering; source file SHA verification had not run yet."
+      },
+      "artifacts": [
+        {
+          "id": 13343943942,
+          "host": "linux",
+          "bytes": 30662574,
+          "sha256": "14738abd9139ba8368f7990c2bcf0a8aef26736c6eac50d208aa7970fba1e214"
+        },
+        {
+          "id": 13344542806,
+          "host": "windows",
+          "bytes": 15370486,
+          "sha256": "24bcd2afd09dbbb09b7a4fd2fa915a494f14443460068f50432fed490a52d9ea"
+        }
+      ]
+    },
+    {
+      "run_id": 41872077777,
+      "commit": "49c0e51a67142299f5d50d79bf8dd65f77a87611",
+      "phase": "source-development",
+      "linux": {
+        "job_id": 126721578725,
+        "runner": "ubuntu-24.04",
+        "status": "failed",
+        "target_launches": 20,
+        "passed": 0,
+        "failed": 20,
+        "failure_category": "assertion_timeout",
+        "diagnostic": "All twenty first-step screen expectations timed out at 3000 ms; rendered screen remained blank."
+      },
+      "windows": {
+        "job_id": 126721578943,
+        "runner": "windows-2025",
+        "status": "passed",
+        "target_launches": 20,
+        "passed": 20,
+        "failed": 0,
+        "cleaned_workspaces": 20,
+        "source_files_verified": 4533,
+        "diagnostic": "Native build and all twenty frozen v1 specs passed after restoring the pinned Windows source from the commit archive and verifying file hashes."
+      },
+      "artifacts": [
+        {
+          "id": 13345815124,
+          "host": "linux",
+          "bytes": 30661081,
+          "sha256": "afda1843d712c4e96c32f54468ce8f02a3c6713de2b9b749935c6c09be8f7bc2"
+        },
+        {
+          "id": 13345545646,
+          "host": "windows",
+          "bytes": 30885714,
+          "sha256": "2e18d438ad9e70d0a566187b639a7bd2d49598d1c91ba695d32ea961a0a2feed"
+        }
+      ]
+    },
+    {
+      "run_id": 41872468196,
+      "commit": "361d8eb7619d68d56ea60d6408f501ea02d22fe4",
+      "phase": "source-development",
+      "linux": {
+        "job_id": 126723840335,
+        "runner": "ubuntu-24.04",
+        "status": "failed",
+        "target_launches": 20,
+        "passed": 0,
+        "failed": 20,
+        "failure_category": "assertion_timeout",
+        "diagnostic": "All twenty first-step screen expectations timed out at 3000 ms. An additional owned native PTY probe captured 195 bytes of visible expected Git Town output from the same binary; Playtestr still rendered a blank screen."
+      },
+      "windows": {
+        "job_id": 126723840836,
+        "runner": "windows-2025",
+        "status": "passed",
+        "target_launches": 20,
+        "passed": 20,
+        "failed": 0,
+        "cleaned_workspaces": 20,
+        "source_files_verified": 4533
+      },
+      "diagnostic_probe": {
+        "status": "timed-out-after-output",
+        "output_bytes": 195,
+        "output_sha256": "7f0966256cf4de74806dfecb954cc88fcb2b5a8f55b8e077b47c18c2c7c6bf01",
+        "target_exit_after_signal": 0
+      },
+      "artifacts": [
+        {
+          "id": 13344789346,
+          "host": "linux",
+          "bytes": 30675980,
+          "sha256": "aaddddc32511cf52b9e5a6c01297c43a8754046e66591b26e9c31d078995e358"
+        },
+        {
+          "id": 13346510080,
+          "host": "windows",
+          "bytes": 30900482,
+          "sha256": "59937f67463f99b5bdf9f972efdc630df3408d9d64341e057be58c9365eb0417"
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "hosted_jobs": 14,
+    "linux_prelaunch_jobs": 1,
+    "linux_scenario_jobs": 6,
+    "linux_scenario_attempts": 120,
+    "linux_scenario_passed": 0,
+    "linux_scenario_failed": 120,
+    "windows_prelaunch_jobs": 5,
+    "windows_scenario_jobs": 2,
+    "windows_scenario_attempts": 40,
+    "windows_scenario_passed": 40,
+    "windows_scenario_failed": 0,
+    "confirmed_cleaned_scenario_workspaces": 160,
+    "scenario_qualification_credit": 0,
+    "native_cell_credit": 0
+  },
+  "disposition": "The v1 Linux failures are preserved. The v2 spec contract now explicitly declares an isolated terminal and Git environment; its hosted matrix is pending. Windows v1 development passed twice and receives development evidence only.",
+  "supplemental_local_preflight": {
+    "label": "N01-windows-env-v2-local",
+    "runner": "Windows native sandbox",
+    "attempt_id": "f5499584935f4311857a72db08da2817",
+    "status": "prelaunch-refusal",
+    "failure_category": "workspace_setup_failure",
+    "diagnostic": "GetLongPathNameW failed with Access denied before the target started. No execution credit; hosted native Windows is the accepted path."
+  }
+}

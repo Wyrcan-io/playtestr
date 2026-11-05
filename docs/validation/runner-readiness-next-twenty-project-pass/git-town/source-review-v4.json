@@ -1,0 +1,137 @@
+{
+  "canonical_repository": "git-town/git-town",
+  "category": "developer branch workflow",
+  "immutable_pin": "8d039892574d4852e1843020c31d423234042e78",
+  "initial_public_development_receipt": {
+    "attempts": 32,
+    "credit": "zero final repetitions, host cell, calibration, fault-detection or admission credit",
+    "distinct_specs_passed": 20,
+    "passing_case_executions": 20,
+    "path": "development-readback-v2.json",
+    "series": "One passing development execution for each exact spec in scenario-catalog-v1.json; failed first attempts and excluded remote-dependent probes are retained.",
+    "sha256": "ec1ccc2417d72fbd56d005e13b3852100e314608d6c4087ace4b5c62867f7165"
+  },
+  "interaction_models": [
+    "Git subcommand CLI",
+    "interactive configuration assistant (`git town init`)",
+    "interactive local branch selector (`git town switch`)",
+    "non-interactive local branch operations"
+  ],
+  "language_family": "Go",
+  "license": "MIT",
+  "native_allocation": {
+    "linux": "Required; supported by pinned release targets and upstream Ubuntu workflows.",
+    "macos": "Upstream release target supports Darwin, but not selected for this project's planned cell.",
+    "windows": "Planned second cell; pinned upstream Windows workflow and release target support it."
+  },
+  "open_before_execution": [
+    "Reexecute and independently audit the exact 20-scenario series on native hosted Linux and Windows, with required repetitions, declared risk calibration, all-attempt retention and positive cleanup proof.",
+    "Run three distinct genuine safe target source faults against unchanged public contracts, then restore exact source and rebuild after each; preserve false greens and correction attempts.",
+    "Complete the public recorder/no-handwritten-spec authoring route, selected maintenance, Unicode/spaced-path relocation and workflow delivery assessment.",
+    "Measure and repair any general runner defects identified by the matrix, with new source-bound regression evidence and affected original-project requalification.",
+    "Requalify affected earlier projects and first ten on the actual final candidate; current candidate admission remains separate and zero.",
+    "Verify processes and report/workspace cleanup, retain exact source provenance, and close campaign-wide storage/control audit."
+  ],
+  "primary_sources": [
+    "https://github.com/git-town/git-town/tree/8d039892574d4852e1843020c31d423234042e78",
+    "https://github.com/git-town/git-town/blob/8d039892574d4852e1843020c31d423234042e78/LICENSE",
+    "https://github.com/git-town/git-town/blob/8d039892574d4852e1843020c31d423234042e78/go.mod",
+    "https://github.com/git-town/git-town/blob/8d039892574d4852e1843020c31d423234042e78/.github/workflows/windows.yml",
+    "https://github.com/git-town/git-town/blob/8d039892574d4852e1843020c31d423234042e78/.goreleaser.yml",
+    "https://www.git-town.com/install.html",
+    "https://www.git-town.com/commands/switch.html",
+    "https://www.git-town.com/configuration.html"
+  ],
+  "prior_metadata_readme_sha256": "b7ad0ca3e3e5ac91546f105e685d7b240a4b455cdb35eacd8ce9f35d4b6ea766",
+  "project": "git-town",
+  "release_version_in_source": "24.1.0",
+  "runtime_build": {
+    "automatic_toolchain_download": "disabled",
+    "binary_sha256": "e16a0c20bf8c36ef93e01488f50469ddc793e826d93caf6337a075fe8da2163b",
+    "build_receipt_sha256": "626de608ac94a0f692eebb36b46527b91ff653cf346e34df46eacdfd5dfe6aaf",
+    "command": "go build -mod=vendor -trimpath -o <owned-bin>/git-town.exe .",
+    "go": "go1.27.0",
+    "host": "windows/amd64",
+    "network_module_resolution": "disabled",
+    "version_probe": "git-town --version -> Git Town 24.1.0",
+    "workspace": "go.work (workspace vendor)"
+  },
+  "safe_execution_policy": {
+    "credentials": "Unset forge tokens and isolate Git/GitHub CLI configuration under campaign-owned empty homes.",
+    "network": "No network-dependent Git Town command; build from vendored dependencies with module network disabled.",
+    "processes": "Bound Git Town, Git, helper, output, deadlines, process-tree cleanup and workspace disposal independently.",
+    "remotes": "None; do not add a live remote.",
+    "repository": "Fresh synthetic local Git repository under an owned campaign workspace.",
+    "target_trust": "Explicitly trusted MIT source, built from the exact pin."
+  },
+  "scenario_catalog": {
+    "distinct": 20,
+    "edge": 12,
+    "normal": 8,
+    "path": "scenario-catalog-v1.json",
+    "sha256": "d2096be7478b0b9cf934eb2f64c96297d67e3407a9360f62a6534284d75b7f4f",
+    "status": "exact spec and fixture identities frozen for planned final development series"
+  },
+  "schema_version": 1,
+  "screening_attempt": "08f30360a9d94281892d56a41dade701",
+  "source_review": {
+    "archive_preflight": {
+      "archive_sha256": "2a47fe65b7f21f6a99bfeefd00dfeffce394dd7db733b47e5b87904c9947ab8a",
+      "compressed_bytes": 5504823,
+      "correction": "The prior review reversed the relationship. At the pinned Git tree both paths are regular files; CLAUDE.md contains the literal text @AGENTS.md. The GitHub tarball contains both as regular files.",
+      "declared_expanded_bytes": 29389387,
+      "pinned_git_tree_modes": {
+        "AGENTS.md": "100644",
+        "CLAUDE.md": "100644"
+      },
+      "reviewed_link_policy": "No archive links are present; extraction must reject any unexpected link type.",
+      "symlinks_or_hardlinks": [],
+      "tar_entries": 5656
+    },
+    "build_hooks": "No custom build hook is required for direct Go compilation. The upstream Makefile bootstraps developer tools through run-that-app; do not invoke its install or release targets. Go source modules are vendored; use the vendored tree and disable network module resolution.",
+    "go_directive": "1.26.9",
+    "materialized_source_files_verified": 4533,
+    "omitted_source_links": [],
+    "omitted_source_links_correction": "At the pinned tree both AGENTS.md and CLAUDE.md are regular files. The prior review reversed their relationship; the GitHub source tarball contains no symlinks or hardlinks. The extractor refuses unexpected links under the empty-link policy.",
+    "release_cgo": "Upstream GoReleaser config sets CGO_ENABLED=0.",
+    "release_platforms": [
+      "linux",
+      "windows",
+      "darwin"
+    ],
+    "reviewed_build_route": "go build -mod=vendor -trimpath -o <owned-bin>/git-town[.exe] .",
+    "reviewed_files": {
+      ".github/workflows/cuke.yml": "fadd3350d0ee4aaf1d85406b5139122df959d21d",
+      ".github/workflows/unit.yml": "645175a87925204bc70219efb4c990cb76e4706d",
+      ".github/workflows/windows.yml": "32bcaeab3917a66f076f869cee4e60162d82f8e1",
+      ".goreleaser.yml": "7818ed44c4cbc07544e7f87cbbaebfd147ace4ab",
+      "LICENSE": "4bcd5ec1942737f7976b8bac8534a8ab642ec0e0",
+      "Makefile": "ad277c4f1456933dc6b75423b825f61ccd84d502",
+      "README.md": "01363af33131ab0e0cae03b50a18169e7863007f",
+      "go.mod": "fe39f51bd8ecb793a865f4a676e5459b6669ad6c",
+      "main.go": "fad28bed451c28a0d11332b7863c969d5eed7da4",
+      "vendor/modules.txt": "d0676337b063472208e83cdc0a2c0fba42181bb7"
+    },
+    "source_archive_sha256": "2a47fe65b7f21f6a99bfeefd00dfeffce394dd7db733b47e5b87904c9947ab8a",
+    "source_tree_review_receipt": "source-audit-v1.json",
+    "source_tree_review_sha256": "d8080ca9e4548497c02ae7f8a14f6082884bf35881d32f27693c32beaa0bf16f",
+    "upstream_linux_ci": "Pinned end-to-end and unit workflows run on Ubuntu.",
+    "upstream_windows_ci": "Pinned Windows workflow uses actions/setup-go with go.mod and runs the Windows smoke suite.",
+    "vendored_module_count": 73
+  },
+  "state_oracle_candidate": {
+    "meaningful_state": "Local Git configuration and branch/ref state in the case-owned repository.",
+    "public_contract_candidate": "Spec v3 rooted state checks of selected files such as .git/HEAD and .git/config, plus exact terminal/exit assertions. Confirm path validation and same-execution behavior before freezing scenarios.",
+    "qualification": "Initial native Windows public spec v3 cases proved workspace fixture copying and same-run terminal, exit, .git/HEAD and exact state outcomes: N01 hack, N02 append, N03 config parent read, N04 branch hierarchy and N05 prototype creation. Development-only; no final series, fault, calibration or admission credit."
+  },
+  "status": "pinned-native-windows-build-and-20-case-development-series-complete",
+  "supersedes": "source-review-v3.json",
+  "terminal_family": "Bubble Tea",
+  "useful_workflows": [
+    "initialize local Git Town configuration",
+    "create and classify a feature branch",
+    "filter and select a local branch",
+    "synchronize a branch using a repository with no remote",
+    "exercise exact configuration and branch-ref outcomes in an isolated synthetic repository"
+  ]
+}

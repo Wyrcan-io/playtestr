@@ -1,0 +1,485 @@
+{
+  "schema_version": 1,
+  "audit_workflow_run_id": 41936858975,
+  "audit_job_id": 126947384116,
+  "audit_head_sha": "95ba7f15fe238ccd016083303227a0a1031c42d4",
+  "audit_artifact_id": 13373628036,
+  "audit_artifact_sha256": "sha256:13ec3257457bd9e9095eb199ff1918df3d6e10efbd5d42fb2d966ecad99840ad",
+  "audit_artifact_bytes": 5102,
+  "audit_artifact_expires_at": "2026-12-04T23:50:54Z",
+  "receipt": {
+    "schema_version": 1,
+    "project": "git-town",
+    "run_id": "41935126990",
+    "head_sha": "38de4dab91e6e3e3bf565f2ea7913381102d9a66",
+    "conclusion": "success",
+    "source_fault_credit": 0,
+    "native_cells": [
+      {
+        "host": "linux",
+        "artifact_members": 4801,
+        "expanded_bytes": 387094065,
+        "public_cases": [
+          {
+            "id": "N01-hack-feature",
+            "label": "N01-hack-feature-linux-development",
+            "spec_sha256": "8f97ba487412ed1c17ad3924634d6840249140a94a71c442f02c8b3a924258bb",
+            "report_sha256": "124039fa995c426d5a5d611abc365cc8d90111a9c1280881aec66d42ca2bdb91",
+            "runner_attempt_id": "d616ff3cda634a09844e33198053dad9",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N02-append-child",
+            "label": "N02-append-child-linux-development",
+            "spec_sha256": "e97154a728257985d80c5d35ae71802708e14da84bfe40aef1d81e56fd2e10b9",
+            "report_sha256": "752fdcf047e138c596b6e6dce3c7fb4e54272a108c1a11473999e9d058eafdcd",
+            "runner_attempt_id": "dd1bf86f81064d7fa7fb5203a52c9d0e",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N03-read-parent",
+            "label": "N03-read-parent-linux-development",
+            "spec_sha256": "35695a60477e6d9b8ab6ac88922b26987af21563b02812c9fa176bd556f14538",
+            "report_sha256": "9b1eefe01969aee8911dc6f8c4c84de0a154a7181570eea99bbf75081b97274c",
+            "runner_attempt_id": "d6d3f2f55031440f90ff97fe5577c211",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N04-display-branch-hierarchy",
+            "label": "N04-display-branch-hierarchy-linux-development",
+            "spec_sha256": "1e27e700109468830c682f33acd5652e4facefd24cb53977b5d25ae6cf256fee",
+            "report_sha256": "a4971c58c2faf7923fdb4614078691c1c8a76fd3f3c8a19ddf2c36d11ccadaf6",
+            "runner_attempt_id": "68a6b989171c458abb77390f1f51df19",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N05-hack-prototype",
+            "label": "N05-hack-prototype-linux-development",
+            "spec_sha256": "75c472fead9528ba627f281cc37035147c1542b2d36f5088c733f2bcda167678",
+            "report_sha256": "b9c7b0d605b600049e1b9f8ebff8f026dfe18b295d39d32e13dac9c2f0caad46",
+            "runner_attempt_id": "89002485551548e2b58e06909596e21b",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N06-prototype-existing",
+            "label": "N06-prototype-existing-linux-development",
+            "spec_sha256": "07b853ca52b5e737956b1f5f525cf35f034197cf3bd6bf72b5567e180f661700",
+            "report_sha256": "0f47291a9d5b665a17cdb9b2ac978957a82fb20563d2de1c59d4378739871c98",
+            "runner_attempt_id": "854f397fe1a94c3185fdb601c68805a4",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N07-feature-existing",
+            "label": "N07-feature-existing-linux-development",
+            "spec_sha256": "653461491d8ace7a3c23e30008858c0bb56903f05412aad656bc35d1f59a5755",
+            "report_sha256": "96b96d70e7f1e20b008ee9978932673b5069826d8eaee839b6c0e8fbc46e1365",
+            "runner_attempt_id": "684e0154e3364efdb8237c6649d6bb81",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N09-park-existing",
+            "label": "N09-park-existing-linux-development",
+            "spec_sha256": "a994bcb2f26abcc9b807df7a0c876463de0093c186861401bbbb49a51077d1c8",
+            "report_sha256": "96b335f796e863719f098547ddac7a306ad3457afba00c55bb81bec63018f9e4",
+            "runner_attempt_id": "460f36dec31642b68230d62c4490c51a",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N11-switch-to-feature",
+            "label": "N11-switch-to-feature-linux-development",
+            "spec_sha256": "4d6382908baea79c6663d4cd1ca8d539d1cd157f2e2156c644cf3bb0290e3ac8",
+            "report_sha256": "e5a9e1664e84f5d3ebf9205ef23c74f1aa803846d03e2dc997d08589e3cdeea7",
+            "runner_attempt_id": "5c5e7d7c32124710b5da1cb62e88b2c2",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N12-cancel-branch-switch",
+            "label": "N12-cancel-branch-switch-linux-development",
+            "spec_sha256": "7eea55420cd30881da8149a9df99230b39ed1b98ed5753feaac38f519f732426",
+            "report_sha256": "52318764ac47f6a49fedbab9dba7c8f48048b511f98b3285731d2e47883a94b4",
+            "runner_attempt_id": "51b93a98bfda416baef154ecc8069561",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N13-reject-invalid-branch-name",
+            "label": "N13-reject-invalid-branch-name-linux-development",
+            "spec_sha256": "c57535a6d02f008eee49c398a693bbd222ff1167d91690798e3653ee7e902b6e",
+            "report_sha256": "a9ef85d0e1c3bbc64849c7c48c1783f48c495ce3529522d4b924c5702721ae7c",
+            "runner_attempt_id": "ae7419152a814783bd1b630ab386ab32",
+            "target_exit_code": 1,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N14-reject-duplicate-branch",
+            "label": "N14-reject-duplicate-branch-linux-development",
+            "spec_sha256": "c77907744854a1daec17fbfe9ace895b92cfca5d3815fa530869118394e0b97c",
+            "report_sha256": "13f06714dce80a3d75a613c662f4f0a235d7ab1c99d0f9be926f692ddbe15b1a",
+            "runner_attempt_id": "0374c7040dfc4bd2955a66a4c34d2b44",
+            "target_exit_code": 1,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N15-create-unicode-branch",
+            "label": "N15-create-unicode-branch-linux-development",
+            "spec_sha256": "5a41fef5300cb10495729c7b5a3ceb60344da887ada4ccf8777061856a03b865",
+            "report_sha256": "38d27ff80818aa52dc871e2ca66ead4f70bffc423b0947cbc0de7b31d6dfa3ed",
+            "runner_attempt_id": "672e9a6f721a41ffb23e7cc20e636f75",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N16-create-nested-branch",
+            "label": "N16-create-nested-branch-linux-development",
+            "spec_sha256": "6231ff59885e20bed9b6b1081a53306594379e580bf5c94c58f403b6e5b8ee36",
+            "report_sha256": "98d641ec5ca32d0fe1f29b15de3b587d93c44a3c9db54617ad242acd451ea7d6",
+            "runner_attempt_id": "f5db9e31f78549fa9afa712bc231f7f3",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N17-resize-cancel-selector",
+            "label": "N17-resize-cancel-selector-linux-development",
+            "spec_sha256": "2d44f621d38d43b4929bc17b846ef6ec7cb9a2f71d48a042ac0453ef201de9ed",
+            "report_sha256": "771e6b3b9a2f7dd1347580babd7b591cb713aa7c0547f49d14b7322ce7615845",
+            "runner_attempt_id": "76d176ba02764bd3a64d6ecf55a97cd7",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N18-rename-local-branch",
+            "label": "N18-rename-local-branch-linux-development",
+            "spec_sha256": "a37624137b101e3cb75febf6e5a97d789f068fb4b8147545391897664c29d6db",
+            "report_sha256": "8ed749d9b6acda3bed0a1cdd9145eedb2c7847f402cf251a5ebdae280935cf8d",
+            "runner_attempt_id": "12003c89160f481cbdc7b2fa1d0df0ec",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N19-filter-and-select-feature",
+            "label": "N19-filter-and-select-feature-linux-development",
+            "spec_sha256": "4486207b5ed8a4fde85a4a3320606599f332f2e29367eb40ee0cfcbcbcf42c09",
+            "report_sha256": "77c8e40d478bc6c971b5be3fb7e22f0c963725c899b42cd1f9c4a3a86726f60d",
+            "runner_attempt_id": "17c3776d1f7b4dd2b95ba1d9db1f5404",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N20-empty-filtered-switcher",
+            "label": "N20-empty-filtered-switcher-linux-development",
+            "spec_sha256": "96d1200a9a2e7a52696cc988ec3232900e07d2dcb351d6f5fde2c13031f10f84",
+            "report_sha256": "bc80947d75cffd3275a5db216117bb239c8889dd7cd13dc721b598c81e964b79",
+            "runner_attempt_id": "57dc0a377f284f1b9ca5ade034a7e8bc",
+            "target_exit_code": 1,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N21-display-offline-status",
+            "label": "N21-display-offline-status-linux-development",
+            "spec_sha256": "eac95e4fae636c0125983dbd96db61c6c395c2b3623d1d432da26bb288bf0bca",
+            "report_sha256": "268100d4876414883037304d1ba8300e793a27d1592e974f4ae004e3c5d331cd",
+            "runner_attempt_id": "fa0fc961cf864f3785ae0f3eea251cb7",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N22-review-configuration",
+            "label": "N22-review-configuration-linux-development",
+            "spec_sha256": "6480c8a508ce856b5620eff8f5897f451e23b2b7506c418cda371405e90aca42",
+            "report_sha256": "d39d21468bd79a64775aff4200337ee3cd5e3d3b8b5bd4da04bd9e470d78c6a0",
+            "runner_attempt_id": "1fa5204fab2b4d7ea832b296ef933cde",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          }
+        ],
+        "public_case_count": 20,
+        "source": {
+          "pin": "8d039892574d4852e1843020c31d423234042e78",
+          "source_files": 4533,
+          "source_tree_verified": true,
+          "source_archive_sha256": "2a47fe65b7f21f6a99bfeefd00dfeffce394dd7db733b47e5b87904c9947ab8a",
+          "source_archive_payload_retained": false,
+          "source_provenance_sha256": "03426cd17666f72b972a6589a09a34e071fdb9639b1b3da4efe433aa4c3d2f50"
+        },
+        "faults": {
+          "distinct_faults": 3,
+          "phases": 9,
+          "cleanup_confirmed": 9,
+          "unchanged_contracts_detected": 3,
+          "restoration_rebuilds_passed": 3,
+          "fault_matrix_sha256": "f2cb47261bbdb07eaf4dd70ea7c8e1b0ba723864b4c3d33ff3e6f2c7f9623012"
+        },
+        "task_owned_sha256": "8507e8eb043932fb185ac08a0a3604b87838c18d8f735760b0e407028f7a8fa6",
+        "run_id": "41935126990",
+        "head_sha": "38de4dab91e6e3e3bf565f2ea7913381102d9a66",
+        "artifact_id": 13373403691,
+        "artifact_sha256": "66f96b44db000e574138d9d3b3992335a057d83a102176c3c59a9675246cd9ed",
+        "artifact_bytes": 167184094
+      },
+      {
+        "host": "windows",
+        "artifact_members": 4785,
+        "expanded_bytes": 393189286,
+        "public_cases": [
+          {
+            "id": "N01-hack-feature",
+            "label": "N01-hack-feature-windows-development",
+            "spec_sha256": "8f97ba487412ed1c17ad3924634d6840249140a94a71c442f02c8b3a924258bb",
+            "report_sha256": "06ec387d755043096dfdf12c21dad9c5b3847ec49fed6c5eae3395e88a8ff2ba",
+            "runner_attempt_id": "cb2f7fdfddc84c59bbc06a12c92638d7",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N02-append-child",
+            "label": "N02-append-child-windows-development",
+            "spec_sha256": "e97154a728257985d80c5d35ae71802708e14da84bfe40aef1d81e56fd2e10b9",
+            "report_sha256": "b618de1bc1cb8d002a71544a41dbddc338b277a748e9e8a3f0f8c71e851cab8e",
+            "runner_attempt_id": "075f670fe08b467d87b57190b0995a78",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N03-read-parent",
+            "label": "N03-read-parent-windows-development",
+            "spec_sha256": "35695a60477e6d9b8ab6ac88922b26987af21563b02812c9fa176bd556f14538",
+            "report_sha256": "1b0fc9d522f1d4de1b7fff143e76266c2c97ba8c1c6e494adeadf46097133f15",
+            "runner_attempt_id": "eb8f99130e824315b4a2a0db7b0e1807",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N04-display-branch-hierarchy",
+            "label": "N04-display-branch-hierarchy-windows-development",
+            "spec_sha256": "1e27e700109468830c682f33acd5652e4facefd24cb53977b5d25ae6cf256fee",
+            "report_sha256": "1b7cca8ad4e7bfca4d66391f61f421c45a6bea586e86b8d13cf2f1ff935b5a16",
+            "runner_attempt_id": "074ca58a3ba44223a49a2fba97386abf",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N05-hack-prototype",
+            "label": "N05-hack-prototype-windows-development",
+            "spec_sha256": "75c472fead9528ba627f281cc37035147c1542b2d36f5088c733f2bcda167678",
+            "report_sha256": "7562f2d590136b4646e2d906e4ff0dc29dd833e6ca0239282250f33389e46711",
+            "runner_attempt_id": "99a052dd7a7f4eda9cfbb0e195ce279a",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N06-prototype-existing",
+            "label": "N06-prototype-existing-windows-development",
+            "spec_sha256": "07b853ca52b5e737956b1f5f525cf35f034197cf3bd6bf72b5567e180f661700",
+            "report_sha256": "ecf7b3e1012a8bcae07e5b44b68385e056bdd28c044132a56bd471115375ef37",
+            "runner_attempt_id": "2e7add07b50f42b496a9f7c8a3c365e6",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N07-feature-existing",
+            "label": "N07-feature-existing-windows-development",
+            "spec_sha256": "653461491d8ace7a3c23e30008858c0bb56903f05412aad656bc35d1f59a5755",
+            "report_sha256": "4ea794ba9b4f0ae1d4eac86dcb0027081fd1a016b27a0361ae1f1d02feeac0ac",
+            "runner_attempt_id": "f2055785b4a84bb5adb13b1df798f0df",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N09-park-existing",
+            "label": "N09-park-existing-windows-development",
+            "spec_sha256": "a994bcb2f26abcc9b807df7a0c876463de0093c186861401bbbb49a51077d1c8",
+            "report_sha256": "e08ef28c998d1a8084cfad8c8548c482da9884a055b8c59cbbe8f49f6cd5050f",
+            "runner_attempt_id": "9081f1b03be4401c9f724efbf045a3ae",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N11-switch-to-feature",
+            "label": "N11-switch-to-feature-windows-development",
+            "spec_sha256": "4d6382908baea79c6663d4cd1ca8d539d1cd157f2e2156c644cf3bb0290e3ac8",
+            "report_sha256": "c57bb75827e4e9d6b03c12c69f68c6a02d32c90982b0376dd191b6bfd9b10db6",
+            "runner_attempt_id": "7e62e08897c34a3b9d1976707db3849c",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N12-cancel-branch-switch",
+            "label": "N12-cancel-branch-switch-windows-development",
+            "spec_sha256": "7eea55420cd30881da8149a9df99230b39ed1b98ed5753feaac38f519f732426",
+            "report_sha256": "8fa2c53acb195ad484e4f7e1d82985e0470975d1344c2791fcf0dadbe21865b4",
+            "runner_attempt_id": "2fe3dc2e8cd54080b9d032472f879e1e",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N13-reject-invalid-branch-name",
+            "label": "N13-reject-invalid-branch-name-windows-development",
+            "spec_sha256": "c57535a6d02f008eee49c398a693bbd222ff1167d91690798e3653ee7e902b6e",
+            "report_sha256": "06c622920ac9cd477e6fc81873d8a6739120e70bd661039403eaea2c57664288",
+            "runner_attempt_id": "d51890de33da43a89de2e3d63430a2c5",
+            "target_exit_code": 1,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N14-reject-duplicate-branch",
+            "label": "N14-reject-duplicate-branch-windows-development",
+            "spec_sha256": "c77907744854a1daec17fbfe9ace895b92cfca5d3815fa530869118394e0b97c",
+            "report_sha256": "9fea84a04f1f08c903a3ad0e87dbb545647e2bfd170bf7e7d1ee63119c73dc8c",
+            "runner_attempt_id": "c6004a16c9d749968996fceb254638ca",
+            "target_exit_code": 1,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N15-create-unicode-branch",
+            "label": "N15-create-unicode-branch-windows-development",
+            "spec_sha256": "5a41fef5300cb10495729c7b5a3ceb60344da887ada4ccf8777061856a03b865",
+            "report_sha256": "3ead8c73cd812a0187a82bce688d0030b6dbdde040a47840236c818aaf0b1226",
+            "runner_attempt_id": "e319bba4ea774841b9a7d5e72799cc32",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N16-create-nested-branch",
+            "label": "N16-create-nested-branch-windows-development",
+            "spec_sha256": "6231ff59885e20bed9b6b1081a53306594379e580bf5c94c58f403b6e5b8ee36",
+            "report_sha256": "45407ac24462d226d54fb098b43b585af4dc383e10619a47a6f720a27ff49229",
+            "runner_attempt_id": "eb4aac2fddac4993a54a96aef3efe458",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N17-resize-cancel-selector",
+            "label": "N17-resize-cancel-selector-windows-development",
+            "spec_sha256": "2d44f621d38d43b4929bc17b846ef6ec7cb9a2f71d48a042ac0453ef201de9ed",
+            "report_sha256": "fdb358b5bb091625179b58b068bf26dcc944b6ef2878f787ed94e377b45dc385",
+            "runner_attempt_id": "2d4d8bd4eea340f2a4880acc7f9ae8e3",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N18-rename-local-branch",
+            "label": "N18-rename-local-branch-windows-development",
+            "spec_sha256": "a37624137b101e3cb75febf6e5a97d789f068fb4b8147545391897664c29d6db",
+            "report_sha256": "4a19371bec4938ece9bd3b2db086eea82e40b34f512938a06ed6789db1b9efaa",
+            "runner_attempt_id": "97cb337b17f74b37be2a7c0e6be0b170",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N19-filter-and-select-feature",
+            "label": "N19-filter-and-select-feature-windows-development",
+            "spec_sha256": "4486207b5ed8a4fde85a4a3320606599f332f2e29367eb40ee0cfcbcbcf42c09",
+            "report_sha256": "ca025f03981b59a17586e652cd0fdbbec20d94406471e012d44923f441bce0da",
+            "runner_attempt_id": "4d590c5b2069450299bb59b66977bcc8",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N20-empty-filtered-switcher",
+            "label": "N20-empty-filtered-switcher-windows-development",
+            "spec_sha256": "96d1200a9a2e7a52696cc988ec3232900e07d2dcb351d6f5fde2c13031f10f84",
+            "report_sha256": "73e85ee4ca54fd16759e461ce39a4288ec89209499d2f45235e16e166b332acf",
+            "runner_attempt_id": "0f618ddff20e419fb4fa513d989cade4",
+            "target_exit_code": 1,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N21-display-offline-status",
+            "label": "N21-display-offline-status-windows-development",
+            "spec_sha256": "eac95e4fae636c0125983dbd96db61c6c395c2b3623d1d432da26bb288bf0bca",
+            "report_sha256": "e3fb9eb3011ae02d21771ea8bac4771ffdaced4d659aaa7d6e1e6510c0d98394",
+            "runner_attempt_id": "c37ff8cdef254a78b5a9305c90767a73",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          },
+          {
+            "id": "N22-review-configuration",
+            "label": "N22-review-configuration-windows-development",
+            "spec_sha256": "6480c8a508ce856b5620eff8f5897f451e23b2b7506c418cda371405e90aca42",
+            "report_sha256": "2905717b06fc21bdd1f3d4152945ac26e981a1f9f252ca02ece9a12671d9b692",
+            "runner_attempt_id": "71fb2142c2774d26ac518ee2f08be47b",
+            "target_exit_code": 0,
+            "target_exited": true,
+            "workspace_cleaned": true
+          }
+        ],
+        "public_case_count": 20,
+        "source": {
+          "pin": "8d039892574d4852e1843020c31d423234042e78",
+          "source_files": 4533,
+          "source_tree_verified": true,
+          "source_archive_sha256": "2a47fe65b7f21f6a99bfeefd00dfeffce394dd7db733b47e5b87904c9947ab8a",
+          "source_archive_payload_retained": false,
+          "source_provenance_sha256": "03426cd17666f72b972a6589a09a34e071fdb9639b1b3da4efe433aa4c3d2f50"
+        },
+        "faults": {
+          "distinct_faults": 3,
+          "phases": 9,
+          "cleanup_confirmed": 9,
+          "unchanged_contracts_detected": 3,
+          "restoration_rebuilds_passed": 3,
+          "fault_matrix_sha256": "899ef1390c346fe1752aa74a2cf85f6695e9a1ff24a9b3347c00d16284012251"
+        },
+        "task_owned_sha256": "5d082fb03ab03dad147352297673de3145bf119b6a8ab09427ec186a72e3cde8",
+        "run_id": "41935126990",
+        "head_sha": "38de4dab91e6e3e3bf565f2ea7913381102d9a66",
+        "artifact_id": 13373577338,
+        "artifact_sha256": "e6059783c1333352fc85f6b31f4d7e8c94c3befab43b84ad68c82ce53bd5c710",
+        "artifact_bytes": 169830019
+      }
+    ],
+    "audit_method": "Separate GitHub-hosted Linux audit job downloaded both original artifact ZIPs, verified provider size/SHA-256, then independently checked exact source, public reports, fault reports, target exits and cleanup.",
+    "all_native_packets_passed": true,
+    "all_packets_share_source_pin": true,
+    "all_packets_share_archive_and_provenance": true,
+    "all_packets_share_frozen_specs": true
+  }
+}

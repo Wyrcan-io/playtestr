@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "project": "git-town",
+  "source_repository": "git-town/git-town",
+  "source_pin": "8d039892574d4852e1843020c31d423234042e78",
+  "scenario_catalog": "scenario-catalog-v3.json",
+  "declared_faults": [
+    {
+      "id": "F01-parent-output",
+      "source_file": "internal/cmd/config/get_parent.go",
+      "mutation": "Replace fmt.Print(parent) with fmt.Print(childBranch).",
+      "unchanged_spec": "N03-read-parent.json",
+      "expected_failure": "The expected parent text `main` is not rendered; the ordinary screen assertion fails while Git Town exits zero.",
+      "expected_failure_category": "assertion_timeout",
+      "independent_requirement": "The configured parent command prints the actual configured parent.",
+      "spec_sha256": "35695a60477e6d9b8ab6ac88922b26987af21563b02812c9fa176bd556f14538",
+      "source_blob_sha": "4b938d6606e48389ae68e936d2e6eaa96746a08d"
+    },
+    {
+      "id": "F02-feature-refusal",
+      "source_file": "internal/cmd/hack.go",
+      "mutation": "Invert the local branch already-exists condition in determineHackData.",
+      "unchanged_spec": "N01-hack-feature.json",
+      "expected_failure": "A new feature branch is incorrectly refused as already present; the same-run expected terminal evidence is absent and the exact HEAD outcome is not reached.",
+      "expected_failure_category": "assertion_timeout",
+      "independent_requirement": "Creating a new local feature branch creates the requested ref and checks it out.",
+      "spec_sha256": "8f97ba487412ed1c17ad3924634d6840249140a94a71c442f02c8b3a924258bb",
+      "source_blob_sha": "3e87d207f5a59ab1ed5c8bdcd21ac881c5256c48"
+    },
+    {
+      "id": "F03-prototype-persistence",
+      "source_file": "internal/cmd/prototype.go",
+      "mutation": "Persist BranchTypeFeatureBranch in place of BranchTypePrototypeBranch.",
+      "unchanged_spec": "N06-prototype-existing.json",
+      "expected_failure": "The terminal confirmation and target exit pass, but the same-run exact .git/config state assertion rejects the wrong saved branch type.",
+      "expected_failure_category": "state_assertion_failure",
+      "independent_requirement": "Marking an existing branch as prototype persists the prototype type in local Git configuration.",
+      "spec_sha256": "07b853ca52b5e737956b1f5f525cf35f034197cf3bd6bf72b5567e180f661700",
+      "source_blob_sha": "d6401d4afe2a579cd2b01fd31511de33cbb21562"
+    }
+  ],
+  "required_phases_per_fault": [
+    "pristine source and passing unchanged public contract",
+    "single source mutation, normal native rebuild, and detected unchanged-contract failure",
+    "exact source restoration, clean pinned-tree verification, normal native rebuild, and passing recovery"
+  ],
+  "native_hosts": ["linux-x86_64", "windows-amd64"],
+  "execution_status": "declared only; hosted execution and independent audit pending",
+  "admission_credit": 0
+}
+

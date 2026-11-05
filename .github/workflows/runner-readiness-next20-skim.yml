@@ -10,13 +10,7 @@ on:
       - 'scripts/acceptance/next20_playtestr_case.py'
       - 'scripts/acceptance/next20_check.py'
       - 'scripts/acceptance/adversarial_process.py'
-      - 'docs/validation/runner-readiness-next-twenty-project-pass/skim/source-provenance.json'
-      - 'docs/validation/runner-readiness-next-twenty-project-pass/skim/source-review-*.json'
-      - 'docs/validation/runner-readiness-next-twenty-project-pass/skim/scenario-declaration-*.json'
-      - 'docs/validation/runner-readiness-next-twenty-project-pass/skim/N*.json'
-      - 'docs/validation/runner-readiness-next-twenty-project-pass/skim/E*.json'
-      - 'docs/validation/runner-readiness-next-twenty-project-pass/skim/fixtures/**'
-      - 'docs/validation/runner-readiness-next-twenty-project-pass/skim/snapshots/**'
+      - 'docs/validation/runner-readiness-next-twenty-project-pass/skim/**'
       - 'cmd/**'
       - 'internal/**'
       - 'go.mod'
@@ -63,15 +57,10 @@ jobs:
         with:
           persist-credentials: false
           set-safe-directory: false
-      - name: Create campaign-owned paths
+      - name: Create owned paths
         run: |
           $root = Join-Path $env:GITHUB_WORKSPACE 'artifacts/runner-readiness-next-twenty-project-pass/active/skim'
-          @($root, (Join-Path $root 'home'), (Join-Path $root 'cargo-home'),
-            (Join-Path $root 'rustup-home'), (Join-Path $root 'cargo-target'),
-            (Join-Path $root 'bin'), (Join-Path $root 'tmp'),
-            (Join-Path $root 'go-mod-cache'),
-            (Join-Path $env:GITHUB_WORKSPACE 'artifacts/runner-readiness-next-twenty-project-pass/tmp')) |
-            ForEach-Object { New-Item -ItemType Directory -Force -Path $_ | Out-Null }
+          @($root, (Join-Path $root 'home'), (Join-Path $root 'cargo-home'), (Join-Path $root 'rustup-home'), (Join-Path $root 'cargo-target'), (Join-Path $root 'bin'), (Join-Path $root 'tmp'), (Join-Path $root 'go-mod-cache'), (Join-Path $env:GITHUB_WORKSPACE 'artifacts/runner-readiness-next-twenty-project-pass/tmp')) | ForEach-Object { New-Item -ItemType Directory -Force -Path $_ | Out-Null }
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
           repository: skim-rs/skim
@@ -80,22 +69,19 @@ jobs:
           persist-credentials: false
           set-safe-directory: false
           fetch-depth: 1
-      - name: Restore and verify canonical Windows source blobs
-        if: matrix.host == 'windows'
-        run: python -B scripts/acceptance/next20_skim_source_verify.py --normalize-windows-checkout
-      - name: Verify exact upstream files before Cargo execution
-        if: matrix.host != 'windows'
-        run: python -B scripts/acceptance/next20_skim_source_verify.py
-      - name: Install official Go 1.25.0 inside the owned campaign root
+      - name: Verify pinned source
+        run: |
+          if ('${{ matrix.host }}' -eq 'windows') { python -B scripts/acceptance/next20_skim_source_verify.py --normalize-windows-checkout } else { python -B scripts/acceptance/next20_skim_source_verify.py }
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Install Go 1.25.0 in campaign root
         run: |
           python -B scripts/acceptance/next20_bootstrap_go.py
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          $goBin = Join-Path $env:GITHUB_WORKSPACE 'artifacts/runner-readiness-next-twenty-project-pass/active/skim/go-toolchain/go/bin'
-          Add-Content -Path $env:GITHUB_PATH -Value $goBin
-          if ($IsWindows) { & (Join-Path $goBin 'go.exe') version } else { & (Join-Path $goBin 'go') version }
-      - name: Download locked Playtestr Go modules into the owned cache
-        run: go mod download
-      - name: Install pinned Rust toolchain into campaign-owned paths
+          $go = Join-Path $env:GITHUB_WORKSPACE 'artifacts/runner-readiness-next-twenty-project-pass/active/skim/go-toolchain/go/bin'
+          Add-Content $env:GITHUB_PATH $go
+          if ($IsWindows) { & (Join-Path $go 'go.exe') version } else { & (Join-Path $go 'go') version }
+      - run: go mod download
+      - name: Install pinned Rust toolchain
         env:
           HOME: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/active/skim/home
           USERPROFILE: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/active/skim/home
@@ -105,30 +91,25 @@ jobs:
           rustup toolchain install 1.97.0 --profile minimal --target '${{ matrix.rust_target }}'
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           rustc +1.97.0 -Vv
-      - name: Fetch and checksum locked dependencies without executing hooks
+      - name: Fetch locked dependencies without hooks
         env:
           HOME: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/active/skim/home
           USERPROFILE: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/active/skim/home
         run: python -B scripts/acceptance/next20_rust_fetch.py skim --native-host --toolchain 1.97.0
-      - name: Review every locked dependency hook before build
-        run: >-
-          python -B scripts/acceptance/next20_skim_hook_review.py
-          --source-review docs/validation/runner-readiness-next-twenty-project-pass/skim/source-review-v1.json
-          --output artifacts/runner-readiness-next-twenty-project-pass/active/skim/dependency-hook-review-host.json
-      - name: Build exact Linux Skim feature set offline
-        if: matrix.host == 'linux'
-        run: >-
-          python -B scripts/acceptance/next20_skim_build.py
-          --source-review docs/validation/runner-readiness-next-twenty-project-pass/skim/source-review-v1.json
-          --hook-review artifacts/runner-readiness-next-twenty-project-pass/active/skim/dependency-hook-review-host.json
-      - name: Build exact Windows Skim feature set offline
-        if: matrix.host == 'windows'
-        run: >-
-          python -B scripts/acceptance/next20_skim_build.py --native-host
-          --source-review docs/validation/runner-readiness-next-twenty-project-pass/skim/source-review-v1.json
-          --hook-review artifacts/runner-readiness-next-twenty-project-pass/active/skim/dependency-hook-review-host.json
-      - name: Run the frozen twenty-case source-development matrix
+      - name: Review dependency build hooks
+        run: python -B scripts/acceptance/next20_skim_hook_review.py --source-review docs/validation/runner-readiness-next-twenty-project-pass/skim/source-review-v1.json --output artifacts/runner-readiness-next-twenty-project-pass/active/skim/dependency-hook-review-host.json
+      - name: Build pinned Skim
+        run: |
+          if ('${{ matrix.host }}' -eq 'windows') { python -B scripts/acceptance/next20_skim_build.py --native-host --source-review docs/validation/runner-readiness-next-twenty-project-pass/skim/source-review-v1.json --hook-review artifacts/runner-readiness-next-twenty-project-pass/active/skim/dependency-hook-review-host.json } else { python -B scripts/acceptance/next20_skim_build.py --source-review docs/validation/runner-readiness-next-twenty-project-pass/skim/source-review-v1.json --hook-review artifacts/runner-readiness-next-twenty-project-pass/active/skim/dependency-hook-review-host.json }
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Run twenty frozen cases
         run: python -B scripts/acceptance/next20_skim_hosted_cases.py --host '${{ matrix.host }}' --rounds 1
+      - name: Detect three source faults
+        if: matrix.host == 'windows'
+        run: python -B scripts/acceptance/next20_skim_faults.py
+      - name: Bundle source-fault reports and receipts
+        if: always() && matrix.host == 'windows'
+        run: python -B scripts/acceptance/next20_skim_package_faults.py
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
@@ -137,22 +118,16 @@ jobs:
             docs/validation/runner-readiness-next-twenty-project-pass/skim/
             artifacts/runner-readiness-next-twenty-project-pass/events/
             artifacts/runner-readiness-next-twenty-project-pass/skim/**
-            artifacts/runner-readiness-next-twenty-project-pass/active/skim/task-owned.json
-            artifacts/runner-readiness-next-twenty-project-pass/active/skim/source-host-verification.json
-            artifacts/runner-readiness-next-twenty-project-pass/active/skim/go-toolchain/sdk.json
-            artifacts/runner-readiness-next-twenty-project-pass/active/skim/dependency-fetch-review.json
-            artifacts/runner-readiness-next-twenty-project-pass/active/skim/dependency-hook-review-host.json
-            artifacts/runner-readiness-next-twenty-project-pass/active/skim/fetch-storage-*.json
-            artifacts/runner-readiness-next-twenty-project-pass/active/skim/build-storage-*.json
-            artifacts/runner-readiness-next-twenty-project-pass/active/skim/build.json
-            artifacts/runner-readiness-next-twenty-project-pass/active/skim/runtime.json
-            artifacts/runner-readiness-next-twenty-project-pass/active/skim/version-check.json
-            artifacts/runner-readiness-next-twenty-project-pass/active/skim/hosted-*.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/skim/*.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/skim/fault-matrix-evidence.zip
             artifacts/runner-readiness-next-twenty-project-pass/active/skim/bin/**
             artifacts/runner-readiness-next-twenty-project-pass/active/skim/src/**
             artifacts/runner-readiness-next-twenty-project-pass/active/skim/case-evidence/**
-            artifacts/runner-readiness-next-twenty-project-pass/active/skim/cargo-home/registry/cache/**/*.crate
-            !artifacts/runner-readiness-next-twenty-project-pass/active/skim/src/.git/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/skim-exit-empty-01-v5
+            artifacts/runner-readiness-next-twenty-project-pass/active/skim-match-count-01-v5
+            artifacts/runner-readiness-next-twenty-project-pass/active/skim-multi-count-01-v5
+            artifacts/runner-readiness-next-twenty-project-pass/active/fault-matrix-v1.json
           include-hidden-files: true
           if-no-files-found: error
           retention-days: 30
+

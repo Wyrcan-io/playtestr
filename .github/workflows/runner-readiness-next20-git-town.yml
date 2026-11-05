@@ -1,0 +1,152 @@
+name: Next twenty Git Town native development matrix
+on:
+  push:
+    branches: [work/p0-p2-implementation]
+    paths:
+      - '.github/workflows/runner-readiness-next20-git-town.yml'
+      - 'scripts/acceptance/next20_git_town_*.py'
+      - 'scripts/acceptance/next20_check.py'
+      - 'scripts/acceptance/adversarial_process.py'
+      - 'scripts/acceptance/readiness_evidence.py'
+      - 'scripts/acceptance/readiness_storage.py'
+      - 'docs/validation/runner-readiness-next-twenty-project-pass/git-town/**'
+      - 'cmd/**'
+      - 'internal/**'
+      - 'go.mod'
+      - 'go.sum'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: playtestr-next20-git-town-development
+  cancel-in-progress: false
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONIOENCODING: utf-8
+  GOENV: off
+  GOTOOLCHAIN: local
+  GOWORK: off
+  GOMODCACHE: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/active/git-town/go-mod-cache
+  GOCACHE: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/active/git-town/home/go-cache
+  TEMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/active/git-town/tmp
+  TMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/active/git-town/tmp
+  TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/active/git-town/tmp
+jobs:
+  native-development:
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        include:
+          - host: linux
+            runs_on: ubuntu-24.04
+          - host: windows
+            runs_on: windows-2025
+    runs-on: ${{ matrix.runs_on }}
+    timeout-minutes: 60
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+      - name: Create campaign-owned build and temporary roots
+        run: |
+          $target = Join-Path $env:GITHUB_WORKSPACE 'artifacts/runner-readiness-next-twenty-project-pass/active/git-town'
+          @($target, (Join-Path $target 'bin'), (Join-Path $target 'home'), (Join-Path $target 'tmp'), (Join-Path $target 'go-mod-cache'), (Join-Path $env:GITHUB_WORKSPACE 'artifacts/runner-readiness-next-twenty-project-pass/tmp')) | ForEach-Object { New-Item -ItemType Directory -Force -Path $_ | Out-Null }
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          repository: git-town/git-town
+          ref: 8d039892574d4852e1843020c31d423234042e78
+          path: artifacts/runner-readiness-next-twenty-project-pass/active/git-town/src
+          persist-credentials: false
+          set-safe-directory: false
+          fetch-depth: 1
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+        with:
+          go-version: '1.27.0'
+          check-latest: false
+      - name: Restore exact pinned Windows checkout bytes
+        if: matrix.host == 'windows'
+        run: |
+          $source = Join-Path $env:GITHUB_WORKSPACE 'artifacts/runner-readiness-next-twenty-project-pass/active/git-town/src'
+          git -C $source config core.autocrlf false
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          git -C $source checkout-index --all --force
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Download Playtestr Go modules into campaign cache
+        run: |
+          go mod download
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Verify exact frozen Git Town spec bytes before target launch
+        run: python -B scripts/acceptance/next20_git_town_catalog.py docs/validation/runner-readiness-next-twenty-project-pass/git-town/scenario-catalog-v3.json
+      - name: Verify and build pinned Git Town
+        run: python -B scripts/acceptance/next20_git_town_prepare.py
+      - name: Create and verify the synthetic no-remote repository
+        run: python -B scripts/acceptance/next20_git_town_fixture.py
+      - name: Run terminal-query bridge regressions on Linux
+        if: matrix.host == 'linux'
+        run: go test ./internal/runner ./internal/terminal/vt10x
+      - name: Run terminal-query bridge race checks on Linux
+        if: matrix.host == 'linux'
+        run: go test -race ./internal/runner ./internal/terminal/vt10x
+      - name: Capture one bounded native Linux PTY startup
+        if: matrix.host == 'linux'
+        run: python -B scripts/acceptance/next20_git_town_terminal_probe.py
+      - name: Compare startup with a controlling Linux PTY
+        if: matrix.host == 'linux'
+        run: python -B scripts/acceptance/next20_git_town_controlling_tty_probe.py
+      - name: Run the twenty frozen public specs once
+        run: |
+          $cases = @(
+            'N01-hack-feature','N02-append-child','N03-read-parent','N04-display-branch-hierarchy',
+            'N05-hack-prototype','N06-prototype-existing','N07-feature-existing','N09-park-existing',
+            'N11-switch-to-feature','N12-cancel-branch-switch','N13-reject-invalid-branch-name',
+            'N14-reject-duplicate-branch','N15-create-unicode-branch','N16-create-nested-branch',
+            'N17-resize-cancel-selector','N18-rename-local-branch','N19-filter-and-select-feature',
+            'N20-empty-filtered-switcher','N21-display-offline-status','N22-review-configuration'
+          )
+          $failed = 0
+          foreach ($case in $cases) {
+            python -B scripts/acceptance/next20_git_town_case.py --label "$($case)-${{ matrix.host }}-development" "docs/validation/runner-readiness-next-twenty-project-pass/git-town/$case.json"
+            if ($LASTEXITCODE -ne 0) { $failed++ }
+          }
+          if ($failed -ne 0) { throw "$failed of $($cases.Count) Git Town public specs failed" }
+      - name: Verify fault-phase report validator cases
+        run: python -B scripts/acceptance/test_next20_git_town_faults.py
+      - name: Verify artifact auditor ZIP safety checks
+        run: python -B scripts/acceptance/test_git_town_artifact_audit.py
+      - name: Detect three exact pinned-source faults and verify rebuild recovery
+        run: python -B scripts/acceptance/next20_git_town_faults.py --host ${{ matrix.host }}
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: next20-git-town-${{ matrix.host }}-development
+          path: |
+            docs/validation/runner-readiness-next-twenty-project-pass/git-town/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/task-owned.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/acquisition.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/build.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/runtime.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/fixture-source.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/bin/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/src/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/case-evidence/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/controlling-tty-probe/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/fault-events/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/fault-builds/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/fault-binaries/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/case-evidence/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/fault-case-validator-observations/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/fault-matrix-started-*.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/fault-prelaunch-refusal-*.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/git-town/fault-matrix-started.json
+            docs/validation/runner-readiness-next-twenty-project-pass/git-town/fault-matrix-*-v1.json
+            artifacts/runner-readiness-next-twenty-project-pass/git-town/**
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 1

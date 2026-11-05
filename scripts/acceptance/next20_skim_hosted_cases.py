@@ -22,9 +22,19 @@ def main():
     if not 1 <= args.rounds <= 12:
         raise ValueError('rounds must be between 1 and 12')
     package = ROOT / 'docs/validation/runner-readiness-next-twenty-project-pass/skim'
-    declaration = json.loads((package / 'scenario-declaration-v5.json').read_text(encoding='utf-8'))
+    base_path = package / 'scenario-declaration-v5.json'
+    revision_path = package / 'scenario-declaration-v6.json'
+    declaration = json.loads(base_path.read_text(encoding='utf-8'))
+    revision = json.loads(revision_path.read_text(encoding='utf-8'))
+    if revision.get('base_declaration') != base_path.name or revision.get('base_sha256') != sha256(base_path):
+        raise ValueError('Skim scenario revision is not bound to its base declaration')
     rows = {row['id']: row for row in declaration['scenarios']}
-    if set(rows) != set(CASES):
+    for row in revision.get('replacements', []):
+        if row.get('id') not in rows:
+            raise ValueError('scenario revision names an unknown case')
+        rows[row['id']] = row
+    if (set(rows) != set(CASES) or revision.get('scenario_count') != 20 or
+            revision.get('normal_count') != 8 or revision.get('edge_count') != 12):
         raise ValueError('frozen Skim scenario declaration must contain exactly twenty cases')
     evidence = RAW / 'active/skim/case-evidence'
     evidence.mkdir(parents=True, exist_ok=True)
@@ -84,7 +94,8 @@ def main():
                  for item in outcomes)
     receipt = dict(schema_version=1, project='skim', host=args.host,
                    source_pin='1ab47f6ba7f1bfc355273bbdd98d4b2056ef95a3',
-                   scenario_declaration_sha256=sha256(package / 'scenario-declaration-v5.json'),
+                   scenario_declaration_sha256=sha256(revision_path),
+                   scenario_base_sha256=sha256(base_path),
                    rounds=args.rounds, expected_cases=20 * args.rounds,
                    completed=len(outcomes), passing=passed, failed=len(outcomes) - passed,
                    outcomes=outcomes)
@@ -104,3 +115,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+

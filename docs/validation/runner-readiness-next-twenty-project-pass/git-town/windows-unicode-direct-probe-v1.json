@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "project": "git-town",
+  "label": "native-windows-direct-unicode-branch-probe",
+  "runner": "local Windows; outside hosted qualification",
+  "source_pin": "8d039892574d4852e1843020c31d423234042e78",
+  "executable_sha256": "e16a0c20bf8c36ef93e01488f50469ddc793e826d93caf6337a075fe8da2163b",
+  "fixture_manifest_sha256": "a806cb29e616007015818ee2f0be995d606678cad774c05aabe1c1517016fb1d",
+  "argv": [
+    "git-town.exe",
+    "hack",
+    "--no-sync",
+    "--non-interactive",
+    "feat-é"
+  ],
+  "environment": "A temporary HOME, USERPROFILE, APPDATA, LOCALAPPDATA, and empty Git global config were rooted below the owned probe directory; system Git config and prompts were disabled.",
+  "result": {
+    "exit_code": 0,
+    "head_base64": "cmVmOiByZWZzL2hlYWRzL2ZlYXQtw6kK",
+    "expected_head_base64": "cmVmOiByZWZzL2hlYWRzL2ZlYXQtw6kK",
+    "head_matches": true,
+    "output_contains_unicode_branch": true,
+    "workspace_cleanup_confirmed": true
+  },
+  "prior_diagnostic_attempt": {
+    "status": "failed-before-branch-creation",
+    "reason": "APPDATA was not redirected, and Git Town's attempted creation of C:\\Users\\abhir\\AppData\\Roaming\\git-town was denied by the OS. No successful write was observed; the retry explicitly set APPDATA and LOCALAPPDATA inside the owned probe root."
+  },
+  "interpretation": "The pinned Git Town executable supports the Unicode branch name when launched directly with Unicode-preserving Windows process arguments. The hosted Playtestr mismatch remains attributable to an unisolated difference in runner launch, environment, or evidence path; this direct check is diagnostic only and grants no scenario or platform qualification credit."
+}

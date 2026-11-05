@@ -32,14 +32,20 @@ and published rc.2 bytes remain unchanged.
 
 Ambiguous characters remain one column; resize does not reflow text. Combining
 clusters, variation selectors, emoji/ZWJ sequences and terminal-specific width
-settings remain unsupported. Current source answers only exact primary
-device-attributes queries (`CSI c` and `CSI 0 c`) with `CSI ? 6 c` on Unix.
-The response uses a bounded session-owned queue/writer and shares input
-serialization with user keys. Windows leaves query replies to ConPTY.
-Cursor/status/color queries, other device queries and bracketed-paste behavior
-remain outside the supported contract. Published binaries retain their recorded
+settings remain unsupported. Current Unix source returns only the emulator's
+exact primary device-attributes (`CSI c` and `CSI 0 c`), device status, cursor
+position and default foreground/background color responses. The bounded
+session-owned queue/writer shares input serialization with user keys and rejects
+other response shapes. Windows leaves query replies to ConPTY. Other device
+queries and bracketed-paste behavior remain outside the supported contract. The
+measured expansion is recorded in the
+[startup-query decision](decisions/bounded-terminal-startup-replies.md).
+Published binaries retain their recorded
 behavior; native ordinary/race source validation passes in
 [run 39039797857](https://github.com/Wyrcan-io/playtestr/actions/runs/39039797857).
+The bounded color/cursor/status reply subset also passed ordinary and race
+runner tests and Git Town's frozen 20-case source-development matrix on Ubuntu
+and Windows in [run 41898559438](https://github.com/Wyrcan-io/playtestr/actions/runs/41898559438).
 Exact candidate archive qualification remains pending. This minimal
 identification is not complete VT102 certification. See the
 [decision and transport bounds](decisions/terminal-primary-device-attributes.md).

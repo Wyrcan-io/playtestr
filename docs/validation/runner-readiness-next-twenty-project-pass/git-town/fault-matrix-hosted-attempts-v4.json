@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "project": "git-town",
+  "attempts": [
+    {
+      "run_id": "41927271194",
+      "head_sha": "0791e9389d3840eb2ead06651253443eb22e6012",
+      "fault_declaration": "fault-declaration-v4.json",
+      "native_cells": [
+        {
+          "host": "windows-2025",
+          "job_id": "126914823303",
+          "public_cases_passed": 20,
+          "F01": "pristine, corrupted, and restored/rebuilt phases accepted",
+          "F02": {
+            "pristine_target_launched": true,
+            "pristine_contract_passed": true,
+            "pristine_target_exit_code": 0,
+            "corrupted_phase_launched": false,
+            "validator_error": "The helper incorrectly compared the passing baseline exit 0 with the corrupted-phase expected target exit 1."
+          },
+          "artifact_id": "13369359245",
+          "artifact_size_bytes": 30951410,
+          "artifact_sha256": "8fd0f5e13e61e84599556398cf19a5565d2cb1afda43d1d6ac3be99745e5fee6"
+        },
+        {
+          "host": "ubuntu-24.04",
+          "job_id": "126914822709",
+          "public_cases_passed": 20,
+          "F01": "pristine, corrupted, and restored/rebuilt phases accepted",
+          "F02": {
+            "pristine_target_launched": true,
+            "pristine_contract_passed": true,
+            "pristine_target_exit_code": 0,
+            "corrupted_phase_launched": false,
+            "validator_error": "The helper incorrectly compared the passing baseline exit 0 with the corrupted-phase expected target exit 1."
+          },
+          "artifact_id": "13368784273",
+          "artifact_size_bytes": 30706171,
+          "artifact_sha256": "1c2fe52574e77e2357354a6e97e57ebf270674904ce711288d40393c3443bc6d"
+        }
+      ],
+      "qualification_credit": 0,
+      "independent_artifact_audit": "pending"
+    }
+  ],
+  "qualification_credit": 0
+}
+

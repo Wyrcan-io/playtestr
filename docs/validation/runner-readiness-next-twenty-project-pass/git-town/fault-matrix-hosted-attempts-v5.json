@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "project": "git-town",
+  "attempts": [
+    {
+      "run_id": "41928367901",
+      "head_sha": "e635afd4d7a3fc27c644b927c6f971baa2a2c724",
+      "fault_declaration": "fault-declaration-v4.json",
+      "native_cells": [
+        {
+          "host": "ubuntu-24.04",
+          "job_id": "126918658805",
+          "public_cases_passed": 20,
+          "linux_package_tests": "passed",
+          "linux_race_tests": "passed",
+          "F01": {
+            "pristine_target_launched": true,
+            "pristine_contract_passed": true,
+            "reported_target_exit_code": null,
+            "exit_step_status": "passed",
+            "validator_rejected": true,
+            "corrupted_phase_launched": false
+          },
+          "artifact_id": "13369938103",
+          "artifact_size_bytes": 30694267,
+          "artifact_sha256": "8efbbe9686f280d8a59d254abfc3b4186d77b00cb66a6ed5dbaccba28a71b1e4"
+        },
+        {
+          "host": "windows-2025",
+          "job_id": "126918659553",
+          "public_cases_passed": 20,
+          "F01": {
+            "pristine_target_launched": true,
+            "pristine_contract_passed": true,
+            "reported_target_exit_code": null,
+            "exit_step_status": "passed",
+            "validator_rejected": true,
+            "corrupted_phase_launched": false
+          },
+          "artifact_id": "13368954701",
+          "artifact_size_bytes": 30940091,
+          "artifact_sha256": "f99aece99d574b2dfa2e2b99aee11255aff246eeece7b8ef1364b88671839a5b"
+        }
+      ],
+      "failure": "The committed helper required target_result.exit_code == 0. Reports instead leave this aggregate field null while the exact exit assertion passed; both native baselines passed their expect/exit/state steps and cleanup checks. Neither host reached a corrupted phase.",
+      "qualification_credit": 0,
+      "independent_artifact_audit": "pending"
+    }
+  ],
+  "qualification_credit": 0
+}

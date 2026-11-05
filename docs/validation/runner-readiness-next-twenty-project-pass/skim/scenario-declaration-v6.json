@@ -1,0 +1,47 @@
+{
+  "schema_version": 6,
+  "project": "skim",
+  "base_declaration": "scenario-declaration-v5.json",
+  "base_sha256": "3e1d9e2501a20f498cd60082f1350c0cdceb1067c4eea8b8f38171f6c57b6dbd",
+  "supersedes_sha256": "3e1d9e2501a20f498cd60082f1350c0cdceb1067c4eea8b8f38171f6c57b6dbd",
+  "scenario_count": 20,
+  "normal_count": 8,
+  "edge_count": 12,
+  "replacements": [
+    {
+      "id": "E03",
+      "kind": "edge",
+      "task": "Unknown CLI option",
+      "fixture": "fixtures/cases/E03",
+      "fixture_files_sha256": {
+        "emit.py": "61829818d3fc8c651af0178a0f99a04888f67662383f6c1d8cf4c8ac235c241b",
+        "items.txt": "4a4f69ffb6a9cc9e71e1176cbbc4ee9dccb62bc177e3575f4a6d5645c87f297d"
+      },
+      "contract": "E03-v3.json",
+      "contract_sha256": "ae98723744ef56bb6c609efe76bb77e3e972d4d5d0f05f00d8d2fb5c112cb657",
+      "positive_evidence": "Exact target exit code 2 and confirmed workspace cleanup; this invalid CLI option exits before terminal output.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    },
+    {
+      "id": "E04",
+      "kind": "edge",
+      "task": "Negative minimum-height boundary",
+      "fixture": "fixtures/cases/E04",
+      "fixture_files_sha256": {
+        "emit.py": "61829818d3fc8c651af0178a0f99a04888f67662383f6c1d8cf4c8ac235c241b",
+        "items.txt": "4a4f69ffb6a9cc9e71e1176cbbc4ee9dccb62bc177e3575f4a6d5645c87f297d"
+      },
+      "contract": "E04-v3.json",
+      "contract_sha256": "3be9e756074d5c25f52d84dbf9f450d7e1bf1376fd934ea3d5336d2037e2a031",
+      "positive_evidence": "Exact target exit code 2 and confirmed workspace cleanup; this invalid CLI option exits before terminal output.",
+      "hosts": [
+        "windows",
+        "linux"
+      ]
+    }
+  ]
+}
+

@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "run": "41827379961",
+  "host": "ubuntu-24.04",
+  "tooling_revision": "47d5ff9bdaabadbf98539a8dce81ecb33fed3012",
+  "job_conclusion": "success",
+  "artifact": {
+    "id": 13320081948,
+    "name": "next20-harness-ubuntu-24.04.zip",
+    "bytes": 509282,
+    "sha256": "6c99ddab7b029c2a3895235eebf13bccb44fbca7ee9f642d4a9a7f34e90ca5bf",
+    "retained_local_path": "artifacts/runner-readiness-next-twenty-project-pass/retrieved/next20-harness-ubuntu.zip",
+    "expanded_on_disk": false
+  },
+  "checks": [
+    {
+      "label": "native-next20-syntax",
+      "attempt": "386c1254e7014cd494cd63688172058d",
+      "category": "passed",
+      "exit_code": 0,
+      "harness_cleanup": "harness_process_reaped",
+      "console_sha256": "e48c3c93b1b51ce0d1e1f42bb5f4698330908d6cb0b544ec05622cdb190cc4e6",
+      "identity_sha256": "49df8c3bb99daa34fa8d105f87d67d9713f3e3383803dad2395751563de035ce",
+      "evidence": "Parsed 288 next20 helper files"
+    },
+    {
+      "label": "failed-console-regression-fc3d1b6696e149589dd5d41d7c7b1646",
+      "attempt": "7731a6655ff540b681e2766c643ee777",
+      "intentional_failure_control": true,
+      "category": "exit_mismatch",
+      "exit_code": 3,
+      "harness_cleanup": "harness_process_reaped",
+      "console_sha256": "ffb37d2506789959e529ebde88b4dfc2392279d5a8bb76c44b2bd2fa6aea1165",
+      "identity_sha256": "49df8c3bb99daa34fa8d105f87d67d9713f3e3383803dad2395751563de035ce",
+      "evidence": "Retained exact expected-failure console"
+    },
+    {
+      "label": "native-next20-command-controls",
+      "attempt": "7bb4950f22154616afff9843962671ce",
+      "category": "passed",
+      "exit_code": 0,
+      "harness_cleanup": "harness_process_reaped",
+      "console_sha256": "6e29704feaa383bd1e8cf24fa23f2e23a5e1fa319366354eba9e3213ef9aed61",
+      "identity_sha256": "49df8c3bb99daa34fa8d105f87d67d9713f3e3383803dad2395751563de035ce",
+      "evidence": "68 named tests: 66 passed, 2 explicit host skips"
+    }
+  ],
+  "named_controls_passed": 66,
+  "tests_discovered": 68,
+  "skips": [
+    {
+      "test": "test_native_large_cleanup_requires_matching_explicit_bound (test_next20_campaign.NextCampaignTests.test_native_large_cleanup_requires_matching_explicit_bound)",
+      "reason": "native Windows checked target removal control"
+    },
+    {
+      "test": "test_native_target_removal_refuses_changed_payload_then_removes_exact_owned_fixture (test_next20_campaign.NextCampaignTests.test_native_target_removal_refuses_changed_payload_then_removes_exact_owned_fixture)",
+      "reason": "native Windows checked target removal control"
+    }
+  ],
+  "native_removal_commands": "Present in retained Windows artifact; not counted as project evidence.",
+  "new_project_credit": 0,
+  "expanded_removal_confirmed": null,
+  "scope": "Three-host readiness harness: source-bound helper syntax, named actual-control suite, and retained intentional failure. No application or archive-product-control reexecution credit.",
+  "identity_manifests_verified": [
+    {
+      "path": "identities/49df8c3bb99daa34fa8d105f87d67d9713f3e3383803dad2395751563de035ce.json",
+      "sha256": "49df8c3bb99daa34fa8d105f87d67d9713f3e3383803dad2395751563de035ce",
+      "file_count": 752,
+      "host": "Linux",
+      "architecture": "x86_64"
+    },
+    {
+      "path": "identities/49df8c3bb99daa34fa8d105f87d67d9713f3e3383803dad2395751563de035ce.json",
+      "sha256": "49df8c3bb99daa34fa8d105f87d67d9713f3e3383803dad2395751563de035ce",
+      "file_count": 752,
+      "host": "Linux",
+      "architecture": "x86_64"
+    },
+    {
+      "path": "identities/49df8c3bb99daa34fa8d105f87d67d9713f3e3383803dad2395751563de035ce.json",
+      "sha256": "49df8c3bb99daa34fa8d105f87d67d9713f3e3383803dad2395751563de035ce",
+      "file_count": 752,
+      "host": "Linux",
+      "architecture": "x86_64"
+    }
+  ]
+}

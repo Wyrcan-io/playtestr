@@ -1,0 +1,57 @@
+name: Next twenty Git Town independent artifact audit
+on:
+  push:
+    branches: [work/p0-p2-implementation]
+    paths:
+      - '.github/workflows/runner-readiness-next20-git-town-audit.yml'
+      - 'scripts/acceptance/git_town_artifact_audit.py'
+      - 'scripts/acceptance/test_git_town_artifact_audit.py'
+      - 'docs/validation/runner-readiness-next-twenty-project-pass/audit-requests/git-town-audit-*.json'
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: playtestr-next20-git-town-independent-audit
+  cancel-in-progress: false
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONIOENCODING: utf-8
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - id: request
+        name: Check for an exact completed-run audit request
+        shell: pwsh
+        run: |
+          $request = 'docs/validation/runner-readiness-next-twenty-project-pass/audit-requests/git-town-audit-v13.json'
+          if (Test-Path -LiteralPath $request) { 'ready=true' >> $env:GITHUB_OUTPUT }
+          else { 'ready=false' >> $env:GITHUB_OUTPUT }
+      - name: Run bounded ZIP-audit unit checks
+        run: python -B scripts/acceptance/test_git_town_artifact_audit.py
+      - name: Independently retrieve and audit both original native packets
+        if: steps.request.outputs.ready == 'true'
+        shell: pwsh
+        run: |
+          $output = 'artifacts/runner-readiness-next-twenty-project-pass/audit/git-town'
+          New-Item -ItemType Directory -Force -Path $output | Out-Null
+          python -B scripts/acceptance/git_town_artifact_audit.py `
+            --request docs/validation/runner-readiness-next-twenty-project-pass/audit-requests/git-town-audit-v13.json `
+            --output "$output/audit-receipt-v1.json"
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always() && steps.request.outputs.ready == 'true'
+        with:
+          name: next20-git-town-independent-audit
+          path: artifacts/runner-readiness-next-twenty-project-pass/audit/git-town/**
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 30
+
