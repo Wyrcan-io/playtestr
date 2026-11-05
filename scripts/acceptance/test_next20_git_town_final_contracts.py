@@ -72,6 +72,12 @@ class GitTownFinalContractTests(unittest.TestCase):
             self.assertEqual(spec['timeout_ms'], 20000, case['id'])
             self.assertEqual(spec['run_timeout_ms'], 60000, case['id'])
 
+    def test_final_workflow_deadline_covers_the_full_native_series(self):
+        workflow = Path(__file__).parents[2] / '.github' / 'workflows' / 'runner-readiness-next20-git-town-final.yml'
+        text = workflow.read_text(encoding='utf-8')
+        self.assertIn('--timeout 2400 -- python -B scripts/acceptance/next20_git_town_final_series.py', text)
+        self.assertIn('timeout-minutes: 60', text)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -223,3 +223,6 @@ V11 declaration note: the first immutable v11 declaration was superseded before 
 
 
 Eleventh hosted attempt `41974745060` refused before launching any Git Town test cases: the journal preflight still referenced scenario alias v5 after the freeze advanced to v6. Both artifacts are preserved with full inventories in [`final-series-attempts-v11.json`](final-series-attempts-v11.json). Candidate case counters do not change. Windows process proof found no target process, but both cleanup jobs refused source/runtime deletion because no case-report cleanup proof existed; ephemeral runner teardown followed. V13 shares and tests the scenario-alias validator, and a fresh complete run must re-establish cleanup evidence.
+
+
+Twelfth exact-candidate attempt (`41975837578`): Windows completed 240/240 cases, all nine source-fault phases, and checked cleanup. Linux passed 195 cases; the outer `next20_check.py` deadline fired at exactly 1,200 seconds during N18 in batch 9, cancelling one target case. Its workspace/process cleanup and the host source/runtime removal passed. Both packets and inventory hashes are preserved in [`final-series-attempts-v12.json`](final-series-attempts-v12.json). The run adds 436 target launches (435 pass, one cancelled) and zero candidate credit. V14 raises the bounded outer series deadline to 2,400 seconds and binds the workflow file.
