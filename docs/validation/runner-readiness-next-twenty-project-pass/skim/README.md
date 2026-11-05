@@ -60,26 +60,3 @@ claiming that directional navigation works. The hosted Linux and Windows source
 runs now pass the frozen matrix, but they do not resolve directional-navigation
 compatibility. E12 checks screen and exit only; exact NUL output framing still
 needs a separate bounded output capture.
-
-The 4 November hosted rerun also reproduced Linux E03 and E04 startup failures:
-Skim's invalid-option parser exited with the declared code 2 before emitting
-terminal output, while the generic startup gate required first output before it
-would execute the explicit exit assertion. E03-v3 and E04-v3 remove that
-startup-output gate; each requires its exact exit code and owned-workspace
-cleanup as positive evidence for a CLI parser path that never enters terminal
-mode. Scenario declaration v6 binds both replacement contracts and keeps the
-earlier v2 results in the attempt log.
-
-
-The corrected declaration v6 was executed in source-development run `41827379783`
-(commit `47d5ff9bdaabadbf98539a8dce81ecb33fed3012`). Native Linux and Windows
-each passed all 20 frozen cases, including E03-v3 and E04-v3 exact exit-code-2
-and workspace-cleanup checks; all 40 owned workspaces were cleaned. Windows also
-detected all three declared real source mutations. Its 28-member fault archive
-was independently verified against its manifest, including failed screen evidence,
-confirmed process-tree/workspace cleanup and exact source restoration. Receipts
-and per-case hashes are in [source development readback v2](source-development-readback-v2.json).
-
-This completes Skim's hosted source-development matrix and source-fault discovery
-gate. It does not qualify a private candidate archive, final repeated series or
-calibrations, and it does not change the new-project admission count.

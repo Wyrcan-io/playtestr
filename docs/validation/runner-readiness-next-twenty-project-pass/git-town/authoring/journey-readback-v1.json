@@ -65,17 +65,26 @@
   },
   "generated_free_ci": {
     "workflow": ".github/workflows/runner-readiness-next20-git-town-user-ci.yml",
-    "workflow_sha256": "af4edc38059673c47acf9ce7ae61fd635367fb715d49e66e633ca24b3fb5470a",
+    "workflow_sha256": "78928f1b4acc68ac2d211bf6d88b43b808e396d1008ec5609c5783d7522abb39",
     "source_candidate": "24029291cd0221d7611f07d27b464ec0936a815f",
-    "event": "workflow_dispatch",
+    "event": "pull_request, workflow_dispatch, and campaign-branch push",
     "target_checkout": "verified immutable Git Town commit",
     "build_toolchain": "Go 1.27.0 via pinned setup-go action; GOTOOLCHAIN=local; vendored dependencies",
     "suite": "authoring/first-use-git-town.json",
-    "status": "prepared; hosted execution pending",
+    "status": "prepared; campaign-branch hosted execution pending",
     "adjustment": "Generated workflow go-version-file changed to exact Go 1.27.0 because pinned Git Town requires Go 1.26.9; standard PR/workflow_dispatch structure otherwise kept.",
     "fixture_prepare_and_always_cleanup": {
       "helper": "scripts/acceptance/next20_git_town_authoring_fixture.py",
       "helper_sha256": "9f7c8fc77ee53715ce4da6fe86e00ddbf60390b9a52a5b2f77f66f35c829a023"
+    },
+    "campaign_branch_push": {
+      "branch": "work/p0-p2-implementation",
+      "paths": [
+        "generated workflow",
+        "Git Town authoring suite",
+        "bounded fixture materializer"
+      ],
+      "purpose": "allow standard hosted validation on the authorized campaign branch without creating a PR or requiring a workflow-dispatch mutation API"
     }
   },
   "human_participants": 0,
@@ -90,7 +99,7 @@
     "git_pointer_file": "git-pointer.txt",
     "runtime_mapping": {
       "git-pointer.txt": ".git",
-      ".git-metadata/": " .gitdir/"
+      ".git-metadata/": ".gitdir/"
     },
     "embedded_gitlinks": false,
     "helper": "scripts/acceptance/next20_git_town_authoring_fixture.py",

@@ -121,7 +121,7 @@ func startTerminalSessionWithPTY(config sessionConfig, p xpty.Pty) (*terminalSes
 	}
 	if runtime.GOOS != "windows" {
 		s.replyQueue = make(chan []byte, 16)
-		go s.writeTerminalReplies()
+		go s.writePrimaryReplies()
 	} else {
 		// ConPTY handles its own device queries. Never inject duplicate replies.
 		close(s.replyDone)
@@ -204,7 +204,7 @@ func (s *terminalSession) readOutput() {
 			if accepted > 0 {
 				s.terminal.Write(buffer[:accepted])
 				var replyErr error
-				replies, replyErr = s.terminal.takeTerminalReplies()
+				replies, replyErr = s.terminal.takePrimaryReplies()
 				if replyErr != nil {
 					s.replyError = errors.Join(s.replyError, fmt.Errorf("collect terminal primary replies: %w", replyErr))
 				}
@@ -236,7 +236,7 @@ func (s *terminalSession) readOutput() {
 
 // One bounded writer per Unix session serializes replies with ordinary input.
 // A blocked backend write is released by PTY closure; stop joins this worker.
-func (s *terminalSession) writeTerminalReplies() {
+func (s *terminalSession) writePrimaryReplies() {
 	defer close(s.replyDone)
 	for {
 		select {
@@ -263,7 +263,7 @@ func (s *terminalSession) writeTerminalReplies() {
 				default:
 				}
 				s.mu.Lock()
-				s.replyError = errors.Join(s.replyError, fmt.Errorf("write terminal reply: %w", err))
+				s.replyError = errors.Join(s.replyError, fmt.Errorf("write terminal primary reply: %w", err))
 				s.mu.Unlock()
 				return
 			}

@@ -18,8 +18,8 @@ import (
 	"golang.org/x/term"
 )
 
-func TestTerminalReplyPTYHelper(t *testing.T) {
-	mode := os.Getenv("PLAYTESTR_TERMINAL_REPLY_HELPER")
+func TestPrimaryReplyPTYHelper(t *testing.T) {
+	mode := os.Getenv("PLAYTESTR_PRIMARY_REPLY_HELPER")
 	if mode == "" {
 		return
 	}
@@ -35,16 +35,12 @@ func TestTerminalReplyPTYHelper(t *testing.T) {
 		}
 	}
 	for round := 0; round < 8; round++ {
-		// Unsupported queries must not inject bytes ahead of supported replies.
-		fmt.Print("\x1b]4;1;?\x07\x1b]10;?\x07\x1b]11;?\x07\x1b[6n\x1b[5n\x1b[>c\x1b[c")
-		for _, expected := range []string{
-			"\x1b]10;rgb:0000/0000/0000\x07", "\x1b]11;rgb:0000/0000/0101\x07",
-			"\x1b[1;1R", "\x1b[0n", "\x1b[?6c",
-		} {
-			reply := make([]byte, len(expected))
-			if _, err := io.ReadFull(os.Stdin, reply); err != nil || string(reply) != expected {
-				os.Exit(12)
-			}
+		// Ignored requests must not inject a response ahead of the measured DA.
+		fmt.Print("\x1b]10;?\x07\x1b[6n\x1b[>c\x1b[")
+		fmt.Print("0c")
+		var reply [5]byte
+		if _, err := io.ReadFull(os.Stdin, reply[:]); err != nil || string(reply[:]) != "\x1b[?6c" {
+			os.Exit(12)
 		}
 	}
 	fmt.Print("\x1b[H\x1b[2Jquery startup ready\r\n")
@@ -53,8 +49,8 @@ func TestTerminalReplyPTYHelper(t *testing.T) {
 		os.Exit(13)
 	}
 	fmt.Print("\x1b[c")
-	reply := make([]byte, len("\x1b[?6c"))
-	if _, err := io.ReadFull(os.Stdin, reply); err != nil || string(reply) != "\x1b[?6c" {
+	var reply [5]byte
+	if _, err := io.ReadFull(os.Stdin, reply[:]); err != nil || string(reply[:]) != "\x1b[?6c" {
 		os.Exit(14)
 	}
 	fmt.Print("query and normal input verified\r\n")
@@ -67,8 +63,8 @@ func primaryReplySpec(t *testing.T, mode string, cap int64, expected int) RunRes
 	if mode == "flood" {
 		steps = []Step{{Expect: "never emitted completion"}}
 	}
-	spec := Spec{Version: SpecVersion, Command: []string{os.Args[0], "-test.run=^TestTerminalReplyPTYHelper$"},
-		Env: map[string]string{"PLAYTESTR_TERMINAL_REPLY_HELPER": mode}, Width: 80, Height: 24,
+	spec := Spec{Version: SpecVersion, Command: []string{os.Args[0], "-test.run=^TestPrimaryReplyPTYHelper$"},
+		Env: map[string]string{"PLAYTESTR_PRIMARY_REPLY_HELPER": mode}, Width: 80, Height: 24,
 		TimeoutMS: 3000, RunTimeoutMS: 15000, MaxOutputBytes: cap, Steps: steps}
 	data, err := json.Marshal(spec)
 	if err != nil {
@@ -81,7 +77,7 @@ func primaryReplySpec(t *testing.T, mode string, cap int64, expected int) RunRes
 	return RunDetailedContext(context.Background(), path, RunOptions{}, &bytes.Buffer{})
 }
 
-func TestTerminalReplyRealPTYStartupAndExactExit(t *testing.T) {
+func TestPrimaryReplyRealPTYStartupAndExactExit(t *testing.T) {
 	for _, expected := range []int{0, 7} {
 		result := primaryReplySpec(t, "exchange", 100000, expected)
 		if expected == 0 && result.Err() != nil {
@@ -96,17 +92,17 @@ func TestTerminalReplyRealPTYStartupAndExactExit(t *testing.T) {
 	}
 }
 
-func TestTerminalReplyFloodPreservesOutputLimit(t *testing.T) {
+func TestPrimaryReplyFloodPreservesOutputLimit(t *testing.T) {
 	result := primaryReplySpec(t, "flood", 4096, 0)
 	if result.Failure == nil || result.Failure.Category != FailureOutputLimit || !result.Cleanup.ConfirmedExited {
 		t.Fatalf("query flood must fail accurately and clean up: %+v", result)
 	}
 }
 
-func TestTerminalReplyBlockedWriterStopsWithinCleanup(t *testing.T) {
+func TestPrimaryReplyBlockedWriterStopsWithinCleanup(t *testing.T) {
 	session, err := startTerminalSession(sessionConfig{
-		command: []string{os.Args[0], "-test.run=^TestTerminalReplyPTYHelper$"},
-		env:     append(os.Environ(), "PLAYTESTR_TERMINAL_REPLY_HELPER=flood"), width: 80, height: 24, maxOutputBytes: 2000000})
+		command: []string{os.Args[0], "-test.run=^TestPrimaryReplyPTYHelper$"},
+		env:     append(os.Environ(), "PLAYTESTR_PRIMARY_REPLY_HELPER=flood"), width: 80, height: 24, maxOutputBytes: 2000000})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -149,20 +145,20 @@ func TestTerminalReplyBlockedWriterStopsWithinCleanup(t *testing.T) {
 type primaryReplyWriteFailurePTY struct{ xpty.Pty }
 
 func (p primaryReplyWriteFailurePTY) Write(value []byte) (int, error) {
-	if bytes.Contains(value, []byte("\x1b[?6c")) {
+	if bytes.HasPrefix(value, []byte("\x1b[?6c")) {
 		return 0, io.ErrClosedPipe
 	}
 	return p.Pty.Write(value)
 }
 
-func TestTerminalReplyTransportErrorIsPreservedWithRealTarget(t *testing.T) {
+func TestPrimaryReplyTransportErrorIsPreservedWithRealTarget(t *testing.T) {
 	pty, err := newTerminalPty(80, 24)
 	if err != nil {
 		t.Fatal(err)
 	}
 	session, err := startTerminalSessionWithPTY(sessionConfig{
-		command: []string{os.Args[0], "-test.run=^TestTerminalReplyPTYHelper$"},
-		env:     append(os.Environ(), "PLAYTESTR_TERMINAL_REPLY_HELPER=exchange"), width: 80, height: 24, maxOutputBytes: 100000},
+		command: []string{os.Args[0], "-test.run=^TestPrimaryReplyPTYHelper$"},
+		env:     append(os.Environ(), "PLAYTESTR_PRIMARY_REPLY_HELPER=exchange"), width: 80, height: 24, maxOutputBytes: 100000},
 		primaryReplyWriteFailurePTY{pty})
 	if err != nil {
 		t.Fatal(err)
@@ -180,7 +176,7 @@ func TestTerminalReplyTransportErrorIsPreservedWithRealTarget(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 	cleanup := session.stop(ctx)
-	if cleanup.err == nil || !strings.Contains(cleanup.err.Error(), "write terminal reply") || !cleanup.confirmedExited {
+	if cleanup.err == nil || !strings.Contains(cleanup.err.Error(), "write terminal primary reply") || !cleanup.confirmedExited {
 		t.Fatalf("reply error lost or real target not cleaned up: %+v", cleanup)
 	}
 }

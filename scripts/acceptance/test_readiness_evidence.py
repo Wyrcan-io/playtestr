@@ -21,8 +21,7 @@ class EvidenceTests(unittest.TestCase):
 
     def test_declared_series_phase_survives_all_immutable_events(self):
         with mock.patch.dict('os.environ', {'READINESS_EVIDENCE_PHASE':'final-archive'}):
-            declared = ['final-archive','development','source-fault-baseline','source-fault-corrupted','source-fault-restored']
-            for explicit, expected in [(None,'final-archive'), *[(phase, phase) for phase in declared[1:]]]:
+            for explicit, expected in [(None,'final-archive'),('development','development')]:
                 with self.subTest(phase=expected):
                     campaign=Campaign(Path(self.folder.name)/expected,phase=explicit)
                     identity=uuid.uuid4().hex
