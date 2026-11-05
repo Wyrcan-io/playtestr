@@ -1,10 +1,14 @@
 import io
+import json
+import os
 import stat
+import tempfile
 import unittest
 import zipfile
+from pathlib import Path
 
-from git_town_artifact_audit import (RAW, SOURCE_ARCHIVE_SHA256,
-                                    audit_source_archive, read_archive)
+from git_town_artifact_audit import (PACKAGE, RAW, SOURCE_ARCHIVE_SHA256,
+                                    audit_source_archive, curate_packet, read_archive)
 
 
 def archive(name='evidence/report.json', body=b'{}', mode=stat.S_IFREG | 0o644):
@@ -61,6 +65,31 @@ class GitTownArtifactAuditTests(unittest.TestCase):
                                      {'source_archive_sha256': archive_sha})
         finally:
             auditor.SOURCE_ARCHIVE_SHA256 = original
+
+    def test_curates_reports_and_deduplicates_source_and_binaries(self):
+        files = {
+            RAW + 'src/main.go': b'canonical source',
+            RAW + 'bin/git-town': b'checked target binary',
+            RAW + 'fault-binaries/F01.exe': b'checked rebuilt binary',
+            RAW + 'case-evidence/N01/report.json': b'{"passed":true}',
+            PACKAGE + 'N01.json': b'{"version":3}',
+        }
+        with tempfile.TemporaryDirectory() as root:
+            linux = os.path.join(root, 'linux.zip')
+            windows = os.path.join(root, 'windows.zip')
+            curate_packet(files, 'linux', linux)
+            curate_packet(files, 'windows', windows)
+            linux_files = read_archive(Path(linux).read_bytes())
+            windows_files = read_archive(Path(windows).read_bytes())
+        self.assertIn(RAW + 'src/main.go', linux_files)
+        self.assertIn(PACKAGE + 'N01.json', linux_files)
+        self.assertIn(RAW + 'case-evidence/N01/report.json', windows_files)
+        self.assertNotIn(RAW + 'src/main.go', windows_files)
+        for retained in (linux_files, windows_files):
+            self.assertFalse(any('/bin/' in name or '/fault-binaries/' in name for name in retained))
+            index = json.loads(retained['retention-index-v1.json'])
+            self.assertTrue(any(row['omitted_after_independent_verification'].startswith('binary bytes')
+                                for row in index['members'] if not row['retained']))
 
 
 if __name__ == '__main__':

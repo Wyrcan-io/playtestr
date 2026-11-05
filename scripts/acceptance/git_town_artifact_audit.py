@@ -278,7 +278,42 @@ def audit_faults(files, host):
                 fault_matrix_sha256=digest(value(files, PACKAGE + f'fault-matrix-{host}-v1.json')))
 
 
-def audit_packet(payload, host, run_id, expected_head):
+def curate_packet(files, host, output_path):
+    """Retain audited reports and inputs while deduplicating source and omitting rebuilt binaries."""
+    rows = []
+    kept = 0
+    with zipfile.ZipFile(output_path, 'x', compression=zipfile.ZIP_DEFLATED, compresslevel=6) as archive:
+        for name in sorted(files):
+            reason = None
+            if name.startswith(RAW + 'bin/') or name.startswith(RAW + 'fault-binaries/'):
+                reason = 'binary bytes independently hashed against build and launch receipts'
+            elif host == 'windows' and name.startswith(RAW + 'src/'):
+                reason = 'canonical source payload retained once in Linux packet'
+            elif host == 'windows' and name.startswith(PACKAGE):
+                reason = 'frozen project contracts retained once in Linux packet'
+            row = dict(path=name, bytes=len(files[name]), sha256=digest(files[name]), retained=reason is None)
+            if reason is not None:
+                row['omitted_after_independent_verification'] = reason
+            else:
+                archive.writestr(name, files[name])
+                kept += 1
+            rows.append(row)
+        index = dict(schema_version=1, project='git-town', host=host,
+                     source_payload_retained_in='linux' if host == 'windows' else host,
+                     input_artifact_members=len(files), retained_members=kept,
+                     omitted_members=len(files) - kept, members=rows)
+        archive.writestr('retention-index-v1.json',
+                         json.dumps(index, ensure_ascii=False, sort_keys=True, separators=(',', ':')).encode('utf-8'))
+    with open(output_path, 'rb') as stream:
+        packet_sha = hashlib.file_digest(stream, 'sha256').hexdigest()
+    packet_bytes = os.path.getsize(output_path)
+    require(packet_bytes <= 64 * 1024 * 1024,
+            'curated per-host evidence packet exceeded the 64 MiB project cap')
+    return dict(path=os.path.basename(output_path), sha256=packet_sha,
+                bytes=packet_bytes, retained_members=kept, indexed_members=len(files))
+
+
+def audit_packet(payload, host, run_id, expected_head, retention_root):
     files = read_archive(payload)
     common = audit_source(files)
     build=json_value(files,RAW+'build.json')
@@ -291,8 +326,10 @@ def audit_packet(payload, host, run_id, expected_head):
     require((source.get('project') == 'git-town' or source.get('slug') == 'git-town') and source.get('pin') == SOURCE_PIN,
             'campaign-owned target identity differs')
     matrix = audit_faults(files, host)
+    retained = curate_packet(files, host, os.path.join(retention_root, f'retained-{host}-v1.zip'))
     return dict(host=host,artifact_members=len(files),expanded_bytes=sum(map(len, files.values())),
                 public_cases=public,public_case_count=len(public),source=common,faults=matrix,
+                retained_packet=retained,
                 task_owned_sha256=digest(value(files, RAW + 'task-owned.json')),
                 run_id=str(run_id),head_sha=expected_head)
 
@@ -365,7 +402,7 @@ def main():
         head_sha=run['head_sha'], conclusion=run['conclusion'], source_fault_credit=0,
         native_cells=[], audit_method='Separate GitHub-hosted Linux audit job downloaded both original artifact ZIPs, verified provider size/SHA-256, then independently checked exact source, public reports, fault reports, target exits and cleanup.')
     for host, (artifact, payload) in packets.items():
-        cell = audit_packet(payload, host, run['id'], run['head_sha'])
+        cell = audit_packet(payload, host, run['id'], run['head_sha'], os.path.dirname(args.output))
         cell['artifact_id'] = artifact['id']
         cell['artifact_sha256'] = digest(payload)
         cell['artifact_bytes'] = len(payload)
@@ -383,6 +420,8 @@ def main():
             'independent native artifact audit is incomplete')
     require(result['all_packets_share_archive_and_provenance'] and result['all_packets_share_frozen_specs'],
             'Linux and Windows artifacts do not share exact source and scenario contracts')
+    require(sum(cell['retained_packet']['bytes'] for cell in result['native_cells']) <= 64 * 1024 * 1024,
+            'combined retained Git Town evidence exceeds the 64 MiB project cap')
     with open(args.output, 'x', encoding='utf-8', newline='\n') as stream:
         json.dump(result, stream, ensure_ascii=False, indent=2); stream.write('\n')
     print('GIT_TOWN_INDEPENDENT_AUDIT=' + json.dumps(result, ensure_ascii=True, separators=(',', ':')))
