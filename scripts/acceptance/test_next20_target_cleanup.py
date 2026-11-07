@@ -2,10 +2,22 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from next20_target_cleanup import source_inventory,validate_retained_owned_directories
+from next20_target_cleanup import source_inventory,validate_retained_owned_directories,verify_no_case_evidence
 
 
 class SourceInventoryTests(unittest.TestCase):
+    def test_no_case_cleanup_requires_absent_or_empty_case_evidence(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary)
+            self.assertTrue(verify_no_case_evidence(root))
+            evidence=root/'case-evidence';evidence.mkdir()
+            (evidence/'empty').mkdir()
+            self.assertTrue(verify_no_case_evidence(root))
+            (evidence/'case').mkdir()
+            (evidence/'case'/'started.json').write_text('{}')
+            with self.assertRaises(ValueError):
+                verify_no_case_evidence(root)
+
     def test_excludes_git_metadata_but_hashes_primary_source(self):
         with tempfile.TemporaryDirectory() as temporary:
             root=Path(temporary)

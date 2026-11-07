@@ -1,0 +1,89 @@
+{
+  "candidate_series": "native-exit-v1",
+  "cause": "The workflow populated artifacts/.../active/skim with Go/cache directories before next20_acquire.py, whose invariant requires the active root empty. Reorder acquisition before creating project-owned cache paths.",
+  "commit": "a77c80a2b21aab9041b05dc831865bb7edcaac2b",
+  "hosts": [
+    {
+      "artifact_bytes": 184718,
+      "artifact_id": 13593683340,
+      "artifact_name": "next20-skim-linux-rc6-final",
+      "artifact_sha256": "4238ff8a631cd65f98243a56ed0aacb63715b27d400249bdf17256c9bc16961f",
+      "artifact_zip": "artifacts/runner-readiness-next-twenty-project-pass/retrieved/skim-failed-prelaunch-a77c80a2/skim-linux-a77c80a2.zip",
+      "candidate_archive_installed": false,
+      "cleanup_errors": [],
+      "events": {
+        "finished": {
+          "path": "artifacts/runner-readiness-next-twenty-project-pass/events/8d931e84e44d4b76a0ac4ac796ceb312-finished.json",
+          "sha256": "9db3cd0a05ccf8ec2a9fd3fa9e0e4332f0bf1a769ef0e1d70be0087fead29c8f"
+        },
+        "identified": {
+          "path": "artifacts/runner-readiness-next-twenty-project-pass/events/8d931e84e44d4b76a0ac4ac796ceb312-identified.json",
+          "sha256": "394da9055a30afca5b363fe696379edf094dd1df6055c3c9911d898d38c5200a"
+        },
+        "launched": {
+          "path": "artifacts/runner-readiness-next-twenty-project-pass/events/8d931e84e44d4b76a0ac4ac796ceb312-launched.json",
+          "sha256": "bf2ae95a212c97cee0851d0b11a060496b26dfa6c20c34960cef3704f10a4192"
+        },
+        "started": {
+          "path": "artifacts/runner-readiness-next-twenty-project-pass/events/8d931e84e44d4b76a0ac4ac796ceb312-started.json",
+          "sha256": "19d471acb2cbf386e4dedabebb720c6089f1af1173d0b84a55bad7cc4d041163"
+        }
+      },
+      "failure": "active target already exists; resume/clean it before acquisition",
+      "fault_credit": 0,
+      "harness_cleanup": "harness_process_reaped",
+      "helper_command_launched": true,
+      "host": "linux",
+      "job_id": 128552627118,
+      "ordinary_credit": 0,
+      "pinned_target_acquired": false,
+      "run_id": 42422136311,
+      "runner": "ubuntu-24.04",
+      "target_application_launched": false
+    },
+    {
+      "artifact_bytes": 184716,
+      "artifact_id": 13593449386,
+      "artifact_name": "next20-skim-windows-rc6-final",
+      "artifact_sha256": "6c8d1d1cbd204dbde51a342df6e440860367fb254f9b42d154a16568a9331dde",
+      "artifact_zip": "artifacts/runner-readiness-next-twenty-project-pass/retrieved/skim-failed-prelaunch-a77c80a2/skim-windows-a77c80a2.zip",
+      "candidate_archive_installed": false,
+      "cleanup_errors": [],
+      "events": {
+        "finished": {
+          "path": "artifacts/runner-readiness-next-twenty-project-pass/events/25726c85c8214a5db0ed589dcf274c7c-finished.json",
+          "sha256": "511e26856041f1244243614bae4196a761dc0a4f4969be367738c094da546c18"
+        },
+        "identified": {
+          "path": "artifacts/runner-readiness-next-twenty-project-pass/events/25726c85c8214a5db0ed589dcf274c7c-identified.json",
+          "sha256": "a789ee9b2c5e878fc70b97ee0ff3330264231f6809580b2eb16427560a741f37"
+        },
+        "launched": {
+          "path": "artifacts/runner-readiness-next-twenty-project-pass/events/25726c85c8214a5db0ed589dcf274c7c-launched.json",
+          "sha256": "d124e0d8dff0798a1342bd5dfb4c4264dc040037cdc1ef2f51f7542eff1dfa9b"
+        },
+        "started": {
+          "path": "artifacts/runner-readiness-next-twenty-project-pass/events/25726c85c8214a5db0ed589dcf274c7c-started.json",
+          "sha256": "2047891d5b3dd06222f301a24bab288c7d73925492f91e7857d08d40690db361"
+        }
+      },
+      "failure": "active target already exists; resume/clean it before acquisition",
+      "fault_credit": 0,
+      "harness_cleanup": "harness_process_reaped",
+      "helper_command_launched": true,
+      "host": "windows",
+      "job_id": 128552627296,
+      "ordinary_credit": 0,
+      "pinned_target_acquired": false,
+      "run_id": 42422136311,
+      "runner": "windows-2025",
+      "target_application_launched": false
+    }
+  ],
+  "next_action": "Use corrected workflow order and a fresh predeclared plan generation; never retry within this failed attempt.",
+  "preserved_original_provider_archives": true,
+  "project": "skim",
+  "result": "both native jobs failed before target acquisition; zero target launches and zero qualification credit",
+  "schema_version": 1,
+  "workflow_run_id": 42422136311
+}

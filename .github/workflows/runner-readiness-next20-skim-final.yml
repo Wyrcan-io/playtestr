@@ -15,6 +15,7 @@ on:
       - 'scripts/acceptance/next20_skim_hook_review.py'
       - 'scripts/acceptance/next20_skim_source_verify.py'
       - 'scripts/acceptance/next20_target_cleanup.py'
+      - 'scripts/acceptance/test_next20_target_cleanup.py'
       - 'scripts/acceptance/next20_remove_target.ps1'
       - 'scripts/acceptance/next20_target_process_proof.ps1'
       - 'scripts/acceptance/next20_check.py'
@@ -76,7 +77,7 @@ jobs:
       - name: Create isolated campaign roots
         run: |
           $base = Join-Path $env:GITHUB_WORKSPACE 'artifacts/runner-readiness-next-twenty-project-pass'
-          @((Join-Path $base 'active'), (Join-Path $base 'tmp'), (Join-Path $base 'candidate-download')) | ForEach-Object { New-Item -ItemType Directory -Force -Path $_ | Out-Null }
+          @((Join-Path $base 'tmp'), (Join-Path $base 'candidate-download')) | ForEach-Object { New-Item -ItemType Directory -Force -Path $_ | Out-Null }
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
         with:
           go-version: '1.25.0'
@@ -85,20 +86,21 @@ jobs:
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
           python-version: '3.12'
+      - name: Acquire pinned source and verify exact file set
+        id: acquire
+        run: |
+          python -B scripts/acceptance/next20_check.py --label skim-final-acquisition --timeout 120 -- python -B scripts/acceptance/next20_acquire.py skim --omitted-documentation-links docs/validation/runner-readiness-next-twenty-project-pass/skim/omitted-documentation-links-v3.json
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -B scripts/acceptance/next20_skim_source_verify.py --verify-only
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Prepare Go and task-owned roots
         env:
           GOMODCACHE: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/active/skim/go-mod-cache
           GOCACHE: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/active/skim/home/go-cache
         run: |
           $root = Join-Path $env:GITHUB_WORKSPACE 'artifacts/runner-readiness-next-twenty-project-pass/active/skim'
-          @($root, $env:GOMODCACHE, $env:GOCACHE, (Join-Path $root 'home'), (Join-Path $root 'bin'), (Join-Path $root 'tmp'), (Join-Path $root 'cargo-home'), (Join-Path $root 'rustup-home'), (Join-Path $root 'cargo-target')) | ForEach-Object { New-Item -ItemType Directory -Force -Path $_ | Out-Null }
+          @($env:GOMODCACHE, $env:GOCACHE, (Join-Path $root 'home'), (Join-Path $root 'bin'), (Join-Path $root 'tmp'), (Join-Path $root 'cargo-home'), (Join-Path $root 'rustup-home'), (Join-Path $root 'cargo-target')) | ForEach-Object { New-Item -ItemType Directory -Force -Path $_ | Out-Null }
           go mod download
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-      - name: Acquire pinned source and verify exact file set
-        run: |
-          python -B scripts/acceptance/next20_check.py --label skim-final-acquisition --timeout 120 -- python -B scripts/acceptance/next20_acquire.py skim --omitted-documentation-links docs/validation/runner-readiness-next-twenty-project-pass/skim/omitted-documentation-links-v3.json
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          python -B scripts/acceptance/next20_skim_source_verify.py --verify-only
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Install pinned native Rust toolchain
         env:
@@ -141,12 +143,12 @@ jobs:
           python -B scripts/acceptance/next20_candidate_install.py --series native-exit-v1 --archive $cells[0].archive_local_only
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Validate final-series planner
-        run: python -B -m unittest test_next20_skim_final_series -v
+        run: python -B -m unittest test_next20_skim_final_series test_next20_target_cleanup -v
         working-directory: scripts/acceptance
       - name: Freeze all derived contracts before target execution
         run: python -B scripts/acceptance/next20_check.py --label skim-final-contract-freeze --timeout 180 -- python -B scripts/acceptance/next20_skim_final_series.py --host '${{ matrix.host }}' --prepare-only
       - name: Independently reconstruct all frozen contracts
-        run: python -B scripts/acceptance/next20_check.py --label skim-final-independent-plan-audit --timeout 300 -- python -B scripts/acceptance/next20_skim_final_plan_audit.py --plan artifacts/runner-readiness-next-twenty-project-pass/skim/final-series-plan-native-exit-v3/${{ matrix.host }}/plan.json
+        run: python -B scripts/acceptance/next20_check.py --label skim-final-independent-plan-audit --timeout 300 -- python -B scripts/acceptance/next20_skim_final_plan_audit.py --plan artifacts/runner-readiness-next-twenty-project-pass/skim/final-series-plan-native-exit-v6/${{ matrix.host }}/plan.json
       - name: Execute twelve exact-archive batches
         id: final
         env:
@@ -158,21 +160,26 @@ jobs:
           READINESS_EVIDENCE_PHASE: final-archive
         run: python -B scripts/acceptance/next20_check.py --label skim-final-rc6-fault-calibration --timeout 7200 -- python -B scripts/acceptance/next20_skim_final_faults.py --host '${{ matrix.host }}' --candidate-series native-exit-v1
       - name: Verify source and process-tree cleanup
-        if: always() && steps.prepare.outcome == 'success'
+        if: always() && steps.acquire.outcome == 'success'
         run: |
           python -B scripts/acceptance/next20_skim_source_verify.py --verify-only
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           if ('${{ matrix.host }}' -eq 'windows') { python -B scripts/acceptance/next20_check.py --label skim-final-process-proof --timeout 120 -- powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/acceptance/next20_target_process_proof.ps1 -Project skim }
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Prepare checked target cleanup
-        if: always() && steps.prepare.outcome == 'success'
-        run: python -B scripts/acceptance/next20_check.py --label skim-final-cleanup-preflight --timeout 300 -- python -B scripts/acceptance/next20_target_cleanup.py --project skim --prepare-only --retain-owned-directory case-evidence --max-files 60000 --max-bytes 2147483648
+        if: always() && steps.acquire.outcome != 'skipped'
+        run: |
+          $target = Join-Path $env:GITHUB_WORKSPACE 'artifacts/runner-readiness-next-twenty-project-pass/active/skim'
+          if (Test-Path -LiteralPath $target) {
+            python -B scripts/acceptance/next20_check.py --label skim-final-cleanup-preflight --timeout 300 -- python -B scripts/acceptance/next20_target_cleanup.py --project skim --prepare-only --no-case-reports --retain-owned-directory case-evidence --max-files 60000 --max-bytes 2147483648
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          } else { Write-Output 'No Skim target tree was created; cleanup not applicable.' }
       - name: Remove checked Windows target tree
-        if: always() && steps.prepare.outcome == 'success' && matrix.host == 'windows'
+        if: always() && steps.acquire.outcome != 'skipped' && matrix.host == 'windows'
         run: python -B scripts/acceptance/next20_check.py --label skim-final-target-removal --timeout 300 -- powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/acceptance/next20_remove_target.ps1 -Project skim -MaxFiles 60000 -MaxBytes 2147483648
       - name: Remove checked Unix target tree
-        if: always() && steps.prepare.outcome == 'success' && matrix.host == 'linux'
-        run: python -B scripts/acceptance/next20_check.py --label skim-final-target-removal --timeout 300 -- python -B scripts/acceptance/next20_target_cleanup.py --project skim --max-files 60000 --max-bytes 2147483648
+        if: always() && steps.acquire.outcome != 'skipped' && matrix.host == 'linux'
+        run: python -B scripts/acceptance/next20_check.py --label skim-final-target-removal --timeout 300 -- python -B scripts/acceptance/next20_target_cleanup.py --project skim --no-case-reports --max-files 60000 --max-bytes 2147483648
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:

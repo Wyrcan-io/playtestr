@@ -20,12 +20,12 @@ PROJECT = 'skim'
 PIN = '1ab47f6ba7f1bfc355273bbdd98d4b2056ef95a3'
 CASES = [f'N{i:02d}' for i in range(1, 9)] + [f'E{i:02d}' for i in range(1, 13)]
 RELATIVE_TARGETS = {
-    0: 'final-series-copies-v3/cold-warm-a/sk.exe',
-    1: 'final-series-copies-v3/cold-warm-a/sk.exe',
-    2: 'final-series-copies-v3/cold-warm-b/sk.exe',
-    3: 'final-series-copies-v3/cold-warm-b/sk.exe',
+    0: 'final-series-copies-v6/cold-warm-a/sk.exe',
+    1: 'final-series-copies-v6/cold-warm-a/sk.exe',
+    2: 'final-series-copies-v6/cold-warm-b/sk.exe',
+    3: 'final-series-copies-v6/cold-warm-b/sk.exe',
     4: 'bin/sk.exe',
-    5: 'final-series-copies-v3/relocated café 雪/sk.exe',
+    5: 'final-series-copies-v6/relocated café 雪/sk.exe',
     6: 'bin/sk.exe',
     7: 'bin/sk.exe',
     8: 'bin/sk.exe',
@@ -136,7 +136,7 @@ def prepare(host):
         if sha256(ROOT/name) != digest:
             raise ValueError('Skim final harness changed after declaration: '+name)
 
-    copy_root = target_root / 'final-series-copies-v3'
+    copy_root = target_root / 'final-series-copies-v6'
     if copy_root.exists():
         raise ValueError('refuse existing Skim target-copy root')
     first = copy_root / 'cold-warm-a'
@@ -149,7 +149,7 @@ def prepare(host):
     if any(digest != build['binary_sha256'] for digest in copy_hashes.values()):
         raise ValueError('fresh target preparation copy is not byte-identical')
 
-    contract_root = RAW / 'skim' / 'final-contracts' / 'native-exit-v3' / host
+    contract_root = RAW / 'skim' / 'final-contracts' / 'native-exit-v6' / host
     if contract_root.exists():
         raise ValueError('refuse existing Skim final contract root')
     contract_root.mkdir(parents=True)
@@ -202,7 +202,7 @@ def prepare(host):
                 target_binary_sha256=build['binary_sha256'], contention=batch_id in {8, 9}))
         planned.append(dict(batch=batch, cases=cases))
 
-    plan_path = RAW / 'skim' / 'final-series-plan-native-exit-v3' / host / 'plan.json'
+    plan_path = RAW / 'skim' / 'final-series-plan-native-exit-v6' / host / 'plan.json'
     immutable_json(plan_path, dict(schema_version=1, project=PROJECT, host=host, source_pin=PIN,
         candidate_series='native-exit-v1', candidate_sha256=sha256(candidate),
         candidate_archive_sha256=candidate_record['archive_sha256'], candidate_run=declaration['candidate_provider_runs'][host],
@@ -217,8 +217,8 @@ def prepare(host):
 
 
 def relocate_warm_copy(target_root):
-    source = target_root / 'final-series-copies-v3/cold-warm-b'
-    destination = target_root / 'final-series-copies-v3/relocated café 雪'
+    source = target_root / 'final-series-copies-v6/cold-warm-b'
+    destination = target_root / 'final-series-copies-v6/relocated café 雪'
     if destination.exists() or source.is_symlink() or getattr(source, 'is_junction', lambda: False)():
         raise ValueError('Skim Unicode relocation target exists or source is linked')
     source.rename(destination)
@@ -315,7 +315,7 @@ def main():
         prepare(args.host)
     else:
         plan = Path(args.plan).resolve(strict=True) if args.plan else (
-            RAW / 'skim' / 'final-series-plan-native-exit-v3' / args.host / 'plan.json')
+            RAW / 'skim' / 'final-series-plan-native-exit-v6' / args.host / 'plan.json')
         plan.relative_to(RAW.resolve(strict=True))
         run(args.host, plan)
 

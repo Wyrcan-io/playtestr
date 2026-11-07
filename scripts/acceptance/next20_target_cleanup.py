@@ -122,9 +122,24 @@ def invalid_spec_before_launch(data,row):
         not row.get('steps'))
 
 
+def verify_no_case_evidence(target):
+    """Prove an opt-in no-case cleanup has no started or partial case evidence."""
+    target=Path(target).resolve(strict=True)
+    evidence=target/'case-evidence'
+    if evidence.is_symlink() or getattr(evidence,'is_junction',lambda:False)():
+        raise ValueError('linked case-evidence root prevents no-case cleanup')
+    if evidence.exists():
+        evidence.resolve(strict=True).relative_to(target)
+        for path in evidence.rglob('*'):
+            if path.is_symlink() or getattr(path,'is_junction',lambda:False)() or path.is_file():
+                raise ValueError('case evidence exists; ordinary per-case cleanup proof is required')
+    return True
+
+
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--project',required=True)
     parser.add_argument('--prepare-only',action='store_true')
+    parser.add_argument('--no-case-reports',action='store_true')
     parser.add_argument('--window',choices=['rebuild-v1'])
     parser.add_argument('--resume-preparation',action='store_true')
     parser.add_argument('--generated-source-manifest',type=Path)
@@ -187,7 +202,10 @@ def main():
             if not row.get('cleanup',{}).get('confirmed_exited') or not row.get('workspace',{}).get('cleaned'):
                 raise ValueError('unconfirmed target/workspace report prevents source/runtime deletion')
             reports+=1
-    if reports==0:raise ValueError('no actual target report cleanup proof')
+    no_case_evidence=False
+    if args.no_case_reports and reports==0:
+        no_case_evidence=verify_no_case_evidence(target)
+    if reports==0 and not no_case_evidence:raise ValueError('no actual target report cleanup proof')
     if {r['sha256'] for r in unlaunched}!=set(args.unlaunched_report_sha256+args.invalid_spec_report_sha256):raise ValueError('Explicit unlaunched report not found exactly')
     if os.name=='nt':
         proof_path=RAW/args.project/('process-proof'+('-'+args.window if args.window else '')+'.json')
@@ -273,6 +291,7 @@ def main():
     immutable_json(retained/'cleanup-inventory.json',dict(schema_version=1,project=args.project,owned_target=str(target),
         owner_sha256=sha256(target/'task-owned.json'),process_proof_sha256=sha256(proof_path),
         actual_reports_with_confirmed_cleanup=reports,source_restored_exact=True,retained=copied,
+        no_case_evidence=no_case_evidence,
         **(dict(closed_report_packets={name:sha256(RAW/args.project/name/'index.json') for name in args.closed_report_packet}) if args.closed_report_packet else {}),
         **(dict(unlaunched_setup_reports=unlaunched) if unlaunched else {}),**inventory))
     immutable_json(retained/'prepared.json',dict(schema_version=1,cleanup_inventory_sha256=sha256(retained/'cleanup-inventory.json'),

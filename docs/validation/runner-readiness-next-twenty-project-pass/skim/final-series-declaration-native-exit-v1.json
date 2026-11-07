@@ -85,7 +85,7 @@
   "fault_declaration": "fault-declaration-final-v1.json",
   "fault_declaration_sha256": "0749b88d4e7169c4049a087e40aa0542705a929fefe91245ef6ae638ccd1a794",
   "harness_files": {
-    ".github/workflows/runner-readiness-next20-skim-final.yml": "0d2a7a8a6c45ede15bdd4960baee26a1409694aa75fd8a8284513db9146ce730",
+    ".github/workflows/runner-readiness-next20-skim-final.yml": "59e635d62ec18877d5b044825cddaa9dcc8999e31852273ee014ced9bfd4e3a1",
     "scripts/acceptance/adversarial_process.py": "99a0e2638a4da25bf69c1e634021dd034cb6d4232d822c8c51b23c137e9a89b6",
     "scripts/acceptance/next20_acquire.py": "99c8da20008728aad15bb33460e7c24d2e5300e9657e46899d4e1c8b83a472db",
     "scripts/acceptance/next20_candidate.py": "cccfecf50fd0d0a6046d52b38813b50cbb4d9f518c14c5d8543189ebf13add01",
@@ -97,14 +97,15 @@
     "scripts/acceptance/next20_rust_fetch.py": "35b3b9491be36804cd2026ff4104851243801fc23b2e7bcaba89ab4b73a1bdc6",
     "scripts/acceptance/next20_skim_build.py": "e2bc92ff5c7fa04fe57219f32a263cdc26833a66354538e56bca52b139322dee",
     "scripts/acceptance/next20_skim_final_faults.py": "5a46b56c41c42a484a90c9ed82b475e2a995646fe343516b1b653d2fa37f5712",
-    "scripts/acceptance/next20_skim_final_plan_audit.py": "ae9fcd7e3dd44b68581a1b6270d1291c47062de091bdefd9225dc4cc1fb0aab2",
-    "scripts/acceptance/next20_skim_final_series.py": "4db76aa0df439fc84b97d033a318f45dca126ded77a73a35f6d8391c14ed06d8",
+    "scripts/acceptance/next20_skim_final_plan_audit.py": "9f06758fcd80319f34f526348b3aebb78302d902aad75381276fa19847a25a24",
+    "scripts/acceptance/next20_skim_final_series.py": "8edd737b9375c97ec2106cdb4a808e4de1a908091a58ee81431be39d411d5e12",
     "scripts/acceptance/next20_skim_hook_review.py": "189f63f31963ac3a06b777707b43f258c736489b49cedb93d9293eae538ca7eb",
     "scripts/acceptance/next20_skim_source_verify.py": "9fbc0da075be6c5ff192ec170a28870f2adf50877bcf452592546212822c6241",
-    "scripts/acceptance/next20_target_cleanup.py": "9b9ff206d2c1cc6066ae16d1029a9c174b28b347a3e9ecafc669d2402b2e064e",
+    "scripts/acceptance/next20_target_cleanup.py": "ea660a1370df5f86efc165d125da224887dffddb464ac0a1a2783c179a1af044",
     "scripts/acceptance/next20_target_process_proof.ps1": "7f3de8026098f2246f4fb81f6fb6dd0d29e1b5a1c8cdbf85f2da423a3046b022",
     "scripts/acceptance/readiness_evidence.py": "5f106e90d774aaacfabe3fe5d905196218f0622bda966b6705df19f7f8535324",
-    "scripts/acceptance/test_next20_skim_final_series.py": "423907f4b4069fff2d3334ac06909eba04d8f05176859234036156e6b9bbb4b2"
+    "scripts/acceptance/test_next20_skim_final_series.py": "423907f4b4069fff2d3334ac06909eba04d8f05176859234036156e6b9bbb4b2",
+    "scripts/acceptance/test_next20_target_cleanup.py": "8add9790dcadef6b327c19a6c2090afe88c4813deb77fa78abb43252ed565c9f"
   },
   "hosts": [
     "linux",
@@ -118,7 +119,7 @@
   "ordinary_required_per_host": 240,
   "project": "skim",
   "repetitions_per_scenario": 12,
-  "replacement_plan_namespace": "final-series-plan-native-exit-v3",
+  "replacement_plan_namespace": "final-series-plan-native-exit-v6",
   "scenario_base": "scenario-declaration-v5.json",
   "scenario_base_sha256": "3e1d9e2501a20f498cd60082f1350c0cdceb1067c4eea8b8f38171f6c57b6dbd",
   "scenario_ids": [

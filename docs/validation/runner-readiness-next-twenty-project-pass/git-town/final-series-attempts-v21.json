@@ -1,0 +1,172 @@
+{
+  "commit": "a77c80a2b21aab9041b05dc831865bb7edcaac2b",
+  "declaration_attempted": "final-series-declaration-native-exit-v20.json",
+  "hosts": [
+    {
+      "artifact_id": 13593962851,
+      "artifact_name": "next20-git-town-linux-final-native-exit-v1",
+      "candidate_calibration_credit": 0,
+      "candidate_case_executions": 0,
+      "candidate_ordinary_credit": 0,
+      "cleanup_result": "Linux cleanup refused source/runtime removal because the attempt had no confirmed case-report cleanup evidence; source is preserved in the hosted artifact.",
+      "final_series_category": "exit_mismatch",
+      "finished_events": [
+        {
+          "category": "passed",
+          "cleanup_errors": [],
+          "event_path": "artifacts/runner-readiness-next-twenty-project-pass/events/004ff51c6487495ca904bbe23c8eea31-finished.json",
+          "event_sha256": "8685f4aa9689c95f711824fbf9bf3bac4251ef02926abc463d11734b093f0f47",
+          "harness_cleanup": "harness_process_reaped",
+          "id": "004ff51c6487495ca904bbe23c8eea31",
+          "label": "git-town-final-synthetic-fixture"
+        },
+        {
+          "category": "exit_mismatch",
+          "cleanup_errors": [],
+          "event_path": "artifacts/runner-readiness-next-twenty-project-pass/events/105a2e5cffde4e3c9e87af1e97a32f01-finished.json",
+          "event_sha256": "5770eb7345e220a55b99bf3b9a0f59a9c9b2ea0cf79344e4cf368e746577a80c",
+          "harness_cleanup": "harness_process_reaped",
+          "id": "105a2e5cffde4e3c9e87af1e97a32f01",
+          "label": "git-town-exact-rc6-final-series"
+        },
+        {
+          "category": "passed",
+          "cleanup_errors": [],
+          "event_path": "artifacts/runner-readiness-next-twenty-project-pass/events/67ec8dfa2a9a4d4cbafb998630916910-finished.json",
+          "event_sha256": "787b5c2768d9d6d81b8d1f1aad96e3de90ba5af986e407535f41d7248f5032fc",
+          "harness_cleanup": "harness_process_reaped",
+          "id": "67ec8dfa2a9a4d4cbafb998630916910",
+          "label": "git-town-final-contract-materialization"
+        },
+        {
+          "category": "passed",
+          "cleanup_errors": [],
+          "event_path": "artifacts/runner-readiness-next-twenty-project-pass/events/6b3ea85b33dd433daab838b31ca03a33-finished.json",
+          "event_sha256": "f311599840939120b5b3e3401fd55f85ce4989f9c6d1dbb6724f5aeb3b731e9f",
+          "harness_cleanup": "harness_process_reaped",
+          "id": "6b3ea85b33dd433daab838b31ca03a33",
+          "label": "git-town-exact-rc6-candidate-install"
+        },
+        {
+          "category": "passed",
+          "cleanup_errors": [],
+          "event_path": "artifacts/runner-readiness-next-twenty-project-pass/events/ad7ee962f54a45ddbc9a6a02f0b898ac-finished.json",
+          "event_sha256": "620045bfc1dbc857bb73fb45738129762bd8f58a5e9c73688b9074c9ab1647d5",
+          "harness_cleanup": "harness_process_reaped",
+          "id": "ad7ee962f54a45ddbc9a6a02f0b898ac",
+          "label": "git-town-final-pinned-native-build"
+        },
+        {
+          "category": "exit_mismatch",
+          "cleanup_errors": [],
+          "event_path": "artifacts/runner-readiness-next-twenty-project-pass/events/c0f1fe22fd8b4c4899d389bf05ab2965-finished.json",
+          "event_sha256": "d858059f7cb04bd912444dda684f5e511bd6748e98f91e6730b494f5cbae9ba2",
+          "harness_cleanup": "harness_process_reaped",
+          "id": "c0f1fe22fd8b4c4899d389bf05ab2965",
+          "label": "git-town-final-target-removal"
+        }
+      ],
+      "host": "linux",
+      "job_id": 128552626759,
+      "zip_bytes": 916983,
+      "zip_path": "artifacts/runner-readiness-next-twenty-project-pass/retrieved/git-town-failed-prelaunch-a77c80a2/git-town-linux-a77c80a2.zip",
+      "zip_sha256": "7efd38756361ef482a92df59968e9982dff0a59a12a68cdbd09230fbf1381ec2"
+    },
+    {
+      "artifact_id": 13594212037,
+      "artifact_name": "next20-git-town-windows-final-native-exit-v1",
+      "candidate_calibration_credit": 0,
+      "candidate_case_executions": 0,
+      "candidate_ordinary_credit": 0,
+      "cleanup_result": "Process proof found no live target process; cleanup preflight refused because no case reports existed; checked removal then failed because no retained cleanup inventory was prepared.",
+      "final_series_category": "exit_mismatch",
+      "finished_events": [
+        {
+          "category": "passed",
+          "cleanup_errors": [],
+          "event_path": "artifacts/runner-readiness-next-twenty-project-pass/events/1a4e523d842447a0b204ca537d288c42-finished.json",
+          "event_sha256": "46563c56962ab515d2c07296c639f71cef17f454d301a4bea5bdabe25fb03d89",
+          "harness_cleanup": "harness_process_reaped",
+          "id": "1a4e523d842447a0b204ca537d288c42",
+          "label": "git-town-exact-rc6-candidate-install"
+        },
+        {
+          "category": "passed",
+          "cleanup_errors": [],
+          "event_path": "artifacts/runner-readiness-next-twenty-project-pass/events/292d2d98b3b245de9516710b7dc1810e-finished.json",
+          "event_sha256": "2c3acccb1f1e4b7811072affb5c496f4bfcca5b0cb628f4b34f9401dfa9bdb8e",
+          "harness_cleanup": "harness_process_reaped",
+          "id": "292d2d98b3b245de9516710b7dc1810e",
+          "label": "git-town-final-contract-materialization"
+        },
+        {
+          "category": "passed",
+          "cleanup_errors": [],
+          "event_path": "artifacts/runner-readiness-next-twenty-project-pass/events/5be9fbce62e84393ad96f0c3452fa72f-finished.json",
+          "event_sha256": "873331db9fc55d905c6092743235e904fc9faeafe1c6a9d7acad46d9a1ab914b",
+          "harness_cleanup": "harness_process_reaped",
+          "id": "5be9fbce62e84393ad96f0c3452fa72f",
+          "label": "git-town-final-synthetic-fixture"
+        },
+        {
+          "category": "exit_mismatch",
+          "cleanup_errors": [],
+          "event_path": "artifacts/runner-readiness-next-twenty-project-pass/events/637d3b2484df4d689268b819f9e62c18-finished.json",
+          "event_sha256": "6991e9d837ea900c11b2f6f23a36902736a5c5f7192529917dfecfd9634dd606",
+          "harness_cleanup": "harness_process_reaped",
+          "id": "637d3b2484df4d689268b819f9e62c18",
+          "label": "git-town-final-cleanup-preflight"
+        },
+        {
+          "category": "passed",
+          "cleanup_errors": [],
+          "event_path": "artifacts/runner-readiness-next-twenty-project-pass/events/7a5c43c372fc4eb6aad0d746b50b1bf4-finished.json",
+          "event_sha256": "5f81c1db5ace11c22a59c1e7724a50c608dc39da10df38e1b5c2e5e90fa0a370",
+          "harness_cleanup": "harness_process_reaped",
+          "id": "7a5c43c372fc4eb6aad0d746b50b1bf4",
+          "label": "git-town-final-process-proof"
+        },
+        {
+          "category": "exit_mismatch",
+          "cleanup_errors": [],
+          "event_path": "artifacts/runner-readiness-next-twenty-project-pass/events/826c4b97443a43ba89b2a9cd581b1037-finished.json",
+          "event_sha256": "d31e2b34e352a77e570dd6a7f53ebe89f2403bb0e82783060a0202a9eef2eafe",
+          "harness_cleanup": "harness_process_reaped",
+          "id": "826c4b97443a43ba89b2a9cd581b1037",
+          "label": "git-town-exact-rc6-final-series"
+        },
+        {
+          "category": "passed",
+          "cleanup_errors": [],
+          "event_path": "artifacts/runner-readiness-next-twenty-project-pass/events/a4a912b4487747c3ba37f812077f9501-finished.json",
+          "event_sha256": "ee3a57cf614eb7f368dbb50cc1341ee68927bcaced1129e44f5bf0ab74cac843",
+          "harness_cleanup": "harness_process_reaped",
+          "id": "a4a912b4487747c3ba37f812077f9501",
+          "label": "git-town-final-pinned-native-build"
+        },
+        {
+          "category": "exit_mismatch",
+          "cleanup_errors": [],
+          "event_path": "artifacts/runner-readiness-next-twenty-project-pass/events/ba5a669163c54c2aae9a35f67a4aed32-finished.json",
+          "event_sha256": "10cdb53113d15d26d99cc114402009f7dd361fdb05198d07dde634cefdb2c1f6",
+          "harness_cleanup": "harness_process_reaped",
+          "id": "ba5a669163c54c2aae9a35f67a4aed32",
+          "label": "git-town-final-target-removal"
+        }
+      ],
+      "host": "windows",
+      "job_id": 128552626716,
+      "zip_bytes": 1009121,
+      "zip_path": "artifacts/runner-readiness-next-twenty-project-pass/retrieved/git-town-failed-prelaunch-a77c80a2/git-town-windows-a77c80a2.zip",
+      "zip_sha256": "bb4750875e02d1b6da7889e2e35cbf9e2dbbd582be6fb46eee250cdd8f40aaed"
+    }
+  ],
+  "new_qualification_credit": 0,
+  "next_attempt": "V21 binds the current helper and applies explicitly verified no-case cleanup only when no started/partial case evidence exists.",
+  "preserved_provider_artifacts": true,
+  "project": "git-town",
+  "provider_run_id": 42422136208,
+  "result": "Both hosts completed build and process checks, then refused before launching any candidate case because readiness_evidence.py no longer matched the frozen declaration. Source cleanup failed due zero case reports.",
+  "attempt_sequence": 21,
+  "schema_version": 1
+}
