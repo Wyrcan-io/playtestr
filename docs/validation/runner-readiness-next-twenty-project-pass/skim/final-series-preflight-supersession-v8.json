@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "project": "skim",
+  "replacement_plan_namespace": "final-series-plan-native-exit-v9",
+  "target_launches": 0,
+  "scenario_credit": 0,
+  "superseded_plan": "artifacts/runner-readiness-next-twenty-project-pass/skim/final-series-plan-native-exit-v8/windows/plan.json",
+  "superseded_plan_sha256": "1fea296e3d35d5eb1d34f306dfae645260d8e6b2fc2ba4d64d6af31184f40b2f",
+  "superseded_audit": "artifacts/runner-readiness-next-twenty-project-pass/skim/final-series-plan-native-exit-v8/windows/plan-audit.json",
+  "superseded_audit_sha256": "a3475f43ebaff854d1b265dd8702047b437aa2ca90275470cce8b8b8429561ad",
+  "reason": "Plan v8 independently reconstructed all 240 contracts with zero launches. Its hosted run failed before source acquisition on both hosts: Linux measurement rejected a FIFO/socket entry and Windows received HTTP 504. V9 adds bounded special-entry metadata and transient acquisition retries. The v8 plan and exact artifacts remain preserved."
+}

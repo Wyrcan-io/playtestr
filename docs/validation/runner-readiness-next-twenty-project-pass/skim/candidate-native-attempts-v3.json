@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "project": "skim",
+  "candidate_series": "native-exit-v1",
+  "workflow_run_id": 42426204009,
+  "commit": "820ccf48ad5a70701e78864c02c513835950130f",
+  "hosts": [
+    {
+      "host": "linux",
+      "runner": "ubuntu-24.04",
+      "job_id": 128564909618,
+      "artifact_id": 13594469560,
+      "artifact_name": "next20-skim-linux-rc6-final",
+      "artifact_path": "artifacts/runner-readiness-next-twenty-project-pass/retrieved/skim-linux-failed-prelaunch-820ccf48.zip",
+      "artifact_bytes": 200315,
+      "provider_sha256": "0afd876b2d107007c4619a517666895c2b20c506e707858214aba7e58617744f",
+      "local_sha256": "0afd876b2d107007c4619a517666895c2b20c506e707858214aba7e58617744f",
+      "job_log_path": "artifacts/runner-readiness-next-twenty-project-pass/retrieved/skim-linux-42426204009-joblogs.log",
+      "job_log_sha256": "1137bec468e92401ccfa3212feecf0de8ca444e9e3b19aa2f46231edd2225ffb",
+      "events": [],
+      "source_acquired": false,
+      "candidate_archive_installed": false,
+      "candidate_case_executions": 0,
+      "fault_phases": 0
+    },
+    {
+      "host": "windows",
+      "runner": "windows-2025",
+      "job_id": 128564909409,
+      "artifact_id": 13595577752,
+      "artifact_name": "next20-skim-windows-rc6-final",
+      "artifact_path": "artifacts/runner-readiness-next-twenty-project-pass/retrieved/skim-windows-failed-prelaunch-820ccf48.zip",
+      "artifact_bytes": 205336,
+      "provider_sha256": "142b2646a27e2ab518496ec7752b3eade726d97d41c3a8ff981305996ab2b1a1",
+      "local_sha256": "142b2646a27e2ab518496ec7752b3eade726d97d41c3a8ff981305996ab2b1a1",
+      "job_log_path": "artifacts/runner-readiness-next-twenty-project-pass/retrieved/skim-windows-42426204009-joblogs.log",
+      "job_log_sha256": "618760882d0b34a396a5c1379140fae5420cb1693d52415275aa55e3e06e2de2",
+      "events": [
+        {
+          "label": "skim-final-cleanup-preflight",
+          "id": "6b4419869aac43eca397afb2348e8497",
+          "category": "exit_mismatch",
+          "exit_code": 1,
+          "finished_event_sha256": "7952fc671881c43ea809ada6f1d76b851dbe466d9fc566b4b82b50eed91a9409"
+        },
+        {
+          "label": "skim-final-target-removal",
+          "id": "9abf5a3dbf48445a85450d9cfeda8f91",
+          "category": "exit_mismatch",
+          "exit_code": 1,
+          "finished_event_sha256": "20ed3a2220d0998c7b2720aa009afc46bfacab2fda0a3057d69dfc69ca780f47"
+        }
+      ],
+      "source_acquired": false,
+      "candidate_archive_installed": false,
+      "candidate_case_executions": 0,
+      "fault_phases": 0
+    }
+  ],
+  "candidate_case_executions": 0,
+  "source_fault_phases": 0,
+  "new_qualification_credit": 0,
+  "preserve_failures": true,
+  "result": "Both hosts failed before source acquisition and candidate launch. Linux storage preflight rejected a FIFO/socket special entry whose path was omitted from the error. Windows GitHub source acquisition returned HTTP 504 and the helper created an active owner directory before downloading, so no acquisition receipt existed and cleanup could not validate it. Both candidate and admission counts remain zero.",
+  "next": "Record bounded FIFO/socket metadata and the unsupported-entry path in storage observations; retry only transient source-download errors with an explicit three-attempt cap; download before creating an active target; preserve failed attempts; generate and independently audit a new plan namespace before hosted retries."
+}

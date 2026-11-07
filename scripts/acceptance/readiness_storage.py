@@ -13,7 +13,7 @@ from readiness_evidence import RAW,ROOT,immutable_json
 def measure(root):
     root=Path(root)
     if root.is_symlink() or getattr(root,'is_junction',lambda:False)():raise RuntimeError('linked storage observation root')
-    totals={};count=0;links=[];entries=0
+    totals={};count=0;links=[];special=[];entries=0
     pending=[(str(root),None)]
     while pending:
         directory,top=pending.pop()
@@ -35,8 +35,18 @@ def measure(root):
                     count+=1
                     if count>250000:raise RuntimeError('storage observation count bound')
                     totals[first]=totals.get(first,0)+info.st_size
-                else:raise RuntimeError('special storage observation entry')
-    return dict(total_bytes=sum(totals.values()),files=count,top_level_bytes=totals,unfollowed_links=sorted(links))
+                elif stat.S_ISFIFO(info.st_mode) or stat.S_ISSOCK(info.st_mode):
+                    kind='fifo' if stat.S_ISFIFO(info.st_mode) else 'socket'
+                    special.append(dict(path=Path(entry.path).relative_to(root).as_posix(),kind=kind,
+                                        metadata_bytes=info.st_size))
+                    if len(special)>1000:raise RuntimeError('storage special-entry metadata bound')
+                    totals[first]=totals.get(first,0)+info.st_size
+                else:
+                    raise RuntimeError('unsupported special storage observation entry: '+
+                        Path(entry.path).relative_to(root).as_posix()+
+                        ' mode='+oct(info.st_mode))
+    return dict(total_bytes=sum(totals.values()),files=count,top_level_bytes=totals,
+                unfollowed_links=sorted(links),special_entries=special)
 
 
 def main():

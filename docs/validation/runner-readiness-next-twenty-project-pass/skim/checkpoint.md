@@ -73,3 +73,11 @@ The external-junction rejection test was added after the v7 staged declaration a
 ## V8 zero-launch gate - 8 November 2026
 
 The Windows v8 plan was independently reconstructed: 240 exact contracts, zero target launches. Declaration hashes match all 23 current harness files after CRLF normalization. The local junction controls verify that an owned in-target junction is inventoried without traversal and an external junction is rejected; the separate symlink control is skipped because this environment does not permit creating that symlink. All 25 focused tests ran (24 pass, one skip). Storage v5 is within declared limits. Next: commit/push the v8 corrections, run both native cells, and independently audit all artifacts before any qualification claim.
+
+## Skim v8 hosted prelaunch failure - 8 November 2026
+
+Run 42426204009 on commit 820ccf48ad5a70701e78864c02c513835950130f failed before target acquisition on both hosts. Linux strict storage measurement encountered an unsupported special entry; the helper did not name the path. Windows source download returned HTTP 504, and its cleanup path then failed because an owner-only active target lacked acquisition.json. No target build/candidate or candidate case/fault ran. Both exact artifact ZIPs and job logs are digest-bound in candidate-native-attempts-v3.json; the attempt receives zero qualification credit. The v8 240-contract audit remains preserved with zero launches and is superseded by v9.
+
+## V9 zero-launch local gate - 8 November 2026
+
+V9 adds a strict storage-path diagnostic, records Unix FIFO/socket metadata without following special entries, limits transient source fetches to three attempts, and fetches before creating the active target. Failed fetches get an immutable attempt receipt. Windows plan preparation and independent audit completed with 240 exact contracts and zero launches. The v9 declaration matches 27 harness files. Thirty focused tests ran: 27 passed and three Windows-unavailable FIFO/socket/symlink controls were skipped. Storage checkpoint v7 is below every cap. Hosted v9 Linux/Windows execution is next; prior v6-v8 failures remain preserved without credit.
