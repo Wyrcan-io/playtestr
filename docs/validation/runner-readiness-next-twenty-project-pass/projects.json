@@ -5,7 +5,7 @@
   "current_candidate_original_ten": 0,
   "qualification_candidate": "v0.4.0-rc.6",
   "admission_counters_candidate": "v0.4.0-rc.5",
-  "current_candidate_new_project_admissions": 3,
+  "current_candidate_new_project_admissions": 4,
   "current_candidate_ordinary_executions_qualified": 1920,
   "current_candidate_calibration_executions_qualified": 72,
   "candidate_scope": "Top-level admission aggregates remain historical exact v0.4.0-rc.5. Current v0.4.0-rc.6 counters and every per-project candidate admission are separate explicit projections. Historical admissions transfer no current-candidate credit; original-ten current requalification remains separate.",
@@ -366,7 +366,7 @@
       "id": "skim",
       "repository": "skim-rs/skim",
       "pin": "1ab47f6ba7f1bfc355273bbdd98d4b2056ef95a3",
-      "status": "development-window20-complete; candidate qualification in progress",
+      "status": "hosted source-development matrix repeat passed; exact rc.6 native Windows preflight refused before target launch by local OneDrive GetLongPathName Access Denied; hosted exact-candidate final qualification not yet run",
       "admitted": false,
       "planned_hosts": [
         "linux",
@@ -401,9 +401,9 @@
       "hosted_development_passed": 40,
       "hosted_development_failed": 0,
       "hosted_development_cleaned_workspaces": 40,
-      "hosted_attempt_history": "skim/hosted-development-attempts-v4.json",
-      "hosted_latest_development_run": "41827379783",
-      "hosted_latest_development_commit": "47d5ff9bdaabadbf98539a8dce81ecb33fed3012",
+      "hosted_attempt_history": "skim/hosted-development-attempts-v5.json",
+      "hosted_latest_development_run": "41831060729",
+      "hosted_latest_development_commit": "19e689f1d3721743146a11647fcb152048becd5d",
       "hosted_latest_development_hosts": [
         "linux-x86_64-gnu",
         "windows-x86_64-msvc"
@@ -411,19 +411,25 @@
       "hosted_latest_development_attempts": 40,
       "hosted_latest_development_passed": 40,
       "hosted_latest_cleaned_workspaces": 40,
-      "hosted_latest_readback": "skim/source-development-readback-v2.json",
-      "hosted_latest_readback_sha256": "d0889fa6bbe09c5b7427ad9c45771ef73a89436ec0e1fb062b2d3c5ba5cc607b",
+      "hosted_latest_readback": "skim/hosted-source-repeat-41831060729.json",
+      "hosted_latest_readback_sha256": "b3954174540f172674730e80f3a1a7a840e94bcc007af23bf425bba4717170f0",
       "development_real_faults": 3,
-      "development_fault_matrix": "skim/source-development-readback-v2.json",
-      "development_fault_matrix_sha256": "d0889fa6bbe09c5b7427ad9c45771ef73a89436ec0e1fb062b2d3c5ba5cc607b",
-      "current_candidate_qualified": false
+      "development_fault_matrix": "skim/hosted-source-repeat-41831060729.json",
+      "development_fault_matrix_sha256": "b3954174540f172674730e80f3a1a7a840e94bcc007af23bf425bba4717170f0",
+      "current_candidate_qualified": false,
+      "development_fault_archive_sha256": "c3d513cb8c410920ebc8d3da5d6bf3f742908dd3acd87c6bc80edc3269aa84b1",
+      "development_fault_readback_sha256": "2ebeb2ea45a25ccf5f3bb8b4ebd90c68357a5012c254a2d9abac562acefe6689",
+      "source_runtime_cleanup_readback": "skim/cleanup-readback-v1.json",
+      "source_runtime_cleanup_readback_sha256": "f7718bda209f759aa439238572f82cad2289c1c875d50976cf5a58e87a8e00de",
+      "candidate_smoke_attempts": "skim/candidate-native-smoke-attempts-v1.json",
+      "candidate_smoke_attempts_sha256": "048c32ddf611361aae8c0f1bb56247ead9aa1b7871ce1b70545bf7419765c332"
     },
     {
       "id": "git-town",
       "repository": "git-town/git-town",
       "pin": "8d039892574d4852e1843020c31d423234042e78",
-      "status": "V20 exact rc.6 Linux/Windows final series independently audited: 240 ordinary passes and 9 fault phases per host, exact candidate/source identity, bounded retention, restoration and checked cleanup; two current-candidate cells qualified; project admission awaits campaign model-tamper controls and ledger reconciliation",
-      "admitted": false,
+      "status": "admitted-on-recorded-candidate",
+      "admitted": true,
       "current_candidate_qualified": true,
       "planned_hosts": [
         "linux",
@@ -459,7 +465,14 @@
       "declared_source_faults": "git-town/fault-declaration-v9.json",
       "source_fault_matrix_implementation": "scripts/acceptance/next20_git_town_faults.py",
       "source_fault_matrix_hosted_runs": 2,
-      "candidate_admissions": [],
+      "candidate_admissions": [
+        {
+          "project": "git-town",
+          "candidate": "v0.4.0-rc.6",
+          "path": "git-town/admission.json",
+          "sha256": "ef9d1c3ef2500f74440f7093d87932538dba82bd661aa3385d1a727eddfa4fd2"
+        }
+      ],
       "open": "Complete campaign model-tamper controls and admission-ledger reconciliation before recording project admission. V20 supplies two exact rc.6 native cells, all ordinary/fault evidence, verified retention and cleanup. Original-ten current-candidate requalification remains a separate campaign gate.",
       "hosted_attempts": "git-town/hosted-development-attempts-v1.json",
       "hosted_v1_runs": 7,
@@ -509,6 +522,40 @@
       "candidate_ordinary_executions_qualified": 480,
       "candidate_calibrations_qualified": 18,
       "candidate_target_attempts_cancelled": 2
+    },
+    {
+      "id": "dekit",
+      "repository": "pvolok/dekit",
+      "pin": "da2acca491298c902d3f2e828204b98087123323",
+      "status": "provisional-screen-rejected-from-admission; Windows source suite 606/611 passed and nested child survived successful down; source/evidence preserved; isolated exploratory workspace removed with checked receipt; zero admission credit",
+      "admitted": false,
+      "planned_hosts": [
+        "linux",
+        "windows"
+      ],
+      "development_selected_scenarios_passed": 0,
+      "development_ordinary_attempts": 0,
+      "development_ordinary_passed": 0,
+      "development_ordinary_failed": 0,
+      "development_real_faults": 0,
+      "windows_source_test_review": "dekit/windows-native-review-v1.json",
+      "windows_cli_smoke": "artifacts/runner-readiness-next-twenty-project-pass/active/dekit/windows-cli-smoke-v1/receipt.json",
+      "windows_descendant_cleanup": "artifacts/runner-readiness-next-twenty-project-pass/active/dekit/windows-descendant-cleanup-v2/receipt.json",
+      "open_risks": [
+        "Five Windows path separator source-test failures",
+        "Nested task child remained alive after dekit down returned zero"
+      ],
+      "qualified_scenarios": 0,
+      "qualified_native_cells": 0,
+      "audited_ordinary_executions": 0,
+      "audited_calibration_executions": 0,
+      "real_source_faults": 0,
+      "candidate_admissions": [],
+      "current_candidate_qualified": false,
+      "admission": null,
+      "cleanup_readback": "dekit/cleanup-readback-v1.json",
+      "cleanup_readback_sha256": "6c529cec70380f1a34c6f242a81f6fb5d508919b5fae67d0d381584a4d91b00e",
+      "workspace_removed": true
     }
   ],
   "observed_audited_ordinary_executions": 2400,
@@ -524,12 +571,12 @@
       "real_source_faults": 12
     },
     "v0.4.0-rc.6": {
-      "projects": 3,
-      "ordinary": 1440,
-      "calibrations": 54,
-      "canonical_scenarios": 60,
-      "native_cells": 6,
-      "real_source_faults": 9
+      "projects": 4,
+      "ordinary": 1920,
+      "calibrations": 72,
+      "canonical_scenarios": 80,
+      "native_cells": 8,
+      "real_source_faults": 12
     }
   },
   "admission_subjects": [
@@ -574,9 +621,15 @@
       "candidate": "v0.4.0-rc.6",
       "path": "peco/admission.json",
       "sha256": "396484804c7825be1f6483fb19f553f5945cea1fdcda5f75ee339eb1ede40a4e"
+    },
+    {
+      "project": "git-town",
+      "candidate": "v0.4.0-rc.6",
+      "path": "git-town/admission.json",
+      "sha256": "ef9d1c3ef2500f74440f7093d87932538dba82bd661aa3385d1a727eddfa4fd2"
     }
   ],
-  "distinct_new_projects_with_any_candidate_admission": 7,
+  "distinct_new_projects_with_any_candidate_admission": 8,
   "current_candidate_canonical_scenarios": 80,
   "current_candidate_native_cells": 8,
   "current_candidate_real_source_faults": 12,
@@ -590,12 +643,12 @@
       "real_source_faults": 12
     },
     "v0.4.0-rc.6": {
-      "projects": 3,
-      "ordinary": 1440,
-      "calibrations": 54,
-      "canonical_scenarios": 60,
-      "native_cells": 6,
-      "real_source_faults": 9
+      "projects": 4,
+      "ordinary": 1920,
+      "calibrations": 72,
+      "canonical_scenarios": 80,
+      "native_cells": 8,
+      "real_source_faults": 12
     }
   },
   "qualification_gates": [

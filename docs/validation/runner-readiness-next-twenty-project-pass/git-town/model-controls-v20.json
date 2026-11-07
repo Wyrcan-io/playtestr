@@ -1,0 +1,335 @@
+{
+  "application_scenario_credit": 0,
+  "candidate": "v0.4.0-rc.6/native-exit-v1",
+  "cells": [
+    {
+      "candidate_archive_sha256": "28ae9f37227bb0f6ba2df031420aa3d027b998e31eab523c4d13cd2816c4af7a",
+      "counts": {
+        "all_ordinary_positive": true,
+        "calibrations": 9,
+        "canonical_scenarios": 20,
+        "distinct_real_faults": 3,
+        "native_cells": 1,
+        "ordinary": 240
+      },
+      "execution_host": "ubuntu-24.04",
+      "host": "linux",
+      "model": "git-town/audit-controls/v20-reconstructed-1560deaedd144e6bb4f0b266253aa986/linux-actual-model.json.xz",
+      "model_bytes": 138712,
+      "model_sha256": "a69a5c804b4189a67c4a6f600b37250c3cf288d022137b2782abd0e16ee4301d",
+      "run_id": "41994487910",
+      "runner_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a",
+      "source_revision": "2a0dd1be795958857700d843e10c69ef8a2eabb4",
+      "target_binary_sha256": "63146b866c70398ee56ed54fda0697e0367607406d4eb608276240fe9117598b"
+    },
+    {
+      "candidate_archive_sha256": "0b9f69460ed4dd87c3182c27702f0579bc67e92767010e4ce50d02c0bec82432",
+      "counts": {
+        "all_ordinary_positive": true,
+        "calibrations": 9,
+        "canonical_scenarios": 20,
+        "distinct_real_faults": 3,
+        "native_cells": 1,
+        "ordinary": 240
+      },
+      "execution_host": "windows-2025",
+      "host": "windows",
+      "model": "git-town/audit-controls/v20-reconstructed-1560deaedd144e6bb4f0b266253aa986/windows-actual-model.json.xz",
+      "model_bytes": 138716,
+      "model_sha256": "0c9581fd242f0c16c024fc2d91bca860bea91c7aaf11de517e1f1e375e957ff7",
+      "run_id": "41994487910",
+      "runner_sha256": "6c80fdbcdd74705b85b2e8aad2f07140f5ff5e8cea80db1d6c24a04d71b23f36",
+      "source_revision": "2a0dd1be795958857700d843e10c69ef8a2eabb4",
+      "target_binary_sha256": "d26cc20079ff16dc6e0ed256f794237dfae101a1d317707271799f9499e8bcab"
+    }
+  ],
+  "controls": [
+    {
+      "control": "wrong-project",
+      "host": "linux",
+      "mutation": "replace",
+      "path": [
+        "project"
+      ],
+      "reason": "canonical project identity differs",
+      "rejected": true,
+      "value": "jrnl"
+    },
+    {
+      "control": "wrong-repository",
+      "host": "linux",
+      "mutation": "replace",
+      "path": [
+        "repository"
+      ],
+      "reason": "canonical project identity differs",
+      "rejected": true,
+      "value": "git-town/fork"
+    },
+    {
+      "control": "wrong-source-pin",
+      "host": "linux",
+      "mutation": "replace",
+      "path": [
+        "pin"
+      ],
+      "reason": "canonical project identity differs",
+      "rejected": true,
+      "value": "0000000000000000000000000000000000000000"
+    },
+    {
+      "control": "mixed-candidate",
+      "host": "linux",
+      "mutation": "replace",
+      "path": [
+        "candidate"
+      ],
+      "reason": "candidate or native host differs",
+      "rejected": true,
+      "value": "v0.4.0-rc.5"
+    },
+    {
+      "control": "wrong-host",
+      "host": "linux",
+      "mutation": "replace",
+      "path": [
+        "host"
+      ],
+      "reason": "candidate or native host differs",
+      "rejected": true,
+      "value": "macos"
+    },
+    {
+      "control": "missing-scenario",
+      "host": "linux",
+      "mutation": "truncate",
+      "path": [
+        "ordinary"
+      ],
+      "reason": "ordinary matrix is incomplete",
+      "rejected": true,
+      "value": 239
+    },
+    {
+      "control": "wrong-phase",
+      "host": "linux",
+      "mutation": "replace",
+      "path": [
+        "ordinary",
+        0,
+        "phase"
+      ],
+      "reason": "mixed phase/candidate or nonpositive ordinary result",
+      "rejected": true,
+      "value": "development"
+    },
+    {
+      "control": "false-green",
+      "host": "linux",
+      "mutation": "replace",
+      "path": [
+        "ordinary",
+        0,
+        "passed"
+      ],
+      "reason": "mixed phase/candidate or nonpositive ordinary result",
+      "rejected": true,
+      "value": false
+    },
+    {
+      "control": "duplicate-invocation",
+      "host": "linux",
+      "mutation": "replace",
+      "path": [
+        "ordinary",
+        1,
+        "invocation"
+      ],
+      "reason": "duplicate execution identity",
+      "rejected": true,
+      "value": "7ce761313a42b2ad56c7549f0ee28b0f"
+    },
+    {
+      "control": "unconfirmed-cleanup",
+      "host": "linux",
+      "mutation": "replace",
+      "path": [
+        "ordinary",
+        0,
+        "confirmed_exited"
+      ],
+      "reason": "mixed phase/candidate or nonpositive ordinary result",
+      "rejected": true,
+      "value": false
+    },
+    {
+      "control": "missing-fault-calibration",
+      "host": "linux",
+      "mutation": "replace",
+      "path": [
+        "fault_calibrations"
+      ],
+      "reason": "fault/calibration matrix differs",
+      "rejected": true,
+      "value": 0
+    },
+    {
+      "control": "altered-retained-artifact",
+      "host": "linux",
+      "mutation": "replace",
+      "path": [
+        "artifact_sha256"
+      ],
+      "reason": "provider/candidate identity differs",
+      "rejected": true,
+      "value": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "control": "wrong-project",
+      "host": "windows",
+      "mutation": "replace",
+      "path": [
+        "project"
+      ],
+      "reason": "canonical project identity differs",
+      "rejected": true,
+      "value": "jrnl"
+    },
+    {
+      "control": "wrong-repository",
+      "host": "windows",
+      "mutation": "replace",
+      "path": [
+        "repository"
+      ],
+      "reason": "canonical project identity differs",
+      "rejected": true,
+      "value": "git-town/fork"
+    },
+    {
+      "control": "wrong-source-pin",
+      "host": "windows",
+      "mutation": "replace",
+      "path": [
+        "pin"
+      ],
+      "reason": "canonical project identity differs",
+      "rejected": true,
+      "value": "0000000000000000000000000000000000000000"
+    },
+    {
+      "control": "mixed-candidate",
+      "host": "windows",
+      "mutation": "replace",
+      "path": [
+        "candidate"
+      ],
+      "reason": "candidate or native host differs",
+      "rejected": true,
+      "value": "v0.4.0-rc.5"
+    },
+    {
+      "control": "wrong-host",
+      "host": "windows",
+      "mutation": "replace",
+      "path": [
+        "host"
+      ],
+      "reason": "candidate or native host differs",
+      "rejected": true,
+      "value": "macos"
+    },
+    {
+      "control": "missing-scenario",
+      "host": "windows",
+      "mutation": "truncate",
+      "path": [
+        "ordinary"
+      ],
+      "reason": "ordinary matrix is incomplete",
+      "rejected": true,
+      "value": 239
+    },
+    {
+      "control": "wrong-phase",
+      "host": "windows",
+      "mutation": "replace",
+      "path": [
+        "ordinary",
+        0,
+        "phase"
+      ],
+      "reason": "mixed phase/candidate or nonpositive ordinary result",
+      "rejected": true,
+      "value": "development"
+    },
+    {
+      "control": "false-green",
+      "host": "windows",
+      "mutation": "replace",
+      "path": [
+        "ordinary",
+        0,
+        "passed"
+      ],
+      "reason": "mixed phase/candidate or nonpositive ordinary result",
+      "rejected": true,
+      "value": false
+    },
+    {
+      "control": "duplicate-invocation",
+      "host": "windows",
+      "mutation": "replace",
+      "path": [
+        "ordinary",
+        1,
+        "invocation"
+      ],
+      "reason": "duplicate execution identity",
+      "rejected": true,
+      "value": "2995402e66f040d84fb9dd1ef5a5b03b"
+    },
+    {
+      "control": "unconfirmed-cleanup",
+      "host": "windows",
+      "mutation": "replace",
+      "path": [
+        "ordinary",
+        0,
+        "confirmed_exited"
+      ],
+      "reason": "mixed phase/candidate or nonpositive ordinary result",
+      "rejected": true,
+      "value": false
+    },
+    {
+      "control": "missing-fault-calibration",
+      "host": "windows",
+      "mutation": "replace",
+      "path": [
+        "fault_calibrations"
+      ],
+      "reason": "fault/calibration matrix differs",
+      "rejected": true,
+      "value": 0
+    },
+    {
+      "control": "altered-retained-artifact",
+      "host": "windows",
+      "mutation": "replace",
+      "path": [
+        "artifact_sha256"
+      ],
+      "reason": "provider/candidate identity differs",
+      "rejected": true,
+      "value": "0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  ],
+  "controls_count": 24,
+  "new_project_credit": 0,
+  "project": "git-town",
+  "run_id": "41994487910",
+  "schema_version": 1,
+  "scope": "Reconstructible exact-candidate cell-model controls over the verified original V20 provider packets. No campaign admission is issued until this receipt and ledger cross-check are independently reviewed.",
+  "source_audit": "git-town/final-series-audit-v20.json"
+}

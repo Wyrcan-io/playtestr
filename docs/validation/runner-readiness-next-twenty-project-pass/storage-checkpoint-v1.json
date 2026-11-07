@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "status": "within-declared-storage-caps; Git Town admitted on rc.6; DeKit rejected from admission after exploratory Windows cleanup defect; campaign incomplete",
+  "observed_at_local": "2026-11-05",
+  "caps_bytes": {
+    "new_campaign_raw": 4294967296,
+    "combined_raw": 6442450944,
+    "combined_retained": 2147483648
+  },
+  "latest_observation": {
+    "receipt": "artifacts/runner-readiness-next-twenty-project-pass/storage/adc2c9d95124456eb738bfcc21e5cab5/observed.json",
+    "observed_at_utc": "2026-11-05T15:16:00.554585+00:00",
+    "new_campaign_raw": 1363115015,
+    "combined_raw": 3271823587,
+    "combined_retained": 2129359447,
+    "new_raw_headroom": 2931852281,
+    "combined_raw_headroom": 3170627357,
+    "retained_headroom": 18124201,
+    "project_raw": 48868796,
+    "project_cap": 67108864,
+    "failed": []
+  },
+  "lossless_compaction": {
+    "identity_packet": {
+      "index": "artifacts/runner-readiness-next-twenty-project-pass/identities/retained-identities-v1/index.json",
+      "archive": "artifacts/runner-readiness-next-twenty-project-pass/identities/retained-identities-v1/payload.tar.xz",
+      "removal_plan": "artifacts/runner-readiness-next-twenty-project-pass/identities/retained-identities-v1/removal-plan.json",
+      "removal_receipt": "artifacts/runner-readiness-next-twenty-project-pass/identities/retained-identities-v1/removal-receipt.json",
+      "members": 5035,
+      "expanded_bytes": 240142124,
+      "archive_bytes": 1382380,
+      "readback": "all member paths, sizes and SHA-256 hashes verified; packet re-read after native checked removal"
+    },
+    "reproducible_go_caches": {
+      "action": "go clean -cache with each explicitly owned GOCACHE path",
+      "roots": [
+        "artifacts/runner-readiness-next-twenty-project-pass/go-cache",
+        "artifacts/runner-readiness-next-twenty-project-pass/skim/retained-active-evidence/skim-exit-empty-01-v5/home/go-cache",
+        "artifacts/runner-readiness-next-twenty-project-pass/skim/retained-active-evidence/skim-exit-empty-01-v3/home/go-cache"
+      ],
+      "preserved": "Skim target binaries and all reports; campaign cache README/trim metadata"
+    },
+    "retained_text_packet": {
+      "index": "artifacts/runner-readiness-next-twenty-project-pass/retained/retained-text-v1/index.json",
+      "archive": "artifacts/runner-readiness-next-twenty-project-pass/retained/retained-text-v1/payload.tar.xz",
+      "removal_plan": "artifacts/runner-readiness-next-twenty-project-pass/retained/retained-text-v1/removal-plan.json",
+      "removal_receipt": "artifacts/runner-readiness-next-twenty-project-pass/retained/retained-text-v1/removal-receipt.json",
+      "members": 24710,
+      "expanded_bytes": 306069363,
+      "archive_bytes": 24223528,
+      "index_bytes": 9008886,
+      "readback": "all paths, SHA-256 hashes, modes and nanosecond mtimes verified before removal; native PowerShell rehashed all 24,710 originals, removed only indexed paths, then packet readback and all-source-absent receipt passed"
+    },
+    "campaign_duplicate_packet": {
+      "index": "artifacts/runner-readiness-next-twenty-project-pass/duplicate-evidence-v1/index.json",
+      "archive": "artifacts/runner-readiness-next-twenty-project-pass/duplicate-evidence-v1/payload.tar.xz",
+      "removal_plan": "artifacts/runner-readiness-next-twenty-project-pass/duplicate-evidence-v1/removal-plan.json",
+      "removal_receipt": "artifacts/runner-readiness-next-twenty-project-pass/duplicate-evidence-v1/removal-receipt.json",
+      "hash_groups": 476,
+      "alias_paths": 8362,
+      "expanded_alias_bytes": 320640105,
+      "unique_payload_bytes": 66212547,
+      "archive_bytes": 34380972,
+      "readback": "every unique payload hash and all aliases verified; native PowerShell rehashed and removed all 8,362 indexed originals, then packet readback and all-source-absent receipt passed"
+    }
+  },
+  "exact_zip_compaction": {
+    "source": "Ten retrieved Skim workflow ZIPs, 461686440 bytes",
+    "packet": "artifacts/runner-readiness-next-twenty-project-pass/retrieved/retained-exact-zip-v1",
+    "source_members": 24367,
+    "original_archive_bytes": 461686440,
+    "retained_archive_and_index_bytes": 172596251,
+    "disposition": "The first member-only packet was rejected because it omitted ZIP-container metadata and was discarded while all originals remained intact. The replacement packet retains every archive byte as indexed content-addressed segments; all ten ZIP SHA-256 values and all 24,367 member paths, sizes, CRCs and payload SHA-256 values passed reconstruction before and after native checked removal. Expanded segment copies were then removed with a separate native checked receipt."
+  },
+  "recent_exploratory_rejection": {
+    "project": "dekit",
+    "repository": "pvolok/dekit",
+    "source_pin": "da2acca491298c902d3f2e828204b98087123323",
+    "windows_locked_offline_workspace_build": "passed; see artifacts/runner-readiness-next-twenty-project-pass/active/dekit/build-windows-v3/receipt.json",
+    "windows_library_tests": "606 passed, 5 failed out of 611; five failures are Windows path-separator expectations",
+    "safe_cli_smoke": "up/list/screen/down passed and displayed READY; exploratory only",
+    "nested_child_cleanup": "down returned success while a task-owned nested PowerShell child remained alive; exact child was subsequently terminated and both owned PIDs verified absent",
+    "admission_credit": 0,
+    "review": "docs/validation/runner-readiness-next-twenty-project-pass/dekit/windows-native-review-v1.json"
+  },
+  "campaign_admission_state": "Eight distinct new applications have admissions across explicitly separate rc.5/rc.6 projections. Four current-candidate projects contribute 1,920 ordinary executions, 72 calibrations, eight native cells and twelve distinct source faults. Git Town v20 is admitted after 24 model-tamper rejections, two positive actual models, exact retained packet readback and ledger reconciliation. Skim and the original ten rc.6 requalification remain open. DeKit is exploratory/rejected and uncredited.",
+  "next_action": "Resume Skim's exact-candidate qualification and remaining public/maintenance gates; preserve failed attempts, complete the other selected projects and current-candidate/old-migration closure.",
+  "scope": "A truthful resource checkpoint, not a completion or compatibility claim.",
+  "workspace": {
+    "branch": "work/p0-p2-implementation",
+    "head": "97590c832a45f61242a3de714bd71961d5a2d186",
+    "branch_state": "matches origin/work/p0-p2-implementation at observation",
+    "working_tree": "campaign Git Town/Skim and acceptance changes are modified; dekit investigation, Git Town admission/retention/model-control records and compaction helpers are untracked; .codex-go-cache and .codex-test-tmp are pre-existing user-local untracked directories and were preserved",
+    "staged_changes": 0
+  },
+  "active_project": "skim",
+  "active_workspace_bytes": 8356895,
+  "campaign_incomplete_reason": "Only four new projects admitted on rc.6 and eight distinct across rc.5/rc.6; Skim exact-candidate qualification and remaining selected projects are still open."
+}

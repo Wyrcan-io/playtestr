@@ -1,0 +1,446 @@
+{
+  "actual_target_feature_evidence": {
+    "finding": "cargo tree for x86_64-pc-windows-msvc shows rquickjs-sys without bindgen; the pinned manifest enables bindgen only outside the selected Linux/macOS/Windows architecture cfg.",
+    "path": "artifacts/runner-readiness-next-twenty-project-pass/dekit/7004a0bef43047b0ab5b0677b717919b/console.log",
+    "sha256": "347ec680e28ff544898ada36a4fa7aa886f3440f90290b629a7faf54452cd181"
+  },
+  "approval": "Static review approves exact dependency/build hooks for x86_64 Windows/Linux with offline locked Cargo. No dependency hook or target code ran during review. WASI downloader is out of target scope.",
+  "build_hook_paths": 41,
+  "build_hook_unique_sha256": 36,
+  "cargo_lock_sha256": "306d208a76773c0c3b0f40d035d61d49ad47848f7d025d5e915bac5a3cd7ccf5",
+  "fetch_archive_bytes": 71662429,
+  "fetch_archives": 268,
+  "fetch_review_sha256": "a1ac72b72abad57d6a4fd209dc7ecaa196192849ac56f4d92108a8285c34e70f",
+  "pin": "da2acca491298c902d3f2e828204b98087123323",
+  "project": "dekit",
+  "project_build_script": {
+    "behavior": "Walks pinned crate docs, builds deterministic include_str entries, writes docs_embed.rs beneath Cargo OUT_DIR; no network or external command.",
+    "path": "src/build.rs",
+    "sha256": "33fe4eac42d3384b672c188c79b7c427cb2b4a2935c53f8596abb7c0fd14a752"
+  },
+  "repository": "pvolok/dekit",
+  "schema_version": 1,
+  "scope": "Exact hook and package manifest bytes are retained and hash-bound. Rust compiler probes and QuickJS C compilation occur only during later explicit Cargo builds. Upstream canary/release workflows are not run.",
+  "source_inputs_retained": [
+    {
+      "category": "compiler_probe_and_out_dir_cfg",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/anyhow-1.0.72/build.rs",
+      "hook_sha256": "88bf7100143c79c0af683da7f28deaac031c9b9b213a6426560dc089b0ba45aa",
+      "manifest_sha256": "01de8d075732621cfe968c50908c3b789f2859c847902b7c93321b9000d97410",
+      "package": "anyhow-1.0.72",
+      "retained_review_hook": "anyhow-1.0.72/build.rs",
+      "retained_review_manifest": "anyhow-1.0.72/Cargo.toml",
+      "static_conclusion": "Uses selected rustc for version/capability detection and emits cfg/generated data under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "compiler_probe_and_out_dir_cfg",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/backtrace-0.3.69/build.rs",
+      "hook_sha256": "0e30892bba823f9a1143d6d15995951b65a25f917af5443ba96cc8323bddb67f",
+      "manifest_sha256": "b509b390f54dbe9df8e5572dcc27a2f828686b35aab1c83a2dd88640c515bd9c",
+      "package": "backtrace-0.3.69",
+      "retained_review_hook": "backtrace-0.3.69/build.rs",
+      "retained_review_manifest": "backtrace-0.3.69/Cargo.toml",
+      "static_conclusion": "Uses selected rustc for version/capability detection and emits cfg/generated data under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "optional_bindgen_and_host_tool_probe",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/bindgen-0.72.1/build.rs",
+      "hook_sha256": "f7a10af0a21662e104e0058da7e3471a20be328eef6c7c41988525be90fdfe92",
+      "manifest_sha256": "f72dfce465f8e986f51506cda6090d754057b55318712c6c13ef96230d9b1a42",
+      "package": "bindgen-0.72.1",
+      "retained_review_hook": "bindgen-0.72.1/build.rs",
+      "retained_review_manifest": "bindgen-0.72.1/Cargo.toml",
+      "static_conclusion": "bindgen writes a target marker under OUT_DIR; clang-sys may probe llvm-config/libclang when bindgen is enabled. Actual Windows target cargo tree shows rquickjs-sys without bindgen; selected target cfg uses pre-generated bindings."
+    },
+    {
+      "category": "optional_bindgen_and_host_tool_probe",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/clang-sys-1.8.1/build.rs",
+      "hook_sha256": "321ac62c88932a3831be9c96f526a21f65ea22df01639946bd0033d1bcf8900e",
+      "manifest_sha256": "db6730e270afa1f936b6f14264be0b0aaa506b88d91ab4805cf270595f3b568b",
+      "package": "clang-sys-1.8.1",
+      "retained_review_hook": "clang-sys-1.8.1/build.rs",
+      "retained_review_manifest": "clang-sys-1.8.1/Cargo.toml",
+      "static_conclusion": "bindgen writes a target marker under OUT_DIR; clang-sys may probe llvm-config/libclang when bindgen is enabled. Actual Windows target cargo tree shows rquickjs-sys without bindgen; selected target cfg uses pre-generated bindings."
+    },
+    {
+      "category": "metadata_or_cfg_generator",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/crossbeam-utils-0.8.21/build.rs",
+      "hook_sha256": "7a7f9e56ea7fb4f78c4e532b84b9d27be719d600e85eaeb3a2f4b79a4f0b419c",
+      "manifest_sha256": "961aa297754d8fdbae9e23d15bbbcfdcd2b50b2db56becddb84e8cba4f730713",
+      "package": "crossbeam-utils-0.8.21",
+      "retained_review_hook": "crossbeam-utils-0.8.21/build.rs",
+      "retained_review_manifest": "crossbeam-utils-0.8.21/Cargo.toml",
+      "static_conclusion": "Reads Cargo target/environment metadata and emits cfg/link directives or generated metadata under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "metadata_or_cfg_generator",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/generic-array-0.14.6/build.rs",
+      "hook_sha256": "08fa30c4a2c1ad24fe5f987e721dfb20131f45ea5b5dc3e836dcf88a8e33248c",
+      "manifest_sha256": "d75b1d3d662d67545bc43f331fdfbb95b8e9cb8522875608a7f8f2528e3325d3",
+      "package": "generic-array-0.14.6",
+      "retained_review_hook": "generic-array-0.14.6/build.rs",
+      "retained_review_manifest": "generic-array-0.14.6/Cargo.toml",
+      "static_conclusion": "Reads Cargo target/environment metadata and emits cfg/link directives or generated metadata under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "compiler_probe_and_out_dir_cfg",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/getrandom-0.3.2/build.rs",
+      "hook_sha256": "9280e324b69c0c80c65de8074046104ac561cbfe0b7856e02a939e491936aaac",
+      "manifest_sha256": "c28b7f7990609d764f8e3636cf72c88d0886121ef1e270ab636e184455cccd9a",
+      "package": "getrandom-0.3.2",
+      "retained_review_hook": "getrandom-0.3.2/build.rs",
+      "retained_review_manifest": "getrandom-0.3.2/Cargo.toml",
+      "static_conclusion": "Uses selected rustc for version/capability detection and emits cfg/generated data under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "conditional_pkg_config_probe",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/inotify-sys-0.1.8/build.rs",
+      "hook_sha256": "8070368f4661803c760dc05c9946f654af5ca54a0b224abc3c10f01e5e295a3a",
+      "manifest_sha256": "f35964fa0cfbd705b4499831ebb51cb428a10eb7beea710c66b32692b98c8166",
+      "package": "inotify-sys-0.1.8",
+      "retained_review_hook": "inotify-sys-0.1.8/build.rs",
+      "retained_review_manifest": "inotify-sys-0.1.8/Cargo.toml",
+      "static_conclusion": "pkg-config is invoked only for NetBSD/OpenBSD target_os; Linux/Windows branches do not execute it and no package is installed."
+    },
+    {
+      "category": "compiler_probe_and_out_dir_cfg",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/io-lifetimes-1.0.9/build.rs",
+      "hook_sha256": "58379e213e1758e25de92a04a1a6b3feb283321c3652e2271fc688879320147c",
+      "manifest_sha256": "1f84b8c1b7b42968671bcdbba31196831a95035cc95c3e5c73a65d3dc89fcc96",
+      "package": "io-lifetimes-1.0.9",
+      "retained_review_hook": "io-lifetimes-1.0.9/build.rs",
+      "retained_review_manifest": "io-lifetimes-1.0.9/Cargo.toml",
+      "static_conclusion": "Uses selected rustc for version/capability detection and emits cfg/generated data under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "compiler_and_platform_cfg_probe",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/libc-0.2.172/build.rs",
+      "hook_sha256": "e7d33b16dfe94388f70255bd0d009ca43fbdfd83981c09b58b6b776202f52a8a",
+      "manifest_sha256": "56ad89d6913657901ac241f5d2ff433e1f7aabc5e565494b8dea2970101fd4d4",
+      "package": "libc-0.2.172",
+      "retained_review_hook": "libc-0.2.172/build.rs",
+      "retained_review_manifest": "libc-0.2.172/Cargo.toml",
+      "static_conclusion": "Uses selected rustc for cfg/version; freebsd-version is gated by LIBC_CI and emcc by the Emscripten target. Neither condition is selected."
+    },
+    {
+      "category": "metadata_or_cfg_generator",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/lock_api-0.4.7/build.rs",
+      "hook_sha256": "af84139c71d151adead0b4398c394a7dd16087bb2db44b14a0ed970ce868a6c6",
+      "manifest_sha256": "f0fb3e65549d1353e2e199977db7825c29721bbeb71dee9bb3905437dd444dce",
+      "package": "lock_api-0.4.7",
+      "retained_review_hook": "lock_api-0.4.7/build.rs",
+      "retained_review_manifest": "lock_api-0.4.7/Cargo.toml",
+      "static_conclusion": "Reads Cargo target/environment metadata and emits cfg/link directives or generated metadata under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "metadata_or_cfg_generator",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/memoffset-0.9.1/build.rs",
+      "hook_sha256": "0ddaae191a4091fe1318177d12244ff0dbabc17a18f25a54059f4badc9a20876",
+      "manifest_sha256": "772e523da630871e710cc229f36282205713bba853d4d3f78e5a5d099bb3a814",
+      "package": "memoffset-0.9.1",
+      "retained_review_hook": "memoffset-0.9.1/build.rs",
+      "retained_review_manifest": "memoffset-0.9.1/Cargo.toml",
+      "static_conclusion": "Reads Cargo target/environment metadata and emits cfg/link directives or generated metadata under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "metadata_or_cfg_generator",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.29.0/build.rs",
+      "hook_sha256": "7e47b7c39f11b745b4eb3d30560be80247ebaba1342c9ac62c4a8bfdd463e977",
+      "manifest_sha256": "30a3d3032dda335327557f9b1fca7bccf70c8f46b024221fe842f8a707b6f6cf",
+      "package": "nix-0.29.0",
+      "retained_review_hook": "nix-0.29.0/build.rs",
+      "retained_review_manifest": "nix-0.29.0/Cargo.toml",
+      "static_conclusion": "Reads Cargo target/environment metadata and emits cfg/link directives or generated metadata under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "metadata_or_cfg_generator",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/num-integer-0.1.45/build.rs",
+      "hook_sha256": "575b157527243fe355a7c8d7d874a1f790c3fb0177beba9032076a7803c5b9dd",
+      "manifest_sha256": "01a1f6e6771981ddeaf682be79918c45a88d032d887f188fdcb1ee7eedcf63a6",
+      "package": "num-integer-0.1.45",
+      "retained_review_hook": "num-integer-0.1.45/build.rs",
+      "retained_review_manifest": "num-integer-0.1.45/Cargo.toml",
+      "static_conclusion": "Reads Cargo target/environment metadata and emits cfg/link directives or generated metadata under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "metadata_or_cfg_generator",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/num-traits-0.2.15/build.rs",
+      "hook_sha256": "cf682b2322303196e241048cb56d873597b78a3b4e3f275f6f761dadb33a65f5",
+      "manifest_sha256": "5b2749641deeabb2dfcc8e4d7e26ccfbc306800021e0d24e8367f313e57f9def",
+      "package": "num-traits-0.2.15",
+      "retained_review_hook": "num-traits-0.2.15/build.rs",
+      "retained_review_manifest": "num-traits-0.2.15/Cargo.toml",
+      "static_conclusion": "Reads Cargo target/environment metadata and emits cfg/link directives or generated metadata under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "metadata_or_cfg_generator",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/parking_lot_core-0.9.3/build.rs",
+      "hook_sha256": "29e629057144d1238dcd8ea70ad6cbb6ec14ca742797af3fa9335710ff5cbaaa",
+      "manifest_sha256": "ce9a63db10b0941d6bfe4e6cacd2ae3fe330a9c2cf1ba221578f46402fd23ed9",
+      "package": "parking_lot_core-0.9.3",
+      "retained_review_hook": "parking_lot_core-0.9.3/build.rs",
+      "retained_review_manifest": "parking_lot_core-0.9.3/Cargo.toml",
+      "static_conclusion": "Reads Cargo target/environment metadata and emits cfg/link directives or generated metadata under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "metadata_or_cfg_generator",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/prettyplease-0.2.34/build.rs",
+      "hook_sha256": "79a5b2d260aa97aeac7105fbfa00774982f825cd708c100ea96d01c39974bb88",
+      "manifest_sha256": "254ca07a49a73096c01931504948d443e01c44f4c23b59aa65115f5b70ad24f2",
+      "package": "prettyplease-0.2.34",
+      "retained_review_hook": "prettyplease-0.2.34/build.rs",
+      "retained_review_manifest": "prettyplease-0.2.34/Cargo.toml",
+      "static_conclusion": "Reads Cargo target/environment metadata and emits cfg/link directives or generated metadata under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "compiler_probe_and_out_dir_cfg",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/proc-macro2-1.0.93/build.rs",
+      "hook_sha256": "29344b7dbd94595f9fbcbc3f2be9b4bb52b5e8a26d21d4363714bab2a18f32ad",
+      "manifest_sha256": "fae52299b02be7a1b3c62d22d10c64d2221435f93282276e22baa7a84265ceaa",
+      "package": "proc-macro2-1.0.93",
+      "retained_review_hook": "proc-macro2-1.0.93/build.rs",
+      "retained_review_manifest": "proc-macro2-1.0.93/Cargo.toml",
+      "static_conclusion": "Uses selected rustc for version/capability detection and emits cfg/generated data under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "conditional_quickjs_c_build_and_wasi_download",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/rquickjs-sys-0.12.0/build.rs",
+      "hook_sha256": "41e30a9363dc928307c9512b4f5f93acd08801c247277d5328eace9a3954e2ac",
+      "manifest_sha256": "675915c4968abdd484744f7e42ecad2b696c1f6ae8a3f68e9d647f2bbc5d0512",
+      "package": "rquickjs-sys-0.12.0",
+      "retained_review_hook": "rquickjs-sys-0.12.0/build.rs",
+      "retained_review_manifest": "rquickjs-sys-0.12.0/Cargo.toml",
+      "static_conclusion": "For x86_64-pc-windows-msvc and x86_64-unknown-linux-gnu the hook copies pinned QuickJS C sources/headers under OUT_DIR and compiles them with cc. Its curl/tar WASI SDK downloader is gated on target_os == wasi, outside both declared targets. Bindgen is optional and absent from the actual Windows feature tree."
+    },
+    {
+      "category": "conditional_compiler_cfg_and_git_check",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/rustix-0.36.11/build.rs",
+      "hook_sha256": "6f59744b7e8d835ba109e7c4491ed3f36d433c167b37ddfbaf238a0bb44761a4",
+      "manifest_sha256": "dfed33d2f6f6ace37de0efdeceeb2e04574ce69bd19ebedf4fd4b3ac63a2354c",
+      "package": "rustix-0.36.11",
+      "retained_review_hook": "rustix-0.36.11/build.rs",
+      "retained_review_manifest": "rustix-0.36.11/Cargo.toml",
+      "static_conclusion": "Compiler capability checks invoke selected rustc. The git diff branch requires feature cc and a .git checkout; this source is an archive without Git metadata and the Linux/Windows graph does not select that feature."
+    },
+    {
+      "category": "compiler_probe_and_out_dir_cfg",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/rustix-1.0.8/build.rs",
+      "hook_sha256": "e0d1ab65cb040885a63543a67bc507abfccac525ad1149ea62a16a3d42482c9c",
+      "manifest_sha256": "530920b39e1080bd2951ec04fb5c313732affdc9dadc5e4c2cc593eabc77b765",
+      "package": "rustix-1.0.8",
+      "retained_review_hook": "rustix-1.0.8/build.rs",
+      "retained_review_manifest": "rustix-1.0.8/Cargo.toml",
+      "static_conclusion": "Uses selected rustc for version/capability detection and emits cfg/generated data under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "compiler_probe_and_out_dir_cfg",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/rustversion-1.0.12/build/build.rs",
+      "hook_sha256": "a5ac3f88a152167bdf624d18346b6db6459828bdbd1162a275fcde9c36e3ade6",
+      "manifest_sha256": "8170d87c04bae72045b64d66678864b3f228ff77b0ea822aaedcc321b7b7d70f",
+      "package": "rustversion-1.0.12",
+      "retained_review_hook": "rustversion-1.0.12/build/build.rs",
+      "retained_review_manifest": "rustversion-1.0.12/Cargo.toml",
+      "static_conclusion": "Uses selected rustc for version/capability detection and emits cfg/generated data under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "metadata_or_cfg_generator",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/build.rs",
+      "hook_sha256": "c99c25e1a11f3e51b61dd8c25bdbfbd090e43e5f1f2014f41f28e214dd8310d5",
+      "manifest_sha256": "d7fc24e39691a0831eaa0eac677b46ecbae407a40fa816b904759822d10f42e8",
+      "package": "serde-1.0.228",
+      "retained_review_hook": "serde-1.0.228/build.rs",
+      "retained_review_manifest": "serde-1.0.228/Cargo.toml",
+      "static_conclusion": "Reads Cargo target/environment metadata and emits cfg/link directives or generated metadata under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "compiler_probe_and_out_dir_cfg",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/serde_core-1.0.228/build.rs",
+      "hook_sha256": "a5fdacb9913eeede5fc08f39acbd31b2508483fdc20c79d6bc274d74407a1816",
+      "manifest_sha256": "b1c07acb994f88418a0bbb0d393f76c4ca4276d9f4497ca734eb182286169ea8",
+      "package": "serde_core-1.0.228",
+      "retained_review_hook": "serde_core-1.0.228/build.rs",
+      "retained_review_manifest": "serde_core-1.0.228/Cargo.toml",
+      "static_conclusion": "Uses selected rustc for version/capability detection and emits cfg/generated data under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "metadata_or_cfg_generator",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/serde_json-1.0.138/build.rs",
+      "hook_sha256": "1630d0bbfc936b0975d840cec5cfb5910d861b6afeeeeabe11000a2c202d571d",
+      "manifest_sha256": "729a785e826afd71e69963290dfd3b5ab8beef6f294bd86693ea9c6147b46da7",
+      "package": "serde_json-1.0.138",
+      "retained_review_hook": "serde_json-1.0.138/build.rs",
+      "retained_review_manifest": "serde_json-1.0.138/Cargo.toml",
+      "static_conclusion": "Reads Cargo target/environment metadata and emits cfg/link directives or generated metadata under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "metadata_or_cfg_generator",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/signal-hook-0.3.17/build.rs",
+      "hook_sha256": "3a95a69d2921f1c28922a141a671e23a061f358b6d831350043003e13ef96463",
+      "manifest_sha256": "38e9a3268c6e5f43e8e41f12e43d241950a469707abeec342ebb8b4ba007bfbc",
+      "package": "signal-hook-0.3.17",
+      "retained_review_hook": "signal-hook-0.3.17/build.rs",
+      "retained_review_manifest": "signal-hook-0.3.17/Cargo.toml",
+      "static_conclusion": "Reads Cargo target/environment metadata and emits cfg/link directives or generated metadata under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "compiler_probe_and_out_dir_cfg",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/syn-1.0.109/build.rs",
+      "hook_sha256": "b815649fd2929d3debd93a58f5da2fb8eba506047a6a5ba538347305828a87b0",
+      "manifest_sha256": "139a7e42e4c95f9730d4dfe05dd5e09ee59f713eacc310921a61d9fdfc0bdce0",
+      "package": "syn-1.0.109",
+      "retained_review_hook": "syn-1.0.109/build.rs",
+      "retained_review_manifest": "syn-1.0.109/Cargo.toml",
+      "static_conclusion": "Uses selected rustc for version/capability detection and emits cfg/generated data under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "out_dir_code_generator",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/terminfo-0.9.0/build.rs",
+      "hook_sha256": "727c36d8d6263055409235d672b549202bf2e983d6ae185fe3476fcca87eb790",
+      "manifest_sha256": "e9ff4a61109c59362cecada7f2bb5ef758f05c85eb11f9e3cbb7a153c8873ec9",
+      "package": "terminfo-0.9.0",
+      "retained_review_hook": "terminfo-0.9.0/build.rs",
+      "retained_review_manifest": "terminfo-0.9.0/Cargo.toml",
+      "static_conclusion": "Generates lookup/code files under Cargo OUT_DIR from pinned crate-local tables; no network or target execution identified."
+    },
+    {
+      "category": "compiler_probe_and_out_dir_cfg",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-1.0.38/build.rs",
+      "hook_sha256": "8b8d9cbf84b9a2fd108b49ecb4bae327da688d80b818acda9ee17170c788e193",
+      "manifest_sha256": "5f5626ddedfae1d837620c7726546c50dc22e766b02c69c1e9c5b52e9ff618e9",
+      "package": "thiserror-1.0.38",
+      "retained_review_hook": "thiserror-1.0.38/build.rs",
+      "retained_review_manifest": "thiserror-1.0.38/Cargo.toml",
+      "static_conclusion": "Uses selected rustc for version/capability detection and emits cfg/generated data under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "compiler_probe_and_out_dir_cfg",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.12/build.rs",
+      "hook_sha256": "d9ff69377315792766c92c0ac6f464c954e7b1f1a7794da7adebc2dd1249aa40",
+      "manifest_sha256": "ee2c50c5cc5bf9690ce99d8c5c9ff7b7f8171ca4ffa208b2a6fe44770f4a26ef",
+      "package": "thiserror-2.0.12",
+      "retained_review_hook": "thiserror-2.0.12/build.rs",
+      "retained_review_manifest": "thiserror-2.0.12/Cargo.toml",
+      "static_conclusion": "Uses selected rustc for version/capability detection and emits cfg/generated data under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "out_dir_code_generator",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/typenum-1.16.0/build/main.rs",
+      "hook_sha256": "006693936308cb1eca0768f94212ccdfe52951c79f64fd18f5c58124c1448f20",
+      "manifest_sha256": "e03aa2d8e8102aacf33c0dd58c8006bf7101b335d079d6b862870a471e488a3c",
+      "package": "typenum-1.16.0",
+      "retained_review_hook": "typenum-1.16.0/build/main.rs",
+      "retained_review_manifest": "typenum-1.16.0/Cargo.toml",
+      "static_conclusion": "Generates lookup/code files under Cargo OUT_DIR from pinned crate-local tables; no network or target execution identified."
+    },
+    {
+      "category": "metadata_or_cfg_generator",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/winapi-0.3.9/build.rs",
+      "hook_sha256": "fa1782968d33345772093666220c7841c2fb4f6dd32fa47951c68a3a400a1a98",
+      "manifest_sha256": "d25b7c71c515a1869c75b3ff957bf845386bec03bcb407532e3726919f0b36c7",
+      "package": "winapi-0.3.9",
+      "retained_review_hook": "winapi-0.3.9/build.rs",
+      "retained_review_manifest": "winapi-0.3.9/Cargo.toml",
+      "static_conclusion": "Reads Cargo target/environment metadata and emits cfg/link directives or generated metadata under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "metadata_or_cfg_generator",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/windows_x86_64_gnu-0.48.0/build.rs",
+      "hook_sha256": "d1d816121af1bba70471e982bf98fa9cd2d8cf695d15d2837f592458410ff597",
+      "manifest_sha256": "e48d0a7df997c52563fd852aa31c24a46094b1b1a631a034f3f0b685917e8af5",
+      "package": "windows_x86_64_gnu-0.48.0",
+      "retained_review_hook": "windows_x86_64_gnu-0.48.0/build.rs",
+      "retained_review_manifest": "windows_x86_64_gnu-0.48.0/Cargo.toml",
+      "static_conclusion": "Reads Cargo target/environment metadata and emits cfg/link directives or generated metadata under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "metadata_or_cfg_generator",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/windows_x86_64_gnu-0.52.6/build.rs",
+      "hook_sha256": "6d40bd2c0ed4cbea5126dfcd89d72f229c7d986540cbf0dc34acc1017f1de20f",
+      "manifest_sha256": "7bd069878ae02213cb113a56b15a1eac497a697de64ec0006bb0930c49b65386",
+      "package": "windows_x86_64_gnu-0.52.6",
+      "retained_review_hook": "windows_x86_64_gnu-0.52.6/build.rs",
+      "retained_review_manifest": "windows_x86_64_gnu-0.52.6/Cargo.toml",
+      "static_conclusion": "Reads Cargo target/environment metadata and emits cfg/link directives or generated metadata under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "metadata_or_cfg_generator",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/windows_x86_64_gnu-0.53.1/build.rs",
+      "hook_sha256": "6d40bd2c0ed4cbea5126dfcd89d72f229c7d986540cbf0dc34acc1017f1de20f",
+      "manifest_sha256": "f0e5d86c89067eccfc351f81bfdab94fbe2a3172f527741379a8a0a6b0e1b9b7",
+      "package": "windows_x86_64_gnu-0.53.1",
+      "retained_review_hook": "windows_x86_64_gnu-0.53.1/build.rs",
+      "retained_review_manifest": "windows_x86_64_gnu-0.53.1/Cargo.toml",
+      "static_conclusion": "Reads Cargo target/environment metadata and emits cfg/link directives or generated metadata under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "metadata_or_cfg_generator",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/windows_x86_64_msvc-0.36.1/build.rs",
+      "hook_sha256": "c801bf00de0978fd5252930993878c0b0eed65336c82c89289efaf9a9ad5ac22",
+      "manifest_sha256": "a1ffbe2c20bb23e941294ac12ec4b7648e7e38a1783590a530606fc06256fbd1",
+      "package": "windows_x86_64_msvc-0.36.1",
+      "retained_review_hook": "windows_x86_64_msvc-0.36.1/build.rs",
+      "retained_review_manifest": "windows_x86_64_msvc-0.36.1/Cargo.toml",
+      "static_conclusion": "Reads Cargo target/environment metadata and emits cfg/link directives or generated metadata under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "metadata_or_cfg_generator",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/windows_x86_64_msvc-0.42.2/build.rs",
+      "hook_sha256": "c801bf00de0978fd5252930993878c0b0eed65336c82c89289efaf9a9ad5ac22",
+      "manifest_sha256": "ebfbf192594ebe92aedd070215e27faec80aaf6a50b8520491534dea891c3e96",
+      "package": "windows_x86_64_msvc-0.42.2",
+      "retained_review_hook": "windows_x86_64_msvc-0.42.2/build.rs",
+      "retained_review_manifest": "windows_x86_64_msvc-0.42.2/Cargo.toml",
+      "static_conclusion": "Reads Cargo target/environment metadata and emits cfg/link directives or generated metadata under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "metadata_or_cfg_generator",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/windows_x86_64_msvc-0.48.0/build.rs",
+      "hook_sha256": "c801bf00de0978fd5252930993878c0b0eed65336c82c89289efaf9a9ad5ac22",
+      "manifest_sha256": "55de7fa66831e59ad955f4312f91d4a6ebb11951ad08900871d93efe8d27bb57",
+      "package": "windows_x86_64_msvc-0.48.0",
+      "retained_review_hook": "windows_x86_64_msvc-0.48.0/build.rs",
+      "retained_review_manifest": "windows_x86_64_msvc-0.48.0/Cargo.toml",
+      "static_conclusion": "Reads Cargo target/environment metadata and emits cfg/link directives or generated metadata under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "metadata_or_cfg_generator",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/windows_x86_64_msvc-0.52.6/build.rs",
+      "hook_sha256": "6d40bd2c0ed4cbea5126dfcd89d72f229c7d986540cbf0dc34acc1017f1de20f",
+      "manifest_sha256": "cebfc4eefe4d2c0da8ab97e31e3f5a518fc9db453a131d31d84dcdb5c16acb26",
+      "package": "windows_x86_64_msvc-0.52.6",
+      "retained_review_hook": "windows_x86_64_msvc-0.52.6/build.rs",
+      "retained_review_manifest": "windows_x86_64_msvc-0.52.6/Cargo.toml",
+      "static_conclusion": "Reads Cargo target/environment metadata and emits cfg/link directives or generated metadata under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "metadata_or_cfg_generator",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/windows_x86_64_msvc-0.53.1/build.rs",
+      "hook_sha256": "6d40bd2c0ed4cbea5126dfcd89d72f229c7d986540cbf0dc34acc1017f1de20f",
+      "manifest_sha256": "6e60ae5f5d58fc727d409e212a09b7a3bb14b77d48d08171af12d9602658ced7",
+      "package": "windows_x86_64_msvc-0.53.1",
+      "retained_review_hook": "windows_x86_64_msvc-0.53.1/build.rs",
+      "retained_review_manifest": "windows_x86_64_msvc-0.53.1/Cargo.toml",
+      "static_conclusion": "Reads Cargo target/environment metadata and emits cfg/link directives or generated metadata under Cargo OUT_DIR; no network or application command identified."
+    },
+    {
+      "category": "compiler_probe_and_out_dir_cfg",
+      "hook": "cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/zerocopy-0.8.27/build.rs",
+      "hook_sha256": "7314278de5615bc432c65a123958136c98e996ce7c8cbf5f9d69a90f694d694b",
+      "manifest_sha256": "aa4901b586f87bddae43ffe5aada7860ecbb8c49da81e92b47e3c72fa7632750",
+      "package": "zerocopy-0.8.27",
+      "retained_review_hook": "zerocopy-0.8.27/build.rs",
+      "retained_review_manifest": "zerocopy-0.8.27/Cargo.toml",
+      "static_conclusion": "Uses selected rustc for version/capability detection and emits cfg/generated data under Cargo OUT_DIR; no network or application command identified."
+    }
+  ],
+  "targets": [
+    "x86_64-pc-windows-msvc",
+    "x86_64-unknown-linux-gnu"
+  ],
+  "workflow_review": {
+    "build": "Platform packaging reusable workflow; not invoked during source review.",
+    "canary": "Writes a mutable prerelease; excluded and not invoked.",
+    "ci": "Upstream CI does workspace build/test plus fmt on hosted matrices; campaign will run build/test on exact pinned archive and does not invoke a publication step.",
+    "release": "Publishes releases/crates/npm/PyPI; excluded and not invoked."
+  }
+}

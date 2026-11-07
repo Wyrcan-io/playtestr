@@ -9,7 +9,7 @@ import uuid
 
 from adversarial_process import execute
 from next20_check import DOC, RAW, ROOT, NextCampaign
-from next20_rust_fetch import environment
+from next20_rust_fetch import environment, short_owned_path
 from readiness_evidence import immutable_json, sha256
 
 
@@ -32,6 +32,12 @@ def isolated_env(project):
     if not Path(shared_modcache).is_dir():
         raise ValueError('read-only existing Go module cache is unavailable')
     env['GOMODCACHE'] = shared_modcache
+    if os.name == 'nt':
+        for key in ('HOME', 'USERPROFILE', 'APPDATA', 'LOCALAPPDATA', 'TEMP', 'TMP',
+                    'TMPDIR', 'XDG_CACHE_HOME', 'XDG_CONFIG_HOME', 'XDG_DATA_HOME',
+                    'GOCACHE'):
+            Path(env[key]).mkdir(parents=True, exist_ok=True) if key == 'GOCACHE' else None
+            env[key] = short_owned_path(env[key])
     return env
 
 
@@ -41,6 +47,9 @@ async def main():
     parser.add_argument('--label', required=True)
     parser.add_argument('--update', action='store_true')
     parser.add_argument('--expected-runner-exit', type=int, default=0)
+    parser.add_argument('--candidate-series', choices=['native-exit-v1'])
+    parser.add_argument('--target-binary')
+    parser.add_argument('--contention', action='store_true')
     parser.add_argument('spec')
     args = parser.parse_args()
     project = args.project
@@ -67,19 +76,40 @@ async def main():
             raise ValueError('case-owned stdin adapter differs from the reviewed source')
     elif Path(spec_data['command'][0]).name.lower() not in {'sk', 'sk.exe'}:
         raise ValueError('case must launch the exact pinned Skim binary or reviewed stdin adapter')
+    target_binary = Path(args.target_binary).resolve(strict=True) if args.target_binary else (target/'bin'/'sk.exe').resolve(strict=True)
+    target_binary.relative_to(RAW.resolve(strict=True))
+    if target_binary.is_symlink() or getattr(target_binary, 'is_junction', lambda: False)():
+        raise ValueError('linked Skim target binary is refused')
+    target_digest = sha256(target_binary)
+    expected_target_digest = json.loads((target/'build.json').read_text(encoding='utf-8'))['binary_sha256']
+    if target_digest != expected_target_digest:
+        raise ValueError('selected Skim target binary differs from the pinned build receipt')
     case_id = uuid.uuid4().hex
     report_root = target / 'case-evidence' / case_id
     report_root.mkdir(parents=True)
     report = report_root / 'report.json'
     runner_evidence = report_root / 'runner-evidence'
-    argv = [shutil.which('go') or 'go', 'run', '-mod=readonly', './cmd/playtestr', 'test',
-            '--artifacts-dir', str(runner_evidence), '--report', str(report)]
+    candidate_sha256 = None
+    if args.candidate_series:
+        from next20_candidate import executable
+        runner = executable(args.candidate_series, 'windows' if os.name == 'nt' else 'linux')
+        candidate_sha256 = sha256(runner)
+        argv = [str(runner), 'test', '--artifacts-dir', str(runner_evidence),
+                '--report', str(report)]
+    else:
+        argv = [shutil.which('go') or 'go', 'run', '-mod=readonly', './cmd/playtestr', 'test',
+                '--artifacts-dir', str(runner_evidence), '--report', str(report)]
     if args.update:
         argv.append('--update')
     argv.append(str(spec))
     record = dict(schema_version=1, case_attempt_id=case_id, project=project, label=args.label,
                   spec=str(spec.relative_to(ROOT)), spec_sha256=sha256(spec),
                   executable_sha256=json.loads((target/'build.json').read_text())['binary_sha256'],
+                  target_binary_path=target_binary.relative_to(ROOT).as_posix(),
+                  target_binary_sha256=target_digest,
+                  runner_candidate_series=args.candidate_series,
+                  runner_candidate_sha256=candidate_sha256,
+                  contention=args.contention,
                   adapter_sha256=adapter_hash, fixture_files=fixture_files,
                   host=os.name, expected_runner_exit=args.expected_runner_exit,
                   command=list(map(str, argv)), report_path=str(report.relative_to(ROOT)))
@@ -88,10 +118,11 @@ async def main():
     error = None
     try:
         env = isolated_env(project)
-        env['SKIM_TEST_BINARY'] = str((target/'bin'/'sk.exe').resolve(strict=True))
+        env['SKIM_TEST_BINARY'] = str(target_binary)
         result = await execute(argv, project, 'playtestr-case-' + args.label,
             cwd=ROOT, env=env, timeout=240,
-            expected=args.expected_runner_exit, campaign=NextCampaign(), output_cap=2*1024*1024)
+            expected=args.expected_runner_exit, campaign=NextCampaign(), output_cap=2*1024*1024,
+            load=args.contention)
     except Exception as exc:
         error = dict(type=type(exc).__name__, message=str(exc)[:2048],
                      attempt_id=getattr(exc, 'evidence_id', None),

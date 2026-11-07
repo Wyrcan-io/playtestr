@@ -235,3 +235,25 @@ Fifteenth hosted attempt `41980469906` (`v15`): Windows completed 240 ordinary c
 
 
 Seventeenth hosted workflow `41984301547` (`v16`) repeated the same effective Linux N01 failure: Windows completed 240 ordinary cases, nine fault phases and checked cleanup; Linux completed 220 cases then timed out on N01 at 2,000 ms. The packet?s generated N01 contract confirms 2,000 ms, although the v16 declaration specified 5,000 ms for Linux. Root cause: the top-level Git Town wrapper checked v16, while the shared batch runner read the legacy v1 startup profile. Preserve both packets and the exact report in [`final-series-attempts-v16.json`](final-series-attempts-v16.json); no retry or qualification credit. A duplicate queued dispatch `41984332161` was cancelled before any jobs started and is separately recorded in [`final-series-attempts-v15.json`](final-series-attempts-v15.json). V17 threads the explicit per-host startup profile to the batch runner and adds an override regression test.
+
+5 November continuation: recovered V20's original GitHub ZIPs by recorded artifact
+IDs and verified exact provider byte counts and SHA-256 values. The first reuse of
+the source-development retention helper failed its per-project cap because its
+binary-path assumptions did not match the final-series packet; that oversized
+attempt is preserved by digest and was never treated as retention evidence. The
+corrected final-series curation retained 3,237 Linux and 3,073 Windows payload
+members, with complete original-member path/size/hash indexes. It retained all
+final reports, planned specs, summaries, fault receipts, source/provenance and
+cleanup evidence; 9 Linux and 185 Windows members were omitted only with indexed
+hashes and explicit audit dispositions. Combined packets are 39,159,728 bytes.
+Every retained member and the selected final summary passed readback before the
+full provider ZIPs and failed oversized packet were removed with exact native
+PowerShell checks. The compact packets then reconstructed both actual 240-report
+cell models; 24 deliberate model corruptions were rejected and both unchanged
+positive models passed. Evidence: [retention readback](final-series-retention-readback-v21.json),
+[model controls](model-controls-v20.json), and [admission](admission.json).
+Git Town now contributes one rc.6 admission: current-candidate project count 4/20,
+with 1,920 ordinary executions, 72 calibrations, eight cells and twelve distinct
+new-project faults. Original-ten requalification and every remaining campaign
+gate remain open; human usability is unmeasured and delivered-CI triplets remain
+a separate campaign requirement.

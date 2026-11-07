@@ -1,0 +1,37 @@
+{
+  "combined_retained_bytes": 39159728,
+  "hosts": [
+    {
+      "expanded_bytes": 357109044,
+      "host": "linux",
+      "omitted_members": 9,
+      "provider_bytes": 155560575,
+      "provider_members": 3246,
+      "provider_sha256": "50c61463ee6921a989d760c602935c35a1e9763991cdc3fd4f6c9ece0081bbac",
+      "retained_bytes": 19810568,
+      "retained_members": 3237,
+      "retained_packet": "retained/git-town-final-v20-v2/linux-evidence-v1.zip",
+      "retained_sha256": "0eea10b2e15a4c7c33e89ca7e25f3d9fe99c41fe6e8fe3af5c1b159ba6b231b1",
+      "retention_index": "retention-index-v1.json",
+      "retention_index_sha256": "02988269a04ceed752deefb216527d78474f682541dd6344efbd8989718a4918"
+    },
+    {
+      "expanded_bytes": 362825949,
+      "host": "windows",
+      "omitted_members": 185,
+      "provider_bytes": 158051230,
+      "provider_members": 3258,
+      "provider_sha256": "84d57fdcbb8aafd87a12dad99244082b24b0fc02005cf1bf1ba4238773902039",
+      "retained_bytes": 19349160,
+      "retained_members": 3073,
+      "retained_packet": "retained/git-town-final-v20-v2/windows-evidence-v1.zip",
+      "retained_sha256": "01d8a0b24354f4db01c1fbf5430bf64e020f4cf3e03aa162d7e994f8bb8bae8a",
+      "retention_index": "retention-index-v1.json",
+      "retention_index_sha256": "4cdd574d62dd52ba06825f9974661c48735a40454d236ccdab554f7a15de8ee4"
+    }
+  ],
+  "project": "git-town",
+  "schema_version": 1,
+  "scope": "Provider ZIPs matched original GitHub size/SHA, passed bounded full-member CRC/path checks, were curated with a complete omission/retention index, and every retained member was hash-checked after write. Full provider ZIPs remain in task-owned tmp staging until native checked cleanup.",
+  "source_audit": "git-town/final-series-audit-v20.json"
+}

@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "project": "skim",
+  "pin": "1ab47f6ba7f1bfc355273bbdd98d4b2056ef95a3",
+  "source_provenance_sha256": "565ef66d739b6a0b8f27c2725923fbddd38ee08ec4ffe11ec1491aa7c090161a",
+  "faults": [
+    {
+      "id": "SKIM-EXIT-EMPTY-01",
+      "source": "src/bin/main.rs",
+      "old": "Ok(i32::from(result.selected_items.is_empty()))",
+      "new": "Ok(0)",
+      "expected_anchor_count": 1,
+      "case": "E02",
+      "contract": "E02-v2.json",
+      "expected_failure_category": "unexpected_exit",
+      "claim": "A no-match run incorrectly exits zero instead of its declared nonzero result."
+    },
+    {
+      "id": "SKIM-MATCH-COUNT-01",
+      "source": "src/tui/input.rs",
+      "old": "write!(parts, \"{}/{}\", self.matched, self.total)",
+      "new": "write!(parts, \"0/0\")",
+      "expected_anchor_count": 2,
+      "case": "N01",
+      "contract": "N01-v2.json",
+      "expected_failure_category": "assertion_timeout",
+      "claim": "The interactive match count is falsely rendered as zero."
+    },
+    {
+      "id": "SKIM-MULTI-COUNT-01",
+      "source": "src/tui/input.rs",
+      "old": "write!(parts, \" [{}]\", self.selected)",
+      "new": "write!(parts, \" [0]\")",
+      "expected_anchor_count": 2,
+      "case": "N04",
+      "contract": "N04-v2.json",
+      "expected_failure_category": "assertion_timeout",
+      "claim": "The multi-selection status indicator hides selected items."
+    }
+  ],
+  "phases": [
+    "baseline",
+    "corrupted",
+    "restored"
+  ],
+  "required_per_host": 9,
+  "requirements": "For each distinct source mutation, execute the exact same frozen contract under the unmodified pinned binary (pass), mutated binary (contract-detected failure), then restored source and byte-identical rebuilt binary (pass). Preserve all phase outputs and exact source restoration; no retries."
+}

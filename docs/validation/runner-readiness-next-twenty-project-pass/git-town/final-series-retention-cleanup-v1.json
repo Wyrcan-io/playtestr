@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "project": "git-town",
+  "provider_run_id": "41994487910",
+  "retention_readback": "git-town/final-series-retention-readback-v21.json",
+  "cleanup_method": "Native Windows PowerShell in one process; exact paths resolved under the workspace, expected sizes and SHA-256 checked before removal, then absence and empty owned staging root verified.",
+  "removed_after_readback": [
+    {
+      "path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/git-town-final-v20-staging/linux.zip",
+      "bytes": 155560575,
+      "sha256": "50c61463ee6921a989d760c602935c35a1e9763991cdc3fd4f6c9ece0081bbac",
+      "provider_original": true,
+      "absent_after_removal": true
+    },
+    {
+      "path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/git-town-final-v20-staging/windows.zip",
+      "bytes": 158051230,
+      "sha256": "84d57fdcbb8aafd87a12dad99244082b24b0fc02005cf1bf1ba4238773902039",
+      "provider_original": true,
+      "absent_after_removal": true
+    },
+    {
+      "path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/git-town-final-v20-staging/curation-attempt-failed-oversize.zip",
+      "bytes": 154941084,
+      "sha256": "7041bed979bc89650dfacac5c49a4a53b6902220336d341626c1fa47842a41fb",
+      "provider_original": false,
+      "disposition": "Failed first curation reused a source-development path classifier and exceeded the 64 MiB project limit. Preserved until the corrected final-series curation passed complete readback.",
+      "absent_after_removal": true
+    }
+  ],
+  "staging_root_absent": true,
+  "retained_linux_packet": {
+    "path": "artifacts/runner-readiness-next-twenty-project-pass/retained/git-town-final-v20-v2/linux-evidence-v1.zip",
+    "bytes": 19810568,
+    "sha256": "0eea10b2e15a4c7c33e89ca7e25f3d9fe99c41fe6e8fe3af5c1b159ba6b231b1"
+  },
+  "retained_windows_packet": {
+    "path": "artifacts/runner-readiness-next-twenty-project-pass/retained/git-town-final-v20-v2/windows-evidence-v1.zip",
+    "bytes": 19349160,
+    "sha256": "01d8a0b24354f4db01c1fbf5430bf64e020f4cf3e03aa162d7e994f8bb8bae8a"
+  },
+  "combined_retained_bytes": 39159728,
+  "post_cleanup_model_readback": {
+    "receipt": "git-town/model-controls-v20.json",
+    "controls_rejected": 24,
+    "positive_models_restored": 2,
+    "credit": 0
+  },
+  "scope": "Checked removal of the full provider ZIPs after exact provider identity, bounded full archive inspection, complete retention indexing, and curated member readback. Provider original digests and every original path/size/hash remain represented in the retained indexes; original archive bytes remain available from the unexpired authorized GitHub run artifact."
+}

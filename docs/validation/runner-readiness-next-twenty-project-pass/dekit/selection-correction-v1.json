@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "project": "dekit",
+  "repository": "pvolok/dekit",
+  "pin": "da2acca491298c902d3f2e828204b98087123323",
+  "screening_row": "docs/validation/runner-readiness-next-twenty-project-pass/screening-decisions.json#dekit",
+  "screening_declaration_preserved": true,
+  "metadata_corrections": {
+    "requested_repository": {
+      "recorded": "pvolok/mprocs",
+      "verified": "pvolok/dekit",
+      "evidence": "The selected repository and pinned Git tree both identify pvolok/dekit. The pinned README describes dekit as the next version of mprocs; this explains the stale alias without changing the selected project."
+    },
+    "readme_local_only": {
+      "recorded": "artifacts/runner-readiness-next-twenty-project-pass/screening/pvolok--mprocs/da2acca491298c902d3f2e828204b98087123323/readme.json",
+      "verified_source_path": "active/dekit/src/README.md",
+      "recorded_sha256": "e5c7b02960960f3712ab87a847b61c9ba5550de3647a1c9e4b2cafdb5469fb89",
+      "verified_sha256": "c0a2a5b8ab8e2faa72f2838bcda75b8ee228fe5429d408b8e32d8a4db7847c3f"
+    }
+  },
+  "verified_source_provenance": "source-provenance.json",
+  "verified_source_tree_sha256": "9241a9dfc5797ce54db093471be03e6e5cf55af91c2b557e51dac48fba7e7fcf",
+  "verified_source_blobs": 336,
+  "license": "MIT",
+  "scope": "Corrects screening metadata aliases and pins source identity; does not change project selection or authorize target builds or execution."
+}

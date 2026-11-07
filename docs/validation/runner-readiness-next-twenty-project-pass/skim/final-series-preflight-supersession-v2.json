@@ -1,0 +1,24 @@
+{
+  "attempt": "final-series-prepare-v2",
+  "candidate_admission_credit": 0,
+  "case_count": 0,
+  "files": [
+    {
+      "path": "artifacts/runner-readiness-next-twenty-project-pass/active/skim/final-series-copies-v2/cold-warm-a/sk.exe",
+      "sha256": "e1251e201c6d7e8b41b48741bab8a5cc599b546c70e3750eb0b4158e23bce0cd",
+      "size": 8335872
+    },
+    {
+      "path": "artifacts/runner-readiness-next-twenty-project-pass/active/skim/final-series-copies-v2/cold-warm-b/sk.exe",
+      "sha256": "e1251e201c6d7e8b41b48741bab8a5cc599b546c70e3750eb0b4158e23bce0cd",
+      "size": 8335872
+    }
+  ],
+  "outcome": "prelaunch_refusal",
+  "partial_output_root": "artifacts/runner-readiness-next-twenty-project-pass/active/skim/final-series-copies-v2",
+  "project": "skim",
+  "reason": "Preparation created two byte-verified independent target copies, then refused the existing v1 contract root before publishing any plan. No candidate case or target was launched. Preserve these partial preparation outputs; v3 uses a fresh target-copy and contract namespace.",
+  "replacement_namespace": "final-series-copies-v3 / final-contracts-native-exit-v3 / final-series-plan-native-exit-v3",
+  "schema_version": 1,
+  "target_launches": 0
+}

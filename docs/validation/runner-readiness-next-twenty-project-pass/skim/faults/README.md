@@ -1,11 +1,14 @@
 ﻿# Skim source-fault attempts
 
-The source-fault matrix is not qualified yet. `next20_skim_faults.py` declares
-three bounded, local source mutations against the pinned Skim tree and requires
-a corresponding frozen public case to fail after launching the target.
-Successful detection will receive credit only from
-`fault-matrix-v1.json`, emitted after all three cases, exact source restoration
-and post-run provenance verification complete.
+The source-development fault matrix completed in hosted run `41827379783` on
+Windows. All three bounded mutations were detected by their frozen public cases
+after target launch, the case-owned processes and workspaces were cleaned, and
+the pinned source was restored and reverified. Its 28-member evidence archive
+and every member hash were independently checked; see
+[`../source-development-readback-v2.json`](../source-development-readback-v2.json).
+These are development faults. They do not count as Skim's final candidate source
+faults; the exact current candidate must repeat its own required calibration
+series before admission.
 
 The v4-v6 spec variants preserve local harness attempts. The first variant had
 an invalid relative mutant-binary path. The later variants fixed that path but

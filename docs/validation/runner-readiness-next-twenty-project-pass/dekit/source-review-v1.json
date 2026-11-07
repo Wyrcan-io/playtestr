@@ -1,0 +1,53 @@
+{
+  "dependency_hook_review_sha256": "7bb4eb14cd22fa90879d9c898a5801de52ee0c5c28cffcfd78d19d472d8fe609",
+  "expanded_source_bytes": 3711224,
+  "license": {
+    "bytes": 1072,
+    "path": "LICENSE",
+    "result": "MIT; exact pinned source license reviewed",
+    "sha256": "c343db79b3fcfe53edf567483cd2f47c63c104ccc6fa6c3dfbab1c8bc2c251ca"
+  },
+  "license_and_network_boundary": "No upstream install scripts, release/canary workflows, update command, remote target application, or publication step will run. Cargo network fetch used only checksum-verified crates.io inputs; source and all subsequent builds remain offline.",
+  "pin": "da2acca491298c902d3f2e828204b98087123323",
+  "primary_tree_sha256": "9241a9dfc5797ce54db093471be03e6e5cf55af91c2b557e51dac48fba7e7fcf",
+  "project": "dekit",
+  "project_risks": {
+    "detached_processes": "The product starts a detached runner service and then task children. TestRunner helper assigns per-test HOME/XDG runtime/data roots and calls runner stop on drop; test harness Drop is best-effort, so campaign scenarios require independent process-tree proof/cleanup after each case.",
+    "target_commands": "Restrict configured child commands to pinned static scripts that write within the scenario workspace or wait under bounded time; do not start real services, access real project folders, use remote/Git credentials, or run installer/update commands.",
+    "tui": "Use a real PTY for attach/keyboard scenarios; terminal dimensions, escape sequences and exit/runner cleanup must be observed."
+  },
+  "readme": {
+    "bytes": 2051,
+    "product": "Process manager for development and production; dependency/restart handling, CLI and TUI, embedded JavaScript",
+    "sha256": "c0a2a5b8ab8e2faa72f2838bcda75b8ee228fe5429d408b8e32d8a4db7847c3f"
+  },
+  "repository": "pvolok/dekit",
+  "schema_version": 1,
+  "scope": "Source and build-hook identity review only; no target execution, scenario qualification, platform compatibility, admission, or 30/100 credit.",
+  "selection_metadata_correction": "selection-correction-v1.json",
+  "source_archive_bytes": 1186818,
+  "source_archive_sha256": "4c19e3f254fabba2a0f12736ee501c13af0c593d6205f9d92ddb77aa882bb156",
+  "source_build_hook_review": "dependency-hook-review-v1.json",
+  "source_files": 336,
+  "source_provenance_sha256": "c317b79652981c7ebbd0a274397fc9c0d03c8f910247485506eaad29fc7f77f8",
+  "tree_source_blobs_verified": 336,
+  "upstream_build": {
+    "crate_manifest": "src/Cargo.toml",
+    "edition": "2024",
+    "lock_sha256": "306d208a76773c0c3b0f40d035d61d49ad47848f7d025d5e915bac5a3cd7ccf5",
+    "minimum_rust_version": "1.88",
+    "network_resolution": "Cargo fetch was performed under owned CARGO_HOME against exact lock checksums; subsequent build/test must use offline and locked mode.",
+    "root_build_script": {
+      "path": "src/build.rs",
+      "review": "Only traverses static docs source and writes an include_str module under Cargo OUT_DIR.",
+      "sha256": "33fe4eac42d3384b672c188c79b7c427cb2b4a2935c53f8596abb7c0fd14a752"
+    },
+    "workspace": "Cargo.toml default member src; members helpers/print-key and src"
+  },
+  "upstream_workflows": {
+    "build.yml": "Cross-platform release package creation with target matrices; not needed for CI verification.",
+    "canary.yml": "Publishes a mutable canary release and runs update tests; excluded.",
+    "ci.yml": "Build and test workspace on Ubuntu, macOS and Windows; rustfmt check on Ubuntu. Campaign selection tests Linux/Windows only.",
+    "release.yml": "Creates GitHub releases and publishes crate/npm/PyPI artifacts; excluded."
+  }
+}

@@ -24,8 +24,13 @@ class SourceLinkTests(unittest.TestCase):
         with self.assertRaises(RuntimeError):extract_source(data.getvalue(),root/'changed',omitted_links={'AGENTS.md':'OTHER.md'},**options)
         pin='a'*40
         self.assertEqual(validate_links(dict(schema_version=1,pin=pin,omitted_documentation_links={'AGENTS.md':'CLAUDE.md'}),pin),{'AGENTS.md':'CLAUDE.md'})
+        self.assertEqual(validate_links(dict(schema_version=1,pin=pin,omitted_documentation_links={}),pin),{})
+        with self.assertRaises(RuntimeError):extract_source(data.getvalue(),root/'empty-policy',omitted_links={},**options)
+        self.assertFalse((root/'empty-policy').exists())
+        self.assertEqual(validate_links(dict(schema_version=1,pin=pin,original_archive_sha256='b'*64,omitted_documentation_links={}),pin),{})
         for name,target in [('AGENTS.md','../outside.md'),('code.go','CLAUDE.md'),('AGENTS.md','code.go'),('AGENTS.md','AGENTS.md')]:
             with self.assertRaises(ValueError):validate_links(dict(schema_version=1,pin=pin,omitted_documentation_links={name:target}),pin)
+        with self.assertRaises(ValueError):validate_links(dict(schema_version=1,pin=pin,original_archive_sha256='bad',omitted_documentation_links={}),pin)
 
 
 if __name__=='__main__':unittest.main()

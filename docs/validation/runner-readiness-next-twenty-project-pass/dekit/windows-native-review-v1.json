@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "project": "dekit",
+  "repository": "pvolok/dekit",
+  "pin": "da2acca491298c902d3f2e828204b98087123323",
+  "source_review": "dekit/source-review-v1.json",
+  "source_tests": {
+    "command": "cargo test --workspace --locked --offline --target x86_64-pc-windows-msvc",
+    "runner": "scripts/acceptance/next20_dekit_windows_tests.py",
+    "final_full_suite": "artifacts/runner-readiness-next-twenty-project-pass/active/dekit/windows-test-v7/receipt.json",
+    "result": {
+      "passed": 606,
+      "failed": 5,
+      "ignored": 0,
+      "integration_targets_run": false,
+      "process_cleanup_confirmed": true,
+      "isolated_temp_root_removed": true
+    },
+    "failures": [
+      {
+        "test": "config::config::tests::load_patterns_are_watched_where_they_can_match",
+        "actual": "Windows native path contains backslashes",
+        "expected": "POSIX slash path"
+      },
+      {
+        "test": "spec::tests::a_copy_does_not_share_a_log_file",
+        "actual": "\\\\p\\\\logs",
+        "expected": "/p/logs"
+      },
+      {
+        "test": "spec::tests::reads_back_what_it_writes",
+        "actual": "\\\\proj\\\\web",
+        "expected": "/proj/web"
+      },
+      {
+        "test": "write_back::tests::a_path_is_written_from_the_file_up_to_the_project",
+        "actual": "..\\\\api",
+        "expected": "../api"
+      },
+      {
+        "test": "write_back::tests::writes_paths_relative_to_the_file_and_deps_to_the_mount",
+        "actual": "..\\\\shared\\\\src",
+        "expected": "../shared/src"
+      }
+    ],
+    "environmental_attempts": {
+      "linker": "First test attempt resolved Git's usr/bin/link.exe. Visual Studio Build Tools x64 initialization fixed the linker environment before test execution.",
+      "temporary_projects": "Initial temp paths were inside the checkout and then under the user profile. One test selected the enclosing project marker. A full rerun with an isolated C:\\Windows\\Temp root passed that test; the five path expectation failures remained.",
+      "attempt_history": [
+        "windows-test-v1: compile failed before tests because the sanitized environment selected an incompatible linker; no tests executed.",
+        "windows-test-v2: 604 passed, 7 failed; included checkout-temp and platform-separator failures.",
+        "windows-test-v3: package-root test failed with temp under checkout.",
+        "windows-test-v4: same package-root test passed with isolated temp outside checkout.",
+        "windows-test-v5: no-project test encountered C:\\Users\\abhir\\package.json as an enclosing marker.",
+        "windows-test-v6: 605 passed, 6 failed with temp under the user profile.",
+        "windows-test-v7: 606 passed, 5 failed with task-owned temp under C:\\Windows\\Temp."
+      ]
+    }
+  },
+  "bounded_cli_smoke": {
+    "receipt": "artifacts/runner-readiness-next-twenty-project-pass/active/dekit/windows-cli-smoke-v1/receipt.json",
+    "result": "up, list, screen and down all exited zero; the captured task screen showed READY; all dekit target processes were absent afterward.",
+    "scope": "One exploratory synthetic Windows CLI flow. No frozen scenario, TUI interaction, native cell or admission credit."
+  },
+  "nested_child_cleanup": {
+    "receipt": "artifacts/runner-readiness-next-twenty-project-pass/active/dekit/windows-descendant-cleanup-v2/receipt.json",
+    "process_receipt": "artifacts/runner-readiness-next-twenty-project-pass/active/dekit/windows-descendant-cleanup-v2/process-receipt.json",
+    "observation": "The synthetic task wrote its own PowerShell parent and child PIDs. dekit down returned zero and stopped the parent, but the nested 20-second child remained alive. The recorded child executable path matched Windows PowerShell; only that task-owned PID was then terminated and both PIDs were verified absent.",
+    "disposition": "Failed exploratory cleanup check; preserve as a target defect and do not grant admission or cleanup credit."
+  },
+  "qualification": {
+    "admitted": false,
+    "new_project_admission_credit": 0,
+    "frozen_scenarios": 0,
+    "qualified_native_cells": 0,
+    "ordinary_executions": 0,
+    "calibration_executions": 0,
+    "real_faults": 0,
+    "status": "provisional candidate rejected from admission pending Windows path failures and nested-descendant cleanup behavior; source tests and exploratory CLI work are screening evidence only."
+  },
+  "scope": "Accurate Windows source-test and exploratory behavior review; not compatibility, project qualification, or admission."
+}

@@ -5,7 +5,7 @@
   "workflow_run_id": 41827379783,
   "commit": "47d5ff9bdaabadbf98539a8dce81ecb33fed3012",
   "scenario_declaration": "scenario-declaration-v6.json",
-  "scenario_declaration_sha256": "d1538c8a36c3fb6457456eb4d5b21a5af6ea6c669c34268ff6ba0acbae154cbc",
+  "scenario_declaration_sha256": "19251ff683b2cca7e0eb50e0bce048b574bfdc59186d3a834bebe8fec83b825a",
   "hosts": {
     "linux": {
       "runner": "ubuntu-24.04",
@@ -601,5 +601,8 @@
     "full campaign cleanup/storage and final independent audit",
     "WIN-NAV-01 directional navigation",
     "OUTPUT-NUL-01 exact NUL output framing"
-  ]
+  ],
+  "local_scenario_declaration_sha256": "d1538c8a36c3fb6457456eb4d5b21a5af6ea6c669c34268ff6ba0acbae154cbc",
+  "scenario_declaration_git_blob_sha1": "6313f5fc4f374532b8d00edf67072c57b7685bb4",
+  "scenario_declaration_note": "The hosted matrix receipt records the checkout-byte SHA-256. The local Windows worktree renders the same JSON with different line-ending/trailing-newline bytes; retain both hashes, and use the hosted receipt hash for tested identity."
 }

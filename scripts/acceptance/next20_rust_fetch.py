@@ -10,6 +10,7 @@ from adversarial_process import execute
 from next20_check import RAW, ROOT, NextCampaign
 from readiness_evidence import immutable_json, sha256
 from readiness_build_plop import usage
+from readiness_storage import measure
 
 
 def environment(target):
@@ -74,7 +75,7 @@ def materialize_short_cache(target,dependencies,catalog):
 
 
 async def main():
-    parser=argparse.ArgumentParser();parser.add_argument('project',choices=['cargo-generate','skim'])
+    parser=argparse.ArgumentParser();parser.add_argument('project',choices=['cargo-generate','skim','dekit'])
     parser.add_argument('--native-host',action='store_true');parser.add_argument('--toolchain',default='stable');args=parser.parse_args();target=RAW/'active'/args.project
     if (target/'dependency-fetch-review.json').exists():raise ValueError('refuse replacing dependency receipt')
     import json
@@ -94,15 +95,24 @@ async def main():
     if not compiler.is_file() or not cargo.is_file():raise ValueError('installed read-only stable native Rust prerequisite missing')
     env=environment(target);env.update(RUSTC=str(compiler),RUSTDOC=str(tools/('rustdoc'+suffix)))
     env['PATH']=str(tools)+os.pathsep+env['PATH']
+    old_raw=ROOT/'artifacts/runner-readiness-ten-project-pass'
+    current_start=usage(RAW);active_start=usage(target)
+    old_bytes=measure(old_raw)['total_bytes'] if old_raw.exists() else 0
+    raw_cap=4*1024**3;combined_cap=6*1024**3
+    if current_start>raw_cap or current_start+old_bytes>combined_cap:
+        raise ValueError('Rust fetch exceeds the declared new/combined raw storage ceiling')
+    active_cap=min(raw_cap,combined_cap-old_bytes-(current_start-active_start))
+    if active_cap<active_start:raise ValueError('existing target exceeds available aggregate headroom')
     attempts=[];samples=[]
     async def run(argv,label,timeout):
         task=asyncio.create_task(execute(argv,args.project,label,cwd=source,env=env,
             timeout=timeout,campaign=NextCampaign()))
         try:
             while not task.done():
-                size=await asyncio.to_thread(usage,RAW);samples.append(size)
-                # Leave over two GiB headroom for the unchanged historical root.
-                if size>2*1024**3:raise ValueError('Rust fetch raw storage stop')
+                size,active_size=await asyncio.gather(asyncio.to_thread(usage,RAW),asyncio.to_thread(usage,target))
+                samples.append(dict(raw_bytes=size,active_target_bytes=active_size))
+                if size>raw_cap or size+old_bytes>combined_cap or active_size>active_cap:
+                    raise ValueError('Rust fetch reached the declared new/combined or active-target storage ceiling')
                 await asyncio.sleep(2)
             result=await task;attempts.append(result['id']);return result
         finally:
@@ -141,7 +151,9 @@ async def main():
         print('Fetched',len(files),'checksum-verified archives;',len(hooks),'hooks require review; no builds executed.')
     finally:
         immutable_json(target/('fetch-storage-'+uuid.uuid4().hex+'.json'),dict(observed_raw_bytes=samples,
-            scope='Periodic logical samples, not an exact peak or filesystem quota.'))
+            caps=dict(new_raw_bytes=raw_cap,combined_raw_bytes=combined_cap,active_target_bytes=active_cap),
+            old_campaign_bytes=old_bytes,
+            scope='Periodic logical raw/active samples, not an exact peak or filesystem quota; ceilings derive from the declared 4/6 GiB campaign limits and measured pre-existing headroom.'))
 
 
 if __name__=='__main__':asyncio.run(main())

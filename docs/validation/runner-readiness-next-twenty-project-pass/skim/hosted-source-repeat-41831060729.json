@@ -1,0 +1,811 @@
+{
+  "schema_version": 1,
+  "workflow_run_id": 41831060729,
+  "commit": "19e689f1d3721743146a11647fcb152048becd5d",
+  "source_pin": "1ab47f6ba7f1bfc355273bbdd98d4b2056ef95a3",
+  "scenario_declaration_sha256": "19251ff683b2cca7e0eb50e0bce048b574bfdc59186d3a834bebe8fec83b825a",
+  "hosts": {
+    "linux": {
+      "runner": "ubuntu-24.04",
+      "artifact_id": 13323291484,
+      "artifact_bytes": 9827358,
+      "artifact_sha256": "caabbb1a3fd60bf97a65e28e5b0c4d371755298cb5a4608f0fe13133d36d27c4",
+      "matrix_receipt": "artifacts/runner-readiness-next-twenty-project-pass/active/skim/hosted-linux-rounds-01-33b06bef56a94a5fb5c6089d0d8dae33.json",
+      "matrix_receipt_sha256": "2d9c6ceccfdfdf3a2eaa38e05b495af3c3338788e2899997ee54a807e47362ea",
+      "completed": 20,
+      "failed": 0,
+      "cleaned_workspaces": 20,
+      "cases": [
+        {
+          "case": "N01",
+          "label": "N01-hosted-linux-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 0,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "f6cbf2dd0d49abdd59a8f40dbabb57934f4718bc2c73efba4c41a2e2d7b1ad9b",
+          "finished_sha256": "b945ca444bc0db07a168e4e7d2d2bf8367246e24753a3801a00d290a29684907",
+          "target_sha256": "427de19b0ab4f344376b3a7a594bac9c36872faba9cc745c9b8f0bd05452bfa0"
+        },
+        {
+          "case": "N02",
+          "label": "N02-hosted-linux-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 0,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "e7db4b5a54c3247f9fe0ea51fcea65dfc5272bf50fef60d56fa39017196b768f",
+          "finished_sha256": "4daba65abe2d81bce429d5c553621a7fcd21bdc4cf0280091897b5122d6652fa",
+          "target_sha256": "427de19b0ab4f344376b3a7a594bac9c36872faba9cc745c9b8f0bd05452bfa0"
+        },
+        {
+          "case": "N03",
+          "label": "N03-hosted-linux-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 0,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "62d91bf76cb3423cd5eb91b5ade9772cef3616561f94625151e1a9b82fcb18e1",
+          "finished_sha256": "775536df486422632e8add0d52af6a146417caf133702048edbbcf5805e1b23e",
+          "target_sha256": "427de19b0ab4f344376b3a7a594bac9c36872faba9cc745c9b8f0bd05452bfa0"
+        },
+        {
+          "case": "N04",
+          "label": "N04-hosted-linux-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 0,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "c185b53a3ef97b08c3148d7891a4039eac69bdd3d52993ae3dece567721399bb",
+          "finished_sha256": "20196192e79f67359d134833f517f56c0fcbfe5db8c5d567e0e07513ee07efc8",
+          "target_sha256": "427de19b0ab4f344376b3a7a594bac9c36872faba9cc745c9b8f0bd05452bfa0"
+        },
+        {
+          "case": "N05",
+          "label": "N05-hosted-linux-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 0,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "e380606fc821e961ea37ce382163ac7d12cf9b7dacf307a58a24bb4b65e1bcf3",
+          "finished_sha256": "557030c2a232059d4bd258f605a6e5ea201fc1d1451a9e08196b54ee72856bdc",
+          "target_sha256": "427de19b0ab4f344376b3a7a594bac9c36872faba9cc745c9b8f0bd05452bfa0"
+        },
+        {
+          "case": "N06",
+          "label": "N06-hosted-linux-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 0,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "1b3d538d1ccd415ca600b7ee338b86d078b72e3cc5d369f078eed52974c4539c",
+          "finished_sha256": "2d0a112ed0936b69a060f96461c825e252bc2b8e6086e5a6712b6112187f3b64",
+          "target_sha256": "427de19b0ab4f344376b3a7a594bac9c36872faba9cc745c9b8f0bd05452bfa0"
+        },
+        {
+          "case": "N07",
+          "label": "N07-hosted-linux-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 0,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "3eadd36f2bd1d758098a17df3bfa1f97d3001ec2c60d77d98cc5177fc5934733",
+          "finished_sha256": "a1775cba07986e194c35730f8103f428bb0119ec7e5023fafe2a2f13e82c41fd",
+          "target_sha256": "427de19b0ab4f344376b3a7a594bac9c36872faba9cc745c9b8f0bd05452bfa0"
+        },
+        {
+          "case": "N08",
+          "label": "N08-hosted-linux-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 0,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "4011d80365fa47c056e03fd9626012611d3b3664f7c421b7bd42515cde7a9f50",
+          "finished_sha256": "098dc2887dcf31b1af0b6cd854a9a8f469692a1268ea0ee94775f64320a3c2ba",
+          "target_sha256": "427de19b0ab4f344376b3a7a594bac9c36872faba9cc745c9b8f0bd05452bfa0"
+        },
+        {
+          "case": "E01",
+          "label": "E01-hosted-linux-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 130,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "f0bbfe1a5d9ec256b887ab24ffbe6118c9707571d820d18b7305f65b5fb9ea23",
+          "finished_sha256": "19089633e1588d337f2d12bff3d41e5e04915e19502e138f9a381efac603071d",
+          "target_sha256": "427de19b0ab4f344376b3a7a594bac9c36872faba9cc745c9b8f0bd05452bfa0"
+        },
+        {
+          "case": "E02",
+          "label": "E02-hosted-linux-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 1,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "966b1fd83bef3bd7182f52d8eed1e31975db3eb8f88f6eb7055ccd9094a0c648",
+          "finished_sha256": "0cd14f00d790c4c4c55f9536c9fd4b5f2ea005f075da8a423d484faccaa56c61",
+          "target_sha256": "427de19b0ab4f344376b3a7a594bac9c36872faba9cc745c9b8f0bd05452bfa0"
+        },
+        {
+          "case": "E03",
+          "label": "E03-hosted-linux-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 2,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed"
+          ],
+          "report_sha256": "d032b419e43f89bed526aadf5441938ae5b8000548b9141aab296d205fe33666",
+          "finished_sha256": "250ba1ce0bc0b217a9e8807814e67e28690872d5008dc0dc0e769b376834c9d1",
+          "target_sha256": "427de19b0ab4f344376b3a7a594bac9c36872faba9cc745c9b8f0bd05452bfa0"
+        },
+        {
+          "case": "E04",
+          "label": "E04-hosted-linux-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 2,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed"
+          ],
+          "report_sha256": "39c64c6fe59fc0f5e2db2caefbaff6e6f02d1c68b48ec26af655d8be5478de9d",
+          "finished_sha256": "f191301a3404ea3b532ce41a17ff58986d6d53546e8d7cff73348019f27adb95",
+          "target_sha256": "427de19b0ab4f344376b3a7a594bac9c36872faba9cc745c9b8f0bd05452bfa0"
+        },
+        {
+          "case": "E05",
+          "label": "E05-hosted-linux-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 0,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "7849062962a2f456e7e35ca298081d73c839fd2920f480a89665b8341a6d14b4",
+          "finished_sha256": "6d209f05b4a7b96527dd85b5ab4cd8ff34f244549ae591553be0795d3f5e6872",
+          "target_sha256": "427de19b0ab4f344376b3a7a594bac9c36872faba9cc745c9b8f0bd05452bfa0"
+        },
+        {
+          "case": "E06",
+          "label": "E06-hosted-linux-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 0,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "4ae86154b789c54fbedc43dcef07ff4444b786ac43a50942420735a77e471141",
+          "finished_sha256": "a5231b89c01c37781cd58ef83570c54453f63c7a91321d4f1ca8e05517466c7e",
+          "target_sha256": "427de19b0ab4f344376b3a7a594bac9c36872faba9cc745c9b8f0bd05452bfa0"
+        },
+        {
+          "case": "E07",
+          "label": "E07-hosted-linux-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 0,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "9e03a2be415d2abf812d3ddcf215a43c8c37e1a55185dbc84291934f214f36b6",
+          "finished_sha256": "842f07a20b74abd033aacfa84e6a13435e14d44f8050ea6582bb185f9601fa6d",
+          "target_sha256": "427de19b0ab4f344376b3a7a594bac9c36872faba9cc745c9b8f0bd05452bfa0"
+        },
+        {
+          "case": "E08",
+          "label": "E08-hosted-linux-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 0,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "85294a5d953e94898a7611ff436d8036c98c3923d0a7c7697a1486f2100626eb",
+          "finished_sha256": "b0d214bd6023b2a3a3cecfa2211a9d2bba7ae3e03dd1772dd5c353f89b767b9c",
+          "target_sha256": "427de19b0ab4f344376b3a7a594bac9c36872faba9cc745c9b8f0bd05452bfa0"
+        },
+        {
+          "case": "E09",
+          "label": "E09-hosted-linux-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 0,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "e86f65268ec4033c30c34369e16c7719ce2e3f655f254cf67c75f824659e2233",
+          "finished_sha256": "55acd5f9f66248322a833bcc43cb665d02aad24863403c9c99c965eea2b20ccd",
+          "target_sha256": "427de19b0ab4f344376b3a7a594bac9c36872faba9cc745c9b8f0bd05452bfa0"
+        },
+        {
+          "case": "E10",
+          "label": "E10-hosted-linux-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 0,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "10c73132fd47c77809cd240d5191fd1912c8b940b7bb6a4e5339057a29b400f6",
+          "finished_sha256": "f308b5e885644650474a2a5245e9a0101383245d435bf20e0350039df30adb5b",
+          "target_sha256": "427de19b0ab4f344376b3a7a594bac9c36872faba9cc745c9b8f0bd05452bfa0"
+        },
+        {
+          "case": "E11",
+          "label": "E11-hosted-linux-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 130,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "d1101e20cb8df3c21005827a3014d95bba3d06beb2f04fd0c94a08f15eadbe81",
+          "finished_sha256": "a6afcae3589b98fe497c42b63c93988ea6b2176ad903c86cf0932b928a1f6513",
+          "target_sha256": "427de19b0ab4f344376b3a7a594bac9c36872faba9cc745c9b8f0bd05452bfa0"
+        },
+        {
+          "case": "E12",
+          "label": "E12-hosted-linux-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 0,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "882ed1bfb7c4323d3dfbac5d3c6da71512ef801d127ce01668a03ac2c9b14b6a",
+          "finished_sha256": "ce91b4169f59126b743c13adf5bdf1a01063bb5cde5b78c3f59ab008646e4068",
+          "target_sha256": "427de19b0ab4f344376b3a7a594bac9c36872faba9cc745c9b8f0bd05452bfa0"
+        }
+      ]
+    },
+    "windows": {
+      "runner": "windows-2025",
+      "artifact_id": 13324780409,
+      "artifact_bytes": 75787575,
+      "artifact_sha256": "eae33459df000c7e06c2342c070cf9cc640f25f18452da738d2aa778bbb86d91",
+      "matrix_receipt": "artifacts/runner-readiness-next-twenty-project-pass/active/skim/hosted-windows-rounds-01-6d99904c15ea41ad953de79963c6f9b4.json",
+      "matrix_receipt_sha256": "65323f68883cdc5b4bc95852e88b80299676111f5265b413ab71582bf12beb21",
+      "completed": 20,
+      "failed": 0,
+      "cleaned_workspaces": 20,
+      "cases": [
+        {
+          "case": "N01",
+          "label": "N01-hosted-windows-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 0,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "f9c493017df9a9853cb6996832aeab19a2bc806da68f713fec73fe6069bac70d",
+          "finished_sha256": "f2efc0fd0affdfb17e4b8263a89f72a574d350efa013bf07622787c9bb388cca",
+          "target_sha256": "e1251e201c6d7e8b41b48741bab8a5cc599b546c70e3750eb0b4158e23bce0cd"
+        },
+        {
+          "case": "N02",
+          "label": "N02-hosted-windows-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 0,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "80f662e5c879374d503f75c3e17677ccbcb246913c5d66ef3257e41ee8bdaf82",
+          "finished_sha256": "7733c9691bc317abe942887d8c0aeb54870638b30bb70369da5c7668e25f906d",
+          "target_sha256": "e1251e201c6d7e8b41b48741bab8a5cc599b546c70e3750eb0b4158e23bce0cd"
+        },
+        {
+          "case": "N03",
+          "label": "N03-hosted-windows-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 0,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "8634d6e14ba1f24095d716e341d1f042c2777a9029f55d8372aa876a3e9d7986",
+          "finished_sha256": "68afd49e6d692db410f397c75695abe29dd388181b4913700cab6439a25cd5b8",
+          "target_sha256": "e1251e201c6d7e8b41b48741bab8a5cc599b546c70e3750eb0b4158e23bce0cd"
+        },
+        {
+          "case": "N04",
+          "label": "N04-hosted-windows-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 0,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "cf4806cf5a36d9b79e764b9e9e07a5b0e9dfc15674c2ac747313c6862b4f8863",
+          "finished_sha256": "417459029513de7f0b99dd4570b5213c4177be4c88e9ad5f79e6cdd48ae5704f",
+          "target_sha256": "e1251e201c6d7e8b41b48741bab8a5cc599b546c70e3750eb0b4158e23bce0cd"
+        },
+        {
+          "case": "N05",
+          "label": "N05-hosted-windows-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 0,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "8e6c32b46a324b934053292af21d297599a49198a1e2ab509d51e9b27c26f44e",
+          "finished_sha256": "ffd5e6ab9edbf0a19522ac4f48c8b46a810a02abfee21a37b12447a109bf4116",
+          "target_sha256": "e1251e201c6d7e8b41b48741bab8a5cc599b546c70e3750eb0b4158e23bce0cd"
+        },
+        {
+          "case": "N06",
+          "label": "N06-hosted-windows-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 0,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "dc0eaf322b60a64886c7107cf44849d877a8ebe2e06942b52790c372e786b107",
+          "finished_sha256": "2fb5bb5dc437c83ad626487168fa34746770fa703b50a1180555f2e27c8edbc5",
+          "target_sha256": "e1251e201c6d7e8b41b48741bab8a5cc599b546c70e3750eb0b4158e23bce0cd"
+        },
+        {
+          "case": "N07",
+          "label": "N07-hosted-windows-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 0,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "fe8312b3ec8440c5c4a82da109bf1b44677680cc7354ab3d4f16d3f236de2386",
+          "finished_sha256": "fcbe1b94f21b4aa4fcb75b97a90a1329e64e1dd05c2db85b04a3e9e4371ad3fb",
+          "target_sha256": "e1251e201c6d7e8b41b48741bab8a5cc599b546c70e3750eb0b4158e23bce0cd"
+        },
+        {
+          "case": "N08",
+          "label": "N08-hosted-windows-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 0,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "30ebda08828a3ef3c04d54ee99422dcd4ecb9494bd8264450bd3511511d77e66",
+          "finished_sha256": "22bccb2cef60accac037425ba48db8da306c7b369206805b01d947f44a8ec9ee",
+          "target_sha256": "e1251e201c6d7e8b41b48741bab8a5cc599b546c70e3750eb0b4158e23bce0cd"
+        },
+        {
+          "case": "E01",
+          "label": "E01-hosted-windows-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 130,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "2fcac4c815d6ecb5899e9d6ebf3303302c1382f3efa53e5d9a2603cf06a22d1d",
+          "finished_sha256": "8c24b8ad55c12665e447c405a2ab5beb958a4c8cb2aa300f73252e0929791f56",
+          "target_sha256": "e1251e201c6d7e8b41b48741bab8a5cc599b546c70e3750eb0b4158e23bce0cd"
+        },
+        {
+          "case": "E02",
+          "label": "E02-hosted-windows-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 1,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "7e1a39db38bbecc5f4de9b23c0aa98c7af8d9e61c06955473af6b50524a1095e",
+          "finished_sha256": "35cf0c2b6ff8f87404f31b3767c171289b41c53a36fb1cbbadaa75fe63434924",
+          "target_sha256": "e1251e201c6d7e8b41b48741bab8a5cc599b546c70e3750eb0b4158e23bce0cd"
+        },
+        {
+          "case": "E03",
+          "label": "E03-hosted-windows-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 2,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed"
+          ],
+          "report_sha256": "311d256e3aa77eeaa97caa0296f015892d41c227f86709e33f6fd2396113cc70",
+          "finished_sha256": "5cb4f17eaa38b53217e0de057946879e590da1075b0961f2f83ae9d16d7dc91e",
+          "target_sha256": "e1251e201c6d7e8b41b48741bab8a5cc599b546c70e3750eb0b4158e23bce0cd"
+        },
+        {
+          "case": "E04",
+          "label": "E04-hosted-windows-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 2,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed"
+          ],
+          "report_sha256": "dbb905ed85609fdf04d589b04b533c3058214808ce7c5982f56d7c278adfe704",
+          "finished_sha256": "ca2efd5e3079777066a44351f35a1464afe5a48b60d6b24a0e3d7f80d2740032",
+          "target_sha256": "e1251e201c6d7e8b41b48741bab8a5cc599b546c70e3750eb0b4158e23bce0cd"
+        },
+        {
+          "case": "E05",
+          "label": "E05-hosted-windows-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 0,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "2533a107ed213e4878985b04708a1a21caec2a8c8d1f3ed3d2af48d64aabb6ae",
+          "finished_sha256": "50bca8bb2b3bf89c538dba11901c6ff838868883f566edd11de19769c040b65a",
+          "target_sha256": "e1251e201c6d7e8b41b48741bab8a5cc599b546c70e3750eb0b4158e23bce0cd"
+        },
+        {
+          "case": "E06",
+          "label": "E06-hosted-windows-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 0,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "b5fbe39c7d750c31514a21ddf841c7402cd6f90bab1d43bae86bb2484fad6930",
+          "finished_sha256": "0219e78a6b8805a02e8bb6fba27c5ab5440af147c5558332850d3198818e737d",
+          "target_sha256": "e1251e201c6d7e8b41b48741bab8a5cc599b546c70e3750eb0b4158e23bce0cd"
+        },
+        {
+          "case": "E07",
+          "label": "E07-hosted-windows-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 0,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "e7a51726da0116ec23f963cd4c2c395299d65f25bc121cc6b878ac2dc9ef77ee",
+          "finished_sha256": "59b0a2f7c1dccb0c0617a82e4e1c412329d70932f26e8e648bd0dff8286465bf",
+          "target_sha256": "e1251e201c6d7e8b41b48741bab8a5cc599b546c70e3750eb0b4158e23bce0cd"
+        },
+        {
+          "case": "E08",
+          "label": "E08-hosted-windows-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 0,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "19ef574d6e76f289020ceb220c9a49eabd30ae25804c4aa4a8353b5c534f10f4",
+          "finished_sha256": "b5ac11d5d86def546c517f2ef103a898883f3a9b9a08ccbdd1c73dad29782549",
+          "target_sha256": "e1251e201c6d7e8b41b48741bab8a5cc599b546c70e3750eb0b4158e23bce0cd"
+        },
+        {
+          "case": "E09",
+          "label": "E09-hosted-windows-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 0,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "6d0552a4c7f899a8f008588b50bda7c3ec57c9d75274269228e46e37c34dd5cb",
+          "finished_sha256": "325ffa65b7373819136d4aab65aec8dc1e30925be248d68dca3788178bd6a4d9",
+          "target_sha256": "e1251e201c6d7e8b41b48741bab8a5cc599b546c70e3750eb0b4158e23bce0cd"
+        },
+        {
+          "case": "E10",
+          "label": "E10-hosted-windows-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 0,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "6120468a907ef285335f6de93b3f7d980b7983d7ca082b9aac04511588c2b563",
+          "finished_sha256": "215cc7bcba6295879933f0e7ea59279863ec0213fe748ed3e1149a060ab8b53c",
+          "target_sha256": "e1251e201c6d7e8b41b48741bab8a5cc599b546c70e3750eb0b4158e23bce0cd"
+        },
+        {
+          "case": "E11",
+          "label": "E11-hosted-windows-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 130,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "117a95556b6bd448fa04c1d61f1473cd70945923a5bc69ab8eec80782c258f61",
+          "finished_sha256": "b5b826985b20bbc913073eb13cb731b33493e1dfefb10cedfbf57ce0dd31fde2",
+          "target_sha256": "e1251e201c6d7e8b41b48741bab8a5cc599b546c70e3750eb0b4158e23bce0cd"
+        },
+        {
+          "case": "E12",
+          "label": "E12-hosted-windows-r01",
+          "status": "completed",
+          "process_exit": 0,
+          "target_exit": 0,
+          "workspace_cleanup": true,
+          "step_statuses": [
+            "passed",
+            "passed",
+            "passed",
+            "passed",
+            "passed"
+          ],
+          "report_sha256": "9e1ec1e2d9abf35f0597f0e559348c589b49be7dd6d2e42386a31dad0ae53a62",
+          "finished_sha256": "fef72290a26f0c952d011618d3c0937c2f89e6f66ee6e5bdaadf60c5cca6c37a",
+          "target_sha256": "e1251e201c6d7e8b41b48741bab8a5cc599b546c70e3750eb0b4158e23bce0cd"
+        }
+      ]
+    }
+  },
+  "source_fault_audit": {
+    "declared": 3,
+    "detected": 3,
+    "faults": [
+      {
+        "fault": "SKIM-EXIT-EMPTY-01",
+        "case": "E02",
+        "detected": true,
+        "failure_category": "unexpected_exit",
+        "source_path": "src/bin/main.rs",
+        "report_sha256": "bed6e7fe1180186003f4c73741b94f2e4ff70a68af081a93a4210690079551a6",
+        "finished_sha256": "150f3a93e8bf402ead99bacb8f838799c33f4665138fb7fb9dda2b5ec0b713f5",
+        "target_executed": true
+      },
+      {
+        "fault": "SKIM-MATCH-COUNT-01",
+        "case": "N01",
+        "detected": true,
+        "failure_category": "assertion_timeout",
+        "source_path": "src/tui/input.rs",
+        "report_sha256": "1cd0fb2397d100af433bbc550e05d8f6acb880bfaeaef5fb700c94c5ad875d22",
+        "finished_sha256": "dcad7c2fe532334160b0e27a6f9ba15bd3f8d8107fe6e9818a488433d2cf2527",
+        "target_executed": true
+      },
+      {
+        "fault": "SKIM-MULTI-COUNT-01",
+        "case": "N04",
+        "detected": true,
+        "failure_category": "assertion_timeout",
+        "source_path": "src/tui/input.rs",
+        "report_sha256": "caf2c7f9a53b14001db8bd9b3ac220fbc4e9aeb9fe80f862d1d55a23febd5b81",
+        "finished_sha256": "cb38f065df753d4ba5aace572c85b2d037a0eabf906eb0881aa94bb841900479",
+        "target_executed": true
+      }
+    ],
+    "inner_archive_bytes": 24650,
+    "inner_archive_sha256": "208ebde5c213b03175aff9910eaf45cf857f650f5946bd8e6c9c9202294da231",
+    "manifest_members": 28,
+    "manifest_verified_members": 28,
+    "source_restored": true,
+    "source_verification": "Verified 819 source files at local-retained-archive-source before target execution."
+  }
+}

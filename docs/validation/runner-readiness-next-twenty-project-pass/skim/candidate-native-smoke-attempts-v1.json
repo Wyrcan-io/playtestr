@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "project": "skim",
+  "candidate_series": "native-exit-v1",
+  "candidate_binary_sha256": "6c80fdbcdd74705b85b2e8aad2f07140f5ff5e8cea80db1d6c24a04d71b23f36",
+  "attempts": [
+    {
+      "attempt_id": "1a5e3847fdc449ddb66126cff14d52ba",
+      "label": "exact-rc6-native-exit-v1-windows-N01-probe",
+      "finished": "artifacts/runner-readiness-next-twenty-project-pass/active/skim/case-evidence/1a5e3847fdc449ddb66126cff14d52ba/finished.json",
+      "finished_sha256": "482f0aacbddd0fb2c7f6143059a18bbed3ac19a968b29da101d181feea865f49",
+      "report_sha256": "2904b589f4a5731fda9bae450295ea0ead4cdf3ef8cf53118f221af1651ce30d",
+      "candidate_series": "native-exit-v1",
+      "candidate_binary_sha256": "6c80fdbcdd74705b85b2e8aad2f07140f5ff5e8cea80db1d6c24a04d71b23f36",
+      "target_launched": false,
+      "scenario_credit": 0,
+      "cleanup_credit": 0,
+      "failure": {
+        "category": "workspace_setup_failure",
+        "message": "workspace setup failed: expand native workspace path: Access is denied."
+      }
+    },
+    {
+      "attempt_id": "479bbbc3dad4463e9b1bc434d396f256",
+      "label": "exact-rc6-native-exit-v1-windows-N01-probe-r2",
+      "finished": "artifacts/runner-readiness-next-twenty-project-pass/active/skim/case-evidence/479bbbc3dad4463e9b1bc434d396f256/finished.json",
+      "finished_sha256": "07e043b5cfd0e73b5bfc825e36d25584f700d91dd25c304e09f5eccfa2705ff0",
+      "report_sha256": "2904b589f4a5731fda9bae450295ea0ead4cdf3ef8cf53118f221af1651ce30d",
+      "candidate_series": "native-exit-v1",
+      "candidate_binary_sha256": "6c80fdbcdd74705b85b2e8aad2f07140f5ff5e8cea80db1d6c24a04d71b23f36",
+      "target_launched": false,
+      "scenario_credit": 0,
+      "cleanup_credit": 0,
+      "failure": {
+        "category": "workspace_setup_failure",
+        "message": "workspace setup failed: expand native workspace path: Access is denied."
+      }
+    }
+  ],
+  "disposition": "Local native Windows preflight refused before target launch because GetLongPathName failed on this OneDrive workspace path. This repeats the previously recorded hosted-runner short-path exclusion; no scenario or cleanup credit. Continue exact native Windows qualification on standard GitHub-hosted Windows."
+}

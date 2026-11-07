@@ -1,0 +1,328 @@
+{
+  "schema_version": 1,
+  "project": "skim",
+  "workflow": ".github/workflows/runner-readiness-next20-skim.yml",
+  "source_pin": "1ab47f6ba7f1bfc355273bbdd98d4b2056ef95a3",
+  "attempts": [
+    {
+      "run_id": 41807113142,
+      "commit": "e53c50b2d7461c7052c6d4f53ba447eb9cd3306e",
+      "phase": "source-development",
+      "linux": {
+        "job_id": 126496779909,
+        "runner": "ubuntu-24.04",
+        "source_verification": "passed",
+        "go_module_fetch": "passed",
+        "rust_toolchain": "1.97.0",
+        "locked_dependency_fetch": "passed",
+        "dependency_hooks_reviewed": 53,
+        "native_build": "passed; offline cli,frizbee; byte-identical sk.exe alias recorded",
+        "matrix": {
+          "expected": 20,
+          "completed": 20,
+          "passed": 0,
+          "failed": 20,
+          "diagnostic": "runner expected exit 0 but returned 1; target-console bytes were not retained by this workflow version; no scenario credit"
+        },
+        "artifact": {
+          "id": 13310790821,
+          "bytes": 68196753,
+          "sha256": "a3307d40591c1728dfb002dc69960af3925912eb0e494d6cf55f4dd0906336db"
+        }
+      },
+      "windows": {
+        "job_id": 126496780439,
+        "runner": "windows-2025",
+        "failed_step": "Read back canonical Windows source bytes after checkout reset",
+        "diagnostic": "Git checkout-index reset did not remove the CRLF source mismatches; build and target were not reached",
+        "artifact": {
+          "id": 13310456737,
+          "bytes": 1765769,
+          "sha256": "2a96ea79ca82275bdd409082b0659b3fb9320a6f5322d6ce1231e17c63ee2321"
+        }
+      },
+      "credit": 0
+    },
+    {
+      "run_id": 41808523792,
+      "commit": "459a9cec10cc9c59f61dd473e2592cd1e6d04fe2",
+      "phase": "source-development",
+      "linux": {
+        "job_id": 126501522408,
+        "runner": "ubuntu-24.04",
+        "source_verification": "passed",
+        "go_module_fetch": "passed",
+        "rust_toolchain": "1.97.0",
+        "locked_dependency_fetch": "passed",
+        "dependency_hooks_reviewed": 53,
+        "native_build": "passed",
+        "matrix": {
+          "expected": 20,
+          "completed": 20,
+          "passed": 0,
+          "failed": 20,
+          "diagnostic": "exit mismatches; this artifact version did not retain the runner console. Later run 41809189574 captured the shared Go 1.24.13 versus go.mod 1.25.0 cause."
+        },
+        "artifact": {
+          "id": 13310828494,
+          "bytes": 68196768,
+          "sha256": "806f094b9fa68aec788f4554a0656809e45354341f97fa454f49100998c931f6"
+        }
+      },
+      "windows": {
+        "job_id": 126501522003,
+        "runner": "windows-2025",
+        "normalization": "restored all 819 pinned Git blobs to canonical bytes",
+        "failed_step": "Verify exact upstream files before Cargo execution",
+        "diagnostic": "normalizer also completed receipt-writing verification; workflow invoked the same verifier again and immutable task-owned receipt creation raised FileExistsError. No build or target run.",
+        "artifact": {
+          "id": 13310712244,
+          "bytes": 1791399,
+          "sha256": "6560315ee1bc882c5b3f73ea9aed9c92d3954a1d884f4990e5df7388458855a0"
+        }
+      },
+      "credit": 0
+    },
+    {
+      "run_id": 41808792703,
+      "commit": "393db2dfbffc18ad56905bb934e24ee47ee20870",
+      "phase": "source-development",
+      "linux": {
+        "job_id": 126503054340,
+        "runner": "ubuntu-24.04",
+        "source_verification": "passed",
+        "go_module_fetch": "passed",
+        "rust_toolchain": "1.97.0",
+        "locked_dependency_fetch": "passed",
+        "dependency_hooks_reviewed": 53,
+        "native_build": "passed",
+        "matrix": {
+          "expected": 20,
+          "completed": 20,
+          "passed": 0,
+          "failed": 20,
+          "diagnostic": "runner process rejected by Go version preflight; console was not included in this attempt artifact."
+        },
+        "artifact": {
+          "id": 13311626523,
+          "bytes": 68196731,
+          "sha256": "d4fe9803b9978e09547a7cb8f03a9602890205ebcb39039ad9c7e2458d5f1a1f"
+        }
+      },
+      "windows": {
+        "job_id": 126502957085,
+        "runner": "windows-2025",
+        "source_verification": "passed",
+        "go_module_fetch": "passed",
+        "rust_toolchain": "1.97.0",
+        "locked_dependency_fetch": "passed",
+        "dependency_hooks_reviewed": 53,
+        "native_build": "passed",
+        "matrix": {
+          "expected": 20,
+          "completed": 20,
+          "passed": 0,
+          "failed": 20,
+          "diagnostic": "runner process rejected by Go version preflight; console was not included in this attempt artifact."
+        },
+        "artifact": {
+          "id": 13311058801,
+          "bytes": 64933980,
+          "sha256": "b9501dde68c5a37cfac6ea16f707b8ac33a796fee15650c7f67548715d5687e4"
+        }
+      },
+      "credit": 0
+    },
+    {
+      "run_id": 41809189574,
+      "commit": "4b44496224492a3517b6ffbb936efcc622ca1add",
+      "phase": "source-development",
+      "linux": {
+        "job_id": 126504939698,
+        "runner": "ubuntu-24.04",
+        "source_verification": "passed",
+        "go_sdk": "runner default Go 1.24.13; go.mod requires >=1.25.0",
+        "native_build": "passed",
+        "matrix": {
+          "expected": 20,
+          "completed": 20,
+          "passed": 0,
+          "failed": 20,
+          "diagnostic": "all case logs report go.mod requires go >= 1.25.0 (running go 1.24.13; GOTOOLCHAIN=local)"
+        },
+        "artifact": {
+          "id": 13310774913,
+          "bytes": 68222640,
+          "sha256": "20c6faae6d81afae16e8119574bad146cd0b8472c46a5a95021fb1ad021735c9"
+        }
+      },
+      "windows": {
+        "job_id": 126504939472,
+        "runner": "windows-2025",
+        "source_verification": "passed",
+        "go_sdk": "runner default Go 1.24.13; go.mod requires >=1.25.0",
+        "native_build": "passed",
+        "matrix": {
+          "expected": 20,
+          "completed": 20,
+          "passed": 0,
+          "failed": 20,
+          "diagnostic": "all case logs report go.mod requires go >= 1.25.0 (running go 1.24.13; GOTOOLCHAIN=local)"
+        },
+        "artifact": {
+          "id": 13311307721,
+          "bytes": 64959863,
+          "sha256": "c0fb57d03b49a3248fe8b3718a2af4c323a0d38de983551ba4fb9268f2d2afe8"
+        }
+      },
+      "credit": 0
+    },
+    {
+      "run_id": 41810289319,
+      "commit": "f17c91e69c12c044eade7da307a649dfab42b0f9",
+      "phase": "source-development",
+      "linux": {
+        "job_id": 126507554017,
+        "runner": "ubuntu-24.04",
+        "go_sdk": "official go1.25.0 installed below campaign-owned root",
+        "native_build": "passed; pinned Skim 5.8.0; cli,frizbee; offline",
+        "matrix": {
+          "expected": 20,
+          "completed": 20,
+          "passed": 20,
+          "failed": 0,
+          "workspace_cleanup_confirmed": 20
+        },
+        "artifact": {
+          "id": 13312137083,
+          "bytes": 68246207,
+          "sha256": "86c2b2bb23098cf7f21b41b12feb4ed80c0f2b1ef3dba4584b813b9adfddaa80"
+        }
+      },
+      "windows": {
+        "job_id": 126507550649,
+        "runner": "windows-2025",
+        "go_sdk": "official go1.25.0 installed below campaign-owned root",
+        "native_build": "passed; pinned Skim 5.8.0; cli,frizbee; offline",
+        "matrix": {
+          "expected": 20,
+          "completed": 20,
+          "passed": 20,
+          "failed": 0,
+          "workspace_cleanup_confirmed": 20
+        },
+        "artifact": {
+          "id": 13312985258,
+          "bytes": 64982106,
+          "sha256": "57ed08aa470d727c5cd8c8195caeced85e1cde0aa55387260dab6dcb7b0c2286"
+        }
+      },
+      "readback": "hosted-development-readback-v1.json",
+      "credit": 0,
+      "disposition": "Development coverage only; these source-development matrices do not qualify rc.6 or grant candidate admission/native-cell credit."
+    },
+    {
+      "run_id": 41827379783,
+      "commit": "47d5ff9bdaabadbf98539a8dce81ecb33fed3012",
+      "phase": "source-development",
+      "scenario_declaration": "scenario-declaration-v6.json",
+      "scenario_declaration_sha256": "19251ff683b2cca7e0eb50e0bce048b574bfdc59186d3a834bebe8fec83b825a",
+      "linux": {
+        "job_id": 126566628291,
+        "runner": "ubuntu-24.04",
+        "source_verification": "passed",
+        "go_sdk": "official go1.25.0 installed below campaign root",
+        "native_build": "passed; offline",
+        "matrix": {
+          "expected": 20,
+          "completed": 20,
+          "passed": 20,
+          "failed": 0,
+          "workspace_cleanup_confirmed": 20
+        },
+        "artifact": {
+          "id": 13320840276,
+          "bytes": 9820031,
+          "sha256": "bf4930e47260e336c2f2c37fcf923c52568319cd3c8079a871abb72903a8fd5"
+        }
+      },
+      "windows": {
+        "job_id": 126566629141,
+        "runner": "windows-2025",
+        "source_verification": "passed",
+        "go_sdk": "official go1.25.0 installed below campaign root",
+        "native_build": "passed; offline",
+        "matrix": {
+          "expected": 20,
+          "completed": 20,
+          "passed": 20,
+          "failed": 0,
+          "workspace_cleanup_confirmed": 20
+        },
+        "source_faults": {
+          "declared": 3,
+          "detected": 3,
+          "archive_members": 28,
+          "source_restored": true
+        },
+        "artifact": {
+          "id": 13320987802,
+          "bytes": 75780075,
+          "sha256": "e8f70879d212e6c895c409845f5be8c3d7ce1d95191d184306071badcaea834d"
+        }
+      },
+      "credit": 0
+    },
+    {
+      "run_id": 41831060729,
+      "commit": "19e689f1d3721743146a11647fcb152048becd5d",
+      "phase": "source-development-repeat",
+      "scenario_declaration": "scenario-declaration-v6.json",
+      "scenario_declaration_sha256": "19251ff683b2cca7e0eb50e0bce048b574bfdc59186d3a834bebe8fec83b825a",
+      "readback": "hosted-source-repeat-41831060729.json",
+      "readback_sha256": "b3954174540f172674730e80f3a1a7a840e94bcc007af23bf425bba4717170f0",
+      "linux": {
+        "job_id": 126578062778,
+        "runner": "ubuntu-24.04",
+        "conclusion": "success",
+        "matrix": {
+          "expected": 20,
+          "completed": 20,
+          "passed": 20,
+          "failed": 0,
+          "workspace_cleanup_confirmed": 20
+        },
+        "artifact": {
+          "id": 13323291484,
+          "bytes": 9827358,
+          "sha256": "caabbb1a3fd60bf97a65e28e5b0c4d371755298cb5a4608f0fe13133d36d27c4"
+        }
+      },
+      "windows": {
+        "job_id": 126578063227,
+        "runner": "windows-2025",
+        "conclusion": "success",
+        "matrix": {
+          "expected": 20,
+          "completed": 20,
+          "passed": 20,
+          "failed": 0,
+          "workspace_cleanup_confirmed": 20
+        },
+        "source_faults": {
+          "declared": 3,
+          "detected": 3,
+          "inner_archive_members": 28,
+          "manifest_verified_members": 28,
+          "source_restored": true
+        },
+        "artifact": {
+          "id": 13324780409,
+          "bytes": 75787575,
+          "sha256": "eae33459df000c7e06c2342c070cf9cc640f25f18452da738d2aa778bbb86d91"
+        }
+      },
+      "credit": 0
+    }
+  ]
+}
