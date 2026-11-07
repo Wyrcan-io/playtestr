@@ -1,11 +1,44 @@
+import os
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
 
-from next20_target_cleanup import source_inventory,validate_retained_owned_directories,verify_no_case_evidence
+from next20_target_cleanup import source_inventory,target_inventory,validate_retained_owned_directories,verify_no_case_evidence
 
 
 class SourceInventoryTests(unittest.TestCase):
+    def test_owned_windows_junction_is_recorded_without_traversal(self):
+        if os.name!='nt':
+            self.skipTest('Windows junction inventory is a native Windows behavior')
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary)/'target';root.mkdir()
+            destination=root/'owned-destination';destination.mkdir()
+            (destination/'payload.txt').write_text('owned')
+            junction=root/'owned-junction'
+            result=subprocess.run(['cmd.exe','/c','mklink','/J',str(junction),str(destination)],
+                capture_output=True,text=True,check=False)
+            if result.returncode:
+                self.skipTest('host does not permit creating a junction in the test temp directory')
+            inventory=target_inventory(root)
+            self.assertEqual(inventory['owned_links'],{'owned-junction':'owned-destination'})
+            self.assertEqual(set(inventory['files']),{'owned-destination/payload.txt'})
+
+    def test_windows_junction_escaping_owned_target_is_rejected(self):
+        if os.name!='nt':
+            self.skipTest('Windows junction inventory is a native Windows behavior')
+        with tempfile.TemporaryDirectory() as temporary:
+            parent=Path(temporary);root=parent/'target';root.mkdir()
+            outside=parent/'outside';outside.mkdir()
+            (outside/'payload.txt').write_text('outside')
+            junction=root/'external-junction'
+            result=subprocess.run(['cmd.exe','/c','mklink','/J',str(junction),str(outside)],
+                capture_output=True,text=True,check=False)
+            if result.returncode:
+                self.skipTest('host does not permit creating a junction in the test temp directory')
+            with self.assertRaisesRegex(ValueError,'escapes owned target'):
+                target_inventory(root)
+
     def test_no_case_cleanup_requires_absent_or_empty_case_evidence(self):
         with tempfile.TemporaryDirectory() as temporary:
             root=Path(temporary)

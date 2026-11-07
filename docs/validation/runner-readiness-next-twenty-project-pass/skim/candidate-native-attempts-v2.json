@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "project": "skim",
+  "candidate_series": "native-exit-v1",
+  "workflow_run_id": 42424184614,
+  "commit": "4d2d4100a94df88ff651be95ec769954257d3acb",
+  "hosts": [
+    {
+      "host": "linux",
+      "runner": "ubuntu-24.04",
+      "job_id": 128558802528,
+      "artifact_id": 13593704811,
+      "artifact_name": "next20-skim-linux-rc6-final",
+      "artifact_path": "artifacts/runner-readiness-next-twenty-project-pass/retrieved/skim-linux-failed-prelaunch-4d2d4100.zip",
+      "artifact_bytes": 191995,
+      "artifact_provider_sha256": "80ce8d4bf683b08577ba6fc569a41ccd19b2f8e36fb3cd40d1875ec2d775dd76",
+      "artifact_local_sha256": "80ce8d4bf683b08577ba6fc569a41ccd19b2f8e36fb3cd40d1875ec2d775dd76",
+      "job_log_path": "artifacts/runner-readiness-next-twenty-project-pass/retrieved/skim-linux-42424184614-joblogs.log",
+      "job_log_sha256": "885b09debc2cc517b8c1d1ceb6f005112803ace5910baab46e28cb83e7ef30a6",
+      "target_acquired": false,
+      "candidate_archive_installed": false,
+      "candidate_case_executions": 0,
+      "fault_phases": 0,
+      "admission_credit": 0,
+      "events": [
+        {
+          "label": "skim-final-target-removal",
+          "id": "32dc6b757d8d48828f8d916e8ff53fd3",
+          "category": "exit_mismatch",
+          "exit_code": 1,
+          "output_bytes": 888,
+          "finished_event_sha256": "ef6e4bbac39e537479767ddd9031dd03d17837299f1a2ac9f85276f8957f358a"
+        },
+        {
+          "label": "skim-final-acquisition",
+          "id": "f0f22910ed424a57a8df1ec0246c6879",
+          "category": "exit_mismatch",
+          "exit_code": 1,
+          "output_bytes": 707,
+          "finished_event_sha256": "34ceb02aa24c219de1514d0b9cf4acd0f278e069c54aa4a2ecf1ee9065e400ed"
+        }
+      ]
+    },
+    {
+      "host": "windows",
+      "runner": "windows-2025",
+      "job_id": 128558802690,
+      "artifact_id": 13594932408,
+      "artifact_name": "next20-skim-windows-rc6-final",
+      "artifact_path": "artifacts/runner-readiness-next-twenty-project-pass/retrieved/skim-windows-failed-prelaunch-4d2d4100.zip",
+      "artifact_bytes": 5869386,
+      "artifact_provider_sha256": "33474b95e0fb9a7d7152ffa356b18321923b12c21313cbc5fccd129ce6d3273f",
+      "artifact_local_sha256": "33474b95e0fb9a7d7152ffa356b18321923b12c21313cbc5fccd129ce6d3273f",
+      "job_log_path": "artifacts/runner-readiness-next-twenty-project-pass/retrieved/skim-windows-42424184614-joblogs.log",
+      "job_log_sha256": "e5999ee0a22ec4bd4c89e2e92d84d18cd50a6f3e34a27aa06393a0da9fae54bf",
+      "target_acquired": true,
+      "candidate_archive_installed": false,
+      "candidate_case_executions": 0,
+      "fault_phases": 0,
+      "admission_credit": 0,
+      "events": [
+        {
+          "label": "skim-final-dependency-fetch",
+          "id": "06a7b37ebc094580ace863d2bb0020d7",
+          "category": "passed",
+          "exit_code": 0,
+          "output_bytes": 86,
+          "finished_event_sha256": "90a4adb57673f33529c472fbf988b86b52c048d40b4e2afdb4057c96601ed9d7"
+        },
+        {
+          "label": "reviewed-cli-features-offline-native-build",
+          "id": "0ddf1121f644473a9b33661734a3bf82",
+          "category": "passed",
+          "exit_code": 0,
+          "output_bytes": 5347,
+          "finished_event_sha256": "67c3b4dfc82004a417ca8a69c7f0299b4da05bcf53552e48410728f349333f15"
+        },
+        {
+          "label": "skim-final-contract-freeze",
+          "id": "2139343d72264534b0e76f1f5330a057",
+          "category": "exit_mismatch",
+          "exit_code": 1,
+          "output_bytes": 575,
+          "finished_event_sha256": "41de3a459e21d86856b71b46d8dbd4ff6eab88b3f7c0d60d1fcb05b46b6412e0"
+        },
+        {
+          "label": "skim-final-native-build",
+          "id": "4a2eac1734904b6a939f73e7af6be2cb",
+          "category": "passed",
+          "exit_code": 0,
+          "output_bytes": 109,
+          "finished_event_sha256": "941df2475f5581b3eab72ed88bf98fbd1cc269abafa279eeddd1a49632b322d9"
+        },
+        {
+          "label": "rust-owned-locked-source-fetch",
+          "id": "84b0d80c48d84a26af322f4cc948fe19",
+          "category": "passed",
+          "exit_code": 0,
+          "output_bytes": 11226,
+          "finished_event_sha256": "0e0677021f425e098d87733a43f5a49f772fe6568ac2f8f0fe7a6563ea71565a"
+        },
+        {
+          "label": "skim-final-target-removal",
+          "id": "91b078aa56f64e038594de0bd4cca06f",
+          "category": "exit_mismatch",
+          "exit_code": 1,
+          "output_bytes": 639,
+          "finished_event_sha256": "7abc5ce5ab4e931425c336d40631c773152f872b1f321fd636eb4871e313a37a"
+        },
+        {
+          "label": "rust-read-only-prerequisite-rustc",
+          "id": "950c65a19d494e4eb7b0d4f61a4f79b0",
+          "category": "passed",
+          "exit_code": 0,
+          "output_bytes": 194,
+          "finished_event_sha256": "730e67db138962f390221afb9a79afc802e6a12035b974a2ef982b994f489c48"
+        },
+        {
+          "label": "skim-final-hook-review",
+          "id": "af5b3c595e0f41d29560c8d3451887e8",
+          "category": "passed",
+          "exit_code": 0,
+          "output_bytes": 62,
+          "finished_event_sha256": "5336aecc879ca81c8af18e6b14f5b30f445054bca43f3951eb95998568dbea67"
+        },
+        {
+          "label": "actual-built-native-version",
+          "id": "b77f92088115432892cbcc4daad55edd",
+          "category": "passed",
+          "exit_code": 0,
+          "output_bytes": 9,
+          "finished_event_sha256": "5db37d531bf133a14c6074859c03a76431fadceebd593c8dc9dfe1aa1b6587a1"
+        },
+        {
+          "label": "skim-final-process-proof",
+          "id": "c53ee59207e1491d9c884bd3be8f7c64",
+          "category": "passed",
+          "exit_code": 0,
+          "output_bytes": 83,
+          "finished_event_sha256": "43418a38d6280ab92a2b4c2c6f6e11b6d61d344d0f220ca6f034fa71158de295"
+        },
+        {
+          "label": "rust-read-only-prerequisite-cargo",
+          "id": "da7b1ae1bd3f4f1e8246c6f67dd35498",
+          "category": "passed",
+          "exit_code": 0,
+          "output_bytes": 325,
+          "finished_event_sha256": "b91b84a815ad5dd586f4bf3d5036c6113cc79f3906ea6728e22c8ea1323a6052"
+        },
+        {
+          "label": "skim-final-cleanup-preflight",
+          "id": "fde0c95e84c7424785237e4f4e6dc55d",
+          "category": "exit_mismatch",
+          "exit_code": 1,
+          "output_bytes": 857,
+          "finished_event_sha256": "1240155beeda5c30503377a91ae4e91f4077d8403a146c589bc3a8fa7bc23d6b"
+        },
+        {
+          "label": "skim-final-acquisition",
+          "id": "fdf22d1824a744b3a878b4d8ca48523d",
+          "category": "passed",
+          "exit_code": 0,
+          "output_bytes": 93,
+          "finished_event_sha256": "274df058bb9ed85f7c5cadb08cbb05a52978f0adcb32c8d1d713ecc3ad33cea1"
+        }
+      ]
+    }
+  ],
+  "candidate_case_executions": 0,
+  "source_fault_phases": 0,
+  "new_qualification_credit": 0,
+  "preserve_failures": true,
+  "result": "Both hosts were stopped before candidate case launch. Linux failed the storage preflight because the bounded command wrapper created an unsupported special entry inside the measured campaign root; cleanup was attempted after no target acquisition. Windows built the pinned target and installed the candidate archive, then refused the plan because raw Windows checkout bytes did not match the declaration hash normalized from staged bytes. Windows cleanup preflight also refused an unreviewed reparse directory. No candidate cases or fault calibrations ran.",
+  "next": "Use direct bounded acquisition outside the storage scan wrapper; make no-target cleanup conditional; compare text harnesses after the declaration-specified CRLF-to-LF normalization; inventory only in-target Windows junctions without traversal; supersede plan v6 with v7 and re-audit before launch."
+}

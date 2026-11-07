@@ -89,7 +89,7 @@ jobs:
       - name: Acquire pinned source and verify exact file set
         id: acquire
         run: |
-          python -B scripts/acceptance/next20_check.py --label skim-final-acquisition --timeout 120 -- python -B scripts/acceptance/next20_acquire.py skim --omitted-documentation-links docs/validation/runner-readiness-next-twenty-project-pass/skim/omitted-documentation-links-v3.json
+          python -B scripts/acceptance/next20_acquire.py skim --omitted-documentation-links docs/validation/runner-readiness-next-twenty-project-pass/skim/omitted-documentation-links-v3.json
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python -B scripts/acceptance/next20_skim_source_verify.py --verify-only
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
@@ -148,7 +148,7 @@ jobs:
       - name: Freeze all derived contracts before target execution
         run: python -B scripts/acceptance/next20_check.py --label skim-final-contract-freeze --timeout 180 -- python -B scripts/acceptance/next20_skim_final_series.py --host '${{ matrix.host }}' --prepare-only
       - name: Independently reconstruct all frozen contracts
-        run: python -B scripts/acceptance/next20_check.py --label skim-final-independent-plan-audit --timeout 300 -- python -B scripts/acceptance/next20_skim_final_plan_audit.py --plan artifacts/runner-readiness-next-twenty-project-pass/skim/final-series-plan-native-exit-v6/${{ matrix.host }}/plan.json
+        run: python -B scripts/acceptance/next20_check.py --label skim-final-independent-plan-audit --timeout 300 -- python -B scripts/acceptance/next20_skim_final_plan_audit.py --plan artifacts/runner-readiness-next-twenty-project-pass/skim/final-series-plan-native-exit-v8/${{ matrix.host }}/plan.json
       - name: Execute twelve exact-archive batches
         id: final
         env:
@@ -179,7 +179,12 @@ jobs:
         run: python -B scripts/acceptance/next20_check.py --label skim-final-target-removal --timeout 300 -- powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/acceptance/next20_remove_target.ps1 -Project skim -MaxFiles 60000 -MaxBytes 2147483648
       - name: Remove checked Unix target tree
         if: always() && steps.acquire.outcome != 'skipped' && matrix.host == 'linux'
-        run: python -B scripts/acceptance/next20_check.py --label skim-final-target-removal --timeout 300 -- python -B scripts/acceptance/next20_target_cleanup.py --project skim --no-case-reports --max-files 60000 --max-bytes 2147483648
+        run: |
+          $target = Join-Path $env:GITHUB_WORKSPACE 'artifacts/runner-readiness-next-twenty-project-pass/active/skim'
+          if (Test-Path -LiteralPath $target) {
+            python -B scripts/acceptance/next20_check.py --label skim-final-target-removal --timeout 300 -- python -B scripts/acceptance/next20_target_cleanup.py --project skim --no-case-reports --max-files 60000 --max-bytes 2147483648
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          } else { Write-Output 'No Skim target was acquired; cleanup not applicable.' }
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:

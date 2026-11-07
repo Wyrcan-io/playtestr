@@ -59,3 +59,17 @@ The v5 plan was independently audited but remains zero-launch and is superseded 
 Next: push the corrected workflow and run Linux/Windows exact rc.6 acquisition, build, plan audit, 240 cases and nine fault phases per host. Preserve every failure, then complete Skim public authoring, maintenance, relocation, delivered-CI, cleanup and independent audit gates.
 
 Latest follow-up: the corrected Skim and Git Town workflow changes are ready for another hosted run. Local combined controls pass 23 tests (one symlink capability skip). The exact-candidate attempt is not yet credited; the corrected workflows must complete on both native hosts and pass independent evidence audit.
+
+## 8 November 2026 v6 hosted prelaunch failures
+
+The corrected hosted retry was run 42424184614 on commit `4d2d4100a94df88ff651be95ec769954257d3acb`. Its exact Linux and Windows artifacts are preserved at the paths in `candidate-native-attempts-v2.json`; both local ZIP SHA-256 values match GitHub's published artifact digests. Linux failed in the storage preflight because the command wrapper left a special filesystem entry inside the campaign root while `next20_acquire.py` measured it. No target source or candidate case was acquired. Windows acquired and built pinned Skim and installed the candidate archive, but its final-series freeze refused the workflow hash because Windows checkout line endings were compared without the declaration's CRLF normalization. No candidate cases or fault phases ran. Its source cleanup then refused an unreviewed reparse directory. All failure evidence remains at zero candidate and admission credit.
+
+V6 is superseded: its immutable plan audit matched all 240 contracts with zero launches. V7 corrects bounded source acquisition, no-target cleanup handling, normalized cross-platform harness hashing, and checked inventory for junctions resolving inside the owned target. The new declaration must bind the staged helper bytes before v7 plan preparation and independent reconstruction. The campaign remains at four of twenty new admissions; Skim remains unadmitted.
+
+V7 local preflight is complete: exact staged declaration hashes match, Windows plan preparation completed without target execution, and an independent audit reconstructed all 240 contracts. Focused controls pass 24/24 executed tests, with one unsupported symlink test skipped. Storage receipt v4 is within all ceilings with 6.8 MB retained headroom. Await the hosted Linux/Windows v7 run before counting any candidate evidence.
+
+The external-junction rejection test was added after the v7 staged declaration and plan audit. Both remain preserved as zero-launch records and are superseded by v8, which binds this additional test and reconstructs all 240 contracts again. No candidate credit is affected.
+
+## V8 zero-launch gate - 8 November 2026
+
+The Windows v8 plan was independently reconstructed: 240 exact contracts, zero target launches. Declaration hashes match all 23 current harness files after CRLF normalization. The local junction controls verify that an owned in-target junction is inventoried without traversal and an external junction is rejected; the separate symlink control is skipped because this environment does not permit creating that symlink. All 25 focused tests ran (24 pass, one skip). Storage v5 is within declared limits. Next: commit/push the v8 corrections, run both native cells, and independently audit all artifacts before any qualification claim.

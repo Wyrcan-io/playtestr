@@ -52,6 +52,7 @@ def prepare_native_directory_permissions(target,boundary):
             directory.chmod(mode|stat.S_IWUSR|stat.S_IXUSR);changed+=1
         for entry in directory.iterdir():
             if entry.is_symlink():raise ValueError('unreviewed link during owned permission preparation')
+            if getattr(entry,'is_junction',lambda:False)():continue
             if entry.is_dir():pending.append(entry)
     return changed
 
@@ -69,7 +70,14 @@ def target_inventory(target, max_files=40000, max_bytes=1024**3):
                 if entry.name!='lib64' or value!='lib' or entry.resolve()!=entry.parent/'lib':
                     raise ValueError('unreviewed cleanup source link')
                 links[relative]=value
-            elif getattr(entry,'is_junction',lambda:False)():raise ValueError('unreviewed cleanup reparse entry')
+            elif getattr(entry,'is_junction',lambda:False)():
+                resolved=entry.resolve(strict=True)
+                try:relative_target=resolved.relative_to(target.resolve(strict=True))
+                except ValueError as error:
+                    raise ValueError('cleanup junction escapes owned target: '+relative) from error
+                if resolved==target.resolve(strict=True) or not resolved.is_dir():
+                    raise ValueError('cleanup junction has invalid in-target destination: '+relative)
+                links[relative]=relative_target.as_posix()
             elif entry.is_dir():pending.append(entry)
             elif entry.is_file():
                 size=entry.stat().st_size;total+=size
