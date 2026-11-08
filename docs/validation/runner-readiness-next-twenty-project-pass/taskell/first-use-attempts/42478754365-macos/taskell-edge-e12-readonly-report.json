@@ -1,0 +1,84 @@
+{
+  "report_version": 3,
+  "runner_version": "dev",
+  "os": "darwin",
+  "arch": "amd64",
+  "summary": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1,
+    "cancelled": 0,
+    "not_run": 0
+  },
+  "results": [
+    {
+      "invocation_id": "59455a3d1e783fa236912fdb1d42db10",
+      "spec_version": 3,
+      "name": "Reject a save to a genuinely read-only Taskell board",
+      "spec_path": "/Users/runner/work/playtestr/playtestr/docs/validation/runner-readiness-next-twenty-project-pass/taskell/first-use-v1/taskell-edge-e12-readonly.json",
+      "status": "failed",
+      "duration_ms": 5290,
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "steps": [
+        {
+          "number": 1,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 50
+        },
+        {
+          "number": 2,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 46
+        },
+        {
+          "number": 3,
+          "action": "exit",
+          "status": "failed",
+          "duration_ms": 5000,
+          "failure": {
+            "category": "assertion_timeout",
+            "message": "Reject a save to a genuinely read-only Taskell board: step 3: step timed out: timed out waiting for process to exit with code 1: context deadline exceeded"
+          }
+        },
+        {
+          "number": 4,
+          "action": "state",
+          "status": "not_run",
+          "duration_ms": 0
+        }
+      ],
+      "target": {
+        "exited": true,
+        "exit_code": 137
+      },
+      "failure": {
+        "category": "assertion_timeout",
+        "message": "Reject a save to a genuinely read-only Taskell board: step 3: step timed out: timed out waiting for process to exit with code 1: context deadline exceeded"
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": false,
+        "forced": true,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "evidence": {
+        "screen_path": "/Users/runner/work/playtestr/playtestr/artifacts/runner-readiness-next-twenty-project-pass/active/taskell/native-build/first-use/scenario-candidates/taskell-edge-e12-readonly-artifacts/20261108T123430Z-265888631/ess-next-twenty-project-pass-taskell-first-use-v1-taskell-edge-e12-readonly.json-273867020b5b.actual.txt"
+      },
+      "workspace": {
+        "id": "59455a3d1e783fa236912fdb1d42db10",
+        "attempted": true,
+        "fixture": "fixtures/e12-readonly",
+        "prepared": true,
+        "cleanup_attempted": true,
+        "cleaned": true,
+        "retained": false
+      }
+    }
+  ]
+}

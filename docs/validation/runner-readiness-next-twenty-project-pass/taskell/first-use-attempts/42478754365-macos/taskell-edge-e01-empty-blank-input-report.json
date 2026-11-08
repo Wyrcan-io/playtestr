@@ -1,0 +1,117 @@
+{
+  "report_version": 3,
+  "runner_version": "dev",
+  "os": "darwin",
+  "arch": "amd64",
+  "summary": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "cancelled": 0,
+    "not_run": 0
+  },
+  "results": [
+    {
+      "invocation_id": "f05efb9da843986a6541fdb0dcbc3fea",
+      "spec_version": 3,
+      "name": "Attempt to add an empty Taskell task",
+      "spec_path": "/Users/runner/work/playtestr/playtestr/docs/validation/runner-readiness-next-twenty-project-pass/taskell/first-use-v1/taskell-edge-e01-empty-blank-input.json",
+      "status": "passed",
+      "duration_ms": 507,
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "steps": [
+        {
+          "number": 1,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 30
+        },
+        {
+          "number": 2,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 45
+        },
+        {
+          "number": 3,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 10
+        },
+        {
+          "number": 4,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 42
+        },
+        {
+          "number": 5,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 6,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 43
+        },
+        {
+          "number": 7,
+          "action": "expect_not",
+          "status": "passed",
+          "duration_ms": 20
+        },
+        {
+          "number": 8,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 42
+        },
+        {
+          "number": 9,
+          "action": "exit",
+          "status": "passed",
+          "duration_ms": 259
+        },
+        {
+          "state": {
+            "invocation_id": "f05efb9da843986a6541fdb0dcbc3fea",
+            "workspace_id": "f05efb9da843986a6541fdb0dcbc3fea",
+            "path": "board.md",
+            "kind": "file",
+            "outcome": "matched"
+          },
+          "number": 10,
+          "action": "state",
+          "status": "passed",
+          "duration_ms": 0
+        }
+      ],
+      "target": {
+        "exited": true,
+        "exit_code": 0
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": true,
+        "forced": false,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "evidence": {},
+      "workspace": {
+        "id": "f05efb9da843986a6541fdb0dcbc3fea",
+        "attempted": true,
+        "fixture": "fixtures/e01-empty-blank-input",
+        "prepared": true,
+        "cleanup_attempted": true,
+        "cleaned": true,
+        "retained": false
+      }
+    }
+  ]
+}

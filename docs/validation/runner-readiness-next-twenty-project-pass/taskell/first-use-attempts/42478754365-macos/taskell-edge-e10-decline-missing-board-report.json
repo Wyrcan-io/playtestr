@@ -1,0 +1,84 @@
+{
+  "report_version": 3,
+  "runner_version": "dev",
+  "os": "darwin",
+  "arch": "amd64",
+  "summary": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1,
+    "cancelled": 0,
+    "not_run": 0
+  },
+  "results": [
+    {
+      "invocation_id": "84a4fbb584b3489d6c02b9cf6c8be6e5",
+      "spec_version": 3,
+      "name": "Decline creation of an absent Taskell board",
+      "spec_path": "/Users/runner/work/playtestr/playtestr/docs/validation/runner-readiness-next-twenty-project-pass/taskell/first-use-v1/taskell-edge-e10-decline-missing-board.json",
+      "status": "failed",
+      "duration_ms": 5228,
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "steps": [
+        {
+          "number": 1,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 20
+        },
+        {
+          "number": 2,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 45
+        },
+        {
+          "number": 3,
+          "action": "exit",
+          "status": "failed",
+          "duration_ms": 5001,
+          "failure": {
+            "category": "assertion_timeout",
+            "message": "Decline creation of an absent Taskell board: step 3: step timed out: timed out waiting for process to exit with code 0: context deadline exceeded"
+          }
+        },
+        {
+          "number": 4,
+          "action": "state",
+          "status": "not_run",
+          "duration_ms": 0
+        }
+      ],
+      "target": {
+        "exited": true,
+        "exit_code": 130
+      },
+      "failure": {
+        "category": "assertion_timeout",
+        "message": "Decline creation of an absent Taskell board: step 3: step timed out: timed out waiting for process to exit with code 0: context deadline exceeded"
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": true,
+        "forced": false,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "evidence": {
+        "screen_path": "/Users/runner/work/playtestr/playtestr/artifacts/runner-readiness-next-twenty-project-pass/active/taskell/native-build/first-use/scenario-candidates/taskell-edge-e10-decline-missing-board-artifacts/20261108T123424Z-1855557210/ty-project-pass-taskell-first-use-v1-taskell-edge-e10-decline-missing-board.json-0bc90ce55d08.actual.txt"
+      },
+      "workspace": {
+        "id": "84a4fbb584b3489d6c02b9cf6c8be6e5",
+        "attempted": true,
+        "fixture": "fixtures/e10-decline-missing-board",
+        "prepared": true,
+        "cleanup_attempted": true,
+        "cleaned": true,
+        "retained": false
+      }
+    }
+  ]
+}
