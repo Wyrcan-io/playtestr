@@ -158,3 +158,11 @@ Backspace to deletion immediately before the cursor. Therefore the prepared
 rename case sends nine Backspace keys to clear the fixture title `Rename me`
 before entering the replacement. This is source-grounded but still requires
 settled-screen and exact-state validation on both hosts.
+
+## N05 reorder source grounding
+
+The pinned `templates/bindings.ini` binds `moveDown` to `J`. `Taskell.Events.Actions.Normal.events` maps `MoveDown` to `down`, `Taskell.Events.State.down` calls `moveVertical 1`, and `Taskell.Data.List.move` performs the bounded task-sequence shift. Candidate fixture `fixtures/reorder/board.md` starts with two unique adjacent rows; the N05 same-run state oracle requires their exact order to swap once. N05 has not yet run on a native host.
+
+## N06-N08 source grounding (candidates not yet run)
+
+N06 uses the pinned `L` binding for `MoveRightBottom`, which the normal event map sends through `moveRightBottom` to `moveHorizontal 1 Lists.Bottom`; the oracle expects one item appended to the next list. N07 uses `/` search and the default Space completion action; completion calls `moveToLastBottom` and the oracle checks the unique searched task moves to Done. N08 uses `N` (`ListNew`); the pinned Insert handler commits the new list on Enter and immediately opens task insertion, so the candidate types a task directly, commits it, escapes the blank row and checks exact Markdown. These are source-backed candidate routes, not native observations.

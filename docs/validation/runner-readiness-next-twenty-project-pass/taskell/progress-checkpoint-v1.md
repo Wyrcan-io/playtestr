@@ -245,3 +245,6 @@ spec, runner, target and provider-artifact hash. This is one observation per
 case per host. The full scenario catalog remains unfrozen and Taskell has no
 12-repeat series, fault calibration, final-candidate, complete audit or
 admission credit.
+
+
+Run `42471306905` passed on Ubuntu 24.04 and Intel macOS after one Mac-only retry. Both successful jobs ran the pinned 250-test Taskell suite, built the target and runner, passed the existing-task smoke, N02 create (12/12), N03 duplicate (7/7), N04 rename (22/22 with exact bytes), and public recorder review/fresh replay/export/ordinary test. All four cases exited 0 with state matches and confirmed process/workspace cleanup. The first Mac Stack 3.11.1 setup attempt returned HTTP 504 twice; its exact log is retained with the successful retry packet. Receipt v25 binds per-host reports and artifacts. N05 reorder through N08 new-column/task are now source-grounded candidate specs, not yet run. No 20-case catalog freeze, repeat series, fault/calibration, or Taskell admission credit.

@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "status": "within declared logical storage caps; four new admissions on rc.6; campaign incomplete",
+  "observed_at_utc": "2026-11-08T10:44:51.711609+00:00",
+  "caps_bytes": {
+    "new_campaign_raw": 4294967296,
+    "combined_raw": 6442450944,
+    "combined_retained": 2147483648,
+    "new_curated": 26214400,
+    "combined_curated": 52428800,
+    "project": 67108864
+  },
+  "actual_bytes": {
+    "new_campaign_raw": 2037876953,
+    "combined_raw": 3946585525,
+    "combined_retained": 2147337057,
+    "new_curated": 11908029,
+    "combined_curated": 23564273,
+    "project": 1002
+  },
+  "headroom_bytes": {
+    "combined_curated": 28864527,
+    "combined_raw": 2495865419,
+    "combined_retained": 146591,
+    "new_curated": 14306371,
+    "new_raw": 2257090343,
+    "project": 67107862
+  },
+  "receipt": "artifacts/runner-readiness-next-twenty-project-pass/storage/ab5b11614d86488899b6bf0be3553fd4/observed.json",
+  "receipt_sha256": "73b41ba4ce2e2d017fa52c11ea99aa29d182718a8ffb9b52921a5904e5d17eaf",
+  "scope": "Fresh logical-byte observation after curation of the Linux packet for run 42471306905. Observed before this checkpoint was written; no exact peak, allocation, quota or campaign-completion claim."
+}

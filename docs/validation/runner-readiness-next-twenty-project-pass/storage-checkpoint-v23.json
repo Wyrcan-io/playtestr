@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "status": "within declared logical storage caps; four new admissions on rc.6; campaign incomplete",
+  "observed_at_utc": "2026-11-08T11:04:08.599055+00:00",
+  "caps_bytes": {
+    "new_campaign_raw": 4294967296,
+    "combined_raw": 6442450944,
+    "combined_retained": 2147483648,
+    "new_curated": 26214400,
+    "combined_curated": 52428800,
+    "project": 67108864
+  },
+  "actual_bytes": {
+    "new_campaign_raw": 2056847257,
+    "combined_raw": 3965555829,
+    "combined_retained": 2147338229,
+    "new_curated": 11994523,
+    "combined_curated": 23650767,
+    "project": 1002
+  },
+  "headroom_bytes": {
+    "combined_curated": 28778033,
+    "combined_raw": 2476895115,
+    "combined_retained": 145419,
+    "new_curated": 14219877,
+    "new_raw": 2238120039,
+    "project": 67107862
+  },
+  "receipt": "artifacts/runner-readiness-next-twenty-project-pass/storage/a37306919672462a9da6e8ff6b344240/observed.json",
+  "receipt_sha256": "bd563517be2f27d305c4b0653dba9ff87215f13f1a12c82b7d7c43d50026b365",
+  "scope": "Fresh observation after curation of Linux and Mac native packets, reports, and first failed Mac setup log for run 42471306905. Observed before this checkpoint was written; no exact peak, allocation, quota or completion claim."
+}

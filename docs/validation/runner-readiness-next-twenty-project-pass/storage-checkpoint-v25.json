@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "status": "within declared logical storage caps; four new admissions on rc.6; campaign incomplete",
+  "observed_at_utc": "2026-11-08T11:09:44.448076+00:00",
+  "caps_bytes": {
+    "new_campaign_raw": 4294967296,
+    "combined_raw": 6442450944,
+    "combined_retained": 2147483648,
+    "new_curated": 26214400,
+    "combined_curated": 52428800,
+    "project": 67108864
+  },
+  "actual_bytes": {
+    "new_campaign_raw": 1997724137,
+    "combined_raw": 3906432709,
+    "combined_retained": 2147340573,
+    "new_curated": 11997167,
+    "combined_curated": 23653411,
+    "project": 1002
+  },
+  "headroom_bytes": {
+    "combined_curated": 28775389,
+    "combined_raw": 2536018235,
+    "combined_retained": 143075,
+    "new_curated": 14217233,
+    "new_raw": 2297243159,
+    "project": 67107862
+  },
+  "receipt": "artifacts/runner-readiness-next-twenty-project-pass/storage/1565c826d0e74162b08d2f99fb13b770/observed.json",
+  "receipt_sha256": "8e78a5cfd3330e944ffcdf9dd0d3dd753c51999f2af8a4426d9c82f92a59aa03",
+  "scope": "Fresh logical-byte observation after Linux and Mac run 42471306905 packet curation, failed Mac setup log retention, N05-N08 candidate drafting, and checked removal of both unique downloaded artifact directories. Observed before this checkpoint was written; no exact peak, allocation, quota or completion claim."
+}

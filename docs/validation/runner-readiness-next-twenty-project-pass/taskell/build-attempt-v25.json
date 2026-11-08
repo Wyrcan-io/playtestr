@@ -1,0 +1,308 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42471306905,
+  "source_revision": "8ddd97c50e32abaaa44ca5fd3410829492c380ec",
+  "event": "push; Mac job 128702451038 failed in Stack download setup (HTTP 504 twice); rerun-failed-jobs executed only Mac job 128705624609 successfully",
+  "scenario_spec_sha256": {
+    "taskell-create-task.json": "164ed66e2b9c60014a66b88a419b7d73d8b2eeb0958b9f73f58951e4032ba90c",
+    "taskell-duplicate-task.json": "daf5de5f03c7ede2d58eb351e37b643e4bdf9c837b9d2c5033a02e1c30b96bdd",
+    "taskell-n04-rename-task.json": "b3720fa6c0f30c615940153d5da92d3579de13d5f435000064e736428457e7cf"
+  },
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128702451256,
+      "provider_artifact": {
+        "id": 13614380125,
+        "bytes": 11207425,
+        "sha256": "ab7fdb367246b061e0d71f9028efc40f7b88380369efa46a21900e988aad9f96"
+      },
+      "upstream_tests": "250 passed",
+      "target": {
+        "version": "1.11.4",
+        "binary_bytes": 33207832,
+        "binary_sha256": "6099f625fc30ee1fefcef87c3aa40e34915b4b254b52f4276d940e976225dfd8",
+        "stack": "Version 3.11.1, Git revision 979bf6339fd4d5837c4d2fa8166dc715eef30ee2 x86_64 hpack-0.39.6",
+        "ghc": "9.0.1"
+      },
+      "playtestr": {
+        "go": "go version go1.25.0 linux/amd64",
+        "binary_bytes": 6928585,
+        "binary_sha256": "a1b50aac79026b26caeeea8142dc3e243a777813f9aa0f5d1db047825e092524"
+      },
+      "scenario_reports": {
+        "existing_task_smoke": {
+          "status": "passed",
+          "steps_passed": 6,
+          "steps_total": 6,
+          "exit_code": 0,
+          "state": "matched",
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleanup": {
+            "id": "5b8d1bb67dca6934bed0c594fc9c7fa5",
+            "attempted": true,
+            "fixture": "fixtures",
+            "prepared": true,
+            "cleanup_attempted": true,
+            "cleaned": true,
+            "retained": false
+          },
+          "report_sha256": "084d0417bec3009882074304a899a8bcf842a036f3ceeb5ca8000f4ce7793f9e"
+        },
+        "create_task": {
+          "status": "passed",
+          "steps_passed": 12,
+          "steps_total": 12,
+          "exit_code": 0,
+          "state": "matched",
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleanup": {
+            "id": "55fd8d274b19e45c581906502094fcd2",
+            "attempted": true,
+            "fixture": "fixtures",
+            "prepared": true,
+            "cleanup_attempted": true,
+            "cleaned": true,
+            "retained": false
+          },
+          "report_sha256": "e32e1208498f11ce17b2721623210314d19a3c0b7642a8655cbad5e248cb2a7c"
+        },
+        "duplicate_task": {
+          "status": "passed",
+          "steps_passed": 7,
+          "steps_total": 7,
+          "exit_code": 0,
+          "state": "matched",
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleanup": {
+            "id": "11dc8cd5ff246f487c9375601f35c4db",
+            "attempted": true,
+            "fixture": "fixtures/duplicate",
+            "prepared": true,
+            "cleanup_attempted": true,
+            "cleaned": true,
+            "retained": false
+          },
+          "report_sha256": "0398d152de905a0cc18c7892a4a69325d1ca46969c0b11b8b6744f9272eafab1"
+        },
+        "rename_task": {
+          "status": "passed",
+          "steps_passed": 22,
+          "steps_total": 22,
+          "exit_code": 0,
+          "state": "matched",
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleanup": {
+            "id": "53aa1de3243d6ae2b18cc25f41667a6b",
+            "attempted": true,
+            "fixture": "fixtures/rename",
+            "prepared": true,
+            "cleanup_attempted": true,
+            "cleaned": true,
+            "retained": false
+          },
+          "report_sha256": "95eb5a62a5b4fc063de8b23279f0910a54a4ac4cfb7421e303a0685d22f0177f"
+        }
+      },
+      "recorder_route": {
+        "reviewed": true,
+        "fresh_replay": "passed",
+        "exported_spec_sha256": "71b9c71aa5b4ea4e58180fd2bdf6890cc290342ac21a01dca3a7a18c608017a2",
+        "ordinary_test": "1/1 case, 6/6 steps, exit 0, exact state and cleanup passed",
+        "ordinary_report_sha256": "e350b2fa68cb534be163491f7e2ca06e37bf687c1f974db56a6aab0484de3c21",
+        "record_console_sha256": "6debb9ac4fda6a03a4bd3495df446ad81eb523fd3b6ccd0437eafb5e5185a3e6"
+      },
+      "curated_evidence": "first-use-attempts/42471306905-linux/",
+      "curated_files_sha256": {
+        "create-task-report.json": "e32e1208498f11ce17b2721623210314d19a3c0b7642a8655cbad5e248cb2a7c",
+        "duplicate-task-report.json": "0398d152de905a0cc18c7892a4a69325d1ca46969c0b11b8b6744f9272eafab1",
+        "existing-task-smoke-report.json": "084d0417bec3009882074304a899a8bcf842a036f3ceeb5ca8000f4ce7793f9e",
+        "first-route.json": "71b9c71aa5b4ea4e58180fd2bdf6890cc290342ac21a01dca3a7a18c608017a2",
+        "host.json": "c29b06bb95bb07c337a2b96cad5c315ce7104f2a4ea3dcfc1ed394af9a23f20c",
+        "ordinary-test-report.json": "e350b2fa68cb534be163491f7e2ca06e37bf687c1f974db56a6aab0484de3c21",
+        "record-console.txt": "6debb9ac4fda6a03a4bd3495df446ad81eb523fd3b6ccd0437eafb5e5185a3e6",
+        "recorder-controls.txt": "fae886c3c54b0052c227b140963044996aa71f021b6c59fc703d64e29fc8c8f8",
+        "rename-task-report.json": "95eb5a62a5b4fc063de8b23279f0910a54a4ac4cfb7421e303a0685d22f0177f",
+        "runner.json": "fc1498ea8f54eaa283fbc433d1068c2eeba25d8acd3fca2af58563f659d4dd12"
+      }
+    },
+    {
+      "host": "macos-15-intel-x86_64",
+      "job_id": 128705624609,
+      "provider_artifact": {
+        "id": 13614303128,
+        "bytes": 6785461,
+        "sha256": "182f1a549935c9751b9d732c95b9c77d36952303da1192bc8a2d56fdd20687db"
+      },
+      "upstream_tests": "250 passed",
+      "target": {
+        "version": "1.11.4",
+        "binary_bytes": 12050080,
+        "binary_sha256": "490a7bbf7f6e39a54c333412ae3894c20f3a4483b9418008144326562c4a1bab",
+        "stack": "Version 3.11.1, Git revision 979bf6339fd4d5837c4d2fa8166dc715eef30ee2 x86_64 hpack-0.39.6",
+        "ghc": "9.0.1"
+      },
+      "playtestr": {
+        "go": "go version go1.25.0 darwin/amd64",
+        "binary_bytes": 6899072,
+        "binary_sha256": "96473ff669b9dfb79a69fe3250b5b5cb4cf67d4c6454a50100bdce7c9d2dbcbc"
+      },
+      "scenario_reports": {
+        "existing_task_smoke": {
+          "status": "passed",
+          "steps_passed": 6,
+          "steps_total": 6,
+          "exit_code": 0,
+          "state": "matched",
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleanup": {
+            "id": "15254d407c5ec66b585708f9dfa7c40a",
+            "attempted": true,
+            "fixture": "fixtures",
+            "prepared": true,
+            "cleanup_attempted": true,
+            "cleaned": true,
+            "retained": false
+          },
+          "report_sha256": "4adfe12a64f9422d450ff06ab4956f5598deb0275f861f788ca8ea830660194f"
+        },
+        "create_task": {
+          "status": "passed",
+          "steps_passed": 12,
+          "steps_total": 12,
+          "exit_code": 0,
+          "state": "matched",
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleanup": {
+            "id": "b2b59d6d78926ba02623f545c1803202",
+            "attempted": true,
+            "fixture": "fixtures",
+            "prepared": true,
+            "cleanup_attempted": true,
+            "cleaned": true,
+            "retained": false
+          },
+          "report_sha256": "8e24cbfe9feb0ceb71be8e31ce6dd648f70626e67afe063b870870de2cc2edb3"
+        },
+        "duplicate_task": {
+          "status": "passed",
+          "steps_passed": 7,
+          "steps_total": 7,
+          "exit_code": 0,
+          "state": "matched",
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleanup": {
+            "id": "334d1397f240ea433b947e2f018da8fa",
+            "attempted": true,
+            "fixture": "fixtures/duplicate",
+            "prepared": true,
+            "cleanup_attempted": true,
+            "cleaned": true,
+            "retained": false
+          },
+          "report_sha256": "c3dc5d62e97fe4070035797ae1cc9ffb5f1f84e028253adb0d81ccb2c1e0f76c"
+        },
+        "rename_task": {
+          "status": "passed",
+          "steps_passed": 22,
+          "steps_total": 22,
+          "exit_code": 0,
+          "state": "matched",
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleanup": {
+            "id": "9eb65bc8ce40a86051a3f46474c5f6d3",
+            "attempted": true,
+            "fixture": "fixtures/rename",
+            "prepared": true,
+            "cleanup_attempted": true,
+            "cleaned": true,
+            "retained": false
+          },
+          "report_sha256": "5261e3ea40b9d4702ad3c76e312460764e0e1cc34fcff2e8c77d13796c48da34"
+        }
+      },
+      "recorder_route": {
+        "reviewed": true,
+        "fresh_replay": "passed",
+        "exported_spec_sha256": "71b9c71aa5b4ea4e58180fd2bdf6890cc290342ac21a01dca3a7a18c608017a2",
+        "ordinary_test": "1/1 case, 6/6 steps, exit 0, exact state and cleanup passed",
+        "ordinary_report_sha256": "d1aa569f19a0e294cb429dbb594c9cfd236dd6f9d038c8e6c0a99d42047fde9a",
+        "record_console_sha256": "32b43d315fab9ebdc37d4637435a165af01d16b322e12df63d6a8d8c6453c2c3"
+      },
+      "curated_evidence": "first-use-attempts/42471306905-macos/",
+      "curated_files_sha256": {
+        "create-task-report.json": "8e24cbfe9feb0ceb71be8e31ce6dd648f70626e67afe063b870870de2cc2edb3",
+        "duplicate-task-report.json": "c3dc5d62e97fe4070035797ae1cc9ffb5f1f84e028253adb0d81ccb2c1e0f76c",
+        "existing-task-smoke-report.json": "4adfe12a64f9422d450ff06ab4956f5598deb0275f861f788ca8ea830660194f",
+        "first-route.json": "71b9c71aa5b4ea4e58180fd2bdf6890cc290342ac21a01dca3a7a18c608017a2",
+        "host.json": "9c9520acbe9a4c4d9875beb907b76adbf9b531ee4371711d4d439e6096aeb508",
+        "ordinary-test-report.json": "d1aa569f19a0e294cb429dbb594c9cfd236dd6f9d038c8e6c0a99d42047fde9a",
+        "record-console.txt": "32b43d315fab9ebdc37d4637435a165af01d16b322e12df63d6a8d8c6453c2c3",
+        "recorder-controls.txt": "fae886c3c54b0052c227b140963044996aa71f021b6c59fc703d64e29fc8c8f8",
+        "rename-task-report.json": "5261e3ea40b9d4702ad3c76e312460764e0e1cc34fcff2e8c77d13796c48da34",
+        "runner.json": "6b12871d20ab89cbd950031c9efdf049e5c29e419caee683d16dfa9daecd41f6",
+        "stack-install-failure.txt": "cb4d644177bb1fd2ae97e389ed8085cac5a786d7cc73472e85ecce02e865c271"
+      }
+    }
+  ],
+  "first_failure": {
+    "host": "macos-15-intel",
+    "job_id": 128702451038,
+    "stage": "Set up pinned Haskell toolchain",
+    "result": "GHCup received HTTP 504 twice while downloading pinned Stack 3.11.1; source acquisition, build, and candidates were skipped",
+    "curated_log": "first-use-attempts/42471306905-macos/stack-install-failure.txt",
+    "log_sha256": "cb4d644177bb1fd2ae97e389ed8085cac5a786d7cc73472e85ecce02e865c271",
+    "artifact": "none; upload step also failed because setup had not created the packet directory"
+  },
+  "credit": "N01 existing-task smoke and N02 create, N03 duplicate, N04 rename each passed once on Ubuntu 24.04 and Intel macOS in successful jobs. Pinned 250-test suites, target/runner builds, and recorder review/fresh replay/export/ordinary route passed on both successful hosts. N04 has 22/22 steps, exit 0, exact state, confirmed process-group and workspace cleanup. First Mac 504 and retry are preserved. This is one-shot cross-host exploratory evidence only: catalog unfrozen; no 12-repeat series, fault, calibration, complete 20-scenario set, final-candidate, migration, or Taskell admission credit."
+}

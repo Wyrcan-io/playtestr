@@ -1,0 +1,58 @@
+{
+  "version": 3,
+  "name": "Find and complete one Taskell task",
+  "command": [
+    "taskell",
+    "board.md"
+  ],
+  "workspace": {
+    "fixture": "fixtures/n07-search-complete",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 60000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Needle task"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "text": "needle"
+    },
+    {
+      "expect": "needle"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Needle task"
+    },
+    {
+      "text": " "
+    },
+    {
+      "expect": "Needle task"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "board.md",
+        "kind": "file",
+        "bytes_base64": "IyMgVG8gRG8KCi0gUHJlc2VydmUgdGhpcyBpdGVtCgojIyBEb25lCgotIEFscmVhZHkgZG9uZQotIE5lZWRsZSB0YXNrCg=="
+      }
+    }
+  ]
+}

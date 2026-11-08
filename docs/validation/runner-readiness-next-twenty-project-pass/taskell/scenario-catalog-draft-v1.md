@@ -7,12 +7,13 @@ correct any unsupported or unstable interaction. Host cells are Ubuntu 24.04
 x86-64 and macOS 15 Intel x86-64 only. The app is a single-process local
 Markdown board; no web imports, credentials, or service behavior are in scope.
 
-Cross-host one-shot evidence now exists for N01 (existing-task smoke), N02
-(create task), and N03 (duplicate task); reports and hashes are bound in
-`build-attempt-v24.json`. N02 requires Escape after Enter because Taskell
-keeps a blank row in INSERT mode. All three still lack the repeated native
-series and the complete 20-case freeze gate.
-
+Cross-host one-shot evidence exists for N01 (existing-task smoke), N02
+(create task), N03 (duplicate task), and N04 (rename), recorded in
+`build-attempt-v25.json`. N04's first Mac setup attempt hit HTTP 504 while
+fetching Stack; the Mac-only retry passed. N05-N08 are source-grounded authored
+candidates, not yet executed. N02 requires Escape after Enter because Taskell
+keeps a blank row in INSERT mode. No case has repeated-series credit and the
+catalog remains unfrozen.
 Target evidence: Taskell README, `Taskell.IO.Keyboard.defaultBindings`,
 `Taskell.Events.Actions.Normal`, `Taskell.Events.Actions.Insert`,
 `Taskell.Events.Actions.Search`, and `Taskell.IO.Markdown.Serializer` at the
@@ -36,11 +37,11 @@ series.
 | N01 | Complete one existing To Do item on a two-column board. | Select the item, Space, then `q`. | The item appears in Done and is absent from To Do; capture the exact saved board after exit. This is the already observed first-use candidate; its six-step Linux run passed, but the case is not yet part of a repetition series. |
 | N02 | Add a distinct task to a nonempty To Do list. | `a`, enter a unique title, Enter, verify INSERT mode, Escape to finish the blank row and return to normal mode, then `q`. | New title is visible before exit and serialized once in To Do in the expected order. Cross-host one-shot passed 12/12 with exact bytes and cleanup. |
 | N03 | Duplicate an existing task for a second work item. | Select one uniquely named task with `j`, `+`, then `q`. | Two exact task rows serialize in the same list; neighboring rows stay in their original order. Cross-host one-shot passed 7/7 with exact bytes and cleanup. |
-| N04 | Rename a task while preserving the other board items. | On the second uniquely labeled row, `e`, send Backspace once per old-title character, enter a new title, Enter, Escape, then `q`. | New title is rendered and saved once; the old title is absent and unrelated bytes retain their reviewed values. Candidate is prepared; native evidence pending. |
+| N04 | Rename a task while preserving the other board items. | On the second uniquely labeled row, `e`, send Backspace once per old-title character, enter a new title, Enter, Escape, then `q`. | New title is rendered and saved once; the old title is absent and unrelated bytes retain their reviewed values. Linux and Intel Mac passed 22/22 once with exact bytes and cleanup. |
 | N05 | Reorder a task within a list. | On a two-item fixture select the first item and press `J` once. | Exact row order changes once, with both items still present and no cross-list movement. |
 | N06 | Move work from an active list to its next workflow column. | On a three-column fixture select the unique task and press `L`. | Task moves to the expected adjacent column and screen selection/column transition is visible; exact Markdown confirms one copy. |
 | N07 | Find a non-default task and complete it. | Enter `/` search, type a unique term, Enter, Space, `q`. | The matching item is the one completed; exact saved bytes show unrelated tasks untouched. |
-| N08 | Add a project-specific board column and use it. | `N`, enter a unique column name, Enter; add a task and quit. | New column and task are visible and serialize in reviewed order without rewriting prior columns. |
+| N08 | Add a project-specific board column and use it. | `N`, enter a unique column name and press Enter; Taskell enters task insertion for the new list, where a unique task is entered, committed, and exited before `q`. | New column and task are visible and serialize in reviewed order without rewriting prior columns. |
 
 ## Edge and adversarial workflows (candidate set: 12)
 

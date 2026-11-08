@@ -1,0 +1,258 @@
+Build and test Taskell (macos-15-intel)	Set up job	﻿2026-11-08T10:24:40.5289590Z Current runner version: '2.338.2'
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:40.5337350Z ##[group]Runner Image Provisioner
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:40.5339410Z Hosted Compute Agent
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:40.5340720Z Version: 20260819.586
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:40.5342150Z Commit: 3cc4a88dfa507ef76119ad1bb3eccc6378bb2b76
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:40.5343860Z Build Date: 2026-08-18T23:20:18Z
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:40.5345410Z Worker ID: {b4f033ef-18b5-4897-9527-5e26daf93c83}
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:40.5347020Z Azure Region: westus
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:40.5348200Z ##[endgroup]
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:40.5351950Z ##[group]Operating System
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:40.5353340Z macOS
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:40.5354370Z 15.7.9
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:40.5355590Z 24G830
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:40.5356750Z ##[endgroup]
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:40.5357900Z ##[group]Runner Image
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:40.5359280Z Image: macos-15
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:40.5360630Z Version: 20260824.0482.1
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:40.5363730Z Included Software: https://github.com/actions/runner-images/blob/macos-15/20260824.0482/images/macos/macos-15-Readme.md
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:40.5368670Z Image Release: https://github.com/actions/runner-images/releases/tag/macos-15%2F20260824.0482
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:40.5371380Z ##[endgroup]
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:40.5374690Z ##[group]GITHUB_TOKEN Permissions
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:40.5378920Z Contents: read
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:40.5380450Z Metadata: read
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:40.5384200Z ##[endgroup]
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:40.5394250Z Secret source: Actions
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:40.5396750Z Cache mode: write
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:40.5398560Z Prepare workflow directory
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:40.7686490Z Prepare all required actions
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:40.7819060Z Getting action download info
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:41.5824450Z Download action repository 'actions/checkout@11d5960a326750d5838078e36cf38b85af677262' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:41.9477020Z Download action repository 'haskell-actions/setup@0f8e8c99d88aeb3fbfd523f1ef2c6f762d10d64d' (SHA:0f8e8c99d88aeb3fbfd523f1ef2c6f762d10d64d)
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:42.4516570Z Download action repository 'actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e' (SHA:b7ad1dad31e06c5925ef5d2fc7ad053ef454303e)
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:42.9692540Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+Build and test Taskell (macos-15-intel)	Set up job	2026-11-08T10:24:43.5337170Z Complete job name: Build and test Taskell (macos-15-intel)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	﻿2026-11-08T10:24:43.9380670Z ##[group]Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:43.9384210Z with:
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:43.9385440Z   repository: Wyrcan-io/playtestr
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:43.9408460Z   token: ***
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:43.9409770Z   ssh-strict: true
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:43.9411000Z   ssh-user: git
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:43.9412290Z   persist-credentials: true
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:43.9413790Z   clean: true
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:43.9415140Z   sparse-checkout-cone-mode: true
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:43.9416830Z   fetch-depth: 1
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:43.9418210Z   fetch-tags: false
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:43.9419560Z   show-progress: true
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:43.9420890Z   lfs: false
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:43.9422110Z   submodules: false
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:43.9423440Z   set-safe-directory: true
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:43.9425050Z   allow-unsafe-pr-checkout: false
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:43.9428520Z env:
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:43.9432830Z   STACK_ROOT: /Users/runner/work/playtestr/playtestr/artifacts/runner-readiness-next-twenty-project-pass/toolchain/taskell/stack-root
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:43.9437870Z ##[endgroup]
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:44.9378280Z Syncing repository: Wyrcan-io/playtestr
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:44.9385340Z ##[group]Getting Git version info
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:44.9389800Z Working directory is '/Users/runner/work/playtestr/playtestr'
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:44.9395590Z [command]/usr/local/bin/git version
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:44.9621510Z git version 2.55.0
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.0005500Z ##[endgroup]
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.0282900Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/1acc42e3-45a9-41ca-96db-5a28ddaadfc0/.gitconfig'
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.0341070Z Temporarily overriding HOME='/Users/runner/work/_temp/1acc42e3-45a9-41ca-96db-5a28ddaadfc0' before making global git config changes
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.0378250Z Adding repository directory to the temporary git global config as a safe directory
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.0389380Z [command]/usr/local/bin/git config --global --add safe.directory /Users/runner/work/playtestr/playtestr
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.0520270Z Deleting the contents of '/Users/runner/work/playtestr/playtestr'
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.0560600Z ##[group]Initializing the repository
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.0662460Z [command]/usr/local/bin/git init /Users/runner/work/playtestr/playtestr
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.1065380Z hint: Using 'master' as the name for the initial branch. This default branch name
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.1113830Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.1166430Z hint: to use in all of your new repositories, which will suppress this warning,
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.1238780Z hint: call:
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.1269410Z hint:
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.1301790Z hint: 	git config --global init.defaultBranch <name>
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.1336090Z hint:
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.1367270Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.1422420Z hint: 'development'. The just-created branch can be renamed via this command:
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.1463950Z hint:
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.1482620Z hint: 	git branch -m <name>
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.1515750Z hint:
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.1557810Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.1595010Z Initialized empty Git repository in /Users/runner/work/playtestr/playtestr/.git/
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.1733920Z [command]/usr/local/bin/git remote add origin https://github.com/Wyrcan-io/playtestr
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.1847990Z ##[endgroup]
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.1869600Z ##[group]Disabling automatic garbage collection
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.1909510Z [command]/usr/local/bin/git config --local gc.auto 0
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.2132830Z ##[endgroup]
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.2242650Z ##[group]Setting up auth
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.2282530Z [command]/usr/local/bin/git config --local --name-only --get-regexp core\.sshCommand
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.2405320Z [command]/usr/local/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.5147010Z [command]/usr/local/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.5340700Z [command]/usr/local/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.7789450Z [command]/usr/local/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:45.7923950Z [command]/usr/local/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:46.0339750Z [command]/usr/local/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:46.0510810Z ##[endgroup]
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:46.0515610Z ##[group]Fetching the repository
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:46.0527920Z [command]/usr/local/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +8ddd97c50e32abaaa44ca5fd3410829492c380ec:refs/remotes/origin/work/p0-p2-implementation
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:47.5369070Z From https://github.com/Wyrcan-io/playtestr
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:47.5376940Z  * [new ref]         8ddd97c50e32abaaa44ca5fd3410829492c380ec -> origin/work/p0-p2-implementation
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:47.5390590Z ##[endgroup]
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:47.5395990Z ##[group]Determining the checkout info
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:47.5402080Z ##[endgroup]
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:47.5405340Z [command]/usr/local/bin/git sparse-checkout disable
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:47.5445460Z [command]/usr/local/bin/git config --local --unset-all extensions.worktreeConfig
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:47.5684970Z ##[group]Checking out the ref
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:47.5689090Z [command]/usr/local/bin/git checkout --progress --force -B work/p0-p2-implementation refs/remotes/origin/work/p0-p2-implementation
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:48.6091950Z Updating files:  21% (1914/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:48.6479080Z Updating files:  22% (1936/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:48.6995120Z Updating files:  23% (2024/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:48.7833540Z Updating files:  24% (2112/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:48.8186170Z Updating files:  25% (2200/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:48.8727390Z Updating files:  26% (2288/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:48.9198900Z Updating files:  27% (2376/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:49.0020950Z Updating files:  28% (2464/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:49.0685410Z Updating files:  29% (2552/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:49.1131060Z Updating files:  30% (2640/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:49.1746450Z Updating files:  31% (2728/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:49.2133360Z Updating files:  32% (2816/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:49.2668280Z Updating files:  33% (2904/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:49.3581750Z Updating files:  34% (2991/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:49.5014700Z Updating files:  35% (3079/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:49.5957120Z Updating files:  36% (3167/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:49.6157670Z Updating files:  37% (3255/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:49.6239380Z Updating files:  37% (3330/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:49.6695730Z Updating files:  38% (3343/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:49.7019310Z Updating files:  39% (3431/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:49.9341850Z Updating files:  40% (3519/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:50.0046300Z Updating files:  41% (3607/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:50.0785300Z Updating files:  42% (3695/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:50.1282960Z Updating files:  43% (3783/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:50.1815040Z Updating files:  44% (3871/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:50.2458090Z Updating files:  45% (3959/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:50.2921820Z Updating files:  46% (4047/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:50.3417370Z Updating files:  47% (4135/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:50.4713840Z Updating files:  48% (4223/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:50.5906890Z Updating files:  49% (4311/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:50.5921010Z Updating files:  50% (4399/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:50.6250530Z Updating files:  50% (4406/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:50.6653630Z Updating files:  51% (4487/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:50.7026220Z Updating files:  52% (4575/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:50.7468390Z Updating files:  53% (4663/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:50.7857390Z Updating files:  54% (4751/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:50.8246840Z Updating files:  55% (4839/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:50.8623190Z Updating files:  56% (4927/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:50.9044270Z Updating files:  57% (5015/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:50.9485180Z Updating files:  58% (5103/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:50.9901440Z Updating files:  59% (5191/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:51.0341170Z Updating files:  60% (5279/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:51.0866250Z Updating files:  61% (5367/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:51.1312910Z Updating files:  62% (5455/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:51.2879810Z Updating files:  63% (5543/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:51.3246530Z Updating files:  64% (5631/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:51.3608740Z Updating files:  65% (5719/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:51.3989180Z Updating files:  66% (5807/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:51.4347620Z Updating files:  67% (5894/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:51.4730420Z Updating files:  68% (5982/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:51.5106900Z Updating files:  69% (6070/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:51.5483960Z Updating files:  70% (6158/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:51.5924350Z Updating files:  71% (6246/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:51.5936920Z Updating files:  72% (6334/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:51.6336000Z Updating files:  72% (6337/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:51.6865140Z Updating files:  73% (6422/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:51.7209150Z Updating files:  74% (6510/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:51.7593460Z Updating files:  75% (6598/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:51.8025790Z Updating files:  76% (6686/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:51.8415880Z Updating files:  77% (6774/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:51.8825770Z Updating files:  78% (6862/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:51.9255420Z Updating files:  79% (6950/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:51.9688440Z Updating files:  80% (7038/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:52.0100760Z Updating files:  81% (7126/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:52.0550750Z Updating files:  82% (7214/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:52.0988950Z Updating files:  83% (7302/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:52.2204280Z Updating files:  84% (7390/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:52.2647090Z Updating files:  85% (7478/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:52.2973050Z Updating files:  86% (7566/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:52.3332980Z Updating files:  87% (7654/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:52.3644490Z Updating files:  88% (7742/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:52.3970040Z Updating files:  89% (7830/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:52.4312530Z Updating files:  90% (7918/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:52.4632490Z Updating files:  91% (8006/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:52.5013720Z Updating files:  92% (8094/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:52.5325710Z Updating files:  93% (8182/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:52.5673480Z Updating files:  94% (8270/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:52.5936870Z Updating files:  95% (8358/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:52.6091020Z Updating files:  95% (8412/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:52.6508750Z Updating files:  96% (8446/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:52.6907890Z Updating files:  97% (8534/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:52.7391720Z Updating files:  98% (8622/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:52.7848540Z Updating files:  99% (8710/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:52.7854540Z Updating files: 100% (8797/8797)
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:52.7855910Z Updating files: 100% (8797/8797), done.
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:52.8171510Z Switched to a new branch 'work/p0-p2-implementation'
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:52.8181050Z branch 'work/p0-p2-implementation' set up to track 'origin/work/p0-p2-implementation'.
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:52.8219900Z ##[endgroup]
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:52.8424040Z [command]/usr/local/bin/git log -1 --format=%H
+Build and test Taskell (macos-15-intel)	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:24:52.8540400Z 8ddd97c50e32abaaa44ca5fd3410829492c380ec
+Build and test Taskell (macos-15-intel)	Set up pinned Haskell toolchain	﻿2026-11-08T10:24:52.9010140Z ##[group]Run haskell-actions/setup@0f8e8c99d88aeb3fbfd523f1ef2c6f762d10d64d
+Build and test Taskell (macos-15-intel)	Set up pinned Haskell toolchain	2026-11-08T10:24:52.9011240Z with:
+Build and test Taskell (macos-15-intel)	Set up pinned Haskell toolchain	2026-11-08T10:24:52.9011820Z   stack-version: 3.11.1
+Build and test Taskell (macos-15-intel)	Set up pinned Haskell toolchain	2026-11-08T10:24:52.9012420Z   enable-stack: true
+Build and test Taskell (macos-15-intel)	Set up pinned Haskell toolchain	2026-11-08T10:24:52.9013080Z   stack-no-global: true
+Build and test Taskell (macos-15-intel)	Set up pinned Haskell toolchain	2026-11-08T10:24:52.9028610Z   stack-setup-ghc: false
+Build and test Taskell (macos-15-intel)	Set up pinned Haskell toolchain	2026-11-08T10:24:52.9029200Z   cabal-update: false
+Build and test Taskell (macos-15-intel)	Set up pinned Haskell toolchain	2026-11-08T10:24:52.9029680Z   ghc-version: latest
+Build and test Taskell (macos-15-intel)	Set up pinned Haskell toolchain	2026-11-08T10:24:52.9030150Z   cabal-version: latest
+Build and test Taskell (macos-15-intel)	Set up pinned Haskell toolchain	2026-11-08T10:24:52.9030650Z env:
+Build and test Taskell (macos-15-intel)	Set up pinned Haskell toolchain	2026-11-08T10:24:52.9031980Z   STACK_ROOT: /Users/runner/work/playtestr/playtestr/artifacts/runner-readiness-next-twenty-project-pass/toolchain/taskell/stack-root
+Build and test Taskell (macos-15-intel)	Set up pinned Haskell toolchain	2026-11-08T10:24:52.9034210Z ##[endgroup]
+Build and test Taskell (macos-15-intel)	Set up pinned Haskell toolchain	2026-11-08T10:24:53.1695940Z Preparing to setup a Haskell environment
+Build and test Taskell (macos-15-intel)	Set up pinned Haskell toolchain	2026-11-08T10:24:53.1969810Z ##[group]Preparing ghcup environment
+Build and test Taskell (macos-15-intel)	Set up pinned Haskell toolchain	2026-11-08T10:24:53.1995470Z Adding ghcup release channel: prereleases
+Build and test Taskell (macos-15-intel)	Set up pinned Haskell toolchain	2026-11-08T10:24:54.2668260Z [command]/Users/runner/hostedtoolcache/ghcup/0.2.6.2/x64/ghcup config add-release-channel prereleases
+Build and test Taskell (macos-15-intel)	Set up pinned Haskell toolchain	2026-11-08T10:24:54.3824370Z ##[endgroup]
+Build and test Taskell (macos-15-intel)	Set up pinned Haskell toolchain	2026-11-08T10:24:54.3826040Z ##[group]Preparing stack environment
+Build and test Taskell (macos-15-intel)	Set up pinned Haskell toolchain	2026-11-08T10:24:54.3827110Z ##[endgroup]
+Build and test Taskell (macos-15-intel)	Set up pinned Haskell toolchain	2026-11-08T10:24:54.3827980Z ##[group]Installing stack version 3.11.1
+Build and test Taskell (macos-15-intel)	Set up pinned Haskell toolchain	2026-11-08T10:24:54.9709020Z [command]/Users/runner/hostedtoolcache/ghcup/0.2.6.2/x64/ghcup whereis stack 3.11.1
+Build and test Taskell (macos-15-intel)	Set up pinned Haskell toolchain	2026-11-08T10:24:55.0279690Z ^[[1m^[[91m[ Error ]^[[0m^[[0m [^[]8;;https://errors.haskell.org/messages/GHCup-00130^[\GHCup-00130^[]8;;^[\] The version '3.11.1' of the tool stack is not installed.
+Build and test Taskell (macos-15-intel)	Set up pinned Haskell toolchain	2026-11-08T10:24:55.0637990Z 
+Build and test Taskell (macos-15-intel)	Set up pinned Haskell toolchain	2026-11-08T10:24:55.0640110Z 
+Build and test Taskell (macos-15-intel)	Set up pinned Haskell toolchain	2026-11-08T10:24:55.0646640Z Attempting to install stack 3.11.1 for arch x86_64
+Build and test Taskell (macos-15-intel)	Set up pinned Haskell toolchain	2026-11-08T10:25:06.2301330Z Unexpected HTTP response: 504
+Build and test Taskell (macos-15-intel)	Set up pinned Haskell toolchain	2026-11-08T10:25:06.2301970Z Waiting 15 seconds before trying again
+Build and test Taskell (macos-15-intel)	Set up pinned Haskell toolchain	2026-11-08T10:25:21.3896450Z Unexpected HTTP response: 504
+Build and test Taskell (macos-15-intel)	Set up pinned Haskell toolchain	2026-11-08T10:25:21.3899060Z Waiting 11 seconds before trying again
+Build and test Taskell (macos-15-intel)	Set up pinned Haskell toolchain	2026-11-08T10:25:32.4226870Z ##[endgroup]
+Build and test Taskell (macos-15-intel)	Set up pinned Haskell toolchain	2026-11-08T10:25:32.4269750Z ##[error]Unexpected HTTP response: 504
+Build and test Taskell (macos-15-intel)	Retain bounded native build packet	﻿2026-11-08T10:25:32.4590790Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+Build and test Taskell (macos-15-intel)	Retain bounded native build packet	2026-11-08T10:25:32.4592410Z with:
+Build and test Taskell (macos-15-intel)	Retain bounded native build packet	2026-11-08T10:25:32.4593230Z   name: taskell-build-macos-15-intel
+Build and test Taskell (macos-15-intel)	Retain bounded native build packet	2026-11-08T10:25:32.4596520Z   path: artifacts/runner-readiness-next-twenty-project-pass/active/taskell/native-build/
+Build and test Taskell (macos-15-intel)	Retain bounded native build packet	2026-11-08T10:25:32.4598430Z   if-no-files-found: error
+Build and test Taskell (macos-15-intel)	Retain bounded native build packet	2026-11-08T10:25:32.4599430Z   retention-days: 14
+Build and test Taskell (macos-15-intel)	Retain bounded native build packet	2026-11-08T10:25:32.4600380Z   compression-level: 6
+Build and test Taskell (macos-15-intel)	Retain bounded native build packet	2026-11-08T10:25:32.4601250Z   overwrite: false
+Build and test Taskell (macos-15-intel)	Retain bounded native build packet	2026-11-08T10:25:32.4638000Z   include-hidden-files: false
+Build and test Taskell (macos-15-intel)	Retain bounded native build packet	2026-11-08T10:25:32.4639830Z env:
+Build and test Taskell (macos-15-intel)	Retain bounded native build packet	2026-11-08T10:25:32.4642640Z   STACK_ROOT: /Users/runner/work/playtestr/playtestr/artifacts/runner-readiness-next-twenty-project-pass/toolchain/taskell/stack-root
+Build and test Taskell (macos-15-intel)	Retain bounded native build packet	2026-11-08T10:25:32.4644580Z ##[endgroup]
+Build and test Taskell (macos-15-intel)	Retain bounded native build packet	2026-11-08T10:25:32.8139200Z (node:3674) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Build and test Taskell (macos-15-intel)	Retain bounded native build packet	2026-11-08T10:25:32.8142160Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Build and test Taskell (macos-15-intel)	Retain bounded native build packet	2026-11-08T10:25:32.8182700Z ##[error]No files were found with the provided path: artifacts/runner-readiness-next-twenty-project-pass/active/taskell/native-build/. No artifacts will be uploaded.
+Build and test Taskell (macos-15-intel)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	﻿2026-11-08T10:25:32.8664720Z Post job cleanup.
+Build and test Taskell (macos-15-intel)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:25:33.2313350Z [command]/usr/local/bin/git version
+Build and test Taskell (macos-15-intel)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:25:33.2448470Z git version 2.55.0
+Build and test Taskell (macos-15-intel)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:25:33.2723970Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/dd4ba17c-28fd-4ef9-abba-31b0fd69ae29/.gitconfig'
+Build and test Taskell (macos-15-intel)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:25:33.2793440Z Temporarily overriding HOME='/Users/runner/work/_temp/dd4ba17c-28fd-4ef9-abba-31b0fd69ae29' before making global git config changes
+Build and test Taskell (macos-15-intel)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:25:33.2827760Z Adding repository directory to the temporary git global config as a safe directory
+Build and test Taskell (macos-15-intel)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:25:33.2856270Z [command]/usr/local/bin/git config --global --add safe.directory /Users/runner/work/playtestr/playtestr
+Build and test Taskell (macos-15-intel)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:25:33.2993660Z [command]/usr/local/bin/git config --local --name-only --get-regexp core\.sshCommand
+Build and test Taskell (macos-15-intel)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:25:33.3181030Z [command]/usr/local/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Build and test Taskell (macos-15-intel)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:25:33.4557530Z [command]/usr/local/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Build and test Taskell (macos-15-intel)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:25:33.4721060Z http.https://github.com/.extraheader
+Build and test Taskell (macos-15-intel)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:25:33.4749270Z [command]/usr/local/bin/git config --local --unset-all http.https://github.com/.extraheader
+Build and test Taskell (macos-15-intel)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:25:33.4952790Z [command]/usr/local/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Build and test Taskell (macos-15-intel)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:25:33.7200480Z [command]/usr/local/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Build and test Taskell (macos-15-intel)	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-11-08T10:25:33.7370730Z [command]/usr/local/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Build and test Taskell (macos-15-intel)	Complete job	﻿2026-11-08T10:25:34.2078370Z Cleaning up orphan processes
+Build and test Taskell (macos-15-intel)	Complete job	2026-11-08T10:25:34.6826680Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11d5960a326750d5838078e36cf38b85af677262, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
