@@ -2,7 +2,9 @@
 import argparse
 import hashlib
 import json
+import os
 import re
+import stat
 import urllib.request
 from pathlib import Path
 
@@ -11,18 +13,42 @@ from readiness_evidence import immutable_json,sha256
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('project');parser.add_argument('--omitted-documentation-links',type=Path);parser.add_argument('--verify-existing',action='store_true');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('project');parser.add_argument('--omitted-documentation-links',type=Path);parser.add_argument('--verify-existing',action='store_true');parser.add_argument('--verify-from-frozen-provenance',action='store_true');args=parser.parse_args()
     if not re.fullmatch('[a-z][a-z0-9-]{0,63}',args.project):raise ValueError('Invalid target slug')
     target=RAW/'active'/args.project;marker=json.loads((target/'task-owned.json').read_text())
     if marker['campaign']!=NAME or marker['slug']!=args.project:raise ValueError('Target ownership mismatch')
     repository=marker['project'];pin=marker['pin']
     if not re.fullmatch('[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+',repository) or not re.fullmatch('[0-9a-f]{40}',pin):raise ValueError('Invalid pinned primary identity')
+    if args.verify_from_frozen_provenance:
+        if args.omitted_documentation_links:raise ValueError('Frozen-provenance mode does not support link omission')
+        package=DOC/args.project;expected=json.loads((package/'source-provenance.json').read_text(encoding='utf-8'))
+        acquisition=json.loads((target/'acquisition.json').read_text(encoding='utf-8'))
+        archive=target/'source.tar.gz';source=target/'src'
+        if expected.get('repository')!=repository or expected.get('pin')!=pin or acquisition.get('repository')!=repository or acquisition.get('pin')!=pin:
+            raise ValueError('Acquired source and frozen provenance identities differ')
+        if acquisition.get('url')!='https://api.github.com/repos/'+repository+'/tarball/'+pin or acquisition.get('archive_sha256')!=sha256(archive):
+            raise ValueError('Acquisition URL/archive identity differs from the pinned source')
+        actual={};modes={}
+        for path in source.rglob('*'):
+            if path.is_symlink() or getattr(path,'is_junction',lambda:False)():raise ValueError('Unreviewed source link')
+            if not path.is_file():continue
+            name=path.relative_to(source).as_posix()
+            if path.stat().st_size>8*1024**2:raise ValueError('Source member exceeds bound: '+name)
+            actual[name]=sha256(path)
+            modes[name]='100755' if path.stat().st_mode&stat.S_IXUSR else '100644'
+        if actual!=expected.get('files') or actual!=acquisition.get('source_files') or modes!=expected.get('git_modes'):
+            raise ValueError('Acquired source files or Git modes differ from the frozen exact primary provenance')
+        print('Verified acquired pinned source against frozen primary provenance:',len(actual),args.project)
+        return
     destination=RAW/'screening/reviews'/repository.replace('/','--')/pin/'tree.json'
     if destination.exists():
         tree=json.loads(destination.read_text(encoding='utf-8'))
     else:
         url='https://api.github.com/repos/'+repository+'/git/trees/'+pin+'?recursive=1'
-        with urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':'Playtestr-validation'}),timeout=30) as response:
+        headers={'User-Agent':'Playtestr-validation'}
+        token=os.environ.get('GITHUB_TOKEN') or os.environ.get('GH_TOKEN')
+        if token:headers['Authorization']='Bearer '+token
+        with urllib.request.urlopen(urllib.request.Request(url,headers=headers),timeout=30) as response:
             data=response.read(4*1024**2+1)
         if len(data)>4*1024**2:raise ValueError('Primary tree metadata bound')
         tree=json.loads(data);immutable_json(destination,tree)

@@ -120,12 +120,16 @@ jobs:
           stack-setup-ghc: 'false'
           cabal-update: 'false'
 
-      - name: Acquire and verify pinned Taskell source
+      - name: Acquire pinned Taskell source
         run: |
           set -euo pipefail
           mkdir -p artifacts/runner-readiness-next-twenty-project-pass/tmp
           python -B scripts/acceptance/next20_acquire.py taskell
-          python -B scripts/acceptance/next20_source_tree.py taskell --verify-existing
+
+      - name: Verify pinned Taskell source tree
+        run: |
+          set -euo pipefail
+          python -B scripts/acceptance/next20_source_tree.py taskell --verify-from-frozen-provenance
           python - <<'PY'
           import hashlib,json
           from pathlib import Path
