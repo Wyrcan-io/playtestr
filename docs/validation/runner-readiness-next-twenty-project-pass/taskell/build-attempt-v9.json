@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42450896413,
+  "source_revision": "e3bdaa0dfdddc964c4af729768728e1f077320e0",
+  "event": "push",
+  "result": "linux-fixture-setup-failed-macos-go-prerequisite-missing",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128639699677,
+      "source_verified": true,
+      "upstream_tests_passed": 250,
+      "target_binary_built": true,
+      "playtestr_binary_built": true,
+      "authored_smoke": "workspace_setup_failed_before_target_launch",
+      "failure": "The spec referenced a missing fixture directory instead of the checked-in board-basic.md fixture.",
+      "artifact_id": 13606087162,
+      "artifact_bytes": 11202284,
+      "artifact_sha256": "dde5c476d8697a701ed74d2a3ea4e5784a53de6c3785ec44f13831e633f96474"
+    },
+    {
+      "host": "macos-15-intel-x86_64",
+      "job_id": 128639699909,
+      "source_verified": true,
+      "upstream_tests_passed": 250,
+      "target_binary_built": true,
+      "taskell_version": "1.11.4",
+      "playtestr_build": "not reached",
+      "failure_category": "missing_runner_sdk",
+      "failure": "go: command not found",
+      "artifact_id": 13605659616,
+      "artifact_bytes": 2973229,
+      "artifact_sha256": "f22a4e88b058272e23bb09d5c6bf7a13815499d29ded29c837592641ddbdd0da"
+    }
+  ],
+  "provider_run": "https://github.com/Wyrcan-io/playtestr/actions/runs/42450896413",
+  "disposition": "Preserve both independent host failures. No Taskell UI target launched and no admission credit. The corrected fixture and pinned Go setup were pushed in source 2144fd69; run 42451800719 includes both corrections."
+}

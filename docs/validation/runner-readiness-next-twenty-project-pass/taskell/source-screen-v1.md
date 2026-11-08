@@ -62,3 +62,8 @@ failed before target launch with the same now-corrected fixture path
 was still in upstream tests at receipt time. Run `42451800719` uses both the
 corrected fixture and Go setup on source `2144fd69`; both native jobs are in
 the pinned upstream test phase at the latest poll.
+
+Run `42450896413` later completed. Its macOS Intel lane passed all 250 tests
+and built Taskell 1.11.4, but lacked Go before Playtestr build; both host results
+are in `build-attempt-v9.json`. Run `42451800719` remains the first one with
+both prerequisite corrections.

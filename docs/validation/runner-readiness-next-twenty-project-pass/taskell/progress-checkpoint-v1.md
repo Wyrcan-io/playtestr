@@ -75,3 +75,10 @@ Go setup; its Linux and Intel macOS jobs were in upstream tests at last poll.
 The intermediate Go-enabled run `42451645308` failed before target launch on
 the old fixture path; Linux artifact receipt is `build-attempt-v8.json`. Keep
 this attempt separate and continue monitoring the two-host run.
+
+Run `42450896413` has now completed on both hosts. Its macOS Intel lane passed
+all 250 upstream tests and built Taskell, but lacked Go before Playtestr build;
+the Linux lane failed on fixture setup. Both exact outcomes and artifact
+digests are in `build-attempt-v9.json`. Run `42451800719` is still the first
+workflow carrying both corrections; at the latest poll its two jobs are in
+the pinned Stack test stage.
