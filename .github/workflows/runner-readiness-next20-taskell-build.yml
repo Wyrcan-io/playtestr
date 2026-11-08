@@ -89,7 +89,7 @@ jobs:
               'scope':'Pinned source built and upstream tests executed. Only the version option was launched; no board, user config, network import, release helper or full-screen workflow was run.'
           },sort_keys=True,indent=2)+'\n')
           PY
-      - name: Build Playtestr and attempt the reviewed first-use workflow
+      - name: Build Playtestr and run the authored smoke case
         shell: bash
         run: |
           set -euo pipefail
@@ -117,7 +117,44 @@ jobs:
               'scope':'One reviewed first-use attempt against an isolated synthetic Markdown board. Read the same-run state and report before declaring this case successful or freezing its contract.'
           },sort_keys=True,indent=2)+'\n')
           PY
+      - name: Attempt first-use recorder route without authoring JSON
+        shell: bash
+        run: |
+          set -euo pipefail
+          root="$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/active/taskell"
+          packet="$root/native-build"
+          mkdir -p "$packet/first-use/fixtures/board-basic"
+          cp docs/validation/runner-readiness-next-twenty-project-pass/taskell/first-use-v1/fixtures/board-basic.md \
+            "$packet/first-use/fixtures/board-basic/board.md"
+          cat > "$packet/first-use/recorder-controls.txt" <<'EOF'
+          /expect To Do
+          /expect Review sample
+          /key Space
+          /key q
+          /exit 0
+          /file board.md
+          /review
+          /quit
+          EOF
+          set +e
+          "$packet/bin/playtestr" record \
+            --output "$packet/first-use/first-route.json" \
+            --name "Complete a saved Taskell board item" \
+            --fixture fixtures/board-basic \
+            --temporary-home --temporary-temp \
+            --timeout-ms 5000 --run-timeout-ms 60000 \
+            -- taskell board.md \
+            < "$packet/first-use/recorder-controls.txt" \
+            > "$packet/first-use/record-console.txt" 2>&1
+          result=$?
+          set -e
+          cat "$packet/first-use/record-console.txt"
+          if [ "$result" -ne 130 ]; then
+            echo "Expected explicit recorder cancellation after review (130), got $result" >&2
+            exit 1
+          fi
       - name: Retain bounded native build packet
+        if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: taskell-build-${{ matrix.os }}
