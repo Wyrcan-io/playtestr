@@ -18,7 +18,7 @@ from readiness_evidence import immutable_json,sha256
 
 
 def source_snapshot(source):
-    """Hash source files while excluding only Stack's owned build tree."""
+    """Hash pinned source while excluding Stack cache and Hpack's bound output."""
     files={};modes={}
     for path in source.rglob('*'):
         if path.is_symlink() or getattr(path,'is_junction',lambda:False)():
@@ -27,9 +27,33 @@ def source_snapshot(source):
         relative=path.relative_to(source).as_posix()
         if relative=='.stack-work' or relative.startswith('.stack-work/'):
             continue
+        if relative=='taskell.cabal':
+            continue
         files[relative]=sha256(path)
         modes[relative]='100755' if path.stat().st_mode&stat.S_IXUSR else '100644'
     return files,modes
+
+
+def generated_cabal_identity(source):
+    """Bind Stack/Hpack's generated package file independently from pinned source."""
+    source=Path(source)
+    path=source/'taskell.cabal'
+    package_yaml=source/'package.yaml'
+    if (path.is_symlink() or getattr(path,'is_junction',lambda:False)() or not path.is_file() or
+            package_yaml.is_symlink() or not package_yaml.is_file()):
+        raise ValueError('Taskell Hpack generated inputs are missing, linked, or non-regular')
+    size=path.stat().st_size
+    if size<=0 or size>2*1024*1024:raise ValueError('Taskell generated cabal file exceeds its bound')
+    return dict(path='taskell.cabal',bytes=size,sha256=sha256(path),mode=
+        '100755' if path.stat().st_mode&stat.S_IXUSR else '100644',
+        package_yaml_sha256=sha256(package_yaml),generator='Stack-managed Hpack output')
+
+
+def verify_generated_cabal(source,expected):
+    actual=generated_cabal_identity(source)
+    if actual!=expected:
+        raise ValueError('Taskell Hpack output differs from its independently bound build input')
+    return actual
 
 
 def source_files(source,provenance):
@@ -103,11 +127,17 @@ async def main():
         build_env['DYLD_LIBRARY_PATH']=os.environ['DYLD_LIBRARY_PATH']
     campaign=NextCampaign(phase='fault-calibration')
     failures=[];results=[]
+    generated_cabal=generated_cabal_identity(source)
+    immutable_json(root/'generated-cabal-input.json',dict(schema_version=1,project='taskell',
+        source_pin=provenance['pin'],**generated_cabal,
+        scope='Stack/Hpack-generated package metadata is excluded from pinned Git-source identity but its exact bytes, mode and package.yaml input are bound across all fault rebuilds.'))
 
     async def build(label,output):
         bindir=output/'bin';bindir.mkdir(parents=True,exist_ok=False)
+        verify_generated_cabal(source,generated_cabal)
         await execute(['stack','install','taskell','--local-bin-path',str(bindir)],'taskell',label,
             cwd=source,env=build_env,timeout=declaration['timeout_seconds'],output_cap=16*1024*1024,campaign=campaign)
+        verify_generated_cabal(source,generated_cabal)
         binary=bindir/('taskell.exe' if os.name=='nt' else 'taskell')
         if not binary.is_file():raise ValueError(label+': expected native output missing')
         return binary.resolve(strict=True),sha256(binary)
@@ -196,11 +226,14 @@ async def main():
         immutable_json(root/(fault['id']+'-summary.json'),result);results.append(result)
         if status!='passed' and not any(f.get('fault')==fault['id'] for f in failures):
             failures.append(dict(fault=fault['id'],phase='result',failure='Baseline/mutated/restored qualification incomplete'))
+    final_generated_cabal=verify_generated_cabal(source,generated_cabal)
+    final_source_restored=source_files(source,provenance)==provenance['files']
     immutable_json(root/'summary.json',dict(schema_version=1,project='taskell',host=host,workflow_run_id=run_id,
         declaration_sha256=sha256(declaration_path),candidate_sha256=sha256(candidate),source_pin=declaration['source_pin'],
         llvm_manifest_sha256=baseline_build.get('llvm_manifest_sha256'),
         calibrated_phases=sum(len(r['rows']) for r in results),required_phases=declaration['calibrations_per_host'],
-        results=results,failures=failures,source_restored=source_files(source,provenance)==provenance['files'],
+        results=results,failures=failures,source_restored=final_source_restored,
+        generated_cabal=final_generated_cabal,
         project_admissions=0,scope='Three source faults with unchanged exact contracts, private archived runner and confirmed cleanup; not project admission.'))
     if failures:raise ValueError('Taskell source fault calibration failed; all safely restored outcomes retained')
     print(host,'Taskell exact candidate source-fault phases passed:',len(results),'faults,',sum(len(r['rows']) for r in results),'executions',flush=True)

@@ -52,10 +52,14 @@ def verify_signify(package,signature,tool_root):
     key_path=tool_root/'macports-archives-2025-ed25519.pem'
     der=bytes.fromhex('302a300506032b6570032100')+public[10:]
     key_path.write_text('-----BEGIN PUBLIC KEY-----\n'+base64.b64encode(der).decode('ascii')+'\n-----END PUBLIC KEY-----\n',encoding='ascii')
-    detached=tool_root/'package-signature.ed25519'
-    detached.write_bytes(signed[10:])
-    result=subprocess.run(['openssl','pkeyutl','-verify','-pubin','-inkey',key_path,
-        '-sigfile',detached,'-rawin','-in',package],capture_output=True,text=True,timeout=30)
+    cache=tool_root/'go-cache';modcache=tool_root/'go-mod-cache'
+    cache.mkdir(parents=True,exist_ok=True);modcache.mkdir(parents=True,exist_ok=True)
+    env=dict(os.environ,GOENV='off',GOTOOLCHAIN='local',GOWORK='off',
+        GOCACHE=str(cache),GOMODCACHE=str(modcache))
+    verifier=Path(__file__).with_name('next20_taskell_signify_verify.go')
+    result=subprocess.run(['go','run',verifier,base64.b64encode(public[10:]).decode('ascii'),
+        base64.b64encode(signed[10:]).decode('ascii'),package],capture_output=True,text=True,
+        timeout=120,env=env)
     if result.returncode:raise ValueError('MacPorts package Ed25519 signature failed: '+result.stderr[-1000:])
     return signed[2:10].hex(),sha256(key_path)
 
@@ -157,8 +161,8 @@ def main():
     manifest=tool_root/'manifest.json'
     immutable_json(manifest,dict(schema_version=1,project='taskell',provider='MacPorts signed binary archive',
         package=PACKAGE,package_url=BASE+PACKAGE,package_bytes=size,package_sha256=sha256(package),
-        signify_key='macports-base-2024',signify_key_repository='macports/macports-base',
-        signify_key_path='keys/base/macports-base-2024.pub',signify_key_git_blob=PUBLIC_KEY_GIT_BLOB,
+        signify_key='macports-archives-2025',signify_key_repository='macports/macports-base',
+        signify_key_path='keys/archives/macports-archives-2025.pub',signify_key_git_blob=PUBLIC_KEY_GIT_BLOB,
         signify_key_id=key_id,signify_public_key_sha256=key_sha256,
         signature_sha256=sha256(signature),signature_verified=True,package_version='llvm-12 12.0.1_5',
         package_expanded_bytes=expanded,tool_prefix=str(prefix),opt_sha256=sha256(opt),llc_sha256=sha256(llc),

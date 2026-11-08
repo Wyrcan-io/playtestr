@@ -11,6 +11,8 @@ on:
       - scripts/acceptance/next20_candidate_install.py
       - scripts/acceptance/next20_taskell_stack_override.py
       - scripts/acceptance/next20_taskell_llvm.py
+      - scripts/acceptance/next20_taskell_signify_verify.go
+      - scripts/acceptance/next20_taskell_signify_verify_test.go
       - docs/validation/runner-readiness-next-twenty-project-pass/taskell/**
       - docs/validation/runner-readiness-next-twenty-project-pass/replacement-candidate-freeze-native-exit-v1.json
   workflow_dispatch:
@@ -45,6 +47,11 @@ jobs:
       STACK_ROOT: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/toolchain/taskell/stack-root
       PYTHONDONTWRITEBYTECODE: '1'
       PYTHONIOENCODING: utf-8
+      GOENV: off
+      GOTOOLCHAIN: local
+      GOWORK: off
+      GOCACHE: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/toolchain/taskell/go-cache
+      GOMODCACHE: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/toolchain/taskell/go-mod-cache
       TEMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
       TMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
       TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
@@ -157,6 +164,17 @@ jobs:
           set -euo pipefail
           python -B scripts/acceptance/next20_taskell_stack_override.py --compiler ghc-9.0.2
           echo "STACK_YAML=$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/toolchain/taskell/arm64-compiler-override/stack.yaml" >> "$GITHUB_ENV"
+
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+        if: matrix.host_key == 'darwin'
+        with:
+          go-version: '1.27.0'
+          check-latest: false
+          cache: false
+
+      - name: Test bounded standard-library Ed25519 verifier
+        if: matrix.host_key == 'darwin'
+        run: go test scripts/acceptance/next20_taskell_signify_verify.go scripts/acceptance/next20_taskell_signify_verify_test.go
 
       - name: Install signature-verified owned LLVM 12 toolchain for Apple Silicon
         if: matrix.host_key == 'darwin'
