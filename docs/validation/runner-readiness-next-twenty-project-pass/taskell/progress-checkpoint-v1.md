@@ -220,3 +220,15 @@ duplicate case was not reached. Paired artifacts and hashes are in
 `build-attempt-v22.json`. The local candidate now positively expects INSERT
 before Escape and negatively expects it afterward. This validation correction
 has not yet been exercised on either host.
+
+Run `42464484824` had a Linux setup failure (Stack 3.11.1 download returned
+HTTP 504 twice before any build or test). Intel macOS passed all 250 upstream
+tests and the existing-task smoke. The create-task candidate passed all 11
+interaction/exit steps, including Escape to normal mode and natural exit 0, and
+confirmed process and workspace cleanup. Its step-12 state assertion looked
+for `board.md`, while the command and fixture use `board-basic.md`; it failed
+because that selected path was missing. Exact Mac report, screen, runner and
+host data are in `build-attempt-v23.json`; Linux's exact setup excerpt is
+retained separately. No saved bytes were asserted, the duplicate case did not
+run, and the scenario has no credit. The local state assertion now names
+`board-basic.md`; the next hosted run must pass the entire case on both hosts.

@@ -1,0 +1,14 @@
+GitHub Actions run: 42464484824
+Job: 128680704105 (Build and test Taskell, ubuntu-24.04)
+Source revision: 37b33a78d67ea313e67528d77b8d1e3e8cb4ecb3
+
+2026-11-08T08:48:38.3178470Z Attempting to install stack 3.11.1 for arch x86_64
+2026-11-08T08:48:49.3701342Z Unexpected HTTP response: 504
+2026-11-08T08:48:49.3701604Z Waiting 12 seconds before trying again
+2026-11-08T08:49:01.3967859Z Unexpected HTTP response: 504
+2026-11-08T08:49:01.3968124Z Waiting 15 seconds before trying again
+2026-11-08T08:49:16.4230222Z ##[error]Unexpected HTTP response: 504
+2026-11-08T08:49:16.5769100Z ##[error]No files were found with the provided path: artifacts/runner-readiness-next-twenty-project-pass/active/taskell/native-build/. No artifacts will be uploaded.
+
+The pinned Haskell toolchain could not be installed. Taskell build/tests,
+Playtestr build and authored smoke/candidate steps were not run on this host.

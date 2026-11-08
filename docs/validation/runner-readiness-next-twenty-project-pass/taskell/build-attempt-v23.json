@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42464484824,
+  "source_revision": "37b33a78d67ea313e67528d77b8d1e3e8cb4ecb3",
+  "event": "push",
+  "attempt_scope": "Run the now runner-valid create-task sequence on Ubuntu 24.04 and Intel macOS after the existing-task smoke.",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128680704105,
+      "result": "infrastructure setup failure before project build",
+      "failure": "GHCup Stack 3.11.1 installation returned HTTP 504 twice and aborted",
+      "diagnostic": "first-use-attempts/42464484824-linux/stack-install-failure.txt",
+      "target_build_or_test": "not run",
+      "scenario_or_smoke": "not run",
+      "provider_artifact": "none; workflow had no files to upload"
+    },
+    {
+      "host": "macos-15-intel-x86_64",
+      "job_id": 128680704238,
+      "provider_artifact": {
+        "id": 13611519868,
+        "bytes": 6780917,
+        "sha256": "935a5f7b10785aa39cbb26a0825df965cee45325df19bc6c8146293050b8406d"
+      },
+      "upstream_tests": "250 passed",
+      "target": {
+        "version": "1.11.4",
+        "binary_bytes": 12050080,
+        "binary_sha256": "490a7bbf7f6e39a54c333412ae3894c20f3a4483b9418008144326562c4a1bab",
+        "stack": "3.11.1",
+        "ghc": "9.0.1"
+      },
+      "playtestr": {
+        "go": "1.25.0",
+        "binary_bytes": 6899072,
+        "binary_sha256": "9e93252bbad26304ef139f0fc2242b55bd9c37373439785c8fd9fd3d1a6a73fa"
+      },
+      "existing_task_smoke": "passed 6/6",
+      "create_task_candidate": {
+        "result": "failed at exact saved-state assertion after all interaction steps",
+        "steps_passed": "1-11/12",
+        "failed_step": 12,
+        "category": "state_assertion_failure",
+        "diagnostic": "missing path board.md",
+        "command_board_path": "board-basic.md",
+        "target_exit_code": 0,
+        "insert_to_normal_mode": "Escape passed; INSERT was absent on the following screen",
+        "workspace_cleanup": "passed",
+        "process_group_termination": "graceful and confirmed",
+        "report_sha256": "e2b2a2ffa24594aa9649d5023b7f6c882ab09be9e902dd77d1cecddc2fc65f6e",
+        "screen_sha256": "fafb53ea5e6307b62e0b5d84846d311e592f9c97f0a03468a12fbbc51ae3b219"
+      },
+      "provider_evidence": "first-use-attempts/42464484824-macos/",
+      "curated_files_sha256": {
+        "create-task-report.json": "e2b2a2ffa24594aa9649d5023b7f6c882ab09be9e902dd77d1cecddc2fc65f6e",
+        "create-task-screen.txt": "fafb53ea5e6307b62e0b5d84846d311e592f9c97f0a03468a12fbbc51ae3b219",
+        "existing-task-smoke-report.json": "f0dcd4096c5c574dc2aae8094dfd2181837e11cf6cb1eeadf98621e49344d341",
+        "host.json": "9c9520acbe9a4c4d9875beb907b76adbf9b531ee4371711d4d439e6096aeb508",
+        "runner.json": "99b8f0913db4977ec206973c4482377a379bf3796f964d6f5a3a9e0db96521d3"
+      }
+    }
+  ],
+  "root_cause": "The candidate ran taskell board-basic.md but its post-exit state assertion looked for board.md. The actual final screen shows the new task and normal mode; the runner report confirms natural exit 0 and clean process/workspace shutdown, but the selected file path was missing and exact bytes were not checked.",
+  "credit": "No create-task case credit because the exact saved-state assertion did not pass, and the Linux lane did not launch. The duplicate case was not reached. No native-series, fault-calibration or Taskell admission credit. The local state path now matches board-basic.md and requires a fresh two-host run."
+}
