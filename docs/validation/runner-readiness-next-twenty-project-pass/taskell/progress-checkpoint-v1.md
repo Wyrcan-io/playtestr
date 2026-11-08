@@ -124,3 +124,14 @@ before target launch because its independent workflow step omitted the target
 directory from PATH. That environment is corrected for the next run. MacOS
 for `42453888286` was still in upstream tests; no native-cell or admission
 credit is claimed.
+
+Run `42452701639` is now complete on both native hosts. Linux and Intel macOS
+each passed 250 upstream tests and built Taskell/Playtestr, but both ran the
+old premature state checkpoint and failed before q/exit. Linux evidence is in
+`first-use-attempts/42452701639-linux/` with receipt `build-attempt-v13.json`;
+MacOS evidence is in `first-use-attempts/42452701639-macos/` with receipt
+`build-attempt-v15.json`. The corrected post-exit case passed on Linux in
+`42453888286`; the same run's independent recorder environment failed because
+PATH omitted Taskell, now fixed in the next pushed workflow. Continue watching
+`42455018922` for both-host smoke and public recorder results. Taskell remains
+unadmitted.

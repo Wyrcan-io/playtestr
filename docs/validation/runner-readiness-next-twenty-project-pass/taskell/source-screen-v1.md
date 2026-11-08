@@ -106,3 +106,9 @@ failed before target launch because that separate workflow step omitted the
 Taskell binary directory from `PATH`; `build-attempt-v14.json` records this
 split result. Pinned `PATH` export is now included for the next native run.
 MacOS on `42453888286` was still in upstream tests when recorded.
+
+MacOS Intel on run `42452701639` later reproduced the same premature state
+checkpoint failure. Its actual report and screen are in
+`first-use-attempts/42452701639-macos/`, with toolchain and binary identities
+in `build-attempt-v15.json`. Both old-host cases are preserved; the first
+post-exit authored smoke result is Linux-only at this point.
