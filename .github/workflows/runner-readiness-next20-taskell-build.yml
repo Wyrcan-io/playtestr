@@ -129,7 +129,7 @@ jobs:
           cat > "$packet/first-use/recorder-controls.txt" <<'EOF'
           /expect To Do
           /expect Review sample
-          /key Space
+          /text " "
           /key q
           /exit 0
           /file board.md

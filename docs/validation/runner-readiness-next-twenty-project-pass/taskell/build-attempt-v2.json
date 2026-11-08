@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42449293721,
+  "source_revision": "92447ca687e17f9e7f286402495795324f0fa826",
+  "event": "push",
+  "result": "ubuntu-upstream-tests-build-version-pass-authored-smoke-prelaunch-rejection",
+  "host": "ubuntu-24.04-x86_64",
+  "job_id": 128634851840,
+  "source_verified": true,
+  "upstream_tests_passed": 250,
+  "target_binary_built": true,
+  "taskell_version_output": "1.11.4",
+  "playtestr_runner_built": true,
+  "authored_spec_result": "rejected-before-target-launch",
+  "cause": "The candidate spec used named key Space. This Playtestr spec accepts CtrlSpace for NUL but has no named Space key; a literal space must be supplied as the text action. No Taskell process was launched by this smoke case.",
+  "provider_run": "https://github.com/Wyrcan-io/playtestr/actions/runs/42449293721",
+  "provider_job": "https://github.com/Wyrcan-io/playtestr/actions/runs/42449293721/job/128634851840",
+  "disposition": "Preserve the invalid_spec rejection. The source-authored candidate and recorder control sequence now use literal space text. The provider job independently completed all 250 upstream tests before its authored smoke was rejected prelaunch."
+}
