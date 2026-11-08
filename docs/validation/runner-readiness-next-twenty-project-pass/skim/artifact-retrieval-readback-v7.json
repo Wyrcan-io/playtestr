@@ -1,0 +1,54 @@
+{
+  "artifacts": [
+    {
+      "artifact_id": 13602061269,
+      "bytes": 7943820,
+      "digest_match": true,
+      "local_path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/skim-linux-v22-42440742894.zip",
+      "local_sha256": "503c103f1d052da4353a9116d5ea466c836bd5ff3ca6b7113c680f05314648af",
+      "name": "next20-skim-linux-rc6-final",
+      "provider_sha256": "503c103f1d052da4353a9116d5ea466c836bd5ff3ca6b7113c680f05314648af",
+      "status": "ZIP retrieved, SHA-256 matched the provider digest, and all 240 ordinary reports, three source-fault summaries, nine phases, exact recovery reports, and cleanup evidence were independently reviewed"
+    },
+    {
+      "artifact_id": 13602435549,
+      "bytes": 8268044,
+      "digest_match": true,
+      "local_path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/skim-windows-v22-42440742894.zip",
+      "local_sha256": "36d612c8eaa8748ee91bc60c614f1c3ab459214f54e6c5be732e62af72e100d3",
+      "name": "next20-skim-windows-rc6-final",
+      "provider_sha256": "36d612c8eaa8748ee91bc60c614f1c3ab459214f54e6c5be732e62af72e100d3",
+      "status": "ZIP retrieved, SHA-256 matched the provider digest, and all 240 ordinary reports, three source-fault summaries, nine phases, exact recovery reports, retained differing rebuilds, and cleanup evidence were independently reviewed"
+    }
+  ],
+  "commit": "a493710c5f27ef9d49ce4031f4f31a271d7a95fc",
+  "independent_member_review": {
+    "linux_case_reports": 249,
+    "linux_expected_mutation_failure_reports": 3,
+    "linux_full_fault_calibrations": 3,
+    "linux_mutant_target_launches": 3,
+    "linux_zip_members": 3285,
+    "ordinary_cases_passed_per_host": 240,
+    "windows_case_reports": 249,
+    "windows_expected_mutation_failure_reports": 3,
+    "windows_full_fault_calibrations": 3,
+    "windows_mutant_target_launches": 3,
+    "windows_zip_members": 3289
+  },
+  "job_logs": [
+    {
+      "host": "linux",
+      "path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/skim-linux-v22-42440742894-joblogs.log",
+      "sha256": "6f96ba19456955641ccc90c5d8923515509c456f8d8abd365ce3c013d9c4e09e",
+      "utf8_bytes": 87176
+    },
+    {
+      "host": "windows",
+      "path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/skim-windows-v22-42440742894-joblogs.log",
+      "sha256": "55f6642c23a28b679cc4932ee50710f5d1ddca4544730101a6ea00cf450a6efe",
+      "utf8_bytes": 96663
+    }
+  ],
+  "schema_version": 1,
+  "workflow_run_id": 42440742894
+}
