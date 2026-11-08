@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42447370899,
+  "source_revision": "4af868b7d325e31ba5623b37f9f98895c310c2a9",
+  "event": "push",
+  "result": "workflow-validation-failure-before-job-creation",
+  "jobs_created": 0,
+  "target_source_downloaded": false,
+  "target_launched": false,
+  "cause": "The job-level STACK_ROOT expression used runner.os, but GitHub Actions does not allow the runner context in jobs.<job_id>.env. The root has been changed to a static campaign toolchain path. The workflow-run endpoint reports failure and contains no jobs or downloadable logs.",
+  "provider_run": "https://github.com/Wyrcan-io/playtestr/actions/runs/42447370899",
+  "disposition": "Preserve this invalid-workflow attempt; rerun after the job-level context correction."
+}

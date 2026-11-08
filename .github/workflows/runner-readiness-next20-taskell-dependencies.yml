@@ -66,6 +66,17 @@ jobs:
           workspace="$GITHUB_WORKSPACE"
           cd artifacts/runner-readiness-next-twenty-project-pass/active/taskell/src
           mkdir -p ../dependency-preflight
+          python - <<'PY'
+          import hashlib
+          import urllib.request
+          from pathlib import Path
+          url='https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/nightly/2021/7/14.yaml'
+          with urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':'Playtestr-validation'}),timeout=30) as response:
+              data=response.read(1024*1024+1)
+          if len(data)>1024*1024 or hashlib.sha256(data).hexdigest()!='2005455f5d812ceb95560b708f006157533714bef631af52a3dd678d7dde32aa':
+              raise SystemExit('Pinned Stackage snapshot bytes or digest differ')
+          Path('../dependency-preflight/stackage-nightly-2021-07-14.yaml').write_bytes(data)
+          PY
           stack ls dependencies json --external --include-base --test > ../dependency-preflight/dependencies.json
           stack dot --external --include-base --test > ../dependency-preflight/dependencies.dot
           cp stack.yaml ../dependency-preflight/stack.yaml
