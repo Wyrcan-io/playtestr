@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42448195583,
+  "source_revision": "f9f3db75c3191625fa10e2d21f9839400a7ea581",
+  "event": "push",
+  "result": "linux-and-macos-dependency-resolution-succeeded",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128631526595,
+      "result": "dependency-resolution-succeeded",
+      "dependency_count": 158,
+      "artifact_id": 13603459455,
+      "artifact_bytes": 258686,
+      "artifact_sha256": "44ce6e2b1cb1db5bf0074f5ff2c93d418510bdb83ff89aa6c2cc6eee28126446"
+    },
+    {
+      "host": "macos-15-arm64",
+      "job_id": 128631526701,
+      "result": "dependency-resolution-succeeded",
+      "dependency_count": 158,
+      "artifact_id": 13604940720,
+      "artifact_bytes": 258681,
+      "artifact_sha256": "327f23a94fc460256fe685a752338c11eecfafefb38f2b4e1286d2a47bd309d6"
+    }
+  ],
+  "comparison": {
+    "dependency_sets_equal": true,
+    "difference": "The only dependency JSON difference is the host-specific file URL of the local Taskell source root. Package names, versions, licenses, source locations and dependency edges match.",
+    "linux_dependencies_sha256": "1d8e2872b94ffc2e17dc265b5ef6e656318a653f18b1dea1d7017e8ddac340b0",
+    "macos_dependencies_sha256": "a56ab3a4725b2b5d3efc6fd2bc4460767a74bf508af51650418345921bc2d7b7",
+    "internal_file_hashes_verified": true,
+    "third_party_license_summary": {
+      "BSD-3-family": 130,
+      "MIT": 27,
+      "Apache-2.0": 2,
+      "ISC": 1,
+      "compiler-provided-or-unknown-license-metadata": 23
+    }
+  },
+  "provider_run": "https://github.com/Wyrcan-io/playtestr/actions/runs/42448195583",
+  "disposition": "Preserve exact native dependency packets. The 23 unknown-license entries correspond to GHC-provided/base packages; the three additional third-party licenses are recorded for attribution review. Resolution alone does not establish build, target, UI or admission readiness."
+}
