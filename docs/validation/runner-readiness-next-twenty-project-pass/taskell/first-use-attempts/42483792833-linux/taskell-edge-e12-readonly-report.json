@@ -1,0 +1,103 @@
+{
+  "report_version": 3,
+  "runner_version": "dev",
+  "os": "linux",
+  "arch": "amd64",
+  "summary": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1,
+    "cancelled": 0,
+    "not_run": 0
+  },
+  "results": [
+    {
+      "invocation_id": "0c5e9ff2baff6d7da47cc190ee73f2c2",
+      "spec_version": 3,
+      "name": "Complete and quit without changing a Taskell board whose directory blocks writes",
+      "spec_path": "/home/runner/work/playtestr/playtestr/docs/validation/runner-readiness-next-twenty-project-pass/taskell/first-use-v1/taskell-edge-e12-readonly.json",
+      "status": "failed",
+      "duration_ms": 79,
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "steps": [
+        {
+          "number": 1,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 21
+        },
+        {
+          "number": 2,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 44
+        },
+        {
+          "number": 3,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 4,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 3
+        },
+        {
+          "number": 5,
+          "action": "exit",
+          "status": "passed",
+          "duration_ms": 6
+        },
+        {
+          "state": {
+            "invocation_id": "0c5e9ff2baff6d7da47cc190ee73f2c2",
+            "workspace_id": "0c5e9ff2baff6d7da47cc190ee73f2c2",
+            "path": "board.md",
+            "kind": "file",
+            "outcome": "rejected"
+          },
+          "number": 6,
+          "action": "state",
+          "status": "failed",
+          "duration_ms": 0,
+          "failure": {
+            "category": "state_assertion_failure",
+            "message": "Complete and quit without changing a Taskell board whose directory blocks writes: step 6: state \"board.md\" (file): saved-state checkpoint: wrong file bytes; inspect the selected path and reviewed expectation, then rerun"
+          }
+        }
+      ],
+      "target": {
+        "exited": true,
+        "exit_code": 0
+      },
+      "failure": {
+        "category": "state_assertion_failure",
+        "message": "Complete and quit without changing a Taskell board whose directory blocks writes: step 6: state \"board.md\" (file): saved-state checkpoint: wrong file bytes; inspect the selected path and reviewed expectation, then rerun"
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": true,
+        "forced": false,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "evidence": {
+        "screen_path": "/home/runner/work/playtestr/playtestr/artifacts/runner-readiness-next-twenty-project-pass/active/taskell/native-build/first-use/scenario-candidates/taskell-edge-e12-readonly-artifacts/20261108T132209Z-570892188/ess-next-twenty-project-pass-taskell-first-use-v1-taskell-edge-e12-readonly.json-184d9b01bd44.actual.txt"
+      },
+      "workspace": {
+        "id": "0c5e9ff2baff6d7da47cc190ee73f2c2",
+        "attempted": true,
+        "fixture": "fixtures/e12-readonly",
+        "prepared": true,
+        "cleanup_attempted": true,
+        "cleaned": true,
+        "retained": false
+      }
+    }
+  ]
+}

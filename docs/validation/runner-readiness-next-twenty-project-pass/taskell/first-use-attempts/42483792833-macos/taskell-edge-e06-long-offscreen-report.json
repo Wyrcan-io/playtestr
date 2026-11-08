@@ -1,0 +1,105 @@
+{
+  "report_version": 3,
+  "runner_version": "dev",
+  "os": "darwin",
+  "arch": "amd64",
+  "summary": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "cancelled": 0,
+    "not_run": 0
+  },
+  "results": [
+    {
+      "invocation_id": "862632c76dc3c905de89d6418864fefb",
+      "spec_version": 3,
+      "name": "Complete a long off-screen Taskell task",
+      "spec_path": "/Users/runner/work/playtestr/playtestr/docs/validation/runner-readiness-next-twenty-project-pass/taskell/first-use-v1/taskell-edge-e06-long-offscreen.json",
+      "status": "passed",
+      "duration_ms": 674,
+      "viewport": {
+        "width": 45,
+        "height": 12
+      },
+      "steps": [
+        {
+          "number": 1,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 80
+        },
+        {
+          "number": 2,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 42
+        },
+        {
+          "number": 3,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 30
+        },
+        {
+          "number": 4,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 51
+        },
+        {
+          "number": 5,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 6,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 50
+        },
+        {
+          "number": 7,
+          "action": "exit",
+          "status": "passed",
+          "duration_ms": 398
+        },
+        {
+          "state": {
+            "invocation_id": "862632c76dc3c905de89d6418864fefb",
+            "workspace_id": "862632c76dc3c905de89d6418864fefb",
+            "path": "board.md",
+            "kind": "file",
+            "outcome": "matched"
+          },
+          "number": 8,
+          "action": "state",
+          "status": "passed",
+          "duration_ms": 0
+        }
+      ],
+      "target": {
+        "exited": true,
+        "exit_code": 0
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": true,
+        "forced": false,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "evidence": {},
+      "workspace": {
+        "id": "862632c76dc3c905de89d6418864fefb",
+        "attempted": true,
+        "fixture": "fixtures/e06-long-offscreen",
+        "prepared": true,
+        "cleanup_attempted": true,
+        "cleaned": true,
+        "retained": false
+      }
+    }
+  ]
+}

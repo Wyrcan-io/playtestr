@@ -1,0 +1,189 @@
+{
+  "report_version": 3,
+  "runner_version": "dev",
+  "os": "darwin",
+  "arch": "amd64",
+  "summary": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "cancelled": 0,
+    "not_run": 0
+  },
+  "results": [
+    {
+      "invocation_id": "ba896e2f0871bc7ef2ec9e42e4bf21af",
+      "spec_version": 3,
+      "name": "Rename one selected Taskell task",
+      "spec_path": "/Users/runner/work/playtestr/playtestr/docs/validation/runner-readiness-next-twenty-project-pass/taskell/first-use-v1/taskell-n04-rename-task.json",
+      "status": "passed",
+      "duration_ms": 953,
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "steps": [
+        {
+          "number": 1,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 41
+        },
+        {
+          "number": 2,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 3,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 45
+        },
+        {
+          "number": 4,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 34
+        },
+        {
+          "number": 5,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 30
+        },
+        {
+          "number": 6,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 49
+        },
+        {
+          "number": 7,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 33
+        },
+        {
+          "number": 8,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 33
+        },
+        {
+          "number": 9,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 33
+        },
+        {
+          "number": 10,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 32
+        },
+        {
+          "number": 11,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 6
+        },
+        {
+          "number": 12,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 30
+        },
+        {
+          "number": 13,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 34
+        },
+        {
+          "number": 14,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 10
+        },
+        {
+          "number": 15,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 34
+        },
+        {
+          "number": 16,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 120
+        },
+        {
+          "number": 17,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 45
+        },
+        {
+          "number": 18,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 19,
+          "action": "expect_not",
+          "status": "passed",
+          "duration_ms": 10
+        },
+        {
+          "number": 20,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 28
+        },
+        {
+          "number": 21,
+          "action": "exit",
+          "status": "passed",
+          "duration_ms": 282
+        },
+        {
+          "state": {
+            "invocation_id": "ba896e2f0871bc7ef2ec9e42e4bf21af",
+            "workspace_id": "ba896e2f0871bc7ef2ec9e42e4bf21af",
+            "path": "board.md",
+            "kind": "file",
+            "outcome": "matched"
+          },
+          "number": 22,
+          "action": "state",
+          "status": "passed",
+          "duration_ms": 0
+        }
+      ],
+      "target": {
+        "exited": true,
+        "exit_code": 0
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": true,
+        "forced": false,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "evidence": {},
+      "workspace": {
+        "id": "ba896e2f0871bc7ef2ec9e42e4bf21af",
+        "attempted": true,
+        "fixture": "fixtures/rename",
+        "prepared": true,
+        "cleanup_attempted": true,
+        "cleaned": true,
+        "retained": false
+      }
+    }
+  ]
+}

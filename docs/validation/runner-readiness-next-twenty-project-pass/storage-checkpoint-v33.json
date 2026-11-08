@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "status": "within declared logical storage caps; four new admissions; campaign incomplete",
+  "observed_at_utc": "2026-11-08T13:45:14.942446+00:00",
+  "caps_bytes": {
+    "new_campaign_raw": 4294967296,
+    "combined_raw": 6442450944,
+    "combined_retained": 2147483648,
+    "new_curated": 26214400,
+    "combined_curated": 52428800,
+    "project": 67108864
+  },
+  "actual_bytes": {
+    "new_campaign_raw": 1997734685,
+    "combined_raw": 3906443257,
+    "combined_retained": 2147351121,
+    "new_curated": 12581587,
+    "combined_curated": 24237831,
+    "project": 1002
+  },
+  "headroom_bytes": {
+    "new_raw": 2297232611,
+    "combined_raw": 2536007687,
+    "combined_retained": 132527,
+    "new_curated": 13632813,
+    "combined_curated": 28190969,
+    "project": 67107862
+  },
+  "receipt": "artifacts/runner-readiness-next-twenty-project-pass/storage/68bae4f02ab5488b9b42dcf21d352707/observed.json",
+  "receipt_sha256": "d46073a047851de2211a8043ebee51e9dc7747c99ca7bf3602a34418ae26b1b6",
+  "scope": "Fresh observed logical storage after curation and hash verification of all reports/screens from both hosts in run 42483792833 and verified removal of only that run?s two downloaded artifact directories. No exact peak, allocation, quota, or admission claim."
+}

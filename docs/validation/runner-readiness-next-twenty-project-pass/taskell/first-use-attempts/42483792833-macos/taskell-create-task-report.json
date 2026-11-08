@@ -1,0 +1,129 @@
+{
+  "report_version": 3,
+  "runner_version": "dev",
+  "os": "darwin",
+  "arch": "amd64",
+  "summary": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "cancelled": 0,
+    "not_run": 0
+  },
+  "results": [
+    {
+      "invocation_id": "fbfe6eb46b3e73f59f12d0cfc61039af",
+      "spec_version": 3,
+      "name": "Create and save a Taskell board item",
+      "spec_path": "/Users/runner/work/playtestr/playtestr/docs/validation/runner-readiness-next-twenty-project-pass/taskell/first-use-v1/taskell-create-task.json",
+      "status": "passed",
+      "duration_ms": 945,
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "steps": [
+        {
+          "number": 1,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 170
+        },
+        {
+          "number": 2,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 3,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 52
+        },
+        {
+          "number": 4,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 13
+        },
+        {
+          "number": 5,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 23
+        },
+        {
+          "number": 6,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 241
+        },
+        {
+          "number": 7,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 8,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 15
+        },
+        {
+          "number": 9,
+          "action": "expect_not",
+          "status": "passed",
+          "duration_ms": 12
+        },
+        {
+          "number": 10,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 50
+        },
+        {
+          "number": 11,
+          "action": "exit",
+          "status": "passed",
+          "duration_ms": 334
+        },
+        {
+          "state": {
+            "invocation_id": "fbfe6eb46b3e73f59f12d0cfc61039af",
+            "workspace_id": "fbfe6eb46b3e73f59f12d0cfc61039af",
+            "path": "board-basic.md",
+            "kind": "file",
+            "outcome": "matched"
+          },
+          "number": 12,
+          "action": "state",
+          "status": "passed",
+          "duration_ms": 0
+        }
+      ],
+      "target": {
+        "exited": true,
+        "exit_code": 0
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": true,
+        "forced": false,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "evidence": {},
+      "workspace": {
+        "id": "fbfe6eb46b3e73f59f12d0cfc61039af",
+        "attempted": true,
+        "fixture": "fixtures",
+        "prepared": true,
+        "cleanup_attempted": true,
+        "cleaned": true,
+        "retained": false
+      }
+    }
+  ]
+}
