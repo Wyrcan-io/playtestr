@@ -186,6 +186,11 @@ def safe_extract_dylib_family(package,destination,pattern,required,label,cap=16*
             parts=PurePosixPath(name)
             if parts.is_absolute() or any(part in {'','.', '..'} for part in parts.parts):
                 raise ValueError(f'Unsafe MacPorts {label} archive member path')
+            # MacPorts packages may carry empty directory metadata such as
+            # opt/local/etc. It is never materialized; only its safe location
+            # inside the package prefix is accepted.
+            if member.isdir() and parts.parts[:2]==('opt','local'):
+                continue
             if name in seen:raise ValueError(f'Duplicate MacPorts {label} archive member')
             seen.add(name)
             if not any(name.startswith(root+'/') for root in roots):

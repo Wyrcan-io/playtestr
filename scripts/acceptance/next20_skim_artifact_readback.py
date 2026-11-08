@@ -111,6 +111,9 @@ def audit(archive, provider_sha256, provider_bytes, host, run_id, revision, free
     reports = set()
     invocations = set()
     finished_by_batch_case = {}
+    result_by_batch_case = {}
+    execution_model = []
+    fault_model = []
 
     def report_identity(report, result, should_pass):
         if (report.get('runner_version') != 'v0.4.0-rc.6' or len(report.get('results', [])) != 1 or
@@ -195,7 +198,8 @@ def audit(archive, provider_sha256, provider_bytes, host, run_id, revision, free
                                   if isinstance(step, dict) and 'exit' in step), 0)
             if row.get('target_exit') != expected_exit:
                 raise ValueError('ordinary target exit differs from its executed exact contract')
-            report_identity(report, report['results'][0], True)
+            result = report_identity(report, report['results'][0], True)
+            result_by_batch_case[(batch_id, row.get('case'))] = result
             ordinary += 1
         if len(cases) != 20:
             raise ValueError('duplicate or missing scenario in ordinary batch')
@@ -275,6 +279,17 @@ def audit(archive, provider_sha256, provider_bytes, host, run_id, revision, free
                                    if observed_contract.get(key) != expected_contract.get(key))
                 raise ValueError(f'batch {batch_id} {case}: executed contract differs from independent reconstruction: {differing}')
 
+            result = result_by_batch_case[(batch_id, case)]
+            execution_model.append(dict(batch=batch_id, case=case,
+                invocation_id=result.get('invocation_id'), workspace_id=result.get('workspace', {}).get('id'),
+                contract_sha256=digest(contract_raw), report_sha256=digest(report_bytes),
+                candidate_archive_sha256=frozen['archive_sha256'],
+                candidate_sha256=candidate_sha, target_sha256=target_sha,
+                status=result.get('status'), step_statuses=[step.get('status') for step in result.get('steps', [])],
+                target_cleanup=result.get('cleanup', {}).get('confirmed_exited'),
+                workspace_cleanup=result.get('workspace', {}).get('cleaned'),
+                contract_reconstructed=True))
+
             fixture_relative = observed_contract.get('workspace', {}).get('fixture')
             canonical_fixture_relative = canonical_contract.get('workspace', {}).get('fixture')
             planned_fixture = PurePosixPath(contract_path).parent.as_posix() + '/' + fixture_relative
@@ -325,7 +340,7 @@ def audit(archive, provider_sha256, provider_bytes, host, run_id, revision, free
                 raise ValueError('fault report/receipt/cleanup evidence mismatch')
             report = json.loads(report_bytes)
             positive = phase in {'baseline', 'restored'}
-            report_identity(report, report['results'][0], positive)
+            result = report_identity(report, report['results'][0], positive)
             expected_target = observation['mutant_binary_sha256'] if phase == 'corrupted' else target_sha
             finished = json.loads(finished_bytes)
             if (row.get('runner_candidate_sha256') != candidate_sha or
@@ -336,6 +351,13 @@ def audit(archive, provider_sha256, provider_bytes, host, run_id, revision, free
                     finished.get('executable_sha256') != expected_target or
                     finished.get('report_sha256') != digest(report_bytes)):
                 raise ValueError('fault phase runner/target executable identity differs from its bound mutation')
+            fault_model.append(dict(fault_id=observation.get('fault'),
+                phase=phase, invocation_id=result.get('invocation_id'),
+                runner_sha256=candidate_sha, target_sha256=expected_target,
+                status=result.get('status'), target_cleanup=result.get('cleanup', {}).get('confirmed_exited'),
+                workspace_cleanup=result.get('workspace', {}).get('cleaned'),
+                source_restored=observation.get('source_restored') is True,
+                detected=observation.get('detected') is True))
             fault_rows += 1
     if fault_rows != 9:
         raise ValueError('fault phase denominator mismatch')
@@ -413,6 +435,10 @@ def audit(archive, provider_sha256, provider_bytes, host, run_id, revision, free
             restored_recoveries=3, source_restored=True),
         public_route=dict(statuses=public, maintenance_updated_matching_expect=True,
             unicode_relocation_exact_spec=True, delivered_preview_sha256=digest(get('first-public-v1/delivered-workflow-preview.yml'))),
+        actual_model=dict(project='skim', host=host, normal_scenarios=8, edge_scenarios=12, ordinary=execution_model,
+            faults=fault_model, distinct_faults=3, fault_phases=9,
+            candidate_archive_sha256=frozen['archive_sha256'], candidate_runner_sha256=candidate_sha,
+            target_binary_sha256=target_sha, source_restored=True),
         cleanup=dict(process_absent=True, source_restored=True, compiler_cache_removed=True,
             checked_target_removed=True, cleanup_inventory_sha256=digest(get('retained-source/cleanup-inventory.json'))))
 

@@ -1,0 +1,46 @@
+{
+  "admission_credit": 0,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "candidate": "v0.4.0-rc.6",
+  "candidate_series": "native-exit-v1",
+  "hosts": [
+    {
+      "artifact": {
+        "bytes": 12546462,
+        "id": 13637021810,
+        "name": "taskell-final-native-exit-v1-linux",
+        "sha256": "3ce980cded2d72b332ba51e5e8dc79acf0858cebd9726d07b9cdebdf99aa4519"
+      },
+      "failed_batches": [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11],
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128880450871,
+      "native_target_build": "passed; exact pinned Taskell source built and the upstream test suite passed; E11M failed in eleven of twelve exact candidate batches and passed only in the declared wider viewport batch",
+      "ordinary_batches_attempted": 12,
+      "target_launches": "attempted in all twelve exact batches; any failed case rejects the series",
+      "workflow_run_id": 42528435710
+    },
+    {
+      "artifact": {
+        "bytes": 211846394,
+        "id": 13636129061,
+        "name": "taskell-final-native-exit-v1-darwin",
+        "sha256": "aff1b9d5e6f1ddfdff50849a4186a267ee5c21157808d4f46ef9fb32428ad956"
+      },
+      "failure": "The signature-verified libxml2 archive contains an opt/local/etc directory entry rejected by the extraction helper. The cleanup step then failed because no build.json existed. No target tests or scenarios ran on this host.",
+      "host": "macos-15-arm64",
+      "job_id": 128880451166,
+      "native_target_build": "not completed",
+      "ordinary_batches_attempted": 0,
+      "target_launches": 0,
+      "workflow_run_id": 42528435710
+    }
+  ],
+  "project": "taskell",
+  "repair_status": "Local extraction validation now ignores safe directory metadata under opt/local without materializing it; workflow cleanup now tolerates a missing build receipt while retaining source identity checks and running checked target cleanup. These fixes passed scoped Windows tests, but require fresh native hosted evidence.",
+  "run_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/42528435710",
+  "schema_version": 1,
+  "scope": "Preserve both failed exact-host outcomes. No ordinary, cell, fault, calibration or admission credit.",
+  "source_pin": "a2df95f26762fc3e78d6f131cea7fc1f3b13bd47",
+  "source_revision": "4d61153840316a223e6d80d26ca94b0c893eb838",
+  "workflow_run_id": 42528435710
+}

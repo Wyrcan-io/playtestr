@@ -1,0 +1,61 @@
+{
+  "actual_model_controls": {
+    "path": "skim-model-controls-v3.json",
+    "positive_models_restored": true,
+    "semantic_corruptions_rejected": 24,
+    "sha256": "57a5951a18acc70dd2ad7e2b9da982a02d82216a80013b0eeca4acb78bbe6b66"
+  },
+  "candidate": "v0.4.0-rc.6",
+  "disposition": "Successful repeated candidate series after the earlier V34 series. Same frozen archive/runner and target identities; repeat adds no new scenario, project, fault, or native-cell credit. Skim admission and campaign storage/reconciliation remain open.",
+  "hosts": [
+    {
+      "cleanup": {
+        "checked_target_removed": true,
+        "cleanup_inventory_sha256": "cce6d99cbeaa5674af2caed42499ba4db82338e482f27857d1db364eb99d23b7",
+        "compiler_cache_removed": true,
+        "process_absent": true,
+        "source_restored": true
+      },
+      "fault_phases": 9,
+      "host": "linux",
+      "ordinary": 240,
+      "provider_artifact_sha256": "a2a3fd59e3cd137f9221d57bc342c8552d74ae525fa16f9cc5748ee61d52d49d",
+      "provider_bytes": 8087536,
+      "readback": "artifact-retrieval-readback-v15-linux.json",
+      "readback_sha256": "cf198d9b2b4ad0d271e6d25ead34407de765ffd66acdb2effc10b234bca6d5ee",
+      "reconstructed_contracts": 240,
+      "runner_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a",
+      "target_sha256": "427de19b0ab4f344376b3a7a594bac9c36872faba9cc745c9b8f0bd05452bfa0"
+    },
+    {
+      "cleanup": {
+        "checked_target_removed": true,
+        "cleanup_inventory_sha256": "1966c3e0ddf11812cfe10589dca6be8a6cb73356791293ae1e3fa25f0c08752e",
+        "compiler_cache_removed": true,
+        "process_absent": true,
+        "source_restored": true
+      },
+      "fault_phases": 9,
+      "host": "windows",
+      "ordinary": 240,
+      "provider_artifact_sha256": "d4cc9fe2a55ce4a30459cbf42e36c680dcb03bb0bceddb5b1f9199ffe70c89e9",
+      "provider_bytes": 8411787,
+      "readback": "artifact-retrieval-readback-v15-windows.json",
+      "readback_sha256": "29923154a45631adb0799ae3c6453e5d2b961cb34f46c31a7fc3b1bdf3c60e0b",
+      "reconstructed_contracts": 240,
+      "runner_sha256": "6c80fdbcdd74705b85b2e8aad2f07140f5ff5e8cea80db1d6c24a04d71b23f36",
+      "target_sha256": "0af896102ce280a1c8ca5b49b22024532c025924fda4a9fa8bc2165299685c74"
+    }
+  ],
+  "project": "skim",
+  "schema_version": 1,
+  "scope": "Provider-digest-bound V35 artifact readbacks and 24 semantic tamper rejections across both actual native cell models. Useful seeded diagnosis is a deliberate failure. No claim of campaign storage compliance or 30-project closure.",
+  "totals": {
+    "fault_phases": 18,
+    "independently_reconstructed_contracts": 480,
+    "ordinary": 480,
+    "semantic_corruptions_rejected": 24
+  },
+  "workflow_revision": "4d61153840316a223e6d80d26ca94b0c893eb838",
+  "workflow_run_id": 42528435724
+}

@@ -232,19 +232,23 @@ jobs:
           if not target.is_dir():
               print('Taskell target was not created; cleanup is not applicable.')
               raise SystemExit(0)
-          build=json.loads((target/'build.json').read_text())
-          binary=target/build['binary_relative_path']
-          if hashlib.sha256(binary.read_bytes()).hexdigest()!=build['binary_sha256']:
-              raise SystemExit('Taskell runtime changed before retention')
-          retained=root/'taskell/fault-calibration-native-exit-v1'/os.environ['HOST_KEY']/'runtime'
-          retained.mkdir(parents=True,exist_ok=False)
-          shutil.copyfile(binary,retained/'taskell')
-          if hashlib.sha256((retained/'taskell').read_bytes()).hexdigest()!=build['binary_sha256']:
-              raise SystemExit('Retained Taskell runtime copy differs from build identity')
-          (retained/'runtime-identity.json').write_text(json.dumps({'binary_sha256':build['binary_sha256'],
-              'build_manifest_sha256':hashlib.sha256((target/'build.json').read_bytes()).hexdigest(),
-              'source_pin':build['source_pin'],'host_os':build['host_os'],'host_architecture':build['host_architecture']},
-              sort_keys=True,indent=2)+'\n')
+          build_path=target/'build.json'
+          if build_path.is_file():
+              build=json.loads(build_path.read_text())
+              binary=target/build['binary_relative_path']
+              if hashlib.sha256(binary.read_bytes()).hexdigest()!=build['binary_sha256']:
+                  raise SystemExit('Taskell runtime changed before retention')
+              retained=root/'taskell/fault-calibration-native-exit-v1'/os.environ['HOST_KEY']/'runtime'
+              retained.mkdir(parents=True,exist_ok=False)
+              shutil.copyfile(binary,retained/'taskell')
+              if hashlib.sha256((retained/'taskell').read_bytes()).hexdigest()!=build['binary_sha256']:
+                  raise SystemExit('Retained Taskell runtime copy differs from build identity')
+              (retained/'runtime-identity.json').write_text(json.dumps({'binary_sha256':build['binary_sha256'],
+                  'build_manifest_sha256':hashlib.sha256(build_path.read_bytes()).hexdigest(),
+                  'source_pin':build['source_pin'],'host_os':build['host_os'],'host_architecture':build['host_architecture']},
+                  sort_keys=True,indent=2)+'\n')
+          else:
+              print('No completed Taskell build receipt; retain source identity and continue checked source cleanup.')
           PY
           manifest=$(python -B scripts/acceptance/next20_taskell_cleanup.py --host "$HOST_KEY")
           python -B scripts/acceptance/next20_target_cleanup.py --project taskell --generated-source-manifest "$manifest" --include-active-case-evidence --retain-owned-directory case-evidence --max-files 60000 --max-bytes 2147483648

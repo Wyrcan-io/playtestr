@@ -1,0 +1,36 @@
+{
+  "admission_credit": 0,
+  "candidate": "v0.4.0-rc.6",
+  "candidate_series": "native-exit-v1",
+  "hosts": [
+    {
+      "artifact": {
+        "bytes": 11771211,
+        "id": 13636173541,
+        "name": "taskell-fault-calibration-native-exit-v1-linux",
+        "sha256": "332ca5dd7465fb1bfae1f40aefa15b100a640913ac1c51e23fc67b97482fca84"
+      },
+      "conclusion": "success",
+      "fault_phases": "unread and unaudited; not credited",
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128877078249
+    },
+    {
+      "artifact": {
+        "bytes": 211846320,
+        "id": 13636685870,
+        "name": "taskell-fault-calibration-native-exit-v1-darwin",
+        "sha256": "b23958b7ae3b341b21a7614cc6b38f4f77fd10fa72f1f03d418a0ed0c8ced13a"
+      },
+      "conclusion": "failure",
+      "failure": "Signed libxml2 package directory metadata opt/local/etc was rejected, then cleanup failed due to absent build.json; no native target fault phases ran.",
+      "host": "macos-15-arm64",
+      "job_id": 128877078498
+    }
+  ],
+  "project": "taskell",
+  "run_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/42528435700",
+  "schema_version": 1,
+  "scope": "Linux artifact is preserved but unaudited. MacOS did not build or launch Taskell. No native cell, calibration or admission credit.",
+  "workflow_run_id": 42528435700
+}

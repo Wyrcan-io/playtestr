@@ -95,9 +95,14 @@ class TaskellLLVMTests(unittest.TestCase):
         with tarfile.open(package,'w:bz2') as archive:
             for name,data in entries:
                 member=tarfile.TarInfo(name)
-                member.size=len(data)
-                member.mode=0o755
-                archive.addfile(member,io.BytesIO(data))
+                if data is None:
+                    member.type=tarfile.DIRTYPE
+                    member.size=0
+                    archive.addfile(member)
+                else:
+                    member.size=len(data)
+                    member.mode=0o755
+                    archive.addfile(member,io.BytesIO(data))
         return package
 
     def test_bounded_extraction_and_tool_inventory_bind_bytes(self):
@@ -142,6 +147,7 @@ class TaskellLLVMTests(unittest.TestCase):
 
     def test_signed_xml_and_zlib_families_select_only_required_runtime_libraries(self):
         xml=self.archive([
+            ('opt/local/etc',None),
             ('opt/local/lib/libxml2.16.0.4.dylib',b'xml-runtime'),
             ('opt/local/lib/libxml2.16.dylib',b'xml-alias'),
             ('opt/local/include/libxml/parser.h',b'header'),
