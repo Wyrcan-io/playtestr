@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42448762334,
+  "source_revision": "2e099a291f008a64ad25ced9149bfa29d16a5bfe",
+  "event": "push",
+  "result": "linux-and-macos-upstream-tests-passed-builds-completed-version-option-failed",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128633252655,
+      "source_verified": true,
+      "upstream_tests_passed": 250,
+      "target_binary_built": true,
+      "target_launched": true,
+      "version_invocation": "failed",
+      "cause": "Unsupported --version was interpreted as a board filename; the program displayed its create-file prompt and then received EOF.",
+      "artifact_uploaded": false
+    },
+    {
+      "host": "macos-15-intel-x86_64",
+      "job_id": 128633252527,
+      "source_verified": true,
+      "upstream_tests_passed": 250,
+      "target_binary_built": true,
+      "target_launched": true,
+      "version_invocation": "failed",
+      "cause": "Unsupported --version was interpreted as a board filename; the program displayed its create-file prompt and then received EOF.",
+      "build_warnings": [
+        "Clang reported a non-portable generated cabal_macros.h include whose path differed only in case; build continued.",
+        "The linker reported small atom alignment warnings from the bundled GHC libCffi.a; build and 250 tests completed."
+      ],
+      "artifact_uploaded": false
+    }
+  ],
+  "provider_run": "https://github.com/Wyrcan-io/playtestr/actions/runs/42448762334",
+  "disposition": "Preserve the 250 passing upstream tests and both host build outcomes, the unsupported-option prompt, and macOS toolchain warnings. The corrected lane uses Taskell's documented -v option. No target board interaction or admission is claimed."
+}
