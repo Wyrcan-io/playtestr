@@ -4,11 +4,12 @@ import hashlib
 import tarfile
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 from next20_check import RAW
 from next20_taskell_llvm import (PUBLIC_KEY,PUBLIC_KEY_GIT_BLOB,SIGNATURE_COMMENT,
-    decode_signify_signature,safe_extract,tool_inventory,verify_tool_inventory)
+    checked_version,decode_signify_signature,safe_extract,tool_inventory,verify_tool_inventory)
 
 
 class TaskellLLVMTests(unittest.TestCase):
@@ -35,6 +36,12 @@ class TaskellLLVMTests(unittest.TestCase):
             base64.b64encode(decoded).decode()+'\n',encoding='ascii')
         with self.assertRaisesRegex(ValueError,'unexpected signify envelope'):
             decode_signify_signature(signature)
+
+    def test_failed_native_version_probe_preserves_bounded_diagnostics(self):
+        with patch('next20_taskell_llvm.subprocess.run',return_value=type('Result',(),{
+                'returncode':-6,'stdout':'short stdout','stderr':'LLVM abort detail'})()):
+            with self.assertRaisesRegex(RuntimeError,'LLVM abort detail'):
+                checked_version('owned/opt',{})
 
     def archive(self,entries):
         package=self.root/'fixture.tbz2'

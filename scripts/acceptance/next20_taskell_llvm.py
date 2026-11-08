@@ -158,6 +158,18 @@ def verify_tool_inventory(prefix,files):
             raise ValueError('Frozen LLVM toolchain file changed: '+name)
 
 
+def checked_version(executable,env):
+    """Run one bounded tool probe and retain actionable native diagnostics."""
+    result=subprocess.run([executable,'--version'],env=env,capture_output=True,
+                          text=True,timeout=30,check=False)
+    if result.returncode:
+        stdout=(result.stdout or '')[-4096:]
+        stderr=(result.stderr or '')[-4096:]
+        raise RuntimeError(f'{executable} --version exited {result.returncode}; '
+                           f'stdout={stdout!r}; stderr={stderr!r}')
+    return (result.stdout or '')+(result.stderr or '')
+
+
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--github-env',required=True)
     args=parser.parse_args()
@@ -173,9 +185,8 @@ def main():
     expanded,opt,llc=safe_extract(package,prefix)
     env=dict(os.environ);env['PATH']=str(prefix/'bin')+os.pathsep+env.get('PATH','')
     env['DYLD_LIBRARY_PATH']=str(prefix/'lib')+os.pathsep+env.get('DYLD_LIBRARY_PATH','')
-    opt_result=subprocess.run([opt,'--version'],env=env,capture_output=True,text=True,timeout=30,check=True)
-    llc_result=subprocess.run([llc,'--version'],env=env,capture_output=True,text=True,timeout=30,check=True)
-    opt_text=opt_result.stdout+opt_result.stderr;llc_text=llc_result.stdout+llc_result.stderr
+    opt_text=checked_version(opt,env)
+    llc_text=checked_version(llc,env)
     if '12.0.1' not in opt_text or '12.0.1' not in llc_text or 'AArch64' not in llc_text:
         raise ValueError('Verified LLVM package did not report LLVM 12.0.1 with the AArch64 backend')
     files=tool_inventory(prefix)
