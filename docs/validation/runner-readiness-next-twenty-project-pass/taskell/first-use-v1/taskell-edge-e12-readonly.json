@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "name": "Reject a save to a genuinely read-only Taskell board",
+  "name": "Complete and quit without changing a Taskell board whose directory blocks writes",
   "command": [
     "sh",
     "readonly.sh"
@@ -24,7 +24,13 @@
       "text": " "
     },
     {
-      "exit": 1
+      "expect": "Read-only target"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
     },
     {
       "state": {

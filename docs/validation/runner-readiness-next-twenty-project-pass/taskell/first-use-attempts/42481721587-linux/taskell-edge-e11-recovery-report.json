@@ -1,0 +1,81 @@
+{
+  "report_version": 3,
+  "runner_version": "dev",
+  "os": "linux",
+  "arch": "amd64",
+  "summary": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "cancelled": 0,
+    "not_run": 0
+  },
+  "results": [
+    {
+      "invocation_id": "b1aa60901fd7ed8a2f94477da01eba9e",
+      "spec_version": 3,
+      "name": "Run a corrected Taskell board after malformed-input diagnosis",
+      "spec_path": "/home/runner/work/playtestr/playtestr/docs/validation/runner-readiness-next-twenty-project-pass/taskell/first-use-v1/taskell-edge-e11-recovery.json",
+      "status": "passed",
+      "duration_ms": 74,
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "steps": [
+        {
+          "number": 1,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 21
+        },
+        {
+          "number": 2,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 45
+        },
+        {
+          "number": 3,
+          "action": "exit",
+          "status": "passed",
+          "duration_ms": 6
+        },
+        {
+          "state": {
+            "invocation_id": "b1aa60901fd7ed8a2f94477da01eba9e",
+            "workspace_id": "b1aa60901fd7ed8a2f94477da01eba9e",
+            "path": "board.md",
+            "kind": "file",
+            "outcome": "matched"
+          },
+          "number": 4,
+          "action": "state",
+          "status": "passed",
+          "duration_ms": 0
+        }
+      ],
+      "target": {
+        "exited": true,
+        "exit_code": 0
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": true,
+        "forced": false,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "evidence": {},
+      "workspace": {
+        "id": "b1aa60901fd7ed8a2f94477da01eba9e",
+        "attempted": true,
+        "fixture": "fixtures/e11-recovery",
+        "prepared": true,
+        "cleanup_attempted": true,
+        "cleaned": true,
+        "retained": false
+      }
+    }
+  ]
+}

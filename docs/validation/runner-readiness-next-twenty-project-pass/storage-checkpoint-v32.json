@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "status": "within declared logical storage caps; four new admissions; campaign incomplete",
+  "observed_at_utc": "2026-11-08T13:09:59.358174+00:00",
+  "caps_bytes": {
+    "new_campaign_raw": 4294967296,
+    "combined_raw": 6442450944,
+    "combined_retained": 2147483648,
+    "new_curated": 26214400,
+    "combined_curated": 52428800,
+    "project": 67108864
+  },
+  "actual_bytes": {
+    "new_campaign_raw": 1997733513,
+    "combined_raw": 3906442085,
+    "combined_retained": 2147349949,
+    "new_curated": 12390021,
+    "combined_curated": 24046265,
+    "project": 1002
+  },
+  "headroom_bytes": {
+    "combined_curated": 28382535,
+    "combined_raw": 2536012859,
+    "combined_retained": 133699,
+    "new_curated": 13824379,
+    "new_raw": 2297233783,
+    "project": 67107862
+  },
+  "receipt": "artifacts/runner-readiness-next-twenty-project-pass/storage/e47dbb0d9b3c46ad924b3b884309763b/observed.json",
+  "receipt_sha256": "eb08f01b6afc101d1e65b006bcd4163a81611fb02a5df82d0d35499b41f05bee",
+  "scope": "Fresh observation after curation of both-host reports and E12 failure screens from run 42481721587 and verified cleanup of only its two unique downloaded artifact directories. No exact peak, allocation, quota, or admission claim."
+}

@@ -1,0 +1,75 @@
+{
+  "report_version": 3,
+  "runner_version": "dev",
+  "os": "linux",
+  "arch": "amd64",
+  "summary": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "cancelled": 0,
+    "not_run": 0
+  },
+  "results": [
+    {
+      "invocation_id": "d88eddd9cc49dbd85c959d0267cc0198",
+      "spec_version": 3,
+      "name": "Reject malformed Taskell Markdown without changing it",
+      "spec_path": "/home/runner/work/playtestr/playtestr/docs/validation/runner-readiness-next-twenty-project-pass/taskell/first-use-v1/taskell-edge-e11-malformed.json",
+      "status": "passed",
+      "duration_ms": 15,
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "steps": [
+        {
+          "number": 1,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 10
+        },
+        {
+          "number": 2,
+          "action": "exit",
+          "status": "passed",
+          "duration_ms": 1
+        },
+        {
+          "state": {
+            "invocation_id": "d88eddd9cc49dbd85c959d0267cc0198",
+            "workspace_id": "d88eddd9cc49dbd85c959d0267cc0198",
+            "path": "board.md",
+            "kind": "file",
+            "outcome": "matched"
+          },
+          "number": 3,
+          "action": "state",
+          "status": "passed",
+          "duration_ms": 0
+        }
+      ],
+      "target": {
+        "exited": true,
+        "exit_code": 1
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": true,
+        "forced": false,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "evidence": {},
+      "workspace": {
+        "id": "d88eddd9cc49dbd85c959d0267cc0198",
+        "attempted": true,
+        "fixture": "fixtures/e11-malformed",
+        "prepared": true,
+        "cleanup_attempted": true,
+        "cleaned": true,
+        "retained": false
+      }
+    }
+  ]
+}

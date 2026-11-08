@@ -1,0 +1,121 @@
+{
+  "report_version": 3,
+  "runner_version": "dev",
+  "os": "linux",
+  "arch": "amd64",
+  "summary": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "cancelled": 0,
+    "not_run": 0
+  },
+  "results": [
+    {
+      "invocation_id": "732bbed93a07a17e067fba1e29cc8d48",
+      "spec_version": 3,
+      "name": "Resize Taskell and reorder a visible task",
+      "spec_path": "/home/runner/work/playtestr/playtestr/docs/validation/runner-readiness-next-twenty-project-pass/taskell/first-use-v1/taskell-edge-e05-resize-redraw.json",
+      "status": "passed",
+      "duration_ms": 1084,
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "resizes": [
+        {
+          "width": 55,
+          "height": 14
+        }
+      ],
+      "steps": [
+        {
+          "number": 1,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 10
+        },
+        {
+          "number": 2,
+          "action": "resize",
+          "status": "passed",
+          "duration_ms": 0,
+          "resize": {
+            "width": 55,
+            "height": 14
+          }
+        },
+        {
+          "number": 3,
+          "action": "wait_for_redraw",
+          "status": "passed",
+          "duration_ms": 1000
+        },
+        {
+          "number": 4,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 5,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 36
+        },
+        {
+          "number": 6,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 7,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 27
+        },
+        {
+          "number": 8,
+          "action": "exit",
+          "status": "passed",
+          "duration_ms": 6
+        },
+        {
+          "state": {
+            "invocation_id": "732bbed93a07a17e067fba1e29cc8d48",
+            "workspace_id": "732bbed93a07a17e067fba1e29cc8d48",
+            "path": "board.md",
+            "kind": "file",
+            "outcome": "matched"
+          },
+          "number": 9,
+          "action": "state",
+          "status": "passed",
+          "duration_ms": 0
+        }
+      ],
+      "target": {
+        "exited": true,
+        "exit_code": 0
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": true,
+        "forced": false,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "evidence": {},
+      "workspace": {
+        "id": "732bbed93a07a17e067fba1e29cc8d48",
+        "attempted": true,
+        "fixture": "fixtures/e05-resize-redraw",
+        "prepared": true,
+        "cleanup_attempted": true,
+        "cleaned": true,
+        "retained": false
+      }
+    }
+  ]
+}

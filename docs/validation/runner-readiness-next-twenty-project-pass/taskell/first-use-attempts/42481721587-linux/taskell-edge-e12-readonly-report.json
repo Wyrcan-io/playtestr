@@ -1,0 +1,89 @@
+{
+  "report_version": 3,
+  "runner_version": "dev",
+  "os": "linux",
+  "arch": "amd64",
+  "summary": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1,
+    "cancelled": 0,
+    "not_run": 0
+  },
+  "results": [
+    {
+      "invocation_id": "0cf6822f3cd1ecc18bab4e612d4f1b63",
+      "spec_version": 3,
+      "name": "Reject a save to a genuinely read-only Taskell board",
+      "spec_path": "/home/runner/work/playtestr/playtestr/docs/validation/runner-readiness-next-twenty-project-pass/taskell/first-use-v1/taskell-edge-e12-readonly.json",
+      "status": "failed",
+      "duration_ms": 5225,
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "steps": [
+        {
+          "number": 1,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 11
+        },
+        {
+          "number": 2,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 48
+        },
+        {
+          "number": 3,
+          "action": "exit",
+          "status": "failed",
+          "duration_ms": 5000,
+          "failure": {
+            "category": "assertion_timeout",
+            "message": "Reject a save to a genuinely read-only Taskell board: step 3: step timed out: timed out waiting for process to exit with code 1: context deadline exceeded"
+          }
+        },
+        {
+          "number": 4,
+          "action": "state",
+          "status": "not_run",
+          "duration_ms": 0
+        }
+      ],
+      "target": {
+        "exited": true,
+        "exit_code": 137
+      },
+      "failure": {
+        "category": "assertion_timeout",
+        "message": "Reject a save to a genuinely read-only Taskell board: step 3: step timed out: timed out waiting for process to exit with code 1: context deadline exceeded\nworkspace cleanup failed: remove /tmp/playtestr-workspace-2761141749/fixture/readonly.sh: permission denied"
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": false,
+        "forced": true,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "evidence": {
+        "screen_path": "/home/runner/work/playtestr/playtestr/artifacts/runner-readiness-next-twenty-project-pass/active/taskell/native-build/first-use/scenario-candidates/taskell-edge-e12-readonly-artifacts/20261108T125618Z-618016502/ess-next-twenty-project-pass-taskell-first-use-v1-taskell-edge-e12-readonly.json-184d9b01bd44.actual.txt"
+      },
+      "workspace": {
+        "id": "0cf6822f3cd1ecc18bab4e612d4f1b63",
+        "attempted": true,
+        "fixture": "fixtures/e12-readonly",
+        "prepared": true,
+        "cleanup_attempted": true,
+        "cleaned": false,
+        "retained": true,
+        "retained_path": "/tmp/playtestr-workspace-2761141749",
+        "cleanup_failure": {
+          "category": "workspace_cleanup_failure",
+          "message": "remove /tmp/playtestr-workspace-2761141749/fixture/readonly.sh: permission denied"
+        }
+      }
+    }
+  ]
+}
