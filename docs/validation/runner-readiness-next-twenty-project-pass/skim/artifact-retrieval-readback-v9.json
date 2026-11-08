@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "reviewed_at_utc": "2026-11-08T19:53:21Z",
+  "workflow_run_id": 42514930671,
+  "workflow_commit": "530893f40cd7a3ee2b6a8271ec38037cf37ad9e3",
+  "candidate": "v0.4.0-rc.6",
+  "project": "skim",
+  "candidate_admission": false,
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "artifact_id": 13631208388,
+      "artifact_name": "next20-skim-linux-rc6-final",
+      "bytes": 8004749,
+      "provider_sha256": "3e522866247f7080824bf7efd77672bfe65e9fb32731c14bd764d99b5600c592",
+      "retrieved_sha256": "3e522866247f7080824bf7efd77672bfe65e9fb32731c14bd764d99b5600c592",
+      "zip_entries": 3307,
+      "candidate_archive_sha256": "28ae9f37227bb0f6ba2df031420aa3d027b998e31eab523c4d13cd2816c4af7a",
+      "candidate_runner_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a",
+      "target_binary_sha256": "427de19b0ab4f344376b3a7a594bac9c36872faba9cc745c9b8f0bd05452bfa0",
+      "plan_sha256": "1e616bb6efb3bd23ce719ac34b83b22bac3cbc74e42b5609ef0c17f25e717a0c"
+    },
+    {
+      "host": "windows-2025-x86_64-msvc",
+      "artifact_id": 13631147726,
+      "artifact_name": "next20-skim-windows-rc6-final",
+      "bytes": 8328973,
+      "provider_sha256": "10fea668d647965e7b6ddcb3a65598c4f7e8a9e0adf5ea31d4831f3441a69636",
+      "retrieved_sha256": "10fea668d647965e7b6ddcb3a65598c4f7e8a9e0adf5ea31d4831f3441a69636",
+      "zip_entries": 3311,
+      "candidate_archive_sha256": "0b9f69460ed4dd87c3182c27702f0579bc67e92767010e4ce50d02c0bec82432",
+      "candidate_runner_sha256": "6c80fdbcdd74705b85b2e8aad2f07140f5ff5e8cea80db1d6c24a04d71b23f36",
+      "target_binary_sha256": "4497678c458939d684de615039ea57aeb31f2a0cc8b3129148f504ea339ef720",
+      "plan_sha256": "1de69656ed8b355f9fbbd78891044e66ebe2303ed7af4ce219227bb10dd5a86d"
+    }
+  ],
+  "independent_member_review": {
+    "ordinary_per_host": {
+      "required": 240,
+      "completed": 240,
+      "passing": 240,
+      "failed": 0,
+      "batches": 12,
+      "cases_per_batch": 20,
+      "distinct_batch_zero_scenarios": 20
+    },
+    "ordinary_linked_evidence": {
+      "batch_json_digests_matched_summary": true,
+      "outcome_count": 240,
+      "finished_receipt_hashes_matched": 240,
+      "runner_report_hashes_matched": 240,
+      "reports_parsed_and_all_steps_passed": 240,
+      "distinct_invocation_ids": 240,
+      "candidate_runner_identity_count": 1,
+      "target_binary_identity_count": 1,
+      "runner_exit_zero": 240,
+      "workspace_cleaned": 240,
+      "cleanup_confirmed": 240
+    },
+    "source_fault_calibrations_per_host": {
+      "distinct_faults": 3,
+      "baseline_passes": 3,
+      "mutations_detected": 3,
+      "restored_recovery_passes": 3,
+      "phases": 9,
+      "source_restored": true,
+      "target_binary_restored": true
+    },
+    "public_route": {
+      "status": "refused-before-target-launch",
+      "host_failures": 2,
+      "target_launches": 0,
+      "reason": "Campaign journal helper rejected the workflow-declared public-authoring phase before planned.json or any public-route command was created."
+    },
+    "checked_cleanup_per_host": {
+      "linux": true,
+      "windows": true
+    },
+    "retrieval_method": "ZIP bytes remained in memory. Both provider digests, all 24 batch hashes, 480 report and 480 finished-receipt hashes, parsed report statuses/steps, invocation uniqueness, candidate/target identity consistency and fault summary aggregates were independently recomputed; raw ZIPs were not retained locally."
+  },
+  "limits": [
+    "This readback audits V31 exact-candidate ordinary and source-fault packets. The public authoring route did not launch and therefore no Skim admission is granted.",
+    "V31 source, process, target and compiler-cache cleanup passed on both native hosts. V32 adds tested public-authoring journal phase support; a new hosted exact run and public-route audit remain required.",
+    "Two older prelaunch attempts (V29 and V30) were refused for stale immutable harness hashes and launched no target cases.",
+    "No directional-navigation or exact raw NUL-framing compatibility claim is made."
+  ]
+}

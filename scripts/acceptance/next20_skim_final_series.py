@@ -118,7 +118,7 @@ def prepare(host):
     if host not in {'linux', 'windows'} or host != host_name():
         raise ValueError('preparation must run on the declared native host')
     package = ROOT / 'docs/validation/runner-readiness-next-twenty-project-pass/skim'
-    declaration_path = package / 'final-series-declaration-native-exit-v31.json'
+    declaration_path = package / 'final-series-declaration-native-exit-v32.json'
     declaration = json.loads(declaration_path.read_text(encoding='utf-8'))
     base_path, revision_path, rows = scenario_rows(package)
     candidate = executable('native-exit-v1', host)
