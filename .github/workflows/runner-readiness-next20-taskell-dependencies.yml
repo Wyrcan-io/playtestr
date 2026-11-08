@@ -28,7 +28,7 @@ jobs:
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 90
     env:
-      STACK_ROOT: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/active/taskell/stack-root
+      STACK_ROOT: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/toolchain/taskell/${{ runner.os }}/stack-root
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - name: Set up the resolver toolchain in the owned workspace

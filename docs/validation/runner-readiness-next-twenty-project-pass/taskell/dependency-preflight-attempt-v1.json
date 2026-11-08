@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42447170171,
+  "source_revision": "cb3ddc3387f92d6fc929d9dc0cf581a5cc5389e3",
+  "jobs": [
+    {
+      "job_id": 128628436476,
+      "host": "ubuntu-24.04",
+      "result": "failed-before-source-acquisition",
+      "failed_step": "Verify pinned source and resolver inputs",
+      "cause": "The resolver action created active/taskell/stack-root before the project acquisition helper ran; the helper correctly refused the already existing project target.",
+      "target_source_downloaded": false,
+      "target_launched": false,
+      "target_tests_run": false,
+      "workflow_log": "https://github.com/Wyrcan-io/playtestr/actions/runs/42447170171/job/128628436476"
+    },
+    {
+      "job_id": 128628436239,
+      "host": "macos-15",
+      "result": "in-progress-at-recording",
+      "workflow_log": "https://github.com/Wyrcan-io/playtestr/actions/runs/42447170171/job/128628436239"
+    }
+  ],
+  "disposition": "Preserve this attempt. The workflow now places STACK_ROOT under the separate campaign toolchain directory so acquisition can own active/taskell exclusively; rerun on both native hosts."
+}
