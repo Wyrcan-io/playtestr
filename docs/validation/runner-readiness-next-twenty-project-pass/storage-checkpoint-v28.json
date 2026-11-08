@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "status": "within declared logical storage caps; four new admissions on rc.6; campaign incomplete",
+  "observed_at_utc": "2026-11-08T11:50:54.590739+00:00",
+  "caps_bytes": {
+    "new_campaign_raw": 4294967296,
+    "combined_raw": 6442450944,
+    "combined_retained": 2147483648,
+    "new_curated": 26214400,
+    "combined_curated": 52428800,
+    "project": 67108864
+  },
+  "actual_bytes": {
+    "new_campaign_raw": 1997727653,
+    "combined_raw": 3906436225,
+    "combined_retained": 2147344089,
+    "new_curated": 12089706,
+    "combined_curated": 23745950,
+    "project": 1002
+  },
+  "headroom_bytes": {
+    "combined_curated": 28682850,
+    "combined_raw": 2536014719,
+    "combined_retained": 139559,
+    "new_curated": 14124694,
+    "new_raw": 2297239643,
+    "project": 67107862
+  },
+  "receipt": "artifacts/runner-readiness-next-twenty-project-pass/storage/8c43cb4c89b24eddbded5fbbbc0f9224/observed.json",
+  "receipt_sha256": "c07f01ac48e03569cdb2263b9d28845231362079cd9a3bdb44f0eea1becf69a6",
+  "scope": "Fresh observation after curating N05-N08 run 42474684731, drafting all E01-E12 candidate/recovery specs, correcting the E10 fixture to keep the target board absent, and removing both downloaded host packets from owned temporary directories. No exact peak, allocation, quota or admission claim."
+}

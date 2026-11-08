@@ -1,0 +1,151 @@
+{
+  "report_version": 3,
+  "runner_version": "dev",
+  "os": "darwin",
+  "arch": "amd64",
+  "summary": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1,
+    "cancelled": 0,
+    "not_run": 0
+  },
+  "results": [
+    {
+      "invocation_id": "1f0cc0f3767bedf09c304425abaefd8e",
+      "spec_version": 3,
+      "name": "Add a Taskell column and a task to it",
+      "spec_path": "/Users/runner/work/playtestr/playtestr/docs/validation/runner-readiness-next-twenty-project-pass/taskell/first-use-v1/taskell-n08-add-list.json",
+      "status": "failed",
+      "duration_ms": 1062,
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "steps": [
+        {
+          "number": 1,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 50
+        },
+        {
+          "number": 2,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 26
+        },
+        {
+          "number": 3,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 50
+        },
+        {
+          "number": 4,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 160
+        },
+        {
+          "number": 5,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 47
+        },
+        {
+          "number": 6,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 7,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 11
+        },
+        {
+          "number": 8,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 180
+        },
+        {
+          "number": 9,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 49
+        },
+        {
+          "number": 10,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 11,
+          "action": "expect_not",
+          "status": "passed",
+          "duration_ms": 130
+        },
+        {
+          "number": 12,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 45
+        },
+        {
+          "number": 13,
+          "action": "exit",
+          "status": "passed",
+          "duration_ms": 267
+        },
+        {
+          "state": {
+            "invocation_id": "1f0cc0f3767bedf09c304425abaefd8e",
+            "workspace_id": "1f0cc0f3767bedf09c304425abaefd8e",
+            "path": "board.md",
+            "kind": "file",
+            "outcome": "rejected"
+          },
+          "number": 14,
+          "action": "state",
+          "status": "failed",
+          "duration_ms": 0,
+          "failure": {
+            "category": "state_assertion_failure",
+            "message": "Add a Taskell column and a task to it: step 14: state \"board.md\" (file): saved-state checkpoint: wrong file bytes; inspect the selected path and reviewed expectation, then rerun"
+          }
+        }
+      ],
+      "target": {
+        "exited": true,
+        "exit_code": 0
+      },
+      "failure": {
+        "category": "state_assertion_failure",
+        "message": "Add a Taskell column and a task to it: step 14: state \"board.md\" (file): saved-state checkpoint: wrong file bytes; inspect the selected path and reviewed expectation, then rerun"
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": true,
+        "forced": false,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "evidence": {
+        "screen_path": "/Users/runner/work/playtestr/playtestr/artifacts/runner-readiness-next-twenty-project-pass/active/taskell/native-build/first-use/scenario-candidates/taskell-n08-add-list-artifacts/20261108T114035Z-2853708915/eadiness-next-twenty-project-pass-taskell-first-use-v1-taskell-n08-add-list.json-b234583f05fd.actual.txt"
+      },
+      "workspace": {
+        "id": "1f0cc0f3767bedf09c304425abaefd8e",
+        "attempted": true,
+        "fixture": "fixtures/n08-add-list",
+        "prepared": true,
+        "cleanup_attempted": true,
+        "cleaned": true,
+        "retained": false
+      }
+    }
+  ]
+}

@@ -32,6 +32,22 @@ jobs:
       STACK_ROOT: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/toolchain/taskell/stack-root
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Prepare bounded native failure packet
+        shell: bash
+        run: |
+          set -euo pipefail
+          packet="artifacts/runner-readiness-next-twenty-project-pass/active/taskell/native-build"
+          mkdir -p "$packet"
+          python - <<'PY'
+          import json,os,platform
+          from pathlib import Path
+          Path('artifacts/runner-readiness-next-twenty-project-pass/active/taskell/native-build/workflow-start.json').write_text(json.dumps({
+              'source_revision':os.environ.get('GITHUB_SHA'),
+              'runner_os':platform.platform(),
+              'runner_architecture':platform.machine(),
+              'scope':'Native job reached the repository checkout and started before pinned Haskell toolchain setup. This bounded marker preserves an artifact when an external toolchain download fails before source acquisition.'
+          },sort_keys=True,indent=2)+'\n')
+          PY
       - name: Set up pinned Haskell toolchain
         uses: haskell-actions/setup@0f8e8c99d88aeb3fbfd523f1ef2c6f762d10d64d
         with:

@@ -1,0 +1,36 @@
+{
+  "version": 3,
+  "name": "Decline creation of an absent Taskell board",
+  "command": [
+    "taskell",
+    "missing.md"
+  ],
+  "workspace": {
+    "fixture": "fixtures/e10-decline-missing-board",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 60000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Create"
+    },
+    {
+      "text": "n"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "missing.md",
+        "kind": "absent"
+      }
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "status": "within declared logical storage caps; four new admissions on rc.6; campaign incomplete",
+  "observed_at_utc": "2026-11-08T11:45:12.624445+00:00",
+  "caps_bytes": {
+    "new_campaign_raw": 4294967296,
+    "combined_raw": 6442450944,
+    "combined_retained": 2147483648,
+    "new_curated": 26214400,
+    "combined_curated": 52428800,
+    "project": 67108864
+  },
+  "actual_bytes": {
+    "new_campaign_raw": 1997725309,
+    "combined_raw": 3906433881,
+    "combined_retained": 2147341745,
+    "new_curated": 12083228,
+    "combined_curated": 23739472,
+    "project": 1002
+  },
+  "headroom_bytes": {
+    "combined_curated": 28689328,
+    "combined_raw": 2536017063,
+    "combined_retained": 141903,
+    "new_curated": 14131172,
+    "new_raw": 2297241987,
+    "project": 67107862
+  },
+  "receipt": "artifacts/runner-readiness-next-twenty-project-pass/storage/d1413a8e1cf845ea8671e1e2291e05b1/observed.json",
+  "receipt_sha256": "1b267401a35267e86889b3de9e0dbdc192dd73bca2561900b52733d48ba88f67",
+  "scope": "Fresh observation after curation and report-hash verification for the Linux and Intel Mac N05-N08 run 42474684731, including both wrong-byte first attempts and final screens, and checked deletion of the two unique artifact extractions. No exact peak, allocation, quota or admission claim."
+}

@@ -1,0 +1,55 @@
+{
+  "version": 3,
+  "name": "Move one of two identically named Taskell tasks by column",
+  "command": [
+    "taskell",
+    "board.md"
+  ],
+  "workspace": {
+    "fixture": "fixtures/e03-ambiguous-labels",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 60000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "To Do"
+    },
+    {
+      "expect": "Same label"
+    },
+    {
+      "text": "l"
+    },
+    {
+      "expect": "Doing"
+    },
+    {
+      "expect": "Same label"
+    },
+    {
+      "text": "L"
+    },
+    {
+      "expect": "Done"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "board.md",
+        "kind": "file",
+        "bytes_base64": "IyMgVG8gRG8KCi0gU2FtZSBsYWJlbAoKIyMgRG9pbmcKCi0gUHJlc2VydmUgZG9pbmcKCiMjIERvbmUKCi0gU2FtZSBsYWJlbAo="
+      }
+    }
+  ]
+}

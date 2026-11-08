@@ -11,7 +11,9 @@ Cross-host one-shot evidence exists for N01 (existing-task smoke), N02
 (create task), N03 (duplicate task), and N04 (rename), recorded in
 `build-attempt-v25.json`. N04's first Mac setup attempt hit HTTP 504 while
 fetching Stack; the Mac-only retry passed. N05-N08 are source-grounded authored
-candidates, not yet executed. N02 requires Escape after Enter because Taskell
+candidates, not yet executed. E01-E12 have drafted edge specifications; E11 is
+split into malformed-input and fresh-recovery invocations. N02 requires
+Escape after Enter because Taskell
 keeps a blank row in INSERT mode. No case has repeated-series credit and the
 catalog remains unfrozen.
 Target evidence: Taskell README, `Taskell.IO.Keyboard.defaultBindings`,
@@ -38,10 +40,10 @@ series.
 | N02 | Add a distinct task to a nonempty To Do list. | `a`, enter a unique title, Enter, verify INSERT mode, Escape to finish the blank row and return to normal mode, then `q`. | New title is visible before exit and serialized once in To Do in the expected order. Cross-host one-shot passed 12/12 with exact bytes and cleanup. |
 | N03 | Duplicate an existing task for a second work item. | Select one uniquely named task with `j`, `+`, then `q`. | Two exact task rows serialize in the same list; neighboring rows stay in their original order. Cross-host one-shot passed 7/7 with exact bytes and cleanup. |
 | N04 | Rename a task while preserving the other board items. | On the second uniquely labeled row, `e`, send Backspace once per old-title character, enter a new title, Enter, Escape, then `q`. | New title is rendered and saved once; the old title is absent and unrelated bytes retain their reviewed values. Linux and Intel Mac passed 22/22 once with exact bytes and cleanup. |
-| N05 | Reorder a task within a list. | On a two-item fixture select the first item and press `J` once. | Exact row order changes once, with both items still present and no cross-list movement. |
-| N06 | Move work from an active list to its next workflow column. | On a three-column fixture select the unique task and press `L`. | Task moves to the expected adjacent column and screen selection/column transition is visible; exact Markdown confirms one copy. |
-| N07 | Find a non-default task and complete it. | Enter `/` search, type a unique term, Enter, Space, `q`. | The matching item is the one completed; exact saved bytes show unrelated tasks untouched. |
-| N08 | Add a project-specific board column and use it. | `N`, enter a unique column name and press Enter; Taskell enters task insertion for the new list, where a unique task is entered, committed, and exited before `q`. | New column and task are visible and serialize in reviewed order without rewriting prior columns. |
+| N05 | Reorder a task within a list. | On a two-item fixture select the first item and press `J` once. | Exact row order changes once, with both items still present and no cross-list movement. Linux and Intel Mac passed 6/6 once with exact bytes and cleanup. |
+| N06 | Move work from an active list to its next workflow column. | On a three-column fixture select the unique task and press `L`. | Task moves to the expected adjacent column and screen selection/column transition is visible; exact Markdown confirms one copy. Linux and Intel Mac showed the move and cleaned up, but the executed byte oracle omitted an empty-list separator newline; corrected oracle is pending rerun. |
+| N07 | Find a non-default task and complete it. | Enter `/` search, type a unique term, Enter, Space, `q`. | The matching item is the one completed; exact saved bytes show unrelated tasks untouched. Linux and Intel Mac passed 11/11 once with exact bytes and cleanup. |
+| N08 | Add a project-specific board column and use it. | `N`, enter a unique column name and press Enter; Taskell enters task insertion for the new list, where a unique task is entered, committed, and exited before `q`. | New column and task are visible and serialize in reviewed order without rewriting prior columns. Linux and Intel Mac showed the new column/task and cleaned up, but the executed byte oracle omitted an empty-list separator newline; corrected oracle is pending rerun. |
 
 ## Edge and adversarial workflows (candidate set: 12)
 

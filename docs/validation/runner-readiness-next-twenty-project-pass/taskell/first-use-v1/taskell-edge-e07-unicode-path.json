@@ -1,0 +1,58 @@
+{
+  "version": 3,
+  "name": "Create Unicode Taskell text in a spaced Unicode board path",
+  "command": [
+    "taskell",
+    "board é.md"
+  ],
+  "workspace": {
+    "fixture": "fixtures/e07-unicode-path",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 60000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Preserve unicode"
+    },
+    {
+      "text": "a"
+    },
+    {
+      "expect": "INSERT"
+    },
+    {
+      "text": "café 東京 🚀"
+    },
+    {
+      "expect": "café 東京 🚀"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "INSERT"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "board é.md",
+        "kind": "file",
+        "bytes_base64": "IyMgVG8gRG8KCi0gUHJlc2VydmUgdW5pY29kZQotIGNhZsOpIOadseS6rCDwn5qACgojIyBEb25lCgo="
+      }
+    }
+  ]
+}

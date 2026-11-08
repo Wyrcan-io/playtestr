@@ -1,0 +1,37 @@
+{
+  "version": 3,
+  "name": "Reject a save to a genuinely read-only Taskell board",
+  "command": [
+    "sh",
+    "readonly.sh"
+  ],
+  "workspace": {
+    "fixture": "fixtures/e12-readonly",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 60000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "Read-only target"
+    },
+    {
+      "text": " "
+    },
+    {
+      "exit": 1
+    },
+    {
+      "state": {
+        "path": "board.md",
+        "kind": "file",
+        "bytes_base64": "IyMgVG8gRG8KCi0gUmVhZC1vbmx5IHRhcmdldAoKIyMgRG9uZQo="
+      }
+    }
+  ]
+}

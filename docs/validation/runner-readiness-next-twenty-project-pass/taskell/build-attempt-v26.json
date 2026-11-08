@@ -1,0 +1,509 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42474684731,
+  "source_revision": "9e555e1e60e57ad300dd0f03cd4ea1080ebf3fe4",
+  "run_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/42474684731",
+  "scenario_spec_hashes": {
+    "taskell-n05-reorder-task.json": {
+      "executed_commit_sha256": "89a33c3556271af6944e6bcea82f171514a4b4ae8bc8502f9662fb7bac0b9d60",
+      "corrected_worktree_sha256": "89a33c3556271af6944e6bcea82f171514a4b4ae8bc8502f9662fb7bac0b9d60",
+      "corrected_worktree_is_pushed": false
+    },
+    "taskell-n06-move-right.json": {
+      "executed_commit_sha256": "d8a41a5cb1bd5379c13b207f46c407c8bc0121e2baa8ef741d39ef3c30e8b5b0",
+      "corrected_worktree_sha256": "917af692ccf2875ef9ab77380e2dfa06bb6586e0d748b21d3c5b184c2cf7f47c",
+      "corrected_worktree_is_pushed": false
+    },
+    "taskell-n07-search-complete.json": {
+      "executed_commit_sha256": "96f2d8cc81c048d246090951ea06cd7db29f1685f8ee382faa68ca55272a4d95",
+      "corrected_worktree_sha256": "96f2d8cc81c048d246090951ea06cd7db29f1685f8ee382faa68ca55272a4d95",
+      "corrected_worktree_is_pushed": false
+    },
+    "taskell-n08-add-list.json": {
+      "executed_commit_sha256": "827d4e7c413b970e770555110767373050a11e7acc26bdc2da9fb2843b98d21b",
+      "corrected_worktree_sha256": "29bf65db488747b521764d7a042a8f970e4306492d7185618d55eaa29791b720",
+      "corrected_worktree_is_pushed": false
+    }
+  },
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128713237444,
+      "provider_artifact": {
+        "id": 13615306602,
+        "bytes": 11209229,
+        "sha256": "7bb5921a9afcb0e8c4646b5b68188b150994d4310368005f285b08106f6abe41"
+      },
+      "upstream_tests": "250 passed",
+      "target": {
+        "version": "1.11.4",
+        "binary_bytes": 33207832,
+        "binary_sha256": "6099f625fc30ee1fefcef87c3aa40e34915b4b254b52f4276d940e976225dfd8",
+        "stack": "Version 3.11.1, Git revision 979bf6339fd4d5837c4d2fa8166dc715eef30ee2 x86_64 hpack-0.39.6",
+        "ghc": "9.0.1"
+      },
+      "playtestr": {
+        "go": "go version go1.25.0 linux/amd64",
+        "binary_bytes": 6928585,
+        "binary_sha256": "67fdcde451dc4e0dc73ddd391a96d17b5c0e5df6062f869a95cfdd5552054fde"
+      },
+      "cases": {
+        "N02": {
+          "name": "Create and save a Taskell board item",
+          "status": "passed",
+          "steps_passed": 12,
+          "steps_total": 12,
+          "exit_code": 0,
+          "state_outcome": "matched",
+          "failure": null,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleanup": {
+            "id": "f4c1ab6849e015f07e2a8208fd5d3e87",
+            "attempted": true,
+            "fixture": "fixtures",
+            "prepared": true,
+            "cleanup_attempted": true,
+            "cleaned": true,
+            "retained": false
+          },
+          "report_sha256": "f9bd9c95ea5a5092694a92573e84c28e6267211237e591c17e4da5982489ba77"
+        },
+        "N03": {
+          "name": "Duplicate one selected Taskell task",
+          "status": "passed",
+          "steps_passed": 7,
+          "steps_total": 7,
+          "exit_code": 0,
+          "state_outcome": "matched",
+          "failure": null,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleanup": {
+            "id": "3dbe61f261081d2f97f495667d4dbaf9",
+            "attempted": true,
+            "fixture": "fixtures/duplicate",
+            "prepared": true,
+            "cleanup_attempted": true,
+            "cleaned": true,
+            "retained": false
+          },
+          "report_sha256": "3639b7274387f3174766b85c761bbe0ea9a1a755d7f473136bb1d46e826646f9"
+        },
+        "N04": {
+          "name": "Rename one selected Taskell task",
+          "status": "passed",
+          "steps_passed": 22,
+          "steps_total": 22,
+          "exit_code": 0,
+          "state_outcome": "matched",
+          "failure": null,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleanup": {
+            "id": "3a1c5d4da3525f6aa8ec7f5f85e0cfdf",
+            "attempted": true,
+            "fixture": "fixtures/rename",
+            "prepared": true,
+            "cleanup_attempted": true,
+            "cleaned": true,
+            "retained": false
+          },
+          "report_sha256": "ba9b3e9b53d0fb5507427316414650a8e2e913d9f77680b929d6a55b86d4c0a7"
+        },
+        "N05": {
+          "name": "Move one Taskell task down within its list",
+          "status": "passed",
+          "steps_passed": 6,
+          "steps_total": 6,
+          "exit_code": 0,
+          "state_outcome": "matched",
+          "failure": null,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleanup": {
+            "id": "aa405f28eacd267878ef9352ef27f17a",
+            "attempted": true,
+            "fixture": "fixtures/reorder",
+            "prepared": true,
+            "cleanup_attempted": true,
+            "cleaned": true,
+            "retained": false
+          },
+          "report_sha256": "05521a80e1b7c40af40fc343a07f3443e97acea0fef19e0839fe839536d3d1c5"
+        },
+        "N06": {
+          "name": "Move one Taskell task into the next column",
+          "status": "failed",
+          "steps_passed": 6,
+          "steps_total": 7,
+          "exit_code": 0,
+          "state_outcome": "rejected",
+          "failure": {
+            "category": "state_assertion_failure",
+            "message": "Move one Taskell task into the next column: step 7: state \"board.md\" (file): saved-state checkpoint: wrong file bytes; inspect the selected path and reviewed expectation, then rerun"
+          },
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleanup": {
+            "id": "69c544339c6915276958ee9393d1b92f",
+            "attempted": true,
+            "fixture": "fixtures/n06-move-right",
+            "prepared": true,
+            "cleanup_attempted": true,
+            "cleaned": true,
+            "retained": false
+          },
+          "report_sha256": "165d04153d2e588fab42921c23eefd1d17cf7532c30c16c636a73fc89a49fcb2"
+        },
+        "N07": {
+          "name": "Find and complete one Taskell task",
+          "status": "passed",
+          "steps_passed": 11,
+          "steps_total": 11,
+          "exit_code": 0,
+          "state_outcome": "matched",
+          "failure": null,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleanup": {
+            "id": "05fe95043429cb7aca0a102279d75788",
+            "attempted": true,
+            "fixture": "fixtures/n07-search-complete",
+            "prepared": true,
+            "cleanup_attempted": true,
+            "cleaned": true,
+            "retained": false
+          },
+          "report_sha256": "5916cb10e9ce1f5d312d2cc2323c828b65a7bbaaad7bef4729a7449780d6609e"
+        },
+        "N08": {
+          "name": "Add a Taskell column and a task to it",
+          "status": "failed",
+          "steps_passed": 13,
+          "steps_total": 14,
+          "exit_code": 0,
+          "state_outcome": "rejected",
+          "failure": {
+            "category": "state_assertion_failure",
+            "message": "Add a Taskell column and a task to it: step 14: state \"board.md\" (file): saved-state checkpoint: wrong file bytes; inspect the selected path and reviewed expectation, then rerun"
+          },
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleanup": {
+            "id": "75c2fe0ef011d7cee76175f78f4d5ad7",
+            "attempted": true,
+            "fixture": "fixtures/n08-add-list",
+            "prepared": true,
+            "cleanup_attempted": true,
+            "cleaned": true,
+            "retained": false
+          },
+          "report_sha256": "220d8e40e928e390ba6d509dadd9b0d702e8126715b485496df77e8e52e2dc85"
+        }
+      },
+      "failure_screens": {
+        "N06": {
+          "path": "42474684731-linux/taskell-n06-move-right-actual.txt",
+          "sha256": "9b2132a4bf4347c7d806d7fe9dab8ba2a8609c972d90f91915f45110b0ea2ccf"
+        },
+        "N08": {
+          "path": "42474684731-linux/taskell-n08-add-list-actual.txt",
+          "sha256": "155145979c2e77df603d8c7dbc7ad22743e5cbb126929ba33696845de83980da"
+        }
+      },
+      "curated_files_sha256": {
+        "host.json": "c29b06bb95bb07c337a2b96cad5c315ce7104f2a4ea3dcfc1ed394af9a23f20c",
+        "runner.json": "4d6a4f0b0f42c0e52585475f52932a15c772e19caa26a610e0e2c2722810d3a9",
+        "taskell-create-task-report.json": "f9bd9c95ea5a5092694a92573e84c28e6267211237e591c17e4da5982489ba77",
+        "taskell-duplicate-task-report.json": "3639b7274387f3174766b85c761bbe0ea9a1a755d7f473136bb1d46e826646f9",
+        "taskell-n04-rename-task-report.json": "ba9b3e9b53d0fb5507427316414650a8e2e913d9f77680b929d6a55b86d4c0a7",
+        "taskell-n05-reorder-task-report.json": "05521a80e1b7c40af40fc343a07f3443e97acea0fef19e0839fe839536d3d1c5",
+        "taskell-n06-move-right-actual.txt": "9b2132a4bf4347c7d806d7fe9dab8ba2a8609c972d90f91915f45110b0ea2ccf",
+        "taskell-n06-move-right-report.json": "165d04153d2e588fab42921c23eefd1d17cf7532c30c16c636a73fc89a49fcb2",
+        "taskell-n07-search-complete-report.json": "5916cb10e9ce1f5d312d2cc2323c828b65a7bbaaad7bef4729a7449780d6609e",
+        "taskell-n08-add-list-actual.txt": "155145979c2e77df603d8c7dbc7ad22743e5cbb126929ba33696845de83980da",
+        "taskell-n08-add-list-report.json": "220d8e40e928e390ba6d509dadd9b0d702e8126715b485496df77e8e52e2dc85"
+      }
+    },
+    {
+      "host": "macos-15-intel-x86_64",
+      "job_id": 128713237674,
+      "provider_artifact": {
+        "id": 13615358773,
+        "bytes": 6787254,
+        "sha256": "5b11eb0658b189702ee00a6cd86d04c08753e444e184c32af0a83157f2f20197"
+      },
+      "upstream_tests": "250 passed",
+      "target": {
+        "version": "1.11.4",
+        "binary_bytes": 12050080,
+        "binary_sha256": "490a7bbf7f6e39a54c333412ae3894c20f3a4483b9418008144326562c4a1bab",
+        "stack": "Version 3.11.1, Git revision 979bf6339fd4d5837c4d2fa8166dc715eef30ee2 x86_64 hpack-0.39.6",
+        "ghc": "9.0.1"
+      },
+      "playtestr": {
+        "go": "go version go1.25.0 darwin/amd64",
+        "binary_bytes": 6899072,
+        "binary_sha256": "8b48fc3056a706a5185b574f8a4f11d7556757e334d5e7348a4f6aad0b3083e1"
+      },
+      "cases": {
+        "N02": {
+          "name": "Create and save a Taskell board item",
+          "status": "passed",
+          "steps_passed": 12,
+          "steps_total": 12,
+          "exit_code": 0,
+          "state_outcome": "matched",
+          "failure": null,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleanup": {
+            "id": "2708ef85d0e86663e535bb2713a25b41",
+            "attempted": true,
+            "fixture": "fixtures",
+            "prepared": true,
+            "cleanup_attempted": true,
+            "cleaned": true,
+            "retained": false
+          },
+          "report_sha256": "9bef1ee9dce55b1f898e20c32c59a60f655f6d84ca372813d806977877ea68ea"
+        },
+        "N03": {
+          "name": "Duplicate one selected Taskell task",
+          "status": "passed",
+          "steps_passed": 7,
+          "steps_total": 7,
+          "exit_code": 0,
+          "state_outcome": "matched",
+          "failure": null,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleanup": {
+            "id": "c841e90dc3fb880f0539eb76226d245d",
+            "attempted": true,
+            "fixture": "fixtures/duplicate",
+            "prepared": true,
+            "cleanup_attempted": true,
+            "cleaned": true,
+            "retained": false
+          },
+          "report_sha256": "4f5dbd276efe3094fb800e935321bb0abd68f10f6865601c8df8339b8332df8b"
+        },
+        "N04": {
+          "name": "Rename one selected Taskell task",
+          "status": "passed",
+          "steps_passed": 22,
+          "steps_total": 22,
+          "exit_code": 0,
+          "state_outcome": "matched",
+          "failure": null,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleanup": {
+            "id": "ffd54f14bde995f59d841251e746ad74",
+            "attempted": true,
+            "fixture": "fixtures/rename",
+            "prepared": true,
+            "cleanup_attempted": true,
+            "cleaned": true,
+            "retained": false
+          },
+          "report_sha256": "067bff1742e80468ad8a13968271cf135e90da7b9b854900fef56b8e2d9e9e67"
+        },
+        "N05": {
+          "name": "Move one Taskell task down within its list",
+          "status": "passed",
+          "steps_passed": 6,
+          "steps_total": 6,
+          "exit_code": 0,
+          "state_outcome": "matched",
+          "failure": null,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleanup": {
+            "id": "8f501a7ac6f08a59162c05c365df4081",
+            "attempted": true,
+            "fixture": "fixtures/reorder",
+            "prepared": true,
+            "cleanup_attempted": true,
+            "cleaned": true,
+            "retained": false
+          },
+          "report_sha256": "b0d5efe04aa8b012e27aa2b838a0b7b7ee73b07a63f81b3869b9fc617b7f8e1e"
+        },
+        "N06": {
+          "name": "Move one Taskell task into the next column",
+          "status": "failed",
+          "steps_passed": 6,
+          "steps_total": 7,
+          "exit_code": 0,
+          "state_outcome": "rejected",
+          "failure": {
+            "category": "state_assertion_failure",
+            "message": "Move one Taskell task into the next column: step 7: state \"board.md\" (file): saved-state checkpoint: wrong file bytes; inspect the selected path and reviewed expectation, then rerun"
+          },
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleanup": {
+            "id": "b023cce4991704d98d0880b7cb4f0208",
+            "attempted": true,
+            "fixture": "fixtures/n06-move-right",
+            "prepared": true,
+            "cleanup_attempted": true,
+            "cleaned": true,
+            "retained": false
+          },
+          "report_sha256": "82b2d6a7b495fd2d568d73054310bbd1bd7ebe691896d22f5d45041092b37f83"
+        },
+        "N07": {
+          "name": "Find and complete one Taskell task",
+          "status": "passed",
+          "steps_passed": 11,
+          "steps_total": 11,
+          "exit_code": 0,
+          "state_outcome": "matched",
+          "failure": null,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleanup": {
+            "id": "10bde0311585ae07d95ebe2f6bf9caa5",
+            "attempted": true,
+            "fixture": "fixtures/n07-search-complete",
+            "prepared": true,
+            "cleanup_attempted": true,
+            "cleaned": true,
+            "retained": false
+          },
+          "report_sha256": "d660448b9c23fde01a02895e4da63cdbc3df36ebfbfd8483dfc6901d8efe89b1"
+        },
+        "N08": {
+          "name": "Add a Taskell column and a task to it",
+          "status": "failed",
+          "steps_passed": 13,
+          "steps_total": 14,
+          "exit_code": 0,
+          "state_outcome": "rejected",
+          "failure": {
+            "category": "state_assertion_failure",
+            "message": "Add a Taskell column and a task to it: step 14: state \"board.md\" (file): saved-state checkpoint: wrong file bytes; inspect the selected path and reviewed expectation, then rerun"
+          },
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleanup": {
+            "id": "1f0cc0f3767bedf09c304425abaefd8e",
+            "attempted": true,
+            "fixture": "fixtures/n08-add-list",
+            "prepared": true,
+            "cleanup_attempted": true,
+            "cleaned": true,
+            "retained": false
+          },
+          "report_sha256": "0971032c2e6a30ba1ba419e831d7ec88c3ce45b11ae5a3f6da81bed6887a524b"
+        }
+      },
+      "failure_screens": {
+        "N06": {
+          "path": "42474684731-macos/taskell-n06-move-right-actual.txt",
+          "sha256": "9b2132a4bf4347c7d806d7fe9dab8ba2a8609c972d90f91915f45110b0ea2ccf"
+        },
+        "N08": {
+          "path": "42474684731-macos/taskell-n08-add-list-actual.txt",
+          "sha256": "155145979c2e77df603d8c7dbc7ad22743e5cbb126929ba33696845de83980da"
+        }
+      },
+      "curated_files_sha256": {
+        "host.json": "9c9520acbe9a4c4d9875beb907b76adbf9b531ee4371711d4d439e6096aeb508",
+        "runner.json": "312979f0a195623b2b999aa6c0f4ac9fcf1400d2a8ae392d21868f085481c562",
+        "taskell-create-task-report.json": "9bef1ee9dce55b1f898e20c32c59a60f655f6d84ca372813d806977877ea68ea",
+        "taskell-duplicate-task-report.json": "4f5dbd276efe3094fb800e935321bb0abd68f10f6865601c8df8339b8332df8b",
+        "taskell-n04-rename-task-report.json": "067bff1742e80468ad8a13968271cf135e90da7b9b854900fef56b8e2d9e9e67",
+        "taskell-n05-reorder-task-report.json": "b0d5efe04aa8b012e27aa2b838a0b7b7ee73b07a63f81b3869b9fc617b7f8e1e",
+        "taskell-n06-move-right-actual.txt": "9b2132a4bf4347c7d806d7fe9dab8ba2a8609c972d90f91915f45110b0ea2ccf",
+        "taskell-n06-move-right-report.json": "82b2d6a7b495fd2d568d73054310bbd1bd7ebe691896d22f5d45041092b37f83",
+        "taskell-n07-search-complete-report.json": "d660448b9c23fde01a02895e4da63cdbc3df36ebfbfd8483dfc6901d8efe89b1",
+        "taskell-n08-add-list-actual.txt": "155145979c2e77df603d8c7dbc7ad22743e5cbb126929ba33696845de83980da",
+        "taskell-n08-add-list-report.json": "0971032c2e6a30ba1ba419e831d7ec88c3ce45b11ae5a3f6da81bed6887a524b"
+      }
+    }
+  ],
+  "first_use_findings": {
+    "N05": "passed 6/6 on Linux and Intel Mac; exact board state matched; graceful process-group and workspace cleanup confirmed",
+    "N06": "interaction, exit 0, process and workspace cleanup passed on both hosts; final state assertion failed on the expected bytes (6/7 steps); screen shows Move me in Doing after Preserve there; the source serializer requires the separator newline for empty To Do that the executed expectation omitted",
+    "N07": "passed 11/11 on Linux and Intel Mac; exact board state matched; graceful process-group and workspace cleanup confirmed",
+    "N08": "interaction, exit 0, process and workspace cleanup passed on both hosts; final state assertion failed on expected bytes (13/14 steps); screen shows Review with Review task; expected bytes omitted the serializer separator newline after empty Done"
+  },
+  "credit": "N05 and N07 earn one-shot cross-host exploratory evidence only. N06 and N08 are preserved as authored-oracle misses; no pass credit until the corrected expected bytes run on both hosts. N01-N04 prior pass evidence remains in build-attempt-v25. Catalog remains unfrozen; zero 12-repeat series, fault, calibration, final candidate, or Taskell admission credit."
+}
