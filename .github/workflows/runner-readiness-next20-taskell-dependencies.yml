@@ -1,0 +1,87 @@
+name: Runner readiness next20 Taskell dependency preflight
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  resolve:
+    name: Resolve pinned Taskell dependencies (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            runner: ubuntu-24.04
+          - os: macos-15
+            runner: macos-15
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 90
+    env:
+      STACK_ROOT: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/active/taskell/stack-root
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Set up the resolver toolchain in the owned workspace
+        uses: haskell-actions/setup@0f8e8c99d88aeb3fbfd523f1ef2c6f762d10d64d
+        with:
+          ghc-version: '8.10.7'
+          cabal-version: '3.10.3.0'
+          stack-version: '3.11.1'
+          enable-stack: 'true'
+          stack-no-global: 'true'
+          stack-setup-ghc: 'true'
+          cabal-update: 'false'
+      - name: Verify pinned source and resolver inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/acceptance/next20_acquire.py taskell
+          python scripts/acceptance/next20_source_tree.py taskell --verify-existing
+          cd artifacts/runner-readiness-next-twenty-project-pass/active/taskell/src
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+          expected={'stack.yaml':'34aff73a975d5ab23b48c63070206fd5309626e05be7e58f3e354db61d47459e',
+                    'stack.yaml.lock':'b66e445701699113507ab6fac5619ba225eeb5ec019e58a89a152e7e29f8613e'}
+          for name,digest in expected.items():
+              if hashlib.sha256(Path(name).read_bytes()).hexdigest()!=digest:
+                  raise SystemExit('Pinned resolver file changed: '+name)
+          PY
+          stack --version
+          ghc --numeric-version
+      - name: Resolve complete production and test dependency graph
+        shell: bash
+        run: |
+          set -euo pipefail
+          workspace="$GITHUB_WORKSPACE"
+          cd artifacts/runner-readiness-next-twenty-project-pass/active/taskell/src
+          mkdir -p ../dependency-preflight
+          stack ls dependencies json --external --include-base --test > ../dependency-preflight/dependencies.json
+          stack dot --external --include-base --test > ../dependency-preflight/dependencies.dot
+          cp stack.yaml ../dependency-preflight/stack.yaml
+          cp stack.yaml.lock ../dependency-preflight/stack.yaml.lock
+          cp package.yaml ../dependency-preflight/package.yaml
+          cp Setup.hs ../dependency-preflight/Setup.hs
+          cp "$workspace/docs/validation/runner-readiness-next-twenty-project-pass/taskell/source-provenance.json" ../dependency-preflight/source-provenance.json
+          python - <<'PY'
+          import hashlib, json, os, platform
+          from pathlib import Path
+          root=Path('../dependency-preflight')
+          dependencies=json.loads((root/'dependencies.json').read_text())
+          (root/'host.json').write_text(json.dumps({
+              'os':platform.platform(),'architecture':platform.machine(),
+              'stack_root':os.environ['STACK_ROOT'],
+              'files':{p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(root.iterdir()) if p.is_file()},
+              'dependency_count':len(dependencies),
+              'scope':'Resolution only. No Taskell executable, tests, target UI, release helper, or external-service import was run.'
+          },sort_keys=True,indent=2)+'\n')
+          PY
+      - name: Retain bounded dependency-resolution packet
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: taskell-dependencies-${{ matrix.os }}
+          path: artifacts/runner-readiness-next-twenty-project-pass/active/taskell/dependency-preflight/
+          if-no-files-found: error
+          retention-days: 14
