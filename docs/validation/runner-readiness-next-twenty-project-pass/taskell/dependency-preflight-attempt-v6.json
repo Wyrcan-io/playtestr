@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42447963421,
+  "source_revision": "6607cdba13ff623037b899dcfaf4d0de6ed5a927",
+  "event": "push",
+  "result": "both-hosts-failed-before-source-acquisition",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128630823475,
+      "result": "failed-during-source-acquisition-parent-setup",
+      "failed_step": "Verify pinned source and resolver inputs",
+      "cause": "The acquisition helper expects the campaign raw parent directory to exist. The toolchain creates a sibling directory, but the workflow had not created the raw parent; target archive download had not begun.",
+      "target_source_downloaded": false,
+      "target_launched": false
+    },
+    {
+      "host": "macos-15-arm64",
+      "job_id": 128630823602,
+      "result": "failed-during-source-acquisition-parent-setup",
+      "failed_step": "Verify pinned source and resolver inputs",
+      "cause": "The acquisition helper expects the campaign raw parent directory to exist. The toolchain creates a sibling directory, but the workflow had not created the raw parent; target archive download had not begun.",
+      "target_source_downloaded": false,
+      "target_launched": false
+    }
+  ],
+  "provider_run": "https://github.com/Wyrcan-io/playtestr/actions/runs/42447963421",
+  "disposition": "Preserve both failures. The workflow now creates the expected campaign raw parent before invoking the existing acquisition helper."
+}

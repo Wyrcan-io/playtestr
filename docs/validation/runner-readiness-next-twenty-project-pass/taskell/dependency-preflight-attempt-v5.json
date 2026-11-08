@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42447675823,
+  "source_revision": "242eca27c38f3ab71588f147ee4b50ece6503825",
+  "event": "push",
+  "result": "linux-dependency-resolution-succeeded-macos-toolchain-setup-failed",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128629958858,
+      "result": "dependency-resolution-succeeded",
+      "source_verified": true,
+      "target_launched": false,
+      "artifact_id": 13604196652,
+      "artifact_sha256": "9192ec16e7f9bcc57b17beb3e18665f64b3b61e075119ecc214ec9dcf80b7474"
+    },
+    {
+      "host": "macos-15-arm64",
+      "job_id": 128629959091,
+      "result": "failed-during-toolchain-setup-before-source-acquisition",
+      "failed_step": "Set up the resolver toolchain in the owned workspace",
+      "cause": "GHC 8.10.7 compiler sanity check failed because LLVM opt was unavailable; Stack setup exited before source acquisition.",
+      "target_source_downloaded": false,
+      "target_launched": false
+    }
+  ],
+  "provider_run": "https://github.com/Wyrcan-io/playtestr/actions/runs/42447675823",
+  "disposition": "Preserve both host outcomes. Linux resolution is preliminary and its artifact still requires digest-verified retrieval and dependency review. The macOS result is a toolchain setup failure, not target incompatibility."
+}

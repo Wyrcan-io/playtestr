@@ -42,6 +42,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          mkdir -p artifacts/runner-readiness-next-twenty-project-pass/active
           python scripts/acceptance/next20_acquire.py taskell
           python scripts/acceptance/next20_source_tree.py taskell --verify-existing
           cd artifacts/runner-readiness-next-twenty-project-pass/active/taskell/src
