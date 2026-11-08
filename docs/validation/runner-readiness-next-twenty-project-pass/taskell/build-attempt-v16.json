@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42455018922,
+  "source_revision": "4f3181885ed5c46c553b062926d5772443282504",
+  "event": "push",
+  "host": "ubuntu-24.04-x86_64",
+  "job_id": 128652069928,
+  "source_verified": true,
+  "upstream_tests_passed": 250,
+  "target_binary_built": true,
+  "playtestr_binary_built": true,
+  "authored_smoke": {
+    "result": "passed",
+    "passed_steps": 6,
+    "exit_code": 0,
+    "saved_state_matched": true,
+    "cleanup_confirmed": true,
+    "workspace_cleaned": true
+  },
+  "binary_identities": {
+    "taskell_sha256": "6099f625fc30ee1fefcef87c3aa40e34915b4b254b52f4276d940e976225dfd8",
+    "playtestr_sha256": "7c2605dc42117cc7926b5f7c9f468f86112054aa5cfa4a223024e9f781808089"
+  },
+  "artifact": {
+    "id": 13607267474,
+    "bytes": 11203268,
+    "sha256": "af15463f57151339bd6f69d0e4d335a86ecbbb131960287a08143258636a345e"
+  },
+  "curated_evidence": "first-use-attempts/42455018922-linux/",
+  "recorder_route": {
+    "target_launched": true,
+    "review_reached": true,
+    "text_control_failure": "The unquoted /text q value was invalid JSON; the recorder retained only the successful prefix and then timed out awaiting exit.",
+    "save_or_export": false
+  },
+  "disposition": "One Linux authored smoke observation passed; the same run is not a successful public first-use export. Preserve the malformed recorder-input attempt separately. Run 42455300421 contains JSON-quoted q and the corrected PATH. No scenario/native-cell/fault/admission credit."
+}

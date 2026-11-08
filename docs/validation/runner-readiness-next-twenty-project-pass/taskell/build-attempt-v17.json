@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42455300421,
+  "source_revision": "4c1d6618d9956bbe3da8c217929abe476f4b87e0",
+  "event": "push",
+  "host": "ubuntu-24.04-x86_64",
+  "job_id": 128652905331,
+  "artifact": {
+    "id": 13607612260,
+    "bytes": 11203332,
+    "sha256": "9804c06e4ea23de302f2e70d58683abc4d71ce1e0d87d73f34665f186daa0d42"
+  },
+  "source_verified": true,
+  "upstream_tests_passed": 250,
+  "target_binary_built": true,
+  "playtestr_binary_built": true,
+  "authored_smoke": {
+    "result": "passed",
+    "passed_steps": 6,
+    "exit_code": 0,
+    "saved_state_matched": true,
+    "cleanup_confirmed": true,
+    "workspace_cleaned": true
+  },
+  "recorder_route": {
+    "target_launched": true,
+    "review_reached": true,
+    "captured_actions": ["initial To Do readiness", "initial task readiness", "space completion", "q exit"],
+    "exit_checkpoint": 0,
+    "saved_state_captured": true,
+    "candidate_reviewed": true,
+    "fresh_replay": false,
+    "export": false,
+    "disposition": "Route reached review with valid JSON-quoted text controls; operator cancelled explicitly after preview (exit 130). Inspect retained artifact candidate before any UX or case contract claim."
+  },
+  "evidence_source": "GitHub Actions job logs and artifact metadata; artifact retained by run 42455300421.",
+  "credit": "One Linux authored smoke observation and successful recorder review preview only. No Taskell scenario, native cell, fault calibration, or project admission credit."
+}

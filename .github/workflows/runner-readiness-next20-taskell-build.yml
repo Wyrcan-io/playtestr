@@ -123,7 +123,7 @@ jobs:
               'scope':'One reviewed first-use attempt against an isolated synthetic Markdown board. Read the same-run state and report before declaring this case successful or freezing its contract.'
           },sort_keys=True,indent=2)+'\n')
           PY
-      - name: Attempt first-use recorder route without authoring JSON
+      - name: Review, replay, export, and ordinarily run the public recorder route
         shell: bash
         run: |
           set -euo pipefail
@@ -141,7 +141,8 @@ jobs:
           /exit 0
           /file board.md
           /review
-          /quit
+          /replay
+          /save
           EOF
           set +e
           "$packet/bin/playtestr" record \
@@ -156,10 +157,15 @@ jobs:
           result=$?
           set -e
           cat "$packet/first-use/record-console.txt"
-          if [ "$result" -ne 130 ]; then
-            echo "Expected explicit recorder cancellation after review (130), got $result" >&2
+          if [ "$result" -ne 0 ]; then
+            echo "Expected recorder review, fresh replay, and save to succeed (0), got $result" >&2
             exit 1
           fi
+          test -s "$packet/first-use/first-route.json"
+          "$packet/bin/playtestr" test \
+            --artifacts-dir "$packet/first-use/ordinary-test-artifacts" \
+            --report "$packet/first-use/ordinary-test-report.json" \
+            "$packet/first-use/first-route.json"
       - name: Retain bounded native build packet
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

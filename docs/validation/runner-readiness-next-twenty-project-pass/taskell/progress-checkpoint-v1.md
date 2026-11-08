@@ -135,3 +135,26 @@ MacOS evidence is in `first-use-attempts/42452701639-macos/` with receipt
 PATH omitted Taskell, now fixed in the next pushed workflow. Continue watching
 `42455018922` for both-host smoke and public recorder results. Taskell remains
 unadmitted.
+
+## Latest continuation (2026-11-08)
+
+Linux on run `42455018922` repeated the six-step authored smoke successfully.
+Its recorder launched Taskell and reached review, but unquoted `/text q` was
+invalid JSON; the preview retained only the successful prefix and had no exit
+or state checkpoint. Receipt `build-attempt-v16.json` preserves this separate
+control-input failure.
+
+Linux on run `42455300421` passed all 250 pinned upstream tests, built Taskell
+and Playtestr, passed all six smoke steps including exact exit and Markdown
+state, and confirmed process/workspace cleanup. The public recorder route
+reached review with quoted inputs, recorded the intended actions and selected
+saved state, then cancelled explicitly (130). It did not replay or export.
+Receipt `build-attempt-v17.json` records the preview-only result and hosted
+artifact digest. The Mac Intel job remains in the pinned upstream tests at the
+latest status check.
+
+Next inspect the recorded candidate and exercise fresh `/replay`, `/save`, and
+ordinary `playtestr test` on the exact exported files. Then define and challenge
+the full Taskell case catalog and execute native repetitions and fault
+calibrations. Taskell still has zero scenario, native-cell, fault or admission
+credit; campaign remains 4/20 new admissions (14/30 cumulative).
