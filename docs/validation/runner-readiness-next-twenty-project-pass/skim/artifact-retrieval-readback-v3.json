@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "workflow_run_id": 42433175257,
+  "commit": "77f283cee3b55b0dac014905a36824386c5fd8d3",
+  "artifacts": [
+    {
+      "artifact_id": 13598741941,
+      "name": "next20-skim-linux-rc6-final",
+      "bytes": 6406845,
+      "provider_sha256": "370d4b5bd1713d67c2bb016f05dc05b0f8c775bd267bd462d6b8b1a81e2baf888",
+      "local_path": null,
+      "local_sha256": null,
+      "status": "GitHub API digest recorded; download tool returned a temporary file reference but this session runtime could not fetch its backing URL. Job log was retrieved and preserved locally."
+    },
+    {
+      "artifact_id": 13598413070,
+      "name": "next20-skim-windows-rc6-final",
+      "bytes": 6731531,
+      "provider_sha256": "a96e5228bc97c186631eff550f1529ee9dd405f6fd4ce471406a3adc04d8ed7e",
+      "local_path": null,
+      "local_sha256": null,
+      "status": "GitHub API digest recorded; download tool returned a temporary file reference but this session runtime could not fetch its backing URL. Job log was retrieved and preserved locally."
+    }
+  ],
+  "job_logs": [
+    {
+      "host": "linux",
+      "path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/skim-v14/skim-linux-v14-42433175257-joblogs.log",
+      "utf8_bytes": 91076,
+      "sha256": "72963c6cdfa662a588ae3326bc8367e4b95fb0ced74f53893671cbbe00029233",
+      "status": "retrieved and saved"
+    },
+    {
+      "host": "windows",
+      "path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/skim-v14/skim-windows-v14-42433175257-joblogs.log",
+      "utf8_bytes": 102321,
+      "sha256": "f1e79d85cfb6a3168aedadfb05dced2b7aaa9ea89409c260c6a1abd8d98441db",
+      "status": "retrieved and saved"
+    }
+  ]
+}

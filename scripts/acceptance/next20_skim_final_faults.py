@@ -18,6 +18,11 @@ from readiness_build_plop import usage
 from readiness_evidence import immutable_json, sha256
 
 
+def json_command(command):
+    """Serialize a native build argument vector without losing its exact order."""
+    return [os.fspath(value) if isinstance(value, os.PathLike) else value for value in command]
+
+
 async def build(command, source, target, env, label):
     task = asyncio.create_task(execute(command, 'skim', label, cwd=source, env=env,
         timeout=1800, output_cap=2*1024*1024, campaign=NextCampaign(phase='final-archive')))
@@ -192,7 +197,7 @@ async def main():
             shutil.copyfile(built, original_binary)
             mutant_record = dict(build_record, binary_sha256=mutant_digest, build_attempt=mutant_build['id'],
                 source_mutation=fault['id'], source_mutant_sha256=start['mutated_source_sha256'],
-                mutation_command=command)
+                mutation_command=json_command(command))
             build_path.write_text(json.dumps(mutant_record, indent=2)+'\n', encoding='utf-8')
             corrupted = await run_case(host, candidate, contract,
                 f'skim-final-fault-{stem}-corrupted', False, mutant_digest,

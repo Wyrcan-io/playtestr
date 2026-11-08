@@ -4,10 +4,27 @@ import tempfile
 import unittest
 from pathlib import Path
 
+import next20_target_cleanup
 from next20_target_cleanup import source_inventory,target_inventory,validate_retained_owned_directories,verify_no_case_evidence
 
 
 class SourceInventoryTests(unittest.TestCase):
+    def test_cleanup_can_account_for_active_case_reports(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            raw=Path(temporary)
+            project=raw/'skim';project.mkdir()
+            report=raw/'active'/'skim'/'case-evidence'/'attempt-1'/'report.json'
+            report.parent.mkdir(parents=True)
+            report.write_text('{"runner_version":"0.4.0-rc.6","report_version":3,"results":[]}')
+            previous=next20_target_cleanup.RAW
+            try:
+                next20_target_cleanup.RAW=raw
+                rows=list(next20_target_cleanup.cleanup_reports(project,include_active_case_evidence=True))
+            finally:
+                next20_target_cleanup.RAW=previous
+            self.assertEqual(len(rows),1)
+            self.assertEqual(rows[0][0],report)
+
     def test_owned_windows_junction_is_recorded_without_traversal(self):
         if os.name!='nt':
             self.skipTest('Windows junction inventory is a native Windows behavior')

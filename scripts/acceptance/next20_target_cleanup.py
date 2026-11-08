@@ -96,12 +96,32 @@ def report_documents(project_root):
         if isinstance(data,dict) and 'runner_version' in data and isinstance(data.get('results'),list):yield path,data
 
 
-def cleanup_reports(project_root,closed_packets=()):
+def cleanup_reports(project_root,closed_packets=(),include_active_case_evidence=False):
     """Include explicit fully retained closed windows without recounting copies."""
     seen=set()
     for path,data in report_documents(project_root):
         seen.add(path.relative_to(RAW).as_posix())
         yield path,data,sha256(path)
+    if include_active_case_evidence:
+        active_evidence=RAW/'active'/project_root.name/'case-evidence'
+        if active_evidence.exists():
+            if active_evidence.is_symlink() or getattr(active_evidence,'is_junction',lambda:False)():
+                raise ValueError('linked active case-evidence root')
+            active_evidence.resolve(strict=True).relative_to((RAW/'active'/project_root.name).resolve(strict=True))
+            report_count=0
+            for path in active_evidence.rglob('report.json'):
+                report_count+=1
+                if report_count>512:raise ValueError('active case report count exceeds reviewed cleanup bound')
+                if path.is_symlink() or getattr(path,'is_junction',lambda:False)():
+                    raise ValueError('linked active case report')
+                if path.stat().st_size>4*1024**2:continue
+                data=json.loads(path.read_text(encoding='utf-8-sig'))
+                if not isinstance(data,dict) or 'runner_version' not in data or not isinstance(data.get('results'),list):
+                    continue
+                relative=path.relative_to(RAW).as_posix()
+                if relative in seen:raise ValueError('duplicate active/retained report source')
+                seen.add(relative)
+                yield path,data,sha256(path)
     if len(closed_packets)>4 or len(set(closed_packets))!=len(closed_packets):raise ValueError('closed report packet count/duplicates')
     for packet in closed_packets:
         if not re.fullmatch(r'retained-(?:failed|complete)-final-v[1-9][0-9]{0,2}',packet):raise ValueError('unsafe closed report packet')
@@ -148,6 +168,7 @@ def main():
     parser=argparse.ArgumentParser();parser.add_argument('--project',required=True)
     parser.add_argument('--prepare-only',action='store_true')
     parser.add_argument('--no-case-reports',action='store_true')
+    parser.add_argument('--include-active-case-evidence',action='store_true')
     parser.add_argument('--window',choices=['rebuild-v1'])
     parser.add_argument('--resume-preparation',action='store_true')
     parser.add_argument('--generated-source-manifest',type=Path)
@@ -188,7 +209,8 @@ def main():
         expected=restored_source_inventory(expected,generated)
     if actual!=expected:raise ValueError('target source not exactly restored; retain it for investigation')
     reports=0;unlaunched=[]
-    for path,data,report_digest in cleanup_reports(RAW/args.project,args.closed_report_packet):
+    for path,data,report_digest in cleanup_reports(RAW/args.project,args.closed_report_packet,
+            include_active_case_evidence=args.include_active_case_evidence):
         for row in data['results']:
             if report_digest in args.invalid_spec_report_sha256:
                 if not invalid_spec_before_launch(data,row):raise ValueError('Explicit invalid-spec report contains launch/cleanup state')

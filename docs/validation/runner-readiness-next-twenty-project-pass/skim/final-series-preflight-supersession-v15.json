@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "project": "skim",
+  "replacement_plan_namespace": "final-series-plan-native-exit-v15",
+  "target_launches": 482,
+  "scenario_credit": 0,
+  "superseded_declaration": "final-series-declaration-native-exit-v9.json",
+  "failed_attempt_receipt": "candidate-native-attempts-v7.json",
+  "reason": "V14 independently audited and completed 240 exact-candidate ordinary cases on each host. The first fault baseline passed on each host and each mutant source rebuilt to different bytes, but writing the mutant build record failed on a pathlib.Path argument before the corrupted candidate was launched. Finally blocks restored source and binary and source verification passed. Cache cleanup succeeded. Target cleanup preflight incorrectly requested no-case mode even though case reports were retained under active/skim/case-evidence. V15 converts build argv PathLike values to strings and explicitly audits a bounded set of active report.json files for target/workspace cleanup before retaining the evidence and removing the target. ZIP provider digests and preserved local job logs are in artifact-retrieval-readback-v3.json.",
+  "replacement_plan": "artifacts/runner-readiness-next-twenty-project-pass/skim/final-series-plan-native-exit-v15/{host}/plan.json",
+  "replacement_audit_required": true
+}

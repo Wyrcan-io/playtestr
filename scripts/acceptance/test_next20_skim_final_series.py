@@ -5,6 +5,7 @@ from pathlib import Path
 import unittest
 
 from next20_skim_final_series import BATCHES, CASES, transform_contract
+from next20_skim_final_faults import json_command
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -24,7 +25,7 @@ class SkimFinalSeriesTests(unittest.TestCase):
         self.assertEqual([row['id'] for row in BATCHES], list(range(12)))
         self.assertEqual(len(CASES), 20)
         self.assertEqual(len(set(CASES)), 20)
-        declaration = json.loads((PACKAGE/'final-series-declaration-native-exit-v9.json').read_text(encoding='utf-8'))
+        declaration = json.loads((PACKAGE/'final-series-declaration-native-exit-v10.json').read_text(encoding='utf-8'))
         self.assertEqual(declaration['batches'], BATCHES)
         self.assertEqual(declaration['scenario_ids'], CASES)
 
@@ -39,6 +40,14 @@ class SkimFinalSeriesTests(unittest.TestCase):
     def test_viewport_profile_preserves_exact_wrapping_snapshot(self):
         original = self.contract('N08')
         self.assertEqual(transform_contract(4, 'N08', original), original)
+
+    def test_fault_build_command_is_json_serializable_without_reordering(self):
+        from pathlib import Path
+        import json
+        command = [Path('owned/toolchain/cargo'), 'build', '--locked']
+        normalized = json_command(command)
+        self.assertEqual(normalized, [str(command[0]), 'build', '--locked'])
+        self.assertEqual(json.loads(json.dumps(normalized)), normalized)
 
     def test_segmented_input_is_ordered_and_semantically_identical(self):
         original = self.contract('N02')
