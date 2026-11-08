@@ -48,3 +48,10 @@ artifact is 2,973,229 bytes with provider SHA-256
 `1ed3f48d5d114fa00842167a73508c9e914d259b6ac0ef1c4e81567655ba8360`. The
 workflow now installs the exact Go version from repository `go.mod` with pinned
 `actions/setup-go`, then builds Playtestr and runs the authored smoke.
+
+Run `42450896413` passed 250 tests and built Taskell and Playtestr on Ubuntu,
+then failed before target launch because the authored fixture directory path
+was invalid (`build-attempt-v7.json`; artifact digest and size are in that
+receipt). The same run's macOS job was still building at receipt time. The
+spec now points to the actual fixture directory and `board-basic.md`; workflow
+push filters include first-use inputs so this correction runs natively.

@@ -59,3 +59,11 @@ latest poll, Linux was in upstream tests and macOS in toolchain setup. Continue
 monitoring, retain and inspect both native artifacts, then complete the no-JSON
 recorder route before designing/freezing the 20+12 scenarios. Taskell has zero
 admission credit; overall new admissions remain 4/20.
+
+Run `42450896413` subsequently failed Ubuntu before target launch because the
+smoke fixture path named a missing directory; its immutable failure is
+`build-attempt-v7.json`. The next workflow run `42451645308` began with pinned
+Go setup on macOS and upstream tests on Linux, but used the pre-correction
+fixture. The smoke now uses the actual `first-use-v1/fixtures/board-basic.md`
+path/name, and the workflow watches these inputs. This corrected declaration
+is pushed in the next commit; monitor its successor run before proceeding.

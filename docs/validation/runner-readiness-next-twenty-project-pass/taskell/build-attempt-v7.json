@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42450896413,
+  "source_revision": "e3bdaa0dfdddc964c4af729768728e1f077320e0",
+  "event": "push",
+  "result": "linux-upstream-tests-and-build-passed-authored-smoke-workspace-fixture-path-invalid-macos-in-progress-at-observation",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128639699677,
+      "source_verified": true,
+      "upstream_tests_passed": 250,
+      "target_binary_built": true,
+      "taskell_version": "1.11.4",
+      "playtestr_binary_built": true,
+      "authored_smoke": "failed-before-target-launch",
+      "failure_category": "workspace_setup",
+      "failure": "Fixture path docs/validation/runner-readiness-next-twenty-project-pass/taskell/first-use-v1/fixtures/board-basic is absent; the pinned fixture is the file fixtures/board-basic.md.",
+      "first_use_recorder_reached": false,
+      "artifact_id": 13606087162,
+      "artifact_bytes": 11202284,
+      "artifact_sha256": "dde5c476d8697a701ed74d2a3ea4e5784a53de6c3785ec44f13831e633f96474"
+    },
+    {
+      "host": "macos-15-intel-x86_64",
+      "job_id": 128639699909,
+      "upstream_test_status_at_observation": "in_progress",
+      "first_use_recorder_reached": false
+    }
+  ],
+  "provider_run": "https://github.com/Wyrcan-io/playtestr/actions/runs/42450896413",
+  "disposition": "Preserve the workspace-setup failure as no target launch/no case credit. The smoke spec is corrected to point at the actual checked-in fixture directory and board-basic.md file. Do not infer macOS outcome until that job finishes."
+}
