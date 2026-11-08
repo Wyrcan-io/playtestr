@@ -1,0 +1,60 @@
+{
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "candidate": "v0.4.0-rc.6",
+  "candidate_series": "native-exit-v1",
+  "candidate_launches_total": 2,
+  "ordinary_attempts_total": 480,
+  "fault_calibrations_total": 18,
+  "new_qualification_credit": 0,
+  "prior_declaration": "final-series-declaration-native-exit-v33.json",
+  "workflow_run_id": 42520096920,
+  "workflow_commit": "5196a214551651af315affa7ce5cff9feb5117cb",
+  "workflow_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/42520096920",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128851497699,
+      "conclusion": "failure",
+      "artifact": {
+        "id": 13633406351,
+        "name": "next20-skim-linux-rc6-final",
+        "bytes": 17716650,
+        "sha256": "0a42ca2385e2add27b752142b2371d31cbf054dfc0c7dcf67746a8b57069a2a5"
+      },
+      "source_and_target_build": "passed",
+      "candidate_source_harness": "public-authoring",
+      "ordinary_attempts": 240,
+      "ordinary_passed": 240,
+      "fault_phases_passed": 9,
+      "first_use_and_diagnosis": "passed; eight controls; three commands to a reviewed ordinary pass; seeded snapshot failure was useful",
+      "first_failure": "selected snapshot update timed out at the stale expect cedar assertion after the approved query changed to amber",
+      "source_and_target_cleanup": "passed",
+      "public_relocation_preview": "not reached",
+      "credit": 0
+    },
+    {
+      "host": "windows-2025-x86_64-msvc",
+      "job_id": 128851497383,
+      "conclusion": "failure",
+      "artifact": {
+        "id": 13633073776,
+        "name": "next20-skim-windows-rc6-final",
+        "bytes": 17918832,
+        "sha256": "97c785b2f26da111019f353f008ec5f67dc80b56bffa47610d554fb93db7c095"
+      },
+      "source_and_target_build": "passed",
+      "candidate_source_harness": "public-authoring",
+      "ordinary_attempts": 240,
+      "ordinary_passed": 240,
+      "fault_phases_passed": 9,
+      "first_use_and_diagnosis": "passed; eight controls; three commands to a reviewed ordinary pass; seeded snapshot failure was useful",
+      "first_failure": "selected snapshot update timed out at the stale expect cedar assertion after the approved query changed to amber",
+      "source_and_target_cleanup": "passed",
+      "public_relocation_preview": "not reached",
+      "credit": 0
+    }
+  ],
+  "repair_status": "V34 updates the exact matching recorded expect from cedar to amber along with the query, and tests missing/ambiguous query-or-expect records while preserving the original spec bytes.",
+  "result": "V33 passed all 480 exact-candidate ordinary cases and 18 fault phases, but both public routes failed snapshot maintenance at an unchanged assertion and did not reach relocation or workflow preview. The complete failed-route attempt is audited and retained without admission credit. V34 requires a fresh full exact-native series.",
+  "schema_version": 1
+}

@@ -38,9 +38,12 @@ def prepare_maintenance_spec(maintenance, original_spec):
     original_spec_sha256 = sha256(original_spec)
     approved = json.loads(original_spec.read_text(encoding='utf-8'))
     matches = [i for i, value in enumerate(approved['command']) if value == '--query=cedar']
-    if len(matches) != 1:
-        raise ValueError('public maintenance cannot identify the exact query argument')
+    expectations = [i for i, step in enumerate(approved.get('steps', []))
+                    if step.get('expect') == 'cedar']
+    if len(matches) != 1 or len(expectations) != 1:
+        raise ValueError('public maintenance cannot identify the exact query and result expectation')
     approved['command'][matches[0]] = '--query=amber'
+    approved['steps'][expectations[0]]['expect'] = 'amber'
     maintained_spec = Path(maintenance)/'selection-maintenance.json'
     immutable_json(maintained_spec, approved)
     if sha256(original_spec) != original_spec_sha256:
@@ -95,7 +98,7 @@ async def main():
         no_handwritten_first_use_spec=True, initial_shell_invocations_expected=3,
         first_use_controls=controls, expected_first_run='record, review, fresh replay, save, then ordinary candidate test passes and cleans its managed workspace',
         seeded_diagnosis='wrong selected screen snapshot fails with a useful report category and actual evidence',
-        maintenance='change only selected query and named snapshot; preserve fixture and target bytes',
+        maintenance='change selected query and its matching result assertion, then update only the named snapshot; preserve fixture and target bytes',
         relocation='move complete owned spec/fixture/target bundle under a spaced Unicode path and rerun',
         delivered_workflow='generate and review a source-pinned free-workflow preview; do not dispatch or create a PR',
         command_timeout_seconds=180, route_timeout_seconds=900,

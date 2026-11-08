@@ -15,6 +15,7 @@ class SkimPublicRouteTests(unittest.TestCase):
             baseline = {
                 'version': 3,
                 'command': ['bin/sk.exe', '--query=cedar'],
+                'steps': [{'expect': 'cedar'}, {'snapshot': 'selected.txt'}],
                 'snapshots': ['snapshots/selected.txt'],
             }
             original.write_text(json.dumps(baseline), encoding='utf-8')
@@ -27,15 +28,22 @@ class SkimPublicRouteTests(unittest.TestCase):
             self.assertEqual(original.read_bytes(), original_bytes)
             self.assertEqual(json.loads(maintained.read_text(encoding='utf-8')), approved)
             self.assertEqual(approved['command'], ['bin/sk.exe', '--query=amber'])
+            self.assertEqual(approved['steps'], [{'expect': 'amber'}, {'snapshot': 'selected.txt'}])
 
     def test_maintenance_refuses_ambiguous_or_missing_query(self):
         with tempfile.TemporaryDirectory() as directory:
             maintenance = Path(directory)
             original = maintenance/'selection.json'
-            for command in (['bin/sk.exe'], ['--query=cedar', '--query=cedar']):
-                original.write_text(json.dumps({'command': command}), encoding='utf-8')
-                with self.subTest(command=command), self.assertRaisesRegex(
-                        ValueError, 'cannot identify the exact query argument'):
+            cases = [
+                {'command': ['bin/sk.exe'], 'steps': [{'expect': 'cedar'}]},
+                {'command': ['--query=cedar', '--query=cedar'], 'steps': [{'expect': 'cedar'}]},
+                {'command': ['--query=cedar'], 'steps': [{'expect': 'violet'}]},
+                {'command': ['--query=cedar'], 'steps': [{'expect': 'cedar'}, {'expect': 'cedar'}]},
+            ]
+            for value in cases:
+                original.write_text(json.dumps(value), encoding='utf-8')
+                with self.subTest(value=value), self.assertRaisesRegex(
+                        ValueError, 'cannot identify the exact query and result expectation'):
                     prepare_maintenance_spec(maintenance, original)
                 self.assertFalse((maintenance/'selection-maintenance.json').exists())
 

@@ -152,7 +152,7 @@ jobs:
       - name: Freeze all derived contracts before target execution
         run: python -B scripts/acceptance/next20_check.py --label skim-final-contract-freeze --timeout 180 -- python -B scripts/acceptance/next20_skim_final_series.py --host '${{ matrix.host }}' --prepare-only
       - name: Independently reconstruct all frozen contracts
-        run: python -B scripts/acceptance/next20_check.py --label skim-final-independent-plan-audit --timeout 300 -- python -B scripts/acceptance/next20_skim_final_plan_audit.py --plan artifacts/runner-readiness-next-twenty-project-pass/skim/final-series-plan-native-exit-v27/${{ matrix.host }}/plan.json
+        run: python -B scripts/acceptance/next20_check.py --label skim-final-independent-plan-audit --timeout 300 -- python -B scripts/acceptance/next20_skim_final_plan_audit.py --plan artifacts/runner-readiness-next-twenty-project-pass/skim/final-series-plan-native-exit-v28/${{ matrix.host }}/plan.json
       - name: Execute twelve exact-archive batches
         id: final
         env:

@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "reviewed_at_utc": "2026-11-08T20:48:12Z",
+  "workflow_run_id": 42520096920,
+  "workflow_commit": "5196a214551651af315affa7ce5cff9feb5117cb",
+  "candidate": "v0.4.0-rc.6",
+  "project": "skim",
+  "candidate_admission": false,
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128851497699,
+      "artifact_id": 13633406351,
+      "artifact_name": "next20-skim-linux-rc6-final",
+      "bytes": 17716650,
+      "provider_sha256": "0a42ca2385e2add27b752142b2371d31cbf054dfc0c7dcf67746a8b57069a2a5",
+      "retrieved_sha256": "0a42ca2385e2add27b752142b2371d31cbf054dfc0c7dcf67746a8b57069a2a5",
+      "zip_entries": 3375,
+      "candidate_runner_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a",
+      "target_binary_sha256": "427de19b0ab4f344376b3a7a594bac9c36872faba9cc745c9b8f0bd05452bfa0",
+      "ordinary": {
+        "batches": 12,
+        "outcomes": 240,
+        "passing": 240,
+        "batch_summary_hash_failures": 0,
+        "finished_receipt_hashes_verified": 240,
+        "report_hashes_verified": 240,
+        "reports_parsed_with_all_steps_passed": 240,
+        "candidate_identities": 1,
+        "target_identities": 1,
+        "cleanup_confirmed": 240,
+        "workspace_cleaned": 240
+      },
+      "faults": {
+        "distinct": 3,
+        "baseline_passes": 3,
+        "mutations_detected": 3,
+        "restored_recovery_passes": 3,
+        "phases": 9,
+        "source_restored": true,
+        "target_restored": true
+      },
+      "public_route": {
+        "first_use_controls": 8,
+        "runner_commands_to_first_reviewed_pass": 3,
+        "first_use_passed": true,
+        "seeded_snapshot_diagnosis_failed_usefully": true,
+        "maintenance_before_update_failed_as_expected": true,
+        "maintenance_update_report_status": "failed",
+        "maintenance_update_failure_category": "assertion_timeout",
+        "maintenance_update_failure_message": "Select the unique cedar result: step 4: step timed out: context deadline exceeded",
+        "cause": "The maintained spec changed --query=cedar to --query=amber, but retained its recorded expect cedar assertion. The test timed out before the selected snapshot could be updated.",
+        "maintenance_target_launches": 2,
+        "relocation_reached": false,
+        "workflow_preview_reached": false,
+        "project_admission_credit": 0
+      },
+      "cleanup": {
+        "source_verified": true,
+        "process_tree_checked": true,
+        "compiler_cache_removed": true,
+        "target_inventory_prepared": true,
+        "target_removed": true,
+        "workflow_artifact_upload": "success"
+      }
+    },
+    {
+      "host": "windows-2025-x86_64-msvc",
+      "job_id": 128851497383,
+      "artifact_id": 13633073776,
+      "artifact_name": "next20-skim-windows-rc6-final",
+      "bytes": 17918832,
+      "provider_sha256": "97c785b2f26da111019f353f008ec5f67dc80b56bffa47610d554fb93db7c095",
+      "retrieved_sha256": "97c785b2f26da111019f353f008ec5f67dc80b56bffa47610d554fb93db7c095",
+      "zip_entries": 3379,
+      "candidate_runner_sha256": "6c80fdbcdd74705b85b2e8aad2f07140f5ff5e8cea80db1d6c24a04d71b23f36",
+      "target_binary_sha256": "4497678c458939d684de615039ea57aeb31f2a0cc8b3129148f504ea339ef720",
+      "ordinary": {
+        "batches": 12,
+        "outcomes": 240,
+        "passing": 240,
+        "batch_summary_hash_failures": 0,
+        "finished_receipt_hashes_verified": 240,
+        "report_hashes_verified": 240,
+        "reports_parsed_with_all_steps_passed": 240,
+        "candidate_identities": 1,
+        "target_identities": 1,
+        "cleanup_confirmed": 240,
+        "workspace_cleaned": 240
+      },
+      "faults": {
+        "distinct": 3,
+        "baseline_passes": 3,
+        "mutations_detected": 3,
+        "restored_recovery_passes": 3,
+        "phases": 9,
+        "source_restored": true,
+        "target_restored": true
+      },
+      "public_route": {
+        "first_use_controls": 8,
+        "runner_commands_to_first_reviewed_pass": 3,
+        "first_use_passed": true,
+        "seeded_snapshot_diagnosis_failed_usefully": true,
+        "maintenance_before_update_failed_as_expected": true,
+        "maintenance_update_report_status": "failed",
+        "maintenance_update_failure_category": "assertion_timeout",
+        "maintenance_update_failure_message": "Select the unique cedar result: step 4: step timed out: context deadline exceeded",
+        "cause": "The maintained spec changed --query=cedar to --query=amber, but retained its recorded expect cedar assertion. The test timed out before the selected snapshot could be updated.",
+        "maintenance_target_launches": 2,
+        "relocation_reached": false,
+        "workflow_preview_reached": false,
+        "project_admission_credit": 0
+      },
+      "cleanup": {
+        "source_verified": true,
+        "process_tree_checked": true,
+        "compiler_cache_removed": true,
+        "target_inventory_prepared": true,
+        "target_removed": true,
+        "workflow_artifact_upload": "success"
+      }
+    }
+  ],
+  "limits": [
+    "Both provider ZIP digests match recomputed in-memory hashes. All 24 batch JSON hashes, 480 finished receipt hashes and 480 report hashes were checked. All ordinary statuses/steps, candidate/target identities, and per-case cleanup records were independently reviewed.",
+    "All 18 source-fault phases passed with three distinct faults, detected mutations, recovered passing controls, and exact source/target restoration.",
+    "Both native public routes passed first-use and seeded diagnosis, then failed the selected snapshot maintenance update on the preserved expect cedar assertion before relocation or delivered-workflow preview.",
+    "The raw ZIPs remained in memory and were not retained locally. Source/process checks, compiler-cache cleanup, checked target removal and artifact upload succeeded on both hosts.",
+    "V33 receives no Skim admission. V34 updates the matching expectation with the query and includes a focused preservation/matching regression; a fresh full native run and audit remain required.",
+    "No directional-navigation or exact raw NUL-framing compatibility claim is made."
+  ]
+}
