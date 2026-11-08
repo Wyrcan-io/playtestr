@@ -5,6 +5,7 @@ import hashlib
 import json
 import os
 from pathlib import Path, PurePosixPath
+import re
 import subprocess
 import tarfile
 import urllib.request
@@ -20,6 +21,7 @@ PUBLIC_KEY='RWR+PhirBCclQlM0Khae0up57K9Yy8hRstG1AOyawt/HIIGMckQQWlKn'
 # macports/macports-base:keys/archives/macports-archives-2025.pub
 PUBLIC_KEY_GIT_BLOB='477a77d4363525ba8afc32331fb389897fba193c'
 SIGNATURE_COMMENT='untrusted comment: verify with macports-archives-2025.pub'
+MACPORTS_LLVM_BIN_ALIAS=re.compile(r'[A-Za-z0-9_.+-]+-mp-12\Z')
 
 
 def download(url,path,limit):
@@ -66,15 +68,31 @@ def verify_signify(package,signature,tool_root):
 
 def safe_extract(package,destination):
     prefix='opt/local/libexec/llvm-12/'
-    seen=set();pending=[];expanded=0
+    prefix_root=prefix.rstrip('/')
+    seen=set();aliases=set();pending=[];expanded=0
     with tarfile.open(package,'r:bz2') as archive:
         members=archive.getmembers()
         if len(members)>20000:raise ValueError('MacPorts LLVM package has too many archive entries')
         for member in members:
             name=member.name.removeprefix('./')
             if name in {'','.','./'} and member.isdir():continue
-            if name.startswith('+'):
+            normalized=name.rstrip('/')
+            if normalized.startswith('+'):
                 if member.size>2*1024*1024:raise ValueError('MacPorts package metadata exceeds bound')
+                continue
+            if normalized in {'opt','opt/local','opt/local/bin','opt/local/libexec'}:
+                if not member.isdir():raise ValueError('Unexpected non-directory MacPorts package scaffold: '+name)
+                continue
+            if normalized==prefix_root:
+                if not member.isdir():raise ValueError('LLVM package prefix is not a directory')
+                destination.mkdir(parents=True,exist_ok=True)
+                continue
+            if normalized.startswith('opt/local/bin/'):
+                alias=normalized.removeprefix('opt/local/bin/')
+                if (not member.isfile() or not MACPORTS_LLVM_BIN_ALIAS.fullmatch(alias) or
+                        member.size<=0 or member.size>4096 or alias in aliases):
+                    raise ValueError('Unexpected MacPorts LLVM command alias: '+name)
+                aliases.add(alias)
                 continue
             if not name.startswith(prefix):raise ValueError('Unexpected path in MacPorts LLVM archive: '+name)
             relative=PurePosixPath(name[len(prefix):])
@@ -82,6 +100,9 @@ def safe_extract(package,destination):
                 raise ValueError('Unsafe MacPorts LLVM archive member path')
             if relative.as_posix() in seen:raise ValueError('Duplicate MacPorts LLVM archive member')
             seen.add(relative.as_posix())
+            if not relative.parts or relative.as_posix()=='.':
+                if member.isdir():destination.mkdir(parents=True,exist_ok=True);continue
+                raise ValueError('LLVM package prefix entry is not a directory')
             if member.isdir():
                 (destination/Path(*relative.parts)).mkdir(parents=True,exist_ok=True)
             elif member.isfile():

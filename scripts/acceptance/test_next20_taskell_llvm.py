@@ -68,6 +68,24 @@ class TaskellLLVMTests(unittest.TestCase):
             safe_extract(package,self.root/'llvm-12')
         self.assertFalse((self.root/'escape').exists())
 
+    def test_macports_layout_allows_only_bounded_ignored_versioned_bin_wrappers(self):
+        package=self.root/'layout.tbz2'
+        with tarfile.open(package,'w:bz2') as archive:
+            for name in ('opt','opt/local','opt/local/bin','opt/local/libexec',
+                         'opt/local/libexec/llvm-12','opt/local/libexec/llvm-12/bin'):
+                member=tarfile.TarInfo(name);member.type=tarfile.DIRTYPE;archive.addfile(member)
+            for name,data in [('opt/local/bin/opt-mp-12',b'#!/bin/sh\n'),
+                              ('opt/local/bin/llc-mp-12',b'#!/bin/sh\n'),
+                              ('opt/local/libexec/llvm-12/bin/opt',b'opt'),
+                              ('opt/local/libexec/llvm-12/bin/llc',b'llc')]:
+                member=tarfile.TarInfo(name);member.size=len(data);member.mode=0o755
+                archive.addfile(member,io.BytesIO(data))
+        prefix=self.root/'selected-llvm'
+        safe_extract(package,prefix)
+        self.assertEqual((prefix/'bin/opt').read_bytes(),b'opt')
+        self.assertEqual((prefix/'bin/llc').read_bytes(),b'llc')
+        self.assertFalse((self.root/'opt').exists())
+
 
 if __name__=='__main__':
     unittest.main()
