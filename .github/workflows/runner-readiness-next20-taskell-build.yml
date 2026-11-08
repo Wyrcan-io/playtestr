@@ -129,6 +129,7 @@ jobs:
           set -euo pipefail
           root="$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/active/taskell"
           packet="$root/native-build"
+          export PATH="$packet/bin:$PATH"
           mkdir -p "$packet/first-use/fixtures/board-basic"
           cp docs/validation/runner-readiness-next-twenty-project-pass/taskell/first-use-v1/fixtures/board-basic.md \
             "$packet/first-use/fixtures/board-basic/board.md"

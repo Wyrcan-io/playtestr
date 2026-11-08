@@ -113,3 +113,14 @@ workspace removal were confirmed. The case now sends quit, asserts exact exit
 0, then checks final saved bytes. No target-defect or admission credit from the
 premature state check. MacOS is still in upstream tests; the corrected case
 will run under the next workflow push.
+
+Ubuntu on run `42453888286` completed one passing authored case on the exact
+runner and Taskell binaries. All six steps passed, including exit 0, exact
+saved board bytes, confirmed process-group termination and workspace removal.
+The readback report/host/runner/recorder console are retained under
+`taskell/first-use-attempts/42453888286-linux/`, and toolchain/binary hashes
+are bound in `build-attempt-v14.json`. The subsequent no-JSON recorder failed
+before target launch because its independent workflow step omitted the target
+directory from PATH. That environment is corrected for the next run. MacOS
+for `42453888286` was still in upstream tests; no native-cell or admission
+credit is claimed.

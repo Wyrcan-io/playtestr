@@ -97,3 +97,12 @@ confirmed process-group termination and workspace cleanup. This is an
 authoring/timing failure, not evidence of a Taskell defect. The case now sends
 `q`, requires exact exit 0, then checks saved bytes after exit. MacOS for that
 run was still compiling at this update; the corrected case is next.
+
+The Linux leg of run `42453888286` then passed the authored smoke: all six
+steps, exact exit 0, saved-state bytes, process-tree cleanup and workspace
+cleanup. Its report and binary identities are retained under
+`first-use-attempts/42453888286-linux/`. The following no-JSON recorder step
+failed before target launch because that separate workflow step omitted the
+Taskell binary directory from `PATH`; `build-attempt-v14.json` records this
+split result. Pinned `PATH` export is now included for the next native run.
+MacOS on `42453888286` was still in upstream tests when recorded.

@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42453888286,
+  "source_revision": "9caccda3852a70bf08fbcbc46950c7bb8ef1a991",
+  "event": "push",
+  "host": "ubuntu-24.04-x86_64",
+  "job_id": 128648678437,
+  "source_verified": true,
+  "upstream_tests_passed": 250,
+  "target_binary_built": true,
+  "taskell_version": "1.11.4",
+  "playtestr_binary_built": true,
+  "go_setup": "passed; Go 1.25.0 from go.mod",
+  "authored_smoke": {
+    "result": "passed",
+    "passed_steps": 6,
+    "total_steps": 6,
+    "exit_code": 0,
+    "saved_state": "board-basic.md matched the reviewed exact bytes after target exit",
+    "cleanup_confirmed": true,
+    "workspace_cleaned": true
+  },
+  "binary_identities": {
+    "taskell_sha256": "6099f625fc30ee1fefcef87c3aa40e34915b4b254b52f4276d940e976225dfd8",
+    "playtestr_sha256": "49c0ae8492b8dcb8ed21e42943905f99013ee35640471497406df6ef18ceaf1a"
+  },
+  "artifact": {
+    "id": 13606838530,
+    "bytes": 11202936,
+    "sha256": "e18f9ff349783f4965e5ecdf3ff7d8a989cb4a26d41cd4ed2282d49fd971cdb1"
+  },
+  "curated_evidence": "first-use-attempts/42453888286-linux/",
+  "recorder_route": {
+    "result": "not reached",
+    "failure": "The independent recorder step did not export the native target binary directory onto PATH; resolving taskell failed before target launch.",
+    "target_launched": false
+  },
+  "disposition": "This is one successful Linux authored smoke observation only. It does not qualify a final scenario, native cell, fault calibration, admission, or public no-JSON authoring route. The workflow now exports the target binary directory in the recorder step; rerun both native hosts."
+}
