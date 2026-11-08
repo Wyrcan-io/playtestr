@@ -1,9 +1,16 @@
 # Runner readiness: next twenty projects
 
 Invoked 22 October 2026 under the [execution prompt](../../plans/runner-readiness-next-twenty-project-execution-prompt.md).
-Status: **in progress; four historical rc.5 admissions and three rc.6 admissions, spanning seven distinct new applications**. The target is twenty new canonical
-applications and a cumulative 30/100 engineering milestone on the candidate actually qualified. The previous ten
-passed an exact-rc.5 carry-forward audit over actual retained evidence; their rc.6 requalification remains open.
+Status: **in progress; four of twenty new projects qualify on exact rc.6 (14/30 cumulative)**. Eight distinct new applications have an admission on some candidate; four are rc.5 history only. The original ten passed an exact-rc.5 carry-forward audit, but none is yet requalified on rc.6. Current rc.6 new-project totals are 80 scenarios, 8 native cells, 1,920 ordinary executions, 72 calibrations and 12 real target faults. The cumulative 30/100 engineering gate remains open.
+
+Skim's Linux and Windows exact-rc.6 final series and three-fault calibrations are
+independently audited, but Skim remains unadmitted until public authoring,
+maintenance, relocation, delivery, cleanup and campaign gates close. Taskell is
+in native revalidation. Its latest macOS toolchain attempt exposed additional
+signed-package dylib dependencies (`libxml2.16.dylib` and `libz.1.dylib`); the
+latest Linux exact series is still running at upstream tests. A previous Linux
+series failed case E11M and remains preserved. Neither project has rc.6
+admission credit yet.
 jrnl qualified with 20 scenarios, two native cells, 480 ordinary executions and
 18 calibrations; its [admission](jrnl/admission.json) binds the audited package.
 Commitizen passed its [complete admission audit](commitizen-python/admission.json):20 scenarios, two native cells,480 ordinary,18 mandatory calibrations and2 separate terminal-only probes. Its twelve delivered-CI observations qualify source-built and exact-archive triplets separately.
@@ -72,7 +79,7 @@ No release, outreach, issues, discussions, PR mutations or paid infrastructure
 are authorized. Existing scoped commits/pushes and standard hosted workflows
 remain authorized. The bounded helper workflow has passed actual native runs. All105 shared public archive controls passed actual three-host reexecution39976090337 and independent audit; retained initial compiler-prerequisite failures remain. These are public-control reexecutions, not105 new whole controls.
 
-Skim has a [reviewed Windows development package](skim/README.md). The exact rc.6 Linux and Windows final series now passes all 240 ordinary cases plus all nine fault phases on each host; Windows' three non-identical restored-source rebuilds are retained and its recovery checks ran against the verified pinned executable. See [attempt V22](skim/candidate-native-attempts-v11.json) and the [artifact readback](skim/artifact-retrieval-readback-v7.json). This completes the Skim candidate requalification gate; it adds no new-project admission credit. The current resume point is [checkpoint continuation V22](checkpoint-continuation-v22.md).
+Skim has a [reviewed Windows development package](skim/README.md). Hosted run `42506300345` passed the exact rc.6 Linux and Windows final series (240 ordinary outcomes and nine source-fault phases per host). [Artifact readback v8](skim/artifact-retrieval-readback-v8.json) independently matches both provider digests and every batch, report and finished-receipt hash. This completes the final-series packet audit only; public-route and campaign gates remain, and Skim receives no admission credit yet. Two later prelaunch freezes failed because their immutable declarations carried stale workflow/consumer hashes; neither launched the target. The current continuation is [checkpoint v47](checkpoint-continuation-v47.md).
 
 
 Git Town v17 run `41988031958` preserved another failed final-series attempt. Native Windows completed all 240 ordinary cases and reported nine source-fault phases; process proof, exact restoration and checked cleanup passed. The uploaded packet omitted the referenced fault case reports, build receipts and mutated executables, so those phases cannot receive independent audit credit. Linux passed 220 ordinary cases; its batch-11 N01 contract correctly contained the declared 5,000 ms startup boundary but timed out at 5,040 ms with exit 130. Process/workspace cleanup and exact source/runtime removal passed. All v17 outcomes remain preserved with zero cell, calibration or admission credit in [attempt record](git-town/final-series-attempts-v17.json).
