@@ -1,0 +1,55 @@
+{
+  "command": [
+    "taskell",
+    "board.md"
+  ],
+  "height": 24,
+  "max_output_bytes": 2000000,
+  "name": "Attempt to add an empty Taskell task",
+  "run_timeout_ms": 60000,
+  "steps": [
+    {
+      "expect": "To Do"
+    },
+    {
+      "text": "a"
+    },
+    {
+      "expect": "INSERT"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "INSERT"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "INSERT"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "IyMgVG8gRG8KCgojIyBEb25lCgo=",
+        "kind": "file",
+        "path": "board.md"
+      }
+    }
+  ],
+  "timeout_ms": 5000,
+  "version": 3,
+  "width": 80,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/e01-empty-blank-input",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

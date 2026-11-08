@@ -1,7 +1,7 @@
 # Runner readiness: next twenty projects
 
 Invoked 22 October 2026 under the [execution prompt](../../plans/runner-readiness-next-twenty-project-execution-prompt.md).
-Status: **in progress; four of twenty new projects qualify on exact rc.6 (14/30 cumulative)**. Eight distinct new applications have an admission on some candidate; four are rc.5 history only. The original ten passed an exact-rc.5 carry-forward audit, but none is yet requalified on rc.6. Current rc.6 new-project totals are 80 scenarios, 8 native cells, 1,920 ordinary executions, 72 calibrations and 12 real target faults. The cumulative 30/100 engineering gate remains open.
+Status: **in progress; five of twenty new projects qualify on exact rc.6 (15/30 cumulative)**. Nine distinct new applications have an admission on some candidate; four are rc.5 history only. The original ten passed an exact-rc.5 carry-forward audit, but none is yet requalified on rc.6. Current rc.6 new-project totals are 100 scenarios, 10 native cells, 2,400 ordinary executions, 90 calibrations and 15 real target faults. The cumulative 30/100 engineering gate remains open.
 
 Skim V34 and its exact-rc.6 Linux and Windows repeat V35, including three-fault
 calibrations, are independently audited in [readback v15](skim-artifact-retrieval-readback-v15.json):
@@ -11,21 +11,23 @@ cleanup. First-use, useful seeded diagnosis (expected diagnostic failure), the o
 maintenance assertion and its paired query/result update, Unicode relocation,
 and read-only delivered-workflow preview are all retained. Both actual cell
 models also rejected twelve semantic corruptions each in
-[model controls v3](skim-model-controls-v3.json). Skim has not yet received
-admission credit: its formal project admission and cumulative audit remain open;
-directional-key behavior and raw NUL framing remain explicit limitations. See
-[checkpoint v55](checkpoint-continuation-v55.md).
+[model controls v3](skim-model-controls-v3.json). Skim's formal
+[admission](skim/admission.json) is complete and included in the exact-candidate
+ledger. Directional-key behavior and raw NUL framing remain explicit
+limitations. See [checkpoint v56](checkpoint-continuation-v56.md).
 
-Taskell has zero rc.6 credit. Exact run `42528435710` built and passed the
-upstream test suite on Linux, but E11M failed in 11/12 batches and passed only
-in the separately declared larger-viewport batch; this remains an unresolved
-target/harness boundary. macOS stopped before target build because the signed
-MacPorts archive contains harmless `opt/local/etc` directory metadata, then
-its cleanup step also failed on the absent build receipt. Local bounded fixes
-now accept safe in-prefix directory metadata and handle cleanup when no build
-receipt exists. Focused Windows tests, compile, YAML and diff checks pass; a
-fresh hosted Linux/macOS series is required to validate those fixes. See
-[checkpoint v55](checkpoint-continuation-v55.md).
+Taskell has zero rc.6 credit. Exact run `42531548193` built and passed the
+upstream tests on Linux, then failed E11M in eleven of twelve batches. The
+provider-read-back screen showed the expected parser diagnostic wrapped across
+the 80-column screen (`Could` / `ld not parse file.`), so the exact full-phrase
+expectation was a false negative; batch 4's wider viewport passed. A new frozen
+window v2 now asserts the stable rendered suffix and retains the exact exit-1
+and unchanged-file checks. macOS stopped before target build on an empty signed
+MacPorts `.turd_libxml2` marker; the earlier no-build cleanup also lacked the
+explicit no-case evidence flag. Local allow/skip logic and regression tests now
+cover both paths. Focused Windows tests, compilation, YAML and diff checks pass;
+fresh hosted Linux/macOS validation of the v2 contract and newest cleanup fixes
+is required. See [checkpoint v56](checkpoint-continuation-v56.md).
 jrnl qualified with 20 scenarios, two native cells, 480 ordinary executions and
 18 calibrations; its [admission](jrnl/admission.json) binds the audited package.
 Commitizen passed its [complete admission audit](commitizen-python/admission.json):20 scenarios, two native cells,480 ordinary,18 mandatory calibrations and2 separate terminal-only probes. Its twelve delivered-CI observations qualify source-built and exact-archive triplets separately.

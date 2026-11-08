@@ -251,7 +251,7 @@ jobs:
               print('No completed Taskell build receipt; retain source identity and continue checked source cleanup.')
           PY
           manifest=$(python -B scripts/acceptance/next20_taskell_cleanup.py --host "$HOST_KEY")
-          python -B scripts/acceptance/next20_target_cleanup.py --project taskell --generated-source-manifest "$manifest" --include-active-case-evidence --retain-owned-directory case-evidence --max-files 60000 --max-bytes 2147483648
+          python -B scripts/acceptance/next20_target_cleanup.py --project taskell --generated-source-manifest "$manifest" --no-case-reports --include-active-case-evidence --retain-owned-directory case-evidence --max-files 60000 --max-bytes 2147483648
 
       - name: Preserve complete fault-calibration evidence
         if: always()

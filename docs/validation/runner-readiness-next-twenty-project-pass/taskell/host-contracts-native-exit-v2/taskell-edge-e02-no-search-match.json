@@ -1,0 +1,58 @@
+{
+  "command": [
+    "taskell",
+    "board.md"
+  ],
+  "height": 24,
+  "max_output_bytes": 2000000,
+  "name": "Search for a term absent from a Taskell board",
+  "run_timeout_ms": 60000,
+  "steps": [
+    {
+      "expect": "Keep this task"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "text": "absentneedle"
+    },
+    {
+      "expect": "absentneedle"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect_not": "Keep this task"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect": "Keep this task"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "IyMgVG8gRG8KCi0gS2VlcCB0aGlzIHRhc2sKCiMjIERvbmUK",
+        "kind": "file",
+        "path": "board.md"
+      }
+    }
+  ],
+  "timeout_ms": 5000,
+  "version": 3,
+  "width": 80,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/e02-no-search-match",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

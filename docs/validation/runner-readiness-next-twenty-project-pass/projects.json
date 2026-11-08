@@ -5,9 +5,9 @@
   "current_candidate_original_ten": 0,
   "qualification_candidate": "v0.4.0-rc.6",
   "admission_counters_candidate": "v0.4.0-rc.5",
-  "current_candidate_new_project_admissions": 4,
-  "current_candidate_ordinary_executions_qualified": 1920,
-  "current_candidate_calibration_executions_qualified": 72,
+  "current_candidate_new_project_admissions": 5,
+  "current_candidate_ordinary_executions_qualified": 2400,
+  "current_candidate_calibration_executions_qualified": 90,
   "candidate_scope": "Top-level admission aggregates remain historical exact v0.4.0-rc.5. Current v0.4.0-rc.6 counters and every per-project candidate admission are separate explicit projections. Historical admissions transfer no current-candidate credit; original-ten current requalification remains separate.",
   "new_project_admissions": 4,
   "new_project_target": 20,
@@ -366,8 +366,8 @@
       "id": "skim",
       "repository": "skim-rs/skim",
       "pin": "1ab47f6ba7f1bfc355273bbdd98d4b2056ef95a3",
-      "status": "V31 exact rc.6 Linux and Windows each passed 240 ordinary outcomes and nine fault phases; public route refused before target launch on both because public-authoring was missing from the evidence-phase allowlist; checked cleanup passed; zero admission credit",
-      "admitted": false,
+      "status": "admitted-on-recorded-candidate",
+      "admitted": true,
       "planned_hosts": [
         "linux",
         "windows"
@@ -389,7 +389,14 @@
       "audited_ordinary_executions": 0,
       "audited_calibration_executions": 0,
       "real_source_faults": 0,
-      "candidate_admissions": [],
+      "candidate_admissions": [
+        {
+          "project": "skim",
+          "candidate": "v0.4.0-rc.6",
+          "path": "skim/admission.json",
+          "sha256": "6eee9345738c655835f83138012fc67e782a644c9a056c68b7bdb4308f61b307"
+        }
+      ],
       "hosted_development_readback": "skim/hosted-development-readback-v1.json",
       "hosted_development_readback_sha256": "db53f73fc3cf0bf92ae21332496472e6559db5d6d2d3603e884034eee3597bbc",
       "hosted_development_run": "41810289319",
@@ -416,7 +423,7 @@
       "development_real_faults": 3,
       "development_fault_matrix": "skim/hosted-source-repeat-41831060729.json",
       "development_fault_matrix_sha256": "b3954174540f172674730e80f3a1a7a840e94bcc007af23bf425bba4717170f0",
-      "current_candidate_qualified": false,
+      "current_candidate_qualified": true,
       "development_fault_archive_sha256": "c3d513cb8c410920ebc8d3da5d6bf3f742908dd3acd87c6bc80edc3269aa84b1",
       "development_fault_readback_sha256": "2ebeb2ea45a25ccf5f3bb8b4ebd90c68357a5012c254a2d9abac562acefe6689",
       "source_runtime_cleanup_readback": "skim/cleanup-readback-v1.json",
@@ -571,12 +578,12 @@
       "real_source_faults": 12
     },
     "v0.4.0-rc.6": {
-      "projects": 4,
-      "ordinary": 1920,
-      "calibrations": 72,
-      "canonical_scenarios": 80,
-      "native_cells": 8,
-      "real_source_faults": 12
+      "projects": 5,
+      "ordinary": 2400,
+      "calibrations": 90,
+      "canonical_scenarios": 100,
+      "native_cells": 10,
+      "real_source_faults": 15
     }
   },
   "admission_subjects": [
@@ -623,16 +630,22 @@
       "sha256": "396484804c7825be1f6483fb19f553f5945cea1fdcda5f75ee339eb1ede40a4e"
     },
     {
+      "project": "skim",
+      "candidate": "v0.4.0-rc.6",
+      "path": "skim/admission.json",
+      "sha256": "6eee9345738c655835f83138012fc67e782a644c9a056c68b7bdb4308f61b307"
+    },
+    {
       "project": "git-town",
       "candidate": "v0.4.0-rc.6",
       "path": "git-town/admission.json",
       "sha256": "ef9d1c3ef2500f74440f7093d87932538dba82bd661aa3385d1a727eddfa4fd2"
     }
   ],
-  "distinct_new_projects_with_any_candidate_admission": 8,
-  "current_candidate_canonical_scenarios": 80,
-  "current_candidate_native_cells": 8,
-  "current_candidate_real_source_faults": 12,
+  "distinct_new_projects_with_any_candidate_admission": 9,
+  "current_candidate_canonical_scenarios": 100,
+  "current_candidate_native_cells": 10,
+  "current_candidate_real_source_faults": 15,
   "recorded_candidate_counters": {
     "v0.4.0-rc.5": {
       "projects": 4,
@@ -643,12 +656,12 @@
       "real_source_faults": 12
     },
     "v0.4.0-rc.6": {
-      "projects": 4,
-      "ordinary": 1920,
-      "calibrations": 72,
-      "canonical_scenarios": 80,
-      "native_cells": 8,
-      "real_source_faults": 12
+      "projects": 5,
+      "ordinary": 2400,
+      "calibrations": 90,
+      "canonical_scenarios": 100,
+      "native_cells": 10,
+      "real_source_faults": 15
     }
   },
   "qualification_gates": [

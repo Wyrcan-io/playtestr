@@ -1,0 +1,85 @@
+{
+  "command": [
+    "taskell",
+    "board.md"
+  ],
+  "height": 24,
+  "max_output_bytes": 2000000,
+  "name": "Observe Taskell Escape behavior after editing a title",
+  "run_timeout_ms": 60000,
+  "steps": [
+    {
+      "expect": "Old escape"
+    },
+    {
+      "text": "e"
+    },
+    {
+      "expect": "INSERT"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "text": "Escape committed"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect": "Escape committed"
+    },
+    {
+      "expect_not": "INSERT"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "IyMgVG8gRG8KCi0gRXNjYXBlIGNvbW1pdHRlZAoKIyMgRG9uZQoK",
+        "kind": "file",
+        "path": "board.md"
+      }
+    }
+  ],
+  "timeout_ms": 5000,
+  "version": 3,
+  "width": 80,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/e04-escape-edit",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

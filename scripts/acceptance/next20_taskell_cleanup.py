@@ -29,21 +29,22 @@ def inventory_work_directory(path, target):
     pending = [path]
     while pending:
         directory = pending.pop()
-        for entry in os.scandir(directory):
-            item = Path(entry.path)
-            relative = item.relative_to(path).as_posix()
-            info = entry.stat(follow_symlinks=False)
-            if stat.S_ISLNK(info.st_mode) or getattr(info, 'st_reparse_tag', 0):
-                raise ValueError('Taskell Stack work contains a link/reparse point: ' + relative)
-            if stat.S_ISDIR(info.st_mode):
-                pending.append(item)
-            elif stat.S_ISREG(info.st_mode):
-                total += info.st_size
-                if len(files) >= MAX_FILES or info.st_size > MAX_FILE_BYTES or total > MAX_TOTAL_BYTES:
-                    raise ValueError('Taskell Stack work inventory exceeds reviewed bounds')
-                files[relative] = dict(bytes=info.st_size, sha256=sha256(item))
-            else:
-                raise ValueError('Taskell Stack work contains a special file: ' + relative)
+        with os.scandir(directory) as entries:
+            for entry in entries:
+                item = Path(entry.path)
+                relative = item.relative_to(path).as_posix()
+                info = entry.stat(follow_symlinks=False)
+                if stat.S_ISLNK(info.st_mode) or getattr(info, 'st_reparse_tag', 0):
+                    raise ValueError('Taskell Stack work contains a link/reparse point: ' + relative)
+                if stat.S_ISDIR(info.st_mode):
+                    pending.append(item)
+                elif stat.S_ISREG(info.st_mode):
+                    total += info.st_size
+                    if len(files) >= MAX_FILES or info.st_size > MAX_FILE_BYTES or total > MAX_TOTAL_BYTES:
+                        raise ValueError('Taskell Stack work inventory exceeds reviewed bounds')
+                    files[relative] = dict(bytes=info.st_size, sha256=sha256(item))
+                else:
+                    raise ValueError('Taskell Stack work contains a special file: ' + relative)
     return dict(files=files, file_count=len(files), total_bytes=total)
 
 

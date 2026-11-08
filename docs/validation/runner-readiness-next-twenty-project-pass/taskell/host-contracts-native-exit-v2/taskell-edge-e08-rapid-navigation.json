@@ -1,0 +1,52 @@
+{
+  "command": [
+    "taskell",
+    "board.md"
+  ],
+  "height": 24,
+  "max_output_bytes": 2000000,
+  "name": "Navigate rapidly to and delete a unique Taskell task",
+  "run_timeout_ms": 60000,
+  "steps": [
+    {
+      "expect": "First row"
+    },
+    {
+      "text": "jjjj"
+    },
+    {
+      "expect": "Rapid target"
+    },
+    {
+      "text": "D"
+    },
+    {
+      "expect_not": "Rapid target"
+    },
+    {
+      "expect": "Fourth row"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "IyMgVG8gRG8KCi0gRmlyc3Qgcm93Ci0gU2Vjb25kIHJvdwotIFRoaXJkIHJvdwotIEZvdXJ0aCByb3cKCiMjIERvbmUKCg==",
+        "kind": "file",
+        "path": "board.md"
+      }
+    }
+  ],
+  "timeout_ms": 5000,
+  "version": 3,
+  "width": 80,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/e08-rapid-navigation",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

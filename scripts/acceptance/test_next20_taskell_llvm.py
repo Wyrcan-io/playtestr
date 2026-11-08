@@ -148,6 +148,7 @@ class TaskellLLVMTests(unittest.TestCase):
     def test_signed_xml_and_zlib_families_select_only_required_runtime_libraries(self):
         xml=self.archive([
             ('opt/local/etc',None),
+            ('opt/local/etc/xml/.turd_libxml2',b''),
             ('opt/local/lib/libxml2.16.0.4.dylib',b'xml-runtime'),
             ('opt/local/lib/libxml2.16.dylib',b'xml-alias'),
             ('opt/local/include/libxml/parser.h',b'header'),
@@ -185,6 +186,7 @@ class TaskellLLVMTests(unittest.TestCase):
             ['libcharset.1.dylib'],'libcharset')
         self.assertEqual(xml_bytes,len(b'xml-runtime')+len(b'xml-alias'))
         self.assertEqual(set(xml_files),{'libxml2.16.0.4.dylib','libxml2.16.dylib'})
+        self.assertFalse((prefix/'lib/.turd_libxml2').exists())
         self.assertEqual(zlib_bytes,len(b'zlib-runtime')+len(b'zlib-alias'))
         self.assertEqual(set(zlib_files),{'libz.1.3.2.dylib','libz.1.dylib'})
         self.assertEqual(icu_bytes,len(b'icu-i18n')+len(b'i18n-alias')+len(b'icu-common')+
@@ -210,6 +212,15 @@ class TaskellLLVMTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'dylib expansion exceeded 10 bytes'):
             safe_extract_dylib_family(oversized_library,self.root/'library-limit',MACPORTS_ZLIB_DYLIB,
                 ['libz.1.dylib'],'zlib',cap=10,archive_cap=100)
+
+    def test_nonempty_macports_activation_marker_is_rejected(self):
+        package=self.archive([
+            ('opt/local/etc/xml/.turd_libxml2',b'not-empty'),
+            ('opt/local/lib/libxml2.16.dylib',b'xml-runtime'),
+        ],'nonempty-marker.tbz2')
+        with self.assertRaisesRegex(ValueError,'Unexpected path in MacPorts libxml2 archive'):
+            safe_extract_dylib_family(package,self.root/'nonempty-marker',MACPORTS_LIBXML2_DYLIB,
+                ['libxml2.16.dylib'],'libxml2')
 
     @unittest.skipIf(os.name=='nt','native Windows symlink creation unavailable under this token')
     def test_signed_libffi_layout_selects_versioned_dylib_and_safe_alias(self):

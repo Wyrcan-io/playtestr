@@ -193,6 +193,12 @@ def safe_extract_dylib_family(package,destination,pattern,required,label,cap=16*
                 continue
             if name in seen:raise ValueError(f'Duplicate MacPorts {label} archive member')
             seen.add(name)
+            # MacPorts may retain an empty activation marker below etc/ in a
+            # signed binary package. It is provenance metadata, never a runtime
+            # file, and must not be materialized into the LLVM prefix.
+            if (member.isfile() and member.size==0 and parts.parts[:3]==('opt','local','etc') and
+                    parts.name.startswith('.turd_') and len(parts.name)>6):
+                continue
             if not any(name.startswith(root+'/') for root in roots):
                 raise ValueError(f'Unexpected path in MacPorts {label} archive: '+name)
             if member.isdir():continue

@@ -1,0 +1,45 @@
+{
+  "admission_credit": 0,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "candidate": "v0.4.0-rc.6",
+  "candidate_series": "native-exit-v1",
+  "hosts": [
+    {
+      "artifact": {
+        "bytes": 12546516,
+        "id": 13638280673,
+        "name": "taskell-final-native-exit-v1-linux",
+        "sha256": "d8396f1990bd7f6d6e6f14231b018171757624a437ebbc16dc6f7de53e3bb064"
+      },
+      "batches_with_e11m_failure": [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11],
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128886629759,
+      "native_target_build": "passed; upstream test suite passed; exact candidate launched in all twelve batches; the v1 E11M screen oracle failed on wrapping in eleven standard-width batches and passed in the wider viewport batch",
+      "ordinary_batches_attempted": 12,
+      "target_cleanup": "confirmed per report for every observed target/workspace outcome",
+      "workflow_run_id": 42531548193
+    },
+    {
+      "artifact": {
+        "bytes": 212305396,
+        "id": 13637985421,
+        "name": "taskell-final-native-exit-v1-darwin",
+        "sha256": "537b19bf0e0789745a53b6f54de2b7c66d577bd7d223a4986fe85fac055ed022"
+      },
+      "failure": "The signed package contains an empty opt/local/etc/xml/.turd_libxml2 activation marker not yet handled by the helper. Cleanup then found no target reports but the workflow had not enabled checked no-case evidence. Taskell was never built or launched; final source cleanup was not confirmed.",
+      "host": "macos-15-arm64",
+      "job_id": 128886629299,
+      "native_target_build": "not completed",
+      "ordinary_batches_attempted": 0,
+      "target_launches": 0,
+      "workflow_run_id": 42531548193
+    }
+  ],
+  "project": "taskell",
+  "run_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/42531548193",
+  "schema_version": 1,
+  "scope": "Preserve exact v1 failure evidence. No candidate cell, ordinary, calibration or admission credit.",
+  "source_pin": "a2df95f26762fc3e78d6f131cea7fc1f3b13bd47",
+  "source_revision": "bb4572f5686ad892189103ddd9015e540e040198",
+  "workflow_run_id": 42531548193
+}

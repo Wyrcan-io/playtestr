@@ -1,5 +1,15 @@
 # Skim project package: development checkpoint
 
+Current status: **admitted on exact v0.4.0-rc.6**. The formal [admission
+receipt](admission.json) binds 20 scenarios, 480 passing ordinary executions,
+18 baseline/mutated/restored fault phases, 24 rejected actual-model corruptions,
+Linux and Windows native cells, the public first-use/diagnosis/maintenance/
+relocation route, and checked cleanup. V35 is a verified repeat of V34, not
+additional breadth. Delivered workflow execution and human usability remain
+unmeasured; directional-key navigation and exact raw NUL framing remain open.
+Campaign-wide storage, original-ten requalification and the remaining project
+admissions are separate gates.
+
 Skim is the eighth selected application. Its immutable source pin is
 `1ab47f6ba7f1bfc355273bbdd98d4b2056ef95a3` from `skim-rs/skim`, MIT, version
 5.8.0. The reviewed source tree has no root build script. We fetched its 357
@@ -48,10 +58,8 @@ failures and their corrections remain in
 [hosted development attempts v4](hosted-development-attempts-v4.json).
 
 These runs exercise the current source runner, not the private rc.6 archive, and
-receive no candidate admission or native-cell credit. Repeated final series,
-current-candidate package installation, three real source faults, public
-first-use/maintenance/relocation, target cleanup, storage closure, independent
-full evidence audit and final candidate gates remain open.
+receive no candidate admission or native-cell credit. Those source-development
+observations remain separate from the exact candidate admission above.
 
 Two explicit limits stay open. Earlier strict-selection attempts showed that
 ArrowDown and Ctrl-N did not move Skim's highlighted row on local Windows even
@@ -87,4 +95,4 @@ calibrations, and it does not change the new-project admission count.
 
 The source-development workflow automatically repeated on commit `19e689f1d3721743146a11647fcb152048becd5d` (run `41831060729`). Linux and Windows again passed 20/20 with all workspaces cleaned; Windows detected all three declared faults, verified all 28 archive members, and confirmed source restoration. The source-pinned per-case repeat, archive hashes and fault results are in [hosted repeat readback](hosted-source-repeat-41831060729.json); its attempt is retained in [hosted development attempts v5](hosted-development-attempts-v5.json).
 
-The exact local source/runtime tree has now been removed after 819-file pinned-source verification, 112 target/workspace cleanup confirmations, a native Windows process scan, and a checked 21,954-file inventory. Four invalid-spec and three workspace-setup reports received zero cleanup credit. The source archive, inventories, removal receipts and process proof are retained under the campaign artifact directory; the compact tracked summary is [cleanup readback](cleanup-readback-v1.json). Five Skim fault/evidence roots (2,166 files, 207,405,391 bytes) were moved byte-identically out of `active/` and retained under `artifacts/runner-readiness-next-twenty-project-pass/skim/retained-active-evidence/`; the complete move manifest is hash-bound in the cleanup readback. This cleanup does not admit Skim: candidate archive series, calibrations, public first-use, maintenance/relocation and final qualification remain open.
+The exact local source/runtime tree has now been removed after 819-file pinned-source verification, 112 target/workspace cleanup confirmations, a native Windows process scan, and a checked 21,954-file inventory. Four invalid-spec and three workspace-setup reports received zero cleanup credit. The source archive, inventories, removal receipts and process proof are retained under the campaign artifact directory; the compact tracked summary is [cleanup readback](cleanup-readback-v1.json). Five Skim fault/evidence roots (2,166 files, 207,405,391 bytes) were moved byte-identically out of `active/` and retained under `artifacts/runner-readiness-next-twenty-project-pass/skim/retained-active-evidence/`; the complete move manifest is hash-bound in the cleanup readback. At that historical cleanup checkpoint, no candidate admission had been completed; the current admission is linked above.

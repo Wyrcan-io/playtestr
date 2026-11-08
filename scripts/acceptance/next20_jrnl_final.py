@@ -108,8 +108,12 @@ async def main(project='jrnl',batch=None,candidate_series='rc5',chunk_readiness=
     # RAW after checkout. Validate the declaration against the same canonical
     # package that the batch copies below, falling back to the committed
     # package for campaigns that retain it in docs.
-    raw_contracts=RAW/project/'host-contracts'
-    doc_contracts=DOC/project/'host-contracts'
+    contract_directory=declaration.get('canonical_contracts','host-contracts')
+    if (not isinstance(contract_directory,str) or Path(contract_directory).name!=contract_directory or
+            contract_directory in {'','.','..'}):
+        raise ValueError('Unsafe declared canonical contract directory')
+    raw_contracts=RAW/project/contract_directory
+    doc_contracts=DOC/project/contract_directory
     canonical=raw_contracts if raw_contracts.is_dir() else doc_contracts
     scenarios_path=canonical/'scenarios.json'
     expected_scenarios=expected_scenario_hash(declaration)
