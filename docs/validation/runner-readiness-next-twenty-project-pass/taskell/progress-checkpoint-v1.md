@@ -82,3 +82,10 @@ the Linux lane failed on fixture setup. Both exact outcomes and artifact
 digests are in `build-attempt-v9.json`. Run `42451800719` is still the first
 workflow carrying both corrections; at the latest poll its two jobs are in
 the pinned Stack test stage.
+
+The Linux leg of run `42451800719` completed with 250 upstream tests and both
+binary builds successful, but failed workspace setup: `workspace.fixture` is
+spec-relative, so the repository-prefixed path was incorrect. Its receipt is
+`build-attempt-v10.json`. The case now uses `fixtures`, relative to its
+owning spec directory. The run's macOS result remains open; a new push will
+exercise the corrected path and setup on both hosts.

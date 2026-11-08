@@ -67,3 +67,10 @@ Run `42450896413` later completed. Its macOS Intel lane passed all 250 tests
 and built Taskell 1.11.4, but lacked Go before Playtestr build; both host results
 are in `build-attempt-v9.json`. Run `42451800719` remains the first one with
 both prerequisite corrections.
+
+On Linux, run `42451800719` passed the upstream suite and built both binaries,
+then failed workspace setup because `workspace.fixture` is relative to the spec
+directory, making the repository-prefixed path invalid. Receipt
+`build-attempt-v10.json` retains the artifact digest. The fixture now uses the
+spec-relative `fixtures` directory; the 250-test, build and host evidence from
+the failed attempt remains separate.

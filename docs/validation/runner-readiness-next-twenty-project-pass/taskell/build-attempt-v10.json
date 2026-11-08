@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42451800719,
+  "source_revision": "2144fd697b2aff538f623b651a8fa88a6d132162",
+  "event": "push",
+  "result": "linux-upstream-tests-runner-build-passed-fixture-path-still-invalid-macos-in-progress-at-observation",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128642410420,
+      "source_verified": true,
+      "upstream_tests_passed": 250,
+      "target_binary_built": true,
+      "taskell_version": "1.11.4",
+      "playtestr_binary_built": true,
+      "go_setup": "passed; Go 1.25.0 from go.mod",
+      "authored_smoke": "failed-before-target-launch",
+      "failure_category": "workspace_setup",
+      "failure": "Fixture paths are relative to the spec file directory; prefixing the repo-relative docs/... path resolved to a nonexistent first-use-v1/docs/... directory.",
+      "first_use_recorder_reached": false,
+      "artifact_id": 13605847837,
+      "artifact_bytes": 11200783,
+      "artifact_sha256": "77aa109355fdde682c85263ef798102dada9c9c87a075b902a5681f40e757c16"
+    },
+    {
+      "host": "macos-15-intel-x86_64",
+      "job_id": 128642410204,
+      "upstream_test_status_at_observation": "in_progress",
+      "first_use_recorder_reached": false
+    }
+  ],
+  "provider_run": "https://github.com/Wyrcan-io/playtestr/actions/runs/42451800719",
+  "disposition": "Preserve the fixture-root resolution failure as no target launch/no case credit. The spec now names the path relative to its own directory as fixtures; all filenames and expected bytes remain unchanged."
+}
