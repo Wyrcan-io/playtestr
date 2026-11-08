@@ -34,7 +34,6 @@ jobs:
       - name: Set up pinned Haskell toolchain
         uses: haskell-actions/setup@0f8e8c99d88aeb3fbfd523f1ef2c6f762d10d64d
         with:
-          ghc-version: '9.0.1'
           stack-version: '3.11.1'
           enable-stack: 'true'
           stack-no-global: 'true'
@@ -58,7 +57,6 @@ jobs:
                   raise SystemExit('Pinned resolver file changed: '+name)
           PY
           stack --version
-          ghc --numeric-version
       - name: Build and run the pinned upstream test suite
         shell: bash
         run: |
@@ -84,7 +82,7 @@ jobs:
           (binary.parent.parent/'host.json').write_text(json.dumps({
               'os':platform.platform(),'architecture':platform.machine(),
               'stack_version':subprocess.run(['stack','--version'],check=True,capture_output=True,text=True).stdout.strip(),
-              'ghc_version':subprocess.run(['ghc','--numeric-version'],check=True,capture_output=True,text=True).stdout.strip(),
+              'ghc_version':subprocess.run(['stack','exec','--','ghc','--numeric-version'],check=True,capture_output=True,text=True).stdout.strip(),
               'taskell_version_output':version,
               'binary_bytes':binary.stat().st_size,
               'binary_sha256':hashlib.sha256(binary.read_bytes()).hexdigest(),
