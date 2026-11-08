@@ -12,14 +12,15 @@ class LogicalStorageTests(unittest.TestCase):
         RAW.mkdir(parents=True,exist_ok=True)
         with tempfile.TemporaryDirectory(dir=RAW) as directory:
             root=Path(directory)
-            self.assertEqual(measure(root),dict(total_bytes=0,files=0,top_level_bytes={},unfollowed_links=[]))
+            self.assertEqual(measure(root),dict(total_bytes=0,files=0,top_level_bytes={},
+                unfollowed_links=[],special_entries=[]))
             for name,value in {'alpha.bin':b'\x00A','nested/caf\u00e9.txt':b'abc','nested/deeper/data':b'\r\n\xff'}.items():
                 path=root/name
                 path.parent.mkdir(parents=True,exist_ok=True)
                 path.write_bytes(value)
             (root/'empty').mkdir()
             self.assertEqual(measure(root),dict(total_bytes=8,files=3,
-                top_level_bytes={'alpha.bin':2,'nested':6},unfollowed_links=[]))
+                top_level_bytes={'alpha.bin':2,'nested':6},unfollowed_links=[],special_entries=[]))
 
     def test_directory_link_counts_only_its_metadata_without_traversal(self):
         with tempfile.TemporaryDirectory(dir=RAW) as directory:
@@ -35,7 +36,7 @@ class LogicalStorageTests(unittest.TestCase):
             (root/'kept').write_bytes(b'keep')
             size=link.lstat().st_size
             self.assertEqual(measure(root),dict(total_bytes=4+size,files=1,
-                top_level_bytes={'alias':size,'kept':4},unfollowed_links=['alias']))
+                top_level_bytes={'alias':size,'kept':4},unfollowed_links=['alias'],special_entries=[]))
 
 
 if __name__=='__main__':unittest.main()

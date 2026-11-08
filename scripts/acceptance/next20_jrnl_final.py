@@ -69,7 +69,14 @@ async def main(project='jrnl',batch=None,candidate_series='rc5',chunk_readiness=
         ROOT/'docs/validation/runner-readiness-ten-project-pass/migration-candidate-freeze.json'
         if candidate_series=='rc5' else DOC/'replacement-candidate-freeze-native-exit-v1.json')!=declaration['candidate_freeze_sha256']:
         raise ValueError('Candidate freeze differs from final-series declaration')
-    scenarios_path=DOC/project/'host-contracts/scenarios.json'
+    # Native campaigns may materialize their immutable host contracts under
+    # RAW after checkout. Validate the declaration against the same canonical
+    # package that the batch copies below, falling back to the committed
+    # package for campaigns that retain it in docs.
+    raw_contracts=RAW/project/'host-contracts'
+    doc_contracts=DOC/project/'host-contracts'
+    canonical=raw_contracts if raw_contracts.is_dir() else doc_contracts
+    scenarios_path=canonical/'scenarios.json'
     if declaration.get('canonical_test_freeze_sha256') and sha256(scenarios_path)!=declaration['canonical_test_freeze_sha256']:
         raise ValueError('Canonical scenario freeze differs from final-series declaration')
     runtime_lock=DOC/project/('native-runtime-lock-'+candidate_series+'.json')
@@ -78,8 +85,6 @@ async def main(project='jrnl',batch=None,candidate_series='rc5',chunk_readiness=
         raise ValueError('Native runtime lock differs from final-series declaration')
     root=RAW/project/('final-series'+suffix)/str(args.batch)
     root.mkdir(parents=True,exist_ok=False)
-    canonical=RAW/project/'host-contracts'
-    if not canonical.is_dir():canonical=DOC/project/'host-contracts'
     if canonical.is_symlink() or getattr(canonical,'is_junction',lambda:False)():raise ValueError('Linked canonical native contract root')
     canonical.resolve(strict=True).relative_to((DOC if canonical.is_relative_to(DOC) else RAW).resolve(strict=True))
     package=root/('relocated café 雪' if args.batch==5 else 'contracts')
