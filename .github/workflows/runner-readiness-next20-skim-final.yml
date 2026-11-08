@@ -7,6 +7,7 @@ on:
       - 'scripts/acceptance/next20_skim_final*.py'
       - 'scripts/acceptance/next20_skim_final_faults.py'
       - 'scripts/acceptance/next20_skim_final_plan_audit.py'
+      - 'scripts/acceptance/next20_skim_public_route.py'
       - 'scripts/acceptance/next20_playtestr_case.py'
       - 'scripts/acceptance/next20_candidate*.py'
       - 'scripts/acceptance/next20_acquire.py'
@@ -161,6 +162,11 @@ jobs:
         env:
           READINESS_EVIDENCE_PHASE: final-archive
         run: python -B scripts/acceptance/next20_check.py --label skim-final-rc6-fault-calibration --timeout 2400 -- python -B scripts/acceptance/next20_skim_final_faults.py --host '${{ matrix.host }}' --candidate-series native-exit-v1
+      - name: Exercise public Skim first-use, diagnosis, maintenance and relocation
+        if: steps.final.outcome == 'success'
+        env:
+          READINESS_EVIDENCE_PHASE: public-authoring
+        run: python -B scripts/acceptance/next20_check.py --label skim-final-public-authoring --timeout 900 -- python -B scripts/acceptance/next20_skim_public_route.py
       - name: Verify source and process-tree cleanup
         id: verify-cleanup
         if: always() && steps.acquire.outcome == 'success'
