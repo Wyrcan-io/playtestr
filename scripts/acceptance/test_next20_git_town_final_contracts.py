@@ -8,7 +8,7 @@ from pathlib import Path
 from next20_check import DOC
 from next20_git_town_faults import FAULTS, PIN
 from next20_git_town_final_contracts import materialize_scenario_alias, validate_scenario_alias
-from next20_jrnl_final import expected_scenario_hash, runtime_lock_path
+from next20_jrnl_final import expected_scenario_hash, runtime_lock_path, validate_native_launcher
 
 
 class GitTownFinalContractTests(unittest.TestCase):
@@ -29,6 +29,15 @@ class GitTownFinalContractTests(unittest.TestCase):
             specific=package/'native-runtime-lock-native-exit-v1.json'
             specific.write_text('{"series": true}',encoding='utf-8')
             self.assertEqual(runtime_lock_path(package,'native-exit-v1'),specific)
+
+    def test_native_launcher_is_bound_to_project_runtime(self):
+        validate_native_launcher('git-town',{'native':'/owned/bin/git-town'},['git-town','hack'])
+        validate_native_launcher('taskell',{'native':'/owned/bin/taskell'},['taskell','board.csv'])
+        validate_native_launcher('taskell',{'native':'/owned/bin/taskell'},['sh','readonly.sh'])
+        with self.assertRaisesRegex(ValueError,'reviewed runtime executable'):
+            validate_native_launcher('git-town',{'native':'/owned/bin/git-town'},['sh','other.sh'])
+        with self.assertRaisesRegex(ValueError,'read-only wrapper'):
+            validate_native_launcher('taskell',{'native':'/owned/bin/taskell'},['sh','other.sh'])
 
     def test_scenario_alias_matches_and_records_frozen_source(self):
         with tempfile.TemporaryDirectory() as temporary:

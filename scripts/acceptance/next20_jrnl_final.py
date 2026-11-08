@@ -59,6 +59,28 @@ def runtime_lock_path(package, candidate_series):
     return specific if specific.is_file() or not canonical.is_file() else canonical
 
 
+def validate_native_launcher(project, runtime, command):
+    """Bind each native spec to its reviewed executable or declared Taskell wrapper."""
+    if not isinstance(command,list) or not command or not isinstance(command[0],str):
+        raise ValueError('Native target command is missing a reviewed launcher')
+    launcher=command[0]
+    if project=='taskell':
+        if launcher not in {'taskell','sh'}:
+            raise ValueError('Native target launcher is outside the reviewed Taskell command set')
+        if launcher=='sh' and command!=['sh','readonly.sh']:
+            raise ValueError('Native Taskell read-only wrapper command changed')
+        return
+    native=runtime.get('native')
+    if not isinstance(native,str) or not native:
+        raise ValueError('Native target runtime has no declared executable')
+    basename=Path(native).name
+    accepted={basename}
+    if basename.lower().endswith('.exe'):
+        accepted.add(basename[:-4])
+    if launcher not in accepted:
+        raise ValueError('Native target launcher differs from its reviewed runtime executable')
+
+
 async def main(project='jrnl',batch=None,candidate_series='rc5',chunk_readiness=False,window=None,
                startup_timeout_ms_by_host=None,declaration_path_override=None):
     if batch is None:
@@ -164,10 +186,7 @@ async def main(project='jrnl',batch=None,candidate_series='rc5',chunk_readiness=
         if sha256(canonical/case['spec'])!=case['spec_sha256']:raise ValueError('native base contract changed')
         if kind=='native':
             command=value.get('command')
-            if not isinstance(command,list) or not command or command[0] not in {'taskell','sh'}:
-                raise ValueError('Native target launcher is outside the reviewed Taskell command set')
-            if command[0]=='sh' and command!=['sh','readonly.sh']:
-                raise ValueError('Native Taskell read-only wrapper command changed')
+            validate_native_launcher(project,runtime,command)
         else:
             value['command'][0]=os.path.relpath(python,package).replace('\\','/')
         if kind=='python' and '--python' in value['command']:

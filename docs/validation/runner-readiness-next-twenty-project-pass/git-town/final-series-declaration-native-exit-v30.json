@@ -1,0 +1,216 @@
+{
+  "batches": [
+    {
+      "id": 0,
+      "name": "ordinary-cold-1",
+      "runtime": "new verified owned binary copy; first logical use"
+    },
+    {
+      "id": 1,
+      "name": "ordinary-warm-1",
+      "runtime": "reuse exact binary copy from batch 0"
+    },
+    {
+      "id": 2,
+      "name": "ordinary-cold-2",
+      "runtime": "second independently verified owned binary copy"
+    },
+    {
+      "id": 3,
+      "name": "ordinary-warm-2",
+      "runtime": "reuse exact binary copy from batch 2"
+    },
+    {
+      "change": "width +10 and height +2; frozen state bytes retained",
+      "id": 4,
+      "name": "viewport"
+    },
+    {
+      "change": "contracts relocated under a relative path with spaces and Unicode",
+      "id": 5,
+      "name": "spaced-unicode-path"
+    },
+    {
+      "change": "same frozen supported actions and positive checkpoints",
+      "id": 6,
+      "name": "ordinary-input-readiness"
+    },
+    {
+      "change": "printable input sent in three-codepoint groups",
+      "id": 7,
+      "name": "segmented-printable-input"
+    },
+    {
+      "change": "first bounded owned CPU and memory contention window",
+      "id": 8,
+      "name": "bounded-contention-1"
+    },
+    {
+      "change": "second independent bounded contention window",
+      "id": 9,
+      "name": "bounded-contention-2"
+    },
+    {
+      "change": "N01 viewport height 12; all other contracts unchanged",
+      "id": 10,
+      "name": "highest-risk-small-completion"
+    },
+    {
+      "change": "Linux 6000 ms and Windows 2000 ms first-output startup boundaries; v17 Linux reached the 5000 ms boundary but timed out before first rendered output; ordinary step/run budgets unchanged",
+      "id": 11,
+      "name": "highest-risk-startup-boundary"
+    }
+  ],
+  "calibration_required": 18,
+  "candidate": "v0.4.0-rc.6",
+  "candidate_freeze_sha256": "24ce7238532b1b6e581142ee98e17a7fe18ea475ec83176e7051986353c80da2",
+  "candidate_provider_runs": {
+    "linux": "40424475362",
+    "windows": "40425810038"
+  },
+  "candidate_series": "native-exit-v1",
+  "canonical_scenario_sha256": "9621bc50d57442600e589383257053d5bfc797ca44564dddf6665d3992a1137c",
+  "canonical_test_freeze_sha256": "c3891a19286da1e58aba97bccec74a7f6fc94f75c4bf1be298203ad4e1600ea7",
+  "cold_scope": "Two newly materialized and hash-verified target executable copies followed by paired reuse; no claim of OS page-cache eviction.",
+  "edge": 12,
+  "execution_budget": {
+    "hosted_jobs": 2,
+    "job_ceiling_minutes": 60,
+    "max_parallel": 2,
+    "paid_runner_budget_changes": 0,
+    "total_job_minute_ceiling": 120
+  },
+  "failure_policy": "No per-case retry. Any failed report, timeout, exit, cleanup, hash or series completeness check invalidates the host cell; retain attempts and require a declared replacement.",
+  "fault_declaration_sha256": "ef7ad5a866409666bc3ffd4c852cf3c54299d7cc217839f86210a50735c76aeb",
+  "freeze_path": "development-test-freeze-native-exit-v6.json",
+  "harness_files": {
+    ".github/workflows/runner-readiness-next20-git-town-final.yml": "49309974038be121a01fa30595ada99623f9cf7a5f104d7ff5f2cc5d1b1c6648",
+    ".github/workflows/runner-readiness-next20-git-town.yml": "426f36d5ad5cdc0ad8d74693ad80bb0039631ebd420b2ac797b349881d4e810a",
+    "scripts/acceptance/adversarial_process.py": "960615537bab386c73c9a6d28ace7f162f6d70208d7525cb77896b96988f8c0c",
+    "scripts/acceptance/next20_batch_snapshots.py": "35650e4f2120c5e2466114d76c302fb54c4974a36cda81de550262a2fe0a4c15",
+    "scripts/acceptance/next20_candidate.py": "cccfecf50fd0d0a6046d52b38813b50cbb4d9f518c14c5d8543189ebf13add01",
+    "scripts/acceptance/next20_candidate_install.py": "873ae99c60863f45fe272aa72c7bb18bf557b65fa382e4d3aaee20d19ff6ecd9",
+    "scripts/acceptance/next20_check.py": "17e8b6e72bb649dc1a8dc2206730ff3643cec1e7bbe57736b0d05efee961a64f",
+    "scripts/acceptance/next20_git_town_case.py": "638100ce888a9176c8d9b085e6f106da305eaf4ab7ec643aa5f0cbbaf06dc694",
+    "scripts/acceptance/next20_git_town_faults.py": "ac3893a6a66b0d68dccab2096cb6c790ed03227776c4cded85b54857e0ba68ae",
+    "scripts/acceptance/next20_git_town_final_contracts.py": "d66285d15ad2c9cb0261600dd579f1ceb3be794a13b83ad9003aa86d187aee91",
+    "scripts/acceptance/next20_git_town_final_contracts_v3.py": "23c489f5ccd1e6bb5bfd4f07984c082a68529531358b4c2ba4a834329ca5834e",
+    "scripts/acceptance/next20_git_town_final_contracts_v4.py": "68f9c0ac8d22300383c54796715cd618bfdd2079c05b254b4e578e23d124aba2",
+    "scripts/acceptance/next20_git_town_final_contracts_v5.py": "33ecd2ee63aae0cfd58b5e2bb59b62604b410951cc3185fdc0993bb9c11637b6",
+    "scripts/acceptance/next20_git_town_final_contracts_v6.py": "ac4fdc4f9295be7c1d33e0e5a08518d746ef7c25de172cb493e696880e0fb1f6",
+    "scripts/acceptance/next20_git_town_final_declare_v10.py": "1a765f2da447c28bab1e2cbc4812a8b398c64906daed09ef0eac2fa84748b8d5",
+    "scripts/acceptance/next20_git_town_final_declare_v11.py": "fbe90b1d425dbc5ef6c150af68f56adc3f146475e45078fe354501cdc18cfe3d",
+    "scripts/acceptance/next20_git_town_final_declare_v12.py": "1d5c0f2caa1db970cb52b5fc43e2c62c2f37fbd356cd1428ccd6f8a91b479819",
+    "scripts/acceptance/next20_git_town_final_declare_v13.py": "6a2cb6d74799839d149c64315302ad68f98191c9ed24bd06df87038e30b4a60b",
+    "scripts/acceptance/next20_git_town_final_declare_v14.py": "75b0b2be5f2489407554317f4f84cc5e19c5e35398689865c181b4417accb7f4",
+    "scripts/acceptance/next20_git_town_final_declare_v15.py": "0a475a9f418babda3f18778c3f8c4c31a4c99d7bd01aa85af38bb1c75a68b5d7",
+    "scripts/acceptance/next20_git_town_final_declare_v16.py": "15f77687aa4ddca156761d6e1adcf506711994e1451ca3cf703bdbd9a15a9c93",
+    "scripts/acceptance/next20_git_town_final_declare_v17.py": "29bdc1719b3bf42f3b3bc4edb47bac97cd700e8696b1d5ee0dd6ae10d8fabf7d",
+    "scripts/acceptance/next20_git_town_final_declare_v18.py": "642403f100f4e654196e89105882e240425c3bbff302d80e30570a7018476c98",
+    "scripts/acceptance/next20_git_town_final_declare_v19.py": "9410ddb0318e24952783bf128eb8aad3b00d9d99dcb2215902a30205ccae5174",
+    "scripts/acceptance/next20_git_town_final_declare_v2.py": "771a3610a58d1c5678a2682b966312e94222b34b25dd3ccfd6dbf02123d9b693",
+    "scripts/acceptance/next20_git_town_final_declare_v20.py": "32c01496753e86e73b66fa94c41a5f4ac6abab41868f042f6ecc67af012b0bec",
+    "scripts/acceptance/next20_git_town_final_declare_v21.py": "f3f5bf8081674ae0298481df47fb0dbf9f048eadd71fc7db962e635e15a884df",
+    "scripts/acceptance/next20_git_town_final_declare_v22.py": "3691bfadf6904ab91e7f3efa543c958b1fa19023d08c4ec84ffaa3c798ccbad6",
+    "scripts/acceptance/next20_git_town_final_declare_v23.py": "8fa2e79bb8539fa3b6385fcbf2959a2c9093c468fce3d493279df9ad1825f7e6",
+    "scripts/acceptance/next20_git_town_final_declare_v24.py": "dd43ca9a02867663ab548b3879fbc522cbf162ff056dbd7c921a723f669b504b",
+    "scripts/acceptance/next20_git_town_final_declare_v25.py": "f9e4425fedc06b244e996e4a7ba7ebd992cea8064c4dc0671e476dc5865d2474",
+    "scripts/acceptance/next20_git_town_final_declare_v26.py": "3f795b17ddf9abde21bcd608169121359bd7e6fb662de24be1da9ce0c25da51d",
+    "scripts/acceptance/next20_git_town_final_declare_v27.py": "8531983fc9ad47a6d96d72ee269ad5b2a0d0248a57b45a9e7861439f231e5eea",
+    "scripts/acceptance/next20_git_town_final_declare_v28.py": "d737c2c2bf97e996be8d6e036d3e9ef15f0b62d1ee03a9bcd3865bdfac0d73e8",
+    "scripts/acceptance/next20_git_town_final_declare_v29.py": "1178da3e9165709467715992201a6e23cad666f5943ab23584e9c0720ce64af2",
+    "scripts/acceptance/next20_git_town_final_declare_v3.py": "3701c6fd592013b20de01d8c1447503ee2517efc8a6a7dd779ef33d6d914fc89",
+    "scripts/acceptance/next20_git_town_final_declare_v30.py": "9965197e7b39b5ecbb752ff9815856f00062fb4dd471d393b8638710ec67bfe7",
+    "scripts/acceptance/next20_git_town_final_declare_v4.py": "662de78b61e45f96c895e06c2b00b64c6b865e84bd5b5d60d7de3ddb20bf65d8",
+    "scripts/acceptance/next20_git_town_final_declare_v5.py": "9f2221771f2a761eacd415c1b95799832969095231631455c6d10017801d05f7",
+    "scripts/acceptance/next20_git_town_final_declare_v6.py": "32469ea11a673adb0fd27bc1767d01452ca65a80c277ca5f90aa36fa9b5429a4",
+    "scripts/acceptance/next20_git_town_final_declare_v7.py": "f77e6da0febb86bfc95acaee6cfc5822a0a4e762314c41e9dcdb79b002be6ed6",
+    "scripts/acceptance/next20_git_town_final_declare_v8.py": "ea9357d0e261aa3440864b4f889e8ee7529f3f9d64b42ecff9013bc765113a0d",
+    "scripts/acceptance/next20_git_town_final_declare_v9.py": "7e0c43086244ea3091de057ab1dc502465323f1f4cbba097c5db20c341477e33",
+    "scripts/acceptance/next20_git_town_final_series.py": "bef50b320cdc8fe0c227a4c04ccac51e4015cf0a60a86262ef17e2cbbad43318",
+    "scripts/acceptance/next20_git_town_fixture.py": "70c357397b6355ccb38c0e4b6a9b33e57d2469b7d22c3a8d95a6e54856b7c246",
+    "scripts/acceptance/next20_git_town_prepare.py": "053a9cbbdb535dc1c047b3fbc7db338e5a713693d591683a0011005eb4ad6ac9",
+    "scripts/acceptance/next20_jrnl_final.py": "87d3d23733985fd6b0b80062c03b14a6cb4bdf309250011e12db9f4990e19da6",
+    "scripts/acceptance/next20_python_runtime.py": "0ae70fd7dd92629872e8d78ac4680d058db460ad5f94a22b0741103ef74a798a",
+    "scripts/acceptance/next20_remove_target.ps1": "cf416d142eca3a3e385a8d86a4c742b213780482554cbbf3496f5e8954d19b65",
+    "scripts/acceptance/next20_startup_profile.py": "17508530fd3e930935719c4eb599b6ecdd0a6b5d98f1242de031a63752a0062c",
+    "scripts/acceptance/next20_target_cleanup.py": "1f0c0b9ac262aedc2fabbd2e6941e5c332ebb1a547f64bd3a23b6e9e5f5f1719",
+    "scripts/acceptance/next20_target_process_proof.ps1": "7f3de8026098f2246f4fb81f6fb6dd0d29e1b5a1c8cdbf85f2da423a3046b022",
+    "scripts/acceptance/readiness_evidence.py": "80ba2be8de1217881727d2387aed638710a8d0c806d24eaaa83dcfcf45f509b9",
+    "scripts/acceptance/test_git_town_artifact_audit.py": "d173bc238211fbf7e3f9b80659709d3af06e72d196de39ee64381ade58fb8109",
+    "scripts/acceptance/test_next20_campaign.py": "800312327fa75a556e5156a7c36489a18a785726708a52d08422973830f2e3e6",
+    "scripts/acceptance/test_next20_final_batch_transform.py": "3aa20ba3ca74761eb60550c3f52da67621e85a4b955f04cb25807b570c420c0b",
+    "scripts/acceptance/test_next20_git_town_faults.py": "fdc893c16c5632b2548be049a3b737cd088fe83b9ecdc1f44cc04a132938a6ac",
+    "scripts/acceptance/test_next20_git_town_final_contracts.py": "e87be922486f9df8176af435ec8242a429e91bf412f4fcca8db65c3a3451f391",
+    "scripts/acceptance/test_next20_git_town_prepare.py": "aeb467a90aae145c1e534d8f27c7a8eefcda1839c1e0dd980004868e387975a8",
+    "scripts/acceptance/test_next20_startup_profile.py": "75626437ae254f3bf6f10e20c7440e400601972cb5ce4b4b7124c340dd380f48",
+    "scripts/acceptance/test_next20_target_cleanup.py": "fe8a638ccffe33b2eb7b6df26a8efd3a312a68c0c731ee01edc5afc763bd2e55"
+  },
+  "harness_hash_policy": "Hash staged Git index blob bytes; for .py, .ps1, .yml and .yaml normalize CRLF to LF before SHA-256. Runtime worktree files are normalized identically before comparison.",
+  "hosts": [
+    "linux",
+    "windows"
+  ],
+  "independent_source_development_audit": "retention-readback-v14.json",
+  "independent_source_development_audit_sha256": "743faa7a522a065d666740bb0bd9bc57cb8267e7417257736602daba998ec083",
+  "native_runtime_lock_sha256": "e1ccc06401c40fcb8a40051bf14da5ea8bc71b328fbbe1a6127214856d6683e2",
+  "normal": 8,
+  "ordinary_required": 480,
+  "original_failures": "Preserve all v1/v2 hosted startup and Unicode failures plus the v3 Linux PTY bridge failure; catalog v3/source development then passed and was independently audited. A native local Windows exact-candidate preflight was refused before target launch because the deep workspace path returned Access is denied; standard hosted Windows is the declared final host.",
+  "project": "git-town",
+  "project_admissions": 0,
+  "real_source_faults": 3,
+  "repetitions_per_cell": 12,
+  "required_three_phase_calibrations": 18,
+  "retention": {
+    "native_binary_payload_policy": "Retain exact original candidate reference and byte hash; never duplicate full provider archives.",
+    "per_project_cap_bytes": 67108864,
+    "source_payload_retained_once": true
+  },
+  "revision": 30,
+  "revision_summary": {
+    "candidate_calibration_credit": 0,
+    "candidate_ordinary_credit": 0,
+    "preserved_failed_runs": [
+      "41953084178",
+      "41954388734",
+      "41955366681",
+      "41956408435",
+      "41960284415",
+      "41962045773",
+      "41964820652",
+      "41967210773",
+      "41968702601",
+      "41970500610",
+      "41974745060",
+      "41975837578",
+      "41978773971",
+      "41980469906",
+      "41984301547",
+      "41988031958"
+    ],
+    "project_admissions": 0,
+    "v8_contract_freeze": "development-test-freeze-native-exit-v6.json",
+    "v8_scenario_catalog": "scenario-catalog-v8.json"
+  },
+  "scenario_alias_policy": "Materialize host-contracts/scenarios.json as an exact byte copy of frozen scenarios-native-exit-v6.json, verify its SHA-256, and record the alias digest in the host contract freeze before the final journal reads it.",
+  "scenario_catalog": "scenario-catalog-v8.json",
+  "scenario_catalog_sha256": "5ff3a68cf00bb5a6de139aa101390869960bf11620a1166e16e657cd73aebc15",
+  "scenarios_per_cell": 20,
+  "schema_version": 1,
+  "scope": "Exact v0.4.0-rc.6 native-exit-v1 final execution only. Independent report/fault/source/runtime audit, old-project requalification, retention and confirmed cleanup remain required before admission.",
+  "source_archive_policy": "Generated locally as deterministic gzip/PAX from the verified pinned checkout; the archive is reopened and every member SHA-256 is checked against source-provenance.json before build. The generated archive digest and bytes are bound in acquisition.json and the execution plan.",
+  "source_pin": "8d039892574d4852e1843020c31d423234042e78",
+  "source_provenance_sha256": "03426cd17666f72b972a6589a09a34e071fdb9639b1b3da4efe433aa4c3d2f50",
+  "startup_timeout_ms_by_host": {
+    "linux": 6000,
+    "windows": 2000
+  },
+  "supersedes": {
+    "path": "final-series-declaration-native-exit-v29.json",
+    "reason": "V29 passed contract setup through the exact candidate runtime but the shared series runner incorrectly restricted native launchers to Taskell. V30 binds the corrected project-aware launcher validation; the V29 zero-launch attempt remains preserved.",
+    "sha256": "0b814853acede77a8b629d4f70f8f06a0f0a6a67e49fdb3abe1a12c36056c597"
+  },
+  "transfer_scope": "Pinned source and three faults already exposed on Linux and Windows; final-candidate observations remain separately required.",
+  "wrapper_timeout_seconds": 1200
+}
