@@ -73,12 +73,12 @@ jobs:
           mkdir -p "$packet/bin"
           cd "$source"
           stack install taskell --local-bin-path "$packet/bin"
-          "$packet/bin/taskell" --version
+          "$packet/bin/taskell" -v
           python - <<'PY'
           import hashlib,json,platform,subprocess
           from pathlib import Path
           binary=Path('../native-build/bin/taskell')
-          version=subprocess.run([str(binary.resolve()),'--version'],check=True,capture_output=True,text=True).stdout.strip()
+          version=subprocess.run([str(binary.resolve()),'-v'],check=True,capture_output=True,text=True).stdout.strip()
           (binary.parent.parent/'host.json').write_text(json.dumps({
               'os':platform.platform(),'architecture':platform.machine(),
               'stack_version':subprocess.run(['stack','--version'],check=True,capture_output=True,text=True).stdout.strip(),

@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42448622006,
+  "source_revision": "766cfc923a1a2076c9abac0b7575b089a9bf1d0b",
+  "event": "push",
+  "result": "linux-upstream-tests-passed-macos-prebuild-toolchain-query-failed-linux-postbuild-version-query-failed",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128632826111,
+      "source_verified": true,
+      "build_and_tests": "passed",
+      "upstream_tests_passed": 250,
+      "target_binary_built": true,
+      "target_launched": true,
+      "version_invocation": "failed",
+      "cause": "The README documents the short -v option. The workflow used unsupported --version, which Taskell interpreted as a board filename and prompted for creation; the noninteractive process then exited at EOF.",
+      "full_screen_workflow_attempted": false,
+      "artifact_uploaded": false
+    },
+    {
+      "host": "macos-15-intel",
+      "job_id": 128632826219,
+      "source_verified": true,
+      "build_and_tests": "not_reached",
+      "target_binary_built": false,
+      "failed_step": "Acquire and verify exact source",
+      "cause": "The workflow queried standalone ghc on PATH although Stack had been configured with no global compiler. It exited before running stack test; the lane is being changed to rely on the resolver-managed compiler.",
+      "full_screen_workflow_attempted": false,
+      "artifact_uploaded": false
+    }
+  ],
+  "provider_run": "https://github.com/Wyrcan-io/playtestr/actions/runs/42448622006",
+  "disposition": "Preserve the 250 passing Linux upstream tests and the two distinct workflow/tool invocation errors. The target binary was built on Linux but not retained by this failed job. The corrected lane uses the documented -v option and records the resolver-managed compiler."
+}
