@@ -2,6 +2,7 @@ import io
 import base64
 import hashlib
 import os
+import subprocess
 import tarfile
 import tempfile
 import unittest
@@ -10,7 +11,9 @@ from pathlib import Path
 
 from next20_check import RAW
 from next20_taskell_llvm import (PUBLIC_KEY,PUBLIC_KEY_GIT_BLOB,SIGNATURE_COMMENT,
-    checked_version,decode_signify_signature,safe_extract,safe_extract_libffi,tool_inventory,verify_tool_inventory)
+    MACPORTS_LIBEDIT_DYLIB,MACPORTS_NCURSES_DYLIB,checked_version,decode_signify_signature,
+    safe_extract,safe_extract_dylib_family,safe_extract_libffi,tool_inventory,
+    verify_macos_link_closure,verify_tool_inventory)
 
 
 class TaskellLLVMTests(unittest.TestCase):
@@ -43,6 +46,30 @@ class TaskellLLVMTests(unittest.TestCase):
                 'returncode':-6,'stdout':'short stdout','stderr':'LLVM abort detail'})()):
             with self.assertRaisesRegex(RuntimeError,'LLVM abort detail'):
                 checked_version('owned/opt',{})
+
+    def test_macos_link_closure_follows_owned_transitive_dependencies_and_rejects_missing(self):
+        prefix=self.root/'owned-llvm';(prefix/'bin').mkdir(parents=True);(prefix/'lib').mkdir()
+        opt=prefix/'bin/opt';llc=prefix/'bin/llc';opt.write_bytes(b'opt');llc.write_bytes(b'llc')
+        for name in ['libLLVM.dylib','libffi.8.dylib','libedit.0.dylib','libncurses.6.dylib']:
+            (prefix/'lib'/name).write_bytes(name.encode())
+        def probe(args,**_):
+            source=Path(args[2]).name
+            references={
+                'opt':['/opt/local/lib/libLLVM.dylib'],
+                'llc':['/opt/local/lib/libLLVM.dylib'],
+                'libLLVM.dylib':['/opt/local/lib/libffi.8.dylib','/opt/local/lib/libedit.0.dylib'],
+                'libedit.0.dylib':['/opt/local/lib/libncurses.6.dylib'],
+                'libffi.8.dylib':[],'libncurses.6.dylib':[],
+            }[source]
+            output=str(args[2])+'\n'+''.join('    '+path+' (compatibility version 1.0.0, current version 1.0.0)\n' for path in references)
+            return subprocess.CompletedProcess(args,0,stdout=output,stderr='')
+        with patch('next20_taskell_llvm.subprocess.run',side_effect=probe):
+            rows=verify_macos_link_closure(prefix,[opt,llc])
+        self.assertTrue(any(row['source']=='lib/libedit.0.dylib' and row['library']=='/opt/local/lib/libncurses.6.dylib' for row in rows))
+        (prefix/'lib/libncurses.6.dylib').unlink()
+        with patch('next20_taskell_llvm.subprocess.run',side_effect=probe):
+            with self.assertRaisesRegex(RuntimeError,'libncurses.6.dylib'):
+                verify_macos_link_closure(prefix,[opt,llc])
 
     def archive(self,entries):
         package=self.root/'fixture.tbz2'
@@ -105,8 +132,9 @@ class TaskellLLVMTests(unittest.TestCase):
             alias=tarfile.TarInfo('opt/local/lib/libffi.8.dylib');alias.type=tarfile.SYMTYPE
             alias.linkname='libffi.8.1.2.dylib';archive.addfile(alias)
         prefix=self.root/'selected-llvm'
-        expanded=safe_extract_libffi(package,prefix)
+        expanded,selected=safe_extract_libffi(package,prefix)
         self.assertEqual(expanded,len(b'ffi-binary'))
+        self.assertEqual(set(selected),{'libffi.8.dylib','libffi.8.1.2.dylib'})
         self.assertEqual((prefix/'lib/libffi.8.dylib').read_bytes(),b'ffi-binary')
         self.assertEqual((prefix/'lib/libffi.8.dylib').resolve(),(prefix/'lib/libffi.8.1.2.dylib').resolve())
 
@@ -117,6 +145,34 @@ class TaskellLLVMTests(unittest.TestCase):
             alias.linkname='../../outside.dylib';archive.addfile(alias)
         with self.assertRaisesRegex(ValueError,'Escaping symlink'):
             safe_extract_libffi(package,self.root/'selected-llvm')
+
+    @unittest.skipIf(os.name=='nt','native Windows symlink creation unavailable under this token')
+    def test_signed_libedit_and_ncurses_dylib_families_extract_only_runtime_links(self):
+        edit=self.root/'libedit.tbz2'
+        with tarfile.open(edit,'w:bz2') as archive:
+            member=tarfile.TarInfo('opt/local/lib/libedit.0.1.dylib');member.size=len(b'edit-binary');member.mode=0o755
+            archive.addfile(member,io.BytesIO(b'edit-binary'))
+            alias=tarfile.TarInfo('opt/local/lib/libedit.0.dylib');alias.type=tarfile.SYMTYPE
+            alias.linkname='libedit.0.1.dylib';archive.addfile(alias)
+            ignored=tarfile.TarInfo('opt/local/bin/editline');ignored.size=3
+            archive.addfile(ignored,io.BytesIO(b'bin'))
+        ncurses=self.root/'ncurses.tbz2'
+        with tarfile.open(ncurses,'w:bz2') as archive:
+            for name,data in [('opt/local/lib/libncurses.6.6.dylib',b'ncurses'),
+                              ('opt/local/lib/libform.6.6.dylib',b'form')]:
+                member=tarfile.TarInfo(name);member.size=len(data);member.mode=0o755
+                archive.addfile(member,io.BytesIO(data))
+            for name,target in [('opt/local/lib/libncurses.6.dylib','libncurses.6.6.dylib'),
+                                ('opt/local/lib/libform.6.dylib','libform.6.6.dylib')]:
+                alias=tarfile.TarInfo(name);alias.type=tarfile.SYMTYPE;alias.linkname=target;archive.addfile(alias)
+        prefix=self.root/'runtime'
+        expanded,files=safe_extract_dylib_family(edit,prefix,MACPORTS_LIBEDIT_DYLIB,['libedit.0.dylib'],'libedit')
+        self.assertEqual(expanded,len(b'edit-binary'))
+        self.assertEqual(set(files),{'libedit.0.dylib','libedit.0.1.dylib'})
+        expanded,files=safe_extract_dylib_family(ncurses,prefix,MACPORTS_NCURSES_DYLIB,
+            ['libncurses.6.dylib'],'ncurses',cap=32*1024**2)
+        self.assertEqual(expanded,len(b'ncurses')+len(b'form'))
+        self.assertEqual(set(files),{'libncurses.6.6.dylib','libncurses.6.dylib','libform.6.6.dylib','libform.6.dylib'})
 
 
 if __name__=='__main__':
