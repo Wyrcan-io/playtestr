@@ -1,6 +1,7 @@
 import io
 import base64
 import hashlib
+import os
 import tarfile
 import tempfile
 import unittest
@@ -9,7 +10,7 @@ from pathlib import Path
 
 from next20_check import RAW
 from next20_taskell_llvm import (PUBLIC_KEY,PUBLIC_KEY_GIT_BLOB,SIGNATURE_COMMENT,
-    checked_version,decode_signify_signature,safe_extract,tool_inventory,verify_tool_inventory)
+    checked_version,decode_signify_signature,safe_extract,safe_extract_libffi,tool_inventory,verify_tool_inventory)
 
 
 class TaskellLLVMTests(unittest.TestCase):
@@ -92,6 +93,30 @@ class TaskellLLVMTests(unittest.TestCase):
         self.assertEqual((prefix/'bin/opt').read_bytes(),b'opt')
         self.assertEqual((prefix/'bin/llc').read_bytes(),b'llc')
         self.assertFalse((self.root/'opt').exists())
+
+    @unittest.skipIf(os.name=='nt','native Windows symlink creation unavailable under this token')
+    def test_signed_libffi_layout_selects_versioned_dylib_and_safe_alias(self):
+        package=self.root/'libffi.tbz2'
+        with tarfile.open(package,'w:bz2') as archive:
+            for name,data in [('opt/local/lib/libffi.8.1.2.dylib',b'ffi-binary'),
+                              ('opt/local/include/ffi.h',b'header')]:
+                member=tarfile.TarInfo(name);member.size=len(data);member.mode=0o755
+                archive.addfile(member,io.BytesIO(data))
+            alias=tarfile.TarInfo('opt/local/lib/libffi.8.dylib');alias.type=tarfile.SYMTYPE
+            alias.linkname='libffi.8.1.2.dylib';archive.addfile(alias)
+        prefix=self.root/'selected-llvm'
+        expanded=safe_extract_libffi(package,prefix)
+        self.assertEqual(expanded,len(b'ffi-binary'))
+        self.assertEqual((prefix/'lib/libffi.8.dylib').read_bytes(),b'ffi-binary')
+        self.assertEqual((prefix/'lib/libffi.8.dylib').resolve(),(prefix/'lib/libffi.8.1.2.dylib').resolve())
+
+    def test_libffi_extraction_refuses_escaping_link(self):
+        package=self.root/'libffi-escape.tbz2'
+        with tarfile.open(package,'w:bz2') as archive:
+            alias=tarfile.TarInfo('opt/local/lib/libffi.8.dylib');alias.type=tarfile.SYMTYPE
+            alias.linkname='../../outside.dylib';archive.addfile(alias)
+        with self.assertRaisesRegex(ValueError,'Escaping symlink'):
+            safe_extract_libffi(package,self.root/'selected-llvm')
 
 
 if __name__=='__main__':

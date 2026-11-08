@@ -4,6 +4,7 @@ import base64
 import hashlib
 import json
 import os
+import posixpath
 from pathlib import Path, PurePosixPath
 import re
 import subprocess
@@ -16,12 +17,15 @@ from readiness_evidence import immutable_json,sha256
 
 PACKAGE='llvm-12-12.0.1_5.darwin_24.arm64.tbz2'
 BASE='https://packages.macports.org/llvm-12/'
+LIBFFI_PACKAGE='libffi-3.4.8_0.darwin_24.arm64.tbz2'
+LIBFFI_BASE='https://packages.macports.org/libffi/'
 # macports/macports-base:keys/base/macports-base-2024.pub
 PUBLIC_KEY='RWR+PhirBCclQlM0Khae0up57K9Yy8hRstG1AOyawt/HIIGMckQQWlKn'
 # macports/macports-base:keys/archives/macports-archives-2025.pub
 PUBLIC_KEY_GIT_BLOB='477a77d4363525ba8afc32331fb389897fba193c'
 SIGNATURE_COMMENT='untrusted comment: verify with macports-archives-2025.pub'
 MACPORTS_LLVM_BIN_ALIAS=re.compile(r'[A-Za-z0-9_.+-]+-mp-12\Z')
+MACPORTS_LIBFFI_DYLIB=re.compile(r'libffi(?:\.\d+)*\.dylib\Z')
 
 
 def download(url,path,limit):
@@ -120,7 +124,7 @@ def safe_extract(package,destination):
             elif member.issym():
                 link=PurePosixPath(member.linkname)
                 if link.is_absolute():raise ValueError('Absolute symlink in MacPorts LLVM package')
-                resolved=PurePosixPath(os.path.normpath(str(relative.parent/link)))
+                resolved=PurePosixPath(posixpath.normpath(str(relative.parent/link)))
                 if resolved.is_absolute() or '..' in resolved.parts:raise ValueError('Escaping symlink in MacPorts LLVM package')
                 pending.append((destination/Path(*relative.parts),member.linkname))
             else:raise ValueError('Unsupported special entry in MacPorts LLVM package')
@@ -129,6 +133,65 @@ def safe_extract(package,destination):
     opt=destination/'bin/opt';llc=destination/'bin/llc'
     if not opt.is_file() or not llc.is_file():raise ValueError('MacPorts LLVM package is missing opt/llc')
     return expanded,opt,llc
+
+
+def safe_extract_libffi(package,destination):
+    """Select only the signed package's bounded libffi dylib family."""
+    roots={'opt/local/include','opt/local/lib','opt/local/lib/pkgconfig',
+           'opt/local/share','opt/local/share/man','opt/local/share/man/man3'}
+    scaffolds={'opt','opt/local',*roots}
+    seen=set();pending=[];expanded=0;selected=set()
+    with tarfile.open(package,'r:bz2') as archive:
+        members=archive.getmembers()
+        if len(members)>2000:raise ValueError('MacPorts libffi package has too many archive entries')
+        for member in members:
+            name=member.name.removeprefix('./');normalized=name.rstrip('/')
+            if name in {'','.','./'} and member.isdir():continue
+            if normalized.startswith('+'):
+                if member.size>2*1024*1024:raise ValueError('MacPorts package metadata exceeds bound')
+                continue
+            if normalized in scaffolds:
+                if not member.isdir():raise ValueError('Unexpected non-directory libffi package scaffold: '+name)
+                continue
+            parts=PurePosixPath(name)
+            if parts.is_absolute() or any(part in {'','.', '..'} for part in parts.parts):
+                raise ValueError('Unsafe MacPorts libffi archive member path')
+            if name in seen:raise ValueError('Duplicate MacPorts libffi archive member')
+            seen.add(name)
+            if not any(name.startswith(root+'/') for root in roots):
+                raise ValueError('Unexpected path in MacPorts libffi archive: '+name)
+            if member.isdir():continue
+            if name.startswith('opt/local/lib/') and MACPORTS_LIBFFI_DYLIB.fullmatch(parts.name):
+                relative=Path(*parts.parts[3:]);output=destination/'lib'/relative
+                selected.add(parts.name)
+                if member.isfile():
+                    expanded+=member.size
+                    if expanded>16*1024**2:raise ValueError('MacPorts libffi dylib expansion exceeded 16 MiB')
+                    output.parent.mkdir(parents=True,exist_ok=True);stream=archive.extractfile(member)
+                    if stream is None:raise ValueError('Unable to read libffi archive member')
+                    with output.open('xb') as target:
+                        while True:
+                            block=stream.read(1024*1024)
+                            if not block:break
+                            target.write(block)
+                    output.chmod(member.mode&0o755)
+                elif member.issym():
+                    link=PurePosixPath(member.linkname)
+                    if link.is_absolute():raise ValueError('Absolute symlink in MacPorts libffi package')
+                    resolved=PurePosixPath(posixpath.normpath(str(PurePosixPath('lib')/link)))
+                    if resolved.is_absolute() or '..' in resolved.parts:raise ValueError('Escaping symlink in MacPorts libffi package')
+                    pending.append((output,member.linkname))
+                else:raise ValueError('Unsupported special entry in MacPorts libffi package')
+            elif member.isfile() and member.size<=4*1024**2:
+                # Headers, pkg-config metadata and man pages are signed package
+                # contents, but LLVM needs only the exact dylib family.
+                continue
+            else:raise ValueError('Unexpected or oversized MacPorts libffi package member: '+name)
+    for path,target in pending:
+        path.parent.mkdir(parents=True,exist_ok=True);path.symlink_to(target)
+    required=destination/'lib/libffi.8.dylib'
+    if not required.is_file() or not selected:raise ValueError('MacPorts libffi package is missing libffi.8.dylib')
+    return expanded
 
 
 def tool_inventory(prefix):
@@ -180,9 +243,16 @@ def main():
     if not 60*1024**2<=size<=100*1024**2:raise ValueError('Unexpected MacPorts LLVM package size')
     download(BASE+PACKAGE+'.sig',signature,4096)
     key_id,key_sha256=verify_signify(package,signature,tool_root)
+    ffi_package=tool_root/LIBFFI_PACKAGE;ffi_signature=tool_root/(LIBFFI_PACKAGE+'.sig')
+    if ffi_package.exists() or ffi_signature.exists():raise ValueError('libffi acquisition destination already exists')
+    ffi_size=download(LIBFFI_BASE+LIBFFI_PACKAGE,ffi_package,2*1024**2)
+    if not 16*1024<=ffi_size<=2*1024**2:raise ValueError('Unexpected signed MacPorts libffi archive size')
+    download(LIBFFI_BASE+LIBFFI_PACKAGE+'.sig',ffi_signature,4096)
+    ffi_key_id,ffi_key_sha256=verify_signify(ffi_package,ffi_signature,tool_root)
     prefix=tool_root/'prefix/libexec/llvm-12'
     prefix.parent.mkdir(parents=True,exist_ok=True)
     expanded,opt,llc=safe_extract(package,prefix)
+    ffi_expanded=safe_extract_libffi(ffi_package,prefix)
     env=dict(os.environ);env['PATH']=str(prefix/'bin')+os.pathsep+env.get('PATH','')
     env['DYLD_LIBRARY_PATH']=str(prefix/'lib')+os.pathsep+env.get('DYLD_LIBRARY_PATH','')
     opt_text=checked_version(opt,env)
@@ -197,7 +267,11 @@ def main():
         signify_key_path='keys/archives/macports-archives-2025.pub',signify_key_git_blob=PUBLIC_KEY_GIT_BLOB,
         signify_key_id=key_id,signify_public_key_sha256=key_sha256,
         signature_sha256=sha256(signature),signature_verified=True,package_version='llvm-12 12.0.1_5',
-        package_expanded_bytes=expanded,tool_prefix=str(prefix),opt_sha256=sha256(opt),llc_sha256=sha256(llc),
+        package_expanded_bytes=expanded,libffi=dict(package=LIBFFI_PACKAGE,package_url=LIBFFI_BASE+LIBFFI_PACKAGE,
+            package_bytes=ffi_size,package_sha256=sha256(ffi_package),signature_sha256=sha256(ffi_signature),
+            signature_verified=True,signify_key_id=ffi_key_id,signify_public_key_sha256=ffi_key_sha256,
+            package_expanded_bytes=ffi_expanded,selected_dylibs={p.relative_to(prefix).as_posix():sha256(p) for p in (prefix/'lib').glob('libffi*.dylib') if p.is_file()}),
+        tool_prefix=str(prefix),opt_sha256=sha256(opt),llc_sha256=sha256(llc),
         files=files,opt_version=opt_text.strip(),llc_version=llc_text.strip(),
         scope='Signature-verified exact MacPorts LLVM 12.0.1 ARM64 tools and owned libraries for Taskell GHC 9.0.2; archive and extracted files stay in the campaign toolchain root.'))
     with Path(args.github_env).open('a',encoding='utf-8',newline='\n') as stream:
@@ -205,7 +279,7 @@ def main():
         stream.write('DYLD_LIBRARY_PATH='+env['DYLD_LIBRARY_PATH']+'\n')
         stream.write('TASKELL_LLVM_MANIFEST='+str(manifest)+'\n')
     print(json.dumps(dict(manifest=str(manifest),package_sha256=sha256(package),expanded_bytes=expanded,
-        opt_sha256=sha256(opt),llc_sha256=sha256(llc)),sort_keys=True))
+        opt_sha256=sha256(opt),llc_sha256=sha256(llc),libffi_package_sha256=sha256(ffi_package)),sort_keys=True))
 
 
 if __name__=='__main__':main()
