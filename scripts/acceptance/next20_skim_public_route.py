@@ -4,6 +4,7 @@ import copy
 import json
 import os
 from pathlib import Path
+import platform
 import shutil
 import subprocess
 
@@ -53,9 +54,37 @@ async def main():
     shutil.copy2(original_target, canonical/'bin'/original_target.name)
     shutil.copytree(package/'fixtures/N01', canonical/'fixture')
     runner = executable('native-exit-v1')
+    installed = json.loads((runner.parent/'installed.json').read_text(encoding='utf-8'))
     campaign = NextCampaign(phase='public-authoring')
     env = dict(os.environ)
     attempts = []
+    controls = [
+        '/expect 1/3',
+        '/key Enter',
+        '/exit 0',
+        '/expect cedar',
+        '/snapshot selected.txt',
+        '/review',
+        '/replay',
+        '/save',
+    ]
+    fixture_hashes = {p.relative_to(canonical/'fixture').as_posix(): sha256(p)
+                      for p in sorted((canonical/'fixture').rglob('*')) if p.is_file()}
+    immutable_json(output/'planned.json', dict(
+        schema_version=1, project=PROJECT, phase='public-authoring',
+        source_pin=PIN, candidate='v0.4.0-rc.6', candidate_archive_sha256=installed['archive_sha256'],
+        runner_sha256=sha256(runner), target_binary_sha256=original_hash,
+        host=platform.platform(), architecture=platform.machine(),
+        public_case='docs/validation/runner-readiness-next-twenty-project-pass/skim/N01-v2.json',
+        public_case_sha256=sha256(package/'N01-v2.json'), fixture_hashes=fixture_hashes,
+        no_handwritten_first_use_spec=True, initial_shell_invocations_expected=3,
+        first_use_controls=controls, expected_first_run='record, review, fresh replay, save, then ordinary candidate test passes and cleans its managed workspace',
+        seeded_diagnosis='wrong selected screen snapshot fails with a useful report category and actual evidence',
+        maintenance='change only selected query and named snapshot; preserve fixture and target bytes',
+        relocation='move complete owned spec/fixture/target bundle under a spaced Unicode path and rerun',
+        delivered_workflow='generate and review a source-pinned free-workflow preview; do not dispatch or create a PR',
+        command_timeout_seconds=180, route_timeout_seconds=900,
+        storage_root=output.relative_to(ROOT).as_posix()))
 
     async def run(argv, label, *, input=None, expected=0, timeout=180):
         result = await execute(argv, PROJECT, label, cwd=ROOT, env=env, input=input,
@@ -68,16 +97,6 @@ async def main():
     if version['output'].strip() != 'playtestr v0.4.0-rc.6':
         raise ValueError('public Skim route did not use the exact private candidate')
 
-    controls = [
-        '/expect 1/3',
-        '/key Enter',
-        '/exit 0',
-        '/expect cedar',
-        '/snapshot selected.txt',
-        '/review',
-        '/replay',
-        '/save',
-    ]
     spec = canonical/'selection.json'
     command = [runner, 'record', '--output', spec.relative_to(ROOT),
                '--name', 'Select the unique cedar result', '--fixture', 'fixture',
@@ -205,6 +224,7 @@ async def main():
 
     receipt = dict(schema_version=1, status='public-agent-route-passed-not-admitted', project=PROJECT,
                    source_pin=PIN, candidate='v0.4.0-rc.6', runner_sha256=sha256(runner),
+                   planned_sha256=sha256(output/'planned.json'),
                    native_target_sha256=original_hash, first_use_target_version='sk 5.8.0',
                    initial_window=True, shell_invocations_to_first_reviewed_ordinary_pass=3,
                    first_window_controls=len(controls), handwritten_playtestr_json=False,
