@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42447170171,
+  "source_revision": "cb3ddc3387f92d6fc929d9dc0cf581a5cc5389e3",
+  "job_id": 128628436239,
+  "host": "macos-15-arm64",
+  "result": "failed-during-toolchain-setup-before-source-acquisition",
+  "failed_step": "Set up the resolver toolchain in the owned workspace",
+  "cause": "GHC 8.10.7 installed, but its compiler sanity check failed because the runner lacked LLVM opt 9 through 12 (GHC reported it could not execute opt).",
+  "target_source_downloaded": false,
+  "target_launched": false,
+  "workflow_log": "https://github.com/Wyrcan-io/playtestr/actions/runs/42447170171/job/128628436239",
+  "disposition": "Preserve. Dependency resolution needs no installed GHC; the corrected workflow installs only Stack and uses the resolver's pinned global package hints."
+}

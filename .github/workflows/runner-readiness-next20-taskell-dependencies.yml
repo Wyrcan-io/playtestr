@@ -34,12 +34,9 @@ jobs:
       - name: Set up the resolver toolchain in the owned workspace
         uses: haskell-actions/setup@0f8e8c99d88aeb3fbfd523f1ef2c6f762d10d64d
         with:
-          ghc-version: '8.10.7'
-          cabal-version: '3.10.3.0'
           stack-version: '3.11.1'
           enable-stack: 'true'
           stack-no-global: 'true'
-          stack-setup-ghc: 'true'
           cabal-update: 'false'
       - name: Verify pinned source and resolver inputs
         shell: bash
@@ -58,7 +55,6 @@ jobs:
                   raise SystemExit('Pinned resolver file changed: '+name)
           PY
           stack --version
-          ghc --numeric-version
       - name: Resolve complete production and test dependency graph
         shell: bash
         run: |
@@ -77,8 +73,8 @@ jobs:
               raise SystemExit('Pinned Stackage snapshot bytes or digest differ')
           Path('../dependency-preflight/stackage-nightly-2021-07-14.yaml').write_bytes(data)
           PY
-          stack ls dependencies json --external --include-base --test > ../dependency-preflight/dependencies.json
-          stack dot --external --include-base --test > ../dependency-preflight/dependencies.dot
+          stack ls dependencies json --global-hints --external --include-base --test > ../dependency-preflight/dependencies.json
+          stack dot --global-hints --external --include-base --test > ../dependency-preflight/dependencies.dot
           cp stack.yaml ../dependency-preflight/stack.yaml
           cp stack.yaml.lock ../dependency-preflight/stack.yaml.lock
           cp package.yaml ../dependency-preflight/package.yaml
