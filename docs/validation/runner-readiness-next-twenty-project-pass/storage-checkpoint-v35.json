@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "status": "within declared logical storage caps; four new admissions; campaign incomplete",
+  "observed_at_utc": "2026-11-08T14:42:00.541660+00:00",
+  "caps_bytes": {
+    "new_campaign_raw": 4294967296,
+    "combined_raw": 6442450944,
+    "combined_retained": 2147483648,
+    "new_curated": 26214400,
+    "combined_curated": 52428800,
+    "project": 67108864
+  },
+  "actual_bytes": {
+    "new_campaign_raw": 1997737029,
+    "combined_raw": 3906445601,
+    "combined_retained": 2147353465,
+    "new_curated": 12792804,
+    "combined_curated": 24449048,
+    "project": 1002
+  },
+  "headroom_bytes": {
+    "combined_curated": 27979752,
+    "combined_raw": 2536005343,
+    "combined_retained": 130183,
+    "new_curated": 13421596,
+    "new_raw": 2297230267,
+    "project": 67107862
+  },
+  "receipt": "artifacts/runner-readiness-next-twenty-project-pass/storage/0eeec127add042fb99f6df1a54b29854/observed.json",
+  "receipt_sha256": "ed752a0642f5be11e55a6284197e4f2cf61625fc84b38b83b27031093516ea7b",
+  "scope": "Fresh observed logical storage after hash-verified compact archives of all 40 candidate reports and recorder evidence from successful paired run 42489015452, and checked removal of only its two extracted artifact directories. No exact peak, allocation, quota or admission claim."
+}
