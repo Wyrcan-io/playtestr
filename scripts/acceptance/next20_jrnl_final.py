@@ -52,6 +52,13 @@ def expected_scenario_hash(declaration):
                            declaration.get('canonical_test_freeze_sha256'))
 
 
+def runtime_lock_path(package, candidate_series):
+    """Use a series-specific runtime lock or the package's canonical lock."""
+    specific=package/('native-runtime-lock-'+candidate_series+'.json')
+    canonical=package/'native-runtime-lock.json'
+    return specific if specific.is_file() or not canonical.is_file() else canonical
+
+
 async def main(project='jrnl',batch=None,candidate_series='rc5',chunk_readiness=False,window=None,
                startup_timeout_ms_by_host=None,declaration_path_override=None):
     if batch is None:
@@ -86,7 +93,7 @@ async def main(project='jrnl',batch=None,candidate_series='rc5',chunk_readiness=
     expected_scenarios=expected_scenario_hash(declaration)
     if expected_scenarios and sha256(scenarios_path)!=expected_scenarios:
         raise ValueError('Canonical scenario freeze differs from final-series declaration')
-    runtime_lock=DOC/project/('native-runtime-lock-'+candidate_series+'.json')
+    runtime_lock=runtime_lock_path(DOC/project,candidate_series)
     if declaration.get('native_runtime_lock_sha256') and (
         not runtime_lock.is_file() or sha256(runtime_lock)!=declaration['native_runtime_lock_sha256']):
         raise ValueError('Native runtime lock differs from final-series declaration')

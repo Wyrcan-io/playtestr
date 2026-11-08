@@ -8,7 +8,7 @@ from pathlib import Path
 from next20_check import DOC
 from next20_git_town_faults import FAULTS, PIN
 from next20_git_town_final_contracts import materialize_scenario_alias, validate_scenario_alias
-from next20_jrnl_final import expected_scenario_hash
+from next20_jrnl_final import expected_scenario_hash, runtime_lock_path
 
 
 class GitTownFinalContractTests(unittest.TestCase):
@@ -19,6 +19,16 @@ class GitTownFinalContractTests(unittest.TestCase):
             'canonical_scenario_sha256':scenario,
             'canonical_test_freeze_sha256':freeze}),scenario)
         self.assertEqual(expected_scenario_hash({'canonical_test_freeze_sha256':freeze}),freeze)
+
+    def test_runtime_lock_resolves_series_specific_then_canonical_package_lock(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            package=Path(temporary)
+            canonical=package/'native-runtime-lock.json'
+            canonical.write_text('{}',encoding='utf-8')
+            self.assertEqual(runtime_lock_path(package,'native-exit-v1'),canonical)
+            specific=package/'native-runtime-lock-native-exit-v1.json'
+            specific.write_text('{"series": true}',encoding='utf-8')
+            self.assertEqual(runtime_lock_path(package,'native-exit-v1'),specific)
 
     def test_scenario_alias_matches_and_records_frozen_source(self):
         with tempfile.TemporaryDirectory() as temporary:
