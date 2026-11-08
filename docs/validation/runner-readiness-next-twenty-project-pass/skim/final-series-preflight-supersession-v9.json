@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "project": "skim",
+  "replacement_plan_namespace": "final-series-plan-native-exit-v10",
+  "target_launches": 0,
+  "scenario_credit": 0,
+  "superseded_plan": "artifacts/runner-readiness-next-twenty-project-pass/skim/final-series-plan-native-exit-v9/windows/plan.json",
+  "superseded_plan_sha256": "5c2297670e30b7475ff7389261a83f11f71d83194bb9bf8ffcf7a27d8a465f6a",
+  "superseded_audit": "artifacts/runner-readiness-next-twenty-project-pass/skim/final-series-plan-native-exit-v9/windows/plan-audit.json",
+  "superseded_audit_sha256": "efde7014795ddf49726f02acc70756e0aca735b5af4526955d663ded66c02416",
+  "failed_attempt_receipt": "candidate-native-attempts-v4.json",
+  "failed_attempt_receipt_sha256": "249e5932683b5f71a1bbe82da13f350152d9111f667ff0a61b68fdfc9895aeac",
+  "reason": "V9 acquired and built the pinned target on both native hosts but executed zero candidate cases. The Linux planner unit test inherited a workspace TMP path too long for a filesystem Unix socket. Windows independently audited its 240-contract plan, but the final-series wrapper rejected 9600 seconds above the 2400-second command cap before target launch. Both hosts exceeded the generic cleanup inventory bound on compiler caches; the Linux unconditional removal retry also collided with the immutable process-proof receipt. V10 bounds the wrapper call, uses a short workspace-root socket path, inventories and prunes only exact Skim-owned cache roots, and independently rechecks the prepared target inventory before Unix removal. V9 failures and hosted artifacts remain preserved and uncredited.",
+  "replacement_plan": "artifacts/runner-readiness-next-twenty-project-pass/skim/final-series-plan-native-exit-v10/windows/plan.json",
+  "replacement_plan_sha256": "8d48383a6273a445b18bb2cfbc688b66c5f9b4ddef6b9680eb0ce2e24da1c5c4",
+  "replacement_audit": "artifacts/runner-readiness-next-twenty-project-pass/skim/final-series-plan-native-exit-v10/windows/plan-audit.json",
+  "replacement_audit_sha256": "554fb345d3c3e427405c86a3c1d5f231ca674b72380261710d88c6372de1243b",
+  "replacement_audit_result": "Independently reconstructed 240 exact final case contracts on local Windows; zero target launches. Hosted native plan audit remains required."
+}

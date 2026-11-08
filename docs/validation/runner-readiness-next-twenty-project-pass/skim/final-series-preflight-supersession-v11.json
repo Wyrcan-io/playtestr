@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "project": "skim",
+  "replacement_plan_namespace": "final-series-plan-native-exit-v12",
+  "target_launches": 0,
+  "scenario_credit": 0,
+  "superseded_declaration": "final-series-declaration-native-exit-v6.json",
+  "superseded_declaration_sha256": "c0b47d8d7c530bfa474337375c5746808e070258fb46dc23d255caa1c9323edf",
+  "plan_created": false,
+  "reason": "V11 preparation stopped before producing a plan or launching a target because the series planner still referenced the V10 contract namespace while its independent auditor expected V11. V12 binds both planner and auditor to the same fresh contract namespace. V11 remains a zero-launch failed preflight; the timeout, cache cleanup and prepared-removal fixes remain in force.",
+  "replacement_declaration": "final-series-declaration-native-exit-v7.json",
+  "replacement_plan": "artifacts/runner-readiness-next-twenty-project-pass/skim/final-series-plan-native-exit-v12/windows/plan.json",
+  "replacement_audit_required": true
+}

@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "project": "skim",
+  "candidate_series": "native-exit-v1",
+  "workflow_run_id": 42427142941,
+  "commit": "6647c2236b33fb43e776d225f530dbbf8916f346",
+  "hosts": [
+    {
+      "host": "linux",
+      "runner": "ubuntu-24.04",
+      "job_id": 128567736523,
+      "artifact_id": 13595539910,
+      "artifact_name": "next20-skim-linux-rc6-final",
+      "artifact_path": "artifacts/runner-readiness-next-twenty-project-pass/retrieved/skim-linux-v9-42427142941.zip",
+      "artifact_bytes": 5569633,
+      "provider_sha256": "7a0d3706ec139012837424d1c31d8978b4a456bc1c074203ff10c2e4e3219f91",
+      "local_sha256": "7a0d3706ec139012837424d1c31d8978b4a456bc1c074203ff10c2e4e3219f91",
+      "job_log_path": "artifacts/runner-readiness-next-twenty-project-pass/retrieved/skim-linux-v9-42427142941-joblogs.log",
+      "job_log_sha256": "9ef4bd27c86c526582f6c2c182f0c2feb11943e7e739974135cc500437e08ca1",
+      "events": {
+        "started": 10,
+        "identified": 10,
+        "launched": 10,
+        "finished": 10,
+        "failed_commands": [
+          {
+            "label": "skim-final-cleanup-preflight",
+            "id": "db0635fd9c324dd89a107788dd5e8d4f",
+            "category": "exit_mismatch",
+            "exit_code": 1,
+            "console_sha256": "48da64c99cf4cc5c9724ac152c2979fe5f88df52b930464bf6e7d1c21421a61d"
+          },
+          {
+            "label": "skim-final-target-removal",
+            "id": "997f668e53744029acbc6ee14b00f380",
+            "category": "exit_mismatch",
+            "exit_code": 1,
+            "console_sha256": "0b12c9035f602adfea407c35cab259144204eadafbccb20433e651ac8ebd3e7c"
+          }
+        ]
+      },
+      "source_acquired": true,
+      "native_build_completed": true,
+      "candidate_archive_installed": true,
+      "candidate_case_executions": 0,
+      "fault_phases": 0,
+      "result": "Source and candidate acquisition/build succeeded. Planner unit validation failed because the workspace TMP path exceeded the Unix socket pathname limit; target cleanup hit the reviewed generic cache inventory bound. No final-series cases launched."
+    },
+    {
+      "host": "windows",
+      "runner": "windows-2025",
+      "job_id": 128567736488,
+      "artifact_id": 13595414169,
+      "artifact_name": "next20-skim-windows-rc6-final",
+      "artifact_path": "artifacts/runner-readiness-next-twenty-project-pass/retrieved/skim-windows-v9-42427142941.zip",
+      "artifact_bytes": 6347073,
+      "provider_sha256": "5a539d41315a95fde4dd5138f0a3232a0bd6ad67cec8665c7953db9a4b5a1ae5",
+      "local_sha256": "5a539d41315a95fde4dd5138f0a3232a0bd6ad67cec8665c7953db9a4b5a1ae5",
+      "job_log_path": "artifacts/runner-readiness-next-twenty-project-pass/retrieved/skim-windows-v9-42427142941-joblogs.log",
+      "job_log_sha256": "7e17b7b491911a44e61baedcd0d9e0a345e8ef28e949431d451c101a863d79fd9",
+      "events": {
+        "started": 13,
+        "identified": 13,
+        "launched": 13,
+        "finished": 13,
+        "failed_commands": [
+          {
+            "label": "skim-final-cleanup-preflight",
+            "id": "e211798d03b64aa49c9b662eb6366844",
+            "category": "exit_mismatch",
+            "exit_code": 1,
+            "console_sha256": "5cb917eb6af5c8fdc45c483ca88f51f8e66e1257813d369b89b30be9fa27f57d"
+          },
+          {
+            "label": "skim-final-target-removal",
+            "id": "a8bacecb84494983a6ffcd5273101ab9",
+            "category": "exit_mismatch",
+            "exit_code": 1,
+            "console_sha256": "57e4ea9a0ef8df0bcf20b3833a6c7dafb1687c8d57d0196a50fb464dde7a950f"
+          }
+        ]
+      },
+      "source_acquired": true,
+      "native_build_completed": true,
+      "candidate_archive_installed": true,
+      "candidate_plan_audit_completed": true,
+      "candidate_case_executions": 0,
+      "fault_phases": 0,
+      "result": "Source, native build, contract preparation and independent 240-contract audit succeeded. The case wrapper rejected 9600 seconds above its 2400-second cap before target launch. Target cleanup hit the generic cache inventory bound."
+    }
+  ],
+  "candidate_case_executions": 0,
+  "source_fault_phases": 0,
+  "new_qualification_credit": 0,
+  "preserve_failures": true,
+  "result": "Both hosts acquired and built pinned Skim; neither executed candidate cases. Linux planner unit validation failed on an overlong temporary socket path. Windows independently audited its frozen 240-case plan, but the bounded command wrapper refused an out-of-range 9600-second timeout. Both hosts then reported a bounded cleanup inventory refusal on the compiler caches, and Linux's unconditional removal retry collided with the immutable process-proof receipt.",
+  "next": "Run the v10 zero-launch plan audit, then execute on both native hosts with the 2400-second command bound. Prune only the separately reviewed Skim-owned build/cache roots after source and process checks, and remove the target only from a fresh, matching prepared cleanup inventory."
+}

@@ -16,6 +16,8 @@ on:
       - 'scripts/acceptance/next20_skim_source_verify.py'
       - 'scripts/acceptance/next20_target_cleanup.py'
       - 'scripts/acceptance/test_next20_target_cleanup.py'
+      - 'scripts/acceptance/next20_skim_cache_cleanup.py'
+      - 'scripts/acceptance/next20_skim_target_remove.py'
       - 'scripts/acceptance/next20_remove_target.ps1'
       - 'scripts/acceptance/next20_target_process_proof.ps1'
       - 'scripts/acceptance/next20_check.py'
@@ -143,7 +145,7 @@ jobs:
           python -B scripts/acceptance/next20_candidate_install.py --series native-exit-v1 --archive $cells[0].archive_local_only
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Validate final-series planner
-        run: python -B -m unittest test_next20_skim_final_series test_next20_target_cleanup test_next20_acquire test_next20_storage -v
+        run: python -B -m unittest test_next20_skim_final_series test_next20_target_cleanup test_next20_acquire test_next20_storage test_next20_skim_cleanup -v
         working-directory: scripts/acceptance
       - name: Freeze all derived contracts before target execution
         run: python -B scripts/acceptance/next20_check.py --label skim-final-contract-freeze --timeout 180 -- python -B scripts/acceptance/next20_skim_final_series.py --host '${{ matrix.host }}' --prepare-only
@@ -153,21 +155,27 @@ jobs:
         id: final
         env:
           READINESS_EVIDENCE_PHASE: final-archive
-        run: python -B scripts/acceptance/next20_check.py --label skim-final-exact-rc6-series --timeout 9600 -- python -B scripts/acceptance/next20_skim_final_series.py --host '${{ matrix.host }}'
+        run: python -B scripts/acceptance/next20_check.py --label skim-final-exact-rc6-series --timeout 2400 -- python -B scripts/acceptance/next20_skim_final_series.py --host '${{ matrix.host }}'
       - name: Execute final candidate source-fault calibrations
         if: steps.final.outcome == 'success'
         env:
           READINESS_EVIDENCE_PHASE: final-archive
-        run: python -B scripts/acceptance/next20_check.py --label skim-final-rc6-fault-calibration --timeout 7200 -- python -B scripts/acceptance/next20_skim_final_faults.py --host '${{ matrix.host }}' --candidate-series native-exit-v1
+        run: python -B scripts/acceptance/next20_check.py --label skim-final-rc6-fault-calibration --timeout 2400 -- python -B scripts/acceptance/next20_skim_final_faults.py --host '${{ matrix.host }}' --candidate-series native-exit-v1
       - name: Verify source and process-tree cleanup
+        id: verify-cleanup
         if: always() && steps.acquire.outcome == 'success'
         run: |
           python -B scripts/acceptance/next20_skim_source_verify.py --verify-only
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           if ('${{ matrix.host }}' -eq 'windows') { python -B scripts/acceptance/next20_check.py --label skim-final-process-proof --timeout 120 -- powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/acceptance/next20_target_process_proof.ps1 -Project skim }
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Remove only verified Skim compiler caches
+        id: cache-cleanup
+        if: always() && steps.verify-cleanup.outcome == 'success'
+        run: python -B scripts/acceptance/next20_check.py --label skim-final-cache-cleanup --timeout 300 -- python -B scripts/acceptance/next20_skim_cache_cleanup.py
       - name: Prepare checked target cleanup
-        if: always() && steps.acquire.outcome != 'skipped'
+        id: cleanup-preflight
+        if: always() && steps.cache-cleanup.outcome == 'success'
         run: |
           $target = Join-Path $env:GITHUB_WORKSPACE 'artifacts/runner-readiness-next-twenty-project-pass/active/skim'
           if (Test-Path -LiteralPath $target) {
@@ -175,16 +183,11 @@ jobs:
             if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           } else { Write-Output 'No Skim target tree was created; cleanup not applicable.' }
       - name: Remove checked Windows target tree
-        if: always() && steps.acquire.outcome != 'skipped' && matrix.host == 'windows'
+        if: always() && steps.cleanup-preflight.outcome == 'success' && matrix.host == 'windows'
         run: python -B scripts/acceptance/next20_check.py --label skim-final-target-removal --timeout 300 -- powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/acceptance/next20_remove_target.ps1 -Project skim -MaxFiles 60000 -MaxBytes 2147483648
       - name: Remove checked Unix target tree
-        if: always() && steps.acquire.outcome != 'skipped' && matrix.host == 'linux'
-        run: |
-          $target = Join-Path $env:GITHUB_WORKSPACE 'artifacts/runner-readiness-next-twenty-project-pass/active/skim'
-          if (Test-Path -LiteralPath $target) {
-            python -B scripts/acceptance/next20_check.py --label skim-final-target-removal --timeout 300 -- python -B scripts/acceptance/next20_target_cleanup.py --project skim --no-case-reports --max-files 60000 --max-bytes 2147483648
-            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          } else { Write-Output 'No Skim target was acquired; cleanup not applicable.' }
+        if: always() && steps.cleanup-preflight.outcome == 'success' && matrix.host == 'linux'
+        run: python -B scripts/acceptance/next20_check.py --label skim-final-target-removal --timeout 300 -- python -B scripts/acceptance/next20_skim_target_remove.py
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:

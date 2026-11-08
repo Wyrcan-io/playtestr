@@ -4,6 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from readiness_evidence import ROOT
 from readiness_storage import measure
 
 
@@ -24,7 +25,9 @@ class StorageMeasureTests(unittest.TestCase):
     def test_records_bound_unix_socket_metadata_without_reading_payload(self):
         if not hasattr(socket,'AF_UNIX'):
             self.skipTest('filesystem-backed Unix sockets are unavailable on this host')
-        with tempfile.TemporaryDirectory() as temporary:
+        # Unix-domain sockets have short pathname limits. Keep the temporary
+        # directory in the workspace root, whose path is shorter than TMPDIR.
+        with tempfile.TemporaryDirectory(dir=ROOT) as temporary:
             root=Path(temporary);endpoint=root/'runner.sock'
             listener=socket.socket(socket.AF_UNIX,socket.SOCK_STREAM)
             try:

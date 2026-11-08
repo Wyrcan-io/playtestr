@@ -76,7 +76,7 @@ def audit(plan_path):
     plan = json.loads(plan_path.read_text(encoding='utf-8'))
     host = actual_host()
     package = ROOT/'docs/validation/runner-readiness-next-twenty-project-pass/skim'
-    declaration_path = package/'final-series-declaration-native-exit-v4.json'
+    declaration_path = package/'final-series-declaration-native-exit-v7.json'
     declaration = json.loads(declaration_path.read_text(encoding='utf-8'))
     base_path = package/'scenario-declaration-v5.json'
     revision_path = package/'scenario-declaration-v6.json'
@@ -111,23 +111,23 @@ def audit(plan_path):
     target_hash = build.get('binary_sha256')
     if target_hash != plan.get('target_sha256') or build.get('pin') != PIN:
         raise ValueError('pinned target build identity differs from frozen plan')
-    for relative in ('bin/sk.exe','final-series-copies-v9/cold-warm-a/sk.exe','final-series-copies-v9/cold-warm-b/sk.exe'):
+    for relative in ('bin/sk.exe','final-series-copies-v12/cold-warm-a/sk.exe','final-series-copies-v12/cold-warm-b/sk.exe'):
         binary = target_root/relative
         if sha256(binary) != target_hash:
             raise ValueError('fresh/warm target copy mismatch: '+relative)
 
     expected_batches = []
     contract_checks = []
-    contract_root = RAW/'skim/final-contracts/native-exit-v9'/host
+    contract_root = RAW/'skim/final-contracts/native-exit-v12'/host
     if len(plan['batches']) != len(BATCHES):
         raise ValueError('wrong final batch denominator')
     for batch_id, ((name, change), actual) in enumerate(zip(BATCHES, plan['batches'])):
         if actual.get('batch') != {'id':batch_id,'name':name,'change':change} or len(actual.get('cases', [])) != 20:
             raise ValueError('batch profile changed or case count is not twenty')
         expected_batch_cases = []
-        target_name = {0:'final-series-copies-v9/cold-warm-a/sk.exe',1:'final-series-copies-v9/cold-warm-a/sk.exe',
-            2:'final-series-copies-v9/cold-warm-b/sk.exe',3:'final-series-copies-v9/cold-warm-b/sk.exe',
-            4:'bin/sk.exe',5:'final-series-copies-v9/relocated café 雪/sk.exe',6:'bin/sk.exe',7:'bin/sk.exe',
+        target_name = {0:'final-series-copies-v12/cold-warm-a/sk.exe',1:'final-series-copies-v12/cold-warm-a/sk.exe',
+            2:'final-series-copies-v12/cold-warm-b/sk.exe',3:'final-series-copies-v12/cold-warm-b/sk.exe',
+            4:'bin/sk.exe',5:'final-series-copies-v12/relocated café 雪/sk.exe',6:'bin/sk.exe',7:'bin/sk.exe',
             8:'bin/sk.exe',9:'bin/sk.exe',10:'bin/sk.exe',11:'bin/sk.exe'}[batch_id]
         absolute_target = target_root/target_name
         target_value = str(absolute_target.resolve(strict=False))

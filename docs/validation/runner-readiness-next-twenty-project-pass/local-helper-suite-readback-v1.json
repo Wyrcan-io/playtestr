@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "host": "local Windows development host",
+  "suite": "python -B -m unittest discover -s scripts/acceptance -p 'test_next20_*.py'",
+  "runs": [
+    {
+      "tests": 105,
+      "duration_seconds": 60.36,
+      "result": "failed",
+      "errors": 1,
+      "failed_test": "test_actual_success_and_expected_nonzero_keep_distinct_execution_ids",
+      "finding": "The first child launch exceeded its bounded wait during the full helper suite; rerunning that test alone passed in 0.866 seconds."
+    },
+    {
+      "tests": 105,
+      "duration_seconds": 44.119,
+      "result": "failed",
+      "failures": 1,
+      "errors": 2,
+      "skipped": 6,
+      "findings": [
+        "Two PowerShell native target-removal checks received Access denied from Get-CimInstance Win32_Process (HRESULT 0x80041003) on this local host.",
+        "The adapter-timeout lifecycle check ended with harness_cleanup_unconfirmed and bounded drain/reap timeouts."
+      ]
+    }
+  ],
+  "focused_suite": {
+    "command": "python -B -m unittest test_next20_skim_final_series test_next20_target_cleanup test_next20_acquire test_next20_storage test_next20_skim_cleanup -v",
+    "tests": 19,
+    "passed": 15,
+    "skipped": 4,
+    "failed": 0
+  },
+  "isolated_child_launch": {
+    "test": "test_actual_success_and_expected_nonzero_keep_distinct_execution_ids",
+    "result": "passed",
+    "duration_seconds": 0.866
+  },
+  "scope": "These local checks do not establish Windows process-tree or native removal coverage. The hosted Windows workflow remains required for those exact paths. No candidate case executions or admission credit result from these helper-suite checks."
+}

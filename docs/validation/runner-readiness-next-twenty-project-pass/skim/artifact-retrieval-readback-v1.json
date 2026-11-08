@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "project": "skim",
+  "workflow_run_id": 42427142941,
+  "files": [
+    {
+      "original_receipt_path": "artifacts/runner-readiness-next-twenty-project-pass/retrieved/skim-linux-v9-42427142941.zip",
+      "current_path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/retrieved/skim-v9/skim-linux-v9-42427142941.zip",
+      "bytes": 5569633,
+      "sha256": "7a0d3706ec139012837424d1c31d8978b4a456bc1c074203ff10c2e4e3219f91",
+      "provider_artifact_id": 13595539910,
+      "provider_sha256": "7a0d3706ec139012837424d1c31d8978b4a456bc1c074203ff10c2e4e3219f91"
+    },
+    {
+      "original_receipt_path": "artifacts/runner-readiness-next-twenty-project-pass/retrieved/skim-windows-v9-42427142941.zip",
+      "current_path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/retrieved/skim-v9/skim-windows-v9-42427142941.zip",
+      "bytes": 6347073,
+      "sha256": "5a539d41315a95fde4dd5138f0a3232a0bd6ad67cec8665c7953db9a4b5a1ae5",
+      "provider_artifact_id": 13595414169,
+      "provider_sha256": "5a539d41315a95fde4dd5138f0a3232a0bd6ad67cec8665c7953db9a4b5a1ae5"
+    }
+  ],
+  "reason": "Exact provider ZIPs were moved within the campaign workspace from the retained retrieval folder to its tmp raw folder to protect the 2 GiB retained-evidence cap. Both local SHA-256 digests still match GitHub's artifact metadata. Job logs remain at the original retained paths.",
+  "admission_credit": 0
+}
