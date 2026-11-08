@@ -19,6 +19,7 @@ PACKAGE='llvm-12-12.0.1_5.darwin_24.arm64.tbz2'
 BASE='https://packages.macports.org/llvm-12/'
 LIBFFI_PACKAGE='libffi-3.4.8_0.darwin_24.arm64.tbz2'
 LIBFFI_BASE='https://packages.macports.org/libffi/'
+LIBFFI_SOURCE_SHA256='bc9842a18898bfacb0ed1252c4febcc7e78fa139fd27fdc7a3e30d9d9356119b'
 # macports/macports-base:keys/base/macports-base-2024.pub
 PUBLIC_KEY='RWR+PhirBCclQlM0Khae0up57K9Yy8hRstG1AOyawt/HIIGMckQQWlKn'
 # macports/macports-base:keys/archives/macports-archives-2025.pub
@@ -140,11 +141,14 @@ def safe_extract_libffi(package,destination):
     roots={'opt/local/include','opt/local/lib','opt/local/lib/pkgconfig',
            'opt/local/share','opt/local/share/man','opt/local/share/man/man3'}
     scaffolds={'opt','opt/local',*roots}
-    seen=set();pending=[];expanded=0;selected=set()
+    seen=set();pending=[];expanded=0;archive_expanded=0;selected=set()
     with tarfile.open(package,'r:bz2') as archive:
         members=archive.getmembers()
         if len(members)>2000:raise ValueError('MacPorts libffi package has too many archive entries')
         for member in members:
+            if member.isfile():
+                archive_expanded+=member.size
+                if archive_expanded>32*1024**2:raise ValueError('MacPorts libffi archive expansion exceeded 32 MiB')
             name=member.name.removeprefix('./');normalized=name.rstrip('/')
             if name in {'','.','./'} and member.isdir():continue
             if normalized.startswith('+'):
@@ -270,6 +274,10 @@ def main():
         package_expanded_bytes=expanded,libffi=dict(package=LIBFFI_PACKAGE,package_url=LIBFFI_BASE+LIBFFI_PACKAGE,
             package_bytes=ffi_size,package_sha256=sha256(ffi_package),signature_sha256=sha256(ffi_signature),
             signature_verified=True,signify_key_id=ffi_key_id,signify_public_key_sha256=ffi_key_sha256,
+            upstream_repository='https://github.com/libffi/libffi',upstream_tag='v3.4.8',
+            upstream_source_sha256=LIBFFI_SOURCE_SHA256,license='MIT',
+            portfile='https://github.com/macports/macports-ports/blob/master/devel/libffi/Portfile',
+            extraction_scope='selected signed libffi dylib family only; no package scripts or install hooks are run',
             package_expanded_bytes=ffi_expanded,selected_dylibs={p.relative_to(prefix).as_posix():sha256(p) for p in (prefix/'lib').glob('libffi*.dylib') if p.is_file()}),
         tool_prefix=str(prefix),opt_sha256=sha256(opt),llc_sha256=sha256(llc),
         files=files,opt_version=opt_text.strip(),llc_version=llc_text.strip(),
