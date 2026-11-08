@@ -55,3 +55,10 @@ was invalid (`build-attempt-v7.json`; artifact digest and size are in that
 receipt). The same run's macOS job was still building at receipt time. The
 spec now points to the actual fixture directory and `board-basic.md`; workflow
 push filters include first-use inputs so this correction runs natively.
+
+Run `42451645308` verified pinned Go setup and built Playtestr on Ubuntu, then
+failed before target launch with the same now-corrected fixture path
+(`build-attempt-v8.json`; artifact digest is retained there). Its macOS lane
+was still in upstream tests at receipt time. Run `42451800719` uses both the
+corrected fixture and Go setup on source `2144fd69`; both native jobs are in
+the pinned upstream test phase at the latest poll.

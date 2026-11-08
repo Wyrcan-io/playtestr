@@ -67,3 +67,11 @@ Go setup on macOS and upstream tests on Linux, but used the pre-correction
 fixture. The smoke now uses the actual `first-use-v1/fixtures/board-basic.md`
 path/name, and the workflow watches these inputs. This corrected declaration
 is pushed in the next commit; monitor its successor run before proceeding.
+
+Commit `2144fd69` pushed the corrected fixture path/name, expanded workflow
+path filters to include first-use inputs, and retained `build-attempt-v7.json`.
+Run `42451800719` is the first run with both this fixture correction and pinned
+Go setup; its Linux and Intel macOS jobs were in upstream tests at last poll.
+The intermediate Go-enabled run `42451645308` failed before target launch on
+the old fixture path; Linux artifact receipt is `build-attempt-v8.json`. Keep
+this attempt separate and continue monitoring the two-host run.

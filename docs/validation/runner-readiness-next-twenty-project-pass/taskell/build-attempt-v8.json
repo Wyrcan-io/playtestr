@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42451645308,
+  "source_revision": "99dc2ba731e8b623d3f61d1949edbad3b4a4d47a",
+  "event": "push",
+  "result": "linux-go-setup-and-runner-build-passed-authored-smoke-fixture-setup-failed-macos-in-progress-at-observation",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128641946432,
+      "source_verified": true,
+      "upstream_tests_passed": 250,
+      "target_binary_built": true,
+      "taskell_version": "1.11.4",
+      "playtestr_binary_built": true,
+      "go_setup": "passed; Go 1.25.0 from go.mod",
+      "authored_smoke": "failed-before-target-launch",
+      "failure_category": "workspace_setup",
+      "failure": "Fixture path docs/validation/runner-readiness-next-twenty-project-pass/taskell/first-use-v1/fixtures/board-basic is absent; the checked-in board fixture is board-basic.md.",
+      "first_use_recorder_reached": false,
+      "artifact_id": 13605478497,
+      "artifact_bytes": 11200792,
+      "artifact_sha256": "6a22788de9e8431296fe04ad1faf969e80adfb96a2e1a2d9bfcfdca506b0054b"
+    },
+    {
+      "host": "macos-15-intel-x86_64",
+      "job_id": 128641946259,
+      "upstream_test_status_at_observation": "in_progress",
+      "go_setup": "step is after upstream tests; not yet reached",
+      "first_use_recorder_reached": false
+    }
+  ],
+  "provider_run": "https://github.com/Wyrcan-io/playtestr/actions/runs/42451645308",
+  "disposition": "Preserve Linux fixture setup failure and the positive Go setup/runner build. The spec and workflow push filter were corrected in source 2144fd69; no target case or admission credit from this attempt."
+}
