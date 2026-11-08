@@ -1,0 +1,93 @@
+{
+  "report_version": 3,
+  "runner_version": "dev",
+  "os": "darwin",
+  "arch": "amd64",
+  "summary": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "cancelled": 0,
+    "not_run": 0
+  },
+  "results": [
+    {
+      "invocation_id": "1585658af0fa5b00ef696239c2ba8708",
+      "spec_version": 3,
+      "name": "Complete a saved Taskell board item",
+      "spec_path": "/Users/runner/work/playtestr/playtestr/artifacts/runner-readiness-next-twenty-project-pass/active/taskell/native-build/first-use/first-route.json",
+      "status": "passed",
+      "duration_ms": 381,
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "steps": [
+        {
+          "number": 1,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 20
+        },
+        {
+          "number": 2,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 3,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 48
+        },
+        {
+          "number": 4,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 2
+        },
+        {
+          "number": 5,
+          "action": "exit",
+          "status": "passed",
+          "duration_ms": 260
+        },
+        {
+          "state": {
+            "invocation_id": "1585658af0fa5b00ef696239c2ba8708",
+            "workspace_id": "1585658af0fa5b00ef696239c2ba8708",
+            "path": "board.md",
+            "kind": "file",
+            "outcome": "matched"
+          },
+          "number": 6,
+          "action": "state",
+          "status": "passed",
+          "duration_ms": 0
+        }
+      ],
+      "target": {
+        "exited": true,
+        "exit_code": 0
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": true,
+        "forced": false,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "evidence": {},
+      "workspace": {
+        "id": "1585658af0fa5b00ef696239c2ba8708",
+        "attempted": true,
+        "fixture": "fixtures/board-basic",
+        "prepared": true,
+        "cleanup_attempted": true,
+        "cleaned": true,
+        "retained": false
+      }
+    }
+  ]
+}

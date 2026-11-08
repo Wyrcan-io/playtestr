@@ -139,3 +139,22 @@ and workspace cleanup. Linux and macOS first-use packets are retained in
 `build-attempt-v18.json` and `build-attempt-v19.json`. This establishes a
 successful two-host first-use observation only. It is not the frozen scenario
 catalog, complete native cells, fault calibration, or admission.
+
+## Candidate interaction readback (2026-11-08)
+
+Run `42467040351` passed the existing-board smoke and candidate create/duplicate
+specs on Ubuntu 24.04 and Intel macOS. The creation case confirms the source
+read: Enter stores the task and creates a blank insert row; Escape runs
+`finishTask`, removes that row, and returns to normal mode; `q` then exits with
+code 0. Exact expected Markdown bytes, reports, process cleanup and workspace
+cleanup matched on both hosts. The duplicate case likewise preserves the
+neighbors and serializes the extra row exactly once on both hosts. These are
+single observations, not native-series or admission evidence; see
+`build-attempt-v24.json`.
+
+For candidate N04, `startEdit` initializes the field from the current task
+text with its cursor at the end (`textToField`), and the field handler maps
+Backspace to deletion immediately before the cursor. Therefore the prepared
+rename case sends nine Backspace keys to clear the fixture title `Rename me`
+before entering the replacement. This is source-grounded but still requires
+settled-screen and exact-state validation on both hosts.

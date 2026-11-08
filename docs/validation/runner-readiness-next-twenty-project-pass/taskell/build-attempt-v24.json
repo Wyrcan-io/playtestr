@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42467040351,
+  "source_revision": "40735055c65cf1e1e49b620b881778078223501b",
+  "event": "push, then rerun-failed-jobs (Mac only)",
+  "scenario_spec_sha256": {
+    "taskell-create-task.json": "164ed66e2b9c60014a66b88a419b7d73d8b2eeb0958b9f73f58951e4032ba90c",
+    "taskell-duplicate-task.json": "daf5de5f03c7ede2d58eb351e37b643e4bdf9c837b9d2c5033a02e1c30b96bdd"
+  },
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128688832333,
+      "provider_artifact": {
+        "id": 13612511940,
+        "bytes": 11206316,
+        "sha256": "3c230c82c0e0add8547183baeb6bfc70aef33ef46be62c54461c55229ab0c6c0"
+      },
+      "upstream_tests": "250 passed",
+      "target": {
+        "version": "1.11.4",
+        "binary_bytes": 33207832,
+        "binary_sha256": "6099f625fc30ee1fefcef87c3aa40e34915b4b254b52f4276d940e976225dfd8",
+        "stack": "3.11.1",
+        "ghc": "9.0.1"
+      },
+      "playtestr": {
+        "go": "1.25.0",
+        "binary_bytes": 6928585,
+        "binary_sha256": "5b66605fc1f065b342056c69d08c65f3af7a4766556a6bbd55dc4c3a06be9105"
+      },
+      "existing_task_smoke": {
+        "result": "passed",
+        "steps": "6/6",
+        "exit_code": 0,
+        "state": "matched",
+        "process_group_termination_confirmed": true,
+        "workspace_cleaned": true,
+        "report_sha256": "7fe6b1bb1c04fc5c85353479760ccb206bbee2ea5d716ba3380d3e15daa11b7b"
+      },
+      "create_task_candidate": {
+        "result": "passed",
+        "steps": "12/12",
+        "exit_code": 0,
+        "saved_state": "board-basic.md matched the exact spec bytes",
+        "process_group_termination_confirmed": true,
+        "workspace_cleaned": true,
+        "report_sha256": "662b520a48dfc9ac0817a12e8aec9173e07b96e510059b16c6fc3d53e789bda0"
+      },
+      "duplicate_task_candidate": {
+        "result": "passed",
+        "steps": "7/7",
+        "exit_code": 0,
+        "saved_state": "board.md matched the exact spec bytes",
+        "process_group_termination_confirmed": true,
+        "workspace_cleaned": true,
+        "report_sha256": "7dac6fb9eb59aceef83494ed951af0d1753e9ab90675d209c360b0a16770bd80"
+      },
+      "recorder_route": {
+        "reviewed": true,
+        "fresh_replay": "passed",
+        "exported_spec_sha256": "71b9c71aa5b4ea4e58180fd2bdf6890cc290342ac21a01dca3a7a18c608017a2",
+        "ordinary_test": "1/1 case, 6/6 steps, exit 0, exact state and cleanup passed",
+        "ordinary_report_sha256": "8fb8302dbbf0c70738458fed15d3b06845be351bdd1412e7837143882aa8ecb9"
+      },
+      "curated_evidence": "first-use-attempts/42467040351-linux/",
+      "curated_files_sha256": {
+        "create-task-report.json": "662b520a48dfc9ac0817a12e8aec9173e07b96e510059b16c6fc3d53e789bda0",
+        "duplicate-task-report.json": "7dac6fb9eb59aceef83494ed951af0d1753e9ab90675d209c360b0a16770bd80",
+        "existing-task-smoke-report.json": "7fe6b1bb1c04fc5c85353479760ccb206bbee2ea5d716ba3380d3e15daa11b7b",
+        "first-route.json": "71b9c71aa5b4ea4e58180fd2bdf6890cc290342ac21a01dca3a7a18c608017a2",
+        "host.json": "c29b06bb95bb07c337a2b96cad5c315ce7104f2a4ea3dcfc1ed394af9a23f20c",
+        "ordinary-test-report.json": "8fb8302dbbf0c70738458fed15d3b06845be351bdd1412e7837143882aa8ecb9",
+        "record-console.txt": "f56b2c10943d06964d9f544af0786f6bdba72bb0867120cd8944a124d191a4c1",
+        "recorder-controls.txt": "fae886c3c54b0052c227b140963044996aa71f021b6c59fc703d64e29fc8c8f8",
+        "runner.json": "aad0011f49e295145c65cab659580d3dcdaa18a3fdd4b1e4a2761276adba6a80"
+      }
+    },
+    {
+      "host": "macos-15-intel-x86_64",
+      "initial_job_id": 128688832131,
+      "initial_result": "Stack 3.11.1 download failed with repeated HTTP 504 before build; exact diagnostic is retained in first-use-attempts/42467040351-macos/stack-install-failure.txt",
+      "rerun_job_id": 128692372277,
+      "provider_artifact": {
+        "id": 13613660092,
+        "bytes": 6784332,
+        "sha256": "239e9723708d5380546ca8527f4ba40bc9e7fa81faabeb98f8e6ae4ca59d6eff"
+      },
+      "upstream_tests": "250 passed",
+      "target": {
+        "version": "1.11.4",
+        "binary_bytes": 12050080,
+        "binary_sha256": "490a7bbf7f6e39a54c333412ae3894c20f3a4483b9418008144326562c4a1bab",
+        "stack": "3.11.1",
+        "ghc": "9.0.1"
+      },
+      "playtestr": {
+        "go": "1.25.0",
+        "binary_bytes": 6899072,
+        "binary_sha256": "01bca9694bd922a158e78b314210aa98c1e64dff794b2dc8a2e155d47a83aeb9"
+      },
+      "existing_task_smoke": {
+        "result": "passed",
+        "steps": "6/6",
+        "exit_code": 0,
+        "state": "matched",
+        "process_group_termination_confirmed": true,
+        "workspace_cleaned": true,
+        "report_sha256": "47702d124d407d6db4752db76ec0d6bfdb52f175e59aadd58a204a596c9c7034"
+      },
+      "create_task_candidate": {
+        "result": "passed",
+        "steps": "12/12",
+        "exit_code": 0,
+        "saved_state": "board-basic.md matched the exact spec bytes",
+        "process_group_termination_confirmed": true,
+        "workspace_cleaned": true,
+        "report_sha256": "d15ea6c7d6bfcf60cf7157fcb8474cb89af3d1cf4bd3a704b31337fbfb94e11e"
+      },
+      "duplicate_task_candidate": {
+        "result": "passed",
+        "steps": "7/7",
+        "exit_code": 0,
+        "saved_state": "board.md matched the exact spec bytes",
+        "process_group_termination_confirmed": true,
+        "workspace_cleaned": true,
+        "report_sha256": "e812b792a6b1533952c49952db47cc5b9ffbdd5a61b2c5d33e1f688cdc4b76a5"
+      },
+      "recorder_route": {
+        "reviewed": true,
+        "fresh_replay": "passed",
+        "exported_spec_sha256": "71b9c71aa5b4ea4e58180fd2bdf6890cc290342ac21a01dca3a7a18c608017a2",
+        "ordinary_test": "1/1 case, 6/6 steps, exit 0, exact state and cleanup passed",
+        "ordinary_report_sha256": "8bd4bb1085901503d57078e3dd48ba590122ae6da1c1f837225b5ed103a88e9c"
+      },
+      "curated_evidence": "first-use-attempts/42467040351-macos/",
+      "curated_files_sha256": {
+        "create-task-report.json": "d15ea6c7d6bfcf60cf7157fcb8474cb89af3d1cf4bd3a704b31337fbfb94e11e",
+        "duplicate-task-report.json": "e812b792a6b1533952c49952db47cc5b9ffbdd5a61b2c5d33e1f688cdc4b76a5",
+        "existing-task-smoke-report.json": "47702d124d407d6db4752db76ec0d6bfdb52f175e59aadd58a204a596c9c7034",
+        "first-route.json": "71b9c71aa5b4ea4e58180fd2bdf6890cc290342ac21a01dca3a7a18c608017a2",
+        "host.json": "9c9520acbe9a4c4d9875beb907b76adbf9b531ee4371711d4d439e6096aeb508",
+        "ordinary-test-report.json": "8bd4bb1085901503d57078e3dd48ba590122ae6da1c1f837225b5ed103a88e9c",
+        "record-console.txt": "9908e41b8edebe9ccc813a456e6b07358696d4868951d552aa69d26503e15a7e",
+        "recorder-controls.txt": "fae886c3c54b0052c227b140963044996aa71f021b6c59fc703d64e29fc8c8f8",
+        "runner.json": "5bc52a2eea7e516f9ac000f95cd7d7bb2dc5056d1b9da6c374ca71d89a0dc4c7"
+      }
+    }
+  ],
+  "credit": "Two one-shot candidate cases, creation and duplication, passed once each on Ubuntu 24.04 and Intel macOS with exact state, exit, process and workspace evidence. The existing first-use and public recorder/replay/export/ordinary-test route also passed on both in this run. This is cross-host exploratory evidence only: the 20-case catalog is unfrozen; no 12-repeat native series, fault calibration, final candidate, complete retention/cleanup audit, or Taskell admission is claimed."
+}

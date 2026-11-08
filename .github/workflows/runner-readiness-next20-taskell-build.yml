@@ -123,28 +123,45 @@ jobs:
               'scope':'One reviewed first-use attempt against an isolated synthetic Markdown board. Read the same-run state and report before declaring this case successful or freezing its contract.'
           },sort_keys=True,indent=2)+'\n')
           PY
-      - name: Run the new-task authored scenario candidate
+      - name: Run all authored Taskell scenario candidates
         shell: bash
         run: |
-          set -euo pipefail
+          set -uo pipefail
           root="$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/active/taskell"
           packet="$root/native-build"
+          spec_dir="$GITHUB_WORKSPACE/docs/validation/runner-readiness-next-twenty-project-pass/taskell/first-use-v1"
+          report_dir="$packet/first-use/scenario-candidates"
+          mkdir -p "$report_dir"
           export PATH="$packet/bin:$PATH"
-          "$packet/bin/playtestr" test \
-            --artifacts-dir "$packet/first-use/create-task-artifacts" \
-            --report "$packet/first-use/create-task-report.json" \
-            docs/validation/runner-readiness-next-twenty-project-pass/taskell/first-use-v1/taskell-create-task.json
-      - name: Run the duplicate-task authored scenario candidate
-        shell: bash
-        run: |
-          set -euo pipefail
-          root="$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/active/taskell"
-          packet="$root/native-build"
-          export PATH="$packet/bin:$PATH"
-          "$packet/bin/playtestr" test \
-            --artifacts-dir "$packet/first-use/duplicate-task-artifacts" \
-            --report "$packet/first-use/duplicate-task-report.json" \
-            docs/validation/runner-readiness-next-twenty-project-pass/taskell/first-use-v1/taskell-duplicate-task.json
+          failed=0
+          ran=0
+          shopt -s nullglob
+          for spec in "$spec_dir"/taskell-*.json; do
+            name="$(basename "$spec" .json)"
+            if [[ "$name" == "taskell-complete-existing-task" ]]; then
+              continue
+            fi
+            ran=$((ran + 1))
+            echo "=== Candidate $name ==="
+            if "$packet/bin/playtestr" test \
+              --artifacts-dir "$report_dir/$name-artifacts" \
+              --report "$report_dir/$name-report.json" \
+              "$spec"; then
+              echo "CANDIDATE_PASS $name"
+            else
+              result=$?
+              echo "CANDIDATE_FAIL $name exit=$result"
+              failed=1
+            fi
+          done
+          if (( ran == 0 )); then
+            echo "No Taskell scenario candidate specs found" >&2
+            exit 1
+          fi
+          if (( failed != 0 )); then
+            echo "One or more Taskell candidate specs failed; all candidates were attempted" >&2
+            exit 1
+          fi
       - name: Review, replay, export, and ordinarily run the public recorder route
         shell: bash
         run: |

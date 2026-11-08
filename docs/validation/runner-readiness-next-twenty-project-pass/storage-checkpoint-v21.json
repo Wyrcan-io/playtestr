@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "status": "within declared logical storage caps; four new admissions on rc.6; campaign incomplete",
+  "observed_at_utc": "2026-11-08T10:21:52.069195+00:00",
+  "caps_bytes": {
+    "new_campaign_raw": 4294967296,
+    "combined_raw": 6442450944,
+    "combined_retained": 2147483648,
+    "new_curated": 26214400,
+    "combined_curated": 52428800,
+    "project": 67108864
+  },
+  "actual_bytes": {
+    "new_campaign_raw": 1997719449,
+    "combined_raw": 3906428021,
+    "combined_retained": 2147335885,
+    "new_curated": 11885896,
+    "combined_curated": 23542140,
+    "project": 1002
+  },
+  "headroom_bytes": {
+    "new_campaign_raw": 2297247847,
+    "combined_raw": 2536022923,
+    "combined_retained": 147763,
+    "new_curated": 14328504,
+    "combined_curated": 28886660,
+    "project": 67107862
+  },
+  "receipt": "artifacts/runner-readiness-next-twenty-project-pass/storage/e25e411377d54362a1103efe19126bc5/observed.json",
+  "receipt_sha256": "39f39af88f5c5852e37dc1bfb339199a0403171b7b66910954af5813661e720b",
+  "scope": "Fresh logical-byte observation after Taskell first-use evidence curation and before N04 native candidate results. Observed before this checkpoint was written; no exact peak, allocation, disk quota or completion claim."
+}

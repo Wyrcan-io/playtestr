@@ -232,3 +232,16 @@ host data are in `build-attempt-v23.json`; Linux's exact setup excerpt is
 retained separately. No saved bytes were asserted, the duplicate case did not
 run, and the scenario has no credit. The local state assertion now names
 `board-basic.md`; the next hosted run must pass the entire case on both hosts.
+
+Run `42467040351` passed all 250 upstream Taskell tests, the existing-task
+smoke, and both candidate cases on Linux; the first Mac attempt failed Stack
+installation with HTTP 504, but its failed job was rerun alone and passed the
+same full path. Creation passed 12/12 steps and exact `board-basic.md` bytes;
+duplication passed 7/7 and exact `board.md` bytes. Both reports on both hosts
+show exit 0, confirmed graceful process-group termination and workspace
+cleanup. Fresh recorder review/replay/export and ordinary `playtestr test`
+also passed on both hosts (1/1 case, 6/6 steps). Receipt v24 binds every report,
+spec, runner, target and provider-artifact hash. This is one observation per
+case per host. The full scenario catalog remains unfrozen and Taskell has no
+12-repeat series, fault calibration, final-candidate, complete audit or
+admission credit.

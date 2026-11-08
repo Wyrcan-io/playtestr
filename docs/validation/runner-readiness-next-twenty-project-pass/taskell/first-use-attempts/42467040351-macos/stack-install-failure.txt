@@ -1,0 +1,14 @@
+GitHub Actions run: 42467040351
+Job: 128688832131 (Build and test Taskell, macos-15-intel)
+Source revision: 40735055c65cf1e1e49b620b881778078223501b
+
+2026-11-08T09:24:30.3756820Z Attempting to install stack 3.11.1 for arch x86_64
+2026-11-08T09:24:41.4423120Z Unexpected HTTP response: 504
+2026-11-08T09:24:41.4426980Z Waiting 19 seconds before trying again
+2026-11-08T09:25:00.5433990Z Unexpected HTTP response: 504
+2026-11-08T09:25:00.5434640Z Waiting 13 seconds before trying again
+2026-11-08T09:25:13.7546210Z ##[error]Unexpected HTTP response: 504
+2026-11-08T09:25:14.1294360Z ##[error]No files were found with the provided path: artifacts/runner-readiness-next-twenty-project-pass/active/taskell/native-build/. No artifacts will be uploaded.
+
+The pinned Stack 3.11.1 binary could not be downloaded. Taskell
+build/tests, Playtestr build, smoke and candidate were not run on this host.

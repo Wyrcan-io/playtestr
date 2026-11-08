@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "status": "within declared logical storage caps; four new admissions on rc.6; campaign incomplete",
+  "observed_at_utc": "2026-11-08T10:10:20.885833+00:00",
+  "caps_bytes": {
+    "new_campaign_raw": 4294967296,
+    "combined_raw": 6442450944,
+    "combined_retained": 2147483648,
+    "new_curated": 26214400,
+    "combined_curated": 52428800,
+    "project": 67108864
+  },
+  "actual_bytes": {
+    "new_campaign_raw": 1997717105,
+    "combined_raw": 3906425677,
+    "combined_retained": 2147333541,
+    "new_curated": 11877992,
+    "combined_curated": 23534236,
+    "project": 1002
+  },
+  "headroom_bytes": {
+    "new_campaign_raw": 2297250191,
+    "combined_raw": 2536025267,
+    "combined_retained": 151107,
+    "new_curated": 14336408,
+    "combined_curated": 28894564,
+    "project": 67107862
+  },
+  "receipt": "artifacts/runner-readiness-next-twenty-project-pass/storage/f355563bb33b4ad38ada0bce03c670db/observed.json",
+  "receipt_sha256": "9bc4c6889c6fc710e4e2ad5370f48dff376b70df43b780f5d6b4a8d395373709",
+  "scope": "Fresh logical-byte observation after Taskell v20-v24 failure/success evidence curation. Observed before this receipt was written; no exact peak, allocation, disk quota or campaign-completion claim."
+}
