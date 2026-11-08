@@ -198,3 +198,16 @@ actual filename. The prepared duplicate candidate remains uncredited and must
 not be advanced until the corrected create-task case has been observed on
 both native hosts. Taskell remains at zero scenario-series, native-cell,
 fault-calibration or admission credit.
+
+Run `42460993289` passed the pinned 250-test suite and existing-task smoke on
+both hosts, then the corrected create-task case passed steps 1-7 but timed out
+at exit on both. The captured final screen shows `q` inserted as a task while
+Taskell remains in INSERT mode. Both reports show forced process-group cleanup
+and workspace removal; the exit and exact saved-state assertions did not pass.
+The duplicate case did not run. `build-attempt-v21.json` and its paired
+report/screen/identity directories preserve the results. Source inspection
+confirms Enter stores a task and creates a new blank insert row; Escape calls
+`finishTask`, removes the blank row and enters normal mode. The create spec is
+locally updated to send Escape, verify INSERT is absent, then send `q`. It is
+not credited until a fresh Linux/macOS run passes saved-state and cleanup
+assertions.

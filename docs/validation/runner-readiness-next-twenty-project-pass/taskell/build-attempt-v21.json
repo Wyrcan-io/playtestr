@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42460993289,
+  "source_revision": "5ec01145e2c9b1ddcbf0ac203bd8d843397c5a0b",
+  "event": "push",
+  "attempt_scope": "Build Taskell and Playtestr on both native hosts, run the existing six-step first-use smoke, then exercise the create-task candidate with the corrected board filename.",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128670059694,
+      "provider_artifact": {
+        "id": 13610051771,
+        "bytes": 11202849,
+        "sha256": "d26bd05a4ba81e50e5d65acea327b7e0b4d9e02c4f334d25357463cad2ea4438"
+      },
+      "upstream_tests": "250 passed",
+      "target": {
+        "version": "1.11.4",
+        "binary_bytes": 33207832,
+        "binary_sha256": "6099f625fc30ee1fefcef87c3aa40e34915b4b254b52f4276d940e976225dfd8",
+        "stack": "3.11.1",
+        "ghc": "9.0.1"
+      },
+      "playtestr": {
+        "go": "1.25.0",
+        "binary_bytes": 6928585,
+        "binary_sha256": "042c8a1072c5b350ab2e3d6005a5d51904f9d9461a3ea6cbcc39e06d14b45771"
+      },
+      "existing_task_smoke": "passed 6/6; exact saved bytes, process group and workspace cleanup passed",
+      "create_task_candidate": {
+        "result": "failed",
+        "report_sha256": "0e51551695324cd4b567c9ccfa79869e8c1ccf1864f5ce29e45bf9da1cc698dd",
+        "screen_sha256": "748439307e80dbc194519728db2eab7a5e50c0aa6c9b22a0abd03589116990e6",
+        "steps_passed": "1-7/9",
+        "failed_step": 8,
+        "category": "assertion_timeout",
+        "message": "timed out waiting for process to exit with code 0",
+        "final_screen": "New regression task; q; board-basic.md INSERT 3/3",
+        "target_exit_code_after_forced_cleanup": 137,
+        "process_group_termination_confirmed": true,
+        "workspace_cleaned": true,
+        "final_state_assertion": "not run"
+      },
+      "curated_evidence": "first-use-attempts/42460993289-linux/",
+      "curated_files_sha256": {
+        "create-task-report.json": "0e51551695324cd4b567c9ccfa79869e8c1ccf1864f5ce29e45bf9da1cc698dd",
+        "create-task-screen.txt": "748439307e80dbc194519728db2eab7a5e50c0aa6c9b22a0abd03589116990e6",
+        "host.json": "c29b06bb95bb07c337a2b96cad5c315ce7104f2a4ea3dcfc1ed394af9a23f20c",
+        "runner.json": "5dc8a3a95476eb21be6527b988307ca43d311ffa7a72afd3c60bf4c7eba8bca3"
+      }
+    },
+    {
+      "host": "macos-15-intel-x86_64",
+      "job_id": 128670059826,
+      "provider_artifact": {
+        "id": 13610631414,
+        "bytes": 6780829,
+        "sha256": "8e7cc85e0bd7b50deb51cb639880a98c72beb03c34dd9e30099d459776935a16"
+      },
+      "upstream_tests": "250 passed",
+      "target": {
+        "version": "1.11.4",
+        "binary_bytes": 12050080,
+        "binary_sha256": "490a7bbf7f6e39a54c333412ae3894c20f3a4483b9418008144326562c4a1bab",
+        "stack": "3.11.1",
+        "ghc": "9.0.1"
+      },
+      "playtestr": {
+        "go": "1.25.0",
+        "binary_bytes": 6899072,
+        "binary_sha256": "8190ec8af7428810736abc1162cee4114ce4dfc51876f021161b71c4053b26b1"
+      },
+      "existing_task_smoke": "passed 6/6; exact saved bytes, process group and workspace cleanup passed",
+      "create_task_candidate": {
+        "result": "failed",
+        "report_sha256": "fc02045487de5517cc2a4774154e14f756012037060099e8a0a155714667fe42",
+        "screen_sha256": "748439307e80dbc194519728db2eab7a5e50c0aa6c9b22a0abd03589116990e6",
+        "steps_passed": "1-7/9",
+        "failed_step": 8,
+        "category": "assertion_timeout",
+        "message": "timed out waiting for process to exit with code 0",
+        "final_screen": "New regression task; q; board-basic.md INSERT 3/3",
+        "target_exit_code_after_forced_cleanup": 137,
+        "process_group_termination_confirmed": true,
+        "workspace_cleaned": true,
+        "final_state_assertion": "not run"
+      },
+      "curated_evidence": "first-use-attempts/42460993289-macos/",
+      "curated_files_sha256": {
+        "create-task-report.json": "fc02045487de5517cc2a4774154e14f756012037060099e8a0a155714667fe42",
+        "create-task-screen.txt": "748439307e80dbc194519728db2eab7a5e50c0aa6c9b22a0abd03589116990e6",
+        "host.json": "9c9520acbe9a4c4d9875beb907b76adbf9b531ee4371711d4d439e6096aeb508",
+        "runner.json": "9eda5840803da4d26fe9fb74c64b63566c1298e83313dee3484b30a9bbaf376b"
+      }
+    }
+  ],
+  "source_observation": "Taskell's Insert handler stores a newly entered task on Enter but starts another empty insert row. Escape executes finishTask, removes the blank row and enters normal mode. Therefore q text in INSERT is correctly treated as a new task, not a quit command.",
+  "credit": "No create-task scenario credit because both hosts timed out before exit and the saved-state assertion. The workflow stopped before the duplicate candidate on each host. No scenario-series, native-cell, fault-calibration, or Taskell admission credit."
+}

@@ -1,0 +1,114 @@
+{
+  "report_version": 3,
+  "runner_version": "dev",
+  "os": "darwin",
+  "arch": "amd64",
+  "summary": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1,
+    "cancelled": 0,
+    "not_run": 0
+  },
+  "results": [
+    {
+      "invocation_id": "70cbd7386a90da4fb824d548b0d8dc67",
+      "spec_version": 3,
+      "name": "Create and save a Taskell board item",
+      "spec_path": "docs/validation/runner-readiness-next-twenty-project-pass/taskell/first-use-v1/taskell-create-task.json",
+      "status": "failed",
+      "duration_ms": 5590,
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "steps": [
+        {
+          "number": 1,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 90
+        },
+        {
+          "number": 2,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 3,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 3
+        },
+        {
+          "number": 4,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 5,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 18
+        },
+        {
+          "number": 6,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 200
+        },
+        {
+          "number": 7,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 49
+        },
+        {
+          "number": 8,
+          "action": "exit",
+          "status": "failed",
+          "duration_ms": 5001,
+          "failure": {
+            "category": "assertion_timeout",
+            "message": "Create and save a Taskell board item: step 8: step timed out: timed out waiting for process to exit with code 0: context deadline exceeded"
+          }
+        },
+        {
+          "number": 9,
+          "action": "state",
+          "status": "not_run",
+          "duration_ms": 0
+        }
+      ],
+      "target": {
+        "exited": true,
+        "exit_code": 137
+      },
+      "failure": {
+        "category": "assertion_timeout",
+        "message": "Create and save a Taskell board item: step 8: step timed out: timed out waiting for process to exit with code 0: context deadline exceeded"
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": false,
+        "forced": true,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "evidence": {
+        "screen_path": "/Users/runner/work/playtestr/playtestr/artifacts/runner-readiness-next-twenty-project-pass/active/taskell/native-build/first-use/create-task-artifacts/20261108T082153Z-1735654282/readiness-next-twenty-project-pass-taskell-first-use-v1-taskell-create-task.json-3a3e5bcaa1a9.actual.txt"
+      },
+      "workspace": {
+        "id": "70cbd7386a90da4fb824d548b0d8dc67",
+        "attempted": true,
+        "fixture": "fixtures",
+        "prepared": true,
+        "cleanup_attempted": true,
+        "cleaned": true,
+        "retained": false
+      }
+    }
+  ]
+}
