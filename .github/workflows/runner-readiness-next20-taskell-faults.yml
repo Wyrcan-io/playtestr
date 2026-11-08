@@ -21,7 +21,7 @@ permissions:
   actions: read
 
 concurrency:
-  group: playtestr-next20-taskell-final-${{ github.ref }}
+  group: playtestr-next20-taskell-faults-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
