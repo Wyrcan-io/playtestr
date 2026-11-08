@@ -78,7 +78,11 @@ async def main(project='jrnl',batch=None,candidate_series='rc5',chunk_readiness=
         raise ValueError('Native runtime lock differs from final-series declaration')
     root=RAW/project/('final-series'+suffix)/str(args.batch)
     root.mkdir(parents=True,exist_ok=False)
-    canonical=RAW/project/'host-contracts';package=root/('relocated café 雪' if args.batch==5 else 'contracts')
+    canonical=RAW/project/'host-contracts'
+    if not canonical.is_dir():canonical=DOC/project/'host-contracts'
+    if canonical.is_symlink() or getattr(canonical,'is_junction',lambda:False)():raise ValueError('Linked canonical native contract root')
+    canonical.resolve(strict=True).relative_to((DOC if canonical.is_relative_to(DOC) else RAW).resolve(strict=True))
+    package=root/('relocated café 雪' if args.batch==5 else 'contracts')
     shutil.copytree(canonical,package)
     snapshot_changes=batch_snapshots(package,DOC/project,declaration.get('batch_snapshot_profiles',{}),args.batch)
     source=RAW/'active'/project;runtime=json.loads((source/'runtime.json').read_text());kind=runtime.get('kind','python')

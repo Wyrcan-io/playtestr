@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42494654068,
+  "source_revision": "81847b67",
+  "run_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/42494654068",
+  "result": "source-provenance-verification-passed-both-hosts-linux-pinned-tests-and-build-passed-but-all-batches-stopped-before-target-launch-contract-staging-fix-was-not-yet-pushed-macos-arm64-stopped-before-build-unsupported-ghc-9.0.1",
+  "admission_credit": 0,
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128776097390,
+      "source_acquisition": "passed; exact source pin and frozen file/mode provenance verified without GitHub API lookup",
+      "upstream_tests": "passed; stack test --test",
+      "native_target_build": "passed; Taskell 1.11.4; binary SHA-256 6099f625fc30ee1fefcef87c3aa40e34915b4b254b52f4276d940e976225dfd8",
+      "ordinary_cases_started": 0,
+      "ordinary_batches_attempted": 12,
+      "failure": "The pushed revision still selected artifacts/<campaign>/taskell/host-contracts. All twelve invocations stopped in harness contract copy with FileNotFoundError before launching Taskell. No target case is credited.",
+      "evidence_artifact": "taskell-final-native-exit-v1-linux",
+      "artifact_run": 42494654068
+    },
+    {
+      "host": "macos-15-arm64",
+      "job_id": 128776097269,
+      "source_acquisition": "passed; exact source pin and frozen file/mode provenance verified without GitHub API lookup",
+      "upstream_tests": "not run; Stack has no GHC 9.0.1 setup distribution for macosx-aarch64",
+      "native_target_build": "not run",
+      "ordinary_cases_started": 0,
+      "failure": "Pinned Taskell resolver selects GHC 9.0.1, unavailable on the Apple Silicon Stack setup path. The next attempt declares GHC 9.0.2 on ARM64 with the same frozen nightly resolver, lock and source, and records the compiler patch override.",
+      "evidence_artifact": "taskell-final-native-exit-v1-darwin",
+      "artifact_run": 42494654068
+    }
+  ],
+  "repair_status": "Local corrections prepared: native contract source fallback in next20_jrnl_final.py; owned Stack override generator uses only the frozen Taskell resolver/lock and supported GHC 9.0.2 for ARM64; exact source-fault calibration declaration and workflow prepared. Python syntax, fault patch hashes/count, generated Stack YAML, and diff whitespace checks passed locally. Hosted rerun not yet started.",
+  "scope": "Preserve both host failures as zero-credit diagnostics; no retry or pass inferred from a build, first-use series, or harness preflight."
+}

@@ -1,0 +1,52 @@
+{
+  "build_command": "stack install taskell --local-bin-path <owned native-build output>/bin",
+  "calibrations_per_host": 9,
+  "calibrations_total": 18,
+  "candidate_series": "native-exit-v1",
+  "faults": [
+    {
+      "after": "moveToLastBottom = pure",
+      "before": "moveToLastBottom = moveToLast Lists.Bottom",
+      "case": "taskell-complete-existing-task.json",
+      "expected_mutation": "The reviewed To Do ? Done screen/state assertion rejects the no-move transition.",
+      "id": "completion-does-not-move",
+      "patch_sha256": "e26e5c9803f563432d3ccea3da9570cae756e741a11ddab5a2efd14a1a5e963b",
+      "path": "src/Taskell/Events/State.hs"
+    },
+    {
+      "after": "quit = pure",
+      "before": "quit = pure . (mode .~ Shutdown)",
+      "case": "taskell-complete-existing-task.json",
+      "expected_mutation": "The exact-exit contract rejects the application remaining open after q and bounded cleanup is confirmed.",
+      "id": "quit-does-not-shutdown",
+      "patch_sha256": "d723bd2fad4ffaace233bacb88ab150151274f366446810c97e45b95d177586a",
+      "path": "src/Taskell/Events/State.hs"
+    },
+    {
+      "after": "taskS _ = pure \"\"",
+      "before": "taskS t =\n    unlines . filter (/= \"\") <$>\n    sequence\n        [ nameS (t ^. T.name)\n        , strMay dueS (t ^. T.due)\n        , strMay descriptionS (t ^. T.description)\n        , subtasksS (t ^. T.subtasks)\n        ]",
+      "case": "taskell-create-task.json",
+      "expected_mutation": "The same-run exact Markdown state oracle rejects successful UI interaction with omitted saved tasks.",
+      "id": "serializer-omits-tasks",
+      "patch_sha256": "551bdb1b3d79949f7f94287cac72bfef90c941b62dadb8839e0805e19f69617a",
+      "path": "src/Taskell/IO/Markdown/Serializer.hs"
+    }
+  ],
+  "hosts": [
+    "linux",
+    "darwin"
+  ],
+  "no_retries": true,
+  "phases": [
+    "baseline",
+    "mutated",
+    "restored"
+  ],
+  "project": "taskell",
+  "runtime_lock_sha256": "4b5c671095b8e789ef16f5f20c48172d33e64c91df7ddfa19fb4345e4b9437dc",
+  "scenario_freeze_sha256": "4131556b2be8259acd4716e1e40128a88a2fe0f94366303e0598eaf330b03988",
+  "schema_version": 1,
+  "scope": "Three minimal source mutations against the exact private Playtestr rc.6 runner and unchanged frozen Taskell contracts; baseline and restored phases must pass, each mutant phase must be rejected with confirmed process/workspace cleanup.",
+  "source_pin": "a2df95f26762fc3e78d6f131cea7fc1f3b13bd47",
+  "timeout_seconds": 1200
+}
