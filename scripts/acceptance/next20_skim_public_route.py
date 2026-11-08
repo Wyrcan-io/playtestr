@@ -1,6 +1,5 @@
 """Exercise Skim's public recorder, diagnosis, maintenance and relocation route."""
 import asyncio
-import copy
 import json
 import os
 from pathlib import Path
@@ -31,6 +30,22 @@ def report_result(path, expected_status):
         if not result.get('workspace', {}).get('cleaned') or not result.get('cleanup', {}).get('confirmed_exited'):
             raise ValueError('Skim public route did not confirm workspace/process cleanup')
     return result
+
+
+def prepare_maintenance_spec(maintenance, original_spec):
+    """Create a distinct immutable maintained contract, preserving first use."""
+    original_spec = Path(original_spec)
+    original_spec_sha256 = sha256(original_spec)
+    approved = json.loads(original_spec.read_text(encoding='utf-8'))
+    matches = [i for i, value in enumerate(approved['command']) if value == '--query=cedar']
+    if len(matches) != 1:
+        raise ValueError('public maintenance cannot identify the exact query argument')
+    approved['command'][matches[0]] = '--query=amber'
+    maintained_spec = Path(maintenance)/'selection-maintenance.json'
+    immutable_json(maintained_spec, approved)
+    if sha256(original_spec) != original_spec_sha256:
+        raise ValueError('public maintenance changed the original first-use spec')
+    return maintained_spec, approved
 
 
 async def main():
@@ -145,14 +160,8 @@ async def main():
     # only the named screen baseline through the documented public command.
     maintenance = output/'maintenance'
     shutil.copytree(canonical, maintenance)
-    maintained_spec = maintenance/'selection.json'
-    approved = json.loads(maintained_spec.read_text(encoding='utf-8'))
-    original_command = copy.deepcopy(approved['command'])
-    matches = [i for i, value in enumerate(approved['command']) if value == '--query=cedar']
-    if len(matches) != 1:
-        raise ValueError('public maintenance cannot identify the exact query argument')
-    approved['command'][matches[0]] = '--query=amber'
-    immutable_json(maintained_spec, approved)
+    original_spec = maintenance/'selection.json'
+    maintained_spec, approved = prepare_maintenance_spec(maintenance, original_spec)
     before_snapshot = sha256(maintenance/'snapshots/selected.txt')
     maintenance_fail_report = output/'maintenance-before-update-report.json'
     await run([runner, 'test', '--report', maintenance_fail_report.relative_to(ROOT),
@@ -180,7 +189,7 @@ async def main():
     relocation_report = output/'relocation-report.json'
     await run([runner, 'test', '--report', relocation_report.relative_to(ROOT), '--artifacts-dir',
                (output/'relocation-artifacts').relative_to(ROOT),
-               (relocated/'selection.json').relative_to(ROOT)], 'skim-first-public-unicode-relocation')
+               (relocated/'selection-maintenance.json').relative_to(ROOT)], 'skim-first-public-unicode-relocation')
     relocation_result = report_result(relocation_report, 'passed')
 
     source_revision = os.environ.get('GITHUB_SHA', '')

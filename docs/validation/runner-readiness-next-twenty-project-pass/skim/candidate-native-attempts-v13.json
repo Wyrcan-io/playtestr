@@ -1,0 +1,62 @@
+{
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "candidate": "v0.4.0-rc.6",
+  "candidate_series": "native-exit-v1",
+  "candidate_launches_total": 2,
+  "ordinary_attempts_total": 480,
+  "fault_calibrations_total": 18,
+  "new_qualification_credit": 0,
+  "prior_declaration": "final-series-declaration-native-exit-v32.json",
+  "workflow_run_id": 42517430006,
+  "workflow_commit": "86130173f5e2b4fe8daa55126ec39ea40c0641db",
+  "workflow_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/42517430006",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128843408969,
+      "conclusion": "failure",
+      "artifact": {
+        "id": 13632356316,
+        "name": "next20-skim-linux-rc6-final",
+        "bytes": 17696988,
+        "sha256": "5a32bc6f1db35c22447295cb03df6cbb47e769f0a7d3c51307097c5dd6614eb1"
+      },
+      "source_and_target_build": "passed",
+      "candidate_source_harness": "public-authoring",
+      "ordinary_attempts": 240,
+      "ordinary_passed": 240,
+      "fault_phases_passed": 9,
+      "first_use_route": "passed; eight controls; three commands to a reviewed ordinary pass",
+      "diagnosis_route": "passed; seeded snapshot mismatch returned a useful failure",
+      "first_failure": "maintenance route stopped before target launch when immutable_json refused to overwrite maintenance/selection.json",
+      "source_and_target_cleanup": "passed",
+      "public_maintenance_relocation_preview": "not reached",
+      "credit": 0
+    },
+    {
+      "host": "windows-2025-x86_64-msvc",
+      "job_id": 128843408701,
+      "conclusion": "failure",
+      "artifact": {
+        "id": 13632626323,
+        "name": "next20-skim-windows-rc6-final",
+        "bytes": 17898553,
+        "sha256": "d04772159be1ccd5401f81da8cc5fb5b525f183c29b315c77acab938fcb52604"
+      },
+      "source_and_target_build": "passed",
+      "candidate_source_harness": "public-authoring",
+      "ordinary_attempts": 240,
+      "ordinary_passed": 240,
+      "fault_phases_passed": 9,
+      "first_use_route": "passed; eight controls; three commands to a reviewed ordinary pass",
+      "diagnosis_route": "passed; seeded snapshot mismatch returned a useful failure",
+      "first_failure": "maintenance route stopped before target launch when immutable_json refused to overwrite maintenance/selection.json",
+      "source_and_target_cleanup": "passed",
+      "public_maintenance_relocation_preview": "not reached",
+      "credit": 0
+    }
+  ],
+  "repair_status": "V33 writes the changed approved contract to a distinct immutable selection-maintenance.json, leaving the first-use export intact; a focused regression verifies both preservation and ambiguity refusal.",
+  "result": "All 480 exact-candidate ordinary repetitions and all 18 calibration phases passed and were independently read back, but both public route attempts stopped at the same harness immutable-write defect. The campaign preserves the failed first-route evidence, grants no Skim credit, and requires a fresh full-series attempt under V33.",
+  "schema_version": 1
+}

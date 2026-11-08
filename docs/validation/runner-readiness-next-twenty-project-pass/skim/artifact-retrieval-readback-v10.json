@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "reviewed_at_utc": "2026-11-08T20:22:47Z",
+  "workflow_run_id": 42517430006,
+  "workflow_commit": "86130173f5e2b4fe8daa55126ec39ea40c0641db",
+  "candidate": "v0.4.0-rc.6",
+  "project": "skim",
+  "candidate_admission": false,
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128843408969,
+      "artifact_id": 13632356316,
+      "artifact_name": "next20-skim-linux-rc6-final",
+      "bytes": 17696988,
+      "provider_sha256": "5a32bc6f1db35c22447295cb03df6cbb47e769f0a7d3c51307097c5dd6614eb1",
+      "retrieved_sha256": "5a32bc6f1db35c22447295cb03df6cbb47e769f0a7d3c51307097c5dd6614eb1",
+      "zip_entries": 3356,
+      "candidate_runner_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a",
+      "target_binary_sha256": "427de19b0ab4f344376b3a7a594bac9c36872faba9cc745c9b8f0bd05452bfa0",
+      "ordinary": {
+        "batches": 12,
+        "outcomes": 240,
+        "passing": 240,
+        "batch_summary_hash_failures": 0,
+        "finished_receipt_hashes_verified": 240,
+        "report_hashes_verified": 240,
+        "reports_parsed_with_all_steps_passed": 240,
+        "unique_case_evidence_directories": 240,
+        "candidate_identities": 1,
+        "target_identities": 1,
+        "cleanup_confirmed": 240,
+        "workspace_cleaned": 240
+      },
+      "faults": {
+        "distinct": 3,
+        "baseline_passes": 3,
+        "mutations_detected": 3,
+        "restored_recovery_passes": 3,
+        "phases": 9,
+        "source_restored": true,
+        "target_restored": true
+      },
+      "public_route": {
+        "first_use_controls": 8,
+        "runner_commands_to_first_reviewed_pass": 3,
+        "first_use_passed": true,
+        "seeded_snapshot_diagnosis_failed_usefully": true,
+        "maintenance_reached": true,
+        "maintenance_spec_write": "failed before maintenance target launch: immutable_json refused to overwrite existing maintenance/selection.json",
+        "maintenance_target_launches": 0,
+        "relocation_reached": false,
+        "workflow_preview_reached": false,
+        "project_admission_credit": 0
+      },
+      "cleanup": {
+        "source_verified": true,
+        "process_tree_checked": true,
+        "compiler_cache_removed": true,
+        "target_inventory_prepared": true,
+        "target_removed": true
+      }
+    },
+    {
+      "host": "windows-2025-x86_64-msvc",
+      "job_id": 128843408701,
+      "artifact_id": 13632626323,
+      "artifact_name": "next20-skim-windows-rc6-final",
+      "bytes": 17898553,
+      "provider_sha256": "d04772159be1ccd5401f81da8cc5fb5b525f183c29b315c77acab938fcb52604",
+      "retrieved_sha256": "d04772159be1ccd5401f81da8cc5fb5b525f183c29b315c77acab938fcb52604",
+      "zip_entries": 3360,
+      "candidate_runner_sha256": "6c80fdbcdd74705b85b2e8aad2f07140f5ff5e8cea80db1d6c24a04d71b23f36",
+      "target_binary_sha256": "4497678c458939d684de615039ea57aeb31f2a0cc8b3129148f504ea339ef720",
+      "ordinary": {
+        "batches": 12,
+        "outcomes": 240,
+        "passing": 240,
+        "batch_summary_hash_failures": 0,
+        "finished_receipt_hashes_verified": 240,
+        "report_hashes_verified": 240,
+        "reports_parsed_with_all_steps_passed": 240,
+        "unique_case_evidence_directories": 240,
+        "candidate_identities": 1,
+        "target_identities": 1,
+        "cleanup_confirmed": 240,
+        "workspace_cleaned": 240
+      },
+      "faults": {
+        "distinct": 3,
+        "baseline_passes": 3,
+        "mutations_detected": 3,
+        "restored_recovery_passes": 3,
+        "phases": 9,
+        "source_restored": true,
+        "target_restored": true
+      },
+      "public_route": {
+        "first_use_controls": 8,
+        "runner_commands_to_first_reviewed_pass": 3,
+        "first_use_passed": true,
+        "seeded_snapshot_diagnosis_failed_usefully": true,
+        "maintenance_reached": true,
+        "maintenance_spec_write": "failed before maintenance target launch: immutable_json refused to overwrite existing maintenance/selection.json",
+        "maintenance_target_launches": 0,
+        "relocation_reached": false,
+        "workflow_preview_reached": false,
+        "project_admission_credit": 0
+      },
+      "cleanup": {
+        "source_verified": true,
+        "process_tree_checked": true,
+        "compiler_cache_removed": true,
+        "target_inventory_prepared": true,
+        "target_removed": true
+      }
+    }
+  ],
+  "limits": [
+    "The complete raw ZIPs remained in memory during independent audit; they were not retained locally.",
+    "Both providers and locally recomputed ZIP SHA-256 values match. All 24 batch files match their summary digests. Across hosts, all 480 case outcomes, finished receipt hashes, runner report hashes, parsed passing statuses and cleanup observations were independently checked.",
+    "All 18 fault phases passed with three distinct faults, detected mutations, restored recoveries, exact source restoration and restored target identity.",
+    "Both public routes stopped at the same immutable selection write after first-use and useful seeded diagnosis. Maintenance execution, relocation and delivered-workflow preview were not reached. No admission is granted.",
+    "The V32 immutable-write failure is preserved as an actual failed first route. V33 introduces a separate maintenance spec path and a focused regression; a fresh exact native run and complete artifact audit remain required.",
+    "No directional-navigation or exact raw NUL-framing compatibility claim is made."
+  ]
+}

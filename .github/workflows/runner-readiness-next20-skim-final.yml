@@ -8,6 +8,7 @@ on:
       - 'scripts/acceptance/next20_skim_final_faults.py'
       - 'scripts/acceptance/next20_skim_final_plan_audit.py'
       - 'scripts/acceptance/next20_skim_public_route.py'
+      - 'scripts/acceptance/test_next20_skim_public_route.py'
       - 'scripts/acceptance/next20_playtestr_case.py'
       - 'scripts/acceptance/next20_candidate*.py'
       - 'scripts/acceptance/next20_acquire.py'
@@ -146,12 +147,12 @@ jobs:
           python -B scripts/acceptance/next20_candidate_install.py --series native-exit-v1 --archive $cells[0].archive_local_only
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Validate final-series planner
-        run: python -B -m unittest test_next20_skim_final_series test_next20_target_cleanup test_next20_acquire test_next20_storage test_next20_skim_cleanup test_readiness_evidence -v
+        run: python -B -m unittest test_next20_skim_final_series test_next20_skim_public_route test_next20_target_cleanup test_next20_acquire test_next20_storage test_next20_skim_cleanup test_readiness_evidence -v
         working-directory: scripts/acceptance
       - name: Freeze all derived contracts before target execution
         run: python -B scripts/acceptance/next20_check.py --label skim-final-contract-freeze --timeout 180 -- python -B scripts/acceptance/next20_skim_final_series.py --host '${{ matrix.host }}' --prepare-only
       - name: Independently reconstruct all frozen contracts
-        run: python -B scripts/acceptance/next20_check.py --label skim-final-independent-plan-audit --timeout 300 -- python -B scripts/acceptance/next20_skim_final_plan_audit.py --plan artifacts/runner-readiness-next-twenty-project-pass/skim/final-series-plan-native-exit-v26/${{ matrix.host }}/plan.json
+        run: python -B scripts/acceptance/next20_check.py --label skim-final-independent-plan-audit --timeout 300 -- python -B scripts/acceptance/next20_skim_final_plan_audit.py --plan artifacts/runner-readiness-next-twenty-project-pass/skim/final-series-plan-native-exit-v27/${{ matrix.host }}/plan.json
       - name: Execute twelve exact-archive batches
         id: final
         env:

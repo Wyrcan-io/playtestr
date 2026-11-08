@@ -3,14 +3,16 @@
 Invoked 22 October 2026 under the [execution prompt](../../plans/runner-readiness-next-twenty-project-execution-prompt.md).
 Status: **in progress; four of twenty new projects qualify on exact rc.6 (14/30 cumulative)**. Eight distinct new applications have an admission on some candidate; four are rc.5 history only. The original ten passed an exact-rc.5 carry-forward audit, but none is yet requalified on rc.6. Current rc.6 new-project totals are 80 scenarios, 8 native cells, 1,920 ordinary executions, 72 calibrations and 12 real target faults. The cumulative 30/100 engineering gate remains open.
 
-Skim's Linux and Windows exact-rc.6 final series and three-fault calibrations are
-independently audited, but Skim remains unadmitted until public authoring,
-maintenance, relocation, delivery, cleanup and campaign gates close. Taskell is
-in native revalidation. Its latest macOS toolchain attempt exposed additional
-signed-package dylib dependencies (`libxml2.16.dylib` and `libz.1.dylib`); the
-latest Linux exact series is still running at upstream tests. A previous Linux
-series failed case E11M and remains preserved. Neither project has rc.6
-admission credit yet.
+Skim's V32 Linux and Windows exact-rc.6 series and three-fault calibrations are
+independently audited: 240/240 ordinary outcomes and all nine phases per host
+passed. Both public routes passed first-use and seeded diagnosis, then stopped
+before maintenance target launch when the harness tried to overwrite immutable
+`selection.json`. Cleanup passed. Skim remains unadmitted; V33 writes a distinct
+maintained spec and must rerun the full exact series. Taskell has zero rc.6
+credit. Its latest macOS toolchain attempt exposed signed-package dylib
+dependencies (`libxml2.16.dylib`, `libz.1.dylib`); its latest Linux exact series
+failed case E11M in eleven batches and passed only under the larger viewport.
+Both failures remain preserved and unresolved.
 jrnl qualified with 20 scenarios, two native cells, 480 ordinary executions and
 18 calibrations; its [admission](jrnl/admission.json) binds the audited package.
 Commitizen passed its [complete admission audit](commitizen-python/admission.json):20 scenarios, two native cells,480 ordinary,18 mandatory calibrations and2 separate terminal-only probes. Its twelve delivered-CI observations qualify source-built and exact-archive triplets separately.
@@ -79,7 +81,7 @@ No release, outreach, issues, discussions, PR mutations or paid infrastructure
 are authorized. Existing scoped commits/pushes and standard hosted workflows
 remain authorized. The bounded helper workflow has passed actual native runs. All105 shared public archive controls passed actual three-host reexecution39976090337 and independent audit; retained initial compiler-prerequisite failures remain. These are public-control reexecutions, not105 new whole controls.
 
-Skim has a [reviewed Windows development package](skim/README.md). Hosted run `42506300345` passed the earlier exact rc.6 Linux and Windows series. V31 run `42514930671` passed 240 ordinary cases and nine fault phases on each host. [Artifact readback v9](skim/artifact-retrieval-readback-v9.json) independently matches both provider ZIP digests, all batch hashes, all 480 report and receipt hashes, parsed report steps and unique invocations, and fault/restoration aggregates. V31 then refused the public route before target launch because the journal helper lacked the `public-authoring` phase. Both checked cleanup paths passed; the project remains unadmitted. Two older prelaunch freezes had stale immutable hashes and launched no cases. V32 adds and tests the missing phase. The current continuation is [checkpoint v48](checkpoint-continuation-v48.md).
+Skim has a [reviewed Windows development package](skim/README.md). Hosted run `42506300345` passed the earlier exact rc.6 Linux and Windows series. V31 run `42514930671` passed 240 ordinary cases and nine fault phases on each host; [readback v9](skim/artifact-retrieval-readback-v9.json) matches its provider digests, batch hashes, case receipts, reports and fault/restoration aggregates. V31's public route was refused before launch because `public-authoring` was missing from the journal phase allowlist. V32 added and tested that phase, then passed the same 240 cases and nine fault phases per host. [Readback v10](skim/artifact-retrieval-readback-v10.json) independently verifies both V32 packets. V32 public first-use and diagnosis passed, but maintenance then collided with the immutable first-use `selection.json` on both hosts, before maintenance target launch. Both checked cleanup paths passed; V32 remains unadmitted. V33 writes a distinct `selection-maintenance.json` and binds a focused regression. See [checkpoint v49](checkpoint-continuation-v49.md). Earlier zero-launch freezes V29/V30 had stale hashes; those attempts remain preserved.
 
 
 Git Town v17 run `41988031958` preserved another failed final-series attempt. Native Windows completed all 240 ordinary cases and reported nine source-fault phases; process proof, exact restoration and checked cleanup passed. The uploaded packet omitted the referenced fault case reports, build receipts and mutated executables, so those phases cannot receive independent audit credit. Linux passed 220 ordinary cases; its batch-11 N01 contract correctly contained the declared 5,000 ms startup boundary but timed out at 5,040 ms with exit 130. Process/workspace cleanup and exact source/runtime removal passed. All v17 outcomes remain preserved with zero cell, calibration or admission credit in [attempt record](git-town/final-series-attempts-v17.json).
