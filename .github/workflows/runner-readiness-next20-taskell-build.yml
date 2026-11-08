@@ -89,6 +89,34 @@ jobs:
               'scope':'Pinned source built and upstream tests executed. Only the version option was launched; no board, user config, network import, release helper or full-screen workflow was run.'
           },sort_keys=True,indent=2)+'\n')
           PY
+      - name: Build Playtestr and attempt the reviewed first-use workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          root="$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/active/taskell"
+          packet="$root/native-build"
+          mkdir -p "$packet/first-use/artifacts"
+          go build -o "$packet/bin/playtestr" ./cmd/playtestr
+          export PATH="$packet/bin:$PATH"
+          "$packet/bin/playtestr" test \
+            --artifacts-dir "$packet/first-use/artifacts" \
+            --report "$packet/first-use/report.json" \
+            docs/validation/runner-readiness-next-twenty-project-pass/taskell/first-use-v1/taskell-complete-existing-task.json
+          python - <<'PY'
+          import hashlib,json,platform,subprocess
+          from pathlib import Path
+          packet=Path('artifacts/runner-readiness-next-twenty-project-pass/active/taskell/native-build')
+          git=subprocess.run(['git','rev-parse','HEAD'],check=True,capture_output=True,text=True).stdout.strip()
+          (packet/'first-use'/'runner.json').write_text(json.dumps({
+              'source_revision':git,
+              'runner_bytes':(packet/'bin'/'playtestr').stat().st_size,
+              'runner_sha256':hashlib.sha256((packet/'bin'/'playtestr').read_bytes()).hexdigest(),
+              'go_version':subprocess.run(['go','version'],check=True,capture_output=True,text=True).stdout.strip(),
+              'os':platform.platform(),'architecture':platform.machine(),
+              'spec':'docs/validation/runner-readiness-next-twenty-project-pass/taskell/first-use-v1/taskell-complete-existing-task.json',
+              'scope':'One reviewed first-use attempt against an isolated synthetic Markdown board. Read the same-run state and report before declaring this case successful or freezing its contract.'
+          },sort_keys=True,indent=2)+'\n')
+          PY
       - name: Retain bounded native build packet
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
