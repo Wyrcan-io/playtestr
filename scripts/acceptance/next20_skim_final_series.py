@@ -39,7 +39,7 @@ BATCHES = [
     {'id': 1, 'name': 'ordinary-warm-1', 'change': 'Reuse exact target copy A from batch 0; no OS cache eviction claim.'},
     {'id': 2, 'name': 'ordinary-cold-2', 'change': 'First logical use of independent fresh SHA-256-verified owned target copy B.'},
     {'id': 3, 'name': 'ordinary-warm-2', 'change': 'Reuse exact target copy B from batch 2; no OS cache eviction claim.'},
-    {'id': 4, 'name': 'viewport', 'change': 'Increase width by 10 and height by 2 on N01-N08, E01-E02, E07-E12; preserve explicit parser, small-screen, and resize boundaries.'},
+    {'id': 4, 'name': 'viewport', 'change': 'Increase width by 10 and height by 2 on N01-N07, E01-E02, E07-E12; preserve N08 exact wrapping snapshot and explicit parser, small-screen, and resize boundaries.'},
     {'id': 5, 'name': 'spaced-unicode-path', 'change': 'Run exact target copy B from an owned path containing spaces and café 雪; no contract assertions retuned.'},
     {'id': 6, 'name': 'ordinary-input-readiness', 'change': 'Frozen supported input and positive checkpoints unchanged.'},
     {'id': 7, 'name': 'segmented-printable-input', 'change': 'Split printable text writes longer than three Unicode code points into bounded ordered chunks.'},
@@ -102,7 +102,7 @@ def checked_target(target, binary, digest):
 
 def transform_contract(batch_id, case_id, original):
     value = copy.deepcopy(original)
-    if batch_id == 4 and case_id not in {'E03', 'E04', 'E05', 'E06'}:
+    if batch_id == 4 and case_id not in {'N08', 'E03', 'E04', 'E05', 'E06'}:
         value['width'] += 10
         value['height'] += 2
     if batch_id == 7:
@@ -118,7 +118,7 @@ def prepare(host):
     if host not in {'linux', 'windows'} or host != host_name():
         raise ValueError('preparation must run on the declared native host')
     package = ROOT / 'docs/validation/runner-readiness-next-twenty-project-pass/skim'
-    declaration_path = package / 'final-series-declaration-native-exit-v8.json'
+    declaration_path = package / 'final-series-declaration-native-exit-v9.json'
     declaration = json.loads(declaration_path.read_text(encoding='utf-8'))
     base_path, revision_path, rows = scenario_rows(package)
     candidate = executable('native-exit-v1', host)
@@ -162,13 +162,19 @@ def prepare(host):
     else:
         first.mkdir(parents=True)
         second.mkdir(parents=True)
-        shutil.copyfile(original_binary, first / 'sk.exe')
-        shutil.copyfile(original_binary, second / 'sk.exe')
+        shutil.copy2(original_binary, first / 'sk.exe')
+        shutil.copy2(original_binary, second / 'sk.exe')
+    if host == 'linux':
+        source_mode = original_binary.stat().st_mode
+        for copied in (first / 'sk.exe', second / 'sk.exe'):
+            copied.chmod((copied.stat().st_mode & 0o777) | (source_mode & 0o111))
+            if not copied.stat().st_mode & 0o111:
+                raise ValueError('Linux Skim target copy is missing executable permission')
     copy_hashes = {name: sha256(path / 'sk.exe') for name, path in [('a', first), ('b', second)]}
     if any(digest != build['binary_sha256'] for digest in copy_hashes.values()):
         raise ValueError('fresh target preparation copy is not byte-identical')
 
-    contract_root = RAW / 'skim' / 'final-contracts' / 'native-exit-v13' / host
+    contract_root = RAW / 'skim' / 'final-contracts' / 'native-exit-v14' / host
     if contract_root.exists():
         raise ValueError('refuse existing Skim final contract root')
     contract_root.mkdir(parents=True)
@@ -221,7 +227,7 @@ def prepare(host):
                 target_binary_sha256=build['binary_sha256'], contention=batch_id in {8, 9}))
         planned.append(dict(batch=batch, cases=cases))
 
-    plan_path = RAW / 'skim' / 'final-series-plan-native-exit-v13' / host / 'plan.json'
+    plan_path = RAW / 'skim' / 'final-series-plan-native-exit-v14' / host / 'plan.json'
     immutable_json(plan_path, dict(schema_version=1, project=PROJECT, host=host, source_pin=PIN,
         candidate_series='native-exit-v1', candidate_sha256=sha256(candidate),
         candidate_archive_sha256=candidate_record['archive_sha256'], candidate_run=declaration['candidate_provider_runs'][host],
@@ -334,7 +340,7 @@ def main():
         prepare(args.host)
     else:
         plan = Path(args.plan).resolve(strict=True) if args.plan else (
-            RAW / 'skim' / 'final-series-plan-native-exit-v13' / args.host / 'plan.json')
+            RAW / 'skim' / 'final-series-plan-native-exit-v14' / args.host / 'plan.json')
         plan.relative_to(RAW.resolve(strict=True))
         run(args.host, plan)
 

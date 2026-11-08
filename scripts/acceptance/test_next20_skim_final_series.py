@@ -24,7 +24,7 @@ class SkimFinalSeriesTests(unittest.TestCase):
         self.assertEqual([row['id'] for row in BATCHES], list(range(12)))
         self.assertEqual(len(CASES), 20)
         self.assertEqual(len(set(CASES)), 20)
-        declaration = json.loads((PACKAGE/'final-series-declaration-native-exit-v1.json').read_text(encoding='utf-8'))
+        declaration = json.loads((PACKAGE/'final-series-declaration-native-exit-v9.json').read_text(encoding='utf-8'))
         self.assertEqual(declaration['batches'], BATCHES)
         self.assertEqual(declaration['scenario_ids'], CASES)
 
@@ -35,6 +35,10 @@ class SkimFinalSeriesTests(unittest.TestCase):
         for case in ('E03', 'E04', 'E05', 'E06'):
             original = self.contract(case)
             self.assertEqual(transform_contract(4, case, original), original)
+
+    def test_viewport_profile_preserves_exact_wrapping_snapshot(self):
+        original = self.contract('N08')
+        self.assertEqual(transform_contract(4, 'N08', original), original)
 
     def test_segmented_input_is_ordered_and_semantically_identical(self):
         original = self.contract('N02')

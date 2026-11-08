@@ -17,7 +17,7 @@ BATCHES = [
     ('ordinary-warm-1', 'Reuse exact target copy A from batch 0; no OS cache eviction claim.'),
     ('ordinary-cold-2', 'First logical use of independent fresh SHA-256-verified owned target copy B.'),
     ('ordinary-warm-2', 'Reuse exact target copy B from batch 2; no OS cache eviction claim.'),
-    ('viewport', 'Increase width by 10 and height by 2 on N01-N08, E01-E02, E07-E12; preserve explicit parser, small-screen, and resize boundaries.'),
+    ('viewport', 'Increase width by 10 and height by 2 on N01-N07, E01-E02, E07-E12; preserve N08 exact wrapping snapshot and explicit parser, small-screen, and resize boundaries.'),
     ('spaced-unicode-path', 'Run exact target copy B from an owned path containing spaces and café 雪; no contract assertions retuned.'),
     ('ordinary-input-readiness', 'Frozen supported input and positive checkpoints unchanged.'),
     ('segmented-printable-input', 'Split printable text writes longer than three Unicode code points into bounded ordered chunks.'),
@@ -48,7 +48,7 @@ def reconstruct(batch, case, canonical, target_path):
     value['workspace']['fixture'] = f'fixtures/{case}'
     if Path(value['command'][0]).name.lower() in {'sk', 'sk.exe'}:
         value['command'][0] = str(target_path)
-    if batch == 4 and case not in {'E03','E04','E05','E06'}:
+    if batch == 4 and case not in {'N08','E03','E04','E05','E06'}:
         value['width'] += 10
         value['height'] += 2
     if batch == 7:
@@ -76,7 +76,7 @@ def audit(plan_path):
     plan = json.loads(plan_path.read_text(encoding='utf-8'))
     host = actual_host()
     package = ROOT/'docs/validation/runner-readiness-next-twenty-project-pass/skim'
-    declaration_path = package/'final-series-declaration-native-exit-v8.json'
+    declaration_path = package/'final-series-declaration-native-exit-v9.json'
     declaration = json.loads(declaration_path.read_text(encoding='utf-8'))
     base_path = package/'scenario-declaration-v5.json'
     revision_path = package/'scenario-declaration-v6.json'
@@ -118,7 +118,7 @@ def audit(plan_path):
 
     expected_batches = []
     contract_checks = []
-    contract_root = RAW/'skim/final-contracts/native-exit-v13'/host
+    contract_root = RAW/'skim/final-contracts/native-exit-v14'/host
     if len(plan['batches']) != len(BATCHES):
         raise ValueError('wrong final batch denominator')
     for batch_id, ((name, change), actual) in enumerate(zip(BATCHES, plan['batches'])):

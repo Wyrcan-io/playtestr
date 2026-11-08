@@ -37,6 +37,22 @@ class SkimCacheCleanupTests(unittest.TestCase):
                 prune(target, roots=('src',))
             self.assertEqual((protected / 'main.rs').read_bytes(), b'preserve')
 
+    def test_prune_removes_read_only_cache_files_after_inventory(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            target = Path(temporary) / 'active' / 'skim'
+            cache = target / 'go-mod-cache' / 'module'
+            cache.mkdir(parents=True)
+            file = cache / 'readonly.go'
+            file.write_bytes(b'pinned-cache-data')
+            file.chmod(0o444)
+            if os.name != 'nt':
+                cache.chmod(0o555)
+                (cache.parent).chmod(0o555)
+            measured = inventory_cache(target / 'go-mod-cache', target)
+            result = prune(target, roots=('go-mod-cache',))
+            self.assertEqual(result['go-mod-cache'], measured)
+            self.assertFalse((target / 'go-mod-cache').exists())
+
     def test_inventory_enforces_per_file_byte_bound_with_path_diagnostic(self):
         with tempfile.TemporaryDirectory() as temporary:
             target = Path(temporary) / 'active' / 'skim'

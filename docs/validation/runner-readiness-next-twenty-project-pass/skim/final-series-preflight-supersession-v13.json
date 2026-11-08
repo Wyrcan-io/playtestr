@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "project": "skim",
+  "replacement_plan_namespace": "final-series-plan-native-exit-v14",
+  "target_launches": 120,
+  "scenario_credit": 0,
+  "superseded_declaration": "final-series-declaration-native-exit-v8.json",
+  "failed_attempt_receipt": "candidate-native-attempts-v6.json",
+  "reason": "V13 plan reconstruction passed on both hosts. Linux failed all 20 batch-00 starts because shutil.copyfile dropped the executable bit on byte-identical target copies. Windows passed batches 00-03 (80 cases) and 19/20 viewport cases; N08 snapshot mismatched after width expansion because the exact reviewed wrapping snapshot is viewport-specific. Both bounded cache inventories completed, but deletion failed on read-only Go module/conpty cache entries. The V13 workflow also omitted active/skim/case-evidence from artifact paths. V14 uses metadata-preserving copy2 with an executable-mode assertion on POSIX, keeps N08 at its reviewed viewport in batch 04, retries deletion only after chmod within inventoried allowlisted cache roots, and uploads case-level evidence.",
+  "replacement_plan": "artifacts/runner-readiness-next-twenty-project-pass/skim/final-series-plan-native-exit-v14/{host}/plan.json",
+  "replacement_audit_required": true
+}

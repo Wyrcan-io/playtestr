@@ -83,7 +83,19 @@ def prune(target, roots=CACHE_ROOTS):
             if not (entry.is_symlink() or getattr(entry,'is_junction',lambda:False)()):
                 raise ValueError('owned cache link type changed after inventory: '+link['path'])
             entry.unlink()
-        shutil.rmtree(path)
+        # Go module and Rust caches commonly mark extracted files/directories
+        # read-only. The exact tree was hashed above; make only those entries
+        # writable as needed by shutil, then retry the same bounded removal.
+        def retry_readonly(function, entry, error):
+            writable = stat.S_IWRITE | (stat.S_IREAD if os.name == 'nt' else 0)
+            if os.path.isdir(entry):
+                writable |= stat.S_IXUSR
+            os.chmod(entry, writable)
+            parent = os.path.dirname(entry)
+            if os.path.commonpath((str(path.resolve()), str(Path(parent).resolve()))) == str(path.resolve()):
+                os.chmod(parent, writable | stat.S_IXUSR)
+            function(entry)
+        shutil.rmtree(path, onerror=retry_readonly)
         if path.exists():raise ValueError('owned cache root remains after checked removal: '+name)
     return inventories
 
