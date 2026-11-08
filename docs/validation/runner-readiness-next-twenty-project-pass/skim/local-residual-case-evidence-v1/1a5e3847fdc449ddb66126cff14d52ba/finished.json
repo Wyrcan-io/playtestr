@@ -1,0 +1,129 @@
+{
+  "adapter_sha256": null,
+  "case_attempt_id": "1a5e3847fdc449ddb66126cff14d52ba",
+  "command": [
+    "C:\\Users\\abhir\\OneDrive\\Documents\\playtestr\\artifacts\\runner-readiness-next-twenty-project-pass\\candidate-native-exit-v1\\windows\\playtestr.exe",
+    "test",
+    "--artifacts-dir",
+    "C:\\Users\\abhir\\OneDrive\\Documents\\playtestr\\artifacts\\runner-readiness-next-twenty-project-pass\\active\\skim\\case-evidence\\1a5e3847fdc449ddb66126cff14d52ba\\runner-evidence",
+    "--report",
+    "C:\\Users\\abhir\\OneDrive\\Documents\\playtestr\\artifacts\\runner-readiness-next-twenty-project-pass\\active\\skim\\case-evidence\\1a5e3847fdc449ddb66126cff14d52ba\\report.json",
+    "C:\\Users\\abhir\\OneDrive\\Documents\\playtestr\\docs\\validation\\runner-readiness-next-twenty-project-pass\\skim\\N01-v2.json"
+  ],
+  "console": "Artifacts: C:\\Users\\abhir\\OneDrive\\Documents\\playtestr\\artifacts\\runner-readiness-next-twenty-project-pass\\active\\skim\\case-evidence\\1a5e3847fdc449ddb66126cff14d52ba\\runner-evidence\\20261105T151205Z-2672703642\nFAIL workspace setup failed: expand native workspace path: Access is denied.\nReport saved: C:\\Users\\abhir\\OneDrive\\Documents\\playtestr\\artifacts\\runner-readiness-next-twenty-project-pass\\active\\skim\\case-evidence\\1a5e3847fdc449ddb66126cff14d52ba\\report.json\nSuite: total=1 passed=0 failed=1 cancelled=0 not-run=0\n  C:/Users/abhir/OneDrive/Documents/playtestr/docs/validation/runner-readiness-next-twenty-project-pass/skim/N01-v2.json status=failed category=workspace_setup_failure\n",
+  "error": {
+    "attempt_id": "cb104b43d4094f6e8e80cc078d833b04",
+    "evidence_directory": "C:\\Users\\abhir\\OneDrive\\Documents\\playtestr\\artifacts\\runner-readiness-next-twenty-project-pass\\skim\\cb104b43d4094f6e8e80cc078d833b04",
+    "message": "playtestr-case-exact-rc6-native-exit-v1-windows-N01-probe: expected exit 0, got 1; C:\\Users\\abhir\\OneDrive\\Documents\\playtestr\\artifacts\\runner-readiness-next-twenty-project-pass\\skim\\cb104b43d4094f6e8e80cc078d833b04",
+    "type": "RuntimeError"
+  },
+  "executable_sha256": "e1251e201c6d7e8b41b48741bab8a5cc599b546c70e3750eb0b4158e23bce0cd",
+  "expected_runner_exit": 0,
+  "fixture_files": {
+    "emit.py": "61829818d3fc8c651af0178a0f99a04888f67662383f6c1d8cf4c8ac235c241b",
+    "items-basic.txt": "4a4f69ffb6a9cc9e71e1176cbbc4ee9dccb62bc177e3575f4a6d5645c87f297d",
+    "items.txt": "4a4f69ffb6a9cc9e71e1176cbbc4ee9dccb62bc177e3575f4a6d5645c87f297d"
+  },
+  "host": "nt",
+  "label": "exact-rc6-native-exit-v1-windows-N01-probe",
+  "project": "skim",
+  "report": {
+    "arch": "amd64",
+    "os": "windows",
+    "report_version": 3,
+    "results": [
+      {
+        "cleanup": {
+          "attempted": false,
+          "confirmed_exited": false,
+          "forced": false,
+          "graceful": false
+        },
+        "duration_ms": 1,
+        "evidence": {},
+        "failure": {
+          "category": "workspace_setup_failure",
+          "message": "workspace setup failed: expand native workspace path: Access is denied."
+        },
+        "name": "Skim N01 frozen direct-PTY scenario v2",
+        "spec_path": "C:\\Users\\abhir\\OneDrive\\Documents\\playtestr\\docs\\validation\\runner-readiness-next-twenty-project-pass\\skim\\N01-v2.json",
+        "spec_version": 3,
+        "status": "failed",
+        "steps": [
+          {
+            "action": "expect",
+            "duration_ms": 0,
+            "number": 1,
+            "status": "not_run"
+          },
+          {
+            "action": "expect",
+            "duration_ms": 0,
+            "number": 2,
+            "status": "not_run"
+          },
+          {
+            "action": "key",
+            "duration_ms": 0,
+            "number": 3,
+            "status": "not_run"
+          },
+          {
+            "action": "exit",
+            "duration_ms": 0,
+            "number": 4,
+            "status": "not_run"
+          },
+          {
+            "action": "expect",
+            "duration_ms": 0,
+            "number": 5,
+            "status": "not_run"
+          },
+          {
+            "action": "snapshot",
+            "duration_ms": 0,
+            "number": 6,
+            "status": "not_run"
+          }
+        ],
+        "target": {
+          "exited": false
+        },
+        "viewport": {
+          "height": 24,
+          "width": 120
+        },
+        "workspace": {
+          "attempted": true,
+          "cleaned": false,
+          "cleanup_attempted": false,
+          "fixture": "fixtures/N01",
+          "prepared": false,
+          "retained": false,
+          "setup_failure": {
+            "category": "workspace_setup_failure",
+            "message": "expand native workspace path: Access is denied."
+          }
+        }
+      }
+    ],
+    "runner_version": "v0.4.0-rc.6",
+    "summary": {
+      "cancelled": 0,
+      "failed": 1,
+      "not_run": 0,
+      "passed": 0,
+      "total": 1
+    }
+  },
+  "report_path": "artifacts\\runner-readiness-next-twenty-project-pass\\active\\skim\\case-evidence\\1a5e3847fdc449ddb66126cff14d52ba\\report.json",
+  "report_sha256": "2904b589f4a5731fda9bae450295ea0ead4cdf3ef8cf53118f221af1651ce30d",
+  "runner_attempt_id": "cb104b43d4094f6e8e80cc078d833b04",
+  "runner_candidate_series": "native-exit-v1",
+  "runner_candidate_sha256": "6c80fdbcdd74705b85b2e8aad2f07140f5ff5e8cea80db1d6c24a04d71b23f36",
+  "schema_version": 1,
+  "spec": "docs\\validation\\runner-readiness-next-twenty-project-pass\\skim\\N01-v2.json",
+  "spec_sha256": "61fe356a58f27b77807c6eeae8687cd70dc0fce37ef0fb67bc256f1196715bc7",
+  "status": "failed"
+}

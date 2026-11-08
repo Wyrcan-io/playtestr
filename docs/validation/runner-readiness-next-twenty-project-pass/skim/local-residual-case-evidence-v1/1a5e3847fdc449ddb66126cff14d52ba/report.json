@@ -1,0 +1,90 @@
+{
+  "report_version": 3,
+  "runner_version": "v0.4.0-rc.6",
+  "os": "windows",
+  "arch": "amd64",
+  "summary": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1,
+    "cancelled": 0,
+    "not_run": 0
+  },
+  "results": [
+    {
+      "spec_version": 3,
+      "name": "Skim N01 frozen direct-PTY scenario v2",
+      "spec_path": "C:\\Users\\abhir\\OneDrive\\Documents\\playtestr\\docs\\validation\\runner-readiness-next-twenty-project-pass\\skim\\N01-v2.json",
+      "status": "failed",
+      "duration_ms": 1,
+      "viewport": {
+        "width": 120,
+        "height": 24
+      },
+      "steps": [
+        {
+          "number": 1,
+          "action": "expect",
+          "status": "not_run",
+          "duration_ms": 0
+        },
+        {
+          "number": 2,
+          "action": "expect",
+          "status": "not_run",
+          "duration_ms": 0
+        },
+        {
+          "number": 3,
+          "action": "key",
+          "status": "not_run",
+          "duration_ms": 0
+        },
+        {
+          "number": 4,
+          "action": "exit",
+          "status": "not_run",
+          "duration_ms": 0
+        },
+        {
+          "number": 5,
+          "action": "expect",
+          "status": "not_run",
+          "duration_ms": 0
+        },
+        {
+          "number": 6,
+          "action": "snapshot",
+          "status": "not_run",
+          "duration_ms": 0
+        }
+      ],
+      "target": {
+        "exited": false
+      },
+      "failure": {
+        "category": "workspace_setup_failure",
+        "message": "workspace setup failed: expand native workspace path: Access is denied."
+      },
+      "cleanup": {
+        "attempted": false,
+        "graceful": false,
+        "forced": false,
+        "confirmed_exited": false
+      },
+      "evidence": {},
+      "workspace": {
+        "attempted": true,
+        "fixture": "fixtures/N01",
+        "prepared": false,
+        "cleanup_attempted": false,
+        "cleaned": false,
+        "retained": false,
+        "setup_failure": {
+          "category": "workspace_setup_failure",
+          "message": "expand native workspace path: Access is denied."
+        }
+      }
+    }
+  ]
+}
