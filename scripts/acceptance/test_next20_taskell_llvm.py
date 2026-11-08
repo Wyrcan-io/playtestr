@@ -146,6 +146,19 @@ class TaskellLLVMTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'Escaping symlink'):
             safe_extract_libffi(package,self.root/'selected-llvm')
 
+    def test_libedit_documentation_symlink_escape_is_rejected_without_extraction(self):
+        package=self.root/'libedit-man-escape.tbz2'
+        with tarfile.open(package,'w:bz2') as archive:
+            alias=tarfile.TarInfo('opt/local/share/man/man3/el_tok_end.3.gz')
+            alias.type=tarfile.SYMTYPE;alias.linkname='../../../../../../outside'
+            archive.addfile(alias)
+            library=tarfile.TarInfo('opt/local/lib/libedit.0.dylib');library.size=4
+            archive.addfile(library,io.BytesIO(b'edit'))
+        with self.assertRaisesRegex(ValueError,'Escaping link'):
+            safe_extract_dylib_family(package,self.root/'untrusted-docs',MACPORTS_LIBEDIT_DYLIB,
+                                      ['libedit.0.dylib'],'libedit')
+        self.assertFalse((self.root/'untrusted-docs').exists())
+
     @unittest.skipIf(os.name=='nt','native Windows symlink creation unavailable under this token')
     def test_signed_libedit_and_ncurses_dylib_families_extract_only_runtime_links(self):
         edit=self.root/'libedit.tbz2'
@@ -156,6 +169,8 @@ class TaskellLLVMTests(unittest.TestCase):
             alias.linkname='libedit.0.1.dylib';archive.addfile(alias)
             ignored=tarfile.TarInfo('opt/local/bin/editline');ignored.size=3
             archive.addfile(ignored,io.BytesIO(b'bin'))
+            man_alias=tarfile.TarInfo('opt/local/share/man/man3/el_tok_end.3.gz')
+            man_alias.type=tarfile.SYMTYPE;man_alias.linkname='el_gets.3.gz';archive.addfile(man_alias)
         ncurses=self.root/'ncurses.tbz2'
         with tarfile.open(ncurses,'w:bz2') as archive:
             for name,data in [('opt/local/lib/libncurses.6.6.dylib',b'ncurses'),

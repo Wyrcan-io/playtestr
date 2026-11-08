@@ -194,6 +194,18 @@ def safe_extract_dylib_family(package,destination,pattern,required,label,cap=16*
                     if resolved.is_absolute() or '..' in resolved.parts:raise ValueError(f'Escaping symlink in MacPorts {label} package')
                     pending.append((output,member.linkname))
                 else:raise ValueError(f'Unsupported special entry in MacPorts {label} package')
+            elif name.startswith('opt/local/share/') and (member.issym() or member.islnk()):
+                # MacPorts man trees can use symlink/hardlink aliases. They are
+                # never materialized in the owned runtime prefix; validate the
+                # metadata target and ignore it as inert documentation.
+                if len(member.linkname)>4096:raise ValueError(f'Oversized MacPorts {label} documentation link')
+                link=PurePosixPath(member.linkname)
+                if link.is_absolute():raise ValueError(f'Absolute link in MacPorts {label} documentation')
+                base=parts.parent if member.issym() else PurePosixPath('.')
+                resolved=PurePosixPath(posixpath.normpath(str(base/link)))
+                if resolved.is_absolute() or '..' in resolved.parts:
+                    raise ValueError(f'Escaping link in MacPorts {label} documentation')
+                continue
             elif member.isfile() and member.size<=4*1024**2:
                 # Headers, pkg-config metadata and man pages are signed package
                 # contents, but LLVM needs only the exact dylib family.
