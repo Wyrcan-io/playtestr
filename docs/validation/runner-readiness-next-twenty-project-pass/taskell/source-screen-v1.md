@@ -127,3 +127,15 @@ checkpoint failure. Its actual report and screen are in
 with toolchain and binary identities
 in `build-attempt-v15.json`. Both old-host cases are preserved; the first
 post-exit authored smoke result is Linux-only at this point.
+
+Both native jobs on run `42456298245` have now completed successfully. Ubuntu
+24.04 and macOS 15 Intel each passed all 250 pinned upstream tests, built
+Taskell 1.11.4 and Playtestr, passed the six-step authored smoke, and completed
+recorder review, fresh replay, export and ordinary test (6/6; 1/1 case).
+Same-run reports record exact exit 0, saved state, process-group termination
+and workspace cleanup. Linux and macOS first-use packets are retained in
+`first-use-attempts/42456298245-linux-first-use.tar.gz` and
+`first-use-attempts/42456298245-macos-first-use.tar.gz`; receipts are
+`build-attempt-v18.json` and `build-attempt-v19.json`. This establishes a
+successful two-host first-use observation only. It is not the frozen scenario
+catalog, complete native cells, fault calibration, or admission.

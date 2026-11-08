@@ -1,0 +1,33 @@
+{
+  "version": 3,
+  "name": "Create and save a Taskell board item",
+  "command": ["taskell", "board.md"],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 60000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {"expect": "To Do"},
+    {"expect": "Review sample"},
+    {"text": "a"},
+    {"text": "New regression task"},
+    {"key": "Enter"},
+    {"expect": "New regression task"},
+    {"text": "q"},
+    {"exit": 0},
+    {
+      "state": {
+        "path": "board.md",
+        "kind": "file",
+        "bytes_base64": "IyMgVG8gRG8KCi0gUmV2aWV3IHNhbXBsZQotIE5ldyByZWdyZXNzaW9uIHRhc2sKCiMjIERvbmUKCg=="
+      }
+    }
+  ]
+}

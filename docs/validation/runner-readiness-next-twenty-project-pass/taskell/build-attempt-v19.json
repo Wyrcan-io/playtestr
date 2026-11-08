@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42456298245,
+  "source_revision": "2b79dae2069dd0845979d31db9f950841f992c2e",
+  "event": "push",
+  "host": "macos-15-intel-x86_64",
+  "job_id": 128655926387,
+  "provider_artifact": {
+    "id": 13608252859,
+    "bytes": 6782709,
+    "sha256": "04e7022b36a28d7ebfc96ec7881905f33a7d62bead42fde66004d74b5f8004b9"
+  },
+  "source_verified": true,
+  "upstream_tests_passed": 250,
+  "target": {
+    "version": "1.11.4",
+    "binary_bytes": 12050080,
+    "binary_sha256": "490a7bbf7f6e39a54c333412ae3894c20f3a4483b9418008144326562c4a1bab",
+    "stack": "3.11.1",
+    "ghc": "9.0.1"
+  },
+  "playtestr": {
+    "go": "1.25.0",
+    "binary_bytes": 6899072,
+    "binary_sha256": "ca841018eb65017cfdd72a4624a7e8d00d4480b9f1619e1a4e62051ecadd8cc3"
+  },
+  "authored_smoke": {
+    "report_sha256": "4bcf0aa40ab43b2593aa927fe467e1d9bd9d43d9e12c07b8bebb1db1524423dc",
+    "result": "passed",
+    "steps": "6/6",
+    "exit_code": 0,
+    "saved_state_matched": true,
+    "process_group_termination_confirmed": true,
+    "workspace_cleaned": true
+  },
+  "public_recorder": {
+    "console_sha256": "72380ed55d154f0ace7c0239eb2bb51d73f2806085a8e37623fa906ae334f57e",
+    "candidate_reviewed": true,
+    "fresh_replay": "passed 6/6; observed in hosted job log",
+    "exported_spec_sha256": "71b9c71aa5b4ea4e58180fd2bdf6890cc290342ac21a01dca3a7a18c608017a2",
+    "ordinary_test": {
+      "report_sha256": "a0e5e1db03bb629c0a52e89d8bb32989c28c36f65320c2ee740096e78e79f085",
+      "result": "passed",
+      "cases": "1/1",
+      "steps": "6/6",
+      "exit_code": 0,
+      "saved_state_matched": true,
+      "process_group_termination_confirmed": true,
+      "workspace_cleaned": true
+    }
+  },
+  "curated_evidence": "first-use-attempts/42456298245-macos-first-use.tar.gz",
+  "curated_evidence_sha256": "605971128dad25d1d5c7ae85a8657a4ceaa2fd4b73d0b3788a94700a4dc498e2",
+  "credit": "macOS Intel first-use authoring, fresh replay, export, and ordinary-test path validated for one synthetic Taskell workflow. Together with build-attempt-v18.json this proves one Linux and one macOS build/first-use observation, not a complete native-cell series, calibration, or project admission."
+}

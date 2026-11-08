@@ -167,8 +167,14 @@ candidate, successful fresh recorder replay, export, and ordinary runner test.
 The authored smoke and ordinary test reports both show 6/6 steps, exact exit,
 saved state, process-group cleanup and workspace deletion. Its curated eight-
 member packet and binary/artifact identities are recorded in
-`build-attempt-v18.json`. The run's Intel Mac lane remains in upstream tests.
-This validates one Linux first-use workflow only; it adds no scenario-series,
-native-cell, calibration or admission credit. Storage checkpoint v18 now passes
-all declared caps after losslessly compacting the historical storage receipts;
-retained headroom is 152,451 bytes. Continue storage-aware evidence handling.
+`build-attempt-v18.json`.
+
+MacOS Intel on the same run then passed the identical 250-test, build, smoke,
+recorder replay/export and ordinary-test path. Its reports likewise show 6/6
+steps and confirmed state, process and workspace cleanup. Receipt
+`build-attempt-v19.json` and its independently hashed packet preserve the Mac
+binary and run identities. The cross-host first-use path is now observed on
+Linux and Intel Mac, but this adds no frozen scenario-series, native-cell,
+fault calibration or admission credit. Storage checkpoint v18 passed after
+lossless receipt compaction, with 152,451 bytes retained headroom at its
+observation. Continue measuring before adding larger evidence packets.
