@@ -1,0 +1,837 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42486569216,
+  "source_revision": "9eddb112748953c0e4842ae91a18167078be1985",
+  "run_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/42486569216",
+  "local_corrected_spec_sha256": "0b83ee04755d195a914ea15b160ee80d815ba5a40ff315a592251437c196446e",
+  "local_expected_exit": 1,
+  "workflow_outcome": "both hosts failed at candidate batch because E12 still expected exit 0; actual Taskell permission-denied path exited 1; all other 19 invocations passed each host; recorder skipped",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128749633533,
+      "upstream_tests": "250 passed; stack test --test step success",
+      "target": {
+        "stack": "Version 3.11.1, Git revision 979bf6339fd4d5837c4d2fa8166dc715eef30ee2 x86_64 hpack-0.39.6",
+        "binary_sha256": "6099f625fc30ee1fefcef87c3aa40e34915b4b254b52f4276d940e976225dfd8",
+        "version": "1.11.4",
+        "ghc": "9.0.1",
+        "binary_bytes": 33207832
+      },
+      "playtestr": {
+        "go": "go version go1.25.0 linux/amd64",
+        "binary_sha256": "fbc80efeb5e0b447ffe3fa012092a975425594658b187bbe6c2707bb65beb17c",
+        "binary_bytes": 6928585
+      },
+      "smoke_report_sha256": "69fe899124732aa858c565c959523aa360d40704a2ee2b1b6f25f1c84e076b3e",
+      "provider_artifact": {
+        "id": 13619164456,
+        "bytes": 11222124,
+        "zip_sha256": "f1ab1c3b3d7ac3ff2003c748b7573f8ac901b87d4169733f0345ea71abfba417"
+      },
+      "scenario_pass_count": 19,
+      "scenario_fail_count": 1,
+      "scenarios": [
+        {
+          "scenario": "taskell-create-task",
+          "status": "passed",
+          "steps_passed": 12,
+          "steps_total": 12,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "164ed66e2b9c60014a66b88a419b7d73d8b2eeb0958b9f73f58951e4032ba90c",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-create-task-report.json",
+          "report_sha256": "100de192259e9c4fb7cc2897a832b736571f8a302b61c46b2bb9792c634e15f4"
+        },
+        {
+          "scenario": "taskell-duplicate-task",
+          "status": "passed",
+          "steps_passed": 7,
+          "steps_total": 7,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "daf5de5f03c7ede2d58eb351e37b643e4bdf9c837b9d2c5033a02e1c30b96bdd",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-duplicate-task-report.json",
+          "report_sha256": "56a7bc43eb94707e35fddcbcee11397dcfcf109975c86ff53b1b768de95ca3ba"
+        },
+        {
+          "scenario": "taskell-edge-e01-empty-blank-input",
+          "status": "passed",
+          "steps_passed": 10,
+          "steps_total": 10,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "5be5e20efa62c8a56129d1efbede37f337ce0e68437539432712286a3d18f25d",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-edge-e01-empty-blank-input-report.json",
+          "report_sha256": "972d4d448f5e4a20145a2f31ee456411fa6c18c555c2093c26e8f454fa8903be"
+        },
+        {
+          "scenario": "taskell-edge-e02-no-search-match",
+          "status": "passed",
+          "steps_passed": 11,
+          "steps_total": 11,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "92f9642e6a61a94468f8d18b77bc2a9506e60f6af035a82cba28cd013ae041dc",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-edge-e02-no-search-match-report.json",
+          "report_sha256": "00ffcf9521446a8959eca5fff77ff70a97356e5855bdd532fb67fbff580bfff1"
+        },
+        {
+          "scenario": "taskell-edge-e03-ambiguous-labels",
+          "status": "passed",
+          "steps_passed": 10,
+          "steps_total": 10,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "d3c9160b76ee40274113963662a5f1276ba656e57d443eca9990c3df91dce028",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-edge-e03-ambiguous-labels-report.json",
+          "report_sha256": "dee18d7827c21475d35989138f27c266bff48347c3a88475e38802983246b29d"
+        },
+        {
+          "scenario": "taskell-edge-e04-escape-edit",
+          "status": "passed",
+          "steps_passed": 20,
+          "steps_total": 20,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "f4b893e75349f84683fa790158a1065fcc3c6866427cb1b7c31434537f8158dd",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-edge-e04-escape-edit-report.json",
+          "report_sha256": "4aa21b27f88065e2f6a43aa8c4b3aaaf089eb3dd1e21f5d5f2fad9e9d652b80f"
+        },
+        {
+          "scenario": "taskell-edge-e05-resize-redraw",
+          "status": "passed",
+          "steps_passed": 9,
+          "steps_total": 9,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "b183fd24570f9e7ae018f9f619d5968ab9049f687acaa105dfc6b6c6218550c5",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-edge-e05-resize-redraw-report.json",
+          "report_sha256": "95d51a949ccb5d6af28ab8355a8402a9a4207139804f10c8185a481d2210c9d1"
+        },
+        {
+          "scenario": "taskell-edge-e06-long-offscreen",
+          "status": "passed",
+          "steps_passed": 8,
+          "steps_total": 8,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "1d0c20b86f09f639dacab49ec6ca071aabd12d84126d30a7f20663c49e0831ea",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-edge-e06-long-offscreen-report.json",
+          "report_sha256": "5acfa22eedfe1cbe6c26d9ed6a08f2741769041f3de4c71ea0b0e9de2b162279"
+        },
+        {
+          "scenario": "taskell-edge-e07-unicode-path",
+          "status": "passed",
+          "steps_passed": 11,
+          "steps_total": 11,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "c74fa29d8b46b74088535c503654c24d7097b35d3b43f95ef739eb1149d4f06d",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-edge-e07-unicode-path-report.json",
+          "report_sha256": "0cca0f79ca7dc113c764ab4572475b88c6e97ec2bb423dbc0e630cb697f4f87b"
+        },
+        {
+          "scenario": "taskell-edge-e08-rapid-navigation",
+          "status": "passed",
+          "steps_passed": 9,
+          "steps_total": 9,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "1e0308c0ccb6bee8858dd2fc109c61d4da4c0547f377637bf862295e7bc3dee8",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-edge-e08-rapid-navigation-report.json",
+          "report_sha256": "c8e1275f88e5a8c83cf0e9c7e4c23a3452b35b0a70051a6f9bb80b16d5681815"
+        },
+        {
+          "scenario": "taskell-edge-e09-immediate-save",
+          "status": "passed",
+          "steps_passed": 6,
+          "steps_total": 6,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "b3b8f0410665d58537968ea8a5c045a1a53d61d13fc6a06b10ebf85ef4be9292",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-edge-e09-immediate-save-report.json",
+          "report_sha256": "f78324e03bd402072135e6579e87c7923218346783f0707a649eeafcf13f7a77"
+        },
+        {
+          "scenario": "taskell-edge-e10-decline-missing-board",
+          "status": "passed",
+          "steps_passed": 5,
+          "steps_total": 5,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "d8f375bba873e56ff3a0f6222483d0aea148bb4bea76e411994a066f9d97c912",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-edge-e10-decline-missing-board-report.json",
+          "report_sha256": "7212da1805022f1b7a73501a13bba7f60e19ab2c3cfc5af9b8b79497134c0cef"
+        },
+        {
+          "scenario": "taskell-edge-e11-malformed",
+          "status": "passed",
+          "steps_passed": 3,
+          "steps_total": 3,
+          "target_exit_code": 1,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "c656996b05bafa1daa6536f2636312706fb0dbd974926c4bd94d596f7a1837f1",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-edge-e11-malformed-report.json",
+          "report_sha256": "b6ddba28450935b3dd777356205b6d09e46f96dcdd161d053ab3ebf3792440b6"
+        },
+        {
+          "scenario": "taskell-edge-e11-recovery",
+          "status": "passed",
+          "steps_passed": 4,
+          "steps_total": 4,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "e0d21289b4712f8c7bd52825f9d8a9051ff781206a17a44297921101fdd25919",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-edge-e11-recovery-report.json",
+          "report_sha256": "b43de71b79351620ac6f36426928f293911097deadf2f1a20003adbc05e395cd"
+        },
+        {
+          "scenario": "taskell-edge-e12-readonly",
+          "status": "failed",
+          "steps_passed": 4,
+          "steps_total": 6,
+          "target_exit_code": 1,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "0688f09e4ac3ace8a2f599e55ef57dec587ca3225d2dd03a5b51e5d67f10c23b",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-edge-e12-readonly-report.json",
+          "report_sha256": "8d96d5a1e2987fb4c3014bf48732b4222996da4100725a570deda4923fe82cfc"
+        },
+        {
+          "scenario": "taskell-n04-rename-task",
+          "status": "passed",
+          "steps_passed": 22,
+          "steps_total": 22,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "b3720fa6c0f30c615940153d5da92d3579de13d5f435000064e736428457e7cf",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-n04-rename-task-report.json",
+          "report_sha256": "35ed3d45eb3810a09ce611c1747c1e3847901cf799d16a7256fb18218b0cb936"
+        },
+        {
+          "scenario": "taskell-n05-reorder-task",
+          "status": "passed",
+          "steps_passed": 6,
+          "steps_total": 6,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "89a33c3556271af6944e6bcea82f171514a4b4ae8bc8502f9662fb7bac0b9d60",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-n05-reorder-task-report.json",
+          "report_sha256": "8fa70cd939bd355203dda0c78567b61c8a64992a729581e68ac6ab3987497b8f"
+        },
+        {
+          "scenario": "taskell-n06-move-right",
+          "status": "passed",
+          "steps_passed": 7,
+          "steps_total": 7,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "917af692ccf2875ef9ab77380e2dfa06bb6586e0d748b21d3c5b184c2cf7f47c",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-n06-move-right-report.json",
+          "report_sha256": "bb6ec745c8f21b2f5c4b1a6004c14ff9bfa674d02a8b4a8923e8ffa692d1af8a"
+        },
+        {
+          "scenario": "taskell-n07-search-complete",
+          "status": "passed",
+          "steps_passed": 11,
+          "steps_total": 11,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "96f2d8cc81c048d246090951ea06cd7db29f1685f8ee382faa68ca55272a4d95",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-n07-search-complete-report.json",
+          "report_sha256": "8fc3d877b010235a5676755dcfd9beba13f16a91783e73cec787af106246ce5c"
+        },
+        {
+          "scenario": "taskell-n08-add-list",
+          "status": "passed",
+          "steps_passed": 14,
+          "steps_total": 14,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "29bf65db488747b521764d7a042a8f970e4306492d7185618d55eaa29791b720",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-n08-add-list-report.json",
+          "report_sha256": "2ce98b1a2baa6c1cd79ee8b8e0c0db6533e1bc9f483f24b58bd3354e468fb9a5"
+        }
+      ],
+      "e12_failure": "Complete and quit without changing a Taskell board whose directory blocks writes: step 5: expected exit code 0, got 1",
+      "failure_screen": "taskell-edge-e12-readonly-actual.txt",
+      "failure_screen_sha256": "693dfd65b528490148332a642b5b3ba0966035c42c510d604e45e30d3dd1fc3e",
+      "recorder_route": "skipped because candidate batch failed"
+    },
+    {
+      "host": "macos-15-intel-x86_64",
+      "job_id": 128749633785,
+      "upstream_tests": "250 passed; stack test --test step success",
+      "target": {
+        "stack": "Version 3.11.1, Git revision 979bf6339fd4d5837c4d2fa8166dc715eef30ee2 x86_64 hpack-0.39.6",
+        "binary_sha256": "490a7bbf7f6e39a54c333412ae3894c20f3a4483b9418008144326562c4a1bab",
+        "version": "1.11.4",
+        "ghc": "9.0.1",
+        "binary_bytes": 12050080
+      },
+      "playtestr": {
+        "go": "go version go1.25.0 darwin/amd64",
+        "binary_sha256": "4f2165c68088a70924d5818e89e4f3c47c8c591c33009406bdad09c0e7202b38",
+        "binary_bytes": 6899072
+      },
+      "smoke_report_sha256": "43f9ff40db14cdabf4c3f18dfd9dc497b509c8a04f66f4d325aa470a120ef624",
+      "provider_artifact": {
+        "id": 13620960385,
+        "bytes": 6800242,
+        "zip_sha256": "aea01128a2a7547a3dc2ecf4da75bd4a39fb8203c281fab6c33e2cbdbd3cdec0"
+      },
+      "scenario_pass_count": 19,
+      "scenario_fail_count": 1,
+      "scenarios": [
+        {
+          "scenario": "taskell-create-task",
+          "status": "passed",
+          "steps_passed": 12,
+          "steps_total": 12,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "164ed66e2b9c60014a66b88a419b7d73d8b2eeb0958b9f73f58951e4032ba90c",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-create-task-report.json",
+          "report_sha256": "2f0e9202fa2da5fbba1aa2201191fd5608d91189f38ea03052549743bd3490c4"
+        },
+        {
+          "scenario": "taskell-duplicate-task",
+          "status": "passed",
+          "steps_passed": 7,
+          "steps_total": 7,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "daf5de5f03c7ede2d58eb351e37b643e4bdf9c837b9d2c5033a02e1c30b96bdd",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-duplicate-task-report.json",
+          "report_sha256": "da944197c1f6cb8623ec633f00067d6488c1e33c79c70db8c738275d31c8dabc"
+        },
+        {
+          "scenario": "taskell-edge-e01-empty-blank-input",
+          "status": "passed",
+          "steps_passed": 10,
+          "steps_total": 10,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "5be5e20efa62c8a56129d1efbede37f337ce0e68437539432712286a3d18f25d",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-edge-e01-empty-blank-input-report.json",
+          "report_sha256": "55aa946508514a8b284f265f0ba9e0f3318353901df5cf22b38b3f506ecaf981"
+        },
+        {
+          "scenario": "taskell-edge-e02-no-search-match",
+          "status": "passed",
+          "steps_passed": 11,
+          "steps_total": 11,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "92f9642e6a61a94468f8d18b77bc2a9506e60f6af035a82cba28cd013ae041dc",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-edge-e02-no-search-match-report.json",
+          "report_sha256": "88e4afd24614603249dcf78f32332f0f71237ddea14c638dd114a293af5d891d"
+        },
+        {
+          "scenario": "taskell-edge-e03-ambiguous-labels",
+          "status": "passed",
+          "steps_passed": 10,
+          "steps_total": 10,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "d3c9160b76ee40274113963662a5f1276ba656e57d443eca9990c3df91dce028",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-edge-e03-ambiguous-labels-report.json",
+          "report_sha256": "e21a100977cd9ed7e64a1d8d197d07b2bef44a3e9b9e59328163dd5291a3e736"
+        },
+        {
+          "scenario": "taskell-edge-e04-escape-edit",
+          "status": "passed",
+          "steps_passed": 20,
+          "steps_total": 20,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "f4b893e75349f84683fa790158a1065fcc3c6866427cb1b7c31434537f8158dd",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-edge-e04-escape-edit-report.json",
+          "report_sha256": "19afe6f24bb4ba324d9a1511eb2986c551b4c6fa821ca68ab68f1e79a3cd4094"
+        },
+        {
+          "scenario": "taskell-edge-e05-resize-redraw",
+          "status": "passed",
+          "steps_passed": 9,
+          "steps_total": 9,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "b183fd24570f9e7ae018f9f619d5968ab9049f687acaa105dfc6b6c6218550c5",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-edge-e05-resize-redraw-report.json",
+          "report_sha256": "abb37e9db778203e5ebfd416ff13266dc5892a86f537a7b3f03e0496157c52ac"
+        },
+        {
+          "scenario": "taskell-edge-e06-long-offscreen",
+          "status": "passed",
+          "steps_passed": 8,
+          "steps_total": 8,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "1d0c20b86f09f639dacab49ec6ca071aabd12d84126d30a7f20663c49e0831ea",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-edge-e06-long-offscreen-report.json",
+          "report_sha256": "14002bafd196169d46c71ba732746b6112b4d338ed8b415d57d20c30766d6f51"
+        },
+        {
+          "scenario": "taskell-edge-e07-unicode-path",
+          "status": "passed",
+          "steps_passed": 11,
+          "steps_total": 11,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "c74fa29d8b46b74088535c503654c24d7097b35d3b43f95ef739eb1149d4f06d",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-edge-e07-unicode-path-report.json",
+          "report_sha256": "bd765f61ef5fccbfbf4e7c3cf2561be9ffbcc733b358b9d345b8c21d90e15f2d"
+        },
+        {
+          "scenario": "taskell-edge-e08-rapid-navigation",
+          "status": "passed",
+          "steps_passed": 9,
+          "steps_total": 9,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "1e0308c0ccb6bee8858dd2fc109c61d4da4c0547f377637bf862295e7bc3dee8",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-edge-e08-rapid-navigation-report.json",
+          "report_sha256": "872736eed81755f654896f3fb604ff0cd444d0d142e0cb0eef8c2a7f3028fb67"
+        },
+        {
+          "scenario": "taskell-edge-e09-immediate-save",
+          "status": "passed",
+          "steps_passed": 6,
+          "steps_total": 6,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "b3b8f0410665d58537968ea8a5c045a1a53d61d13fc6a06b10ebf85ef4be9292",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-edge-e09-immediate-save-report.json",
+          "report_sha256": "b633b47b21bf85ceed05ce310c6bf0d43de2883a9dfae4a2368095d2731307d4"
+        },
+        {
+          "scenario": "taskell-edge-e10-decline-missing-board",
+          "status": "passed",
+          "steps_passed": 5,
+          "steps_total": 5,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "d8f375bba873e56ff3a0f6222483d0aea148bb4bea76e411994a066f9d97c912",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-edge-e10-decline-missing-board-report.json",
+          "report_sha256": "3e91645e4d97cd3f11cd7f19f86fab214650592063ae165cf0acd9d1a8b03641"
+        },
+        {
+          "scenario": "taskell-edge-e11-malformed",
+          "status": "passed",
+          "steps_passed": 3,
+          "steps_total": 3,
+          "target_exit_code": 1,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "c656996b05bafa1daa6536f2636312706fb0dbd974926c4bd94d596f7a1837f1",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-edge-e11-malformed-report.json",
+          "report_sha256": "920fe3a2f9d6745c4c6b27a379b42cb4051ee37c0c72e5d21ddda60e92184bec"
+        },
+        {
+          "scenario": "taskell-edge-e11-recovery",
+          "status": "passed",
+          "steps_passed": 4,
+          "steps_total": 4,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "e0d21289b4712f8c7bd52825f9d8a9051ff781206a17a44297921101fdd25919",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-edge-e11-recovery-report.json",
+          "report_sha256": "0b5e921a8c8d0983fe7865faaffaeb06644f69b8ef676b17fa759b7ac6319738"
+        },
+        {
+          "scenario": "taskell-edge-e12-readonly",
+          "status": "failed",
+          "steps_passed": 4,
+          "steps_total": 6,
+          "target_exit_code": 1,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "0688f09e4ac3ace8a2f599e55ef57dec587ca3225d2dd03a5b51e5d67f10c23b",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-edge-e12-readonly-report.json",
+          "report_sha256": "ecc68652d7b294600bccfeec272086ed278e3ce780a46f224731938663507791"
+        },
+        {
+          "scenario": "taskell-n04-rename-task",
+          "status": "passed",
+          "steps_passed": 22,
+          "steps_total": 22,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "b3720fa6c0f30c615940153d5da92d3579de13d5f435000064e736428457e7cf",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-n04-rename-task-report.json",
+          "report_sha256": "428b88bca6f88ce3d109bc8f0b60f6baa29dc9d9bf94c3ddaf992fcac9d1cd95"
+        },
+        {
+          "scenario": "taskell-n05-reorder-task",
+          "status": "passed",
+          "steps_passed": 6,
+          "steps_total": 6,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "89a33c3556271af6944e6bcea82f171514a4b4ae8bc8502f9662fb7bac0b9d60",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-n05-reorder-task-report.json",
+          "report_sha256": "b91a62103c3189842881e1a8f1566a4c908915b72a80132844e664af0133f14f"
+        },
+        {
+          "scenario": "taskell-n06-move-right",
+          "status": "passed",
+          "steps_passed": 7,
+          "steps_total": 7,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "917af692ccf2875ef9ab77380e2dfa06bb6586e0d748b21d3c5b184c2cf7f47c",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-n06-move-right-report.json",
+          "report_sha256": "0a478cabc68b7d6f265a23a8acf03001f2c0754eedc9f50fdf229cb4467bdc28"
+        },
+        {
+          "scenario": "taskell-n07-search-complete",
+          "status": "passed",
+          "steps_passed": 11,
+          "steps_total": 11,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "96f2d8cc81c048d246090951ea06cd7db29f1685f8ee382faa68ca55272a4d95",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-n07-search-complete-report.json",
+          "report_sha256": "d483d58b56561f83826fa7274d7ce73c3c918a183c0b2fb5a6d08fe4405c4269"
+        },
+        {
+          "scenario": "taskell-n08-add-list",
+          "status": "passed",
+          "steps_passed": 14,
+          "steps_total": 14,
+          "target_exit_code": 0,
+          "process_cleanup": {
+            "attempted": true,
+            "graceful": true,
+            "forced": false,
+            "confirmed_exited": true,
+            "mechanism": "unix-process-group"
+          },
+          "workspace_cleaned": true,
+          "executed_spec_sha256": "29bf65db488747b521764d7a042a8f970e4306492d7185618d55eaa29791b720",
+          "corrected_worktree_sha256": null,
+          "report": "taskell-n08-add-list-report.json",
+          "report_sha256": "320f61c05eb12559a4fd03ed4a596806a7b7eece1085e5c4e331d3aa2824ab44"
+        }
+      ],
+      "e12_failure": "Complete and quit without changing a Taskell board whose directory blocks writes: step 5: expected exit code 0, got 1",
+      "failure_screen": "taskell-edge-e12-readonly-actual.txt",
+      "failure_screen_sha256": "693dfd65b528490148332a642b5b3ba0966035c42c510d604e45e30d3dd1fc3e",
+      "recorder_route": "skipped because candidate batch failed"
+    }
+  ],
+  "credit": "Exploratory first-use only. Both hosts passed the pinned 250-test suite, target/runner builds, smoke, and 19/20 candidate invocations. E12 now has an observed consistent expected failure: saving the completed screen to a 0444 file returns 1 and reports permission denied. No unchanged-state assertion has yet run after the exit; the local contract now expects exact exit 1 before checking original bytes. No scenario series, fault/calibration, or admission credit.",
+  "local_fixture_script_sha256": "41007146df22dd9decb7b4e1fad19cc1d121b6c0dc3f871857fc38a6d75636c9"
+}

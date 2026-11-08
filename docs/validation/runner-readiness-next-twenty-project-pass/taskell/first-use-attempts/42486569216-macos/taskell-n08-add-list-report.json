@@ -1,0 +1,141 @@
+{
+  "report_version": 3,
+  "runner_version": "dev",
+  "os": "darwin",
+  "arch": "amd64",
+  "summary": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "cancelled": 0,
+    "not_run": 0
+  },
+  "results": [
+    {
+      "invocation_id": "a876b25eae9b684e03f8589800b74604",
+      "spec_version": 3,
+      "name": "Add a Taskell column and a task to it",
+      "spec_path": "/Users/runner/work/playtestr/playtestr/docs/validation/runner-readiness-next-twenty-project-pass/taskell/first-use-v1/taskell-n08-add-list.json",
+      "status": "passed",
+      "duration_ms": 963,
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "steps": [
+        {
+          "number": 1,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 55
+        },
+        {
+          "number": 2,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 3,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 4,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 320
+        },
+        {
+          "number": 5,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 48
+        },
+        {
+          "number": 6,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 7,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 11
+        },
+        {
+          "number": 8,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 90
+        },
+        {
+          "number": 9,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 48
+        },
+        {
+          "number": 10,
+          "action": "key",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 11,
+          "action": "expect_not",
+          "status": "passed",
+          "duration_ms": 53
+        },
+        {
+          "number": 12,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 44
+        },
+        {
+          "number": 13,
+          "action": "exit",
+          "status": "passed",
+          "duration_ms": 270
+        },
+        {
+          "state": {
+            "invocation_id": "a876b25eae9b684e03f8589800b74604",
+            "workspace_id": "a876b25eae9b684e03f8589800b74604",
+            "path": "board.md",
+            "kind": "file",
+            "outcome": "matched"
+          },
+          "number": 14,
+          "action": "state",
+          "status": "passed",
+          "duration_ms": 0
+        }
+      ],
+      "target": {
+        "exited": true,
+        "exit_code": 0
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": true,
+        "forced": false,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "evidence": {},
+      "workspace": {
+        "id": "a876b25eae9b684e03f8589800b74604",
+        "attempted": true,
+        "fixture": "fixtures/n08-add-list",
+        "prepared": true,
+        "cleanup_attempted": true,
+        "cleaned": true,
+        "retained": false
+      }
+    }
+  ]
+}

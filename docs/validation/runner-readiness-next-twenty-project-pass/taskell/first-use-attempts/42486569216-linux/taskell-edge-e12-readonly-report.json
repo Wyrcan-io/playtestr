@@ -1,0 +1,96 @@
+{
+  "report_version": 3,
+  "runner_version": "dev",
+  "os": "linux",
+  "arch": "amd64",
+  "summary": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1,
+    "cancelled": 0,
+    "not_run": 0
+  },
+  "results": [
+    {
+      "invocation_id": "3614842c8154c76c813f5aa2d60433f0",
+      "spec_version": 3,
+      "name": "Complete and quit without changing a Taskell board whose directory blocks writes",
+      "spec_path": "/home/runner/work/playtestr/playtestr/docs/validation/runner-readiness-next-twenty-project-pass/taskell/first-use-v1/taskell-edge-e12-readonly.json",
+      "status": "failed",
+      "duration_ms": 67,
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "steps": [
+        {
+          "number": 1,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 10
+        },
+        {
+          "number": 2,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 48
+        },
+        {
+          "number": 3,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 4,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 2
+        },
+        {
+          "number": 5,
+          "action": "exit",
+          "status": "failed",
+          "duration_ms": 3,
+          "failure": {
+            "category": "unexpected_exit",
+            "message": "Complete and quit without changing a Taskell board whose directory blocks writes: step 5: expected exit code 0, got 1"
+          }
+        },
+        {
+          "number": 6,
+          "action": "state",
+          "status": "not_run",
+          "duration_ms": 0
+        }
+      ],
+      "target": {
+        "exited": true,
+        "exit_code": 1
+      },
+      "failure": {
+        "category": "unexpected_exit",
+        "message": "Complete and quit without changing a Taskell board whose directory blocks writes: step 5: expected exit code 0, got 1"
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": true,
+        "forced": false,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "evidence": {
+        "screen_path": "/home/runner/work/playtestr/playtestr/artifacts/runner-readiness-next-twenty-project-pass/active/taskell/native-build/first-use/scenario-candidates/taskell-edge-e12-readonly-artifacts/20261108T135541Z-4079450545/ess-next-twenty-project-pass-taskell-first-use-v1-taskell-edge-e12-readonly.json-184d9b01bd44.actual.txt"
+      },
+      "workspace": {
+        "id": "3614842c8154c76c813f5aa2d60433f0",
+        "attempted": true,
+        "fixture": "fixtures/e12-readonly",
+        "prepared": true,
+        "cleanup_attempted": true,
+        "cleaned": true,
+        "retained": false
+      }
+    }
+  ]
+}

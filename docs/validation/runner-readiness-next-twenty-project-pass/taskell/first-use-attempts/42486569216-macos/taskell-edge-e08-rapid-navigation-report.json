@@ -1,0 +1,111 @@
+{
+  "report_version": 3,
+  "runner_version": "dev",
+  "os": "darwin",
+  "arch": "amd64",
+  "summary": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "cancelled": 0,
+    "not_run": 0
+  },
+  "results": [
+    {
+      "invocation_id": "ad710ac4bcbafbb9b486718c628b60b6",
+      "spec_version": 3,
+      "name": "Navigate rapidly to and delete a unique Taskell task",
+      "spec_path": "/Users/runner/work/playtestr/playtestr/docs/validation/runner-readiness-next-twenty-project-pass/taskell/first-use-v1/taskell-edge-e08-rapid-navigation.json",
+      "status": "passed",
+      "duration_ms": 734,
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "steps": [
+        {
+          "number": 1,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 270
+        },
+        {
+          "number": 2,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 34
+        },
+        {
+          "number": 3,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 4,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 22
+        },
+        {
+          "number": 5,
+          "action": "expect_not",
+          "status": "passed",
+          "duration_ms": 40
+        },
+        {
+          "number": 6,
+          "action": "expect",
+          "status": "passed",
+          "duration_ms": 0
+        },
+        {
+          "number": 7,
+          "action": "text",
+          "status": "passed",
+          "duration_ms": 46
+        },
+        {
+          "number": 8,
+          "action": "exit",
+          "status": "passed",
+          "duration_ms": 299
+        },
+        {
+          "state": {
+            "invocation_id": "ad710ac4bcbafbb9b486718c628b60b6",
+            "workspace_id": "ad710ac4bcbafbb9b486718c628b60b6",
+            "path": "board.md",
+            "kind": "file",
+            "outcome": "matched"
+          },
+          "number": 9,
+          "action": "state",
+          "status": "passed",
+          "duration_ms": 0
+        }
+      ],
+      "target": {
+        "exited": true,
+        "exit_code": 0
+      },
+      "cleanup": {
+        "attempted": true,
+        "graceful": true,
+        "forced": false,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "evidence": {},
+      "workspace": {
+        "id": "ad710ac4bcbafbb9b486718c628b60b6",
+        "attempted": true,
+        "fixture": "fixtures/e08-rapid-navigation",
+        "prepared": true,
+        "cleanup_attempted": true,
+        "cleaned": true,
+        "retained": false
+      }
+    }
+  ]
+}

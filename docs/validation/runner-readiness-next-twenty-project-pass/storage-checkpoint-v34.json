@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "status": "within declared logical storage caps; four new admissions; campaign incomplete",
+  "observed_at_utc": "2026-11-08T14:15:49.578305+00:00",
+  "caps_bytes": {
+    "new_campaign_raw": 4294967296,
+    "combined_raw": 6442450944,
+    "combined_retained": 2147483648,
+    "new_curated": 26214400,
+    "combined_curated": 52428800,
+    "project": 67108864
+  },
+  "actual_bytes": {
+    "new_campaign_raw": 1997735857,
+    "combined_raw": 3906444429,
+    "combined_retained": 2147352293,
+    "new_curated": 12738386,
+    "combined_curated": 24394630,
+    "project": 1002
+  },
+  "headroom_bytes": {
+    "new_raw": 2297231439,
+    "combined_raw": 2536006515,
+    "combined_retained": 131355,
+    "new_curated": 13476014,
+    "combined_curated": 28034170,
+    "project": 67107862
+  },
+  "receipt": "artifacts/runner-readiness-next-twenty-project-pass/storage/0ef6eaa28e904f0d9f1d5f04e4552804/observed.json",
+  "receipt_sha256": "390a5529610ca35395e548a2dec32199b3fa909dda705bf0265601280dce3bb2",
+  "scope": "Fresh observed logical storage after hash verification and curation of all 40 reports, host/runner identities, smoke reports and both E12 failure screens from run 42486569216, and checked cleanup of only its two extracted artifact directories. No exact peak, allocation, quota or admission claim."
+}
