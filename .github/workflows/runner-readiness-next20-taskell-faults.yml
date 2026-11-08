@@ -12,6 +12,10 @@ on:
       - scripts/acceptance/next20_check.py
       - scripts/acceptance/next20_taskell_stack_override.py
       - scripts/acceptance/next20_taskell_llvm.py
+      - scripts/acceptance/next20_taskell_cleanup.py
+      - scripts/acceptance/test_next20_taskell_cleanup.py
+      - scripts/acceptance/next20_target_cleanup.py
+      - scripts/acceptance/test_next20_target_cleanup.py
       - scripts/acceptance/next20_taskell_signify_verify.go
       - scripts/acceptance/next20_taskell_signify_verify_test.go
       - docs/validation/runner-readiness-next-twenty-project-pass/taskell/fault-declaration-native-exit-v1.json
@@ -24,7 +28,7 @@ permissions:
   actions: read
 
 concurrency:
-  group: playtestr-next20-taskell-faults-${{ github.ref }}
+  group: playtestr-next20-taskell-native-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -70,7 +74,7 @@ jobs:
           set-safe-directory: false
 
       - name: Validate Taskell source and signer controls
-        run: python -B -m unittest test_next20_taskell_faults test_next20_taskell_llvm -v
+        run: python -B -m unittest test_next20_taskell_faults test_next20_taskell_llvm test_next20_taskell_cleanup test_next20_target_cleanup -v
         working-directory: scripts/acceptance
 
       - name: Record bounded native job start
@@ -214,6 +218,37 @@ jobs:
       - name: Run baseline, mutated and restored source-fault phases
         run: python -B scripts/acceptance/next20_taskell_faults.py --candidate-series native-exit-v1
 
+      - name: Preserve runtime identity and perform checked target cleanup
+        if: always()
+        env:
+          HOST_KEY: ${{ matrix.host_key }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib,json,os,shutil
+          from pathlib import Path
+          root=Path('artifacts/runner-readiness-next-twenty-project-pass')
+          target=root/'active/taskell'
+          if not target.is_dir():
+              print('Taskell target was not created; cleanup is not applicable.')
+              raise SystemExit(0)
+          build=json.loads((target/'build.json').read_text())
+          binary=target/build['binary_relative_path']
+          if hashlib.sha256(binary.read_bytes()).hexdigest()!=build['binary_sha256']:
+              raise SystemExit('Taskell runtime changed before retention')
+          retained=root/'taskell/fault-calibration-native-exit-v1'/os.environ['HOST_KEY']/'runtime'
+          retained.mkdir(parents=True,exist_ok=False)
+          shutil.copyfile(binary,retained/'taskell')
+          if hashlib.sha256((retained/'taskell').read_bytes()).hexdigest()!=build['binary_sha256']:
+              raise SystemExit('Retained Taskell runtime copy differs from build identity')
+          (retained/'runtime-identity.json').write_text(json.dumps({'binary_sha256':build['binary_sha256'],
+              'build_manifest_sha256':hashlib.sha256((target/'build.json').read_bytes()).hexdigest(),
+              'source_pin':build['source_pin'],'host_os':build['host_os'],'host_architecture':build['host_architecture']},
+              sort_keys=True,indent=2)+'\n')
+          PY
+          manifest=$(python -B scripts/acceptance/next20_taskell_cleanup.py --host "$HOST_KEY")
+          python -B scripts/acceptance/next20_target_cleanup.py --project taskell --generated-source-manifest "$manifest" --include-active-case-evidence --retain-owned-directory case-evidence --max-files 60000 --max-bytes 2147483648
+
       - name: Preserve complete fault-calibration evidence
         if: always()
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
@@ -224,10 +259,8 @@ jobs:
             artifacts/runner-readiness-next-twenty-project-pass/taskell/fault-calibration-native-exit-v1-preflight/${{ matrix.host_key }}/
             artifacts/runner-readiness-next-twenty-project-pass/toolchain/taskell/arm64-compiler-override/
             artifacts/runner-readiness-next-twenty-project-pass/toolchain/llvm/
-            artifacts/runner-readiness-next-twenty-project-pass/active/taskell/build.json
-            artifacts/runner-readiness-next-twenty-project-pass/active/taskell/runtime.json
-            artifacts/runner-readiness-next-twenty-project-pass/active/taskell/installed-inventory.json
-            artifacts/runner-readiness-next-twenty-project-pass/active/taskell/native-build/bin/taskell
+            artifacts/runner-readiness-next-twenty-project-pass/taskell/retained-source/
+            artifacts/runner-readiness-next-twenty-project-pass/taskell/cleanup-preparation/
             artifacts/runner-readiness-next-twenty-project-pass/candidate-native-exit-v1/${{ matrix.host_key }}/
           if-no-files-found: error
           include-hidden-files: true

@@ -3,22 +3,22 @@
 Invoked 22 October 2026 under the [execution prompt](../../plans/runner-readiness-next-twenty-project-execution-prompt.md).
 Status: **in progress; four of twenty new projects qualify on exact rc.6 (14/30 cumulative)**. Eight distinct new applications have an admission on some candidate; four are rc.5 history only. The original ten passed an exact-rc.5 carry-forward audit, but none is yet requalified on rc.6. Current rc.6 new-project totals are 80 scenarios, 8 native cells, 1,920 ordinary executions, 72 calibrations and 12 real target faults. The cumulative 30/100 engineering gate remains open.
 
-Skim V33's Linux and Windows exact-rc.6 series and three-fault calibrations are
-independently audited: 240/240 ordinary outcomes and all nine phases per host
-passed. First-use and seeded diagnosis passed, but both maintenance routes timed
-out at a stale `expect cedar` assertion after changing the query to `amber`;
-relocation and workflow preview were not reached. Cleanup passed. Skim remains
-unadmitted. V34 updates the matching assertion and requires another full exact
-series. Taskell has zero rc.6 credit. Its macOS LLVM closure still lacks signed
-`libxml2.16.dylib` and `libz.1.dylib`; Linux E11M fails in 11/12 batches and
-passes only under a larger viewport. Both failures remain preserved and
-unresolved.
+Skim V34's exact-rc.6 Linux and Windows series and three-fault calibrations are
+independently audited in [readback v13](skim-artifact-retrieval-readback-v13.json):
+240/240 ordinary outcomes, 240 independently reconstructed contracts and all
+nine fault phases per host passed, with exact archive/target hashes and checked
+cleanup. First-use, useful seeded diagnosis (expected diagnostic failure), the originally failing stale
+maintenance assertion and its paired query/result update, Unicode relocation,
+and read-only delivered-workflow preview are all retained. Skim has not yet
+received admission credit: its project semantic tamper-control package and
+cumulative audit remain open; directional-key behavior and raw NUL framing
+remain explicit limitations. See [checkpoint v54](checkpoint-continuation-v54.md).
 
-V34 now has a frozen native declaration, independent-plan namespace v28, and
-matching maintenance assertions. Its local scoped preflight passed 48 tests with
-four host-capability skips; Python compilation and staged-diff checks passed.
-The exact Linux/Windows hosted candidate series is the next required evidence.
-See [checkpoint v52](checkpoint-continuation-v52.md).
+Taskell has zero rc.6 credit. Its macOS LLVM closure now has a bounded,
+signature-verified MacPorts package preparation helper and cleanup checks, but
+these are local-only. Linux E11M still fails in 11/12 batches and passes only
+under a larger viewport. Both target failures remain preserved and unresolved;
+a fresh native hosted run is still required.
 jrnl qualified with 20 scenarios, two native cells, 480 ordinary executions and
 18 calibrations; its [admission](jrnl/admission.json) binds the audited package.
 Commitizen passed its [complete admission audit](commitizen-python/admission.json):20 scenarios, two native cells,480 ordinary,18 mandatory calibrations and2 separate terminal-only probes. Its twelve delivered-CI observations qualify source-built and exact-archive triplets separately.

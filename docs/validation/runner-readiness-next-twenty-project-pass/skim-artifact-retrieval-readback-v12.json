@@ -1,0 +1,85 @@
+{
+  "admission_status": "candidate evidence complete; project-level semantic tamper-control package and cumulative admission audit remain open",
+  "candidate": "v0.4.0-rc.6",
+  "candidate_series": "native-exit-v1",
+  "hosts": [
+    {
+      "artifact_bytes": 8080668,
+      "artifact_id": 13634861882,
+      "artifact_name": "next20-skim-linux-rc6-final",
+      "candidate_runner_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a",
+      "cleanup": {
+        "checked_target_removed": true,
+        "cleanup_inventory_sha256": "b2ccd25c087b40fe5c76613c4089ac0d4a8b0cc7ae90f8d70e09e88347ac2e24",
+        "compiler_cache_removed": true,
+        "process_absent": true,
+        "source_restored": true
+      },
+      "fault_phases": 9,
+      "faults": 3,
+      "host": "linux",
+      "independently_reconstructed_contracts": 240,
+      "job_conclusion": "success",
+      "job_id": 128863412697,
+      "ordinary_invocations": 254,
+      "ordinary_outcomes": 240,
+      "ordinary_reports": 240,
+      "provider_sha256": "c8682562611e1f6106ff24652e19951a23868c2d04c031bb0d71c2a15dc8c1c2",
+      "public_route_statuses": {
+        "diagnosis": "failed",
+        "first-use": "passed",
+        "maintenance-before-update": "failed",
+        "maintenance-update": "passed",
+        "relocation": "passed"
+      },
+      "readback": "artifact-retrieval-readback-v12-linux.json",
+      "readback_sha256": "0cd046273d89dd3f9049f3bfc6037987aadc47d31a0f53fe11e7354d3fdca86c",
+      "target_binary_sha256": "427de19b0ab4f344376b3a7a594bac9c36872faba9cc745c9b8f0bd05452bfa0"
+    },
+    {
+      "artifact_bytes": 8405110,
+      "artifact_id": 13635263482,
+      "artifact_name": "next20-skim-windows-rc6-final",
+      "candidate_runner_sha256": "6c80fdbcdd74705b85b2e8aad2f07140f5ff5e8cea80db1d6c24a04d71b23f36",
+      "cleanup": {
+        "checked_target_removed": true,
+        "cleanup_inventory_sha256": "8c59a319b71bd9f1f4108c057592674014b713f8742af6d7edd9414d44c2973c",
+        "compiler_cache_removed": true,
+        "process_absent": true,
+        "source_restored": true
+      },
+      "fault_phases": 9,
+      "faults": 3,
+      "host": "windows",
+      "independently_reconstructed_contracts": 240,
+      "job_conclusion": "success",
+      "job_id": 128863412601,
+      "ordinary_invocations": 240,
+      "ordinary_outcomes": 240,
+      "ordinary_reports": 240,
+      "provider_sha256": "b496dfe8ac867434f93c9bdd4958c4d6a2e08165285bb518868c6ac8a16a7ed5",
+      "public_route_statuses": {
+        "diagnosis": "failed",
+        "first-use": "passed",
+        "maintenance-before-update": "failed",
+        "maintenance-update": "passed",
+        "relocation": "passed"
+      },
+      "readback": "artifact-retrieval-readback-v12-windows.json",
+      "readback_sha256": "97225e5af1f083e3b2760c7dca727d427ebdd7b63220e8d5d5634da8d91bfa9f",
+      "target_binary_sha256": "343418a55b34ff526ca2c4b56a487d8aab8b074f6721ceb05bf20c80dae17389"
+    }
+  ],
+  "project": "skim",
+  "schema_version": 1,
+  "scope": "Both native jobs and provider ZIP digests succeeded. Exact candidate archive and executable identities, all ordinary reports/finished receipts, actual contracts/fixtures/snapshots, source-fault reports/receipts, public routes and checked cleanup were read back. Does not claim beginner study, broad key-navigation compatibility, raw NUL framing, campaign-wide admission, or 30/30 closure.",
+  "totals": {
+    "independently_reconstructed_contracts": 480,
+    "ordinary_outcomes": 480,
+    "source_fault_phases": 18
+  },
+  "workflow_conclusion": "success",
+  "workflow_revision": "a46d5e0a8b371ab22501c925ed2ca109131eeec5",
+  "workflow_run_id": 42522624176,
+  "workflow_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/42522624176"
+}

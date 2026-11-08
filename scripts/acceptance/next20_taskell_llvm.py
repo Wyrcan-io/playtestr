@@ -26,6 +26,18 @@ LIBEDIT_SOURCE_SHA256='432d5e7ea8b0116dd39f2eca7bc11d0eed77faa6b77ea526ace89907c
 NCURSES_PACKAGE='ncurses-6.6_0.darwin_24.arm64.tbz2'
 NCURSES_BASE='https://packages.macports.org/ncurses/'
 NCURSES_SOURCE_SHA256='355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11'
+LIBXML2_PACKAGE='libxml2-2.15.4_0.darwin_24.arm64.tbz2'
+LIBXML2_BASE='https://packages.macports.org/libxml2/'
+LIBXML2_SOURCE_SHA256='98087fd181d9070724f3fbc65c7377db03038eb92bd882374daff44940138821'
+ZLIB_PACKAGE='zlib-1.3.2_0.darwin_24.arm64.tbz2'
+ZLIB_BASE='https://packages.macports.org/zlib/'
+ZLIB_SOURCE_SHA256='d7a0654783a4da529d1bb793b7ad9c3318020af77667bcae35f95d0e42a792f3'
+ICU_PACKAGE='icu-78.3_1.darwin_24.arm64.tbz2'
+ICU_BASE='https://packages.macports.org/icu/'
+ICU_SOURCE_SHA256='3a2e7a47604ba702f345878308e6fefeca612ee895cf4a5f222e7955fabfe0c0'
+LIBICONV_PACKAGE='libiconv-1.19_0.darwin_24.arm64.tbz2'
+LIBICONV_BASE='https://packages.macports.org/libiconv/'
+LIBICONV_SOURCE_SHA256='88dd96a8c0464eca144fc791ae60cd31cd8ee78321e67397e25fc095c4a19aa6'
 # macports/macports-base:keys/base/macports-base-2024.pub
 PUBLIC_KEY='RWR+PhirBCclQlM0Khae0up57K9Yy8hRstG1AOyawt/HIIGMckQQWlKn'
 # macports/macports-base:keys/archives/macports-archives-2025.pub
@@ -35,6 +47,11 @@ MACPORTS_LLVM_BIN_ALIAS=re.compile(r'[A-Za-z0-9_.+-]+-mp-12\Z')
 MACPORTS_LIBFFI_DYLIB=re.compile(r'libffi(?:\.\d+)*\.dylib\Z')
 MACPORTS_LIBEDIT_DYLIB=re.compile(r'libedit(?:\.\d+)*\.dylib\Z')
 MACPORTS_NCURSES_DYLIB=re.compile(r'lib(?:ncurses(?:\+{0,2}w?)?|curses|tinfo|form|menu|panel)(?:\.\d+)*\.dylib\Z')
+MACPORTS_LIBXML2_DYLIB=re.compile(r'libxml2(?:\.\d+)*\.dylib\Z')
+MACPORTS_ZLIB_DYLIB=re.compile(r'libz(?:\.\d+)*\.dylib\Z')
+MACPORTS_ICU_DYLIB=re.compile(r'libicu[a-z0-9]+(?:\.\d+)*\.dylib\Z')
+MACPORTS_LIBICONV_DYLIB=re.compile(r'libiconv(?:\.\d+)*\.dylib\Z')
+MACPORTS_LIBCHARSET_DYLIB=re.compile(r'libcharset(?:\.\d+)*\.dylib\Z')
 
 
 def download(url,path,limit):
@@ -45,7 +62,7 @@ def download(url,path,limit):
             block=response.read(1024*1024)
             if not block:break
             total+=len(block)
-            if total>limit:raise ValueError('LLVM package download exceeded its byte cap')
+            if total>limit:raise ValueError('MacPorts package download exceeded its byte cap')
             output.write(block)
     return total
 
@@ -144,7 +161,8 @@ def safe_extract(package,destination):
     return expanded,opt,llc
 
 
-def safe_extract_dylib_family(package,destination,pattern,required,label,cap=16*1024**2):
+def safe_extract_dylib_family(package,destination,pattern,required,label,cap=16*1024**2,
+                               archive_cap=64*1024**2):
     """Select a named dylib family from one bounded, signed MacPorts package."""
     roots={'opt/local/bin','opt/local/include','opt/local/lib','opt/local/lib/pkgconfig',
            'opt/local/share','opt/local/share/man','opt/local/share/man/man3'}
@@ -156,7 +174,7 @@ def safe_extract_dylib_family(package,destination,pattern,required,label,cap=16*
         for member in members:
             if member.isfile():
                 archive_expanded+=member.size
-                if archive_expanded>64*1024**2:raise ValueError(f'MacPorts {label} archive expansion exceeded 64 MiB')
+                if archive_expanded>archive_cap:raise ValueError(f'MacPorts {label} archive expansion exceeded its byte cap')
             name=member.name.removeprefix('./');normalized=name.rstrip('/')
             if name in {'','.','./'} and member.isdir():continue
             if normalized.startswith('+'):
@@ -325,6 +343,30 @@ def main():
     if not 512*1024<=ncurses_size<=4*1024**2:raise ValueError('Unexpected signed MacPorts ncurses archive size')
     download(NCURSES_BASE+NCURSES_PACKAGE+'.sig',ncurses_signature,4096)
     ncurses_key_id,ncurses_key_sha256=verify_signify(ncurses_package,ncurses_signature,tool_root)
+    xml_package=tool_root/LIBXML2_PACKAGE;xml_signature=tool_root/(LIBXML2_PACKAGE+'.sig')
+    if xml_package.exists() or xml_signature.exists():raise ValueError('libxml2 acquisition destination already exists')
+    xml_size=download(LIBXML2_BASE+LIBXML2_PACKAGE,xml_package,4*1024**2)
+    if not 512*1024<=xml_size<=4*1024**2:raise ValueError('Unexpected signed MacPorts libxml2 archive size')
+    download(LIBXML2_BASE+LIBXML2_PACKAGE+'.sig',xml_signature,4096)
+    xml_key_id,xml_key_sha256=verify_signify(xml_package,xml_signature,tool_root)
+    zlib_package=tool_root/ZLIB_PACKAGE;zlib_signature=tool_root/(ZLIB_PACKAGE+'.sig')
+    if zlib_package.exists() or zlib_signature.exists():raise ValueError('zlib acquisition destination already exists')
+    zlib_size=download(ZLIB_BASE+ZLIB_PACKAGE,zlib_package,2*1024**2)
+    if not 64*1024<=zlib_size<=2*1024**2:raise ValueError('Unexpected signed MacPorts zlib archive size')
+    download(ZLIB_BASE+ZLIB_PACKAGE+'.sig',zlib_signature,4096)
+    zlib_key_id,zlib_key_sha256=verify_signify(zlib_package,zlib_signature,tool_root)
+    icu_package=tool_root/ICU_PACKAGE;icu_signature=tool_root/(ICU_PACKAGE+'.sig')
+    if icu_package.exists() or icu_signature.exists():raise ValueError('ICU acquisition destination already exists')
+    icu_size=download(ICU_BASE+ICU_PACKAGE,icu_package,40*1024**2)
+    if not 20*1024**2<=icu_size<=40*1024**2:raise ValueError('Unexpected signed MacPorts ICU archive size')
+    download(ICU_BASE+ICU_PACKAGE+'.sig',icu_signature,4096)
+    icu_key_id,icu_key_sha256=verify_signify(icu_package,icu_signature,tool_root)
+    iconv_package=tool_root/LIBICONV_PACKAGE;iconv_signature=tool_root/(LIBICONV_PACKAGE+'.sig')
+    if iconv_package.exists() or iconv_signature.exists():raise ValueError('libiconv acquisition destination already exists')
+    iconv_size=download(LIBICONV_BASE+LIBICONV_PACKAGE,iconv_package,4*1024**2)
+    if not 1*1024**2<=iconv_size<=4*1024**2:raise ValueError('Unexpected signed MacPorts libiconv archive size')
+    download(LIBICONV_BASE+LIBICONV_PACKAGE+'.sig',iconv_signature,4096)
+    iconv_key_id,iconv_key_sha256=verify_signify(iconv_package,iconv_signature,tool_root)
     prefix=tool_root/'prefix/libexec/llvm-12'
     prefix.parent.mkdir(parents=True,exist_ok=True)
     expanded,opt,llc=safe_extract(package,prefix)
@@ -333,6 +375,17 @@ def main():
         ['libedit.0.dylib'],'libedit')
     ncurses_expanded,ncurses_files=safe_extract_dylib_family(ncurses_package,prefix,MACPORTS_NCURSES_DYLIB,
         ['libncurses.6.dylib'],'ncurses',cap=32*1024**2)
+    xml_expanded,xml_files=safe_extract_dylib_family(xml_package,prefix,MACPORTS_LIBXML2_DYLIB,
+        ['libxml2.16.dylib'],'libxml2')
+    zlib_expanded,zlib_files=safe_extract_dylib_family(zlib_package,prefix,MACPORTS_ZLIB_DYLIB,
+        ['libz.1.dylib'],'zlib')
+    icu_expanded,icu_files=safe_extract_dylib_family(icu_package,prefix,MACPORTS_ICU_DYLIB,
+        ['libicuuc.78.dylib','libicui18n.78.dylib','libicudata.78.dylib'],'ICU',
+        cap=128*1024**2,archive_cap=512*1024**2)
+    iconv_expanded,iconv_files=safe_extract_dylib_family(iconv_package,prefix,MACPORTS_LIBICONV_DYLIB,
+        ['libiconv.2.dylib'],'libiconv',cap=32*1024**2)
+    charset_expanded,charset_files=safe_extract_dylib_family(iconv_package,prefix,MACPORTS_LIBCHARSET_DYLIB,
+        ['libcharset.1.dylib'],'libcharset',cap=8*1024**2)
     dependency_inventory=verify_macos_link_closure(prefix,[opt,llc])
     env=dict(os.environ);env['PATH']=str(prefix/'bin')+os.pathsep+env.get('PATH','')
     env['DYLD_LIBRARY_PATH']=str(prefix/'lib')+os.pathsep+env.get('DYLD_LIBRARY_PATH','')
@@ -370,6 +423,41 @@ def main():
             portfile='https://github.com/macports/macports-ports/blob/master/devel/ncurses/Portfile',
             extraction_scope='selected signed ncurses dylib family only; no package scripts or install hooks are run',
             package_expanded_bytes=ncurses_expanded,selected_dylibs={name:sha256(prefix/'lib'/name) for name in ncurses_files if (prefix/'lib'/name).is_file()}),
+        libxml2=dict(package=LIBXML2_PACKAGE,package_url=LIBXML2_BASE+LIBXML2_PACKAGE,
+            package_bytes=xml_size,package_sha256=sha256(xml_package),signature_sha256=sha256(xml_signature),
+            signature_verified=True,signify_key_id=xml_key_id,signify_public_key_sha256=xml_key_sha256,
+            version='2.15.4_0',upstream_source_sha256=LIBXML2_SOURCE_SHA256,license='MIT',
+            portfile='https://github.com/macports/macports-ports/blob/master/textproc/libxml2/Portfile',
+            extraction_scope='selected signed libxml2 dylib family only; no package scripts or install hooks are run',
+            package_expanded_bytes=xml_expanded,selected_dylibs={name:sha256(prefix/'lib'/name) for name in xml_files if (prefix/'lib'/name).is_file()}),
+        zlib=dict(package=ZLIB_PACKAGE,package_url=ZLIB_BASE+ZLIB_PACKAGE,
+            package_bytes=zlib_size,package_sha256=sha256(zlib_package),signature_sha256=sha256(zlib_signature),
+            signature_verified=True,signify_key_id=zlib_key_id,signify_public_key_sha256=zlib_key_sha256,
+            version='1.3.2_0',upstream_source_sha256=ZLIB_SOURCE_SHA256,license='zlib',
+            portfile='https://github.com/macports/macports-ports/blob/master/archivers/zlib/Portfile',
+            extraction_scope='selected signed zlib dylib family only; no package scripts or install hooks are run',
+            package_expanded_bytes=zlib_expanded,selected_dylibs={name:sha256(prefix/'lib'/name) for name in zlib_files if (prefix/'lib'/name).is_file()}),
+        icu=dict(package=ICU_PACKAGE,package_url=ICU_BASE+ICU_PACKAGE,package_bytes=icu_size,
+            package_sha256=sha256(icu_package),signature_sha256=sha256(icu_signature),signature_verified=True,
+            signify_key_id=icu_key_id,signify_public_key_sha256=icu_key_sha256,version='78.3_1',
+            upstream_source_sha256=ICU_SOURCE_SHA256,license='Permissive',
+            portfile='https://github.com/macports/macports-ports/blob/master/devel/icu/Portfile',
+            extraction_scope='selected signed ICU dylib family only; no package scripts or install hooks are run',
+            package_expanded_bytes=icu_expanded,selected_dylibs={name:sha256(prefix/'lib'/name) for name in icu_files if (prefix/'lib'/name).is_file()}),
+        libiconv=dict(package=LIBICONV_PACKAGE,package_url=LIBICONV_BASE+LIBICONV_PACKAGE,
+            package_bytes=iconv_size,package_sha256=sha256(iconv_package),signature_sha256=sha256(iconv_signature),
+            signature_verified=True,signify_key_id=iconv_key_id,signify_public_key_sha256=iconv_key_sha256,
+            version='1.19_0',upstream_source_sha256=LIBICONV_SOURCE_SHA256,license=['LGPL-2+','GPL-3+'],
+            portfile='https://github.com/macports/macports-ports/blob/master/textproc/libiconv/Portfile',
+            extraction_scope='selected signed libiconv dylib family only; no package scripts or install hooks are run',
+            package_expanded_bytes=iconv_expanded,selected_dylibs={name:sha256(prefix/'lib'/name) for name in iconv_files if (prefix/'lib'/name).is_file()}),
+        libcharset=dict(package=LIBICONV_PACKAGE,package_url=LIBICONV_BASE+LIBICONV_PACKAGE,
+            package_bytes=iconv_size,package_sha256=sha256(iconv_package),signature_sha256=sha256(iconv_signature),
+            signature_verified=True,signify_key_id=iconv_key_id,signify_public_key_sha256=iconv_key_sha256,
+            version='1.19_0',upstream_source_sha256=LIBICONV_SOURCE_SHA256,license='LGPL-2+',
+            portfile='https://github.com/macports/macports-ports/blob/master/textproc/libiconv/Portfile',
+            extraction_scope='selected signed libcharset dylib family from libiconv package only; no package hooks run',
+            package_expanded_bytes=charset_expanded,selected_dylibs={name:sha256(prefix/'lib'/name) for name in charset_files if (prefix/'lib'/name).is_file()}),
         macports_link_dependencies=dependency_inventory,
         tool_prefix=str(prefix),opt_sha256=sha256(opt),llc_sha256=sha256(llc),
         files=files,opt_version=opt_text.strip(),llc_version=llc_text.strip(),
@@ -380,7 +468,9 @@ def main():
         stream.write('TASKELL_LLVM_MANIFEST='+str(manifest)+'\n')
     print(json.dumps(dict(manifest=str(manifest),package_sha256=sha256(package),expanded_bytes=expanded,
         opt_sha256=sha256(opt),llc_sha256=sha256(llc),libffi_package_sha256=sha256(ffi_package),
-        libedit_package_sha256=sha256(edit_package),ncurses_package_sha256=sha256(ncurses_package)),sort_keys=True))
+        libedit_package_sha256=sha256(edit_package),ncurses_package_sha256=sha256(ncurses_package),
+        libxml2_package_sha256=sha256(xml_package),zlib_package_sha256=sha256(zlib_package),
+        icu_package_sha256=sha256(icu_package),libiconv_package_sha256=sha256(iconv_package)),sort_keys=True))
 
 
 if __name__=='__main__':main()

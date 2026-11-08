@@ -11,7 +11,10 @@ from pathlib import Path
 
 from next20_check import RAW
 from next20_taskell_llvm import (PUBLIC_KEY,PUBLIC_KEY_GIT_BLOB,SIGNATURE_COMMENT,
-    MACPORTS_LIBEDIT_DYLIB,MACPORTS_NCURSES_DYLIB,checked_version,decode_signify_signature,
+    MACPORTS_LIBEDIT_DYLIB,MACPORTS_NCURSES_DYLIB,MACPORTS_LIBXML2_DYLIB,MACPORTS_ZLIB_DYLIB,
+    MACPORTS_ICU_DYLIB,MACPORTS_LIBICONV_DYLIB,
+    MACPORTS_LIBCHARSET_DYLIB,
+    checked_version,decode_signify_signature,
     safe_extract,safe_extract_dylib_family,safe_extract_libffi,tool_inventory,
     verify_macos_link_closure,verify_tool_inventory)
 
@@ -50,29 +53,45 @@ class TaskellLLVMTests(unittest.TestCase):
     def test_macos_link_closure_follows_owned_transitive_dependencies_and_rejects_missing(self):
         prefix=self.root/'owned-llvm';(prefix/'bin').mkdir(parents=True);(prefix/'lib').mkdir()
         opt=prefix/'bin/opt';llc=prefix/'bin/llc';opt.write_bytes(b'opt');llc.write_bytes(b'llc')
-        for name in ['libLLVM.dylib','libffi.8.dylib','libedit.0.dylib','libncurses.6.dylib']:
+        for name in ['libLLVM.dylib','libffi.8.dylib','libedit.0.dylib','libncurses.6.dylib',
+                     'libxml2.16.dylib','libz.1.dylib','libicui18n.78.dylib',
+                     'libicuuc.78.dylib','libicudata.78.dylib','libiconv.2.dylib','libcharset.1.dylib']:
             (prefix/'lib'/name).write_bytes(name.encode())
         def probe(args,**_):
             source=Path(args[2]).name
             references={
                 'opt':['/opt/local/lib/libLLVM.dylib'],
                 'llc':['/opt/local/lib/libLLVM.dylib'],
-                'libLLVM.dylib':['/opt/local/lib/libffi.8.dylib','/opt/local/lib/libedit.0.dylib'],
+                'libLLVM.dylib':['/opt/local/lib/libffi.8.dylib','/opt/local/lib/libedit.0.dylib',
+                                 '/opt/local/lib/libxml2.16.dylib'],
                 'libedit.0.dylib':['/opt/local/lib/libncurses.6.dylib'],
-                'libffi.8.dylib':[],'libncurses.6.dylib':[],
+                'libxml2.16.dylib':['/opt/local/lib/libz.1.dylib','/opt/local/lib/libicui18n.78.dylib',
+                                     '/opt/local/lib/libiconv.2.dylib'],
+                'libicui18n.78.dylib':['/opt/local/lib/libicuuc.78.dylib','/opt/local/lib/libicudata.78.dylib'],
+                'libicuuc.78.dylib':['/opt/local/lib/libicudata.78.dylib'],
+                'libffi.8.dylib':[],'libncurses.6.dylib':[],'libz.1.dylib':[],
+                'libicudata.78.dylib':[],'libiconv.2.dylib':['/opt/local/lib/libcharset.1.dylib'],
+                'libcharset.1.dylib':[],
             }[source]
             output=str(args[2])+'\n'+''.join('    '+path+' (compatibility version 1.0.0, current version 1.0.0)\n' for path in references)
             return subprocess.CompletedProcess(args,0,stdout=output,stderr='')
         with patch('next20_taskell_llvm.subprocess.run',side_effect=probe):
             rows=verify_macos_link_closure(prefix,[opt,llc])
         self.assertTrue(any(row['source']=='lib/libedit.0.dylib' and row['library']=='/opt/local/lib/libncurses.6.dylib' for row in rows))
+        self.assertTrue(any(row['source']=='lib/libxml2.16.dylib' and row['library']=='/opt/local/lib/libz.1.dylib' for row in rows))
+        self.assertTrue(any(row['source']=='lib/libicuuc.78.dylib' and row['library']=='/opt/local/lib/libicudata.78.dylib' for row in rows))
+        (prefix/'lib/libiconv.2.dylib').unlink()
+        with patch('next20_taskell_llvm.subprocess.run',side_effect=probe):
+            with self.assertRaisesRegex(RuntimeError,'libiconv.2.dylib'):
+                verify_macos_link_closure(prefix,[opt,llc])
+        (prefix/'lib/libiconv.2.dylib').write_bytes(b'libiconv.2.dylib')
         (prefix/'lib/libncurses.6.dylib').unlink()
         with patch('next20_taskell_llvm.subprocess.run',side_effect=probe):
             with self.assertRaisesRegex(RuntimeError,'libncurses.6.dylib'):
                 verify_macos_link_closure(prefix,[opt,llc])
 
-    def archive(self,entries):
-        package=self.root/'fixture.tbz2'
+    def archive(self,entries,name='fixture.tbz2'):
+        package=self.root/name
         with tarfile.open(package,'w:bz2') as archive:
             for name,data in entries:
                 member=tarfile.TarInfo(name)
@@ -120,6 +139,71 @@ class TaskellLLVMTests(unittest.TestCase):
         self.assertEqual((prefix/'bin/opt').read_bytes(),b'opt')
         self.assertEqual((prefix/'bin/llc').read_bytes(),b'llc')
         self.assertFalse((self.root/'opt').exists())
+
+    def test_signed_xml_and_zlib_families_select_only_required_runtime_libraries(self):
+        xml=self.archive([
+            ('opt/local/lib/libxml2.16.0.4.dylib',b'xml-runtime'),
+            ('opt/local/lib/libxml2.16.dylib',b'xml-alias'),
+            ('opt/local/include/libxml/parser.h',b'header'),
+        ],'libxml2.tbz2')
+        zlib=self.archive([
+            ('opt/local/lib/libz.1.3.2.dylib',b'zlib-runtime'),
+            ('opt/local/lib/libz.1.dylib',b'zlib-alias'),
+            ('opt/local/lib/libz.a',b'static'),
+        ],'zlib.tbz2')
+        icu=self.archive([
+            ('opt/local/lib/libicui18n.78.3.dylib',b'icu-i18n'),
+            ('opt/local/lib/libicui18n.78.dylib',b'i18n-alias'),
+            ('opt/local/lib/libicuuc.78.3.dylib',b'icu-common'),
+            ('opt/local/lib/libicuuc.78.dylib',b'common-alias'),
+            ('opt/local/lib/libicudata.78.3.dylib',b'icu-data'),
+            ('opt/local/lib/libicudata.78.dylib',b'data-alias'),
+        ],'icu.tbz2')
+        iconv=self.archive([
+            ('opt/local/lib/libiconv.2.7.dylib',b'iconv-runtime'),
+            ('opt/local/lib/libiconv.2.dylib',b'iconv-alias'),
+            ('opt/local/lib/libcharset.1.0.0.dylib',b'charset-runtime'),
+            ('opt/local/lib/libcharset.1.dylib',b'charset-alias'),
+        ],'libiconv.tbz2')
+        prefix=self.root/'runtime'
+        xml_bytes,xml_files=safe_extract_dylib_family(xml,prefix,MACPORTS_LIBXML2_DYLIB,
+            ['libxml2.16.dylib'],'libxml2')
+        zlib_bytes,zlib_files=safe_extract_dylib_family(zlib,prefix,MACPORTS_ZLIB_DYLIB,
+            ['libz.1.dylib'],'zlib')
+        icu_bytes,icu_files=safe_extract_dylib_family(icu,prefix,MACPORTS_ICU_DYLIB,
+            ['libicui18n.78.dylib','libicuuc.78.dylib','libicudata.78.dylib'],'ICU',
+            cap=128*1024**2,archive_cap=512*1024**2)
+        iconv_bytes,iconv_files=safe_extract_dylib_family(iconv,prefix,MACPORTS_LIBICONV_DYLIB,
+            ['libiconv.2.dylib'],'libiconv')
+        charset_bytes,charset_files=safe_extract_dylib_family(iconv,prefix,MACPORTS_LIBCHARSET_DYLIB,
+            ['libcharset.1.dylib'],'libcharset')
+        self.assertEqual(xml_bytes,len(b'xml-runtime')+len(b'xml-alias'))
+        self.assertEqual(set(xml_files),{'libxml2.16.0.4.dylib','libxml2.16.dylib'})
+        self.assertEqual(zlib_bytes,len(b'zlib-runtime')+len(b'zlib-alias'))
+        self.assertEqual(set(zlib_files),{'libz.1.3.2.dylib','libz.1.dylib'})
+        self.assertEqual(icu_bytes,len(b'icu-i18n')+len(b'i18n-alias')+len(b'icu-common')+
+                         len(b'common-alias')+len(b'icu-data')+len(b'data-alias'))
+        self.assertEqual(set(icu_files),{'libicui18n.78.3.dylib','libicui18n.78.dylib',
+            'libicuuc.78.3.dylib','libicuuc.78.dylib','libicudata.78.3.dylib','libicudata.78.dylib'})
+        self.assertEqual(iconv_bytes,len(b'iconv-runtime')+len(b'iconv-alias'))
+        self.assertEqual(set(iconv_files),{'libiconv.2.7.dylib','libiconv.2.dylib'})
+        self.assertEqual(charset_bytes,len(b'charset-runtime')+len(b'charset-alias'))
+        self.assertEqual(set(charset_files),{'libcharset.1.0.0.dylib','libcharset.1.dylib'})
+        self.assertFalse((prefix/'lib/libz.a').exists())
+
+    def test_dylib_family_archive_and_selected_bytes_obey_separate_caps(self):
+        oversized_archive=self.archive([
+            ('opt/local/lib/libz.1.dylib',b'x'*101),
+        ],'oversized-archive.tbz2')
+        with self.assertRaisesRegex(ValueError,'archive expansion exceeded its byte cap'):
+            safe_extract_dylib_family(oversized_archive,self.root/'archive-limit',MACPORTS_ZLIB_DYLIB,
+                ['libz.1.dylib'],'zlib',cap=200,archive_cap=100)
+        oversized_library=self.archive([
+            ('opt/local/lib/libz.1.dylib',b'x'*11),
+        ],'oversized-library.tbz2')
+        with self.assertRaisesRegex(ValueError,'dylib expansion exceeded 10 bytes'):
+            safe_extract_dylib_family(oversized_library,self.root/'library-limit',MACPORTS_ZLIB_DYLIB,
+                ['libz.1.dylib'],'zlib',cap=10,archive_cap=100)
 
     @unittest.skipIf(os.name=='nt','native Windows symlink creation unavailable under this token')
     def test_signed_libffi_layout_selects_versioned_dylib_and_safe_alias(self):
