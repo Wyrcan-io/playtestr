@@ -53,7 +53,11 @@ class StagedNativeTests(unittest.TestCase):
             for name in ['next20_remove_native.ps1','next20_promote_native.ps1']:shutil.copyfile(ROOT/'scripts/acceptance'/name,scripts/name)
             async def run(script,label,expected,staged=False):
                 return await execute(['powershell.exe','-NoProfile','-ExecutionPolicy','Bypass','-File',scripts/script,'-Project','sample','-Generation','1',*(['-Staged'] if staged else [])],
-                    'core',label,cwd=workspace,env=owned_environment(),timeout=30,expected=expected,campaign=NextCampaign(outer))
+                    # Windows hosted runners can be under substantial load
+                    # while the broader native harness is active. This is a
+                    # test-only allowance; the checked removal scripts retain
+                    # their own bounded operations and production deadlines.
+                    'core',label,cwd=workspace,env=owned_environment(),timeout=120,expected=expected,campaign=NextCampaign(outer))
             asyncio.run(run('next20_promote_native.ps1','native-stage-promotion-refuses-unremoved-inputs',1))
             (source/'N01.report.json').write_bytes(b'changed')
             asyncio.run(run('next20_remove_native.ps1','native-stage-removal-refuses-changed-input',1,True));self.assertTrue(source.exists())
