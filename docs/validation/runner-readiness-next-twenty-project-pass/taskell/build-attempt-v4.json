@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42448946195,
+  "source_revision": "9290862f73512c518b0596a75b5cd0be5d511313",
+  "event": "push",
+    "result": "both-hosts-upstream-tests-passed-builds-completed-version-option-failed",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128633824582,
+      "source_verified": true,
+      "upstream_tests_passed": 250,
+      "target_binary_built": true,
+      "target_launched": true,
+      "version_invocation": "failed",
+      "cause": "Unsupported --version was interpreted as a board filename; Taskell displayed its create-file prompt and then received EOF.",
+      "first_use_recorder_reached": false,
+      "artifact_uploaded": false
+    },
+    {
+      "host": "macos-15-intel-x86_64",
+      "job_id": 128633824477,
+      "source_verified": true,
+      "upstream_tests_passed": 250,
+      "target_binary_built": true,
+      "target_launched": true,
+      "version_invocation": "failed",
+      "cause": "Unsupported --version was interpreted as a board filename; Taskell displayed its create-file prompt and then received EOF.",
+      "build_warnings": [
+        "Clang reported a case-only generated cabal_macros.h include mismatch; compilation continued.",
+        "The linker reported atom-alignment warnings from bundled GHC libCffi.a; tests and executable link completed."
+      ],
+      "first_use_recorder_reached": false,
+      "artifact_uploaded": false
+    }
+  ],
+  "provider_run": "https://github.com/Wyrcan-io/playtestr/actions/runs/42448946195",
+  "disposition": "Preserve as a distinct duplicate hosted attempt. The no-JSON recorder step was not reached; do not count this run as first-use evidence."
+}
