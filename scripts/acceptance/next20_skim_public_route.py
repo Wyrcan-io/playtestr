@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path
 import shutil
+import subprocess
 
 from adversarial_process import execute
 from next20_candidate import executable
@@ -163,6 +164,32 @@ async def main():
                (relocated/'selection.json').relative_to(ROOT)], 'skim-first-public-unicode-relocation')
     relocation_result = report_result(relocation_report, 'passed')
 
+    source_revision = os.environ.get('GITHUB_SHA', '')
+    if len(source_revision) != 40 or any(c not in '0123456789abcdef' for c in source_revision):
+        source_revision = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=ROOT, check=True,
+                                         capture_output=True, text=True, timeout=10).stdout.strip()
+    if len(source_revision) != 40 or any(c not in '0123456789abcdef' for c in source_revision):
+        raise ValueError('cannot bind the generated workflow to an exact source revision')
+    workflow_file = output/'delivered-workflow-preview.yml'
+    setup = ('git clone --no-checkout https://github.com/skim-rs/skim.git '
+             'artifacts/runner-readiness-next-twenty-project-pass/active/skim-source '
+             '&& git -C artifacts/runner-readiness-next-twenty-project-pass/active/skim-source '
+             'checkout --detach '+PIN+' && rustup toolchain install 1.97.0 --profile minimal')
+    build_command = ('cd artifacts/runner-readiness-next-twenty-project-pass/active/skim-source '
+                     '&& cargo +1.97.0 build --locked --release --no-default-features --features cli,frizbee '
+                     '&& mkdir -p "$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/active/skim/bin" '
+                     '&& cp target/release/sk "$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/active/skim/bin/sk.exe"')
+    suite = 'docs/validation/runner-readiness-next-twenty-project-pass/skim/N01-v2.json'
+    generated = await run([runner, 'workflow', '--source-revision', source_revision, '--os', 'linux',
+                           '--suite', suite, '--setup', setup, '--build', build_command, '--print'],
+                          'skim-first-public-workflow-preview')
+    workflow_file.write_text(generated['output'], encoding='utf-8', newline='\n')
+    workflow_text = workflow_file.read_text(encoding='utf-8')
+    if (source_revision not in workflow_text or suite not in workflow_text or
+            setup not in workflow_text or build_command not in workflow_text or
+            'pull_request:' not in workflow_text):
+        raise ValueError('generated free workflow omitted its exact source, public suite, setup or build route')
+
     # Remove only the four campaign-owned Skim executable copies; retain specs,
     # snapshots, reports and inventories as bounded review material.
     removed = []
@@ -192,6 +219,10 @@ async def main():
                                     approved_command_unchanged=True, unrelated_fixture_and_runtime_unchanged=True),
                    relocation=dict(path='relocated space café', report_sha256=sha256(relocation_report),
                                    invocation=relocation_result['invocation_id'], passed=True),
+                   delivered_workflow=dict(source_revision=source_revision, os=['linux'], suite=suite,
+                                           setup=setup, build=build_command,
+                                           preview_sha256=sha256(workflow_file), provider_run='not-dispatched',
+                                           scope='Generated with the public CLI and reviewed locally; no PR event or external repository mutation.'),
                    target_copy_removal=removed, attempts=attempts, human_participants=0,
                    human_time='unmeasured', assistance='Prepared engineering route; no beginner inference.',
                    scope='Exact rc.6 public record/review/replay/save/test, seeded wrong-screen diagnosis, selected snapshot maintenance, and Unicode-path relocation. No admission asserted until independent oracle/control, delivery, full cleanup and final campaign gates close.')
