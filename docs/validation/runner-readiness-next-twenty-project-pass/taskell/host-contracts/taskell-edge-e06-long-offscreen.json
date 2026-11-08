@@ -1,0 +1,49 @@
+{
+  "command": [
+    "taskell",
+    "board.md"
+  ],
+  "height": 12,
+  "max_output_bytes": 2000000,
+  "name": "Complete a long off-screen Taskell task",
+  "run_timeout_ms": 60000,
+  "steps": [
+    {
+      "expect": "Item 00"
+    },
+    {
+      "text": "G"
+    },
+    {
+      "expect": "Offscreen target"
+    },
+    {
+      "text": " "
+    },
+    {
+      "expect": "Offscreen target"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "IyMgVG8gRG8KCi0gSXRlbSAwMAotIEl0ZW0gMDEKLSBJdGVtIDAyCi0gSXRlbSAwMwotIEl0ZW0gMDQKLSBJdGVtIDA1Ci0gSXRlbSAwNgotIEl0ZW0gMDcKLSBJdGVtIDA4Ci0gSXRlbSAwOQotIEl0ZW0gMTAKLSBJdGVtIDExCi0gSXRlbSAxMgotIEl0ZW0gMTMKLSBJdGVtIDE0Ci0gSXRlbSAxNQotIEl0ZW0gMTYKLSBJdGVtIDE3Ci0gSXRlbSAxOAotIEl0ZW0gMTkKLSBJdGVtIDIwCi0gSXRlbSAyMQotIEl0ZW0gMjIKLSBJdGVtIDIzCgojIyBEb25lCgotIE9mZnNjcmVlbiB0YXJnZXQgeHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eAo=",
+        "kind": "file",
+        "path": "board.md"
+      }
+    }
+  ],
+  "timeout_ms": 5000,
+  "version": 3,
+  "width": 45,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/e06-long-offscreen",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

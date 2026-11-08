@@ -1,0 +1,43 @@
+{
+  "command": [
+    "sh",
+    "readonly.sh"
+  ],
+  "height": 24,
+  "max_output_bytes": 2000000,
+  "name": "Preserve a Taskell board when a read-only save is rejected",
+  "run_timeout_ms": 60000,
+  "steps": [
+    {
+      "expect": "Read-only target"
+    },
+    {
+      "text": " "
+    },
+    {
+      "expect": "Read-only target"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 1
+    },
+    {
+      "state": {
+        "bytes_base64": "IyMgVG8gRG8KCi0gUmVhZC1vbmx5IHRhcmdldAoKIyMgRG9uZQo=",
+        "kind": "file",
+        "path": "board.md"
+      }
+    }
+  ],
+  "timeout_ms": 5000,
+  "version": 3,
+  "width": 80,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/e12-readonly",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "command": [
+    "taskell",
+    "board.md"
+  ],
+  "height": 24,
+  "max_output_bytes": 2000000,
+  "name": "Complete a Taskell task and quit immediately after the settled screen",
+  "run_timeout_ms": 60000,
+  "steps": [
+    {
+      "expect": "Immediate save"
+    },
+    {
+      "text": " "
+    },
+    {
+      "expect": "Immediate save"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "IyMgVG8gRG8KCgojIyBEb25lCgotIEltbWVkaWF0ZSBzYXZlCg==",
+        "kind": "file",
+        "path": "board.md"
+      }
+    }
+  ],
+  "timeout_ms": 5000,
+  "version": 3,
+  "width": 80,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/e09-immediate-save",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

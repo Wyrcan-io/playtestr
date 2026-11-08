@@ -1,0 +1,213 @@
+name: Runner readiness next20 Taskell exact candidate
+
+on:
+  push:
+    branches:
+      - work/p0-p2-implementation
+    paths:
+      - .github/workflows/runner-readiness-next20-taskell-final.yml
+      - scripts/acceptance/next20_jrnl_final.py
+      - scripts/acceptance/next20_candidate_install.py
+      - docs/validation/runner-readiness-next-twenty-project-pass/taskell/**
+      - docs/validation/runner-readiness-next-twenty-project-pass/replacement-candidate-freeze-native-exit-v1.json
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: playtestr-next20-taskell-final-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  exact-candidate-series:
+    name: Taskell exact rc.6, 12 batches (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            candidate_run: '40424475362'
+            artifact: next20-private-replacement-Linux
+            host_key: linux
+          - os: macos-15
+            candidate_run: '40420820491'
+            artifact: next20-private-replacement-macOS
+            host_key: darwin
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 180
+    env:
+      STACK_ROOT: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/toolchain/taskell/stack-root
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONIOENCODING: utf-8
+      TEMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+      TMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+      TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Create owned temporary paths
+        run: mkdir -p artifacts/runner-readiness-next-twenty-project-pass/tmp
+
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+
+      - name: Record bounded native job start
+        env:
+          HOST_KEY: ${{ matrix.host_key }}
+          CANDIDATE_RUN: ${{ matrix.candidate_run }}
+        run: |
+          python - <<'PY'
+          import json,os,platform
+          from pathlib import Path
+          out=Path('artifacts/runner-readiness-next-twenty-project-pass/taskell/final-series-native-exit-v1-preflight')/os.environ['HOST_KEY']
+          out.mkdir(parents=True,exist_ok=True)
+          value={'schema_version':1,'workflow_run_id':os.environ.get('GITHUB_RUN_ID'),'source_revision':os.environ.get('GITHUB_SHA'),
+                 'candidate_provider_run':os.environ['CANDIDATE_RUN'],'host_key':os.environ['HOST_KEY'],
+                 'runner_os':platform.platform(),'runner_architecture':platform.machine(),
+                 'declared_ordinary_cases':21,'declared_batches':12,
+                 'scope':'The exact-candidate native job started on its declared standard GitHub-hosted OS and records identity before archive download, pinned source acquisition, build/test and final series.'}
+          (out/'workflow-start.json').write_text(json.dumps(value,sort_keys=True,indent=2)+'\n')
+          PY
+
+      - name: Download frozen private candidate archive
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          github-token: ${{ github.token }}
+          repository: Wyrcan-io/playtestr
+          run-id: ${{ matrix.candidate_run }}
+          name: ${{ matrix.artifact }}
+          path: artifacts/runner-readiness-next-twenty-project-pass/tmp/candidate-provider
+
+      - name: Place and verify exact frozen archive
+        env:
+          HOST_KEY: ${{ matrix.host_key }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib,json,os,shutil
+          from pathlib import Path
+          freeze=Path('docs/validation/runner-readiness-next-twenty-project-pass/replacement-candidate-freeze-native-exit-v1.json')
+          row=next(x for x in json.loads(freeze.read_text())['cells'] if x['host']==os.environ['HOST_KEY'])
+          expected=Path(row['archive_local_only'])
+          matches=[p for p in Path('artifacts/runner-readiness-next-twenty-project-pass/tmp/candidate-provider').rglob(expected.name) if p.is_file()]
+          digest=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+          if len(matches)!=1 or matches[0].stat().st_size!=row['archive_bytes'] or digest(matches[0])!=row['archive_sha256']:
+              raise SystemExit('Downloaded private candidate differs from exact frozen archive identity')
+          expected.parent.mkdir(parents=True,exist_ok=True)
+          shutil.copyfile(matches[0],expected)
+          if digest(expected)!=row['archive_sha256']:
+              raise SystemExit('Staged exact candidate archive hash mismatch')
+          PY
+          if [[ "$HOST_KEY" == linux ]]; then
+            archive=artifacts/runner-readiness-next-twenty-project-pass/replacement-archives/native-exit-v1/playtestr_0.4.0-rc.6_linux_amd64.tar.gz
+          else
+            archive=artifacts/runner-readiness-next-twenty-project-pass/replacement-archives/native-exit-v1/playtestr_0.4.0-rc.6_darwin_arm64.tar.gz
+          fi
+          python -B scripts/acceptance/next20_candidate_install.py --series native-exit-v1 --archive "$archive"
+
+      - name: Set up pinned Haskell toolchain
+        uses: haskell-actions/setup@0f8e8c99d88aeb3fbfd523f1ef2c6f762d10d64d
+        with:
+          stack-version: '3.11.1'
+          enable-stack: 'true'
+          stack-no-global: 'true'
+          stack-setup-ghc: 'false'
+          cabal-update: 'false'
+
+      - name: Acquire and verify pinned Taskell source
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/runner-readiness-next-twenty-project-pass/tmp
+          python -B scripts/acceptance/next20_acquire.py taskell
+          python -B scripts/acceptance/next20_source_tree.py taskell --verify-existing
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          source=Path('artifacts/runner-readiness-next-twenty-project-pass/active/taskell/src')
+          lock=json.loads(Path('docs/validation/runner-readiness-next-twenty-project-pass/taskell/native-runtime-lock-native-exit-v1.json').read_text())
+          for name,digest in lock['resolver_files'].items():
+              if hashlib.sha256((source/name).read_bytes()).hexdigest()!=digest:
+                  raise SystemExit('Taskell resolver identity differs: '+name)
+          PY
+
+      - name: Build and run all pinned upstream Taskell tests
+        working-directory: artifacts/runner-readiness-next-twenty-project-pass/active/taskell/src
+        run: stack test --test
+
+      - name: Build isolated native Taskell runtime and bind identities
+        run: |
+          set -euo pipefail
+          root="$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/active/taskell"
+          source="$root/src"
+          bin="$root/native-build/bin"
+          mkdir -p "$bin"
+          cd "$source"
+          stack install taskell --local-bin-path "$bin"
+          "$bin/taskell" -v
+          cd "$GITHUB_WORKSPACE"
+          python - <<'PY'
+          import hashlib,json,platform,subprocess
+          from pathlib import Path
+          root=Path('artifacts/runner-readiness-next-twenty-project-pass/active/taskell').resolve()
+          binary=root/'native-build/bin/taskell'
+          source=root/'src'
+          lock_path=Path('docs/validation/runner-readiness-next-twenty-project-pass/taskell/native-runtime-lock-native-exit-v1.json')
+          provenance_path=Path('docs/validation/runner-readiness-next-twenty-project-pass/taskell/source-provenance.json')
+          lock=json.loads(lock_path.read_text());provenance=json.loads(provenance_path.read_text())
+          digest=hashlib.sha256(binary.read_bytes()).hexdigest()
+          version=subprocess.run([binary,'-v'],check=True,capture_output=True,text=True).stdout.strip()
+          if provenance['pin']!=lock['source_pin'] or '1.11.4' not in version:
+              raise SystemExit('Taskell runtime version/source pin mismatch')
+          inventory={'schema_version':1,'runtime_root':binary.parent.relative_to(Path.cwd()).as_posix(),'files':{'taskell':digest}}
+          (root/'installed-inventory.json').write_text(json.dumps(inventory,sort_keys=True,indent=2)+'\n')
+          runtime={'schema_version':1,'kind':'native','native':str(binary),'native_sha256':digest,'source_pin':lock['source_pin'],
+                   'native_runtime_lock_sha256':hashlib.sha256(lock_path.read_bytes()).hexdigest()}
+          (root/'runtime.json').write_text(json.dumps(runtime,sort_keys=True,indent=2)+'\n')
+          build={'schema_version':1,'runtime_kind':'native','source_pin':lock['source_pin'],'binary_sha256':digest,
+                 'binary_relative_path':binary.relative_to(root).as_posix(),'compiled_files':{'taskell':digest},
+                 'version_output':version,'version_attempt':'hosted-build-step','stack_version':subprocess.run(['stack','--version'],check=True,capture_output=True,text=True).stdout.strip(),
+                 'ghc_version':subprocess.run(['stack','exec','--','ghc','--numeric-version'],check=True,capture_output=True,text=True).stdout.strip(),
+                 'host_os':platform.platform(),'host_architecture':platform.machine(),'source_tree_manifest_sha256':hashlib.sha256((root/'acquisition.json').read_bytes()).hexdigest(),
+                 'runtime_lock_sha256':runtime['native_runtime_lock_sha256'],'installed_globally':False}
+          (root/'build.json').write_text(json.dumps(build,sort_keys=True,indent=2)+'\n')
+          print(json.dumps(build,sort_keys=True))
+          PY
+
+      - name: Run all twelve exact-candidate native batches without retries
+        run: |
+          set -uo pipefail
+          failed=0
+          for batch in $(seq 0 11); do
+            echo "=== exact Taskell candidate batch $batch ==="
+            if python -B scripts/acceptance/next20_jrnl_final.py --project taskell --candidate-series native-exit-v1 --batch "$batch"; then
+              echo "BATCH_PASS $batch"
+            else
+              result=$?
+              echo "BATCH_FAIL $batch exit=$result"
+              failed=1
+            fi
+          done
+          exit "$failed"
+
+      - name: Preserve native final-series evidence
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: taskell-final-native-exit-v1-${{ matrix.host_key }}
+          path: |
+            artifacts/runner-readiness-next-twenty-project-pass/taskell/final-series-native-exit-v1/
+            artifacts/runner-readiness-next-twenty-project-pass/taskell/final-series-native-exit-v1-preflight/${{ matrix.host_key }}/
+            artifacts/runner-readiness-next-twenty-project-pass/active/taskell/runtime.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/taskell/build.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/taskell/installed-inventory.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/taskell/native-build/bin/taskell
+            artifacts/runner-readiness-next-twenty-project-pass/candidate-native-exit-v1/${{ matrix.host_key }}/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 30

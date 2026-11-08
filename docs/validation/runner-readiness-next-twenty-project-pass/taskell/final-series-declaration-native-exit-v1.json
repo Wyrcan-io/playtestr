@@ -1,0 +1,104 @@
+{
+  "batches": [
+    {
+      "id": 0,
+      "name": "ordinary-cold-1",
+      "runtime": "new verified owned native-runtime copy; first logical use"
+    },
+    {
+      "id": 1,
+      "name": "ordinary-warm-1",
+      "runtime": "reuse exact immediately preceding verified native-runtime copy"
+    },
+    {
+      "id": 2,
+      "name": "ordinary-cold-2",
+      "runtime": "new verified owned native-runtime copy; first logical use"
+    },
+    {
+      "id": 3,
+      "name": "ordinary-warm-2",
+      "runtime": "reuse exact immediately preceding verified native-runtime copy"
+    },
+    {
+      "change": "initial width +10, height +2; all reviewed saved bytes unchanged",
+      "id": 4,
+      "name": "viewport"
+    },
+    {
+      "change": "Package relocated to a relative path containing spaces and Unicode; same fixture and exact saved-state oracle.",
+      "id": 5,
+      "name": "spaced-unicode-path"
+    },
+    {
+      "change": "original supported actions and positive checkpoints",
+      "id": 6,
+      "name": "ordinary-input-readiness"
+    },
+    {
+      "change": "split printable text into three-codepoint groups; key/control groups remain atomic",
+      "id": 7,
+      "name": "segmented-printable-input"
+    },
+    {
+      "change": "owned 2-second 8-MiB SHA256 worker during each invocation",
+      "id": 8,
+      "name": "bounded-contention-1"
+    },
+    {
+      "change": "second distinct execution under the same bounded owned worker schedule",
+      "id": 9,
+      "name": "bounded-contention-2"
+    },
+    {
+      "change": "N01 uses viewport height 12; every other case keeps its frozen viewport.",
+      "id": 10,
+      "name": "highest-risk-small-completion"
+    },
+    {
+      "change": "Explicit 2000ms positive-output startup boundary; ordinary step/run budgets unchanged.",
+      "id": 11,
+      "name": "highest-risk-startup-boundary"
+    }
+  ],
+  "calibration_required_per_host": 9,
+  "calibration_required_total": 18,
+  "candidate_freeze_sha256": "24ce7238532b1b6e581142ee98e17a7fe18ea475ec83176e7051986353c80da2",
+  "candidate_series": "native-exit-v1",
+  "canonical_test_freeze_sha256": "4131556b2be8259acd4716e1e40128a88a2fe0f94366303e0598eaf330b03988",
+  "cold_scope": "Two fresh hash-verified executable-directory copies, each followed by warm reuse. No OS-cache eviction or physical-machine cold-start claim.",
+  "edge": 12,
+  "execution_budget": {
+    "job_timeout_minutes": 120,
+    "native_hosts": [
+      "ubuntu-24.04",
+      "macos-15"
+    ],
+    "no_paid_runners": true,
+    "queue_policy": "Inspect at 15 queued minutes; one replacement only after the original is confirmed completed or cancelled.",
+    "standard_github_hosted_only": true,
+    "target_hosts_simultaneous_max": 2
+  },
+  "failure_policy": "No per-case retry. Any failed or partial batch rejects that native series; preserve all attempts and create a separately declared replacement after diagnosis.",
+  "hosts": [
+    "linux",
+    "darwin"
+  ],
+  "native_runtime_lock_sha256": "4b5c671095b8e789ef16f5f20c48172d33e64c91df7ddfa19fb4345e4b9437dc",
+  "normal": 8,
+  "ordinary_required_per_host": 252,
+  "ordinary_required_total": 504,
+  "project": "taskell",
+  "project_admissions": 0,
+  "real_source_faults": 3,
+  "repetitions_per_cell": 12,
+  "revision": 1,
+  "runtime_kind": "native",
+  "scenario_invocations": 21,
+  "schema_version": 1,
+  "scope": "Exact private v0.4.0-rc.6 candidate series for pinned Taskell 1.11.4. 8 normal workflows and 12 semantic edge families; E11 is independently invoked as malformed input and fresh recovery, producing 21 contracts. First-use exploration is not final-series credit.",
+  "startup_timeout_ms_by_host": {
+    "darwin": 2000,
+    "linux": 2000
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "command": [
+    "taskell",
+    "board \u00e9.md"
+  ],
+  "height": 24,
+  "max_output_bytes": 2000000,
+  "name": "Create Unicode Taskell text in a spaced Unicode board path",
+  "run_timeout_ms": 60000,
+  "steps": [
+    {
+      "expect": "Preserve unicode"
+    },
+    {
+      "text": "a"
+    },
+    {
+      "expect": "INSERT"
+    },
+    {
+      "text": "caf\u00e9 \u6771\u4eac \ud83d\ude80"
+    },
+    {
+      "expect": "caf\u00e9 \u6771\u4eac \ud83d\ude80"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "INSERT"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "IyMgVG8gRG8KCi0gUHJlc2VydmUgdW5pY29kZQotIGNhZsOpIOadseS6rCDwn5qACgojIyBEb25lCgo=",
+        "kind": "file",
+        "path": "board \u00e9.md"
+      }
+    }
+  ],
+  "timeout_ms": 5000,
+  "version": 3,
+  "width": 80,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/e07-unicode-path",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

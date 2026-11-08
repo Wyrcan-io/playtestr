@@ -1,0 +1,34 @@
+{
+  "command": [
+    "taskell",
+    "board.md"
+  ],
+  "height": 24,
+  "max_output_bytes": 2000000,
+  "name": "Reject malformed Taskell Markdown without changing it",
+  "run_timeout_ms": 60000,
+  "steps": [
+    {
+      "expect": "Could not parse file."
+    },
+    {
+      "exit": 1
+    },
+    {
+      "state": {
+        "bytes_base64": "IyMgVG8gRG8KCm5vdCBhIHRhc2sgcm93CgojIyBEb25lCg==",
+        "kind": "file",
+        "path": "board.md"
+      }
+    }
+  ],
+  "timeout_ms": 5000,
+  "version": 3,
+  "width": 80,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/e11-malformed",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

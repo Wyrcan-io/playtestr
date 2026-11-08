@@ -1,0 +1,55 @@
+{
+  "command": [
+    "taskell",
+    "board.md"
+  ],
+  "height": 24,
+  "max_output_bytes": 2000000,
+  "name": "Resize Taskell and reorder a visible task",
+  "run_timeout_ms": 60000,
+  "steps": [
+    {
+      "expect": "Resize target"
+    },
+    {
+      "resize": {
+        "height": 14,
+        "width": 55
+      }
+    },
+    {
+      "wait_for_redraw": true
+    },
+    {
+      "expect": "Resize target"
+    },
+    {
+      "text": "J"
+    },
+    {
+      "expect": "Resize target"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "IyMgVG8gRG8KCi0gUHJlc2VydmUgcm93Ci0gUmVzaXplIHRhcmdldAoKIyMgRG9uZQoK",
+        "kind": "file",
+        "path": "board.md"
+      }
+    }
+  ],
+  "timeout_ms": 5000,
+  "version": 3,
+  "width": 80,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/e05-resize-redraw",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

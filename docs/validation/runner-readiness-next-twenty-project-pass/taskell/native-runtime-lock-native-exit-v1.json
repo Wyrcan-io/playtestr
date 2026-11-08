@@ -1,0 +1,34 @@
+{
+  "binary_relative_path": "bin/taskell",
+  "build_command": "stack install taskell --local-bin-path <owned-taskell-root>/bin",
+  "command_name": "taskell",
+  "global_install": false,
+  "inventory_scope": "The exact built Taskell executable and explicitly recorded dynamic runtime dependencies; no ambient source-tree import.",
+  "launchers": [
+    {
+      "command": [
+        "taskell",
+        "<board>"
+      ],
+      "resolution": "PATH prepended only with hash-verified copied runtime bin directory"
+    },
+    {
+      "command": [
+        "sh",
+        "readonly.sh"
+      ],
+      "resolution": "Pinned system sh invokes owned, hash-reviewed fixture wrapper; wrapper invokes taskell from the same explicit PATH."
+    }
+  ],
+  "project": "taskell",
+  "resolver_files": {
+    "stack.yaml": "34aff73a975d5ab23b48c63070206fd5309626e05be7e58f3e354db61d47459e",
+    "stack.yaml.lock": "b66e445701699113507ab6fac5619ba225eeb5ec019e58a89a152e7e29f8613e"
+  },
+  "runtime_kind": "native",
+  "schema_version": 1,
+  "scope": "Runtime provenance and launch contract for exact native candidate final series; each hosted cell records actual architecture, compiler/runtime, binary bytes and source tree identity.",
+  "source_pin": "a2df95f26762fc3e78d6f131cea7fc1f3b13bd47",
+  "source_provenance_sha256": "20837d320492ac2beb3597551439e029b54e2f531c3949758053daf5c33015db",
+  "stack_version": "3.11.1"
+}

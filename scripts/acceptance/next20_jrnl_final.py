@@ -14,7 +14,7 @@ from adversarial_process import execute
 from next20_check import RAW,ROOT,DOC,NextCampaign
 from next20_python_setup import environment
 from readiness_evidence import immutable_json,sha256
-from next20_candidate import executable,SERIES
+from next20_candidate import contract,executable,SERIES
 from next20_python_runtime import python_runtime_root
 from next20_startup_profile import startup_deadline, tight_startup
 from next20_batch_snapshots import apply as batch_snapshots
@@ -64,6 +64,18 @@ async def main(project='jrnl',batch=None,candidate_series='rc5',chunk_readiness=
         DOC/project/('final-series-declaration'+suffix+'.json'))
     declaration=json.loads(declaration_path.read_text())
     if host not in declaration['hosts']:raise ValueError('undeclared host')
+    freeze,_,_=contract(candidate_series,host)
+    if declaration.get('candidate_freeze_sha256') and sha256(
+        ROOT/'docs/validation/runner-readiness-ten-project-pass/migration-candidate-freeze.json'
+        if candidate_series=='rc5' else DOC/'replacement-candidate-freeze-native-exit-v1.json')!=declaration['candidate_freeze_sha256']:
+        raise ValueError('Candidate freeze differs from final-series declaration')
+    scenarios_path=DOC/project/'host-contracts/scenarios.json'
+    if declaration.get('canonical_test_freeze_sha256') and sha256(scenarios_path)!=declaration['canonical_test_freeze_sha256']:
+        raise ValueError('Canonical scenario freeze differs from final-series declaration')
+    runtime_lock=DOC/project/('native-runtime-lock-'+candidate_series+'.json')
+    if declaration.get('native_runtime_lock_sha256') and (
+        not runtime_lock.is_file() or sha256(runtime_lock)!=declaration['native_runtime_lock_sha256']):
+        raise ValueError('Native runtime lock differs from final-series declaration')
     root=RAW/project/('final-series'+suffix)/str(args.batch)
     root.mkdir(parents=True,exist_ok=False)
     canonical=RAW/project/'host-contracts';package=root/('relocated café 雪' if args.batch==5 else 'contracts')
@@ -108,11 +120,33 @@ async def main(project='jrnl',batch=None,candidate_series='rc5',chunk_readiness=
         source_inventory_sha256=sha256(source/'installed-inventory.json'))
     immutable_json(root/'runtime-catalog.json',runtime_catalog)
     shutil.copyfile(root/'runtime-catalog.json',source/'launch-runtime-catalog.json')
-    cases=json.loads((canonical/'scenarios.json').read_text())['cases'];changes=[]
+    scenario_catalog=json.loads((canonical/'scenarios.json').read_text())
+    cases=scenario_catalog['cases'];changes=[]
+    if scenario_catalog.get('fixture_manifest'):
+        fixture_manifest=canonical/scenario_catalog['fixture_manifest']
+        if sha256(fixture_manifest)!=scenario_catalog.get('fixture_manifest_sha256'):
+            raise ValueError('Frozen native fixture manifest changed')
+        manifest=json.loads(fixture_manifest.read_text())
+        fixture_root=canonical/'fixtures'
+        if manifest.get('project')!=project or manifest.get('source_pin')!=json.loads((DOC/project/'source-provenance.json').read_text())['pin']:
+            raise ValueError('Frozen native fixture manifest provenance differs')
+        fixture_paths=list(fixture_root.rglob('*'))
+        if any(p.is_symlink() or getattr(p,'is_junction',lambda:False)() for p in fixture_paths):
+            raise ValueError('Frozen native fixture tree contains a linked path')
+        actual_files={p.relative_to(fixture_root).as_posix():sha256(p) for p in fixture_paths if p.is_file()}
+        if actual_files!=manifest.get('files'):
+            raise ValueError('Frozen native fixture bytes or membership changed')
     for case in cases:
         before=package/case['spec'];value=json.loads(before.read_text())
         if sha256(canonical/case['spec'])!=case['spec_sha256']:raise ValueError('native base contract changed')
-        value['command'][0]=os.path.relpath(python,package).replace('\\','/')
+        if kind=='native':
+            command=value.get('command')
+            if not isinstance(command,list) or not command or command[0] not in {'taskell','sh'}:
+                raise ValueError('Native target launcher is outside the reviewed Taskell command set')
+            if command[0]=='sh' and command!=['sh','readonly.sh']:
+                raise ValueError('Native Taskell read-only wrapper command changed')
+        else:
+            value['command'][0]=os.path.relpath(python,package).replace('\\','/')
         if kind=='python' and '--python' in value['command']:
             index=value['command'].index('--python')+1
             if Path(value['command'][index]).resolve()!=Path(runtime['python']).resolve():
@@ -135,7 +169,11 @@ async def main(project='jrnl',batch=None,candidate_series='rc5',chunk_readiness=
     runner=executable(candidate_series,host)
     install=json.loads((runner.parent/'installed.json').read_text())
     if sha256(runner)!=install['binary_sha256']:raise ValueError('wrong final archive binary')
-    env=environment(source);campaign=NextCampaign(phase='final-archive')
+    env=environment(source)
+    if kind=='native':
+        # Resolve the documented command name from the hash-verified runtime.
+        env['PATH']=str(python.parent)+os.pathsep+env.get('PATH','')
+    campaign=NextCampaign(phase='final-archive')
     immutable_json(root/'prepared.json',dict(schema_version=2 if kind!='python' else 1,host=host,batch=args.batch,
         declaration_sha256=sha256(declaration_path),changes=changes,
         **(dict(reviewed_snapshot_changes=snapshot_changes) if snapshot_changes else {}),
@@ -145,8 +183,8 @@ async def main(project='jrnl',batch=None,candidate_series='rc5',chunk_readiness=
            if kind!='python' else dict(actual_python=python.relative_to(ROOT).as_posix(),actual_python_sha256=sha256(python))),
         actual_runtime_catalog_sha256=sha256(root/'runtime-catalog.json'),
         installed_inventory_sha256=sha256(source/'installed-inventory.json')))
-    observations=[]
-    for case in cases:
+    observations=[];failures=[];not_run=[];unsafe_abort=None
+    for case_index,case in enumerate(cases):
         spec=package/case['spec'];report=root/(case['id']+'.report.json')
         planned=dict(schema_version=1,phase='final-archive',host=host,batch=args.batch,case=case['id'],
             spec=spec.relative_to(ROOT).as_posix(),spec_sha256=sha256(spec),runner_sha256=sha256(runner),
@@ -158,23 +196,50 @@ async def main(project='jrnl',batch=None,candidate_series='rc5',chunk_readiness=
         immutable_json(root/(case['id']+'.planned.json'),planned)
         # No per-case retries: any failure rejects this series, with all existing
         # attempts preserved. Replacement requires an explicit new declaration.
-        result=await execute(command,project,'final-batch-'+str(args.batch)+'-'+case['id'],
-            cwd=ROOT,env=env,timeout=140,load=args.batch in {8,9},campaign=campaign)
-        row=json.loads(report.read_text())['results'][0]
-        if row['status']!='passed' or any(s['status']!='passed' for s in row['steps']):raise ValueError('nonpositive final steps')
-        if not row['workspace']['cleaned'] or not row['cleanup']['confirmed_exited']:raise ValueError('incomplete final target/workspace cleanup')
-        if any(s.get('state') and (s['state']['invocation_id']!=row['invocation_id'] or s['state']['workspace_id']!=row['workspace']['id']) for s in row['steps']):
-            raise ValueError('cross-invocation final saved state')
-        observations.append(dict(case=case['id'],attempt=result['id'],invocation=row['invocation_id'],
-            report_sha256=sha256(report),spec_sha256=sha256(spec),passed=True))
-        print(host,args.batch,case['id'],'passed',flush=True)
-    dependencies()
+        result=None;row=None;reasons=[]
+        try:
+            dependencies()
+            result=await execute(command,project,'final-batch-'+str(args.batch)+'-'+case['id'],
+                cwd=ROOT,env=env,timeout=140,load=args.batch in {8,9},campaign=campaign)
+            row=json.loads(report.read_text())['results'][0]
+            if row['status']!='passed' or any(s['status']!='passed' for s in row['steps']):reasons.append('nonpositive final step')
+            if not row['workspace']['cleaned'] or not row['cleanup']['confirmed_exited']:reasons.append('incomplete target/workspace cleanup')
+            if any(s.get('state') and (s['state']['invocation_id']!=row['invocation_id'] or s['state']['workspace_id']!=row['workspace']['id']) for s in row['steps']):
+                reasons.append('cross-invocation saved state')
+        except Exception as error:
+            reasons.append(type(error).__name__+': '+str(error))
+            if report.is_file():
+                try:row=json.loads(report.read_text())['results'][0]
+                except (ValueError,KeyError,IndexError):pass
+        record=dict(case=case['id'],attempt=result['id'] if result else None,
+            invocation=row.get('invocation_id') if row else None,
+            report=report.relative_to(ROOT).as_posix(),report_sha256=sha256(report) if report.is_file() else None,
+            spec_sha256=sha256(spec),attempted=bool(result or report.is_file()),passed=not reasons)
+        if reasons:
+            record['failure_reasons']=reasons;failures.append(record)
+            print(host,args.batch,case['id'],'failed','; '.join(reasons),flush=True)
+        else:
+            observations.append(record);print(host,args.batch,case['id'],'passed',flush=True)
+        if (row is not None and (not row.get('workspace',{}).get('cleaned') or
+                not row.get('cleanup',{}).get('confirmed_exited'))):
+            unsafe_abort='target or workspace cleanup was not confirmed'
+        elif row is None and not report.is_file():
+            unsafe_abort='runner invocation ended without a report or cleanup evidence'
+        if unsafe_abort:
+            not_run=[dict(case=pending['id'],status='not_run',reason=unsafe_abort) for pending in cases[case_index+1:]]
+            break
+    try:dependencies()
+    except Exception as error:
+        failures.append(dict(case=None,attempt=None,passed=False,failure_reasons=['runtime integrity: '+str(error)]))
     if args.batch<4:
         for name,digest in inventory.items():
             if sha256(clone/name)!=digest:raise ValueError('copied runtime changed during final batch: '+name)
-    immutable_json(root/'summary.json',dict(schema_version=1,phase='final-archive',host=host,batch=args.batch,
-        observations=observations,ordinary_executions=20,runner_sha256=sha256(runner),archive_sha256=install['archive_sha256'],
-        new_project_admissions=0,scope='One complete twenty-case fresh batch; all twelve and source faults/native audit/cleanup still required.'))
+    immutable_json(root/'summary.json',dict(schema_version=2,phase='final-archive',host=host,batch=args.batch,
+        observations=observations,failures=failures,not_run=not_run,
+        ordinary_attempts=sum(bool(item.get('attempted')) for item in observations+failures),ordinary_passed=len(observations),
+        ordinary_not_run=len(not_run),ordinary_required=len(cases),runner_sha256=sha256(runner),archive_sha256=install['archive_sha256'],
+        new_project_admissions=0,scope='One declared complete scenario batch; failures are retained and no case is retried.'))
+    if failures or not_run:raise ValueError('final batch rejected; all attempted/not-run case outcomes are retained in summary.json')
 
 
 if __name__=='__main__':asyncio.run(main())
