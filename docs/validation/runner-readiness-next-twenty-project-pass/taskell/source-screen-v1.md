@@ -86,3 +86,14 @@ Taskell and Playtestr, and configured Go 1.25.0, then rejected the same
 repo-prefixed fixture path before launching Taskell. Both artifact digests are
 in `build-attempt-v12.json`. Run `42452701639` contains the corrected
 spec-relative fixture.
+
+Ubuntu on run `42452701639` passed the 250 upstream tests, built both
+executables, launched Taskell and passed the initial screen checks. It then
+failed the authored state checkpoint before sending `q`: the post-space
+`Review sample` assertion matched the unchanged initial text immediately
+(0 ms), and the same-execution state read was premature. The actual report and
+screen are retained under `first-use-attempts/42452701639-linux/`; Playtestr
+confirmed process-group termination and workspace cleanup. This is an
+authoring/timing failure, not evidence of a Taskell defect. The case now sends
+`q`, requires exact exit 0, then checks saved bytes after exit. MacOS for that
+run was still compiling at this update; the corrected case is next.

@@ -103,3 +103,13 @@ before target launch because the fixture path included a repository prefix.
 Receipt `build-attempt-v12.json` records each artifact. The corrected path is
 in source `6a18fb07`, run `42452701639`; continue to inspect that run before
 freezing any Taskell application scenarios.
+
+The Linux leg of `42452701639` has now launched Taskell. The upstream suite
+passed; initial screen and text input passed; the state checkpoint failed
+before exit because its `Review sample` expectation matched stale initial text
+in 0 ms. Same-run report and screen are retained under
+`taskell/first-use-attempts/42452701639-linux/`; process-group cleanup and
+workspace removal were confirmed. The case now sends quit, asserts exact exit
+0, then checks final saved bytes. No target-defect or admission credit from the
+premature state check. MacOS is still in upstream tests; the corrected case
+will run under the next workflow push.

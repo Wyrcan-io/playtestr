@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42452701639,
+  "source_revision": "6a18fb0778865fc6b48a1eeb00fe17b849785df7",
+  "event": "push",
+  "result": "linux-target-launched-upstream-tests-passed-authored-state-check-failed-before-exit-macos-in-progress",
+  "host": "ubuntu-24.04-x86_64",
+  "job_id": 128645118611,
+  "source_verified": true,
+  "upstream_tests_passed": 250,
+  "target_binary_built": true,
+  "taskell_version": "1.11.4",
+  "playtestr_binary_built": true,
+  "go_setup": "passed; Go 1.25.0 from go.mod",
+  "target_launched": true,
+  "initial_screen_expectations_passed": true,
+  "space_input_sent": true,
+  "stale_expectation": "Review sample passed in 0 ms against text already present before the input",
+  "state_checkpoint": "failed with wrong file bytes before q/exit could run",
+  "target_exit_after_failure": 137,
+  "cleanup_confirmed": true,
+  "workspace_cleaned": true,
+  "artifact": {
+    "id": 13607035290,
+    "bytes": 11201538,
+    "sha256": "25e5c74569c8c003efce27305a4bd5c18b7f85c458707bad93f9fb3f13aea5df"
+  },
+  "curated_evidence": "first-use-attempts/42452701639-linux/",
+  "disposition": "This attempt does not prove a Taskell save defect: the authored expectation was already satisfied on the initial screen, so the runner checked state before a meaningful transition checkpoint or exact exit. The actual screen and same-run report are retained. The candidate now checks the exact exit before the expected saved bytes. No target-fault, scenario, or admission credit."
+}
