@@ -16,8 +16,10 @@ from readiness_evidence import immutable_json,sha256
 PACKAGE='llvm-12-12.0.1_5.darwin_24.arm64.tbz2'
 BASE='https://packages.macports.org/llvm-12/'
 # macports/macports-base:keys/base/macports-base-2024.pub
-PUBLIC_KEY='RWT+5+zcGDhk/e8YuzgBoAFmLLWD+jEsNms+wlHCqSJwUf0waOj6jvdw'
-PUBLIC_KEY_GIT_BLOB='54733112ffed34c88bf43e3f2262dec936549913'
+PUBLIC_KEY='RWR+PhirBCclQlM0Khae0up57K9Yy8hRstG1AOyawt/HIIGMckQQWlKn'
+# macports/macports-base:keys/archives/macports-archives-2025.pub
+PUBLIC_KEY_GIT_BLOB='477a77d4363525ba8afc32331fb389897fba193c'
+SIGNATURE_COMMENT='untrusted comment: verify with macports-archives-2025.pub'
 
 
 def download(url,path,limit):
@@ -33,16 +35,21 @@ def download(url,path,limit):
     return total
 
 
-def verify_signify(package,signature,tool_root):
+def decode_signify_signature(signature,public_key=PUBLIC_KEY):
     rows=signature.read_text(encoding='ascii').splitlines()
-    if len(rows)!=2 or not rows[0].startswith('untrusted comment:'):
+    if len(rows)!=2 or rows[0]!=SIGNATURE_COMMENT:
         raise ValueError('MacPorts package signature has an unexpected signify envelope')
-    public=base64.b64decode(PUBLIC_KEY,validate=True)
+    public=base64.b64decode(public_key,validate=True)
     signed=base64.b64decode(rows[1],validate=True)
     if len(public)!=42 or public[:2]!=b'Ed' or len(signed)!=74 or signed[:2]!=b'Ed':
         raise ValueError('MacPorts package signature/key encoding is invalid')
     if public[2:10]!=signed[2:10]:raise ValueError('MacPorts package signature key ID mismatch')
-    key_path=tool_root/'macports-base-2024-ed25519.pem'
+    return public,signed
+
+
+def verify_signify(package,signature,tool_root):
+    public,signed=decode_signify_signature(signature)
+    key_path=tool_root/'macports-archives-2025-ed25519.pem'
     der=bytes.fromhex('302a300506032b6570032100')+public[10:]
     key_path.write_text('-----BEGIN PUBLIC KEY-----\n'+base64.b64encode(der).decode('ascii')+'\n-----END PUBLIC KEY-----\n',encoding='ascii')
     detached=tool_root/'package-signature.ed25519'

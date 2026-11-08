@@ -35,8 +35,19 @@ def source_snapshot(source):
 def source_files(source,provenance):
     """Require exact frozen file bytes and Git executable modes."""
     files,modes=source_snapshot(source)
-    if files!=provenance.get('files') or modes!=provenance.get('git_modes'):
-        raise ValueError('Taskell fault source is not restored to its exact pinned files/modes')
+    expected_files=provenance.get('files',{});expected_modes=provenance.get('git_modes',{})
+    if files!=expected_files or modes!=expected_modes:
+        actual_paths=set(files);expected_paths=set(expected_files)
+        changed=sorted(path for path in actual_paths&expected_paths if files[path]!=expected_files[path])
+        mode_changed=sorted(path for path in actual_paths&expected_paths
+                            if modes.get(path)!=expected_modes.get(path))
+        details=dict(missing=sorted(expected_paths-actual_paths)[:20],
+            unexpected=sorted(actual_paths-expected_paths)[:20],
+            changed_bytes=changed[:20],changed_modes=mode_changed[:20],
+            missing_count=len(expected_paths-actual_paths),unexpected_count=len(actual_paths-expected_paths),
+            changed_bytes_count=len(changed),changed_modes_count=len(mode_changed))
+        raise ValueError('Taskell fault source differs from its pinned files/modes: '+
+                         json.dumps(details,sort_keys=True,separators=(',',':')))
     return files
 
 
