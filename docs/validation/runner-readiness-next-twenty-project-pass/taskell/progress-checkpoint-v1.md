@@ -178,3 +178,23 @@ Linux and Intel Mac, but this adds no frozen scenario-series, native-cell,
 fault calibration or admission credit. Storage checkpoint v18 passed after
 lossless receipt compaction, with 152,451 bytes retained headroom at its
 observation. Continue measuring before adding larger evidence packets.
+
+## Scenario-candidate continuation (2026-11-08)
+
+Run `42458747709` tested the new-task candidate on Ubuntu after the prior
+first-use route. The existing-task case passed, then the create-task case
+timed out on its first screen assertion (`assertion_timeout`, step 1); its
+later input, exit and state assertions did not run. The failure was caused by
+the candidate invoking `taskell board.md` while its fixture actually provides
+`board-basic.md`. This is a campaign-spec path error, not evidence of a
+Taskell defect. The Mac Intel leg subsequently passed its pinned 250-test
+suite, built both binaries, and passed the six-step existing-task smoke before
+reproducing the same step-1 prompt. Run `42458747709`'s exact per-host artifact,
+binary, report and final-screen hashes are in `build-attempt-v20.json`; the
+selected reports and screens are retained in its Linux and macOS evidence
+directories. Both runner reports confirm process-group termination and
+workspace cleanup. The create-task spec is locally corrected to the fixture's
+actual filename. The prepared duplicate candidate remains uncredited and must
+not be advanced until the corrected create-task case has been observed on
+both native hosts. Taskell remains at zero scenario-series, native-cell,
+fault-calibration or admission credit.

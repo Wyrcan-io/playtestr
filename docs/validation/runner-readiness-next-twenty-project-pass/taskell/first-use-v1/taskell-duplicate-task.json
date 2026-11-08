@@ -1,0 +1,31 @@
+{
+  "version": 3,
+  "name": "Duplicate one selected Taskell task",
+  "command": ["taskell", "board.md"],
+  "workspace": {
+    "fixture": "fixtures/duplicate",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 5000,
+  "run_timeout_ms": 60000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {"expect": "Preserve before"},
+    {"text": "j"},
+    {"expect": "Duplicate me"},
+    {"text": "+"},
+    {"text": "q"},
+    {"exit": 0},
+    {
+      "state": {
+        "path": "board.md",
+        "kind": "file",
+        "bytes_base64": "IyMgVG8gRG8KCi0gUHJlc2VydmUgYmVmb3JlCi0gRHVwbGljYXRlIG1lCi0gRHVwbGljYXRlIG1lCi0gUHJlc2VydmUgYWZ0ZXIKCiMjIERvbmUKCg=="
+      }
+    }
+  ]
+}

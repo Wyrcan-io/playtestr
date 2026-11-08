@@ -134,6 +134,17 @@ jobs:
             --artifacts-dir "$packet/first-use/create-task-artifacts" \
             --report "$packet/first-use/create-task-report.json" \
             docs/validation/runner-readiness-next-twenty-project-pass/taskell/first-use-v1/taskell-create-task.json
+      - name: Run the duplicate-task authored scenario candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          root="$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/active/taskell"
+          packet="$root/native-build"
+          export PATH="$packet/bin:$PATH"
+          "$packet/bin/playtestr" test \
+            --artifacts-dir "$packet/first-use/duplicate-task-artifacts" \
+            --report "$packet/first-use/duplicate-task-report.json" \
+            docs/validation/runner-readiness-next-twenty-project-pass/taskell/first-use-v1/taskell-duplicate-task.json
       - name: Review, replay, export, and ordinarily run the public recorder route
         shell: bash
         run: |

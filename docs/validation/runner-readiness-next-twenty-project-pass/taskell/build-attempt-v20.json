@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42458747709,
+  "source_revision": "5f1a0780d897175950a4ac9ceed427f31073bea1",
+  "event": "push",
+  "attempt_scope": "Build Taskell and Playtestr on both native hosts, run the existing six-step first-use smoke, then exercise the uncredited create-task candidate once.",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128663254754,
+      "provider_artifact": {
+        "id": 13608677288,
+        "bytes": 11202767,
+        "sha256": "82e48388fcf6c4093834c7fb60a6a86698c54c2eee703a4e3d0e7cce780b54ae"
+      },
+      "upstream_tests": "250 passed",
+      "target": {
+        "version": "1.11.4",
+        "binary_bytes": 33207832,
+        "binary_sha256": "6099f625fc30ee1fefcef87c3aa40e34915b4b254b52f4276d940e976225dfd8",
+        "stack": "3.11.1",
+        "ghc": "9.0.1"
+      },
+      "playtestr": {
+        "go": "1.25.0",
+        "binary_bytes": 6928585,
+        "binary_sha256": "042c8a1072c5b350ab2e3d6005a5d51904f9d9461a3ea6cbcc39e06d14b45771"
+      },
+      "existing_task_smoke": "passed 6/6; exit 0, exact saved bytes and process/workspace cleanup verified in run report",
+      "create_task_candidate": {
+        "result": "failed",
+        "report_sha256": "dfcb2ab20cb8887a6fbebe3245e9660a2a34604d72d77f12cd34338094c171f2",
+        "screen_sha256": "49e4cb59e8b7b17ccf32b6c7c3753c547adb4078f4daf1edccc4cdf2d8218f1b",
+        "category": "assertion_timeout",
+        "failed_step": 1,
+        "screen": "Create /tmp/playtestr-workspace-1095513999/fixture/board.md? (Y/n):",
+        "target_exit_code": 130,
+        "process_group_termination_confirmed": true,
+        "workspace_cleaned": true
+      },
+      "curated_evidence": "first-use-attempts/42458747709-linux/",
+      "curated_files_sha256": {
+        "create-task-report.json": "dfcb2ab20cb8887a6fbebe3245e9660a2a34604d72d77f12cd34338094c171f2",
+        "create-task-screen.txt": "49e4cb59e8b7b17ccf32b6c7c3753c547adb4078f4daf1edccc4cdf2d8218f1b",
+        "host.json": "c29b06bb95bb07c337a2b96cad5c315ce7104f2a4ea3dcfc1ed394af9a23f20c",
+        "runner.json": "61847ba7f1afd07e63d7753cc74d0a823ff80b8f85c0876d4dd127a5bf942fdb"
+      }
+    },
+    {
+      "host": "macos-15-intel-x86_64",
+      "job_id": 128663254943,
+      "provider_artifact": {
+        "id": 13608904914,
+        "bytes": 6780785,
+        "sha256": "d14aacf6599cfcd27f4667afb8708901b0737c260af8fa249f3662903028eebe"
+      },
+      "upstream_tests": "250 passed",
+      "target": {
+        "version": "1.11.4",
+        "binary_bytes": 12050080,
+        "binary_sha256": "490a7bbf7f6e39a54c333412ae3894c20f3a4483b9418008144326562c4a1bab",
+        "stack": "3.11.1",
+        "ghc": "9.0.1"
+      },
+      "playtestr": {
+        "go": "1.25.0",
+        "binary_bytes": 6899072,
+        "binary_sha256": "43c7796770fc3c90f0b7e25a8fd21ae57cbd0363d98475d13bc38c1a3525f360"
+      },
+      "existing_task_smoke": "passed 6/6; exit 0, exact saved bytes and process/workspace cleanup verified in run report",
+      "create_task_candidate": {
+        "result": "failed",
+        "report_sha256": "f787bb3e8d303c7fe15595553ec725e7dbef39e0d66585ae6f3f54aab371189d",
+        "screen_sha256": "b64a0c101fd33ed90000b73d539982ccd562f8f214688dd74e4ff2f642ea249e",
+        "category": "assertion_timeout",
+        "failed_step": 1,
+        "screen": "Create /private/var/folders/20/jp1_0n3n7kndh6rnbqb5344m0000gn/T/playtestr-workspace-1941552643/fixture/board.md? (Y/n):",
+        "target_exit_code": 130,
+        "process_group_termination_confirmed": true,
+        "workspace_cleaned": true
+      },
+      "curated_evidence": "first-use-attempts/42458747709-macos/",
+      "curated_files_sha256": {
+        "create-task-report.json": "f787bb3e8d303c7fe15595553ec725e7dbef39e0d66585ae6f3f54aab371189d",
+        "create-task-screen.txt": "b64a0c101fd33ed90000b73d539982ccd562f8f214688dd74e4ff2f642ea249e",
+        "host.json": "9c9520acbe9a4c4d9875beb907b76adbf9b531ee4371711d4d439e6096aeb508",
+        "runner.json": "a435ee5ecec1c50a81e91eab313a147c26b2165546dc92adca37d0d181f923c8"
+      }
+    }
+  ],
+  "root_cause": "The candidate asked Taskell to open board.md, but its fixture provides board-basic.md. Taskell correctly prompted to create the absent board, so step 1 could not observe the expected board. The local spec now uses board-basic.md.",
+  "credit": "No create-task scenario credit. Both native executions failed before any task-creation input. Existing-task smoke repeats passed, but this does not add a frozen scenario-series, native-cell, fault-calibration or Taskell admission."
+}
