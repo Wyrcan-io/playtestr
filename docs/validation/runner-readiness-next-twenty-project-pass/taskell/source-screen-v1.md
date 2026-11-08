@@ -40,3 +40,11 @@ written. The smoke spec now sends `q` as text. Recorder controls likewise send
 literal space and `q` as text. Corrected cross-host workflow run
 `42450896413` is active at source `e3bdaa0`; no outcome is claimed until both
 native jobs finish and their reports/artifacts are inspected.
+
+Run `42449961171` later completed on both hosts. MacOS Intel also passed all
+250 upstream tests and built Taskell 1.11.4, but stopped before building the
+Playtestr runner because `go` was absent (`build-attempt-v6.json`). Its retained
+artifact is 2,973,229 bytes with provider SHA-256
+`1ed3f48d5d114fa00842167a73508c9e914d259b6ac0ef1c4e81567655ba8360`. The
+workflow now installs the exact Go version from repository `go.mod` with pinned
+`actions/setup-go`, then builds Playtestr and runs the authored smoke.

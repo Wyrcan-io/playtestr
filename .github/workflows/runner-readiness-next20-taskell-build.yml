@@ -89,6 +89,11 @@ jobs:
               'scope':'Pinned source built and upstream tests executed. Only the version option was launched; no board, user config, network import, release helper or full-screen workflow was run.'
           },sort_keys=True,indent=2)+'\n')
           PY
+      - name: Set up the repository Go toolchain
+        uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+        with:
+          go-version-file: go.mod
+          cache: false
       - name: Build Playtestr and run the authored smoke case
         shell: bash
         run: |

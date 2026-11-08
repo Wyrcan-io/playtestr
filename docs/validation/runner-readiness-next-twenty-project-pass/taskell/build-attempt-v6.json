@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42449961171,
+  "source_revision": "9e1ebc36901e017804a375d4f388757c77821ace",
+  "event": "push",
+  "result": "upstream-tests-and-target-build-passed-both-hosts-authored-smoke-blocked-on-distinct-runner-prerequisites",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128636849655,
+      "source_verified": true,
+      "upstream_tests_passed": 250,
+      "target_binary_built": true,
+      "taskell_version": "1.11.4",
+      "playtestr_binary_built": true,
+      "authored_smoke": "rejected-before-target-launch",
+      "failure_category": "invalid_spec",
+      "failure": "unknown key \"q\"",
+      "first_use_recorder_reached": false,
+      "artifact_id": 13604999973,
+      "artifact_bytes": 11202054,
+      "artifact_sha256": "2be5527efdb6bf80c7fcc8b9ee41e61bdea1af6dacf689b2ef1af789cc27c1cd"
+    },
+    {
+      "host": "macos-15-intel-x86_64",
+      "job_id": 128636849492,
+      "source_verified": true,
+      "upstream_tests_passed": 250,
+      "target_binary_built": true,
+      "taskell_version": "1.11.4",
+      "playtestr_build": "not reached",
+      "failure_category": "missing_runner_sdk",
+      "failure": "go: command not found",
+      "first_use_recorder_reached": false,
+      "artifact_id": 13605467141,
+      "artifact_bytes": 2973229,
+      "artifact_sha256": "1ed3f48d5d114fa00842167a73508c9e914d259b6ac0ef1c4e81567655ba8360"
+    }
+  ],
+  "provider_run": "https://github.com/Wyrcan-io/playtestr/actions/runs/42449961171",
+  "disposition": "Preserve both distinct failed smoke prerequisites. Linux rejected the then-current authored spec before launch; macOS completed Taskell build/tests but lacked Go for Playtestr. The next workflow explicitly installs Go from the checked-in go.mod using pinned setup-go; the corrected q-as-text spec is retained separately. No Taskell admission credit."
+}
