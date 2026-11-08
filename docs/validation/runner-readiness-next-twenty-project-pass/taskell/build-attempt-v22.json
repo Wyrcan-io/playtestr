@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42462915946,
+  "source_revision": "80a2e8a069c20b6fbd80ebdd898fe96049f955e0",
+  "event": "push",
+  "attempt_scope": "Build Taskell and Playtestr on both native hosts, pass existing-task smoke, then validate the create-task candidate containing Escape and expect_not INSERT.",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128675866775,
+      "provider_artifact": {
+        "id": 13610414358,
+        "bytes": 11201871,
+        "sha256": "b3865ce80da2127aac0fd9c69161812b00e8e1c8ee6cd2949f71e32e6c080553"
+      },
+      "upstream_tests": "250 passed",
+      "target_binary_sha256": "6099f625fc30ee1fefcef87c3aa40e34915b4b254b52f4276d940e976225dfd8",
+      "playtestr": {
+        "go": "1.25.0",
+        "binary_bytes": 6928585,
+        "binary_sha256": "042c8a1072c5b350ab2e3d6005a5d51904f9d9461a3ea6cbcc39e06d14b45771"
+      },
+      "existing_task_smoke": "passed 6/6",
+      "create_task_candidate": {
+        "result": "rejected before target launch",
+        "category": "invalid_spec",
+        "diagnostic": "step 8 expect_not \"INSERT\" requires an earlier expect for the same text",
+        "target_launched": false,
+        "cleanup_attempted": false,
+        "report_sha256": "05ef4589eed8961ce8ea54d059119424c3bad5d52299ab4c2974d1c8d1713b36",
+        "curated_evidence": "first-use-attempts/42462915946-linux/",
+        "curated_files_sha256": {
+          "create-task-report.json": "05ef4589eed8961ce8ea54d059119424c3bad5d52299ab4c2974d1c8d1713b36",
+          "host.json": "c29b06bb95bb07c337a2b96cad5c315ce7104f2a4ea3dcfc1ed394af9a23f20c",
+          "runner.json": "97f89ceec28e1ed64df560a8c0c9e02041ab402b7cc6fd363210fa019e908db5"
+        }
+      }
+    },
+    {
+      "host": "macos-15-intel-x86_64",
+      "job_id": 128675866937,
+      "provider_artifact": {
+        "id": 13611235751,
+        "bytes": 6779849,
+        "sha256": "1508e57925f5fe56f3dc93ab4d09ab0cb901bb46083bb6434d178aa2188acf9a"
+      },
+      "upstream_tests": "250 passed",
+      "target_binary_sha256": "490a7bbf7f6e39a54c333412ae3894c20f3a4483b9418008144326562c4a1bab",
+      "playtestr": {
+        "go": "1.25.0",
+        "binary_bytes": 6899072,
+        "binary_sha256": "8fb726c71d87b31a278cbf56ccc9761d40dd88a386cc4068bef769c8572b8a36"
+      },
+      "existing_task_smoke": "passed 6/6",
+      "create_task_candidate": {
+        "result": "rejected before target launch",
+        "category": "invalid_spec",
+        "diagnostic": "step 8 expect_not \"INSERT\" requires an earlier expect for the same text",
+        "target_launched": false,
+        "cleanup_attempted": false,
+        "report_sha256": "aa82eeeff9ac7bfcf857f39633717d7de721b0e7853108f2e876d4264cfa93a4",
+        "curated_evidence": "first-use-attempts/42462915946-macos/",
+        "curated_files_sha256": {
+          "create-task-report.json": "aa82eeeff9ac7bfcf857f39633717d7de721b0e7853108f2e876d4264cfa93a4",
+          "host.json": "9c9520acbe9a4c4d9875beb907b76adbf9b531ee4371711d4d439e6096aeb508",
+          "runner.json": "603fbfedb0081674b120e8ea5bd032477ca6e5e4af67977ee20fc2df7a9acc96"
+        }
+      }
+    }
+  ],
+  "credit": "No create-task scenario credit. The candidate's negative assertion was rejected by spec validation, so no Taskell process was launched. The next source revision adds a positive INSERT assertion before expect_not. The duplicate case did not run. No scenario-series, native-cell, fault-calibration or admission credit."
+}

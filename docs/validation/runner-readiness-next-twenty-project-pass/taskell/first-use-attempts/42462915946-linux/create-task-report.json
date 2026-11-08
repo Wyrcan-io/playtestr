@@ -1,0 +1,39 @@
+{
+  "report_version": 1,
+  "runner_version": "dev",
+  "os": "linux",
+  "arch": "amd64",
+  "summary": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1,
+    "cancelled": 0,
+    "not_run": 0
+  },
+  "results": [
+    {
+      "name": "taskell-create-task.json",
+      "spec_path": "docs/validation/runner-readiness-next-twenty-project-pass/taskell/first-use-v1/taskell-create-task.json",
+      "status": "failed",
+      "duration_ms": 0,
+      "viewport": {
+        "width": 0,
+        "height": 0
+      },
+      "target": {
+        "exited": false
+      },
+      "failure": {
+        "category": "invalid_spec",
+        "message": "test specification is invalid"
+      },
+      "cleanup": {
+        "attempted": false,
+        "graceful": false,
+        "forced": false,
+        "confirmed_exited": false
+      },
+      "evidence": {}
+    }
+  ]
+}

@@ -211,3 +211,12 @@ confirms Enter stores a task and creates a new blank insert row; Escape calls
 locally updated to send Escape, verify INSERT is absent, then send `q`. It is
 not credited until a fresh Linux/macOS run passes saved-state and cleanup
 assertions.
+
+Run `42462915946` passed the existing-task smoke on both hosts but rejected
+the create-task spec before target launch: `expect_not "INSERT"` lacked an
+earlier positive expectation for the same text. The runner report is
+`invalid_spec`; cleanup was not attempted because no target started. The
+duplicate case was not reached. Paired artifacts and hashes are in
+`build-attempt-v22.json`. The local candidate now positively expects INSERT
+before Escape and negatively expects it afterward. This validation correction
+has not yet been exercised on either host.
