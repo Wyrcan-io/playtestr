@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42447587869,
+  "source_revision": "66ef38b5a4946d2eacf111670ceadc0952025954",
+  "event": "push",
+  "result": "workflow-validation-failure-before-job-creation",
+  "jobs_created": 0,
+  "target_source_downloaded": false,
+  "target_launched": false,
+  "cause": "The job-level STACK_ROOT expression still used runner.os, which GitHub Actions excludes from the contexts available to jobs.<job_id>.env. The earlier attempt-v2 identifies this same root cause; this receipt preserves the distinct provider run.",
+  "provider_run": "https://github.com/Wyrcan-io/playtestr/actions/runs/42447587869",
+  "disposition": "Preserve; corrected by using a static campaign-owned toolchain path. Each matrix job has an isolated runner VM."
+}
