@@ -1,0 +1,100 @@
+name: Runner readiness next20 Taskell build and tests
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - work/p0-p2-implementation
+    paths:
+      - .github/workflows/runner-readiness-next20-taskell-build.yml
+      - docs/validation/runner-readiness-next-twenty-project-pass/taskell/source-provenance.json
+      - scripts/acceptance/next20_acquire.py
+      - scripts/acceptance/next20_source_tree.py
+
+permissions:
+  contents: read
+
+jobs:
+  build-test:
+    name: Build and test Taskell (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            runner: ubuntu-24.04
+          - os: macos-15-intel
+            runner: macos-15-intel
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 120
+    env:
+      STACK_ROOT: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/toolchain/taskell/stack-root
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Set up pinned Haskell toolchain
+        uses: haskell-actions/setup@0f8e8c99d88aeb3fbfd523f1ef2c6f762d10d64d
+        with:
+          ghc-version: '9.0.1'
+          stack-version: '3.11.1'
+          enable-stack: 'true'
+          stack-no-global: 'true'
+          stack-setup-ghc: 'false'
+          cabal-update: 'false'
+      - name: Acquire and verify exact source
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/runner-readiness-next-twenty-project-pass/active
+          python scripts/acceptance/next20_acquire.py taskell
+          python scripts/acceptance/next20_source_tree.py taskell --verify-existing
+          cd artifacts/runner-readiness-next-twenty-project-pass/active/taskell/src
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+          expected={'stack.yaml':'34aff73a975d5ab23b48c63070206fd5309626e05be7e58f3e354db61d47459e',
+                    'stack.yaml.lock':'b66e445701699113507ab6fac5619ba225eeb5ec019e58a89a152e7e29f8613e'}
+          for name,digest in expected.items():
+              if hashlib.sha256(Path(name).read_bytes()).hexdigest()!=digest:
+                  raise SystemExit('Pinned resolver file changed: '+name)
+          PY
+          stack --version
+          ghc --numeric-version
+      - name: Build and run the pinned upstream test suite
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd artifacts/runner-readiness-next-twenty-project-pass/active/taskell/src
+          stack test --test
+      - name: Build local executable and record its identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          root="$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/active/taskell"
+          source="$root/src"
+          packet="$root/native-build"
+          mkdir -p "$packet/bin"
+          cd "$source"
+          stack install taskell --local-bin-path "$packet/bin"
+          "$packet/bin/taskell" --version
+          python - <<'PY'
+          import hashlib,json,platform,subprocess
+          from pathlib import Path
+          binary=Path('../native-build/bin/taskell')
+          version=subprocess.run([str(binary.resolve()),'--version'],check=True,capture_output=True,text=True).stdout.strip()
+          (binary.parent.parent/'host.json').write_text(json.dumps({
+              'os':platform.platform(),'architecture':platform.machine(),
+              'stack_version':subprocess.run(['stack','--version'],check=True,capture_output=True,text=True).stdout.strip(),
+              'ghc_version':subprocess.run(['ghc','--numeric-version'],check=True,capture_output=True,text=True).stdout.strip(),
+              'taskell_version_output':version,
+              'binary_bytes':binary.stat().st_size,
+              'binary_sha256':hashlib.sha256(binary.read_bytes()).hexdigest(),
+              'scope':'Pinned source built and upstream tests executed. Only the version option was launched; no board, user config, network import, release helper or full-screen workflow was run.'
+          },sort_keys=True,indent=2)+'\n')
+          PY
+      - name: Retain bounded native build packet
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: taskell-build-${{ matrix.os }}
+          path: artifacts/runner-readiness-next-twenty-project-pass/active/taskell/native-build/
+          if-no-files-found: error
+          retention-days: 14
