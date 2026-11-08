@@ -46,6 +46,12 @@ def widen_viewport(spec, width_delta=10, height_delta=2):
     return spec
 
 
+def expected_scenario_hash(declaration):
+    """Resolve the scenario digest without conflating a separate freeze receipt."""
+    return declaration.get('canonical_scenario_sha256',
+                           declaration.get('canonical_test_freeze_sha256'))
+
+
 async def main(project='jrnl',batch=None,candidate_series='rc5',chunk_readiness=False,window=None,
                startup_timeout_ms_by_host=None,declaration_path_override=None):
     if batch is None:
@@ -77,7 +83,8 @@ async def main(project='jrnl',batch=None,candidate_series='rc5',chunk_readiness=
     doc_contracts=DOC/project/'host-contracts'
     canonical=raw_contracts if raw_contracts.is_dir() else doc_contracts
     scenarios_path=canonical/'scenarios.json'
-    if declaration.get('canonical_test_freeze_sha256') and sha256(scenarios_path)!=declaration['canonical_test_freeze_sha256']:
+    expected_scenarios=expected_scenario_hash(declaration)
+    if expected_scenarios and sha256(scenarios_path)!=expected_scenarios:
         raise ValueError('Canonical scenario freeze differs from final-series declaration')
     runtime_lock=DOC/project/('native-runtime-lock-'+candidate_series+'.json')
     if declaration.get('native_runtime_lock_sha256') and (

@@ -76,7 +76,7 @@ def audit(plan_path):
     plan = json.loads(plan_path.read_text(encoding='utf-8'))
     host = actual_host()
     package = ROOT/'docs/validation/runner-readiness-next-twenty-project-pass/skim'
-    declaration_path = package/'final-series-declaration-native-exit-v26.json'
+    declaration_path = package/'final-series-declaration-native-exit-v27.json'
     declaration = json.loads(declaration_path.read_text(encoding='utf-8'))
     base_path = package/'scenario-declaration-v5.json'
     revision_path = package/'scenario-declaration-v6.json'

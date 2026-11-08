@@ -8,9 +8,18 @@ from pathlib import Path
 from next20_check import DOC
 from next20_git_town_faults import FAULTS, PIN
 from next20_git_town_final_contracts import materialize_scenario_alias, validate_scenario_alias
+from next20_jrnl_final import expected_scenario_hash
 
 
 class GitTownFinalContractTests(unittest.TestCase):
+    def test_scenario_digest_is_separate_from_the_freeze_receipt(self):
+        scenario='a'*64
+        freeze='b'*64
+        self.assertEqual(expected_scenario_hash({
+            'canonical_scenario_sha256':scenario,
+            'canonical_test_freeze_sha256':freeze}),scenario)
+        self.assertEqual(expected_scenario_hash({'canonical_test_freeze_sha256':freeze}),freeze)
+
     def test_scenario_alias_matches_and_records_frozen_source(self):
         with tempfile.TemporaryDirectory() as temporary:
             target = Path(temporary)
