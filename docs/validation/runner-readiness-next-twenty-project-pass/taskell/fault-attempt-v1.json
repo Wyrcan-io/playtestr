@@ -1,0 +1,44 @@
+{
+  "admission_credit": 0,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "candidate": "v0.4.0-rc.6",
+  "candidate_series": "native-exit-v1",
+  "fault_calibration_credit": 0,
+  "hosts": [
+    {
+      "artifact": {
+        "bytes": 9355704,
+        "id": 13624223880,
+        "name": "taskell-fault-calibration-native-exit-v1-linux",
+        "sha256": "ffcca2b4abd397b52f22f033a708f32637832d5130b84fb837927ab50762d8ae"
+      },
+      "failure": "Fault harness instantiated undeclared evidence phase fault-calibration and stopped before the first baseline scenario. Source was not mutated; no fault phase launched.",
+      "fault_calibration_phases_started": 0,
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128782846672,
+      "pristine_native_build": "passed; Taskell 1.11.4",
+      "source_acquisition": "passed"
+    },
+    {
+      "artifact": {
+        "bytes": 1852999,
+        "id": 13624097725,
+        "name": "taskell-fault-calibration-native-exit-v1-darwin",
+        "sha256": "72a40f4fc1b17f2f904499c1c10a8427cced6407f04dc73251b102adf0a5a483"
+      },
+      "failure": "GHC 9.0.2 could not invoke the required LLVM opt; stopped before fault execution.",
+      "fault_calibration_phases_started": 0,
+      "host": "macos-15-arm64",
+      "job_id": 128782846466,
+      "pristine_native_build": "not completed; GHC reported missing opt",
+      "source_acquisition": "passed"
+    }
+  ],
+  "project": "taskell",
+  "repair_status": "Evidence validator now declares the fault-calibration phase. Darwin LLVM manifest and all extracted regular tools are checked against pristine build provenance before calibration; Stack override and DYLD library environment are retained for mutant/restored builds.",
+  "run_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/42496545430",
+  "schema_version": 1,
+  "scope": "Zero fault executions credited on both hosts; failures preserved; no Taskell admission inferred.",
+  "source_revision": "b12c41ca706b08d4ffdf5131e0669c1671331884",
+  "workflow_run_id": 42496545430
+}

@@ -1,0 +1,39 @@
+{
+  "actual_bytes": {
+    "combined_curated": 24549092,
+    "combined_raw": 3913948502,
+    "combined_retained": 2147361924,
+    "new_campaign_raw": 2005239930,
+    "new_curated": 12892848,
+    "project": 1002
+  },
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "caps_bytes": {
+    "combined_curated": 52428800,
+    "combined_raw": 6442450944,
+    "combined_retained": 2147483648,
+    "new_campaign_raw": 4294967296,
+    "new_curated": 26214400,
+    "project": 67108864
+  },
+  "headroom_bytes": {
+    "combined_curated": 27879708,
+    "combined_raw": 2528502442,
+    "combined_retained": 121724,
+    "new_campaign_raw": 2289727366,
+    "new_curated": 13321552,
+    "project": 67107862
+  },
+  "local_test_scratch_relocation": {
+    "expanded_bytes": 5453931,
+    "files": 497,
+    "path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/local-validation-scratch-v1/relocation-index.json",
+    "sha256": "a5b2173dfa10b69046691c5c3cba8ea813dee5cb4e7a3d0989992181ae11dd0d"
+  },
+  "observed_at_utc": "2026-11-08T16:32:54.585656+00:00",
+  "receipt": "artifacts/runner-readiness-next-twenty-project-pass/storage/bc396c90090f4974a013c1999dd2b81a/observed.json",
+  "receipt_sha256": "f3a629f30c2c75307604e68e9a7783b22372cc6ed3d119a4b0f9140ce90a327c",
+  "schema_version": 1,
+  "scope": "Actual post-relocation logical byte observation. Preserves the immediately prior over-cap observation; no peak/allocation/quota claim. Relocated files contain only local tests/harness diagnostics, no target project scenarios or admission evidence.",
+  "status": "within all declared logical storage caps after relocating only current-session synthetic test and harness-diagnostic outputs into the campaign temporary area; all bytes preserved and indexed. Four new admissions; Taskell active/unadmitted; campaign incomplete."
+}

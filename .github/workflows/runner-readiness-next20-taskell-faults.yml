@@ -8,7 +8,9 @@ on:
       - .github/workflows/runner-readiness-next20-taskell-faults.yml
       - scripts/acceptance/next20_taskell_faults.py
       - scripts/acceptance/next20_source_tree.py
+      - scripts/acceptance/next20_check.py
       - scripts/acceptance/next20_taskell_stack_override.py
+      - scripts/acceptance/next20_taskell_llvm.py
       - docs/validation/runner-readiness-next-twenty-project-pass/taskell/fault-declaration-native-exit-v1.json
       - docs/validation/runner-readiness-next-twenty-project-pass/taskell/native-runtime-lock-native-exit-v1.json
       - docs/validation/runner-readiness-next-twenty-project-pass/replacement-candidate-freeze-native-exit-v1.json
@@ -144,6 +146,10 @@ jobs:
           python -B scripts/acceptance/next20_taskell_stack_override.py --compiler ghc-9.0.2
           echo "STACK_YAML=$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/toolchain/taskell/arm64-compiler-override/stack.yaml" >> "$GITHUB_ENV"
 
+      - name: Install signature-verified owned LLVM 12 toolchain for Apple Silicon
+        if: matrix.host_key == 'darwin'
+        run: python -B scripts/acceptance/next20_taskell_llvm.py --github-env "$GITHUB_ENV"
+
       - name: Build pristine native Taskell runtime and bind identity
         run: |
           set -euo pipefail
@@ -155,7 +161,7 @@ jobs:
           "$bin/taskell" -v
           cd "$GITHUB_WORKSPACE"
           python - <<'PY'
-          import hashlib,json,platform,subprocess
+          import hashlib,json,os,platform,subprocess
           from pathlib import Path
           root=Path('artifacts/runner-readiness-next-twenty-project-pass/active/taskell').resolve();binary=root/'native-build/bin/taskell'
           lock_path=Path('docs/validation/runner-readiness-next-twenty-project-pass/taskell/native-runtime-lock-native-exit-v1.json')
@@ -170,10 +176,14 @@ jobs:
           build={'schema_version':1,'runtime_kind':'native','source_pin':provenance['pin'],'binary_sha256':digest,
                  'binary_relative_path':binary.relative_to(root).as_posix(),'compiled_files':{'taskell':digest},'version_output':version,
                  'stack_version':subprocess.run(['stack','--version'],check=True,capture_output=True,text=True).stdout.strip(),
-                 'ghc_version':subprocess.run(['stack','exec','--','ghc','--numeric-version'],check=True,capture_output=True,text=True).stdout.strip(),
+                 'ghc_version':subprocess.run([subprocess.run(['stack','path','--compiler-exe'],check=True,capture_output=True,text=True).stdout.strip(),
+                                               '--numeric-version'],check=True,capture_output=True,text=True).stdout.strip(),
                  'host_os':platform.platform(),'host_architecture':platform.machine(),
                  'source_tree_manifest_sha256':hashlib.sha256((root/'acquisition.json').read_bytes()).hexdigest(),
                  'runtime_lock_sha256':runtime['native_runtime_lock_sha256'],'installed_globally':False}
+          manifest=os.environ.get('TASKELL_LLVM_MANIFEST')
+          build['llvm_manifest_sha256']=hashlib.sha256(Path(manifest).read_bytes()).hexdigest() if manifest else None
+          build['llvm_manifest_path']=str(Path(manifest).relative_to(Path.cwd())) if manifest else None
           (root/'build.json').write_text(json.dumps(build,sort_keys=True,indent=2)+'\n')
           print(json.dumps(build,sort_keys=True))
           PY
@@ -190,6 +200,7 @@ jobs:
             artifacts/runner-readiness-next-twenty-project-pass/taskell/fault-calibration-native-exit-v1/
             artifacts/runner-readiness-next-twenty-project-pass/taskell/fault-calibration-native-exit-v1-preflight/${{ matrix.host_key }}/
             artifacts/runner-readiness-next-twenty-project-pass/toolchain/taskell/arm64-compiler-override/
+            artifacts/runner-readiness-next-twenty-project-pass/toolchain/llvm/
             artifacts/runner-readiness-next-twenty-project-pass/active/taskell/build.json
             artifacts/runner-readiness-next-twenty-project-pass/active/taskell/runtime.json
             artifacts/runner-readiness-next-twenty-project-pass/active/taskell/installed-inventory.json

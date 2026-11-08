@@ -13,6 +13,7 @@ from adversarial_process import execute
 from next20_check import RAW,ROOT,DOC,NextCampaign
 from next20_candidate import executable
 from next20_python_setup import environment
+from next20_taskell_llvm import verify_tool_inventory
 from readiness_evidence import immutable_json,sha256
 
 
@@ -67,6 +68,14 @@ async def main():
     baseline.resolve(strict=True).relative_to(target.resolve(strict=True))
     if sha256(baseline)!=baseline_build['binary_sha256'] or sha256(baseline)!=runtime['native_sha256']:
         raise ValueError('Taskell pristine runtime binary identity differs')
+    if host=='darwin':
+        manifest_path=ROOT/baseline_build.get('llvm_manifest_path','')
+        if (not manifest_path.is_file() or sha256(manifest_path)!=baseline_build.get('llvm_manifest_sha256') or
+                os.environ.get('TASKELL_LLVM_MANIFEST')!=str(manifest_path)):
+            raise ValueError('Apple Silicon LLVM toolchain receipt differs from the pristine runtime build')
+        manifest=json.loads(manifest_path.read_text(encoding='utf-8'))
+        prefix=Path(manifest['tool_prefix']).resolve(strict=True)
+        verify_tool_inventory(prefix,manifest['files'])
     candidate=executable(args.candidate_series,host)
     canonical=package/'host-contracts'
     run_id=os.environ.get('GITHUB_RUN_ID') or uuid.uuid4().hex
@@ -79,6 +88,8 @@ async def main():
     build_env=environment(target);build_env['STACK_ROOT']=stack_root
     if os.environ.get('STACK_YAML'):
         build_env['STACK_YAML']=os.environ['STACK_YAML']
+    if os.environ.get('DYLD_LIBRARY_PATH'):
+        build_env['DYLD_LIBRARY_PATH']=os.environ['DYLD_LIBRARY_PATH']
     campaign=NextCampaign(phase='fault-calibration')
     failures=[];results=[]
 
@@ -176,6 +187,7 @@ async def main():
             failures.append(dict(fault=fault['id'],phase='result',failure='Baseline/mutated/restored qualification incomplete'))
     immutable_json(root/'summary.json',dict(schema_version=1,project='taskell',host=host,workflow_run_id=run_id,
         declaration_sha256=sha256(declaration_path),candidate_sha256=sha256(candidate),source_pin=declaration['source_pin'],
+        llvm_manifest_sha256=baseline_build.get('llvm_manifest_sha256'),
         calibrated_phases=sum(len(r['rows']) for r in results),required_phases=declaration['calibrations_per_host'],
         results=results,failures=failures,source_restored=source_files(source,provenance)==provenance['files'],
         project_admissions=0,scope='Three source faults with unchanged exact contracts, private archived runner and confirmed cleanup; not project admission.'))

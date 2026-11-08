@@ -1,0 +1,21 @@
+{
+  "additional_final_checks": [
+    "test_next20_campaign.NextCampaignTests.test_failed_engineering_command_exposes_its_retained_console passed with the wrapper evidence root explicitly inside campaign tmp",
+    "test_next20_skim_final_series.SkimFinalSeriesTests.test_profile_is_twelve_declared_batches_for_all_twenty_cases passed against active v25 declaration",
+    "py_compile passed for final modified helpers/declaration generators",
+    "YAML parse passed for the four scoped native hosted workflows",
+    "git diff --cached --check and git diff --check passed"
+  ],
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "full_suite": "python -m unittest test_next20_campaign test_readiness_evidence test_next20_skim_final_series test_next20_taskell_llvm -v",
+  "full_suite_result": "57 passed, 2 skipped; 48.112 seconds.",
+  "not_admission_evidence": true,
+  "observed_at_utc": "2026-11-08T16:49:01.441954+00:00",
+  "schema_version": 1,
+  "scratch": "The CLI-wrapper regression now accepts --raw-root constrained beneath the campaign root; the test directs generated command evidence under tmp.",
+  "skip_reason": "Local Windows token cannot query Get-CimInstance Win32_Process (WMI HRESULT 0x80041003); the standard hosted Windows execution remains required.",
+  "skipped_tests": [
+    "test_native_large_cleanup_requires_matching_explicit_bound",
+    "test_native_target_removal_refuses_changed_payload_then_removes_exact_owned_fixture"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "commands": [
+    "python -m unittest test_next20_campaign test_readiness_evidence test_next20_skim_final_series -v",
+    "python -m py_compile scripts/acceptance/adversarial_process.py scripts/acceptance/next20_check.py scripts/acceptance/next20_git_town_final_series.py scripts/acceptance/next20_git_town_final_declare_v24.py scripts/acceptance/next20_skim_final_plan_audit.py scripts/acceptance/next20_skim_final_series.py scripts/acceptance/next20_skim_final_declare_v23.py scripts/acceptance/next20_taskell_faults.py scripts/acceptance/next20_taskell_llvm.py scripts/acceptance/readiness_evidence.py scripts/acceptance/test_next20_campaign.py scripts/acceptance/test_next20_skim_final_series.py scripts/acceptance/test_readiness_evidence.py"
+  ],
+  "not_admission_evidence": true,
+  "observed_at_utc": "2026-11-08T16:32:54.585656+00:00",
+  "result": "55 tests passed, 2 tests skipped; Python compilation passed for all changed/new helpers and focused test modules.",
+  "schema_version": 1,
+  "scratch_preservation": "497 files / 5,453,931 bytes moved unchanged under the campaign tmp area, with per-file original/destination paths and SHA-256 in the hashed relocation index. This was test and harness diagnostic data only; no target scenarios or project evidence were relocated.",
+  "skip_reason": "The current local Windows token is denied Get-CimInstance Win32_Process by WMI (HRESULT 0x80041003). The tests now probe observer availability and skip explicitly when absent; exact native cleanup validation remains required on the already-authorized standard GitHub-hosted Windows workflow.",
+  "skipped_tests": [
+    "test_native_large_cleanup_requires_matching_explicit_bound",
+    "test_native_target_removal_refuses_changed_payload_then_removes_exact_owned_fixture"
+  ]
+}

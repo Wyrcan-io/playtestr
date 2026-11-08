@@ -1,0 +1,17 @@
+{
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "commands": [
+    "python -m unittest test_next20_campaign test_readiness_evidence test_next20_skim_final_series test_next20_taskell_llvm -v",
+    "python -m py_compile scripts/acceptance/adversarial_process.py scripts/acceptance/next20_check.py scripts/acceptance/next20_git_town_final_series.py scripts/acceptance/next20_git_town_final_declare_v25.py scripts/acceptance/next20_skim_final_plan_audit.py scripts/acceptance/next20_skim_final_series.py scripts/acceptance/next20_skim_final_declare_v24.py scripts/acceptance/next20_taskell_faults.py scripts/acceptance/next20_taskell_llvm.py scripts/acceptance/readiness_evidence.py scripts/acceptance/test_next20_campaign.py scripts/acceptance/test_next20_skim_final_series.py scripts/acceptance/test_next20_taskell_llvm.py scripts/acceptance/test_readiness_evidence.py"
+  ],
+  "not_admission_evidence": true,
+  "observed_at_utc": "2026-11-08T16:40:23.934337+00:00",
+  "result": "57 tests passed, 2 tests skipped; Python compilation and YAML parsing of Taskell final/fault, Git Town final, and Skim final workflows passed.",
+  "schema_version": 1,
+  "scratch_preservation": "All generated local synthetic-test/harness files remain byte-identical under the campaign tmp area with per-file mapping and SHA-256 in relocation indexes v1/v2.",
+  "skip_reason": "The current local Windows token is denied Get-CimInstance Win32_Process by WMI (HRESULT 0x80041003). The tests probe observer availability and skip only under this condition; exact native cleanup checks remain required on the authorized standard GitHub-hosted Windows workflow.",
+  "skipped_tests": [
+    "test_native_large_cleanup_requires_matching_explicit_bound",
+    "test_native_target_removal_refuses_changed_payload_then_removes_exact_owned_fixture"
+  ]
+}

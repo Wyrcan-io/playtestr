@@ -237,6 +237,19 @@ async def stop(proc):
                 killer.kill()
                 await asyncio.wait_for(killer.wait(),timeout=2)
             await close_transport(killer)
+        # taskkill reports when its request completes, not when asyncio has
+        # reaped the owned direct child. Reap it here so its pipe transports can
+        # reach EOF before the caller performs bounded draining and closes them.
+        try:
+            await asyncio.wait_for(asyncio.shield(proc.wait()),timeout=5)
+        except asyncio.TimeoutError:
+            # Preserve taskkill's process-tree attempt, then force the exact
+            # child handle if Windows left it alive. Never report cleanup as
+            # complete unless this owned process has actually been reaped.
+            proc.kill()
+            await asyncio.wait_for(asyncio.shield(proc.wait()),timeout=3)
+        if proc.returncode is None:
+            raise RuntimeError('owned Windows child was not reaped after taskkill')
     else:
         termination_errors=[]
         before=await unix_process_inventory()

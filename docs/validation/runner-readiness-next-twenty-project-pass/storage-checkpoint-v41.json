@@ -1,0 +1,47 @@
+{
+  "actual_bytes": {
+    "combined_curated": 24614851,
+    "combined_raw": 3917220653,
+    "combined_retained": 2147474246,
+    "new_campaign_raw": 2008512081,
+    "new_curated": 12958607,
+    "project": 1002
+  },
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "caps_bytes": {
+    "combined_curated": 52428800,
+    "combined_raw": 6442450944,
+    "combined_retained": 2147483648,
+    "new_campaign_raw": 4294967296,
+    "new_curated": 26214400,
+    "project": 67108864
+  },
+  "headroom_bytes": {
+    "combined_curated": 27813949,
+    "combined_raw": 2525230291,
+    "combined_retained": 9402,
+    "new_campaign_raw": 2286455215,
+    "new_curated": 13255793,
+    "project": 67107862
+  },
+  "observed_at_utc": "2026-11-08T16:49:01.441954+00:00",
+  "preserved_local_test_scratch": [
+    {
+      "expanded_bytes": 5453931,
+      "files": 497,
+      "path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/local-validation-scratch-v1/relocation-index.json",
+      "sha256": "a5b2173dfa10b69046691c5c3cba8ea813dee5cb4e7a3d0989992181ae11dd0d"
+    },
+    {
+      "expanded_bytes": 1394697,
+      "files": 122,
+      "path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/local-validation-scratch-v2/relocation-index.json",
+      "sha256": "dd674a2fe0704ef427451916cf4e7ddea4f9a2c0f0c5833ee6add24b31bd12bb"
+    }
+  ],
+  "receipt": "artifacts/runner-readiness-next-twenty-project-pass/storage/432ddd585e5d495da68610694e16aa12/observed.json",
+  "receipt_sha256": "b077e1993bb31e42d262fe63566df2103216d845044c367e1f6f3ec7517eb09f",
+  "schema_version": 1,
+  "scope": "Point-in-time observation after final local checks and test-scratch relocation. The previously observed over-cap measurement remains preserved. Retained headroom is 9,402 bytes; no peak/allocation/quota claim.",
+  "status": "Within all declared logical byte caps. All local synthetic test/harness files remain preserved with per-file path/hash indexes under the existing temporary area. Four new admissions; Taskell active/unadmitted; campaign incomplete."
+}

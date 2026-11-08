@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path
 import shutil
+import subprocess
 import sys
 import unittest
 import uuid
@@ -17,9 +18,25 @@ from readiness_evidence import Campaign, RAW as ORIGINAL_RAW
 from readiness_evidence import immutable_json,sha256
 
 
+def native_windows_process_observer_available():
+    """Detect whether this Windows token can run the WMI cleanup oracle."""
+    if os.name!='nt':
+        return False
+    try:
+        result=subprocess.run(['powershell.exe','-NoProfile','-NonInteractive','-Command',
+            "$ErrorActionPreference='Stop'; Get-CimInstance -ClassName Win32_Process -ErrorAction Stop | Select-Object -First 1 -ExpandProperty ProcessId"],
+            capture_output=True,text=True,timeout=10)
+    except (OSError,subprocess.TimeoutExpired):
+        return False
+    return result.returncode==0 and bool(result.stdout.strip())
+
+
+WINDOWS_PROCESS_OBSERVER_AVAILABLE=native_windows_process_observer_available()
+
+
 class NextCampaignTests(unittest.TestCase):
     def setUp(self):
-        self.root=RAW/'control-tests'/uuid.uuid4().hex
+        self.root=RAW/'tmp'/'control-tests'/uuid.uuid4().hex
         self.campaign=NextCampaign(self.root)
 
     def test_command_timeout_bound_accepts_final_series_and_rejects_excess(self):
@@ -299,6 +316,23 @@ class NextCampaignTests(unittest.TestCase):
         import hashlib
         self.assertEqual(catalog['files'][path.relative_to(ROOT).as_posix()],hashlib.sha256(path.read_bytes()).hexdigest())
 
+    def test_stack_build_cache_is_excluded_from_bounded_source_identity(self):
+        target=self.root/'active'/'stack-cache-control'
+        source=target/'src';source.mkdir(parents=True)
+        tracked=source/'Main.hs';tracked.write_bytes(b'main = pure ()\n')
+        cache=source/'.stack-work'/'install'/'large-cache.bin';cache.parent.mkdir(parents=True)
+        with cache.open('wb') as stream:
+            stream.seek(64*1024**2);stream.write(b'cache')
+        first=self.campaign.identity('stack-cache-control',[sys.executable,'-B','-c','pass'])
+        cache.write_bytes(b'changed generated compiler cache')
+        second=self.campaign.identity('stack-cache-control',[sys.executable,'-B','-c','pass'])
+        self.assertEqual(first['sha256'],second['sha256'])
+        manifest=json.loads((self.root/'identities'/(second['sha256']+'.json')).read_text())
+        catalog=json.loads((self.root/manifest['target_catalog']['manifest']).read_text())
+        self.assertEqual(catalog['excluded_generated_roots'],['.git','.stack-work'])
+        self.assertIn(tracked.relative_to(ROOT).as_posix(),catalog['files'])
+        self.assertNotIn(cache.relative_to(ROOT).as_posix(),catalog['files'])
+
     def test_owned_node_runtime_catalog_rejects_changed_executable(self):
         # Identity-only synthetic bytes; this does not claim Node execution.
         legacy=self.root/'active/python-control';legacy.mkdir(parents=True)
@@ -356,17 +390,20 @@ class NextCampaignTests(unittest.TestCase):
 
     def test_failed_engineering_command_exposes_its_retained_console(self):
         marker='synthetic-failed-command-output-visible'
+        command_raw=self.root/'wrapper-command'
         async def check():
             return await execute([sys.executable,'-B',ROOT/'scripts/acceptance/next20_check.py',
-                '--label','failed-console-regression-'+uuid.uuid4().hex,'--timeout','15','--',
+                '--label','failed-console-regression-'+uuid.uuid4().hex,'--timeout','15',
+                '--raw-root',command_raw,'--',
                 sys.executable,'-B','-c','import sys; print('+repr(marker)+'); sys.exit(3)'],
-                'core','failed-console-visibility-control',cwd=ROOT,env=owned_environment(),timeout=30,
+                'core','failed-console-visibility-control',cwd=ROOT,env=owned_environment(command_raw),timeout=30,
                 expected=1,campaign=self.campaign)
         result=asyncio.run(check())
         self.assertIn(marker,result['output'])
         self.assertIn('expected exit 0, got 3',result['output'])
 
-    @unittest.skipUnless(os.name=='nt','native Windows checked target removal control')
+    @unittest.skipUnless(WINDOWS_PROCESS_OBSERVER_AVAILABLE,
+        'native Windows WMI process observer unavailable to this token; run on standard hosted Windows')
     def test_native_large_cleanup_requires_matching_explicit_bound(self):
         workspace=self.root/'fixture-workspace'
         script=workspace/'scripts/acceptance/next20_remove_target.ps1';script.parent.mkdir(parents=True)
@@ -389,7 +426,8 @@ class NextCampaignTests(unittest.TestCase):
         asyncio.run(run(0,['-MaxFiles','60000','-MaxBytes','2147483648'],'native-large-cleanup-explicit-bound'))
         self.assertFalse(target.exists())
 
-    @unittest.skipUnless(os.name=='nt','native Windows checked target removal control')
+    @unittest.skipUnless(WINDOWS_PROCESS_OBSERVER_AVAILABLE,
+        'native Windows WMI process observer unavailable to this token; run on standard hosted Windows')
     def test_native_target_removal_refuses_changed_payload_then_removes_exact_owned_fixture(self):
         # This is an actual native filesystem/process-observer guard control,
         # not target restoration or application compatibility evidence.

@@ -1,0 +1,47 @@
+{
+  "actual_bytes": {
+    "combined_curated": 24581805,
+    "combined_raw": 3915602856,
+    "combined_retained": 2147364371,
+    "new_campaign_raw": 2006894284,
+    "new_curated": 12925561,
+    "project": 1002
+  },
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "caps_bytes": {
+    "combined_curated": 52428800,
+    "combined_raw": 6442450944,
+    "combined_retained": 2147483648,
+    "new_campaign_raw": 4294967296,
+    "new_curated": 26214400,
+    "project": 67108864
+  },
+  "headroom_bytes": {
+    "combined_curated": 27846995,
+    "combined_raw": 2526858088,
+    "combined_retained": 119277,
+    "new_campaign_raw": 2288073012,
+    "new_curated": 13288839,
+    "project": 67107862
+  },
+  "observed_at_utc": "2026-11-08T16:40:23.934337+00:00",
+  "preserved_local_test_scratch": [
+    {
+      "expanded_bytes": 5453931,
+      "files": 497,
+      "path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/local-validation-scratch-v1/relocation-index.json",
+      "sha256": "a5b2173dfa10b69046691c5c3cba8ea813dee5cb4e7a3d0989992181ae11dd0d"
+    },
+    {
+      "expanded_bytes": 1394697,
+      "files": 122,
+      "path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/local-validation-scratch-v2/relocation-index.json",
+      "sha256": "dd674a2fe0704ef427451916cf4e7ddea4f9a2c0f0c5833ee6add24b31bd12bb"
+    }
+  ],
+  "receipt": "artifacts/runner-readiness-next-twenty-project-pass/storage/72c5268dee0640df9e7500273b05bdfb/observed.json",
+  "receipt_sha256": "eea54bc271215c11ecaccf11e213418605292db194e4fa1cac279f22a43951d3",
+  "schema_version": 1,
+  "scope": "Point-in-time logical byte observation after final scoped regressions. The immediately prior over-cap observation and its raw receipt remain preserved. No peak/allocation/quota claim.",
+  "status": "Within all declared logical storage caps after preserving all local synthetic test/harness bytes under the campaign temporary area with per-file path/hash indexes. Four new admissions; Taskell active/unadmitted; campaign incomplete."
+}

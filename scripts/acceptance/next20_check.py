@@ -72,6 +72,11 @@ class NextCampaign(Campaign):
         if source.exists():
             for path in sorted(source.rglob('*')):
                 relative=path.relative_to(source).as_posix()
+                # Stack owns this compiler cache beneath the source checkout.
+                # It is execution output, not pinned target source, and can grow
+                # far beyond the bounded source identity scan after a build.
+                if Path(relative).parts[0]=='.stack-work':
+                    continue
                 if '.git' in Path(relative).parts:
                     continue
                 if relative in omitted:
@@ -108,6 +113,7 @@ class NextCampaign(Campaign):
                     raise ValueError('compiled native runtime lacks matching build provenance')
             files[executable.relative_to(ROOT).as_posix()]=value[kind+'_sha256']
         catalog=dict(schema_version=1,project=project,files=files,
+            excluded_generated_roots=['.git','.stack-work'],
             dependency_scope='Installed dependency inventory must additionally be verified before/after each batch; no summary-only runtime credit')
         encoded=(json.dumps(catalog,sort_keys=True,ensure_ascii=True,indent=2)+'\n').encode()
         digest=hashlib.sha256(encoded).hexdigest()
@@ -125,7 +131,9 @@ class NextCampaign(Campaign):
         return dict(manifest=path.relative_to(self.raw).as_posix(),sha256=digest)
 
 
-def owned_environment():
+def owned_environment(raw=RAW):
+    raw=Path(raw).resolve()
+    raw.relative_to(RAW.resolve())
     env = dict(os.environ)
     env.update(PYTHONIOENCODING='utf-8', PYTHONDONTWRITEBYTECODE='1',
                GODEBUG='http2client=0')
@@ -136,10 +144,10 @@ def owned_environment():
                          ('GOPATH', 'gopath'), ('GOMODCACHE', 'gopath/pkg/mod'),
                          ('XDG_CACHE_HOME', 'gh-cache'),
                          ('LOCALAPPDATA', 'gh-cache')]:
-        path = RAW/folder
+        path = raw/folder
         path.mkdir(parents=True, exist_ok=True)
         env[name] = str(path)
-    cache = RAW/'shell-cache/module-analysis'
+    cache = raw/'shell-cache/module-analysis'
     cache.parent.mkdir(parents=True, exist_ok=True)
     env['PSModuleAnalysisCachePath'] = str(cache)
     return env
@@ -151,6 +159,8 @@ def main():
     parser.add_argument('--label', required=True)
     parser.add_argument('--timeout', type=bounded_command_timeout, default=300)
     parser.add_argument('--expected', type=int, default=0)
+    parser.add_argument('--raw-root', type=Path, default=RAW,
+                        help='campaign-owned evidence root (defaults to the active campaign root)')
     parser.add_argument('command', nargs=argparse.REMAINDER)
     args = parser.parse_args()
     argv = args.command
@@ -160,8 +170,8 @@ def main():
         parser.error('command required')
     try:
         result = asyncio.run(execute(argv, 'core', args.label, cwd=ROOT,
-                                    env=owned_environment(), timeout=args.timeout,
-                                    expected=args.expected, campaign=NextCampaign()))
+                                    env=owned_environment(args.raw_root), timeout=args.timeout,
+                                    expected=args.expected, campaign=NextCampaign(args.raw_root)))
     except Exception as error:
         directory=getattr(error,'evidence_directory',None)
         if directory:

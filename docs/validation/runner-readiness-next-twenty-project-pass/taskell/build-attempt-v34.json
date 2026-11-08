@@ -1,0 +1,49 @@
+{
+  "admission_credit": 0,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "candidate": "v0.4.0-rc.6",
+  "candidate_series": "native-exit-v1",
+  "hosts": [
+    {
+      "artifact": {
+        "bytes": 9700848,
+        "id": 13624376318,
+        "name": "taskell-final-native-exit-v1-linux",
+        "sha256": "ab86dba0c535dd5c385eb9706e5c321193cd9f20fc21f6a14536355d56edb684"
+      },
+      "candidate_cli_launches": 12,
+      "failure": "Every batch was refused during bounded prelaunch identity because Stack generated .stack-work beneath the pinned source checkout and the identity scanner counted it against its 64 MiB source bound. No Taskell scenario ran.",
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128782846672,
+      "native_target_build": "passed; Taskell 1.11.4; binary SHA-256 b48fafce3266a0bf20eb5eb84dffa5431e66cea606e088807213b4ca373fe696",
+      "ordinary_batches_attempted": 12,
+      "source_acquisition": "passed; exact pinned source and provenance verified",
+      "target_launches": 0,
+      "upstream_tests": "passed; 250 tests"
+    },
+    {
+      "artifact": {
+        "bytes": 1853087,
+        "id": 13624160732,
+        "name": "taskell-final-native-exit-v1-darwin",
+        "sha256": "1e1bee891e2f92431dea3908ca3328f19f25c935199942ec464eef2406cce855"
+      },
+      "failure": "GHC 9.0.2 was installed and frozen Stack override selected, but Apple Silicon GHC requires LLVM 9-12 opt/llc. The job stopped before pinned tests/build/scenarios.",
+      "host": "macos-15-arm64",
+      "job_id": 128782846466,
+      "native_target_build": "not completed; GHC 9.0.2 attempted to invoke opt, but LLVM was absent",
+      "ordinary_batches_attempted": 0,
+      "source_acquisition": "passed; exact pinned source and provenance verified",
+      "target_launches": 0,
+      "upstream_tests": "not run; build failed first"
+    }
+  ],
+  "project": "taskell",
+  "repair_status": "Stack-generated .stack-work is now excluded from pinned-source identity while the actual frozen files and modes remain bound. macOS now acquires the exact MacPorts LLVM 12 package, verifies its signify signature with the pinned MacPorts base key, bounds extraction to an owned toolchain root, validates opt/llc versions/backends, and records package/toolchain hashes.",
+  "run_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/42496545392",
+  "schema_version": 1,
+  "scope": "Both hosts zero scenario credit; preserve this source-identity and missing-toolchain failure; no admission or calibration credit.",
+  "source_pin": "a2df95f26762fc3e78d6f131cea7fc1f3b13bd47",
+  "source_revision": "b12c41ca706b08d4ffdf5131e0669c1671331884",
+  "workflow_run_id": 42496545392
+}

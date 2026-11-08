@@ -179,7 +179,7 @@ jobs:
         run: |
           $target = Join-Path $env:GITHUB_WORKSPACE 'artifacts/runner-readiness-next-twenty-project-pass/active/skim'
           if (Test-Path -LiteralPath $target) {
-            python -B scripts/acceptance/next20_check.py --label skim-final-cleanup-preflight --timeout 300 -- python -B scripts/acceptance/next20_target_cleanup.py --project skim --prepare-only --include-active-case-evidence --retain-owned-directory case-evidence --max-files 60000 --max-bytes 2147483648
+            python -B scripts/acceptance/next20_check.py --label skim-final-cleanup-preflight --timeout 300 -- python -B scripts/acceptance/next20_target_cleanup.py --project skim --prepare-only --include-active-case-evidence --no-case-reports --retain-owned-directory case-evidence --max-files 60000 --max-bytes 2147483648
             if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           } else { Write-Output 'No Skim target tree was created; cleanup not applicable.' }
       - name: Remove checked Windows target tree

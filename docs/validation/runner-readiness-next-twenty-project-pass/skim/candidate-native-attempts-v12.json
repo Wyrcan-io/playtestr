@@ -1,0 +1,47 @@
+{
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "candidate": "v0.4.0-rc.6",
+  "candidate_launches_total": 0,
+  "candidate_series": "native-exit-v1",
+  "fault_calibrations_total": 0,
+  "hosts": [
+    {
+      "artifact": {
+        "bytes": 4401150,
+        "id": 13624220623,
+        "name": "next20-skim-linux-rc6-final",
+        "sha256": "22a4debf09b70443153e20d1252cdd01bef5b75b3c196f7edb8043b60620a316"
+      },
+      "cleanup_preflight": "refused because no case reports existed, although source freeze confirmed no case-evidence was created",
+      "final_preflight": "refused before candidate case launch; v22 declaration contained stale next20_acquire.py hash",
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128780006498,
+      "source_and_target_build": "passed",
+      "target_launches": 0
+    },
+    {
+      "artifact": {
+        "bytes": 4716727,
+        "id": 13623477895,
+        "name": "next20-skim-windows-rc6-final",
+        "sha256": "ae1153786b73bceda5495850f445fc31d5aa6de28538828a206d5523ab551286"
+      },
+      "cleanup_preflight": "refused because no case reports existed, although source freeze confirmed no case-evidence was created",
+      "final_preflight": "refused before candidate case launch; v22 declaration contained stale next20_acquire.py hash",
+      "host": "windows-2025",
+      "job_id": 128780006811,
+      "source_and_target_build": "passed",
+      "target_launches": 0
+    }
+  ],
+  "new_qualification_credit": 0,
+  "ordinary_attempts_total": 0,
+  "prior_declaration": "final-series-declaration-native-exit-v22.json",
+  "project": "skim",
+  "repair_status": "Staged-byte-sourced v23 declaration refreshes harness hashes; cleanup command uses --no-case-reports only for the explicit zero-case path, whose cleanup helper independently verifies the case-evidence root is empty before preparing removal. Prior preflight failures remain preserved.",
+  "result": "Both hosts built the source but candidate cases did not launch; no ordinary, calibration, or admission credit.",
+  "schema_version": 1,
+  "workflow_commit": "b12c41ca706b08d4ffdf5131e0669c1671331884",
+  "workflow_run_id": 42496545584,
+  "workflow_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/42496545584"
+}

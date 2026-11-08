@@ -1,0 +1,49 @@
+{
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "candidate": "v0.4.0-rc.6",
+  "candidate_launches_total": 0,
+  "candidate_series": "native-exit-v1",
+  "declaration": "final-series-declaration-native-exit-v23.json",
+  "fault_calibrations_total": 0,
+  "hosts": [
+    {
+      "artifact": {
+        "bytes": 6739453,
+        "id": 13624145688,
+        "name": "next20-git-town-linux-final-native-exit-v1",
+        "sha256": "d9af5c4e0fd3f275b254c70593acb42de2b4228c9e9ca0a2dee7ec3f615eab5e"
+      },
+      "cleanup": "passed; source/runtime removed under checked cleanup",
+      "final_series": "refused before case launch; active declaration did not bind the updated shared next20_jrnl_final.py fallback",
+      "host": "linux",
+      "job_id": 128780006524,
+      "ordinary_attempts": 0,
+      "source_and_target_build": "passed",
+      "target_launches": 0
+    },
+    {
+      "artifact": {
+        "bytes": 6836187,
+        "id": 13624255368,
+        "name": "next20-git-town-windows-final-native-exit-v1",
+        "sha256": "2f4783e279f9065cefd51db482dd08fb27a6a0ead2d983235199b777cc55dcc0"
+      },
+      "cleanup": "passed; source/runtime removed under checked cleanup",
+      "final_series": "refused before case launch; active declaration did not bind the updated shared next20_jrnl_final.py fallback",
+      "host": "windows-2025",
+      "job_id": 128780005986,
+      "ordinary_attempts": 0,
+      "source_and_target_build": "passed",
+      "target_launches": 0
+    }
+  ],
+  "new_qualification_credit": 0,
+  "ordinary_attempts_total": 0,
+  "project": "git-town",
+  "repair_status": "A staged-byte-sourced v24 declaration now supersedes v23 and binds the current shared harness. Prior zero-launch outcome retained.",
+  "result": "Both hosted targets built but no candidate case ran; no admission or calibration credit.",
+  "schema_version": 1,
+  "workflow_commit": "b12c41ca706b08d4ffdf5131e0669c1671331884",
+  "workflow_run_id": 42496545476,
+  "workflow_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/42496545476"
+}
