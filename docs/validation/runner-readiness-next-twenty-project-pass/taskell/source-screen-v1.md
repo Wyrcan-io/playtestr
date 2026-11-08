@@ -29,6 +29,18 @@ Linux on run `42455300421` passed all 250 upstream tests, built Taskell and Play
 
 The prior Skim cleanup receipt predated a later local target tree. Its exact ownership marker, acquisition record, and pinned source were restored from the retained archive and verified against all 819 provenance entries. Two local case-report event triplets were copied byte-identically and hash-verified in `skim/local-residual-case-evidence-v1`. A fresh native Windows PID inspection and an immediate pre-delete target revalidation passed; the exact 854-file / 213,911,372-byte tree was removed via the checked PowerShell path. Preparation and removal evidence is in `skim/local-residual-cleanup-v1-{prepared,removed}.json`. Fresh campaign storage observation passes with Taskell as the sole active target. The narrow evidence-reader change accepts a UTF-8 BOM in a process proof and retains all other identity and inventory checks.
 
+The Linux job on `42456298245` passed the same pinned 250-test suite and native
+build, repeated the authored smoke, then completed the public recorder route:
+review, fresh replay (6/6), JSON export, and ordinary `playtestr test` (1/1,
+6/6 steps). Both reports show exact exit 0, saved Markdown bytes, process-group
+termination, and workspace cleanup. The exported spec, both reports, recorder
+console and control inputs, fixture, runner and host identity receipts are
+retained in `first-use-attempts/42456298245-linux-first-use.tar.gz` with a
+member hash manifest. Receipt `build-attempt-v18.json` binds the provider
+artifact and target/runner binary hashes. MacOS Intel on that run remains in
+the upstream test phase; Linux alone does not establish a native cell or
+admission.
+
 ## Hosted follow-up (2026-11-08)
 
 Run `42449961171` (source `9e1ebc3`) passed all 250 upstream tests and built
@@ -92,7 +104,8 @@ executables, launched Taskell and passed the initial screen checks. It then
 failed the authored state checkpoint before sending `q`: the post-space
 `Review sample` assertion matched the unchanged initial text immediately
 (0 ms), and the same-execution state read was premature. The actual report and
-screen are retained under `first-use-attempts/42452701639-linux/`; Playtestr
+screen are retained in `first-use-attempts/first-use-attempts-v1.tar.gz` under
+`42452701639-linux/`; Playtestr
 confirmed process-group termination and workspace cleanup. This is an
 authoring/timing failure, not evidence of a Taskell defect. The case now sends
 `q`, requires exact exit 0, then checks saved bytes after exit. MacOS for that
@@ -101,7 +114,8 @@ run was still compiling at this update; the corrected case is next.
 The Linux leg of run `42453888286` then passed the authored smoke: all six
 steps, exact exit 0, saved-state bytes, process-tree cleanup and workspace
 cleanup. Its report and binary identities are retained under
-`first-use-attempts/42453888286-linux/`. The following no-JSON recorder step
+`first-use-attempts/first-use-attempts-v1.tar.gz` under `42453888286-linux/`.
+The following no-JSON recorder step
 failed before target launch because that separate workflow step omitted the
 Taskell binary directory from `PATH`; `build-attempt-v14.json` records this
 split result. Pinned `PATH` export is now included for the next native run.
@@ -109,6 +123,7 @@ MacOS on `42453888286` was still in upstream tests when recorded.
 
 MacOS Intel on run `42452701639` later reproduced the same premature state
 checkpoint failure. Its actual report and screen are in
-`first-use-attempts/42452701639-macos/`, with toolchain and binary identities
+`first-use-attempts/first-use-attempts-v1.tar.gz` under `42452701639-macos/`,
+with toolchain and binary identities
 in `build-attempt-v15.json`. Both old-host cases are preserved; the first
 post-exit authored smoke result is Linux-only at this point.

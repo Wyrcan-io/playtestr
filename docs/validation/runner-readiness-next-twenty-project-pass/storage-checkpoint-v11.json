@@ -20,7 +20,7 @@
   },
   "failed": [],
   "observed_at_utc": "2026-11-08T01:08:34.011373+00:00",
-  "receipt": "artifacts/runner-readiness-next-twenty-project-pass/storage/a5d15845a54a4e279f04753b50abf1e5/observed.json",
+  "receipt": "artifacts/runner-readiness-next-twenty-project-pass/storage/storage-observations-v1.tar.xz#a5d15845a54a4e279f04753b50abf1e5/observed.json",
   "receipt_sha256": "c029d50fecccb2ea1c49d2e6aa8a948c01034a825120ee67c0feebd436411f99",
   "headroom_combined_retained_bytes": 274884,
   "transient_over_cap_observation": {
@@ -30,5 +30,7 @@
     "cause": "local Windows V14 plan and contract pack was temporarily retained outside tmp",
     "remediation": "moved immutable local plan/audit and contract pack into campaign tmp; reran storage check successfully; all evidence retained"
   },
-  "scope": "Fresh logical-byte observation after preserving V14 local plan/audit and moving its large local pack to campaign temporary raw storage. Not an exact peak or quota claim."
+  "scope": "Fresh logical-byte observation after preserving V14 local plan/audit and moving its large local pack to campaign temporary raw storage. Not an exact peak or quota claim.",
+  "receipt_archive_index": "artifacts/runner-readiness-next-twenty-project-pass/storage/storage-observations-v1-index.json",
+  "receipt_archive_sha256": "e0fab6cfc227e7da3fc5e5d7b0081fe718190badca8fbdf83d1456615e3edce4"
 }

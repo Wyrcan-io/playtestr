@@ -108,7 +108,8 @@ The Linux leg of `42452701639` has now launched Taskell. The upstream suite
 passed; initial screen and text input passed; the state checkpoint failed
 before exit because its `Review sample` expectation matched stale initial text
 in 0 ms. Same-run report and screen are retained under
-`taskell/first-use-attempts/42452701639-linux/`; process-group cleanup and
+`taskell/first-use-attempts/first-use-attempts-v1.tar.gz` under
+`42452701639-linux/`; process-group cleanup and
 workspace removal were confirmed. The case now sends quit, asserts exact exit
 0, then checks final saved bytes. No target-defect or admission credit from the
 premature state check. MacOS is still in upstream tests; the corrected case
@@ -118,7 +119,8 @@ Ubuntu on run `42453888286` completed one passing authored case on the exact
 runner and Taskell binaries. All six steps passed, including exit 0, exact
 saved board bytes, confirmed process-group termination and workspace removal.
 The readback report/host/runner/recorder console are retained under
-`taskell/first-use-attempts/42453888286-linux/`, and toolchain/binary hashes
+`taskell/first-use-attempts/first-use-attempts-v1.tar.gz` under
+`42453888286-linux/`, and toolchain/binary hashes
 are bound in `build-attempt-v14.json`. The subsequent no-JSON recorder failed
 before target launch because its independent workflow step omitted the target
 directory from PATH. That environment is corrected for the next run. MacOS
@@ -128,8 +130,9 @@ credit is claimed.
 Run `42452701639` is now complete on both native hosts. Linux and Intel macOS
 each passed 250 upstream tests and built Taskell/Playtestr, but both ran the
 old premature state checkpoint and failed before q/exit. Linux evidence is in
-`first-use-attempts/42452701639-linux/` with receipt `build-attempt-v13.json`;
-MacOS evidence is in `first-use-attempts/42452701639-macos/` with receipt
+`first-use-attempts/first-use-attempts-v1.tar.gz` under `42452701639-linux/`
+with receipt `build-attempt-v13.json`; MacOS evidence is in that archive under
+`42452701639-macos/` with receipt
 `build-attempt-v15.json`. The corrected post-exit case passed on Linux in
 `42453888286`; the same run's independent recorder environment failed because
 PATH omitted Taskell, now fixed in the next pushed workflow. Continue watching
@@ -158,3 +161,14 @@ ordinary `playtestr test` on the exact exported files. Then define and challenge
 the full Taskell case catalog and execute native repetitions and fault
 calibrations. Taskell still has zero scenario, native-cell, fault or admission
 credit; campaign remains 4/20 new admissions (14/30 cumulative).
+
+Linux on run `42456298245` now completed the public first-use route: reviewed
+candidate, successful fresh recorder replay, export, and ordinary runner test.
+The authored smoke and ordinary test reports both show 6/6 steps, exact exit,
+saved state, process-group cleanup and workspace deletion. Its curated eight-
+member packet and binary/artifact identities are recorded in
+`build-attempt-v18.json`. The run's Intel Mac lane remains in upstream tests.
+This validates one Linux first-use workflow only; it adds no scenario-series,
+native-cell, calibration or admission credit. Storage checkpoint v18 now passes
+all declared caps after losslessly compacting the historical storage receipts;
+retained headroom is 152,451 bytes. Continue storage-aware evidence handling.

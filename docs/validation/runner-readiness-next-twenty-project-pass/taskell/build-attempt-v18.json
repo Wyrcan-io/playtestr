@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42456298245,
+  "source_revision": "2b79dae2069dd0845979d31db9f950841f992c2e",
+  "event": "push",
+  "host": "ubuntu-24.04-x86_64",
+  "job_id": 128655926563,
+  "provider_artifact": {
+    "id": 13608186035,
+    "bytes": 11204692,
+    "sha256": "b211937d294c51d41c50a650a5dfe26f26ac15cfcf9e7b8e39e8fd1c22bc3e11"
+  },
+  "source_verified": true,
+  "upstream_tests_passed": 250,
+  "target": {
+    "version": "1.11.4",
+    "binary_bytes": 33207832,
+    "binary_sha256": "6099f625fc30ee1fefcef87c3aa40e34915b4b254b52f4276d940e976225dfd8",
+    "stack": "3.11.1",
+    "ghc": "9.0.1"
+  },
+  "playtestr": {
+    "go": "1.25.0",
+    "binary_bytes": 6928585,
+    "binary_sha256": "ab959273dc3419e8385e3b9a96f4af5d1449201e1fb18df0b0e763cd82b40fb3"
+  },
+  "authored_smoke": {
+    "report_sha256": "39f9f24fe03a3a6de35c98d511b02891043913e9042b4212da32035eb0d93793",
+    "result": "passed",
+    "steps": "6/6",
+    "exit_code": 0,
+    "saved_state_matched": true,
+    "process_group_termination_confirmed": true,
+    "workspace_cleaned": true
+  },
+  "public_recorder": {
+    "console_sha256": "bb009366caa710d109124a1a35a864dc5d7340ee6ae7c3fe3e88a5cb961cd26d",
+    "candidate_reviewed": true,
+    "steps": ["initial To Do readiness", "initial task readiness", "complete with space", "quit with q", "assert exact exit 0", "capture exact board bytes"],
+    "fresh_replay": "passed 6/6; observed in hosted job log",
+    "exported_spec_sha256": "71b9c71aa5b4ea4e58180fd2bdf6890cc290342ac21a01dca3a7a18c608017a2",
+    "ordinary_test": {
+      "report_sha256": "f2eef415b7ced7787f75afc3438c2a7d07d53935bb9dda00aa0a6cfaf9978d6a",
+      "result": "passed",
+      "cases": "1/1",
+      "steps": "6/6",
+      "exit_code": 0,
+      "saved_state_matched": true,
+      "process_group_termination_confirmed": true,
+      "workspace_cleaned": true
+    }
+  },
+  "curated_evidence": "first-use-attempts/42456298245-linux-first-use.tar.gz",
+  "curated_evidence_sha256": "f1c309beff29e550d6b0abfe083cc8a3b7093eb0636efecc4aa778dcddbf6b55",
+  "credit": "Linux first-use authoring, fresh replay, export, and ordinary-test path validated for one synthetic Taskell workflow. This is not a frozen 20-scenario catalog, native-cell series, fault calibration, or project admission."
+}

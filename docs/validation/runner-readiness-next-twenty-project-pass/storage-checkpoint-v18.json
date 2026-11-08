@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "status": "within declared logical storage caps; four new admissions on rc.6; campaign incomplete",
+  "observed_at_utc": "2026-11-08T07:04:57.548953+00:00",
+  "caps_bytes": {
+    "new_campaign_raw": 4294967296,
+    "combined_raw": 6442450944,
+    "combined_retained": 2147483648,
+    "new_curated": 26214400,
+    "combined_curated": 52428800,
+    "project": 67108864
+  },
+  "actual_bytes": {
+    "new_campaign_raw": 1997714761,
+    "combined_raw": 3906423333,
+    "combined_retained": 2147331197,
+    "new_curated": 11737608,
+    "combined_curated": 23393852,
+    "project": 1002
+  },
+  "headroom_bytes": {
+    "combined_retained": 152451,
+    "new_campaign_raw": 2297252535,
+    "combined_raw": 2536047611,
+    "new_curated": 14476792
+  },
+  "receipt": "artifacts/runner-readiness-next-twenty-project-pass/storage/7a4bde6ceb374bca967dcb89211e9e51/observed.json",
+  "receipt_sha256": "8adfe2e98d13447ac7ee72972d199ae76c49f05a2b9f737d840f7adb102d636f",
+  "storage_observation_archive": "artifacts/runner-readiness-next-twenty-project-pass/storage/storage-observations-v1.tar.xz",
+  "storage_observation_archive_sha256": "e0fab6cfc227e7da3fc5e5d7b0081fe718190badca8fbdf83d1456615e3edce4",
+  "compaction_receipt": "storage-observation-compaction-v1.json",
+  "scope": "Fresh logical-byte observation with Taskell as the only active target, after lossless archive/readback of prior immutable storage receipts. Not an exact peak, allocation, disk quota, or campaign completion claim."
+}
