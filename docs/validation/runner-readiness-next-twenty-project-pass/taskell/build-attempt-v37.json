@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "project": "taskell",
+  "candidate": "v0.4.0-rc.6",
+  "source_pin": "a2df95f26762fc3e78d6f131cea7fc1f3b13bd47",
+  "workflow_run_id": 42533986467,
+  "source_revision": "15b08c89163eb826598a94cdaa27af5bad412ac9",
+  "contract_window": "native-exit-v1-v2",
+  "admission_credit": 0,
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128896888118,
+      "conclusion": "success",
+      "artifact": {
+        "id": 13639426991,
+        "name": "taskell-final-native-exit-v1-linux",
+        "bytes": 11751675,
+        "sha256": "bd651c6872bad97465755ea6d6dd68df71def0bde0b68c43ec5342213b91463d"
+      },
+      "batches": 12,
+      "ordinary_executions": 252,
+      "target_build_and_upstream_tests": "passed",
+      "cleanup": "checked source and target cleanup passed"
+    },
+    {
+      "host": "macos-15-arm64",
+      "job_id": 128896888034,
+      "conclusion": "failure_before_target_build",
+      "failed_step": "Install signature-verified owned LLVM 12 toolchain for Apple Silicon",
+      "diagnostic": "The signed ICU package contains opt/local/sbin/gennorm2. The selected dylib extractor rejected this unmaterialized package utility before Taskell build or case launch.",
+      "artifact": {
+        "id": 13639465293,
+        "name": "taskell-final-native-exit-v1-darwin",
+        "bytes": 230976432,
+        "sha256": "56fac108b659dcfec6b4ae9c2e7015761d40f278692585b2a8e30c89a82afe8b"
+      },
+      "ordinary_batches_attempted": 0,
+      "target_launches": 0,
+      "cleanup": "checked no-case source cleanup passed; no target reports existed"
+    }
+  ],
+  "scope": "Preserves the exact v2 Taskell window attempt. Linux's successful native series remains provisional until macOS passes and both packets are independently audited. The macOS package-path refusal is a harness preparation failure, not a Taskell outcome."
+}

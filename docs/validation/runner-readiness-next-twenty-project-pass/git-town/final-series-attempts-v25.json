@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "project": "git-town",
+  "candidate": "v0.4.0-rc.6",
+  "workflow_run_id": 42533986432,
+  "source_revision": "15b08c89163eb826598a94cdaa27af5bad412ac9",
+  "previous_declaration": "final-series-declaration-native-exit-v30.json",
+  "admission_credit": 0,
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128894109713,
+      "conclusion": "failure_before_case_launch",
+      "failure": "The exact candidate was installed and Git Town was built from its pinned source, but final-series execution exited 1 because the frozen harness hash for next20_jrnl_final.py was stale.",
+      "target_cases_launched": 0,
+      "source_and_workspace_cleanup": "provider console reports checked source restoration and zero remaining target/workspace paths",
+      "artifact": {
+        "id": 13638232643,
+        "name": "next20-git-town-linux-final-native-exit-v1",
+        "bytes": 6784565,
+        "sha256": "369565378c01ea9e7d1de49efcaff3750b9458d936efda5e6ccb2452cb181b0a"
+      }
+    },
+    {
+      "host": "windows-2025-x86_64",
+      "job_id": 128894109970,
+      "conclusion": "failure_before_case_launch",
+      "failure": "The exact candidate was installed and Git Town was built from its pinned source, but final-series execution rejected the stale next20_jrnl_final.py harness hash.",
+      "target_cases_launched": 0,
+      "source_and_workspace_cleanup": "provider console reports exact source restoration, no owned target process, and checked source removal",
+      "artifact": {
+        "id": 13638254139,
+        "name": "next20-git-town-windows-final-native-exit-v1",
+        "bytes": 6883916,
+        "sha256": "7308dd26809b79ec5176f030502b0cf6a901904fe8d9c76dd908417a609cb238"
+      }
+    }
+  ],
+  "scope": "Both exact native attempts and their provider artifacts are retained as failed prelaunch windows. No scenario, fault, calibration, host-cell, or admission credit."
+}

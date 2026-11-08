@@ -14,20 +14,31 @@ models also rejected twelve semantic corruptions each in
 [model controls v3](skim-model-controls-v3.json). Skim's formal
 [admission](skim/admission.json) is complete and included in the exact-candidate
 ledger. Directional-key behavior and raw NUL framing remain explicit
-limitations. See [checkpoint v56](checkpoint-continuation-v56.md).
+limitations. The prior retained-storage overage is now resolved by the indexed
+exact-duplicate packet, leaving 511,102 bytes of measured retained headroom while
+Taskell remains active. See [checkpoint v57](checkpoint-continuation-v57.md) and
+[storage checkpoint v42](storage-checkpoint-v42.json).
 
-Taskell has zero rc.6 credit. Exact run `42531548193` built and passed the
-upstream tests on Linux, then failed E11M in eleven of twelve batches. The
-provider-read-back screen showed the expected parser diagnostic wrapped across
-the 80-column screen (`Could` / `ld not parse file.`), so the exact full-phrase
-expectation was a false negative; batch 4's wider viewport passed. A new frozen
-window v2 now asserts the stable rendered suffix and retains the exact exit-1
-and unchanged-file checks. macOS stopped before target build on an empty signed
-MacPorts `.turd_libxml2` marker; the earlier no-build cleanup also lacked the
-explicit no-case evidence flag. Local allow/skip logic and regression tests now
-cover both paths. Focused Windows tests, compilation, YAML and diff checks pass;
-fresh hosted Linux/macOS validation of the v2 contract and newest cleanup fixes
-is required. See [checkpoint v56](checkpoint-continuation-v56.md).
+Taskell has zero rc.6 credit. V2 run `42533986467` passed all twelve native
+Linux batches (252 ordinary executions) with checked cleanup. macOS stopped
+before target build because its signed ICU package includes the safe,
+unmaterialized `opt/local/sbin/gennorm2` utility. The separate V2 source-fault
+run `42533986457` passed on Linux and stopped at the same macOS package member;
+that job completed checked no-case cleanup. The bounded extractor now allows
+signed `opt/local/sbin` package contents without materializing them, with a
+regression for the exact utility path. V1's wrapped diagnostic failure and both
+new macOS preparation failures remain preserved; no failed attempt is replaced
+or credited. See [checkpoint v57](checkpoint-continuation-v57.md).
+
+Skim V34 exact-candidate run `42533986434` and Git Town V30 run `42533986432`
+both exposed stale frozen helper hashes after the shared final-series helper
+was extended for Taskell's v2 contract directory. Skim refused both hosts before
+target execution. Git Town built its pinned target and installed the exact
+candidate, then refused case launch on both hosts. Their failed artifacts and
+zero-launch dispositions remain recorded. New V35/V31 declarations rebind the
+current helper bytes and preserve the exact candidate/contracts; they add no
+scenario breadth. New hosted native runs remain necessary before either
+project's current-candidate evidence can be closed.
 jrnl qualified with 20 scenarios, two native cells, 480 ordinary executions and
 18 calibrations; its [admission](jrnl/admission.json) binds the audited package.
 Commitizen passed its [complete admission audit](commitizen-python/admission.json):20 scenarios, two native cells,480 ordinary,18 mandatory calibrations and2 separate terminal-only probes. Its twelve delivered-CI observations qualify source-built and exact-archive triplets separately.

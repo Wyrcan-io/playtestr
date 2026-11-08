@@ -159,6 +159,7 @@ class TaskellLLVMTests(unittest.TestCase):
             ('opt/local/lib/libz.a',b'static'),
         ],'zlib.tbz2')
         icu=self.archive([
+            ('opt/local/sbin/gennorm2',b'build-time ICU utility'),
             ('opt/local/lib/libicui18n.78.3.dylib',b'icu-i18n'),
             ('opt/local/lib/libicui18n.78.dylib',b'i18n-alias'),
             ('opt/local/lib/libicuuc.78.3.dylib',b'icu-common'),
@@ -193,6 +194,7 @@ class TaskellLLVMTests(unittest.TestCase):
                          len(b'common-alias')+len(b'icu-data')+len(b'data-alias'))
         self.assertEqual(set(icu_files),{'libicui18n.78.3.dylib','libicui18n.78.dylib',
             'libicuuc.78.3.dylib','libicuuc.78.dylib','libicudata.78.3.dylib','libicudata.78.dylib'})
+        self.assertFalse((prefix/'sbin/gennorm2').exists())
         self.assertEqual(iconv_bytes,len(b'iconv-runtime')+len(b'iconv-alias'))
         self.assertEqual(set(iconv_files),{'libiconv.2.7.dylib','libiconv.2.dylib'})
         self.assertEqual(charset_bytes,len(b'charset-runtime')+len(b'charset-alias'))

@@ -164,7 +164,7 @@ def safe_extract(package,destination):
 def safe_extract_dylib_family(package,destination,pattern,required,label,cap=16*1024**2,
                                archive_cap=64*1024**2):
     """Select a named dylib family from one bounded, signed MacPorts package."""
-    roots={'opt/local/bin','opt/local/include','opt/local/lib','opt/local/lib/pkgconfig',
+    roots={'opt/local/bin','opt/local/sbin','opt/local/include','opt/local/lib','opt/local/lib/pkgconfig',
            'opt/local/share','opt/local/share/man','opt/local/share/man/man3'}
     scaffolds={'opt','opt/local',*roots}
     seen=set();pending=[];expanded=0;archive_expanded=0;selected=set()

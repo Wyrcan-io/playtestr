@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "project": "taskell",
+  "candidate": "v0.4.0-rc.6",
+  "source_pin": "a2df95f26762fc3e78d6f131cea7fc1f3b13bd47",
+  "workflow_run_id": 42533986457,
+  "source_revision": "15b08c89163eb826598a94cdaa27af5bad412ac9",
+  "candidate_series": "native-exit-v1",
+  "admission_credit": 0,
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128894109798,
+      "conclusion": "success",
+      "artifact": {
+        "id": 13638642421,
+        "name": "taskell-fault-calibration-native-exit-v1-linux",
+        "bytes": 11771202,
+        "sha256": "0a084463092006e6314db32902b3c6915ded64fdfa7deed5c43d5fbf72e54a77"
+      },
+      "fault_phases_reported": 9,
+      "target_restoration_and_cleanup": "provider job passed; independent packet audit pending"
+    },
+    {
+      "host": "macos-15-arm64",
+      "job_id": 128894109652,
+      "conclusion": "failure_before_target_build",
+      "failed_step": "Install signature-verified owned LLVM 12 toolchain for Apple Silicon",
+      "diagnostic": "The signed ICU package contains opt/local/sbin/gennorm2; the bounded runtime extractor did not yet allow this safe unmaterialized sbin member.",
+      "artifact": {
+        "id": 13638691190,
+        "name": "taskell-fault-calibration-native-exit-v1-darwin",
+        "bytes": 230976340,
+        "sha256": "a0cb154a0ef76e19092dcf69aff7824be54e624b11a43362a3ef238cfc5863ec"
+      },
+      "fault_phases_reported": 0,
+      "target_launches": 0,
+      "target_restoration_and_cleanup": "checked no-case source cleanup passed"
+    }
+  ],
+  "scope": "Preserves the separate source-fault workflow attempt. The Linux fault phases are not credited until actual reports, mutation, restoration, and runtime identities are independently audited."
+}

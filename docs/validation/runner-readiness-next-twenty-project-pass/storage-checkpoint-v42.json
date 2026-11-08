@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "observed_at_utc": "2026-11-08T23:31:06.789200+00:00",
+  "actual_bytes": {
+    "new_curated": 22703211,
+    "combined_curated": 34359455,
+    "new_campaign_raw": 2012133389,
+    "combined_raw": 3921161050,
+    "combined_retained": 2146972546,
+    "project": 1002
+  },
+  "caps_bytes": {
+    "new_curated": 26214400,
+    "combined_curated": 52428800,
+    "new_campaign_raw": 4294967296,
+    "combined_raw": 6442450944,
+    "combined_retained": 2147483648,
+    "project": 67108864
+  },
+  "headroom_bytes": {
+    "new_curated": 3511189,
+    "combined_curated": 18069345,
+    "new_campaign_raw": 2282833907,
+    "combined_raw": 2521289894,
+    "combined_retained": 511102,
+    "project": 67107862
+  },
+  "active_projects": [
+    {
+      "project": "taskell",
+      "bytes": 6857572,
+      "files": 155,
+      "no_links_or_special_entries": true
+    }
+  ],
+  "evidence_compaction": {
+    "scope": "Exact byte-identical aliases under control-tests only; original bytes retained once per hash with every logical path and metadata indexed.",
+    "duplicate_groups": 73,
+    "source_alias_paths": 279,
+    "expanded_source_bytes": 1523628,
+    "archive_bytes": 46848,
+    "index_bytes": 97049,
+    "all_original_aliases_removed_after_hash_recheck": true,
+    "all_unique_payload_hashes_read_back": true,
+    "index_sha256": "ab25101762e598569639c0ad5d0e5b500f5074277fa436bcc95e1b5a9bcbce2f",
+    "archive_sha256": "44e4d4afcd7c003643e2743addc0441191de677632fd9ecb69d0205b01e4dcc6",
+    "prepared_sha256": "541207f10b28e24cf964b13d1d9a1fa2b93da42b19ffd72dfda65ec319bbf4e4",
+    "removal_plan_sha256": "57716f6da4786601dc82f1c74e94c4d3e5968404dd6e5985eec5ca35ec0de2f5",
+    "removal_receipt_sha256": "9763a05154b3347eab929c1d9742389b2ad311aede7a99b4aa051db60a9ef3b6",
+    "compactor_sha256": "fc9fe56e82a3665f7f7f666167797e664727b99271d517de7d90b3782e8c0193",
+    "native_remover_sha256": "187996b0a4fc8fdafec4b00893667d045023f1c4f08e4643c0da9e245106932b",
+    "compaction_controls": "4 passed",
+    "project_credit": 0
+  },
+  "prior_over_cap_observation": {
+    "combined_retained_bytes": 2148348142,
+    "cap_bytes": 2147483648,
+    "excess_bytes": 864494,
+    "disposition": "Preserved; superseded only by the actual post-compaction storage observation."
+  },
+  "receipt": "artifacts/runner-readiness-next-twenty-project-pass/storage/6b10775f738741c29ed654fa102445dd/observed.json",
+  "receipt_sha256": "6b79c9445231245a50d866fa5384b274d7dd39d580a8713caceeee0712ae0d3f",
+  "scope": "Point-in-time logical storage measurement after exact duplicate evidence compaction. All declared logical caps pass; the retained cap has only 511,102 bytes of headroom. One Taskell target remains active. This is not an exact allocated-space, quota, or peak claim.",
+  "status": "within declared byte caps; campaign admission and closure gates remain open"
+}

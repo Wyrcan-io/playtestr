@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "project": "skim",
+  "candidate": "v0.4.0-rc.6",
+  "workflow_run_id": 42533986434,
+  "source_revision": "15b08c89163eb826598a94cdaa27af5bad412ac9",
+  "previous_declaration": "final-series-declaration-native-exit-v34.json",
+  "admission_credit": 0,
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128894109706,
+      "conclusion": "failure_before_target_execution",
+      "failed_step": "Freeze all derived contracts before target execution",
+      "failure": "The declaration's frozen helper set did not match the committed next20_jrnl_final.py hash.",
+      "target_cases_launched": 0,
+      "artifact": {
+        "id": 13638184562,
+        "name": "next20-skim-linux-rc6-final",
+        "bytes": 5891226,
+        "sha256": "e67d4a2b7d927bc56850e3097afe3c5a15c01974dab9f7629fc2d47cd59a1192"
+      }
+    },
+    {
+      "host": "windows-2025-x86_64",
+      "job_id": 128894109920,
+      "conclusion": "failure_before_target_execution",
+      "failed_step": "Freeze all derived contracts before target execution",
+      "failure": "The declaration's frozen helper set did not match the committed next20_jrnl_final.py hash.",
+      "target_cases_launched": 0,
+      "artifact": {
+        "id": 13638641671,
+        "name": "next20-skim-windows-rc6-final",
+        "bytes": 6206216,
+        "sha256": "6aa544e9e38d32b809be00e8e9eca2ad8adaec5988f90441b905e8d9d347c320"
+      }
+    }
+  ],
+  "scope": "Preserves both V34 zero-launch failures and their provider artifact identities. No Skim scenario, fault, calibration, or admission credit is granted by this attempt."
+}
