@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42477749110,
+  "source_revision": "3baa28716aab7e3d63ea19e5b0b9bdec74238208",
+  "run_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/42477749110",
+  "result": "both native jobs failed before acquisition; zero target builds, tests, or scenario candidates executed",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128722756939,
+      "conclusion": "failure",
+      "failed_step": "Set up pinned Haskell toolchain",
+      "failure": "Stack 3.11.1 installer returned HTTP 504 twice; the job stopped before acquisition.",
+      "provider_artifact": {
+        "id": 13616297326,
+        "bytes": 416,
+        "zip_sha256": "72824bd535f9c3d9cf591f835782afe2db5db32f1500ee3b5ece7ddba84e5a2c",
+        "marker_sha256": "12bf9a2b6071f09da8354cbdbd5888b3283a3da7a259c878c03e0052180f60a5"
+      },
+      "marker": "first-use-attempts/42477749110-linux/workflow-start.json"
+    },
+    {
+      "host": "macos-15-intel-x86_64",
+      "job_id": 128722757117,
+      "conclusion": "failure",
+      "failed_step": "Acquire and verify exact source",
+      "failure": "ValueError: active target already exists; resume/clean it before acquisition. The preflight marker had created active/taskell before the acquisition guard.",
+      "provider_artifact": {
+        "id": 13615783017,
+        "bytes": 412,
+        "zip_sha256": "21acec620547b206617d4a0ea07f993b9a77daa6e59517230081c7e31a668b32",
+        "marker_sha256": "3ce9492f3c0c0db11f8d42eea5c424eab74eb7e02e7e13d498343c6526b5a81b"
+      },
+      "marker": "first-use-attempts/42477749110-macos/workflow-start.json"
+    }
+  ],
+  "correction": "Move workflow-start.json outside active/<project>; upload both the native-build packet and the standalone preflight marker directory.",
+  "workflow_fix_yaml_parsed": true,
+  "credit": "No scenario, build, platform, fault, calibration, or admission credit. Run retained only as a workflow/setup failure."
+}

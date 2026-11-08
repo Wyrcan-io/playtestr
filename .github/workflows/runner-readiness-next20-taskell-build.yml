@@ -36,12 +36,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          packet="artifacts/runner-readiness-next-twenty-project-pass/active/taskell/native-build"
+          packet="artifacts/runner-readiness-next-twenty-project-pass/taskell-preflight"
           mkdir -p "$packet"
           python - <<'PY'
           import json,os,platform
           from pathlib import Path
-          Path('artifacts/runner-readiness-next-twenty-project-pass/active/taskell/native-build/workflow-start.json').write_text(json.dumps({
+          Path('artifacts/runner-readiness-next-twenty-project-pass/taskell-preflight/workflow-start.json').write_text(json.dumps({
               'source_revision':os.environ.get('GITHUB_SHA'),
               'runner_os':platform.platform(),
               'runner_architecture':platform.machine(),
@@ -226,6 +226,8 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: taskell-build-${{ matrix.os }}
-          path: artifacts/runner-readiness-next-twenty-project-pass/active/taskell/native-build/
+          path: |
+            artifacts/runner-readiness-next-twenty-project-pass/active/taskell/native-build/
+            artifacts/runner-readiness-next-twenty-project-pass/taskell-preflight/
           if-no-files-found: error
           retention-days: 14
