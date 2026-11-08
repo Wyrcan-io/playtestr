@@ -23,6 +23,16 @@ def json_command(command):
     return [os.fspath(value) if isinstance(value, os.PathLike) else value for value in command]
 
 
+def runtime_record_for_binary(original_bytes, build_sha256, binary_sha256):
+    """Bind campaign runtime identity to the temporary, provenance-bound mutant build."""
+    record = json.loads(original_bytes.decode('utf-8'))
+    if record.get('kind') != 'native':
+        raise ValueError('Skim fault runtime record is not native')
+    record['native_sha256'] = binary_sha256
+    record['build_sha256'] = build_sha256
+    return record
+
+
 async def build(command, source, target, env, label):
     task = asyncio.create_task(execute(command, 'skim', label, cwd=source, env=env,
         timeout=1800, output_cap=2*1024*1024, campaign=NextCampaign(phase='final-archive')))
@@ -131,12 +141,16 @@ async def main():
     if original_digest != build_record['binary_sha256']:
         raise ValueError('original pinned target binary differs from build receipt')
     original_build_bytes = build_path.read_bytes()
+    runtime_path = target / 'runtime.json'
+    original_runtime_bytes = runtime_path.read_bytes()
     backup_binary = target / 'fault-calibration-original-sk.exe'
     backup_build = target / 'fault-calibration-original-build.json'
-    if backup_binary.exists() or backup_build.exists():
+    backup_runtime = target / 'fault-calibration-original-runtime.json'
+    if backup_binary.exists() or backup_build.exists() or backup_runtime.exists():
         raise ValueError('preserve existing fault-calibration backup; no overwrite')
     backup_binary.write_bytes(original_binary.read_bytes())
     backup_build.write_bytes(original_build_bytes)
+    backup_runtime.write_bytes(original_runtime_bytes)
 
     env = environment(target)
     compiler = Path(build_record['compiler_path'])
@@ -199,6 +213,8 @@ async def main():
                 source_mutation=fault['id'], source_mutant_sha256=start['mutated_source_sha256'],
                 mutation_command=json_command(command))
             build_path.write_text(json.dumps(mutant_record, indent=2)+'\n', encoding='utf-8')
+            runtime_record = runtime_record_for_binary(original_runtime_bytes, sha256(build_path), mutant_digest)
+            runtime_path.write_text(json.dumps(runtime_record, indent=2)+'\n', encoding='utf-8')
             corrupted = await run_case(host, candidate, contract,
                 f'skim-final-fault-{stem}-corrupted', False, mutant_digest,
                 fault['expected_failure_category'])
@@ -211,6 +227,7 @@ async def main():
                 raise ValueError(fault['id']+': restored target did not rebuild byte-identically')
             shutil.copyfile(backup_binary, original_binary)
             build_path.write_bytes(original_build_bytes)
+            runtime_path.write_bytes(original_runtime_bytes)
             restored = await run_case(host, candidate, contract, f'skim-final-fault-{stem}-restored', True, original_digest)
             result = dict(fault=fault['id'], phases={'baseline':base,'corrupted':corrupted,'restored':restored},
                 source_original_sha256=start['original_source_sha256'], source_mutant_sha256=start['mutated_source_sha256'],
@@ -227,6 +244,7 @@ async def main():
         if backup_binary.is_file() and backup_build.is_file():
             shutil.copyfile(backup_binary, original_binary)
             build_path.write_bytes(original_build_bytes)
+            runtime_path.write_bytes(original_runtime_bytes)
     if len(calibrated) != 3 or sha256(original_binary) != original_digest:
         raise ValueError('final Skim target/source restoration or fault count failed')
     check = subprocess.run([sys.executable,'-B','scripts/acceptance/next20_skim_source_verify.py','--verify-only'],
@@ -235,6 +253,7 @@ async def main():
         raise RuntimeError('restored final Skim source differs from pin: '+check.stdout+check.stderr)
     backup_binary.unlink()
     backup_build.unlink()
+    backup_runtime.unlink()
     out = calibration_root/'summary.json'
     immutable_json(out, dict(schema_version=1,project='skim',host=host,candidate_series='native-exit-v1',
         candidate_sha256=sha256(candidate),source_pin=build_record['pin'],fault_declaration_sha256=sha256(declaration_path),

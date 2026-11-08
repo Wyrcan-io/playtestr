@@ -1,0 +1,46 @@
+{
+  "calibrations": 0,
+  "candidate_launches_total": 0,
+  "candidate_series": "native-exit-v1",
+  "commit": "48aa5b3b797716ef273a3f984e9c17ab57b271ba",
+  "existing_admission_changed": false,
+  "hosts": [
+    {
+      "artifact_bytes": 6727496,
+      "artifact_id": 13599161060,
+      "artifact_name": "next20-git-town-linux-final",
+      "candidate_launches": 0,
+      "host": "linux",
+      "job_id": 128591098960,
+      "local_artifact_path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/git-town-v22/git-town-linux-v22-42434750131.zip",
+      "local_artifact_sha256": "31f2a9946696e325471662c00affc737da219587c151dcc3b78685fd3438b455",
+      "preflight": "failed: final harness changed after declaration: scripts/acceptance/next20_target_cleanup.py",
+      "provider_sha256": "31f2a9946696e325471662c00affc737da219587c151dcc3b78685fd3438b455",
+      "runner": "ubuntu-24.04",
+      "source_restoration": "not applicable; no target cases launched",
+      "target_cleanup": "passed"
+    },
+    {
+      "artifact_bytes": 6822869,
+      "artifact_id": 13598139677,
+      "artifact_name": "next20-git-town-windows-final",
+      "candidate_launches": 0,
+      "host": "windows",
+      "job_id": 128591099336,
+      "local_artifact_path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/git-town-v22/git-town-windows-v22-42434750131.zip",
+      "local_artifact_sha256": "d49f4ad42f3e20e8360790ec9c415e1ffe94a6f8091093c758698f2fb7a3fc2a",
+      "preflight": "failed: final harness changed after declaration: scripts/acceptance/next20_target_cleanup.py",
+      "provider_sha256": "d49f4ad42f3e20e8360790ec9c415e1ffe94a6f8091093c758698f2fb7a3fc2a",
+      "runner": "windows-2025",
+      "source_restoration": "passed; exact pinned source restored",
+      "target_cleanup": "passed; owned target tree removed"
+    }
+  ],
+  "new_qualification_credit": 0,
+  "ordinary_cases": 0,
+  "project": "git-town",
+  "result": "Both native hosts completed declaration validation and refused launch because the shared cleanup helper hash had advanced after Git Town V22 declaration. Windows source restore and target removal passed; Linux had no source mutations or target launch and Unix target removal passed. Existing Git Town admission remains governed by its prior record.",
+  "schema_version": 1,
+  "supplemental_only": true,
+  "workflow_run_id": 42434750131
+}

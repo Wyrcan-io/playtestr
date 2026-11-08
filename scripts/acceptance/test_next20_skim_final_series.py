@@ -5,7 +5,7 @@ from pathlib import Path
 import unittest
 
 from next20_skim_final_series import BATCHES, CASES, transform_contract
-from next20_skim_final_faults import json_command
+from next20_skim_final_faults import json_command, runtime_record_for_binary
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -25,7 +25,7 @@ class SkimFinalSeriesTests(unittest.TestCase):
         self.assertEqual([row['id'] for row in BATCHES], list(range(12)))
         self.assertEqual(len(CASES), 20)
         self.assertEqual(len(set(CASES)), 20)
-        declaration = json.loads((PACKAGE/'final-series-declaration-native-exit-v10.json').read_text(encoding='utf-8'))
+        declaration = json.loads((PACKAGE/'final-series-declaration-native-exit-v14.json').read_text(encoding='utf-8'))
         self.assertEqual(declaration['batches'], BATCHES)
         self.assertEqual(declaration['scenario_ids'], CASES)
 
@@ -48,6 +48,15 @@ class SkimFinalSeriesTests(unittest.TestCase):
         normalized = json_command(command)
         self.assertEqual(normalized, [str(command[0]), 'build', '--locked'])
         self.assertEqual(json.loads(json.dumps(normalized)), normalized)
+
+    def test_fault_runtime_record_tracks_mutant_build_and_binary(self):
+        original = json.dumps(dict(kind='native', native_sha256='old-binary',
+            build_sha256='old-build', runtime='preserved')).encode('utf-8')
+        changed = runtime_record_for_binary(original, 'mutant-build', 'mutant-binary')
+        self.assertEqual(changed, dict(kind='native', native_sha256='mutant-binary',
+            build_sha256='mutant-build', runtime='preserved'))
+        self.assertEqual(json.loads(original), dict(kind='native', native_sha256='old-binary',
+            build_sha256='old-build', runtime='preserved'))
 
     def test_segmented_input_is_ordered_and_semantically_identical(self):
         original = self.contract('N02')
