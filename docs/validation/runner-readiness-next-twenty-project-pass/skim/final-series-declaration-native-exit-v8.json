@@ -1,0 +1,171 @@
+{
+  "batches": [
+    {
+      "change": "First logical use of fresh SHA-256-verified owned target copy A.",
+      "id": 0,
+      "name": "ordinary-cold-1"
+    },
+    {
+      "change": "Reuse exact target copy A from batch 0; no OS cache eviction claim.",
+      "id": 1,
+      "name": "ordinary-warm-1"
+    },
+    {
+      "change": "First logical use of independent fresh SHA-256-verified owned target copy B.",
+      "id": 2,
+      "name": "ordinary-cold-2"
+    },
+    {
+      "change": "Reuse exact target copy B from batch 2; no OS cache eviction claim.",
+      "id": 3,
+      "name": "ordinary-warm-2"
+    },
+    {
+      "change": "Increase width by 10 and height by 2 on N01-N08, E01-E02, E07-E12; preserve explicit parser, small-screen, and resize boundaries.",
+      "id": 4,
+      "name": "viewport"
+    },
+    {
+      "change": "Run exact target copy B from an owned path containing spaces and caf\u00e9 \u96ea; no contract assertions retuned.",
+      "id": 5,
+      "name": "spaced-unicode-path"
+    },
+    {
+      "change": "Frozen supported input and positive checkpoints unchanged.",
+      "id": 6,
+      "name": "ordinary-input-readiness"
+    },
+    {
+      "change": "Split printable text writes longer than three Unicode code points into bounded ordered chunks.",
+      "id": 7,
+      "name": "segmented-printable-input"
+    },
+    {
+      "change": "One owned 2-second 8-MiB SHA-256 worker per invocation.",
+      "id": 8,
+      "name": "bounded-contention-1"
+    },
+    {
+      "change": "A second independent bounded 2-second 8-MiB SHA-256 worker window.",
+      "id": 9,
+      "name": "bounded-contention-2"
+    },
+    {
+      "change": "N01 height reduced to 12; other frozen risk boundaries remain unchanged.",
+      "id": 10,
+      "name": "highest-risk-small-completion"
+    },
+    {
+      "change": "Set positive-output startup deadline to 2000 ms; exact-first-exit parser cases retain startup gate 0.",
+      "id": 11,
+      "name": "highest-risk-startup-boundary"
+    }
+  ],
+  "calibration_required_per_host": 9,
+  "candidate": "v0.4.0-rc.6",
+  "candidate_freeze_sha256": "24ce7238532b1b6e581142ee98e17a7fe18ea475ec83176e7051986353c80da2",
+  "candidate_provider_runs": {
+    "linux": "40424475362",
+    "windows": "40425810038"
+  },
+  "candidate_series": "native-exit-v1",
+  "cold_scope": "Two independent fresh byte-identical target copies each receive a first logical use followed by reuse; no OS cache eviction or cold-machine claim.",
+  "edge": 12,
+  "execution_budget": {
+    "acquisition_and_build": "Pinned source and exact candidate are reverified; source build is native and offline after checksum-locked dependency fetch and hook review.",
+    "case_wrapper_timeout_seconds": 360,
+    "contention_worker_bytes": 8388608,
+    "contention_worker_seconds": 2,
+    "hosted_job_timeout_minutes": 180,
+    "independent_prelaunch_plan_audit": "scripts/acceptance/next20_skim_final_plan_audit.py",
+    "maximum_parallel_jobs": 2,
+    "target_native_jobs": 2
+  },
+  "failure_policy": "No per-case retry. A nonpositive case rejects this native window; preserve every attempt and declare a new reviewed window after diagnosis.",
+  "fault_declaration": "fault-declaration-final-v1.json",
+  "fault_declaration_sha256": "0749b88d4e7169c4049a087e40aa0542705a929fefe91245ef6ae638ccd1a794",
+  "harness_files": {
+    ".github/workflows/runner-readiness-next20-skim-final.yml": "051d5b9d334f710b542383791201c4ca2819e691e6ae1c68eeae053fb4cdb148",
+    "scripts/acceptance/adversarial_process.py": "99a0e2638a4da25bf69c1e634021dd034cb6d4232d822c8c51b23c137e9a89b6",
+    "scripts/acceptance/next20_acquire.py": "9f543bd2ff1c37e5d5af50b2495cd2b1dcd949bfd745364cb310594aa91bfbae",
+    "scripts/acceptance/next20_candidate.py": "cccfecf50fd0d0a6046d52b38813b50cbb4d9f518c14c5d8543189ebf13add01",
+    "scripts/acceptance/next20_candidate_install.py": "873ae99c60863f45fe272aa72c7bb18bf557b65fa382e4d3aaee20d19ff6ecd9",
+    "scripts/acceptance/next20_check.py": "15c227b36fdfd9d5e82760f1cc39d95bfe459ab37659aadf06061866a46abbfd",
+    "scripts/acceptance/next20_jrnl_final.py": "b95ae20f78b41dff1fc57f63f6d45c700e4e8a28791dca7f077c752561b737d1",
+    "scripts/acceptance/next20_playtestr_case.py": "d8e23d82c070b1c3315d791e2adfd7faab5c1b64bf00cc3c95fdd141bee3ad69",
+    "scripts/acceptance/next20_remove_target.ps1": "cf416d142eca3a3e385a8d86a4c742b213780482554cbbf3496f5e8954d19b65",
+    "scripts/acceptance/next20_rust_fetch.py": "35b3b9491be36804cd2026ff4104851243801fc23b2e7bcaba89ab4b73a1bdc6",
+    "scripts/acceptance/next20_skim_build.py": "e2bc92ff5c7fa04fe57219f32a263cdc26833a66354538e56bca52b139322dee",
+    "scripts/acceptance/next20_skim_cache_cleanup.py": "9915adc6377ed00e69611b2f1bd81c486d25ef250d4707edb2d7f20710187d80",
+    "scripts/acceptance/next20_skim_final_declare_v2.py": "b7819c8f39961d862254198757521ecbfeb5a3ce4b9dabdabe2aad2dd67c0959",
+    "scripts/acceptance/next20_skim_final_declare_v3.py": "a3569ecad56ce7d4179d9a558b3530cef65a28ec144ccda16e0bc571d9dacaba",
+    "scripts/acceptance/next20_skim_final_declare_v4.py": "d66c1167b9c7fdba5731157924d32fe33c9ff501ccac077c8552fcc7193a429f",
+    "scripts/acceptance/next20_skim_final_declare_v5.py": "6728752e54ef9ff51b69d30afd9f7c3e069f874290d021451e9bbab4ef382be1",
+    "scripts/acceptance/next20_skim_final_declare_v6.py": "8dd4e33a849e8c5b5033d79bd84804db73e031577d584810728d1a1cd38a5cde",
+    "scripts/acceptance/next20_skim_final_declare_v7.py": "f891fc45abaabc5d4958d81a5c48324b2c5fadbff845b4530c564bf9ab9d1a92",
+    "scripts/acceptance/next20_skim_final_declare_v8.py": "96478ebf29d5dc2752881f98a84fba265e8422fdf59839caf5f16ae4bd94daa4",
+    "scripts/acceptance/next20_skim_final_faults.py": "5a46b56c41c42a484a90c9ed82b475e2a995646fe343516b1b653d2fa37f5712",
+    "scripts/acceptance/next20_skim_final_plan_audit.py": "e0c7e346ff00ae024b29d440f323cda52ef94e7ef4d725a4e83b576305058fc8",
+    "scripts/acceptance/next20_skim_final_series.py": "b010ca10c18f6717c1ecf389784b6655c85fa6b488e539bf5fb5cea50a8194fe",
+    "scripts/acceptance/next20_skim_hook_review.py": "189f63f31963ac3a06b777707b43f258c736489b49cedb93d9293eae538ca7eb",
+    "scripts/acceptance/next20_skim_source_verify.py": "9fbc0da075be6c5ff192ec170a28870f2adf50877bcf452592546212822c6241",
+    "scripts/acceptance/next20_skim_target_remove.py": "df50b97076a6968deeb62d571436117d3f0e4b9b22b7f04513f14f881175e07c",
+    "scripts/acceptance/next20_target_cleanup.py": "5da6088183def51e6b6ae4a2ea5e556aca4d25c8afa773d9f53095e6874c2e14",
+    "scripts/acceptance/next20_target_process_proof.ps1": "7f3de8026098f2246f4fb81f6fb6dd0d29e1b5a1c8cdbf85f2da423a3046b022",
+    "scripts/acceptance/readiness_evidence.py": "5f106e90d774aaacfabe3fe5d905196218f0622bda966b6705df19f7f8535324",
+    "scripts/acceptance/readiness_storage.py": "b70a71ef3e2ad03d9d34a83dfe6bad893e662c887f251e57fdcda279d256c667",
+    "scripts/acceptance/test_next20_acquire.py": "7337c6f85203e54198da9e6f385869eadd92a415ec722218b4897fd812892a19",
+    "scripts/acceptance/test_next20_skim_cleanup.py": "3343c63213e8c21a4eab0fb3a374f0f68031bdfcbf3c827ea600518c135637f3",
+    "scripts/acceptance/test_next20_skim_final_series.py": "423907f4b4069fff2d3334ac06909eba04d8f05176859234036156e6b9bbb4b2",
+    "scripts/acceptance/test_next20_storage.py": "42ffe0032c1bff0422e0c7a61a0e2132dfd72b76a830d256307c1edc92757230",
+    "scripts/acceptance/test_next20_target_cleanup.py": "f8d11448b1f3665e74f46979cbbd1483bf4f998d0e6dcc80db58f08a1bcbb8de"
+  },
+  "hosts": [
+    "linux",
+    "windows"
+  ],
+  "known_unverified_boundaries": [
+    "Windows arrow-key navigation compatibility remains unresolved; no directional-navigation compatibility claim is made.",
+    "E12 checks selected screen and exit only; exact raw NUL framing remains unverified and is not claimed."
+  ],
+  "normal": 8,
+  "ordinary_required_per_host": 240,
+  "project": "skim",
+  "repetitions_per_scenario": 12,
+  "replacement_plan_namespace": "final-series-plan-native-exit-v13",
+  "scenario_base": "scenario-declaration-v5.json",
+  "scenario_base_sha256": "3e1d9e2501a20f498cd60082f1350c0cdceb1067c4eea8b8f38171f6c57b6dbd",
+  "scenario_ids": [
+    "N01",
+    "N02",
+    "N03",
+    "N04",
+    "N05",
+    "N06",
+    "N07",
+    "N08",
+    "E01",
+    "E02",
+    "E03",
+    "E04",
+    "E05",
+    "E06",
+    "E07",
+    "E08",
+    "E09",
+    "E10",
+    "E11",
+    "E12"
+  ],
+  "scenario_revision": "scenario-declaration-v6.json",
+  "scenario_revision_sha256": "d1538c8a36c3fb6457456eb4d5b21a5af6ea6c669c34268ff6ba0acbae154cbc",
+  "schema_version": 1,
+  "scope": "Skim exact rc.6 candidate qualification only. Development-source evidence remains separate. Both native cells, all 240 ordinary executions per host, nine fault phases per host, independent model audit, first-use, maintenance, relocation, delivered-CI and cleanup gates remain required.",
+  "source_faults_per_host": 3,
+  "source_pin": "1ab47f6ba7f1bfc355273bbdd98d4b2056ef95a3",
+  "supersedes": {
+    "path": "final-series-declaration-native-exit-v7.json",
+    "reason": "V12 acquired and built Skim on both native hosts but launched zero candidate cases. The workflow passed the stale v9 plan path to its independent auditor, and cache inventory safely refused 217 MiB/531 MiB Rust toolchain files above the 128 MiB single-file bound. V13 fixes the path, raises only the per-file bound to 1 GiB, and preserves the 4 GiB total and 250000-file bounds. It reuses local target copies only after exact build-SHA verification.",
+    "sha256": "e1366ac5c5613a68b37406498c2fbdc266cf29654186a448ec23c899857b1d99"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "project": "skim",
+  "replacement_plan_namespace": "final-series-plan-native-exit-v13",
+  "target_launches": 0,
+  "scenario_credit": 0,
+  "superseded_plan": "artifacts/runner-readiness-next-twenty-project-pass/skim/final-series-plan-native-exit-v12/windows/plan.json",
+  "superseded_plan_sha256": "572067321d088084a7aea23e1357a61d41cfdc8f7c78e41ee7db026edb6b19b2",
+  "superseded_audit": "artifacts/runner-readiness-next-twenty-project-pass/skim/final-series-plan-native-exit-v12/windows/plan-audit.json",
+  "superseded_audit_sha256": "8652bed58760d35081ffbf4e0e1701238d4bf51e35a93043e812c1d9cf6fbf28",
+  "superseded_declaration": "final-series-declaration-native-exit-v7.json",
+  "superseded_declaration_sha256": "e1366ac5c5613a68b37406498c2fbdc266cf29654186a448ec23c899857b1d99",
+  "failed_attempt_receipt": "candidate-native-attempts-v5.json",
+  "failed_attempt_receipt_sha256": "850fa0b604612700d1904531a65f31c64e0f99a9d5d37bebeaad49f080af4743",
+  "reason": "Both native hosts acquired and built Skim and materialized the final-series plan, but the workflow still passed the stale v9 plan path to the independent auditor. Cache cleanup refused the installed Rust LLVM and rustc_driver binaries because they exceeded the initial 128 MiB per-file cap; this was a safe pre-removal refusal. No candidate case launched. V13 binds the auditor to the fresh plan namespace and allows files up to 1 GiB while preserving the 4 GiB total and 250000-file bounds. It reuses an existing pair of target-copy binaries only after verifying both against the exact build SHA-256.",
+  "replacement_plan": "artifacts/runner-readiness-next-twenty-project-pass/skim/final-series-plan-native-exit-v13/windows/plan.json",
+  "replacement_audit_required": true
+}

@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "project": "skim",
+  "candidate_series": "native-exit-v1",
+  "workflow_run_id": 42430200753,
+  "commit": "e2d029f1de04ded92f1491110a3c89f513f56c2d",
+  "hosts": [
+    {
+      "host": "linux",
+      "runner": "ubuntu-24.04",
+      "job_id": 128577185385,
+      "artifact_id": 13597555454,
+      "artifact_name": "next20-skim-linux-rc6-final",
+      "artifact_path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/skim-v12/skim-linux-v12-42430200753.zip",
+      "artifact_bytes": 4739590,
+      "provider_sha256": "77cdb8a7d146fe0f94bcb28da6bc1c3c259485b7d67cf291edebb646f8c687f9",
+      "local_sha256": "77cdb8a7d146fe0f94bcb28da6bc1c3c259485b7d67cf291edebb646f8c687f9",
+      "job_log_path": "artifacts/runner-readiness-next-twenty-project-pass/retrieved/skim-linux-v12-42430200753-joblogs.log",
+      "job_log_sha256": "489ff23d4953983f9565a8d0882a0c6fe1e5970104604d3af4b5007f7649245e",
+      "events": {
+        "started": 11,
+        "identified": 11,
+        "launched": 11,
+        "finished": 11,
+        "failed_commands": [
+          {
+            "label": "skim-final-independent-plan-audit",
+            "id": "f3737e7e6cc9429ab6b6fe24d4afac84",
+            "category": "exit_mismatch",
+            "exit_code": 1,
+            "console_sha256": "efe978b6e3cea0041fcaf19d800d5d0b14d0a2b4e58c3528a2ee3a943a89eac8"
+          },
+          {
+            "label": "skim-final-cache-cleanup",
+            "id": "3a6fdd8638944ca6bb5991a19fe7e227",
+            "category": "exit_mismatch",
+            "exit_code": 1,
+            "console_sha256": "7d92cc9d7b526e6856e8564a2ac541c216d3daeb3346b63e91adae6320ba7229"
+          }
+        ]
+      },
+      "source_acquired": true,
+      "native_build_completed": true,
+      "candidate_archive_installed": true,
+      "plan_materialized": true,
+      "candidate_case_executions": 0,
+      "fault_phases": 0,
+      "result": "The hosted planner reached a 240-contract plan but the workflow pointed the independent auditor at stale namespace v9. Cache removal correctly refused a 217244774-byte Rust LLVM file above the initial per-file bound. No candidate case launched."
+    },
+    {
+      "host": "windows",
+      "runner": "windows-2025",
+      "job_id": 128577185753,
+      "artifact_id": 13597323090,
+      "artifact_name": "next20-skim-windows-rc6-final",
+      "artifact_path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/skim-v12/skim-windows-v12-42430200753.zip",
+      "artifact_bytes": 5058272,
+      "provider_sha256": "6627b02f83c4dede1258a31e54af1a1e2f9b82fa97ce87fe1af90b89e1d96d84",
+      "local_sha256": "6627b02f83c4dede1258a31e1a1e2f9b82fa97ce87fe1af90b89e1d96d84",
+      "job_log_path": "artifacts/runner-readiness-next-twenty-project-pass/retrieved/skim-windows-v12-42430200753-joblogs.log",
+      "job_log_sha256": "509e15c9248f85e3f27c0564596c4dc3267e2c6562e205bdf97d794050afe292",
+      "events": {
+        "started": 12,
+        "identified": 12,
+        "launched": 12,
+        "finished": 12,
+        "failed_commands": [
+          {
+            "label": "skim-final-independent-plan-audit",
+            "id": "3d1da4fa291e41b083d019e05d08f29a",
+            "category": "exit_mismatch",
+            "exit_code": 1,
+            "console_sha256": "9a96f67fb30e0bb8c4f2a73a70a424d1bda1af30aac8451c498c5c1ac1fd64d8"
+          },
+          {
+            "label": "skim-final-cache-cleanup",
+            "id": "b1f9edecf5e448c8938e9d2c1e5285fb",
+            "category": "exit_mismatch",
+            "exit_code": 1,
+            "console_sha256": "dec0961f0948ff782cd984e570f1acb43e0f6787c7ee2fae56c3c959c9ab546f"
+          }
+        ]
+      },
+      "source_acquired": true,
+      "native_build_completed": true,
+      "candidate_archive_installed": true,
+      "plan_materialized": true,
+      "candidate_case_executions": 0,
+      "fault_phases": 0,
+      "result": "The hosted planner materialized the frozen contracts but the workflow pointed the independent auditor at stale namespace v9. Cache removal correctly refused a 531791494-byte rustc_driver DLL above the initial per-file bound. No candidate case launched."
+    }
+  ],
+  "candidate_case_executions": 0,
+  "source_fault_phases": 0,
+  "new_qualification_credit": 0,
+  "preserve_failures": true,
+  "result": "The exact pinned source and rc.6 candidate built on both native hosts. Both hosts stopped before candidate launch because the auditor path remained at v9, while cache removal correctly refused Rust toolchain files above the initial 128 MiB per-file limit. The unit suite passed all 19 tests on both hosts.",
+  "next": "Bind the independent plan audit to the current fresh namespace and expand only the per-file cache bound to 1 GiB, keeping the 4 GiB total and 250000-file limits. Reuse the existing locally hash-verified Skim target-copy pair for preflight so another binary copy pair is not retained."
+}

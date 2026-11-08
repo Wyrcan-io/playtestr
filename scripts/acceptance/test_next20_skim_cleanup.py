@@ -3,7 +3,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from next20_skim_cache_cleanup import CACHE_ROOTS, inventory_cache, prune
+import next20_skim_cache_cleanup
+from next20_skim_cache_cleanup import inventory_cache, prune
 
 
 class SkimCacheCleanupTests(unittest.TestCase):
@@ -35,6 +36,20 @@ class SkimCacheCleanupTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'undeclared'):
                 prune(target, roots=('src',))
             self.assertEqual((protected / 'main.rs').read_bytes(), b'preserve')
+
+    def test_inventory_enforces_per_file_byte_bound_with_path_diagnostic(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            target = Path(temporary) / 'active' / 'skim'
+            cache = target / 'cargo-home'
+            cache.mkdir(parents=True)
+            (cache / 'large-toolchain-file').write_bytes(b'12345')
+            original = next20_skim_cache_cleanup.MAX_FILE_BYTES
+            try:
+                next20_skim_cache_cleanup.MAX_FILE_BYTES = 4
+                with self.assertRaisesRegex(ValueError, 'large-toolchain-file'):
+                    inventory_cache(cache, target)
+            finally:
+                next20_skim_cache_cleanup.MAX_FILE_BYTES = original
 
     @unittest.skipUnless(hasattr(os, 'symlink'), 'native symlink support unavailable')
     def test_inventory_refuses_cache_link_that_escapes_owned_root(self):

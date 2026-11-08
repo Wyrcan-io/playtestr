@@ -16,6 +16,7 @@ from next20_target_cleanup import source_inventory
 CACHE_ROOTS=('cargo-home','cargo-target','go-mod-cache','home','rustup-home','tmp')
 MAX_FILES=250000
 MAX_BYTES=4*1024**3
+MAX_FILE_BYTES=1024**3
 
 
 def inventory_cache(root, target):
@@ -43,7 +44,7 @@ def inventory_cache(root, target):
                 pending.append(path)
             elif stat.S_ISREG(info.st_mode):
                 files+=1;total+=info.st_size
-                if files>MAX_FILES or info.st_size>128*1024**2 or total>MAX_BYTES:
+                if files>MAX_FILES or info.st_size>MAX_FILE_BYTES or total>MAX_BYTES:
                     raise ValueError('owned cache inventory bound: files=%d bytes=%d at %s'%(files,total,relative))
                 digest.update(f'F\0{relative}\0{info.st_size}\0{sha256(path)}\n'.encode())
             elif stat.S_ISFIFO(info.st_mode) or stat.S_ISSOCK(info.st_mode):

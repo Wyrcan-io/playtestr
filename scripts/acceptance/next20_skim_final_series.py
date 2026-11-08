@@ -118,7 +118,7 @@ def prepare(host):
     if host not in {'linux', 'windows'} or host != host_name():
         raise ValueError('preparation must run on the declared native host')
     package = ROOT / 'docs/validation/runner-readiness-next-twenty-project-pass/skim'
-    declaration_path = package / 'final-series-declaration-native-exit-v7.json'
+    declaration_path = package / 'final-series-declaration-native-exit-v8.json'
     declaration = json.loads(declaration_path.read_text(encoding='utf-8'))
     base_path, revision_path, rows = scenario_rows(package)
     candidate = executable('native-exit-v1', host)
@@ -146,19 +146,29 @@ def prepare(host):
             raise ValueError('Skim final harness changed after declaration: '+name)
 
     copy_root = target_root / 'final-series-copies-v12'
-    if copy_root.exists():
-        raise ValueError('refuse existing Skim target-copy root')
     first = copy_root / 'cold-warm-a'
     second = copy_root / 'cold-warm-b'
-    first.mkdir(parents=True)
-    second.mkdir(parents=True)
-    shutil.copyfile(original_binary, first / 'sk.exe')
-    shutil.copyfile(original_binary, second / 'sk.exe')
+    if copy_root.exists():
+        if copy_root.is_symlink() or getattr(copy_root, 'is_junction', lambda: False)():
+            raise ValueError('linked Skim target-copy root')
+        expected = {'cold-warm-a', 'cold-warm-a/sk.exe', 'cold-warm-b', 'cold-warm-b/sk.exe'}
+        actual = {path.relative_to(copy_root).as_posix() for path in copy_root.rglob('*')}
+        if actual != expected or any(path.is_symlink() or getattr(path, 'is_junction', lambda: False)()
+                                     for path in copy_root.rglob('*')):
+            raise ValueError('existing Skim target-copy root is not the exact two-file layout')
+        for path in (first / 'sk.exe', second / 'sk.exe'):
+            if sha256(path) != build['binary_sha256']:
+                raise ValueError('existing Skim target copy differs from exact native build SHA-256')
+    else:
+        first.mkdir(parents=True)
+        second.mkdir(parents=True)
+        shutil.copyfile(original_binary, first / 'sk.exe')
+        shutil.copyfile(original_binary, second / 'sk.exe')
     copy_hashes = {name: sha256(path / 'sk.exe') for name, path in [('a', first), ('b', second)]}
     if any(digest != build['binary_sha256'] for digest in copy_hashes.values()):
         raise ValueError('fresh target preparation copy is not byte-identical')
 
-    contract_root = RAW / 'skim' / 'final-contracts' / 'native-exit-v12' / host
+    contract_root = RAW / 'skim' / 'final-contracts' / 'native-exit-v13' / host
     if contract_root.exists():
         raise ValueError('refuse existing Skim final contract root')
     contract_root.mkdir(parents=True)
@@ -211,7 +221,7 @@ def prepare(host):
                 target_binary_sha256=build['binary_sha256'], contention=batch_id in {8, 9}))
         planned.append(dict(batch=batch, cases=cases))
 
-    plan_path = RAW / 'skim' / 'final-series-plan-native-exit-v12' / host / 'plan.json'
+    plan_path = RAW / 'skim' / 'final-series-plan-native-exit-v13' / host / 'plan.json'
     immutable_json(plan_path, dict(schema_version=1, project=PROJECT, host=host, source_pin=PIN,
         candidate_series='native-exit-v1', candidate_sha256=sha256(candidate),
         candidate_archive_sha256=candidate_record['archive_sha256'], candidate_run=declaration['candidate_provider_runs'][host],
@@ -324,7 +334,7 @@ def main():
         prepare(args.host)
     else:
         plan = Path(args.plan).resolve(strict=True) if args.plan else (
-            RAW / 'skim' / 'final-series-plan-native-exit-v12' / args.host / 'plan.json')
+            RAW / 'skim' / 'final-series-plan-native-exit-v13' / args.host / 'plan.json')
         plan.relative_to(RAW.resolve(strict=True))
         run(args.host, plan)
 
