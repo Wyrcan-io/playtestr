@@ -26,7 +26,7 @@ class SkimFinalSeriesTests(unittest.TestCase):
         self.assertEqual([row['id'] for row in BATCHES], list(range(12)))
         self.assertEqual(len(CASES), 20)
         self.assertEqual(len(set(CASES)), 20)
-        declaration = json.loads((PACKAGE/'final-series-declaration-native-exit-v21.json').read_text(encoding='utf-8'))
+        declaration = json.loads((PACKAGE/'final-series-declaration-native-exit-v22.json').read_text(encoding='utf-8'))
         self.assertEqual(declaration['batches'], BATCHES)
         self.assertEqual(declaration['scenario_ids'], CASES)
 

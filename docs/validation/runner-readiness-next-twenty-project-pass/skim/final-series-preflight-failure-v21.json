@@ -1,0 +1,23 @@
+{
+  "commit": "86cb605f7ae90d9cf4dafabdaf68be0d0f41ffec",
+  "declaration": "docs/validation/runner-readiness-next-twenty-project-pass/skim/final-series-declaration-native-exit-v21.json",
+  "declaration_sha256": "1172d9779f7e55f519c39a3c95b383d783fa267b8a9f3fca30ff8035a996108f",
+  "hosts": {
+    "linux": {
+      "job_id": 128607817581,
+      "result": "Independent auditor attempted the stale V23 plan path and failed before any target case; cleanup preflight also failed because there were no target reports. Source verification and target removal completed."
+    },
+    "windows": {
+      "job_id": 128607817720,
+      "result": "Independent auditor attempted the stale V23 plan path and failed before any target case; cleanup preflight also failed because there were no target reports. Source verification and target removal completed."
+    }
+  },
+  "ordinary_cases": 0,
+  "plan_namespace": "final-series-plan-native-exit-v25",
+  "project": "skim",
+  "result": "V21 local V25 plan/audit passed, but hosted workflow invocation still named V23; both jobs were zero-launch refusals. V22 binds the workflow invocation to V26 and has a new independently passing local plan/audit.",
+  "scenario_credit": 0,
+  "schema_version": 1,
+  "superseded_by": "final-series-preflight-audit-v26.json",
+  "workflow_run_id": 42440274451
+}

@@ -76,7 +76,7 @@ def audit(plan_path):
     plan = json.loads(plan_path.read_text(encoding='utf-8'))
     host = actual_host()
     package = ROOT/'docs/validation/runner-readiness-next-twenty-project-pass/skim'
-    declaration_path = package/'final-series-declaration-native-exit-v21.json'
+    declaration_path = package/'final-series-declaration-native-exit-v22.json'
     declaration = json.loads(declaration_path.read_text(encoding='utf-8'))
     base_path = package/'scenario-declaration-v5.json'
     revision_path = package/'scenario-declaration-v6.json'
@@ -118,7 +118,7 @@ def audit(plan_path):
 
     expected_batches = []
     contract_checks = []
-    contract_root = RAW/'skim/final-contracts/native-exit-v25'/host
+    contract_root = RAW/'skim/final-contracts/native-exit-v26'/host
     if len(plan['batches']) != len(BATCHES):
         raise ValueError('wrong final batch denominator')
     for batch_id, ((name, change), actual) in enumerate(zip(BATCHES, plan['batches'])):
