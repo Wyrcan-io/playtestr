@@ -1,6 +1,7 @@
 # Taskell progress checkpoint v1
 
-Observed on branch `work/p0-p2-implementation` at `50bdca22990180da5da2fc1bfba305e3d99f65de`.
+Original checkpoint observed at `50bdca22990180da5da2fc1bfba305e3d99f65de`;
+continued on branch `work/p0-p2-implementation` through `e3bdaa0dfdddc964c4af729768728e1f077320e0`.
 
 ## Campaign position
 
@@ -44,3 +45,17 @@ the first useful scenario and rerun the public recorder route through
 `/review`, fresh `/replay`, `/save`, and ordinary `playtestr test`. Continue
 Taskell's 8-normal/12-edge declaration, three real source faults, full native
 cells/calibration, final candidate qualification, cleanup and admission audit.
+
+## 2026-11-08 continuation
+
+The four-run table above is historical and superseded by these receipts. Run
+`42449961171` passed the Linux upstream suite (250 tests) and built Taskell and
+Playtestr, but the authored smoke was rejected prelaunch for named key `q`;
+artifact `13604999973` and digest are in `build-attempt-v5.json`. Its macOS
+Intel job was still running when that immutable receipt was recorded. The case now
+uses text input for `q`. Commit `e3bdaa0dfdddc964c4af729768728e1f077320e0`
+was pushed, triggering corrected Linux/macOS Intel run `42450896413`. At the
+latest poll, Linux was in upstream tests and macOS in toolchain setup. Continue
+monitoring, retain and inspect both native artifacts, then complete the no-JSON
+recorder route before designing/freezing the 20+12 scenarios. Taskell has zero
+admission credit; overall new admissions remain 4/20.

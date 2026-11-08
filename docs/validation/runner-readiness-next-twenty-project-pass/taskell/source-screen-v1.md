@@ -28,3 +28,15 @@ Linux x86-64 built Taskell with the pinned resolver compiler and passed all 250 
 Current native Stack build/test and Taskell UI attempts are still in progress on Ubuntu and macOS Intel. The corrected lane uses `-v`, runs the authored synthetic-board state smoke, then captures a no-handwritten-JSON recorder preview for operator inspection. Dependency resolution on macOS arm64 is not a build claim; the build lane's macOS evidence is specifically Intel. No target workflow or Taskell admission is yet established.
 
 The prior Skim cleanup receipt predated a later local target tree. Its exact ownership marker, acquisition record, and pinned source were restored from the retained archive and verified against all 819 provenance entries. Two local case-report event triplets were copied byte-identically and hash-verified in `skim/local-residual-case-evidence-v1`. A fresh native Windows PID inspection and an immediate pre-delete target revalidation passed; the exact 854-file / 213,911,372-byte tree was removed via the checked PowerShell path. Preparation and removal evidence is in `skim/local-residual-cleanup-v1-{prepared,removed}.json`. Fresh campaign storage observation passes with Taskell as the sole active target. The narrow evidence-reader change accepts a UTF-8 BOM in a process proof and retains all other identity and inventory checks.
+
+## Hosted follow-up (2026-11-08)
+
+Run `42449961171` (source `9e1ebc3`) passed all 250 upstream tests and built
+Taskell 1.11.4 plus Playtestr on Ubuntu 24.04. Its authored first-use spec was
+rejected before target launch because single-character `q` was incorrectly
+declared as a named key; the retained artifact is `build-attempt-v5.json`.
+The run's Intel macOS test job was still active when that immutable receipt was
+written. The smoke spec now sends `q` as text. Recorder controls likewise send
+literal space and `q` as text. Corrected cross-host workflow run
+`42450896413` is active at source `e3bdaa0`; no outcome is claimed until both
+native jobs finish and their reports/artifacts are inspected.
