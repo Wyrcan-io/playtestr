@@ -206,9 +206,11 @@ def safe_extract_dylib_family(package,destination,pattern,required,label,cap=16*
                 if resolved.is_absolute() or '..' in resolved.parts:
                     raise ValueError(f'Escaping link in MacPorts {label} documentation')
                 continue
-            elif member.isfile() and member.size<=4*1024**2:
-                # Headers, pkg-config metadata and man pages are signed package
-                # contents, but LLVM needs only the exact dylib family.
+            elif member.isfile():
+                # Static archives, headers, pkg-config files and documentation
+                # are signed package contents, but LLVM needs only the exact
+                # dylib family. Their aggregate declared size remains bounded
+                # by archive_expanded above and none are materialized.
                 continue
             else:raise ValueError(f'Unexpected or oversized MacPorts {label} package member: '+name)
     for path,target in pending:
