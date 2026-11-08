@@ -34,7 +34,7 @@ SIGNATURE_COMMENT='untrusted comment: verify with macports-archives-2025.pub'
 MACPORTS_LLVM_BIN_ALIAS=re.compile(r'[A-Za-z0-9_.+-]+-mp-12\Z')
 MACPORTS_LIBFFI_DYLIB=re.compile(r'libffi(?:\.\d+)*\.dylib\Z')
 MACPORTS_LIBEDIT_DYLIB=re.compile(r'libedit(?:\.\d+)*\.dylib\Z')
-MACPORTS_NCURSES_DYLIB=re.compile(r'lib(?:ncurses(?:\+{0,2}w?)?|tinfo|form|menu|panel)(?:\.\d+)*\.dylib\Z')
+MACPORTS_NCURSES_DYLIB=re.compile(r'lib(?:ncurses(?:\+{0,2}w?)?|curses|tinfo|form|menu|panel)(?:\.\d+)*\.dylib\Z')
 
 
 def download(url,path,limit):

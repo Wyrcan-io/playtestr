@@ -174,11 +174,13 @@ class TaskellLLVMTests(unittest.TestCase):
         ncurses=self.root/'ncurses.tbz2'
         with tarfile.open(ncurses,'w:bz2') as archive:
             for name,data in [('opt/local/lib/libncurses.6.6.dylib',b'ncurses'),
-                              ('opt/local/lib/libform.6.6.dylib',b'form')]:
+                              ('opt/local/lib/libform.6.6.dylib',b'form'),
+                              ('opt/local/lib/libcurses.6.6.dylib',b'curses')]:
                 member=tarfile.TarInfo(name);member.size=len(data);member.mode=0o755
                 archive.addfile(member,io.BytesIO(data))
             for name,target in [('opt/local/lib/libncurses.6.dylib','libncurses.6.6.dylib'),
-                                ('opt/local/lib/libform.6.dylib','libform.6.6.dylib')]:
+                                ('opt/local/lib/libform.6.dylib','libform.6.6.dylib'),
+                                ('opt/local/lib/libcurses.dylib','libcurses.6.6.dylib')]:
                 alias=tarfile.TarInfo(name);alias.type=tarfile.SYMTYPE;alias.linkname=target;archive.addfile(alias)
         prefix=self.root/'runtime'
         expanded,files=safe_extract_dylib_family(edit,prefix,MACPORTS_LIBEDIT_DYLIB,['libedit.0.dylib'],'libedit')
@@ -186,8 +188,9 @@ class TaskellLLVMTests(unittest.TestCase):
         self.assertEqual(set(files),{'libedit.0.dylib','libedit.0.1.dylib'})
         expanded,files=safe_extract_dylib_family(ncurses,prefix,MACPORTS_NCURSES_DYLIB,
             ['libncurses.6.dylib'],'ncurses',cap=32*1024**2)
-        self.assertEqual(expanded,len(b'ncurses')+len(b'form'))
-        self.assertEqual(set(files),{'libncurses.6.6.dylib','libncurses.6.dylib','libform.6.6.dylib','libform.6.dylib'})
+        self.assertEqual(expanded,len(b'ncurses')+len(b'form')+len(b'curses'))
+        self.assertEqual(set(files),{'libncurses.6.6.dylib','libncurses.6.dylib','libform.6.6.dylib','libform.6.dylib',
+                                     'libcurses.6.6.dylib','libcurses.dylib'})
 
 
 if __name__=='__main__':
