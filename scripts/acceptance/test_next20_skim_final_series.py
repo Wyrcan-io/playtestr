@@ -6,7 +6,7 @@ import unittest
 
 from next20_skim_final_series import BATCHES, CASES, transform_contract
 from next20_skim_final_faults import (json_command, package_clean_command,
-    runtime_binary_path, runtime_record_for_binary)
+    retain_restored_build, runtime_binary_path, runtime_record_for_binary)
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -26,7 +26,7 @@ class SkimFinalSeriesTests(unittest.TestCase):
         self.assertEqual([row['id'] for row in BATCHES], list(range(12)))
         self.assertEqual(len(CASES), 20)
         self.assertEqual(len(set(CASES)), 20)
-        declaration = json.loads((PACKAGE/'final-series-declaration-native-exit-v19.json').read_text(encoding='utf-8'))
+        declaration = json.loads((PACKAGE/'final-series-declaration-native-exit-v21.json').read_text(encoding='utf-8'))
         self.assertEqual(declaration['batches'], BATCHES)
         self.assertEqual(declaration['scenario_ids'], CASES)
 
@@ -83,6 +83,20 @@ class SkimFinalSeriesTests(unittest.TestCase):
                 encoding='utf-8')
             self.assertEqual(package_clean_command(Path('cargo'), source, 'x86_64-test'),
                 ['cargo', 'clean', '--package', 'skim', '--target', 'x86_64-test'])
+
+    def test_restored_native_rebuild_is_retained_without_claiming_reproducibility(self):
+        import hashlib
+        import tempfile
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory)/'target'
+            target.mkdir()
+            built = Path(directory)/'native-rebuild.exe'
+            built.write_bytes(b'rebuilt-native-bytes')
+            result = retain_restored_build(target, 'fault-a', built,
+                hashlib.sha256(b'original-native-bytes').hexdigest())
+            self.assertFalse(result['byte_identical_to_original'])
+            self.assertEqual((target/'fault-builds/fault-a-restored-rebuild.exe').read_bytes(),
+                b'rebuilt-native-bytes')
 
     def test_segmented_input_is_ordered_and_semantically_identical(self):
         original = self.contract('N02')

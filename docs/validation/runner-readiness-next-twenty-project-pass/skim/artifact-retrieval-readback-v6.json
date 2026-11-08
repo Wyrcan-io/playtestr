@@ -1,0 +1,54 @@
+{
+  "artifacts": [
+    {
+      "artifact_id": 13600967595,
+      "bytes": 7922817,
+      "digest_match": true,
+      "local_path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/skim-linux-v19-42438676003.zip",
+      "local_sha256": "6eaf2d47d97e921e2ef5511fca0bcc6b21ee3249e06235f58961173c4d7cee7e",
+      "name": "next20-skim-linux-rc6-final",
+      "provider_sha256": "6eaf2d47d97e921e2ef5511fca0bcc6b21ee3249e06235f58961173c4d7cee7e",
+      "status": "ZIP retrieved and SHA-256 matched the GitHub digest; 240 ordinary reports and all three complete fault calibrations were independently parsed"
+    },
+    {
+      "artifact_id": 13600832060,
+      "bytes": 8165087,
+      "digest_match": true,
+      "local_path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/skim-windows-v19-42438676003.zip",
+      "local_sha256": "99079b1ab703d01d3a335c6dcac948c1fc7295ba44f7aa8781e0c880cfb36fea",
+      "name": "next20-skim-windows-rc6-final",
+      "provider_sha256": "99079b1ab703d01d3a335c6dcac948c1fc7295ba44f7aa8781e0c880cfb36fea",
+      "status": "ZIP retrieved and SHA-256 matched the GitHub digest; all 240 ordinary reports plus the baseline and detected-mutant reports were independently parsed"
+    }
+  ],
+  "commit": "941192513c7b18c1dfb8ab91b592020a12697dc9",
+  "independent_member_review": {
+    "linux_case_reports": 249,
+    "linux_failed_reports": 3,
+    "linux_full_fault_calibrations": 3,
+    "linux_mutant_target_launches": 3,
+    "linux_zip_members": 3276,
+    "ordinary_cases_passed_per_host": 240,
+    "windows_case_reports": 242,
+    "windows_failed_reports": 1,
+    "windows_full_fault_calibrations": 0,
+    "windows_mutant_target_launches": 1,
+    "windows_zip_members": 3186
+  },
+  "job_logs": [
+    {
+      "host": "linux",
+      "path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/skim-linux-v19-42438676003-joblogs.log",
+      "sha256": "38b7693f79a1cb8fe03e4584db26a10dbe5c2c3a71c20e83d208225d78a2c6b4",
+      "utf8_bytes": 86937
+    },
+    {
+      "host": "windows",
+      "path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/skim-windows-v19-42438676003-joblogs.log",
+      "sha256": "be4c8bd50bafe73649094feb22a285f7bba1ee57523b58456548380f732470b7",
+      "utf8_bytes": 99628
+    }
+  ],
+  "schema_version": 1,
+  "workflow_run_id": 42438676003
+}

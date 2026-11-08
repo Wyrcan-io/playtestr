@@ -1,0 +1,50 @@
+{
+  "artifacts": [
+    {
+      "artifact_id": 13601015233,
+      "bytes": 18607073,
+      "digest_match": true,
+      "local_path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/git-town-linux-v23-42436598635.zip",
+      "local_sha256": "def19df8d90cd52d80cbf8a4b7fa84706010bd0fd5b2b95e57527ca9e1ac5746",
+      "name": "next20-git-town-linux-final-native-exit-v1",
+      "provider_sha256": "def19df8d90cd52d80cbf8a4b7fa84706010bd0fd5b2b95e57527ca9e1ac5746",
+      "status": "ZIP retrieved, SHA-256 matched the GitHub provider digest, and its member inventory plus all final-series report.json entries were independently reviewed"
+    },
+    {
+      "artifact_id": 13600391052,
+      "bytes": 158512857,
+      "digest_match": true,
+      "local_path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/git-town-windows-v23-42436598635.zip",
+      "local_sha256": "22269080677efc53a5bae26fdbd951a8b44ac4c27f2e209dceb268d305e22442",
+      "name": "next20-git-town-windows-final-native-exit-v1",
+      "provider_sha256": "22269080677efc53a5bae26fdbd951a8b44ac4c27f2e209dceb268d305e22442",
+      "status": "ZIP retrieved, SHA-256 matched the GitHub provider digest, and its member inventory plus all 240 passing final-series report.json entries were independently reviewed"
+    }
+  ],
+  "commit": "59d2c9101010f4059b696c449f67fe9917dc3f94",
+  "independent_member_review": {
+    "linux_case_reports": 238,
+    "linux_zip_members": 3121,
+    "linux_failed_reports": 1,
+    "linux_mutant_target_launches": 0,
+    "windows_case_reports": 240,
+    "windows_zip_members": 3273,
+    "windows_mutant_target_launches": 9
+  },
+  "job_logs": [
+    {
+      "host": "linux",
+      "path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/git-town-linux-v23-42436598635-joblogs.log",
+      "sha256": "0d7efa98b6c695d2fba12cd2e97bced5463ae9dcfc955ccdc2a9bf9b58dc42bf",
+      "utf8_bytes": 97290
+    },
+    {
+      "host": "windows",
+      "path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/git-town-windows-v23-42436598635-joblogs.log",
+      "sha256": "a26ee233bbd6852ac44b956a6fc5853c7fe3ea7a13990889430dd53ff2ea7bab",
+      "utf8_bytes": 112457
+    }
+  ],
+  "schema_version": 1,
+  "workflow_run_id": 42436598635
+}

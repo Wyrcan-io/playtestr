@@ -57,6 +57,23 @@ def package_clean_command(cargo, source, native_triple):
     return json_command([cargo, 'clean', '--package', package_name, '--target', native_triple])
 
 
+def retain_restored_build(target, stem, rebuilt, original_digest):
+    """Retain a normal restored-source rebuild, even when native bytes differ."""
+    if not rebuilt.is_file():
+        raise ValueError(stem+': restored source rebuild omitted native executable')
+    digest = sha256(rebuilt)
+    directory = target/'fault-builds'
+    directory.mkdir(exist_ok=True)
+    retained = directory/(stem+'-restored-rebuild'+rebuilt.suffix)
+    if retained.exists() or retained.is_symlink() or getattr(retained, 'is_junction', lambda:False)():
+        raise ValueError(stem+': preserve existing restored rebuild evidence; no overwrite')
+    shutil.copyfile(rebuilt, retained)
+    if sha256(retained) != digest:
+        raise ValueError(stem+': retained restored rebuild digest differs')
+    return dict(path=retained.relative_to(target).as_posix(), sha256=digest,
+        byte_identical_to_original=(digest == original_digest))
+
+
 async def build(command, source, target, env, label):
     task = asyncio.create_task(execute(command, 'skim', label, cwd=source, env=env,
         timeout=1800, output_cap=2*1024*1024, campaign=NextCampaign(phase='final-archive')))
@@ -260,8 +277,7 @@ async def main():
                 source, target, env, 'clean-mutated-package-'+stem)
             restored_build, restored_samples = await build(command, source, target, env, 'final-restored-build-'+stem)
             restored_built = target/'cargo-target'/build_record['native_triple']/'release'/('sk.exe' if host=='windows' else 'sk')
-            if not restored_built.is_file() or sha256(restored_built) != original_digest:
-                raise ValueError(fault['id']+': restored target did not rebuild byte-identically')
+            restored_rebuild = retain_restored_build(target, stem, restored_built, original_digest)
             shutil.copyfile(backup_binary, original_binary)
             if runtime_binary != original_binary:
                 shutil.copyfile(backup_primary_binary, runtime_binary)
@@ -273,6 +289,7 @@ async def main():
             result = dict(fault=fault['id'], phases={'baseline':base,'corrupted':corrupted,'restored':restored},
                 source_original_sha256=start['original_source_sha256'], source_mutant_sha256=start['mutated_source_sha256'],
                 mutant_binary_sha256=mutant_digest, mutant_build_attempt=mutant_build['id'],
+                restored_rebuild=restored_rebuild,
                 restored_package_clean_attempt=restore_clean['id'],
                 restored_package_clean_storage_samples=restore_clean_samples,
                 restored_package_cleaned=True,

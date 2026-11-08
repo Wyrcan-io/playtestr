@@ -1,0 +1,13 @@
+{
+  "declaration": "docs/validation/runner-readiness-next-twenty-project-pass/skim/final-series-declaration-native-exit-v20.json",
+  "declaration_sha256": "94591b6a82f4ebfce84acbc639323610c273b62ec3b247cfa345ba83cad8a743",
+  "executed_cases": 0,
+  "failure": "ValueError: Skim final harness changed after declaration: scripts/acceptance/next20_skim_final_faults.py",
+  "host": "windows",
+  "plan_namespace": "final-series-plan-native-exit-v24",
+  "project": "skim",
+  "result": "V20 local prepare-only refused before contract/plan generation because the series planner still read the immutable V19 declaration and its stale harness hashes. No target launch, scenario execution, or credit. V21 updates planner and independent auditor declaration/packet paths and records the fresh passing V25 preflight.",
+  "scenario_credit": 0,
+  "schema_version": 1,
+  "superseded_by": "final-series-preflight-audit-v25.json"
+}
