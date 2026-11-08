@@ -1,0 +1,20 @@
+{
+  "audit_path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/skim-v22-local-preflight/skim/final-series-plan-native-exit-v22/windows/plan-audit.json",
+  "audit_sha256": "6fe96793d4e609937845f6251a736e65f36190d5ed3a9db9af8c36c01b8c0113",
+  "contracts_packet": "artifacts/runner-readiness-next-twenty-project-pass/tmp/skim-v22-local-preflight/skim/final-contracts/native-exit-v22/windows",
+  "contracts_verified": 240,
+  "contracts_manifest_sha256": "73b3394bdd26544be32f1786ff9b55d33b1034d53105117003119fddff0141f6",
+  "declaration": "docs/validation/runner-readiness-next-twenty-project-pass/skim/final-series-declaration-native-exit-v18.json",
+  "declaration_sha256": "f2345cf7615b1933d59172989db42c1a27ffc49e8bea21abf5a9f985cdf11950",
+  "executed_cases": 0,
+  "host": "windows",
+  "ordinary_executions_planned": 240,
+  "plan_path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/skim-v22-local-preflight/skim/final-series-plan-native-exit-v22/windows/plan.json",
+  "plan_sha256": "a2f3d0002acdcb438c80b87e743adc0ccccac90dcdbfe3e6f602053f146bd41c",
+  "project": "skim",
+  "reason": "Moved this already audited local Windows V22 plan and contract packet beneath campaign tmp after the later storage check showed it was still retained at the project root. No bytes were changed.",
+  "result": "Independent V22 audit states the native Windows plan covers 240 ordinary executions and 20 unique scenarios, verifies its contract packet, and executed zero cases. This packet is archived context; the current implementation preflight is separately recorded under V23.",
+  "schema_version": 1,
+  "scenario_credit": 0,
+  "superseded_by": "final-series-preflight-audit-v23.json"
+}

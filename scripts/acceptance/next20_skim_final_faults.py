@@ -8,6 +8,7 @@ import platform
 import shutil
 import subprocess
 import sys
+import tomllib
 import uuid
 
 from adversarial_process import execute
@@ -31,6 +32,29 @@ def runtime_record_for_binary(original_bytes, build_sha256, binary_sha256):
     record['native_sha256'] = binary_sha256
     record['build_sha256'] = build_sha256
     return record
+
+
+def runtime_binary_path(target, build_record, runtime_record):
+    """Resolve the primary runtime binary and prove it agrees with build metadata."""
+    root = target.resolve(strict=True)
+    value = Path(runtime_record['native'])
+    if value.is_symlink() or getattr(value, 'is_junction', lambda: False)():
+        raise ValueError('Skim runtime executable is linked')
+    executable = value.resolve(strict=True)
+    executable.relative_to(root)
+    build_executable = target / build_record['binary_relative_path']
+    if build_executable.is_symlink() or getattr(build_executable, 'is_junction', lambda: False)():
+        raise ValueError('Skim build executable is linked')
+    if executable != build_executable.resolve(strict=True):
+        raise ValueError('Skim runtime/build executable paths disagree')
+    return executable
+
+
+def package_clean_command(cargo, source, native_triple):
+    """Clean only the selected Cargo package before a source-restoration rebuild."""
+    with (source/'Cargo.toml').open('rb') as stream:
+        package_name = tomllib.load(stream)['package']['name']
+    return json_command([cargo, 'clean', '--package', package_name, '--target', native_triple])
 
 
 async def build(command, source, target, env, label):
@@ -140,15 +164,23 @@ async def main():
     original_digest = sha256(original_binary)
     if original_digest != build_record['binary_sha256']:
         raise ValueError('original pinned target binary differs from build receipt')
+    original_runtime_record = json.loads((target/'runtime.json').read_text(encoding='utf-8'))
+    runtime_binary = runtime_binary_path(target, build_record, original_runtime_record)
+    if sha256(runtime_binary) != original_digest:
+        raise ValueError('primary runtime executable differs from reviewed case binary alias')
     original_build_bytes = build_path.read_bytes()
     runtime_path = target / 'runtime.json'
     original_runtime_bytes = runtime_path.read_bytes()
     backup_binary = target / 'fault-calibration-original-sk.exe'
+    backup_primary_binary = target / ('fault-calibration-original-primary-sk.exe'
+        if runtime_binary.suffix.lower() == '.exe' else 'fault-calibration-original-primary-sk')
     backup_build = target / 'fault-calibration-original-build.json'
     backup_runtime = target / 'fault-calibration-original-runtime.json'
-    if backup_binary.exists() or backup_build.exists() or backup_runtime.exists():
+    if (backup_binary.exists() or backup_primary_binary.exists() or backup_build.exists() or
+            backup_runtime.exists()):
         raise ValueError('preserve existing fault-calibration backup; no overwrite')
     backup_binary.write_bytes(original_binary.read_bytes())
+    backup_primary_binary.write_bytes(runtime_binary.read_bytes())
     backup_build.write_bytes(original_build_bytes)
     backup_runtime.write_bytes(original_runtime_bytes)
 
@@ -209,6 +241,8 @@ async def main():
             if mutant_digest == original_digest:
                 raise ValueError(fault['id']+': source mutation did not change executable bytes')
             shutil.copyfile(built, original_binary)
+            if runtime_binary != original_binary:
+                shutil.copyfile(built, runtime_binary)
             mutant_record = dict(build_record, binary_sha256=mutant_digest, build_attempt=mutant_build['id'],
                 source_mutation=fault['id'], source_mutant_sha256=start['mutated_source_sha256'],
                 mutation_command=json_command(command))
@@ -221,17 +255,27 @@ async def main():
             source_path.write_bytes(original)
             if sha256(source_path) != provenance['files'][fault['source']]:
                 raise ValueError(fault['id']+': source restoration failed')
+            restore_clean, restore_clean_samples = await build(
+                package_clean_command(cargo, source, build_record['native_triple']),
+                source, target, env, 'clean-mutated-package-'+stem)
             restored_build, restored_samples = await build(command, source, target, env, 'final-restored-build-'+stem)
             restored_built = target/'cargo-target'/build_record['native_triple']/'release'/('sk.exe' if host=='windows' else 'sk')
             if not restored_built.is_file() or sha256(restored_built) != original_digest:
                 raise ValueError(fault['id']+': restored target did not rebuild byte-identically')
             shutil.copyfile(backup_binary, original_binary)
+            if runtime_binary != original_binary:
+                shutil.copyfile(backup_primary_binary, runtime_binary)
             build_path.write_bytes(original_build_bytes)
             runtime_path.write_bytes(original_runtime_bytes)
+            if sha256(runtime_binary) != original_digest:
+                raise ValueError(fault['id']+': primary runtime executable restoration differs')
             restored = await run_case(host, candidate, contract, f'skim-final-fault-{stem}-restored', True, original_digest)
             result = dict(fault=fault['id'], phases={'baseline':base,'corrupted':corrupted,'restored':restored},
                 source_original_sha256=start['original_source_sha256'], source_mutant_sha256=start['mutated_source_sha256'],
                 mutant_binary_sha256=mutant_digest, mutant_build_attempt=mutant_build['id'],
+                restored_package_clean_attempt=restore_clean['id'],
+                restored_package_clean_storage_samples=restore_clean_samples,
+                restored_package_cleaned=True,
                 restored_build_attempt=restored_build['id'], restored_binary_sha256=sha256(restored_built),
                 mutant_build_storage_samples=mutant_samples, restored_build_storage_samples=restored_samples,
                 source_restored=True, detected=True)
@@ -241,8 +285,11 @@ async def main():
     finally:
         for name, original in originals.items():
             (source/name).write_bytes(original)
-        if backup_binary.is_file() and backup_build.is_file():
+        if (backup_binary.is_file() and backup_primary_binary.is_file() and backup_build.is_file() and
+                backup_runtime.is_file()):
             shutil.copyfile(backup_binary, original_binary)
+            if runtime_binary != original_binary:
+                shutil.copyfile(backup_primary_binary, runtime_binary)
             build_path.write_bytes(original_build_bytes)
             runtime_path.write_bytes(original_runtime_bytes)
     if len(calibrated) != 3 or sha256(original_binary) != original_digest:
@@ -252,6 +299,7 @@ async def main():
     if check.returncode:
         raise RuntimeError('restored final Skim source differs from pin: '+check.stdout+check.stderr)
     backup_binary.unlink()
+    backup_primary_binary.unlink()
     backup_build.unlink()
     backup_runtime.unlink()
     out = calibration_root/'summary.json'

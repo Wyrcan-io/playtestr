@@ -5,7 +5,8 @@ from pathlib import Path
 import unittest
 
 from next20_skim_final_series import BATCHES, CASES, transform_contract
-from next20_skim_final_faults import json_command, runtime_record_for_binary
+from next20_skim_final_faults import (json_command, package_clean_command,
+    runtime_binary_path, runtime_record_for_binary)
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -25,7 +26,7 @@ class SkimFinalSeriesTests(unittest.TestCase):
         self.assertEqual([row['id'] for row in BATCHES], list(range(12)))
         self.assertEqual(len(CASES), 20)
         self.assertEqual(len(set(CASES)), 20)
-        declaration = json.loads((PACKAGE/'final-series-declaration-native-exit-v14.json').read_text(encoding='utf-8'))
+        declaration = json.loads((PACKAGE/'final-series-declaration-native-exit-v19.json').read_text(encoding='utf-8'))
         self.assertEqual(declaration['batches'], BATCHES)
         self.assertEqual(declaration['scenario_ids'], CASES)
 
@@ -57,6 +58,31 @@ class SkimFinalSeriesTests(unittest.TestCase):
             build_sha256='mutant-build', runtime='preserved'))
         self.assertEqual(json.loads(original), dict(kind='native', native_sha256='old-binary',
             build_sha256='old-build', runtime='preserved'))
+
+    def test_fault_runtime_path_matches_primary_build_binary_and_alias_is_separate(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            primary = root/'bin'/'sk'
+            alias = root/'bin'/'sk.exe'
+            primary.parent.mkdir()
+            primary.write_bytes(b'baseline')
+            alias.write_bytes(b'baseline')
+            record = dict(binary_relative_path='bin/sk')
+            runtime = dict(native=str(primary))
+            self.assertEqual(runtime_binary_path(root, record, runtime), primary.resolve())
+            self.assertNotEqual(alias.resolve(), primary.resolve())
+
+    def test_restoration_clean_targets_only_the_selected_cargo_package(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root/'source'
+            source.mkdir()
+            (source/'Cargo.toml').write_text('[package]\nname = "skim"\nversion = "0.1.0"\n',
+                encoding='utf-8')
+            self.assertEqual(package_clean_command(Path('cargo'), source, 'x86_64-test'),
+                ['cargo', 'clean', '--package', 'skim', '--target', 'x86_64-test'])
 
     def test_segmented_input_is_ordered_and_semantically_identical(self):
         original = self.contract('N02')
