@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42451645308,
+  "source_revision": "99dc2ba731e8b623d3f61d1949edbad3b4a4d47a",
+  "event": "push",
+  "result": "both-hosts-passed-upstream-tests-and-builds-go-setup-passed-fixture-path-failed-before-target",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128641946432,
+      "source_verified": true,
+      "upstream_tests_passed": 250,
+      "target_binary_built": true,
+      "playtestr_binary_built": true,
+      "go_setup": "passed; Go 1.25.0 from go.mod",
+      "authored_smoke": "workspace_setup_failed_before_target_launch",
+      "failure_category": "workspace_setup",
+      "artifact_id": 13605478497,
+      "artifact_bytes": 11200792,
+      "artifact_sha256": "6a22788de9e8431296fe04ad1faf969e80adfb96a2e1a2d9bfcfdca506b0054b"
+    },
+    {
+      "host": "macos-15-intel-x86_64",
+      "job_id": 128641946259,
+      "source_verified": true,
+      "upstream_tests_passed": 250,
+      "target_binary_built": true,
+      "playtestr_binary_built": true,
+      "go_setup": "passed; Go 1.25.0 from go.mod",
+      "authored_smoke": "workspace_setup_failed_before_target_launch",
+      "failure_category": "workspace_setup",
+      "artifact_id": 13606174440,
+      "artifact_bytes": 6778766,
+      "artifact_sha256": "24e097a182037a2e96534d8874229644b2522f73e1ff36581b6cf93abbd877ae"
+    }
+  ],
+  "failure": "Both hosts resolved the repo-prefixed fixture path relative to the spec directory and looked for a nonexistent first-use-v1/docs/... tree. The spec-relative fixtures path was pushed in source 6a18fb07.",
+  "provider_run": "https://github.com/Wyrcan-io/playtestr/actions/runs/42451645308",
+  "disposition": "Preserve both setup failures. Both pinned native builds/tests and Go 1.25.0 setup passed, but no Taskell process or authored case launched. Run 42452701639 is the first run with the corrected spec-relative fixture path."
+}

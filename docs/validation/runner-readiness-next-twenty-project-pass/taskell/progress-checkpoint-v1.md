@@ -89,3 +89,10 @@ spec-relative, so the repository-prefixed path was incorrect. Its receipt is
 `build-attempt-v10.json`. The case now uses `fixtures`, relative to its
 owning spec directory. The run's macOS result remains open; a new push will
 exercise the corrected path and setup on both hosts.
+
+Run `42451645308` later completed on both hosts. Linux and Intel macOS each
+passed all 250 upstream tests, built the target and Playtestr, and configured
+Go 1.25.0, then both failed before target launch on the old fixture path.
+Full receipt `build-attempt-v11.json` records both artifact digests. Corrected
+spec-relative fixture run `42452701639` is the active qualification attempt;
+its jobs remain in pinned upstream tests at latest observation.

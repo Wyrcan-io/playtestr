@@ -74,3 +74,9 @@ directory, making the repository-prefixed path invalid. Receipt
 `build-attempt-v10.json` retains the artifact digest. The fixture now uses the
 spec-relative `fixtures` directory; the 250-test, build and host evidence from
 the failed attempt remains separate.
+
+Run `42451645308` later completed on both hosts: each passed 250 upstream
+tests, built Taskell and Playtestr, and set up Go 1.25.0. Both then failed
+before target launch on the same fixture-root path (`build-attempt-v11.json`).
+Run `42452701639` uses the corrected `fixtures` path; its native outcomes are
+still open.
