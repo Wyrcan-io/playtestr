@@ -58,7 +58,9 @@ def main():
     old=ROOT/'artifacts/runner-readiness-ten-project-pass'
     if (old/'active').exists() and any((old/'active').iterdir()):raise ValueError('original campaign has an active target')
     active=RAW/'active';active.mkdir(exist_ok=True)
-    if any(active.iterdir()) and not args.resume_source_archive:raise ValueError('active target already exists; resume/clean it before acquisition')
+    # Preserve prior target trees when their checked removal packet is
+    # incomplete. Acquisition remains exclusive at the selected project path.
+    if (active/args.project).exists() and not args.resume_source_archive:raise ValueError('active target already exists; resume/clean it before acquisition')
     before=measure(RAW);old_size=measure(old)['total_bytes'] if old.exists() else 0
     if before['total_bytes']+64*1024**2>4*1024**3 or before['total_bytes']+old_size+64*1024**2>6*1024**3:
         raise ValueError('insufficient declared acquisition headroom')

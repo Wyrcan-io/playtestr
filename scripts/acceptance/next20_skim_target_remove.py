@@ -25,7 +25,9 @@ def remove():
         raise ValueError('Skim target identity changed')
     prepared = json.loads(prepared_path.read_text(encoding='utf-8'))
     inventory = json.loads(inventory_path.read_text(encoding='utf-8'))
-    proof = json.loads(proof_path.read_text(encoding='utf-8'))
+    # Some Windows process-proof writers emit a UTF-8 BOM. Accept that encoding
+    # while continuing to bind the receipt to the exact on-disk bytes below.
+    proof = json.loads(proof_path.read_text(encoding='utf-8-sig'))
     owner_path = target / 'task-owned.json'
     owner = json.loads(owner_path.read_text(encoding='utf-8'))
     provenance = json.loads(provenance_path.read_text(encoding='utf-8'))
