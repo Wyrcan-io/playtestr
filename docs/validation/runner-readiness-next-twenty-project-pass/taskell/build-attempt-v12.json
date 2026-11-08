@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "taskell",
+  "workflow_run_id": 42451800719,
+  "source_revision": "2144fd697b2aff538f623b651a8fa88a6d132162",
+  "event": "push",
+  "result": "both-hosts-passed-upstream-tests-and-builds-go-setup-passed-fixture-path-invalid",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128642410420,
+      "source_verified": true,
+      "upstream_tests_passed": 250,
+      "target_binary_built": true,
+      "playtestr_binary_built": true,
+      "go_setup": "passed; Go 1.25.0 from go.mod",
+      "authored_smoke": "workspace_setup_failed_before_target_launch",
+      "artifact_id": 13605847837,
+      "artifact_bytes": 11200783,
+      "artifact_sha256": "77aa109355fdde682c85263ef798102dada9c9c87a075b902a5681f40e757c16"
+    },
+    {
+      "host": "macos-15-intel-x86_64",
+      "job_id": 128642410204,
+      "source_verified": true,
+      "upstream_tests_passed": 250,
+      "target_binary_built": true,
+      "playtestr_binary_built": true,
+      "go_setup": "passed; Go 1.25.0 from go.mod",
+      "authored_smoke": "workspace_setup_failed_before_target_launch",
+      "artifact_id": 13606550766,
+      "artifact_bytes": 6778764,
+      "artifact_sha256": "daac583de8efd869701e9a032b09ffe4a76b0be16886e6c56eab1877a57f61b8"
+    }
+  ],
+  "failure": "Both hosts resolved the repository-prefixed fixture path from the spec directory and failed to find it. The spec-relative fixtures correction is source 6a18fb07.",
+  "provider_run": "https://github.com/Wyrcan-io/playtestr/actions/runs/42451800719",
+  "disposition": "Both native builds, tests and Go setup passed; the test case never launched Taskell. Preserve as fixture setup failure with no case/admission credit. Run 42452701639 is the active path-corrected native validation."
+}

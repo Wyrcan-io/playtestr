@@ -80,3 +80,9 @@ tests, built Taskell and Playtestr, and set up Go 1.25.0. Both then failed
 before target launch on the same fixture-root path (`build-attempt-v11.json`).
 Run `42452701639` uses the corrected `fixtures` path; its native outcomes are
 still open.
+
+Run `42451800719` later completed both hosts: each passed 250 tests, built
+Taskell and Playtestr, and configured Go 1.25.0, then rejected the same
+repo-prefixed fixture path before launching Taskell. Both artifact digests are
+in `build-attempt-v12.json`. Run `42452701639` contains the corrected
+spec-relative fixture.

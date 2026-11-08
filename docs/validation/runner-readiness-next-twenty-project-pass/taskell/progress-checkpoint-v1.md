@@ -96,3 +96,10 @@ Go 1.25.0, then both failed before target launch on the old fixture path.
 Full receipt `build-attempt-v11.json` records both artifact digests. Corrected
 spec-relative fixture run `42452701639` is the active qualification attempt;
 its jobs remain in pinned upstream tests at latest observation.
+
+Run `42451800719` subsequently completed with both native builds, 250-test
+upstream suites and Go setup successful, but both smoke cases still failed
+before target launch because the fixture path included a repository prefix.
+Receipt `build-attempt-v12.json` records each artifact. The corrected path is
+in source `6a18fb07`, run `42452701639`; continue to inspect that run before
+freezing any Taskell application scenarios.
