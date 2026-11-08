@@ -181,6 +181,9 @@ class TaskellLLVMTests(unittest.TestCase):
             static=tarfile.TarInfo('opt/local/lib/libncurses++w.a')
             static_bytes=b'x'*(4*1024**2+1);static.size=len(static_bytes)
             archive.addfile(static,io.BytesIO(static_bytes))
+            static_alias=tarfile.TarInfo('opt/local/lib/libncurses++w.a.link')
+            static_alias.type=tarfile.SYMTYPE;static_alias.linkname='libncurses++w.a'
+            archive.addfile(static_alias)
             for name,target in [('opt/local/lib/libncurses.6.dylib','libncurses.6.6.dylib'),
                                 ('opt/local/lib/libform.6.dylib','libform.6.6.dylib'),
                                 ('opt/local/lib/libcurses.dylib','libcurses.6.6.dylib')]:
@@ -195,6 +198,7 @@ class TaskellLLVMTests(unittest.TestCase):
         self.assertEqual(set(files),{'libncurses.6.6.dylib','libncurses.6.dylib','libform.6.6.dylib','libform.6.dylib',
                                      'libcurses.6.6.dylib','libcurses.dylib'})
         self.assertFalse((prefix/'lib/libncurses++w.a').exists())
+        self.assertFalse((prefix/'lib/libncurses++w.a.link').exists())
 
 
 if __name__=='__main__':

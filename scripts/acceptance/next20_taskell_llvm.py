@@ -194,17 +194,17 @@ def safe_extract_dylib_family(package,destination,pattern,required,label,cap=16*
                     if resolved.is_absolute() or '..' in resolved.parts:raise ValueError(f'Escaping symlink in MacPorts {label} package')
                     pending.append((output,member.linkname))
                 else:raise ValueError(f'Unsupported special entry in MacPorts {label} package')
-            elif name.startswith('opt/local/share/') and (member.issym() or member.islnk()):
-                # MacPorts man trees can use symlink/hardlink aliases. They are
-                # never materialized in the owned runtime prefix; validate the
-                # metadata target and ignore it as inert documentation.
-                if len(member.linkname)>4096:raise ValueError(f'Oversized MacPorts {label} documentation link')
+            elif member.issym() or member.islnk():
+                # Non-selected package links (including man aliases and static
+                # library links) are never materialized in the owned runtime
+                # prefix. Validate their metadata target before ignoring them.
+                if len(member.linkname)>4096:raise ValueError(f'Oversized MacPorts {label} package link')
                 link=PurePosixPath(member.linkname)
-                if link.is_absolute():raise ValueError(f'Absolute link in MacPorts {label} documentation')
+                if link.is_absolute():raise ValueError(f'Absolute link in MacPorts {label} package')
                 base=parts.parent if member.issym() else PurePosixPath('.')
                 resolved=PurePosixPath(posixpath.normpath(str(base/link)))
                 if resolved.is_absolute() or '..' in resolved.parts:
-                    raise ValueError(f'Escaping link in MacPorts {label} documentation')
+                    raise ValueError(f'Escaping link in MacPorts {label} package')
                 continue
             elif member.isfile():
                 # Static archives, headers, pkg-config files and documentation
