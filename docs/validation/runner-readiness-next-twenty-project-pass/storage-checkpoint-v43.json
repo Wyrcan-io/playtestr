@@ -1,0 +1,64 @@
+{
+  "active_projects": [],
+  "actual_bytes": {
+    "combined_curated": 34936304,
+    "combined_raw": 3977060037,
+    "combined_retained": 2137304175,
+    "new_campaign_raw": 2068032376,
+    "new_campaign_retained": 1148358992,
+    "new_curated": 23355680,
+    "project_taskell": 58161257
+  },
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "caps_bytes": {
+    "combined_curated": 52428800,
+    "combined_raw": 6442450944,
+    "combined_retained": 2147483648,
+    "new_campaign_raw": 4294967296,
+    "new_curated": 26214400,
+    "project": 67108864
+  },
+  "headroom_bytes": {
+    "combined_curated": 17492496,
+    "combined_raw": 2465390907,
+    "combined_retained": 10179473,
+    "new_campaign_raw": 2226934920,
+    "new_curated": 1808720,
+    "project_taskell": 8947607
+  },
+  "observed_at_utc": "2026-11-09T08:02:00+00:00",
+  "prior_campaign_snapshots": {
+    "first_ten_closing_storage_sha256": "ecd414f05cec33e1c5e20f08e430e908894172de17b861f63072b70e295815cc",
+    "first_ten_curated_bytes": 11580624,
+    "first_ten_raw_bytes": 1909027661,
+    "first_ten_retained_bytes": 988945183,
+    "scope": "Immutable saved baselines used by acquisition/storage helpers; older raw evidence was not scanned.",
+    "v42_combined_raw_bytes": 3921161050,
+    "v42_new_raw_bytes": 2012133389,
+    "v42_sha256": "b4c404168879a31fc35a0bed69e1ad017dd769e14b88fd842c9c493d3e83ed6b"
+  },
+  "prior_over_cap_observations_preserved": true,
+  "retention_calculation": {
+    "current_campaign_measure": "readiness_storage.measure on the next20 raw and curated roots only; no expansion/scan of first-ten raw evidence",
+    "new_retained_rule": "Sum current next20 top-level bytes excluding active, toolchain, go-cache, gopath, gh-cache and tmp, matching next20_storage.py.",
+    "old_raw_source": "storage-checkpoint-v42.json combined_raw minus new_campaign_raw; no read of older raw tree",
+    "old_retained_bytes": 988945183,
+    "old_retained_receipt_sha256": "ecd414f05cec33e1c5e20f08e430e908894172de17b861f63072b70e295815cc",
+    "old_retained_source": "docs/validation/runner-readiness-ten-project-pass/closing-storage.json",
+    "storage_checkpoint_v42_sha256": "b4c404168879a31fc35a0bed69e1ad017dd769e14b88fd842c9c493d3e83ed6b"
+  },
+  "schema_version": 1,
+  "scope": "Logical storage measurement after retaining Taskell evidence/source and moving only synthetic control-test scratch byte-identically under tmp. Current taskell remains below the per-project cap; shared retained headroom restored to 10,179,473 bytes. Not exact allocated disk usage, quota or peak.",
+  "status": "pass",
+  "temporary_scratch": {
+    "all_file_hashes_verified_after_move": true,
+    "bytes": 69235153,
+    "files": 6568,
+    "moved_from": "artifacts/runner-readiness-next-twenty-project-pass/control-tests",
+    "path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/synthetic-control-tests-v1",
+    "raw_cap_still_counts_scratch": true,
+    "receipt": "artifacts/runner-readiness-next-twenty-project-pass/tmp/synthetic-control-tests-v1-move-index.json",
+    "receipt_sha256": "89647b6ade579afb3e60d0087717941879b8f30c5234b9da2805923308109c11",
+    "retained_classification_excludes_tmp": true
+  }
+}

@@ -7,6 +7,7 @@ import uuid
 from next20_check import RAW, DOC, ROOT
 from readiness_evidence import immutable_json,sha256
 from readiness_storage import measure
+from next20_storage_baseline import prior_campaign_usage
 
 
 def owned_short_cache(current):
@@ -36,9 +37,8 @@ def main():
     if '/' in args.project or '\\' in args.project or args.project in {'.','..'}:
         raise ValueError('unsafe storage project')
     if not (DOC/args.project/'source-provenance.json').is_file():raise ValueError('undeclared project storage scope')
-    old_raw=ROOT/'artifacts/runner-readiness-ten-project-pass'
-    old_doc=ROOT/'docs/validation/runner-readiness-ten-project-pass'
-    current=measure(RAW);old=measure(old_raw);curated=measure(DOC);prior_curated=measure(old_doc)
+    previous=prior_campaign_usage(DOC,ROOT)
+    current=measure(RAW);curated=measure(DOC)
     caches={'active','toolchain','go-cache','gopath','gh-cache','tmp'}
     retained=lambda value,extra=():sum(v for k,v in value['top_level_bytes'].items() if k not in caches and k not in extra)
     short_cache=None
@@ -63,9 +63,9 @@ def main():
         active[0]['owned_short_cache_bytes']=short_cache['bytes'];active[0]['total_bytes']+=short_cache['bytes']
     caps=dict(new_raw=4*1024**3,combined_raw=6*1024**3,combined_retained=2*1024**3,
               project=64*1024**2,new_curated=25*1024**2,combined_curated=50*1024**2)
-    actual=dict(new_raw=current['total_bytes'],combined_raw=current['total_bytes']+old['total_bytes'],
-                combined_retained=retained(current,{'r'} if short_cache else ())+retained(old),project=size,new_curated=curated['total_bytes'],
-                combined_curated=curated['total_bytes']+prior_curated['total_bytes'])
+    actual=dict(new_raw=current['total_bytes'],combined_raw=current['total_bytes']+previous['raw'],
+                combined_retained=retained(current,{'r'} if short_cache else ())+previous['retained'],project=size,new_curated=curated['total_bytes'],
+                combined_curated=curated['total_bytes']+previous['curated'])
     failures=[k for k,v in actual.items() if v>caps[k]]
     if len(active)>1 or any(a['total_bytes']>min(4*1024**3,caps['combined_raw']-actual['combined_raw']+a['total_bytes']) for a in active):
         failures.append('active-target-bound')
