@@ -1,0 +1,46 @@
+{
+  "schema_version": 3,
+  "project": "mg",
+  "candidate": "v0.4.0-rc.6",
+  "target_pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "admission_credit": 0,
+  "prior_n02_accounting": "mg/scenario-development-accounting-v2.json",
+  "n02_native_readback": "mg/scenario-development-readback-v1.json",
+  "n03_first_attempt_readback": "mg/n03-first-attempt-readback-v1.json",
+  "n03_source_review": "mg/n03-source-review-v1.json",
+  "attempts": [
+    {
+      "run_id": 42716663487,
+      "scenario_id": "n02-edit-append",
+      "host_results": "Linux and macOS failed initial basename-only save oracle; forced cleanup confirmed",
+      "disposition": "preserved; mismatch was target absolute-path confirmation vs contract basename"
+    },
+    {
+      "run_id": 42717420876,
+      "scenario_id": "n02-edit-append",
+      "host_results": "Linux and macOS passed corrected prefix contract, 12/12 steps; graceful target exit",
+      "disposition": "development probe only; state report does not retain resulting bytes"
+    },
+    {
+      "run_id": 42719240888,
+      "scenario_id": "n03-query-replace",
+      "host_results": "Linux and macOS failed step 4 prompt-prefix assertion before replacement; forced target-group cleanup confirmed",
+      "disposition": "preserved; remove invisible trailing-space requirements and retry"
+    }
+  ],
+  "development_counters": {
+    "selected_distinct_scenarios": 2,
+    "host_attempts": 8,
+    "passed_host_attempts": 4,
+    "failed_host_attempts": 4,
+    "scope": "N01 and N02 passed development probes on two hosts; N02 initial failures and N03 initial failures retained. N03 retry pending."
+  },
+  "qualification_counters": {
+    "scenarios": 0,
+    "native_cells": 0,
+    "ordinary_executions": 0,
+    "calibrations": 0,
+    "real_source_faults": 0
+  },
+  "status": "mg remains unadmitted; N03 corrected native retry pending"
+}

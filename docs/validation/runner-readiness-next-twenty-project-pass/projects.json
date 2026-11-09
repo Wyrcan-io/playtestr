@@ -568,7 +568,7 @@
       "id": "mg",
       "repository": "troglobit/mg",
       "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
-      "status": "source-acquired; native builds and N01 pilot passed on Linux/macOS; N02 edit-and-save development probe passed on Linux/macOS after preserving and correcting a prompt-oracle mismatch; complete 20-scenario qualification, repetition, faults, authoring and admission remain pending; zero admission credit",
+      "status": "source acquired; N01 and N02 development probes passed on Linux/macOS; N02 and N03 first oracle failures preserved; N03 prompt-prefix repair pending; full matrix, repetition, faults, authoring and admission remain pending; zero admission credit",
       "acquired": true,
       "admitted": false,
       "planned_hosts": [
@@ -576,9 +576,9 @@
         "macos"
       ],
       "development_selected_scenarios_passed": 2,
-      "development_ordinary_attempts": 6,
+      "development_ordinary_attempts": 8,
       "development_ordinary_passed": 4,
-      "development_ordinary_failed": 2,
+      "development_ordinary_failed": 4,
       "development_real_faults": 0,
       "qualified_scenarios": 0,
       "qualified_native_cells": 0,
@@ -617,7 +617,7 @@
       "pilot_workflow": ".github/workflows/runner-readiness-next20-mg-pilot.yml",
       "pilot_attempt_accounting": "mg/pilot-attempt-accounting-v2.json",
       "pilot_native_readback": "mg/pilot-n01-native-readback-v1.json",
-      "scenario_attempt_accounting": "mg/scenario-development-accounting-v2.json",
+      "scenario_attempt_accounting": "mg/scenario-development-accounting-v3.json",
       "scenario_native_readback": "mg/scenario-development-readback-v1.json"
     }
   ],

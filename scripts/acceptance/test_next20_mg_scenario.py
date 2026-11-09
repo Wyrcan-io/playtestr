@@ -26,8 +26,8 @@ class MgScenarioContractTests(unittest.TestCase):
         self.assertEqual(spec["command"], ["mg", "-S", "-n", "notes.txt"])
         self.assertEqual((fixture / "notes.txt").read_bytes(), b"one needle and needle.\n")
         self.assertEqual(spec["steps"][0], {"expect": "one needle and needle."})
-        self.assertIn({"expect": "Query replace: "}, spec["steps"])
-        self.assertIn({"expect": "Query replace needle with: "}, spec["steps"])
+        self.assertIn({"expect": "Query replace:"}, spec["steps"])
+        self.assertIn({"expect": "Query replace needle with:"}, spec["steps"])
         self.assertIn({"expect": "Replaced 2 occurrences"}, spec["steps"])
         self.assertEqual(base64.b64decode(spec["steps"][-1]["state"]["bytes_base64"], validate=True),
                          b"one TOKEN and TOKEN.\n")
