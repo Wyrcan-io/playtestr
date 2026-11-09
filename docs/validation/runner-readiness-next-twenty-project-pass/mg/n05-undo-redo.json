@@ -1,0 +1,78 @@
+{
+  "version": 3,
+  "name": "mg undo an edit then redo it",
+  "command": [
+    "mg",
+    "-S",
+    "-n",
+    "notes.txt"
+  ],
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "workspace": {
+    "fixture": "fixtures/n05-undo-redo"
+  },
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 8000,
+  "run_timeout_ms": 30000,
+  "startup_timeout_ms": 15000,
+  "steps": [
+    {
+      "expect": "seed"
+    },
+    {
+      "key": "CtrlE"
+    },
+    {
+      "text": " changed"
+    },
+    {
+      "expect": "seed changed"
+    },
+    {
+      "key": "CtrlX"
+    },
+    {
+      "text": "u"
+    },
+    {
+      "expect": "seed"
+    },
+    {
+      "key": "CtrlX"
+    },
+    {
+      "text": "u"
+    },
+    {
+      "expect": "seed changed"
+    },
+    {
+      "key": "CtrlX"
+    },
+    {
+      "key": "CtrlS"
+    },
+    {
+      "expect": "Wrote "
+    },
+    {
+      "key": "CtrlX"
+    },
+    {
+      "key": "CtrlC"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "notes.txt",
+        "kind": "file",
+        "bytes_base64": "c2VlZCBjaGFuZ2VkCg=="
+      }
+    }
+  ]
+}

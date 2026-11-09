@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "project": "troglobit/mg",
+  "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "scenario": "n05-undo-redo",
+  "status": "reviewed against exact pinned source; native probe pending",
+  "source_files": {
+    "src/keymap.c": "7e6179df6d051f3deb54775a817fef96b90a94e2f35cbb134ba54c8c9106c54e",
+    "src/undo.c": "02f4127fbb30b1fa06a22aeab0624ca8021058e84a653235c403d14346194771"
+  },
+  "findings": [
+    "The C-x keymap binds lowercase u to undo.",
+    "undo.c records inverse operations during undo; its undo pointer points at the preceding action after an undo.",
+    "The pinned source comment says that when the pointer reaches the bottom or moves between undo actions, the pointer returns to the newest record; this is how the command performs redo.",
+    "The scenario applies one contiguous insertion at end-of-line, invokes C-x u to assert restoration to seed, invokes C-x u again to assert redo to seed changed, then saves and checks exact expected bytes."
+  ],
+  "contract": "n05-undo-redo.json",
+  "fixture": "fixtures/n05-undo-redo/notes.txt",
+  "fixture_sha256": "4a6689419b00b11700c9b6246bcfa8936c8f5e1e824db3a7e57030e2d1c1a684",
+  "expected_state_sha256": "c0a30be1e5c92bf0a1e3a15dd4c523adb6ca4c485fa904b4c9064e943c1dbaf9",
+  "expected_state_base64": "c2VlZCBjaGFuZ2VkCg==",
+  "safety": "synthetic disposable file, secure mode -S and backups disabled with -n"
+}
