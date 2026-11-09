@@ -14,7 +14,8 @@
     "fund_CJ maps CtrlF to forward character, CtrlW to killregion, and CtrlY to yank.",
     "killregion computes the marked region, moves point to its start, deletes the region into the kill buffer, and clears mark.",
     "yank inserts the kill buffer at the current point.",
-    "Contract moves from line start across \"alpha \" (6 chars), sets mark, advances over \"beta\" (4 chars), cuts those four bytes, moves to end of line, and yanks the word."
+    "Contract moves from line start across \"alpha \" (6 chars), sets mark, advances over \"beta\" (4 chars), cuts those four bytes, moves to end of line, and yanks the word.",
+    "Because CtrlE moves point to the end of gamma and the killed text is beta, the contract inserts one explicit space at end-of-line before CtrlY so the joined words remain separated."
   ],
   "contract": "n04-cut-yank.json",
   "fixture": "fixtures/n04-cut-yank/notes.txt",

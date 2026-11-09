@@ -1,0 +1,57 @@
+{
+  "schema_version": 5,
+  "project": "mg",
+  "candidate": "v0.4.0-rc.6",
+  "target_pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "admission_credit": 0,
+  "prior_accounting": "mg/scenario-development-accounting-v4.json",
+  "n04_first_failure": "mg/n04-first-attempt-readback-v1.json",
+  "n04_source_review": "mg/n04-source-review-v1.json",
+  "attempts": [
+    {
+      "run_id": 42716663487,
+      "scenario": "n02-edit-append",
+      "hosts": "2 failures",
+      "finding": "basename-only save-confirmation oracle mismatch"
+    },
+    {
+      "run_id": 42717420876,
+      "scenario": "n02-edit-append",
+      "hosts": "2 passes",
+      "finding": "corrected host-independent prefix; report says state matched"
+    },
+    {
+      "run_id": 42719240888,
+      "scenario": "n03-query-replace",
+      "hosts": "2 failures",
+      "finding": "prompt assertion included invisible trailing blank"
+    },
+    {
+      "run_id": 42720209709,
+      "scenario": "n03-query-replace",
+      "hosts": "2 passes",
+      "finding": "corrected prompt; 19/19 steps each host"
+    },
+    {
+      "run_id": 42721418974,
+      "scenario": "n04-cut-yank",
+      "hosts": "2 failures",
+      "finding": "step 18 shows alpha  gammabeta; contract needs a separator between the end-of-line and yanked word; force cleanup confirmed"
+    }
+  ],
+  "scenario_development_counters": {
+    "distinct_scenarios_with_a_native_pass": 2,
+    "host_attempts": 18,
+    "passed_host_attempts": 12,
+    "failed_host_attempts": 6,
+    "scope": "N02/N03 development scenario host invocations including retry probes and latest workflow reruns; N01 pilot is tracked separately."
+  },
+  "qualification_counters": {
+    "scenarios": 0,
+    "native_cells": 0,
+    "ordinary_executions": 0,
+    "calibrations": 0,
+    "real_source_faults": 0
+  },
+  "status": "N02/N03 development probes pass on Linux/macOS; N04 first attempt failed before save/state and is preserved; corrected N04 native retry pending."
+}

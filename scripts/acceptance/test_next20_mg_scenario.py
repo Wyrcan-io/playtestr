@@ -42,6 +42,9 @@ class MgScenarioContractTests(unittest.TestCase):
         self.assertIn({"key": "CtrlSpace"}, spec["steps"])
         self.assertIn({"key": "CtrlW"}, spec["steps"])
         self.assertIn({"key": "CtrlY"}, spec["steps"])
+        yank = spec["steps"].index({"key": "CtrlY"})
+        self.assertEqual(spec["steps"][yank - 2:yank + 1],
+                         [{"key": "CtrlE"}, {"text": " "}, {"key": "CtrlY"}])
         self.assertIn({"expect": "alpha  gamma"}, spec["steps"])
         self.assertEqual(base64.b64decode(spec["steps"][-1]["state"]["bytes_base64"], validate=True),
                          b"alpha  gamma beta\n")

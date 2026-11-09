@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "project": "troglobit/mg",
+  "target_pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "candidate": "v0.4.0-rc.6",
+  "scenario": "n04-cut-yank",
+  "phase": "development; not qualification",
+  "workflow_run_id": 42721418974,
+  "commit": "feced8d9eace32c9bd0b367038158e550ef4a7be",
+  "hosts": [
+    {
+      "host": "linux",
+      "job_id": 129516041387,
+      "provider_artifact_id": 13719679722,
+      "provider_artifact_bytes": 22559,
+      "provider_artifact_sha256": "544438f5504ff170d8c29af8afd512eb570578b245ee391065c514e4613e86f1",
+      "retained_tree": "artifacts/runner-readiness-next-twenty-project-pass/mg/scenario-development/retrieved/run-42721418974/linux",
+      "retained_zip": "artifacts/runner-readiness-next-twenty-project-pass/mg/scenario-development/retrieved/run-42721418974/linux-retained.zip",
+      "retained_zip_sha256": "ce2b09a9bdd69597052c985c81127e42be85ca5aef3bb996086598c4f9dba50a",
+      "retained_zip_bytes": 22052,
+      "retained_zip_crc": null,
+      "retained_zip_members": 33,
+      "attempt_id": "f2264d4e19694598b962b79e15d5c527",
+      "attempt_sha256": "0ae519865f5ee5c8f77cfdb4fbcd66ff3942f88f2c1c36ea40ca2e4497783fec",
+      "contract_sha256": "81a4c8bab69bc416614789302ff6849e4fe9c7cef651bad00944012ed3d03b68",
+      "candidate_binary_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a",
+      "target_binary_sha256": "6eb334f5ea96687983c51b073b1b8a11434ea85a46e69ca6e28e57b76b4e88e5",
+      "report_sha256": "dee4282c7a3cd452f07d1aa8e3a2b9e356bb080fadf2b605900567876e888332",
+      "runner_log_sha256": "d0e13bd5d13700d8d70849fa74c4bccba10934f40b634a402fe6050b5486adb3",
+      "failure": {
+        "category": "assertion_timeout",
+        "message": "mg cut a marked word and yank it at line end: step 18: step timed out: context deadline exceeded"
+      },
+      "failed_step": 18,
+      "screen_sha256": "6a07f3ae39f9eb23282cc72dbd84ff9b525c8413b58e791f31ce38a388048685",
+      "screen_text": "alpha  gammabeta",
+      "target_cleanup": {
+        "attempted": true,
+        "graceful": false,
+        "forced": true,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "workflow_cleanup": "storage and pilot input cleanup steps succeeded"
+    },
+    {
+      "host": "darwin",
+      "job_id": 129516041025,
+      "provider_artifact_id": 13719594346,
+      "provider_artifact_bytes": 22632,
+      "provider_artifact_sha256": "aa4d4ddc049290abc59c2f243de0ca2b1e35045bb629c8b00bdd095412717696",
+      "retained_tree": "artifacts/runner-readiness-next-twenty-project-pass/mg/scenario-development/retrieved/run-42721418974/darwin",
+      "retained_zip": "artifacts/runner-readiness-next-twenty-project-pass/mg/scenario-development/retrieved/run-42721418974/darwin-retained.zip",
+      "retained_zip_sha256": "fbc0f52605cddf8ff1ed54c8ea6710c15132ebd31363b9ba8978e8bec174b1e9",
+      "retained_zip_bytes": 22113,
+      "retained_zip_crc": null,
+      "retained_zip_members": 33,
+      "attempt_id": "c64e58ddba1f406d8bed98e8a22b765b",
+      "attempt_sha256": "cd983d108650a2df4ffcfb51e5a4ebcfbe2c91961fe0662a6d25090d7adfd045",
+      "contract_sha256": "81a4c8bab69bc416614789302ff6849e4fe9c7cef651bad00944012ed3d03b68",
+      "candidate_binary_sha256": "609b184dac8664050643ec35036c4cffef2137ec778ae4d4678727b119e2fe0f",
+      "target_binary_sha256": "5f0c844b1c8a6a44209ad4534b3d19e223c0289024e00f34656031b8640db297",
+      "report_sha256": "73f2f3cd8ffb99ce6581eb0fd678bbc7ea09dcb4fa0d9a1020a3650c5c24f877",
+      "runner_log_sha256": "edb113ee3dfa09db70abcc65221a02123e99ba46f1a6bbd00026626e183ca9d6",
+      "failure": {
+        "category": "assertion_timeout",
+        "message": "mg cut a marked word and yank it at line end: step 18: step timed out: context deadline exceeded"
+      },
+      "failed_step": 18,
+      "screen_sha256": "6a07f3ae39f9eb23282cc72dbd84ff9b525c8413b58e791f31ce38a388048685",
+      "screen_text": "alpha  gammabeta",
+      "target_cleanup": {
+        "attempted": true,
+        "graceful": false,
+        "forced": true,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "workflow_cleanup": "storage and pilot input cleanup steps succeeded"
+    }
+  ],
+  "finding": "Both hosts performed mark, cut and yank steps. At step 18 the screen was alpha  gammabeta: CtrlE placed the point at the line end, and yank inserted beta there without a separating blank. The contract expected alpha  gamma beta. The assertion timed out before save/state assertions. Target cleanup was forced and confirmed on both hosts; runner groups and workflow inputs were cleaned.",
+  "correction": "Insert one explicit space after CtrlE and before CtrlY; preserve this failed attempt unchanged.",
+  "admission_credit": 0
+}
