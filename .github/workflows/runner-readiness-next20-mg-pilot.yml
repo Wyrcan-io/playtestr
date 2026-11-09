@@ -1,4 +1,4 @@
-name: Runner readiness next20 mg exact-candidate PTY pilot
+name: Runner readiness next20 mg exact-candidate scenario validation
 
 on:
   push:
@@ -9,6 +9,10 @@ on:
       - scripts/acceptance/next20_mg_pilot.py
       - scripts/acceptance/next20_mg_pilot_cleanup.py
       - scripts/acceptance/test_next20_mg_pilot.py
+      - scripts/acceptance/next20_mg_scenario.py
+      - scripts/acceptance/test_next20_mg_scenario.py
+      - docs/validation/runner-readiness-next-twenty-project-pass/mg/n02-edit-append.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/n02-edit-append/**
       - scripts/acceptance/test_next20_mg_build.py
       - scripts/acceptance/next20_candidate.py
       - scripts/acceptance/next20_candidate_install.py
@@ -70,7 +74,7 @@ jobs:
         run: mkdir -p artifacts/runner-readiness-next-twenty-project-pass/pilot-input/mg artifacts/runner-readiness-next-twenty-project-pass/pilot-input/candidate artifacts/runner-readiness-next-twenty-project-pass/tmp
 
       - name: Validate pilot contract and bounded process helpers
-        run: python -B -m unittest test_next20_mg_build test_next20_mg_pilot -v
+        run: python -B -m unittest test_next20_mg_build test_next20_mg_pilot test_next20_mg_scenario -v
         working-directory: scripts/acceptance
 
       - name: Download successful native mg build receipt and binary
@@ -103,6 +107,13 @@ jobs:
           --host "${{ matrix.host }}"
           --mg-build-root artifacts/runner-readiness-next-twenty-project-pass/pilot-input/mg
 
+      - name: Run N02 pinned-source edit-and-save authoring probe
+        run: >-
+          python -B scripts/acceptance/next20_mg_scenario.py
+          --host "${{ matrix.host }}"
+          --mg-build-root artifacts/runner-readiness-next-twenty-project-pass/pilot-input/mg
+          --spec docs/validation/runner-readiness-next-twenty-project-pass/mg/n02-edit-append.json
+
       - name: Verify campaign storage limits
         if: always()
         run: python -B scripts/acceptance/next20_storage.py mg
@@ -118,8 +129,10 @@ jobs:
         if: always()
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:
-          name: next20-mg-n01-pilot-${{ matrix.host }}-${{ github.run_id }}
-          path: artifacts/runner-readiness-next-twenty-project-pass/mg/pilot-development/${{ matrix.host }}/**
+          name: next20-mg-scenario-development-${{ matrix.host }}-${{ github.run_id }}
+          path: |
+            artifacts/runner-readiness-next-twenty-project-pass/mg/pilot-development/${{ matrix.host }}/**
+            artifacts/runner-readiness-next-twenty-project-pass/mg/scenario-development/${{ matrix.host }}/**
           if-no-files-found: warn
           retention-days: 14
           include-hidden-files: true

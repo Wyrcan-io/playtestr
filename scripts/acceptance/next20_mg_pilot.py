@@ -136,7 +136,8 @@ def main():
     report_data = None
     failure = None
     try:
-        result = run_bounded(argv, ROOT, env, log, time.monotonic() + 120, commands)
+        result = run_bounded(argv, ROOT, env, log, time.monotonic() + 120, commands,
+                             operation="frozen rc.6 pilot runner")
         report_data = json.loads(report.read_text(encoding="utf-8"))
         rows = report_data.get("results", [])
         steps = rows[0].get("steps", []) if len(rows) == 1 else []

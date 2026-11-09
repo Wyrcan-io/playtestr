@@ -199,7 +199,7 @@ def owned_autotools(target, evidence, env, deadline, commands):
     return local_env, receipt
 
 
-def run_bounded(argv, cwd, env, log_path, deadline, commands):
+def run_bounded(argv, cwd, env, log_path, deadline, commands, *, operation="mg build"):
     started = time.monotonic()
     started_utc = datetime.now(timezone.utc).isoformat()
     command_id = uuid.uuid4().hex
@@ -212,10 +212,10 @@ def run_bounded(argv, cwd, env, log_path, deadline, commands):
             while process.poll() is None:
                 if time.monotonic() >= deadline:
                     stop_group(process)
-                    raise TimeoutError(f"mg build exceeded the shared {MAX_SECONDS}s wall limit")
+                    raise TimeoutError(f"{operation} exceeded its bounded wall deadline")
                 if log_path.stat().st_size > MAX_OUTPUT:
                     stop_group(process)
-                    raise ValueError(f"mg build output exceeded {MAX_OUTPUT} bytes")
+                    raise ValueError(f"{operation} output exceeded {MAX_OUTPUT} bytes")
                 time.sleep(0.1)
         finally:
             if process.poll() is None:
@@ -224,7 +224,7 @@ def run_bounded(argv, cwd, env, log_path, deadline, commands):
     duration = time.monotonic() - started
     size = log_path.stat().st_size
     if size > MAX_OUTPUT:
-        raise ValueError(f"mg build output exceeded {MAX_OUTPUT} bytes")
+        raise ValueError(f"{operation} output exceeded {MAX_OUTPUT} bytes")
     row = {"id": command_id, "argv": argv, "cwd": str(cwd),
            "pid": process.pid, "process_group": process_group,
            "started_at_utc": started_utc,
@@ -234,7 +234,7 @@ def run_bounded(argv, cwd, env, log_path, deadline, commands):
            "log": log_path.relative_to(ROOT).as_posix()}
     commands.append(row)
     if process.returncode != 0:
-        raise RuntimeError(f"mg build command failed ({process.returncode}); see {row['log']}")
+        raise RuntimeError(f"{operation} command failed ({process.returncode}); see {row['log']}")
     return row
 
 
