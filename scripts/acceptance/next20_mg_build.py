@@ -27,39 +27,71 @@ def stop_group(process):
         process.wait(timeout=5)
 
 
-def process_group_exists(process_group):
-    try:
-        os.killpg(process_group, 0)
-        return True
-    except ProcessLookupError:
-        return False
+def process_group_members(process_group):
+    """Return the exact POSIX process records still in an owned process group."""
+    probe = subprocess.run(["ps", "-axo", "pid=,pgid=,stat=,uid="],
+                           stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
+                           stderr=subprocess.PIPE, timeout=5, check=True)
+    if len(probe.stdout) > MAX_OUTPUT:
+        raise RuntimeError("process-group inspection exceeded its output bound")
+    members = []
+    for line in probe.stdout.decode("ascii", errors="replace").splitlines():
+        fields = line.split()
+        if len(fields) != 4:
+            continue
+        try:
+            pid, pgid, uid = int(fields[0]), int(fields[1]), int(fields[3])
+        except ValueError:
+            continue
+        if pgid == process_group:
+            members.append({"pid": pid, "process_group": pgid,
+                            "state": fields[2], "uid": uid})
+    return members
+
+
+def process_group_has_live_members(process_group):
+    return any(not member["state"].startswith("Z")
+               for member in process_group_members(process_group))
 
 
 def stop_process_group(process_group):
-    try:
-        os.killpg(process_group, signal.SIGTERM)
-    except ProcessLookupError:
+    members = process_group_members(process_group)
+    if any(member["uid"] != os.getuid() for member in members):
+        raise RuntimeError(f"owned process group {process_group} contains another uid")
+    if not any(not member["state"].startswith("Z") for member in members):
         return
+    os.killpg(process_group, signal.SIGTERM)
     try:
         deadline = time.monotonic() + 5
-        while process_group_exists(process_group) and time.monotonic() < deadline:
+        while process_group_has_live_members(process_group) and time.monotonic() < deadline:
             time.sleep(0.05)
-        if process_group_exists(process_group):
+        if process_group_has_live_members(process_group):
             os.killpg(process_group, signal.SIGKILL)
             deadline = time.monotonic() + 5
-            while process_group_exists(process_group) and time.monotonic() < deadline:
+            while process_group_has_live_members(process_group) and time.monotonic() < deadline:
                 time.sleep(0.05)
-        if process_group_exists(process_group):
-            raise RuntimeError(f"owned build process group {process_group} survived termination")
+        if process_group_has_live_members(process_group):
+            raise RuntimeError(f"owned build process group {process_group} has live processes after termination")
     except ProcessLookupError:
-        pass
+        if process_group_has_live_members(process_group):
+            raise
 
 
 def command_group_cleanup(process_group):
-    if process_group_exists(process_group):
+    members = process_group_members(process_group)
+    if any(member["uid"] != os.getuid() for member in members):
+        raise RuntimeError(f"owned process group {process_group} contains another uid")
+    live = [member for member in members if not member["state"].startswith("Z")]
+    if live:
         stop_process_group(process_group)
-        return "remaining owned process group terminated and absence confirmed"
-    return "no owned descendants remained after command exit"
+        members = process_group_members(process_group)
+        live = [member for member in members if not member["state"].startswith("Z")]
+        if live:
+            raise RuntimeError(f"owned build process group {process_group} has live processes after cleanup")
+    zombies = sum(member["state"].startswith("Z") for member in members)
+    if zombies:
+        return f"no live processes remain; {zombies} terminated zombie record(s) await OS reaping"
+    return "process group absent; no owned descendants remain"
 
 
 def run_bounded(argv, cwd, env, log_path, deadline, commands):

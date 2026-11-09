@@ -56,8 +56,12 @@ def main():
                     observation=measure(artifact);size+=observation['total_bytes']
                     expanded.append(artifact.relative_to(RAW).as_posix())
     active=[]
-    for target in (RAW/'active').iterdir():
-        if target.is_dir():active.append(dict(project=target.name,**measure(target)))
+    active_root=RAW/'active'
+    if active_root.exists():
+        if active_root.is_symlink() or getattr(active_root,'is_junction',lambda:False)():
+            raise ValueError('active target root is linked')
+        for target in active_root.iterdir():
+            if target.is_dir():active.append(dict(project=target.name,**measure(target)))
     if short_cache:
         if len(active)!=1 or active[0]['project']!='cargo-generate':raise ValueError('short compiler cache requires the single matching active target')
         active[0]['owned_short_cache_bytes']=short_cache['bytes'];active[0]['total_bytes']+=short_cache['bytes']

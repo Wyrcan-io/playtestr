@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "project": "mg",
+  "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "candidate": "v0.4.0-rc.6",
+  "workflow": "Runner readiness next20 mg native source build",
+  "commit": "e268a1718834bc70104c62893dd3ebe125bf2d9a",
+  "run_id": 42696468759,
+  "run_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/42696468759",
+  "conclusion": "failure",
+  "jobs": [
+    {
+      "host": "linux",
+      "runner": "ubuntu-24.04",
+      "job_id": 129429517167,
+      "conclusion": "failure",
+      "first_failure_step": "Validate bounded build and cleanup helpers",
+      "failure": "test_timeout_terminates_owned_descendant_process_group raised RuntimeError because the group check treated terminated zombie entries as live.",
+      "acquisition": "skipped",
+      "build": "skipped",
+      "storage_finalizer": "failed because the fresh checkout had no ignored artifacts/active directory"
+    },
+    {
+      "host": "macos",
+      "runner": "macos-15-arm64",
+      "job_id": 129429517511,
+      "conclusion": "failure",
+      "first_failure_step": "Validate bounded build and cleanup helpers",
+      "failure": "test_timeout_terminates_owned_descendant_process_group raised PermissionError while using killpg(signal 0) as a liveness probe.",
+      "acquisition": "skipped",
+      "build": "skipped",
+      "storage_finalizer": "failed because the fresh checkout had no ignored artifacts/active directory"
+    }
+  ],
+  "target_execution": false,
+  "source_build": false,
+  "admission_credit": 0,
+  "retained_evidence": "The actual provider run, job and step logs are retained at the linked workflow run. No application archive was acquired in either job.",
+  "repair": [
+    "Inspect exact process-group members with bounded ps output; distinguish non-running zombie records from live descendants and reject foreign-UID group members.",
+    "Allow a missing active target directory in the final storage observation while rejecting linked roots."
+  ],
+  "next_action": "Push the reviewed repair, rerun focused native tests and source acquisition/build on both standard hosts, then inspect actual build artifacts and logs.",
+  "scope": "Preserved first native failure. It was a harness-preflight failure, not an mg source-build failure and not an mg application outcome."
+}

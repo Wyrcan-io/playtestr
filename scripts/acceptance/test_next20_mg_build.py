@@ -8,7 +8,7 @@ import time
 import unittest
 
 from next20_check import RAW, ROOT
-from next20_mg_build import MAX_OUTPUT, run_bounded
+from next20_mg_build import MAX_OUTPUT, process_group_members, run_bounded
 
 
 class MgBuildCommandTests(unittest.TestCase):
@@ -43,19 +43,9 @@ class MgBuildCommandTests(unittest.TestCase):
                             time.monotonic() + 0.5, commands)
             pids = [int(value) for value in log.read_text().split()]
             self.assertEqual(len(pids), 2)
-            deadline = time.monotonic() + 5
-            while time.monotonic() < deadline:
-                alive = []
-                for pid in pids:
-                    try:
-                        os.kill(pid, 0)
-                        alive.append(pid)
-                    except ProcessLookupError:
-                        pass
-                if not alive:
-                    break
-                time.sleep(0.05)
-            self.assertEqual(alive, [], "owned build process or descendant survived timeout")
+            members = process_group_members(pids[0])
+            live = [member for member in members if not member["state"].startswith("Z")]
+            self.assertEqual(live, [], "owned build process or descendant survived timeout")
 
     @unittest.skipIf(os.name == "nt", "the native build workflow runs on POSIX hosts")
     def test_output_limit_is_enforced(self):
