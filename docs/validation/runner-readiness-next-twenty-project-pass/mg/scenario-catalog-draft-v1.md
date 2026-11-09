@@ -1,8 +1,9 @@
 # mg scenario catalog draft v1
 
-Status: draft only. The pinned source has been acquired and independently hashed,
-but native PTY behavior has not yet been piloted. Freeze public cases only after
-the Linux/macOS source build, first-use observation, and exact screen/state review.
+Status: draft only. The pinned source has been acquired and independently hashed;
+native Linux/macOS source builds and the N01 first-use pilot have passed. Freeze
+public cases only after each case has a reviewed, observable screen/state oracle
+and its key route has been checked against the pinned mg source.
 
 All cases use disposable synthetic files, an owned CWD/HOME/temp tree, `mg -S -n`,
 and exact saved-byte assertions. `-S` avoids startup files and editor-launched

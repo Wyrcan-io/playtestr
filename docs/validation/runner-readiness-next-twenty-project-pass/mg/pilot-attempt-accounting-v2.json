@@ -1,0 +1,45 @@
+{
+  "schema_version": 2,
+  "project": "mg",
+  "candidate": "v0.4.0-rc.6",
+  "target_pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "admission_credit": 0,
+  "previous_failure_accounting": "mg/pilot-attempt-accounting-v1.json",
+  "successful_first_use_readback": "mg/pilot-n01-native-readback-v1.json",
+  "observations": [
+    {"run_id": 42710258730, "result": "both native jobs failed before target launch; exact pin string mismatch; macOS input cleanup hit former 100-file bound"},
+    {"run_id": 42710906900, "result": "both native jobs failed before target launch; exact pin string mismatch; macOS input cleanup hit former 100-file bound"},
+    {"run_id": 42711988263, "result": "Linux runner started but could not resolve mg; ten steps not_run; cleanup passed; macOS job was superseded while queued"},
+    {
+      "run_id": 42712723851,
+      "commit": "90ad40a0d7dfde64275377f52e977f317277c155",
+      "result": "single N01 first-use pilot passed on Linux and macOS",
+      "hosts": ["ubuntu-24.04 x86_64", "macos-15 arm64"],
+      "steps_per_host": 10,
+      "suite_per_host": {"total": 1, "passed": 1, "failed": 0, "not_run": 0},
+      "target_exit_per_host": 0,
+      "target_cleanup_per_host": "graceful; confirmed exited; no force required",
+      "runner_process_cleanup_per_host": "process group absent; no owned descendants remain",
+      "input_cleanup_per_host": "confirmed; all exact candidate and build input roots absent",
+      "artifact_mode_observed": {"before_repair": "0o644", "after_owner_execute_restore": "0o744"},
+      "artifact_digests_match_provider": true,
+      "independent_readback": "mg/pilot-n01-native-readback-v1.json"
+    }
+  ],
+  "pin_receipt_erratum": {
+    "source_provenance_pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+    "downloaded_build_packet_pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+    "transcription_error_in_curated_summaries": "2209e2087eab34ffceb6bfaa0a62f9e4c36e3c66",
+    "affected_receipts": ["native-linux-build-receipt-v3.json", "native-macos-build-receipt-v5.json"],
+    "detail": "Keep the original receipt files. Use source provenance, downloaded build packets, and the erratum in v1 for their pin identity."
+  },
+  "saved_state_evidence_limit": "The report records the exact state assertion as matched but does not retain the observed file bytes or hash. This pilot is not a separately retained saved-file artifact.",
+  "next": [
+    "freeze and independently review the full 20-scenario matrix",
+    "run repeated ordinary trials on Linux and macOS",
+    "run at least three real source-fault calibrations",
+    "audit reports and all attempts",
+    "complete project cleanup and storage checks"
+  ],
+  "status": "N01 first-use pilot passed on both native hosts; full project qualification incomplete; no admission credit"
+}
