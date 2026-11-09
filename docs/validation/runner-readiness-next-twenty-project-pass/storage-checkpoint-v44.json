@@ -1,0 +1,52 @@
+{
+  "active_projects": [],
+  "actual_bytes": {
+    "combined_curated": 34954916,
+    "combined_raw": 3950736246,
+    "combined_retained": 2110980384,
+    "new_campaign_raw": 2041708585,
+    "new_campaign_retained": 1122035201,
+    "new_curated": 23374292,
+    "project_taskell": 58161257
+  },
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "caps_bytes": {
+    "combined_curated": 52428800,
+    "combined_raw": 6442450944,
+    "combined_retained": 2147483648,
+    "new_campaign_raw": 4294967296,
+    "new_curated": 26214400,
+    "project_taskell": 67108864
+  },
+  "headroom_bytes": {
+    "combined_curated": 17473884,
+    "combined_raw": 2491714698,
+    "combined_retained": 36503264,
+    "new_campaign_raw": 2253258711,
+    "new_curated": 2840108,
+    "project_taskell": 8947607
+  },
+  "lossless_index_compaction": {
+    "compressed_index_bytes": 3601896,
+    "exact_zip_logical_index_and_full_packet_readback_receipt_unchanged": true,
+    "original_index_bytes": 29927417,
+    "packet_archives_unchanged": true,
+    "receipt": "index-compaction-v1.json",
+    "removal_receipt": "index-compaction-removal-v1.json",
+    "saved_bytes": 26325521,
+    "text_and_duplicate_packet_readback_after_compression": true
+  },
+  "measurement_receipt": "artifacts/runner-readiness-next-twenty-project-pass/storage/storage-observations-v1-index.json",
+  "measurement_receipt_sha256": "5d7008de4359d2b2e2a11679edfcafa33dfd9f724f3cb53ad1927e5deab81065",
+  "observed_at_utc": "2026-11-09T09:12:23.674041+00:00",
+  "prior_campaign_snapshots": {
+    "first_ten_closing_storage_sha256": "ecd414f05cec33e1c5e20f08e430e908894172de17b861f63072b70e295815cc",
+    "first_ten_curated_bytes": 11580624,
+    "first_ten_raw_bytes": 1909027661,
+    "first_ten_retained_bytes": 988945183,
+    "v42_sha256": "b4c404168879a31fc35a0bed69e1ad017dd769e14b88fd842c9c493d3e83ed6b"
+  },
+  "schema_version": 1,
+  "scope": "Logical sizes from the current next20 raw/curated roots only plus immutable first-ten snapshots; older raw evidence not scanned; not exact allocation, quota or peak.",
+  "status": "pass"
+}

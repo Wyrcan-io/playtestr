@@ -3,6 +3,7 @@ import argparse
 import hashlib
 import io
 import json
+import lzma
 from pathlib import Path, PurePosixPath
 import struct
 import tarfile
@@ -18,6 +19,24 @@ MAX_ARCHIVES = 20
 MAX_MEMBERS = 30000
 MAX_EXPANDED = 3 * 1024**3
 MAX_MEMBER = 64 * 1024**2
+
+
+def read_index(root: Path) -> dict:
+    """Read the exact index in its retained JSON or XZ representation."""
+    packed = root / "index.json.xz"
+    path = packed if packed.is_file() else root / "index.json"
+    data = lzma.decompress(path.read_bytes()) if path == packed else path.read_bytes()
+    value = json.loads(data.decode("utf-8"))
+    if not isinstance(value, dict):
+        raise ValueError("exact ZIP index must be an object")
+    return value
+
+
+def logical_index_sha256(root: Path) -> str:
+    """Hash the original JSON bytes after decoding any storage compression."""
+    packed = root / "index.json.xz"
+    data = lzma.decompress(packed.read_bytes()) if packed.is_file() else (root / "index.json").read_bytes()
+    return hashlib.sha256(data).hexdigest()
 
 
 def safe_name(value: str) -> str:
@@ -58,8 +77,10 @@ def local_range(raw, info):
 
 
 def verify_packet(root: Path, *, reconstruct: bool) -> dict:
-    index_path = root / "index.json"
-    index = json.loads(index_path.read_text(encoding="utf-8"))
+    index_path = root / "index.json.xz"
+    if not index_path.is_file():
+        index_path = root / "index.json"
+    index = read_index(root)
     archive = root / "blobs.tar.xz"
     if index.get("archive_sha256") != sha256(archive):
         raise ValueError("exact ZIP segment packet hash differs")
@@ -263,23 +284,23 @@ def main() -> None:
     if args.mode == "prepare":
         prepare(source, final, stage)
     elif args.mode == "remove-plan":
-        index = json.loads((root / "index.json").read_text(encoding="utf-8"))
+        index = read_index(root)
         prepared = json.loads((root / "prepared.json").read_text(encoding="utf-8"))
         final_readback_path = root / "final-readback-v1.json"
         final_readback = json.loads(final_readback_path.read_text(encoding="utf-8"))
         if (prepared.get("all_original_zip_hashes_reconstructed") is not True or
                 prepared.get("all_logical_members_readback") is not True or
-                prepared.get("index_sha256") != sha256(root / "index.json") or
+                prepared.get("index_sha256") != logical_index_sha256(root) or
                 prepared.get("archive_sha256") != sha256(root / "blobs.tar.xz") or
                 final_readback.get("archive_sha256") != sha256(root / "blobs.tar.xz") or
-                final_readback.get("index_sha256") != sha256(root / "index.json") or
+                final_readback.get("index_sha256") != logical_index_sha256(root) or
                 final_readback.get("all_original_zip_hashes_reconstructed") is not True or
                 final_readback.get("all_logical_members_readback") is not True):
             raise ValueError("complete exact ZIP readback receipt does not bind current packet")
         if not (root / "interrupted-removal-plan-v1.json").exists():
             immutable_json(root / "interrupted-removal-plan-v1.json", {
                 "schema_version": 1,
-                "index_sha256": sha256(root / "index.json"),
+                "index_sha256": logical_index_sha256(root),
                 "archive_sha256": sha256(root / "blobs.tar.xz"),
                 "disposition": "An initial removal-plan pass repeated all per-file hashing of the 42,000-file expanded staging tree and was stopped as redundant after complete archive/member readback. No source ZIP or staging file was removed by that pass.",
             })
@@ -297,7 +318,7 @@ def main() -> None:
             raise ValueError("expanded ZIP segment inventory differs from exact packet")
         immutable_json(root / "expanded-removal-final-plan-v1.json", {
             "schema_version": 1,
-            "index_sha256": sha256(root / "index.json"),
+            "index_sha256": logical_index_sha256(root),
             "archive_sha256": sha256(root / "blobs.tar.xz"),
             "prepared_sha256": sha256(root / "prepared.json"),
             "final_readback_sha256": sha256(final_readback_path),
@@ -313,7 +334,7 @@ def main() -> None:
                 not (root / "prepared.json").exists()):
             immutable_json(root / "interrupted-verification-v1.json", {
                 "schema_version": 1,
-                "index_sha256": sha256(root / "index.json"),
+                "index_sha256": logical_index_sha256(root),
                 "archive_sha256": sha256(root / "blobs.tar.xz"),
                 "disposition": "The first exact readback failed because temporary reconstruction did not create parent directories for ZIPs stored below nested paths. Original ZIPs remain intact; this retry creates the contained restore path and repeats byte-exact reconstruction.",
             })
@@ -321,7 +342,7 @@ def main() -> None:
         if args.staged and args.mode == "readback" and args.reconstruct and not (root / "prepared.json").exists():
             immutable_json(root / "prepared.json", {
                 "schema_version": 1,
-                "index_sha256": sha256(root / "index.json"),
+                "index_sha256": logical_index_sha256(root),
                 "archive_sha256": sha256(root / "blobs.tar.xz"),
                 "original_zip_count": len(index["archives"]),
                 "member_count": index["member_count"],

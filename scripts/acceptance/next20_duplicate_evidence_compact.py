@@ -2,6 +2,7 @@
 import argparse
 import hashlib
 import json
+import lzma
 import os
 from pathlib import Path, PurePosixPath
 import stat
@@ -19,6 +20,23 @@ MAX_FILES = 100_000
 MAX_BYTES = 4 * 1024**3
 
 
+def read_index(root: Path) -> dict:
+    """Read the duplicate evidence index in JSON or compact XZ form."""
+    packed = root / "index.json.xz"
+    path = packed if packed.is_file() else root / "index.json"
+    data = lzma.decompress(path.read_bytes()) if path == packed else path.read_bytes()
+    value = json.loads(data.decode("utf-8"))
+    if not isinstance(value, dict):
+        raise ValueError("duplicate evidence index must be an object")
+    return value
+
+
+def logical_index_sha256(root: Path) -> str:
+    packed = root / "index.json.xz"
+    data = lzma.decompress(packed.read_bytes()) if packed.is_file() else (root / "index.json").read_bytes()
+    return hashlib.sha256(data).hexdigest()
+
+
 def safe_name(value: str) -> str:
     path = PurePosixPath(value)
     if (not value or path.is_absolute() or "\\" in value or ":" in value or
@@ -29,9 +47,8 @@ def safe_name(value: str) -> str:
 
 
 def verify(root: Path) -> dict:
-    index_path = root / "index.json"
     archive_path = root / "payload.tar.xz"
-    index = json.loads(index_path.read_text(encoding="utf-8"))
+    index = read_index(root)
     groups = index.get("groups")
     if (index.get("schema_version") != 1 or index.get("archive_sha256") != sha256(archive_path) or
             not isinstance(groups, list) or not groups):
@@ -195,11 +212,11 @@ def main() -> None:
     if args.mode == "prepare":
         prepare()
     elif args.mode == "removal-plan":
-        index = json.loads((root / "index.json").read_text(encoding="utf-8"))
+        index = read_index(root)
         prepared = json.loads((root / "prepared.json").read_text(encoding="utf-8"))
         if (prepared.get("all_unique_payloads_readback") is not True or
                 prepared.get("all_alias_identities_indexed") is not True or
-                prepared.get("index_sha256") != sha256(root / "index.json") or
+                prepared.get("index_sha256") != logical_index_sha256(root) or
                 prepared.get("archive_sha256") != sha256(root / "payload.tar.xz")):
             raise ValueError("complete duplicate evidence readback receipt does not bind packet")
         for group in index["groups"]:
@@ -210,7 +227,7 @@ def main() -> None:
                     raise ValueError(f"duplicate evidence source differs before removal: {row['path']}")
         immutable_json(root / "removal-plan.json", {
             "schema_version": 1,
-            "index_sha256": sha256(root / "index.json"),
+            "index_sha256": logical_index_sha256(root),
             "archive_sha256": sha256(root / "payload.tar.xz"),
             "prepared_sha256": sha256(root / "prepared.json"),
             "alias_path_count": index["alias_path_count"],
@@ -230,7 +247,7 @@ def main() -> None:
                     raise ValueError(f"duplicate evidence alias source reappeared after removal: {row['path']}")
         immutable_json(root / "removal-receipt.json", {
             "schema_version": 1,
-            "index_sha256": sha256(root / "index.json"),
+            "index_sha256": logical_index_sha256(root),
             "archive_sha256": sha256(root / "payload.tar.xz"),
             "removal_plan_sha256": sha256(root / "removal-plan.json"),
             "alias_path_count": index["alias_path_count"],

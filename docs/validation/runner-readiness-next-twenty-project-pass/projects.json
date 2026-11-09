@@ -563,6 +563,40 @@
       "cleanup_readback": "dekit/cleanup-readback-v1.json",
       "cleanup_readback_sha256": "6c529cec70380f1a34c6f242a81f6fb5d508919b5fae67d0d381584a4d91b00e",
       "workspace_removed": true
+    },
+    {
+      "id": "mg",
+      "repository": "troglobit/mg",
+      "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+      "status": "source-acquired; native Linux/macOS build and PTY pilot pending; zero admission credit",
+      "acquired": true,
+      "admitted": false,
+      "planned_hosts": [
+        "linux",
+        "macos"
+      ],
+      "development_selected_scenarios_passed": 0,
+      "development_ordinary_attempts": 0,
+      "development_ordinary_passed": 0,
+      "development_ordinary_failed": 0,
+      "development_real_faults": 0,
+      "qualified_scenarios": 0,
+      "qualified_native_cells": 0,
+      "audited_ordinary_executions": 0,
+      "audited_calibration_executions": 0,
+      "real_source_faults": 0,
+      "candidate_admissions": [],
+      "current_candidate_qualified": false,
+      "acquisition_attempts": [
+        "mg/acquisition-attempt-v1.json",
+        "mg/acquisition-attempt-v1-finished.json",
+        "mg/acquisition-attempt-v2.json",
+        "mg/acquisition-attempt-v2-finished.json"
+      ],
+      "source_provenance": "mg/source-provenance.json",
+      "preflight_review": "mg/preflight-review-v1.md",
+      "scenario_draft": "mg/scenario-catalog-draft-v1.md",
+      "native_build_workflow": ".github/workflows/runner-readiness-next20-mg-build.yml"
     }
   ],
   "observed_audited_ordinary_executions": 2400,

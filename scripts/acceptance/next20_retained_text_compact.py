@@ -2,6 +2,7 @@
 import argparse
 import hashlib
 import json
+import lzma
 import os
 from pathlib import Path, PurePosixPath
 import stat
@@ -27,6 +28,24 @@ MAX_EXPANDED = 512 * 1024**2
 MAX_MEMBER = 32 * 1024**2
 
 
+def read_index(root: Path) -> dict:
+    """Read the retained text index from its JSON or compact XZ file."""
+    packed = root / "index.json.xz"
+    path = packed if packed.is_file() else root / "index.json"
+    data = lzma.decompress(path.read_bytes()) if path == packed else path.read_bytes()
+    value = json.loads(data.decode("utf-8"))
+    if not isinstance(value, dict):
+        raise ValueError("retained text index must be an object")
+    return value
+
+
+def logical_index_sha256(root: Path) -> str:
+    """Hash the original JSON bytes after decoding any storage compression."""
+    packed = root / "index.json.xz"
+    data = lzma.decompress(packed.read_bytes()) if packed.is_file() else (root / "index.json").read_bytes()
+    return hashlib.sha256(data).hexdigest()
+
+
 def safe_name(name: str) -> str:
     path = PurePosixPath(name)
     if (not name.startswith("retained/") or path.is_absolute() or "\\" in name or
@@ -36,9 +55,11 @@ def safe_name(name: str) -> str:
 
 
 def verify(root: Path, *, reconstruct: bool) -> dict:
-    index_path = root / "index.json"
+    index_path = root / "index.json.xz"
+    if not index_path.is_file():
+        index_path = root / "index.json"
     archive_path = root / "payload.tar.xz"
-    index = json.loads(index_path.read_text(encoding="utf-8"))
+    index = read_index(root)
     entries = index.get("files")
     if (index.get("schema_version") != 1 or index.get("archive_sha256") != sha256(archive_path) or
             not isinstance(entries, dict) or not 0 < len(entries) <= MAX_FILES):
@@ -168,10 +189,10 @@ def main() -> None:
     if args.mode == "prepare":
         prepare()
     elif args.mode == "removal-plan":
-        index = json.loads((root / "index.json").read_text(encoding="utf-8"))
+        index = read_index(root)
         prepared = json.loads((root / "prepared.json").read_text(encoding="utf-8"))
         if (prepared.get("all_paths_hashes_modes_and_times_readback") is not True or
-                prepared.get("index_sha256") != sha256(root / "index.json") or
+                prepared.get("index_sha256") != logical_index_sha256(root) or
                 prepared.get("archive_sha256") != sha256(root / "payload.tar.xz")):
             raise ValueError("complete retained text readback receipt does not bind packet")
         entries = index["files"]
@@ -181,7 +202,7 @@ def main() -> None:
                 raise ValueError(f"retained text source differs before removal: {name}")
         immutable_json(root / "removal-plan.json", {
             "schema_version": 1,
-            "index_sha256": sha256(root / "index.json"),
+            "index_sha256": logical_index_sha256(root),
             "archive_sha256": sha256(root / "payload.tar.xz"),
             "prepared_sha256": sha256(root / "prepared.json"),
             "members": len(entries),
@@ -199,7 +220,7 @@ def main() -> None:
                 raise ValueError(f"retained text source reappeared after removal: {name}")
         immutable_json(root / "removal-receipt.json", {
             "schema_version": 1,
-            "index_sha256": sha256(root / "index.json"),
+            "index_sha256": logical_index_sha256(root),
             "archive_sha256": sha256(root / "payload.tar.xz"),
             "removal_plan_sha256": sha256(root / "removal-plan.json"),
             "members": len(index["files"]),

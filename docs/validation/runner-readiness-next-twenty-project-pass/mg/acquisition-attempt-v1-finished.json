@@ -1,0 +1,32 @@
+{
+  "active_target_created": false,
+  "attempt_id": "1bdd7ef2f4174980b00fcb559814c055",
+  "attempts": [
+    {
+      "attempt": 1,
+      "error_type": "URLError",
+      "http_status": null,
+      "message": "<urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>",
+      "outcome": "transient_error"
+    },
+    {
+      "attempt": 2,
+      "error_type": "URLError",
+      "http_status": null,
+      "message": "<urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>",
+      "outcome": "transient_error"
+    },
+    {
+      "attempt": 3,
+      "error_type": "URLError",
+      "http_status": null,
+      "message": "<urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>",
+      "outcome": "transient_error"
+    }
+  ],
+  "classification": "local sandbox denied network socket; no upstream response or target process occurred.",
+  "failure_receipt": "mg/acquisition-fetch-failures/cfbf07538bc4431eab5cd994406b4da9.json",
+  "failure_receipt_sha256": "b6e330f27d2e988afc49dedabcb89f3e52d933887d3f86a555ec7613166560a9",
+  "schema_version": 1,
+  "state": "failed-before-target-launch"
+}

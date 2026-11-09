@@ -1,0 +1,98 @@
+name: Runner readiness next20 mg native source build
+
+on:
+  push:
+    branches:
+      - work/p0-p2-implementation
+    paths:
+      - .github/workflows/runner-readiness-next20-mg-build.yml
+      - scripts/acceptance/next20_mg_build.py
+      - scripts/acceptance/next20_acquire.py
+      - scripts/acceptance/next20_storage.py
+      - scripts/acceptance/next20_storage_baseline.py
+      - scripts/acceptance/readiness_acquire_plop.py
+      - docs/validation/runner-readiness-next-twenty-project-pass/mg/**
+      - docs/validation/runner-readiness-next-twenty-project-pass/selection-declaration.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/screening-decisions.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/storage-checkpoint-v43.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/storage-checkpoint-v44.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/index-compaction-*.json
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: playtestr-next20-mg-source-build-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  native-source-build:
+    name: mg pinned source build (${{ matrix.host }})
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        include:
+          - host: linux
+            os: ubuntu-24.04
+          - host: darwin
+            os: macos-15
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 35
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONIOENCODING: utf-8
+      GOTOOLCHAIN: local
+      GOWORK: off
+      TEMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+      TMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+      TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+
+      - name: Create campaign owned temporary root
+        run: mkdir -p artifacts/runner-readiness-next-twenty-project-pass/tmp
+
+      - name: Start shared acquisition and build deadline
+        id: timer
+        run: echo "started_epoch=$(date +%s)" >> "$GITHUB_OUTPUT"
+
+      - name: Validate bounded build and cleanup helpers
+        run: python -B -m unittest test_next20_mg_build test_next20_compact_index test_next20_storage_baseline test_next20_acquire -v
+        working-directory: scripts/acceptance
+
+      - name: Acquire and hash the exact mg source pin
+        run: python -B scripts/acceptance/next20_acquire.py mg
+
+      - name: Build pinned mg source with owned paths and bounded output
+        run: >-
+          python -B scripts/acceptance/next20_mg_build.py
+          --expected-host "${{ matrix.host }}"
+          --operation-started-epoch "${{ steps.timer.outputs.started_epoch }}"
+
+      - name: Verify current campaign storage limits
+        if: always()
+        run: python -B scripts/acceptance/next20_storage.py mg
+
+      - name: Retain selected build and acquisition evidence
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: next20-mg-build-${{ matrix.host }}-${{ github.run_id }}
+          path: |
+            artifacts/runner-readiness-next-twenty-project-pass/active/mg/task-owned.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/mg/acquisition.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/mg/source.tar.gz
+            artifacts/runner-readiness-next-twenty-project-pass/active/mg/build.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/mg/runtime.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/mg/install/**
+            artifacts/runner-readiness-next-twenty-project-pass/mg/build-development/**
+          if-no-files-found: warn
+          retention-days: 14
