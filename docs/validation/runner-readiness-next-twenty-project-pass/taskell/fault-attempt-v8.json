@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "project": "taskell",
+  "candidate": "v0.4.0-rc.6",
+  "workflow_run_id": 42550352499,
+  "source_revision": "0a68aebb05f93d06ccd0310b940cd877e48bd9f9",
+  "previous_attempt": "fault-attempt-v7.json",
+  "admission_credit": 0,
+  "scope": "Exact native-exit-v1 source-fault calibration. Both native hosts passed all nine declared baseline/mutated/restored phases, verified cleanup, and restored the pinned Taskell source. Linux and macOS artifacts were independently streamed into memory; provider SHA-256 values matched, all selected fault summaries and nine report digests per host were checked, all mutated contracts failed as expected, baseline/restored contracts passed, and source restoration was true. No project admission credit is assigned by fault calibration alone.",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128953145495,
+      "conclusion": "passed_source_fault_calibration",
+      "fault_phases_reported": 9,
+      "target_launched": true,
+      "checked_target_cleanup": true,
+      "source_restored": true,
+      "artifact": {
+        "id": 13646227807,
+        "name": "taskell-fault-calibration-native-exit-v1-linux",
+        "bytes": 11771212,
+        "provider_sha256": "95dc2e3b20070fe509fef619d4a8b252e81470112a7bfff523607f37a73dbc1c"
+      },
+      "independent_readback": {
+        "downloaded_in_memory": true,
+        "sha256_matches_provider": true,
+        "zip_integrity": "passed",
+        "summary_faults": 3,
+        "report_hashes_checked": 9,
+        "reports_with_confirmed_cleanup": 9,
+        "failures": 0
+      }
+    },
+    {
+      "host": "macos-15-arm64",
+      "job_id": 128953145207,
+      "conclusion": "passed_source_fault_calibration",
+      "fault_phases_reported": 9,
+      "target_launched": true,
+      "checked_target_cleanup": true,
+      "source_restored": true,
+      "artifact": {
+        "id": 13647222277,
+        "name": "taskell-fault-calibration-native-exit-v1-darwin",
+        "bytes": 305321556,
+        "provider_sha256": "aaeebe31b6a4fb0930f901776e9b3f5397c40c708c89a12ed38f8f3215b2b825"
+      },
+      "independent_readback": {
+        "downloaded_in_memory": true,
+        "sha256_matches_provider": true,
+        "selected_member_crc_checked": true,
+        "summary_faults": 3,
+        "report_hashes_checked": 9,
+        "reports_with_confirmed_cleanup": 9,
+        "failures": 0
+      }
+    }
+  ],
+  "readback": {
+    "both_provider_digests_verified": true,
+    "all_nine_fault_reports_per_host_hash_verified": true,
+    "all_fault_reports_confirmed_cleanup": true,
+    "all_source_trees_restored": true,
+    "admission_credit": 0
+  },
+  "disposition": "Fault calibration is fully qualified on Linux and macOS. Candidate admission remains open because the macOS public authoring route failed and the prior exact-run packet omitted its diagnostic and Linux batch reports."
+}

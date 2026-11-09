@@ -321,12 +321,10 @@ jobs:
         with:
           name: taskell-final-native-exit-v1-${{ matrix.host_key }}
           path: |
-            artifacts/runner-readiness-next-twenty-project-pass/taskell/final-series-native-exit-v1/
-            artifacts/runner-readiness-next-twenty-project-pass/taskell/final-series-native-exit-v1-preflight/${{ matrix.host_key }}/
+            artifacts/runner-readiness-next-twenty-project-pass/taskell/
+            artifacts/runner-readiness-next-twenty-project-pass/events/
             artifacts/runner-readiness-next-twenty-project-pass/toolchain/taskell/arm64-compiler-override/
             artifacts/runner-readiness-next-twenty-project-pass/toolchain/llvm/
-            artifacts/runner-readiness-next-twenty-project-pass/taskell/retained-source/
-            artifacts/runner-readiness-next-twenty-project-pass/taskell/cleanup-preparation/
             artifacts/runner-readiness-next-twenty-project-pass/candidate-native-exit-v1/${{ matrix.host_key }}/
           if-no-files-found: error
           include-hidden-files: true

@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "project": "taskell",
+  "candidate": "v0.4.0-rc.6",
+  "workflow_run_id": 42550352497,
+  "source_revision": "0a68aebb05f93d06ccd0310b940cd877e48bd9f9",
+  "previous_attempt": "final-series-attempts-v40.json",
+  "admission_credit": 0,
+  "scope": "Exact native-exit-v1 candidate attempt. Linux passed the public Taskell authoring route, all twelve batches of 21 scenarios, and checked cleanup. macOS ARM64 passed upstream tests and built Taskell, then the first public record/review/replay/save command returned exit 1; no candidate batch ran on macOS. The Linux artifact passed in-memory provider-digest and ZIP-integrity readback, but its 23 members omitted the final-series-native-exit-v1-v2 batch directory and public-route output. The exact reports therefore cannot be independently audited from this packet. The workflow's artifact paths are being broadened to retain the complete Taskell output tree and event journal. Preserve the successful Linux execution without admitting Taskell.",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128944307630,
+      "conclusion": "exact_batches_passed_artifact_evidence_incomplete",
+      "upstream_tests": "passed",
+      "target_runtime_build": "passed",
+      "public_authoring_route": "passed",
+      "exact_candidate_batches": 12,
+      "exact_candidate_scenarios_per_batch": 21,
+      "exact_candidate_scenarios": 252,
+      "source_fault_phases": 0,
+      "checked_target_cleanup": true,
+      "artifact": {
+        "id": 13645921684,
+        "name": "taskell-final-native-exit-v1-linux",
+        "bytes": 11751682,
+        "provider_sha256": "5f339bc8bc51fd70c2f4ff417c8c20fe39acebc986950b858e6ede6c39cd983f"
+      },
+      "independent_readback": {
+        "downloaded_in_memory": true,
+        "bytes": 11751682,
+        "sha256_matches_provider": true,
+        "zip_integrity": "passed",
+        "member_count": 23,
+        "required_batch_summaries_present": false,
+        "required_public_route_receipt_present": false,
+        "admission_credit": 0
+      }
+    },
+    {
+      "host": "macos-15-arm64",
+      "job_id": 128944307844,
+      "conclusion": "failure_in_public_record_route_before_candidate_batches",
+      "upstream_tests": "passed",
+      "target_runtime_build": "passed",
+      "public_authoring_route": "failed_first_record_command_exit_1",
+      "failure": "Taskell's public recorder command `taskell-first-public-record-review-replay-save` returned exit 1. The workflow did not preserve the command console output in its uploaded artifact, so the cause remains unverified. The exact batch step was skipped; checked target cleanup and artifact upload completed.",
+      "exact_candidate_batches": 0,
+      "source_fault_phases": 0,
+      "checked_target_cleanup": true,
+      "artifact": {
+        "id": 13645993831,
+        "name": "taskell-final-native-exit-v1-darwin",
+        "bytes": 305308866,
+        "provider_sha256": "8c60953d292de03906e4d46f466e319ef92a24bb2832542deabc4313b5972165"
+      },
+      "independent_readback": {
+        "downloaded": false,
+        "reason": "The uploaded artifact path did not include taskell/public-route-native-exit-v1 or per-command taskell/<attempt-id>/console.log evidence."
+      }
+    }
+  ],
+  "readback": {
+    "linux_provider_digest_and_zip_integrity_verified": true,
+    "both_hosts_complete_scenario_member_readback": false,
+    "admission_credit": 0
+  },
+  "disposition": "Linux passed the declared candidate execution but its packet omitted scenario reports. macOS failed the required public authoring route before candidate scenarios and the packet omitted its command diagnostics. Expand both native workflow artifact paths to include the complete Taskell evidence tree and campaign events, rerun the route and exact series on both hosts, then inspect the retained reports before considering admission."
+}
