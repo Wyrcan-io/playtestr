@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "purpose": "Pinned source-built GNU Autotools fallback for native hosts whose standard image lacks the build tools required by mg's reviewed autogen.sh.",
+  "activation": "Use only when any of autoreconf, autoconf, automake, aclocal, autoheader or m4 is missing from the runner PATH.",
+  "limits": {
+    "archive_bytes_each": 8388608,
+    "expanded_source_bytes_combined": 50331648,
+    "deadline_seconds_shared_with_mg_acquisition_and_build": 1200,
+    "command_output_bytes": 4194304,
+    "install_prefix": "artifacts/runner-readiness-next-twenty-project-pass/active/mg/toolchain/install"
+  },
+  "dependencies": [
+    {
+      "name": "GNU M4",
+      "version": "1.4.21",
+      "archive": "m4-1.4.21.tar.xz",
+      "url": "https://ftp.gnu.org/gnu/m4/m4-1.4.21.tar.xz",
+      "sha256": "f25c6ab51548a73a75558742fb031e0625d6485fe5f9155949d6486a2408ab66",
+      "sha256_source": "https://lists.gnu.org/archive/html/info-gnu/2026-02/msg00004.html",
+      "signature_url": "https://ftp.gnu.org/gnu/m4/m4-1.4.21.tar.xz.sig",
+      "verified_signing_fingerprint": "71C2CC22B1C4602927D2F3AAA7A16B4A2527436A",
+      "release_commit": "fe2f13ab9ab9b3e712c6529f0b2a49a81feb6ce2",
+      "configure": ["--disable-nls"],
+      "reason": "Autoconf requires GNU M4; build it first into the owned prefix."
+    },
+    {
+      "name": "GNU Autoconf",
+      "version": "2.73",
+      "archive": "autoconf-2.73.tar.xz",
+      "url": "https://ftp.gnu.org/gnu/autoconf/autoconf-2.73.tar.xz",
+      "sha256": "9fd672b1c8425fac2fa67fa0477b990987268b90ff36d5f016dae57be0d6b52e",
+      "sha256_source": "https://www.mail-archive.com/autoconf%40gnu.org/msg25059.html",
+      "signature_url": "https://ftp.gnu.org/gnu/autoconf/autoconf-2.73.tar.xz.sig",
+      "verified_signing_fingerprint": "82F854F3CE73174B8B63174091FCC32B6769AA64",
+      "release_commit": "44d712a26b0e14931bf2df57e2c9b80a2747dfce",
+      "reason": "Provides autoreconf, autoconf and autoheader required by the pinned mg autogen.sh."
+    },
+    {
+      "name": "GNU Automake",
+      "version": "1.18.1",
+      "archive": "automake-1.18.1.tar.xz",
+      "url": "https://ftp.gnu.org/gnu/automake/automake-1.18.1.tar.xz",
+      "sha256": "168aa363278351b89af56684448f525a5bce5079d0b6842bd910fdd3f1646887",
+      "sha256_source": "https://lists.gnu.org/archive/html/info-gnu/2025-06/msg00007.html",
+      "signature_url": "https://ftp.gnu.org/gnu/automake/automake-1.18.1.tar.xz.sig",
+      "verified_signing_fingerprint": "17D3311B14BC0F248267BF020716748A30D155AD",
+      "release_commit": "153298e27fa9414b25453440a2f36e1bb7bedfc1",
+      "published_sha256_discrepancy": "The GNU release announcement lists 7a658b0e322d75d841e3b7b1b92f8061c5ad947207f8919dec5f9361be4c21bc for this .xz archive, but the archive served by the official GNU HTTPS URL hashes to 168aa363278351b89af56684448f525a5bce5079d0b6842bd910fdd3f1646887 and has a valid detached signature from the listed GNU release key. The build pins the hash of the signature-verified bytes.",
+      "reason": "Provides automake and aclocal required by the pinned mg source."
+    }
+  ],
+  "safety": [
+    "Each official GNU HTTPS archive is checked against its frozen SHA-256 before safe bounded xz-tar extraction. The source archives and detached signatures were read back locally; gpgv verified each with the corresponding public key in the official GNU keyring.",
+    "No package manager, global prefix, shell profile, registry, or system package database is modified.",
+    "Configure, make and install run with HOME, temp, build and prefix confined to the active mg target; process groups, output and total wall time are bounded.",
+    "Only toolchain provenance, source archives and command logs are uploaded; installed toolchain binaries are not retained in the campaign packet."
+  ],
+  "scope": "Dependency inputs for the mg source build only; these packages do not become Playtestr production dependencies or new project admissions."
+}

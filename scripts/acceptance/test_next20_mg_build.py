@@ -1,17 +1,57 @@
 """Bounded source-build command and process-group cleanup tests for mg."""
+import io
 import os
 from pathlib import Path
 import subprocess
 import sys
+import tarfile
 import tempfile
 import time
 import unittest
 
 from next20_check import RAW, ROOT
-from next20_mg_build import MAX_OUTPUT, process_group_members, run_bounded
+from next20_mg_build import MAX_OUTPUT, TOOLCHAIN_SOURCES, process_group_members, run_bounded
+from readiness_acquire_plop import extract_source
 
 
 class MgBuildCommandTests(unittest.TestCase):
+    def test_owned_autotools_inputs_have_fixed_official_archive_hashes(self):
+        self.assertEqual([row["name"] for row in TOOLCHAIN_SOURCES],
+                         ["m4", "autoconf", "automake"])
+        self.assertEqual([row["sha256"] for row in TOOLCHAIN_SOURCES], [
+            "f25c6ab51548a73a75558742fb031e0625d6485fe5f9155949d6486a2408ab66",
+            "9fd672b1c8425fac2fa67fa0477b990987268b90ff36d5f016dae57be0d6b52e",
+            "168aa363278351b89af56684448f525a5bce5079d0b6842bd910fdd3f1646887",
+        ])
+        for row in TOOLCHAIN_SOURCES:
+            self.assertTrue(row["url"].startswith("https://ftp.gnu.org/gnu/"))
+            self.assertEqual(len(row["sha256"]), 64)
+            int(row["sha256"], 16)
+
+    def test_safe_xz_source_extraction_and_traversal_rejection(self):
+        RAW.joinpath("tmp").mkdir(exist_ok=True)
+        for member_name, expected_error in (("tool-1/file.txt", None),
+                                            ("tool-1/../escape.txt", RuntimeError)):
+            buffer = io.BytesIO()
+            with tarfile.open(fileobj=buffer, mode="w:xz") as archive:
+                info = tarfile.TarInfo(member_name)
+                payload = b"pinned tool source"
+                info.size = len(payload)
+                archive.addfile(info, io.BytesIO(payload))
+            with tempfile.TemporaryDirectory(dir=RAW / "tmp") as td:
+                destination = Path(td) / "source"
+                if expected_error:
+                    with self.assertRaises(expected_error):
+                        extract_source(buffer.getvalue(), destination, expanded_limit=1024,
+                                       entry_limit=10, member_limit=1024, archive_mode="r:xz")
+                    self.assertFalse(destination.exists())
+                else:
+                    count, expanded = extract_source(buffer.getvalue(), destination,
+                                                     expanded_limit=1024, entry_limit=10,
+                                                     member_limit=1024, archive_mode="r:xz")
+                    self.assertEqual((count, expanded), (1, len(payload)))
+                    self.assertEqual((destination / "file.txt").read_bytes(), payload)
+
     @unittest.skipIf(os.name == "nt", "the native build workflow runs on POSIX hosts")
     def test_successful_command_has_bounded_hashed_output(self):
         RAW.joinpath("tmp").mkdir(exist_ok=True)

@@ -10,12 +10,13 @@ import urllib.request
 from readiness_evidence import RAW, ROOT, immutable_json, sha256
 
 
-def extract_source(data, source, *, expanded_limit, entry_limit, member_limit, omitted_links=None):
+def extract_source(data, source, *, expanded_limit, entry_limit, member_limit,
+                   omitted_links=None, archive_mode="r:gz"):
     """Validate the entire bounded member plan before creating any output."""
     source=Path(source)
     source.parent.resolve().relative_to(ROOT)
     if source.exists() or source.is_symlink():raise RuntimeError('source destination already exists')
-    with tarfile.open(fileobj=io.BytesIO(data),mode='r:gz') as stream:
+    with tarfile.open(fileobj=io.BytesIO(data),mode=archive_mode) as stream:
         members=[];declared_bytes=0
         for member in stream:
             if len(members)>=entry_limit:raise RuntimeError('source entry count exceeds limit')

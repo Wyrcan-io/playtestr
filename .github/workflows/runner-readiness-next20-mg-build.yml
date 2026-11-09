@@ -93,6 +93,9 @@ jobs:
             artifacts/runner-readiness-next-twenty-project-pass/active/mg/build.json
             artifacts/runner-readiness-next-twenty-project-pass/active/mg/runtime.json
             artifacts/runner-readiness-next-twenty-project-pass/active/mg/install/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/mg/toolchain/provenance.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/mg/toolchain/downloads/**
             artifacts/runner-readiness-next-twenty-project-pass/mg/build-development/**
           if-no-files-found: warn
           retention-days: 14
+          include-hidden-files: true

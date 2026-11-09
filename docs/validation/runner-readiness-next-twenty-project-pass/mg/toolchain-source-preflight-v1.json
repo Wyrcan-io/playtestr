@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "project": "mg",
+  "toolchain_manifest": "mg/toolchain-dependencies-v1.json",
+  "verified_at": "2026-11-10",
+  "verification_method": "Detached GNU release signatures checked with gpgv and the official GNU keyring; SHA-256 and xz-tar member layout independently checked locally.",
+  "archives": [
+    {
+      "name": "m4-1.4.21.tar.xz",
+      "bytes": 2080016,
+      "sha256": "f25c6ab51548a73a75558742fb031e0625d6485fe5f9155949d6486a2408ab66",
+      "signing_fingerprint": "71C2CC22B1C4602927D2F3AAA7A16B4A2527436A",
+      "signature": "good",
+      "entries": 2053,
+      "expanded_bytes": 18114153,
+      "symlink_hardlink_special_entries": 0
+    },
+    {
+      "name": "autoconf-2.73.tar.xz",
+      "bytes": 1417428,
+      "sha256": "9fd672b1c8425fac2fa67fa0477b990987268b90ff36d5f016dae57be0d6b52e",
+      "signing_fingerprint": "82F854F3CE73174B8B63174091FCC32B6769AA64",
+      "signature": "good",
+      "entries": 168,
+      "expanded_bytes": 7450204,
+      "symlink_hardlink_special_entries": 0
+    },
+    {
+      "name": "automake-1.18.1.tar.xz",
+      "bytes": 1652392,
+      "sha256": "168aa363278351b89af56684448f525a5bce5079d0b6842bd910fdd3f1646887",
+      "signing_fingerprint": "17D3311B14BC0F248267BF020716748A30D155AD",
+      "signature": "good",
+      "entries": 1589,
+      "expanded_bytes": 9264030,
+      "symlink_hardlink_special_entries": 0,
+      "announcement_sha256_discrepancy": {
+        "announced": "7a658b0e322d75d841e3b7b1b92f8061c5ad947207f8919dec5f9361be4c21bc",
+        "observed_official_archive": "168aa363278351b89af56684448f525a5bce5079d0b6842bd910fdd3f1646887",
+        "disposition": "The observed official archive has a good detached signature from the announced GNU release key. Pin the signed archive bytes' observed SHA-256 and retain this discrepancy."
+      }
+    }
+  ],
+  "total_expanded_bytes": 34828387,
+  "combined_expansion_limit_bytes": 50331648,
+  "scratch_cleanup": {
+    "path": "artifacts/runner-readiness-next-twenty-project-pass/tmp/gnu-toolchain-source-preflight",
+    "owned_file_count": 14,
+    "owned_bytes": 13250466,
+    "reparse_points": 0,
+    "source_hashes_rechecked_before_removal": true,
+    "absence_confirmed_after_removal": true
+  },
+  "verification_attempts": [
+    {
+      "tool": "gpg import",
+      "outcome": "stopped after Git-for-Windows gpg-agent startup errors while importing the full keyring"
+    },
+    {
+      "tool": "gpgv",
+      "outcome": "all three detached signatures verified good against the official keyring"
+    }
+  ],
+  "scope": "Dependency-source preflight only. No bootstrap tool source was built or installed locally."
+}

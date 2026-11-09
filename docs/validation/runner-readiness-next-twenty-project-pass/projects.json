@@ -599,6 +599,12 @@
       "native_build_attempts": [
         "mg/native-build-preflight-v1.json"
       ],
+      "native_build_observations": [
+        "mg/native-linux-build-receipt-v1.json",
+        "mg/native-macos-build-receipt-v1.json"
+      ],
+      "build_toolchain_dependencies": "mg/toolchain-dependencies-v1.json",
+      "build_toolchain_source_preflight": "mg/toolchain-source-preflight-v1.json",
       "native_build_workflow": ".github/workflows/runner-readiness-next20-mg-build.yml"
     }
   ],

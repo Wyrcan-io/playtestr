@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "project": "mg",
+  "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "candidate": "v0.4.0-rc.6",
+  "workflow": ".github/workflows/runner-readiness-next20-mg-build.yml",
+  "commit": "50f08e1a1a2c4b80829951ba882bc0056821ee4f",
+  "run_id": 42697606643,
+  "run_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/42697606643",
+  "host": "macos",
+  "runner": "macos-15-arm64",
+  "architecture": "arm64",
+  "job_id": 129433513867,
+  "job_conclusion": "failure",
+  "artifact_id": 13710526059,
+  "artifact_name": "next20-mg-build-darwin-42697606643",
+  "artifact_bytes": 491954,
+  "artifact_sha256": "b40297d40fe661dc689f921ae7dbdb00fc9becbd3c3c93ab97716c384cfe5f4e",
+  "acquisition": {
+    "pin_and_source_hashes": "passed",
+    "source_file_count": 126,
+    "target_launch": false
+  },
+  "build": {
+    "first_command": "./autogen.sh",
+    "exit_code": 127,
+    "duration_seconds": 0.1394,
+    "error": "autoreconf: command not found",
+    "source_build": false
+  },
+  "native_helper_suite": "passed, including process-group cleanup and output-cap tests",
+  "storage_check": "passed",
+  "admission_credit": 0,
+  "repair": "The hosted macOS image lacks GNU Autotools. Build pinned GNU M4, Autoconf and Automake from checksum-verified official release archives into the owned target prefix; persist exact toolchain receipts and keep global installation unchanged.",
+  "scope": "Preserved native macOS build prerequisite failure. This is not an mg application failure or a qualifying native build."
+}
