@@ -7,6 +7,7 @@ import json
 import os
 from pathlib import Path
 import platform
+import stat
 import time
 import uuid
 
@@ -18,6 +19,23 @@ from readiness_evidence import immutable_json, sha256
 
 PIN = "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66"
 EXPECTED_BYTES = b"MG_PTY_PILOT_RC6\n"
+
+
+def ensure_executable(path):
+    """Restore the user execute bit that Actions artifact ZIPs do not retain."""
+    path = Path(path)
+    if path.is_symlink():
+        raise ValueError("mg target binary is linked")
+    mode = path.stat().st_mode
+    if not stat.S_ISREG(mode):
+        raise ValueError("mg target is not a regular file")
+    original_mode = stat.S_IMODE(mode)
+    if not mode & stat.S_IXUSR:
+        os.chmod(path, original_mode | stat.S_IXUSR)
+    if not os.access(path, os.X_OK):
+        raise ValueError("mg target is not executable by the current user")
+    return {"mode_before": oct(original_mode),
+            "mode_after": oct(stat.S_IMODE(path.stat().st_mode))}
 
 
 def main():
@@ -43,6 +61,7 @@ def main():
                          f"receipt={build_path}")
     if target.is_symlink() or sha256(target) != build["binary_sha256"]:
         raise ValueError("mg target binary differs from its native build receipt")
+    target_mode = ensure_executable(target)
     if runtime["source_pin"] != PIN or runtime["native_sha256"] != build["binary_sha256"]:
         raise ValueError("mg runtime receipt does not match its build receipt")
 
@@ -82,6 +101,7 @@ def main():
         "target_pin": PIN,
         "target_binary_sha256": build["binary_sha256"],
         "target_build_receipt_sha256": sha256(build_path),
+        "target_executable_mode": target_mode,
         "host": host,
         "architecture": build["architecture"],
         "contract": spec.relative_to(ROOT).as_posix(),

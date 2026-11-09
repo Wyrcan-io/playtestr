@@ -1,16 +1,28 @@
 """Contract checks for the first frozen-candidate mg PTY pilot."""
 import base64
 import json
+import os
 from pathlib import Path
+import stat
 import tempfile
 import unittest
 
 from next20_check import DOC
-from next20_mg_pilot import EXPECTED_BYTES, PIN
+from next20_mg_pilot import EXPECTED_BYTES, PIN, ensure_executable
 from next20_mg_pilot_cleanup import MAX_INPUT_FILES, inventory
 
 
 class MgPilotContractTests(unittest.TestCase):
+    @unittest.skipUnless(os.name == "posix", "native pilot runs on POSIX hosts")
+    def test_target_executable_mode_is_restored_after_artifact_download(self):
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory) / "mg"
+            target.write_bytes(b"pinned target")
+            target.chmod(0o600)
+            modes = ensure_executable(target)
+            self.assertEqual(modes, {"mode_before": "0o600", "mode_after": "0o700"})
+            self.assertTrue(os.access(target, os.X_OK))
+
     def test_pilot_pin_matches_reviewed_source_provenance(self):
         provenance = json.loads((DOC / "mg/source-provenance.json").read_text(encoding="utf-8"))
         self.assertEqual(PIN, provenance["pin"])
