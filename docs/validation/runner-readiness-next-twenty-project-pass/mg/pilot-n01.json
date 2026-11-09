@@ -1,0 +1,57 @@
+{
+  "version": 3,
+  "name": "mg first-use create, save and quit",
+  "command": [
+    "mg",
+    "-S",
+    "-n",
+    "pilot.txt"
+  ],
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "workspace": {
+    "fixture": "fixtures/pilot-n01"
+  },
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 8000,
+  "run_timeout_ms": 30000,
+  "startup_timeout_ms": 15000,
+  "steps": [
+    {
+      "text": "MG_PTY_PILOT_RC6"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "MG_PTY_PILOT_RC6"
+    },
+    {
+      "key": "CtrlX"
+    },
+    {
+      "key": "CtrlS"
+    },
+    {
+      "expect": "Wrote pilot.txt"
+    },
+    {
+      "key": "CtrlX"
+    },
+    {
+      "key": "CtrlC"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "pilot.txt",
+        "kind": "file",
+        "bytes_base64": "TUdfUFRZX1BJTE9UX1JDNgo="
+      }
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "project": "mg",
+  "candidate": "v0.4.0-rc.6",
+  "freeze": "replacement-candidate-freeze-native-exit-v1.json",
+  "downloads": [
+    {
+      "host": "linux",
+      "workflow_run_id": 40424475362,
+      "artifact_id": 12699660407,
+      "artifact_name": "next20-private-replacement-Linux",
+      "artifact_bytes": 2186476,
+      "artifact_sha256": "afdec9c875d6a325c991fe234984de26168cbff9cb0c779e7c41620ca004519e",
+      "zip_crc": "valid",
+      "archive_path": "artifacts/runner-readiness-next-twenty-project-pass/replacement-archives/native-exit-v1/playtestr_0.4.0-rc.6_linux_amd64.tar.gz",
+      "archive_bytes": 1989127,
+      "archive_sha256": "28ae9f37227bb0f6ba2df031420aa3d027b998e31eab523c4d13cd2816c4af7a",
+      "runner_binary_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a"
+    },
+    {
+      "host": "darwin",
+      "workflow_run_id": 40420820491,
+      "artifact_id": 12697134985,
+      "artifact_name": "next20-private-replacement-macOS",
+      "artifact_bytes": 2044098,
+      "artifact_sha256": "030c58d0b05b71e8a4cd7b9f86eccc73fc1644bd430f3340813e34d0323ce14f",
+      "zip_crc": "valid",
+      "archive_path": "artifacts/runner-readiness-next-twenty-project-pass/replacement-archives/native-exit-v1/playtestr_0.4.0-rc.6_darwin_arm64.tar.gz",
+      "archive_bytes": 1855437,
+      "archive_sha256": "132152710ade2c01cac7558f75212121f01af8ab02c5735dc9c7de1c33dbe625",
+      "runner_binary_sha256": "609b184dac8664050643ec35036c4cffef2137ec778ae4d4678727b119e2fe0f"
+    }
+  ],
+  "verification": {
+    "outer_artifact_sha256": "matched GitHub provider digest for both hosts",
+    "outer_zip_integrity": "both artifacts pass CRC",
+    "inner_archive_and_runner": "both exact archive hashes and runner binary hashes match the frozen candidate manifest",
+    "retained_canonical_archives": "both exact inner archives already exist at the frozen local paths"
+  },
+  "redundant_download_copies_removed": true,
+  "scope": "Exact candidate input preflight only; it is not a mg PTY execution or admission result."
+}

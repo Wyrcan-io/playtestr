@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "project": "mg",
+  "pin": "2209e2087eab34ffceb6bfaa0a62f9e4c36e3c66",
+  "candidate": "v0.4.0-rc.6",
+  "workflow": ".github/workflows/runner-readiness-next20-mg-build.yml",
+  "commit": "e03b341cf14893d264d8f01fb8a8ac72affe9a14",
+  "run_id": 42705501183,
+  "run_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/42705501183",
+  "host": "darwin",
+  "runner": "macos-15-arm64",
+  "architecture": "arm64",
+  "job_id": 129461092740,
+  "job_conclusion": "success",
+  "artifact_id": 13713766830,
+  "artifact_name": "next20-mg-build-darwin-42705501183",
+  "artifact_bytes": 6007314,
+  "artifact_sha256": "ed031b6a0d158b4a59eabde96452cdf15f883b49ed462309672046a35ad26c1b",
+  "source_archive_sha256": "bd8aff8ddbf55f7d37067a9f01e6bef887a2b0f2c0699aaa08a73d7dfd6069a8",
+  "source_file_count": 126,
+  "build_seconds": 131.7235,
+  "binary_sha256": "5f0c844b1c8a6a44209ad4534b3d19e223c0289024e00f34656031b8640db297",
+  "binary_bytes": 332784,
+  "commands": 20,
+  "installed_files": 11,
+  "owned_toolchain": {
+    "kind": "source-built under campaign active target",
+    "commands": 9,
+    "inputs": {
+      "m4-1.4.21": "f25c6ab51548a73a75558742fb031e0625d6485fe5f9155949d6486a2408ab66",
+      "autoconf-2.73": "9fd672b1c8425fac2fa67fa0477b990987268b90ff36d5f016dae57be0d6b52e",
+      "automake-1.18.1": "168aa363278351b89af56684448f525a5bce5079d0b6842bd910fdd3f1646887"
+    },
+    "release_archive_checksums": "verified; Automake signed-byte discrepancy remains documented"
+  },
+  "native_helper_suite": "12/12 passed",
+  "readback": {
+    "artifact_provider_digest": "matched local SHA-256",
+    "ZIP_integrity": "all entries pass CRC",
+    "source_archive_pin": "verified",
+    "toolchain_archives": "all three archived source hashes verified against provenance",
+    "command_logs": "all 20 output lengths and SHA-256 values verified",
+    "installed_inventory": "all 11 files verified including hidden .mg settings",
+    "binary_runtime_receipts": "SHA-256 and source pin agree",
+    "process_cleanup": "all command process groups clean; no live descendants"
+  },
+  "storage": {
+    "job_limits": "all pass",
+    "job_combined_raw": 1936631359,
+    "job_combined_retained": 988980585
+  },
+  "scenario_execution": false,
+  "source_faults": 0,
+  "admission_credit": 0,
+  "scope": "Complete audited native Apple silicon macOS source-build evidence and help smoke only. No mg PTY scenarios, source faults or project admission are established."
+}

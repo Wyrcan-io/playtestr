@@ -1,0 +1,125 @@
+name: Runner readiness next20 mg exact-candidate PTY pilot
+
+on:
+  push:
+    branches:
+      - work/p0-p2-implementation
+    paths:
+      - .github/workflows/runner-readiness-next20-mg-pilot.yml
+      - scripts/acceptance/next20_mg_pilot.py
+      - scripts/acceptance/next20_mg_pilot_cleanup.py
+      - scripts/acceptance/test_next20_mg_pilot.py
+      - scripts/acceptance/test_next20_mg_build.py
+      - scripts/acceptance/next20_candidate.py
+      - scripts/acceptance/next20_candidate_install.py
+      - scripts/acceptance/next20_check.py
+      - scripts/acceptance/next20_mg_build.py
+      - docs/validation/runner-readiness-next-twenty-project-pass/mg/pilot-n01.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/pilot-n01/**
+      - docs/validation/runner-readiness-next-twenty-project-pass/replacement-candidate-freeze-native-exit-v1.json
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: playtestr-next20-mg-pilot-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  first-use-pty-pilot:
+    name: mg N01 pilot (${{ matrix.host }})
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        include:
+          - host: linux
+            os: ubuntu-24.04
+            candidate_run_id: 40424475362
+            candidate_artifact: next20-private-replacement-Linux
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/pilot-input/candidate/replacement-candidate/native-exit-v1/linux-amd64/dist/playtestr_0.4.0-rc.6_linux_amd64.tar.gz
+            build_artifact: next20-mg-build-linux-42705501183
+          - host: darwin
+            os: macos-15
+            candidate_run_id: 40420820491
+            candidate_artifact: next20-private-replacement-macOS
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/pilot-input/candidate/replacement-candidate/native-exit-v1/darwin-arm64/dist/playtestr_0.4.0-rc.6_darwin_arm64.tar.gz
+            build_artifact: next20-mg-build-darwin-42705501183
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONIOENCODING: utf-8
+      GOTOOLCHAIN: local
+      GOWORK: off
+      TEMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+      TMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+      TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+
+      - name: Create campaign-owned input and temporary roots
+        run: mkdir -p artifacts/runner-readiness-next-twenty-project-pass/pilot-input/mg artifacts/runner-readiness-next-twenty-project-pass/pilot-input/candidate artifacts/runner-readiness-next-twenty-project-pass/tmp
+
+      - name: Validate pilot contract and bounded process helpers
+        run: python -B -m unittest test_next20_mg_build test_next20_mg_pilot -v
+        working-directory: scripts/acceptance
+
+      - name: Download successful native mg build receipt and binary
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53
+        with:
+          name: ${{ matrix.build_artifact }}
+          repository: ${{ github.repository }}
+          run-id: 42705501183
+          github-token: ${{ github.token }}
+          path: artifacts/runner-readiness-next-twenty-project-pass/pilot-input/mg
+
+      - name: Download frozen native rc.6 candidate archive
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53
+        with:
+          name: ${{ matrix.candidate_artifact }}
+          repository: ${{ github.repository }}
+          run-id: ${{ matrix.candidate_run_id }}
+          github-token: ${{ github.token }}
+          path: artifacts/runner-readiness-next-twenty-project-pass/pilot-input/candidate
+
+      - name: Install and verify only the exact frozen candidate archive
+        run: >-
+          python -B scripts/acceptance/next20_candidate_install.py
+          --series native-exit-v1
+          --archive "${{ matrix.candidate_archive }}"
+
+      - name: Run first-use public-spec PTY pilot
+        run: >-
+          python -B scripts/acceptance/next20_mg_pilot.py
+          --host "${{ matrix.host }}"
+          --mg-build-root artifacts/runner-readiness-next-twenty-project-pass/pilot-input/mg
+
+      - name: Verify campaign storage limits
+        if: always()
+        run: python -B scripts/acceptance/next20_storage.py mg
+
+      - name: Check and remove exact pilot input roots
+        if: always()
+        run: >-
+          python -B scripts/acceptance/next20_mg_pilot_cleanup.py
+          --host "${{ matrix.host }}"
+          --pilot-input artifacts/runner-readiness-next-twenty-project-pass/pilot-input
+
+      - name: Retain bounded pilot evidence
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: next20-mg-n01-pilot-${{ matrix.host }}-${{ github.run_id }}
+          path: artifacts/runner-readiness-next-twenty-project-pass/mg/pilot-development/${{ matrix.host }}/**
+          if-no-files-found: warn
+          retention-days: 14
+          include-hidden-files: true

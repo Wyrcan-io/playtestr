@@ -568,7 +568,7 @@
       "id": "mg",
       "repository": "troglobit/mg",
       "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
-      "status": "source-acquired; native Linux/macOS build and PTY pilot pending; zero admission credit",
+      "status": "source-acquired; native Linux/macOS source build complete; PTY pilot pending; zero admission credit",
       "acquired": true,
       "admitted": false,
       "planned_hosts": [
@@ -602,14 +602,19 @@
       "native_build_observations": [
         "mg/native-linux-build-receipt-v1.json",
         "mg/native-linux-build-receipt-v2.json",
+        "mg/native-linux-build-receipt-v3.json",
         "mg/native-macos-build-receipt-v1.json",
         "mg/native-macos-build-receipt-v2.json",
         "mg/native-macos-build-receipt-v3.json",
-        "mg/native-macos-build-receipt-v4.json"
+        "mg/native-macos-build-receipt-v4.json",
+        "mg/native-macos-build-receipt-v5.json"
       ],
       "build_toolchain_dependencies": "mg/toolchain-dependencies-v1.json",
       "build_toolchain_source_preflight": "mg/toolchain-source-preflight-v1.json",
-      "native_build_workflow": ".github/workflows/runner-readiness-next20-mg-build.yml"
+      "candidate_archive_preflight": "mg/candidate-archive-preflight-v1.json",
+      "native_build_workflow": ".github/workflows/runner-readiness-next20-mg-build.yml",
+      "pilot_spec": "mg/pilot-n01.json",
+      "pilot_workflow": ".github/workflows/runner-readiness-next20-mg-pilot.yml"
     }
   ],
   "observed_audited_ordinary_executions": 2400,
