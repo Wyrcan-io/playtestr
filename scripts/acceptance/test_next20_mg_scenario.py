@@ -33,6 +33,20 @@ class MgScenarioContractTests(unittest.TestCase):
                          b"one TOKEN and TOKEN.\n")
         self.assertEqual(len(data), len((DOC / "mg/n03-query-replace.json").read_bytes()))
 
+    def test_n04_cuts_a_marked_word_and_yanks_it_at_end(self):
+        path, data, spec, fixture = load_contract(DOC / "mg/n04-cut-yank.json")
+        self.assertEqual(path.name, "n04-cut-yank.json")
+        self.assertEqual(spec["command"], ["mg", "-S", "-n", "notes.txt"])
+        self.assertEqual((fixture / "notes.txt").read_bytes(), b"alpha beta gamma\n")
+        self.assertEqual(sum(1 for s in spec["steps"] if s == {"key": "CtrlF"}), 10)
+        self.assertIn({"key": "CtrlSpace"}, spec["steps"])
+        self.assertIn({"key": "CtrlW"}, spec["steps"])
+        self.assertIn({"key": "CtrlY"}, spec["steps"])
+        self.assertIn({"expect": "alpha  gamma"}, spec["steps"])
+        self.assertEqual(base64.b64decode(spec["steps"][-1]["state"]["bytes_base64"], validate=True),
+                         b"alpha  gamma beta\n")
+        self.assertEqual(len(data), len((DOC / "mg/n04-cut-yank.json").read_bytes()))
+
 
 if __name__ == "__main__":
     unittest.main()

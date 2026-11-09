@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "project": "troglobit/mg",
+  "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "scenario": "n04-cut-yank",
+  "status": "reviewed against exact pinned source; native scenario pending",
+  "source_files": {
+    "src/keymap.c": "7e6179df6d051f3deb54775a817fef96b90a94e2f35cbb134ba54c8c9106c54e",
+    "src/region.c": "d220a4ad23852df074e08983530136c4b0733fc2b509cf09f0dd90f5b7b99f62",
+    "src/yank.c": "b7c149ded6301f2eb509be154eb520cba962c3258aa4d66fd91b285729c60159"
+  },
+  "findings": [
+    "fund_at maps CtrlSpace (CCHR(@)) to setmark.",
+    "fund_CJ maps CtrlF to forward character, CtrlW to killregion, and CtrlY to yank.",
+    "killregion computes the marked region, moves point to its start, deletes the region into the kill buffer, and clears mark.",
+    "yank inserts the kill buffer at the current point.",
+    "Contract moves from line start across \"alpha \" (6 chars), sets mark, advances over \"beta\" (4 chars), cuts those four bytes, moves to end of line, and yanks the word."
+  ],
+  "contract": "n04-cut-yank.json",
+  "fixture": "fixtures/n04-cut-yank/notes.txt",
+  "fixture_sha256": "adf7157c8a5bbb4b099d39ba5ef34b73a3787f5e9326b3eb24ac8b86fd03ff96",
+  "expected_state_sha256": "c7e2ba09cbb24dc74eae465e7bf5fe9f1c868300b67bc4ecae5b76f35cf49ff0",
+  "expected_state_base64": "YWxwaGEgIGdhbW1hIGJldGEK",
+  "safety": "synthetic disposable notes.txt only; mg runs with -S -n under managed workspace"
+}
