@@ -37,7 +37,10 @@ def main():
     build = json.loads(build_path.read_text(encoding="utf-8"))
     runtime = json.loads(runtime_path.read_text(encoding="utf-8"))
     if build["project"] != "mg" or build["pin"] != PIN or build["host"] != host:
-        raise ValueError("mg build artifact does not match the declared target and host")
+        raise ValueError("mg build artifact mismatch: "
+                         f"project={build.get('project')!r}, pin={build.get('pin')!r}, "
+                         f"host={build.get('host')!r}; expected mg/{PIN}/{host}; "
+                         f"receipt={build_path}")
     if target.is_symlink() or sha256(target) != build["binary_sha256"]:
         raise ValueError("mg target binary differs from its native build receipt")
     if runtime["source_pin"] != PIN or runtime["native_sha256"] != build["binary_sha256"]:
