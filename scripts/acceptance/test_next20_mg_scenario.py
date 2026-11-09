@@ -20,6 +20,19 @@ class MgScenarioContractTests(unittest.TestCase):
         self.assertEqual(len(data), len((DOC / "mg/n02-edit-append.json").read_bytes()))
         self.assertEqual(spec["steps"][-3], {"key": "CtrlC"})
 
+    def test_n03_uses_meta_percent_and_checks_query_replace_result(self):
+        path, data, spec, fixture = load_contract(DOC / "mg/n03-query-replace.json")
+        self.assertEqual(path.name, "n03-query-replace.json")
+        self.assertEqual(spec["command"], ["mg", "-S", "-n", "notes.txt"])
+        self.assertEqual((fixture / "notes.txt").read_bytes(), b"one needle and needle.\n")
+        self.assertEqual(spec["steps"][0], {"expect": "one needle and needle."})
+        self.assertIn({"expect": "Query replace: "}, spec["steps"])
+        self.assertIn({"expect": "Query replace needle with: "}, spec["steps"])
+        self.assertIn({"expect": "Replaced 2 occurrences"}, spec["steps"])
+        self.assertEqual(base64.b64decode(spec["steps"][-1]["state"]["bytes_base64"], validate=True),
+                         b"one TOKEN and TOKEN.\n")
+        self.assertEqual(len(data), len((DOC / "mg/n03-query-replace.json").read_bytes()))
+
 
 if __name__ == "__main__":
     unittest.main()

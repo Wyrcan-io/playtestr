@@ -1,0 +1,42 @@
+{
+  "schema_version": 2,
+  "project": "mg",
+  "candidate": "v0.4.0-rc.6",
+  "target_pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "admission_credit": 0,
+  "prior_failure_record": "mg/scenario-development-accounting-v1.json",
+  "native_readback": "mg/scenario-development-readback-v1.json",
+  "attempts": [
+    {
+      "run_id": 42716663487,
+      "scenario_id": "n02-edit-append",
+      "phase": "development",
+      "result": "failed on Linux/macOS at save prompt due to basename-only oracle; target had saved using absolute path; assertion timeout; forced bounded target-group cleanup confirmed",
+      "corrective_action": "change prompt check to stable Wrote prefix; preserve original failure unchanged"
+    },
+    {
+      "run_id": 42717420876,
+      "scenario_id": "n02-edit-append",
+      "phase": "development retry, unqualified",
+      "commit": "6bd63833",
+      "result": "passed on Linux/macOS; 12/12 public steps each; same-invocation state matched; graceful target exit and process group cleanup confirmed",
+      "readback": "mg/scenario-development-readback-v1.json"
+    }
+  ],
+  "development_probe_counters": {
+    "distinct_scenarios": 1,
+    "attempts": 4,
+    "passed": 2,
+    "failed": 2,
+    "retries_included": true,
+    "scope": "N02 scenario-development host invocations only; N01 first-use pilot is accounted separately"
+  },
+  "qualification_counters": {
+    "scenarios": 0,
+    "native_cells": 0,
+    "ordinary_executions": 0,
+    "calibrations": 0,
+    "real_source_faults": 0
+  },
+  "current_status": "N01 pilot and N02 development probe have passed; full 20 scenario matrix, exact byte-state evidence, repetitions, faults, authoring and admission remain pending."
+}

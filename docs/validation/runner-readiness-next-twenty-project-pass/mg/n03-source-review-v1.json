@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "project": "troglobit/mg",
+  "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "scenario": "n03-query-replace",
+  "status": "reviewed against source at exact pin; native scenario still pending",
+  "source_files": {
+    "src/keymap.c": "7e6179df6d051f3deb54775a817fef96b90a94e2f35cbb134ba54c8c9106c54e",
+    "src/search.c": "51030e406dc4ae0d7a31bdbc367b61c20d5c2e4862e909e68c6685f13eaa4c14"
+  },
+  "findings": [
+    "src/keymap.c maps Meta-percent (%) to queryrepl.",
+    "queryrepl calls readpattern(\"Query replace\"), then prompts \"Query replace %s with: \".",
+    "After replacement text, the status prompt is \"Query replacing %s with %s:\".",
+    "The ! response replaces all remaining matches; completion reports Replaced N occurrences."
+  ],
+  "contract": "n03-query-replace.json",
+  "fixture": "fixtures/n03-query-replace/notes.txt",
+  "fixture_sha256": "82b66d7f656e1ec172676caafa454f6b68f536a9a133f8d34238753d85ab50fd",
+  "expected_state_sha256": "8b8ae17fa76e306ec073573618cf8249e622a068dfa60e765f1cff8269c11e23",
+  "expected_state_base64": "b25lIFRPS0VOIGFuZCBUT0tFTi4K",
+  "primary_source": "https://github.com/troglobit/mg/blob/2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66/src/search.c",
+  "safety": "synthetic notes.txt under a disposable managed workspace; -S disables startup/program features and -n disables backups; no external service or real user file"
+}

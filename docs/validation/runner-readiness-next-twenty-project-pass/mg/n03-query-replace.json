@@ -1,0 +1,84 @@
+{
+  "version": 3,
+  "name": "mg query replace all remaining matches",
+  "command": [
+    "mg",
+    "-S",
+    "-n",
+    "notes.txt"
+  ],
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "workspace": {
+    "fixture": "fixtures/n03-query-replace"
+  },
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 8000,
+  "run_timeout_ms": 30000,
+  "startup_timeout_ms": 15000,
+  "steps": [
+    {
+      "expect": "one needle and needle."
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "text": "%"
+    },
+    {
+      "expect": "Query replace: "
+    },
+    {
+      "text": "needle"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Query replace needle with: "
+    },
+    {
+      "text": "TOKEN"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Query replacing needle with TOKEN:"
+    },
+    {
+      "text": "!"
+    },
+    {
+      "expect": "Replaced 2 occurrences"
+    },
+    {
+      "key": "CtrlX"
+    },
+    {
+      "key": "CtrlS"
+    },
+    {
+      "expect": "Wrote "
+    },
+    {
+      "key": "CtrlX"
+    },
+    {
+      "key": "CtrlC"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "notes.txt",
+        "kind": "file",
+        "bytes_base64": "b25lIFRPS0VOIGFuZCBUT0tFTi4K"
+      }
+    }
+  ]
+}

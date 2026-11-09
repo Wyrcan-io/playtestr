@@ -12,7 +12,9 @@ on:
       - scripts/acceptance/next20_mg_scenario.py
       - scripts/acceptance/test_next20_mg_scenario.py
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/n02-edit-append.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/mg/n03-query-replace.json
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/n02-edit-append/**
+      - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/n03-query-replace/**
       - scripts/acceptance/test_next20_mg_build.py
       - scripts/acceptance/next20_candidate.py
       - scripts/acceptance/next20_candidate_install.py
@@ -113,6 +115,13 @@ jobs:
           --host "${{ matrix.host }}"
           --mg-build-root artifacts/runner-readiness-next-twenty-project-pass/pilot-input/mg
           --spec docs/validation/runner-readiness-next-twenty-project-pass/mg/n02-edit-append.json
+
+      - name: Run N03 pinned-source query-replace probe
+        run: >-
+          python -B scripts/acceptance/next20_mg_scenario.py
+          --host "${{ matrix.host }}"
+          --mg-build-root artifacts/runner-readiness-next-twenty-project-pass/pilot-input/mg
+          --spec docs/validation/runner-readiness-next-twenty-project-pass/mg/n03-query-replace.json
 
       - name: Verify campaign storage limits
         if: always()

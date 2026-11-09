@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "project": "troglobit/mg",
+  "target_pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "candidate": "v0.4.0-rc.6",
+  "scenario_id": "n02-edit-append",
+  "phase": "scenario development; not qualification",
+  "workflow_run_id": 42717420876,
+  "contract": "mg/n02-edit-append.json",
+  "contract_sha256": "684d2ed8b53a080c31c14150cd26668a939d8a0f91641d2cb83733fda55e12e8",
+  "hosts": [
+    {
+      "host": "linux",
+      "architecture": "x86_64",
+      "job_id": 129502449234,
+      "artifact_id": 13719211158,
+      "artifact_bytes": 11290,
+      "artifact_sha256": "e3f9fd0a9299a0648b7055de17565892a8695789c564359d7223db6d1c63f9b6",
+      "retained_zip": "artifacts/runner-readiness-next-twenty-project-pass/mg/scenario-development/retrieved/run-42717420876/scenario-13719211158.zip",
+      "zip_crc": "passed",
+      "members": 17,
+      "attempt_id": "19675d12a3bf4d0091ddf3fd20e411a1",
+      "report_sha256": "ea15f39f1728ce0c44ea4c51f822bdfd4c104fea22ceb301fd9756399ded3e59",
+      "runner_log_sha256": "124b30c84e7830c90816babf6a6a951512f32bd26d642831b23e01bbd5c4d81c",
+      "runner_binary_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a",
+      "target_binary_sha256": "6eb334f5ea96687983c51b073b1b8a11434ea85a46e69ca6e28e57b76b4e88e5",
+      "attempt_sha256": "e81d356ba652b8045b28eab2f724573ef6f6d52f609c05514fc03d34bc21272d",
+      "result": "12/12 steps pass; same-invocation notes.txt file state matched; target graceful exit confirmed; runner process group absent"
+    },
+    {
+      "host": "darwin",
+      "architecture": "arm64",
+      "job_id": 129502449008,
+      "artifact_id": 13718437526,
+      "artifact_bytes": 11349,
+      "artifact_sha256": "503ed5c1a5a8173907990bfc6eddf79815387b52d667b9a1904dda797dbebbd1",
+      "retained_zip": "artifacts/runner-readiness-next-twenty-project-pass/mg/scenario-development/retrieved/run-42717420876/scenario-13718437526.zip",
+      "zip_crc": "passed",
+      "members": 17,
+      "attempt_id": "01d6a69f94f949ce98a95d123058da7c",
+      "report_sha256": "0c11529703954632233148fe5a881a1f7bdeaea66612b597d2efadb8ec619d48",
+      "runner_log_sha256": "f16cfca2fe21e9c8ba85fcf9b74f7a1d7a8ae6059f59b359d164fef676858515",
+      "runner_binary_sha256": "609b184dac8664050643ec35036c4cffef2137ec778ae4d4678727b119e2fe0f",
+      "target_binary_sha256": "5f0c844b1c8a6a44209ad4534b3d19e223c0289024e00f34656031b8640db297",
+      "attempt_sha256": "70ec4657b1b52665b86507374712ccc20067c91bb077fcb2ebb611c00fa76821",
+      "result": "12/12 steps pass; same-invocation notes.txt file state matched; target graceful exit confirmed; runner process group absent"
+    }
+  ],
+  "audit": "Provider digests equal retained ZIP SHA-256 values; ZIP CRC checks pass; inner scenario receipt report/log hashes match retained files. Attempt records bind candidate, target, contract, host and architecture; launched records positively identify runner PID and target exit. Both final workflow cleanup receipts say all_owned_inputs_absent=true.",
+  "state_evidence_limit": "The public report records state outcome=matched in the same invocation/workspace but does not retain the observed saved file bytes or their digest. This is a passing development probe, not an independent byte re-read or project qualification.",
+  "admission_credit": 0
+}
