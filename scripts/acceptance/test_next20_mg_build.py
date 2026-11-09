@@ -10,11 +10,23 @@ import time
 import unittest
 
 from next20_check import RAW, ROOT
-from next20_mg_build import MAX_OUTPUT, TOOLCHAIN_SOURCES, process_group_members, run_bounded
+from next20_mg_build import (MAX_OUTPUT, TOOLCHAIN_SOURCES, preserve_release_bootstrap_artifacts,
+                             process_group_members, run_bounded)
 from readiness_acquire_plop import extract_source
 
 
 class MgBuildCommandTests(unittest.TestCase):
+    def test_release_generated_bootstrap_files_are_newer_than_extracted_inputs(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            for name in ("configure", "Makefile.in", "aclocal.m4"):
+                path = source / name
+                path.write_text("generated", encoding="utf-8")
+                os.utime(path, (1, 1))
+            preserve_release_bootstrap_artifacts(source)
+            self.assertTrue(all((source / name).stat().st_mtime > 1
+                                for name in ("configure", "Makefile.in", "aclocal.m4")))
+
     def test_owned_autotools_inputs_have_fixed_official_archive_hashes(self):
         self.assertEqual([row["name"] for row in TOOLCHAIN_SOURCES],
                          ["m4", "autoconf", "automake"])

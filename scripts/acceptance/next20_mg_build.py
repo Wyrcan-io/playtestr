@@ -68,6 +68,15 @@ def process_group_has_live_members(process_group):
                for member in process_group_members(process_group))
 
 
+def preserve_release_bootstrap_artifacts(source):
+    """Keep release-generated files newer than extracted maintainer inputs."""
+    for name in ("configure", "Makefile.in", "aclocal.m4"):
+        path = source / name
+        if not path.is_file() or path.is_symlink():
+            raise ValueError(f"pinned toolchain source is missing regular generated file {name}")
+        os.utime(path, None)
+
+
 def stop_process_group(process_group):
     members = process_group_members(process_group)
     if any(member["uid"] != os.getuid() for member in members):
@@ -147,6 +156,7 @@ def owned_autotools(target, evidence, env, deadline, commands):
         count, expanded = extract_source(data, source, expanded_limit=64 * 1024**2,
                                          entry_limit=10000, member_limit=8 * 1024**2,
                                          archive_mode="r:xz")
+        preserve_release_bootstrap_artifacts(source)
         if sum(row["expanded_bytes"] for row in archive_receipts) + expanded > 48 * 1024**2:
             raise ValueError("pinned bootstrap sources exceed the 48 MiB combined expansion limit")
         archive_receipts.append({"name": item["name"], "version": item["version"],
