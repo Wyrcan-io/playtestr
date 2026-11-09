@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "project": "mg",
+  "candidate": "v0.4.0-rc.6",
+  "target_pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "admission_credit": 0,
+  "observations": [
+    {
+      "run_id": 42710258730,
+      "commit": "bd1c6ae95b413a492a09b719254a98bda2b3185f",
+      "jobs": {
+        "linux": {"job_id": 129477596054, "conclusion": "failure", "target_attempted": false, "failure": "build artifact pin string mismatch before target launch", "input_cleanup": "confirmed"},
+        "darwin": {"job_id": 129477595319, "conclusion": "failure", "target_attempted": false, "failure": "build artifact pin string mismatch before target launch; cleanup inventory rejected the downloaded input tree above the old 100-file bound", "input_cleanup": "not confirmed"}
+      },
+      "retained_linux_artifact": {"artifact_id": 13715547609, "bytes": 469, "sha256": "9d0602e092d76337c083944e0ffdbe1cfbf2fb526d868c540037dfcfce601f24"}
+    },
+    {
+      "run_id": 42710906900,
+      "commit": "a678580c501a1982f1025a6f30fe0027f899203b",
+      "jobs": {
+        "linux": {"job_id": 129480510207, "conclusion": "failure", "target_attempted": false, "failure": "build artifact pin string mismatch before target launch", "input_cleanup": "confirmed"},
+        "darwin": {"job_id": 129480509426, "conclusion": "failure", "target_attempted": false, "failure": "build artifact pin string mismatch before target launch; cleanup inventory rejected the downloaded input tree above the old 100-file bound", "input_cleanup": "not confirmed"}
+      },
+      "retained_linux_artifact": {"artifact_id": 13715353635, "bytes": 469, "sha256": "dc57dcf66aa25a812eb161f41e658c708fc420a8bd44f391df7c3d186ac05eef"}
+    },
+    {
+      "run_id": 42711988263,
+      "commit": "8d452ee3cef643072d1c93318efae3d07cf8dc66",
+      "jobs": {
+        "linux": {
+          "job_id": 129483633191,
+          "conclusion": "failure",
+          "target_attempted": false,
+          "failure": "workspace_setup_failure: the runner process could not resolve mg through PATH; all ten PTY spec steps were not_run",
+          "diagnosis": "The build archive's mg entry has Unix mode 100755. Actions artifact download permission loss is a plausible cause but was not observable after the workflow cleaned its input tree. The retry records the downloaded mode and restores the owner execute bit before launch.",
+          "runner_process_cleanup": "confirmed absent",
+          "input_cleanup": "confirmed"
+        },
+        "darwin": {"job_id": 129483633598, "status_at_readback": "queued", "target_attempted": false, "conclusion": null}
+      },
+      "retained_linux_artifact": {
+        "artifact_id": 13716670814,
+        "bytes": 4630,
+        "sha256": "8a9a01892554254512e6534b22892c9e30ed0fb94ff0c281095ec701461522e0",
+        "local_archive_sha256": "8a9a01892554254512e6534b22892c9e30ed0fb94ff0c281095ec701461522e0",
+        "report_sha256": "0c91d3c3025d1aef37ab0b2aae521d7b9530a38f3834a4812663d120fea045d2",
+        "runner_log_sha256": "9696867530371b01e951cb8c95880fe4292fd2a2e09cff026bf8a00f86bf6234",
+        "runner_command_exit_code": 1,
+        "runner_command_duration_seconds": 0.1087
+      }
+    }
+  ],
+  "current_retry": {
+    "run_id": 42712723851,
+    "commit": "90ad40a0",
+    "workflow_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/42712723851",
+    "fix": "verify the pinned target hash then restore the user execute bit before running rc.6",
+    "status_at_readback": "pending",
+    "jobs": []
+  },
+  "pin_receipt_erratum": {
+    "source_provenance_pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+    "downloaded_linux_build_json_pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+    "downloaded_linux_build_json_sha256": "34469a243f4e474c4a0e41f00df80f4168af171acaf4c173366a72541e494396",
+    "incorrect_pin_in_human_curated_receipts": "2209e2087eab34ffceb6bfaa0a62f9e4c36e3c66",
+    "affected_receipts": ["native-linux-build-receipt-v3.json", "native-macos-build-receipt-v5.json"],
+    "interpretation": "The source provenance and downloaded native build artifact identify the reviewed d62 commit. The a62 text in the two curated summaries is a transcription error; preserve those originals and use the downloaded build packet plus this erratum as the correction."
+  },
+  "build_archive_mode_readback": {
+    "artifact_id": 13713367836,
+    "provider_sha256": "c94fa32958f87f5534ea6b62865e5a0890b15cd10c1153a142d4e1dd5b8ed7ed",
+    "local_sha256": "c94fa32958f87f5534ea6b62865e5a0890b15cd10c1153a142d4e1dd5b8ed7ed",
+    "local_bytes": 851689,
+    "entry": "active/mg/install/bin/mg",
+    "archive_unix_mode": "0100755",
+    "scope": "This verifies the mode stored in the provider ZIP, not the mode restored by actions/download-artifact on the hosted runner."
+  },
+  "current_status": "native builds complete; exact-candidate PTY journey not yet executed; zero admission credit"
+}
