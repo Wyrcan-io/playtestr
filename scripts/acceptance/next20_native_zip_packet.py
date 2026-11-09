@@ -21,8 +21,10 @@ from readiness_evidence import immutable_json,sha256
 from readiness_storage import measure
 
 ZIP_LIMIT=32*1024**2
+SELECTED_PROVIDER_ZIP_LIMIT=512*1024**2
 FILE_LIMIT=16*1024**2
-LOGICAL_LIMIT=128*1024**2
+RUNTIME_FILE_LIMIT=128*1024**2
+LOGICAL_LIMIT=256*1024**2
 INDEX_LIMIT=2*1024**2
 
 
@@ -47,8 +49,20 @@ def download(command,limit):
         process.stdout.close()
 
 
-def retain_zip(payload,output,project,run,artifact,archive_limit,compression='tar.gz',stage=False):
-    if len(payload)>ZIP_LIMIT or not 0<archive_limit<=48*1024**2:raise ValueError('provider ZIP/retained archive bound')
+def retain_zip(payload,output,project,run,artifact,archive_limit,compression='tar.gz',stage=False,
+               selection_prefixes=None,expected_provider_sha256=None,max_file_bytes=FILE_LIMIT,excluded_members=None):
+    input_limit=SELECTED_PROVIDER_ZIP_LIMIT if selection_prefixes else ZIP_LIMIT
+    if (len(payload)>input_limit or not 0<archive_limit<=48*1024**2 or
+        max_file_bytes not in {FILE_LIMIT,32*1024**2,RUNTIME_FILE_LIMIT}):raise ValueError('provider ZIP/retained archive bound')
+    provider_sha256=hashlib.sha256(payload).hexdigest()
+    if expected_provider_sha256 is not None and provider_sha256!=expected_provider_sha256.removeprefix('sha256:'):
+        raise ValueError('provider ZIP digest differs from completed artifact metadata')
+    if selection_prefixes is not None and (not selection_prefixes or len(set(selection_prefixes))!=len(selection_prefixes) or
+        any(not isinstance(p,str) or not p.endswith('/') or payload_name(p[:-1])!=p[:-1] for p in selection_prefixes)):
+        raise ValueError('invalid selected provider ZIP prefixes')
+    excluded_members=excluded_members or []
+    if len(set(excluded_members))!=len(excluded_members) or any(payload_name(name)!=name for name in excluded_members):
+        raise ValueError('invalid exact excluded provider members')
     if compression=='tar.xz' and archive_limit>24*1024**2:raise ValueError('XZ explicit archive bound exceeds reviewed decoder')
     if compression not in {'tar.gz','tar.xz'}:raise ValueError('unsupported direct packet compression')
     scope=RAW/'tmp/direct-native-zip'/project if stage else RAW/project
@@ -56,6 +70,7 @@ def retain_zip(payload,output,project,run,artifact,archive_limit,compression='ta
     for ancestor in [output.parent,scope,RAW/'tmp' if stage else RAW/project,RAW,RAW.parent]:
         if ancestor.is_symlink() or getattr(ancestor,'is_junction',lambda:False)():raise ValueError('linked direct retention ancestor')
     output.mkdir(exist_ok=False);archive=output/('packets.'+compression);files={};canonical={};folded=set();total=0;selected=None
+    omitted={'files':0,'bytes':0};excluded={'files':0,'bytes':0,'matched':set(),'requested':excluded_members}
     class Bounded:
         def __init__(self,stream):self.stream=stream
         def write(self,value):
@@ -65,7 +80,8 @@ def retain_zip(payload,output,project,run,artifact,archive_limit,compression='ta
     with zipfile.ZipFile(io.BytesIO(payload)) as source,archive.open('xb') as raw:
         compressed=(gzip.GzipFile(filename='',mode='wb',fileobj=Bounded(raw),mtime=0) if compression=='tar.gz' else lzma.LZMAFile(Bounded(raw),'w',preset=6))
         with compressed,tarfile.open(fileobj=compressed,mode='w|',format=tarfile.PAX_FORMAT) as destination:
-            retain_members(source,destination,files,canonical,folded,run,artifact)
+            retain_members(source,destination,files,canonical,folded,run,artifact,selection_prefixes,omitted,max_file_bytes,excluded)
+    if excluded['matched']!=set(excluded_members):raise ValueError('an exact excluded provider member was absent')
     total=sum(row['bytes'] for row in files.values())
     selected=next((name for name in files if name.endswith('.report.json') or name.endswith('/report.json')),None)
     if not files or selected is None:raise ValueError('provider packet lacks actual report evidence')
@@ -77,8 +93,11 @@ def retain_zip(payload,output,project,run,artifact,archive_limit,compression='ta
     if sha256(restore)!=files[selected]['sha256']:raise ValueError('actual selected report restore differs')
     index=dict(schema_version=2,compression=compression,project=project,generation=int(output.name.removeprefix('retained-native-v')),runs=[run],files=files,
         expanded_bytes=total,unique_payloads=len(canonical),archive_sha256=sha256(archive),archive_bytes=archive.stat().st_size,
-        selected_restore=[selected],max_file_bytes=FILE_LIMIT,**(dict(max_archive_bytes=24*1024**2 if archive_limit<=24*1024**2 else 48*1024**2) if archive_limit>16*1024**2 else {}),provider_zip_sha256=hashlib.sha256(payload).hexdigest(),provider_zip_bytes=len(payload),
-        scope='Every original provider logical file/hash retained directly from bounded in-memory ZIP; exact aliases stay in-archive. No expanded packet or source payload deletion, no qualification credit.')
+        selected_restore=[selected],max_file_bytes=max_file_bytes,**(dict(max_archive_bytes=24*1024**2 if archive_limit<=24*1024**2 else 48*1024**2) if archive_limit>16*1024**2 else {}),provider_zip_sha256=provider_sha256,provider_zip_bytes=len(payload),
+        **(dict(selection_prefixes=selection_prefixes,excluded_provider_files=omitted['files'],excluded_provider_bytes=omitted['bytes']) if selection_prefixes else {}),
+        **(dict(excluded_selected_members=excluded_members,excluded_selected_files=excluded['files'],excluded_selected_bytes=excluded['bytes']) if excluded_members else {}),
+        scope=('Selected provider evidence paths and exact bytes retained from the full digest-verified in-memory ZIP; omitted build/toolchain/cache members remain covered by the full provider ZIP digest. Exact selected aliases stay in-archive. No expanded packet or source payload deletion, no qualification credit.' if selection_prefixes else
+              'Every original provider logical file/hash retained directly from bounded in-memory ZIP; exact aliases stay in-archive. No expanded packet or source payload deletion, no qualification credit.'))
     encoded=(json.dumps(index,sort_keys=True,ensure_ascii=True,indent=2)+'\n').encode()
     if len(encoded)>INDEX_LIMIT:raise ValueError('direct retained evidence index bound')
     immutable_json(output/'index.json',index)
@@ -89,18 +108,26 @@ def retain_zip(payload,output,project,run,artifact,archive_limit,compression='ta
     return index
 
 
-def retain_members(source,destination,files,canonical,folded,run,artifact):
+def retain_members(source,destination,files,canonical,folded,run,artifact,selection_prefixes=None,omitted=None,max_file_bytes=FILE_LIMIT,excluded=None):
     total=0
     if len(source.infolist())>20000:raise ValueError('provider ZIP entry bound')
     for entry in source.infolist():
+        if selection_prefixes and not any(entry.filename.startswith(prefix) for prefix in selection_prefixes):
+            if omitted is not None and not entry.is_dir():omitted['files']+=1;omitted['bytes']+=entry.file_size
+            continue
+        if excluded is not None and entry.filename in excluded.get('requested',[]):
+            if entry.is_dir():raise ValueError('exact excluded provider member unexpectedly names a directory')
+            excluded['files']+=1;excluded['bytes']+=entry.file_size;excluded['matched'].add(entry.filename)
+            continue
         name=payload_name(entry.filename.rstrip('/') if entry.is_dir() else entry.filename)
         if entry.flag_bits&1 or stat.S_ISLNK(entry.external_attr>>16):raise ValueError('encrypted/linked provider payload')
         if entry.is_dir():continue
         relative='native/'+run+'/'+artifact+'/'+name
-        if relative.casefold() in folded or len(files)>=10000 or entry.file_size>FILE_LIMIT:raise ValueError('duplicate/oversized provider logical file')
+        if relative.casefold() in folded or len(files)>=10000:raise ValueError('duplicate/oversized provider logical file')
+        if entry.file_size>max_file_bytes:raise ValueError('provider member exceeds declared per-file retention bound: '+name+' ('+str(entry.file_size)+' bytes)')
         folded.add(relative.casefold());total+=entry.file_size
         if total>LOGICAL_LIMIT:raise ValueError('provider logical evidence bound')
-        with source.open(entry) as member:data=member.read(FILE_LIMIT+1)
+        with source.open(entry) as member:data=member.read(max_file_bytes+1)
         if len(data)!=entry.file_size:raise ValueError('provider member expansion/CRC differs')
         record=dict(bytes=len(data),sha256=hashlib.sha256(data).hexdigest());key=(record['bytes'],record['sha256'])
         physical=canonical.setdefault(key,relative)
@@ -113,6 +140,9 @@ async def main():
     parser=argparse.ArgumentParser();parser.add_argument('--project',required=True);parser.add_argument('--run',required=True);parser.add_argument('--revision',required=True)
     parser.add_argument('--artifact',required=True);parser.add_argument('--generation',type=int,required=True)
     parser.add_argument('--compression',choices=['tar.gz','tar.xz'],default='tar.gz');parser.add_argument('--stage',action='store_true')
+    parser.add_argument('--select-prefix',action='append',default=None)
+    parser.add_argument('--exclude-member',action='append',default=[])
+    parser.add_argument('--max-file-mib',type=int,choices=[16,32,128],default=16)
     parser.add_argument('--archive-limit-mib',type=int,choices=[16,24,48],default=16);args=parser.parse_args()
     if not re.fullmatch('[a-z][a-z0-9-]{0,63}',args.project) or not (DOC/args.project/'source-provenance.json').is_file() or not re.fullmatch('[0-9]{1,20}',args.run) or not re.fullmatch('[0-9a-f]{40}',args.revision) or not re.fullmatch('[A-Za-z0-9_.-]{1,120}',args.artifact) or not 1<=args.generation<=1000:raise ValueError('invalid exact direct acquisition scope')
     scope=RAW/'tmp/direct-native-zip'/args.project if args.stage else RAW/args.project
@@ -124,7 +154,8 @@ async def main():
     if provider['headSha']!=args.revision or provider['status']!='completed':raise ValueError('provider source/run not complete and exact')
     metadata=json.loads(await asyncio.to_thread(download,['gh','api','repos/Wyrcan-io/playtestr/actions/runs/'+args.run+'/artifacts'],1024**2))
     artifacts=[a for a in metadata['artifacts'] if a['name']==args.artifact and not a['expired']]
-    if len(artifacts)!=1 or artifacts[0]['size_in_bytes']>ZIP_LIMIT:raise ValueError('missing/ambiguous/oversized current provider artifact')
+    provider_limit=SELECTED_PROVIDER_ZIP_LIMIT if args.select_prefix else ZIP_LIMIT
+    if len(artifacts)!=1 or artifacts[0]['size_in_bytes']>provider_limit:raise ValueError('missing/ambiguous/oversized current provider artifact')
     requested_limit=args.archive_limit_mib*1024**2
     project_size=measure(RAW/args.project)['total_bytes'];headroom=(requested_limit if args.stage else 64*1024**2-project_size-INDEX_LIMIT-65536)
     if args.stage:
@@ -133,8 +164,9 @@ async def main():
         scope.mkdir(parents=True,exist_ok=True)
     limit=min(requested_limit,headroom)
     if limit<=0:raise ValueError('insufficient bounded retained project headroom')
-    payload=await asyncio.to_thread(download,['gh','api','repos/Wyrcan-io/playtestr/actions/artifacts/'+str(artifacts[0]['id'])+'/zip'],ZIP_LIMIT)
-    index=await asyncio.to_thread(retain_zip,payload,destination,args.project,args.run,args.artifact,limit,args.compression,args.stage)
+    payload=await asyncio.to_thread(download,['gh','api','repos/Wyrcan-io/playtestr/actions/artifacts/'+str(artifacts[0]['id'])+'/zip'],provider_limit)
+    index=await asyncio.to_thread(retain_zip,payload,destination,args.project,args.run,args.artifact,limit,args.compression,args.stage,
+        args.select_prefix,artifacts[0].get('digest'),args.max_file_mib*1024**2,args.exclude_member)
     immutable_json(destination/'provider.json',provider)
     immutable_json(destination/'acquisition.json',dict(schema_version=1,run=args.run,revision=args.revision,artifact=args.artifact,artifact_id=artifacts[0]['id'],
         provider_zip_bytes=len(payload),provider_zip_sha256=index['provider_zip_sha256'],compressed_archive_stop_bytes=limit,

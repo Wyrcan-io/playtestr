@@ -23,7 +23,7 @@ def verify(archive,files):
     if archive.name=='packets.tar.gz':return verify_gzip(archive,files)
     if archive.name!='packets.tar.xz' or archive.stat().st_size>24*1024**2:raise ValueError('Native XZ compressed bound/encoding')
     members=physical_members(files)
-    if len(files)>40000 or sum(row['bytes'] for row in files.values())>128*1024**2 or any(row['bytes']>16*1024**2 for row in files.values()):
+    if len(files)>40000 or sum(row['bytes'] for row in files.values())>256*1024**2 or any(row['bytes']>128*1024**2 for row in files.values()):
         raise ValueError('Native XZ inventory bound')
     decoder=lzma.LZMADecompressor(format=lzma.FORMAT_XZ,memlimit=64*1024**2)
     expanded=decoder.decompress(archive.read_bytes(),max_length=256*1024**2+1)
@@ -33,7 +33,7 @@ def verify(archive,files):
         for member in bundle:
             if member.name not in members or member.name in seen or not member.isfile() or member.size!=members[member.name]['bytes']:
                 raise ValueError('Native XZ archive coverage/type/size differs')
-            value=bundle.extractfile(member).read(16*1024**2+1)
+            value=bundle.extractfile(member).read(128*1024**2+1)
             if len(value)!=member.size or hashlib.sha256(value).hexdigest()!=members[member.name]['sha256']:
                 raise ValueError('Native XZ payload hash differs')
             seen.add(member.name)

@@ -15,6 +15,10 @@ on:
       - scripts/acceptance/next20_taskell_public_route_cleanup.py
       - scripts/acceptance/test_next20_taskell_public_route_cleanup.py
       - scripts/acceptance/test_next20_taskell_contract_revision.py
+      - scripts/acceptance/next20_native_zip_packet.py
+      - scripts/acceptance/next20_packet_archive.py
+      - scripts/acceptance/next20_native_packet_reader.py
+      - scripts/acceptance/test_next20_native_zip.py
       - scripts/acceptance/next20_taskell_llvm.py
       - scripts/acceptance/next20_taskell_cleanup.py
       - scripts/acceptance/test_next20_taskell_cleanup.py
@@ -77,7 +81,7 @@ jobs:
           set-safe-directory: false
 
       - name: Validate Taskell dependency and cleanup helpers
-        run: python -B -m unittest test_next20_taskell_stack_override test_next20_taskell_llvm test_next20_taskell_cleanup test_next20_target_cleanup test_next20_taskell_contract_revision -v
+        run: python -B -m unittest test_next20_taskell_stack_override test_next20_taskell_llvm test_next20_taskell_cleanup test_next20_target_cleanup test_next20_taskell_contract_revision test_next20_native_zip -v
         working-directory: scripts/acceptance
 
       - name: Record bounded native job start

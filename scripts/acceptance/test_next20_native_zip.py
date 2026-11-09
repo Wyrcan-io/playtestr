@@ -48,5 +48,65 @@ class NativeZipTests(unittest.TestCase):
         with self.assertRaises(ValueError):retain_zip(payload,self.root/'retained-native-v3','control-tests','123','synthetic-native',49*1024**2)
         with self.assertRaises(ValueError):retain_zip(payload,self.root/'retained-native-v4','control-tests','123','synthetic-native',48*1024**2,'tar.xz')
 
+    def test_selected_prefix_retains_actual_provider_evidence_and_binds_full_zip(self):
+        import hashlib
+        payload=self.packet([
+            ('taskell/summary.json',b'{"passed":true}\n'),
+            ('taskell/report.json',b'{"status":"passed"}\n'),
+            ('events/launch.json',b'{"launched":true}\n'),
+            ('toolchain/large-cache.bin',b'unselected cache payload'),
+        ])
+        expected=hashlib.sha256(payload).hexdigest()
+        output=self.root/'retained-native-v5'
+        index=retain_zip(payload,output,'control-tests','456','filtered-native',1024**2,
+            selection_prefixes=['taskell/','events/'],expected_provider_sha256='sha256:'+expected)
+        self.assertEqual(index['provider_zip_sha256'],expected)
+        self.assertEqual(index['provider_zip_bytes'],len(payload))
+        self.assertEqual(index['selection_prefixes'],['taskell/','events/'])
+        self.assertEqual(index['excluded_provider_files'],1)
+        self.assertEqual(index['excluded_provider_bytes'],len(b'unselected cache payload'))
+        self.assertEqual(len(index['files']),3)
+        self.assertEqual((output/'selected-restore.bin').read_bytes(),b'{"status":"passed"}\n')
+        verify(output/'packets.tar.gz',index['files'])
+
+        with self.assertRaisesRegex(ValueError,'digest differs'):
+            retain_zip(payload,self.root/'retained-native-v6','control-tests','456','filtered-native',1024**2,
+                selection_prefixes=['taskell/'],expected_provider_sha256='0'*64)
+
+    def test_selected_runtime_member_uses_explicit_32_mib_bound_and_xz_readback(self):
+        body=b'0123456789abcdef'*(17*1024**2//16)
+        payload=self.packet([('taskell/runtime.bin',body),('taskell/N01.report.json',b'{"status":"passed"}\n')])
+        output=self.root/'retained-native-v7'
+        index=retain_zip(payload,output,'control-tests','789','bounded-native',24*1024**2,
+            compression='tar.xz',selection_prefixes=['taskell/'],max_file_bytes=32*1024**2)
+        self.assertEqual(index['max_file_bytes'],32*1024**2)
+        self.assertLessEqual(index['archive_bytes'],24*1024**2)
+        verify(output/'packets.tar.xz',index['files'])
+
+    def test_selected_runtime_member_uses_explicit_128_mib_bound(self):
+        body=b'0123456789abcdef'*(94*1024**2//16)
+        payload=self.packet([('taskell/runtime.bin',body),('taskell/N01.report.json',b'{"status":"passed"}\n')])
+        output=self.root/'retained-native-v8'
+        index=retain_zip(payload,output,'control-tests','790','bounded-native',24*1024**2,
+            compression='tar.xz',selection_prefixes=['taskell/'],max_file_bytes=128*1024**2)
+        self.assertEqual(index['max_file_bytes'],128*1024**2)
+        self.assertLessEqual(index['archive_bytes'],24*1024**2)
+        verify(output/'packets.tar.xz',index['files'])
+
+    def test_selected_packet_records_an_exact_deliberate_binary_exclusion(self):
+        output=self.root/'retained-native-v9'
+        payload=self.packet([('taskell/runtime/taskell',b'binary bytes'),
+            ('taskell/runtime/runtime-identity.json',b'{"sha256":"recorded"}\n'),
+            ('taskell/N01.report.json',b'{"status":"passed"}\n')])
+        index=retain_zip(payload,output,'control-tests','791','bounded-native',1024**2,
+            selection_prefixes=['taskell/'],excluded_members=['taskell/runtime/taskell'])
+        self.assertEqual(index['excluded_selected_members'],['taskell/runtime/taskell'])
+        self.assertEqual(index['excluded_selected_files'],1)
+        self.assertEqual(index['excluded_selected_bytes'],len(b'binary bytes'))
+        self.assertNotIn('native/791/bounded-native/taskell/runtime/taskell',index['files'])
+        with self.assertRaisesRegex(ValueError,'absent'):
+            retain_zip(payload,self.root/'retained-native-v10','control-tests','791','bounded-native',1024**2,
+                selection_prefixes=['taskell/'],excluded_members=['taskell/missing'])
+
 
 if __name__=='__main__':unittest.main()
