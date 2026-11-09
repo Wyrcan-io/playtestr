@@ -16,7 +16,7 @@ from next20_mg_build import run_bounded
 from readiness_evidence import immutable_json, sha256
 
 
-PIN = "2209e2087eab34ffceb6bfaa0a62f9e4c36e3c66"
+PIN = "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66"
 EXPECTED_BYTES = b"MG_PTY_PILOT_RC6\n"
 
 

@@ -6,11 +6,15 @@ import tempfile
 import unittest
 
 from next20_check import DOC
-from next20_mg_pilot import EXPECTED_BYTES
-from next20_mg_pilot_cleanup import inventory
+from next20_mg_pilot import EXPECTED_BYTES, PIN
+from next20_mg_pilot_cleanup import MAX_INPUT_FILES, inventory
 
 
 class MgPilotContractTests(unittest.TestCase):
+    def test_pilot_pin_matches_reviewed_source_provenance(self):
+        provenance = json.loads((DOC / "mg/source-provenance.json").read_text(encoding="utf-8"))
+        self.assertEqual(PIN, provenance["pin"])
+
     def test_n01_requires_visible_text_save_confirmation_exit_and_exact_bytes(self):
         spec = json.loads((DOC / "mg/pilot-n01.json").read_text(encoding="utf-8"))
         self.assertEqual(spec["version"], 3)
@@ -33,6 +37,22 @@ class MgPilotContractTests(unittest.TestCase):
             (root / "runner.bin").write_bytes(b"binary")
             (root / "receipt.json").write_text("{}", encoding="utf-8")
             self.assertEqual(inventory(root), (2, 8))
+
+    def test_cleanup_inventory_accepts_bounded_artifact_tree(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for index in range(101):
+                (root / f"receipt-{index:03}.json").write_text("{}", encoding="utf-8")
+            self.assertGreater(MAX_INPUT_FILES, 100)
+            self.assertEqual(inventory(root), (101, 202))
+
+    def test_cleanup_inventory_rejects_file_count_over_bound(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for index in range(MAX_INPUT_FILES + 1):
+                (root / f"receipt-{index:03}.json").write_text("{}", encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "inventory exceeded cleanup bound"):
+                inventory(root)
 
 
 if __name__ == "__main__":

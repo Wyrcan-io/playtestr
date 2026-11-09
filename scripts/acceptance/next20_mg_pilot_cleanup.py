@@ -14,6 +14,10 @@ from next20_check import RAW, ROOT
 from readiness_evidence import immutable_json, sha256
 
 
+MAX_INPUT_FILES = 256
+MAX_INPUT_BYTES = 32 * 1024**2
+
+
 def inventory(path):
     count = total = 0
     for directory, names, files in os.walk(path, followlinks=False):
@@ -26,7 +30,7 @@ def inventory(path):
             if stat.S_ISREG(mode):
                 count += 1
                 total += item.stat().st_size
-                if count > 100 or total > 32 * 1024**2:
+                if count > MAX_INPUT_FILES or total > MAX_INPUT_BYTES:
                     raise ValueError("pilot input inventory exceeded cleanup bound")
     return count, total
 
