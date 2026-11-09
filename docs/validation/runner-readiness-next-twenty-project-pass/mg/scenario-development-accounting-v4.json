@@ -1,0 +1,47 @@
+{
+  "schema_version": 4,
+  "project": "mg",
+  "candidate": "v0.4.0-rc.6",
+  "target_pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "admission_credit": 0,
+  "n02_readback": "mg/scenario-development-readback-v1.json",
+  "n03_first_failure": "mg/n03-first-attempt-readback-v1.json",
+  "n03_success_readback": "mg/n03-native-readback-v1.json",
+  "attempts": [
+    {
+      "run_id": 42716663487,
+      "scenario_id": "n02-edit-append",
+      "result": "2 host failures; wrong basename-only save confirmation oracle; force cleanup confirmed"
+    },
+    {
+      "run_id": 42717420876,
+      "scenario_id": "n02-edit-append",
+      "result": "2 host passes; 12/12 steps; matched state; graceful exit"
+    },
+    {
+      "run_id": 42719240888,
+      "scenario_id": "n03-query-replace",
+      "result": "2 host failures at step 4 due to invisible trailing prompt space; no mutation; force cleanup confirmed"
+    },
+    {
+      "run_id": 42720209709,
+      "scenario_id": "n03-query-replace",
+      "result": "2 host passes; 19/19 steps; 2 matches replaced; matched state; graceful exit"
+    }
+  ],
+  "scenario_development_counters": {
+    "distinct_scenarios_with_a_native_pass": 2,
+    "host_attempts": 12,
+    "passed_host_attempts": 8,
+    "failed_host_attempts": 4,
+    "scope": "N02 and N03 scenario probes only; N01 pilot accounted separately; includes every failed and successful host attempt across retries."
+  },
+  "qualification_counters": {
+    "scenarios": 0,
+    "native_cells": 0,
+    "ordinary_executions": 0,
+    "calibrations": 0,
+    "real_source_faults": 0
+  },
+  "status": "N01 first-use and N02/N03 development journeys have passed on Linux/macOS; full matrix, repeated qualification, independent saved-state readback, authoring/maintenance, faults and admission remain pending."
+}
