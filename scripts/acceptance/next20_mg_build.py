@@ -8,6 +8,7 @@ from pathlib import Path
 import platform
 import shutil
 import signal
+import stat
 import subprocess
 import sys
 import time
@@ -68,13 +69,20 @@ def process_group_has_live_members(process_group):
                for member in process_group_members(process_group))
 
 
-def preserve_release_bootstrap_artifacts(source):
-    """Keep release-generated files newer than extracted maintainer inputs."""
-    for name in ("configure", "Makefile.in", "aclocal.m4"):
-        path = source / name
-        if not path.is_file() or path.is_symlink():
-            raise ValueError(f"pinned toolchain source is missing regular generated file {name}")
-        os.utime(path, None)
+def normalize_extracted_source_timestamps(source):
+    """Give exact release files one mtime so make uses their shipped outputs."""
+    timestamp = time.time()
+    for directory, names, files in os.walk(source, followlinks=False):
+        base = Path(directory)
+        for name in names:
+            path = base / name
+            if path.is_symlink():
+                raise ValueError(f"linked directory in pinned toolchain source: {path}")
+        for name in files:
+            path = base / name
+            if path.is_symlink() or not stat.S_ISREG(path.stat().st_mode):
+                raise ValueError(f"non-regular file in pinned toolchain source: {path}")
+            os.utime(path, (timestamp, timestamp))
 
 
 def stop_process_group(process_group):
@@ -156,7 +164,7 @@ def owned_autotools(target, evidence, env, deadline, commands):
         count, expanded = extract_source(data, source, expanded_limit=64 * 1024**2,
                                          entry_limit=10000, member_limit=8 * 1024**2,
                                          archive_mode="r:xz")
-        preserve_release_bootstrap_artifacts(source)
+        normalize_extracted_source_timestamps(source)
         if sum(row["expanded_bytes"] for row in archive_receipts) + expanded > 48 * 1024**2:
             raise ValueError("pinned bootstrap sources exceed the 48 MiB combined expansion limit")
         archive_receipts.append({"name": item["name"], "version": item["version"],

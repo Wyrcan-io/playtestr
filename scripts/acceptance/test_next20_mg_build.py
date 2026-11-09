@@ -10,22 +10,25 @@ import time
 import unittest
 
 from next20_check import RAW, ROOT
-from next20_mg_build import (MAX_OUTPUT, TOOLCHAIN_SOURCES, preserve_release_bootstrap_artifacts,
+from next20_mg_build import (MAX_OUTPUT, TOOLCHAIN_SOURCES, normalize_extracted_source_timestamps,
                              process_group_members, run_bounded)
 from readiness_acquire_plop import extract_source
 
 
 class MgBuildCommandTests(unittest.TestCase):
-    def test_release_generated_bootstrap_files_are_newer_than_extracted_inputs(self):
+    def test_extracted_release_tree_uses_one_timestamp_for_shipped_generated_files(self):
         with tempfile.TemporaryDirectory() as directory:
             source = Path(directory)
-            for name in ("configure", "Makefile.in", "aclocal.m4"):
+            for name in ("configure", "Makefile.in", "aclocal.m4", "lib/config.hin"):
                 path = source / name
+                path.parent.mkdir(parents=True, exist_ok=True)
                 path.write_text("generated", encoding="utf-8")
                 os.utime(path, (1, 1))
-            preserve_release_bootstrap_artifacts(source)
-            self.assertTrue(all((source / name).stat().st_mtime > 1
-                                for name in ("configure", "Makefile.in", "aclocal.m4")))
+            normalize_extracted_source_timestamps(source)
+            mtimes = {(source / name).stat().st_mtime_ns
+                      for name in ("configure", "Makefile.in", "aclocal.m4", "lib/config.hin")}
+            self.assertEqual(len(mtimes), 1)
+            self.assertGreater(next(iter(mtimes)), 1_000_000_000)
 
     def test_owned_autotools_inputs_have_fixed_official_archive_hashes(self):
         self.assertEqual([row["name"] for row in TOOLCHAIN_SOURCES],
