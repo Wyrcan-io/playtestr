@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "project": "taskell",
+  "candidate": "v0.4.0-rc.6",
+  "workflow_run_id": 42546285446,
+  "source_revision": "d7ffbd2c8f96a96a12001bae965ff52729c04ba2",
+  "previous_attempt": "final-series-attempts-v39.json",
+  "admission_credit": 0,
+  "scope": "Exact native-exit-v1 candidate attempt after restoring the frozen GHC 9.0.2 and scoping Apple SDK ffi headers to compiler builds. Both hosts completed pinned upstream tests and built Taskell, then failed the public authoring route at an incorrect hard-coded saved-board byte expectation before any of the twelve exact-candidate batches. The local successor derives the byte oracle from the frozen public scenario. Preserve this failed attempt; no native candidate batch or admission credit is claimed.",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128931896691,
+      "conclusion": "failure_in_public_authoring_route_before_candidate_batches",
+      "upstream_tests": "passed",
+      "target_runtime_build": "passed",
+      "public_authoring_route": "failed_saved_board_byte_oracle",
+      "exact_candidate_batches": 0,
+      "exact_candidate_scenarios": 0,
+      "source_fault_phases": 0,
+      "checked_target_cleanup": true,
+      "artifact": {
+        "id": 13643986107,
+        "name": "taskell-final-native-exit-v1-linux",
+        "bytes": 11751051,
+        "provider_sha256": "3505a09d05f79aa1b2342f1d365345f119bdfe0b82b1f02445206b0e40a814f8"
+      }
+    },
+    {
+      "host": "macos-15-arm64",
+      "job_id": 128931896881,
+      "conclusion": "failure_in_public_authoring_route_before_candidate_batches",
+      "upstream_tests": "passed",
+      "target_runtime_build": "passed",
+      "public_authoring_route": "failed_saved_board_byte_oracle",
+      "exact_candidate_batches": 0,
+      "exact_candidate_scenarios": 0,
+      "source_fault_phases": 0,
+      "checked_target_cleanup": true,
+      "artifact": {
+        "id": 13644202715,
+        "name": "taskell-final-native-exit-v1-darwin",
+        "bytes": 305309481,
+        "provider_sha256": "9694f60956eac77dfbf7a8552b4ca9e2689175f0d1705b22366b48015b5a94f0"
+      }
+    }
+  ],
+  "readback": {
+    "provider_artifact_metadata_verified": true,
+    "independent_archive_member_readback": false,
+    "admission_credit": 0
+  },
+  "disposition": "Both native upstream builds succeeded, but a public-route assertion prevented the candidate scenarios from running. The run is useful build evidence only and does not qualify a platform cell. Independent artifact member readback remains outstanding."
+}

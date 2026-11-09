@@ -15,7 +15,7 @@ class TaskellFaultSourceTests(unittest.TestCase):
             (include/'ffitarget_arm64.h').write_bytes(b'owned SDK header')
             source={'PATH':'owned-tools','TASKELL_FFI_INCLUDE_PATH':temporary,'C_INCLUDE_PATH':'prior'}
             build=stack_build_environment(source,temporary)
-            self.assertEqual(build['C_INCLUDE_PATH'],temporary+os.pathsep+'prior')
+            self.assertEqual(build['C_INCLUDE_PATH'],str(include.resolve())+os.pathsep+'prior')
             self.assertNotIn('TASKELL_FFI_INCLUDE_PATH',build)
             target=target_environment(source)
             self.assertNotIn('C_INCLUDE_PATH',target)

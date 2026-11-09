@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "workflow_run_id": 42546285552,
+  "source_revision": "d7ffbd2c8f96a96a12001bae965ff52729c04ba2",
+  "project": "git-town",
+  "trigger": "push path filter matched the scoped Git Town receipt committed alongside the Taskell repair",
+  "cancellation_reason": "Prevent an automatically triggered second application from running concurrently with the in-progress Taskell project, preserving the one-project-at-a-time campaign rule.",
+  "workflow_conclusion": "cancelled",
+  "admission_credit": 0,
+  "jobs": [
+    {
+      "host": "windows-2025-x86_64",
+      "job_id": 128931896778,
+      "conclusion": "cancelled",
+      "completed_steps": [
+        "candidate archive install",
+        "pinned source restoration",
+        "Go module download",
+        "validator checks"
+      ],
+      "cancelled_step": "Verify and build pinned Git Town",
+      "scenario_suite_started": false,
+      "source_or_runtime_cleanup_step": "skipped after cancellation; hosted runner teardown discarded the job workspace",
+      "artifact": {
+        "id": 13643222436,
+        "name": "next20-git-town-windows-final-native-exit-v1",
+        "bytes": 943577,
+        "provider_sha256": "6a819a0b9cb3ba900c5133d99c40ab57329a6e9e03b5841121d4c923a0f0a2fa"
+      }
+    },
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128931896950,
+      "conclusion": "cancelled",
+      "conclusion_before_cancel": "pinned target build completed",
+      "target_build_sha256": "63146b866c70398ee56ed54fda0697e0367607406d4eb608276240fe9117598b",
+      "target_version": "Git Town 24.1.0",
+      "scenario_suite_started": false,
+      "source_or_runtime_cleanup_step": "skipped after cancellation; hosted runner teardown discarded the job workspace",
+      "artifact": {
+        "id": 13643381834,
+        "name": "next20-git-town-linux-final-native-exit-v1",
+        "bytes": 944700,
+        "provider_sha256": "97540e5eaebdc74b734c52d6c01ed87f83aafee6ab54ab1848ef40b2e1f8f8b0"
+      }
+    }
+  ],
+  "readback": {
+    "provider_artifact_metadata_verified": true,
+    "independent_archive_member_readback": false
+  },
+  "scope": "A push-triggered duplicate CI workflow was stopped before its case suite. Linux had completed target build; Windows was still in its build step. This was an engineering-build side effect, not a final-series attempt, and provides no current-candidate qualification, scenario, fault, or admission credit. Preserve both hosted artifacts until their normal retention expiry; no local ZIP was downloaded."
+}

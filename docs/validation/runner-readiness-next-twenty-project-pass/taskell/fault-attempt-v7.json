@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "project": "taskell",
+  "candidate": "v0.4.0-rc.6",
+  "workflow_run_id": 42546285402,
+  "source_revision": "d7ffbd2c8f96a96a12001bae965ff52729c04ba2",
+  "previous_attempt": "fault-attempt-v6.json",
+  "admission_credit": 0,
+  "scope": "Exact native-exit-v1 source-fault calibration after restoring GHC 9.0.2 and scoping Apple SDK ffi headers to compiler builds. Linux passed all declared source-fault phases. macOS stopped in the focused preflight test because macOS resolves the temporary directory through /private/tmp while the test expected the unresolved /tmp alias; no Taskell target was acquired or launched on macOS. The portability expectation is corrected locally. Preserve this mixed-host attempt without admission credit.",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128940605878,
+      "conclusion": "passed_source_fault_calibration",
+      "upstream_tests": "passed",
+      "target_runtime_build": "passed",
+      "fault_phases_reported": 9,
+      "target_launched": true,
+      "checked_target_cleanup": true,
+      "artifact": {
+        "id": 13644149101,
+        "name": "taskell-fault-calibration-native-exit-v1-linux",
+        "bytes": 11771188,
+        "provider_sha256": "462fb98939ca74459bd2b890fb1ac53e169a53bfafba4c48c63c1b60f53e7b3e"
+      }
+    },
+    {
+      "host": "macos-15-arm64",
+      "job_id": 128940605534,
+      "conclusion": "preflight_unit_test_failure_before_target_acquisition",
+      "failed_test": "test_sdk_ffi_header_path_is_limited_to_stack_build_environment",
+      "failure": "Path.resolve() returned /private/tmp/<name> while the test expected the unresolved /tmp/<name> alias. No Taskell source, native runtime, or source-fault phase was launched. Workflow cleanup and artifact preservation steps also failed because preflight did not create the target/evidence tree.",
+      "target_launched": false,
+      "checked_target_cleanup": false,
+      "artifact": null
+    }
+  ],
+  "readback": {
+    "provider_artifact_metadata_verified": true,
+    "independent_archive_member_readback": false,
+    "admission_credit": 0
+  },
+  "disposition": "Linux is successful single-host fault evidence. macOS has no target execution credit and its failed preflight is preserved. Re-run the corrected path test and complete both host calibrations; separately audit retained artifact members before any Taskell admission."
+}

@@ -1,5 +1,6 @@
 """Exercise Taskell through the exact candidate's documented public authoring route."""
 import asyncio
+import base64
 import json
 import os
 from pathlib import Path
@@ -24,11 +25,11 @@ def report_result(path, expected_status):
     result = value['results'][0]
     if result.get('status') != expected_status:
         raise ValueError(f'expected Taskell public report status {expected_status}')
+    if not result.get('workspace', {}).get('cleaned') or not result.get('cleanup', {}).get('confirmed_exited'):
+        raise ValueError('Taskell public route did not confirm process/workspace cleanup')
     if expected_status == 'passed':
         if any(step.get('status') != 'passed' for step in result.get('steps', [])):
             raise ValueError('passing Taskell public report has a non-passing step')
-        if not result.get('workspace', {}).get('cleaned') or not result.get('cleanup', {}).get('confirmed_exited'):
-            raise ValueError('Taskell public route did not confirm process/workspace cleanup')
     return result
 
 
@@ -57,6 +58,13 @@ async def main():
     frozen_fixture_hashes = json.loads((package/'host-contracts/fixtures-manifest.json').read_text(encoding='utf-8'))['files']
     if fixture_hashes != frozen_fixture_hashes:
         raise ValueError('Taskell public-route fixture bytes differ from the reviewed fixture manifest')
+    public_case_path = package/'host-contracts/taskell-create-task.json'
+    public_case = json.loads(public_case_path.read_text(encoding='utf-8'))
+    frozen_states = [step['state'] for step in public_case.get('steps', [])
+                     if step.get('state', {}).get('path') == 'board-basic.md']
+    if len(frozen_states) != 1 or frozen_states[0].get('kind') != 'file':
+        raise ValueError('Taskell public scenario lacks one exact frozen board-state oracle')
+    expected_board = frozen_states[0]['bytes_base64']
     runner = executable('native-exit-v1')
     installed = json.loads((runner.parent/'installed.json').read_text(encoding='utf-8'))
     campaign = NextCampaign(phase='public-authoring')
@@ -85,7 +93,7 @@ async def main():
         runner_sha256=sha256(runner), target_binary_sha256=original_hash,
         host=platform.platform(), architecture=platform.machine(),
         public_case='docs/validation/runner-readiness-next-twenty-project-pass/taskell/host-contracts/taskell-create-task.json',
-        public_case_sha256=sha256(package/'host-contracts/taskell-create-task.json'),
+        public_case_sha256=sha256(public_case_path),
         fixture_hashes=fixture_hashes, no_handwritten_first_use_spec=True,
         initial_shell_invocations_expected=3, first_use_controls=controls,
         expected_first_run='record, review, fresh replay, save, then ordinary candidate test passes and cleans its managed workspace',
@@ -125,7 +133,6 @@ async def main():
     if len(state_steps) != 1 or state_steps[0]['state'].get('kind') != 'file':
         raise ValueError('Taskell recorder did not export exactly one reviewed saved-board expectation')
     approved_board = state_steps[0]['state']['bytes_base64']
-    expected_board = 'IyMgVG8gRG8KCi0gUmV2aWV3IHNhbXBsZQotIE5ldyByZWdyZXNzaW9uIHRhc2sKCiMjIERvbmUK'
     if approved_board != expected_board:
         raise ValueError('Taskell public recorder saved bytes differ from the independently frozen intended board')
     screen_count_before = sum(1 for step in recorded.get('steps', []) if step.get('expect') == 'New regression task')
@@ -171,7 +178,10 @@ async def main():
     await run([runner, 'test', '--report', maintenance_fail_report.relative_to(ROOT), '--artifacts-dir',
                (output/'maintenance-before-update-artifacts').relative_to(ROOT),
                maintenance_spec.relative_to(ROOT)], 'taskell-first-public-intended-change-before-state-maintenance', expected=1)
-    report_result(maintenance_fail_report, 'failed')
+    maintenance_failure_result = report_result(maintenance_fail_report, 'failed')
+    maintenance_failure = maintenance_failure_result.get('failure') or {}
+    if not maintenance_failure.get('category') or not maintenance_failure.get('message'):
+        raise ValueError('Taskell selected maintenance preflight lacks a useful saved-state failure')
     state_index = next(i for i, step in enumerate(maintained['steps'], 1)
                        if step.get('state', {}).get('path') == 'board-basic.md')
     edit_controls = [f'/update-state {state_index}', '/review', '/replay', '/save']
@@ -181,12 +191,28 @@ async def main():
     revised_steps = [step for step in revised['steps'] if step.get('state', {}).get('path') == 'board-basic.md']
     if len(revised_steps) != 1 or revised_steps[0]['state'].get('bytes_base64') == approved_board:
         raise ValueError('Taskell selected maintenance did not replace the intended saved-board expectation')
+    original_state_bytes = base64.b64decode(expected_board, validate=True)
+    if original_state_bytes.count(b'New regression task') != 1:
+        raise ValueError('frozen Taskell public scenario does not have a unique intended task value')
+    expected_updated = base64.b64encode(original_state_bytes.replace(
+        b'New regression task', b'Updated regression task', 1)).decode('ascii')
+    expected_maintained = json.loads(json.dumps(recorded))
+    expected_text_step = [step for step in expected_maintained['steps'] if step.get('text') == 'New regression task']
+    expected_screen_step = [step for step in expected_maintained['steps'] if step.get('expect') == 'New regression task']
+    expected_state_step = [step['state'] for step in expected_maintained['steps']
+                           if step.get('state', {}).get('path') == 'board-basic.md']
+    if len(expected_text_step) != 1 or len(expected_screen_step) != 1 or len(expected_state_step) != 1:
+        raise ValueError('Taskell maintenance baseline has ambiguous intended fields')
+    expected_text_step[0]['text'] = 'Updated regression task'
+    expected_screen_step[0]['expect'] = 'Updated regression task'
+    expected_state_step[0]['bytes_base64'] = expected_updated
+    if revised != expected_maintained:
+        raise ValueError('Taskell selected maintenance changed unrelated spec fields')
     maintenance_report = output/'maintenance-after-update-report.json'
     await run([runner, 'test', '--report', maintenance_report.relative_to(ROOT), '--artifacts-dir',
                (output/'maintenance-after-update-artifacts').relative_to(ROOT),
                maintenance_spec.relative_to(ROOT)], 'taskell-first-public-maintained-ordinary-test')
     report_result(maintenance_report, 'passed')
-    expected_updated = 'IyMgVG8gRG8KCi0gUmV2aWV3IHNhbXBsZQotIFVwZGF0ZWQgcmVncmVzc2lvbiB0YXNrCgojIyBEb25lCg=='
     if revised_steps[0]['state']['bytes_base64'] != expected_updated:
         raise ValueError('Taskell maintenance saved bytes differ from the independently declared intended board')
     for name in ['fixtures/board-basic.md', 'bin/'+('taskell.exe' if os.name == 'nt' else 'taskell')]:
