@@ -1,0 +1,46 @@
+{
+  "command": [
+    "taskell",
+    "board.md"
+  ],
+  "height": 24,
+  "max_output_bytes": 2000000,
+  "name": "Move one Taskell task into the next column",
+  "run_timeout_ms": 60000,
+  "steps": [
+    {
+      "expect": "Move me"
+    },
+    {
+      "text": "L"
+    },
+    {
+      "expect": "Doing"
+    },
+    {
+      "expect": "Move me"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "IyMgVG8gRG8KCgojIyBEb2luZwoKLSBQcmVzZXJ2ZSB0aGVyZQotIE1vdmUgbWUKCiMjIERvbmUKCg==",
+        "kind": "file",
+        "path": "board.md"
+      }
+    }
+  ],
+  "timeout_ms": 5000,
+  "version": 3,
+  "width": 80,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/n06-move-right",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

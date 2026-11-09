@@ -1,0 +1,67 @@
+{
+  "command": [
+    "taskell",
+    "board.md"
+  ],
+  "height": 24,
+  "max_output_bytes": 2000000,
+  "name": "Add a Taskell column and a task to it",
+  "run_timeout_ms": 60000,
+  "steps": [
+    {
+      "expect": "Preserve task"
+    },
+    {
+      "text": "N"
+    },
+    {
+      "text": "Review"
+    },
+    {
+      "expect": "Review"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "INSERT"
+    },
+    {
+      "text": "Review task"
+    },
+    {
+      "expect": "Review task"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "INSERT"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "IyMgVG8gRG8KCi0gUHJlc2VydmUgdGFzawoKIyMgRG9uZQoKCiMjIFJldmlldwoKLSBSZXZpZXcgdGFzawo=",
+        "kind": "file",
+        "path": "board.md"
+      }
+    }
+  ],
+  "timeout_ms": 5000,
+  "version": 3,
+  "width": 80,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/n08-add-list",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

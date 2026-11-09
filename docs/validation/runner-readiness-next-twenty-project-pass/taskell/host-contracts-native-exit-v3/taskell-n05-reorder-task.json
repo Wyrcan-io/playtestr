@@ -1,0 +1,43 @@
+{
+  "command": [
+    "taskell",
+    "board.md"
+  ],
+  "height": 24,
+  "max_output_bytes": 2000000,
+  "name": "Move one Taskell task down within its list",
+  "run_timeout_ms": 60000,
+  "steps": [
+    {
+      "expect": "Reorder first"
+    },
+    {
+      "text": "J"
+    },
+    {
+      "expect": "Reorder second"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "IyMgVG8gRG8KCi0gUmVvcmRlciBzZWNvbmQKLSBSZW9yZGVyIGZpcnN0CgojIyBEb25lCgo=",
+        "kind": "file",
+        "path": "board.md"
+      }
+    }
+  ],
+  "timeout_ms": 5000,
+  "version": 3,
+  "width": 80,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/reorder",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

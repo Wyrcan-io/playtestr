@@ -1,0 +1,103 @@
+{
+  "command": [
+    "taskell",
+    "board.md"
+  ],
+  "height": 24,
+  "max_output_bytes": 2000000,
+  "name": "Rename one selected Taskell task",
+  "run_timeout_ms": 60000,
+  "steps": [
+    {
+      "expect": "To Do"
+    },
+    {
+      "expect": "Rename me"
+    },
+    {
+      "text": "j"
+    },
+    {
+      "text": "e"
+    },
+    {
+      "expect": "INSERT"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "text": "Renamed task"
+    },
+    {
+      "expect": "Renamed task"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "key": "Escape"
+    },
+    {
+      "expect_not": "INSERT"
+    },
+    {
+      "text": "j"
+    },
+    {
+      "expect": "3/3"
+    },
+    {
+      "text": "k"
+    },
+    {
+      "expect": "2/3"
+    },
+    {
+      "text": "q"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "IyMgVG8gRG8KCi0gUHJlc2VydmUgYmVmb3JlCi0gUmVuYW1lZCB0YXNrCi0gUHJlc2VydmUgYWZ0ZXIKCiMjIERvbmUKCg==",
+        "kind": "file",
+        "path": "board.md"
+      }
+    }
+  ],
+  "timeout_ms": 5000,
+  "version": 3,
+  "width": 80,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures/rename",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

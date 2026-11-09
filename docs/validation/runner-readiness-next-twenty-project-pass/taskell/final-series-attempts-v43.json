@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "project": "taskell",
+  "candidate": "v0.4.0-rc.6",
+  "workflow_run_id": 42562896979,
+  "source_revision": "6df2b676b8f750a7d18809ed1bc9b39525760c08",
+  "previous_attempt": "final-series-attempts-v42.json",
+  "admission_credit": 0,
+  "scope": "Exact candidate native window v2 after the public recorder route checkpoint correction. Both Linux and macOS passed pinned upstream tests, the isolated native runtime build, the exact public route, and checked target cleanup. macOS passed all 252 ordinary reports. Linux attempted all 252 with no retries; two N04 rename cases timed out waiting for q to exit Taskell. The complete provider artifacts were independently read in memory and all 252 Linux reports and all 252 macOS reports matched their summary hashes. Linux remains a zero-credit host failure; this attempt does not qualify Taskell.",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128982982456,
+      "conclusion": "candidate_batch_failure",
+      "upstream_tests": "passed",
+      "target_runtime_build": "passed",
+      "public_authoring_route": "passed",
+      "exact_candidate_batches": {
+        "required": 252,
+        "attempted": 252,
+        "passed": 250,
+        "failed": 2,
+        "not_run": 0,
+        "failed_cases": [
+          {
+            "batch": 3,
+            "case": "N04",
+            "invocation": "56455f730d342e4e69635cbb9e4c7c4d",
+            "report_sha256": "c4cec63ea61813cdbd4b7f033c21401d10f29030a967fa2b7abc5b253a55e450",
+            "failure": "exit 0 timed out after the rename was visibly in NORMAL mode; forced process-group shutdown was confirmed"
+          },
+          {
+            "batch": 6,
+            "case": "N04",
+            "invocation": "bc2279a2c94ac764c365e1b45f294af9",
+            "report_sha256": "019be7fbded1bb1db089918e2bdf8a468b3e4b0090fb05b7b13d41f6a6260ce8",
+            "failure": "exit 0 timed out after the rename was visibly in NORMAL mode; forced process-group shutdown was confirmed"
+          }
+        ]
+      },
+      "checked_target_cleanup": true,
+      "source_restored": true,
+      "artifact": {
+        "id": 13650188171,
+        "name": "taskell-final-native-exit-v1-linux",
+        "bytes": 13196452,
+        "provider_sha256": "e3a37263cef4eb8b36df6034350202850e1dc3218670bb45a86a3a18c8e4a7e1"
+      },
+      "independent_readback": {
+        "downloaded_in_memory": true,
+        "sha256_matches_provider": true,
+        "zip_crc_clean": true,
+        "member_count": 2500,
+        "batch_summaries": 12,
+        "report_count": 252,
+        "report_hashes_match_summary": 252,
+        "report_statuses": {
+          "passed": 250,
+          "failed": 2
+        },
+        "all_reported_workspace_cleanup": true,
+        "route_receipt_passed": true,
+        "target_runtime_identity_read": true,
+        "source_cleanup_verified": true
+      }
+    },
+    {
+      "host": "macos-15-arm64",
+      "job_id": 128982982133,
+      "conclusion": "passed",
+      "upstream_tests": "passed",
+      "target_runtime_build": "passed",
+      "public_authoring_route": "passed",
+      "exact_candidate_batches": {
+        "required": 252,
+        "attempted": 252,
+        "passed": 252,
+        "failed": 0,
+        "not_run": 0
+      },
+      "checked_target_cleanup": true,
+      "source_restored": true,
+      "artifact": {
+        "id": 13651333087,
+        "name": "taskell-final-native-exit-v1-darwin",
+        "bytes": 306750992,
+        "provider_sha256": "520dbbe5e615ad47265b4dcc699b499f525971f58ca7883d3de2181c2eea8336"
+      },
+      "independent_readback": {
+        "downloaded_in_memory": true,
+        "sha256_matches_provider": true,
+        "zip_crc_clean": true,
+        "member_count": 5432,
+        "batch_summaries": 12,
+        "report_count": 252,
+        "report_hashes_match_summary": 252,
+        "all_report_statuses_passed": true,
+        "all_reported_workspace_cleanup": true,
+        "route_receipt_passed": true,
+        "target_runtime_identity_read": true,
+        "source_cleanup_verified": true
+      }
+    }
+  ],
+  "readback": {
+    "both_provider_digests_verified": true,
+    "all_zip_crc_checks_clean": true,
+    "all_504_candidate_report_hashes_verified": true,
+    "linux_candidate_failures": 2,
+    "macos_candidate_failures": 0,
+    "admission_credit": 0
+  },
+  "disposition": "Retain the Linux N04 failures and the successful macOS window as distinct evidence. Both Linux failure screens show the renamed board and NORMAL mode, but the subsequent q text did not exit within five seconds. Add positive post-Escape normal-mode navigation checkpoints to N04 so the candidate proves it has resumed accepting normal-mode input before requesting quit. Declare a new immutable v3 12-batch window; do not retry or overwrite v2 results. Taskell remains open and project mg remains unacquired."
+}

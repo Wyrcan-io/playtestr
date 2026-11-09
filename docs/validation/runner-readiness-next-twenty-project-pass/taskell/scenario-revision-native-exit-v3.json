@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "project": "taskell",
+  "candidate": "v0.4.0-rc.6",
+  "base_contract_tree": "host-contracts-native-exit-v2",
+  "base_declaration": "final-series-declaration-native-exit-v1-v2.json",
+  "base_declaration_sha256": "9c132373b5a88fff0d3cd76cfd9ebcf28c2f22132066ced899d5a8a96c73cd2d",
+  "base_scenarios_sha256": "182e193b0e54bf0247c974910f9287174fe25bc36fc2b2ccd572b17c00cb161f",
+  "revised_contract_tree": "host-contracts-native-exit-v3",
+  "revised_declaration": "final-series-declaration-native-exit-v1-v3.json",
+  "revised_declaration_sha256": "4b78b72578932a36eefb3cd4d4b6e315d7f3d311070240cd402ef0da24a39425",
+  "revised_scenarios_sha256": "3d6a776adf044a7370a387ec17e75510908ecac13cdcd58fe2bb922bc725e894",
+  "changed_case": "N04",
+  "old_expect": "Escape, expect_not INSERT, then q",
+  "new_expect": "Escape, expect_not INSERT, j and positive 3/3, k and positive 2/3, then q",
+  "exit_assertion_preserved": true,
+  "unchanged_file_assertion_preserved": true,
+  "revision": 3,
+  "scope": "Fresh exact 12-batch native window after Linux exposed two intermittent N04 q-exit timeouts in v2. The extra public-contract checkpoints prove post-Escape normal-mode input is accepted; earlier attempt records are immutable and no v2 credit carries forward."
+}
