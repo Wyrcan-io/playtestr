@@ -80,6 +80,27 @@ def file_map_hash(files):
     return hashlib.sha256(payload).hexdigest()
 
 
+def stack_build_environment(base, ffi_include=None):
+    """Add the Apple SDK ffi headers only to native Stack/compiler builds."""
+    result=dict(base)
+    result.pop('TASKELL_FFI_INCLUDE_PATH',None)
+    if ffi_include:
+        include=Path(ffi_include).resolve(strict=True)
+        if not include.is_dir() or not (include/'ffitarget_arm64.h').is_file():
+            raise ValueError('Apple SDK ffi include directory is missing its ARM64 target header')
+        prior=result.get('C_INCLUDE_PATH','')
+        result['C_INCLUDE_PATH']=str(include)+(os.pathsep+prior if prior else '')
+    return result
+
+
+def target_environment(base):
+    """Do not pass compiler-only SDK include settings into Taskell runs."""
+    result=dict(base)
+    result.pop('TASKELL_FFI_INCLUDE_PATH',None)
+    result.pop('C_INCLUDE_PATH',None)
+    return result
+
+
 async def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--candidate-series',choices=['native-exit-v1'],default='native-exit-v1')
@@ -120,7 +141,10 @@ async def main():
     variants.mkdir(parents=True,exist_ok=False)
     stack_root=os.environ.get('STACK_ROOT')
     if not stack_root:raise ValueError('Owned STACK_ROOT is required for native fault rebuilds')
-    build_env=environment(target);build_env['STACK_ROOT']=stack_root
+    ffi_include=os.environ.get('TASKELL_FFI_INCLUDE_PATH') if host=='darwin' else None
+    if host=='darwin' and not ffi_include:
+        raise ValueError('Apple SDK ffi include path is required for ARM64 Stack builds')
+    build_env=stack_build_environment(environment(target),ffi_include);build_env['STACK_ROOT']=stack_root
     if os.environ.get('STACK_YAML'):
         build_env['STACK_YAML']=os.environ['STACK_YAML']
     if os.environ.get('DYLD_LIBRARY_PATH'):
@@ -145,7 +169,8 @@ async def main():
     async def invoke(fault,phase,case_spec,binary,expected_exit):
         report=root/(fault+'-'+phase+'.report.json')
         evidence=root/(fault+'-'+phase+'-artifacts')
-        env=environment(target);env['PATH']=str(binary.parent)+os.pathsep+env.get('PATH','')
+        env=target_environment(environment(target))
+        env['PATH']=str(binary.parent)+os.pathsep+env.get('PATH','')
         command=[candidate,'test','--report',report,'--artifacts-dir',evidence,canonical/case_spec]
         attempt=None;error=None;row=None
         try:

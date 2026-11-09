@@ -1,12 +1,31 @@
 import hashlib
+import os
 import tempfile
 import unittest
 from pathlib import Path
 
-from next20_taskell_faults import generated_cabal_identity,source_files,source_snapshot,verify_generated_cabal
+from next20_taskell_faults import (generated_cabal_identity,source_files,source_snapshot,
+    stack_build_environment,target_environment,verify_generated_cabal)
 
 
 class TaskellFaultSourceTests(unittest.TestCase):
+    def test_sdk_ffi_header_path_is_limited_to_stack_build_environment(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            include=Path(temporary)
+            (include/'ffitarget_arm64.h').write_bytes(b'owned SDK header')
+            source={'PATH':'owned-tools','TASKELL_FFI_INCLUDE_PATH':temporary,'C_INCLUDE_PATH':'prior'}
+            build=stack_build_environment(source,temporary)
+            self.assertEqual(build['C_INCLUDE_PATH'],temporary+os.pathsep+'prior')
+            self.assertNotIn('TASKELL_FFI_INCLUDE_PATH',build)
+            target=target_environment(source)
+            self.assertNotIn('C_INCLUDE_PATH',target)
+            self.assertNotIn('TASKELL_FFI_INCLUDE_PATH',target)
+
+    def test_sdk_ffi_directory_without_arm64_header_is_rejected(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            with self.assertRaisesRegex(ValueError,'ARM64 target header'):
+                stack_build_environment({},temporary)
+
     def test_hpack_output_is_separately_bound_while_stack_cache_is_excluded(self):
         with tempfile.TemporaryDirectory() as temporary:
             source=Path(temporary)

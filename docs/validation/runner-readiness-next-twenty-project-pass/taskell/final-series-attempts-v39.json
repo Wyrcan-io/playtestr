@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "project": "taskell",
+  "candidate": "v0.4.0-rc.6",
+  "workflow_run_id": 42542688174,
+  "source_revision": "cb626596d512c1882cfbbfff1327b172423d4e43",
+  "previous_attempt": "final-series-attempts-v38.json",
+  "admission_credit": 0,
+  "scope": "Exact native-exit-v1 12-batch candidate attempt. Linux completed all 12 batches successfully. macOS ARM64 built part of the frozen dependency graph under the experimental GHC 9.2.8 override and failed before Taskell runtime or candidate cases; preserve the incompatible compiler attempt and do not count a native cell.",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128923747474,
+      "conclusion": "success",
+      "upstream_tests": "passed",
+      "target_runtime_build": "passed",
+      "exact_candidate_batches": 12,
+      "exact_candidate_scenarios": 21,
+      "source_fault_phases": 0,
+      "checked_target_cleanup": true,
+      "artifact": {
+        "id": 13643260552,
+        "name": "taskell-final-native-exit-v1-linux",
+        "bytes": 11751678,
+        "provider_sha256": "96bf84d4fea50c30dd4510bdadcbb0a5d9a04c19d72a9af14fa51edcddf4d8d0"
+      }
+    },
+    {
+      "host": "macos-15-arm64",
+      "job_id": 128923747069,
+      "conclusion": "failure_before_target_runtime_and_cases",
+      "failed_step": "Build and run all pinned upstream Taskell tests",
+      "failure": "GHC 9.2.8 is incompatible with the frozen nightly-2021-07-14 package set. Hosted logs show iproute/random Word# versus Word32# errors and semigroupoids references to the missing Option type. Taskell runtime build and all candidate cases were skipped.",
+      "target_launched": false,
+      "checked_prelaunch_cleanup": true,
+      "artifact": {
+        "id": 13642617508,
+        "name": "taskell-final-native-exit-v1-darwin",
+        "bytes": 264145183,
+        "provider_sha256": "b710794f6cd54d04af3c30617c24d7faaa4abf6d12db26a24259b985eab586f9"
+      }
+    }
+  ],
+  "readback": {
+    "provider_artifact_metadata_verified": true,
+    "independent_archive_member_readback": false,
+    "admission_credit": 0
+  },
+  "disposition": "The Linux series is useful single-host evidence only. Keep this failed macOS attempt. Re-run both native hosts with frozen GHC 9.0.2 plus the Apple SDK ffi headers scoped to Stack/compiler processes, then audit retained reports before admission."
+}

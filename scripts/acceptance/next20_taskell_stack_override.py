@@ -7,7 +7,7 @@ from next20_check import DOC,RAW
 from readiness_evidence import immutable_json,sha256
 
 
-SUPPORTED_COMPILERS=('ghc-9.0.2','ghc-9.2.8')
+SUPPORTED_COMPILERS=('ghc-9.0.2',)
 
 
 def parse_args(argv=None):
@@ -50,8 +50,7 @@ def main():
         original_stack_yaml_sha256=sha256(source/'stack.yaml'),original_stack_lock_sha256=sha256(source/'stack.yaml.lock'),
         override_stack_yaml_sha256=sha256(config),copied_stack_lock_sha256=sha256(copied_lock),
         compiler=args.compiler,resolver='nightly-2021-07-14',package_set='unchanged frozen resolver and Stack lock',
-        scope=('Apple Silicon uses the exact frozen dependency resolver and Stack lock with '+args.compiler+
-               ', without modifying pinned source. GHC 9.0.2 on the hosted ARM64 image lacked its required ffitarget_arm64.h header; GHC 9.2.8 has an official aarch64-apple-darwin binary.')))
+        scope=('Apple Silicon uses GHC 9.0.2 and the exact frozen dependency resolver and Stack lock, without modifying pinned source. The compiler needs the Apple SDK ffi include directory in C_INCLUDE_PATH for Stack builds; supply it only to compiler processes.')))
     print(json.dumps(dict(stack_yaml=str(config),receipt=str(receipt),compiler=args.compiler),sort_keys=True))
 
 

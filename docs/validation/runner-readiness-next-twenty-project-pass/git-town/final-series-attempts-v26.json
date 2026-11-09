@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "project": "git-town",
+  "candidate": "v0.4.0-rc.6",
+  "workflow_run_id": 42537098445,
+  "source_revision": "86cc6f5cdfe327d02dc4d060cfc0d5f8959790d1",
+  "previous_attempt": "final-series-attempts-v25.json",
+  "admission_credit": 0,
+  "scope": "Successful repeated native final-series workflow execution after the V20 admitted series. This receipt preserves job conclusions and provider artifact identities only; it does not claim independent member/report readback or add admission credit.",
+  "hosts": [
+    {
+      "host": "windows-2025-x86_64",
+      "job_id": 128903713398,
+      "conclusion": "success",
+      "final_series_step": "success",
+      "source_fault_recovery_step": "success",
+      "checked_process_and_source_cleanup_step": "success",
+      "artifact": {
+        "id": 13640571142,
+        "name": "next20-git-town-windows-final-native-exit-v1",
+        "bytes": 159035889,
+        "provider_sha256": "52d2db8bba7cfe2d5e3613168974d23340c20fb6b26f546d5343152533564d8b"
+      }
+    },
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128903713518,
+      "conclusion": "success",
+      "final_series_step": "success",
+      "source_fault_recovery_step": "success",
+      "artifact": {
+        "id": 13640831876,
+        "name": "next20-git-town-linux-final-native-exit-v1",
+        "bytes": 156534726,
+        "provider_sha256": "8c186dc84b14766e3272772be0c9f969d1967665aaa75c7f94171d394621c0c4"
+      }
+    }
+  ]
+}

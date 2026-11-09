@@ -11,6 +11,9 @@ on:
       - scripts/acceptance/next20_candidate_install.py
       - scripts/acceptance/next20_taskell_stack_override.py
       - scripts/acceptance/test_next20_taskell_stack_override.py
+      - scripts/acceptance/next20_taskell_public_route.py
+      - scripts/acceptance/next20_taskell_public_route_cleanup.py
+      - scripts/acceptance/test_next20_taskell_public_route_cleanup.py
       - scripts/acceptance/next20_taskell_llvm.py
       - scripts/acceptance/next20_taskell_cleanup.py
       - scripts/acceptance/test_next20_taskell_cleanup.py
@@ -143,9 +146,19 @@ jobs:
         if: matrix.host_key == 'darwin'
         uses: haskell-actions/setup@0f8e8c99d88aeb3fbfd523f1ef2c6f762d10d64d
         with:
-          ghc-version: '9.2.8'
+          ghc-version: '9.0.2'
           disable-matcher: 'true'
           cabal-update: 'false'
+
+      - name: Resolve Apple SDK FFI headers for GHC 9.0.2
+        id: ffi_sdk
+        if: matrix.host_key == 'darwin'
+        run: |
+          set -euo pipefail
+          # GHC ARM64 Darwin issue 20592: https://gitlab.haskell.org/ghc/ghc/-/issues/20592
+          include="$(xcrun --show-sdk-path)/usr/include/ffi"
+          test -f "$include/ffitarget_arm64.h"
+          echo "include_path=$include" >> "$GITHUB_OUTPUT"
 
       - name: Acquire pinned Taskell source
         run: |
@@ -171,7 +184,7 @@ jobs:
         if: matrix.host_key == 'darwin'
         run: |
           set -euo pipefail
-          python -B scripts/acceptance/next20_taskell_stack_override.py --compiler ghc-9.2.8
+          python -B scripts/acceptance/next20_taskell_stack_override.py --compiler ghc-9.0.2
           echo "STACK_YAML=$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/toolchain/taskell/arm64-compiler-override/stack.yaml" >> "$GITHUB_ENV"
 
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
@@ -190,10 +203,14 @@ jobs:
         run: python -B scripts/acceptance/next20_taskell_llvm.py --github-env "$GITHUB_ENV"
 
       - name: Build and run all pinned upstream Taskell tests
+        env:
+          C_INCLUDE_PATH: ${{ steps.ffi_sdk.outputs.include_path }}
         working-directory: artifacts/runner-readiness-next-twenty-project-pass/active/taskell/src
         run: stack test --test
 
       - name: Build isolated native Taskell runtime and bind identities
+        env:
+          C_INCLUDE_PATH: ${{ steps.ffi_sdk.outputs.include_path }}
         run: |
           set -euo pipefail
           root="$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/active/taskell"
@@ -235,6 +252,17 @@ jobs:
           (root/'build.json').write_text(json.dumps(build,sort_keys=True,indent=2)+'\n')
           print(json.dumps(build,sort_keys=True))
           PY
+
+      - name: Validate public-route cleanup helper
+        run: python -B -m unittest test_next20_taskell_public_route_cleanup -v
+        working-directory: scripts/acceptance
+
+      - name: Exercise exact candidate public Taskell authoring route
+        run: python -B scripts/acceptance/next20_taskell_public_route.py
+
+      - name: Remove any remaining exact-owned public-route target copies
+        if: always()
+        run: python -B scripts/acceptance/next20_taskell_public_route_cleanup.py
 
       - name: Run all twelve exact-candidate native batches without retries
         run: |

@@ -138,9 +138,19 @@ jobs:
         if: matrix.host_key == 'darwin'
         uses: haskell-actions/setup@0f8e8c99d88aeb3fbfd523f1ef2c6f762d10d64d
         with:
-          ghc-version: '9.2.8'
+          ghc-version: '9.0.2'
           disable-matcher: 'true'
           cabal-update: 'false'
+
+      - name: Resolve Apple SDK FFI headers for GHC 9.0.2
+        id: ffi_sdk
+        if: matrix.host_key == 'darwin'
+        run: |
+          set -euo pipefail
+          # GHC ARM64 Darwin issue 20592: https://gitlab.haskell.org/ghc/ghc/-/issues/20592
+          include="$(xcrun --show-sdk-path)/usr/include/ffi"
+          test -f "$include/ffitarget_arm64.h"
+          echo "include_path=$include" >> "$GITHUB_OUTPUT"
 
       - name: Acquire and verify exact pinned Taskell source
         run: |
@@ -160,7 +170,7 @@ jobs:
         if: matrix.host_key == 'darwin'
         run: |
           set -euo pipefail
-          python -B scripts/acceptance/next20_taskell_stack_override.py --compiler ghc-9.2.8
+          python -B scripts/acceptance/next20_taskell_stack_override.py --compiler ghc-9.0.2
           echo "STACK_YAML=$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/toolchain/taskell/arm64-compiler-override/stack.yaml" >> "$GITHUB_ENV"
 
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
@@ -179,6 +189,8 @@ jobs:
         run: python -B scripts/acceptance/next20_taskell_llvm.py --github-env "$GITHUB_ENV"
 
       - name: Build pristine native Taskell runtime and bind identity
+        env:
+          C_INCLUDE_PATH: ${{ steps.ffi_sdk.outputs.include_path }}
         run: |
           set -euo pipefail
           root="$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/active/taskell"
@@ -217,6 +229,8 @@ jobs:
           PY
 
       - name: Run baseline, mutated and restored source-fault phases
+        env:
+          TASKELL_FFI_INCLUDE_PATH: ${{ steps.ffi_sdk.outputs.include_path }}
         run: python -B scripts/acceptance/next20_taskell_faults.py --candidate-series native-exit-v1
 
       - name: Preserve runtime identity and perform checked target cleanup

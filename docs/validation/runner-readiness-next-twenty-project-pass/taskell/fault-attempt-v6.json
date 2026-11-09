@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "project": "taskell",
+  "candidate": "v0.4.0-rc.6",
+  "workflow_run_id": 42542688103,
+  "source_revision": "cb626596d512c1882cfbbfff1327b172423d4e43",
+  "previous_attempt": "fault-attempt-v5.json",
+  "admission_credit": 0,
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128920910357,
+      "conclusion": "passed_source_fault_calibration",
+      "fault_phases_reported": 9,
+      "target_launched": true,
+      "checked_target_cleanup": true,
+      "artifact": {
+        "id": 13642805241,
+        "name": "taskell-fault-calibration-native-exit-v1-linux",
+        "bytes": 11771204,
+        "sha256": "452ebef65b7c3f0d73464430e8c160afa02ca58f87bac94c658f987bf63e1469"
+      }
+    },
+    {
+      "host": "macos-15-arm64",
+      "job_id": 128920910574,
+      "conclusion": "failure_during_frozen_dependency_build_before_cases",
+      "failed_step": "Build pristine native Taskell runtime and bind identity",
+      "failure": "GHC 9.2.8 is newer than Taskell's frozen nightly-2021-07-14 package set: base-compat-0.11.2 cannot find Option/option and basement-0.0.12 has incompatible unboxed Word types. No Taskell source-fault phase launched.",
+      "diagnostic_source": "GitHub hosted job log for job 128920910574, 2026-11-09T00:57:34Z",
+      "target_launched": false,
+      "checked_no_case_source_cleanup": true,
+      "artifact": {
+        "id": 13642226915,
+        "name": "taskell-fault-calibration-native-exit-v1-darwin",
+        "bytes": 264095655,
+        "sha256": "04731ad1f9a9b5c717b39d85038a2b842a13b4c693f5bf18ac5c505378a8e599"
+      }
+    }
+  ],
+  "scope": "This attempt preserves the incompatible GHC 9.2.8 trial. The next attempt restores the frozen GHC 9.0.2 and supplies the documented Apple SDK ffi include directory only to compiler builds, preserving Taskell source and the exact nightly package lock."
+}
