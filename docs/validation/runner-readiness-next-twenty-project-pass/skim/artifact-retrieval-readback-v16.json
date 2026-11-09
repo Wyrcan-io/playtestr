@@ -1,0 +1,55 @@
+{
+  "admission_credit": 0,
+  "archive_sha256": {
+    "linux": "28ae9f37227bb0f6ba2df031420aa3d027b998e31eab523c4d13cd2816c4af7a",
+    "windows": "0b9f69460ed4dd87c3188c4c7c8be6f3a1ea0dd47cbf4ac94444ec2d6f4eb5"
+  },
+  "candidate": "v0.4.0-rc.6",
+  "disposition": "Successful repeated final candidate series after the previously admitted V15 series. Exact rc.6 archives and frozen scenarios; repeated outcomes do not add scenario, project, fault, or native-cell admission credit.",
+  "hosts": [
+    {
+      "artifact_bytes": 8233497,
+      "artifact_id": 13640617894,
+      "cleanup": {
+        "checked_target_removed": true,
+        "cleanup_inventory_sha256": "a2048c3fc9104dd181ac1c888ec56da618ceb24790a94874b59a9e6ca46b1c6e",
+        "compiler_cache_removed": true,
+        "process_absent": true,
+        "source_restored": true
+      },
+      "fault_phases": 9,
+      "host": "linux",
+      "ordinary": 240,
+      "provider_sha256": "62692c52e63aa7834d81285d48062e717cb6a7b6d61955fee4d9d855b883dafa",
+      "readback": "artifact-retrieval-readback-v16-linux.json",
+      "readback_sha256": "178bd4a26e81e320a7b40a873c3f89eb96ae365df3b57f5b4d492dfd5a93aceb"
+    },
+    {
+      "artifact_bytes": 8558065,
+      "artifact_id": 13641066494,
+      "cleanup": {
+        "checked_target_removed": true,
+        "cleanup_inventory_sha256": "99ee80defa1be6d70a11802e30577be35e862c1e77f8677b35c29e446380f1b0",
+        "compiler_cache_removed": true,
+        "process_absent": true,
+        "source_restored": true
+      },
+      "fault_phases": 9,
+      "host": "windows",
+      "ordinary": 240,
+      "provider_sha256": "e6110bdab4dbc8f85f5f1e1a17a5cc6a48aadef022b5435ed38b0ab8b92c791b",
+      "readback": "artifact-retrieval-readback-v16-windows.json",
+      "readback_sha256": "fb362724140af22fc656092166aa29edd87252535d32cf47e54befc2f70e2d65"
+    }
+  ],
+  "project": "skim",
+  "schema_version": 1,
+  "totals": {
+    "fault_phases": 18,
+    "independently_reconstructed_contracts": 480,
+    "ordinary": 480,
+    "public_routes": 10
+  },
+  "workflow_revision": "93a15bf68cc47a7ddd27018f1e5bcde6cec02344",
+  "workflow_run_id": 42538203316
+}

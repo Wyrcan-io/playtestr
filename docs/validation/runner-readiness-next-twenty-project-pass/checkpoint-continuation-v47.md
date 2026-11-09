@@ -1,72 +1,53 @@
 # Continuation checkpoint v47: 9 November 2026
 
-Branch `work/p0-p2-implementation` is based on pushed commit `9a56ec99`.
-Campaign status remains four of twenty new projects qualified on exact rc.6
-(14/30 cumulative); eight new applications have some historical admission,
-including four rc.5-only. The original ten have zero current-candidate rc.6
-qualification. No credit is added by this checkpoint.
+Branch `work/p0-p2-implementation` is pushed at `5c207172`. The exact-candidate
+ledger remains five of twenty new admissions (15/30 cumulative); original-ten
+current-candidate requalification remains zero. Do not report the campaign as
+complete.
 
 ## Skim
 
-Run `42506300345` remains the independently audited exact rc.6 Linux/Windows
-series packet: 240 ordinary outcomes and nine fault phases per host. Readback
-v8 records both provider archive digests, exact candidate/target identities,
-every batch/report/finished receipt hash, 240 unique invocation IDs per host,
-passed report steps, and checked cleanup. Public route and campaign closure are
-still required for admission.
+The repeated exact rc.6 run `42538203316` passed Linux and Windows. Provider
+artifacts 13640617894 and 13641066494 were downloaded; their original ZIP sizes
+and SHA-256 values match GitHub metadata. Independent `next20_skim_artifact_readback.py`
+reconstructed all 240 contracts per host and verified 240 distinct passing
+reports/invocations, three baseline/mutation/restoration faults (nine phases),
+public first-use/diagnosis/maintenance/relocation, and checked cleanup. Immutable
+repeat readbacks are in `skim/artifact-retrieval-readback-v16*.json`; attempt
+v37 grants zero additional admission credit.
 
-Preserve the later zero-launch failures:
-
-* Run `42512413573` refused contract freeze on both hosts because V29's workflow
-  source hash was stale. No final series started.
-* Run `42513718526` Linux again refused freeze with
-  `Skim final harness changed after declaration:
-  .github/workflows/runner-readiness-next20-skim-final.yml`; no target cases
-  launched. Its Windows job remained in progress at last inspection.
-
-V30 was generated immutably before discovering that its test and independent
-plan-audit consumers still pointed at V29. Preserve V30 as superseded. V31 now
-binds the current workflow, public route, final-series planner, test and plan
-auditor from staged bytes. Its targeted local suite passed 28 tests with four
-native-platform skips. Exact comparison of all 55 declared harness entries and
-the final workflow freeze must pass in the next hosted attempt before any target
-execution. Candidate remains unchanged rc.6. Skim is uncredited.
-
-Hosted source development run `42513718435` passed Linux's 20 source-built
-cases; its Windows job was still running the three source faults at last check.
-This is development evidence, not exact-archive admission evidence.
+The prior artifact-readback helper was hardcoded to V28 plans and V34 declarations.
+It now resolves each declaration and scenario contract by hashes frozen in the
+plan and requires a unique native-host plan. Three regression tests cover exact
+hash selection, missing subjects and ambiguous duplicate subjects. The V36
+provider artifacts pass this independent audit. Temporary ZIPs and expansions
+remain under `.runner-readiness-compaction-tmp/` until their tracked readbacks
+and cleanup inventory are confirmed.
 
 ## Taskell
 
-The previous exact run `42512546590` retained its first failure: Linux passed
-the upstream suite and native build but case E11M failed in batch 11; remaining
-series outcomes are not counted. macOS failed before target execution because
-the signed LLVM closure references bundled `libxml2.16.dylib` and
-`libz.1.dylib` that the owned prefix does not yet include. The matching fault
-workflow also failed at that bounded setup point.
+Build-only run `42540153182` passed pinned upstream tests and native target builds
+on Linux amd64 and Intel macOS x86-64. It adds no final-series credit. Fault run
+`42540153229` passed all nine Linux source-fault phases; macOS ARM64 failed before
+Taskell cases because GHC 9.0.2's bundled `ffi.h` includes missing
+`ffitarget_arm64.h` while building the `basement` dependency. The exact run log
+and artifact IDs/digests are recorded in `taskell/build-attempt-v38.json` and
+`taskell/fault-attempt-v5.json`. The earlier exact run `42538328742` has a passing
+Linux series but its macOS leg failed before target cases; keep that failure.
 
-The corrected run `42513404363` at `17ce3f80` is still active on Linux upstream
-tests; its macOS job again failed at those two missing package dependencies.
-Fault run `42513404405` Linux was building the pristine runtime at last check;
-macOS likewise failed before runtime/fault execution. Do not count candidate
-cells or fault phases until the exact current runs finish and evidence audits.
-Helper suite last passed 10 tests (two Windows-only symlink skips).
+The local, uncommitted correction proposes the official [GHC 9.2.8 aarch64
+Apple Darwin binary](https://downloads.haskell.org/ghc/9.2.8/) with the same frozen nightly resolver, Stack lock and pinned Taskell
+source. It keeps 9.0.2 available to preserve old attempt reproducibility. The
+exact-candidate and fault workflows now name 9.2.8; a focused parser test and
+workflow validator are wired into both. No 9.2.8 native run has started yet.
+Focused helper tests previously passed 24 tests with three expected Windows
+symlink capability skips; re-run after this checkpoint's final edits.
 
-## Next actions
-
-1. Verify V31's 55 staged harness hashes locally, stage its immutable JSON and
-   checkpoint/docs, and inspect the exact staged diff.
-2. Commit and push the scoped V31 correction using the existing authorization.
-   Let its exact native Skim workflow reach and pass freeze before target launch;
-   audit all newly produced artifacts independently.
-3. Inspect the Taskell E11M report from its retained artifact and solve the
-   actual contract/runtime mismatch. For macOS, acquire only the reviewed,
-   signature-verified dependency families needed to close LLVM's recursive
-   dylib graph; keep extraction bounded and reject unresolved or escaping links.
-4. Continue project selection and qualification sequentially after Skim and
-   Taskell target cleanup. Do not start another external application while
-   either native attempt still owns a target/runtime tree.
-
-Protected ignored directories `.codex-go-cache/` and `.codex-test-tmp/` remain
-untouched. Do not claim 30/30, Skim admission, Taskell admission, or original-ten
-rc.6 qualification.
+Next: finish local YAML/syntax/diff checks, commit and push the scoped audit and
+Taskell compiler changes under existing authorization, then inspect the push
+workflows. The final and fault workflows share a concurrency group; preserve any
+cancelled/pending attempt and dispatch the second manually after the first
+completes. Require both Linux and macOS ARM64 exact series and fault recovery to
+pass before Taskell admission. Continue the remaining ten selected projects,
+the original-ten transfer, migrations, controls, delivered CI, storage and
+campaign closure.

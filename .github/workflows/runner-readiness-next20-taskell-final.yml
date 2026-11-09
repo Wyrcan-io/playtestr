@@ -10,6 +10,7 @@ on:
       - scripts/acceptance/next20_check.py
       - scripts/acceptance/next20_candidate_install.py
       - scripts/acceptance/next20_taskell_stack_override.py
+      - scripts/acceptance/test_next20_taskell_stack_override.py
       - scripts/acceptance/next20_taskell_llvm.py
       - scripts/acceptance/next20_taskell_cleanup.py
       - scripts/acceptance/test_next20_taskell_cleanup.py
@@ -72,7 +73,7 @@ jobs:
           set-safe-directory: false
 
       - name: Validate Taskell dependency and cleanup helpers
-        run: python -B -m unittest test_next20_taskell_llvm test_next20_taskell_cleanup test_next20_target_cleanup -v
+        run: python -B -m unittest test_next20_taskell_stack_override test_next20_taskell_llvm test_next20_taskell_cleanup test_next20_target_cleanup -v
         working-directory: scripts/acceptance
 
       - name: Record bounded native job start
@@ -142,7 +143,7 @@ jobs:
         if: matrix.host_key == 'darwin'
         uses: haskell-actions/setup@0f8e8c99d88aeb3fbfd523f1ef2c6f762d10d64d
         with:
-          ghc-version: '9.0.2'
+          ghc-version: '9.2.8'
           disable-matcher: 'true'
           cabal-update: 'false'
 
@@ -170,7 +171,7 @@ jobs:
         if: matrix.host_key == 'darwin'
         run: |
           set -euo pipefail
-          python -B scripts/acceptance/next20_taskell_stack_override.py --compiler ghc-9.0.2
+          python -B scripts/acceptance/next20_taskell_stack_override.py --compiler ghc-9.2.8
           echo "STACK_YAML=$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/toolchain/taskell/arm64-compiler-override/stack.yaml" >> "$GITHUB_ENV"
 
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e

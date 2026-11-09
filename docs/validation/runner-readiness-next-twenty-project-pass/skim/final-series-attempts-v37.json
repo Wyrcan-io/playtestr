@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "project": "skim",
+  "candidate": "v0.4.0-rc.6",
+  "workflow_run_id": 42538203316,
+  "source_revision": "93a15bf68cc47a7ddd27018f1e5bcde6cec02344",
+  "previous_attempt": "final-series-attempts-v36.json",
+  "admission_credit": 0,
+  "disposition": "Both native jobs completed the repeated exact-candidate series successfully. This repeat adds no unique scenario, project, source-fault, calibration, or host-cell admission credit.",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128907116998,
+      "conclusion": "success",
+      "target_cases_launched": 240,
+      "ordinary_passed": 240,
+      "fault_phases_passed": 9,
+      "independent_contracts_reconstructed": 240,
+      "public_first_use_diagnosis_maintenance_relocation": "passed",
+      "source_and_process_cleanup": "verified",
+      "artifact": {
+        "id": 13640617894,
+        "name": "next20-skim-linux-rc6-final",
+        "bytes": 8233497,
+        "sha256": "62692c52e63aa7834d81285d48062e717cb6a7b6d61955fee4d9d855b883dafa"
+      },
+      "candidate_archive_sha256": "28ae9f37227bb0f6ba2df031420aa3d027b998e31eab523c4d13cd2816c4af7a",
+      "candidate_binary_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a",
+      "target_binary_sha256": "427de19b0ab4f344376b3a7a594bac9c36872faba9cc745c9b8f0bd05452bfa0",
+      "readback": "artifact-retrieval-readback-v16-linux.json",
+      "readback_sha256": "178bd4a26e81e320a7b40a873c3f89eb96ae365df3b57f5b4d492dfd5a93aceb"
+    },
+    {
+      "host": "windows-2025-x86_64",
+      "job_id": 128907117324,
+      "conclusion": "success",
+      "target_cases_launched": 240,
+      "ordinary_passed": 240,
+      "fault_phases_passed": 9,
+      "independent_contracts_reconstructed": 240,
+      "public_first_use_diagnosis_maintenance_relocation": "passed",
+      "source_and_process_cleanup": "verified",
+      "artifact": {
+        "id": 13641066494,
+        "name": "next20-skim-windows-rc6-final",
+        "bytes": 8558065,
+        "sha256": "e6110bdab4dbc8f85f5f1e1a17a5cc6a48aadef022b5435ed38b0ab8b92c791b"
+      },
+      "candidate_archive_sha256": "0b9f69460ed4dd87c3188c4c7c8be6f3a1ea0dd47cbf4ac94444ec2d6f4eb5",
+      "candidate_binary_sha256": "6c80fdbcdd74705b85b2e8aad2f07140f5ff5e8cea80db1d6c24a04d71b23f36",
+      "target_binary_sha256": "6631bb4743defd6d05a19c7f4d8035773c85b47c30d82ddf812f1e5825d6efc0",
+      "readback": "artifact-retrieval-readback-v16-windows.json",
+      "readback_sha256": "fb362724140af22fc656092166aa29edd87252535d32cf47e54befc2f70e2d65"
+    }
+  ],
+  "audit": {
+    "tool": "scripts/acceptance/next20_skim_artifact_readback.py",
+    "provider_zip_hash_and_size_verified": true,
+    "full_provider_artifact_crc_and_member_readback": true,
+    "independent_scenario_contract_reconstruction": true,
+    "distinct_reports_and_invocations_verified_per_host": true,
+    "all_three_fault_baseline_mutation_recovery_phases_verified_per_host": true,
+    "public_route_and_checked_cleanup_verified_per_host": true
+  }
+}

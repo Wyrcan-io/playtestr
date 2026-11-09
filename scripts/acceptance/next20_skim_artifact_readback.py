@@ -1,4 +1,4 @@
-"""Independently read back one provider Skim V34 native artifact."""
+"""Independently read back one provider Skim native artifact."""
 import argparse
 import hashlib
 import json
@@ -18,6 +18,17 @@ MAX_TOTAL = 2 * 1024**3
 
 def digest(data):
     return hashlib.sha256(data).hexdigest()
+
+
+def find_hash_bound_document(payloads, prefix, expected_sha256):
+    """Select one declared campaign document by its frozen content hash."""
+    matches = [(name, data) for name, data in payloads.items()
+               if name.startswith(DOC + prefix) and name.endswith('.json') and
+               digest(data) == expected_sha256]
+    if len(matches) != 1:
+        raise ValueError('artifact lacks one uniquely hash-bound document: ' + prefix)
+    name, data = matches[0]
+    return name[len(DOC):], data
 
 
 def audit(archive, provider_sha256, provider_bytes, host, run_id, revision, freeze_path):
@@ -212,7 +223,12 @@ def audit(archive, provider_sha256, provider_bytes, host, run_id, revision, free
         raise ValueError('ordinary reports differ from retained build or exact archive binary')
     ordinary_invocations = len(invocations)
 
-    plan_path = 'artifacts/runner-readiness-next-twenty-project-pass/skim/final-series-plan-native-exit-v28/' + host + '/plan.json'
+    plan_prefix = ROOT + 'final-series-plan-native-exit-'
+    plan_paths = [name for name in payloads if name.startswith(plan_prefix) and
+                  name.endswith('/' + host + '/plan.json')]
+    if len(plan_paths) != 1:
+        raise ValueError('artifact does not contain one unique frozen plan for the native host')
+    plan_path = plan_paths[0]
     plan_raw = payloads.get(plan_path)
     plan_audit_path = plan_path.rsplit('/', 1)[0] + '/plan-audit.json'
     plan_audit_raw = payloads.get(plan_audit_path)
@@ -227,17 +243,23 @@ def audit(archive, provider_sha256, provider_bytes, host, run_id, revision, free
             plan_audit.get('scenario_count') != 20 or plan_audit.get('executed_cases') != 0 or
             plan_audit.get('candidate_sha256') != candidate_sha or plan_audit.get('target_sha256') != target_sha):
         raise ValueError('frozen plan/audit receipts differ from actual host candidate or expected scope')
-    declaration = json.loads(doc('final-series-declaration-native-exit-v34.json'))
-    base_scenarios = json.loads(doc('scenario-declaration-v5.json'))
-    revision_scenarios = json.loads(doc('scenario-declaration-v6.json'))
+    _, declaration_raw = find_hash_bound_document(payloads, 'final-series-declaration-native-exit-v',
+                                                  plan.get('declaration_sha256'))
+    _, base_raw = find_hash_bound_document(payloads, 'scenario-declaration-v',
+                                           plan.get('scenario_base_sha256'))
+    _, revision_raw = find_hash_bound_document(payloads, 'scenario-declaration-v',
+                                               plan.get('scenario_revision_sha256'))
+    declaration = json.loads(declaration_raw)
+    base_scenarios = json.loads(base_raw)
+    revision_scenarios = json.loads(revision_raw)
     scenario_rows = {row['id']: row for row in base_scenarios['scenarios']}
     scenario_rows.update({row['id']: row for row in revision_scenarios['replacements']})
-    if (declaration.get('scenario_base_sha256') != digest(doc('scenario-declaration-v5.json')) or
-            declaration.get('scenario_revision_sha256') != digest(doc('scenario-declaration-v6.json')) or
+    if (declaration.get('scenario_base_sha256') != digest(base_raw) or
+            declaration.get('scenario_revision_sha256') != digest(revision_raw) or
             declaration.get('candidate_freeze_sha256') != digest(Path(freeze_path).read_bytes()) or
             len(scenario_rows) != 20 or sum(row.get('kind') == 'normal' for row in scenario_rows.values()) != 8 or
             sum(row.get('kind') == 'edge' for row in scenario_rows.values()) != 12):
-        raise ValueError('exact V34 scenario declaration or 8+12 breadth differs')
+        raise ValueError('exact frozen scenario declaration or 8+12 breadth differs')
 
     contracts_verified = 0
     path_marker = '\\artifacts\\' if host == 'windows' else '/artifacts/'
@@ -387,7 +409,7 @@ def audit(archive, provider_sha256, provider_bytes, host, run_id, revision, free
     if (initial.get('command', [None])[-1:] != ['--query=cedar'] or
             maintenance.get('command', [None])[-1:] != ['--query=amber'] or
             not any(step == {'expect': 'amber'} for step in maintenance.get('steps', []))):
-        raise ValueError('V34 maintenance did not update the exact query and matching result assertion')
+            raise ValueError('maintenance did not update the exact query and matching result assertion')
     relocated = [name for name in payloads if name.startswith(ROOT + 'first-public-v1/relocated space caf')
                  and name.endswith('/selection-maintenance.json')]
     if len(relocated) != 1 or payloads[relocated[0]] != get('first-public-v1/maintenance/selection-maintenance.json'):

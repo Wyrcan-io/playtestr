@@ -1,4 +1,4 @@
-"""Fetch and verify the frozen MacPorts LLVM 12 ARM64 package for GHC 9.0.2."""
+"""Fetch and verify the frozen MacPorts LLVM 12 ARM64 package for Taskell's GHC."""
 import argparse
 import base64
 import hashlib
@@ -500,7 +500,7 @@ def main():
         tool_prefix=str(prefix),opt_sha256=sha256(opt),llc_sha256=sha256(llc),
         files=files,wrapper_bin=str(wrapper_bin.relative_to(Path.cwd())),wrappers=wrappers,
         opt_version=opt_text.strip(),llc_version=llc_text.strip(),
-        scope='Signature-verified exact MacPorts LLVM 12.0.1 ARM64 tools and owned libraries for Taskell GHC 9.0.2; archive and extracted files stay in the campaign toolchain root.'))
+        scope='Signature-verified exact MacPorts LLVM 12.0.1 ARM64 tools and owned libraries for the declared Taskell GHC; archive and extracted files stay in the campaign toolchain root.'))
     github_env=github_environment(prefix,wrapper_bin,manifest)
     with Path(args.github_env).open('a',encoding='utf-8',newline='\n') as stream:
         stream.write('PATH='+github_env['PATH']+'\n')

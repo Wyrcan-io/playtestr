@@ -7,10 +7,17 @@ from next20_check import DOC,RAW
 from readiness_evidence import immutable_json,sha256
 
 
-def main():
+SUPPORTED_COMPILERS=('ghc-9.0.2','ghc-9.2.8')
+
+
+def parse_args(argv=None):
     parser=argparse.ArgumentParser()
-    parser.add_argument('--compiler',required=True,choices=['ghc-9.0.2'])
-    args=parser.parse_args()
+    parser.add_argument('--compiler',required=True,choices=SUPPORTED_COMPILERS)
+    return parser.parse_args(argv)
+
+
+def main():
+    args=parse_args()
     source=RAW/'active/taskell/src'
     package=DOC/'taskell'
     lock=json.loads((package/'native-runtime-lock-native-exit-v1.json').read_text(encoding='utf-8'))
@@ -43,7 +50,8 @@ def main():
         original_stack_yaml_sha256=sha256(source/'stack.yaml'),original_stack_lock_sha256=sha256(source/'stack.yaml.lock'),
         override_stack_yaml_sha256=sha256(config),copied_stack_lock_sha256=sha256(copied_lock),
         compiler=args.compiler,resolver='nightly-2021-07-14',package_set='unchanged frozen resolver and Stack lock',
-        scope='Apple Silicon GHC 9.0.1 has no Stack setup distribution; use the same frozen dependency resolver with GHC 9.0.2, a patch-level compiler override, without modifying pinned source.'))
+        scope=('Apple Silicon uses the exact frozen dependency resolver and Stack lock with '+args.compiler+
+               ', without modifying pinned source. GHC 9.0.2 on the hosted ARM64 image lacked its required ffitarget_arm64.h header; GHC 9.2.8 has an official aarch64-apple-darwin binary.')))
     print(json.dumps(dict(stack_yaml=str(config),receipt=str(receipt),compiler=args.compiler),sort_keys=True))
 
 

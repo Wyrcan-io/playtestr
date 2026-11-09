@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "project": "taskell",
+  "candidate": "v0.4.0-rc.6",
+  "source_pin": "a2df95f26762fc3e78d6f131cea7fc1f3b13bd47",
+  "workflow_run_id": 42540153182,
+  "source_revision": "5c2071723fa4153da917239f1dc70d9483901c68",
+  "admission_credit": 0,
+  "scope": "Pinned upstream build/test prerequisite check only. No final candidate ordinary or source-fault credit.",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128913050328,
+      "conclusion": "success",
+      "pinned_upstream_tests": "passed",
+      "native_target_build": "passed",
+      "artifact": {
+        "id": 13641376899,
+        "name": "taskell-build-ubuntu-24.04",
+        "bytes": 11224957,
+        "sha256": "750d0ed2da86ac9115aba1bee245e13ab365b7a4540aa0d810598e4da5e19d0b"
+      }
+    },
+    {
+      "host": "macos-15-intel-x86_64",
+      "job_id": 128913050419,
+      "conclusion": "success",
+      "pinned_upstream_tests": "passed",
+      "native_target_build": "passed",
+      "artifact": {
+        "id": 13641921509,
+        "name": "taskell-build-macos-15-intel",
+        "bytes": 6803102,
+        "sha256": "e03ceb6e2d409eba0e117ac3adb2c15fadc78821ced431feb8f3fccead2c3cfd"
+      }
+    }
+  ]
+}

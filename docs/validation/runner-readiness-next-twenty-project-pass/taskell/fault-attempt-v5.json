@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "project": "taskell",
+  "candidate": "v0.4.0-rc.6",
+  "workflow_run_id": 42540153229,
+  "source_revision": "5c2071723fa4153da917239f1dc70d9483901c68",
+  "previous_attempt": "fault-attempt-v4.json",
+  "admission_credit": 0,
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128914165272,
+      "conclusion": "passed_source_fault_calibration",
+      "fault_phases_reported": 9,
+      "target_launched": true,
+      "checked_target_cleanup": true,
+      "artifact": {
+        "id": 13640903363,
+        "name": "taskell-fault-calibration-native-exit-v1-linux",
+        "bytes": 11771221,
+        "sha256": "d77b46122aa413a694539515dfed3d637b76fd3396f17cb5d4e7240a68326a30"
+      }
+    },
+    {
+      "host": "macos-15-arm64",
+      "job_id": 128914165379,
+      "conclusion": "failure_during_native_target_build_before_cases",
+      "failed_step": "Build pristine native Taskell runtime and bind identity",
+      "failure": "GHC 9.0.2's ARM64 RTS ffi.h includes ffitarget_arm64.h, which was absent from the installed compiler tree; Stack's basement dependency build stopped before Taskell cases.",
+      "diagnostic_source": "GitHub hosted job log for job 128914165379, 2026-11-09T00:33:09Z and Stack error S-7282",
+      "target_launched": false,
+      "checked_no_case_source_cleanup": true,
+      "artifact": {
+        "id": 13641481447,
+        "name": "taskell-fault-calibration-native-exit-v1-darwin",
+        "bytes": 264097800,
+        "sha256": "d1e48715491035e35056b1a539e2f10db0b295c29860d9d8bbf8f7fdcfff5221"
+      }
+    }
+  ],
+  "scope": "The Linux source-fault phases passed. The macOS ARM64 job failed during compiler dependency build before target launch. No complete cross-host fault matrix or admission credit. The next declared attempt changes only the owned Apple Silicon Stack compiler override to GHC 9.2.8 and preserves the frozen resolver, lock and target source."
+}
