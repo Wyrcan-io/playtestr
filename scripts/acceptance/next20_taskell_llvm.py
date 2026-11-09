@@ -7,6 +7,7 @@ import os
 import posixpath
 from pathlib import Path, PurePosixPath
 import re
+import shlex
 import subprocess
 import tarfile
 import urllib.request
@@ -326,11 +327,27 @@ def checked_version(executable,env):
     return (result.stdout or '')+(result.stderr or '')
 
 
-def github_environment(prefix,manifest):
+def write_llvm_wrappers(prefix,wrapper_bin):
+    """Set the loader path only for the two LLVM executables GHC invokes."""
+    prefix=Path(prefix).resolve(strict=True);wrapper_bin=Path(wrapper_bin)
+    wrapper_bin.mkdir(parents=True,exist_ok=False)
+    created={}
+    for name in ('opt','llc'):
+        target=(prefix/'bin'/name).resolve(strict=True)
+        target.relative_to(prefix)
+        path=wrapper_bin/name
+        content=('#!/bin/sh\nset -eu\nexport DYLD_LIBRARY_PATH='+shlex.quote(str(prefix/'lib'))+
+            '${DYLD_LIBRARY_PATH:+:$DYLD_LIBRARY_PATH}\nexec '+shlex.quote(str(target))+' "$@"\n')
+        with path.open('x',encoding='utf-8',newline='\n') as stream:stream.write(content)
+        path.chmod(0o755)
+        created[name]=sha256(path)
+    return created
+
+
+def github_environment(prefix,wrapper_bin,manifest):
     """Return values safe to export globally; loader paths stay command-scoped."""
-    prefix=Path(prefix)
-    return {'PATH':str(prefix/'bin')+os.pathsep+os.environ.get('PATH',''),
-        'TASKELL_LLVM_LIBRARY_PATH':str(prefix/'lib'),
+    prefix=Path(prefix);wrapper_bin=Path(wrapper_bin)
+    return {'PATH':str(wrapper_bin)+os.pathsep+str(prefix/'bin')+os.pathsep+os.environ.get('PATH',''),
         'TASKELL_LLVM_MANIFEST':str(manifest)}
 
 
@@ -413,6 +430,8 @@ def main():
     if '12.0.1' not in opt_text or '12.0.1' not in llc_text or 'AArch64' not in llc_text:
         raise ValueError('Verified LLVM package did not report LLVM 12.0.1 with the AArch64 backend')
     files=tool_inventory(prefix)
+    wrapper_bin=tool_root/'wrapper-bin'
+    wrappers=write_llvm_wrappers(prefix,wrapper_bin)
     manifest=tool_root/'manifest.json'
     immutable_json(manifest,dict(schema_version=1,project='taskell',provider='MacPorts signed binary archive',
         package=PACKAGE,package_url=BASE+PACKAGE,package_bytes=size,package_sha256=sha256(package),
@@ -479,15 +498,12 @@ def main():
             package_expanded_bytes=charset_expanded,selected_dylibs={name:sha256(prefix/'lib'/name) for name in charset_files if (prefix/'lib'/name).is_file()}),
         macports_link_dependencies=dependency_inventory,
         tool_prefix=str(prefix),opt_sha256=sha256(opt),llc_sha256=sha256(llc),
-        files=files,opt_version=opt_text.strip(),llc_version=llc_text.strip(),
+        files=files,wrapper_bin=str(wrapper_bin.relative_to(Path.cwd())),wrappers=wrappers,
+        opt_version=opt_text.strip(),llc_version=llc_text.strip(),
         scope='Signature-verified exact MacPorts LLVM 12.0.1 ARM64 tools and owned libraries for Taskell GHC 9.0.2; archive and extracted files stay in the campaign toolchain root.'))
-    github_env=github_environment(prefix,manifest)
+    github_env=github_environment(prefix,wrapper_bin,manifest)
     with Path(args.github_env).open('a',encoding='utf-8',newline='\n') as stream:
         stream.write('PATH='+github_env['PATH']+'\n')
-        # Keep MacPorts libraries scoped to Taskell's Stack invocations. Exporting
-        # DYLD_LIBRARY_PATH globally poisons unrelated host tools (including Git)
-        # with MacPorts libiconv and can crash Haskell dependency builds.
-        stream.write('TASKELL_LLVM_LIBRARY_PATH='+github_env['TASKELL_LLVM_LIBRARY_PATH']+'\n')
         stream.write('TASKELL_LLVM_MANIFEST='+github_env['TASKELL_LLVM_MANIFEST']+'\n')
     print(json.dumps(dict(manifest=str(manifest),package_sha256=sha256(package),expanded_bytes=expanded,
         opt_sha256=sha256(opt),llc_sha256=sha256(llc),libffi_package_sha256=sha256(ffi_package),

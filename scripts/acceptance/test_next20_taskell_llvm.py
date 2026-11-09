@@ -2,6 +2,7 @@ import io
 import base64
 import hashlib
 import os
+import shlex
 import subprocess
 import tarfile
 import tempfile
@@ -16,7 +17,7 @@ from next20_taskell_llvm import (PUBLIC_KEY,PUBLIC_KEY_GIT_BLOB,SIGNATURE_COMMEN
     MACPORTS_LIBCHARSET_DYLIB,
     checked_version,decode_signify_signature,
     safe_extract,safe_extract_dylib_family,safe_extract_libffi,tool_inventory,
-    verify_macos_link_closure,verify_tool_inventory,github_environment)
+    verify_macos_link_closure,verify_tool_inventory,github_environment,write_llvm_wrappers)
 
 
 class TaskellLLVMTests(unittest.TestCase):
@@ -27,9 +28,22 @@ class TaskellLLVMTests(unittest.TestCase):
         self.root=Path(self.temp.name)
 
     def test_github_environment_keeps_dyld_loader_path_command_scoped(self):
-        values=github_environment(self.root/'llvm',self.root/'manifest.json')
-        self.assertIn('TASKELL_LLVM_LIBRARY_PATH',values)
+        values=github_environment(self.root/'llvm',self.root/'wrapper-bin',self.root/'manifest.json')
+        self.assertTrue(values['PATH'].startswith(str(self.root/'wrapper-bin')+os.pathsep))
         self.assertNotIn('DYLD_LIBRARY_PATH',values)
+        self.assertNotIn('TASKELL_LLVM_LIBRARY_PATH',values)
+
+    def test_llvm_wrappers_scope_macports_loader_path_to_opt_and_llc(self):
+        prefix=self.root/'llvm';(prefix/'bin').mkdir(parents=True);(prefix/'lib').mkdir()
+        for name in ('opt','llc'):
+            target=prefix/'bin'/name;target.write_text('#!/bin/sh\nexit 0\n',encoding='utf-8')
+        rows=write_llvm_wrappers(prefix,self.root/'wrappers')
+        self.assertEqual(set(rows),{'opt','llc'})
+        for name in rows:
+            wrapper=(self.root/'wrappers'/name).read_text(encoding='utf-8')
+            self.assertIn('DYLD_LIBRARY_PATH=',wrapper)
+            self.assertIn('exec '+shlex.quote(str(prefix/'bin'/name)),wrapper)
+            if os.name!='nt':self.assertTrue((self.root/'wrappers'/name).stat().st_mode&0o100)
 
     def test_pinned_archive_key_matches_signify_envelope_and_mismatch_rejects(self):
         public=base64.b64decode(PUBLIC_KEY,validate=True)

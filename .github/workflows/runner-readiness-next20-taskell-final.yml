@@ -190,11 +190,7 @@ jobs:
 
       - name: Build and run all pinned upstream Taskell tests
         working-directory: artifacts/runner-readiness-next-twenty-project-pass/active/taskell/src
-        run: |
-          if [[ -n "${TASKELL_LLVM_LIBRARY_PATH:-}" ]]; then
-            export DYLD_LIBRARY_PATH="$TASKELL_LLVM_LIBRARY_PATH${DYLD_LIBRARY_PATH:+:$DYLD_LIBRARY_PATH}"
-          fi
-          stack test --test
+        run: stack test --test
 
       - name: Build isolated native Taskell runtime and bind identities
         run: |
@@ -204,9 +200,6 @@ jobs:
           bin="$root/native-build/bin"
           mkdir -p "$bin"
           cd "$source"
-          if [[ -n "${TASKELL_LLVM_LIBRARY_PATH:-}" ]]; then
-            export DYLD_LIBRARY_PATH="$TASKELL_LLVM_LIBRARY_PATH${DYLD_LIBRARY_PATH:+:$DYLD_LIBRARY_PATH}"
-          fi
           stack install taskell --local-bin-path "$bin"
           "$bin/taskell" -v
           cd "$GITHUB_WORKSPACE"

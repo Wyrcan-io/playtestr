@@ -184,7 +184,6 @@ jobs:
           bin="$root/native-build/bin"
           mkdir -p "$bin"
           cd "$root/src"
-          export DYLD_LIBRARY_PATH="$TASKELL_LLVM_LIBRARY_PATH${DYLD_LIBRARY_PATH:+:$DYLD_LIBRARY_PATH}"
           stack install taskell --local-bin-path "$bin"
           "$bin/taskell" -v
           cd "$GITHUB_WORKSPACE"
