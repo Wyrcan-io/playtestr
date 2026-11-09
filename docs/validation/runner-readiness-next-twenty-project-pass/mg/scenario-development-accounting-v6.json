@@ -1,0 +1,72 @@
+{
+  "schema_version": 6,
+  "project": "mg",
+  "candidate": "v0.4.0-rc.6",
+  "target_pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "admission_credit": 0,
+  "prior_accounting": "mg/scenario-development-accounting-v5.json",
+  "n04_first_failure": "mg/n04-first-attempt-readback-v1.json",
+  "n04_success_readback": "mg/n04-native-readback-v1.json",
+  "attempts": [
+    {
+      "run_id": 42716663487,
+      "scenario": "n02-edit-append",
+      "host_attempts": 2,
+      "passed": 0,
+      "failed": 2,
+      "finding": "initial save confirmation oracle expected basename"
+    },
+    {
+      "run_id": 42717420876,
+      "scenario": "n02-edit-append",
+      "host_attempts": 2,
+      "passed": 2,
+      "failed": 0
+    },
+    {
+      "run_id": 42719240888,
+      "scenario": "n03-query-replace",
+      "host_attempts": 2,
+      "passed": 0,
+      "failed": 2,
+      "finding": "invisible trailing blank in prompt assertion"
+    },
+    {
+      "run_id": 42720209709,
+      "scenario": "n03-query-replace",
+      "host_attempts": 2,
+      "passed": 2,
+      "failed": 0
+    },
+    {
+      "run_id": 42721418974,
+      "scenario": "n04-cut-yank",
+      "host_attempts": 2,
+      "passed": 0,
+      "failed": 2,
+      "finding": "missing separator before yanked text"
+    },
+    {
+      "run_id": 42721990744,
+      "scenario": "n04-cut-yank",
+      "host_attempts": 2,
+      "passed": 2,
+      "failed": 0
+    }
+  ],
+  "scenario_development_counters": {
+    "distinct_scenarios_with_a_native_pass": 3,
+    "host_attempts": 24,
+    "passed_host_attempts": 18,
+    "failed_host_attempts": 6,
+    "scope": "N02, N03, N04 scenario runs across every workflow retry/rerun through run 42721990744; N01 first-use pilot executions are separately accounted."
+  },
+  "qualification_counters": {
+    "scenarios": 0,
+    "native_cells": 0,
+    "ordinary_executions": 0,
+    "calibrations": 0,
+    "real_source_faults": 0
+  },
+  "status": "N02/N03/N04 have passing development probes on Linux/macOS; exact saved bytes are asserted in reports but are not independently retained; full qualification gates remain open."
+}
