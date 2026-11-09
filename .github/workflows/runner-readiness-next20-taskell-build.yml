@@ -79,6 +79,9 @@ jobs:
         run: |
           set -euo pipefail
           cd artifacts/runner-readiness-next-twenty-project-pass/active/taskell/src
+          if [[ -n "${TASKELL_LLVM_LIBRARY_PATH:-}" ]]; then
+            export DYLD_LIBRARY_PATH="$TASKELL_LLVM_LIBRARY_PATH${DYLD_LIBRARY_PATH:+:$DYLD_LIBRARY_PATH}"
+          fi
           stack test --test
       - name: Build local executable and record its identity
         shell: bash
@@ -89,6 +92,9 @@ jobs:
           packet="$root/native-build"
           mkdir -p "$packet/bin"
           cd "$source"
+          if [[ -n "${TASKELL_LLVM_LIBRARY_PATH:-}" ]]; then
+            export DYLD_LIBRARY_PATH="$TASKELL_LLVM_LIBRARY_PATH${DYLD_LIBRARY_PATH:+:$DYLD_LIBRARY_PATH}"
+          fi
           stack install taskell --local-bin-path "$packet/bin"
           "$packet/bin/taskell" -v
           python - <<'PY'

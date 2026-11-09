@@ -326,6 +326,14 @@ def checked_version(executable,env):
     return (result.stdout or '')+(result.stderr or '')
 
 
+def github_environment(prefix,manifest):
+    """Return values safe to export globally; loader paths stay command-scoped."""
+    prefix=Path(prefix)
+    return {'PATH':str(prefix/'bin')+os.pathsep+os.environ.get('PATH',''),
+        'TASKELL_LLVM_LIBRARY_PATH':str(prefix/'lib'),
+        'TASKELL_LLVM_MANIFEST':str(manifest)}
+
+
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--github-env',required=True)
     args=parser.parse_args()
@@ -473,10 +481,14 @@ def main():
         tool_prefix=str(prefix),opt_sha256=sha256(opt),llc_sha256=sha256(llc),
         files=files,opt_version=opt_text.strip(),llc_version=llc_text.strip(),
         scope='Signature-verified exact MacPorts LLVM 12.0.1 ARM64 tools and owned libraries for Taskell GHC 9.0.2; archive and extracted files stay in the campaign toolchain root.'))
+    github_env=github_environment(prefix,manifest)
     with Path(args.github_env).open('a',encoding='utf-8',newline='\n') as stream:
-        stream.write('PATH='+env['PATH']+'\n')
-        stream.write('DYLD_LIBRARY_PATH='+env['DYLD_LIBRARY_PATH']+'\n')
-        stream.write('TASKELL_LLVM_MANIFEST='+str(manifest)+'\n')
+        stream.write('PATH='+github_env['PATH']+'\n')
+        # Keep MacPorts libraries scoped to Taskell's Stack invocations. Exporting
+        # DYLD_LIBRARY_PATH globally poisons unrelated host tools (including Git)
+        # with MacPorts libiconv and can crash Haskell dependency builds.
+        stream.write('TASKELL_LLVM_LIBRARY_PATH='+github_env['TASKELL_LLVM_LIBRARY_PATH']+'\n')
+        stream.write('TASKELL_LLVM_MANIFEST='+github_env['TASKELL_LLVM_MANIFEST']+'\n')
     print(json.dumps(dict(manifest=str(manifest),package_sha256=sha256(package),expanded_bytes=expanded,
         opt_sha256=sha256(opt),llc_sha256=sha256(llc),libffi_package_sha256=sha256(ffi_package),
         libedit_package_sha256=sha256(edit_package),ncurses_package_sha256=sha256(ncurses_package),

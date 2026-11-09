@@ -16,7 +16,7 @@ from next20_taskell_llvm import (PUBLIC_KEY,PUBLIC_KEY_GIT_BLOB,SIGNATURE_COMMEN
     MACPORTS_LIBCHARSET_DYLIB,
     checked_version,decode_signify_signature,
     safe_extract,safe_extract_dylib_family,safe_extract_libffi,tool_inventory,
-    verify_macos_link_closure,verify_tool_inventory)
+    verify_macos_link_closure,verify_tool_inventory,github_environment)
 
 
 class TaskellLLVMTests(unittest.TestCase):
@@ -25,6 +25,11 @@ class TaskellLLVMTests(unittest.TestCase):
         self.temp=tempfile.TemporaryDirectory(dir=RAW/'tmp')
         self.addCleanup(self.temp.cleanup)
         self.root=Path(self.temp.name)
+
+    def test_github_environment_keeps_dyld_loader_path_command_scoped(self):
+        values=github_environment(self.root/'llvm',self.root/'manifest.json')
+        self.assertIn('TASKELL_LLVM_LIBRARY_PATH',values)
+        self.assertNotIn('DYLD_LIBRARY_PATH',values)
 
     def test_pinned_archive_key_matches_signify_envelope_and_mismatch_rejects(self):
         public=base64.b64decode(PUBLIC_KEY,validate=True)

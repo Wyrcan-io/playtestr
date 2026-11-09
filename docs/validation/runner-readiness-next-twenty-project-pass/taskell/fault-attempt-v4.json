@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "project": "taskell",
+  "candidate": "v0.4.0-rc.6",
+  "workflow_run_id": 42537098345,
+  "source_revision": "86cc6f5cdfe327d02dc4d060cfc0d5f8959790d1",
+  "previous_attempt": "fault-attempt-v3.json",
+  "admission_credit": 0,
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128903713199,
+      "conclusion": "passed_source_fault_calibration",
+      "fault_phases_reported": 9,
+      "target_launched": true,
+      "checked_target_cleanup": true,
+      "artifact": {
+        "id": 13639558577,
+        "name": "taskell-fault-calibration-native-exit-v1-linux",
+        "bytes": 11771215,
+        "sha256": "53728478c10a78e5720c7e3be820484a56e8450d7b729dcf217aad7bc904839f"
+      }
+    },
+    {
+      "host": "macos-15-arm64",
+      "job_id": 128903713389,
+      "conclusion": "failure_during_native_target_build_before_cases",
+      "failed_step": "Build pristine native Taskell runtime and bind identity",
+      "failure": "Stack dependency builds aborted because process-wide DYLD_LIBRARY_PATH selected MacPorts libiconv without the required _iconv symbol; the same leaked loader path also broke host Git during post-job cleanup.",
+      "target_launched": false,
+      "checked_no_case_source_cleanup": true,
+      "artifact": {
+        "id": 13639912373,
+        "name": "taskell-fault-calibration-native-exit-v1-darwin",
+        "bytes": 264091598,
+        "sha256": "7db3e6949f28b1cdc33f053eab418f9a5ee8eda8cd02dc641e43e42e95a16f08"
+      }
+    }
+  ],
+  "scope": "Preserves this attempt's Linux fault calibration and macOS pre-case build failure. It grants no new-project admission credit. The loader path is now exported only in Taskell Stack steps, and a focused regression asserts it is absent from GitHub's global environment file."
+}

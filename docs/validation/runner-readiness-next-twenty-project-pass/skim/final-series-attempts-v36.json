@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "project": "skim",
+  "candidate": "v0.4.0-rc.6",
+  "workflow_run_id": 42537098520,
+  "source_revision": "86cc6f5cdfe327d02dc4d060cfc0d5f8959790d1",
+  "previous_declaration": "final-series-declaration-native-exit-v35.json",
+  "admission_credit": 0,
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128903714287,
+      "conclusion": "failure_before_target_execution",
+      "failed_step": "Independently reconstruct all frozen contracts",
+      "failure": "The independent audit read the V34 declaration while the V35 plan bound a different declaration; its plan namespace and contract directory also still targeted V28.",
+      "target_cases_launched": 0,
+      "candidate_installed": true,
+      "target_source_built": true,
+      "checked_source_and_process_cleanup": true,
+      "artifact": {
+        "id": 13640440146,
+        "name": "next20-skim-linux-rc6-final",
+        "bytes": 6349264,
+        "sha256": "515845d127e875a1ee09f169e4215abc45f6b102262bf069c11d3e0628c011b3"
+      }
+    },
+    {
+      "host": "windows-2025-x86_64",
+      "job_id": 128903714003,
+      "conclusion": "failure_before_target_execution",
+      "failed_step": "Independently reconstruct all frozen contracts",
+      "failure": "The independent audit read the V34 declaration while the V35 plan bound a different declaration; its plan namespace and contract directory also still targeted V28.",
+      "target_cases_launched": 0,
+      "candidate_installed": true,
+      "target_source_built": true,
+      "checked_source_and_process_cleanup": true,
+      "artifact": {
+        "id": 13639189053,
+        "name": "next20-skim-windows-rc6-final",
+        "bytes": 6667582,
+        "sha256": "901309dc2fa23c4cfddc9cd44b36f3db422b54c83b41d543a2e3566e37653b9e"
+      }
+    }
+  ],
+  "scope": "Preserves both V35 zero-launch failures and exact provider artifact identities. The corrected V36 declaration changes only the frozen audit binding and native plan namespace; no Skim scenario, fault, calibration, or admission credit is granted by this attempt."
+}
