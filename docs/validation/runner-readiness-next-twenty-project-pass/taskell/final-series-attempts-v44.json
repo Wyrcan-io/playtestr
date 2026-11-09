@@ -1,0 +1,379 @@
+{
+  "admission_credit": 0,
+  "candidate": "v0.4.0-rc.6",
+  "disposition": "Taskell completed scenario, authoring, source-fault and retention evidence, but fails the declared acquisition/build time envelope on macOS (both measured runs exceed 1200 seconds). Preserve all passing and failed evidence; grant zero project credit and do not create admission.json. Checked native target cleanup succeeded on the completed hosted workflow. Continue to the next pre-screened independent application mg (troglobit/mg), with no Taskell source/runtime workspace active.",
+  "local_source_workspace_cleanup": {
+    "candidate_archive_preserved_at": "artifacts/runner-readiness-next-twenty-project-pass/replacement-archives/native-exit-v1/playtestr_0.4.0-rc.6_darwin_arm64.tar.gz",
+    "candidate_archive_sha256": "132152710ade2c01cac7558f75212121f01af8ab02c5735dc9c7de1c33dbe625",
+    "checked_absence_after_removal": true,
+    "command_line_observer": "Win32_Process access denied; this was a source-only directory with no built Taskell runtime, and both hosted native process-tree cleanup checks succeeded",
+    "owned_bytes": 6857572,
+    "owned_files": 155,
+    "owned_path": "artifacts/runner-readiness-next-twenty-project-pass/active/taskell",
+    "process_images_inside_target": 0,
+    "removed": true,
+    "reparse_points": 0,
+    "source_archive_and_receipts_retained_before_removal": true
+  },
+  "measured_resource_gate": {
+    "current_workflow_conclusion": "success",
+    "current_workflow_linux_job_seconds": 783,
+    "current_workflow_mac_upstream_completed_utc": "2026-11-09T07:50:05Z",
+    "current_workflow_mac_upstream_started_utc": "2026-11-09T07:20:22Z",
+    "current_workflow_macos_job_seconds": 2354,
+    "current_workflow_run_id": 42578277786,
+    "current_workflow_source_revision": "2d72f440c36640ed549d97e02cb48ff1513b6fa1",
+    "limit_seconds": 1200,
+    "macos_upstream_build_test_run_42568632061_seconds": 1271,
+    "macos_upstream_build_test_run_42578277786_seconds": 1783,
+    "resource_gate_passed": false
+  },
+  "previous_attempt": "final-series-attempts-v43.json",
+  "project": "taskell",
+  "qualified_candidate_series": {
+    "canonical_scenarios": 20,
+    "edge": 12,
+    "hosts": [
+      {
+        "artifact_id": 13652504405,
+        "artifact_name": "taskell-final-native-exit-v1-linux",
+        "conclusion": "success",
+        "host": "ubuntu-24.04-x86_64",
+        "job_id": 129000622561,
+        "ordinary_attempted": 252,
+        "ordinary_failed": 0,
+        "ordinary_passed": 252,
+        "provider_zip_sha256": "a48ee9f136259228890b70a056d2f2502d7000eaf595477490435fbb9a6a30a0",
+        "retained_generation": 4,
+        "upstream_tests": 250
+      },
+      {
+        "artifact_id": 13653008868,
+        "artifact_name": "taskell-final-native-exit-v1-darwin",
+        "conclusion": "success",
+        "host": "macos-15-arm64",
+        "job_id": 129000622854,
+        "ordinary_attempted": 252,
+        "ordinary_failed": 0,
+        "ordinary_passed": 252,
+        "provider_zip_sha256": "fd653d5337139b033f8f97ab48e293ac041c1ebbb5d96d6c44aa5a83ac281def",
+        "retained_generation": 9,
+        "upstream_tests": 250
+      }
+    ],
+    "independent_readback": {
+      "all_24_batch_summaries_read": true,
+      "all_reports_passed": true,
+      "provider_zip_digests_match": true,
+      "public_route_receipt": "passed; seeded diagnosis and pre-maintenance state control rejected as declared; agent route only; human usability unmeasured",
+      "report_hashes_verified": 504,
+      "runtime_binary_and_identity_read_on_both_hosts": true,
+      "source_restoration_and_checked_cleanup_receipts_retained": true,
+      "zip_crc_clean": true
+    },
+    "normal": 8,
+    "reports_per_host": 252,
+    "reports_total": 504,
+    "run_id": 42568632061,
+    "scenario_declaration_sha256": "4b78b72578932a36eefb3cd4d4b6e315d7f3d311070240cd402ef0da24a39425",
+    "scenario_revision": 3,
+    "source_revision": "c1d63250b12a55adf430de07a3b68b4a8b183847"
+  },
+  "retention": {
+    "all_successful_packets_independently_read": true,
+    "full_provider_zips_written_to_disk": false,
+    "measured_total_bytes": 58161257,
+    "packet_generations": {
+      "1": {
+        "archive_bytes": 7091952,
+        "archive_sha256": "09b931dcd87defaf6ef9e0fa656f3f772d6bb0f7fa940d60e527e84347e427fb",
+        "directory": "artifacts/runner-readiness-next-twenty-project-pass/taskell/retained-native-v1",
+        "files": [
+          {
+            "bytes": 673324,
+            "name": "index.json",
+            "sha256": "d07c001a58499707b9ac331b0cbcefef22ef699b4c7066491a9f9cfaacd1be8f"
+          },
+          {
+            "bytes": 7091952,
+            "name": "packets.tar.xz",
+            "sha256": "09b931dcd87defaf6ef9e0fa656f3f772d6bb0f7fa940d60e527e84347e427fb"
+          },
+          {
+            "bytes": 621,
+            "name": "verified.json",
+            "sha256": "a7f3533c83c47070019225e337cbe0ccec45783f5a106a72e97aa3e29d89151d"
+          },
+          {
+            "bytes": 470,
+            "name": "acquisition.json",
+            "sha256": "01b00805e8d48c7af36f1d0acad176269846e04f7354fdf25642542a2f85dc3b"
+          }
+        ],
+        "generation": 1,
+        "independent_reader_eligible": true,
+        "logical_bytes": 38071594,
+        "logical_files": 2495,
+        "provider_zip_bytes": 13196452,
+        "provider_zip_sha256": "e3a37263cef4eb8b36df6034350202850e1dc3218670bb45a86a3a18c8e4a7e1"
+      },
+      "10": {
+        "archive_bytes": 6972180,
+        "archive_sha256": "9ec69ebb998cd7d4d43721008a33307f4ebb7a62554b4b6cb281584826d8e666",
+        "directory": "artifacts/runner-readiness-next-twenty-project-pass/taskell/retained-native-v10",
+        "files": [
+          {
+            "bytes": 31960,
+            "name": "index.json",
+            "sha256": "f08bac08ac3ed4ebdc59eec3a70c74858bafa004fa20de90888c84ffc4d14a1b"
+          },
+          {
+            "bytes": 6972180,
+            "name": "packets.tar.xz",
+            "sha256": "9ec69ebb998cd7d4d43721008a33307f4ebb7a62554b4b6cb281584826d8e666"
+          },
+          {
+            "bytes": 673,
+            "name": "verified.json",
+            "sha256": "e51ca53f29e00309b0bb89280ef885e6070b0311a368b17562325c11a64a85be"
+          },
+          {
+            "bytes": 483,
+            "name": "acquisition.json",
+            "sha256": "0e287f1716d459e35c29febc02f72f82d2bae09bf9cbe05808131f8e02081998"
+          }
+        ],
+        "generation": 10,
+        "independent_reader_eligible": true,
+        "logical_bytes": 35819189,
+        "logical_files": 122,
+        "provider_zip_bytes": 11810313,
+        "provider_zip_sha256": "f4bef91b0cfb1dc2976a83f763694cef20b61d54afe175ae240d6b40d60c043f"
+      },
+      "11": {
+        "archive_bytes": 2381780,
+        "archive_sha256": "78634e0fb3f03b73888a11d59b1aecf7c6891738654fe19961b9048834a9b2d3",
+        "directory": "artifacts/runner-readiness-next-twenty-project-pass/taskell/retained-native-v11",
+        "excluded_selected_members": [
+          "taskell/fault-calibration-native-exit-v1/darwin/runtime/taskell"
+        ],
+        "files": [
+          {
+            "bytes": 31987,
+            "name": "index.json",
+            "sha256": "48777648053ca45e60bc918a79b72ed6e978e709fb138d2dce03a3d0a7ba9169"
+          },
+          {
+            "bytes": 2381780,
+            "name": "packets.tar.xz",
+            "sha256": "78634e0fb3f03b73888a11d59b1aecf7c6891738654fe19961b9048834a9b2d3"
+          },
+          {
+            "bytes": 674,
+            "name": "verified.json",
+            "sha256": "c07741470404668a94b5388475bfffcb6e736f4fb00e75a081d566c267ee8b87"
+          },
+          {
+            "bytes": 485,
+            "name": "acquisition.json",
+            "sha256": "6016968d03a5d09f593d7f22913df574636763d46dfea3158a5eab23e63fecce"
+          }
+        ],
+        "generation": 11,
+        "independent_reader_eligible": true,
+        "logical_bytes": 2573709,
+        "logical_files": 121,
+        "provider_zip_bytes": 305362154,
+        "provider_zip_sha256": "e10af500f4d47c44dff27d535a650e4273ba7ce62d9a1bf34c0964f0feee376f"
+      },
+      "2": {
+        "directory": "artifacts/runner-readiness-next-twenty-project-pass/taskell/retained-native-v2",
+        "files": [
+          {
+            "bytes": 35704,
+            "name": "packets.tar.xz",
+            "sha256": "df4c073117c6478ec0db2dee65918220aec252444bd13297fce517ae002ff4ce"
+          }
+        ],
+        "generation": 2,
+        "independent_reader_eligible": false
+      },
+      "3": {
+        "directory": "artifacts/runner-readiness-next-twenty-project-pass/taskell/retained-native-v3",
+        "files": [
+          {
+            "bytes": 37216,
+            "name": "packets.tar.xz",
+            "sha256": "60a5bdc1b6175f33f1f77a36a2126c62d0f14dc14108bf2a8f8f1162c93b2d0e"
+          }
+        ],
+        "generation": 3,
+        "independent_reader_eligible": false
+      },
+      "4": {
+        "archive_bytes": 7091820,
+        "archive_sha256": "f1973a659ca2e54a8c70510d50e6bfe8881a910f533f090e4b5decc8daabe47a",
+        "directory": "artifacts/runner-readiness-next-twenty-project-pass/taskell/retained-native-v4",
+        "files": [
+          {
+            "bytes": 671891,
+            "name": "index.json",
+            "sha256": "108ef66439146883b06a40b0e46b77af067f1cc21a580719d82d82ea3fd47761"
+          },
+          {
+            "bytes": 7091820,
+            "name": "packets.tar.xz",
+            "sha256": "f1973a659ca2e54a8c70510d50e6bfe8881a910f533f090e4b5decc8daabe47a"
+          },
+          {
+            "bytes": 621,
+            "name": "verified.json",
+            "sha256": "4c7f7d9db279c96a588dd9c78883971b285f875585b59c6048c4470f2c676c18"
+          },
+          {
+            "bytes": 468,
+            "name": "acquisition.json",
+            "sha256": "ff2c0f9abf882e60cb55eaf0af7aba2f41c0f6503ce7768a63214dddabfc6d64"
+          }
+        ],
+        "generation": 4,
+        "independent_reader_eligible": true,
+        "logical_bytes": 38079013,
+        "logical_files": 2491,
+        "provider_zip_bytes": 13195035,
+        "provider_zip_sha256": "a48ee9f136259228890b70a056d2f2502d7000eaf595477490435fbb9a6a30a0"
+      },
+      "8": {
+        "archive_bytes": 14638484,
+        "archive_sha256": "6379e3c20faf20817cb2752a1ff3d70b724b063e622343be35d4cf5f9c3b979e",
+        "directory": "artifacts/runner-readiness-next-twenty-project-pass/taskell/retained-native-v8",
+        "files": [
+          {
+            "bytes": 674927,
+            "name": "index.json",
+            "sha256": "637b6795ecd68f88294ca6b66870d97b6fb97e5c9f6a4372a682f2f1e2f76dbe"
+          },
+          {
+            "bytes": 14638484,
+            "name": "packets.tar.xz",
+            "sha256": "6379e3c20faf20817cb2752a1ff3d70b724b063e622343be35d4cf5f9c3b979e"
+          },
+          {
+            "bytes": 622,
+            "name": "verified.json",
+            "sha256": "550af3ce5571b4c7df77c7e2cafa809dfda0ea9106d67e8822a3b2063bbddd8d"
+          },
+          {
+            "bytes": 473,
+            "name": "acquisition.json",
+            "sha256": "78c527330eb37aa6088714338f42e2aae8d747bec783c28ee5c9058646324311"
+          }
+        ],
+        "generation": 8,
+        "independent_reader_eligible": true,
+        "logical_bytes": 98990978,
+        "logical_files": 2491,
+        "provider_zip_bytes": 306750992,
+        "provider_zip_sha256": "520dbbe5e615ad47265b4dcc699b499f525971f58ca7883d3de2181c2eea8336"
+      },
+      "9": {
+        "archive_bytes": 14639848,
+        "archive_sha256": "a5fe727b94f7bd6f3a4d75a3a0274a582715c16ef40ff50b8a9d4af88dcfea53",
+        "directory": "artifacts/runner-readiness-next-twenty-project-pass/taskell/retained-native-v9",
+        "files": [
+          {
+            "bytes": 674928,
+            "name": "index.json",
+            "sha256": "4505e2dc6d449d6f7eef50fd2a8ea6c1daabeda198ba9c16ddda77cbeabd1369"
+          },
+          {
+            "bytes": 14639848,
+            "name": "packets.tar.xz",
+            "sha256": "a5fe727b94f7bd6f3a4d75a3a0274a582715c16ef40ff50b8a9d4af88dcfea53"
+          },
+          {
+            "bytes": 622,
+            "name": "verified.json",
+            "sha256": "22edd371505f34ceaec47fee2e5f019c774c9419fdbb3468d811c3a418b3fb9c"
+          },
+          {
+            "bytes": 473,
+            "name": "acquisition.json",
+            "sha256": "9f52a07dc62f4076ba4af3bc2c4d83cb48f8f31eb6cc614af038d34215071505"
+          }
+        ],
+        "generation": 9,
+        "independent_reader_eligible": true,
+        "logical_bytes": 99001992,
+        "logical_files": 2491,
+        "provider_zip_bytes": 306751958,
+        "provider_zip_sha256": "fd653d5337139b033f8e97ab48e293ac041c1ebbb5d96d6c44aa5a83ac281def"
+      }
+    },
+    "preserved_incomplete_attempts": {
+      "admission_credit": 0,
+      "generation_2_partial_archive_bytes": 35704,
+      "generation_3_partial_archive_bytes": 37216,
+      "has_index_or_verified_receipt": false
+    },
+    "project_limit_bytes": 67108864,
+    "retained_source": {
+      "acquisition_and_owner_receipts_retained": true,
+      "archive_bytes": 2346081,
+      "archive_sha256": "23804ef331022030aeb97da2c34b07828dfe68144ba71b5b431e4f22310853e9",
+      "cleanup_inventory_sha256": "2ba84a014e5be06fd8fd572cb7e35b9e4dde6e85dfd2c9e20f17461fba3bc3be",
+      "git_modes_verified_from_original_tar": true,
+      "removed_receipt_sha256": "d6ee52f885757daa792aeac336df657aece8b782993a00c26ed8da4f198a2610",
+      "source_file_hashes_match": true,
+      "source_files": 151
+    },
+    "root": "artifacts/runner-readiness-next-twenty-project-pass/taskell",
+    "within_limit": true
+  },
+  "schema_version": 1,
+  "scope": "Closure of the Taskell attempt after exact v3 Linux/macOS candidate success, source-fault controls and full local selected-packet readback. The project is rejected for this campaign at zero credit because its measured macOS source build/upstream test step exceeded the required 20-minute acquisition/build ceiling. The candidate scenario evidence remains retained and is not discarded or relabeled.",
+  "source_fault_calibration": {
+    "cleanup_confirmed": 18,
+    "distinct_real_faults": 3,
+    "hosts": [
+      {
+        "artifact_id": 13648184879,
+        "host": "ubuntu-24.04-x86_64",
+        "job_id": 128971992724,
+        "provider_sha256": "f4bef91b0cfb1dc2976a83f763694cef20b61d54afe175ae240d6b40d60c043f",
+        "retained_generation": 10
+      },
+      {
+        "artifact_id": 13650355283,
+        "host": "macos-15-arm64",
+        "job_id": 128971992303,
+        "provider_sha256": "e10af500f4d47c44dff27d535a650e4273ba7ce62d9a1bf34c0964f0feee376f",
+        "retained_generation": 11
+      }
+    ],
+    "macos_exclusion": "The exact runtime executable path was excluded from the compact fault packet and recorded in its index; it was independently identity-checked in the full provider ZIP before retention. The retained source/runtime identity, all reports, fault receipts and cleanup evidence remain available.",
+    "phases_per_host": 9,
+    "phases_total": 18,
+    "reports_hash_verified": 18,
+    "run_id": 42556755286,
+    "source_restored_on_both_hosts": true,
+    "source_revision": "50f0aee2c7d9bd22174e6209ba138a57e40d90c1"
+  },
+  "source_pin": "smallhadroncollider/taskell@a2df95f26762fc3e78d6f131cea7fc1f3b13bd47",
+  "superseded_candidate_v2": {
+    "admission_credit": 0,
+    "failed_linux_cases": [
+      "batch 3 N04 q-exit timeout",
+      "batch 6 N04 q-exit timeout"
+    ],
+    "linux_failed": 2,
+    "linux_passed": 250,
+    "macos_passed": 252,
+    "retained_generations": {
+      "linux": 1,
+      "macos": 8
+    },
+    "run_id": 42562896979,
+    "source_revision": "6df2b676b8f750a7d18809ed1bc9b39525760c08"
+  }
+}
