@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "project": "mg",
+  "candidate": "v0.4.0-rc.6",
+  "target_pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "admission_credit": 0,
+  "attempts": [
+    {
+      "run_id": 42716663487,
+      "commit": "75f4fe0c",
+      "scenario_id": "n02-edit-append",
+      "contract_sha256": "888f43f6c9a35e150d88240f5eea9f6ba8507729c326bd820669b5e7b47a0a05",
+      "result": "failed assertion at save confirmation on both hosts; no state step ran",
+      "root_cause": "mg's successful save message contains the full absolute file path; the draft expected basename-only text",
+      "linux": {
+        "job_id": 129499872946,
+        "target_exit_code": 137,
+        "failed_step": 8,
+        "failure_category": "assertion_timeout",
+        "screen_artifact_path": "mg/scenario-development/linux/n02-edit-append/8d10ee740b4c4e0ab252872d6a907c26/report-artifacts/20261109T225934Z-2513563030/ocs-validation-runner-readiness-next-twenty-project-pass-mg-n02-edit-append.json-b2353564896d.actual.txt",
+        "target_cleanup": "forced process-group cleanup; confirmed exited",
+        "runner_process_group_cleanup": "process group absent; no owned descendants remain",
+        "workspace_cleanup": "confirmed",
+        "workflow_input_cleanup": "confirmed",
+        "attempt_id": "8d10ee740b4c4e0ab252872d6a907c26"
+      },
+      "darwin": {
+        "job_id": 129499873349,
+        "target_exit_code": 137,
+        "failed_step": 8,
+        "failure_category": "assertion_timeout",
+        "screen_artifact_path": "mg/scenario-development/darwin/n02-edit-append/a1269c723887464b88e9014bb4fba50e/report-artifacts/20261109T225942Z-2461739552/ocs-validation-runner-readiness-next-twenty-project-pass-mg-n02-edit-append.json-8485edaf0114.actual.txt",
+        "target_cleanup": "forced process-group cleanup; confirmed exited",
+        "runner_process_group_cleanup": "process group absent; no owned descendants remain",
+        "workspace_cleanup": "confirmed",
+        "workflow_input_cleanup": "confirmed",
+        "attempt_id": "a1269c723887464b88e9014bb4fba50e"
+      },
+      "retained_artifacts": [
+        {"host": "linux", "artifact_id": 13718186974, "bytes": 11477, "provider_sha256": "dace126228ab6d633a09aab52e7ae544f368b7cd3f59632945e61f2b38ed39fc", "local_sha256": "dace126228ab6d633a09aab52e7ae544f368b7cd3f59632945e61f2b38ed39fc"},
+        {"host": "darwin", "artifact_id": 13717822449, "bytes": 11520, "provider_sha256": "3175f6c5cacf67a2ebe5c9063c5cdbf6a15cfeaa25250c3d5028e2f61b6f0444", "local_sha256": "3175f6c5cacf67a2ebe5c9063c5cdbf6a15cfeaa25250c3d5028e2f61b6f0444"}
+      ]
+    }
+  ],
+  "disposition": "The public expectation was changed to the host-independent prefix 'Wrote '. Preserve this failed attempt unchanged; the corrected contract is an unqualified development retry.",
+  "current_status": "N02 not yet passed or frozen; mg remains unadmitted"
+}

@@ -14,6 +14,7 @@ class MgScenarioContractTests(unittest.TestCase):
         self.assertEqual(spec["command"], ["mg", "-S", "-n", "notes.txt"])
         self.assertEqual(spec["workspace"]["fixture"], "fixtures/n02-edit-append")
         self.assertEqual((fixture / "notes.txt").read_bytes(), b"BASELINE\n")
+        self.assertEqual(spec["steps"][7], {"expect": "Wrote "})
         self.assertEqual(base64.b64decode(spec["steps"][-1]["state"]["bytes_base64"], validate=True),
                          b"BASELINE\nAPPENDED")
         self.assertEqual(len(data), len((DOC / "mg/n02-edit-append.json").read_bytes()))

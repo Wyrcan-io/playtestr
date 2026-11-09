@@ -568,7 +568,7 @@
       "id": "mg",
       "repository": "troglobit/mg",
       "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
-      "status": "source-acquired; native Linux/macOS builds and one N01 PTY pilot passed; full scenario qualification, repetition, source-fault calibration, and admission gates pending; zero admission credit",
+      "status": "source-acquired; native builds and N01 pilot passed on Linux/macOS; N02 development probe failed on its confirmation-text oracle and was corrected; full scenario qualification, repetition, faults, and admission remain pending; zero admission credit",
       "acquired": true,
       "admitted": false,
       "planned_hosts": [
@@ -616,7 +616,8 @@
       "pilot_spec": "mg/pilot-n01.json",
       "pilot_workflow": ".github/workflows/runner-readiness-next20-mg-pilot.yml",
       "pilot_attempt_accounting": "mg/pilot-attempt-accounting-v2.json",
-      "pilot_native_readback": "mg/pilot-n01-native-readback-v1.json"
+      "pilot_native_readback": "mg/pilot-n01-native-readback-v1.json",
+      "scenario_attempt_accounting": "mg/scenario-development-accounting-v1.json"
     }
   ],
   "observed_audited_ordinary_executions": 2400,
