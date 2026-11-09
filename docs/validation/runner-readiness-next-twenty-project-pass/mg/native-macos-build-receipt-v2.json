@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "project": "mg",
+  "pin": "2209e2087eab34ffceb6bfaa0a62f9e4c36e3c66",
+  "candidate": "v0.4.0-rc.6",
+  "workflow": ".github/workflows/runner-readiness-next20-mg-build.yml",
+  "commit": "02b232636c20974650ea2620fe12e39d8c9b42d7",
+  "run_id": 42701808766,
+  "run_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/42701808766",
+  "host": "darwin",
+  "runner": "macos-15-arm64",
+  "architecture": "arm64",
+  "job_id": 129448145020,
+  "job_conclusion": "failure",
+  "artifact_id": 13712171222,
+  "artifact_name": "next20-mg-build-darwin-42701808766",
+  "artifact_bytes": 5664959,
+  "artifact_sha256": "ab607b97e4b215a04a9172240558b1e74c53cc1c0c51d8545c4edb7c1e0c0ac2",
+  "source_archive_sha256": "bd8aff8ddbf55f7d37067a9f01e6bef887a2b0f2c0699aaa08a73d7dfd6069a8",
+  "native_helper_suite": "12/12 passed",
+  "source_acquisition": "exact commit and archive verified; 133 extracted files, 1,349,286 expanded bytes",
+  "failure": {
+    "stage": "building pinned Automake 1.18.1",
+    "command": "make -j2",
+    "exit_code": 2,
+    "log": "mg/build-development/d2ec7a63ab0d4d619f0667bd6cfeffdf/toolchain-automake-make.log",
+    "diagnosis": "Automake's supported out-of-tree bootstrap attempted to write build_dir/t/testsuite-part.tmp, but Automake's release build does not create that build-side directory.",
+    "corrective_change": "Create the owned build_dir/t before invoking Automake's make."
+  },
+  "storage": {
+    "new_raw": 68963731,
+    "combined_raw": 1977991392,
+    "combined_retained": 989089003,
+    "project": 143820,
+    "new_curated": 17282676,
+    "combined_curated": 28863300,
+    "failed_limits": []
+  },
+  "scenario_execution": false,
+  "source_faults": 0,
+  "admission_credit": 0,
+  "scope": "Retained macOS failure evidence for the pinned toolchain bootstrap. mg was not built on macOS and no PTY behavior, scenarios, source faults or admission are established."
+}

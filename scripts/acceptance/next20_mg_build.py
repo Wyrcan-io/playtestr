@@ -162,6 +162,11 @@ def owned_autotools(target, evidence, env, deadline, commands):
             flags.append("--disable-nls")
         run_bounded([str(configure), *flags], build_dir, local_env,
                     evidence / f"toolchain-{item['name']}-configure.log", deadline, commands)
+        if item["name"] == "automake":
+            # Automake's out-of-tree bootstrap writes a temporary fragment under
+            # build_dir/t before atomically replacing the source-tree target.
+            # Its release archive does not require that build-side directory.
+            (build_dir / "t").mkdir(exist_ok=True)
         run_bounded(["make", "-j2"], build_dir, local_env,
                     evidence / f"toolchain-{item['name']}-make.log", deadline, commands)
         run_bounded(["make", "install"], build_dir, local_env,
