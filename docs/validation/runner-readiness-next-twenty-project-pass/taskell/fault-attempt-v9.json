@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "project": "taskell",
+  "candidate": "v0.4.0-rc.6",
+  "workflow_run_id": 42556755286,
+  "source_revision": "50f0aee2c7d9bd22174e6209ba138a57e40d90c1",
+  "previous_attempt": "fault-attempt-v8.json",
+  "admission_credit": 0,
+  "scope": "Exact native-exit-v1 source-fault calibration on Linux and macOS. Both hosts passed all nine baseline/mutated/restored phases over the three declared faults, confirmed target cleanup, and restored the exact pinned source. Both artifacts were streamed into memory: provider SHA-256 matched; all nine report files per host matched their recorded report hashes and confirmed process/workspace cleanup; each summary reported three faults, nine required phases, no failures and source_restored=true. No ZIP was retained locally. Fault calibration does not itself award project admission credit.",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128971992724,
+      "conclusion": "passed_source_fault_calibration",
+      "fault_phases_reported": 9,
+      "target_launched": true,
+      "checked_target_cleanup": true,
+      "source_restored": true,
+      "artifact": {
+        "id": 13648184879,
+        "name": "taskell-fault-calibration-native-exit-v1-linux",
+        "bytes": 11810313,
+        "provider_sha256": "f4bef91b0cfb1dc2976a83f763694cef20b61d54afe175ae240d6b40d60c043f"
+      },
+      "independent_readback": {
+        "downloaded_in_memory": true,
+        "sha256_matches_provider": true,
+        "summary_faults": 3,
+        "report_hashes_checked": 9,
+        "reports_with_confirmed_cleanup": 9,
+        "source_restored": true,
+        "failures": 0
+      }
+    },
+    {
+      "host": "macos-15-arm64",
+      "job_id": 128971992303,
+      "conclusion": "passed_source_fault_calibration",
+      "fault_phases_reported": 9,
+      "target_launched": true,
+      "checked_target_cleanup": true,
+      "source_restored": true,
+      "artifact": {
+        "id": 13650355283,
+        "name": "taskell-fault-calibration-native-exit-v1-darwin",
+        "bytes": 305362154,
+        "provider_sha256": "e10af500f4d47c44dff27d535a650e4273ba7ce62d9a1bf34c0964f0feee376f"
+      },
+      "independent_readback": {
+        "downloaded_in_memory": true,
+        "sha256_matches_provider": true,
+        "summary_faults": 3,
+        "report_hashes_checked": 9,
+        "reports_with_confirmed_cleanup": 9,
+        "source_restored": true,
+        "failures": 0
+      }
+    }
+  ],
+  "readback": {
+    "both_provider_digests_verified": true,
+    "all_nine_fault_reports_per_host_hash_verified": true,
+    "all_fault_reports_confirmed_cleanup": true,
+    "all_source_trees_restored": true,
+    "admission_credit": 0
+  },
+  "disposition": "Source-fault calibration is fully qualified on both native hosts. Candidate admission remains open until the corrected public authoring route, twelve candidate batches, all packet checks and the project closure gates pass."
+}

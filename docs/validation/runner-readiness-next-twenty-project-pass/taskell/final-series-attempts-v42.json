@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "project": "taskell",
+  "candidate": "v0.4.0-rc.6",
+  "workflow_run_id": 42556755119,
+  "source_revision": "50f0aee2c7d9bd22174e6209ba138a57e40d90c1",
+  "previous_attempt": "final-series-attempts-v41.json",
+  "admission_credit": 0,
+  "scope": "Exact native-exit-v1 attempt with complete Taskell artifact paths. Both hosts passed pinned upstream tests and built the exact Taskell runtime. Linux passed initial recording, ordinary replay, diagnosis, and selected-state maintenance, then its Unicode-relocated rerun timed out on the exit action because `q` was sent while Taskell remained in INSERT mode. macOS passed initial recording and ordinary replay, but public /update-state could not reconstruct the prefix and returned unresolved recorder control failures; the frozen route lacked explicit INSERT entry/exit readiness checkpoints. Candidate batches were skipped on both hosts. The artifact diagnostics were independently read in memory and matched provider digests. A successor now records the frozen Review sample, INSERT, and Escape-exit checkpoints using the recorder's documented `/absent` command and requires exact equality with the frozen interaction steps.",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04-x86_64",
+      "job_id": 128964108874,
+      "conclusion": "public_route_failure_before_candidate_batches",
+      "upstream_tests": "passed",
+      "target_runtime_build": "passed",
+      "initial_public_record_and_test": "passed",
+      "diagnosis_and_selected_state_maintenance": "passed",
+      "unicode_relocation": "failed_exit_step_timeout_while_target_still_in_INSERT_mode",
+      "exact_candidate_batches": 0,
+      "checked_target_cleanup": true,
+      "artifact": {
+        "id": 13647169357,
+        "name": "taskell-final-native-exit-v1-linux",
+        "bytes": 11811789,
+        "provider_sha256": "59562f44c9817eccf5ae6bb9d2212ac5e9b81395d537c45f25b413ac0918f2c7"
+      },
+      "independent_readback": {
+        "downloaded_in_memory": true,
+        "sha256_matches_provider": true,
+        "member_count": 162,
+        "route_console_and_report_members_read": true,
+        "admission_credit": 0
+      }
+    },
+    {
+      "host": "macos-15-arm64",
+      "job_id": 128964108427,
+      "conclusion": "public_route_update_state_prefix_failure_before_candidate_batches",
+      "upstream_tests": "passed",
+      "target_runtime_build": "passed",
+      "initial_public_record_and_test": "passed",
+      "diagnosis_and_expected_state_failure": "passed",
+      "public_update_state": "failed_prefix_replay_timeout_with_unresolved_recorder_controls",
+      "exact_candidate_batches": 0,
+      "checked_target_cleanup": true,
+      "artifact": {
+        "id": 13648562773,
+        "name": "taskell-final-native-exit-v1-darwin",
+        "bytes": 305355017,
+        "provider_sha256": "f68c2edde26d4f6476ecda0e75a9626455616702ff099beee0a00193283febf9"
+      },
+      "independent_readback": {
+        "downloaded_in_memory": true,
+        "sha256_matches_provider": true,
+        "member_count": 3063,
+        "route_console_and_report_members_read": true,
+        "admission_credit": 0
+      }
+    }
+  ],
+  "readback": {
+    "both_provider_digests_verified": true,
+    "route_diagnostics_read_without_local_zip_retention": true,
+    "complete_candidate_batch_packets_present": false,
+    "admission_credit": 0
+  },
+  "disposition": "Neither host reached the candidate batches; no admission credit. Add positive screen readiness for the saved task and INSERT mode, wait for INSERT to disappear after Escape using the recorder's `/absent` control, compare the exported steps to the frozen case, then rerun both native hosts."
+}

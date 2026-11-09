@@ -75,11 +75,14 @@ async def main():
     attempts = []
     controls = [
         '/expect To Do',
+        '/expect Review sample',
         '/text "a"',
         '/text "New regression task"',
         '/key Enter',
         '/expect New regression task',
+        '/expect INSERT',
         '/key Escape',
+        '/absent INSERT',
         '/text "q"',
         '/exit 0',
         '/file board-basic.md',
@@ -127,6 +130,8 @@ async def main():
     recorded = json.loads(spec.read_text(encoding='utf-8'))
     if recorded.get('version') != 3 or recorded.get('command')[-2:] != ['bin/taskell', 'board-basic.md']:
         raise ValueError('Taskell public recorder export differs from the reviewed create-task interaction')
+    if recorded.get('steps') != public_case.get('steps'):
+        raise ValueError('Taskell public recorder checkpoints differ from the frozen create-task interaction')
     if recorded.get('workspace', {}).get('fixture') != 'fixtures':
         raise ValueError('Taskell public recorder did not export the managed fixture route')
     state_steps = [step for step in recorded.get('steps', []) if step.get('state', {}).get('path') == 'board-basic.md']
@@ -138,6 +143,9 @@ async def main():
     screen_count_before = sum(1 for step in recorded.get('steps', []) if step.get('expect') == 'New regression task')
     if screen_count_before != 1:
         raise ValueError('Taskell first-use route lacks the unique positive task checkpoint')
+    if (sum(1 for step in recorded.get('steps', []) if step.get('expect') == 'INSERT') != 1 or
+            sum(1 for step in recorded.get('steps', []) if step.get('expect_not') == 'INSERT') != 1):
+        raise ValueError('Taskell first-use route lacks positive insert-mode entry and Escape-exit checkpoints')
     first_report = output/'first-use-report.json'
     await run([runner, 'test', '--report', first_report.relative_to(ROOT), '--artifacts-dir',
                (output/'first-use-artifacts').relative_to(ROOT), spec.relative_to(ROOT)],
