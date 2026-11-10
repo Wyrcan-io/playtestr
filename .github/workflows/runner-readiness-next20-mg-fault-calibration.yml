@@ -1,6 +1,11 @@
 name: Runner readiness next20 mg source fault calibration
 
 on:
+  push:
+    branches:
+      - work/p0-p2-implementation
+    paths:
+      - .github/workflows/runner-readiness-next20-mg-fault-calibration.yml
   workflow_dispatch:
 
 permissions:
