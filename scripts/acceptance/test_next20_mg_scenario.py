@@ -258,7 +258,9 @@ class MgScenarioContractTests(unittest.TestCase):
         self.assertEqual(path.name, "e10a-decline-overwrite.json")
         self.assertEqual((fixture / "notes.txt").read_bytes(), b"overwrite source\n")
         self.assertEqual((fixture / "existing.txt").read_bytes(), b"old destination\n")
-        self.assertIn({"expect": "File `existing.txt' exists; overwrite"}, spec["steps"])
+        self.assertIn({"expect": "exists; overwrite"}, spec["steps"])
+        self.assertIn({"text": "existing.txt"}, spec["steps"])
+        self.assertEqual(spec["steps"][spec["steps"].index({"text": "existing.txt"}) + 1], {"key": "Enter"})
         self.assertLess(spec["steps"].index({"text": "n"}), spec["steps"].index({"expect": "overwrite source"}, 1))
         self.assertEqual([s["state"]["bytes_base64"] for s in spec["steps"] if "state" in s],
                          ["b3ZlcndyaXRlIHNvdXJjZQo=", "b2xkIGRlc3RpbmF0aW9uCg=="])
@@ -269,7 +271,9 @@ class MgScenarioContractTests(unittest.TestCase):
         self.assertEqual(path.name, "e10b-accept-overwrite.json")
         self.assertEqual((fixture / "notes.txt").read_bytes(), b"overwrite source\n")
         self.assertEqual((fixture / "existing.txt").read_bytes(), b"old destination\n")
-        self.assertIn({"expect": "File `existing.txt' exists; overwrite"}, spec["steps"])
+        self.assertIn({"expect": "exists; overwrite"}, spec["steps"])
+        self.assertIn({"text": "existing.txt"}, spec["steps"])
+        self.assertEqual(spec["steps"][spec["steps"].index({"text": "existing.txt"}) + 1], {"key": "Enter"})
         self.assertLess(spec["steps"].index({"text": "y"}), spec["steps"].index({"expect": "Wrote "}))
         self.assertEqual([s["state"]["bytes_base64"] for s in spec["steps"] if "state" in s],
                          ["b3ZlcndyaXRlIHNvdXJjZQo=", "b3ZlcndyaXRlIHNvdXJjZQphY2NlcHRlZCBlZGl0Cg=="])

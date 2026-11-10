@@ -13,24 +13,24 @@
   "findings": [
     "The pinned keymap binds C-x C-w to filewrite. After filename entry, filewrite checks the resolved destination with stat and calls eyorn only when it already exists.",
     "The confirmation text identifies the existing destination. A negative answer returns before writeout; a positive answer continues through writeout and updates the current buffer filename only after the write succeeds.",
-    "E10a answers no with a literal text action and checks both files unchanged. E10b answers yes with a literal text action after editing, then checks the original remains unchanged and the destination has exact edited bytes."
+    "E10a types the relative destination, submits the filename prompt with Enter, observes the actual overwrite confirmation, answers n with a literal text action, and checks both existing files remain unchanged. E10b edits the buffer, submits the destination with Enter, answers y literally, then verifies unchanged original bytes and exact overwritten bytes."
   ],
   "variants": {
     "decline": {
       "contract": "e10a-decline-overwrite.json",
-      "sha256": "dd6b5a93c6b6407679adc9959f807ef63abfa6a8465d25b74234318592e95309",
+      "sha256": "6d13ab6704503693cb0d1f23b27987a6013c5d4ccbcd7f2882c6b95e299e7771",
       "fixture": "fixtures/e10a-decline-overwrite",
       "notes_sha256": "61374c805bd2a5680afe2a16b954d2e3ad716f2b17cd514794824edf755314b2",
       "destination_sha256": "3fff3207fdef46624048b72d4975380e586cb198ba7931ac74cb08ce7ffb3059"
     },
     "accept": {
       "contract": "e10b-accept-overwrite.json",
-      "sha256": "34db8eb4e8bcf0587b03b8bf87def53836caab88937bd5915807496f88e29cc1",
+      "sha256": "2b1e3e62fb7e213a1556936b1088f70a6fa5eda90a2cf55da98baeb6d65df7cb",
       "fixture": "fixtures/e10b-accept-overwrite",
       "notes_sha256": "61374c805bd2a5680afe2a16b954d2e3ad716f2b17cd514794824edf755314b2",
       "destination_initial_sha256": "3fff3207fdef46624048b72d4975380e586cb198ba7931ac74cb08ce7ffb3059"
     }
   },
   "safety": "synthetic files only under owned workspace; secure mode -S; backups disabled with -n",
-  "interaction_encoding": "The public spec key action accepts named keys and Ctrl-letter chords only. Single-character yes/no responses must use a literal text action; the initial key=\"n\" contract was rejected as invalid_spec before target launch and is preserved in e10-first-attempt-readback-v1.json."
+  "interaction_encoding": "Public v3 key actions accept named keys and Ctrl-letter chords; single-character yes/no replies use literal text. The filename prompt also requires Enter before the overwrite confirmation is shown. The first unsupported key and second missing-Enter attempts are independently preserved in the E10 failure readbacks."
 }
