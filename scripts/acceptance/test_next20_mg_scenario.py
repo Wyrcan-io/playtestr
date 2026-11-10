@@ -50,17 +50,20 @@ class MgScenarioContractTests(unittest.TestCase):
                          b"alpha  gamma beta\n")
         self.assertEqual(len(data), len((DOC / "mg/n04-cut-yank.json").read_bytes()))
 
-    def test_n05_undo_then_redo_restores_the_edited_buffer(self):
+    def test_n05_undo_and_redo_of_a_deletion(self):
         path, data, spec, fixture = load_contract(DOC / "mg/n05-undo-redo.json")
         self.assertEqual(path.name, "n05-undo-redo.json")
         self.assertEqual(spec["command"], ["mg", "-S", "-n", "notes.txt"])
-        self.assertEqual((fixture / "notes.txt").read_bytes(), b"seed\n")
+        self.assertEqual((fixture / "notes.txt").read_bytes(), b"seed changed\n")
         self.assertEqual(sum(1 for s in spec["steps"] if s == {"key": "CtrlX"}), 4)
         self.assertEqual(sum(1 for s in spec["steps"] if s == {"text": "u"}), 2)
-        self.assertIn({"expect": "seed"}, spec["steps"])
-        self.assertIn({"expect": "seed changed"}, spec["steps"])
+        self.assertEqual(sum(1 for s in spec["steps"] if s == {"key": "Backspace"}), 8)
+        self.assertEqual([s for s in spec["steps"] if "expect" in s],
+                         [{"expect": "seed changed"}, {"expect": "seed"},
+                          {"expect": "seed changed"}, {"expect": "seed"},
+                          {"expect": "Wrote "}])
         self.assertEqual(base64.b64decode(spec["steps"][-1]["state"]["bytes_base64"], validate=True),
-                         b"seed changed\n")
+                         b"seed\n")
         self.assertEqual(len(data), len((DOC / "mg/n05-undo-redo.json").read_bytes()))
 
 

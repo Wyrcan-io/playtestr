@@ -134,7 +134,7 @@ jobs:
           --mg-build-root artifacts/runner-readiness-next-twenty-project-pass/pilot-input/mg
           --spec docs/validation/runner-readiness-next-twenty-project-pass/mg/n04-cut-yank.json
 
-      - name: Run N05 pinned-source undo-and-redo probe
+      - name: Run N05 pinned-source deletion undo-and-redo probe
         run: >-
           python -B scripts/acceptance/next20_mg_scenario.py
           --host "${{ matrix.host }}"

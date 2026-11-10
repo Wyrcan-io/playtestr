@@ -568,7 +568,7 @@
       "id": "mg",
       "repository": "troglobit/mg",
       "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
-      "status": "source acquired; N01 first-use and N02/N03/N04 development journeys passed on Linux/macOS; first N02/N03/N04 oracle failures preserved; full matrix, repetition, independent saved-byte readback, faults, authoring and admission remain pending; zero admission credit",
+      "status": "N01 first-use and N02/N03/N04 development journeys passed on Linux/macOS; N05 first insertion-redo attempt failed on both hosts and is preserved; corrected deletion-redo probe pending; full matrix and admission pending; zero admission credit",
       "acquired": true,
       "admitted": false,
       "planned_hosts": [
@@ -576,9 +576,9 @@
         "macos"
       ],
       "development_selected_scenarios_passed": 3,
-      "development_ordinary_attempts": 24,
-      "development_ordinary_passed": 18,
-      "development_ordinary_failed": 6,
+      "development_ordinary_attempts": 32,
+      "development_ordinary_passed": 24,
+      "development_ordinary_failed": 8,
       "development_real_faults": 0,
       "qualified_scenarios": 0,
       "qualified_native_cells": 0,
@@ -617,11 +617,12 @@
       "pilot_workflow": ".github/workflows/runner-readiness-next20-mg-pilot.yml",
       "pilot_attempt_accounting": "mg/pilot-attempt-accounting-v2.json",
       "pilot_native_readback": "mg/pilot-n01-native-readback-v1.json",
-      "scenario_attempt_accounting": "mg/scenario-development-accounting-v6.json",
+      "scenario_attempt_accounting": "mg/scenario-development-accounting-v7.json",
       "scenario_native_readback_n03": "mg/n03-native-readback-v1.json",
       "scenario_first_failure_n04": "mg/n04-first-attempt-readback-v1.json",
       "scenario_native_readback_n04": "mg/n04-native-readback-v1.json",
-      "scenario_native_readback": "mg/scenario-development-readback-v1.json"
+      "scenario_native_readback": "mg/scenario-development-readback-v1.json",
+      "scenario_first_failure_n05": "mg/n05-first-attempt-readback-v1.json"
     }
   ],
   "observed_audited_ordinary_executions": 2400,

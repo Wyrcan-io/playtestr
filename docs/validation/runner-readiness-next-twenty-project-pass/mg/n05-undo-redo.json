@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "name": "mg undo an edit then redo it",
+  "name": "mg undo and redo a deletion",
   "command": [
     "mg",
     "-S",
@@ -20,22 +20,34 @@
   "startup_timeout_ms": 15000,
   "steps": [
     {
-      "expect": "seed"
+      "expect": "seed changed"
     },
     {
       "key": "CtrlE"
     },
     {
-      "text": " changed"
+      "key": "Backspace"
     },
     {
-      "expect": "seed changed"
+      "key": "Backspace"
     },
     {
-      "key": "CtrlX"
+      "key": "Backspace"
     },
     {
-      "text": "u"
+      "key": "Backspace"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "key": "Backspace"
     },
     {
       "expect": "seed"
@@ -48,6 +60,15 @@
     },
     {
       "expect": "seed changed"
+    },
+    {
+      "key": "CtrlX"
+    },
+    {
+      "text": "u"
+    },
+    {
+      "expect": "seed"
     },
     {
       "key": "CtrlX"
@@ -71,7 +92,7 @@
       "state": {
         "path": "notes.txt",
         "kind": "file",
-        "bytes_base64": "c2VlZCBjaGFuZ2VkCg=="
+        "bytes_base64": "c2VlZAo="
       }
     }
   ]

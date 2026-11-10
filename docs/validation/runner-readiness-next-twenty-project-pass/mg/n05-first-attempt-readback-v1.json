@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "project": "troglobit/mg",
+  "target_pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "candidate": "v0.4.0-rc.6",
+  "scenario": "n05-undo-redo",
+  "phase": "development; not qualification",
+  "workflow_run_id": 42722834841,
+  "commit": "9cbecad19460e5fe5c7b84798eb4b38626e1addb",
+  "contract": "mg/n05-undo-redo.json",
+  "contract_sha256": "8167887e15c2aaf0fa2857f7f2bcb793a4103530dd0ba0260ed6b8b110d6f624",
+  "hosts": [
+    {
+      "host": "linux",
+      "architecture": "x86_64",
+      "job_id": 129520844360,
+      "artifact_id": 13720198621,
+      "provider_artifact_bytes": 28053,
+      "provider_artifact_sha256": "44b5b62725d0b57bdf2a1f62b5caab11c6e64c09c68048faa63d3398b46334fd",
+      "retained_zip": "artifacts/runner-readiness-next-twenty-project-pass/mg/scenario-development/retrieved/run-42722834841/linux-retained.zip",
+      "retained_zip_sha256": "d903e593096a1da55811c8ab95604bb5a8fae6201b04c393ec64527b1a2079f8",
+      "retained_zip_bytes": 27353,
+      "retained_zip_members": 41,
+      "attempt_id": "c735daf2f1104156afb0998ca13086a9",
+      "attempt_sha256": "453502ef55f6adbbc0b05995be77d34a3d97eeb69d1b6af0899f51bb8f0f24e5",
+      "candidate_binary_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a",
+      "target_binary_sha256": "6eb334f5ea96687983c51b073b1b8a11434ea85a46e69ca6e28e57b76b4e88e5",
+      "report_sha256": "805389bb051d4c35b4485d93b688e7c4d9470fb4910c8195b078fb1cffa72802",
+      "runner_log_sha256": "1fe0e0c66f6c5d77f89966abf6d24b0300f33ac9a709cd5d88fff9f29dc63c65",
+      "failure": {
+        "category": "assertion_timeout",
+        "message": "mg undo an edit then redo it: step 10: step timed out: context deadline exceeded"
+      },
+      "failed_step": 10,
+      "screen_sha256": "8203c0973a88d1968d75306bff208d2b1710becd2ae2d4224e6791bbb084f6f0",
+      "screen_text": "seed\n[blank rows]\n-:--- notes.txt            (1,4)   (Text Fill)\nNo further undo information",
+      "steps_passed": 9,
+      "target_cleanup": {
+        "attempted": true,
+        "graceful": false,
+        "forced": true,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "workflow_cleanup": "all_owned_inputs_absent=true"
+    },
+    {
+      "host": "darwin",
+      "architecture": "arm64",
+      "job_id": 129520844751,
+      "artifact_id": 13720448840,
+      "provider_artifact_bytes": 28165,
+      "provider_artifact_sha256": "4b98f3e2b3f1fba5b8b15a1a8ad175a7431159fc6a16865d29caae45e0c26c23",
+      "retained_zip": "artifacts/runner-readiness-next-twenty-project-pass/mg/scenario-development/retrieved/run-42722834841/darwin-retained.zip",
+      "retained_zip_sha256": "5afb74ca4cf72be812a4464b4f550df68917390b8325095067b68f3680f2c740",
+      "retained_zip_bytes": 27487,
+      "retained_zip_members": 41,
+      "attempt_id": "e18011a4c71e4bd19e438578928b7c27",
+      "attempt_sha256": "56361f165acbb446bc299c1ccd1c9de20bd07be3222369d4e8a83895e897aa84",
+      "candidate_binary_sha256": "609b184dac8664050643ec35036c4cffef2137ec778ae4d4678727b119e2fe0f",
+      "target_binary_sha256": "5f0c844b1c8a6a44209ad4534b3d19e223c0289024e00f34656031b8640db297",
+      "report_sha256": "c7a436bfe8cabc799fdbcacfaab35385904e787e0028da61e29c8dbbca49640d",
+      "runner_log_sha256": "0adadd036f7fb91277f8f779af7e2afde5175ce7641c53b6ccc65dc91ad826a2",
+      "failure": {
+        "category": "assertion_timeout",
+        "message": "mg undo an edit then redo it: step 10: step timed out: context deadline exceeded"
+      },
+      "failed_step": 10,
+      "screen_sha256": "8203c0973a88d1968d75306bff208d2b1710becd2ae2d4224e6791bbb084f6f0",
+      "screen_text": "seed\n[blank rows]\n-:--- notes.txt            (1,4)   (Text Fill)\nNo further undo information",
+      "steps_passed": 9,
+      "target_cleanup": {
+        "attempted": true,
+        "graceful": false,
+        "forced": true,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "workflow_cleanup": "all_owned_inputs_absent=true"
+    }
+  ],
+  "finding": "Both native hosts passed the initial insertion, first undo and rendered seed assertion. The second C-x u timed out at step 10 with the same screen and No further undo information. The pinned undo.c source explains the distinction: undoing an insertion does not record an inverse insertion, whereas undoing a deletion records inserted content for redo. Both targets were forcibly terminated and confirmed exited after the assertion timeout; the workflow cleanup receipts confirm owned inputs absent. Retained ZIPs pass CRC with 41 members each.",
+  "correction": "The revised probe starts with seed changed, deletes the contiguous suffix with Backspace, then checks undo restores seed changed and a second undo redoes deletion to seed. Preserve this failed run unchanged; corrected workflow pending.",
+  "admission_credit": 0
+}
