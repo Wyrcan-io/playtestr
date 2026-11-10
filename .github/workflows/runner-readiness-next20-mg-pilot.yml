@@ -26,6 +26,7 @@ on:
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/e06-readonly-buffer.json
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/e07-missing-parent.json
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/e08-filename-spaces.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/mg/e09-cancel-filename.json
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/n02-edit-append/**
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/n03-query-replace/**
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/n04-cut-yank/**
@@ -41,6 +42,7 @@ on:
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/e06-readonly-buffer/**
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/e07-missing-parent/**
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/e08-filename-spaces/**
+      - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/e09-cancel-filename/**
       - scripts/acceptance/test_next20_mg_build.py
       - scripts/acceptance/next20_candidate.py
       - scripts/acceptance/next20_candidate_install.py
@@ -239,6 +241,13 @@ jobs:
           --host "${{ matrix.host }}"
           --mg-build-root artifacts/runner-readiness-next-twenty-project-pass/pilot-input/mg
           --spec docs/validation/runner-readiness-next-twenty-project-pass/mg/e08-filename-spaces.json
+
+      - name: Run E09 pinned-source canceled filename prompt probe
+        run: >-
+          python -B scripts/acceptance/next20_mg_scenario.py
+          --host "${{ matrix.host }}"
+          --mg-build-root artifacts/runner-readiness-next-twenty-project-pass/pilot-input/mg
+          --spec docs/validation/runner-readiness-next-twenty-project-pass/mg/e09-cancel-filename.json
 
       - name: Verify campaign storage limits
         if: always()

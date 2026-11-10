@@ -237,5 +237,21 @@ class MgScenarioContractTests(unittest.TestCase):
                           for s in spec["steps"] if "state" in s], [original, original])
         self.assertEqual(len(data), len((DOC / "mg/e08-filename-spaces.json").read_bytes()))
 
+    def test_e09_cancels_save_as_prompt_without_file_changes(self):
+        path, data, spec, fixture = load_contract(DOC / "mg/e09-cancel-filename.json")
+        self.assertEqual(path.name, "e09-cancel-filename.json")
+        original = b"cancel source\n"
+        self.assertEqual((fixture / "notes.txt").read_bytes(), original)
+        self.assertEqual(spec["steps"][1:7], [
+            {"key": "CtrlX"}, {"key": "CtrlW"}, {"expect": "Write file"},
+            {"text": "cancelled file.txt"}, {"key": "CtrlG"}, {"expect": "cancel source"},
+        ])
+        states = [s["state"] for s in spec["steps"] if "state" in s]
+        self.assertEqual(states, [
+            {"path": "notes.txt", "kind": "file", "bytes_base64": "Y2FuY2VsIHNvdXJjZQo="},
+            {"path": "cancelled file.txt", "kind": "absent"},
+        ])
+        self.assertEqual(len(data), len((DOC / "mg/e09-cancel-filename.json").read_bytes()))
+
 if __name__ == "__main__":
     unittest.main()

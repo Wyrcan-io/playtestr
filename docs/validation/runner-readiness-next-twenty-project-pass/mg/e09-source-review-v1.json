@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "project": "troglobit/mg",
+  "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "scenario": "E09-cancel-save-as-filename",
+  "status": "reviewed against exact pinned source; native development probe pending",
+  "source_files": {
+    "src/keymap.c": "7e6179df6d051f3deb54775a817fef96b90a94e2f35cbb134ba54c8c9106c54e",
+    "src/echo.c": "809ca46c2bd64405eeebbc68f0c34074c8dfbc5850e01cbadcb78d2959f45d90",
+    "src/file.c": "fa604e820d06fb25a0c79b64c1cb092e1b6674ca63324882e2dbba78682491e0"
+  },
+  "findings": [
+    "The pinned keymap binds C-x C-w to filewrite. filewrite returns ABORT if its filename prompt eread call is cancelled.",
+    "Ctrl+G is the cancellation key for the active prompt; it aborts filename entry before path adjustment or writeout begins.",
+    "The contract enters a proposed destination, cancels with Ctrl+G, checks the original screen remains, exits, and asserts original bytes unchanged and proposed path absent."
+  ],
+  "contract": "e09-cancel-filename.json",
+  "contract_sha256": "b4c232de05952b25405b2376c93e370784fa33ac536831efb3e0ed20c2b8601d",
+  "fixture": "fixtures/e09-cancel-filename/notes.txt",
+  "fixture_sha256": "e78248e4b00ae8a6632aa04c295cacb0b0bc22736d7ff2f27aa26755069f76f7",
+  "expected_bytes_base64": "Y2FuY2VsIHNvdXJjZQo=",
+  "safety": "synthetic relative filename only; cancellation occurs before path adjustment or writing; secure mode -S; backups disabled with -n"
+}
