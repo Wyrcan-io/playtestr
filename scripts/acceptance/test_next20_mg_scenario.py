@@ -108,6 +108,20 @@ class MgScenarioContractTests(unittest.TestCase):
                          [b"first buffer identity\n", b"second buffer identity\n"])
         self.assertEqual(len(data), len((DOC / "mg/n07-buffer-switch.json").read_bytes()))
 
+    def test_n08_edits_and_saves_utf8_with_wide_character(self):
+        path, data, spec, fixture = load_contract(DOC / "mg/n08-utf8-wide.json")
+        self.assertEqual(path.name, "n08-utf8-wide.json")
+        self.assertEqual(spec["command"], ["mg", "-S", "-n", "notes.txt"])
+        self.assertEqual(spec["env"]["LANG"], "C.UTF-8")
+        self.assertEqual(spec["env"]["LC_CTYPE"], "C.UTF-8")
+        initial = "caf\u00e9 wide: \u754c\n".encode("utf-8")
+        expected = "caf\u00e9 wide: \u754c \u03bb\n".encode("utf-8")
+        self.assertEqual((fixture / "notes.txt").read_bytes(), initial)
+        self.assertEqual(spec["steps"][0], {"expect": "caf\u00e9 wide: \u754c"})
+        self.assertEqual(spec["steps"][2], {"text": " \u03bb"})
+        self.assertEqual(spec["steps"][3], {"expect": "caf\u00e9 wide: \u754c \u03bb"})
+        self.assertEqual(base64.b64decode(spec["steps"][-1]["state"]["bytes_base64"], validate=True), expected)
+        self.assertEqual(len(data), len((DOC / "mg/n08-utf8-wide.json").read_bytes()))
 
 if __name__ == "__main__":
     unittest.main()

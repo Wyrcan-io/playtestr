@@ -1,0 +1,62 @@
+{
+  "version": 3,
+  "name": "mg edit and save UTF-8 text with a wide character",
+  "command": [
+    "mg",
+    "-S",
+    "-n",
+    "notes.txt"
+  ],
+  "env": {
+    "TERM": "xterm-256color",
+    "LANG": "C.UTF-8",
+    "LC_CTYPE": "C.UTF-8"
+  },
+  "workspace": {
+    "fixture": "fixtures/n08-utf8-wide"
+  },
+  "width": 40,
+  "height": 12,
+  "timeout_ms": 8000,
+  "run_timeout_ms": 30000,
+  "startup_timeout_ms": 15000,
+  "steps": [
+    {
+      "expect": "café wide: 界"
+    },
+    {
+      "key": "CtrlE"
+    },
+    {
+      "text": " λ"
+    },
+    {
+      "expect": "café wide: 界 λ"
+    },
+    {
+      "key": "CtrlX"
+    },
+    {
+      "key": "CtrlS"
+    },
+    {
+      "expect": "Wrote "
+    },
+    {
+      "key": "CtrlX"
+    },
+    {
+      "key": "CtrlC"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "notes.txt",
+        "kind": "file",
+        "bytes_base64": "Y2Fmw6kgd2lkZTog55WMIM67Cg=="
+      }
+    }
+  ]
+}
