@@ -162,6 +162,7 @@ class MgScenarioContractTests(unittest.TestCase):
             {"expect": "first"}, {"expect": "second"}, {"key": "CtrlN"},
             {"key": "CtrlA"}, {"key": "Backspace"}, {"expect": "firstsecond"},
         ])
+        self.assertEqual(spec["steps"][8], {"expect": "Wrote "})
         self.assertEqual(spec["steps"][-1], {
             "state": {"path": "notes.txt", "kind": "file", "bytes_base64": "Zmlyc3RzZWNvbmQK"}
         })
