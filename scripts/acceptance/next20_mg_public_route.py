@@ -12,6 +12,7 @@ import subprocess
 from adversarial_process import execute
 from next20_candidate import executable
 from next20_check import DOC, RAW, ROOT, NextCampaign
+from next20_mg_pilot import ensure_executable
 from readiness_evidence import immutable_json, sha256
 
 
@@ -66,6 +67,7 @@ async def main():
     shutil.copy2(original_target, target_copy)
     if sha256(target_copy) != original_hash:
         raise ValueError("mg public-route target copy changed bytes")
+    target_copy_mode = ensure_executable(target_copy)
 
     runner = executable("native-exit-v1", "linux")
     installed = json.loads((runner.parent / "installed.json").read_text(encoding="utf-8"))
@@ -99,6 +101,7 @@ async def main():
         host=platform.platform(), architecture=platform.machine(),
         target_build_run="42815619413", target_build_duration_seconds=build.get("duration_seconds"),
         target_build_artifact_binary_sha256=build.get("binary_sha256"),
+        target_copy_mode=target_copy_mode,
         initial_fixture_sha256=sha256(canonical / "fixtures" / "public-note.txt"),
         no_handwritten_first_use_spec=True, initial_shell_invocations_expected=3,
         first_use_controls=controls,
@@ -263,6 +266,7 @@ async def main():
                    source_pin=PIN, candidate="v0.4.0-rc.6", runner_sha256=sha256(runner),
                    planned_sha256=sha256(output / "planned.json"), target_binary_sha256=original_hash,
                    target_build_run="42815619413", target_build_duration_seconds=build.get("duration_seconds"),
+                   target_copy_mode=target_copy_mode,
                    first_use_target_version=build.get("version_output"),
                    shell_invocations_to_first_reviewed_ordinary_pass=3,
                    first_window_controls=len(controls), handwritten_first_use_json=False,

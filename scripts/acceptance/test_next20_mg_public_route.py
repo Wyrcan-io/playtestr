@@ -1,9 +1,12 @@
 """Focused validation of the mg public-route evidence boundary."""
 import json
+import os
 from pathlib import Path
+import stat
 import tempfile
 import unittest
 
+from next20_mg_pilot import ensure_executable
 from next20_mg_public_route import report_result
 
 
@@ -51,6 +54,18 @@ class PublicRouteReportTests(unittest.TestCase):
             path.write_text('{"results": []}', encoding="utf-8")
             with self.assertRaisesRegex(ValueError, "one ordinary result"):
                 report_result(path, "passed")
+
+    @unittest.skipIf(os.name == "nt", "execute-bit restoration applies to native Unix targets")
+    def test_artifact_permission_restore_is_local_and_byte_preserving(self):
+        with tempfile.TemporaryDirectory() as root:
+            path = Path(root) / "mg"
+            path.write_bytes(b"owned target bytes")
+            path.chmod(0o644)
+            before = path.read_bytes()
+            mode = ensure_executable(path)
+            self.assertEqual(mode, {"mode_before": "0o644", "mode_after": "0o744"})
+            self.assertTrue(path.stat().st_mode & stat.S_IXUSR)
+            self.assertEqual(path.read_bytes(), before)
 
 
 if __name__ == "__main__":
