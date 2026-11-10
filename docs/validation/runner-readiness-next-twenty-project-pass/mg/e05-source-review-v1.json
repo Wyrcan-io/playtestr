@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "project": "troglobit/mg",
+  "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "scenario": "E05-wide-utf8-backspace",
+  "status": "reviewed against exact pinned source; native development probe pending",
+  "source_files": {
+    "src/keymap.c": "7e6179df6d051f3deb54775a817fef96b90a94e2f35cbb134ba54c8c9106c54e",
+    "src/basic.c": "58564a4580d204b839f17e08a469b4c4d256adb3efee185a2ee28d5bf5fd4e3c",
+    "src/util.c": "28cdae5857352fb81e78f998347bf67ea1b83e75b02a016d8c18696e1ec6ec79",
+    "src/line.c": "362abbff01c1536f608c9e603ca0da0b9945208aceffa4ce7c213c82da436c52",
+    "src/utf8.c": "8265b9bd8cb3902d44040639a562b0308a58e0db766167ece51abf9c0b01fcb1",
+    "src/main.c": "1fb7c488249b5c3a398b030ad784bbd0387dd6cbe8a66fb31dc9564ed3f66e69"
+  },
+  "findings": [
+    "The contract pins LANG and LC_CTYPE to C.UTF-8, and pinned main.c initializes the locale before UTF-8 support.",
+    "The keymap binds Ctrl+F to forwchar and DEL (the public Backspace key encoding) to backdel. forwchar skips UTF-8 continuation bytes; backchar retreats across continuation bytes to the code point lead byte.",
+    "backdel deletes the logical character count returned by forwbytes; forwbytes advances by the full UTF-8 sequence length. Thus two Ctrl+F actions position after A and the wide CJK code point, and Backspace removes only the complete wide character.",
+    "The contract asserts A?B before editing, AB after deletion, saves, exits, and checks exact ASCII bytes AB newline."
+  ],
+  "contract": "e05-wide-backspace.json",
+  "contract_sha256": "1603a8285105b08f703a2a16d3b12c36fddfbb566152f8c96fe699faa243e045",
+  "fixture": "fixtures/e05-wide-backspace/notes.txt",
+  "fixture_sha256": "efaa1c2d40f64a81ee399aa6cb17220326a21a9a36a26676ea3fd56f38c7570d",
+  "initial_bytes_base64": "QeeVjEIK",
+  "expected_state_sha256": "7167a273aea114c65e741c2b287e24748542a292aab9607a3d586c1cb051ed6c",
+  "expected_state_base64": "QUIK",
+  "safety": "synthetic disposable UTF-8 file; explicit UTF-8 locale; secure mode -S; backups disabled with -n"
+}

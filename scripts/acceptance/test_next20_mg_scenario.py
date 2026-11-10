@@ -181,5 +181,18 @@ class MgScenarioContractTests(unittest.TestCase):
         self.assertEqual(base64.b64decode(spec["steps"][-1]["state"]["bytes_base64"], validate=True), expected)
         self.assertEqual(len(data), len((DOC / "mg/e04-extended-line.json").read_bytes()))
 
+    def test_e05_deletes_one_complete_wide_utf8_character(self):
+        path, data, spec, fixture = load_contract(DOC / "mg/e05-wide-backspace.json")
+        self.assertEqual(path.name, "e05-wide-backspace.json")
+        self.assertEqual(spec["env"]["LANG"], "C.UTF-8")
+        self.assertEqual(spec["env"]["LC_CTYPE"], "C.UTF-8")
+        self.assertEqual((fixture / "notes.txt").read_bytes(), "A\u754cB\n".encode("utf-8"))
+        self.assertEqual(spec["steps"][:5], [
+            {"expect": "A\u754cB"}, {"key": "CtrlF"}, {"key": "CtrlF"},
+            {"key": "Backspace"}, {"expect": "AB"},
+        ])
+        self.assertEqual(base64.b64decode(spec["steps"][-1]["state"]["bytes_base64"], validate=True), b"AB\n")
+        self.assertEqual(len(data), len((DOC / "mg/e05-wide-backspace.json").read_bytes()))
+
 if __name__ == "__main__":
     unittest.main()
