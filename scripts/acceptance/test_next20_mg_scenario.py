@@ -153,5 +153,19 @@ class MgScenarioContractTests(unittest.TestCase):
                          {"state": {"path": "notes.txt", "kind": "file", "bytes_base64": "eA=="}})
         self.assertEqual(len(data), len((DOC / "mg/e02-buffer-boundaries.json").read_bytes()))
 
+    def test_e03_backspace_at_line_start_joins_previous_line(self):
+        path, data, spec, fixture = load_contract(DOC / "mg/e03-backspace-join.json")
+        self.assertEqual(path.name, "e03-backspace-join.json")
+        self.assertEqual(spec["command"], ["mg", "-S", "-n", "notes.txt"])
+        self.assertEqual((fixture / "notes.txt").read_bytes(), b"first\nsecond\n")
+        self.assertEqual(spec["steps"][:6], [
+            {"expect": "first"}, {"expect": "second"}, {"key": "CtrlN"},
+            {"key": "CtrlA"}, {"key": "Backspace"}, {"expect": "firstsecond"},
+        ])
+        self.assertEqual(spec["steps"][-1], {
+            "state": {"path": "notes.txt", "kind": "file", "bytes_base64": "Zmlyc3RzZWNvbmQK"}
+        })
+        self.assertEqual(len(data), len((DOC / "mg/e03-backspace-join.json").read_bytes()))
+
 if __name__ == "__main__":
     unittest.main()

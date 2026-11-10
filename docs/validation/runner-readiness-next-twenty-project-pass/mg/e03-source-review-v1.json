@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "project": "troglobit/mg",
+  "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "scenario": "E03-backspace-at-beginning-of-line",
+  "status": "reviewed against exact pinned source; native development probe pending",
+  "source_files": {
+    "src/keymap.c": "7e6179df6d051f3deb54775a817fef96b90a94e2f35cbb134ba54c8c9106c54e",
+    "src/basic.c": "58564a4580d204b839f17e08a469b4c4d256adb3efee185a2ee28d5bf5fd4e3c",
+    "src/util.c": "28cdae5857352fb81e78f998347bf67ea1b83e75b02a016d8c18696e1ec6ec79",
+    "src/line.c": "362abbff01c1536f608c9e603ca0da0b9945208aceffa4ce7c213c82da436c52"
+  },
+  "findings": [
+    "The pinned fundamental keymap binds Ctrl+N to forward-line and Ctrl+A to beginning-of-line; the DEL key binding invokes backdel.",
+    "backdel moves backward one character through backchar and then deletes one logical character. At offset zero on the second line, backchar moves to the previous line's end.",
+    "ldelete detects zero remaining bytes on the current line and calls ldelnewline, joining that line to the next without dropping either line's text.",
+    "The fixture is exactly first newline second newline. One Backspace at the start of the second line therefore produces firstsecond newline; the contract asserts the screen, saves, exits, and checks exact bytes."
+  ],
+  "contract": "e03-backspace-join.json",
+  "contract_sha256": "cc2c040efc0cd35311f9bbb40aeb5196254a35a5f2be40d2d55fc74a6453e835",
+  "fixture": "fixtures/e03-backspace-join/notes.txt",
+  "fixture_sha256": "dbea9325179efe46ea2add94f7b6b745ca983fabb208dc6d34aa064623d7ee23",
+  "expected_state_sha256": "1984b69c61be14a40b1129c8288844e867bfed1eb81cac66b23ec8c8faf06a9b",
+  "expected_state_base64": "Zmlyc3RzZWNvbmQK",
+  "safety": "synthetic disposable two-line file only; mg runs with -S -n under managed workspace"
+}
