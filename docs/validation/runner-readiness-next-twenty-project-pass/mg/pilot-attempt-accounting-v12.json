@@ -1,0 +1,325 @@
+{
+  "schema_version": 12,
+  "project": "mg",
+  "candidate": "v0.4.0-rc.6",
+  "target_pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "admission_credit": 0,
+  "previous_failure_accounting": "mg/pilot-attempt-accounting-v11.json",
+  "successful_first_use_readback": "mg/pilot-n01-native-readback-v1.json",
+  "observations": [
+    {
+      "run_id": 42710258730,
+      "result": "both native jobs failed before target launch; exact pin string mismatch; macOS input cleanup hit former 100-file bound"
+    },
+    {
+      "run_id": 42710906900,
+      "result": "both native jobs failed before target launch; exact pin string mismatch; macOS input cleanup hit former 100-file bound"
+    },
+    {
+      "run_id": 42711988263,
+      "result": "Linux runner started but could not resolve mg; ten steps not_run; cleanup passed; macOS job was superseded while queued"
+    },
+    {
+      "run_id": 42712723851,
+      "commit": "90ad40a0d7dfde64275377f52e977f317277c155",
+      "result": "single N01 first-use pilot passed on Linux and macOS",
+      "hosts": [
+        "ubuntu-24.04 x86_64",
+        "macos-15 arm64"
+      ],
+      "steps_per_host": 10,
+      "suite_per_host": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "not_run": 0
+      },
+      "target_exit_per_host": 0,
+      "target_cleanup_per_host": "graceful; confirmed exited; no force required",
+      "runner_process_cleanup_per_host": "process group absent; no owned descendants remain",
+      "input_cleanup_per_host": "confirmed; all exact candidate and build input roots absent",
+      "artifact_mode_observed": {
+        "before_repair": "0o644",
+        "after_owner_execute_restore": "0o744"
+      },
+      "artifact_digests_match_provider": true,
+      "independent_readback": "mg/pilot-n01-native-readback-v1.json"
+    },
+    {
+      "run_id": 42722834841,
+      "commit": "9cbecad19460e5fe5c7b84798eb4b38626e1addb",
+      "result": "N01 first-use step passed on both native hosts; overall run failed later in N05",
+      "hosts": [
+        "ubuntu-24.04 x86_64",
+        "macos-15 arm64"
+      ],
+      "steps_per_host": 10,
+      "suite_per_host": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "not_run": 0
+      },
+      "target_exit_per_host": 0,
+      "target_cleanup_per_host": "graceful; confirmed exited; no force required",
+      "pilot_report_sha256_by_host": {
+        "linux": "d4a9f6ad73b78e9cab86fe3a5ab6b4b2134f22540a68b1edbd5a272ae335269e",
+        "darwin": "d0bdddec49c249e42d3bf38b4246d473eae1601eb276cd071adeace583827fb0"
+      },
+      "workspace_cleanup_per_host": "attempted and confirmed; fixture not retained"
+    },
+    {
+      "run_id": 42774674956,
+      "commit": "3d4fc164d1a2b84d1880d6bcf1e652611d389fba",
+      "result": "N01 first-use step passed on both native hosts; overall run failed later in N05",
+      "hosts": [
+        "ubuntu-24.04 x86_64",
+        "macos-15 arm64"
+      ],
+      "steps_per_host": 10,
+      "suite_per_host": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "not_run": 0
+      },
+      "target_exit_per_host": 0,
+      "target_cleanup_per_host": "graceful; confirmed exited; no force required",
+      "pilot_report_sha256_by_host": {
+        "linux": "17b6b0149833b1bf0fb733c1eb46ff496b834589eb8b24877a5cb11d25dc8140",
+        "darwin": "1dbbb9baa12c7d783cf3a3320ac5500cfdc0e7124afccfaa26c6f7acd9a01f6f"
+      },
+      "workspace_cleanup_per_host": "attempted and confirmed; fixture not retained"
+    },
+    {
+      "run_id": 42775438321,
+      "commit": "05c11580a621ed0620a6b4128fd28da71671c1c5",
+      "result": "N01 first-use step passed on both native hosts; overall run succeeded",
+      "hosts": [
+        "ubuntu-24.04 x86_64",
+        "macos-15 arm64"
+      ],
+      "steps_per_host": 10,
+      "suite_per_host": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "not_run": 0
+      },
+      "target_exit_per_host": 0,
+      "target_cleanup_per_host": "graceful; confirmed exited; no force required",
+      "pilot_report_sha256_by_host": {
+        "linux": "633ee0b3d29398321b59657e5f75cee1c5bf759a77b1d674aed984f6f78ad340",
+        "darwin": "30116a0445dadb73de6c871d74d98959ef52792fd9945c0cc91cc46ded040d80"
+      },
+      "workspace_cleanup_per_host": "attempted and confirmed; fixture not retained"
+    },
+    {
+      "run_id": 42776968298,
+      "commit": "d75f0e2798021effb79c53309d1ebfcf2dfb2f1b",
+      "result": "N01 first-use passed on both native hosts; full N01-N06 workflow succeeded",
+      "hosts": [
+        "ubuntu-24.04 x86_64",
+        "macos-15 arm64"
+      ],
+      "steps_per_host": 10,
+      "suite_per_host": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "not_run": 0
+      },
+      "target_exit_per_host": 0,
+      "target_cleanup_per_host": "graceful; confirmed exited; no force required",
+      "pilot_report_sha256_by_host": {
+        "linux": "9eaa0b44365d7e8021773d2a5431bf92e4f95ed61265ef77efa68bc4ee322e86",
+        "darwin": "8a3c58eec1cced37de193f726528fdf09da423c167aef7c97a6f18222a0a60a5"
+      },
+      "workspace_cleanup_per_host": "attempted and confirmed; fixture not retained"
+    },
+    {
+      "run_id": 42777874080,
+      "commit": "0151783b504bfb37f3396f5ccc3e32220f19bd03",
+      "result": "N01 first-use passed on both native hosts; full N01-N07 workflow succeeded",
+      "hosts": [
+        "ubuntu-24.04 x86_64",
+        "macos-15 arm64"
+      ],
+      "steps_per_host": 10,
+      "suite_per_host": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "not_run": 0
+      },
+      "target_exit_per_host": 0,
+      "target_cleanup_per_host": "graceful; confirmed exited; no force required",
+      "pilot_report_sha256_by_host": {
+        "linux": "4f98aa26520587ec1d37df3071939cd1d0cade708467c9293977c7bb5bf8657a",
+        "darwin": "cc5f71bcd894d7c0062a2b17bcea719ceee6168f7dacd8ea2f3fcc8c78366997"
+      },
+      "workspace_cleanup_per_host": "attempted and confirmed; fixture not retained"
+    },
+    {
+      "run_id": 42778907701,
+      "commit": "9dce6160afcdbb985e4d5c1c88df5c9b62805111",
+      "result": "N01 first-use passed on both native hosts; full N01-N08 workflow succeeded",
+      "hosts": [
+        "ubuntu-24.04 x86_64",
+        "macos-15 arm64"
+      ],
+      "steps_per_host": 10,
+      "suite_per_host": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "not_run": 0
+      },
+      "target_exit_per_host": 0,
+      "target_cleanup_per_host": "graceful; confirmed exited; no force required",
+      "pilot_report_sha256_by_host": {
+        "linux": "9cf01624fe883b58adc2d39a41543ced43955af92cd001ee88141ec1af41a001",
+        "darwin": "07badc3d7bc35563e3b3899ec0964a5137957a16460c225fd25fdf7e914b6b9b"
+      },
+      "workspace_cleanup_per_host": "attempted and confirmed; fixture not retained"
+    },
+    {
+      "run_id": 42779879155,
+      "commit": "80b41d7c94ebde304cbc481ebcf47556f30f3f29",
+      "result": "N01 first-use passed on both native hosts; full N01-N08/E01 workflow succeeded",
+      "hosts": [
+        "ubuntu-24.04 x86_64",
+        "macos-15 arm64"
+      ],
+      "steps_per_host": 10,
+      "suite_per_host": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "not_run": 0
+      },
+      "target_exit_per_host": 0,
+      "target_cleanup_per_host": "graceful; confirmed exited; no force required",
+      "pilot_report_sha256_by_host": {
+        "linux": "bb4db40a38b92c86632f29dbcd8d38c2e90a3fefe07fc92e5a14abe4ccb100f5",
+        "darwin": "af4a25cb910e881354946f07782de35e34fb74803f4582a0babbf292ac79c536"
+      },
+      "workspace_cleanup_per_host": "attempted and confirmed; fixture not retained"
+    },
+    {
+      "run_id": 42781031241,
+      "commit": "d4d2b31fa006303280cec95ed027cec50b452f79",
+      "result": "N01 first-use passed on both native hosts; full N01-N08/E01/E02 workflow succeeded",
+      "hosts": [
+        "ubuntu-24.04 x86_64",
+        "macos-15 arm64"
+      ],
+      "steps_per_host": 10,
+      "suite_per_host": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "not_run": 0
+      },
+      "target_exit_per_host": 0,
+      "target_cleanup_per_host": "graceful; confirmed exited; no force required",
+      "workflow_cleanup_per_host": "all owned candidate/build inputs absent"
+    },
+    {
+      "run_id": 42782907773,
+      "commit": "4dda010d42123b163908fc255a8b48f2a038f00f",
+      "result": "N01 first-use passed on both native hosts; full scenario workflow failed later in E03 save-status assertion",
+      "hosts": [
+        "ubuntu-24.04 x86_64",
+        "macos-15 arm64"
+      ],
+      "steps_per_host": 10,
+      "suite_per_host": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "not_run": 0
+      },
+      "target_exit_per_host": 0,
+      "target_cleanup_per_host": "graceful; confirmed exited; no force required",
+      "workflow_cleanup_per_host": "all owned candidate/build inputs absent"
+    },
+    {
+      "run_id": 42784035366,
+      "commit": "7db0a18df37a6813bce745b530141e800f410ca7",
+      "result": "N01 first-use passed on both native hosts; full N01-N08/E01-E03 workflow succeeded",
+      "hosts": [
+        "ubuntu-24.04 x86_64",
+        "macos-15 arm64"
+      ],
+      "steps_per_host": 10,
+      "suite_per_host": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "not_run": 0
+      },
+      "target_exit_per_host": 0,
+      "target_cleanup_per_host": "graceful; confirmed exited; no force required",
+      "workflow_cleanup_per_host": "all owned candidate/build inputs absent"
+    },
+    {
+      "run_id": 42785316085,
+      "commit": "ba842ffa7c13e7ab0f53fe105278f3e08e87cae7",
+      "result": "N01 first-use passed on both native hosts; full N01-N08/E01-E04 workflow succeeded",
+      "hosts": [
+        "ubuntu-24.04 x86_64",
+        "macos-15 arm64"
+      ],
+      "steps_per_host": 10,
+      "suite_per_host": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "not_run": 0
+      },
+      "target_exit_per_host": 0,
+      "target_cleanup_per_host": "graceful; confirmed exited; no force required",
+      "workflow_cleanup_per_host": "all owned candidate/build inputs absent"
+    },
+    {
+      "run_id": 42786287264,
+      "commit": "363c4a721878c230d997dcd305b88f11fe70c2c2",
+      "result": "N01 first-use passed on both native hosts; full N01-N08/E01-E05 workflow succeeded",
+      "hosts": [
+        "ubuntu-24.04 x86_64",
+        "macos-15 arm64"
+      ],
+      "steps_per_host": 10,
+      "suite_per_host": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "not_run": 0
+      },
+      "target_exit_per_host": 0,
+      "target_cleanup_per_host": "graceful; confirmed exited; no force required",
+      "workflow_cleanup_per_host": "all owned candidate/build inputs absent"
+    }
+  ],
+  "pin_receipt_erratum": {
+    "source_provenance_pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+    "downloaded_build_packet_pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+    "transcription_error_in_curated_summaries": "2209e2087eab34ffceb6bfaa0a62f9e4c36e3c66",
+    "affected_receipts": [
+      "native-linux-build-receipt-v3.json",
+      "native-macos-build-receipt-v5.json"
+    ],
+    "detail": "Keep the original receipt files. Use source provenance, downloaded build packets, and the erratum in v1 for their pin identity."
+  },
+  "saved_state_evidence_limit": "The report records the exact state assertion as matched but does not retain the observed file bytes or hash. This pilot is not a separately retained saved-file artifact.",
+  "next": [
+    "freeze and independently review the full 20-scenario matrix",
+    "run repeated ordinary trials on Linux and macOS",
+    "run at least three real source-fault calibrations",
+    "audit reports and all attempts",
+    "complete project cleanup and storage checks"
+  ],
+  "status": "N01 first-use passed on Linux/macOS in initial pilot and twelve subsequent workflow reruns; qualification incomplete; no admission credit",
+  "previous_accounting": "mg/pilot-attempt-accounting-v6.json"
+}
