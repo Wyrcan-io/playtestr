@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "project": "troglobit/mg",
+  "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "source_archive_sha256": "bd8aff8ddbf55f7d37067a9f01e6bef887a2b0f2c0699aaa08a73d7dfd6069a8",
+  "source_file_count": 126,
+  "evidence_source": "Provider-verified Linux native build artifact 13713367836 from run 42705501183; archive ZIP SHA-256 c94fa32958f87f5534ea6b62865e5a0890b15cd10c1153a142d4e1dd5b8ed7ed; source.tar.gz SHA matches reviewed provenance. Exact source files were extracted without following links and file hashes match provenance.",
+  "faults": [
+    {
+      "id": "mg-fault-01-save-reports-success-without-writing",
+      "source": "src/fileio.c",
+      "source_sha256": "9fcde1d55a3763f318706521a78c1b455d87c25a6e23a41d96c10db8e5c5ae39",
+      "function": "ffputbuf",
+      "function_sha256": "4d894f7d312780016cc9a1497bb07b9f47e79f226e439f721746f92090b8164f",
+      "location_lines": [
+        258,
+        278
+      ],
+      "fault": "Return FIOSUC without writing any buffer bytes, preserving the public save success path while producing an empty/wrong destination.",
+      "contract": "n02-edit-append.json",
+      "contract_sha256": "684d2ed8b53a080c31c14150cd26668a939d8a0f91641d2cb83733fda55e12e8",
+      "oracle": "Expected prompt/screen and exit remain positive; same-invocation exact saved-state assertion must fail."
+    },
+    {
+      "id": "mg-fault-02-delete-corrupts-following-byte",
+      "source": "src/line.c",
+      "source_sha256": "362abbff01c1536f608c9e603ca0da0b9945208aceffa4ce7c213c82da436c52",
+      "function": "ldelete",
+      "location_lines": [
+        411,
+        468
+      ],
+      "fault": "Change the preserved-tail copy from *cp1++ = *cp2 to *cp1++ = (char)(*cp2 ^ 1), corrupting one byte while preserving length.",
+      "contract": "n03-query-replace.json",
+      "contract_sha256": "d37cfc55359411e23c60ad265f6d2ab5a19feef429db3847fcf078c5dcbb3d8b",
+      "oracle": "Rendered replacement checkpoint and exact saved bytes expose the corrupted transition."
+    },
+    {
+      "id": "mg-fault-04-read-only-edit-guard-removed",
+      "source": "src/line.c",
+      "source_sha256": "362abbff01c1536f608c9e603ca0da0b9945208aceffa4ce7c213c82da436c52",
+      "function": "ldelete",
+      "location_lines": [
+        411,
+        426
+      ],
+      "fault": "Remove the exact BFREADONLY refusal block so an attempted edit is accepted in a read-only buffer.",
+      "contract": "e06-readonly-buffer.json",
+      "contract_sha256": "017fe8c6d0b2e5c9732316fa449827f2e2b843353629d258347d7e44b61050d2",
+      "oracle": "The reviewed read-only refusal checkpoint must fail; the saved file must not silently change."
+    },
+    {
+      "id": "mg-fault-03-undo-delete-does-not-restore",
+      "source": "src/undo.c",
+      "source_sha256": "02f4127fbb30b1fa06a22aeab0624ca8021058e84a653235c403d14346194771",
+      "function": "undo",
+      "case_source_sha256": "8c9688fe92e425f41ac9861c66e2739ec47ffdf80365a64e11b747fbb9c0163e",
+      "location_lines": [
+        564,
+        571
+      ],
+      "fault": "Omit region_put_data in the DELETE undo case while retaining pointer advancement, so undo reports/continues but deleted text is not restored.",
+      "contract": "n05-undo-redo.json",
+      "contract_sha256": "64208583f35182fc9b216aed2f5405b4cd9861eb08aa0ff4ec72c7e08dd432bb",
+      "oracle": "The reviewed undo screen checkpoint and eventual exact saved-state assertion expose failure to restore."
+    }
+  ],
+  "required_phases": [
+    "pristine baseline",
+    "actual corrupted native execution",
+    "restored source native recovery"
+  ],
+  "hosts": [
+    "linux x86_64",
+    "darwin arm64"
+  ],
+  "restoration": "Restore exact original file bytes in a bounded finally path; re-hash all 126 files against source provenance before recovery; keep target mutation confined to owned temporary/native job source tree.",
+  "status": "Four exact-source mutation patches reviewed and confined in scratch-copy validation; eleven focused harness tests passed on local Windows (three POSIX-only skips). Native baseline/fault/recovery calibration has not run; zero fault or admission credit.",
+  "workflow": {
+    "path": ".github/workflows/runner-readiness-next20-mg-fault-calibration.yml",
+    "trigger": "workflow_dispatch after the bounded native mg source-build workflow completes",
+    "script": "scripts/acceptance/next20_mg_fault_calibration.py",
+    "build_helper": "scripts/acceptance/next20_mg_build.py",
+    "matrix": "4 distinct source faults x Linux amd64/macOS arm64; max two native jobs in parallel"
+  },
+  "provider_source_build_artifacts": [
+    {
+      "run_id": 42705501183,
+      "host": "linux",
+      "artifact_id": 13713367836,
+      "bytes": 851689,
+      "provider_sha256": "sha256:c94fa32958f87f5534ea6b62865e5a0890b15cd10c1153a142d4e1dd5b8ed7ed",
+      "retained_zip_sha256": "c94fa32958f87f5534ea6b62865e5a0890b15cd10c1153a142d4e1dd5b8ed7ed",
+      "zip_crc": "passed",
+      "native_binary_sha256": "6eb334f5ea96687983c51b073b1b8a11434ea85a46e69ca6e28e57b76b4e88e5"
+    },
+    {
+      "run_id": 42705501183,
+      "host": "darwin",
+      "artifact_id": 13713766830,
+      "bytes": 6007314,
+      "provider_sha256": "sha256:ed031b6a0d158b4a59eabde96452cdf15f883b49ed462309672046a35ad26c1b",
+      "retained_zip_sha256": "ed031b6a0d158b4a59eabde96452cdf15f883b49ed462309672046a35ad26c1b",
+      "zip_crc": "passed",
+      "native_binary_sha256": "5f0c844b1c8a6a44209ad4534b3d19e223c0289024e00f34656031b8640db297"
+    }
+  ],
+  "hosted_job_ceiling_minutes": {
+    "fault_matrix_jobs": 8,
+    "per_job_timeout": 25,
+    "max_parallel": 2,
+    "total_job_minutes_ceiling": 200,
+    "expected_elapsed_minutes": "bounded by four waves of two jobs; each job runs three acquisitions, builds, and scenario attempts"
+  }
+}

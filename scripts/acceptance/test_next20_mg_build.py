@@ -11,11 +11,61 @@ import unittest
 
 from next20_check import RAW, ROOT
 from next20_mg_build import (MAX_OUTPUT, TOOLCHAIN_SOURCES, normalize_extracted_source_timestamps,
-                             process_group_members, run_bounded)
+                             apply_reviewed_fault, process_group_members, run_bounded)
 from readiness_acquire_plop import extract_source
 
 
 class MgBuildCommandTests(unittest.TestCase):
+    def test_reviewed_fault_mutations_are_exact_and_confined_to_one_source_file(self):
+        cases = {
+            "save-no-write": ("fileio.c", b"\treturn (FIOSUC);\n}\n\n/*\n * Read a line"),
+            "delete-byte-corruption": ("line.c", b"\t\t\t*cp1++ = (char)(*cp2 ^ 1);"),
+            "readonly-edit-accepted": ("line.c", b"int\nldelete(RSIZE n, int kflag)\n{"),
+            "undo-delete-omitted": ("undo.c", b"case DELETE:\n"
+                                    b"\t\t\t\t/* Fault calibration: omit restoration of deleted text. */\n"
+                                    b"\t\t\t\tbreak;"),
+        }
+        originals = {
+            "save-no-write": b"int\nffputbuf(FILE *ffp, struct buffer *bp, int eobnl)\n{\n"
+                            b"\tstruct line\t*lp, *lpend;\n\n\tlpend = bp->b_headp;\n"
+                            b"\treturn (FIOSUC);\n}\n\n/*\n * Read a line",
+            "delete-byte-corruption": b"\t\t\t*cp1++ = *cp2;",
+            "readonly-edit-accepted": (b"int\nldelete(RSIZE n, int kflag)\n{\n"
+                                       b"\tif (curbp->b_flag & BFREADONLY) {\n"
+                                       b"\t\tdobeep();\n"
+                                       b"\t\tewprintf(\"Buffer is read only\");\n"
+                                       b"\t\tgoto out;\n\t}\n"),
+            "undo-delete-omitted": (b"\t\t\tcase DELETE:\n\t\t\t\tlp = curwp->w_dotp;\n"
+                                    b"\t\t\t\toffset = curwp->w_doto;\n"
+                                    b"\t\t\t\tregion_put_data(ptr->content,\n"
+                                    b"\t\t\t\t    ptr->region.r_size);\n"
+                                    b"\t\t\t\tcurwp->w_dotp = lp;\n"
+                                    b"\t\t\t\tcurwp->w_doto = offset;\n"
+                                    b"\t\t\t\tbreak;\n"),
+        }
+        for mutation, (filename, expected_fragment) in cases.items():
+            with self.subTest(mutation=mutation), tempfile.TemporaryDirectory() as directory:
+                source = Path(directory)
+                path = source / "src" / filename
+                path.parent.mkdir()
+                path.write_bytes(originals[mutation])
+                receipt = apply_reviewed_fault(source, mutation)
+                self.assertEqual(receipt["path"], f"src/{filename}")
+                self.assertNotEqual(receipt["original_sha256"], receipt["mutated_sha256"])
+                self.assertIn(expected_fragment, path.read_bytes())
+                self.assertEqual(len(list(source.rglob("*"))), 2)
+
+    def test_reviewed_fault_mutations_reject_changed_anchors_without_writing(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            path = source / "src" / "line.c"
+            path.parent.mkdir()
+            original = b"changed upstream implementation\n"
+            path.write_bytes(original)
+            with self.assertRaisesRegex(ValueError, "anchor changed"):
+                apply_reviewed_fault(source, "delete-byte-corruption")
+            self.assertEqual(path.read_bytes(), original)
+
     def test_extracted_release_tree_uses_one_timestamp_for_shipped_generated_files(self):
         with tempfile.TemporaryDirectory() as directory:
             source = Path(directory)

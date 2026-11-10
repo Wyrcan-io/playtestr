@@ -1,0 +1,140 @@
+name: Runner readiness next20 mg source fault calibration
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: playtestr-next20-mg-fault-calibration-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  native-fault-calibration:
+    name: mg ${{ matrix.fault }} baseline/fault/recovery (${{ matrix.host }})
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        include:
+          - host: linux
+            os: ubuntu-24.04
+            fault: save-no-write
+            candidate_run_id: 40424475362
+            candidate_artifact: next20-private-replacement-Linux
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/pilot-input/candidate/replacement-candidate/native-exit-v1/linux-amd64/dist/playtestr_0.4.0-rc.6_linux_amd64.tar.gz
+          - host: darwin
+            os: macos-15
+            fault: save-no-write
+            candidate_run_id: 40420820491
+            candidate_artifact: next20-private-replacement-macOS
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/pilot-input/candidate/replacement-candidate/native-exit-v1/darwin-arm64/dist/playtestr_0.4.0-rc.6_darwin_arm64.tar.gz
+          - host: linux
+            os: ubuntu-24.04
+            fault: delete-byte-corruption
+            candidate_run_id: 40424475362
+            candidate_artifact: next20-private-replacement-Linux
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/pilot-input/candidate/replacement-candidate/native-exit-v1/linux-amd64/dist/playtestr_0.4.0-rc.6_linux_amd64.tar.gz
+          - host: darwin
+            os: macos-15
+            fault: delete-byte-corruption
+            candidate_run_id: 40420820491
+            candidate_artifact: next20-private-replacement-macOS
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/pilot-input/candidate/replacement-candidate/native-exit-v1/darwin-arm64/dist/playtestr_0.4.0-rc.6_darwin_arm64.tar.gz
+          - host: linux
+            os: ubuntu-24.04
+            fault: readonly-edit-accepted
+            candidate_run_id: 40424475362
+            candidate_artifact: next20-private-replacement-Linux
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/pilot-input/candidate/replacement-candidate/native-exit-v1/linux-amd64/dist/playtestr_0.4.0-rc.6_linux_amd64.tar.gz
+          - host: darwin
+            os: macos-15
+            fault: readonly-edit-accepted
+            candidate_run_id: 40420820491
+            candidate_artifact: next20-private-replacement-macOS
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/pilot-input/candidate/replacement-candidate/native-exit-v1/darwin-arm64/dist/playtestr_0.4.0-rc.6_darwin_arm64.tar.gz
+          - host: linux
+            os: ubuntu-24.04
+            fault: undo-delete-omitted
+            candidate_run_id: 40424475362
+            candidate_artifact: next20-private-replacement-Linux
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/pilot-input/candidate/replacement-candidate/native-exit-v1/linux-amd64/dist/playtestr_0.4.0-rc.6_linux_amd64.tar.gz
+          - host: darwin
+            os: macos-15
+            fault: undo-delete-omitted
+            candidate_run_id: 40420820491
+            candidate_artifact: next20-private-replacement-macOS
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/pilot-input/candidate/replacement-candidate/native-exit-v1/darwin-arm64/dist/playtestr_0.4.0-rc.6_darwin_arm64.tar.gz
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 35
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONIOENCODING: utf-8
+      GOTOOLCHAIN: local
+      GOWORK: off
+      TEMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+      TMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+      TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+
+      - name: Create bounded campaign temporary root
+        run: mkdir -p artifacts/runner-readiness-next-twenty-project-pass/tmp
+
+      - name: Validate source mutation, build, scenario, and cleanup helpers
+        run: >-
+          python -B -m unittest test_next20_mg_build test_next20_mg_scenario
+          test_next20_mg_fault_calibration test_next20_acquire -v
+        working-directory: scripts/acceptance
+
+      - name: Download the frozen native rc.6 candidate
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53
+        with:
+          name: ${{ matrix.candidate_artifact }}
+          repository: ${{ github.repository }}
+          run-id: ${{ matrix.candidate_run_id }}
+          github-token: ${{ github.token }}
+          path: artifacts/runner-readiness-next-twenty-project-pass/pilot-input/candidate
+
+      - name: Install and verify the exact frozen candidate archive
+        run: >-
+          python -B scripts/acceptance/next20_candidate_install.py
+          --series native-exit-v1
+          --archive "${{ matrix.candidate_archive }}"
+
+      - name: Run native baseline, source fault, and restored recovery
+        run: >-
+          python -B scripts/acceptance/next20_mg_fault_calibration.py
+          --host "${{ matrix.host }}"
+          --fault "${{ matrix.fault }}"
+
+      - name: Verify declared storage limits
+        if: always()
+        run: python -B scripts/acceptance/next20_storage.py mg
+
+      - name: Remove exact owned candidate and input roots
+        if: always()
+        run: >-
+          python -B scripts/acceptance/next20_mg_pilot_cleanup.py
+          --host "${{ matrix.host }}"
+          --pilot-input artifacts/runner-readiness-next-twenty-project-pass/pilot-input
+
+      - name: Retain baseline/fault/recovery reports, hashes, and logs
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: mg-fault-${{ matrix.fault }}-${{ matrix.host }}-${{ github.run_id }}
+          path: |
+            artifacts/runner-readiness-next-twenty-project-pass/mg/fault-calibrations/${{ matrix.fault }}/${{ matrix.host }}/**
+            artifacts/runner-readiness-next-twenty-project-pass/mg/scenario-development/${{ matrix.host }}/**
+            artifacts/runner-readiness-next-twenty-project-pass/mg/build-development/**
+          if-no-files-found: error
+          retention-days: 14
+          include-hidden-files: true

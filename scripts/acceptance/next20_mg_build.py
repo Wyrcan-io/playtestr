@@ -238,10 +238,69 @@ def run_bounded(argv, cwd, env, log_path, deadline, commands, *, operation="mg b
     return row
 
 
+def apply_reviewed_fault(source, mutation):
+    """Apply one exact, pre-reviewed mg source mutation in an owned copy."""
+    if mutation == "save-no-write":
+        path = source / "src" / "fileio.c"
+        data = path.read_bytes()
+        start = data.find(b"int\nffputbuf(FILE *ffp, struct buffer *bp, int eobnl)\n{")
+        end = data.find(b"\n/*\n * Read a line", start)
+        if start < 0 or end < 0:
+            raise ValueError("reviewed ffputbuf mutation anchor changed")
+        original = data[start:end]
+        replacement = (b"int\nffputbuf(FILE *ffp, struct buffer *bp, int eobnl)\n{\n"
+                       b"\t(void)ffp;\n\t(void)bp;\n\t(void)eobnl;\n"
+                       b"\treturn (FIOSUC);\n}\n")
+        path.write_bytes(data[:start] + replacement + data[end:])
+        return {"id": mutation, "path": "src/fileio.c", "original_sha256": hashlib.sha256(data).hexdigest(),
+                "mutated_sha256": sha256(path), "original_function_sha256": hashlib.sha256(original).hexdigest(),
+                "replacement_bytes": len(replacement)}
+    if mutation == "delete-byte-corruption":
+        path = source / "src" / "line.c"
+        data = path.read_bytes()
+        old, new = b"\t\t\t*cp1++ = *cp2;", b"\t\t\t*cp1++ = (char)(*cp2 ^ 1);"
+        if data.count(old) != 1:
+            raise ValueError("reviewed ldelete byte-copy anchor changed")
+        path.write_bytes(data.replace(old, new, 1))
+        return {"id": mutation, "path": "src/line.c", "original_sha256": hashlib.sha256(data).hexdigest(),
+                "mutated_sha256": sha256(path), "replacement_bytes": len(new)}
+    if mutation == "readonly-edit-accepted":
+        path = source / "src" / "line.c"
+        data = path.read_bytes()
+        old = (b"\tif (curbp->b_flag & BFREADONLY) {\n"
+               b"\t\tdobeep();\n"
+               b"\t\tewprintf(\"Buffer is read only\");\n"
+               b"\t\tgoto out;\n"
+               b"\t}\n")
+        if data.count(old) != 1:
+            raise ValueError("reviewed ldelete read-only guard anchor changed")
+        path.write_bytes(data.replace(old, b"", 1))
+        return {"id": mutation, "path": "src/line.c", "original_sha256": hashlib.sha256(data).hexdigest(),
+                "mutated_sha256": sha256(path), "replacement_bytes": 0}
+    if mutation == "undo-delete-omitted":
+        path = source / "src" / "undo.c"
+        data = path.read_bytes()
+        old = (b"\t\t\tcase DELETE:\n\t\t\t\tlp = curwp->w_dotp;\n"
+               b"\t\t\t\toffset = curwp->w_doto;\n\t\t\t\tregion_put_data(ptr->content,\n"
+               b"\t\t\t\t    ptr->region.r_size);\n\t\t\t\tcurwp->w_dotp = lp;\n"
+               b"\t\t\t\tcurwp->w_doto = offset;\n\t\t\t\tbreak;\n")
+        new = (b"\t\t\tcase DELETE:\n"
+               b"\t\t\t\t/* Fault calibration: omit restoration of deleted text. */\n"
+               b"\t\t\t\tbreak;\n")
+        if data.count(old) != 1:
+            raise ValueError("reviewed undo DELETE case anchor changed")
+        path.write_bytes(data.replace(old, new, 1))
+        return {"id": mutation, "path": "src/undo.c", "original_sha256": hashlib.sha256(data).hexdigest(),
+                "mutated_sha256": sha256(path), "replacement_bytes": len(new)}
+    raise ValueError("unknown reviewed mg source mutation")
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--expected-host", choices=("linux", "darwin"), required=True)
     parser.add_argument("--operation-started-epoch", type=float)
+    parser.add_argument("--fault-mutation", choices=("save-no-write", "delete-byte-corruption",
+                        "readonly-edit-accepted", "undo-delete-omitted"))
     args = parser.parse_args()
     host = {"Linux": "linux", "Darwin": "darwin"}.get(platform.system())
     if host != args.expected_host:
@@ -265,6 +324,18 @@ def main():
             observed[path.relative_to(source).as_posix()] = sha256(path)
     if observed != acquired["source_files"]:
         raise ValueError("pinned source files changed before the first build")
+
+    source_mutation = apply_reviewed_fault(source, args.fault_mutation) if args.fault_mutation else None
+    mutated_source = {}
+    if source_mutation:
+        for path in sorted(source.rglob("*")):
+            if path.is_symlink() or getattr(path, "is_junction", lambda: False)():
+                raise ValueError(f"linked mutated source path: {path.relative_to(source)}")
+            if path.is_file():
+                mutated_source[path.relative_to(source).as_posix()] = sha256(path)
+        differences = [name for name in observed if observed[name] != mutated_source.get(name)]
+        if differences != [source_mutation["path"]]:
+            raise ValueError("fault calibration changed files outside the one reviewed mutation")
 
     run_id = uuid.uuid4().hex
     evidence = RAW / "mg" / "build-development" / run_id
@@ -341,6 +412,12 @@ def main():
                    "host": host, "architecture": platform.machine(),
                    "source_archive_sha256": acquired["archive_sha256"],
                    "source_map_count": len(observed),
+                   "source_map_sha256": hashlib.sha256(json.dumps(
+                       observed, sort_keys=True, separators=(",", ":")).encode()).hexdigest(),
+                   "source_mutation": source_mutation,
+                   "mutated_source_sha256": (hashlib.sha256(json.dumps(mutated_source, sort_keys=True,
+                                                separators=(",", ":")).encode()).hexdigest()
+                                                if source_mutation else None),
                    "binary_relative_path": binary.relative_to(target).as_posix(),
                    "binary_sha256": digest, "binary_bytes": binary.stat().st_size,
                    "install_prefix_relative": install.relative_to(target).as_posix(),
