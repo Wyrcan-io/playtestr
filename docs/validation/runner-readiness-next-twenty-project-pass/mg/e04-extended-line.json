@@ -1,0 +1,63 @@
+{
+  "version": 3,
+  "name": "mg edits and saves a line longer than the viewport",
+  "command": [
+    "mg",
+    "-S",
+    "-n",
+    "notes.txt"
+  ],
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "workspace": {
+    "fixture": "fixtures/e04-extended-line"
+  },
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 8000,
+  "run_timeout_ms": 30000,
+  "startup_timeout_ms": 15000,
+  "steps": [
+    {
+      "expect": "0123456789"
+    },
+    {
+      "key": "CtrlE"
+    },
+    {
+      "expect": "END"
+    },
+    {
+      "text": "!"
+    },
+    {
+      "expect": "END!"
+    },
+    {
+      "key": "CtrlX"
+    },
+    {
+      "key": "CtrlS"
+    },
+    {
+      "expect": "Wrote "
+    },
+    {
+      "key": "CtrlX"
+    },
+    {
+      "key": "CtrlC"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "notes.txt",
+        "kind": "file",
+        "bytes_base64": "MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDU2Nzg5RU5EIQo="
+      }
+    }
+  ]
+}

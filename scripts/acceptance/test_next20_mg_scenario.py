@@ -168,5 +168,18 @@ class MgScenarioContractTests(unittest.TestCase):
         })
         self.assertEqual(len(data), len((DOC / "mg/e03-backspace-join.json").read_bytes()))
 
+    def test_e04_edits_a_line_longer_than_the_viewport(self):
+        path, data, spec, fixture = load_contract(DOC / "mg/e04-extended-line.json")
+        self.assertEqual(path.name, "e04-extended-line.json")
+        self.assertEqual(spec["width"], 80)
+        self.assertEqual((fixture / "notes.txt").read_bytes(), b"0123456789" * 12 + b"END\n")
+        self.assertEqual(spec["steps"][:5], [
+            {"expect": "0123456789"}, {"key": "CtrlE"}, {"expect": "END"},
+            {"text": "!"}, {"expect": "END!"},
+        ])
+        expected = b"0123456789" * 12 + b"END!\n"
+        self.assertEqual(base64.b64decode(spec["steps"][-1]["state"]["bytes_base64"], validate=True), expected)
+        self.assertEqual(len(data), len((DOC / "mg/e04-extended-line.json").read_bytes()))
+
 if __name__ == "__main__":
     unittest.main()

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "project": "troglobit/mg",
+  "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "scenario": "E04-extended-line-edit-save",
+  "status": "reviewed against exact pinned source; native development probe pending",
+  "source_files": {
+    "src/keymap.c": "7e6179df6d051f3deb54775a817fef96b90a94e2f35cbb134ba54c8c9106c54e",
+    "src/basic.c": "58564a4580d204b839f17e08a469b4c4d256adb3efee185a2ee28d5bf5fd4e3c",
+    "src/display.c": "45c9f7d70446846ac0293e18588ee75ff8876f5f741b6b2ae901695936a69c63"
+  },
+  "findings": [
+    "The pinned keymap binds Ctrl+E to gotoeol; gotoeol sets the cursor byte offset to the line length.",
+    "When wrap mode is not active and the cursor column reaches the screen width, display.c marks the line extended and calls updext. updext shifts the displayed left bound so the cursor remains visible, while bounding rendering to the viewport.",
+    "The contract opens a 123-character line at an 80-column viewport, checks its initial prefix, moves to end-of-line, checks the visible END suffix, appends !, checks END! after redraw, saves, and asserts exact final bytes."
+  ],
+  "contract": "e04-extended-line.json",
+  "contract_sha256": "a41aa679d78ce4a178389de861732b1a3edf7876f981a2751e502c4027f4267d",
+  "fixture": "fixtures/e04-extended-line/notes.txt",
+  "fixture_sha256": "7d40203ae3f7b2ec5c00f16871aa7845eadea9beda64b379553dcdde67a3b0f4",
+  "expected_state_sha256": "92205419f629232adf2249887d4cda758dad970ca5cec8c7922e422cf8ef6078",
+  "expected_state_base64": "MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDU2Nzg5RU5EIQo=",
+  "safety": "synthetic disposable ASCII line only; mg runs with -S -n under managed workspace"
+}
