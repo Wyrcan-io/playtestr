@@ -59,7 +59,7 @@ def main():
     build = json.loads((build_root / "active/mg/build.json").read_text(encoding="utf-8"))
     if build.get("project") != "mg" or build.get("host") != args.host:
         raise ValueError("pinned native mg build identity mismatch")
-    declaration_path = DOC / "mg/final-qualification-declaration-v1.json"
+    declaration_path = DOC / "mg/final-qualification-declaration-v2.json"
     declaration = json.loads(declaration_path.read_text(encoding="utf-8"))
     freeze_path = DOC / "replacement-candidate-freeze-native-exit-v1.json"
     if declaration.get("candidate_freeze_sha256") != sha256(freeze_path):

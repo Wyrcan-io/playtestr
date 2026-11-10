@@ -13,8 +13,10 @@ on:
       - scripts/acceptance/test_next20_mg_scenario.py
       - scripts/acceptance/next20_mg_final_declare.py
       - scripts/acceptance/next20_mg_final_series.py
+      - scripts/acceptance/next20_mg_final_redeclare_v2.py
       - scripts/acceptance/test_next20_mg_final_series.py
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/final-qualification-declaration-v1.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/mg/final-qualification-declaration-v2.json
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/n02-edit-append.json
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/n03-query-replace.json
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/n04-cut-yank.json
@@ -120,7 +122,7 @@ jobs:
         working-directory: scripts/acceptance
 
       - name: Download successful native mg build receipt and binary
-        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
           name: ${{ matrix.build_artifact }}
           repository: ${{ github.repository }}
@@ -129,7 +131,7 @@ jobs:
           path: artifacts/runner-readiness-next-twenty-project-pass/pilot-input/mg
 
       - name: Download frozen native rc.6 candidate archive
-        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
           name: ${{ matrix.candidate_artifact }}
           repository: ${{ github.repository }}
@@ -318,6 +320,8 @@ jobs:
       fail-fast: false
       max-parallel: 2
       matrix:
+        host: [linux, darwin]
+        batch: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
         include:
           - host: linux
             os: ubuntu-24.04
@@ -331,7 +335,6 @@ jobs:
             candidate_artifact: next20-private-replacement-macOS
             candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/pilot-input/candidate/replacement-candidate/native-exit-v1/darwin-arm64/dist/playtestr_0.4.0-rc.6_darwin_arm64.tar.gz
             build_artifact: next20-mg-build-darwin-42815619413
-        batch: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 90
     env:
@@ -357,7 +360,7 @@ jobs:
         working-directory: scripts/acceptance
 
       - name: Download latest verified native mg build packet
-        uses: actions/download-artifact@018cc2cf5baa6db3efc5f8a56943fffe632ef53
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
           name: ${{ matrix.build_artifact }}
           repository: ${{ github.repository }}
@@ -366,7 +369,7 @@ jobs:
           path: artifacts/runner-readiness-next-twenty-project-pass/pilot-input/mg
 
       - name: Download exact frozen rc.6 native archive
-        uses: actions/download-artifact@018cc2cf5baa6db3efc5f8a56943fffe632ef53
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
           name: ${{ matrix.candidate_artifact }}
           repository: ${{ github.repository }}

@@ -1,0 +1,282 @@
+{
+  "batches": [
+    {
+      "index": 0,
+      "variation": "ordinary-cold-1"
+    },
+    {
+      "index": 1,
+      "variation": "ordinary-warm-1"
+    },
+    {
+      "index": 2,
+      "variation": "ordinary-cold-2"
+    },
+    {
+      "index": 3,
+      "variation": "ordinary-warm-2"
+    },
+    {
+      "index": 4,
+      "variation": "widened-viewport"
+    },
+    {
+      "index": 5,
+      "variation": "spaced-unicode-home-temp"
+    },
+    {
+      "index": 6,
+      "variation": "normal-input-readiness"
+    },
+    {
+      "index": 7,
+      "variation": "segmented-printable-input"
+    },
+    {
+      "index": 8,
+      "variation": "bounded-contention-1"
+    },
+    {
+      "index": 9,
+      "variation": "bounded-contention-2"
+    },
+    {
+      "index": 10,
+      "variation": "small-viewport-boundary"
+    },
+    {
+      "index": 11,
+      "variation": "tight-startup-boundary"
+    }
+  ],
+  "candidate": "v0.4.0-rc.6",
+  "candidate_freeze": "docs/validation/runner-readiness-next-twenty-project-pass/replacement-candidate-freeze-native-exit-v1.json",
+  "candidate_freeze_sha256": "24ce7238532b1b6e581142ee98e17a7fe18ea475ec83176e7051986353c80da2",
+  "canonical_scenario_count": 20,
+  "contention_policy": "At most one owned 1 MiB SHA-256 worker per scenario, two seconds maximum, terminated and waited before the next scenario.",
+  "contract_executions_per_batch": 21,
+  "edge_case_variant": "E10 is one canonical edge identity; decline and accept contracts both execute and remain separately receipted.",
+  "edge_scenarios": 12,
+  "expected_additional_e10_branch_executions": 24,
+  "expected_ordinary_executions": 480,
+  "expected_total_contract_executions": 504,
+  "failure_policy": "No retries inside a batch or series. Preserve the first failed attempt; any replacement must be a separately declared series.",
+  "fault_calibration": {
+    "distinct_faults": 4,
+    "hosts": [
+      "linux",
+      "darwin"
+    ],
+    "phases_per_fault_host": [
+      "pristine-baseline",
+      "mutated-source",
+      "restored-source"
+    ],
+    "readback": "mg/mg-fault-calibration-readback-v2.json",
+    "required_phase_executions": 24
+  },
+  "native_cells": [
+    {
+      "architecture": "amd64",
+      "archive_sha256": "28ae9f37227bb0f6ba2df031420aa3d027b998e31eab523c4d13cd2816c4af7a",
+      "binary_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a",
+      "candidate_run": "40424475362",
+      "host": "linux"
+    },
+    {
+      "architecture": "arm64",
+      "archive_sha256": "132152710ade2c01cac7558f75212121f01af8ab02c5735dc9c7de1c33dbe625",
+      "binary_sha256": "609b184dac8664050643ec35036c4cffef2137ec778ae4d4678727b119e2fe0f",
+      "candidate_run": "40420820491",
+      "host": "darwin"
+    }
+  ],
+  "normal_scenarios": 8,
+  "project": "mg",
+  "run_policy": "Replacement series v2; the setup-only v1 failure remains preserved and receives no scenario or qualification credit. No scenario attempt from v1 is retried because none began.",
+  "scenarios": [
+    {
+      "class": "normal",
+      "contract": "docs/validation/runner-readiness-next-twenty-project-pass/mg/pilot-n01.json",
+      "contract_sha256": "d0eea09f5f85d8d9e7f25ece3ee48ba333ebb431edcca5ee4b948f7b9b95c839",
+      "fixture": "fixtures/pilot-n01",
+      "fixture_tree_sha256": "4d3c238b1022ec0da6515d04672567a64f6dfefa3459547f1f9e4e8f5baea2fb",
+      "id": "N01"
+    },
+    {
+      "class": "normal",
+      "contract": "docs/validation/runner-readiness-next-twenty-project-pass/mg/n02-edit-append.json",
+      "contract_sha256": "684d2ed8b53a080c31c14150cd26668a939d8a0f91641d2cb83733fda55e12e8",
+      "fixture": "fixtures/n02-edit-append",
+      "fixture_tree_sha256": "9fee8980e730584c2873a7ead7729bc51b904e9d191992279bbbcaf875b74650",
+      "id": "N02"
+    },
+    {
+      "class": "normal",
+      "contract": "docs/validation/runner-readiness-next-twenty-project-pass/mg/n03-query-replace.json",
+      "contract_sha256": "d37cfc55359411e23c60ad265f6d2ab5a19feef429db3847fcf078c5dcbb3d8b",
+      "fixture": "fixtures/n03-query-replace",
+      "fixture_tree_sha256": "b466df923e683282bf3c3be8ad511532068965e2c0821df6daa61444a4912298",
+      "id": "N03"
+    },
+    {
+      "class": "normal",
+      "contract": "docs/validation/runner-readiness-next-twenty-project-pass/mg/n04-cut-yank.json",
+      "contract_sha256": "0642e82a0270f93ecdd1e9a02f7a43ac09fd5dd145b877ceca55e5709a4dc8be",
+      "fixture": "fixtures/n04-cut-yank",
+      "fixture_tree_sha256": "e9ec6368669b2026859d7d4fad61cbe0d04eb7428029db5caaab8fdf522a7a61",
+      "id": "N04"
+    },
+    {
+      "class": "normal",
+      "contract": "docs/validation/runner-readiness-next-twenty-project-pass/mg/n05-undo-redo.json",
+      "contract_sha256": "64208583f35182fc9b216aed2f5405b4cd9861eb08aa0ff4ec72c7e08dd432bb",
+      "fixture": "fixtures/n05-undo-redo",
+      "fixture_tree_sha256": "867c6e6b937191bd667383f09de19ef56b6ecabfa14a4a75dc8dc78608d23a00",
+      "id": "N05"
+    },
+    {
+      "class": "normal",
+      "contract": "docs/validation/runner-readiness-next-twenty-project-pass/mg/n06-save-as.json",
+      "contract_sha256": "60f19d9199b1ccc8dd8771e62769bf305c5aa7536236d1479d37e0fbd789b969",
+      "fixture": "fixtures/n06-save-as",
+      "fixture_tree_sha256": "40f10b0d655e2b8559f0c76be6380b7ae28ebf181d9ec5bb7ff51fafd8a88133",
+      "id": "N06"
+    },
+    {
+      "class": "normal",
+      "contract": "docs/validation/runner-readiness-next-twenty-project-pass/mg/n07-buffer-switch.json",
+      "contract_sha256": "b082f3979b2081cf9f04f2c2b94ce8ced61f651312f72c04687b0a91c41d19bd",
+      "fixture": "fixtures/n07-buffer-switch",
+      "fixture_tree_sha256": "5f5fa6e08f18400e0b33bd86b2ce6145b355b2ef341d528804f78b886f3c67dd",
+      "id": "N07"
+    },
+    {
+      "class": "normal",
+      "contract": "docs/validation/runner-readiness-next-twenty-project-pass/mg/n08-utf8-wide.json",
+      "contract_sha256": "59ed5a0c96addb9c4d8794aecf3ee2f4e20204f6e8e984ef70615f1c53b02f7e",
+      "fixture": "fixtures/n08-utf8-wide",
+      "fixture_tree_sha256": "9a35250ad75f7ad6fbcd59d356b023d82ae53168b99e40a5a984cbf5c1227670",
+      "id": "N08"
+    },
+    {
+      "class": "edge",
+      "contract": "docs/validation/runner-readiness-next-twenty-project-pass/mg/e01-empty-save.json",
+      "contract_sha256": "2578ee8a355b387a8b64d3d3542715313446a95aac3f52316121bc5af82c40d7",
+      "fixture": "fixtures/e01-empty-save",
+      "fixture_tree_sha256": "dd2c20768d3ee489381d0a346c7fe4234af234064b31cef81056e8477c77ac92",
+      "id": "E01"
+    },
+    {
+      "class": "edge",
+      "contract": "docs/validation/runner-readiness-next-twenty-project-pass/mg/e02-buffer-boundaries.json",
+      "contract_sha256": "753b3873fa4151944df871cd8aa3937cf30257265d63b57ed0539232bb996367",
+      "fixture": "fixtures/e02-buffer-boundaries",
+      "fixture_tree_sha256": "89f7ab81bc06cfdbddb4a00f35bf7dfa7e3c37306b59f36453951422dda515dd",
+      "id": "E02"
+    },
+    {
+      "class": "edge",
+      "contract": "docs/validation/runner-readiness-next-twenty-project-pass/mg/e03-backspace-join.json",
+      "contract_sha256": "93052c142881475c267bdce08563c192939846f82aa75c8e64a02967f74ab897",
+      "fixture": "fixtures/e03-backspace-join",
+      "fixture_tree_sha256": "32dd4cbadfb59538943484503a157d44d305c5d038c64cdf3e329d9cb7c77bd7",
+      "id": "E03"
+    },
+    {
+      "class": "edge",
+      "contract": "docs/validation/runner-readiness-next-twenty-project-pass/mg/e04-extended-line.json",
+      "contract_sha256": "a41aa679d78ce4a178389de861732b1a3edf7876f981a2751e502c4027f4267d",
+      "fixture": "fixtures/e04-extended-line",
+      "fixture_tree_sha256": "268984fa3ab3fa34e04e4bf17fb5cb8b02d1f03c80bd293f111579b4b1beac64",
+      "id": "E04"
+    },
+    {
+      "class": "edge",
+      "contract": "docs/validation/runner-readiness-next-twenty-project-pass/mg/e05-wide-backspace.json",
+      "contract_sha256": "1603a8285105b08f703a2a16d3b12c36fddfbb566152f8c96fe699faa243e045",
+      "fixture": "fixtures/e05-wide-backspace",
+      "fixture_tree_sha256": "11549432b7d818a83182ef0fa4802f263350999a8a4d7526ed946b5bd0fe5168",
+      "id": "E05"
+    },
+    {
+      "class": "edge",
+      "contract": "docs/validation/runner-readiness-next-twenty-project-pass/mg/e06-readonly-buffer.json",
+      "contract_sha256": "017fe8c6d0b2e5c9732316fa449827f2e2b843353629d258347d7e44b61050d2",
+      "fixture": "fixtures/e06-readonly-buffer",
+      "fixture_tree_sha256": "107c9a7d21422c928b397406c1377bcd11c5aa97555fdad29cb846cd5598497a",
+      "id": "E06"
+    },
+    {
+      "class": "edge",
+      "contract": "docs/validation/runner-readiness-next-twenty-project-pass/mg/e07-missing-parent.json",
+      "contract_sha256": "af4b19e2f6b7a7b8e067e114fa80442ab4b0a3955a5847adff2d42e5cc62dc5e",
+      "fixture": "fixtures/e07-missing-parent",
+      "fixture_tree_sha256": "a9cb9d65a0e0404ee662629a81ecbad4e195e78f66e85b7bf671c166b34b40f2",
+      "id": "E07"
+    },
+    {
+      "class": "edge",
+      "contract": "docs/validation/runner-readiness-next-twenty-project-pass/mg/e08-filename-spaces.json",
+      "contract_sha256": "54866bf6f46dc89c30ede5e8c19a11f83ca6de4b9a935866ae2fe290433de966",
+      "fixture": "fixtures/e08-filename-spaces",
+      "fixture_tree_sha256": "3d9c304a87fe5fcb03b7ebd50aa986fbd72769f1d887820eea55e7276b5f861d",
+      "id": "E08"
+    },
+    {
+      "class": "edge",
+      "contract": "docs/validation/runner-readiness-next-twenty-project-pass/mg/e09-cancel-filename.json",
+      "contract_sha256": "b4c232de05952b25405b2376c93e370784fa33ac536831efb3e0ed20c2b8601d",
+      "fixture": "fixtures/e09-cancel-filename",
+      "fixture_tree_sha256": "f069256f712ce65fffb6347f16a24c82dff8f065f529a8480688e1731127f92f",
+      "id": "E09"
+    },
+    {
+      "class": "edge",
+      "contract": "docs/validation/runner-readiness-next-twenty-project-pass/mg/e10a-decline-overwrite.json",
+      "contract_sha256": "93a9ca114d35c6ab706e2bcaece26791f2f21dbc2a878cfb206552f4ef228637",
+      "fixture": "fixtures/e10a-decline-overwrite",
+      "fixture_tree_sha256": "259b1c9f00609ffaf53126866bba3b5822587692130bf67cf41920dd4a923c31",
+      "id": "E10"
+    },
+    {
+      "class": "edge",
+      "contract": "docs/validation/runner-readiness-next-twenty-project-pass/mg/e10b-accept-overwrite.json",
+      "contract_sha256": "413234ee82db4114bd86889c3fe9bd9529bc4ab0c6ca9345d6fd4485092eab27",
+      "fixture": "fixtures/e10b-accept-overwrite",
+      "fixture_tree_sha256": "259b1c9f00609ffaf53126866bba3b5822587692130bf67cf41920dd4a923c31",
+      "id": "E10"
+    },
+    {
+      "class": "edge",
+      "contract": "docs/validation/runner-readiness-next-twenty-project-pass/mg/e11-resize-save.json",
+      "contract_sha256": "3df34b68d80cb4cf2bbdebe1dc797187e83c879a1e504f935b327789399e296c",
+      "fixture": "fixtures/e11-resize-save",
+      "fixture_tree_sha256": "4ca4ac1efec36172a0d52da2a2bc4a168bcc683d7996e40e43ab3e323ddcf1d8",
+      "id": "E11"
+    },
+    {
+      "class": "edge",
+      "contract": "docs/validation/runner-readiness-next-twenty-project-pass/mg/e12-refuse-unsaved-quit.json",
+      "contract_sha256": "029f3fc495c2388891205f7034c2bb86df9dbed0df4a676928c61502b9e600ab",
+      "fixture": "fixtures/e12-refuse-unsaved-quit",
+      "fixture_tree_sha256": "39887c8a7638a86b6b390160d17becbd3821ddfc93ef74d3252fe8f32d61b5e1",
+      "id": "E12"
+    }
+  ],
+  "schema_version": 1,
+  "series_id": "mg-final-series-v2",
+  "source_pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "source_provenance": "docs/validation/runner-readiness-next-twenty-project-pass/mg/source-provenance.json",
+  "source_provenance_sha256": "437c03d570783966c05bc2962a3b09d9e40158dd56aaf20425e8a5b53acf25f2",
+  "status": "declared-not-yet-qualified",
+  "supersedes": "docs/validation/runner-readiness-next-twenty-project-pass/mg/final-qualification-declaration-v1.json",
+  "supersedes_sha256": "7494fc411f3a469f9d5418dd53a8b42cc032fe584f56eba7cce629c45c973134",
+  "supersession_reason": {
+    "correction": "Use the repository-validated d3f86a106a0bac45b974a628896c90dbdf5c8093 action pin and explicit linux/darwin crossed with batch 0..11.",
+    "failed_native_cells": 12,
+    "failed_preflight_run": 42819643394,
+    "reason": "GitHub could not resolve the download-artifact commit and the matrix omitted the explicit host dimension; every observed Darwin job failed during Set up job before checkout or target execution.",
+    "scenario_contract_attempts": 0
+  }
+}
