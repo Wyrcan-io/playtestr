@@ -15,6 +15,8 @@ on:
       - scripts/acceptance/next20_mg_final_series.py
       - scripts/acceptance/next20_mg_final_redeclare_v2.py
       - scripts/acceptance/test_next20_mg_final_series.py
+      - scripts/acceptance/next20_mg_public_route.py
+      - scripts/acceptance/test_next20_mg_public_route.py
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/final-qualification-declaration-v1.json
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/final-qualification-declaration-v2.json
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/n02-edit-append.json
@@ -411,6 +413,86 @@ jobs:
             artifacts/runner-readiness-next-twenty-project-pass/mg/final-qualification/${{ matrix.host }}/${{ matrix.batch }}/**
             artifacts/runner-readiness-next-twenty-project-pass/mg/pilot-development/${{ matrix.host }}/cleanup-*.json
             docs/validation/runner-readiness-next-twenty-project-pass/mg/.final-series-${{ matrix.host }}-${{ matrix.batch }}-*.json
+          if-no-files-found: warn
+          retention-days: 14
+          include-hidden-files: true
+
+  public-authoring-route:
+    name: mg public recorder route (Linux)
+    needs: [first-use-pty-pilot, final-candidate-series]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONIOENCODING: utf-8
+      TEMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+      TMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+      TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+
+      - name: Create campaign-owned input and temporary roots
+        run: mkdir -p artifacts/runner-readiness-next-twenty-project-pass/pilot-input/mg artifacts/runner-readiness-next-twenty-project-pass/pilot-input/candidate artifacts/runner-readiness-next-twenty-project-pass/tmp
+
+      - name: Validate public-route helper
+        run: python -B -m unittest test_next20_mg_public_route -v
+        working-directory: scripts/acceptance
+
+      - name: Download audited native mg build packet
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: next20-mg-build-linux-42815619413
+          repository: ${{ github.repository }}
+          run-id: 42815619413
+          github-token: ${{ github.token }}
+          path: artifacts/runner-readiness-next-twenty-project-pass/pilot-input/mg
+
+      - name: Download exact frozen rc.6 Linux archive
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: next20-private-replacement-Linux
+          repository: ${{ github.repository }}
+          run-id: 40424475362
+          github-token: ${{ github.token }}
+          path: artifacts/runner-readiness-next-twenty-project-pass/pilot-input/candidate
+
+      - name: Install and verify frozen candidate bytes
+        run: >-
+          python -B scripts/acceptance/next20_candidate_install.py
+          --series native-exit-v1
+          --archive artifacts/runner-readiness-next-twenty-project-pass/pilot-input/candidate/replacement-candidate/native-exit-v1/linux-amd64/dist/playtestr_0.4.0-rc.6_linux_amd64.tar.gz
+
+      - name: Exercise the documented public authoring route
+        run: >-
+          python -B scripts/acceptance/next20_mg_public_route.py
+          --mg-build-root artifacts/runner-readiness-next-twenty-project-pass/pilot-input/mg
+
+      - name: Verify campaign storage limits
+        if: always()
+        run: python -B scripts/acceptance/next20_storage.py mg
+
+      - name: Remove exact build and candidate input roots
+        if: always()
+        run: >-
+          python -B scripts/acceptance/next20_mg_pilot_cleanup.py
+          --host linux
+          --pilot-input artifacts/runner-readiness-next-twenty-project-pass/pilot-input
+
+      - name: Retain public-route evidence and cleanup receipts
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: next20-mg-public-route-${{ github.run_id }}
+          path: |
+            artifacts/runner-readiness-next-twenty-project-pass/mg/public-route-native-exit-v1/**
+            artifacts/runner-readiness-next-twenty-project-pass/events/**
+            artifacts/runner-readiness-next-twenty-project-pass/mg/pilot-development/linux/cleanup-*.json
           if-no-files-found: warn
           retention-days: 14
           include-hidden-files: true
