@@ -1,0 +1,727 @@
+{
+  "schema_version": 1,
+  "project": "troglobit/mg",
+  "target_pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "candidate": "v0.4.0-rc.6",
+  "phase": "source fault calibration; not project qualification",
+  "workflow_run_id": 42805846400,
+  "workflow_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/42805846400",
+  "commit": "ce7eb99fade426a4f78375e8fab15616db49fe09",
+  "source_archive_sha256": "bd8aff8ddbf55f7d37067a9f01e6bef887a2b0f2c0699aaa08a73d7dfd6069a8",
+  "source_file_count": 126,
+  "workflow_conclusion": "failure",
+  "matrix_cells": [
+    {
+      "artifact": "mg-fault-delete-byte-corruption-darwin-42805846400",
+      "host": "darwin",
+      "fault": "delete-byte-corruption",
+      "contract": null,
+      "status": "calibration-passed",
+      "error": null,
+      "phases": [
+        {
+          "phase": "baseline",
+          "scenario_result": "passed",
+          "attempt_id": "59d77307807b492393fda004922d9b8b",
+          "attempt_sha256": "ec0c04b300c6c9c6d4a008a260577895a25637aa46cc4c9386cd1c214003eb37",
+          "report_sha256": "3b8f412b1a5edd1bdd71353e51daab4169fae169574dfcea26f247b285aef55e",
+          "runner_log_sha256": "42a7bfae1afad59c7507e0f4cfd36e7d83ac231ce756ecc8f6de40a5b7f33a26",
+          "failed_steps": [],
+          "target_binary_sha256": "36e064750e268f73133b46a2beb1104b1616082e1fe11645af6b2754a80ce7f8",
+          "target_exit_code": 0,
+          "target_cleanup": {
+            "attempted": true,
+            "confirmed_exited": true,
+            "forced": false,
+            "graceful": true,
+            "mechanism": "unix-process-group"
+          },
+          "workflow_command_exit_code": 0,
+          "process_tree_cleanup": "process group absent; no owned descendants remain",
+          "build_receipt_sha256": "f562d127b75a63e389d28540dc409cc78037d73fefae4a5a456788d763edb1f2",
+          "source_map_sha256": "36120c2c102dd27b33efab95af2af79d5287fa9b2c7affd9aa8c87fea2a3505c",
+          "source_archive_sha256": "bd8aff8ddbf55f7d37067a9f01e6bef887a2b0f2c0699aaa08a73d7dfd6069a8",
+          "source_mutation": null
+        },
+        {
+          "phase": "fault",
+          "scenario_result": "failed",
+          "attempt_id": "ab6fdca710ff49b897754785ca5ea45a",
+          "attempt_sha256": "c6e1e857b7a355ecb7e7eb86be12233fa88c03a51c3e98d1415796c5bb64627e",
+          "report_sha256": "5276e81e5b98c7907b806581febbfa9f15ab0aa36783e9cc09fcc97320a3107a",
+          "runner_log_sha256": "66ba3027a73783dfe3d69567f4d4508044a92ee737a9d1d48d0182a3991f8b0a",
+          "failed_steps": [
+            12
+          ],
+          "target_binary_sha256": "75d8375f1fcd2e0d8907ab536f83c8df27bf58694dc8d958fa834258592f04bd",
+          "target_exit_code": 137,
+          "target_cleanup": {
+            "attempted": true,
+            "confirmed_exited": true,
+            "forced": true,
+            "graceful": false,
+            "mechanism": "unix-process-group"
+          },
+          "workflow_command_exit_code": 1,
+          "process_tree_cleanup": "process group absent; no owned descendants remain",
+          "build_receipt_sha256": "e40e110e0689fbc844668a4a6ba9c434180ff9a507c48cdc3a59862b8787064c",
+          "source_map_sha256": "36120c2c102dd27b33efab95af2af79d5287fa9b2c7affd9aa8c87fea2a3505c",
+          "source_archive_sha256": "bd8aff8ddbf55f7d37067a9f01e6bef887a2b0f2c0699aaa08a73d7dfd6069a8",
+          "source_mutation": {
+            "id": "delete-byte-corruption",
+            "mutated_sha256": "426814d983996929d945a3c05306411f8d10193d9fde1d40361f9cbc1dfe8de5",
+            "original_sha256": "362abbff01c1536f608c9e603ca0da0b9945208aceffa4ce7c213c82da436c52",
+            "path": "src/line.c",
+            "replacement_bytes": 29
+          }
+        },
+        {
+          "phase": "recovery",
+          "scenario_result": "passed",
+          "attempt_id": "52875ce62a444d23b7a87f326a1a06e3",
+          "attempt_sha256": "e5efbf6298bf78729cd928041ad6e908250aab701ea90a4974de69775502ef7d",
+          "report_sha256": "bec7d53203577e4ed9b9d99239de3f2edbe4a37d04a18662180e3b620fa2d157",
+          "runner_log_sha256": "32ed0181e46cf91db690e47129188f0a159e087d21875032cda82103a9ca1d79",
+          "failed_steps": [],
+          "target_binary_sha256": "9625f8aed76a6dfe397f943ef63feeb0c7c64716ffcb6e2332414f854cff8a9b",
+          "target_exit_code": 0,
+          "target_cleanup": {
+            "attempted": true,
+            "confirmed_exited": true,
+            "forced": false,
+            "graceful": true,
+            "mechanism": "unix-process-group"
+          },
+          "workflow_command_exit_code": 0,
+          "process_tree_cleanup": "process group absent; no owned descendants remain",
+          "build_receipt_sha256": "3654fbab00ce616d779e17f3de00659c7b2d4d37568ade6bb7ceb014de3cf759",
+          "source_map_sha256": "36120c2c102dd27b33efab95af2af79d5287fa9b2c7affd9aa8c87fea2a3505c",
+          "source_archive_sha256": "bd8aff8ddbf55f7d37067a9f01e6bef887a2b0f2c0699aaa08a73d7dfd6069a8",
+          "source_mutation": null
+        }
+      ],
+      "admission_credit": 0
+    },
+    {
+      "artifact": "mg-fault-delete-byte-corruption-linux-42805846400",
+      "host": "linux",
+      "fault": "delete-byte-corruption",
+      "contract": null,
+      "status": "calibration-passed",
+      "error": null,
+      "phases": [
+        {
+          "phase": "baseline",
+          "scenario_result": "passed",
+          "attempt_id": "3484f2378b124758b88dfc6045061d14",
+          "attempt_sha256": "71ccb6bfecb348d41444a593669c0874917530bef79c6542a0a425ec7bf5bf4d",
+          "report_sha256": "5f65bdc1a1d7c445a1ebf43b868c3ffef90b115418a96bbcd3973610d7b66d88",
+          "runner_log_sha256": "9d24444f810365c82ed0376b2fc2cd179f7d0d3d0c91339cd7c5fa4da865e34d",
+          "failed_steps": [],
+          "target_binary_sha256": "6eb334f5ea96687983c51b073b1b8a11434ea85a46e69ca6e28e57b76b4e88e5",
+          "target_exit_code": 0,
+          "target_cleanup": {
+            "attempted": true,
+            "confirmed_exited": true,
+            "forced": false,
+            "graceful": true,
+            "mechanism": "unix-process-group"
+          },
+          "workflow_command_exit_code": 0,
+          "process_tree_cleanup": "process group absent; no owned descendants remain",
+          "build_receipt_sha256": "b73c7ece81382432cdfb63af76169374df426c1980bcb0d74f1d90465636a0ce",
+          "source_map_sha256": "36120c2c102dd27b33efab95af2af79d5287fa9b2c7affd9aa8c87fea2a3505c",
+          "source_archive_sha256": "bd8aff8ddbf55f7d37067a9f01e6bef887a2b0f2c0699aaa08a73d7dfd6069a8",
+          "source_mutation": null
+        },
+        {
+          "phase": "fault",
+          "scenario_result": "failed",
+          "attempt_id": "3378e25d647c4a99b133e4d82d1eec95",
+          "attempt_sha256": "f418450b500e2160583df2f0fc6b9be075b14ecba271490a804aabeeb4bb0c23",
+          "report_sha256": "fe10df049bee26bee081c45ca89c7bc72c9b842e13b06cc5eadcee440f8c93ad",
+          "runner_log_sha256": "05ab988a827430455a53db0698d112abead160fb5fa73bd5dd754f0c1cc60fc5",
+          "failed_steps": [
+            12
+          ],
+          "target_binary_sha256": "1899876a6b62f4c487c6ee2e85dad722a71cfb70102185f014b2e5783227470c",
+          "target_exit_code": 137,
+          "target_cleanup": {
+            "attempted": true,
+            "confirmed_exited": true,
+            "forced": true,
+            "graceful": false,
+            "mechanism": "unix-process-group"
+          },
+          "workflow_command_exit_code": 1,
+          "process_tree_cleanup": "process group absent; no owned descendants remain",
+          "build_receipt_sha256": "f1c64f6dca046962ce4b9fa48a0ac7b8df68609b42dd982fbeed42673745c107",
+          "source_map_sha256": "36120c2c102dd27b33efab95af2af79d5287fa9b2c7affd9aa8c87fea2a3505c",
+          "source_archive_sha256": "bd8aff8ddbf55f7d37067a9f01e6bef887a2b0f2c0699aaa08a73d7dfd6069a8",
+          "source_mutation": {
+            "id": "delete-byte-corruption",
+            "mutated_sha256": "426814d983996929d945a3c05306411f8d10193d9fde1d40361f9cbc1dfe8de5",
+            "original_sha256": "362abbff01c1536f608c9e603ca0da0b9945208aceffa4ce7c213c82da436c52",
+            "path": "src/line.c",
+            "replacement_bytes": 29
+          }
+        },
+        {
+          "phase": "recovery",
+          "scenario_result": "passed",
+          "attempt_id": "722a13d6ad95455180aa87ec32a90b0a",
+          "attempt_sha256": "4eabac46b83d64a3f204a3d1185f56fcbb441969da48d0aa69042dde2b48db79",
+          "report_sha256": "9de451313b4b736de397a0eb1c3093834cb91debae00c579771b10ef0b1783b7",
+          "runner_log_sha256": "4be86688bbbe60163d205f52bce88b861bc1db0722ee6ac66592cb5356ed4c90",
+          "failed_steps": [],
+          "target_binary_sha256": "6eb334f5ea96687983c51b073b1b8a11434ea85a46e69ca6e28e57b76b4e88e5",
+          "target_exit_code": 0,
+          "target_cleanup": {
+            "attempted": true,
+            "confirmed_exited": true,
+            "forced": false,
+            "graceful": true,
+            "mechanism": "unix-process-group"
+          },
+          "workflow_command_exit_code": 0,
+          "process_tree_cleanup": "process group absent; no owned descendants remain",
+          "build_receipt_sha256": "93e877d8866edcf9f4cd6043736b4195370a459b5de5d874714c73aa110faef6",
+          "source_map_sha256": "36120c2c102dd27b33efab95af2af79d5287fa9b2c7affd9aa8c87fea2a3505c",
+          "source_archive_sha256": "bd8aff8ddbf55f7d37067a9f01e6bef887a2b0f2c0699aaa08a73d7dfd6069a8",
+          "source_mutation": null
+        }
+      ],
+      "admission_credit": 0
+    },
+    {
+      "artifact": "mg-fault-readonly-edit-accepted-darwin-42805846400",
+      "host": "darwin",
+      "fault": "readonly-edit-accepted",
+      "contract": null,
+      "status": "calibration-incomplete",
+      "error": "RuntimeError: fault scenario unexpectedly passed: fault scenario",
+      "phases": [
+        {
+          "phase": "baseline",
+          "scenario_result": "passed",
+          "attempt_id": "ff0ea2afc0164b1fbcb766fc2ede71e7",
+          "attempt_sha256": "19e7ef6f940d99bfe4bfd374ab000c4fe744578c336c566246960e98a65f5a8d",
+          "report_sha256": "20e7a38b7ad3e3ff72801d6db46ffcbeecea5fda7a502ff969d71f6ef0b60040",
+          "runner_log_sha256": "2dfa7e049f9351ab8716fecdee74a26fa07ae74153249ceb598d83db878a0ff5",
+          "failed_steps": [],
+          "target_binary_sha256": "168cca149893f9e41b6385498925763aa16eaa7856d4b0597377caafcc67ae2a",
+          "target_exit_code": 0,
+          "target_cleanup": {
+            "attempted": true,
+            "confirmed_exited": true,
+            "forced": false,
+            "graceful": true,
+            "mechanism": "unix-process-group"
+          },
+          "workflow_command_exit_code": 0,
+          "process_tree_cleanup": "process group absent; no owned descendants remain",
+          "build_receipt_sha256": "819ef0290979390a838d828906d086a57cb17c65d7ec51d6222dff96263a506b",
+          "source_map_sha256": "36120c2c102dd27b33efab95af2af79d5287fa9b2c7affd9aa8c87fea2a3505c",
+          "source_archive_sha256": "bd8aff8ddbf55f7d37067a9f01e6bef887a2b0f2c0699aaa08a73d7dfd6069a8",
+          "source_mutation": null
+        }
+      ],
+      "admission_credit": 0
+    },
+    {
+      "artifact": "mg-fault-readonly-edit-accepted-linux-42805846400",
+      "host": "linux",
+      "fault": "readonly-edit-accepted",
+      "contract": null,
+      "status": "calibration-incomplete",
+      "error": "RuntimeError: fault scenario unexpectedly passed: fault scenario",
+      "phases": [
+        {
+          "phase": "baseline",
+          "scenario_result": "passed",
+          "attempt_id": "9bf3ec6cc019430abdf34e2a98955841",
+          "attempt_sha256": "a4cfd0ea346622059b72325c073a3639bd4df853829b3eba8d94e9311f166299",
+          "report_sha256": "e1e98923324f2bd2a4b616f4c636f1a6d6453abeab9a5a41cf76cc8147c8a5e6",
+          "runner_log_sha256": "7620f99b57a2bd019e709789759194cf40cf0edcbc821d63bdd0f2704c4a5127",
+          "failed_steps": [],
+          "target_binary_sha256": "6eb334f5ea96687983c51b073b1b8a11434ea85a46e69ca6e28e57b76b4e88e5",
+          "target_exit_code": 0,
+          "target_cleanup": {
+            "attempted": true,
+            "confirmed_exited": true,
+            "forced": false,
+            "graceful": true,
+            "mechanism": "unix-process-group"
+          },
+          "workflow_command_exit_code": 0,
+          "process_tree_cleanup": "process group absent; no owned descendants remain",
+          "build_receipt_sha256": "4b6fa4c4fa76ab8a2b4d42ec61c2f0724fbda745804384882f1c8a222d646c99",
+          "source_map_sha256": "36120c2c102dd27b33efab95af2af79d5287fa9b2c7affd9aa8c87fea2a3505c",
+          "source_archive_sha256": "bd8aff8ddbf55f7d37067a9f01e6bef887a2b0f2c0699aaa08a73d7dfd6069a8",
+          "source_mutation": null
+        }
+      ],
+      "admission_credit": 0
+    },
+    {
+      "artifact": "mg-fault-save-no-write-darwin-42805846400",
+      "host": "darwin",
+      "fault": "save-no-write",
+      "contract": null,
+      "status": "calibration-passed",
+      "error": null,
+      "phases": [
+        {
+          "phase": "baseline",
+          "scenario_result": "passed",
+          "attempt_id": "60f3755a1ea843798f52744b9dae2764",
+          "attempt_sha256": "be2a0061f870a1aa90ecc3e38e73c660c7231d0351ac8d0b425469fb84398b34",
+          "report_sha256": "f2d800794106f303c3b0a6a26600ca65b7c442cca985b62294bca8280c7432e9",
+          "runner_log_sha256": "b496e9f0fb5897c4d8cd03b14cce52976f5d620f3b3a178a1af52040d0a0a51e",
+          "failed_steps": [],
+          "target_binary_sha256": "afd0dd047eac1dc6d0360c01844d70fc90552b42d72546e68d10ee8789f4e4dd",
+          "target_exit_code": 0,
+          "target_cleanup": {
+            "attempted": true,
+            "confirmed_exited": true,
+            "forced": false,
+            "graceful": true,
+            "mechanism": "unix-process-group"
+          },
+          "workflow_command_exit_code": 0,
+          "process_tree_cleanup": "process group absent; no owned descendants remain",
+          "build_receipt_sha256": "d475f5558d28ee8844e7135a4d4dbd7bb362c9d46cf6670b45f9ce6210f6e7c4",
+          "source_map_sha256": "36120c2c102dd27b33efab95af2af79d5287fa9b2c7affd9aa8c87fea2a3505c",
+          "source_archive_sha256": "bd8aff8ddbf55f7d37067a9f01e6bef887a2b0f2c0699aaa08a73d7dfd6069a8",
+          "source_mutation": null
+        },
+        {
+          "phase": "fault",
+          "scenario_result": "failed",
+          "attempt_id": "7aaf1ce07ba94639876b9ef1c1e4223c",
+          "attempt_sha256": "e00686ddd07809d995ecc85a4e05c85892778bb0d44a705751ce4f7791b26a17",
+          "report_sha256": "c761c6bf5d500fbc4bfafd15261a0d496e1785c08a5d77ee5dfffc21e0167643",
+          "runner_log_sha256": "4906fb47cc3c4d3b305228ea7b69bc96332c965efe9b195a97cfdf11cc511ac8",
+          "failed_steps": [
+            12
+          ],
+          "target_binary_sha256": "c0fce535cc0b7bd443537708d1116b1bc84529587b46e9bd1e1eed19151907f9",
+          "target_exit_code": 0,
+          "target_cleanup": {
+            "attempted": true,
+            "confirmed_exited": true,
+            "forced": false,
+            "graceful": true,
+            "mechanism": "unix-process-group"
+          },
+          "workflow_command_exit_code": 1,
+          "process_tree_cleanup": "process group absent; no owned descendants remain",
+          "build_receipt_sha256": "4e064910549526edbbedfb3898c17a6c30e98e4b0eb799fc46eab9f06b7ec62c",
+          "source_map_sha256": "36120c2c102dd27b33efab95af2af79d5287fa9b2c7affd9aa8c87fea2a3505c",
+          "source_archive_sha256": "bd8aff8ddbf55f7d37067a9f01e6bef887a2b0f2c0699aaa08a73d7dfd6069a8",
+          "source_mutation": {
+            "id": "save-no-write",
+            "mutated_sha256": "a4f39a0a29c896571c5e5d6d4c7f7f3143ebd30fcbb91c832bf8bda56faf8e4b",
+            "original_function_sha256": "4d894f7d312780016cc9a1497bb07b9f47e79f226e439f721746f92090b8164f",
+            "original_sha256": "9fcde1d55a3763f318706521a78c1b455d87c25a6e23a41d96c10db8e5c5ae39",
+            "path": "src/fileio.c",
+            "replacement_bytes": 113
+          }
+        },
+        {
+          "phase": "recovery",
+          "scenario_result": "passed",
+          "attempt_id": "f783d0c3f3064eacaa1ea1c1116a5955",
+          "attempt_sha256": "a476ebae1b0ac6a83d358d4c188a3d9d8fc3b5b1fbe26bf770c8d783593cef5c",
+          "report_sha256": "da1278318c6020ed0751c6059c19e278747fcd25cb4958db8cf90c03f8dfa7ab",
+          "runner_log_sha256": "44884adb3f52f2881ca1badfc0440aa7978083c5eba80ce35eb443f269f3e73f",
+          "failed_steps": [],
+          "target_binary_sha256": "ac54c323379a93995a04e38a3571df762751eb95df3d45799c03990727deb056",
+          "target_exit_code": 0,
+          "target_cleanup": {
+            "attempted": true,
+            "confirmed_exited": true,
+            "forced": false,
+            "graceful": true,
+            "mechanism": "unix-process-group"
+          },
+          "workflow_command_exit_code": 0,
+          "process_tree_cleanup": "process group absent; no owned descendants remain",
+          "build_receipt_sha256": "1942cf9f52b9a1b8db6003df08eeea4444821901144ea7565a2447678937c29d",
+          "source_map_sha256": "36120c2c102dd27b33efab95af2af79d5287fa9b2c7affd9aa8c87fea2a3505c",
+          "source_archive_sha256": "bd8aff8ddbf55f7d37067a9f01e6bef887a2b0f2c0699aaa08a73d7dfd6069a8",
+          "source_mutation": null
+        }
+      ],
+      "admission_credit": 0
+    },
+    {
+      "artifact": "mg-fault-save-no-write-linux-42805846400",
+      "host": "linux",
+      "fault": "save-no-write",
+      "contract": null,
+      "status": "calibration-passed",
+      "error": null,
+      "phases": [
+        {
+          "phase": "baseline",
+          "scenario_result": "passed",
+          "attempt_id": "4018f30498204364ba7713e435771b5c",
+          "attempt_sha256": "2381916cb2b4bd0a18dbda36c47ab97151aa787f45778b604cc59dc2b725be45",
+          "report_sha256": "f601a18b42b2c27808745af1f730f8efd60f46f3df859461eea393d8666dc46a",
+          "runner_log_sha256": "a96d314d821567afbfd17bc5cca75ec6e35f6a20909fbb34556fb8af0eb8e67e",
+          "failed_steps": [],
+          "target_binary_sha256": "6eb334f5ea96687983c51b073b1b8a11434ea85a46e69ca6e28e57b76b4e88e5",
+          "target_exit_code": 0,
+          "target_cleanup": {
+            "attempted": true,
+            "confirmed_exited": true,
+            "forced": false,
+            "graceful": true,
+            "mechanism": "unix-process-group"
+          },
+          "workflow_command_exit_code": 0,
+          "process_tree_cleanup": "process group absent; no owned descendants remain",
+          "build_receipt_sha256": "6fd8bbfcbae694dad2e55d9766e95e845a05f185b5e627e1f4c80c797471a0da",
+          "source_map_sha256": "36120c2c102dd27b33efab95af2af79d5287fa9b2c7affd9aa8c87fea2a3505c",
+          "source_archive_sha256": "bd8aff8ddbf55f7d37067a9f01e6bef887a2b0f2c0699aaa08a73d7dfd6069a8",
+          "source_mutation": null
+        },
+        {
+          "phase": "fault",
+          "scenario_result": "failed",
+          "attempt_id": "5440f285b0ea43ee9417c91c0e278cee",
+          "attempt_sha256": "68d6cad18a1206c29d84cfe8bde1c6212cb0b0e9b43eafd2d640fc0aefa034f5",
+          "report_sha256": "ecd16e240c54ee39705578f01a6fdeff229c5d682103b56dbf6a748909de48e5",
+          "runner_log_sha256": "3d6d084fac539417e04e6251c42686c91a227ff81b422ad9ce15c38932e1aca6",
+          "failed_steps": [
+            12
+          ],
+          "target_binary_sha256": "f79279b2aa80366a19e7e1f7e196ccfc3e943eb6dbb7c319cc05f3d3d442b1db",
+          "target_exit_code": 0,
+          "target_cleanup": {
+            "attempted": true,
+            "confirmed_exited": true,
+            "forced": false,
+            "graceful": true,
+            "mechanism": "unix-process-group"
+          },
+          "workflow_command_exit_code": 1,
+          "process_tree_cleanup": "process group absent; no owned descendants remain",
+          "build_receipt_sha256": "37df43d97d2761b5a8047097640020586aebb6e18f189017adb3983e8c87f96b",
+          "source_map_sha256": "36120c2c102dd27b33efab95af2af79d5287fa9b2c7affd9aa8c87fea2a3505c",
+          "source_archive_sha256": "bd8aff8ddbf55f7d37067a9f01e6bef887a2b0f2c0699aaa08a73d7dfd6069a8",
+          "source_mutation": {
+            "id": "save-no-write",
+            "mutated_sha256": "a4f39a0a29c896571c5e5d6d4c7f7f3143ebd30fcbb91c832bf8bda56faf8e4b",
+            "original_function_sha256": "4d894f7d312780016cc9a1497bb07b9f47e79f226e439f721746f92090b8164f",
+            "original_sha256": "9fcde1d55a3763f318706521a78c1b455d87c25a6e23a41d96c10db8e5c5ae39",
+            "path": "src/fileio.c",
+            "replacement_bytes": 113
+          }
+        },
+        {
+          "phase": "recovery",
+          "scenario_result": "passed",
+          "attempt_id": "d7d72c4787dc4e4e9c11ed14cca4bee3",
+          "attempt_sha256": "f326995ad60a57fd2348e22626277449c6871562272f3fe656878a1291c62470",
+          "report_sha256": "87521c2e888739ad47bce5a6367ac0c0cee9f095593c79c5c5e917243f7175a8",
+          "runner_log_sha256": "e3cf661bdf759b1aedf2daf6e3d8f75b34b4df0e02690bcc556fb2475e0c12a6",
+          "failed_steps": [],
+          "target_binary_sha256": "6eb334f5ea96687983c51b073b1b8a11434ea85a46e69ca6e28e57b76b4e88e5",
+          "target_exit_code": 0,
+          "target_cleanup": {
+            "attempted": true,
+            "confirmed_exited": true,
+            "forced": false,
+            "graceful": true,
+            "mechanism": "unix-process-group"
+          },
+          "workflow_command_exit_code": 0,
+          "process_tree_cleanup": "process group absent; no owned descendants remain",
+          "build_receipt_sha256": "9d132e46ef8bf862b793b6e17fbdbb70eba576125305023937cd8e1e86bd1667",
+          "source_map_sha256": "36120c2c102dd27b33efab95af2af79d5287fa9b2c7affd9aa8c87fea2a3505c",
+          "source_archive_sha256": "bd8aff8ddbf55f7d37067a9f01e6bef887a2b0f2c0699aaa08a73d7dfd6069a8",
+          "source_mutation": null
+        }
+      ],
+      "admission_credit": 0
+    },
+    {
+      "artifact": "mg-fault-undo-delete-omitted-darwin-42805846400",
+      "host": "darwin",
+      "fault": "undo-delete-omitted",
+      "contract": null,
+      "status": "calibration-passed",
+      "error": null,
+      "phases": [
+        {
+          "phase": "baseline",
+          "scenario_result": "passed",
+          "attempt_id": "ec90fb6a12ae4b678b2f30c6d97d1909",
+          "attempt_sha256": "6c7f56f4496839fc07c218e85373e110a99e324d88509a47c11d615cb5f0ef4a",
+          "report_sha256": "d39189835385bcade96d3096d54f8974f8068849e2093af9b1395df4a120cd87",
+          "runner_log_sha256": "94434909413f25bc22a3ce7d844d526c40a8b524bc1c8db56d79cc592010667d",
+          "failed_steps": [],
+          "target_binary_sha256": "853ce5d43846320650b075221a7a1b61410eb36e42f94f28d2437be39490d51a",
+          "target_exit_code": 0,
+          "target_cleanup": {
+            "attempted": true,
+            "confirmed_exited": true,
+            "forced": false,
+            "graceful": true,
+            "mechanism": "unix-process-group"
+          },
+          "workflow_command_exit_code": 0,
+          "process_tree_cleanup": "process group absent; no owned descendants remain",
+          "build_receipt_sha256": "b10fedea46d26630e9915a0b26bbf70aebf5d6cda07cb97085ab92122875fff6",
+          "source_map_sha256": "36120c2c102dd27b33efab95af2af79d5287fa9b2c7affd9aa8c87fea2a3505c",
+          "source_archive_sha256": "bd8aff8ddbf55f7d37067a9f01e6bef887a2b0f2c0699aaa08a73d7dfd6069a8",
+          "source_mutation": null
+        },
+        {
+          "phase": "fault",
+          "scenario_result": "failed",
+          "attempt_id": "39a5e2d4be754d5e97524e4496771243",
+          "attempt_sha256": "7c32911716de07881c43e1107b5953a6e11d28821b7ecff0cee5afbf8b2b0dba",
+          "report_sha256": "c28669e627345fabce3c1ded3d3fe0655c255b0d4fe0488951ede3e09b205751",
+          "runner_log_sha256": "33c042c51afd02cd2db1110bb2f10d3d0b0756551629efa17f49de68198446e5",
+          "failed_steps": [
+            14
+          ],
+          "target_binary_sha256": "047d27ff140623adeb757fc1c0f8cb44e2844f2151278d3e33b47da8f7d4141d",
+          "target_exit_code": 137,
+          "target_cleanup": {
+            "attempted": true,
+            "confirmed_exited": true,
+            "forced": true,
+            "graceful": false,
+            "mechanism": "unix-process-group"
+          },
+          "workflow_command_exit_code": 1,
+          "process_tree_cleanup": "process group absent; no owned descendants remain",
+          "build_receipt_sha256": "d9d62433cea50a9adb9629dd6797cc62d841cacb769cb679fd87b99439fa3879",
+          "source_map_sha256": "36120c2c102dd27b33efab95af2af79d5287fa9b2c7affd9aa8c87fea2a3505c",
+          "source_archive_sha256": "bd8aff8ddbf55f7d37067a9f01e6bef887a2b0f2c0699aaa08a73d7dfd6069a8",
+          "source_mutation": {
+            "id": "undo-delete-omitted",
+            "mutated_sha256": "cddb98eb50a6d27c0ca8647c0461273bb53c3a3cadc18064cdbd792004a81932",
+            "original_sha256": "02f4127fbb30b1fa06a22aeab0624ca8021058e84a653235c403d14346194771",
+            "path": "src/undo.c",
+            "replacement_bytes": 90
+          }
+        },
+        {
+          "phase": "recovery",
+          "scenario_result": "passed",
+          "attempt_id": "7b4b25e4dce74ccfbea76bda8e8e1ac2",
+          "attempt_sha256": "4e41f644b01132f059a8b95455a2f465f50d6ffe631f4d75eef4c98fa17be6eb",
+          "report_sha256": "b981a8d9bb50565a34c5a55b5a94d53d4ccba384e02ed5d51aab7c478204405d",
+          "runner_log_sha256": "13df0ba52633e0928394684c8581f86f6dbdb4922c1c91274d8642942c40bc67",
+          "failed_steps": [],
+          "target_binary_sha256": "7879923a9a1d8d736804b0014ecbc2e047c984e811fae4ec37177869131b5759",
+          "target_exit_code": 0,
+          "target_cleanup": {
+            "attempted": true,
+            "confirmed_exited": true,
+            "forced": false,
+            "graceful": true,
+            "mechanism": "unix-process-group"
+          },
+          "workflow_command_exit_code": 0,
+          "process_tree_cleanup": "process group absent; no owned descendants remain",
+          "build_receipt_sha256": "c864bf26547a437d30206fb44c76918548a0128bacea70915fd163936dbddb4e",
+          "source_map_sha256": "36120c2c102dd27b33efab95af2af79d5287fa9b2c7affd9aa8c87fea2a3505c",
+          "source_archive_sha256": "bd8aff8ddbf55f7d37067a9f01e6bef887a2b0f2c0699aaa08a73d7dfd6069a8",
+          "source_mutation": null
+        }
+      ],
+      "admission_credit": 0
+    },
+    {
+      "artifact": "mg-fault-undo-delete-omitted-linux-42805846400",
+      "host": "linux",
+      "fault": "undo-delete-omitted",
+      "contract": null,
+      "status": "calibration-passed",
+      "error": null,
+      "phases": [
+        {
+          "phase": "baseline",
+          "scenario_result": "passed",
+          "attempt_id": "be20047c6dbc472d80097bd54977fad0",
+          "attempt_sha256": "1b861782210720973219616e3eb4f6b01291b7b7a92e649132a7c8b1a7dc766b",
+          "report_sha256": "9fe7f9fbde7e70907e66c135f39e73de5f35bcfec8b90c78e04d2e90820e67ec",
+          "runner_log_sha256": "7a68bf0691bcbc81888c22a2a0bb587219e631a0aa4108593ac647ac96119ce6",
+          "failed_steps": [],
+          "target_binary_sha256": "6eb334f5ea96687983c51b073b1b8a11434ea85a46e69ca6e28e57b76b4e88e5",
+          "target_exit_code": 0,
+          "target_cleanup": {
+            "attempted": true,
+            "confirmed_exited": true,
+            "forced": false,
+            "graceful": true,
+            "mechanism": "unix-process-group"
+          },
+          "workflow_command_exit_code": 0,
+          "process_tree_cleanup": "process group absent; no owned descendants remain",
+          "build_receipt_sha256": "7af80fe500f4616948447e8f95c07ddd8d95de0de7212f3e430b0cc456db4448",
+          "source_map_sha256": "36120c2c102dd27b33efab95af2af79d5287fa9b2c7affd9aa8c87fea2a3505c",
+          "source_archive_sha256": "bd8aff8ddbf55f7d37067a9f01e6bef887a2b0f2c0699aaa08a73d7dfd6069a8",
+          "source_mutation": null
+        },
+        {
+          "phase": "fault",
+          "scenario_result": "failed",
+          "attempt_id": "3ff9b7d8a80d418691eed3d52ca75c92",
+          "attempt_sha256": "e08ecd95e3be4062ed3fe65257e8fa8d9da56a50ef13e0cae5fe88bd038df845",
+          "report_sha256": "c58ede7df4762e9e00ee49da6dc630557d2c313d5d19eb7542e3eb5aaa6ad7b7",
+          "runner_log_sha256": "f2b068353d8b0f0d2b01256c7085345303296b9d22c7fa17f12af8ab42cdb529",
+          "failed_steps": [
+            14
+          ],
+          "target_binary_sha256": "c371029f4d671f295ba052428c5b15db82a75e0030eafb7b55fb8b0127d25d09",
+          "target_exit_code": 137,
+          "target_cleanup": {
+            "attempted": true,
+            "confirmed_exited": true,
+            "forced": true,
+            "graceful": false,
+            "mechanism": "unix-process-group"
+          },
+          "workflow_command_exit_code": 1,
+          "process_tree_cleanup": "process group absent; no owned descendants remain",
+          "build_receipt_sha256": "8989ef1128861b83378ff008726ffdfcc9a4c3968075cf03bfee178111a12d91",
+          "source_map_sha256": "36120c2c102dd27b33efab95af2af79d5287fa9b2c7affd9aa8c87fea2a3505c",
+          "source_archive_sha256": "bd8aff8ddbf55f7d37067a9f01e6bef887a2b0f2c0699aaa08a73d7dfd6069a8",
+          "source_mutation": {
+            "id": "undo-delete-omitted",
+            "mutated_sha256": "cddb98eb50a6d27c0ca8647c0461273bb53c3a3cadc18064cdbd792004a81932",
+            "original_sha256": "02f4127fbb30b1fa06a22aeab0624ca8021058e84a653235c403d14346194771",
+            "path": "src/undo.c",
+            "replacement_bytes": 90
+          }
+        },
+        {
+          "phase": "recovery",
+          "scenario_result": "passed",
+          "attempt_id": "0612da1e01b64e3882e1359fe2522787",
+          "attempt_sha256": "605566081688d8043e538135c9487b85827c4a00166fd9237c8aa68720969991",
+          "report_sha256": "66db4b75718a502688b523399e48b63f62d24dc504215eada78da2f5c7b09066",
+          "runner_log_sha256": "f557f7100bf549077421c4f2e59966275feee2855be324feaaf237d27519e1b4",
+          "failed_steps": [],
+          "target_binary_sha256": "6eb334f5ea96687983c51b073b1b8a11434ea85a46e69ca6e28e57b76b4e88e5",
+          "target_exit_code": 0,
+          "target_cleanup": {
+            "attempted": true,
+            "confirmed_exited": true,
+            "forced": false,
+            "graceful": true,
+            "mechanism": "unix-process-group"
+          },
+          "workflow_command_exit_code": 0,
+          "process_tree_cleanup": "process group absent; no owned descendants remain",
+          "build_receipt_sha256": "2e05e06e6f38642c2a934e2171908cc18c3d97020d26afd246d6d1bb55ce205a",
+          "source_map_sha256": "36120c2c102dd27b33efab95af2af79d5287fa9b2c7affd9aa8c87fea2a3505c",
+          "source_archive_sha256": "bd8aff8ddbf55f7d37067a9f01e6bef887a2b0f2c0699aaa08a73d7dfd6069a8",
+          "source_mutation": null
+        }
+      ],
+      "admission_credit": 0
+    }
+  ],
+  "artifact_readback": [
+    {
+      "key": "save-linux",
+      "artifact_id": 13758332420,
+      "bytes": 69116,
+      "provider_sha256": "sha256:365656aab55b1f2db18ac006b92099df301e909e404af9ffcdefc2c91f90b5a7",
+      "retained_path": "artifacts/runner-readiness-next-twenty-project-pass/mg/fault-calibrations/retrieved/run-42805846400/save-linux.zip",
+      "retained_sha256": "365656aab55b1f2db18ac006b92099df301e909e404af9ffcdefc2c91f90b5a7",
+      "zip_crc": "passed",
+      "member_count": 80
+    },
+    {
+      "key": "delete-linux",
+      "artifact_id": 13758252865,
+      "bytes": 69442,
+      "provider_sha256": "sha256:53f09104bd29231cc9b29fbf61e0a3b5d82b74adfc24a535f8b1e6552598d05d",
+      "retained_path": "artifacts/runner-readiness-next-twenty-project-pass/mg/fault-calibrations/retrieved/run-42805846400/delete-linux.zip",
+      "retained_sha256": "53f09104bd29231cc9b29fbf61e0a3b5d82b74adfc24a535f8b1e6552598d05d",
+      "zip_crc": "passed",
+      "member_count": 80
+    },
+    {
+      "key": "readonly-linux",
+      "artifact_id": 13758034067,
+      "bytes": 42823,
+      "provider_sha256": "sha256:28b2da615e43b96c0c11a57bee3541f7875a49db70deaca2560fc0b6246c556b",
+      "retained_path": "artifacts/runner-readiness-next-twenty-project-pass/mg/fault-calibrations/retrieved/run-42805846400/readonly-linux.zip",
+      "retained_sha256": "28b2da615e43b96c0c11a57bee3541f7875a49db70deaca2560fc0b6246c556b",
+      "zip_crc": "passed",
+      "member_count": 53
+    },
+    {
+      "key": "save-darwin",
+      "artifact_id": 13759211309,
+      "bytes": 140382,
+      "provider_sha256": "sha256:d3c135b2b78d738d8214f16355012d2d55659feddd96b7e7bca17f3efa95e53a",
+      "retained_path": "artifacts/runner-readiness-next-twenty-project-pass/mg/fault-calibrations/retrieved/run-42805846400/save-darwin.zip",
+      "retained_sha256": "d3c135b2b78d738d8214f16355012d2d55659feddd96b7e7bca17f3efa95e53a",
+      "zip_crc": "passed",
+      "member_count": 107
+    },
+    {
+      "key": "delete-darwin",
+      "artifact_id": 13759111560,
+      "bytes": 140664,
+      "provider_sha256": "sha256:b673319da97036ea259a5f85e62ac3cdbc554d37a41e6c904bc85c1c70491098",
+      "retained_path": "artifacts/runner-readiness-next-twenty-project-pass/mg/fault-calibrations/retrieved/run-42805846400/delete-darwin.zip",
+      "retained_sha256": "b673319da97036ea259a5f85e62ac3cdbc554d37a41e6c904bc85c1c70491098",
+      "zip_crc": "passed",
+      "member_count": 107
+    },
+    {
+      "key": "readonly-darwin",
+      "artifact_id": 13758339578,
+      "bytes": 88918,
+      "provider_sha256": "sha256:758ae854e5ad59e93fec4f2dfefa4e974d08e9dfe7a2f651743cef259cf80bc2",
+      "retained_path": "artifacts/runner-readiness-next-twenty-project-pass/mg/fault-calibrations/retrieved/run-42805846400/readonly-darwin.zip",
+      "retained_sha256": "758ae854e5ad59e93fec4f2dfefa4e974d08e9dfe7a2f651743cef259cf80bc2",
+      "zip_crc": "passed",
+      "member_count": 71
+    },
+    {
+      "key": "undo-linux",
+      "artifact_id": 13758612943,
+      "bytes": 69126,
+      "provider_sha256": "sha256:674469263a862bd856e3f7de7b5a0575618f7987a9c81543be5d55b462a8a82e",
+      "retained_path": "artifacts/runner-readiness-next-twenty-project-pass/mg/fault-calibrations/retrieved/run-42805846400/undo-linux.zip",
+      "retained_sha256": "674469263a862bd856e3f7de7b5a0575618f7987a9c81543be5d55b462a8a82e",
+      "zip_crc": "passed",
+      "member_count": 80
+    },
+    {
+      "key": "undo-darwin",
+      "artifact_id": 13760098095,
+      "bytes": 140304,
+      "provider_sha256": "sha256:2144981be37f2683458926c9a086c163acca017e011164101f6dc330cc372d8e",
+      "retained_path": "artifacts/runner-readiness-next-twenty-project-pass/mg/fault-calibrations/retrieved/run-42805846400/undo-darwin.zip",
+      "retained_sha256": "2144981be37f2683458926c9a086c163acca017e011164101f6dc330cc372d8e",
+      "zip_crc": "passed",
+      "member_count": 107
+    }
+  ],
+  "summary": {
+    "calibration_passed_cells": 6,
+    "calibration_incomplete_cells": 2,
+    "incomplete_reason": "The original readonly-edit-accepted mutation removed ldelete?s BFREADONLY guard, while E06 input X calls linsert; the mutated scenario unexpectedly passed on both hosts. No false-negative cell receives calibration credit and neither has a recovery phase.",
+    "valid_faults_on_both_hosts": [
+      "save-no-write",
+      "delete-byte-corruption",
+      "undo-delete-omitted"
+    ],
+    "admission_credit": 0
+  },
+  "audit": "All six completed three-phase cells have passing pristine baselines, observed contract failure in the source-mutated phase, and passing restored-source recovery. Restoration receipts identify the pinned 126-file source and matching source map; target exit and process-group cleanup are recorded per phase. The read-only false negative is retained as a failed calibration attempt. All 8 raw provider ZIPs were retrieved, SHA-256 matched to Actions artifact metadata and ZIP CRC checked."
+}

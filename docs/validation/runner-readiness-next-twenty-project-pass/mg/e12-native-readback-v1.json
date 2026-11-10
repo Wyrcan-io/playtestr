@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "project": "mg",
+  "candidate": "v0.4.0-rc.6",
+  "target_pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "run_id": 42798471734,
+  "commit": "76b940cced65a473aaeccee4ca48bb0118797ea4",
+  "workflow": "next20-mg-scenario-development",
+  "workflow_conclusion": "success",
+  "hosts": [
+    {
+      "job_id": 129769588939,
+      "os": "linux",
+      "arch": "amd64",
+      "runner": "ubuntu-24.04 x86_64",
+      "attempt_id": "a677fce34d1345fc95b4bc2c31b77da5",
+      "attempt_sha256": "f11a286681cf181887496ee2346c7fd43db3c1381e3d24a978d674b8b48f7f62",
+      "contract_sha256": "029f3fc495c2388891205f7034c2bb86df9dbed0df4a676928c61502b9e600ab",
+      "report_sha256": "3b3be852dfcafd3fa64511a384701757f4af573f45776d3084b6835c809fbd78",
+      "runner_log_sha256": "9e95c86a671f3ec4cc420da105cf9602de7761ca4ee4bca5f4a11043ee6a4019"
+    },
+    {
+      "job_id": 129769588313,
+      "os": "darwin",
+      "arch": "arm64",
+      "runner": "macos-15 arm64",
+      "attempt_id": "4bb631ea572f437fb926b696c288f5bd",
+      "attempt_sha256": "7568c6d2a0526c43a1b9152e8f4b0b9225b595e4d6bf95e9030e9a2b9770977c",
+      "contract_sha256": "029f3fc495c2388891205f7034c2bb86df9dbed0df4a676928c61502b9e600ab",
+      "report_sha256": "fff94cba51caeb1d69bc12c31b77da453feeb625ce3f6d2c03fd88bb511d6a74",
+      "runner_log_sha256": "edee0f6b3fe0dc6333b81a3973cb6120e5c973a477ee13a9d8b50acf34e0278f"
+    }
+  ],
+  "per_host_result": {
+    "scenarios_total": 20,
+    "scenarios_passed": 20,
+    "scenarios_failed": 0,
+    "e12_steps": 19,
+    "e12_steps_passed": 19,
+    "target_exit_code": 0,
+    "target_cleanup": "graceful; confirmed exited; no force required",
+    "workflow_cleanup": "all owned candidate/build inputs absent"
+  },
+  "e12_state_assertion": "matched in the same invocation after save and exit",
+  "artifact_zips": [
+    {
+      "path": "artifacts/runner-readiness-next-twenty-project-pass/retrieved/run-42798471734/linux-retained.zip",
+      "artifact_id": 13755012940,
+      "bytes": 117159,
+      "sha256": "b0f89777acd072110a33ab4982b90cddba04ac7866622d5d587a1e028ca947ff",
+      "provider_digest": "sha256:b0f89777acd072110a33ab4982b90cddba04ac7866622d5d587a1e028ca947ff",
+      "zip_crc": "passed",
+      "members": 169
+    },
+    {
+      "path": "artifacts/runner-readiness-next-twenty-project-pass/retrieved/run-42798471734/darwin-retained.zip",
+      "artifact_id": 13754037945,
+      "bytes": 117657,
+      "sha256": "6018772f9f85d48e3aa2ecdf677d15f5c99ffe40601aa6e1eccf6e2a0199eac5",
+      "provider_digest": "sha256:6018772f9f85d48e3aa2ecdf677d15f5c99ffe40601aa6e1eccf6e2a0199eac5",
+      "zip_crc": "passed",
+      "members": 170
+    }
+  ],
+  "saved_state_evidence_limit": "The native report records the exact state assertion as matched but does not retain observed file bytes or hashes; this remains development evidence, not a separately retained saved-file artifact.",
+  "admission_credit": 0
+}

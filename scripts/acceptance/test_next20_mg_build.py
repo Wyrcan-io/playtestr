@@ -20,7 +20,7 @@ class MgBuildCommandTests(unittest.TestCase):
         cases = {
             "save-no-write": ("fileio.c", b"\treturn (FIOSUC);\n}\n\n/*\n * Read a line"),
             "delete-byte-corruption": ("line.c", b"\t\t\t*cp1++ = (char)(*cp2 ^ 1);"),
-            "readonly-edit-accepted": ("line.c", b"int\nldelete(RSIZE n, int kflag)\n{"),
+            "readonly-edit-accepted": ("line.c", b"int\nlinsert(int n, int c)\n{"),
             "undo-delete-omitted": ("undo.c", b"case DELETE:\n"
                                     b"\t\t\t\t/* Fault calibration: omit restoration of deleted text. */\n"
                                     b"\t\t\t\tbreak;"),
@@ -30,11 +30,14 @@ class MgBuildCommandTests(unittest.TestCase):
                             b"\tstruct line\t*lp, *lpend;\n\n\tlpend = bp->b_headp;\n"
                             b"\treturn (FIOSUC);\n}\n\n/*\n * Read a line",
             "delete-byte-corruption": b"\t\t\t*cp1++ = *cp2;",
-            "readonly-edit-accepted": (b"int\nldelete(RSIZE n, int kflag)\n{\n"
+            "readonly-edit-accepted": (b"int\nlinsert(int n, int c)\n{\n"
+                                       b"\tif ((s = checkdirty(curbp)) != TRUE)\n"
+                                       b"\t\treturn (s);\n\t\n"
                                        b"\tif (curbp->b_flag & BFREADONLY) {\n"
                                        b"\t\tdobeep();\n"
                                        b"\t\tewprintf(\"Buffer is read only\");\n"
-                                       b"\t\tgoto out;\n\t}\n"),
+                                       b"\t\treturn (FALSE);\n\t}\n\n"
+                                       b"\tlchange(WFEDIT);\n}\n\nint\nnext_function(void)\n{\n}\n"),
             "undo-delete-omitted": (b"\t\t\tcase DELETE:\n\t\t\t\tlp = curwp->w_dotp;\n"
                                     b"\t\t\t\toffset = curwp->w_doto;\n"
                                     b"\t\t\t\tregion_put_data(ptr->content,\n"
@@ -52,7 +55,12 @@ class MgBuildCommandTests(unittest.TestCase):
                 receipt = apply_reviewed_fault(source, mutation)
                 self.assertEqual(receipt["path"], f"src/{filename}")
                 self.assertNotEqual(receipt["original_sha256"], receipt["mutated_sha256"])
-                self.assertIn(expected_fragment, path.read_bytes())
+                mutated = path.read_bytes()
+                self.assertIn(expected_fragment, mutated)
+                if mutation == "readonly-edit-accepted":
+                    start = mutated.index(b"int\nlinsert(int n, int c)\n{")
+                    end = mutated.index(b"\nint\n", start + 1)
+                    self.assertNotIn(b'ewprintf("Buffer is read only")', mutated[start:end])
                 self.assertEqual(len(list(source.rglob("*"))), 2)
 
     def test_reviewed_fault_mutations_reject_changed_anchors_without_writing(self):

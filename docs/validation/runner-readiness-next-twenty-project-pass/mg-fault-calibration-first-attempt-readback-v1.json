@@ -1,0 +1,310 @@
+{
+  "schema_version": 1,
+  "project": "troglobit/mg",
+  "target_pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "workflow_run_id": 42804421593,
+  "workflow_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/42804421593",
+  "commit": "abcb912d65d074f4e6ee816442e3b366e7a1b5e0",
+  "workflow_conclusion": "failure",
+  "phase": "calibration harness failure before mutations; not qualification",
+  "matrix_cells": [
+    {
+      "artifact": "mg-fault-delete-byte-corruption-darwin-42804421593",
+      "host": "darwin",
+      "fault": "delete-byte-corruption",
+      "status": "calibration-incomplete",
+      "error": "ValueError: unexpected linked or special owned mg entry: /Users/runner/work/playtestr/playtestr/artifacts/runner-readiness-next-twenty-project-pass/active/mg/src/build-aux/install-sh",
+      "phases": [
+        {
+          "phase": "baseline",
+          "scenario_result": "passed",
+          "attempt_id": "e87317e48f1940b1b3e6a4b6453c7bcf",
+          "failed_steps": [],
+          "target_exit_code": 0,
+          "target_cleanup": {
+            "attempted": true,
+            "confirmed_exited": true,
+            "forced": false,
+            "graceful": true,
+            "mechanism": "unix-process-group"
+          },
+          "build_receipt_sha256": "919beed4b69855eba1c8a26e88e4a0f8d2b2e553606c2fa1f272e5575fcc510d",
+          "source_map_sha256": "36120c2c102dd27b33efab95af2af79d5287fa9b2c7affd9aa8c87fea2a3505c"
+        }
+      ],
+      "admission_credit": 0
+    },
+    {
+      "artifact": "mg-fault-delete-byte-corruption-linux-42804421593",
+      "host": "linux",
+      "fault": "delete-byte-corruption",
+      "status": "calibration-incomplete",
+      "error": "ValueError: unexpected linked or special owned mg entry: /home/runner/work/playtestr/playtestr/artifacts/runner-readiness-next-twenty-project-pass/active/mg/src/build-aux/compile",
+      "phases": [
+        {
+          "phase": "baseline",
+          "scenario_result": "passed",
+          "attempt_id": "66f1ca4f305241e38f1827dd6e2d6304",
+          "failed_steps": [],
+          "target_exit_code": 0,
+          "target_cleanup": {
+            "attempted": true,
+            "confirmed_exited": true,
+            "forced": false,
+            "graceful": true,
+            "mechanism": "unix-process-group"
+          },
+          "build_receipt_sha256": "f8627e6f42394aeb5f2f7fc637355a7edced76ba7ffde12c77ccc9ff76fe5bff",
+          "source_map_sha256": "36120c2c102dd27b33efab95af2af79d5287fa9b2c7affd9aa8c87fea2a3505c"
+        }
+      ],
+      "admission_credit": 0
+    },
+    {
+      "artifact": "mg-fault-readonly-edit-accepted-darwin-42804421593",
+      "host": "darwin",
+      "fault": "readonly-edit-accepted",
+      "status": "calibration-incomplete",
+      "error": "ValueError: unexpected linked or special owned mg entry: /Users/runner/work/playtestr/playtestr/artifacts/runner-readiness-next-twenty-project-pass/active/mg/src/build-aux/install-sh",
+      "phases": [
+        {
+          "phase": "baseline",
+          "scenario_result": "passed",
+          "attempt_id": "96c7dd8882e345bfab133cd024d1ac70",
+          "failed_steps": [],
+          "target_exit_code": 0,
+          "target_cleanup": {
+            "attempted": true,
+            "confirmed_exited": true,
+            "forced": false,
+            "graceful": true,
+            "mechanism": "unix-process-group"
+          },
+          "build_receipt_sha256": "029c8fd2552294f976b4e151a50f4f3c6e1baf10b6d9b7ac3395f0c1af3950ef",
+          "source_map_sha256": "36120c2c102dd27b33efab95af2af79d5287fa9b2c7affd9aa8c87fea2a3505c"
+        }
+      ],
+      "admission_credit": 0
+    },
+    {
+      "artifact": "mg-fault-readonly-edit-accepted-linux-42804421593",
+      "host": "linux",
+      "fault": "readonly-edit-accepted",
+      "status": "calibration-incomplete",
+      "error": "ValueError: unexpected linked or special owned mg entry: /home/runner/work/playtestr/playtestr/artifacts/runner-readiness-next-twenty-project-pass/active/mg/src/build-aux/compile",
+      "phases": [
+        {
+          "phase": "baseline",
+          "scenario_result": "passed",
+          "attempt_id": "5ae1522ffb464c94a09e4ef8521d5b6b",
+          "failed_steps": [],
+          "target_exit_code": 0,
+          "target_cleanup": {
+            "attempted": true,
+            "confirmed_exited": true,
+            "forced": false,
+            "graceful": true,
+            "mechanism": "unix-process-group"
+          },
+          "build_receipt_sha256": "4e6bcdfcfa413f13f70e8df2a7a024bbfb5c6fb188fa9284484350cb01d8ad31",
+          "source_map_sha256": "36120c2c102dd27b33efab95af2af79d5287fa9b2c7affd9aa8c87fea2a3505c"
+        }
+      ],
+      "admission_credit": 0
+    },
+    {
+      "artifact": "mg-fault-save-no-write-darwin-42804421593",
+      "host": "darwin",
+      "fault": "save-no-write",
+      "status": "calibration-incomplete",
+      "error": "ValueError: unexpected linked or special owned mg entry: /Users/runner/work/playtestr/playtestr/artifacts/runner-readiness-next-twenty-project-pass/active/mg/src/build-aux/install-sh",
+      "phases": [
+        {
+          "phase": "baseline",
+          "scenario_result": "passed",
+          "attempt_id": "76b300595a034d95a3720538569c16b9",
+          "failed_steps": [],
+          "target_exit_code": 0,
+          "target_cleanup": {
+            "attempted": true,
+            "confirmed_exited": true,
+            "forced": false,
+            "graceful": true,
+            "mechanism": "unix-process-group"
+          },
+          "build_receipt_sha256": "46edbed1cabd1fec4eac184fec749da8799951293782dec96dd18b5723f6983b",
+          "source_map_sha256": "36120c2c102dd27b33efab95af2af79d5287fa9b2c7affd9aa8c87fea2a3505c"
+        }
+      ],
+      "admission_credit": 0
+    },
+    {
+      "artifact": "mg-fault-save-no-write-linux-42804421593",
+      "host": "linux",
+      "fault": "save-no-write",
+      "status": "calibration-incomplete",
+      "error": "ValueError: unexpected linked or special owned mg entry: /home/runner/work/playtestr/playtestr/artifacts/runner-readiness-next-twenty-project-pass/active/mg/src/build-aux/compile",
+      "phases": [
+        {
+          "phase": "baseline",
+          "scenario_result": "passed",
+          "attempt_id": "f35aa7ca788d4fcca86dd7eb30fd79b6",
+          "failed_steps": [],
+          "target_exit_code": 0,
+          "target_cleanup": {
+            "attempted": true,
+            "confirmed_exited": true,
+            "forced": false,
+            "graceful": true,
+            "mechanism": "unix-process-group"
+          },
+          "build_receipt_sha256": "3d2d17b3c94de20b311d2df32d56d5383c18e784b26f05972495a87033cb307c",
+          "source_map_sha256": "36120c2c102dd27b33efab95af2af79d5287fa9b2c7affd9aa8c87fea2a3505c"
+        }
+      ],
+      "admission_credit": 0
+    },
+    {
+      "artifact": "mg-fault-undo-delete-omitted-darwin-42804421593",
+      "host": "darwin",
+      "fault": "undo-delete-omitted",
+      "status": "calibration-incomplete",
+      "error": "ValueError: unexpected linked or special owned mg entry: /Users/runner/work/playtestr/playtestr/artifacts/runner-readiness-next-twenty-project-pass/active/mg/src/build-aux/install-sh",
+      "phases": [
+        {
+          "phase": "baseline",
+          "scenario_result": "passed",
+          "attempt_id": "f094da5e695f4ee18577f837cc009738",
+          "failed_steps": [],
+          "target_exit_code": 0,
+          "target_cleanup": {
+            "attempted": true,
+            "confirmed_exited": true,
+            "forced": false,
+            "graceful": true,
+            "mechanism": "unix-process-group"
+          },
+          "build_receipt_sha256": "50378cc3691e5ac311e8428964ab24424871c22e00fea84adf6d61e9601ddae7",
+          "source_map_sha256": "36120c2c102dd27b33efab95af2af79d5287fa9b2c7affd9aa8c87fea2a3505c"
+        }
+      ],
+      "admission_credit": 0
+    },
+    {
+      "artifact": "mg-fault-undo-delete-omitted-linux-42804421593",
+      "host": "linux",
+      "fault": "undo-delete-omitted",
+      "status": "calibration-incomplete",
+      "error": "ValueError: unexpected linked or special owned mg entry: /home/runner/work/playtestr/playtestr/artifacts/runner-readiness-next-twenty-project-pass/active/mg/src/build-aux/compile",
+      "phases": [
+        {
+          "phase": "baseline",
+          "scenario_result": "passed",
+          "attempt_id": "9ca8bed9806f4175a704d6952347df1c",
+          "failed_steps": [],
+          "target_exit_code": 0,
+          "target_cleanup": {
+            "attempted": true,
+            "confirmed_exited": true,
+            "forced": false,
+            "graceful": true,
+            "mechanism": "unix-process-group"
+          },
+          "build_receipt_sha256": "dd14ae9a50be90000b7da67663210cbc562add5721a98d2a4ae6f7f3e5e72be9",
+          "source_map_sha256": "36120c2c102dd27b33efab95af2af79d5287fa9b2c7affd9aa8c87fea2a3505c"
+        }
+      ],
+      "admission_credit": 0
+    }
+  ],
+  "artifact_readback": [
+    {
+      "key": "save-linux",
+      "artifact_id": 13757566419,
+      "bytes": 24138,
+      "provider_sha256": "sha256:5c3c65631ea6ed7a9541409e97bf6b9d5b7f3439422fc012e83fc4de1a6be8fc",
+      "retained_path": "artifacts/runner-readiness-next-twenty-project-pass/mg/fault-calibrations/retrieved/run-42804421593/save-linux.zip",
+      "retained_sha256": "5c3c65631ea6ed7a9541409e97bf6b9d5b7f3439422fc012e83fc4de1a6be8fc",
+      "zip_crc": "passed",
+      "member_count": 28
+    },
+    {
+      "key": "delete-linux",
+      "artifact_id": 13757436982,
+      "bytes": 24400,
+      "provider_sha256": "sha256:424e701c04df363f1b324b7f5c2f91bdc44ce278f4e8ccbee927539816481c4c",
+      "retained_path": "artifacts/runner-readiness-next-twenty-project-pass/mg/fault-calibrations/retrieved/run-42804421593/delete-linux.zip",
+      "retained_sha256": "424e701c04df363f1b324b7f5c2f91bdc44ce278f4e8ccbee927539816481c4c",
+      "zip_crc": "passed",
+      "member_count": 28
+    },
+    {
+      "key": "readonly-linux",
+      "artifact_id": 13756729557,
+      "bytes": 24342,
+      "provider_sha256": "sha256:8e4cd0f7420c6f7df05476cd64b70c897d57ad29aef10e65c5af49469a3d8a57",
+      "retained_path": "artifacts/runner-readiness-next-twenty-project-pass/mg/fault-calibrations/retrieved/run-42804421593/readonly-linux.zip",
+      "retained_sha256": "8e4cd0f7420c6f7df05476cd64b70c897d57ad29aef10e65c5af49469a3d8a57",
+      "zip_crc": "passed",
+      "member_count": 28
+    },
+    {
+      "key": "undo-linux",
+      "artifact_id": 13756669745,
+      "bytes": 24260,
+      "provider_sha256": "sha256:5e02cc42826a74296cbcaeb6dbd5557aaa1e2fae336c53fe42afbc33b394584e",
+      "retained_path": "artifacts/runner-readiness-next-twenty-project-pass/mg/fault-calibrations/retrieved/run-42804421593/undo-linux.zip",
+      "retained_sha256": "5e02cc42826a74296cbcaeb6dbd5557aaa1e2fae336c53fe42afbc33b394584e",
+      "zip_crc": "passed",
+      "member_count": 28
+    },
+    {
+      "key": "save-darwin",
+      "artifact_id": 13757856450,
+      "bytes": 47846,
+      "provider_sha256": "sha256:a8c86e821de03b14f55f9125bfb33b0f74a4b9349f378a6d1927a625203620b3",
+      "retained_path": "artifacts/runner-readiness-next-twenty-project-pass/mg/fault-calibrations/retrieved/run-42804421593/save-darwin.zip",
+      "retained_sha256": "a8c86e821de03b14f55f9125bfb33b0f74a4b9349f378a6d1927a625203620b3",
+      "zip_crc": "passed",
+      "member_count": 37
+    },
+    {
+      "key": "delete-darwin",
+      "artifact_id": 13756764673,
+      "bytes": 48115,
+      "provider_sha256": "sha256:ac91b2a31ce2debe4e125526356fe81c4d7dba72a76f660dc6d9da35a7e31290",
+      "retained_path": "artifacts/runner-readiness-next-twenty-project-pass/mg/fault-calibrations/retrieved/run-42804421593/delete-darwin.zip",
+      "retained_sha256": "ac91b2a31ce2debe4e125526356fe81c4d7dba72a76f660dc6d9da35a7e31290",
+      "zip_crc": "passed",
+      "member_count": 37
+    },
+    {
+      "key": "readonly-darwin",
+      "artifact_id": 13757339352,
+      "bytes": 48038,
+      "provider_sha256": "sha256:4272f313fe2253d655e33c58f3c1b5a4f6153382bfeb0da30a5c43bb5ee134e8",
+      "retained_path": "artifacts/runner-readiness-next-twenty-project-pass/mg/fault-calibrations/retrieved/run-42804421593/readonly-darwin.zip",
+      "retained_sha256": "4272f313fe2253d655e33c58f3c1b5a4f6153382bfeb0da30a5c43bb5ee134e8",
+      "zip_crc": "passed",
+      "member_count": 37
+    },
+    {
+      "key": "undo-darwin",
+      "artifact_id": 13757647396,
+      "bytes": 47957,
+      "provider_sha256": "sha256:90bf2ffadb35f8609b691aa60a9e1d2a9fd45f677ef8ad66b03147ac56032573",
+      "retained_path": "artifacts/runner-readiness-next-twenty-project-pass/mg/fault-calibrations/retrieved/run-42804421593/undo-darwin.zip",
+      "retained_sha256": "90bf2ffadb35f8609b691aa60a9e1d2a9fd45f677ef8ad66b03147ac56032573",
+      "zip_crc": "passed",
+      "member_count": 37
+    }
+  ],
+  "summary": {
+    "baseline_scenario_passed_cells": 8,
+    "fault_mutations_executed": 0,
+    "recovery_scenarios_executed": 0,
+    "calibration_credit": 0,
+    "shared_failure": "owned source cleanup rejected Autotools-generated symlink leaves before any mutation phase"
+  },
+  "audit": "All eight raw provider ZIPs were retained; byte count and SHA-256 matched Actions metadata, and ZIP CRC passed. Each cell passed its pristine baseline then stopped at cleanup. No source fault or recovery ran, so no calibration credit."
+}

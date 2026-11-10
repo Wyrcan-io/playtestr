@@ -39,15 +39,16 @@
       "id": "mg-fault-04-read-only-edit-guard-removed",
       "source": "src/line.c",
       "source_sha256": "362abbff01c1536f608c9e603ca0da0b9945208aceffa4ce7c213c82da436c52",
-      "function": "ldelete",
+      "function": "linsert",
+      "function_sha256": "43cb548b9c38177aa77e7157d2067e07004bc49c8efbf386ce5293dc8d94aba3",
       "location_lines": [
-        411,
-        426
+        214,
+        308
       ],
-      "fault": "Remove the exact BFREADONLY refusal block so an attempted edit is accepted in a read-only buffer.",
+      "fault": "Remove the exact BFREADONLY refusal block in linsert, which handles E06's typed character, so the read-only buffer accepts the edit.",
       "contract": "e06-readonly-buffer.json",
       "contract_sha256": "017fe8c6d0b2e5c9732316fa449827f2e2b843353629d258347d7e44b61050d2",
-      "oracle": "The reviewed read-only refusal checkpoint must fail; the saved file must not silently change."
+      "oracle": "E06's Buffer is read only screen checkpoint must fail after input X; its saved-byte assertion remains a second oracle."
     },
     {
       "id": "mg-fault-03-undo-delete-does-not-restore",
@@ -75,7 +76,7 @@
     "darwin arm64"
   ],
   "restoration": "Restore exact original file bytes in a bounded finally path; re-hash all 126 files against source provenance before recovery; keep target mutation confined to owned temporary/native job source tree.",
-  "status": "Four exact-source mutation patches reviewed and confined in scratch-copy validation; eleven focused harness tests passed on local Windows (three POSIX-only skips). Native baseline/fault/recovery calibration has not run; zero fault or admission credit.",
+  "status": "Native matrix run 42805846400 verified save suppression, byte corruption, and undo omission on both Linux and macOS. The original read-only mutation removed the ldelete guard while E06 types through linsert; both false-negative cells are retained with zero credit. The corrected exact linsert guard patch passed 32 focused local tests (4 POSIX-only skips) and awaits native Linux/macOS calibration. These fault calibrations do not qualify or admit mg.",
   "workflow": {
     "path": ".github/workflows/runner-readiness-next20-mg-fault-calibration.yml",
     "trigger": "workflow_dispatch after the bounded native mg source-build workflow completes",

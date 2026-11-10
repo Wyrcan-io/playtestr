@@ -267,16 +267,22 @@ def apply_reviewed_fault(source, mutation):
     if mutation == "readonly-edit-accepted":
         path = source / "src" / "line.c"
         data = path.read_bytes()
+        start = data.find(b"int\nlinsert(int n, int c)\n{")
+        end = data.find(b"\nint\n", start + 1)
+        if start < 0 or end < 0:
+            raise ValueError("reviewed linsert read-only guard function anchor changed")
+        original = data[start:end]
         old = (b"\tif (curbp->b_flag & BFREADONLY) {\n"
                b"\t\tdobeep();\n"
                b"\t\tewprintf(\"Buffer is read only\");\n"
-               b"\t\tgoto out;\n"
+               b"\t\treturn (FALSE);\n"
                b"\t}\n")
-        if data.count(old) != 1:
-            raise ValueError("reviewed ldelete read-only guard anchor changed")
-        path.write_bytes(data.replace(old, b"", 1))
+        if original.count(old) != 1:
+            raise ValueError("reviewed linsert read-only guard anchor changed")
+        path.write_bytes(data[:start] + original.replace(old, b"", 1) + data[end:])
         return {"id": mutation, "path": "src/line.c", "original_sha256": hashlib.sha256(data).hexdigest(),
-                "mutated_sha256": sha256(path), "replacement_bytes": 0}
+                "mutated_sha256": sha256(path), "original_function_sha256": hashlib.sha256(original).hexdigest(),
+                "replacement_bytes": 0}
     if mutation == "undo-delete-omitted":
         path = source / "src" / "undo.c"
         data = path.read_bytes()
