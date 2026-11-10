@@ -11,6 +11,10 @@ on:
       - scripts/acceptance/test_next20_mg_pilot.py
       - scripts/acceptance/next20_mg_scenario.py
       - scripts/acceptance/test_next20_mg_scenario.py
+      - scripts/acceptance/next20_mg_final_declare.py
+      - scripts/acceptance/next20_mg_final_series.py
+      - scripts/acceptance/test_next20_mg_final_series.py
+      - docs/validation/runner-readiness-next-twenty-project-pass/mg/final-qualification-declaration-v1.json
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/n02-edit-append.json
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/n03-query-replace.json
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/n04-cut-yank.json
@@ -304,6 +308,106 @@ jobs:
           path: |
             artifacts/runner-readiness-next-twenty-project-pass/mg/pilot-development/${{ matrix.host }}/**
             artifacts/runner-readiness-next-twenty-project-pass/mg/scenario-development/${{ matrix.host }}/**
+          if-no-files-found: warn
+          retention-days: 14
+          include-hidden-files: true
+
+  final-candidate-series:
+    name: mg final batch ${{ matrix.batch }} (${{ matrix.host }})
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        include:
+          - host: linux
+            os: ubuntu-24.04
+            candidate_run_id: 40424475362
+            candidate_artifact: next20-private-replacement-Linux
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/pilot-input/candidate/replacement-candidate/native-exit-v1/linux-amd64/dist/playtestr_0.4.0-rc.6_linux_amd64.tar.gz
+            build_artifact: next20-mg-build-linux-42815619413
+          - host: darwin
+            os: macos-15
+            candidate_run_id: 40420820491
+            candidate_artifact: next20-private-replacement-macOS
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/pilot-input/candidate/replacement-candidate/native-exit-v1/darwin-arm64/dist/playtestr_0.4.0-rc.6_darwin_arm64.tar.gz
+            build_artifact: next20-mg-build-darwin-42815619413
+        batch: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 90
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONIOENCODING: utf-8
+      TEMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+      TMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+      TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+
+      - name: Create campaign-owned input and temporary roots
+        run: mkdir -p artifacts/runner-readiness-next-twenty-project-pass/pilot-input/mg artifacts/runner-readiness-next-twenty-project-pass/pilot-input/candidate artifacts/runner-readiness-next-twenty-project-pass/tmp
+
+      - name: Validate native scenario and final-series helpers
+        run: python -B -m unittest test_next20_mg_build test_next20_mg_pilot test_next20_mg_scenario test_next20_mg_final_series -v
+        working-directory: scripts/acceptance
+
+      - name: Download latest verified native mg build packet
+        uses: actions/download-artifact@018cc2cf5baa6db3efc5f8a56943fffe632ef53
+        with:
+          name: ${{ matrix.build_artifact }}
+          repository: ${{ github.repository }}
+          run-id: 42815619413
+          github-token: ${{ github.token }}
+          path: artifacts/runner-readiness-next-twenty-project-pass/pilot-input/mg
+
+      - name: Download exact frozen rc.6 native archive
+        uses: actions/download-artifact@018cc2cf5baa6db3efc5f8a56943fffe632ef53
+        with:
+          name: ${{ matrix.candidate_artifact }}
+          repository: ${{ github.repository }}
+          run-id: ${{ matrix.candidate_run_id }}
+          github-token: ${{ github.token }}
+          path: artifacts/runner-readiness-next-twenty-project-pass/pilot-input/candidate
+
+      - name: Install and verify frozen candidate bytes
+        run: >-
+          python -B scripts/acceptance/next20_candidate_install.py
+          --series native-exit-v1
+          --archive "${{ matrix.candidate_archive }}"
+
+      - name: Execute canonical cases and both E10 branches
+        run: >-
+          python -B scripts/acceptance/next20_mg_final_series.py
+          --host "${{ matrix.host }}"
+          --batch "${{ matrix.batch }}"
+          --mg-build-root artifacts/runner-readiness-next-twenty-project-pass/pilot-input/mg
+
+      - name: Verify campaign storage limits
+        if: always()
+        run: python -B scripts/acceptance/next20_storage.py mg
+
+      - name: Remove exact build and candidate input roots
+        if: always()
+        run: >-
+          python -B scripts/acceptance/next20_mg_pilot_cleanup.py
+          --host "${{ matrix.host }}"
+          --pilot-input artifacts/runner-readiness-next-twenty-project-pass/pilot-input
+
+      - name: Retain batch, attempt, and cleanup receipts
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: next20-mg-final-${{ matrix.host }}-b${{ matrix.batch }}-${{ github.run_id }}
+          path: |
+            artifacts/runner-readiness-next-twenty-project-pass/mg/final-series/${{ matrix.host }}/${{ matrix.batch }}/**
+            artifacts/runner-readiness-next-twenty-project-pass/mg/final-qualification/${{ matrix.host }}/${{ matrix.batch }}/**
+            artifacts/runner-readiness-next-twenty-project-pass/mg/pilot-development/${{ matrix.host }}/cleanup-*.json
+            docs/validation/runner-readiness-next-twenty-project-pass/mg/.final-series-${{ matrix.host }}-${{ matrix.batch }}-*.json
           if-no-files-found: warn
           retention-days: 14
           include-hidden-files: true
