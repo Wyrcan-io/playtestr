@@ -568,16 +568,16 @@
       "id": "mg",
       "repository": "troglobit/mg",
       "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
-      "status": "N01-N06 development probes pass on Linux/macOS; two initial N05 redo attempts failed and are preserved; full qualification and admission gates remain open; zero admission credit",
+      "status": "N01-N07 development probes pass on Linux/macOS; two initial N05 redo attempts failed and are preserved; full qualification and admission gates remain open; zero admission credit",
       "acquired": true,
       "admitted": false,
       "planned_hosts": [
         "linux",
         "macos"
       ],
-      "development_selected_scenarios_passed": 5,
-      "development_ordinary_attempts": 58,
-      "development_ordinary_passed": 48,
+      "development_selected_scenarios_passed": 6,
+      "development_ordinary_attempts": 70,
+      "development_ordinary_passed": 60,
       "development_ordinary_failed": 10,
       "development_real_faults": 0,
       "qualified_scenarios": 0,
@@ -615,9 +615,9 @@
       "native_build_workflow": ".github/workflows/runner-readiness-next20-mg-build.yml",
       "pilot_spec": "mg/pilot-n01.json",
       "pilot_workflow": ".github/workflows/runner-readiness-next20-mg-pilot.yml",
-      "pilot_attempt_accounting": "mg/pilot-attempt-accounting-v4.json",
+      "pilot_attempt_accounting": "mg/pilot-attempt-accounting-v5.json",
       "pilot_native_readback": "mg/pilot-n01-native-readback-v1.json",
-      "scenario_attempt_accounting": "mg/scenario-development-accounting-v10.json",
+      "scenario_attempt_accounting": "mg/scenario-development-accounting-v11.json",
       "scenario_native_readback_n03": "mg/n03-native-readback-v1.json",
       "scenario_first_failure_n04": "mg/n04-first-attempt-readback-v1.json",
       "scenario_native_readback_n04": "mg/n04-native-readback-v1.json",
@@ -629,7 +629,8 @@
       "scenario_contract_n06": "mg/n06-save-as.json",
       "scenario_native_readback_n06": "mg/n06-native-readback-v1.json",
       "scenario_source_review_n07": "mg/n07-source-review-v1.json",
-      "scenario_contract_n07": "mg/n07-buffer-switch.json"
+      "scenario_contract_n07": "mg/n07-buffer-switch.json",
+      "scenario_native_readback_n07": "mg/n07-native-readback-v1.json"
     }
   ],
   "observed_audited_ordinary_executions": 2400,

@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "project": "troglobit/mg",
+  "target_pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "candidate": "v0.4.0-rc.6",
+  "scenario": "n07-buffer-switch",
+  "phase": "development; not qualification",
+  "workflow_run_id": 42777874080,
+  "commit": "0151783b504bfb37f3396f5ccc3e32220f19bd03",
+  "workflow_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/42777874080",
+  "workflow_conclusion": "success",
+  "contract": "mg/n07-buffer-switch.json",
+  "contract_sha256": "b082f3979b2081cf9f04f2c2b94ce8ced61f651312f72c04687b0a91c41d19bd",
+  "source_review": "mg/n07-source-review-v1.json",
+  "expected_states": {
+    "first.txt": {
+      "sha256": "329558a19d6cd86f085ffa403a57d1732bb64bece264fd865d2ab77c4353829b",
+      "bytes_base64": "Zmlyc3QgYnVmZmVyIGlkZW50aXR5Cg=="
+    },
+    "second.txt": {
+      "sha256": "762e555025b3867a32c1388dadd765a62b6a21b7dabbdfb85664c5f581e4b84d",
+      "bytes_base64": "c2Vjb25kIGJ1ZmZlciBpZGVudGl0eQo="
+    }
+  },
+  "hosts": [
+    {
+      "host": "linux",
+      "architecture": "x86_64",
+      "job_id": 129700548695,
+      "artifact_id": 13744726485,
+      "provider_artifact_bytes": 39066,
+      "provider_artifact_sha256": "185232cad75a300a21a7d660309090780a3ac4f6ac36978023ccde8e0880967d",
+      "retained_zip": "artifacts/runner-readiness-next-twenty-project-pass/mg/scenario-development/retrieved/run-42777874080/linux-retained.zip",
+      "retained_zip_sha256": "01da0d67dcbd11b2a113bb5064cdea4f0e3d4aa95be0ebb6890499f060df7f1a",
+      "retained_zip_bytes": 38118,
+      "retained_zip_members": 57,
+      "attempt_id": "a9a09c9028a346fc85773bfc265728a2",
+      "attempt_sha256": "e50debd3807fce14e853e02a8d72e427d1ac837448c4150eedb666b044f88ae4",
+      "candidate_archive_sha256": "28ae9f37227bb0f6ba2df031420aa3d027b998e31eab523c4d13cd2816c4af7a",
+      "candidate_binary_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a",
+      "target_binary_sha256": "6eb334f5ea96687983c51b073b1b8a11434ea85a46e69ca6e28e57b76b4e88e5",
+      "report_sha256": "06ea25abb4cce9aa7927043367967f0f7e14019c876a8cfb766daaf10311442c",
+      "runner_log_sha256": "47f03aa8dd2e4e266bd0c310b1b2cd3e70644c7215789b386ef65304f343dcb6",
+      "summary": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "not_run": 0
+      },
+      "steps_passed": 19,
+      "state_outcomes": [
+        {
+          "path": "first.txt",
+          "outcome": "matched"
+        },
+        {
+          "path": "second.txt",
+          "outcome": "matched"
+        }
+      ],
+      "target_exit_code": 0,
+      "target_cleanup": "graceful; confirmed exited",
+      "workspace_cleanup": "attempted, confirmed, fixture not retained",
+      "workflow_cleanup_all_inputs_absent": true,
+      "zip_crc": "passed"
+    },
+    {
+      "host": "darwin",
+      "architecture": "arm64",
+      "job_id": 129700548809,
+      "artifact_id": 13745040637,
+      "provider_artifact_bytes": 39244,
+      "provider_artifact_sha256": "a6337a344b0d44ba2b9df8d77e49c81971e32c9ae51accc3f567abfafb77d5f9",
+      "retained_zip": "artifacts/runner-readiness-next-twenty-project-pass/mg/scenario-development/retrieved/run-42777874080/darwin-retained.zip",
+      "retained_zip_sha256": "91437e5f286453dd8db305a53c35769014f17a14d45a0fc45c227f438845686d",
+      "retained_zip_bytes": 38294,
+      "retained_zip_members": 57,
+      "attempt_id": "89dea57912584928945c0c6f84ec03a4",
+      "attempt_sha256": "8e915bba4eaf0fd4081f26bd0ce2c2d53807af9b45ece121f6da37590b36a1fb",
+      "candidate_archive_sha256": "132152710ade2c01cac7558f75212121f01af8ab02c5735dc9c7de1c33dbe625",
+      "candidate_binary_sha256": "609b184dac8664050643ec35036c4cffef2137ec778ae4d4678727b119e2fe0f",
+      "target_binary_sha256": "5f0c844b1c8a6a44209ad4534b3d19e223c0289024e00f34656031b8640db297",
+      "report_sha256": "eaef7e0d0280edb5cf7f373b29636a83df9c96b1a4da8b037a9aefa5a75a0196",
+      "runner_log_sha256": "2a5d57b6071598b8244ce1f49f4249b7c056720472905b06052a10c3dd28409e",
+      "summary": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "not_run": 0
+      },
+      "steps_passed": 19,
+      "state_outcomes": [
+        {
+          "path": "first.txt",
+          "outcome": "matched"
+        },
+        {
+          "path": "second.txt",
+          "outcome": "matched"
+        }
+      ],
+      "target_exit_code": 0,
+      "target_cleanup": "graceful; confirmed exited",
+      "workspace_cleanup": "attempted, confirmed, fixture not retained",
+      "workflow_cleanup_all_inputs_absent": true,
+      "zip_crc": "passed"
+    }
+  ],
+  "audit": "Both native jobs and the full workflow succeeded. Each N07 report has 19/19 steps passed, target exit 0, graceful confirmed cleanup, and same-invocation exact state matches for both files. Retained provider artifacts match metadata and CRC-check as 57-member ZIPs. Workflow cleanup receipts confirm all owned build and candidate inputs absent.",
+  "state_limit": "Reports assert exact contract bytes and record matched, but do not retain observed file bytes or hashes; no independent saved-file re-read is claimed.",
+  "admission_credit": 0
+}
