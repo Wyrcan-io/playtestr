@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "project": "troglobit/mg",
+  "target_pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "candidate": "v0.4.0-rc.6",
+  "scenario": "n06-save-as",
+  "phase": "development; not qualification",
+  "workflow_run_id": 42776968298,
+  "commit": "d75f0e2798021effb79c53309d1ebfcf2dfb2f1b",
+  "workflow_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/42776968298",
+  "workflow_conclusion": "success",
+  "contract": "mg/n06-save-as.json",
+  "contract_sha256": "60f19d9199b1ccc8dd8771e62769bf305c5aa7536236d1479d37e0fbd789b969",
+  "source_review": "mg/n06-source-review-v1.json",
+  "expected_file_bytes_base64": "c291cmNlIHJlbWFpbnMK",
+  "expected_file_sha256": "1a5daf623e10a56d066f67b3fe24f6f3c54dd175325659ddf73d0731ae586647",
+  "hosts": [
+    {
+      "host": "linux",
+      "architecture": "x86_64",
+      "job_id": 129697631364,
+      "artifact_id": 13744835166,
+      "provider_artifact_bytes": 33431,
+      "provider_artifact_sha256": "d216968c65d81292ba8823ebbf865cd1c36a5acc663579319d9e68912114cfe5",
+      "retained_zip": "artifacts/runner-readiness-next-twenty-project-pass/mg/scenario-development/retrieved/run-42776968298/linux-retained.zip",
+      "retained_zip_sha256": "41e781de0974b3e3fdcc09c306d2e9e93666e585a5157e4201a621d761e9c6b6",
+      "retained_zip_bytes": 32607,
+      "retained_zip_members": 49,
+      "attempt_id": "e6c00861ecfc4330861ba4418517d484",
+      "attempt_sha256": "0eda6d0ebfaf689323316cf72f66a2bcd189c6c18e38644bc089ee47305593bb",
+      "candidate_archive_sha256": "28ae9f37227bb0f6ba2df031420aa3d027b998e31eab523c4d13cd2816c4af7a",
+      "candidate_binary_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a",
+      "target_binary_sha256": "6eb334f5ea96687983c51b073b1b8a11434ea85a46e69ca6e28e57b76b4e88e5",
+      "report_sha256": "c597181bf8300e1b467e4a8f01d95ce65a2fae11ceba7281e8a2a6acaf509ca1",
+      "runner_log_sha256": "96b5d9cc77f7217daaec0126091ef6a9e5428c4e7c74c7aa40a3551bff33fec2",
+      "summary": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "not_run": 0
+      },
+      "steps_passed": 14,
+      "state_outcomes": [
+        {
+          "path": "notes.txt",
+          "outcome": "matched"
+        },
+        {
+          "path": "notes-copy.txt",
+          "outcome": "matched"
+        }
+      ],
+      "target_exit_code": 0,
+      "target_cleanup": "graceful; confirmed exited",
+      "workspace_cleanup": "attempted, confirmed, fixture not retained",
+      "workflow_cleanup_all_inputs_absent": true,
+      "zip_crc": "passed"
+    },
+    {
+      "host": "darwin",
+      "architecture": "arm64",
+      "job_id": 129697631646,
+      "artifact_id": 13744705452,
+      "provider_artifact_bytes": 33599,
+      "provider_artifact_sha256": "82ac13585e60268d127dd029eca57702ad4dfabc91daf9581e4784981d4bcabe",
+      "retained_zip": "artifacts/runner-readiness-next-twenty-project-pass/mg/scenario-development/retrieved/run-42776968298/darwin-retained.zip",
+      "retained_zip_sha256": "e1833315644f0660f31fb2b4db941a743df525c525ef33e4056fa7884f549f9c",
+      "retained_zip_bytes": 32797,
+      "retained_zip_members": 49,
+      "attempt_id": "1c745a6b65ea419e83e418677ee2177f",
+      "attempt_sha256": "f26c3acca20723361a514cb2721a29e5ee43532eb3a7451ed1b137db9302262a",
+      "candidate_archive_sha256": "132152710ade2c01cac7558f75212121f01af8ab02c5735dc9c7de1c33dbe625",
+      "candidate_binary_sha256": "609b184dac8664050643ec35036c4cffef2137ec778ae4d4678727b119e2fe0f",
+      "target_binary_sha256": "5f0c844b1c8a6a44209ad4534b3d19e223c0289024e00f34656031b8640db297",
+      "report_sha256": "a39fed1044bf9bb8a1660623269543eac4a703003f4e086be49e37d76d51bf91",
+      "runner_log_sha256": "a8f548c7e1c23f8d841f909dd88785f9efd4772e8d3563197355b6f0c67585ed",
+      "summary": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "not_run": 0
+      },
+      "steps_passed": 14,
+      "state_outcomes": [
+        {
+          "path": "notes.txt",
+          "outcome": "matched"
+        },
+        {
+          "path": "notes-copy.txt",
+          "outcome": "matched"
+        }
+      ],
+      "target_exit_code": 0,
+      "target_cleanup": "graceful; confirmed exited",
+      "workspace_cleanup": "attempted, confirmed, fixture not retained",
+      "workflow_cleanup_all_inputs_absent": true,
+      "zip_crc": "passed"
+    }
+  ],
+  "audit": "Both native jobs and full workflow succeeded. Each N06 report passes all 14 steps, exits 0, confirms both original and saved-as paths matched exact bytes within one invocation/workspace, and confirms graceful target cleanup. Provider artifact digests match the hosted metadata; 49-member retained ZIPs pass CRC; workflow cleanup receipts confirm all owned inputs absent.",
+  "state_limit": "Reports record exact state assertions as matched but do not retain actual file bytes or hashes; no independent saved-file re-read is claimed.",
+  "admission_credit": 0
+}
