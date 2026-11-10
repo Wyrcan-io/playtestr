@@ -16,6 +16,29 @@ from next20_mg_pilot import ensure_executable
 from readiness_evidence import immutable_json, sha256
 
 
+def apply_final_variation(spec, batch):
+    """Apply one exact declared final-series contract variation in memory."""
+    if batch == 4:
+        spec["width"] = spec.get("width", 80) + 10
+        spec["height"] = spec.get("height", 24) + 2
+    elif batch == 7:
+        segmented = []
+        for step in spec["steps"]:
+            if set(step) == {"text"} and len(step["text"]) > 3 and all(
+                    ord(char) >= 32 and ord(char) != 127 for char in step["text"]):
+                segmented.extend({"text": step["text"][offset:offset + 3]}
+                                 for offset in range(0, len(step["text"]), 3))
+            else:
+                segmented.append(step)
+        spec["steps"] = segmented
+    elif batch == 10:
+        spec["width"] = 70
+        spec["height"] = 12
+    elif batch == 11:
+        spec["startup_timeout_ms"] = min(spec.get("startup_timeout_ms", 15000), 5000)
+    return spec
+
+
 def load_contract(value):
     original = Path(value)
     if original.is_symlink():
@@ -51,7 +74,12 @@ def main():
     parser.add_argument("--host", choices=("linux", "darwin"), required=True)
     parser.add_argument("--mg-build-root", required=True)
     parser.add_argument("--spec", required=True)
+    parser.add_argument("--phase", choices=("scenario-development", "final-qualification"),
+                        default="scenario-development")
+    parser.add_argument("--batch", type=int, choices=range(12))
     args = parser.parse_args()
+    if (args.phase == "final-qualification") != (args.batch is not None):
+        raise ValueError("final qualification requires one declared batch; development has no batch")
     host = {"Linux": "linux", "Darwin": "darwin"}.get(platform.system())
     if host != args.host:
         raise RuntimeError(f"native host mismatch: expected {args.host}, got {host}")
@@ -72,21 +100,31 @@ def main():
         raise ValueError("mg runtime receipt does not match its build receipt")
 
     contract, contract_bytes, spec, fixture = load_contract(args.spec)
+    if args.phase == "final-qualification":
+        spec = apply_final_variation(json.loads(contract_bytes), args.batch)
+        variant_path = (DOC / "mg" /
+                        f".final-series-{host}-{args.batch}-{contract.stem}.json")
+        with variant_path.open("x", encoding="utf-8", newline="\n") as stream:
+            stream.write(json.dumps(spec, sort_keys=True, ensure_ascii=True, indent=2) + "\n")
+        contract = variant_path
+        contract_bytes = variant_path.read_bytes()
     runner = executable("native-exit-v1", host)
     freeze = json.loads((DOC / "replacement-candidate-freeze-native-exit-v1.json").read_text(encoding="utf-8"))
     frozen = next(row for row in freeze["cells"] if row["host"] == host)
     if freeze.get("version") != "v0.4.0-rc.6" or sha256(runner) != frozen["binary_sha256"]:
         raise ValueError("runner executable is not the frozen rc.6 candidate")
 
-    scenario_id = contract.stem.lower()
+    scenario_id = Path(args.spec).stem.lower()
     attempt_id = uuid.uuid4().hex
-    attempt_dir = RAW / f"mg/scenario-development/{host}/{scenario_id}/{attempt_id}"
+    attempt_dir = RAW / f"mg/{args.phase}/{host}/{args.batch if args.batch is not None else 'development'}/{scenario_id}/{attempt_id}"
     attempt_dir.mkdir(parents=True, exist_ok=False)
     report = attempt_dir / "report.json"
     report_artifacts = attempt_dir / "report-artifacts"
     log = attempt_dir / "runner.log"
     commands = []
     env_root = attempt_dir / "runner-environment"
+    if args.phase == "final-qualification" and args.batch == 5:
+        env_root = attempt_dir / "relocated café 雪"
     home, temp = env_root / "home", env_root / "temp"
     home.mkdir(parents=True)
     temp.mkdir()
@@ -96,7 +134,8 @@ def main():
         "schema_version": 1,
         "attempt_id": attempt_id,
         "project": "mg",
-        "phase": "scenario development",
+        "phase": args.phase,
+        "batch": args.batch,
         "scenario_id": scenario_id,
         "candidate": freeze["version"],
         "candidate_archive_sha256": frozen["archive_sha256"],
@@ -135,6 +174,9 @@ def main():
         rows = report_data.get("results", [])
         steps = rows[0].get("steps", []) if len(rows) == 1 else []
         cleanup = rows[0].get("cleanup", {}) if len(rows) == 1 else {}
+        if args.phase == "final-qualification" and args.batch == 5:
+            if "café 雪" not in str(temp) or list(temp.glob("playtestr-workspace-*")):
+                raise RuntimeError("Unicode temp-root qualification left an unexpected workspace")
         if (report_data.get("runner_version") != freeze["version"] or
                 report_data.get("summary") != {"total": 1, "passed": 1, "failed": 0, "cancelled": 0, "not_run": 0} or
                 len(rows) != 1 or rows[0].get("status") != "passed" or

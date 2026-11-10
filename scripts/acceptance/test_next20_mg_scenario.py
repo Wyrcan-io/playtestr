@@ -4,10 +4,34 @@ from pathlib import Path
 import unittest
 
 from next20_check import DOC
-from next20_mg_scenario import load_contract
+from next20_mg_scenario import apply_final_variation, load_contract
 
 
 class MgScenarioContractTests(unittest.TestCase):
+    def test_final_variations_preserve_contract_semantics(self):
+        original = {"width": 80, "height": 24, "startup_timeout_ms": 15000,
+                    "steps": [{"text": "printable snow 雪"}, {"key": "CtrlX"},
+                              {"text": "ab"}, {"state": {"path": "x"}}]}
+        widened = apply_final_variation({**original, "steps": list(original["steps"])}, 4)
+        self.assertEqual((widened["width"], widened["height"]), (90, 26))
+        segmented = apply_final_variation({**original, "steps": list(original["steps"])}, 7)
+        self.assertEqual(segmented["steps"], [
+            {"text": "pri"}, {"text": "nta"}, {"text": "ble"},
+            {"text": " sn"}, {"text": "ow "}, {"text": "雪"},
+            {"key": "CtrlX"}, {"text": "ab"}, {"state": {"path": "x"}},
+        ])
+        small = apply_final_variation({**original, "steps": list(original["steps"])}, 10)
+        self.assertEqual((small["width"], small["height"]), (70, 12))
+        tight = apply_final_variation({**original, "steps": list(original["steps"])}, 11)
+        self.assertEqual(tight["startup_timeout_ms"], 5000)
+
+    def test_final_variations_do_not_change_unselected_batches(self):
+        original = {"width": 80, "height": 24, "steps": [{"text": "hello world"}]}
+        for batch in (0, 1, 2, 3, 5, 6, 8, 9):
+            spec = {**original, "steps": list(original["steps"])}
+            self.assertIs(apply_final_variation(spec, batch), spec)
+            self.assertEqual(spec, original)
+
     def test_n02_is_a_public_version_three_edit_save_contract(self):
         path, data, spec, fixture = load_contract(DOC / "mg/n02-edit-append.json")
         self.assertEqual(path.name, "n02-edit-append.json")
