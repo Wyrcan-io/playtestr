@@ -1,0 +1,209 @@
+{
+  "schema_version": 21,
+  "project": "mg",
+  "candidate": "v0.4.0-rc.6",
+  "target_pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "admission_credit": 0,
+  "prior_accounting": "mg/scenario-development-accounting-v20.json",
+  "n04_first_failure": "mg/n04-first-attempt-readback-v1.json",
+  "n04_success_readback": "mg/n04-native-readback-v1.json",
+  "attempts": [
+    {
+      "run_id": 42716663487,
+      "scenario": "n02-edit-append",
+      "host_attempts": 2,
+      "passed": 0,
+      "failed": 2,
+      "finding": "initial save confirmation oracle expected basename"
+    },
+    {
+      "run_id": 42717420876,
+      "scenario": "n02-edit-append",
+      "host_attempts": 2,
+      "passed": 2,
+      "failed": 0
+    },
+    {
+      "run_id": 42719240888,
+      "scenario": "n03-query-replace",
+      "host_attempts": 2,
+      "passed": 0,
+      "failed": 2,
+      "finding": "invisible trailing blank in prompt assertion"
+    },
+    {
+      "run_id": 42720209709,
+      "scenario": "n03-query-replace",
+      "host_attempts": 2,
+      "passed": 2,
+      "failed": 0
+    },
+    {
+      "run_id": 42721418974,
+      "scenario": "n04-cut-yank",
+      "host_attempts": 2,
+      "passed": 0,
+      "failed": 2,
+      "finding": "missing separator before yanked text"
+    },
+    {
+      "run_id": 42721990744,
+      "scenario": "n04-cut-yank",
+      "host_attempts": 2,
+      "passed": 2,
+      "failed": 0
+    },
+    {
+      "run_id": 42722834841,
+      "scenario": "n02-edit-append through n05-undo-redo full workflow rerun",
+      "host_attempts": 8,
+      "passed": 6,
+      "failed": 2,
+      "finding": "N02/N03/N04 re-passed on both hosts in this rerun; N05 first insertion-undo passed through step 9 but redo timed out on both hosts; N01 pilot executions are separately accounted."
+    },
+    {
+      "run_id": 42774674956,
+      "scenario": "n02-edit-append through n05-undo-redo full workflow rerun",
+      "host_attempts": 8,
+      "passed": 6,
+      "failed": 2,
+      "finding": "N02/N03/N04 re-passed on both hosts; N05 deletion undo restored text, next undo consumed the modified marker without changing text, then step 20 expecting redo timed out on both hosts. N01 pilot separately accounted."
+    },
+    {
+      "run_id": 42775438321,
+      "scenario": "n02-edit-append through n05-undo-redo full workflow rerun",
+      "host_attempts": 8,
+      "passed": 8,
+      "failed": 0,
+      "finding": "N02/N03/N04 passed again on both hosts; N05 deletion, first undo, modified-marker consumption, redo, save, exit and same-invocation state assertion passed on both hosts."
+    },
+    {
+      "run_id": 42776968298,
+      "scenario": "n02-edit-append through n06-save-as full workflow rerun",
+      "host_attempts": 10,
+      "passed": 10,
+      "failed": 0,
+      "finding": "N02-N05 passed again on both hosts; N06 Ctrl-X Ctrl-W save-as passed prompt, default-clear, new-file write, original unchanged, exit and both exact state assertions on both hosts."
+    },
+    {
+      "run_id": 42777874080,
+      "scenario": "n02-edit-append through n07-buffer-switch full workflow rerun",
+      "host_attempts": 12,
+      "passed": 12,
+      "failed": 0,
+      "finding": "N02-N06 passed again on both hosts; N07 loaded second fixture file, switched back by explicit buffer name, asserted both exact unchanged states, exited and cleaned up on both hosts."
+    },
+    {
+      "run_id": 42778907701,
+      "scenario": "n02-edit-append through n08-utf8-wide full workflow rerun",
+      "host_attempts": 14,
+      "passed": 14,
+      "failed": 0,
+      "finding": "N02-N07 re-passed on both hosts; N08 explicit UTF-8 locale, accented and wide screen checkpoints, append, save, exit and exact final bytes matched on both hosts."
+    },
+    {
+      "run_id": 42779879155,
+      "scenario": "n02-edit-append through n08-utf8-wide plus E01 full workflow rerun",
+      "host_attempts": 16,
+      "passed": 16,
+      "failed": 0,
+      "finding": "N02-N08 passed again on both hosts; E01 zero-byte clean-save no-op status and exact empty state passed on both hosts."
+    },
+    {
+      "run_id": 42781031241,
+      "scenario": "n02-edit-append through n08-utf8-wide plus E01 zero-byte save and E02 buffer-boundaries full workflow rerun",
+      "host_attempts": 18,
+      "passed": 18,
+      "failed": 0,
+      "finding": "N02-N08 and E01 passed again on both hosts; E02 BOF/EOF refusal, 14/14 steps, exact same-invocation unchanged state, exit 0 and confirmed graceful cleanup passed on both hosts. N01 pilot separately accounted."
+    },
+    {
+      "run_id": 42782907773,
+      "scenario": "N02-N08 plus E01-E03 full workflow rerun",
+      "host_attempts": 20,
+      "passed": 18,
+      "failed": 2,
+      "finding": "N02-N08 and E01-E02 passed again on both hosts. E03 passed its Backspace/newline-join screen checkpoint and saved, but the full-basename save-status oracle clipped on both hosts and timed out; target termination was forced and confirmed and workflow cleanup passed. Failure preserved in mg/e03-first-attempt-readback-v1.json. N01 pilot separately accounted."
+    },
+    {
+      "run_id": 42784035366,
+      "scenario": "N02-N08 plus E01-E03 corrected full workflow rerun",
+      "host_attempts": 20,
+      "passed": 20,
+      "failed": 0,
+      "finding": "N02-N08 and E01-E02 passed again on both hosts; corrected E03 visible save-status prefix, exact same-invocation state, exit and graceful cleanup passed on both hosts. Earlier E03 assertion failures remain preserved separately."
+    },
+    {
+      "run_id": 42785316085,
+      "scenario": "N02-N08 plus E01-E04 full workflow rerun",
+      "host_attempts": 22,
+      "passed": 22,
+      "failed": 0,
+      "finding": "N02-N08 and E01-E03 passed again on both hosts; E04 overlong-line horizontal redraw, append, visible save status, exact final bytes, exit and graceful cleanup all passed."
+    },
+    {
+      "run_id": 42786287264,
+      "scenario": "N02-N08 plus E01-E05 full workflow rerun",
+      "host_attempts": 24,
+      "passed": 24,
+      "failed": 0,
+      "finding": "N02-N08 and E01-E04 passed again on both hosts; E05 explicit UTF-8 wide-character deletion produced the visible AB result, exact saved AB newline bytes, exit 0 and graceful cleanup on both hosts."
+    },
+    {
+      "run_id": 42787532127,
+      "scenario": "N02-N08 plus E01-E06 full workflow rerun",
+      "host_attempts": 26,
+      "passed": 26,
+      "failed": 0,
+      "finding": "N02-N08 and E01-E05 passed again on both hosts; E06 read-only buffer edit refusal, clean-save status, exact unchanged bytes, exit and cleanup passed on both hosts."
+    },
+    {
+      "run_id": 42788643494,
+      "scenario": "N02-N08 plus E01-E07 full workflow rerun",
+      "host_attempts": 28,
+      "passed": 26,
+      "failed": 2,
+      "finding": "N02-N08 and E01-E06 passed again on both hosts. E07 submitted the missing-parent save-as path, but the contract expected transient Cannot open text; both stable captured screens showed Reverting buffer notes.txt. Assertion timed out; target termination forced and confirmed; workflow cleanup passed. Failure preserved in mg/e07-first-attempt-readback-v1.json. N01 pilot separately accounted."
+    },
+    {
+      "run_id": 42789605512,
+      "scenario": "N02-N08 plus E01-E07 corrected full workflow rerun",
+      "host_attempts": 28,
+      "passed": 28,
+      "failed": 0,
+      "finding": "N02-N08 and E01-E06 passed again on both hosts; corrected E07 stable autorevert-status oracle, exact original-file match and missing-parent absent assertion passed, followed by exit 0 and graceful cleanup on both hosts. First E07 failure remains preserved."
+    }
+  ],
+  "scenario_development_counters": {
+    "distinct_scenarios_with_a_native_pass": 14,
+    "host_attempts": 286,
+    "passed_host_attempts": 272,
+    "failed_host_attempts": 14,
+    "scope": "N02-N08 and E01-E07 attempts through 42789605512, including repeated workflow runs and all preserved failures. N01 pilot runs are separately accounted."
+  },
+  "qualification_counters": {
+    "scenarios": 0,
+    "native_cells": 0,
+    "ordinary_executions": 0,
+    "calibrations": 0,
+    "real_source_faults": 0
+  },
+  "status": "N02-N08 and E01-E07 development probes pass on Linux/macOS; first E03/E07 oracle failures are preserved; qualification and admission gates remain open.",
+  "n05_first_failure": "mg/n05-first-attempt-readback-v1.json",
+  "n05_second_failure": "mg/n05-second-attempt-readback-v1.json",
+  "n05_success_readback": "mg/n05-native-readback-v1.json",
+  "n06_success_readback": "mg/n06-native-readback-v1.json",
+  "n07_success_readback": "mg/n07-native-readback-v1.json",
+  "n08_success_readback": "mg/n08-native-readback-v1.json",
+  "e01_success_readback": "mg/e01-native-readback-v1.json",
+  "e02_success_readback": "mg/e02-native-readback-v1.json",
+  "e03_first_failure_readback": "mg/e03-first-attempt-readback-v1.json",
+  "e03_source_review_v2": "mg/e03-source-review-v2.json",
+  "e03_success_readback": "mg/e03-native-readback-v1.json",
+  "e04_success_readback": "mg/e04-native-readback-v1.json",
+  "e05_success_readback": "mg/e05-native-readback-v1.json",
+  "e06_success_readback": "mg/e06-native-readback-v1.json",
+  "e07_first_failure_readback": "mg/e07-first-attempt-readback-v1.json",
+  "e07_source_review_v2": "mg/e07-source-review-v2.json",
+  "e07_success_readback": "mg/e07-native-readback-v1.json"
+}
