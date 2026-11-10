@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "project": "troglobit/mg",
+  "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "scenario": "E12-refuse-unsaved-quit-then-save",
+  "status": "reviewed against exact pinned source; native development probe pending",
+  "source_files": {
+    "src/main.c": "1fb7c488249b5c3a398b030ad784bbd0387dd6cbe8a66fb31dc9564ed3f66e69",
+    "src/echo.c": "809ca46c2bd64405eeebbc68f0c34074c8dfbc5850e01cbadcb78d2959f45d90",
+    "src/keymap.c": "7e6179df6d051f3deb54775a817fef96b90a94e2f35cbb134ba54c8c9106c54e",
+    "src/file.c": "fa604e820d06fb25a0c79b64c1cb092e1b6674ca63324882e2dbba78682491e0"
+  },
+  "findings": [
+    "The pinned keymap binds C-x C-c to quit. quit checks any changed buffers and asks eyesno(\"Modified buffers exist; really exit\") before exiting.",
+    "The default short-answer mode routes eyesno through eyorn, which accepts a literal n immediately, erases the prompt and returns false without exiting.",
+    "The contract positively confirms the unsaved edit remains, saves it with C-x C-s, confirms save status, then quits cleanly and checks exact bytes including the existing final newline."
+  ],
+  "contract": "e12-refuse-unsaved-quit.json",
+  "contract_sha256": "3f07f58e0f72eba5c3b9639a3ca0f4dbc5db9c93bbbf24ae4c17022dd5f29348",
+  "fixture": "fixtures/e12-refuse-unsaved-quit/notes.txt",
+  "fixture_sha256": "2725f6e553484bc90e1549697f95ff94f96e44f5408ba919cd3ea8cd5bdfe29f",
+  "expected_bytes_base64": "ZXhpdCBzb3VyY2UKcGVuZGluZyBlZGl0Cg==",
+  "safety": "synthetic relative file only; secure mode -S; backups disabled with -n"
+}

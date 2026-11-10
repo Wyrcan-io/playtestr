@@ -294,5 +294,21 @@ class MgScenarioContractTests(unittest.TestCase):
                                   "bytes_base64": "cmVzaXplIHNvdXJjZSBsaW5lCmFmdGVyIHJlc2l6ZQo="}])
         self.assertEqual(len(data), len((DOC / "mg/e11-resize-save.json").read_bytes()))
 
+    def test_e12_refuses_unsaved_quit_then_saves_exact_bytes(self):
+        path, data, spec, fixture = load_contract(DOC / "mg/e12-refuse-unsaved-quit.json")
+        self.assertEqual(path.name, "e12-refuse-unsaved-quit.json")
+        self.assertEqual((fixture / "notes.txt").read_bytes(), b"exit source\n")
+        self.assertEqual(spec["steps"][1:15], [
+            {"key": "CtrlE"}, {"key": "Enter"}, {"text": "pending edit"},
+            {"expect": "pending edit"}, {"key": "CtrlX"}, {"key": "CtrlC"},
+            {"expect": "Modified buffers exist; really exit"}, {"text": "n"},
+            {"expect": "pending edit"}, {"key": "CtrlX"}, {"key": "CtrlS"},
+            {"expect": "Wrote "}, {"key": "CtrlX"}, {"key": "CtrlC"},
+        ])
+        state = [step["state"] for step in spec["steps"] if "state" in step]
+        self.assertEqual(state, [{"path": "notes.txt", "kind": "file",
+                                  "bytes_base64": "ZXhpdCBzb3VyY2UKcGVuZGluZyBlZGl0Cg=="}])
+        self.assertEqual(len(data), len((DOC / "mg/e12-refuse-unsaved-quit.json").read_bytes()))
+
 if __name__ == "__main__":
     unittest.main()
