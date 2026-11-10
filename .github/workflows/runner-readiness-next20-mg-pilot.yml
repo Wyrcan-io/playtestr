@@ -29,6 +29,7 @@ on:
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/e09-cancel-filename.json
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/e10a-decline-overwrite.json
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/e10b-accept-overwrite.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/mg/e11-resize-save.json
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/n02-edit-append/**
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/n03-query-replace/**
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/n04-cut-yank/**
@@ -47,6 +48,7 @@ on:
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/e09-cancel-filename/**
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/e10a-decline-overwrite/**
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/e10b-accept-overwrite/**
+      - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/e11-resize-save/**
       - scripts/acceptance/test_next20_mg_build.py
       - scripts/acceptance/next20_candidate.py
       - scripts/acceptance/next20_candidate_install.py
@@ -266,6 +268,13 @@ jobs:
           --host "${{ matrix.host }}"
           --mg-build-root artifacts/runner-readiness-next-twenty-project-pass/pilot-input/mg
           --spec docs/validation/runner-readiness-next-twenty-project-pass/mg/e10b-accept-overwrite.json
+
+      - name: Run E11 pinned-source terminal resize and save probe
+        run: >-
+          python -B scripts/acceptance/next20_mg_scenario.py
+          --host "${{ matrix.host }}"
+          --mg-build-root artifacts/runner-readiness-next-twenty-project-pass/pilot-input/mg
+          --spec docs/validation/runner-readiness-next-twenty-project-pass/mg/e11-resize-save.json
 
       - name: Verify campaign storage limits
         if: always()

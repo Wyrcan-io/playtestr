@@ -1,0 +1,78 @@
+{
+  "version": 3,
+  "name": "mg redraws after terminal resize and saves subsequent edit",
+  "command": [
+    "mg",
+    "-S",
+    "-n",
+    "notes.txt"
+  ],
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "workspace": {
+    "fixture": "fixtures/e11-resize-save"
+  },
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 8000,
+  "run_timeout_ms": 30000,
+  "startup_timeout_ms": 15000,
+  "steps": [
+    {
+      "expect": "resize source line"
+    },
+    {
+      "resize": {
+        "width": 60,
+        "height": 16
+      }
+    },
+    {
+      "wait_for_redraw": true
+    },
+    {
+      "expect": "resize source line"
+    },
+    {
+      "key": "CtrlE"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "text": "after resize"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "after resize"
+    },
+    {
+      "key": "CtrlX"
+    },
+    {
+      "key": "CtrlS"
+    },
+    {
+      "expect": "Wrote "
+    },
+    {
+      "key": "CtrlX"
+    },
+    {
+      "key": "CtrlC"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "notes.txt",
+        "kind": "file",
+        "bytes_base64": "cmVzaXplIHNvdXJjZSBsaW5lCmFmdGVyIHJlc2l6ZQo="
+      }
+    }
+  ]
+}
