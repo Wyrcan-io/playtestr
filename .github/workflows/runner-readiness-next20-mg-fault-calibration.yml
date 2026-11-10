@@ -5,7 +5,11 @@ on:
     branches:
       - work/p0-p2-implementation
     paths:
+      - .github/workflows/runner-readiness-next20-mg-fault-calibration.yml
+      - scripts/acceptance/next20_mg_build.py
       - scripts/acceptance/next20_mg_fault_calibration.py
+      - scripts/acceptance/test_next20_mg_build.py
+      - scripts/acceptance/test_next20_mg_fault_calibration.py
   workflow_dispatch:
 
 permissions:
