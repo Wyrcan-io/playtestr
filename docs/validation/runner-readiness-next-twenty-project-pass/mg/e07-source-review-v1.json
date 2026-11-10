@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "project": "troglobit/mg",
+  "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "scenario": "E07-save-as-missing-parent",
+  "status": "reviewed against exact pinned source; native development probe pending",
+  "source_files": {
+    "src/keymap.c": "7e6179df6d051f3deb54775a817fef96b90a94e2f35cbb134ba54c8c9106c54e",
+    "src/file.c": "fa604e820d06fb25a0c79b64c1cb092e1b6674ca63324882e2dbba78682491e0",
+    "src/fileio.c": "9fcde1d55a3763f318706521a78c1b455d87c25a6e23a41d96c10db8e5c5ae39"
+  },
+  "findings": [
+    "The pinned keymap maps C-x C-w to filewrite. filewrite prompts for the destination then delegates to writeout.",
+    "writeout uses ffwopen for the new destination. ffwopen calls open with O_CREAT but does not create parent directories; a missing parent fails before a child file can be created and emits Cannot open file for writing with the host error.",
+    "The contract checks the visible refusal, exact original file bytes and absent missing parent directory in the same workspace after clean exit.",
+    "The destination is a relative synthetic path inside the owned workspace; no outside path is addressed."
+  ],
+  "contract": "e07-missing-parent.json",
+  "contract_sha256": "80cb0a76446aeca59ba6ba32e12da79bd38df37427e7a04a4735648b9d4597f5",
+  "fixture": "fixtures/e07-missing-parent/notes.txt",
+  "fixture_sha256": "516ad7b388b21e05e8c56229f063d112e70a2fea45fdd357e8ff44e6a5bce689",
+  "original_bytes_base64": "b3JpZ2luYWwgY29udGVudAo=",
+  "safety": "relative destination under synthetic workspace only; missing parent is not created; secure mode -S; backups disabled with -n"
+}

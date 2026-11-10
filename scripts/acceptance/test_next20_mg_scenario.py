@@ -207,5 +207,20 @@ class MgScenarioContractTests(unittest.TestCase):
         self.assertEqual(base64.b64decode(spec["steps"][-1]["state"]["bytes_base64"], validate=True), original)
         self.assertEqual(len(data), len((DOC / "mg/e06-readonly-buffer.json").read_bytes()))
 
+    def test_e07_save_as_missing_parent_leaves_no_partial_path(self):
+        path, data, spec, fixture = load_contract(DOC / "mg/e07-missing-parent.json")
+        self.assertEqual(path.name, "e07-missing-parent.json")
+        self.assertEqual((fixture / "notes.txt").read_bytes(), b"original content\n")
+        self.assertEqual(spec["steps"][1:7], [
+            {"key": "CtrlX"}, {"key": "CtrlW"}, {"expect": "Write file"},
+            {"text": "missing/child.txt"}, {"key": "Enter"},
+            {"expect": "Cannot open file for writing"},
+        ])
+        self.assertEqual(spec["steps"][-2:], [
+            {"state": {"path": "notes.txt", "kind": "file", "bytes_base64": "b3JpZ2luYWwgY29udGVudAo="}},
+            {"state": {"path": "missing", "kind": "absent"}},
+        ])
+        self.assertEqual(len(data), len((DOC / "mg/e07-missing-parent.json").read_bytes()))
+
 if __name__ == "__main__":
     unittest.main()
