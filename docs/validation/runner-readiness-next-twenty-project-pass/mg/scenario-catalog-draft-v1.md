@@ -32,7 +32,7 @@ checkpoint and exact exit/cleanup. Cases never touch a real user file.
 | E03 | Delete backward at the beginning of a line | The exact previous-line/newline behavior observed from baseline |
 | E04 | Edit a line longer than the viewport and save | Full bytes preserved; redraw and horizontal visibility remain bounded |
 | E05 | Move/delete around a multibyte wide character | No split UTF-8 sequence; exact expected bytes and screen width |
-| E06 | Open a read-only fixture and attempt an edit/save | Visible read-only failure, fixture bytes unchanged |
+| E06 | Toggle read-only buffer mode and attempt an edit/save | Visible read-only failure, fixture bytes unchanged |
 | E07 | Save-as into a missing parent directory | Clear error/refusal, no outside path or partial artifact |
 | E08 | Save-as to a filename containing spaces | Exact new path and bytes; no shell interpretation |
 | E09 | Cancel a filename prompt with `C-g` | Current buffer and all file states remain unchanged |
@@ -57,3 +57,8 @@ No fault is frozen until a source review identifies the exact line and the nativ
 baseline/fault/restoration run demonstrates one reproducible externally visible
 failure per mutation. Faults that do not produce a reliable oracle are replaced,
 not weakened.
+
+E06 uses mg's explicit read-only buffer command because Playtestr intentionally
+normalizes fixture file permissions to writable when preparing a managed
+workspace. This exercises mg's buffer read-only guard without claiming a
+read-only filesystem fixture.

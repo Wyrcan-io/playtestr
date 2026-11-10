@@ -194,5 +194,18 @@ class MgScenarioContractTests(unittest.TestCase):
         self.assertEqual(base64.b64decode(spec["steps"][-1]["state"]["bytes_base64"], validate=True), b"AB\n")
         self.assertEqual(len(data), len((DOC / "mg/e05-wide-backspace.json").read_bytes()))
 
+    def test_e06_read_only_buffer_rejects_edit_and_preserves_bytes(self):
+        path, data, spec, fixture = load_contract(DOC / "mg/e06-readonly-buffer.json")
+        self.assertEqual(path.name, "e06-readonly-buffer.json")
+        original = b"protected sample\n"
+        self.assertEqual((fixture / "notes.txt").read_bytes(), original)
+        self.assertEqual(spec["steps"][1:8], [
+            {"key": "CtrlX"}, {"key": "CtrlQ"}, {"text": "X"},
+            {"expect": "Buffer is read only"}, {"key": "CtrlX"},
+            {"key": "CtrlS"}, {"expect": "(No changes need to be saved)"},
+        ])
+        self.assertEqual(base64.b64decode(spec["steps"][-1]["state"]["bytes_base64"], validate=True), original)
+        self.assertEqual(len(data), len((DOC / "mg/e06-readonly-buffer.json").read_bytes()))
+
 if __name__ == "__main__":
     unittest.main()

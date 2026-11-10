@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "project": "troglobit/mg",
+  "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "scenario": "E06-read-only-buffer-edit-save",
+  "status": "reviewed against exact pinned source; native development probe pending",
+  "source_files": {
+    "src/keymap.c": "7e6179df6d051f3deb54775a817fef96b90a94e2f35cbb134ba54c8c9106c54e",
+    "src/buffer.c": "82afbe9945fea023c8af5cf6245fe336511f69d6278d36a273b2bbe54a96cc4c",
+    "src/line.c": "362abbff01c1536f608c9e603ca0da0b9945208aceffa4ce7c213c82da436c52",
+    "src/file.c": "fa604e820d06fb25a0c79b64c1cb092e1b6674ca63324882e2dbba78682491e0"
+  },
+  "findings": [
+    "The pinned keymap maps C-x C-q to togglereadonly. The function sets BFREADONLY for the current named buffer.",
+    "linsert checks BFREADONLY and emits Buffer is read only without changing text. The contract asserts that visible refusal after typing X.",
+    "filesave reports No changes need to be saved while BFCHG is clear; the contract checks this after the refused edit, then exits and asserts unchanged exact bytes.",
+    "Playtestr managed workspaces intentionally normalize copied fixture modes to writable (internal/runner/workspace.go and workspace_test.go); therefore this probe exercises mg read-only buffer mode directly rather than claiming a filesystem permission bit survived fixture copying."
+  ],
+  "contract": "e06-readonly-buffer.json",
+  "contract_sha256": "017fe8c6d0b2e5c9732316fa449827f2e2b843353629d258347d7e44b61050d2",
+  "fixture": "fixtures/e06-readonly-buffer/notes.txt",
+  "fixture_sha256": "f9837214d3572d9f517186fce704f4e558cdb0068643353f4f2a6fa7041f5a93",
+  "expected_state_sha256": "f9837214d3572d9f517186fce704f4e558cdb0068643353f4f2a6fa7041f5a93",
+  "expected_state_base64": "cHJvdGVjdGVkIHNhbXBsZQo=",
+  "safety": "synthetic disposable buffer only; read-only mode is toggled inside mg; secure mode -S; backups disabled with -n"
+}

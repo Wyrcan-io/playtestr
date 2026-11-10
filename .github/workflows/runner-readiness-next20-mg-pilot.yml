@@ -23,6 +23,7 @@ on:
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/e03-backspace-join.json
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/e04-extended-line.json
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/e05-wide-backspace.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/mg/e06-readonly-buffer.json
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/n02-edit-append/**
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/n03-query-replace/**
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/n04-cut-yank/**
@@ -35,6 +36,7 @@ on:
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/e03-backspace-join/**
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/e04-extended-line/**
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/e05-wide-backspace/**
+      - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/e06-readonly-buffer/**
       - scripts/acceptance/test_next20_mg_build.py
       - scripts/acceptance/next20_candidate.py
       - scripts/acceptance/next20_candidate_install.py
@@ -212,6 +214,13 @@ jobs:
           --host "${{ matrix.host }}"
           --mg-build-root artifacts/runner-readiness-next-twenty-project-pass/pilot-input/mg
           --spec docs/validation/runner-readiness-next-twenty-project-pass/mg/e05-wide-backspace.json
+
+      - name: Run E06 pinned-source read-only-buffer probe
+        run: >-
+          python -B scripts/acceptance/next20_mg_scenario.py
+          --host "${{ matrix.host }}"
+          --mg-build-root artifacts/runner-readiness-next-twenty-project-pass/pilot-input/mg
+          --spec docs/validation/runner-readiness-next-twenty-project-pass/mg/e06-readonly-buffer.json
 
       - name: Verify campaign storage limits
         if: always()
