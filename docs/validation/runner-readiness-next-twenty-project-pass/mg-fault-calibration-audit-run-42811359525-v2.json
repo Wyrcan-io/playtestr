@@ -1,0 +1,449 @@
+{
+  "admission_credit": 0,
+  "baseline_phases_passed": 8,
+  "calibration_phase_executions": 24,
+  "candidate": "v0.4.0-rc.6",
+  "cells": [
+    {
+      "architecture": "arm64",
+      "contract": "n03-query-replace.json",
+      "fault": "delete-byte-corruption",
+      "host": "darwin",
+      "owned_source_phase_trees_removed": 3,
+      "phases": [
+        {
+          "attempt_id": "b3fef9dc3b494b55b04623ae895b4e3d",
+          "build_receipt_sha256": "5575f8cdad5321351817ee15339063f59027c28d47d374a23483610516d1fee5",
+          "phase": "baseline",
+          "report_sha256": "43c05936ff21e7bfbea127cd56787d7d9bb3a24b702cda45134fa31f80938165",
+          "result": "passed",
+          "runner_log_sha256": "10875ee1456adff0e6c55e0f53afbbcba628be9c1c8e4527014e5ee21b9d201a",
+          "runner_process_tree_confirmed": true,
+          "target_binary_sha256": "b6bbe0ed4c35aca1cb1852415d0352551a95a03d8bc9371f375b70587ac373d6",
+          "target_cleanup_confirmed": true
+        },
+        {
+          "attempt_id": "e390cf925b564b88ac21d46f7f8b802d",
+          "build_receipt_sha256": "bb97eb2d8818f00e47286ef99aebfb9898cfa538f70068a5c661fa9986fe36a7",
+          "phase": "fault",
+          "report_sha256": "29356e271fca5653a51f94a7d25c79df0f6cae3da0c37cfb288e980831214a92",
+          "result": "failed",
+          "runner_log_sha256": "ba19be4d179fef7ada53fd75a5b8240aa1affd1a38364519685a57f8bfe82935",
+          "runner_process_tree_confirmed": true,
+          "target_binary_sha256": "d0fe57a3be727e33848b46761fd1fcac5436401a575dd8183670ddf071857915",
+          "target_cleanup_confirmed": true
+        },
+        {
+          "attempt_id": "c202da4887304f28a3d225cfa0a8c46e",
+          "build_receipt_sha256": "e286f2c410e45aff7a2bf71caeed94b0b9dd5eb381093b65356defc642b9bc3f",
+          "phase": "recovery",
+          "report_sha256": "b9d67b580f001ad9672c14ce71a0450e3af7b334c52bd847baec50d7384733a7",
+          "result": "passed",
+          "runner_log_sha256": "d70d7b68d4102826598043458a4967502ea52259c1cfccc7c0f96fc2198d345b",
+          "runner_process_tree_confirmed": true,
+          "target_binary_sha256": "9850487e736b79dad479156687d8c40d9445b5ac91c9c7ec3bc47e50e9b1b9aa",
+          "target_cleanup_confirmed": true
+        }
+      ],
+      "status": "baseline-detected-restored"
+    },
+    {
+      "architecture": "x86_64",
+      "contract": "n03-query-replace.json",
+      "fault": "delete-byte-corruption",
+      "host": "linux",
+      "owned_source_phase_trees_removed": 3,
+      "phases": [
+        {
+          "attempt_id": "462a0fb5062240acba14811671995577",
+          "build_receipt_sha256": "30166461dd1bd77f332b2991e93c2a3fd5558899057284162d4da9f760bca3fc",
+          "phase": "baseline",
+          "report_sha256": "4fd8a91e3252727a6f66d65fd75eca0e0861291f0fc891fdf520e72851581186",
+          "result": "passed",
+          "runner_log_sha256": "4353b550a8087dfd6a3895a83cae46f0895f20940ddced429579e4eb75d1c0f1",
+          "runner_process_tree_confirmed": true,
+          "target_binary_sha256": "6eb334f5ea96687983c51b073b1b8a11434ea85a46e69ca6e28e57b76b4e88e5",
+          "target_cleanup_confirmed": true
+        },
+        {
+          "attempt_id": "a3552e2ff2734bf6afc28fd238f52a3a",
+          "build_receipt_sha256": "1ae4f5fb70ca86730eb194d876f7a4fcea5b0ab7cedcd0ac70e1bc86669169c7",
+          "phase": "fault",
+          "report_sha256": "3ec7d51fcac759085573381a27490eb285d6f282f906c981e90d2c0e7e6c431e",
+          "result": "failed",
+          "runner_log_sha256": "a9a550d9ce2d69b5bbea1f122577c33e1780968a8039569220b00e667fad1915",
+          "runner_process_tree_confirmed": true,
+          "target_binary_sha256": "1899876a6b62f4c487c6ee2e85dad722a71cfb70102185f014b2e5783227470c",
+          "target_cleanup_confirmed": true
+        },
+        {
+          "attempt_id": "5476c07a5de04a6cb7fa52ea6e86ab49",
+          "build_receipt_sha256": "01e595ccb55b5234e4b34487c0d2ec26034b140c14f7bf48a2c7983a849c9bc7",
+          "phase": "recovery",
+          "report_sha256": "ec5d2c948684424981c8134a7b9266faf18d3e8eb3aea094f72b99f09d9a65d5",
+          "result": "passed",
+          "runner_log_sha256": "429fb4fd98bb04fc6aae91ff1791d3947dd98771ae0e8ab706c510e30e4842af",
+          "runner_process_tree_confirmed": true,
+          "target_binary_sha256": "6eb334f5ea96687983c51b073b1b8a11434ea85a46e69ca6e28e57b76b4e88e5",
+          "target_cleanup_confirmed": true
+        }
+      ],
+      "status": "baseline-detected-restored"
+    },
+    {
+      "architecture": "arm64",
+      "contract": "e06-readonly-buffer.json",
+      "fault": "readonly-edit-accepted",
+      "host": "darwin",
+      "owned_source_phase_trees_removed": 3,
+      "phases": [
+        {
+          "attempt_id": "dfb06da1cb0f4ce0a41da635d44f932e",
+          "build_receipt_sha256": "5e0d014ca7644fc0ad8c2808b94e3f78b8ffe50e40740b6fb4f12cd832d0c14a",
+          "phase": "baseline",
+          "report_sha256": "aba456b41a1faf363768afb03384f2fac1f4813c439904ffb2e133ba17e9f7d4",
+          "result": "passed",
+          "runner_log_sha256": "ab60f908d54458dc1399a7c687de5fac5cfc5a2516bf736862226b74061e362c",
+          "runner_process_tree_confirmed": true,
+          "target_binary_sha256": "2e20c57e5b757cd1691d273eb1c035b77eae5c4f093734420bd2dc5686c654fd",
+          "target_cleanup_confirmed": true
+        },
+        {
+          "attempt_id": "889d82a939de49feb7060dc6853a2a00",
+          "build_receipt_sha256": "a4bc0ff541902cf4df4d1c7d89167eabb8334e9d9c8d41c9fc125d1d2c779299",
+          "phase": "fault",
+          "report_sha256": "c210ee3ea8de28d1a126190218710a837aaa23c8ee484eae8f65b76c56210aa0",
+          "result": "failed",
+          "runner_log_sha256": "c5742fb88af4d9e655f89e2239644367e2c7e5d6eecfb46c5e5a9cfa4680d947",
+          "runner_process_tree_confirmed": true,
+          "target_binary_sha256": "4f16cdc0e83c239d5994b65c9355f4a6210da0a0037e3f2e44925a86bc7af26f",
+          "target_cleanup_confirmed": true
+        },
+        {
+          "attempt_id": "76ed9bf352ab47b78c629e282286bdaa",
+          "build_receipt_sha256": "625ee4095bc78c1313268264404b7d0a4438bdc556bc83cc219938c537a04b50",
+          "phase": "recovery",
+          "report_sha256": "0ac82500c50f8e16f438711ad8f12a35fdd1d00392b59e0509e2ed3e5c883229",
+          "result": "passed",
+          "runner_log_sha256": "e6d8dd9698855be07521804c5506a85c207f2f47d6de73f31b47a7f1a76d70ce",
+          "runner_process_tree_confirmed": true,
+          "target_binary_sha256": "50d0e34230760da00603ac7071ea22dcc8236c752712b54d375fb9b5973a9abc",
+          "target_cleanup_confirmed": true
+        }
+      ],
+      "status": "baseline-detected-restored"
+    },
+    {
+      "architecture": "x86_64",
+      "contract": "e06-readonly-buffer.json",
+      "fault": "readonly-edit-accepted",
+      "host": "linux",
+      "owned_source_phase_trees_removed": 3,
+      "phases": [
+        {
+          "attempt_id": "1a063cdaafea4f8a90eb16d83e0302d1",
+          "build_receipt_sha256": "0ca59ad746455c76890e761a158a0d8b8603955b17ff273f6a9e77ea8f0ae03a",
+          "phase": "baseline",
+          "report_sha256": "5e56f8d00d0bfd1ac6ab9e6f2dec7fe965bf861e86f2d3aaf5060dabd3c08434",
+          "result": "passed",
+          "runner_log_sha256": "f6caadaa335bcdaca399ae9e120a7d6cc4c47fb21569173a902e19ae3fb8bea2",
+          "runner_process_tree_confirmed": true,
+          "target_binary_sha256": "6eb334f5ea96687983c51b073b1b8a11434ea85a46e69ca6e28e57b76b4e88e5",
+          "target_cleanup_confirmed": true
+        },
+        {
+          "attempt_id": "f4919bd474394fe38447afae3187a404",
+          "build_receipt_sha256": "40aadb67afa92a7474f41e96d7c41100184b3707d9b507006f15ca312c593ceb",
+          "phase": "fault",
+          "report_sha256": "d41c1a33c9b4f572fdbe848e1acc233fa61c799ea67a5b5dcc356cc5c4dfc6a9",
+          "result": "failed",
+          "runner_log_sha256": "0675949a553f789ab39998aa76ad648f7b2db66977826aea4f99c909da8488b4",
+          "runner_process_tree_confirmed": true,
+          "target_binary_sha256": "06c46c0c52ee592a419e09690d97824d6792d3aa09fc62d9aeefe4c033f53ffc",
+          "target_cleanup_confirmed": true
+        },
+        {
+          "attempt_id": "b9d1d13463644997bb4fda73acb686bc",
+          "build_receipt_sha256": "8d2fed61ec5a9f619dc342ae1b728ba7cdbad0863d7d65b53decf11ecb5264f9",
+          "phase": "recovery",
+          "report_sha256": "a3bedc3467caaeaf464e045c7faff05e78858af85f665315c141b1e549f689b0",
+          "result": "passed",
+          "runner_log_sha256": "83a3b26c6fbde4cba3e0c462fcacf1333acb108224bd95a9f2818f714df8355e",
+          "runner_process_tree_confirmed": true,
+          "target_binary_sha256": "6eb334f5ea96687983c51b073b1b8a11434ea85a46e69ca6e28e57b76b4e88e5",
+          "target_cleanup_confirmed": true
+        }
+      ],
+      "status": "baseline-detected-restored"
+    },
+    {
+      "architecture": "arm64",
+      "contract": "n02-edit-append.json",
+      "fault": "save-no-write",
+      "host": "darwin",
+      "owned_source_phase_trees_removed": 3,
+      "phases": [
+        {
+          "attempt_id": "8e8f31ca2ca045438884bec7dd0f6e25",
+          "build_receipt_sha256": "33c698cbcc7d8b695b235bd77134b8bc183c83ff134ecda2de74f79841a1a58f",
+          "phase": "baseline",
+          "report_sha256": "8db049b829075c7d22a811f6ba037ce963c82a47e22db03682f4a14f72dd5286",
+          "result": "passed",
+          "runner_log_sha256": "f6f0807faed99441605f3297065bdd6f5a9da1df9fbf4e2c2463ede43840e6f0",
+          "runner_process_tree_confirmed": true,
+          "target_binary_sha256": "2b9394efc14e48e1867283a387dc0f6b3f7262405f9682766aafe1e5cc479a87",
+          "target_cleanup_confirmed": true
+        },
+        {
+          "attempt_id": "ce0840ad829046bfb862ed4561587f75",
+          "build_receipt_sha256": "dd9e2255a8b3dfb34fb3a03ed26f518e465c740d4178bc0d30f0e33fd566877d",
+          "phase": "fault",
+          "report_sha256": "188ee70c91fe1c7431250a615ffc0f2e9b730473b58d7b751856dc87879eddad",
+          "result": "failed",
+          "runner_log_sha256": "1ef179af23b92042d765acd3a2fcaae025c6369371cdbcdf56357af3a8b41890",
+          "runner_process_tree_confirmed": true,
+          "target_binary_sha256": "67a1d5b9e4cc5e9464710d866bd6b326f6de949c6db61686c1cd89f7e9646e51",
+          "target_cleanup_confirmed": true
+        },
+        {
+          "attempt_id": "812a4ded47ff4cee803129d9b6d49ebb",
+          "build_receipt_sha256": "3df253c9e46ba657f43586662fe0482d77e472f781119d782d3321cf54fcec02",
+          "phase": "recovery",
+          "report_sha256": "5eb9111028936cd8fa8403c79829f7a82c02f348f745f637df7e4ed3a75ebf29",
+          "result": "passed",
+          "runner_log_sha256": "ece0d07f3cb2c1e498c10484866e61be36ed4269cad8862a8f10dc13d496787e",
+          "runner_process_tree_confirmed": true,
+          "target_binary_sha256": "277b4bc96857876e6bebf1aad6363606d92aef9b1e5311ea8b71fdd9c72a768b",
+          "target_cleanup_confirmed": true
+        }
+      ],
+      "status": "baseline-detected-restored"
+    },
+    {
+      "architecture": "x86_64",
+      "contract": "n02-edit-append.json",
+      "fault": "save-no-write",
+      "host": "linux",
+      "owned_source_phase_trees_removed": 3,
+      "phases": [
+        {
+          "attempt_id": "9bd5b6d007a74564ad1030b9aa686904",
+          "build_receipt_sha256": "e28f0a4718f518959ddf688d22b6ea85b42faf6cf10c1679f57943d1ad8b75e0",
+          "phase": "baseline",
+          "report_sha256": "81b57d0de1d000cc2799857edede95b021de32bfa8df954b5995b252b569fceb",
+          "result": "passed",
+          "runner_log_sha256": "88bc68ec3a859fd26fa89febcaf03cc4a44451d004411b26d14040cfcf64e172",
+          "runner_process_tree_confirmed": true,
+          "target_binary_sha256": "6eb334f5ea96687983c51b073b1b8a11434ea85a46e69ca6e28e57b76b4e88e5",
+          "target_cleanup_confirmed": true
+        },
+        {
+          "attempt_id": "3baf8067dc6c457f9ad93fd1f90aaeff",
+          "build_receipt_sha256": "020bed0410cdabe3ec26eb328760a2e9610c4db4ab384f6d9f40433175455f5f",
+          "phase": "fault",
+          "report_sha256": "57b6bd425c7d2f40b5125c5863900954b0a60d478a581cb105bba42428f733f5",
+          "result": "failed",
+          "runner_log_sha256": "e479788ea78978cb2f6d2754a1c7fe9c6adf33e70c0c1bc18734d458ec46d8d1",
+          "runner_process_tree_confirmed": true,
+          "target_binary_sha256": "f79279b2aa80366a19e7e1f7e196ccfc3e943eb6dbb7c319cc05f3d3d442b1db",
+          "target_cleanup_confirmed": true
+        },
+        {
+          "attempt_id": "0289d34225f04c178562f78a2bc4212b",
+          "build_receipt_sha256": "fde97c31d63474045636ef92e025138b91dcf0b49d4a3f02d71440c2de811627",
+          "phase": "recovery",
+          "report_sha256": "2da2a34926bb03464258c58316c3fc1568d0274d353c5aa6be7cf8e2af658804",
+          "result": "passed",
+          "runner_log_sha256": "b9dad96a1cbd613e4022cd79212fb09526c4f35a3561248d9888d4c14abacfc2",
+          "runner_process_tree_confirmed": true,
+          "target_binary_sha256": "6eb334f5ea96687983c51b073b1b8a11434ea85a46e69ca6e28e57b76b4e88e5",
+          "target_cleanup_confirmed": true
+        }
+      ],
+      "status": "baseline-detected-restored"
+    },
+    {
+      "architecture": "arm64",
+      "contract": "n05-undo-redo.json",
+      "fault": "undo-delete-omitted",
+      "host": "darwin",
+      "owned_source_phase_trees_removed": 3,
+      "phases": [
+        {
+          "attempt_id": "4e16499d6d904f4491b23b90718d824f",
+          "build_receipt_sha256": "791c537c33d3d104762a9b52b39b585abe9063cc98cd41c1c09d328b35d01bfd",
+          "phase": "baseline",
+          "report_sha256": "e244f62e417cd108d360c74cf681612e6c59bd45e006cdf6917aac9dfc89b92f",
+          "result": "passed",
+          "runner_log_sha256": "7003448484e9bb7c7405728919e3dd3667b49d0f483fb09e15e68072be616fb1",
+          "runner_process_tree_confirmed": true,
+          "target_binary_sha256": "b1516a109c5e6d0be74bfea9e04c8ffcbfe25802a4b8f2fd761cca8b174bd963",
+          "target_cleanup_confirmed": true
+        },
+        {
+          "attempt_id": "05a10ba4d4af40e5ad05babb38f4d86c",
+          "build_receipt_sha256": "23d52c70ce2ba7d5192c9b06a0ddb75581646454b54b180419a6643b806e2d03",
+          "phase": "fault",
+          "report_sha256": "f0ff3e87d05963174ef7b43105f087f4b3f680a0896521ac1b1230fbfd6764a7",
+          "result": "failed",
+          "runner_log_sha256": "2f2e0fc57ecf83ef7eb99c5c972e7a5fcfdac5535430998ee9b7ea64215120ab",
+          "runner_process_tree_confirmed": true,
+          "target_binary_sha256": "711a691c74325ed84bce54bd8052776d95da0ed558fee1abc14ec1921bbc2662",
+          "target_cleanup_confirmed": true
+        },
+        {
+          "attempt_id": "365241ed967a4e81afc95f1c03fd42fb",
+          "build_receipt_sha256": "e9b03fafad1dfb7dd71c65d4baf1d38a146111032eceba66717e20f0750abdd2",
+          "phase": "recovery",
+          "report_sha256": "b2ff3fd36abc7d3b6af85f815a462d330fdf768703f77e829985b77e3f9f4910",
+          "result": "passed",
+          "runner_log_sha256": "620a363b4e42f5487312cee45a397438f7f205e5ddfbc8b88618f3450476fa65",
+          "runner_process_tree_confirmed": true,
+          "target_binary_sha256": "df788dcbee04d9bfafcdcc4b10c523d4610fed3afc32c82c72f8bdd7d3589de0",
+          "target_cleanup_confirmed": true
+        }
+      ],
+      "status": "baseline-detected-restored"
+    },
+    {
+      "architecture": "x86_64",
+      "contract": "n05-undo-redo.json",
+      "fault": "undo-delete-omitted",
+      "host": "linux",
+      "owned_source_phase_trees_removed": 3,
+      "phases": [
+        {
+          "attempt_id": "9b9017033f1048d59b1536f120afd29a",
+          "build_receipt_sha256": "1c03f64f8200e01543ede4a5872e4acb1e339e3ab84ca882179805313aec00c5",
+          "phase": "baseline",
+          "report_sha256": "b1ef19938c0b2c1768542620b068d6b79c7a0f5f3684c74cf1b556909fcf33b4",
+          "result": "passed",
+          "runner_log_sha256": "59402e0961767f02bb23614681d8ebe9bfc42e4b046a551173a11c092cfe5b83",
+          "runner_process_tree_confirmed": true,
+          "target_binary_sha256": "6eb334f5ea96687983c51b073b1b8a11434ea85a46e69ca6e28e57b76b4e88e5",
+          "target_cleanup_confirmed": true
+        },
+        {
+          "attempt_id": "37c9a59b385f403194e5c1d9597e6770",
+          "build_receipt_sha256": "a9b83190c0e2620eceff9e59e70e79b4d33753f27065376a30c22aefb56330d8",
+          "phase": "fault",
+          "report_sha256": "9faddb1fae199c6b663d2cefacd7b83af6aee2750ae6337400872996cdee8974",
+          "result": "failed",
+          "runner_log_sha256": "9cd763d69e922dd592cf3e1d812b262120afa8405730c7ac2b582d14dbec97b8",
+          "runner_process_tree_confirmed": true,
+          "target_binary_sha256": "c371029f4d671f295ba052428c5b15db82a75e0030eafb7b55fb8b0127d25d09",
+          "target_cleanup_confirmed": true
+        },
+        {
+          "attempt_id": "37a8667707fd4b63b8e269782e03deb5",
+          "build_receipt_sha256": "a2502aa07efa397b163407b4c02e837f09602d786ee761e38f6baad423cc43bb",
+          "phase": "recovery",
+          "report_sha256": "1dc0d62636cab9cde412e2f0c73fe749227616bb9eba3486ad3eb282134cf4b3",
+          "result": "passed",
+          "runner_log_sha256": "efdef36f4e0d6ea1e9b1bef3b24154b6d793ba7ee27fb12fb657bb1c90ba65fd",
+          "runner_process_tree_confirmed": true,
+          "target_binary_sha256": "6eb334f5ea96687983c51b073b1b8a11434ea85a46e69ca6e28e57b76b4e88e5",
+          "target_cleanup_confirmed": true
+        }
+      ],
+      "status": "baseline-detected-restored"
+    }
+  ],
+  "confirmed_owned_source_tree_removals": 24,
+  "distinct_real_source_faults": 4,
+  "mutated_contract_failures_expected": 8,
+  "native_cells": 8,
+  "project": "mg",
+  "provider_artifacts": [
+    {
+      "artifact_id": 13762626723,
+      "bytes": 140687,
+      "crc": "passed",
+      "key": "delete-darwin",
+      "provider_digest": "sha256:6faef0fb4374337366ad01b1e0c8e31649834a4db7105457de84643268771d05",
+      "sha256": "6faef0fb4374337366ad01b1e0c8e31649834a4db7105457de84643268771d05",
+      "zip_entries": 107
+    },
+    {
+      "artifact_id": 13761964546,
+      "bytes": 69456,
+      "crc": "passed",
+      "key": "delete-linux",
+      "provider_digest": "sha256:956e40dfacf36af1b4e3446b780068edc3a2d93d27a32f082d498760fca604de",
+      "sha256": "956e40dfacf36af1b4e3446b780068edc3a2d93d27a32f082d498760fca604de",
+      "zip_entries": 80
+    },
+    {
+      "artifact_id": 13763942243,
+      "bytes": 140770,
+      "crc": "passed",
+      "key": "readonly-darwin",
+      "provider_digest": "sha256:d2f0ebeded1cf7ba4a053919a74bb3eecaa1c2014a66e57e18bdb57bb4371a9f",
+      "sha256": "d2f0ebeded1cf7ba4a053919a74bb3eecaa1c2014a66e57e18bdb57bb4371a9f",
+      "zip_entries": 107
+    },
+    {
+      "artifact_id": 13762507042,
+      "bytes": 69455,
+      "crc": "passed",
+      "key": "readonly-linux",
+      "provider_digest": "sha256:fccc6efd8c49a0f735f0e631f4d69640ae0effb3cf51b3c81a1335b609814a87",
+      "sha256": "fccc6efd8c49a0f735f0e631f4d69640ae0effb3cf51b3c81a1335b609814a87",
+      "zip_entries": 80
+    },
+    {
+      "artifact_id": 13763720632,
+      "bytes": 140390,
+      "crc": "passed",
+      "key": "save-darwin",
+      "provider_digest": "sha256:683d5af1247166827365e695a94c47a6d6bc8f38dd8aac6f8b05f9f531b63684",
+      "sha256": "683d5af1247166827365e695a94c47a6d6bc8f38dd8aac6f8b05f9f531b63684",
+      "zip_entries": 107
+    },
+    {
+      "artifact_id": 13761789260,
+      "bytes": 69134,
+      "crc": "passed",
+      "key": "save-linux",
+      "provider_digest": "sha256:ac9c905b21b0a52d076553251b5be64c00a4c412950cc720e1bd193062f46a59",
+      "sha256": "ac9c905b21b0a52d076553251b5be64c00a4c412950cc720e1bd193062f46a59",
+      "zip_entries": 80
+    },
+    {
+      "artifact_id": 13763713028,
+      "bytes": 140309,
+      "crc": "passed",
+      "key": "undo-darwin",
+      "provider_digest": "sha256:d1984424622777c9fd8fa169b51f08aeb0ae8713beba10d2372d235569ac375c",
+      "sha256": "d1984424622777c9fd8fa169b51f08aeb0ae8713beba10d2372d235569ac375c",
+      "zip_entries": 107
+    },
+    {
+      "artifact_id": 13764260488,
+      "bytes": 69159,
+      "crc": "passed",
+      "key": "undo-linux",
+      "provider_digest": "sha256:8680795d0c5516c882f0a1aa965471378142f92a34ef5852a16e60e34895689b",
+      "sha256": "8680795d0c5516c882f0a1aa965471378142f92a34ef5852a16e60e34895689b",
+      "zip_entries": 80
+    }
+  ],
+  "provider_audited_at_utc": "2026-11-10T13:42:29.236511+00:00",
+  "qualification_tooling_git_tree": {
+    ".github/workflows/runner-readiness-next20-mg-fault-calibration.yml": "b56270d660bd4d7fa3e7c4fd2a99b1f5fbda650bd346b5bb47b078f75c4bce3e",
+    "scripts/acceptance/next20_mg_build.py": "33fbf0c6459a19c081e8cc4377489a9ec6a1b367c9a340ea25e2db414d5408dc",
+    "scripts/acceptance/next20_mg_scenario.py": "2cca17838f371d97a7f2e929950a8940b911dec7cfb81bdd81599882867ee4f2"
+  },
+  "readback": "docs/validation/runner-readiness-next-twenty-project-pass/mg-fault-calibration-readback-v2.json",
+  "restored_source_map_sha256": "36120c2c102dd27b33efab95af2af79d5287fa9b2c7affd9aa8c87fea2a3505c",
+  "restored_source_recoveries_passed": 8,
+  "retained_false_negative_attempts": 2,
+  "run_id": 42811359525,
+  "schema_version": 1,
+  "source_archive_sha256": "bd8aff8ddbf55f7d37067a9f01e6bef887a2b0f2c0699aaa08a73d7dfd6069a8",
+  "source_review": "docs/validation/runner-readiness-next-twenty-project-pass/mg-fault-source-review-v1.json",
+  "status": "fault-calibration-audited",
+  "target_pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "workflow_conclusion": "success",
+  "workflow_revision": "08bc77509f9306787fe994f4657fb91a55f75713"
+}
