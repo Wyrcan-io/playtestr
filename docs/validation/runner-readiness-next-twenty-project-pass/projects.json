@@ -568,7 +568,7 @@
       "id": "mg",
       "repository": "troglobit/mg",
       "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
-      "status": "N01-N08 and E01-E12 development probes pass on Linux/macOS; corrected E12 prompt order passed all 19 steps with matched saved-state assertions and graceful cleanup; all 24 prior failed attempts preserved; qualification and admission remain zero",
+      "status": "N01-N08 and E01-E12 development probes passed on Linux/macOS; 644 ordinary host attempts (620 pass, 24 preserved failures); four reviewed source faults were detected and restored on both hosts; qualification and admission remain zero",
       "acquired": true,
       "admitted": false,
       "planned_hosts": [
@@ -576,10 +576,10 @@
         "macos"
       ],
       "development_selected_scenarios_passed": 20,
-      "development_ordinary_attempts": 604,
-      "development_ordinary_passed": 580,
+      "development_ordinary_attempts": 644,
+      "development_ordinary_passed": 620,
       "development_ordinary_failed": 24,
-      "development_real_faults": 0,
+      "development_real_faults": 4,
       "qualified_scenarios": 0,
       "qualified_native_cells": 0,
       "audited_ordinary_executions": 0,
@@ -615,7 +615,7 @@
       "native_build_workflow": ".github/workflows/runner-readiness-next20-mg-build.yml",
       "pilot_spec": "mg/pilot-n01.json",
       "pilot_workflow": ".github/workflows/runner-readiness-next20-mg-pilot.yml",
-      "pilot_attempt_accounting": "mg/pilot-attempt-accounting-v19.json",
+      "pilot_attempt_accounting": "mg/pilot-attempt-accounting-v22.json",
       "pilot_native_readback": "mg/pilot-n01-native-readback-v1.json",
       "scenario_attempt_accounting": "mg/scenario-development-accounting-v30.json",
       "scenario_native_readback_n03": "mg/n03-native-readback-v1.json",
@@ -677,8 +677,13 @@
       "scenario_source_review_e12": "mg/e12-source-review-v1.json",
       "scenario_first_failure_e12": "mg/e12-first-attempt-readback-v1.json",
       "scenario_native_readback_e12": "mg/e12-native-readback-v1.json",
-      "pilot_attempts_schema_version": 19,
-      "scenario_attempts_schema_version": 30
+      "pilot_attempts_schema_version": 22,
+      "scenario_attempts_schema_version": 31,
+      "scenario_development_accounting": "mg/scenario-development-accounting-v31.json",
+      "latest_full_scenario_readback": "mg/extra-run-42810801431-readback-v1.json",
+      "fault_calibration_first_attempt_readback": "../mg-fault-calibration-first-attempt-readback-v1.json",
+      "fault_calibration_false_negative_readback": "../mg-fault-calibration-readback-v1.json",
+      "fault_calibration_readback": "../mg-fault-calibration-readback-v2.json"
     }
   ],
   "observed_audited_ordinary_executions": 2400,

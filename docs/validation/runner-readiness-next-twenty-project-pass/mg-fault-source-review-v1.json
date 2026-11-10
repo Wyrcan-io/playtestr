@@ -76,7 +76,7 @@
     "darwin arm64"
   ],
   "restoration": "Restore exact original file bytes in a bounded finally path; re-hash all 126 files against source provenance before recovery; keep target mutation confined to owned temporary/native job source tree.",
-  "status": "Native matrix run 42805846400 verified save suppression, byte corruption, and undo omission on both Linux and macOS. The original read-only mutation removed the ldelete guard while E06 types through linsert; both false-negative cells are retained with zero credit. The corrected exact linsert guard patch passed 32 focused local tests (4 POSIX-only skips) and awaits native Linux/macOS calibration. These fault calibrations do not qualify or admit mg.",
+  "status": "Four exact-source mutations passed native baseline/fault/restored-recovery calibration on Linux amd64 and macOS arm64 in run 42811359525. All eight cells detected their contract-bound fault and restored the 126-file pinned source map; all 24 owned phase trees were removed. The earlier wrong-function read-only false negatives and first symlink-cleanup harness failure remain separately retained with zero credit. Artifact hashes and CRCs were audited. See mg-fault-calibration-readback-v2.json. This calibration does not qualify or admit mg.",
   "workflow": {
     "path": ".github/workflows/runner-readiness-next20-mg-fault-calibration.yml",
     "trigger": "workflow_dispatch after the bounded native mg source-build workflow completes",
