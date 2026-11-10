@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "project": "troglobit/mg",
+  "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "scenario": "n06-save-as",
+  "status": "reviewed against exact pinned source; native development probe pending",
+  "source_files": {
+    "src/keymap.c": "7e6179df6d051f3deb54775a817fef96b90a94e2f35cbb134ba54c8c9106c54e",
+    "src/file.c": "fa604e820d06fb25a0c79b64c1cb092e1b6674ca63324882e2dbba78682491e0",
+    "src/echo.c": "809ca46c2bd64405eeebbc68f0c34074c8dfbc5850e01cbadcb78d2959f45d90"
+  },
+  "findings": [
+    "The exact pinned keymap routes C-x C-w to filewrite.",
+    "filewrite prompts with Write file:, writes the current buffer to the selected name, updates the buffer remembered filename, and clears the modified flag only after writeout succeeds.",
+    "The filewrite prompt starts from getbufcwd; the echo minibuffer binds Ctrl+U to delete text through the end of the input line. The probe clears this default before entering notes-copy.txt.",
+    "The new path does not exist in the disposable fixture, so the overwrite-confirmation path is not reached.",
+    "The public contract asserts the prompt, successful Wrote status, clean exit, exact original-file bytes unchanged, and exact saved bytes at the second filename."
+  ],
+  "contract": "n06-save-as.json",
+  "fixture": "fixtures/n06-save-as/notes.txt",
+  "fixture_sha256": "1a5daf623e10a56d066f67b3fe24f6f3c54dd175325659ddf73d0731ae586647",
+  "expected_original_sha256": "1a5daf623e10a56d066f67b3fe24f6f3c54dd175325659ddf73d0731ae586647",
+  "expected_new_sha256": "1a5daf623e10a56d066f67b3fe24f6f3c54dd175325659ddf73d0731ae586647",
+  "expected_bytes_base64": "c291cmNlIHJlbWFpbnMK",
+  "safety": "synthetic disposable files; secure mode -S; backups disabled with -n; second target path is absent",
+  "contract_sha256": "60f19d9199b1ccc8dd8771e62769bf305c5aa7536236d1479d37e0fbd789b969"
+}

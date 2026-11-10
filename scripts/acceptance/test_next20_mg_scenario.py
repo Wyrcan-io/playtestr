@@ -66,6 +66,24 @@ class MgScenarioContractTests(unittest.TestCase):
                          b"seed\n")
         self.assertEqual(len(data), len((DOC / "mg/n05-undo-redo.json").read_bytes()))
 
+    def test_n06_saves_as_a_second_file_and_preserves_the_original(self):
+        path, data, spec, fixture = load_contract(DOC / "mg/n06-save-as.json")
+        self.assertEqual(path.name, "n06-save-as.json")
+        self.assertEqual(spec["command"], ["mg", "-S", "-n", "notes.txt"])
+        original = b"source remains\n"
+        self.assertEqual((fixture / "notes.txt").read_bytes(), original)
+        steps = spec["steps"]
+        save_as = steps.index({"key": "CtrlW"})
+        self.assertEqual(steps[save_as - 1], {"key": "CtrlX"})
+        self.assertEqual(steps[save_as + 1:save_as + 5],
+                         [{"expect": "Write file:"}, {"key": "CtrlU"},
+                          {"text": "notes-copy.txt"}, {"key": "Enter"}])
+        self.assertEqual([s["state"]["path"] for s in steps if "state" in s],
+                         ["notes.txt", "notes-copy.txt"])
+        self.assertEqual([base64.b64decode(s["state"]["bytes_base64"], validate=True)
+                          for s in steps if "state" in s], [original, original])
+        self.assertEqual(len(data), len((DOC / "mg/n06-save-as.json").read_bytes()))
+
 
 if __name__ == "__main__":
     unittest.main()

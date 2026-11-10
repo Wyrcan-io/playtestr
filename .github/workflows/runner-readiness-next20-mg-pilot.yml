@@ -15,10 +15,12 @@ on:
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/n03-query-replace.json
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/n04-cut-yank.json
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/n05-undo-redo.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/mg/n06-save-as.json
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/n02-edit-append/**
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/n03-query-replace/**
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/n04-cut-yank/**
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/n05-undo-redo/**
+      - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/n06-save-as/**
       - scripts/acceptance/test_next20_mg_build.py
       - scripts/acceptance/next20_candidate.py
       - scripts/acceptance/next20_candidate_install.py
@@ -140,6 +142,13 @@ jobs:
           --host "${{ matrix.host }}"
           --mg-build-root artifacts/runner-readiness-next-twenty-project-pass/pilot-input/mg
           --spec docs/validation/runner-readiness-next-twenty-project-pass/mg/n05-undo-redo.json
+
+      - name: Run N06 pinned-source save-as probe
+        run: >-
+          python -B scripts/acceptance/next20_mg_scenario.py
+          --host "${{ matrix.host }}"
+          --mg-build-root artifacts/runner-readiness-next-twenty-project-pass/pilot-input/mg
+          --spec docs/validation/runner-readiness-next-twenty-project-pass/mg/n06-save-as.json
 
       - name: Verify campaign storage limits
         if: always()
