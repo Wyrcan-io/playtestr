@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "project": "troglobit/mg",
+  "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "scenario": "E10-accept-existing-save-as-destination",
+  "status": "reviewed against exact pinned source; native development probe pending",
+  "source_files": {
+    "src/keymap.c": "7e6179df6d051f3deb54775a817fef96b90a94e2f35cbb134ba54c8c9106c54e",
+    "src/echo.c": "809ca46c2bd64405eeebbc68f0c34074c8dfbc5850e01cbadcb78d2959f45d90",
+    "src/file.c": "fa604e820d06fb25a0c79b64c1cb092e1b6674ca63324882e2dbba78682491e0",
+    "src/fileio.c": "9fcde1d55a3763f318706521a78c1b455d87c25a6e23a41d96d10db8e5c5ae39"
+  },
+  "findings": [
+    "The pinned keymap binds C-x C-w to filewrite. After filename entry, filewrite checks the resolved destination with stat and calls eyorn only when it already exists.",
+    "The confirmation text identifies the existing destination. A negative answer returns before writeout; a positive answer continues through writeout and updates the current buffer filename only after the write succeeds.",
+    "E10a declines and asserts both original and destination bytes remain exact. E10b edits the buffer, accepts overwrite, then checks the original remains unchanged and destination contains exact edited bytes."
+  ],
+  "variants": {
+    "decline": {
+      "contract": "e10a-decline-overwrite.json",
+      "sha256": "8c0a7aaea1545b709a166707cbe1e5aed581ae7000a0c9b866d27c9c51003fcc",
+      "fixture": "fixtures/e10a-decline-overwrite",
+      "notes_sha256": "61374c805bd2a5680afe2a16b954d2e3ad716f2b17cd514794824edf755314b2",
+      "destination_sha256": "3fff3207fdef46624048b72d4975380e586cb198ba7931ac74cb08ce7ffb3059"
+    },
+    "accept": {
+      "contract": "e10b-accept-overwrite.json",
+      "sha256": "323b39d04d8dd972e57f86e441f7b32f7d18b5c26a67544181984ac2f374e16a",
+      "fixture": "fixtures/e10b-accept-overwrite",
+      "notes_sha256": "61374c805bd2a5680afe2a16b954d2e3ad716f2b17cd514794824edf755314b2",
+      "destination_initial_sha256": "3fff3207fdef46624048b72d4975380e586cb198ba7931ac74cb08ce7ffb3059"
+    }
+  },
+  "safety": "synthetic files only under owned workspace; secure mode -S; backups disabled with -n"
+}

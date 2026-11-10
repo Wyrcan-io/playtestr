@@ -1,0 +1,70 @@
+{
+  "version": 3,
+  "name": "e10a decline overwrite",
+  "command": [
+    "mg",
+    "-S",
+    "-n",
+    "notes.txt"
+  ],
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "workspace": {
+    "fixture": "fixtures/e10a-decline-overwrite"
+  },
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 8000,
+  "run_timeout_ms": 30000,
+  "startup_timeout_ms": 15000,
+  "steps": [
+    {
+      "expect": "overwrite source"
+    },
+    {
+      "key": "CtrlX"
+    },
+    {
+      "key": "CtrlW"
+    },
+    {
+      "expect": "Write file"
+    },
+    {
+      "text": "existing.txt"
+    },
+    {
+      "expect": "File `existing.txt' exists; overwrite"
+    },
+    {
+      "key": "n"
+    },
+    {
+      "expect": "overwrite source"
+    },
+    {
+      "key": "CtrlX"
+    },
+    {
+      "key": "CtrlC"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "notes.txt",
+        "kind": "file",
+        "bytes_base64": "b3ZlcndyaXRlIHNvdXJjZQo="
+      }
+    },
+    {
+      "state": {
+        "path": "existing.txt",
+        "kind": "file",
+        "bytes_base64": "b2xkIGRlc3RpbmF0aW9uCg=="
+      }
+    }
+  ]
+}

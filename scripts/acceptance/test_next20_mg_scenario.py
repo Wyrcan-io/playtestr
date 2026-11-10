@@ -253,5 +253,27 @@ class MgScenarioContractTests(unittest.TestCase):
         ])
         self.assertEqual(len(data), len((DOC / "mg/e09-cancel-filename.json").read_bytes()))
 
+    def test_e10a_declining_overwrite_preserves_both_files(self):
+        path, data, spec, fixture = load_contract(DOC / "mg/e10a-decline-overwrite.json")
+        self.assertEqual(path.name, "e10a-decline-overwrite.json")
+        self.assertEqual((fixture / "notes.txt").read_bytes(), b"overwrite source\n")
+        self.assertEqual((fixture / "existing.txt").read_bytes(), b"old destination\n")
+        self.assertIn({"expect": "File `existing.txt' exists; overwrite"}, spec["steps"])
+        self.assertLess(spec["steps"].index({"key": "n"}), spec["steps"].index({"expect": "overwrite source"}, 1))
+        self.assertEqual([s["state"]["bytes_base64"] for s in spec["steps"] if "state" in s],
+                         ["b3ZlcndyaXRlIHNvdXJjZQo=", "b2xkIGRlc3RpbmF0aW9uCg=="])
+        self.assertEqual(len(data), len((DOC / "mg/e10a-decline-overwrite.json").read_bytes()))
+
+    def test_e10b_accepting_overwrite_saves_current_buffer(self):
+        path, data, spec, fixture = load_contract(DOC / "mg/e10b-accept-overwrite.json")
+        self.assertEqual(path.name, "e10b-accept-overwrite.json")
+        self.assertEqual((fixture / "notes.txt").read_bytes(), b"overwrite source\n")
+        self.assertEqual((fixture / "existing.txt").read_bytes(), b"old destination\n")
+        self.assertIn({"expect": "File `existing.txt' exists; overwrite"}, spec["steps"])
+        self.assertLess(spec["steps"].index({"key": "y"}), spec["steps"].index({"expect": "Wrote "}))
+        self.assertEqual([s["state"]["bytes_base64"] for s in spec["steps"] if "state" in s],
+                         ["b3ZlcndyaXRlIHNvdXJjZQo=", "b3ZlcndyaXRlIHNvdXJjZQphY2NlcHRlZCBlZGl0Cg=="])
+        self.assertEqual(len(data), len((DOC / "mg/e10b-accept-overwrite.json").read_bytes()))
+
 if __name__ == "__main__":
     unittest.main()

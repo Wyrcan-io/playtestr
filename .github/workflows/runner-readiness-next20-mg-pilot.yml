@@ -27,6 +27,8 @@ on:
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/e07-missing-parent.json
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/e08-filename-spaces.json
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/e09-cancel-filename.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/mg/e10a-decline-overwrite.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/mg/e10b-accept-overwrite.json
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/n02-edit-append/**
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/n03-query-replace/**
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/n04-cut-yank/**
@@ -43,6 +45,8 @@ on:
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/e07-missing-parent/**
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/e08-filename-spaces/**
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/e09-cancel-filename/**
+      - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/e10a-decline-overwrite/**
+      - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/e10b-accept-overwrite/**
       - scripts/acceptance/test_next20_mg_build.py
       - scripts/acceptance/next20_candidate.py
       - scripts/acceptance/next20_candidate_install.py
@@ -248,6 +252,20 @@ jobs:
           --host "${{ matrix.host }}"
           --mg-build-root artifacts/runner-readiness-next-twenty-project-pass/pilot-input/mg
           --spec docs/validation/runner-readiness-next-twenty-project-pass/mg/e09-cancel-filename.json
+
+      - name: Run E10a pinned-source declined overwrite probe
+        run: >-
+          python -B scripts/acceptance/next20_mg_scenario.py
+          --host "${{ matrix.host }}"
+          --mg-build-root artifacts/runner-readiness-next-twenty-project-pass/pilot-input/mg
+          --spec docs/validation/runner-readiness-next-twenty-project-pass/mg/e10a-decline-overwrite.json
+
+      - name: Run E10b pinned-source accepted overwrite probe
+        run: >-
+          python -B scripts/acceptance/next20_mg_scenario.py
+          --host "${{ matrix.host }}"
+          --mg-build-root artifacts/runner-readiness-next-twenty-project-pass/pilot-input/mg
+          --spec docs/validation/runner-readiness-next-twenty-project-pass/mg/e10b-accept-overwrite.json
 
       - name: Verify campaign storage limits
         if: always()
