@@ -15,8 +15,6 @@ on:
       - scripts/acceptance/next20_mg_final_series.py
       - scripts/acceptance/next20_mg_final_redeclare_v2.py
       - scripts/acceptance/test_next20_mg_final_series.py
-      - scripts/acceptance/next20_mg_public_route.py
-      - scripts/acceptance/test_next20_mg_public_route.py
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/final-qualification-declaration-v1.json
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/final-qualification-declaration-v2.json
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/n02-edit-append.json
@@ -68,6 +66,12 @@ on:
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/pilot-n01/**
       - docs/validation/runner-readiness-next-twenty-project-pass/replacement-candidate-freeze-native-exit-v1.json
   workflow_dispatch:
+    inputs:
+      route_only:
+        description: Run only the already declared mg public authoring route
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   actions: read
@@ -79,6 +83,7 @@ concurrency:
 
 jobs:
   first-use-pty-pilot:
+    if: ${{ !inputs.route_only }}
     name: mg N01 pilot (${{ matrix.host }})
     strategy:
       fail-fast: false
@@ -317,6 +322,7 @@ jobs:
           include-hidden-files: true
 
   final-candidate-series:
+    if: ${{ !inputs.route_only }}
     name: mg final batch ${{ matrix.batch }} (${{ matrix.host }})
     strategy:
       fail-fast: false
@@ -420,6 +426,7 @@ jobs:
   public-authoring-route:
     name: mg public recorder route (Linux)
     needs: [first-use-pty-pilot, final-candidate-series]
+    if: ${{ always() && (inputs.route_only || (needs.first-use-pty-pilot.result == 'success' && needs.final-candidate-series.result == 'success')) }}
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     env:
@@ -490,8 +497,9 @@ jobs:
         with:
           name: next20-mg-public-route-${{ github.run_id }}
           path: |
-            artifacts/runner-readiness-next-twenty-project-pass/mg/public-route-native-exit-v1/**
+            artifacts/runner-readiness-next-twenty-project-pass/mg/**
             artifacts/runner-readiness-next-twenty-project-pass/events/**
+            docs/validation/runner-readiness-next-twenty-project-pass/identities/**
             artifacts/runner-readiness-next-twenty-project-pass/mg/pilot-development/linux/cleanup-*.json
           if-no-files-found: warn
           retention-days: 14
