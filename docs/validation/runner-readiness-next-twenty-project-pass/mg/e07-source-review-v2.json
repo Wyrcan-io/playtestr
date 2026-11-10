@@ -1,0 +1,26 @@
+{
+  "schema_version": 2,
+  "project": "troglobit/mg",
+  "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "scenario": "E07-save-as-missing-parent",
+  "status": "reviewed against exact pinned source and first native failure; corrected stable-status oracle pending native rerun",
+  "source_files": {
+    "src/keymap.c": "7e6179df6d051f3deb54775a817fef96b90a94e2f35cbb134ba54c8c9106c54e",
+    "src/file.c": "fa604e820d06fb25a0c79b64c1cb092e1b6674ca63324882e2dbba78682491e0",
+    "src/fileio.c": "9fcde1d55a3763f318706521a78c1b455d87c25a6e23a41d96c10db8e5c5ae39",
+    "src/autorevert.c": "642adbe6479c510daea100ab17cda5059000a96ef98a7e2c7ee87cc9f755bcb6"
+  },
+  "findings": [
+    "The pinned keymap maps C-x C-w to filewrite. filewrite prompts for the destination then delegates to writeout.",
+    "writeout uses ffwopen for the new destination. ffwopen calls open with O_CREAT but does not create parent directories; a missing parent fails before a child file can be created and emits Cannot open file for writing with the host error.",
+    "The contract checks the visible refusal, exact original file bytes and absent missing parent directory in the same workspace after clean exit.",
+    "The destination is a relative synthetic path inside the owned workspace; no outside path is addressed.",
+    "Both first-run native screens showed Reverting buffer notes.txt after the save-as attempt. Exact pinned filewrite clears prior file attributes before writeout; a missing parent makes writeout fail, and autorevert sees the cleared metadata, reloads the unchanged original, and displays this stable message. The revised contract asserts that observed status and checks both original bytes and missing parent absence after clean exit."
+  ],
+  "contract": "e07-missing-parent.json",
+  "contract_sha256": "af4b19e2f6b7a7b8e067e114fa80442ab4b0a3955a5847adff2d42e5cc62dc5e",
+  "fixture": "fixtures/e07-missing-parent/notes.txt",
+  "fixture_sha256": "516ad7b388b21e05e8c56229f063d112e70a2fea45fdd357e8ff44e6a5bce689",
+  "original_bytes_base64": "b3JpZ2luYWwgY29udGVudAo=",
+  "safety": "relative destination under synthetic workspace only; missing parent is not created; secure mode -S; backups disabled with -n"
+}

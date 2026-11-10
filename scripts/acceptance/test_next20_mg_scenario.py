@@ -214,7 +214,7 @@ class MgScenarioContractTests(unittest.TestCase):
         self.assertEqual(spec["steps"][1:7], [
             {"key": "CtrlX"}, {"key": "CtrlW"}, {"expect": "Write file"},
             {"text": "missing/child.txt"}, {"key": "Enter"},
-            {"expect": "Cannot open file for writing"},
+            {"expect": "Reverting buffer notes.txt"},
         ])
         self.assertEqual(spec["steps"][-2:], [
             {"state": {"path": "notes.txt", "kind": "file", "bytes_base64": "b3JpZ2luYWwgY29udGVudAo="}},
