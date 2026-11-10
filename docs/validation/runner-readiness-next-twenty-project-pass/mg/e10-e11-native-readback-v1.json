@@ -1,0 +1,177 @@
+{
+  "schema_version": 1,
+  "project": "troglobit/mg",
+  "target_pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "candidate": "v0.4.0-rc.6",
+  "phase": "scenario development; not qualification",
+  "workflow_run_id": 42796601078,
+  "commit": "b1662d4ec939a7baa5a2dadc65b9a205b911ce17",
+  "workflow_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/42796601078",
+  "workflow_conclusion": "success",
+  "contracts": {
+    "e10a": "mg/e10a-decline-overwrite.json",
+    "e10b": "mg/e10b-accept-overwrite.json",
+    "e11": "mg/e11-resize-save.json"
+  },
+  "source_reviews": [
+    "mg/e10-source-review-v1.json",
+    "mg/e11-source-review-v1.json"
+  ],
+  "hosts": [
+    {
+      "host": "linux",
+      "architecture": "x86_64",
+      "job_id": 129763255897,
+      "artifact_id": 13753544488,
+      "provider_artifact_bytes": 111398,
+      "provider_artifact_sha256": "sha256:87e12bcb2df58be672e3a21556a2783472979edecc0f878aa83cb9c52dde7aa7",
+      "retained_zip": "artifacts/runner-readiness-next-twenty-project-pass/mg/scenario-development/retrieved/run-42796601078/linux-retained.zip",
+      "retained_zip_sha256": "87e12bcb2df58be672e3a21556a2783472979edecc0f878aa83cb9c52dde7aa7",
+      "retained_zip_bytes": 111398,
+      "retained_zip_members": 161,
+      "zip_crc": "passed",
+      "e10a-decline-overwrite": {
+        "attempt_id": "faa37a58ca9047d09510e4f5dc803131",
+        "attempt_sha256": "adf0a25d4b4b7a5d1e7af149b181f0ad9fea8c91ab2b15b4ba0472e6a0eb97fb",
+        "contract_sha256": "93a9ca114d35c6ab706e2bcaece26791f2f21dbc2a878cfb206552f4ef228637",
+        "candidate_archive_sha256": "28ae9f37227bb0f6ba2df031420aa3d027b998e31eab523c4d13cd2816c4af7a",
+        "candidate_binary_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a",
+        "target_binary_sha256": "6eb334f5ea96687983c51b073b1b8a11434ea85a46e69ca6e28e57b76b4e88e5",
+        "report_sha256": "7dda840ab492589612d5aafe063183e489517a1fd3c6b37613b1d1a608aab408",
+        "runner_log_sha256": "9fedf2de2cb2643119717e66faa21b4d9e25248f29860654c2ef0d97c227f28a",
+        "status": "passed",
+        "steps_passed": 14,
+        "steps_total": 14,
+        "state_outcomes": [
+          "matched",
+          "matched"
+        ],
+        "target_exit_code": 0,
+        "target_cleanup": "graceful; confirmed exited; no force required",
+        "runner_process_group_cleanup": "process group absent; no owned descendants remain",
+        "workspace_cleaned": true
+      },
+      "e10b-accept-overwrite": {
+        "attempt_id": "59dff91547ae462180bd7848b91f3995",
+        "attempt_sha256": "b63305786ad4d103b94914b320ed758261cb194e40a0238e444a9dd8da3e9995",
+        "contract_sha256": "413234ee82db4114bd86889c3fe9bd9529bc4ab0c6ca9345d6fd4485092eab27",
+        "candidate_archive_sha256": "28ae9f37227bb0f6ba2df031420aa3d027b998e31eab523c4d13cd2816c4af7a",
+        "candidate_binary_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a",
+        "target_binary_sha256": "6eb334f5ea96687983c51b073b1b8a11434ea85a46e69ca6e28e57b76b4e88e5",
+        "report_sha256": "e482d3d6ed884e55047ddc09706050b4965a90910ee6e9d20a68148f149dec27",
+        "runner_log_sha256": "649bb1f7aa7c721ee81b0be5260f8a11bb15d6045689293b2bc254618e7996e9",
+        "status": "passed",
+        "steps_passed": 18,
+        "steps_total": 18,
+        "state_outcomes": [
+          "matched",
+          "matched"
+        ],
+        "target_exit_code": 0,
+        "target_cleanup": "graceful; confirmed exited; no force required",
+        "runner_process_group_cleanup": "process group absent; no owned descendants remain",
+        "workspace_cleaned": true
+      },
+      "e11-resize-save": {
+        "attempt_id": "0b8eeec14d614c9c8b721173d0829398",
+        "attempt_sha256": "f76b0f5a79b2a3127f67ddc578886b934ab4dc18dc6271182d59338c8cf1685e",
+        "contract_sha256": "3df34b68d80cb4cf2bbdebe1dc797187e83c879a1e504f935b327789399e296c",
+        "candidate_archive_sha256": "28ae9f37227bb0f6ba2df031420aa3d027b998e31eab523c4d13cd2816c4af7a",
+        "candidate_binary_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a",
+        "target_binary_sha256": "6eb334f5ea96687983c51b073b1b8a11434ea85a46e69ca6e28e57b76b4e88e5",
+        "report_sha256": "cf31603afecbd8f11f2d98ba91fa6ce45a50ca489f68f9b0027d531d0e040959",
+        "runner_log_sha256": "366da22107febba3b65cc9da3649006ef2242c68e4c0c6ee4f9847320da7481c",
+        "status": "passed",
+        "steps_passed": 15,
+        "steps_total": 15,
+        "state_outcomes": [
+          "matched"
+        ],
+        "target_exit_code": 0,
+        "target_cleanup": "graceful; confirmed exited; no force required",
+        "runner_process_group_cleanup": "process group absent; no owned descendants remain",
+        "workspace_cleaned": true
+      },
+      "workflow_cleanup_all_inputs_absent": true
+    },
+    {
+      "host": "darwin",
+      "architecture": "arm64",
+      "job_id": 129763256441,
+      "artifact_id": 13753991295,
+      "provider_artifact_bytes": 111893,
+      "provider_artifact_sha256": "sha256:bec91395a22c0c366da8893a20a7f6d7061c07acc26390ec5c14039fe578f20e",
+      "retained_zip": "artifacts/runner-readiness-next-twenty-project-pass/mg/scenario-development/retrieved/run-42796601078/darwin-retained.zip",
+      "retained_zip_sha256": "bec91395a22c0c366da8893a20a7f6d7061c07acc26390ec5c14039fe578f20e",
+      "retained_zip_bytes": 111893,
+      "retained_zip_members": 161,
+      "zip_crc": "passed",
+      "e10a-decline-overwrite": {
+        "attempt_id": "44d60e6551c846118f579839fcab1857",
+        "attempt_sha256": "7939eb7601e96fcb0693d5ee60a92db26a6f8e2843e49eda11db521b8b2868f3",
+        "contract_sha256": "93a9ca114d35c6ab706e2bcaece26791f2f21dbc2a878cfb206552f4ef228637",
+        "candidate_archive_sha256": "132152710ade2c01cac7558f75212121f01af8ab02c5735dc9c7de1c33dbe625",
+        "candidate_binary_sha256": "609b184dac8664050643ec35036c4cffef2137ec778ae4d4678727b119e2fe0f",
+        "target_binary_sha256": "5f0c844b1c8a6a44209ad4534b3d19e223c0289024e00f34656031b8640db297",
+        "report_sha256": "05a1661b46eb8c788ece15aca07da31c3853787f652110490626497b16e39a71",
+        "runner_log_sha256": "1e82a945bcc512ffefa753ccb2a4df2759ae885f417347eedc70a869139fcd77",
+        "status": "passed",
+        "steps_passed": 14,
+        "steps_total": 14,
+        "state_outcomes": [
+          "matched",
+          "matched"
+        ],
+        "target_exit_code": 0,
+        "target_cleanup": "graceful; confirmed exited; no force required",
+        "runner_process_group_cleanup": "process group absent; no owned descendants remain",
+        "workspace_cleaned": true
+      },
+      "e10b-accept-overwrite": {
+        "attempt_id": "17af47f46b63447193f961b85cab215e",
+        "attempt_sha256": "7370c8f85142a3b8020048c15c57b884800e414ba972c83e65d2bb1e3107f0af",
+        "contract_sha256": "413234ee82db4114bd86889c3fe9bd9529bc4ab0c6ca9345d6fd4485092eab27",
+        "candidate_archive_sha256": "132152710ade2c01cac7558f75212121f01af8ab02c5735dc9c7de1c33dbe625",
+        "candidate_binary_sha256": "609b184dac8664050643ec35036c4cffef2137ec778ae4d4678727b119e2fe0f",
+        "target_binary_sha256": "5f0c844b1c8a6a44209ad4534b3d19e223c0289024e00f34656031b8640db297",
+        "report_sha256": "42879a0289a7ecd3150adee87ed2e384e8bfb6fe7245b121c74525c454945ffb",
+        "runner_log_sha256": "90580e4bfe003847db353583ab1651b4fb19278de4fb3c57c3eb2da36a349907",
+        "status": "passed",
+        "steps_passed": 18,
+        "steps_total": 18,
+        "state_outcomes": [
+          "matched",
+          "matched"
+        ],
+        "target_exit_code": 0,
+        "target_cleanup": "graceful; confirmed exited; no force required",
+        "runner_process_group_cleanup": "process group absent; no owned descendants remain",
+        "workspace_cleaned": true
+      },
+      "e11-resize-save": {
+        "attempt_id": "cc7cf19fec344f67a713c9fc2e88928f",
+        "attempt_sha256": "1eb160e56748b5dfd460d3833dee6fd92abcac1604a0f1eef619899a6e61f1bc",
+        "contract_sha256": "3df34b68d80cb4cf2bbdebe1dc797187e83c879a1e504f935b327789399e296c",
+        "candidate_archive_sha256": "132152710ade2c01cac7558f75212121f01af8ab02c5735dc9c7de1c33dbe625",
+        "candidate_binary_sha256": "609b184dac8664050643ec35036c4cffef2137ec778ae4d4678727b119e2fe0f",
+        "target_binary_sha256": "5f0c844b1c8a6a44209ad4534b3d19e223c0289024e00f34656031b8640db297",
+        "report_sha256": "7bd656ef78438639f72fb192c0c7a996f2f52953cf857c62f2040e59db0b7bff",
+        "runner_log_sha256": "803b4f31252b7b68d68b9712316194c8b630fa8dc8f82e6ed5dfe9a9c3ae0603",
+        "status": "passed",
+        "steps_passed": 15,
+        "steps_total": 15,
+        "state_outcomes": [
+          "matched"
+        ],
+        "target_exit_code": 0,
+        "target_cleanup": "graceful; confirmed exited; no force required",
+        "runner_process_group_cleanup": "process group absent; no owned descendants remain",
+        "workspace_cleaned": true
+      },
+      "workflow_cleanup_all_inputs_absent": true
+    }
+  ],
+  "audit": "Both native hosts passed the E10a decline variant (14/14 steps, original and destination states matched), E10b accepted-overwrite variant (18/18, both states matched) and E11 resize/redraw/save (15/15, exact state matched). Each target exited 0 and was gracefully confirmed exited; workspaces were cleaned, runner process groups absent, and workflow cleanup receipts confirm all owned inputs absent. Provider ZIP digests match GitHub metadata and both 161-member archives pass CRC.",
+  "state_evidence_limit": "Reports record exact state outcomes but do not retain the observed file bytes or hashes separately; these are development probes, not qualification.",
+  "admission_credit": 0
+}
