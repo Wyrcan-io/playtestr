@@ -55,13 +55,13 @@ class MgScenarioContractTests(unittest.TestCase):
         self.assertEqual(path.name, "n05-undo-redo.json")
         self.assertEqual(spec["command"], ["mg", "-S", "-n", "notes.txt"])
         self.assertEqual((fixture / "notes.txt").read_bytes(), b"seed changed\n")
-        self.assertEqual(sum(1 for s in spec["steps"] if s == {"key": "CtrlX"}), 4)
-        self.assertEqual(sum(1 for s in spec["steps"] if s == {"text": "u"}), 2)
+        self.assertEqual(sum(1 for s in spec["steps"] if s == {"key": "CtrlX"}), 5)
+        self.assertEqual(sum(1 for s in spec["steps"] if s == {"text": "u"}), 3)
         self.assertEqual(sum(1 for s in spec["steps"] if s == {"key": "Backspace"}), 8)
         self.assertEqual([s for s in spec["steps"] if "expect" in s],
                          [{"expect": "seed changed"}, {"expect": "seed"},
-                          {"expect": "seed changed"}, {"expect": "seed"},
-                          {"expect": "Wrote "}])
+                          {"expect": "seed changed"}, {"expect": "seed changed"},
+                          {"expect": "seed"}, {"expect": "Wrote "}])
         self.assertEqual(base64.b64decode(spec["steps"][-1]["state"]["bytes_base64"], validate=True),
                          b"seed\n")
         self.assertEqual(len(data), len((DOC / "mg/n05-undo-redo.json").read_bytes()))

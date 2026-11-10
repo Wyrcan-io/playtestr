@@ -18,7 +18,7 @@ checkpoint and exact exit/cleanup. Cases never touch a real user file.
 | N02 | Open a fixture, append a line, save | Original prefix plus exact appended text and newline bytes |
 | N03 | Search for a unique word, replace it through the public key route | Only the intended occurrence changes in the saved file |
 | N04 | Mark a region, cut, move, and yank | Exact reordered text and visible region/edit checkpoint |
-| N05 | Insert text, undo once, redo once | Screen and final bytes agree with the pre-edit saved text |
+| N05 | Delete a suffix, undo, consume the modified marker, redo | Screen and final bytes agree with the reviewed text state |
 | N06 | Use `C-x C-w` to save as a second filename | Original file unchanged; new path has exact expected bytes |
 | N07 | Open a second file and switch back to the first buffer | Correct filename/buffer on screen; independent exact state for both files |
 | N08 | Edit UTF-8 text including a wide character and save | Exact UTF-8 bytes; terminal displays the intended text without replacement glyphs |

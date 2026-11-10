@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "project": "troglobit/mg",
+  "target_pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "candidate": "v0.4.0-rc.6",
+  "scenario": "n05-undo-redo",
+  "phase": "development; not qualification",
+  "workflow_run_id": 42774674956,
+  "commit": "3d4fc164d1a2b84d1880d6bcf1e652611d389fba",
+  "contract": "mg/n05-undo-redo.json",
+  "contract_sha256": "05c4fc7a91a08a7db5d6d30de75fe420ecc9163b",
+  "hosts": [
+    {
+      "host": "linux",
+      "architecture": "x86_64",
+      "job_id": 129690281418,
+      "artifact_id": 13742808792,
+      "provider_artifact_bytes": 28087,
+      "provider_artifact_sha256": "59bc2e1681fd9d4f5ea4cfdabc4faae3e7405519e04d5277a51c05e6aa86d48e",
+      "retained_zip": "artifacts/runner-readiness-next-twenty-project-pass/mg/scenario-development/retrieved/run-42774674956/linux-retained.zip",
+      "retained_zip_sha256": "9110cc1d3e85966e35eeeceb8dfab712524785ddab42ab61eec58cd70870a526",
+      "retained_zip_bytes": 27388,
+      "retained_zip_members": 41,
+      "attempt_id": "a994ed5716534463aacc04c3a8652eb3",
+      "attempt_sha256": "342847c23e7ef1a0c50ba80b82cbc4f24cf5ca7e4cf238cf1d09a1207f663bd2",
+      "candidate_binary_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a",
+      "target_binary_sha256": "6eb334f5ea96687983c51b073b1b8a11434ea85a46e69ca6e28e57b76b4e88e5",
+      "report_sha256": "0b8b220cb57340502fbb42599e61ccfd4e0e6284d56ca9f9c3f7821f6a3c3697",
+      "runner_log_sha256": "1e2b798fa0f430fea06b680b84064855f316363e673ffe6b662bb97c465b16b8",
+      "failed_step": 20,
+      "steps_passed": 19,
+      "failure": {
+        "category": "assertion_timeout",
+        "message": "mg undo and redo a deletion: step 20: step timed out: context deadline exceeded"
+      },
+      "screen_sha256": "a231812822710f14e34cc8af67b6700fab868239dc7b6757210d33268e1a1bea",
+      "screen_text": "seed changed\n[blank rows]\n-:--- notes.txt            (1,11)  (Text Fill)\n(No changes need to be saved)",
+      "target_cleanup": {
+        "attempted": true,
+        "graceful": false,
+        "forced": true,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "workflow_cleanup": "all_owned_inputs_absent=true"
+    },
+    {
+      "host": "darwin",
+      "architecture": "arm64",
+      "job_id": 129690281712,
+      "artifact_id": 13743391671,
+      "provider_artifact_bytes": 28244,
+      "provider_artifact_sha256": "ac463b76078875aa8cfc2632cda34d9d1d942b93409e22c4bd79857de32b890c",
+      "retained_zip": "artifacts/runner-readiness-next-twenty-project-pass/mg/scenario-development/retrieved/run-42774674956/darwin-retained.zip",
+      "retained_zip_sha256": "4afb9217d107d5037db9a514f13bcfaf60d69f519aa26ab7017bd520a73b9e72",
+      "retained_zip_bytes": 27542,
+      "retained_zip_members": 41,
+      "attempt_id": "b6e93e4bd5ac40c598a1c7711dab400e",
+      "attempt_sha256": "d637086b99252b81182d8931bb95e3b5486b7ef4f162f4db21ede23645512aa5",
+      "candidate_binary_sha256": "609b184dac8664050643ec35036c4cffef2137ec778ae4d4678727b119e2fe0f",
+      "target_binary_sha256": "5f0c844b1c8a6a44209ad4534b3d19e223c0289024e00f34656031b8640db297",
+      "report_sha256": "661510ebb12a69a5ff2156deab6a6a2695529ae8ed29592eb94b96e96ff7c0f4",
+      "runner_log_sha256": "faae5b9fdaa6aaf5b32f72cb6647c139b70b633852c31c2132adf42e7388c28c",
+      "failed_step": 20,
+      "steps_passed": 19,
+      "failure": {
+        "category": "assertion_timeout",
+        "message": "mg undo and redo a deletion: step 20: step timed out: context deadline exceeded"
+      },
+      "screen_sha256": "a231812822710f14e34cc8af67b6700fab868239dc7b6757210d33268e1a1bea",
+      "screen_text": "seed changed\n[blank rows]\n-:--- notes.txt            (1,11)  (Text Fill)\n(No changes need to be saved)",
+      "target_cleanup": {
+        "attempted": true,
+        "graceful": false,
+        "forced": true,
+        "confirmed_exited": true,
+        "mechanism": "unix-process-group"
+      },
+      "workflow_cleanup": "all_owned_inputs_absent=true"
+    }
+  ],
+  "finding": "On both hosts the eight Backspace actions changed seed changed to seed. The first C-x u restored seed changed. The second C-x u left the text unchanged and displayed No changes need to be saved; step 20 expecting seed timed out. All prior 19 steps passed, and target process groups were forcibly stopped and confirmed exited. Owned workflow inputs were removed. Retained ZIPs pass CRC with 41 members each.",
+  "correction": "The pinned undo implementation keeps a MODIFIED record that is consumed as a separate undo action. The next revision makes this state transition explicit and performs one additional C-x u to reach and assert the inverse deletion. Preserve this failure unchanged; native rerun pending.",
+  "admission_credit": 0
+}

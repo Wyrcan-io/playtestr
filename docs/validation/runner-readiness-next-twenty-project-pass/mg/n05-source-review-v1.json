@@ -3,7 +3,7 @@
   "project": "troglobit/mg",
   "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
   "scenario": "n05-undo-redo",
-  "status": "reviewed against exact pinned source; corrected native probe pending",
+  "status": "reviewed against exact pinned source; third-step redo probe pending",
   "source_files": {
     "src/keymap.c": "7e6179df6d051f3deb54775a817fef96b90a94e2f35cbb134ba54c8c9106c54e",
     "src/undo.c": "02f4127fbb30b1fa06a22aeab0624ca8021058e84a653235c403d14346194771"
@@ -12,7 +12,7 @@
     "The C-x keymap binds lowercase u to undo.",
     "undo.c records inverse operations during undo; its undo pointer points at the preceding action after an undo.",
     "The pinned source comment says that when the pointer reaches the bottom or moves between undo actions, the pointer returns to the newest record; this is how the command performs redo.",
-    "The initial scenario showed that undoing an insertion does not create a redo record in this implementation. The corrected scenario deletes a contiguous suffix with Backspace, invokes C-x u to restore it, then invokes C-x u again to redo the deletion; undo.c documents that undoing a deletion records the inverse insertion. The probe saves and checks exact expected bytes.",
+    "The initial insertion-based scenario had no inverse edit record. The deletion scenario restores seed changed with its first C-x u; native run 42774674956 showed the next C-x u leaves text unchanged and displays No changes need to be saved. The undo implementation records a MODIFIED marker separately and clears BFCHG when consuming it. The revised contract asserts this marker step, then a third C-x u should apply the inverse deletion and restore seed; native verification is pending.",
     "C-x u is bound to undo; the source also binds Ctrl-_ to undo, but the probe uses the documented prefix binding."
   ],
   "contract": "n05-undo-redo.json",
