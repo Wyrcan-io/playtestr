@@ -586,7 +586,7 @@
       "audited_additional_e10_branch_executions": 24,
       "audited_calibration_executions": 24,
       "real_source_faults": 4,
-      "public_authoring_route": "two hosted record attempts failed with exit 1; second attempt's retained console identifies missing Unix execute permission after artifact download; owned-copy permission restoration added, fresh run pending",
+      "public_authoring_route": "three hosted record attempts failed; execute-bit restoration now allows target interaction and captured correct state bytes, but the exact save-status anchor timed out; use bounded 15-second `Wrote` anchor on next route-only run",
       "public_authoring_route_harness": "scripts/acceptance/next20_mg_public_route.py",
       "candidate_admissions": [],
       "current_candidate_qualified": false,

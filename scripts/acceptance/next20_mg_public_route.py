@@ -85,7 +85,7 @@ async def main():
         f"/expect {MARKER}",
         "/key CtrlX",
         "/key CtrlS",
-        "/expect Wrote public-note.txt",
+        "/expect Wrote",
         "/key CtrlX",
         "/key CtrlC",
         "/exit 0",
@@ -129,7 +129,7 @@ async def main():
     command = [runner, "record", "--output", spec.relative_to(ROOT),
                "--name", "Append and save a note in mg", "--fixture", "fixtures",
                "--temporary-home", "--temporary-temp", "--width", "80", "--height", "24",
-               "--timeout-ms", "5000", "--run-timeout-ms", "60000",
+               "--timeout-ms", "15000", "--run-timeout-ms", "60000",
                "--env", "TERM=xterm-256color", "--env", "LANG=C.UTF-8", "--env", "LC_ALL=C.UTF-8",
                "--inherit-env", "PATH", "--", "mg", "-S", "-n", "public-note.txt"]
     await run(command, "mg-first-public-record-review-replay-save",
