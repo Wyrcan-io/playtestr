@@ -568,16 +568,16 @@
       "id": "mg",
       "repository": "troglobit/mg",
       "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
-      "status": "N01-N08 and E01-E03 development probes pass on Linux/macOS; E04 contract/source review prepared and native probe pending; initial E03 clipped-status oracle failures are preserved; qualification and admission gates remain open; zero admission credit",
+      "status": "N01-N08 and E01-E04 development probes pass on Linux/macOS; initial E03 clipped-status oracle failures are preserved; qualification and admission gates remain open; zero admission credit",
       "acquired": true,
       "admitted": false,
       "planned_hosts": [
         "linux",
         "macos"
       ],
-      "development_selected_scenarios_passed": 10,
-      "development_ordinary_attempts": 158,
-      "development_ordinary_passed": 146,
+      "development_selected_scenarios_passed": 11,
+      "development_ordinary_attempts": 180,
+      "development_ordinary_passed": 168,
       "development_ordinary_failed": 12,
       "development_real_faults": 0,
       "qualified_scenarios": 0,
@@ -615,9 +615,9 @@
       "native_build_workflow": ".github/workflows/runner-readiness-next20-mg-build.yml",
       "pilot_spec": "mg/pilot-n01.json",
       "pilot_workflow": ".github/workflows/runner-readiness-next20-mg-pilot.yml",
-      "pilot_attempt_accounting": "mg/pilot-attempt-accounting-v10.json",
+      "pilot_attempt_accounting": "mg/pilot-attempt-accounting-v11.json",
       "pilot_native_readback": "mg/pilot-n01-native-readback-v1.json",
-      "scenario_attempt_accounting": "mg/scenario-development-accounting-v16.json",
+      "scenario_attempt_accounting": "mg/scenario-development-accounting-v17.json",
       "scenario_native_readback_n03": "mg/n03-native-readback-v1.json",
       "scenario_first_failure_n04": "mg/n04-first-attempt-readback-v1.json",
       "scenario_native_readback_n04": "mg/n04-native-readback-v1.json",
@@ -645,7 +645,8 @@
       "scenario_first_failure_e03": "mg/e03-first-attempt-readback-v1.json",
       "scenario_native_readback_e03": "mg/e03-native-readback-v1.json",
       "scenario_contract_e04": "mg/e04-extended-line.json",
-      "scenario_source_review_e04": "mg/e04-source-review-v1.json"
+      "scenario_source_review_e04": "mg/e04-source-review-v1.json",
+      "scenario_native_readback_e04": "mg/e04-native-readback-v1.json"
     }
   ],
   "observed_audited_ordinary_executions": 2400,
