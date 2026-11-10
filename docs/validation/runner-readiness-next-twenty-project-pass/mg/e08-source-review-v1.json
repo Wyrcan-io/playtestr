@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "project": "troglobit/mg",
+  "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "scenario": "E08-save-as-filename-with-spaces",
+  "status": "reviewed against exact pinned source; native development probe pending",
+  "source_files": {
+    "src/keymap.c": "7e6179df6d051f3deb54775a817fef96b90a94e2f35cbb134ba54c8c9106c54e",
+    "src/file.c": "fa604e820d06fb25a0c79b64c1cb092e1b6674ca63324882e2dbba78682491e0",
+    "src/fileio.c": "9fcde1d55a3763f318706521a78c1b455d87c25a6e23a41d96c10db8e5c5ae39"
+  },
+  "findings": [
+    "The pinned keymap binds C-x C-w to filewrite, whose filename prompt passes the entered path to adjustname and then writeout.",
+    "The path is delivered as terminal text to mg, not interpolated into a shell command. A relative valid name with spaces is preserved by filename parsing and file I/O.",
+    "The contract checks the write confirmation, unchanged original file bytes, and exact contents at copy with spaces.txt after clean exit."
+  ],
+  "contract": "e08-filename-spaces.json",
+  "contract_sha256": "54866bf6f46dc89c30ede5e8c19a11f83ca6de4b9a935866ae2fe290433de966",
+  "fixture": "fixtures/e08-filename-spaces/notes.txt",
+  "fixture_sha256": "7280cf11b42eabc049bb83e843da8136834e8f2d59b8c41fda96b53d71d8821c",
+  "expected_bytes_base64": "c3BhY2VzIHNvdXJjZQo=",
+  "safety": "synthetic relative filename under the owned workspace; secure mode -S; backups disabled with -n"
+}

@@ -222,5 +222,20 @@ class MgScenarioContractTests(unittest.TestCase):
         ])
         self.assertEqual(len(data), len((DOC / "mg/e07-missing-parent.json").read_bytes()))
 
+    def test_e08_save_as_preserves_filename_spaces(self):
+        path, data, spec, fixture = load_contract(DOC / "mg/e08-filename-spaces.json")
+        self.assertEqual(path.name, "e08-filename-spaces.json")
+        original = b"spaces source\n"
+        self.assertEqual((fixture / "notes.txt").read_bytes(), original)
+        self.assertEqual(spec["steps"][1:7], [
+            {"key": "CtrlX"}, {"key": "CtrlW"}, {"expect": "Write file"},
+            {"text": "copy with spaces.txt"}, {"key": "Enter"}, {"expect": "Wrote "},
+        ])
+        self.assertEqual([s["state"]["path"] for s in spec["steps"] if "state" in s],
+                         ["notes.txt", "copy with spaces.txt"])
+        self.assertEqual([base64.b64decode(s["state"]["bytes_base64"], validate=True)
+                          for s in spec["steps"] if "state" in s], [original, original])
+        self.assertEqual(len(data), len((DOC / "mg/e08-filename-spaces.json").read_bytes()))
+
 if __name__ == "__main__":
     unittest.main()
