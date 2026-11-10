@@ -11,12 +11,12 @@
     "src/file.c": "fa604e820d06fb25a0c79b64c1cb092e1b6674ca63324882e2dbba78682491e0"
   },
   "findings": [
-    "The pinned keymap binds C-x C-c to quit. quit checks any changed buffers and asks eyesno(\"Modified buffers exist; really exit\") before exiting.",
-    "The default short-answer mode routes eyesno through eyorn, which accepts a literal n immediately, erases the prompt and returns false without exiting.",
-    "The contract positively confirms the unsaved edit remains, saves it with C-x C-s, confirms save status, then quits cleanly and checks exact bytes including the existing final newline."
+    "The pinned keymap binds C-x C-c to quit. Before checking whether to exit, quit calls anycb(FALSE), which asks eyorn(\"Save file <path>\") for each changed file.",
+    "Declining the Save file prompt makes anycb report changed buffers remain; quit then asks eyesno(\"Modified buffers exist; really exit\"). Declining this second prompt returns to the editor with the unsaved edit intact.",
+    "The default short-answer mode routes eyesno through eyorn, so literal text n answers both prompts immediately. The contract checks the buffer remains, saves it with C-x C-s, confirms save status, quits cleanly and checks exact bytes including the existing final newline."
   ],
   "contract": "e12-refuse-unsaved-quit.json",
-  "contract_sha256": "3f07f58e0f72eba5c3b9639a3ca0f4dbc5db9c93bbbf24ae4c17022dd5f29348",
+  "contract_sha256": "029f3fc495c2388891205f7034c2bb86df9dbed0df4a676928c61502b9e600ab",
   "fixture": "fixtures/e12-refuse-unsaved-quit/notes.txt",
   "fixture_sha256": "2725f6e553484bc90e1549697f95ff94f96e44f5408ba919cd3ea8cd5bdfe29f",
   "expected_bytes_base64": "ZXhpdCBzb3VyY2UKcGVuZGluZyBlZGl0Cg==",

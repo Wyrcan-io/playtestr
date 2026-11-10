@@ -298,9 +298,10 @@ class MgScenarioContractTests(unittest.TestCase):
         path, data, spec, fixture = load_contract(DOC / "mg/e12-refuse-unsaved-quit.json")
         self.assertEqual(path.name, "e12-refuse-unsaved-quit.json")
         self.assertEqual((fixture / "notes.txt").read_bytes(), b"exit source\n")
-        self.assertEqual(spec["steps"][1:15], [
+        self.assertEqual(spec["steps"][1:17], [
             {"key": "CtrlE"}, {"key": "Enter"}, {"text": "pending edit"},
             {"expect": "pending edit"}, {"key": "CtrlX"}, {"key": "CtrlC"},
+            {"expect": "Save file"}, {"text": "n"},
             {"expect": "Modified buffers exist; really exit"}, {"text": "n"},
             {"expect": "pending edit"}, {"key": "CtrlX"}, {"key": "CtrlS"},
             {"expect": "Wrote "}, {"key": "CtrlX"}, {"key": "CtrlC"},
