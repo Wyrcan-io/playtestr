@@ -1,5 +1,6 @@
 """Contract selection and deterministic hashing checks for mg fault calibration."""
 import tempfile
+import os
 from pathlib import Path
 import unittest
 
@@ -26,7 +27,18 @@ class MgFaultCalibrationTests(unittest.TestCase):
             (root / "file").write_bytes(b"mg")
             (root / "child").mkdir()
             (root / "child" / "nested").write_bytes(b"source")
-            self.assertEqual(inventory(root), (2, 8))
+            self.assertEqual(inventory(root), (2, 8, 0))
+
+    @unittest.skipIf(os.name == "nt", "POSIX symlink cleanup behavior is exercised on native hosted jobs")
+    def test_cleanup_inventory_counts_but_does_not_follow_generated_symlink_leaves(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "owned"
+            root.mkdir()
+            external = Path(directory) / "outside"
+            external.write_text("preserve", encoding="utf-8")
+            (root / "link").symlink_to(external)
+            self.assertEqual(inventory(root), (0, 0, 1))
+            self.assertTrue(external.is_file())
 
 
 if __name__ == "__main__":

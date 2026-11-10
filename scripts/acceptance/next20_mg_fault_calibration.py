@@ -33,20 +33,28 @@ MAX_TREE_BYTES = 256 * 1024**2
 
 
 def inventory(root):
-    files = total = 0
+    files = total = links = entries = 0
     for directory, names, filenames in os.walk(root, followlinks=False):
         base = Path(directory)
         for name in names + filenames:
             path = base / name
             mode = path.lstat().st_mode
+            entries += 1
+            if stat.S_ISLNK(mode):
+                # Autotools creates helper symlinks inside this owned source tree.
+                # os.walk does not follow them; rmtree unlinks leaves only.
+                links += 1
+                if entries > MAX_TREE_FILES:
+                    raise ValueError("owned mg cleanup entry count exceeded its fixed bound")
+                continue
             if not stat.S_ISDIR(mode) and not stat.S_ISREG(mode):
                 raise ValueError(f"unexpected linked or special owned mg entry: {path}")
             if stat.S_ISREG(mode):
                 files += 1
                 total += path.stat().st_size
-                if files > MAX_TREE_FILES or total > MAX_TREE_BYTES:
+                if entries > MAX_TREE_FILES or total > MAX_TREE_BYTES:
                     raise ValueError("owned mg cleanup inventory exceeded its fixed bound")
-    return files, total
+    return files, total, links
 
 
 def remove_owned_target():
@@ -69,11 +77,14 @@ def remove_owned_target():
     if (owner.get("workspace") != str(ROOT) or owner.get("slug") != "mg" or
             owner.get("pin") != PIN or owner.get("project") != "troglobit/mg"):
         raise ValueError("refusing to remove an unowned or wrong-pin mg tree")
-    files, size = inventory(target)
+    if os.name == "posix" and not getattr(shutil.rmtree, "avoids_symlink_attacks", False):
+        raise RuntimeError("safe descriptor-based source-tree removal is unavailable")
+    files, size, links = inventory(target)
     shutil.rmtree(target)
     if target.exists():
         raise RuntimeError("owned mg source/build root remains after cleanup")
-    return {"present": True, "removed": True, "files": files, "bytes": size}
+    return {"present": True, "removed": True, "files": files, "bytes": size,
+            "symlink_leaves_unlinked_without_following": links}
 
 
 def source_map(source):
