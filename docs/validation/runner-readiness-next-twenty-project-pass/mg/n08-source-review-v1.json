@@ -3,7 +3,7 @@
   "project": "troglobit/mg",
   "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
   "scenario": "n08-utf8-wide",
-  "status": "reviewed against exact pinned source; native development probe pending",
+  "status": "reviewed against exact pinned source; N08 native development probe passed on Linux/macOS; qualification pending",
   "source_files": {
     "src/main.c": "1fb7c488249b5c3a398b030ad784bbd0387dd6cbe8a66fb31dc9564ed3f66e69",
     "src/utf8.c": "8265b9bd8cb3902d44040639a562b0308a58e0db766167ece51abf9c0b01fcb1",
@@ -22,5 +22,6 @@
   "initial_bytes_base64": "Y2FmPyB3aWRlOiA/Cg==",
   "expected_bytes_base64": "Y2Fmw6kgd2lkZTog55WMIM67Cg==",
   "expected_sha256": "f9f01a11b6938d76aae4676a9b8dcac99cf3e240c76d69163d28f29282d2489a",
-  "safety": "synthetic disposable file; UTF-8 locale explicit; secure mode -S; backups disabled with -n"
+  "safety": "synthetic disposable file; UTF-8 locale explicit; secure mode -S; backups disabled with -n",
+  "native_run": "42778907701"
 }
