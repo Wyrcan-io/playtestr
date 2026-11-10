@@ -1,0 +1,88 @@
+{
+  "version": 3,
+  "name": "mg open a second file and switch back to the first buffer",
+  "command": [
+    "mg",
+    "-S",
+    "-n",
+    "first.txt"
+  ],
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "workspace": {
+    "fixture": "fixtures/n07-buffer-switch"
+  },
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 8000,
+  "run_timeout_ms": 30000,
+  "startup_timeout_ms": 15000,
+  "steps": [
+    {
+      "expect": "first buffer identity"
+    },
+    {
+      "key": "CtrlX"
+    },
+    {
+      "key": "CtrlF"
+    },
+    {
+      "expect": "Find file:"
+    },
+    {
+      "key": "CtrlU"
+    },
+    {
+      "text": "second.txt"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "second buffer identity"
+    },
+    {
+      "key": "CtrlX"
+    },
+    {
+      "text": "b"
+    },
+    {
+      "expect": "Switch to buffer"
+    },
+    {
+      "text": "first.txt"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "first buffer identity"
+    },
+    {
+      "key": "CtrlX"
+    },
+    {
+      "key": "CtrlC"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "first.txt",
+        "kind": "file",
+        "bytes_base64": "Zmlyc3QgYnVmZmVyIGlkZW50aXR5Cg=="
+      }
+    },
+    {
+      "state": {
+        "path": "second.txt",
+        "kind": "file",
+        "bytes_base64": "c2Vjb25kIGJ1ZmZlciBpZGVudGl0eQo="
+      }
+    }
+  ]
+}

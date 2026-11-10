@@ -84,6 +84,30 @@ class MgScenarioContractTests(unittest.TestCase):
                           for s in steps if "state" in s], [original, original])
         self.assertEqual(len(data), len((DOC / "mg/n06-save-as.json").read_bytes()))
 
+    def test_n07_switches_buffers_and_preserves_both_files(self):
+        path, data, spec, fixture = load_contract(DOC / "mg/n07-buffer-switch.json")
+        self.assertEqual(path.name, "n07-buffer-switch.json")
+        self.assertEqual(spec["command"], ["mg", "-S", "-n", "first.txt"])
+        self.assertEqual((fixture / "first.txt").read_bytes(), b"first buffer identity\n")
+        self.assertEqual((fixture / "second.txt").read_bytes(), b"second buffer identity\n")
+        steps = spec["steps"]
+        visit = steps.index({"key": "CtrlF"})
+        self.assertEqual(steps[visit - 1], {"key": "CtrlX"})
+        self.assertEqual(steps[visit + 1:visit + 5],
+                         [{"expect": "Find file:"}, {"key": "CtrlU"},
+                          {"text": "second.txt"}, {"key": "Enter"}])
+        switch = steps.index({"text": "b"})
+        self.assertEqual(steps[switch - 1], {"key": "CtrlX"})
+        self.assertEqual(steps[switch + 1:switch + 4],
+                         [{"expect": "Switch to buffer"}, {"text": "first.txt"},
+                          {"key": "Enter"}])
+        self.assertEqual([s["state"]["path"] for s in steps if "state" in s],
+                         ["first.txt", "second.txt"])
+        self.assertEqual([base64.b64decode(s["state"]["bytes_base64"], validate=True)
+                          for s in steps if "state" in s],
+                         [b"first buffer identity\n", b"second buffer identity\n"])
+        self.assertEqual(len(data), len((DOC / "mg/n07-buffer-switch.json").read_bytes()))
+
 
 if __name__ == "__main__":
     unittest.main()

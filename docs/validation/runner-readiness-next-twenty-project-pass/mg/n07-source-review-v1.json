@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "project": "troglobit/mg",
+  "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "scenario": "n07-buffer-switch",
+  "status": "reviewed against exact pinned source; native development probe pending",
+  "source_files": {
+    "src/keymap.c": "7e6179df6d051f3deb54775a817fef96b90a94e2f35cbb134ba54c8c9106c54e",
+    "src/file.c": "fa604e820d06fb25a0c79b64c1cb092e1b6674ca63324882e2dbba78682491e0",
+    "src/buffer.c": "82afbe9945fea023c8af5cf6245fe336511f69d6278d36a273b2bbe54a96cc4c"
+  },
+  "findings": [
+    "The pinned keymap binds C-x C-f to filevisit and C-x b to usebuffer.",
+    "filevisit prompts Find file:, resolves a file in the current directory, loads a new buffer if needed and displays it. The spec clears its default CWD with Ctrl+U before typing second.txt.",
+    "usebuffer prompts Switch to buffer (with an alternate-buffer default when available), then selects the explicitly named first.txt buffer.",
+    "The screen oracle checks unique text in the first and second buffers around the switch. Exact same-invocation state assertions verify both synthetic files remain unchanged; the scenario exits cleanly without edits."
+  ],
+  "contract": "n07-buffer-switch.json",
+  "contract_sha256": "b082f3979b2081cf9f04f2c2b94ce8ced61f651312f72c04687b0a91c41d19bd",
+  "fixture": "fixtures/n07-buffer-switch",
+  "fixtures": {
+    "first.txt": {
+      "sha256": "329558a19d6cd86f085ffa403a57d1732bb64bece264fd865d2ab77c4353829b",
+      "bytes_base64": "Zmlyc3QgYnVmZmVyIGlkZW50aXR5Cg=="
+    },
+    "second.txt": {
+      "sha256": "762e555025b3867a32c1388dadd765a62b6a21b7dabbdfb85664c5f581e4b84d",
+      "bytes_base64": "c2Vjb25kIGJ1ZmZlciBpZGVudGl0eQo="
+    }
+  },
+  "safety": "synthetic disposable files under the owned fixture, secure mode -S, backups disabled with -n"
+}
