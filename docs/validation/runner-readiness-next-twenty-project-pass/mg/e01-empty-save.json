@@ -1,0 +1,51 @@
+{
+  "version": 3,
+  "name": "mg save an unchanged zero-byte file",
+  "command": [
+    "mg",
+    "-S",
+    "-n",
+    "empty.txt"
+  ],
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "workspace": {
+    "fixture": "fixtures/e01-empty-save"
+  },
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 8000,
+  "run_timeout_ms": 30000,
+  "startup_timeout_ms": 15000,
+  "steps": [
+    {
+      "expect": "empty.txt"
+    },
+    {
+      "key": "CtrlX"
+    },
+    {
+      "key": "CtrlS"
+    },
+    {
+      "expect": "(No changes need to be saved)"
+    },
+    {
+      "key": "CtrlX"
+    },
+    {
+      "key": "CtrlC"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "empty.txt",
+        "kind": "file",
+        "bytes_base64": ""
+      }
+    }
+  ]
+}

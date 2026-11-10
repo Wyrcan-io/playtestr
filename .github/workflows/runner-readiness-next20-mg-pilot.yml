@@ -18,6 +18,7 @@ on:
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/n06-save-as.json
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/n07-buffer-switch.json
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/n08-utf8-wide.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/mg/e01-empty-save.json
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/n02-edit-append/**
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/n03-query-replace/**
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/n04-cut-yank/**
@@ -25,6 +26,7 @@ on:
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/n06-save-as/**
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/n07-buffer-switch/**
       - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/n08-utf8-wide/**
+      - docs/validation/runner-readiness-next-twenty-project-pass/mg/fixtures/e01-empty-save/**
       - scripts/acceptance/test_next20_mg_build.py
       - scripts/acceptance/next20_candidate.py
       - scripts/acceptance/next20_candidate_install.py
@@ -167,6 +169,13 @@ jobs:
           --host "${{ matrix.host }}"
           --mg-build-root artifacts/runner-readiness-next-twenty-project-pass/pilot-input/mg
           --spec docs/validation/runner-readiness-next-twenty-project-pass/mg/n08-utf8-wide.json
+
+      - name: Run E01 pinned-source zero-byte save probe
+        run: >-
+          python -B scripts/acceptance/next20_mg_scenario.py
+          --host "${{ matrix.host }}"
+          --mg-build-root artifacts/runner-readiness-next-twenty-project-pass/pilot-input/mg
+          --spec docs/validation/runner-readiness-next-twenty-project-pass/mg/e01-empty-save.json
 
       - name: Verify campaign storage limits
         if: always()

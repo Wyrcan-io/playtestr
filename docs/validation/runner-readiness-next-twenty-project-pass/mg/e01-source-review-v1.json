@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "project": "troglobit/mg",
+  "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "scenario": "E01-empty-save",
+  "status": "reviewed against exact pinned source; native development probe pending",
+  "source_files": {
+    "src/keymap.c": "7e6179df6d051f3deb54775a817fef96b90a94e2f35cbb134ba54c8c9106c54e",
+    "src/file.c": "fa604e820d06fb25a0c79b64c1cb092e1b6674ca63324882e2dbba78682491e0",
+    "src/fileio.c": "9fcde1d55a3763f318706521a78c1b455d87c25a6e23a41d96c10db8e5c5ae39"
+  },
+  "findings": [
+    "The pinned keymap binds C-x C-s to filesave.",
+    "The pinned filesave implementation checks BFCHG before calling the write path. For an unchanged buffer it emits the visible status (No changes need to be saved) and returns without writing.",
+    "The contract opens an existing zero-byte synthetic file, verifies its filename, invokes C-x C-s without edits, asserts the no-op status and clean exit, then checks exact empty bytes."
+  ],
+  "contract": "e01-empty-save.json",
+  "contract_sha256": "2578ee8a355b387a8b64d3d3542715313446a95aac3f52316121bc5af82c40d7",
+  "fixture": "fixtures/e01-empty-save/empty.txt",
+  "fixture_bytes": 0,
+  "fixture_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "expected_bytes_base64": "",
+  "safety": "synthetic zero-byte fixture; secure mode -S; backups disabled with -n"
+}

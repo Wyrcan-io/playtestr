@@ -123,5 +123,18 @@ class MgScenarioContractTests(unittest.TestCase):
         self.assertEqual(base64.b64decode(spec["steps"][-1]["state"]["bytes_base64"], validate=True), expected)
         self.assertEqual(len(data), len((DOC / "mg/n08-utf8-wide.json").read_bytes()))
 
+    def test_e01_saves_an_unchanged_zero_byte_file(self):
+        path, data, spec, fixture = load_contract(DOC / "mg/e01-empty-save.json")
+        self.assertEqual(path.name, "e01-empty-save.json")
+        self.assertEqual(spec["command"], ["mg", "-S", "-n", "empty.txt"])
+        self.assertEqual((fixture / "empty.txt").read_bytes(), b"")
+        self.assertEqual(spec["steps"][0], {"expect": "empty.txt"})
+        self.assertEqual(spec["steps"][1:4],
+                         [{"key": "CtrlX"}, {"key": "CtrlS"},
+                          {"expect": "(No changes need to be saved)"}])
+        self.assertEqual(spec["steps"][-1],
+                         {"state": {"path": "empty.txt", "kind": "file", "bytes_base64": ""}})
+        self.assertEqual(len(data), len((DOC / "mg/e01-empty-save.json").read_bytes()))
+
 if __name__ == "__main__":
     unittest.main()
