@@ -1,0 +1,69 @@
+{
+  "version": 3,
+  "name": "mg refuses movement beyond buffer boundaries",
+  "command": [
+    "mg",
+    "-S",
+    "-n",
+    "notes.txt"
+  ],
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "workspace": {
+    "fixture": "fixtures/e02-buffer-boundaries"
+  },
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 8000,
+  "run_timeout_ms": 30000,
+  "startup_timeout_ms": 15000,
+  "steps": [
+    {
+      "expect": "x"
+    },
+    {
+      "key": "CtrlB"
+    },
+    {
+      "expect": "Beginning of buffer"
+    },
+    {
+      "key": "CtrlF"
+    },
+    {
+      "expect": "x"
+    },
+    {
+      "key": "CtrlF"
+    },
+    {
+      "expect": "End of buffer"
+    },
+    {
+      "key": "CtrlB"
+    },
+    {
+      "key": "CtrlB"
+    },
+    {
+      "expect": "Beginning of buffer"
+    },
+    {
+      "key": "CtrlX"
+    },
+    {
+      "key": "CtrlC"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "notes.txt",
+        "kind": "file",
+        "bytes_base64": "eA=="
+      }
+    }
+  ]
+}

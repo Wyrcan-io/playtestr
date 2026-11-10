@@ -136,5 +136,22 @@ class MgScenarioContractTests(unittest.TestCase):
                          {"state": {"path": "empty.txt", "kind": "file", "bytes_base64": ""}})
         self.assertEqual(len(data), len((DOC / "mg/e01-empty-save.json").read_bytes()))
 
+    def test_e02_refuses_movement_past_buffer_boundaries(self):
+        path, data, spec, fixture = load_contract(DOC / "mg/e02-buffer-boundaries.json")
+        self.assertEqual(path.name, "e02-buffer-boundaries.json")
+        self.assertEqual(spec["command"], ["mg", "-S", "-n", "notes.txt"])
+        self.assertEqual((fixture / "notes.txt").read_bytes(), b"x")
+        self.assertEqual(spec["steps"][:7], [
+            {"expect": "x"}, {"key": "CtrlB"}, {"expect": "Beginning of buffer"},
+            {"key": "CtrlF"}, {"expect": "x"}, {"key": "CtrlF"},
+            {"expect": "End of buffer"},
+        ])
+        self.assertEqual(spec["steps"][7:10], [
+            {"key": "CtrlB"}, {"key": "CtrlB"}, {"expect": "Beginning of buffer"},
+        ])
+        self.assertEqual(spec["steps"][-1],
+                         {"state": {"path": "notes.txt", "kind": "file", "bytes_base64": "eA=="}})
+        self.assertEqual(len(data), len((DOC / "mg/e02-buffer-boundaries.json").read_bytes()))
+
 if __name__ == "__main__":
     unittest.main()

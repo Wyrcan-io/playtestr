@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "project": "troglobit/mg",
+  "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "scenario": "E02-buffer-boundaries",
+  "status": "reviewed against exact pinned source; native development probe pending",
+  "source_files": {
+    "src/keymap.c": "7e6179df6d051f3deb54775a817fef96b90a94e2f35cbb134ba54c8c9106c54e",
+    "src/basic.c": "58564a4580d204b839f17e08a469b4c4d256adb3efee185a2ee28d5bf5fd4e3c"
+  },
+  "findings": [
+    "The pinned keymap maps Ctrl+B to backchar and Ctrl+F to forwchar.",
+    "backchar at offset zero emits Beginning of buffer and returns without moving. forwchar at the end sentinel emits End of buffer, restores the cursor to the last line and returns without crossing EOF.",
+    "The one-byte fixture lets the contract move from BOF to EOF in one successful Ctrl+F, then verifies both refusal messages and a second BOF refusal after moving back.",
+    "The contract exits without editing and asserts the exact one-byte file remains unchanged."
+  ],
+  "contract": "e02-buffer-boundaries.json",
+  "contract_sha256": "753b3873fa4151944df871cd8aa3937cf30257265d63b57ed0539232bb996367",
+  "fixture": "fixtures/e02-buffer-boundaries/notes.txt",
+  "fixture_sha256": "2d711642b726b04401627ca9fbac32f5c8530fb1903cc4db02258717921a4881",
+  "expected_bytes_base64": "eA==",
+  "safety": "synthetic one-byte fixture; no edits or writes; secure mode -S; backups disabled with -n"
+}
