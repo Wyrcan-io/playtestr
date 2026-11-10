@@ -13,10 +13,10 @@
   "findings": [
     "The pinned tty.c installs a SIGWINCH handler that sets winch_flag; ttyio.c consumes that flag and triggers redraw after interrupted terminal reads/polls.",
     "The main loop also observes winch_flag and forces redraw; window.c do_redraw reads the native terminal size and adjusts the window layout before screen update.",
-    "The contract changes the PTY from 80x24 to 60x16, waits for output after resize, positively checks existing text, edits and saves, exits cleanly, then checks exact file bytes."
+    "The contract changes the PTY from 80x24 to 60x16, waits for output after resize, positively checks existing text, edits without adding a redundant trailing line, saves and checks exact file bytes."
   ],
   "contract": "e11-resize-save.json",
-  "contract_sha256": "f73f2aae975e07024b0d5f29627919b18c8871215c902ab531baecc9b1affe0f",
+  "contract_sha256": "3df34b68d80cb4cf2bbdebe1dc797187e83c879a1e504f935b327789399e296c",
   "fixture": "fixtures/e11-resize-save/notes.txt",
   "fixture_sha256": "159271f5723f7b67678c0d4a2d5eb7f8ba2175520e64165e4867d4a603a4b340",
   "expected_bytes_base64": "cmVzaXplIHNvdXJjZSBsaW5lCmFmdGVyIHJlc2l6ZQo=",

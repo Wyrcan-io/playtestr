@@ -13,7 +13,7 @@
   "findings": [
     "The pinned keymap binds C-x C-w to filewrite. After filename entry, filewrite checks the resolved destination with stat and calls eyorn only when it already exists.",
     "The confirmation text identifies the existing destination. A negative answer returns before writeout; a positive answer continues through writeout and updates the current buffer filename only after the write succeeds.",
-    "E10a types the relative destination, submits the filename prompt with Enter, observes the overwrite confirmation, answers n literally, then checks both files unchanged. E10b edits the buffer, submits the destination with Enter, answers y literally, and verifies the original remains unchanged while the destination contains exact edited bytes."
+    "E10a types the relative destination, submits the filename prompt with Enter, declines, and proves both files unchanged. E10b edits the buffer, submits the destination with Enter, accepts, and verifies exact overwritten bytes. The first accepting variant inserted an extra Enter after typed text, producing an extra trailing blank line; the corrected variant relies on the existing source newline and does not insert another line."
   ],
   "variants": {
     "decline": {
@@ -25,7 +25,7 @@
     },
     "accept": {
       "contract": "e10b-accept-overwrite.json",
-      "sha256": "372012a000359faa2adc1445d6bb7c955ad8aa515beb0719043aecfbb4ea9ddb",
+      "sha256": "413234ee82db4114bd86889c3fe9bd9529bc4ab0c6ca9345d6fd4485092eab27",
       "fixture": "fixtures/e10b-accept-overwrite",
       "notes_sha256": "61374c805bd2a5680afe2a16b954d2e3ad716f2b17cd514794824edf755314b2",
       "destination_initial_sha256": "3fff3207fdef46624048b72d4975380e586cb198ba7931ac74cb08ce7ffb3059"

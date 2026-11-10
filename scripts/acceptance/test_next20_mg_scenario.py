@@ -274,6 +274,7 @@ class MgScenarioContractTests(unittest.TestCase):
         self.assertIn({"expect": "File `"}, spec["steps"])
         self.assertIn({"text": "existing.txt"}, spec["steps"])
         self.assertEqual(spec["steps"][spec["steps"].index({"text": "existing.txt"}) + 1], {"key": "Enter"})
+        self.assertEqual(spec["steps"][spec["steps"].index({"text": "accepted edit"}) + 1], {"expect": "accepted edit"})
         self.assertLess(spec["steps"].index({"text": "y"}), spec["steps"].index({"expect": "Wrote "}))
         self.assertEqual([s["state"]["bytes_base64"] for s in spec["steps"] if "state" in s],
                          ["b3ZlcndyaXRlIHNvdXJjZQo=", "b3ZlcndyaXRlIHNvdXJjZQphY2NlcHRlZCBlZGl0Cg=="])
@@ -283,10 +284,10 @@ class MgScenarioContractTests(unittest.TestCase):
         path, data, spec, fixture = load_contract(DOC / "mg/e11-resize-save.json")
         self.assertEqual(path.name, "e11-resize-save.json")
         self.assertEqual((fixture / "notes.txt").read_bytes(), b"resize source line\n")
-        self.assertEqual(spec["steps"][1:9], [
+        self.assertEqual(spec["steps"][1:8], [
             {"resize": {"width": 60, "height": 16}}, {"wait_for_redraw": True},
             {"expect": "resize source line"}, {"key": "CtrlE"}, {"key": "Enter"},
-            {"text": "after resize"}, {"key": "Enter"}, {"expect": "after resize"},
+            {"text": "after resize"}, {"expect": "after resize"},
         ])
         state = [step["state"] for step in spec["steps"] if "state" in step]
         self.assertEqual(state, [{"path": "notes.txt", "kind": "file",

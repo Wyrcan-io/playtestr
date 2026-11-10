@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "project": "troglobit/mg",
+  "target_pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "candidate": "v0.4.0-rc.6",
+  "scenario": "E10-overwrite-decline-pass-accept-byte-failure",
+  "phase": "scenario development; E10a pass and E10b failed state oracle",
+  "workflow_run_id": 42795656864,
+  "commit": "b19040e07309242f134367a714ef4bb0ec9b33a5",
+  "workflow_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/42795656864",
+  "workflow_conclusion": "failure",
+  "E10a_contract_sha256": "93a9ca114d35c6ab706e2bcaece26791f2f21dbc2a878cfb206552f4ef228637",
+  "E10b_contract_sha256": "372012a000359faa2adc1445d6bb7c955ad8aa515beb0719043aecfbb4ea9ddb",
+  "hosts": [
+    {
+      "host": "linux",
+      "job_id": 129760057983,
+      "artifact_id": 13752774778,
+      "provider_artifact_bytes": 106119,
+      "provider_artifact_sha256": "sha256:d75f0fe7f02784adf1eaadbcf8667957348eb243a94b4176115c44b7d122e39a",
+      "retained_zip": "artifacts/runner-readiness-next-twenty-project-pass/mg/scenario-development/retrieved/run-42795656864/linux-retained.zip",
+      "retained_zip_sha256": "d75f0fe7f02784adf1eaadbcf8667957348eb243a94b4176115c44b7d122e39a",
+      "retained_zip_bytes": 106119,
+      "retained_zip_members": 153,
+      "zip_crc": "passed",
+      "e10a-decline-overwrite": {
+        "attempt_id": "7b82450c3d444472b156ba21dcd6995e",
+        "attempt_sha256": "2da1dd7d14f1641a4a70cf0da9d4aafe585b44fb650e914719c1b5407b3eece6",
+        "report_sha256": "a25ef6aad5f698c7a8ea9ff4ff41f784153975038239845ca452f42c1c2f0c7b",
+        "runner_log_sha256": "993d699141b4f6fe3e2bc2ce59a4caa51dc1eb053baac0328d42614268b72c4e",
+        "status": "passed",
+        "target_exit_code": 0,
+        "target_cleanup": "graceful; confirmed exited; no force required",
+        "runner_process_group_cleanup": "process group absent; no owned descendants remain",
+        "steps_passed": 14,
+        "state_outcomes": [
+          "matched",
+          "matched"
+        ]
+      },
+      "workspace_cleanup_e10a_e10b": true,
+      "workflow_cleanup_all_inputs_absent": true,
+      "e10b-accept-overwrite": {
+        "attempt_id": "425c1d3f4f4d4ce8b67f79e072148b6f",
+        "attempt_sha256": "a0bd9675286c3565916b061f1d623bdf5edb28b02533e3c9f0b67e1c78d516f3",
+        "report_sha256": "0b2794390a09cc13da7fe2f6feeee3b9adca0256557bf4dfb6142474ade79fb5",
+        "runner_log_sha256": "0e20ea62289b757ec729e812bf30e2b2af956b20c79a491fdb67423bc843f27e",
+        "status": "failed",
+        "target_exit_code": 0,
+        "target_cleanup": "graceful; confirmed exited; no force required",
+        "runner_process_group_cleanup": "process group absent; no owned descendants remain",
+        "steps_passed": 18,
+        "state_outcomes": [
+          "matched",
+          "rejected"
+        ],
+        "failure": {
+          "category": "state_assertion_failure",
+          "message": "e10b accept overwrite: step 19: state \"existing.txt\" (file): saved-state checkpoint: wrong file bytes; inspect the selected path and reviewed expectation, then rerun"
+        },
+        "failed_state_step": 19
+      }
+    },
+    {
+      "host": "darwin",
+      "job_id": 129760058709,
+      "artifact_id": 13753224807,
+      "provider_artifact_bytes": 106632,
+      "provider_artifact_sha256": "sha256:5e1870873f834c422cf1a0167f0c64459e605aff03e156aa4db79827c0d6de0f",
+      "retained_zip": "artifacts/runner-readiness-next-twenty-project-pass/mg/scenario-development/retrieved/run-42795656864/darwin-retained.zip",
+      "retained_zip_sha256": "5e1870873f834c422cf1a0167f0c64459e605aff03e156aa4db79827c0d6de0f",
+      "retained_zip_bytes": 106632,
+      "retained_zip_members": 153,
+      "zip_crc": "passed",
+      "e10a-decline-overwrite": {
+        "attempt_id": "14b464325be84d4c8c89966e0d2c508c",
+        "attempt_sha256": "64f5052a6d41102520c33fe9b83b74194fdf9375562abfc926322aff7bcc6e58",
+        "report_sha256": "82777cb908e0fc574a780636fea9f9d95fa52c6f028496d5c6b417658d756045",
+        "runner_log_sha256": "d128bac43175f2d47667244024685f73bb60a8ed7fc7d07dd243d2e1dceb0261",
+        "status": "passed",
+        "target_exit_code": 0,
+        "target_cleanup": "graceful; confirmed exited; no force required",
+        "runner_process_group_cleanup": "process group absent; no owned descendants remain",
+        "steps_passed": 14,
+        "state_outcomes": [
+          "matched",
+          "matched"
+        ]
+      },
+      "workspace_cleanup_e10a_e10b": true,
+      "workflow_cleanup_all_inputs_absent": true,
+      "e10b-accept-overwrite": {
+        "attempt_id": "85acb1b40a0e49479b189d1f26f41df2",
+        "attempt_sha256": "ae876819f68e8cf5f09faa95373bfada8ad8434434935d8ce0383935598a8444",
+        "report_sha256": "b1048889ebe519c0ccfddb516851dfa8b2a97b2463fad0f24d2abdd6f7432025",
+        "runner_log_sha256": "93cf2fbd395dceb494a0c8c305b64340714db44c9cc8d4a868abaab8968f7f3d",
+        "status": "failed",
+        "target_exit_code": 0,
+        "target_cleanup": "graceful; confirmed exited; no force required",
+        "runner_process_group_cleanup": "process group absent; no owned descendants remain",
+        "steps_passed": 18,
+        "state_outcomes": [
+          "matched",
+          "rejected"
+        ],
+        "failure": {
+          "category": "state_assertion_failure",
+          "message": "e10b accept overwrite: step 19: state \"existing.txt\" (file): saved-state checkpoint: wrong file bytes; inspect the selected path and reviewed expectation, then rerun"
+        },
+        "failed_state_step": 19
+      }
+    }
+  ],
+  "cause": "E10a decline passed on both hosts and both file-state assertions matched. E10b accepted overwrite, exited 0 and cleaned up gracefully, but exact destination-state assertion failed on both hosts. The contract had pressed Enter after typing accepted edit, inserting an additional trailing blank line; current E10b removes that redundant Enter and retains the expected single final newline. E11 did not run because E10b stopped the job.",
+  "state_evidence_limit": "The report records state outcome rejected but does not retain observed file bytes or hashes. The extra blank line inference is supported by the retained failure screen showing cursor at line 3 after the second Enter and the exact-byte mismatch; the correcting spec is subject to native rerun.",
+  "audit": "Provider artifact SHA-256 values match GitHub metadata; both 153-member ZIPs pass CRC. Both E10a host runs pass 14 steps, exact original/destination states, exit 0 and graceful cleanup. Both E10b runs pass 18 steps, exit 0, graceful target and runner cleanup, then reject the final exact destination bytes. Workflow cleanup confirms all owned inputs absent. Admission credit remains zero."
+}
