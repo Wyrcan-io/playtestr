@@ -11,12 +11,12 @@ from next20_target_cleanup import (read_unlaunched_manifest,source_inventory,tar
 
 class SourceInventoryTests(unittest.TestCase):
     def test_prelaunch_workspace_failure_is_explicitly_distinct_from_launched_work(self):
-        failure={'category':'workspace_setup_failure','message':'fixture root is absent'}
+        failure={'category':'workspace_setup_failure','message':'workspace setup failed: fixture root is absent'}
         row={'status':'failed','failure':failure,'target':{'exited':False},'duration_ms':0,
             'cleanup':{'attempted':False,'graceful':False,'forced':False,'confirmed_exited':False},
             'steps':[{'status':'not_run'}], 'workspace':{'attempted':True,'fixture':'fixtures',
             'prepared':False,'cleanup_attempted':False,'cleaned':False,'retained':False,
-            'setup_failure':failure}}
+            'setup_failure':{'category':'workspace_setup_failure','message':'fixture root is absent'}}}
         data={'results':[row]}
         self.assertTrue(workspace_setup_failure_before_launch(data,row))
         changed={**row,'target':{'exited':True}}

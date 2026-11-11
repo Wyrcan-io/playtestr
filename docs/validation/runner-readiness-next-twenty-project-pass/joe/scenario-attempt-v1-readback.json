@@ -1,0 +1,96 @@
+{
+  "calibrations": 0,
+  "candidate": "v0.4.0-rc.6",
+  "hosts": {
+    "darwin": {
+      "architecture": "arm64",
+      "attempted_scenarios": 2,
+      "attempts": [
+        {
+          "attempt_id": "21a92755fad6437a8e11937e92387f99",
+          "report_sha256": "964ce786a82e8c22f27c3be7b11ad313f3a151ad22cde501a1db6b80974aac17",
+          "scenario_id": "N01",
+          "status": "passed",
+          "target_cleanup": true,
+          "workspace_cleanup": true
+        },
+        {
+          "attempt_id": "ed672472771040c0995e57a10476cdd6",
+          "cleanup_credit": 0,
+          "failure_category": "workspace_setup_failure",
+          "report_sha256": "316203bec84a6c478ddf327425563d71a8631665f1e62384892bfeef37520cfd",
+          "scenario_id": "N02",
+          "status": "failed-before-target-launch",
+          "target_launched": false,
+          "workspace_prepared": false
+        }
+      ],
+      "candidate_archive_sha256": "132152710ade2c01cac7558f75212121f01af8ab02c5735dc9c7de1c33dbe625",
+      "candidate_binary_sha256": "609b184dac8664050643ec35036c4cffef2137ec778ae4d4678727b119e2fe0f",
+      "classification": "attempt outcomes independently audited; project scenario qualification incomplete; no admission credit",
+      "declared_scenarios": 20,
+      "host": "darwin",
+      "native_build_commands": 7,
+      "provider_artifact_id": 13857012039,
+      "provider_bytes": 20772405,
+      "provider_sha256": "5ddf1c3f0d67260c4511d2f3a033d7468b6e335eb29aba5561aa9483b0991ea3",
+      "source_archive_sha256": "5e00e2621225a304061c70903ef6490a700a4bbf1fa600c096b5bbb6746f2312",
+      "source_pin": "3874898078005d1f5e519235401fab4fd428dd9b",
+      "source_runtime_deletion_confirmed": false,
+      "target_binary_sha256": "e62016f027b378ad236613357435348e26be0dfbffcad90cee98cf91b273549f",
+      "target_tree_retained_after_checked_cleanup_refusal": true,
+      "zip_expanded_bytes": 65352493,
+      "zip_members": 1068
+    },
+    "linux": {
+      "architecture": "x86_64",
+      "attempted_scenarios": 2,
+      "attempts": [
+        {
+          "attempt_id": "010f8fad69de49aeb88900c1943c60ef",
+          "report_sha256": "e2ce4f6aa9712d7f61af7b1dfc456a29e8a175327f572e92a990b6728a22254d",
+          "scenario_id": "N01",
+          "status": "passed",
+          "target_cleanup": true,
+          "workspace_cleanup": true
+        },
+        {
+          "attempt_id": "d8bc1d5cd9fd46ea908d2fd35120fb0a",
+          "cleanup_credit": 0,
+          "failure_category": "workspace_setup_failure",
+          "report_sha256": "4cd43896558f653a09bf93fe4f3c6608e0604a6dd2470bbaad83111ccb9b1f8c",
+          "scenario_id": "N02",
+          "status": "failed-before-target-launch",
+          "target_launched": false,
+          "workspace_prepared": false
+        }
+      ],
+      "candidate_archive_sha256": "28ae9f37227bb0f6ba2df031420aa3d027b998e31eab523c4d13cd2816c4af7a",
+      "candidate_binary_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a",
+      "classification": "attempt outcomes independently audited; project scenario qualification incomplete; no admission credit",
+      "declared_scenarios": 20,
+      "host": "linux",
+      "native_build_commands": 7,
+      "provider_artifact_id": 13856667616,
+      "provider_bytes": 26644089,
+      "provider_sha256": "9eb4238a67c363e84fa72ab796ebe633fa7a26316e04831a5d7034d4f03149c9",
+      "source_archive_sha256": "5e00e2621225a304061c70903ef6490a700a4bbf1fa600c096b5bbb6746f2312",
+      "source_pin": "3874898078005d1f5e519235401fab4fd428dd9b",
+      "source_runtime_deletion_confirmed": false,
+      "target_binary_sha256": "a87146372bab2f50dda3b65f060b2eac4a1c45603f1ef8bb0976f8505d9096f9",
+      "target_tree_retained_after_checked_cleanup_refusal": true,
+      "zip_expanded_bytes": 76832082,
+      "zip_members": 1068
+    }
+  },
+  "project": "joe",
+  "project_admission_credit": 0,
+  "qualification_scenarios": 0,
+  "real_faults": 0,
+  "schema_version": 1,
+  "scope": "Exact provider ZIP size/SHA/CRC, pinned native source/build/binary and all seven build logs, frozen candidate installation receipt, the two actually attempted scenario lifecycles per native host, N01 exact pass, N02 explicit pre-target fixture setup refusal, and withheld cleanup/admission credit.",
+  "status": "first-scenario-development-attempt-audited-not-qualified",
+  "unattempted_scenarios": 18,
+  "workflow_head_sha": "edef3003258bf10d9055cb7f9ec8730b28e9f134",
+  "workflow_run": 43024880243
+}

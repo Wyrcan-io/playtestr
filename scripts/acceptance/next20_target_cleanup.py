@@ -169,7 +169,9 @@ def workspace_setup_failure_before_launch(data,row):
         workspace.get('attempted') is True and isinstance(workspace.get('fixture'),str) and
         workspace.get('prepared') is False and workspace.get('cleanup_attempted') is False and
         workspace.get('cleaned') is False and workspace.get('retained') is False and
-        'root' not in workspace and 'id' not in workspace and workspace.get('setup_failure')==failure)
+        'root' not in workspace and 'id' not in workspace and
+        workspace.get('setup_failure',{}).get('category')==failure.get('category') and
+        failure.get('message')=='workspace setup failed: '+workspace.get('setup_failure',{}).get('message',''))
 
 
 def read_unlaunched_manifest(path, project_root, project):
