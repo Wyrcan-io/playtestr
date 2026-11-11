@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "project": "joe",
+  "workflow_run": 43017674757,
+  "workflow_head_sha": "1316ba1c21fd0b4db04d621c437d0407d859ccad",
+  "candidate": "v0.4.0-rc.6",
+  "project_admission_credit": 0,
+  "provider_packets": [
+    {"host": "linux", "id": 13853487300, "bytes": 4177799, "sha256": "c64debaa9ad31b71859e38298d40f15f623c1c9028651c7241edf41ff7345bd5"},
+    {"host": "darwin", "id": 13853791293, "bytes": 4177818, "sha256": "733e25783ff9562fd2107aaffb9cfae2d342044510d19282fbab4d540fc0307d"}
+  ],
+  "hosts": {
+    "linux": {"route_substeps": "all passed", "route_receipt": "written", "target_cleanup": "passed", "storage": "passed", "artifact_crc": "passed", "independent_readback": "incomplete: native build.json references seven command logs removed with active/joe before upload"},
+    "darwin": {"route_substeps": "all passed", "route_receipt": "written", "target_cleanup": "passed", "storage": "passed", "artifact_crc": "passed", "independent_readback": "incomplete: native build.json references seven command logs removed with active/joe before upload"}
+  },
+  "classification": "functional public route passed on both native hosts; immutable artifact and CRC verified, but complete build-command log readback remains open; next run copies the seven bounded logs into retained route evidence before cleanup",
+  "retained_extracted_artifacts": [
+    "artifacts/runner-readiness-next-twenty-project-pass/tmp/joe-public-route-run43017674757-linux/",
+    "artifacts/runner-readiness-next-twenty-project-pass/tmp/joe-public-route-run43017674757-darwin/"
+  ],
+  "retained_provider_zips": [
+    "artifacts/runner-readiness-next-twenty-project-pass/tmp/joe-public-route-run43017674757-zips/linux.zip",
+    "artifacts/runner-readiness-next-twenty-project-pass/tmp/joe-public-route-run43017674757-zips/darwin.zip"
+  ]
+}

@@ -81,6 +81,33 @@ async def main():
     if output.exists():
         raise ValueError("preserve an existing JOE public-route evidence directory")
     output.mkdir(parents=True)
+    build_log_root = output / "build-logs"
+    build_log_root.mkdir()
+    retained_build_logs = []
+    if len(build.get("commands", [])) != 7:
+        raise ValueError("JOE public route requires the seven-command reviewed native build receipt")
+    for index, command in enumerate(build["commands"], 1):
+        declared_log = ROOT / command["log"]
+        if declared_log.is_symlink() or getattr(declared_log, "is_junction", lambda: False)():
+            raise ValueError("JOE build command log cannot be a link")
+        source_log = declared_log.resolve(strict=True)
+        source_log.relative_to(target_root.resolve())
+        if source_log.is_symlink() or not source_log.is_file() or source_log.stat().st_size > 16 * 1024 * 1024:
+            raise ValueError("JOE build command log is not a bounded owned regular file")
+        if len(retained_build_logs) >= 7 or sha256(source_log) != command.get("output_sha256"):
+            raise ValueError("JOE build command log differs from its pre-cleanup receipt")
+        destination = build_log_root / f"{index:02d}-{source_log.name}"
+        with destination.open("xb") as stream:
+            stream.write(source_log.read_bytes())
+        retained_build_logs.append({"command_id": command["id"], "log": destination.name,
+                                    "bytes": destination.stat().st_size, "sha256": sha256(destination),
+                                    "exit_code": command["exit_code"],
+                                    "process_tree_cleanup": command["process_tree_cleanup"]})
+    if len(retained_build_logs) != 7:
+        raise ValueError("JOE public route did not retain all seven native build command logs")
+    immutable_json(output / "build-logs.json", {"schema_version": 1, "project": PROJECT,
+                                                  "host": host, "pin": PIN,
+                                                  "commands": retained_build_logs})
     project_root = output / "project"
     fixtures = project_root / "fixtures"
     fixtures.mkdir(parents=True)
@@ -253,7 +280,8 @@ async def main():
         "schema_version": 1, "project": PROJECT, "candidate": "v0.4.0-rc.6", "source_pin": PIN,
         "host": host, "architecture": platform.machine(), "runner_sha256": sha256(runner),
         "target_binary_sha256": sha256(binary), "target_build_run": os.environ.get("GITHUB_RUN_ID"),
-        "planned_sha256": sha256(output / "planned.json"), "attempts": attempts,
+        "planned_sha256": sha256(output / "planned.json"),
+        "build_command_logs_sha256": sha256(output / "build-logs.json"), "attempts": attempts,
         "first_use": {"status": "passed", "shell_invocations": first_window_shells,
                       "controls": first_window_controls, "handwritten_spec": False,
                       "spec_sha256": sha256(spec), "report_sha256": sha256(first_report),

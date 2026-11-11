@@ -803,6 +803,8 @@
         "joe/build-attempt-darwin-v7.json",
         "joe/build-attempt-linux-v8.json",
         "joe/build-attempt-darwin-v8.json",
+        "joe/build-attempt-linux-v9.json",
+        "joe/build-attempt-darwin-v9.json",
         "joe/native-build-attempt-crosswalk-v1.json",
         "joe/native-build-readback-v1.json"
       ],
@@ -826,9 +828,12 @@
         "joe/public-route-attempt-darwin-v5.json",
         "joe/public-route-attempt-v5-finished.json",
         "joe/public-route-attempt-linux-v6.json",
-        "joe/public-route-attempt-darwin-v6.json"
+        "joe/public-route-attempt-darwin-v6.json",
+        "joe/public-route-attempt-v6-finished.json",
+        "joe/public-route-attempt-linux-v7.json",
+        "joe/public-route-attempt-darwin-v7.json"
       ],
-      "public_route_status": "first-use, diagnosis, state maintenance, relocation, and workflow preview substeps passed on both hosts; all-attempt receipt assembly raised a harness TypeError after those substeps; byte-hash fix declared for complete end-to-end rerun",
+      "public_route_status": "full functional route and route receipt passed on both hosts; provider digest/CRC verified; readback found seven native build logs removed before upload, so complete retained-log readback is rerunning before admission",
       "native_build_readback": "joe/native-build-readback-v1.json",
       "native_build_crosswalk": "joe/native-build-attempt-crosswalk-v1.json",
       "storage_checkpoint": "storage-checkpoint-v51.json",
