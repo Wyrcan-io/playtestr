@@ -5,9 +5,9 @@
   "current_candidate_original_ten": 0,
   "qualification_candidate": "v0.4.0-rc.6",
   "admission_counters_candidate": "v0.4.0-rc.5",
-  "current_candidate_new_project_admissions": 5,
-  "current_candidate_ordinary_executions_qualified": 2400,
-  "current_candidate_calibration_executions_qualified": 90,
+  "current_candidate_new_project_admissions": 6,
+  "current_candidate_ordinary_executions_qualified": 2880,
+  "current_candidate_calibration_executions_qualified": 114,
   "candidate_scope": "Top-level admission aggregates remain historical exact v0.4.0-rc.5. Current v0.4.0-rc.6 counters and every per-project candidate admission are separate explicit projections. Historical admissions transfer no current-candidate credit; original-ten current requalification remains separate.",
   "new_project_admissions": 4,
   "new_project_target": 20,
@@ -568,9 +568,9 @@
       "id": "mg",
       "repository": "troglobit/mg",
       "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
-      "status": "20 canonical scenarios and four source faults remain independently qualified on rc.6; hosted first-use, six-case state-oracle calibration and separate technical authoring route passed and were independently audited in run 42995560305; tampered-model controls and campaign closure remain open.",
+      "status": "admitted-on-recorded-candidate",
       "acquired": true,
-      "admitted": false,
+      "admitted": true,
       "planned_hosts": [
         "linux",
         "macos"
@@ -588,7 +588,7 @@
       "real_source_faults": 4,
       "latest_native_matrix_run": "42980303472",
       "latest_native_matrix_audit": "mg/final-qualification-artifact-audit-run-42980303472-v1.json",
-      "storage_checkpoint": "storage-checkpoint-v47.json",
+      "storage_checkpoint": "storage-checkpoint-v48.json",
       "storage_compaction_audit": "index-compaction-v2.json",
       "public_authoring_route": "Hosted route audit run 42980303472 passed on exact rc.6: record/review/replay/save and ordinary test, seeded diagnosis, selected saved-state maintenance, Unicode relocation, and free-workflow preview. First usability window failed before target launch; repaired window took three commands and 15 controls. Runs 42840242945 and 42883681805 preserve execute-bit and save-anchor failures. Agent operation only; no beginner claim.",
       "public_authoring_route_harness": "scripts/acceptance/next20_mg_public_route.py",
@@ -599,8 +599,15 @@
         "mg/public-route-audit-run-42991234833-v1.json",
         "mg/public-route-audit-run-42995560305-v1.json"
       ],
-      "candidate_admissions": [],
-      "current_candidate_qualified": false,
+      "candidate_admissions": [
+        {
+          "project": "mg",
+          "candidate": "v0.4.0-rc.6",
+          "path": "mg/admission.json",
+          "sha256": "f645a54c9d8a63def86c998641d1ded87ec3b1fadf287bb3aa2be67c86989138"
+        }
+      ],
+      "current_candidate_qualified": true,
       "acquisition_attempts": [
         "mg/acquisition-attempt-v1.json",
         "mg/acquisition-attempt-v1-finished.json",
@@ -726,7 +733,18 @@
         "html_report": "offline self-contained",
         "manual_migration": "spec v2 to v3",
         "admission_credit": 0
-      }
+      },
+      "model_controls": "mg/model-controls-v1.json",
+      "tampered_model_controls": {
+        "hosts": [
+          "linux",
+          "darwin"
+        ],
+        "semantic_corruptions_rejected": 42,
+        "per_host": 21,
+        "admission_credit": 0
+      },
+      "admission_audit": "mg/admission-audit-v1.json"
     }
   ],
   "observed_audited_ordinary_executions": 2400,
@@ -742,12 +760,12 @@
       "real_source_faults": 12
     },
     "v0.4.0-rc.6": {
-      "projects": 5,
-      "ordinary": 2400,
-      "calibrations": 90,
-      "canonical_scenarios": 100,
-      "native_cells": 10,
-      "real_source_faults": 15
+      "projects": 6,
+      "ordinary": 2880,
+      "calibrations": 114,
+      "canonical_scenarios": 120,
+      "native_cells": 12,
+      "real_source_faults": 19
     }
   },
   "admission_subjects": [
@@ -804,12 +822,18 @@
       "candidate": "v0.4.0-rc.6",
       "path": "git-town/admission.json",
       "sha256": "ef9d1c3ef2500f74440f7093d87932538dba82bd661aa3385d1a727eddfa4fd2"
+    },
+    {
+      "project": "mg",
+      "candidate": "v0.4.0-rc.6",
+      "path": "mg/admission.json",
+      "sha256": "f645a54c9d8a63def86c998641d1ded87ec3b1fadf287bb3aa2be67c86989138"
     }
   ],
-  "distinct_new_projects_with_any_candidate_admission": 9,
-  "current_candidate_canonical_scenarios": 100,
-  "current_candidate_native_cells": 10,
-  "current_candidate_real_source_faults": 15,
+  "distinct_new_projects_with_any_candidate_admission": 10,
+  "current_candidate_canonical_scenarios": 120,
+  "current_candidate_native_cells": 12,
+  "current_candidate_real_source_faults": 19,
   "recorded_candidate_counters": {
     "v0.4.0-rc.5": {
       "projects": 4,
@@ -820,12 +844,12 @@
       "real_source_faults": 12
     },
     "v0.4.0-rc.6": {
-      "projects": 5,
-      "ordinary": 2400,
-      "calibrations": 90,
-      "canonical_scenarios": 100,
-      "native_cells": 10,
-      "real_source_faults": 15
+      "projects": 6,
+      "ordinary": 2880,
+      "calibrations": 114,
+      "canonical_scenarios": 120,
+      "native_cells": 12,
+      "real_source_faults": 19
     }
   },
   "qualification_gates": [

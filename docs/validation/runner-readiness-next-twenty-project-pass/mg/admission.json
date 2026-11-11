@@ -1,0 +1,95 @@
+{
+  "additional_e10_branch_executions": 24,
+  "admitted": true,
+  "build_inputs": [
+    {
+      "host": "linux",
+      "provider_artifact_id": 13764014577,
+      "provider_name": "next20-mg-build-linux-42815619413",
+      "source_archive_sha256": "bd8aff8ddbf55f7d37067a9f01e6bef887a2b0f2c0699aaa08a73d7dfd6069a8",
+      "target_binary_sha256": "6eb334f5ea96687983c51b073b1b8a11434ea85a46e69ca6e28e57b76b4e88e5",
+      "zip": "artifacts/runner-readiness-next-twenty-project-pass/mg/model-controls-input-v1/native-build-linux-42815619413.zip",
+      "zip_sha256": "101555c68d56964649032ab024e421d8c62106962bc171fa8af9cc60a06fafaa"
+    },
+    {
+      "host": "darwin",
+      "provider_artifact_id": 13764415996,
+      "provider_name": "next20-mg-build-darwin-42815619413",
+      "source_archive_sha256": "bd8aff8ddbf55f7d37067a9f01e6bef887a2b0f2c0699aaa08a73d7dfd6069a8",
+      "target_binary_sha256": "fec0c13066e01d703d19c7eda8f2b6e689f645786f9c79c15bd290228c791bdb",
+      "zip": "artifacts/runner-readiness-next-twenty-project-pass/mg/model-controls-input-v1/native-build-darwin-42815619413.zip",
+      "zip_sha256": "9ac580a9da1850adaf19a0b478bb388ed23d530e86e299c37a5e2720ada0439a"
+    }
+  ],
+  "calibrations": 24,
+  "candidate": "v0.4.0-rc.6",
+  "canonical_scenarios": 20,
+  "cell_model_negative_controls": 42,
+  "delivered_ci_observations": 0,
+  "delivered_workflow_preview_only": true,
+  "edge_scenarios": 12,
+  "human_participants": 0,
+  "human_usability": "unmeasured",
+  "limitations": [
+    "Private engineering qualification of exact v0.4.0-rc.6 cells; no stable-support or public-release claim.",
+    "Human beginner usability remains unmeasured; the documented route was agent-operated.",
+    "The delivered workflow was previewed but not dispatched; no delivered-CI triplet credit.",
+    "Original-ten rc.6 requalification and campaign closure remain separate open gates."
+  ],
+  "local_target_absent": true,
+  "maintenance_and_unicode_relocation": true,
+  "native_cells": [
+    {
+      "actual_model": "mg/audit-controls/exact-rc6-models-3b1e78d3fe0848e49215fbe60fe5c335/linux-actual-model.json.xz",
+      "actual_model_sha256": "504708ef3b6aaebcd99b76265d91c539dde16bb7a7f40a021e98ea0f8963567d",
+      "architecture": "amd64",
+      "calibrations": 12,
+      "candidate_archive_sha256": "28ae9f37227bb0f6ba2df031420aa3d027b998e31eab523c4d13cd2816c4af7a",
+      "host": "linux",
+      "ordinary": 240,
+      "run": "42980303472",
+      "runner_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a"
+    },
+    {
+      "actual_model": "mg/audit-controls/exact-rc6-models-3b1e78d3fe0848e49215fbe60fe5c335/darwin-actual-model.json.xz",
+      "actual_model_sha256": "115d2fec339f31e1a9442ff8b76ef7e4ec5050294facafcfbc06c4c1704dc121",
+      "architecture": "arm64",
+      "calibrations": 12,
+      "candidate_archive_sha256": "132152710ade2c01cac7558f75212121f01af8ab02c5735dc9c7de1c33dbe625",
+      "host": "darwin",
+      "ordinary": 240,
+      "run": "42980303472",
+      "runner_sha256": "609b184dac8664050643ec35036c4cffef2137ec778ae4d4678727b119e2fe0f"
+    }
+  ],
+  "normal_scenarios": 8,
+  "ordinary": 480,
+  "paid_admissions": 0,
+  "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "project": "mg",
+  "public_first_use_commands": 3,
+  "public_first_use_controls": 15,
+  "real_source_faults": 4,
+  "repository": "troglobit/mg",
+  "saved_state_oracle_cases": 6,
+  "schema_version": 1,
+  "scope": "One independently reviewed current-candidate project admission from two exact native cells, twenty canonical scenarios, 480 passing ordinary executions, 24 calibration phases over four distinct source faults, 42 tampered-model rejections, repaired public first-use, saved-state oracle calibration, technical authoring, maintenance, relocation, and confirmed local target removal.",
+  "subjects": {
+    "artifacts/runner-readiness-next-twenty-project-pass/mg/audit-controls/exact-rc6-models-3b1e78d3fe0848e49215fbe60fe5c335/darwin-actual-model.json.xz": "115d2fec339f31e1a9442ff8b76ef7e4ec5050294facafcfbc06c4c1704dc121",
+    "artifacts/runner-readiness-next-twenty-project-pass/mg/audit-controls/exact-rc6-models-3b1e78d3fe0848e49215fbe60fe5c335/linux-actual-model.json.xz": "504708ef3b6aaebcd99b76265d91c539dde16bb7a7f40a021e98ea0f8963567d",
+    "artifacts/runner-readiness-next-twenty-project-pass/mg/audit-controls/exact-rc6-models-3b1e78d3fe0848e49215fbe60fe5c335/results.json": "9e09bc0ce7fa95eca4e915ab9121a7a8f9acfddeb7ba9b2b65bb7a43d43b8636",
+    "docs/validation/runner-readiness-next-twenty-project-pass/mg-fault-calibration-audit-run-42811359525-v2.json": "a9a41de11f86456017264a5befec1ca3a5e765daadf44c8d12110c19df3a9a5e",
+    "docs/validation/runner-readiness-next-twenty-project-pass/mg/final-qualification-artifact-audit-run-42980303472-v1.json": "01255f8114f4da055437fae1229d21af622e66960675745e0822455bd67bcf9b",
+    "docs/validation/runner-readiness-next-twenty-project-pass/mg/final-qualification-declaration-v2.json": "4d83691a4fa19d9db49d00e963f1ff90a1735f7b87d60490b4ba5c418e1f377c",
+    "docs/validation/runner-readiness-next-twenty-project-pass/mg/model-controls-v1.json": "86c2d02c1fcfbd82dbb666f819b96c5dbae55adf0ca98903be2c8b5c8d421bc4",
+    "docs/validation/runner-readiness-next-twenty-project-pass/mg/pilot-attempt-accounting-v22.json": "c4b07f2bcaf57a82eb16db4d93f68948bc2f1902cfd2445480bc74d6485bd329",
+    "docs/validation/runner-readiness-next-twenty-project-pass/mg/preflight-review-v1.md": "a72fd10f581f6c045c780fcfc921296c58440df67b1b64c08dab0e618bc2cf51",
+    "docs/validation/runner-readiness-next-twenty-project-pass/mg/public-route-audit-run-42995560305-v1.json": "65f72492cce9e3bf7309b2769bfb907e1cd1ae35cb2453532e5e0357032a8db0",
+    "docs/validation/runner-readiness-next-twenty-project-pass/mg/scenario-catalog-draft-v1.md": "20781912ed0c0d58fd07c0c175346f32cd2a3b17a9e39508563909a5e22fe87e",
+    "docs/validation/runner-readiness-next-twenty-project-pass/mg/scenario-development-accounting-v31.json": "e01e2086bbe359f381c38722cbddaf5ecc3df63aaf6b875e2d8cfef449a1acff",
+    "docs/validation/runner-readiness-next-twenty-project-pass/mg/source-provenance.json": "437c03d570783966c05bc2962a3b09d9e40158dd56aaf20425e8a5b53acf25f2",
+    "docs/validation/runner-readiness-next-twenty-project-pass/replacement-candidate-freeze-native-exit-v1.json": "24ce7238532b1b6e581142ee98e17a7fe18ea475ec83176e7051986353c80da2",
+    "docs/validation/runner-readiness-next-twenty-project-pass/storage-checkpoint-v48.json": "d1ecb7ce001a42cf7a16a4459a8f410edc8e70e4a2f90bdea72375222073bc89"
+  },
+  "technical_authoring_operations": 7
+}

@@ -1,0 +1,56 @@
+{
+  "candidate": "v0.4.0-rc.6",
+  "cells": [
+    {
+      "attempts": 264,
+      "counts": {
+        "additional_e10_branch": 12,
+        "calibrations": 12,
+        "distinct_real_faults": 4,
+        "host": "linux",
+        "ordinary": 240
+      },
+      "decoded_model_sha256": "e585b3daf05dec18413e2859cc89e8b48a0a448c4f6270c6b2b1629915b52615",
+      "decoded_model_sha256_verified": true,
+      "host": "linux",
+      "model": "mg/audit-controls/exact-rc6-models-3b1e78d3fe0848e49215fbe60fe5c335/linux-actual-model.json.xz",
+      "model_bytes": 133623,
+      "model_sha256": "504708ef3b6aaebcd99b76265d91c539dde16bb7a7f40a021e98ea0f8963567d",
+      "model_sha256_verified": true
+    },
+    {
+      "attempts": 264,
+      "counts": {
+        "additional_e10_branch": 12,
+        "calibrations": 12,
+        "distinct_real_faults": 4,
+        "host": "darwin",
+        "ordinary": 240
+      },
+      "decoded_model_sha256": "e10ddf341e2152bcd4f0188e20ef5c2dea07252fb33fe5bf3782ebf54ad43624",
+      "decoded_model_sha256_verified": true,
+      "host": "darwin",
+      "model": "mg/audit-controls/exact-rc6-models-3b1e78d3fe0848e49215fbe60fe5c335/darwin-actual-model.json.xz",
+      "model_bytes": 133624,
+      "model_sha256": "115d2fec339f31e1a9442ff8b76ef7e4ec5050294facafcfbc06c4c1704dc121",
+      "model_sha256_verified": true
+    }
+  ],
+  "corruptions_rejected_per_host": {
+    "darwin": 21,
+    "linux": 21
+  },
+  "fault_audit": "mg-fault-calibration-audit-run-42811359525-v2.json",
+  "fault_audit_sha256": "a9a41de11f86456017264a5befec1ca3a5e765daadf44c8d12110c19df3a9a5e",
+  "native_audit": "mg/final-qualification-artifact-audit-run-42980303472-v1.json",
+  "native_audit_sha256": "01255f8114f4da055437fae1229d21af622e66960675745e0822455bd67bcf9b",
+  "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
+  "project": "mg",
+  "project_admission_credit": 0,
+  "repository": "troglobit/mg",
+  "results": "mg/audit-controls/exact-rc6-models-3b1e78d3fe0848e49215fbe60fe5c335/results.json",
+  "results_sha256": "9e09bc0ce7fa95eca4e915ab9121a7a8f9acfddeb7ba9b2b65bb7a43d43b8636",
+  "schema_version": 1,
+  "scope": "Independent readback of two exact RC6 native cell models and their 42 semantic tampering challenges. This controls receipt grants no project-admission, scenario, execution, or fault credit.",
+  "semantic_corruptions_rejected": 42
+}
