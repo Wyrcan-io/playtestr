@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "project": "joe",
+  "workflow_run": 43012825315,
+  "workflow_head_sha": "0e820ddc60190d4aeaff04a68cf4356939f4f923",
+  "candidate": "v0.4.0-rc.6",
+  "project_admission_credit": 0,
+  "provider_packets": [
+    {"host": "linux", "id": 13850749689, "bytes": 3931568, "sha256": "9e012334c93ebf8e084ca8fb9f958b7e00e4e0a919c0cac715463a7d541fb3ce"},
+    {"host": "darwin", "id": 13850953776, "bytes": 3931578, "sha256": "726a1b474e2e6f809b970a73abe0161ec1e45c89f34c449245d82a371959e4da"}
+  ],
+  "hosts": {
+    "linux": {"runner_version_exit": 0, "record_exit": 1, "record_attempt_id": "274b2b2e19874951b182f930e06a0e9c", "record_console_sha256": "cf558e2fd76a70b2ffde7318f421a01d042b420226ea365115a31ddc3191ffbb", "record_console_bytes": 3834, "first_spec_saved": false, "target_cleanup": "passed", "storage": "passed"},
+    "darwin": {"runner_version_exit": 0, "record_exit": 1, "record_attempt_id": "fc595ce8166342168678455c01b1833b", "record_console_sha256": "ae985f01875ca4ca64808a5dc05878430fd22cee8ade61992e04b330091400c4", "record_console_bytes": 3837, "first_spec_saved": false, "target_cleanup": "passed", "storage": "passed"}
+  },
+  "diagnosis": "Recorder console retained on both hosts. The first /text value was unquoted although the public control requires JSON string syntax; /key x was an unsupported named key, and /text y was likewise unquoted. These invalid controls caused downstream readiness/save timeouts. This was an agent-operated route-control error, not a runner defect or JOE fault.",
+  "classification": "failed diagnostic route attempt; control syntax corrected in the next predeclared attempt; no admission credit",
+  "shell_invocations_before_miss": 2,
+  "control_count": 15,
+  "retained_extracted_artifacts": [
+    "artifacts/runner-readiness-next-twenty-project-pass/tmp/joe-public-route-run43012825315-linux/",
+    "artifacts/runner-readiness-next-twenty-project-pass/tmp/joe-public-route-run43012825315-darwin/"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "project": "joe",
+  "source_pin": "3874898078005d1f5e519235401fab4fd428dd9b",
+  "candidate": "v0.4.0-rc.6",
+  "phase": "public-authoring-corrected-control-syntax",
+  "supersedes_for_new_attempts": "joe/public-route-declaration-v1.json",
+  "retains_first_route_miss": "joe/public-route-attempt-v1-finished.json",
+  "retains_diagnostic_miss": "joe/public-route-attempt-v2-finished.json",
+  "hosts": {
+    "linux": {"runner_archive_sha256": "28ae9f37227bb0f6ba2df031420aa3d027b998e31eab523c4d13cd2816c4af7a", "runner_binary_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a"},
+    "darwin": {"runner_archive_sha256": "132152710ade2c01cac7558f75212121f01af8ab02c5735dc9c7de1c33dbe625", "runner_binary_sha256": "609b184dac8664050643ec35036c4cffef2137ec778ae4d4678727b119e2fe0f"}
+  },
+  "fixture": {"path": "fixtures/public-note.txt", "bytes_base64": "Sk9FX1BVQkxJQ19ST1VURV9TVEFSVAo="},
+  "first_use_controls": [
+    "/expect JOE_PUBLIC_ROUTE_START", "/key End", "/text \"JOE_PUBLIC_ROUTE_RC6\"", "/expect JOE_PUBLIC_ROUTE_RC6",
+    "/snapshot edited-note.txt", "/key CtrlK", "/text \"x\"", "/expect Save", "/text \"y\"", "/exit 0",
+    "/file public-note.txt", "/review", "/replay", "/save"
+  ],
+  "expected_saved_bytes_base64": "Sk9FX1BVQkxJQ19ST1VURV9TVEFSVApKT0VfUFVCTElDX1JPVVRFX1JDNg==",
+  "limits": {"first_use_controls_max": 20, "first_use_shell_invocations_max": 5, "command_seconds": 240, "run_ms": 60000, "output_bytes": 4194304},
+  "isolation": "Pinned JOE binary in a managed synthetic fixture; no handwritten first-use spec; no external services or real user files; target is trusted and not sandboxed.",
+  "project_admission_credit": 0
+}
