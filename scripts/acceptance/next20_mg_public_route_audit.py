@@ -20,6 +20,8 @@ LABELS = [
     "mg-maintained-public-ordinary-test", "mg-public-unicode-relocation",
     "mg-public-delivered-workflow-preview",
 ]
+ORACLE_CASES = ["correct-file-bytes", "correct-directory-entries", "same-size-wrong-bytes",
+                "missing-required-output", "unexpected-extra-entry", "wrong-type-directory-as-file"]
 
 
 def digest(data):
@@ -161,6 +163,121 @@ def main():
             raise ValueError("generated free workflow omits source revision, suite, or PR trigger")
     if receipt["delivered_workflow"]["provider_run"] != "not-dispatched":
         raise ValueError("route audit found an unapproved workflow dispatch")
+
+    oracle_root = "mg/oracle-calibration-native-exit-v1/"
+    oracle_receipt_path = oracle_root + "receipt.json"
+    oracle_summary = None
+    if oracle_receipt_path in members:
+        oracle = obj(oracle_receipt_path)
+        oracle_plan = obj(oracle_root + "planned.json")
+        if (oracle.get("status") != "saved-state-oracle-calibration-passed-not-admitted" or
+                oracle.get("project") != "mg" or oracle.get("source_pin") != PIN or
+                oracle.get("candidate") != "v0.4.0-rc.6" or
+                oracle.get("runner_sha256") != RUNNER or oracle.get("target_binary_sha256") != TARGET or
+                oracle.get("planned_sha256") != digest(members[oracle_root + "planned.json"]) or
+                oracle.get("admission_credit") != 0 or oracle_plan.get("cases") != ORACLE_CASES or
+                oracle_plan.get("route_spec_sha256") != receipt["first_spec_sha256"] or
+                oracle_plan.get("runner_sha256") != RUNNER or oracle_plan.get("target_binary_sha256") != TARGET):
+            raise ValueError("saved-state oracle calibration identity or declared plan differs")
+        attempts = oracle.get("attempts", [])
+        if len(attempts) != len(ORACLE_CASES) or [a.get("name") for a in attempts] != ORACLE_CASES:
+            raise ValueError("saved-state oracle calibration cases are incomplete or out of order")
+        expected_bytes_b64 = oracle_plan["independent_expected_bytes"]
+        expected_bytes = base64.b64decode(expected_bytes_b64, validate=True)
+        if expected_bytes != INITIAL + MARKER.encode():
+            raise ValueError("independent saved-state expected bytes changed")
+        oracle_events = []
+        for name, attempt in zip(ORACLE_CASES, attempts):
+            ident = attempt.get("id", "")
+            if ident in ids or len(ident) != 32 or any(c not in "0123456789abcdef" for c in ident):
+                raise ValueError("oracle calibration attempt identity is invalid or collides")
+            ids.add(ident)
+            event_rows = {}
+            for kind in ("started", "identified", "launched", "finished"):
+                event = obj(f"events/{ident}-{kind}.json")
+                if (event.get("id") != ident or event.get("event") != kind or
+                        event.get("project") != "mg" or event.get("phase") != "oracle-calibration" or
+                        event.get("label") != "mg-state-oracle-" + name):
+                    raise ValueError(f"oracle calibration lifecycle identity differs: {ident}/{kind}")
+                event_rows[kind] = event
+            finished = event_rows["finished"]
+            console_path = f"mg/{ident}/console.log"
+            console = members[console_path]
+            if (finished.get("cleanup_errors") or finished.get("harness_cleanup") != "harness_process_reaped" or
+                    digest(console) != finished.get("console_sha256") or len(console) != finished.get("output_bytes")):
+                raise ValueError(f"oracle calibration console or process cleanup differs: {name}")
+            negative = name not in ORACLE_CASES[:2]
+            expected_rc = 1 if negative else 0
+            if finished.get("exit_code") != expected_rc or attempt.get("returncode") != expected_rc:
+                raise ValueError(f"oracle calibration process exit differs: {name}")
+            manifest_ref = event_rows["identified"].get("identity", {})
+            manifest_path = manifest_ref.get("manifest", "")
+            if (not manifest_path or PurePosixPath(manifest_path).is_absolute() or
+                    ".." in PurePosixPath(manifest_path).parts or manifest_path not in members or
+                    digest(members[manifest_path]) != manifest_ref.get("sha256")):
+                raise ValueError(f"oracle calibration contract identity differs: {name}")
+            report_path = oracle_root + f"reports/{name}.json"
+            report_bytes = members[report_path]
+            if digest(report_bytes) != attempt.get("report_sha256"):
+                raise ValueError(f"oracle calibration report digest differs: {name}")
+            report = json.loads(report_bytes.decode("utf-8"))
+            result = report["results"][0]
+            expected_status = "failed" if negative else "passed"
+            if (report.get("runner_version") != "v0.4.0-rc.6" or len(report.get("results", [])) != 1 or
+                    result.get("invocation_id") != attempt.get("invocation_id") or
+                    result.get("status") != expected_status or
+                    not result.get("cleanup", {}).get("confirmed_exited") or
+                    not result.get("workspace", {}).get("cleaned")):
+                raise ValueError(f"oracle calibration report lacks outcome or cleanup evidence: {name}")
+            state_steps = [step for step in result.get("steps", []) if step.get("action") == "state"]
+            if not state_steps or state_steps[-1].get("status") != ("failed" if negative else "passed"):
+                raise ValueError(f"oracle calibration did not reach its final state oracle: {name}")
+            if negative and (result.get("failure", {}).get("category") != "state_assertion_failure" or
+                             any(step.get("status") != "passed" for step in result["steps"][:-1])):
+                raise ValueError(f"negative oracle calibration failed outside the final state oracle: {name}")
+            case_spec_path = oracle_root + f"cases/{name}/create-note.json"
+            case_spec = obj(case_spec_path)
+            file_states = [step["state"] for step in case_spec["steps"] if step.get("state", {}).get("kind") == "file"]
+            if name in {ORACLE_CASES[0], ORACLE_CASES[2], ORACLE_CASES[3], ORACLE_CASES[4]}:
+                if len(file_states) != 1:
+                    raise ValueError(f"oracle calibration file case is malformed: {name}")
+                state = file_states[0]
+                if name == ORACLE_CASES[0] and (state.get("path") != "public-note.txt" or state.get("bytes_base64") != expected_bytes_b64):
+                    raise ValueError("positive saved-file oracle does not match independent bytes")
+                if name == ORACLE_CASES[2]:
+                    wrong = base64.b64decode(state["bytes_base64"], validate=True)
+                    if (state.get("path") != "public-note.txt" or len(wrong) != len(expected_bytes) or
+                            wrong == expected_bytes or wrong[1:] != expected_bytes[1:]):
+                        raise ValueError("same-size wrong-byte case does not isolate the first byte")
+                if name == ORACLE_CASES[3] and state.get("path") != "missing-public-note.txt":
+                    raise ValueError("missing-output case does not assert a missing path")
+            if name == ORACLE_CASES[1] and not any(s.get("state", {}).get("kind") == "entries" and
+                                                       s["state"].get("path") == "." and
+                                                       s["state"].get("entries") == ["public-note.txt"]
+                                                       for s in case_spec["steps"]):
+                raise ValueError("positive directory-entry oracle differs")
+            if name == ORACLE_CASES[4] and oracle_root + f"cases/{name}/fixtures/unexpected-extra.txt" not in members:
+                raise ValueError("unexpected directory entry fixture was not retained")
+            if name == ORACLE_CASES[5]:
+                if (len(file_states) != 2 or not any(s.get("state", {}).get("path") == "directory-marker" and
+                                                    s["state"].get("kind") == "file" for s in case_spec["steps"]) or
+                        oracle_root + f"cases/{name}/fixtures/directory-marker/inside.txt" not in members):
+                    raise ValueError("wrong-type directory case lacks its retained directory fixture")
+            oracle_events.append({"id": ident, "case": name, "exit_code": expected_rc,
+                                  "report_sha256": digest(report_bytes),
+                                  "console_sha256": finished["console_sha256"],
+                                  "identity_manifest": manifest_path})
+        if (oracle.get("positive_correct_bytes") is not True or
+                oracle.get("positive_correct_entries") is not True or
+                oracle.get("same_size_wrong_bytes_rejected") is not True or
+                oracle.get("missing_required_output_rejected") is not True or
+                oracle.get("unexpected_extra_entry_rejected") is not True or
+                oracle.get("wrong_type_rejected") is not True or
+                oracle.get("all_negative_cases_failed_at_final_state_checkpoint") is not True or
+                oracle.get("target_copy_removed") is not True):
+            raise ValueError("saved-state oracle calibration receipt omits a required outcome or cleanup")
+        oracle_summary = {"status": oracle["status"], "attempt_count": len(oracle_events),
+                          "cases": oracle_events, "project_admission_credit": 0}
     report = {
         "schema_version": 1,
         "status": "public-route-evidence-audited-not-admitted",
@@ -188,8 +305,9 @@ def main():
                               "provider_run": "not-dispatched"},
         "target_copy_cleanup_count": len(removed),
         "human_participants": 0, "human_time": "unmeasured",
+        "saved_state_oracle_calibration": oracle_summary,
         "limits": ["Agent operation only; no beginner-usability claim.",
-                   "Route evidence is not project admission; oracle, calibration, campaign and storage gates remain."],
+                   "Route evidence is not project admission; campaign and storage gates remain."],
     }
     output = args.output or Path(__file__).resolve().parents[2] / "docs" / "validation" / \
         "runner-readiness-next-twenty-project-pass" / "mg" / \

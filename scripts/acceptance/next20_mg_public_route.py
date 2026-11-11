@@ -13,6 +13,7 @@ from adversarial_process import execute
 from next20_candidate import executable
 from next20_check import DOC, RAW, ROOT, NextCampaign
 from next20_mg_pilot import ensure_executable
+from next20_mg_oracle_calibration import run_calibration
 from readiness_evidence import immutable_json, sha256
 
 
@@ -291,6 +292,7 @@ async def main():
                    human_time="unmeasured", assistance="Agent engineering route; no beginner inference.",
                    scope="Exact rc.6 public record/review/replay/save/test, seeded screen diagnosis, selected file-state maintenance, Unicode relocation and free-workflow preview. Admission remains gated on independent oracle, controls and complete campaign closure.")
     immutable_json(output / "receipt.json", receipt)
+    await run_calibration(output, build_root)
     print(json.dumps(dict(status=receipt["status"], output=str(output), attempts=len(attempts)), sort_keys=True))
 
 

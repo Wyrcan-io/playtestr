@@ -7,6 +7,7 @@ import tempfile
 import unittest
 
 from next20_mg_pilot import ensure_executable
+from next20_mg_oracle_calibration import report_result as oracle_report_result
 from next20_mg_public_route import report_result
 
 
@@ -66,6 +67,35 @@ class PublicRouteReportTests(unittest.TestCase):
             self.assertEqual(mode, {"mode_before": "0o644", "mode_after": "0o744"})
             self.assertTrue(path.stat().st_mode & stat.S_IXUSR)
             self.assertEqual(path.read_bytes(), before)
+
+
+class OracleCalibrationReportTests(unittest.TestCase):
+    def write_report(self, root, result):
+        path = Path(root) / "report.json"
+        path.write_text(json.dumps({"runner_version": "v0.4.0-rc.6", "results": [result]}), encoding="utf-8")
+        return path
+
+    def base_result(self, status, state_status):
+        result = {"status": status, "cleanup": {"confirmed_exited": True},
+                  "workspace": {"cleaned": True}, "steps": [{"action": "state", "status": state_status}]}
+        if status == "failed":
+            result["failure"] = {"category": "state_assertion_failure"}
+        return result
+
+    def test_positive_state_oracle_requires_exit_and_workspace_cleanup(self):
+        with tempfile.TemporaryDirectory() as root:
+            path = self.write_report(root, self.base_result("passed", "passed"))
+            self.assertEqual(oracle_report_result(path, "passed", "passed")["status"], "passed")
+
+    def test_negative_state_oracle_requires_final_state_failure_category(self):
+        with tempfile.TemporaryDirectory() as root:
+            result = self.base_result("failed", "failed")
+            path = self.write_report(root, result)
+            self.assertEqual(oracle_report_result(path, "failed", "failed")["status"], "failed")
+            result["failure"]["category"] = "assertion_timeout"
+            path = self.write_report(root, result)
+            with self.assertRaisesRegex(ValueError, "state-oracle rejection"):
+                oracle_report_result(path, "failed", "failed")
 
 
 if __name__ == "__main__":
