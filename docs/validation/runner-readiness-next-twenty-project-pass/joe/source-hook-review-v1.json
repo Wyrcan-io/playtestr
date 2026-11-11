@@ -1,0 +1,37 @@
+{
+  "build_commands": [
+    "autoreconf -fi",
+    "./configure --prefix=<owned-install-prefix>",
+    "make -j2",
+    "LC_ALL=C make install DESTDIR=<owned-stage>"
+  ],
+  "build_hook_execution": "not yet executed",
+  "license": "GPL-2.0 from source COPYING; pinned README and installation instructions reviewed.",
+  "pin": "3874898078005d1f5e519235401fab4fd428dd9b",
+  "project": "joe",
+  "project_admission_credit": 0,
+  "repository": "joe-editor/joe",
+  "reviewed_hooks": {
+    "Makefile.am": "Installs local source data and docs. install-exec-hook removes only JOE variant link names inside DESTDIR/bindir and recreates links to the installed joe binary. DESTDIR and prefix must remain under owned project root.",
+    "configure.ac": "Autoconf compiler, header, function and library probes; no AC_RUN, AC_CONFIG_COMMANDS, downloads or privileged commands found. It detects optional aspell/ispell but does not run either during build.",
+    "joe/Makefile.am": "Builds the joe executable from reviewed local C sources; util subdirectory includes local helper programs only.",
+    "rc/shell.sh": "Provides commands for JOE shell-window feature; not executed by install or used by test scenarios.",
+    "upstream_workflow": "GitHub sync workflow contains curl network traffic; no upstream workflow is run."
+  },
+  "runtime_risk": "JOE supports !command filenames, shell windows and commands; test fixtures use only plain local file paths and keyboard editing. No shell, pipe, spell checker, grep, compile or external command features in the frozen route.",
+  "schema_version": 1,
+  "scope": "Static hook review of exact extracted source only. Build and target execution remain pending.",
+  "source_acquisition": "joe/source-acquisition-v1.json",
+  "subjects": {
+    ".github/workflows/sync.yml": "3e081158ff6ad9f8efa7b10c71f051c3be276dc7f08df3a2a768d6a3074644a4",
+    "COPYING": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643",
+    "INSTALL.md": "f9bc97e38b2ffb4d445ad6e454b335be1f296d689d4009bdb94763595f74dd4b",
+    "Makefile.am": "2994f2bba3e20e0889783e743f9189fcb52b8a4d084bccbdabbf69bda1b097f2",
+    "README.md": "693bf660b3b2e7da42e01002cc88c2068e48646b0446d7cd35b96da7a0e1105d",
+    "configure.ac": "1ce0cbd8a9384a04c1ebd9187b16b0bc517f454eecbfb54f57abac7f494486b5",
+    "joe/Makefile.am": "5c280ed9597fde5f08f52a660c12d50c810fd2306d5c99df4d1cde673b75446c",
+    "joe/util/Makefile.am": "70b07ccf70caba74c7b06c62e2aa42ee8759b7584aae4fa02ba4c266d012209c",
+    "rc/Makefile.am": "5053cdb6a6495db8ec52b3cb8b4a899de499c9e767a4e68135ce7746296c4b1d",
+    "rc/shell.sh": "0359fcfcde379e57ec08fcb172a7b750554410fc0932dabaffc0708149e32cb8"
+  }
+}

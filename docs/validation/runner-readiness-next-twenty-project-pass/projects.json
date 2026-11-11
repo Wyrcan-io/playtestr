@@ -745,6 +745,46 @@
         "admission_credit": 0
       },
       "admission_audit": "mg/admission-audit-v1.json"
+    },
+    {
+      "id": "joe",
+      "repository": "joe-editor/joe",
+      "pin": "3874898078005d1f5e519235401fab4fd428dd9b",
+      "status": "Pinned source-only archive acquired and independently hash-checked; exact hooks reviewed; native builds and target routes pending.",
+      "acquired": true,
+      "admitted": false,
+      "planned_hosts": [
+        "linux",
+        "macos"
+      ],
+      "development_selected_scenarios_passed": 0,
+      "development_ordinary_attempts": 0,
+      "development_ordinary_passed": 0,
+      "development_ordinary_failed": 0,
+      "development_real_faults": 0,
+      "qualified_scenarios": 0,
+      "qualified_native_cells": 0,
+      "audited_ordinary_executions": 0,
+      "audited_calibration_executions": 0,
+      "real_source_faults": 0,
+      "candidate_admissions": [],
+      "current_candidate_qualified": false,
+      "admission": null,
+      "source_provenance": "joe/source-provenance.json",
+      "source_acquisition": "joe/source-acquisition-v1.json",
+      "source_hook_review": "joe/source-hook-review-v1.json",
+      "acquisition_attempts": [
+        "joe/acquisition-attempt-v1.json",
+        "joe/acquisition-attempt-v1-finished.json",
+        "joe/acquisition-attempt-v2.json",
+        "joe/acquisition-attempt-v2-finished.json"
+      ],
+      "hosted_source_run": "43002605616",
+      "local_target_present": true,
+      "native_build_workflow": ".github/workflows/runner-readiness-next20-joe-build.yml",
+      "storage_checkpoint": "storage-checkpoint-v50.json",
+      "native_build_helper": "scripts/acceptance/next20_joe_build.py",
+      "source_acquisition_audit": "scripts/acceptance/next20_joe_source_audit.py"
     }
   ],
   "observed_audited_ordinary_executions": 2400,

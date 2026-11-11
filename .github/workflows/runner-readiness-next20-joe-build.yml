@@ -1,0 +1,76 @@
+name: Runner readiness next20 JOE native source build
+
+on:
+  push:
+    branches:
+      - work/p0-p2-implementation
+    paths:
+      - .github/workflows/runner-readiness-next20-joe-build.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: playtestr-next20-joe-native-build-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  native-build:
+    name: JOE pinned source build (${{ matrix.host }})
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        include:
+          - host: linux
+            os: ubuntu-24.04
+          - host: darwin
+            os: macos-15
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 35
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONIOENCODING: utf-8
+      TEMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+      TMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+      TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+      - name: Create campaign temporary root
+        run: mkdir -p artifacts/runner-readiness-next-twenty-project-pass/tmp
+      - name: Start acquisition and build deadline
+        id: timer
+        run: echo "started_epoch=$(date +%s)" >> "$GITHUB_OUTPUT"
+      - name: Acquire exact JOE source pin
+        run: python -B scripts/acceptance/next20_acquire.py joe
+      - name: Build and install into the owned native tree
+        run: >-
+          python -B scripts/acceptance/next20_joe_build.py
+          --expected-host "${{ matrix.host }}"
+          --operation-started-epoch "${{ steps.timer.outputs.started_epoch }}"
+      - name: Verify campaign storage bounds
+        if: always()
+        run: python -B scripts/acceptance/next20_storage.py joe
+      - name: Retain native source build packet
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: next20-joe-build-${{ matrix.host }}-${{ github.run_id }}
+          path: |
+            artifacts/runner-readiness-next-twenty-project-pass/active/joe/task-owned.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/joe/acquisition.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/joe/source.tar.gz
+            artifacts/runner-readiness-next-twenty-project-pass/active/joe/build.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/joe/runtime.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/joe/install/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/joe/build-logs/**
+          if-no-files-found: warn
+          retention-days: 14
+          include-hidden-files: true
