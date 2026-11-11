@@ -9,6 +9,31 @@ from next20_target_cleanup import source_inventory,target_inventory,validate_ret
 
 
 class SourceInventoryTests(unittest.TestCase):
+    def test_reviewed_joe_install_aliases_are_inventory_bound(self):
+        if os.name=='nt':
+            self.skipTest('JOE campaign aliases are reviewed native Unix symlinks')
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary)/'joe';binary=root/'install'/'bin'/'joe'
+            binary.parent.mkdir(parents=True);binary.write_bytes(b'joe binary')
+            for name in ('jmacs','jstar','rjoe','jpico'):
+                (binary.parent/name).symlink_to('joe')
+            inventory=target_inventory(root,project='joe')
+            self.assertEqual(inventory['owned_links'],{
+                'install/bin/jmacs':'joe','install/bin/jstar':'joe',
+                'install/bin/rjoe':'joe','install/bin/jpico':'joe'})
+            self.assertEqual(inventory['files']['install/bin/joe']['bytes'],len(b'joe binary'))
+
+    def test_joe_install_alias_must_resolve_to_owned_binary(self):
+        if os.name=='nt':
+            self.skipTest('JOE campaign aliases are reviewed native Unix symlinks')
+        with tempfile.TemporaryDirectory() as temporary:
+            parent=Path(temporary);root=parent/'joe';bin_dir=root/'install'/'bin'
+            bin_dir.mkdir(parents=True);(bin_dir/'joe').write_bytes(b'joe binary')
+            outside=parent/'outside';outside.write_bytes(b'outside')
+            (bin_dir/'jmacs').symlink_to(outside)
+            with self.assertRaisesRegex(ValueError,'unreviewed cleanup source link'):
+                target_inventory(root,project='joe')
+
     def test_cleanup_can_account_for_active_case_reports(self):
         with tempfile.TemporaryDirectory() as temporary:
             raw=Path(temporary)

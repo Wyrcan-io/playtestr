@@ -112,6 +112,7 @@ def main():
     require(binary.is_file() and not binary.is_symlink(), "JOE install did not produce an owned joe executable")
     files, total = safe_tree(target, allow_install_aliases=True)
     runtime = {"schema_version": 1, "project": "joe", "kind": "native",
+               "runtime_kind": "native",
                "native": str(binary.resolve(strict=True)), "native_sha256": sha256(binary),
                "host": host, "architecture": arch, "project_admission_credit": 0}
     immutable_json(target / "runtime.json", runtime)
@@ -120,7 +121,7 @@ def main():
              "source_file_count": acquisition["entries"],
              "source_map_sha256": hashlib.sha256(json.dumps(acquisition["source_files"], sort_keys=True,
                  ensure_ascii=True, separators=(",", ":")).encode()).hexdigest(),
-             "binary_relative_path": "install/bin/joe", "binary_sha256": sha256(binary),
+             "runtime_kind": "native", "binary_relative_path": "install/bin/joe", "binary_sha256": sha256(binary),
              "binary_bytes": binary.stat().st_size, "build_started_at_utc": started_utc,
              "build_seconds": time.monotonic() - started, "tool_paths": tools,
              "relative_variant_links": {name: "joe" for name in ("jmacs", "jstar", "rjoe", "jpico")

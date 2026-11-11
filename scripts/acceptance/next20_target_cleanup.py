@@ -57,7 +57,7 @@ def prepare_native_directory_permissions(target,boundary):
     return changed
 
 
-def target_inventory(target, max_files=40000, max_bytes=1024**3):
+def target_inventory(target, max_files=40000, max_bytes=1024**3, *, project=None):
     if max_files not in (40000,60000):raise ValueError('unreviewed cleanup file bound')
     if max_bytes not in (1024**3,2*1024**3):raise ValueError('unreviewed cleanup byte bound')
     files={};links={};total=0;pending=[target]
@@ -67,7 +67,13 @@ def target_inventory(target, max_files=40000, max_bytes=1024**3):
             relative=entry.relative_to(target).as_posix()
             if entry.is_symlink():
                 value=os.readlink(entry)
-                if entry.name!='lib64' or value!='lib' or entry.resolve()!=entry.parent/'lib':
+                joe_alias=(project=='joe' and os.name!='nt' and
+                    entry.parent==target/'install/bin' and
+                    entry.name in {'jmacs','jstar','rjoe','jpico'} and value=='joe' and
+                    entry.resolve(strict=True)==target/'install/bin/joe' and
+                    entry.is_file())
+                lib64=(entry.name=='lib64' and value=='lib' and entry.resolve()==entry.parent/'lib')
+                if not (joe_alias or lib64):
                     raise ValueError('unreviewed cleanup source link')
                 links[relative]=value
             elif getattr(entry,'is_junction',lambda:False)():
@@ -315,7 +321,7 @@ def main():
         write(retained,review_payloads)
         for name in ['review-inputs.tar.xz','review-inputs-index.json']:copied[name]=sha256(retained/name)
     if args.resume_preparation and {p.relative_to(retained).as_posix() for p in retained.rglob('*') if p.is_file()}!=set(copied):raise ValueError('unknown interrupted retention payload')
-    inventory=target_inventory(target,max_files=args.max_files,max_bytes=args.max_bytes)
+    inventory=target_inventory(target,max_files=args.max_files,max_bytes=args.max_bytes,project=args.project)
     if args.max_files!=40000:inventory['max_files']=args.max_files
     if args.max_bytes!=1024**3:inventory['max_bytes']=args.max_bytes
     immutable_json(retained/'cleanup-inventory.json',dict(schema_version=1,project=args.project,owned_target=str(target),

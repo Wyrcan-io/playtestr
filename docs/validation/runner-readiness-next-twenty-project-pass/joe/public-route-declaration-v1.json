@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "project": "joe",
+  "source_pin": "3874898078005d1f5e519235401fab4fd428dd9b",
+  "candidate": "v0.4.0-rc.6",
+  "phase": "public-authoring",
+  "target": "joe-editor/joe; native build installed beneath the owned active/joe prefix",
+  "hosts": {
+    "linux": {
+      "runner_archive_sha256": "28ae9f37227bb0f6ba2df031420aa3d027b998e31eab523c4d13cd2816c4af7a",
+      "runner_binary_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a"
+    },
+    "darwin": {
+      "runner_archive_sha256": "132152710ade2c01cac7558f75212121f01af8ab02c5735dc9c7de1c33dbe625",
+      "runner_binary_sha256": "609b184dac8664050643ec35036c4cffef2137ec778ae4d4678727b119e2fe0f"
+    }
+  },
+  "initial_fixture": {
+    "path": "fixtures/public-note.txt",
+    "bytes_base64": "Sk9FX1BVQkxJQ19ST1VURV9TVEFSVAo=",
+    "independent_expected_result": "JOE_PUBLIC_ROUTE_START\\nJOE_PUBLIC_ROUTE_RC6"
+  },
+  "first_use": {
+    "target_command": ["joe", "-nobackups", "public-note.txt"],
+    "controls": [
+      "/expect JOE_PUBLIC_ROUTE_START", "/key End", "/key Enter", "/text JOE_PUBLIC_ROUTE_RC6",
+      "/expect JOE_PUBLIC_ROUTE_RC6", "/snapshot edited-note.txt", "/key CtrlK", "/key x",
+      "/expect Save", "/text y", "/exit 0", "/file public-note.txt", "/review", "/replay", "/save"
+    ],
+    "max_controls": 20,
+    "max_shell_invocations_to_first_reviewed_ordinary_pass": 5,
+    "no_handwritten_spec": true
+  },
+  "expected": "recorded screen and exact saved bytes; fresh replay and ordinary candidate test pass; later seeded screen diagnosis, selected file-state maintenance, Unicode relocation and delivered-workflow preview",
+  "limits": {"command_seconds": 240, "first_use_run_ms": 60000, "ordinary_run_ms": 60000, "output_bytes": 4194304},
+  "isolation": "Fresh recorder/test managed home, temp and fixture workspace; no real user files, shells, external services or credentials; installed JOE executes with runner permissions and is not sandboxed.",
+  "project_admission_credit": 0
+}
