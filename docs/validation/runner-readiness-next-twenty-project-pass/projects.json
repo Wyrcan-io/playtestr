@@ -568,7 +568,7 @@
       "id": "mg",
       "repository": "troglobit/mg",
       "pin": "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66",
-      "status": "20 canonical scenarios and four source faults remain independently qualified on rc.6; hosted public route and six-case saved-state oracle calibration passed and were independently audited in run 42991234833; campaign admission remains open.",
+      "status": "20 canonical scenarios and four source faults remain independently qualified on rc.6; hosted first-use, six-case state-oracle calibration and separate technical authoring route passed and were independently audited in run 42995560305; tampered-model controls and campaign closure remain open.",
       "acquired": true,
       "admitted": false,
       "planned_hosts": [
@@ -588,7 +588,7 @@
       "real_source_faults": 4,
       "latest_native_matrix_run": "42980303472",
       "latest_native_matrix_audit": "mg/final-qualification-artifact-audit-run-42980303472-v1.json",
-      "storage_checkpoint": "storage-checkpoint-v46.json",
+      "storage_checkpoint": "storage-checkpoint-v47.json",
       "storage_compaction_audit": "index-compaction-v2.json",
       "public_authoring_route": "Hosted route audit run 42980303472 passed on exact rc.6: record/review/replay/save and ordinary test, seeded diagnosis, selected saved-state maintenance, Unicode relocation, and free-workflow preview. First usability window failed before target launch; repaired window took three commands and 15 controls. Runs 42840242945 and 42883681805 preserve execute-bit and save-anchor failures. Agent operation only; no beginner claim.",
       "public_authoring_route_harness": "scripts/acceptance/next20_mg_public_route.py",
@@ -596,7 +596,8 @@
       "public_authoring_route_audits": [
         "mg/public-route-audit-run-42980303472-v1.json",
         "mg/public-route-audit-run-42980338276-v1.json",
-        "mg/public-route-audit-run-42991234833-v1.json"
+        "mg/public-route-audit-run-42991234833-v1.json",
+        "mg/public-route-audit-run-42995560305-v1.json"
       ],
       "candidate_admissions": [],
       "current_candidate_qualified": false,
@@ -711,6 +712,19 @@
         "rejected_state_mutations": 4,
         "provider_artifact_id": "13841697956",
         "provider_sha256": "f9a4f81febd22a730b2ba9349f55f156ffc2ec396b34daeb1159e58760eed820",
+        "admission_credit": 0
+      },
+      "technical_authoring_route": {
+        "status": "passed-and-independently-audited-not-admitted",
+        "run": "42995560305",
+        "audit": "mg/public-route-audit-run-42995560305-v1.json",
+        "operations": 7,
+        "suite_selection": true,
+        "manual_explicit_environment_and_spec_edit": true,
+        "suffix_rerecord": true,
+        "machine_report": "v3",
+        "html_report": "offline self-contained",
+        "manual_migration": "spec v2 to v3",
         "admission_credit": 0
       }
     }
