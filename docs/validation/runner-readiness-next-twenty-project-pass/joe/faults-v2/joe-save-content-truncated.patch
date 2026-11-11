@@ -1,0 +1,11 @@
+--- a/joe/ufile.c
++++ b/joe/ufile.c
+@@ -337,7 +337,7 @@
+ 
+ 		execmd(trimlines, NO_MORE_DATA);
+ 	}
+-	if ((fl = bsave(bw->b->bof, req->name, bw->b->eof->byte, req->rename ? 2 : 1)) != 0) {
++	if ((fl = bsave(bw->b->bof, req->name, bw->b->eof->byte - 2, req->rename ? 2 : 1)) != 0) {
+ 		msgnw(bw->parent, joe_gettext(msgs[-fl]));
+ 		if (req->callback) {
+ 			return req->callback(bw, req, -1, notify);

@@ -23,7 +23,7 @@ from readiness_evidence import immutable_json, sha256
 MAX_CALIBRATION_SECONDS = 60 * 60
 MAX_SOURCE_FILES = 10000
 MAX_SOURCE_BYTES = 64 * 1024**2
-FAULT_DECLARATION = DOC / "joe" / "fault-declaration-v1.json"
+FAULT_DECLARATION = DOC / "joe" / "fault-declaration-v2.json"
 
 
 def require(value, message):
@@ -44,6 +44,17 @@ def load_faults():
         path = (DOC / "joe" / fault["patch"]).resolve(strict=True)
         require(path.is_relative_to((DOC / "joe").resolve(strict=True)) and
                 sha256(path) == fault.get("patch_sha256"), "JOE fault patch hash/path differs")
+        manifest_path = (DOC / "joe" / fault["manifest"]).resolve(strict=True)
+        require(manifest_path.is_relative_to((DOC / "joe").resolve(strict=True)) and
+                manifest_path.is_file() and not manifest_path.is_symlink(),
+                "JOE fault manifest path is not an owned regular file")
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        require(all(manifest.get(name) == fault.get(name) for name in (
+                    "id", "project", "pin", "source_archive_sha256", "source_file",
+                    "baseline_source_sha256", "mutated_source_sha256", "patch", "patch_sha256",
+                    "scenario_id", "expected_failure_step", "expected_failure_categories",
+                    "requires_state_failure", "mutation_old_base64", "mutation_new_base64")),
+                "JOE fault build manifest differs from its frozen declaration")
         source_path = (DOC / "joe" / "scenarios-v3" / fault["scenario_id"] / "scenario.json")
         spec = json.loads(source_path.read_text(encoding="utf-8"))
         require(1 <= fault.get("expected_failure_step", 0) <= len(spec.get("steps", [])) and
@@ -145,7 +156,7 @@ def phase(host, fault, phase_name, evidence, commands, deadline):
         build_argv = [sys.executable, "-B", "scripts/acceptance/next20_joe_build.py",
                       "--expected-host", host]
         if phase_name == "fault":
-            build_argv += ["--source-fault-manifest", (DOC / "joe" / "faults" / f"{fault['id']}.json").relative_to(ROOT).as_posix()]
+            build_argv += ["--source-fault-manifest", (DOC / "joe" / fault["manifest"]).relative_to(ROOT).as_posix()]
         bounded_command(build_argv, phase_name + " native build", build_log, commands, deadline)
         build = json.loads((target / "build.json").read_text(encoding="utf-8"))
         build_source_map = source_map(target / "src")
@@ -218,7 +229,7 @@ def main():
                "scenario_id": fault["scenario_id"],
                "scenario_contract_sha256": sha256(DOC / "joe" / "scenarios-v3" / fault["scenario_id"] / "scenario.json"),
                "target_source_archive_sha256": fault["source_archive_sha256"],
-               "mutation_manifest_sha256": sha256(DOC / "joe" / "faults" / f"{fault['id']}.json"),
+               "mutation_manifest_sha256": sha256(DOC / "joe" / fault["manifest"]),
                "expected_phases": ["baseline", "fault", "recovery"],
                "expected_phase_count": 3,
                "run_id": run_id, "started_at_utc": datetime.now(timezone.utc).isoformat(),

@@ -506,6 +506,20 @@ func RunDetailedContext(parent context.Context, path string, options RunOptions,
 		command = workspace.command
 		environment = targetEnvironmentWithManaged(spec, workspace.managedEnv)
 	}
+	resolvedCommand, resolveErr := resolveWorkspaceCommand(path, command, environment, dir)
+	if resolveErr != nil {
+		if workspace != nil {
+			result.Workspace.SetupFailure = workspaceFailure(FailureWorkspaceSetup, resolveErr)
+			if cleanupErr := finishWorkspace(workspace, result.Workspace, true, true, options.KeepWorkspaceOnFailure, out); cleanupErr != nil {
+				resolveErr = errors.Join(resolveErr, withCategory(FailureWorkspaceCleanup, fmt.Errorf("workspace cleanup failed: %w", cleanupErr)))
+			}
+			setFailure(FailureWorkspaceSetup, fmt.Errorf("workspace setup failed: resolve target command: %w", resolveErr))
+		} else {
+			setFailure(FailureLaunch, fmt.Errorf("resolve target command: %w", resolveErr))
+		}
+		return result
+	}
+	command = resolvedCommand
 	session, err := startTerminalSession(sessionConfig{
 		command: command, dir: dir, env: environment, width: spec.Width,
 		height: spec.Height, maxOutputBytes: spec.MaxOutputBytes,

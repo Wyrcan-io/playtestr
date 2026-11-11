@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "ledger_scope": "runner-readiness next-twenty campaign production and qualification source changes",
+  "entries": [
+    {
+      "id": "target-path-command-resolution-v1",
+      "status": "implemented; full Go tests, vet and native Windows race suite pass; hosted Linux/macOS/Windows private-candidate qualification pending",
+      "user_visible_behavior": "Resolve a bare target command using the effective target PATH and target working directory, including PATH declared by the test spec.",
+      "source_files": [
+        "internal/runner/workspace.go",
+        "internal/runner/runner.go"
+      ],
+      "regression_tests": [
+        "internal/runner/workspace_test.go::TestWorkspaceCommandResolutionUsesTargetEnvironmentPath",
+        "internal/runner/runner_test.go::TestLaunchFailure"
+      ],
+      "evidence": {
+        "focused_tests": "passed",
+        "full_go_test": "passed (native Windows)",
+        "go_vet": "passed",
+        "race": "passed (native Windows, scripts/test-race.ps1)"
+      },
+      "formats_and_migrations": "No public spec/report/schema change; existing spec versions retain their format.",
+      "candidate_impact": "Production source differs from the frozen native-exit-v1/rc.6 binaries. Build and freeze a new private native candidate before assigning qualification/admission credit to the changed source.",
+      "requalification": [
+        "native Linux/macOS/Windows source, race and package gates",
+        "affected new-project exact-candidate scenarios/faults",
+        "original ten current-candidate gates",
+        "affected delivered-CI and public archive controls",
+        "fresh checkout and final audit"
+      ],
+      "admission_credit": 0
+    },
+    {
+      "id": "joe-fault-receipt-expected-nonzero-v1",
+      "status": "implemented; 3 focused Python tests pass; hosted native fault rerun pending",
+      "user_visible_behavior": "Preserve process-tree cleanup evidence when an expected target-fault rejection is returned as a nonzero runner exit.",
+      "source_files": [
+        "scripts/acceptance/next20_joe_scenarios.py",
+        "scripts/acceptance/next20_joe_fault_calibration.py"
+      ],
+      "regression_tests": [
+        "scripts/acceptance/test_next20_joe_scenarios.py",
+        "scripts/acceptance/test_next20_joe_fault_calibration.py"
+      ],
+      "prior_attempt": "joe/fault-calibration-attempt-v1.json",
+      "new_fault_declaration": "docs/validation/runner-readiness-next-twenty-project-pass/joe/fault-declaration-v2.json",
+      "admission_credit": 0
+    }
+  ]
+}

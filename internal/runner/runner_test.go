@@ -804,7 +804,7 @@ func TestLaunchFailure(t *testing.T) {
 		t.Fatal(err)
 	}
 	err = Run(path, false, &bytes.Buffer{})
-	if err == nil || !strings.Contains(err.Error(), "start target") {
+	if err == nil || !strings.Contains(err.Error(), "resolve target command") {
 		t.Fatalf("got %v", err)
 	}
 }

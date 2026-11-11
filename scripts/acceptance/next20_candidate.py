@@ -5,20 +5,25 @@ import platform
 from next20_check import RAW,ROOT,DOC
 from readiness_evidence import sha256
 
-SERIES=('rc5','native-exit-v1')
+SERIES=('rc5','native-exit-v1','native-exit-v2')
 
 
 def contract(series,host=None):
     if series not in SERIES:raise ValueError('undeclared candidate series')
     host=host or {'Windows':'windows','Linux':'linux','Darwin':'darwin'}[platform.system()]
-    freeze_path=(ROOT/'docs/validation/runner-readiness-ten-project-pass/migration-candidate-freeze.json'
-        if series=='rc5' else DOC/'replacement-candidate-freeze-native-exit-v1.json')
+    freezes={
+        'rc5': ROOT/'docs/validation/runner-readiness-ten-project-pass/migration-candidate-freeze.json',
+        'native-exit-v1': DOC/'replacement-candidate-freeze-native-exit-v1.json',
+        'native-exit-v2': DOC/'replacement-candidate-freeze-native-exit-v2.json',
+    }
+    freeze_path=freezes[series]
     freeze=json.loads(freeze_path.read_text())
     rows=[r for r in freeze['cells'] if r['host']==host]
     if len(rows)!=1:raise ValueError('missing/duplicate exact native candidate cell')
     row=rows[0]
     if host not in {'windows','linux','darwin'}:raise ValueError('undeclared native host')
-    output=RAW/('candidate' if series=='rc5' else 'candidate-native-exit-v1')/host
+    output=RAW/({'rc5':'candidate','native-exit-v1':'candidate-native-exit-v1',
+                 'native-exit-v2':'candidate-native-exit-v2'}[series])/host
     return freeze,row,output
 
 

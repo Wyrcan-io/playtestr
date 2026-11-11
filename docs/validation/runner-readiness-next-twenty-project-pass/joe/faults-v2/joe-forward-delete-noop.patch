@@ -1,0 +1,11 @@
+--- a/joe/uedit.c
++++ b/joe/uedit.c
+@@ -1559,7 +1559,7 @@
+ 	if (piseof(bw->cursor))
+ 		return -1;
+ 	pgetc(p = pdup(bw->cursor, "udelch"));
+-	bdel(bw->cursor, p);
++	/* Fault: omit deletion of the selected character. */
+ 	prm(p);
+ 	return 0;
+ }

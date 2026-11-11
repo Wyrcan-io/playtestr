@@ -14,8 +14,8 @@ from adversarial_process import execute
 from next20_check import RAW,ROOT,NextCampaign,owned_environment
 from readiness_evidence import immutable_json,sha256
 
-VERSION='v0.4.0-rc.6'
-SERIES='native-exit-v1'
+VERSION='v0.4.0-rc.7'
+SERIES='native-exit-v2'
 FOCUSED='^(TestExitStatusBoundsBySpecVersion|TestNativeWindowsWideExitStatusAndSameRunState|TestHTMLPreservesNativeWindowsExitStatus|TestRecorderExportsAndReplaysNativeWindowsExit|TestNativeExitSchemaRangesPreserveOlderSpecBounds|TestNativeSignalExitStatusAndSameRunState)$'
 
 
@@ -107,7 +107,7 @@ async def main():
             qualification_revision=os.environ.get('GITHUB_SHA'),host=host,architecture=arch,
             source_inputs=inputs,sdk_sha256=sha256(RAW/'toolchain/sdk.json'),compiler_sha256=sha256(tool),
             attempts=attempts,ordinary_project_credit=0,
-            applicability='Windows-wide-exit and Windows recorder families execute only on Windows; Unix signal family executes only on Unix. All common bounds/HTML/schema checks and full native Go/vet/race run on each host. This is not the external-project or whole-acceptance campaign.'))
+            applicability='The target-PATH regression and full Go/vet/race suites run on all three native hosts; Windows-wide exit and recorder families execute only on Windows, and Unix signal behavior only on Unix. This is not the external-project or whole-acceptance campaign.'))
         print('Actual native source core completed:',host,arch,args.source);return
     core=root/'native-core.json';qualified=json.loads(core.read_text())
     if qualified['source_revision']!=args.source or qualified['source_inputs']!=inputs:
@@ -157,7 +157,7 @@ async def main():
         archive=archive.relative_to(ROOT).as_posix(),archive_sha256=sha256(archive),archive_bytes=archive.stat().st_size,
         binary_sha256=sha256(binary),archive_members=members,build_attempt=build['id'],attempts=attempts,
         project_qualification=False,publication=False,
-        scope='Distinct unpublished native-status repair archive. Freeze only after all three native packets are independently audited; no rc.5 execution transfer and no final-campaign qualification claim.'))
+        scope='Distinct unpublished native command-resolution candidate. Freeze only after Linux, macOS and Windows packets are independently audited; prior candidate execution does not transfer and no final-campaign qualification claim is implied.'))
     print('Built/inspected one distinct private native archive:',archive.name,sha256(archive))
 
 

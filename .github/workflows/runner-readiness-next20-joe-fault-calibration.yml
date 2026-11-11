@@ -9,11 +9,16 @@ on:
       - scripts/acceptance/next20_joe_fault_calibration.py
       - scripts/acceptance/next20_joe_build.py
       - scripts/acceptance/next20_joe_scenarios.py
+      - scripts/acceptance/test_next20_joe_scenarios.py
+      - scripts/acceptance/test_next20_joe_fault_calibration.py
       - scripts/acceptance/next20_target_cleanup.py
       - scripts/acceptance/test_next20_target_cleanup.py
       - scripts/acceptance/test_next20_joe_final_qualification_audit.py
       - docs/validation/runner-readiness-next-twenty-project-pass/joe/fault-declaration-v1.json
       - docs/validation/runner-readiness-next-twenty-project-pass/joe/faults/**
+      - docs/validation/runner-readiness-next-twenty-project-pass/joe/fault-declaration-v2.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/joe/fault-declaration-source-readback-v2.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/joe/faults-v2/**
       - docs/validation/runner-readiness-next-twenty-project-pass/joe/scenario-declaration-v3.json
       - docs/validation/runner-readiness-next-twenty-project-pass/joe/scenarios-v3/**
 
@@ -35,13 +40,13 @@ jobs:
         include:
           - host: linux
             os: ubuntu-24.04
-            fault: joe-save-final-byte
+            fault: joe-save-content-truncated
             candidate_run_id: 40424475362
             candidate_artifact: next20-private-replacement-Linux
             candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v1/linux-amd64/dist/playtestr_0.4.0-rc.6_linux_amd64.tar.gz
           - host: darwin
             os: macos-15
-            fault: joe-save-final-byte
+            fault: joe-save-content-truncated
             candidate_run_id: 40420820491
             candidate_artifact: next20-private-replacement-macOS
             candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v1/darwin-arm64/dist/playtestr_0.4.0-rc.6_darwin_arm64.tar.gz
@@ -59,13 +64,13 @@ jobs:
             candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v1/darwin-arm64/dist/playtestr_0.4.0-rc.6_darwin_arm64.tar.gz
           - host: linux
             os: ubuntu-24.04
-            fault: joe-clean-exit-suppressed
+            fault: joe-save-exit-disabled
             candidate_run_id: 40424475362
             candidate_artifact: next20-private-replacement-Linux
             candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v1/linux-amd64/dist/playtestr_0.4.0-rc.6_linux_amd64.tar.gz
           - host: darwin
             os: macos-15
-            fault: joe-clean-exit-suppressed
+            fault: joe-save-exit-disabled
             candidate_run_id: 40420820491
             candidate_artifact: next20-private-replacement-macOS
             candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v1/darwin-arm64/dist/playtestr_0.4.0-rc.6_darwin_arm64.tar.gz
@@ -90,7 +95,7 @@ jobs:
         run: mkdir -p artifacts/runner-readiness-next-twenty-project-pass/tmp
 
       - name: Test JOE source-fault identity and owned cleanup checks
-        run: python -B -m unittest test_next20_target_cleanup test_next20_joe_final_qualification_audit -v
+        run: python -B -m unittest test_next20_target_cleanup test_next20_joe_final_qualification_audit test_next20_joe_scenarios test_next20_joe_fault_calibration -v
         working-directory: scripts/acceptance
 
       - name: Verify the frozen JOE source-fault declaration

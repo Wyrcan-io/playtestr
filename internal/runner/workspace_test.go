@@ -320,22 +320,42 @@ func TestWorkspaceCancellationCleansAfterTarget(t *testing.T) {
 	}
 }
 
-func TestWorkspaceCommandResolutionPrecedesFixtureCWD(t *testing.T) {
+func TestWorkspaceCommandResolutionUsesTargetEnvironmentPath(t *testing.T) {
 	root := t.TempDir()
 	programName := "chosen"
+	fileName := programName
 	if runtime.GOOS == "windows" {
-		programName += ".exe"
+		fileName += ".exe"
 	}
-	program := filepath.Join(root, programName)
-	if err := os.WriteFile(program, []byte("program"), 0755); err != nil {
+	runnerPath := filepath.Join(root, "runner-bin")
+	targetPath := filepath.Join(root, "target-bin")
+	if err := os.MkdirAll(runnerPath, 0755); err != nil {
 		t.Fatal(err)
 	}
-	t.Setenv("PATH", root+string(os.PathListSeparator)+os.Getenv("PATH"))
-	resolved, err := resolveWorkspaceCommand(filepath.Join(root, "spec.json"), []string{programName})
+	if err := os.MkdirAll(targetPath, 0755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(runnerPath, fileName), []byte("runner executable"), 0755); err != nil {
+		t.Fatal(err)
+	}
+	program := filepath.Join(targetPath, fileName)
+	if err := os.WriteFile(program, []byte("target executable"), 0755); err != nil {
+		t.Fatal(err)
+	}
+	t.Setenv("PATH", runnerPath)
+	environment := []string{"PATH=" + targetPath}
+	if runtime.GOOS == "windows" {
+		environment = append(environment, "PATHEXT=.EXE;.CMD;.BAT;.COM")
+	}
+	resolved, err := resolveWorkspaceCommand(filepath.Join(root, "spec.json"), []string{programName}, environment, root)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if filepath.Clean(resolved[0]) != filepath.Clean(program) {
+	got, want := filepath.Clean(resolved[0]), filepath.Clean(program)
+	if runtime.GOOS == "windows" {
+		got, want = strings.ToLower(got), strings.ToLower(want)
+	}
+	if got != want {
 		t.Fatalf("resolved command = %q, want %q", resolved[0], program)
 	}
 }

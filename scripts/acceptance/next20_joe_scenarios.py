@@ -266,6 +266,12 @@ def verify_declarations(attempt_path=PRELAUNCH, phase="scenario-development"):
         raise ValueError("final JOE scenario attempt does not predeclare exactly 480 ordinary executions")
 
 
+def process_tree_cleanup(result, commands):
+    if result is not None:
+        return result.get("process_tree_cleanup")
+    return commands[-1].get("process_tree_cleanup") if commands else None
+
+
 def run_one(case, host, phase, repetition=0, *, target_fault=None):
     build_root = RAW / "active/joe"
     build_path = build_root / "build.json"
@@ -395,8 +401,7 @@ def run_one(case, host, phase, repetition=0, *, target_fault=None):
               "runner_command": commands[-1] if commands else None,
               "report_sha256": sha256(report) if report.is_file() else None,
               "runner_log_sha256": sha256(log) if log.is_file() else None,
-              "process_tree_cleanup": (result.get("process_tree_cleanup") if result else
-                                       (commands[-1].get("process_tree_cleanup") if commands else None)),
+              "process_tree_cleanup": process_tree_cleanup(result, commands),
               "failure": failure}
     finish["expected_target_fault_rejection"] = expected_fault_rejection
     immutable_json(attempt_dir / "finished.json", finish)
@@ -413,7 +418,7 @@ def run_one(case, host, phase, repetition=0, *, target_fault=None):
                     "target_binary_sha256": build["binary_sha256"],
                     "target_cleanup": report_data["results"][0]["cleanup"],
                     "workspace_cleanup": report_data["results"][0]["workspace"],
-                    "runner_process_group_cleanup": result["process_tree_cleanup"]})
+                    "runner_process_group_cleanup": process_tree_cleanup(result, commands)})
     print(case["id"], phase, host, "r", repetition,
           "target fault detected" if expected_fault_rejection else "passed", attempt_id, flush=True)
     return {"attempt_id": attempt_id, "attempt_path": attempt_dir.relative_to(ROOT).as_posix(),

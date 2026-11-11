@@ -9,7 +9,6 @@ import (
 	"io"
 	"io/fs"
 	"os"
-	"os/exec"
 	"path/filepath"
 	"runtime"
 	"strings"
@@ -115,10 +114,7 @@ func prepareWorkspace(ctx context.Context, specPath string, spec Spec) (*prepare
 	if spec.Workspace == nil {
 		return nil, nil
 	}
-	command, err := resolveWorkspaceCommand(specPath, spec.Command)
-	if err != nil {
-		return nil, err
-	}
+	var err error
 	specDirectory, err := filepath.Abs(filepath.Dir(specPath))
 	if err != nil {
 		return nil, fmt.Errorf("resolve spec directory: %w", err)
@@ -145,7 +141,7 @@ func prepareWorkspace(ctx context.Context, specPath string, spec Spec) (*prepare
 		_ = os.Remove(root)
 		return nil, fmt.Errorf("create workspace ownership token: %w", err)
 	}
-	workspace := &preparedWorkspace{root: root, token: hex.EncodeToString(tokenBytes), command: command, managedEnv: make(map[string]string)}
+	workspace := &preparedWorkspace{root: root, token: hex.EncodeToString(tokenBytes), command: append([]string(nil), spec.Command...), managedEnv: make(map[string]string)}
 	if err := os.WriteFile(filepath.Join(root, workspaceMarker), []byte(workspace.token), 0600); err != nil {
 		_ = os.Remove(filepath.Join(root, workspaceMarker))
 		_ = os.Remove(root)
@@ -187,7 +183,7 @@ func prepareWorkspace(ctx context.Context, specPath string, spec Spec) (*prepare
 	return workspace, nil
 }
 
-func resolveWorkspaceCommand(specPath string, command []string) ([]string, error) {
+func resolveWorkspaceCommand(specPath string, command []string, environment []string, workingDir string) ([]string, error) {
 	resolved := append([]string(nil), command...)
 	program := command[0]
 	if filepath.IsAbs(program) {
@@ -199,15 +195,15 @@ func resolveWorkspaceCommand(specPath string, command []string) ([]string, error
 		}
 		resolved[0] = absolute
 	} else {
-		absolute, err := exec.LookPath(program)
+		absolute, err := lookPathInEnvironment(program, environment, workingDir)
 		if err != nil {
-			return nil, fmt.Errorf("resolve workspace command %q before changing cwd: %w", program, err)
+			return nil, fmt.Errorf("resolve command %q from the target environment: %w", program, err)
 		}
 		resolved[0] = absolute
 	}
 	info, err := os.Stat(resolved[0])
 	if err != nil && runtime.GOOS == "windows" && filepath.Ext(resolved[0]) == "" {
-		if withExtension, lookupErr := exec.LookPath(resolved[0]); lookupErr == nil {
+		if withExtension, lookupErr := lookPathInEnvironment(resolved[0], environment, workingDir); lookupErr == nil {
 			resolved[0] = withExtension
 			info, err = os.Stat(resolved[0])
 		}
@@ -219,6 +215,60 @@ func resolveWorkspaceCommand(specPath string, command []string) ([]string, error
 		return nil, fmt.Errorf("workspace command is not a regular file: %s", resolved[0])
 	}
 	return resolved, nil
+}
+
+func lookPathInEnvironment(program string, environment []string, workingDir string) (string, error) {
+	pathValue := ""
+	pathExt := ".COM;.EXE;.BAT;.CMD"
+	for _, item := range environment {
+		name, value, ok := strings.Cut(item, "=")
+		if !ok {
+			continue
+		}
+		if environmentKey(name) == environmentKey("PATH") {
+			pathValue = value
+		}
+		if runtime.GOOS == "windows" && environmentKey(name) == environmentKey("PATHEXT") && value != "" {
+			pathExt = value
+		}
+	}
+	extensions := []string{""}
+	if runtime.GOOS == "windows" && filepath.Ext(program) == "" {
+		extensions = nil
+		for _, extension := range strings.Split(pathExt, ";") {
+			if extension = strings.TrimSpace(extension); extension != "" {
+				if !strings.HasPrefix(extension, ".") {
+					extension = "." + extension
+				}
+				extensions = append(extensions, extension)
+			}
+		}
+	}
+	for _, directory := range filepath.SplitList(pathValue) {
+		if directory == "" {
+			directory = workingDir
+		} else if !filepath.IsAbs(directory) {
+			directory = filepath.Join(workingDir, directory)
+		}
+		for _, extension := range extensions {
+			candidate := program + extension
+			if !filepath.IsAbs(candidate) {
+				candidate = filepath.Join(directory, candidate)
+			}
+			info, err := os.Stat(candidate)
+			if err != nil || !info.Mode().IsRegular() {
+				continue
+			}
+			if runtime.GOOS != "windows" && info.Mode().Perm()&0111 == 0 {
+				continue
+			}
+			absolute, err := filepath.Abs(candidate)
+			if err == nil {
+				return filepath.Clean(absolute), nil
+			}
+		}
+	}
+	return "", fmt.Errorf("executable %q was not found in the target PATH", program)
 }
 
 func rejectWorkspaceRootLink(source string) error {

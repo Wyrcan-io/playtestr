@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": "joe-save-exit-disabled",
+  "project": "joe",
+  "pin": "3874898078005d1f5e519235401fab4fd428dd9b",
+  "source_archive_sha256": "5e00e2621225a304061c70903ef6490a700a4bbf1fa600c096b5bbb6746f2312",
+  "title": "JOE ignores save-and-exit for a modified named file",
+  "source_file": "joe/ufile.c",
+  "baseline_source_sha256": "f07a1192460b94d3306a70df0cc3d783b9f30a89b3102277631dfeb9df496972",
+  "mutated_source_sha256": "fd29235140cd4548e7d8e782840d41da9dc2a6b04c30d7702e9c32158f25fc56",
+  "patch": "faults-v2/joe-save-exit-disabled.patch",
+  "patch_sha256": "06cd5b6c859f7ed5f150254fe2c7fd58d8058eee256c539938749dc2c65be0ee",
+  "scenario_id": "N01",
+  "expected_failure_step": 7,
+  "expected_failure_categories": [
+    "assertion_timeout"
+  ],
+  "requires_state_failure": false,
+  "risk_dimension": "save-and-exit transition for a modified named buffer",
+  "restoration": "discard the faulted owned source tree, reacquire the exact source archive pin, verify the full pristine source map, rebuild normally, then rerun the unchanged scenario",
+  "project_admission_credit": 0,
+  "mutation_old_base64": "cmV0dXJuIGRvc2F2ZTEoYnctPnBhcmVudCwgdnNuY3B5KE5VTEwsIDAsIHN6KGJ3LT5iLT5uYW1lKSksIG1rc2F2ZXJlcShleGRvbmUsTlVMTCxOVUxMLDAsMCksIE5VTEwpOw==",
+  "mutation_new_base64": "cmV0dXJuIDA7IC8qIEZhdWx0OiBza2lwIHNhdmUtYW5kLWV4aXQgZm9yIGEgbW9kaWZpZWQgbmFtZWQgYnVmZmVyLiAqLw=="
+}

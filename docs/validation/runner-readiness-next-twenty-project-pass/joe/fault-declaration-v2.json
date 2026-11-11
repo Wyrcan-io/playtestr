@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "project": "joe",
+  "repository": "joe-editor/joe",
+  "pin": "3874898078005d1f5e519235401fab4fd428dd9b",
+  "candidate": "v0.4.0-rc.6",
+  "scenario_declaration": "joe/scenario-declaration-v3.json",
+  "scenario_declaration_sha256": "c23a5ab92038d5652e0e283f4a5f3b681ecdc3177d0f39253782f07acc2a5185",
+  "source_archive_sha256": "5e00e2621225a304061c70903ef6490a700a4bbf1fa600c096b5bbb6746f2312",
+  "status": "faults-frozen-after-v1-calibration-attempts",
+  "minimum_distinct_faults": 3,
+  "faults": [
+    {
+      "schema_version": 1,
+      "id": "joe-forward-delete-noop",
+      "project": "joe",
+      "pin": "3874898078005d1f5e519235401fab4fd428dd9b",
+      "source_archive_sha256": "5e00e2621225a304061c70903ef6490a700a4bbf1fa600c096b5bbb6746f2312",
+      "title": "JOE reports forward-delete input but leaves the selected byte in place",
+      "source_file": "joe/uedit.c",
+      "baseline_source_sha256": "62f0c689aadda0d11720cb4c5913b0d89ca3cfdaad4397ff878c5719909852a8",
+      "mutated_source_sha256": "c36f3ed296af2d30acc53bf223996472cce0d60f0dcbeb7869e11f05899b1ffc",
+      "patch": "faults-v2/joe-forward-delete-noop.patch",
+      "patch_sha256": "ceb1cbdaa175a69ee72957595379f0be4e60189bc0d4377e2073cd0d23bd01e8",
+      "scenario_id": "N05",
+      "expected_failure_step": 5,
+      "expected_failure_categories": [
+        "assertion_timeout"
+      ],
+      "requires_state_failure": false,
+      "risk_dimension": "forward-delete state transition",
+      "restoration": "discard the faulted owned source tree, reacquire the exact source archive pin, verify the full pristine source map, rebuild normally, then rerun the unchanged scenario",
+      "project_admission_credit": 0,
+      "mutation_old_base64": "aW50IHVkZWxjaChXICp3LCBpbnQgaykKewoJQlcgKmJ3OwoJUCAqcDsKCVdJTkRfQlcoYncsIHcpOwoKCWlmIChwaXNlb2YoYnctPmN1cnNvcikpCgkJcmV0dXJuIC0xOwoJcGdldGMocCA9IHBkdXAoYnctPmN1cnNvciwgInVkZWxjaCIpKTsKCWJkZWwoYnctPmN1cnNvciwgcCk7Cglwcm0ocCk7CglyZXR1cm4gMDsKfQ==",
+      "mutation_new_base64": "aW50IHVkZWxjaChXICp3LCBpbnQgaykKewoJQlcgKmJ3OwoJUCAqcDsKCVdJTkRfQlcoYncsIHcpOwoKCWlmIChwaXNlb2YoYnctPmN1cnNvcikpCgkJcmV0dXJuIC0xOwoJcGdldGMocCA9IHBkdXAoYnctPmN1cnNvciwgInVkZWxjaCIpKTsKCS8qIEZhdWx0OiBvbWl0IGRlbGV0aW9uIG9mIHRoZSBzZWxlY3RlZCBjaGFyYWN0ZXIuICovCglwcm0ocCk7CglyZXR1cm4gMDsKfQ==",
+      "manifest": "faults-v2/joe-forward-delete-noop.json",
+      "scenario_declaration_sha256": "c23a5ab92038d5652e0e283f4a5f3b681ecdc3177d0f39253782f07acc2a5185"
+    },
+    {
+      "schema_version": 1,
+      "id": "joe-save-content-truncated",
+      "project": "joe",
+      "pin": "3874898078005d1f5e519235401fab4fd428dd9b",
+      "source_archive_sha256": "5e00e2621225a304061c70903ef6490a700a4bbf1fa600c096b5bbb6746f2312",
+      "title": "JOE reports a successful save and exit after omitting a saved content byte",
+      "source_file": "joe/ufile.c",
+      "baseline_source_sha256": "f07a1192460b94d3306a70df0cc3d783b9f30a89b3102277631dfeb9df496972",
+      "mutated_source_sha256": "c1086097c3649c729d338dbaa00d2339651cac3f5c71360a8e2dda16f0276486",
+      "patch": "faults-v2/joe-save-content-truncated.patch",
+      "patch_sha256": "f9df97ce041a81273d3bcbe80ac729bafe09742b9f1087e8258541c76b9a44d2",
+      "manifest": "faults-v2/joe-save-content-truncated.json",
+      "scenario_id": "N01",
+      "expected_failure_step": 8,
+      "expected_failure_categories": [
+        "state_assertion_failure"
+      ],
+      "requires_state_failure": true,
+      "risk_dimension": "success-looking named save omits content before the newline repair",
+      "restoration": "discard the faulted owned source tree, reacquire the exact source archive pin, verify the full pristine source map, rebuild normally, then rerun the unchanged scenario",
+      "project_admission_credit": 0,
+      "mutation_old_base64": "YnNhdmUoYnctPmItPmJvZiwgcmVxLT5uYW1lLCBidy0+Yi0+ZW9mLT5ieXRlLCByZXEtPnJlbmFtZSA/IDIgOiAxKQ==",
+      "mutation_new_base64": "YnNhdmUoYnctPmItPmJvZiwgcmVxLT5uYW1lLCBidy0+Yi0+ZW9mLT5ieXRlIC0gMiwgcmVxLT5yZW5hbWUgPyAyIDogMSk=",
+      "scenario_declaration_sha256": "c23a5ab92038d5652e0e283f4a5f3b681ecdc3177d0f39253782f07acc2a5185"
+    },
+    {
+      "schema_version": 1,
+      "id": "joe-save-exit-disabled",
+      "project": "joe",
+      "pin": "3874898078005d1f5e519235401fab4fd428dd9b",
+      "source_archive_sha256": "5e00e2621225a304061c70903ef6490a700a4bbf1fa600c096b5bbb6746f2312",
+      "title": "JOE ignores save-and-exit for a modified named file",
+      "source_file": "joe/ufile.c",
+      "baseline_source_sha256": "f07a1192460b94d3306a70df0cc3d783b9f30a89b3102277631dfeb9df496972",
+      "mutated_source_sha256": "fd29235140cd4548e7d8e782840d41da9dc2a6b04c30d7702e9c32158f25fc56",
+      "patch": "faults-v2/joe-save-exit-disabled.patch",
+      "patch_sha256": "06cd5b6c859f7ed5f150254fe2c7fd58d8058eee256c539938749dc2c65be0ee",
+      "manifest": "faults-v2/joe-save-exit-disabled.json",
+      "scenario_id": "N01",
+      "expected_failure_step": 7,
+      "expected_failure_categories": [
+        "assertion_timeout"
+      ],
+      "requires_state_failure": false,
+      "risk_dimension": "save-and-exit transition for a modified named buffer",
+      "restoration": "discard the faulted owned source tree, reacquire the exact source archive pin, verify the full pristine source map, rebuild normally, then rerun the unchanged scenario",
+      "project_admission_credit": 0,
+      "mutation_old_base64": "cmV0dXJuIGRvc2F2ZTEoYnctPnBhcmVudCwgdnNuY3B5KE5VTEwsIDAsIHN6KGJ3LT5iLT5uYW1lKSksIG1rc2F2ZXJlcShleGRvbmUsTlVMTCxOVUxMLDAsMCksIE5VTEwpOw==",
+      "mutation_new_base64": "cmV0dXJuIDA7IC8qIEZhdWx0OiBza2lwIHNhdmUtYW5kLWV4aXQgZm9yIGEgbW9kaWZpZWQgbmFtZWQgYnVmZmVyLiAqLw==",
+      "scenario_declaration_sha256": "c23a5ab92038d5652e0e283f4a5f3b681ecdc3177d0f39253782f07acc2a5185"
+    }
+  ],
+  "protocol": {
+    "phases": [
+      "baseline",
+      "fault",
+      "recovery"
+    ],
+    "hosts": [
+      "linux-x86_64",
+      "darwin-arm64"
+    ],
+    "ordinary_runner_archive": "replacement-candidate-freeze-native-exit-v1.json",
+    "baseline_and_recovery": "exact unchanged scenario and pristine source rebuilt normally",
+    "fault": "one declared actual source mutation, normal native rebuild, unchanged public contract; expected category/step declared per fault",
+    "calibrations_expected": 18,
+    "project_admission_credit": 0,
+    "fault_manifest_root": "faults-v2/",
+    "prior_false_green_attempts": "fault-declaration-v1; preserved without alteration"
+  },
+  "prior_attempts": {
+    "declaration": "joe/fault-declaration-v1.json",
+    "workflow_run": "43042122414",
+    "outcome": "saved-byte and suppressed-clean-exit mutations passed their unchanged scenarios on both native hosts; forward-delete mutation was rejected at the declared N05 assertion_timeout on both hosts but the receipt helper raised after a nonzero runner exit; no v1 fault credit"
+  },
+  "exposure": "The v1 mutations were actually built and executed on both pinned native hosts. N01 exact saved bytes did not change under the low-level bsavefd branch mutation, and CtrlKX follows uexsve rather than ukilljoe. V2 retains the detected forward-delete source mutation and selects two newly reviewed code paths; all v2 mutations remain held out from the unchanged scenario contracts."
+}

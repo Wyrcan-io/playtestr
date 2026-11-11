@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "workflow_run_id": "43042122414",
+  "head_sha": "e20f67e3d09b4fafdf20d45b1ae06bc7a6d875af",
+  "declaration": "joe/fault-declaration-v1.json",
+  "expected_target_executions": 18,
+  "observed_target_executions": 18,
+  "native_hosts": [
+    "linux-amd64",
+    "darwin-arm64"
+  ],
+  "attempts": [
+    {
+      "fault": "joe-save-final-byte",
+      "host": "linux",
+      "job_id": "130596385557",
+      "artifact_id": "13865392766",
+      "artifact_bytes": 26269868,
+      "artifact_sha256": "378894e2ec178197e91ec1ec8fe0c4b165ddcd437baacb876ddb14c4549e634d",
+      "result": "false green: N01 passed under the declared source mutation; exact state was not rejected; baseline/recovery passed; cleanup/storage passed",
+      "credit": 0
+    },
+    {
+      "fault": "joe-save-final-byte",
+      "host": "darwin",
+      "job_id": "130596385460",
+      "artifact_id": "13865532019",
+      "artifact_bytes": 23820679,
+      "artifact_sha256": "59670607ebc818e0f8eaeabc8c446ca0cb5ed5307e84c46eb3febfc9aa1c2958",
+      "result": "false green: N01 passed under the declared source mutation; exact state was not rejected; baseline/recovery passed; cleanup/storage passed",
+      "credit": 0
+    },
+    {
+      "fault": "joe-forward-delete-noop",
+      "host": "linux",
+      "job_id": "130596385570",
+      "artifact_id": "13866271071",
+      "artifact_bytes": 26264028,
+      "artifact_sha256": "b1b9fcd26a46362b2c22b3fc2fb5ec6915ef2dbb2ca3df963656bc4f9c6a51c7",
+      "result": "target rejection observed at N05 step 5, assertion_timeout; scenario cleanup and recovery passed; helper raised TypeError because run_bounded returned no result object for expected nonzero exit; calibration incomplete",
+      "credit": 0
+    },
+    {
+      "fault": "joe-forward-delete-noop",
+      "host": "darwin",
+      "job_id": "130596385470",
+      "artifact_id": "13865058604",
+      "artifact_bytes": 23814895,
+      "artifact_sha256": "94b4ddf66c2f8d610187d5ff08ec1c2a6178c77d23d114a06994eb948ebeefd8",
+      "result": "target rejection observed at N05 step 5, assertion_timeout; scenario cleanup and recovery passed; helper raised TypeError because run_bounded returned no result object for expected nonzero exit; calibration incomplete",
+      "credit": 0
+    },
+    {
+      "fault": "joe-clean-exit-suppressed",
+      "host": "linux",
+      "job_id": "130596385560",
+      "artifact_id": "13866086379",
+      "artifact_bytes": 26259906,
+      "artifact_sha256": "61cf704fcdf3aa76557d702bddba76a7faae6d445ad20c4a332e479ea622c383",
+      "result": "false green: N01 passed under the declared source mutation; exit step was not rejected; baseline/recovery passed; cleanup/storage passed",
+      "credit": 0
+    },
+    {
+      "fault": "joe-clean-exit-suppressed",
+      "host": "darwin",
+      "job_id": "130596385657",
+      "artifact_id": "13866271477",
+      "artifact_bytes": 23810774,
+      "artifact_sha256": "171a205e23bbbea565e08b67562db8110a9b846ee1d6814aca5a59244ea45e1c",
+      "result": "false green: N01 passed under the declared source mutation; exit step was not rejected; baseline/recovery passed; cleanup/storage passed",
+      "credit": 0
+    }
+  ],
+  "summary": {
+    "baseline_scenarios_passed": 6,
+    "fault_scenario_rejections_observed": 2,
+    "declared_fault_false_greens": 4,
+    "recovery_scenarios_passed": 6,
+    "job_conclusions_failed": 6,
+    "cleanup_storage_steps_passed": 6,
+    "qualified_faults": 0,
+    "project_admission_credit": 0
+  },
+  "classification": "Immutable failed first attempt. Two ineffective source mutations produced four false-green target executions; preserve them. The forward-delete mutation was rejected on both hosts, but the acceptance helper raised after the expected nonzero runner result before writing its complete fault receipt. No v1 calibration is admitted.",
+  "next_attempt": "fault-declaration-v2.json uses a corrected save-path truncation mutation, the same reviewed forward-delete mutation with fixed receipt capture, and a mutation on the actual CtrlK-X save-and-exit path. All three v2 rows are frozen and statically read back; each still requires fresh native baseline/fault/recovery."
+}
