@@ -7,8 +7,10 @@ on:
     paths:
       - .github/workflows/runner-readiness-next20-joe-scenarios.yml
       - scripts/acceptance/next20_joe_scenarios.py
-      - docs/validation/runner-readiness-next-twenty-project-pass/joe/scenario-declaration-v1.json
-      - docs/validation/runner-readiness-next-twenty-project-pass/joe/scenarios/**
+      - scripts/acceptance/next20_target_cleanup.py
+      - scripts/acceptance/test_next20_target_cleanup.py
+      - docs/validation/runner-readiness-next-twenty-project-pass/joe/scenario-declaration-v2.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/joe/scenarios-v2/**
   workflow_dispatch:
 
 permissions:
@@ -58,7 +60,11 @@ jobs:
         run: mkdir -p artifacts/runner-readiness-next-twenty-project-pass/tmp
 
       - name: Verify the frozen JOE project scenarios
-        run: python -B scripts/acceptance/next20_joe_scenarios.py --host "${{ matrix.host }}" --verify-only
+        run: >-
+          python -B -m unittest test_next20_target_cleanup -v
+          && python -B scripts/acceptance/next20_joe_scenarios.py
+          --host "${{ matrix.host }}" --verify-only
+        working-directory: scripts/acceptance
 
       - name: Install reviewed Autotools prerequisites on macOS
         if: matrix.host == 'darwin'
@@ -104,7 +110,11 @@ jobs:
 
       - name: Restore source and confirm JOE target cleanup
         if: always() && steps.acquire.outcome == 'success'
-        run: python -B scripts/acceptance/next20_target_cleanup.py --project joe --no-case-reports
+        run: >-
+          python -B scripts/acceptance/next20_target_cleanup.py
+          --project joe
+          --unlaunched-report-manifest
+          "artifacts/runner-readiness-next-twenty-project-pass/joe/scenario-development-batches/${{ matrix.host }}/${{ github.run_id }}.json"
 
       - name: Verify bounded campaign storage
         if: always() && steps.acquire.outcome == 'success'

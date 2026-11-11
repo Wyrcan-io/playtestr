@@ -1,0 +1,65 @@
+{
+  "version": 3,
+  "name": "Edit one file while preserving an unrelated sentinel",
+  "command": [
+    "joe",
+    "-nobackups",
+    "note.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TERM": "xterm-256color"
+  },
+  "inherit_env": [
+    "PATH"
+  ],
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 12000,
+  "run_timeout_ms": 60000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "main note"
+    },
+    {
+      "key": "End"
+    },
+    {
+      "text": " updated"
+    },
+    {
+      "expect": "main note updated"
+    },
+    {
+      "key": "CtrlK"
+    },
+    {
+      "text": "x"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "note.txt",
+        "kind": "file",
+        "bytes_base64": "bWFpbiBub3RlIHVwZGF0ZWQK"
+      }
+    },
+    {
+      "state": {
+        "path": "sentinel.txt",
+        "kind": "file",
+        "bytes_base64": "cHJlc2VydmUgZXhhY3RseQANCg=="
+      }
+    }
+  ]
+}

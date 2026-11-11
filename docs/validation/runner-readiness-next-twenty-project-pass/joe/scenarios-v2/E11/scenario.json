@@ -1,0 +1,61 @@
+{
+  "version": 3,
+  "name": "Preserve a tab and following fields while editing a row",
+  "command": [
+    "joe",
+    "-nobackups",
+    "table.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TERM": "xterm-256color"
+  },
+  "inherit_env": [
+    "PATH"
+  ],
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 12000,
+  "run_timeout_ms": 60000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "name"
+    },
+    {
+      "key": "CtrlK"
+    },
+    {
+      "text": "v"
+    },
+    {
+      "text": "review"
+    },
+    {
+      "expect": "review"
+    },
+    {
+      "key": "CtrlK"
+    },
+    {
+      "text": "x"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "table.txt",
+        "kind": "file",
+        "bytes_base64": "bmFtZQl2YWx1ZQphbHBoYQkxCnJldmlldwo="
+      }
+    }
+  ]
+}

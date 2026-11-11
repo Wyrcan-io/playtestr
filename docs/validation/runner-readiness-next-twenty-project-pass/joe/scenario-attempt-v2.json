@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "attempt_id": "joe-scenarios-development-pinned-3874898078005d1f5e519235401fab4fd428dd9b-v2",
+  "project": "joe",
+  "repository": "joe-editor/joe",
+  "target_pin": "3874898078005d1f5e519235401fab4fd428dd9b",
+  "candidate": "v0.4.0-rc.6",
+  "candidate_archive_sha256": {
+    "linux": "28ae9f37227bb0f6ba2df031420aa3d027b998e31eab523c4d13cd2816c4af7a",
+    "darwin": "132152710ade2c01cac7558f75212121f01af8ab02c5735dc9c7de1c33dbe625"
+  },
+  "candidate_binary_sha256": {
+    "linux": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a",
+    "darwin": "609b184dac8664050643ec35036c4cffef2137ec778ae4d4678727b119e2fe0f"
+  },
+  "scenario_declaration": "joe/scenario-declaration-v2.json",
+  "scenario_declaration_sha256": "a7e4681bb54b03b64250b37f46b8e46d95f5fbdfe8772cd40271e101e585ccb7",
+  "phase": "scenario-development",
+  "revision": 2,
+  "supersedes_attempt_declaration": "joe/scenario-attempt-v1.json",
+  "preserved_prior_attempt": "run 43024880243 Linux: N01 passed, N02 explicit prelaunch fixture-directory refusal; macOS job still pending",
+  "native_cells": [
+    {
+      "host": "linux",
+      "os": "ubuntu-24.04",
+      "architecture": "x86_64",
+      "scenario_count": 20,
+      "repetitions": 1
+    },
+    {
+      "host": "darwin",
+      "os": "macos-15",
+      "architecture": "arm64",
+      "scenario_count": 20,
+      "repetitions": 1
+    }
+  ],
+  "workflow": ".github/workflows/runner-readiness-next20-joe-scenarios.yml",
+  "workflow_trigger": "authorized push to work/p0-p2-implementation after this declaration is committed",
+  "target_build": "fresh native JOE build from the reviewed immutable source pin; preserve exact build/runtime/source receipts, binary, and seven logs before cleanup",
+  "attempt_lifecycle": [
+    "started",
+    "identified",
+    "launched",
+    "finished"
+  ],
+  "limits": {
+    "per_runner_command_seconds": 120,
+    "runner_output_bytes": 4194304,
+    "spec_timeout_ms": 12000,
+    "spec_run_timeout_ms": 60000
+  },
+  "expected": "each frozen scenario produces a positive exact-state/exit/cleanup outcome; every failure is retained, explicitly classified as prelaunch or launched, and admission remains zero",
+  "project_admission_credit": 0,
+  "state": "prepared-before-workflow-launch"
+}

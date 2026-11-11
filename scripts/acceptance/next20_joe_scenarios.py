@@ -15,10 +15,13 @@ from next20_candidate import executable
 from next20_check import DOC, RAW, ROOT
 from next20_mg_build import MAX_OUTPUT, run_bounded
 from readiness_evidence import immutable_json, sha256
+from next20_target_cleanup import workspace_setup_failure_before_launch
 
 PIN = "3874898078005d1f5e519235401fab4fd428dd9b"
 PROJECT = DOC / "joe"
-SCENARIOS = PROJECT / "scenarios"
+SCENARIOS = PROJECT / "scenarios-v2"
+DECLARATION = PROJECT / "scenario-declaration-v2.json"
+PRELAUNCH = PROJECT / "scenario-attempt-v2.json"
 
 
 def _state(path, data):
@@ -44,9 +47,9 @@ def cases():
                {"expect": "reviewed seed + appended"}, *save],
               {"note.txt": b"reviewed seed + appended\n"}),
         _case("N02", "Create and save a named note", "new-file-create-and-save",
-              {}, "new-note.txt", [{"expect": "new-note.txt"}, {"text": "fresh note"},
+              {".keep": b""}, "new-note.txt", [{"expect": "new-note.txt"}, {"text": "fresh note"},
                                     {"expect": "fresh note"}, *save],
-              {"new-note.txt": b"fresh note"}),
+              {"new-note.txt": b"fresh note", ".keep": b""}),
         _case("N03", "Correct a selected line without changing its neighbors", "line-navigation-and-edit",
               {"note.txt": b"alpha\nbravo\ncharlie\n"}, "note.txt",
               [{"expect": "alpha"}, {"key": "ArrowDown"}, {"key": "Home"}, {"expect": "bravo"},
@@ -194,7 +197,7 @@ def materialize():
                    "risk_pairs": [row["risk_pair"] for row in rows if row["risk_pair"]],
                    "scenarios": rows,
                    "scope": "Frozen scenario contract inputs only. Development attempts do not constitute final candidate qualification or project admission."}
-    declaration_path = PROJECT / "scenario-declaration-v1.json"
+    declaration_path = DECLARATION
     if declaration_path.exists():
         raise FileExistsError("refusing to overwrite frozen JOE scenario declaration")
     declaration_path.write_text(json.dumps(declaration, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
@@ -204,12 +207,15 @@ def verify_declarations():
     declared = cases()
     if len(declared) != 20 or sum(row["kind"] == "normal" for row in declared) != 8:
         raise ValueError("JOE scenario declaration must contain eight normal and twelve edge cases")
-    declaration_path = PROJECT / "scenario-declaration-v1.json"
+    declaration_path = DECLARATION
     declaration = json.loads(declaration_path.read_text(encoding="utf-8"))
     for row in declared:
         path = SCENARIOS / row["id"] / "scenario.json"
+        fixture_root=SCENARIOS/row["id"]/"fixtures"
         if path.is_symlink() or not path.is_file():
             raise ValueError("missing regular frozen scenario: " + str(path))
+        if fixture_root.is_symlink() or not fixture_root.is_dir():
+            raise ValueError("missing regular JOE fixture directory: " + str(fixture_root))
         spec = json.loads(path.read_text(encoding="utf-8"))
         expected_command = ["joe", "-nobackups", *(row["command_args"] or [row["command_file"]])]
         if spec.get("version") != 3 or spec.get("command") != expected_command:
@@ -226,7 +232,7 @@ def verify_declarations():
                 raise ValueError("missing regular JOE fixture: " + str(item))
     if declaration.get("project") != "joe" or declaration.get("pin") != PIN or len(declaration.get("scenarios", [])) != 20:
         raise ValueError("frozen JOE scenario catalog identity or denominator differs")
-    attempt_path = PROJECT / "scenario-attempt-v1.json"
+    attempt_path = PRELAUNCH
     attempt = json.loads(attempt_path.read_text(encoding="utf-8"))
     declaration_hash = hashlib.sha256(declaration_path.read_bytes()).hexdigest()
     if (attempt.get("scenario_declaration_sha256") != declaration_hash or
@@ -423,9 +429,52 @@ def main():
     selected = [case for case in declared if not args.case or case["id"] in args.case]
     if args.case and {case["id"] for case in selected} != set(args.case):
         raise ValueError("unknown case ID")
+    outcomes=[]
+    unlaunched_hashes=[]
     for repetition in range(args.repetitions):
         for case in selected:
-            run_one(case, args.host, args.phase, repetition)
+            case_root=RAW/f"joe/{args.phase}/{args.host}/{case['id']}"
+            before=set(case_root.iterdir()) if case_root.is_dir() else set()
+            try:
+                run_one(case,args.host,args.phase,repetition)
+                outcomes.append({"scenario_id":case["id"],"repetition":repetition,"status":"passed"})
+            except Exception as error:
+                created=sorted((case_root.iterdir() if case_root.is_dir() else []),key=lambda p:p.name)
+                created=[path for path in created if path not in before]
+                row={"scenario_id":case["id"],"repetition":repetition,"status":"failed",
+                     "error":f"{type(error).__name__}: {error}"}
+                if len(created)==1 and created[0].is_dir():
+                    attempt_dir=created[0]
+                    attempt=json.loads((attempt_dir/"attempt.json").read_text(encoding="utf-8"))
+                    finished=json.loads((attempt_dir/"finished.json").read_text(encoding="utf-8"))
+                    report_path=attempt_dir/"report.json"
+                    if report_path.is_file():
+                        report=json.loads(report_path.read_text(encoding="utf-8"))
+                        results=report.get("results",[])
+                        if (not (attempt_dir/"launched.json").exists() and len(results)==1 and
+                                workspace_setup_failure_before_launch(report,results[0])):
+                            report_hash=sha256(report_path)
+                            unlaunched_hashes.append(report_hash)
+                            row.update({"attempt_id":attempt["attempt_id"],"report_sha256":report_hash,
+                                        "prelaunch_workspace_setup_failure":True})
+                    row.setdefault("attempt_id",attempt.get("attempt_id"))
+                    row.setdefault("report_sha256",finished.get("report_sha256"))
+                outcomes.append(row)
+                print(case["id"],"retained first failure:",row.get("error"),flush=True)
+    run_id=os.environ.get("GITHUB_RUN_ID")
+    if not run_id or not run_id.isdecimal():
+        raise ValueError("development batch accounting requires a hosted workflow run ID")
+    batch_path=RAW/f"joe/scenario-development-batches/{args.host}/{run_id}.json"
+    immutable_json(batch_path,{"schema_version":1,"project":"joe","host":args.host,
+        "workflow_run":int(run_id),"phase":args.phase,"candidate":"v0.4.0-rc.6",
+        "scenario_declaration_sha256":hashlib.sha256(DECLARATION.read_bytes()).hexdigest(),
+        "selected_scenarios":len(selected),"repetitions":args.repetitions,
+        "outcomes":outcomes,"unlaunched_report_sha256":unlaunched_hashes,
+        "passed":sum(row["status"]=="passed" for row in outcomes),
+        "failed":sum(row["status"]=="failed" for row in outcomes),
+        "project_admission_credit":0})
+    if any(row["status"]!="passed" for row in outcomes):
+        raise RuntimeError(f"JOE scenario development had {sum(row['status']=='failed' for row in outcomes)} retained failures on {args.host}; batch={batch_path.relative_to(ROOT)}")
     print(f"JOE {args.phase}: {len(selected)} scenarios x {args.repetitions} repetitions passed on {args.host}; no admission credit", flush=True)
 
 

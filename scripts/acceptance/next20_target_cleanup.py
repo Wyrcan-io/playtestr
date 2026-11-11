@@ -156,6 +156,38 @@ def invalid_spec_before_launch(data,row):
         not row.get('steps'))
 
 
+def workspace_setup_failure_before_launch(data,row):
+    """Recognize only a complete runner refusal that prepared no workspace or target."""
+    failure=row.get('failure',{})
+    workspace=row.get('workspace',{})
+    return (len(data.get('results',[]))==1 and row.get('status')=='failed' and
+        failure.get('category')=='workspace_setup_failure' and bool(failure.get('message')) and
+        row.get('target')==dict(exited=False) and row.get('duration_ms')==0 and
+        row.get('cleanup')==dict(attempted=False,graceful=False,forced=False,confirmed_exited=False) and
+        not row.get('invocation_id') and not row.get('evidence') and
+        all(step.get('status')=='not_run' for step in row.get('steps',[])) and
+        workspace.get('attempted') is True and isinstance(workspace.get('fixture'),str) and
+        workspace.get('prepared') is False and workspace.get('cleanup_attempted') is False and
+        workspace.get('cleaned') is False and workspace.get('retained') is False and
+        'root' not in workspace and 'id' not in workspace and workspace.get('setup_failure')==failure)
+
+
+def read_unlaunched_manifest(path, project_root, project):
+    """Load a same-project explicit prelaunch digest list without following links."""
+    original=Path(path)
+    if original.is_symlink() or getattr(original,'is_junction',lambda:False)():
+        raise ValueError('linked unlaunched-report manifest')
+    resolved=original.resolve(strict=True)
+    resolved.relative_to(Path(project_root).resolve(strict=True))
+    data=json.loads(resolved.read_text(encoding='utf-8-sig'))
+    hashes=data.get('unlaunched_report_sha256')
+    if (data.get('schema_version')!=1 or data.get('project')!=project or
+        not isinstance(hashes,list) or len(hashes)>20 or len(set(hashes))!=len(hashes) or
+        any(not isinstance(value,str) or not re.fullmatch('[0-9a-f]{64}',value) for value in hashes)):
+        raise ValueError('invalid same-project unlaunched-report manifest')
+    return hashes
+
+
 def verify_no_case_evidence(target):
     """Prove an opt-in no-case cleanup has no started or partial case evidence."""
     target=Path(target).resolve(strict=True)
@@ -188,12 +220,18 @@ def main():
     parser.add_argument('--max-files',type=int,choices=[40000,60000],default=40000)
     parser.add_argument('--max-bytes',type=int,choices=[1024**3,2*1024**3],default=1024**3)
     parser.add_argument('--unlaunched-report-sha256',action='append',default=[])
+    parser.add_argument('--unlaunched-report-manifest',type=Path)
     parser.add_argument('--invalid-spec-report-sha256',action='append',default=[]);args=parser.parse_args()
     if len(args.invalid_spec_report_sha256)>4 or len(set(args.invalid_spec_report_sha256))!=len(args.invalid_spec_report_sha256) or any(not re.fullmatch('[0-9a-f]{64}',v) for v in args.invalid_spec_report_sha256):
         raise ValueError('Explicit invalid-spec report digest bound')
     if len(args.unlaunched_report_sha256)>4 or len(set(args.unlaunched_report_sha256))!=len(args.unlaunched_report_sha256) or any(not re.fullmatch('[0-9a-f]{64}',v) for v in args.unlaunched_report_sha256):
         raise ValueError('Explicit unlaunched report digest bound')
     if not re.fullmatch('[a-z][a-z0-9-]{0,63}',args.project):raise ValueError('unsafe target cleanup slug')
+    if args.unlaunched_report_manifest:
+        args.unlaunched_report_sha256.extend(read_unlaunched_manifest(
+            args.unlaunched_report_manifest,RAW/args.project,args.project))
+        if len(args.unlaunched_report_sha256)>20 or len(set(args.unlaunched_report_sha256))!=len(args.unlaunched_report_sha256):
+            raise ValueError('Combined explicit unlaunched report manifest limit/duplicates')
     target=RAW/'active'/args.project
     target.resolve(strict=True).relative_to(RAW/'active')
     for ancestor in [ROOT/'artifacts',RAW,RAW/'active',target]:
@@ -224,16 +262,17 @@ def main():
                     category='invalid_spec',target_launched=False,workspace_prepared=False,cleanup_credit=0))
                 continue
             if report_digest in args.unlaunched_report_sha256:
-                if not (os.name=='nt' and len(data['results'])==1 and
+                windows_refusal=(os.name=='nt' and len(data['results'])==1 and
                     row.get('failure')==dict(category='workspace_setup_failure',message='workspace setup failed: expand native workspace path: Access is denied.') and
                     row.get('target')==dict(exited=False) and not row.get('invocation_id') and
                     row.get('cleanup',{}).get('attempted') is False and
                     row.get('workspace',{}).get('prepared') is False and not row['workspace'].get('root') and not row['workspace'].get('id') and
                     row['workspace'].get('cleanup_attempted') is False and not row.get('evidence') and
-                    all(s.get('status')=='not_run' for s in row['steps'])):
+                    all(s.get('status')=='not_run' for s in row['steps']))
+                if not (workspace_setup_failure_before_launch(data,row) or windows_refusal):
                     raise ValueError('Explicit unlaunched report contains launched/partially prepared state')
                 unlaunched.append(dict(report=path.relative_to(ROOT).as_posix(),sha256=report_digest,
-                    category='workspace_setup_failure',target_launched=False,workspace_prepared=False,cleanup_credit=0))
+                    category=row.get('failure',{}).get('category'),target_launched=False,workspace_prepared=False,cleanup_credit=0))
                 continue
             if not row.get('cleanup',{}).get('confirmed_exited') or not row.get('workspace',{}).get('cleaned'):
                 raise ValueError('unconfirmed target/workspace report prevents source/runtime deletion')

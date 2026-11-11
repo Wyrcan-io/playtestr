@@ -5,10 +5,40 @@ import unittest
 from pathlib import Path
 
 import next20_target_cleanup
-from next20_target_cleanup import source_inventory,target_inventory,validate_retained_owned_directories,verify_no_case_evidence
+from next20_target_cleanup import (read_unlaunched_manifest,source_inventory,target_inventory,
+    validate_retained_owned_directories,verify_no_case_evidence,workspace_setup_failure_before_launch)
 
 
 class SourceInventoryTests(unittest.TestCase):
+    def test_prelaunch_workspace_failure_is_explicitly_distinct_from_launched_work(self):
+        failure={'category':'workspace_setup_failure','message':'fixture root is absent'}
+        row={'status':'failed','failure':failure,'target':{'exited':False},'duration_ms':0,
+            'cleanup':{'attempted':False,'graceful':False,'forced':False,'confirmed_exited':False},
+            'steps':[{'status':'not_run'}], 'workspace':{'attempted':True,'fixture':'fixtures',
+            'prepared':False,'cleanup_attempted':False,'cleaned':False,'retained':False,
+            'setup_failure':failure}}
+        data={'results':[row]}
+        self.assertTrue(workspace_setup_failure_before_launch(data,row))
+        changed={**row,'target':{'exited':True}}
+        self.assertFalse(workspace_setup_failure_before_launch(data,changed))
+        changed={**row,'workspace':{**row['workspace'],'id':'live-workspace'}}
+        self.assertFalse(workspace_setup_failure_before_launch(data,changed))
+        changed={**row,'steps':[{'status':'passed'}]}
+        self.assertFalse(workspace_setup_failure_before_launch(data,changed))
+
+    def test_unlaunched_manifest_is_project_scoped_and_digest_bounded(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary);project=root/'joe';project.mkdir()
+            manifest=project/'unlaunched.json'
+            digest='a'*64
+            manifest.write_text('{"schema_version":1,"project":"joe","unlaunched_report_sha256":["'+digest+'"]}')
+            self.assertEqual(read_unlaunched_manifest(manifest,project,'joe'),[digest])
+            outside=root/'outside.json'
+            outside.write_text(manifest.read_text())
+            with self.assertRaises(ValueError):read_unlaunched_manifest(outside,project,'joe')
+            manifest.write_text('{"schema_version":1,"project":"other","unlaunched_report_sha256":["'+digest+'"]}')
+            with self.assertRaises(ValueError):read_unlaunched_manifest(manifest,project,'joe')
+
     def test_reviewed_joe_install_aliases_are_inventory_bound(self):
         if os.name=='nt':
             self.skipTest('JOE campaign aliases are reviewed native Unix symlinks')
