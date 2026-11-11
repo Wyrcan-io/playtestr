@@ -22,10 +22,10 @@ INITIAL = b"JOE_PUBLIC_ROUTE_START\n"
 EXPECTED_HOST = {"linux": "Linux", "darwin": "Darwin"}
 CONTROL_SEQUENCE = [
     "/expect JOE_PUBLIC_ROUTE_START",
+    "/snapshot initial-note.txt",
     "/key End",
     f"/text {json.dumps(MARKER)}",
     f"/expect {MARKER}",
-    "/snapshot edited-note.txt",
     "/key CtrlK",
     '/text "x"',
     "/exit 0",
@@ -150,7 +150,7 @@ async def main():
     if (recorded.get("version") != 3 or recorded.get("command", [])[-2:] != ["-nobackups", "public-note.txt"] or
             recorded.get("workspace", {}).get("fixture") != "fixtures" or len(states) != 1 or
             states[0].get("kind") != "file" or states[0].get("bytes_base64") != expected_bytes or
-            sum(step.get("snapshot") == "edited-note.txt" for step in recorded.get("steps", [])) != 1):
+            sum(step.get("snapshot") == "initial-note.txt" for step in recorded.get("steps", [])) != 1):
         raise ValueError("JOE public recorder output does not match the reviewed screen and exact file bytes")
 
     first_report = output / "first-use-report.json"
@@ -207,7 +207,7 @@ async def main():
     maintained = json.loads(maintenance_spec.read_text(encoding="utf-8"))
     new_states = [step["state"] for step in maintained["steps"]
                   if step.get("state", {}).get("path") == "public-note.txt"]
-    expected_updated = base64.b64encode(INITIAL + new_marker.encode()).decode("ascii")
+    expected_updated = base64.b64encode(INITIAL[:-1] + new_marker.encode() + INITIAL[-1:]).decode("ascii")
     expected_document = json.loads(json.dumps(changed))
     expected_state = next(step["state"] for step in expected_document["steps"]
                           if step.get("state", {}).get("path") == "public-note.txt")

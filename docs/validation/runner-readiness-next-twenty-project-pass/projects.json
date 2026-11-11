@@ -799,12 +799,15 @@
         "joe/build-attempt-darwin-v5.json",
         "joe/build-attempt-linux-v6.json",
         "joe/build-attempt-darwin-v6.json",
+        "joe/build-attempt-linux-v7.json",
+        "joe/build-attempt-darwin-v7.json",
         "joe/native-build-attempt-crosswalk-v1.json",
         "joe/native-build-readback-v1.json"
       ],
       "public_route_declaration": "joe/public-route-declaration-v1.json",
-      "public_route_declaration_current": "joe/public-route-declaration-v2.json",
-      "public_route_declaration_next": "joe/public-route-declaration-v3.json",
+      "public_route_declaration_prior_attempt": "joe/public-route-declaration-v2.json",
+      "public_route_declaration_prior_attempt_2": "joe/public-route-declaration-v3.json",
+      "public_route_declaration_current": "joe/public-route-declaration-v4.json",
       "public_route_workflow": ".github/workflows/runner-readiness-next20-joe-public-route.yml",
       "public_route_attempts": [
         "joe/public-route-attempt-v1-finished.json",
@@ -815,9 +818,12 @@
         "joe/public-route-attempt-darwin-v3.json",
         "joe/public-route-attempt-v3-finished.json",
         "joe/public-route-attempt-linux-v4.json",
-        "joe/public-route-attempt-darwin-v4.json"
+        "joe/public-route-attempt-darwin-v4.json",
+        "joe/public-route-attempt-v4-finished.json",
+        "joe/public-route-attempt-linux-v5.json",
+        "joe/public-route-attempt-darwin-v5.json"
       ],
-      "public_route_status": "two route-control misses and their cross-host evidence retained; source manual confirms Ctrl-K X directly saves and exits; next 12-control route and exact observed 43-byte state declared before launch",
+      "public_route_status": "first-use route recorded, reviewed, replayed, exported, and ordinarily tested on Linux/macOS in 12 controls and three shell invocations; selected maintenance failure retained; next route snapshots unchanged initial screen before editing",
       "native_build_readback": "joe/native-build-readback-v1.json",
       "native_build_crosswalk": "joe/native-build-attempt-crosswalk-v1.json",
       "storage_checkpoint": "storage-checkpoint-v51.json",

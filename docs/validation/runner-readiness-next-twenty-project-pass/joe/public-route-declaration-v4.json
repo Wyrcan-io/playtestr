@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "project": "joe",
+  "source_pin": "3874898078005d1f5e519235401fab4fd428dd9b",
+  "candidate": "v0.4.0-rc.6",
+  "phase": "public-authoring-stable-prefix-selected-maintenance",
+  "supersedes_for_new_attempts": "joe/public-route-declaration-v3.json",
+  "retains_route_attempt": "joe/public-route-attempt-v4-finished.json",
+  "source_archive_sha256": "5e00e2621225a304061c70903ef6490a700a4bbf1fa600c096b5bbb6746f2312",
+  "source_manual_sha256": "25039b7476a7c97e6fc4554962e72e46af4d4e4a851c4d4e6d26e589fd693ec6",
+  "save_exit_behavior": "Ctrl-K X saves a named modified file and exits; no confirmation prompt.",
+  "hosts": {
+    "linux": {"runner_archive_sha256": "28ae9f37227bb0f6ba2df031420aa3d027b998e31eab523c4d13cd2816c4af7a", "runner_binary_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a"},
+    "darwin": {"runner_archive_sha256": "132152710ade2c01cac7558f75212121f01af8ab02c5735dc9c7de1c33dbe625", "runner_binary_sha256": "609b184dac8664050643ec35036c4cffef2137ec778ae4d4678727b119e2fe0f"}
+  },
+  "fixture": {"path": "fixtures/public-note.txt", "bytes_base64": "Sk9FX1BVQkxJQ19ST1VURV9TVEFSVAo="},
+  "first_use_controls": [
+    "/expect JOE_PUBLIC_ROUTE_START", "/snapshot initial-note.txt", "/key End", "/text \"JOE_PUBLIC_ROUTE_RC6\"",
+    "/expect JOE_PUBLIC_ROUTE_RC6", "/key CtrlK", "/text \"x\"", "/exit 0", "/file public-note.txt",
+    "/review", "/replay", "/save"
+  ],
+  "maintenance": {"change_text_and_matching_screen_expectation": "JOE_PUBLIC_ROUTE_RC6 to JOE_PUBLIC_ROUTE_NEXT", "update_only_selected_saved_file_state": true, "preserve_initial_screen_snapshot_and_all_other_spec_fields": true},
+  "expected_saved_bytes_base64": "Sk9FX1BVQkxJQ19ST1VURV9TVEFSVEpPRV9QVUJMSUNfUk9VVEVfUkM2Cg==",
+  "limits": {"first_use_controls_max": 20, "first_use_shell_invocations_max": 5, "command_seconds": 240, "run_ms": 60000, "output_bytes": 4194304},
+  "project_admission_credit": 0
+}

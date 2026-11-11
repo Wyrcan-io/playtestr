@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "project": "joe",
+  "workflow_run": 43015169696,
+  "workflow_head_sha": "d7d9252e",
+  "candidate": "v0.4.0-rc.6",
+  "project_admission_credit": 0,
+  "provider_packets": [
+    {"host": "linux", "id": 13852007829, "bytes": 4077293, "sha256": "13107f8e23f23921859b781f16201ca1cd0de8124b58e645d3db723a807e9b3a"},
+    {"host": "darwin", "id": 13852402440, "bytes": 4077241, "sha256": "65634db795e4acf80bdf9ede756396a348cb78f543f9cfcf1ffbb511036fe64a"}
+  ],
+  "hosts": {
+    "linux": {"runner_version_exit": 0, "first_record_attempt_id": "750dae9f35a0404bafd51770c62f08bd", "first_spec_saved": true, "review_replay_export": "passed", "first_ordinary_test": "passed", "diagnosis_attempt_id": "9f4020d5ad094a2d98455b8f6f0f6c6b", "maintenance_attempt_id": "728cab41f1e143b39b199abe0b5eafd1", "maintenance_exit": 1, "maintenance_console_sha256": "582dd6b72edfbc9f8bfffe3220fce075bc6a8581e1bd4fd31c7fdb051d6f70f4", "target_cleanup": "passed", "storage": "passed"},
+    "darwin": {"runner_version_exit": 0, "first_record_attempt_id": "7b50c70a51bb41958ec0137c8f03b215", "first_spec_saved": true, "review_replay_export": "passed", "first_ordinary_test": "passed", "diagnosis_attempt_id": "9c60d37aeafb4d6a9a89c964cd9dbe90", "maintenance_attempt_id": "149af3c26a1543da914329194edc22a0", "maintenance_exit": 1, "maintenance_console_sha256": "e181b2b075f163556981babbe3ca381a99a002028b902bea0ff8fd7fedbf9f16", "target_cleanup": "passed", "storage": "passed"}
+  },
+  "first_use": {"shell_invocations": 3, "controls": 12, "result": "recorded v3 spec without handwritten JSON; review and fresh replay passed; exact 43-byte state was captured and ordinary candidate test passed on both native hosts"},
+  "diagnosis": "The intended text change also changes the post-edit terminal snapshot, so recorder prefix reconstruction refused to update only the file state. This is a maintenance-route selection mismatch, not a runner defect. The next route snapshots the unchanged initial screen before editing, allowing only the intended text/screen expectation and saved-file state to change.",
+  "classification": "first-use route passed on both hosts; selected maintenance failed on both hosts and remains preserved",
+  "control_count": 12,
+  "retained_extracted_artifacts": [
+    "artifacts/runner-readiness-next-twenty-project-pass/tmp/joe-public-route-run43015169696-linux/",
+    "artifacts/runner-readiness-next-twenty-project-pass/tmp/joe-public-route-run43015169696-darwin/"
+  ]
+}
