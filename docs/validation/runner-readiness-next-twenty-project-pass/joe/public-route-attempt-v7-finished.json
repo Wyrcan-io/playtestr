@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "project": "joe",
+  "workflow_run": 43019699911,
+  "workflow_head_sha": "5f5f86bafaa69549409f89604cf848bafd689a41",
+  "candidate": "v0.4.0-rc.6",
+  "project_admission_credit": 0,
+  "provider_packets": [
+    {"host": "linux", "id": 13854431839, "bytes": 4186739, "sha256": "5b99e316cef0be01d59f05f0578331c3d95eab47fc4f0b31aaf1a72cccd5f2d3"},
+    {"host": "darwin", "id": 13854931011, "bytes": 4186909, "sha256": "e3deac2ce75da8de8ff423f2424e2263560dadc4f022a3d1b21153d6fa653bae"}
+  ],
+  "independent_readback": "joe/public-route-readback-v1.json",
+  "hosts": {
+    "linux": {"route": "passed", "native_build": "passed", "first_use_controls": 12, "first_use_shell_invocations": 3, "seeded_diagnosis": "assertion_timeout with retained screen/report", "stale_state_probe": "state_assertion_failure", "selected_state_maintenance": "passed and changed only approved text/expectation/state", "relocation": "passed at space-and-Unicode path", "workflow_preview": "passed and not dispatched", "build_log_commands_retained": 7, "target_cleanup": "passed", "storage": {"new_raw": 12405689, "combined_raw": 1921433350, "combined_retained": 1001350872, "project": 4244958, "new_curated": 19048202, "combined_curated": 30628826, "active": [], "failed": []}},
+    "darwin": {"route": "passed", "native_build": "passed", "first_use_controls": 12, "first_use_shell_invocations": 3, "seeded_diagnosis": "assertion_timeout with retained screen/report", "stale_state_probe": "state_assertion_failure", "selected_state_maintenance": "passed and changed only approved text/expectation/state", "relocation": "passed at space-and-Unicode path", "workflow_preview": "passed and not dispatched", "build_log_commands_retained": 7, "target_cleanup": "passed", "storage": {"new_raw": 12054950, "combined_raw": 1921082611, "combined_retained": 1001000133, "project": 4236358, "new_curated": 19048202, "combined_curated": 30628826, "active": [], "failed": []}}
+  },
+  "classification": "complete exact-candidate public-authoring route and independent hosted artifact readback; the project remains unadmitted pending twenty frozen scenarios, three real target faults, oracle calibration, current candidate model controls, and final package audit",
+  "retained_provider_zips": [
+    "artifacts/runner-readiness-next-twenty-project-pass/tmp/joe-public-route-run43019699911-zips/linux.zip",
+    "artifacts/runner-readiness-next-twenty-project-pass/tmp/joe-public-route-run43019699911-zips/darwin.zip"
+  ]
+}

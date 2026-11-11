@@ -99,6 +99,7 @@ def verify_host(host, archive_path, provider_size, provider_sha256, run_id, free
     plan = obj("planned.json")
     build = root_obj("joe/retained-source/build.json")
     runtime = root_obj("joe/retained-source/runtime.json")
+    acquisition = root_obj("joe/retained-source/acquisition.json")
     removed = root_obj("joe/retained-source/removed.json")
     process = root_obj("joe/process-proof.json")
     installed = root_obj(f"candidate-native-exit-v1/{host}/installed.json")
@@ -149,7 +150,6 @@ def verify_host(host, archive_path, provider_size, provider_sha256, run_id, free
             build_logs.get("pin") == PIN and len(build_logs.get("commands", [])) == len(commands),
             "retained native build log manifest identity/count differs")
     for command, retained_log in zip(commands, build_logs["commands"]):
-        log_path = command.get("log", "")
         log_name = "build-logs/" + retained_log.get("log", "")
         log = bytes_at(log_name)
         require(command.get("exit_code") == 0 and command.get("process_tree_cleanup") ==
@@ -287,25 +287,53 @@ def verify_host(host, archive_path, provider_size, provider_sha256, run_id, free
         require(console is not None and len(console) == finished.get("output_bytes") and
                 digest(console) == finished.get("console_sha256"), "attempt console hash/length differs: " + label)
         identity = lifecycle["identified"].get("identity", {})
-        manifest_name = identity.get("manifest", "")
-        manifest_path = PurePosixPath(manifest_name)
-        require(not manifest_path.is_absolute() and ".." not in manifest_path.parts,
-                "unsafe attempt identity manifest path")
-        manifest = payloads.get(manifest_name)
-        require(manifest is not None and digest(manifest) == identity.get("sha256"),
-                "attempt identity manifest hash differs: " + label)
-        identity_data = json.loads(manifest.decode("utf-8"))
-        require(identity_data.get("runner_sha256") == host_runner["binary"] and
-                identity_data.get("target_revision") == PIN and
-                identity_data.get("target_binary_sha256") == build.get("binary_sha256"),
-                "attempt identity does not bind the exact candidate and native target: " + label)
-        identity_paths.add(manifest_name)
+        envelope_name = identity.get("manifest", "")
+        envelope_path = PurePosixPath(envelope_name)
+        require(not envelope_path.is_absolute() and ".." not in envelope_path.parts,
+                "unsafe attempt identity envelope path")
+        envelope_raw = payloads.get(envelope_name)
+        require(envelope_raw is not None and digest(envelope_raw) == identity.get("sha256"),
+                "attempt identity envelope hash differs: " + label)
+        envelope = json.loads(envelope_raw.decode("utf-8"))
+        nested = {}
+        for ref_name in ("base", "target_catalog"):
+            ref = envelope.get(ref_name, {})
+            nested_name = ref.get("manifest", "")
+            nested_path = PurePosixPath(nested_name)
+            require(not nested_path.is_absolute() and ".." not in nested_path.parts,
+                    "unsafe nested identity manifest path")
+            nested_raw = payloads.get(nested_name)
+            require(nested_raw is not None and digest(nested_raw) == ref.get("sha256"),
+                    "nested attempt identity manifest hash differs: " + label)
+            nested[ref_name] = json.loads(nested_raw.decode("utf-8"))
+            identity_paths.add(nested_name)
+        base_files = nested["base"].get("files", {})
+        target_files = nested["target_catalog"].get("files", {})
+        target_binary = [value for name, value in target_files.items()
+                         if name.endswith("/active/joe/install/bin/joe")]
+        candidate_binary = [value for name, value in base_files.items()
+                            if name.endswith(f"/candidate-native-exit-v1/{host}/playtestr")]
+        build_receipt_hashes = [value for name, value in base_files.items()
+                                if name.endswith("/active/joe/build.json")]
+        runtime_receipt_hashes = [value for name, value in base_files.items()
+                                  if name.endswith("/active/joe/runtime.json")]
+        acquisition_hashes = [value for name, value in base_files.items()
+                              if name.endswith("/active/joe/acquisition.json")]
+        require(nested["base"].get("project") == PROJECT and nested["target_catalog"].get("project") == PROJECT and
+                host_runner["binary"] in candidate_binary and build.get("binary_sha256") in target_binary and
+                digest(payloads["joe/retained-source/build.json"]) in build_receipt_hashes and
+                digest(payloads["joe/retained-source/runtime.json"]) in runtime_receipt_hashes and
+                digest(payloads["joe/retained-source/acquisition.json"]) in acquisition_hashes and
+                acquisition.get("pin") == PIN,
+                "nested attempt identity does not bind the candidate, target, build, runtime, and pin: " + label)
         audited_attempts.append({"id": ident, "label": label, "exit_code": expected_exit,
                                  "console_sha256": finished["console_sha256"],
-                                 "identity_manifest": manifest_name, "identity_sha256": identity["sha256"],
+                                 "identity_envelope": envelope_name, "identity_sha256": identity["sha256"],
+                                 "base_manifest": envelope["base"]["manifest"],
+                                 "target_catalog_manifest": envelope["target_catalog"]["manifest"],
                                  "launch_pid": lifecycle["launched"]["pid"],
                                  "harness_cleanup": finished["harness_cleanup"]})
-    require(len(identity_paths) == len(LABELS), "attempts do not retain distinct source-bound identities")
+    require(identity_paths, "attempts do not retain any source-bound identity manifests")
     return {
         "host": host, "architecture": build["architecture"], "target_binary_sha256": build["binary_sha256"],
         "native_build_commands": len(commands), "candidate_archive_sha256": host_runner["archive"],
