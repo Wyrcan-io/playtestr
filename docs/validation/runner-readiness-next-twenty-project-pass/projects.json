@@ -864,8 +864,8 @@
       "scenario_workflow": ".github/workflows/runner-readiness-next20-joe-scenarios.yml",
       "scenario_helper": "scripts/acceptance/next20_joe_scenarios.py",
       "scenario_artifact_auditor": "scripts/acceptance/next20_joe_scenario_artifact_audit.py",
-      "scenario_attempt_readback_current": "scenario-batch-run43032037039-readback-v1.json",
-      "scenario_status": "Revision 1 provider artifacts independently audited: N01 passed on Linux/macOS; N02 refused before target launch because Git omitted the empty fixture directory; cleanup refused and target trees were preserved. Revision 2 workflow preflight failed before target build because verifier path was rooted incorrectly. Revision 3 completed all 20 launched development scenarios on Linux amd64 and macOS arm64: 14 passed and N06, N08, E01, E07, E11, E12 failed on both. Independent provider readback verified all 40 lifecycle records, pinned native builds and seven logs per host, exact rc.6, failure reports/screens, target/workspace cleanup, source restoration/removal, process absence and storage checks. Revision 4 corrected these six scenarios and passed all 20 on Linux amd64 and macOS arm64; its exact provider artifacts and all 40 lifecycle records passed independent readback. Development remains separate from final scenario qualification, source faults, oracle/model controls and admission; all qualification/admission counters remain zero. Revision 5 final qualification preflight failed on both hosts before scenario launch: build and exact candidate install passed, evidence retention failed on a missing repetitions argument, scenario steps skipped, cleanup step failed because no batch manifest existed, storage checks passed; zero scenario executions or qualification credit. Provider artifact IDs, sizes, digests and host step conclusions are recorded in the immutable v5 finished receipt. Revision 6 is freshly predeclared for 20 v3 scenarios x 12 repetitions on each exact native host (480 ordinary executions expected).",
+      "scenario_attempt_readback_current": "joe/final-qualification-artifact-audit-run43036633466-v1.json",
+      "scenario_status": "Revision 1 provider artifacts independently audited: N01 passed on Linux/macOS; N02 refused before target launch because Git omitted the empty fixture directory; cleanup refused and target trees were preserved. Revision 2 workflow preflight failed before target build because verifier path was rooted incorrectly. Revision 3 completed all 20 launched development scenarios on Linux amd64 and macOS arm64: 14 passed and N06, N08, E01, E07, E11, E12 failed on both. Independent provider readback verified all 40 lifecycle records, pinned native builds and seven logs per host, exact rc.6, failure reports/screens, target/workspace cleanup, source restoration/removal, process absence and storage checks. Revision 4 corrected these six scenarios and passed all 20 on Linux amd64 and macOS arm64; its exact provider artifacts and all 40 lifecycle records passed independent readback. Development remains separate from final scenario qualification, source faults, oracle/model controls and admission; all qualification/admission counters remain zero. Revision 5 final qualification preflight failed on both hosts before scenario launch: build and exact candidate install passed, evidence retention failed on a missing repetitions argument, scenario steps skipped, cleanup step failed because no batch manifest existed, storage checks passed; zero scenario executions or qualification credit. Provider artifact IDs, sizes, digests and host step conclusions are recorded in the immutable v5 finished receipt. Revision 6 is freshly predeclared for 20 v3 scenarios x 12 repetitions on each exact native host (480 ordinary executions expected). Revision 6 final qualification workflow 43036633466 passed on Linux amd64 and macOS arm64; provider ZIPs independently matched GitHub sizes/SHA-256 and all 480 receipts, source/build/runtime/candidate identities, reports, process cleanup, workspace cleanup, exact source restoration/removal and storage checks passed in final-qualification-artifact-audit-run43036633466-v1.json. Auditor repetition-path defect was fixed and covered by three regression tests; prior rejected audit invocations are preserved in final-qualification-audit-invocations-v1.json. JOE still has zero source faults, zero oracle/model admission credit and zero project admission. Three genuine source-fault declarations were frozen only after the 480-execution final series passed: final-byte save corruption (N01 state step), forward-delete no-op (N05 rendered transition), and suppressed clean exit (N01 exit step). Exact pin, one-file mutation output and patch hashes independently read back from the retained source archive; native three-phase calibrations remain pending.",
       "native_build_readback": "joe/native-build-readback-v1.json",
       "native_build_crosswalk": "joe/native-build-attempt-crosswalk-v1.json",
       "storage_checkpoint": "storage-checkpoint-v51.json",
@@ -881,7 +881,24 @@
       "scenario_attempt_readback_prior_2": "joe/scenario-batch-run43028795974-readback-v1.json",
       "scenario_prelaunch_attempt_prior_attempt_4": "joe/scenario-attempt-v4.json",
       "scenario_final_qualification_workflow": ".github/workflows/runner-readiness-next20-joe-final-qualification.yml",
-      "scenario_prelaunch_attempt_prior_attempt_5": "joe/scenario-attempt-v5.json"
+      "scenario_prelaunch_attempt_prior_attempt_5": "joe/scenario-attempt-v5.json",
+      "scenario_final_qualification_audit": "joe/final-qualification-artifact-audit-run43036633466-v1.json",
+      "scenario_final_qualification_scenarios": 20,
+      "scenario_final_qualification_native_hosts": [
+        "linux-x86_64",
+        "darwin-arm64"
+      ],
+      "scenario_final_qualification_repetitions_per_scenario_host": 12,
+      "scenario_final_qualification_audit_invocations": "joe/final-qualification-audit-invocations-v1.json",
+      "scenario_qualification_status": "20 frozen scenarios passed twelve times on Linux amd64 and macOS arm64 (480/480 ordinary executions); provider artifacts independently audited; source/process/workspace cleanup and storage passed; target faults, oracle calibration, model controls and project admission remain open",
+      "fault_declaration": "joe/fault-declaration-v1.json",
+      "fault_source_readback": "joe/fault-declaration-source-readback-v1.json",
+      "fault_calibration_workflow": ".github/workflows/runner-readiness-next20-joe-fault-calibration.yml",
+      "fault_calibration_helper": "scripts/acceptance/next20_joe_fault_calibration.py",
+      "faults_predeclared": 3,
+      "fault_calibrations_expected": 18,
+      "fault_calibrations_qualified": 0,
+      "fault_calibration_status": "three exact source mutations and unchanged scenarios frozen; retained pinned source archive confirms every unique mutation anchor, mutated whole-file digest, and patch digest; native baseline/fault/rebuilt-recovery jobs are prepared but not launched; zero fault or admission credit"
     }
   ],
   "observed_audited_ordinary_executions": 2400,

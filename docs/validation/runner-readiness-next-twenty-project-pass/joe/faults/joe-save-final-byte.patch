@@ -1,0 +1,11 @@
+--- a/joe/b.c
++++ b/joe/b.c
+@@ -3135,7 +3135,7 @@
+ 					goto err;
+ 			}
+ 		} else {
+-			if (joe_write(fd, np->ptr + np->ofst + GGAPSZ(np->hdr), (ptrdiff_t) size) < 0)
++			if (joe_write(fd, np->ptr + np->ofst + GGAPSZ(np->hdr), (ptrdiff_t) size - 1) < 0)
+ 				goto err;
+ 		}
+ 	}

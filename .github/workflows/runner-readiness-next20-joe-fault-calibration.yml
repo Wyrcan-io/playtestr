@@ -1,0 +1,146 @@
+name: Runner readiness next20 JOE source-fault calibration
+
+on:
+  push:
+    branches:
+      - work/p0-p2-implementation
+    paths:
+      - .github/workflows/runner-readiness-next20-joe-fault-calibration.yml
+      - scripts/acceptance/next20_joe_fault_calibration.py
+      - scripts/acceptance/next20_joe_build.py
+      - scripts/acceptance/next20_joe_scenarios.py
+      - scripts/acceptance/next20_target_cleanup.py
+      - scripts/acceptance/test_next20_target_cleanup.py
+      - scripts/acceptance/test_next20_joe_final_qualification_audit.py
+      - docs/validation/runner-readiness-next-twenty-project-pass/joe/fault-declaration-v1.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/joe/faults/**
+      - docs/validation/runner-readiness-next-twenty-project-pass/joe/scenario-declaration-v3.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/joe/scenarios-v3/**
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: playtestr-next20-joe-fault-calibration-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  native-fault-calibration:
+    name: JOE ${{ matrix.fault }} baseline/fault/recovery (${{ matrix.host }})
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        include:
+          - host: linux
+            os: ubuntu-24.04
+            fault: joe-save-final-byte
+            candidate_run_id: 40424475362
+            candidate_artifact: next20-private-replacement-Linux
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v1/linux-amd64/dist/playtestr_0.4.0-rc.6_linux_amd64.tar.gz
+          - host: darwin
+            os: macos-15
+            fault: joe-save-final-byte
+            candidate_run_id: 40420820491
+            candidate_artifact: next20-private-replacement-macOS
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v1/darwin-arm64/dist/playtestr_0.4.0-rc.6_darwin_arm64.tar.gz
+          - host: linux
+            os: ubuntu-24.04
+            fault: joe-forward-delete-noop
+            candidate_run_id: 40424475362
+            candidate_artifact: next20-private-replacement-Linux
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v1/linux-amd64/dist/playtestr_0.4.0-rc.6_linux_amd64.tar.gz
+          - host: darwin
+            os: macos-15
+            fault: joe-forward-delete-noop
+            candidate_run_id: 40420820491
+            candidate_artifact: next20-private-replacement-macOS
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v1/darwin-arm64/dist/playtestr_0.4.0-rc.6_darwin_arm64.tar.gz
+          - host: linux
+            os: ubuntu-24.04
+            fault: joe-clean-exit-suppressed
+            candidate_run_id: 40424475362
+            candidate_artifact: next20-private-replacement-Linux
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v1/linux-amd64/dist/playtestr_0.4.0-rc.6_linux_amd64.tar.gz
+          - host: darwin
+            os: macos-15
+            fault: joe-clean-exit-suppressed
+            candidate_run_id: 40420820491
+            candidate_artifact: next20-private-replacement-macOS
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v1/darwin-arm64/dist/playtestr_0.4.0-rc.6_darwin_arm64.tar.gz
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 65
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONIOENCODING: utf-8
+      TEMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+      TMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+      TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+
+      - name: Create campaign temporary root
+        run: mkdir -p artifacts/runner-readiness-next-twenty-project-pass/tmp
+
+      - name: Test JOE source-fault identity and owned cleanup checks
+        run: python -B -m unittest test_next20_target_cleanup test_next20_joe_final_qualification_audit -v
+        working-directory: scripts/acceptance
+
+      - name: Verify the frozen JOE source-fault declaration
+        run: >-
+          python -B scripts/acceptance/next20_joe_fault_calibration.py
+          --host "${{ matrix.host }}"
+          --fault "${{ matrix.fault }}"
+          --verify-only
+
+      - name: Install reviewed Autotools prerequisites on macOS
+        if: matrix.host == 'darwin'
+        run: brew install autoconf automake
+
+      - name: Download the frozen native rc.6 runner
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ matrix.candidate_run_id }}
+          name: ${{ matrix.candidate_artifact }}
+          path: artifacts/runner-readiness-next-twenty-project-pass/candidate-download
+
+      - name: Install and verify the exact frozen candidate archive
+        run: >-
+          python -B scripts/acceptance/next20_candidate_install.py
+          --series native-exit-v1
+          --archive "${{ matrix.candidate_archive }}"
+
+      - name: Run pristine/fault/restored JOE calibration
+        run: >-
+          python -B scripts/acceptance/next20_joe_fault_calibration.py
+          --host "${{ matrix.host }}"
+          --fault "${{ matrix.fault }}"
+
+      - name: Verify bounded campaign storage
+        if: always()
+        run: python -B scripts/acceptance/next20_storage.py joe
+
+      - name: Retain JOE source-fault evidence
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: next20-joe-fault-${{ matrix.fault }}-${{ matrix.host }}-${{ github.run_id }}
+          path: |
+            artifacts/runner-readiness-next-twenty-project-pass/joe/**
+            artifacts/runner-readiness-next-twenty-project-pass/joe/events/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/joe/**
+            artifacts/runner-readiness-next-twenty-project-pass/events/**
+            artifacts/runner-readiness-next-twenty-project-pass/identities/**
+            artifacts/runner-readiness-next-twenty-project-pass/candidate-native-exit-v1/${{ matrix.host }}/installed.json
+          if-no-files-found: warn
+          retention-days: 30
+          include-hidden-files: true

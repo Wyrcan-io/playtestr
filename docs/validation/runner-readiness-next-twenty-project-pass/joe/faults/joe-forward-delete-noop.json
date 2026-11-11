@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": "joe-forward-delete-noop",
+  "project": "joe",
+  "pin": "3874898078005d1f5e519235401fab4fd428dd9b",
+  "source_archive_sha256": "5e00e2621225a304061c70903ef6490a700a4bbf1fa600c096b5bbb6746f2312",
+  "title": "JOE reports forward-delete input but leaves the selected byte in place",
+  "source_file": "joe/uedit.c",
+  "baseline_source_sha256": "62f0c689aadda0d11720cb4c5913b0d89ca3cfdaad4397ff878c5719909852a8",
+  "mutated_source_sha256": "c36f3ed296af2d30acc53bf223996472cce0d60f0dcbeb7869e11f05899b1ffc",
+  "patch": "faults/joe-forward-delete-noop.patch",
+  "patch_sha256": "62160707d42f1f4c8ad57a380b7e37f52ea4b9279c0aeb80c2cc362c320dfd86",
+  "scenario_id": "N05",
+  "expected_failure_step": 5,
+  "expected_failure_categories": [
+    "assertion_timeout"
+  ],
+  "requires_state_failure": false,
+  "risk_dimension": "forward-delete state transition",
+  "restoration": "discard the faulted owned source tree, reacquire the exact source archive pin, verify the full pristine source map, rebuild normally, then rerun the unchanged scenario",
+  "project_admission_credit": 0,
+  "mutation_old_base64": "aW50IHVkZWxjaChXICp3LCBpbnQgaykKewoJQlcgKmJ3OwoJUCAqcDsKCVdJTkRfQlcoYncsIHcpOwoKCWlmIChwaXNlb2YoYnctPmN1cnNvcikpCgkJcmV0dXJuIC0xOwoJcGdldGMocCA9IHBkdXAoYnctPmN1cnNvciwgInVkZWxjaCIpKTsKCWJkZWwoYnctPmN1cnNvciwgcCk7Cglwcm0ocCk7CglyZXR1cm4gMDsKfQ==",
+  "mutation_new_base64": "aW50IHVkZWxjaChXICp3LCBpbnQgaykKewoJQlcgKmJ3OwoJUCAqcDsKCVdJTkRfQlcoYncsIHcpOwoKCWlmIChwaXNlb2YoYnctPmN1cnNvcikpCgkJcmV0dXJuIC0xOwoJcGdldGMocCA9IHBkdXAoYnctPmN1cnNvciwgInVkZWxjaCIpKTsKCS8qIEZhdWx0OiBvbWl0IGRlbGV0aW9uIG9mIHRoZSBzZWxlY3RlZCBjaGFyYWN0ZXIuICovCglwcm0ocCk7CglyZXR1cm4gMDsKfQ=="
+}

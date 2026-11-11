@@ -1,0 +1,11 @@
+--- a/joe/ufile.c
++++ b/joe/ufile.c
+@@ -1371,7 +1371,7 @@
+ 	/* Save file positions */
+ 	set_file_pos_all(bw->parent->t);
+ 	/* FIXME: emacs checks for unsaved modified buffers at this point */
+-	leave = 1;
++	leave = 0; /* Fault: suppress the normal editor exit. */
+ 	return 0;
+ }
+ 

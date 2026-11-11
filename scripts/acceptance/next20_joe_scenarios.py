@@ -266,7 +266,7 @@ def verify_declarations(attempt_path=PRELAUNCH, phase="scenario-development"):
         raise ValueError("final JOE scenario attempt does not predeclare exactly 480 ordinary executions")
 
 
-def run_one(case, host, phase, repetition=0):
+def run_one(case, host, phase, repetition=0, *, target_fault=None):
     build_root = RAW / "active/joe"
     build_path = build_root / "build.json"
     target = build_root / "install/bin/joe"
@@ -306,7 +306,10 @@ def run_one(case, host, phase, repetition=0):
                "fixture": fixture.relative_to(ROOT).as_posix(), "fixture_file_count": len(case["files"]),
                "limits": {"command_seconds": 120, "runner_output_bytes": MAX_OUTPUT,
                           "step_timeout_ms": spec["timeout_ms"], "run_timeout_ms": spec["run_timeout_ms"]},
-               "expected": "all declared JOE interaction and exact saved-state assertions pass",
+               "expected": ("unchanged contract rejects the declared JOE source fault" if target_fault else
+                            "all declared JOE interaction and exact saved-state assertions pass"),
+               "target_fault_id": target_fault.get("id") if target_fault else None,
+               "target_fault_source_sha256": target_fault.get("mutated_source_sha256") if target_fault else None,
                "started_at_utc": datetime.now(timezone.utc).isoformat()}
     immutable_json(attempt_dir / "attempt.json", attempt)
     immutable_json(attempt_dir / "started.json", {"schema_version": 1, "attempt_id": attempt_id,
@@ -321,6 +324,7 @@ def run_one(case, host, phase, repetition=0):
     failure = None
     result = None
     report_data = None
+    expected_fault_rejection = False
     def record_launch(process):
         immutable_json(attempt_dir / "launched.json", {"schema_version": 1, "attempt_id": attempt_id,
                         "event": "launched", "runner_pid": process.pid,
@@ -349,26 +353,73 @@ def run_one(case, host, phase, repetition=0):
             raise RuntimeError("exact state assertions do not match the independently declared output set")
     except Exception as error:
         failure = f"{type(error).__name__}: {error}"
+    if target_fault and failure:
+        try:
+            report_data = json.loads(report.read_text(encoding="utf-8"))
+            rows = report_data.get("results", [])
+            row = rows[0] if len(rows) == 1 else {}
+            summary = report_data.get("summary", {})
+            actual_failure = row.get("failure", {})
+            command = commands[-1] if commands else {}
+            steps = row.get("steps", [])
+            failed_numbers = [step.get("number") for step in steps if step.get("status") == "failed"]
+            expected_step = target_fault.get("expected_failure_step")
+            process_cleanup = command.get("process_tree_cleanup", "")
+            preceding_steps_passed = (expected_step is None or
+                all(step.get("status") == "passed" for step in steps
+                    if step.get("number", 0) < expected_step))
+            if (report_data.get("runner_version") != freeze["version"] or
+                    summary != {"total": 1, "passed": 0, "failed": 1, "cancelled": 0, "not_run": 0} or
+                    row.get("status") != "failed" or
+                    actual_failure.get("category") not in target_fault.get("expected_failure_categories", []) or
+                    expected_step is not None and failed_numbers != [expected_step] or
+                    not preceding_steps_passed or
+                    not row.get("cleanup", {}).get("confirmed_exited") or
+                    not row.get("workspace", {}).get("cleaned") or
+                    command.get("exit_code") in (None, 0) or
+                    not (process_cleanup.startswith("process group absent;") or
+                         process_cleanup.startswith("no live processes remain;"))):
+                raise RuntimeError("target-fault rejection lacks the declared report, failure category, prior positive steps, or cleanup evidence")
+            if target_fault.get("requires_state_failure"):
+                state_rows = [step for step in steps if step.get("action") == "state"]
+                if (len(state_rows) != 1 or state_rows[0].get("status") != "failed" or
+                        any(step.get("status") != "passed" for step in steps
+                            if step.get("number", 0) < state_rows[0]["number"])):
+                    raise RuntimeError("saved-state fault did not preserve earlier positive interaction/exit evidence")
+            expected_fault_rejection = True
+            failure = None
+        except Exception as error:
+            failure = f"{type(error).__name__}: {error}"
     finish = {"schema_version": 1, "attempt_id": attempt_id, "event": "finished",
               "at_utc": datetime.now(timezone.utc).isoformat(),
               "runner_command": commands[-1] if commands else None,
               "report_sha256": sha256(report) if report.is_file() else None,
               "runner_log_sha256": sha256(log) if log.is_file() else None,
-              "process_tree_cleanup": result.get("process_tree_cleanup") if result else None,
+              "process_tree_cleanup": (result.get("process_tree_cleanup") if result else
+                                       (commands[-1].get("process_tree_cleanup") if commands else None)),
               "failure": failure}
+    finish["expected_target_fault_rejection"] = expected_fault_rejection
     immutable_json(attempt_dir / "finished.json", finish)
     if failure:
         raise RuntimeError(f"{case['id']} attempt {attempt_id} failed: {failure}; evidence retained at {attempt_dir.relative_to(ROOT)}")
     immutable_json(attempt_dir / "receipt.json", {"schema_version": 1, "attempt_id": attempt_id,
                     "project": "joe", "scenario_id": case["id"], "host": host, "phase": phase,
-                    "repetition": repetition, "status": "passed", "report_sha256": sha256(report),
+                    "repetition": repetition,
+                    "status": "expected-target-fault-rejection" if expected_fault_rejection else "passed",
+                    "target_fault_id": target_fault.get("id") if target_fault else None,
+                    "report_sha256": sha256(report),
                     "runner_log_sha256": sha256(log), "candidate_archive_sha256": frozen["archive_sha256"],
                     "runner_binary_sha256": frozen["binary_sha256"], "target_pin": PIN,
                     "target_binary_sha256": build["binary_sha256"],
                     "target_cleanup": report_data["results"][0]["cleanup"],
                     "workspace_cleanup": report_data["results"][0]["workspace"],
                     "runner_process_group_cleanup": result["process_tree_cleanup"]})
-    print(case["id"], phase, host, "r", repetition, "passed", attempt_id, flush=True)
+    print(case["id"], phase, host, "r", repetition,
+          "target fault detected" if expected_fault_rejection else "passed", attempt_id, flush=True)
+    return {"attempt_id": attempt_id, "attempt_path": attempt_dir.relative_to(ROOT).as_posix(),
+            "report_sha256": sha256(report), "target_binary_sha256": build["binary_sha256"],
+            "status": "expected-target-fault-rejection" if expected_fault_rejection else "passed",
+            "failure_category": report_data["results"][0].get("failure", {}).get("category") if expected_fault_rejection else None}
 
 
 def retain_build_evidence(host):

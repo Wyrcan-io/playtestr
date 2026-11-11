@@ -190,6 +190,13 @@ def read_unlaunched_manifest(path, project_root, project):
     return hashes
 
 
+def validate_cleanup_window(value):
+    """Validate a unique bounded rebuild namespace for repeated cleanup receipts."""
+    if value is not None and not re.fullmatch(r'rebuild-[a-z0-9-]{1,56}', value):
+        raise ValueError('cleanup window must be a bounded rebuild-* slug')
+    return value
+
+
 def verify_no_case_evidence(target):
     """Prove an opt-in no-case cleanup has no started or partial case evidence."""
     target=Path(target).resolve(strict=True)
@@ -209,7 +216,7 @@ def main():
     parser.add_argument('--prepare-only',action='store_true')
     parser.add_argument('--no-case-reports',action='store_true')
     parser.add_argument('--include-active-case-evidence',action='store_true')
-    parser.add_argument('--window',choices=['rebuild-v1'])
+    parser.add_argument('--window',type=validate_cleanup_window)
     parser.add_argument('--resume-preparation',action='store_true')
     parser.add_argument('--generated-source-manifest',type=Path)
     parser.add_argument('--closed-report-packet',action='append',default=[])

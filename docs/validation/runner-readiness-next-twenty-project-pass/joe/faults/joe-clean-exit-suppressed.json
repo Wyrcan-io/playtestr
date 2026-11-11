@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": "joe-clean-exit-suppressed",
+  "project": "joe",
+  "pin": "3874898078005d1f5e519235401fab4fd428dd9b",
+  "source_archive_sha256": "5e00e2621225a304061c70903ef6490a700a4bbf1fa600c096b5bbb6746f2312",
+  "title": "JOE accepts the documented exit key but does not leave the editor",
+  "source_file": "joe/ufile.c",
+  "baseline_source_sha256": "f07a1192460b94d3306a70df0cc3d783b9f30a89b3102277631dfeb9df496972",
+  "mutated_source_sha256": "e21a8f7e2098b8fa63b36ac98d196b35ee085a9d6b0a9649f3464a7dfdb821db",
+  "patch": "faults/joe-clean-exit-suppressed.patch",
+  "patch_sha256": "6c0cfb74398d33c146f582aa19cb15a72e571ae4f273faadbab92d985981c4cb",
+  "scenario_id": "N01",
+  "expected_failure_step": 7,
+  "expected_failure_categories": [
+    "assertion_timeout"
+  ],
+  "requires_state_failure": false,
+  "risk_dimension": "bounded clean-exit transition",
+  "restoration": "discard the faulted owned source tree, reacquire the exact source archive pin, verify the full pristine source map, rebuild normally, then rerun the unchanged scenario",
+  "project_admission_credit": 0,
+  "mutation_old_base64": "aW50IHVraWxsam9lKFcgKncsIGludCBrKQp7CglCVyAqYnc7CglXSU5EX0JXKGJ3LCB3KTsKCS8qIFNhdmUgZmlsZSBwb3NpdGlvbnMgKi8KCXNldF9maWxlX3Bvc19hbGwoYnctPnBhcmVudC0+dCk7CgkvKiBGSVhNRTogZW1hY3MgY2hlY2tzIGZvciB1bnNhdmVkIG1vZGlmaWVkIGJ1ZmZlcnMgYXQgdGhpcyBwb2ludCAqLwoJbGVhdmUgPSAxOwoJcmV0dXJuIDA7Cn0=",
+  "mutation_new_base64": "aW50IHVraWxsam9lKFcgKncsIGludCBrKQp7CglCVyAqYnc7CglXSU5EX0JXKGJ3LCB3KTsKCS8qIFNhdmUgZmlsZSBwb3NpdGlvbnMgKi8KCXNldF9maWxlX3Bvc19hbGwoYnctPnBhcmVudC0+dCk7CgkvKiBGSVhNRTogZW1hY3MgY2hlY2tzIGZvciB1bnNhdmVkIG1vZGlmaWVkIGJ1ZmZlcnMgYXQgdGhpcyBwb2ludCAqLwoJbGVhdmUgPSAwOyAvKiBGYXVsdDogc3VwcHJlc3MgdGhlIG5vcm1hbCBlZGl0b3IgZXhpdC4gKi8KCXJldHVybiAwOwp9"
+}

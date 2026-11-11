@@ -6,10 +6,19 @@ from pathlib import Path
 
 import next20_target_cleanup
 from next20_target_cleanup import (read_unlaunched_manifest,source_inventory,target_inventory,
-    validate_retained_owned_directories,verify_no_case_evidence,workspace_setup_failure_before_launch)
+    validate_cleanup_window,validate_retained_owned_directories,verify_no_case_evidence,
+    workspace_setup_failure_before_launch)
 
 
 class SourceInventoryTests(unittest.TestCase):
+    def test_cleanup_window_names_are_bounded_and_unique_rebuild_slugs(self):
+        self.assertEqual(validate_cleanup_window(None), None)
+        self.assertEqual(validate_cleanup_window('rebuild-joe-fault-linux-baseline'),
+                         'rebuild-joe-fault-linux-baseline')
+        for value in ('baseline', '../rebuild-unsafe', 'rebuild-UPPER', 'rebuild-' + 'a' * 57):
+            with self.subTest(value=value), self.assertRaises(ValueError):
+                validate_cleanup_window(value)
+
     def test_prelaunch_workspace_failure_is_explicitly_distinct_from_launched_work(self):
         failure={'category':'workspace_setup_failure','message':'workspace setup failed: fixture root is absent'}
         row={'status':'failed','failure':failure,'target':{'exited':False},'duration_ms':0,

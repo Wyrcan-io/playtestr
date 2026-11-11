@@ -6,6 +6,7 @@ import json
 import os
 from pathlib import Path
 import platform
+import re
 import shutil
 import time
 
@@ -46,10 +47,34 @@ def safe_tree(root, *, allow_install_aliases=False):
     return count, total
 
 
+def source_map(root):
+    rows = {}
+    for path in sorted(root.rglob("*")):
+        if path.is_symlink() or getattr(path, "is_junction", lambda: False)():
+            raise ValueError("linked path in JOE build source: " + str(path))
+        if path.is_file():
+            rows[path.relative_to(root).as_posix()] = sha256(path)
+    return rows
+
+
+def validate_source_fault_maps(pristine_map, actual_map, declaration):
+    """Require one declared file change and no additions, removals, or other edits."""
+    relative = declaration.get("source_file")
+    if (not isinstance(relative, str) or relative.startswith("/") or ".." in Path(relative).parts or
+            relative not in pristine_map or
+            declaration.get("baseline_source_sha256") != pristine_map.get(relative) or
+            declaration.get("mutated_source_sha256") != actual_map.get(relative) or
+            actual_map.keys() != pristine_map.keys() or
+            {name for name in pristine_map if pristine_map[name] != actual_map[name]} != {relative}):
+        raise ValueError("JOE source-fault manifest does not bind exactly one declared source mutation")
+    return relative
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--expected-host", choices=("linux", "darwin"), required=True)
     parser.add_argument("--operation-started-epoch", type=int)
+    parser.add_argument("--source-fault-manifest", type=Path)
     args = parser.parse_args()
     host = "darwin" if platform.system() == "Darwin" else "linux" if platform.system() == "Linux" else "other"
     arch = platform.machine().lower()
@@ -72,7 +97,34 @@ def main():
         if path.exists():
             raise ValueError("preserve an existing JOE build output: " + str(path))
     safe_tree(source)
+    pristine_map = acquisition.get("source_files")
+    actual_source_map = source_map(source)
+    if not isinstance(pristine_map, dict) or not pristine_map:
+        raise ValueError("pinned JOE acquisition has no complete source map")
+    source_fault = None
+    if args.source_fault_manifest:
+        if (args.source_fault_manifest.is_symlink() or
+                getattr(args.source_fault_manifest, "is_junction", lambda: False)()):
+            raise ValueError("linked JOE source-fault manifest")
+        campaign_joe = (ROOT / "docs/validation/runner-readiness-next-twenty-project-pass/joe").resolve(strict=True)
+        manifest_path = args.source_fault_manifest.resolve(strict=True)
+        manifest_path.relative_to(campaign_joe)
+        declaration = json.loads(manifest_path.read_text(encoding="utf-8"))
+        if (declaration.get("schema_version") != 1 or declaration.get("project") != "joe" or
+                declaration.get("pin") != PIN or
+                declaration.get("source_archive_sha256") != acquisition.get("archive_sha256") or
+                not isinstance(declaration.get("id"), str) or
+                not re.fullmatch(r"joe-[a-z0-9-]{1,48}", declaration["id"])):
+            raise ValueError("JOE source-fault manifest identity differs")
+        relative = validate_source_fault_maps(pristine_map, actual_source_map, declaration)
+        source_fault = {**declaration, "manifest_sha256": sha256(manifest_path),
+                        "actual_mutated_source_sha256": actual_source_map[relative]}
+    elif actual_source_map != pristine_map:
+        raise ValueError("pristine JOE source differs from the pinned acquisition map")
     shutil.copytree(source, build_source, symlinks=False)
+    copied_source_map = source_map(build_source)
+    if copied_source_map != actual_source_map:
+        raise ValueError("JOE build source copy differs from the identified source tree")
     for path in (logs, home, temp):
         path.mkdir()
     require(build_source.resolve().is_relative_to(prefix) and install_prefix.resolve().is_relative_to(prefix),
@@ -118,9 +170,10 @@ def main():
     immutable_json(target / "runtime.json", runtime)
     build = {"schema_version": 1, "project": "joe", "repository": "joe-editor/joe", "pin": PIN,
              "host": host, "architecture": arch, "source_archive_sha256": acquisition["archive_sha256"],
-             "source_file_count": acquisition["entries"],
-             "source_map_sha256": hashlib.sha256(json.dumps(acquisition["source_files"], sort_keys=True,
+             "source_file_count": len(copied_source_map),
+             "source_map_sha256": hashlib.sha256(json.dumps(copied_source_map, sort_keys=True,
                  ensure_ascii=True, separators=(",", ":")).encode()).hexdigest(),
+             "source_mutation": source_fault,
              "runtime_kind": "native", "binary_relative_path": "install/bin/joe", "binary_sha256": sha256(binary),
              "binary_bytes": binary.stat().st_size, "build_started_at_utc": started_utc,
              "build_seconds": time.monotonic() - started, "tool_paths": tools,

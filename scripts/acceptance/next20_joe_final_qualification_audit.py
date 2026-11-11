@@ -71,6 +71,17 @@ def read_packet(path, host):
     return payloads, len(infos), expanded
 
 
+def attempt_identity_from_path(path, repetition):
+    """Return a validated attempt ID from its repetition-specific archive path."""
+    directory = PurePosixPath(path).parent.name
+    prefix = f"r{repetition:02d}-"
+    require(directory.startswith(prefix), "attempt path repetition prefix differs")
+    attempt_id = directory[len(prefix):]
+    require(len(attempt_id) == 32 and all(char in "0123456789abcdef" for char in attempt_id),
+            "attempt path identity is not a lowercase 128-bit hex ID")
+    return attempt_id
+
+
 def verify_host(host, path, scenario_ids, freeze, declaration_sha256, repetitions):
     provider = PROVIDER[host]
     payloads, member_count, expanded = read_packet(path, host)
@@ -154,7 +165,7 @@ def verify_host(host, path, scenario_ids, freeze, declaration_sha256, repetition
                          if name.startswith(declared_base) and name.endswith("/attempt.json")]
         require(len(attempt_paths) == 1,
                 f"{host} {scenario_id} r{repetition} must have exactly one retained immutable attempt")
-        attempt_id = Path(attempt_paths[0]).parent.name.removeprefix("r00-")
+        attempt_id = attempt_identity_from_path(attempt_paths[0], repetition)
         require(isinstance(attempt_id, str) and len(attempt_id) == 32 and
                 (row.get("attempt_id") is None or row.get("attempt_id") == attempt_id),
                 f"{host} {scenario_id} attempt identity differs from batch journal")

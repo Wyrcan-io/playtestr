@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": "joe-save-final-byte",
+  "project": "joe",
+  "pin": "3874898078005d1f5e519235401fab4fd428dd9b",
+  "source_archive_sha256": "5e00e2621225a304061c70903ef6490a700a4bbf1fa600c096b5bbb6746f2312",
+  "title": "JOE reports save success but omits the final saved byte",
+  "source_file": "joe/b.c",
+  "baseline_source_sha256": "36cad1c16939faceda58d1e5fb4ed6d9644a52df055bad5fbacf2fe3715e2a49",
+  "mutated_source_sha256": "258238e211b46da3a8288e2b6be8d438070c53c64cf1fda33341fafe947ef9eb",
+  "patch": "faults/joe-save-final-byte.patch",
+  "patch_sha256": "6fc1d79a410ce94b231fe071f26525cca273664ccb955a3c3ff046599e9c05f8",
+  "scenario_id": "N01",
+  "expected_failure_step": 8,
+  "expected_failure_categories": [
+    "state_assertion_failure"
+  ],
+  "requires_state_failure": true,
+  "risk_dimension": "success-looking save with a same-invocation exact-byte mismatch",
+  "restoration": "discard the faulted owned source tree, reacquire the exact source archive pin, verify the full pristine source map, rebuild normally, then rerun the unchanged scenario",
+  "project_admission_credit": 0,
+  "mutation_old_base64": "aWYgKGpvZV93cml0ZShmZCwgbnAtPnB0ciArIG5wLT5vZnN0ICsgR0dBUFNaKG5wLT5oZHIpLCAocHRyZGlmZl90KSBzaXplKSA8IDAp",
+  "mutation_new_base64": "aWYgKGpvZV93cml0ZShmZCwgbnAtPnB0ciArIG5wLT5vZnN0ICsgR0dBUFNaKG5wLT5oZHIpLCAocHRyZGlmZl90KSBzaXplIC0gMSkgPCAwKQ=="
+}

@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "project": "joe",
+  "workflow_run": 43036633466,
+  "workflow_head_sha": "6d08e40a98c3f23dc99f841bb83fd99a99317255",
+  "provider_artifact_audit": "joe/final-qualification-artifact-audit-run43036633466-v1.json",
+  "attempts": [
+    {
+      "attempt": 1,
+      "status": "operator-command-rejected",
+      "error": "passed scenario-attempt-v6.json to --declaration; auditor requires frozen scenario-declaration-v3.json and rejected the mismatch before artifact inspection",
+      "target_executions": 0
+    },
+    {
+      "attempt": 2,
+      "status": "operator-command-rejected",
+      "error": "passed Playtestr runner binary hashes to --linux/--darwin-binary-sha256; those fields bind retained native JOE target binaries; auditor rejected the mismatch",
+      "target_executions": 0
+    },
+    {
+      "attempt": 3,
+      "status": "auditor-defect-found-and-fixed",
+      "error": "attempt identity parser stripped r00- for all repetition directories, rejecting valid r01 attempt paths; fixed to validate the actual repetition prefix and 32 lowercase hex ID",
+      "regression_tests": "test_next20_joe_final_qualification_audit.py: 3 passed",
+      "target_executions": 0
+    }
+  ],
+  "final_invocation": {
+    "status": "passed",
+    "command": "scripts/acceptance/next20_joe_final_qualification_audit.py",
+    "scenario_declaration": "joe/scenario-declaration-v3.json",
+    "repetitions": 12,
+    "audited_executions": 480,
+    "passed": 480,
+    "failed": 0
+  },
+  "audit_helper_sha256": "d7f32e71d50c14fd2ff9236b52e5e2907cc54838cafd832e1773a7a8c4e80d90",
+  "audit_regression_test_sha256": "53cc28ad929149f875320493a36ad535c2525ab74afcd6ba568f591ed0904d5d",
+  "project_admission_credit": 0
+}

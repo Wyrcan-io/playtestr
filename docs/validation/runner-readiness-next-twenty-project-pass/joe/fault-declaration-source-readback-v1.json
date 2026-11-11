@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "project": "joe",
+  "repository": "joe-editor/joe",
+  "pin": "3874898078005d1f5e519235401fab4fd428dd9b",
+  "source_archive_sha256": "5e00e2621225a304061c70903ef6490a700a4bbf1fa600c096b5bbb6746f2312",
+  "fault_declaration_sha256": "323fb1e9455dc9a42885b294be36621ffc2d4ec2ba99f2b1c64de0d6b18e35b5",
+  "faults": [
+    {
+      "fault_id": "joe-save-final-byte",
+      "source_member": "joe-editor-joe-3874898/joe/b.c",
+      "baseline_source_sha256": "36cad1c16939faceda58d1e5fb4ed6d9644a52df055bad5fbacf2fe3715e2a49",
+      "unique_anchor_count": 1,
+      "mutated_source_sha256": "258238e211b46da3a8288e2b6be8d438070c53c64cf1fda33341fafe947ef9eb",
+      "declared_mutated_sha256": "258238e211b46da3a8288e2b6be8d438070c53c64cf1fda33341fafe947ef9eb",
+      "patch_sha256": "6fc1d79a410ce94b231fe071f26525cca273664ccb955a3c3ff046599e9c05f8",
+      "declared_patch_sha256": "6fc1d79a410ce94b231fe071f26525cca273664ccb955a3c3ff046599e9c05f8",
+      "exact_pin_bytes_verified": true
+    },
+    {
+      "fault_id": "joe-forward-delete-noop",
+      "source_member": "joe-editor-joe-3874898/joe/uedit.c",
+      "baseline_source_sha256": "62f0c689aadda0d11720cb4c5913b0d89ca3cfdaad4397ff878c5719909852a8",
+      "unique_anchor_count": 1,
+      "mutated_source_sha256": "c36f3ed296af2d30acc53bf223996472cce0d60f0dcbeb7869e11f05899b1ffc",
+      "declared_mutated_sha256": "c36f3ed296af2d30acc53bf223996472cce0d60f0dcbeb7869e11f05899b1ffc",
+      "patch_sha256": "62160707d42f1f4c8ad57a380b7e37f52ea4b9279c0aeb80c2cc362c320dfd86",
+      "declared_patch_sha256": "62160707d42f1f4c8ad57a380b7e37f52ea4b9279c0aeb80c2cc362c320dfd86",
+      "exact_pin_bytes_verified": true
+    },
+    {
+      "fault_id": "joe-clean-exit-suppressed",
+      "source_member": "joe-editor-joe-3874898/joe/ufile.c",
+      "baseline_source_sha256": "f07a1192460b94d3306a70df0cc3d783b9f30a89b3102277631dfeb9df496972",
+      "unique_anchor_count": 1,
+      "mutated_source_sha256": "e21a8f7e2098b8fa63b36ac98d196b35ee085a9d6b0a9649f3464a7dfdb821db",
+      "declared_mutated_sha256": "e21a8f7e2098b8fa63b36ac98d196b35ee085a9d6b0a9649f3464a7dfdb821db",
+      "patch_sha256": "6c0cfb74398d33c146f582aa19cb15a72e571ae4f273faadbab92d985981c4cb",
+      "declared_patch_sha256": "6c0cfb74398d33c146f582aa19cb15a72e571ae4f273faadbab92d985981c4cb",
+      "exact_pin_bytes_verified": true
+    }
+  ],
+  "scope": "Static byte verification only; no target process/build or mutation occurred."
+}
