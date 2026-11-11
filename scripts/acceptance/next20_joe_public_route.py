@@ -2,6 +2,7 @@
 import argparse
 import asyncio
 import base64
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -207,7 +208,8 @@ async def main():
     maintained = json.loads(maintenance_spec.read_text(encoding="utf-8"))
     new_states = [step["state"] for step in maintained["steps"]
                   if step.get("state", {}).get("path") == "public-note.txt"]
-    expected_updated = base64.b64encode(INITIAL[:-1] + new_marker.encode() + INITIAL[-1:]).decode("ascii")
+    updated_bytes = INITIAL[:-1] + new_marker.encode() + INITIAL[-1:]
+    expected_updated = base64.b64encode(updated_bytes).decode("ascii")
     expected_document = json.loads(json.dumps(changed))
     expected_state = next(step["state"] for step in expected_document["steps"]
                           if step.get("state", {}).get("path") == "public-note.txt")
@@ -261,7 +263,7 @@ async def main():
         "maintenance": {"stale_state_failure_report_sha256": sha256(before_report),
                         "updated_report_sha256": sha256(maintenance_report),
                         "selected_state_only": maintained == expected_document,
-                        "updated_bytes_sha256": sha256(INITIAL + new_marker.encode())},
+                        "updated_bytes_sha256": hashlib.sha256(updated_bytes).hexdigest()},
         "relocation": {"path": "relocated space café 雪", "passed": True,
                        "report_sha256": sha256(relocation_report),
                        "invocation_id": relocation_result["invocation_id"]},

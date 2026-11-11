@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "project": "joe",
+  "workflow_run": 43016110290,
+  "workflow_head_sha": "0830564b",
+  "candidate": "v0.4.0-rc.6",
+  "project_admission_credit": 0,
+  "provider_packets": [
+    {"host": "linux", "id": 13853300808, "bytes": 4175747, "sha256": "4a76c43e9589377d36c2fa71528dae5472fd6f7f17a7ab5cc0f64455e6560d72"},
+    {"host": "darwin", "id": 13852928203, "bytes": 4175777, "sha256": "3b7d6019378de1ea5b917a1d86626eccdc041d980643e4e73dd3c9c9960d378a"}
+  ],
+  "hosts": {
+    "linux": {"native_build": "passed", "runner_version_exit": 0, "first_record_attempt_id": "d3d908cde0db420e82c2610812c33319", "first_use_ordinary": "passed", "diagnosis_attempt_id": "2d094130de7c44efaa777f746135408d", "stale_state_failure": "passed-as-declared", "maintenance_attempt_id": "aac65ca5a1164488aa717340d47ccbd6", "maintenance_ordinary": "passed", "relocation_attempt_id": "00384f8448414dd78597b99fc89a09f2", "relocation": "passed", "workflow_preview_attempt_id": "80eabd66dd944e50b7eaf1a1ccd342fa", "workflow_preview": "passed", "route_receipt": "not-written; receipt helper raised TypeError while hashing bytes", "target_cleanup": "passed", "storage": "passed"},
+    "darwin": {"native_build": "passed", "runner_version_exit": 0, "first_record_attempt_id": "c450f5c28627455e8d85d31055dbf03f", "first_use_ordinary": "passed", "diagnosis_attempt_id": "3890e1ca8aba4c9798a2abb07025c53b", "stale_state_failure": "passed-as-declared", "maintenance_attempt_id": "5da09e28afef4787b75b889656158065", "maintenance_ordinary": "passed", "relocation_attempt_id": "79223d8e94cc40ca8615eda648b22da2", "relocation": "passed", "workflow_preview_attempt_id": "aa8cda3f70bf45e9abbad19663b00d9a", "workflow_preview": "passed", "route_receipt": "not-written; same receipt helper raised TypeError while hashing bytes", "target_cleanup": "passed", "storage": "passed"}
+  },
+  "execution_accounting": {"runner_invocations_per_host": 9, "first_use_shell_invocations": 3, "first_use_controls": 12, "seeded_diagnosis_nonzero_exit": 1, "stale_state_nonzero_exit": 1},
+  "failure": {"category": "harness_reporting_error", "message": "TypeError: argument should be a str or an os.PathLike object where __fspath__ returns a str, not 'bytes'", "location": "receipt updated_bytes_sha256 calculation after all route substeps passed", "repair": "hash the exact computed updated_bytes with hashlib.sha256(bytes).hexdigest()"},
+  "classification": "all public route product-command substeps passed on both native hosts; final route receipt assembly failed in the independent acceptance helper; no admission credit until a clean end-to-end rerun writes and audits the receipt",
+  "retained_extracted_artifacts": [
+    "artifacts/runner-readiness-next-twenty-project-pass/tmp/joe-public-route-run43016110290-linux/",
+    "artifacts/runner-readiness-next-twenty-project-pass/tmp/joe-public-route-run43016110290-darwin/"
+  ]
+}
