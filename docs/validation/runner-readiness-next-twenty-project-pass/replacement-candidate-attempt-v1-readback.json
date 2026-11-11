@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "workflow_run": "43055248167",
+  "workflow_revision": "a528d62e3b3960f366ea199d0a35ef6a8c3a7c08",
+  "series": "native-exit-v2",
+  "version": "v0.4.0-rc.7",
+  "production_source_revision": "df7fd54375e411542ce899c0e05b19db643ba64b",
+  "classification": "prelaunch source-pin failure; not a production source/test/build failure",
+  "root_cause": "The workflow environment pinned SOURCE_REVISION to the intended source commit, but the second actions/checkout step still hardcoded 24029291cd0221d7611f07d27b464ec0936a815f. Each native job therefore rejected the checked-out source before SDK acquisition.",
+  "candidate_tests_launched": 0,
+  "candidate_builds": 0,
+  "archives_built": 0,
+  "admission_credit": 0,
+  "jobs": [
+    {
+      "host": "linux",
+      "job_id": "130642847184",
+      "command_id": "fb7a223595d3423c91adaa8a8decef4d",
+      "attempt_events": "artifacts/runner-readiness-next-twenty-project-pass/tmp/rc7-attempt-v1/linux/events",
+      "artifact_id": 13869663782,
+      "artifact_bytes": 45205,
+      "artifact_sha256": "c9dca5a73d9ef3099feaf7993cc91361c00ad4b4c69cdd2756ec70c318b0808c",
+      "provider_sha256": "c9dca5a73d9ef3099feaf7993cc91361c00ad4b4c69cdd2756ec70c318b0808c",
+      "local_readback_verified": true,
+      "host_conclusion": "failure"
+    },
+    {
+      "host": "macos",
+      "job_id": "130642847800",
+      "command_id": "eea3b738cbd5491a823d3d8a463edf9c",
+      "attempt_events": "artifacts/runner-readiness-next-twenty-project-pass/tmp/rc7-attempt-v1/macos/events",
+      "artifact_id": 13871920053,
+      "artifact_bytes": 45229,
+      "artifact_sha256": "a297633f8c8b98e8efe74190ec43bda09d525532116a7c427b234c901b422e7b",
+      "provider_sha256": "a297633f8c8b98e8efe74190ec43bda09d525532116a7c427b234c901b422e7b",
+      "local_readback_verified": true,
+      "host_conclusion": "failure"
+    },
+    {
+      "host": "windows",
+      "job_id": "130642847594",
+      "command_id": "d8ea3ae4478b49368e038679141bad7b",
+      "attempt_events": "artifacts/runner-readiness-next-twenty-project-pass/tmp/rc7-attempt-v1/windows/events",
+      "artifact_id": 13871252442,
+      "artifact_bytes": 45275,
+      "artifact_sha256": "214594812fb66b9bc40b412c51a8bbb41e959e1a337101e7cd5e5ccae1be62b3",
+      "provider_sha256": "214594812fb66b9bc40b412c51a8bbb41e959e1a337101e7cd5e5ccae1be62b3",
+      "local_readback_verified": true,
+      "host_conclusion": "failure"
+    }
+  ],
+  "checks": {
+    "started_identified_launched_finished_events_present": true,
+    "runner_helper_process_reaped_all_hosts": true,
+    "target_source_acquired": false,
+    "native_sdk_acquired": false,
+    "source_test_suite_started": false,
+    "cleanup_orphan_found": false
+  },
+  "correction": "The second checkout now uses the same frozen SOURCE_REVISION environment value. Preserve this attempt and trigger a new three-host run; no failed row is overwritten.",
+  "declaration_sha256_after_checkout_binding": "8321fa75987ed4e24e1ada51758b4b4dcbb3fbe67af9bf2ecad76fbc5a2feaf5"
+}

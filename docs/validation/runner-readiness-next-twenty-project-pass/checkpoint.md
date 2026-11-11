@@ -3430,3 +3430,6 @@ V15 local preflight is complete: the native Windows planner and independent audi
 
 
 11 November continuation v139: the effective-target-PATH lookup fix and JOE v2 receipt/declaration changes were committed and pushed as df7fd54375e411542ce899c0e05b19db643ba64b. Native Windows go test ./..., go vet ./..., and scripts/test-race.ps1 pass. JOE v2 run 43054584381 is queued; all new hosted results remain unaudited and uncredited. The native-exit-v2 rc.7 candidate is declared for Linux/macOS/Windows and its workflow now pins that exact source commit locally; commit/push and all host archive audits remain pending. Campaign count remains 16/30 cumulative and 6/20 in this batch. See checkpoint-continuation-v139.md.
+
+
+11 November continuation v140: first rc.7 workflow run 43055248167 failed all three native jobs before SDK/source checks because the second checkout retained the old hardcoded source ref despite the new SOURCE_REVISION. All three provider artifacts were retrieved and locally SHA/size verified; the bounded wrappers were reaped, no target/source tests or build ran, and no candidate credit is counted. The workflow now binds the checkout ref to SOURCE_REVISION, with updated declaration hash and first-attempt readback. See checkpoint-continuation-v140.md.

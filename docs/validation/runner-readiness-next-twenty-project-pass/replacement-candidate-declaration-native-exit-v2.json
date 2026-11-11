@@ -6,7 +6,11 @@
   "production_source_revision": "df7fd54375e411542ce899c0e05b19db643ba64b",
   "qualification_workflow": ".github/workflows/runner-readiness-next20-replacement-candidate.yml",
   "qualification_workflow_trigger_revision": "commit that adds this declaration and pins SOURCE_REVISION to the source commit above",
-  "candidate_source_checkout": "exact production_source_revision above; candidate helper/workflow source arrives via trigger commit",
+  "candidate_source_checkout": {
+    "repository": "Wyrcan-io/playtestr",
+    "ref_expression": "${{ env.SOURCE_REVISION }}",
+    "expected_commit": "df7fd54375e411542ce899c0e05b19db643ba64b"
+  },
   "native_cells": [
     {
       "host": "ubuntu-24.04",
