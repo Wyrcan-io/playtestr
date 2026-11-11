@@ -22,6 +22,10 @@ LABELS = [
 ]
 ORACLE_CASES = ["correct-file-bytes", "correct-directory-entries", "same-size-wrong-bytes",
                 "missing-required-output", "unexpected-extra-entry", "wrong-type-directory-as-file"]
+TECHNICAL_LABELS = ["mg-technical-suite-selection", "mg-technical-manual-edit-selected-test",
+                    "mg-technical-machine-to-html-report", "mg-technical-version-2-before-migration",
+                    "mg-technical-version-3-after-migration", "mg-technical-suffix-rerecord",
+                    "mg-technical-suffix-rerecord-ordinary-test"]
 
 
 def digest(data):
@@ -278,6 +282,121 @@ def main():
             raise ValueError("saved-state oracle calibration receipt omits a required outcome or cleanup")
         oracle_summary = {"status": oracle["status"], "attempt_count": len(oracle_events),
                           "cases": oracle_events, "project_admission_credit": 0}
+    technical_root = "mg/technical-route-native-exit-v1/"
+    technical_receipt_path = technical_root + "receipt.json"
+    technical_summary = None
+    if technical_receipt_path in members:
+        technical = obj(technical_receipt_path)
+        technical_plan = obj(technical_root + "planned.json")
+        if (technical.get("status") != "technical-authoring-route-passed-not-admitted" or
+                technical.get("project") != "mg" or technical.get("source_pin") != PIN or
+                technical.get("candidate") != "v0.4.0-rc.6" or
+                technical.get("runner_sha256") != RUNNER or technical.get("target_binary_sha256") != TARGET or
+                technical.get("planned_sha256") != digest(members[technical_root + "planned.json"]) or
+                technical.get("admission_credit") != 0 or
+                technical_plan.get("public_route_spec_sha256") != receipt["first_spec_sha256"]):
+            raise ValueError("technical authoring route identity or plan differs")
+        technical_attempts = technical.get("attempts", [])
+        if ([row.get("label") for row in technical_plan.get("attempts", [])] != TECHNICAL_LABELS or
+                [row.get("label") for row in technical_attempts] != TECHNICAL_LABELS or
+                technical.get("attempt_count") != len(TECHNICAL_LABELS)):
+            raise ValueError("technical authoring route attempt sequence is incomplete")
+        technical_events = []
+        technical_attempt_by_label = {}
+        for attempt in technical_attempts:
+            ident, label = attempt.get("id", ""), attempt.get("label", "")
+            if ident in ids or len(ident) != 32 or any(c not in "0123456789abcdef" for c in ident):
+                raise ValueError("technical route attempt ID is invalid or collides")
+            ids.add(ident)
+            event_rows = {}
+            for kind in ("started", "identified", "launched", "finished"):
+                event = obj(f"events/{ident}-{kind}.json")
+                if (event.get("id") != ident or event.get("event") != kind or
+                        event.get("project") != "mg" or event.get("phase") != "technical-authoring" or
+                        event.get("label") != label):
+                    raise ValueError(f"technical route lifecycle identity differs: {ident}/{kind}")
+                event_rows[kind] = event
+            if not isinstance(event_rows["launched"].get("pid"), int) or event_rows["launched"]["pid"] <= 0:
+                raise ValueError(f"technical route lacks target launch evidence: {label}")
+            finished = event_rows["finished"]
+            console_path = f"mg/{ident}/console.log"
+            console = members[console_path]
+            if (finished.get("cleanup_errors") or finished.get("harness_cleanup") != "harness_process_reaped" or
+                    digest(console) != finished.get("console_sha256") or len(console) != finished.get("output_bytes") or
+                    attempt.get("returncode") != 0 or finished.get("exit_code") != 0):
+                raise ValueError(f"technical route command or cleanup differs: {label}")
+            manifest_ref = event_rows["identified"].get("identity", {})
+            manifest_path = manifest_ref.get("manifest", "")
+            if (not manifest_path or PurePosixPath(manifest_path).is_absolute() or
+                    ".." in PurePosixPath(manifest_path).parts or manifest_path not in members or
+                    digest(members[manifest_path]) != manifest_ref.get("sha256")):
+                raise ValueError(f"technical route contract identity differs: {label}")
+            technical_attempt_by_label[label] = (attempt, console)
+            technical_events.append({"id": ident, "label": label, "console_sha256": digest(console),
+                                     "identity_manifest": manifest_path})
+        selection_attempt, selection_console = technical_attempt_by_label[TECHNICAL_LABELS[0]]
+        if (b"Selected 2 specs:" not in selection_console or
+                b"chosen.json" not in selection_console or b"separate.json" not in selection_console or
+                digest(selection_console).lower() != selection_attempt.get("output_sha256")):
+            raise ValueError("technical route did not verify the exact selected suite")
+        manual_spec = obj(technical_root + "manual-edit/create-note.json")
+        expected_technical = INITIAL + (MARKER + "_TECH").encode()
+        manual_states = [s["state"] for s in manual_spec["steps"] if s.get("state", {}).get("path") == "public-note.txt"]
+        if (manual_spec.get("env", {}).get("PLAYTESTR_TECHNICAL_ROUTE") != "explicit-rc6" or
+                not any(s.get("text") == MARKER + "_TECH" for s in manual_spec["steps"]) or
+                not any(s.get("expect") == MARKER + "_TECH" for s in manual_spec["steps"]) or
+                len(manual_states) != 1 or
+                base64.b64decode(manual_states[0]["bytes_base64"], validate=True) != expected_technical):
+            raise ValueError("manual technical spec edits do not bind explicit environment, screen and exact file bytes")
+
+        def verify_technical_report(name, label, receipt_field, expected_version):
+            report_path = technical_root + f"reports/{name}.json"
+            report_bytes = members[report_path]
+            if digest(report_bytes) != technical.get(receipt_field):
+                raise ValueError(f"technical report digest differs: {name}")
+            report_doc = json.loads(report_bytes.decode("utf-8"))
+            if (report_doc.get("runner_version") != "v0.4.0-rc.6" or
+                    report_doc.get("report_version") != expected_version or len(report_doc.get("results", [])) != 1):
+                raise ValueError(f"technical report format or candidate differs: {name}")
+            result = report_doc["results"][0]
+            if (result.get("status") != "passed" or
+                    not result.get("cleanup", {}).get("confirmed_exited") or
+                    not result.get("workspace", {}).get("cleaned") or
+                    result.get("invocation_id") != technical_attempt_by_label[label][0].get("invocation_id")):
+                raise ValueError(f"technical report lacks positive result, identity or cleanup: {name}")
+            return report_bytes
+
+        verify_technical_report("manual-edit-selected", TECHNICAL_LABELS[1], "manual_edit_report_sha256", 3)
+        verify_technical_report("version-2-before-migration", TECHNICAL_LABELS[3], "version2_report_sha256", 2)
+        verify_technical_report("version-3-after-migration", TECHNICAL_LABELS[4], "version3_report_sha256", 3)
+        verify_technical_report("suffix-rerecord-ordinary-pass", TECHNICAL_LABELS[6], "suffix_ordinary_report_sha256", 3)
+        html_path = technical_root + "reports/manual-edit-selected.html"
+        html = members[html_path]
+        if digest(html) != technical.get("html_report_sha256") or b"<!doctype html" not in html.lower() or (MARKER + "_TECH").encode() in html:
+            raise ValueError("technical route HTML report is missing, changed or contains excluded expected text")
+        legacy = obj(technical_root + "migration/version-2-before-migration.json")
+        migrated = obj(technical_root + "migration/create-note.json")
+        if (legacy.get("version") != 2 or any("state" in step for step in legacy["steps"]) or
+                migrated.get("version") != 3 or
+                not any(step.get("state", {}).get("path") == "public-note.txt" for step in migrated["steps"])):
+            raise ValueError("manual v2-to-v3 technical spec migration was not retained")
+        suffix = obj(technical_root + "suffix-rerecord/create-note.json")
+        suffix_marker = MARKER + "_SUFFIX"
+        suffix_states = [s["state"] for s in suffix["steps"] if s.get("state", {}).get("path") == "public-note.txt"]
+        suffix_plan = technical_plan.get("suffix_rerecord", {})
+        if (len(suffix_states) != 1 or
+                base64.b64decode(suffix_states[0]["bytes_base64"], validate=True) != INITIAL + suffix_marker.encode() or
+                not any(step.get("text") == suffix_marker for step in suffix["steps"]) or
+                suffix_plan.get("marker") != suffix_marker or suffix_plan.get("prefix_steps") != 4):
+            raise ValueError("suffix rerecord did not retain the selected prefix and exact updated file state")
+        if (technical.get("target_copy_sha256") != TARGET or technical.get("target_copy_removed") is not True or
+                technical_root + "target/bin/mg" in members):
+            raise ValueError("technical route target cleanup receipt or retained packet differs")
+        technical_summary = {"status": technical["status"], "attempt_count": len(technical_events),
+                             "reports": ["machine JSON", "offline HTML"],
+                             "version_migration": "manual v2-to-v3 with exact saved-state assertion",
+                             "selected_suffix_rerecord": True, "target_copy_removed": True,
+                             "attempts": technical_events, "project_admission_credit": 0}
     report = {
         "schema_version": 1,
         "status": "public-route-evidence-audited-not-admitted",
@@ -306,6 +425,7 @@ def main():
         "target_copy_cleanup_count": len(removed),
         "human_participants": 0, "human_time": "unmeasured",
         "saved_state_oracle_calibration": oracle_summary,
+        "technical_authoring_route": technical_summary,
         "limits": ["Agent operation only; no beginner-usability claim.",
                    "Route evidence is not project admission; campaign and storage gates remain."],
     }

@@ -60,7 +60,7 @@ def fixture_inputs(base,relative):
 class Campaign:
     def __init__(self, raw=RAW, *, phase=None, catalog_project=None):
         self.phase=phase or os.environ.get('READINESS_EVIDENCE_PHASE','development')
-        if self.phase not in {'development','final-archive','fault-calibration','public-authoring','oracle-calibration','source-fault-baseline',
+        if self.phase not in {'development','final-archive','fault-calibration','public-authoring','oracle-calibration','technical-authoring','source-fault-baseline',
                               'source-fault-corrupted','source-fault-restored'}:
             raise ValueError('undeclared evidence phase')
         self.catalog_project=catalog_project or os.environ.get('READINESS_IDENTITY_CATALOG_PROJECT','')

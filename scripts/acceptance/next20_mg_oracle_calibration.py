@@ -1,5 +1,6 @@
 """Calibrate mg's saved-file oracle with independently constructed state variants."""
 import base64
+import atexit
 import json
 import os
 from pathlib import Path
@@ -70,6 +71,14 @@ async def run_calibration(route_root, mg_build_root):
     target = OUTPUT / "target/bin/mg"
     target.parent.mkdir(parents=True)
     shutil.copy2(original, target)
+    def cleanup_target():
+        if target.exists():
+            if sha256(target) != TARGET_SHA:
+                raise RuntimeError("mg oracle target identity changed; refusing cleanup")
+            target.unlink()
+        if target.parent.exists() and not any(target.parent.iterdir()):
+            target.parent.rmdir()
+    atexit.register(cleanup_target)
     mode = ensure_executable(target)
     if sha256(target) != TARGET_SHA:
         raise ValueError("oracle calibration target copy changed bytes")
