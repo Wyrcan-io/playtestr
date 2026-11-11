@@ -48,6 +48,9 @@ jobs:
       - name: Start acquisition and build deadline
         id: timer
         run: echo "started_epoch=$(date +%s)" >> "$GITHUB_OUTPUT"
+      - name: Install pinned build-tool prerequisites on macOS runner
+        if: matrix.host == 'darwin'
+        run: brew install autoconf automake
       - name: Acquire exact JOE source pin
         run: python -B scripts/acceptance/next20_acquire.py joe
       - name: Build and install into the owned native tree

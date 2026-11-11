@@ -1,0 +1,20 @@
+{
+  "artifact_packets": [
+    {"id": 13848135933, "name": "next20-joe-build-darwin-43004813995", "provider_bytes": 3769537},
+    {"id": 13846614761, "name": "next20-joe-build-linux-43004813995", "provider_bytes": 9972511}
+  ],
+  "conclusion": "failed during post-build qualification; no project credit",
+  "failure_classification": "harness/setup failure, not a JOE source incompatibility",
+  "hosts": {
+    "darwin": "source acquisition passed; native build refused before command launch because autoreconf was absent",
+    "linux": "source acquisition, autoreconf, configure, make and install passed; verifier then raised NameError because safe_tree referenced an out-of-scope target variable"
+  },
+  "project": "joe",
+  "project_admission_credit": 0,
+  "run_id": 43004813995,
+  "schema_version": 1,
+  "source_pin": "3874898078005d1f5e519235401fab4fd428dd9b",
+  "workflow_head_sha": "0fefe0f910c423af81bbcb570e520fdf801b291b",
+  "workflow_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/43004813995",
+  "retained_packets": "artifacts/runner-readiness-next-twenty-project-pass/joe/build-attempt-43004813995"
+}

@@ -31,7 +31,7 @@ def safe_tree(root, *, allow_install_aliases=False):
         for name in names + files:
             path = base / name
             if path.is_symlink() or getattr(path, "is_junction", lambda: False)():
-                allowed = (allow_install_aliases and path.parent == target / "install/bin" and
+                allowed = (allow_install_aliases and path.parent == root / "install/bin" and
                            path.name in {"jmacs", "jstar", "rjoe", "jpico"} and
                            path.is_symlink() and os.readlink(path) == "joe")
                 if not allowed:
