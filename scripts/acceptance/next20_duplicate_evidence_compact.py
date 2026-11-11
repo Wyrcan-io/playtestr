@@ -13,8 +13,11 @@ from next20_check import RAW
 from readiness_evidence import immutable_json, sha256
 
 
-STAGE = Path(tempfile.gettempdir()) / "playtestr-next20-duplicate-evidence-v1"
-FINAL = RAW / "duplicate-evidence-v1"
+STAGE = Path(os.environ.get(
+    "PLAYTESTR_NEXT20_DUPLICATE_STAGE",
+    str(Path(tempfile.gettempdir()) / "playtestr-next20-duplicate-evidence-v1")))
+FINAL = Path(os.environ.get("PLAYTESTR_NEXT20_DUPLICATE_FINAL",
+                             str(RAW / "duplicate-evidence-v1")))
 EXCLUDED = {"active", "toolchain", "go-cache", "gopath", "gh-cache", "tmp"}
 MAX_FILES = 100_000
 MAX_BYTES = 4 * 1024**3
@@ -111,7 +114,7 @@ def prepare() -> None:
                 if entries_seen > 500_000:
                     raise ValueError("campaign duplicate scan exceeds directory entry bound")
                 relative = Path(entry.path).relative_to(RAW)
-                if len(relative.parts) == 1 and relative.parts[0] in EXCLUDED | {FINAL.name}:
+                if len(relative.parts) == 1 and relative.parts[0] in EXCLUDED | {FINAL.name, STAGE.name}:
                     continue
                 info = entry.stat(follow_symlinks=False)
                 linked = (stat.S_ISLNK(info.st_mode) or getattr(info, "st_reparse_tag", 0) ==

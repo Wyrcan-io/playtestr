@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "status": "readback-verified-and-native-checked-removal-complete",
+  "duplicate_evidence": {
+    "packet": "artifacts/runner-readiness-next-twenty-project-pass/duplicate-evidence-v2",
+    "index_sha256": "61bc3372335146e980db5223355bc8ded32a82b4222b051d0e4bec59f49ef272",
+    "archive_sha256": "3501875ca0801e2e45da308c49892e3c49accb70f61262fed572d07a4f316c80",
+    "groups": 686,
+    "aliases": 11728,
+    "expanded_bytes": 36914579,
+    "unique_payload_bytes": 16858844,
+    "packet_archive_bytes": 6903460,
+    "selected_restore": {
+      "path": "mg/public-route-retrieved/run-42980303472/identities/0e50b5df1b9ea9911b1dd99b16d0098ffc6c679d893a883cf897e3ac666de0f8.json",
+      "sha256": "0e50b5df1b9ea9911b1dd99b16d0098ffc6c679d893a883cf897e3ac666de0f8",
+      "bytes": 112889,
+      "hash_mode_mtime_readback": "passed"
+    },
+    "removal_receipt_sha256": "fc66421d0335cce9d70f1ed15852adaf04e76608224cbee2b575138d42b83920"
+  },
+  "text_evidence": {
+    "helper": "scripts/acceptance/next20_text_evidence_compact.py",
+    "native_remover": "scripts/acceptance/next20_text_evidence_remove.ps1",
+    "packet": "artifacts/runner-readiness-next-twenty-project-pass/text-evidence-v1",
+    "index_sha256": "e106a50508baa1d5c86cc89c34149984b7c206e4e687245a2f917e29061e3c4b",
+    "archive_sha256": "c6a2e42b89a59ace3745d7f215315f64b6381ed250fbe51be93486ab426d02b7",
+    "members": 25601,
+    "expanded_bytes": 100873174,
+    "payload_archive_bytes": 11491440,
+    "compressed_index_bytes": 1222672,
+    "selected_restore": {
+      "path": "storage/f87f239f3377419faefc16e9a4f30a51/observed.json",
+      "hash_mode_mtime_readback": "passed"
+    },
+    "removal_receipt_sha256": "71c5b26a05a39b115a81b2e48d6d9e6654f89fe59ca96fccc5a8be7455b03527"
+  },
+  "storage_observation": "storage-checkpoint-v45.json",
+  "scope": "Original duplicate aliases and expanded text sources were removed only after complete indexed payload readback, selected restores, hash preflight, and native PowerShell checked deletion. ZIP, binary, active-target, and pre-existing packed evidence were preserved."
+}
