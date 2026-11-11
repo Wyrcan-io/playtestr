@@ -28,8 +28,6 @@ CONTROL_SEQUENCE = [
     "/snapshot edited-note.txt",
     "/key CtrlK",
     '/text "x"',
-    "/expect Save",
-    '/text "y"',
     "/exit 0",
     "/file public-note.txt",
     "/review",
@@ -148,7 +146,7 @@ async def main():
     recorded = json.loads(spec.read_text(encoding="utf-8"))
     states = [step["state"] for step in recorded.get("steps", [])
               if step.get("state", {}).get("path") == "public-note.txt"]
-    expected_bytes = base64.b64encode(INITIAL + MARKER.encode()).decode("ascii")
+    expected_bytes = base64.b64encode(INITIAL[:-1] + MARKER.encode() + INITIAL[-1:]).decode("ascii")
     if (recorded.get("version") != 3 or recorded.get("command", [])[-2:] != ["-nobackups", "public-note.txt"] or
             recorded.get("workspace", {}).get("fixture") != "fixtures" or len(states) != 1 or
             states[0].get("kind") != "file" or states[0].get("bytes_base64") != expected_bytes or

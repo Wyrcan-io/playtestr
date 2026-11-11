@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "project": "joe",
+  "workflow_run": 43014193355,
+  "workflow_head_sha": "53afe313",
+  "candidate": "v0.4.0-rc.6",
+  "project_admission_credit": 0,
+  "provider_packets": [
+    {"host": "linux", "id": 13852395728, "bytes": 3931749, "sha256": "5096ad72d9400f5c2f06e15635d4cf1fc2d0ac7c7b760845b2cc11c1f3cee556"},
+    {"host": "darwin", "id": 13852730232, "bytes": 3931781, "sha256": "24b5e658599b9dd3e4d3036d023db7e56f2eaa2a0d80eb68573fdbcce17bead2"}
+  ],
+  "hosts": {
+    "linux": {"runner_version_exit": 0, "record_exit": 1, "record_attempt_id": "03dbc6c3eb61424bb59baeb2859a6bb9", "record_console_sha256": "9c5f6359ef67f7ac6e4bc5704dd134a627e2f1d039d47cc3f9c8e04600c01eea", "record_console_bytes": 4068, "first_spec_saved": false, "target_cleanup": "passed", "storage": "passed"},
+    "darwin": {"runner_version_exit": 0, "record_exit": 1, "record_attempt_id": "3108ad118a384eff95bcafb6ef3149c6", "record_console_sha256": "3c05824aeca1fbe3e59c318095cd971ec88440b6697e8b172a4f4123416f2416", "record_console_bytes": 4070, "first_spec_saved": false, "target_cleanup": "passed", "storage": "passed"}
+  },
+  "source_basis": {"repository": "joe-editor/joe", "pin": "3874898078005d1f5e519235401fab4fd428dd9b", "archive_sha256": "5e00e2621225a304061c70903ef6490a700a4bbf1fa600c096b5bbb6746f2312", "manual": "docs/man.md", "documented_save_exit": "Ctrl-K X saves and exits a named file; no confirmation prompt is documented"},
+  "diagnosis": "Both hosts captured the marker and screen. The source manual confirms Ctrl-K X directly saves and exits an already named file; the route incorrectly waited for a nonexistent Save prompt, then supplied extra controls after target exit. The actual selected file was 43 bytes: JOE_PUBLIC_ROUTE_STARTJOE_PUBLIC_ROUTE_RC6 followed by LF. This is a route-control assumption error, not a target or runner defect.",
+  "classification": "failed public-authoring attempt; first-use controls and exact state expectation revised from pinned source and retained same-run capture; no admission credit",
+  "shell_invocations_before_miss": 2,
+  "control_count": 14,
+  "retained_extracted_artifacts": [
+    "artifacts/runner-readiness-next-twenty-project-pass/tmp/joe-public-route-run43014193355-linux/",
+    "artifacts/runner-readiness-next-twenty-project-pass/tmp/joe-public-route-run43014193355-darwin/"
+  ]
+}
