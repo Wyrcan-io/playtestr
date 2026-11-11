@@ -59,12 +59,14 @@ jobs:
       - name: Create campaign temporary root
         run: mkdir -p artifacts/runner-readiness-next-twenty-project-pass/tmp
 
+      - name: Run the target cleanup prelaunch regression tests
+        run: python -B -m unittest test_next20_target_cleanup -v
+        working-directory: scripts/acceptance
+
       - name: Verify the frozen JOE project scenarios
         run: >-
-          python -B -m unittest test_next20_target_cleanup -v
-          && python -B scripts/acceptance/next20_joe_scenarios.py
+          python -B scripts/acceptance/next20_joe_scenarios.py
           --host "${{ matrix.host }}" --verify-only
-        working-directory: scripts/acceptance
 
       - name: Install reviewed Autotools prerequisites on macOS
         if: matrix.host == 'darwin'

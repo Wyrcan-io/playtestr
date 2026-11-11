@@ -21,7 +21,7 @@ PIN = "3874898078005d1f5e519235401fab4fd428dd9b"
 PROJECT = DOC / "joe"
 SCENARIOS = PROJECT / "scenarios-v2"
 DECLARATION = PROJECT / "scenario-declaration-v2.json"
-PRELAUNCH = PROJECT / "scenario-attempt-v2.json"
+PRELAUNCH = PROJECT / "scenario-attempt-v3.json"
 
 
 def _state(path, data):
