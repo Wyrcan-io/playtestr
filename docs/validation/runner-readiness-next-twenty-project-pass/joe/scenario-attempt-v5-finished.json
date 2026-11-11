@@ -1,0 +1,57 @@
+{
+  "attempt_id": "joe-final-qualification-pinned-3874898078005d1f5e519235401fab4fd428dd9b-v5",
+  "candidate": "v0.4.0-rc.6",
+  "phase": "final-qualification",
+  "project": "joe",
+  "revision": 5,
+  "schema_version": 1,
+  "workflow_run": 43034910385,
+  "workflow_head_sha": "bf1ce51761ab830d575286d2a0c70be3d2947eef",
+  "outcome": "prelaunch qualification failed on both hosts before any JOE scenario target launched; no final qualification or project admission credit",
+  "native_cells": {
+    "linux": {
+      "conclusion": "failure",
+      "build_and_candidate_install": "passed",
+      "build_evidence_retention": "failed: frozen host cell required 12 repetitions but command defaulted to 1",
+      "scenario_step": "skipped",
+      "scenario_targets_launched": 0,
+      "cleanup_step": "failed because expected batch manifest did not exist after scenario step was skipped",
+      "storage": "passed"
+    },
+    "darwin": {
+      "conclusion": "failure",
+      "build_and_candidate_install": "passed",
+      "build_evidence_retention": "failed: frozen host cell required 12 repetitions but command defaulted to 1",
+      "scenario_step": "skipped",
+      "scenario_targets_launched": 0,
+      "cleanup_step": "failed because expected batch manifest did not exist after scenario step was skipped",
+      "storage": "passed"
+    }
+  },
+  "provider_artifacts": {
+    "darwin": {
+      "artifact_id": 13862587882,
+      "bytes": 16657134,
+      "sha256": "eaeb2c54fd1612385897bc9860b59698f9203043bc98a1534591082e7c7be724"
+    },
+    "linux": {
+      "artifact_id": 13862028370,
+      "bytes": 21712416,
+      "sha256": "5c01ae4a5122cd5023aa41d3d20c1e8afb459153f0362456f45c709f3d1d54d2"
+    }
+  },
+  "provider_job_ids": {
+    "linux": 130571079814,
+    "darwin": 130571080412
+  },
+  "source_cleanup": "not proven by the failed cleanup step; no scenario command ran, but preserve as unresolved until successful fresh attempt readback",
+  "workspace_cleanup": "no scenario workspaces were created by scenario command; source-target cleanup was not independently receipted",
+  "qualification_scenarios": 0,
+  "ordinary_executions": 0,
+  "real_faults": 0,
+  "project_admission_credit": 0,
+  "storage": "both native storage checks passed",
+  "scenario_declaration": "joe/scenario-declaration-v3.json",
+  "scenario_declaration_sha256": "c23a5ab92038d5652e0e283f4a5f3b681ecdc3177d0f39253782f07acc2a5185",
+  "artifact_metadata_source": "GitHub Actions workflow run artifact list; provider-reported SHA-256 and size; jobs API step conclusions"
+}

@@ -10,7 +10,7 @@ on:
       - scripts/acceptance/next20_target_cleanup.py
       - scripts/acceptance/test_next20_target_cleanup.py
       - docs/validation/runner-readiness-next-twenty-project-pass/joe/scenario-declaration-v3.json
-      - docs/validation/runner-readiness-next-twenty-project-pass/joe/scenario-attempt-v5.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/joe/scenario-attempt-v6.json
       - docs/validation/runner-readiness-next-twenty-project-pass/joe/scenarios-v3/**
 
 permissions:
@@ -68,7 +68,7 @@ jobs:
           python -B scripts/acceptance/next20_joe_scenarios.py
           --host "${{ matrix.host }}"
           --phase final-qualification
-          --attempt-manifest docs/validation/runner-readiness-next-twenty-project-pass/joe/scenario-attempt-v5.json
+          --attempt-manifest docs/validation/runner-readiness-next-twenty-project-pass/joe/scenario-attempt-v6.json
           --repetitions 12
           --verify-only
 
@@ -105,7 +105,8 @@ jobs:
           python -B scripts/acceptance/next20_joe_scenarios.py
           --host "${{ matrix.host }}"
           --phase final-qualification
-          --attempt-manifest docs/validation/runner-readiness-next-twenty-project-pass/joe/scenario-attempt-v5.json
+          --attempt-manifest docs/validation/runner-readiness-next-twenty-project-pass/joe/scenario-attempt-v6.json
+          --repetitions 12
           --retain-build-evidence
 
       - name: Run twenty scenarios twelve times for final qualification
@@ -114,16 +115,18 @@ jobs:
           python -B scripts/acceptance/next20_joe_scenarios.py
           --host "${{ matrix.host }}"
           --phase final-qualification
-          --attempt-manifest docs/validation/runner-readiness-next-twenty-project-pass/joe/scenario-attempt-v5.json
+          --attempt-manifest docs/validation/runner-readiness-next-twenty-project-pass/joe/scenario-attempt-v6.json
           --repetitions 12
 
       - name: Restore source and confirm JOE target cleanup
         if: always() && steps.acquire.outcome == 'success'
-        run: >-
-          python -B scripts/acceptance/next20_target_cleanup.py
-          --project joe
-          --unlaunched-report-manifest
-          "artifacts/runner-readiness-next-twenty-project-pass/joe/final-qualification-batches/${{ matrix.host }}/${{ github.run_id }}.json"
+        run: |
+          manifest="artifacts/runner-readiness-next-twenty-project-pass/joe/final-qualification-batches/${{ matrix.host }}/${{ github.run_id }}.json"
+          if [[ -f "$manifest" ]]; then
+            python -B scripts/acceptance/next20_target_cleanup.py --project joe --unlaunched-report-manifest "$manifest"
+          else
+            python -B scripts/acceptance/next20_target_cleanup.py --project joe
+          fi
 
       - name: Verify bounded campaign storage
         if: always() && steps.acquire.outcome == 'success'
