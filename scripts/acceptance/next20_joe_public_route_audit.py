@@ -27,6 +27,9 @@ EXIT_CODES = [0, 0, 0, 1, 1, 0, 0, 0, 0]
 INITIAL = b"JOE_PUBLIC_ROUTE_START\n"
 MARKER = "JOE_PUBLIC_ROUTE_RC6"
 UPDATED = "JOE_PUBLIC_ROUTE_RC6_UPDATED"
+SERIES = "native-exit-v1"
+CANDIDATE = "v0.4.0-rc.6"
+DECLARATION_SHA = ""
 MAX_MEMBER = 256 * 1024**2
 MAX_TOTAL = 2 * 1024**3
 
@@ -72,7 +75,8 @@ def load_zip(path, provider_size, provider_sha256):
 
 def verify_host(host, archive_path, provider_size, provider_sha256, run_id, freeze):
     payloads, zip_members, expanded_bytes = load_zip(archive_path, provider_size, provider_sha256)
-    prefix = f"joe/public-route-v1/{host}/"
+    route_version = "v2" if SERIES == "native-exit-v2" else "v1"
+    prefix = f"joe/public-route-{route_version}/{host}/"
 
     def bytes_at(name):
         path = prefix + name
@@ -102,22 +106,25 @@ def verify_host(host, archive_path, provider_size, provider_sha256, run_id, free
     acquisition = root_obj("joe/retained-source/acquisition.json")
     removed = root_obj("joe/retained-source/removed.json")
     process = root_obj("joe/process-proof.json")
-    installed = root_obj(f"candidate-native-exit-v1/{host}/installed.json")
-    host_runner = RUNNER[host]
     candidate_cells = [row for row in freeze["cells"] if row.get("host") == host]
     require(len(candidate_cells) == 1, "candidate freeze does not define exactly one host cell")
     candidate_cell = candidate_cells[0]
+    installed = root_obj(f"candidate-{SERIES}/{host}/installed.json")
+    host_runner = {"archive": candidate_cell["archive_sha256"], "binary": candidate_cell["binary_sha256"]}
     require(receipt.get("project") == PROJECT and receipt.get("host") == host and
-            receipt.get("candidate") == "v0.4.0-rc.6" and receipt.get("source_pin") == PIN and
+            receipt.get("candidate") == CANDIDATE and receipt.get("source_pin") == PIN and
             receipt.get("project_admission_credit") == 0, "public-route receipt project identity differs")
+    require(plan.get("route_declaration_sha256") == DECLARATION_SHA and
+            plan.get("route_declaration") == ("joe/public-route-declaration-v5.json" if SERIES == "native-exit-v2" else "joe/public-route-declaration-v4.json"),
+            "public-route plan does not bind the exact candidate route declaration")
     require(receipt.get("target_build_run") == str(run_id), "route receipt points at another workflow run")
     require(receipt.get("runner_sha256") == host_runner["binary"] and
             plan.get("runner_sha256") == host_runner["binary"] and
             plan.get("candidate_archive_sha256") == host_runner["archive"],
-            "route is not bound to the frozen rc.6 host executable/archive")
+            "route is not bound to the exact frozen candidate host executable/archive")
     require(installed.get("archive_sha256") == host_runner["archive"] and
             installed.get("binary_sha256") == host_runner["binary"] and
-            installed.get("version") == "v0.4.0-rc.6", "installed runner differs from the candidate freeze")
+            installed.get("version") == CANDIDATE, "installed runner differs from the candidate freeze")
     candidate_archive = payloads.get(installed.get("archive", ""))
     if candidate_archive is None:
         retained = ROOT / candidate_cell.get("archive_local_only", "")
@@ -207,7 +214,7 @@ def verify_host(host, archive_path, provider_size, provider_sha256, run_id, free
         raw = bytes_at(name)
         require(digest(raw) == receipt_digests[name], "report hash differs from route receipt: " + name)
         report = json.loads(raw.decode("utf-8"))
-        require(report.get("report_version") == 3 and report.get("runner_version") == "v0.4.0-rc.6" and
+        require(report.get("report_version") == 3 and report.get("runner_version") == CANDIDATE and
                 report.get("summary", {}).get("total") == 1 and len(report.get("results", [])) == 1,
                 "candidate report denominator/version differs: " + name)
         result = report["results"][0]
@@ -312,7 +319,7 @@ def verify_host(host, archive_path, provider_size, provider_sha256, run_id, free
         target_binary = [value for name, value in target_files.items()
                          if name.endswith("/active/joe/install/bin/joe")]
         candidate_binary = [value for name, value in base_files.items()
-                            if name.endswith(f"/candidate-native-exit-v1/{host}/playtestr")]
+                            if name.endswith(f"/candidate-{SERIES}/{host}/playtestr")]
         build_receipt_hashes = [value for name, value in base_files.items()
                                 if name.endswith("/active/joe/build.json")]
         runtime_receipt_hashes = [value for name, value in base_files.items()
@@ -351,6 +358,7 @@ def verify_host(host, archive_path, provider_size, provider_sha256, run_id, free
 
 
 def main():
+    global SERIES, CANDIDATE, DECLARATION_SHA, MARKER, UPDATED
     parser = argparse.ArgumentParser()
     parser.add_argument("--run-id", type=int, required=True)
     parser.add_argument("--head-sha", required=True)
@@ -361,16 +369,23 @@ def main():
     parser.add_argument("--darwin-size", type=int, required=True)
     parser.add_argument("--darwin-sha256", required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--series", choices=("native-exit-v1", "native-exit-v2"), default="native-exit-v1")
     args = parser.parse_args()
-    freeze_path = DOC / "replacement-candidate-freeze-native-exit-v1.json"
+    SERIES = args.series
+    MARKER = "JOE_PUBLIC_ROUTE_RC7" if SERIES == "native-exit-v2" else "JOE_PUBLIC_ROUTE_RC6"
+    UPDATED = MARKER + "_UPDATED"
+    freeze_path = DOC / f"replacement-candidate-freeze-{SERIES}.json"
     freeze = json.loads(freeze_path.read_text(encoding="utf-8"))
+    CANDIDATE = freeze["version"]
+    declaration_path = DOC / "joe" / ("public-route-declaration-v5.json" if SERIES == "native-exit-v2" else "public-route-declaration-v4.json")
+    DECLARATION_SHA = hashlib.sha256(declaration_path.read_bytes()).hexdigest()
     results = {
         "linux": verify_host("linux", args.linux_zip, args.linux_size, args.linux_sha256, args.run_id, freeze),
         "darwin": verify_host("darwin", args.darwin_zip, args.darwin_size, args.darwin_sha256, args.run_id, freeze),
     }
     output = {
         "schema_version": 1, "project": PROJECT, "workflow_run": args.run_id,
-        "workflow_head_sha": args.head_sha, "candidate": "v0.4.0-rc.6",
+        "workflow_head_sha": args.head_sha, "candidate": CANDIDATE, "candidate_series": SERIES,
         "project_admission_credit": 0,
         "provider_packets": {
             "linux": {"bytes": args.linux_size, "sha256": args.linux_sha256},

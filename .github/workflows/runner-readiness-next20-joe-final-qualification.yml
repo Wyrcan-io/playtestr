@@ -9,9 +9,12 @@ on:
       - scripts/acceptance/next20_joe_scenarios.py
       - scripts/acceptance/next20_target_cleanup.py
       - scripts/acceptance/test_next20_target_cleanup.py
-      - docs/validation/runner-readiness-next-twenty-project-pass/joe/scenario-declaration-v3.json
-      - docs/validation/runner-readiness-next-twenty-project-pass/joe/scenario-attempt-v6.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/joe/scenario-declaration-v4.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/joe/scenario-attempt-v7.json
       - docs/validation/runner-readiness-next-twenty-project-pass/joe/scenarios-v3/**
+      - docs/validation/runner-readiness-next-twenty-project-pass/joe/fault-declaration-v3.json
+      - scripts/acceptance/next20_joe_final_qualification_audit.py
+      - scripts/acceptance/test_next20_joe_scenarios.py
 
 permissions:
   actions: read
@@ -31,14 +34,14 @@ jobs:
         include:
           - host: linux
             os: ubuntu-24.04
-            candidate_run_id: 40424475362
+            candidate_run_id: 43056391377
             candidate_artifact: next20-private-replacement-Linux
-            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v1/linux-amd64/dist/playtestr_0.4.0-rc.6_linux_amd64.tar.gz
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v2/linux-amd64/dist/playtestr_0.4.0-rc.7_linux_amd64.tar.gz
           - host: darwin
             os: macos-15
-            candidate_run_id: 40420820491
+            candidate_run_id: 43056391377
             candidate_artifact: next20-private-replacement-macOS
-            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v1/darwin-arm64/dist/playtestr_0.4.0-rc.6_darwin_arm64.tar.gz
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v2/darwin-arm64/dist/playtestr_0.4.0-rc.7_darwin_arm64.tar.gz
     runs-on: ${{ matrix.os }}
     timeout-minutes: 65
     env:
@@ -60,7 +63,7 @@ jobs:
         run: mkdir -p artifacts/runner-readiness-next-twenty-project-pass/tmp
 
       - name: Run the target cleanup prelaunch regression tests
-        run: python -B -m unittest test_next20_target_cleanup -v
+        run: python -B -m unittest test_next20_target_cleanup test_next20_joe_scenarios test_next20_joe_final_qualification_audit -v
         working-directory: scripts/acceptance
 
       - name: Verify the frozen JOE project scenarios
@@ -68,7 +71,8 @@ jobs:
           python -B scripts/acceptance/next20_joe_scenarios.py
           --host "${{ matrix.host }}"
           --phase final-qualification
-          --attempt-manifest docs/validation/runner-readiness-next-twenty-project-pass/joe/scenario-attempt-v6.json
+          --series native-exit-v2
+          --attempt-manifest docs/validation/runner-readiness-next-twenty-project-pass/joe/scenario-attempt-v7.json
           --repetitions 12
           --verify-only
 
@@ -84,7 +88,7 @@ jobs:
         if: steps.acquire.outcome == 'success'
         run: python -B scripts/acceptance/next20_joe_build.py --expected-host "${{ matrix.host }}"
 
-      - name: Download the frozen native rc.6 runner
+      - name: Download the frozen native rc.7 runner
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
           github-token: ${{ github.token }}
@@ -96,7 +100,7 @@ jobs:
       - name: Install and verify the exact frozen candidate archive
         run: >-
           python -B scripts/acceptance/next20_candidate_install.py
-          --series native-exit-v1
+          --series native-exit-v2
           --archive "${{ matrix.candidate_archive }}"
 
       - name: Retain the exact native JOE build and logs before cleanup
@@ -105,7 +109,8 @@ jobs:
           python -B scripts/acceptance/next20_joe_scenarios.py
           --host "${{ matrix.host }}"
           --phase final-qualification
-          --attempt-manifest docs/validation/runner-readiness-next-twenty-project-pass/joe/scenario-attempt-v6.json
+          --series native-exit-v2
+          --attempt-manifest docs/validation/runner-readiness-next-twenty-project-pass/joe/scenario-attempt-v7.json
           --repetitions 12
           --retain-build-evidence
 
@@ -115,7 +120,8 @@ jobs:
           python -B scripts/acceptance/next20_joe_scenarios.py
           --host "${{ matrix.host }}"
           --phase final-qualification
-          --attempt-manifest docs/validation/runner-readiness-next-twenty-project-pass/joe/scenario-attempt-v6.json
+          --series native-exit-v2
+          --attempt-manifest docs/validation/runner-readiness-next-twenty-project-pass/joe/scenario-attempt-v7.json
           --repetitions 12
 
       - name: Restore source and confirm JOE target cleanup
@@ -143,7 +149,7 @@ jobs:
             artifacts/runner-readiness-next-twenty-project-pass/active/joe/**
             artifacts/runner-readiness-next-twenty-project-pass/events/**
             artifacts/runner-readiness-next-twenty-project-pass/identities/**
-            artifacts/runner-readiness-next-twenty-project-pass/candidate-native-exit-v1/${{ matrix.host }}/installed.json
+            artifacts/runner-readiness-next-twenty-project-pass/candidate-native-exit-v2/${{ matrix.host }}/installed.json
           if-no-files-found: warn
           retention-days: 30
           include-hidden-files: true

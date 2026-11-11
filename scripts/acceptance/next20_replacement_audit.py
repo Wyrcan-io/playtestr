@@ -23,9 +23,9 @@ def hashes(data):
     return {hashlib.sha256(normalized).hexdigest(),hashlib.sha256(normalized.replace(b'\n',b'\r\n')).hexdigest()}
 
 
-def audit(packet,provider,host,revision,source,run):
+def audit(packet,provider,host,revision,source,run,series='native-exit-v1',version='v0.4.0-rc.6'):
     arch='arm64' if host=='darwin' else 'amd64'
-    native=packet/'replacement-candidate/native-exit-v1'/(host+'-'+arch)
+    native=packet/'replacement-candidate'/series/(host+'-'+arch)
     candidate=json.loads((native/'candidate.json').read_text())
     core=json.loads((native/'native-core.json').read_text())
     sdk=json.loads((packet/'toolchain/sdk.json').read_text())
@@ -34,8 +34,10 @@ def audit(packet,provider,host,revision,source,run):
     if provider['headSha']!=revision or provider['status']!='completed' or len(jobs)!=1 or jobs[0]['conclusion']!='success':
         raise ValueError('provider native success/source mismatch')
     for value in [candidate,core]:
-        if (value['source_revision'],value['qualification_revision'],value['host'],value['architecture'],value['version'])!=(source,revision,host,arch,'v0.4.0-rc.6'):
+        if (value['source_revision'],value['qualification_revision'],value['host'],value['architecture'],value['version'])!=(source,revision,host,arch,version):
             raise ValueError('native receipt source/version/host mismatch')
+    if candidate.get('series')!=series:
+        raise ValueError('candidate series identity mismatch')
     if core['source_inputs']!=candidate['source_inputs'] or sha256(native/'native-core.json')!=candidate['native_core_sha256']:
         raise ValueError('core/candidate source mismatch')
     if sdk['version']!='go1.25.0' or sdk['host']!=host or sdk['architecture']!=arch or sha256(packet/'toolchain/sdk.json')!=core['sdk_sha256']:
@@ -86,7 +88,7 @@ def audit(packet,provider,host,revision,source,run):
     applicable=['TestNativeWindowsWideExitStatusAndSameRunState','TestRecorderExportsAndReplaysNativeWindowsExit'] if host=='windows' else ['TestNativeSignalExitStatusAndSameRunState']
     for family in applicable:
         if '--- PASS: '+family not in focused:raise ValueError('native focused family did not pass: '+family)
-    if output('extracted-version').strip()!='playtestr v0.4.0-rc.6' or 'Usage' not in output('extracted-help'):
+    if output('extracted-version').strip()!='playtestr '+version or 'Usage' not in output('extracted-help'):
         raise ValueError('actual extracted executable version/help mismatch')
     archive=packet/candidate['archive'].split(NAME+'/',1)[1]
     if sha256(archive)!=candidate['archive_sha256'] or archive.stat().st_size!=candidate['archive_bytes']:
@@ -112,7 +114,7 @@ def audit(packet,provider,host,revision,source,run):
         leaf=name.split('/')
         if len(leaf)!=2 or leaf[0]!=archive.name.removesuffix('.tar.gz').removesuffix('.zip'):raise ValueError('archive member path mismatch')
         if digest!=(candidate['binary_sha256'] if leaf[1]==binary else core['source_inputs'][leaf[1]]):raise ValueError('binary/document source mismatch')
-    return dict(schema_version=1,host=host,architecture=arch,source_revision=source,qualification_revision=revision,
+    return dict(schema_version=1,series=series,version=version,host=host,architecture=arch,source_revision=source,qualification_revision=revision,
         run=run,provider_job=jobs[0]['databaseId'],commands=rows,archive_sha256=sha256(archive),
         binary_sha256=candidate['binary_sha256'],archive_bytes=archive.stat().st_size,project_credits=0,
         publication=False),archive

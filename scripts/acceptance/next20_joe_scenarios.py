@@ -21,6 +21,8 @@ PIN = "3874898078005d1f5e519235401fab4fd428dd9b"
 PROJECT = DOC / "joe"
 SCENARIOS = PROJECT / "scenarios-v3"
 DECLARATION = PROJECT / "scenario-declaration-v3.json"
+DECLARATIONS = {"native-exit-v1": DECLARATION,
+                "native-exit-v2": PROJECT / "scenario-declaration-v4.json"}
 PRELAUNCH = PROJECT / "scenario-attempt-v4.json"
 
 
@@ -204,11 +206,13 @@ def materialize():
     declaration_path.write_text(json.dumps(declaration, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
 
 
-def verify_declarations(attempt_path=PRELAUNCH, phase="scenario-development"):
+def verify_declarations(attempt_path=PRELAUNCH, phase="scenario-development", series="native-exit-v1"):
     declared = cases()
     if len(declared) != 20 or sum(row["kind"] == "normal" for row in declared) != 8:
         raise ValueError("JOE scenario declaration must contain eight normal and twelve edge cases")
-    declaration_path = DECLARATION
+    if series not in DECLARATIONS:
+        raise ValueError("undeclared JOE candidate series")
+    declaration_path = DECLARATIONS[series]
     declaration = json.loads(declaration_path.read_text(encoding="utf-8"))
     for row in declared:
         path = SCENARIOS / row["id"] / "scenario.json"
@@ -235,7 +239,9 @@ def verify_declarations(attempt_path=PRELAUNCH, phase="scenario-development"):
         raise ValueError("frozen JOE scenario catalog identity or denominator differs")
     attempt = json.loads(attempt_path.read_text(encoding="utf-8"))
     declaration_hash = hashlib.sha256(declaration_path.read_bytes()).hexdigest()
-    freeze = json.loads((DOC / "replacement-candidate-freeze-native-exit-v1.json").read_text(encoding="utf-8"))
+    if series not in ("native-exit-v1", "native-exit-v2"):
+        raise ValueError("undeclared JOE candidate series")
+    freeze = json.loads((DOC / f"replacement-candidate-freeze-{series}.json").read_text(encoding="utf-8"))
     archive_hashes = {row["host"]: row["archive_sha256"] for row in freeze["cells"]}
     binary_hashes = {row["host"]: row["binary_sha256"] for row in freeze["cells"]}
     repetitions = 1 if phase == "scenario-development" else 12
@@ -247,7 +253,8 @@ def verify_declarations(attempt_path=PRELAUNCH, phase="scenario-development"):
         "darwin": ("macos-15", "arm64"),
     }
     cells = {row.get("host"): row for row in attempt.get("native_cells", [])}
-    if (attempt.get("scenario_declaration_sha256") != declaration_hash or
+    if (attempt.get("scenario_declaration") != declaration_path.relative_to(DOC).as_posix() or
+            attempt.get("scenario_declaration_sha256") != declaration_hash or
             attempt.get("phase") != phase or attempt.get("project") != "joe" or
             attempt.get("target_pin") != PIN or attempt.get("candidate") != freeze.get("version") or
             attempt.get("candidate_archive_sha256") != archive_hashes or
@@ -272,7 +279,7 @@ def process_tree_cleanup(result, commands):
     return commands[-1].get("process_tree_cleanup") if commands else None
 
 
-def run_one(case, host, phase, repetition=0, *, target_fault=None):
+def run_one(case, host, phase, repetition=0, *, target_fault=None, series="native-exit-v1"):
     build_root = RAW / "active/joe"
     build_path = build_root / "build.json"
     target = build_root / "install/bin/joe"
@@ -288,8 +295,8 @@ def run_one(case, host, phase, repetition=0, *, target_fault=None):
     for p in (fixture, *fixture.rglob("*")):
         if p.is_symlink():
             raise ValueError("linked JOE fixture path")
-    candidate = executable("native-exit-v1", host)
-    freeze = json.loads((DOC / "replacement-candidate-freeze-native-exit-v1.json").read_text(encoding="utf-8"))
+    candidate = executable(series, host)
+    freeze = json.loads((DOC / f"replacement-candidate-freeze-{series}.json").read_text(encoding="utf-8"))
     frozen = next(row for row in freeze["cells"] if row["host"] == host)
     attempt_id = uuid.uuid4().hex
     attempt_dir = RAW / f"joe/{phase}/{host}/{case['id']}/r{repetition:02d}-{attempt_id}"
@@ -486,6 +493,7 @@ def main():
     parser.add_argument("--verify-only", action="store_true")
     parser.add_argument("--host", choices=("linux", "darwin"), required=True)
     parser.add_argument("--phase", choices=("scenario-development", "final-qualification"), default="scenario-development")
+    parser.add_argument("--series", choices=("native-exit-v1", "native-exit-v2"), default="native-exit-v1")
     parser.add_argument("--attempt-manifest", type=Path, default=PRELAUNCH)
     parser.add_argument("--case", action="append")
     parser.add_argument("--repetitions", type=int, default=1)
@@ -496,7 +504,7 @@ def main():
         print("Materialized the twenty frozen JOE specs and fixtures")
         return
     if args.verify_only:
-        verify_declarations(args.attempt_manifest, args.phase)
+        verify_declarations(args.attempt_manifest, args.phase, args.series)
         attempt = json.loads(args.attempt_manifest.read_text(encoding="utf-8"))
         cell = next(row for row in attempt["native_cells"] if row["host"] == args.host)
         if args.repetitions != cell["repetitions"]:
@@ -508,7 +516,7 @@ def main():
         raise RuntimeError(f"native host mismatch: expected {args.host}, got {actual}")
     if not 1 <= args.repetitions <= 12:
         raise ValueError("scenario repetition count must be from one through twelve")
-    verify_declarations(args.attempt_manifest, args.phase)
+    verify_declarations(args.attempt_manifest, args.phase, args.series)
     attempt = json.loads(args.attempt_manifest.read_text(encoding="utf-8"))
     cell = next(row for row in attempt["native_cells"] if row["host"] == args.host)
     if args.repetitions != cell["repetitions"]:
@@ -527,7 +535,7 @@ def main():
             case_root=RAW/f"joe/{args.phase}/{args.host}/{case['id']}"
             before=set(case_root.iterdir()) if case_root.is_dir() else set()
             try:
-                run_one(case,args.host,args.phase,repetition)
+                run_one(case,args.host,args.phase,repetition,series=args.series)
                 outcomes.append({"scenario_id":case["id"],"repetition":repetition,"status":"passed"})
             except Exception as error:
                 created=sorted((case_root.iterdir() if case_root.is_dir() else []),key=lambda p:p.name)
@@ -557,8 +565,8 @@ def main():
         raise ValueError("development batch accounting requires a hosted workflow run ID")
     batch_path=RAW/f"joe/{args.phase}-batches/{args.host}/{run_id}.json"
     immutable_json(batch_path,{"schema_version":1,"project":"joe","host":args.host,
-        "workflow_run":int(run_id),"phase":args.phase,"candidate":"v0.4.0-rc.6",
-        "scenario_declaration_sha256":hashlib.sha256(DECLARATION.read_bytes()).hexdigest(),
+        "workflow_run":int(run_id),"phase":args.phase,"candidate":json.loads((DOC / f"replacement-candidate-freeze-{args.series}.json").read_text(encoding="utf-8"))["version"],
+        "scenario_declaration_sha256":hashlib.sha256(DECLARATIONS[args.series].read_bytes()).hexdigest(),
         "selected_scenarios":len(selected),"repetitions":args.repetitions,
         "outcomes":outcomes,"unlaunched_report_sha256":unlaunched_hashes,
         "passed":sum(row["status"]=="passed" for row in outcomes),

@@ -1,0 +1,90 @@
+{
+  "candidate_series": "native-exit-v2",
+  "candidate_version": "v0.4.0-rc.7",
+  "commands": [
+    {
+      "attempt": "0103bb5eb3ea46e7a567a423b28b3e0a",
+      "label": "replacement-focused-native-status-controls",
+      "manifest_sha256": "fb78e262e749b215afda5a19ca31439b253bff8a3f3b84324c8106af4a3904a7",
+      "matched_qualification_inputs": 924
+    },
+    {
+      "attempt": "05d2dd094400432fb587ad3e4ac548ae",
+      "label": "replacement-native-private-package",
+      "manifest_sha256": "f6f889a56ca1b6b0d13ec19aebffcc48533a99ef39a58cffb9382e2d573e1ec9",
+      "matched_qualification_inputs": 924
+    },
+    {
+      "attempt": "4689c81d41034b96ad8584a71422a056",
+      "label": "replacement-native-build-once",
+      "manifest_sha256": "fb78e262e749b215afda5a19ca31439b253bff8a3f3b84324c8106af4a3904a7",
+      "matched_qualification_inputs": 924
+    },
+    {
+      "attempt": "46fcf44f2a75443883043701f29a7cc7",
+      "label": "replacement-owned-native-sdk",
+      "manifest_sha256": "85edc96010e2232c6c0bca50d2b6a2b1c731bc19ddb5d19273e0a9bc0e62b64b",
+      "matched_qualification_inputs": 924
+    },
+    {
+      "attempt": "5787383cace643c1b947faa786a7cccf",
+      "label": "replacement-extracted-help",
+      "manifest_sha256": "657ffac3838e435b52f70560a1ad40e99cd7dc3929a78ecb35172d36fc5157df",
+      "matched_qualification_inputs": 924
+    },
+    {
+      "attempt": "57fdf414f4934d82a8d80219e6c2b156",
+      "label": "replacement-go-vet",
+      "manifest_sha256": "fb78e262e749b215afda5a19ca31439b253bff8a3f3b84324c8106af4a3904a7",
+      "matched_qualification_inputs": 924
+    },
+    {
+      "attempt": "645173953a5f4bc0ba0b4971da6bda60",
+      "label": "replacement-all-go-tests",
+      "manifest_sha256": "fb78e262e749b215afda5a19ca31439b253bff8a3f3b84324c8106af4a3904a7",
+      "matched_qualification_inputs": 924
+    },
+    {
+      "attempt": "6fb2df5aaee44f048ff53df0eefe2950",
+      "label": "replacement-native-source-core",
+      "manifest_sha256": "f6f889a56ca1b6b0d13ec19aebffcc48533a99ef39a58cffb9382e2d573e1ec9",
+      "matched_qualification_inputs": 924
+    },
+    {
+      "attempt": "7175b90cd84c4b12a1b7f7837f4e77f1",
+      "label": "replacement-native-package",
+      "manifest_sha256": "a1e5223b25afed459ef6cad09fe2063a3235f14d36c8a1dee66972215601a6bc",
+      "matched_qualification_inputs": 924
+    },
+    {
+      "attempt": "906cd405acba4898a37ac55c6bb537bf",
+      "label": "replacement-native-sdk-settings",
+      "manifest_sha256": "fb78e262e749b215afda5a19ca31439b253bff8a3f3b84324c8106af4a3904a7",
+      "matched_qualification_inputs": 924
+    },
+    {
+      "attempt": "dd2764d6281c41fd871f4369054f6131",
+      "label": "replacement-extracted-version",
+      "manifest_sha256": "657ffac3838e435b52f70560a1ad40e99cd7dc3929a78ecb35172d36fc5157df",
+      "matched_qualification_inputs": 924
+    },
+    {
+      "attempt": "f88ac75add2843f4983035fe2b580c03",
+      "label": "replacement-native-race-tests",
+      "manifest_sha256": "fb78e262e749b215afda5a19ca31439b253bff8a3f3b84324c8106af4a3904a7",
+      "matched_qualification_inputs": 924
+    }
+  ],
+  "comparison": "Every captured Python helper under scripts/acceptance and scripts/ci, root module files, and root JSON schemas matches the exact qualification Git blobs; LF/CRLF spelling is accepted. The native production-source map is separately checked against SOURCE_REVISION by the native packet auditor.",
+  "host": "linux",
+  "project_credits": 0,
+  "provider_job_id": 130646873115,
+  "qualification_inputs": 924,
+  "qualification_revision": "6bf9d88c1cdcc6177960e3714810d21a69356841",
+  "qualification_workflow": ".github/workflows/runner-readiness-next20-replacement-candidate.yml",
+  "qualification_workflow_sha256": "5d6a2081205337eae713b57ffa5aa047b6ea1a2908f846571b3bb069c5844e50",
+  "retained_packet_artifact": "next20-private-replacement-Linux",
+  "run": "43056391377",
+  "schema_version": 1,
+  "source_revision": "df7fd54375e411542ce899c0e05b19db643ba64b"
+}

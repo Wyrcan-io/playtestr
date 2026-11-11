@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "project": "joe",
+  "repository": "joe-editor/joe",
+  "pin": "3874898078005d1f5e519235401fab4fd428dd9b",
+  "source_archive_sha256": "5e00e2621225a304061c70903ef6490a700a4bbf1fa600c096b5bbb6746f2312",
+  "fault_declaration": "joe/fault-declaration-v3.json",
+  "fault_declaration_sha256": "9db24f3ed9a7404723b578ca8f461a89c0baed43ab946d1670027556d6d66659",
+  "faults": [
+    {
+      "fault_id": "joe-forward-delete-noop",
+      "source_file": "joe/uedit.c",
+      "baseline_source_sha256": "62f0c689aadda0d11720cb4c5913b0d89ca3cfdaad4397ff878c5719909852a8",
+      "unique_anchor_count": 1,
+      "mutated_source_sha256": "c36f3ed296af2d30acc53bf223996472cce0d60f0dcbeb7869e11f05899b1ffc",
+      "declared_mutated_sha256": "c36f3ed296af2d30acc53bf223996472cce0d60f0dcbeb7869e11f05899b1ffc",
+      "patch_sha256": "ceb1cbdaa175a69ee72957595379f0be4e60189bc0d4377e2073cd0d23bd01e8",
+      "declared_patch_sha256": "ceb1cbdaa175a69ee72957595379f0be4e60189bc0d4377e2073cd0d23bd01e8",
+      "exact_pin_bytes_verified": true
+    },
+    {
+      "fault_id": "joe-save-content-truncated",
+      "source_file": "joe/ufile.c",
+      "baseline_source_sha256": "f07a1192460b94d3306a70df0cc3d783b9f30a89b3102277631dfeb9df496972",
+      "unique_anchor_count": 1,
+      "mutated_source_sha256": "c1086097c3649c729d338dbaa00d2339651cac3f5c71360a8e2dda16f0276486",
+      "declared_mutated_sha256": "c1086097c3649c729d338dbaa00d2339651cac3f5c71360a8e2dda16f0276486",
+      "patch_sha256": "f9df97ce041a81273d3bcbe80ac729bafe09742b9f1087e8258541c76b9a44d2",
+      "declared_patch_sha256": "f9df97ce041a81273d3bcbe80ac729bafe09742b9f1087e8258541c76b9a44d2",
+      "exact_pin_bytes_verified": true
+    },
+    {
+      "fault_id": "joe-save-exit-disabled",
+      "source_file": "joe/ufile.c",
+      "baseline_source_sha256": "f07a1192460b94d3306a70df0cc3d783b9f30a89b3102277631dfeb9df496972",
+      "unique_anchor_count": 1,
+      "mutated_source_sha256": "fd29235140cd4548e7d8e782840d41da9dc2a6b04c30d7702e9c32158f25fc56",
+      "declared_mutated_sha256": "fd29235140cd4548e7d8e782840d41da9dc2a6b04c30d7702e9c32158f25fc56",
+      "patch_sha256": "06cd5b6c859f7ed5f150254fe2c7fd58d8058eee256c539938749dc2c65be0ee",
+      "declared_patch_sha256": "06cd5b6c859f7ed5f150254fe2c7fd58d8058eee256c539938749dc2c65be0ee",
+      "exact_pin_bytes_verified": true
+    }
+  ],
+  "scope": "Static exact pinned-source byte verification for rc.7-bound declaration only; no target process/build or mutation occurred.",
+  "candidate": "v0.4.0-rc.7",
+  "candidate_series": "native-exit-v2",
+  "scenario_declaration": "joe/scenario-declaration-v4.json",
+  "scenario_declaration_sha256": "be0c3e419b3f65fafb4e75d584648bb08ffbe2c4f24c1d849fa16f78d80c029e"
+}

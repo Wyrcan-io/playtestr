@@ -23,7 +23,11 @@ from readiness_evidence import immutable_json, sha256
 MAX_CALIBRATION_SECONDS = 60 * 60
 MAX_SOURCE_FILES = 10000
 MAX_SOURCE_BYTES = 64 * 1024**2
-FAULT_DECLARATION = DOC / "joe" / "fault-declaration-v2.json"
+FAULT_DECLARATIONS = {
+    "native-exit-v1": DOC / "joe" / "fault-declaration-v2.json",
+    "native-exit-v2": DOC / "joe" / "fault-declaration-v3.json",
+}
+FAULT_DECLARATION = FAULT_DECLARATIONS["native-exit-v1"]
 
 
 def require(value, message):
@@ -31,11 +35,16 @@ def require(value, message):
         raise ValueError(message)
 
 
-def load_faults():
-    declaration = json.loads(FAULT_DECLARATION.read_text(encoding="utf-8"))
+def load_faults(series="native-exit-v1"):
+    if series not in FAULT_DECLARATIONS:
+        raise ValueError("undeclared JOE candidate series")
+    declaration_path = FAULT_DECLARATIONS[series]
+    freeze = json.loads((DOC / f"replacement-candidate-freeze-{series}.json").read_text(encoding="utf-8"))
+    declaration = json.loads(declaration_path.read_text(encoding="utf-8"))
     require(declaration.get("project") == "joe" and declaration.get("pin") == PIN and
-            declaration.get("candidate") == "v0.4.0-rc.6" and
-            declaration.get("scenario_declaration_sha256") == sha256(DOC / "joe" / "scenario-declaration-v3.json") and
+            declaration.get("candidate") == freeze.get("version") and
+            declaration.get("scenario_declaration_sha256") == sha256(DOC / "joe" / (
+                "scenario-declaration-v4.json" if series == "native-exit-v2" else "scenario-declaration-v3.json")) and
             len(declaration.get("faults", [])) == 3,
             "frozen JOE fault declaration identity/count differs")
     rows = {row["id"]: row for row in declaration["faults"]}
@@ -118,7 +127,7 @@ def cleanup_target(phase_name, evidence, commands, deadline):
             "active_target_absent": True}
 
 
-def phase(host, fault, phase_name, evidence, commands, deadline):
+def phase(host, fault, phase_name, evidence, commands, deadline, series):
     acquisition_log = evidence / f"{phase_name}-acquire.log"
     bounded_command([sys.executable, "-B", "scripts/acceptance/next20_acquire.py", "joe"],
                     phase_name + " source acquisition", acquisition_log, commands, deadline)
@@ -175,7 +184,7 @@ def phase(host, fault, phase_name, evidence, commands, deadline):
         phase_root = retain_phase_inputs(evidence, phase_name, target, acquisition, build)
         case = next(item for item in cases() if item["id"] == fault["scenario_id"])
         scenario = run_one(case, host, f"fault-{fault['id']}-{phase_name}",
-                           target_fault=fault if phase_name == "fault" else None)
+                           target_fault=fault if phase_name == "fault" else None, series=series)
         if phase_name == "fault":
             require(scenario["status"] == "expected-target-fault-rejection" and
                     scenario["failure_category"] in fault["expected_failure_categories"],
@@ -204,12 +213,15 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--host", choices=("linux", "darwin"), required=True)
     parser.add_argument("--fault", required=True)
+    parser.add_argument("--series", choices=tuple(FAULT_DECLARATIONS), default="native-exit-v1")
     parser.add_argument("--verify-only", action="store_true")
     args = parser.parse_args()
-    declaration, faults = load_faults()
+    declaration, faults = load_faults(args.series)
+    freeze = json.loads((DOC / f"replacement-candidate-freeze-{args.series}.json").read_text(encoding="utf-8"))
     if args.verify_only:
         print(json.dumps({"project": "joe", "fault_count": len(faults),
-                          "fault_declaration_sha256": sha256(FAULT_DECLARATION),
+                          "fault_declaration_sha256": sha256(FAULT_DECLARATIONS[args.series]),
+                          "candidate": freeze["version"],
                           "status": "frozen JOE fault declaration verified"}, sort_keys=True))
         return
     actual_host = {"Linux": "linux", "Darwin": "darwin"}.get(platform.system())
@@ -223,7 +235,7 @@ def main():
     started = time.monotonic()
     deadline = started + MAX_CALIBRATION_SECONDS
     receipt = {"schema_version": 1, "project": "joe", "pin": PIN,
-               "candidate": "v0.4.0-rc.6", "fault_declaration_sha256": sha256(FAULT_DECLARATION),
+               "candidate": freeze["version"], "fault_declaration_sha256": sha256(FAULT_DECLARATIONS[args.series]),
                "attempt_id": run_id, "fault": args.fault, "host": args.host,
                "architecture": platform.machine(),
                "scenario_id": fault["scenario_id"],
@@ -241,7 +253,7 @@ def main():
         for phase_name in ("baseline", "fault", "recovery"):
             if phase_name == "fault":
                 fault_tree_open = True
-            row = phase(args.host, fault, phase_name, evidence, commands, deadline)
+            row = phase(args.host, fault, phase_name, evidence, commands, deadline, args.series)
             receipt["phases"].append(row)
             cleanup = cleanup_target(phase_name, evidence, commands, deadline)
             receipt["cleanup"].append({"phase": phase_name, **cleanup})
@@ -260,7 +272,7 @@ def main():
             try:
                 if fault_tree_open and not recovery_complete:
                     cleanup_target("failed-fault", evidence, commands, deadline)
-                    recovery = phase(args.host, fault, "recovery", evidence, commands, deadline)
+                    recovery = phase(args.host, fault, "recovery", evidence, commands, deadline, args.series)
                     receipt["failure_recovery"] = recovery
                     receipt["cleanup"].append({"phase": "failure-recovery", **cleanup_target("failure-recovery", evidence, commands, deadline)})
                     receipt["failure_recovery_status"] = "exact source reacquired and normally rebuilt; unchanged contract passed"

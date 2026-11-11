@@ -52,9 +52,17 @@ def report_result(path, status):
 
 
 async def main():
+    global MARKER, CONTROL_SEQUENCE
     parser = argparse.ArgumentParser()
     parser.add_argument("--host", choices=("linux", "darwin"), required=True)
+    parser.add_argument("--series", choices=("native-exit-v1", "native-exit-v2"), default="native-exit-v1")
     args = parser.parse_args()
+    MARKER = "JOE_PUBLIC_ROUTE_RC7" if args.series == "native-exit-v2" else "JOE_PUBLIC_ROUTE_RC6"
+    CONTROL_SEQUENCE = [
+        "/expect JOE_PUBLIC_ROUTE_START", "/snapshot initial-note.txt", "/key End",
+        f"/text {json.dumps(MARKER)}", f"/expect {MARKER}", "/key CtrlK", '/text "x"',
+        "/exit 0", "/file public-note.txt", "/review", "/replay", "/save",
+    ]
     host = args.host
     if platform.system() != EXPECTED_HOST[host]:
         raise RuntimeError("actual native host differs from declared JOE public-route host")
@@ -70,14 +78,24 @@ async def main():
             runtime.get("native_sha256") != build.get("binary_sha256")):
         raise ValueError("JOE public route target does not match its exact native build receipt")
 
-    runner = executable("native-exit-v1", host)
+    runner = executable(args.series, host)
+    freeze = json.loads((DOC / f"replacement-candidate-freeze-{args.series}.json").read_text())
+    declaration_path = DOC / "joe" / ("public-route-declaration-v5.json" if args.series == "native-exit-v2" else "public-route-declaration-v4.json")
+    declaration = json.loads(declaration_path.read_text(encoding="utf-8"))
+    declared_host = declaration.get("hosts", {}).get(host, {})
+    frozen_host = next(row for row in freeze["cells"] if row["host"] == host)
+    if (declaration.get("candidate") != freeze.get("version") or
+            declared_host.get("runner_archive_sha256") != frozen_host["archive_sha256"] or
+            declared_host.get("runner_binary_sha256") != frozen_host["binary_sha256"]):
+        raise ValueError("JOE public-route declaration does not bind the selected exact candidate host")
     installed = json.loads((runner.parent / "installed.json").read_text(encoding="utf-8"))
     if installed.get("archive_sha256") != next(row["archive_sha256"] for row in
-            json.loads((DOC / "replacement-candidate-freeze-native-exit-v1.json").read_text())["cells"]
+            freeze["cells"]
             if row["host"] == host):
-        raise ValueError("JOE public route did not install the exact frozen rc.6 archive")
+        raise ValueError("JOE public route did not install the exact frozen candidate archive")
 
-    output = RAW / PROJECT / "public-route-v1" / host
+    route_version = "v2" if args.series == "native-exit-v2" else "v1"
+    output = RAW / PROJECT / f"public-route-{route_version}" / host
     if output.exists():
         raise ValueError("preserve an existing JOE public-route evidence directory")
     output.mkdir(parents=True)
@@ -120,7 +138,9 @@ async def main():
     attempts = []
     planned = {
         "schema_version": 1, "project": PROJECT, "phase": "public-authoring",
-        "candidate": "v0.4.0-rc.6", "candidate_archive_sha256": installed["archive_sha256"],
+        "candidate": freeze["version"], "candidate_archive_sha256": installed["archive_sha256"],
+        "route_declaration": declaration_path.relative_to(DOC).as_posix(),
+        "route_declaration_sha256": sha256(declaration_path),
         "runner_sha256": sha256(runner), "source_pin": PIN, "target_binary_sha256": sha256(binary),
         "target_build_run": os.environ.get("GITHUB_RUN_ID"), "host": host,
         "architecture": platform.machine(), "fixture_bytes_base64": base64.b64encode(INITIAL).decode(),
@@ -143,7 +163,7 @@ async def main():
         return result
 
     version = await run([runner, "--version"], "joe-public-route-runner-version")
-    if version["output"].strip() != "playtestr v0.4.0-rc.6":
+    if version["output"].strip() != f"playtestr {freeze['version']}":
         raise ValueError("public route did not use the exact private runner candidate")
 
     spec = project_root / "create-note.json"
@@ -277,7 +297,7 @@ async def main():
         raise ValueError("generated JOE workflow preview omitted revision, suite, pin, setup/build or trigger")
 
     receipt = {
-        "schema_version": 1, "project": PROJECT, "candidate": "v0.4.0-rc.6", "source_pin": PIN,
+        "schema_version": 1, "project": PROJECT, "candidate": freeze["version"], "source_pin": PIN,
         "host": host, "architecture": platform.machine(), "runner_sha256": sha256(runner),
         "target_binary_sha256": sha256(binary), "target_build_run": os.environ.get("GITHUB_RUN_ID"),
         "planned_sha256": sha256(output / "planned.json"),

@@ -1,0 +1,60 @@
+{
+  "attempt_id": "joe-development-pinned-3874898078005d1f5e519235401fab4fd428dd9b-v8",
+  "attempt_lifecycle": [
+    "started",
+    "identified",
+    "launched",
+    "finished"
+  ],
+  "candidate": "v0.4.0-rc.7",
+  "candidate_archive_sha256": {
+    "linux": "bd0376a43d9dfc53f397458958f99e59955a1ae8efdef93095eb7289ac7d6318",
+    "darwin": "5ce12533008bbda11b0d41b070088f21350b3a4515f62c84ab84431b2f2a84d0",
+    "windows": "1e5d5b3018e4717f4fa905f42d9ffe93d6122f8f01c9eaadd169752db1693b3b"
+  },
+  "candidate_binary_sha256": {
+    "linux": "f9fad8244e5823e48f529235d087dec1b9bfaf3bb6973d8d53090bd8720b875a",
+    "darwin": "c20c4c9eaa2968f752e2cbc01285afcf369b65200c479d7d2ad6e7bdcfa72ecb",
+    "windows": "a4669c0358993806dc5d4a54d5a314a04330915cd42bd58be260c6854ca0b0c4"
+  },
+  "expected": "each of twenty frozen v3 scenarios passes once on the exact rc.7 candidate on both native hosts; no admission credit",
+  "limits": {
+    "per_runner_command_seconds": 120,
+    "runner_output_bytes": 4194304,
+    "spec_run_timeout_ms": 60000,
+    "spec_timeout_ms": 12000
+  },
+  "native_cells": [
+    {
+      "architecture": "x86_64",
+      "host": "linux",
+      "os": "ubuntu-24.04",
+      "repetitions": 1,
+      "scenario_count": 20
+    },
+    {
+      "architecture": "arm64",
+      "host": "darwin",
+      "os": "macos-15",
+      "repetitions": 1,
+      "scenario_count": 20
+    }
+  ],
+  "ordinary_executions_expected": 40,
+  "phase": "scenario-development",
+  "preserved_prior_attempt": "rc.6 v6 final qualification remains historical; no scenario credit transfers to rc.7",
+  "project": "joe",
+  "project_admission_credit": 0,
+  "repository": "joe-editor/joe",
+  "revision": 8,
+  "scenario_declaration": "joe/scenario-declaration-v4.json",
+  "scenario_declaration_sha256": "be0c3e419b3f65fafb4e75d584648bb08ffbe2c4f24c1d849fa16f78d80c029e",
+  "schema_version": 1,
+  "state": "prepared-before-workflow-launch",
+  "supersedes_attempt_declaration": "joe/scenario-attempt-v4.json",
+  "target_build": "fresh native JOE build from reviewed immutable source pin; retain exact source/build/runtime/binary and seven bounded build logs before cleanup",
+  "target_pin": "3874898078005d1f5e519235401fab4fd428dd9b",
+  "workflow": ".github/workflows/runner-readiness-next20-joe-scenarios.yml",
+  "workflow_trigger": "authorized push to work/p0-p2-implementation after exact candidate predeclaration",
+  "series": "native-exit-v2"
+}

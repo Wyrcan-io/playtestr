@@ -16,11 +16,14 @@ on:
       - scripts/acceptance/test_next20_joe_final_qualification_audit.py
       - docs/validation/runner-readiness-next-twenty-project-pass/joe/fault-declaration-v1.json
       - docs/validation/runner-readiness-next-twenty-project-pass/joe/faults/**
-      - docs/validation/runner-readiness-next-twenty-project-pass/joe/fault-declaration-v2.json
-      - docs/validation/runner-readiness-next-twenty-project-pass/joe/fault-declaration-source-readback-v2.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/joe/fault-declaration-v3.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/joe/fault-declaration-source-readback-v3.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/joe/fault-declaration-source-readback-v3.json
       - docs/validation/runner-readiness-next-twenty-project-pass/joe/faults-v2/**
-      - docs/validation/runner-readiness-next-twenty-project-pass/joe/scenario-declaration-v3.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/joe/scenario-declaration-v4.json
       - docs/validation/runner-readiness-next-twenty-project-pass/joe/scenarios-v3/**
+      - docs/validation/runner-readiness-next-twenty-project-pass/joe/scenario-attempt-v7.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/joe/scenario-declaration-v4.json
 
 permissions:
   actions: read
@@ -41,39 +44,39 @@ jobs:
           - host: linux
             os: ubuntu-24.04
             fault: joe-save-content-truncated
-            candidate_run_id: 40424475362
+            candidate_run_id: 43056391377
             candidate_artifact: next20-private-replacement-Linux
-            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v1/linux-amd64/dist/playtestr_0.4.0-rc.6_linux_amd64.tar.gz
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v2/linux-amd64/dist/playtestr_0.4.0-rc.7_linux_amd64.tar.gz
           - host: darwin
             os: macos-15
             fault: joe-save-content-truncated
-            candidate_run_id: 40420820491
+            candidate_run_id: 43056391377
             candidate_artifact: next20-private-replacement-macOS
-            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v1/darwin-arm64/dist/playtestr_0.4.0-rc.6_darwin_arm64.tar.gz
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v2/darwin-arm64/dist/playtestr_0.4.0-rc.7_darwin_arm64.tar.gz
           - host: linux
             os: ubuntu-24.04
             fault: joe-forward-delete-noop
-            candidate_run_id: 40424475362
+            candidate_run_id: 43056391377
             candidate_artifact: next20-private-replacement-Linux
-            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v1/linux-amd64/dist/playtestr_0.4.0-rc.6_linux_amd64.tar.gz
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v2/linux-amd64/dist/playtestr_0.4.0-rc.7_linux_amd64.tar.gz
           - host: darwin
             os: macos-15
             fault: joe-forward-delete-noop
-            candidate_run_id: 40420820491
+            candidate_run_id: 43056391377
             candidate_artifact: next20-private-replacement-macOS
-            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v1/darwin-arm64/dist/playtestr_0.4.0-rc.6_darwin_arm64.tar.gz
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v2/darwin-arm64/dist/playtestr_0.4.0-rc.7_darwin_arm64.tar.gz
           - host: linux
             os: ubuntu-24.04
             fault: joe-save-exit-disabled
-            candidate_run_id: 40424475362
+            candidate_run_id: 43056391377
             candidate_artifact: next20-private-replacement-Linux
-            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v1/linux-amd64/dist/playtestr_0.4.0-rc.6_linux_amd64.tar.gz
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v2/linux-amd64/dist/playtestr_0.4.0-rc.7_linux_amd64.tar.gz
           - host: darwin
             os: macos-15
             fault: joe-save-exit-disabled
-            candidate_run_id: 40420820491
+            candidate_run_id: 43056391377
             candidate_artifact: next20-private-replacement-macOS
-            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v1/darwin-arm64/dist/playtestr_0.4.0-rc.6_darwin_arm64.tar.gz
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v2/darwin-arm64/dist/playtestr_0.4.0-rc.7_darwin_arm64.tar.gz
     runs-on: ${{ matrix.os }}
     timeout-minutes: 65
     env:
@@ -103,13 +106,14 @@ jobs:
           python -B scripts/acceptance/next20_joe_fault_calibration.py
           --host "${{ matrix.host }}"
           --fault "${{ matrix.fault }}"
+          --series native-exit-v2
           --verify-only
 
       - name: Install reviewed Autotools prerequisites on macOS
         if: matrix.host == 'darwin'
         run: brew install autoconf automake
 
-      - name: Download the frozen native rc.6 runner
+      - name: Download the frozen native rc.7 runner
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
           github-token: ${{ github.token }}
@@ -121,7 +125,7 @@ jobs:
       - name: Install and verify the exact frozen candidate archive
         run: >-
           python -B scripts/acceptance/next20_candidate_install.py
-          --series native-exit-v1
+          --series native-exit-v2
           --archive "${{ matrix.candidate_archive }}"
 
       - name: Run pristine/fault/restored JOE calibration
@@ -129,6 +133,7 @@ jobs:
           python -B scripts/acceptance/next20_joe_fault_calibration.py
           --host "${{ matrix.host }}"
           --fault "${{ matrix.fault }}"
+          --series native-exit-v2
 
       - name: Verify bounded campaign storage
         if: always()
@@ -145,7 +150,7 @@ jobs:
             artifacts/runner-readiness-next-twenty-project-pass/active/joe/**
             artifacts/runner-readiness-next-twenty-project-pass/events/**
             artifacts/runner-readiness-next-twenty-project-pass/identities/**
-            artifacts/runner-readiness-next-twenty-project-pass/candidate-native-exit-v1/${{ matrix.host }}/installed.json
+            artifacts/runner-readiness-next-twenty-project-pass/candidate-native-exit-v2/${{ matrix.host }}/installed.json
           if-no-files-found: warn
           retention-days: 30
           include-hidden-files: true
