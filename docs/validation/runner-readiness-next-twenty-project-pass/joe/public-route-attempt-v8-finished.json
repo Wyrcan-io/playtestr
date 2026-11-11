@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "project": "joe",
+  "workflow_run": 43021236986,
+  "workflow_head_sha": "178f411816cb83b136396315ca82d5b9513de388",
+  "candidate": "v0.4.0-rc.6",
+  "project_admission_credit": 0,
+  "provider_packets": [
+    {
+      "host": "linux",
+      "id": 13855720341,
+      "bytes": 4186728,
+      "sha256": "c037028e1189df6577f6f8ec561a066951fca1f460b93d0469c69fcd1417af2f"
+    },
+    {
+      "host": "darwin",
+      "id": 13854603456,
+      "bytes": 4186891,
+      "sha256": "d8d9b8d0a669d9834e93323f3313dd396980294aa5a985c74f7ac6af070b8fbf"
+    }
+  ],
+  "independent_readback": "joe/public-route-readback-v2.json",
+  "hosts": {
+    "linux": {
+      "route": "passed",
+      "native_build": "passed",
+      "first_use_controls": 12,
+      "first_use_shell_invocations": 3,
+      "seeded_diagnosis": "assertion_timeout with retained screen/report",
+      "stale_state_probe": "state_assertion_failure",
+      "selected_state_maintenance": "passed and changed only approved text/expectation/state",
+      "relocation": "passed at space-and-Unicode path",
+      "workflow_preview": "passed and not dispatched",
+      "build_log_commands_retained": 7,
+      "target_cleanup": "passed",
+      "storage": {
+        "new_raw": 12405682,
+        "combined_raw": 1921433343,
+        "combined_retained": 1001350865,
+        "project": 4244951,
+        "new_curated": 19071942,
+        "combined_curated": 30652566,
+        "active": [],
+        "failed": []
+      }
+    },
+    "darwin": {
+      "route": "passed",
+      "native_build": "passed",
+      "first_use_controls": 12,
+      "first_use_shell_invocations": 3,
+      "seeded_diagnosis": "assertion_timeout with retained screen/report",
+      "stale_state_probe": "state_assertion_failure",
+      "selected_state_maintenance": "passed and changed only approved text/expectation/state",
+      "relocation": "passed at space-and-Unicode path",
+      "workflow_preview": "passed and not dispatched",
+      "build_log_commands_retained": 7,
+      "target_cleanup": "passed",
+      "storage": {
+        "new_raw": 12054939,
+        "combined_raw": 1921082600,
+        "combined_retained": 1001000122,
+        "project": 4236346,
+        "new_curated": 19071942,
+        "combined_curated": 30652566,
+        "active": [],
+        "failed": []
+      }
+    }
+  },
+  "classification": "confirmation after narrowing workflow triggers; complete exact-candidate public-authoring route and independent hosted artifact readback passed on Linux/macOS; project remains unadmitted pending twenty frozen scenarios, three real target faults, oracle calibration, current candidate model controls, and final package audit",
+  "retained_provider_zips": [
+    "artifacts/runner-readiness-next-twenty-project-pass/tmp/joe-public-route-run43021236986-zips/linux.zip",
+    "artifacts/runner-readiness-next-twenty-project-pass/tmp/joe-public-route-run43021236986-zips/darwin.zip"
+  ]
+}

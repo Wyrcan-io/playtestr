@@ -815,6 +815,7 @@
       "public_route_declaration_prior_attempt_2": "joe/public-route-declaration-v3.json",
       "public_route_declaration_current": "joe/public-route-declaration-v4.json",
       "public_route_readback": "joe/public-route-readback-v1.json",
+      "public_route_readback_current": "joe/public-route-readback-v2.json",
       "public_route_workflow": ".github/workflows/runner-readiness-next20-joe-public-route.yml",
       "public_route_attempts": [
         "joe/public-route-attempt-v1-finished.json",
@@ -837,9 +838,10 @@
         "joe/public-route-attempt-darwin-v7.json",
         "joe/public-route-attempt-v7-finished.json",
         "joe/public-route-attempt-linux-v8.json",
-        "joe/public-route-attempt-darwin-v8.json"
+        "joe/public-route-attempt-darwin-v8.json",
+        "joe/public-route-attempt-v8-finished.json"
       ],
-      "public_route_status": "full source-reviewed exact-candidate route and independent ZIP readback passed on Linux/macOS; route remains separate from scenario, target-fault, oracle-calibration and model-control admission gates",
+      "public_route_status": "full source-reviewed exact-candidate route and independent provider ZIP readback passed on Linux/macOS, reconfirmed after narrowing workflow triggers; route remains separate from scenario, target-fault, oracle-calibration and model-control admission gates",
       "native_build_readback": "joe/native-build-readback-v1.json",
       "native_build_crosswalk": "joe/native-build-attempt-crosswalk-v1.json",
       "storage_checkpoint": "storage-checkpoint-v51.json",
