@@ -1,0 +1,461 @@
+{
+  "admission_credit": 0,
+  "attempts_per_host": 20,
+  "calibrations": 0,
+  "candidate": "v0.4.0-rc.6",
+  "project": "joe",
+  "project_admission_credit": 0,
+  "provider_artifacts": {
+    "darwin": {
+      "architecture": "arm64",
+      "build_commands_audited": 7,
+      "candidate_archive_sha256": "132152710ade2c01cac7558f75212121f01af8ab02c5735dc9c7de1c33dbe625",
+      "candidate_binary_sha256": "609b184dac8664050643ec35036c4cffef2137ec778ae4d4678727b119e2fe0f",
+      "host": "darwin",
+      "outcomes": [
+        {
+          "attempt_id": "92ea397fc3a646f1b54906174f3dbc1c",
+          "cleanup_confirmed": true,
+          "failure_category": null,
+          "report_sha256": "c33e0487e3e83268a37832c04a63d68250b0f70d83fcd9d868c658a41e37f47d",
+          "runner_process_group_absent": true,
+          "scenario_id": "N01",
+          "status": "passed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "1ae7b2202a574e468e58d9273a8f0496",
+          "cleanup_confirmed": true,
+          "failure_category": null,
+          "report_sha256": "a3be1cfc13eaf9439f59a48a5fb4d7a99fae08364b1f1e5f87737c9a8c0a4e18",
+          "runner_process_group_absent": true,
+          "scenario_id": "N02",
+          "status": "passed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "df4ae217475048d4acd15d66668782f8",
+          "cleanup_confirmed": true,
+          "failure_category": null,
+          "report_sha256": "0259c074a9e0b7da32cb1d9dcadd4989112e76fe3380a69e07433cac89fb8d5d",
+          "runner_process_group_absent": true,
+          "scenario_id": "N03",
+          "status": "passed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "9bda5268b7ca40e79a816092879fbeb1",
+          "cleanup_confirmed": true,
+          "failure_category": null,
+          "report_sha256": "5bbf8d8a55415aec1f1b67138b126f017faddfa3fdbfafe0359569ae6943e56e",
+          "runner_process_group_absent": true,
+          "scenario_id": "N04",
+          "status": "passed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "64c245a4077e4671a53be9eb603a31a8",
+          "cleanup_confirmed": true,
+          "failure_category": null,
+          "report_sha256": "ae5e02b9bc2eaa19f93165ed60c11fb921de19c9cee409c4450160bc1d317341",
+          "runner_process_group_absent": true,
+          "scenario_id": "N05",
+          "status": "passed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "115ab9a123904eb0a8f761abf0dee81f",
+          "cleanup_confirmed": true,
+          "failure_category": "state_assertion_failure",
+          "report_sha256": "3c97f080760006c512715c9d8c781645928ee8c37f193c4cc3256c79530f6fb1",
+          "runner_process_group_absent": true,
+          "scenario_id": "N06",
+          "status": "failed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "587f7f603fc5410dbc8a88a54a66f310",
+          "cleanup_confirmed": true,
+          "failure_category": null,
+          "report_sha256": "e00e274ea225bd5ea572fe4c1ca49b2891d1f8daf9d4469a1989b51b7749f8e9",
+          "runner_process_group_absent": true,
+          "scenario_id": "N07",
+          "status": "passed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "ca66847619204a24863e1a8ab4bd3d85",
+          "cleanup_confirmed": true,
+          "failure_category": "state_assertion_failure",
+          "report_sha256": "562121e2f106f0a7c9bba05ff79b808ab89c1d572cf1bfd3ed3d8b0aab38ec39",
+          "runner_process_group_absent": true,
+          "scenario_id": "N08",
+          "status": "failed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "0859a786d5874dfbba12fb9359800763",
+          "cleanup_confirmed": true,
+          "failure_category": "assertion_timeout",
+          "report_sha256": "54cc2e5fa913e1f710f6d307c42245145eabe3851041c6230e2754e032d65b47",
+          "runner_process_group_absent": true,
+          "scenario_id": "E01",
+          "status": "failed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "0943d369c8294a6d92c035c1a1a73576",
+          "cleanup_confirmed": true,
+          "failure_category": null,
+          "report_sha256": "a72545a211db349b8610e222c9799e18dc71ef83746ae1d478a039d4589bebda",
+          "runner_process_group_absent": true,
+          "scenario_id": "E02",
+          "status": "passed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "dd4143f73ccb4a5bbea1aff0106d1b27",
+          "cleanup_confirmed": true,
+          "failure_category": null,
+          "report_sha256": "09760091775ca26928e42b615cec0474d10326068a3708cce57a2195f91d4f13",
+          "runner_process_group_absent": true,
+          "scenario_id": "E03",
+          "status": "passed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "ebabb9f299694f0baa05323cd978e87a",
+          "cleanup_confirmed": true,
+          "failure_category": null,
+          "report_sha256": "00bf43db0a7163e7d6cdcd6eaf8acfa7186a82d1f4e5b79068732e1ddb6f676d",
+          "runner_process_group_absent": true,
+          "scenario_id": "E04",
+          "status": "passed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "38e6bd242c6e411789198688c0cdef4f",
+          "cleanup_confirmed": true,
+          "failure_category": null,
+          "report_sha256": "c537d8e8abb7b89855bce371a91c2104c0b0facd3a8959a7c86baebcee45f878",
+          "runner_process_group_absent": true,
+          "scenario_id": "E05",
+          "status": "passed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "dd14581562a646f89ffa68af90ed7bbe",
+          "cleanup_confirmed": true,
+          "failure_category": null,
+          "report_sha256": "74ae7da3240d9f651bd9949975d163e9629cd004d61c333e3e09d8a5297b9246",
+          "runner_process_group_absent": true,
+          "scenario_id": "E06",
+          "status": "passed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "c5734e7ea87a466ab6ee84ff61fef180",
+          "cleanup_confirmed": true,
+          "failure_category": "assertion_timeout",
+          "report_sha256": "48a729009bb6ffe731916d6f2c4a68d6ed5db4c98db3084e6e19ab0ad822f2ab",
+          "runner_process_group_absent": true,
+          "scenario_id": "E07",
+          "status": "failed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "a7e15d3863174746b5c1ecb561ae307d",
+          "cleanup_confirmed": true,
+          "failure_category": null,
+          "report_sha256": "6aa50b82df7cf17ac6566c0cbcc8ebd85cbf56df97ee7f83aa5407be2072637f",
+          "runner_process_group_absent": true,
+          "scenario_id": "E08",
+          "status": "passed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "6b6d015566f54d0cb1a65cbd8549fb9f",
+          "cleanup_confirmed": true,
+          "failure_category": null,
+          "report_sha256": "d2ee5219bbefcbddd921d233f88c3dac0def0382792595e2ce01cc65ac8bc232",
+          "runner_process_group_absent": true,
+          "scenario_id": "E09",
+          "status": "passed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "ebdefab5ab584cd483d92f8fc60c637c",
+          "cleanup_confirmed": true,
+          "failure_category": null,
+          "report_sha256": "2ac6cf4ebbac114772722a12f429b90385f9b6a3f92b86ba0076f59a5a9ab47c",
+          "runner_process_group_absent": true,
+          "scenario_id": "E10",
+          "status": "passed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "d31807a5d96e4692a3bbb8b09a888beb",
+          "cleanup_confirmed": true,
+          "failure_category": "state_assertion_failure",
+          "report_sha256": "a59cb202173a9f6369326071d57c945049a2a2d8d38f700fa2efd3daa32bd96e",
+          "runner_process_group_absent": true,
+          "scenario_id": "E11",
+          "status": "failed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "27b13e00520043ff817c1562e442ff17",
+          "cleanup_confirmed": true,
+          "failure_category": "assertion_timeout",
+          "report_sha256": "60044211a2443c76f00415996200d8ac50669a877077d8c10bfb767c5a5fd444",
+          "runner_process_group_absent": true,
+          "scenario_id": "E12",
+          "status": "failed",
+          "workspace_cleaned": true
+        }
+      ],
+      "owned_processes_absent": true,
+      "provider_artifact_id": 13859392255,
+      "provider_bytes": 8038884,
+      "provider_sha256": "c75f2b271e0361868e3e8b20c314a0d43a7857223a257047fdbefad324ace33d",
+      "scenario_attempts": 20,
+      "scenario_failures": 6,
+      "scenario_passes": 14,
+      "source_archive_sha256": "5e00e2621225a304061c70903ef6490a700a4bbf1fa600c096b5bbb6746f2312",
+      "source_pin": "3874898078005d1f5e519235401fab4fd428dd9b",
+      "source_tree_removal_confirmed": true,
+      "target_binary_sha256": "1697078eeff42d81c8b78ad75b2793bdbfdce00ca5c282135e82baee660f70dd",
+      "zip_expanded_bytes": 9148863,
+      "zip_members": 184
+    },
+    "linux": {
+      "architecture": "x86_64",
+      "build_commands_audited": 7,
+      "candidate_archive_sha256": "28ae9f37227bb0f6ba2df031420aa3d027b998e31eab523c4d13cd2816c4af7a",
+      "candidate_binary_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a",
+      "host": "linux",
+      "outcomes": [
+        {
+          "attempt_id": "4fe50794429844bdaec88b25ac854b64",
+          "cleanup_confirmed": true,
+          "failure_category": null,
+          "report_sha256": "10c1da403b5b844a65fef65691b05989a58d074b490b050e50b928a1aa31b20e",
+          "runner_process_group_absent": true,
+          "scenario_id": "N01",
+          "status": "passed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "108cb094bbe949d78058a2461cbcbaf2",
+          "cleanup_confirmed": true,
+          "failure_category": null,
+          "report_sha256": "f45281586f21bbcbc32ab9e085fc0785af7dd8fd1596b36e19747ddb479d60ce",
+          "runner_process_group_absent": true,
+          "scenario_id": "N02",
+          "status": "passed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "fd51f0ac1bc64ed58d80ebfce2426ca1",
+          "cleanup_confirmed": true,
+          "failure_category": null,
+          "report_sha256": "6b00db4d7b14ca2fb96fb4d92e13d2955f37a8bc4f41b018447b0be33084a5f6",
+          "runner_process_group_absent": true,
+          "scenario_id": "N03",
+          "status": "passed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "9d590fa425864fdd9dde6b8881e3be60",
+          "cleanup_confirmed": true,
+          "failure_category": null,
+          "report_sha256": "67fe74f0fc19347c030d8b4e55b99d217b86bdd6ac079f25a2fa3ce7181fc700",
+          "runner_process_group_absent": true,
+          "scenario_id": "N04",
+          "status": "passed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "f6fa19e635c14f91b4d8df71e4e20d65",
+          "cleanup_confirmed": true,
+          "failure_category": null,
+          "report_sha256": "180a3b643d27460f3e2ae075628f47986b2d019abb076face1f5aa2d162add09",
+          "runner_process_group_absent": true,
+          "scenario_id": "N05",
+          "status": "passed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "34f1277d13164a73b3884802af7dd808",
+          "cleanup_confirmed": true,
+          "failure_category": "state_assertion_failure",
+          "report_sha256": "ba35d20aad42e0b4ac4e19c6efa3e6dd061f632409e3d6d95d5bc03dd4ba7c65",
+          "runner_process_group_absent": true,
+          "scenario_id": "N06",
+          "status": "failed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "2ea9410ea04a4bd9974338720edcd906",
+          "cleanup_confirmed": true,
+          "failure_category": null,
+          "report_sha256": "ca001126056695a67d61955d78ab88074d48a4efd73220638aa90385d5051c23",
+          "runner_process_group_absent": true,
+          "scenario_id": "N07",
+          "status": "passed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "e565beaf96f7435ebb49c52626d66053",
+          "cleanup_confirmed": true,
+          "failure_category": "state_assertion_failure",
+          "report_sha256": "2786dd52f4d268dd4aed2524cd443c21cc48bdaf3db6dd07cb2326653dc75b0b",
+          "runner_process_group_absent": true,
+          "scenario_id": "N08",
+          "status": "failed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "822a61454d374127bf85e9ce93b485b5",
+          "cleanup_confirmed": true,
+          "failure_category": "assertion_timeout",
+          "report_sha256": "30f3ff03d6c58b2351f8408ddf46c868c69da46723bc3c8f3ad0e8e3dbe975c1",
+          "runner_process_group_absent": true,
+          "scenario_id": "E01",
+          "status": "failed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "761d7152c225482daeb6e13cd2edfc60",
+          "cleanup_confirmed": true,
+          "failure_category": null,
+          "report_sha256": "5fac68720b482f29696b5ad5c6ac05e1236a1e5b2aff11bcac124eddbb8d31b7",
+          "runner_process_group_absent": true,
+          "scenario_id": "E02",
+          "status": "passed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "72b7359ab64f461cbdc86502065639e3",
+          "cleanup_confirmed": true,
+          "failure_category": null,
+          "report_sha256": "83c0c8f32f90d0a3648aeb374155eca5782b2fd4df581d77627a1064adff7c53",
+          "runner_process_group_absent": true,
+          "scenario_id": "E03",
+          "status": "passed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "a11eb250db2240b08bd6f7289409cf65",
+          "cleanup_confirmed": true,
+          "failure_category": null,
+          "report_sha256": "490e505a69a468f27433dc3977c8a418088d022f1e906515610d236e0b86c183",
+          "runner_process_group_absent": true,
+          "scenario_id": "E04",
+          "status": "passed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "0e66c6c84a0d4063834146870e55804f",
+          "cleanup_confirmed": true,
+          "failure_category": null,
+          "report_sha256": "93ec3b24af596afd46ee402f007af4ad9602f483c27e09a03b8eda4d727284c5",
+          "runner_process_group_absent": true,
+          "scenario_id": "E05",
+          "status": "passed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "d80fa782e4a94370a1773caf25f86ff6",
+          "cleanup_confirmed": true,
+          "failure_category": null,
+          "report_sha256": "6f2229db15f72a22762f4c8f984feebbabcde0d3d69a131ce3c9999832ffca5c",
+          "runner_process_group_absent": true,
+          "scenario_id": "E06",
+          "status": "passed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "6fe735e9cbf04cb6934f8b5264228204",
+          "cleanup_confirmed": true,
+          "failure_category": "assertion_timeout",
+          "report_sha256": "f6704aabaa6df631dd2e377a4cfee5254131477a2d24f381efa94ed8d874df4b",
+          "runner_process_group_absent": true,
+          "scenario_id": "E07",
+          "status": "failed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "fffb5affedab478c982cf0cea0e3ad11",
+          "cleanup_confirmed": true,
+          "failure_category": null,
+          "report_sha256": "454945025ab3262c338fb2c7b652a06d347b4af204ddf740cca9562221b7d2a3",
+          "runner_process_group_absent": true,
+          "scenario_id": "E08",
+          "status": "passed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "1cc3d5c70cfa4b6aaf106f95914ec934",
+          "cleanup_confirmed": true,
+          "failure_category": null,
+          "report_sha256": "6829ad220fbf204eaa4880473b19a69281026f6013a1f31a2903192ab10f80b4",
+          "runner_process_group_absent": true,
+          "scenario_id": "E09",
+          "status": "passed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "4e5f8a55e49f4351b40f68a26c0274bf",
+          "cleanup_confirmed": true,
+          "failure_category": null,
+          "report_sha256": "e4269076f4fd29a53b1bd80a9e9abc956c7277a8674aea180551d3d697092dc0",
+          "runner_process_group_absent": true,
+          "scenario_id": "E10",
+          "status": "passed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "faa3326dd19849cda50cc865f18ecbe5",
+          "cleanup_confirmed": true,
+          "failure_category": "state_assertion_failure",
+          "report_sha256": "eba89937bfc5729dcd3a08f7b2a53a5fabc4369610db1924de76325a84852601",
+          "runner_process_group_absent": true,
+          "scenario_id": "E11",
+          "status": "failed",
+          "workspace_cleaned": true
+        },
+        {
+          "attempt_id": "ebe56af1b6224bac9f832d8c557971ec",
+          "cleanup_confirmed": true,
+          "failure_category": "assertion_timeout",
+          "report_sha256": "67e462d88936641eba243c348e6952f1f23d14e3f0a358dcb3c8406385897818",
+          "runner_process_group_absent": true,
+          "scenario_id": "E12",
+          "status": "failed",
+          "workspace_cleaned": true
+        }
+      ],
+      "owned_processes_absent": true,
+      "provider_artifact_id": 13860620938,
+      "provider_bytes": 8854955,
+      "provider_sha256": "31a6ddbf13ff46505f230ee939a90773ed2dd3a057404eb22efc2fcad883ef21",
+      "scenario_attempts": 20,
+      "scenario_failures": 6,
+      "scenario_passes": 14,
+      "source_archive_sha256": "5e00e2621225a304061c70903ef6490a700a4bbf1fa600c096b5bbb6746f2312",
+      "source_pin": "3874898078005d1f5e519235401fab4fd428dd9b",
+      "source_tree_removal_confirmed": true,
+      "target_binary_sha256": "a87146372bab2f50dda3b65f060b2eac4a1c45603f1ef8bb0976f8505d9096f9",
+      "zip_expanded_bytes": 10819454,
+      "zip_members": 184
+    }
+  },
+  "qualification_scenarios": 0,
+  "real_faults": 0,
+  "schema_version": 1,
+  "scope": "Exact provider ZIP metadata/SHA/CRC/path checks; exact pinned native source/build/runtime/binary and seven build logs; frozen rc.6 installation; all 20 launched lifecycle attempts on each native host with report/spec/source/candidate identities, outcome, target/workspace/process cleanup; exact source restoration and removal.",
+  "status": "development-attempts-independently-audited-not-qualified",
+  "workflow_head_sha": "8d69a504fb5d062cb894bb33c34d30ca00fbd3ea",
+  "workflow_run": 43028795974
+}

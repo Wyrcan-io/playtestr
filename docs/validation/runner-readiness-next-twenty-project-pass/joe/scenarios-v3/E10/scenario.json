@@ -1,0 +1,62 @@
+{
+  "version": 3,
+  "name": "Create a nested document in an existing directory",
+  "command": [
+    "joe",
+    "-nobackups",
+    "drafts/new note.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TERM": "xterm-256color"
+  },
+  "inherit_env": [
+    "PATH"
+  ],
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 12000,
+  "run_timeout_ms": 60000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "new note.txt"
+    },
+    {
+      "text": "nested draft"
+    },
+    {
+      "expect": "nested draft"
+    },
+    {
+      "key": "CtrlK"
+    },
+    {
+      "text": "x"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "drafts/README.txt",
+        "kind": "file",
+        "bytes_base64": "ZXhpc3RpbmcgZm9sZGVyCg=="
+      }
+    },
+    {
+      "state": {
+        "path": "drafts/new note.txt",
+        "kind": "file",
+        "bytes_base64": "bmVzdGVkIGRyYWZ0"
+      }
+    }
+  ]
+}

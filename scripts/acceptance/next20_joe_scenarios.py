@@ -19,9 +19,9 @@ from next20_target_cleanup import workspace_setup_failure_before_launch
 
 PIN = "3874898078005d1f5e519235401fab4fd428dd9b"
 PROJECT = DOC / "joe"
-SCENARIOS = PROJECT / "scenarios-v2"
-DECLARATION = PROJECT / "scenario-declaration-v2.json"
-PRELAUNCH = PROJECT / "scenario-attempt-v3.json"
+SCENARIOS = PROJECT / "scenarios-v3"
+DECLARATION = PROJECT / "scenario-declaration-v3.json"
+PRELAUNCH = PROJECT / "scenario-attempt-v4.json"
 
 
 def _state(path, data):
@@ -66,6 +66,7 @@ def cases():
         _case("N06", "Replace the current line with a corrected line", "line-delete-and-replace",
               {"note.txt": b"obsolete line\nkeep this line\n"}, "note.txt",
               [{"expect": "obsolete line"}, {"key": "CtrlY"}, {"text": "corrected line"},
+               {"key": "Enter"},
                {"expect": "corrected line"}, {"expect": "keep this line"}, *save],
               {"note.txt": b"corrected line\nkeep this line\n"}),
         _case("N07", "Insert a new heading before existing content", "line-split-and-order",
@@ -76,12 +77,12 @@ def cases():
         _case("N08", "Append a summary to a multi-line document", "end-of-buffer-navigation",
               {"note.txt": b"first paragraph\nsecond paragraph\n"}, "note.txt",
               [{"expect": "first paragraph"}, {"key": "CtrlK"}, {"text": "v"},
-               {"text": "Summary"}, {"expect": "Summary"}, *save],
+               {"text": "Summary"}, {"key": "Enter"}, {"expect": "Summary"}, *save],
               {"note.txt": b"first paragraph\nsecond paragraph\nSummary\n"}),
         _case("E01", "Abort an unsaved edit and preserve the original file", "dirty-abort-preserves-bytes",
               {"note.txt": b"approved text\n"}, "note.txt",
               [{"expect": "approved text"}, {"key": "End"}, {"text": " uncommitted"},
-               {"expect": "uncommitted"}, {"key": "CtrlC"}, {"exit": 0}],
+               {"expect": "uncommitted"}, {"key": "CtrlC"}, {"text": "y"}, {"exit": 0}],
               {"note.txt": b"approved text\n"}, kind="edge", pair="dirty-edit-plus-abort"),
         _case("E02", "Leave an empty file empty on clean save", "zero-byte-boundary",
               {"empty.txt": b""}, "empty.txt",
@@ -107,7 +108,7 @@ def cases():
               {"note.txt": b"main note updated\n", "sentinel.txt": b"preserve exactly\x00\r\n"}, kind="edge"),
         _case("E07", "Edit the final line after scrolling through a short viewport", "scroll-redraw-small-viewport",
               {"note.txt": ("".join("line %02d\n" % i for i in range(1, 36))).encode()}, "note.txt",
-              [{"key": "CtrlK"}, {"text": "v"}, {"expect": "line 35"}, {"key": "End"},
+              [{"key": "CtrlK"}, {"text": "v"}, {"expect": "line 35"}, {"key": "CtrlP"}, {"key": "End"},
                {"text": "!"}, {"expect": "line 35!"}, *save],
               {"note.txt": ("".join("line %02d\n" % i for i in range(1, 35)) + "line 35!\n").encode()},
               width=60, height=12, kind="edge", pair="small-viewport-plus-state-output"),
@@ -128,12 +129,12 @@ def cases():
               pair="nested-spaced-path-plus-created-state"),
         _case("E11", "Preserve a tab and following fields while editing a row", "tab-byte-preservation",
               {"table.txt": b"name\tvalue\nalpha\t1\n"}, "table.txt",
-              [{"expect": "name"}, {"key": "CtrlK"}, {"text": "v"}, {"text": "review"},
+              [{"expect": "name"}, {"key": "CtrlK"}, {"text": "v"}, {"text": "review"}, {"key": "Enter"},
                {"expect": "review"}, *save],
               {"table.txt": b"name\tvalue\nalpha\t1\nreview\n"}, kind="edge"),
         _case("E12", "Edit a final line when launched at a high line number", "position-clamp-and-exit",
               {"note.txt": b"one\ntwo\nthree\n"}, "note.txt",
-              [{"expect": "three"}, {"key": "End"}, {"text": "!"}, {"expect": "three!"}, *save],
+              [{"expect": "three"}, {"key": "CtrlP"}, {"key": "End"}, {"text": "!"}, {"expect": "three!"}, *save],
               {"note.txt": b"one\ntwo\nthree!\n"}, kind="edge",
               pair="out-of-range-position-plus-last-line-state", command_args=["+999", "note.txt"]),
     ]

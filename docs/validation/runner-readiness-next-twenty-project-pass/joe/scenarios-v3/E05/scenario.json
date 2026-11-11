@@ -1,0 +1,58 @@
+{
+  "version": 3,
+  "name": "Save UTF-8 text at a spaced Unicode path",
+  "command": [
+    "joe",
+    "-nobackups",
+    "folder caf\u00e9/note \u96ea.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TERM": "xterm-256color"
+  },
+  "inherit_env": [
+    "PATH"
+  ],
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 12000,
+  "run_timeout_ms": 60000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "starter"
+    },
+    {
+      "key": "End"
+    },
+    {
+      "text": " caf\u00e9 \u96ea"
+    },
+    {
+      "expect": "starter caf\u00e9 \u96ea"
+    },
+    {
+      "key": "CtrlK"
+    },
+    {
+      "text": "x"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "folder caf\u00e9/note \u96ea.txt",
+        "kind": "file",
+        "bytes_base64": "c3RhcnRlciBjYWbDqSDpm6oK"
+      }
+    }
+  ]
+}

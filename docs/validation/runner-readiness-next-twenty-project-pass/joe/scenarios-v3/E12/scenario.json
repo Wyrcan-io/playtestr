@@ -1,0 +1,62 @@
+{
+  "version": 3,
+  "name": "Edit a final line when launched at a high line number",
+  "command": [
+    "joe",
+    "-nobackups",
+    "+999",
+    "note.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TERM": "xterm-256color"
+  },
+  "inherit_env": [
+    "PATH"
+  ],
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 12000,
+  "run_timeout_ms": 60000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "three"
+    },
+    {
+      "key": "CtrlP"
+    },
+    {
+      "key": "End"
+    },
+    {
+      "text": "!"
+    },
+    {
+      "expect": "three!"
+    },
+    {
+      "key": "CtrlK"
+    },
+    {
+      "text": "x"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "note.txt",
+        "kind": "file",
+        "bytes_base64": "b25lCnR3bwp0aHJlZSEK"
+      }
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "version": 3,
+  "name": "Abort an unsaved edit and preserve the original file",
+  "command": [
+    "joe",
+    "-nobackups",
+    "note.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TERM": "xterm-256color"
+  },
+  "inherit_env": [
+    "PATH"
+  ],
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 12000,
+  "run_timeout_ms": 60000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "approved text"
+    },
+    {
+      "key": "End"
+    },
+    {
+      "text": " uncommitted"
+    },
+    {
+      "expect": "uncommitted"
+    },
+    {
+      "key": "CtrlC"
+    },
+    {
+      "text": "y"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "note.txt",
+        "kind": "file",
+        "bytes_base64": "YXBwcm92ZWQgdGV4dAo="
+      }
+    }
+  ]
+}

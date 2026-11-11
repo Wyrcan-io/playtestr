@@ -1,0 +1,67 @@
+{
+  "version": 3,
+  "name": "Edit the final line after scrolling through a short viewport",
+  "command": [
+    "joe",
+    "-nobackups",
+    "note.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TERM": "xterm-256color"
+  },
+  "inherit_env": [
+    "PATH"
+  ],
+  "width": 60,
+  "height": 12,
+  "timeout_ms": 12000,
+  "run_timeout_ms": 60000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "key": "CtrlK"
+    },
+    {
+      "text": "v"
+    },
+    {
+      "expect": "line 35"
+    },
+    {
+      "key": "CtrlP"
+    },
+    {
+      "key": "End"
+    },
+    {
+      "text": "!"
+    },
+    {
+      "expect": "line 35!"
+    },
+    {
+      "key": "CtrlK"
+    },
+    {
+      "text": "x"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "note.txt",
+        "kind": "file",
+        "bytes_base64": "bGluZSAwMQpsaW5lIDAyCmxpbmUgMDMKbGluZSAwNApsaW5lIDA1CmxpbmUgMDYKbGluZSAwNwpsaW5lIDA4CmxpbmUgMDkKbGluZSAxMApsaW5lIDExCmxpbmUgMTIKbGluZSAxMwpsaW5lIDE0CmxpbmUgMTUKbGluZSAxNgpsaW5lIDE3CmxpbmUgMTgKbGluZSAxOQpsaW5lIDIwCmxpbmUgMjEKbGluZSAyMgpsaW5lIDIzCmxpbmUgMjQKbGluZSAyNQpsaW5lIDI2CmxpbmUgMjcKbGluZSAyOApsaW5lIDI5CmxpbmUgMzAKbGluZSAzMQpsaW5lIDMyCmxpbmUgMzMKbGluZSAzNApsaW5lIDM1IQo="
+      }
+    }
+  ]
+}

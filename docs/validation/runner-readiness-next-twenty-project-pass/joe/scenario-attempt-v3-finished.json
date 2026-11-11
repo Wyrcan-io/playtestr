@@ -1,0 +1,65 @@
+{
+  "attempt_id": "joe-scenarios-development-pinned-3874898078005d1f5e519235401fab4fd428dd9b-v3",
+  "calibrations": 0,
+  "candidate": "v0.4.0-rc.6",
+  "failure_categories": {
+    "E01": "assertion_timeout",
+    "E07": "assertion_timeout",
+    "E11": "state_assertion_failure",
+    "E12": "assertion_timeout",
+    "N06": "state_assertion_failure",
+    "N08": "state_assertion_failure"
+  },
+  "native_cells": {
+    "darwin": {
+      "attempted": 20,
+      "conclusion": "failure",
+      "failed": 6,
+      "passed": 14
+    },
+    "linux": {
+      "attempted": 20,
+      "conclusion": "failure",
+      "failed": 6,
+      "passed": 14
+    }
+  },
+  "outcome": "development batch complete; 14/20 scenarios passed and six failed on each host; no qualification credit",
+  "owned_source_cleanup": "source restored exactly and owned target tree removed on both native hosts",
+  "phase": "scenario-development",
+  "project": "joe",
+  "project_admission_credit": 0,
+  "provider_artifact_readback": "joe/scenario-batch-run43028795974-readback-v1.json",
+  "provider_artifacts": {
+    "darwin": {
+      "artifact_id": 13859392255,
+      "bytes": 8038884,
+      "sha256": "c75f2b271e0361868e3e8b20c314a0d43a7857223a257047fdbefad324ace33d"
+    },
+    "linux": {
+      "artifact_id": 13860620938,
+      "bytes": 8854955,
+      "sha256": "31a6ddbf13ff46505f230ee939a90773ed2dd3a057404eb22efc2fcad883ef21"
+    }
+  },
+  "qualification_scenarios": 0,
+  "real_faults": 0,
+  "reproducible_failed_scenarios": [
+    "N06",
+    "N08",
+    "E01",
+    "E07",
+    "E11",
+    "E12"
+  ],
+  "revision": 3,
+  "scenario_attempts_per_host": 20,
+  "scenario_declaration": "joe/scenario-declaration-v2.json",
+  "scenario_declaration_sha256": "a7e4681bb54b03b64250b37f46b8e46d95f5fbdfe8772cd40271e101e585ccb7",
+  "schema_version": 1,
+  "storage": "both native jobs passed bounded campaign storage checks",
+  "target_cleanup": "all 40 launched JOE processes exited and all 40 runner process groups were absent",
+  "workflow_head_sha": "8d69a504fb5d062cb894bb33c34d30ca00fbd3ea",
+  "workflow_run": 43028795974,
+  "workspace_cleanup": "all 40 managed workspaces cleaned"
+}

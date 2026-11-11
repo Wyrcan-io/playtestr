@@ -7,10 +7,11 @@ on:
     paths:
       - .github/workflows/runner-readiness-next20-joe-scenarios.yml
       - scripts/acceptance/next20_joe_scenarios.py
+      - scripts/acceptance/next20_joe_scenario_batch_audit.py
       - scripts/acceptance/next20_target_cleanup.py
       - scripts/acceptance/test_next20_target_cleanup.py
-      - docs/validation/runner-readiness-next-twenty-project-pass/joe/scenario-declaration-v2.json
-      - docs/validation/runner-readiness-next-twenty-project-pass/joe/scenarios-v2/**
+      - docs/validation/runner-readiness-next-twenty-project-pass/joe/scenario-declaration-v3.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/joe/scenarios-v3/**
   workflow_dispatch:
 
 permissions:
