@@ -7,7 +7,7 @@ import tempfile
 import unittest
 
 from next20_mg_pilot import ensure_executable
-from next20_mg_oracle_calibration import report_result as oracle_report_result
+from next20_mg_oracle_calibration import TARGET_SHA, report_result as oracle_report_result
 from next20_mg_public_route import report_result
 
 
@@ -70,6 +70,9 @@ class PublicRouteReportTests(unittest.TestCase):
 
 
 class OracleCalibrationReportTests(unittest.TestCase):
+    def test_target_identity_is_a_full_sha256(self):
+        self.assertEqual(len(TARGET_SHA), 64)
+
     def write_report(self, root, result):
         path = Path(root) / "report.json"
         path.write_text(json.dumps({"runner_version": "v0.4.0-rc.6", "results": [result]}), encoding="utf-8")

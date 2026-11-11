@@ -14,7 +14,7 @@ from readiness_evidence import immutable_json, sha256
 
 
 PIN = "2209e2087eab34ffceb6bfaa0d62f9e4c36e3c66"
-TARGET_SHA = "6eb334f5ea96687983c51b073b1b8a11434ea85e5"
+TARGET_SHA = "6eb334f5ea96687983c51b073b1b8a11434ea85a46e69ca6e28e57b76b4e88e5"
 RUNNER_SHA = "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a"
 OUTPUT = RAW / "mg/oracle-calibration-native-exit-v1"
 INITIAL = b"MG_PUBLIC_ROUTE_START\n"
