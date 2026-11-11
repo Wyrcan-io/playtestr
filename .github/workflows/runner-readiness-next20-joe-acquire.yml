@@ -1,0 +1,51 @@
+name: Runner readiness next20 JOE pinned source acquisition
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: playtestr-next20-joe-source-acquire-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  acquire-source:
+    name: JOE pinned source-only acquisition
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONIOENCODING: utf-8
+      TEMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+      TMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+      TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+      - name: Create campaign temporary root
+        run: mkdir -p artifacts/runner-readiness-next-twenty-project-pass/tmp
+      - name: Acquire and validate pinned JOE source archive only
+        run: python -B scripts/acceptance/next20_acquire.py joe
+      - name: Verify campaign storage bounds
+        if: always()
+        run: python -B scripts/acceptance/next20_storage.py joe
+      - name: Retain source-only acquisition packet
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: next20-joe-source-${{ github.run_id }}
+          path: |
+            artifacts/runner-readiness-next-twenty-project-pass/active/joe/task-owned.json
+            artifacts/runner-readiness-next-twenty-project-pass/active/joe/source.tar.gz
+            artifacts/runner-readiness-next-twenty-project-pass/active/joe/acquisition.json
+            docs/validation/runner-readiness-next-twenty-project-pass/joe/**
+          if-no-files-found: warn
+          retention-days: 14
+          include-hidden-files: true

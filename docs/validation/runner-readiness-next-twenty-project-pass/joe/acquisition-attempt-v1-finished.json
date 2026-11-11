@@ -1,0 +1,22 @@
+{
+  "attempt_id": "joe-source-only-pin-3874898078005d1f5e519235401fab4fd428dd9b-v1",
+  "attempts": 6,
+  "local_attempt_receipts": [
+    {
+      "path": "artifacts/runner-readiness-next-twenty-project-pass/joe/acquisition-fetch-failures/8892147e55d445049014729ab266faaf.json",
+      "sha256": "818f79dffae66d2afa01fa8715586ba81b86d317bb0f2d8e1579dfb90f598163"
+    },
+    {
+      "path": "artifacts/runner-readiness-next-twenty-project-pass/joe/acquisition-fetch-failures/941ecc300a6b49858eb56337425ee64f.json",
+      "sha256": "818f79dffae66d2afa01fa8715586ba81b86d317bb0f2d8e1579dfb90f598163"
+    }
+  ],
+  "pin": "3874898078005d1f5e519235401fab4fd428dd9b",
+  "project": "joe",
+  "project_admission_credit": 0,
+  "recovery": "Use standard GitHub-hosted source-only acquisition; do not retry from this restricted local network.",
+  "repository": "joe-editor/joe",
+  "result": "All six bounded HTTP retries were rejected by the local socket sandbox with WinError 10013; no archive, extracted source, build hook, or target process was created.",
+  "schema_version": 1,
+  "state": "failed-before-active-target-creation"
+}
