@@ -116,11 +116,10 @@ jobs:
         with:
           name: next20-joe-public-route-${{ matrix.host }}-${{ github.run_id }}
           path: |
-            artifacts/runner-readiness-next-twenty-project-pass/joe/public-route-v1/${{ matrix.host }}/
-            artifacts/runner-readiness-next-twenty-project-pass/joe/retained-source/
-            artifacts/runner-readiness-next-twenty-project-pass/joe/process-proof.json
-            artifacts/runner-readiness-next-twenty-project-pass/joe/retained-build-packets/readback-run43007089541.json
-            artifacts/runner-readiness-next-twenty-project-pass/active/joe/
+            artifacts/runner-readiness-next-twenty-project-pass/joe/**
+            artifacts/runner-readiness-next-twenty-project-pass/events/**
+            artifacts/runner-readiness-next-twenty-project-pass/identities/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/joe/**
             artifacts/runner-readiness-next-twenty-project-pass/candidate-native-exit-v1/${{ matrix.host }}/installed.json
           if-no-files-found: warn
           retention-days: 30

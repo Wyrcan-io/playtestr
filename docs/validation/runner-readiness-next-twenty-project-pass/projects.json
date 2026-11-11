@@ -793,12 +793,19 @@
         "joe/build-attempt-darwin-v2.json",
         "joe/build-attempt-linux-v3.json",
         "joe/build-attempt-darwin-v3.json",
+        "joe/build-attempt-linux-v4.json",
+        "joe/build-attempt-darwin-v4.json",
         "joe/native-build-attempt-crosswalk-v1.json",
         "joe/native-build-readback-v1.json"
       ],
       "public_route_declaration": "joe/public-route-declaration-v1.json",
       "public_route_workflow": ".github/workflows/runner-readiness-next20-joe-public-route.yml",
-      "public_route_status": "prepared-before-hosted-launch; no route credit",
+      "public_route_attempts": [
+        "joe/public-route-attempt-v1-finished.json",
+        "joe/public-route-attempt-linux-v2.json",
+        "joe/public-route-attempt-darwin-v2.json"
+      ],
+      "public_route_status": "first recorder attempts on Linux/macOS exited 1; preserved as initial route miss; console-retaining diagnostic rerun prepared",
       "native_build_readback": "joe/native-build-readback-v1.json",
       "native_build_crosswalk": "joe/native-build-attempt-crosswalk-v1.json",
       "storage_checkpoint": "storage-checkpoint-v51.json",

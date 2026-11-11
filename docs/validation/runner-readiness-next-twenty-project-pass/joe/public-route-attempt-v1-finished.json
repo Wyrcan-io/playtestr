@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "project": "joe",
+  "workflow_run": 43011291071,
+  "workflow_head_sha": "ec68a684d0842e09c895775efef06a006e6d6dcb",
+  "candidate": "v0.4.0-rc.6",
+  "project_admission_credit": 0,
+  "provider_packets": [
+    {"host": "linux", "id": 13849909254, "bytes": 3820855, "sha256": "7638eb0aea9f281d09c162124f159c37d94d12f0d475f2721f3fe8b9efddaf6d"},
+    {"host": "darwin", "id": 13850712052, "bytes": 3820878, "sha256": "7895759ec39f57fbc0eefddaa43275d813823be11bfb6ed7967468b5a4bed910"}
+  ],
+  "hosts": {
+    "linux": {"runner_version_exit": 0, "record_exit": 1, "record_attempt_id": "c28d6a57a48f46bb8f3aec9cc816d92d", "attempted_controls": 15, "first_spec_saved": false, "target_cleanup": "passed", "storage": "passed"},
+    "darwin": {"runner_version_exit": 0, "record_exit": 1, "record_attempt_id": "915391326c7d4a3fb0d133d3074893b5", "attempted_controls": 15, "first_spec_saved": false, "target_cleanup": "passed", "storage": "passed"}
+  },
+  "retention_gap": "The artifact upload omitted joe/<attempt-id>/console.log and the campaign event/identity roots. GitHub job logs retain only the candidate invocation's nonzero exit and error path, so the exact recorder failure category is unresolved. The next declared run includes these roots and a bounded console tail in failure logs.",
+  "classification": "initial agent-operated public route failed; not a human usability observation and not an upstream JOE fault",
+  "shell_invocations_before_miss": 2,
+  "scope": "Exact frozen candidate installed and version-checked; public recorder launched with no handwritten first-use JSON, but exited 1 before exporting a spec. Preserve as the initial route miss."
+}

@@ -8,6 +8,7 @@ from pathlib import Path
 import platform
 import shutil
 import subprocess
+import sys
 
 from adversarial_process import execute
 from next20_candidate import executable
@@ -127,8 +128,22 @@ async def main():
                    "--timeout-ms", "12000", "--run-timeout-ms", "60000",
                    "--env", "TERM=xterm-256color", "--env", "LANG=C.UTF-8", "--env", "LC_ALL=C.UTF-8",
                    "--inherit-env", "PATH", "--", "joe", "-nobackups", "public-note.txt"]
-    await run(record_argv, "joe-first-public-record-review-replay-save",
-              input="\n".join(CONTROL_SEQUENCE) + "\n", timeout=240)
+    try:
+        await run(record_argv, "joe-first-public-record-review-replay-save",
+                  input="\n".join(CONTROL_SEQUENCE) + "\n", timeout=240)
+    except RuntimeError as error:
+        evidence_dir = Path(getattr(error, "evidence_directory", ""))
+        console = evidence_dir / "console.log"
+        if console.is_file() and console.resolve().is_relative_to(RAW.resolve()):
+            content = console.read_bytes()
+            failure = {"schema_version": 1, "project": PROJECT, "host": host,
+                       "phase": "public-authoring", "attempt_id": getattr(error, "evidence_id", None),
+                       "error": str(error)[:2048], "console_sha256": sha256(console),
+                       "console_bytes": len(content), "console_tail": content[-4096:].decode("utf-8", "replace"),
+                       "admission_credit": 0}
+            immutable_json(output / "first-record-failure.json", failure)
+            print("JOE recorder failure console tail:\n" + failure["console_tail"], file=sys.stderr)
+        raise
     if not spec.is_file():
         raise ValueError("JOE recorder did not export the first-use spec")
     recorded = json.loads(spec.read_text(encoding="utf-8"))
