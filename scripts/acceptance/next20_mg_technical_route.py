@@ -131,9 +131,11 @@ async def run_technical(route_root, mg_build_root):
                 not doc["results"][0].get("cleanup", {}).get("confirmed_exited") or
                 not doc["results"][0].get("workspace", {}).get("cleaned")):
             raise ValueError("technical-route ordinary test lacks passing report and cleanup: " + name)
-        attempts.append({"label": label, "id": result["id"], "returncode": 0,
-                         "report_sha256": sha256(report),
-                         "invocation_id": doc["results"][0]["invocation_id"]})
+        attempt = {"label": label, "id": result["id"], "returncode": 0,
+                   "report_sha256": sha256(report)}
+        if doc["results"][0].get("invocation_id"):
+            attempt["invocation_id"] = doc["results"][0]["invocation_id"]
+        attempts.append(attempt)
         return report, artifacts
 
     report, artifacts = await test_spec("manual-edit-selected", chosen, "mg-technical-manual-edit-selected-test")
