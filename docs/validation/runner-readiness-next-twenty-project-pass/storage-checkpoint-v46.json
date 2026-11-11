@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "campaign": "runner-readiness-next-twenty-project-pass",
+  "project": "mg",
+  "status": "pass",
+  "supersedes_observation": "artifacts/runner-readiness-next-twenty-project-pass/storage/bd092b4cdce74c10aa8bfa3910546d4f/observed.json",
+  "measurement": "artifacts/runner-readiness-next-twenty-project-pass/storage/65282cd858444de689fca77350e62759/observed.json",
+  "measurement_sha256": "f2b3a93774a139843b3c09110dfeaea757c8337a0982aca494ca4c002a402e0c",
+  "index_compaction": "index-compaction-v2.json",
+  "actual_bytes": {
+    "new_raw": 2004086048,
+    "combined_raw": 3913113709,
+    "combined_retained": 2071512966,
+    "project_mg": 15562245,
+    "new_curated": 25069057,
+    "combined_curated": 36649681
+  },
+  "caps_bytes": {
+    "new_raw": 4294967296,
+    "combined_raw": 6442450944,
+    "combined_retained": 2147483648,
+    "project": 67108864,
+    "new_curated": 26214400,
+    "combined_curated": 52428800
+  },
+  "headroom_bytes": {
+    "new_raw": 2290881248,
+    "combined_raw": 2529337235,
+    "combined_retained": 75970682,
+    "project_mg": 51546619,
+    "new_curated": 1145343,
+    "combined_curated": 15779119
+  },
+  "active_projects": [
+    "mg"
+  ],
+  "storage_scan_failed": [],
+  "limitations": [
+    "Logical file sizes, not physical allocation, quota, or peak bytes.",
+    "The per-project mg raw total excludes its separate active source/runtime root by design; active root is listed independently."
+  ]
+}
