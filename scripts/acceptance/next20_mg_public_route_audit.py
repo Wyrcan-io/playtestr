@@ -179,15 +179,15 @@ def main():
                 oracle_plan.get("route_spec_sha256") != receipt["first_spec_sha256"] or
                 oracle_plan.get("runner_sha256") != RUNNER or oracle_plan.get("target_binary_sha256") != TARGET):
             raise ValueError("saved-state oracle calibration identity or declared plan differs")
-        attempts = oracle.get("attempts", [])
-        if len(attempts) != len(ORACLE_CASES) or [a.get("name") for a in attempts] != ORACLE_CASES:
+        oracle_attempts = oracle.get("attempts", [])
+        if len(oracle_attempts) != len(ORACLE_CASES) or [a.get("name") for a in oracle_attempts] != ORACLE_CASES:
             raise ValueError("saved-state oracle calibration cases are incomplete or out of order")
         expected_bytes_b64 = oracle_plan["independent_expected_bytes"]
         expected_bytes = base64.b64decode(expected_bytes_b64, validate=True)
         if expected_bytes != INITIAL + MARKER.encode():
             raise ValueError("independent saved-state expected bytes changed")
         oracle_events = []
-        for name, attempt in zip(ORACLE_CASES, attempts):
+        for name, attempt in zip(ORACLE_CASES, oracle_attempts):
             ident = attempt.get("id", "")
             if ident in ids or len(ident) != 32 or any(c not in "0123456789abcdef" for c in ident):
                 raise ValueError("oracle calibration attempt identity is invalid or collides")
