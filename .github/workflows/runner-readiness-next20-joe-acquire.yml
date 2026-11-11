@@ -1,6 +1,11 @@
 name: Runner readiness next20 JOE pinned source acquisition
 
 on:
+  push:
+    branches:
+      - work/p0-p2-implementation
+    paths:
+      - .github/workflows/runner-readiness-next20-joe-acquire.yml
   workflow_dispatch:
 
 permissions:
