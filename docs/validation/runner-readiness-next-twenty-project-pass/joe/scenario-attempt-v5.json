@@ -1,0 +1,59 @@
+{
+  "attempt_id": "joe-final-qualification-pinned-3874898078005d1f5e519235401fab4fd428dd9b-v5",
+  "attempt_lifecycle": [
+    "started",
+    "identified",
+    "launched",
+    "finished"
+  ],
+  "candidate": "v0.4.0-rc.6",
+  "candidate_archive_sha256": {
+    "darwin": "132152710ade2c01cac7558f75212121f01af8ab02c5735dc9c7de1c33dbe625",
+    "linux": "28ae9f37227bb0f6ba2df031420aa3d027b998e31eab523c4d13cd2816c4af7a",
+    "windows": "0b9f69460ed4dd87c3182c27702f0579bc67e92767010e4ce50d02c0bec82432"
+  },
+  "candidate_binary_sha256": {
+    "darwin": "609b184dac8664050643ec35036c4cffef2137ec778ae4d4678727b119e2fe0f",
+    "linux": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a",
+    "windows": "6c80fdbcdd74705b85b2e8aad2f07140f5ff5e8cea80db1d6c24a04d71b23f36"
+  },
+  "expected": "each of the twenty frozen v3 scenarios passes twelve final repetitions on each exact native candidate host; every target, runner group, workspace and source tree is cleaned; no target fault or calibration is included in these 480 ordinary executions",
+  "limits": {
+    "per_runner_command_seconds": 120,
+    "runner_output_bytes": 4194304,
+    "spec_run_timeout_ms": 60000,
+    "spec_timeout_ms": 12000
+  },
+  "native_cells": [
+    {
+      "architecture": "x86_64",
+      "host": "linux",
+      "os": "ubuntu-24.04",
+      "repetitions": 12,
+      "scenario_count": 20
+    },
+    {
+      "architecture": "arm64",
+      "host": "darwin",
+      "os": "macos-15",
+      "repetitions": 12,
+      "scenario_count": 20
+    }
+  ],
+  "ordinary_executions_expected": 480,
+  "phase": "final-qualification",
+  "preserved_prior_attempt": "workflow 43032037039: scenario-development passed all 20 cases on Linux amd64 and macOS arm64; independent provider readback confirms all receipts, target/source cleanup, and storage; this is development evidence only",
+  "project": "joe",
+  "project_admission_credit": 0,
+  "repository": "joe-editor/joe",
+  "revision": 5,
+  "scenario_declaration": "joe/scenario-declaration-v3.json",
+  "scenario_declaration_sha256": "c23a5ab92038d5652e0e283f4a5f3b681ecdc3177d0f39253782f07acc2a5185",
+  "schema_version": 1,
+  "state": "prepared-before-workflow-launch",
+  "supersedes_attempt_declaration": "joe/scenario-attempt-v4.json",
+  "target_build": "fresh native JOE build from reviewed immutable source pin; retain exact source/build/runtime/binary and seven bounded build logs before cleanup",
+  "target_pin": "3874898078005d1f5e519235401fab4fd428dd9b",
+  "workflow": ".github/workflows/runner-readiness-next20-joe-final-qualification.yml",
+  "workflow_trigger": "authorized push to work/p0-p2-implementation after this declaration and attempt are committed"
+}

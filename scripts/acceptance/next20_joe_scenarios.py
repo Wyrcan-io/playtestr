@@ -204,7 +204,7 @@ def materialize():
     declaration_path.write_text(json.dumps(declaration, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
 
 
-def verify_declarations():
+def verify_declarations(attempt_path=PRELAUNCH, phase="scenario-development"):
     declared = cases()
     if len(declared) != 20 or sum(row["kind"] == "normal" for row in declared) != 8:
         raise ValueError("JOE scenario declaration must contain eight normal and twelve edge cases")
@@ -233,12 +233,37 @@ def verify_declarations():
                 raise ValueError("missing regular JOE fixture: " + str(item))
     if declaration.get("project") != "joe" or declaration.get("pin") != PIN or len(declaration.get("scenarios", [])) != 20:
         raise ValueError("frozen JOE scenario catalog identity or denominator differs")
-    attempt_path = PRELAUNCH
     attempt = json.loads(attempt_path.read_text(encoding="utf-8"))
     declaration_hash = hashlib.sha256(declaration_path.read_bytes()).hexdigest()
+    freeze = json.loads((DOC / "replacement-candidate-freeze-native-exit-v1.json").read_text(encoding="utf-8"))
+    archive_hashes = {row["host"]: row["archive_sha256"] for row in freeze["cells"]}
+    binary_hashes = {row["host"]: row["binary_sha256"] for row in freeze["cells"]}
+    repetitions = 1 if phase == "scenario-development" else 12
+    workflow = (".github/workflows/runner-readiness-next20-joe-scenarios.yml"
+                if phase == "scenario-development" else
+                ".github/workflows/runner-readiness-next20-joe-final-qualification.yml")
+    expected_hosts = {
+        "linux": ("ubuntu-24.04", "x86_64"),
+        "darwin": ("macos-15", "arm64"),
+    }
+    cells = {row.get("host"): row for row in attempt.get("native_cells", [])}
     if (attempt.get("scenario_declaration_sha256") != declaration_hash or
-            attempt.get("phase") != "scenario-development" or attempt.get("project_admission_credit") != 0):
+            attempt.get("phase") != phase or attempt.get("project") != "joe" or
+            attempt.get("target_pin") != PIN or attempt.get("candidate") != freeze.get("version") or
+            attempt.get("candidate_archive_sha256") != archive_hashes or
+            attempt.get("candidate_binary_sha256") != binary_hashes or
+            attempt.get("workflow") != workflow or
+            attempt.get("project_admission_credit") != 0 or
+            attempt.get("state") != "prepared-before-workflow-launch" or
+            set(cells) != set(expected_hosts) or any(
+                cells[host].get("os") != expected_hosts[host][0] or
+                cells[host].get("architecture") != expected_hosts[host][1] or
+                cells[host].get("scenario_count") != 20 or
+                cells[host].get("repetitions") != repetitions
+                for host in expected_hosts)):
         raise ValueError("prelaunch JOE scenario attempt does not bind the frozen declaration")
+    if phase == "final-qualification" and attempt.get("ordinary_executions_expected") != 480:
+        raise ValueError("final JOE scenario attempt does not predeclare exactly 480 ordinary executions")
 
 
 def run_one(case, host, phase, repetition=0):
@@ -405,6 +430,7 @@ def main():
     parser.add_argument("--verify-only", action="store_true")
     parser.add_argument("--host", choices=("linux", "darwin"), required=True)
     parser.add_argument("--phase", choices=("scenario-development", "final-qualification"), default="scenario-development")
+    parser.add_argument("--attempt-manifest", type=Path, default=PRELAUNCH)
     parser.add_argument("--case", action="append")
     parser.add_argument("--repetitions", type=int, default=1)
     parser.add_argument("--retain-build-evidence", action="store_true")
@@ -414,7 +440,11 @@ def main():
         print("Materialized the twenty frozen JOE specs and fixtures")
         return
     if args.verify_only:
-        verify_declarations()
+        verify_declarations(args.attempt_manifest, args.phase)
+        attempt = json.loads(args.attempt_manifest.read_text(encoding="utf-8"))
+        cell = next(row for row in attempt["native_cells"] if row["host"] == args.host)
+        if args.repetitions != cell["repetitions"]:
+            raise ValueError("requested repetitions differ from the frozen host cell")
         print("Frozen JOE scenario declaration verified")
         return
     actual = {"Linux": "linux", "Darwin": "darwin"}.get(platform.system())
@@ -422,7 +452,11 @@ def main():
         raise RuntimeError(f"native host mismatch: expected {args.host}, got {actual}")
     if not 1 <= args.repetitions <= 12:
         raise ValueError("scenario repetition count must be from one through twelve")
-    verify_declarations()
+    verify_declarations(args.attempt_manifest, args.phase)
+    attempt = json.loads(args.attempt_manifest.read_text(encoding="utf-8"))
+    cell = next(row for row in attempt["native_cells"] if row["host"] == args.host)
+    if args.repetitions != cell["repetitions"]:
+        raise ValueError("requested repetitions differ from the frozen host cell")
     if args.retain_build_evidence:
         retain_build_evidence(args.host)
         return
@@ -465,7 +499,7 @@ def main():
     run_id=os.environ.get("GITHUB_RUN_ID")
     if not run_id or not run_id.isdecimal():
         raise ValueError("development batch accounting requires a hosted workflow run ID")
-    batch_path=RAW/f"joe/scenario-development-batches/{args.host}/{run_id}.json"
+    batch_path=RAW/f"joe/{args.phase}-batches/{args.host}/{run_id}.json"
     immutable_json(batch_path,{"schema_version":1,"project":"joe","host":args.host,
         "workflow_run":int(run_id),"phase":args.phase,"candidate":"v0.4.0-rc.6",
         "scenario_declaration_sha256":hashlib.sha256(DECLARATION.read_bytes()).hexdigest(),

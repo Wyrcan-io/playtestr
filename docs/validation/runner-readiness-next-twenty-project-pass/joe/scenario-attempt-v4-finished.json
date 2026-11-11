@@ -1,0 +1,49 @@
+{
+  "attempt_id": "joe-scenarios-development-pinned-3874898078005d1f5e519235401fab4fd428dd9b-v4",
+  "calibrations": 0,
+  "candidate": "v0.4.0-rc.6",
+  "native_cells": {
+    "darwin": {
+      "attempted": 20,
+      "conclusion": "success",
+      "failed": 0,
+      "passed": 20
+    },
+    "linux": {
+      "attempted": 20,
+      "conclusion": "success",
+      "failed": 0,
+      "passed": 20
+    }
+  },
+  "outcome": "all twenty revised development scenarios passed on both native hosts; development success is not final qualification",
+  "owned_source_cleanup": "source restored exactly and owned target tree removed on both native hosts",
+  "phase": "scenario-development",
+  "project": "joe",
+  "project_admission_credit": 0,
+  "provider_artifact_readback": "scenario-batch-run43032037039-readback-v1.json",
+  "provider_artifacts": {
+    "darwin": {
+      "artifact_id": 13861301336,
+      "bytes": 8037038,
+      "sha256": "54dd9904cb75f8d60e40c1330207fe0b08bbd194c25f6aa3330d5f33508a1e58"
+    },
+    "linux": {
+      "artifact_id": 13862115076,
+      "bytes": 8853150,
+      "sha256": "50ce12f21a5eae203c16b42a7ef912f2caa54cdfbc7dee068194cb6e51e5a67c"
+    }
+  },
+  "qualification_scenarios": 0,
+  "real_faults": 0,
+  "revision": 4,
+  "scenario_attempts_per_host": 20,
+  "scenario_declaration": "joe/scenario-declaration-v3.json",
+  "scenario_declaration_sha256": "c23a5ab92038d5652e0e283f4a5f3b681ecdc3177d0f39253782f07acc2a5185",
+  "schema_version": 1,
+  "storage": "both native jobs passed bounded campaign storage checks",
+  "target_cleanup": "all 40 JOE processes exited with confirmed process cleanup; runner process groups absent",
+  "workflow_head_sha": "cfb67a69580aa399a6da49a5fa4dfb1971943533",
+  "workflow_run": 43032037039,
+  "workspace_cleanup": "all 40 managed workspaces cleaned"
+}
