@@ -1,0 +1,64 @@
+{
+  "version": 3,
+  "name": "Insert a new heading before existing content",
+  "command": [
+    "joe",
+    "-nobackups",
+    "note.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TERM": "xterm-256color"
+  },
+  "inherit_env": [
+    "PATH"
+  ],
+  "width": 80,
+  "height": 24,
+  "timeout_ms": 12000,
+  "run_timeout_ms": 60000,
+  "max_output_bytes": 2000000,
+  "steps": [
+    {
+      "expect": "body text"
+    },
+    {
+      "key": "Home"
+    },
+    {
+      "text": "Heading"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "Heading"
+    },
+    {
+      "expect": "body text"
+    },
+    {
+      "key": "CtrlK"
+    },
+    {
+      "text": "x"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "path": "note.txt",
+        "kind": "file",
+        "bytes_base64": "SGVhZGluZwpib2R5IHRleHQK"
+      }
+    }
+  ]
+}

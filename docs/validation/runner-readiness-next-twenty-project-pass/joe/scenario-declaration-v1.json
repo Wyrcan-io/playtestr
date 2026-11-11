@@ -1,0 +1,781 @@
+{
+  "schema_version": 1,
+  "project": "joe",
+  "repository": "joe-editor/joe",
+  "pin": "3874898078005d1f5e519235401fab4fd428dd9b",
+  "candidate": "v0.4.0-rc.6",
+  "project_admission_credit": 0,
+  "status": "frozen-development-declaration-not-qualified",
+  "minimums": {
+    "normal": 8,
+    "edge": 12,
+    "distinct": 20,
+    "native_cells": [
+      "linux-amd64",
+      "macos-arm64"
+    ]
+  },
+  "risk_pairs": [
+    "dirty-edit-plus-abort",
+    "unicode-path-plus-exact-state",
+    "small-viewport-plus-state-output",
+    "wrapped-content-plus-exact-save",
+    "line-transition-plus-neighbor-preservation",
+    "nested-spaced-path-plus-created-state",
+    "out-of-range-position-plus-last-line-state"
+  ],
+  "scenarios": [
+    {
+      "id": "N01",
+      "title": "Append a reviewed line to an existing note",
+      "kind": "normal",
+      "risk": "append-save-readback",
+      "risk_pair": null,
+      "preconditions": [
+        {
+          "path": "note.txt",
+          "bytes": 14,
+          "sha256": "b2d84ffba85b99d7a8d220ef4f574b5edfa666ce1baf8e5debf6fce09067495f",
+          "bytes_base64": "cmV2aWV3ZWQgc2VlZAo="
+        }
+      ],
+      "expected_state": [
+        {
+          "path": "note.txt",
+          "bytes": 25,
+          "sha256": "cf3b6b02c66fbfc3634671268cd3e706597211e25b8c57d3c40c7053ad351391",
+          "bytes_base64": "cmV2aWV3ZWQgc2VlZCArIGFwcGVuZGVkCg=="
+        }
+      ],
+      "host_applicability": [
+        "linux-amd64",
+        "macos-arm64"
+      ],
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "input_profile": "documented JOE keys and bounded UTF-8 text; no shell, pipe or external command",
+      "positive_evidence": "specific rendered JOE text followed by exact in-run saved-file state and exit 0",
+      "oracle_independence": "literal fixture and expected byte strings independently declared in this source; no target writer computes expectations",
+      "cleanup": "runner report must confirm JOE exit and managed workspace removal; harness process group must be absent",
+      "spec": "docs/validation/runner-readiness-next-twenty-project-pass/joe/scenarios/N01/scenario.json",
+      "spec_sha256": "9c9e010a4a192b863363ff856256434434667e657277041d7e909039dd98a231"
+    },
+    {
+      "id": "N02",
+      "title": "Create and save a named note",
+      "kind": "normal",
+      "risk": "new-file-create-and-save",
+      "risk_pair": null,
+      "preconditions": [],
+      "expected_state": [
+        {
+          "path": "new-note.txt",
+          "bytes": 10,
+          "sha256": "7759292ba90131ba7f6315c6e60690e705237754d92c2a879e241d7981fbd595",
+          "bytes_base64": "ZnJlc2ggbm90ZQ=="
+        }
+      ],
+      "host_applicability": [
+        "linux-amd64",
+        "macos-arm64"
+      ],
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "input_profile": "documented JOE keys and bounded UTF-8 text; no shell, pipe or external command",
+      "positive_evidence": "specific rendered JOE text followed by exact in-run saved-file state and exit 0",
+      "oracle_independence": "literal fixture and expected byte strings independently declared in this source; no target writer computes expectations",
+      "cleanup": "runner report must confirm JOE exit and managed workspace removal; harness process group must be absent",
+      "spec": "docs/validation/runner-readiness-next-twenty-project-pass/joe/scenarios/N02/scenario.json",
+      "spec_sha256": "e5f8080c7d8e4ab6180879ef5207cd6504f96ce68460f0cd2cefff327af35210"
+    },
+    {
+      "id": "N03",
+      "title": "Correct a selected line without changing its neighbors",
+      "kind": "normal",
+      "risk": "line-navigation-and-edit",
+      "risk_pair": null,
+      "preconditions": [
+        {
+          "path": "note.txt",
+          "bytes": 20,
+          "sha256": "3eca7ea48b0da0ad30bee679c92c7b68d487547068b6914d10a64e8cedb03f51",
+          "bytes_base64": "YWxwaGEKYnJhdm8KY2hhcmxpZQo="
+        }
+      ],
+      "expected_state": [
+        {
+          "path": "note.txt",
+          "bytes": 29,
+          "sha256": "b163ef644177a76cab674645330f23f1bac52d1bc27d5338b95375d6466d2150",
+          "bytes_base64": "YWxwaGEKcmV2aWV3ZWQgYnJhdm8KY2hhcmxpZQo="
+        }
+      ],
+      "host_applicability": [
+        "linux-amd64",
+        "macos-arm64"
+      ],
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "input_profile": "documented JOE keys and bounded UTF-8 text; no shell, pipe or external command",
+      "positive_evidence": "specific rendered JOE text followed by exact in-run saved-file state and exit 0",
+      "oracle_independence": "literal fixture and expected byte strings independently declared in this source; no target writer computes expectations",
+      "cleanup": "runner report must confirm JOE exit and managed workspace removal; harness process group must be absent",
+      "spec": "docs/validation/runner-readiness-next-twenty-project-pass/joe/scenarios/N03/scenario.json",
+      "spec_sha256": "73ab23c99b2e1055fa272deb153a6c78a7f82418f8fc6486346951f4a683befd"
+    },
+    {
+      "id": "N04",
+      "title": "Remove the previous character and save",
+      "kind": "normal",
+      "risk": "backspace-boundary",
+      "risk_pair": null,
+      "preconditions": [
+        {
+          "path": "note.txt",
+          "bytes": 6,
+          "sha256": "8f1da82686a24cb52cadb296382edc0c3d9ec01b8e0781e680284f764a43962a",
+          "bytes_base64": "YWxwaHgK"
+        }
+      ],
+      "expected_state": [
+        {
+          "path": "note.txt",
+          "bytes": 5,
+          "sha256": "3af8e80b2027d9d1887eadf3dbc4f0ddcd95d87152c2dfb135402f9d7fcdd7a0",
+          "bytes_base64": "YWxwaAo="
+        }
+      ],
+      "host_applicability": [
+        "linux-amd64",
+        "macos-arm64"
+      ],
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "input_profile": "documented JOE keys and bounded UTF-8 text; no shell, pipe or external command",
+      "positive_evidence": "specific rendered JOE text followed by exact in-run saved-file state and exit 0",
+      "oracle_independence": "literal fixture and expected byte strings independently declared in this source; no target writer computes expectations",
+      "cleanup": "runner report must confirm JOE exit and managed workspace removal; harness process group must be absent",
+      "spec": "docs/validation/runner-readiness-next-twenty-project-pass/joe/scenarios/N04/scenario.json",
+      "spec_sha256": "082412348fc50b53f7884f4d67b990ad0827b2eb0651626d06afba2d9d55dd48"
+    },
+    {
+      "id": "N05",
+      "title": "Delete the character under the cursor",
+      "kind": "normal",
+      "risk": "forward-delete",
+      "risk_pair": null,
+      "preconditions": [
+        {
+          "path": "note.txt",
+          "bytes": 6,
+          "sha256": "b6a98d9ce9a2d9149288fa3df42d377c3e42737afdcdaf714e33c0a100b51060",
+          "bytes_base64": "YWxwaGEK"
+        }
+      ],
+      "expected_state": [
+        {
+          "path": "note.txt",
+          "bytes": 5,
+          "sha256": "fc7170c96e56cbba5c1f7d9eaffcc5e461c28bd88eb11182bf15275080a95e01",
+          "bytes_base64": "YXBoYQo="
+        }
+      ],
+      "host_applicability": [
+        "linux-amd64",
+        "macos-arm64"
+      ],
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "input_profile": "documented JOE keys and bounded UTF-8 text; no shell, pipe or external command",
+      "positive_evidence": "specific rendered JOE text followed by exact in-run saved-file state and exit 0",
+      "oracle_independence": "literal fixture and expected byte strings independently declared in this source; no target writer computes expectations",
+      "cleanup": "runner report must confirm JOE exit and managed workspace removal; harness process group must be absent",
+      "spec": "docs/validation/runner-readiness-next-twenty-project-pass/joe/scenarios/N05/scenario.json",
+      "spec_sha256": "4fa210c878c24230dbf955e1080cba5de6a6690615ca3f15f24fd612698d1912"
+    },
+    {
+      "id": "N06",
+      "title": "Replace the current line with a corrected line",
+      "kind": "normal",
+      "risk": "line-delete-and-replace",
+      "risk_pair": null,
+      "preconditions": [
+        {
+          "path": "note.txt",
+          "bytes": 29,
+          "sha256": "9026c47b0bedccc19abc4499ab47f3919e318b58aca9d56b56a8b2bfb370c696",
+          "bytes_base64": "b2Jzb2xldGUgbGluZQprZWVwIHRoaXMgbGluZQo="
+        }
+      ],
+      "expected_state": [
+        {
+          "path": "note.txt",
+          "bytes": 30,
+          "sha256": "85ace7336d326d345715bde0be54b47b20de1860136664ef682b1ccbb1420463",
+          "bytes_base64": "Y29ycmVjdGVkIGxpbmUKa2VlcCB0aGlzIGxpbmUK"
+        }
+      ],
+      "host_applicability": [
+        "linux-amd64",
+        "macos-arm64"
+      ],
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "input_profile": "documented JOE keys and bounded UTF-8 text; no shell, pipe or external command",
+      "positive_evidence": "specific rendered JOE text followed by exact in-run saved-file state and exit 0",
+      "oracle_independence": "literal fixture and expected byte strings independently declared in this source; no target writer computes expectations",
+      "cleanup": "runner report must confirm JOE exit and managed workspace removal; harness process group must be absent",
+      "spec": "docs/validation/runner-readiness-next-twenty-project-pass/joe/scenarios/N06/scenario.json",
+      "spec_sha256": "d2f7cd28c16f942dc4bce5c9f4b0503f768ec20a632d910355a877d822c70d23"
+    },
+    {
+      "id": "N07",
+      "title": "Insert a new heading before existing content",
+      "kind": "normal",
+      "risk": "line-split-and-order",
+      "risk_pair": null,
+      "preconditions": [
+        {
+          "path": "note.txt",
+          "bytes": 10,
+          "sha256": "044bbaad51900e452b203079800e84aa8e563092a0b729061c7e25eb8f36a78a",
+          "bytes_base64": "Ym9keSB0ZXh0Cg=="
+        }
+      ],
+      "expected_state": [
+        {
+          "path": "note.txt",
+          "bytes": 18,
+          "sha256": "3ba437e6ce3cd1655844406fed6d7a4d57cafe62e1d7acaa8e0253a61e383988",
+          "bytes_base64": "SGVhZGluZwpib2R5IHRleHQK"
+        }
+      ],
+      "host_applicability": [
+        "linux-amd64",
+        "macos-arm64"
+      ],
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "input_profile": "documented JOE keys and bounded UTF-8 text; no shell, pipe or external command",
+      "positive_evidence": "specific rendered JOE text followed by exact in-run saved-file state and exit 0",
+      "oracle_independence": "literal fixture and expected byte strings independently declared in this source; no target writer computes expectations",
+      "cleanup": "runner report must confirm JOE exit and managed workspace removal; harness process group must be absent",
+      "spec": "docs/validation/runner-readiness-next-twenty-project-pass/joe/scenarios/N07/scenario.json",
+      "spec_sha256": "c847c996c61b51ec1545a4a0e536a2fa50a1dcbb7aacdbfad7cd2df074869de5"
+    },
+    {
+      "id": "N08",
+      "title": "Append a summary to a multi-line document",
+      "kind": "normal",
+      "risk": "end-of-buffer-navigation",
+      "risk_pair": null,
+      "preconditions": [
+        {
+          "path": "note.txt",
+          "bytes": 33,
+          "sha256": "dae1b85cfc78c95a0aec60c43c7f5a17ea9f95c33ebc364c59f98f54aa0d3ac0",
+          "bytes_base64": "Zmlyc3QgcGFyYWdyYXBoCnNlY29uZCBwYXJhZ3JhcGgK"
+        }
+      ],
+      "expected_state": [
+        {
+          "path": "note.txt",
+          "bytes": 41,
+          "sha256": "9001c4be9e1d184d47b8460a08d59e1a2ae4b6597c552608f1500fdc09440eda",
+          "bytes_base64": "Zmlyc3QgcGFyYWdyYXBoCnNlY29uZCBwYXJhZ3JhcGgKU3VtbWFyeQo="
+        }
+      ],
+      "host_applicability": [
+        "linux-amd64",
+        "macos-arm64"
+      ],
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "input_profile": "documented JOE keys and bounded UTF-8 text; no shell, pipe or external command",
+      "positive_evidence": "specific rendered JOE text followed by exact in-run saved-file state and exit 0",
+      "oracle_independence": "literal fixture and expected byte strings independently declared in this source; no target writer computes expectations",
+      "cleanup": "runner report must confirm JOE exit and managed workspace removal; harness process group must be absent",
+      "spec": "docs/validation/runner-readiness-next-twenty-project-pass/joe/scenarios/N08/scenario.json",
+      "spec_sha256": "54f94edfb4aa11b73be61fce283480836bfffbe3ccfc0d081dd7bf0e3090f9a7"
+    },
+    {
+      "id": "E01",
+      "title": "Abort an unsaved edit and preserve the original file",
+      "kind": "edge",
+      "risk": "dirty-abort-preserves-bytes",
+      "risk_pair": "dirty-edit-plus-abort",
+      "preconditions": [
+        {
+          "path": "note.txt",
+          "bytes": 14,
+          "sha256": "dbf0334dc5110b69d68f500bf9c70b9e20ea2827f76db3e4c47db4f23b45d148",
+          "bytes_base64": "YXBwcm92ZWQgdGV4dAo="
+        }
+      ],
+      "expected_state": [
+        {
+          "path": "note.txt",
+          "bytes": 14,
+          "sha256": "dbf0334dc5110b69d68f500bf9c70b9e20ea2827f76db3e4c47db4f23b45d148",
+          "bytes_base64": "YXBwcm92ZWQgdGV4dAo="
+        }
+      ],
+      "host_applicability": [
+        "linux-amd64",
+        "macos-arm64"
+      ],
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "input_profile": "documented JOE keys and bounded UTF-8 text; no shell, pipe or external command",
+      "positive_evidence": "specific rendered JOE text followed by exact in-run saved-file state and exit 0",
+      "oracle_independence": "literal fixture and expected byte strings independently declared in this source; no target writer computes expectations",
+      "cleanup": "runner report must confirm JOE exit and managed workspace removal; harness process group must be absent",
+      "spec": "docs/validation/runner-readiness-next-twenty-project-pass/joe/scenarios/E01/scenario.json",
+      "spec_sha256": "963fe9b6dc0513d47af7dcf40505a2d5fc68262f80cb915884c9a6055f1b7cf5"
+    },
+    {
+      "id": "E02",
+      "title": "Leave an empty file empty on clean save",
+      "kind": "edge",
+      "risk": "zero-byte-boundary",
+      "risk_pair": null,
+      "preconditions": [
+        {
+          "path": "empty.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes_base64": ""
+        }
+      ],
+      "expected_state": [
+        {
+          "path": "empty.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes_base64": ""
+        }
+      ],
+      "host_applicability": [
+        "linux-amd64",
+        "macos-arm64"
+      ],
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "input_profile": "documented JOE keys and bounded UTF-8 text; no shell, pipe or external command",
+      "positive_evidence": "specific rendered JOE text followed by exact in-run saved-file state and exit 0",
+      "oracle_independence": "literal fixture and expected byte strings independently declared in this source; no target writer computes expectations",
+      "cleanup": "runner report must confirm JOE exit and managed workspace removal; harness process group must be absent",
+      "spec": "docs/validation/runner-readiness-next-twenty-project-pass/joe/scenarios/E02/scenario.json",
+      "spec_sha256": "9c04cead0f0fdb52315830ab57e8a7bc4ec2dc6048ce50355f6f79bd69ebae68"
+    },
+    {
+      "id": "E03",
+      "title": "Preserve CRLF line endings during an edit",
+      "kind": "edge",
+      "risk": "line-ending-preservation",
+      "risk_pair": null,
+      "preconditions": [
+        {
+          "path": "note.txt",
+          "bytes": 15,
+          "sha256": "f8e0f1568dd9254c3262d199d5dcfc9ff6d4855e18ec53a7176f9eab948ed93e",
+          "bytes_base64": "Zmlyc3QNCnNlY29uZA0K"
+        }
+      ],
+      "expected_state": [
+        {
+          "path": "note.txt",
+          "bytes": 16,
+          "sha256": "e9ee24c7064a990070e23bdd4df9a11e929756df8779ba4364ba476792269676",
+          "bytes_base64": "Zmlyc3QhDQpzZWNvbmQNCg=="
+        }
+      ],
+      "host_applicability": [
+        "linux-amd64",
+        "macos-arm64"
+      ],
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "input_profile": "documented JOE keys and bounded UTF-8 text; no shell, pipe or external command",
+      "positive_evidence": "specific rendered JOE text followed by exact in-run saved-file state and exit 0",
+      "oracle_independence": "literal fixture and expected byte strings independently declared in this source; no target writer computes expectations",
+      "cleanup": "runner report must confirm JOE exit and managed workspace removal; harness process group must be absent",
+      "spec": "docs/validation/runner-readiness-next-twenty-project-pass/joe/scenarios/E03/scenario.json",
+      "spec_sha256": "21175daa98f9ff98aca40f559aa8d6b999fec024af3ea212aa9102041c0c5026"
+    },
+    {
+      "id": "E04",
+      "title": "Preserve a file with no final newline",
+      "kind": "edge",
+      "risk": "missing-final-newline",
+      "risk_pair": null,
+      "preconditions": [
+        {
+          "path": "note.txt",
+          "bytes": 4,
+          "sha256": "0c62f876ef1dea830de9f32c2f4b46dd6d74d50d15896e09ef5a2fcd4ac7e1d7",
+          "bytes_base64": "dGFpbA=="
+        }
+      ],
+      "expected_state": [
+        {
+          "path": "note.txt",
+          "bytes": 5,
+          "sha256": "b1debe5a3fde1897d384f46080a53dacee987c4376d4134c069ecca63e353888",
+          "bytes_base64": "dGFpbCE="
+        }
+      ],
+      "host_applicability": [
+        "linux-amd64",
+        "macos-arm64"
+      ],
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "input_profile": "documented JOE keys and bounded UTF-8 text; no shell, pipe or external command",
+      "positive_evidence": "specific rendered JOE text followed by exact in-run saved-file state and exit 0",
+      "oracle_independence": "literal fixture and expected byte strings independently declared in this source; no target writer computes expectations",
+      "cleanup": "runner report must confirm JOE exit and managed workspace removal; harness process group must be absent",
+      "spec": "docs/validation/runner-readiness-next-twenty-project-pass/joe/scenarios/E04/scenario.json",
+      "spec_sha256": "85967bae46e5055e099361ed85d24ac22c0fd16ed0ba41f91b066b79332ffeb5"
+    },
+    {
+      "id": "E05",
+      "title": "Save UTF-8 text at a spaced Unicode path",
+      "kind": "edge",
+      "risk": "unicode-content-and-path",
+      "risk_pair": "unicode-path-plus-exact-state",
+      "preconditions": [
+        {
+          "path": "folder caf\u00e9/note \u96ea.txt",
+          "bytes": 8,
+          "sha256": "2fcb98cc6629a2d041b4dd72608d4c940a07c579c6307aad99765d856a9af24a",
+          "bytes_base64": "c3RhcnRlcgo="
+        }
+      ],
+      "expected_state": [
+        {
+          "path": "folder caf\u00e9/note \u96ea.txt",
+          "bytes": 18,
+          "sha256": "5d478a766c042fa7b38ddb87677f054e37bf891fc8b1ae57302dda4f4fd0d586",
+          "bytes_base64": "c3RhcnRlciBjYWbDqSDpm6oK"
+        }
+      ],
+      "host_applicability": [
+        "linux-amd64",
+        "macos-arm64"
+      ],
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "input_profile": "documented JOE keys and bounded UTF-8 text; no shell, pipe or external command",
+      "positive_evidence": "specific rendered JOE text followed by exact in-run saved-file state and exit 0",
+      "oracle_independence": "literal fixture and expected byte strings independently declared in this source; no target writer computes expectations",
+      "cleanup": "runner report must confirm JOE exit and managed workspace removal; harness process group must be absent",
+      "spec": "docs/validation/runner-readiness-next-twenty-project-pass/joe/scenarios/E05/scenario.json",
+      "spec_sha256": "4418e266fb7cc621c9e38ba3224bb61b0613a04373f6e98c4c40bf1a5a828b8e"
+    },
+    {
+      "id": "E06",
+      "title": "Edit one file while preserving an unrelated sentinel",
+      "kind": "edge",
+      "risk": "selective-state-preservation",
+      "risk_pair": null,
+      "preconditions": [
+        {
+          "path": "note.txt",
+          "bytes": 10,
+          "sha256": "2569353af4e56d1e6a9c96792965d0545a0fe604e1682fbda768efff442c0b51",
+          "bytes_base64": "bWFpbiBub3RlCg=="
+        },
+        {
+          "path": "sentinel.txt",
+          "bytes": 19,
+          "sha256": "461c8fed8c0ebfdc6bb786a298691a112bcf11e0a8833cc2b2a4a30ddd47bc02",
+          "bytes_base64": "cHJlc2VydmUgZXhhY3RseQANCg=="
+        }
+      ],
+      "expected_state": [
+        {
+          "path": "note.txt",
+          "bytes": 18,
+          "sha256": "3f072d38e0862c5db8ba322cf610d48d3cb3628854d5e96f1b29ce98b9b15f28",
+          "bytes_base64": "bWFpbiBub3RlIHVwZGF0ZWQK"
+        },
+        {
+          "path": "sentinel.txt",
+          "bytes": 19,
+          "sha256": "461c8fed8c0ebfdc6bb786a298691a112bcf11e0a8833cc2b2a4a30ddd47bc02",
+          "bytes_base64": "cHJlc2VydmUgZXhhY3RseQANCg=="
+        }
+      ],
+      "host_applicability": [
+        "linux-amd64",
+        "macos-arm64"
+      ],
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "input_profile": "documented JOE keys and bounded UTF-8 text; no shell, pipe or external command",
+      "positive_evidence": "specific rendered JOE text followed by exact in-run saved-file state and exit 0",
+      "oracle_independence": "literal fixture and expected byte strings independently declared in this source; no target writer computes expectations",
+      "cleanup": "runner report must confirm JOE exit and managed workspace removal; harness process group must be absent",
+      "spec": "docs/validation/runner-readiness-next-twenty-project-pass/joe/scenarios/E06/scenario.json",
+      "spec_sha256": "c2b40d9b34bd2f113f736074bdb3039487b919a9b1c968ef7d12b602991a9182"
+    },
+    {
+      "id": "E07",
+      "title": "Edit the final line after scrolling through a short viewport",
+      "kind": "edge",
+      "risk": "scroll-redraw-small-viewport",
+      "risk_pair": "small-viewport-plus-state-output",
+      "preconditions": [
+        {
+          "path": "note.txt",
+          "bytes": 280,
+          "sha256": "c2a6856db742b4bae02b7732b8f3bb6189f5c7ce22b9bba343233ea3b804f2ec",
+          "bytes_base64": "bGluZSAwMQpsaW5lIDAyCmxpbmUgMDMKbGluZSAwNApsaW5lIDA1CmxpbmUgMDYKbGluZSAwNwpsaW5lIDA4CmxpbmUgMDkKbGluZSAxMApsaW5lIDExCmxpbmUgMTIKbGluZSAxMwpsaW5lIDE0CmxpbmUgMTUKbGluZSAxNgpsaW5lIDE3CmxpbmUgMTgKbGluZSAxOQpsaW5lIDIwCmxpbmUgMjEKbGluZSAyMgpsaW5lIDIzCmxpbmUgMjQKbGluZSAyNQpsaW5lIDI2CmxpbmUgMjcKbGluZSAyOApsaW5lIDI5CmxpbmUgMzAKbGluZSAzMQpsaW5lIDMyCmxpbmUgMzMKbGluZSAzNApsaW5lIDM1Cg=="
+        }
+      ],
+      "expected_state": [
+        {
+          "path": "note.txt",
+          "bytes": 281,
+          "sha256": "b83d036b4c7ab52f58f701d87c7e8e78b83cd76b692f8b1c3412322e17b3fe19",
+          "bytes_base64": "bGluZSAwMQpsaW5lIDAyCmxpbmUgMDMKbGluZSAwNApsaW5lIDA1CmxpbmUgMDYKbGluZSAwNwpsaW5lIDA4CmxpbmUgMDkKbGluZSAxMApsaW5lIDExCmxpbmUgMTIKbGluZSAxMwpsaW5lIDE0CmxpbmUgMTUKbGluZSAxNgpsaW5lIDE3CmxpbmUgMTgKbGluZSAxOQpsaW5lIDIwCmxpbmUgMjEKbGluZSAyMgpsaW5lIDIzCmxpbmUgMjQKbGluZSAyNQpsaW5lIDI2CmxpbmUgMjcKbGluZSAyOApsaW5lIDI5CmxpbmUgMzAKbGluZSAzMQpsaW5lIDMyCmxpbmUgMzMKbGluZSAzNApsaW5lIDM1IQo="
+        }
+      ],
+      "host_applicability": [
+        "linux-amd64",
+        "macos-arm64"
+      ],
+      "viewport": {
+        "width": 60,
+        "height": 12
+      },
+      "input_profile": "documented JOE keys and bounded UTF-8 text; no shell, pipe or external command",
+      "positive_evidence": "specific rendered JOE text followed by exact in-run saved-file state and exit 0",
+      "oracle_independence": "literal fixture and expected byte strings independently declared in this source; no target writer computes expectations",
+      "cleanup": "runner report must confirm JOE exit and managed workspace removal; harness process group must be absent",
+      "spec": "docs/validation/runner-readiness-next-twenty-project-pass/joe/scenarios/E07/scenario.json",
+      "spec_sha256": "09681676d807c05b43d6c6b02646a86cc069bcf1814968d94199a3f553cb2285"
+    },
+    {
+      "id": "E08",
+      "title": "Append to a long wrapped line without losing its prefix",
+      "kind": "edge",
+      "risk": "long-line-wrap-and-edit",
+      "risk_pair": "wrapped-content-plus-exact-save",
+      "preconditions": [
+        {
+          "path": "note.txt",
+          "bytes": 98,
+          "sha256": "5beb02fce69f6a0eec2ebb1652240087dae0c00d4659038cd5543e26c9bb1c42",
+          "bytes_base64": "cHJlZml4IDAxMjM0NTY3ODkwMTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDU2Nzg5MDEyMzQ1Njc4OQo="
+        }
+      ],
+      "expected_state": [
+        {
+          "path": "note.txt",
+          "bytes": 105,
+          "sha256": "f0eb53df9fbb077f5dd7ab8e25d45affb59cc50f1ddb9d3be34a369d9fccdd19",
+          "bytes_base64": "cHJlZml4IDAxMjM0NTY3ODkwMTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDU2Nzg5MDEyMzQ1Njc4OSBzdWZmaXgK"
+        }
+      ],
+      "host_applicability": [
+        "linux-amd64",
+        "macos-arm64"
+      ],
+      "viewport": {
+        "width": 40,
+        "height": 18
+      },
+      "input_profile": "documented JOE keys and bounded UTF-8 text; no shell, pipe or external command",
+      "positive_evidence": "specific rendered JOE text followed by exact in-run saved-file state and exit 0",
+      "oracle_independence": "literal fixture and expected byte strings independently declared in this source; no target writer computes expectations",
+      "cleanup": "runner report must confirm JOE exit and managed workspace removal; harness process group must be absent",
+      "spec": "docs/validation/runner-readiness-next-twenty-project-pass/joe/scenarios/E08/scenario.json",
+      "spec_sha256": "917a60b8039c7361ed80f12cf91badda40ccfc26ac68de6d1d2936814857d110"
+    },
+    {
+      "id": "E09",
+      "title": "Append to the second line while keeping the first line unchanged",
+      "kind": "edge",
+      "risk": "multi-line-transition",
+      "risk_pair": "line-transition-plus-neighbor-preservation",
+      "preconditions": [
+        {
+          "path": "note.txt",
+          "bytes": 13,
+          "sha256": "dbea9325179efe46ea2add94f7b6b745ca983fabb208dc6d34aa064623d7ee23",
+          "bytes_base64": "Zmlyc3QKc2Vjb25kCg=="
+        }
+      ],
+      "expected_state": [
+        {
+          "path": "note.txt",
+          "bytes": 21,
+          "sha256": "b8074f984c9d414b623d1ea91f01912de5972a208a962cd66bf7ae0b467f6cd5",
+          "bytes_base64": "Zmlyc3QKc2Vjb25kIHVwZGF0ZWQK"
+        }
+      ],
+      "host_applicability": [
+        "linux-amd64",
+        "macos-arm64"
+      ],
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "input_profile": "documented JOE keys and bounded UTF-8 text; no shell, pipe or external command",
+      "positive_evidence": "specific rendered JOE text followed by exact in-run saved-file state and exit 0",
+      "oracle_independence": "literal fixture and expected byte strings independently declared in this source; no target writer computes expectations",
+      "cleanup": "runner report must confirm JOE exit and managed workspace removal; harness process group must be absent",
+      "spec": "docs/validation/runner-readiness-next-twenty-project-pass/joe/scenarios/E09/scenario.json",
+      "spec_sha256": "d2480cb21d89631e2dd81d6b67c2537b2798b6d29abd3e4cc6e8ac60724c862f"
+    },
+    {
+      "id": "E10",
+      "title": "Create a nested document in an existing directory",
+      "kind": "edge",
+      "risk": "nested-path-create",
+      "risk_pair": "nested-spaced-path-plus-created-state",
+      "preconditions": [
+        {
+          "path": "drafts/README.txt",
+          "bytes": 16,
+          "sha256": "7a76f678196d3ea1b6b656838dbf95bd8cecacb21dadf73c765f102a591c35e0",
+          "bytes_base64": "ZXhpc3RpbmcgZm9sZGVyCg=="
+        }
+      ],
+      "expected_state": [
+        {
+          "path": "drafts/README.txt",
+          "bytes": 16,
+          "sha256": "7a76f678196d3ea1b6b656838dbf95bd8cecacb21dadf73c765f102a591c35e0",
+          "bytes_base64": "ZXhpc3RpbmcgZm9sZGVyCg=="
+        },
+        {
+          "path": "drafts/new note.txt",
+          "bytes": 12,
+          "sha256": "92ef48f4ef45b97b5ef4a5cee6fc7b2eba256bae2ff84e43bbae8eb216638312",
+          "bytes_base64": "bmVzdGVkIGRyYWZ0"
+        }
+      ],
+      "host_applicability": [
+        "linux-amd64",
+        "macos-arm64"
+      ],
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "input_profile": "documented JOE keys and bounded UTF-8 text; no shell, pipe or external command",
+      "positive_evidence": "specific rendered JOE text followed by exact in-run saved-file state and exit 0",
+      "oracle_independence": "literal fixture and expected byte strings independently declared in this source; no target writer computes expectations",
+      "cleanup": "runner report must confirm JOE exit and managed workspace removal; harness process group must be absent",
+      "spec": "docs/validation/runner-readiness-next-twenty-project-pass/joe/scenarios/E10/scenario.json",
+      "spec_sha256": "9880dd3364cf4decf822d9cc09b189905793119cf249ea26ba6af8399bb90c4b"
+    },
+    {
+      "id": "E11",
+      "title": "Preserve a tab and following fields while editing a row",
+      "kind": "edge",
+      "risk": "tab-byte-preservation",
+      "risk_pair": null,
+      "preconditions": [
+        {
+          "path": "table.txt",
+          "bytes": 19,
+          "sha256": "d58f237a762f027520d3f5d5f256950a6bf550e7d8b916e36e2b6310beedde72",
+          "bytes_base64": "bmFtZQl2YWx1ZQphbHBoYQkxCg=="
+        }
+      ],
+      "expected_state": [
+        {
+          "path": "table.txt",
+          "bytes": 26,
+          "sha256": "9a9f4177b0595013ab871f00710546d803ea4b1f8b872d6f45a609c3be931bf2",
+          "bytes_base64": "bmFtZQl2YWx1ZQphbHBoYQkxCnJldmlldwo="
+        }
+      ],
+      "host_applicability": [
+        "linux-amd64",
+        "macos-arm64"
+      ],
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "input_profile": "documented JOE keys and bounded UTF-8 text; no shell, pipe or external command",
+      "positive_evidence": "specific rendered JOE text followed by exact in-run saved-file state and exit 0",
+      "oracle_independence": "literal fixture and expected byte strings independently declared in this source; no target writer computes expectations",
+      "cleanup": "runner report must confirm JOE exit and managed workspace removal; harness process group must be absent",
+      "spec": "docs/validation/runner-readiness-next-twenty-project-pass/joe/scenarios/E11/scenario.json",
+      "spec_sha256": "79619923dad7f974bad046fa0562828c53fb03d57ed3f6e957145d8ba794c6e9"
+    },
+    {
+      "id": "E12",
+      "title": "Edit a final line when launched at a high line number",
+      "kind": "edge",
+      "risk": "position-clamp-and-exit",
+      "risk_pair": "out-of-range-position-plus-last-line-state",
+      "preconditions": [
+        {
+          "path": "note.txt",
+          "bytes": 14,
+          "sha256": "b6285c57e8797db5d4c51c80d6f11938afda9b11c6a003549709189e9b4b92a2",
+          "bytes_base64": "b25lCnR3bwp0aHJlZQo="
+        }
+      ],
+      "expected_state": [
+        {
+          "path": "note.txt",
+          "bytes": 15,
+          "sha256": "818a6bfc62689e378c7615823a8d64b742d8b8d29193f7d6f66c29870a95c59f",
+          "bytes_base64": "b25lCnR3bwp0aHJlZSEK"
+        }
+      ],
+      "host_applicability": [
+        "linux-amd64",
+        "macos-arm64"
+      ],
+      "viewport": {
+        "width": 80,
+        "height": 24
+      },
+      "input_profile": "documented JOE keys and bounded UTF-8 text; no shell, pipe or external command",
+      "positive_evidence": "specific rendered JOE text followed by exact in-run saved-file state and exit 0",
+      "oracle_independence": "literal fixture and expected byte strings independently declared in this source; no target writer computes expectations",
+      "cleanup": "runner report must confirm JOE exit and managed workspace removal; harness process group must be absent",
+      "spec": "docs/validation/runner-readiness-next-twenty-project-pass/joe/scenarios/E12/scenario.json",
+      "spec_sha256": "a64e5e0ff99ce519793ec2ad238fb794ed8c0999585904ada445918475bbd064"
+    }
+  ],
+  "scope": "Frozen scenario contract inputs only. Development attempts do not constitute final candidate qualification or project admission."
+}

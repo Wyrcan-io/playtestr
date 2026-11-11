@@ -199,7 +199,7 @@ def owned_autotools(target, evidence, env, deadline, commands):
     return local_env, receipt
 
 
-def run_bounded(argv, cwd, env, log_path, deadline, commands, *, operation="mg build"):
+def run_bounded(argv, cwd, env, log_path, deadline, commands, *, operation="mg build", on_start=None):
     started = time.monotonic()
     started_utc = datetime.now(timezone.utc).isoformat()
     command_id = uuid.uuid4().hex
@@ -209,6 +209,8 @@ def run_bounded(argv, cwd, env, log_path, deadline, commands, *, operation="mg b
                                    start_new_session=True)
         process_group = process.pid
         try:
+            if on_start is not None:
+                on_start(process)
             while process.poll() is None:
                 if time.monotonic() >= deadline:
                     stop_group(process)
