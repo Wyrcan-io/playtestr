@@ -6,10 +6,10 @@ on:
   workflow_dispatch:
     inputs:
       hosts:
-        description: Native cells still requiring qualification (preserve completed macOS archive)
+        description: Native cells for the distinct rc.7 candidate
         type: choice
-        default: linux-windows
-        options: [linux-windows, linux, windows]
+        default: all
+        options: [all, linux-macos-windows, linux-windows, linux, macos, windows]
 permissions:
   contents: read
   actions: read
@@ -17,7 +17,7 @@ concurrency:
   group: playtestr-next20-replacement-candidate
   cancel-in-progress: false
 env:
-  SOURCE_REVISION: 24029291cd0221d7611f07d27b464ec0936a815f
+  SOURCE_REVISION: df7fd54375e411542ce899c0e05b19db643ba64b
   PYTHONDONTWRITEBYTECODE: '1'
   PYTHONIOENCODING: utf-8
   GOTOOLCHAIN: local
@@ -34,13 +34,13 @@ env:
   GIT_CONFIG_VALUE_0: 'true'
 jobs:
   native-source-and-package:
-    if: github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'push'
     timeout-minutes: 29
     strategy:
       fail-fast: false
       max-parallel: 2
       matrix:
-        os: ${{ fromJSON(inputs.hosts == 'linux' && '["ubuntu-24.04"]' || inputs.hosts == 'windows' && '["windows-2025"]' || '["ubuntu-24.04","windows-2025"]') }}
+        os: ${{ fromJSON(inputs.hosts == 'linux' && '["ubuntu-24.04"]' || inputs.hosts == 'windows' && '["windows-2025"]' || inputs.hosts == 'macos' && '["macos-15"]' || inputs.hosts == 'linux-windows' && '["ubuntu-24.04","windows-2025"]' || '["ubuntu-24.04","macos-15","windows-2025"]') }}
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -75,9 +75,9 @@ jobs:
             artifacts/runner-readiness-next-twenty-project-pass/core/
             artifacts/runner-readiness-next-twenty-project-pass/events/
             artifacts/runner-readiness-next-twenty-project-pass/identities/
-            artifacts/runner-readiness-next-twenty-project-pass/replacement-candidate/native-exit-v1/*/native-core.json
-            artifacts/runner-readiness-next-twenty-project-pass/replacement-candidate/native-exit-v1/*/candidate.json
-            artifacts/runner-readiness-next-twenty-project-pass/replacement-candidate/native-exit-v1/*/dist/
+            artifacts/runner-readiness-next-twenty-project-pass/replacement-candidate/native-exit-v2/*/native-core.json
+            artifacts/runner-readiness-next-twenty-project-pass/replacement-candidate/native-exit-v2/*/candidate.json
+            artifacts/runner-readiness-next-twenty-project-pass/replacement-candidate/native-exit-v2/*/dist/
             artifacts/runner-readiness-next-twenty-project-pass/toolchain/sdk.json
           include-hidden-files: true
           if-no-files-found: error

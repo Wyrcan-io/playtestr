@@ -46,6 +46,17 @@
       "prior_attempt": "joe/fault-calibration-attempt-v1.json",
       "new_fault_declaration": "docs/validation/runner-readiness-next-twenty-project-pass/joe/fault-declaration-v2.json",
       "admission_credit": 0
+    },
+    {
+      "id": "private-native-exit-v2-candidate-declaration-v1",
+      "status": "predeclared; native Linux/macOS/Windows candidate runs pending",
+      "candidate": "v0.4.0-rc.7 / native-exit-v2",
+      "production_source_revision": "df7fd54375e411542ce899c0e05b19db643ba64b",
+      "declaration": "replacement-candidate-declaration-native-exit-v2.json",
+      "declaration_sha256": "81fa347ef97b0c90526699e7a68f72a95c5e1d601db99aaf720c0a374c97227a",
+      "qualification_workflow": ".github/workflows/runner-readiness-next20-replacement-candidate.yml",
+      "scope": "Three native source, tests, vet, race and private archive cells; no project admission or publication credit.",
+      "admission_credit": 0
     }
   ]
 }
