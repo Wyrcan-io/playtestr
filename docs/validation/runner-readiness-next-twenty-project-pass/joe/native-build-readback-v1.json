@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "project": "joe",
+  "repository": "joe-editor/joe",
+  "pin": "3874898078005d1f5e519235401fab4fd428dd9b",
+  "candidate": "v0.4.0-rc.6",
+  "workflow_run": 43007089541,
+  "workflow_head_sha": "93cef04368f71e38d57962050e5a9122bccd3bbc",
+  "hosts": {
+    "linux": {
+      "runner": "ubuntu-24.04",
+      "architecture": "x86_64",
+      "artifact_id": 13848736955,
+      "provider_bytes": 9974583,
+      "provider_sha256": "085c598dd37f2ebe0a08988f207d4ea244bedd72bc0300d514a3c295f5afcb4e",
+      "binary_bytes": 2472216,
+      "binary_sha256": "a87146372bab2f50dda3b65f060b2eac4a1c45603f1ef8bb0976f8505d9096f9",
+      "owned_tree_files": 1037,
+      "owned_tree_bytes": 70293223,
+      "build_seconds": 17.57
+    },
+    "darwin": {
+      "runner": "macos-15",
+      "architecture": "arm64",
+      "artifact_id": 13849151711,
+      "provider_bytes": 5891648,
+      "provider_sha256": "ff1a32a16dd0ae09f45ca713a4a78a3410789032c10e3cb7efdf3c6a6e4d0dbb",
+      "binary_bytes": 809952,
+      "binary_sha256": "a2ec9edf0a7d81377651157406d25249c3670b8b2f3ba7b9e52cc727d33946b4",
+      "owned_tree_files": 1037,
+      "owned_tree_bytes": 60484450,
+      "build_seconds": 19.57
+    }
+  },
+  "verification": {
+    "artifact_members_independently_read_back": 276,
+    "source_archive_and_388_entry_map_bound_to_pin": true,
+    "all_seven_build_and_install_commands_per_host_exit_zero": true,
+    "all_logged_output_hashes_match": true,
+    "all_owned_process_groups_absent_after_commands": true,
+    "all_installed_variant_alias_bytes_match_joe": true,
+    "hosted_storage_caps_passed": true,
+    "local_full_readback": "artifacts/runner-readiness-next-twenty-project-pass/joe/retained-build-packets/readback-run43007089541.json",
+    "admission_credit": 0
+  },
+  "remaining": "No authoring route, scenario, state oracle, source fault, calibration, model control or candidate admission has been executed for JOE."
+}

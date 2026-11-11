@@ -1,0 +1,30 @@
+{
+  "project": "joe",
+  "schema_version": 1,
+  "admission_credit": 0,
+  "attempts": [
+    {
+      "run_id": 43004813995,
+      "head_sha": "0fefe0f910c423af81bbcb570e520fdf801b291b",
+      "prelaunch_records": ["joe/build-attempt-linux-v1.json", "joe/build-attempt-darwin-v1.json"],
+      "completion_record": "joe/build-attempt-v1-finished.json",
+      "result": "failed: Linux verifier NameError; macOS autoreconf prerequisite missing"
+    },
+    {
+      "run_id": 43005769503,
+      "head_sha": "d701ece494434e42646e67ea916411191e11e18e",
+      "prelaunch_records": [],
+      "completion_record": "joe/build-attempt-v2-finished.json",
+      "result": "Linux built and installed but the verifier's 64 MiB bound rejected the expanded tree; macOS passed",
+      "accounting_gap": "The workflow launch had no immutable prelaunch attempt records. The omission is retained and is not backfilled."
+    },
+    {
+      "run_id": 43007089541,
+      "head_sha": "93cef04368f71e38d57962050e5a9122bccd3bbc",
+      "prelaunch_records": ["joe/build-attempt-linux-v2.json", "joe/build-attempt-darwin-v2.json"],
+      "completion_record": "joe/native-build-readback-v1.json",
+      "result": "Linux amd64 and macOS arm64 build, install and final verification passed"
+    }
+  ],
+  "version_note": "The v2 prelaunch attempt IDs were committed before run 43007089541. The file named build-attempt-v2-finished.json is a postlaunch summary of run 43005769503; its filename does not establish a prelaunch binding."
+}
