@@ -7,6 +7,8 @@ on:
     paths:
       - .github/workflows/runner-readiness-next20-joe-public-route.yml
       - scripts/acceptance/next20_joe_public_route.py
+      - scripts/acceptance/next20_joe_oracle_calibration.py
+      - scripts/acceptance/test_next20_joe_oracle_calibration.py
       - scripts/acceptance/next20_joe_build.py
       - scripts/acceptance/next20_target_cleanup.py
       - scripts/acceptance/next20_remove_target.ps1
@@ -65,6 +67,10 @@ jobs:
         run: python -B -m unittest test_next20_target_cleanup -v
         working-directory: scripts/acceptance
 
+      - name: Validate independent JOE oracle calibration contract
+        run: python -B -m unittest test_next20_joe_oracle_calibration -v
+        working-directory: scripts/acceptance
+
       - name: Start shared acquisition and native build deadline
         id: timer
         run: echo "started_epoch=$(date +%s)" >> "$GITHUB_OUTPUT"
@@ -103,6 +109,10 @@ jobs:
         if: steps.acquire.outcome == 'success'
         run: python -B scripts/acceptance/next20_joe_public_route.py --host "${{ matrix.host }}"
           --series native-exit-v2
+
+      - name: Calibrate public file and saved-state oracles
+        if: steps.acquire.outcome == 'success'
+        run: python -B scripts/acceptance/next20_joe_oracle_calibration.py --host "${{ matrix.host }}"
 
       - name: Confirm source restoration and remove the owned JOE tree
         if: always() && steps.acquire.outcome == 'success'

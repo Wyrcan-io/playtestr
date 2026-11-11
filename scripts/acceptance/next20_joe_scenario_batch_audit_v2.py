@@ -22,6 +22,7 @@ DEFAULT_PROVIDER = {
 }
 PROCESS_CLEAN = "process group absent; no owned descendants remain"
 DECLARATION_PATH = PROJECT / "scenario-declaration-v2.json"
+SERIES = "native-exit-v1"
 
 
 def digest(data):
@@ -121,17 +122,17 @@ def verify_host(host, path, scenario_ids, freeze, declaration_sha256):
                 digest(data) == command.get("output_sha256") == row.get("sha256"),
                 f"{host} native command log/exit/process evidence differs for {name}")
 
-    installed_path = f"candidate-native-exit-v1/{host}/installed.json"
+    installed_path = f"candidate-{SERIES}/{host}/installed.json"
     installed = read_json(payloads, installed_path, "frozen candidate installation")
     frozen = next(row for row in freeze["cells"] if row["host"] == host)
-    require(installed.get("version") == freeze.get("version") == "v0.4.0-rc.6" and
+    require(installed.get("version") == freeze.get("version") and
             installed.get("archive_sha256") == frozen["archive_sha256"] and
             installed.get("binary_sha256") == frozen["binary_sha256"],
-            f"{host} installed candidate differs from the frozen rc.6 native artifact")
+            f"{host} installed candidate differs from the frozen native artifact")
 
     batch_path = f"joe/scenario-development-batches/{host}/{RUN_ID}.json"
     batch = read_json(payloads, batch_path, "scenario batch manifest")
-    require(batch.get("host") == host and batch.get("candidate") == "v0.4.0-rc.6" and
+    require(batch.get("host") == host and batch.get("candidate") == freeze["version"] and
             batch.get("workflow_run") == RUN_ID and
             batch.get("scenario_declaration_sha256") == declaration_sha256 and
             batch.get("selected_scenarios") == len(scenario_ids) == 20 and
@@ -167,7 +168,7 @@ def verify_host(host, path, scenario_ids, freeze, declaration_sha256):
                 attempt.get("project") == "joe" and attempt.get("host") == host and
                 attempt.get("target_pin") == PIN and attempt.get("target_binary_sha256") == digest(binary) and
                 attempt.get("target_build_receipt_sha256") == digest(build_raw) and
-                attempt.get("candidate") == "v0.4.0-rc.6" and
+                attempt.get("candidate") == freeze["version"] and
                 attempt.get("candidate_archive_sha256") == frozen["archive_sha256"] and
                 attempt.get("candidate_binary_sha256") == frozen["binary_sha256"] and
                 attempt.get("scenario_id") == scenario_id and attempt.get("phase") == "scenario-development" and
@@ -243,7 +244,7 @@ def verify_host(host, path, scenario_ids, freeze, declaration_sha256):
 
 
 def main():
-    global RUN_ID, HEAD, PROVIDER, DECLARATION_PATH
+    global RUN_ID, HEAD, PROVIDER, DECLARATION_PATH, SERIES
     parser = argparse.ArgumentParser()
     parser.add_argument("--linux-zip", type=Path, required=True)
     parser.add_argument("--darwin-zip", type=Path, required=True)
@@ -251,13 +252,14 @@ def main():
     parser.add_argument("--run-id", type=int, default=RUN_ID)
     parser.add_argument("--head", default=HEAD)
     parser.add_argument("--declaration", type=Path, default=DECLARATION_PATH)
+    parser.add_argument("--series", choices=("native-exit-v1", "native-exit-v2"), default="native-exit-v1")
     for host in ("linux", "darwin"):
         parser.add_argument(f"--{host}-artifact-id", type=int, default=DEFAULT_PROVIDER[host]["id"])
         parser.add_argument(f"--{host}-artifact-bytes", type=int, default=DEFAULT_PROVIDER[host]["bytes"])
         parser.add_argument(f"--{host}-artifact-sha256", default=DEFAULT_PROVIDER[host]["sha256"])
         parser.add_argument(f"--{host}-binary-sha256", default=DEFAULT_PROVIDER[host]["binary_sha256"])
     args = parser.parse_args()
-    RUN_ID, HEAD, DECLARATION_PATH = args.run_id, args.head, args.declaration.resolve()
+    RUN_ID, HEAD, DECLARATION_PATH, SERIES = args.run_id, args.head, args.declaration.resolve(), args.series
     PROVIDER = {host: {"id": getattr(args, f"{host}_artifact_id"),
                        "bytes": getattr(args, f"{host}_artifact_bytes"),
                        "sha256": getattr(args, f"{host}_artifact_sha256"),
@@ -266,9 +268,10 @@ def main():
     declaration_path = DECLARATION_PATH
     declaration = json.loads(declaration_path.read_text(encoding="utf-8"))
     require(declaration.get("project") == "joe" and declaration.get("pin") == PIN and
-            declaration.get("candidate") == "v0.4.0-rc.6" and len(declaration.get("scenarios", [])) == 20,
-            "frozen JOE v2 declaration identity/count differs")
-    freeze = json.loads((DOC / "replacement-candidate-freeze-native-exit-v1.json").read_text(encoding="utf-8"))
+            len(declaration.get("scenarios", [])) == 20,
+            "frozen JOE scenario declaration identity/count differs")
+    freeze = json.loads((DOC / f"replacement-candidate-freeze-{SERIES}.json").read_text(encoding="utf-8"))
+    require(declaration.get("candidate") == freeze["version"], "JOE scenario declaration candidate differs from selected freeze")
     declaration_hash = digest(declaration_path.read_bytes())
     hosts = {host: verify_host(host, getattr(args, host + "_zip"), declaration["scenarios"], freeze,
                                declaration_hash)
@@ -276,14 +279,14 @@ def main():
     require(hosts["linux"]["scenario_attempts"] == hosts["darwin"]["scenario_attempts"] == 20,
             "both native hosts must have all 20 development attempts")
     output = {"schema_version": 1, "project": "joe", "workflow_run": RUN_ID,
-              "workflow_head_sha": HEAD, "candidate": "v0.4.0-rc.6",
+              "workflow_head_sha": HEAD, "candidate": freeze["version"],
               "scenario_declaration": declaration_path.relative_to(DOC).as_posix(),
               "scenario_declaration_sha256": declaration_hash,
               "project_admission_credit": 0,
               "status": "development-attempts-independently-audited-not-qualified",
               "provider_artifacts": hosts,
               "attempts_per_host": 20,
-              "scope": "Exact provider ZIP metadata/SHA/CRC/path checks; exact pinned native source/build/runtime/binary and seven build logs; frozen rc.6 installation; all 20 launched lifecycle attempts on each native host with report/spec/source/candidate identities, outcome, target/workspace/process cleanup; exact source restoration and removal.",
+              "scope": f"Exact provider ZIP metadata/SHA/CRC/path checks; exact pinned native source/build/runtime/binary and seven build logs; frozen {freeze['version']} installation; all 20 launched lifecycle attempts on each native host with report/spec/source/candidate identities, outcome, target/workspace/process cleanup; exact source restoration and removal.",
               "qualification_scenarios": 0, "real_faults": 0, "calibrations": 0,
               "admission_credit": 0}
     encoded = (json.dumps(output, ensure_ascii=True, indent=2, sort_keys=True) + "\n").encode()
