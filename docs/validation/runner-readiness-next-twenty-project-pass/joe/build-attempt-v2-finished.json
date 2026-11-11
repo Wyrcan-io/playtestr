@@ -1,0 +1,17 @@
+{
+  "artifact_packets": [
+    {"digest": "sha256:e68946b2f63036bdc991e84527e0db57fdce1082a342b25471d567703d04527d", "id": 13848985226, "name": "next20-joe-build-linux-43005769503", "provider_bytes": 9972512},
+    {"digest": "sha256:b4465e3b751304d0c9ee2c1df93c515cb858f37d8ec346217ae5999eae031b7f", "id": 13848785548, "name": "next20-joe-build-darwin-43005769503", "provider_bytes": 5891679}
+  ],
+  "conclusion": "Linux native build and install passed but final tree verification exceeded the original 64 MiB working-tree bound; macOS build, install and final verifier passed",
+  "darwin": {"architecture": "arm64", "binary_bytes": 809952, "binary_sha256": "141370aab4b2d35c84f8c0f715a796e1d0a1b3f621f28d2e7d209133f87de86e", "build_seconds": 29.56, "owned_tree_bytes": 60484450, "verified": true},
+  "linux": {"binary_and_install_present_in_packet": true, "failure": "owned JOE tree exceeded file/size bounds after build and install", "verified": false},
+  "project": "joe",
+  "project_admission_credit": 0,
+  "run_id": 43005769503,
+  "schema_version": 1,
+  "source_pin": "3874898078005d1f5e519235401fab4fd428dd9b",
+  "workflow_head_sha": "d701ece494434e42646e67ea916411191e11e18e",
+  "workflow_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/43005769503",
+  "retained_packets": "artifacts/runner-readiness-next-twenty-project-pass/joe/build-attempt-43005769503"
+}

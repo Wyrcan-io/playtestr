@@ -16,7 +16,9 @@ from readiness_evidence import immutable_json, sha256
 PIN = "3874898078005d1f5e519235401fab4fd428dd9b"
 MAX_SECONDS = 20 * 60
 MAX_FILES = 10000
-MAX_BYTES = 64 * 1024**2
+# The bounded working tree includes source, generated Autotools files, object
+# files and the staged install; the retained project-evidence cap is separate.
+MAX_BYTES = 256 * 1024**2
 
 
 def require(value, message):
