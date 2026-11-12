@@ -50,6 +50,8 @@ class PickScenarioContractTests(unittest.TestCase):
         self.assertEqual(rows["E07"]["title"], "Expose carriage-return effects in CRLF choice input")
         self.assertIn({"expect": "eta"}, rows["E07"]["actions"])
         self.assertEqual(rows["E08"]["fixture"], b"")
+        self.assertLess(rows["E08"]["actions"].index({"expect": "none"}),
+                        rows["E08"]["actions"].index({"key": "CtrlC"}))
 
     def test_each_case_uses_only_redirection_and_exec_shell_adapter(self):
         for row in pick.cases():

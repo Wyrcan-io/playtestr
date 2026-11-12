@@ -19,7 +19,7 @@ PROJECT = DOC / "pick"
 PIN = "caae95938359b2e814b3e7406f396f486c9d99fb"
 ARCHIVE_SHA256 = "e308cf7fca8eb50bc3d90e31347377f0cf955e07eb77793343743deaee72c653"
 SERIES = "native-exit-v2"
-CONTRACT_VERSION = 7
+CONTRACT_VERSION = 8
 HOSTS = {"linux": "Linux", "darwin": "Darwin"}
 
 
@@ -74,7 +74,7 @@ def cases():
         _case("E07", "edge", "Expose carriage-return effects in CRLF choice input", b"alpha\r\nbeta\r\n",
               [{"text": "bet"}, {"expect": "eta"}, {"key": "Enter"}, {"expect": "eta"}]),
         _case("E08", "edge", "Exit cleanly when there are no choices", b"",
-              [{"key": "CtrlC"}, {"exit": 1}], expected_exit=1),
+              [{"text": "none"}, {"expect": "none"}, {"key": "CtrlC"}, {"exit": 1}], expected_exit=1),
         _case("E09", "edge", "Ignore an empty candidate while selecting a real option", b"\nalpha\n",
               [{"text": "alpha"}, {"expect": "alpha"}, {"key": "Enter"}, {"expect": "alpha"}]),
         _case("E10", "edge", "Disable score sorting and preserve filtered input order",

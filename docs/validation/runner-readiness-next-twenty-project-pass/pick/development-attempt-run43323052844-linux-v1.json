@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "project": "pick",
+  "repository": "mptre/pick",
+  "pin": "caae95938359b2e814b3e7406f396f486c9d99fb",
+  "candidate": "v0.4.0-rc.7",
+  "candidate_series": "native-exit-v2",
+  "scenario_contract": "pick/scenario-declaration-v7.json",
+  "scenario_contract_sha256": "af130df511d790bb5e8de071bac3582694fedeaaeba739312160a6ed65f8ae4f",
+  "workflow_run_id": 43323052844,
+  "source_revision": "eb097425e2fbc3199667602fbad3b336b89a5cb1",
+  "workflow_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/43323052844",
+  "host": "Linux-x86_64",
+  "job_id": 131548405909,
+  "status": "scenario-failed-at-E08; build-upstream-candidate-cleanup-storage-passed",
+  "source_archive_sha256": "e308cf7fca8eb50bc3d90e31347377f0cf955e07eb77793343743deaee72c653",
+  "target_binary_sha256": "687dcd78dacd8b4ca96eddb31e5bf308ca1d60dcd2731838589a67013ec38b7c",
+  "candidate_archive_sha256": "bd0376a43d9dfc53f397458958f99e59955a1ae8efdef93095eb7289ac7d6318",
+  "upstream_tests": "passed",
+  "source_restored": true,
+  "target_process_cleanup": "passed for 16 launched target reports",
+  "storage_check": "passed",
+  "provider_artifact_id": 13991980792,
+  "provider_artifact_bytes": 1096181,
+  "provider_artifact_sha256": "ca6239d91e5e50cf208c14c2805dcc0f8708cbde0de97c998bf7a5597abcece0",
+  "scenario_counts": {
+    "reports": 16,
+    "target_launched": 16,
+    "passed": 15,
+    "failed_reports": 1,
+    "not_attempted": 4
+  },
+  "reports": [
+    {
+      "scenario": "E01",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "ba88ca3864201606a3761cb1bd143be65eccf9b31a0bb7f52a73dc04f342dcfa",
+      "failure_category": null
+    },
+    {
+      "scenario": "E02",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "d1dac286b2b45bdbda495adcdf1f9cfadd1be6f41a1dbc1d305c199128277b82",
+      "failure_category": null
+    },
+    {
+      "scenario": "E03",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "7d6e759c49f1011b7015a48d07c2caa04c9d30c988cdcc6fd65273e7d8c367d0",
+      "failure_category": null
+    },
+    {
+      "scenario": "E04",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "6111d449ee0921d200b49f5c5716973b862d914629a04f963cbfbc686b0b83c4",
+      "failure_category": null
+    },
+    {
+      "scenario": "E05",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "46115e43c9a8ae2bc65144f068130ed1d04e1373f12e7ec5cdb41c17a0947e77",
+      "failure_category": null
+    },
+    {
+      "scenario": "E06",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "b4fe20b79a51f0127efa1da9db18dfa78f15c5b93b0b1341a69e914b990c8d3b",
+      "failure_category": null
+    },
+    {
+      "scenario": "E07",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "d1f1f45935480422bc9cfa2b4e67891229392ffd55d7125468ab97e6e576cc1c",
+      "failure_category": null
+    },
+    {
+      "scenario": "E08",
+      "status": "failed",
+      "target_launched": true,
+      "report_sha256": "f5cac3a98f9337b4e03fcc1ff8d91a080f7d55741ddb8c58166879cffda7e981",
+      "failure_category": "unexpected_exit"
+    },
+    {
+      "scenario": "N01",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "c0a71923e0bf7b8feb92587e4a6c094ca8869b5dda75f84ee008fac0dca2cc5e",
+      "failure_category": null
+    },
+    {
+      "scenario": "N02",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "8c9a3bece8c780180c604178517d68bb82d0b05812cc7923a31065e35331d498",
+      "failure_category": null
+    },
+    {
+      "scenario": "N03",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "dfb1629b400eadb1b07429f2bc35ee3b3dbe6f45ea1b75ac29104dad355c5b00",
+      "failure_category": null
+    },
+    {
+      "scenario": "N04",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "4028c23bc1be05b821f72fb7cf4e627602ae02c98b1211003fd880bab43265b0",
+      "failure_category": null
+    },
+    {
+      "scenario": "N05",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "3324a047aae919f58fe4c61cdd7a517b6c4468648d2515ab6adfe869bde68e2f",
+      "failure_category": null
+    },
+    {
+      "scenario": "N06",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "5b20dea5022b631dc6ddfb8031b54bbb7c1d3a76151e76265f46ffeb047854a7",
+      "failure_category": null
+    },
+    {
+      "scenario": "N07",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "ea3626d991a6f113c8f90b42494902541f8eb4db318a5c34b1b11e2b2e74be8b",
+      "failure_category": null
+    },
+    {
+      "scenario": "N08",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "5be34bd516291b6acb3f6bd13238507ae95cfe27f96f5194de7f584c15565c55",
+      "failure_category": null
+    }
+  ],
+  "failure": "E08 sent CtrlC immediately on an empty-choice target before positive screen/input readiness. Pick terminated with exit 130, while the frozen contract expected its graceful no-match cancel code 1. E01-E07 including the CRLF boundary passed; four scenarios were not attempted.",
+  "disposition": "Preserve the failed run. It grants no scenario or project admission credit. v8 first types and observes query text to establish interactive readiness before sending CtrlC."
+}
