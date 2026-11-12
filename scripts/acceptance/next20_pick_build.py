@@ -59,7 +59,9 @@ def main():
             "Pick source archive/owner does not match the reviewed canonical pin")
     pristine = acquisition.get("source_files")
     source_now, source_bytes = file_map(source)
-    require(isinstance(pristine, dict) and source_now == pristine and len(source_now) == acquisition.get("entries"),
+    # ``entries`` counts all archive members, including the three directories
+    # in Pick's archive.  ``source_files`` intentionally hashes regular files.
+    require(isinstance(pristine, dict) and source_now == pristine and len(source_now) <= acquisition.get("entries", 0),
             "Pick extracted primary source differs from its immutable acquisition manifest")
     require(host in {"linux", "darwin"}, "Pick is declared only for native Linux/macOS hosts")
 

@@ -93,7 +93,7 @@ jobs:
 
       - name: Restore exact source and verify target process cleanup
         if: always() && steps.acquire.outcome == 'success'
-        run: python -B scripts/acceptance/next20_target_cleanup.py --project pick
+        run: python -B scripts/acceptance/next20_target_cleanup.py --project pick --no-case-reports
 
       - name: Verify campaign storage bounds
         if: always() && steps.acquire.outcome == 'success'
