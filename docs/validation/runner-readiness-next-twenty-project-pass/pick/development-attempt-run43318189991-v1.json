@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "project": "pick",
+  "repository": "mptre/pick",
+  "pin": "caae95938359b2e814b3e7406f396f486c9d99fb",
+  "candidate": "v0.4.0-rc.7",
+  "candidate_series": "native-exit-v2",
+  "scenario_declaration": "pick/scenario-declaration-v1.json",
+  "scenario_declaration_sha256": "70ca9415c843f09d93bc80730d3e855b91d74ec94f73b514c849ef7e378e32d8",
+  "workflow_run_id": 43318189991,
+  "source_revision": "b7746002e19897fad4fa452869446b026097092d",
+  "workflow_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/43318189991",
+  "status": "native-builds-passed-scenario-attempt-incomplete-with-two-contract-failures",
+  "native_builds": {
+    "linux": {
+      "architecture": "x86_64",
+      "source_archive_sha256": "e308cf7fca8eb50bc3d90e31347377f0cf955e07eb77793343743deaee72c653",
+      "target_binary_sha256": "687dcd78dacd8b4ca96eddb31e5bf308ca1d60dcd2731838589a67013ec38b7c",
+      "candidate_archive_sha256": "bd0376a43d9dfc53f397458958f99e59955a1ae8efdef93095eb7289ac7d6318",
+      "upstream_tests": "passed",
+      "source_restored": true,
+      "cleanup": "passed",
+      "storage": "passed"
+    },
+    "darwin": {
+      "architecture": "arm64",
+      "source_archive_sha256": "e308cf7fca8eb50bc3d90e31347377f0cf955e07eb77793343743deaee72c653",
+      "target_binary_sha256": "8dacc5183cf65e276294c6bcfcdb76808232aa557a6acce4e27939a1e78aeaf9",
+      "candidate_archive_sha256": "5ce12533008bbda11b0d41b070088f21350b3a4515f62c84ab84431b2f2a84d0",
+      "upstream_tests": "passed",
+      "source_restored": true,
+      "cleanup": "passed",
+      "storage": "passed"
+    }
+  },
+  "scenario_attempts": {
+    "linux": {
+      "job_id": 131531604542,
+      "provider_artifact_id": 13989486520,
+      "provider_artifact_sha256": "6585f3987335daf7a0c1f76ed2269853f3ec2cd735c03f6a130fb281aa599827",
+      "attempted": 8,
+      "passed": 7,
+      "failed": 1,
+      "not_attempted": 12,
+      "reports": [
+        {"scenario": "N01", "status": "passed", "sha256": "ce2d263bce68d2d192d9639de7eb960500fe7d5fe5da13cff442b9add497b0c6"},
+        {"scenario": "N02", "status": "passed", "sha256": "7c72125c5dfa96c0db27e5ee62a31eed6bf8f5658e6b862a90370f8fe02cd4d2"},
+        {"scenario": "N03", "status": "passed", "sha256": "9cdcda50b7a11e3fac741a4912e58e7e201e0e0e37f176c37946c5c47d6c821b"},
+        {"scenario": "N04", "status": "passed", "sha256": "66fb28bca1776e43334a0dc469a78bd82b105f96dedf9b5071f82e8361a3ea94"},
+        {"scenario": "N05", "status": "passed", "sha256": "0f95fa9c4e8f707af45ad5463caba1762cc5f365fb351fa315321bd250102f90"},
+        {"scenario": "N06", "status": "passed", "sha256": "e1816eb8726d8411fab43ab35dba76e9cbf3a2af847bced6296e3cbee2640aa2"},
+        {"scenario": "N07", "status": "passed", "sha256": "829e2bc8681534579f2f8dad59f9686fedb330788175d2ee09683d6d80146f8c"},
+        {"scenario": "N08", "status": "failed", "failure_category": "unexpected_exit", "report_sha256": "d3469185b1179a5942f8518d31dfd46831f78a926fa8022bb8d4e8b0b5329a18"}
+      ]
+    },
+    "darwin": {
+      "job_id": 131531604868,
+      "provider_artifact_id": 13988029689,
+      "provider_artifact_sha256": "60f959fd4782bba9363f9f5f4b6bee39e4368b6e4b73013c68b37fd7c4b7196a",
+      "attempted": 12,
+      "passed": 11,
+      "failed": 1,
+      "not_attempted": 8,
+      "reports": [
+        {"scenario": "N01", "status": "passed", "sha256": "669d70c520b1bbc37e528c8126471fc537176c73ded343c7d484be3c65073f46"},
+        {"scenario": "N02", "status": "passed", "sha256": "5520dd22bf8bb79bcadd223932d8e9f491653718a924da5121e1983e7b1c435d"},
+        {"scenario": "N03", "status": "passed", "sha256": "f614db15fddcb09702c071a8b5ef0434ffd9f0612378ad98054fca343d59cc04"},
+        {"scenario": "N04", "status": "passed", "sha256": "f07a9e8756daa734b0392d686a63a67cb71fa0097cc7c72e8b4ed748a292e040"},
+        {"scenario": "N05", "status": "passed", "sha256": "4958f0f87b8355cda9dd4eed7e90eabca423524dcefd01017c044d9c4362d183"},
+        {"scenario": "N06", "status": "passed", "sha256": "22eba2e47b571676fb43210c4dfc3cab88fb57ceeb0bd064c5c12b46aa048929"},
+        {"scenario": "N07", "status": "passed", "sha256": "9f37f3d8129168f779f6aad65df3b82172b92f1eb1cd9f6e32e8556f385148f6"},
+        {"scenario": "N08", "status": "passed", "sha256": "d9cbc753a9339cbf12aff29ad2359e51458176ca5ad06c820740ed5b1bc6d3d0"},
+        {"scenario": "E01", "status": "passed", "sha256": "386a0dad31eeeaa4ad1b235427892b532c32f3bbce124a54288f5882df87e9aa"},
+        {"scenario": "E02", "status": "passed", "sha256": "1fa8cd5cfe96603fbf94caf1b2c02bdaac0ad589d557d95143f348dc383af531"},
+        {"scenario": "E03", "status": "passed", "sha256": "03d52a184ecf6caad3368a464cbab7384bb1c2d605decc03e4712266eed205b3"},
+        {"scenario": "E04", "status": "failed", "failure_category": "assertion_timeout", "report_sha256": "bb6386bca5f724c4a2a808c3788e67c0f3534b816dbac533192fe91ba4ea3963"}
+      ]
+    }
+  },
+  "source_findings": [
+    "Pick's matcher scores the choice string, not its description; E04's initial workflow incorrectly typed a description query and timed out on macOS.",
+    "N08 observed a successful target exit without a final explicit exit action; this was reported as unexpected_exit on Linux."
+  ],
+  "disposition": {
+    "v2": "Scenario declaration v2 was frozen after this run with explicit final exit assertions but before any v2 target launch. It is superseded prelaunch because source review showed E04 must select duplicate labels by cursor while checking the displayed and emitted description.",
+    "v3": "Scenario declaration v3 preserves exact exit assertions and changes E04 to cursor navigation across duplicate labels; no target launch has used v3 yet.",
+    "credit": "All 20 reports from this attempt are retained. This attempt contributes zero scenario qualification and zero project-admission credit; the reports are development observations only."
+  },
+  "credit": {
+    "project_admission": 0,
+    "qualified_scenarios": 0,
+    "ordinary_qualification_executions": 0,
+    "fault_calibrations": 0
+  }
+}

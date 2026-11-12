@@ -20,8 +20,15 @@ class PickScenarioContractTests(unittest.TestCase):
         self.assertIn({"key": "ArrowDown"}, rows["N02"]["actions"])
         self.assertIn("-q ALP", rows["N04"]["command_line"])
         self.assertIn("pick -d -o", rows["N08"]["command_line"])
+        self.assertEqual(rows["E04"]["actions"][1], {"key": "ArrowDown"})
+        self.assertNotIn({"text": "second"}, rows["E04"]["actions"])
         self.assertEqual(rows["E02"]["expected_exit"], 1)
         self.assertIn({"key": "CtrlC"}, rows["E02"]["actions"])
+
+    def test_every_scenario_ends_with_an_exact_target_exit_assertion(self):
+        for row in pick.cases():
+            with self.subTest(case=row["id"]):
+                self.assertEqual(row["actions"][-1], {"exit": row["expected_exit"]})
 
     def test_unicode_and_binary_stream_fixtures_are_exact_utf8(self):
         rows = {row["id"]: row for row in pick.cases()}

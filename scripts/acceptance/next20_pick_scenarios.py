@@ -19,6 +19,7 @@ PROJECT = DOC / "pick"
 PIN = "caae95938359b2e814b3e7406f396f486c9d99fb"
 ARCHIVE_SHA256 = "e308cf7fca8eb50bc3d90e31347377f0cf955e07eb77793343743deaee72c653"
 SERIES = "native-exit-v2"
+CONTRACT_VERSION = 3
 HOSTS = {"linux": "Linux", "darwin": "Darwin"}
 
 
@@ -27,6 +28,9 @@ def _case(identity, kind, title, fixture, actions, expected_exit=0, *, query=Non
     if query is not None:
         args.extend(["-q", query])
     command_line = "exec " + " ".join(shlex.quote(value) for value in args) + " < choices.txt"
+    actions = list(actions)
+    if not actions or "exit" not in actions[-1]:
+        actions.append({"exit": expected_exit})
     return {"id": identity, "kind": kind, "title": title, "fixture": fixture,
             "actions": actions, "expected_exit": expected_exit, "command_line": command_line,
             "width": width, "height": height}
@@ -62,7 +66,7 @@ def cases():
               [{"expect": "zzq"}, {"key": "Enter"}, {"key": "CtrlC"}, {"exit": 1}],
               expected_exit=1, query="zzq"),
         _case("E04", "edge", "Distinguish duplicate labels using descriptions", b"same first\nsame second\n",
-              [{"text": "second"}, {"expect": "same second"}, {"key": "Enter"},
+              [{"expect": "same first"}, {"key": "ArrowDown"}, {"expect": "same second"}, {"key": "Enter"},
                {"expect": "same"}, {"expect": "second"}], options=("-d", "-o")),
         _case("E05", "edge", "Filter UTF-8 choices by a non-ASCII query", "雪山\n雨\n".encode("utf-8"),
               [{"expect": "雪山"}, {"key": "Enter"}, {"expect": "雪山"}], query="雪"),
@@ -89,8 +93,9 @@ def cases():
 
 
 def materialize():
-    package = PROJECT / "scenarios-v1"
-    if package.exists() or (PROJECT / "scenario-declaration-v1.json").exists():
+    package = PROJECT / f"scenarios-v{CONTRACT_VERSION}"
+    declaration_path = PROJECT / f"scenario-declaration-v{CONTRACT_VERSION}.json"
+    if package.exists() or declaration_path.exists():
         raise ValueError("preserve existing Pick scenario contract artifacts")
     freeze = json.loads((DOC / "replacement-candidate-freeze-native-exit-v2.json").read_text(encoding="utf-8"))
     scenario_rows = []
@@ -124,7 +129,8 @@ def materialize():
     if not require_count:
         raise ValueError("Pick scenario declaration must contain exactly eight normal and twelve edge cases")
     declaration = {
-        "schema_version": 1, "project": "pick", "repository": "mptre/pick", "pin": PIN,
+        "schema_version": 1, "scenario_contract_version": CONTRACT_VERSION,
+        "project": "pick", "repository": "mptre/pick", "pin": PIN,
         "source_archive_sha256": ARCHIVE_SHA256, "candidate": freeze["version"],
         "candidate_series": "native-exit-v2", "candidate_freeze_sha256": sha256(
             DOC / "replacement-candidate-freeze-native-exit-v2.json"),
@@ -136,9 +142,10 @@ def materialize():
         "stateful": False, "saved_state_coverage_credit": 0,
         "oracle": "Reviewed rendered-screen checkpoints, exact target exit status, and selected line printed to the same PTY after curses teardown; no filesystem state is claimed.",
         "shell_adapter_scope": "The POSIX shell only redirects the reviewed workspace choices.txt fixture to Pick stdin and execs Pick; all keyboard input remains on the controlling PTY, and no assertion logic or application behavior is in the shell.",
+        "scenario_evidence_revision": "Every launched target's exact expected exit is the final explicit scenario assertion.",
         "scenarios": scenario_rows, "project_admission_credit": 0,
     }
-    immutable_json(PROJECT / "scenario-declaration-v1.json", declaration)
+    immutable_json(declaration_path, declaration)
     return declaration
 
 
@@ -159,12 +166,13 @@ def report_result(path, expected_exit):
 async def run_scenarios(host, *, repetitions=1, phase="development"):
     if platform.system() != HOSTS[host]:
         raise RuntimeError("actual native host differs from declared Pick host")
-    declaration = json.loads((PROJECT / "scenario-declaration-v1.json").read_text(encoding="utf-8"))
+    declaration = json.loads((PROJECT / f"scenario-declaration-v{CONTRACT_VERSION}.json").read_text(encoding="utf-8"))
     freeze = json.loads((DOC / "replacement-candidate-freeze-native-exit-v2.json").read_text(encoding="utf-8"))
     cell = next(row for row in freeze["cells"] if row["host"] == host)
     build = json.loads((RAW / "active/pick/build.json").read_text(encoding="utf-8"))
     binary = RAW / "active/pick/install/bin/pick"
-    if (declaration.get("candidate") != freeze["version"] or declaration.get("pin") != PIN or
+    if (declaration.get("scenario_contract_version") != CONTRACT_VERSION or
+            declaration.get("candidate") != freeze["version"] or declaration.get("pin") != PIN or
             build.get("host") != host or build.get("pin") != PIN or
             build.get("binary_sha256") != sha256(binary)):
         raise ValueError("Pick native target, scenario contract or candidate freeze identity differs")
