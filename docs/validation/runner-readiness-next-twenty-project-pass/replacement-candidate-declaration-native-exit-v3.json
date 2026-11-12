@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "series": "native-exit-v3",
+  "version": "v0.4.0-rc.8",
+  "status": "declared-after-native-job-start; source-revision-and-series-were-pinned-in-the-workflow-before-run",
+  "production_source_revision": "78252c770635ec429e63e4b618e9c319af89c343",
+  "qualification_workflow": ".github/workflows/runner-readiness-next20-replacement-candidate.yml",
+  "qualification_workflow_trigger_revision": "78252c770635ec429e63e4b618e9c319af89c343",
+  "candidate_source_checkout": {
+    "repository": "Wyrcan-io/playtestr",
+    "ref_expression": "${{ env.SOURCE_REVISION }}",
+    "expected_commit": "78252c770635ec429e63e4b618e9c319af89c343"
+  },
+  "native_cells": [
+    {
+      "host": "ubuntu-24.04",
+      "architecture": "linux-amd64"
+    },
+    {
+      "host": "macos-15",
+      "architecture": "darwin-arm64"
+    },
+    {
+      "host": "windows-2025",
+      "architecture": "windows-amd64"
+    }
+  ],
+  "qualification_steps": [
+    "official Go 1.25.0 SDK acquisition into campaign-owned paths and identity verification",
+    "go test ./... on each native host",
+    "focused native exit, public recorder, HTML, schema-boundary and application-cursor PTY regression tests",
+    "go vet ./...",
+    "go test -race -count=1 ./... with the approved native compiler prerequisite",
+    "one native build and four-member unpublished archive package",
+    "archive member, checksum sidecar, extracted executable hash, version and help readback"
+  ],
+  "production_changes": [
+    "Named arrow keys now follow the terminal's parsed application-cursor mode; Home, End and paging keys retain their existing encodings.",
+    "The real-PTY regression proves application-mode ArrowUp reaches the target as ESC O A."
+  ],
+  "input_identity_policy": "Each host packet must identify the exact source revision, selected production source input hashes, SDK/compiler hashes, commands, archive bytes/SHA-256 and executable hash; host artifacts will be independently retrieved and audited before freeze.",
+  "prior_candidate": "native-exit-v2 v0.4.0-rc.7 remains immutable; its admissions and exact archive bytes are historical and receive no transfer credit.",
+  "requalification_required": [
+    "JOE v2 scenario/fault evidence against the exact candidate archive",
+    "other changed-source affected next-twenty project cells and faults",
+    "original ten current-candidate gates",
+    "applicable old migrations, public archive controls and delivered-CI routes",
+    "fresh-checkout, storage, cleanup and final independent campaign audit"
+  ],
+  "project_qualification": false,
+  "publication": false,
+  "paid_runner": false,
+  "dispatch_policy": "Standard GitHub-hosted native Linux, macOS and Windows only; at most two jobs in parallel; no paid runners or budget changes.",
+  "admission_credit": 0,
+  "source_commit": "78252c770635ec429e63e4b618e9c319af89c343"
+}
