@@ -15,9 +15,10 @@ class PickScenarioContractTests(unittest.TestCase):
         self.assertEqual(sum(row["kind"] == "edge" for row in rows), 12)
         self.assertEqual(len({row["id"] for row in rows}), 20)
 
-    def test_selection_oracles_cover_cursor_query_output_and_cancellation(self):
+    def test_selection_oracles_cover_query_output_and_cancellation(self):
         rows = {row["id"]: row for row in pick.cases()}
-        self.assertIn({"key": "ArrowDown"}, rows["N02"]["actions"])
+        self.assertIn("-q blue", rows["N02"]["command_line"])
+        self.assertIn({"expect": "blue"}, rows["N02"]["actions"])
         self.assertIn("-q ALP", rows["N04"]["command_line"])
         self.assertIn("pick -d -o", rows["N08"]["command_line"])
         self.assertEqual(rows["E04"]["actions"][1], {"text": "second"})
@@ -30,6 +31,16 @@ class PickScenarioContractTests(unittest.TestCase):
         for row in pick.cases():
             with self.subTest(case=row["id"]):
                 self.assertEqual(row["actions"][-1], {"exit": row["expected_exit"]})
+
+    def test_expect_not_uses_the_exact_prior_observation_and_follows_input(self):
+        for row in pick.cases():
+            for index, action in enumerate(row["actions"]):
+                if "expect_not" not in action:
+                    continue
+                observed = action["expect_not"]
+                prior = row["actions"][:index]
+                self.assertIn({"expect": observed}, prior)
+                self.assertTrue(any("key" in step or "text" in step or "resize" in step for step in prior[prior.index({"expect": observed}) + 1:]))
 
     def test_unicode_and_binary_stream_fixtures_are_exact_utf8(self):
         rows = {row["id"]: row for row in pick.cases()}

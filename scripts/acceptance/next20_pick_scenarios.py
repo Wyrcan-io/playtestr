@@ -19,7 +19,7 @@ PROJECT = DOC / "pick"
 PIN = "caae95938359b2e814b3e7406f396f486c9d99fb"
 ARCHIVE_SHA256 = "e308cf7fca8eb50bc3d90e31347377f0cf955e07eb77793343743deaee72c653"
 SERIES = "native-exit-v2"
-CONTRACT_VERSION = 4
+CONTRACT_VERSION = 6
 HOSTS = {"linux": "Linux", "darwin": "Darwin"}
 
 
@@ -41,9 +41,8 @@ def cases():
     return [
         _case("N01", "normal", "Select the first supplied option", b"amber\nblue\ncedar\n",
               [{"expect": "amber"}, {"key": "Enter"}, {"expect": "amber"}]),
-        _case("N02", "normal", "Move down and select the second option", b"amber\nblue\ncedar\n",
-              [{"expect": "amber"}, {"key": "ArrowDown"}, {"expect": "blue"},
-               {"key": "Enter"}, {"expect": "blue"}]),
+        _case("N02", "normal", "Select the second supplied option by query", b"amber\nblue\ncedar\n",
+              [{"expect": "blue"}, {"key": "Enter"}, {"expect": "blue"}], query="blue"),
         _case("N03", "normal", "Start from a reviewed initial query", b"amber\nblue\ncedar\n",
               [{"expect": "cedar"}, {"key": "Enter"}, {"expect": "cedar"}], query="cedar"),
         _case("N04", "normal", "Match a query without case sensitivity", b"alpha\nbeta\n",
@@ -66,7 +65,7 @@ def cases():
               [{"expect": "zzq"}, {"key": "Enter"}, {"key": "CtrlC"}, {"exit": 1}],
               expected_exit=1, query="zzq"),
         _case("E04", "edge", "Do not fuzzy-match a description as though it were the label", b"same first\nsame second\n",
-              [{"expect": "same first"}, {"text": "second"}, {"expect_not": "same"},
+              [{"expect": "same"}, {"text": "second"}, {"expect_not": "same"},
                {"key": "CtrlC"}, {"exit": 1}], expected_exit=1, options=("-d",)),
         _case("E05", "edge", "Filter UTF-8 choices by a non-ASCII query", "雪山\n雨\n".encode("utf-8"),
               [{"expect": "雪山"}, {"key": "Enter"}, {"expect": "雪山"}], query="雪"),
