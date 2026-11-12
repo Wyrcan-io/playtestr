@@ -18,8 +18,8 @@ from readiness_evidence import immutable_json, sha256
 PROJECT = DOC / "pick"
 PIN = "caae95938359b2e814b3e7406f396f486c9d99fb"
 ARCHIVE_SHA256 = "e308cf7fca8eb50bc3d90e31347377f0cf955e07eb77793343743deaee72c653"
-SERIES = "native-exit-v2"
-CONTRACT_VERSION = 9
+SERIES = "native-exit-v3"
+CONTRACT_VERSION = 10
 HOSTS = {"linux": "Linux", "darwin": "Darwin"}
 
 
@@ -82,7 +82,10 @@ def cases():
               query="match", options=("-S",)),
         _case("E11", "edge", "Move to the final item in a list longer than the viewport",
               "".join(f"item{i:02d}\n" for i in range(30)).encode(),
-              [{"text": "item"}, {"expect": "item00"}, {"key": "End"}, {"expect": "item29"},
+              [{"text": "item"}, {"expect": "item00"},
+               {"key": "PageDown"}, {"key": "PageDown"}, {"key": "PageDown"},
+               {"expect": "item21"}, {"key": "PageDown"}, {"expect": "item28"},
+               {"key": "ArrowDown"}, {"expect": "item29"},
                {"key": "Enter"}, {"expect": "item29"}], height=8),
         _case("E12", "edge", "Delete the query and select the restored first result", b"amber\nblue\n",
               [{"text": "blue"}, {"expect": "blue"}, {"key": "Backspace"}, {"key": "Backspace"},
@@ -96,7 +99,7 @@ def materialize():
     declaration_path = PROJECT / f"scenario-declaration-v{CONTRACT_VERSION}.json"
     if package.exists() or declaration_path.exists():
         raise ValueError("preserve existing Pick scenario contract artifacts")
-    freeze = json.loads((DOC / "replacement-candidate-freeze-native-exit-v2.json").read_text(encoding="utf-8"))
+    freeze = json.loads((DOC / "replacement-candidate-freeze-native-exit-v3.json").read_text(encoding="utf-8"))
     scenario_rows = []
     for case in cases():
         case_dir = package / case["id"]
@@ -131,8 +134,8 @@ def materialize():
         "schema_version": 1, "scenario_contract_version": CONTRACT_VERSION,
         "project": "pick", "repository": "mptre/pick", "pin": PIN,
         "source_archive_sha256": ARCHIVE_SHA256, "candidate": freeze["version"],
-        "candidate_series": "native-exit-v2", "candidate_freeze_sha256": sha256(
-            DOC / "replacement-candidate-freeze-native-exit-v2.json"),
+        "candidate_series": "native-exit-v3", "candidate_freeze_sha256": sha256(
+            DOC / "replacement-candidate-freeze-native-exit-v3.json"),
         "normal_scenarios": 8, "edge_scenarios": 12, "distinct_scenarios": 20,
         "native_cells": ["linux-amd64", "macos-arm64"],
         "risk_dimensions": ["stdin data with controlling-PTY input", "Unicode fuzzy matching",
@@ -151,7 +154,7 @@ def materialize():
 
 def report_result(path, expected_exit):
     report = json.loads(path.read_text(encoding="utf-8"))
-    if (report.get("report_version") != 3 or report.get("runner_version") != "v0.4.0-rc.7" or
+    if (report.get("report_version") != 3 or report.get("runner_version") != "v0.4.0-rc.8" or
             report.get("summary", {}).get("total") != 1 or len(report.get("results", [])) != 1):
         raise ValueError("Pick report candidate/version/denominator differs")
     result = report["results"][0]
@@ -167,7 +170,7 @@ async def run_scenarios(host, *, repetitions=1, phase="development"):
     if platform.system() != HOSTS[host]:
         raise RuntimeError("actual native host differs from declared Pick host")
     declaration = json.loads((PROJECT / f"scenario-declaration-v{CONTRACT_VERSION}.json").read_text(encoding="utf-8"))
-    freeze = json.loads((DOC / "replacement-candidate-freeze-native-exit-v2.json").read_text(encoding="utf-8"))
+    freeze = json.loads((DOC / "replacement-candidate-freeze-native-exit-v3.json").read_text(encoding="utf-8"))
     cell = next(row for row in freeze["cells"] if row["host"] == host)
     build = json.loads((RAW / "active/pick/build.json").read_text(encoding="utf-8"))
     binary = RAW / "active/pick/install/bin/pick"

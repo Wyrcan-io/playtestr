@@ -53,7 +53,15 @@ class PickScenarioContractTests(unittest.TestCase):
         self.assertLess(rows["E08"]["actions"].index({"expect": "none"}),
                         rows["E08"]["actions"].index({"key": "CtrlC"}))
         self.assertLess(rows["E11"]["actions"].index({"expect": "item00"}),
-                        rows["E11"]["actions"].index({"key": "End"}))
+                        rows["E11"]["actions"].index({"key": "PageDown"}))
+
+    def test_long_list_navigation_observes_each_viewport_transition(self):
+        actions = next(row["actions"] for row in pick.cases() if row["id"] == "E11")
+        self.assertEqual(actions.count({"key": "PageDown"}), 4)
+        self.assertLess(actions.index({"key": "PageDown"}), actions.index({"expect": "item21"}))
+        self.assertLess(actions.index({"expect": "item21"}), actions.index({"expect": "item28"}))
+        self.assertLess(actions.index({"expect": "item28"}), actions.index({"key": "ArrowDown"}))
+        self.assertLess(actions.index({"key": "ArrowDown"}), actions.index({"expect": "item29"}))
 
     def test_each_case_uses_only_redirection_and_exec_shell_adapter(self):
         for row in pick.cases():

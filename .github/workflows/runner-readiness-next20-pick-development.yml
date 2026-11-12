@@ -1,18 +1,6 @@
 name: Runner readiness next20 Pick development
 
 on:
-  push:
-    branches:
-      - work/p0-p2-implementation
-    paths:
-      - .github/workflows/runner-readiness-next20-pick-development.yml
-      - scripts/acceptance/next20_pick_build.py
-      - scripts/acceptance/next20_pick_scenarios.py
-      - scripts/acceptance/next20_acquire.py
-      - scripts/acceptance/next20_target_cleanup.py
-      - scripts/acceptance/next20_candidate_install.py
-      - docs/validation/runner-readiness-next-twenty-project-pass/pick/**
-      - docs/validation/runner-readiness-next-twenty-project-pass/replacement-candidate-freeze-native-exit-v2.json
   workflow_dispatch:
 
 permissions:

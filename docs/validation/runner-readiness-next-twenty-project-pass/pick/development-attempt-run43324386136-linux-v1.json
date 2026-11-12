@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "project": "pick",
+  "repository": "mptre/pick",
+  "pin": "caae95938359b2e814b3e7406f396f486c9d99fb",
+  "candidate": "v0.4.0-rc.7",
+  "candidate_series": "native-exit-v2",
+  "scenario_contract": "pick/scenario-declaration-v9.json",
+  "scenario_contract_sha256": "5c7394bc4db85a65971264cc7ee959a2907e8cb5cdaeb454bb31dfe9db595b5d",
+  "workflow_run_id": 43324386136,
+  "source_revision": "931a97be2d42aeaf8b22c84885e0696d153eb6b0",
+  "workflow_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/43324386136",
+  "host": "Linux-x86_64",
+  "job_id": 131553025060,
+  "status": "scenario-failed-at-E11; build-upstream-candidate-cleanup-storage-passed",
+  "source_archive_sha256": "e308cf7fca8eb50bc3d90e31347377f0cf955e07eb77793343743deaee72c653",
+  "target_binary_sha256": "687dcd78dacd8b4ca96eddb31e5bf308ca1d60dcd2731838589a67013ec38b7c",
+  "candidate_archive_sha256": "bd0376a43d9dfc53f397458958f99e59955a1ae8efdef93095eb7289ac7d6318",
+  "candidate_binary_sha256": "f9fad8244e5823e48f529235d087dec1b9bfaf3bb6973d8d53090bd8720b875a",
+  "upstream_tests": "passed",
+  "source_restored": true,
+  "target_process_cleanup": "passed for 19 launched target reports",
+  "storage_check": "passed",
+  "provider_artifact_id": 13991897698,
+  "provider_artifact_bytes": 1236487,
+  "provider_artifact_sha256": "406e3d542d53b9873e1e05752035c8a7a0307d019475586d0c9bf6362fdda20b",
+  "scenario_counts": {
+    "reports": 19,
+    "target_launched": 19,
+    "passed": 18,
+    "failed_reports": 1,
+    "not_attempted": 1
+  },
+  "reports": [
+    {
+      "scenario": "E01",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "7d6c17ca9eedb3c7793315757d5e0eccb6d668c551b3e06463f8b69c9e7d019d",
+      "failure_category": null
+    },
+    {
+      "scenario": "E02",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "8c75471dbce15aa077066d96a98fd8734638f71e179b444527c29aec786e2ae7",
+      "failure_category": null
+    },
+    {
+      "scenario": "E03",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "31787a30e48dbf64661eeddb46aa301b0abb81e6e87ae083c96438575c1b67c7",
+      "failure_category": null
+    },
+    {
+      "scenario": "E04",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "18a6e644256fc8530613442af38fd8f363657c093d37d715407a34fb5db15f1c",
+      "failure_category": null
+    },
+    {
+      "scenario": "E05",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "daa28c7a78c06981f828aad24a9cfa5bb6dfa1e4d5e744df98482ef947a7a00d",
+      "failure_category": null
+    },
+    {
+      "scenario": "E06",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "38209f4d63000a95f2be2212bfe654f6d970a9461e8a3ae428eb86b4c5b18174",
+      "failure_category": null
+    },
+    {
+      "scenario": "E07",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "bdc879588f3762fca5227c0b608ece4236d96c09eca4f021d468692a13ac08f6",
+      "failure_category": null
+    },
+    {
+      "scenario": "E08",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "85aa5485e8abd61acd212c906979c7e1da43362357b096d8c37160346ea2ddf5",
+      "failure_category": null
+    },
+    {
+      "scenario": "E09",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "28866200560f2c11f873ba450a03b98f2e21a911618ae7b7ad9e7aa63718fbca",
+      "failure_category": null
+    },
+    {
+      "scenario": "E10",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "30385528c6ec93aac9fcf080fe0d2640b4d4e9ddf7fcab924e29763a253da8e5",
+      "failure_category": null
+    },
+    {
+      "scenario": "E11",
+      "status": "failed",
+      "target_launched": true,
+      "report_sha256": "430e0c12d9d58d71125e9401dd1307f63dce6e22f517026d1a5d3c2599162368",
+      "failure_category": "assertion_timeout"
+    },
+    {
+      "scenario": "N01",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "a767839ff5a4dcac614cdf6b8b6c37a68e2daa604d1804091f42fbee2f6c3f5c",
+      "failure_category": null
+    },
+    {
+      "scenario": "N02",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "232dae85a08301df8b04313cb2259e4ff801f898c5f1bec6b2c9305024c8151a",
+      "failure_category": null
+    },
+    {
+      "scenario": "N03",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "81820726364f4c6620c7ce1c5b3fcf6a0333bf63750c8fa8b80f531da946da63",
+      "failure_category": null
+    },
+    {
+      "scenario": "N04",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "254bc63c8a0f379ff60a218e63a0d17337cb5e50b3840c9f1ee268e8afd073bb",
+      "failure_category": null
+    },
+    {
+      "scenario": "N05",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "78e0146232f4e22d0c9dc35ff9c40e3317fc4cd6ee52a4fb2456f6bb88e33f56",
+      "failure_category": null
+    },
+    {
+      "scenario": "N06",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "1e39d0a1f65a5983ebe33780d17d08db32e54d2aef12fb2039edb0d44833cecf",
+      "failure_category": null
+    },
+    {
+      "scenario": "N07",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "a8a8763d87646c92daf0782adb7685ceaede0579959babcb6aa4ec29e9deac48",
+      "failure_category": null
+    },
+    {
+      "scenario": "N08",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "01f94ecc3a65e6820e1c564be583cf2834044a18129c177452b4924db3980a01",
+      "failure_category": null
+    }
+  ],
+  "failure_evidence": {
+    "scenario": "E11",
+    "category": "assertion_timeout",
+    "duration_ms": 12089,
+    "report_sha256": "430e0c12d9d58d71125e9401dd1307f63dce6e22f517026d1a5d3c2599162368",
+    "screen_sha256": "f8c56544d98fced1de05b1855b107b01f5e943ca7985bfd99ffaa73a00adc710",
+    "screen": "item\nitem00\nitem01\nitem02\nitem03\nitem04\nitem05\nitem06\n",
+    "target_exit_code": 1,
+    "target_cleanup_confirmed": true,
+    "workspace_cleaned": true
+  },
+  "failure": "E11 observed item00 readiness and sent End; the action passed but item29 never appeared. The captured screen remained on item00-item06. v10 replaces this navigation oracle with four observed PageDown transitions followed by ArrowDown to item29.",
+  "disposition": "Preserve this failed run as immutable evidence. It grants no project admission credit."
+}

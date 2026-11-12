@@ -14,6 +14,8 @@ import (
 	"sort"
 	"strings"
 	"time"
+
+	"github.com/Wyrcan-io/playtestr/internal/terminal/vt10x"
 )
 
 var errOutputLimit = errors.New("target exceeded max_output_bytes")
@@ -100,8 +102,21 @@ var (
 		}
 		return values
 	}()
+	applicationCursorKeys = map[string]string{
+		"ArrowUp": "\x1bOA", "ArrowDown": "\x1bOB",
+		"ArrowRight": "\x1bOC", "ArrowLeft": "\x1bOD",
+	}
 	environmentName = regexp.MustCompile(`^[A-Za-z_][A-Za-z0-9_]*$`)
 )
+
+func keySequence(key string, mode vt10x.ModeFlag) string {
+	if mode&vt10x.ModeAppCursor != 0 {
+		if sequence, ok := applicationCursorKeys[key]; ok {
+			return sequence
+		}
+	}
+	return keys[key]
+}
 
 func Load(path string) (Spec, error) {
 	var spec Spec
@@ -750,7 +765,7 @@ func executeStep(ctx context.Context, specPath string, step Step, options RunOpt
 		return nil
 	}
 	if step.Key != "" {
-		return session.send(ctx, keys[step.Key])
+		return session.sendKey(ctx, step.Key)
 	}
 	if step.Text != "" {
 		return session.send(ctx, step.Text)

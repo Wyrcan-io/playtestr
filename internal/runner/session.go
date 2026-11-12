@@ -305,6 +305,13 @@ func (s *terminalSession) send(ctx context.Context, value string) error {
 	}
 }
 
+func (s *terminalSession) sendKey(ctx context.Context, key string) error {
+	s.mu.Lock()
+	mode := s.terminal.Mode()
+	s.mu.Unlock()
+	return s.send(ctx, keySequence(key, mode))
+}
+
 func (s *terminalSession) resize(ctx context.Context, width, height int) error {
 	if err := ctx.Err(); err != nil {
 		return err

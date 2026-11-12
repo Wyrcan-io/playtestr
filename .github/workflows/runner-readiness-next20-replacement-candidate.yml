@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       hosts:
-        description: Native cells for the distinct rc.7 candidate
+        description: Native cells for the distinct rc.8 candidate
         type: choice
         default: all
         options: [all, linux-macos-windows, linux-windows, linux, macos, windows]
@@ -17,7 +17,7 @@ concurrency:
   group: playtestr-next20-replacement-candidate
   cancel-in-progress: false
 env:
-  SOURCE_REVISION: df7fd54375e411542ce899c0e05b19db643ba64b
+  SOURCE_REVISION: ${{ github.sha }}
   PYTHONDONTWRITEBYTECODE: '1'
   PYTHONIOENCODING: utf-8
   GOTOOLCHAIN: local
@@ -75,9 +75,9 @@ jobs:
             artifacts/runner-readiness-next-twenty-project-pass/core/
             artifacts/runner-readiness-next-twenty-project-pass/events/
             artifacts/runner-readiness-next-twenty-project-pass/identities/
-            artifacts/runner-readiness-next-twenty-project-pass/replacement-candidate/native-exit-v2/*/native-core.json
-            artifacts/runner-readiness-next-twenty-project-pass/replacement-candidate/native-exit-v2/*/candidate.json
-            artifacts/runner-readiness-next-twenty-project-pass/replacement-candidate/native-exit-v2/*/dist/
+            artifacts/runner-readiness-next-twenty-project-pass/replacement-candidate/native-exit-v3/*/native-core.json
+            artifacts/runner-readiness-next-twenty-project-pass/replacement-candidate/native-exit-v3/*/candidate.json
+            artifacts/runner-readiness-next-twenty-project-pass/replacement-candidate/native-exit-v3/*/dist/
             artifacts/runner-readiness-next-twenty-project-pass/toolchain/sdk.json
           include-hidden-files: true
           if-no-files-found: error

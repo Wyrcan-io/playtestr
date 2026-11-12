@@ -16,6 +16,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/Wyrcan-io/playtestr/internal/terminal/vt10x"
 	"golang.org/x/term"
 )
 
@@ -47,6 +48,39 @@ func TestNamedControlKeysUseTerminalControlBytes(t *testing.T) {
 		if got := keys[name]; got != sequence {
 			t.Errorf("key %s = %q, want %q", name, got, sequence)
 		}
+	}
+}
+
+func TestCursorNavigationKeysFollowApplicationCursorMode(t *testing.T) {
+	for _, test := range []struct {
+		key  string
+		mode vt10x.ModeFlag
+		want string
+	}{
+		{key: "ArrowDown", want: "\x1b[B"},
+		{key: "End", want: "\x1b[4~"},
+		{key: "Home", want: "\x1b[1~"},
+		{key: "ArrowUp", mode: vt10x.ModeAppCursor, want: "\x1bOA"},
+		{key: "ArrowDown", mode: vt10x.ModeAppCursor, want: "\x1bOB"},
+		{key: "ArrowRight", mode: vt10x.ModeAppCursor, want: "\x1bOC"},
+		{key: "ArrowLeft", mode: vt10x.ModeAppCursor, want: "\x1bOD"},
+		{key: "Home", mode: vt10x.ModeAppCursor, want: "\x1b[1~"},
+		{key: "End", mode: vt10x.ModeAppCursor, want: "\x1b[4~"},
+		{key: "PageDown", mode: vt10x.ModeAppCursor, want: "\x1b[6~"},
+	} {
+		if got := keySequence(test.key, test.mode); got != test.want {
+			t.Errorf("keySequence(%q, %v) = %q, want %q", test.key, test.mode, got, test.want)
+		}
+	}
+}
+
+func TestArrowUpUsesApplicationSequenceOnRealPTY(t *testing.T) {
+	if err := runHelperSpec(t, "application-cursor-arrow-up", []Step{
+		{Expect: "application cursor ready"},
+		{Key: "ArrowUp"},
+		{Exit: intPointer(0)},
+	}, 2000); err != nil {
+		t.Fatal(err)
 	}
 }
 
@@ -387,6 +421,23 @@ func TestHelperProcess(t *testing.T) {
 		mode = os.Args[len(os.Args)-1]
 	}
 	switch mode {
+	case "application-cursor-arrow-up":
+		old, err := term.MakeRaw(int(os.Stdin.Fd()))
+		if err != nil {
+			os.Exit(8)
+		}
+		fmt.Print("\x1b[?1happlication cursor ready")
+		sequence := make([]byte, 3)
+		if _, err := io.ReadFull(os.Stdin, sequence); err != nil {
+			_ = term.Restore(int(os.Stdin.Fd()), old)
+			os.Exit(8)
+		}
+		if string(sequence) != "\x1bOA" {
+			_ = term.Restore(int(os.Stdin.Fd()), old)
+			os.Exit(8)
+		}
+		_ = term.Restore(int(os.Stdin.Fd()), old)
+		os.Exit(0)
 	case "state-save":
 		payload := "reviewed\r\n\x00caf\u00e9\n"
 		if os.Getenv("PLAYTESTR_CORRUPT_STATE") == "1" {

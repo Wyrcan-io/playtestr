@@ -14,8 +14,8 @@ from adversarial_process import execute
 from next20_check import RAW,ROOT,NextCampaign,owned_environment
 from readiness_evidence import immutable_json,sha256
 
-VERSION='v0.4.0-rc.7'
-SERIES='native-exit-v2'
+VERSION='v0.4.0-rc.8'
+SERIES='native-exit-v3'
 FOCUSED='^(TestExitStatusBoundsBySpecVersion|TestNativeWindowsWideExitStatusAndSameRunState|TestHTMLPreservesNativeWindowsExitStatus|TestRecorderExportsAndReplaysNativeWindowsExit|TestNativeExitSchemaRangesPreserveOlderSpecBounds|TestNativeSignalExitStatusAndSameRunState)$'
 
 
