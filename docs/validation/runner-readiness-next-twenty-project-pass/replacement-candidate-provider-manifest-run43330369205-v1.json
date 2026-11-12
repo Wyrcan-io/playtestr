@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "run_id": "43330369205",
+  "run_status": "completed",
+  "run_conclusion": "success",
+  "workflow_revision": "78252c770635ec429e63e4b618e9c319af89c343",
+  "production_source_revision": "78252c770635ec429e63e4b618e9c319af89c343",
+  "series": "native-exit-v3",
+  "version": "v0.4.0-rc.8",
+  "jobs": [
+    {
+      "databaseId": 131573246503,
+      "name": "native-source-and-package (ubuntu-24.04)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "databaseId": 131573246740,
+      "name": "native-source-and-package (macos-15)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "databaseId": 131573246881,
+      "name": "native-source-and-package (windows-2025)",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 13995571416,
+      "provider_name": "next20-private-replacement-macOS",
+      "local_filename": "next20-private-replacement-macOS-run43330369205.zip",
+      "host": "darwin",
+      "size_in_bytes": 2131319,
+      "digest": "sha256:5d33f074fec609a9f383efa2c5dc691b44d65a638f8a87d3d7920e89e08b4336",
+      "expired": false
+    },
+    {
+      "id": 13993854988,
+      "provider_name": "next20-private-replacement-Windows",
+      "local_filename": "next20-private-replacement-Windows-run43330369205.zip",
+      "host": "windows",
+      "size_in_bytes": 2435601,
+      "digest": "sha256:114470b66cb816bc693d0bdd3829b923bfa6a72d122f0d0ea0e24cc1120d53a0",
+      "expired": false
+    },
+    {
+      "id": 13994827295,
+      "provider_name": "next20-private-replacement-Linux",
+      "local_filename": "next20-private-replacement-Linux-run43330369205.zip",
+      "host": "linux",
+      "size_in_bytes": 2275564,
+      "digest": "sha256:b7c6cdc1a39b37c180b80ddbf20475eb55c475090f18a5e117627f4d3c56e010",
+      "expired": false
+    }
+  ],
+  "admission_credit": 0
+}

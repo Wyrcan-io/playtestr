@@ -21,14 +21,14 @@ jobs:
         include:
           - host: linux
             os: ubuntu-24.04
-            candidate_run_id: 43056391377
+            candidate_run_id: 43330369205
             candidate_artifact: next20-private-replacement-Linux
-            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v2/linux-amd64/dist/playtestr_0.4.0-rc.7_linux_amd64.tar.gz
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v3/linux-amd64/dist/playtestr_0.4.0-rc.8_linux_amd64.tar.gz
           - host: darwin
             os: macos-15
-            candidate_run_id: 43056391377
+            candidate_run_id: 43330369205
             candidate_artifact: next20-private-replacement-macOS
-            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v2/darwin-arm64/dist/playtestr_0.4.0-rc.7_darwin_arm64.tar.gz
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v3/darwin-arm64/dist/playtestr_0.4.0-rc.8_darwin_arm64.tar.gz
     runs-on: ${{ matrix.os }}
     timeout-minutes: 60
     env:
@@ -61,7 +61,7 @@ jobs:
         if: steps.acquire.outcome == 'success'
         run: python -B scripts/acceptance/next20_pick_build.py --expected-host "${{ matrix.host }}"
 
-      - name: Download the exact frozen rc.7 native runner archive
+      - name: Download the exact frozen rc.8 native runner archive
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
           github-token: ${{ github.token }}
@@ -70,10 +70,10 @@ jobs:
           name: ${{ matrix.candidate_artifact }}
           path: artifacts/runner-readiness-next-twenty-project-pass/candidate-download
 
-      - name: Install and verify the exact frozen candidate archive
+      - name: Install and verify the exact frozen rc.8 candidate archive
         run: >-
           python -B scripts/acceptance/next20_candidate_install.py
-          --series native-exit-v2 --archive "${{ matrix.candidate_archive }}"
+          --series native-exit-v3 --archive "${{ matrix.candidate_archive }}"
 
       - name: Run the twenty frozen Pick development scenarios
         if: steps.acquire.outcome == 'success'
@@ -96,7 +96,7 @@ jobs:
             artifacts/runner-readiness-next-twenty-project-pass/events/**
             artifacts/runner-readiness-next-twenty-project-pass/identities/**
             artifacts/runner-readiness-next-twenty-project-pass/active/pick/**
-            artifacts/runner-readiness-next-twenty-project-pass/candidate-native-exit-v2/${{ matrix.host }}/installed.json
+            artifacts/runner-readiness-next-twenty-project-pass/candidate-native-exit-v3/${{ matrix.host }}/installed.json
           if-no-files-found: warn
           retention-days: 30
           include-hidden-files: true

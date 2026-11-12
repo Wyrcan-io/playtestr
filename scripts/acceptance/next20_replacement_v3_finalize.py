@@ -205,7 +205,7 @@ def main():
               "qualification": "Three native Linux amd64, macOS arm64 and Windows amd64 source/test/vet/race and single-build private archive packets independently passed provider digest, complete command identity, source-input, package member, checksum-sidecar, extracted executable, version and help audits. This freeze transfers no project/scenario/fault admission from earlier candidate bytes.",
               "requalification_required": declaration["requalification_required"]}
     freeze_path = DOC / "replacement-candidate-freeze-native-exit-v3.json"
-    immutable_json(freeze_path, freeze)
+    immutable_or_match(freeze_path, freeze)
     print(json.dumps({"status": "three-host rc.8 candidate independently audited and frozen",
                       "freeze": freeze_path.relative_to(ROOT).as_posix(),
                       "hosts": len(cells), "project_credit": 0}, sort_keys=True))
