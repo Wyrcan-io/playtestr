@@ -47,6 +47,8 @@ class PickScenarioContractTests(unittest.TestCase):
         self.assertEqual(rows["E05"]["fixture"], "雪山\n雨\n".encode("utf-8"))
         self.assertEqual(rows["E06"]["fixture"], "café 雪\nplain\n".encode("utf-8"))
         self.assertEqual(rows["E07"]["fixture"], b"alpha\r\nbeta\r\n")
+        self.assertEqual(rows["E07"]["title"], "Expose carriage-return effects in CRLF choice input")
+        self.assertIn({"expect": "eta"}, rows["E07"]["actions"])
         self.assertEqual(rows["E08"]["fixture"], b"")
 
     def test_each_case_uses_only_redirection_and_exec_shell_adapter(self):

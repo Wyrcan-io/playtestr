@@ -19,7 +19,7 @@ PROJECT = DOC / "pick"
 PIN = "caae95938359b2e814b3e7406f396f486c9d99fb"
 ARCHIVE_SHA256 = "e308cf7fca8eb50bc3d90e31347377f0cf955e07eb77793343743deaee72c653"
 SERIES = "native-exit-v2"
-CONTRACT_VERSION = 6
+CONTRACT_VERSION = 7
 HOSTS = {"linux": "Linux", "darwin": "Darwin"}
 
 
@@ -71,8 +71,8 @@ def cases():
               [{"expect": "雪山"}, {"key": "Enter"}, {"expect": "雪山"}], query="雪"),
         _case("E06", "edge", "Return a selected accented and CJK label", "café 雪\nplain\n".encode("utf-8"),
               [{"text": "caf"}, {"expect": "café 雪"}, {"key": "Enter"}, {"expect": "café 雪"}]),
-        _case("E07", "edge", "Read CRLF-separated choices", b"alpha\r\nbeta\r\n",
-              [{"text": "bet"}, {"expect": "beta"}, {"key": "Enter"}, {"expect": "beta"}]),
+        _case("E07", "edge", "Expose carriage-return effects in CRLF choice input", b"alpha\r\nbeta\r\n",
+              [{"text": "bet"}, {"expect": "eta"}, {"key": "Enter"}, {"expect": "eta"}]),
         _case("E08", "edge", "Exit cleanly when there are no choices", b"",
               [{"key": "CtrlC"}, {"exit": 1}], expected_exit=1),
         _case("E09", "edge", "Ignore an empty candidate while selecting a real option", b"\nalpha\n",
@@ -137,7 +137,8 @@ def materialize():
         "native_cells": ["linux-amd64", "macos-arm64"],
         "risk_dimensions": ["stdin data with controlling-PTY input", "Unicode fuzzy matching",
                              "cancel versus no-match status", "scored and unsorted selection",
-                             "description output", "long-list viewport navigation"],
+                             "description output", "long-list viewport navigation",
+                             "carriage-return behavior in CRLF choice input"],
         "stateful": False, "saved_state_coverage_credit": 0,
         "oracle": "Reviewed rendered-screen checkpoints, exact target exit status, and selected line printed to the same PTY after curses teardown; no filesystem state is claimed.",
         "shell_adapter_scope": "The POSIX shell only redirects the reviewed workspace choices.txt fixture to Pick stdin and execs Pick; all keyboard input remains on the controlling PTY, and no assertion logic or application behavior is in the shell.",
