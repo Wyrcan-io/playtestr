@@ -19,7 +19,7 @@ PROJECT = DOC / "pick"
 PIN = "caae95938359b2e814b3e7406f396f486c9d99fb"
 ARCHIVE_SHA256 = "e308cf7fca8eb50bc3d90e31347377f0cf955e07eb77793343743deaee72c653"
 SERIES = "native-exit-v2"
-CONTRACT_VERSION = 8
+CONTRACT_VERSION = 9
 HOSTS = {"linux": "Linux", "darwin": "Darwin"}
 
 
@@ -82,7 +82,7 @@ def cases():
               query="match", options=("-S",)),
         _case("E11", "edge", "Move to the final item in a list longer than the viewport",
               "".join(f"item{i:02d}\n" for i in range(30)).encode(),
-              [{"text": "item"}, {"key": "End"}, {"expect": "item29"},
+              [{"text": "item"}, {"expect": "item00"}, {"key": "End"}, {"expect": "item29"},
                {"key": "Enter"}, {"expect": "item29"}], height=8),
         _case("E12", "edge", "Delete the query and select the restored first result", b"amber\nblue\n",
               [{"text": "blue"}, {"expect": "blue"}, {"key": "Backspace"}, {"key": "Backspace"},

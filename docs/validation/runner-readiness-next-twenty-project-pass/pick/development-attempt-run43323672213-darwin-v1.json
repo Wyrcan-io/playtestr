@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "project": "pick",
+  "repository": "mptre/pick",
+  "pin": "caae95938359b2e814b3e7406f396f486c9d99fb",
+  "candidate": "v0.4.0-rc.7",
+  "candidate_series": "native-exit-v2",
+  "scenario_contract": "pick/scenario-declaration-v8.json",
+  "scenario_contract_sha256": "6f45f96f79fdbab6dd6e225bea8160ff79bd30ac39d4fff010be10e90f2fe6b7",
+  "workflow_run_id": 43323672213,
+  "source_revision": "0769c76d6197a3c56648cffa2602e92e17b6e369",
+  "workflow_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/43323672213",
+  "host": "Darwin-arm64",
+  "job_id": 131550581001,
+  "status": "scenario-failed-at-E11; build-upstream-candidate-cleanup-storage-passed",
+  "source_archive_sha256": "e308cf7fca8eb50bc3d90e31347377f0cf955e07eb77793343743deaee72c653",
+  "target_binary_sha256": "8dacc5183cf65e276294c6bcfcdb76808232aa557a6acce4e27939a1e78aeaf9",
+  "candidate_archive_sha256": "5ce12533008bbda11b0d41b070088f21350b3a4515f62c84ab84431b2f2a84d0",
+  "upstream_tests": "passed",
+  "source_restored": true,
+  "target_process_cleanup": "passed for 19 launched target reports",
+  "storage_check": "passed",
+  "provider_artifact_id": 13991841533,
+  "provider_artifact_bytes": 1236689,
+  "provider_artifact_sha256": "96bf38382e87e44e753359e3a1bd56b86ab9461aa871208a5d50759d55d33b37",
+  "scenario_counts": {
+    "reports": 19,
+    "target_launched": 19,
+    "passed": 18,
+    "failed_reports": 1,
+    "not_attempted": 1
+  },
+  "reports": [
+    {
+      "scenario": "E01",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "847374880e990e50bbded00793a150c0f58d3ea70b9956b7735bcec38ec14334",
+      "failure_category": null
+    },
+    {
+      "scenario": "E02",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "387ca05cbb954993e81440632e2e8db170e764d42c60cefc46901c16c84d85b2",
+      "failure_category": null
+    },
+    {
+      "scenario": "E03",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "6de8e1938c6a48dc7811b528d7e3980c724d2b23da1e680273281c2f8563e180",
+      "failure_category": null
+    },
+    {
+      "scenario": "E04",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "23f9453ac5e5204414da430c9b4cfbcd2ddafafa4a4ca84a0890826f3b842075",
+      "failure_category": null
+    },
+    {
+      "scenario": "E05",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "2954ee4223ba43bb81c71d3703f25bc756f8afda657b457a6f1b5d1cf35a2867",
+      "failure_category": null
+    },
+    {
+      "scenario": "E06",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "fbc6f17391767f85b9dddc5405700e50711da51ce41b5f4ded7f58503e4b45d1",
+      "failure_category": null
+    },
+    {
+      "scenario": "E07",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "8be9b2265fdcb4e3334990aa356892db066e99cce87e17ef2eec43bbead5c210",
+      "failure_category": null
+    },
+    {
+      "scenario": "E08",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "42bc041b2805e991d49bcab6ddd80a7fb8946a2c08dd9e7fd5643e5c02c2d1bf",
+      "failure_category": null
+    },
+    {
+      "scenario": "E09",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "6879410013e0b513ba4fe8694917939359eec3c6df8b5887b22f643478fdaac9",
+      "failure_category": null
+    },
+    {
+      "scenario": "E10",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "01e4d5c88b54849ad2cc64e7c35559d5acb4323f9e2ee682e01dc3327b971621",
+      "failure_category": null
+    },
+    {
+      "scenario": "E11",
+      "status": "failed",
+      "target_launched": true,
+      "report_sha256": "f3a3e1e660092c0ed2929c576d2ec1cd34b2c6fbe0065198563cd43eb98ba3c6",
+      "failure_category": "assertion_timeout"
+    },
+    {
+      "scenario": "N01",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "cc1d62826050332e7494eaad5147f4cb7008479587085085f1948c18aa0680bc",
+      "failure_category": null
+    },
+    {
+      "scenario": "N02",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "d7c9a4186ffad30ff7780239bc0b3a985838d3567b05fddd81124ae4276c9cdd",
+      "failure_category": null
+    },
+    {
+      "scenario": "N03",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "1de70f0974c492e92757b3c80382e0cffeecc34510246320d07d19c1f02a8d36",
+      "failure_category": null
+    },
+    {
+      "scenario": "N04",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "090cce54f379a34f18526222d2fa12ca9f584fda51eae829e214892631d8b03d",
+      "failure_category": null
+    },
+    {
+      "scenario": "N05",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "f348d609c7ddd7a2aa24741884d1884e67ef3748bb544d46ec2f20ddfcda5ea8",
+      "failure_category": null
+    },
+    {
+      "scenario": "N06",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "aeec40967aea8dbb82f437624f55274fc9a05e34e1df815beeb0cbd47b282027",
+      "failure_category": null
+    },
+    {
+      "scenario": "N07",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "1bcf0adc430162fe1c884b2cf334a7dc1e143ccbf49bd72a08fe2d578516aa34",
+      "failure_category": null
+    },
+    {
+      "scenario": "N08",
+      "status": "passed",
+      "target_launched": true,
+      "report_sha256": "9529ee3b36c7e61948acd7b32118b9447664d7fa01ed3df6a23a4484f438324b",
+      "failure_category": null
+    }
+  ],
+  "failure": "E11 typed item then sent End without first observing a positive interactive screen. The runner timed out waiting for item29; retained final screen showed the first visible items item00-item06. v9 adds an item00 readiness observation before End, then retains item29 as the post-navigation and selected-output oracle.",
+  "disposition": "Preserve the failed run. It grants no scenario or project admission credit. v8 passed E08 on both hosts by observing query input before CtrlC. v9 is immutable and not yet launched."
+}

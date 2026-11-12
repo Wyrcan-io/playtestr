@@ -52,6 +52,8 @@ class PickScenarioContractTests(unittest.TestCase):
         self.assertEqual(rows["E08"]["fixture"], b"")
         self.assertLess(rows["E08"]["actions"].index({"expect": "none"}),
                         rows["E08"]["actions"].index({"key": "CtrlC"}))
+        self.assertLess(rows["E11"]["actions"].index({"expect": "item00"}),
+                        rows["E11"]["actions"].index({"key": "End"}))
 
     def test_each_case_uses_only_redirection_and_exec_shell_adapter(self):
         for row in pick.cases():
