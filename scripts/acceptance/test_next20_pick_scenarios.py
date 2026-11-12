@@ -20,8 +20,9 @@ class PickScenarioContractTests(unittest.TestCase):
         self.assertIn({"key": "ArrowDown"}, rows["N02"]["actions"])
         self.assertIn("-q ALP", rows["N04"]["command_line"])
         self.assertIn("pick -d -o", rows["N08"]["command_line"])
-        self.assertEqual(rows["E04"]["actions"][1], {"key": "ArrowDown"})
-        self.assertNotIn({"text": "second"}, rows["E04"]["actions"])
+        self.assertEqual(rows["E04"]["actions"][1], {"text": "second"})
+        self.assertIn({"expect_not": "same"}, rows["E04"]["actions"])
+        self.assertEqual(rows["E04"]["expected_exit"], 1)
         self.assertEqual(rows["E02"]["expected_exit"], 1)
         self.assertIn({"key": "CtrlC"}, rows["E02"]["actions"])
 

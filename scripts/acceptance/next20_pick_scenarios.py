@@ -19,7 +19,7 @@ PROJECT = DOC / "pick"
 PIN = "caae95938359b2e814b3e7406f396f486c9d99fb"
 ARCHIVE_SHA256 = "e308cf7fca8eb50bc3d90e31347377f0cf955e07eb77793343743deaee72c653"
 SERIES = "native-exit-v2"
-CONTRACT_VERSION = 3
+CONTRACT_VERSION = 4
 HOSTS = {"linux": "Linux", "darwin": "Darwin"}
 
 
@@ -65,9 +65,9 @@ def cases():
         _case("E03", "edge", "Refuse confirmation when the query has no match", b"amber\nblue\n",
               [{"expect": "zzq"}, {"key": "Enter"}, {"key": "CtrlC"}, {"exit": 1}],
               expected_exit=1, query="zzq"),
-        _case("E04", "edge", "Distinguish duplicate labels using descriptions", b"same first\nsame second\n",
-              [{"expect": "same first"}, {"key": "ArrowDown"}, {"expect": "same second"}, {"key": "Enter"},
-               {"expect": "same"}, {"expect": "second"}], options=("-d", "-o")),
+        _case("E04", "edge", "Do not fuzzy-match a description as though it were the label", b"same first\nsame second\n",
+              [{"expect": "same first"}, {"text": "second"}, {"expect_not": "same"},
+               {"key": "CtrlC"}, {"exit": 1}], expected_exit=1, options=("-d",)),
         _case("E05", "edge", "Filter UTF-8 choices by a non-ASCII query", "雪山\n雨\n".encode("utf-8"),
               [{"expect": "雪山"}, {"key": "Enter"}, {"expect": "雪山"}], query="雪"),
         _case("E06", "edge", "Return a selected accented and CJK label", "café 雪\nplain\n".encode("utf-8"),
