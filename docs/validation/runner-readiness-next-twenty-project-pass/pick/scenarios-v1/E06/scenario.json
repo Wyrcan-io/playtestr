@@ -1,0 +1,42 @@
+{
+  "command": [
+    "/bin/sh",
+    "-c",
+    "exec pick < choices.txt"
+  ],
+  "env": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TERM": "xterm-256color"
+  },
+  "height": 24,
+  "inherit_env": [
+    "PATH"
+  ],
+  "max_output_bytes": 1048576,
+  "name": "Return a selected accented and CJK label",
+  "run_timeout_ms": 60000,
+  "steps": [
+    {
+      "text": "caf"
+    },
+    {
+      "expect": "caf\u00e9 \u96ea"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "caf\u00e9 \u96ea"
+    }
+  ],
+  "timeout_ms": 12000,
+  "version": 3,
+  "width": 80,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

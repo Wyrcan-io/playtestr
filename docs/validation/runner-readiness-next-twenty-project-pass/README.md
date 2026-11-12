@@ -1,7 +1,7 @@
 # Runner readiness: next twenty projects
 
 Invoked 22 October 2026 under the [execution prompt](../../plans/runner-readiness-next-twenty-project-execution-prompt.md).
-Status: **in progress; five of twenty new projects qualify on exact rc.6 (15/30 cumulative)**. Nine distinct new applications have an admission on some candidate; four are rc.5 history only. The original ten passed an exact-rc.5 carry-forward audit, but none is yet requalified on rc.6. Current rc.6 new-project totals are 100 scenarios, 10 native cells, 2,400 ordinary executions, 90 calibrations and 15 real target faults. The cumulative 30/100 engineering gate remains open.
+Status: **in progress; 17/30 cumulative admissions, with 1/20 new projects admitted on exact rc.7**. JOE is the first rc.7 admission: 20 scenarios, two Linux/macOS cells, 480 ordinary executions, three real source faults, 18 calibration phases, public authoring, oracle calibration and twelve rejected model corruptions. The previous exact-rc.6 checkpoint was 16/30 (six current-candidate new-project admissions). No rc.5/rc.6 project evidence transfers to rc.7; the original ten and the other nine next-twenty projects remain unqualified on rc.7. The cumulative 30/100 engineering gate remains open. See [checkpoint v143](checkpoint-continuation-v143.md).
 
 Skim V34 and its exact-rc.6 Linux and Windows repeat V35, including three-fault
 calibrations, are independently audited in [readback v15](skim-artifact-retrieval-readback-v15.json):

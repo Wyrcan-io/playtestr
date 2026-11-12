@@ -1,0 +1,57 @@
+{
+  "command": [
+    "/bin/sh",
+    "-c",
+    "exec pick < choices.txt"
+  ],
+  "env": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TERM": "xterm-256color"
+  },
+  "height": 24,
+  "inherit_env": [
+    "PATH"
+  ],
+  "max_output_bytes": 1048576,
+  "name": "Delete the query and select the restored first result",
+  "run_timeout_ms": 60000,
+  "steps": [
+    {
+      "text": "blue"
+    },
+    {
+      "expect": "blue"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "key": "Backspace"
+    },
+    {
+      "expect": "amber"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "expect": "amber"
+    }
+  ],
+  "timeout_ms": 12000,
+  "version": 3,
+  "width": 80,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

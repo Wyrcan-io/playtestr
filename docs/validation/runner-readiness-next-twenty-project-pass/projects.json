@@ -3,12 +3,12 @@
   "status": "new-project-admissions-in-progress",
   "historical_admissions": 10,
   "current_candidate_original_ten": 0,
-  "qualification_candidate": "v0.4.0-rc.6",
-  "admission_counters_candidate": "v0.4.0-rc.5",
-  "current_candidate_new_project_admissions": 6,
-  "current_candidate_ordinary_executions_qualified": 2880,
-  "current_candidate_calibration_executions_qualified": 114,
-  "candidate_scope": "Top-level admission aggregates remain historical exact v0.4.0-rc.5. Current v0.4.0-rc.6 counters and every per-project candidate admission are separate explicit projections. Historical admissions transfer no current-candidate credit; original-ten current requalification remains separate.",
+  "qualification_candidate": "v0.4.0-rc.7",
+  "admission_counters_candidate": "v0.4.0-rc.7",
+  "current_candidate_new_project_admissions": 1,
+  "current_candidate_ordinary_executions_qualified": 480,
+  "current_candidate_calibration_executions_qualified": 18,
+  "candidate_scope": "v0.4.0-rc.5 and rc.6 admissions remain historical and transfer no current-candidate credit. The exact v0.4.0-rc.7 projection currently admits only JOE; the original ten and the other new projects still require rc.7 carry-forward or requalification before the final campaign gate.",
   "new_project_admissions": 4,
   "new_project_target": 20,
   "ordinary_executions": 1920,
@@ -750,9 +750,9 @@
       "id": "joe",
       "repository": "joe-editor/joe",
       "pin": "3874898078005d1f5e519235401fab4fd428dd9b",
-      "status": "Pinned source/build and public route independently verified. Scenario development revision 3: 14/20 passed and six failed on each native host; complete attempt readback, target/workspace cleanup and source restoration passed. Revision 4 repairs the six scenario contracts. Scenario qualification, faults, oracle/model controls and admission remain pending.",
+      "status": "Admitted on exact v0.4.0-rc.7; 20 scenarios, two native cells, three faults, oracle and model controls audited.",
       "acquired": true,
-      "admitted": false,
+      "admitted": true,
       "planned_hosts": [
         "linux",
         "macos"
@@ -767,9 +767,28 @@
       "audited_ordinary_executions": 480,
       "audited_calibration_executions": 0,
       "real_source_faults": 0,
-      "candidate_admissions": [],
-      "current_candidate_qualified": false,
-      "admission": null,
+      "candidate_admissions": [
+        {
+          "project": "joe",
+          "candidate": "v0.4.0-rc.7",
+          "path": "joe/admission.json",
+          "sha256": "afadd7236c58fb769655e7665854f2d99dcd810e878a7ed3fb90cdea5915cf33"
+        },
+        {
+          "project": "joe",
+          "candidate": "v0.4.0-rc.7",
+          "path": "joe/admission.json",
+          "sha256": "afadd7236c58fb769655e7665854f2d99dcd810e878a7ed3fb90cdea5915cf33"
+        },
+        {
+          "project": "joe",
+          "candidate": "v0.4.0-rc.7",
+          "path": "joe/admission.json",
+          "sha256": "afadd7236c58fb769655e7665854f2d99dcd810e878a7ed3fb90cdea5915cf33"
+        }
+      ],
+      "current_candidate_qualified": true,
+      "admission": "joe/admission.json",
       "source_provenance": "joe/source-provenance.json",
       "source_acquisition": "joe/source-acquisition-v1.json",
       "source_hook_review": "joe/source-hook-review-v1.json",
@@ -900,7 +919,8 @@
       "fault_calibrations_qualified": 0,
       "fault_calibration_status": "Immutable v1 native attempt run 43042122414 launched all 18 phases across Linux/macOS. Four target executions were false greens from two ineffective source mutations; the forward-delete mutation was rejected at N05 step 5 on both hosts but an acceptance-helper TypeError prevented complete fault receipts. All six host jobs failed the calibration gate despite cleanup/storage success. V2 preserves v1 and freezes three reviewed mutations with static pinned-source readback; no v2 target execution or fault credit yet.",
       "fault_declaration_prior": "joe/fault-declaration-v1.json",
-      "fault_calibration_first_attempt_readback": "joe/fault-calibration-attempt-v1.json"
+      "fault_calibration_first_attempt_readback": "joe/fault-calibration-attempt-v1.json",
+      "current_candidate": "v0.4.0-rc.7"
     }
   ],
   "observed_audited_ordinary_executions": 2880,
@@ -922,6 +942,14 @@
       "canonical_scenarios": 120,
       "native_cells": 12,
       "real_source_faults": 19
+    },
+    "v0.4.0-rc.7": {
+      "projects": 1,
+      "ordinary": 480,
+      "calibrations": 18,
+      "canonical_scenarios": 20,
+      "native_cells": 2,
+      "real_source_faults": 3
     }
   },
   "admission_subjects": [
@@ -984,12 +1012,18 @@
       "candidate": "v0.4.0-rc.6",
       "path": "mg/admission.json",
       "sha256": "f645a54c9d8a63def86c998641d1ded87ec3b1fadf287bb3aa2be67c86989138"
+    },
+    {
+      "project": "joe",
+      "candidate": "v0.4.0-rc.7",
+      "path": "joe/admission.json",
+      "sha256": "afadd7236c58fb769655e7665854f2d99dcd810e878a7ed3fb90cdea5915cf33"
     }
   ],
-  "distinct_new_projects_with_any_candidate_admission": 10,
-  "current_candidate_canonical_scenarios": 120,
-  "current_candidate_native_cells": 12,
-  "current_candidate_real_source_faults": 19,
+  "distinct_new_projects_with_any_candidate_admission": 11,
+  "current_candidate_canonical_scenarios": 20,
+  "current_candidate_native_cells": 2,
+  "current_candidate_real_source_faults": 3,
   "recorded_candidate_counters": {
     "v0.4.0-rc.5": {
       "projects": 4,
@@ -1006,6 +1040,14 @@
       "canonical_scenarios": 120,
       "native_cells": 12,
       "real_source_faults": 19
+    },
+    "v0.4.0-rc.7": {
+      "projects": 1,
+      "ordinary": 480,
+      "calibrations": 18,
+      "canonical_scenarios": 20,
+      "native_cells": 2,
+      "real_source_faults": 3
     }
   },
   "qualification_gates": [

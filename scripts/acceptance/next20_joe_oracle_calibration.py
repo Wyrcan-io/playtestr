@@ -95,6 +95,11 @@ async def main():
     runner = executable("native-exit-v2", host)
     if sha256(runner) != route_receipt.get("runner_sha256"):
         raise ValueError("oracle calibration did not use the exact audited rc.7 runner")
+    freeze = json.loads((DOC / "replacement-candidate-freeze-native-exit-v2.json").read_text(encoding="utf-8"))
+    candidate_cell = next(row for row in freeze["cells"] if row["host"] == host)
+    installed = json.loads((runner.parent / "installed.json").read_text(encoding="utf-8"))
+    if installed.get("archive_sha256") != candidate_cell.get("archive_sha256"):
+        raise ValueError("oracle calibration installation differs from the exact frozen candidate archive")
     route = json.loads(route_spec.read_text(encoding="utf-8"))
     if route.get("version") != 3 or route.get("steps", [])[-1].get("state", {}).get("path") != "public-note.txt":
         raise ValueError("audited public route no longer supplies one public file-state assertion")
@@ -103,6 +108,7 @@ async def main():
     immutable_json(OUTPUT / (host + "-plan.json"), {
         "schema_version": 1, "project": "joe", "host": host,
         "candidate": "v0.4.0-rc.7", "candidate_series": "native-exit-v2",
+        "candidate_archive_sha256": candidate_cell["archive_sha256"],
         "source_pin": PIN, "runner_sha256": sha256(runner),
         "target_binary_sha256": sha256(binary), "route_spec_sha256": sha256(route_spec),
         "independent_expected_saved_bytes_base64": base64.b64encode(EXPECTED).decode("ascii"),
@@ -201,6 +207,7 @@ async def main():
     receipt = {
         "schema_version": 1, "status": "oracle-calibration-passed-not-admitted",
         "project": "joe", "host": host, "candidate": "v0.4.0-rc.7",
+        "candidate_archive_sha256": candidate_cell["archive_sha256"],
         "source_pin": PIN, "runner_sha256": sha256(runner),
         "target_binary_sha256": sha256(binary),
         "plan_sha256": sha256(OUTPUT / (host + "-plan.json")),
