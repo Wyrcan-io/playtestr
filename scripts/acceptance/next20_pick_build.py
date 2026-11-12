@@ -107,12 +107,19 @@ def main():
     command("upstream-tests", [make_path, "test"], source)
     command("install", [make_path, "install", "BINDIR=" + str(install / "bin"),
                          "MANDIR=" + str(install / "man")], source)
+    require((source / "config.h").is_file() and (source / "config.mk").is_file() and
+            (source / "config.log").is_file(), "Pick configure did not retain its local probe output")
+    # Preserve the immutable source identity after producing the installed
+    # binary. Pick's upstream cleandir target removes configure outputs and
+    # compiled test/application files from the source checkout.
+    command("source-clean", [make_path, "cleandir"], source)
 
     binary = install / "bin" / "pick"
     require(binary.is_file() and not binary.is_symlink(), "Pick install did not create its owned native executable")
     build_sha = sha256(binary)
-    require((source / "config.h").is_file() and (source / "config.mk").is_file() and
-            (source / "config.log").is_file(), "Pick configure did not retain its local probe output")
+    source_after_cleanup, _ = file_map(source)
+    require(source_after_cleanup == pristine,
+            "Pick source cleanup did not restore every pinned file byte exactly")
     require(make_path.is_symlink() and make_path.resolve(strict=True) == Path(make_executable).resolve(strict=True),
             "owned GNU make alias changed; refusing removal")
     make_path.unlink()

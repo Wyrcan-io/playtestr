@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "project": "pick",
+  "repository": "mptre/pick",
+  "pin": "caae95938359b2e814b3e7406f396f486c9d99fb",
+  "candidate": "v0.4.0-rc.7",
+  "candidate_series": "native-exit-v2",
+  "workflow_run_id": 43317708331,
+  "source_revision": "0ac1e3be16512cf019f8669ed06c59eba0d810b4",
+  "workflow_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/43317708331",
+  "status": "native-build-passed-scenario-harness-rejected-before-target-launch",
+  "hosts": [
+    {
+      "host": "linux",
+      "job_id": 131529946090,
+      "job_conclusion": "failure",
+      "acquisition": "passed",
+      "build": "passed",
+      "upstream_tests": "passed",
+      "candidate_archive_install": "passed",
+      "scenario_harness": "failed-before-target-launch",
+      "failure": "The harness requested scenario-development, a phase not permitted by the immutable evidence event ledger.",
+      "target_launched": false,
+      "cleanup_step": "failed",
+      "cleanup_failure": "Configure and compile outputs remained in the acquired source tree, so exact-source cleanup correctly refused removal.",
+      "storage": "passed",
+      "artifact_id": 13987934254,
+      "artifact_sha256": "a403135042d2bce6f06402d39bc8e33d746a94df03847577978d6c7c67ba57f9"
+    },
+    {
+      "host": "darwin",
+      "job_id": 131529945655,
+      "job_conclusion": "failure",
+      "acquisition": "passed",
+      "build": "passed",
+      "upstream_tests": "passed",
+      "candidate_archive_install": "passed",
+      "scenario_harness": "failed-before-target-launch",
+      "failure": "The harness requested scenario-development, a phase not permitted by the immutable evidence event ledger.",
+      "target_launched": false,
+      "cleanup_step": "failed",
+      "cleanup_failure": "Configure and compile outputs remained in the acquired source tree, so exact-source cleanup correctly refused removal.",
+      "storage": "passed",
+      "artifact_id": 13989351411,
+      "artifact_sha256": "92d6e0acc4a475cde72560ef36e229e53f3a376bcfeaa65166c7545601225d17"
+    }
+  ],
+  "disposition": {
+    "phase": "Use the existing development phase in the next immutable attempt.",
+    "source": "Run Pick's reviewed cleandir target after installation and verify all source bytes match the acquired manifest before PTY scenarios.",
+    "retry": "A fresh workflow attempt is required; these native build results do not qualify scenarios or a project admission."
+  },
+  "credit": {
+    "project_admission": 0,
+    "scenario_executions": 0,
+    "fault_calibrations": 0,
+    "native_cells": 0
+  }
+}

@@ -89,7 +89,7 @@ jobs:
 
       - name: Run the twenty frozen Pick development scenarios
         if: steps.acquire.outcome == 'success'
-        run: python -B scripts/acceptance/next20_pick_scenarios.py --host "${{ matrix.host }}" --phase scenario-development --repetitions 1
+        run: python -B scripts/acceptance/next20_pick_scenarios.py --host "${{ matrix.host }}" --phase development --repetitions 1
 
       - name: Restore exact source and verify target process cleanup
         if: always() && steps.acquire.outcome == 'success'

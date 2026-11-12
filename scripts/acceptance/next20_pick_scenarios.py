@@ -156,7 +156,7 @@ def report_result(path, expected_exit):
     return result
 
 
-async def run_scenarios(host, *, repetitions=1, phase="scenario-development"):
+async def run_scenarios(host, *, repetitions=1, phase="development"):
     if platform.system() != HOSTS[host]:
         raise RuntimeError("actual native host differs from declared Pick host")
     declaration = json.loads((PROJECT / "scenario-declaration-v1.json").read_text(encoding="utf-8"))
@@ -213,7 +213,7 @@ def main():
     parser.add_argument("--materialize", action="store_true")
     parser.add_argument("--host", choices=tuple(HOSTS))
     parser.add_argument("--repetitions", type=int, default=1)
-    parser.add_argument("--phase", default="scenario-development")
+    parser.add_argument("--phase", default="development")
     args = parser.parse_args()
     if args.materialize:
         print("Pick scenario contract frozen:", len(materialize()["scenarios"]), "cases; no target launch.")
