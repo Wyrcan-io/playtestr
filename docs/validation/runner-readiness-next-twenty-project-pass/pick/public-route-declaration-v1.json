@@ -9,17 +9,17 @@
   "candidate_freeze_sha256": "29668abbb0518073a6b53d2d23dc2d6904e76046eea26d917003013a16ddd4d8",
   "hosts": ["linux", "darwin"],
   "route": {
-    "first_use": "Record one query and selected-item flow from the public terminal controls, review it, replay it in a fresh managed workspace and export only after success.",
+    "first_use": "Record an off-screen selection and exact exit from the public terminal controls, review it, replay it in a fresh managed workspace and export only after success.",
     "diagnosis": "Change one screen expectation to an impossible value and require a useful bounded assertion failure with final rendered evidence.",
-    "maintenance": "Change the query and its paired screen expectations through the documented selective /replace controls; preserve unrelated actions and replay.",
+    "maintenance": "Update one terminal-screen expectation through the documented selective /replace control after renaming the chosen fixture entry; preserve unrelated actions and replay.",
     "relocation": "Copy the complete exported project beneath a path with spaces and Unicode, then run the exact exported spec.",
     "delivered_workflow": "Generate and inspect a pinned source-build GitHub Actions preview; do not dispatch it as user CI."
   },
   "record_controls": [
     "/expect item00",
     "/snapshot initial-menu.txt",
-    "/text \"item29\"",
-    "/expect item29",
+    "/key End",
+    "/expect tail-choice",
     "/key Enter",
     "/exit 0",
     "/review",
@@ -27,8 +27,7 @@
     "/save"
   ],
   "maintenance_controls": [
-    "/replace 3 {\"text\":\"item28\"}",
-    "/replace 4 {\"expect\":\"item28\"}",
+    "/replace 4 {\"expect\":\"revised-tail-choice\"}",
     "/review",
     "/replay",
     "/save"

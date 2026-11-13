@@ -19,14 +19,15 @@ PROJECT = "pick"
 PIN = "caae95938359b2e814b3e7406f396f486c9d99fb"
 ARCHIVE_SHA256 = "e308cf7fca8eb50bc3d90e31347377f0cf955e07eb77793343743deaee72c653"
 HOSTS = {"linux": "Linux", "darwin": "Darwin"}
-INITIAL_FIXTURE = b"".join(f"item{index:02d}\n".encode("ascii") for index in range(30))
+INITIAL_FIXTURE = (b"".join(f"item{index:02d}\n".encode("ascii") for index in range(29))
+                   + b"tail-choice\n")
 RECORDER_CONTROLS = [
-    "/expect item00", "/snapshot initial-menu.txt", '/text "item29"',
-    "/expect item29", "/key Enter", "/exit 0",
+    "/expect item00", "/snapshot initial-menu.txt", "/key End",
+    "/expect tail-choice", "/key Enter", "/exit 0",
     "/review", "/replay", "/save",
 ]
 MAINTENANCE_CONTROLS = [
-    '/replace 3 {"text":"item28"}', '/replace 4 {"expect":"item28"}',
+    '/replace 4 {"expect":"revised-tail-choice"}',
     "/review", "/replay", "/save",
 ]
 DECLARATION = DOC / "pick/public-route-declaration-v1.json"
@@ -138,8 +139,8 @@ async def main_async(host):
          ["/bin/sh", "-c", "exec pick < choices.txt"]
          and recorded.get("workspace", {}).get("fixture") == "fixtures"
          and any(step.get("snapshot") == "initial-menu.txt" for step in steps)
-         and any(step.get("text") == "item29" for step in steps)
-         and any(step.get("expect") == "item29" for step in steps)
+         and any(step.get("key") == "End" for step in steps)
+         and any(step.get("expect") == "tail-choice" for step in steps)
          and steps[-1] == {"exit": 0},
          "Pick public recorder export differs from reviewed first-use controls")
 
@@ -153,7 +154,7 @@ async def main_async(host):
     shutil.copytree(project, diagnosis)
     broken_spec = diagnosis / spec.name
     broken = json.loads(broken_spec.read_text(encoding="utf-8"))
-    item_expectations = [step for step in broken["steps"] if step.get("expect") == "item29"]
+    item_expectations = [step for step in broken["steps"] if step.get("expect") == "tail-choice"]
     need(len(item_expectations) == 1, "Pick diagnosis cannot find a unique selected-item assertion")
     item_expectations[0]["expect"] = "IMPOSSIBLE_PICK_SCREEN_MARKER"
     broken_spec.write_text(json.dumps(broken, sort_keys=True, indent=2) + "\n", encoding="utf-8", newline="\n")
@@ -168,6 +169,9 @@ async def main_async(host):
 
     maintenance = output / "maintenance"
     shutil.copytree(project, maintenance)
+    maintenance_choices = maintenance / "fixtures" / "choices.txt"
+    maintenance_choices.write_bytes(maintenance_choices.read_bytes().replace(
+        b"tail-choice\n", b"revised-tail-choice\n"))
     maintenance_spec = maintenance / spec.name
     before = json.loads(maintenance_spec.read_text(encoding="utf-8"))
     before_report = output / "maintenance-before-report.json"
@@ -175,21 +179,15 @@ async def main_async(host):
                (output / "maintenance-before-artifacts").relative_to(ROOT), maintenance_spec.relative_to(ROOT)],
               "pick-maintenance-original-contract")
     report_result(before_report, "passed")
-    edit_controls = [
-        f'/replace {next(i for i,step in enumerate(before["steps"],1) if step.get("text")=="item29")} {{"text":"item28"}}',
-        f'/replace {next(i for i,step in enumerate(before["steps"],1) if step.get("expect")=="item29")} {{"expect":"item28"}}',
-        "/review", "/replay", "/save",
-    ]
+    edit_controls = ['/replace 4 {"expect":"revised-tail-choice"}', "/review", "/replay", "/save"]
     await run([runner, "record", "--edit", maintenance_spec.relative_to(ROOT)],
               "pick-selective-query-and-oracle-maintenance",
               input_text="\n".join(edit_controls) + "\n", timeout=240)
     maintained = json.loads(maintenance_spec.read_text(encoding="utf-8"))
     expected = json.loads(json.dumps(before))
     for step in expected["steps"]:
-        if step.get("text") == "item29":
-            step["text"] = "item28"
-        if step.get("expect") == "item29":
-            step["expect"] = "item28"
+        if step.get("expect") == "tail-choice":
+            step["expect"] = "revised-tail-choice"
     need(maintained == expected, "Pick selective maintenance changed unrelated recorded steps")
     maintained_report = output / "maintenance-report.json"
     await run([runner, "test", "--report", maintained_report.relative_to(ROOT), "--artifacts-dir",
@@ -237,6 +235,7 @@ async def main_async(host):
         "diagnosis": {"status": "failed-as-seeded", "category": failure["category"],
                       "message": failure["message"], "report_sha256": sha256(diagnosis_report)},
         "maintenance": {"status": "passed", "selected_steps_only": maintained == expected,
+                         "fixture_oracle_updated": maintenance_choices.read_bytes().endswith(b"revised-tail-choice\n"),
                          "report_sha256": sha256(maintained_report),
                          "invocation_id": maintained_result["invocation_id"]},
         "relocation": {"status": "passed", "path": "relocated space cafÃ© é›ª",
