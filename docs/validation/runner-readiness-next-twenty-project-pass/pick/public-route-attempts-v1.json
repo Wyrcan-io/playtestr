@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "project": "pick",
-  "gate": "public-route-v1",
+  "gate": "public-and-technical-authoring-routes-v1",
   "admission_credit": 0,
   "attempts": [
     {
@@ -224,6 +224,31 @@
           "artifact_name": "next20-pick-public-route-darwin-43349788870",
           "bytes": 994887,
           "sha256": "8b6f9e213216e129a09cb55a8d0076ac27b25ce9f5c6aeacfa200d463f06cdf0"
+        }
+      ]
+    },
+    {
+      "run_id": "43350106198",
+      "head_sha": "2d1ae6b85b1aa8d641602f248671c4ccfa091210",
+      "status": "technical-route-success-audited-not-admitted",
+      "failure": null,
+      "audit_receipt": "technical-route-audit-run43350106198-v1.json",
+      "provider_manifest": "technical-route-provider-manifest-run43350106198-v1.json",
+      "admission_credit": 0,
+      "providers": [
+        {
+          "host": "linux",
+          "artifact_id": "14002993617",
+          "artifact_name": "next20-pick-public-route-linux-43350106198",
+          "bytes": 996587,
+          "sha256": "b6f8db2a869ae5730681ed1f22dc3228873cba074b010a1968f007760aaa202d"
+        },
+        {
+          "host": "darwin",
+          "artifact_id": "14003925585",
+          "artifact_name": "next20-pick-public-route-darwin-43350106198",
+          "bytes": 996678,
+          "sha256": "9c230e418c097fc7bada68bacd2f7f3867486461fe8e8c7266574bfeca47ad54"
         }
       ]
     }
