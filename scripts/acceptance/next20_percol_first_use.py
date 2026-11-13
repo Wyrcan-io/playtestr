@@ -91,6 +91,7 @@ async def main():
             "--temporary-home", "--temporary-temp", "--width", "80", "--height", "12",
             "--timeout-ms", "10000", "--run-timeout-ms", "120000",
             "--env", "TERM=xterm-256color", "--env", "LANG=C.UTF-8", "--env", "LC_ALL=C.UTF-8",
+            "--env", "PYTHONDONTWRITEBYTECODE=1",
             "--inherit-env", "PATH", "--inherit-env", "PERCOL_PYTHON",
             "--inherit-env", "PERCOL_SOURCE", "--inherit-env", "PYTHONPATH",
             "--inherit-env", "DYLD_LIBRARY_PATH", "--", *command]
@@ -113,7 +114,7 @@ async def main():
                           spec.relative_to(ROOT).as_posix()], "percol-first-reviewed-ordinary-test")
     report_json = json.loads(report.read_text(encoding="utf-8"))
     result = report_json["results"][0]
-    if (ordinary["exit_code"] != 0 or result.get("status") != "passed"
+    if (ordinary["returncode"] != 0 or result.get("status") != "passed"
             or result.get("target", {}).get("exit_code") != 0
             or result.get("cleanup", {}).get("confirmed_exited") is not True
             or result.get("workspace", {}).get("cleaned") is not True

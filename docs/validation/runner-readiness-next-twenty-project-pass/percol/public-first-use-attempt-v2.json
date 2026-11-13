@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "project": "percol",
+  "attempt_id": "public-first-use-v2",
+  "run_id": 43390505123,
+  "workflow": ".github/workflows/runner-readiness-next20-percol-development.yml",
+  "commit": "a169f7e414d5e9e9bca9223c11f79944f3aa9c13",
+  "run_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/43390505123",
+  "run_conclusion": "failure",
+  "phase": "public-authoring",
+  "candidate": "v0.4.0-rc.8",
+  "host_results": [
+    {
+      "host": "linux-amd64",
+      "job_id": 131768983205,
+      "artifact_id": 14021075149,
+      "artifact_bytes": 88587100,
+      "provider_sha256": "53de085748faaf653279ecc5c6be7bbaa25ad91b54d7e26ee9cce4ca72f04131",
+      "downloaded_zip": "local-only: artifacts/runner-readiness-next-twenty-project-pass/retained/percol-first-use-run43390505123-linux.zip",
+      "downloaded_sha256": "53de085748faaf653279ecc5c6be7bbaa25ad91b54d7e26ee9cce4ca72f04131",
+      "development_scenarios_passed": 20,
+      "public_route": "record-review-replay-export and ordinary test were reached; fixture file bytes, preserved input bytes, directory listing and successful report checks completed before harness receipt failure",
+      "candidate_shell_invocations": 3,
+      "recorder_controls": 10,
+      "failure": "The helper result uses returncode, but the harness indexed exit_code after the ordinary test. The route's target environment also omitted PYTHONDONTWRITEBYTECODE=1; CPython created source bytecode and exact source cleanup correctly rejected the changed source tree.",
+      "target_source_restoration": "failed: target cleanup retained source after exact-manifest mismatch",
+      "runtime_cleanup": "CPython build aliases removed; runner VM was ephemeral",
+      "storage_limit": "passed",
+      "admission_credit": 0
+    },
+    {
+      "host": "macos-arm64",
+      "job_id": 131768983557,
+      "artifact_id": 14020523020,
+      "artifact_bytes": 79087885,
+      "provider_sha256": "0ccf0e0097c9622662ba0e855598b8150fa2aa97b02932e34a2356075560ef7e",
+      "downloaded_zip": "local-only: artifacts/runner-readiness-next-twenty-project-pass/retained/percol-first-use-run43390505123-macos.zip",
+      "downloaded_sha256": "0ccf0e0097c9622662ba0e855598b8150fa2aa97b02932e34a2356075560ef7e",
+      "development_scenarios_passed": 20,
+      "public_route": "record-review-replay-export and ordinary test were reached; fixture file bytes, preserved input bytes, directory listing and successful report checks completed before harness receipt failure",
+      "candidate_shell_invocations": 3,
+      "recorder_controls": 10,
+      "failure": "The helper result uses returncode, but the harness indexed exit_code after the ordinary test. The route's target environment also omitted PYTHONDONTWRITEBYTECODE=1; CPython created source bytecode and exact source cleanup correctly rejected the changed source tree.",
+      "target_source_restoration": "failed: target cleanup retained source after exact-manifest mismatch",
+      "runtime_cleanup": "CPython build aliases removed; runner VM was ephemeral",
+      "storage_limit": "passed",
+      "case_sensitive_build_volume_detached": true,
+      "admission_credit": 0
+    }
+  ],
+  "correction": "The harness now reads returncode and explicitly records PYTHONDONTWRITEBYTECODE=1 in the public spec environment. Rerun the same route, verify the first-use ordinary test, and prove exact target source restoration.",
+  "admission_credit": 0
+}
