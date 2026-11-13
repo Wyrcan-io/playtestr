@@ -1,0 +1,187 @@
+{
+  "audited_phases": 18,
+  "calibration_admission_credit": 0,
+  "candidate": "v0.4.0-rc.8",
+  "candidate_series": "native-exit-v3",
+  "distinct_detected_source_faults": 3,
+  "fault_declaration_sha256": "ccb1a967b16bd99a0a2b2fdf3a52e8a82e6ded5637cc937824c039fbf39d7f05",
+  "project": "fzy",
+  "results": [
+    {
+      "audited_phases": [
+        {
+          "classification": "passed",
+          "fault_id": "F01",
+          "phase": "baseline",
+          "report_sha256": "ae580b98fcea44b4c2af7219092344b05602ad4f263624111786005fedb0d35d",
+          "runner_attempt_id": "fe49e934e18747009efb43b975086aee",
+          "scenario_id": "N01"
+        },
+        {
+          "classification": "expected-target-fault-rejection",
+          "fault_id": "F01",
+          "phase": "fault",
+          "report_sha256": "b1f60f72b7a2efe71474a58680ff9f4cce196c622813e9e22d477dffac35769f",
+          "runner_attempt_id": "95e5cbabbc4b4c85bf3e7a1632439c76",
+          "scenario_id": "N01"
+        },
+        {
+          "classification": "passed",
+          "fault_id": "F01",
+          "phase": "restored",
+          "report_sha256": "6f1acb2b61d051f5843d41fc48d709356e649bc634fb07f42e3e6dec458c8ede",
+          "runner_attempt_id": "ad0322cd842a4b77bab0216971c7fd9c",
+          "scenario_id": "N01"
+        },
+        {
+          "classification": "passed",
+          "fault_id": "F02",
+          "phase": "baseline",
+          "report_sha256": "015088e6aeccbb1e4033457c608458eea1ac3737a59da96758708b3f730e2a4c",
+          "runner_attempt_id": "16134fd74d3342cdbcce6804095ed73a",
+          "scenario_id": "N05"
+        },
+        {
+          "classification": "expected-target-fault-rejection",
+          "fault_id": "F02",
+          "phase": "fault",
+          "report_sha256": "86f111d899c338a54f78e2c34c6bba30dce1d299647f861bc173c62b9e460852",
+          "runner_attempt_id": "befeea1a54a442e9962a4c3f1f31d624",
+          "scenario_id": "N05"
+        },
+        {
+          "classification": "passed",
+          "fault_id": "F02",
+          "phase": "restored",
+          "report_sha256": "33037f494a94816f45e63f3b39136178c68cf37e295d4fef3e92c1a94ff01053",
+          "runner_attempt_id": "168feb1bda144fa49c2ab4563b8ac474",
+          "scenario_id": "N05"
+        },
+        {
+          "classification": "passed",
+          "fault_id": "F03",
+          "phase": "baseline",
+          "report_sha256": "96781eb51649b547a716d7257100d4bfd6f36edbfb74cf8219a88851973149ef",
+          "runner_attempt_id": "14ae52c698f14a3db1531fe814acc9e6",
+          "scenario_id": "N02"
+        },
+        {
+          "classification": "expected-target-fault-rejection",
+          "fault_id": "F03",
+          "phase": "fault",
+          "report_sha256": "7dd8e91bafb2059742d1c8f3e361de9c044425252d3b72de34685711924d023f",
+          "runner_attempt_id": "0017e42dbbb34d2ea9110a13337094f0",
+          "scenario_id": "N02"
+        },
+        {
+          "classification": "passed",
+          "fault_id": "F03",
+          "phase": "restored",
+          "report_sha256": "f95bb3ab67e19900f6bd8c5de6bc836d844bdc961e33ec8cd2e96a94b6c131ec",
+          "runner_attempt_id": "508903e689ca4f339a86ac44f6685b63",
+          "scenario_id": "N02"
+        }
+      ],
+      "candidate_archive_sha256": "fd3b2ba11b833562ae886f587eb246d1a4e5ab83a179618e2c881e74f3bb4316",
+      "candidate_binary_sha256": "4b48ade7670c4306e6fc50d96100389e731a16f09d1b6e8505499bc40332c476",
+      "distinct_detected_source_faults": 3,
+      "expanded_bytes": 2514930,
+      "host": "linux",
+      "phase_execution_count": 9,
+      "provider_artifact_id": 14009281626,
+      "zip_bytes": 1294732,
+      "zip_entries": 324,
+      "zip_sha256": "fb4b1ee1289479859f119dd540869216dccb224283ec03513851e98bae97eb00"
+    },
+    {
+      "audited_phases": [
+        {
+          "classification": "passed",
+          "fault_id": "F01",
+          "phase": "baseline",
+          "report_sha256": "5aa9aab23082d3273ed17574ed138875363ced086725e663614b699c777eb81c",
+          "runner_attempt_id": "f6deccd020cf4cd98275933d84433331",
+          "scenario_id": "N01"
+        },
+        {
+          "classification": "expected-target-fault-rejection",
+          "fault_id": "F01",
+          "phase": "fault",
+          "report_sha256": "653d6577691150d9785ef355ed3e9c7e7213b3f253d649494e4cb54a63eb51e9",
+          "runner_attempt_id": "ac809d11d7db4fb4a52c3f390a295a31",
+          "scenario_id": "N01"
+        },
+        {
+          "classification": "passed",
+          "fault_id": "F01",
+          "phase": "restored",
+          "report_sha256": "1d57d637d85e54602e0048f28fc29caa934bcefe8597073ef225d8eaa352bdbd",
+          "runner_attempt_id": "9a09a5a95d5d4478954b9e53354fb18e",
+          "scenario_id": "N01"
+        },
+        {
+          "classification": "passed",
+          "fault_id": "F02",
+          "phase": "baseline",
+          "report_sha256": "0d7020e7ec0d8a2a7c03e5e2a42d259837f4c8e53b809d6244d1a143c8a2122d",
+          "runner_attempt_id": "a792f98cd41e45b7bb08dd324ee12981",
+          "scenario_id": "N05"
+        },
+        {
+          "classification": "expected-target-fault-rejection",
+          "fault_id": "F02",
+          "phase": "fault",
+          "report_sha256": "cdcb9dcc822452ff285c84099518376bcf5e412a0cb1e96fc082885a1a8ffa4f",
+          "runner_attempt_id": "ffb11db539854e49a0862c502b0e3286",
+          "scenario_id": "N05"
+        },
+        {
+          "classification": "passed",
+          "fault_id": "F02",
+          "phase": "restored",
+          "report_sha256": "9a204284a6b50cd04ea1f75b5e712548ff734f2fed1d59f3dc62601095c4dbdf",
+          "runner_attempt_id": "88537303663e4c6fa8a431316f6a6d26",
+          "scenario_id": "N05"
+        },
+        {
+          "classification": "passed",
+          "fault_id": "F03",
+          "phase": "baseline",
+          "report_sha256": "6010a26d950689ccacc3b36ac59d9ffeb9e34f994c6a0e069fe76e86580867f0",
+          "runner_attempt_id": "6d5272aae4774406b4b207242a883213",
+          "scenario_id": "N02"
+        },
+        {
+          "classification": "expected-target-fault-rejection",
+          "fault_id": "F03",
+          "phase": "fault",
+          "report_sha256": "ec3064cf096d99d8371c697e710dd6e22391eae7500eab6ebf6819bfa9a4cbd2",
+          "runner_attempt_id": "9510bf6d5d9c4798bcd3bb91eeb6478c",
+          "scenario_id": "N02"
+        },
+        {
+          "classification": "passed",
+          "fault_id": "F03",
+          "phase": "restored",
+          "report_sha256": "62aa07e8f98a40aa9667f9a185049e25fa0483d5cc9da358b51da158d7159d4d",
+          "runner_attempt_id": "0a4a472a8ba94702aab3fbb8f50311c9",
+          "scenario_id": "N02"
+        }
+      ],
+      "candidate_archive_sha256": "da50a7933c75b82dcb42b2f6829045edf2edfd0cb70afaf1b7f298823ac3ec60",
+      "candidate_binary_sha256": "49c657adbbad36c89cd7bb8866e5fe5782642d3fda24cda2b6878e91d8a035b3",
+      "distinct_detected_source_faults": 3,
+      "expanded_bytes": 2499540,
+      "host": "darwin",
+      "phase_execution_count": 9,
+      "provider_artifact_id": 14008663111,
+      "zip_bytes": 1188854,
+      "zip_entries": 324,
+      "zip_sha256": "1c5b79bf014932657fa7c772448cd8f4ee1e0c788abd0a4ce128cf9ab1d89493"
+    }
+  ],
+  "run_attempt": 1,
+  "run_id": 43363053728,
+  "schema_version": 1,
+  "scope": "Independent bounded ZIP, exact provider digests, source/build/logs, candidate, event/identity, report oracle, and source/process cleanup readback."
+}

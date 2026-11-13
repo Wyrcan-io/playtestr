@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "project": "fzy",
+  "repository": "jhawthorn/fzy",
+  "pin": "34b88869d022e861da4846c4463aea3ddfb3ff30",
+  "source_archive_sha256": "d55d4d0dcbced2daa0dd16b42ee0fc31654bd038ff6a147b38580c233d62c967",
+  "candidate": "v0.4.0-rc.8",
+  "candidate_series": "native-exit-v3",
+  "run_id": 43363053728,
+  "run_attempt": 1,
+  "head_sha": "165e94c49d1deb88b4111168b779762fe52c52c9",
+  "workflow": ".github/workflows/runner-readiness-next20-fzy-fault-calibration.yml",
+  "status": "passed-and-independently-audited",
+  "provider_artifacts": {
+    "linux": {
+      "job_id": 131679608019,
+      "artifact_id": 14009281626,
+      "artifact_bytes": 1294732,
+      "artifact_sha256": "fb4b1ee1289479859f119dd540869216dccb224283ec03513851e98bae97eb00"
+    },
+    "darwin": {
+      "job_id": 131679608504,
+      "artifact_id": 14008663111,
+      "artifact_bytes": 1188854,
+      "artifact_sha256": "1c5b79bf014932657fa7c772448cd8f4ee1e0c788abd0a4ce128cf9ab1d89493"
+    }
+  },
+  "phase_executions": 18,
+  "phase_executions_per_host": 9,
+  "distinct_source_faults_detected_per_host": 3,
+  "upstream_tests_per_phase": 32,
+  "upstream_test_executions": 576,
+  "scenarios": [
+    {"fault_id": "F01", "scenario_id": "N01", "phase_order": ["baseline", "fault", "restored"], "failure_category": "state_assertion_failure", "failed_step": 4},
+    {"fault_id": "F02", "scenario_id": "N05", "phase_order": ["baseline", "fault", "restored"], "failure_category": "state_assertion_failure", "failed_step": 6},
+    {"fault_id": "F03", "scenario_id": "N02", "phase_order": ["baseline", "fault", "restored"], "failure_category": "state_assertion_failure", "failed_step": 4}
+  ],
+  "independent_audit": "fzy/fault-calibration-artifact-audit-v1.json",
+  "independent_audit_sha256": "fa4b8e891bb04bed64c6f5928c2a30cf0af747e0c0a2ba3d816506cfd5f0dbc9",
+  "target_process_cleanup_confirmed": true,
+  "source_removal_confirmed": true,
+  "storage_checks_passed": true,
+  "calibration_admission_credit": 0,
+  "project_admission_credit": 0,
+  "scope": "Three distinct real source mutations each failed at their exact public report category and step, passed in baseline and restored phases, with independent source/build/log/report/event/identity/candidate/cleanup packet audit. This package does not itself complete fzy project admission."
+}

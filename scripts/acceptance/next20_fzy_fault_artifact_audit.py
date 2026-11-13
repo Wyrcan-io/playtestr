@@ -194,13 +194,16 @@ def audit_host(host, zip_path, provider, run_id, run_attempt):
                 f"{host} {fault_id} {phase_name}: runner event sequence/launch/exit/cleanup differs")
         identity_link = identified.get("identity", {})
         identity_path = identity_link.get("manifest", "")
-        identity_data = get("identities/" + identity_path)
+        identity_member = identity_path if identity_path.startswith("identities/") else "identities/" + identity_path
+        identity_data = get(identity_member)
         require(digest(identity_data) == identity_link.get("sha256"),
                 f"{host} {fault_id} {phase_name}: identity manifest hash differs")
         identity = object_bytes(identity_data, identity_path)
         for entry in identity.values():
             if isinstance(entry, dict) and "manifest" in entry and "sha256" in entry:
-                nested_data = get("identities/" + entry["manifest"])
+                nested_path = entry["manifest"]
+                nested_member = nested_path if nested_path.startswith("identities/") else "identities/" + nested_path
+                nested_data = get(nested_member)
                 require(digest(nested_data) == entry["sha256"],
                         f"{host} {fault_id} {phase_name}: nested identity digest differs")
 
