@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "project": "percol",
+  "workflow": ".github/workflows/runner-readiness-next20-percol-feasibility.yml",
+  "run_id": 43370378066,
+  "head_sha": "9319b6c823ef0f1fb011764349cebe7836654ca1",
+  "outcome": "pinned source acquisition and Python release signature verification succeeded on both native hosts; both jobs then stopped fetching an unnecessary second signer key",
+  "failure_phase": "extraneous legacy signer key retrieval after successful signature verification",
+  "jobs": {
+    "macos-latest": {
+      "job_id": 131704483546,
+      "artifact_id": 14011738520,
+      "artifact_sha256": "628b803750100479d5aa534ff116a8ae1562ff9da5217b5cc08311709ce2c1ad"
+    },
+    "ubuntu-latest": {
+      "job_id": 131704483825,
+      "artifact_id": 14012535766,
+      "artifact_sha256": "842c8d892d90c98f744556f69389c9246d4fe1333c456689f5dbe16e0d065c41"
+    }
+  },
+  "credit": {
+    "source_identity": "acquired; pending independent artifact audit",
+    "native_runtime": 0,
+    "scenarios": 0,
+    "admission": 0
+  },
+  "correction": "The successful signature used the official current key with fingerprint C01E1CAD5EA2C4F0B8E3571504C367C218ADD4FF; retain that verified signer and proceed without retrieving the unused legacy key."
+}

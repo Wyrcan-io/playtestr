@@ -61,13 +61,8 @@ jobs:
             'https://keybase.io/bp/pgp_keys.asc?fingerprint=c01e1cad5ea2c4f0b8e3571504c367c218add4ff' \
             -o python-release-key-current.asc
           gpg --batch --import python-release-key-current.asc
-          curl --fail --location --retry 3 --max-time 90 \
-            'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x12EF3DC38047DA382D18A5B999CDEA9DA4135B38' \
-            -o python-release-key-legacy.asc
-          gpg --batch --import python-release-key-legacy.asc
           FINGERPRINTS=$(gpg --with-colons --list-keys | awk -F: '$1 == "fpr" {print toupper($10)}')
           printf '%s\n' "$FINGERPRINTS" | grep -qx C01E1CAD5EA2C4F0B8E3571504C367C218ADD4FF
-          printf '%s\n' "$FINGERPRINTS" | grep -qx 12EF3DC38047DA382D18A5B999CDEA9DA4135B38
           gpg --list-packets Python-2.7.18.tgz.asc | tee python-source-signature-packets.txt
           gpg --batch --verify Python-2.7.18.tgz.asc Python-2.7.18.tgz
           PY_SHA=$(shasum -a 256 Python-2.7.18.tgz | awk '{print $1}')
