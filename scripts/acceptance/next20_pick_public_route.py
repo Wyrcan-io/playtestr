@@ -137,7 +137,7 @@ async def main_async(host):
          ["/bin/sh", "-c", "exec pick < choices.txt"]
          and recorded.get("workspace", {}).get("fixture") == "fixtures"
          and any(step.get("snapshot") == "initial-menu.txt" for step in steps)
-         and any(step.get("key") == "End" for step in steps)
+         and sum(step.get("key") == "ArrowDown" for step in steps) == 29
          and any(step.get("expect") == "tail-choice" for step in steps)
          and steps[-1] == {"exit": 0},
          "Pick public recorder export differs from reviewed first-use controls")
