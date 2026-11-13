@@ -129,8 +129,10 @@ async def main_async(host):
                manual_artifacts.relative_to(ROOT), "--output", html.relative_to(ROOT)],
               "pick-technical-machine-to-html-report")
     html_bytes = html.read_bytes()
-    need(len(html_bytes) > 1024 and b"<!DOCTYPE html>" in html_bytes and b"Tail unique description" in html_bytes,
-         "offline HTML report is missing, too small, or omits the reviewed terminal evidence")
+    need(len(html_bytes) > 1024 and b"<!doctype html>" in html_bytes
+         and b'class="status status-passed">passed</span>' in html_bytes
+         and b"<strong>1</strong>Passed" in html_bytes,
+         "offline HTML report is missing or does not summarize its passing machine report")
 
     migration_root = output / "migration"
     migration_root.mkdir()

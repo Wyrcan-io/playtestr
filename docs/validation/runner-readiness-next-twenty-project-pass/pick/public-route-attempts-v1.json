@@ -182,6 +182,28 @@
           "sha256": "70f721cb8a720619e3ce51d979f11763966d1d01771ee9d0eb9126f822ef3174"
         }
       ]
+    },
+    {
+      "run_id": "43349447592",
+      "head_sha": "2b753b32d7efe9f3cb1f295b6ee1760932ce883e",
+      "status": "failure",
+      "failure": "Both hosts passed public route, suite selection and manual v3 execution; HTML generation also succeeded and reported 1 passed/0 failed. The harness incorrectly expected uppercase DOCTYPE and the screen text to be embedded in HTML; it did not inspect the actual HTML status summary. No technical-route credit.",
+      "providers": [
+        {
+          "host": "linux",
+          "artifact_id": "14003102178",
+          "artifact_name": "next20-pick-public-route-linux-43349447592",
+          "bytes": 800467,
+          "sha256": "419aeeae58eec287d1aa556acf038e4dc03174dc853dbcb0a998041ac5535be6"
+        },
+        {
+          "host": "darwin",
+          "artifact_id": "14003281950",
+          "artifact_name": "next20-pick-public-route-darwin-43349447592",
+          "bytes": 800595,
+          "sha256": "65f2dad469589c44db2e6b314bc3dafe94c5f9e6af6debed4c1a5abf8584227f"
+        }
+      ]
     }
   ],
   "scope": "Preserve every failed native public-route attempt and provider artifact identity; none earns project or gate credit."
