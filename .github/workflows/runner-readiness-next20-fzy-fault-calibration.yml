@@ -8,6 +8,8 @@ on:
       - .github/workflows/runner-readiness-next20-fzy-fault-calibration.yml
       - scripts/acceptance/next20_fzy_fault_calibration.py
       - scripts/acceptance/test_next20_fzy_fault_calibration.py
+      - scripts/acceptance/next20_fzy_fault_artifact_audit.py
+      - scripts/acceptance/test_next20_fzy_fault_artifact_audit.py
       - scripts/acceptance/next20_fzy_build.py
       - scripts/acceptance/next20_candidate_install.py
       - scripts/acceptance/next20_acquire.py
@@ -65,7 +67,7 @@ jobs:
         run: mkdir -p artifacts/runner-readiness-next-twenty-project-pass/tmp
 
       - name: Verify fzy fault, scenario and cleanup helpers
-        run: python -B -m unittest test_next20_fzy_fault_calibration test_next20_fzy_scenarios test_next20_target_cleanup -v
+        run: python -B -m unittest test_next20_fzy_fault_calibration test_next20_fzy_fault_artifact_audit test_next20_fzy_scenarios test_next20_target_cleanup -v
         working-directory: scripts/acceptance
 
       - name: Download the exact frozen rc.8 native runner archive

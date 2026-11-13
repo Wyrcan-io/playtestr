@@ -66,6 +66,17 @@
       "scenario_credit": 0,
       "calibration_credit": 0,
       "admission_credit": 0
+    },
+    {
+      "run_id": 43362139656,
+      "head_sha": "6b24ee486a0f66df640c16bd96deb4b0a7fbf4db",
+      "linux": {"job_id": 131677889379, "artifact_id": 14008248898, "artifact_bytes": 1055072, "artifact_sha256": "7a2ca96e9efc4facce47093da2053cd57fcf0d429d557303210cbb26b0a5f67d"},
+      "darwin": {"job_id": 131677889129, "artifact_id": 14008382678, "artifact_bytes": 986545, "artifact_sha256": "8dc6c2b9453f8e6061c52cad162328caec6b30d95933dc3dcca223b3c7dd5e42"},
+      "status": "failed-before-F03-native-run",
+      "failure": "The F03 mutated-source digest in the declaration included different bytes from the exact replacement operation. Local recomputation against the pinned source proves the declared SHA-256 should be 2de42f4ffd879c93208bd630341d2a111582bc66657808d34ca7df2f2a729123. The declaration is corrected; no calibration credit is claimed.",
+      "scenario_credit": 0,
+      "calibration_credit": 0,
+      "admission_credit": 0
     }
   ],
   "scope": "Preserves the initial no-launch workflow failure and three subsequent corrective attempts. Later attempts produced partial target reports but failed before a complete audited host matrix; no project admission credit is claimed."
