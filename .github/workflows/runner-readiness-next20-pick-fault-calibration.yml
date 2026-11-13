@@ -2,6 +2,16 @@ name: Runner readiness next20 Pick fault calibration
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - work/p0-p2-implementation
+    paths:
+      - .github/workflows/runner-readiness-next20-pick-fault-calibration.yml
+      - docs/validation/runner-readiness-next-twenty-project-pass/pick/fault-declaration-v1.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/pick/faults-v1/**
+      - scripts/acceptance/next20_pick_build.py
+      - scripts/acceptance/next20_pick_fault_calibration.py
+      - scripts/acceptance/test_next20_pick_fault_calibration.py
 
 permissions:
   actions: read
