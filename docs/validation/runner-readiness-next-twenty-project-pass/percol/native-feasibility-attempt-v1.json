@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "project": "percol",
+  "workflow": ".github/workflows/runner-readiness-next20-percol-feasibility.yml",
+  "run_id": 43368965224,
+  "head_sha": "43c71acc5f3e1b5f058ba8cc3a951428f1c917ce",
+  "outcome": "both jobs stopped before runtime build",
+  "failure_phase": "Python 2 release signer public-key retrieval",
+  "failure": "hkps://keys.openpgp.org returned no data for documented key A4135B38",
+  "jobs": {
+    "ubuntu-latest": {
+      "job_id": 131699997637,
+      "artifact_id": 14012015721,
+      "artifact_sha256": "96cf8488cec5c4fc97bc8971800d7421eac4c8521d05dc4054535f876eca542e"
+    },
+    "macos-latest": {
+      "job_id": 131699998001,
+      "artifact_id": 14011243863,
+      "artifact_sha256": "a0d8da0072031ad9023737770985f2303337e50db6a0eeaaf2976821e42472dc"
+    }
+  },
+  "credit": {
+    "source_identity": 0,
+    "native_runtime": 0,
+    "scenarios": 0,
+    "admission": 0
+  },
+  "correction": "Use the documented Python release signer fingerprint with keyserver.ubuntu.com, then verify the full fingerprint before signature validation."
+}

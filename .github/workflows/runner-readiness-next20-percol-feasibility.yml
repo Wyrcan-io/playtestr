@@ -42,9 +42,9 @@ jobs:
           set -euo pipefail
           mkdir -p "$RUNNER_TEMP/percol-feasibility"
           cd "$RUNNER_TEMP/percol-feasibility"
-          PERL_PIN=4b28037e328da3d0fe8165c11b800cbaddcb525e
+          PERCOL_PIN=4b28037e328da3d0fe8165c11b800cbaddcb525e
           curl --fail --location --retry 3 --max-time 90 \
-            "https://api.github.com/repos/mooz/percol/tarball/$PERL_PIN" -o percol.tar.gz
+            "https://api.github.com/repos/mooz/percol/tarball/$PERCOL_PIN" -o percol.tar.gz
           test "$(wc -c < percol.tar.gz)" -le 8388608
           PERL_SHA=$(shasum -a 256 percol.tar.gz | awk '{print $1}')
           mkdir percol-source
@@ -55,7 +55,7 @@ jobs:
           PYTHON_URL=https://www.python.org/ftp/python/2.7.18
           curl --fail --location --retry 3 --max-time 90 "$PYTHON_URL/Python-2.7.18.tgz" -o Python-2.7.18.tgz
           curl --fail --location --retry 3 --max-time 90 "$PYTHON_URL/Python-2.7.18.tgz.asc" -o Python-2.7.18.tgz.asc
-          gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys A4135B38
+          gpg --batch --keyserver hkps://keyserver.ubuntu.com:443 --recv-keys A4135B38
           FINGERPRINT=$(gpg --with-colons --fingerprint A4135B38 | awk -F: '$1 == "fpr" {print $10; exit}')
           test "$FINGERPRINT" = 12EF3DC38047DA382D18A5B999CDEA9DA4135B38
           gpg --batch --verify Python-2.7.18.tgz.asc Python-2.7.18.tgz
@@ -79,7 +79,7 @@ jobs:
           PYTHONPATH="$PWD/percol-source:$PWD/six-site" "$PYTHON" -c 'import sys, six, percol; assert sys.version_info[:3] == (2, 7, 18); print("CPython", sys.version.split()[0]); print("six", six.__version__); print("Percol import", percol.__file__)'
           {
             echo "host=$RUNNER_OS/$RUNNER_ARCH"
-            echo "percol_pin=$PERL_PIN"
+            echo "percol_pin=$PERCOL_PIN"
             echo "percol_archive_sha256=$PERL_SHA"
             echo "python_source_signature=verified"
             echo "python_source_sha256=$PY_SHA"
