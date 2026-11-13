@@ -1,6 +1,15 @@
 name: Runner readiness next20 fzy development qualification
 
 on:
+  push:
+    branches:
+      - work/p0-p2-implementation
+    paths:
+      - .github/workflows/runner-readiness-next20-fzy-development.yml
+      - scripts/acceptance/next20_fzy_build.py
+      - scripts/acceptance/next20_fzy_scenarios.py
+      - scripts/acceptance/test_next20_fzy_scenarios.py
+      - docs/validation/runner-readiness-next-twenty-project-pass/fzy/**
   workflow_dispatch:
 
 permissions:
