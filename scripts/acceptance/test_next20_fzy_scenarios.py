@@ -1,8 +1,11 @@
 """Contract-shape controls for fzy's native PTY scenario matrix."""
 import base64
+import tempfile
 import unittest
+from pathlib import Path
 
 import next20_fzy_scenarios as fzy
+from next20_fzy_build import file_map, remove_generated_outputs
 
 
 class FzyScenarioTests(unittest.TestCase):
@@ -51,6 +54,35 @@ class FzyScenarioTests(unittest.TestCase):
             self.assertIn(" < ", row["command"], row["id"])
             self.assertIn(" > result.txt", row["command"], row["id"])
             self.assertNotIn(";", row["command"], row["id"])
+
+    def test_native_clean_removes_only_known_compiler_dependency_and_dsym_outputs(self):
+        with tempfile.TemporaryDirectory(prefix="fzy-clean-controls-") as temporary:
+            root = Path(temporary)
+            (root / "src").mkdir()
+            (root / "test").mkdir()
+            (root / "src/keep.c").write_text("pinned source", encoding="utf-8")
+            pristine = file_map(root)[0]
+            (root / "test/fzytest.d").write_text("compiler dependency", encoding="utf-8")
+            (root / "deps/theft").mkdir(parents=True)
+            (root / "deps/theft/theft.d").write_text("dependency", encoding="utf-8")
+            (root / "test/fzytest.dSYM/Contents/Resources/DWARF").mkdir(parents=True)
+            (root / "test/fzytest.dSYM/Contents/Resources/DWARF/fzytest").write_bytes(b"debug symbols")
+            removed = remove_generated_outputs(root, pristine)
+            self.assertIn("test/fzytest.d", {row["path"] for row in removed})
+            self.assertIn("test/fzytest.dSYM", {row["path"] for row in removed})
+            self.assertEqual(file_map(root)[0], pristine)
+
+    def test_native_clean_refuses_unrecognized_build_output(self):
+        with tempfile.TemporaryDirectory(prefix="fzy-clean-refusal-") as temporary:
+            root = Path(temporary)
+            (root / "src").mkdir()
+            (root / "src/keep.c").write_text("pinned source", encoding="utf-8")
+            pristine = file_map(root)[0]
+            unexpected = root / "unexpected.bin"
+            unexpected.write_bytes(b"keep me")
+            with self.assertRaisesRegex(ValueError, "unexpected files"):
+                remove_generated_outputs(root, pristine)
+            self.assertTrue(unexpected.exists())
 
 
 if __name__ == "__main__":

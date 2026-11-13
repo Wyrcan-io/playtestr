@@ -15,10 +15,15 @@ from readiness_evidence import immutable_json, sha256
 
 
 PIN = "34b88869d022e861da4846c4463aea3ddfb3ff30"
+ARCHIVE_SHA256 = "d55d4d0dcbced2daa0dd16b42ee0fc31654bd038ff6a147b38580c233d62c967"
 HOSTS = {"linux": "Linux", "darwin": "Darwin"}
 MAX_TREE_FILES = 10000
 MAX_TREE_BYTES = 256 * 1024**2
 MAX_BUILD_SECONDS = 20 * 60
+GENERATED_DEPFILES = {
+    "deps/theft/theft.d", "deps/theft/theft_bloom.d", "deps/theft/theft_hash.d",
+    "deps/theft/theft_mt.d", "test/fzytest.d",
+}
 
 
 def require(value, message):
@@ -42,6 +47,39 @@ def file_map(root):
     return rows, total
 
 
+def remove_generated_outputs(build_source, pristine):
+    """Remove only observed compiler outputs left outside upstream veryclean."""
+    actual, _ = file_map(build_source)
+    extras = set(actual) - set(pristine)
+    allowed = set(GENERATED_DEPFILES)
+    dsym = build_source / "test/fzytest.dSYM"
+    if dsym.exists():
+        for path in dsym.rglob("*"):
+            if path.is_symlink() or getattr(path, "is_junction", lambda: False)():
+                raise ValueError("linked path in compiler-generated fzy dSYM output")
+        allowed.update(path.relative_to(build_source).as_posix()
+                       for path in dsym.rglob("*") if path.is_file())
+    require(extras <= allowed, "fzy build left unexpected files outside upstream clean target")
+    removed = []
+    for relative in sorted(extras):
+        path = build_source / relative
+        path.resolve(strict=True).relative_to(build_source.resolve(strict=True))
+        if path.is_symlink() or not path.is_file():
+            raise ValueError("compiler-generated fzy artifact is not a regular owned file")
+        removed.append({"path": relative, "sha256": sha256(path), "bytes": path.stat().st_size})
+        path.unlink()
+    if dsym.exists():
+        size = sum(path.stat().st_size for path in dsym.rglob("*") if path.is_file())
+        if size > 64 * 1024**2:
+            raise ValueError("compiler-generated fzy dSYM output exceeds its removal bound")
+        shutil.rmtree(dsym)
+        removed.append({"path": "test/fzytest.dSYM", "removed_directory": True,
+                        "bytes": size})
+    require(file_map(build_source)[0] == pristine,
+            "fzy build source did not return byte-exact after reviewed output cleanup")
+    return removed
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--expected-host", choices=tuple(HOSTS), required=True)
@@ -54,9 +92,19 @@ def main():
     acquisition = json.loads((target / "acquisition.json").read_text(encoding="utf-8"))
     require(owner.get("workspace") == str(ROOT) and owner.get("slug") == "fzy" and owner.get("pin") == PIN
             and acquisition.get("repository") == "jhawthorn/fzy" and acquisition.get("pin") == PIN
-            and sha256(target / "source.tar.gz") == acquisition.get("archive_sha256"),
+            and acquisition.get("archive_sha256") == ARCHIVE_SHA256
+            and sha256(target / "source.tar.gz") == ARCHIVE_SHA256,
             "fzy source archive/owner differs from its selected pin")
     pristine, _ = file_map(source)
+    provenance = json.loads((DOC / "fzy/source-provenance.json").read_text(encoding="utf-8"))
+    source_tree_sha = hashlib.sha256(json.dumps(pristine, sort_keys=True,
+                                                 separators=(",", ":")).encode()).hexdigest()
+    require(provenance.get("project") == "fzy" and provenance.get("pin") == PIN
+            and provenance.get("source_archive_sha256") == ARCHIVE_SHA256
+            and provenance.get("source_file_count") == len(pristine)
+            and provenance.get("source_tree_sha256") == source_tree_sha
+            and provenance.get("license_file_sha256") == pristine.get("LICENSE"),
+            "fzy source differs from its committed provenance binding")
     require("LICENSE" in pristine and (source / "LICENSE").read_bytes().startswith(b"The MIT License"),
             "pinned fzy license is missing or differs from reviewed MIT license")
     make = shutil.which("make")
@@ -98,9 +146,9 @@ def main():
     command("source-clean", [make, "veryclean"])
     binary = install / "bin" / "fzy"
     require(binary.is_file() and not binary.is_symlink(), "fzy install did not produce an owned executable")
-    source_after, _ = file_map(build_source)
-    require(source_after == pristine and file_map(source)[0] == pristine,
-            "upstream build/test/clean changed pinned fzy source bytes")
+    removed_outputs = remove_generated_outputs(build_source, pristine)
+    require(file_map(source)[0] == pristine,
+            "upstream fzy build/test/clean changed the pristine acquired source")
     build_source.resolve(strict=True).relative_to(target.resolve(strict=True))
     shutil.rmtree(build_source)
     inventory, tree_bytes = file_map(target)
@@ -113,9 +161,9 @@ def main():
         "binary_relative_path": "install/bin/fzy", "binary_sha256": sha256(binary),
         "binary_bytes": binary.stat().st_size,
         "source_file_count": len(pristine),
-        "source_tree_sha256": hashlib.sha256(json.dumps(pristine, sort_keys=True,
-                                                   separators=(",", ":")).encode()).hexdigest(),
+        "source_tree_sha256": source_tree_sha,
         "commands": commands, "started_at_utc": started,
+        "compiler_generated_outputs_removed": removed_outputs,
         "build_tree_file_count": len(inventory), "build_tree_bytes": tree_bytes,
         "upstream_tests": "passed", "source_restored_exact": True,
         "network_hooks": False, "build_hooks_reviewed": True,
