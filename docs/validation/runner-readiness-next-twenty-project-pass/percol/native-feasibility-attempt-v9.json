@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "project": "percol",
+  "workflow": ".github/workflows/runner-readiness-next20-percol-feasibility.yml",
+  "run_id": 43370547727,
+  "head_sha": "197779a6ddff0cb8083ac803cc9bb1c0d6d9a28f",
+  "outcome": "pinned source acquisition and Python release signature verification succeeded on both native hosts; both jobs then received HTTP 404 for the six wheel URL",
+  "failure_phase": "six dependency download",
+  "jobs": {
+    "macos-latest": {
+      "job_id": 131705024874,
+      "artifact_id": 14012217485,
+      "artifact_sha256": "a380ef852ad4ca19084e155428a4391eb0fe8813b21e9c73e2dd9c5aeb895829"
+    },
+    "ubuntu-latest": {
+      "job_id": 131705025230,
+      "artifact_id": 14012087621,
+      "artifact_sha256": "5bceda9bc88d9e8125fd0b44a1dcb9c75c9ecfd988195e94e0051c7e9d0d2558"
+    }
+  },
+  "credit": {
+    "source_identity": "acquired on both hosts; independent audit in progress",
+    "native_runtime": 0,
+    "scenarios": 0,
+    "admission": 0
+  },
+  "correction": "Download six 1.16.0 with pip and require the independently published wheel SHA-256 before unpacking it."
+}

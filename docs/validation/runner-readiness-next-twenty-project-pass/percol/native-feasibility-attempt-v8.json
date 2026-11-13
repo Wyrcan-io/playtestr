@@ -4,8 +4,8 @@
   "workflow": ".github/workflows/runner-readiness-next20-percol-feasibility.yml",
   "run_id": 43370378066,
   "head_sha": "9319b6c823ef0f1fb011764349cebe7836654ca1",
-  "outcome": "pinned source acquisition and Python release signature verification succeeded on both native hosts; both jobs then stopped fetching an unnecessary second signer key",
-  "failure_phase": "extraneous legacy signer key retrieval after successful signature verification",
+  "outcome": "pinned source acquisition and Python release signature verification succeeded on both native hosts; both jobs then failed downloading the pinned six wheel from an incorrect direct URL",
+  "failure_phase": "six dependency download after successful release signature verification",
   "jobs": {
     "macos-latest": {
       "job_id": 131704483546,
@@ -24,5 +24,5 @@
     "scenarios": 0,
     "admission": 0
   },
-  "correction": "The successful signature used the official current key with fingerprint C01E1CAD5EA2C4F0B8E3571504C367C218ADD4FF; retain that verified signer and proceed without retrieving the unused legacy key."
+  "correction": "The successful signature used the official current key with fingerprint C01E1CAD5EA2C4F0B8E3571504C367C218ADD4FF; obtain the checksum-pinned wheel through pip's standard resolver."
 }

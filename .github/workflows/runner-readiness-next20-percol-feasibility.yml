@@ -67,9 +67,10 @@ jobs:
           gpg --batch --verify Python-2.7.18.tgz.asc Python-2.7.18.tgz
           PY_SHA=$(shasum -a 256 Python-2.7.18.tgz | awk '{print $1}')
 
-          curl --fail --location --retry 3 --max-time 90 \
-            https://files.pythonhosted.org/packages/d9/5a/e7c31adbe875a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254/six-1.16.0-py2.py3-none-any.whl \
-            -o six.whl
+          mkdir wheelhouse
+          python -m pip download --disable-pip-version-check --no-deps --only-binary=:all: \
+            --dest wheelhouse six==1.16.0
+          cp wheelhouse/six-1.16.0-py2.py3-none-any.whl six.whl
           SIX_SHA=$(shasum -a 256 six.whl | awk '{print $1}')
           test "$SIX_SHA" = 8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254
           mkdir six-site
