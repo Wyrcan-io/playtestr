@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "project": "percol",
+  "workflow": ".github/workflows/runner-readiness-next20-percol-feasibility.yml",
+  "run_id": 43370058728,
+  "head_sha": "17513e66898f8af092e6864dfd3b25a12a4f456c",
+  "outcome": "both jobs stopped before source acquisition",
+  "failure_phase": "workflow source-acquisition helper invocation",
+  "failure": "The job changed directory to RUNNER_TEMP and called the repository helper using a relative path; both jobs correctly reported the helper was absent in that working directory",
+  "jobs": {
+    "macos-latest": {
+      "job_id": 131703478600,
+      "provider_logs": "https://api.github.com/repos/Wyrcan-io/playtestr/actions/jobs/131703478600/logs",
+      "artifact_uploaded": false
+    },
+    "ubuntu-latest": {
+      "job_id": 131703478881,
+      "provider_logs": "https://api.github.com/repos/Wyrcan-io/playtestr/actions/jobs/131703478881/logs",
+      "artifact_uploaded": false
+    }
+  },
+  "credit": {
+    "source_identity": 0,
+    "native_runtime": 0,
+    "scenarios": 0,
+    "admission": 0
+  },
+  "correction": "Call the helper by its absolute GITHUB_WORKSPACE path; keep source extraction under the existing size and path bounds."
+}
