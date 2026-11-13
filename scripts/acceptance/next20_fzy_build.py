@@ -9,7 +9,7 @@ import platform
 import shutil
 import time
 
-from next20_check import RAW, ROOT
+from next20_check import DOC, RAW, ROOT
 from next20_mg_build import run_bounded
 from readiness_evidence import immutable_json, sha256
 
@@ -20,6 +20,7 @@ HOSTS = {"linux": "Linux", "darwin": "Darwin"}
 MAX_TREE_FILES = 10000
 MAX_TREE_BYTES = 256 * 1024**2
 MAX_BUILD_SECONDS = 20 * 60
+SOURCE_PROVENANCE = DOC / "fzy/source-provenance.json"
 GENERATED_DEPFILES = {
     "deps/theft/theft.d", "deps/theft/theft_bloom.d", "deps/theft/theft_hash.d",
     "deps/theft/theft_mt.d", "test/fzytest.d",
@@ -96,7 +97,7 @@ def main():
             and sha256(target / "source.tar.gz") == ARCHIVE_SHA256,
             "fzy source archive/owner differs from its selected pin")
     pristine, _ = file_map(source)
-    provenance = json.loads((DOC / "fzy/source-provenance.json").read_text(encoding="utf-8"))
+    provenance = json.loads(SOURCE_PROVENANCE.read_text(encoding="utf-8"))
     source_tree_sha = hashlib.sha256(json.dumps(pristine, sort_keys=True,
                                                  separators=(",", ":")).encode()).hexdigest()
     require(provenance.get("project") == "fzy" and provenance.get("pin") == PIN

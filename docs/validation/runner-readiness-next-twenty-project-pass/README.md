@@ -7,6 +7,8 @@ Pick's exact-rc.8 public authoring route passed and was independently audited on
 
 Fzy is the next selected target. Its pinned source and MIT license are reviewed; its first native workflow run acquired and built source and passed 32 upstream tests on Linux and macOS, but the exact-source cleanup gate caught leftover compiler-generated `.d`/`.dSYM` outputs before any Playtestr scenarios ran. Cleanup and storage steps also failed for missing pre-scenario mode/provenance setup. The provider packet and all failure causes are preserved in [the fzy attempt receipt](fzy/development-attempt-run43354015363-v1.json); corrected bounded cleanup, provenance and workflow gates are recorded in [checkpoint v153](checkpoint-continuation-v153.md). Fzy has zero scenario or admission credit until a corrected native run is independently audited.
 
+The next fzy run `43354855944` stopped before native build because the build helper omitted its `DOC` import. Explicit no-case cleanup, exact source removal and storage validation passed on both hosts; no scenario ran. The import fix now has a focused module-import/provenance test. The attempt is retained in [its receipt](fzy/development-attempt-run43354855944-v1.json), with progress in [checkpoint v154](checkpoint-continuation-v154.md).
+
 Skim V34 and its exact-rc.6 Linux and Windows repeat V35, including three-fault
 calibrations, are independently audited in [readback v15](skim-artifact-retrieval-readback-v15.json):
 240/240 ordinary outcomes, 240 independently reconstructed contracts and all

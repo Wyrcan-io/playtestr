@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "status": "failure-preserved-no-build-or-scenario-execution",
+  "project": "fzy",
+  "repository": "jhawthorn/fzy",
+  "pin": "34b88869d022e861da4846c4463aea3ddfb3ff30",
+  "candidate": "v0.4.0-rc.8",
+  "candidate_series": "native-exit-v3",
+  "run_id": 43354855944,
+  "head_sha": "d6ec018a1c2fa3feae128bddcaa28fad0ef48d00",
+  "event": "push",
+  "hosts": {
+    "linux": {
+      "job_id": 131654344700,
+      "provider_artifact_id": 14004834313,
+      "provider_artifact_name": "next20-fzy-development-linux-43354855944",
+      "provider_bytes": 56255,
+      "provider_sha256": "f8ea6dbd49d24688e224bd31b0043fa894c73748a8662065b4a1e6e6e43e7384",
+      "source_archive_sha256": "d55d4d0dcbced2daa0dd16b42ee0fc31654bd038ff6a147b38580c233d62c967",
+      "source_archive_bytes": 49100,
+      "build": "not-started: NameError for unimported DOC while loading the committed source-provenance path",
+      "scenario_executions": 0,
+      "target_process_proof": "passed by explicit no-case cleanup",
+      "exact_source_removal": "passed",
+      "storage": "passed",
+      "admission_credit": 0
+    },
+    "darwin": {
+      "job_id": 131654345001,
+      "provider_artifact_id": 14005143712,
+      "provider_artifact_name": "next20-fzy-development-darwin-43354855944",
+      "provider_bytes": 56262,
+      "provider_sha256": "3b43557de4e03908395a77e051bae5fc26e1383ae3505e466d0112c7d1a0f74b",
+      "source_archive_sha256": "d55d4d0dcbced2daa0dd16b42ee0fc31654bd038ff6a147b38580c233d62c967",
+      "source_archive_bytes": 49100,
+      "build": "not-started: NameError for unimported DOC while loading the committed source-provenance path",
+      "scenario_executions": 0,
+      "target_process_proof": "passed by explicit no-case cleanup",
+      "exact_source_removal": "passed",
+      "storage": "passed",
+      "admission_credit": 0
+    }
+  },
+  "disposition": "Keep the failure. The source-only acquisition, checked removal, and campaign storage measurement passed; no build, candidate invocation, or Playtestr scenario ran. The DOC import is fixed and covered by an import-time focused test."
+}

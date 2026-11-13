@@ -5,7 +5,7 @@ import unittest
 from pathlib import Path
 
 import next20_fzy_scenarios as fzy
-from next20_fzy_build import file_map, remove_generated_outputs
+from next20_fzy_build import ARCHIVE_SHA256, SOURCE_PROVENANCE, file_map, remove_generated_outputs
 
 
 class FzyScenarioTests(unittest.TestCase):
@@ -83,6 +83,15 @@ class FzyScenarioTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "unexpected files"):
                 remove_generated_outputs(root, pristine)
             self.assertTrue(unexpected.exists())
+
+    def test_native_build_provenance_is_declared_and_pinned(self):
+        import json
+
+        provenance = json.loads(SOURCE_PROVENANCE.read_text(encoding="utf-8"))
+        self.assertEqual(provenance["project"], "fzy")
+        self.assertEqual(provenance["pin"], fzy.PIN)
+        self.assertEqual(provenance["source_archive_sha256"], ARCHIVE_SHA256)
+        self.assertEqual(provenance["source_file_count"], 45)
 
 
 if __name__ == "__main__":
