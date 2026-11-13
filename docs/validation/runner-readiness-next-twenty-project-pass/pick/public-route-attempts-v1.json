@@ -113,6 +113,53 @@
           "sha256": "2b47424b4dc11a862435c4903cc7cb457413dcbb405837cd70697c5e4b35b4db"
         }
       ]
+    },
+    {
+      "run_id": "43346863177",
+      "head_sha": "a22577c7e03f81d752c7f93e13d0f1e7af01b8ca",
+      "status": "superseded-success",
+      "failure": "All declared public-route stages passed on Linux/macOS. The source description separator was implicit, so this execution is retained but superseded by the explicit IFS=: run 43347165865; no admission credit.",
+      "providers": [
+        {
+          "host": "linux",
+          "artifact_id": "14002625429",
+          "artifact_name": "next20-pick-public-route-linux-43346863177",
+          "bytes": 694394,
+          "sha256": "57a44b354f10232625be3dedc11c6a36de32527de494ca9ea2dd4b7c83642d6d"
+        },
+        {
+          "host": "darwin",
+          "artifact_id": "14002191611",
+          "artifact_name": "next20-pick-public-route-darwin-43346863177",
+          "bytes": 694484,
+          "sha256": "9643728a7bb29b717c03c509fe4b14e12eb3eda503c54a73a951d6aa1bfc39a5"
+        }
+      ]
+    },
+    {
+      "run_id": "43347165865",
+      "head_sha": "0e03cce32b1281b574f00d7d429b1866d5293801",
+      "status": "success-audited-not-admitted",
+      "failure": null,
+      "audit_receipt": "public-route-audit-run43347165865-v1.json",
+      "provider_manifest": "public-route-provider-manifest-run43347165865-v1.json",
+      "admission_credit": 0,
+      "providers": [
+        {
+          "host": "linux",
+          "artifact_id": "14002421456",
+          "artifact_name": "next20-pick-public-route-linux-43347165865",
+          "bytes": 694425,
+          "sha256": "3f324f6c1826275d6b0fadeef588e2ea1a1722ebf56cf180fbedc6ef96cbb742"
+        },
+        {
+          "host": "darwin",
+          "artifact_id": "14002521603",
+          "artifact_name": "next20-pick-public-route-darwin-43347165865",
+          "bytes": 694551,
+          "sha256": "90cb2ba40067f64e048f8cab7918da61e0ee6f84fb5f3d63fc4f8bc0be1d05b7"
+        }
+      ]
     }
   ],
   "scope": "Preserve every failed native public-route attempt and provider artifact identity; none earns project or gate credit."
