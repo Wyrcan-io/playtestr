@@ -25,6 +25,10 @@ PHASES = {"baseline": "source-fault-baseline", "fault": "source-fault-corrupted"
           "restored": "source-fault-restored"}
 
 
+def cleanup_window(fault_id, phase_name, host):
+    return f"rebuild-fault-{fault_id.lower()}-{phase_name}-{host}"
+
+
 def require(value, message):
     if not value:
         raise ValueError(message)
@@ -260,8 +264,9 @@ async def phase_run(host, fault, case, spec_path, phase_name, candidate, freeze)
         "upstream_tests": "passed on pristine source",
     }
     immutable_json(evidence / "phase-result-v1.json", phase_receipt)
+    window = cleanup_window(fault["id"], phase_name, host)
     await command([sys.executable, "-B", "scripts/acceptance/next20_target_cleanup.py",
-                   "--project", "fzy", "--include-active-case-evidence"],
+                   "--project", "fzy", "--include-active-case-evidence", "--window", window],
                   "core", f"fzy-{fault['id']}-{phase_name}-{host}-cleanup", phase)
     require(not target.exists(), "fzy owned target tree remains after source-fault cleanup")
     return phase_receipt

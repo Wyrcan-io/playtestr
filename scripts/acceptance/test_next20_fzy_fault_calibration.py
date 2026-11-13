@@ -8,6 +8,15 @@ import next20_fzy_fault_calibration as calibration
 
 
 class FzyFaultCalibrationTests(unittest.TestCase):
+    def test_each_phase_uses_a_unique_bounded_cleanup_receipt_window(self):
+        windows = {calibration.cleanup_window(fault, phase, host)
+                   for fault in ("F01", "F02", "F03")
+                   for phase in ("baseline", "fault", "restored")
+                   for host in ("linux", "darwin")}
+        self.assertEqual(len(windows), 18)
+        self.assertTrue(all(len(window) <= 64 and window.startswith("rebuild-")
+                            for window in windows))
+
     def test_three_distinct_reviewed_mutations_bind_public_scenarios(self):
         declaration, scenario, freeze, rows = calibration.load_contract()
         self.assertEqual(declaration["distinct_detected_faults"], 3)
