@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "project": "percol",
+  "workflow": ".github/workflows/runner-readiness-next20-percol-feasibility.yml",
+  "run_id": 43373815857,
+  "head_sha": "72a5cf52769a8a34f02a0e83e650a0b358049594",
+  "outcome": "native Linux feasibility passed; case-sensitive HFSX volume mounted and verified on macOS; CPython build lacked curses and arm64-compatible libffi extensions",
+  "failure_phase": "macOS CPython extension build and import",
+  "failure": "CPython built without _curses because the runner did not expose a linkable curses library to setup.py. Its bundled libffi failed on arm64. Tk headers were also unavailable, but Tk is outside Percol's runtime path. Import stopped at No module named _curses.",
+  "jobs": {
+    "ubuntu-latest": {
+      "job_id": 131715525527,
+      "artifact_id": 14013323443,
+      "artifact_sha256": "38d2ce5bf2fbdc923c5ebcdeb53e157fc89e88590824899ea36f70e8414f16a3",
+      "result": "CPython 2.7.18 built; six 1.16.0 imported; pinned Percol package imported"
+    },
+    "macos-latest": {
+      "job_id": 131715525887,
+      "artifact_id": 14014145178,
+      "artifact_sha256": "799ba22860ea0abc77b2558184d84d8345f384fc891a09ae199515cabb430f63",
+      "result": "case-sensitive HFSX mounted and verified; CPython build completed without _curses; Percol runtime import failed"
+    }
+  },
+  "credit": {
+    "source_identity": "independently audited",
+    "linux_runtime_feasibility": "passed",
+    "macos_case_sensitive_workspace": "passed",
+    "macos_runtime_feasibility": 0,
+    "pty_scenarios": 0,
+    "project_admission": 0
+  },
+  "correction": "Install pinned-host package-manager ncurses/libffi build prerequisites, expose their headers/libraries to the CPython build, and enable CPython 2.7.18 system libffi. Keep target source and runtime files unmodified."
+}

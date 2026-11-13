@@ -32,7 +32,7 @@ jobs:
             sudo apt-get update
             sudo apt-get install -y gnupg build-essential libncurses-dev libreadline-dev zlib1g-dev libsqlite3-dev libffi-dev
           else
-            brew install gnupg
+            brew install gnupg ncurses libffi
             xcode-select -p
           fi
 
@@ -111,7 +111,16 @@ jobs:
             PYTHON_BUILD_PATCH=configure-arm64
           fi
           cd "$PY_SOURCE_DIR"
-          ./configure --prefix="$RUNNER_TEMP/percol-feasibility/python" --with-ensurepip=no
+          if [[ "$RUNNER_OS" == macOS ]]; then
+            NCURSES_PREFIX=$(brew --prefix ncurses)
+            LIBFFI_PREFIX=$(brew --prefix libffi)
+            export CPPFLAGS="-I$NCURSES_PREFIX/include -I$LIBFFI_PREFIX/include ${CPPFLAGS:-}"
+            export LDFLAGS="-L$NCURSES_PREFIX/lib -L$LIBFFI_PREFIX/lib ${LDFLAGS:-}"
+            export PKG_CONFIG_PATH="$LIBFFI_PREFIX/lib/pkgconfig:$NCURSES_PREFIX/lib/pkgconfig:${PKG_CONFIG_PATH:-}"
+            ./configure --prefix="$RUNNER_TEMP/percol-feasibility/python" --with-ensurepip=no --with-system-ffi
+          else
+            ./configure --prefix="$RUNNER_TEMP/percol-feasibility/python" --with-ensurepip=no
+          fi
           make -j2
           PYTHON="$PY_SOURCE_DIR/python"
           cd "$RUNNER_TEMP/percol-feasibility"
