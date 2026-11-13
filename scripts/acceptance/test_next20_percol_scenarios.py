@@ -33,12 +33,15 @@ class PercolScenarioContractTests(unittest.TestCase):
                 self.assertNotIn(";", row["command"])
                 self.assertEqual(["PATH", "PERCOL_PYTHON", "PERCOL_SOURCE", "PYTHONPATH",
                                   "DYLD_LIBRARY_PATH"], spec["inherit_env"])
+                self.assertEqual("1", spec["env"]["PYTHONDONTWRITEBYTECODE"])
                 self.assertNotIn("PERCOL_PYTHON", spec["env"])
 
     def test_risk_cases_cover_real_percol_controls(self):
         rows = {row["id"]: row for row in cases()}
         self.assertIn({"key": "CtrlSpace"}, rows["N06"]["actions"])
         self.assertIn("--caret-position=0", rows["E01"]["options"])
+        self.assertIn("--query=art", rows["N03"]["options"])
+        self.assertEqual("Match a substring query", rows["N03"]["title"])
         self.assertIn("--match-method=regex", rows["E08"]["options"])
         self.assertIn("--reverse", rows["E09"]["options"])
         self.assertNotIn(" < ", rows["E11"]["command"])

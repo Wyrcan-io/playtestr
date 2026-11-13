@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "project": "percol",
+  "phase": "development",
+  "run_id": 43378432162,
+  "workflow": ".github/workflows/runner-readiness-next20-percol-development.yml",
+  "commit": "080972d48821db9756d3134cf839492b95308afe",
+  "run_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/43378432162",
+  "run_conclusion": "failure",
+  "candidate": "v0.4.0-rc.8",
+  "candidate_series": "native-exit-v3",
+  "scenario_contract": "scenario-declaration-v1.json",
+  "scenario_contract_sha256": "29cf24ba61da46d2be066058ce2dabe9e148da3f93792d6a92f3ebc54c8637de",
+  "attempted_repetitions": 1,
+  "attempted_case_ids_per_host": ["N01", "N02", "N03"],
+  "host_results": [
+    {
+      "host": "linux-amd64",
+      "job_id": 131730305759,
+      "artifact_id": 14015736241,
+      "artifact_name": "next20-percol-development-linux-43378432162",
+      "artifact_bytes": 87627841,
+      "provider_sha256": "f86f2492909eb6fb2b21742bad948a2792530c31f763f71237d12e5ab3ff4fb8",
+      "downloaded_zip": "local-only: artifacts/runner-readiness-next-twenty-project-pass/retained/percol-development-run43378432162-linux.zip",
+      "downloaded_sha256": "f86f2492909eb6fb2b21742bad948a2792530c31f763f71237d12e5ab3ff4fb8",
+      "cases": {"N01": "passed", "N02": "passed", "N03": "failed"},
+      "first_failure": {
+        "case": "N03",
+        "report": "percol/development/linux/r01/N03/report.json",
+        "category": "assertion_timeout",
+        "actual_exit": 1,
+        "detail": "query 'ct' matched no rows; the UI rendered QUERY> ct (0/0) [1/1]",
+        "target_process_group_cleanup_confirmed": true,
+        "workspace_cleaned": true
+      },
+      "source_cleanup": "failed: CPython 2 wrote sixteen .pyc files into the acquired Percol source tree; originals remain intact and the workflow artifact preserves the changed tree",
+      "runtime_alias_cleanup": "failed before mutation: unreviewed Python 2 bin/python2-config alias; temporary runtime retained in the artifact",
+      "storage_limit": "passed",
+      "admission_credit": 0
+    },
+    {
+      "host": "macos-arm64",
+      "job_id": 131730305426,
+      "artifact_id": 14015413446,
+      "artifact_name": "next20-percol-development-darwin-43378432162",
+      "artifact_bytes": 78127535,
+      "provider_sha256": "74db66655a3dc8fa048c6fbfc7a679e713121fcc7071adee93096290ee9ca575",
+      "downloaded_zip": "local-only: artifacts/runner-readiness-next-twenty-project-pass/retained/percol-development-run43378432162-macos.zip",
+      "downloaded_sha256": "74db66655a3dc8fa048c6fbfc7a679e713121fcc7071adee93096290ee9ca575",
+      "cases": {"N01": "passed", "N02": "passed", "N03": "failed"},
+      "first_failure": {
+        "case": "N03",
+        "report": "percol/development/darwin/r01/N03/report.json",
+        "category": "assertion_timeout",
+        "actual_exit": 1,
+        "detail": "query 'ct' matched no rows; the UI rendered QUERY> ct (0/0) [1/1]",
+        "target_process_group_cleanup_confirmed": true,
+        "workspace_cleaned": true
+      },
+      "source_cleanup": "failed: CPython 2 wrote sixteen .pyc files into the acquired Percol source tree; originals remain intact and the workflow artifact preserves the changed tree",
+      "runtime_alias_cleanup": "failed before mutation: unreviewed Python 2 bin/python2-config alias; temporary runtime retained in the artifact",
+      "storage_limit": "passed",
+      "admission_credit": 0
+    }
+  ],
+  "diagnosis": {
+    "scenario_contract_defect": "Percol's default string finder performs substring matching, not subsequence matching. N03 incorrectly used 'ct' to select 'cart'.",
+    "harness_environment_defect": "PYTHONDONTWRITEBYTECODE was present in the workflow job but omitted from the scenario environment, so the target Python 2 process wrote source-adjacent bytecode.",
+    "cleanup_inventory_defect": "The verified in-tree CPython runtime exposes the additional bin/python2-config symlink; the alias allowlist omitted it.",
+    "correction": "Preserve the launched v1 contract and failed attempt. Freeze a new v2 contract with the substring query 'art', set PYTHONDONTWRITEBYTECODE=1 in the scenario environment, and inventory/remove the verified python2-config alias."
+  },
+  "admission_credit": 0
+}

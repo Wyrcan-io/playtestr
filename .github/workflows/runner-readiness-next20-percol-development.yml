@@ -251,7 +251,7 @@ jobs:
               if not path.is_symlink(): continue
               resolved=path.resolve(strict=True)
               resolved.relative_to(root)
-              if path.name not in {'python','python2','python-config'}:
+              if path.name not in {'python','python2','python-config','python2-config'}:
                   raise SystemExit('unreviewed CPython install symlink: '+str(path.relative_to(root)))
               links.append({'path':path.relative_to(root).as_posix(),'target':os.readlink(path)})
               path.unlink()

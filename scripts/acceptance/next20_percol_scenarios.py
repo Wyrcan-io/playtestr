@@ -19,7 +19,7 @@ PROJECT = DOC / "percol"
 PIN = "4b28037e328da3d0fe8165c11b800cbaddcb525e"
 HOSTS = {"linux": "Linux", "darwin": "Darwin"}
 SERIES = "native-exit-v3"
-SCENARIO_VERSION = 1
+SCENARIO_VERSION = 2
 
 
 def make_case(identity, kind, title, fixture, steps, stdout, *, options=(), filename=False,
@@ -51,9 +51,9 @@ def cases():
         make_case("N02", "normal", "Select an initial query match",
                   b"red\nblue\ngreen\n", [{"expect": "blue"}, {"key": "Enter"}, {"exit": 0}],
                   b"blue\n", options=("--query=blue",)),
-        make_case("N03", "normal", "Match a subsequence query",
+        make_case("N03", "normal", "Match a substring query",
                   b"cart\nplain\n", [{"expect": "cart"}, {"key": "Enter"}, {"exit": 0}],
-                  b"cart\n", options=("--query=ct",)),
+                  b"cart\n", options=("--query=art",)),
         make_case("N04", "normal", "Move the selected row down",
                   b"amber\nblue\ncedar\n", [{"expect": "amber"}, {"key": "ArrowDown"},
                   {"expect": "blue"}, {"key": "Enter"}, {"exit": 0}], b"blue\n"),
@@ -116,7 +116,8 @@ def expected_spec(case):
         "version": 3, "name": case["title"],
         "command": ["/bin/sh", "-c", case["command"]],
         "workspace": {"fixture": "fixtures", "cwd": ".", "home": "temporary", "temp": "temporary"},
-        "env": {"TERM": "xterm-256color", "LANG": "C.UTF-8", "LC_ALL": "C.UTF-8"},
+        "env": {"TERM": "xterm-256color", "LANG": "C.UTF-8", "LC_ALL": "C.UTF-8",
+                "PYTHONDONTWRITEBYTECODE": "1"},
         "inherit_env": ["PATH", "PERCOL_PYTHON", "PERCOL_SOURCE", "PYTHONPATH",
                         "DYLD_LIBRARY_PATH"],
         "width": 80, "height": 12,
