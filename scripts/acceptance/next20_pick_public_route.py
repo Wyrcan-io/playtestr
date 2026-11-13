@@ -113,6 +113,7 @@ async def main_async(host):
                    "--temporary-home", "--temporary-temp", "--width", "80", "--height", "8",
                    "--timeout-ms", "12000", "--run-timeout-ms", "60000",
                    "--env", "TERM=xterm-256color", "--env", "LANG=C.UTF-8", "--env", "LC_ALL=C.UTF-8",
+                   "--env", "IFS=:",
                    "--inherit-env", "PATH", "--", "/bin/sh", "-c", "exec pick -d < choices.txt"]
     try:
         await run(record_argv, "pick-first-use-record-review-replay-save",
@@ -138,6 +139,7 @@ async def main_async(host):
     need(recorded.get("version") == 3 and recorded.get("command") ==
          ["/bin/sh", "-c", "exec pick -d < choices.txt"]
          and recorded.get("workspace", {}).get("fixture") == "fixtures"
+         and recorded.get("env", {}).get("IFS") == ":"
          and any(step.get("snapshot") == "initial-menu.txt" for step in steps)
          and any(step.get("text") == "tail" for step in steps)
          and any(step.get("expect") == "Tail unique description" for step in steps)

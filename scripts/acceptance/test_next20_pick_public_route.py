@@ -12,6 +12,7 @@ class PickPublicRouteTests(unittest.TestCase):
     def test_first_use_records_fuzzy_selection_and_exact_exit_without_handwritten_spec(self):
         declaration = json.loads(route.DECLARATION.read_text(encoding="utf-8"))
         self.assertEqual(route.RECORDER_CONTROLS, declaration["record_controls"])
+        self.assertEqual(declaration["target_environment"], {"IFS": ":"})
         self.assertEqual(route.RECORDER_CONTROLS[:4], [
             "/expect item00", "/snapshot initial-menu.txt", '/text "tail"',
             "/expect Tail unique description",
