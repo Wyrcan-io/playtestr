@@ -8,6 +8,7 @@ on:
       - .github/workflows/runner-readiness-next20-percol-development.yml
       - scripts/acceptance/next20_percol_scenarios.py
       - scripts/acceptance/test_next20_percol_scenarios.py
+      - scripts/acceptance/next20_percol_first_use.py
       - docs/validation/runner-readiness-next-twenty-project-pass/percol/**
       - docs/validation/runner-readiness-next-twenty-project-pass/replacement-candidate-freeze-native-exit-v3.json
   workflow_dispatch:
@@ -233,6 +234,10 @@ jobs:
       - name: Run the twenty reviewed Percol workflows once
         id: scenarios
         run: python -B scripts/acceptance/next20_percol_scenarios.py --host "${{ matrix.host }}" --phase development --repetitions 1
+
+      - name: Measure the public Percol record-review-replay-export route
+        id: first-use
+        run: python -B scripts/acceptance/next20_percol_first_use.py --host "${{ matrix.host }}"
 
       - name: Preserve Python runtime bundle and remove only verified Python aliases
         if: always() && steps.runtime.outcome == 'success'
