@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "project": "percol",
+  "workflow": ".github/workflows/runner-readiness-next20-percol-feasibility.yml",
+  "run_id": 43373474078,
+  "head_sha": "40c6149a84cb9844f7ba5a9148327620e0485816",
+  "outcome": "native Linux feasibility passed; macOS sparse-bundle creation returned Invalid argument before any target build",
+  "failure_phase": "macOS temporary filesystem provisioning",
+  "failure": "hdiutil create -size 2g -type SPARSEBUNDLE -fs APFSX returned Invalid argument. The sparse-bundle path was not mounted. The explicit layout option had already been removed, so the remaining image type/filesystem combination remains the cause to isolate.",
+  "jobs": {
+    "ubuntu-latest": {
+      "job_id": 131714432415,
+      "artifact_id": 14013722017,
+      "artifact_sha256": "c05804c03f7c240d7c5255a5422f0da2373315477fd21e49aebc51d7a0024b75",
+      "result": "CPython 2.7.18 built; six 1.16.0 imported; pinned Percol package imported"
+    },
+    "macos-latest": {
+      "job_id": 131714432328,
+      "artifact_id": 14012619520,
+      "artifact_sha256": "14dd9d3442a83e0531820ef3d95e92a2c87081bcbae09c4cfb3108ab4060c522",
+      "result": "hdiutil create failed with Invalid argument; no mount, configure, build, or import"
+    }
+  },
+  "credit": {
+    "source_identity": "independently audited",
+    "linux_runtime_feasibility": "passed",
+    "macos_runtime_feasibility": 0,
+    "pty_scenarios": 0,
+    "project_admission": 0
+  },
+  "correction": "Try a sparse HFSX image, an older supported case-sensitive HFS+ filesystem, rather than the APFS sparse-bundle combination. Keep native host and verify the actual mounted filesystem."
+}
