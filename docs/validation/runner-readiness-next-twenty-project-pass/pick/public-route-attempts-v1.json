@@ -160,6 +160,28 @@
           "sha256": "90cb2ba40067f64e048f8cab7918da61e0ee6f84fb5f3d63fc4f8bc0be1d05b7"
         }
       ]
+    },
+    {
+      "run_id": "43349037699",
+      "head_sha": "93ea34d724feeb213c8045a4398724802c269ddd",
+      "status": "failure",
+      "failure": "Public route and suite selection passed on both hosts. The technical-route manual v3 spec copy omitted snapshots/initial-menu.txt, so the runner returned artifact_failure at snapshot step 2 before target launch. No technical or admission credit.",
+      "providers": [
+        {
+          "host": "linux",
+          "artifact_id": "14003421064",
+          "artifact_name": "next20-pick-public-route-linux-43349037699",
+          "bytes": 751903,
+          "sha256": "47e9f5cac6599acff88c49d01f7401c889d06f53215a79160340b588ce77bd0d"
+        },
+        {
+          "host": "darwin",
+          "artifact_id": "14003021344",
+          "artifact_name": "next20-pick-public-route-darwin-43349037699",
+          "bytes": 752011,
+          "sha256": "70f721cb8a720619e3ce51d979f11763966d1d01771ee9d0eb9126f822ef3174"
+        }
+      ]
     }
   ],
   "scope": "Preserve every failed native public-route attempt and provider artifact identity; none earns project or gate credit."

@@ -90,6 +90,7 @@ async def main_async(host):
     manual_root = output / "manual selection"
     manual_root.mkdir(parents=True)
     shutil.copytree(route_root / "project/fixtures", manual_root / "fixtures")
+    shutil.copytree(route_root / "project/snapshots", manual_root / "snapshots")
     manual_spec = manual_root / "pick-manual-v3.json"
     manual = json.loads(json.dumps(public_spec))
     manual["name"] = "Pick technical manual spec edit and input preservation"
@@ -105,6 +106,7 @@ async def main_async(host):
     selection = output / "suite-selection"
     selection.mkdir()
     shutil.copytree(manual_root / "fixtures", selection / "fixtures")
+    shutil.copytree(manual_root / "snapshots", selection / "snapshots")
     shutil.copy2(manual_spec, selection / "chosen.json")
     unselected = json.loads(json.dumps(manual))
     unselected["name"] = "Unselected Pick suite member"
@@ -133,6 +135,7 @@ async def main_async(host):
     migration_root = output / "migration"
     migration_root.mkdir()
     shutil.copytree(manual_root / "fixtures", migration_root / "fixtures")
+    shutil.copytree(manual_root / "snapshots", migration_root / "snapshots")
     migration_spec = migration_root / "pick-migration.json"
     legacy = json.loads(json.dumps(manual))
     legacy["version"] = 2
@@ -161,6 +164,7 @@ async def main_async(host):
     rerecord_root = output / "suffix-rerecord"
     rerecord_root.mkdir()
     shutil.copytree(route_root / "project/fixtures", rerecord_root / "fixtures")
+    shutil.copytree(route_root / "project/snapshots", rerecord_root / "snapshots")
     rerecord_spec = rerecord_root / "pick-blue.json"
     shutil.copy2(public_spec_path, rerecord_spec)
     prefix = public_spec["steps"][:2]
