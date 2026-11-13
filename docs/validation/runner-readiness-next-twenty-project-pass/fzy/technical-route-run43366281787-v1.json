@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "project": "fzy",
+  "repository": "jhawthorn/fzy",
+  "source_pin": "34b88869d022e861da4846c4463aea3ddfb3ff30",
+  "source_archive_sha256": "d55d4d0dcbced2daa0dd16b42ee0fc31654bd038ff6a147b38580c233d62c967",
+  "candidate": "v0.4.0-rc.8",
+  "candidate_series": "native-exit-v3",
+  "run_id": 43366281787,
+  "run_attempt": 1,
+  "head_sha": "63d297d8f30e25b8ac22da760816a6807467a2f1",
+  "workflow": ".github/workflows/runner-readiness-next20-fzy-technical-route.yml",
+  "status": "passed-and-independently-audited-not-admitted",
+  "provider_artifacts": {
+    "linux": {
+      "job_id": 131691334677,
+      "artifact_id": 14010561097,
+      "artifact_bytes": 408778,
+      "artifact_sha256": "2c7ba760e2154cc4664b5fc75b4dffab92aea281b370fea940a0bb30a806298c"
+    },
+    "darwin": {
+      "job_id": 131691335001,
+      "artifact_id": 14010950502,
+      "artifact_bytes": 408999,
+      "artifact_sha256": "c6f8b7515f9da9ff5b24b03e2a7c987adbb4edcff321a68e247f363d322dd79f"
+    }
+  },
+  "host_results": {
+    "linux": {
+      "attempts": 8,
+      "suite_selection": "passed-two-specs",
+      "manual_v3_and_exact_input_state": "passed",
+      "machine_json_and_offline_html": "passed",
+      "v2_execution_without_rewrite": "passed",
+      "v2_to_v3_migration": "passed",
+      "prefix_preserving_suffix_rerecord_and_test": "passed",
+      "upstream_tests": "passed",
+      "source_restored_exact": true,
+      "target_removed": true,
+      "no_matching_processes": true,
+      "storage_check": "passed"
+    },
+    "darwin": {
+      "attempts": 8,
+      "suite_selection": "passed-two-specs",
+      "manual_v3_and_exact_input_state": "passed",
+      "machine_json_and_offline_html": "passed",
+      "v2_execution_without_rewrite": "passed",
+      "v2_to_v3_migration": "passed",
+      "prefix_preserving_suffix_rerecord_and_test": "passed",
+      "upstream_tests": "passed",
+      "source_restored_exact": true,
+      "target_removed": true,
+      "no_matching_processes": true,
+      "storage_check": "passed"
+    }
+  },
+  "independent_audit": "fzy/technical-route-audit-run43366281787-v1.json",
+  "independent_audit_sha256": "9c9ee645f5f9fd2f04b955a6ecc68d4035b6a1d88b69b7690baa6e05d1d423ae",
+  "provider_manifest": "fzy/technical-route-provider-manifest-run43366281787-v1.json",
+  "human_participants": 0,
+  "usability": "unmeasured",
+  "technical_route_credit": 1,
+  "project_admission_credit": 0,
+  "scope": "The complete technical authoring route passed on exact rc.8 Linux amd64 and macOS arm64 and both exact provider packets passed independent reconstruction. This closes only the fzy technical-route gate; model controls and independent project-package/ledger admission review remain open."
+}
