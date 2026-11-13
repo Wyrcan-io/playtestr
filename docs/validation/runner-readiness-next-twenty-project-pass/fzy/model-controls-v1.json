@@ -1,0 +1,91 @@
+{
+  "admission_credit": 0,
+  "audit_receipt_sha256": {
+    "development": "2ff117c829f3db5c8e97b1a6e5e2e52770357ecb8cc07104000edb9fd40645a7",
+    "fault": "fa4b8e891bb04bed64c6f5928c2a30cf0af747e0c0a2ba3d816506cfd5f0dbc9",
+    "final": "832d8bb154e76b399d581ec5cd4b2d6170eef0c3bee514f58ac5b5c3f1dec5e3",
+    "public": "503ca2151d5626749ec5dc1df20c11c754e2bbb8f60f58433b2c1f044482d218",
+    "technical": "9c9ee645f5f9fd2f04b955a6ecc68d4035b6a1d88b69b7690baa6e05d1d423ae"
+  },
+  "candidate": "v0.4.0-rc.8",
+  "candidate_series": "native-exit-v3",
+  "declarations": {
+    "fault": "ccb1a967b16bd99a0a2b2fdf3a52e8a82e6ded5637cc937824c039fbf39d7f05",
+    "freeze": "29668abbb0518073a6b53d2d23dc2d6904e76046eea26d917003013a16ddd4d8",
+    "scenario": "cfd0328f0766373d08352368a16c319857cba198bc396bd329798a245e971484"
+  },
+  "delivered_ci": "not-run",
+  "false_greens": 0,
+  "hosts": {
+    "darwin": {
+      "candidate_archive_sha256": "da50a7933c75b82dcb42b2f6829045edf2edfd0cb70afaf1b7f298823ac3ec60",
+      "candidate_binary_sha256": "49c657adbbad36c89cd7bb8866e5fe5782642d3fda24cda2b6878e91d8a035b3",
+      "cleanup_confirmed": true,
+      "development_passes": 20,
+      "fault_phases": 9,
+      "faults": [
+        "F01",
+        "F02",
+        "F03"
+      ],
+      "final_passes": 240,
+      "public_route_attempts": 8,
+      "technical_route_attempts": 8
+    },
+    "linux": {
+      "candidate_archive_sha256": "fd3b2ba11b833562ae886f587eb246d1a4e5ab83a179618e2c881e74f3bb4316",
+      "candidate_binary_sha256": "4b48ade7670c4306e6fc50d96100389e731a16f09d1b6e8505499bc40332c476",
+      "cleanup_confirmed": true,
+      "development_passes": 20,
+      "fault_phases": 9,
+      "faults": [
+        "F01",
+        "F02",
+        "F03"
+      ],
+      "final_passes": 240,
+      "public_route_attempts": 8,
+      "technical_route_attempts": 8
+    }
+  },
+  "human_participants": 0,
+  "project": "fzy",
+  "repository": "jhawthorn/fzy",
+  "saved_state_coverage_credit": 0,
+  "schema_version": 1,
+  "semantic_corruptions_rejected": [
+    "candidate",
+    "source",
+    "receipt_binding",
+    "host_omission",
+    "scenario_total",
+    "ordinary_denominator",
+    "calibration_denominator",
+    "fault_identity",
+    "cleanup",
+    "development",
+    "final",
+    "public_route",
+    "technical_route",
+    "saved_state_overclaim",
+    "human_claim",
+    "preview_as_ci",
+    "self_admission"
+  ],
+  "semantic_corruptions_rejected_count": 17,
+  "source_pin": "34b88869d022e861da4846c4463aea3ddfb3ff30",
+  "status": "model-controls-passed-not-project-admitted",
+  "totals": {
+    "development_attempts": 40,
+    "distinct_scenarios": 20,
+    "edge_scenarios": 12,
+    "fault_phases": 18,
+    "faults": 3,
+    "native_cells": 2,
+    "normal_scenarios": 8,
+    "ordinary_attempts": 480,
+    "public_route_attempts": 16,
+    "technical_route_attempts": 16
+  },
+  "usability": "unmeasured"
+}

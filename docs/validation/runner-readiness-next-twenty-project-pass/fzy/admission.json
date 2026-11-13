@@ -1,0 +1,55 @@
+{
+  "campaign_final_gate_credit": 0,
+  "candidate": "v0.4.0-rc.8",
+  "candidate_series": "native-exit-v3",
+  "canonical_scenarios": {
+    "edge": 12,
+    "normal": 8,
+    "total": 20
+  },
+  "delivered_ci": "not-run",
+  "development_passes": 40,
+  "distinct_detected_source_faults": 3,
+  "evidence_sha256": {
+    "development-artifact-audit-v2.json": "2ff117c829f3db5c8e97b1a6e5e2e52770357ecb8cc07104000edb9fd40645a7",
+    "fault-calibration-artifact-audit-v1.json": "fa4b8e891bb04bed64c6f5928c2a30cf0af747e0c0a2ba3d816506cfd5f0dbc9",
+    "final-archive-artifact-audit-v1.json": "832d8bb154e76b399d581ec5cd4b2d6170eef0c3bee514f58ac5b5c3f1dec5e3",
+    "model-controls-v1.json": "df30297c56f0c57d71fb4a9cbcf52d014d921eaa215a93ce7b941f761642bcea",
+    "public-route-artifact-audit-v1.json": "503ca2151d5626749ec5dc1df20c11c754e2bbb8f60f58433b2c1f044482d218",
+    "scenario-declaration-v1.json": "cfd0328f0766373d08352368a16c319857cba198bc396bd329798a245e971484",
+    "source-provenance.json": "93c1514b25104f7f148d9888e79e6e0482b34d87d0c201d950068040f31fc9ef",
+    "source-review-v1.md": "ee9a176bb7ce191c5cb47c5fc75000014ea2aaae64d6096ab1201e20c9f1bd0b",
+    "technical-route-audit-run43366281787-v1.json": "9c9ee645f5f9fd2f04b955a6ecc68d4035b6a1d88b69b7690baa6e05d1d423ae"
+  },
+  "failed_attempts_retained_zero_credit": 11,
+  "failed_or_partial_run_receipts": [
+    "development-attempt-run43354015363-v1.json",
+    "development-attempt-run43354855944-v1.json",
+    "development-attempt-run43355127321-v1.json",
+    "development-attempt-run43355826474-v1.json",
+    "final-archive-attempt-run43358141466-v1.json",
+    "fault-calibration-attempt-run43360846815-v1.json",
+    "technical-route-attempt-run43365829863-v1.json"
+  ],
+  "false_greens": 0,
+  "fault_calibration_phases": 18,
+  "final_ordinary_passes": 480,
+  "hosts": [
+    "linux-amd64",
+    "macos-arm64"
+  ],
+  "human_participants": 0,
+  "project": "fzy",
+  "project_admission_credit": 1,
+  "public_route_hosts": 2,
+  "repository": "jhawthorn/fzy",
+  "saved_state_coverage_credit": 0,
+  "schema_version": 1,
+  "scope": "Independent project-specific review passes for the exact rc.8 candidate. This records one fzy project admission; it does not close the campaign-wide same-candidate original-ten, twenty-project, delivered-CI, storage, or final-reconciliation gates.",
+  "semantic_corruptions_rejected": 17,
+  "source_pin": "34b88869d022e861da4846c4463aea3ddfb3ff30",
+  "source_restoration_and_cleanup": "passed-both-hosts",
+  "status": "project-admitted-exact-candidate",
+  "technical_route_attempts": 16,
+  "usability": "unmeasured"
+}
