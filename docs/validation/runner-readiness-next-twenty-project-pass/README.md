@@ -13,6 +13,8 @@ Run `43355127321` then built fzy and passed its 32 upstream tests on Linux and m
 
 Run `43355826474` passed N01–N07 once on both hosts, including corrected N06. N08 failed because `--show-matches` is noninteractive and emits to stdout rather than the PTY screen; N09–N20 did not run. Both jobs passed cleanup and storage. The artifacts and outcome are retained in [the attempt receipt](fzy/development-attempt-run43355826474-v1.json). N08 now asserts the exact harness-captured output bytes and exit code, with a focused regression. See [checkpoint v156](checkpoint-continuation-v156.md).
 
+The corrected native development run `43356291927` passed all 20 fzy cases once on Linux amd64 and macOS arm64 (40 outcomes). Each host also built the exact source pin, passed all 32 upstream tests, restored and removed owned source, and passed storage bounds. Provider artifact metadata and exact runner/target hashes are recorded in [the run receipt](fzy/development-run43356291927-v1.json). An independent bounded ZIP/report/identity/event/source/cleanup audit reconstructed all 40 outcomes and verified both provider digests; see [the audit](fzy/development-artifact-audit-v2.json) and [frozen contract](fzy/scenario-declaration-v1.json). Fzy earns no admission credit until its repeated final matrix, fault, authoring, maintenance, model and ledger gates close. See [checkpoint v158](checkpoint-continuation-v158.md).
+
 Skim V34 and its exact-rc.6 Linux and Windows repeat V35, including three-fault
 calibrations, are independently audited in [readback v15](skim-artifact-retrieval-readback-v15.json):
 240/240 ordinary outcomes, 240 independently reconstructed contracts and all

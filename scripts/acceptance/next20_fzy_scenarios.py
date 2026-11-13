@@ -177,6 +177,52 @@ def materialize():
     return declaration
 
 
+def verify_materialized():
+    """Check the committed contract against current reviewed case definitions."""
+    package = PROJECT / f"scenarios-v{SCENARIO_VERSION}"
+    declaration_path = PROJECT / f"scenario-declaration-v{SCENARIO_VERSION}.json"
+    declaration = json.loads(declaration_path.read_text(encoding="utf-8"))
+    freeze_path = DOC / "replacement-candidate-freeze-native-exit-v3.json"
+    freeze = json.loads(freeze_path.read_text(encoding="utf-8"))
+    require_rows = {row["id"]: row for row in declaration.get("scenarios", [])}
+    expected_cases = cases()
+    if (len(require_rows) != 20 or len(expected_cases) != 20
+            or declaration.get("project") != "fzy" or declaration.get("pin") != PIN
+            or declaration.get("candidate") != freeze["version"]
+            or declaration.get("candidate_series") != SERIES
+            or declaration.get("candidate_freeze_sha256") != sha256(freeze_path)
+            or declaration.get("source_archive_sha256") != json.loads(
+                (RAW / "active/fzy/acquisition.json").read_text(encoding="utf-8")).get("archive_sha256")):
+        raise ValueError("committed fzy declaration differs from the exact reviewed source/candidate")
+    for case in expected_cases:
+        row = require_rows.get(case["id"])
+        if row is None:
+            raise ValueError("committed fzy declaration omits " + case["id"])
+        folder = package / case["id"]
+        fixture = folder / "fixtures" / Path(case["fixture_path"]).name
+        spec_path = folder / "scenario.json"
+        spec = {
+            "version": 3, "name": case["title"],
+            "command": ["/bin/sh", "-c", case["command"]],
+            "workspace": {"fixture": "fixtures", "cwd": ".", "home": "temporary", "temp": "temporary"},
+            "env": {"TERM": "xterm-256color", "LANG": "C.UTF-8", "LC_ALL": "C.UTF-8"},
+            "inherit_env": ["PATH"], "width": 80, "height": 12,
+            "timeout_ms": 12000, "run_timeout_ms": 60000, "max_output_bytes": 1048576,
+            "steps": case["actions"],
+        }
+        if (not fixture.is_file() or fixture.is_symlink() or fixture.read_bytes() != case["fixture"]
+                or not spec_path.is_file() or spec_path.is_symlink()
+                or json.loads(spec_path.read_text(encoding="utf-8")) != spec
+                or row.get("spec_path") != spec_path.relative_to(DOC).as_posix()
+                or row.get("spec_sha256") != sha256(spec_path)
+                or row.get("fixture_sha256") != sha256(fixture)
+                or row.get("fixture_bytes") != len(case["fixture"])
+                or row.get("expected_stdout_base64") != case["expected_stdout_base64"]
+                or row.get("expected_target_exit") != case["expected_exit"]):
+            raise ValueError("committed fzy scenario/fixture/declaration differs: " + case["id"])
+    return declaration
+
+
 def check_report(path, expected_exit):
     report = json.loads(path.read_text(encoding="utf-8"))
     if (report.get("report_version") != 3 or report.get("runner_version") != "v0.4.0-rc.8"
@@ -243,12 +289,19 @@ async def run(host, repetitions=1, phase="development"):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--materialize", action="store_true")
+    parser.add_argument("--verify", action="store_true")
     parser.add_argument("--host", choices=tuple(HOSTS))
     parser.add_argument("--repetitions", type=int, default=1)
     parser.add_argument("--phase", default="development")
     args = parser.parse_args()
+    if args.materialize and args.verify:
+        parser.error("--materialize and --verify are mutually exclusive")
     if args.materialize:
         print("fzy scenario contract frozen:", len(materialize()["scenarios"]), "cases; no target launch.")
+        return
+    if args.verify:
+        print("fzy committed scenario contract verified:",
+              len(verify_materialized()["scenarios"]), "cases; no target launch.")
         return
     if args.host is None or not 1 <= args.repetitions <= 12:
         parser.error("--host is required and --repetitions must be between 1 and 12")

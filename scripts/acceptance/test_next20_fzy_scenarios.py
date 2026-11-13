@@ -1,5 +1,6 @@
 """Contract-shape controls for fzy's native PTY scenario matrix."""
 import base64
+import json
 import tempfile
 import unittest
 from pathlib import Path
@@ -48,6 +49,21 @@ class FzyScenarioTests(unittest.TestCase):
             {"state": {"path": "result.txt", "kind": "file",
                        "bytes_base64": base64.b64encode(b"cat\ncart\n").decode("ascii")}},
         ])
+
+    def test_committed_contract_verifies_without_materialization(self):
+        original_raw = fzy.RAW
+        try:
+            with tempfile.TemporaryDirectory(prefix="fzy-contract-verify-") as temporary:
+                fzy.RAW = Path(temporary)
+                acquisition = fzy.RAW / "active/fzy/acquisition.json"
+                acquisition.parent.mkdir(parents=True)
+                acquisition.write_text(json.dumps({
+                    "archive_sha256": "d55d4d0dcbced2daa0dd16b42ee0fc31654bd038ff6a147b38580c233d62c967"
+                }), encoding="utf-8")
+                declaration = fzy.verify_materialized()
+                self.assertEqual(len(declaration["scenarios"]), 20)
+        finally:
+            fzy.RAW = original_raw
 
     def test_selection_outputs_are_observed_after_terminal_teardown(self):
         rows = {row["id"]: row for row in fzy.cases()}

@@ -1,0 +1,49 @@
+{
+  "command": [
+    "/bin/sh",
+    "-c",
+    "exec fzy  < choices.txt > result.txt"
+  ],
+  "env": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TERM": "xterm-256color"
+  },
+  "height": 12,
+  "inherit_env": [
+    "PATH"
+  ],
+  "max_output_bytes": 1048576,
+  "name": "Skip an empty input line and choose the real candidate",
+  "run_timeout_ms": 60000,
+  "steps": [
+    {
+      "text": "alpha"
+    },
+    {
+      "expect": "alpha"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "YWxwaGEK",
+        "kind": "file",
+        "path": "result.txt"
+      }
+    }
+  ],
+  "timeout_ms": 12000,
+  "version": 3,
+  "width": 80,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "command": [
+    "/bin/sh",
+    "-c",
+    "exec fzy  < choices.txt > result.txt"
+  ],
+  "env": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TERM": "xterm-256color"
+  },
+  "height": 12,
+  "inherit_env": [
+    "PATH"
+  ],
+  "max_output_bytes": 1048576,
+  "name": "Move to the next candidate and emit it",
+  "run_timeout_ms": 60000,
+  "steps": [
+    {
+      "expect": "amber"
+    },
+    {
+      "key": "ArrowDown"
+    },
+    {
+      "expect": "blue"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "Ymx1ZQo=",
+        "kind": "file",
+        "path": "result.txt"
+      }
+    }
+  ],
+  "timeout_ms": 12000,
+  "version": 3,
+  "width": 80,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

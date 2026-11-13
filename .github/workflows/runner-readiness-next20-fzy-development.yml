@@ -1,4 +1,4 @@
-name: Runner readiness next20 fzy development qualification
+name: Runner readiness next20 fzy exact candidate qualification
 
 on:
   push:
@@ -9,6 +9,8 @@ on:
       - scripts/acceptance/next20_fzy_build.py
       - scripts/acceptance/next20_fzy_scenarios.py
       - scripts/acceptance/test_next20_fzy_scenarios.py
+      - scripts/acceptance/next20_fzy_artifact_audit.py
+      - scripts/acceptance/test_next20_fzy_artifact_audit.py
       - docs/validation/runner-readiness-next-twenty-project-pass/fzy/**
   workflow_dispatch:
 
@@ -22,7 +24,7 @@ concurrency:
 
 jobs:
   native-development:
-    name: fzy native development (${{ matrix.host }})
+    name: fzy native qualification (${{ matrix.host }})
     strategy:
       fail-fast: false
       max-parallel: 2
@@ -58,8 +60,8 @@ jobs:
       - name: Create campaign-owned temporary directory
         run: mkdir -p artifacts/runner-readiness-next-twenty-project-pass/tmp
 
-      - name: Verify fzy scenario and cleanup contract helpers
-        run: python -B -m unittest test_next20_fzy_scenarios test_next20_target_cleanup -v
+      - name: Verify fzy scenario, artifact audit and cleanup contract helpers
+        run: python -B -m unittest test_next20_fzy_scenarios test_next20_fzy_artifact_audit test_next20_target_cleanup -v
         working-directory: scripts/acceptance
 
       - name: Acquire the exact reviewed fzy source pin
@@ -84,14 +86,14 @@ jobs:
           python -B scripts/acceptance/next20_candidate_install.py
           --series native-exit-v3 --archive "${{ matrix.candidate_archive }}"
 
-      - name: Freeze the reviewed fzy scenarios
+      - name: Verify the committed fzy scenario contract
         if: steps.acquire.outcome == 'success'
-        run: python -B scripts/acceptance/next20_fzy_scenarios.py --materialize
+        run: python -B scripts/acceptance/next20_fzy_scenarios.py --verify
 
-      - name: Run the twenty frozen fzy workflows once
+      - name: Run the twenty frozen fzy workflows twelve times
         id: scenarios
         if: steps.acquire.outcome == 'success'
-        run: python -B scripts/acceptance/next20_fzy_scenarios.py --host "${{ matrix.host }}" --phase development --repetitions 1
+        run: python -B scripts/acceptance/next20_fzy_scenarios.py --host "${{ matrix.host }}" --phase qualification --repetitions 12
 
       - name: Restore exact source after a pre-scenario failure
         if: always() && steps.acquire.outcome == 'success' && steps.scenarios.outcome == 'skipped'

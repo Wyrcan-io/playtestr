@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "status": "development-matrix-passed-pending-independent-artifact-audit",
+  "project": "fzy",
+  "repository": "jhawthorn/fzy",
+  "pin": "34b88869d022e861da4846c4463aea3ddfb3ff30",
+  "candidate": "v0.4.0-rc.8",
+  "candidate_series": "native-exit-v3",
+  "run_id": 43356291927,
+  "head_sha": "8e14f4bc7402730b0ee6c62b81be028ad6d6b001",
+  "event": "push",
+  "contract": "fzy/scenario-declaration-v1.json",
+  "host_matrix": ["linux-amd64", "macos-arm64"],
+  "scenarios_per_host": 20,
+  "repetitions": 1,
+  "ordinary_outcomes": 40,
+  "hosts": {
+    "linux": {
+      "job_id": 131659013102,
+      "provider_artifact_id": 14006077147,
+      "provider_artifact_name": "next20-fzy-development-linux-43356291927",
+      "provider_bytes": 1014430,
+      "provider_sha256": "b1d0716820f910b508e59ce724a3941f3c4c3d02cc61c8259647f955d4e5d65d",
+      "candidate_provider_zip_sha256": "b7c6cdc1a39b37c180b80ddbf20475eb55c475090f18a5e117627f4d3c56e010",
+      "candidate_archive_sha256": "fd3b2ba11b833562ae886f587eb246d1a4e5ab83a179618e2c881e74f3bb4316",
+      "source_archive_sha256": "d55d4d0dcbced2daa0dd16b42ee0fc31654bd038ff6a147b38580c233d62c967",
+      "native_binary_sha256": "96c2a408f41a8862c5baf8e23aef8568d6c6348d7e7149cc0c13f91b5db80b03",
+      "upstream_tests": {"status": "passed", "tests": 32, "failures": 0},
+      "scenario_run": {"status": "passed", "attempt_count": 20},
+      "target_cleanup": "passed",
+      "exact_source_removal": "passed",
+      "storage": "passed"
+    },
+    "darwin": {
+      "job_id": 131659012848,
+      "provider_artifact_id": 14005803716,
+      "provider_artifact_name": "next20-fzy-development-darwin-43356291927",
+      "provider_bytes": 1014690,
+      "provider_sha256": "5a0fef7e0ee3921838d683c77d3daa9a3b2bb64a8bb80806c36c58422319358b",
+      "candidate_provider_zip_sha256": "5d33f074fec609a9f383efa2c5dc691b44d65a638f8a87d3d7920e89e08b4336",
+      "candidate_archive_sha256": "da50a7933c75b82dcb42b2f6829045edf2edfd0cb70afaf1b7f298823ac3ec60",
+      "source_archive_sha256": "d55d4d0dcbced2daa0dd16b42ee0fc31654bd038ff6a147b38580c233d62c967",
+      "native_binary_sha256": "0e0f0fba93df8f62f918656faee83124c20e2c871d94bf9bfa94a58694babbea",
+      "upstream_tests": {"status": "passed", "tests": 32, "failures": 0},
+      "scenario_run": {"status": "passed", "attempt_count": 20},
+      "target_cleanup": "passed",
+      "exact_source_removal": "passed",
+      "storage": "passed"
+    }
+  },
+  "admission_credit": 0,
+  "next_gate": "Independent provider artifact retrieval and full report/contract/identity/event/cleanup audit before counting these outcomes toward the final candidate matrix."
+}
