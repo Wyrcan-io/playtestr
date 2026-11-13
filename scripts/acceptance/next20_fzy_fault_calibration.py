@@ -188,11 +188,17 @@ def verify_case_report(report_path, fault, phase_name, expected_exit):
             "fzy fault calibration lacks target/descendant/workspace cleanup evidence")
     failed = [step for step in result.get("steps", []) if step.get("status") == "failed"]
     if phase_name == "fault":
-        require(result.get("status") == "failed" and result.get("failure", {}).get("category")
-                == fault["expected_failure_category"] and len(failed) == 1
-                and failed[0].get("number") == fault["expected_failure_step"]
-                and report["summary"].get("failed") == 1,
-                "declared fzy source mutation escaped its public scenario or failed at another boundary")
+        valid = (result.get("status") == "failed"
+                 and result.get("failure", {}).get("category") == fault["expected_failure_category"]
+                 and len(failed) == 1
+                 and failed[0].get("number") == fault["expected_failure_step"]
+                 and report["summary"].get("failed") == 1)
+        if not valid:
+            actual = {"status": result.get("status"), "failure": result.get("failure"),
+                      "failed_steps": failed, "summary": report.get("summary"),
+                      "target": result.get("target")}
+            raise ValueError("declared fzy source mutation escaped its public scenario or failed "
+                             "at another boundary; actual=" + json.dumps(actual, sort_keys=True)[:3000])
         return result, failed[0], "expected-target-fault-rejection"
     require(result.get("status") == "passed" and result.get("failure") is None
             and not failed and result.get("target", {}).get("exit_code") == expected_exit
@@ -212,6 +218,8 @@ async def phase_run(host, fault, case, spec_path, phase_name, candidate, freeze)
     require(acquisition.get("pin") == PIN and acquisition.get("archive_sha256") == ARCHIVE_SHA256
             and sha256(target / "source.tar.gz") == ARCHIVE_SHA256,
             "fzy fault calibration acquired a different source")
+    shutil.copy2(target / "source.tar.gz", evidence / "source.tar.gz")
+    shutil.copy2(target / "acquisition.json", evidence / "acquisition.json")
     await command([sys.executable, "-B", "scripts/acceptance/next20_fzy_build.py",
                    "--expected-host", host], "core",
                   f"fzy-{fault['id']}-{phase_name}-{host}-pristine-build", phase)
@@ -269,6 +277,13 @@ async def phase_run(host, fault, case, spec_path, phase_name, candidate, freeze)
                    "--project", "fzy", "--include-active-case-evidence", "--window", window],
                   "core", f"fzy-{fault['id']}-{phase_name}-{host}-cleanup", phase)
     require(not target.exists(), "fzy owned target tree remains after source-fault cleanup")
+    retained = RAW / "fzy" / ("retained-source-" + window)
+    proof = RAW / "fzy" / ("process-proof-" + window + ".json")
+    cleanup_receipts = evidence / "cleanup-proof"
+    cleanup_receipts.mkdir()
+    for source in (proof, retained / "cleanup-inventory.json", retained / "removed.json"):
+        require(source.is_file(), "fzy cleanup proof is incomplete: " + source.name)
+        shutil.copy2(source, cleanup_receipts / source.name)
     return phase_receipt
 
 
