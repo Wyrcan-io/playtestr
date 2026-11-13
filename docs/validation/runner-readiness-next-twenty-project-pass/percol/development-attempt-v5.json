@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "project": "percol",
+  "phase": "development",
+  "run_id": 43383160597,
+  "workflow": ".github/workflows/runner-readiness-next20-percol-development.yml",
+  "commit": "74f39200c5ce4e19f700893b1ea8995263835044",
+  "run_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/43383160597",
+  "run_conclusion": "failure",
+  "candidate": "v0.4.0-rc.8",
+  "candidate_series": "native-exit-v3",
+  "scenario_contract": "scenario-declaration-v5.json",
+  "attempted_repetitions": 1,
+  "attempted_case_ids_per_host": ["N01", "N02", "N03", "N04", "N05", "N06", "N07", "N08", "E01", "E02", "E03", "E04", "E05"],
+  "host_results": [
+    {
+      "host": "linux-amd64",
+      "job_id": 131745408950,
+      "artifact_id": 14017880794,
+      "artifact_name": "next20-percol-development-linux-43383160597",
+      "artifact_bytes": 52005589,
+      "provider_sha256": "768e380ea6030f152f68c1aa8b4fd9926254e0e70a1f9e266b016f11d2520c49",
+      "downloaded_zip": "local-only: artifacts/runner-readiness-next-twenty-project-pass/retained/percol-development-run43383160597-linux.zip",
+      "downloaded_sha256": "768e380ea6030f152f68c1aa8b4fd9926254e0e70a1f9e266b016f11d2520c49",
+      "cases_before_first_failure": 12,
+      "first_failure": {
+        "case": "E05",
+        "report": "percol/development/linux/r01/E05/report.json",
+        "category": "assertion_timeout",
+        "failed_step": 4,
+        "detail": "The prompt showed the unmatched query; Ctrl-C input was accepted, but the target did not exit with code 1 within 20 seconds.",
+        "target_exit_after_cleanup": 1,
+        "target_process_group_cleanup_confirmed": true,
+        "workspace_cleaned": true
+      },
+      "source_restoration": "passed",
+      "runtime_cleanup": "passed",
+      "campaign_source_runtime_removed": true,
+      "storage_limit": "passed",
+      "admission_credit": 0
+    },
+    {
+      "host": "macos-arm64",
+      "job_id": 131745409324,
+      "artifact_id": 14017507896,
+      "artifact_name": "next20-percol-development-darwin-43383160597",
+      "artifact_bytes": 47199419,
+      "provider_sha256": "8bd03cdc561e81f439194cfc4d014ec91444d52a51fddc55770e948d142cb686",
+      "downloaded_zip": "local-only: artifacts/runner-readiness-next-twenty-project-pass/retained/percol-development-run43383160597-macos.zip",
+      "downloaded_sha256": "8bd03cdc561e81f439194cfc4d014ec91444d52a51fddc55770e948d142cb686",
+      "cases_before_first_failure": 12,
+      "first_failure": {
+        "case": "E05",
+        "report": "percol/development/darwin/r01/E05/report.json",
+        "category": "assertion_timeout",
+        "failed_step": 4,
+        "detail": "The prompt showed the unmatched query; Ctrl-C input was accepted, but the target did not exit with code 1 within 20 seconds.",
+        "target_exit_after_cleanup": 1,
+        "target_process_group_cleanup_confirmed": true,
+        "workspace_cleaned": true
+      },
+      "source_restoration": "passed",
+      "runtime_cleanup": "passed",
+      "campaign_source_runtime_removed": true,
+      "storage_limit": "passed",
+      "admission_credit": 0
+    }
+  ],
+  "diagnosis": {
+    "observed": "Both hosts reproduced the same empty-input, unmatched-query Ctrl-C timeout after the dynamic text/query refresh path. The target exited only during the runner's bounded cleanup.",
+    "correction": "Preserve v5 and its first failure. V6 initializes the unmatched query from the CLI before the UI loop, waits for its rendered prompt, and then tests cancellation. This avoids any background query debounce at the cancellation boundary."
+  },
+  "admission_credit": 0
+}

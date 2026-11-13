@@ -19,7 +19,7 @@ PROJECT = DOC / "percol"
 PIN = "4b28037e328da3d0fe8165c11b800cbaddcb525e"
 HOSTS = {"linux": "Linux", "darwin": "Darwin"}
 SERIES = "native-exit-v3"
-SCENARIO_VERSION = 5
+SCENARIO_VERSION = 6
 
 
 def make_case(identity, kind, title, fixture, steps, stdout, *, options=(), filename=False,
@@ -86,9 +86,9 @@ def cases():
                   "caf\u00e9 \u96ea\nplain\n".encode("utf-8"),
                   [{"expect": "caf\u00e9 \u96ea"}, {"key": "Enter"}, {"exit": 0}],
                   "caf\u00e9 \u96ea\n".encode("utf-8")),
-        make_case("E05", "edge", "Keep an unmatched query interactive and cancellable",
-                  b"", [{"text": "missing"}, {"expect": "missing"},
-                  {"key": "CtrlC"}, {"exit": 1}], b""),
+        make_case("E05", "edge", "Cancel an unmatched query on empty input",
+                  b"", [{"expect": "missing"}, {"key": "CtrlC"}, {"exit": 1}], b"",
+                  options=("--query=missing",)),
         make_case("E06", "edge", "Eager matching reports the full result count",
                   b"apple\nbanana\n", [{"expect": "apple"}, {"text": "a"},
                   {"expect": "1/2"}, {"key": "Enter"}, {"exit": 0}],

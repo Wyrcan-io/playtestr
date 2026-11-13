@@ -1,0 +1,51 @@
+{
+  "command": [
+    "/bin/sh",
+    "-c",
+    "exec \"$PERCOL_PYTHON\" \"$PERCOL_SOURCE/bin/percol\" --initial-index=last < choices.txt > result.txt"
+  ],
+  "env": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "TERM": "xterm-256color"
+  },
+  "height": 12,
+  "inherit_env": [
+    "PATH",
+    "PERCOL_PYTHON",
+    "PERCOL_SOURCE",
+    "PYTHONPATH",
+    "DYLD_LIBRARY_PATH"
+  ],
+  "max_output_bytes": 1048576,
+  "name": "Start at the last candidate",
+  "run_timeout_ms": 60000,
+  "steps": [
+    {
+      "expect": "gamma"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "exit": 0
+    },
+    {
+      "state": {
+        "bytes_base64": "Z2FtbWEK",
+        "kind": "file",
+        "path": "result.txt"
+      }
+    }
+  ],
+  "timeout_ms": 20000,
+  "version": 3,
+  "width": 80,
+  "workspace": {
+    "cwd": ".",
+    "fixture": "fixtures",
+    "home": "temporary",
+    "temp": "temporary"
+  }
+}

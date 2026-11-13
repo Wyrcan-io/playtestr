@@ -47,6 +47,8 @@ class PercolScenarioContractTests(unittest.TestCase):
         self.assertEqual({"expect": "apx"}, rows["N07"]["actions"][0])
         self.assertEqual(("--eager",), tuple(rows["E06"]["options"]))
         self.assertIn({"expect": "1/2"}, rows["E06"]["actions"])
+        self.assertEqual(("--query=missing",), tuple(rows["E05"]["options"]))
+        self.assertNotIn({"text": "missing"}, rows["E05"]["actions"])
         self.assertIn("--match-method=regex", rows["E08"]["options"])
         self.assertIn("--reverse", rows["E09"]["options"])
         self.assertNotIn(" < ", rows["E11"]["command"])
