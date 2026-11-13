@@ -1,0 +1,100 @@
+name: Runner readiness next20 Percol native feasibility
+
+on:
+  push:
+    branches:
+      - work/p0-p2-implementation
+    paths:
+      - .github/workflows/runner-readiness-next20-percol-feasibility.yml
+      - docs/validation/runner-readiness-next-twenty-project-pass/percol/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  native-feasibility:
+    name: Native Python 2 feasibility (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install source build tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$RUNNER_OS" == Linux ]]; then
+            sudo apt-get update
+            sudo apt-get install -y gnupg build-essential libncurses-dev libreadline-dev zlib1g-dev libsqlite3-dev libffi-dev
+          else
+            brew install gnupg
+            xcode-select -p
+          fi
+
+      - name: Verify pinned sources and build isolated CPython 2.7.18
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/percol-feasibility"
+          cd "$RUNNER_TEMP/percol-feasibility"
+          PERL_PIN=4b28037e328da3d0fe8165c11b800cbaddcb525e
+          curl --fail --location --retry 3 --max-time 90 \
+            "https://api.github.com/repos/mooz/percol/tarball/$PERL_PIN" -o percol.tar.gz
+          test "$(wc -c < percol.tar.gz)" -le 8388608
+          PERL_SHA=$(shasum -a 256 percol.tar.gz | awk '{print $1}')
+          mkdir percol-source
+          tar -xzf percol.tar.gz -C percol-source --strip-components=1
+          test -f percol-source/debian/copyright
+          grep -qi 'License: MIT' percol-source/debian/copyright
+
+          PYTHON_URL=https://www.python.org/ftp/python/2.7.18
+          curl --fail --location --retry 3 --max-time 90 "$PYTHON_URL/Python-2.7.18.tgz" -o Python-2.7.18.tgz
+          curl --fail --location --retry 3 --max-time 90 "$PYTHON_URL/Python-2.7.18.tgz.asc" -o Python-2.7.18.tgz.asc
+          gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys A4135B38
+          FINGERPRINT=$(gpg --with-colons --fingerprint A4135B38 | awk -F: '$1 == "fpr" {print $10; exit}')
+          test "$FINGERPRINT" = 12EF3DC38047DA382D18A5B999CDEA9DA4135B38
+          gpg --batch --verify Python-2.7.18.tgz.asc Python-2.7.18.tgz
+          PY_SHA=$(shasum -a 256 Python-2.7.18.tgz | awk '{print $1}')
+
+          curl --fail --location --retry 3 --max-time 90 \
+            https://files.pythonhosted.org/packages/d9/5a/e7c31adbe875a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254/six-1.16.0-py2.py3-none-any.whl \
+            -o six.whl
+          SIX_SHA=$(shasum -a 256 six.whl | awk '{print $1}')
+          test "$SIX_SHA" = 8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254
+          mkdir six-site
+          unzip -q six.whl -d six-site
+
+          mkdir python-source
+          tar -xzf Python-2.7.18.tgz -C python-source --strip-components=1
+          cd python-source
+          ./configure --prefix="$RUNNER_TEMP/percol-feasibility/python" --with-ensurepip=no
+          make -j2
+          PYTHON="$PWD/python"
+          cd ..
+          PYTHONPATH="$PWD/percol-source:$PWD/six-site" "$PYTHON" -c 'import sys, six, percol; assert sys.version_info[:3] == (2, 7, 18); print("CPython", sys.version.split()[0]); print("six", six.__version__); print("Percol import", percol.__file__)'
+          {
+            echo "host=$RUNNER_OS/$RUNNER_ARCH"
+            echo "percol_pin=$PERL_PIN"
+            echo "percol_archive_sha256=$PERL_SHA"
+            echo "python_source_signature=verified"
+            echo "python_source_sha256=$PY_SHA"
+            echo "python_source_signer=$FINGERPRINT"
+            echo "six_version=1.16.0"
+            echo "six_wheel_sha256=$SIX_SHA"
+            echo "percol_import=passed"
+            echo "qualification_scope=source/runtime feasibility only; no PTY scenario or admission credit"
+          } | tee feasibility.txt
+
+      - name: Preserve feasibility evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: percol-feasibility-${{ matrix.os }}
+          path: ${{ runner.temp }}/percol-feasibility
+          if-no-files-found: warn
+          retention-days: 30
