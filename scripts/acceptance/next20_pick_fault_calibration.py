@@ -200,7 +200,7 @@ async def run_phase(host, fault, manifest_path, scenario, phase_name, run_id):
                     "Pick source fault failed byte-exact restoration")
             restored_map, _ = file_map(target_root / "src")
             require(restored_map == original_map, "Pick fault restoration differs from pristine source map")
-        window = f"fault-{fault['id']}-{phase_name}-{host}"[:63]
+        window = f"rebuild-fault-{fault['id'].lower()}-{phase_name}-{host}"[:63]
         cleanup_log = evidence / "cleanup.log"
         cleanup_result = await command([sys.executable, "-B", "scripts/acceptance/next20_target_cleanup.py",
                                         "--project", "pick", "--include-active-case-evidence",
