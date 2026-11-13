@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "project": "percol",
+  "workflow": ".github/workflows/runner-readiness-next20-percol-feasibility.yml",
+  "run_id": 43369645395,
+  "head_sha": "e435f8a7e69026372039c5a6cacb7c44bc135412",
+  "outcome": "both jobs stopped during signer key retrieval before signature verification or runtime build",
+  "failure_phase": "Python 2 release signer public-key URL",
+  "failure": "The Keybase profile's official current key imported, but the explicit legacy-key URL returned HTTP 404",
+  "jobs": {
+    "macos-latest": {
+      "job_id": 131702163902,
+      "artifact_id": 14011652318,
+      "artifact_sha256": "2ad8a38be44b55e10c59a039a11013435f55d7416ab09db48c70259090bb5b0d"
+    },
+    "ubuntu-latest": {
+      "job_id": 131702164254,
+      "artifact_id": 14011966721,
+      "artifact_sha256": "85ace781f2af968b7fff3cb6d73ae35149f95153e741ab11346027e9226cc1e2"
+    }
+  },
+  "credit": {
+    "source_identity": 0,
+    "native_runtime": 0,
+    "scenarios": 0,
+    "admission": 0
+  },
+  "correction": "Retrieve the legacy signer key through the documented public keyserver over HTTPS, then compare its full fingerprint before verification."
+}

@@ -56,12 +56,9 @@ jobs:
           curl --fail --location --retry 3 --max-time 90 "$PYTHON_URL/Python-2.7.18.tgz" -o Python-2.7.18.tgz
           curl --fail --location --retry 3 --max-time 90 "$PYTHON_URL/Python-2.7.18.tgz.asc" -o Python-2.7.18.tgz.asc
           curl --fail --location --retry 3 --max-time 90 \
-            https://keybase.io/bp/key.asc -o python-release-key.asc
+            'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x12EF3DC38047DA382D18A5B999CDEA9DA4135B38' \
+            -o python-release-key.asc
           gpg --batch --import python-release-key.asc
-          curl --fail --location --retry 3 --max-time 90 \
-            'https://keybase.io/bp/pgp_keys.asc?fingerprint=12ef3dc38047da382d18a5b999cdea9da4135b38' \
-            -o python-release-key-legacy.asc
-          gpg --batch --import python-release-key-legacy.asc
           FINGERPRINT=$(gpg --with-colons --fingerprint A4135B38 | awk -F: '$1 == "fpr" {print $10; exit}')
           test "$FINGERPRINT" = 12EF3DC38047DA382D18A5B999CDEA9DA4135B38
           gpg --batch --verify Python-2.7.18.tgz.asc Python-2.7.18.tgz
