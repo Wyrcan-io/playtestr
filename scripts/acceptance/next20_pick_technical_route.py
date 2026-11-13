@@ -205,7 +205,8 @@ async def main_async(host):
         "machine_report": {"status": "passed", "version": manual_doc["report_version"]},
         "html_report": {"status": "passed", "bytes": len(html_bytes)},
         "migration": {"status": "passed", "from": 2, "to": 3,
-                      "v2_invocation_id": json.loads(v2_report.read_text(encoding="utf-8"))["results"][0]["invocation_id"],
+                      "v2_attempt_id": next(row["id"] for row in attempts
+                                             if row["label"] == "pick-technical-version-2-before-migration"),
                       "v3_invocation_id": migrated_result["invocation_id"]},
         "suffix_rerecord": {"status": "passed", "retained_prefix_steps": 2,
                             "invocation_id": suffix_result["invocation_id"], "controls": controls},

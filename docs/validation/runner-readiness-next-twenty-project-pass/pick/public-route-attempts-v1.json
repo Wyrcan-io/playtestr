@@ -204,6 +204,28 @@
           "sha256": "65f2dad469589c44db2e6b314bc3dafe94c5f9e6af6debed4c1a5abf8584227f"
         }
       ]
+    },
+    {
+      "run_id": "43349788870",
+      "head_sha": "f48dab69f237710e25307ee03f5f950c9af7218a",
+      "status": "failure",
+      "failure": "Both hosts passed public authoring, suite selection, manual v3 state test, HTML report status check, v2 execution, v3 migration and suffix rerecord/test. Receipt construction incorrectly assumed the v2 report schema includes invocation_id; it omits that field. No technical or admission credit.",
+      "providers": [
+        {
+          "host": "linux",
+          "artifact_id": "14002782939",
+          "artifact_name": "next20-pick-public-route-linux-43349788870",
+          "bytes": 994752,
+          "sha256": "9feaadbb4d87f4b8bef8e400af6ee0f6d0dd642fc35583c7d2f7c9f4899e982e"
+        },
+        {
+          "host": "darwin",
+          "artifact_id": "14003442134",
+          "artifact_name": "next20-pick-public-route-darwin-43349788870",
+          "bytes": 994887,
+          "sha256": "8b6f9e213216e129a09cb55a8d0076ac27b25ce9f5c6aeacfa200d463f06cdf0"
+        }
+      ]
     }
   ],
   "scope": "Preserve every failed native public-route attempt and provider artifact identity; none earns project or gate credit."
