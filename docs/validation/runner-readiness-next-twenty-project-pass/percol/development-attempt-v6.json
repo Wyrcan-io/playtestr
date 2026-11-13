@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "project": "percol",
+  "phase": "development",
+  "run_id": 43384191533,
+  "workflow": ".github/workflows/runner-readiness-next20-percol-development.yml",
+  "commit": "4781fc53eb132e492dbed674778286d82f6d78d6",
+  "run_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/43384191533",
+  "run_conclusion": "failure",
+  "candidate": "v0.4.0-rc.8",
+  "candidate_series": "native-exit-v3",
+  "scenario_contract": "scenario-declaration-v6.json",
+  "attempted_repetitions": 1,
+  "attempted_case_ids_per_host": ["N01", "N02", "N03", "N04", "N05", "N06", "N07", "N08", "E01", "E02", "E03", "E04", "E05", "E06", "E07"],
+  "host_results": [
+    {
+      "host": "linux-amd64",
+      "job_id": 131748706798,
+      "artifact_id": 14018540085,
+      "artifact_name": "next20-percol-development-linux-43384191533",
+      "artifact_bytes": 52088784,
+      "provider_sha256": "726a0ab1d92cb08e60b79fa35e74b6f5068e7f212f88aaed883de7541697d566",
+      "downloaded_zip": "local-only: artifacts/runner-readiness-next-twenty-project-pass/retained/percol-development-run43384191533-linux.zip",
+      "downloaded_sha256": "726a0ab1d92cb08e60b79fa35e74b6f5068e7f212f88aaed883de7541697d566",
+      "cases_before_first_failure": 14,
+      "first_failure": {
+        "case": "E07",
+        "report": "percol/development/linux/r01/E07/report.json",
+        "category": "state_assertion_failure",
+        "actual_target_exit": 0,
+        "expected_stdout": "blue\\n",
+        "actual_stdout": "Blue\\n",
+        "rendered_screen": "QUERY> blue (1/2) [1/1]; both Blue and blue remained visible",
+        "target_process_group_cleanup_confirmed": true,
+        "workspace_cleaned": true
+      },
+      "source_restoration": "passed",
+      "runtime_cleanup": "passed",
+      "campaign_source_runtime_removed": true,
+      "storage_limit": "passed",
+      "admission_credit": 0
+    },
+    {
+      "host": "macos-arm64",
+      "job_id": 131748706390,
+      "artifact_id": 14017549570,
+      "artifact_name": "next20-percol-development-darwin-43384191533",
+      "artifact_bytes": 47292654,
+      "provider_sha256": "79f8ea466214c43f35350921dc120d59677a7e10e21cfed8593f3108760e5f33",
+      "downloaded_zip": "local-only: artifacts/runner-readiness-next-twenty-project-pass/retained/percol-development-run43384191533-macos.zip",
+      "downloaded_sha256": "79f8ea466214c43f35350921dc120d59677a7e10e21cfed8593f3108760e5f33",
+      "cases_before_first_failure": 14,
+      "first_failure": {
+        "case": "E07",
+        "report": "percol/development/darwin/r01/E07/report.json",
+        "category": "state_assertion_failure",
+        "actual_target_exit": 0,
+        "expected_stdout": "blue\\n",
+        "actual_stdout": "Blue\\n",
+        "rendered_screen": "QUERY> blue (1/2) [1/1]; both Blue and blue remained visible",
+        "target_process_group_cleanup_confirmed": true,
+        "workspace_cleaned": true
+      },
+      "source_restoration": "passed",
+      "runtime_cleanup": "passed",
+      "campaign_source_runtime_removed": true,
+      "storage_limit": "passed",
+      "admission_credit": 0
+    }
+  ],
+  "diagnosis": {
+    "target_behavior": "The CLI configures case_sensitive after constructing a model whose initial query finder has started lazy evaluation. Both case variants remained in the result and the first candidate Blue was selected; the exact stdout check caught it.",
+    "correction": "Preserve v6 and both first failures. V7 starts with a positive unfiltered screen readiness checkpoint, types blue after the case-sensitive option is installed, requires a 1/1 result count, then selects the lowercase candidate.",
+    "cleanup": "Both hosts passed exact source/runtime cleanup and storage checks."
+  },
+  "admission_credit": 0
+}

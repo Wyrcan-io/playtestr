@@ -19,7 +19,7 @@ PROJECT = DOC / "percol"
 PIN = "4b28037e328da3d0fe8165c11b800cbaddcb525e"
 HOSTS = {"linux": "Linux", "darwin": "Darwin"}
 SERIES = "native-exit-v3"
-SCENARIO_VERSION = 6
+SCENARIO_VERSION = 7
 
 
 def make_case(identity, kind, title, fixture, steps, stdout, *, options=(), filename=False,
@@ -94,8 +94,9 @@ def cases():
                   {"expect": "1/2"}, {"key": "Enter"}, {"exit": 0}],
                   b"apple\n", options=("--eager",)),
         make_case("E07", "edge", "Respect case-sensitive matching",
-                  b"Blue\nblue\n", [{"expect": "blue"}, {"key": "Enter"}, {"exit": 0}],
-                  b"blue\n", options=("--case-sensitive", "--query=blue")),
+                  b"Blue\nblue\n", [{"expect": "Blue"}, {"text": "blue"},
+                  {"expect": "1/1"}, {"key": "Enter"}, {"exit": 0}],
+                  b"blue\n", options=("--case-sensitive",)),
         make_case("E08", "edge", "Use the documented regular-expression finder",
                   b"pine\npineapple\napple\n", [{"expect": "pine"}, {"key": "Enter"}, {"exit": 0}],
                   b"pine\n", options=("--match-method=regex", "--query=^pine$")),
