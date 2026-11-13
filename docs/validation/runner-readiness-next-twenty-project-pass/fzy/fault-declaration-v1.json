@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "project": "fzy",
+  "repository": "jhawthorn/fzy",
+  "pin": "34b88869d022e861da4846c4463aea3ddfb3ff30",
+  "source_archive_sha256": "d55d4d0dcbced2daa0dd16b42ee0fc31654bd038ff6a147b38580c233d62c967",
+  "candidate": "v0.4.0-rc.8",
+  "candidate_series": "native-exit-v3",
+  "candidate_freeze_sha256": "29668abbb0518073a6b53d2d23dc2d6904e76046eea26d917003013a16ddd4d8",
+  "scenario_declaration": "fzy/scenario-declaration-v1.json",
+  "scenario_declaration_sha256": "cfd0328f0766373d08352368a16c319857cba198bc396bd329798a245e971484",
+  "faults": [
+    {
+      "id": "F01",
+      "name": "selected output loses its newline",
+      "source_file": "src/tty_interface.c",
+      "baseline_source_sha256": "48523cdfb0a9524e56c678e8beece36bea2ff897607f5774a7d38af05d663952",
+      "mutated_source_sha256": "6ef140224992e4627c260d4f3e337d66f1c04601e6970291f8d6c9d49cee489d",
+      "before_base64": "cHJpbnRmKCIlc1xuIiwgc2VsZWN0aW9uKTs=",
+      "after_base64": "cHJpbnRmKCIlcyIsIHNlbGVjdGlvbik7",
+      "scenario_id": "N01",
+      "expected_failure_category": "state_assertion_failure",
+      "expected_failure_step": 4
+    },
+    {
+      "id": "F02",
+      "name": "down navigation does not advance the selected candidate",
+      "source_file": "src/choices.c",
+      "baseline_source_sha256": "532bb77f8614fef53a234f32f306fbe652c2d41b74c2251aff0cfbd2da7bcdac",
+      "mutated_source_sha256": "61ebd182e86a797e92bd047bb6a9a2d0d70617cba02b8ed381577e464b8c97c5",
+      "before_base64": "Yy0+c2VsZWN0aW9uID0gKGMtPnNlbGVjdGlvbiArIDEpICUgYy0+YXZhaWxhYmxlOw==",
+      "after_base64": "Yy0+c2VsZWN0aW9uID0gKGMtPnNlbGVjdGlvbiArIDApICUgYy0+YXZhaWxhYmxlOw==",
+      "scenario_id": "N05",
+      "expected_failure_category": "assertion_timeout",
+      "expected_failure_step": 3
+    },
+    {
+      "id": "F03",
+      "name": "typed query is not applied to the candidate list",
+      "source_file": "src/tty_interface.c",
+      "baseline_source_sha256": "48523cdfb0a9524e56c678e8beece36bea2ff897607f5774a7d38af05d663952",
+      "mutated_source_sha256": "43cc974e6bc460db462f789b1bc74859e004e45aa86ffbf906403cb62ab515c4",
+      "before_base64": "Y2hvaWNlc19zZWFyY2goc3RhdGUtPmNob2ljZXMsIHN0YXRlLT5zZWFyY2gpOw==",
+      "after_base64": "LyogZmF1bHQ6IHNraXAgYXBwbHlpbmcgdGhlIHF1ZXJ5ICov",
+      "scenario_id": "N02",
+      "expected_failure_category": "state_assertion_failure",
+      "expected_failure_step": 4
+    }
+  ],
+  "calibration_phases": ["baseline", "fault", "restored"],
+  "executions_per_host": 9,
+  "hosts": ["linux-amd64", "macos-arm64"],
+  "distinct_detected_faults": 3,
+  "admission_credit": 0
+}

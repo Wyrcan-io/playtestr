@@ -157,7 +157,7 @@ def audit_host(host, path, receipt, declaration, freeze, run_id, phase, repetiti
         identity_event = obj(f"events/{attempt['attempt_id']}-identified.json")
         require(identity_event.get("id") == attempt["attempt_id"]
                 and identity_event.get("project") == "fzy"
-                and identity_event.get("phase") == "development",
+                and identity_event.get("phase") == phase,
                 f"{host} {sid}: identified event differs")
         manifest = identity_event.get("identity", {}).get("manifest")
         manifest_sha = identity_event.get("identity", {}).get("sha256")
@@ -178,7 +178,7 @@ def audit_host(host, path, receipt, declaration, freeze, run_id, phase, repetiti
             require(record.get("id") == attempt["attempt_id"]
                     and record.get("event") == event
                     and record.get("project") == "fzy"
-                    and record.get("phase") == "development",
+                    and record.get("phase") == phase,
                     f"{host} {sid}: {event} event differs")
             if event == "finished":
                 require(record.get("category") == "passed" and record.get("exit_code") == 0

@@ -1,0 +1,116 @@
+name: Runner readiness next20 fzy source fault calibration
+
+on:
+  push:
+    branches:
+      - work/p0-p2-implementation
+    paths:
+      - .github/workflows/runner-readiness-next20-fzy-fault-calibration.yml
+      - scripts/acceptance/next20_fzy_fault_calibration.py
+      - scripts/acceptance/test_next20_fzy_fault_calibration.py
+      - scripts/acceptance/next20_fzy_build.py
+      - scripts/acceptance/next20_candidate_install.py
+      - scripts/acceptance/next20_acquire.py
+      - scripts/acceptance/next20_target_cleanup.py
+      - scripts/acceptance/next20_storage.py
+      - docs/validation/runner-readiness-next-twenty-project-pass/fzy/fault-declaration-v1.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/fzy/scenario-declaration-v1.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/replacement-candidate-freeze-native-exit-v3.json
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: playtestr-next20-fzy-fault-calibration-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  native-fault-calibration:
+    name: fzy source faults (${{ matrix.host }})
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        include:
+          - host: linux
+            os: ubuntu-24.04
+            candidate_run_id: 43330369205
+            candidate_artifact: next20-private-replacement-Linux
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v3/linux-amd64/dist/playtestr_0.4.0-rc.8_linux_amd64.tar.gz
+          - host: darwin
+            os: macos-15
+            candidate_run_id: 43330369205
+            candidate_artifact: next20-private-replacement-macOS
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v3/darwin-arm64/dist/playtestr_0.4.0-rc.8_darwin_arm64.tar.gz
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 90
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONIOENCODING: utf-8
+      TEMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+      TMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+      TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+
+      - name: Create campaign-owned temporary directory
+        run: mkdir -p artifacts/runner-readiness-next-twenty-project-pass/tmp
+
+      - name: Verify fzy fault, scenario and cleanup helpers
+        run: python -B -m unittest test_next20_fzy_fault_calibration test_next20_fzy_scenarios test_next20_target_cleanup -v
+        working-directory: scripts/acceptance
+
+      - name: Acquire the exact reviewed fzy source pin
+        id: acquire
+        run: python -B scripts/acceptance/next20_acquire.py fzy
+
+      - name: Download the exact frozen rc.8 native runner archive
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ matrix.candidate_run_id }}
+          name: ${{ matrix.candidate_artifact }}
+          path: artifacts/runner-readiness-next-twenty-project-pass/candidate-download
+
+      - name: Install and verify the exact frozen rc.8 candidate archive
+        run: >-
+          python -B scripts/acceptance/next20_candidate_install.py
+          --series native-exit-v3 --archive "${{ matrix.candidate_archive }}"
+
+      - name: Run baseline, corrupted and restored source-fault phases
+        id: calibration
+        run: python -B scripts/acceptance/next20_fzy_fault_calibration.py --host "${{ matrix.host }}"
+
+      - name: Restore exact source after interrupted calibration
+        if: always() && steps.acquire.outcome == 'success'
+        run: >-
+          if [ -d artifacts/runner-readiness-next-twenty-project-pass/active/fzy ]; then
+          python -B scripts/acceptance/next20_target_cleanup.py --project fzy --include-active-case-evidence;
+          fi
+
+      - name: Verify campaign storage bounds
+        if: always() && steps.acquire.outcome == 'success'
+        run: python -B scripts/acceptance/next20_storage.py fzy
+
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: next20-fzy-fault-calibration-${{ matrix.host }}-${{ github.run_id }}
+          path: |
+            artifacts/runner-readiness-next-twenty-project-pass/fzy/fault-calibration-v1/**
+            artifacts/runner-readiness-next-twenty-project-pass/events/**
+            artifacts/runner-readiness-next-twenty-project-pass/identities/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/fzy/**
+            artifacts/runner-readiness-next-twenty-project-pass/candidate-native-exit-v3/${{ matrix.host }}/installed.json
+          if-no-files-found: warn
+          retention-days: 30
+          include-hidden-files: true

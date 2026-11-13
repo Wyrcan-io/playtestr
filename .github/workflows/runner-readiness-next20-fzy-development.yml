@@ -9,9 +9,10 @@ on:
       - scripts/acceptance/next20_fzy_build.py
       - scripts/acceptance/next20_fzy_scenarios.py
       - scripts/acceptance/test_next20_fzy_scenarios.py
-      - scripts/acceptance/next20_fzy_artifact_audit.py
-      - scripts/acceptance/test_next20_fzy_artifact_audit.py
-      - docs/validation/runner-readiness-next-twenty-project-pass/fzy/**
+      - docs/validation/runner-readiness-next-twenty-project-pass/fzy/scenario-declaration-v1.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/fzy/scenarios-v1/**
+      - docs/validation/runner-readiness-next-twenty-project-pass/fzy/source-provenance.json
+      - docs/validation/runner-readiness-next-twenty-project-pass/replacement-candidate-freeze-native-exit-v3.json
   workflow_dispatch:
 
 permissions:
