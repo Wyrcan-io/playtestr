@@ -19,7 +19,7 @@ PROJECT = DOC / "percol"
 PIN = "4b28037e328da3d0fe8165c11b800cbaddcb525e"
 HOSTS = {"linux": "Linux", "darwin": "Darwin"}
 SERIES = "native-exit-v3"
-SCENARIO_VERSION = 3
+SCENARIO_VERSION = 4
 
 
 def make_case(identity, kind, title, fixture, steps, stdout, *, options=(), filename=False,
@@ -66,7 +66,8 @@ def cases():
                   {"expect": "banana"}, {"key": "CtrlSpace"}, {"key": "Enter"}, {"exit": 0}],
                   b"apple\nbanana\n"),
         make_case("N07", "normal", "Edit the query before inverted selection",
-                  b"apple\nbanana\n", [{"key": "Backspace"}, {"expect": "banana"},
+                  b"apple\nbanana\n", [{"expect": "apx"}, {"key": "Backspace"},
+                  {"expect": "banana"},
                   {"key": "Enter"}, {"exit": 0}],
                   b"banana\n", options=("--query=apx", "--invert-match")),
         make_case("N08", "normal", "Start at the last candidate",

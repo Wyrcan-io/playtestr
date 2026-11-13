@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "project": "percol",
+  "phase": "development",
+  "run_id": 43381175066,
+  "workflow": ".github/workflows/runner-readiness-next20-percol-development.yml",
+  "commit": "174bfb4419ca5b6cf0778b7585c50a0af64e7959",
+  "run_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/43381175066",
+  "run_conclusion": "failure",
+  "candidate": "v0.4.0-rc.8",
+  "candidate_series": "native-exit-v3",
+  "scenario_contract": "scenario-declaration-v3.json",
+  "attempted_repetitions": 1,
+  "attempted_case_ids_per_host": ["N01", "N02", "N03", "N04", "N05", "N06", "N07"],
+  "host_results": [
+    {
+      "host": "linux-amd64",
+      "job_id": 131739033689,
+      "artifact_id": 14016602848,
+      "artifact_name": "next20-percol-development-linux-43381175066",
+      "artifact_bytes": 51723777,
+      "provider_sha256": "2f519dd579ef385c55c717ea854b4c7cc9da22fb410dd107f51a7ad0f2fa921f",
+      "downloaded_zip": "local-only: artifacts/runner-readiness-next-twenty-project-pass/retained/percol-development-run43381175066-linux.zip",
+      "downloaded_sha256": "2f519dd579ef385c55c717ea854b4c7cc9da22fb410dd107f51a7ad0f2fa921f",
+      "cases": {"N01": "passed", "N02": "passed", "N03": "passed", "N04": "passed", "N05": "passed", "N06": "passed", "N07": "failed"},
+      "first_failure": {
+        "case": "N07",
+        "report": "percol/development/linux/r01/N07/report.json",
+        "category": "assertion_timeout",
+        "failed_step": 2,
+        "screen": "QUERY> apx (0/0) [1/1]",
+        "target_exit": 1,
+        "target_process_group_cleanup_confirmed": true,
+        "workspace_cleaned": true
+      },
+      "source_restoration": "passed: pinned Percol source tree exactly matches acquisition manifest",
+      "runtime_cleanup": "passed: exact eight-link runtime inventory validated and removed after bundle retention",
+      "campaign_source_runtime_removed": true,
+      "admission_credit": 0
+    },
+    {
+      "host": "macos-arm64",
+      "job_id": 131739033958,
+      "artifact_id": 14016319786,
+      "artifact_name": "next20-percol-development-darwin-43381175066",
+      "artifact_bytes": 46909434,
+      "provider_sha256": "90be8e1f129ed7df67b801ca90e5a21e69dbf85af9298baa01ead85a6f8de751",
+      "downloaded_zip": "local-only: artifacts/runner-readiness-next-twenty-project-pass/retained/percol-development-run43381175066-macos.zip",
+      "downloaded_sha256": "90be8e1f129ed7df67b801ca90e5a21e69dbf85af9298baa01ead85a6f8de751",
+      "cases": {"N01": "passed", "N02": "passed", "N03": "passed", "N04": "passed", "N05": "passed", "N06": "passed", "N07": "failed"},
+      "first_failure": {
+        "case": "N07",
+        "report": "percol/development/darwin/r01/N07/report.json",
+        "category": "assertion_timeout",
+        "failed_step": 2,
+        "screen": "QUERY> apx (0/0) [1/1]",
+        "target_exit": 1,
+        "target_process_group_cleanup_confirmed": true,
+        "workspace_cleaned": true
+      },
+      "source_restoration": "passed: pinned Percol source tree exactly matches acquisition manifest",
+      "runtime_cleanup": "passed: exact eight-link runtime inventory validated and removed after bundle retention",
+      "campaign_source_runtime_removed": true,
+      "admission_credit": 0
+    }
+  ],
+  "diagnosis": {
+    "scenario_defect": "v3 sent Backspace as the first action without waiting for a positive screen checkpoint. The key was accepted before the prompt was ready and the target retained query apx.",
+    "cleanup": "Both hosts passed exact source restoration, complete runtime-link inventory, checked alias removal, process checks, cleanup preparation/removal and storage limits.",
+    "correction": "Preserve v3 and its first failures. V4 first expects the apx prompt as positive readiness evidence, then sends Backspace and expects banana after the finder refresh."
+  },
+  "admission_credit": 0
+}
