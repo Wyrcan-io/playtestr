@@ -23,6 +23,8 @@ Five failed native fault attempts and their provider digests remain preserved in
 
 Fzy's public route passed on Linux and macOS in run `43364417379`. It used the documented recorder to capture selected stdout bytes, seeded a wrong-file-bytes diagnosis, updated selected state after a controlled fixture reorder, relocated the reviewed spec into a Unicode/space path, and previewed (but did not dispatch) a hosted workflow. An independent audit reconstructed both provider packets and verified all eight attempts per host, exact artifacts, cleanup, event chains and identities; see the [run receipt](fzy/public-route-run43364417379-v1.json) and [artifact audit](fzy/public-route-artifact-audit-v1.json). Focused auditor tests pass. Saved-state coverage and admission credit remain zero. See [the route declaration](fzy/public-route-declaration-v1.json), [route harness](../../../scripts/acceptance/next20_fzy_public_route.py) and [checkpoint v169](checkpoint-continuation-v169.md).
 
+Fzy's technical authoring harness now covers exact two-spec selection, a manual v3 edit with exact input-file state, JSON/HTML reports, v2 execution and v3 migration, plus prefix-preserving suffix rerecord. Local harness and cleanup contract tests pass (21 tests; three host-specific skips). A dedicated native Linux/macOS workflow is prepared; no technical-route execution or admission credit is claimed until its provider packets pass independent audit. See [checkpoint v170](checkpoint-continuation-v170.md).
+
 Skim V34 and its exact-rc.6 Linux and Windows repeat V35, including three-fault
 calibrations, are independently audited in [readback v15](skim-artifact-retrieval-readback-v15.json):
 240/240 ordinary outcomes, 240 independently reconstructed contracts and all
