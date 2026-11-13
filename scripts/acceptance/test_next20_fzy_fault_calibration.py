@@ -29,7 +29,7 @@ class FzyFaultCalibrationTests(unittest.TestCase):
                                         fault["expected_failure_step"])
                           for fault, _, _ in rows}, {
                               "F01": ("state_assertion_failure", 4),
-                              "F02": ("assertion_timeout", 3),
+                              "F02": ("state_assertion_failure", 6),
                               "F03": ("state_assertion_failure", 4),
                           })
         self.assertTrue(all(spec.is_file() for _, _, spec in rows))

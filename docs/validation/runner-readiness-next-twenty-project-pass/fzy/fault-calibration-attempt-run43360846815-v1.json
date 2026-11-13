@@ -33,5 +33,40 @@
     "admission_credit": 0
   },
   "corrective_action": "Remove redundant workflow-level target acquisition; let each baseline/fault/restored phase acquire, build and clean its own exact source. Select no-case cleanup when an interrupted phase has no target reports, and surface bounded helper output in the workflow log.",
-  "scope": "Preserved failed workflow attempt; no target scenario ran and no fault or project admission credit is claimed."
+  "subsequent_attempts": [
+    {
+      "run_id": 43361379650,
+      "head_sha": "5da5554895be5ec14273c44a710d3b55c1c4a927",
+      "linux": {"job_id": 131675444048, "artifact_id": 14008162985, "artifact_bytes": 597125, "artifact_sha256": "cb8bfbd4225e9dad7530025c078fe5884c6fb5ba99bd869e9ac79122646aa6b0"},
+      "darwin": {"job_id": 131675444358, "artifact_id": 14008546894, "artifact_bytes": 467968, "artifact_sha256": "6cfae011a95b9ff800b8b8556118cbc7d74c6af87e8e445622653efe1ae2cda2"},
+      "status": "failed-during-fault-phase-cleanup",
+      "failure": "F01 baseline and corrupted scenario reports were generated, but the immutable cleanup receipt name was reused across phases and caused a collision. No calibration or cleanup credit is claimed.",
+      "scenario_credit": 0,
+      "calibration_credit": 0,
+      "admission_credit": 0
+    },
+    {
+      "run_id": 43361636083,
+      "head_sha": "46b8748338756d4195f1b06c548964e4c3dd912e",
+      "linux": {"job_id": 131676272784, "artifact_id": 14007559431, "artifact_bytes": 469362, "artifact_sha256": "cebde70cbcb0e23c6c46f9135415f075f99688577708a69f5a25b7e7569391b8"},
+      "darwin": {"job_id": 131676271993, "artifact_id": 14008756873, "artifact_bytes": 397453, "artifact_sha256": "e57260568a443a9fabc962a4145952387ef7091f7b600694e4489b8f4b8eac17"},
+      "status": "failed-during-first-corrupted-scenario",
+      "failure": "The declared F01 detection contract did not match the observed report category and step. Fault output diagnostics were added; no scenario or calibration credit is claimed.",
+      "scenario_credit": 0,
+      "calibration_credit": 0,
+      "admission_credit": 0
+    },
+    {
+      "run_id": 43361837784,
+      "head_sha": "d51c5e1e795b16bf69395ca9322594b2b52c8127",
+      "linux": {"job_id": 131676921287, "artifact_id": 14007479981, "artifact_bytes": 747852, "artifact_sha256": "6c3865f75c90a536461ce13b23bd211d7a21935032f43ffbc74638ee496e6581"},
+      "darwin": {"job_id": 131676921646, "artifact_id": 14009085055, "artifact_bytes": 675918, "artifact_sha256": "4025e6d14063633855bffaf04bd441dbcc90b60c0c869b38989c02090bbfb7ef"},
+      "status": "failed-during-first-corrupted-scenario",
+      "failure": "The observed F02 detection was state_assertion_failure at step 6, not assertion_timeout at step 3. The exact public output-byte checkpoint captured the selected wrong candidate. F02 declaration was corrected to the observed boundary; no calibration credit is claimed.",
+      "scenario_credit": 0,
+      "calibration_credit": 0,
+      "admission_credit": 0
+    }
+  ],
+  "scope": "Preserves the initial no-launch workflow failure and three subsequent corrective attempts. Later attempts produced partial target reports but failed before a complete audited host matrix; no project admission credit is claimed."
 }
