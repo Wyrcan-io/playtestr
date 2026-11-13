@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "project": "percol",
+  "workflow": ".github/workflows/runner-readiness-next20-percol-feasibility.yml",
+  "run_id": 43369303933,
+  "head_sha": "c1b29c0a343d83e6bcbd5debf40bfc2917912bd5",
+  "outcome": "both jobs stopped during signer key selection before signature verification or runtime build",
+  "failure_phase": "Python 2 release signer key fingerprint selection",
+  "failure": "Python's official page identifies two Benjamin Peterson key IDs; the Keybase-hosted current key imported successfully, but the exact release signer A4135B38 was not present in that key block",
+  "jobs": {
+    "macos-latest": {
+      "job_id": 131701063818,
+      "artifact_id": 14011333321,
+      "artifact_sha256": "37e35699b7ec7add62baff260961b17d534551cef98aadde53d139fbde77f4ac"
+    },
+    "ubuntu-latest": {
+      "job_id": 131701064132,
+      "artifact_id": 14010839398,
+      "artifact_sha256": "61d1a1ebbf58596e8cfb2f01b6aee400970b14ce6ed2e7e3783b1a9e4a655391"
+    }
+  },
+  "credit": {
+    "source_identity": 0,
+    "native_runtime": 0,
+    "scenarios": 0,
+    "admission": 0
+  },
+  "correction": "Fetch the exact legacy signing key from the official Keybase key endpoint, then verify the published full fingerprint before checking the detached source signature."
+}
