@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "project": "pick",
+  "source_pin": "caae95938359b2e814b3e7406f396f486c9d99fb",
+  "source_archive_sha256": "e308cf7fca8eb50bc3d90e31347377f0cf955e07eb77793343743deaee72c653",
+  "candidate": "v0.4.0-rc.8",
+  "candidate_series": "native-exit-v3",
+  "candidate_freeze": "docs/validation/runner-readiness-next-twenty-project-pass/replacement-candidate-freeze-native-exit-v3.json",
+  "candidate_freeze_sha256": "29668abbb0518073a6b53d2d23dc2d6904e76046eea26d917003013a16ddd4d8",
+  "hosts": ["linux", "darwin"],
+  "route": {
+    "first_use": "Record one query and selected-item flow from the public terminal controls, review it, replay it in a fresh managed workspace and export only after success.",
+    "diagnosis": "Change one screen expectation to an impossible value and require a useful bounded assertion failure with final rendered evidence.",
+    "maintenance": "Change the query and its paired screen expectations through the documented selective /replace controls; preserve unrelated actions and replay.",
+    "relocation": "Copy the complete exported project beneath a path with spaces and Unicode, then run the exact exported spec.",
+    "delivered_workflow": "Generate and inspect a pinned source-build GitHub Actions preview; do not dispatch it as user CI."
+  },
+  "record_controls": [
+    "/expect amber",
+    "/snapshot initial-menu.txt",
+    "/text \"blue\"",
+    "/expect blue",
+    "/key Enter",
+    "/expect blue",
+    "/exit 0",
+    "/review",
+    "/replay",
+    "/save"
+  ],
+  "maintenance_controls": [
+    "/replace 3 {\"text\":\"cedar\"}",
+    "/replace 4 {\"expect\":\"cedar\"}",
+    "/replace 6 {\"expect\":\"cedar\"}",
+    "/review",
+    "/replay",
+    "/save"
+  ],
+  "human_participants": 0,
+  "usability_status": "unmeasured",
+  "admission_credit": 0
+}
