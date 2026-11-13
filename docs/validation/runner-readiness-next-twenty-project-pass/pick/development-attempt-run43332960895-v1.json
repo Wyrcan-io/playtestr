@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "run_id": "43332960895",
+  "workflow_revision": "178dcb2fc93a713b3b3bf5969db9fc1d1dda0865",
+  "candidate_run_id": "43330369205",
+  "candidate_series": "native-exit-v3",
+  "candidate_version": "v0.4.0-rc.8",
+  "phase": "development",
+  "status": "failed_before_project_scenarios",
+  "reason": "The candidate installer accepted only rc5, native-exit-v1 and native-exit-v2; both hosts rejected the newly frozen native-exit-v3 series. No Pick scenario launched, so this attempt contributes no scenario or project admission credit.",
+  "jobs": [
+    {
+      "host": "linux",
+      "provider_job_id": 131581935352,
+      "status": "completed",
+      "conclusion": "failure",
+      "source_archive_sha256": "e308cf7fca8eb50bc3d90e31347377f0cf955e07eb77793343743deaee72c653",
+      "built_binary_sha256": "687dcd78dacd8b4ca96eddb31e5bf308ca1d60dcd2731838589a67013ec38b7c",
+      "upstream_tests": "passed",
+      "candidate_install": "failed_argument_validation",
+      "scenario_step": "skipped",
+      "cleanup": "exact_source_restored; owned_source_runtime_removed; no_target_launched",
+      "storage": {
+        "new_raw_bytes": 3098322,
+        "combined_raw_bytes": 1912125983,
+        "combined_retained_bytes": 992043505,
+        "project_bytes": 357307,
+        "combined_curated_bytes": 32024091,
+        "active": [],
+        "failed": []
+      },
+      "artifact": {
+        "id": 13995013578,
+        "name": "next20-pick-development-linux-43332960895",
+        "bytes": 343427,
+        "sha256": "2522243997615bdb86dc17ba31a26f56b349b282c1e6935567410f9f5dd2b805",
+        "local_only": ".runner-readiness-compaction-tmp/pick-v10-failed-linux.zip"
+      }
+    },
+    {
+      "host": "darwin",
+      "provider_job_id": 131581934960,
+      "status": "completed",
+      "conclusion": "failure",
+      "source_archive_sha256": "e308cf7fca8eb50bc3d90e31347377f0cf955e07eb77793343743deaee72c653",
+      "built_binary_sha256": "8dacc5183cf65e276294c6bcfcdb76808232aa557a6acce4e27939a1e78aeaf9",
+      "upstream_tests": "passed",
+      "candidate_install": "failed_argument_validation",
+      "scenario_step": "skipped",
+      "cleanup": "exact_source_restored; owned_source_runtime_removed; no_target_launched",
+      "storage": {
+        "new_raw_bytes": 2961658,
+        "combined_raw_bytes": 1911989319,
+        "combined_retained_bytes": 991906841,
+        "project_bytes": 357327,
+        "combined_curated_bytes": 32024091,
+        "active": [],
+        "failed": []
+      },
+      "artifact": {
+        "id": 13996321133,
+        "name": "next20-pick-development-darwin-43332960895",
+        "bytes": 343451,
+        "sha256": "ba4bb2968131af3d308cd9f53079ff08f31303288e73fae87cab7cce582f7e26",
+        "local_only": ".runner-readiness-compaction-tmp/pick-v10-failed-darwin.zip"
+      }
+    }
+  ],
+  "scenario_credit": 0,
+  "project_credit": 0
+}

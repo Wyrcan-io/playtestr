@@ -60,6 +60,18 @@ class NextCampaignTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'frozen archive'):candidate.executable('native-exit-v1','windows')
             with self.assertRaisesRegex(ValueError,'undeclared'):candidate.contract('invented','windows')
 
+    def test_native_exit_v3_selects_the_frozen_rc8_cell_and_install_root(self):
+        import next20_candidate as candidate
+        from unittest.mock import patch
+        immutable_json(self.root/'replacement-candidate-freeze-native-exit-v3.json',
+            dict(series='native-exit-v3',version='v0.4.0-rc.8',
+                 cells=[dict(host='linux',archive_sha256='a'*64,binary_sha256='b'*64)]))
+        with patch.object(candidate,'DOC',self.root),patch.object(candidate,'RAW',self.root):
+            freeze,row,output=candidate.contract('native-exit-v3','linux')
+        self.assertEqual(freeze['version'],'v0.4.0-rc.8')
+        self.assertEqual(row['host'],'linux')
+        self.assertEqual(output,self.root/'candidate-native-exit-v3/linux')
+
     def test_invalid_spec_cleanup_classification_refuses_any_launch_or_cleanup_state(self):
         import copy
         from next20_target_cleanup import invalid_spec_before_launch

@@ -5,7 +5,7 @@ import platform
 from next20_check import RAW,ROOT,DOC
 from readiness_evidence import sha256
 
-SERIES=('rc5','native-exit-v1','native-exit-v2')
+SERIES=('rc5','native-exit-v1','native-exit-v2','native-exit-v3')
 
 
 def contract(series,host=None):
@@ -15,6 +15,7 @@ def contract(series,host=None):
         'rc5': ROOT/'docs/validation/runner-readiness-ten-project-pass/migration-candidate-freeze.json',
         'native-exit-v1': DOC/'replacement-candidate-freeze-native-exit-v1.json',
         'native-exit-v2': DOC/'replacement-candidate-freeze-native-exit-v2.json',
+        'native-exit-v3': DOC/'replacement-candidate-freeze-native-exit-v3.json',
     }
     freeze_path=freezes[series]
     freeze=json.loads(freeze_path.read_text())
@@ -23,7 +24,8 @@ def contract(series,host=None):
     row=rows[0]
     if host not in {'windows','linux','darwin'}:raise ValueError('undeclared native host')
     output=RAW/({'rc5':'candidate','native-exit-v1':'candidate-native-exit-v1',
-                 'native-exit-v2':'candidate-native-exit-v2'}[series])/host
+                 'native-exit-v2':'candidate-native-exit-v2',
+                 'native-exit-v3':'candidate-native-exit-v3'}[series])/host
     return freeze,row,output
 
 
