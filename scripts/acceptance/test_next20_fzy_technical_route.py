@@ -32,6 +32,13 @@ class FzyTechnicalRouteTests(unittest.TestCase):
                       "fzy-technical-suffix-rerecord-ordinary-test"):
             self.assertIn(label, source)
 
+    def test_v2_migration_spec_is_placed_with_its_fixture_workspace(self):
+        import inspect
+        source = inspect.getsource(route.main_async)
+        self.assertIn('migration_root = output / "migration"', source)
+        self.assertIn('shutil.copytree(manual_root / "fixtures", migration_root / "fixtures")', source)
+        self.assertIn('migration_spec = migration_root / "fzy-migration.json"', source)
+
 
 if __name__ == "__main__":
     unittest.main()

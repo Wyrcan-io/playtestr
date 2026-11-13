@@ -129,10 +129,13 @@ async def main_async(host):
          and b'class="status status-passed">passed</span>' in html,
          "fzy offline HTML report does not summarize successful machine evidence")
 
+    migration_root = output / "migration"
+    migration_root.mkdir()
+    shutil.copytree(manual_root / "fixtures", migration_root / "fixtures")
     migration = json.loads(json.dumps(manual))
     migration["version"] = 2
     migration["steps"] = [step for step in migration["steps"] if "state" not in step]
-    migration_spec = output / "fzy-migration.json"
+    migration_spec = migration_root / "fzy-migration.json"
     legacy_bytes = json.dumps(migration, sort_keys=True, indent=2) + "\n"
     migration_spec.write_text(legacy_bytes, encoding="utf-8", newline="\n")
     legacy_copy = reports / "version-2-before-migration.json"

@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "project": "fzy",
+  "run_id": 43365829863,
+  "run_attempt": 1,
+  "head_sha": "fdb3ebfb8c14da3a4f07f0d2ee2c5e6175678d3f",
+  "workflow": ".github/workflows/runner-readiness-next20-fzy-technical-route.yml",
+  "status": "failed-preserved-zero-technical-credit",
+  "failure": {
+    "stage": "version-2-before-migration identity preparation",
+    "cause": "The v2 spec was placed beside the technical output rather than beside its fixtures directory, so fixture-input identity resolution rejected it before the command launched.",
+    "scope": "Harness workspace placement defect; manual v3, exact input-state, suite-selection and HTML report checks had already passed on both hosts."
+  },
+  "hosts": {
+    "linux": {
+      "job_id": 131689901695,
+      "artifact_id": 14010580751,
+      "artifact_bytes": 214826,
+      "artifact_sha256": "cafb06b76361896cbed9772eb835cc8e5bff07a66803f6968f9b720f4eed34d8",
+      "attempts_started": 5,
+      "successful_attempts": 4,
+      "upstream_tests": "passed",
+      "source_restored_exact": true,
+      "source_removed": true,
+      "no_matching_processes": true,
+      "storage_check": "passed"
+    },
+    "darwin": {
+      "job_id": 131689901508,
+      "artifact_id": 14010236886,
+      "artifact_bytes": 215049,
+      "artifact_sha256": "246b51804e3c1b1f6c9198f6a3a90fed9aaed4029c78ba2bc08334a9e0617de0",
+      "attempts_started": 5,
+      "successful_attempts": 4,
+      "upstream_tests": "passed",
+      "source_restored_exact": true,
+      "source_removed": true,
+      "no_matching_processes": true,
+      "storage_check": "passed"
+    }
+  },
+  "technical_route_credit": 0,
+  "project_admission_credit": 0,
+  "human_participants": 0,
+  "usability": "unmeasured",
+  "scope": "The two exact provider artifacts and job logs are retained locally for reconciliation. No route success, native technical coverage, saved-state coverage, or admission credit is transferred from this failed attempt."
+}
