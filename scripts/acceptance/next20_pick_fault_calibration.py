@@ -206,6 +206,7 @@ async def run_phase(host, fault, manifest_path, scenario, phase_name, run_id):
                                         "--project", "pick", "--include-active-case-evidence",
                                         "--window", window], "core",
             f"pick-{fault['id']}-{phase_name}-{host}-cleanup", "fault-calibration", timeout=600)
+        cleanup_log.write_text(cleanup_result["output"], encoding="utf-8")
         require(not target_root.exists(), "Pick fault phase left its owned source/build tree")
     receipt = {"schema_version": 1, "project": "pick", "run_id": run_id,
                "fault_id": fault["id"], "host": host, "phase": phase_name,
