@@ -10,8 +10,20 @@
       "status": "failure",
       "failure": "The first-use recorded expectation used blue, which was already visible in the initial viewport; recorder rejected its stale anchor before replay or export.",
       "providers": [
-        {"host": "linux", "artifact_id": "14001480136", "artifact_name": "next20-pick-public-route-linux-43344227655", "bytes": 443363, "sha256": "eb5d114792c26a2dc3270804fe718818c6373774edc72ac714ee478a0d404ad5"},
-        {"host": "darwin", "artifact_id": "14000199440", "artifact_name": "next20-pick-public-route-darwin-43344227655", "bytes": 443378, "sha256": "2b197044e2e1ac7f7a8259a06d9581293dfdb61737295435bfa605c0187f3b74"}
+        {
+          "host": "linux",
+          "artifact_id": "14001480136",
+          "artifact_name": "next20-pick-public-route-linux-43344227655",
+          "bytes": 443363,
+          "sha256": "eb5d114792c26a2dc3270804fe718818c6373774edc72ac714ee478a0d404ad5"
+        },
+        {
+          "host": "darwin",
+          "artifact_id": "14000199440",
+          "artifact_name": "next20-pick-public-route-darwin-43344227655",
+          "bytes": 443378,
+          "sha256": "2b197044e2e1ac7f7a8259a06d9581293dfdb61737295435bfa605c0187f3b74"
+        }
       ]
     },
     {
@@ -20,8 +32,20 @@
       "status": "failure",
       "failure": "Typing the initially hidden item29 did not yield a capturable unique screen anchor for the following expectation on either host.",
       "providers": [
-        {"host": "linux", "artifact_id": "14000494739", "artifact_name": "next20-pick-public-route-linux-43344632719", "bytes": 443421, "sha256": "a570cc8eb23f559d5028b5a3e2236036d01841801dc945454aec629371b166dc"},
-        {"host": "darwin", "artifact_id": "14000069282", "artifact_name": "next20-pick-public-route-darwin-43344632719", "bytes": 443454, "sha256": "4c139b65869e700ccdd0e1c4b546cbbeeb1673d32e794a9dab1266ff725897fd"}
+        {
+          "host": "linux",
+          "artifact_id": "14000494739",
+          "artifact_name": "next20-pick-public-route-linux-43344632719",
+          "bytes": 443421,
+          "sha256": "a570cc8eb23f559d5028b5a3e2236036d01841801dc945454aec629371b166dc"
+        },
+        {
+          "host": "darwin",
+          "artifact_id": "14000069282",
+          "artifact_name": "next20-pick-public-route-darwin-43344632719",
+          "bytes": 443454,
+          "sha256": "4c139b65869e700ccdd0e1c4b546cbbeeb1673d32e794a9dab1266ff725897fd"
+        }
       ]
     },
     {
@@ -30,8 +54,20 @@
       "status": "failure",
       "failure": "End did not produce a capturable tail-choice screen within the recorder deadline on either host.",
       "providers": [
-        {"host": "linux", "artifact_id": "14000847668", "artifact_name": "next20-pick-public-route-linux-43345248493", "bytes": 443378, "sha256": "ef0c0b6cdc420b9448c368a658079fd2eb344e321cd85509efa28333e4d8f501"},
-        {"host": "darwin", "artifact_id": "14000828465", "artifact_name": "next20-pick-public-route-darwin-43345248493", "bytes": 443392, "sha256": "985850b1d257426ed05b35f692f27eeae0623698c8709fdf87e1f28c4d9625df"}
+        {
+          "host": "linux",
+          "artifact_id": "14000847668",
+          "artifact_name": "next20-pick-public-route-linux-43345248493",
+          "bytes": 443378,
+          "sha256": "ef0c0b6cdc420b9448c368a658079fd2eb344e321cd85509efa28333e4d8f501"
+        },
+        {
+          "host": "darwin",
+          "artifact_id": "14000828465",
+          "artifact_name": "next20-pick-public-route-darwin-43345248493",
+          "bytes": 443392,
+          "sha256": "985850b1d257426ed05b35f692f27eeae0623698c8709fdf87e1f28c4d9625df"
+        }
       ]
     },
     {
@@ -40,8 +76,42 @@
       "status": "failure",
       "failure": "Recorder exported the expected 29 ArrowDown actions, tail-choice assertion, Enter and exact exit on both hosts. Harness post-export validation incorrectly required an End key; it stopped before ordinary replay, diagnosis, maintenance, relocation and preview.",
       "providers": [
-        {"host": "linux", "artifact_id": "14001052912", "artifact_name": "next20-pick-public-route-linux-43345607801", "bytes": 442014, "sha256": "903c1bc481e8055de38c688e8fabb45b8c9b350eefc0c8a0d619957022a9beb7"},
-        {"host": "darwin", "artifact_id": "14002130218", "artifact_name": "next20-pick-public-route-darwin-43345607801", "bytes": 442047, "sha256": "5e96d9161519cf0f7f9c9d1d62f59a2c5bec1ea00d72ae37f8d7a62af9b6bf07"}
+        {
+          "host": "linux",
+          "artifact_id": "14001052912",
+          "artifact_name": "next20-pick-public-route-linux-43345607801",
+          "bytes": 442014,
+          "sha256": "903c1bc481e8055de38c688e8fabb45b8c9b350eefc0c8a0d619957022a9beb7"
+        },
+        {
+          "host": "darwin",
+          "artifact_id": "14002130218",
+          "artifact_name": "next20-pick-public-route-darwin-43345607801",
+          "bytes": 442047,
+          "sha256": "5e96d9161519cf0f7f9c9d1d62f59a2c5bec1ea00d72ae37f8d7a62af9b6bf07"
+        }
+      ]
+    },
+    {
+      "run_id": "43346103684",
+      "head_sha": "27f42b95bb7dd2570e6161728cd3870ac992d0aa",
+      "status": "failure",
+      "failure": "First-use record, ordinary replay, diagnosis, and unchanged maintenance baseline passed on both hosts. The maintenance editor then replaced step 4 even though the selected-item expectation was at step 32 after the 29 navigation actions; replay timed out. Artifact retained; zero admission credit.",
+      "providers": [
+        {
+          "host": "linux",
+          "artifact_id": "14001727025",
+          "artifact_name": "next20-pick-public-route-linux-43346103684",
+          "bytes": 591300,
+          "sha256": "e15aa0fb9408bd032d0a1888fc7e3ddc7d2521844a3078de45a61ff7e986aa47"
+        },
+        {
+          "host": "darwin",
+          "artifact_id": "14000913500",
+          "artifact_name": "next20-pick-public-route-darwin-43346103684",
+          "bytes": 591343,
+          "sha256": "2b47424b4dc11a862435c4903cc7cb457413dcbb405837cd70697c5e4b35b4db"
+        }
       ]
     }
   ],

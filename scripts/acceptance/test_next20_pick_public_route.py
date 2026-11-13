@@ -9,29 +9,26 @@ import next20_pick_public_route as route
 
 
 class PickPublicRouteTests(unittest.TestCase):
-    def test_first_use_records_offscreen_selection_and_exact_exit_without_handwritten_spec(self):
+    def test_first_use_records_fuzzy_selection_and_exact_exit_without_handwritten_spec(self):
         declaration = json.loads(route.DECLARATION.read_text(encoding="utf-8"))
         self.assertEqual(route.RECORDER_CONTROLS, declaration["record_controls"])
         self.assertEqual(route.RECORDER_CONTROLS[:4], [
-            "/expect item00", "/snapshot initial-menu.txt", "/key ArrowDown", "/key ArrowDown",
+            "/expect item00", "/snapshot initial-menu.txt", '/text "tail"',
+            "/expect Tail unique description",
         ])
-        self.assertEqual(route.RECORDER_CONTROLS.count("/key ArrowDown"), 29)
-        self.assertEqual(route.RECORDER_CONTROLS[-7:], [
-            "/key ArrowDown", "/expect tail-choice", "/key Enter", "/exit 0",
-            "/review", "/replay", "/save",
+        self.assertEqual(route.RECORDER_CONTROLS[-5:], [
+            "/key Enter", "/exit 0", "/review", "/replay", "/save",
         ])
-        self.assertEqual(route.INITIAL_FIXTURE.splitlines()[0], b"item00")
-        self.assertEqual(route.INITIAL_FIXTURE.splitlines()[-1], b"tail-choice")
+        self.assertEqual(route.INITIAL_FIXTURE.splitlines()[0], b"item00:Item description 00")
+        self.assertEqual(route.INITIAL_FIXTURE.splitlines()[-1], b"tail-choice:Tail unique description")
         self.assertEqual(len(route.INITIAL_FIXTURE.splitlines()), 30)
         self.assertEqual(declaration["admission_credit"], 0)
 
-    def test_selective_maintenance_updates_the_terminal_screen_oracle(self):
+    def test_selective_maintenance_updates_only_the_fuzzy_query(self):
         declaration = json.loads(route.DECLARATION.read_text(encoding="utf-8"))
         self.assertEqual(route.MAINTENANCE_CONTROLS, declaration["maintenance_controls"])
-        self.assertEqual(len([line for line in route.MAINTENANCE_CONTROLS if line.startswith("/replace")]), 1)
-        self.assertIn('{"expect":"revised-tail-choice"}', route.MAINTENANCE_CONTROLS[0])
         self.assertEqual(route.MAINTENANCE_CONTROLS,
-                         ['/replace 4 {"expect":"revised-tail-choice"}', "/review", "/replay", "/save"])
+                         ['/replace 3 {"text":"tail-choice"}', "/review", "/replay", "/save"])
 
     def test_route_binds_the_private_candidate_and_keeps_human_status_separate(self):
         declaration = json.loads(route.DECLARATION.read_text(encoding="utf-8"))
