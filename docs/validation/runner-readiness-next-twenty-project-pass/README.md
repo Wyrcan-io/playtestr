@@ -9,6 +9,8 @@ Fzy is the next selected target. Its pinned source and MIT license are reviewed;
 
 The next fzy run `43354855944` stopped before native build because the build helper omitted its `DOC` import. Explicit no-case cleanup, exact source removal and storage validation passed on both hosts; no scenario ran. The import fix now has a focused module-import/provenance test. The attempt is retained in [its receipt](fzy/development-attempt-run43354855944-v1.json), with progress in [checkpoint v154](checkpoint-continuation-v154.md).
 
+Run `43355127321` then built fzy and passed its 32 upstream tests on Linux and macOS; N01–N05 passed once per host. N06 timed out because it expected a match while typing the invalid query `bluz`, before reaching its Backspace action. N07–N20 did not run. Target cleanup, exact source removal and storage checks passed. The run and failure are preserved in [its receipt](fzy/development-attempt-run43355127321-v1.json). N06 now starts from a valid `blue` query, with a focused order/output regression. See [checkpoint v155](checkpoint-continuation-v155.md).
+
 Skim V34 and its exact-rc.6 Linux and Windows repeat V35, including three-fault
 calibrations, are independently audited in [readback v15](skim-artifact-retrieval-readback-v15.json):
 240/240 ordinary outcomes, 240 independently reconstructed contracts and all

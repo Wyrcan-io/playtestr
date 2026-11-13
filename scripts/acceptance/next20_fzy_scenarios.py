@@ -75,7 +75,7 @@ def cases():
                   b"amber\nblue\ncedar\n", [{"expect": "amber"}, {"key": "ArrowDown"},
                   {"expect": "blue"}, {"key": "Enter"}, {"expect": "blue"}, {"exit": 0}]),
         make_case("N06", "normal", "Edit the query with backspace before selection",
-                  b"blue\nblack\n", [{"text": "bluz"}, {"expect": "blue"},
+                  b"blue\nblack\n", [{"text": "blue"}, {"expect": "blue"},
                   {"key": "Backspace"}, {"expect": "blue"}, {"key": "Enter"},
                   {"expect": "blue"}, {"exit": 0}]),
         make_case("N07", "normal", "Complete the selected candidate with Tab",

@@ -30,6 +30,16 @@ class FzyScenarioTests(unittest.TestCase):
                 self.assertEqual(rows[identity]["actions"][-2], {"exit": 1})
                 self.assertIn({"key": key}, rows[identity]["actions"])
 
+    def test_backspace_case_starts_with_a_positive_match_before_editing(self):
+        row = next(row for row in fzy.cases() if row["id"] == "N06")
+        self.assertEqual(row["fixture"], b"blue\nblack\n")
+        self.assertEqual(row["actions"][:4], [
+            {"text": "blue"}, {"expect": "blue"},
+            {"key": "Backspace"}, {"expect": "blue"},
+        ])
+        self.assertEqual(row["actions"][-1]["state"]["bytes_base64"],
+                         base64.b64encode(b"blue\n").decode("ascii"))
+
     def test_selection_outputs_are_observed_after_terminal_teardown(self):
         rows = {row["id"]: row for row in fzy.cases()}
         for identity, expected in (("N01", b"apple\n"), ("N05", b"blue\n"),

@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "status": "partial-development-matrix-with-preserved-scenario-failure",
+  "project": "fzy",
+  "repository": "jhawthorn/fzy",
+  "pin": "34b88869d022e861da4846c4463aea3ddfb3ff30",
+  "candidate": "v0.4.0-rc.8",
+  "candidate_series": "native-exit-v3",
+  "run_id": 43355127321,
+  "head_sha": "8680f3187ad788d6fdf553c103892fb49e7301f8",
+  "event": "push",
+  "hosts": {
+    "linux": {
+      "provider_artifact_id": 14006135384,
+      "provider_artifact_name": "next20-fzy-development-linux-43355127321",
+      "provider_bytes": 348603,
+      "provider_sha256": "83dd1be65b31720099ce03500b1ca4c85aa9b1aa6f540567747a09708ad65de8",
+      "source_archive_sha256": "d55d4d0dcbced2daa0dd16b42ee0fc31654bd038ff6a147b38580c233d62c967",
+      "upstream_build": "passed",
+      "upstream_tests": {"status": "passed", "tests": 32, "failures": 0},
+      "candidate_install": "passed",
+      "scenario_results": {
+        "N01-N05": "passed once each",
+        "N06": "failed at step 2: invalid query 'bluz' rendered no candidate; assertion timed out before Backspace; target cleanup confirmed",
+        "N07-N20": "not run"
+      },
+      "target_cleanup": "passed",
+      "exact_source_removal": "passed",
+      "storage": "passed",
+      "admission_credit": 0
+    },
+    "darwin": {
+      "provider_artifact_id": 14005114162,
+      "provider_artifact_name": "next20-fzy-development-darwin-43355127321",
+      "provider_bytes": 348864,
+      "provider_sha256": "fbbfc5679b004c0bf77a758dd5cbfb7f0978a66e458c0f611758b959580a91dd",
+      "source_archive_sha256": "d55d4d0dcbced2daa0dd16b42ee0fc31654bd038ff6a147b38580c233d62c967",
+      "upstream_build": "passed",
+      "upstream_tests": {"status": "passed", "tests": 32, "failures": 0},
+      "candidate_install": "passed",
+      "scenario_results": {
+        "N01-N05": "passed once each",
+        "N06": "failed at step 2: invalid query 'bluz' rendered no candidate; assertion timed out before Backspace; target cleanup confirmed",
+        "N07-N20": "not run"
+      },
+      "target_cleanup": "passed",
+      "exact_source_removal": "passed",
+      "storage": "passed",
+      "admission_credit": 0
+    }
+  },
+  "disposition": "Preserve this first scenario failure and rerun the entire matrix. N06 had an authored invalid starting query, so the pre-Backspace screen checkpoint could never pass. The corrected case starts with the positive unique query 'blue' before sending Backspace."
+}
