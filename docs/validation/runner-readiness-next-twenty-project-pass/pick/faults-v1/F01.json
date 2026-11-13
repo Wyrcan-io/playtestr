@@ -1,0 +1,18 @@
+{
+  "id": "F01",
+  "project": "pick",
+  "pin": "caae95938359b2e814b3e7406f396f486c9d99fb",
+  "source_archive_sha256": "e308cf7fca8eb50bc3d90e31347377f0cf955e07eb77793343743deaee72c653",
+  "source_file": "pick.c",
+  "baseline_source_sha256": "b2a9252d7c684da668b5d306b8e41ed5fcb169a60fd3bb29e0897031a70c890a",
+  "mutated_source_sha256": "66d1249a1ecae318d4057ccfde2a5b009c4667c2fd61b7a40cc7e411e02b905b",
+  "patch": "pick/faults-v1/F01.patch",
+  "patch_sha256": "3ac0ec58b27efcb2c5760665d868a50230c81e104811036dfe0b2fb349a05a79",
+  "scenario_id": "E11",
+  "expected_failure_step": 10,
+  "expected_failure_categories": ["assertion_timeout"],
+  "requires_state_failure": false,
+  "mutation_old_base64": "CQkJCXNlbGVjdGlvbisrOwo=",
+  "mutation_new_base64": "CQkJCS8qIGZhdWx0OiBpZ25vcmVkIERvd24ga2V5ICovCg==",
+  "fault": "Suppress one Down-key selection transition. The unchanged long-list scenario should fail to observe item29 after moving from item28."
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "project": "pick",
+  "repository": "mptre/pick",
+  "pin": "caae95938359b2e814b3e7406f396f486c9d99fb",
+  "source_archive_sha256": "e308cf7fca8eb50bc3d90e31347377f0cf955e07eb77793343743deaee72c653",
+  "scenario_declaration": "docs/validation/runner-readiness-next-twenty-project-pass/pick/scenario-declaration-v10.json",
+  "scenario_declaration_sha256": "1f1b6b455e931b5ebde69cee820c3872abd8ffafd08d35e9452f25be5eeac65c",
+  "candidate_freeze": "docs/validation/runner-readiness-next-twenty-project-pass/replacement-candidate-freeze-native-exit-v3.json",
+  "candidate_freeze_sha256": "29668abbb0518073a6b53d2d23dc2d6904e76046eea26d917003013a16ddd4d8",
+  "candidate": "v0.4.0-rc.8",
+  "series": "native-exit-v3",
+  "hosts": ["linux", "darwin"],
+  "phases": ["source-fault-baseline", "source-fault-corrupted", "source-fault-restored"],
+  "faults": [
+    {"id": "F01", "manifest": "pick/faults-v1/F01.json", "scenario_id": "E11", "kind": "interaction"},
+    {"id": "F02", "manifest": "pick/faults-v1/F02.json", "scenario_id": "E02", "kind": "cancellation_exit"},
+    {"id": "F03", "manifest": "pick/faults-v1/F03.json", "scenario_id": "N01", "kind": "selected_output"}
+  ],
+  "expected_attempts": 18,
+  "held_out_status": "Declarations were authored after v10 contract freeze and before any fault run. F01 reuses the useful long-list task after rc.7 E11 failures; its specific Down-key source mutation has not been executed before this calibration. F02 and F03 are distinct source mutations not previously exercised in the Pick campaign.",
+  "oracle": "The unchanged v10 rendered-screen, selected stdout and exact-exit contract must pass pristine and restored native builds, and must fail at the declared behavior step against each actual mutated Pick executable.",
+  "admission_credit": 0
+}

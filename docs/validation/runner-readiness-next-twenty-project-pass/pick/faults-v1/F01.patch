@@ -1,0 +1,9 @@
+--- a/pick.c
++++ b/pick.c
+@@
+ 		case LINE_DOWN:
+ 			if (selection < choices_count - 1) {
+-				selection++;
++				/* fault: ignored Down key */
+ 				if (selection - yscroll == choices_lines)
+ 					yscroll++;

@@ -1,0 +1,18 @@
+{
+  "id": "F02",
+  "project": "pick",
+  "pin": "caae95938359b2e814b3e7406f396f486c9d99fb",
+  "source_archive_sha256": "e308cf7fca8eb50bc3d90e31347377f0cf955e07eb77793343743deaee72c653",
+  "source_file": "pick.c",
+  "baseline_source_sha256": "b2a9252d7c684da668b5d306b8e41ed5fcb169a60fd3bb29e0897031a70c890a",
+  "mutated_source_sha256": "7564e29df1c9d675ae56ade25092991f66bce0ee989d06cc4ba91e6cb7d58c0c",
+  "patch": "pick/faults-v1/F02.patch",
+  "patch_sha256": "4fdd0830dd8f8d2ef2ad373ee19dffb0d8f57b606ec59601a5b612d4401c8949",
+  "scenario_id": "E02",
+  "expected_failure_step": 3,
+  "expected_failure_categories": ["unexpected_exit"],
+  "requires_state_failure": false,
+  "mutation_old_base64": "CQlyYyA9IDE7Cg==",
+  "mutation_new_base64": "CQlyYyA9IDA7IC8qIGZhdWx0OiBjYW5jZWxsYXRpb24gcmVwb3J0cyBzdWNjZXNzICovCg==",
+  "fault": "Return success after Ctrl-C cancellation. The unchanged cancellation contract requires the exact nonzero target exit."
+}

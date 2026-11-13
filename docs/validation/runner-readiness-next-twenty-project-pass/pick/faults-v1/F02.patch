@@ -1,0 +1,7 @@
+--- a/pick.c
++++ b/pick.c
+@@
+ 	} else {
+-		rc = 1;
++		rc = 0; /* fault: cancellation reports success */
+ 	}

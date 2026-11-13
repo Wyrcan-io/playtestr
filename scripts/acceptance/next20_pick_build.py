@@ -1,5 +1,6 @@
 """Build pinned Pick with owned tool/temp paths and run its upstream suite."""
 import argparse
+import base64
 from datetime import datetime, timezone
 import hashlib
 import json
@@ -46,6 +47,8 @@ def file_map(root):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--expected-host", choices=tuple(HOSTS), required=True)
+    parser.add_argument("--source-fault-manifest", type=Path)
+    parser.add_argument("--skip-upstream-tests", action="store_true")
     args = parser.parse_args()
     host = "linux" if platform.system() == "Linux" else "darwin" if platform.system() == "Darwin" else "other"
     require(host == args.expected_host, "actual native host differs from the declared Pick build host")
@@ -58,11 +61,44 @@ def main():
             acquisition.get("archive_sha256") == ARCHIVE_SHA256 and sha256(target / "source.tar.gz") == ARCHIVE_SHA256,
             "Pick source archive/owner does not match the reviewed canonical pin")
     pristine = acquisition.get("source_files")
+    expected_source = dict(pristine)
+    mutation_record = None
+    if args.source_fault_manifest:
+        fault_path = (ROOT / args.source_fault_manifest).resolve(strict=True)
+        fault_path.relative_to(ROOT)
+        fault = json.loads(fault_path.read_text(encoding="utf-8"))
+        require(fault.get("project") == "pick" and fault.get("pin") == PIN and
+                fault.get("source_archive_sha256") == ARCHIVE_SHA256,
+                "Pick source-fault manifest does not match the reviewed target pin")
+        source_path = (source / fault["source_file"]).resolve(strict=True)
+        source_path.relative_to(source.resolve(strict=True))
+        original = source_path.read_bytes()
+        old = base64.b64decode(fault["mutation_old_base64"], validate=True)
+        new = base64.b64decode(fault["mutation_new_base64"], validate=True)
+        require(fault["source_file"] in pristine and sha256(source_path) ==
+                fault["baseline_source_sha256"] == pristine[fault["source_file"]] and
+                old and new and old != new and original.count(old) == 1,
+                "Pick source-fault baseline/anchor differs or is ambiguous")
+        patch_path = (ROOT / "docs/validation/runner-readiness-next-twenty-project-pass" /
+                      fault["patch"]).resolve(strict=True)
+        patch_path.relative_to((ROOT / "docs/validation/runner-readiness-next-twenty-project-pass/pick").resolve())
+        require(sha256(patch_path) == fault["patch_sha256"], "Pick source-fault patch hash differs")
+        mutated = original.replace(old, new, 1)
+        require(hashlib.sha256(mutated).hexdigest() == fault["mutated_source_sha256"],
+                "Pick source-fault mutated bytes differ from their declaration")
+        source_path.write_bytes(mutated)
+        expected_source[fault["source_file"]] = fault["mutated_source_sha256"]
+        mutation_record = {key: fault[key] for key in ("id", "source_file", "baseline_source_sha256",
+                           "mutated_source_sha256", "patch", "patch_sha256", "scenario_id")}
+        mutation_record["manifest"] = fault_path.relative_to(ROOT).as_posix()
+        mutation_record["manifest_sha256"] = sha256(fault_path)
+    elif args.skip_upstream_tests:
+        raise ValueError("upstream tests may only be skipped for a declared Pick source fault")
     source_now, source_bytes = file_map(source)
     # ``entries`` counts all archive members, including the three directories
     # in Pick's archive.  ``source_files`` intentionally hashes regular files.
-    require(isinstance(pristine, dict) and source_now == pristine and len(source_now) <= acquisition.get("entries", 0),
-            "Pick extracted primary source differs from its immutable acquisition manifest")
+    require(isinstance(pristine, dict) and source_now == expected_source and len(source_now) <= acquisition.get("entries", 0),
+            "Pick extracted primary source differs from the declared pristine/fault manifest")
     require(host in {"linux", "darwin"}, "Pick is declared only for native Linux/macOS hosts")
 
     tools = target / "tools"
@@ -104,7 +140,8 @@ def main():
     command("compiler-version", [compiler, "--version"], source)
     command("configure", ["/bin/sh", "./configure"], source)
     command("build", [make_path, "-j2"], source)
-    command("upstream-tests", [make_path, "test"], source)
+    if not args.skip_upstream_tests:
+        command("upstream-tests", [make_path, "test"], source)
     command("install", [make_path, "install", "BINDIR=" + str(install / "bin"),
                          "MANDIR=" + str(install / "man")], source)
     require((source / "config.h").is_file() and (source / "config.mk").is_file() and
@@ -118,8 +155,8 @@ def main():
     require(binary.is_file() and not binary.is_symlink(), "Pick install did not create its owned native executable")
     build_sha = sha256(binary)
     source_after_cleanup, _ = file_map(source)
-    require(source_after_cleanup == pristine,
-            "Pick source cleanup did not restore every pinned file byte exactly")
+    require(source_after_cleanup == expected_source,
+            "Pick source cleanup changed the pinned/faulted source bytes")
     require(make_path.is_symlink() and make_path.resolve(strict=True) == Path(make_executable).resolve(strict=True),
             "owned GNU make alias changed; refusing removal")
     make_path.unlink()
@@ -135,7 +172,9 @@ def main():
             json.dumps(pristine, sort_keys=True, separators=(",", ":")).encode()).hexdigest(),
         "commands": commands, "started_at_utc": started_at,
         "build_tree_file_count": len(inventory), "build_tree_bytes": tree_bytes,
-        "upstream_tests": "passed", "install_prefix_relative": "install",
+        "upstream_tests": ("skipped for declared source fault calibration" if args.skip_upstream_tests
+                           else "passed"), "source_mutation": mutation_record,
+        "install_prefix_relative": "install",
         "network_hooks": False, "build_hooks_reviewed": True,
     }
     immutable_json(target / "build.json", receipt)
@@ -143,7 +182,8 @@ def main():
                     "native": str(binary.resolve()), "native_sha256": build_sha,
                     "host": host, "pin": PIN})
     print(json.dumps({"project": "pick", "host": host, "source_archive_sha256": ARCHIVE_SHA256,
-                      "binary_sha256": build_sha, "upstream_tests": "passed",
+                      "binary_sha256": build_sha, "upstream_tests": ("skipped for declared source fault calibration"
+                          if args.skip_upstream_tests else "passed"),
                       "commands": len(commands), "build_tree_bytes": tree_bytes}, sort_keys=True))
 
 
