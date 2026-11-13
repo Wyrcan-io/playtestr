@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "project": "percol",
+  "phase": "development",
+  "run_id": 43382154788,
+  "workflow": ".github/workflows/runner-readiness-next20-percol-development.yml",
+  "commit": "5814695e22aa166ad68f2e574c85fbeba8bb460a",
+  "run_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/43382154788",
+  "run_conclusion": "failure",
+  "candidate": "v0.4.0-rc.8",
+  "candidate_series": "native-exit-v3",
+  "scenario_contract": "scenario-declaration-v4.json",
+  "attempted_repetitions": 1,
+  "attempted_case_ids_per_host": ["N01", "N02", "N03", "N04", "N05", "N06", "N07", "N08", "E01", "E02", "E03", "E04", "E05", "E06"],
+  "host_results": [
+    {
+      "host": "linux-amd64",
+      "job_id": 131742170943,
+      "artifact_id": 14016229861,
+      "artifact_name": "next20-percol-development-linux-43382154788",
+      "artifact_bytes": 52056476,
+      "provider_sha256": "5a0ab6d0533eb5bf6a55e06305f18dbc80c70cc6830fea20f844b9c19657238b",
+      "downloaded_zip": "local-only: artifacts/runner-readiness-next-twenty-project-pass/retained/percol-development-run43382154788-linux.zip",
+      "downloaded_sha256": "5a0ab6d0533eb5bf6a55e06305f18dbc80c70cc6830fea20f844b9c19657238b",
+      "first_failure": {
+        "case": "E06",
+        "report": "percol/development/linux/r01/E06/report.json",
+        "category": "unexpected_exit",
+        "target_exit": 1,
+        "trace": "TypeError: finish_with_exit_code() takes exactly 2 arguments (1 given)",
+        "target_process_group_cleanup_confirmed": true,
+        "workspace_cleaned": true
+      },
+      "cases_before_first_failure": 13,
+      "source_restoration": "passed",
+      "runtime_cleanup": "passed",
+      "campaign_source_runtime_removed": true,
+      "storage_limit": "passed",
+      "admission_credit": 0
+    },
+    {
+      "host": "macos-arm64",
+      "job_id": 131742170687,
+      "artifact_id": 14017371576,
+      "artifact_name": "next20-percol-development-darwin-43382154788",
+      "artifact_bytes": 47246835,
+      "provider_sha256": "5832692a46bb31265759c051d58291b8ddce62e7e8d3ffd5cf14469a3e053669",
+      "downloaded_zip": "local-only: artifacts/runner-readiness-next-twenty-project-pass/retained/percol-development-run43382154788-macos.zip",
+      "downloaded_sha256": "5832692a46bb31265759c051d58291b8ddce62e7e8d3ffd5cf14469a3e053669",
+      "first_failure": {
+        "case": "E06",
+        "category": "unexpected_exit",
+        "target_exit": 1,
+        "trace": "TypeError: finish_with_exit_code() takes exactly 2 arguments (1 given)",
+        "target_process_group_cleanup_confirmed": true,
+        "workspace_cleaned": true
+      },
+      "cases_before_first_failure": 13,
+      "source_restoration": "passed",
+      "runtime_cleanup": "passed",
+      "campaign_source_runtime_removed": true,
+      "storage_limit": "passed",
+      "admission_credit": 0
+    }
+  ],
+  "diagnosis": {
+    "unsupported_upstream_option": "Percol documents --auto-match, but its CLI calls Percol.finish_with_exit_code() with no argument while the method requires value and declares no default. Both native runtimes reproduce the TypeError and exit 1.",
+    "contract_correction": "Preserve the launched v4 contract and first failures. V5 replaces E06 with eager matching that must display the complete 1/2 result count after a query update and then emit the selected row.",
+    "cleanup": "The exact eight-link runtime cleanup and source restoration pass on both hosts."
+  },
+  "admission_credit": 0
+}

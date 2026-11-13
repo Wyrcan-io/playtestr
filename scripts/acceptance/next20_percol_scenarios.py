@@ -19,7 +19,7 @@ PROJECT = DOC / "percol"
 PIN = "4b28037e328da3d0fe8165c11b800cbaddcb525e"
 HOSTS = {"linux": "Linux", "darwin": "Darwin"}
 SERIES = "native-exit-v3"
-SCENARIO_VERSION = 4
+SCENARIO_VERSION = 5
 
 
 def make_case(identity, kind, title, fixture, steps, stdout, *, options=(), filename=False,
@@ -89,8 +89,10 @@ def cases():
         make_case("E05", "edge", "Keep an unmatched query interactive and cancellable",
                   b"", [{"text": "missing"}, {"expect": "missing"},
                   {"key": "CtrlC"}, {"exit": 1}], b""),
-        make_case("E06", "edge", "Auto-select the only candidate",
-                  b"unique\n", [{"exit": 0}], b"unique\n", options=("--auto-match",)),
+        make_case("E06", "edge", "Eager matching reports the full result count",
+                  b"apple\nbanana\n", [{"expect": "apple"}, {"text": "a"},
+                  {"expect": "1/2"}, {"key": "Enter"}, {"exit": 0}],
+                  b"apple\n", options=("--eager",)),
         make_case("E07", "edge", "Respect case-sensitive matching",
                   b"Blue\nblue\n", [{"expect": "blue"}, {"key": "Enter"}, {"exit": 0}],
                   b"blue\n", options=("--case-sensitive", "--query=blue")),
@@ -173,7 +175,7 @@ def materialize():
         "risk_dimensions": ["query matching and edits", "row navigation", "multi-selection",
                             "filter inversion", "caret positioning", "Unicode output",
                             "cancel exits", "empty-input behavior",
-                            "auto-match", "regex and case-sensitive modes", "reverse ordering",
+                            "eager matching and result counts", "regex and case-sensitive modes", "reverse ordering",
                             "quoted output", "named-file input", "prompt placement"],
         "scenarios": rows, "project_admission_credit": 0,
     }
