@@ -21,16 +21,23 @@ class PercolScenarioContractTests(unittest.TestCase):
                 self.assertEqual(row["expected_stdout"], base64.b64decode(state["bytes_base64"]))
                 self.assertIn({"exit": row["expected_exit"]}, row["actions"][:-1])
 
-    def test_shell_adapter_is_limited_to_input_output_and_exec(self):
+    def test_shell_adapter_is_limited_to_input_output_exec_and_e07_diagnostic(self):
         for row in cases():
             with self.subTest(row=row["id"]):
                 spec = expected_spec(row)
-                self.assertTrue(row["command"].startswith(
-                    'exec "$PERCOL_PYTHON" "$PERCOL_SOURCE/bin/percol"'))
+                if row["id"] == "E07":
+                    self.assertTrue(row["command"].startswith(
+                        '"$PERCOL_PYTHON" "$PERCOL_SOURCE/bin/percol"'))
+                    self.assertIn("BYTE-DUMP:", row["command"])
+                    self.assertIn("od -An -tx1 result.txt", row["command"])
+                else:
+                    self.assertTrue(row["command"].startswith(
+                        'exec "$PERCOL_PYTHON" "$PERCOL_SOURCE/bin/percol"'))
                 self.assertIn("> result.txt", row["command"])
                 self.assertTrue(" < " in row["command"] or row["fixture_path"] in row["command"])
-                self.assertNotIn("&&", row["command"])
-                self.assertNotIn(";", row["command"])
+                if row["id"] != "E07":
+                    self.assertNotIn("&&", row["command"])
+                    self.assertNotIn(";", row["command"])
                 self.assertEqual(["PATH", "PERCOL_PYTHON", "PERCOL_SOURCE", "PYTHONPATH",
                                   "DYLD_LIBRARY_PATH"], spec["inherit_env"])
                 self.assertEqual("1", spec["env"]["PYTHONDONTWRITEBYTECODE"])

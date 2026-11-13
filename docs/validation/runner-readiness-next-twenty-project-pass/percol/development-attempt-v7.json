@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "project": "percol",
+  "phase": "development",
+  "run_id": 43385198838,
+  "workflow": ".github/workflows/runner-readiness-next20-percol-development.yml",
+  "commit": "3462ec89adb86b087bd0a7c8a82e73d7a37fe06d",
+  "run_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/43385198838",
+  "run_conclusion": "failure",
+  "candidate": "v0.4.0-rc.8",
+  "candidate_series": "native-exit-v3",
+  "scenario_contract": "scenario-declaration-v7.json",
+  "attempted_repetitions": 1,
+  "attempted_case_ids_per_host": ["N01", "N02", "N03", "N04", "N05", "N06", "N07", "N08", "E01", "E02", "E03", "E04", "E05", "E06", "E07"],
+  "host_results": [
+    {
+      "host": "linux-amd64",
+      "job_id": 131751915855,
+      "artifact_id": 14017934101,
+      "artifact_name": "next20-percol-development-linux-43385198838",
+      "artifact_bytes": 52083860,
+      "provider_sha256": "10b9f561d7ac32fc364de8a89251b82c750eb54ac2119ff1b43d2101a00a27a9",
+      "downloaded_zip": "local-only: artifacts/runner-readiness-next-twenty-project-pass/retained/percol-development-run43385198838-linux.zip",
+      "downloaded_sha256": "10b9f561d7ac32fc364de8a89251b82c750eb54ac2119ff1b43d2101a00a27a9",
+      "cases_before_first_failure": 14,
+      "first_failure": {
+        "case": "E07",
+        "report": "percol/development/linux/r01/E07/report.json",
+        "category": "state_assertion_failure",
+        "actual_target_exit": 0,
+        "expected_stdout": "blue\\n",
+        "actual_stdout": "not retained in the payload-free report",
+        "rendered_screen": "QUERY> blue (1/1) [1/1]; the lowercase candidate is displayed",
+        "target_process_group_cleanup_confirmed": true,
+        "workspace_cleaned": true
+      },
+      "source_restoration": "passed",
+      "runtime_cleanup": "passed",
+      "campaign_source_runtime_removed": true,
+      "storage_limit": "passed",
+      "admission_credit": 0
+    },
+    {
+      "host": "macos-arm64",
+      "job_id": 131751915490,
+      "artifact_id": 14018636064,
+      "artifact_name": "next20-percol-development-darwin-43385198838",
+      "artifact_bytes": 47297601,
+      "provider_sha256": "b6892bba6fce40ff94eaaf36e2332d336dfd56acce1574b74b3c2d6606eb3397",
+      "downloaded_zip": "local-only: artifacts/runner-readiness-next-twenty-project-pass/retained/percol-development-run43385198838-macos.zip",
+      "downloaded_sha256": "b6892bba6fce40ff94eaaf36e2332d336dfd56acce1574b74b3c2d6606eb3397",
+      "cases_before_first_failure": 14,
+      "first_failure": {
+        "case": "E07",
+        "report": "percol/development/darwin/r01/E07/report.json",
+        "category": "state_assertion_failure",
+        "actual_target_exit": 0,
+        "expected_stdout": "blue\\n",
+        "actual_stdout": "not retained in the payload-free report",
+        "rendered_screen": "QUERY> blue (1/1) [1/1]; the lowercase candidate is displayed",
+        "target_process_group_cleanup_confirmed": true,
+        "workspace_cleaned": true
+      },
+      "source_restoration": "passed",
+      "runtime_cleanup": "passed",
+      "campaign_source_runtime_removed": true,
+      "storage_limit": "passed",
+      "admission_credit": 0
+    }
+  ],
+  "diagnosis": {
+    "target_behavior": "V7 typed the lowercase query after case-sensitive setup. Both native reports show a single displayed lowercase result and target exit 0, but the exact saved stdout bytes assertion rejected result.txt on both hosts. The runner report deliberately omits observed file bytes, so the precise byte difference remains unknown.",
+    "next_investigation": "V8 retains the selection and exact-output assertion while emitting a harness-owned hexadecimal dump of result.txt into the terminal after Percol exits, so the first-failure artifact can expose the exact bytes without changing the target or admitting the project.",
+    "cleanup": "Both hosts passed process-group termination confirmation, managed workspace cleanup, source restoration, runtime cleanup, source/runtime removal and storage checks."
+  },
+  "admission_credit": 0
+}
