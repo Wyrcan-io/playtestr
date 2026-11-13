@@ -88,7 +88,7 @@ jobs:
 
       - name: Confirm exact source restoration and remove owned Pick tree
         if: always() && steps.acquire.outcome == 'success'
-        run: python -B scripts/acceptance/next20_target_cleanup.py --project pick
+        run: python -B scripts/acceptance/next20_target_cleanup.py --project pick --no-case-reports
 
       - name: Verify campaign storage bounds
         if: always() && steps.acquire.outcome == 'success'
@@ -99,7 +99,7 @@ jobs:
         with:
           name: next20-pick-public-route-${{ matrix.host }}-${{ github.run_id }}
           path: |
-            artifacts/runner-readiness-next-twenty-project-pass/pick/public-route-v1/**
+            artifacts/runner-readiness-next-twenty-project-pass/pick/**
             artifacts/runner-readiness-next-twenty-project-pass/events/**
             artifacts/runner-readiness-next-twenty-project-pass/identities/**
             artifacts/runner-readiness-next-twenty-project-pass/core/**
