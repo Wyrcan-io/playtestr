@@ -77,7 +77,7 @@ jobs:
 
       - name: Run the twenty frozen Pick qualification scenarios twelve times
         if: steps.acquire.outcome == 'success'
-        run: python -B scripts/acceptance/next20_pick_scenarios.py --host "${{ matrix.host }}" --phase final-qualification --repetitions 12
+        run: python -B scripts/acceptance/next20_pick_scenarios.py --host "${{ matrix.host }}" --phase final-archive --repetitions 12
 
       - name: Restore exact source and verify target process cleanup
         if: always() && steps.acquire.outcome == 'success'
