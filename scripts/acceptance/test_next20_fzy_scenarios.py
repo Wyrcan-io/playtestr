@@ -40,6 +40,15 @@ class FzyScenarioTests(unittest.TestCase):
         self.assertEqual(row["actions"][-1]["state"]["bytes_base64"],
                          base64.b64encode(b"blue\n").decode("ascii"))
 
+    def test_filter_mode_uses_stdout_bytes_as_its_positive_oracle(self):
+        row = next(row for row in fzy.cases() if row["id"] == "N08")
+        self.assertEqual(row["options"], ["--show-matches", "cat"])
+        self.assertEqual(row["actions"], [
+            {"exit": 0},
+            {"state": {"path": "result.txt", "kind": "file",
+                       "bytes_base64": base64.b64encode(b"cat\ncart\n").decode("ascii")}},
+        ])
+
     def test_selection_outputs_are_observed_after_terminal_teardown(self):
         rows = {row["id"]: row for row in fzy.cases()}
         for identity, expected in (("N01", b"apple\n"), ("N05", b"blue\n"),

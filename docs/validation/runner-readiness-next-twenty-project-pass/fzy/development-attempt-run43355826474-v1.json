@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "status": "partial-development-matrix-with-preserved-output-mode-expectation-failure",
+  "project": "fzy",
+  "repository": "jhawthorn/fzy",
+  "pin": "34b88869d022e861da4846c4463aea3ddfb3ff30",
+  "candidate": "v0.4.0-rc.8",
+  "candidate_series": "native-exit-v3",
+  "run_id": 43355826474,
+  "head_sha": "58638d23585775732addb0566012d355afe76ba2",
+  "event": "push",
+  "hosts": {
+    "linux": {
+      "job_id": 131657526099,
+      "provider_artifact_id": 14005957475,
+      "provider_artifact_name": "next20-fzy-development-linux-43355826474",
+      "provider_bytes": 443602,
+      "provider_sha256": "104394a4c8f8c8aa440739098bd236600e76ab112401328e9949f8c1a5e7e33e",
+      "source_archive_sha256": "d55d4d0dcbced2daa0dd16b42ee0fc31654bd038ff6a147b38580c233d62c967",
+      "upstream_build": "passed",
+      "upstream_tests": {"status": "passed", "tests": 32, "failures": 0},
+      "scenario_results": {
+        "N01-N07": "passed once each",
+        "N08": "failed: --show-matches is noninteractive and writes result bytes only to redirected stdout; authored screen assertions timed out",
+        "N09-N20": "not run"
+      },
+      "target_cleanup": "passed",
+      "exact_source_removal": "passed",
+      "storage": "passed",
+      "admission_credit": 0
+    },
+    "darwin": {
+      "job_id": 131657526464,
+      "provider_artifact_id": 14006126294,
+      "provider_artifact_name": "next20-fzy-development-darwin-43355826474",
+      "provider_bytes": 443850,
+      "provider_sha256": "265708c9e94d6af0b8ac764e311a385e520cf8cab31a7c2271dc50f6394dbaba",
+      "source_archive_sha256": "d55d4d0dcbced2daa0dd16b42ee0fc31654bd038ff6a147b38580c233d62c967",
+      "upstream_build": "passed",
+      "upstream_tests": {"status": "passed", "tests": 32, "failures": 0},
+      "scenario_results": {
+        "N01-N07": "passed once each",
+        "N08": "failed: --show-matches is noninteractive and writes result bytes only to redirected stdout; authored screen assertions timed out",
+        "N09-N20": "not run"
+      },
+      "target_cleanup": "passed",
+      "exact_source_removal": "passed",
+      "storage": "passed",
+      "admission_credit": 0
+    }
+  },
+  "disposition": "Preserve the failure. The filter-mode assertion targeted an interactive screen even though upstream --show-matches is a noninteractive stdout mode. N08 now uses the harness-owned stdout capture as its exact byte oracle, with exact exit status."
+}

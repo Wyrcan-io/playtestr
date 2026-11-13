@@ -11,6 +11,8 @@ The next fzy run `43354855944` stopped before native build because the build hel
 
 Run `43355127321` then built fzy and passed its 32 upstream tests on Linux and macOS; N01–N05 passed once per host. N06 timed out because it expected a match while typing the invalid query `bluz`, before reaching its Backspace action. N07–N20 did not run. Target cleanup, exact source removal and storage checks passed. The run and failure are preserved in [its receipt](fzy/development-attempt-run43355127321-v1.json). N06 now starts from a valid `blue` query, with a focused order/output regression. See [checkpoint v155](checkpoint-continuation-v155.md).
 
+Run `43355826474` passed N01–N07 once on both hosts, including corrected N06. N08 failed because `--show-matches` is noninteractive and emits to stdout rather than the PTY screen; N09–N20 did not run. Both jobs passed cleanup and storage. The artifacts and outcome are retained in [the attempt receipt](fzy/development-attempt-run43355826474-v1.json). N08 now asserts the exact harness-captured output bytes and exit code, with a focused regression. See [checkpoint v156](checkpoint-continuation-v156.md).
+
 Skim V34 and its exact-rc.6 Linux and Windows repeat V35, including three-fault
 calibrations, are independently audited in [readback v15](skim-artifact-retrieval-readback-v15.json):
 240/240 ordinary outcomes, 240 independently reconstructed contracts and all
