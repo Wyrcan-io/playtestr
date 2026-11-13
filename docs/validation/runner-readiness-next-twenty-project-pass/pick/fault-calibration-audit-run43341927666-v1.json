@@ -1,0 +1,107 @@
+{
+  "admission_credit": 0,
+  "audited_at_utc": "2026-11-13T01:11:41.446197+00:00",
+  "candidate": "v0.4.0-rc.8",
+  "candidate_series": "native-exit-v3",
+  "false_greens": 0,
+  "fault_declaration": "docs/validation/runner-readiness-next-twenty-project-pass/pick/fault-declaration-v1.json",
+  "fault_declaration_sha256": "4ce4f034a842f73a09501122dca097f802f51e401ed277baffdbf3b4707a424a",
+  "head_sha": "8bd7273ed719980b67307bf57df2d78192bba0e5",
+  "hosts": [
+    {
+      "candidate_archive_sha256": "fd3b2ba11b833562ae886f587eb246d1a4e5ab83a179618e2c881e74f3bb4316",
+      "candidate_binary_sha256": "4b48ade7670c4306e6fc50d96100389e731a16f09d1b6e8505499bc40332c476",
+      "faults": [
+        {
+          "baseline": "passed",
+          "baseline_binary_sha256": "687dcd78dacd8b4ca96eddb31e5bf308ca1d60dcd2731838589a67013ec38b7c",
+          "corrupted": "expected-target-fault-rejection",
+          "fault_id": "F01",
+          "mutated_binary_sha256": "0e091929766e96721c8e48b6e8e4b95323cc535f6b2df328e1b9291a3386c833",
+          "restored": "passed",
+          "restored_binary_sha256": "687dcd78dacd8b4ca96eddb31e5bf308ca1d60dcd2731838589a67013ec38b7c",
+          "scenario_id": "E11"
+        },
+        {
+          "baseline": "passed",
+          "baseline_binary_sha256": "687dcd78dacd8b4ca96eddb31e5bf308ca1d60dcd2731838589a67013ec38b7c",
+          "corrupted": "expected-target-fault-rejection",
+          "fault_id": "F02",
+          "mutated_binary_sha256": "bd46ffa199d26089bbcdd7dfcbe15572a5df52db01d7b4b6913aafe05a290707",
+          "restored": "passed",
+          "restored_binary_sha256": "687dcd78dacd8b4ca96eddb31e5bf308ca1d60dcd2731838589a67013ec38b7c",
+          "scenario_id": "E02"
+        },
+        {
+          "baseline": "passed",
+          "baseline_binary_sha256": "687dcd78dacd8b4ca96eddb31e5bf308ca1d60dcd2731838589a67013ec38b7c",
+          "corrupted": "expected-target-fault-rejection",
+          "fault_id": "F03",
+          "mutated_binary_sha256": "fcca287052d4c6e24fcdcaa424472d649c1521b784187191faa2bf4e5fa56167",
+          "restored": "passed",
+          "restored_binary_sha256": "687dcd78dacd8b4ca96eddb31e5bf308ca1d60dcd2731838589a67013ec38b7c",
+          "scenario_id": "N01"
+        }
+      ],
+      "host": "linux",
+      "phase_count": 9,
+      "receipts": 9,
+      "reports": 9,
+      "summary_sha256": "a55ea3170305403d0eab4cc2e43fdf30a814c6e9b5107df1009f07ad2ebc1a04"
+    },
+    {
+      "candidate_archive_sha256": "da50a7933c75b82dcb42b2f6829045edf2edfd0cb70afaf1b7f298823ac3ec60",
+      "candidate_binary_sha256": "49c657adbbad36c89cd7bb8866e5fe5782642d3fda24cda2b6878e91d8a035b3",
+      "faults": [
+        {
+          "baseline": "passed",
+          "baseline_binary_sha256": "8dacc5183cf65e276294c6bcfcdb76808232aa557a6acce4e27939a1e78aeaf9",
+          "corrupted": "expected-target-fault-rejection",
+          "fault_id": "F01",
+          "mutated_binary_sha256": "27cd8be87bbf6a50bc3c2c9cf595abef63a9c99b57788c47ab22e7ab24d960ff",
+          "restored": "passed",
+          "restored_binary_sha256": "8dacc5183cf65e276294c6bcfcdb76808232aa557a6acce4e27939a1e78aeaf9",
+          "scenario_id": "E11"
+        },
+        {
+          "baseline": "passed",
+          "baseline_binary_sha256": "8dacc5183cf65e276294c6bcfcdb76808232aa557a6acce4e27939a1e78aeaf9",
+          "corrupted": "expected-target-fault-rejection",
+          "fault_id": "F02",
+          "mutated_binary_sha256": "b20bbb8ba87789be6a3599a06b92febe37443dc15ff828360c28eba303446638",
+          "restored": "passed",
+          "restored_binary_sha256": "8dacc5183cf65e276294c6bcfcdb76808232aa557a6acce4e27939a1e78aeaf9",
+          "scenario_id": "E02"
+        },
+        {
+          "baseline": "passed",
+          "baseline_binary_sha256": "8dacc5183cf65e276294c6bcfcdb76808232aa557a6acce4e27939a1e78aeaf9",
+          "corrupted": "expected-target-fault-rejection",
+          "fault_id": "F03",
+          "mutated_binary_sha256": "e3db6c27b0eeca634b88b53d267b629ecd8f5118f423c5329e5fe779541c99a0",
+          "restored": "passed",
+          "restored_binary_sha256": "8dacc5183cf65e276294c6bcfcdb76808232aa557a6acce4e27939a1e78aeaf9",
+          "scenario_id": "N01"
+        }
+      ],
+      "host": "darwin",
+      "phase_count": 9,
+      "receipts": 9,
+      "reports": 9,
+      "summary_sha256": "b0b0a75000bcbf77b9cab1064fd034c3361693a5208265268a640771a4e02d61"
+    }
+  ],
+  "mutated_targets_rejected": 6,
+  "phase": "fault-calibration-independent-audit",
+  "phase_receipts": 18,
+  "pristine_and_restored_passes": 12,
+  "process_and_workspace_cleanup_confirmed": true,
+  "project": "pick",
+  "provider_manifest": "docs/validation/runner-readiness-next-twenty-project-pass/pick/fault-calibration-provider-manifest-run43341927666-v1.json",
+  "provider_manifest_sha256": "6d4a7753b1285ec5175b8bf413ee2dbe3e6db78a89a757e0ee673b16bd253f77",
+  "reports": 18,
+  "run_id": 43341927666,
+  "scenario_declaration_sha256": "1f1b6b455e931b5ebde69cee820c3872abd8ffafd08d35e9452f25be5eeac65c",
+  "schema_version": 1,
+  "source_restoration_confirmed": true
+}
