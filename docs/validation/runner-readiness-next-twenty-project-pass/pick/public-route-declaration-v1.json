@@ -16,21 +16,19 @@
     "delivered_workflow": "Generate and inspect a pinned source-build GitHub Actions preview; do not dispatch it as user CI."
   },
   "record_controls": [
-    "/expect amber",
+    "/expect item00",
     "/snapshot initial-menu.txt",
-    "/text \"blue\"",
-    "/expect blue",
+    "/text \"item29\"",
+    "/expect item29",
     "/key Enter",
-    "/expect blue",
     "/exit 0",
     "/review",
     "/replay",
     "/save"
   ],
   "maintenance_controls": [
-    "/replace 3 {\"text\":\"cedar\"}",
-    "/replace 4 {\"expect\":\"cedar\"}",
-    "/replace 6 {\"expect\":\"cedar\"}",
+    "/replace 3 {\"text\":\"item28\"}",
+    "/replace 4 {\"expect\":\"item28\"}",
     "/review",
     "/replay",
     "/save"

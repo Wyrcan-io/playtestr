@@ -19,15 +19,15 @@ PROJECT = "pick"
 PIN = "caae95938359b2e814b3e7406f396f486c9d99fb"
 ARCHIVE_SHA256 = "e308cf7fca8eb50bc3d90e31347377f0cf955e07eb77793343743deaee72c653"
 HOSTS = {"linux": "Linux", "darwin": "Darwin"}
-INITIAL_FIXTURE = b"amber\nblue\ncedar\n"
+INITIAL_FIXTURE = b"".join(f"item{index:02d}\n".encode("ascii") for index in range(30))
 RECORDER_CONTROLS = [
-    "/expect amber", "/snapshot initial-menu.txt", '/text "blue"',
-    "/expect blue", "/key Enter", "/expect blue", "/exit 0",
+    "/expect item00", "/snapshot initial-menu.txt", '/text "item29"',
+    "/expect item29", "/key Enter", "/exit 0",
     "/review", "/replay", "/save",
 ]
 MAINTENANCE_CONTROLS = [
-    '/replace 3 {"text":"cedar"}', '/replace 4 {"expect":"cedar"}',
-    '/replace 6 {"expect":"cedar"}', "/review", "/replay", "/save",
+    '/replace 3 {"text":"item28"}', '/replace 4 {"expect":"item28"}',
+    "/review", "/replay", "/save",
 ]
 DECLARATION = DOC / "pick/public-route-declaration-v1.json"
 
@@ -108,8 +108,8 @@ async def main_async(host):
          "public route did not invoke the frozen candidate version")
     spec = project / "pick-blue.json"
     record_argv = [runner, "record", "--output", spec.relative_to(ROOT),
-                   "--name", "Select a named Pick choice", "--fixture", "fixtures",
-                   "--temporary-home", "--temporary-temp", "--width", "80", "--height", "24",
+                   "--name", "Select a named Pick choice beyond the initial viewport", "--fixture", "fixtures",
+                   "--temporary-home", "--temporary-temp", "--width", "80", "--height", "8",
                    "--timeout-ms", "12000", "--run-timeout-ms", "60000",
                    "--env", "TERM=xterm-256color", "--env", "LANG=C.UTF-8", "--env", "LC_ALL=C.UTF-8",
                    "--inherit-env", "PATH", "--", "/bin/sh", "-c", "exec pick < choices.txt"]
@@ -138,8 +138,8 @@ async def main_async(host):
          ["/bin/sh", "-c", "exec pick < choices.txt"]
          and recorded.get("workspace", {}).get("fixture") == "fixtures"
          and any(step.get("snapshot") == "initial-menu.txt" for step in steps)
-         and any(step.get("text") == "blue" for step in steps)
-         and any(step.get("expect") == "blue" for step in steps)
+         and any(step.get("text") == "item29" for step in steps)
+         and any(step.get("expect") == "item29" for step in steps)
          and steps[-1] == {"exit": 0},
          "Pick public recorder export differs from reviewed first-use controls")
 
@@ -153,9 +153,9 @@ async def main_async(host):
     shutil.copytree(project, diagnosis)
     broken_spec = diagnosis / spec.name
     broken = json.loads(broken_spec.read_text(encoding="utf-8"))
-    blue_expectations = [step for step in broken["steps"] if step.get("expect") == "blue"]
-    need(blue_expectations, "Pick diagnosis cannot find a unique selected-item assertion")
-    blue_expectations[0]["expect"] = "IMPOSSIBLE_PICK_SCREEN_MARKER"
+    item_expectations = [step for step in broken["steps"] if step.get("expect") == "item29"]
+    need(len(item_expectations) == 1, "Pick diagnosis cannot find a unique selected-item assertion")
+    item_expectations[0]["expect"] = "IMPOSSIBLE_PICK_SCREEN_MARKER"
     broken_spec.write_text(json.dumps(broken, sort_keys=True, indent=2) + "\n", encoding="utf-8", newline="\n")
     diagnosis_report = output / "diagnosis-report.json"
     await run([runner, "test", "--report", diagnosis_report.relative_to(ROOT), "--artifacts-dir",
@@ -176,9 +176,8 @@ async def main_async(host):
               "pick-maintenance-original-contract")
     report_result(before_report, "passed")
     edit_controls = [
-        f'/replace {next(i for i,step in enumerate(before["steps"],1) if step.get("text")=="blue")} {{"text":"cedar"}}',
-        f'/replace {next(i for i,step in enumerate(before["steps"],1) if step.get("expect")=="blue")} {{"expect":"cedar"}}',
-        f'/replace {next(i for i,step in enumerate(before["steps"],1) if step.get("expect")=="blue" and i > next(j for j,x in enumerate(before["steps"],1) if x.get("text")=="blue"))} {{"expect":"cedar"}}',
+        f'/replace {next(i for i,step in enumerate(before["steps"],1) if step.get("text")=="item29")} {{"text":"item28"}}',
+        f'/replace {next(i for i,step in enumerate(before["steps"],1) if step.get("expect")=="item29")} {{"expect":"item28"}}',
         "/review", "/replay", "/save",
     ]
     await run([runner, "record", "--edit", maintenance_spec.relative_to(ROOT)],
@@ -187,10 +186,10 @@ async def main_async(host):
     maintained = json.loads(maintenance_spec.read_text(encoding="utf-8"))
     expected = json.loads(json.dumps(before))
     for step in expected["steps"]:
-        if step.get("text") == "blue":
-            step["text"] = "cedar"
-        if step.get("expect") == "blue":
-            step["expect"] = "cedar"
+        if step.get("text") == "item29":
+            step["text"] = "item28"
+        if step.get("expect") == "item29":
+            step["expect"] = "item28"
     need(maintained == expected, "Pick selective maintenance changed unrelated recorded steps")
     maintained_report = output / "maintenance-report.json"
     await run([runner, "test", "--report", maintained_report.relative_to(ROOT), "--artifacts-dir",
