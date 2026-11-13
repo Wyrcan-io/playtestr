@@ -32,6 +32,9 @@ class FzyFaultCalibrationTests(unittest.TestCase):
                               "F02": ("state_assertion_failure", 6),
                               "F03": ("state_assertion_failure", 4),
                           })
+        f03 = next(fault for fault, _, _ in rows if fault["id"] == "F03")
+        self.assertEqual(__import__("base64").b64decode(f03["after_base64"], validate=True),
+                         b'choices_search(state->choices, "");')
         self.assertTrue(all(spec.is_file() for _, _, spec in rows))
         self.assertEqual(scenario["saved_state_coverage_credit"], 0)
 

@@ -77,6 +77,17 @@
       "scenario_credit": 0,
       "calibration_credit": 0,
       "admission_credit": 0
+    },
+    {
+      "run_id": 43362667605,
+      "head_sha": "53d2d910c00c0694579ba8a58a6088666ff6d46c",
+      "linux": {"job_id": 131679608019, "artifact_id": 14008274594, "artifact_bytes": 1163306, "artifact_sha256": "9c13828952d3db9c690c70162ba247487322f3dd97d97ff54964f08c8ad47435"},
+      "darwin": {"job_id": 131679608504, "artifact_id": 14008926292, "artifact_bytes": 1056193, "artifact_sha256": "44fe2a810de870a7fad1cf7bd4122eab786a7ac3832c93a81cf9dd37a6595f66"},
+      "status": "failed-before-F03-scenario",
+      "failure": "The F03 replacement removed the query-update call but did not affect the scenario's initial --query selection path. Both hosts reached F03; the target exited 0 because the scenario still passed. The fault is being changed to apply an empty query during initialization, which should expose the wrong selected candidate at N02's exact output-byte assertion.",
+      "scenario_credit": 0,
+      "calibration_credit": 0,
+      "admission_credit": 0
     }
   ],
   "scope": "Preserves the initial no-launch workflow failure and three subsequent corrective attempts. Later attempts produced partial target reports but failed before a complete audited host matrix; no project admission credit is claimed."
